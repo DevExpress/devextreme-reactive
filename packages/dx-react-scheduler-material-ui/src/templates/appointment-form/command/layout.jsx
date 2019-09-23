@@ -17,26 +17,44 @@ const styles = ({ spacing, palette }) => ({
     paddingTop: spacing(2),
     paddingLeft: spacing(2),
     paddingRight: spacing(4),
-    position: 'sticky',
-    top: 0,
+    transition: `all ${TRANSITIONS_TIME}ms linear`,
     backgroundColor: palette.background.paper,
-    zIndex: 1,
-    transition: `all ${TRANSITIONS_TIME}ms`,
   },
   basic: {
-    maxWidth: '650px',
+    width: '650px',
+    '@media (min-width: 700px) and (max-width: 850px)': {
+      width: '400px',
+    },
+    '@media (min-width: 850px) and (max-width: 1000px)': {
+      width: '480px',
+    },
+    '@media (min-width: 1000px) and (max-width: 1150px)': {
+      width: '560px',
+    },
   },
   fullSize: {
-    maxWidth: '1150px',
+    width: '1150px',
+    '@media (min-width: 700px) and (max-width: 850px)': {
+      width: '700px',
+    },
+    '@media (min-width: 850px) and (max-width: 1000px)': {
+      width: '850px',
+    },
+    '@media (min-width: 1000px) and (max-width: 1150px)': {
+      width: '1000px',
+    },
   },
   '@media (max-width: 700px)': {
     basic: {
       maxWidth: '700px',
+      width: '100%',
     },
     root: {
       paddingRight: spacing(2),
       paddingLeft: 0,
       paddingTop: spacing(1),
+      maxWidth: '700px',
+      width: '100%',
     },
   },
   line: {

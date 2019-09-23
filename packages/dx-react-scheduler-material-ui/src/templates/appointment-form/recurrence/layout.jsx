@@ -35,7 +35,7 @@ const styles = ({ spacing }) => ({
   },
   visible: {
     maxWidth: '500px',
-    width: '43.5%',
+    width: '500px',
     padding: spacing(3),
     paddingRight: spacing(4),
     paddingLeft: spacing(1),
@@ -46,6 +46,15 @@ const styles = ({ spacing }) => ({
       paddingRight: spacing(2),
       paddingLeft: spacing(2),
       maxHeight: 1000,
+    },
+    '@media (max-width: 850px) and (min-width: 700px)': {
+      width: '300px',
+    },
+    '@media (max-width: 1000px) and (min-width: 850px)': {
+      width: '370px',
+    },
+    '@media (max-width: 1150px) and (min-width: 1000px)': {
+      width: '440px',
     },
   },
   label: {

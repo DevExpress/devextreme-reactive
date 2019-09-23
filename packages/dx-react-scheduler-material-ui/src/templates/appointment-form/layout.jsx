@@ -15,6 +15,12 @@ const styles = {
       flexDirection: 'column',
     },
   },
+  stickyContainer: {
+    display: 'flex',
+    position: 'sticky',
+    top: 0,
+    zIndex: 1,
+  },
 };
 
 const LayoutBase = ({
@@ -31,7 +37,9 @@ const LayoutBase = ({
     className={classNames(classes.root, className)}
     {...restProps}
   >
-    <CommandLayout />
+    <div className={classes.stickyContainer}>
+      <CommandLayout />
+    </div>
     <div className={classes.container}>
       <BasicLayout />
       <RecurrenceLayout />

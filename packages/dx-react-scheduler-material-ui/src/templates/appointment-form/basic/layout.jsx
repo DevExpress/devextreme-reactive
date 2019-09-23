@@ -14,20 +14,15 @@ import {
   getAvailableRecurrenceOptions,
   handleChangeFrequency,
 } from '@devexpress/dx-scheduler-core';
-import { TRANSITIONS_TIME } from '../../constants';
 
 const styles = ({ spacing, typography }) => ({
   root: {
-    width: '56.5%',
+    width: '650px',
     paddingTop: spacing(3),
     paddingBottom: spacing(3),
     paddingLeft: spacing(4),
     paddingRight: spacing(4),
-    maxWidth: '650px',
     boxSizing: 'border-box',
-    //transition: `all ${TRANSITIONS_TIME}ms cubic-bezier(0.2322, 0.425, 0.575, 0.7678)`,
-    transition: `all ${TRANSITIONS_TIME}ms`,
-
     '@media (max-width: 700px)': {
       width: '100%',
       maxWidth: '700px',
@@ -35,11 +30,18 @@ const styles = ({ spacing, typography }) => ({
       paddingLeft: spacing(2),
       paddingBottom: 0,
     },
+    '@media (max-width: 850px) and (min-width: 700px)': {
+      width: '400px',
+    },
+    '@media (max-width: 1000px) and (min-width: 850px)': {
+      width: '480px',
+    },
+    '@media (max-width: 1150px)  and (min-width: 1000px)': {
+      width: '560px',
+    },
   },
   fullSize: {
-    width: '100%',
     paddingBottom: spacing(3),
-    //transition: `all ${TRANSITIONS_TIME}ms cubic-bezier(0.425, 0.2322, 0.7678, 0.575)`,
   },
   labelWithMargins: {
     marginBottom: spacing(0.5),

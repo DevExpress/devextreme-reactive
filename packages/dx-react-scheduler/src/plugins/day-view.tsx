@@ -2,17 +2,14 @@ import * as React from 'react';
 import {
   Template,
   Plugin,
-  Getter,
   TemplateConnector,
   TemplatePlaceholder,
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
-  computed,
   viewCellsData as viewCellsDataCore,
   verticalTimeTableRects,
 } from '@devexpress/dx-scheduler-core';
-import { memoize } from '@devexpress/dx-core';
 import { BasicView } from './basic-view';
 
 import { VerticalViewProps, ViewState } from '../types';
@@ -28,22 +25,10 @@ const viewCellsDataBaseComputed = (
     Date.now(),
   );
 };
-const TimeTablePlaceholder = () => <TemplatePlaceholder name="timeTable" />;
 const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
-const DayScalePlaceholder = () => <TemplatePlaceholder name="dayScale" />;
 const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 
 class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
-  state: ViewState = {
-    rects: [],
-    timeTableElementsMeta: {},
-    scrollingStrategy: {
-      topBoundary: 0,
-      bottomBoundary: 0,
-      changeVerticalScroll: () => undefined,
-    },
-  };
-
   static defaultProps: Partial<VerticalViewProps> = {
     name: 'Day',
     startDayHour: 0,
@@ -69,16 +54,6 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     timeTableRowComponent: 'TimeTableRow',
   };
 
-  scrollingStrategyComputed = memoize((viewName, scrollingStrategy) => getters =>
-    computed(getters, viewName!, () => scrollingStrategy, getters.scrollingStrategy));
-
-  timeTableElementsMetaComputed = memoize((viewName, timeTableElementsMeta) => getters =>
-    computed(getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta));
-
-  setScrollingStrategy = (scrollingStrategy) => {
-    this.setState({ scrollingStrategy });
-  }
-
   render() {
     const {
       layoutComponent: Layout,
@@ -100,7 +75,6 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
       startDayHour,
       endDayHour,
     } = this.props;
-    const { scrollingStrategy } = this.state;
 
     return (
       <Plugin
@@ -127,29 +101,14 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
           appointmentLayerComponent={AppointmentLayer}
 
           timeTableRects={verticalTimeTableRects}
-        />
 
-        <Getter
-          name="scrollingStrategy"
-          computed={this.scrollingStrategyComputed(viewName, scrollingStrategy)}
-        />
+          layoutComponent={Layout}
 
-        <Template name="body">
-          <TemplateConnector>
-            {({ currentView }) => {
-              if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              return (
-                <Layout
-                  dayScaleComponent={DayScalePlaceholder}
-                  dayScaleEmptyCellComponent={DayScaleEmptyCellPlaceholder}
-                  timeTableComponent={TimeTablePlaceholder}
-                  timeScaleComponent={TimeScalePlaceholder}
-                  setScrollingStrategy={this.setScrollingStrategy}
-                />
-              );
-            }}
-          </TemplateConnector>
-        </Template>
+          layoutProps={{
+            dayScaleEmptyCellComponent: DayScaleEmptyCellPlaceholder,
+            timeScaleComponent: TimeScalePlaceholder,
+          }}
+        />
 
         <Template name="dayScaleEmptyCell">
           <TemplateConnector>

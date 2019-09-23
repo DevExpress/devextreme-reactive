@@ -1,18 +1,13 @@
 import * as React from 'react';
 import {
-  Template,
   Plugin,
-  Getter,
-  TemplateConnector,
   TemplatePlaceholder,
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
-  computed,
   monthCellsData,
   horizontalTimeTableRects,
 } from '@devexpress/dx-scheduler-core';
-import { memoize } from '@devexpress/dx-core';
 import { BasicView } from './basic-view';
 
 import { MonthViewProps, ViewState } from '../types';
@@ -34,20 +29,8 @@ const viewCellsDataBaseComputed = (
     intervalCount!, Date.now(),
   );
 };
-const DayScalePlaceholder = () => <TemplatePlaceholder name="dayScale" />;
-const TimeTablePlaceholder = () => <TemplatePlaceholder name="timeTable" />;
-const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
-const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
 
 class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
-  state: ViewState = {
-    scrollingStrategy: {
-      topBoundary: 0,
-      bottomBoundary: 0,
-      changeVerticalScroll: () => undefined,
-    },
-  };
-
   static defaultProps: Partial<MonthViewProps> = {
     intervalCount: 1,
     firstDayOfWeek: 0,
@@ -66,16 +49,6 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
     timeTableRowComponent: 'TimeTableRow',
   };
 
-  scrollingStrategyComputed = memoize((viewName, scrollingStrategy) => getters =>
-    computed(getters, viewName!, () => scrollingStrategy, getters.scrollingStrategy));
-
-  timeTableElementsMetaComputed = memoize((viewName, timeTableElementsMeta) => getters =>
-    computed(getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta));
-
-  setScrollingStrategy = (scrollingStrategy) => {
-    this.setState({ scrollingStrategy });
-  }
-
   render() {
     const {
       layoutComponent: Layout,
@@ -91,7 +64,6 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
       displayName,
       firstDayOfWeek,
     } = this.props;
-    const { scrollingStrategy } = this.state;
 
     return (
       <Plugin
@@ -116,27 +88,9 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
           appointmentLayerComponent={AppointmentLayer}
 
           timeTableRects={timeTableRects}
-        />
 
-        <Getter
-          name="scrollingStrategy"
-          computed={this.scrollingStrategyComputed(viewName, scrollingStrategy)}
+          layoutComponent={Layout}
         />
-
-        <Template name="body">
-          <TemplateConnector>
-            {({ currentView }) => {
-              if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              return (
-                <Layout
-                  dayScaleComponent={DayScalePlaceholder}
-                  timeTableComponent={TimeTablePlaceholder}
-                  setScrollingStrategy={this.setScrollingStrategy}
-                />
-              );
-            }}
-          </TemplateConnector>
-        </Template>
       </Plugin>
     );
   }

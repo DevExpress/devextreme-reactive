@@ -2,18 +2,14 @@ import * as React from 'react';
 import {
   Template,
   Plugin,
-  Getter,
   TemplateConnector,
   TemplatePlaceholder,
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
-  computed,
   viewCellsData as viewCellsDataCore,
   verticalTimeTableRects,
-  ScrollingStrategy,
 } from '@devexpress/dx-scheduler-core';
-import { memoize } from '@devexpress/dx-core';
 import { BasicView } from './basic-view';
 
 import { WeekViewProps, ViewState } from '../types';
@@ -30,22 +26,10 @@ const viewCellsDataBaseComputed = (
     Date.now(),
   );
 };
-const TimeTablePlaceholder = () => <TemplatePlaceholder name="timeTable" />;
-const DayScalePlaceholder = () => <TemplatePlaceholder name="dayScale" />;
 const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
 const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 
 class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
-  state: ViewState = {
-    rects: [],
-    scrollingStrategy: {
-      topBoundary: 0,
-      bottomBoundary: 0,
-      changeVerticalScroll: () => undefined,
-    },
-    timeTableElementsMeta: {},
-  };
-
   static defaultProps: Partial<WeekViewProps> = {
     startDayHour: 0,
     endDayHour: 24,
@@ -73,17 +57,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     timeTableRowComponent: 'TimeTableRow',
   };
 
-  scrollingStrategyComputed = memoize((viewName, scrollingStrategy) => getters => computed(
-    getters, viewName!, () => scrollingStrategy, getters.scrollingStrategy,
-  ));
-
-  timeTableElementsMetaComputed = memoize((viewName, timeTableElementsMeta) => getters =>
-    computed(getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta));
-
-  setScrollingStrategy = (scrollingStrategy: ScrollingStrategy) => {
-    this.setState({ scrollingStrategy });
-  }
-
   render() {
     const {
       layoutComponent: Layout,
@@ -107,7 +80,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       endDayHour,
       firstDayOfWeek,
     } = this.props;
-    const { scrollingStrategy } = this.state;
 
     return (
       <Plugin
@@ -136,29 +108,13 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
           appointmentLayerComponent={AppointmentLayer}
 
           timeTableRects={verticalTimeTableRects}
-        />
 
-        <Getter
-          name="scrollingStrategy"
-          computed={this.scrollingStrategyComputed(viewName, scrollingStrategy)}
+          layoutComponent={Layout}
+          layoutProps={{
+            timeScaleComponent: TimeScalePlaceholder,
+            dayScaleEmptyCellComponent: DayScaleEmptyCellPlaceholder,
+          }}
         />
-
-        <Template name="body">
-          <TemplateConnector>
-            {({ currentView }) => {
-              if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              return (
-                <Layout
-                  dayScaleComponent={DayScalePlaceholder}
-                  dayScaleEmptyCellComponent={DayScaleEmptyCellPlaceholder}
-                  timeTableComponent={TimeTablePlaceholder}
-                  timeScaleComponent={TimeScalePlaceholder}
-                  setScrollingStrategy={this.setScrollingStrategy}
-                />
-              );
-            }}
-          </TemplateConnector>
-        </Template>
 
         <Template name="dayScaleEmptyCell">
           <TemplateConnector>

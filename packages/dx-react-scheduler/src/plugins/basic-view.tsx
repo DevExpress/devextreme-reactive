@@ -23,10 +23,18 @@ const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment"
 const startViewDateBaseComputed = ({ viewCellsData }) => startViewDateCore(viewCellsData);
 const endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCellsData);
 
+const TimeTablePlaceholder = () => <TemplatePlaceholder name="timeTable" />;
+const DayScalePlaceholder = () => <TemplatePlaceholder name="dayScale" />;
+
 class BasicViewBase extends React.PureComponent<BasicViewProps> {
   state = {
     rects: [],
     timeTableElementsMeta: {},
+    scrollingStrategy: {
+      topBoundary: 0,
+      bottomBoundary: 0,
+      changeVerticalScroll: () => undefined,
+    },
   };
 
   scrollingStrategyComputed = memoize((viewName, scrollingStrategy) => getters =>
@@ -89,6 +97,10 @@ class BasicViewBase extends React.PureComponent<BasicViewProps> {
     this.setState({ rects, timeTableElementsMeta: cellElementsMeta });
   });
 
+  setScrollingStrategy = (scrollingStrategy) => {
+    this.setState({ scrollingStrategy });
+  }
+
   render() {
     const {
       name: viewName,
@@ -113,8 +125,11 @@ class BasicViewBase extends React.PureComponent<BasicViewProps> {
       timeTableRowComponent,
 
       appointmentLayerComponent: AppointmentLayer,
+
+      layoutProps,
+      layoutComponent: Layout,
     } = this.props;
-    const { rects, timeTableElementsMeta } = this.state;
+    const { rects, timeTableElementsMeta, scrollingStrategy } = this.state;
     const viewDisplayName = displayName || viewName;
 
     return (
@@ -149,6 +164,27 @@ class BasicViewBase extends React.PureComponent<BasicViewProps> {
           name="timeTableElementsMeta"
           computed={this.timeTableElementsMetaComputed(viewName, timeTableElementsMeta)}
         />
+        <Getter
+          name="scrollingStrategy"
+          computed={this.scrollingStrategyComputed(viewName, scrollingStrategy)}
+        />
+
+        <Template name="body">
+          <TemplateConnector>
+            {({ currentView }) => {
+              if (currentView.name !== viewName) return <TemplatePlaceholder />;
+              return (
+                <Layout
+                  dayScaleComponent={DayScalePlaceholder}
+                  timeTableComponent={TimeTablePlaceholder}
+                  setScrollingStrategy={this.setScrollingStrategy}
+
+                  {...layoutProps}
+                />
+              );
+            }}
+          </TemplateConnector>
+        </Template>
 
         <Template name="dayScale">
           <TemplateConnector>

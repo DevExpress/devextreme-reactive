@@ -4,7 +4,7 @@ A plugin that renders a cell being edited.
 
 ## Import
 
-Use the following statement to import a plugin with embedded theme components:
+Use the following statement to import the plugin with embedded theme components:
 
 ```js
 import { TableInlineCellEditing } from '@devexpress/dx-react-grid-material-ui';
@@ -31,8 +31,8 @@ import { TableInlineCellEditing } from '@devexpress/dx-react-grid';
 Name | Type | Default | Description
 -----|------|---------|------------
 cellComponent | ComponentType&lt;[TableInlineCellEditing.CellProps](#tableinlinecelleditingcellprops)&gt; | | A component that renders an editable cell.
-startEditAction | 'click' &#124; 'doubleClick' | 'click' | An action, that start editing cell.
-selectTextOnEditStart | boolean | false | Define text selection on edit start.
+startEditAction | 'click' &#124; 'doubleClick' | 'click' | The action that switches a cell to edit mode.
+selectTextOnEditStart | boolean | false | Specifies whether cell value should be selected when the cell switches to edit mode.
 
 ## Interfaces
 
@@ -44,15 +44,15 @@ Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------
-row | any | A row to be edited.
-column | [Column](grid.md#column) | A column.
-value | any | A value to be edited.
-editingEnabled | boolean | Specifies whether editing a column is enabled.
+row | any | The cell's row.
+column | [Column](grid.md#column) | The cell's column.
+value | any | The cell's value.
+editingEnabled | boolean | Specifies whether cells in this column can be edited.
 onValueChange | (newValue: any) => void | Handles value changes.
-autoFocus | boolean | Define autoFocus on cell when editing start (`true` by default).
-onFocus | boolean | Define actions when cell get focus.
-onBlur | () => void | Define actions when cell lost focus.
-onKeyDown | (key: string) => void | Define actions when keyboard key pressed.
+autoFocus | boolean | Specifies whether the cell should be automatically focused when it switches to edit mode. The default value is `true`.
+onFocus | boolean | An event raised when the cell gets focus.
+onBlur | () => void | An event raised when the cell loses focus.
+onKeyDown | (key: string) => void | An event raised when a key on the keyboard is pressed.
 
 ## Plugin Components
 
@@ -68,16 +68,16 @@ Additional properties are added to the component's root element.
 
 Name | Plugin | Type | Description
 -----|--------|------|------------
-editingCells | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;{rowId: number &#124; string, columnName: string}&gt; | Row ID and column name of cells that are being edited.
-getCellValue | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any, columnName: string) => any | A function used to get the specified row's column value.
-createRowChange | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any, value: any, columnName: string) => any | A function that returns a value that specifies row changes depending on the row's editable cell values. This function is called each time an editor's value changes.
-rowChanges | [Getter](../../../dx-react-core/docs/reference/getter.md) | { [key: string]: any } | An associative array that stores changes made to existing rows. Each array item specifies changes made to a row. The item's key specifies the associated row's ID.
-isColumnEditingEnabled | [Getter](../../../dx-react-core/docs/reference/getter.md) | (columnName: string) => boolean |  A function that returns a value that specifies if editing by a column is enabled.
-changeRow | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowId: number &#124; string, change: object }) => void | Applies a change to an existing row.
+editingCells | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;{rowId: number &#124; string, columnName: string}&gt; | Edited cells identified by the row ID and column name.
+getCellValue | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any, columnName: string) => any | A function used to get the value of a cell identified by the row ID and column name.
+createRowChange | [Getter](../../../dx-react-core/docs/reference/getter.md) | (row: any, value: any, columnName: string) => any | A function that allows you to modify edited cell values before they are added to the `rowChanges` array. This function is called each time an editor's value changes and should return an object of the following format: `{ columnName1: value1, columnName2: value2, ... }`
+rowChanges | [Getter](../../../dx-react-core/docs/reference/getter.md) | { [key: string]: any } | An associative array in which each item consists of a row ID (the `key` field) and changes made to this row.
+isColumnEditingEnabled | [Getter](../../../dx-react-core/docs/reference/getter.md) | (columnName: string) => boolean |  A function that returns a Boolean value that specifies whether users are allowed to edit the column identified by the `columnName`.
+changeRow | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowId: number &#124; string, change: object }) => void | Applies a change to a row identified by ID.
 startEditCells | [Action](../../../dx-react-core/docs/reference/action.md) | ({ editingCells: Array&lt;{rowId: number &#124; string, columnName: string}&gt; }) => void | Switches cells with the specified row ID and column name to edit mode.
 stopEditCells | [Action](../../../dx-react-core/docs/reference/action.md) | ({ editingCells: Array&lt;{rowId: number &#124; string, columnName: string}&gt; }) => void | Switches cells with the specified row ID and column name to normal mode.
-cancelChangedRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Cancels uncommitted changes in rows with the specified ID.
-commitChangedRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Fires the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#changeset) and removes specified rows from the `rowChanges` array.
+cancelChangedRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Cancels uncommitted changes in rows with the specified IDs.
+commitChangedRows | [Action](../../../dx-react-core/docs/reference/action.md) | ({ rowIds: Array&lt;number &#124; string&gt; }) => void | Raises the `onCommitChanges` event with the corresponding [ChangeSet](editing-state.md#changeset) and removes the specified rows from the `rowChanges` array.
 tableCell | [Template](../../../dx-react-core/docs/reference/template.md) | [Table.CellProps](table.md#tablecellprops) | A template that renders a table cell.
 
 ### Exports

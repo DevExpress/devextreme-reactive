@@ -185,7 +185,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
 
   changeAppointmentField = memoize((isNew, changeAddedAppointment, changeAppointment) =>
     (change) => {
-      if (change.rRule) this.setState({ previousRule: change.rRule });
+      if (change && change.rRule) this.setState({ previousRule: change.rRule });
       if (isNew) {
         callActionIfExists(changeAddedAppointment, { change });
       } else {
@@ -216,7 +216,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
       readOnly,
       messages,
     } = this.props;
-    const { visible, appointmentData } = this.state;
+    const { previousRule, visible, appointmentData } = this.state;
     const getMessage = this.getMessage(defaultMessages, messages);
 
     return (
@@ -349,13 +349,13 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 appointmentData, editingAppointment, addedAppointment, appointmentChanges,
               );
               const isRecurrenceLayoutVisible = !!changedAppointment.rRule;
-              const { previousRule } = this.state;
-              if (!changedAppointment.rRule) changedAppointment.rRule = previousRule;
+              const correctedAppointment = !changedAppointment.rRule
+                ? { ...changedAppointment, rRule: previousRule} : changedAppointment;
 
               return (
                 <RecurrenceLayout
                   locale={locale}
-                  appointmentData={changedAppointment}
+                  appointmentData={correctedAppointment}
                   onFieldChange={this.changeAppointmentField(
                     isNew, changeAddedAppointment, changeAppointment,
                   )}

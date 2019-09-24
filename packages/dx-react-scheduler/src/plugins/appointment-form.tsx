@@ -183,14 +183,15 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     this.toggleVisibility();
   });
 
-  changeAppointmentField = memoize((isNew, changeAddedAppointment, changeAppointment) => (change) => {
-      if (change.rRule) this.setState({ previousRule: change.rRule});
+  changeAppointmentField = memoize((isNew, changeAddedAppointment, changeAppointment) =>
+    (change) => {
+      if (change.rRule) this.setState({ previousRule: change.rRule });
       if (isNew) {
         callActionIfExists(changeAddedAppointment, { change });
       } else {
         callActionIfExists(changeAppointment, { change });
       }
-    }
+    },
   );
 
   getMessage = memoize((menuMessages, messages) =>

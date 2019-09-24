@@ -3,8 +3,8 @@ import { GridColumnExtension } from './table.types';
 import { Row, GetCellValueFn, IsSpecificRowFn, GetRowLevelKeyFn } from './grid-core.types';
 import { CompareFn } from './merge-sort.types';
 
-/** Describes the sorting applied to a column */
 export type SortingDirection = 'asc' | 'desc';
+/** Describes the sorting applied to a column */
 export interface Sorting {
   /** Specifies a column's name to which the sorting is applied. */
   columnName: string;

@@ -577,13 +577,13 @@ export interface SelectionStateProps {
   selection?: Array<number | string>;
 }
 
-// @public (undocumented)
+// @public
 export interface Sorting {
   columnName: string;
   direction: SortingDirection;
 }
 
-// @public
+// @public (undocumented)
 export type SortingDirection = 'asc' | 'desc';
 
 // @public

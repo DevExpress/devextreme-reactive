@@ -136,7 +136,6 @@ export namespace AppointmentForm {
     recurrenceLayoutComponent: React.ComponentType<AppointmentForm.RecurrenceLayoutProps>;
   }
   export interface LocalizationMessages {
-    additionalInformationLabel?: string;
     afterLabel?: string;
     allDayLabel?: string;
     commitCommand?: string;
@@ -206,6 +205,8 @@ export namespace AppointmentForm {
     readOnly?: boolean;
     selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
     textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
+    // (undocumented)
+    visible: boolean;
     weeklyRecurrenceSelectorComponent: React.ComponentType<AppointmentForm.WeeklyRecurrenceSelectorProps>;
   }
   export interface SelectProps {

@@ -350,7 +350,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               );
               const isRecurrenceLayoutVisible = !!changedAppointment.rRule;
               const correctedAppointment = !changedAppointment.rRule
-                ? { ...changedAppointment, rRule: previousRule} : changedAppointment;
+                ? { ...changedAppointment, rRule: previousRule } : changedAppointment;
 
               return (
                 <RecurrenceLayout

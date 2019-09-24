@@ -7,13 +7,10 @@ import {
   TITLE_TEXT_EDITOR,
   MULTILINE_TEXT_EDITOR,
   TITLE,
-  OUTLINED_SELECT,
-  getFrequencyString,
-  getRecurrenceOptions,
   REPEAT_TYPES,
-  getAvailableRecurrenceOptions,
   handleChangeFrequency,
 } from '@devexpress/dx-scheduler-core';
+import { TRANSITIONS_TIME } from '../../constants';
 
 const styles = ({ spacing, typography }) => ({
   root: {
@@ -23,6 +20,7 @@ const styles = ({ spacing, typography }) => ({
     paddingLeft: spacing(4),
     paddingRight: spacing(4),
     boxSizing: 'border-box',
+    transition: `all ${TRANSITIONS_TIME}ms linear`,
     '@media (max-width: 700px)': {
       width: '100%',
       maxWidth: '700px',
@@ -30,18 +28,20 @@ const styles = ({ spacing, typography }) => ({
       paddingLeft: spacing(2),
       paddingBottom: 0,
     },
-    '@media (max-width: 850px) and (min-width: 700px)': {
-      width: '400px',
-    },
-    '@media (max-width: 1000px) and (min-width: 850px)': {
-      width: '480px',
-    },
-    '@media (max-width: 1150px)  and (min-width: 1000px)': {
-      width: '560px',
-    },
   },
   fullSize: {
     paddingBottom: spacing(3),
+  },
+  halfSize: {
+    '@media (min-width: 700px) and (max-width: 850px)': {
+      width: '400px',
+    },
+    '@media (min-width: 850px) and (max-width: 1000px)': {
+      width: '480px',
+    },
+    '@media (min-width: 1000px) and (max-width: 1150px)': {
+      width: '560px',
+    },
   },
   labelWithMargins: {
     marginBottom: spacing(0.5),
@@ -52,16 +52,30 @@ const styles = ({ spacing, typography }) => ({
   },
   dateEditor: {
     width: '45%',
+    paddingTop: '0px!important',
+    marginTop: spacing(2),
+    paddingBottom: '0px!important',
+    marginBottom: 0,
   },
   dividerLabel: {
     ...typography.body2,
     width: '10%',
     textAlign: 'center',
-    paddingBottom: '0.5em',
+    paddingTop: spacing(2),
+  },
+  allDayEditor: {
+    marginRight: spacing(5),
+  },
+  booleanEditors: {
+    marginTop: spacing(0.875),
   },
   '@media (max-width: 570px)': {
     dateEditors: {
       flexDirection: 'column',
+    },
+    booleanEditors: {
+      flexDirection: 'column',
+      marginTop: spacing(1.875),
     },
     dateEditor: {
       width: '100%',
@@ -69,7 +83,7 @@ const styles = ({ spacing, typography }) => ({
         marginBottom: 0,
       },
       '&:last-child': {
-        marginTop: 0,
+        marginTop: spacing(2),
       },
     },
     dividerLabel: {
@@ -92,14 +106,9 @@ const LayoutBase = ({
   dateEditorComponent: DateEditor,
   selectComponent: Select,
   labelComponent: Label,
-  booleanEditorComponent: AllDay,
+  booleanEditorComponent: BooleanEditor,
   ...restProps
 }) => {
-  const recurrenceOptions = getRecurrenceOptions(appointmentData.rRule);
-  const frequency = recurrenceOptions
-    ? getFrequencyString(recurrenceOptions.freq)
-    : REPEAT_TYPES.NEVER;
-
   const changeTitle = React.useCallback(title => onFieldChange({ title }), [onFieldChange]);
   const changeNotes = React.useCallback(notes => onFieldChange({ notes }), [onFieldChange]);
   const changeStartDate = React.useCallback(
@@ -109,18 +118,16 @@ const LayoutBase = ({
   const changeAllDay = React.useCallback(allDay => onFieldChange({ allDay }), [onFieldChange]);
 
   const { rRule, startDate } = appointmentData;
-  const changeFrequency = React.useCallback(repeatType => handleChangeFrequency(
-    repeatType, rRule, startDate, onFieldChange,
+  const changeFrequency = React.useCallback(value => handleChangeFrequency(
+    value ? REPEAT_TYPES.DAILY : REPEAT_TYPES.NEVER, rRule, startDate, onFieldChange,
   ), [rRule, startDate, onFieldChange]);
-  const selectOptions = React.useMemo(
-    () => getAvailableRecurrenceOptions(getMessage), [getMessage],
-  );
 
   return (
     <div
       className={classNames({
         [classes.root]: true,
         [classes.fullSize]: fullSize,
+        [classes.halfSize]: !fullSize,
       }, className)}
       {...restProps}
     >
@@ -159,6 +166,23 @@ const LayoutBase = ({
           locale={locale}
         />
       </Grid>
+      <Grid
+        container
+        className={classes.booleanEditors}
+      >
+        <BooleanEditor
+          label={getMessage('allDayLabel')}
+          readOnly={readOnly}
+          value={appointmentData.allDay}
+          onValueChange={changeAllDay}
+        />
+        <BooleanEditor
+          label={getMessage('repeatLabel')}
+          readOnly={readOnly}
+          value={!!appointmentData.rRule}
+          onValueChange={changeFrequency}
+        />
+      </Grid>
       <Label
         text={getMessage('moreInformationLabel')}
         type={TITLE}
@@ -172,29 +196,7 @@ const LayoutBase = ({
         onValueChange={changeNotes}
         className={classes.notesEditor}
       />
-      <AllDay
-        label={getMessage('allDayLabel')}
-        readOnly={readOnly}
-        value={appointmentData.allDay}
-        onValueChange={changeAllDay}
-      />
       {children}
-      {fullSize && (
-        <>
-          <Label
-            text={getMessage('repeatLabel')}
-            type={TITLE}
-            className={classes.labelWithMargins}
-          />
-          <Select
-            value={frequency}
-            onValueChange={changeFrequency}
-            availableOptions={selectOptions}
-            type={OUTLINED_SELECT}
-            readOnly={readOnly}
-          />
-        </>
-      )}
     </div>
   );
 };

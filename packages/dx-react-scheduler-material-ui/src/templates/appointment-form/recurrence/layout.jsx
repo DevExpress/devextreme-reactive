@@ -47,13 +47,13 @@ const styles = ({ spacing }) => ({
       paddingLeft: spacing(2),
       maxHeight: 1000,
     },
-    '@media (max-width: 850px) and (min-width: 700px)': {
+    '@media (min-width: 700px) and (max-width: 850px)': {
       width: '300px',
     },
-    '@media (max-width: 1000px) and (min-width: 850px)': {
+    '@media (min-width: 850px) and (max-width: 1000px)': {
       width: '370px',
     },
-    '@media (max-width: 1150px) and (min-width: 1000px)': {
+    '@media (min-width: 1000px) and (max-width: 1150px)': {
       width: '440px',
     },
   },

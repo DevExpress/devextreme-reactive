@@ -36,15 +36,6 @@ const styles = ({ spacing }) => ({
   halfSize: {
     height: '100%',
     width: '650px',
-    '@media (min-width: 700px) and (max-width: 850px)': {
-      width: '400px',
-    },
-    '@media (min-width: 850px) and (max-width: 1000px)': {
-      width: '480px',
-    },
-    '@media (min-width: 1000px) and (max-width: 1150px)': {
-      width: '560px',
-    },
     '@media (max-width: 700px)': {
       width: '100%',
       maxWidth: '700px',

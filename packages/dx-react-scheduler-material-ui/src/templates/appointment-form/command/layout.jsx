@@ -22,15 +22,6 @@ const styles = ({ spacing, palette }) => ({
   },
   basic: {
     width: '650px',
-    '@media (min-width: 700px) and (max-width: 850px)': {
-      width: '400px',
-    },
-    '@media (min-width: 850px) and (max-width: 1000px)': {
-      width: '480px',
-    },
-    '@media (min-width: 1000px) and (max-width: 1150px)': {
-      width: '560px',
-    },
   },
   fullSize: {
     width: '1150px',

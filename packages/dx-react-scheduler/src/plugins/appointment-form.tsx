@@ -28,7 +28,6 @@ const defaultMessages = {
   detailsLabel: 'Details',
   moreInformationLabel: 'More Information',
   repeatLabel: 'Repeat',
-  additionalInformationLabel: 'Additional Information',
   notesLabel: 'Notes',
   never: 'Never',
   daily: 'Daily',

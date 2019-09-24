@@ -75,8 +75,10 @@ Add the [DragDropProvider](../reference/drag-drop-provider.md) plugin to enable 
 
 The [DragDropProvider](../reference/drag-drop-provider.md) plugin also allows you to customize the appointment being dragged (via the `draftAppointmentComponent` property) and its copy displayed in its previous location (via `sourceAppointmentComponent`). In addition, it provides the `resizeComponent` property that allows you to customize the handles used to resize appointments.
 
-## Add Custom Edit Fields
+## Customize the Appointment Form
 
-To add custom editors or remove defaults you can operate built-in the [AppointmentForm's components](../reference/appointment-form.md#plugin-components). The [AppointmentForm](../reference/appointment-form.md) plugin provides a lot of components such as text editor, date editor, boolean editor, select and layouts. You can build our own custom form by built-in components and callbacks. The following demo demonstrates how to add specific editors and remove predefined into basic layout component.
+To add and remove editors to/from the appointment form or change its layout, use [components](../reference/appointment-form.md#plugin-components) provided by the `AppointmentForm` plugin. They include editors for Boolean values, text, and dates, multi-choice editors, and several layout components.
+
+The following demo shows how to customize the appointment form. A custom `TextEditor` with a `Label` is added to the form's `BasicLayout`; a predefined `multilineTextEditor` is removed from it.
 
 .embedded-demo({ "path": "scheduler-editing/form-customization", "showThemeSelector": true })

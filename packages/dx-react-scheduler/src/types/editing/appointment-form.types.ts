@@ -228,8 +228,6 @@ export namespace AppointmentForm {
     moreInformationLabel?: string;
     /** The repeat editor’s label text. */
     repeatLabel?: string;
-    /** The additional information editor’s label text. */
-    additionalInformationLabel?: string;
     /** The notes editor’s label text. */
     notesLabel?: string;
     /** The never repeat type label text. */

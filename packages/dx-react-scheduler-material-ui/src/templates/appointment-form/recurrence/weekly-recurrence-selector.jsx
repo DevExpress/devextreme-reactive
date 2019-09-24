@@ -40,7 +40,7 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
   readOnly,
   classes,
   className,
-  onFieldChange,
+  onValueChange,
   ...restProps
 }) => {
   const recurrenceOptions = getRecurrenceOptions(rRule);
@@ -61,11 +61,11 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
               [classes.selectedButton]: isCurrentWeekDay(recurrenceOptions, dayOfWeek),
             })}
             key={dayOfWeek}
-            onClick={() => onFieldChange({
+            onClick={() => onValueChange({
               rRule: changeRecurrenceOptions(handleWeekDaysChange(
                 recurrenceOptions,
                 dayOfWeek,
-                onFieldChange,
+                onValueChange,
               )),
             })}
           >
@@ -81,13 +81,13 @@ WeeklyRecurrenceSelectorBase.propTypes = {
   formatDate: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   rRule: PropTypes.string.isRequired,
-  onFieldChange: PropTypes.func,
+  onValueChange: PropTypes.func,
   readOnly: PropTypes.bool,
   className: PropTypes.string,
 };
 
 WeeklyRecurrenceSelectorBase.defaultProps = {
-  onFieldChange: () => undefined,
+  onValueChange: () => undefined,
   readOnly: false,
   className: undefined,
 };

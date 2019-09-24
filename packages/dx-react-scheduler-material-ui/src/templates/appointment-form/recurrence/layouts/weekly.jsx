@@ -71,7 +71,7 @@ const WeeklyBase = ({
       </Grid>
       <WeeklyRecurrenceSelector
         rRule={appointmentData.rRule}
-        onFieldChange={onFieldChange}
+        onValueChange={onFieldChange}
         readOnly={readOnly}
         formatDate={formatDate}
       />

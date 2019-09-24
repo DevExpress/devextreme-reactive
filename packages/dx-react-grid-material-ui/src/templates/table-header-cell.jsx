@@ -126,12 +126,12 @@ class TableHeaderCellBase extends React.PureComponent {
   render() {
     const {
       style, column, tableColumn,
-      showGroupingControls, onGroup, groupingEnabled,
-      draggingEnabled,
-      resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel,
+      draggingEnabled, resizingEnabled,
+      onWidthChange, onWidthDraft, onWidthDraftCancel, getCellWidth,
       classes, tableRow, className, children,
       // @deprecated
-      showSortingControls, sortingDirection, sortingEnabled, onSort, before, getCellWidth,
+      showGroupingControls, onGroup, groupingEnabled,
+      showSortingControls, sortingDirection, sortingEnabled, onSort, before,
       ...restProps
     } = this.props;
 

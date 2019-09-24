@@ -40,12 +40,12 @@ export class TableHeaderCell extends React.PureComponent {
   render() {
     const {
       style, column, tableColumn,
-      showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled, resizingEnabled,
-      onWidthChange, onWidthDraft, onWidthDraftCancel,
+      onWidthChange, onWidthDraft, onWidthDraftCancel, getCellWidth,
       tableRow, children,
       // @deprecated
-      showSortingControls, sortingDirection, sortingEnabled, onSort, before, getCellWidth,
+      showGroupingControls, onGroup, groupingEnabled,
+      showSortingControls, sortingDirection, sortingEnabled, onSort, before,
       ...restProps
     } = this.props;
     const { dragging } = this.state;

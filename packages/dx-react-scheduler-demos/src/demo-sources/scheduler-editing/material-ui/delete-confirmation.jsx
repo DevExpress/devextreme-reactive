@@ -86,7 +86,7 @@ export default class Demo extends React.PureComponent {
         data = data.map(appointment => (
           changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
       }
-      if (deleted) {
+      if (deleted !== undefined) {
         this.setDeletedAppointmentId(deleted);
         this.toggleConfirmationVisibility();
       }

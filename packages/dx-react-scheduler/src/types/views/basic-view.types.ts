@@ -1,8 +1,10 @@
 import { ViewCell } from '../index';
 
 /* tslint:disable no-namespace max-line-length no-empty-interface */
+/** @internal */
 export interface BasicViewProps {
   /** The function that calculate cells data */
+  /** @internal */
   viewCellsDataBaseComputed: (cellDuration: any, startDayHour: any, endDayHour: any) => (payload: any) => readonly ViewCell[][];
   /** The view's type */
   type: string;

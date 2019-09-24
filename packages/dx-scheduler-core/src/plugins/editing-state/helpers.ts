@@ -70,45 +70,12 @@ const configureICalendarRules = (rRule: string | undefined, options: object) => 
   return rruleSet.valueOf();
 };
 
-// <<<<<<< HEAD
-// export const deleteCurrent: DeleteFn = (appointmentData) => {
-//   const currentSequence: Date[] = configureDateSequence(
-//     appointmentData.rRule,
-//     appointmentData.exDate,
-//     moment.utc(appointmentData.parentData.startDate).toDate(),
-//     moment.utc(appointmentData.startDate).toDate(),
-//   );
-
-//   if (currentSequence.length === 1) {
-//     return deleteAll(appointmentData);
-//   }
-
-//   const nextExDate = configureExDate(appointmentData.exDate, appointmentData.startDate as Date);
-//   return { changed: { [appointmentData.id!]: { exDate: nextExDate } } };
-// };
-
-// export const deleteAll: DeleteFn = (appointmentData) => {
-//   return { deleted: appointmentData.id };
-// };
-
-// export const deleteCurrentAndFollowing: DeleteFn = (appointmentData) => {
-//   const { rRule, startDate, parentData, exDate: prevExDate = '', id } = appointmentData;
-
-//   const initialSequence: Date[] = configureDateSequence(
-//     rRule, prevExDate,
-//     moment.utc(parentData.startDate).toDate(), moment.utc(appointmentData.startDate).toDate(),
-//   );
-
-//   const currentChildIndex = initialSequence
-//     .findIndex(date => moment(date).isSame(startDate as Date));
-// =======
 const changeCurrentAndFollowing: ChangeFn = (appointmentData, changes, changeAllAction) => {
   const { rRule, startDate, parentData, exDate: prevExDate = '', id } = appointmentData;
 
   const { initialSequence, currentChildIndex } = getAppointmentSequenceData(
     parentData.startDate, moment.utc(startDate as Date).toDate(), prevExDate, rRule,
   );
-// >>>>>>> f5b45bde11d0e1301b72ceb53696fcfe6c638318
 
   if (currentChildIndex === 0) return changeAllAction(appointmentData, changes);
 

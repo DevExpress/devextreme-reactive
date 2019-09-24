@@ -65,7 +65,7 @@ describe('AppointmentForm basic', () => {
 
       const labelComponents = tree.find(defaultProps.labelComponent);
       expect(labelComponents)
-        .toHaveLength(4);
+        .toHaveLength(3);
       expect(labelComponents.at(0).prop('type'))
         .toEqual(TITLE);
       expect(labelComponents.at(1).is(`.${classes.dividerLabel}`))
@@ -73,10 +73,6 @@ describe('AppointmentForm basic', () => {
       expect(labelComponents.at(2).prop('type'))
         .toEqual(TITLE);
       expect(labelComponents.at(2).is(`.${classes.labelWithMargins}`))
-        .toBeTruthy();
-      expect(labelComponents.at(3).prop('type'))
-        .toEqual(TITLE);
-      expect(labelComponents.at(3).is(`.${classes.labelWithMargins}`))
         .toBeTruthy();
 
       const textEditors = tree.find(defaultProps.textEditorComponent);
@@ -90,7 +86,7 @@ describe('AppointmentForm basic', () => {
         .toBeTruthy();
 
       expect(tree.find(defaultProps.booleanEditorComponent))
-        .toHaveLength(1);
+        .toHaveLength(2);
 
       const dateEditors = tree.find(defaultProps.dateEditorComponent);
       expect(dateEditors)
@@ -100,33 +96,10 @@ describe('AppointmentForm basic', () => {
       expect(dateEditors.at(1).is(`.${classes.dateEditor}`))
         .toBeTruthy();
 
-      expect(tree.find(defaultProps.selectComponent))
-        .toHaveLength(1);
-
       expect(tree.find(`.${classes.dateEditors}`))
         .toHaveLength(1);
-    });
-
-    it('should render components correctly if appointment is recurrent', () => {
-      const tree = shallow((
-        <Layout
-          {...defaultProps}
-          appointmentData={{
-            rRule: 'test rule',
-          }}
-        />
-      ));
-
-      expect(tree.find(defaultProps.labelComponent))
-        .toHaveLength(3);
-      expect(tree.find(defaultProps.textEditorComponent))
-        .toHaveLength(2);
-      expect(tree.find(defaultProps.booleanEditorComponent))
+      expect(tree.find(`.${classes.booleanEditors}`))
         .toHaveLength(1);
-      expect(tree.find(defaultProps.dateEditorComponent))
-        .toHaveLength(2);
-      expect(tree.find(defaultProps.selectComponent))
-        .toHaveLength(0);
     });
 
     it('should call getMessage with correct parameters', () => {

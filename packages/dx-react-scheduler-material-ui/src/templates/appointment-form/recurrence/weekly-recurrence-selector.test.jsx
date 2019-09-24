@@ -96,12 +96,12 @@ describe('AppointmentForm recurrence', () => {
       expect(buttons.at(6).is(`.${classes.button}`)).toBeTruthy();
     });
 
-    it('should call onAppointmentField on button click', () => {
+    it('should call onValueChange on button click', () => {
       const onFieldChange = jest.fn();
       const tree = shallow((
         <WeeklyRecurrenceSelector
           {...defaultProps}
-          onFieldChange={onFieldChange}
+          onValueChange={onFieldChange}
         />
       ));
 

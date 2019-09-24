@@ -82,7 +82,7 @@ describe('AppointmentForm recurrence layout', () => {
         });
 
       tree.find(defaultProps.weeklyRecurrenceSelectorComponent).at(0)
-        .simulate('fieldChange', 'abc');
+        .simulate('valueChange', 'abc');
       expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith('abc');
     });

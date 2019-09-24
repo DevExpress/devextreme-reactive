@@ -23,7 +23,7 @@ export default class Demo extends React.PureComponent {
   }
 
   changeData(e) {
-    this.setState({data: data[e.target.value]});
+    this.setState({ data: data[e.target.value] });
   }
 
   render() {
@@ -57,7 +57,7 @@ export default class Demo extends React.PureComponent {
           <Animation duration={2000} easing={easeBounceOut} />
           <Legend />
         </Chart>
-        <select style={{ width: '100px', margin: '10px', alignment: 'center' }} onChange={this.changeData}>
+        <select style={{ width: '100px', margin: '10px' }} onChange={this.changeData}>
           <option>2017</option>
           <option>2018</option>
           <option>2019</option>

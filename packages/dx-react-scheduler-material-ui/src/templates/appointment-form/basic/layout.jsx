@@ -20,7 +20,7 @@ const styles = ({ spacing, typography }) => ({
     paddingLeft: spacing(4),
     paddingRight: spacing(4),
     boxSizing: 'border-box',
-    transition: `all ${TRANSITIONS_TIME}ms linear`,
+    transition: `all ${TRANSITIONS_TIME}ms cubic-bezier(0, 0, 0.2, 1)`,
     '@media (max-width: 700px)': {
       width: '100%',
       maxWidth: '700px',

@@ -113,6 +113,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     this.state = {
       visible: props.visible,
       appointmentData: props.appointmentData || {},
+      previousRule: undefined,
     };
 
     const stateHelper: StateHelper = createStateHelper(
@@ -183,9 +184,14 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     this.toggleVisibility();
   });
 
-  changeAppointmentField = memoize((isNew, changeAddedAppointment, changeAppointment) => isNew
-    ? change => callActionIfExists(changeAddedAppointment, { change })
-    : change => callActionIfExists(changeAppointment, { change }),
+  changeAppointmentField = memoize((isNew, changeAddedAppointment, changeAppointment) => (change) => {
+      if (change.rRule) this.setState({ previousRule: change.rRule});
+      if (isNew) {
+        callActionIfExists(changeAddedAppointment, { change });
+      } else {
+        callActionIfExists(changeAppointment, { change });
+      }
+    }
   );
 
   getMessage = memoize((menuMessages, messages) =>
@@ -342,6 +348,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               const { isNew, changedAppointment } = prepareChanges(
                 appointmentData, editingAppointment, addedAppointment, appointmentChanges,
               );
+              const isRecurrenceLayoutVisible = !!changedAppointment.rRule;
+              const { previousRule } = this.state;
+              if (!changedAppointment.rRule) changedAppointment.rRule = previousRule;
 
               return (
                 <RecurrenceLayout
@@ -359,6 +368,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   weeklyRecurrenceSelectorComponent={weeklyRecurrenceSelectorComponent}
                   labelComponent={labelComponent}
                   selectComponent={selectComponent}
+                  visible={isRecurrenceLayoutVisible}
                 />
               );
             }}

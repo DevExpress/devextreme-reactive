@@ -83,6 +83,8 @@ export namespace AppointmentForm {
   }
   /** Properties passed to a component that renders the appointment form's layout for recurrent appointment editors. */
   export interface RecurrenceLayoutProps {
+    /* Specifies whether the layout is visible. */
+    visible: boolean;
     /** The appointment’s displayed metadata. */
     appointmentData: AppointmentModel;
     /** Handles appointment field value changes. */
@@ -326,4 +328,5 @@ export interface AppointmentFormProps {
 export type AppointmentFormState = {
   visible: boolean;
   appointmentData: AppointmentModel;
+  previousRule: string | undefined;
 };

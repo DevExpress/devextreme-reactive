@@ -24,7 +24,7 @@ const styles = ({ spacing }) => ({
     paddingTop: spacing(3),
     overflow: 'hidden',
     width: 0,
-    transition: `all ${TRANSITIONS_TIME}ms linear`,
+    transition: `all ${TRANSITIONS_TIME}ms cubic-bezier(0, 0, 0.2, 1)`,
     boxSizing: 'border-box',
     maxWidth: 0,
     opacity: 0,
@@ -56,6 +56,9 @@ const styles = ({ spacing }) => ({
     '@media (min-width: 1000px) and (max-width: 1150px)': {
       width: '440px',
     },
+  },
+  invisible: {
+    maxHeight: '500px',
   },
   label: {
     width: '8em',
@@ -108,6 +111,7 @@ const LayoutBase = ({
   appointmentData,
   formatDate,
   locale,
+  visible,
   ...restProps
 }) => {
   const recurrenceOptions = getRecurrenceOptions(appointmentData.rRule) || {};
@@ -125,7 +129,8 @@ const LayoutBase = ({
     <div
       className={classNames({
         [classes.root]: true,
-        [classes.visible]: appointmentData.rRule,
+        [classes.visible]: visible,
+        [classes.invisible]: !visible,
         className,
       })}
       {...restProps}
@@ -204,6 +209,7 @@ LayoutBase.propTypes = {
     allDay: PropTypes.bool,
   }).isRequired,
   formatDate: PropTypes.func.isRequired,
+  visible: PropTypes.bool.isRequired,
 };
 
 LayoutBase.defaultProps = {

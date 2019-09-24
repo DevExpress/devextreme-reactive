@@ -17,7 +17,7 @@ const styles = ({ spacing, palette }) => ({
     paddingTop: spacing(2),
     paddingLeft: spacing(2),
     paddingRight: spacing(4),
-    transition: `all ${TRANSITIONS_TIME}ms linear`,
+    transition: `all ${TRANSITIONS_TIME}ms cubic-bezier(0, 0, 0.2, 1)`,
     backgroundColor: palette.background.paper,
   },
   basic: {

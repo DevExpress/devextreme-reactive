@@ -136,5 +136,5 @@ TableHeaderCell.defaultProps = {
   onWidthDraft: undefined,
   onWidthDraftCancel: undefined,
   children: undefined,
-  getCellWidth: undefined,
+  getCellWidth: () => {},
 };

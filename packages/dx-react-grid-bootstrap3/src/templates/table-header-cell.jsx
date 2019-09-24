@@ -143,5 +143,5 @@ TableHeaderCell.defaultProps = {
   onWidthDraftCancel: undefined,
   children: undefined,
   before: undefined,
-  getCellWidth: undefined,
+  getCellWidth: () => {},
 };

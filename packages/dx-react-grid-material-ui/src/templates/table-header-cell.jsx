@@ -226,7 +226,7 @@ TableHeaderCellBase.defaultProps = {
   className: undefined,
   children: undefined,
   before: undefined,
-  getCellWidth: undefined,
+  getCellWidth: () => {},
 };
 
 export const TableHeaderCell = withStyles(styles, { name: 'TableHeaderCell' })(TableHeaderCellBase);

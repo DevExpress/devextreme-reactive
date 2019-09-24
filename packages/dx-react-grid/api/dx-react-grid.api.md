@@ -580,7 +580,7 @@ export interface SelectionStateProps {
 // @public
 export interface Sorting {
   columnName: string;
-  direction: 'asc' | 'desc';
+  direction: SortingDirection;
 }
 
 // @public (undocumented)
@@ -1350,3 +1350,4 @@ export interface VirtualTableStateProps {
 // (No @packageDocumentation comment for this package)
 
 ```
+

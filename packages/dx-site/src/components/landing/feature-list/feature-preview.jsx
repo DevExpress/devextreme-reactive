@@ -1,11 +1,17 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import GatsbyLink from 'gatsby-link';
 
 import styles from './feature-preview.module.scss';
 
-const FeaturePreview = ({ imageLink, title, size }) => (
-  <img alt={title} src={imageLink} className={`${styles.image} ${styles[size]}`} />
-);
+const FeaturePreview = ({ imageLink, guideLink, title, size }) => {
+  const image = <img alt={title} src={imageLink} className={`${styles.image} ${styles[size]}`} />;
+  return guideLink ? (
+    <GatsbyLink to={guideLink}>
+      {image}
+    </GatsbyLink>
+  ) : image;
+};
 
 FeaturePreview.propTypes = {
   imageLink: PropTypes.string.isRequired,

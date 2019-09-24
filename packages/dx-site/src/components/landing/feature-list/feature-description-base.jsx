@@ -2,12 +2,12 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 const FeatureDescriptionBase = ({
-  title, description, styles,
+  title, description, guideLink, styles,
   titleComponent: Title,
   descriptionComponent: Description,
 }) => (
   <div>
-    <Title>
+    <Title guideLink={guideLink}>
       {title}
     </Title>
     <Description>

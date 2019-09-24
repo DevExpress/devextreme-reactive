@@ -9,6 +9,7 @@ import styles from './layout-item.module.scss';
 const LayoutItem = ({
   title,
   description,
+  guideLink,
   imageLink,
   md,
 }) => (
@@ -16,12 +17,14 @@ const LayoutItem = ({
     <div className={styles.child}>
       <LandingFeatureDescription
         title={title}
+        guideLink={guideLink}
         description={description}
       />
     </div>
     <div className={`${styles.child} mx-sm-auto ${styles.imageContainer}`}>
       <LandingFeaturePreview
         title={title}
+        guideLink={guideLink}
         imageLink={imageLink}
         size={md < 6 ? 'dense' : 'normal'}
       />

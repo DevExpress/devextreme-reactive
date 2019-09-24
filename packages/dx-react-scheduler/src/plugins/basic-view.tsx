@@ -235,7 +235,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, ViewState> {
                     setCellElementsMeta={setRects}
                   />
                   <AppointmentLayer>
-                    {rects.map(({
+                    {(rects as any).map(({
                       dataItem, type: rectType, fromPrev, toNext, ...geometry
                     }, index) => (
                       <AppointmentPlaceholder

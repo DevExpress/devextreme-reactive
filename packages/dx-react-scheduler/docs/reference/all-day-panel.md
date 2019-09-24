@@ -109,11 +109,11 @@ allDay? | string | 'All Day' | The All Day panel's title.
 
 Name | Properties | Description
 -----|------------|------------
-AllDayPanel.Layout | ComponentType&lt;[AllDayPanel.LayoutProps](#alldaypanellayoutprops)&gt; | A component that renders an All Day panel layout.
-AllDayPanel.Cell | ComponentType&lt;[AllDayPanel.CellProps](#alldaypanelcellprops)&gt; | A component that renders an All Day panel cell.
-AllDayPanel.Row | ComponentType&lt;[AllDayPanel.RowProps](#alldaypanelrowprops)&gt; | A component that renders an All Day panel row.
-AllDayPanel.TitleCell | ComponentType&lt;[AllDayPanel.TitleCellProps](#alldaypaneltitlecellprops)&gt; | A component that renders a title cell.
-AllDayPanel.AppointmentLayer | ComponentType&lt;[AllDayPanel.AppointmentLayerProps](#alldaypanelappointmentlayerprops)&gt; | A component that renders the appointment layer.
-AllDayPanel.Container | ComponentType&lt;[AllDayPanel.ContainerProps](#alldaypanelcontainerprops)&gt; | A component that renders an All Day panel container.
+AllDayPanel.Layout | [AllDayPanel.LayoutProps](#alldaypanellayoutprops) | A component that renders an All Day panel layout.
+AllDayPanel.Cell | [AllDayPanel.CellProps](#alldaypanelcellprops) | A component that renders an All Day panel cell.
+AllDayPanel.Row | [AllDayPanel.RowProps](#alldaypanelrowprops) | A component that renders an All Day panel row.
+AllDayPanel.TitleCell | [AllDayPanel.TitleCellProps](#alldaypaneltitlecellprops) | A component that renders a title cell.
+AllDayPanel.AppointmentLayer | [AllDayPanel.AppointmentLayerProps](#alldaypanelappointmentlayerprops) | A component that renders the appointment layer.
+AllDayPanel.Container | [AllDayPanel.ContainerProps](#alldaypanelcontainerprops) | A component that renders an All Day panel container.
 
 Additional properties are added to the component's root element.

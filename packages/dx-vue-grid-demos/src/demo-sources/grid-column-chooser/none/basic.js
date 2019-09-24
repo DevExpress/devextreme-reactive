@@ -14,15 +14,15 @@ export default {
     return {
       columns: [
         { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
+        { name: 'gender', title: 'Gender' },
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
       tableColumnExtensions: [
-        { columnName: 'sex', width: 100 },
+        { columnName: 'gender', width: 100 },
       ],
       rows: generateRows({ length: 6 }),
-      hiddenColumnNames: ['sex', 'car'],
+      hiddenColumnNames: ['gender', 'car'],
     };
   },
   template: `

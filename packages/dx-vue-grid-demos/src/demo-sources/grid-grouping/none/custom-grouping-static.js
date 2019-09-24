@@ -16,22 +16,22 @@ export default {
     return {
       columns: [
         { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
+        { name: 'gender', title: 'Gender' },
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
-      grouping: [{ columnName: 'sex' }],
+      grouping: [{ columnName: 'gender' }],
       expandedGroups: [],
       data: [{
         key: 'Male',
         items: generateRows({
-          columnValues: { ...defaultColumnValues, sex: ['Male'] },
+          columnValues: { ...defaultColumnValues, gender: ['Male'] },
           length: 5,
         }),
       }, {
         key: 'Female',
         items: generateRows({
-          columnValues: { ...defaultColumnValues, sex: ['Female'] },
+          columnValues: { ...defaultColumnValues, gender: ['Female'] },
           length: 5,
         }),
       }],

@@ -2,26 +2,17 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
-import {
-  computed,
-  calculateRectByDateIntervals,
-  calculateWeekDateIntervals,
-  getAppointmentStyle,
-  verticalTimeTableRects,
-} from '@devexpress/dx-scheduler-core';
+import { computed, viewCellsData, verticalTimeTableRects } from '@devexpress/dx-scheduler-core';
 import { WeekView } from './week-view';
 import { BasicView } from './basic-view';
 
 // tslint:disable: max-line-length
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  computed: jest.fn(),
   viewCellsData: jest.fn(),
+  computed: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
   availableViews: jest.fn(),
-  calculateRectByDateIntervals: jest.fn(),
-  calculateWeekDateIntervals: jest.fn(),
-  getAppointmentStyle: jest.fn(),
   verticalTimeTableRects: jest.fn(),
 }));
 
@@ -51,21 +42,13 @@ const defaultProps = {
   timeTableRowComponent: () => null,
   timeTableCellComponent: () => null,
   dayScaleEmptyCellComponent: () => null,
-  // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
   appointmentLayerComponent: ({ children }) => <div>{children}</div>,
 };
 
 describe('Week View', () => {
   beforeEach(() => {
-    computed.mockImplementation(
-      (getters, viewName, baseComputed) => baseComputed(getters, viewName),
-    );
-    calculateRectByDateIntervals.mockImplementation(() => [{
-      x: 1, y: 2, width: 100, height: 150, dataItem: 'data',
-    }]);
-    calculateWeekDateIntervals.mockImplementation(() => []);
-    getAppointmentStyle.mockImplementation(() => undefined);
-    verticalTimeTableRects.mockImplementation(() => [{ data: 1 }]);
+    computed.mockImplementation((getters, viewName, baseComputed) => baseComputed(getters, viewName));
+    global.Date.now = () => 123;
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -81,8 +64,7 @@ describe('Week View', () => {
       ));
 
       expect(tree.find(BasicView).props())
-        .toEqual({
-          // viewCellsDataBaseComputed: expect.any(Function),
+        .toMatchObject({
           type: 'week',
           name: 'Week',
           intervalCount: 1,
@@ -92,142 +74,54 @@ describe('Week View', () => {
           endDayHour: 24,
           firstDayOfWeek: 0,
           excludedDays: [],
+          layoutComponent: defaultProps.layoutComponent,
+          dayScaleLayoutComponent: defaultProps.dayScaleLayoutComponent,
+          dayScaleCellComponent: defaultProps.dayScaleCellComponent,
+          dayScaleRowComponent: defaultProps.dayScaleRowComponent,
+          timeTableLayoutComponent: defaultProps.timeTableLayoutComponent,
+          timeTableRowComponent: defaultProps.timeTableRowComponent,
+          timeTableCellComponent: defaultProps.timeTableCellComponent,
+          appointmentLayerComponent: defaultProps.appointmentLayerComponent,
         });
-    });
-    it('should provide "timeTableElementsMeta" getter', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).timeTableElementsMeta)
-        .toEqual({});
-
-      const setCellElementsMeta = tree.find(defaultProps.timeTableLayoutComponent)
-        .props().setCellElementsMeta;
-      setCellElementsMeta('elementsMeta');
-
-      const weekViewState = tree.find(WeekView).state();
-      expect(weekViewState.rects)
-        .toEqual([{ data: 1 }]);
-
-      tree.update();
-
-      expect(getComputedState(tree).timeTableElementsMeta)
-        .toEqual('elementsMeta');
-    });
-    it('should provide "scrollingStrategy" getter', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).scrollingStrategy)
-        .toEqual({
-          topBoundary: 0,
-          bottomBoundary: 0,
-          changeVerticalScroll: expect.any(Function),
+      expect(tree.find(BasicView).props().layoutProps)
+        .toMatchObject({
+          timeScaleComponent: expect.any(Function),
+          dayScaleEmptyCellComponent: expect.any(Function),
         });
+
+      tree.find(BasicView).props().viewCellsDataBaseComputed(
+        1, 2, 3,
+      )({ firstDayOfWeek: 4, intervalCount: 5, excludedDays: 6, currentDate: 7 });
+      expect(viewCellsData)
+        .toHaveBeenCalledWith(7, 4, 5 * 7, 6, 2, 3, 1, 123);
+
+      tree.find(BasicView).props().timeTableRects(1, 2, 3, 4, 5, 6, 7);
+      expect(verticalTimeTableRects)
+        .toHaveBeenCalledWith(1, 2, 3, 4, 5, 6, 7);
     });
   });
 
   describe('Templates', () => {
-    it('should render view layout', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            {...defaultProps}
-            layoutComponent={({ setScrollingStrategy }) => <div className="view-layout" setScrollingStrategy={setScrollingStrategy} />}
-          />
-        </PluginHost>
-      ));
-
-      expect(tree.find('.view-layout').exists())
-        .toBeTruthy();
-      expect(tree.find('.view-layout').props().setScrollingStrategy)
-        .toEqual(expect.any(Function));
-    });
-
-    it('should render day scale', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            {...defaultProps}
-            dayScaleLayoutComponent={({ formatDate }) => <div formatDate={formatDate} className="day-scale" />}
-          />
-        </PluginHost>
-      ));
-
-      expect(tree.find('.day-scale').exists())
-        .toBeTruthy();
-      expect(tree.find('.day-scale').props().formatDate)
-        .toBe(defaultDeps.getter.formatDate);
-    });
-
     it('should render time scale', () => {
+      const timeScaleLayout = () => null;
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
-            timeScaleLayoutComponent={({ formatDate }) => <div formatDate={formatDate} className="time-scale" />}
+            timeScaleLayoutComponent={timeScaleLayout}
           />
         </PluginHost>
       ));
 
-      expect(tree.find('.time-scale').exists())
-        .toBeTruthy();
-      expect(tree.find('.time-scale').props().formatDate)
-        .toBe(defaultDeps.getter.formatDate);
+      expect(tree.find(timeScaleLayout).props())
+        .toMatchObject({
+          rowComponent: expect.any(Function),
+          cellComponent: expect.any(Function),
+          cellsData: getComputedState(tree).viewCellsData,
+          formatDate: defaultDeps.getter.formatDate,
+        });
     });
-
-    it('should render time table', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            {...defaultProps}
-            timeTableLayoutComponent={({
-              formatDate, setCellElementsMeta,
-            }) => <div setCellElementsMeta={setCellElementsMeta} formatDate={formatDate} className="time-table" />}
-          />
-        </PluginHost>
-      ));
-
-      expect(tree.find('.time-table').exists())
-        .toBeTruthy();
-      expect(tree.find('.time-table').props().formatDate)
-        .toBe(defaultDeps.getter.formatDate);
-      expect(tree.find('.time-table').props().setCellElementsMeta)
-        .toEqual(expect.any(Function));
-    });
-
-    it('should render appointment layer', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            {...defaultProps}
-            appointmentLayerComponent={({ children }) =>
-              <div className="appointment-layer">{children}</div>}
-          />
-        </PluginHost>
-      ));
-
-      expect(tree.find('.appointment-layer').exists())
-        .toBeTruthy();
-    });
-
     it('should render dayScaleEmptyCell', () => {
       const tree = mount((
         <PluginHost>

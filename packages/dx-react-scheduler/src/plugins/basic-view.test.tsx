@@ -8,6 +8,7 @@ import {
   startViewDate,
   endViewDate,
   availableViews,
+  getAppointmentStyle,
 } from '@devexpress/dx-scheduler-core';
 import { BasicView } from './basic-view';
 
@@ -18,6 +19,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
   availableViews: jest.fn(),
+  getAppointmentStyle: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -27,6 +29,18 @@ const defaultDeps = {
       [{ startDate: new Date('2018-06-25') }, {}],
       [{}, { startDate: new Date('2018-08-05') }],
     ],
+    currentView: {
+      name: 'Day',
+    },
+    formatDate: jest.fn(),
+  },
+  template: {
+    body: {},
+    dayScale: {},
+    timeScale: {},
+    dayScaleEmptyCell: {},
+    timeTable: {},
+    appointment: {},
   },
 };
 
@@ -34,6 +48,15 @@ const defaultProps = {
   viewCellsDataBaseComputed: jest.fn(),
   name: 'Day',
   type: 'basic',
+  timeTableRects: jest.fn(),
+  layoutComponent: () => null,
+  dayScaleLayoutComponent: () => null,
+  dayScaleCellComponent: () => null,
+  dayScaleRowComponent: () => null,
+  timeTableLayoutComponent: () => null,
+  timeTableRowComponent: () => null,
+  timeTableCellComponent: () => null,
+  appointmentLayerComponent: () => null,
 };
 
 describe('Basic View', () => {
@@ -44,12 +67,16 @@ describe('Basic View', () => {
     defaultProps.viewCellsDataBaseComputed.mockImplementation(
       () => () => [[{}, {}], [{}, {}]],
     );
+    defaultProps.timeTableRects.mockImplementation(
+      () => [{ data: 1 }],
+    );
     viewCellsData.mockImplementation(() => [
       [{}, {}],
       [{}, {}],
     ]);
     startViewDate.mockImplementation(() => '2018-07-04');
     endViewDate.mockImplementation(() => '2018-07-11');
+    getAppointmentStyle.mockImplementation(() => undefined);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -168,6 +195,49 @@ describe('Basic View', () => {
       expect(getComputedState(tree).availableViews)
         .toEqual('availableViews');
     });
+    it('should provide "timeTableElementsMeta" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <BasicView
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).timeTableElementsMeta)
+        .toEqual({});
+
+      const setCellElementsMeta = tree.find(defaultProps.timeTableLayoutComponent)
+        .props().setCellElementsMeta;
+      setCellElementsMeta('elementsMeta');
+
+      const dayViewState = tree.find(BasicView).state();
+      expect(dayViewState.rects)
+        .toEqual([{ data: 1 }]);
+
+      tree.update();
+
+      expect(getComputedState(tree).timeTableElementsMeta)
+        .toEqual('elementsMeta');
+    });
+    it('should provide "scrollingStrategy" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <BasicView
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).scrollingStrategy)
+        .toEqual({
+          topBoundary: 0,
+          bottomBoundary: 0,
+          changeVerticalScroll: expect.any(Function),
+        });
+    });
     it('should not override previous view type', () => {
       const prevView = { name: 'Month', type: 'month' };
       const tree = mount((
@@ -181,6 +251,88 @@ describe('Basic View', () => {
 
       expect(getComputedState(tree).currentView)
         .toEqual(prevView);
+    });
+  });
+
+  describe('Templates', () => {
+    it('should render view layout', () => {
+      const customLayout = () => null;
+      const layoutProps = { data1: 1, data2: 2 };
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <BasicView
+            {...defaultProps}
+            layoutProps={layoutProps}
+            layoutComponent={customLayout}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find(customLayout).props())
+        .toMatchObject({
+          dayScaleComponent: expect.any(Function),
+          timeTableComponent: expect.any(Function),
+          setScrollingStrategy: expect.any(Function),
+          data1: 1,
+          data2: 2,
+        });
+    });
+    it('should render day scale', () => {
+      const customDayScaleLayout = () => null;
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <BasicView
+            {...defaultProps}
+            dayScaleLayoutComponent={customDayScaleLayout}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find(customDayScaleLayout).props())
+        .toMatchObject({
+          formatDate: defaultDeps.getter.formatDate,
+          cellComponent: defaultProps.dayScaleCellComponent,
+          rowComponent: defaultProps.dayScaleRowComponent,
+          cellsData: [[{}, {}], [{}, {}]],
+        });
+    });
+    it('should render time table', () => {
+      const customTimeTableLayout = () => null;
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <BasicView
+            {...defaultProps}
+            timeTableLayoutComponent={customTimeTableLayout}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find(customTimeTableLayout).props())
+        .toMatchObject({
+          formatDate: defaultDeps.getter.formatDate,
+          cellsData: [[{}, {}], [{}, {}]],
+          rowComponent: defaultProps.timeTableRowComponent,
+          setCellElementsMeta: expect.any(Function),
+          cellComponent: expect.any(Function),
+        });
+    });
+    it('should render appointment layer', () => {
+      const customAppointmentLayer = ({ children }) => <div>{children}</div>;
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <BasicView
+            {...defaultProps}
+            appointmentLayerComponent={customAppointmentLayer}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find(customAppointmentLayer).exists())
+        .toBeTruthy();
     });
   });
 });

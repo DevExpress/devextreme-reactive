@@ -7,11 +7,8 @@ import {
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
-  viewCellsData as viewCellsDataCore,
-  verticalTimeTableRects,
-} from '@devexpress/dx-scheduler-core';
+  viewCellsData as viewCellsDataCore, verticalTimeTableRects } from '@devexpress/dx-scheduler-core';
 import { BasicView } from './basic-view';
-
 import { VerticalViewProps } from '../types';
 
 const TYPE = 'day';

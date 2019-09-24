@@ -1,14 +1,7 @@
 import * as React from 'react';
-import {
-  Plugin,
-  PluginComponents,
-} from '@devexpress/dx-react-core';
-import {
-  monthCellsData,
-  horizontalTimeTableRects,
-} from '@devexpress/dx-scheduler-core';
+import { Plugin, PluginComponents } from '@devexpress/dx-react-core';
+import { monthCellsData, horizontalTimeTableRects } from '@devexpress/dx-scheduler-core';
 import { BasicView } from './basic-view';
-
 import { MonthViewProps } from '../types';
 
 const timeTableRects = (

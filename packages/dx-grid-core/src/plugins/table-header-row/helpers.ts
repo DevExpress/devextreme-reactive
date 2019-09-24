@@ -6,6 +6,7 @@ import {
   GenerateChainsFn,
   LastColumnNameFn,
   NextColumnNameFn,
+  GetNextColumnNameFn,
 } from '../../types';
 
 export const isHeadingTableCell: IsSpecificCellFn = (
@@ -67,12 +68,16 @@ export const getLastColumnName: LastColumnNameFn = (tableColumns) => {
     : undefined;
 };
 
-export const getNextColumnName: NextColumnNameFn = (tableColumns, columnName) => {
-  const index = tableColumns.findIndex(elem =>
-      elem.type === TABLE_DATA_TYPE && elem.column!.name === columnName,
-    );
+const nextColumnName: NextColumnNameFn = (tableColumns , index) => {
   const haveNextColumn = index >= 0 && index < tableColumns.length - 1;
   return haveNextColumn && tableColumns[index + 1].type === TABLE_DATA_TYPE
     ? tableColumns[index + 1].column!.name
     : undefined;
+}
+
+export const getNextColumnName: GetNextColumnNameFn = (tableColumns, columnName) => {
+  const index = tableColumns.findIndex(elem =>
+      elem.type === TABLE_DATA_TYPE && elem.column!.name === columnName,
+    );
+  return nextColumnName(tableColumns, index)
 };

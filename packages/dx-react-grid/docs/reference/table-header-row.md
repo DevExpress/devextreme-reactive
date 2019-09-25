@@ -68,7 +68,6 @@ showSortingControls | boolean | **@deprecated** <br/> Specifies whether to rende
 sortingEnabled | boolean | **@deprecated** <br/> Specifies whether sorting by the column is enabled.
 sortingDirection? | 'asc' &#124; 'desc' | **@deprecated** <br/> Specifies the column's sorting direction.
 onSort | (parameters: { direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean }) => void | **@deprecated** <br/> An event that invokes a sorting direction change. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `direction` is set to null.
-getCellWidth | (() => number) => void | A function that provides cell's width getter function to the TableColumnResizing component.
 
 ### TableHeaderRow.SortLabelProps
 

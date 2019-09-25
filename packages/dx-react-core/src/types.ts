@@ -9,10 +9,12 @@ export type StateHelper = {
 };
 
 /** @internal */
-export type CreateStateHelperFn = PureComputed<
-  [React.PureComponent, { [fieldName: string]: () => ActionFn<any> | undefined }?],
-  StateHelper
->;
+type ControlledStateProperies = { [fieldName: string]: () => ActionFn<any> | undefined };
+/** @internal */
+export type CreateStateHelperFn = (
+  component: React.PureComponent,
+  controlledStateProperties?: ControlledStateProperies,
+) => StateHelper;
 
 /** @internal */
 export type ActionFn<P> = PureComputed<[P], void | boolean>;

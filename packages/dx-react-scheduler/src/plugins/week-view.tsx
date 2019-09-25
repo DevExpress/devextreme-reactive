@@ -285,7 +285,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
               );
 
               return (
-                <React.Fragment>
+                <>
                   <TimeTableLayout
                     cellsData={viewCellsData}
                     rowComponent={timeTableRowComponent}
@@ -307,7 +307,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
                       />
                     ))}
                   </AppointmentLayer>
-                </React.Fragment>
+                </>
               );
             }}
           </TemplateConnector>

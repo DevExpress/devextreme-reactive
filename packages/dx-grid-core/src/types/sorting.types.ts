@@ -3,15 +3,15 @@ import { GridColumnExtension } from './table.types';
 import { Row, GetCellValueFn, IsSpecificRowFn, GetRowLevelKeyFn } from './grid-core.types';
 import { CompareFn } from './merge-sort.types';
 
+export type SortingDirection = 'asc' | 'desc';
 /** Describes the sorting applied to a column */
 export interface Sorting {
   /** Specifies a column's name to which the sorting is applied. */
   columnName: string;
   /** Specifies a column's sorting order. */
-  direction: 'asc' | 'desc';
+  direction: SortingDirection;
 }
 
-export type SortingDirection = 'asc' | 'desc';
 /** @internal */
 export type SortingColumnExtension = GridColumnExtension & { sortingEnabled?: boolean };
 /** @internal */

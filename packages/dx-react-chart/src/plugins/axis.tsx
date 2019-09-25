@@ -191,7 +191,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
               rotated,
             });
             return ((
-              <React.Fragment>
+              <>
                 {(ticks as Grid[]).map(({
                   key, x1, y1,
                 }) => (
@@ -203,7 +203,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
                     y2={y1 + dx * height}
                   />
                 ))}
-              </React.Fragment>
+              </>
             ));
           }}
         </TemplateConnector>

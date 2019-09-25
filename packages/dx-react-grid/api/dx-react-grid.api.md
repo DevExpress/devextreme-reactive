@@ -7,6 +7,9 @@
 import { EditingCell } from '@devexpress/dx-grid-core';
 import * as React from 'react';
 
+// @public (undocumented)
+export type CellWidthGetter = () => number;
+
 // @public
 export interface ChangeSet {
   added?: ReadonlyArray<any>;
@@ -75,6 +78,12 @@ export interface ColumnChooserProps {
     messages?: ColumnChooser.LocalizationMessages;
     overlayComponent: React.ComponentType<ColumnChooser.OverlayProps>;
     toggleButtonComponent: React.ComponentType<ColumnChooser.ToggleButtonProps>;
+}
+
+// @public (undocumented)
+export interface ColumnSizes {
+  size: number;
+  width: number;
 }
 
 // @public (undocumented)
@@ -276,7 +285,7 @@ export namespace Grid {
 // @public (undocumented)
 export type GridColumnExtension = {
     columnName: string;
-    width?: number;
+    width?: number | string;
     align?: 'left' | 'right' | 'center';
     wordWrapEnabled?: boolean;
 } & IntegratedFiltering.ColumnExtension;
@@ -502,6 +511,12 @@ export interface PagingStateProps {
 }
 
 // @public (undocumented)
+export interface ResizingSizes {
+  nextSize?: number;
+  size: number;
+}
+
+// @public (undocumented)
 export type Row = any;
 
 // @public
@@ -569,7 +584,7 @@ export interface SelectionStateProps {
 // @public
 export interface Sorting {
   columnName: string;
-  direction: 'asc' | 'desc';
+  direction: SortingDirection;
 }
 
 // @public (undocumented)
@@ -632,7 +647,7 @@ export namespace Table {
   export interface ColumnExtension {
     align?: 'left' | 'right' | 'center';
     columnName: string;
-    width?: number;
+    width?: number | string;
     wordWrapEnabled?: boolean;
   }
   export interface DataCellProps extends Table.CellProps {
@@ -696,7 +711,7 @@ export interface TableColumn {
     fixed?: 'left' | 'right';
     key: string;
     type: symbol;
-    width?: number;
+    width?: number | string;
 }
 
 // @public
@@ -729,6 +744,7 @@ export interface TableColumnResizingProps {
   maxColumnWidth?: number;
   minColumnWidth?: number;
   onColumnWidthsChange?: (nextColumnWidths: Array<TableColumnWidthInfo>) => void;
+  resizingMode?: string;
 }
 
 // @public
@@ -763,7 +779,7 @@ export interface TableColumnVisibilityProps {
 // @public
 export interface TableColumnWidthInfo {
   columnName: string;
-  width: number;
+  width: number | string;
 }
 
 // @public
@@ -988,6 +1004,7 @@ export namespace TableHeaderRow {
     children: React.ReactNode;
     column: Column;
     draggingEnabled: boolean;
+    getCellWidth: (getter: CellWidthGetter) => void;
     groupingEnabled: boolean;
     onGroup(): void;
     onSort: (parameters: {
@@ -1300,6 +1317,16 @@ export type TreeDataStateState = {
   expandedRowIds: Array<number | string>;
 };
 
+// @public (undocumented)
+export namespace VirtualTable {
+    export interface ColumnExtension {
+        align?: 'left' | 'right' | 'center';
+        columnName: string;
+        width?: number | string;
+        wordWrapEnabled?: boolean;
+    }
+}
+
 // @public
 export const VirtualTable: React.ComponentType<VirtualTableProps> & {
     COLUMN_TYPE: symbol;
@@ -1311,7 +1338,7 @@ export const VirtualTable: React.ComponentType<VirtualTableProps> & {
 export interface VirtualTableProps {
     bodyComponent: React.ComponentType<object>;
     cellComponent: React.ComponentType<Table.DataCellProps>;
-    columnExtensions?: Array<Table.ColumnExtension>;
+    columnExtensions?: Array<VirtualTable.ColumnExtension>;
     containerComponent: React.ComponentType<object>;
     estimatedRowHeight: number;
     footerComponent: React.ComponentType<object>;
@@ -1352,3 +1379,4 @@ export interface VirtualTableStateProps {
 // (No @packageDocumentation comment for this package)
 
 ```
+

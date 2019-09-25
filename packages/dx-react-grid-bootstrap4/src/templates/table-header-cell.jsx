@@ -13,26 +13,39 @@ export class TableHeaderCell extends React.PureComponent {
     this.state = {
       dragging: false,
     };
+    this.dragRef = React.createRef();
     this.cellRef = React.createRef();
+    this.getWidthGetter = () => {
+      const { getCellWidth } = this.props;
+      const node = this.cellRef.current;
+      return node && getCellWidth(() => {
+        const { width } = node.getBoundingClientRect();
+        return width;
+      });
+    };
 
     this.onDragStart = () => {
       this.setState({ dragging: true });
     };
     this.onDragEnd = () => {
-      if (this.cellRef.current) {
+      if (this.dragRef.current) {
         this.setState({ dragging: false });
       }
     };
   }
 
+  componentDidMount() {
+    this.getWidthGetter();
+  }
+
   render() {
     const {
       className, column, tableColumn,
-      showGroupingControls, onGroup, groupingEnabled,
       draggingEnabled, onWidthDraftCancel,
-      resizingEnabled, onWidthChange, onWidthDraft,
+      resizingEnabled, onWidthChange, onWidthDraft, getCellWidth,
       tableRow, children,
       // @deprecated
+      showGroupingControls, onGroup, groupingEnabled,
       showSortingControls, sortingDirection, sortingEnabled, onSort, before,
       ...restProps
     } = this.props;
@@ -48,6 +61,7 @@ export class TableHeaderCell extends React.PureComponent {
           'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
         }, className)}
         scope="col"
+        ref={this.cellRef}
         {...restProps}
       >
         <div
@@ -67,7 +81,7 @@ export class TableHeaderCell extends React.PureComponent {
 
     return draggingEnabled ? (
       <DragSource
-        ref={this.cellRef}
+        ref={this.dragRef}
         payload={[{ type: 'column', columnName: column.name }]}
         onStart={this.onDragStart}
         onEnd={this.onDragEnd}
@@ -100,6 +114,7 @@ TableHeaderCell.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
+  getCellWidth: PropTypes.func,
 };
 
 TableHeaderCell.defaultProps = {
@@ -121,4 +136,5 @@ TableHeaderCell.defaultProps = {
   onWidthDraft: undefined,
   onWidthDraftCancel: undefined,
   children: undefined,
+  getCellWidth: () => {},
 };

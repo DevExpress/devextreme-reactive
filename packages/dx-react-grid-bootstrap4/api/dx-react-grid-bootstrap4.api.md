@@ -29,6 +29,7 @@ import { TableSelection as TableSelection_2 } from '@devexpress/dx-react-grid';
 import { TableSummaryRow as TableSummaryRow_2 } from '@devexpress/dx-react-grid';
 import { TableTreeColumn as TableTreeColumn_2 } from '@devexpress/dx-react-grid';
 import { Toolbar as Toolbar_2 } from '@devexpress/dx-react-grid';
+import { VirtualTable as VirtualTable_2 } from '@devexpress/dx-react-grid';
 
 // @public (undocumented)
 export namespace ColumnChooser {
@@ -236,8 +237,8 @@ export namespace TableBandHeader {
 export const TableBandHeader: React.ComponentType<TableBandHeaderProps> & {
   ROW_TYPE: symbol;
 } & {
-  Cell: React.ComponentType<React.ComponentType<Table_2.CellProps> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Row: React.ComponentType<React.ComponentType<Table_2.RowProps> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Cell: React.ComponentType<Table_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Row: React.ComponentType<Table_2.RowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
 };
 
 // @public (undocumented)
@@ -273,6 +274,7 @@ export interface TableColumnResizingProps {
   maxColumnWidth?: number;
   minColumnWidth?: number;
   onColumnWidthsChange?: (nextColumnWidths: Array<TableColumnWidthInfo>) => void;
+  resizingMode?: string;
 }
 
 // @public (undocumented)
@@ -660,16 +662,16 @@ export const TableSummaryRow: React.ComponentType<TableSummaryRowProps> & {
   TOTAL_ROW_TYPE: symbol;
 } & {
   Cell: React.ComponentType<TableSummaryRow_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  TotalRow: React.ComponentType<React.ComponentType<Table_2.RowProps> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  GroupRow: React.ComponentType<React.ComponentType<Table_2.RowProps> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  TreeRow: React.ComponentType<React.ComponentType<Table_2.RowProps> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  TotalCell: React.ComponentType<React.ComponentType<TableSummaryRow_2.CellProps> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  GroupCell: React.ComponentType<React.ComponentType<TableSummaryRow_2.CellProps> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  TreeCell: React.ComponentType<React.ComponentType<TableSummaryRow_2.CellProps> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  TreeColumnCell: React.ComponentType<React.ComponentType<TableSummaryRow_2.CellProps> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  TreeColumnContent: React.ComponentType<React.ComponentType<TableSummaryRow_2.ContentProps> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  TreeColumnIndent: React.ComponentType<React.ComponentType<TableSummaryRow_2.IndentProps> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Item: React.ComponentType<React.ComponentType<object> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  TotalRow: React.ComponentType<Table_2.RowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  GroupRow: React.ComponentType<Table_2.RowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  TreeRow: React.ComponentType<Table_2.RowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  TotalCell: React.ComponentType<TableSummaryRow_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  GroupCell: React.ComponentType<TableSummaryRow_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  TreeCell: React.ComponentType<TableSummaryRow_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  TreeColumnCell: React.ComponentType<TableSummaryRow_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  TreeColumnContent: React.ComponentType<TableSummaryRow_2.ContentProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  TreeColumnIndent: React.ComponentType<TableSummaryRow_2.IndentProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Item: React.ComponentType<object & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
 };
 
 // @public (undocumented)
@@ -749,6 +751,11 @@ export interface ToolbarProps {
   rootComponent?: React.ComponentType<Toolbar_2.RootProps>;
 }
 
+// @public (undocumented)
+export namespace VirtualTable {
+  export type ColumnExtension = VirtualTable_2.ColumnExtension;
+}
+
 // @public
 export const VirtualTable: React.ComponentType<VirtualTableProps> & {
   COLUMN_TYPE: symbol;
@@ -772,7 +779,7 @@ export const VirtualTable: React.ComponentType<VirtualTableProps> & {
 export interface VirtualTableProps {
   bodyComponent?: React.ComponentType<object>;
   cellComponent?: React.ComponentType<Table_2.DataCellProps>;
-  columnExtensions?: Array<Table_2.ColumnExtension>;
+  columnExtensions?: Array<VirtualTable_2.ColumnExtension>;
   containerComponent?: React.ComponentType<object>;
   estimatedRowHeight?: number;
   footerComponent?: React.ComponentType<object>;

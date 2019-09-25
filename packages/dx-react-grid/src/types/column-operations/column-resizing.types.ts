@@ -11,6 +11,8 @@ export interface TableColumnResizingProps {
   columnExtensions?: Array<TableColumnResizing.ColumnExtension>;
   /** Specifies initial column widths in uncontrolled mode. */
   defaultColumnWidths?: Array<TableColumnWidthInfo>;
+  /** Specifies initial column resize mode. */
+  resizingMode?: string;
   /** Handles column width changes. */
   onColumnWidthsChange?: (nextColumnWidths: Array<TableColumnWidthInfo>) => void;
 }
@@ -20,3 +22,5 @@ export type TableColumnResizingState = {
   columnWidths: TableColumnWidthInfo[],
   draftColumnWidths: TableColumnWidthInfo[],
 };
+
+export type CellWidthGetter = () => number;

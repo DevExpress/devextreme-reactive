@@ -88,7 +88,7 @@ disableSaveButton? | boolean | Specifies whether to disable the Save button.
 onCommitButtonClick | () => void | An event raised when the Commit button is clicked. The event handler should commit appointment changes.
 onCancelButtonClick | () => void | An event raised when the Cancel button is clicked. The event handler should close the appointment form.
 onDeleteButtonClick | () => void | An event raised when the Delete button is clicked. The event handler should delete an appointment.
-getMessage | (messageKey: string) => string | Retrieves a localization message using its key.
+getMessage | (messageKey: string) => string | Uses a localization message's key to retrieve the message.
 children? | ReactNode | A React node used to render additional components to the Command layout.
 
 ### AppointmentForm.BasicLayoutProps
@@ -100,8 +100,8 @@ Field | Type | Description
 readOnly? | boolean | Specifies whether the appointment form is read-only.
 appointmentData | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment's data.
 onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | An event raised when a field value in the appointment form is changed.
-getMessage | (messageKey: string) => string | Retrieves a localization message using its key.
-locale | string &#124; Array&lt;string&gt; | Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale will be used to format date-time values.
+getMessage | (messageKey: string) => string | Uses a localization message's key to retrieve the message.
+locale | string &#124; Array&lt;string&gt; | Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale is used to format date-time values.
 fullSize | boolean | Specifies whether the layout is full-size.
 textEditorComponent | ComponentType&lt;[AppointmentForm.TextEditorProps](#appointmentformtexteditorprops)&gt; | A component that renders a text editor.
 dateEditorComponent | ComponentType&lt;[AppointmentForm.DateEditorProps](#appointmentformdateeditorprops)&gt; | A component that renders a date-time editor.
@@ -120,9 +120,9 @@ readOnly? | boolean | Specifies whether the appointment form is read-only.
 visible | boolean | Specifies whether the layout is visible.
 appointmentData | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment's data.
 onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | An event raised when a field value in the appointment form is changed.
-getMessage | (messageKey: string) => string | Retrieves a localization message using its key.
-locale | string &#124; Array&lt;string&gt; | Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale will be used to format date-time values.
-formatDate | [FormatterFn](./scheduler.md#formatterfn) | A function that formats dates depending on the locale.
+getMessage | (messageKey: string) => string | Uses a localization message's key to retrieve the message.
+locale | string &#124; Array&lt;string&gt; | Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale is used to format date-time values.
+formatDate | [FormatterFn](./scheduler.md#formatterfn) | A function that formats dates based on the locale.
 radioGroupComponent | ComponentType&lt;[AppointmentForm.RadioGroupProps](#appointmentformradiogroupprops)&gt; | A component that renders a radio group.
 weeklyRecurrenceSelectorComponent | ComponentType&lt;[AppointmentForm.WeeklyRecurrenceSelectorProps](#appointmentformweeklyrecurrenceselectorprops)&gt; | A component that renders a weekly recurrence selector.
 textEditorComponent | ComponentType&lt;[AppointmentForm.TextEditorProps](#appointmentformtexteditorprops)&gt; | A component that renders a text editor.
@@ -133,7 +133,7 @@ children? | ReactNode | A React node used to render additional components to the
 
 ### AppointmentForm.BooleanEditorProps
 
-Properties passed to a component that renders an editor of Boolean values to the appointment form.
+Properties passed to a component that renders a Boolean value editor on the appointment form.
 
 Field | Type | Description
 ------|------|------------
@@ -150,7 +150,7 @@ Field | Type | Description
 ------|------|------------
 id | `saveButton` &#124; `deleteButton` &#124; `cancelButton` | The command button's identifier.
 onExecute | () => void | An event that initiates the command execution.
-getMessage | (messageKey: string) => string | Retrieves a localization message using its key.
+getMessage | (messageKey: string) => string | Uses a localization message's key to retrieve the message.
 
 ### AppointmentForm.DateEditorProps
 
@@ -161,7 +161,7 @@ Field | Type | Description
 readOnly? | boolean | Specifies whether the date editor is read-only.
 value? | string &#124; number &#124; Date | The editor's value.
 onValueChange | (nextValue: Date) => void | Handles value changes.
-locale? | string &#124; Array&lt;string&gt; | Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale will be used to format date-time values.
+locale? | string &#124; Array&lt;string&gt; | Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale is used to format date-time values.
 
 ### AppointmentForm.LabelProps
 
@@ -179,12 +179,12 @@ Properties passed to a component that renders a radio group to the appointment f
 Field | Type | Description
 ------|------|------------
 appointmentData | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment's data.
-locale? | string &#124; Array&lt;string&gt; | Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale will be used to format date-time values.
-formatDate | [FormatterFn](./scheduler.md#formatterfn) | A function that formats dates depending on the locale.
+locale? | string &#124; Array&lt;string&gt; | Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale is used to format date-time values.
+formatDate | [FormatterFn](./scheduler.md#formatterfn) | A function that formats dates based on the locale.
 onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | An event raised when a field value in the appointment form is changed.
 readOnly? | boolean | Specifies whether the radio group is read-only.
 type? | `endRepeat` &#124; `monthlyRadioGroup` &#124; `yearlyRadioGroup` | The radio group's type.
-getMessage | (messageKey: string) => string | Retrieves a localization message using its key.
+getMessage | (messageKey: string) => string | Uses a localization message's key to retrieve the message.
 textEditorComponent | ComponentType&lt;[AppointmentForm.TextEditorProps](#appointmentformtexteditorprops)&gt; | A component that renders a text editor.
 dateEditorComponent | ComponentType&lt;[AppointmentForm.DateEditorProps](#appointmentformdateeditorprops)&gt; | A component that renders a date-time editor.
 selectComponent | ComponentType&lt;[AppointmentForm.SelectProps](#appointmentformselectprops)&gt; | A component that renders a menu of options.
@@ -204,7 +204,7 @@ readOnly | boolean | Specifies whether the menu is read-only.
 
 ### AppointmentForm.TextEditorProps
 
-Properties passed to a component that renders a text editor to the appointment form.
+Properties passed to a component that renders a text editor on the appointment form.
 
 Field | Type | Description
 ------|------|------------
@@ -216,13 +216,13 @@ onValueChange | (nextValue: string) => void | Handles value changes.
 
 ### AppointmentForm.WeeklyRecurrenceSelectorProps
 
-Properties passed to a component that renders a weekly recurrence selector to the appointment form.
+Properties passed to a component that renders a weekly recurrence selector on the appointment form.
 
 Field | Type | Description
 ------|------|------------
 rRule | string | Specifies the recurrence rule.
 readOnly | boolean | Specifies whether the weekly recurrence selector is read-only.
-formatDate | [FormatterFn](./scheduler.md#formatterfn) | A function that formats dates depending on the locale.
+formatDate | [FormatterFn](./scheduler.md#formatterfn) | A function that formats dates based on the locale.
 onValueChange | (nextFieldValue: { [fieldName: string]: any }) => void | Handles value changes.
 
 ## Localization Messages
@@ -273,7 +273,7 @@ AppointmentForm.RecurrenceLayout | [AppointmentForm.RecurrenceLayoutProps](#appo
 AppointmentForm.TextEditor | [AppointmentForm.TextEditorProps](#appointmentformtexteditorprops) | A component that renders a text editor.
 AppointmentForm.DateEditor | [AppointmentForm.DateEditorProps](#appointmentformdateeditorprops) | A component that renders a date-time editor.
 AppointmentForm.Label | [AppointmentForm.LabelProps](#appointmentformlabelprops) | A component that renders a text label.
-AppointmentForm.BooleanEditor | [AppointmentForm.BooleanEditorProps](#appointmentformbooleaneditorprops) | A component that renders an editor of Boolean values.
+AppointmentForm.BooleanEditor | [AppointmentForm.BooleanEditorProps](#appointmentformbooleaneditorprops) | A component that renders a Boolean value editor.
 AppointmentForm.Select | [AppointmentForm.SelectProps](#appointmentformselectprops) | A component that renders a menu of options.
 AppointmentForm.RadioGroup | [AppointmentForm.RadioGroupProps](#appointmentformradiogroupprops) | A component that renders a radio group.
 AppointmentForm.WeeklyRecurrenceSelector | [AppointmentForm.WeeklyRecurrenceSelectorProps](#appointmentformweeklyrecurrenceselectorprops) | A component that renders a weekly recurrence selector.

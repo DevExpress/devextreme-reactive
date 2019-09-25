@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
 import * as PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import classNames from 'classnames';
-import Radio from '@material-ui/core/Radio';
-import Grid from '@material-ui/core/Grid';
 import {
-  NUMBER_EDITOR,
   handleToDayOfWeekChange,
   handleWeekNumberChange,
   getRecurrenceOptions,
@@ -22,48 +16,6 @@ import {
 import { ChangeMonthEditor } from './change-month-editor';
 import { ChangeWeekNumberEditor } from './change-week-number-editor';
 
-const styles = ({ spacing }) => ({
-  textEditor: {
-    width: 'calc((100% - 5.5em) * 4 / 7)',
-    minWidth: 'calc(100% - 13.5em)',
-    marginLeft: '1em',
-  },
-  label: {
-    width: '4.5em',
-  },
-  input: {
-    paddingBottom: spacing(2.75),
-  },
-  select: {
-    width: 'calc((100% - 5.5em) * 3 / 7)',
-    maxWidth: '8em',
-  },
-  longSelect: {
-    width: 'calc((100% - 5.5em) * 4 / 7)',
-    minWidth: 'calc(100% - 13.5em)',
-    marginLeft: '1em',
-  },
-  formControlLabel: {
-    alignItems: 'flex-start',
-  },
-  formControl: {
-    marginRight: 0,
-    marginTop: spacing(1),
-    marginBottom: spacing(1),
-  },
-  doubleSelect: {
-    marginLeft: '4.5em',
-    width: 'calc(100% - 4.5em)',
-    marginTop: spacing(1),
-  },
-  radioButton: {
-    marginTop: spacing(0.75),
-  },
-  controlLabel: {
-    width: '100%',
-  },
-});
-
 const getCurrentMonth = (recurrenceOptions, appointmentData) => {
   if (recurrenceOptions.bymonth) {
     return recurrenceOptions.bymonth;
@@ -71,8 +23,7 @@ const getCurrentMonth = (recurrenceOptions, appointmentData) => {
   return appointmentData.startDate.getMonth() + 1;
 };
 
-const YearlyEditorBase = ({
-  classes,
+export const YearlyEditor = ({
   getMessage,
   labelComponent: Label,
   textEditorComponent: TextEditor,
@@ -195,8 +146,7 @@ const YearlyEditorBase = ({
   );
 };
 
-YearlyEditorBase.propTypes = {
-  classes: PropTypes.object.isRequired,
+YearlyEditor.propTypes = {
   getMessage: PropTypes.func,
   onFieldChange: PropTypes.func,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -215,10 +165,8 @@ YearlyEditorBase.propTypes = {
   readOnly: PropTypes.bool,
 };
 
-YearlyEditorBase.defaultProps = {
+YearlyEditor.defaultProps = {
   onFieldChange: () => undefined,
   getMessage: () => undefined,
   readOnly: false,
 };
-
-export const YearlyEditor = withStyles(styles)(YearlyEditorBase, { name: 'YearlyEditor' });

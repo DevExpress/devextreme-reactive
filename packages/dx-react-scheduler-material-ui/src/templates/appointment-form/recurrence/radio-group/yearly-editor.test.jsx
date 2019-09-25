@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses, createMount } from '@material-ui/core/test-utils';
+import { createShallow, createMount } from '@material-ui/core/test-utils';
 import {
   handleStartDateChange,
   handleToDayOfWeekChange,
@@ -12,6 +12,8 @@ import {
   getMonthsWithOf,
 } from '@devexpress/dx-scheduler-core';
 import { YearlyEditor } from './yealy-editor';
+import { ChangeMonthEditor } from './change-month-editor';
+import { ChangeWeekNumberEditor } from './change-week-number-editor';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...require.requireActual('@devexpress/dx-scheduler-core'),
@@ -40,12 +42,10 @@ describe('AppointmentForm recurrence RadioGroup', () => {
       rRule: 'RRULE:FREQ=YEARLY',
     },
   };
-  let classes;
   let shallow;
   let mount;
   beforeAll(() => {
-    classes = getClasses(<YearlyEditor {...defaultProps} />);
-    shallow = createShallow({ dive: true });
+    shallow = createShallow();
   });
   beforeEach(() => {
     mount = createMount();
@@ -71,41 +71,23 @@ describe('AppointmentForm recurrence RadioGroup', () => {
         <YearlyEditor data={{ a: 1 }} {...defaultProps} />
       ));
 
-      const labels = tree.find(defaultProps.labelComponent);
-      expect(labels)
-        .toHaveLength(2);
-      expect(labels.at(0).is(`.${classes.label}`))
-        .toBeTruthy();
-      expect(labels.at(1).is(`.${classes.label}`))
-        .toBeTruthy();
-
-      const textEditor = tree.find(defaultProps.textEditorComponent);
-      expect(textEditor)
+      const changeMonthEditor = tree.find(ChangeMonthEditor);
+      expect(changeMonthEditor)
         .toHaveLength(1);
-      expect(textEditor.at(0).is(`.${classes.textEditor}`))
-        .toBeTruthy();
 
-      const selectComponents = tree.find(defaultProps.selectComponent);
-      expect(selectComponents)
-        .toHaveLength(4);
-      expect(selectComponents.at(0).is(`.${classes.select}`))
-        .toBeTruthy();
-      expect(selectComponents.at(1).is(`.${classes.select}`))
-        .toBeTruthy();
-      expect(selectComponents.at(2).is(`.${classes.longSelect}`))
-        .toBeTruthy();
-      expect(selectComponents.at(3).is(`.${classes.doubleSelect}`))
-        .toBeTruthy();
+      const changeWeekNumberEditor = tree.find(ChangeWeekNumberEditor);
+      expect(changeWeekNumberEditor)
+        .toHaveLength(1);
     });
 
     it('should handle appointment field change', () => {
-      const tree = mount((
+      const tree = shallow((
         <YearlyEditor {...defaultProps} />
       ));
 
-      const selectComponents = tree.find(defaultProps.selectComponent);
+      const changeMonthEditor = tree.find(ChangeMonthEditor);
 
-      selectComponents.at(0).prop('onValueChange')('abc');
+      changeMonthEditor.at(0).prop('changeMonth')('abc');
       expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
           rRule: {
@@ -114,21 +96,23 @@ describe('AppointmentForm recurrence RadioGroup', () => {
           },
         });
 
-      selectComponents.at(2).prop('onValueChange')(2);
+      const changeWeekNumberEditor = tree.find(ChangeWeekNumberEditor);
+
+      changeWeekNumberEditor.at(0).prop('changeMonth')('bcd');
       expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
           rRule: {
             ...getRecurrenceOptions(),
-            byweekday: 1,
+            bymonth: 'bcd',
           },
         });
 
-      selectComponents.at(3).prop('onValueChange')('cde');
+      changeWeekNumberEditor.at(0).prop('changeDayOfWeek')(3);
       expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
           rRule: {
             ...getRecurrenceOptions(),
-            bymonth: 'cde',
+            byweekday: 2,
           },
         });
     });
@@ -158,24 +142,17 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     it('should call handleWeekNumberChange with correct data', () => {
       const tree = mount((<YearlyEditor {...defaultProps} />));
 
-      tree.find(defaultProps.selectComponent).at(1).prop('onValueChange')('abc');
+      tree.find(ChangeWeekNumberEditor).at(0).prop('changeWeekNumber')('abc');
       expect(handleWeekNumberChange)
         .toHaveBeenCalledWith('abc', getRecurrenceOptions());
     });
 
     it('should call handleStartDateChange with correct data', () => {
-      const tree = mount((<YearlyEditor {...defaultProps} />));
+      const tree = shallow((<YearlyEditor {...defaultProps} />));
 
-      tree.find(defaultProps.textEditorComponent).at(0).prop('onValueChange')('abc');
+      tree.find(ChangeMonthEditor).at(0).prop('changeByMonthDay')(21);
       expect(handleStartDateChange)
-        .toHaveBeenCalledWith('abc', getRecurrenceOptions());
-    });
-
-    it('should call getMessage with proper parameters', () => {
-      shallow((<YearlyEditor {...defaultProps} />));
-
-      expect(defaultProps.getMessage)
-        .toHaveBeenCalledWith('theLabel');
+        .toHaveBeenCalledWith(21, getRecurrenceOptions());
     });
 
     it('should call getMonths', () => {

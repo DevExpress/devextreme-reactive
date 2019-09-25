@@ -19,6 +19,8 @@ import {
   getMonths,
   getMonthsWithOf,
 } from '@devexpress/dx-scheduler-core';
+import { ChangeMonthEditor } from './change-month-editor';
+import { ChangeWeekNumberEditor } from './change-week-number-editor';
 
 const styles = ({ spacing }) => ({
   textEditor: {
@@ -162,85 +164,36 @@ const YearlyEditorBase = ({
       value={value}
       {...restProps}
     >
-      <FormControlLabel
-        value="onDayAndMonth"
-        className={classes.formControl}
-        classes={{ label: classes.controlLabel }}
-        control={<Radio color="primary" />}
-        label={(
-          <Grid
-            container
-            direction="row"
-            justify="flex-start"
-            alignItems="center"
-          >
-            <Label
-              text={getMessage('everyLabel')}
-              className={classes.label}
-            />
-            <Select
-              className={classes.select}
-              value={month}
-              onValueChange={changeMonth}
-              readOnly={onDayAndMonthReadOnly}
-              availableOptions={months}
-            />
-            <TextEditor
-              className={classes.textEditor}
-              readOnly={onDayAndMonthReadOnly}
-              value={dayNumberTextField}
-              type={NUMBER_EDITOR}
-              onValueChange={changeByMonthDay}
-            />
-          </Grid>
-        )}
+      <ChangeMonthEditor
+        getMessage={getMessage}
+        labelComponent={Label}
+        textEditorComponent={TextEditor}
+        selectComponent={Select}
+        readOnly={onDayAndMonthReadOnly}
+        month={month}
+        changeMonth={changeMonth}
+        months={months}
+        dayNumber={dayNumberTextField}
+        changeByMonthDay={changeByMonthDay}
       />
-      <FormControlLabel
-        value="onDayOfWeek"
-        className={classNames(classes.formControlLabel, classes.formControl)}
-        classes={{ label: classes.controlLabel }}
-        control={<Radio color="primary" className={classes.radioButton} />}
-        label={(
-          <div>
-            <Grid
-              container
-              direction="row"
-              justify="flex-start"
-              alignItems="center"
-            >
-              <Label
-                className={classes.label}
-                text={getMessage('theLabel')}
-              />
-              <Select
-                className={classes.select}
-                value={weekNumber}
-                onValueChange={changeWeekNumber}
-                readOnly={onDayOfWeekReadOnly}
-                availableOptions={weekNumbers}
-              />
-              <Select
-                className={classes.longSelect}
-                value={dayOfWeek}
-                onValueChange={changeDayOfWeek}
-                readOnly={onDayOfWeekReadOnly}
-                availableOptions={daysOfWeek}
-              />
-            </Grid>
-            <Select
-              className={classes.doubleSelect}
-              value={month}
-              onValueChange={changeMonth}
-              readOnly={onDayOfWeekReadOnly}
-              availableOptions={monthsWithOf}
-            />
-          </div>
-        )}
+      <ChangeWeekNumberEditor
+        getMessage={getMessage}
+        labelComponent={Label}
+        selectComponent={Select}
+        readOnly={onDayOfWeekReadOnly}
+        month={month}
+        changeMonth={changeMonth}
+        months={monthsWithOf}
+        weekNumber={weekNumber}
+        weekNumbers={weekNumbers}
+        changeWeekNumber={changeWeekNumber}
+        dayOfWeek={dayOfWeek}
+        daysOfWeek={daysOfWeek}
+        changeDayOfWeek={changeDayOfWeek}
       />
     </RadioGroup>
   );
 };
-
 
 YearlyEditorBase.propTypes = {
   classes: PropTypes.object.isRequired,

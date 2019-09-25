@@ -23,46 +23,39 @@ export const RadioGroup = ({
   locale,
   ...restProps
 }) => {
+  const commonProps = {
+    readOnly,
+    getMessage,
+    textEditorComponent,
+    labelComponent,
+    appointmentData,
+    onFieldChange,
+  };
   switch (type) {
     case END_REPEAT_RADIO_GROUP:
       return (
         <EndRepeatEditor
-          readOnly={readOnly}
-          getMessage={getMessage}
-          textEditorComponent={textEditorComponent}
-          labelComponent={labelComponent}
           dateEditorComponent={dateEditorComponent}
-          appointmentData={appointmentData}
-          onFieldChange={onFieldChange}
           locale={locale}
+          {...commonProps}
           {...restProps}
         />
       );
     case MONTHLY_RADIO_GROUP:
       return (
         <MonthlyEditor
-          readOnly={readOnly}
-          getMessage={getMessage}
-          textEditorComponent={textEditorComponent}
-          labelComponent={labelComponent}
-          appointmentData={appointmentData}
           selectComponent={selectComponent}
           formatDate={formatDate}
-          onFieldChange={onFieldChange}
+          {...commonProps}
           {...restProps}
         />
       );
     case YEARLY_RADIO_GROUP:
       return (
         <YearlyEditor
-          readOnly={readOnly}
-          getMessage={getMessage}
-          textEditorComponent={textEditorComponent}
-          labelComponent={labelComponent}
-          appointmentData={appointmentData}
           selectComponent={selectComponent}
           formatDate={formatDate}
-          onFieldChange={onFieldChange}
+          {...commonProps}
           {...restProps}
         />
       );

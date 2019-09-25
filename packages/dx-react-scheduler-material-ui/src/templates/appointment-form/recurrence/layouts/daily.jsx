@@ -1,15 +1,14 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import classNames from 'classnames';
 import {
   NUMBER_EDITOR,
   getRecurrenceOptions,
   changeRecurrenceOptions,
 } from '@devexpress/dx-scheduler-core';
+import { Container } from './container';
 
-const styles = ({ spacing }) => ({
+const styles = {
   label: {
     width: '6.5em',
   },
@@ -21,10 +20,7 @@ const styles = ({ spacing }) => ({
     width: 'calc((100% - 7.5em) * 3 / 7)',
     maxWidth: '8em',
   },
-  grid: {
-    marginTop: spacing(1.75),
-  },
-});
+};
 
 const DailyBase = ({
   weeklyRecurrenceSelectorComponent,
@@ -48,12 +44,8 @@ const DailyBase = ({
     rRule: changeRecurrenceOptions({ ...recurrenceOptions, interval }),
   }), [recurrenceOptions, onFieldChange]);
   return (
-    <Grid
-      container
-      direction="row"
-      justify="flex-start"
-      alignItems="center"
-      className={classNames(classes.grid, className)}
+    <Container
+      className={className}
       {...restProps}
     >
       <Label
@@ -71,7 +63,7 @@ const DailyBase = ({
         text={getMessage('daysLabel')}
         className={classes.labelWithMargin}
       />
-    </Grid>
+    </Container>
   );
 };
 

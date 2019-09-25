@@ -1,13 +1,13 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 import {
   MONTHLY_RADIO_GROUP,
   NUMBER_EDITOR,
   getRecurrenceOptions,
   changeRecurrenceOptions,
 } from '@devexpress/dx-scheduler-core';
+import { Container } from './container';
 
 const styles = theme => ({
   root: {
@@ -22,8 +22,7 @@ const styles = theme => ({
     width: 'calc((100% - 7.5em) * 3 / 7)',
     maxWidth: '8em',
   },
-  grid: {
-    marginTop: theme.spacing(1.75),
+  container: {
     marginBottom: theme.spacing(1),
   },
   labelWithMargin: {
@@ -54,13 +53,7 @@ const MonthlyBase = ({
   }), [recurrenceOptions, onFieldChange]);
   return (
     <div {...restProps}>
-      <Grid
-        container
-        direction="row"
-        justify="flex-start"
-        alignItems="center"
-        className={classes.grid}
-      >
+      <Container className={classes.container}>
         <Label
           text={getMessage('repeatEveryLabel')}
           className={classes.label}
@@ -76,7 +69,7 @@ const MonthlyBase = ({
           text={getMessage('monthsLabel')}
           className={classes.labelWithMargin}
         />
-      </Grid>
+      </Container>
       <RadioGroup
         type={MONTHLY_RADIO_GROUP}
         readOnly={readOnly}

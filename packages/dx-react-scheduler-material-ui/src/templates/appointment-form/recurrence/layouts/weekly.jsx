@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 import { NUMBER_EDITOR, getRecurrenceOptions, changeRecurrenceOptions } from '@devexpress/dx-scheduler-core';
+import { Container } from './container';
 
 const styles = theme => ({
   label: {
@@ -12,9 +12,8 @@ const styles = theme => ({
     width: 'calc((100% - 7.5em) * 3 / 7)',
     maxWidth: '8em',
   },
-  grid: {
+  container: {
     marginBottom: theme.spacing(2),
-    marginTop: theme.spacing(1.75),
   },
   labelWithMargin: {
     marginLeft: '1em',
@@ -46,13 +45,7 @@ const WeeklyBase = ({
     <div
       {...restProps}
     >
-      <Grid
-        container
-        direction="row"
-        justify="flex-start"
-        alignItems="center"
-        className={classes.grid}
-      >
+      <Container className={classes.container}>
         <Label
           text={getMessage('repeatEveryLabel')}
           className={classes.label}
@@ -68,7 +61,7 @@ const WeeklyBase = ({
           text={getMessage('weeksOnLabel')}
           className={classes.labelWithMargin}
         />
-      </Grid>
+      </Container>
       <WeeklyRecurrenceSelector
         rRule={appointmentData.rRule}
         onValueChange={onFieldChange}

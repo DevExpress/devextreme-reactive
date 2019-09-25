@@ -33,8 +33,7 @@ const OutlinedSelectBase = React.memo(({
   ...restProps
 }) => {
   const handleChange = (event) => {
-    if (event.target.value === value) return;
-    onValueChange(event.target.value);
+    if (event.target.value !== value) onValueChange(event.target.value);
   };
 
   return (

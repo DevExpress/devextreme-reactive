@@ -157,10 +157,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
 
   commitChanges = memoize((finishCommitAppointment, commitAddedAppointment, isNew) => () =>  {
     this.toggleVisibility();
-    if (!finishCommitAppointment) return;
     if (isNew) {
       commitAddedAppointment();
-    } else {
+    } else if (finishCommitAppointment) {
       finishCommitAppointment();
     }
   });

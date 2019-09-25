@@ -64,7 +64,7 @@ describe('AppointmentForm recurrence layout', () => {
       expect(radioGroup)
         .toHaveLength(1);
 
-      expect(tree.find(`.${classes.grid}`))
+      expect(tree.find(`.${classes.container}`))
         .toHaveLength(1);
     });
 

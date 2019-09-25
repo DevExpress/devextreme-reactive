@@ -72,38 +72,34 @@ const EndRepeatEditorBase = ({
     value = 'endAfter';
   } else if (recurrenceOptions.until) {
     value = 'endBy';
-  } else value = 'never';
+  } else {
+    value = 'never';
+  }
 
   const onRadioGroupValueChange = (event) => {
+    let change;
     switch (event.target.value) {
       case 'endAfter':
         setEndDate(recurrenceOptions.until || endDate);
-        onFieldChange({
-          rRule: changeRecurrenceOptions({
-            ...recurrenceOptions, count, until: undefined,
-          }),
-        });
+        change = { count, until: undefined };
         break;
       case 'endBy':
         setCount(recurrenceOptions.count || count);
-        onFieldChange({
-          rRule: changeRecurrenceOptions({
-            ...recurrenceOptions, count: undefined, until: endDate,
-          }),
-        });
+        change = { count: undefined, until: endDate };
         break;
       case 'never':
         setEndDate(recurrenceOptions.until || endDate);
         setCount(recurrenceOptions.count || count);
-        onFieldChange({
-          rRule: changeRecurrenceOptions({
-            ...recurrenceOptions, count: undefined, until: undefined,
-          }),
-        });
+        change = { count: undefined, until: undefined };
         break;
       default:
         break;
     }
+    onFieldChange({
+      rRule: changeRecurrenceOptions({
+        ...recurrenceOptions, ...change,
+      }),
+    });
   };
   return (
     <RadioGroup
@@ -167,6 +163,7 @@ const EndRepeatEditorBase = ({
               onValueChange={changeRecurrenceEndDate}
               allowKeyboardControl={false}
               locale={locale}
+              isAllDayFormat={appointmentData.allDay}
             />
           </Grid>
         )}

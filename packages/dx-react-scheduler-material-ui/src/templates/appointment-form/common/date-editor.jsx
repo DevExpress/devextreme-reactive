@@ -21,11 +21,13 @@ const DateEditorBase = React.memo(({
   readOnly,
   className,
   locale,
+  isAllDayFormat,
   ...restProps
 }) => {
   const memoizedChangeHandler = React.useCallback(
     nextDate => nextDate && onValueChange(nextDate.toDate()), [onValueChange],
   );
+  const dateFormat = isAllDayFormat ? 'DD/MM/YYYY' : 'DD/MM/YYYY HH:mm A';
 
   return (
     <MuiPickersUtilsProvider utils={MomentUtils} locale={locale}>
@@ -36,7 +38,7 @@ const DateEditorBase = React.memo(({
         margin="normal"
         value={value}
         onChange={memoizedChangeHandler}
-        format="DD/MM/YYYY HH:mm A"
+        format={dateFormat}
         inputVariant="filled"
         hiddenLabel
         {...restProps}
@@ -56,6 +58,7 @@ DateEditorBase.propTypes = {
   readOnly: PropTypes.bool,
   onValueChange: PropTypes.func.isRequired,
   locale: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
+  isAllDayFormat: PropTypes.bool,
 };
 
 DateEditorBase.defaultProps = {
@@ -63,6 +66,7 @@ DateEditorBase.defaultProps = {
   value: undefined,
   className: undefined,
   readOnly: false,
+  isAllDayFormat: false,
 };
 
 export const DateEditor = withStyles(styles)(DateEditorBase, { name: 'DateEditor' });

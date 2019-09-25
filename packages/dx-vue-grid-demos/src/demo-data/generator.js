@@ -83,9 +83,9 @@ const generateDate = ({
 };
 
 export const defaultColumnValues = {
-  sex: ['Male', 'Female'],
+  gender: ['Male', 'Female'],
   name: [
-    'sex',
+    'gender',
     {
       Male: maleFirstNames,
       Female: femaleFirstNames,
@@ -128,16 +128,16 @@ export const globalSalesValues = {
 };
 
 export const employeeValues = {
-  sex: ['Male', 'Female'],
+  gender: ['Male', 'Female'],
   prefix: [
-    'sex',
+    'gender',
     {
       Male: ['Mr.', 'Dr.'],
       Female: ['Mrs.', 'Ms.', 'Dr.'],
     },
   ],
   firstName: [
-    'sex',
+    'gender',
     {
       Male: maleFirstNames,
       Female: femaleFirstNames,

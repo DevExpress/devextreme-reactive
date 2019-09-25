@@ -62,8 +62,8 @@ children? | Array&lt;[TableBandHeader.ColumnBands](#tablebandheadercolumnbands)&
 
 Name | Properties | Description
 -----|------------|------------
-TableBandHeader.Cell | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | A component that renders a band cell.
-TableBandHeader.Row | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | A component that renders a band cells' row.
+TableBandHeader.Cell | [Table.CellProps](table.md#tablecellprops) | A component that renders a band cell.
+TableBandHeader.Row | [Table.RowProps](table.md#tablerowprops) | A component that renders a band cells' row.
 
 Additional properties are added to the component's root element.
 

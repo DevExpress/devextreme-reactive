@@ -144,7 +144,7 @@ onValueChange | (nextValue: boolean) => void | Handles value changes.
 
 ### AppointmentForm.CommandButtonProps
 
-Properties passed to a component that renders a command button to the appointment form.
+Properties passed to a component that renders a command button on the appointment form.
 
 Field | Type | Description
 ------|------|------------
@@ -154,7 +154,7 @@ getMessage | (messageKey: string) => string | Uses a localization message's key 
 
 ### AppointmentForm.DateEditorProps
 
-Properties passed to a component that renders a date-time editor to the appointment form.
+Properties passed to a component that renders a date-time editor on the appointment form.
 
 Field | Type | Description
 ------|------|------------
@@ -165,7 +165,7 @@ locale? | string &#124; Array&lt;string&gt; | Specifies the locale as an IETF BC
 
 ### AppointmentForm.LabelProps
 
-Properties passed to a component that renders a text label to the appointment form.
+Properties passed to a component that renders a text label on the appointment form.
 
 Field | Type | Description
 ------|------|------------
@@ -174,7 +174,7 @@ text? | string | The label's text.
 
 ### AppointmentForm.RadioGroupProps
 
-Properties passed to a component that renders a radio group to the appointment form.
+Properties passed to a component that renders a radio group on the appointment form.
 
 Field | Type | Description
 ------|------|------------
@@ -192,7 +192,7 @@ labelComponent | ComponentType&lt;[AppointmentForm.LabelProps](#appointmentforml
 
 ### AppointmentForm.SelectProps
 
-Properties passed to a component that renders a menu of options to the appointment form.
+Properties passed to a component that renders a menu of options on the appointment form.
 
 Field | Type | Description
 ------|------|------------

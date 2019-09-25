@@ -100,7 +100,6 @@ const MonthlyEditorBase = ({
   const daysOfWeek = React.useMemo(
     () => getDaysOfWeek(formatDate, firstDayOfWeek), [formatDate, firstDayOfWeek],
   );
-  console.log(daysOfWeek)
 
   const onDayNumberReadOnly = readOnly || value !== 'onDayNumber';
   const onDayOfWeekReadOnly = readOnly || value !== 'onDayOfWeek';

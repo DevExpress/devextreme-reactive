@@ -112,7 +112,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, ViewState> {
       cellDuration,
       startDayHour,
       endDayHour,
-      viewCellsDataBaseComputed,
+      viewCellsDataComputed,
       timeTableRects,
       dayScaleCellComponent,
       dayScaleRowComponent,
@@ -149,7 +149,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, ViewState> {
         <Getter
           name="viewCellsData"
           computed={this.viewCellsDataComputed(
-            viewName, cellDuration, startDayHour, endDayHour, viewCellsDataBaseComputed,
+            viewName, cellDuration, startDayHour, endDayHour, viewCellsDataComputed,
           )}
         />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />

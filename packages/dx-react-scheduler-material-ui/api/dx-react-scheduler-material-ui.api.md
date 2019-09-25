@@ -164,6 +164,7 @@ export interface AppointmentFormProps {
   appointmentData?: AppointmentModel;
   basicLayoutComponent?: React.ComponentType<AppointmentForm_2.BasicLayoutProps>;
   booleanEditorComponent?: React.ComponentType<AppointmentForm_2.BooleanEditorProps>;
+  commandButtonComponent?: React.ComponentType<AppointmentForm_2.CommandButtonProps>;
   commandLayoutComponent?: React.ComponentType<AppointmentForm_2.CommandLayoutProps>;
   dateEditorComponent?: React.ComponentType<AppointmentForm_2.DateEditorProps>;
   labelComponent?: React.ComponentType<AppointmentForm_2.LabelProps>;

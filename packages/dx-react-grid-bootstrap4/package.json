@@ -45,9 +45,9 @@
     "lint:fix": "yarn lint -- --fix"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.0",
-    "@babel/plugin-transform-runtime": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
+    "@babel/core": "^7.6.2",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
     "@devexpress/dx-grid-core": "2.0.5",
     "@devexpress/dx-react-core": "2.0.5",

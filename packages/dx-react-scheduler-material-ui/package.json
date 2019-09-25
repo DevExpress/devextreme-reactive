@@ -43,16 +43,16 @@
     "lint:fix": "yarn lint -- --fix"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.0",
-    "@babel/plugin-transform-runtime": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
+    "@babel/core": "^7.6.2",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
     "@devexpress/dx-react-core": "2.0.5",
     "@devexpress/dx-react-scheduler": "2.0.5",
     "@devexpress/dx-scheduler-core": "2.0.5",
     "@devexpress/dx-testing": "2.0.5",
-    "@material-ui/core": "^4.4.2",
-    "@material-ui/icons": "^4.4.1",
+    "@material-ui/core": "^4.4.3",
+    "@material-ui/icons": "^4.4.3",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
@@ -69,7 +69,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.3",
     "jest": "^24.9.0",
-    "jss": "^9.8.7",
+    "jss": "^10.0.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-test-renderer": "^16.9.0",
@@ -87,8 +87,8 @@
     "@devexpress/dx-react-core": "2.0.5",
     "@devexpress/dx-react-scheduler": "2.0.5",
     "@devexpress/dx-scheduler-core": "2.0.5",
-    "@material-ui/core": ">=4.4.2",
-    "@material-ui/icons": ">=4.4.1",
+    "@material-ui/core": ">=4.4.3",
+    "@material-ui/icons": ">=4.4.3",
     "react": ">=16.9.0"
   }
 }

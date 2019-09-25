@@ -24,10 +24,10 @@
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.0",
-    "@babel/plugin-transform-runtime": "^7.6.0",
+    "@babel/core": "^7.6.2",
+    "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/polyfill": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
+    "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
     "@devexpress/dx-testing": "2.0.5",
     "@types/jest": "^24.0.18",
@@ -45,9 +45,9 @@
     "nodemon": "^1.19.2",
     "source-map-loader": "^0.2.4",
     "style-loader": "^1.0.0",
-    "webpack": "^4.40.2",
-    "webpack-cli": "^3.3.8",
-    "webpack-dev-server": "^3.8.0",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.1",
     "write-file-webpack-plugin": "^4.5.1"
   }
 }

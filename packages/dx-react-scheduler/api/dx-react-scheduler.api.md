@@ -119,6 +119,7 @@ export namespace AppointmentForm {
     readOnly?: boolean;
   }
   export interface DateEditorProps {
+    isAllDayFormat?: boolean;
     locale?: string | string[];
     onValueChange: (nextValue: Date) => void;
     readOnly?: boolean;
@@ -178,6 +179,7 @@ export namespace AppointmentForm {
   export interface RadioGroupProps {
     appointmentData: AppointmentModel;
     dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
+    firstDayOfWeek: number;
     formatDate: FormatterFn;
     getMessage?: (messageKey: string) => string;
     labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
@@ -194,6 +196,7 @@ export namespace AppointmentForm {
     appointmentData: AppointmentModel;
     children?: React.ReactNode;
     dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
+    firstDayOfWeek: number;
     formatDate: FormatterFn;
     getMessage: (messageKey: string) => string;
     labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
@@ -224,6 +227,7 @@ export namespace AppointmentForm {
     value: string | number;
   }
   export interface WeeklyRecurrenceSelectorProps {
+    firstDayOfWeek: number;
     formatDate: FormatterFn;
     onFieldChange: (nextFieldValue: {
       [fieldName: string]: any;

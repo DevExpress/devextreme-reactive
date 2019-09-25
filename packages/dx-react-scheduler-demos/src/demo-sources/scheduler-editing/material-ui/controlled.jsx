@@ -8,6 +8,7 @@ import {
   AppointmentTooltip,
   WeekView,
   EditRecurrenceMenu,
+  AllDayPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { appointments } from '../../../demo-data/appointments';
 
@@ -89,6 +90,7 @@ export default class Demo extends React.PureComponent {
             startDayHour={9}
             endDayHour={17}
           />
+          <AllDayPanel />
           <EditRecurrenceMenu />
           <Appointments />
           <AppointmentTooltip

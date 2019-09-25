@@ -45,7 +45,7 @@ const defaultDeps = {
 };
 
 const defaultProps = {
-  viewCellsDataBaseComputed: jest.fn(),
+  viewCellsDataComputed: jest.fn(),
   name: 'Day',
   type: 'basic',
   timeTableRects: jest.fn(),
@@ -64,7 +64,7 @@ describe('Basic View', () => {
     computed.mockImplementation(
       (getters, viewName, baseComputed) => baseComputed(getters, viewName),
     );
-    defaultProps.viewCellsDataBaseComputed.mockImplementation(
+    defaultProps.viewCellsDataComputed.mockImplementation(
       () => () => [[{}, {}], [{}, {}]],
     );
     defaultProps.timeTableRects.mockImplementation(
@@ -99,7 +99,7 @@ describe('Basic View', () => {
         </PluginHost>
       ));
 
-      expect(defaultProps.viewCellsDataBaseComputed)
+      expect(defaultProps.viewCellsDataComputed)
         .toBeCalledWith(
           props.cellDuration,
           props.startDayHour,

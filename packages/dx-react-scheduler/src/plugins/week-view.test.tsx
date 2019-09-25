@@ -89,7 +89,7 @@ describe('Week View', () => {
           dayScaleEmptyCellComponent: expect.any(Function),
         });
 
-      tree.find(BasicView).props().viewCellsDataBaseComputed(
+      tree.find(BasicView).props().viewCellsDataComputed(
         1, 2, 3,
       )({ firstDayOfWeek: 4, intervalCount: 5, excludedDays: 6, currentDate: 7 });
       expect(viewCellsData)

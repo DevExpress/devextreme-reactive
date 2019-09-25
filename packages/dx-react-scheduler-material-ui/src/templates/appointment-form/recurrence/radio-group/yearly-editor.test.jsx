@@ -41,6 +41,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
       endDate: new Date(),
       rRule: 'RRULE:FREQ=YEARLY',
     },
+    firstDayOfWeek: 0,
   };
   let shallow;
   beforeAll(() => {

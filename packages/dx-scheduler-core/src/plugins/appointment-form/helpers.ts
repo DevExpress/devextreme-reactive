@@ -7,7 +7,10 @@ import {
   EndDate,
   RadioGroupDisplayData,
 } from '../../types';
-import { DEFAULT_RULE_OBJECT, RRULE_REPEAT_TYPES, REPEAT_TYPES, LAST_WEEK } from './constants';
+import {
+  DEFAULT_RULE_OBJECT, RRULE_REPEAT_TYPES, REPEAT_TYPES, LAST_WEEK,
+  DAYS_OF_WEEK_ARRAY, DAYS_IN_WEEK, DAYS_OF_WEEK_DATES,
+} from './constants';
 
 export const callActionIfExists: PureComputed<[Action, object], void> = (action, payload) => {
   if (action) {
@@ -194,4 +197,20 @@ export const handleWeekDaysChange: PureComputed<
   }
   if (byWeekDay === 0) return { ...options, byweekday: undefined };
   return { ...options, byweekday: byWeekDay };
+};
+
+export const getDaysOfWeekArray: PureComputed<[number], Array<number>> = (firstDayOfWeek) => {
+  const firstPart = DAYS_OF_WEEK_ARRAY.filter(
+    dayOfWeek => dayOfWeek >= firstDayOfWeek - 1 && dayOfWeek < DAYS_IN_WEEK - 1,
+  );
+  const secondPart = DAYS_OF_WEEK_ARRAY.filter(
+    dayOfWeek => dayOfWeek < firstDayOfWeek - 1 || dayOfWeek >= DAYS_IN_WEEK - 1,
+  );
+  return firstDayOfWeek !== 0 ? [...firstPart, ...secondPart] : [...secondPart, ...firstPart];
+};
+
+export const getDaysOfWeekDates: PureComputed<[number], Array<Date>> = (firstDayOfWeek) => {
+  const firstPart = DAYS_OF_WEEK_DATES.slice(firstDayOfWeek, DAYS_OF_WEEK_DATES.length);
+  const secondPart = DAYS_OF_WEEK_DATES.slice(0, firstDayOfWeek);
+  return [...firstPart, ...secondPart];
 };

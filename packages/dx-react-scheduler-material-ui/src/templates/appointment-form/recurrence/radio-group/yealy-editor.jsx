@@ -32,6 +32,7 @@ export const YearlyEditor = ({
   appointmentData,
   formatDate,
   onFieldChange,
+  firstDayOfWeek,
   ...restProps
 }) => {
   const [dayNumber, setDayNumber] = useState(appointmentData.startDate.getDate());
@@ -76,7 +77,7 @@ export const YearlyEditor = ({
     }),
   }), [recurrenceOptions]);
   const daysOfWeek = React.useMemo(
-    () => getDaysOfWeek(formatDate), [formatDate],
+    () => getDaysOfWeek(formatDate, firstDayOfWeek), [formatDate, firstDayOfWeek],
   );
 
   const onDayAndMonthReadOnly = readOnly || value !== 'onDayAndMonth';
@@ -163,6 +164,7 @@ YearlyEditor.propTypes = {
   }).isRequired,
   formatDate: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
+  firstDayOfWeek: PropTypes.number.isRequired,
 };
 
 YearlyEditor.defaultProps = {

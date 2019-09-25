@@ -42,6 +42,7 @@ describe('AppointmentForm recurrence radio group', () => {
       endDate: new Date(),
     },
     id: END_REPEAT_RADIO_GROUP,
+    firstDayOfWeek: 0,
   };
   let mount;
   beforeEach(() => {

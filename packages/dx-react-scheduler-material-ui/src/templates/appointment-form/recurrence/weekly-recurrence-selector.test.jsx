@@ -19,6 +19,7 @@ describe('AppointmentForm recurrence', () => {
   const defaultProps = {
     rRule: 'RRULE:FREQ=WEEKLY',
     formatDate: jest.fn(),
+    firstDayOfWeek: 0,
   };
   let shallow;
   let classes;

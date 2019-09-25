@@ -64,6 +64,7 @@ const MonthlyEditorBase = ({
   appointmentData,
   formatDate,
   onFieldChange,
+  firstDayOfWeek,
   ...restProps
 }) => {
   const [dayNumber, setDayNumber] = useState(appointmentData.startDate.getDate());
@@ -97,8 +98,9 @@ const MonthlyEditorBase = ({
     }),
   }), [recurrenceOptions]);
   const daysOfWeek = React.useMemo(
-    () => getDaysOfWeek(formatDate), [formatDate],
+    () => getDaysOfWeek(formatDate, firstDayOfWeek), [formatDate, firstDayOfWeek],
   );
+  console.log(daysOfWeek)
 
   const onDayNumberReadOnly = readOnly || value !== 'onDayNumber';
   const onDayOfWeekReadOnly = readOnly || value !== 'onDayOfWeek';
@@ -222,6 +224,7 @@ MonthlyEditorBase.propTypes = {
   }).isRequired,
   readOnly: PropTypes.bool,
   formatDate: PropTypes.func.isRequired,
+  firstDayOfWeek: PropTypes.number.isRequired,
 };
 
 MonthlyEditorBase.defaultProps = {

@@ -340,6 +340,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               appointmentChanges,
               formatDate,
               locale,
+              firstDayOfWeek,
             }, {
               changeAddedAppointment,
               changeAppointment,
@@ -368,6 +369,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   labelComponent={labelComponent}
                   selectComponent={selectComponent}
                   visible={isRecurrenceLayoutVisible}
+                  firstDayOfWeek={firstDayOfWeek}
                 />
               );
             }}

@@ -43,6 +43,7 @@ const MonthlyBase = ({
   selectComponent,
   weeklyRecurrenceSelectorComponent,
   formatDate,
+  firstDayOfWeek,
   ...restProps
 }) => {
   const { rRule } = appointmentData;
@@ -81,6 +82,7 @@ const MonthlyBase = ({
         selectComponent={selectComponent}
         formatDate={formatDate}
         dateEditorComponent={() => null}
+        firstDayOfWeek={firstDayOfWeek}
       />
     </div>
   );
@@ -108,6 +110,7 @@ MonthlyBase.propTypes = {
   getMessage: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   formatDate: PropTypes.func.isRequired,
+  firstDayOfWeek: PropTypes.number.isRequired,
 };
 
 MonthlyBase.defaultProps = {

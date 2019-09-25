@@ -83,8 +83,8 @@ describe('AppointmentForm utils', () => {
     });
   });
   describe('#getDaysOfWeek', () => {
-    it('should return days of week depending on getMessage function', () => {
-      getDaysOfWeek(defaultProps.formatDate);
+    it('should return days of week', () => {
+      const result = getDaysOfWeek(defaultProps.formatDate, 0);
 
       expect(defaultProps.formatDate)
         .toHaveBeenCalledWith(SUNDAY_DATE, LONG_WEEK_DAY_OPTIONS);
@@ -100,6 +100,39 @@ describe('AppointmentForm utils', () => {
         .toHaveBeenCalledWith(FRIDAY_DATE, LONG_WEEK_DAY_OPTIONS);
       expect(defaultProps.formatDate)
         .toHaveBeenCalledWith(SATURDAY_DATE, LONG_WEEK_DAY_OPTIONS);
+      expect(result[0].id)
+        .toEqual(0);
+      expect(result[1].id)
+        .toEqual(1);
+      expect(result[2].id)
+        .toEqual(2);
+      expect(result[3].id)
+        .toEqual(3);
+      expect(result[4].id)
+        .toEqual(4);
+      expect(result[5].id)
+        .toEqual(5);
+      expect(result[6].id)
+        .toEqual(6);
+    });
+    it('should return days of week depending on firstDayOfWeek', () => {
+      const firstDayOfWeek = 2;
+      const result = getDaysOfWeek(defaultProps.formatDate, firstDayOfWeek);
+
+      expect(result[0].id)
+        .toEqual(2);
+      expect(result[1].id)
+        .toEqual(3);
+      expect(result[2].id)
+        .toEqual(4);
+      expect(result[3].id)
+        .toEqual(5);
+      expect(result[4].id)
+        .toEqual(6);
+      expect(result[5].id)
+        .toEqual(0);
+      expect(result[6].id)
+        .toEqual(1);
     });
   });
   describe('#getWeekNumberLabels', () => {

@@ -21,6 +21,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   getDaysOfWeek: jest.fn(),
   getMonths: jest.fn(),
   getWeekNumberLabels: jest.fn(),
+  firstDayOfWeek: 0,
 }));
 
 describe('AppointmentForm recurrence RadioGroup', () => {

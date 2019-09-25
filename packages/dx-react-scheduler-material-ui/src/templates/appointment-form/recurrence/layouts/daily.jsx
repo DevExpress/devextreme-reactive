@@ -35,6 +35,7 @@ const DailyBase = ({
   selectComponent,
   className,
   formatDate,
+  firstDayOfWeek,
   ...restProps
 }) => {
   const { rRule } = appointmentData;
@@ -90,6 +91,7 @@ DailyBase.propTypes = {
   readOnly: PropTypes.bool,
   className: PropTypes.string,
   formatDate: PropTypes.func.isRequired,
+  firstDayOfWeek: PropTypes.number.isRequired,
 };
 
 DailyBase.defaultProps = {

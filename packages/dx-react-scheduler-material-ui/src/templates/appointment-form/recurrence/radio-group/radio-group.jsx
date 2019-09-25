@@ -21,6 +21,7 @@ export const RadioGroup = ({
   onFieldChange,
   type,
   locale,
+  firstDayOfWeek,
   ...restProps
 }) => {
   const commonProps = {
@@ -46,6 +47,7 @@ export const RadioGroup = ({
         <MonthlyEditor
           selectComponent={selectComponent}
           formatDate={formatDate}
+          firstDayOfWeek={firstDayOfWeek}
           {...commonProps}
           {...restProps}
         />
@@ -55,6 +57,7 @@ export const RadioGroup = ({
         <YearlyEditor
           selectComponent={selectComponent}
           formatDate={formatDate}
+          firstDayOfWeek={firstDayOfWeek}
           {...commonProps}
           {...restProps}
         />
@@ -85,6 +88,7 @@ RadioGroup.propTypes = {
   }).isRequired,
   onFieldChange: PropTypes.func.isRequired,
   formatDate: PropTypes.func.isRequired,
+  firstDayOfWeek: PropTypes.number.isRequired,
 };
 
 RadioGroup.defaultProps = {

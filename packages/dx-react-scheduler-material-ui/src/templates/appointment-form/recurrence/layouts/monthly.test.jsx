@@ -20,6 +20,7 @@ describe('AppointmentForm recurrence layout', () => {
     getMessage: jest.fn(),
     formatDate: jest.fn(),
     appointmentData: {},
+    firstDayOfWeek: 0,
   };
   let classes;
   let shallow;

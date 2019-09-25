@@ -5,8 +5,8 @@ import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import {
-  getRecurrenceOptions, DAYS_OF_WEEK_ARRAY, WEEK_DAY_OPTIONS,
-  handleWeekDaysChange, changeRecurrenceOptions, DAYS_OF_WEEK_DATES,
+  getRecurrenceOptions, WEEK_DAY_OPTIONS, handleWeekDaysChange, changeRecurrenceOptions,
+  getDaysOfWeekArray, getDaysOfWeekDates,
 } from '@devexpress/dx-scheduler-core';
 import { setColor } from '../../utils';
 
@@ -41,9 +41,12 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
   classes,
   className,
   onValueChange,
+  firstDayOfWeek,
   ...restProps
 }) => {
   const recurrenceOptions = getRecurrenceOptions(rRule);
+  const daysOfWeekArray = getDaysOfWeekArray(firstDayOfWeek);
+  const daysOfWeekDates = getDaysOfWeekDates(firstDayOfWeek);
   return (
     <ButtonGroup
       variant="outlined"
@@ -54,7 +57,7 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
       {...restProps}
     >
       {
-        DAYS_OF_WEEK_ARRAY.map((dayOfWeek, index) => (
+        daysOfWeekArray.map((dayOfWeek, index) => (
           <Button
             className={classNames({
               [classes.button]: true,
@@ -69,7 +72,7 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
               )),
             })}
           >
-            {formatDate(DAYS_OF_WEEK_DATES[index], WEEK_DAY_OPTIONS)}
+            {formatDate(daysOfWeekDates[index], WEEK_DAY_OPTIONS)}
           </Button>
         ))
       }
@@ -84,6 +87,7 @@ WeeklyRecurrenceSelectorBase.propTypes = {
   onValueChange: PropTypes.func,
   readOnly: PropTypes.bool,
   className: PropTypes.string,
+  firstDayOfWeek: PropTypes.number.isRequired,
 };
 
 WeeklyRecurrenceSelectorBase.defaultProps = {

@@ -43,6 +43,7 @@ const YearlyBase = ({
   selectComponent,
   weeklyRecurrenceSelectorComponent,
   formatDate,
+  firstDayOfWeek,
   ...restProps
 }) => {
   const { rRule } = appointmentData;
@@ -82,6 +83,7 @@ const YearlyBase = ({
         formatDate={formatDate}
         className={classes.radioGroup}
         dateEditorComponent={() => null}
+        firstDayOfWeek={firstDayOfWeek}
       />
     </div>
   );
@@ -109,6 +111,7 @@ YearlyBase.propTypes = {
   getMessage: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   formatDate: PropTypes.func.isRequired,
+  firstDayOfWeek: PropTypes.number.isRequired,
 };
 
 YearlyBase.defaultProps = {

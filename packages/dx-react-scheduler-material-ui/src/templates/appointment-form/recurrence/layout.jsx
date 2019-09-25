@@ -112,6 +112,7 @@ const LayoutBase = ({
   formatDate,
   locale,
   visible,
+  firstDayOfWeek,
   ...restProps
 }) => {
   const recurrenceOptions = getRecurrenceOptions(appointmentData.rRule) || {};
@@ -159,6 +160,7 @@ const LayoutBase = ({
         selectComponent={Select}
         weeklyRecurrenceSelectorComponent={weeklyRecurrenceSelectorComponent}
         formatDate={formatDate}
+        firstDayOfWeek={firstDayOfWeek}
       />
       <Label
         text={getMessage('endRepeatLabel')}
@@ -210,6 +212,7 @@ LayoutBase.propTypes = {
   }).isRequired,
   formatDate: PropTypes.func.isRequired,
   visible: PropTypes.bool.isRequired,
+  firstDayOfWeek: PropTypes.number.isRequired,
 };
 
 LayoutBase.defaultProps = {

@@ -33,6 +33,7 @@ const WeeklyBase = ({
   selectComponent,
   weeklyRecurrenceSelectorComponent: WeeklyRecurrenceSelector,
   formatDate,
+  firstDayOfWeek,
   ...restProps
 }) => {
   const { rRule } = appointmentData;
@@ -67,6 +68,7 @@ const WeeklyBase = ({
         onValueChange={onFieldChange}
         readOnly={readOnly}
         formatDate={formatDate}
+        firstDayOfWeek={firstDayOfWeek}
       />
     </div>
   );
@@ -94,6 +96,7 @@ WeeklyBase.propTypes = {
   getMessage: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   formatDate: PropTypes.func.isRequired,
+  firstDayOfWeek: PropTypes.number.isRequired,
 };
 
 WeeklyBase.defaultProps = {

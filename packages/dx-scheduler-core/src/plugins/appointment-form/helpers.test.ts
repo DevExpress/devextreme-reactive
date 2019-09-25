@@ -5,8 +5,14 @@ import {
   changeRecurrenceOptions, handleStartDateChange, handleToDayOfWeekChange, handleWeekNumberChange,
   getRRuleFrequency, getFrequencyString, handleChangeFrequency, getRadioGroupDisplayData,
   handleWeekDaysChange,
+  getDaysOfWeekArray,
+  getDaysOfWeekDates,
 } from './helpers';
-import { DEFAULT_RULE_OBJECT, REPEAT_TYPES, RRULE_REPEAT_TYPES } from './constants';
+import {
+  DEFAULT_RULE_OBJECT, REPEAT_TYPES, RRULE_REPEAT_TYPES, DAYS_OF_WEEK_ARRAY,
+  DAYS_OF_WEEK_DATES, SUNDAY_DATE, MONDAY_DATE, TUESDAY_DATE, WEDNESDAY_DATE,
+  THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE,
+} from './constants';
 
 describe('AppointmentForm helpers', () => {
   describe('#callActionIfExists', () => {
@@ -389,6 +395,112 @@ describe('AppointmentForm helpers', () => {
         .toMatchObject({
           byweekday: [3],
         });
+    });
+  });
+  describe('#getDaysOfWeekArray', () => {
+    it('should return days from Sunday to Saturday', () => {
+      const result = getDaysOfWeekArray(0);
+
+      expect(result)
+        .toEqual(DAYS_OF_WEEK_ARRAY);
+    });
+    it('should return days from Monday to Sunday', () => {
+      const result = getDaysOfWeekArray(1);
+
+      expect(result)
+        .toEqual([0, 1, 2, 3, 4, 5, 6]);
+    });
+    it('should return days from Tuesday to Monday', () => {
+      const result = getDaysOfWeekArray(2);
+
+      expect(result)
+        .toEqual([1, 2, 3, 4, 5, 6, 0]);
+    });
+    it('should return days from Wednesday to Tuesday', () => {
+      const result = getDaysOfWeekArray(3);
+
+      expect(result)
+        .toEqual([2, 3, 4, 5, 6, 0, 1]);
+    });
+    it('should return days from Thursday to Wednesday', () => {
+      const result = getDaysOfWeekArray(4);
+
+      expect(result)
+        .toEqual([3, 4, 5, 6, 0, 1, 2]);
+    });
+    it('should return days from Friday to Thursday', () => {
+      const result = getDaysOfWeekArray(5);
+
+      expect(result)
+        .toEqual([4, 5, 6, 0, 1, 2, 3]);
+    });
+    it('should return days from Saturday to Sunday', () => {
+      const result = getDaysOfWeekArray(6);
+
+      expect(result)
+        .toEqual([5, 6, 0, 1, 2, 3, 4]);
+    });
+  });
+  describe('#getDaysOfWeekDates', () => {
+    it('should return days from Sunday to Saturday', () => {
+      const result = getDaysOfWeekDates(0);
+
+      expect(result)
+        .toEqual(DAYS_OF_WEEK_DATES);
+    });
+    it('should return days from Monday to Sunday', () => {
+      const result = getDaysOfWeekDates(1);
+
+      expect(result)
+        .toEqual([
+          MONDAY_DATE, TUESDAY_DATE, WEDNESDAY_DATE,
+          THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE, SUNDAY_DATE,
+        ]);
+    });
+    it('should return days from Tuesday to Monday', () => {
+      const result = getDaysOfWeekDates(2);
+
+      expect(result)
+        .toEqual([
+          TUESDAY_DATE, WEDNESDAY_DATE, THURSDAY_DATE, FRIDAY_DATE,
+          SATURDAY_DATE, SUNDAY_DATE, MONDAY_DATE,
+        ]);
+    });
+    it('should return days from Wednesday to Tuesday', () => {
+      const result = getDaysOfWeekDates(3);
+
+      expect(result)
+        .toEqual([
+          WEDNESDAY_DATE, THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE,
+          SUNDAY_DATE, MONDAY_DATE, TUESDAY_DATE,
+        ]);
+    });
+    it('should return days from Thursday to Wednesday', () => {
+      const result = getDaysOfWeekDates(4);
+
+      expect(result)
+        .toEqual([
+          THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE, SUNDAY_DATE,
+          MONDAY_DATE, TUESDAY_DATE, WEDNESDAY_DATE,
+        ]);
+    });
+    it('should return days from Friday to Thursday', () => {
+      const result = getDaysOfWeekDates(5);
+
+      expect(result)
+        .toEqual([
+          FRIDAY_DATE, SATURDAY_DATE, SUNDAY_DATE, MONDAY_DATE,
+          TUESDAY_DATE, WEDNESDAY_DATE, THURSDAY_DATE,
+        ]);
+    });
+    it('should return days from Saturday to Sunday', () => {
+      const result = getDaysOfWeekDates(6);
+
+      expect(result)
+        .toEqual([
+          SATURDAY_DATE, SUNDAY_DATE, MONDAY_DATE, TUESDAY_DATE,
+          WEDNESDAY_DATE, THURSDAY_DATE, FRIDAY_DATE,
+        ]);
     });
   });
 });

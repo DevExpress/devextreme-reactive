@@ -97,6 +97,8 @@ export namespace AppointmentForm {
     formatDate: FormatterFn;
     /** Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale is used to format date-time values. */
     locale: string | string[];
+    /** The first day of week. */
+    firstDayOfWeek: number;
     /** A component that renders a radio group. */
     radioGroupComponent: React.ComponentType<AppointmentForm.RadioGroupProps>;
     /** A component that renders a weekly recurrence selector. */
@@ -186,6 +188,8 @@ export namespace AppointmentForm {
     locale?: string | string[];
     /** A function that formats dates based on the locale. */
     formatDate: FormatterFn;
+    /** The first day of week. */
+    firstDayOfWeek: number;
     /** An event raised when a field value in the appointment form is changed. */
     onFieldChange: (nextFieldValue: { [fieldName: string]: any }) => void;
     /** Specifies the date editor is read-only. */
@@ -207,6 +211,8 @@ export namespace AppointmentForm {
   export interface WeeklyRecurrenceSelectorProps {
     /** A function that formats dates based on the locale. */
     formatDate: FormatterFn;
+    /** The first day of week. */
+    firstDayOfWeek: number;
     /** Specifies the recurrence rule. */
     rRule: string;
     /** Specifies whether the weekly recurrence selector is read-only. */

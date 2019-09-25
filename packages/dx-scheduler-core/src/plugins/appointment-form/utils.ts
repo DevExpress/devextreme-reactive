@@ -5,8 +5,9 @@ import {
 import { PureComputed } from '@devexpress/dx-core';
 import { Option, OptionsFormatterFn, DateFormatterFn } from '../../types';
 import {
-  MONTHS_DATES, DAYS_OF_WEEK_DATES, REPEAT_TYPES_ARRAY, WEEK_NUMBER_LABELS,
+  MONTHS_DATES, REPEAT_TYPES_ARRAY, WEEK_NUMBER_LABELS, DAYS_IN_WEEK,
 } from './constants';
+import { getDaysOfWeekDates, getDaysOfWeekArray } from './helpers';
 
 export const getWeekNumberLabels: OptionsFormatterFn = getMessage =>
   WEEK_NUMBER_LABELS.map((weekNumberLabel, index) => ({
@@ -14,11 +15,18 @@ export const getWeekNumberLabels: OptionsFormatterFn = getMessage =>
     id: index,
   }));
 
-export const getDaysOfWeek: DateFormatterFn = formatDate => DAYS_OF_WEEK_DATES.map(
-  (day, index) => ({
-    text: getDayOfWeek(day, formatDate),
-    id: index,
-  }));
+export const getDaysOfWeek: PureComputed<
+  [(date: Date, formatOptions: object) => string, number], Array<Option>
+> = (formatDate, firstDayOfWeek) => {
+  const daysOfWeekArray = getDaysOfWeekArray(firstDayOfWeek);
+  const daysOfWeekDates = getDaysOfWeekDates(firstDayOfWeek);
+  return daysOfWeekDates.map(
+    (day, index) => ({
+      text: getDayOfWeek(day, formatDate),
+      id: index + 1 < DAYS_IN_WEEK ? daysOfWeekArray[index + 1] : daysOfWeekArray[0],
+    }),
+  );
+};
 
 export const getMonths: DateFormatterFn = formatDate => MONTHS_DATES.map((month, index) => ({
   text: getMonth(month, formatDate),

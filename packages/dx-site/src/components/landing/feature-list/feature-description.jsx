@@ -2,13 +2,13 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import GatsbyLink from 'gatsby-link';
 import FeatureDescriptionBase from './feature-description-base';
+import FeatureTitleBase from './feature-title-base';
 import styles from './feature-description.module.scss';
 
-const Title = ({ guideLink, ...restProps}) => (
-  <GatsbyLink
+const Title = props => (
+  <FeatureTitleBase
     className={styles.title}
-    to={guideLink}
-    {...restProps}
+    {...props}
   />
 );
 const Description = props => <div {...props} className={styles.description} />;

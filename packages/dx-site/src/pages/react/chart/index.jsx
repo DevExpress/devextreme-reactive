@@ -46,42 +46,52 @@ const chartTypes = [
     sectionTitle: '5 Built-in Chart Types With Customizable Series',
     title: 'Bar Chart',
     imageLink: barImage,
+    guideLink: '/react/chart/demos/bar/simple-bar/',
   },
   {
     title: 'Line Chart',
     imageLink: lineImage,
+    guideLink: '/react/chart/demos/line/line/',
   },
   {
     title: 'Spline Chart',
     imageLink: splineImage,
+    guideLink: '/react/chart/demos/line/spline/',
   },
   {
     title: 'Area Chart',
     imageLink: areaImage,
+    guideLink: '/react/chart/demos/area/simple-area/',
   },
   {
     title: 'Scatter Chart',
     imageLink: scatterImage,
+    guideLink: '/react/chart/demos/point/scatter/',
   },
   {
     title: 'Stacked Bar Chart',
     imageLink: stackedBarImage,
+    guideLink: '/react/chart/demos/bar/stacked-bar/',
   },
   {
     title: 'Stacked Line Chart',
     imageLink: stackedLineImage,
+    guideLink: '/react/chart/demos/line/simple-bar/',
   },
   {
     title: 'Stacked Spline Chart',
     imageLink: stackedSplineImage,
+    guideLink: '/react/chart/demos/line/spline/',
   },
   {
     title: 'Stacked Area Chart',
     imageLink: stackedAreaImage,
+    guideLink: '/react/chart/demos/area/stacked-area/',
   },
   {
     title: 'Pie Chart',
     imageLink: pieImage,
+    guideLink: '/react/chart/demos/pie/pie/',
   },
 ];
 const pageData = [

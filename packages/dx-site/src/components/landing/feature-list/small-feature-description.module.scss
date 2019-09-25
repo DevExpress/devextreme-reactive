@@ -3,6 +3,11 @@
 .smallTitle {
   @include feature-title;
   margin-bottom: 7px;
+
+  &:hover {
+    color: #007d9e;
+    text-decoration: none;
+  }
 }
 
 .smallDescription {

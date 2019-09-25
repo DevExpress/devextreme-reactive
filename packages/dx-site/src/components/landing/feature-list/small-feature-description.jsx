@@ -1,10 +1,17 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import FeatureDescriptionBase from './feature-description-base';
+import FeatureTitleBase from './feature-title-base';
 
 import styles from './small-feature-description.module.scss';
 
-const Title = props => <div {...props} className={styles.smallTitle} />;
+const Title = props => (
+  <FeatureTitleBase
+    className={styles.smallTitle}
+    {...props}
+  />
+);
+
 const Description = props => <div {...props} className={styles.smallDescription} />;
 
 const FeatureDescription = props => (

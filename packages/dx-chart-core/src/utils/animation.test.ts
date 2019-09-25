@@ -40,11 +40,11 @@ describe('build animation', () => {
 
   it('should update animation', () => {
     const animation = buildAnimation(easing, duration)(
-      'startCoords', 'endCoords', processAnimation, setAttributes,
+      'startCoords', 'endCoords', processAnimation, setAttributes, 10,
     );
     jest.runAllTimers();
-    animation.update('updatedStartCoords', 'updatedEndCoords');
-    expect(processAnimation).toBeCalledWith('updatedStartCoords', 'updatedEndCoords');
+    animation.update('updatedStartCoords', 'updatedEndCoords', 0, 55);
+    expect(processAnimation).toBeCalledWith('updatedStartCoords', 'updatedEndCoords', 55);
     expect(cancelAnimationFrame).toBeCalled();
     expect(requestAnimationFrame).toBeCalled();
   });

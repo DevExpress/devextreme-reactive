@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {
   processLineAnimation, HOVERED, SELECTED, isArrayValuesChanged, getStartCoordinates,
-  PathComponentPathState, PathPoints, UpdateAnimate, isScalesChanged,
+  PathComponentPathState, PathPoints, Animation, isScalesChanged, getStartVal,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { PathComponentPathProps } from '../../types';
 
 class RawPath extends React.PureComponent<PathComponentPathProps, PathComponentPathState> {
-  animate: UpdateAnimate | undefined;
+  animate: Animation | undefined;
   constructor(props) {
     super(props);
 
@@ -44,12 +44,10 @@ class RawPath extends React.PureComponent<PathComponentPathProps, PathComponentP
     } = this.props;
 
     if (this.animate) {
-      if (prevCoordinates.length !== coordinates.length) {
-        this.animate.update(getStartCoordinates(scales, coordinates), coordinates);
-      } else if (isScalesChanged(prevScales, scales)) {
+      if (isScalesChanged(prevScales, scales)) {
         this.setAttribute({ coordinates });
       } else if (isArrayValuesChanged(prevCoordinates, coordinates, 'arg', 'val')) {
-        this.animate.update(prevCoordinates, coordinates);
+        this.animate.update(prevCoordinates, coordinates, 0, getStartVal(scales));
       }
     } else {
       this.setAttribute({ coordinates });

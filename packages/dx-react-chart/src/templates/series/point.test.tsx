@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { dSymbol, getStartY, processPointAnimation, isValuesChanged, isScalesChanged } from '@devexpress/dx-chart-core';
+import { dSymbol, getStartVal, processPointAnimation, isValuesChanged, isScalesChanged } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { Point } from './point';
 
@@ -10,7 +10,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   SELECTED: 'test_selected',
   getVisibility: jest.fn().mockReturnValue('visible'),
   isValuesChanged: jest.fn().mockReturnValue(true),
-  getStartY: jest.fn().mockReturnValue('startY'),
+  getStartVal: jest.fn().mockReturnValue('startY'),
   processPointAnimation: jest.fn(),
   isScalesChanged: jest.fn().mockReturnValue(false),
 }));
@@ -142,7 +142,7 @@ describe('Animation', () => {
       />
     ));
 
-    expect(getStartY).lastCalledWith({ tag: 'test-scales' });
+    expect(getStartVal).lastCalledWith({ tag: 'test-scales' });
     expect(createAnimation).toBeCalledWith(
       { x: 1, y: 'startY' }, { x: 1, y: 2 },
       processPointAnimation, expect.any(Function),

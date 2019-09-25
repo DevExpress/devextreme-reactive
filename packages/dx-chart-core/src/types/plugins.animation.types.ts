@@ -7,7 +7,7 @@ export type EasingFn = PureComputed<[number], number>;
 export type GetNewPositionsFn = PureComputed<[number], any>;
 
 /** @internal */
-export type ProcessAnimationFn = PureComputed<[any, any], GetNewPositionsFn>;
+export type ProcessAnimationFn = PureComputed<[any, any, number?], GetNewPositionsFn>;
 
 /** @internal */
 export type SetAttributeFn = PureComputed<[any], void>;
@@ -18,16 +18,16 @@ export type RunAnimationFn = PureComputed<[
 ], number>;
 
 /** @internal */
-export type UpdateAnimationFn = PureComputed<[any, any, number?]>;
+export type UpdateAnimationFn = PureComputed<[any, any, number?, number?]>;
 
 /** @internal */
-export type UpdateAnimate = {
+export type Animation = {
   update: UpdateAnimationFn,
   stop: () => void;
 };
 /** @internal */
 export type AnimationFn = PureComputed<
-  [any, any, ProcessAnimationFn, SetAttributeFn, number?], UpdateAnimate
+  [any, any, ProcessAnimationFn, SetAttributeFn, number?], Animation
 >;
 /** @internal */
 export type BarCoordinates = { readonly x: number, readonly y: number, readonly startY: number };

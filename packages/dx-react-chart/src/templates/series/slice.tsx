@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {
-  dPie, HOVERED, SELECTED, processPieAnimation, isValuesChanged, getDelay,
+  dPie, HOVERED, SELECTED, processPieAnimation, isValuesChanged, getDelay, Animation,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 import { PieSeries, PieSeriesState } from '../../types';
 
 class RawSlice extends React.PureComponent<PieSeries.PointProps, PieSeriesState> {
-  animate: any = undefined;
+  animate: Animation | undefined = undefined;
   constructor(props) {
     super(props);
 

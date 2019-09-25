@@ -1,14 +1,14 @@
 import * as React from 'react';
 import {
   processBarAnimation, HOVERED, SELECTED, dBar, getVisibility, adjustBarSize,
-  isValuesChanged, getStartY, UpdateAnimate, isScalesChanged,
+  isValuesChanged, getStartVal, Animation, isScalesChanged,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 import { BarSeries, BarSeriesState } from '../../types';
 
 class RawBar extends React.PureComponent<BarSeries.PointProps, BarSeriesState> {
-  animate: UpdateAnimate | undefined;
+  animate: Animation | undefined;
   constructor(props) {
     super(props);
 
@@ -34,7 +34,7 @@ class RawBar extends React.PureComponent<BarSeries.PointProps, BarSeriesState> {
     if (!animation) {
       this.setAttribute({ x: arg, y: val, startY: startVal });
     } else {
-      const start = getStartY(scales);
+      const start = getStartVal(scales);
       this.animate = animation(
         { x: arg, y: start, startY: start },
         { x: arg, y: val, startY: startVal },

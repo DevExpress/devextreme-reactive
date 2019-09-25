@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 import {
-  dBar, adjustBarSize, getStartY, processBarAnimation, isValuesChanged,
+  dBar, adjustBarSize, getStartVal, processBarAnimation, isValuesChanged,
   isScalesChanged,
 } from '@devexpress/dx-chart-core';
 import { Bar } from './bar';
@@ -15,7 +15,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   getVisibility: jest.fn().mockReturnValue('visible'),
   adjustBarSize: jest.fn(value => value),
   isValuesChanged: jest.fn().mockReturnValue(true),
-  getStartY: jest.fn().mockReturnValue('startY'),
+  getStartVal: jest.fn().mockReturnValue('startY'),
   processBarAnimation: jest.fn(),
   isScalesChanged: jest.fn().mockReturnValue(false),
 }));
@@ -135,7 +135,7 @@ describe('Animation', () => {
       />
     ));
 
-    expect(getStartY).lastCalledWith({ tag: 'test-scales' });
+    expect(getStartVal).lastCalledWith({ tag: 'test-scales' });
     expect(createAnimation).lastCalledWith(
       { x: 1, y: 'startY', startY: 'startY' }, { x: 1, y: 2, startY: 18 },
       processBarAnimation, expect.any(Function),

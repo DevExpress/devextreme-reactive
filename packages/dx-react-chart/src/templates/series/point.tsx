@@ -1,14 +1,14 @@
 import * as React from 'react';
 import {
   processPointAnimation, dSymbol, HOVERED, SELECTED, getVisibility,
-  isValuesChanged, getStartY, UpdateAnimate, isScalesChanged,
+  isValuesChanged, getStartVal, Animation, isScalesChanged,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { ScatterSeries, ScatterSeriesState } from '../../types';
 
 class RawPoint extends React.PureComponent<ScatterSeries.PointProps, ScatterSeriesState> {
   d: string = '';
-  animate: UpdateAnimate | undefined;
+  animate: Animation | undefined;
   constructor(props) {
     super(props);
 
@@ -33,7 +33,7 @@ class RawPoint extends React.PureComponent<ScatterSeries.PointProps, ScatterSeri
     if (!animation) {
       this.setAttribute({ x: arg, y: val });
     } else {
-      this.animate = animation({ x: arg, y: getStartY(scales) }, { x: arg, y: val },
+      this.animate = animation({ x: arg, y: getStartVal(scales) }, { x: arg, y: val },
         processPointAnimation, this.setAttribute,
       );
     }

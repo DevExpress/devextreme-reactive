@@ -1,5 +1,5 @@
 import {
-  getDelay, easeOutCubic, getStartY, getStartCoordinates,
+  getDelay, easeOutCubic, getStartVal, getStartCoordinates,
 } from './computeds';
 
 describe('Animation', () => {
@@ -12,12 +12,12 @@ describe('Animation', () => {
     expect(easeOutCubic(0.5)).toBe(0.875);
   });
 
-  it('#getStartY', () => {
+  it('#getStartVal', () => {
     const scale = () => 4;
     scale.copy = () => scale;
     scale.clamp = () => scale;
     const scales = { valScale: scale };
-    expect(getStartY(scales as any)).toBe(4);
+    expect(getStartVal(scales as any)).toBe(4);
   });
 
   it('#getStartCoordinates', () => {

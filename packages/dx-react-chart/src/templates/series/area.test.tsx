@@ -3,7 +3,10 @@ import { shallow } from 'enzyme';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 import { Area } from './area';
-import { getStartCoordinates, processAreaAnimation, isArrayValuesChanged, isScalesChanged } from '@devexpress/dx-chart-core';
+import {
+  getStartCoordinates, processAreaAnimation, isArrayValuesChanged,
+  isScalesChanged,
+} from '@devexpress/dx-chart-core';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   HOVERED: 'test_hovered',
@@ -12,6 +15,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   getStartCoordinates: jest.fn().mockReturnValue('startCoordinates'),
   processAreaAnimation: jest.fn(),
   isScalesChanged: jest.fn().mockReturnValue(false),
+  getStartVal: jest.fn().mockReturnValue(55),
 }));
 
 jest.mock('../../utils/with-states', () => ({
@@ -150,7 +154,7 @@ describe('Animation', () => {
     tree.setProps({ ...defaultProps, coordinates: [4, 5, 6] });
 
     expect(isArrayValuesChanged).lastCalledWith([1, 2, 3], [4, 5, 6], 'arg', 'val');
-    expect(updateAnimation).lastCalledWith([1, 2, 3], [4, 5, 6]);
+    expect(updateAnimation).lastCalledWith([1, 2, 3], [4, 5, 6], 0, 55);
   });
 
   it('should not start animation on resize/zoom', () => {
@@ -165,18 +169,6 @@ describe('Animation', () => {
 
     expect(isScalesChanged).toBeCalled();
     expect(updateAnimation).not.toBeCalled();
-  });
-
-  it('should start animation from start position, count of points are different', () => {
-    const tree = shallow((
-      <Area
-        {...defaultProps}
-      />
-    ));
-    tree.setProps({ ...defaultProps, coordinates: [1, 2, 3, 4] });
-
-    expect(getStartCoordinates).lastCalledWith({ tag: 'test-scales' }, [1, 2, 3, 4]);
-    expect(updateAnimation).lastCalledWith('startCoordinates', [1, 2, 3, 4]);
   });
 
   it('should call stop animation on unmount', () => {

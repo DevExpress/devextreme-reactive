@@ -48,13 +48,13 @@ export const buildAnimation = (easing: EasingFn, duration: number): AnimationFn 
   );
 
   return {
-    update: (updatedStartCoords, updatedEndCoords, updatedDelay = 0) => {
+    update: (updatedStartCoords, updatedEndCoords, updatedDelay = 0, startVal) => {
       if (animationID) {
         cancelAnimationFrame(animationID);
         animationID = undefined;
       }
       animationID = runAnimation(
-        setAttributes, processAnimation(updatedStartCoords, updatedEndCoords),
+        setAttributes, processAnimation(updatedStartCoords, updatedEndCoords, startVal),
         easing, duration, updatedDelay,
       );
     },
@@ -91,11 +91,13 @@ export const processBarAnimation = (startCoords: BarCoordinates, endCoords: BarC
 };
 
 /** @internal */
-export const processLineAnimation = (startCoords: PathCoordinates, endCoords: PathPoints) => {
+export const processLineAnimation = (
+  startCoords: PathCoordinates, endCoords: PathPoints, startVal?: number,
+) => {
   return (progress: number) => {
     return {
       coordinates: endCoords.map((coord, index) => {
-        const startCurCoord = startCoords[index];
+        const startCurCoord = startCoords[index] || { arg: coord.arg, val: startVal };
         return {
           ...coord,
           arg: startCurCoord.arg + progress * (coord.arg - startCurCoord.arg),
@@ -107,11 +109,13 @@ export const processLineAnimation = (startCoords: PathCoordinates, endCoords: Pa
 };
 
 /** @internal */
-export const processAreaAnimation = (startCoords: PathCoordinates, endCoords: PathPoints) => {
+export const processAreaAnimation = (
+  startCoords: PathCoordinates, endCoords: PathPoints, startVal?: number,
+) => {
   return (progress: number) => {
     return {
       coordinates: endCoords.map((coord, index) => {
-        const startCurCoord = startCoords[index];
+        const startCurCoord = startCoords[index] || { arg: coord.arg, val: startVal, startVal };
         return {
           ...coord,
           arg: startCurCoord.arg + progress * (coord.arg - startCurCoord.arg),

@@ -43,14 +43,14 @@ class MonthViewBase extends React.PureComponent<MonthViewProps> {
 
   render() {
     const {
-      layoutComponent: Layout,
-      dayScaleLayoutComponent: DayScale,
-      dayScaleCellComponent: DayScaleCell,
-      dayScaleRowComponent: DayScaleRow,
-      timeTableLayoutComponent: TimeTableLayout,
+      layoutComponent,
+      dayScaleLayoutComponent,
+      dayScaleCellComponent,
+      dayScaleRowComponent,
+      timeTableLayoutComponent,
       timeTableRowComponent,
-      timeTableCellComponent: TimeTableCell,
-      appointmentLayerComponent: AppointmentLayer,
+      timeTableCellComponent,
+      appointmentLayerComponent,
       name: viewName,
       intervalCount,
       displayName,
@@ -62,21 +62,21 @@ class MonthViewBase extends React.PureComponent<MonthViewProps> {
         name="MonthView"
       >
         <BasicView
-          viewCellsDataBaseComputed={viewCellsDataBaseComputed}
+          viewCellsDataComputed={viewCellsDataBaseComputed}
           type={TYPE}
           name={viewName}
           intervalCount={intervalCount}
           displayName={displayName}
           firstDayOfWeek={firstDayOfWeek}
-          dayScaleLayoutComponent={DayScale}
-          dayScaleCellComponent={DayScaleCell}
-          dayScaleRowComponent={DayScaleRow}
-          timeTableCellComponent={TimeTableCell}
-          timeTableLayoutComponent={TimeTableLayout}
+          dayScaleLayoutComponent={dayScaleLayoutComponent}
+          dayScaleCellComponent={dayScaleCellComponent}
+          dayScaleRowComponent={dayScaleRowComponent}
+          timeTableCellComponent={timeTableCellComponent}
+          timeTableLayoutComponent={timeTableLayoutComponent}
           timeTableRowComponent={timeTableRowComponent}
-          appointmentLayerComponent={AppointmentLayer}
+          appointmentLayerComponent={appointmentLayerComponent}
           timeTableRects={timeTableRects}
-          layoutComponent={Layout}
+          layoutComponent={layoutComponent}
         />
       </Plugin>
     );

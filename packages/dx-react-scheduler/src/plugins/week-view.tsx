@@ -56,21 +56,21 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
 
   render() {
     const {
-      layoutComponent: Layout,
+      layoutComponent,
       dayScaleEmptyCellComponent: DayScaleEmptyCell,
       timeScaleLayoutComponent: TimeScale,
       timeScaleRowComponent: TimeScaleRow,
       timeScaleCellComponent: TimeScaleCell,
-      dayScaleLayoutComponent: DayScale,
-      dayScaleCellComponent: DayScaleCell,
-      dayScaleRowComponent: DayScaleRow,
-      timeTableLayoutComponent: TimeTableLayout,
+      dayScaleLayoutComponent,
+      dayScaleCellComponent,
+      dayScaleRowComponent,
+      timeTableLayoutComponent,
       timeTableRowComponent,
-      timeTableCellComponent: TimeTableCell,
+      timeTableCellComponent,
       cellDuration,
       excludedDays,
       name: viewName,
-      appointmentLayerComponent: AppointmentLayer,
+      appointmentLayerComponent,
       intervalCount,
       displayName,
       startDayHour,
@@ -83,7 +83,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
         name="WeekView"
       >
         <BasicView
-          viewCellsDataBaseComputed={viewCellsDataBaseComputed}
+          viewCellsDataComputed={viewCellsDataBaseComputed}
           type={TYPE}
           cellDuration={cellDuration}
           name={viewName}
@@ -93,15 +93,15 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
           startDayHour={startDayHour}
           endDayHour={endDayHour}
           excludedDays={excludedDays}
-          dayScaleLayoutComponent={DayScale}
-          dayScaleCellComponent={DayScaleCell}
-          dayScaleRowComponent={DayScaleRow}
-          timeTableCellComponent={TimeTableCell}
-          timeTableLayoutComponent={TimeTableLayout}
+          dayScaleLayoutComponent={dayScaleLayoutComponent}
+          dayScaleCellComponent={dayScaleCellComponent}
+          dayScaleRowComponent={dayScaleRowComponent}
+          timeTableCellComponent={timeTableCellComponent}
+          timeTableLayoutComponent={timeTableLayoutComponent}
           timeTableRowComponent={timeTableRowComponent}
-          appointmentLayerComponent={AppointmentLayer}
+          appointmentLayerComponent={appointmentLayerComponent}
           timeTableRects={verticalTimeTableRects}
-          layoutComponent={Layout}
+          layoutComponent={layoutComponent}
           layoutProps={{
             timeScaleComponent: TimeScalePlaceholder,
             dayScaleEmptyCellComponent: DayScaleEmptyCellPlaceholder,

@@ -5,7 +5,7 @@ import { ViewCell } from '../index';
 export interface BasicViewProps {
   /** The function that calculate cells data */
   /** @internal */
-  viewCellsDataBaseComputed: (cellDuration: any, startDayHour: any, endDayHour: any) => (payload: any) => readonly ViewCell[][];
+  viewCellsDataComputed: (cellDuration: any, startDayHour: any, endDayHour: any) => (payload: any) => readonly ViewCell[][];
   /** The view's type */
   type: string;
   /** The view's unique identifier. */

@@ -16,7 +16,7 @@ export default {
       sorting: [],
       columns: [
         { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
+        { name: 'gender', title: 'Gender' },
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],

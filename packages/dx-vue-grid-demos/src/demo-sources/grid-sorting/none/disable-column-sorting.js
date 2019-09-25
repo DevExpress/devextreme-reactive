@@ -15,16 +15,16 @@ export default {
     return {
       columns: [
         { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
+        { name: 'gender', title: 'Gender' },
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
       rows: generateRows({ length: 8 }),
       sorting: [
-        { columnName: 'sex', direction: 'desc' },
+        { columnName: 'gender', direction: 'desc' },
       ],
       sortingStateColumnExtensions: [
-        { columnName: 'sex', sortingEnabled: false },
+        { columnName: 'gender', sortingEnabled: false },
       ],
     };
   },

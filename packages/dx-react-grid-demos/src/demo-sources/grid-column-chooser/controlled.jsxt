@@ -13,15 +13,15 @@ import { generateRows } from '../../../demo-data/generator';
 export default () => {
   const [columns] = useState([
     { name: 'name', title: 'Name' },
-    { name: 'sex', title: 'Sex' },
+    { name: 'gender', title: 'Gender' },
     { name: 'city', title: 'City' },
     { name: 'car', title: 'Car' },
   ]);
   const [rows] = useState(generateRows({ length: 6 }));
   const [tableColumnExtensions] = useState([
-    { columnName: 'sex', width: 100 },
+    { columnName: 'gender', width: 100 },
   ]);
-  const [hiddenColumnNames, setHiddenColumnNames] = useState(['sex', 'car']);
+  const [hiddenColumnNames, setHiddenColumnNames] = useState(['gender', 'car']);
 
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>

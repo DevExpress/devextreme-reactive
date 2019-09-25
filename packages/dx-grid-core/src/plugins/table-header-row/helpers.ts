@@ -69,8 +69,8 @@ export const getLastColumnName: LastColumnNameFn = (tableColumns) => {
 };
 
 const nextColumnName: NextColumnNameFn = (tableColumns , index) => {
-  const haveNextColumn = index >= 0 && index < tableColumns.length - 1;
-  return haveNextColumn && tableColumns[index + 1].type === TABLE_DATA_TYPE
+  const isNextColumnExists = index >= 0 && index < tableColumns.length - 1;
+  return isNextColumnExists && tableColumns[index + 1].type === TABLE_DATA_TYPE
     ? tableColumns[index + 1].column!.name
     : undefined;
 };

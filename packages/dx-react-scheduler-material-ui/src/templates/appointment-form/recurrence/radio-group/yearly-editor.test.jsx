@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, createMount } from '@material-ui/core/test-utils';
+import { createShallow } from '@material-ui/core/test-utils';
 import {
   handleStartDateChange,
   handleToDayOfWeekChange,
@@ -43,17 +43,14 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     },
   };
   let shallow;
-  let mount;
   beforeAll(() => {
     shallow = createShallow();
   });
   beforeEach(() => {
-    mount = createMount();
     getRecurrenceOptions.mockImplementation(() => ({}));
     changeRecurrenceOptions.mockImplementation(testValue => testValue);
   });
   afterEach(() => {
-    mount.cleanUp();
     jest.resetAllMocks();
   });
   describe('YearlyEditor', () => {
@@ -67,7 +64,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     });
 
     it('should render its components correctly', () => {
-      const tree = mount((
+      const tree = shallow((
         <YearlyEditor data={{ a: 1 }} {...defaultProps} />
       ));
 
@@ -140,7 +137,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     });
 
     it('should call handleWeekNumberChange with correct data', () => {
-      const tree = mount((<YearlyEditor {...defaultProps} />));
+      const tree = shallow((<YearlyEditor {...defaultProps} />));
 
       tree.find(ChangeWeekNumberEditor).at(0).prop('changeWeekNumber')('abc');
       expect(handleWeekNumberChange)

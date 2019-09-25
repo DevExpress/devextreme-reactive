@@ -44,44 +44,42 @@ const ChangeMonthEditorBase = React.memo(({
   changeByMonthDay,
   className,
   ...restProps
-}) => {
-  return (
-    <FormControlLabel
-      value="onDayAndMonth"
-      className={classNames(classes.formControl, className)}
-      classes={{ label: classes.controlLabel }}
-      control={<Radio color="primary" />}
-      {...restProps}
-      label={(
-        <Grid
-          container
-          direction="row"
-          justify="flex-start"
-          alignItems="center"
-        >
-          <Label
-            text={getMessage('everyLabel')}
-            className={classes.label}
-          />
-          <Select
-            className={classes.select}
-            value={month}
-            onValueChange={changeMonth}
-            readOnly={readOnly}
-            availableOptions={months}
-          />
-          <TextEditor
-            className={classes.textEditor}
-            readOnly={readOnly}
-            value={dayNumber}
-            type={NUMBER_EDITOR}
-            onValueChange={changeByMonthDay}
-          />
-        </Grid>
-      )}
-    />
-  );
-});
+}) => (
+  <FormControlLabel
+    value="onDayAndMonth"
+    className={classNames(classes.formControl, className)}
+    classes={{ label: classes.controlLabel }}
+    control={<Radio color="primary" />}
+    {...restProps}
+    label={(
+      <Grid
+        container
+        direction="row"
+        justify="flex-start"
+        alignItems="center"
+      >
+        <Label
+          text={getMessage('everyLabel')}
+          className={classes.label}
+        />
+        <Select
+          className={classes.select}
+          value={month}
+          onValueChange={changeMonth}
+          readOnly={readOnly}
+          availableOptions={months}
+        />
+        <TextEditor
+          className={classes.textEditor}
+          readOnly={readOnly}
+          value={dayNumber}
+          type={NUMBER_EDITOR}
+          onValueChange={changeByMonthDay}
+        />
+      </Grid>
+    )}
+  />
+));
 
 ChangeMonthEditorBase.propTypes = {
   classes: PropTypes.object.isRequired,

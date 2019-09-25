@@ -57,53 +57,51 @@ const ChangeWeekNumberEditorBase = React.memo(({
   daysOfWeek,
   changeDayOfWeek,
   ...restProps
-}) => {
-  return (
-    <FormControlLabel
-      value="onDayOfWeek"
-      className={classNames(classes.formControlLabel, classes.formControl, className)}
-      classes={{ label: classes.controlLabel }}
-      control={<Radio color="primary" className={classes.radioButton} />}
-      {...restProps}
-      label={(
-        <div>
-          <Grid
-            container
-            direction="row"
-            justify="flex-start"
-            alignItems="center"
-          >
-            <Label
-              className={classes.label}
-              text={getMessage('theLabel')}
-            />
-            <Select
-              className={classes.select}
-              value={weekNumber}
-              onValueChange={changeWeekNumber}
-              readOnly={readOnly}
-              availableOptions={weekNumbers}
-            />
-            <Select
-              className={classes.longSelect}
-              value={dayOfWeek}
-              onValueChange={changeDayOfWeek}
-              readOnly={readOnly}
-              availableOptions={daysOfWeek}
-            />
-          </Grid>
-          <Select
-            className={classes.doubleSelect}
-            value={month}
-            onValueChange={changeMonth}
-            readOnly={readOnly}
-            availableOptions={months}
+}) => (
+  <FormControlLabel
+    value="onDayOfWeek"
+    className={classNames(classes.formControlLabel, classes.formControl, className)}
+    classes={{ label: classes.controlLabel }}
+    control={<Radio color="primary" className={classes.radioButton} />}
+    {...restProps}
+    label={(
+      <div>
+        <Grid
+          container
+          direction="row"
+          justify="flex-start"
+          alignItems="center"
+        >
+          <Label
+            className={classes.label}
+            text={getMessage('theLabel')}
           />
-        </div>
-      )}
-    />
-  );
-});
+          <Select
+            className={classes.select}
+            value={weekNumber}
+            onValueChange={changeWeekNumber}
+            readOnly={readOnly}
+            availableOptions={weekNumbers}
+          />
+          <Select
+            className={classes.longSelect}
+            value={dayOfWeek}
+            onValueChange={changeDayOfWeek}
+            readOnly={readOnly}
+            availableOptions={daysOfWeek}
+          />
+        </Grid>
+        <Select
+          className={classes.doubleSelect}
+          value={month}
+          onValueChange={changeMonth}
+          readOnly={readOnly}
+          availableOptions={months}
+        />
+      </div>
+    )}
+  />
+));
 
 ChangeWeekNumberEditorBase.propTypes = {
   classes: PropTypes.object.isRequired,

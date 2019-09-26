@@ -27,6 +27,7 @@ SchedulerBase.defaultProps = {
   data: [],
   locale: 'en-US',
   height: 'auto',
+  firstDayOfWeek: 0,
 };
 
 // tslint:disable: max-line-length

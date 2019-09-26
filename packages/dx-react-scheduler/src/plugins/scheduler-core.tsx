@@ -7,10 +7,6 @@ import { SchedulerProps } from '../types';
 import { memoize } from '@devexpress/dx-core';
 
 class SchedulerCoreBase extends React.PureComponent<SchedulerProps> {
-  static defaultProps: Partial<SchedulerProps> = {
-    firstDayOfWeek: 0,
-  };
-
   formatDateTimeGetter = memoize(locale => formatDateTimeGetter(locale));
 
   render() {

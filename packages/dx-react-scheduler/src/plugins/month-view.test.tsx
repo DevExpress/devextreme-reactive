@@ -38,6 +38,7 @@ const defaultDeps = {
       [{}, { startDate: new Date('2018-08-05') }],
     ],
     formatDate: jest.fn(),
+    firstDayOfWeek: 2,
   },
   template: {
     body: {},
@@ -116,16 +117,12 @@ describe('Month View', () => {
       computed.mockImplementation(
         (getters, viewName, baseComputed) => getters.currentView.name === viewName && baseComputed(getters, viewName),
       );
-      const firstDayOfWeek = 2;
       const intervalCount = 2;
       const expectedMonthCellsData = 'monthCellsData';
       monthCellsData.mockImplementation(() => expectedMonthCellsData);
       const tree = mount((
         <PluginHost>
-          {pluginDepsToComponents({
-            ...defaultDeps,
-            getter: { ...defaultDeps.getter, firstDayOfWeek },
-          })}
+          {pluginDepsToComponents(defaultDeps)}
           <MonthView
             intervalCount={intervalCount}
             {...defaultProps}
@@ -138,7 +135,7 @@ describe('Month View', () => {
       expect(monthCellsDataCalls[0][0])
         .toBe('2018-07-04');
       expect(monthCellsDataCalls[0][1])
-        .toBe(firstDayOfWeek);
+        .toBe(defaultDeps.getter.firstDayOfWeek);
       expect(monthCellsDataCalls[0][2])
         .toBe(intervalCount);
       expect(getComputedState(tree).viewCellsData)

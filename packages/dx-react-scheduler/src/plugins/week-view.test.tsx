@@ -36,6 +36,7 @@ const defaultDeps = {
     availableViews: [],
     currentView: { name: 'Week' },
     formatDate: jest.fn(),
+    firstDayOfWeek: 2,
   },
   template: {
     body: {},
@@ -116,7 +117,6 @@ describe('Week View', () => {
       );
       const DATE_TO_USE = new Date('2018-10-9');
       global.Date.now = jest.fn(() => new Date(DATE_TO_USE));
-      const firstDayOfWeek = 2;
       const props = {
         intervalCount: 2,
         startDayHour: 1,
@@ -126,10 +126,7 @@ describe('Week View', () => {
       };
       const tree = mount((
         <PluginHost>
-          {pluginDepsToComponents({
-            ...defaultDeps,
-            getter: { ...defaultDeps.getter, firstDayOfWeek },
-          })}
+          {pluginDepsToComponents(defaultDeps)}
           <WeekView
             {...defaultProps}
             {...props}
@@ -139,7 +136,7 @@ describe('Week View', () => {
 
       expect(viewCellsData)
         .toBeCalledWith(
-          '2018-07-04', firstDayOfWeek,
+          '2018-07-04', defaultDeps.getter.firstDayOfWeek,
           props.intervalCount * DAYS_IN_WEEK, props.excludedDays,
           props.startDayHour, props.endDayHour, props.cellDuration,
           DATE_TO_USE,

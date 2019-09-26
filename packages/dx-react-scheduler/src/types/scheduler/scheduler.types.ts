@@ -24,5 +24,5 @@ export interface SchedulerProps {
    * **/
   height: number | 'auto';
   /** A number between 0 (Sunday) and 6 (Saturday) that specifies the first day of the week. */
-  firstDayOfWeek?: number;
+  firstDayOfWeek: number;
 }

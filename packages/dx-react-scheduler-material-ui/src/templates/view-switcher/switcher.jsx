@@ -33,7 +33,7 @@ const SwitcherBase = React.memo(({
       value={currentView.name}
       availableOptions={availableOptions}
       onValueChange={onChange}
-      inputProps={{ classes: { input: classes.input, root: classes.inputRoot } }}
+      inputClasses={{ input: classes.input, root: classes.inputRoot }}
       {...restProps}
     />
   );

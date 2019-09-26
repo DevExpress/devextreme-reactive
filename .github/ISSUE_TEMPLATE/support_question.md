@@ -26,6 +26,8 @@ about: Ask a question about our product
     Ask your question. Provide as many details as possible.
 -->
 
+I have created my example based on [CodeSandbox examples](https://github.com/DevExpress/devextreme-reactive/issues/2358).
+
 
 ### Environment
 <!---

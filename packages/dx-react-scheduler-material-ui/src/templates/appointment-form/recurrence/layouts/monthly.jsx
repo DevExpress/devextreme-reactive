@@ -3,38 +3,21 @@ import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {
   MONTHLY_RADIO_GROUP,
-  NUMBER_EDITOR,
   getRecurrenceOptions,
   changeRecurrenceOptions,
 } from '@devexpress/dx-scheduler-core';
-import { Container } from './container';
+import { IntervalEditor } from './interval-editor';
 
 const styles = theme => ({
-  root: {
-    overflowY: 'auto',
-    padding: theme.spacing(3),
-    width: '50%',
-  },
-  label: {
-    width: '6.5em',
-  },
-  textEditor: {
-    width: 'calc((100% - 7.5em) * 3 / 7)',
-    maxWidth: '8em',
-  },
   container: {
     marginBottom: theme.spacing(1),
-  },
-  labelWithMargin: {
-    marginLeft: '1em',
-    width: 'calc((100% - 7.5em) * 4 / 7)',
   },
 });
 
 const MonthlyBase = ({
   radioGroupComponent: RadioGroup,
-  textEditorComponent: TextEditor,
-  labelComponent: Label,
+  textEditorComponent,
+  labelComponent,
   classes,
   getMessage,
   readOnly,
@@ -54,29 +37,23 @@ const MonthlyBase = ({
   }), [recurrenceOptions, onFieldChange]);
   return (
     <div {...restProps}>
-      <Container className={classes.container}>
-        <Label
-          text={getMessage('repeatEveryLabel')}
-          className={classes.label}
-        />
-        <TextEditor
-          readOnly={readOnly}
-          value={recurrenceOptions.interval}
-          className={classes.textEditor}
-          type={NUMBER_EDITOR}
-          onValueChange={changeRecurrenceInterval}
-        />
-        <Label
-          text={getMessage('monthsLabel')}
-          className={classes.labelWithMargin}
-        />
-      </Container>
+      <IntervalEditor
+        className={classes.container}
+        repeatEveryLabel={getMessage('repeatEveryLabel')}
+        repeatIntervalLabel={getMessage('monthsLabel')}
+        textEditorComponent={textEditorComponent}
+        labelComponent={labelComponent}
+        changeRecurrenceInterval={changeRecurrenceInterval}
+        interval={recurrenceOptions.interval}
+        readOnly={readOnly}
+        {...restProps}
+      />
       <RadioGroup
         type={MONTHLY_RADIO_GROUP}
         readOnly={readOnly}
         getMessage={getMessage}
-        textEditorComponent={TextEditor}
-        labelComponent={Label}
+        textEditorComponent={textEditorComponent}
+        labelComponent={labelComponent}
         onFieldChange={onFieldChange}
         appointmentData={appointmentData}
         selectComponent={selectComponent}

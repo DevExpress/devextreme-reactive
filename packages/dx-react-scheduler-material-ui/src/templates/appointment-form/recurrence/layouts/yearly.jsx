@@ -3,29 +3,12 @@ import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {
   YEARLY_RADIO_GROUP,
-  NUMBER_EDITOR,
   getRecurrenceOptions,
   changeRecurrenceOptions,
 } from '@devexpress/dx-scheduler-core';
-import { Container } from './container';
+import { IntervalEditor } from './interval-editor';
 
 const styles = theme => ({
-  root: {
-    overflowY: 'auto',
-    padding: theme.spacing(3),
-    width: '50%',
-  },
-  label: {
-    width: '6.5em',
-  },
-  textEditor: {
-    width: 'calc((100% - 7.5em) * 3 / 7)',
-    maxWidth: '8em',
-  },
-  labelWithMargin: {
-    marginLeft: '1em',
-    width: 'calc((100% - 7.5em) * 4 / 7)',
-  },
   radioGroup: {
     marginTop: theme.spacing(1),
   },
@@ -33,8 +16,8 @@ const styles = theme => ({
 
 const YearlyBase = ({
   radioGroupComponent: RadioGroup,
-  textEditorComponent: TextEditor,
-  labelComponent: Label,
+  textEditorComponent,
+  labelComponent,
   classes,
   getMessage,
   readOnly,
@@ -54,29 +37,22 @@ const YearlyBase = ({
   }), [recurrenceOptions, onFieldChange]);
   return (
     <div {...restProps}>
-      <Container>
-        <Label
-          text={getMessage('repeatEveryLabel')}
-          className={classes.label}
-        />
-        <TextEditor
-          readOnly={readOnly}
-          value={recurrenceOptions.interval}
-          className={classes.textEditor}
-          type={NUMBER_EDITOR}
-          onValueChange={changeRecurrenceInterval}
-        />
-        <Label
-          text={getMessage('yearsLabel')}
-          className={classes.labelWithMargin}
-        />
-      </Container>
+      <IntervalEditor
+        repeatEveryLabel={getMessage('repeatEveryLabel')}
+        repeatIntervalLabel={getMessage('yearsLabel')}
+        textEditorComponent={textEditorComponent}
+        labelComponent={labelComponent}
+        changeRecurrenceInterval={changeRecurrenceInterval}
+        interval={recurrenceOptions.interval}
+        readOnly={readOnly}
+        {...restProps}
+      />
       <RadioGroup
         type={YEARLY_RADIO_GROUP}
         readOnly={readOnly}
         getMessage={getMessage}
-        textEditorComponent={TextEditor}
-        labelComponent={Label}
+        textEditorComponent={textEditorComponent}
+        labelComponent={labelComponent}
         onFieldChange={onFieldChange}
         appointmentData={appointmentData}
         selectComponent={selectComponent}

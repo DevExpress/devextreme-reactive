@@ -1,30 +1,19 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { NUMBER_EDITOR, getRecurrenceOptions, changeRecurrenceOptions } from '@devexpress/dx-scheduler-core';
-import { Container } from './container';
+import { getRecurrenceOptions, changeRecurrenceOptions } from '@devexpress/dx-scheduler-core';
+import { IntervalEditor } from './interval-editor';
 
 const styles = theme => ({
-  label: {
-    width: '6.5em',
-  },
-  textEditor: {
-    width: 'calc((100% - 7.5em) * 3 / 7)',
-    maxWidth: '8em',
-  },
   container: {
     marginBottom: theme.spacing(2),
-  },
-  labelWithMargin: {
-    marginLeft: '1em',
-    width: 'calc((100% - 7.5em) * 4 / 7)',
   },
 });
 
 const WeeklyBase = ({
   radioGroupComponent,
-  textEditorComponent: TextEditor,
-  labelComponent: Label,
+  textEditorComponent,
+  labelComponent,
   classes,
   getMessage,
   readOnly,
@@ -46,23 +35,17 @@ const WeeklyBase = ({
     <div
       {...restProps}
     >
-      <Container className={classes.container}>
-        <Label
-          text={getMessage('repeatEveryLabel')}
-          className={classes.label}
-        />
-        <TextEditor
-          readOnly={readOnly}
-          value={recurrenceOptions.interval}
-          className={classes.textEditor}
-          type={NUMBER_EDITOR}
-          onValueChange={changeRecurrenceInterval}
-        />
-        <Label
-          text={getMessage('weeksOnLabel')}
-          className={classes.labelWithMargin}
-        />
-      </Container>
+      <IntervalEditor
+        className={classes.container}
+        repeatEveryLabel={getMessage('repeatEveryLabel')}
+        repeatIntervalLabel={getMessage('weeksOnLabel')}
+        textEditorComponent={textEditorComponent}
+        labelComponent={labelComponent}
+        changeRecurrenceInterval={changeRecurrenceInterval}
+        interval={recurrenceOptions.interval}
+        readOnly={readOnly}
+        {...restProps}
+      />
       <WeeklyRecurrenceSelector
         rRule={appointmentData.rRule}
         onValueChange={onFieldChange}

@@ -4,7 +4,6 @@ import { ChangeWeekNumberEditor } from './change-week-number-editor';
 
 describe('AppointmentForm recurrence RadioGroup', () => {
   const defaultProps = {
-    textEditorComponent: () => null,
     labelComponent: () => null,
     selectComponent: () => null,
     weekNumber: 1,

@@ -179,6 +179,7 @@ const LayoutBase = ({
         selectComponent={Select}
         formatDate={formatDate}
         locale={locale}
+        firstDayOfWeek={firstDayOfWeek}
       />
       {children}
     </div>

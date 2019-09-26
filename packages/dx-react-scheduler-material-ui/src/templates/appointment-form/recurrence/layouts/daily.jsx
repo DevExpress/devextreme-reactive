@@ -1,39 +1,21 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import {
-  NUMBER_EDITOR,
   getRecurrenceOptions,
   changeRecurrenceOptions,
 } from '@devexpress/dx-scheduler-core';
-import { Container } from './container';
+import { IntervalEditor } from './interval-editor';
 
-const styles = {
-  label: {
-    width: '6.5em',
-  },
-  labelWithMargin: {
-    marginLeft: '1em',
-    width: 'calc((100% - 7.5em) * 4 / 7)',
-  },
-  textEditor: {
-    width: 'calc((100% - 7.5em) * 3 / 7)',
-    maxWidth: '8em',
-  },
-};
-
-const DailyBase = ({
+export const Daily = ({
   weeklyRecurrenceSelectorComponent,
   radioGroupComponent,
-  textEditorComponent: TextEditor,
-  labelComponent: Label,
-  classes,
+  textEditorComponent,
+  labelComponent,
   getMessage,
   readOnly,
   onFieldChange,
   appointmentData,
   selectComponent,
-  className,
   formatDate,
   firstDayOfWeek,
   ...restProps
@@ -45,30 +27,20 @@ const DailyBase = ({
     rRule: changeRecurrenceOptions({ ...recurrenceOptions, interval }),
   }), [recurrenceOptions, onFieldChange]);
   return (
-    <Container
-      className={className}
+    <IntervalEditor
+      repeatEveryLabel={getMessage('repeatEveryLabel')}
+      repeatIntervalLabel={getMessage('daysLabel')}
+      textEditorComponent={textEditorComponent}
+      labelComponent={labelComponent}
+      changeRecurrenceInterval={changeRecurrenceInterval}
+      interval={recurrenceOptions.interval}
+      readOnly={readOnly}
       {...restProps}
-    >
-      <Label
-        text={getMessage('repeatEveryLabel')}
-        className={classes.label}
-      />
-      <TextEditor
-        readOnly={readOnly}
-        value={recurrenceOptions.interval}
-        className={classes.textEditor}
-        type={NUMBER_EDITOR}
-        onValueChange={changeRecurrenceInterval}
-      />
-      <Label
-        text={getMessage('daysLabel')}
-        className={classes.labelWithMargin}
-      />
-    </Container>
+    />
   );
 };
 
-DailyBase.propTypes = {
+Daily.propTypes = {
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   radioGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -86,18 +58,13 @@ DailyBase.propTypes = {
     allDay: PropTypes.bool,
   }).isRequired,
   onFieldChange: PropTypes.func,
-  classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
-  className: PropTypes.string,
   formatDate: PropTypes.func.isRequired,
   firstDayOfWeek: PropTypes.number.isRequired,
 };
 
-DailyBase.defaultProps = {
+Daily.defaultProps = {
   onFieldChange: () => undefined,
   readOnly: false,
-  className: undefined,
 };
-
-export const Daily = withStyles(styles)(DailyBase, { name: 'Daily' });

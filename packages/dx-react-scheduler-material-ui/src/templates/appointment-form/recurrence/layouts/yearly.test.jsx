@@ -2,6 +2,7 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { getRecurrenceOptions, changeRecurrenceOptions } from '@devexpress/dx-scheduler-core';
 import { Yearly } from './yearly';
+import { IntervalEditor } from './interval-editor';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...require.requireActual('@devexpress/dx-scheduler-core'),
@@ -47,23 +48,15 @@ describe('AppointmentForm recurrence layout', () => {
         <Yearly data={{ a: 1 }} {...defaultProps} />
       ));
 
-      const labels = tree.find(defaultProps.labelComponent);
-      expect(labels)
-        .toHaveLength(2);
-      expect(labels.at(0).is(`.${classes.label}`))
-        .toBeTruthy();
-      expect(labels.at(1).is(`.${classes.labelWithMargin}`))
-        .toBeTruthy();
-
-      const textEditor = tree.find(defaultProps.textEditorComponent);
-      expect(textEditor)
+      const intervalEditor = tree.find(IntervalEditor);
+      expect(intervalEditor)
         .toHaveLength(1);
-      expect(textEditor.at(0).is(`.${classes.textEditor}`))
-        .toBeTruthy();
 
       const radioGroup = tree.find(defaultProps.radioGroupComponent);
       expect(radioGroup)
         .toHaveLength(1);
+      expect(radioGroup.at(0).is(`.${classes.radioGroup}`))
+        .toBeTruthy();
     });
 
     it('should handle appointment field changes', () => {
@@ -71,8 +64,7 @@ describe('AppointmentForm recurrence layout', () => {
         <Yearly {...defaultProps} />
       ));
 
-      tree.find(defaultProps.textEditorComponent).at(0)
-        .simulate('valueChange', 23);
+      tree.find(IntervalEditor).at(0).prop('changeRecurrenceInterval')(23);
       expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
           rRule: {

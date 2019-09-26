@@ -81,5 +81,19 @@ describe('TableHeaderRow Plugin helpers', () => {
       expect(getNextColumnName(tableColumns, 'b')).toMatch('c');
       expect(getNextColumnName(tableColumns, 'c')).toBeUndefined();
     });
+
+    it('should return undefined for no data columns', () => {
+      const tableColumns = [
+        { column: { name: 'a' }, type: TABLE_DATA_TYPE },
+        { column: { name: 'b' } },
+        { column: { name: 'c' }, type: TABLE_DATA_TYPE },
+        { column: { name: 'd' }, type: TABLE_DATA_TYPE },
+      ];
+
+      expect(getNextColumnName(tableColumns, 'a')).toBeUndefined();
+      expect(getNextColumnName(tableColumns, 'b')).toBeUndefined();
+      expect(getNextColumnName(tableColumns, 'c')).toMatch('d');
+      expect(getNextColumnName(tableColumns, 'd')).toBeUndefined();
+    });
   });
 });

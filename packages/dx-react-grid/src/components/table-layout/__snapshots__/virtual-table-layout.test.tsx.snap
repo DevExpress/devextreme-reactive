@@ -109,6 +109,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
       }
     }
     minColumnWidth={120}
+    minWidth={400}
     name="header"
     rowComponent={[Function]}
     rowRefsHandler={[Function]}
@@ -636,6 +637,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
     }
     marginBottom={600}
     minColumnWidth={120}
+    minWidth={400}
     name="body"
     rowComponent={[Function]}
     rowRefsHandler={[Function]}
@@ -746,6 +748,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
       }
     }
     minColumnWidth={120}
+    minWidth={400}
     name="footer"
     rowComponent={[Function]}
     rowRefsHandler={[Function]}

@@ -11,6 +11,8 @@ import {
   TABLE_STUB_TYPE,
   getColumnWidthGetter,
   getRenderBoundary,
+  getColumnBoundaries,
+  getRowsVisibleBoundary,
 } from './virtual-table';
 
 describe('VirtualTableLayout utils', () => {
@@ -29,8 +31,47 @@ describe('VirtualTableLayout utils', () => {
       expect(getVisibleBoundary(items, 80, 120, item => item.size))
         .toEqual([2, 4]);
     });
+  });
 
-    it('should consider rows start offset and default height', () => {
+  describe('#getColumnBoundaries', () => {
+    it('should return correct boundaries in simple case', () => {
+      const columns =  [
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+      ];
+
+      expect(getColumnBoundaries(columns, 90, 100, col => col.size))
+        .toEqual([[1, 5]]);
+    });
+
+    it('should take fixed columns into account', () => {
+      const columns =  [
+        { size: 40, fixed: 'left' },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40, fixed: 'right' },
+      ];
+
+      expect(getColumnBoundaries(columns, 120, 80, col => col.size))
+        .toEqual([
+          [2, 5],
+          [0, 0],
+          [7, 7],
+        ]);
+    });
+  });
+
+  describe('#getRowsVisibleBoundary', () => {
+    it('should work with local data', () => {
       const items = [
         { size: 40 },
         { size: 40 },
@@ -51,9 +92,28 @@ describe('VirtualTableLayout utils', () => {
         { size: 40 },
         { size: 40 },
       ];
+      expect(getRowsVisibleBoundary(items, 80, 120, item => item.size, 0, 40, false))
+      .toEqual([2, 4]);
+    });
 
-      expect(getVisibleBoundary(items, 240, 120, item => item.size, 0, 40))
-        .toEqual([6, 6]);
+    describe('remote data', () => {
+      const items = [
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+        { size: 40 },
+      ];
+
+      it('should consider rows start offset and default height', () => {
+        expect(getVisibleBoundary(items, 600, 120, item => item.size, 20, 30, true))
+          .toEqual([20, 22]);
+      });
+
+      it('should work when rows are not loaded', () => {
+        expect(getRowsVisibleBoundary(items, 240, 120, item => item.size, 0, 40, true))
+          .toEqual([6, 6]);
+      });
     });
   });
 
@@ -195,6 +255,17 @@ describe('VirtualTableLayout utils', () => {
       expect(getSpanBoundary(items, [[2, 3], [5, 5]], item => item.colSpan))
         .toEqual([[2, 3], [4, 5]]);
     });
+
+    it('should adjust an end boundary to items count', () => {
+      const items = [
+        { colSpan: 1 }, // 0
+        { colSpan: 1 }, // 1
+        { colSpan: 1 }, // 2
+      ];
+
+      expect(getSpanBoundary(items, [[0, 3]], item => item.colSpan))
+        .toEqual([[0, 2]]);
+    });
   });
 
   describe('#collapseBoundaries', () => {
@@ -306,6 +377,19 @@ describe('VirtualTableLayout utils', () => {
       expect(collapseBoundaries(itemsCount, visibleBoundary, spanBoundaries))
         .toEqual([
           [0, 99], // stub
+        ]);
+    });
+
+    it('should adjust an end boundary to items count', () => {
+      const itemsCount = 3;
+      const visibleBoundary = [[0, 3]];
+      const spanBoundaries = [
+        [[0, 3]],
+      ];
+
+      expect(collapseBoundaries(itemsCount, visibleBoundary, spanBoundaries))
+        .toEqual([
+          [0, 2], // visible
         ]);
     });
   });

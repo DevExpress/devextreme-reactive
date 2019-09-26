@@ -16,18 +16,25 @@ export const scaleBand: FactoryFn = () => (
 );
 
 /** @internal */
-export const isHorizontal = (name: string) => name === ARGUMENT_DOMAIN;
-
-/** @internal */
-export const getWidth = (scale: ScaleObject) => (
-  scale.bandwidth ? scale.bandwidth() : 0
+export const isHorizontal = (name: string, rotated: boolean) => (
+  name === ARGUMENT_DOMAIN === !rotated
 );
 
-/** @internal */
-export const fixOffset = (scale: ScaleObject): ((value: number) => number) => {
-  const offset = getWidth(scale) / 2;
-  return offset > 0 ? value => scale(value) + offset : scale;
+// tslint:disable-next-line: ban-types
+const makeScaleHelper = <T extends Function>(linear: T, band: T) => {
+  const func: any = (scale: ScaleObject, ...args: any[]) => {
+    const choosen = 'bandwidth' in scale ? band : linear;
+    return choosen(scale, ...args);
+  };
+  return func as T;
 };
+
+const getLinearScaleWidth = (_: ScaleObject) => 0;
+
+const getBandScaleWidth = (scale: ScaleObject) => scale.bandwidth!();
+
+/** @internal */
+export const getWidth = makeScaleHelper(getLinearScaleWidth, getBandScaleWidth);
 
 /** @internal */
 export const getValueDomainName = (name?: string) => name || VALUE_DOMAIN;
@@ -35,42 +42,54 @@ export const getValueDomainName = (name?: string) => name || VALUE_DOMAIN;
 const floatsEqual = (a: number, b: number) => Math.abs(a - b) < Number.EPSILON;
 
 /** @internal */
-export const rangesEqual = (r1: NumberArray, r2: NumberArray) =>
+export const rangesEqual = (r1: Readonly<NumberArray>, r2: Readonly<NumberArray>) =>
   floatsEqual(r1[0], r2[0]) && floatsEqual(r1[1], r2[1]);
 
-/** @internal */
-export const makeScale = ({ factory, domain }: DomainInfo, range: NumberArray) => (
-  (factory || scaleLinear)().domain(domain).range(range)
-);
+const wrapLinearScale = (scale: ScaleObject) => scale;
 
-// Though this function is used only in *Viewport* plugin (and so should be placed right there),
-// it resides here so that internal scale specifics (*getWidth*)
-// are encapsulated in this utility file.
-//
-/** @internal */
-export const scaleBounds = (scale: ScaleObject, bounds: DomainBounds): NumberArray => {
-  // There is an issue - when range is "inverted" values are scaled incorrectly.
-  //   scaleBand().domain(['a', 'b', 'c']).range([0, 60])('b') === 20
-  //   scaleBand().domain(['a', 'b', 'c']).range([60, 0])('b') === 20 (should be 40)
-  // Because of it bounds for reversed band scale are scaled wrong.
-  // Fixing it would introduce an utility "scale" function and complicates the code.
-  // Since for now we do not have "reversed" band scales the issue is left as-is.
-  if (scale.bandwidth) {
-    const cleanScale = scale.copy().paddingInner!(0).paddingOuter!(0);
-    return [cleanScale(bounds[0]), cleanScale(bounds[1]) + cleanScale.bandwidth!()];
-  }
-  return bounds.map(scale) as NumberArray;
+const wrapBandScale = (scale: ScaleObject): ScaleObject => {
+  const ret: any = (value: any) => scale(value) + scale.bandwidth!() / 2;
+  Object.assign(ret, scale);
+  return ret;
 };
 
-// Because of "scaleBands" issue moving and growing for "reversed" band scales
-// are not supported now.
+const wrapScale = makeScaleHelper(wrapLinearScale, wrapBandScale);
+
+/** @internal */
+export const makeScale = ({ factory, domain }: DomainInfo, range: NumberArray) => {
+  const scale = (factory || scaleLinear)().domain(domain).range(range);
+  return wrapScale(scale);
+};
+
+// It is implicitly supposed that Chart can accept any d3 scale. It is wrong.
+// The followings notes show that. d3 scales are not seamlessly interchangeable themselves
+// (i.e. band scale has no "invert", continuous scale has no "bandwidth").
+// We have to use "adapters" to mitigate the differences.
+// Hence Chart can actually accept any object that matches "adapter" interface.
+// TODO: We should update reference accordingly. There might be breaking changes though.
+
+const scaleLinearBounds = (scale: ScaleObject, bounds: DomainBounds): NumberArray => (
+  bounds.map(scale) as NumberArray
+);
+
+// There is an issue - when range is "inverted" values are scaled incorrectly.
+//   scaleBand().domain(['a', 'b', 'c']).range([0, 60])('b') === 20
+//   scaleBand().domain(['a', 'b', 'c']).range([60, 0])('b') === 20 (should be 40)
+const scaleBandBounds = (scale: ScaleObject, bounds: DomainBounds): NumberArray => {
+  const cleanScale = scale.copy().paddingInner!(0).paddingOuter!(0);
+  const fullRange = scale.range();
+  const sign = Math.sign(fullRange[1] - fullRange[0]);
+  return sign >= 0
+    ? [cleanScale(bounds[0]), cleanScale(bounds[1]) + cleanScale.bandwidth!()]
+    : [cleanScale(bounds[0]) + cleanScale.bandwidth!(), cleanScale(bounds[1])];
+};
 
 const moveLinearScaleBounds = (
   scale: ScaleObject, bounds: DomainBounds, delta: number,
 ): DomainBounds => {
   const fullRange = scale.range();
   const sign = Math.sign(fullRange[1] - fullRange[0]);
-  const range = scaleBounds(scale, bounds);
+  const range = scaleLinearBounds(scale, bounds);
   let r0 = range[0] + delta;
   let r1 = range[1] + delta;
   // Check if new range is outside of the left border.
@@ -83,7 +102,7 @@ const moveLinearScaleBounds = (
     r1 = fullRange[1];
     r0 = r1 - range[1] + range[0];
   }
-  const newBounds: DomainBounds = [scale.invert(r0), scale.invert(r1)];
+  const newBounds: DomainBounds = [scale.invert!(r0), scale.invert!(r1)];
   return rangesEqual(bounds, newBounds) ? bounds : newBounds;
 };
 
@@ -109,7 +128,7 @@ const adjustBandScaleMoveStep = (delta: number, step: number) => {
   return 0;
 };
 
-// Band case is processed separately to preserve categories amount in the bounds range.
+// Band case is processed separately to preserve categories count in the bounds range.
 // If common inversion mechanism is used start and end bounds cannot be inverted independently
 // because of rounding issues which may add or remove categories to the new bounds.
 const moveBandScaleBounds = (
@@ -141,37 +160,54 @@ const moveBandScaleBounds = (
   return [domain[new0], domain[new1]];
 };
 
-/** @internal */
-export const moveBounds = (
-  scale: ScaleObject, bounds: DomainBounds, delta: number,
-) => (
-  (scale.bandwidth ? moveBandScaleBounds : moveLinearScaleBounds)(scale, bounds, delta)
-);
+// Defines how much linear scale can be zoomed it.
+// I.e. if original scale domain has size of 1, then fully zoomed scale domain has size
+// of 1 / LINEAR_SCALE_ZOOMING_THRESHOLD.
+const LINEAR_SCALE_ZOOMING_THRESHOLD = 1000;
 
 const growLinearScaleBounds = (
   scale: ScaleObject, bounds: DomainBounds, delta: number, anchor: number,
 ): DomainBounds => {
   const fullRange = scale.range();
+  const minRangeThreshold = (fullRange[1] - fullRange[0]) / LINEAR_SCALE_ZOOMING_THRESHOLD;
   const sign = Math.sign(fullRange[1] - fullRange[0]);
   const range = scaleBounds(scale, bounds);
+  // If zooming in and initial range is already too small then do nothing.
+  if (delta > 0 && Math.abs(range[1] - range[0]) <= Math.abs(minRangeThreshold)) {
+    return bounds;
+  }
+  // If zooming out and initial range is already too large then do nothing.
+  if (delta < 0 && Math.abs(range[1] - range[0]) >= Math.abs(fullRange[1] - fullRange[0])) {
+    return bounds;
+  }
   const t = Math.abs((anchor - range[0]) / (range[1] - range[0]));
   let r0 = range[0] + sign * delta * 2 * t;
   let r1 = range[1] - sign * delta * 2 * (1 - t);
-  // Check if new range is outside of the left border.
+  // If new range is outside of the left border then clamp it.
   if (Math.sign(r0 - fullRange[0]) !== sign) {
     r0 = fullRange[0];
   }
-  // Check if new range is outside of the right border.
+  // If new range is outside of the right border then clamp it.
   if (Math.sign(fullRange[1] - r1) !== sign) {
     r1 = fullRange[1];
   }
-  const minRangeThreshold = (fullRange[1] - fullRange[0]) / 100;
-  // Check if new range is too small.
+  // If new range is too small then make it no less than minimal available.
   if (Math.sign(r1 - r0) !== sign || Math.abs(r1 - r0) < Math.abs(minRangeThreshold)) {
-    r0 = anchor - minRangeThreshold / 2;
-    r1 = anchor + minRangeThreshold / 2;
+    if (Math.abs(r0 - range[0]) < Math.abs(minRangeThreshold / 2)) {
+      // Dock it to the start.
+      r0 = range[0];
+      r1 = r0 + minRangeThreshold;
+    } else if (Math.abs(r1 - range[1]) < Math.abs(minRangeThreshold / 2)) {
+      // Dock it to the end.
+      r1 = range[1];
+      r0 = r1 - minRangeThreshold;
+    } else {
+      // Dock it to the anchor.
+      r0 = anchor - minRangeThreshold / 2;
+      r1 = anchor + minRangeThreshold / 2;
+    }
   }
-  const newBounds: DomainBounds = [scale.invert(r0), scale.invert(r1)];
+  const newBounds: DomainBounds = [scale.invert!(r0), scale.invert!(r1)];
   return rangesEqual(bounds, newBounds) ? bounds : newBounds;
 };
 
@@ -215,20 +251,12 @@ const growBandScaleBounds = (
   return [domain[new0], domain[new1]];
 };
 
-// "scaleBounds" would be a better name but "scale" is already occupied.
-/** @internal */
-export const growBounds = (
-  scale: ScaleObject, bounds: DomainBounds, delta: number, anchor: number,
-) => (
-  (scale.bandwidth ? growBandScaleBounds : growLinearScaleBounds)(scale, bounds, delta, anchor)
-);
-
 const invertLinearScaleBounds = (scale: ScaleObject, range: NumberArray): DomainBounds => {
   const fullRange = scale.range();
   const match = Math.sign(fullRange[1] - fullRange[0]) === Math.sign(range[1] - range[0]);
   return [
-    scale.invert(range[match ? 0 : 1]),
-    scale.invert(range[match ? 1 : 0]),
+    scale.invert!(range[match ? 0 : 1]),
+    scale.invert!(range[match ? 1 : 0]),
   ];
 };
 
@@ -246,7 +274,15 @@ const invertBandScaleBounds = (scale: ScaleObject, range: NumberArray): DomainBo
   ];
 };
 
+// Though these functions are used only in *Viewport* plugin (and so should be placed right there),
+// they reside here so that internal scale specifics (*getWidth*)
+// are encapsulated in this utility file.
 /** @internal */
-export const invertBoundsRange = (scale: ScaleObject, range: NumberArray) => (
-  (scale.bandwidth ? invertBandScaleBounds : invertLinearScaleBounds)(scale, range)
-);
+export const scaleBounds = makeScaleHelper(scaleLinearBounds, scaleBandBounds);
+/** @internal */
+export const moveBounds = makeScaleHelper(moveLinearScaleBounds, moveBandScaleBounds);
+// "scaleBounds" would be a better name but "scale" is already occupied.
+/** @internal */
+export const growBounds = makeScaleHelper(growLinearScaleBounds, growBandScaleBounds);
+/** @internal */
+export const invertBoundsRange = makeScaleHelper(invertLinearScaleBounds, invertBandScaleBounds);

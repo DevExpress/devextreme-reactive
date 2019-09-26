@@ -18,6 +18,7 @@ const NavigatorBase = ({
   textComponent: Text,
   navigationButtonComponent: NavigationButton,
   onNavigate,
+  formatDate,
   ...restProps
 }) => (
   <Toolbar
@@ -28,7 +29,7 @@ const NavigatorBase = ({
       type="back"
       onClick={() => { onNavigate({ back: true }); }}
     />
-    <Text currentDate={currentDate} />
+    <Text currentDate={currentDate} formatDate={formatDate} />
     <NavigationButton
       type="forward"
       onClick={() => { onNavigate({ back: false }); }}
@@ -37,14 +38,16 @@ const NavigatorBase = ({
 );
 
 NavigatorBase.propTypes = {
+  // oneOfType is a workaround because withStyles returns react object
   classes: PropTypes.object.isRequired,
-  textComponent: PropTypes.func.isRequired,
-  navigationButtonComponent: PropTypes.func.isRequired,
+  textComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  navigationButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   currentDate: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]).isRequired,
+  formatDate: PropTypes.func.isRequired,
   className: PropTypes.string,
   onNavigate: PropTypes.func,
 };

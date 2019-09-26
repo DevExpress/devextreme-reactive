@@ -10,12 +10,12 @@ const styles = theme => ({
   groupButton: {
     verticalAlign: 'middle',
     display: 'inline-block',
-    padding: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    padding: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
 });
 
-const IconBase = ({
+const IconBase = React.memo(({
   expanded,
   classes,
   className,
@@ -31,7 +31,7 @@ const IconBase = ({
         : <ChevronRight />
     }
   </IconButton>
-);
+));
 
 IconBase.propTypes = {
   expanded: PropTypes.bool.isRequired,

@@ -19,6 +19,16 @@ describe('FixedCell', () => {
       .toBeTruthy();
   });
 
+  it('should apply inherit background color for selected cells', () => {
+    const tree = shallow((
+      <FixedCell {...defaultProps} selected />
+    ));
+
+    expect(tree.prop('style')).toMatchObject({
+      backgroundColor: 'inherit',
+    });
+  });
+
   it('should apply left border if left divider exists', () => {
     const tree = shallow((
       <FixedCell {...defaultProps} showLeftDivider />

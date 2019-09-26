@@ -7,6 +7,9 @@ describe('ViewSwitcher', () => {
   let shallow;
   const defaultProps = {
     onChange: jest.fn(),
+    currentView: {
+      name: 'Test view name',
+    },
   };
   beforeAll(() => {
     shallow = createShallow({ dive: true });
@@ -33,7 +36,13 @@ describe('ViewSwitcher', () => {
     });
     it('should render items depend of available view names', () => {
       const tree = shallow((
-        <Switcher {...defaultProps} availableViewNames={['Week', 'Month']} />
+        <Switcher
+          {...defaultProps}
+          availableViews={[
+            { name: 'Week', displayName: 'Week' },
+            { name: 'Month', displayName: 'Month' },
+          ]}
+        />
       ));
 
       expect(tree.find(MenuItem))

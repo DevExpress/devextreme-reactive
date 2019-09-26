@@ -62,6 +62,8 @@ export * from './plugins/table-column-reordering/computeds';
 export * from './plugins/table-column-resizing/computeds';
 /** @internal */
 export * from './plugins/table-column-resizing/reducers';
+/** @internal */
+export * from './plugins/table-column-resizing/helpers';
 
 /** @internal */
 export * from './plugins/table-edit-column/constants';
@@ -188,7 +190,7 @@ export { getGroupCellTargetIndex } from './utils/group-panel';
 export {
   getCollapsedGrid,
   getCollapsedGrids,
-  getColumnsVisibleBoundary,
+  getColumnBoundaries,
   getRowsVisibleBoundary,
   getColumnsRenderBoundary,
   getRowsRenderBoundary,
@@ -196,8 +198,6 @@ export {
   TABLE_STUB_TYPE,
 } from './utils/virtual-table';
 
-/** @internal */
-export * from './plugins/virtual-table/computeds';
 /** @internal */
 export * from './plugins/virtual-table/helpers';
 

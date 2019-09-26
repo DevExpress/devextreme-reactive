@@ -8,7 +8,6 @@ const styles = theme => ({
     fontWeight: theme.typography.fontWeightMedium,
     color: theme.palette.text.primary,
     fontSize: theme.typography.pxToRem(13),
-    margin: `${theme.spacing.unit}px 0`,
   },
 });
 
@@ -28,11 +27,11 @@ const TableSummaryItemBase = ({
     {...restProps}
   >
     {
-      <React.Fragment>
+      <>
         {getMessage(type)}
         :&nbsp;&nbsp;
         {children}
-      </React.Fragment>
+      </>
     }
   </div>
 );

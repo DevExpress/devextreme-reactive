@@ -85,9 +85,9 @@ const generateDate = ({
 const generatePhone = () => Math.random().toString().slice(2, 12).replace(/(\d{3})(\d{3})(\d{4})$/, '($1) $2-$3');
 
 export const defaultColumnValues = {
-  sex: ['Male', 'Female'],
+  gender: ['Male', 'Female'],
   name: [
-    'sex',
+    'gender',
     {
       Male: maleFirstNames,
       Female: femaleFirstNames,
@@ -130,16 +130,16 @@ export const globalSalesValues = {
 };
 
 export const employeeValues = {
-  sex: ['Male', 'Female'],
+  gender: ['Male', 'Female'],
   prefix: [
-    'sex',
+    'gender',
     {
       Male: ['Mr.', 'Dr.'],
       Female: ['Mrs.', 'Ms.', 'Dr.'],
     },
   ],
   firstName: [
-    'sex',
+    'gender',
     {
       Male: maleFirstNames,
       Female: femaleFirstNames,
@@ -227,7 +227,7 @@ export function generateRows({
 
       const value = values[Math.floor(random() * values.length)];
       if (typeof value === 'object') {
-        record[column] = Object.assign({}, value);
+        record[column] = { ...value };
       } else {
         record[column] = value;
       }

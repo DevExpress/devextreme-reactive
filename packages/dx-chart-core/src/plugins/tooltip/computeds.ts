@@ -1,5 +1,5 @@
 import { processPointerMove } from '../../utils/hover-state';
-import { getOffset } from '../../utils/root-offset';
+import { getOffset } from '../../utils/common';
 import {
   SeriesList, SeriesRef, TransformedPoint, TargetList, NotifyPointerMoveFn,
   TooltipParameters, TooltipReference, Rect,

@@ -1,8 +1,9 @@
 import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  TimeScale, CurrentTime, ViewCell,
+  TimeScale, SchedulerDateTime, ViewCell,
   DayScaleFn, TimeScaleFn, ViewCellsDataFn, AllDayCell,
+  SchedulerView,
 } from '../../types';
 import { calculateFirstDateOfWeek } from '../../utils';
 
@@ -16,7 +17,7 @@ export const dayScale: DayScaleFn = (
   dayCount,
   excluded = [],
 ) => {
-  const result = [];
+  const result: Date[] = [];
   const date = firstDayOfWeek !== undefined
     ? moment(calculateFirstDateOfWeek(currentDate, firstDayOfWeek, excluded) as Date)
     : moment(currentDate as Date);
@@ -53,16 +54,16 @@ export const timeScale: TimeScaleFn = (
   return result;
 };
 
-export const availableViewNames: PureComputed<
-  [string[], string], string[]
-> = (viewNames, viewName) => {
-  if (!viewNames) return [viewName];
-  if (viewNames.findIndex(view => viewName === view) === -1) {
-    const nextViewNames = viewNames.slice();
-    nextViewNames.push(viewName);
-    return nextViewNames;
+export const availableViews: PureComputed<
+  [SchedulerView[], string, string], SchedulerView[]
+> = (views, viewName, viewDisplayName) => {
+  if (!views) return [{ name: viewName, displayName: viewDisplayName }];
+  if (views.findIndex(view => viewName === view.name) === -1) {
+    const nextViews = views.slice();
+    nextViews.push({ name: viewName, displayName: viewDisplayName });
+    return nextViews;
   }
-  return viewNames;
+  return views;
 };
 
 export const viewCellsData: ViewCellsDataFn = (
@@ -71,11 +72,11 @@ export const viewCellsData: ViewCellsDataFn = (
   startDayHour, endDayHour,
   cellDuration, currTime,
 ) => {
-  const days = dayScale(currentDate, firstDayOfWeek, dayCount, excludedDays);
+  const days = dayScale(currentDate, firstDayOfWeek!, dayCount!, excludedDays);
   const times = timeScale(
-    currentDate, firstDayOfWeek, startDayHour, endDayHour, cellDuration, excludedDays,
+    currentDate, firstDayOfWeek!, startDayHour, endDayHour, cellDuration, excludedDays,
   );
-  const currentTime = moment(currTime as CurrentTime);
+  const currentTime = moment(currTime as SchedulerDateTime);
 
   return times.reduce((cellsAcc, time) => {
     const start = moment(time.start);

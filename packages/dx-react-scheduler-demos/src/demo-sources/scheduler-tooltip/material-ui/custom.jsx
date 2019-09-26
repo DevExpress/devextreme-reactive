@@ -20,17 +20,17 @@ const style = theme => ({
   },
   title: {
     ...theme.typography.h6,
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
     color: theme.palette.primary.contrastText,
   },
   text: {
     ...theme.typography.body2,
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   icon: {
     fontSize: '18px',
-    paddingRight: theme.spacing.unit,
+    paddingRight: theme.spacing(1),
   },
 });
 
@@ -83,6 +83,7 @@ export default class Demo extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
+          height={660}
         >
           <WeekView
             startDayHour={9}

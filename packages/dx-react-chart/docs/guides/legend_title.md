@@ -20,3 +20,17 @@ Import the plugins listed above to set up a Chart with a legend and title.
 You can customize a legend marker and title as demonstrated in the following example:
 
 .embedded-demo({ "path": "chart-basic/legend-customization", "showThemeSelector": true })
+
+## Customize the Legend Layout
+
+
+Use CSS styles to rearrange legend items and labels, as shown in the following example:
+
+.embedded-demo({ "path": "layout/legend", "showThemeSelector": true })
+
+## Customize the Title Layout
+
+Like the legend layout, the title layout is customized using CSS styles. The following example shows how to align the title to the left:
+
+.embedded-demo({ "path": "layout/title", "showThemeSelector": true })
+

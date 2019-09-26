@@ -17,6 +17,9 @@ export type SummaryType = string;
 export type RowLevel = { levelKey: string, row: Row, opened: boolean };
 
 /** @internal */
+export type GroupLevel = { levelKey: string, row: Row, rows: Row[] };
+
+/** @internal */
 type GetRowValueFn = PureComputed<[Row], any>;
 /** @internal */
 export type ColumnSummary = { type: SummaryType, value: SummaryValue };
@@ -28,7 +31,7 @@ export type GetColumnSummariesFn = PureComputed<
 
 /** @internal */
 export type TableRowsWithSummariesFn = PureComputed<
-  [TableRow[], GetRowLevelKeyFn, IsSpecificRowFn, GetRowIdFn]
+  [TableRow[], SummaryItem[], SummaryItem[], GetRowLevelKeyFn, IsSpecificRowFn, GetRowIdFn]
 >;
 
 /** @internal */
@@ -61,7 +64,7 @@ export type TotalSummaryValuesFn = PureComputed<[
 /** @internal */
 export type GroupSummaryValuesFn = PureComputed<[
   TableRow[], SummaryItem[], GetCellValueFn, GetRowLevelKeyFn,
-  IsSpecificRowFn, SummaryCalculator?
+  IsSpecificRowFn, GetCollapsedRowsFn, SummaryCalculator?
 ], GroupSummaryValue>;
 
 /** @internal */

@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useReducer, useState, useEffect } from 'react';<%&additionalImports%>
 import {
   GroupingState,
   CustomGrouping,
@@ -21,54 +21,68 @@ const getRowId = row => row.OrderID;
 const getChildGroups = groups => groups
   .map(group => ({ key: group.key, childRows: group.items }));
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const initialState = {
+  data: [],
+  grouping: [],
+  expandedGroups: [],
+  tempGrouping: null,
+  tempExpandedGroups: null,
+  loading: true,
+};
 
-    this.state = {
-      columns: [
-        { name: 'ShipCountry', title: 'Country' },
-        { name: 'ShipCity', title: 'City' },
-        { name: 'ShipAddress', title: 'Address' },
-      ],
-      data: [],
-      grouping: [],
-      tempGrouping: null,
-      expandedGroups: [],
-      tempExpandedGroups: null,
-      loading: true,
-    };
+function reducer(state, { type, payload }) {
+  const { grouping, expandedGroups, tempGrouping } = state;
 
-    this.changeGrouping = this.changeGrouping.bind(this);
-    this.changeExpandedGroups = this.changeExpandedGroups.bind(this);
+  switch (type) {
+    case 'CHANGE_GROUPING':
+      return {
+        ...state,
+        loading: true,
+        grouping: payload,
+        tempGrouping: tempGrouping === null ? grouping : tempGrouping,
+        tempExpandedGroups: expandedGroups,
+      };
+    case 'SET_EXPANDED_GROUPS':
+      return {
+        ...state,
+        expandedGroups: payload,
+      };
+    case 'FETCH_SUCCESS':
+      return {
+        ...state,
+        data: payload,
+        tempGrouping: null,
+        tempExpandedGroups: null,
+        loading: false,
+      };
+    case 'FETCH_ERROR':
+      return {
+        ...state,
+        loading: false,
+      };
+    default:
+      return state;
   }
+}
 
-  componentDidMount() {
-    this.loadData();
-  }
+export default () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const [columns] = useState([
+    { name: 'ShipCountry', title: 'Country' },
+    { name: 'ShipCity', title: 'City' },
+    { name: 'ShipAddress', title: 'Address' },
+  ]);
+  const { grouping, loading } = state;
 
-  componentDidUpdate() {
-    this.loadData();
-  }
+  const changeGrouping = (value) => {
+    dispatch({ type: 'CHANGE_GROUPING', payload: value });
+  };
 
-  changeGrouping(grouping) {
-    const { grouping: stateGrouping, expandedGroups } = this.state;
-    this.setState({
-      loading: true,
-      grouping,
-      tempGrouping: stateGrouping,
-      tempExpandedGroups: expandedGroups,
-    });
-  }
+  const setExpandedGroups = (value) => {
+    dispatch({ type: 'SET_EXPANDED_GROUPS', payload: value });
+  };
 
-  changeExpandedGroups(expandedGroups) {
-    this.setState({
-      expandedGroups,
-    });
-  }
-
-  queryString() {
-    const { grouping } = this.state;
+  const getQueryString = () => {
     if (!grouping.length) return URL;
 
     const groupConfig = grouping
@@ -77,66 +91,51 @@ export default class Demo extends React.PureComponent {
         isExpanded: true,
       }));
     return `${URL}?group=${JSON.stringify(groupConfig)}`;
-  }
+  };
 
-  loadData() {
-    const { loading } = this.state;
+  const loadData = () => {
     if (!loading) return;
 
-    const queryString = this.queryString();
+    const queryString = getQueryString();
     fetch(queryString, { mode: 'cors' })
       .then(response => response.json())
       .then((orders) => {
-        this.setState({
-          data: orders.data,
-          tempGrouping: null,
-          tempExpandedGroups: null,
-          loading: false,
-        });
+        dispatch({ type: 'FETCH_SUCCESS', payload: orders.data });
       })
-      .catch(() => this.setState({ loading: false }));
+      .catch(() => dispatch({ type: 'FETCH_ERROR' }));
+  };
 
-    this.lastQuery = queryString;
-  }
+  useEffect(() => loadData());
 
-  render() {
-    const {
-      data,
-      columns,
-      grouping,
-      tempGrouping,
-      expandedGroups,
-      tempExpandedGroups,
-      loading,
-    } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%> style={{ position: 'relative' }}>
-        <Grid
-          rows={data}
-          columns={columns}
-          getRowId={getRowId}
-        >
-          <DragDropProvider />
-          <GroupingState
-            grouping={grouping}
-            onGroupingChange={this.changeGrouping}
-            expandedGroups={expandedGroups}
-            onExpandedGroupsChange={this.changeExpandedGroups}
-          />
-          <CustomGrouping
-            getChildGroups={getChildGroups}
-            grouping={tempGrouping}
-            expandedGroups={tempExpandedGroups}
-          />
-          <VirtualTable />
-          <TableHeaderRow />
-          <TableGroupRow />
-          <Toolbar />
-          <GroupingPanel />
-        </Grid>
-        {loading && <Loading />}
-      </<%&wrapperTag%>>
-    );
-  }
-}
+  const {
+    data, expandedGroups, tempGrouping, tempExpandedGroups,
+  } = state;
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%> style={{ position: 'relative' }}>
+      <Grid
+        rows={data}
+        columns={columns}
+        getRowId={getRowId}
+      >
+        <DragDropProvider />
+        <GroupingState
+          grouping={grouping}
+          onGroupingChange={changeGrouping}
+          expandedGroups={expandedGroups}
+          onExpandedGroupsChange={setExpandedGroups}
+        />
+        <CustomGrouping
+          getChildGroups={getChildGroups}
+          grouping={tempGrouping}
+          expandedGroups={tempExpandedGroups}
+        />
+        <VirtualTable />
+        <TableHeaderRow />
+        <TableGroupRow />
+        <Toolbar />
+        <GroupingPanel />
+      </Grid>
+      {loading && <Loading />}
+    </<%&wrapperTag%>>
+  );
+};

@@ -16,19 +16,20 @@ const AVAILABLE_PATHS = {
   lessThanOrEqual: 'M23.828 5.719l1.375 2.375-10.813 6.234 10.813 6.25-1.375 2.375-14.922-8.609zM23.047 24.266l-1.375 2.375-14.922-8.609 1.375-2.391z',
 };
 
-export const Icon = ({ type, ...restProps }) => {
+export const Icon = React.memo(({ type, ...restProps }) => {
   const path = AVAILABLE_PATHS[type];
   return path
     ? (
       <SvgIcon
         viewBox="0 0 32 32"
+        fontSize="small"
         {...restProps}
       >
         <path d={path} />
       </SvgIcon>
     )
     : <SearchIcon {...restProps} />;
-};
+});
 
 Icon.propTypes = {
   type: PropTypes.string,

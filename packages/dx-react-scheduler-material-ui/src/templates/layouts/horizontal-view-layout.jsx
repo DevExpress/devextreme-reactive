@@ -1,13 +1,14 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import RootRef from '@material-ui/core/RootRef';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
+import { scrollingStrategy } from '../utils';
 
 const styles = theme => ({
   container: {
     overflowY: 'auto',
-    height: 700,
+    position: 'relative',
   },
   stickyHeader: {
     top: 0,
@@ -17,55 +18,84 @@ const styles = theme => ({
     overflow: 'visible',
     background: theme.palette.background.paper,
   },
-  main: {
+  timeTable: {
     position: 'relative',
   },
 });
 
-export class HorizontalViewLayoutBase extends React.PureComponent {
+class HorizontalViewLayoutBase extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.layout = React.createRef();
+    this.layoutHeader = React.createRef();
+  }
+
+  componentDidMount() {
+    this.setScrollingStrategy();
+  }
+
+  componentDidUpdate() {
+    this.setScrollingStrategy();
+  }
+
+  setScrollingStrategy() {
+    const { setScrollingStrategy } = this.props;
+
+    setScrollingStrategy(scrollingStrategy(this.layout.current, this.layoutHeader.current));
+  }
+
   render() {
     const {
-      dayScaleComponent: Navbar,
-      timeTableComponent: Main,
+      dayScaleComponent: DayScale,
+      timeTableComponent: TimeTable,
+      setScrollingStrategy,
       classes,
-      layoutRef,
-      layoutHeaderRef,
+      className,
+      ...restProps
     } = this.props;
 
     return (
-      <RootRef rootRef={layoutRef}>
-        <Grid
-          className={classes.container}
-          container
-          direction="column"
-          wrap="nowrap"
-        >
-          <RootRef rootRef={layoutHeaderRef}>
-            <Grid
-              item
-              className={classes.stickyHeader}
-            >
-              <Navbar />
-            </Grid>
-          </RootRef>
+      <Grid
+        ref={this.layout}
+        className={classNames(classes.container, className)}
+        container
+        direction="column"
+        wrap="nowrap"
+        {...restProps}
+      >
+        {/* Fix Safari sticky header https://bugs.webkit.org/show_bug.cgi?id=175029 */}
+        <div>
+          <Grid
+            ref={this.layoutHeader}
+            item
+            className={classes.stickyHeader}
+          >
+            <DayScale />
+          </Grid>
           <Grid
             item
-            className={classes.main}
+            className={classes.timeTable}
           >
-            <Main />
+            <TimeTable />
           </Grid>
-        </Grid>
-      </RootRef>
+        </div>
+      </Grid>
     );
   }
 }
 
 HorizontalViewLayoutBase.propTypes = {
-  dayScaleComponent: PropTypes.func.isRequired,
-  timeTableComponent: PropTypes.func.isRequired,
+  // oneOfType is a workaround because withStyles returns react object
+  dayScaleComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  timeTableComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  setScrollingStrategy: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  layoutRef: PropTypes.object.isRequired,
-  layoutHeaderRef: PropTypes.object.isRequired,
+  className: PropTypes.string,
+};
+
+HorizontalViewLayoutBase.defaultProps = {
+  className: undefined,
 };
 
 export const HorizontalViewLayout = withStyles(styles, { name: 'HorizontalViewLayout' })(HorizontalViewLayoutBase);

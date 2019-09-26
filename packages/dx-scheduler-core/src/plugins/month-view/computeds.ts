@@ -1,6 +1,6 @@
 import moment from 'moment';
 import {
-  MonthCellsDataComputedFn,
+  MonthCellsDataComputedFn, MonthCellData,
   CalculateMonthDateIntervalsFn, AppointmentMoment,
 } from '../../types';
 import { filterByViewBoundaries } from '../../utils';
@@ -31,9 +31,9 @@ export const monthCellsData: MonthCellsDataComputedFn = (
     .date(prevMonthStartDay)
     .startOf('day');
 
-  const result = [];
+  const result: MonthCellData[][] = [];
   while (result.length < (Math.trunc((MONTH_LENGTH * intervalCount) / DAY_COUNT) + 2)) {
-    const week = [];
+    const week: MonthCellData[] = [];
     while (week.length < DAY_COUNT) {
       week.push({
         startDate: from.toDate(),

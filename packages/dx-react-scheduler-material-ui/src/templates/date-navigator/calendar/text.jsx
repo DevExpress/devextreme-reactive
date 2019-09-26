@@ -3,10 +3,11 @@ import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames';
-import moment from 'moment';
+import { MONTH_YEAR_OPTIONS } from '@devexpress/dx-scheduler-core';
 
 const styles = {
   text: {
+    userSelect: 'none',
     flex: 1,
     textAlign: 'center',
   },
@@ -16,6 +17,7 @@ const TextBase = ({
   classes,
   className,
   currentDate,
+  formatDate,
   ...restProps
 }) => (
   <Typography
@@ -25,7 +27,7 @@ const TextBase = ({
     }, className)}
     {...restProps}
   >
-    {moment(currentDate).format('MMMM YYYY')}
+    {formatDate(currentDate, MONTH_YEAR_OPTIONS)}
   </Typography>
 );
 
@@ -36,6 +38,7 @@ TextBase.propTypes = {
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]).isRequired,
+  formatDate: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 

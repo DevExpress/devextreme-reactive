@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { CustomFunction, PureComputed } from '@devexpress/dx-core';
-import { RRule, rrulestr, RRuleSet } from 'rrule';
+import { RRule, RRuleSet } from 'rrule';
 import { HORIZONTAL_TYPE, VERTICAL_TYPE } from './constants';
 import {
   ComputedHelperFn, ViewPredicateFn,
@@ -196,6 +196,7 @@ export const getAppointmentStyle: PureComputed<
   height,
   width: `${width}%`,
   transform: `translateY(${top}px)`,
+  msTransform: `translateY(${top}px)`,
   left: `${left}%`,
   position: 'absolute',
 });
@@ -214,7 +215,7 @@ const horizontalRectCalculator: CustomFunction<
     rectByDates,
     multiline,
     rectByDatesMeta: {
-      cellElements,
+      cellElementsMeta,
       viewCellsData,
     },
   },
@@ -227,7 +228,7 @@ const horizontalRectCalculator: CustomFunction<
     rectByDates,
     {
       multiline,
-      cellElements,
+      cellElementsMeta,
       viewCellsData,
     },
   );
@@ -254,7 +255,7 @@ const verticalRectCalculator: CustomFunction<
     rectByDatesMeta: {
       viewCellsData,
       cellDuration,
-      cellElements,
+      cellElementsMeta,
       excludedDays,
     },
   },
@@ -270,7 +271,7 @@ const verticalRectCalculator: CustomFunction<
       viewCellsData,
       cellDuration,
       excludedDays,
-      cellElements,
+      cellElementsMeta,
     },
   );
 
@@ -303,39 +304,72 @@ export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
     .map(appointment => rectCalculator(appointment, { rectByDates, multiline, rectByDatesMeta }));
 };
 
-export const filterByViewBoundaries: PureComputed<
-  [AppointmentMoment, Date, Date, number[], boolean], AppointmentMoment[]
-> = (appointment, leftBound, rightBound, excludedDays, keepAllDay) => {
-  if (!appointment.rRule) {
-    return viewPredicate(appointment, leftBound, rightBound, excludedDays, keepAllDay)
-      ? [appointment]
-      : [];
-  }
-
+const expandRecurrenceAppointment = (
+  appointment: AppointmentMoment, leftBound: Date, rightBound: Date,
+) => {
+  const rightBoundUTC = new Date(getUTCDate(rightBound));
+  const leftBoundUTC = new Date(getUTCDate(leftBound));
+  const appointmentStartDate = moment(appointment.start).toDate();
   const options = {
     ...RRule.parseString(appointment.rRule),
-    dtstart: moment(appointment.start).toDate(), // toUTCString() ???
+    dtstart: new Date(getUTCDate(appointmentStartDate)),
   };
-  let rruleSet = new RRuleSet();
+  const correctedOptions = options.until
+    ? { ...options, until: new Date(getUTCDate(options.until)) }
+    : options;
+
+  const rruleSet = new RRuleSet();
+
   if (appointment.exDate) {
-    rruleSet = rrulestr(`EXDATE:${appointment.exDate}`, { forceset: true }) as RRuleSet;
+    appointment.exDate.split(',').reduce((acc: Date[], date: string) => {
+      const currentExDate = moment(date).toDate();
+      rruleSet.exdate(new Date(getUTCDate(currentExDate)));
+    }, []);
   }
 
-  rruleSet.rrule(new RRule(options));
+  rruleSet.rrule(new RRule(correctedOptions));
 
-  const datesInBoundaries = rruleSet.between(leftBound as Date, rightBound as Date);
+  // According to https://github.com/jakubroztocil/rrule#important-use-utc-dates
+  // we have to format the dates we get from RRuleSet to get local dates
+  const datesInBoundaries = rruleSet.between(leftBoundUTC as Date, rightBoundUTC as Date, true)
+    .map(date => moment.utc(date).format('YYYY-MM-DD HH:mm'));
   if (datesInBoundaries.length === 0) return [];
 
   const appointmentDuration = moment(appointment.end)
     .diff(appointment.start, 'minutes');
+
   return datesInBoundaries.map((startDate, index) => ({
     ...appointment,
     dataItem: {
       ...appointment.dataItem,
       startDate: moment(startDate).toDate(),
       endDate: moment(startDate).add(appointmentDuration, 'minutes').toDate(),
+      parentData: appointment.dataItem,
     },
     start: moment(startDate),
     end: moment(startDate).add(appointmentDuration, 'minutes'),
   }));
 };
+
+export const filterByViewBoundaries: PureComputed<
+  [AppointmentMoment, Date, Date, number[], boolean], AppointmentMoment[]
+> = (appointment, leftBound, rightBound, excludedDays, removeAllDay) => {
+  let appointments = [appointment];
+  if (appointment.rRule) {
+    appointments = expandRecurrenceAppointment(
+      appointment as AppointmentMoment, leftBound as Date, rightBound as Date,
+    );
+  }
+  return appointments.filter(appt => viewPredicate(
+    appt, leftBound, rightBound, excludedDays, removeAllDay,
+  ));
+};
+
+const getUTCDate: PureComputed<[Date], number> = date =>
+  Date.UTC(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate(),
+    date.getHours(),
+    date.getMinutes(),
+);

@@ -211,4 +211,37 @@ describe('Getter', () => {
     expect(() => { wrapper.unmount(); })
       .not.toThrow();
   });
+
+  it('should not lose Getter when Plugin is inserted', () => {
+    const Tester = ({ enabled }) => (
+      <PluginHost>
+        <Template name="root">
+          <TemplateConnector>
+            {({ a, b }) => (
+              <>
+                <h1 className="a">{a}</h1>
+                <h1 className="b">{b}</h1>
+              </>
+            )}
+          </TemplateConnector>
+        </Template>
+
+        {enabled ? (
+          <Plugin>
+            <Getter name="b" value={3} />
+          </Plugin>
+        ) : []}
+        <Plugin>
+          <Getter name="a" value={1} />
+          <Getter name="b" value={2} />
+        </Plugin>
+      </PluginHost>
+    );
+
+    const tree = mount(<Tester enabled={false} />);
+    tree.setProps({ enabled: true });
+
+    expect(tree.find('.a').text()).toEqual('1');
+    expect(tree.find('.b').text()).toEqual('2');
+  });
 });

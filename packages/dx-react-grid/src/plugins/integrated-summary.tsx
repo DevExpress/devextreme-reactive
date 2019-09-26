@@ -11,6 +11,7 @@ import { IntegratedSummaryProps, SummaryType } from '../types';
 
 const pluginDependencies = [
   { name: 'SummaryState' },
+  { name: 'IntegratedGrouping', optional: true },
 ];
 
 class IntegratedSummaryBase extends React.PureComponent<IntegratedSummaryProps> {
@@ -42,12 +43,14 @@ class IntegratedSummaryBase extends React.PureComponent<IntegratedSummaryProps> 
       getCellValue,
       getRowLevelKey,
       isGroupRow,
+      getCollapsedRows,
     }: Getters) => groupSummaryValues(
       rows,
       groupSummaryItems,
       getCellValue,
       getRowLevelKey,
       isGroupRow,
+      getCollapsedRows,
       calculator,
     );
 

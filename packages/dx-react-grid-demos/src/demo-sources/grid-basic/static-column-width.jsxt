@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   Grid,
   Table,
@@ -10,42 +10,32 @@ import {
   globalSalesValues,
 } from '../../../demo-data/generator';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [columns] = useState([
+    { name: 'region', title: 'Region' },
+    { name: 'sector', title: 'Sector' },
+    { name: 'customer', title: 'Customer' },
+    { name: 'product', title: 'Product' },
+    { name: 'amount', title: 'Sale Amount' },
+  ]);
+  const [rows] = useState(generateRows({ columnValues: globalSalesValues, length: 8 }));
+  const [tableColumnExtensions] = useState([
+    { columnName: 'region', width: '20%' },
+    { columnName: 'sector', width: '15%' },
+    { columnName: 'customer', width: 'auto' },
+    { columnName: 'product', width: 'auto' },
+    { columnName: 'amount', width: 140 },
+  ]);
 
-    this.state = {
-      columns: [
-        { name: 'region', title: 'Region' },
-        { name: 'sector', title: 'Sector' },
-        { name: 'customer', title: 'Customer' },
-        { name: 'product', title: 'Product' },
-        { name: 'amount', title: 'Sale Amount' },
-      ],
-      rows: generateRows({ columnValues: globalSalesValues, length: 8 }),
-      tableColumnExtensions: [
-        { columnName: 'region', width: 180 },
-        { columnName: 'sector', width: 130 },
-        { columnName: 'customer', width: 240 },
-        { columnName: 'product', width: 210 },
-        { columnName: 'amount', width: 140 },
-      ],
-    };
-  }
-
-  render() {
-    const { rows, columns, tableColumnExtensions } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <Table columnExtensions={tableColumnExtensions} />
-          <TableHeaderRow />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <Table columnExtensions={tableColumnExtensions} />
+        <TableHeaderRow />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

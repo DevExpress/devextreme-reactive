@@ -5,7 +5,7 @@ import { TABLE_REORDERING_TYPE } from './constants';
 import { OrderedColumnsComputed, DraftOrderComputed, TableRow } from '../../types';
 
 export const orderedColumns: OrderedColumnsComputed = (
-  tableColumns, order,
+  tableColumns = [], order,
 ) => mergeSort(tableColumns, (a, b) => {
   if (a.type !== TABLE_DATA_TYPE || b.type !== TABLE_DATA_TYPE) return 0;
 

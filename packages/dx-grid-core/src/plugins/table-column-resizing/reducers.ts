@@ -1,31 +1,35 @@
 import { slice } from '@devexpress/dx-core';
 import { ColumnWidthReducer } from '../../types';
+import { getColumnSizes } from './helpers';
 
-export const changeTableColumnWidth: ColumnWidthReducer = (
-  state, { columnName, shift, minColumnWidth ,
-}) => {
+export const changeTableColumnWidth: ColumnWidthReducer = (state, payload) => {
   const { columnWidths } = state;
+  const { columnName, nextColumnName, resizingMode } = payload;
   const nextColumnWidth = slice(columnWidths);
   const index = nextColumnWidth.findIndex(elem => elem.columnName === columnName);
-  const updatedColumn = nextColumnWidth[index];
-  const size = Math.max(minColumnWidth, updatedColumn.width + shift);
-  nextColumnWidth.splice(index, 1, { columnName, width: size });
+  const nextIndex = nextColumnWidth.findIndex(elem => elem.columnName === nextColumnName);
+  const { size, nextSize } = getColumnSizes(columnWidths, payload);
 
+  nextColumnWidth.splice(index, 1, { columnName, width: size });
+  if (resizingMode === 'nextColumn') {
+    nextColumnWidth.splice(nextIndex, 1, { columnName: nextColumnName, width: nextSize });
+  }
   return {
     columnWidths: nextColumnWidth,
   };
 };
 
-export const draftTableColumnWidth: ColumnWidthReducer = (
-  state, { columnName, shift, minColumnWidth },
-) => {
+export const draftTableColumnWidth: ColumnWidthReducer = (state, payload) => {
   const { columnWidths } = state;
-  const updatedColumn = columnWidths.find(elem => elem.columnName === columnName)!;
-  const size = Math.max(minColumnWidth, updatedColumn.width + shift);
+  const { columnName, nextColumnName, resizingMode } = payload;
+  const { size, nextSize } = getColumnSizes(columnWidths, payload);
 
-  return {
-    draftColumnWidths: [{ columnName: updatedColumn.columnName, width: size }],
-  };
+  if (resizingMode === 'nextColumn') {
+    return { draftColumnWidths: [
+      { columnName, width: size }, { columnName: nextColumnName, width: nextSize! },
+    ] };
+  }
+  return { draftColumnWidths: [{ columnName, width: size }] };
 };
 
 export const cancelTableColumnWidthDraft = () => ({

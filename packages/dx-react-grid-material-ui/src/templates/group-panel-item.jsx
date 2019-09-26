@@ -10,8 +10,8 @@ const SPACE_KEY_CODE = 32;
 
 const styles = theme => ({
   button: {
-    marginRight: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 1.5,
+    marginRight: theme.spacing(1),
+    marginBottom: theme.spacing(1.5),
   },
   draftCell: {
     opacity: 0.3,
@@ -79,6 +79,7 @@ GroupPanelItemBase.propTypes = {
   item: PropTypes.shape({
     column: PropTypes.shape({
       title: PropTypes.string,
+      name: PropTypes.string,
     }).isRequired,
     draft: PropTypes.bool,
   }).isRequired,

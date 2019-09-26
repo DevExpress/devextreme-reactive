@@ -13,22 +13,22 @@ const styles = theme => ({
   plainTitle: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    lineHeight: `${theme.spacing.unit * 3}px`,
+    lineHeight: theme.spacing(3),
   },
   cell: {
     outline: 'none',
     position: 'relative',
     overflow: 'visible',
-    paddingRight: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing(1),
+    paddingLeft: theme.spacing(1),
     '&:first-child': {
-      paddingLeft: theme.spacing.unit * 3,
+      paddingLeft: theme.spacing(3),
     },
     '&:hover $resizeHandleLine': {
       opacity: 1,
     },
     '&:nth-last-child(2) $resizeHandle': {
-      width: `${theme.spacing.unit}px`,
+      width: theme.spacing(1),
       right: '1px',
     },
   },
@@ -74,8 +74,8 @@ const styles = theme => ({
     },
   },
   cellRight: {
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
     textAlign: 'right',
   },
   cellCenter: {
@@ -98,16 +98,29 @@ class TableHeaderCellBase extends React.PureComponent {
     this.state = {
       dragging: false,
     };
+    this.dragRef = React.createRef();
     this.cellRef = React.createRef();
+    this.getWidthGetter = () => {
+      const { getCellWidth } = this.props;
+      const node = this.cellRef.current;
+      return node && getCellWidth(() => {
+        const { width } = node.getBoundingClientRect();
+        return width;
+      });
+    };
 
     this.onDragStart = () => {
       this.setState({ dragging: true });
     };
     this.onDragEnd = () => {
-      if (this.cellRef.current) {
+      if (this.dragRef.current) {
         this.setState({ dragging: false });
       }
     };
+  }
+
+  componentDidMount() {
+    this.getWidthGetter();
   }
 
   render() {
@@ -118,7 +131,7 @@ class TableHeaderCellBase extends React.PureComponent {
       resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel,
       classes, tableRow, className, children,
       // @deprecated
-      showSortingControls, sortingDirection, sortingEnabled, onSort, before,
+      showSortingControls, sortingDirection, sortingEnabled, onSort, before, getCellWidth,
       ...restProps
     } = this.props;
 
@@ -138,6 +151,7 @@ class TableHeaderCellBase extends React.PureComponent {
       <TableCell
         style={style}
         className={tableCellClasses}
+        ref={this.cellRef}
         {...restProps}
       >
         <div className={classes.container}>
@@ -157,7 +171,7 @@ class TableHeaderCellBase extends React.PureComponent {
 
     return draggingEnabled ? (
       <DragSource
-        ref={this.cellRef}
+        ref={this.dragRef}
         payload={[{ type: 'column', columnName: column.name }]}
         onStart={this.onDragStart}
         onEnd={this.onDragEnd}
@@ -189,6 +203,7 @@ TableHeaderCellBase.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
   before: PropTypes.node,
+  getCellWidth: PropTypes.func,
 };
 
 TableHeaderCellBase.defaultProps = {
@@ -211,6 +226,7 @@ TableHeaderCellBase.defaultProps = {
   className: undefined,
   children: undefined,
   before: undefined,
+  getCellWidth: undefined,
 };
 
 export const TableHeaderCell = withStyles(styles, { name: 'TableHeaderCell' })(TableHeaderCellBase);

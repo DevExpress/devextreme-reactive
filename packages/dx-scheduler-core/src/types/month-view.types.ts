@@ -1,8 +1,9 @@
 import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
-import { Appointment, AppointmentDate, AppointmentId } from './scheduler-core.types';
+import { Appointment, SchedulerDateTime, AppointmentId } from './scheduler-core.types';
 import { AppointmentMoment, ViewCellData } from './all-day-panel.types';
 
+/** @internal */
 export type TimeBounds = { left: moment.Moment, right: moment.Moment };
 
 /** Describes a cell data configuration object. */
@@ -17,18 +18,19 @@ export interface MonthCellData {
   today: boolean;
 }
 
+/** @internal */
 export type MonthCellsDataComputedFn = PureComputed<
-  [Date, number, number, Date], MonthCellData[][]
+  [Date, number, number, Date | number], MonthCellData[][]
 >;
-
+/** @internal */
 export type CalculateMonthDateIntervalsFn = PureComputed<
   [Appointment[], Date, Date], AppointmentMoment[]
 >;
-
+/** @internal */
 export type SliceAppointmentByWeekFn = PureComputed<
   [TimeBounds, AppointmentMoment, number], AppointmentMoment[]
 >;
-
+/** @internal */
 export type GetMonthCellIndexByDateFn = PureComputed<
-  [ViewCellData[][], AppointmentDate, boolean], AppointmentId
+  [ViewCellData[][], SchedulerDateTime, boolean], AppointmentId
 >;

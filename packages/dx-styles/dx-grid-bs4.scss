@@ -163,6 +163,9 @@ button.dx-g-bs4-table-edit-command-cell {
     }
   }
  }
+ .dx-g-bs4-resizing-control-wrapper-active {
+  opacity: 1;
+ }
 .dx-g-bs4-resize-control-line {
   opacity: 1;
   position: absolute;
@@ -207,9 +210,16 @@ button.dx-g-bs4-table-edit-command-cell {
   height: 16px;
   fill: currentColor;
 }
-.dx-g-bs4-fixed-cell {
+.table-active, .table-active>td, .table-active>th {
+  background-color: #f5f5f5;
+}
+.dx-g-bs4-fixed-cell,
+.dx-g-bs4-fixed-group-cell {
   z-index: 300;
   background-clip: padding-box;
+}
+.dx-g-bs4-fixed-group-cell {
+  display: inline-block;
 }
 .dx-g-bs4-table-summary-item {
   font-weight: bold;
@@ -230,6 +240,7 @@ button.dx-g-bs4-table-edit-command-cell {
   .text-muted {
     display: inline-block;
     transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
   }
 }
 .dx-g-bs4-skeleton-cell {

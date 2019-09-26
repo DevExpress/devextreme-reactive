@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import { shallow, mount } from 'enzyme';
-import { isEdgeBrowser } from '@devexpress/dx-core';
 import { Sizer } from '@devexpress/dx-react-core';
 import {
   getCollapsedGrids,
@@ -9,16 +8,11 @@ import {
 } from '@devexpress/dx-grid-core';
 import { setupConsole } from '@devexpress/dx-testing';
 import { VirtualTableLayout } from './virtual-table-layout';
+import { emptyViewport } from '../../plugins/virtual-table/virtual-table';
 
 jest.mock('react-dom', () => ({
   findDOMNode: jest.fn(),
 }));
-jest.mock('@devexpress/dx-core', () => {
-  return {
-    ...require.requireActual('@devexpress/dx-core'),
-    isEdgeBrowser: jest.fn(),
-  };
-});
 jest.mock('@devexpress/dx-grid-core', () => {
   const actual = require.requireActual('@devexpress/dx-grid-core');
   jest.spyOn(actual, 'getCollapsedGrids');
@@ -57,6 +51,25 @@ jest.mock('@devexpress/dx-react-core', () => {
   };
 });
 
+// tslint:disable-next-line: max-classes-per-file
+class VirtualTableLayoutWrapper extends React.Component<any, any> {
+  state = {
+    viewport: emptyViewport,
+  };
+  setViewport = viewport => this.setState({ viewport });
+
+  render() {
+    const { viewport } = this.state;
+    return (
+      <VirtualTableLayout
+        {...this.props}
+        setViewport={this.setViewport}
+        viewport={viewport}
+      />
+    );
+  }
+}
+
 const defaultProps = {
   columns: [
     { key: 'a', column: { name: 'a' } },
@@ -80,6 +93,17 @@ const defaultProps = {
     { key: 8 },
     { key: 9 },
   ],
+  viewport: {
+    top: 0,
+    left: 0,
+    width: 400,
+    height: 120,
+    columns: [[0, 4]],
+    rows: [0, 5],
+    headerRows: [0, 0],
+    footerRows: [0, 0],
+  },
+  setViewport: jest.fn(),
   loadedRowsStart: 0,
   totalRowCount: 9,
   containerComponent: props => <div {...props} />,
@@ -164,6 +188,10 @@ describe('VirtualTableLayout', () => {
         {...defaultProps}
         headerRows={rows}
         columns={columns}
+        viewport={{
+          ...defaultProps.viewport,
+          columns: [[0, 2]],
+        }}
       />
     ));
   });
@@ -186,20 +214,11 @@ describe('VirtualTableLayout', () => {
         .toMatchObject({
           viewportLeft: 0,
           containerWidth: 400,
-          visibleRowBoundaries: {
-            header: {
-              start: 0,
-              end: 0,
-            },
-            body: {
-              start: 0,
-              end: 0,
-            },
-            footer: {
-              start: 0,
-              end: 0,
-            },
-            viewportTop: 0,
+          viewport: {
+            columns: [[0, 4]],
+            footerRows: [0, 0],
+            headerRows: [0, 0],
+            rows: [0, 5],
           },
         });
     });
@@ -217,7 +236,7 @@ describe('VirtualTableLayout', () => {
         .not.toMatchObject({ height: `${defaultProps.height}px` });
     });
 
-    it('should pass correct viewport at on viewport change', () => {
+    it('should recalculate viewport on scroll', () => {
       const tree = mount((
         <VirtualTableLayout
           {...defaultProps}
@@ -225,33 +244,56 @@ describe('VirtualTableLayout', () => {
         />
       ));
 
-      simulateScroll(tree, { scrollTop: 100, scrollLeft: 50 });
+      simulateScroll(tree, { scrollTop: 100, scrollLeft: 250 });
 
-      expect(getCollapsedGrids.mock.calls[getCollapsedGrids.mock.calls.length - 1][0])
+      const setViewportMock = defaultProps.setViewport.mock;
+      expect(setViewportMock.calls[setViewportMock.calls.length - 1][0])
         .toMatchObject({
-          viewportLeft: 50,
-          visibleRowBoundaries: {
-            header: {
-              start: 0,
-              end: 0,
-            },
-            body: {
-              start: 2,
-              end: 4,
-            },
-            footer: {
-              start: 0,
-              end: 0,
-            },
-            viewportTop: 100,
-          },
+          top: 100,
+          left: 250,
+          columns: [[1, 4]],
+          footerRows: [0, 0],
+          headerRows: [0, 0],
+          rows: [2, 4],
         });
+    });
+
+    it('should update viewport if column count changed', () => {
+      const tree = mount((
+        <VirtualTableLayout
+          {...defaultProps}
+        />
+      ));
+      const setViewportMock = defaultProps.setViewport.mock;
+      const initialCallCount = setViewportMock.calls.length;
+
+      tree.setProps({ columns: defaultProps.columns.slice(0, 3) });
+
+      expect(setViewportMock.calls.length)
+        .toBeGreaterThan(initialCallCount);
+    });
+
+    it('should not update viewport if it is not changed', () => {
+      const tree = mount((
+        <VirtualTableLayout
+          {...defaultProps}
+          bodyRows={defaultProps.bodyRows.slice(0, 4)}
+          viewport={{
+            ...defaultProps.viewport,
+            rows: [0, 2],
+          }}
+        />
+      ));
+
+      tree.setProps({ bodyRows: defaultProps.bodyRows.slice(4, 9) });
+
+      expect(defaultProps.setViewport).not.toHaveBeenCalled();
     });
 
     describe('scroll bounce', () => {
       const assertRerenderOnBounce = (shouldRerender, scrollArgs) => {
         const tree = mount((
-          <VirtualTableLayout
+          <VirtualTableLayoutWrapper
             {...defaultProps}
             headerRows={defaultProps.bodyRows.slice(0, 1)}
           />
@@ -285,9 +327,7 @@ describe('VirtualTableLayout', () => {
         });
       });
 
-      it('should normalize scroll position in the Edge browser', () => {
-        isEdgeBrowser.mockReturnValue(true);
-
+      it('should normalize scroll position', () => {
         assertRerenderOnBounce(true, {
           scrollLeft: 201,
           clientWidth: 200,
@@ -296,9 +336,7 @@ describe('VirtualTableLayout', () => {
         });
       });
 
-      it('should normalize scroll position in the Edge by 1px only', () => {
-        isEdgeBrowser.mockReturnValue(true);
-
+      it('should normalize scroll position by 1px only', () => {
         assertRerenderOnBounce(false, {
           scrollLeft: 202,
           clientWidth: 200,

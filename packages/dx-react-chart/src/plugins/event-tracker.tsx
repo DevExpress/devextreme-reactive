@@ -15,10 +15,7 @@ const EVENT_NAME_TO_REACT_MAP = {
   click: 'onClick',
   mousemove: 'onMouseMove',
   mouseleave: 'onMouseLeave',
-  touchmove: 'onTouchMove',
-  touchleave: 'onTouchLeave',
-  pointermove: 'onPointerMove',
-  pointerleave: 'onPointerLeave',
+  touchstart: 'onTouchStart',
 };
 
 // Translates event names from common space to React.

@@ -38,6 +38,7 @@ export class Root extends React.PureComponent {
       headerRowComponent: HeaderRow,
       headerCellComponent: HeaderCell,
       onSelectedDateChange,
+      formatDate,
       ...restProps
     } = this.props;
     const { selectedDate: selectedDateState, currentDate } = this.state;
@@ -51,6 +52,7 @@ export class Root extends React.PureComponent {
           textComponent={Text}
           navigationButtonComponent={NavigationButton}
           onNavigate={this.onNavigate}
+          formatDate={formatDate}
         />
         <Table
           headerCells={cellsData[0]}
@@ -61,6 +63,7 @@ export class Root extends React.PureComponent {
           headerRowComponent={HeaderRow}
           headerCellComponent={HeaderCell}
           onCellClick={this.onCellClick}
+          formatDate={formatDate}
         />
       </div>
     );
@@ -68,19 +71,21 @@ export class Root extends React.PureComponent {
 }
 
 Root.propTypes = {
-  textComponent: PropTypes.func.isRequired,
-  navigationButtonComponent: PropTypes.func.isRequired,
+  // oneOfType is a workaround because withStyles returns react object
+  textComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  navigationButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  headerRowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  headerCellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  navigatorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   getCells: PropTypes.func.isRequired,
-  rowComponent: PropTypes.func.isRequired,
-  cellComponent: PropTypes.func.isRequired,
-  headerRowComponent: PropTypes.func.isRequired,
-  headerCellComponent: PropTypes.func.isRequired,
-  navigatorComponent: PropTypes.func.isRequired,
   selectedDate: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
     PropTypes.instanceOf(Date),
   ]).isRequired,
+  formatDate: PropTypes.func.isRequired,
   firstDayOfWeek: PropTypes.number,
   onSelectedDateChange: PropTypes.func,
 };

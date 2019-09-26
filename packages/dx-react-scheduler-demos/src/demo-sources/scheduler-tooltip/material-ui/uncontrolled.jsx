@@ -5,6 +5,7 @@ import {
   WeekView,
   Appointments,
   AppointmentTooltip,
+  AppointmentForm,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 import appointments from '../../../demo-data/today-appointments';
@@ -24,6 +25,7 @@ export default class Demo extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
+          height={660}
         >
           <WeekView
             startDayHour={9}
@@ -31,9 +33,12 @@ export default class Demo extends React.PureComponent {
           />
 
           <Appointments />
-
           <AppointmentTooltip
             showCloseButton
+            showOpenButton
+          />
+          <AppointmentForm
+            readOnly
           />
         </Scheduler>
       </Paper>

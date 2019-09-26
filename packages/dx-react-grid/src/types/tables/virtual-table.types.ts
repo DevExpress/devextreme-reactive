@@ -1,4 +1,19 @@
-import { Table } from '../index';
+import { Table, GridViewport } from '../index';
+
+// tslint:disable-next-line: no-namespace
+export namespace VirtualTable {
+  /** Describes additional column properties that the plugin can handle. */
+  export interface ColumnExtension {
+    /** The name of the column to extend. */
+    columnName: string;
+    /** The table column width. */
+    width?: number | string;
+    /** The table column alignment. */
+    align?: 'left' | 'right' | 'center';
+    /** Specifies whether word wrap is enabled in a column's cells. */
+    wordWrapEnabled?: boolean;
+  }
+}
 
 export interface VirtualTableProps {
   /** The virtual table's height. */
@@ -9,7 +24,7 @@ export interface VirtualTableProps {
    **/
   estimatedRowHeight: number;
   /** Additional column properties that the plugin can handle. */
-  columnExtensions?: Array<Table.ColumnExtension>;
+  columnExtensions?: Array<VirtualTable.ColumnExtension>;
   /** A component that renders a table. */
   tableComponent: React.ComponentType<object>;
   /** A component that renders a table head. */
@@ -42,8 +57,12 @@ export interface VirtualTableProps {
   footerTableComponent: React.ComponentType<object>;
   // TODO
   skeletonCellComponent: React.ComponentType<Table.CellProps>;
-  // onViewportTopChange: (number) => void;
 }
+
+/** @internal */
+export type VirtualTablePluginState = {
+  viewport: GridViewport;
+};
 
 // tslint:disable-next-line:max-line-length
 /** A plugin that renders a scrollable table instead of a static table. Contains the VirtualTable.Row and VirtualTable.Cell components that provide ways to customize virtual table rows and columns. These components can be extended by other plugins. */

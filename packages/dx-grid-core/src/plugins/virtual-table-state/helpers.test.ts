@@ -1,6 +1,8 @@
 import {
   mergeRows, calculateRequestedRange, rowToPageIndex,
   recalculateBounds, trimRowsToInterval,
+  getForceReloadInterval, getAvailableRowCount,
+  needFetchMorePages, shouldSendRequest, getRequestMeta,
 } from './helpers';
 import { intervalUtil } from './utils';
 import { createInterval, generateRows, createVirtualRows } from './test-utils';
@@ -157,33 +159,37 @@ describe('VirtualTableState helpers', () => {
       it('should caclulate requested range for next page', () => {
         const loadedInterval = createInterval(100, 400);
         const newInterval = createInterval(200, 500);
+        const virtualRows = createVirtualRows(loadedInterval);
 
-        expect(calculateRequestedRange(loadedInterval, newInterval, 310, pageSize))
+        expect(calculateRequestedRange(virtualRows, newInterval, pageSize))
           .toEqual({ start: 400, end: 500 });
       });
 
       it('should caclulate requested range for previous page', () => {
         const loadedInterval = createInterval(200, 500);
         const newInterval = createInterval(100, 400);
+        const virtualRows = createVirtualRows(loadedInterval);
 
-        expect(calculateRequestedRange(loadedInterval, newInterval, 310, pageSize))
+        expect(calculateRequestedRange(virtualRows, newInterval, pageSize))
           .toEqual({ start: 100, end: 200 });
       });
 
       it('should caclulate requested range for next 2 pages', () => {
         const loadedInterval = createInterval(100, 400);
         const newInterval = createInterval(400, 700);
+        const virtualRows = createVirtualRows(loadedInterval);
 
-        expect(calculateRequestedRange(loadedInterval, newInterval, 580, pageSize))
-          .toEqual({ start: 500, end: 700 });
+        expect(calculateRequestedRange(virtualRows, newInterval, pageSize))
+          .toEqual({ start: 400, end: 700 });
       });
 
       it('should caclulate requested range for previous 2 pages', () => {
         const loadedInterval = createInterval(300, 600);
         const newInterval = createInterval(100, 400);
+        const virtualRows = createVirtualRows(loadedInterval);
 
-        expect(calculateRequestedRange(loadedInterval, newInterval, 270, pageSize))
-          .toEqual({ start: 200, end: 400 });
+        expect(calculateRequestedRange(virtualRows, newInterval, pageSize))
+          .toEqual({ start: 100, end: 400 });
       });
     });
 
@@ -191,33 +197,93 @@ describe('VirtualTableState helpers', () => {
       it('should correctly process start of page', () => {
         const loadedInterval = createInterval(0, 200);
         const newInterval = createInterval(200, 500);
+        const virtualRows = createVirtualRows(loadedInterval);
 
-        expect(calculateRequestedRange(loadedInterval, newInterval, 300, pageSize))
-          .toEqual({ start: 200, end: 400 });
+        expect(calculateRequestedRange(virtualRows, newInterval, pageSize))
+          .toEqual({ start: 200, end: 500 });
       });
 
       it('should correctly process end of page', () => {
         const loadedInterval = createInterval(0, 200);
         const newInterval = createInterval(200, 500);
+        const virtualRows = createVirtualRows(loadedInterval);
 
-        expect(calculateRequestedRange(loadedInterval, newInterval, 399, pageSize))
-          .toEqual({ start: 300, end: 500 });
+        expect(calculateRequestedRange(virtualRows, newInterval, pageSize))
+          .toEqual({ start: 200, end: 500 });
+      });
+
+      it('should correctly process the last page', () => {
+        const loadedInterval = createInterval(0, 200);
+        const newInterval = createInterval(1000, 1200);
+        const virtualRows = createVirtualRows(loadedInterval);
+
+        expect(calculateRequestedRange(virtualRows, newInterval, pageSize))
+          .toEqual({ start: 1000, end: 1200 });
       });
     });
 
     describe('fast scroll', () => {
       const loadedInterval = createInterval(200, 500);
       const newInterval = createInterval(1000, 1300);
+      const virtualRows = createVirtualRows(loadedInterval);
 
-      it('should return current and next page if page middle index passed', () => {
-        expect(calculateRequestedRange(loadedInterval, newInterval, 1170, pageSize))
-          .toEqual({ start: 1100, end: 1300 });
+      it('should return prev, current and next pages', () => {
+        expect(calculateRequestedRange(virtualRows, newInterval, pageSize))
+          .toEqual({ start: 1000, end: 1300 });
+      });
+    });
+
+    describe('reference index', () => {
+      // tslint:disable-next-line: max-line-length
+      it('should caclulate correct if reference index less than the start of a new interval', () => {
+        const loadedInterval = createInterval(100, 400);
+        const newInterval = createInterval(200, 500);
+        const virtualRows = createVirtualRows(loadedInterval);
+        const referenceIndex = 440;
+
+        expect(calculateRequestedRange(virtualRows, newInterval, pageSize, referenceIndex))
+          .toEqual({ start: 400, end: 500 });
       });
 
-      it('should return current and previous page if page middle index is not passed', () => {
-        expect(calculateRequestedRange(loadedInterval, newInterval, 1120, pageSize))
-          .toEqual({ start: 1000, end: 1200 });
+      // tslint:disable-next-line: max-line-length
+      it('should caclulate correct if reference index more than the start of a new interval and less than half of page', () => {
+        const loadedInterval = createInterval(100, 400);
+        const newInterval = createInterval(200, 500);
+        const virtualRows = createVirtualRows(loadedInterval);
+        const referenceIndex = 360;
+
+        expect(calculateRequestedRange(virtualRows, newInterval, pageSize, referenceIndex))
+          .toEqual({ start: 400, end: 500 });
       });
+
+      // tslint:disable-next-line: max-line-length
+      describe('reference index more than the start of a new interval and less than half of page', () => {
+        const loadedInterval = createInterval(100, 400);
+        const newInterval = createInterval(200, 500);
+        const virtualRows = createVirtualRows(loadedInterval);
+        const referenceIndex = 320;
+
+        it('should caclulate correct if infinite scrolling', () => {
+          expect(calculateRequestedRange(virtualRows, newInterval, pageSize, referenceIndex, true))
+          .toEqual({ start: 300, end: 400 });
+        });
+
+        it('should caclulate correct if non-infinite scrolling', () => {
+          expect(calculateRequestedRange(virtualRows, newInterval, pageSize, referenceIndex, false))
+          .toEqual({ start: 400, end: 500 });
+        });
+      });
+    });
+
+    // tslint:disable-next-line: max-line-length
+    it('should caclulate correct in non-infinite scrolling', () => {
+      const loadedInterval = createInterval(100, 400);
+      const newInterval = createInterval(200, 500);
+      const virtualRows = createVirtualRows(loadedInterval);
+      const referenceIndex = 320;
+
+      expect(calculateRequestedRange(virtualRows, newInterval, pageSize, referenceIndex))
+        .toEqual({ start: 400, end: 500 });
     });
   });
 
@@ -315,6 +381,138 @@ describe('VirtualTableState helpers', () => {
       expect(trimRowsToInterval(virtualRows, targetInterval)).toEqual({
         skip: Number.POSITIVE_INFINITY,
         rows: [],
+      });
+    });
+  });
+
+  describe('#getAvailableRowCount', () => {
+    const totalRowCount = 1000;
+
+    it('should return totalCount when not infinite scrolling', () => {
+      const isInfniniteScroll = false;
+      const newRowCount = 200;
+      const lastRowCount = 100;
+
+      expect(getAvailableRowCount(
+        isInfniniteScroll,
+        newRowCount,
+        lastRowCount,
+        totalRowCount,
+      )).toEqual(totalRowCount);
+    });
+
+    describe('infinite scrolling mode', () => {
+      const isInfniniteScroll = true;
+      const newRowCount = 200;
+
+      it('should return newRowCount if it more than lastRowCount in infinite scrolling', () => {
+        const lastRowCount = 100;
+
+        expect(getAvailableRowCount(
+          isInfniniteScroll,
+          newRowCount,
+          lastRowCount,
+          totalRowCount,
+        )).toEqual(newRowCount);
+      });
+
+      it('should return lastRowCount if it more than newRowCount in infinite scrolling', () => {
+        const lastRowCount = 300;
+
+        expect(getAvailableRowCount(
+          isInfniniteScroll,
+          newRowCount,
+          lastRowCount,
+          totalRowCount,
+        )).toEqual(lastRowCount);
+      });
+
+    });
+  });
+
+  describe('#getForceReloadInterval', () => {
+    it('should return 2 pages if loaded interval is less than 2 pages', () => {
+      const virtualRows = createVirtualRows(createInterval(100, 200));
+      expect(getForceReloadInterval(virtualRows, 100, 1000)).toEqual({
+        start: 100,
+        end: 300,
+      });
+    });
+
+    it('should return loaded interval if it is more than 2 pages', () => {
+      const virtualRows = createVirtualRows(createInterval(100, 400));
+      expect(getForceReloadInterval(virtualRows, 100, 1000)).toEqual({
+        start: 100,
+        end: 400,
+      });
+    });
+
+    it('should return 2 pages if current total count is 0', () => {
+      const virtualRows = createVirtualRows(createInterval(0, 0));
+      expect(getForceReloadInterval(virtualRows, 100, 0)).toEqual({
+        start: 0,
+        end: 200,
+      });
+    });
+  });
+
+  describe('#needFetchMorePages', () => {
+    const virtualRows = createVirtualRows(createInterval(100, 400));
+
+    it('should return false when referenceIndex is inside of a middle page', () => {
+      expect(needFetchMorePages(virtualRows, 220, 100))
+        .toBeFalsy();
+    });
+
+    it('should return true when referenceIndex is inside of a top page', () => {
+      expect(needFetchMorePages(virtualRows, 150, 100))
+        .toBeTruthy();
+    });
+
+    it('should return true when referenceIndex is inside of a bottom page', () => {
+      expect(needFetchMorePages(virtualRows, 350, 100))
+        .toBeTruthy();
+    });
+
+    it('should return true when referenceIndex is outside of a loaded range', () => {
+      expect(needFetchMorePages(virtualRows, 500, 100))
+        .toBeTruthy();
+    });
+  });
+
+  describe('#shouldSendRequest', () => {
+    it('should return false if page is already requested', () => {
+      expect(shouldSendRequest({ start: 100, end: 200 }, 100))
+        .toBeFalsy();
+    });
+
+    it('should return true if page is not yet requested', () => {
+      expect(shouldSendRequest({ start: 100, end: 200 }, 400))
+        .toBeTruthy();
+    });
+
+    it('should return false if requested range is empty', () => {
+      expect(shouldSendRequest({ start: 100, end: 100 }, 400))
+        .toBeFalsy();
+    });
+  });
+
+  describe('#getRequestMeta', () => {
+    const virtualRows = createVirtualRows(createInterval(200, 500));
+
+    it('should work', () => {
+      expect(getRequestMeta(470, virtualRows, 100, 1000, false))
+        .toEqual({
+          actualBounds: { start: 300, end: 600 },
+          requestedRange: { start: 500, end: 600 },
+        });
+    });
+
+    it('should work with force reload', () => {
+      expect(getRequestMeta(370, virtualRows, 100, 1000, true))
+      .toEqual({
+        actualBounds: { start: 200, end: 500 },
+        requestedRange: { start: 200, end: 500 },
       });
     });
   });

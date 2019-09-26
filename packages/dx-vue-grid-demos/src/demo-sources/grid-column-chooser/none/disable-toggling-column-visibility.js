@@ -14,12 +14,12 @@ export default {
     return {
       columns: [
         { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
+        { name: 'gender', title: 'Gender' },
         { name: 'city', title: 'City' },
         { name: 'car', title: 'Car' },
       ],
       rows: generateRows({ length: 6 }),
-      hiddenColumnNames: ['sex', 'car'],
+      hiddenColumnNames: ['gender', 'car'],
       tableColumnVisibilityColumnExtensions: [
         { columnName: 'city', togglingEnabled: false },
       ],

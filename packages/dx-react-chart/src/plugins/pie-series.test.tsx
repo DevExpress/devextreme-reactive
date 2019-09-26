@@ -72,6 +72,7 @@ describe('Pie series', () => {
       path: undefined,
       getAnimatedStyle: undefined,
       scales: { xScale: 'arg-scale', yScale: 'val-scale' },
+      pane: {},
     });
   });
 });

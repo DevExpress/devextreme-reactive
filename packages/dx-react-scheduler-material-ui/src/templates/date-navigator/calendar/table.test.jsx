@@ -17,8 +17,10 @@ describe('Calendar', () => {
       </tr>
     ),
     cellComponent: () => <td />,
+    // eslint-disable-next-line jsx-a11y/control-has-associated-label
     headerCellComponent: () => <th className="header-cell" />,
     cells: [],
+    formatDate: () => '',
   };
   let classes;
   let shallow;
@@ -26,7 +28,12 @@ describe('Calendar', () => {
   beforeAll(() => {
     classes = getClasses(<Table {...defaultProps} />);
     shallow = createShallow({ dive: true });
+  });
+  beforeEach(() => {
     mount = createMount();
+  });
+  afterEach(() => {
+    mount.cleanUp();
   });
   describe('Table', () => {
     it('should pass className to the root element', () => {

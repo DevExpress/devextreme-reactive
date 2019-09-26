@@ -7,13 +7,15 @@ import { withStyles } from '@material-ui/core/styles';
 import { AppointmentContent } from '../appointment/appointment-content';
 import { Appointment } from '../appointment/appointment';
 import { SplitIndicator } from '../appointment/split-indicator';
+import { setColor } from '../utils';
 
 const draftStyles = theme => ({
   appointment: {
     boxShadow: theme.shadows[3],
     cursor: 'move',
     overflow: 'hidden',
-    backgroundColor: theme.palette.primary[600],
+    backgroundColor: setColor(600, theme.palette.primary),
+    border: 0,
   },
 });
 
@@ -24,7 +26,7 @@ const sourceStyles = {
 };
 
 const DraftAppointmentBase = ({
-  classes, className, data,
+  classes, className, data, formatDate,
   type, fromPrev, toNext, ...restProps
 }) => (
   <Appointment
@@ -37,6 +39,7 @@ const DraftAppointmentBase = ({
       data={data}
       type={type}
       recurringIconComponent={Repeat}
+      formatDate={formatDate}
     />
     {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
   </Appointment>
@@ -47,6 +50,7 @@ DraftAppointmentBase.propTypes = {
   data: PropTypes.object.isRequired,
   fromPrev: PropTypes.bool.isRequired,
   toNext: PropTypes.bool.isRequired,
+  formatDate: PropTypes.func.isRequired,
   className: PropTypes.string,
   type: PropTypes.string,
 };

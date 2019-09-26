@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { dBar } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
+import { dBar, adjustBarSize } from '@devexpress/dx-chart-core';
 import { Bar } from './bar';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
@@ -10,6 +10,8 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   getAreaAnimationStyle: 'test-animation-style',
   HOVERED: 'test_hovered',
   SELECTED: 'test_selected',
+  getVisibility: jest.fn().mockReturnValue('visible'),
+  adjustBarSize: jest.fn(value => value),
 }));
 
 jest.mock('../../utils/with-states', () => ({
@@ -25,19 +27,20 @@ describe('Bar', () => {
     value: 15,
     seriesIndex: 1,
     index: 2,
-    x: 1,
+    arg: 1,
     barWidth: 2,
     maxBarWidth: 20,
-    y: 2,
-    y1: 18,
+    val: 2,
+    startVal: 18,
     color: 'color',
+    rotated: true,
     style: { tag: 'test-style' },
-    scales: { tag: 'test-scales' },
+    scales: { tag: 'test-scales' } as any,
+    pane: { width: 100, height: 200 },
     getAnimatedStyle: jest.fn().mockReturnValue('animated-style'),
   };
 
   afterEach(() => {
-    (dBar as jest.Mock).mockClear();
     defaultProps.getAnimatedStyle.mockClear();
   });
 
@@ -50,8 +53,11 @@ describe('Bar', () => {
       attributes: 'test-attributes',
       fill: 'color',
       style: 'animated-style',
+      visibility: 'visible',
     });
-    expect(dBar).toBeCalledWith(defaultProps);
+    expect(adjustBarSize)
+    .toBeCalledWith({ attributes: 'test-attributes' }, { width: 100, height: 200 });
+    expect(dBar).toBeCalledWith(1, 2, 18, 40, true);
   });
 
   it('should pass rest properties', () => {

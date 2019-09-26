@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -15,7 +15,7 @@ import {
 
 const styles = theme => ({
   button: {
-    margin: `0 ${theme.spacing.unit}px`,
+    margin: theme.spacing(0, 1),
   },
 });
 
@@ -41,35 +41,25 @@ const TableHeaderContentBase = ({
 
 export const TableHeaderContent = withStyles(styles, { name: 'TableHeaderContent' })(TableHeaderContentBase);
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [columns] = useState([
+    { name: 'region', title: 'Region' },
+    { name: 'sector', title: 'Sector' },
+    { name: 'customer', title: 'Customer' },
+  ]);
+  const [rows] = useState(generateRows({ columnValues: globalSalesValues, length: 8 }));
 
-    this.state = {
-      columns: [
-        { name: 'region', title: 'Region' },
-        { name: 'sector', title: 'Sector' },
-        { name: 'customer', title: 'Customer' },
-      ],
-      rows: generateRows({ columnValues: globalSalesValues, length: 8 }),
-    };
-  }
-
-  render() {
-    const { rows, columns } = this.state;
-
-    return (
-      <Paper>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <Table />
-          <TableHeaderRow
-            contentComponent={TableHeaderContent}
-          />
-        </Grid>
-      </Paper>
-    );
-  }
-}
+  return (
+    <Paper>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <Table />
+        <TableHeaderRow
+          contentComponent={TableHeaderContent}
+        />
+      </Grid>
+    </Paper>
+  );
+};

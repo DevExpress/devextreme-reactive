@@ -1,0 +1,63 @@
+import React, { useState } from 'react';<%&additionalImports%>
+import {
+  SearchState,
+  IntegratedFiltering,
+} from '@devexpress/dx-react-grid';
+import {
+  Grid,
+  Table,
+  TableColumnVisibility,
+  Toolbar,
+  ColumnChooser,
+  SearchPanel,
+  TableHeaderRow,
+} from '@devexpress/dx-react-grid-<%&themeName%>';
+
+import { generateRows } from '../../../demo-data/generator';
+
+const getHiddenColumnsFilteringExtensions = hiddenColumnNames => hiddenColumnNames
+  .map(columnName => ({
+    columnName,
+    predicate: () => false,
+  }));
+
+export default () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'gender', title: 'Gender' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows] = useState(generateRows({ length: 6 }));
+  const [defaultHiddenColumnNames] = useState(['car']);
+  const [filteringColumnExtensions, setFilteringColumnExtensions] = useState(
+    getHiddenColumnsFilteringExtensions(defaultHiddenColumnNames),
+  );
+
+  const onHiddenColumnNamesChange = hiddenColumnNames => setFilteringColumnExtensions(
+    getHiddenColumnsFilteringExtensions(hiddenColumnNames),
+  );
+
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <SearchState defaultValue="Audi A4" />
+        <IntegratedFiltering
+          columnExtensions={filteringColumnExtensions}
+        />
+        <Table />
+        <TableHeaderRow />
+        <TableColumnVisibility
+          defaultHiddenColumnNames={defaultHiddenColumnNames}
+          onHiddenColumnNamesChange={onHiddenColumnNamesChange}
+        />
+        <Toolbar />
+        <SearchPanel />
+        <ColumnChooser />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

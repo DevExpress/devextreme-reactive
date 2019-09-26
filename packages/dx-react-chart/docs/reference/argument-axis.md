@@ -24,7 +24,7 @@ import { ArgumentAxis } from '@devexpress/dx-react-chart';
 Name | Type | Default | Description
 -----|------|---------|------------
 tickSize? | number | 5 | The tick size.
-position? | 'bottom' &#124; 'top' | 'bottom' | The axis position.
+position? | 'bottom' &#124; 'top' &#124; 'left' &#124; 'right' | 'bottom' | The axis position.
 indentFromAxis? | number | 10 | The indent from the axis.
 tickFormat? | (scale: [ScaleObject](./argument-scale.md#scaleobject)) => (tick: string) => string  | | A function that returns a tick formatter function.
 showTicks? | boolean | true | Specifies whether to render ticks.
@@ -69,7 +69,7 @@ Field | Type | Description
 text | string &#124; number | The label text.
 x | number | The x coordinate of the label's top left corner.
 y | number | The y coordinate of the label's top left corner.
-dominantBaseline | 'hanging' &#124; 'middle' &#124; 'baseline' | The label's baseline.
+dy | string | The label's offset from the baseline in CSS units.
 textAnchor | 'start' &#124; 'middle' &#124; 'end' | The label's text alignment.
 
 ## Plugin Components

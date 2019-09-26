@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unused-state */
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
+import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   DayView,
@@ -86,7 +86,7 @@ export default class Demo extends React.PureComponent {
         data = data.map(appointment => (
           changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
       }
-      if (deleted) {
+      if (deleted !== undefined) {
         this.setDeletedAppointmentId(deleted);
         this.toggleConfirmationVisibility();
       }
@@ -101,6 +101,7 @@ export default class Demo extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
+          height={660}
         >
           <ViewState
             currentDate={currentDate}
@@ -108,6 +109,7 @@ export default class Demo extends React.PureComponent {
           <EditingState
             onCommitChanges={this.commitChanges}
           />
+          <IntegratedEditing />
 
           <DayView
             startDayHour={9}

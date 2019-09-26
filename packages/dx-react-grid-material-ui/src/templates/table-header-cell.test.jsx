@@ -8,6 +8,7 @@ import { ResizingControl } from './table-header-cell/resizing-control';
 
 const defaultProps = {
   column: { name: 'Test' },
+  getCellWidth: () => {},
 };
 
 describe('TableHeaderCell', () => {
@@ -18,12 +19,16 @@ describe('TableHeaderCell', () => {
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting', 'SheetsRegistry'] });
     classes = getClasses(<TableHeaderCell {...defaultProps} />);
-    mount = createMount();
     shallow = createShallow({ dive: true });
+  });
+  beforeEach(() => {
+    mount = createMount();
+  });
+  afterEach(() => {
+    mount.cleanUp();
   });
   afterAll(() => {
     resetConsole();
-    mount.cleanUp();
   });
 
   it('should consider the `wordWrapEnabled` property', () => {

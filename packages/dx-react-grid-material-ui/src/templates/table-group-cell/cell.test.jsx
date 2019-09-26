@@ -12,22 +12,28 @@ describe('TableGroupCell', () => {
   const defaultProps = {
     contentComponent: () => null,
     iconComponent: () => null,
+    containerComponent: ({ children }) => children,
     expanded: true,
     classes: {},
     column: {},
     row: {},
+    position: '13px',
+    side: 'left',
   };
 
   beforeAll(() => {
     classes = getClasses(<TableGroupCell {...defaultProps} />);
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
     shallow = createShallow({ dive: true });
+  });
+  beforeEach(() => {
     mount = createMount();
   });
-
+  afterEach(() => {
+    mount.cleanUp();
+  });
   afterAll(() => {
     resetConsole();
-    mount.cleanUp();
   });
 
   it('should render children inside content component if passed', () => {
@@ -64,6 +70,18 @@ describe('TableGroupCell', () => {
       .toMatchObject({
         column: defaultProps.column,
         row: defaultProps.row,
+      });
+  });
+
+  it('should render Container', () => {
+    const tree = mount((
+      <TableGroupCell {...defaultProps} />
+    ));
+
+    expect(tree.find(defaultProps.containerComponent).props())
+      .toMatchObject({
+        position: '13px',
+        side: 'left',
       });
   });
 

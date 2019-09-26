@@ -12,11 +12,13 @@ describe('GroupPanelItem', () => {
   let shallow;
   let classes;
   beforeAll(() => {
-    mount = createMount();
     shallow = createShallow({ dive: true });
     classes = getClasses(<GroupPanelItem item={{ column: {} }} />);
   });
-  afterAll(() => {
+  beforeEach(() => {
+    mount = createMount();
+  });
+  afterEach(() => {
     mount.cleanUp();
   });
 

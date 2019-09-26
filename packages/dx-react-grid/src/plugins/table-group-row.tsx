@@ -10,6 +10,8 @@ import {
   isGroupIndentTableCell,
   isGroupTableRow,
   TABLE_GROUP_TYPE,
+  calculateGroupCellIndent,
+  isGroupIndentStubTableCell,
 } from '@devexpress/dx-grid-core';
 import {
   TableGroupRowProps, ShowColumnWhenGroupedGetterFn, TableCellProps, TableRowProps,
@@ -21,6 +23,7 @@ const pluginDependencies = [
   { name: 'DataTypeProvider', optional: true },
   { name: 'TableSelection', optional: true },
 ];
+const side = 'left';
 
 const tableBodyRowsComputed = (
   { tableBodyRows, isGroupRow }: Getters,
@@ -51,6 +54,8 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
     cellComponent: 'Cell',
     contentComponent: 'Content',
     iconComponent: 'Icon',
+    containerComponent: 'Container',
+    indentCellComponent: 'IndentCell',
   };
 
   render() {
@@ -59,8 +64,10 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
       contentComponent: Content,
       iconComponent: Icon,
       rowComponent: GroupRow,
+      containerComponent: Container,
       indentCellComponent: GroupIndentCell,
       indentColumnWidth,
+      contentCellPadding,
       showColumnsWhenGrouped,
       columnExtensions,
     } = this.props;
@@ -93,6 +100,11 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
             <TemplateConnector>
               {({ grouping, expandedGroups }, { toggleGroupExpanded }) => {
                 if (isGroupTableCell(params.tableRow, params.tableColumn)) {
+                  const cellIndent = calculateGroupCellIndent(
+                    params.tableColumn, grouping, indentColumnWidth,
+                  );
+                  const contentIndent = `calc(${cellIndent}px + ${contentCellPadding})`;
+
                   return (
                     <TemplatePlaceholder
                       name="valueFormatter"
@@ -106,12 +118,15 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
                           {...params}
                           contentComponent={Content}
                           iconComponent={Icon}
+                          containerComponent={Container}
                           row={params.tableRow.row}
                           column={params.tableColumn.column!}
                           expanded={expandedGroups.indexOf(params.tableRow.row.compoundKey) !== -1}
                           onToggle={() => toggleGroupExpanded(
                             { groupKey: params.tableRow.row.compoundKey },
                           )}
+                          position={contentIndent}
+                          side={side}
                         >
                           {content}
                         </GroupCell>
@@ -120,16 +135,26 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
                   );
                 }
                 if (isGroupIndentTableCell(params.tableRow, params.tableColumn, grouping)) {
+                  const fixedProps = {
+                    side,
+                    position: calculateGroupCellIndent(
+                      params.tableColumn, grouping, indentColumnWidth,
+                    ),
+                  };
                   if (GroupIndentCell) {
                     return (
                       <GroupIndentCell
                         {...params}
+                        {...fixedProps}
                         row={params.tableRow.row}
                         column={params.tableColumn.column!}
                       />
                     );
                   }
-                  return <TemplatePlaceholder />;
+                  return <TemplatePlaceholder params={fixedProps} />;
+                }
+                if (isGroupIndentStubTableCell(params.tableRow, params.tableColumn, grouping)) {
+                  return <TemplatePlaceholder params={params} />;
                 }
                 return null;
               }}

@@ -23,6 +23,8 @@ import { Scheduler } from '@devexpress/dx-react-scheduler';
 Name | Type | Default | Description
 -----|------|---------|------------
 data | Array&lt;[AppointmentModel](#appointmentmodel)&gt; | | An array of appointment data objects.
+height | number &#124; `auto` | `auto` | The scheduler's height. If the value is `auto`, the height equals that of the container component.
+locale | string &#124; Array&lt;string&gt; | 'en-US' | The locale according to which dates should be formatted.
 rootComponent | ComponentType&lt;[Scheduler.RootProps](#schedulerrootprops)&gt; | | A component that renders the root layout.
 
 ## Interfaces
@@ -33,14 +35,29 @@ Describes an appointment data object. If you use another data structure, map it 
 
 Field | Type | Description
 ------|------|------------
-startDate | Date &#124; string &#124; number | The start date.
-endDate | Date &#124; string &#124; number | The end date.
+startDate | [SchedulerDateTime](#schedulerdatetime) | The start date.
+endDate | [SchedulerDateTime](#schedulerdatetime) | The end date.
 title? | string | The title.
 allDay? | boolean | The all day flag.
 id? | number &#124; string | The identifier.
 rRule? | string | Specifies the appointment recurrence rule. Follows the [iCalendar RRULE](https://tools.ietf.org/html/rfc5545#section-3.8.5.3) format.
-exDate? | string | Specifies dates excluded from recurrence. Follows the [iCalendar EXDATE](https://tools.ietf.org/html/rfc5545#section-3.8.5.1) format.
+exDate? | string | Specifies dates excluded from recurrence. Uses the [iCalendar EXDATE](https://tools.ietf.org/html/rfc5545#section-3.8.5.1) format.
 [propertyName: string] | any | Any other properties.
+
+### CellElementsMeta
+
+Field | Type | Description
+------|------|------------
+parentRect | () => ClientRect &#124; DOMRect | A function that returns the rect of the parent element.
+getCellRects | Array<() => ClientRect &#124; DOMRect> | An array of the cell rect functions.
+
+### ScrollingStrategy
+
+Field | Type | Description
+------|------|------------
+topBoundary | number | Specify the top boundary of the scrollable layout area.
+bottomBoundary | number | Specify the bottom boundary of the scrollable layout area.
+changeVerticalScroll | (value: number) => void | A function that can change scroll position.
 
 ### Scheduler.RootProps
 
@@ -48,7 +65,20 @@ Describes properties passed to a component that renders the root layout.
 
 Field | Type | Description
 ------|------|------------
+height | number &#124; `auto` | The Scheduler's height.
 children? | ReactNode | A React node used to render the root layout.
+
+### SchedulerDateTime
+
+The type of date-time values in the Scheduler.
+
+Type: `Date | string | number`
+
+### FormatterFn
+
+A function that formats dates according to the set locale.
+
+Type: `(nextDate: Date | string | number | undefined, nextOptions: Intl.DateTimeFormatOptions) => string`
 
 ## Plugin Components
 

@@ -30,6 +30,15 @@ describe('Table Select Row', () => {
     expect(tree.find('tr').hasClass('table-active')).toBeTruthy();
   });
 
+  it('should pass className to the root element', () => {
+    const tree = shallow((
+      <TableSelectRow className="custom-class" />
+    ));
+
+    expect(tree.is('.custom-class'))
+      .toBeTruthy();
+  });
+
   it('should handle row click', () => {
     const onToggleMock = jest.fn();
     const event = { stopPropagation: jest.fn() };

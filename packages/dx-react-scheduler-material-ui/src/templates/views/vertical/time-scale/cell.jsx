@@ -3,19 +3,20 @@ import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import moment from 'moment';
+import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
 
 const styles = theme => ({
   cell: {
+    userSelect: 'none',
     border: 0,
-    padding: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit / 4,
+    height: theme.spacing(12) + 2,
+    padding: 0,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     textAlign: 'right',
     '&:last-child': {
-      padding: theme.spacing.unit,
-      paddingLeft: theme.spacing.unit / 4,
+      paddingLeft: theme.spacing(0.25),
+      paddingRight: theme.spacing(0.5),
     },
   },
   text: {
@@ -24,27 +25,26 @@ const styles = theme => ({
   },
 });
 
-const CellBase = ({
+const CellBase = React.memo(({
   classes,
   className,
   startDate,
   endDate,
+  formatDate,
   ...restProps
-}) => {
-  const currentTime = moment(endDate);
-  return (
-    <TableCell
-      className={classNames(classes.cell, className)}
-      {...restProps}
-    >
-      <span className={classes.text}>
-        {currentTime.format('h:mm A')}
-      </span>
-    </TableCell>
-  );
-};
+}) => (
+  <TableCell
+    className={classNames(classes.cell, className)}
+    {...restProps}
+  >
+    <span className={classes.text}>
+      {formatDate(endDate, HOUR_MINUTE_OPTIONS)}
+    </span>
+  </TableCell>
+));
 
 CellBase.propTypes = {
+  formatDate: PropTypes.func.isRequired,
   endDate: PropTypes.instanceOf(Date).isRequired,
   startDate: PropTypes.instanceOf(Date),
   classes: PropTypes.object.isRequired,

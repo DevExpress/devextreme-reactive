@@ -5,13 +5,13 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   progressBarCell: {
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
   },
   progressBar: {
     backgroundColor: theme.palette.primary.light,
     float: 'left',
-    height: theme.spacing.unit,
+    height: theme.spacing(1),
   },
 });
 

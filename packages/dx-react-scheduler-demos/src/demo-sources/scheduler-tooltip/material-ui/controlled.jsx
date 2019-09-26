@@ -17,7 +17,7 @@ const styles = theme => ({
     padding: 0,
   },
   text: {
-    paddingTop: theme.spacing.unit,
+    paddingTop: theme.spacing(1),
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
@@ -36,7 +36,7 @@ const AppointmentBase = ({
   <Appointments.Appointment
     {...restProps}
   >
-    <React.Fragment>
+    <>
       <IconButton
         className={classes.button}
         onClick={({ target }) => {
@@ -47,7 +47,7 @@ const AppointmentBase = ({
         <InfoIcon fontSize="small" />
       </IconButton>
       {children}
-    </React.Fragment>
+    </>
   </Appointments.Appointment>
 );
 
@@ -96,6 +96,7 @@ export default class Demo extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
+          height={660}
         >
           <WeekView
             startDayHour={9}
@@ -109,9 +110,9 @@ export default class Demo extends React.PureComponent {
           <AppointmentTooltip
             showCloseButton
             visible={visible}
+            onVisibilityChange={this.toggleVisibility}
             appointmentMeta={appointmentMeta}
             onAppointmentMetaChange={this.onAppointmentMetaChange}
-            onVisibilityChange={this.toggleVisibility}
           />
         </Scheduler>
       </Paper>

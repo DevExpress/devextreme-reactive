@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Frame from 'react-frame-component';

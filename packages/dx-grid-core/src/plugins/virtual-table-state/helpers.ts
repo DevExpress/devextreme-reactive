@@ -1,6 +1,7 @@
 import { intervalUtil } from './utils';
 import {
-  VirtualRows, Row, MergeRowsFn, CalculateRequestedRangeFn, Interval,
+  VirtualRows, Row, MergeRowsFn, CalculateRequestedRangeFn,
+  Interval, GridViewport, GetRequestMeta, CorrectRangeFn,
 } from '../../types';
 import { PureComputed } from '@devexpress/dx-core';
 
@@ -42,19 +43,30 @@ export const mergeRows: MergeRowsFn = (
   };
 };
 
-export const calculateRequestedRange: CalculateRequestedRangeFn = (
-  loadedInterval, newRange, referenceIndex, pageSize,
-) => {
-  if (Math.abs(loadedInterval.start - newRange.start) >= 2 * pageSize) {
-    const useFirstHalf = referenceIndex % pageSize < pageSize / 2;
-    const start = useFirstHalf
-      ? newRange.start
-      : newRange.start + pageSize;
-    const end = Math.min(newRange.end, start + 2 * pageSize);
+const correctRequestedRange: CorrectRangeFn = (calculatedRange, referenceIndex, pageSize) => {
+  const { start, end } = calculatedRange;
 
-    return { start, end };
+  if (start - referenceIndex > pageSize / 2) {
+    return { start: start - pageSize, end: end - pageSize };
   }
-  return intervalUtil.difference(newRange, loadedInterval);
+  return { start, end };
+};
+
+export const calculateRequestedRange: CalculateRequestedRangeFn = (
+  virtualRows, newRange, pageSize, referenceIndex, isInfiniteScroll,
+) => {
+  const loadedInterval = intervalUtil.getRowsInterval(virtualRows);
+  const isAdjacentPage = Math.abs(loadedInterval.start - newRange.start) < 2 * pageSize;
+  if (isAdjacentPage) {
+    const calculatedRange = intervalUtil.difference(newRange, loadedInterval);
+    if (isInfiniteScroll && calculatedRange !== intervalUtil.empty) {
+      return correctRequestedRange(calculatedRange, referenceIndex, pageSize);
+    }
+    return calculatedRange;
+  }
+
+  // load 3 pages at once because a missing page will be loaded anyway
+  return newRange;
 };
 
 export const rowToPageIndex: PureComputed<[number, number]> = (
@@ -97,9 +109,70 @@ export const trimRowsToInterval: PureComputed<[VirtualRows, Interval]> = (
 };
 
 export const getAvailableRowCount: PureComputed<[boolean, number, number, number], number> = (
-  infiniteScroll, newCount, lastCount, totalRowCount,
-) => (
-  infiniteScroll
-    ? Math.max(newCount, lastCount)
+  isInfiniteScroll, newRowCount, lastRowCount, totalRowCount,
+) => {
+  return (isInfiniteScroll
+    ? Math.min(
+        Math.max(newRowCount, lastRowCount),
+        totalRowCount)
     : totalRowCount
+  );
+};
+
+export const getForceReloadInterval: PureComputed<[VirtualRows, number, number], Interval> = (
+  virtualRows, pageSize, totalRowCount,
+) => {
+  const { start, end: intervalEnd } = intervalUtil.getRowsInterval(virtualRows);
+  const end = Math.min(
+    Math.max(start + pageSize * 2, intervalEnd),
+    Math.max(start + pageSize * 2, totalRowCount),
+  );
+  return {
+    start,
+    end,
+  };
+};
+
+export const getRequestMeta: GetRequestMeta = (
+  referenceIndex, virtualRows, pageSize, totalRowCount, forceReload, isInfiniteScroll,
+) => {
+  const actualBounds = forceReload
+    ? getForceReloadInterval(virtualRows, pageSize!, totalRowCount)
+    : recalculateBounds(referenceIndex, pageSize!, totalRowCount);
+  const requestedRange = forceReload
+    ? actualBounds
+    : calculateRequestedRange(
+        virtualRows, actualBounds, pageSize!, referenceIndex, isInfiniteScroll,
+      );
+
+  return { requestedRange, actualBounds };
+};
+
+export const needFetchMorePages: PureComputed<[VirtualRows, number, number], boolean> = (
+  virtualRows, referenceIndex,  pageSize,
+) => {
+  const { start, end } = intervalUtil.getRowsInterval(virtualRows);
+  const loadCount = end - start;
+  const topTriggerIndex = start > 0 ? start + pageSize! : 0;
+  const bottomTriggerIndex = Math.max(topTriggerIndex + pageSize, end - pageSize! * 1.5);
+
+  if (loadCount <= 0) {
+    return false;
+  }
+
+  return (referenceIndex < topTriggerIndex || bottomTriggerIndex < referenceIndex);
+};
+
+export const getReferenceIndex: PureComputed<[GridViewport], number> = (
+  { rows: [top, bottom] },
+) => (
+  (top + bottom) / 2
 );
+
+export const shouldSendRequest: PureComputed<[Interval, number], boolean> = (
+  { start, end }, requestedPageIndex,
+) => {
+  const newPageIndex = start;
+  const loadCount = (end - start);
+  return newPageIndex !== requestedPageIndex && loadCount > 0;
+};

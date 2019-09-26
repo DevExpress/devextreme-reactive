@@ -10,9 +10,11 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   ARGUMENT_DOMAIN, getValueDomainName,
-  axisCoordinates, createTickFilter, LEFT, BOTTOM, getGridCoordinates,
+  getRotatedPosition, isValidPosition,
+  LEFT, BOTTOM, getTickCoordinates, gridCoordinatesGetter, tickCoordinatesGetter,
+  Tick, Grid,
 } from '@devexpress/dx-chart-core';
-import { RawAxisProps, ArgumentAxisProps, ValueAxisProps } from '../types';
+import { RawAxisProps } from '../types';
 import { Root } from '../templates/axis/root';
 import { Label } from '../templates/axis/label';
 import { Line } from '../templates/axis/line';
@@ -40,14 +42,12 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
   adjustedWidth = 0;
   adjustedHeight = 0;
 
-  render() {
+  renderAxis(position: string) {
     const {
       scaleName,
-      position,
       tickSize,
       tickFormat,
       indentFromAxis,
-      showGrid,
       showTicks,
       showLine,
       showLabels,
@@ -55,150 +55,173 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
       tickComponent: TickComponent,
       labelComponent: LabelComponent,
       lineComponent: LineComponent,
-      gridComponent: GridComponent,
     } = this.props;
     const placeholder = `${position}-axis`;
+    const layoutName = `${placeholder}-${scaleName}`;
+    return (
+      <Template name={placeholder}>
+        <TemplatePlaceholder />
+        <TemplateConnector>
+          {({ scales, layouts, rotated }, { changeBBox }) => {
+            if (!isValidPosition(position!, scaleName!, rotated)) {
+              return null;
+            }
+            const scale = scales[scaleName!];
+            if (!scale) {
+              return null;
+            }
+            const { width, height } = layouts[layoutName] || { width: 0, height: 0 };
+            const paneSize = layouts.pane;
+
+            const { sides: [dx, dy], ticks } = getTickCoordinates({
+              callback: tickCoordinatesGetter,
+              scaleName: scaleName!,
+              position: position!,
+              tickSize: tickSize!,
+              tickFormat,
+              indentFromAxis: indentFromAxis!,
+              scale,
+              paneSize: [paneSize.width, paneSize.height],
+              rotated,
+            });
+
+            const handleSizeChange: onSizeChangeFn = (size) => {
+              // The callback is called when DOM is available -
+              // *rootRef.current* can be surely accessed.
+              const rect = this.rootRef.current!.getBoundingClientRect();
+              const rectSize = [dx ? rect.width : size.width, dy ? rect.height : size.height];
+
+              if (rectSize[0] === this.adjustedWidth && rectSize[1] === this.adjustedHeight) {
+                return;
+              }
+              // *setState* is not used because it would cause excessive Plugin rerenders.
+              // Template rerender is provided by *changeBBox* invocation.
+              this.adjustedWidth = rectSize[0];
+              this.adjustedHeight = rectSize[1];
+              changeBBox({ placeholder: layoutName, bBox: size });
+            };
+
+            return (
+              <div
+                style={{
+                  position: 'relative',
+                  width: (dy * width) || undefined,
+                  height: (dx * height) || undefined,
+                  flexGrow: dx || undefined,
+                }}
+                ref={this.rootRef}
+              >
+                <svg
+                  width={this.adjustedWidth}
+                  height={this.adjustedHeight}
+                  style={SVG_STYLE}
+                >
+                  <RootComponent
+                    dx={dx}
+                    dy={dy}
+                    onSizeChange={handleSizeChange}
+                  >
+                    {showTicks && (ticks as Tick[]).map(({
+                      x1, x2, y1, y2, key,
+                    }) => (
+                      <TickComponent
+                        key={key}
+                        x1={x1}
+                        x2={x2}
+                        y1={y1}
+                        y2={y2}
+                      />
+                    ))}
+                    {showLine && (
+                      <LineComponent
+                        x1={0}
+                        x2={dx * paneSize.width}
+                        y1={0}
+                        y2={dy * paneSize.height}
+                      />
+                    )}
+                    {showLabels && (ticks as Tick[]).map(({
+                      text,
+                      xText,
+                      yText,
+                      dy: delta,
+                      textAnchor,
+                      key,
+                    }) => (
+                      <LabelComponent
+                        key={key}
+                        text={text}
+                        x={xText}
+                        y={yText}
+                        dy={delta}
+                        textAnchor={textAnchor}
+                      />
+                    ))}
+                  </RootComponent>
+                </svg>
+              </div>
+            );
+          }}
+        </TemplateConnector>
+      </Template>
+    );
+  }
+
+  renderGrid() {
+    const {
+      scaleName,
+      showGrid,
+      gridComponent: GridComponent,
+    } = this.props;
+    return (
+      <Template name="series">
+        <TemplatePlaceholder />
+        <TemplateConnector>
+          {({ scales, layouts, rotated }) => {
+            const scale = scales[scaleName!];
+            if (!scale || !showGrid) {
+              return null;
+            }
+            const { width, height } = layouts.pane;
+            const { ticks, sides: [dx, dy] } = getTickCoordinates({
+              callback: gridCoordinatesGetter,
+              scaleName: scaleName!,
+              scale,
+              paneSize: [width, height],
+              rotated,
+            });
+            return ((
+              <>
+                {(ticks as Grid[]).map(({
+                  key, x1, y1,
+                }) => (
+                  <GridComponent
+                    key={key}
+                    x1={x1}
+                    x2={x1 + dy * width}
+                    y1={y1}
+                    y2={y1 + dx * height}
+                  />
+                ))}
+              </>
+            ));
+          }}
+        </TemplateConnector>
+      </Template>
+    );
+  }
+
+  render() {
+    const { position } = this.props;
+    const rotatedPosition = getRotatedPosition(position!);
+    // We have to occupy two placeholders (one for default case and one for rotated case) because
+    // by now it is unknown if Chart is rotated or not.
+    // Only one of templates is rendered then, the other is discarded.
     return (
       <Plugin name="Axis">
-        <Template name={placeholder}>
-          <TemplatePlaceholder />
-          <TemplateConnector>
-            {({ scales, layouts }, { changeBBox }) => {
-              const scale = scales[scaleName!];
-              if (!scale) {
-                return null;
-              }
-
-              const { width, height } = layouts[placeholder] || { width: 0, height: 0 };
-              const { sides: [dx, dy], ticks } = axisCoordinates({
-                scaleName: scaleName!,
-                position: position!,
-                tickSize: tickSize!,
-                tickFormat,
-                indentFromAxis: indentFromAxis!,
-                scale,
-                paneSize: [this.adjustedWidth, this.adjustedHeight],
-              });
-              // This is a workaround for a case when only a part of domain is visible.
-              // "overflow: hidden" cannot be used for <svg> element because edge labels would
-              // be truncated by half then.
-              // Looks like some margins should be added to <svg> width/height but for now it is
-              // not clear how to achieve it.
-              // The solution is considered temporary by now.
-              // Let's see if anything could be done to improve the situation.
-              const visibleTicks = ticks
-                .filter(createTickFilter([dx * this.adjustedWidth, dy * this.adjustedHeight]));
-              const handleSizeChange: onSizeChangeFn = (size) => {
-                // The callback is called when DOM is available -
-                // *rootRef.current* can be surely accessed.
-                const rect = this.rootRef.current!.getBoundingClientRect();
-                if (rect.width === this.adjustedWidth && rect.height === this.adjustedHeight) {
-                  return;
-                }
-                // *setState* is not used because it would cause excessive Plugin rerenders.
-                // Template rerender is provided by *changeBBox* invocation.
-                this.adjustedWidth = rect.width;
-                this.adjustedHeight = rect.height;
-                changeBBox({ placeholder, bBox: size });
-              };
-
-              return (
-                <div
-                  style={{
-                    position: 'relative',
-                    width: (dy * width) || undefined,
-                    height: (dx * height) || undefined,
-                    flexGrow: dx || undefined,
-                  }}
-                  ref={this.rootRef}
-                >
-                  <svg
-                    width={this.adjustedWidth}
-                    height={this.adjustedHeight}
-                    style={SVG_STYLE}
-                  >
-                    <RootComponent
-                      dx={dx}
-                      dy={dy}
-                      onSizeChange={handleSizeChange}
-                    >
-                      {showTicks && visibleTicks.map(({
-                        x1, x2, y1, y2, key,
-                      }) => (
-                        <TickComponent
-                          key={key}
-                          x1={x1}
-                          x2={x2}
-                          y1={y1}
-                          y2={y2}
-                        />
-                      ))}
-                      {showLine && (
-                        <LineComponent
-                          x1={0}
-                          x2={dx * this.adjustedWidth}
-                          y1={0}
-                          y2={dy * this.adjustedHeight}
-                        />
-                      )}
-                      {showLabels && visibleTicks.map(({
-                        text,
-                        xText,
-                        yText,
-                        dominantBaseline,
-                        textAnchor,
-                        key,
-                      }) => (
-                        <LabelComponent
-                          key={key}
-                          text={text}
-                          x={xText}
-                          y={yText}
-                          dominantBaseline={dominantBaseline}
-                          textAnchor={textAnchor}
-                        />
-                      ))}
-                    </RootComponent>
-                  </svg>
-                </div>
-              );
-            }}
-          </TemplateConnector>
-        </Template>
-
-        <Template name="series">
-          <TemplatePlaceholder />
-          <TemplateConnector>
-            {({ scales, layouts }) => {
-              const scale = scales[scaleName!];
-              if (!scale || !showGrid) {
-                return null;
-              }
-
-              const { width, height } = layouts.pane;
-              const ticks = getGridCoordinates({
-                scaleName: scaleName!,
-                scale,
-                paneSize: [this.adjustedWidth, this.adjustedHeight],
-              });
-              return ((
-                <React.Fragment>
-                  {ticks.map(({
-                    key, x, dx, y, dy,
-                  }) => (
-                    <GridComponent
-                      key={key}
-                      x1={x}
-                      x2={x + dx * width}
-                      y1={y}
-                      y2={y + dy * height}
-                    />
-                  ))}
-                </React.Fragment>
-              ));
-            }}
-          </TemplateConnector>
-        </Template>
+        {this.renderAxis(position!)}
+        {this.renderAxis(rotatedPosition)}
+        {this.renderGrid()}
       </Plugin>
     );
   }
@@ -218,8 +241,7 @@ export const Axis: React.ComponentType<RawAxisProps> = withComponents({
 // if HORIZONTAL then TOP or BOTTOM, otherwise LEFT of RIGHT.
 // It should be domain dependent - something like AT_DOMAIN_START or AT_DOMAIN_END.
 
-// TODO: Check that only BOTTOM and TOP are accepted.
-export const ArgumentAxis: React.ComponentType<ArgumentAxisProps> = withPatchedProps(props => ({
+export const ArgumentAxis: React.ComponentType<RawAxisProps> = withPatchedProps(props => ({
   position: BOTTOM,
   showGrid: false,
   showTicks: true,
@@ -227,12 +249,9 @@ export const ArgumentAxis: React.ComponentType<ArgumentAxisProps> = withPatchedP
   showLabels: true,
   ...props,
   scaleName: ARGUMENT_DOMAIN,
-}))(Axis) as any;
-// Casting to *any* is done because RawAxisProps is not assignalbe to ArgumentAxisProps
-// because of *position* field.
+}))(Axis);
 
-// TODO: Check that only LEFT and RIGHT are accepted.
-export const ValueAxis: React.ComponentType<ValueAxisProps> = withPatchedProps(props => ({
+export const ValueAxis: React.ComponentType<RawAxisProps> = withPatchedProps(props => ({
   position: LEFT,
   showGrid: true,
   showTicks: false,
@@ -240,6 +259,4 @@ export const ValueAxis: React.ComponentType<ValueAxisProps> = withPatchedProps(p
   showLabels: true,
   ...props,
   scaleName: getValueDomainName(props.scaleName),
-}))(Axis) as any;
-// Casting to *any* is done because RawAxisProps is not assignalbe to ValueAxisProps
-// because of *position* field.
+}))(Axis);

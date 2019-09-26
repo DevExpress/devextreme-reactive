@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import {
   SortingState, EditingState, PagingState, SummaryState,
   IntegratedPaging, IntegratedSorting, IntegratedSummary,
@@ -35,9 +35,7 @@ import {
 
 const styles = theme => ({
   lookupEditCell: {
-    paddingTop: theme.spacing.unit * 0.875,
-    paddingRight: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
   dialog: {
     width: 'calc(100% - 16px)',
@@ -161,190 +159,152 @@ const EditCell = (props) => {
 
 const getRowId = row => row.id;
 
-class DemoBase extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [columns] = useState([
+    { name: 'product', title: 'Product' },
+    { name: 'region', title: 'Region' },
+    { name: 'amount', title: 'Sale Amount' },
+    { name: 'discount', title: 'Discount' },
+    { name: 'saleDate', title: 'Sale Date' },
+    { name: 'customer', title: 'Customer' },
+  ]);
+  const [rows, setRows] = useState(generateRows({
+    columnValues: { id: ({ index }) => index, ...globalSalesValues },
+    length: 12,
+  }));
+  const [tableColumnExtensions] = useState([
+    { columnName: 'product', width: 200 },
+    { columnName: 'region', width: 180 },
+    { columnName: 'amount', width: 180, align: 'right' },
+    { columnName: 'discount', width: 180 },
+    { columnName: 'saleDate', width: 180 },
+    { columnName: 'customer', width: 200 },
+  ]);
+  const [sorting, getSorting] = useState([]);
+  const [editingRowIds, getEditingRowIds] = useState([]);
+  const [addedRows, setAddedRows] = useState([]);
+  const [rowChanges, setRowChanges] = useState({});
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pageSize, setPageSize] = useState(0);
+  const [pageSizes] = useState([5, 10, 0]);
+  const [columnOrder, setColumnOrder] = useState(['product', 'region', 'amount', 'discount', 'saleDate', 'customer']);
+  const [currencyColumns] = useState(['amount']);
+  const [percentColumns] = useState(['discount']);
+  const [leftFixedColumns] = useState([TableEditColumn.COLUMN_TYPE]);
+  const [totalSummaryItems] = useState([
+    { columnName: 'discount', type: 'avg' },
+    { columnName: 'amount', type: 'sum' },
+  ]);
 
-    this.state = {
-      columns: [
-        { name: 'product', title: 'Product' },
-        { name: 'region', title: 'Region' },
-        { name: 'amount', title: 'Sale Amount' },
-        { name: 'discount', title: 'Discount' },
-        { name: 'saleDate', title: 'Sale Date' },
-        { name: 'customer', title: 'Customer' },
-      ],
-      tableColumnExtensions: [
-        { columnName: 'product', width: 180 },
-        { columnName: 'region', width: 180 },
-        { columnName: 'amount', width: 120, align: 'right' },
-        { columnName: 'discount', width: 180 },
-        { columnName: 'saleDate', width: 180 },
-        { columnName: 'customer', width: 180 },
-      ],
-      rows: generateRows({
-        columnValues: { id: ({ index }) => index, ...globalSalesValues },
-        length: 12,
-      }),
-      sorting: [],
-      editingRowIds: [],
-      addedRows: [],
-      rowChanges: {},
-      currentPage: 0,
-      pageSize: 0,
-      pageSizes: [5, 10, 0],
-      columnOrder: ['product', 'region', 'amount', 'discount', 'saleDate', 'customer'],
-      currencyColumns: ['amount'],
-      percentColumns: ['discount'],
-      leftFixedColumns: [TableEditColumn.COLUMN_TYPE],
-      totalSummaryItems: [
-        { columnName: 'discount', type: 'avg' },
-        { columnName: 'amount', type: 'sum' },
-      ],
-    };
-    const getStateRows = () => {
-      const { rows } = this.state;
-      return rows;
-    };
+  const changeAddedRows = value => setAddedRows(
+    value.map(row => (Object.keys(row).length ? row : {
+      amount: 0,
+      discount: 0,
+      saleDate: new Date().toISOString().split('T')[0],
+      product: availableValues.product[0],
+      region: availableValues.region[0],
+      customer: availableValues.customer[0],
+    })),
+  );
 
-    this.changeSorting = sorting => this.setState({ sorting });
-    this.changeEditingRowIds = editingRowIds => this.setState({ editingRowIds });
-    this.changeAddedRows = addedRows => this.setState({
-      addedRows: addedRows.map(row => (Object.keys(row).length ? row : {
-        amount: 0,
-        discount: 0,
-        saleDate: new Date().toISOString().split('T')[0],
-        product: availableValues.product[0],
-        region: availableValues.region[0],
-        customer: availableValues.customer[0],
-      })),
+  const deleteRows = (deletedIds) => {
+    const rowsForDelete = rows.slice();
+    deletedIds.forEach((rowId) => {
+      const index = rowsForDelete.findIndex(row => row.id === rowId);
+      if (index > -1) {
+        rowsForDelete.splice(index, 1);
+      }
     });
-    this.changeRowChanges = rowChanges => this.setState({ rowChanges });
-    this.changeCurrentPage = currentPage => this.setState({ currentPage });
-    this.changePageSize = pageSize => this.setState({ pageSize });
-    this.commitChanges = ({ added, changed, deleted }) => {
-      let { rows } = this.state;
-      if (added) {
-        const startingAddedId = rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
-        rows = [
-          ...rows,
-          ...added.map((row, index) => ({
-            id: startingAddedId + index,
-            ...row,
-          })),
-        ];
-      }
-      if (changed) {
-        rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
-      }
-      if (deleted) {
-        rows = this.deleteRows(deleted);
-      }
-      this.setState({ rows });
-    };
-    this.deleteRows = (deletedIds) => {
-      const rows = getStateRows().slice();
-      deletedIds.forEach((rowId) => {
-        const index = rows.findIndex(row => row.id === rowId);
-        if (index > -1) {
-          rows.splice(index, 1);
-        }
-      });
-      return rows;
-    };
-    this.changeColumnOrder = (order) => {
-      this.setState({ columnOrder: order });
-    };
-  }
+    return rowsForDelete;
+  };
 
-  render() {
-    const {
-      rows,
-      columns,
-      tableColumnExtensions,
-      sorting,
-      editingRowIds,
-      addedRows,
-      rowChanges,
-      currentPage,
-      pageSize,
-      pageSizes,
-      columnOrder,
-      currencyColumns,
-      percentColumns,
-      leftFixedColumns,
-      totalSummaryItems,
-    } = this.state;
+  const commitChanges = ({ added, changed, deleted }) => {
+    let changedRows;
+    if (added) {
+      const startingAddedId = rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
+      changedRows = [
+        ...rows,
+        ...added.map((row, index) => ({
+          id: startingAddedId + index,
+          ...row,
+        })),
+      ];
+    }
+    if (changed) {
+      changedRows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+    }
+    if (deleted) {
+      changedRows = deleteRows(deleted);
+    }
+    setRows(changedRows);
+  };
 
-    return (
-      <Paper>
-        <Grid
-          rows={rows}
-          columns={columns}
-          getRowId={getRowId}
-        >
-          <SortingState
-            sorting={sorting}
-            onSortingChange={this.changeSorting}
-          />
-          <PagingState
-            currentPage={currentPage}
-            onCurrentPageChange={this.changeCurrentPage}
-            pageSize={pageSize}
-            onPageSizeChange={this.changePageSize}
-          />
-          <EditingState
-            editingRowIds={editingRowIds}
-            onEditingRowIdsChange={this.changeEditingRowIds}
-            rowChanges={rowChanges}
-            onRowChangesChange={this.changeRowChanges}
-            addedRows={addedRows}
-            onAddedRowsChange={this.changeAddedRows}
-            onCommitChanges={this.commitChanges}
-          />
-          <SummaryState
-            totalItems={totalSummaryItems}
-          />
+  return (
+    <Paper>
+      <Grid
+        rows={rows}
+        columns={columns}
+        getRowId={getRowId}
+      >
+        <SortingState
+          sorting={sorting}
+          onSortingChange={getSorting}
+        />
+        <PagingState
+          currentPage={currentPage}
+          onCurrentPageChange={setCurrentPage}
+          pageSize={pageSize}
+          onPageSizeChange={setPageSize}
+        />
+        <EditingState
+          editingRowIds={editingRowIds}
+          onEditingRowIdsChange={getEditingRowIds}
+          rowChanges={rowChanges}
+          onRowChangesChange={setRowChanges}
+          addedRows={addedRows}
+          onAddedRowsChange={changeAddedRows}
+          onCommitChanges={commitChanges}
+        />
+        <SummaryState
+          totalItems={totalSummaryItems}
+        />
 
-          <IntegratedSorting />
-          <IntegratedPaging />
-          <IntegratedSummary />
+        <IntegratedSorting />
+        <IntegratedPaging />
+        <IntegratedSummary />
 
-          <CurrencyTypeProvider for={currencyColumns} />
-          <PercentTypeProvider for={percentColumns} />
+        <CurrencyTypeProvider for={currencyColumns} />
+        <PercentTypeProvider for={percentColumns} />
 
-          <DragDropProvider />
+        <DragDropProvider />
 
-          <Table
-            columnExtensions={tableColumnExtensions}
-            cellComponent={Cell}
-          />
-          <TableColumnReordering
-            order={columnOrder}
-            onOrderChange={this.changeColumnOrder}
-          />
-          <TableHeaderRow showSortingControls />
-          <TableEditRow
-            cellComponent={EditCell}
-          />
-          <TableEditColumn
-            width={170}
-            showAddCommand={!addedRows.length}
-            showEditCommand
-            showDeleteCommand
-            commandComponent={Command}
-          />
-          <TableSummaryRow />
-          <TableFixedColumns
-            leftColumns={leftFixedColumns}
-          />
-          <PagingPanel
-            pageSizes={pageSizes}
-          />
-        </Grid>
-      </Paper>
-    );
-  }
-}
-
-export default withStyles(styles, { name: 'ControlledModeDemo' })(DemoBase);
+        <Table
+          columnExtensions={tableColumnExtensions}
+          cellComponent={Cell}
+        />
+        <TableColumnReordering
+          order={columnOrder}
+          onOrderChange={setColumnOrder}
+        />
+        <TableHeaderRow showSortingControls />
+        <TableEditRow
+          cellComponent={EditCell}
+        />
+        <TableEditColumn
+          width={170}
+          showAddCommand={!addedRows.length}
+          showEditCommand
+          showDeleteCommand
+          commandComponent={Command}
+        />
+        <TableSummaryRow />
+        <TableFixedColumns
+          leftColumns={leftFixedColumns}
+        />
+        <PagingPanel
+          pageSizes={pageSizes}
+        />
+      </Grid>
+    </Paper>
+  );
+};

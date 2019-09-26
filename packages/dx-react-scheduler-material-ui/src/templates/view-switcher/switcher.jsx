@@ -10,19 +10,25 @@ const styles = ({ spacing, typography }) => ({
     fontSize: typography.fontSize,
   },
   input: {
-    padding: `${spacing.unit * 1.25}px ${spacing.unit * 1.75}px`,
-    paddingRight: `${spacing.unit * 4}px`,
+    padding: spacing(1.25, 1.75),
+    paddingRight: spacing(4),
     textTransform: 'uppercase',
   },
   menuItem: {
     fontSize: typography.fontSize,
     textTransform: 'uppercase',
   },
+  inputRoot: {
+    marginLeft: spacing(0.5),
+    '&:first-child': {
+      marginLeft: 0,
+    },
+  },
 });
 
-const SwitcherBase = ({
-  currentViewName,
-  availableViewNames,
+const SwitcherBase = React.memo(({
+  currentView,
+  availableViews,
   onChange, classes,
   ...restProps
 }) => {
@@ -33,39 +39,44 @@ const SwitcherBase = ({
   return (
     <Select
       classes={{ root: classes.root }}
-      value={currentViewName}
+      value={currentView.name}
       onChange={handleChange}
       input={(
         <OutlinedInput
-          classes={{ input: classes.input }}
+          classes={{ input: classes.input, root: classes.inputRoot }}
           labelWidth={0}
         />
       )}
       {...restProps}
     >
-      {availableViewNames.map(viewName => (
+      {availableViews.map(({ name, displayName }) => (
         <MenuItem
-          value={viewName}
-          key={viewName}
+          value={name}
+          key={name}
           className={classes.menuItem}
         >
-          {viewName}
+          {displayName}
         </MenuItem>
       ))}
     </Select>
   );
-};
+});
 
 SwitcherBase.propTypes = {
   onChange: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
-  currentViewName: PropTypes.string,
-  availableViewNames: PropTypes.arrayOf(PropTypes.string),
+  currentView: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    displayName: PropTypes.string.isRequired,
+  }).isRequired,
+  availableViews: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    displayName: PropTypes.string.isRequired,
+  })),
 };
 
 SwitcherBase.defaultProps = {
-  currentViewName: undefined,
-  availableViewNames: [],
+  availableViews: [],
 };
 
 export const Switcher = withStyles(styles)(SwitcherBase, { name: 'Switcher' });

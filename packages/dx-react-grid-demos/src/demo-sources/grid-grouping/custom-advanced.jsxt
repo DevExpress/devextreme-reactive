@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   GroupingState,
   IntegratedGrouping,
@@ -35,56 +35,42 @@ const nameGroupCriteria = (value) => {
   };
 };
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'gender', title: 'Gender' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows] = useState(generateRows({ length: 8 }));
+  const [grouping] = useState([{ columnName: 'name' }]);
+  const [integratedGroupingColumnExtensions] = useState([
+    { columnName: 'name', criteria: nameGroupCriteria },
+  ]);
+  const [tableGroupColumnExtension] = useState([
+    { columnName: 'name', showWhenGrouped: true },
+  ]);
 
-    this.state = {
-      columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      integratedGroupingColumnExtensions: [
-        { columnName: 'name', criteria: nameGroupCriteria },
-      ],
-      tableGroupColumnExtension: [
-        { columnName: 'name', showWhenGrouped: true },
-      ],
-      rows: generateRows({ length: 8 }),
-      grouping: [{ columnName: 'name' }],
-    };
-
-    this.changeGrouping = grouping => this.setState({ grouping });
-  }
-
-  render() {
-    const {
-      rows, columns, integratedGroupingColumnExtensions, tableGroupColumnExtension, grouping,
-    } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <GroupingState
-            grouping={grouping}
-            defaultExpandedGroups={['N-Z']}
-          />
-          <IntegratedGrouping
-            columnExtensions={integratedGroupingColumnExtensions}
-          />
-          <Table />
-          <TableHeaderRow />
-          <TableGroupRow
-            columnExtensions={tableGroupColumnExtension}
-            contentComponent={GroupCellContent}
-          />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <GroupingState
+          grouping={grouping}
+          defaultExpandedGroups={['N-Z']}
+        />
+        <IntegratedGrouping
+          columnExtensions={integratedGroupingColumnExtensions}
+        />
+        <Table />
+        <TableHeaderRow />
+        <TableGroupRow
+          columnExtensions={tableGroupColumnExtension}
+          contentComponent={GroupCellContent}
+        />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

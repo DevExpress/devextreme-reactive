@@ -1,19 +1,39 @@
 import * as React from 'react';
 import {
-  connectProps, Plugin, Template,
+  connectProps, Plugin, Template, Action,
   PluginComponents,
   TemplateConnector,
   TemplatePlaceholder,
+  Getter,
+  Getters,
 } from '@devexpress/dx-react-core';
 import {
-  isStubTableCell,
+  isStubTableCell, checkColumnWidths,
 } from '@devexpress/dx-grid-core';
 import {
-  VirtualTableProps, VirtualTableLayoutProps, VirtualTableLayoutState,
+  VirtualTableProps, VirtualTableLayoutProps,
   Table as TableNS,
   TableLayoutProps,
+  VirtualTablePluginState,
 } from '../../types';
-import { RemoteDataLoader } from './remote-data-loader';
+
+/** @internal */
+export const emptyViewport = {
+  columns: [[0, 0]],
+  rows: [0, 0],
+  headerRows: [0, 0],
+  footerRows: [0, 0],
+  top: 0,
+  left: 0,
+  width: 800,
+  height: 600,
+};
+
+const tableColumnsComputed = (
+  { tableColumns }: Getters,
+) => {
+  return checkColumnWidths(tableColumns);
+};
 
 /** @internal */
 export const makeVirtualTable: (...args: any) => any = (Table, {
@@ -24,7 +44,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
   defaultEstimatedRowHeight,
   defaultHeight,
 }) => {
-  class VirtualTable extends React.PureComponent<VirtualTableProps, VirtualTableLayoutState> {
+  class VirtualTable extends React.PureComponent<VirtualTableProps, VirtualTablePluginState> {
     static defaultProps = {
       estimatedRowHeight: defaultEstimatedRowHeight,
       height: defaultHeight,
@@ -41,6 +61,10 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
     constructor(props) {
       super(props);
 
+      this.state = {
+        viewport: emptyViewport,
+      };
+
       this.layoutRenderComponent = connectProps(VirtualLayout, () => {
         const {
           headTableComponent,
@@ -54,6 +78,8 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       });
     }
 
+    setViewport = viewport => this.setState({ viewport });
+
     componentDidUpdate() {
       this.layoutRenderComponent.update();
     }
@@ -66,39 +92,46 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         children,
         ...restProps
       } = this.props;
+      const {
+        viewport: stateViewport,
+      } = this.state;
 
       return (
         <Plugin name="VirtualTable">
           <Table layoutComponent={this.layoutRenderComponent} {...restProps} />
-          <RemoteDataLoader />
+
+          {/* prevents breaking change */}
+          <Action name="setViewport" action={this.setViewport} />
+          <Getter name="viewport" value={stateViewport} />
+          <Getter name="tableColumns" computed={tableColumnsComputed} />
 
           <Template name="tableLayout">
-            {(params: TableLayoutProps) => {
-              return (
-                <TemplateConnector>
-                  {(
-                    { availableRowCount, loadedRowsStart, tableBodyRows },
-                    { ensureNextVirtualPage },
-                  ) => {
+            {(params: TableLayoutProps) => (
+              <TemplateConnector>
+                {(
+                  { availableRowCount, loadedRowsStart, tableBodyRows, isDataRemote, viewport },
+                  { setViewport },
+                ) => {
 
-                    const totalRowCount = availableRowCount || tableBodyRows.length;
+                  const totalRowCount = availableRowCount || tableBodyRows.length;
 
-                    return (
-                      <TemplatePlaceholder
-                        params={{
-                          ...params,
-                          totalRowCount,
-                          loadedRowsStart,
-                          height,
-                          estimatedRowHeight,
-                          ensureNextVirtualPage,
-                        }}
-                      />
-                    );
-                  }}
-                </TemplateConnector>
-              );
-            }}
+                  return (
+                    <TemplatePlaceholder
+                      params={{
+                        ...params,
+                        totalRowCount,
+                        loadedRowsStart,
+                        isDataRemote,
+                        height,
+                        estimatedRowHeight,
+                        setViewport,
+                        viewport,
+                      }}
+                    />
+                  );
+                }}
+              </TemplateConnector>
+            )}
           </Template>
 
           <Template
@@ -106,7 +139,11 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
             predicate={({ tableRow }: any) => !!isStubTableCell(tableRow)}
           >
             {(params: TableNS.CellProps) => (
-              <SkeletonStubCell {...params} />
+              <TemplateConnector>
+                {({ isDataRemote }) => (
+                  isDataRemote ? <SkeletonStubCell {...params} /> : <TemplatePlaceholder />
+                )}
+              </TemplateConnector>
             )}
           </Template>
         </Plugin>

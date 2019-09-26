@@ -14,6 +14,8 @@ export namespace TableFixedColumns {
     showRightDivider: boolean;
     /** Specifies the fixed cell's position. */
     position: number;
+    /** @internal */
+    selected: boolean;
   }
 }
 

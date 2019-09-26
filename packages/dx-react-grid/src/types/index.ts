@@ -3,7 +3,7 @@ export {
   ColumnDimensions, ColumnAnimationStyleMap, SummaryItem, IntegratedFiltering,
   GroupKey, Grouping, GroupingPanelItem, Filter, ColumnFilterOperations,
   Sorting, TargetColumnGeometry, FilterOperation, ColumnChooserItem,
-  TableColumnWidthInfo, RowId,
+  TableColumnWidthInfo, TableColumnResizing, RowId, GridViewport,
 } from '../../../dx-grid-core/src/index';
 
 /** @internal */
@@ -26,3 +26,4 @@ export * from './summary';
 export * from './tables';
 export * from './toolbar';
 export * from './tree-data';
+export * from './utils';

@@ -17,14 +17,17 @@ type CollapsedRow = TableRow & { cells: any[], height: number };
 
 /** @internal */
 export type VisibleBoundary = ReadonlyArray<number>;
+
 /** @internal */
-export type RowsVisibleBoundary = {
-  start: number;
-  end: number;
-};
-/** @internal */
-export type GridRowsBoundaries = Record<'header' | 'body' | 'footer', RowsVisibleBoundary> & {
-  viewportTop: number; // to anchor a boundary to specific coords
+export type GridViewport = {
+  columns: VisibleBoundary[];
+  rows: VisibleBoundary;
+  headerRows: VisibleBoundary;
+  footerRows: VisibleBoundary;
+  left: number;
+  top: number; // to anchor a boundary to specific coords
+  width: number;
+  height: number;
 };
 /** @internal */
 export type GetVisibleBoundaryFn = PureComputed<
@@ -102,7 +105,7 @@ export type GetCollapsedGridsFn = PureComputed<
     getCellColSpan?: GetCellColSpanFn,
     viewportLeft: number,
     containerWidth: number,
-    visibleRowBoundaries: GridRowsBoundaries,
+    viewport: GridViewport,
     getColumnWidth: GetColumnWidthFn,
     getRowHeight: GetRowHeightFn,
   }],
@@ -120,14 +123,19 @@ export type GetColumnWidthGetterFn = PureComputed<
 >;
 
 /** @internal */
-export type RowsVisibleBoundaryFn = PureComputed<
-  [any, Getters, number, GetRowHeightFn], GridRowsBoundaries
+export type GetViewportFn = PureComputed<
+  [any, Getters, number, GetRowHeightFn, GetColumnWidthFn], GridViewport
 >;
 
 /** @internal */
 export type GetRenderBoundaryFn = PureComputed<[number, number[], number], number[]>;
 /** @internal */
 export type GetSpecificRenderBoundaryFn = PureComputed<[number, number[]], number[]>;
+
+/** @internal */
+export type GetRowsVisibleBoundaryFn = PureComputed<
+[TableRow[], number, number, GetRowHeightFn, number, number, boolean?], VisibleBoundary
+>;
 
 type PageTriggersMeta = {
   topTriggerIndex: number,
@@ -139,11 +147,15 @@ type PageTriggersMeta = {
 export type GridGeometry = {
   viewportTop: number;
   containerHeight: number;
-  visibleRowBoundaries: GridRowsBoundaries;
+  viewport: GridViewport;
   estimatedRowHeight: number;
 };
 
 /** @internal */
 export type PageTriggersMetaFn = PureComputed<
   [GridGeometry, Getters], PageTriggersMeta | null
+>;
+/** @internal */
+export type CheckTableColumnWidths = PureComputed<
+  [TableColumn[]], void
 >;

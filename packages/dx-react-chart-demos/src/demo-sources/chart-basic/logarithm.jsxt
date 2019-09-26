@@ -23,18 +23,9 @@ const data = [
   { planet: 'Jupiter', mass: 1898e24 },
 ];
 
-const Point = (props) => {
-  const {
-    x, y, color,
-  } = props;
-  return (
-    <path
-      fill={color}
-      transform={`translate(${x} ${y})`}
-      d={symbol().size([20 ** 2]).type(symbolCircle)()}
-    />
-  );
-};
+const Point = props => (
+  <ScatterSeries.Point {...props} d={symbol().size([20 ** 2]).type(symbolCircle)()} />
+);
 
 const scale = () => scaleLog().base(2);
 const modifyDomain = domain => [domain[0], 5000e24];

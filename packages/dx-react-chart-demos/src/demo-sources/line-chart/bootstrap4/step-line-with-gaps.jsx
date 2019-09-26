@@ -28,17 +28,17 @@ const Point = (props) => {
 };
 
 const LineWithPoint = props => (
-  <React.Fragment>
+  <>
     <LineSeries.Path
       {...props}
       path={line()
         .defined(d => d.value)
-        .x(({ x }) => x)
-        .y(({ y }) => y)
+        .x(({ arg }) => arg)
+        .y(({ val }) => val)
         .curve(curveStep)}
     />
     <ScatterSeries.Path {...props} pointComponent={Point} />
-  </React.Fragment>
+  </>
 );
 
 const Root = props => (

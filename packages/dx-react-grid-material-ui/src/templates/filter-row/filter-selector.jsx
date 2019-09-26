@@ -8,7 +8,13 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = ({ spacing }) => ({
   icon: {
-    marginRight: spacing.unit,
+    marginRight: spacing(1),
+  },
+  iconItem: {
+    minWidth: spacing(2),
+  },
+  selectMenu: {
+    position: 'absolute !important',
   },
 });
 
@@ -43,7 +49,7 @@ class FilterSelectorBase extends React.PureComponent {
     } = this.props;
     const { opened } = this.state;
     return availableValues.length ? (
-      <React.Fragment>
+      <>
         <ToggleButton
           buttonRef={this.setButtonRef}
           onToggle={this.handleButtonClick}
@@ -56,6 +62,7 @@ class FilterSelectorBase extends React.PureComponent {
           open={opened}
           onClose={this.handleMenuClose}
           MenuListProps={{ dense: true }}
+          className={classes.selectMenu}
         >
           {availableValues.map(valueItem => (
             <MenuItem
@@ -63,10 +70,13 @@ class FilterSelectorBase extends React.PureComponent {
               selected={valueItem === value}
               onClick={() => this.handleMenuItemClick(valueItem)}
             >
-              <ListItemIcon>
+              <ListItemIcon
+                className={classes.iconItem}
+              >
                 <Icon
                   type={valueItem}
                   className={classes.icon}
+                  fontSize="small"
                 />
               </ListItemIcon>
               <ListItemText>
@@ -75,7 +85,7 @@ class FilterSelectorBase extends React.PureComponent {
             </MenuItem>
           ))}
         </Menu>
-      </React.Fragment>
+      </>
     ) : null;
   }
 }
@@ -85,8 +95,10 @@ FilterSelectorBase.propTypes = {
   availableValues: PropTypes.arrayOf(PropTypes.string),
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
-  iconComponent: PropTypes.func.isRequired,
-  toggleButtonComponent: PropTypes.func.isRequired,
+  // oneOfType is a workaround because React.memo returns react object
+  iconComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  // oneOfType is a workaround because withStyles returns react object
+  toggleButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   getMessage: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };

@@ -7,6 +7,8 @@ import {
   Appointments,
   Toolbar,
   ViewSwitcher,
+  MonthView,
+  DayView,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 import { appointments } from '../../../demo-data/month-appointments';
@@ -17,7 +19,7 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       data: appointments,
-      currentViewName: 'Work Week',
+      currentViewName: 'work-week',
     };
     this.currentViewNameChange = (currentViewName) => {
       this.setState({ currentViewName });
@@ -31,6 +33,7 @@ export default class Demo extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
+          height={660}
         >
           <ViewState
             defaultCurrentDate="2018-07-25"
@@ -43,11 +46,14 @@ export default class Demo extends React.PureComponent {
             endDayHour={19}
           />
           <WeekView
-            name="Work Week"
+            name="work-week"
+            displayName="Work Week"
             excludedDays={[0, 6]}
             startDayHour={9}
             endDayHour={19}
           />
+          <MonthView />
+          <DayView />
 
           <Toolbar />
           <ViewSwitcher />

@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   TreeDataState,
   CustomTreeData,
@@ -20,53 +20,43 @@ const getChildRows = (row, rootRows) => {
   return childRows.length ? childRows : null;
 };
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'gender', title: 'Gender' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [data] = useState(generateRows({
+    columnValues: {
+      id: ({ index }) => index,
+      parentId: ({ index, random }) => (index > 0 ? Math.trunc((random() * index) / 2) : null),
+      ...defaultColumnValues,
+    },
+    length: 20,
+  }));
+  const [tableColumnExtensions] = useState([
+    { columnName: 'name', width: 300 },
+  ]);
 
-    this.state = {
-      columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      tableColumnExtensions: [
-        { columnName: 'name', width: 300 },
-      ],
-      data: generateRows({
-        columnValues: {
-          id: ({ index }) => index,
-          parentId: ({ index, random }) => (index > 0 ? Math.trunc((random() * index) / 2) : null),
-          ...defaultColumnValues,
-        },
-        length: 20,
-      }),
-    };
-  }
-
-  render() {
-    const { data, columns, tableColumnExtensions } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={data}
-          columns={columns}
-        >
-          <TreeDataState />
-          <CustomTreeData
-            getChildRows={getChildRows}
-          />
-          <Table
-            columnExtensions={tableColumnExtensions}
-          />
-          <TableHeaderRow />
-          <TableTreeColumn
-            for="name"
-          />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={data}
+        columns={columns}
+      >
+        <TreeDataState />
+        <CustomTreeData
+          getChildRows={getChildRows}
+        />
+        <Table
+          columnExtensions={tableColumnExtensions}
+        />
+        <TableHeaderRow />
+        <TableTreeColumn
+          for="name"
+        />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

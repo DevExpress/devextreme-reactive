@@ -1,13 +1,14 @@
-import { insertPlugin, createClickHandlers, isEdgeBrowser } from './utils';
+import { insertPlugin, removePlugin, createClickHandlers } from './utils';
 
 describe('utils', () => {
   afterEach(() => {
     jest.resetAllMocks();
   });
-  describe('#insertPlugin', () => {
+
+  describe('#insertPlugin and #removePlugin', () => {
     const mapPlugins = plugins => plugins.map(p => p.position().join());
 
-    it('should work correctly', () => {
+    it('should correctly insert plugin', () => {
       const plugins = [
         { position: () => [1] },
         { position: () => [5, 3] },
@@ -25,6 +26,23 @@ describe('utils', () => {
         .toEqual(['1', '5,3', '7']);
       expect(mapPlugins(insertPlugin(plugins, { position: () => [1] })))
         .toEqual(['1', '5,3']);
+    });
+
+    it('should correctly remove plugin', () => {
+      const plugins = [
+        { position: () => [1] },
+        { position: () => [5, 3] },
+        { position: () => [5, 4] },
+        { position: () => [6] },
+        { position: () => [6, 1] },
+      ];
+
+      expect(mapPlugins(removePlugin(plugins, plugins[1])))
+        .toEqual(['1', '5,4', '6', '6,1']);
+      expect(mapPlugins(removePlugin(plugins, plugins[4])))
+        .toEqual(['1', '5,3', '5,4', '6']);
+      expect(mapPlugins(removePlugin(plugins, { ...plugins[4] })))
+        .toEqual(['1', '5,3', '5,4', '6', '6,1']);
     });
   });
 
@@ -99,36 +117,6 @@ describe('utils', () => {
         expect(clickEvent)
           .not.toHaveBeenCalled();
       }, DELAY);
-    });
-  });
-
-  describe('#isEdgeBrowser', () => {
-    /* globals window:true */
-    const assertIsEdge = (expected, ua) => {
-      (window.navigator as any).userAgent = ua;
-      expect(isEdgeBrowser()).toBe(expected);
-    };
-
-    beforeEach(() => {
-      Object.defineProperty(window.navigator, 'userAgent', {
-        value: '',
-        writable: true,
-      });
-    });
-
-    it('should return true for Edge UA', () => {
-      // tslint:disable-next-line:max-line-length
-      assertIsEdge(true, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134');
-    });
-
-    it('should return false for Chrome UA', () => {
-      // tslint:disable-next-line:max-line-length
-      assertIsEdge(false, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36');
-    });
-
-    it('should return false for Firefox UA', () => {
-      // tslint:disable-next-line:max-line-length
-      assertIsEdge(false, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:62.0) Gecko/20100101 Firefox/62.0');
     });
   });
 });

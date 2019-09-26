@@ -9,6 +9,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   getScatterAnimationStyle: 'test-animation-style',
   HOVERED: 'test_hovered',
   SELECTED: 'test_selected',
+  getVisibility: jest.fn().mockReturnValue('visible'),
 }));
 
 jest.mock('../../utils/with-states', () => ({
@@ -21,8 +22,8 @@ describe('Point', () => {
     value: 15,
     seriesIndex: 1,
     index: 2,
-    x: 1,
-    y: 2,
+    arg: 1,
+    val: 2,
     point: { tag: 'test-options' },
     color: 'color',
     style: { tag: 'test-style' },
@@ -46,6 +47,23 @@ describe('Point', () => {
       fill: 'color',
       style: 'animated-style',
       stroke: 'none',
+      visibility: 'visible',
+    });
+    expect(dSymbol).toBeCalledWith(defaultProps.point);
+  });
+
+  it('should render point / rotated', () => {
+    const tree = shallow((
+      <Point {...(defaultProps as any)} rotated={true} />
+    ));
+
+    expect(tree.find('path').props()).toEqual({
+      transform: 'translate(2 1)',
+      d: 'test-d-attribute',
+      fill: 'color',
+      style: 'animated-style',
+      stroke: 'none',
+      visibility: 'visible',
     });
     expect(dSymbol).toBeCalledWith(defaultProps.point);
   });

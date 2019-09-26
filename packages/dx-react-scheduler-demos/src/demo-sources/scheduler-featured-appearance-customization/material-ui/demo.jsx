@@ -67,13 +67,13 @@ const styles = theme => ({
     padding: 0,
   },
   contentItemIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   flexibleSpace: {
     margin: '0 auto 0 0',
   },
   prioritySelector: {
-    marginLeft: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
     minWidth: 140,
   },
   prioritySelectorItem: {
@@ -82,17 +82,17 @@ const styles = theme => ({
   },
   priorityBullet: {
     borderRadius: '50%',
-    width: theme.spacing.unit * 2,
-    height: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2,
+    width: theme.spacing(2),
+    height: theme.spacing(2),
+    marginRight: theme.spacing(2),
     display: 'inline-block',
   },
   defaultBullet: {
     background: theme.palette.divider,
   },
   tooltipContent: {
-    paddingLeft: theme.spacing.unit * 2.2,
-    paddingRight: theme.spacing.unit * 2.2,
+    paddingLeft: theme.spacing(2.2),
+    paddingRight: theme.spacing(2.2),
   },
 });
 
@@ -262,7 +262,10 @@ export default class Demo extends React.PureComponent {
 
     return (
       <Paper>
-        <Scheduler data={filterTasks(data, currentPriority)}>
+        <Scheduler
+          data={filterTasks(data, currentPriority)}
+          height={660}
+        >
           <ViewState
             currentDate={currentDate}
             currentViewName={currentViewName}

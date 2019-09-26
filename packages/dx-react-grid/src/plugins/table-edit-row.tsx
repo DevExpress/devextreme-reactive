@@ -80,6 +80,7 @@ class TableEditRowBase extends React.PureComponent<TableEditRowProps> {
                     changeRow(changeArgs);
                   }
                 };
+                const editingEnabled = isColumnEditingEnabled(columnName);
                 return (
                   <TemplatePlaceholder
                     name="valueEditor"
@@ -88,6 +89,7 @@ class TableEditRowBase extends React.PureComponent<TableEditRowProps> {
                       row,
                       value,
                       onValueChange,
+                      disabled: !editingEnabled,
                     }}
                   >
                     {content => (
@@ -96,7 +98,7 @@ class TableEditRowBase extends React.PureComponent<TableEditRowProps> {
                         row={row}
                         column={column!}
                         value={value}
-                        editingEnabled={isColumnEditingEnabled(columnName)}
+                        editingEnabled={editingEnabled}
                         onValueChange={onValueChange}
                       >
                         {content}

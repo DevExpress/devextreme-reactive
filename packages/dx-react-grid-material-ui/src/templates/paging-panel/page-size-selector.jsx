@@ -8,31 +8,34 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   pageSizeSelector: {
     ...theme.typography.caption,
-    paddingRight: theme.spacing.unit * 5,
+    paddingRight: theme.spacing(5),
     // NOTE: fixes vertical alignment in FF
     display: 'flex',
     alignItems: 'center',
   },
   label: {
-    paddingRight: theme.spacing.unit * 3,
+    paddingRight: theme.spacing(3),
   },
   pageSizeTitle: {
     width: 'auto',
-    marginRight: theme.spacing.unit / 2,
+    marginRight: theme.spacing(2),
   },
   inputRoot: {
-    fontSize: theme.spacing.unit * 1.75,
+    fontSize: theme.spacing(1.75),
     textAlign: 'right',
   },
   selectIcon: {
     top: 2,
+  },
+  selectMenu: {
+    position: 'absolute !important',
   },
   '@media (max-width: 768px)': {
     label: {
       display: 'none',
     },
     pageSizeSelector: {
-      paddingRight: theme.spacing.unit * 2,
+      paddingRight: theme.spacing(2),
     },
   },
 });
@@ -56,12 +59,15 @@ const PageSizeSelectorBase = ({
         classes={{
           icon: classes.selectIcon,
         }}
+        MenuProps={{
+          className: classes.selectMenu,
+        }}
         input={(
           <Input
             disableUnderline
             classes={{ root: classes.inputRoot }}
           />
-)}
+        )}
       >
         {pageSizes.map(item => (
           <MenuItem key={item} value={item}>

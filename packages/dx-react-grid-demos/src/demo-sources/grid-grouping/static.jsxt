@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   GroupingState,
   IntegratedGrouping,
@@ -12,39 +12,29 @@ import {
 
 import { generateRows } from '../../../demo-data/generator';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'gender', title: 'Gender' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows] = useState(generateRows({ length: 8 }));
 
-    this.state = {
-      columns: [
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      rows: generateRows({ length: 8 }),
-    };
-  }
-
-  render() {
-    const { rows, columns } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <GroupingState
-            grouping={[{ columnName: 'city' }]}
-          />
-          <IntegratedGrouping />
-          <Table />
-          <TableHeaderRow />
-          <TableGroupRow />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <GroupingState
+          grouping={[{ columnName: 'city' }]}
+        />
+        <IntegratedGrouping />
+        <Table />
+        <TableHeaderRow />
+        <TableGroupRow />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

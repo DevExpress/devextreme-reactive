@@ -1,15 +1,16 @@
 export { Plugin } from './plugin-based/plugin';
 export { PluginHost } from './plugin-based/plugin-host';
 export { Action } from './plugin-based/action';
-export { Getter, Actions } from './plugin-based/getter';
+export { Getter } from './plugin-based/getter';
 export { Template } from './plugin-based/template';
 export { TemplatePlaceholder } from './plugin-based/template-placeholder';
 export { TemplateConnector } from './plugin-based/template-connector';
 
 /** @internal */
-export { Getters } from './plugin-based/getter';
-/** @internal */
 export { Draggable } from './draggable';
+
+/** @internal */
+export { clear as clearSelection } from './draggable/selection-utils';
 
 /** @internal */
 export { DragDropProvider } from './drag-drop/provider';

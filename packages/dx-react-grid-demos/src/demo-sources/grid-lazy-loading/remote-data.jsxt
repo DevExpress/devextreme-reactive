@@ -1,0 +1,234 @@
+import React, {
+  useReducer, useState, useEffect, useMemo,
+} from 'react';<%&additionalImports%>
+import {
+  VirtualTableState,
+  DataTypeProvider,
+  FilteringState,
+  SortingState,
+  createRowCache,
+} from '@devexpress/dx-react-grid';
+import {
+  Grid,
+  VirtualTable,
+  TableHeaderRow,
+  TableFilterRow,
+} from '@devexpress/dx-react-grid-<%&themeName%>';
+import { Loading } from '../../../theme-sources/<%&themeName%>/components/loading';
+
+const VIRTUAL_PAGE_SIZE = 100;
+const MAX_ROWS = 50000;
+const URL = 'https://js.devexpress.com/Demos/WidgetsGalleryDataService/api/Sales';
+const getRowId = row => row.Id;
+
+const CurrencyFormatter = ({ value }) => (
+  <b style={{ color: 'darkblue' }}>
+$
+    {value}
+  </b>
+);
+
+const CurrencyTypeProvider = props => (
+  <DataTypeProvider
+    formatterComponent={CurrencyFormatter}
+    {...props}
+  />
+);
+
+const DateFormatter = ({ value }) => value.replace(/(\d{4})-(\d{2})-(\d{2})(T.*)/, '$3.$2.$1');
+
+const DateTypeProvider = props => (
+  <DataTypeProvider
+    formatterComponent={DateFormatter}
+    {...props}
+  />
+);
+
+const initialState = {
+  rows: [],
+  skip: 0,
+  requestedSkip: 0,
+  take: VIRTUAL_PAGE_SIZE * 2,
+  totalCount: 0,
+  loading: false,
+  lastQuery: '',
+  sorting: [],
+  filters: [],
+  forceReload: false,
+};
+
+function reducer(state, { type, payload }) {
+  switch (type) {
+    case 'UPDATE_ROWS':
+      return {
+        ...state,
+        ...payload,
+        loading: false,
+      };
+    case 'CHANGE_SORTING':
+      return {
+        ...state,
+        forceReload: true,
+        rows: [],
+        sorting: payload,
+      };
+    case 'CHANGE_FILTERS':
+      return {
+        ...state,
+        forceReload: true,
+        requestedSkip: 0,
+        rows: [],
+        filters: payload,
+      };
+    case 'START_LOADING':
+      return {
+        ...state,
+        requestedSkip: payload.requestedSkip,
+        take: payload.take,
+      };
+    case 'REQUEST_ERROR':
+      return {
+        ...state,
+        loading: false,
+      };
+    case 'FETCH_INIT':
+      return {
+        ...state,
+        loading: true,
+        forceReload: false,
+      };
+    case 'UPDATE_QUERY':
+      return {
+        ...state,
+        lastQuery: payload,
+      };
+    default:
+      return state;
+  }
+}
+
+export default () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const [columns] = useState([
+    { name: 'Id', title: 'Id', getCellValue: row => row.Id },
+    { name: 'ProductCategoryName', title: 'Category', getCellValue: row => row.ProductCategoryName },
+    { name: 'StoreName', title: 'Store', getCellValue: row => row.StoreName },
+    { name: 'ProductName', title: 'Product', getCellValue: row => row.ProductName },
+    { name: 'DateKey', title: 'Date', getCellValue: row => row.DateKey },
+    { name: 'SalesAmount', title: 'Amount', getCellValue: row => row.SalesAmount },
+  ]);
+  const [tableColumnExtensions] = useState([
+    { columnName: 'Id', width: 70 },
+    { columnName: 'ProductCategoryName', width: 200 },
+    { columnName: 'StoreName', width: 220 },
+    { columnName: 'DateKey', width: 100 },
+    { columnName: 'SalesAmount', width: 110 },
+  ]);
+
+  const cache = useMemo(() => createRowCache(VIRTUAL_PAGE_SIZE), [VIRTUAL_PAGE_SIZE]);
+  const updateRows = (skip, count, newTotalCount) => {
+    dispatch({
+      type: 'UPDATE_ROWS',
+      payload: {
+        skip,
+        rows: cache.getRows(skip, count),
+        totalCount: newTotalCount < MAX_ROWS ? newTotalCount : MAX_ROWS,
+      },
+    });
+  };
+
+  const getRemoteRows = (requestedSkip, take) => {
+    dispatch({ type: 'START_LOADING', payload: { requestedSkip, take } });
+  };
+
+  const buildQueryString = () => {
+    const {
+      requestedSkip, take, filters, sorting,
+    } = state;
+    const filterStr = filters
+      .map(({ columnName, value, operation }) => (
+        `["${columnName}","${operation}","${value}"]`
+      )).join(',"and",');
+    const sortingConfig = sorting
+      .map(({ columnName, direction }) => ({
+        selector: columnName,
+        desc: direction === 'desc',
+      }));
+    const sortingStr = JSON.stringify(sortingConfig);
+    const filterQuery = filterStr ? `&filter=[${escape(filterStr)}]` : '';
+    const sortQuery = sortingStr ? `&sort=${escape(`${sortingStr}`)}` : '';
+
+    return `${URL}?requireTotalCount=true&skip=${requestedSkip}&take=${take}${filterQuery}${sortQuery}`;
+  };
+
+  const loadData = () => {
+    const {
+      requestedSkip, take, lastQuery, loading, forceReload,
+    } = state;
+    const query = buildQueryString();
+    if ((query !== lastQuery || forceReload) && !loading) {
+      if (forceReload) {
+        cache.invalidate();
+      }
+      const cached = cache.getRows(requestedSkip, take);
+      if (cached.length === take) {
+        updateRows(requestedSkip, take);
+      } else {
+        dispatch({ type: 'FETCH_INIT' });
+        fetch(query)
+          .then(response => response.json())
+          .then(({ data, totalCount: newTotalCount }) => {
+            cache.setRows(requestedSkip, data);
+            updateRows(requestedSkip, take, newTotalCount);
+          })
+          .catch(() => dispatch({ type: 'REQUEST_ERROR' }));
+      }
+      dispatch({ type: 'UPDATE_QUERY', payload: query });
+    }
+  };
+
+  const changeFilters = (value) => {
+    dispatch({ type: 'CHANGE_FILTERS', payload: value });
+  };
+
+  const changeSorting = (value) => {
+    dispatch({ type: 'CHANGE_SORTING', payload: value });
+  };
+
+  useEffect(() => loadData());
+
+  const {
+    rows, skip, totalCount, loading, sorting, filters,
+  } = state;
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+        getRowId={getRowId}
+      >
+        <CurrencyTypeProvider for={['SalesAmount']} />
+        <DateTypeProvider for={['DateKey']} />
+        <VirtualTableState
+          loading={loading}
+          totalRowCount={totalCount}
+          pageSize={VIRTUAL_PAGE_SIZE}
+          skip={skip}
+          getRows={getRemoteRows}
+        />
+        <SortingState
+          sorting={sorting}
+          onSortingChange={changeSorting}
+        />
+        <FilteringState
+          filters={filters}
+          onFiltersChange={changeFilters}
+        />
+        <VirtualTable columnExtensions={tableColumnExtensions} />
+        <TableHeaderRow showSortingControls />
+        <TableFilterRow />
+      </Grid>
+      {loading && <Loading />}
+    </<%&wrapperTag%>>
+  );
+};

@@ -3,8 +3,10 @@ import * as PropTypes from 'prop-types';
 import Popover from '@material-ui/core/Popover';
 import AccessTime from '@material-ui/icons/AccessTime';
 import Grid from '@material-ui/core/Grid';
-import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
+import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
+
+const verticalTopHorizontalCenterOptions = { vertical: 'top', horizontal: 'center' };
 
 const styles = theme => ({
   text: {
@@ -13,7 +15,7 @@ const styles = theme => ({
   },
   title: {
     ...theme.typography.h6,
-    paddingBottom: theme.spacing.unit * 1.75,
+    paddingBottom: theme.spacing(1.75),
     color: theme.palette.primary.contrastText,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -21,7 +23,7 @@ const styles = theme => ({
   },
   buttonsLeft: {
     position: 'relative',
-    bottom: -(theme.spacing.unit * 5) / 2,
+    bottom: -theme.spacing(2.5),
     textAlign: 'center',
   },
   buttonsRight: {
@@ -47,6 +49,7 @@ const LayoutBase = ({
   commandButtonIds,
   onOpenButtonClick,
   onDeleteButtonClick,
+  formatDate,
   classes,
   ...restProps
 }) => {
@@ -61,8 +64,8 @@ const LayoutBase = ({
       open={visible}
       anchorEl={target}
       onClose={onHide}
-      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-      transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+      anchorOrigin={verticalTopHorizontalCenterOptions}
+      transformOrigin={verticalTopHorizontalCenterOptions}
       {...restProps}
     >
       <Header appointmentData={data}>
@@ -71,7 +74,7 @@ const LayoutBase = ({
             && <CommandButton id={commandButtonIds.delete} onExecute={onDeleteButtonClick} />}
           {showCloseButton && <CommandButton id={commandButtonIds.close} onExecute={onHide} />}
         </div>
-        <Grid container spacing={8} alignItems="center">
+        <Grid container spacing={1} alignItems="center">
           <Grid item xs={2} className={classes.flexItem}>
             <div className={classes.buttonsLeft}>
               {showOpenButton
@@ -86,13 +89,13 @@ const LayoutBase = ({
         </Grid>
       </Header>
       <Content appointmentData={data}>
-        <Grid container spacing={8} alignItems="center">
+        <Grid container spacing={1} alignItems="center">
           <Grid item xs={2} className={classes.textCenter}>
             <AccessTime className={classes.icon} />
           </Grid>
           <Grid item xs={10}>
             <div className={classes.text}>
-              {`${moment(data.startDate).format('h:mm A')} - ${moment(data.endDate).format('h:mm A')}`}
+              {`${formatDate(data.startDate, HOUR_MINUTE_OPTIONS)} - ${formatDate(data.endDate, HOUR_MINUTE_OPTIONS)}`}
             </div>
           </Grid>
         </Grid>
@@ -102,14 +105,16 @@ const LayoutBase = ({
 };
 
 LayoutBase.propTypes = {
-  commandButtonComponent: PropTypes.func.isRequired,
-  headerComponent: PropTypes.func.isRequired,
-  contentComponent: PropTypes.func.isRequired,
+  // oneOfType is a workaround because withStyles returns react object
+  commandButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  headerComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  contentComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   showOpenButton: PropTypes.bool.isRequired,
   showCloseButton: PropTypes.bool.isRequired,
   showDeleteButton: PropTypes.bool.isRequired,
   commandButtonIds: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
+  formatDate: PropTypes.func.isRequired,
   onOpenButtonClick: PropTypes.func,
   onDeleteButtonClick: PropTypes.func,
   appointmentMeta: PropTypes.shape({

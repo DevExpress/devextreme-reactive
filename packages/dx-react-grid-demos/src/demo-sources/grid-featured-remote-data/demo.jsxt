@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState, useEffect } from 'react';<%&additionalImports%>
 import {
   PagingState,
   SortingState,
@@ -16,74 +16,37 @@ import { CurrencyTypeProvider } from '../../../theme-sources/<%&themeName%>/comp
 
 const URL = 'https://js.devexpress.com/Demos/WidgetsGallery/data/orderItems';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [columns] = useState([
+    { name: 'OrderNumber', title: 'Order #' },
+    { name: 'OrderDate', title: 'Order Date' },
+    { name: 'StoreCity', title: 'Store City' },
+    { name: 'Employee', title: 'Employee' },
+    { name: 'SaleAmount', title: 'Sale Amount' },
+  ]);
+  const [rows, setRows] = useState([]);
+  const [currencyColumns] = useState(['SaleAmount']);
+  const [tableColumnExtensions] = useState([
+    { columnName: 'OrderNumber', align: 'right' },
+    { columnName: 'SaleAmount', align: 'right' },
+  ]);
+  const [sorting, setSorting] = useState([{ columnName: 'StoreCity', direction: 'asc' }]);
+  const [totalCount, setTotalCount] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
+  const [pageSizes] = useState([5, 10, 15]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [lastQuery, setLastQuery] = useState();
 
-    this.state = {
-      columns: [
-        { name: 'OrderNumber', title: 'Order #' },
-        { name: 'OrderDate', title: 'Order Date' },
-        { name: 'StoreCity', title: 'Store City' },
-        { name: 'Employee', title: 'Employee' },
-        { name: 'SaleAmount', title: 'Sale Amount' },
-      ],
-      currencyColumns: ['SaleAmount'],
-      tableColumnExtensions: [
-        { columnName: 'OrderNumber', align: 'right' },
-        { columnName: 'SaleAmount', align: 'right' },
-      ],
-      rows: [],
-      sorting: [{ columnName: 'StoreCity', direction: 'asc' }],
-      totalCount: 0,
-      pageSize: 10,
-      pageSizes: [5, 10, 15],
-      currentPage: 0,
-      loading: true,
-    };
+  const changePageSize = (value) => {
+    const totalPages = Math.ceil(totalCount / value);
+    const updatedCurrentPage = Math.min(currentPage, totalPages - 1);
 
-    this.changeSorting = this.changeSorting.bind(this);
-    this.changeCurrentPage = this.changeCurrentPage.bind(this);
-    this.changePageSize = this.changePageSize.bind(this);
-  }
+    setPageSize(value);
+    setCurrentPage(updatedCurrentPage);
+  };
 
-  componentDidMount() {
-    this.loadData();
-  }
-
-  componentDidUpdate() {
-    this.loadData();
-  }
-
-  changeSorting(sorting) {
-    this.setState({
-      loading: true,
-      sorting,
-    });
-  }
-
-  changeCurrentPage(currentPage) {
-    this.setState({
-      loading: true,
-      currentPage,
-    });
-  }
-
-  changePageSize(pageSize) {
-    const { totalCount, currentPage: stateCurrentPage } = this.state;
-    const totalPages = Math.ceil(totalCount / pageSize);
-    const currentPage = Math.min(stateCurrentPage, totalPages - 1);
-
-    this.setState({
-      loading: true,
-      pageSize,
-      currentPage,
-    });
-  }
-
-  queryString() {
-    const { sorting, pageSize, currentPage } = this.state;
-
+  const getQueryString = () => {
     let queryString = `${URL}?take=${pageSize}&skip=${pageSize * currentPage}`;
 
     const columnSorting = sorting[0];
@@ -93,72 +56,57 @@ export default class Demo extends React.PureComponent {
     }
 
     return queryString;
-  }
+  };
 
-  loadData() {
-    const queryString = this.queryString();
-    if (queryString === this.lastQuery) {
-      this.setState({ loading: false });
-      return;
+  const loadData = () => {
+    const queryString = getQueryString();
+    if (queryString !== lastQuery && !loading) {
+      setLoading(true);
+      fetch(queryString)
+        .then(response => response.json())
+        .then((data) => {
+          setRows(data.items);
+          setTotalCount(data.totalCount);
+          setLoading(false);
+        })
+        .catch(() => setLoading(false));
+      setLastQuery(queryString);
     }
+  };
 
-    fetch(queryString)
-      .then(response => response.json())
-      .then(data => this.setState({
-        rows: data.items,
-        totalCount: data.totalCount,
-        loading: false,
-      }))
-      .catch(() => this.setState({ loading: false }));
-    this.lastQuery = queryString;
-  }
+  useEffect(() => loadData());
 
-  render() {
-    const {
-      rows,
-      columns,
-      currencyColumns,
-      tableColumnExtensions,
-      sorting,
-      pageSize,
-      pageSizes,
-      currentPage,
-      totalCount,
-      loading,
-    } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%> style={{ position: 'relative' }}>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <CurrencyTypeProvider
-            for={currencyColumns}
-          />
-          <SortingState
-            sorting={sorting}
-            onSortingChange={this.changeSorting}
-          />
-          <PagingState
-            currentPage={currentPage}
-            onCurrentPageChange={this.changeCurrentPage}
-            pageSize={pageSize}
-            onPageSizeChange={this.changePageSize}
-          />
-          <CustomPaging
-            totalCount={totalCount}
-          />
-          <Table
-            columnExtensions={tableColumnExtensions}
-          />
-          <TableHeaderRow showSortingControls />
-          <PagingPanel
-            pageSizes={pageSizes}
-          />
-        </Grid>
-        {loading && <Loading />}
-      </<%&wrapperTag%>>
-    );
-  }
-}
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%> style={{ position: 'relative' }}>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <CurrencyTypeProvider
+          for={currencyColumns}
+        />
+        <SortingState
+          sorting={sorting}
+          onSortingChange={setSorting}
+        />
+        <PagingState
+          currentPage={currentPage}
+          onCurrentPageChange={setCurrentPage}
+          pageSize={pageSize}
+          onPageSizeChange={changePageSize}
+        />
+        <CustomPaging
+          totalCount={totalCount}
+        />
+        <Table
+          columnExtensions={tableColumnExtensions}
+        />
+        <TableHeaderRow showSortingControls />
+        <PagingPanel
+          pageSizes={pageSizes}
+        />
+      </Grid>
+      {loading && <Loading />}
+    </<%&wrapperTag%>>
+  );
+};

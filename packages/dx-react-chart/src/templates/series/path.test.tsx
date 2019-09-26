@@ -14,12 +14,14 @@ jest.mock('../../utils/with-states', () => ({
 
 describe('Path', () => {
   const defaultProps = {
-    path: value => value.join('-'),
+    path: jest.fn(value => value.join('-')),
     coordinates: [1, 2, 3],
     index: 1,
     color: 'red',
     scales: { tag: 'test-scales' },
+    rotated: true,
     getAnimatedStyle: jest.fn(style => style),
+    clipPathId: 'clipPathId',
   };
 
   it('should render root element', () => {
@@ -34,7 +36,9 @@ describe('Path', () => {
       fill: 'none',
       strokeWidth: 2,
       stroke: 'red',
+      clipPath: 'url(#clipPathId)',
     });
+    expect(defaultProps.path).toBeCalledWith(defaultProps.coordinates);
   });
 
   it('should apply custom styles if any', () => {

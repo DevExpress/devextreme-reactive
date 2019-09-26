@@ -25,10 +25,13 @@ const exportToImage = async (chart, format, exportFunc) => {
   try {
     const dataUrl = await exportFunc(chart, { filter });
     const link = document.createElement('a');
+    document.body.appendChild(link);
     link.download = `chart.${format}`;
     link.href = dataUrl;
     link.click();
+    link.remove();
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error('oops, something went wrong!', err);
   }
 };
@@ -53,6 +56,7 @@ const exportToPdf = async (chart) => {
     doc.addImage(dataUrl, 'JPEG', 0, 0, pdfWidth, pdfHeight);
     doc.save('chart');
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error('oops, something went wrong!', err);
   }
 };
@@ -70,6 +74,7 @@ const print = async (chart) => {
     printWindow.document.write(html);
     printWindow.document.close();
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error('oops, something went wrong!', err);
   }
 };
@@ -180,18 +185,18 @@ const Export = () => {
 const BarWithLabel = ({
   value, ...restProps
 }) => (
-  <React.Fragment>
+  <>
     <BarSeries.Point {...restProps} />
     <Chart.Label
-      x={restProps.x}
-      y={(restProps.y + restProps.y1) / 2}
+      x={restProps.arg}
+      y={(restProps.val + restProps.startVal) / 2}
       dominantBaseline="middle"
       textAnchor="middle"
       style={labelStyle}
     >
       {`${value}%`}
     </Chart.Label>
-  </React.Fragment>
+  </>
 );
 
 const legendRootStyle = {

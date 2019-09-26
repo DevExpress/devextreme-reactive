@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import {
   FilteringState,
   IntegratedFiltering,
@@ -49,77 +49,67 @@ const pagingPanelMessages = {
   info: 'Zeilen {from} bis {to} ({count} Elemente)',
 };
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [columns] = useState([
+    { name: 'region', title: 'Region' },
+    { name: 'sector', title: 'Sektor' },
+    { name: 'channel', title: 'Kanal' },
+    { name: 'customer', title: 'Kunde' },
+  ]);
+  const [rows] = useState(generateRows({ columnValues: globalSalesValues, length: 8 }));
 
-    this.state = {
-      columns: [
-        { name: 'region', title: 'Region' },
-        { name: 'sector', title: 'Sektor' },
-        { name: 'channel', title: 'Kanal' },
-        { name: 'customer', title: 'Kunde' },
-      ],
-      rows: generateRows({ columnValues: globalSalesValues, length: 8 }),
-    };
+  // eslint-disable-next-line no-alert
+  const commitChanges = () => alert('Datenänderungen sind in dieser Demo nicht implementiert');
 
-    // eslint-disable-next-line no-alert
-    this.commitChanges = () => alert('Datenänderungen sind in dieser Demo nicht implementiert');
-  }
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <DragDropProvider />
+        <FilteringState defaultFilters={[]} />
+        <GroupingState defaultGrouping={[]} />
+        <EditingState
+          onCommitChanges={commitChanges}
+        />
 
-  render() {
-    const { rows, columns } = this.state;
+        <IntegratedFiltering />
+        <IntegratedGrouping />
+        <PagingState
+          defaultCurrentPage={0}
+          defaultPageSize={5}
+        />
+        <IntegratedPaging />
+        <Table
+          messages={tableMessages}
+        />
+        <TableHeaderRow />
 
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <DragDropProvider />
-          <FilteringState defaultFilters={[]} />
-          <GroupingState defaultGrouping={[]} />
-          <EditingState
-            onCommitChanges={this.commitChanges}
-          />
+        <TableEditRow />
+        <TableEditColumn
+          showAddCommand
+          showEditCommand
+          showDeleteCommand
+          width={250}
+          messages={editColumnMessages}
+        />
 
-          <IntegratedFiltering />
-          <IntegratedGrouping />
-          <PagingState
-            defaultCurrentPage={0}
-            defaultPageSize={5}
-          />
-          <IntegratedPaging />
-          <Table
-            messages={tableMessages}
-          />
-          <TableHeaderRow />
+        <TableFilterRow
+          messages={filterRowMessages}
+        />
+        <Toolbar />
+        <GroupingPanel
+          showGroupingControls
+          messages={groupingPanelMessages}
+        />
 
-          <TableEditRow />
-          <TableEditColumn
-            showAddCommand
-            showEditCommand
-            showDeleteCommand
-            width={250}
-            messages={editColumnMessages}
-          />
-
-          <TableFilterRow
-            messages={filterRowMessages}
-          />
-          <Toolbar />
-          <GroupingPanel
-            showGroupingControls
-            messages={groupingPanelMessages}
-          />
-
-          <TableGroupRow />
-          <PagingPanel
-            pageSizes={[5, 10, 15, 0]}
-            messages={pagingPanelMessages}
-          />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+        <TableGroupRow />
+        <PagingPanel
+          pageSizes={[5, 10, 15, 0]}
+          messages={pagingPanelMessages}
+        />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

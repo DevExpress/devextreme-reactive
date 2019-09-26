@@ -10,6 +10,7 @@ export const Container = ({
     className={classNames('list-group d-inline-block position-fixed dx-g-bs4-drag-drop', className)}
     style={{
       transform: `translate(calc(${clientOffset.x}px - 50%), calc(${clientOffset.y}px - 50%))`,
+      msTransform: `translateX(${clientOffset.x}px) translateX(-50%) translateY(${clientOffset.y}px) translateY(-50%)`,
       zIndex: 1000,
       left: 0,
       top: 0,
@@ -40,14 +41,14 @@ Container.defaultProps = {
   children: undefined,
 };
 
-export const Column = ({ column, className, ...restProps }) => (
+export const Column = React.memo(({ column, className, ...restProps }) => (
   <li
     className={classNames('list-group-item', className)}
     {...restProps}
   >
     {column.title}
   </li>
-);
+));
 
 Column.propTypes = {
   column: PropTypes.object.isRequired,

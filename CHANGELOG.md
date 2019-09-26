@@ -1,3 +1,329 @@
+# [2.0.5](https://github.com/DevExpress/devextreme-reactive/compare/v2.0.4...v2.0.5) (2019-09-16)
+
+
+### Bug Fixes
+
+* **react-chart:** fix typescript in scales ([#2314](https://github.com/DevExpress/devextreme-reactive/issues/2314)) ([15ecec0](https://github.com/DevExpress/devextreme-reactive/commit/15ecec0))
+* **react-grid:** add summary rows only if summary items are specified ([#2298](https://github.com/DevExpress/devextreme-reactive/issues/2298)) ([5ee7d97](https://github.com/DevExpress/devextreme-reactive/commit/5ee7d97))
+* **react-grid:** correct displaying Filter Selector in Edge ([#2318](https://github.com/DevExpress/devextreme-reactive/issues/2318)) ([903f3c5](https://github.com/DevExpress/devextreme-reactive/commit/903f3c5))
+* **react-scheduler:** make it possible to create an appointment after cancelled drag-drop ([#2307](https://github.com/DevExpress/devextreme-reactive/issues/2307)) ([b666250](https://github.com/DevExpress/devextreme-reactive/commit/b666250))
+* **react-scheduler-material-ui:** remove lastChild's paddingRight from all cells ([#2323](https://github.com/DevExpress/devextreme-reactive/issues/2323)) ([27121c2](https://github.com/DevExpress/devextreme-reactive/commit/27121c2))
+* **scheduler-core:** delete recurrent appointments correctly with 'delete current and following' option ([#2313](https://github.com/DevExpress/devextreme-reactive/issues/2313)) ([d3d1df7](https://github.com/DevExpress/devextreme-reactive/commit/d3d1df7))
+* **scheduler-core:** fix Drag-and-Drop of recurrent appointments with UNTIL ([#2321](https://github.com/DevExpress/devextreme-reactive/issues/2321)) ([ba6cf21](https://github.com/DevExpress/devextreme-reactive/commit/ba6cf21))
+
+
+### Features
+
+* **react-grid:** improve column resizing ([#2218](https://github.com/DevExpress/devextreme-reactive/issues/2218)) ([cd73218](https://github.com/DevExpress/devextreme-reactive/commit/cd73218))
+* **react-scheduler:** display month's name in the first day cell of the month in MonthView ([#2316](https://github.com/DevExpress/devextreme-reactive/issues/2316)) ([28cd3d2](https://github.com/DevExpress/devextreme-reactive/commit/28cd3d2))
+
+
+
+# [2.0.4](https://github.com/DevExpress/devextreme-reactive/compare/v2.0.3...v2.0.4) (2019-09-02)
+
+
+### Bug Fixes
+
+* **react-chart:** fix arrow displaying on corner point ([#2232](https://github.com/DevExpress/devextreme-reactive/issues/2232)) ([5c49aca](https://github.com/DevExpress/devextreme-reactive/commit/5c49aca))
+* **react-grid:** allow DataTypeProvider editor to know if editing is enabled ([#2265](https://github.com/DevExpress/devextreme-reactive/issues/2265)) ([b3cdd95](https://github.com/DevExpress/devextreme-reactive/commit/b3cdd95))
+* **react-grid:** correct calculating start index of loading row for Infinite Scrolling ([#2256](https://github.com/DevExpress/devextreme-reactive/issues/2256)) ([1741f9c](https://github.com/DevExpress/devextreme-reactive/commit/1741f9c))
+* **react-grid:** correct displaying Page Size Selector in Edge ([#2246](https://github.com/DevExpress/devextreme-reactive/issues/2246)) ([f67e419](https://github.com/DevExpress/devextreme-reactive/commit/f67e419))
+* **react-grid:** correct offset calculation in virtual table ([#2245](https://github.com/DevExpress/devextreme-reactive/issues/2245)) ([4d3fba9](https://github.com/DevExpress/devextreme-reactive/commit/4d3fba9))
+* **react-grid:** correctly handle column count changes in virtual table ([#2257](https://github.com/DevExpress/devextreme-reactive/issues/2257)) ([451c56c](https://github.com/DevExpress/devextreme-reactive/commit/451c56c))
+* **react-scheduler:** correct render horizontal draft appointments by DnD ([#2258](https://github.com/DevExpress/devextreme-reactive/issues/2258)) ([d919d19](https://github.com/DevExpress/devextreme-reactive/commit/d919d19))
+* **react-scheduler:** fix create an appointment on the first call of AppointmentForm ([#2272](https://github.com/DevExpress/devextreme-reactive/issues/2272)) ([8ab05ef](https://github.com/DevExpress/devextreme-reactive/commit/8ab05ef))
+* **react-scheduler:** fix incorrect render of recurrent appointments in the first cell of AllDayPanel ([#2264](https://github.com/DevExpress/devextreme-reactive/issues/2264)) ([fe33ea2](https://github.com/DevExpress/devextreme-reactive/commit/fe33ea2))
+* **react-scheduler:** make it possible to drag-drop appointments in MonthView with AllDayPanel plugin ([#2275](https://github.com/DevExpress/devextreme-reactive/issues/2275)) ([456a423](https://github.com/DevExpress/devextreme-reactive/commit/456a423))
+* **react-scheduler:** prevent double render of all-day recurrence appointments ([#2253](https://github.com/DevExpress/devextreme-reactive/issues/2253)) ([e92bdeb](https://github.com/DevExpress/devextreme-reactive/commit/e92bdeb))
+* **scheduler-core:** display recurrent appointments in the lower right corner of WeekView correctly ([#2290](https://github.com/DevExpress/devextreme-reactive/issues/2290)) ([bc8ae2d](https://github.com/DevExpress/devextreme-reactive/commit/bc8ae2d))
+* **scheduler-core:** fix recurrent appointment disappearing after dragdrop ([#2288](https://github.com/DevExpress/devextreme-reactive/issues/2288)) ([5cc0aaf](https://github.com/DevExpress/devextreme-reactive/commit/5cc0aaf))
+
+
+### Features
+
+* **react-scheduler:** add capability to edit recurring appointments ([#2168](https://github.com/DevExpress/devextreme-reactive/issues/2168)) ([c726b6a](https://github.com/DevExpress/devextreme-reactive/commit/c726b6a)), closes [#2202](https://github.com/DevExpress/devextreme-reactive/issues/2202)
+
+
+BREAKING CHANGES:
+
+* **react-scheduler:** Editing logic for recurrent appointments was removed from the `EditingState` plugin. Now, editing requires the `EditingState`, and either the `IntegratedEditing` or the `EditRecurrenceMenu` plugin. In addition, you can add the [EditRecurrenceMenu](https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/edit-recurrence-menu/) plugin to allow users to select how recurrent appointments are edited.
+
+```diff
+<Scheduler>
+   <EditingState />
++  <EditRecurrenceMenu />
++  {/* or <IntegratedEditing />*/}
+   ...
+</Scheduler>
+```
+
+The following `EditingState` properties were replaced:
+
+- `editingAppointmentId` -> `editingAppointment`
+- `defaultEditingAppointmentId` -> `defaultEditingAppointment`
+- `onEditingAppointmentIdChange` -> `onEditingAppointmentChange`
+
+The new properties contain an [AppointmentModel](https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/scheduler/#appointmentmodel) of the appointment being edited.
+
+```diff
+<Scheduler>
+   <EditingState
+-    editingAppointmentId
+-    defaultEditingAppointmentId
+-    onEditingAppointmentIdChange
++    editingAppointment
++    defaultEditingAppointment
++    onEditingAppointmentChange
+   />
+   ...
+</Scheduler>
+```
+
+
+# [2.0.3](https://github.com/DevExpress/devextreme-reactive/compare/v2.0.2...v2.0.3) (2019-08-16)
+
+
+### Bug Fixes
+
+* **react-chart:** fix axis layout after update data ([#2199](https://github.com/DevExpress/devextreme-reactive/issues/2199)) ([2b84bd8](https://github.com/DevExpress/devextreme-reactive/commit/2b84bd8))
+* **react-grid:** correctly calculate force reload interval when total count is 0 ([#2238](https://github.com/DevExpress/devextreme-reactive/issues/2238)) ([e9daa64](https://github.com/DevExpress/devextreme-reactive/commit/e9daa64))
+* **react-grid:** retrieve incomplete page from cache ([#2215](https://github.com/DevExpress/devextreme-reactive/issues/2215)) ([0ee86fd](https://github.com/DevExpress/devextreme-reactive/commit/0ee86fd))
+* **scheduler-core:** fix incorrect render of recurrent appointments with BYMONTHDAY parameter ([#2216](https://github.com/DevExpress/devextreme-reactive/issues/2216)) ([7346df3](https://github.com/DevExpress/devextreme-reactive/commit/7346df3))
+
+
+### Features
+
+* **react-grid:** allow setting min and max width limitation for every column ([#2207](https://github.com/DevExpress/devextreme-reactive/issues/2207)) ([dc72916](https://github.com/DevExpress/devextreme-reactive/commit/dc72916))
+
+
+
+# [2.0.2](https://github.com/DevExpress/devextreme-reactive/compare/v2.0.1...v2.0.2) (2019-08-01)
+
+
+### Bug Fixes
+
+* **react-chart:** fix tooltip customization ([#2191](https://github.com/DevExpress/devextreme-reactive/issues/2191)) ([b23bef2](https://github.com/DevExpress/devextreme-reactive/commit/b23bef2))
+* **react-chart:** fix zooming over minimal threshold ([#2183](https://github.com/DevExpress/devextreme-reactive/issues/2183)) ([88baf47](https://github.com/DevExpress/devextreme-reactive/commit/88baf47))
+* **react-chart-material-ui:** apply correct layout height ([#2180](https://github.com/DevExpress/devextreme-reactive/issues/2180)) ([88bf517](https://github.com/DevExpress/devextreme-reactive/commit/88bf517)), closes [#2172](https://github.com/DevExpress/devextreme-reactive/issues/2172)
+* **react-core:** get rid of redundant type ([#2179](https://github.com/DevExpress/devextreme-reactive/issues/2179)) ([eb0ca11](https://github.com/DevExpress/devextreme-reactive/commit/eb0ca11))
+* **react-grid:** correct calculation of available row count in infninite scrolling mode ([#2188](https://github.com/DevExpress/devextreme-reactive/issues/2188)) ([28e93d5](https://github.com/DevExpress/devextreme-reactive/commit/28e93d5))
+* **react-grid:** correct changing DataTypeProvider.for property in runtime ([#2201](https://github.com/DevExpress/devextreme-reactive/issues/2201)) ([3732635](https://github.com/DevExpress/devextreme-reactive/commit/3732635))
+* **react-grid:** correctly calculate rows to load when sorting/filtering in lazy loading mode  ([#2186](https://github.com/DevExpress/devextreme-reactive/issues/2186)) ([3789b89](https://github.com/DevExpress/devextreme-reactive/commit/3789b89))
+* **react-grid:** prevent scrolling sticky header on Safari ([#2178](https://github.com/DevExpress/devextreme-reactive/issues/2178)) ([47666b7](https://github.com/DevExpress/devextreme-reactive/commit/47666b7))
+* **react-scheduler:** set Scheduler's height to Root instead of body ([#2189](https://github.com/DevExpress/devextreme-reactive/issues/2189)) ([46bef67](https://github.com/DevExpress/devextreme-reactive/commit/46bef67))
+* **react-scheduler-material-ui:** remove transparent border from draft appointment ([#2200](https://github.com/DevExpress/devextreme-reactive/issues/2200)) ([005336b](https://github.com/DevExpress/devextreme-reactive/commit/005336b))
+
+
+### Performance Improvements
+
+* **react-scheduler:** optimize render using React.memo  ([#2169](https://github.com/DevExpress/devextreme-reactive/issues/2169)) ([52a877c](https://github.com/DevExpress/devextreme-reactive/commit/52a877c))
+
+
+### BREAKING CHANGES
+
+* **react-scheduler:** `DayView` plugin's, `WeekView` plugin's and `MonthView` plugin's layout component now doesn't have the `height` property. `height` is now `Scheduler` plugin's root component property.
+
+```diff
+...
+<DayView
+  layoutComponent={({
+-   height,
+     ...restProps
+  }) => (
+    <DayView.Layout
+-      height={height}
+       {...restProps}
+    />
+  )}
+/>
+...
+<WeekView
+  layoutComponent={({
+-   height,
+     ...restProps
+  }) => (
+    <WeekView.Layout
+-      height={height}
+       {...restProps}
+    />
+  )}
+/>
+...
+<MonthView
+  layoutComponent={({
+-   height,
+     ...restProps
+  }) => (
+    <MonthView.Layout
+-      height={height}
+       {...restProps}
+    />
+  )}
+/>
+...
+<Scheduler
+  rootComponent={({
++   height,
+     ...restProps
+  }) => (
+    <Scheduler.Root
++      height={height}
+       {...restProps}
+    />
+  )}
+/>
+...
+```
+
+
+
+# [2.0.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.0.0...v2.0.1) (2019-07-18)
+
+
+### Bug Fixes
+
+* **react-chart:** improve touch events on hover/select ([#2159](https://github.com/DevExpress/devextreme-reactive/issues/2159)) ([61ee79a](https://github.com/DevExpress/devextreme-reactive/commit/61ee79a))
+* **react-grid:** correct stub cell render for GroupRow in virtual table ([#2157](https://github.com/DevExpress/devextreme-reactive/issues/2157)) ([1624947](https://github.com/DevExpress/devextreme-reactive/commit/1624947))
+* **react-grid:** disable skeleton cells when local data is used ([#2153](https://github.com/DevExpress/devextreme-reactive/issues/2153)) ([920008f](https://github.com/DevExpress/devextreme-reactive/commit/920008f))
+* **react-scheduler:** call editing actions by DnD only once ([#2163](https://github.com/DevExpress/devextreme-reactive/issues/2163)) ([5364254](https://github.com/DevExpress/devextreme-reactive/commit/5364254))
+* **react-scheduler-material-ui:** set appointment's default color ([#2154](https://github.com/DevExpress/devextreme-reactive/issues/2154)) ([ea7c508](https://github.com/DevExpress/devextreme-reactive/commit/ea7c508))
+
+
+### Performance Improvements
+
+* **react-grid:** optimize render using React.memo ([#2137](https://github.com/DevExpress/devextreme-reactive/issues/2137)) ([bd65d53](https://github.com/DevExpress/devextreme-reactive/commit/bd65d53))
+
+
+
+# [2.0.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.11.1...v2.0.0) (2019-07-08)
+
+We released v2.0.0 today because we [migrated to material-ui v4](https://github.com/DevExpress/devextreme-reactive/pull/2060). For the time being, we will fix bugs in v1.x for those who need to remain on material-ui v3. We recommend updating to material-ui v4, since new features will only be included in v2.x.
+
+### Bug Fixes
+
+* **react-chart:** arg and val scale inconsistency ([#2070](https://github.com/DevExpress/devextreme-reactive/issues/2070)) ([6286577](https://github.com/DevExpress/devextreme-reactive/commit/6286577))
+* **react-chart:** fix zooming on IPad ([#2122](https://github.com/DevExpress/devextreme-reactive/issues/2122)) ([41ebed6](https://github.com/DevExpress/devextreme-reactive/commit/41ebed6))
+* **react-chart:** update ZoomAndPan plugin ts declaration ([#2109](https://github.com/DevExpress/devextreme-reactive/issues/2109)) ([6a81792](https://github.com/DevExpress/devextreme-reactive/commit/6a81792))
+* **react-grid:** add grouping as optional dependency for summary ([#2097](https://github.com/DevExpress/devextreme-reactive/issues/2097)) ([12d633f](https://github.com/DevExpress/devextreme-reactive/commit/12d633f))
+* **react-grid:** add TableGroupRow as optional dependency for TableFixedColumns ([#2112](https://github.com/DevExpress/devextreme-reactive/issues/2112)) ([be38da1](https://github.com/DevExpress/devextreme-reactive/commit/be38da1))
+* **react-grid:** calculate summary for collapsed groups under first level ([#2106](https://github.com/DevExpress/devextreme-reactive/issues/2106)) ([f7c7655](https://github.com/DevExpress/devextreme-reactive/commit/f7c7655))
+* **react-grid:** correct virtual table row boundaries for mui 4 ([#2144](https://github.com/DevExpress/devextreme-reactive/issues/2144)) ([ffc4681](https://github.com/DevExpress/devextreme-reactive/commit/ffc4681))
+* **react-grid-bootstrap4:** make resize control visible on resizing ([#2103](https://github.com/DevExpress/devextreme-reactive/issues/2103)) ([3f875c5](https://github.com/DevExpress/devextreme-reactive/commit/3f875c5))
+* **react-scheduler:** add capability to pass className and style into Scheduler layout component ([#2140](https://github.com/DevExpress/devextreme-reactive/issues/2140)) ([3177586](https://github.com/DevExpress/devextreme-reactive/commit/3177586))
+* **react-scheduler:** fix no space between appointments bug in Firefox ([#2124](https://github.com/DevExpress/devextreme-reactive/issues/2124)) ([0016a8b](https://github.com/DevExpress/devextreme-reactive/commit/0016a8b))
+* **react-scheduler:** remove excess commitChanges call by DnD ([#2123](https://github.com/DevExpress/devextreme-reactive/issues/2123)) ([044e188](https://github.com/DevExpress/devextreme-reactive/commit/044e188))
+* **react-scheduler:** set px as measurement unit of MonthView today cell lineHeight ([#2145](https://github.com/DevExpress/devextreme-reactive/issues/2145)) ([25fd88a](https://github.com/DevExpress/devextreme-reactive/commit/25fd88a))
+* **react-scheduler:** delete borders around Scheduler ([#2136](https://github.com/DevExpress/devextreme-reactive/pull/2136)) ([a5fe73f](https://github.com/DevExpress/devextreme-reactive/commit/2635773aa871cd7984d75ffdf62cdfe76a5fe73f))
+
+
+### Code Refactoring
+
+* **react-scheduler:** add display name to views ([#2134](https://github.com/DevExpress/devextreme-reactive/issues/2134)) ([4c20034](https://github.com/DevExpress/devextreme-reactive/commit/4c20034))
+* **react-scheduler:** transfer DOM operations into theme package ([#2068](https://github.com/DevExpress/devextreme-reactive/issues/2068)) ([c851a48](https://github.com/DevExpress/devextreme-reactive/commit/c851a48))
+
+
+### Features
+
+* migrate to MUI v4 ([#2060](https://github.com/DevExpress/devextreme-reactive/issues/2060)) ([99ff97d](https://github.com/DevExpress/devextreme-reactive/commit/99ff97d))
+* **react-chart:** rotated chart ([#2089](https://github.com/DevExpress/devextreme-reactive/issues/2089)) ([def0662](https://github.com/DevExpress/devextreme-reactive/commit/def0662))
+* **react-scheduler:** add TodayButton plugin ([#2118](https://github.com/DevExpress/devextreme-reactive/issues/2118)) ([84ef5a3](https://github.com/DevExpress/devextreme-reactive/commit/84ef5a3))
+
+
+### BREAKING CHANGES
+
+* **react-scheduler:** `ViewSwitcher` plugin's switcher component now doesn't have the `currentViewName` and `availableViewNames` properties. To specify the current view name use `currentView` property consisting of 2 fields: `name` and `displayName`. To provide available views, use availableViews property, which is an array of elements with `name` and `displayName` fields.
+
+```diff
+...
+<ViewSwitcher
+  switcherComponent={({
+-   currentViewName,
++   currentView,
+-   avalableViewNames,
++   availableViews,
+     ...restProps
+  }) => (
+    <ViewSwitcher.Switcher
+-      currentViewName={currentViewName}
++      currentView={currentView}
+-      availableViewNames={availableViewNames}
++      availableViews={availableViews}
+       {...restProps}
+    />
+  )}
+/>
+...
+```
+* **react-scheduler:** `AllDayPanel` plugin's layout component now doesn't have the `allDayPanel` property. To specify cell elements use `setCellElementsMeta` property.
+
+```diff
+...
+<AllDayyPanel
+  layoutComponent={({
+-   allDayPanelRef,
++   setCellElementsMeta,
+     ...restProps
+  }) => (
+    <AllDayPanel.Layout>
+-      allDayPanelRef={allDayPanelRef}
++      setCellElementsMeta={setCellElementsMeta}
+       {...restProps}
+    />
+  )}
+/>
+...
+```
+* **react-chart:** The `x`, `y`, and `y1` properties in series points' coordinates have been renamed to `arg`, `val`, and `startVal` respectively. The old names were unsuitable in the case when the chart was rotated.
+
+
+
+# [1.11.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.11.0...v1.11.1) (2019-06-14)
+
+
+### Bug Fixes
+
+* **react-chart:** fix strange text artifacts during scrolling ([#2081](https://github.com/DevExpress/devextreme-reactive/issues/2081)) ([e4f7fb2](https://github.com/DevExpress/devextreme-reactive/commit/e4f7fb2))
+* **react-grid:** can not resize fixed column ([#2052](https://github.com/DevExpress/devextreme-reactive/issues/2052)) ([86495a4](https://github.com/DevExpress/devextreme-reactive/commit/86495a4))
+* **react-grid:** change processing of last page in lazy load mode ([#2067](https://github.com/DevExpress/devextreme-reactive/issues/2067)) ([2b52fe0](https://github.com/DevExpress/devextreme-reactive/commit/2b52fe0))
+* **react-grid:** Fixed column cell of selected row is not highlighted ([#2042](https://github.com/DevExpress/devextreme-reactive/issues/2042)) ([fda3d36](https://github.com/DevExpress/devextreme-reactive/commit/fda3d36))
+* **react-grid:** use default color for selected fixed cell if highlight is disabled ([#2076](https://github.com/DevExpress/devextreme-reactive/issues/2076)) ([74a42ef](https://github.com/DevExpress/devextreme-reactive/commit/74a42ef))
+* **react-scheduler:** update views by passing new props ([#2040](https://github.com/DevExpress/devextreme-reactive/issues/2040)) ([2cf4665](https://github.com/DevExpress/devextreme-reactive/commit/2cf4665))
+* **scheduler-core:** consider seconds instead of milliseconds while calculate intervals ([#2064](https://github.com/DevExpress/devextreme-reactive/issues/2064)) ([e2b20a7](https://github.com/DevExpress/devextreme-reactive/commit/e2b20a7))
+
+
+### Features
+
+* **react-grid:** stick group row on horizontal scroll ([#2037](https://github.com/DevExpress/devextreme-reactive/issues/2037)) ([c063efe](https://github.com/DevExpress/devextreme-reactive/commit/c063efe))
+* **react-scheduler:** add a capability to set Scheduler's height ([#2043](https://github.com/DevExpress/devextreme-reactive/issues/2043)) ([6c140a5](https://github.com/DevExpress/devextreme-reactive/commit/6c140a5))
+
+
+
+# [1.11.0](https://github.com/DevExpress/devextreme-reactive/compare/v1.11.0-beta.1...v1.11.0) (2019-05-17)
+
+
+### Bug Fixes
+
+* **react-chart:** fix layout of the value axes ([#1996](https://github.com/DevExpress/devextreme-reactive/issues/1996)) ([030f4b1](https://github.com/DevExpress/devextreme-reactive/commit/030f4b1))
+* **react-chart:** fix spacing on axis labels in Edge ([#2006](https://github.com/DevExpress/devextreme-reactive/issues/2006)) ([568ba8a](https://github.com/DevExpress/devextreme-reactive/commit/568ba8a))
+* **react-core:** prevent Getter losing on Plugin adding ([#2002](https://github.com/DevExpress/devextreme-reactive/issues/2002)) ([89f4e87](https://github.com/DevExpress/devextreme-reactive/commit/89f4e87))
+* **react-grid:** add transform style for IE11 ([#2001](https://github.com/DevExpress/devextreme-reactive/issues/2001)) ([ef75b9c](https://github.com/DevExpress/devextreme-reactive/commit/ef75b9c))
+* **react-grid:** consider fixed columns when columns are virtualized ([#2014](https://github.com/DevExpress/devextreme-reactive/issues/2014)) ([f13c525](https://github.com/DevExpress/devextreme-reactive/commit/f13c525))
+* **react-grid:** provide minWidth to virtual table in Safari ([#2034](https://github.com/DevExpress/devextreme-reactive/issues/2034)) ([55a9d3d](https://github.com/DevExpress/devextreme-reactive/commit/55a9d3d))
+* **react-scheduler:** move children inside ([#2018](https://github.com/DevExpress/devextreme-reactive/issues/2018)) ([bbd4198](https://github.com/DevExpress/devextreme-reactive/commit/bbd4198))
+* **react-scheduler:** pass formatDate func into DnD drafts ([#2031](https://github.com/DevExpress/devextreme-reactive/issues/2031)) ([63df375](https://github.com/DevExpress/devextreme-reactive/commit/63df375))
+
+
+### Features
+
+* **react-scheduler:** support scheduler localization capability ([#1985](https://github.com/DevExpress/devextreme-reactive/issues/1985)) ([286003e](https://github.com/DevExpress/devextreme-reactive/commit/286003e))
+
+
+### BREAKING CHANGES
+
+* **react-chart:** We have replaced the `dominantBaseline` option with the `dy` option for axis labels because Edge does not support the former. The `dy` option does not change the baseline position and simply shifts text up or down.
+
+
+
 # [1.11.0-beta.1](https://github.com/DevExpress/devextreme-reactive/compare/v1.11.0-alpha.1...v1.11.0-beta.1) (2019-04-24)
 
 

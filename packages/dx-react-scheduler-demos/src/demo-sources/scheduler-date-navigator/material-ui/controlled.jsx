@@ -7,6 +7,7 @@ import {
   Toolbar,
   DateNavigator,
   Appointments,
+  TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 import { appointments } from '../../../demo-data/appointments';
@@ -29,6 +30,7 @@ export default class Demo extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
+          height={660}
         >
           <ViewState
             currentDate={currentDate}
@@ -40,6 +42,7 @@ export default class Demo extends React.PureComponent {
           />
           <Toolbar />
           <DateNavigator />
+          <TodayButton />
           <Appointments />
         </Scheduler>
       </Paper>

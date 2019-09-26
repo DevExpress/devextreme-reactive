@@ -6,10 +6,11 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   root: {
-    width: theme.spacing.unit * 50,
-    padding: `${theme.spacing.unit}px ${theme.spacing.unit}px`,
+    width: theme.spacing(50),
+    padding: theme.spacing(1),
     margin: '0 auto',
     transform: 'translateY(20%)',
+    msTransform: 'translateY(20%)',
   },
 });
 

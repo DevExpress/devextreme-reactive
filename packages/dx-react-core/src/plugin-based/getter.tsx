@@ -8,6 +8,7 @@ import { UPDATE_CONNECTION_EVENT, PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from '
 import { withHostAndPosition } from '../utils/with-props-from-context';
 import { InnerPlugin } from '@devexpress/dx-core';
 import { PluginContextProps } from './plugin-context-prop-types';
+import { ComputedFn } from '../types';
 
 export interface GetterProps {
   /** The Getter's name. */
@@ -18,13 +19,8 @@ export interface GetterProps {
    * The value is computed each time a related Getter's value changes.
    * Applies only if `value` is not defined.
    */
-  computed?: (
-    getters: Getters,
-    actions: Actions,
-  ) => any;
+  computed?: ComputedFn;
 }
-export type Getters = { readonly [getterName: string]: any };
-export type Actions = { [actionName: string]: (payload?: any) => void };
 
 class GetterBase extends React.PureComponent<GetterProps & PluginContextProps> {
   plugin: InnerPlugin;

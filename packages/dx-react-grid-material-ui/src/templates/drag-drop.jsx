@@ -13,8 +13,8 @@ const styles = theme => ({
     display: 'inline-block',
   },
   column: {
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
     float: 'right',
     cursor: 'move',
   },
@@ -28,6 +28,7 @@ const ContainerBase = ({
     className={classNames(classes.container, className)}
     style={{
       transform: `translate(calc(${clientOffset.x}px - 50%), calc(${clientOffset.y}px - 50%))`,
+      msTransform: `translateX(${clientOffset.x}px) translateX(-50%) translateY(${clientOffset.y}px) translateY(-50%)`,
       ...style,
     }}
     {...restProps}
@@ -55,7 +56,7 @@ ContainerBase.defaultProps = {
 
 export const Container = withStyles(styles, { name: 'DragDrop' })(ContainerBase);
 
-const ColumnBase = ({
+const ColumnBase = React.memo(({
   column,
   classes,
   className,
@@ -66,7 +67,7 @@ const ColumnBase = ({
     label={column.title}
     {...restProps}
   />
-);
+));
 
 ColumnBase.propTypes = {
   column: PropTypes.object.isRequired,

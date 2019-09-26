@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 /* eslint-disable react/no-unused-state */
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
@@ -12,9 +13,11 @@ import {
   AppointmentTooltip,
   AppointmentForm,
   DragDropProvider,
+  EditRecurrenceMenu,
+  AllDayPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
-import { InlineDateTimePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
+import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
@@ -37,17 +40,17 @@ import { appointments } from '../../../demo-data/appointments';
 
 const containerStyles = theme => ({
   container: {
-    width: `${theme.spacing.unit * 68}px`,
+    width: theme.spacing(68),
     padding: 0,
-    paddingBottom: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing(2),
   },
   content: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     paddingTop: 0,
   },
   header: {
     overflow: 'hidden',
-    paddingTop: theme.spacing.unit / 2,
+    paddingTop: theme.spacing(0.5),
   },
   closeButton: {
     float: 'right',
@@ -55,13 +58,13 @@ const containerStyles = theme => ({
   buttonGroup: {
     display: 'flex',
     justifyContent: 'flex-end',
-    padding: `0 ${theme.spacing.unit * 2}px`,
+    padding: theme.spacing(0, 2),
   },
   button: {
-    marginLeft: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
   },
   picker: {
-    marginRight: theme.spacing.unit * 2,
+    marginRight: theme.spacing(2),
     '&:last-child': {
       marginRight: 0,
     },
@@ -69,11 +72,11 @@ const containerStyles = theme => ({
   wrapper: {
     display: 'flex',
     justifyContent: 'space-between',
-    padding: `${theme.spacing.unit}px 0px`,
+    padding: theme.spacing(1, 0),
   },
   icon: {
-    margin: `${theme.spacing.unit * 2}px 0`,
-    marginRight: `${theme.spacing.unit * 2}px`,
+    margin: theme.spacing(2, 0),
+    marginRight: theme.spacing(2),
   },
   textField: {
     width: '100%',
@@ -135,6 +138,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
       visible,
       visibleChange,
       appointmentData,
+      cancelAppointment,
     } = this.props;
     const { appointmentChanges } = this.state;
 
@@ -158,22 +162,36 @@ class AppointmentFormContainerBasic extends React.PureComponent {
 
     const pickerEditorProps = field => ({
       className: classes.picker,
-      keyboard: true,
+      // keyboard: true,
+      ampm: false,
       value: displayAppointmentData[field],
-      onChange: date => this.changeAppointment({ field: [field], changes: date.toDate() }),
-      variant: 'outlined',
+      onChange: date => this.changeAppointment({
+        field: [field], changes: date ? date.toDate() : new Date(displayAppointmentData[field]),
+      }),
+      inputVariant: 'outlined',
       format: 'DD/MM/YYYY HH:mm',
-      mask: [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, ':', /\d/, /\d/],
+      onError: () => null,
     });
+
+    const cancelChanges = () => {
+      this.setState({
+        appointmentChanges: {},
+      });
+      visibleChange();
+      cancelAppointment();
+    };
 
     return (
       <AppointmentForm.Popup
         visible={visible}
-        onBackdropClick={visibleChange}
+        onBackdropClick={cancelChanges}
       >
         <AppointmentForm.Container className={classes.container}>
           <div className={classes.header}>
-            <IconButton className={classes.closeButton} onClick={visibleChange}>
+            <IconButton
+              className={classes.closeButton}
+              onClick={cancelChanges}
+            >
               <Close color="action" />
             </IconButton>
           </div>
@@ -187,11 +205,11 @@ class AppointmentFormContainerBasic extends React.PureComponent {
             <div className={classes.wrapper}>
               <CalendarToday className={classes.icon} color="action" />
               <MuiPickersUtilsProvider utils={MomentUtils}>
-                <InlineDateTimePicker
+                <KeyboardDateTimePicker
                   label="Start Date"
                   {...pickerEditorProps('startDate')}
                 />
-                <InlineDateTimePicker
+                <KeyboardDateTimePicker
                   label="End Date"
                   {...pickerEditorProps('endDate')}
                 />
@@ -249,8 +267,8 @@ const AppointmentFormContainer = withStyles(containerStyles, { name: 'Appointmen
 const styles = theme => ({
   addButton: {
     position: 'absolute',
-    bottom: theme.spacing.unit * 3,
-    right: theme.spacing.unit * 4,
+    bottom: theme.spacing(1) * 3,
+    right: theme.spacing(1) * 4,
   },
 });
 
@@ -264,10 +282,12 @@ class Demo extends React.PureComponent {
       confirmationVisible: false,
       editingFormVisible: false,
       deletedAppointmentId: undefined,
-      editingAppointmentId: undefined,
+      editingAppointment: undefined,
+      previousAppointment: undefined,
       addedAppointment: {},
       startDayHour: 9,
       endDayHour: 19,
+      isNewAppointment: false,
     };
 
     this.toggleConfirmationVisible = this.toggleConfirmationVisible.bind(this);
@@ -275,22 +295,37 @@ class Demo extends React.PureComponent {
     this.toggleEditingFormVisibility = this.toggleEditingFormVisibility.bind(this);
 
     this.commitChanges = this.commitChanges.bind(this);
-    this.onEditingAppointmentIdChange = this.onEditingAppointmentIdChange.bind(this);
+    this.onEditingAppointmentChange = this.onEditingAppointmentChange.bind(this);
     this.onAddedAppointmentChange = this.onAddedAppointmentChange.bind(this);
     this.appointmentForm = connectProps(AppointmentFormContainer, () => {
       const {
-        editingFormVisible, editingAppointmentId, data, addedAppointment,
+        editingFormVisible,
+        editingAppointment,
+        data,
+        addedAppointment,
+        isNewAppointment,
+        previousAppointment,
       } = this.state;
 
       const currentAppointment = data
-        .filter(appointment => appointment.id === editingAppointmentId)[0] || addedAppointment;
+        .filter(appointment => editingAppointment && appointment.id === editingAppointment.id)[0]
+        || addedAppointment;
+      const cancelAppointment = () => {
+        if (isNewAppointment) {
+          this.setState({
+            editingAppointment: previousAppointment,
+            isNewAppointment: false,
+          });
+        }
+      };
 
       return {
         visible: editingFormVisible,
         appointmentData: currentAppointment,
         commitChanges: this.commitChanges,
         visibleChange: this.toggleEditingFormVisibility,
-        onEditingAppointmentIdChange: this.onEditingAppointmentIdChange,
+        onEditingAppointmentChange: this.onEditingAppointmentChange,
+        cancelAppointment,
       };
     });
   }
@@ -299,13 +334,19 @@ class Demo extends React.PureComponent {
     this.appointmentForm.update();
   }
 
-  onEditingAppointmentIdChange(editingAppointmentId) {
-    this.setState({ editingAppointmentId });
+  onEditingAppointmentChange(editingAppointment) {
+    this.setState({ editingAppointment });
   }
 
   onAddedAppointmentChange(addedAppointment) {
     this.setState({ addedAppointment });
-    this.onEditingAppointmentIdChange(undefined);
+    const { editingAppointment } = this.state;
+    if (editingAppointment !== undefined) {
+      this.setState({
+        previousAppointment: editingAppointment,
+      });
+    }
+    this.setState({ editingAppointment: undefined, isNewAppointment: true });
   }
 
   setDeletedAppointmentId(id) {
@@ -368,13 +409,14 @@ class Demo extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
+          height={660}
         >
           <ViewState
             currentDate={currentDate}
           />
           <EditingState
             onCommitChanges={this.commitChanges}
-            onEditingAppointmentIdChange={this.onEditingAppointmentIdChange}
+            onEditingAppointmentChange={this.onEditingAppointmentChange}
             onAddedAppointmentChange={this.onAddedAppointmentChange}
           />
           <WeekView
@@ -382,6 +424,8 @@ class Demo extends React.PureComponent {
             endDayHour={endDayHour}
           />
           <MonthView />
+          <AllDayPanel />
+          <EditRecurrenceMenu />
           <Appointments />
           <AppointmentTooltip
             showOpenButton
@@ -425,7 +469,7 @@ class Demo extends React.PureComponent {
           className={classes.addButton}
           onClick={() => {
             this.setState({ editingFormVisible: true });
-            this.onEditingAppointmentIdChange(undefined);
+            this.onEditingAppointmentChange(undefined);
             this.onAddedAppointmentChange({
               startDate: new Date(currentDate).setHours(startDayHour),
               endDate: new Date(currentDate).setHours(startDayHour + 1),

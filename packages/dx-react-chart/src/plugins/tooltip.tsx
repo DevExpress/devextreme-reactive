@@ -19,6 +19,8 @@ class RawTooltip extends React.PureComponent<TooltipProps, TooltipState> {
     overlayComponent: 'Overlay',
     targetComponent: 'Target',
     contentComponent: 'Content',
+    arrowComponent: 'Arrow',
+    sheetComponent: 'Sheet',
   };
   getPointerMoveHandlers: GetPointerMoveHandlersFn;
 
@@ -54,6 +56,8 @@ class RawTooltip extends React.PureComponent<TooltipProps, TooltipState> {
     const {
       overlayComponent: OverlayComponent,
       contentComponent: ContentComponent,
+      sheetComponent: SheetComponent,
+      arrowComponent,
     } = this.props;
     const { target } = this.state;
     return (
@@ -62,7 +66,7 @@ class RawTooltip extends React.PureComponent<TooltipProps, TooltipState> {
         <Template name="series">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ series, rootRef }) => {
+            {({ series, rootRef, rotated }) => {
               if (!target) {
                 return null;
               }
@@ -71,8 +75,12 @@ class RawTooltip extends React.PureComponent<TooltipProps, TooltipState> {
                 <OverlayComponent
                   key={`${target.series}${target.point}`}
                   target={createReference(element, rootRef)}
+                  rotated={rotated}
+                  arrowComponent={arrowComponent}
                 >
-                  <ContentComponent text={text} targetItem={target} />
+                  <SheetComponent>
+                    <ContentComponent text={text} targetItem={target} />
+                  </SheetComponent>
                 </OverlayComponent>
               );
             }}

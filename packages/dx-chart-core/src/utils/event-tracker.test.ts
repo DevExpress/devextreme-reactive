@@ -10,6 +10,7 @@ describe('EventTracker', () => {
       index: 0,
       symbolName: 'series-1',
       points: 'coordinates-1',
+      rotated: true,
       createHitTester: jest.fn().mockReturnValue(hitTest1),
     };
     const hitTest2 = jest.fn();
@@ -18,6 +19,7 @@ describe('EventTracker', () => {
       index: 1,
       symbolName: 'series-2',
       points: 'coordinates-2',
+      rotated: false,
       createHitTester: jest.fn().mockReturnValue(hitTest2),
     };
     const hitTest3 = jest.fn();
@@ -26,6 +28,7 @@ describe('EventTracker', () => {
       index: 2,
       symbolName: 'series-3',
       points: 'coordinates-3',
+      rotated: true,
       createHitTester: jest.fn().mockReturnValue(hitTest3),
     };
 
@@ -55,9 +58,9 @@ describe('EventTracker', () => {
         pageY: 343,
       });
 
-      expect(series1.createHitTester).toBeCalledWith('coordinates-1');
-      expect(series2.createHitTester).toBeCalledWith('coordinates-2');
-      expect(series3.createHitTester).toBeCalledWith('coordinates-3');
+      expect(series1.createHitTester).toBeCalledWith('coordinates-1', true);
+      expect(series2.createHitTester).toBeCalledWith('coordinates-2', false);
+      expect(series3.createHitTester).toBeCalledWith('coordinates-3', true);
 
       expect(hitTest1).toBeCalledWith([294, 203]);
       expect(hitTest2).toBeCalledWith([294, 203]);
@@ -192,35 +195,17 @@ describe('EventTracker', () => {
 
     it('should use touch events if available', () => {
       // @ts-ignore
-      window.ontouchmove = true;
+      window.ontouchstart = true;
       try {
         const handlers = buildEventHandlers([series1, series2, series3] as any, {
           clickHandlers: [], pointerMoveHandlers: [1] as any,
         });
 
         expect(handlers).toEqual({
-          touchmove: expect.any(Function),
-          touchleave: expect.any(Function),
+          touchstart: expect.any(Function),
         });
       } finally {
-        delete window.ontouchmove;
-      }
-    });
-
-    it('should use pointer events if available', () => {
-      // @ts-ignore
-      window.onpointermove = true;
-      try {
-        const handlers = buildEventHandlers([series1, series2, series3] as any, {
-          clickHandlers: [], pointerMoveHandlers: [1] as any,
-        });
-
-        expect(handlers).toEqual({
-          pointermove: expect.any(Function),
-          pointerleave: expect.any(Function),
-        });
-      } finally {
-        delete window.onpointermove;
+        delete window.ontouchstart;
       }
     });
   });

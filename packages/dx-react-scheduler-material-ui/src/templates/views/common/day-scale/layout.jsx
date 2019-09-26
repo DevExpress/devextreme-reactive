@@ -17,6 +17,7 @@ const LayoutBase = ({
   cellsData,
   className,
   classes,
+  formatDate,
   ...restProps
 }) => (
   <TableMUI
@@ -35,6 +36,7 @@ const LayoutBase = ({
             startDate={startDate}
             endDate={endDate}
             today={today}
+            formatDate={formatDate}
           />
         ))}
       </Row>
@@ -43,10 +45,12 @@ const LayoutBase = ({
 );
 
 LayoutBase.propTypes = {
+  // oneOfType is a workaround because withStyles returns react object
   classes: PropTypes.object.isRequired,
   cellsData: PropTypes.arrayOf(Array).isRequired,
-  cellComponent: PropTypes.func.isRequired,
-  rowComponent: PropTypes.func.isRequired,
+  cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  formatDate: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 LayoutBase.defaultProps = {

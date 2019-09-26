@@ -11,9 +11,9 @@ const styles = theme => ({
   button: {
     marginTop: '-1px',
     marginBottom: '-1px',
-    marginLeft: -theme.spacing.unit,
-    marginRight: theme.spacing.unit * 2,
-    padding: theme.spacing.unit,
+    marginLeft: -theme.spacing(1),
+    marginRight: theme.spacing(2),
+    padding: theme.spacing(1),
   },
   hidden: {
     cursor: 'default',

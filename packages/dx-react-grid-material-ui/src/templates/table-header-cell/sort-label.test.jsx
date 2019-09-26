@@ -21,13 +21,15 @@ describe('SortLabel', () => {
   let classes;
   beforeAll(() => {
     shallow = createShallow({ untilSelector: 'SortLabelBase' });
-    mount = createMount();
     classes = getClasses((
       <SortLabel {...defaultProps} />
     ));
   });
-  afterAll(() => {
-    shallow.cleanUp();
+  beforeEach(() => {
+    mount = createMount();
+  });
+  afterEach(() => {
+    mount.cleanUp();
   });
 
   it('should render tooltip', () => {

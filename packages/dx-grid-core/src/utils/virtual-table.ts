@@ -3,14 +3,14 @@ import {
   GetVisibleBoundaryWithFixedFn, VisibleBoundary, GetVisibleBoundaryFn, GetSpanBoundaryFn,
   CollapseBoundariesFn, GetColumnsSizeFn, GetCollapsedColumnsFn, CollapsedColumn,
   GetCollapsedAndStubRowsFn, GetCollapsedCellsFn, GetCollapsedGridFn, GetColumnWidthFn,
-  TableColumn, TableRow,
+  TableColumn,
   CollapsedCell,
   GetColumnWidthGetterFn,
-  RowsVisibleBoundary,
   GetCollapsedGridsFn,
   CollapsedGrid,
-  GetRenderBoundaryFn,
   GetSpecificRenderBoundaryFn,
+  GetRenderBoundaryFn,
+  GetRowsVisibleBoundaryFn,
 } from '../types';
 import { TABLE_FLEX_TYPE, intervalUtil } from '..';
 
@@ -32,16 +32,6 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
   let end: number | null = null;
   let index = 0;
   let beforePosition = offset * itemSize;
-  const noVisibleRowsLoaded = itemSize > 0 &&
-    beforePosition + items.length * itemSize < viewportStart ||
-    viewportStart < beforePosition;
-
-  if (noVisibleRowsLoaded) {
-    beforePosition = viewportStart;
-    index = items.length;
-    start = Math.round(viewportStart / itemSize) - offset;
-    end = start;
-  }
 
   const viewportEnd = viewportStart + viewportSize;
   while (end === null && index < items.length) {
@@ -78,25 +68,34 @@ export const getRenderBoundary: GetRenderBoundaryFn = (itemsCount, visibleBounda
   return [start, end];
 };
 
-export const getColumnsVisibleBoundary: PureComputed<
+export const getColumnBoundaries: PureComputed<
   [TableColumn[], number, number, GetColumnWidthFn], VisibleBoundary[]
 > = (columns, left, width, getColumnWidth) => (
   getVisibleBoundaryWithFixed(
-    getVisibleBoundary(columns, left, width, getColumnWidth, 0),
+    getColumnsRenderBoundary(
+      columns.length,
+      getVisibleBoundary(columns, left, width, getColumnWidth, 0),
+    ),
     columns,
   )
 );
-export const getRowsVisibleBoundary: PureComputed<
-[TableRow[], number, number, GetColumnWidthFn, number, number], RowsVisibleBoundary
-> = (rows, top, height, getRowHeight, offset, rowHeight) => {
-  const boundaries = getVisibleBoundary(rows, top, height, getRowHeight, offset, rowHeight);
-  const start = boundaries[0];
-  const end = boundaries[1];
+export const getRowsVisibleBoundary: GetRowsVisibleBoundaryFn = (
+  rows, top, height, getRowHeight, offset, rowHeight, isDataRemote,
+) => {
+  const beforePosition = offset * rowHeight;
+  const noVisibleRowsLoaded = rowHeight > 0 &&
+    beforePosition + rows.length * rowHeight < top ||
+    top < beforePosition;
 
-  return {
-    start,
-    end,
-  };
+  let boundaries;
+  if (isDataRemote && noVisibleRowsLoaded) {
+    const topIndex = Math.round(top / rowHeight);
+    boundaries = [topIndex, topIndex];
+  } else {
+    boundaries = getVisibleBoundary(rows, top, height, getRowHeight, offset, rowHeight);
+  }
+
+  return boundaries;
 };
 
 export const getColumnsRenderBoundary: GetSpecificRenderBoundaryFn = (
@@ -111,8 +110,11 @@ export const getSpanBoundary: GetSpanBoundaryFn = (
   items, visibleBoundaries, getItemSpan,
 ) => visibleBoundaries
   .map((visibleBoundary) => {
-    let [start, end] = visibleBoundary;
-    for (let index = 0; index <= visibleBoundary[1]; index += 1) {
+    let [start] = visibleBoundary;
+    const endIndex = Math.min(visibleBoundary[1], items.length - 1);
+    let end = endIndex;
+
+    for (let index = 0; index <= endIndex; index += 1) {
       const span = getItemSpan(items[index]);
       if (index < visibleBoundary[0] && index + span > visibleBoundary[0]) {
         start = index;
@@ -131,10 +133,8 @@ export const collapseBoundaries: CollapseBoundariesFn = (
   spanBoundaries.forEach(rowBoundaries => rowBoundaries
     .forEach((boundary) => {
       breakpoints.add(boundary[0]);
-      if (boundary[1] - 1 < itemsCount) {
-        // next interval starts after span end point
-        breakpoints.add(boundary[1] + 1);
-      }
+      // next interval starts after span end point
+      breakpoints.add(Math.min(boundary[1] + 1, itemsCount));
     }));
 
   visibleBoundaries
@@ -325,14 +325,14 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
 export const getColumnWidthGetter: GetColumnWidthGetterFn = (
   tableColumns, tableWidth, minColumnWidth,
 ) => {
-  const colsHavingWidth = tableColumns.filter(col => col.width !== undefined);
-  const columnsWidth = colsHavingWidth.reduce((acc, col) => (acc + col.width!), 0);
+  const colsHavingWidth = tableColumns.filter(col => typeof col.width === 'number');
+  const columnsWidth = colsHavingWidth.reduce((acc, col) => (acc + (col.width as number)!), 0);
   const autoWidth = (tableWidth - columnsWidth) / (tableColumns.length - colsHavingWidth.length);
   const autoColWidth = Math.max(autoWidth, minColumnWidth!);
 
   return column => (column.type === TABLE_FLEX_TYPE
     ? null
-    : column.width || autoColWidth);
+    : typeof column.width === 'number' ? column.width : autoColWidth);
 };
 
 export const getCollapsedGrids: GetCollapsedGridsFn = ({
@@ -343,25 +343,15 @@ export const getCollapsedGrids: GetCollapsedGridsFn = ({
     loadedRowsStart,
     totalRowCount,
     getCellColSpan,
-    viewportLeft,
-    containerWidth,
-    visibleRowBoundaries,
-    getColumnWidth,
+    viewport,
     getRowHeight,
+    getColumnWidth,
   },
 ) => {
   const getColSpan = (
     tableRow: any, tableColumn: any,
   ) => getCellColSpan!({ tableRow, tableColumn, tableColumns: columns });
 
-  const visibleColumnBoundaries = [
-    getColumnsRenderBoundary(
-      columns.length,
-      getColumnsVisibleBoundary(
-        columns, viewportLeft, containerWidth, getColumnWidth,
-      )[0],
-    ),
-  ];
   const getCollapsedGridBlock: PureComputed<
     [any[], any[]?, number?, number?], CollapsedGrid
   > = (
@@ -370,7 +360,7 @@ export const getCollapsedGrids: GetCollapsedGridsFn = ({
     rows,
     columns,
     rowsVisibleBoundary,
-    columnsVisibleBoundary: visibleColumnBoundaries,
+    columnsVisibleBoundary: viewport.columns,
     getColumnWidth,
     getRowHeight,
     getColSpan,
@@ -379,18 +369,18 @@ export const getCollapsedGrids: GetCollapsedGridsFn = ({
   });
 
   const headerGrid = getCollapsedGridBlock(
-    headerRows, getRenderRowBounds(visibleRowBoundaries.header, headerRows.length),
+    headerRows, getRenderRowBounds(viewport.headerRows, headerRows.length),
   );
   const bodyGrid = getCollapsedGridBlock(
     bodyRows,
     adjustedRenderRowBounds(
-      visibleRowBoundaries.body, bodyRows.length, loadedRowsStart,
+      viewport.rows, bodyRows.length, loadedRowsStart,
     ),
     totalRowCount || 1,
     loadedRowsStart,
   );
   const footerGrid = getCollapsedGridBlock(
-    footerRows, getRenderRowBounds(visibleRowBoundaries.footer, footerRows.length),
+    footerRows, getRenderRowBounds(viewport.footerRows, footerRows.length),
   );
 
   return {
@@ -400,14 +390,14 @@ export const getCollapsedGrids: GetCollapsedGridsFn = ({
   };
 };
 
-const getRenderRowBounds: PureComputed<[RowsVisibleBoundary, number], number[]> = (
+const getRenderRowBounds: PureComputed<[VisibleBoundary, number], number[]> = (
   visibleBounds, rowCount,
 ) => getRowsRenderBoundary(
   rowCount,
-  [visibleBounds.start, visibleBounds.end],
+  visibleBounds,
 );
 
-const adjustedRenderRowBounds: PureComputed<[RowsVisibleBoundary, number, number], number[]> = (
+const adjustedRenderRowBounds: PureComputed<[VisibleBoundary, number, number], number[]> = (
   visibleBounds, rowCount, loadedRowsStart,
 ) => {
   const renderRowBoundaries = getRenderRowBounds(

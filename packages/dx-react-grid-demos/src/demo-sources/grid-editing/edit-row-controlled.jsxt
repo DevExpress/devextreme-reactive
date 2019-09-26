@@ -1,4 +1,4 @@
-import * as React from 'react';<%&additionalImports%>
+import React, { useState } from 'react';<%&additionalImports%>
 import { EditingState } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -15,54 +15,35 @@ import {
 
 const getRowId = row => row.id;
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [columns] = useState([
+    { name: 'id', title: 'ID' },
+    { name: 'name', title: 'Name' },
+    { name: 'gender', title: 'Gender' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows, setRows] = useState(generateRows({
+    columnValues: { id: ({ index }) => index, ...defaultColumnValues },
+    length: 8,
+  }));
+  const [tableColumnExtensions] = useState([
+    { columnName: 'id', width: 60 },
+  ]);
+  const [editingRowIds, setEditingRowIds] = useState([]);
+  const [addedRows, setAddedRows] = useState([]);
+  const [rowChanges, setRowChanges] = useState({});
 
-    this.state = {
-      columns: [
-        { name: 'id', title: 'ID' },
-        { name: 'name', title: 'Name' },
-        { name: 'sex', title: 'Sex' },
-        { name: 'city', title: 'City' },
-        { name: 'car', title: 'Car' },
-      ],
-      tableColumnExtensions: [
-        { columnName: 'id', width: 60 },
-      ],
-      rows: generateRows({
-        columnValues: { id: ({ index }) => index, ...defaultColumnValues },
-        length: 8,
-      }),
-      editingRowIds: [],
-      addedRows: [],
-      rowChanges: {},
-    };
+  const changeAddedRows = (value) => {
+    const initialized = value.map(row => (Object.keys(row).length ? row : { city: 'Tokio' }));
+    setAddedRows(initialized);
+  };
 
-    this.changeAddedRows = this.changeAddedRows.bind(this);
-    this.changeEditingRowIds = this.changeEditingRowIds.bind(this);
-    this.changeRowChanges = this.changeRowChanges.bind(this);
-    this.commitChanges = this.commitChanges.bind(this);
-  }
-
-  changeAddedRows(addedRows) {
-    const initialized = addedRows.map(row => (Object.keys(row).length ? row : { city: 'Tokio' }));
-    this.setState({ addedRows: initialized });
-  }
-
-  changeEditingRowIds(editingRowIds) {
-    this.setState({ editingRowIds });
-  }
-
-  changeRowChanges(rowChanges) {
-    this.setState({ rowChanges });
-  }
-
-  commitChanges({ added, changed, deleted }) {
-    let { rows } = this.state;
+  const commitChanges = ({ added, changed, deleted }) => {
+    let changedRows;
     if (added) {
       const startingAddedId = rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
-      rows = [
+      changedRows = [
         ...rows,
         ...added.map((row, index) => ({
           id: startingAddedId + index,
@@ -71,48 +52,42 @@ export default class Demo extends React.PureComponent {
       ];
     }
     if (changed) {
-      rows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+      changedRows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
     }
     if (deleted) {
       const deletedSet = new Set(deleted);
-      rows = rows.filter(row => !deletedSet.has(row.id));
+      changedRows = rows.filter(row => !deletedSet.has(row.id));
     }
-    this.setState({ rows });
-  }
+    setRows(changedRows);
+  };
 
-  render() {
-    const {
-      rows, columns, tableColumnExtensions, editingRowIds, rowChanges, addedRows,
-    } = this.state;
-
-    return (
-      <<%&wrapperTag%><%&wrapperAttributes%>>
-        <Grid
-          rows={rows}
-          columns={columns}
-          getRowId={getRowId}
-        >
-          <EditingState
-            editingRowIds={editingRowIds}
-            onEditingRowIdsChange={this.changeEditingRowIds}
-            rowChanges={rowChanges}
-            onRowChangesChange={this.changeRowChanges}
-            addedRows={addedRows}
-            onAddedRowsChange={this.changeAddedRows}
-            onCommitChanges={this.commitChanges}
-          />
-          <Table
-            columnExtensions={tableColumnExtensions}
-          />
-          <TableHeaderRow />
-          <TableEditRow />
-          <TableEditColumn
-            showAddCommand={!addedRows.length}
-            showEditCommand
-            showDeleteCommand
-          />
-        </Grid>
-      </<%&wrapperTag%>>
-    );
-  }
-}
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+        getRowId={getRowId}
+      >
+        <EditingState
+          editingRowIds={editingRowIds}
+          onEditingRowIdsChange={setEditingRowIds}
+          rowChanges={rowChanges}
+          onRowChangesChange={setRowChanges}
+          addedRows={addedRows}
+          onAddedRowsChange={changeAddedRows}
+          onCommitChanges={commitChanges}
+        />
+        <Table
+          columnExtensions={tableColumnExtensions}
+        />
+        <TableHeaderRow />
+        <TableEditRow />
+        <TableEditColumn
+          showAddCommand={!addedRows.length}
+          showEditCommand
+          showDeleteCommand
+        />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

@@ -1,22 +1,25 @@
 import {
-  isHorizontal, getWidth, getValueDomainName, fixOffset,
+  isHorizontal, getWidth, getValueDomainName,
   scaleLinear, scaleBand, makeScale, scaleBounds,
   moveBounds, growBounds, invertBoundsRange,
 } from './scale';
 
 jest.mock('d3-scale', () => ({
-  scaleLinear: () => ({ tag: 'scale-linear' }),
+  scaleLinear: () => {
+    const ret = jest.fn().mockReturnValue(10) as any;
+    ret.tag = 'scale-linear';
+    ret.domain = jest.fn().mockReturnThis();
+    ret.range = jest.fn().mockReturnThis();
+    return ret;
+  },
   scaleBand: () => {
-    const ret = { tag: 'scale-band' } as any;
-    ret.paddingInner = (value) => {
-      ret.inner = value;
-      return ret;
-    };
-    ret.paddingOuter = (value) => {
-      ret.outer = value;
-      return ret;
-    };
-    ret.bandwidth = () => 0;
+    const ret = jest.fn().mockReturnValue(10) as any;
+    ret.tag = 'scale-band';
+    ret.domain = jest.fn().mockReturnThis();
+    ret.range = jest.fn().mockReturnThis();
+    ret.paddingInner = jest.fn().mockReturnThis();
+    ret.paddingOuter = jest.fn().mockReturnThis();
+    ret.bandwidth = jest.fn();
     return ret;
   },
 }));
@@ -26,19 +29,28 @@ const realD3 = require.requireActual('d3-scale');
 const matchFloat = (expected: number) => ({
   $$typeof: Symbol.for('jest.asymmetricMatcher'),
 
-  asymmetricMatch: actual => Math.abs(actual - expected) < 0.01,
+  asymmetricMatch: (actual: number) => Math.abs(actual - expected) < 0.01,
 
   toAsymmetricMatcher: () => `~${expected}`,
 });
 
 describe('#isHorizontal', () => {
-  it('should consider argument scale horizontal', () => {
-    expect(isHorizontal('argument-domain')).toEqual(true);
+  it('should return true, argument scale - not rotated', () => {
+    expect(isHorizontal('argument-domain', false)).toEqual(true);
   });
 
-  it('should consider value scale vertical', () => {
-    expect(isHorizontal('value-scale')).toEqual(false);
-    expect(isHorizontal('scale-1')).toEqual(false);
+  it('should return false, argument scale - rotated', () => {
+    expect(isHorizontal('argument-domain', true)).toEqual(false);
+  });
+
+  it('should return false, value scale - not rotated', () => {
+    expect(isHorizontal('value-scale', false)).toEqual(false);
+    expect(isHorizontal('scale-1', false)).toEqual(false);
+  });
+
+  it('should return true, value scale - rotated', () => {
+    expect(isHorizontal('value-scale', true)).toEqual(true);
+    expect(isHorizontal('scale-1', true)).toEqual(true);
   });
 });
 
@@ -62,36 +74,34 @@ describe('#getValueDomainName', () => {
   });
 });
 
-describe('#fixOffset', () => {
-  it('should return original linear scale', () => {
-    const mock = () => 0;
-    expect(fixOffset(mock as any)).toBe(mock);
-  });
-
-  it('should return wrapped band scale', () => {
-    const mock = x => x * 2;
-    mock.bandwidth = () => 4;
-    const wrapped = fixOffset(mock as any);
-    expect(wrapped).not.toBe(mock);
-    expect(wrapped(0)).toEqual(2);
-    expect(wrapped(3)).toEqual(8);
-  });
-});
-
 describe('default scales', () => {
   it('should provide linear scale', () => {
-    expect(scaleLinear()).toEqual({ tag: 'scale-linear' });
+    const scale = scaleLinear() as any;
+
+    expect(scale).toEqual(expect.any(Function));
+    expect(scale.tag).toEqual('scale-linear');
   });
 
   it('should provide band scale', () => {
-    expect(scaleBand()).toEqual({
-      tag: 'scale-band',
-      inner: 0.3,
-      outer: 0.15,
-      paddingInner: expect.any(Function),
-      paddingOuter: expect.any(Function),
-      bandwidth: expect.any(Function),
-    });
+    const scale = scaleBand() as any;
+
+    expect(scale).toEqual(expect.any(Function));
+    expect(scale.tag).toEqual('scale-band');
+    expect(scale.paddingInner).toBeCalledWith(0.3);
+    expect(scale.paddingOuter).toBeCalledWith(0.15);
+    expect(scale.bandwidth).toEqual(expect.any(Function));
+  });
+
+  it('should handle center offset for band scale', () => {
+    const scale = makeScale({
+      factory: () => {
+        const ret: any = scaleBand();
+        ret.bandwidth.mockReturnValue(4);
+        return ret;
+      },
+    } as any, [1, 2]);
+
+    expect(scale('test')).toEqual(12);
   });
 });
 
@@ -125,11 +135,11 @@ describe('#scaleBounds', () => {
   it('should measure discrete scale', () => {
     const target1 = realD3.scaleBand().paddingInner(0.1).paddingOuter(0.2)
       .domain(['a', 'b', 'c', 'd', 'e']).range([0, 100]);
-    // const target2 = realD3.scaleBand().paddingInner(0.1).paddingOuter(0.2)
-    //   .domain(['a', 'b', 'c', 'd', 'e']).range([100, 0]);
+    const target2 = realD3.scaleBand().paddingInner(0.1).paddingOuter(0.2)
+      .domain(['a', 'b', 'c', 'd', 'e']).range([100, 0]);
 
     expect(scaleBounds(target1, ['b', 'c'])).toEqual([20, 60]);
-    // expect(scaleBounds(target2, ['b', 'c'])).toEqual([80, 40]);
+    expect(scaleBounds(target2, ['b', 'c'])).toEqual([80, 40]);
   });
 });
 
@@ -172,40 +182,40 @@ describe('#moveBounds', () => {
   it('should move bounds / band', () => {
     const target1 = realD3.scaleBand().padding(0.3)
       .domain(['a', 'b', 'c', 'd', 'e']).range([0, 100]);
-    // const target2 = realD3.scaleBand().padding(0.3)
-    //   .domain(['a', 'b', 'c', 'd', 'e']).range([100, 0]);
+    const target2 = realD3.scaleBand().padding(0.3)
+      .domain(['a', 'b', 'c', 'd', 'e']).range([100, 0]);
 
     expect(moveBounds(target1, ['b', 'c'], 8)).toEqual(['c', 'd']);
-    // expect(moveBounds(target2, ['b', 'c'], -8)).toEqual(['c', 'd']);
+    expect(moveBounds(target2, ['b', 'c'], -8)).toEqual(['c', 'd']);
 
     expect(moveBounds(target1, ['c', 'd'], -35)).toEqual(['a', 'b']);
-    // expect(moveBounds(target2, ['c', 'd'], 35)).toEqual(['a', 'b']);
+    expect(moveBounds(target2, ['c', 'd'], 35)).toEqual(['a', 'b']);
 
     expect(moveBounds(target1, ['c', 'd'], 50)).toEqual(['d', 'e']);
-    // expect(moveBounds(target2, ['c', 'd'], -50)).toEqual(['d', 'e']);
+    expect(moveBounds(target2, ['c', 'd'], -50)).toEqual(['d', 'e']);
 
     expect(moveBounds(target1, ['b', 'c'], -50)).toEqual(['a', 'b']);
-    // expect(moveBounds(target2, ['b', 'c'], 50)).toEqual(['a', 'b']);
+    expect(moveBounds(target2, ['b', 'c'], 50)).toEqual(['a', 'b']);
   });
 
   it('should not move bounds / band', () => {
     const target1 = realD3.scaleBand().padding(0.3)
       .domain(['a', 'b', 'c', 'd', 'e']).range([0, 100]);
-    // const target2 = realD3.scaleBand().padding(0.3)
-    //   .domain(['a', 'b', 'c', 'd', 'e']).range([100, 0]);
+    const target2 = realD3.scaleBand().padding(0.3)
+      .domain(['a', 'b', 'c', 'd', 'e']).range([100, 0]);
     let bounds: any;
 
     bounds = ['b', 'c'];
     expect(moveBounds(target1, bounds, 5)).toBe(bounds);
-    // expect(moveBounds(target2, bounds, -5)).toBe(bounds);
+    expect(moveBounds(target2, bounds, -5)).toBe(bounds);
 
     bounds = ['d', 'e'];
     expect(moveBounds(target1, bounds, 40)).toBe(bounds);
-    // expect(moveBounds(target2, bounds, -40)).toBe(bounds);
+    expect(moveBounds(target2, bounds, -40)).toBe(bounds);
 
     bounds = ['a', 'b'];
     expect(moveBounds(target1, bounds, -30)).toBe(bounds);
-    // expect(moveBounds(target2, bounds, 30)).toBe(bounds);
+    expect(moveBounds(target2, bounds, 30)).toBe(bounds);
   });
 });
 
@@ -228,8 +238,13 @@ describe('#growBounds', () => {
     expect(growBounds(target2, [3, 5], -10, 70)).toEqual([3, 7]);
     expect(growBounds(target2, [3, 5], -10, 50)).toEqual([1, 5]);
 
-    expect(growBounds(target1, [4, 5], 40, 45)).toEqual([4.45, 4.55].map(matchFloat));
-    expect(growBounds(target2, [4, 5], 40, 55)).toEqual([4.45, 4.55].map(matchFloat));
+    expect(growBounds(target1, [4, 5], 40, 45)).toEqual([4.495, 4.505].map(matchFloat));
+    expect(growBounds(target2, [4, 5], 40, 55)).toEqual([4.495, 4.505].map(matchFloat));
+
+    expect(growBounds(target1, [4, 5], 40, 40)).toEqual([4, 4.01].map(matchFloat));
+    expect(growBounds(target2, [4, 5], 40, 60)).toEqual([4, 4.01].map(matchFloat));
+    expect(growBounds(target1, [4, 5], 40, 50)).toEqual([4.99, 5].map(matchFloat));
+    expect(growBounds(target2, [4, 5], 40, 50)).toEqual([4.99, 5].map(matchFloat));
 
     expect(growBounds(target1, [1,  9], -30, 50)).toEqual([0, 10]);
     expect(growBounds(target2, [1,  9], -30, 50)).toEqual([0, 10]);
@@ -248,7 +263,7 @@ describe('#growBounds', () => {
     expect(growBounds(target1, bounds, -10, 30)).toBe(bounds);
     expect(growBounds(target2, bounds, -10, 70)).toBe(bounds);
 
-    bounds = [5.05, 5.15];
+    bounds = [5.005, 5.006];
     expect(growBounds(target1, bounds, 10, 51)).toBe(bounds);
     expect(growBounds(target2, bounds, 10, 49)).toBe(bounds);
   });
@@ -256,45 +271,50 @@ describe('#growBounds', () => {
   it('should grow bounds / band', () => {
     const target1 = realD3.scaleBand().padding(0.3)
       .domain(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']).range([0, 100]);
-    // const target2 = realD3.scaleBand().padding(0.3)
-    //   .domain(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']).range([100, 0]);
+    const target2 = realD3.scaleBand().padding(0.3)
+      .domain(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']).range([100, 0]);
 
     expect(growBounds(target1, ['b', 'f'], 8, 45)).toEqual(['c', 'e']);
     expect(growBounds(target1, ['b', 'f'], 8, 15)).toEqual(['b', 'd']);
     expect(growBounds(target1, ['b', 'f'], 8, 55)).toEqual(['d', 'f']);
-    // target2
+    expect(growBounds(target2, ['b', 'f'], 8, 55)).toEqual(['c', 'e']);
+    expect(growBounds(target2, ['b', 'f'], 8, 85)).toEqual(['b', 'd']);
+    expect(growBounds(target2, ['b', 'f'], 8, 45)).toEqual(['d', 'f']);
 
     expect(growBounds(target1, ['c', 'e'], -20, 35)).toEqual(['b', 'f']);
     expect(growBounds(target1, ['c', 'e'], -20, 25)).toEqual(['c', 'g']);
     expect(growBounds(target1, ['c', 'e'], -20, 45)).toEqual(['a', 'e']);
-    // target2
+    expect(growBounds(target2, ['c', 'e'], -20, 65)).toEqual(['b', 'f']);
+    expect(growBounds(target2, ['c', 'e'], -20, 75)).toEqual(['c', 'g']);
+    expect(growBounds(target2, ['c', 'e'], -20, 55)).toEqual(['a', 'e']);
 
     expect(growBounds(target1, ['f', 'g'], 30, 65)).toEqual(['f', 'f']);
     expect(growBounds(target1, ['f', 'g'], 30, 75)).toEqual(['g', 'g']);
-    // target2
+    expect(growBounds(target2, ['f', 'g'], 30, 35)).toEqual(['f', 'f']);
+    expect(growBounds(target2, ['f', 'g'], 30, 25)).toEqual(['g', 'g']);
 
     expect(growBounds(target1, ['b', 'i'], -40, 50)).toEqual(['a', 'j']);
-    // target2
+    expect(growBounds(target2, ['b', 'i'], -40, 50)).toEqual(['a', 'j']);
   });
 
   it('should not grow bounds / band', () => {
     const target1 = realD3.scaleBand().padding(0.3)
       .domain(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']).range([0, 100]);
-    // const target2 = realD3.scaleBand().padding(0.3)
-    //   .domain(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']).range([100, 0]);
+    const target2 = realD3.scaleBand().padding(0.3)
+      .domain(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']).range([100, 0]);
     let bounds: any;
 
     bounds = ['d', 'g'];
     expect(growBounds(target1, bounds, 0, 50)).toBe(bounds);
-    // target2
+    expect(growBounds(target2, bounds, 0, 50)).toBe(bounds);
 
     bounds = ['e', 'e'];
     expect(growBounds(target1, bounds, 10, 50)).toBe(bounds);
-    // target2
+    expect(growBounds(target2, bounds, 10, 50)).toBe(bounds);
 
     bounds = ['a', 'j'];
     expect(growBounds(target1, bounds, -10, 50)).toBe(bounds);
-    // target2
+    expect(growBounds(target2, bounds, -10, 50)).toBe(bounds);
   });
 });
 
@@ -310,10 +330,10 @@ describe('#invertBoundsRange', () => {
   it('should invert range / band', () => {
     const target1 = realD3.scaleBand().padding(0.3)
       .domain(['a', 'b', 'c', 'd', 'e']).range([0, 100]);
-    // const target2 = realD3.scaleBand().padding(0.3)
-    //   .domain(['a', 'b', 'c', 'd', 'e']).range([100, 0]);
+    const target2 = realD3.scaleBand().padding(0.3)
+      .domain(['a', 'b', 'c', 'd', 'e']).range([100, 0]);
 
     expect(invertBoundsRange(target1, [25, 55])).toEqual(['b', 'c']);
-    // target2
+    expect(invertBoundsRange(target2, [75, 45])).toEqual(['b', 'c']);
   });
 });

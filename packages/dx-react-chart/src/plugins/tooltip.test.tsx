@@ -18,12 +18,19 @@ const OverlayComponent = ({ children }) => (
   </div>
 );
 const ContentComponent = () => null;
+const ArrowComponent = () => null;
+const SheetComponent = ({ children }) => (
+  <div>
+    {children}
+  </div>
+);
 
 const defaultDeps = {
   getter: {
     pointerMoveHandlers: ['test-handler'],
     series: 'test-series',
     rootRef: 'test-root-ref',
+    rotated: true,
   },
   template: {
     series: {},
@@ -34,6 +41,8 @@ const defaultProps = {
   targetComponent: TargetComponent,
   overlayComponent: OverlayComponent,
   contentComponent: ContentComponent,
+  arrowComponent: ArrowComponent,
+  sheetComponent: SheetComponent,
 };
 
 describe('Tooltip', () => {
@@ -63,6 +72,11 @@ describe('Tooltip', () => {
 
     expect(tree.find(OverlayComponent).props()).toEqual({
       target: { tag: 'test-reference' },
+      children: expect.anything(),
+      rotated: true,
+      arrowComponent: ArrowComponent,
+    });
+    expect(tree.find(SheetComponent).props()).toEqual({
       children: expect.anything(),
     });
     expect(tree.find(ContentComponent).props()).toEqual({

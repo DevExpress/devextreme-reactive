@@ -1,13 +1,12 @@
 export {
   DataItems, TickFormatFn, HandlerFn, SeriesRef, NotifyPointerMoveFn, HandlerFnList, LegendItemList,
-  Colors, TargetList, Scales, BuildAnimatedStyleGetterFn,
-  TransformedPoint, GetPointTransformerFn, CreateHitTesterFn, Series,
+  Colors, TargetList, Scales, TransformedPoint, GetPointTransformerFn, CreateHitTesterFn, Series,
   ScaleObject, TooltipReference,
   FactoryFn, ModifyDomainFn,
   BBoxes, BBoxesChange,
   StackList, StacksOptions, OffsetFn, OrderFn,
-  EventHandlers, NumberArray,
-  DomainBounds, ViewportOptions, OnViewportChangeFn, EventHandlerFn,
+  EventHandlers, NumberArray, Location,
+  DomainBounds, Viewport, OnViewportChangeFn, EventHandlerFn,
 
   AreaSeries, LineSeries, SplineSeries, BarSeries, ScatterSeries, PieSeries,
   SeriesProps, PathComponentProps, PathComponentPathProps, PointComponentProps,
@@ -17,6 +16,7 @@ export {
   BarSeriesProps,
   ScatterSeriesProps,
   PieSeriesProps,
+  Interaction,
 } from '../../../dx-chart-core/src/index';
 
 export * from './plugins.animation.types';

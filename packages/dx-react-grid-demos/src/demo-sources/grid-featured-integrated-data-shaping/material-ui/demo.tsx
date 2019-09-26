@@ -30,13 +30,6 @@ interface ISale {
   customer: string,
 }
 
-interface IGridState {
-  columns: Column[],
-  rows: ISale[],
-  pageSizes: number[],
-  currencyColumns: string[],
-}
-
 const sales: ISale[] = generateRows({ columnValues: globalSalesValues, length: 1000 });
 
 const availableFilterOperations: string[] = [
@@ -50,6 +43,7 @@ const styles = ({ typography }: Theme) => createStyles({
     fontWeight: typography.fontWeightMedium,
   },
   numericInput: {
+    fontSize: '14px',
     width: '100%',
   },
 });
@@ -113,75 +107,63 @@ const CurrencyTypeProvider: React.ComponentType<DataTypeProviderProps> =
     />
 );
 
-export default class Demo extends React.Component<object, IGridState> {
-  constructor(props) {
-    super(props);
+export default () => {
+  const [columns] = React.useState<Column[]>([
+    { name: 'product', title: 'Product' },
+    { name: 'region', title: 'Region' },
+    { name: 'amount', title: 'Sale Amount' },
+    { name: 'saleDate', title: 'Sale Date' },
+    { name: 'customer', title: 'Customer' },
+  ]);
+  const [rows] = React.useState<ISale[]>(sales);
+  const [pageSizes] = React.useState<number[]>([5, 10, 15]);
+  const [currencyColumns] = React.useState<string[]>(['amount']);
 
-    this.state = {
-      columns: [
-        { name: 'product', title: 'Product' },
-        { name: 'region', title: 'Region' },
-        { name: 'amount', title: 'Sale Amount' },
-        { name: 'saleDate', title: 'Sale Date' },
-        { name: 'customer', title: 'Customer' },
-      ],
-      currencyColumns: ['amount'],
-      pageSizes: [5, 10, 15],
-      rows: sales,
-    };
-  }
-  public render(): React.ReactNode {
-    const {
-      rows, columns, pageSizes,
-      currencyColumns,
-    } = this.state;
+  return (
+    <Paper>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <FilteringState
+          defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}
+        />
+        <SortingState
+          defaultSorting={[
+            { columnName: 'product', direction: 'asc' },
+            { columnName: 'saleDate', direction: 'asc' },
+          ]}
+        />
 
-    return (
-      <Paper>
-        <Grid
-          rows={rows}
-          columns={columns}
-        >
-          <FilteringState
-            defaultFilters={[{ columnName: 'saleDate', value: '2016-02' }]}
-          />
-          <SortingState
-            defaultSorting={[
-              { columnName: 'product', direction: 'asc' },
-              { columnName: 'saleDate', direction: 'asc' },
-            ]}
-          />
+        <SelectionState />
 
-          <SelectionState />
+        <GroupingState
+          defaultGrouping={[{ columnName: 'product' }]}
+          defaultExpandedGroups={['EnviroCare Max']}
+        />
+        <PagingState />
 
-          <GroupingState
-            defaultGrouping={[{ columnName: 'product' }]}
-            defaultExpandedGroups={['EnviroCare Max']}
-          />
-          <PagingState />
+        <IntegratedGrouping />
+        <IntegratedFiltering />
+        <IntegratedSorting />
+        <IntegratedPaging />
+        <IntegratedSelection />
 
-          <IntegratedGrouping />
-          <IntegratedFiltering />
-          <IntegratedSorting />
-          <IntegratedPaging />
-          <IntegratedSelection />
+        <CurrencyTypeProvider for={currencyColumns} />
 
-          <CurrencyTypeProvider for={currencyColumns} />
+        <DragDropProvider />
 
-          <DragDropProvider />
+        <Table />
+        <TableSelection showSelectAll={true} />
 
-          <Table />
-          <TableSelection showSelectAll={true} />
+        <TableHeaderRow showSortingControls={true} />
+        <TableFilterRow showFilterSelector={true} />
+        <PagingPanel pageSizes={pageSizes} />
 
-          <TableHeaderRow showSortingControls={true} />
-          <TableFilterRow showFilterSelector={true} />
-          <PagingPanel pageSizes={pageSizes} />
-
-          <TableGroupRow />
-          <Toolbar />
-          <GroupingPanel showSortingControls={true} />
-        </Grid>
-      </Paper>
-    );
-  }
-}
+        <TableGroupRow />
+        <Toolbar />
+        <GroupingPanel showSortingControls={true} />
+      </Grid>
+    </Paper>
+  );
+};

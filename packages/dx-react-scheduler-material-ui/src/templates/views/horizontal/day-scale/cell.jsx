@@ -1,46 +1,52 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import moment from 'moment';
 import classNames from 'classnames';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
+import { WEEK_DAY_OPTIONS } from '@devexpress/dx-scheduler-core';
 import { getBorder } from '../../../utils';
 
 const styles = theme => ({
   cell: {
+    userSelect: 'none',
     padding: 0,
     borderLeft: getBorder(theme),
+    '&:first-child': {
+      borderLeft: 'none',
+    },
+    '&:last-child': {
+      paddingRight: 0,
+    },
   },
   dayOfWeek: {
     ...theme.typography.caption,
     margin: 0,
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
   },
 });
 
-const CellBase = ({
+const CellBase = React.memo(({
   classes,
   className,
   startDate,
   endDate,
   today,
+  formatDate,
   ...restProps
-}) => {
-  const currentDate = moment(startDate);
-  return (
-    <TableCell
-      className={classNames(classes.cell, className)}
-      {...restProps}
-    >
-      <div className={classes.dayOfWeek}>
-        {currentDate.format('ddd')}
-      </div>
-    </TableCell>
-  );
-};
+}) => (
+  <TableCell
+    className={classNames(classes.cell, className)}
+    {...restProps}
+  >
+    <div className={classes.dayOfWeek}>
+      {formatDate(startDate, WEEK_DAY_OPTIONS)}
+    </div>
+  </TableCell>
+));
 
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
+  formatDate: PropTypes.func.isRequired,
   startDate: PropTypes.instanceOf(Date).isRequired,
   endDate: PropTypes.instanceOf(Date),
   className: PropTypes.string,

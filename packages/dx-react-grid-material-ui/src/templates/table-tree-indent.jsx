@@ -4,18 +4,18 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   indent: {
-    marginLeft: theme.spacing.unit * 3,
+    marginLeft: theme.spacing(3),
   },
 });
 
-export const TableTreeIndentBase = ({ level, classes }) => Array.from({ length: level })
+export const TableTreeIndentBase = React.memo(({ level, classes }) => Array.from({ length: level })
   .map((value, currentLevel) => (
     <span
         // eslint-disable-next-line react/no-array-index-key
       key={currentLevel}
       className={classes.indent}
     />
-  ));
+  )));
 
 TableTreeIndentBase.propTypes = {
   level: PropTypes.number,

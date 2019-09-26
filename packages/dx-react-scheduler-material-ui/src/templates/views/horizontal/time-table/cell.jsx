@@ -1,18 +1,28 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import moment from 'moment';
 import TableCell from '@material-ui/core/TableCell';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
+import { DAY_OPTIONS, DAY_SHORT_MONTH_OPTIONS } from '@devexpress/dx-scheduler-core';
 import { getBorder } from '../../../utils';
 
 const styles = theme => ({
   cell: {
+    userSelect: 'none',
     verticalAlign: 'top',
     padding: 0,
     height: 100,
     borderLeft: getBorder(theme),
+    '&:first-child': {
+      borderLeft: 'none',
+    },
+    '&:last-child': {
+      paddingRight: 0,
+    },
+    'tr:last-child &': {
+      borderBottom: 'none',
+    },
     '&:hover': {
       backgroundColor: theme.palette.action.hover,
     },
@@ -22,14 +32,14 @@ const styles = theme => ({
     },
   },
   text: {
-    padding: theme.spacing.unit,
+    padding: '1em',
   },
   today: {
-    margin: theme.spacing.unit / 2,
+    margin: '0.85em',
     display: 'inline-block',
-    width: `${theme.spacing.unit * 3}px`,
-    height: `${theme.spacing.unit * 3}px`,
-    lineHeight: `${theme.spacing.unit * 3}px`,
+    width: '1.72em',
+    height: '1.72em',
+    lineHeight: 1.72,
     textAlign: 'center',
     borderRadius: '50%',
     background: theme.palette.primary.main,
@@ -41,37 +51,43 @@ const styles = theme => ({
   },
 });
 
-const CellBase = ({
+const CellBase = React.memo(({
   classes,
   className,
   startDate,
   endDate,
   today,
   otherMonth,
+  formatDate,
   ...restProps
-}) => (
-  <TableCell
-    tabIndex={0}
-    className={classNames(classes.cell, className)}
-    {...restProps}
-  >
-    <div
-      className={classNames({
-        [classes.text]: !today,
-        [classes.today]: today,
-        [classes.otherMonth]: otherMonth && !today,
-      })}
+}) => {
+  const isFirstMonthDay = startDate.getDate() === 1;
+  const formatOptions = isFirstMonthDay ? DAY_SHORT_MONTH_OPTIONS : DAY_OPTIONS;
+  return (
+    <TableCell
+      tabIndex={0}
+      className={classNames(classes.cell, className)}
+      {...restProps}
     >
-      {moment(startDate).format('D')}
-    </div>
-  </TableCell>
-);
+      <div
+        className={classNames({
+          [classes.text]: !today,
+          [classes.today]: today,
+          [classes.otherMonth]: otherMonth && !today,
+        })}
+      >
+        {formatDate(startDate, formatOptions)}
+      </div>
+    </TableCell>
+  );
+});
 
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
+  formatDate: PropTypes.func.isRequired,
   startDate: PropTypes.instanceOf(Date).isRequired,
   endDate: PropTypes.instanceOf(Date),
+  className: PropTypes.string,
   today: PropTypes.bool,
   otherMonth: PropTypes.bool,
 };

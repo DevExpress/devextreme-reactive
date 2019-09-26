@@ -13,6 +13,7 @@ import {
   tableHeaderRowsWithFixed,
   tableHeaderColumnChainsWithFixed,
   calculateFixedColumnProps,
+  isRowHighlighted,
 } from '@devexpress/dx-grid-core';
 import {
   TableCellProps, TableRowProps, TableFixedColumnsProps, TableFixedColumnsState,
@@ -34,6 +35,7 @@ const pluginDependencies = [
   { name: 'TableEditColumn', optional: true },
   { name: 'TableEditRow', optional: true },
   { name: 'TableFilterRow', optional: true },
+  { name: 'TableGroupRow', optional: true },
   { name: 'TableHeaderRow', optional: true },
   { name: 'TableSelection', optional: true },
   { name: 'TableSummaryRow', optional: true },
@@ -98,7 +100,8 @@ class TableFixedColumnsBase extends React.PureComponent<TableFixedColumnsProps, 
         >
           {(params: TableCellProps) => (
             <TemplateConnector>
-              {({ tableColumns, tableHeaderColumnChains }) => {
+              {({ tableColumns, tableHeaderColumnChains, selection, highlightSelectedRow }) => {
+                const selected = isRowHighlighted(highlightSelectedRow, selection, params.tableRow);
                 const { tableColumnDimensions } = this.state;
                 const fixedColumnProps = calculateFixedColumnProps(
                   params,
@@ -113,6 +116,7 @@ class TableFixedColumnsBase extends React.PureComponent<TableFixedColumnsProps, 
                     {...params}
                     {...fixedColumnProps}
                     component={CellPlaceholder}
+                    selected={selected}
                   />
                 );
               }}

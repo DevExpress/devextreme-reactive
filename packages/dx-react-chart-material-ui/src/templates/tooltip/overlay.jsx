@@ -1,62 +1,63 @@
 import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Popper from '@material-ui/core/Popper';
-import Paper from '@material-ui/core/Paper';
+import { RIGHT, TOP } from '@devexpress/dx-chart-core';
 import classNames from 'classnames';
+import * as PropTypes from 'prop-types';
 
 const styles = (theme) => {
-  const { unit } = theme.spacing;
-  const arrowSize = unit * 1.2;
+  const arrowSize = theme.spacing(1.2);
   return {
-    popper: {
+    'popper-top': {
       zIndex: 1,
       marginBottom: `${arrowSize}px`,
     },
-    paper: {
-      padding: `${unit * 0.5}px ${unit}px`,
-    },
-    arrow: {
-      width: `${arrowSize * 5}px`,
-      height: `${arrowSize * 2.5}px`,
-      position: 'absolute',
-      top: '100%',
-      left: '50%',
-      transform: 'translateX(-50%)',
-      overflow: 'hidden',
-
-      '&::after': {
-        content: '""',
-        position: 'absolute',
-        width: `${arrowSize}px`,
-        height: `${arrowSize}px`,
-        background: theme.palette.background.paper,
-        transform: 'translateX(-50%) translateY(-50%) rotate(45deg)',
-        top: 0,
-        left: '50%',
-        boxShadow: theme.shadows[2],
-      },
+    'popper-right': {
+      zIndex: 1,
+      marginLeft: `${arrowSize}px`,
     },
   };
 };
 
-const popperModifiers = {
+const popperModifiers = arrowRef => ({
   flip: { enabled: false },
+  arrow: {
+    element: arrowRef,
+  },
+});
+
+const OverlayBase = ({
+  classes, className, children, target, rotated, arrowComponent: ArrowComponent, ...restProps
+}) => {
+  const [arrowRef, setArrowRef] = React.useState(null);
+  const placement = rotated ? RIGHT : TOP;
+
+  return (
+    <Popper
+      open
+      anchorEl={target}
+      placement={placement}
+      className={classNames(classes[`popper-${placement}`], className)}
+      modifiers={popperModifiers(arrowRef)}
+      {...restProps}
+    >
+      {children}
+      <ArrowComponent placement={placement} ref={setArrowRef} />
+    </Popper>
+  );
 };
 
-export const Overlay = withStyles(styles)(({
-  classes, className, children, target, ...restProps
-}) => (
-  <Popper
-    open
-    anchorEl={target}
-    placement="top"
-    className={classNames(classes.popper, className)}
-    modifiers={popperModifiers}
-    {...restProps}
-  >
-    <Paper className={classes.paper}>
-      {children}
-    </Paper>
-    <div className={classes.arrow} />
-  </Popper>
-));
+OverlayBase.propTypes = {
+  className: PropTypes.string,
+  classes: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired,
+  target: PropTypes.any.isRequired,
+  rotated: PropTypes.bool.isRequired,
+  arrowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+};
+
+OverlayBase.defaultProps = {
+  className: undefined,
+};
+
+export const Overlay = withStyles(styles)(OverlayBase);

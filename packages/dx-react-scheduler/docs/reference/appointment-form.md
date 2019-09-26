@@ -123,7 +123,7 @@ appointmentData | [AppointmentModel](./scheduler.md#appointmentmodel) | The appo
 onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | An event raised when a field value in the appointment form is changed.
 getMessage | (messageKey: string) => string | Uses a localization message's key to retrieve the message.
 locale | string &#124; Array&lt;string&gt; | Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale is used to format date-time values.
-firstDayOfWeek | number | The first day of week.
+firstDayOfWeek | number | A number between 0 (Sunday) and 6 (Saturday) that specifies the first day of the week.
 formatDate | [FormatterFn](./scheduler.md#formatterfn) | A function that formats dates based on the locale.
 radioGroupComponent | ComponentType&lt;[AppointmentForm.RadioGroupProps](#appointmentformradiogroupprops)&gt; | A component that renders a radio group.
 weeklyRecurrenceSelectorComponent | ComponentType&lt;[AppointmentForm.WeeklyRecurrenceSelectorProps](#appointmentformweeklyrecurrenceselectorprops)&gt; | A component that renders a weekly recurrence selector.
@@ -162,7 +162,7 @@ Field | Type | Description
 ------|------|------------
 readOnly? | boolean | Specifies whether the date editor is read-only.
 value? | string &#124; number &#124; Date | The editor's value.
-isAllDayFormat? | boolean | Specifies whether the date should contain hours and minutes.
+excludeTime? | boolean | When true, users cannot edit the time.
 onValueChange | (nextValue: Date) => void | Handles value changes.
 locale? | string &#124; Array&lt;string&gt; | Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale is used to format date-time values.
 
@@ -182,7 +182,7 @@ Properties passed to a component that renders a radio group on the appointment f
 Field | Type | Description
 ------|------|------------
 appointmentData | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment's data.
-firstDayOfWeek | number | The first day of week.
+firstDayOfWeek | number | A number between 0 (Sunday) and 6 (Saturday) that specifies the first day of the week.
 locale? | string &#124; Array&lt;string&gt; | Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale is used to format date-time values.
 formatDate | [FormatterFn](./scheduler.md#formatterfn) | A function that formats dates based on the locale.
 onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | An event raised when a field value in the appointment form is changed.
@@ -225,7 +225,7 @@ Properties passed to a component that renders a weekly recurrence selector on th
 Field | Type | Description
 ------|------|------------
 rRule | string | Specifies the recurrence rule.
-firstDayOfWeek | number | The first day of week.
+firstDayOfWeek | number | A number between 0 (Sunday) and 6 (Saturday) that specifies the first day of the week.
 readOnly | boolean | Specifies whether the weekly recurrence selector is read-only.
 formatDate | [FormatterFn](./scheduler.md#formatterfn) | A function that formats dates based on the locale.
 onValueChange | (nextFieldValue: { [fieldName: string]: any }) => void | Handles value changes.

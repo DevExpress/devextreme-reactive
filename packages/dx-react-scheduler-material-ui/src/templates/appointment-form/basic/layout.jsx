@@ -153,7 +153,7 @@ const LayoutBase = ({
           value={appointmentData.startDate}
           onValueChange={changeStartDate}
           locale={locale}
-          isAllDayFormat={appointmentData.allDay}
+          excludeTime={appointmentData.allDay}
         />
         <Label
           text="-"
@@ -165,7 +165,7 @@ const LayoutBase = ({
           value={appointmentData.endDate}
           onValueChange={changeEndDate}
           locale={locale}
-          isAllDayFormat={appointmentData.allDay}
+          excludeTime={appointmentData.allDay}
         />
       </Grid>
       <Grid

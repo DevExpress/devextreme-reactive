@@ -163,7 +163,7 @@ const EndRepeatEditorBase = ({
               onValueChange={changeRecurrenceEndDate}
               allowKeyboardControl={false}
               locale={locale}
-              isAllDayFormat={appointmentData.allDay}
+              excludeTime={appointmentData.allDay}
             />
           </Grid>
         )}

@@ -97,7 +97,7 @@ export namespace AppointmentForm {
     formatDate: FormatterFn;
     /** Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale is used to format date-time values. */
     locale: string | string[];
-    /** The first day of week. */
+    /** A number between 0 (Sunday) and 6 (Saturday) that specifies the first day of the week. */
     firstDayOfWeek: number;
     /** A component that renders a radio group. */
     radioGroupComponent: React.ComponentType<AppointmentForm.RadioGroupProps>;
@@ -133,8 +133,8 @@ export namespace AppointmentForm {
     readOnly?: boolean;
     /** The editor's value. */
     value?: string | number;
-    /** Specifies whether the date should contain hours and minutes. */
-    isAllDayFormat?: boolean;
+    /** When true, users cannot edit the time. */
+    excludeTime?: boolean;
     /** Handles value changes. */
     onValueChange: (nextValue: Date) => void;
     /** Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale is used to format date-time values. */
@@ -188,7 +188,7 @@ export namespace AppointmentForm {
     locale?: string | string[];
     /** A function that formats dates based on the locale. */
     formatDate: FormatterFn;
-    /** The first day of week. */
+    /** A number between 0 (Sunday) and 6 (Saturday) that specifies the first day of the week. */
     firstDayOfWeek: number;
     /** An event raised when a field value in the appointment form is changed. */
     onFieldChange: (nextFieldValue: { [fieldName: string]: any }) => void;
@@ -211,7 +211,7 @@ export namespace AppointmentForm {
   export interface WeeklyRecurrenceSelectorProps {
     /** A function that formats dates based on the locale. */
     formatDate: FormatterFn;
-    /** The first day of week. */
+    /** A number between 0 (Sunday) and 6 (Saturday) that specifies the first day of the week. */
     firstDayOfWeek: number;
     /** Specifies the recurrence rule. */
     rRule: string;

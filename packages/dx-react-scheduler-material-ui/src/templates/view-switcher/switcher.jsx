@@ -27,13 +27,12 @@ const SwitcherBase = React.memo(({
     id: name,
     text: displayName,
   }));
-  const handleChange = React.useCallback(event => onChange(event.target.value), [onChange]);
 
   return (
     <OutlinedSelect
       value={currentView.name}
       availableOptions={availableOptions}
-      onChange={handleChange}
+      onValueChange={onChange}
       inputProps={{ classes: { input: classes.input, root: classes.inputRoot } }}
       {...restProps}
     />

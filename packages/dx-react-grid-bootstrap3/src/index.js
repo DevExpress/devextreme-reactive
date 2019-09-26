@@ -21,3 +21,4 @@ export * from './plugins/table-tree-column';
 export * from './plugins/search-panel';
 export * from './plugins/table-fixed-columns';
 export * from './plugins/table-summary-row';
+export * from './plugins/table-inline-cell-editing';

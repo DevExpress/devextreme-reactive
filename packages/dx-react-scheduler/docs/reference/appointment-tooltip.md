@@ -103,9 +103,9 @@ onExecute? | () => void | An event that executes the command.
 
 Name | Properties | Description
 -----|------------|------------
-AppointmentTooltip.Layout | ComponentType&lt;[AppointmentTooltip.LayoutProps](#appointmenttooltiplayoutprops)&gt; | A component that renders the tooltip layout.
-AppointmentTooltip.Header | ComponentType&lt;[AppointmentTooltip.HeaderProps](#appointmenttooltipheaderprops)&gt; | A component that renders the tooltip header.
-AppointmentTooltip.Content | ComponentType&lt;[AppointmentTooltip.ContentProps](#appointmenttooltipcontentprops)&gt; | A component that renders the tooltip content.
-AppointmentTooltip.CommandButton | ComponentType&lt;[AppointmentTooltip.CommandButtonProps](#appointmenttooltipcommandbuttonprops)&gt; | A component that renders a command button.
+AppointmentTooltip.Layout | [AppointmentTooltip.LayoutProps](#appointmenttooltiplayoutprops) | A component that renders the tooltip layout.
+AppointmentTooltip.Header | [AppointmentTooltip.HeaderProps](#appointmenttooltipheaderprops) | A component that renders the tooltip header.
+AppointmentTooltip.Content | [AppointmentTooltip.ContentProps](#appointmenttooltipcontentprops) | A component that renders the tooltip content.
+AppointmentTooltip.CommandButton | [AppointmentTooltip.CommandButtonProps](#appointmenttooltipcommandbuttonprops) | A component that renders a command button.
 
 Additional properties are added to a component's root element.

@@ -29,7 +29,7 @@ describe('ViewSwitcher', () => {
         <Switcher {...defaultProps} />
       ));
 
-      tree.simulate('change', { target: { value: 'next' } });
+      tree.simulate('valueChange', 'next');
 
       expect(defaultProps.onChange)
         .toBeCalledWith('next');

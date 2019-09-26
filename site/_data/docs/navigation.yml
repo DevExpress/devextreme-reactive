@@ -167,6 +167,8 @@
         path: /react/grid/docs/reference/table-edit-row
       - title: TableEditColumn
         path: /react/grid/docs/reference/table-edit-column
+      - title: TableInlineCellEditing
+        path: /react/grid/docs/reference/table-inline-cell-editing
       - title: TableBandHeader
         path: /react/grid/docs/reference/table-band-header
       - title: TableColumnResizing

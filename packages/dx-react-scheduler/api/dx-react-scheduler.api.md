@@ -685,7 +685,7 @@ export type SchedulerDateTime = Date | number | string;
 // @public (undocumented)
 export interface SchedulerProps {
     data: AppointmentModel[];
-    firstDayOfWeek?: number;
+    firstDayOfWeek: number;
     height: number | 'auto';
     locale: string | string[];
     rootComponent: React.ComponentType<Scheduler.RootProps>;

@@ -119,7 +119,7 @@ export namespace AppointmentForm {
     readOnly?: boolean;
   }
   export interface DateEditorProps {
-    isAllDayFormat?: boolean;
+    excludeTime?: boolean;
     locale?: string | string[];
     onValueChange: (nextValue: Date) => void;
     readOnly?: boolean;

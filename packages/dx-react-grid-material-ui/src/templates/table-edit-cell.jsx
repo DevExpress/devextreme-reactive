@@ -22,12 +22,21 @@ const styles = theme => ({
 
 const EditCellBase = ({
   column, value, onValueChange, style, classes, children,
-  row, tableRow, tableColumn, editingEnabled, className, ...restProps
+  row, tableRow, tableColumn, editingEnabled, className,
+  autoFocus, onBlur, onFocus, onKeyDown, ...restProps
 }) => {
   const inputClasses = classNames({
     [classes.inputRight]: tableColumn && tableColumn.align === 'right',
     [classes.inputCenter]: tableColumn && tableColumn.align === 'center',
   });
+  const patchedChildren = children
+    ? React.cloneElement(children, {
+      autoFocus,
+      onBlur,
+      onFocus,
+      onKeyDown,
+    })
+    : children;
 
   return (
     <TableCell
@@ -35,13 +44,18 @@ const EditCellBase = ({
       style={style}
       {...restProps}
     >
-      {children || (
+      {patchedChildren || (
         <Input
           className={classes.inputRoot}
           classes={{ input: inputClasses }}
           value={value || ''}
           disabled={!editingEnabled}
           onChange={e => onValueChange(e.target.value)}
+          // eslint-disable-next-line jsx-a11y/no-autofocus
+          autoFocus={autoFocus}
+          onBlur={onBlur}
+          onFocus={onFocus}
+          onKeyDown={onKeyDown}
         />
       )}
     </TableCell>
@@ -60,6 +74,10 @@ EditCellBase.propTypes = {
   editingEnabled: PropTypes.bool,
   children: PropTypes.node,
   className: PropTypes.string,
+  autoFocus: PropTypes.bool,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
+  onKeyDown: PropTypes.func,
 };
 
 EditCellBase.defaultProps = {
@@ -72,6 +90,10 @@ EditCellBase.defaultProps = {
   children: undefined,
   className: undefined,
   editingEnabled: true,
+  autoFocus: false,
+  onBlur: () => {},
+  onFocus: () => {},
+  onKeyDown: () => {},
 };
 
 export const EditCell = withStyles(styles, { name: 'EditCell' })(EditCellBase);

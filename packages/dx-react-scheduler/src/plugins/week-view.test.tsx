@@ -116,8 +116,8 @@ describe('Week View', () => {
       );
       const DATE_TO_USE = new Date('2018-10-9');
       global.Date.now = jest.fn(() => new Date(DATE_TO_USE));
+      const firstDayOfWeek = 2;
       const props = {
-        firstDayOfWeek: 2,
         intervalCount: 2,
         startDayHour: 1,
         endDayHour: 9,
@@ -126,7 +126,10 @@ describe('Week View', () => {
       };
       const tree = mount((
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
+          {pluginDepsToComponents({
+            ...defaultDeps,
+            getter: { ...defaultDeps.getter, firstDayOfWeek },
+          })}
           <WeekView
             {...defaultProps}
             {...props}
@@ -136,29 +139,13 @@ describe('Week View', () => {
 
       expect(viewCellsData)
         .toBeCalledWith(
-          '2018-07-04', props.firstDayOfWeek,
+          '2018-07-04', firstDayOfWeek,
           props.intervalCount * DAYS_IN_WEEK, props.excludedDays,
           props.startDayHour, props.endDayHour, props.cellDuration,
           DATE_TO_USE,
         );
       expect(getComputedState(tree).viewCellsData)
         .toEqual([[{}, {}], [{}, {}]]);
-    });
-
-    it('should provide the "firstDayOfWeek" getter', () => {
-      const firstDayOfWeek = 2;
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            firstDayOfWeek={firstDayOfWeek}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).firstDayOfWeek)
-        .toBe(firstDayOfWeek);
     });
 
     it('should provide the "startViewDate" getter', () => {

@@ -7,6 +7,10 @@ import { SchedulerProps } from '../types';
 import { memoize } from '@devexpress/dx-core';
 
 class SchedulerCoreBase extends React.PureComponent<SchedulerProps> {
+  static defaultProps: Partial<SchedulerProps> = {
+    firstDayOfWeek: 0,
+  };
+
   formatDateTimeGetter = memoize(locale => formatDateTimeGetter(locale));
 
   render() {
@@ -15,6 +19,7 @@ class SchedulerCoreBase extends React.PureComponent<SchedulerProps> {
       rootComponent: Root,
       locale,
       height,
+      firstDayOfWeek,
     } = this.props;
 
     return (
@@ -23,6 +28,7 @@ class SchedulerCoreBase extends React.PureComponent<SchedulerProps> {
       >
         <Getter name="appointments" value={appointments(data)} />
         <Getter name="formatDate" value={formatDateTimeGetter(locale)} />
+        <Getter name="firstDayOfWeek" value={firstDayOfWeek} />
         <Getter name="locale" value={locale} />
         <Template name="root">
           <Root height={height}>

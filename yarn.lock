@@ -1819,7 +1819,7 @@
   dependencies:
     "@babel/runtime" "^7.4.4"
 
-"@material-ui/pickers@3.2.6":
+"@material-ui/pickers@^3.2.6":
   version "3.2.6"
   resolved "https://registry.yarnpkg.com/@material-ui/pickers/-/pickers-3.2.6.tgz#5ef32a97af183e8107ab5744da4950701d9edfe5"
   integrity sha512-iXE0Yz+D+m3eOPgSKiLx1BE/9MJlJmln8gkoceVcOo5Tx/+pDCzXZNPEZveo5280e1hcekSNVBx/31cCqMn9mw==

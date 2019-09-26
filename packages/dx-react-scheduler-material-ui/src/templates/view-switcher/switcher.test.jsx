@@ -9,6 +9,7 @@ describe('ViewSwitcher', () => {
     onChange: jest.fn(),
     currentView: {
       name: 'Test view name',
+      displayName: 'Test display name',
     },
   };
   beforeAll(() => {

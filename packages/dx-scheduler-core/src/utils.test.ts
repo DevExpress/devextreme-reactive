@@ -10,6 +10,7 @@ import {
   getAppointmentStyle,
   calculateRectByDateIntervals,
   filterByViewBoundaries,
+  getRRuleSetWithExDates,
 } from './utils';
 
 describe('Utils', () => {
@@ -676,6 +677,14 @@ describe('Utils', () => {
         .toBe(moment(new Date('2019-04-10 0:00')).toString());
       expect(result[1].end.toString())
         .toBe(moment(new Date('2019-04-10 23:59')).toString());
+    });
+  });
+  describe('#getRRuleSetWithExDates', () => {
+    it('should create RRuleSet', () => {
+      const exDate = '20190410T100000Z';
+
+      expect(getRRuleSetWithExDates(exDate).valueOf()[0])
+        .toContain('EXDATE');
     });
   });
 });

@@ -8,6 +8,7 @@ describe('AllDayPanel', () => {
   const defaultProps = {
     setCellElementsMeta: jest.fn(),
     cellsData: [{ startDate: 1 }, { startDate: 2 }],
+    formatDate: jest.fn(),
     cellComponent: () => <td />,
     /* eslint-disable-next-line */
     rowComponent: ({ children }) => <tr>{children}</tr>,

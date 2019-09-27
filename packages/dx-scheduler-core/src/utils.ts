@@ -325,7 +325,7 @@ const expandRecurrenceAppointment = (
   // According to https://github.com/jakubroztocil/rrule#important-use-utc-dates
   // we have to format the dates we get from RRuleSet to get local dates
   const datesInBoundaries = rruleSet.between(leftBoundUTC as Date, rightBoundUTC as Date, true)
-    .map(date => moment.utc(date).format('YYYY-MM-DD HH:mm'));
+    .map(formatDateToString);
   if (datesInBoundaries.length === 0) return [];
 
   const appointmentDuration = moment(appointment.end)
@@ -379,3 +379,5 @@ export const getRRuleSetWithExDates: PureComputed<
   }
   return rruleSet;
 };
+
+export const formatDateToString = (date: Date | string | number) => moment.utc(date).format('YYYY-MM-DDTHH:mm');

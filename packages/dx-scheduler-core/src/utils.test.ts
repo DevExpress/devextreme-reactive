@@ -11,6 +11,7 @@ import {
   calculateRectByDateIntervals,
   filterByViewBoundaries,
   getRRuleSetWithExDates,
+  formatDateToString,
 } from './utils';
 
 describe('Utils', () => {
@@ -685,6 +686,14 @@ describe('Utils', () => {
 
       expect(getRRuleSetWithExDates(exDate).valueOf()[0])
         .toContain('EXDATE');
+    });
+  });
+  describe('#formatDateToString', () => {
+    it('should return valid string format to pass into Date constructor (Safari)', () => {
+      const date = Date.UTC(2019, 5, 10, 12, 30);
+
+      expect(formatDateToString(date))
+        .toContain('2019-06-10T12:30');
     });
   });
 });

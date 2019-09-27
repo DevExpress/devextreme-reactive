@@ -63,7 +63,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     endDayHour: 24,
     cellDuration: 30,
     intervalCount: 1,
-    firstDayOfWeek: 0,
     excludedDays: [],
     name: 'Week',
   };
@@ -94,10 +93,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
 
   excludedDaysComputed = memoize((viewName, excludedDays) => getters => computed(
     getters, viewName!, () => excludedDays, getters.excludedDays,
-  ));
-
-  firstDayOfWeekComputed = memoize((viewName, firstDayOfWeek) => getters => computed(
-    getters, viewName!, () => firstDayOfWeek, getters.firstDayOfWeek,
   ));
 
   intervalCountComputed = memoize((viewName, intervalCount) => getters => computed(
@@ -167,7 +162,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       excludedDays,
       name: viewName,
       intervalCount,
-      firstDayOfWeek,
       startDayHour,
       endDayHour,
       appointmentLayerComponent: AppointmentLayer,
@@ -189,10 +183,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
         <Getter
           name="intervalCount"
           computed={this.intervalCountComputed(viewName, intervalCount)}
-        />
-        <Getter
-          name="firstDayOfWeek"
-          computed={this.firstDayOfWeekComputed(viewName, firstDayOfWeek)}
         />
         <Getter name="excludedDays" computed={this.excludedDaysComputed(viewName, excludedDays)} />
         <Getter

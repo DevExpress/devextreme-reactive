@@ -660,7 +660,7 @@ export interface MonthViewProps extends MonthViewPropsType {
 }
 
 // @public (undocumented)
-export type MonthViewPropsType = Pick<VerticalViewProps, Exclude<keyof VerticalViewProps, 'timeScaleLayoutComponent' | 'timeScaleRowComponent' | 'timeScaleCellComponent' | 'layoutComponent' | 'dayScaleEmptyCellComponent'>> & Pick<WeekViewProps, 'firstDayOfWeek'>;
+export type MonthViewPropsType = Pick<VerticalViewProps, Exclude<keyof VerticalViewProps, 'timeScaleLayoutComponent' | 'timeScaleRowComponent' | 'timeScaleCellComponent' | 'layoutComponent' | 'dayScaleEmptyCellComponent'>>;
 
 // @public (undocumented)
 export type PreCommitChangesFn = (changes: Changes | null, appointmentData: Partial<AppointmentModel>, type: RecurrenceEditType) => ChangeSet;
@@ -685,6 +685,7 @@ export type SchedulerDateTime = Date | number | string;
 // @public (undocumented)
 export interface SchedulerProps {
     data: AppointmentModel[];
+    firstDayOfWeek: number;
     height: number | 'auto';
     locale: string | string[];
     rootComponent: React.ComponentType<Scheduler.RootProps>;
@@ -899,7 +900,6 @@ export namespace WeekView {
 // @public (undocumented)
 export interface WeekViewProps extends VerticalViewProps {
   excludedDays?: number[];
-  firstDayOfWeek?: number;
 }
 
 

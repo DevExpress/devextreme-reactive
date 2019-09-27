@@ -55,7 +55,7 @@ export class DemoCodeProvider extends React.PureComponent {
     const deps = files.reduce((acc, f) => ([...acc, ...(registry.deps[f] || [])]), []);
 
     return [...files, ...deps].reduce((acc, file) => ({
-      ...acc, 
+      ...acc,
       [file]: registry.files[file],
     }), {});
   }

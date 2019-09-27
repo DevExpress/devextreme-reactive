@@ -38,18 +38,21 @@ const pageData = [
     title: 'Lightweight & Concise UI',
     description: 'Our React Scheduler built using the UI/UX best practises proved by millions of Google Calendar users. Create your own scheduling application extending the default UI and behavior according to your specific business requirements.',
     imageLink: lightweightUIImage,
+    guideLink: '/react/scheduler/demos/featured/data-editing/',
   },
   {
     reversed: true,
     title: 'Familiar & Intuitive UX',
     description: 'Allow your end-users to reuse their existing skills while working with the React Scheduler. They can use intuitive Drag-and-Drop operations to create appointments and change their start/end time and duration by move and resize.',
     imageLink: familiarUXImage,
+    guideLink: '/react/scheduler/demos/featured/appearance-customization/',
   },
   {
     alternative: true,
     title: 'Recurring Appointments',
     description: 'Use built-in plugins for handling recurring event chains. You can easily customize all recurrence related functionality and address even the most complex requirements with minimal effort. The iCalendar recurrency rule and exception formats are supported.',
     imageLink: recurringAppointmentsImage,
+    guideLink: '/react/scheduler/docs/guides/appointments/#recurring-appointments',
   },
   {
     reversed: true,
@@ -57,18 +60,21 @@ const pageData = [
     title: 'Day View',
     description: 'Display a detailed view of events/appointments for a specific day using the DayView plugin. Integrated Date Navigation buttons make it easy to navigate from one day to the next.',
     imageLink: dayViewImage,
+    guideLink: '/react/scheduler/docs/guides/views/#day-view',
   },
   {
     alternative: true,
     title: 'Week & Work Week Views',
     description: 'The Week Views display event details across a specific week. End-users can move from one week to the next using built-in navigation buttons.',
     imageLink: weekViewImage,
+    guideLink: '/react/scheduler/docs/guides/views/#week-view',
   },
   {
     reversed: true,
     title: 'Month View',
     description: 'The Month View displays a snapshot of appointments across an entire month. As you would expect, because of the number of days the Scheduler control displays within an application, the view itself is the least detailed of all available.',
     imageLink: monthViewImage,
+    guideLink: '/react/scheduler/docs/guides/views/#month-view',
   },
 ];
 const comingSoonItems = [
@@ -140,11 +146,6 @@ const IndexPage = () => (
     <AlternatedBackground>
       <LandingLayout>
         <LandingTitle text="Native Support for the UI Library of Your Choice" />
-        <LandingImageFeature
-          imageLink={bootstrapThemeLink}
-          title="Twitter Bootstrap (Coming Soon)"
-          description="Use any existing or create your custom bootstrap theme. No need for any additional configuration."
-        />
         <LandingImageFeature
           imageLink={materialThemeLink}
           title="Material Design Rendering"

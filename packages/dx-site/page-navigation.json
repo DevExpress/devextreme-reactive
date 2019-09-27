@@ -9,15 +9,15 @@
             "path": "/react/core/docs/guides/fundamentals/"
           },
           {
-            "title": "Rendering Markup",
+            "title": "Render Markup",
             "path": "/react/core/docs/guides/rendering-markup/"
           },
           {
-            "title": "Providing Values",
+            "title": "Provide Values",
             "path": "/react/core/docs/guides/providing-values/"
           },
           {
-            "title": "Providing Actions",
+            "title": "Provide Actions",
             "path": "/react/core/docs/guides/providing-actions/"
           }
         ]
@@ -52,6 +52,10 @@
           {
             "title": "TemplateConnector",
             "path": "/react/core/docs/reference/template-connector/"
+          },
+          {
+            "title": "connectProps",
+            "path": "/react/core/docs/reference/connect-props/"
           }
         ]
       },
@@ -67,8 +71,8 @@
             "path": "/react/chart/docs/guides/getting-started/"
           },
           {
-            "title": "Vue Grid",
-            "path": "/vue/grid/docs/guides/getting-started/"
+            "title": "React Scheduler",
+            "path": "/react/scheduler/docs/guides/getting-started/"
           }
         ]
       }
@@ -195,6 +199,10 @@
             "path": "/react/grid/docs/guides/virtual-scrolling/"
           },
           {
+            "title": "Lazy Loading",
+            "path": "/react/grid/docs/guides/lazy-loading/"
+          },
+          {
             "title": "Tree Data",
             "path": "/react/grid/docs/guides/tree-data/"
           },
@@ -207,12 +215,12 @@
             "path": "/react/grid/docs/guides/localization/"
           },
           {
-            "title": "Immutable Data",
-            "path": "/react/grid/docs/guides/immutable-data/"
+            "title": "TypeScript Support",
+            "path": "/react/grid/docs/guides/typescript/"
           },
           {
-            "title": "TypeScript",
-            "path": "/react/grid/docs/guides/typescript/"
+            "title": "Custom Plugin Development",
+            "path": "/react/grid/docs/guides/custom-plugin-development/"
           }
         ]
       },
@@ -394,6 +402,14 @@
           {
             "title": "TableSummaryRow",
             "path": "/react/grid/docs/reference/table-summary-row/"
+          },
+          {
+            "title": "VirtualTableState",
+            "path": "/react/grid/docs/reference/virtual-table-state/"
+          },
+          {
+            "title": "createRowCache",
+            "path": "/react/grid/docs/reference/create-row-cache/"
           }
         ]
       },
@@ -443,6 +459,10 @@
             "path": "/react/chart/demos/area/stacked-area/"
           },
           {
+            "title": "Full-Stacked Area",
+            "path": "/react/chart/demos/area/fullstacked-area/"
+          },
+          {
             "title": "Step Area",
             "path": "/react/chart/demos/area/step-area/"
           },
@@ -472,12 +492,20 @@
             "path": "/react/chart/demos/bar/stacked-bar/"
           },
           {
-            "title": "Fullstacked Bar",
+            "title": "Full-Stacked Bar",
             "path": "/react/chart/demos/bar/fullstacked-bar/"
           },
           {
-            "title": "Component customization",
+            "title": "Component Customization",
             "path": "/react/chart/demos/bar/component-customization/"
+          },
+          {
+            "title": "Series Interaction",
+            "path": "/react/chart/demos/bar/series-interaction/"
+          },
+          {
+            "title": "Rotated Bar",
+            "path": "/react/chart/demos/bar/rotated-bar/"
           }
         ]
       },
@@ -536,6 +564,19 @@
             "path": "/react/chart/demos/combination/multiple-axes/"
           }
         ]
+      },
+      {
+        "title": "More Features",
+        "items": [
+          {
+            "title": "Export",
+            "path": "/react/chart/demos/export/demo/"
+          },
+          {
+            "title": "Zoom and Pan",
+            "path": "/react/chart/demos/more_features/zoom-and-pan/"
+          }
+        ]
       }
     ],
     "docs": [
@@ -571,8 +612,41 @@
             "path": "/react/chart/docs/guides/palette/"
           },
           {
-            "title": "TypeScript",
+            "title": "Animation",
+            "path": "/react/chart/docs/guides/animation/"
+          },
+          {
+            "title": "Hover and Selection",
+            "path": "/react/chart/docs/guides/hover-and-selection/"
+          },
+          {
+            "title": "Tooltip",
+            "path": "/react/chart/docs/guides/tooltip/"
+          },
+          {
+            "title": "Zoom and Pan",
+            "path": "/react/chart/docs/guides/zoom-and-pan/"
+          },
+          {
+            "title": "Rotated",
+            "path": "/react/chart/docs/guides/rotated/"
+          },
+          {
+            "title": "TypeScript Support",
             "path": "/react/chart/docs/guides/typescript/"
+          }
+        ]
+      },
+      {
+        "title": "Common Concepts",
+        "items": [
+          {
+            "title": "Optimize performance",
+            "path": "/react/common/docs/guides/performance-optimization/"
+          },
+          {
+            "title": "Create a Custom Theme",
+            "path": "/react/common/docs/guides/custom-theme/"
           }
         ]
       },
@@ -580,12 +654,20 @@
         "title": "API Reference",
         "items": [
           {
+            "title": "Animation",
+            "path": "/react/chart/docs/reference/animation/"
+          },
+          {
             "title": "AreaSeries",
             "path": "/react/chart/docs/reference/area-series/"
           },
           {
             "title": "ArgumentAxis",
             "path": "/react/chart/docs/reference/argument-axis/"
+          },
+          {
+            "title": "ArgumentScale",
+            "path": "/react/chart/docs/reference/argument-scale/"
           },
           {
             "title": "BarSeries",
@@ -596,8 +678,12 @@
             "path": "/react/chart/docs/reference/chart/"
           },
           {
-            "title": "Grid",
-            "path": "/react/chart/docs/reference/grid/"
+            "title": "EventTracker",
+            "path": "/react/chart/docs/reference/event-tracker/"
+          },
+          {
+            "title": "HoverState",
+            "path": "/react/chart/docs/reference/hover-state/"
           },
           {
             "title": "Legend",
@@ -608,16 +694,20 @@
             "path": "/react/chart/docs/reference/line-series/"
           },
           {
+            "title": "Palette",
+            "path": "/react/chart/docs/reference/palette/"
+          },
+          {
             "title": "PieSeries",
             "path": "/react/chart/docs/reference/pie-series/"
           },
           {
-            "title": "Scale",
-            "path": "/react/chart/docs/reference/scale/"
-          },
-          {
             "title": "ScatterSeries",
             "path": "/react/chart/docs/reference/scatter-series/"
+          },
+          {
+            "title": "SelectionState",
+            "path": "/react/chart/docs/reference/selection-state/"
           },
           {
             "title": "SplineSeries",
@@ -632,8 +722,20 @@
             "path": "/react/chart/docs/reference/title/"
           },
           {
+            "title": "Tooltip",
+            "path": "/react/chart/docs/reference/tooltip/"
+          },
+          {
             "title": "ValueAxis",
             "path": "/react/chart/docs/reference/value-axis/"
+          },
+          {
+            "title": "ValueScale",
+            "path": "/react/chart/docs/reference/value-scale/"
+          },
+          {
+            "title": "ZoomAndPan",
+            "path": "/react/chart/docs/reference/zoom-and-pan/"
           }
         ]
       },
@@ -672,6 +774,10 @@
           {
             "title": "Remote Data",
             "path": "/react/scheduler/demos/featured/remote-data/"
+          },
+          {
+            "title": "Redux Integration",
+            "path": "/react/scheduler/demos/featured/redux-integration/"
           }
         ]
       }
@@ -683,6 +789,55 @@
           {
             "title": "Getting Started",
             "path": "/react/scheduler/docs/guides/getting-started/"
+          },
+          {
+            "title": "Fundamentals",
+            "path": "/react/scheduler/docs/guides/fundamentals/"
+          },
+          {
+            "title": "Views",
+            "path": "/react/scheduler/docs/guides/views/"
+          },
+          {
+            "title": "Appointments",
+            "path": "/react/scheduler/docs/guides/appointments/"
+          },
+          {
+            "title": "View Switching",
+            "path": "/react/scheduler/docs/guides/view-switching/"
+          },
+          {
+            "title": "Date Navigation",
+            "path": "/react/scheduler/docs/guides/date-navigation/"
+          },
+          {
+            "title": "Appointment Tooltip",
+            "path": "/react/scheduler/docs/guides/appointment-tooltip/"
+          },
+          {
+            "title": "Editing",
+            "path": "/react/scheduler/docs/guides/editing/"
+          },
+          {
+            "title": "Localization",
+            "path": "/react/scheduler/docs/guides/localization/"
+          },
+          {
+            "title": "TypeScript Support",
+            "path": "/react/scheduler/docs/guides/typescript/"
+          }
+        ]
+      },
+      {
+        "title": "Common Concepts",
+        "items": [
+          {
+            "title": "Optimize performance",
+            "path": "/react/common/docs/guides/performance-optimization/"
+          },
+          {
+            "title": "Create a Custom Theme",
+            "path": "/react/common/docs/guides/custom-theme/"
           }
         ]
       },
@@ -724,6 +879,22 @@
           {
             "title": "EditingState",
             "path": "/react/scheduler/docs/reference/editing-state/"
+          },
+          {
+            "title": "DragDropProvider",
+            "path": "/react/scheduler/docs/reference/drag-drop-provider/"
+          },
+          {
+            "title": "EditRecurrenceMenu",
+            "path": "/react/scheduler/docs/reference/edit-recurrence-menu/"
+          },
+          {
+            "title": "IntegratedEditing",
+            "path": "/react/scheduler/docs/reference/integrated-editing/"
+          },
+          {
+            "title": "TodayButton",
+            "path": "/react/scheduler/docs/reference/today-button/"
           },
           {
             "title": "Toolbar",

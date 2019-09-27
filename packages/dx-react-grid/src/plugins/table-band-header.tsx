@@ -10,10 +10,24 @@ import {
   BAND_GROUP_CELL, BAND_HEADER_CELL,
   BAND_EMPTY_CELL, BAND_DUPLICATE_RENDER,
   TABLE_BAND_TYPE,
+  BAND_FILL_LEVEL_CELL,
+  bandLevelsVisibility,
+  columnBandLevels,
+  columnVisibleIntervals,
 } from '@devexpress/dx-grid-core';
-import { TableBandHeaderProps, TableCellProps, TableRowProps } from '../types';
+import { TableBandHeaderProps, TableBandHeader as BandHeaderNS, TableRowProps } from '../types';
 
-const CellPlaceholder = (props: TableCellProps) => <TemplatePlaceholder params={props} />;
+const CellPlaceholder = (props: BandHeaderNS.CellProps) => <TemplatePlaceholder params={props} />;
+
+const bandLevelsVisibilityComputed = (
+  { columnVisibleIntervals: columnIntervals, tableHeaderColumnChains, bandLevels }: Getters,
+) => bandLevelsVisibility(
+  columnIntervals, tableHeaderColumnChains, bandLevels,
+);
+
+const columnVisibleIntervalsComputed = (
+  { viewport, tableColumns }: Getters,
+) => columnVisibleIntervals(viewport, tableColumns);
 
 class TableBandHeaderBase extends React.PureComponent<TableBandHeaderProps> {
   static ROW_TYPE = TABLE_BAND_TYPE;
@@ -43,6 +57,7 @@ class TableBandHeaderBase extends React.PureComponent<TableBandHeaderProps> {
     ) => tableHeaderColumnChainsWithBands(
       tableHeaderRows, tableColumns, columnBands,
     );
+    const bandLevels = columnBandLevels(columnBands);
 
     return (
       <Plugin
@@ -55,29 +70,37 @@ class TableBandHeaderBase extends React.PureComponent<TableBandHeaderProps> {
         ]}
       >
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
+        {/* internal */}
+        <Getter name="columnVisibleIntervals" computed={columnVisibleIntervalsComputed} />
         <Getter name="tableHeaderColumnChains" computed={tableHeaderColumnChainsComputed} />
+        <Getter name="bandLevels" value={bandLevels} />
+        <Getter name="bandLevelsVisibility" computed={bandLevelsVisibilityComputed} />
 
         <Template
           name="tableCell"
           predicate={({ tableRow }: any) => !!isBandedOrHeaderRow(tableRow)}
         >
-          {(params: TableCellProps) => (
+          {(params: BandHeaderNS.CellProps) => (
             <TemplateConnector>
               {({
                 tableColumns,
                 tableHeaderRows,
                 tableHeaderColumnChains,
+                columnVisibleIntervals: columnIntervals, bandLevelsVisibility: levelsVisibility,
               }) => {
                 const bandComponent = getBandComponent(
                   params,
                   tableHeaderRows, tableColumns,
-                  columnBands, tableHeaderColumnChains,
+                  columnBands, tableHeaderColumnChains, columnIntervals,
+                  levelsVisibility,
                 );
                 switch (bandComponent.type) {
                   case BAND_DUPLICATE_RENDER:
-                    return <TemplatePlaceholder />;
+                    return <TemplatePlaceholder params={{ ...params }} />;
+
                   case BAND_EMPTY_CELL:
                     return <InvisibleCell />;
+
                   case BAND_GROUP_CELL: {
                     const { value, ...payload } = bandComponent.payload!;
                     return (
@@ -86,12 +109,24 @@ class TableBandHeaderBase extends React.PureComponent<TableBandHeaderProps> {
                       </Cell>
                     );
                   }
+
                   case BAND_HEADER_CELL:
                     return (
                       <TemplatePlaceholder
                         name="tableCell"
                         params={{ ...params, ...bandComponent.payload }}
                       />
+                    );
+
+                  case BAND_FILL_LEVEL_CELL:
+                    return (
+                      <Cell
+                        {...params}
+                        {...bandComponent.payload}
+                        style={{ whiteSpace: 'pre' }}
+                      >
+                        {' '}
+                      </Cell>
                     );
                   default:
                     return null;
@@ -104,7 +139,9 @@ class TableBandHeaderBase extends React.PureComponent<TableBandHeaderProps> {
           name="tableCell"
           predicate={({ tableRow, tableColumn }: any) => isHeadingTableCell(tableRow, tableColumn)}
         >
-          {(params: TableCellProps) => <HeaderCell component={CellPlaceholder} {...params} />}
+          {(params: BandHeaderNS.CellProps) => (
+            <HeaderCell component={CellPlaceholder} {...params} />
+          )}
         </Template>
         <Template
           name="tableRow"

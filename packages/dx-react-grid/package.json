@@ -48,9 +48,9 @@
     "lint:fix": "yarn lint -- --fix"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.0",
-    "@babel/plugin-transform-runtime": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
+    "@babel/core": "^7.6.2",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
     "@devexpress/dx-core": "2.0.5",
     "@devexpress/dx-react-core": "2.0.5",
@@ -70,7 +70,7 @@
     "rollup-plugin-typescript2": "^0.24.2",
     "ts-jest": "^24.1.0",
     "tslint": "^5.20.0",
-    "tslint-config-airbnb": "^5.11.1",
+    "tslint-config-airbnb": "^5.11.2",
     "typescript": "3.6.3"
   },
   "dependencies": {

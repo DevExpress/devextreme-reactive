@@ -48,7 +48,7 @@
     "rollup-plugin-typescript2": "^0.24.2",
     "seamless-immutable": "^7.1.4",
     "tslint": "^5.20.0",
-    "tslint-config-airbnb": "^5.11.1",
+    "tslint-config-airbnb": "^5.11.2",
     "typescript": "3.6.3",
     "typescript-tslint-plugin": "^0.5.4"
   },

@@ -9,7 +9,7 @@ import { Overlay } from '../templates/appointment-form/overlay';
 import { DateEditor } from '../templates/appointment-form/common/date-editor';
 import { Label } from '../templates/appointment-form/common/label';
 import { BooleanEditor } from '../templates/appointment-form/common/boolean-editor';
-import { Select } from '../templates/appointment-form/common/select/select';
+import { Select } from '../templates/common/select/select';
 import { Layout as RecurrenceLayout } from '../templates/appointment-form/recurrence/layout';
 import { RadioGroup } from '../templates/appointment-form/recurrence/radio-group/radio-group';
 import { WeeklyRecurrenceSelector } from '../templates/appointment-form/recurrence/weekly-recurrence-selector';

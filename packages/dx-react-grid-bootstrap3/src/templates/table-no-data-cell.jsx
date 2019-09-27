@@ -31,6 +31,7 @@ export class TableNoDataCell extends React.PureComponent {
         style={{
           padding: '50px 0',
           ...style,
+          position: 'static !important',
         }}
         colSpan={colSpan}
         {...restProps}

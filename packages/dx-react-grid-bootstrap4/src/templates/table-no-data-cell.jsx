@@ -8,7 +8,7 @@ export const TableNoDataCell = ({
   tableColumn, ...restProps
 }) => (
   <td
-    className={classNames('py-5', `${className} dx-g-bs4-no-data-fixed-cell`)}
+    className={classNames('py-5', `${className} dx-g-bs4-no-data-cell`)}
     colSpan={colSpan}
     {...restProps}
   >

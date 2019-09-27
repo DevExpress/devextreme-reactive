@@ -4,7 +4,7 @@ import {
   AppointmentModel, PreCommitChangesFn, Changes, MakeDateSequenceFn, EditFn, DeleteFn, ChangeFn,
 } from '../../types';
 import { RECURRENCE_EDIT_SCOPE } from '../../constants';
-import { getUTCDate, getRRuleSetWithExDates } from '../../utils';
+import { getUTCDate, getRRuleSetWithExDates, formatDateToString } from '../../utils';
 
 const mergeNewChanges = (
   appointmentData: Partial<AppointmentModel>, changes: Changes,
@@ -53,12 +53,12 @@ const configureDateSequence: MakeDateSequenceFn = (rRule, exDate, prevStartDate,
   }));
   if (currentOptions.count || currentOptions.until) {
     return rruleSet.all()
-      .map(nextDate => new Date(moment.utc(nextDate).format('YYYY-MM-DD HH:mm')));
+      .map(nextDate => new Date(formatDateToString(nextDate)));
   }
   const leftBound = prevStartDateUTC;
   const rightBound = new Date(getUTCDate(nextStartDate!));
   return rruleSet.between(leftBound, rightBound, true)
-    .map(nextDate => new Date(moment.utc(nextDate).format('YYYY-MM-DD HH:mm')));
+    .map(nextDate => new Date(formatDateToString(nextDate)));
 };
 
 const configureICalendarRules = (rRule: string | undefined, options: object) => {

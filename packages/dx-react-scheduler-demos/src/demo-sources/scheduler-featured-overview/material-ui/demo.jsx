@@ -18,44 +18,44 @@ import {
 import WbSunny from '@material-ui/icons/WbSunny';
 import FilterDrama from '@material-ui/icons/FilterDrama';
 import Opacity from '@material-ui/icons/Opacity';
-import BrightnessHigh from '@material-ui/icons/BrightnessHigh';
+import ColorLens from '@material-ui/icons/ColorLens';
 import { withStyles } from '@material-ui/core/styles';
 import { owners } from '../../../demo-data/tasks';
 
 const appointments = [
   {
     id: 0,
-    title: 'Website Re-Design Plan',
+    title: 'Watercolor Landscape',
     startDate: new Date(2018, 6, 23, 9, 30),
     endDate: new Date(2018, 6, 23, 11, 30),
     ownerId: 1,
   }, {
     id: 1,
-    title: 'Website Re-Design Plan',
+    title: 'Monthly Planning',
     startDate: new Date(2018, 5, 28, 9, 30),
     endDate: new Date(2018, 5, 28, 11, 30),
     ownerId: 1,
   }, {
     id: 2,
-    title: 'Book Flights to San Fran for Sales Trip',
+    title: 'Recruiting students',
     startDate: new Date(2018, 6, 9, 12, 0),
     endDate: new Date(2018, 6, 9, 13, 0),
     ownerId: 2,
   }, {
     id: 3,
-    title: 'Install New Router in Dev Room',
+    title: 'Oil Painting',
     startDate: new Date(2018, 6, 18, 14, 30),
     endDate: new Date(2018, 6, 18, 15, 30),
     ownerId: 2,
   }, {
     id: 4,
-    title: 'Final Budget Review',
+    title: 'Open Day',
     startDate: new Date(2018, 6, 20, 12, 0),
     endDate: new Date(2018, 6, 20, 13, 35),
     ownerId: 6,
   }, {
     id: 5,
-    title: 'Approve New Online Marketing Strategy',
+    title: 'Watercolor Landscape',
     startDate: new Date(2018, 6, 6, 13, 0),
     endDate: new Date(2018, 6, 6, 14, 0),
     rRule: 'FREQ=DAILY;BYDAY=FR;UNTIL=20180816',
@@ -71,7 +71,7 @@ const appointments = [
     ownerId: 5,
   }, {
     id: 7,
-    title: 'Customer Workshop',
+    title: 'Oil Painting for Beginners',
     startDate: new Date(2018, 6, 3, 11, 0),
     endDate: new Date(2018, 6, 3, 12, 0),
     rRule: 'FREQ=DAILY;BYDAY=TU;UNTIL=20180801',
@@ -79,7 +79,7 @@ const appointments = [
     ownerId: 3,
   }, {
     id: 8,
-    title: 'Customer Workshop',
+    title: 'Watercolor Workshop',
     startDate: new Date(2018, 6, 9, 11, 0),
     endDate: new Date(2018, 6, 9, 12, 0),
     ownerId: 3,
@@ -176,6 +176,13 @@ const styles = theme => ({
       opacity: 0.6,
     },
   },
+  apptContent: {
+    '&>div>div': {
+      whiteSpace: 'normal !important',
+      // max-height: 28px;
+      lineHeight: 1.2,
+    },
+  },
   flexibleSpace: {
     flex: 'none',
   },
@@ -212,8 +219,8 @@ const CellBase = React.memo(({
   // #FOLD_BLOCK
 }) => {
   const iconId = Math.abs(Math.floor(Math.sin(startDate.getDate()) * 10) % 3);
-  const isFirstMothDay = startDate.getDate() === 1;
-  const formatOptions = isFirstMothDay
+  const isFirstMonthDay = startDate.getDate() === 1;
+  const formatOptions = isFirstMonthDay
     ? { day: 'numeric', month: 'long' }
     : { day: 'numeric' };
   return (
@@ -248,11 +255,15 @@ const Appointment = withStyles(styles, { name: 'Appointment' })(({ data, classes
   />
 ));
 
+const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({ classes, ...restProps }) => (
+  <Appointments.AppointmentContent {...restProps} className={classes.apptContent} />
+));
+
 const FlexibleSpace = withStyles(styles, { name: 'ToolbarRoot' })(({ classes, ...restProps }) => (
   <Toolbar.FlexibleSpace {...restProps} className={classes.flexibleSpace}>
     <div className={classes.flexContainer}>
-      <BrightnessHigh fontSize="large" htmlColor="#FDD835" />
-      <Typography variant="h5" style={{ marginLeft: '10px' }}>Weather Forecast</Typography>
+      <ColorLens fontSize="large" htmlColor="#FF7043" />
+      <Typography variant="h5" style={{ marginLeft: '10px' }}>Art School</Typography>
     </div>
   </Toolbar.FlexibleSpace>
 ));
@@ -341,6 +352,7 @@ export default class Demo extends React.PureComponent {
 
           <Appointments
             appointmentComponent={Appointment}
+            appointmentContentComponent={AppointmentContent}
           />
 
           <EditRecurrenceMenu />

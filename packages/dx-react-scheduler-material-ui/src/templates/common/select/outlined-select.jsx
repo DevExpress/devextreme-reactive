@@ -30,6 +30,7 @@ const OutlinedSelectBase = React.memo(({
   onValueChange,
   readOnly,
   classes,
+  inputClasses,
   ...restProps
 }) => {
   const handleChange = (event) => {
@@ -44,7 +45,7 @@ const OutlinedSelectBase = React.memo(({
       onChange={handleChange}
       input={(
         <OutlinedInput
-          classes={{ input: classes.input, root: classes.inputRoot }}
+          classes={inputClasses || { input: classes.input, root: classes.inputRoot }}
           labelWidth={0}
         />
       )}
@@ -72,12 +73,14 @@ OutlinedSelectBase.propTypes = {
     text: PropTypes.string.isRequired,
   })),
   readOnly: PropTypes.bool,
+  inputClasses: PropTypes.object,
 };
 
 OutlinedSelectBase.defaultProps = {
   readOnly: false,
   onValueChange: () => undefined,
   availableOptions: [],
+  inputClasses: null,
 };
 
 export const OutlinedSelect = withStyles(styles)(OutlinedSelectBase, { name: 'OutlinedSelect' });

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
-import MenuItem from '@material-ui/core/MenuItem';
 import { Switcher } from './switcher';
 
 describe('ViewSwitcher', () => {
@@ -30,24 +29,10 @@ describe('ViewSwitcher', () => {
         <Switcher {...defaultProps} />
       ));
 
-      tree.simulate('change', { target: { value: 'next' } });
+      tree.simulate('valueChange', 'next');
 
       expect(defaultProps.onChange)
         .toBeCalledWith('next');
-    });
-    it('should render items depend of available view names', () => {
-      const tree = shallow((
-        <Switcher
-          {...defaultProps}
-          availableViews={[
-            { name: 'Week', displayName: 'Week' },
-            { name: 'Month', displayName: 'Month' },
-          ]}
-        />
-      ));
-
-      expect(tree.find(MenuItem))
-        .toHaveLength(2);
     });
   });
 });

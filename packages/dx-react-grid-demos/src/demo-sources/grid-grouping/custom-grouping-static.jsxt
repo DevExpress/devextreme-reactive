@@ -21,24 +21,24 @@ const getChildGroups = groups => groups
 export default () => {
   const [columns] = useState([
     { name: 'name', title: 'Name' },
-    { name: 'sex', title: 'Sex' },
+    { name: 'gender', title: 'Gender' },
     { name: 'city', title: 'City' },
     { name: 'car', title: 'Car' },
   ]);
   const [data] = useState([{
     key: 'Male',
     items: generateRows({
-      columnValues: { ...defaultColumnValues, sex: ['Male'] },
+      columnValues: { ...defaultColumnValues, gender: ['Male'] },
       length: 5,
     }),
   }, {
     key: 'Female',
     items: generateRows({
-      columnValues: { ...defaultColumnValues, sex: ['Female'] },
+      columnValues: { ...defaultColumnValues, gender: ['Female'] },
       length: 5,
     }),
   }]);
-  const [grouping] = useState([{ columnName: 'sex' }]);
+  const [grouping] = useState([{ columnName: 'gender' }]);
 
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>

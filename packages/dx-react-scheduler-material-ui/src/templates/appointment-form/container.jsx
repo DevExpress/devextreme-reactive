@@ -1,34 +1,35 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import Paper from '@material-ui/core/Paper';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
 
-const styles = theme => ({
-  root: {
-    width: theme.spacing(50),
-    padding: theme.spacing(1),
-    margin: '0 auto',
-    transform: 'translateY(20%)',
-    msTransform: 'translateY(20%)',
+const styles = {
+  absoluteDiv: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    paddingRight: '0px!important',
   },
-});
+};
 
-const ContainerBase = ({
-  children, classes, className, ...restProps
-}) => (
-  <Paper
-    className={classNames(classes.root, className)}
-    {...restProps}
-  >
-    {children}
-  </Paper>
-);
+const ContainerBase = React.forwardRef(({
+  classes,
+  className,
+  ...restProps
+}, ref) => (
+  <div {...restProps}>
+    <div className={classNames(classes.absoluteDiv, className)}>
+      <div
+        className={classes.absoluteDiv}
+        ref={ref}
+      />
+    </div>
+  </div>
+));
 
 ContainerBase.propTypes = {
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
   classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
 };
 
 ContainerBase.defaultProps = {

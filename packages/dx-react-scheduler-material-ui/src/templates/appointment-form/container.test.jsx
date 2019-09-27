@@ -3,6 +3,9 @@ import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Container } from './container';
 
 describe('AppointmentForm', () => {
+  const defaultProps = {
+    anchor: React.createRef(),
+  };
   let classes;
   let shallow;
   beforeAll(() => {
@@ -12,7 +15,7 @@ describe('AppointmentForm', () => {
   describe('Container', () => {
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Container data={{ a: 1 }}>
+        <Container data={{ a: 1 }} {...defaultProps}>
           <div />
         </Container>
       ));
@@ -21,17 +24,17 @@ describe('AppointmentForm', () => {
         .toMatchObject({ a: 1 });
     });
 
-    it('should pass className to the root element', () => {
+    it('should pass className', () => {
       const tree = shallow((
-        <Container className="custom-class">
+        <Container className="custom-class" {...defaultProps}>
           <div />
         </Container>
       ));
 
-      expect(tree.is('.custom-class'))
+      expect(tree.find('.custom-class').exists())
         .toBeTruthy();
-      expect(tree.is(`.${classes.root}`))
-        .toBeTruthy();
+      expect(tree.find(`.${classes.absoluteDiv}`))
+        .toHaveLength(2);
     });
   });
 });

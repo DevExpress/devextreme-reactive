@@ -1,4 +1,4 @@
-import { Table } from '../index';
+import { Table, BandHeaderRow } from '../index';
 
 // tslint:disable-next-line: no-namespace
 export namespace TableBandHeader {
@@ -8,6 +8,8 @@ export namespace TableBandHeader {
     children?: React.ReactNode;
     /** Specifies whether to show the left border. */
     beforeBorder?: boolean;
+    /** @internal */
+    tableRow: BandHeaderRow;
   }
 
   /** Describes properties of column bands that the TableBandHeader plugin renders. */

@@ -1,14 +1,15 @@
 # React Grid - Editing
 
-The Grid supports editing features including creating, updating and deleting rows. Use the corresponding plugins to manage the editing state and perform editing operations programmatically or via the UI controls. The editing state contains information about rows currently being edited, changes applied to a particular row, and rows that have been deleted and created but not yet committed. Once a user accepts row addition or deletion, or changes made to a row (clicking the Save or Delete button), the Grid fires the `EditingState` plugin's `onCommitChanges` event and resets the row's editing state.
+The Grid allows users to create, update, and delete rows. You can manage the editing state and edit data programmatically. The editing state contains information about rows and cells being edited, and rows that have been created or deleted but not yet committed. Once a user finishes editing a row (clicks the Save or Delete button), the `EditingState` plugin raises the `onCommitChanges` event, and resets the row's editing state. This same event is also raised when a user finishes editing a cell in inline editing mode.
 
 ## Related Plugins
 
 The following plugins implement editing features:
 
 - [EditingState](../reference/editing-state.md) - controls the editing state
-- [TableEditRow](../reference/table-edit-row.md) - renders a row being edited
+- [TableEditRow](../reference/table-edit-row.md) - renders the row being edited
 - [TableEditColumn](../reference/table-edit-column.md) - renders a command column (a column containing controls used for row editing/creating/deleting and committing/canceling changes)
+- [TableInlineCellEditing](../reference/table-inline-cell-editing.md) - renders the cell being edited
 
 Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
@@ -41,6 +42,18 @@ In [controlled mode](controlled-and-uncontrolled-modes.md), specify the followin
 Note, you can also use the `onAddedRowsChange` event to initialize a created row with default property values.
 
 .embedded-demo({ "path": "grid-editing/edit-row-controlled", "showThemeSelector": true })
+
+## Inline Cell Editing
+
+
+End-users can click cells and thus activate in-place editors, provided that you include the `TableInlineCellEditing` plugin into the Grid's configuration. To save changes, they can move focus or press Enter. Esc discards changes and deactivates the cell editor.
+
+.embedded-demo({ "path": "grid-editing/inline-cell-editing", "showThemeSelector": true })
+
+
+`TableInlineCellEditing` can be coupled with the `TableEditRow` and `TableEditColumn` plugins to provide richer functionality. For example, in the following code, users can not only activate in-place editors for individual cells, but also switch entire rows to edit mode:
+
+.embedded-demo({ "path": "grid-editing/edit-row-with-inline-cell-editing", "showThemeSelector": true })
 
 ## Disable Editing in a Column
 

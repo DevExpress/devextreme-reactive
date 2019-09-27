@@ -97,7 +97,6 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
       onCommitChanges({
         added: stateAddedAppointment,
       });
-      this.cancelAddedAppointment();
     };
 
     this.commitDeletedAppointment = ({ deletedAppointmentData, type = 'current' }) => {

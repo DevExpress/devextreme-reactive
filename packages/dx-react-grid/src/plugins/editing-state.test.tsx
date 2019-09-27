@@ -8,6 +8,7 @@ import {
   createRowChangeGetter,
   getColumnExtensionValueGetter,
   startEditRows, stopEditRows,
+  startEditCells, stopEditCells,
   deleteRows, cancelDeletedRows,
   changeRow, cancelChanges,
   addRow, changeAddedRow, cancelAddedRows,
@@ -18,6 +19,8 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   ...require.requireActual('@devexpress/dx-grid-core'),
   startEditRows: jest.fn(),
   stopEditRows: jest.fn(),
+  startEditCells: jest.fn(),
+  stopEditCells: jest.fn(),
   deleteRows: jest.fn(),
   cancelDeletedRows: jest.fn(),
   createRowChangeGetter: jest.fn(),
@@ -88,6 +91,25 @@ describe('EditingState', () => {
     }, {
       actionName: 'stopEditRows',
       reducer: stopEditRows,
+    }],
+  });
+
+  testStatePluginField({
+    defaultDeps,
+    defaultProps,
+    Plugin: EditingState,
+    propertyName: 'editingCells',
+    values: [
+      [{ rowId: 0, columnName: 'a' }],
+      [{ rowId: 1, columnName: 'a' }],
+      [{ rowId: 2, columnName: 'a' }],
+    ],
+    actions: [{
+      actionName: 'startEditCells',
+      reducer: startEditCells,
+    }, {
+      actionName: 'stopEditCells',
+      reducer: stopEditCells,
     }],
   });
 

@@ -18,7 +18,7 @@ export default {
       columns: [
         { name: 'name', title: 'Name' },
         { name: 'car', title: 'Car' },
-        { name: 'sex', title: 'Sex' },
+        { name: 'gender', title: 'Gender' },
         { name: 'city', title: 'City' },
       ],
       filteringStateColumnExtensions: [

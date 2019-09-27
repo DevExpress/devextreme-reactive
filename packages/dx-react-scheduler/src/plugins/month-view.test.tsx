@@ -38,6 +38,7 @@ const defaultDeps = {
       [{}, { startDate: new Date('2018-08-05') }],
     ],
     formatDate: jest.fn(),
+    firstDayOfWeek: 2,
   },
   template: {
     body: {},
@@ -116,7 +117,6 @@ describe('Month View', () => {
       computed.mockImplementation(
         (getters, viewName, baseComputed) => getters.currentView.name === viewName && baseComputed(getters, viewName),
       );
-      const firstDayOfWeek = 2;
       const intervalCount = 2;
       const expectedMonthCellsData = 'monthCellsData';
       monthCellsData.mockImplementation(() => expectedMonthCellsData);
@@ -124,7 +124,6 @@ describe('Month View', () => {
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <MonthView
-            firstDayOfWeek={firstDayOfWeek}
             intervalCount={intervalCount}
             {...defaultProps}
           />
@@ -136,27 +135,11 @@ describe('Month View', () => {
       expect(monthCellsDataCalls[0][0])
         .toBe('2018-07-04');
       expect(monthCellsDataCalls[0][1])
-        .toBe(firstDayOfWeek);
+        .toBe(defaultDeps.getter.firstDayOfWeek);
       expect(monthCellsDataCalls[0][2])
         .toBe(intervalCount);
       expect(getComputedState(tree).viewCellsData)
         .toEqual(expectedMonthCellsData);
-    });
-
-    it('should provide the "firstDayOfWeek" getter', () => {
-      const firstDayOfWeek = 2;
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <MonthView
-            firstDayOfWeek={firstDayOfWeek}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).firstDayOfWeek)
-        .toBe(firstDayOfWeek);
     });
 
     it('should provide the "startViewDate" getter', () => {
@@ -183,22 +166,6 @@ describe('Month View', () => {
       ));
       expect(getComputedState(tree).endViewDate)
         .toEqual(new Date('2018-08-06'));
-    });
-
-    it('should provide the "firstDayOfWeek" getter', () => {
-      const firstDayOfWeek = 2;
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <MonthView
-            firstDayOfWeek={firstDayOfWeek}
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(getComputedState(tree).firstDayOfWeek)
-        .toBe(firstDayOfWeek);
     });
 
     it('should provide the "intervalCount" getter', () => {

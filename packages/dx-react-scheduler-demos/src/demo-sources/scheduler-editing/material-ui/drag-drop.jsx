@@ -127,7 +127,7 @@ export default class Demo extends React.PureComponent {
           <EditRecurrenceMenu />
           <WeekView
             startDayHour={9}
-            endDayHour={17}
+            endDayHour={16}
           />
           <Appointments
             appointmentComponent={appointmentComponent}

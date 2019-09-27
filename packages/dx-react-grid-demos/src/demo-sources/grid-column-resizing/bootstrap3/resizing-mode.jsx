@@ -69,14 +69,14 @@ const ResizingPanel = props => (
 export default () => {
   const [columns] = useState([
     { name: 'name', title: 'Name' },
-    { name: 'sex', title: 'Sex' },
+    { name: 'gender', title: 'Gender' },
     { name: 'city', title: 'City' },
     { name: 'car', title: 'Car' },
   ]);
   const [rows] = useState(generateRows({ length: 6 }));
   const [defaultColumnWidths] = useState([
     { columnName: 'name', width: 180 },
-    { columnName: 'sex', width: 180 },
+    { columnName: 'gender', width: 180 },
     { columnName: 'city', width: 180 },
     { columnName: 'car', width: 240 },
   ]);

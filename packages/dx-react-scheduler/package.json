@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-scheduler",
-  "version": "2.0.5",
+  "version": "2.1.0",
   "description": "Composable plugin-based scheduler component for React",
   "author": {
     "name": "Developer Express Inc.",
@@ -46,13 +46,13 @@
     "lint:fix": "yarn lint -- --fix"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.0",
-    "@babel/plugin-transform-runtime": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
+    "@babel/core": "^7.6.2",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
-    "@devexpress/dx-core": "2.0.5",
-    "@devexpress/dx-react-core": "2.0.5",
-    "@devexpress/dx-testing": "2.0.5",
+    "@devexpress/dx-core": "2.1.0",
+    "@devexpress/dx-react-core": "2.1.0",
+    "@devexpress/dx-testing": "2.1.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.9.0",
     "core-js": "^3.2.1",
@@ -67,15 +67,15 @@
     "rollup-plugin-license": "^0.12.1",
     "ts-jest": "^24.1.0",
     "tslint": "^5.20.0",
-    "tslint-config-airbnb": "^5.11.1",
+    "tslint-config-airbnb": "^5.11.2",
     "typescript": "3.6.3"
   },
   "dependencies": {
-    "@devexpress/dx-scheduler-core": "2.0.5"
+    "@devexpress/dx-scheduler-core": "2.1.0"
   },
   "peerDependencies": {
-    "@devexpress/dx-core": "2.0.5",
-    "@devexpress/dx-react-core": "2.0.5",
+    "@devexpress/dx-core": "2.1.0",
+    "@devexpress/dx-react-core": "2.1.0",
     "moment": "^2.24.0",
     "react": ">=16.9.0",
     "react-dom": ">=16.9.0"

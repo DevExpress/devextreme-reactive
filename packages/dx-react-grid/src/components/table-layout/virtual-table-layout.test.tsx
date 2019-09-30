@@ -5,10 +5,10 @@ import { Sizer } from '@devexpress/dx-react-core';
 import {
   getCollapsedGrids,
   TABLE_FLEX_TYPE,
+  emptyViewport,
 } from '@devexpress/dx-grid-core';
 import { setupConsole } from '@devexpress/dx-testing';
 import { VirtualTableLayout } from './virtual-table-layout';
-import { emptyViewport } from '../../plugins/virtual-table/virtual-table';
 
 jest.mock('react-dom', () => ({
   findDOMNode: jest.fn(),

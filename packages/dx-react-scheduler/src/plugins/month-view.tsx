@@ -25,7 +25,6 @@ const viewCellsDataBaseComputed = (
 class MonthViewBase extends React.PureComponent<MonthViewProps> {
   static defaultProps: Partial<MonthViewProps> = {
     intervalCount: 1,
-    firstDayOfWeek: 0,
     name: 'Month',
   };
 
@@ -54,7 +53,6 @@ class MonthViewBase extends React.PureComponent<MonthViewProps> {
       name: viewName,
       intervalCount,
       displayName,
-      firstDayOfWeek,
     } = this.props;
 
     return (
@@ -67,7 +65,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps> {
           name={viewName}
           intervalCount={intervalCount}
           displayName={displayName}
-          firstDayOfWeek={firstDayOfWeek}
+          // firstDayOfWeek={firstDayOfWeek}
           dayScaleLayoutComponent={dayScaleLayoutComponent}
           dayScaleCellComponent={dayScaleCellComponent}
           dayScaleRowComponent={dayScaleRowComponent}

@@ -24,6 +24,7 @@ const defaultDeps = {
   getter: {
     currentDate: '2018-07-04',
     formatDate: jest.fn(),
+    firstDayOfWeek: 2,
   },
   template: {
     body: {},
@@ -74,7 +75,6 @@ describe('Month View', () => {
           name: 'Month',
           intervalCount: 1,
           displayName: undefined,
-          firstDayOfWeek: 0,
           layoutComponent: defaultProps.layoutComponent,
           dayScaleLayoutComponent: defaultProps.dayScaleLayoutComponent,
           dayScaleCellComponent: defaultProps.dayScaleCellComponent,

@@ -20,6 +20,7 @@ const defaultDeps = {
   getter: {
     currentDate: '2018-07-04',
     formatDate: jest.fn(),
+    firstDayOfWeek: 2,
   },
   template: {
     body: {},
@@ -72,7 +73,6 @@ describe('Week View', () => {
           cellDuration: 30,
           startDayHour: 0,
           endDayHour: 24,
-          firstDayOfWeek: 0,
           excludedDays: [],
           layoutComponent: defaultProps.layoutComponent,
           dayScaleLayoutComponent: defaultProps.dayScaleLayoutComponent,

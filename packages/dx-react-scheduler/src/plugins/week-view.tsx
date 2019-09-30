@@ -32,7 +32,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
     endDayHour: 24,
     cellDuration: 30,
     intervalCount: 1,
-    firstDayOfWeek: 0,
     excludedDays: [],
     name: 'Week',
   };
@@ -75,7 +74,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
       displayName,
       startDayHour,
       endDayHour,
-      firstDayOfWeek,
     } = this.props;
 
     return (
@@ -87,7 +85,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
           type={TYPE}
           cellDuration={cellDuration}
           name={viewName}
-          firstDayOfWeek={firstDayOfWeek}
           intervalCount={intervalCount}
           displayName={displayName}
           startDayHour={startDayHour}

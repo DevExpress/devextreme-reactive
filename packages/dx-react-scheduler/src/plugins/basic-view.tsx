@@ -43,9 +43,6 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, ViewState> {
   timeTableElementsMetaComputed = memoize((viewName, timeTableElementsMeta) => getters =>
     computed(getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta));
 
-  firstDayOfWeekComputed = memoize((viewName, firstDayOfWeek) => getters =>
-    computed(getters, viewName!, () => firstDayOfWeek, getters.firstDayOfWeek));
-
   intervalCountComputed = memoize((viewName, intervalCount) => getters =>
     computed(getters, viewName!, () => intervalCount, getters.intervalCount));
 
@@ -104,7 +101,6 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, ViewState> {
   render() {
     const {
       name: viewName,
-      firstDayOfWeek,
       intervalCount,
       displayName,
       type,
@@ -140,10 +136,6 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, ViewState> {
         <Getter
           name="intervalCount"
           computed={this.intervalCountComputed(viewName, intervalCount)}
-        />
-        <Getter
-          name="firstDayOfWeek"
-          computed={this.firstDayOfWeekComputed(viewName, firstDayOfWeek)}
         />
         <Getter name="excludedDays" computed={this.excludedDaysComputed(viewName, excludedDays)} />
         <Getter

@@ -133,6 +133,25 @@ describe('EditCell', () => {
       .toBeTruthy();
   });
 
+  it('should provide additional props to children', () => {
+    const tree = mount((
+      <EditCell
+        {...defaultProps}
+      >
+        <span className="test" />
+      </EditCell>
+    ));
+
+    expect(tree.find('.test').prop('autoFocus'))
+      .toBeDefined();
+    expect(tree.find('.test').prop('onFocus'))
+      .toBeDefined();
+    expect(tree.find('.test').prop('onBlur'))
+      .toBeDefined();
+    expect(tree.find('.test').prop('onKeyDown'))
+      .toBeDefined();
+  });
+
   it('should pass the className prop to the root element', () => {
     const cell = mount((
       <EditCell

@@ -125,7 +125,7 @@ export class DemoViewer extends React.Component {
                             </Nav>
                             <TabContent
                               activeTab={activeTab}
-                              style={{ marginTop: '20px' }}
+                              style={{ marginTop: '40px' }}
                             >
                               <TabPane tabId="preview">
                                 <DemoFrame

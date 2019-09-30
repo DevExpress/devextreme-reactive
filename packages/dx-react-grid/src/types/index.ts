@@ -1,5 +1,5 @@
 export {
-  Column, TableColumn, TableRow, SummaryType, ColumnSummary,
+  Column, TableColumn, TableRow, SummaryType, ColumnSummary, EditingCell,
   ColumnDimensions, ColumnAnimationStyleMap, SummaryItem, IntegratedFiltering,
   GroupKey, Grouping, GroupingPanelItem, Filter, ColumnFilterOperations,
   Sorting, TargetColumnGeometry, FilterOperation, ColumnChooserItem,

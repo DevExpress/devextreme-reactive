@@ -307,15 +307,15 @@ export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
 const expandRecurrenceAppointment = (
   appointment: AppointmentMoment, leftBound: Date, rightBound: Date,
 ) => {
-  const rightBoundUTC = new Date(getUTCDate(rightBound));
-  const leftBoundUTC = new Date(getUTCDate(leftBound));
+  const rightBoundUTC = moment(getUTCDate(rightBound)).toDate();
+  const leftBoundUTC = moment(getUTCDate(leftBound)).toDate();
   const appointmentStartDate = moment(appointment.start).toDate();
   const options = {
     ...RRule.parseString(appointment.rRule),
-    dtstart: new Date(getUTCDate(appointmentStartDate)),
+    dtstart: moment(getUTCDate(appointmentStartDate)).toDate(),
   };
   const correctedOptions = options.until
-    ? { ...options, until: new Date(getUTCDate(options.until)) }
+    ? { ...options, until: moment(getUTCDate(options.until)).toDate() }
     : options;
 
   const rruleSet = getRRuleSetWithExDates(appointment.exDate);
@@ -374,7 +374,7 @@ export const getRRuleSetWithExDates: PureComputed<
   if (exDate) {
     exDate.split(',').map((date: string) => {
       const currentExDate = moment(date).toDate();
-      rruleSet.exdate(new Date(getUTCDate(currentExDate)));
+      rruleSet.exdate(moment(getUTCDate(currentExDate)).toDate());
     });
   }
   return rruleSet;

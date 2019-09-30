@@ -69,7 +69,7 @@ export const getAvailableRecurrenceOptions: OptionsFormatterFn = getMessage =>
     id: type,
   }));
 
-export const getCountDependingOnRecurrenceType = (frequency: number | undefined) => {
+export const getCountDependingOnRecurrenceType = (frequency: number) => {
   switch (frequency) {
     case RRULE_REPEAT_TYPES.YEARLY:
       return BASIC_YEALY_COUNT;

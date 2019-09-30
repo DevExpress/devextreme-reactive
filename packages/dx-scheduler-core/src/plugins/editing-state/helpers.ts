@@ -4,7 +4,7 @@ import {
   AppointmentModel, PreCommitChangesFn, Changes, MakeDateSequenceFn, EditFn, DeleteFn, ChangeFn,
 } from '../../types';
 import { RECURRENCE_EDIT_SCOPE } from '../../constants';
-import { getUTCDate, getRRuleSetWithExDates } from '../../utils';
+import { getUTCDate, getRRuleSetWithExDates, formatDateToString } from '../../utils';
 
 const mergeNewChanges = (
   appointmentData: Partial<AppointmentModel>, changes: Changes,
@@ -44,21 +44,22 @@ const configureDateSequence: MakeDateSequenceFn = (rRule, exDate, prevStartDate,
 
   const currentOptions = RRule.parseString(rRule as string);
   const correctedOptions = currentOptions.until
-    ? { ...currentOptions, until: new Date(getUTCDate(currentOptions.until)) }
+    ? { ...currentOptions, until: moment(getUTCDate(currentOptions.until)).toDate() }
     : currentOptions;
-  const prevStartDateUTC = new Date(getUTCDate(prevStartDate!));
+  const prevStartDateUTC = moment(getUTCDate(prevStartDate!)).toDate();
   rruleSet.rrule(new RRule({
     ...correctedOptions,
     dtstart: prevStartDateUTC,
   }));
   if (currentOptions.count || currentOptions.until) {
     return rruleSet.all()
-      .map(nextDate => new Date(moment.utc(nextDate).format('YYYY-MM-DD HH:mm')));
+      // we shouldn't use `new Date(string)` because this function has different results in Safari
+      .map(nextDate => moment(formatDateToString(nextDate)).toDate());
   }
   const leftBound = prevStartDateUTC;
-  const rightBound = new Date(getUTCDate(nextStartDate!));
+  const rightBound = moment(getUTCDate(nextStartDate!)).toDate();
   return rruleSet.between(leftBound, rightBound, true)
-    .map(nextDate => new Date(moment.utc(nextDate).format('YYYY-MM-DD HH:mm')));
+    .map(nextDate => moment(formatDateToString(nextDate)).toDate());
 };
 
 const configureICalendarRules = (rRule: string | undefined, options: object) => {

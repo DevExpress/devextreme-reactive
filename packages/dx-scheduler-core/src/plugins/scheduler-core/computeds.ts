@@ -1,5 +1,4 @@
 import { PureComputed } from '@devexpress/dx-core';
-import moment from 'moment';
 import { AppointmentModel, Appointment, FormatDateTimeGetterFn, FormatterFn } from '../../types';
 import { dateTimeFormatInstance } from './helpers';
 
@@ -25,7 +24,7 @@ export const formatDateTimeGetter: FormatDateTimeGetterFn = (locale) => {
 
   const formatter: FormatterFn = (nextDate, nextOptions) => {
     if (nextDate === undefined) return '';
-    const date = moment(nextDate).toDate();
+    const date = new Date(nextDate);
     let formatInstance = cache.get(nextOptions);
 
     if (!formatInstance) {

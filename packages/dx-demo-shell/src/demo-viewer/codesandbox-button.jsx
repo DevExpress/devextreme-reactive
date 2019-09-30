@@ -4,7 +4,7 @@ import { getParameters } from 'codesandbox/lib/api/define';
 import './codesandbox-button.css';
 
 export const CodeSandBoxButton = ({
-  code, html, helperFiles, themeName,
+  code, html, helperFiles, externalDeps, themeName,
   sectionName, demoName,
 }) => {
   const helpers = Object.entries(helperFiles).reduce((acc, [name, content]) => ({
@@ -17,8 +17,8 @@ export const CodeSandBoxButton = ({
       'package.json': {
         content: {
           dependencies: {
-            react: 'latest',
             'react-dom': 'latest',
+            ...externalDeps,
           },
         },
       },

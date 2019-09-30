@@ -78,14 +78,28 @@ export class DemoCodeProvider extends React.PureComponent {
     };
   }
 
+  getExternalDependencies() {
+    const { themeName, sectionName, demoName } = this.props;
+    const { demoSources, themeComponents, demoData } = this.context;
+    const importedHelpers = demoSources[sectionName][demoName][themeName].helperFiles;
+    const { externalDeps } = importedHelpers;
+    const { depsVersions } = demoData;
+
+    return externalDeps.reduce((acc, dep) => ({
+      ...acc,
+      [dep]: depsVersions[dep]
+    }), {});
+  }
+
   render() {
     const { children } = this.props;
     const html = this.getHtml();
     const code = this.getCode();
     const helperFiles = this.getHelperFiles();
+    const externalDeps = this.getExternalDependencies();
     // console.log('helpers', helperFiles)
 
-    return children({ html, code, helperFiles });
+    return children({ html, code, helperFiles, externalDeps });
   }
 }
 

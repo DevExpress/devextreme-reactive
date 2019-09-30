@@ -83,3 +83,7 @@ export const getCountDependingOnRecurrenceType = (frequency: number) => {
       return 1;
   }
 };
+
+export const checkNumber: PureComputed<
+  [number], boolean
+> = number => number > 0 && number <= Number.MAX_SAFE_INTEGER;

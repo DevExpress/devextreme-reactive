@@ -4,7 +4,7 @@ import {
   JANUARY_DATE, LONG_MONTH_OPTIONS, FEBRUARY_DATE, MARCH_DATE, APRIL_DATE,
   MAY_DATE, AUGUST_DATE, OCTOBER_DATE, NOVEMBER_DATE, DECEMBER_DATE, SEPTEMBER_DATE,
   JULY_DATE, JUNE_DATE, RRULE_REPEAT_TYPES, BASIC_DAILY_COUNT, BASIC_WEEKLY_COUNT,
-  BASIC_MONTHLY_COUNT, BASIC_YEALY_COUNT,
+  BASIC_MONTHLY_COUNT, BASIC_YEALY_COUNT, checkNumber,
 } from '@devexpress/dx-scheduler-core';
 import {
   getDaysOfWeek, getMonths, getWeekNumberLabels, getMonthsWithOf, getCountDependingOnRecurrenceType,
@@ -168,6 +168,20 @@ describe('AppointmentForm utils', () => {
     it('should return count = 5 for yearly appointments', () => {
       expect(getCountDependingOnRecurrenceType(RRULE_REPEAT_TYPES.YEARLY))
         .toEqual(BASIC_YEALY_COUNT);
+    });
+  });
+  describe('#checkNumber', () => {
+    it('should return true if a number is bigger than 0 and less or equal to max integer', () => {
+      expect(checkNumber(1))
+        .toBeTruthy();
+      expect(checkNumber(Number.MAX_SAFE_INTEGER))
+        .toBeTruthy();
+    });
+    it('should return false otherwise', () => {
+      expect(checkNumber(0))
+        .toBeFalsy();
+      expect(checkNumber(-5))
+        .toBeFalsy();
     });
   });
 });

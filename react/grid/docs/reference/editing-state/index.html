@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1569325653">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1569325653">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1569831070">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1569831070">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <!-- Google Tag Manager -->
@@ -141,6 +141,12 @@
       <td>Handles adding or removing a row to/from the <code class="highlighter-rouge">editingRowIds</code> array.</td>
     </tr>
     <tr>
+      <td>onEditingCellsChange?</td>
+      <td>(editingCells: Array&lt;{rowId: number, columnName: string}&gt;) =&gt; void</td>
+      <td> </td>
+      <td>Handles the add or remove a row to/from the <code class="highlighter-rouge">editingCells</code> array function.</td>
+    </tr>
+    <tr>
       <td>addedRows?</td>
       <td>Array&lt;any&gt;</td>
       <td> </td>
@@ -181,6 +187,18 @@
       <td>(changes: <a href="#changeset">ChangeSet</a>) =&gt; void</td>
       <td> </td>
       <td>Handles row changes committing.</td>
+    </tr>
+    <tr>
+      <td>editingCells?</td>
+      <td>Array&lt;{rowId: number | string, columnName: string}&gt;</td>
+      <td> </td>
+      <td>Edited cells identified by the row ID and column name.</td>
+    </tr>
+    <tr>
+      <td>defaultEditingCells?</td>
+      <td>Array&lt;{rowId: number | string, columnName: string}&gt;</td>
+      <td> </td>
+      <td>Cells initially added to the <code class="highlighter-rouge">editingCells</code> array in uncontrolled mode. The cells are identified by the row ID and column name.</td>
     </tr>
   </tbody>
 </table>
@@ -274,6 +292,12 @@
       <td>Rows being edited.</td>
     </tr>
     <tr>
+      <td>editingCells</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
+      <td>Array&lt;{rowId: number | string, columnName: string}&gt;</td>
+      <td>Edited cells identified by the row ID and column name.</td>
+    </tr>
+    <tr>
       <td>startEditRows</td>
       <td><a href="/devextreme-reactive/react/core/docs/reference/action/">Action</a></td>
       <td>({ rowIds: Array&lt;number | string&gt; }) =&gt; void</td>
@@ -284,6 +308,18 @@
       <td><a href="/devextreme-reactive/react/core/docs/reference/action/">Action</a></td>
       <td>({ rowIds: Array&lt;number | string&gt; }) =&gt; void</td>
       <td>Disables the edit mode for the rows the ID specifies.</td>
+    </tr>
+    <tr>
+      <td>startEditCells</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/action/">Action</a></td>
+      <td>({ editingCells: Array&lt;{rowId: number | string, columnName: string}&gt; }) =&gt; void</td>
+      <td>Switches cells identified by the row ID and column name to edit mode.</td>
+    </tr>
+    <tr>
+      <td>stopEditCells</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/action/">Action</a></td>
+      <td>({ editingCells: Array&lt;{rowId: number | string, columnName: string}&gt; }) =&gt; void</td>
+      <td>Switches cells identified by the row ID and column name to normal mode.</td>
     </tr>
     <tr>
       <td>addedRows</td>
@@ -388,9 +424,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.0.5">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.1.0">
             Version
-            <span>2.0.5</span>
+            <span>2.1.0</span>
           </a>
         </li>
       </ul>
@@ -939,6 +975,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-inline-cell-editing/">TableInlineCellEditing</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/grid/docs/reference/table-row-detail/">TableRowDetail</a></li>
           
 
@@ -1044,7 +1088,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/common/dist/index.js?v=1569325653"></script>
+<script src="/devextreme-reactive/react/common/dist/index.js?v=1569831070"></script>
 
 <script
   type="text/javascript"
@@ -1100,7 +1144,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1569325653"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1569831070"></script>
     <script>
         trackingCookie.notice();
     </script>

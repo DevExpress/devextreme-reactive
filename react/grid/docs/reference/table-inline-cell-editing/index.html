@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     
-    <title>TableGroupRow Plugin Reference - DevExtreme Reactive Components</title>
+    <title>TableInlineCellEditing Plugin Reference - DevExtreme Reactive Components</title>
     
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -75,22 +75,22 @@
     <div class="container docs-container">
   <div class="row">
     <div class="col-sm-9 col-sm-push-3 docs-content">
-        <h1 id="tablegrouprow-plugin-reference">TableGroupRow Plugin Reference</h1>
+        <h1 id="tableinlinecellediting-plugin-reference">TableInlineCellEditing Plugin Reference</h1>
 
-<p>A plugin that renders group rows and enables them to expand and collapse.</p>
+<p>A plugin that renders a cell being edited.</p>
 
 <h2 id="import">Import</h2>
 
-<p>Use the following statement to import a plugin with embedded theme components:</p>
+<p>Use the following statement to import the plugin with embedded theme components:</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">TableGroupRow</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-grid-material-ui'</span><span class="p">;</span>
-<span class="c1">// import { TableGroupRow } from '@devexpress/dx-react-grid-bootstrap4';</span>
-<span class="c1">// import { TableGroupRow } from '@devexpress/dx-react-grid-bootstrap3';</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">TableInlineCellEditing</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-grid-material-ui'</span><span class="p">;</span>
+<span class="c1">// import { TableInlineCellEditing } from '@devexpress/dx-react-grid-bootstrap4';</span>
+<span class="c1">// import { TableInlineCellEditing } from '@devexpress/dx-react-grid-bootstrap3';</span>
 </code></pre></div></div>
 
 <p>If you want to use custom components, you can import the themeless plugin:</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">TableGroupRow</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-grid'</span><span class="p">;</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">TableInlineCellEditing</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-grid'</span><span class="p">;</span>
 </code></pre></div></div>
 
 <h2 id="user-reference">User Reference</h2>
@@ -98,10 +98,9 @@
 <h3 id="dependencies">Dependencies</h3>
 
 <ul>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/">GroupingState</a></li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/editing-state/">EditingState</a></li>
   <li><a href="/devextreme-reactive/react/grid/docs/reference/table/">Table</a></li>
   <li><a href="/devextreme-reactive/react/grid/docs/reference/data-type-provider/">DataTypeProvider</a> [Optional]</li>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/table-selection/">TableSelection</a> [Optional]</li>
 </ul>
 
 <h3 id="properties">Properties</h3>
@@ -117,93 +116,31 @@
   </thead>
   <tbody>
     <tr>
-      <td>showColumnsWhenGrouped?</td>
+      <td>cellComponent</td>
+      <td>ComponentType&lt;<a href="#tableinlinecelleditingcellprops">TableInlineCellEditing.CellProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders an editable cell.</td>
+    </tr>
+    <tr>
+      <td>startEditAction</td>
+      <td>‘click’ | ‘doubleClick’</td>
+      <td>‘click’</td>
+      <td>The action that switches a cell to edit mode.</td>
+    </tr>
+    <tr>
+      <td>selectTextOnEditStart</td>
       <td>boolean</td>
       <td>false</td>
-      <td>A Boolean value that specifies whether the grid’s table displays a column by which data is grouped.</td>
-    </tr>
-    <tr>
-      <td>columnExtensions?</td>
-      <td>Array&lt;<a href="#tablegrouprowcolumnextension">TableGroupRow.ColumnExtension</a>&gt;</td>
-      <td> </td>
-      <td>Additional column properties that the plugin can handle.</td>
-    </tr>
-    <tr>
-      <td>cellComponent</td>
-      <td>ComponentType&lt;<a href="#tablegrouprowcellprops">TableGroupRow.CellProps</a>&gt;</td>
-      <td> </td>
-      <td>A component that renders a group cell.</td>
-    </tr>
-    <tr>
-      <td>rowComponent</td>
-      <td>ComponentType&lt;<a href="#tablegrouprowrowprops">TableGroupRow.RowProps</a>&gt;</td>
-      <td> </td>
-      <td>A component that renders a group row.</td>
-    </tr>
-    <tr>
-      <td>contentComponent</td>
-      <td>ComponentType&lt;<a href="#tablegrouprowcontentprops">TableGroupRow.ContentProps</a>&gt;</td>
-      <td> </td>
-      <td>A component that renders a group cell content.</td>
-    </tr>
-    <tr>
-      <td>iconComponent</td>
-      <td>ComponentType&lt;<a href="#tablegrouprowiconprops">TableGroupRow.IconProps</a>&gt;</td>
-      <td> </td>
-      <td>A component that renders a group expand icon.</td>
-    </tr>
-    <tr>
-      <td>indentCellComponent?</td>
-      <td>ComponentType&lt;<a href="#tablegrouprowindentcellprops">TableGroupRow.IndentCellProps</a>&gt;</td>
-      <td>null</td>
-      <td>A component that renders a group indent cell.</td>
-    </tr>
-    <tr>
-      <td>indentColumnWidth</td>
-      <td>number</td>
-      <td><code class="highlighter-rouge">33</code> for <a href="https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap4">Bootstrap4</a> and for <a href="https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3">Bootstrap</a>; <code class="highlighter-rouge">48</code> for <a href="https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui">Material-UI</a></td>
-      <td>The group indent column’s width.</td>
-    </tr>
-    <tr>
-      <td>contentCellPadding</td>
-      <td>string</td>
-      <td><code class="highlighter-rouge">0.75rem</code> for <a href="https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap4">Bootstrap4</a>; <code class="highlighter-rouge">8px</code> for <a href="https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3">Bootstrap</a> and for <a href="https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui">Material-UI</a></td>
-      <td>The group cell’s left padding value.</td>
+      <td>Specifies whether cell value should be selected when the cell switches to edit mode.</td>
     </tr>
   </tbody>
 </table>
 
 <h2 id="interfaces">Interfaces</h2>
 
-<h3 id="tablegrouprowcolumnextension">TableGroupRow.ColumnExtension</h3>
+<h3 id="tableinlinecelleditingcellprops">TableInlineCellEditing.CellProps</h3>
 
-<p>Describes additional column properties that the plugin can handle.</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>columnName</td>
-      <td>string</td>
-      <td>The name of a column to extend.</td>
-    </tr>
-    <tr>
-      <td>showWhenGrouped?</td>
-      <td>boolean</td>
-      <td>Specifies whether the grid displays the column by which data is grouped.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="tablegrouprowcellprops">TableGroupRow.CellProps</h3>
-
-<p>Describes properties passed to a component that renders a group cell.</p>
+<p>Describes properties passed to a component that renders an editable cell.</p>
 
 <p>Extends <a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecellprops">Table.CellProps</a></p>
 
@@ -218,152 +155,48 @@
   <tbody>
     <tr>
       <td>row</td>
-      <td><a href="#grouprow">GroupRow</a></td>
-      <td>The group row.</td>
+      <td>any</td>
+      <td>The cell’s row.</td>
     </tr>
     <tr>
       <td>column</td>
       <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
-      <td>The column associated with the group.</td>
-    </tr>
-    <tr>
-      <td>expanded</td>
-      <td>boolean</td>
-      <td>Specifies whether the row is expanded.</td>
-    </tr>
-    <tr>
-      <td>onToggle</td>
-      <td>() =&gt; void</td>
-      <td>An event that initiates group row expanding or collapsing.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="tablegrouprowrowprops">TableGroupRow.RowProps</h3>
-
-<p>Describes properties passed to a component that renders a group row.</p>
-
-<p>Extends <a href="/devextreme-reactive/react/grid/docs/reference/table/#tablerowprops">Table.RowProps</a></p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>row</td>
-      <td><a href="#grouprow">GroupRow</a></td>
-      <td>The group row.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="tablegrouprowcontentprops">TableGroupRow.ContentProps</h3>
-
-<p>Describes properties passed to a component that renders a group cell content.</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>row</td>
-      <td><a href="#grouprow">GroupRow</a></td>
-      <td>The group row.</td>
-    </tr>
-    <tr>
-      <td>column</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
-      <td>The column associated with the group.</td>
-    </tr>
-    <tr>
-      <td>children?</td>
-      <td>ReactNode</td>
-      <td>A React node to be rendered within the cell content.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="tablegrouprowiconprops">TableGroupRow.IconProps</h3>
-
-<p>Describes properties passed to a component that renders a group expand icon.</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>expanded</td>
-      <td>boolean</td>
-      <td>Specifies whether the row is expanded.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="tablegrouprowindentcellprops">TableGroupRow.IndentCellProps</h3>
-
-<p>Describes properties passed to a component that renders a group indent cell.</p>
-
-<p>Extends <a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecellprops">Table.CellProps</a></p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>row</td>
-      <td><a href="#grouprow">GroupRow</a></td>
-      <td>The group row.</td>
-    </tr>
-    <tr>
-      <td>column</td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
-      <td>A column associated with the group.</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="grouprow">GroupRow</h3>
-
-<p>Describes the group row structure.</p>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>key</td>
-      <td>number | string</td>
-      <td>The current group key.</td>
+      <td>The cell’s column.</td>
     </tr>
     <tr>
       <td>value</td>
       <td>any</td>
-      <td>The current group value.</td>
+      <td>The cell’s value.</td>
+    </tr>
+    <tr>
+      <td>editingEnabled</td>
+      <td>boolean</td>
+      <td>Specifies whether cells in this column can be edited.</td>
+    </tr>
+    <tr>
+      <td>onValueChange</td>
+      <td>(newValue: any) =&gt; void</td>
+      <td>Handles value changes.</td>
+    </tr>
+    <tr>
+      <td>autoFocus</td>
+      <td>boolean</td>
+      <td>Specifies whether the cell should be automatically focused when it switches to edit mode. The default value is <code class="highlighter-rouge">true</code>.</td>
+    </tr>
+    <tr>
+      <td>onFocus</td>
+      <td>boolean</td>
+      <td>An event raised when the cell gets focus.</td>
+    </tr>
+    <tr>
+      <td>onBlur</td>
+      <td>() =&gt; void</td>
+      <td>An event raised when the cell loses focus.</td>
+    </tr>
+    <tr>
+      <td>onKeyDown</td>
+      <td>(key: string) =&gt; void</td>
+      <td>An event raised when a key on the keyboard is pressed.</td>
     </tr>
   </tbody>
 </table>
@@ -380,53 +213,14 @@
   </thead>
   <tbody>
     <tr>
-      <td>TableGroupRow.Row</td>
-      <td><a href="#tablegrouprowrowprops">TableGroupRow.RowProps</a></td>
-      <td>A component that renders a group row.</td>
-    </tr>
-    <tr>
-      <td>TableGroupRow.Cell</td>
-      <td><a href="#tablegrouprowcellprops">TableGroupRow.CellProps</a></td>
-      <td>A component that renders a group cell.</td>
-    </tr>
-    <tr>
-      <td>TableGroupRow.Content</td>
-      <td><a href="#tablegrouprowcontentprops">TableGroupRow.ContentProps</a></td>
-      <td>A component that renders a group cell content.</td>
-    </tr>
-    <tr>
-      <td>TableGroupRow.Icon</td>
-      <td><a href="#tablegrouprowiconprops">TableGroupRow.IconProps</a></td>
-      <td>A component that renders a group expand icon.</td>
+      <td>TableInlineCellEditing.Cell</td>
+      <td><a href="#tableinlinecelleditingcellprops">TableInlineCellEditing.CellProps</a></td>
+      <td>A component that renders an editable cell.</td>
     </tr>
   </tbody>
 </table>
 
 <p>Additional properties are added to the component’s root element.</p>
-
-<h2 id="static-fields">Static Fields</h2>
-
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>COLUMN_TYPE</td>
-      <td>symbol</td>
-      <td>The group column type’s identifier.</td>
-    </tr>
-    <tr>
-      <td>ROW_TYPE</td>
-      <td>symbol</td>
-      <td>The group row type’s identifier.</td>
-    </tr>
-  </tbody>
-</table>
 
 <h2 id="plugin-developer-reference">Plugin Developer Reference</h2>
 
@@ -443,52 +237,64 @@
   </thead>
   <tbody>
     <tr>
-      <td>columns</td>
+      <td>editingCells</td>
       <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
-      <td>Array&lt;<a href="#column-extension">Column</a>&gt;</td>
-      <td>The grid columns.</td>
+      <td>Array&lt;{rowId: number | string, columnName: string}&gt;</td>
+      <td>Edited cells identified by the row ID and column name.</td>
     </tr>
     <tr>
-      <td>tableColumns</td>
+      <td>getCellValue</td>
       <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecolumn">TableColumn</a>&gt;</td>
-      <td>Table columns.</td>
+      <td>(row: any, columnName: string) =&gt; any</td>
+      <td>A function used to get the value of a cell identified by the row ID and column name.</td>
     </tr>
     <tr>
-      <td>tableBodyRows</td>
+      <td>createRowChange</td>
       <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablerow">TableRow</a>&gt;</td>
-      <td>Table body rows.</td>
+      <td>(row: any, value: any, columnName: string) =&gt; any</td>
+      <td>A function that allows you to modify edited cell values before they are added to the <code class="highlighter-rouge">rowChanges</code> array. This function is called each time an editor’s value changes and should return an object of the following format: <code class="highlighter-rouge">{ columnName1: value1, columnName2: value2, ... }</code></td>
     </tr>
     <tr>
-      <td>grouping</td>
+      <td>rowChanges</td>
       <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/#grouping">Grouping</a>&gt;</td>
-      <td>Current grouping options.</td>
+      <td>{ [key: string]: any }</td>
+      <td>An associative array in which each item consists of a row ID (the <code class="highlighter-rouge">key</code> field) and changes made to this row.</td>
     </tr>
     <tr>
-      <td>draftGrouping</td>
+      <td>isColumnEditingEnabled</td>
       <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/#grouping">Grouping</a>&gt;</td>
-      <td>Grouping options used for the preview.</td>
+      <td>(columnName: string) =&gt; boolean</td>
+      <td>A function that returns a Boolean value that specifies whether users are allowed to edit the column identified by the <code class="highlighter-rouge">columnName</code>.</td>
     </tr>
     <tr>
-      <td>expandedGroups</td>
-      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/#groupkey">GroupKey</a>&gt;</td>
-      <td>Expanded groups.</td>
-    </tr>
-    <tr>
-      <td>isGroupRow</td>
-      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
-      <td>(row: any) =&gt; boolean</td>
-      <td>A function used to identify a group row within ordinary rows.</td>
-    </tr>
-    <tr>
-      <td>toggleGroupExpanded</td>
+      <td>changeRow</td>
       <td><a href="/devextreme-reactive/react/core/docs/reference/action/">Action</a></td>
-      <td>({ groupKey: <a href="/devextreme-reactive/react/grid/docs/reference/grouping-state/#groupkey">GroupKey</a> }) =&gt; void</td>
-      <td>Toggles the group’s expanded state.</td>
+      <td>({ rowId: number | string, change: object }) =&gt; void</td>
+      <td>Applies a change to a row identified by ID.</td>
+    </tr>
+    <tr>
+      <td>startEditCells</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/action/">Action</a></td>
+      <td>({ editingCells: Array&lt;{rowId: number | string, columnName: string}&gt; }) =&gt; void</td>
+      <td>Switches cells identified by the row ID and column name to edit mode.</td>
+    </tr>
+    <tr>
+      <td>stopEditCells</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/action/">Action</a></td>
+      <td>({ editingCells: Array&lt;{rowId: number | string, columnName: string}&gt; }) =&gt; void</td>
+      <td>Switches cells identified by the row ID and column name to normal mode.</td>
+    </tr>
+    <tr>
+      <td>cancelChangedRows</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/action/">Action</a></td>
+      <td>({ rowIds: Array&lt;number | string&gt; }) =&gt; void</td>
+      <td>Cancels uncommitted changes in rows with the specified IDs.</td>
+    </tr>
+    <tr>
+      <td>commitChangedRows</td>
+      <td><a href="/devextreme-reactive/react/core/docs/reference/action/">Action</a></td>
+      <td>({ rowIds: Array&lt;number | string&gt; }) =&gt; void</td>
+      <td>Raises the <code class="highlighter-rouge">onCommitChanges</code> event with the corresponding <a href="/devextreme-reactive/react/grid/docs/reference/editing-state/#changeset">ChangeSet</a> and removes the specified rows from the <code class="highlighter-rouge">rowChanges</code> array.</td>
     </tr>
     <tr>
       <td>tableCell</td>
@@ -496,47 +302,12 @@
       <td><a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecellprops">Table.CellProps</a></td>
       <td>A template that renders a table cell.</td>
     </tr>
-    <tr>
-      <td>tableRow</td>
-      <td><a href="/devextreme-reactive/react/core/docs/reference/template/">Template</a></td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/table/#tablerowprops">Table.RowProps</a></td>
-      <td>A template that renders a table row.</td>
-    </tr>
-    <tr>
-      <td>valueFormatter</td>
-      <td><a href="/devextreme-reactive/react/core/docs/reference/template/">Template</a></td>
-      <td><a href="/devextreme-reactive/react/grid/docs/reference/data-type-provider/#datatypeprovidervalueformatterprops">DataTypeProvider.ValueFormatterProps</a></td>
-      <td>A template that renders the formatted value.</td>
-    </tr>
   </tbody>
 </table>
 
 <h3 id="exports">Exports</h3>
 
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Plugin</th>
-      <th>Type</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>tableColumns</td>
-      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecolumn">TableColumn</a>&gt;</td>
-      <td>Table columns, including the ones by which the table is grouped.</td>
-    </tr>
-    <tr>
-      <td>tableBodyRows</td>
-      <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
-      <td>Array&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table/#tablerow">TableRow</a>&gt;</td>
-      <td>Table body rows with modified group rows.</td>
-    </tr>
-  </tbody>
-</table>
+<p>none</p>
 
     </div>
 
@@ -1083,7 +854,7 @@
           
 
           
-          <li>TableGroupRow</li>
+          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-group-row/">TableGroupRow</a></li>
           
 
         
@@ -1099,7 +870,7 @@
           
 
           
-          <li><a href="/devextreme-reactive/react/grid/docs/reference/table-inline-cell-editing/">TableInlineCellEditing</a></li>
+          <li>TableInlineCellEditing</li>
           
 
         

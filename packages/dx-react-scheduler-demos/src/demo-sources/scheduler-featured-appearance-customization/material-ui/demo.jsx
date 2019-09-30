@@ -31,6 +31,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
+import classNames from 'classnames';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 
 import { tasks, priorities } from '../../../demo-data/tasks';
@@ -93,6 +94,11 @@ const styles = theme => ({
   tooltipContent: {
     paddingLeft: theme.spacing(2.2),
     paddingRight: theme.spacing(2.2),
+  },
+  titleNoWrap: {
+    '& div > div > div': {
+      whiteSpace: 'normal',
+    },
   },
 });
 
@@ -181,7 +187,7 @@ const TooltipHeader = withStyles(styles, { name: 'TooltipHeader' })(
       <AppointmentTooltip.Header
         {...restProps}
         appointmentData={appointmentData}
-        className={priorityClasses}
+        className={classNames(priorityClasses, classes.titleNoWrap)}
       />
     );
   },

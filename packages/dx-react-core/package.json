@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-core",
-  "version": "2.0.5",
+  "version": "2.1.0",
   "description": "Core library for DevExtreme React Components",
   "author": {
     "name": "Developer Express Inc.",
@@ -62,7 +62,7 @@
     "typescript": "3.6.3"
   },
   "dependencies": {
-    "@devexpress/dx-core": "2.0.5",
+    "@devexpress/dx-core": "2.1.0",
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {

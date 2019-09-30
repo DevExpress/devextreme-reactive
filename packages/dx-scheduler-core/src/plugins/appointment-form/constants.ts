@@ -116,3 +116,8 @@ export const SECOND_WEEK = 1;
 export const THIRD_WEEK = 2;
 export const FOURTH_WEEK = 3;
 export const LAST_WEEK = 4;
+
+export const BASIC_YEALY_COUNT = 5;
+export const BASIC_MONTHLY_COUNT = 12;
+export const BASIC_WEEKLY_COUNT = 13;
+export const BASIC_DAILY_COUNT = 30;

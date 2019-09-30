@@ -5,7 +5,8 @@ import {
 import { PureComputed } from '@devexpress/dx-core';
 import { Option, OptionsFormatterFn, DateFormatterFn } from '../../types';
 import {
-  MONTHS_DATES, REPEAT_TYPES_ARRAY, WEEK_NUMBER_LABELS, DAYS_IN_WEEK,
+  MONTHS_DATES, REPEAT_TYPES_ARRAY, WEEK_NUMBER_LABELS, DAYS_IN_WEEK, RRULE_REPEAT_TYPES,
+  BASIC_YEALY_COUNT, BASIC_MONTHLY_COUNT, BASIC_WEEKLY_COUNT, BASIC_DAILY_COUNT,
 } from './constants';
 import { getDaysOfWeekDates, getDaysOfWeekArray } from './helpers';
 
@@ -67,3 +68,18 @@ export const getAvailableRecurrenceOptions: OptionsFormatterFn = getMessage =>
     text: getMessage(type),
     id: type,
   }));
+
+export const getCountDependingOnRecurrenceType = (frequency: number | undefined) => {
+  switch (frequency) {
+    case RRULE_REPEAT_TYPES.YEARLY:
+      return BASIC_YEALY_COUNT;
+    case RRULE_REPEAT_TYPES.MONTHLY:
+      return BASIC_MONTHLY_COUNT;
+    case RRULE_REPEAT_TYPES.WEEKLY:
+      return BASIC_WEEKLY_COUNT;
+    case RRULE_REPEAT_TYPES.DAILY:
+      return BASIC_DAILY_COUNT;
+    default:
+      return 1;
+  }
+};

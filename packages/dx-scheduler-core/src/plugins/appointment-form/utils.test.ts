@@ -3,10 +3,11 @@ import {
   TUESDAY_DATE, WEDNESDAY_DATE, THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE,
   JANUARY_DATE, LONG_MONTH_OPTIONS, FEBRUARY_DATE, MARCH_DATE, APRIL_DATE,
   MAY_DATE, AUGUST_DATE, OCTOBER_DATE, NOVEMBER_DATE, DECEMBER_DATE, SEPTEMBER_DATE,
-  JULY_DATE, JUNE_DATE,
+  JULY_DATE, JUNE_DATE, RRULE_REPEAT_TYPES, BASIC_DAILY_COUNT, BASIC_WEEKLY_COUNT,
+  BASIC_MONTHLY_COUNT, BASIC_YEALY_COUNT,
 } from '@devexpress/dx-scheduler-core';
 import {
-  getDaysOfWeek, getMonths, getWeekNumberLabels, getMonthsWithOf,
+  getDaysOfWeek, getMonths, getWeekNumberLabels, getMonthsWithOf, getCountDependingOnRecurrenceType,
 } from './utils';
 
 describe('AppointmentForm utils', () => {
@@ -149,6 +150,24 @@ describe('AppointmentForm utils', () => {
         .toHaveBeenCalledWith('fourthLabel');
       expect(defaultProps.getMessage)
         .toHaveBeenCalledWith('lastLabel');
+    });
+  });
+  describe('#getCountDependingOnRecurrenceType', () => {
+    it('should return count = 30 for daily appointments', () => {
+      expect(getCountDependingOnRecurrenceType(RRULE_REPEAT_TYPES.DAILY))
+        .toEqual(BASIC_DAILY_COUNT);
+    });
+    it('should return count = 13 for weekly appointments', () => {
+      expect(getCountDependingOnRecurrenceType(RRULE_REPEAT_TYPES.WEEKLY))
+        .toEqual(BASIC_WEEKLY_COUNT);
+    });
+    it('should return count = 12 for monthly appointments', () => {
+      expect(getCountDependingOnRecurrenceType(RRULE_REPEAT_TYPES.MONTHLY))
+        .toEqual(BASIC_MONTHLY_COUNT);
+    });
+    it('should return count = 5 for yearly appointments', () => {
+      expect(getCountDependingOnRecurrenceType(RRULE_REPEAT_TYPES.YEARLY))
+        .toEqual(BASIC_YEALY_COUNT);
     });
   });
 });

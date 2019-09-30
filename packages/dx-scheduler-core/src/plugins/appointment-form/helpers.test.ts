@@ -13,6 +13,7 @@ import {
   DAYS_OF_WEEK_DATES, SUNDAY_DATE, MONDAY_DATE, TUESDAY_DATE, WEDNESDAY_DATE,
   THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE,
 } from './constants';
+import { getCountDependingOnRecurrenceType } from './utils';
 
 describe('AppointmentForm helpers', () => {
   describe('#callActionIfExists', () => {
@@ -47,6 +48,7 @@ describe('AppointmentForm helpers', () => {
         .toMatchObject((new RRule({
           ...DEFAULT_RULE_OBJECT,
           freq: RRule.DAILY,
+          count: getCountDependingOnRecurrenceType(RRule.DAILY),
         }))
           .options);
 
@@ -57,6 +59,7 @@ describe('AppointmentForm helpers', () => {
         .toMatchObject((new RRule({
           ...DEFAULT_RULE_OBJECT,
           freq: RRule.WEEKLY,
+          count: getCountDependingOnRecurrenceType(RRule.WEEKLY),
         }))
           .options);
 
@@ -68,6 +71,7 @@ describe('AppointmentForm helpers', () => {
           ...DEFAULT_RULE_OBJECT,
           freq: RRule.MONTHLY,
           bymonthday: 1,
+          count: getCountDependingOnRecurrenceType(RRule.MONTHLY),
         }))
           .options);
 
@@ -80,6 +84,7 @@ describe('AppointmentForm helpers', () => {
           freq: RRule.YEARLY,
           bymonthday: 1,
           bymonth: 2,
+          count: getCountDependingOnRecurrenceType(RRule.YEARLY),
         }))
           .options);
     });
@@ -92,6 +97,7 @@ describe('AppointmentForm helpers', () => {
         .toMatchObject((new RRule({
           ...RRule.parseString(rule),
           freq: RRule.DAILY,
+          count: getCountDependingOnRecurrenceType(RRule.DAILY),
         }))
           .options);
 
@@ -102,6 +108,7 @@ describe('AppointmentForm helpers', () => {
         .toMatchObject((new RRule({
           ...RRule.parseString(rule),
           freq: RRule.WEEKLY,
+          count: getCountDependingOnRecurrenceType(RRule.WEEKLY),
         }))
           .options);
 
@@ -113,6 +120,7 @@ describe('AppointmentForm helpers', () => {
           ...RRule.parseString(rule),
           freq: RRule.MONTHLY,
           bymonthday: 1,
+          count: getCountDependingOnRecurrenceType(RRule.MONTHLY),
         }))
           .options);
 
@@ -125,6 +133,7 @@ describe('AppointmentForm helpers', () => {
           freq: RRule.YEARLY,
           bymonthday: 1,
           bymonth: 2,
+          count: getCountDependingOnRecurrenceType(RRule.YEARLY),
         }))
           .options);
     });
@@ -141,6 +150,7 @@ describe('AppointmentForm helpers', () => {
           freq: RRule.DAILY,
           bymonthday: undefined,
           byweekday: undefined,
+          count: getCountDependingOnRecurrenceType(RRule.DAILY),
         }))
           .options);
     });
@@ -157,6 +167,7 @@ describe('AppointmentForm helpers', () => {
           freq: RRule.WEEKLY,
           bymonthday: undefined,
           byweekday: undefined,
+          count: getCountDependingOnRecurrenceType(RRule.WEEKLY),
         }))
           .options);
     });
@@ -174,6 +185,7 @@ describe('AppointmentForm helpers', () => {
           byweekday: undefined,
           bymonthday: testDate.getDate(),
           bymonth: testDate.getMonth() + 1,
+          count: getCountDependingOnRecurrenceType(RRule.YEARLY),
         }))
           .options);
     });
@@ -190,6 +202,7 @@ describe('AppointmentForm helpers', () => {
           freq: RRule.MONTHLY,
           byweekday: undefined,
           bymonthday: testDate.getDate(),
+          count: getCountDependingOnRecurrenceType(RRule.MONTHLY),
         }))
           .options);
     });
@@ -306,7 +319,7 @@ describe('AppointmentForm helpers', () => {
       handleChangeFrequency('daily', '', new Date(), action);
       expect(action)
         .toBeCalledWith({
-          rRule: 'RRULE:INTERVAL=1;FREQ=DAILY',
+          rRule: 'RRULE:INTERVAL=1;FREQ=DAILY;COUNT=30',
         });
     });
   });

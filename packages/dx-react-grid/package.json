@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid",
-  "version": "2.0.5",
+  "version": "2.1.0",
   "description": "Composable plugin-based data grid component for React",
   "author": {
     "name": "Developer Express Inc.",
@@ -52,9 +52,9 @@
     "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
-    "@devexpress/dx-core": "2.0.5",
-    "@devexpress/dx-react-core": "2.0.5",
-    "@devexpress/dx-testing": "2.0.5",
+    "@devexpress/dx-core": "2.1.0",
+    "@devexpress/dx-react-core": "2.1.0",
+    "@devexpress/dx-testing": "2.1.0",
     "babel-core": "^7.0.0-bridge.0",
     "core-js": "^3.2.1",
     "enzyme": "3.10.0",
@@ -74,11 +74,11 @@
     "typescript": "3.6.3"
   },
   "dependencies": {
-    "@devexpress/dx-grid-core": "2.0.5"
+    "@devexpress/dx-grid-core": "2.1.0"
   },
   "peerDependencies": {
-    "@devexpress/dx-core": "2.0.5",
-    "@devexpress/dx-react-core": "2.0.5",
+    "@devexpress/dx-core": "2.1.0",
+    "@devexpress/dx-react-core": "2.1.0",
     "react": ">=16.9.0",
     "react-dom": ">=16.9.0"
   }

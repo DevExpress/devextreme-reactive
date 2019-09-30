@@ -1,0 +1,15 @@
+.version-link {
+  &:hover {
+    text-decoration-color: rgb(95, 208, 238);
+  }
+  &::after {
+    content: '|';
+    margin-left: 20px;
+    color: rgb(58, 93, 101);
+  }
+}
+
+.version {
+  font-size: 16px;
+  color: rgb(95, 208, 238);
+}

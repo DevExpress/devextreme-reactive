@@ -1,0 +1,10 @@
+.codesandbox-button {
+  padding: 0.25rem 1rem;
+  margin-top: 0.25rem;
+  color: #0096bd;
+  border-color: #0096bd;
+}
+.codesandbox-button:hover {
+  background-color: #0096bd;
+  border-color: #0096bd;
+}

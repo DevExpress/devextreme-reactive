@@ -1,0 +1,19 @@
+.menu-list {
+  // max-height: 1500px;
+  padding-left: 30px;
+  overflow: hidden;
+  transition: max-height 0.4s linear;
+  &.collapsed {
+    max-height: 0 !important;
+  }
+}
+
+.title {
+  cursor: pointer;
+  &::before {
+    content: "\2212\00a0"; // -
+  }
+  &.collapsed::before {
+    content: "\002B\00a0"; // +
+  }
+}

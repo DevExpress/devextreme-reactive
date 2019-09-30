@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { getParameters } from "codesandbox/lib/api/define";
+import * as PropTypes from 'prop-types';
+import { getParameters } from 'codesandbox/lib/api/define';
+import './codesandbox-button.css';
 
 export const CodeSandBoxButton = ({
   code, html, helperFiles, themeName,
@@ -12,29 +14,39 @@ export const CodeSandBoxButton = ({
 
   const parameters = getParameters({
     files: {
-      "package.json": {
+      'package.json': {
         content: {
           dependencies: {
-            react: "latest",
-            "react-dom": "latest"
-          }
-        }
+            react: 'latest',
+            'react-dom': 'latest',
+          },
+        },
       },
-      "index.js": {
-        content: code
+      'index.js': {
+        content: code,
       },
-      "index.html": {
-        content: html
+      'index.html': {
+        content: html,
       },
       ...helpers,
-    }
+    },
   });
 
 
   return (
     <form action="https://codesandbox.io/api/v1/sandboxes/define" method="POST" target="_blank">
       <input type="hidden" name="parameters" value={parameters} />
-      <input type="submit" value="Open in sandbox" />
+      <input type="submit" value="Open in CodeSandbox" className="btn-outline-primary codesandbox-button" />
     </form>
   );
+};
+
+
+CodeSandBoxButton.propTypes = {
+  code: PropTypes.string.isRequired,
+  html: PropTypes.string.isRequired,
+  helperFiles: PropTypes.array.isRequired,
+  themeName: PropTypes.string.isRequired,
+  sectionName: PropTypes.string.isRequired,
+  demoName: PropTypes.string.isRequired,
 };

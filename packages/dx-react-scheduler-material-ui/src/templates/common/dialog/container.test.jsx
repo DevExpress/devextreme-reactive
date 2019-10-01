@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Container } from './container';
 
-describe('EditRecurrenceMenu', () => {
+describe('Common', () => {
   const defaultProps = {
     ref: React.createRef(),
   };

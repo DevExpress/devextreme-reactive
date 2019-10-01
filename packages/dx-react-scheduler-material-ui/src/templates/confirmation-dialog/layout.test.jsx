@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
 import { Layout } from './layout';
 
-describe('EditRecurrenceMenu', () => {
+describe('ConfirmationDialog', () => {
   let shallow;
   const defaultProps = {
     availableOperations: [{ value: '1', title: 'operation1' }],
@@ -38,7 +38,7 @@ describe('EditRecurrenceMenu', () => {
       expect(defaultProps.handleClose)
         .toBeCalled();
     });
-    it('should handle click on commit button', () => {
+    it('should handle click on confirm button', () => {
       const tree = shallow((
         <Layout {...defaultProps} />
       ));

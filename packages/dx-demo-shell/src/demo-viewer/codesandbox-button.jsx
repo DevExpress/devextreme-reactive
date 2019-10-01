@@ -3,8 +3,20 @@ import * as PropTypes from 'prop-types';
 import { getParameters } from 'codesandbox/lib/api/define';
 import './codesandbox-button.css';
 
+const indexCode = `
+import React from "react";
+import { render } from "react-dom";
+import App from "./app";
+
+render(<App />, document.getElementById("mountPoint"));
+`;
+
+// const prepareCode = (code) => {
+
+// }
+
 export const CodeSandBoxButton = ({
-  code, html, helperFiles, externalDeps, themeName,
+  code, sandboxHtml, helperFiles, externalDeps, themeName,
   sectionName, demoName,
 }) => {
   const helpers = Object.entries(helperFiles).reduce((acc, [name, content]) => ({
@@ -23,10 +35,16 @@ export const CodeSandBoxButton = ({
         },
       },
       'index.js': {
+        content: indexCode,
+      },
+      'app.js': {
         content: code,
       },
       'index.html': {
-        content: html,
+        content: sandboxHtml,
+      },
+      "data/helper.js": {
+        content: 'export default () => {}',
       },
       ...helpers,
     },

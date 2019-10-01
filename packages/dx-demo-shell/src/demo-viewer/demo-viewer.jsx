@@ -11,6 +11,7 @@ import { SourceCode } from './source-code';
 import { EmbeddedDemoContext } from '../context';
 import { DemoCodeProvider } from './demo-code-provider';
 import { CodeSandBoxButton } from './codesandbox-button';
+// import CodeSandBoxButton from './codesandboxer-button';
 import './demo-viewer.css';
 
 export class DemoViewer extends React.Component {
@@ -91,7 +92,7 @@ export class DemoViewer extends React.Component {
                         sectionName={sectionName}
                         demoName={demoName}
                       >
-                        {({ html, code, helperFiles, externalDeps }) => (
+                        {({ html, sandboxHtml, code, helperFiles, externalDeps }) => (
                           <div style={{ marginTop: showThemeSelector ? '-42px' : 0 }}>
                             <Nav tabs>
                               <NavItem>
@@ -115,7 +116,7 @@ export class DemoViewer extends React.Component {
                               <NavItem>
                                 <CodeSandBoxButton
                                   code={code}
-                                  html={html}
+                                  sandboxHtml={sandboxHtml}
                                   helperFiles={helperFiles}
                                   externalDeps={externalDeps}
                                   sectionName={sectionName}

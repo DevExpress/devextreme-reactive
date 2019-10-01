@@ -5,9 +5,8 @@ export class DemoCodeProvider extends React.PureComponent {
   getHtml() {
     const { themeName, sectionName, demoName, variantName, perfSamplesCount } = this.props;
     const {
-      scriptPath, themeSources, firstPart, lastPart, demoSources,
+      scriptPath, firstPart, lastPart, demoSources,
     } = this.context;
-    // console.log(this.context);
 
     let demoScript = scriptPath;
     if (firstPart !== undefined) {
@@ -16,14 +15,10 @@ export class DemoCodeProvider extends React.PureComponent {
       demoScript = `${firstPart}${productName}${lastPart}`;
     }
 
-    const themeVariantOptions = themeSources
-      .find(theme => theme.name === themeName).variants
-      .find(variant => variant.name === variantName);
+    const themeLinks = this.getThemeLinks();
     const frameUrl = `/demo/${sectionName}/${demoName}/${themeName}/${variantName}`;
-    const themeLinks = themeVariantOptions.links
-      ? themeVariantOptions.links.map(link => `<link rel="stylesheet" href="${link}">`).join('\n')
-      : '';
     const mode = perfSamplesCount > 0 ? `/perf/${perfSamplesCount}` : '/clean';
+
     return `
       <!DOCTYPE html>
       <html>
@@ -42,6 +37,35 @@ export class DemoCodeProvider extends React.PureComponent {
         <script src="${demoScript}"></script>
       </body>
       </html>`;
+  }
+
+  getSandboxHtml() {
+    return `
+<!DOCTYPE html>
+<html>
+  <head>
+    ${this.getThemeLinks()}
+    <style>
+      body { margin: 8px; overflow: hidden; }
+      .panel { margin: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>`;
+  }
+
+  getThemeLinks() {
+    const { themeName, variantName } = this.props;
+    const { themeSources } = this.context;
+    const themeVariantOptions = themeSources
+      .find(theme => theme.name === themeName).variants
+      .find(variant => variant.name === variantName);
+
+    return themeVariantOptions.links
+      ? themeVariantOptions.links.map(link => `<link rel="stylesheet" href="${link}">`).join('\n')
+      : '';
   }
 
   getCode() {
@@ -87,19 +111,20 @@ export class DemoCodeProvider extends React.PureComponent {
 
     return externalDeps.reduce((acc, dep) => ({
       ...acc,
-      [dep]: depsVersions[dep]
+      [dep]: depsVersions[dep],
     }), {});
   }
 
   render() {
     const { children } = this.props;
     const html = this.getHtml();
+    const sandboxHtml = this.getSandboxHtml();
     const code = this.getCode();
     const helperFiles = this.getHelperFiles();
     const externalDeps = this.getExternalDependencies();
     // console.log('helpers', helperFiles)
 
-    return children({ html, code, helperFiles, externalDeps });
+    return children({ html, sandboxHtml, code, helperFiles, externalDeps });
   }
 }
 

@@ -31,7 +31,7 @@
 
 # Demos
 /packages/*/src/demo-registry.js
-/packages/*/src/*-demo-registry.js
+/packages/*/src/*-registry.js
 /packages/*/src/**/*.g*
 
 # Typescript

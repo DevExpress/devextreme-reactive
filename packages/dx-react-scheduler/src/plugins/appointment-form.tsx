@@ -8,6 +8,7 @@ import {
   TemplateConnector,
   TemplatePlaceholder,
   PluginComponents,
+  Action,
 } from '@devexpress/dx-react-core';
 import {
   setAppointmentData,
@@ -164,14 +165,16 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     }
   });
 
-  cancelChanges = memoize((
-    cancelAddedAppointment, stopEditAppointment, isNew,
-  ) => () => {
+  cancelChanges = memoize(confirmCancelChanges => () => {
+    confirmCancelChanges('AppointmentForm');
+    // if (!cancelAddedAppointment) return;
+    // if (!isNew) {
+    //   stopEditAppointment();
+    // }
+  });
+
+  closeAppointmentForm = memoize(() => {
     this.toggleVisibility();
-    if (!cancelAddedAppointment) return;
-    if (!isNew) {
-      stopEditAppointment();
-    }
   });
 
   deleteAppointment = memoize((
@@ -217,12 +220,12 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     } = this.props;
     const { previousRule, visible, appointmentData } = this.state;
     const getMessage = this.getMessage(defaultMessages, messages);
-
     return (
       <Plugin
         name="AppointmentForm"
         dependencies={pluginDependencies}
       >
+        <Action name="closeAppointmentForm" action={this.closeAppointmentForm} />
         <Template name="schedulerRoot">
           <TemplateConnector>
             {({
@@ -265,13 +268,14 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               appointmentChanges,
             }, {
               cancelAddedAppointment,
-
+              confirmCancelChanges,
               commitAddedAppointment,
               finishCommitAppointment,
               finishDeleteAppointment,
 
               stopEditAppointment,
             }) => {
+
               const { isNew, changedAppointment, isFormEdited } = prepareChanges(
                 appointmentData, editingAppointment, addedAppointment, appointmentChanges,
               );
@@ -282,9 +286,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   onCommitButtonClick={this.commitChanges(
                     finishCommitAppointment, commitAddedAppointment, isNew,
                   )}
-                  onCancelButtonClick={this.cancelChanges(
-                    cancelAddedAppointment, stopEditAppointment, isNew,
-                  )}
+                  onCancelButtonClick={this.cancelChanges(confirmCancelChanges)}
                   onDeleteButtonClick={this.deleteAppointment(
                     finishDeleteAppointment, appointmentData, stopEditAppointment,
                   )}

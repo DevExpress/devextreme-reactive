@@ -6,14 +6,10 @@ import './codesandbox-button.css';
 const indexCode = `
 import React from "react";
 import { render } from "react-dom";
-import App from "./app";
+import Demo from "./demo";
 
-render(<App />, document.getElementById("mountPoint"));
+render(<Demo />, document.getElementById("root"));
 `;
-
-// const prepareCode = (code) => {
-
-// }
 
 export const CodeSandBoxButton = ({
   code, sandboxHtml, helperFiles, externalDeps, themeName,
@@ -37,14 +33,11 @@ export const CodeSandBoxButton = ({
       'index.js': {
         content: indexCode,
       },
-      'app.js': {
+      'demo.js': {
         content: code,
       },
       'index.html': {
         content: sandboxHtml,
-      },
-      "data/helper.js": {
-        content: 'export default () => {}',
       },
       ...helpers,
     },

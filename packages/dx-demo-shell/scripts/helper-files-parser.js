@@ -5,7 +5,7 @@ const {
 } = require('./fs-utils');
 
 const THEME_SOURCES_FOLDER = './src/theme-sources';
-const DEMO_DATA_FOLDER = './src/demo-data/';
+const DEMO_DATA_FOLDER = './src/demo-data';
 const THEME_COMPONENTS_REGISTRY_FILE = './src/theme-components-registry.js'
 const DEMO_DATA_REGISTRY_FILE = './src/demo-data-registry.js'
 
@@ -23,8 +23,12 @@ const dependencies = {
 
 const parseHelperFiles = (source) => {
   const imports = source.split('import');
-  const themeComponents = quotify(retrieveImportFiles(imports, /'.+theme-sources[^']+?([\w-]+)'/));
-  const demoData = quotify(retrieveImportFiles(imports, /'.+demo-data\/.*?([\w\.-]+?)'/));
+  const themeComponents = quotify(retrieveImportFiles(
+    imports, /'.+(theme-sources[^']+?[\w]+\/?[\w-]+)'/,
+  ));
+  const demoData = quotify(retrieveImportFiles(
+    imports, /'.+(demo-data\/[\w\.-]+?)'/,
+  ));
   let externalDeps = quotify(retrieveImportFiles(imports, /from '([^\.].+?)'/));
   externalDeps = quotify(externalDeps
     .map(d => (knownDeepImports.filter(di => d.includes(di)) || [''])[0] || d) // get package by path import
@@ -48,7 +52,7 @@ const retrieveHelperDependencies = (source) => {
 
 const listFilesRecursively = dir => (
   listFilesRecursivelyCore(dir)
-    .map(f => f.replace(path.normalize(dir + '/'), ''))
+    .map(f => f.replace(path.normalize(dir + '/'), '')) // leave only relative part
 );
 // returns flat file structure
 const listFilesRecursivelyCore = (dir) => (
@@ -67,9 +71,13 @@ const generateDirRegistry = (dir) => {
 
   return fileList.reduce((acc, file) => {
     const source = getFileContents(path.join(dir, file));
+    const [root, ...dirs] = dir.split(path.sep);
+    const dirname = dirs.join('/') + '/';
     // deps should include extension
-    const deps = retrieveHelperDependencies(source).map(d => fileList.find(f => isSameFile(f, d)));
-    const fileName = path.basename(file);
+    const deps = retrieveHelperDependencies(source)
+      .map(d => fileList.find(f => isSameFile(f, d)))
+      .map(d => dirname + d);
+    const fileName = dirname + file.split(path.sep).join('/');
 
     acc['files'][fileName] = source;
     if (deps.length) {
@@ -95,16 +103,17 @@ const generateThemeFilesRegistry = (dir) => {
 
 parseDepsVersions = () => {
   const deps = require(process.cwd() + '/package.json').dependencies;
-
   return JSON.stringify(deps);
 }
 
 const generateDataHelpersRegistry = () => {
-  const registry = generateDirRegistry(DEMO_DATA_FOLDER);
+  const registry = generateDirRegistry(path.normalize(DEMO_DATA_FOLDER));
   const depsVersions = parseDepsVersions();
-  writeObjectToFile(DEMO_DATA_REGISTRY_FILE,
+  writeObjectToFile(
+    DEMO_DATA_REGISTRY_FILE,
     { ...registry, depsVersions },
-    'demoData');
+    'demoData',
+  );
 };
 
 module.exports = {

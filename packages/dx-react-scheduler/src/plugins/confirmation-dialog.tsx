@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { getMessagesFormatter } from '@devexpress/dx-core';
+import { getMessagesFormatter, memoize } from '@devexpress/dx-core';
 import {
   Plugin,
   Template,
@@ -11,13 +11,21 @@ import {
 import { ConfirmationDialogProps, ConfirmationDialogState } from '../types/editing/confirmation-dialog.types';
 
 const defaultMessages = {
-  confirmButton: 'Do not save',
+  discardButton: 'Discard',
+  deleteButton: 'Delete',
   cancelButton: 'Cancel',
+  confirmDeleteMeesage: 'Do you really want to delete this appointment?',
+  confirmCancelMessage: 'Discard unsaved changes?',
 };
 
 const pluginDependencies = [
   { name: 'EditingState' },
 ];
+
+const ACTION_TYPES = {
+  CANCEL: 'cancel',
+  DELETE: 'delete',
+};
 
 class ConfirmationDialogBase extends React.PureComponent<
   ConfirmationDialogProps, ConfirmationDialogState
@@ -34,7 +42,7 @@ class ConfirmationDialogBase extends React.PureComponent<
   state = {
     isOpen: false,
     actionType: undefined,
-    caller: undefined,
+    caller: '',
   };
 
   openConfirmationDialog = () => {
@@ -45,10 +53,15 @@ class ConfirmationDialogBase extends React.PureComponent<
     this.setState({ isOpen: false });
   }
 
-  confirmCancelChanges = (caller) => {
+  confirmCancelChanges = memoize((caller) => {
     this.openConfirmationDialog();
-    this.setState({ caller, actionType: 'cancel' });
-  }
+    this.setState({ caller, actionType: ACTION_TYPES.CANCEL });
+  });
+
+  confirmDelete = memoize((caller) => {
+    this.openConfirmationDialog();
+    this.setState({ caller, actionType: ACTION_TYPES.DELETE });
+  });
 
   render() {
     const {
@@ -67,6 +80,8 @@ class ConfirmationDialogBase extends React.PureComponent<
         dependencies={pluginDependencies}
       >
         <Action name="confirmCancelChanges" action={this.confirmCancelChanges} />
+        <Action name="confirmDelete" action={this.confirmDelete} />
+
         <Template name="schedulerRoot">
           <TemplatePlaceholder />
           <Container ref={this.modalContainer} />
@@ -75,15 +90,26 @@ class ConfirmationDialogBase extends React.PureComponent<
 
         <Template name="confirmationDialogOverlay">
           <TemplateConnector>
-            {(getters, {
+            {({
+              editingAppointment,
+            }, {
               closeAppointmentForm,
               closeAppointmentTooltip,
+              cancelAddedAppointment,
+              stopEditAppointment,
             }) => {
               const confirm = () => {
-                [`close${caller}`]();
+                switch (caller) {
+                  case 'AppointmentForm':
+                    closeAppointmentForm();
+                    break;
+                  case 'AppointmentTooltup':
+                    closeAppointmentTooltip();
+                    break;
+                }
                 this.closeConfirmationDialog();
-              }
-              console.log(isOpen)
+                //const isAppointmentNew = !editingAppointment;
+              };
 
               return (
                 <Overlay
@@ -96,7 +122,7 @@ class ConfirmationDialogBase extends React.PureComponent<
                     handleClose={this.closeConfirmationDialog}
                     confirm={confirm}
                     getMessage={getMessage}
-                    isDeleting={actionType === 'delete'}
+                    isDeleting={actionType === ACTION_TYPES.DELETE}
                   />
                 </Overlay>
               );

@@ -17,13 +17,14 @@ export const Layout = React.memo(({
     <div
       {...restProps}
     >
-      <DialogTitle>{getMessage(isDeleting ? 'dialogDeleteTitle' : 'dialogEditTitle')}</DialogTitle>
-      <DialogContent>
-        {getMessage(isDeleting ? 'dialogDeleteContent' : 'dialogCancelContent')}
-      </DialogContent>
+      <DialogTitle>{getMessage(isDeleting ? 'confirmDeleteMeesage' : 'confirmCancelMessage')}</DialogTitle>
       <DialogActions>
         <Button onClick={handleClose} title={getMessage('cancelButton')} />
-        <Button onClick={confirm} title={getMessage('confirmButton')} color="primary" />
+        <Button
+          onClick={confirm}
+          title={getMessage(isDeleting ? 'deleteButton' : 'discardButton')}
+          color="primary"
+        />
       </DialogActions>
     </div>
   );

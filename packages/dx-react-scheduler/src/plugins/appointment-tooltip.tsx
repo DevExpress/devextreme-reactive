@@ -7,7 +7,9 @@ import {
   createStateHelper,
   StateHelper,
   PluginComponents,
+  Action,
 } from '@devexpress/dx-react-core';
+import { memoize } from '@devexpress/dx-core';
 import {
   OPEN_COMMAND_BUTTON,
   CLOSE_COMMAND_BUTTON,
@@ -97,6 +99,10 @@ class AppointmentTooltipBase extends React.PureComponent<
     };
   }
 
+  closeAppointmentTooltip = memoize(() => {
+    this.toggleVisibility();
+  });
+
   render() {
     const {
       showOpenButton,
@@ -114,17 +120,18 @@ class AppointmentTooltipBase extends React.PureComponent<
         name="AppointmentTooltip"
         dependencies={pluginDependencies}
       >
+        <Action name="closeAppointmentTooltip" action={this.closeAppointmentTooltip} />
         <Template name="timeTable">
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
               formatDate,
             }, {
-              finishDeleteAppointment, openConfirmationDialog,
+              finishDeleteAppointment, confirmDelete,
             }) => {
               const onDeleteButtonClick = () => {
-                finishDeleteAppointment(appointmentMeta.data);
-                openConfirmationDialog();
+                //finishDeleteAppointment(appointmentMeta.data);
+                confirmDelete();
                 this.toggleVisibility();
               };
               return (

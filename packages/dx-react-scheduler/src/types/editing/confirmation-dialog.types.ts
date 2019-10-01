@@ -69,6 +69,6 @@ export interface ConfirmationDialogProps {
 /** @internal */
 export type ConfirmationDialogState = {
   isOpen: boolean;
-  caller: string | undefined;
+  caller: string;
   actionType: string | undefined;
 };

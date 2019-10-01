@@ -30,7 +30,6 @@
 /packages/dx-site/.cache
 
 # Demos
-/packages/*/src/demo-registry.js
 /packages/*/src/*-registry.js
 /packages/*/src/**/*.g*
 

@@ -1,3 +1,4 @@
+import { AppointmentModel } from '../index';
 /* tslint:disable no-namespace max-line-length */
 export namespace ConfirmationDialog {
   /** Properties passed to a component that renders the edit menu's layout. */
@@ -54,6 +55,10 @@ export namespace ConfirmationDialog {
 }
 
 export interface ConfirmationDialogProps {
+  /** Specifies whether to open the dialog on delete events. */
+  doNotOpenOnDelete: boolean;
+  /** Specifies whether to open the dialog on cancel events. */
+  doNotOpenOnCancel: boolean;
   /** A component that renders the edit menu's layout. */
   layoutComponent: React.ComponentType<ConfirmationDialog.LayoutProps>;
   /** A component that renders the overlay window. */
@@ -71,4 +76,5 @@ export type ConfirmationDialogState = {
   isOpen: boolean;
   caller: string;
   actionType: string | undefined;
+  appointmentData: AppointmentModel;
 };

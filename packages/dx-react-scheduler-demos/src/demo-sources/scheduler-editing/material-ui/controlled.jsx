@@ -23,14 +23,12 @@ export default class Demo extends React.PureComponent {
       addedAppointment: {},
       appointmentChanges: {},
       editingAppointmentId: undefined,
-      deletedAppointment: undefined,
     };
 
     this.commitChanges = this.commitChanges.bind(this);
     this.changeAddedAppointment = this.changeAddedAppointment.bind(this);
     this.changeAppointmentChanges = this.changeAppointmentChanges.bind(this);
     this.changeEditingAppointmentId = this.changeEditingAppointmentId.bind(this);
-    this.cancelDeleteAppointment = this.cancelDeleteAppointment.bind(this);
   }
 
   changeAddedAppointment(addedAppointment) {
@@ -47,7 +45,7 @@ export default class Demo extends React.PureComponent {
 
   commitChanges({ added, changed, deleted }) {
     this.setState((state) => {
-      let { data, deletedAppointment } = state;
+      let { data } = state;
       if (added) {
         const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
         data = [...data, { id: startingAddedId, ...added }];
@@ -57,26 +55,15 @@ export default class Demo extends React.PureComponent {
           changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
       }
       if (deleted !== undefined) {
-        deletedAppointment = data.find(appointment => appointment.id === deleted);
         data = data.filter(appointment => appointment.id !== deleted);
       }
-      return { data, deletedAppointment };
-    });
-  }
-
-  cancelDeleteAppointment() {
-    this.setState((state) => {
-      const { deletedAppointment } = state;
-      let { data } = state;
-      data = [...data, deletedAppointment];
-      return { data, deletedAppointment: undefined };
+      return { data };
     });
   }
 
   render() {
     const {
       currentDate, data, addedAppointment, appointmentChanges, editingAppointmentId,
-      deletedAppointment,
     } = this.state;
 
     return (
@@ -100,10 +87,7 @@ export default class Demo extends React.PureComponent {
             editingAppointmentId={editingAppointmentId}
             onEditingAppointmentIdChange={this.changeEditingAppointmentId}
           />
-          <ConfirmationDialog
-            deletedAppointment={deletedAppointment}
-            onCancelDeleteAppointment={this.cancelDeleteAppointment}
-          />
+          <ConfirmationDialog />
           <WeekView
             startDayHour={9}
             endDayHour={17}

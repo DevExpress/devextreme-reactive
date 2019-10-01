@@ -40,3 +40,6 @@ export const RECURRENCE_EDIT_SCOPE = {
   CURRENT_AND_FOLLOWING: 'currentAndFollowing',
   CURRENT: 'current',
 };
+
+export const APPOINTMENT_FORM = 'appointmentForm';
+export const APPOINTMENT_TOOLTIP = 'appointmentTooltip';

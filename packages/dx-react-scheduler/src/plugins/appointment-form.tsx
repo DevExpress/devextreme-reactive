@@ -15,6 +15,7 @@ import {
   isAllDayCell,
   callActionIfExists,
   AppointmentModel,
+  APPOINTMENT_FORM,
 } from '@devexpress/dx-scheduler-core';
 
 import {
@@ -156,6 +157,10 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     };
   }
 
+  closeAppointmentForm = memoize(() => {
+    this.toggleVisibility();
+  });
+
   commitChanges = memoize((finishCommitAppointment, commitAddedAppointment, isNew) => () =>  {
     this.toggleVisibility();
     if (isNew) {
@@ -165,24 +170,29 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     }
   });
 
-  cancelChanges = memoize(confirmCancelChanges => () => {
-    confirmCancelChanges('AppointmentForm');
-    // if (!cancelAddedAppointment) return;
-    // if (!isNew) {
-    //   stopEditAppointment();
-    // }
-  });
-
-  closeAppointmentForm = memoize(() => {
-    this.toggleVisibility();
+  cancelChanges = memoize((
+    confirmCancelChanges, isNew, stopEditAppointment, appointmentChanges,
+  ) => () => {
+    if (confirmCancelChanges && appointmentChanges !== {}) {
+      confirmCancelChanges(APPOINTMENT_FORM);
+    } else {
+      if (!isNew) {
+        stopEditAppointment();
+      }
+      this.toggleVisibility();
+    }
   });
 
   deleteAppointment = memoize((
-    finishDeleteAppointment, appointmentData, stopEditAppointment,
+    finishDeleteAppointment, appointmentData, stopEditAppointment, confirmDelete,
   ) => () => {
-    callActionIfExists(stopEditAppointment, appointmentData);
-    callActionIfExists(finishDeleteAppointment, appointmentData);
-    this.toggleVisibility();
+    if (confirmDelete) {
+      confirmDelete({ caller: APPOINTMENT_FORM, appointmentData });
+    } else {
+      callActionIfExists(stopEditAppointment, appointmentData);
+      callActionIfExists(finishDeleteAppointment, appointmentData);
+      this.toggleVisibility();
+    }
   });
 
   changeAppointmentField = memoize((isNew, changeAddedAppointment, changeAppointment) =>
@@ -267,13 +277,14 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               addedAppointment,
               appointmentChanges,
             }, {
-              cancelAddedAppointment,
-              confirmCancelChanges,
               commitAddedAppointment,
               finishCommitAppointment,
               finishDeleteAppointment,
 
               stopEditAppointment,
+
+              confirmCancelChanges,
+              confirmDelete,
             }) => {
 
               const { isNew, changedAppointment, isFormEdited } = prepareChanges(
@@ -286,9 +297,11 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   onCommitButtonClick={this.commitChanges(
                     finishCommitAppointment, commitAddedAppointment, isNew,
                   )}
-                  onCancelButtonClick={this.cancelChanges(confirmCancelChanges)}
+                  onCancelButtonClick={this.cancelChanges(
+                    confirmCancelChanges, isNew, stopEditAppointment, appointmentChanges,
+                  )}
                   onDeleteButtonClick={this.deleteAppointment(
-                    finishDeleteAppointment, appointmentData, stopEditAppointment,
+                    finishDeleteAppointment, appointmentData, stopEditAppointment, confirmDelete,
                   )}
                   getMessage={getMessage}
                   readOnly={readOnly}

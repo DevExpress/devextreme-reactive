@@ -16,6 +16,7 @@ import {
   DELETE_COMMAND_BUTTON,
   setAppointmentMeta,
   AppointmentMeta,
+  APPOINTMENT_TOOLTIP,
 } from '@devexpress/dx-scheduler-core';
 
 import { AppointmentTooltipProps, AppointmentTooltipState, Appointments } from '../types';
@@ -130,9 +131,14 @@ class AppointmentTooltipBase extends React.PureComponent<
               finishDeleteAppointment, confirmDelete,
             }) => {
               const onDeleteButtonClick = () => {
-                //finishDeleteAppointment(appointmentMeta.data);
-                confirmDelete();
-                this.toggleVisibility();
+                if (confirmDelete) {
+                  confirmDelete({
+                    caller: APPOINTMENT_TOOLTIP, appointmentData: appointmentMeta.data,
+                  });
+                } else {
+                  this.toggleVisibility();
+                  finishDeleteAppointment(appointmentMeta.data);
+                }
               };
               return (
                 <TemplatePlaceholder

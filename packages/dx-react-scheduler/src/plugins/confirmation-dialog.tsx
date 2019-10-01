@@ -9,6 +9,7 @@ import {
   Action,
 } from '@devexpress/dx-react-core';
 import { ConfirmationDialogProps, ConfirmationDialogState } from '../types/editing/confirmation-dialog.types';
+import { APPOINTMENT_FORM } from '@devexpress/dx-scheduler-core';
 
 const defaultMessages = {
   discardButton: 'Discard',
@@ -37,12 +38,18 @@ class ConfirmationDialogBase extends React.PureComponent<
     containerComponent: 'Container',
   };
 
+  static defaultProps: Partial<ConfirmationDialogProps> = {
+    doNotOpenOnDelete: false,
+    doNotOpenOnCancel: false,
+  };
+
   modalContainer = React.createRef();
 
   state = {
     isOpen: false,
     actionType: undefined,
     caller: '',
+    appointmentData: {},
   };
 
   openConfirmationDialog = () => {
@@ -58,9 +65,23 @@ class ConfirmationDialogBase extends React.PureComponent<
     this.setState({ caller, actionType: ACTION_TYPES.CANCEL });
   });
 
-  confirmDelete = memoize((caller) => {
+  confirmDelete = memoize(({ caller, appointmentData }) => {
     this.openConfirmationDialog();
-    this.setState({ caller, actionType: ACTION_TYPES.DELETE });
+    this.setState({ caller, appointmentData, actionType: ACTION_TYPES.DELETE });
+  });
+
+  confirmAction = memoize((
+    isAppointmentNew, closeCaller, stopEditAppointment, finishDeleteAppointment,
+  ) => () => {
+    const { actionType, appointmentData } = this.state;
+    closeCaller();
+    this.closeConfirmationDialog();
+    if (actionType === ACTION_TYPES.DELETE && finishDeleteAppointment) {
+      finishDeleteAppointment(appointmentData);
+    }
+    if (!isAppointmentNew && stopEditAppointment) {
+      stopEditAppointment();
+    }
   });
 
   render() {
@@ -70,6 +91,8 @@ class ConfirmationDialogBase extends React.PureComponent<
       layoutComponent: Layout,
       containerComponent: Container,
       buttonComponent,
+      doNotOpenOnDelete,
+      doNotOpenOnCancel,
     } = this.props;
     const { isOpen, actionType, caller } = this.state;
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
@@ -79,8 +102,12 @@ class ConfirmationDialogBase extends React.PureComponent<
         name="ConfirmationDialog"
         dependencies={pluginDependencies}
       >
-        <Action name="confirmCancelChanges" action={this.confirmCancelChanges} />
-        <Action name="confirmDelete" action={this.confirmDelete} />
+        {!doNotOpenOnCancel &&
+          <Action name="confirmCancelChanges" action={this.confirmCancelChanges} />
+        }
+        {!doNotOpenOnDelete &&
+          <Action name="confirmDelete" action={this.confirmDelete} />
+        }
 
         <Template name="schedulerRoot">
           <TemplatePlaceholder />
@@ -95,21 +122,14 @@ class ConfirmationDialogBase extends React.PureComponent<
             }, {
               closeAppointmentForm,
               closeAppointmentTooltip,
-              cancelAddedAppointment,
               stopEditAppointment,
+              finishDeleteAppointment,
             }) => {
-              const confirm = () => {
-                switch (caller) {
-                  case 'AppointmentForm':
-                    closeAppointmentForm();
-                    break;
-                  case 'AppointmentTooltup':
-                    closeAppointmentTooltip();
-                    break;
-                }
-                this.closeConfirmationDialog();
-                //const isAppointmentNew = !editingAppointment;
-              };
+              const closeCaller = caller === APPOINTMENT_FORM ?
+                closeAppointmentForm : closeAppointmentTooltip;
+              const confirm = this.confirmAction(
+                !editingAppointment, closeCaller, stopEditAppointment, finishDeleteAppointment,
+              );
 
               return (
                 <Overlay

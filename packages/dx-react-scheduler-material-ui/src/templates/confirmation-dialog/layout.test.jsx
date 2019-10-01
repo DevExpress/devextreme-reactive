@@ -7,7 +7,7 @@ describe('EditRecurrenceMenu', () => {
   const defaultProps = {
     availableOperations: [{ value: '1', title: 'operation1' }],
     handleClose: jest.fn(),
-    commit: jest.fn(),
+    confirm: jest.fn(),
     getMessage: jest.fn(),
     // eslint-disable-next-line react/prop-types
     buttonComponent: ({ children }) => <div>{children}</div>,
@@ -45,7 +45,7 @@ describe('EditRecurrenceMenu', () => {
 
       const closeButton = tree.find(defaultProps.buttonComponent).at(1);
       closeButton.simulate('click');
-      expect(defaultProps.commit)
+      expect(defaultProps.confirm)
         .toBeCalled();
     });
     it('should render messages', () => {
@@ -56,17 +56,19 @@ describe('EditRecurrenceMenu', () => {
       expect(defaultProps.getMessage)
         .toBeCalledTimes(3);
       expect(defaultProps.getMessage)
-        .toBeCalledWith('menuEditTitle');
+        .toBeCalledWith('confirmCancelMessage');
       expect(defaultProps.getMessage)
         .toBeCalledWith('cancelButton');
       expect(defaultProps.getMessage)
-        .toBeCalledWith('commitButton');
+        .toBeCalledWith('discardButton');
 
       tree.setProps({ isDeleting: true });
       tree.update();
 
       expect(defaultProps.getMessage)
-        .toBeCalledWith('menuDeleteTitle');
+        .toBeCalledWith('confirmDeleteMeesage');
+      expect(defaultProps.getMessage)
+        .toBeCalledWith('deleteButton');
     });
   });
 });

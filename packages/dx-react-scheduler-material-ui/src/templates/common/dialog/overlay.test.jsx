@@ -52,7 +52,7 @@ describe('EditRecurrenceMenu', () => {
         .toMatchObject({
           open: defaultProps.visible,
           onClose: defaultProps.onHide,
-          className: `${classes.modal} custom-class`,
+          className: `${classes.modal} ${classes.root} custom-class`,
           BackdropProps: { className: classes.modal },
           container: null,
           onBackdropClick: defaultProps.onHide,

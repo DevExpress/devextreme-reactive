@@ -73,7 +73,7 @@ export const getCountDependingOnRecurrenceType = (frequency: RecurrenceFrequency
   let count;
   switch (frequency) {
     case RRULE_REPEAT_TYPES.YEARLY:
-      count =  BASIC_YEALY_COUNT;
+      count = BASIC_YEALY_COUNT;
       break;
     case RRULE_REPEAT_TYPES.MONTHLY:
       count = BASIC_MONTHLY_COUNT;
@@ -82,7 +82,7 @@ export const getCountDependingOnRecurrenceType = (frequency: RecurrenceFrequency
       count = BASIC_WEEKLY_COUNT;
       break;
     case RRULE_REPEAT_TYPES.DAILY:
-      count =  BASIC_DAILY_COUNT;
+      count = BASIC_DAILY_COUNT;
       break;
   }
   return count;

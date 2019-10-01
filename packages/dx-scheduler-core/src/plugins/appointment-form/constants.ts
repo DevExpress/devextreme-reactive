@@ -37,12 +37,12 @@ export const MONTHS = {
 };
 
 export const RRULE_REPEAT_TYPES = {
-  YEARLY: RRule.YEARLY,
-  MONTHLY: RRule.MONTHLY,
-  WEEKLY: RRule.WEEKLY,
-  DAILY: RRule.DAILY,
-  HOURLY: RRule.HOURLY,
-  MINUTELY: RRule.MINUTELY,
+  YEARLY: RRule.YEARLY as number,
+  MONTHLY: RRule.MONTHLY as number,
+  WEEKLY: RRule.WEEKLY as number,
+  DAILY: RRule.DAILY as number,
+  HOURLY: RRule.HOURLY as number,
+  MINUTELY: RRule.MINUTELY as number,
 };
 
 export const REPEAT_TYPES = {

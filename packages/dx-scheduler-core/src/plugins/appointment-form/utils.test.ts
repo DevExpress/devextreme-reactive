@@ -3,8 +3,7 @@ import {
   TUESDAY_DATE, WEDNESDAY_DATE, THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE,
   JANUARY_DATE, LONG_MONTH_OPTIONS, FEBRUARY_DATE, MARCH_DATE, APRIL_DATE,
   MAY_DATE, AUGUST_DATE, OCTOBER_DATE, NOVEMBER_DATE, DECEMBER_DATE, SEPTEMBER_DATE,
-  JULY_DATE, JUNE_DATE, RRULE_REPEAT_TYPES, BASIC_DAILY_COUNT, BASIC_WEEKLY_COUNT,
-  BASIC_MONTHLY_COUNT, BASIC_YEALY_COUNT, checkNumber,
+  JULY_DATE, JUNE_DATE, RRULE_REPEAT_TYPES, checkIsNaturalNumber,
 } from '@devexpress/dx-scheduler-core';
 import {
   getDaysOfWeek, getMonths, getWeekNumberLabels, getMonthsWithOf, getCountDependingOnRecurrenceType,
@@ -155,32 +154,32 @@ describe('AppointmentForm utils', () => {
   describe('#getCountDependingOnRecurrenceType', () => {
     it('should return count = 30 for daily appointments', () => {
       expect(getCountDependingOnRecurrenceType(RRULE_REPEAT_TYPES.DAILY))
-        .toEqual(BASIC_DAILY_COUNT);
+        .toEqual(30);
     });
     it('should return count = 13 for weekly appointments', () => {
       expect(getCountDependingOnRecurrenceType(RRULE_REPEAT_TYPES.WEEKLY))
-        .toEqual(BASIC_WEEKLY_COUNT);
+        .toEqual(13);
     });
     it('should return count = 12 for monthly appointments', () => {
       expect(getCountDependingOnRecurrenceType(RRULE_REPEAT_TYPES.MONTHLY))
-        .toEqual(BASIC_MONTHLY_COUNT);
+        .toEqual(12);
     });
     it('should return count = 5 for yearly appointments', () => {
       expect(getCountDependingOnRecurrenceType(RRULE_REPEAT_TYPES.YEARLY))
-        .toEqual(BASIC_YEALY_COUNT);
+        .toEqual(5);
     });
   });
-  describe('#checkNumber', () => {
+  describe('#checkIsNaturalNumber', () => {
     it('should return true if a number is bigger than 0 and less or equal to max integer', () => {
-      expect(checkNumber(1))
+      expect(checkIsNaturalNumber(1))
         .toBeTruthy();
-      expect(checkNumber(Number.MAX_SAFE_INTEGER))
+      expect(checkIsNaturalNumber(Number.MAX_SAFE_INTEGER))
         .toBeTruthy();
     });
     it('should return false otherwise', () => {
-      expect(checkNumber(0))
+      expect(checkIsNaturalNumber(0))
         .toBeFalsy();
-      expect(checkNumber(-5))
+      expect(checkIsNaturalNumber(-5))
         .toBeFalsy();
     });
   });

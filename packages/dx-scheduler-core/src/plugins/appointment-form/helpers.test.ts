@@ -4,9 +4,7 @@ import {
   callActionIfExists, isAllDayCell, changeRecurrenceFrequency, getRecurrenceOptions,
   changeRecurrenceOptions, handleStartDateChange, handleToDayOfWeekChange, handleWeekNumberChange,
   getRRuleFrequency, getFrequencyString, handleChangeFrequency, getRadioGroupDisplayData,
-  handleWeekDaysChange,
-  getDaysOfWeekArray,
-  getDaysOfWeekDates,
+  handleWeekDaysChange, getDaysOfWeekArray, getDaysOfWeekDates,
 } from './helpers';
 import {
   DEFAULT_RULE_OBJECT, REPEAT_TYPES, RRULE_REPEAT_TYPES, DAYS_OF_WEEK_ARRAY,
@@ -14,6 +12,10 @@ import {
   THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE,
 } from './constants';
 import { getCountDependingOnRecurrenceType } from './utils';
+
+jest.mock('./utils', () => ({
+  getCountDependingOnRecurrenceType: jest.fn(),
+}));
 
 describe('AppointmentForm helpers', () => {
   describe('#callActionIfExists', () => {
@@ -40,6 +42,12 @@ describe('AppointmentForm helpers', () => {
   describe('#changeRecurrenceFrequency', () => {
     const rule = 'RRULE:INTERVAL=3';
     const testDate = new Date(2019, 1, 1, 0, 0);
+    beforeEach(() => {
+      getCountDependingOnRecurrenceType.mockImplementation(() => 5);
+    });
+    afterEach(() => {
+      jest.resetAllMocks();
+    });
     it('should create new rule for a given frequency', () => {
       expect((new RRule(
         RRule.parseString(changeRecurrenceFrequency(undefined, RRule.DAILY, testDate)))
@@ -48,7 +56,7 @@ describe('AppointmentForm helpers', () => {
         .toMatchObject((new RRule({
           ...DEFAULT_RULE_OBJECT,
           freq: RRule.DAILY,
-          count: getCountDependingOnRecurrenceType(RRule.DAILY),
+          count: 5,
         }))
           .options);
 
@@ -59,7 +67,7 @@ describe('AppointmentForm helpers', () => {
         .toMatchObject((new RRule({
           ...DEFAULT_RULE_OBJECT,
           freq: RRule.WEEKLY,
-          count: getCountDependingOnRecurrenceType(RRule.WEEKLY),
+          count: 5,
         }))
           .options);
 
@@ -71,7 +79,7 @@ describe('AppointmentForm helpers', () => {
           ...DEFAULT_RULE_OBJECT,
           freq: RRule.MONTHLY,
           bymonthday: 1,
-          count: getCountDependingOnRecurrenceType(RRule.MONTHLY),
+          count: 5,
         }))
           .options);
 
@@ -84,9 +92,12 @@ describe('AppointmentForm helpers', () => {
           freq: RRule.YEARLY,
           bymonthday: 1,
           bymonth: 2,
-          count: getCountDependingOnRecurrenceType(RRule.YEARLY),
+          count: 5,
         }))
           .options);
+
+      expect(getCountDependingOnRecurrenceType)
+        .toBeCalledTimes(4);
     });
 
     it('should return a changed rule depending on frequency', () => {
@@ -97,7 +108,7 @@ describe('AppointmentForm helpers', () => {
         .toMatchObject((new RRule({
           ...RRule.parseString(rule),
           freq: RRule.DAILY,
-          count: getCountDependingOnRecurrenceType(RRule.DAILY),
+          count: 5,
         }))
           .options);
 
@@ -108,7 +119,7 @@ describe('AppointmentForm helpers', () => {
         .toMatchObject((new RRule({
           ...RRule.parseString(rule),
           freq: RRule.WEEKLY,
-          count: getCountDependingOnRecurrenceType(RRule.WEEKLY),
+          count: 5,
         }))
           .options);
 
@@ -120,7 +131,7 @@ describe('AppointmentForm helpers', () => {
           ...RRule.parseString(rule),
           freq: RRule.MONTHLY,
           bymonthday: 1,
-          count: getCountDependingOnRecurrenceType(RRule.MONTHLY),
+          count: 5,
         }))
           .options);
 
@@ -133,9 +144,11 @@ describe('AppointmentForm helpers', () => {
           freq: RRule.YEARLY,
           bymonthday: 1,
           bymonth: 2,
-          count: getCountDependingOnRecurrenceType(RRule.YEARLY),
+          count: 5,
         }))
           .options);
+      expect(getCountDependingOnRecurrenceType)
+        .toBeCalledTimes(4);
     });
 
     it('should clear bymonthday and byweekday when switching to daily', () => {
@@ -150,9 +163,11 @@ describe('AppointmentForm helpers', () => {
           freq: RRule.DAILY,
           bymonthday: undefined,
           byweekday: undefined,
-          count: getCountDependingOnRecurrenceType(RRule.DAILY),
+          count: 5,
         }))
           .options);
+      expect(getCountDependingOnRecurrenceType)
+        .toHaveBeenCalled();
     });
 
     it('should clear bymonthday and byweekday when switching to weekly', () => {
@@ -167,9 +182,11 @@ describe('AppointmentForm helpers', () => {
           freq: RRule.WEEKLY,
           bymonthday: undefined,
           byweekday: undefined,
-          count: getCountDependingOnRecurrenceType(RRule.WEEKLY),
+          count: 5,
         }))
           .options);
+      expect(getCountDependingOnRecurrenceType)
+        .toHaveBeenCalled();
     });
 
     it('should clear byweekday when switching to yearly', () => {
@@ -185,9 +202,11 @@ describe('AppointmentForm helpers', () => {
           byweekday: undefined,
           bymonthday: testDate.getDate(),
           bymonth: testDate.getMonth() + 1,
-          count: getCountDependingOnRecurrenceType(RRule.YEARLY),
+          count: 5,
         }))
           .options);
+      expect(getCountDependingOnRecurrenceType)
+        .toHaveBeenCalled();
     });
 
     it('should clear byweekday when switching to monthly', () => {
@@ -202,9 +221,11 @@ describe('AppointmentForm helpers', () => {
           freq: RRule.MONTHLY,
           byweekday: undefined,
           bymonthday: testDate.getDate(),
-          count: getCountDependingOnRecurrenceType(RRule.MONTHLY),
+          count: 5,
         }))
           .options);
+      expect(getCountDependingOnRecurrenceType)
+        .toHaveBeenCalled();
     });
   });
 
@@ -314,13 +335,21 @@ describe('AppointmentForm helpers', () => {
     });
   });
   describe('#handleChangeFrequency', () => {
+    beforeEach(() => {
+      getCountDependingOnRecurrenceType.mockImplementation(() => 5);
+    });
+    afterEach(() => {
+      jest.resetAllMocks();
+    });
     it('should change frequency', () => {
       const action = jest.fn();
       handleChangeFrequency('daily', '', new Date(), action);
       expect(action)
         .toBeCalledWith({
-          rRule: 'RRULE:INTERVAL=1;FREQ=DAILY;COUNT=30',
+          rRule: 'RRULE:INTERVAL=1;FREQ=DAILY;COUNT=5',
         });
+      expect(getCountDependingOnRecurrenceType)
+        .toHaveBeenCalled();
     });
   });
   describe('#getRadioGroupDisplayData', () => {

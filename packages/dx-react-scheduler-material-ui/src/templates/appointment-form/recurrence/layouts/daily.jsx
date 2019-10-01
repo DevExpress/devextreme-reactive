@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import {
   getRecurrenceOptions,
   changeRecurrenceOptions,
-  checkNumber,
+  checkIsNaturalNumber,
 } from '@devexpress/dx-scheduler-core';
 import { IntervalEditor } from './interval-editor';
 
@@ -25,7 +25,7 @@ export const Daily = ({
   const recurrenceOptions = React.useMemo(() => getRecurrenceOptions(rRule) || {}, [rRule]);
 
   const changeRecurrenceInterval = React.useCallback(
-    interval => checkNumber(interval) && onFieldChange({
+    interval => checkIsNaturalNumber(interval) && onFieldChange({
       rRule: changeRecurrenceOptions({ ...recurrenceOptions, interval }),
     }), [recurrenceOptions, onFieldChange],
   );

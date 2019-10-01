@@ -84,6 +84,6 @@ export const getCountDependingOnRecurrenceType = (frequency: number) => {
   }
 };
 
-export const checkNumber: PureComputed<
+export const checkIsNaturalNumber: PureComputed<
   [number], boolean
 > = number => number > 0 && number <= Number.MAX_SAFE_INTEGER;

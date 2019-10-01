@@ -3,7 +3,7 @@ import {
   LONG_MONTH_OPTIONS,
 } from '@devexpress/dx-scheduler-core';
 import { PureComputed } from '@devexpress/dx-core';
-import { Option, OptionsFormatterFn, DateFormatterFn } from '../../types';
+import { Option, OptionsFormatterFn, DateFormatterFn, RecurrenceFrequency } from '../../types';
 import {
   MONTHS_DATES, REPEAT_TYPES_ARRAY, WEEK_NUMBER_LABELS, DAYS_IN_WEEK, RRULE_REPEAT_TYPES,
   BASIC_YEALY_COUNT, BASIC_MONTHLY_COUNT, BASIC_WEEKLY_COUNT, BASIC_DAILY_COUNT,
@@ -69,19 +69,23 @@ export const getAvailableRecurrenceOptions: OptionsFormatterFn = getMessage =>
     id: type,
   }));
 
-export const getCountDependingOnRecurrenceType = (frequency: number) => {
+export const getCountDependingOnRecurrenceType = (frequency: RecurrenceFrequency) => {
+  let count;
   switch (frequency) {
     case RRULE_REPEAT_TYPES.YEARLY:
-      return BASIC_YEALY_COUNT;
+      count =  BASIC_YEALY_COUNT;
+      break;
     case RRULE_REPEAT_TYPES.MONTHLY:
-      return BASIC_MONTHLY_COUNT;
+      count = BASIC_MONTHLY_COUNT;
+      break;
     case RRULE_REPEAT_TYPES.WEEKLY:
-      return BASIC_WEEKLY_COUNT;
+      count = BASIC_WEEKLY_COUNT;
+      break;
     case RRULE_REPEAT_TYPES.DAILY:
-      return BASIC_DAILY_COUNT;
-    default:
-      return 1;
+      count =  BASIC_DAILY_COUNT;
+      break;
   }
+  return count;
 };
 
 export const checkIsNaturalNumber: PureComputed<

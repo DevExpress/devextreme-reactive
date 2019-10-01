@@ -35,3 +35,5 @@ export type OptionsFormatterFn = PureComputed<
 export type DateFormatterFn = PureComputed<
   [(date: Date, formatOptions: object) => string], Array<Option>
 >;
+/** @internal */
+export type RecurrenceFrequency = number;

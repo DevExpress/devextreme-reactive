@@ -36,7 +36,7 @@ about: Report a bug to help us improve
     Provide steps to reproduce the bug.
 -->
 
-I have created my example based on [CodeSandbox examples](https://github.com/DevExpress/devextreme-reactive/issues/2358).
+Link to the example that reproduces the issue: &lt;put your link here&gt; (you can fork one of our pre-configured [examples on CodeSandbox](https://github.com/DevExpress/devextreme-reactive/issues/2358)).
 
 
 ### Screenshots

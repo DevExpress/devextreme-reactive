@@ -1,4 +1,5 @@
 import * as React from 'react';
+// tslint:disable-next-line: no-submodule-imports
 import { act } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';

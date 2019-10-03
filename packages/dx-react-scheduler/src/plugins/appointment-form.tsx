@@ -79,6 +79,10 @@ const prepareChanges = (
   return { changedAppointment, isNew, isFormEdited };
 };
 
+const isFormFullSize = (
+  isFormVisisble, changedAppointmentRRule, previousAppointmentRRule,
+) => !!changedAppointmentRRule || (!isFormVisisble && !!previousAppointmentRRule);
+
 class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, AppointmentFormState> {
   toggleVisibility: (payload?: any) => void;
   setAppointmentData: (payload: any) => void;
@@ -115,6 +119,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
       visible: props.visible,
       appointmentData: props.appointmentData || {},
       previousRule: undefined,
+      previousAppointment: props.appointmentData || {},
     };
 
     const stateHelper: StateHelper = createStateHelper(
@@ -161,38 +166,49 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     this.toggleVisibility();
   });
 
-  commitChanges = memoize((finishCommitAppointment, commitAddedAppointment, isNew) => () =>  {
+  commitChanges = memoize((
+    finishCommitAppointment, commitAddedAppointment, isNew, changedAppointment,
+  ) => () =>  {
     this.toggleVisibility();
     if (isNew) {
       commitAddedAppointment();
     } else if (finishCommitAppointment) {
       finishCommitAppointment();
     }
+    this.setState({ previousAppointment: changedAppointment });
   });
 
   cancelChanges = memoize((
-    confirmCancelChanges, isNew, stopEditAppointment, appointmentChanges,
+    openCancelConfirmationDialog, isNew, stopEditAppointment, appointmentChanges,
+    changedAppointment, cancelAddedAppointment, cancelChangedAppointment,
   ) => () => {
-    if (confirmCancelChanges && appointmentChanges !== {}) {
-      confirmCancelChanges(APPOINTMENT_FORM);
+    if (openCancelConfirmationDialog && Object.keys(appointmentChanges).length !== 0) {
+      openCancelConfirmationDialog(APPOINTMENT_FORM);
     } else {
-      if (!isNew) {
-        stopEditAppointment();
+      if (isNew) {
+        callActionIfExists(cancelAddedAppointment, appointmentChanges);
+      } else {
+        callActionIfExists(stopEditAppointment, appointmentChanges);
+        callActionIfExists(cancelChangedAppointment, appointmentChanges);
       }
       this.toggleVisibility();
     }
+    this.setState({ previousAppointment: changedAppointment });
   });
 
   deleteAppointment = memoize((
-    finishDeleteAppointment, appointmentData, stopEditAppointment, confirmDelete,
+    finishDeleteAppointment, appointmentData, stopEditAppointment,
+    openDeleteConfirmationDialog, changedAppointment,
   ) => () => {
-    if (confirmDelete) {
-      confirmDelete({ caller: APPOINTMENT_FORM, appointmentData });
+    if (openDeleteConfirmationDialog) {
+      openDeleteConfirmationDialog({
+        pluginName: APPOINTMENT_FORM, appointmentData: changedAppointment,
+      });
     } else {
-      callActionIfExists(stopEditAppointment, appointmentData);
       callActionIfExists(finishDeleteAppointment, appointmentData);
       this.toggleVisibility();
     }
+    this.setState({ previousAppointment: changedAppointment });
   });
 
   changeAppointmentField = memoize((isNew, changeAddedAppointment, changeAppointment) =>
@@ -228,7 +244,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
       readOnly,
       messages,
     } = this.props;
-    const { previousRule, visible, appointmentData } = this.state;
+    const { previousRule, visible, appointmentData, previousAppointment } = this.state;
     const getMessage = this.getMessage(defaultMessages, messages);
     return (
       <Plugin
@@ -246,7 +262,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               const { changedAppointment } = prepareChanges(
                 appointmentData, editingAppointment, addedAppointment, appointmentChanges,
               );
-              const fullSize = !!changedAppointment.rRule;
+              const fullSize = isFormFullSize(
+                visible, changedAppointment.rRule, previousAppointment.rRule,
+              );
               const onHideAction = () => this.state.visible && this.toggleVisibility();
 
               return (
@@ -283,25 +301,29 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
 
               stopEditAppointment,
 
-              confirmCancelChanges,
-              confirmDelete,
+              openCancelConfirmationDialog,
+              openDeleteConfirmationDialog,
             }) => {
 
               const { isNew, changedAppointment, isFormEdited } = prepareChanges(
                 appointmentData, editingAppointment, addedAppointment, appointmentChanges,
               );
-              const isRecurrence = !!changedAppointment.rRule;
+              const isRecurrence = isFormFullSize(
+                visible, changedAppointment.rRule, previousAppointment.rRule,
+              );
               return (
                 <CommandLayout
                   commandButtonComponent={commandButtonComponent}
                   onCommitButtonClick={this.commitChanges(
-                    finishCommitAppointment, commitAddedAppointment, isNew,
+                    finishCommitAppointment, commitAddedAppointment, isNew, changedAppointment,
                   )}
                   onCancelButtonClick={this.cancelChanges(
-                    confirmCancelChanges, isNew, stopEditAppointment, appointmentChanges,
+                    openCancelConfirmationDialog, isNew, stopEditAppointment,
+                    { ...appointmentChanges, ...addedAppointment }, changedAppointment,
                   )}
                   onDeleteButtonClick={this.deleteAppointment(
-                    finishDeleteAppointment, appointmentData, stopEditAppointment, confirmDelete,
+                    finishDeleteAppointment, appointmentData, stopEditAppointment,
+                    openDeleteConfirmationDialog, changedAppointment,
                   )}
                   getMessage={getMessage}
                   readOnly={readOnly}
@@ -329,7 +351,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               return (
                 <BasicLayout
                   locale={locale}
-                  appointmentData={changedAppointment}
+                  appointmentData={visible ? changedAppointment : previousAppointment}
                   onFieldChange={this.changeAppointmentField(
                     isNew, changeAddedAppointment, changeAppointment,
                   )}
@@ -363,14 +385,16 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               const { isNew, changedAppointment } = prepareChanges(
                 appointmentData, editingAppointment, addedAppointment, appointmentChanges,
               );
-              const isRecurrenceLayoutVisible = !!changedAppointment.rRule;
+              const isRecurrenceLayoutVisible = isFormFullSize(
+                visible, changedAppointment.rRule, previousAppointment.rRule,
+              );
               const correctedAppointment = !changedAppointment.rRule
                 ? { ...changedAppointment, rRule: previousRule } : changedAppointment;
 
               return (
                 <RecurrenceLayout
                   locale={locale}
-                  appointmentData={correctedAppointment}
+                  appointmentData={visible ? correctedAppointment : previousAppointment}
                   onFieldChange={this.changeAppointmentField(
                     isNew, changeAddedAppointment, changeAppointment,
                   )}
@@ -394,16 +418,12 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
         <Template name="tooltip">
           {(params: AppointmentTooltip.LayoutProps) => (
             <TemplateConnector>
-              {(getters, {
-                startEditAppointment, cancelAddedAppointment, cancelChangedAppointment,
-              }) => (
+              {(getters, { startEditAppointment }) => (
                 <TemplatePlaceholder
                   params={{
                     ...params,
                     onOpenButtonClick: () => {
                       this.openFormHandler(params.appointmentMeta!.data);
-                      callActionIfExists(cancelAddedAppointment, params.appointmentMeta!.data);
-                      callActionIfExists(cancelChangedAppointment, params.appointmentMeta!.data);
                       callActionIfExists(startEditAppointment, params.appointmentMeta!.data);
                     },
                   }}
@@ -416,16 +436,12 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
         <Template name="appointment">
           {(params: Appointments.AppointmentProps) => (
             <TemplateConnector>
-              {(getters, {
-                startEditAppointment, cancelAddedAppointment, cancelChangedAppointment,
-              }) => (
+              {(getters, { startEditAppointment }) => (
                 <TemplatePlaceholder
                   params={{
                     ...params,
                     onDoubleClick: () => {
                       this.openFormHandler(params.data);
-                      callActionIfExists(cancelAddedAppointment, params.data);
-                      callActionIfExists(cancelChangedAppointment, params.data);
                       callActionIfExists(startEditAppointment, params.data);
                     },
                   }}
@@ -438,9 +454,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
         <Template name="cell">
           {(params: any) => (
             <TemplateConnector>
-              {(getters, {
-                addAppointment, cancelAddedAppointment, cancelChangedAppointment,
-              }) => {
+              {(getters, { addAppointment }) => {
                 const newAppointmentData = {
                   title: undefined,
                   startDate: params.startDate,
@@ -453,8 +467,6 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                       ...params,
                       onDoubleClick: () => {
                         this.openFormHandler(newAppointmentData);
-                        callActionIfExists(cancelAddedAppointment, newAppointmentData);
-                        callActionIfExists(cancelChangedAppointment, newAppointmentData);
                         callActionIfExists(addAppointment,
                           { appointmentData: newAppointmentData });
                       },

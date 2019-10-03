@@ -128,13 +128,12 @@ class AppointmentTooltipBase extends React.PureComponent<
             {({
               formatDate,
             }, {
-              finishDeleteAppointment, confirmDelete,
+              finishDeleteAppointment, openDeleteConfirmationDialog,
             }) => {
               const onDeleteButtonClick = () => {
-                if (confirmDelete) {
-                  confirmDelete({
-                    caller: APPOINTMENT_TOOLTIP, appointmentData: appointmentMeta.data,
-                  });
+                if (openDeleteConfirmationDialog) {
+                  openDeleteConfirmationDialog({
+                    pluginName: APPOINTMENT_TOOLTIP, appointmentData: appointmentMeta.data });
                 } else {
                   this.toggleVisibility();
                   finishDeleteAppointment(appointmentMeta.data);

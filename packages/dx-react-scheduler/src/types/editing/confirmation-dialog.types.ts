@@ -76,5 +76,5 @@ export type ConfirmationDialogState = {
   isOpen: boolean;
   caller: string;
   actionType: string | undefined;
-  appointmentData: AppointmentModel;
+  appointmentData: AppointmentModel | {};
 };

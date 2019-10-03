@@ -1,21 +1,20 @@
 import * as React from 'react';
-import { getMessagesFormatter, memoize } from '@devexpress/dx-core';
+import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   Plugin,
   Template,
   TemplatePlaceholder,
   TemplateConnector,
-  PluginComponents,
   Action,
 } from '@devexpress/dx-react-core';
-import { ConfirmationDialogProps, ConfirmationDialogState } from '../types/editing/confirmation-dialog.types';
-import { APPOINTMENT_FORM } from '@devexpress/dx-scheduler-core';
+import { ConfirmationDialogProps } from '../types/editing/confirmation-dialog.types';
+import { APPOINTMENT_FORM, callActionIfExists } from '@devexpress/dx-scheduler-core';
 
 const defaultMessages = {
   discardButton: 'Discard',
   deleteButton: 'Delete',
   cancelButton: 'Cancel',
-  confirmDeleteMeesage: 'Do you really want to delete this appointment?',
+  confirmDeleteMeesage: 'Are you sure you want to delete this appointment?',
   confirmCancelMessage: 'Discard unsaved changes?',
 };
 
@@ -28,131 +27,128 @@ const ACTION_TYPES = {
   DELETE: 'delete',
 };
 
-class ConfirmationDialogBase extends React.PureComponent<
-  ConfirmationDialogProps, ConfirmationDialogState
-> {
-  static components: PluginComponents = {
-    overlayComponent: 'Overlay',
-    layoutComponent: 'Layout',
-    buttonComponent: 'Button',
-    containerComponent: 'Container',
-  };
+const ConfirmationDialogBase: React.SFC<ConfirmationDialogProps> & {components: {
+  overlayComponent: string, containerComponent: string,
+  layoutComponent: string, buttonComponent: string,
+}} = (props) => {
+  const {
+    messages, overlayComponent: Overlay, layoutComponent: Layout, containerComponent: Container,
+    buttonComponent, doNotOpenOnDelete, doNotOpenOnCancel,
+  } = props;
+  const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
+  const modalContainer = React.useRef();
 
-  static defaultProps: Partial<ConfirmationDialogProps> = {
-    doNotOpenOnDelete: false,
-    doNotOpenOnCancel: false,
-  };
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [actionType, setActionType] = React.useState('');
+  const [pluginToClose, setPluginToClose] = React.useState('');
+  const [appointmentData, setAppointmentData] = React.useState({});
 
-  modalContainer = React.createRef();
+  const toggleIsOpen = React.useCallback(() => {
+    setIsOpen(!isOpen);
+  }, [isOpen, setIsOpen]);
 
-  state = {
-    isOpen: false,
-    actionType: undefined,
-    caller: '',
-    appointmentData: {},
-  };
+  const confirmCancelChanges = React.useCallback((pluginName) => {
+    toggleIsOpen();
+    setPluginToClose(pluginName);
+    setActionType(ACTION_TYPES.CANCEL);
+  }, [toggleIsOpen, setPluginToClose, setActionType]);
+  const confirmDelete = React.useCallback(({
+    pluginName, appointmentData: changedAppointment,
+  }) => {
+    toggleIsOpen();
+    setPluginToClose(pluginName);
+    setActionType(ACTION_TYPES.DELETE);
+    setAppointmentData(changedAppointment);
+  }, [toggleIsOpen, setPluginToClose, setActionType, setAppointmentData]);
 
-  openConfirmationDialog = () => {
-    this.setState({ isOpen: true });
-  }
-
-  closeConfirmationDialog = () => {
-    this.setState({ isOpen: false });
-  }
-
-  confirmCancelChanges = memoize((caller) => {
-    this.openConfirmationDialog();
-    this.setState({ caller, actionType: ACTION_TYPES.CANCEL });
-  });
-
-  confirmDelete = memoize(({ caller, appointmentData }) => {
-    this.openConfirmationDialog();
-    this.setState({ caller, appointmentData, actionType: ACTION_TYPES.DELETE });
-  });
-
-  confirmAction = memoize((
-    isAppointmentNew, closeCaller, stopEditAppointment, finishDeleteAppointment,
+  const confirmAction = React.useCallback((
+    isNewAppointment, closeCallingPlugin, stopEditAppointment, finishDeleteAppointment,
+    cancelAddedAppointment, cancelChangedAppointment,
   ) => () => {
-    const { actionType, appointmentData } = this.state;
-    closeCaller();
-    this.closeConfirmationDialog();
+    closeCallingPlugin();
+    toggleIsOpen();
     if (actionType === ACTION_TYPES.DELETE && finishDeleteAppointment) {
       finishDeleteAppointment(appointmentData);
+    } else {
+      if (isNewAppointment) {
+        callActionIfExists(cancelAddedAppointment, appointmentData);
+      } else {
+        callActionIfExists(stopEditAppointment, appointmentData);
+        callActionIfExists(cancelChangedAppointment, appointmentData);
+      }
     }
-    if (!isAppointmentNew && stopEditAppointment) {
-      stopEditAppointment();
-    }
-  });
+  }, [toggleIsOpen, actionType, appointmentData]);
 
-  render() {
-    const {
-      messages,
-      overlayComponent: Overlay,
-      layoutComponent: Layout,
-      containerComponent: Container,
-      buttonComponent,
-      doNotOpenOnDelete,
-      doNotOpenOnCancel,
-    } = this.props;
-    const { isOpen, actionType, caller } = this.state;
-    const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
+  return (
+    <Plugin
+      name="ConfirmationDialog"
+      dependencies={pluginDependencies}
+    >
+      {!doNotOpenOnCancel &&
+        <Action name="openCancelConfirmationDialog" action={confirmCancelChanges} />
+      }
+      {!doNotOpenOnDelete &&
+        <Action name="openDeleteConfirmationDialog" action={confirmDelete} />
+      }
 
-    return (
-      <Plugin
-        name="ConfirmationDialog"
-        dependencies={pluginDependencies}
-      >
-        {!doNotOpenOnCancel &&
-          <Action name="confirmCancelChanges" action={this.confirmCancelChanges} />
-        }
-        {!doNotOpenOnDelete &&
-          <Action name="confirmDelete" action={this.confirmDelete} />
-        }
+      <Template name="schedulerRoot">
+        <TemplatePlaceholder />
+        <Container ref={modalContainer} />
+        <TemplatePlaceholder name="confirmationDialogOverlay" />
+      </Template>
 
-        <Template name="schedulerRoot">
-          <TemplatePlaceholder />
-          <Container ref={this.modalContainer} />
-          <TemplatePlaceholder name="confirmationDialogOverlay" />
-        </Template>
+      <Template name="confirmationDialogOverlay">
+        <TemplateConnector>
+          {({
+            editingAppointment,
+          }, {
+            closeAppointmentForm,
+            closeAppointmentTooltip,
+            stopEditAppointment,
+            finishDeleteAppointment,
+            cancelAddedAppointment,
+            cancelChangedAppointment,
+          }) => {
+            const closeCallingPlugin = pluginToClose === APPOINTMENT_FORM ?
+              closeAppointmentForm : closeAppointmentTooltip;
+            const confirm = confirmAction(
+              !editingAppointment, closeCallingPlugin, stopEditAppointment,
+              finishDeleteAppointment, cancelAddedAppointment, cancelChangedAppointment,
+            );
 
-        <Template name="confirmationDialogOverlay">
-          <TemplateConnector>
-            {({
-              editingAppointment,
-            }, {
-              closeAppointmentForm,
-              closeAppointmentTooltip,
-              stopEditAppointment,
-              finishDeleteAppointment,
-            }) => {
-              const closeCaller = caller === APPOINTMENT_FORM ?
-                closeAppointmentForm : closeAppointmentTooltip;
-              const confirm = this.confirmAction(
-                !editingAppointment, closeCaller, stopEditAppointment, finishDeleteAppointment,
-              );
+            return (
+              <Overlay
+                target={modalContainer}
+                visible={isOpen}
+                onHide={toggleIsOpen}
+              >
+                <Layout
+                  buttonComponent={buttonComponent}
+                  handleClose={toggleIsOpen}
+                  confirm={confirm}
+                  getMessage={getMessage}
+                  isDeleting={actionType === ACTION_TYPES.DELETE}
+                />
+              </Overlay>
+            );
+          }}
+        </TemplateConnector>
+      </Template>
+    </Plugin>
+  );
+};
 
-              return (
-                <Overlay
-                  target={this.modalContainer}
-                  visible={isOpen}
-                  onHide={this.closeConfirmationDialog}
-                >
-                  <Layout
-                    buttonComponent={buttonComponent}
-                    handleClose={this.closeConfirmationDialog}
-                    confirm={confirm}
-                    getMessage={getMessage}
-                    isDeleting={actionType === ACTION_TYPES.DELETE}
-                  />
-                </Overlay>
-              );
-            }}
-          </TemplateConnector>
-        </Template>
-      </Plugin>
-    );
-  }
-}
+ConfirmationDialogBase.components = {
+  overlayComponent: 'Overlay',
+  containerComponent: 'Container',
+  layoutComponent: 'Layout',
+  buttonComponent: 'Button',
+};
+
+ConfirmationDialogBase.defaultProps = {
+  doNotOpenOnDelete: false,
+  doNotOpenOnCancel: false,
+};
 
 /** A plugin that renders the Scheduler's button which sets the current date to today's date. */
 export const ConfirmationDialog: React.ComponentType<

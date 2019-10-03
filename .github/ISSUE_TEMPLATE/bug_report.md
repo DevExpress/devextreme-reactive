@@ -33,8 +33,10 @@ about: Report a bug to help us improve
 
 ### Steps to Reproduce
 <!--
-    Provide steps to reproduce the bug. If possible, create a demo illustrating the problem.
+    Provide steps to reproduce the bug.
 -->
+
+Link to the example that reproduces the issue: &lt;put your link here&gt; (you can fork one of our pre-configured [examples on CodeSandbox](https://github.com/DevExpress/devextreme-reactive/issues/2358)).
 
 
 ### Screenshots

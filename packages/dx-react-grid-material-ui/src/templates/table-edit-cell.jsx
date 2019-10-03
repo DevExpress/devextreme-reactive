@@ -8,6 +8,9 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   cell: {
     padding: theme.spacing(1),
+    '&:first-child': {
+      paddingLeft: theme.spacing(3),
+    },
   },
   inputRoot: {
     width: '100%',

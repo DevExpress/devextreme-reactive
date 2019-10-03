@@ -12,6 +12,7 @@ The following plugins implement this feature:
 - [AppointmentTooltip](../reference/appointment-tooltip.md) - renders a tooltip with controls that manage the appointment
 - [AppointmentForm](../reference/appointment-form.md) - renders a form that allows a user to edit an appointment
 - [DragDropProvider](../reference/drag-drop-provider.md) - implements drag-and-drop editing
+- [ConfirmationDialog](../reference/confirmation-dialog.md) - renders a dialog that allows a user to confirm or cancel delete and cancel appointment actions.
 
 ## User Interaction
 
@@ -61,9 +62,7 @@ You can also use the `onAddedAppointmentChange` event to initialize a new appoin
 
 ## Preprocess Changes
 
-To validate user input or prevent user actions, handle the `EditingState` plugin's `onCommitChanges` event.
-
-For example, you can show a confirmation dialog before an appointment is removed. To detect an attempt to remove an appointment, check the `deleted` parameter's value in the `commitChanges` handler:
+To validate user input or prevent user actions, add the [ConfirmationDialog](../reference/confirmation-dialog.md) plugin. If added, the dialog opens on delete an appointment and cancel appointment changes events. If you do not want dialog to open on cancel appointment changes events, use `doNotOpenOnCancel` property, as shown in the demo below. To not open the dialog on delete events, use `doNotOpenOnDeete` property.
 
 .embedded-demo({ "path": "scheduler-editing/delete-confirmation", "showThemeSelector": true })
 

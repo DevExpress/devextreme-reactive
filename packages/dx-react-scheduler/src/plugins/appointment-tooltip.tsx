@@ -9,7 +9,6 @@ import {
   PluginComponents,
   Action,
 } from '@devexpress/dx-react-core';
-import { memoize } from '@devexpress/dx-core';
 import {
   OPEN_COMMAND_BUTTON,
   CLOSE_COMMAND_BUTTON,

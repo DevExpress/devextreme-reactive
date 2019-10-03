@@ -421,6 +421,46 @@ export type ClientOffset = {
 };
 
 // @public
+export const ConfirmationDialog: React.ComponentType<ConfirmationDialogProps>;
+
+// @public (undocumented)
+export namespace ConfirmationDialog {
+  export interface ButtonProps {
+    onClick: () => void;
+    title: string;
+  }
+  export interface LayoutProps {
+    buttonComponent: React.ComponentType<ConfirmationDialog.ButtonProps>;
+    confirm: () => void;
+    getMessage: (messageKey: string) => string;
+    handleClose: () => void;
+    isDeleting: boolean;
+  }
+  export interface LocalizationMessages {
+    cancelButton?: string;
+    confirmCancelMessage?: string;
+    confirmDeleteMeesage?: string;
+    deleteButton?: string;
+    discardButton?: string;
+  }
+  export interface OverlayProps {
+    onHide: () => void;
+    target: React.RefObject<unknown>;
+    visible: boolean;
+  }
+}
+
+// @public (undocumented)
+export interface ConfirmationDialogProps {
+  buttonComponent: React.ComponentType<ConfirmationDialog.ButtonProps>;
+  doNotOpenOnCancel: boolean;
+  doNotOpenOnDelete: boolean;
+  layoutComponent: React.ComponentType<ConfirmationDialog.LayoutProps>;
+  messages?: ConfirmationDialog.LocalizationMessages;
+  overlayComponent: React.ComponentType<ConfirmationDialog.OverlayProps>;
+}
+
+// @public
 export const DateNavigator: React.ComponentType<DateNavigatorProps>;
 
 // @public (undocumented)

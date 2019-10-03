@@ -32,7 +32,8 @@
     "array-type": false,
     "member-ordering": false,
     "jsx-wrap-multiline": false,
-    "no-this-assignment": [true, {"allow-destructuring": true}]
+    "no-this-assignment": [true, {"allow-destructuring": true}],
+    "no-submodule-imports": [true, "react-dom/test-utils"]
   },
   "jsRules": {
     "object-literal-sort-keys": false

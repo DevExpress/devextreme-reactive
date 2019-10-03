@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost, Template } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents } from '@devexpress/dx-testing';
+import { pluginDepsToComponents, executeComputedAction } from '@devexpress/dx-testing';
 import { AppointmentForm } from './appointment-form';
 
 describe('AppointmentForm', () => {
@@ -308,5 +308,62 @@ describe('AppointmentForm', () => {
 
     expect(templatePlaceholder.exists())
       .toBeTruthy();
+  });
+
+  it('should provide toggleAppointmentFormVisibility action', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <AppointmentForm
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    executeComputedAction(tree, (computedActions) => {
+      computedActions.toggleAppointmentFormVisibility();
+    });
+
+    expect(tree.find(AppointmentForm).state().visible)
+      .toBeTruthy();
+  });
+
+  it('should call openDeleteConfirmationDialog on delete event', () => {
+    const openDeleteConfirmationDialog = jest.fn();
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents({
+          ...defaultDeps,
+          action: { ...defaultDeps.action, openDeleteConfirmationDialog },
+        })}
+        <AppointmentForm
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    tree.find(defaultProps.commandLayoutComponent).props().onDeleteButtonClick();
+    expect(openDeleteConfirmationDialog)
+      .toBeCalled();
+  });
+
+  it('should call openCancelConfirmationDialog on delete event', () => {
+    const openCancelConfirmationDialog = jest.fn();
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents({
+          ...defaultDeps,
+          action: { ...defaultDeps.action, openCancelConfirmationDialog },
+          getter: { ...defaultDeps.getter, appointmentChanges: { title: 'test' } },
+        })}
+        <AppointmentForm
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    tree.find(defaultProps.commandLayoutComponent).props().onCancelButtonClick();
+    expect(openCancelConfirmationDialog)
+      .toBeCalled();
   });
 });

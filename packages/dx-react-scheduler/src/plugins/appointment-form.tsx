@@ -162,10 +162,6 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     };
   }
 
-  closeAppointmentForm = memoize(() => {
-    this.toggleVisibility();
-  });
-
   commitChanges = memoize((
     finishCommitAppointment, commitAddedAppointment, isNew, changedAppointment,
   ) => () =>  {
@@ -251,7 +247,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
         name="AppointmentForm"
         dependencies={pluginDependencies}
       >
-        <Action name="closeAppointmentForm" action={this.closeAppointmentForm} />
+        <Action name="toggleAppointmentFormVisibility" action={this.toggleVisibility} />
         <Template name="schedulerRoot">
           <TemplateConnector>
             {({

@@ -15,8 +15,8 @@ describe('ConfirmationDialog', () => {
       editingAppointment: {},
     },
     action: {
-      closeAppointmentForm: jest.fn(),
-      closeAppointmentTooltip: jest.fn(),
+      toggleAppointmentFormVisibility: jest.fn(),
+      toggleAppointmentTooltipVisibility: jest.fn(),
       stopEditAppointment: jest.fn(),
       finishDeleteAppointment: jest.fn(),
       cancelAddedAppointment: jest.fn(),
@@ -167,7 +167,7 @@ describe('ConfirmationDialog', () => {
       tree.find(defaultProps.layoutComponent).prop('confirm')();
     });
 
-    expect(defaultDeps.action.closeAppointmentForm)
+    expect(defaultDeps.action.toggleAppointmentFormVisibility)
       .toBeCalled();
     expect(defaultDeps.action.cancelChangedAppointment)
       .toBeCalled();
@@ -195,7 +195,7 @@ describe('ConfirmationDialog', () => {
       tree.find(defaultProps.layoutComponent).prop('confirm')();
     });
 
-    expect(defaultDeps.action.closeAppointmentTooltip)
+    expect(defaultDeps.action.toggleAppointmentTooltipVisibility)
       .toBeCalled();
     expect(defaultDeps.action.cancelChangedAppointment)
       .toBeCalled();
@@ -225,7 +225,7 @@ describe('ConfirmationDialog', () => {
       tree.find(defaultProps.layoutComponent).prop('confirm')();
     });
 
-    expect(defaultDeps.action.closeAppointmentForm)
+    expect(defaultDeps.action.toggleAppointmentFormVisibility)
       .toBeCalled();
     expect(defaultDeps.action.finishDeleteAppointment)
       .toBeCalled();
@@ -253,7 +253,7 @@ describe('ConfirmationDialog', () => {
       tree.find(defaultProps.layoutComponent).prop('confirm')();
     });
 
-    expect(defaultDeps.action.closeAppointmentTooltip)
+    expect(defaultDeps.action.toggleAppointmentTooltipVisibility)
       .toBeCalled();
     expect(defaultDeps.action.finishDeleteAppointment)
       .toBeCalled();
@@ -280,7 +280,7 @@ describe('ConfirmationDialog', () => {
       tree.find(defaultProps.layoutComponent).prop('handleClose')();
     });
 
-    expect(defaultDeps.action.closeAppointmentForm)
+    expect(defaultDeps.action.toggleAppointmentFormVisibility)
       .not.toBeCalled();
     expect(defaultDeps.action.cancelChangedAppointment)
       .not.toBeCalled();
@@ -308,7 +308,7 @@ describe('ConfirmationDialog', () => {
       tree.find(defaultProps.layoutComponent).prop('handleClose')();
     });
 
-    expect(defaultDeps.action.closeAppointmentTooltip)
+    expect(defaultDeps.action.toggleAppointmentTooltipVisibility)
       .not.toBeCalled();
     expect(defaultDeps.action.cancelChangedAppointment)
       .not.toBeCalled();
@@ -336,7 +336,7 @@ describe('ConfirmationDialog', () => {
       tree.find(defaultProps.layoutComponent).prop('handleClose')();
     });
 
-    expect(defaultDeps.action.closeAppointmentForm)
+    expect(defaultDeps.action.toggleAppointmentFormVisibility)
       .not.toBeCalled();
     expect(defaultDeps.action.finishDeleteAppointment)
       .not.toBeCalled();
@@ -362,7 +362,7 @@ describe('ConfirmationDialog', () => {
       tree.find(defaultProps.layoutComponent).prop('handleClose')();
     });
 
-    expect(defaultDeps.action.closeAppointmentTooltip)
+    expect(defaultDeps.action.toggleAppointmentTooltipVisibility)
       .not.toBeCalled();
     expect(defaultDeps.action.finishDeleteAppointment)
       .not.toBeCalled();
@@ -389,7 +389,7 @@ describe('ConfirmationDialog', () => {
       tree.find(defaultProps.layoutComponent).prop('confirm')();
     });
 
-    expect(defaultDeps.action.closeAppointmentForm)
+    expect(defaultDeps.action.toggleAppointmentFormVisibility)
       .toBeCalled();
     expect(defaultDeps.action.cancelAddedAppointment)
       .toBeCalled();

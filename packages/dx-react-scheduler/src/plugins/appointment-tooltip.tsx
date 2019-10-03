@@ -100,10 +100,6 @@ class AppointmentTooltipBase extends React.PureComponent<
     };
   }
 
-  closeAppointmentTooltip = memoize(() => {
-    this.toggleVisibility();
-  });
-
   render() {
     const {
       showOpenButton,
@@ -121,7 +117,7 @@ class AppointmentTooltipBase extends React.PureComponent<
         name="AppointmentTooltip"
         dependencies={pluginDependencies}
       >
-        <Action name="closeAppointmentTooltip" action={this.closeAppointmentTooltip} />
+        <Action name="toggleAppointmentTooltipVisibility" action={this.toggleVisibility} />
         <Template name="timeTable">
           <TemplatePlaceholder />
           <TemplateConnector>

@@ -8,6 +8,8 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   cell: {
     padding: theme.spacing(1),
+    // NOTE: without the TableEditColumn first EditCell changes size
+    // (because first TableCell and EditCell have different paddings)
     '&:first-child': {
       paddingLeft: theme.spacing(3),
     },

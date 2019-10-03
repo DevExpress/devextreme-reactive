@@ -26,10 +26,12 @@ import { ConfirmationDialog } from '@devexpress/dx-react-scheduler';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-layoutComponent | ComponentType&lt;[ConfirmationDialog.LayoutProps](#editrecurrencemenulayoutprops)&gt; | | A component that renders the dialog's layout.
-overlayComponent | ComponentType&lt;[ConfirmationDialog.OverlayProps](#editrecurrencemenuoverlayprops)&gt; | | A component that renders the overlay window.
-buttonComponent | ComponentType&lt;[ConfirmationDialog.ButtonProps](#editrecurrencemenubuttonprops)&gt; | | A component that renders the dialog's buttons.
-messages | ComponentType&lt;[ConfirmationDialog.LocalizationMessages](#editrecurrencemenulocalizationmessages)&gt; | | An object that contains localized messages.
+doNotOpenOnDelete | boolean | false | Specifies whether to open the dialog on delete events.
+doNotOpenOnCancel | boolean | false | Specifies whether to open the dialog on cancel events.
+layoutComponent | ComponentType&lt;[ConfirmationDialog.LayoutProps](#confirmationdialoglayoutprops)&gt; | | A component that renders the dialog's layout.
+overlayComponent | ComponentType&lt;[ConfirmationDialog.OverlayProps](#confirmationdialogoverlayprops)&gt; | | A component that renders the overlay window.
+buttonComponent | ComponentType&lt;[ConfirmationDialog.ButtonProps](#confirmationdialogbuttonprops)&gt; | | A component that renders the dialog's buttons.
+messages | ComponentType&lt;[ConfirmationDialog.LocalizationMessages](#localization-messages)&gt; | | An object that contains localized messages.
 
 ## Interfaces
 
@@ -40,7 +42,7 @@ Properties passed to a component that renders the dialog's layout.
 Field | Type | Description
 ------|------|------------
 isDeleting | boolean | **true** if the appointment is being deleted or **false** if it is being edited.
-buttonComponent | ComponentType&lt;[ConfirmationDialog.ButtonProps](#editrecurrencemenubuttonprops)&gt; | A component that renders the dialog's buttons.
+buttonComponent | ComponentType&lt;[ConfirmationDialog.ButtonProps](#confirmationdialogbuttonprops)&gt; | A component that renders the dialog's buttons.
 handleClose | () => void | A function that closes the dialog.
 confirm | () => void | A function that confirms changes.
 getMessage | (messageKey: string) => string | Uses a localization message's key to retrieve the message.
@@ -69,20 +71,18 @@ onClick | () => void | A function that is executed when the button is clicked.
 
 Field | Type | Default | Description
 ------|------|---------|------------
-current? | string | 'This appointment' | Text for the 'Current appointment' option.
-currentAndFollowing? | string | 'This and following appointments' | Text for the 'Current and following appointments' option.
-all? | string | 'All appointments' | Text for the 'All appointments' option.
-menuEditingTitle? | string | 'Edit recurring appointment' | The menu's title that should be displayed when an appointment is being edited.
-menuDeletingTitle? | string | 'Delete recurring appointment' | The menu's title that should be displayed when an appointment is being deleted.
-cancelButton? | string | 'Cancel' | The Cancel button's text.
-commitButton? | string | 'OK' | The OK button's text.
+discardButton? | string | `Discard` | The Discard button's text.
+deleteButton? | string | `Delete` | The Delete button's text.
+cancelButton? | string | `Cancel` | The Cancel button's text.
+confirmDeleteMeesage? | string | `Are you sure you want to delete this appointment?` | The delete confirmation dialog text.
+confirmCancelMessage? | string | `Discard unsaved changes?` | The cancel confirmation dialog text.
 
 ## Plugin Components
 
 Name | Properties | Description
 -----|------------|------------
-EditRecurrenceMenu.Layout | [ConfirmationDialog.LayoutProps](#confirmationdialoglayoutprops) | A component that renders the dialog's layout.
-EditRecurrenceMenu.Overlay | [ConfirmationDialog.OverlayProps](#confirmationdialogoverlayprops) | A component that renders the overlay window.
-EditRecurrenceMenu.Button | [ConfirmationDialog.ButtonProps](#confirmationdialogbuttonprops) | A component that renders the dialog's buttons.
+ConfirmationDialog.Layout | [ConfirmationDialog.LayoutProps](#confirmationdialoglayoutprops) | A component that renders the dialog's layout.
+ConfirmationDialog.Overlay | [ConfirmationDialog.OverlayProps](#confirmationdialogoverlayprops) | A component that renders the overlay window.
+ConfirmationDialog.Button | [ConfirmationDialog.ButtonProps](#confirmationdialogbuttonprops) | A component that renders the dialog's buttons.
 
 Additional properties are added to the component's root element.

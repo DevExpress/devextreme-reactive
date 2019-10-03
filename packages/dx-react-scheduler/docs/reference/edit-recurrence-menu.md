@@ -29,7 +29,7 @@ Name | Type | Default | Description
 layoutComponent | ComponentType&lt;[EditRecurrenceMenu.LayoutProps](#editrecurrencemenulayoutprops)&gt; | | A component that renders the menu's layout.
 overlayComponent | ComponentType&lt;[EditRecurrenceMenu.OverlayProps](#editrecurrencemenuoverlayprops)&gt; | | A component that renders the overlay window.
 buttonComponent | ComponentType&lt;[EditRecurrenceMenu.ButtonProps](#editrecurrencemenubuttonprops)&gt; | | A component that renders the OK and Cancel buttons.
-messages | ComponentType&lt;[EditRecurrenceMenu.LocalizationMessages](#editrecurrencemenulocalizationmessages)&gt; | | An object that contains localized messages.
+messages | ComponentType&lt;[EditRecurrenceMenu.LocalizationMessages](#localization-messages)&gt; | | An object that contains localized messages.
 
 ## Interfaces
 
@@ -83,7 +83,7 @@ commitButton? | string | 'OK' | The OK button's text.
 Name | Properties | Description
 -----|------------|------------
 EditRecurrenceMenu.Layout | [EditRecurrenceMenu.LayoutProps](#editrecurrencemenulayoutprops) | A component that renders the edit menu's layout.
-EditRecurrenceMenu.Overlay | [EditRecurrenceMenu.OverlayProps](#editrecurrencemenuomodalprops) | A component that renders the overlay window.
+EditRecurrenceMenu.Overlay | [EditRecurrenceMenu.OverlayProps](#editrecurrencemenuoverlayprops) | A component that renders the overlay window.
 EditRecurrenceMenu.Button | [EditRecurrenceMenu.ButtonProps](#editrecurrencemenubuttonprops) | A component that renders the OK and Cancel buttons.
 
 Additional properties are added to the component's root element.

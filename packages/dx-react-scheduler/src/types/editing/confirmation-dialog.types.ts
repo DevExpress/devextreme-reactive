@@ -1,17 +1,17 @@
 import { AppointmentModel } from '../index';
 /* tslint:disable no-namespace max-line-length */
 export namespace ConfirmationDialog {
-  /** Properties passed to a component that renders the edit menu's layout. */
+  /** Properties passed to a component that renders the dialog's layout. */
   export interface LayoutProps {
     /** 'true' if the appointment is being deleted or 'false' if it is being edited. */
     isDeleting: boolean;
-    /** A component that renders the OK and Cancel buttons. */
+    /** A component that renders the dialog's buttons. */
     buttonComponent: React.ComponentType<ConfirmationDialog.ButtonProps>;
-    /** A function that closes the menu. */
+    /** A function that closes the dialog. */
     handleClose: () => void;
-    /** A function that commits changes. */
+    /** A function that confirms changes. */
     confirm: () => void;
-    /** A function that returns a message with the specified key. */
+    /** Uses a localization message's key to retrieve the message. */
     getMessage: (messageKey: string) => string;
   }
   /** Properties passed to a component that renders the overlay window. */
@@ -28,7 +28,7 @@ export namespace ConfirmationDialog {
     /** A React Ref that should be passed into ref property. */
     ref: React.RefObject<unknown>;
   }
-  /** Properties passed to a component that renders the OK and Cancel buttons. */
+  /** Properties passed to a component that renders the dialog's buttons. */
   export interface ButtonProps {
     /** The button's text. */
     title: string;
@@ -37,20 +37,16 @@ export namespace ConfirmationDialog {
   }
   /** Localization Messages */
   export interface LocalizationMessages {
-    /** Text for the 'Current appointment' option. */
-    current?: string;
-    /** Text for the 'Current and following appointments' option. */
-    currentAndFollowing?: string;
-    /** Text for the 'All appointments' option. */
-    all?: string;
-    /** The menu's title that should be displayed when an appointment is being edited. */
-    menuEditingTitle?: string;
-    /** The menu's title that should be displayed when an appointment is being deleted. */
-    menuDeletingTitle?: string;
+    /** The Discard button's text. */
+    discardButton?: string;
+    /** The Delete button's text. */
+    deleteButton?: string;
     /** The Cancel button's text. */
     cancelButton?: string;
-    /** The OK button's text. */
-    commitButton?: string;
+    /** The delete confirmation dialog text. */
+    confirmDeleteMeesage?: string;
+    /** The cancel confirmation dialog text. */
+    confirmCancelMessage?: string;
   }
 }
 
@@ -59,7 +55,7 @@ export interface ConfirmationDialogProps {
   doNotOpenOnDelete: boolean;
   /** Specifies whether to open the dialog on cancel events. */
   doNotOpenOnCancel: boolean;
-  /** A component that renders the edit menu's layout. */
+  /** A component that renders the dialog's layout. */
   layoutComponent: React.ComponentType<ConfirmationDialog.LayoutProps>;
   /** A component that renders the overlay window. */
   overlayComponent: React.ComponentType<ConfirmationDialog.OverlayProps>;

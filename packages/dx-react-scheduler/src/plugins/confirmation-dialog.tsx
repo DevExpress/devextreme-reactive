@@ -110,7 +110,7 @@ const ConfirmationDialogBase: React.SFC<ConfirmationDialogProps> & {components: 
             cancelChangedAppointment,
           }) => {
             const closeEditingPlugin = editingPlugin === APPOINTMENT_FORM ?
-            toggleAppointmentFormVisibility : toggleAppointmentTooltipVisibility;
+              toggleAppointmentFormVisibility : toggleAppointmentTooltipVisibility;
             const confirm = confirmAction(
               !editingAppointment, closeEditingPlugin, stopEditAppointment,
               finishDeleteAppointment, cancelAddedAppointment, cancelChangedAppointment,

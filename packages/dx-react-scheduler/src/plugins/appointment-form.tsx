@@ -167,7 +167,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
   ) => () =>  {
     this.toggleVisibility();
     if (isNew) {
-      commitAddedAppointment();
+      callActionIfExists(commitAddedAppointment, changedAppointment);
     } else if (finishCommitAppointment) {
       finishCommitAppointment();
     }

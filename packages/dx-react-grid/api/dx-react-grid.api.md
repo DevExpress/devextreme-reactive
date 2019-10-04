@@ -4,7 +4,6 @@
 
 ```ts
 
-import { PureComputed } from '@devexpress/dx-core';
 import * as React from 'react';
 
 // @public (undocumented)
@@ -466,9 +465,6 @@ export const IntegratedSummary: React.ComponentType<IntegratedSummaryProps> & {
 export interface IntegratedSummaryProps {
   calculator?: (type: SummaryType, rows: Array<any>, getValue: (row: any) => any) => any;
 }
-
-// @public (undocumented)
-export type NextRowIdFn = PureComputed<[number | string, TableRow[]], number | string | undefined>;
 
 // @public
 export const PagingPanel: React.ComponentType<PagingPanelProps>;

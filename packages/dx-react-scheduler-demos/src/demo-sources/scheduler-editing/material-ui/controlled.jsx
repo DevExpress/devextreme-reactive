@@ -93,15 +93,13 @@ export default class Demo extends React.PureComponent {
             endDayHour={17}
           />
           <AllDayPanel />
-
+          <EditRecurrenceMenu />
           <Appointments />
           <AppointmentTooltip
             showOpenButton
             showDeleteButton
           />
           <AppointmentForm />
-
-          <EditRecurrenceMenu />
         </Scheduler>
       </Paper>
     );

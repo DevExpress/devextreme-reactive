@@ -63,7 +63,9 @@ export default class Demo extends React.PureComponent {
             endDayHour={17}
           />
           <Appointments />
-          <ConfirmationDialog />
+          <ConfirmationDialog
+            doNotOpenOnCancel
+          />
           <AppointmentTooltip
             showOpenButton
             showDeleteButton

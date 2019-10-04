@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import { Container } from './container';
+import { ModalContainer } from './modal-container';
 
 describe('Common', () => {
   const defaultProps = {
@@ -9,15 +9,15 @@ describe('Common', () => {
   let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Container {...defaultProps} />);
+    classes = getClasses(<ModalContainer {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
-  describe('Container', () => {
+  describe('ModalContainer', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <Container {...defaultProps} className="custom-class">
+        <ModalContainer {...defaultProps} className="custom-class">
           <div />
-        </Container>
+        </ModalContainer>
       ));
 
       expect(tree.find('.custom-class'))
@@ -27,9 +27,9 @@ describe('Common', () => {
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Container {...defaultProps} data={{ a: 1 }}>
+        <ModalContainer {...defaultProps} data={{ a: 1 }}>
           <div />
-        </Container>
+        </ModalContainer>
       ));
 
       expect(tree.find(`.${classes.container}`).props().data)
@@ -37,9 +37,9 @@ describe('Common', () => {
     });
     it('should render children inside', () => {
       const tree = shallow((
-        <Container {...defaultProps} data={{ a: 1 }}>
+        <ModalContainer {...defaultProps} data={{ a: 1 }}>
           <div className="child" />
-        </Container>
+        </ModalContainer>
       ));
 
       expect(tree.find('.child').exists())

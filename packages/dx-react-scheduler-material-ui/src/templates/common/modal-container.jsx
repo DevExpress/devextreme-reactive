@@ -11,7 +11,7 @@ const styles = {
   },
 };
 
-export const ContainerBase = React.forwardRef(({
+export const ModalContainerBase = React.forwardRef(({
   children, classes, className, ...restProps
 }, ref) => (
   <div
@@ -23,15 +23,15 @@ export const ContainerBase = React.forwardRef(({
   </div>
 ));
 
-ContainerBase.propTypes = {
+ModalContainerBase.propTypes = {
   classes: PropTypes.object.isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
 };
 
-ContainerBase.defaultProps = {
+ModalContainerBase.defaultProps = {
   children: null,
   className: undefined,
 };
 
-export const Container = withStyles(styles, { name: 'Container' })(ContainerBase);
+export const ModalContainer = withStyles(styles, { name: 'ModalContainer' })(ModalContainerBase);

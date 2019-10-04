@@ -139,6 +139,7 @@ describe('TableHeaderRow', () => {
       const deps = {
         getter: {
           tableColumnResizingEnabled: true,
+          columnResizingMode: 'widget',
         },
         plugins: ['TableColumnResizing'],
       };

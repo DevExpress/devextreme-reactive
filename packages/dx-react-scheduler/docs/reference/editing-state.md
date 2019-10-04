@@ -30,7 +30,7 @@ appointmentChanges? | { [key: string]: object } | | Uncommitted appointment chan
 defaultAppointmentChanges? | { [key: string]: object } | | The initial value of the `appointmentChanges` property in uncontrolled mode.
 onAppointmentChangesChange? | (appointmentChanges: { [key: string]: any }) => void | | Handles changes to the `appointmentChanges` property value.
 onCommitChanges | (changes: [ChangeSet](#changeset)) => void | | Handles commiting appointment changes.
-preCommitChanges? | (changes: object, appointmentData: Partial&lt;[AppointmentModel](./scheduler.md#appointmentmodel)&gt;, type: `all` | `current` | `currentAndFollowing`) => [ChangeSet](#changeset) | | Allows you to process changes that are not committed yet.
+preCommitChanges? | (changes: object, appointmentData: Partial&lt;[AppointmentModel](./scheduler.md#appointmentmodel)&gt;, type: `all` &#124; `current` &#124; `currentAndFollowing`) => [ChangeSet](#changeset) | | Allows you to process changes that are not committed yet.
 
 ## Interfaces
 

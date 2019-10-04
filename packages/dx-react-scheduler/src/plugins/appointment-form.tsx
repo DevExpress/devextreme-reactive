@@ -118,7 +118,6 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     this.state = {
       visible: props.visible,
       appointmentData: props.appointmentData || {},
-      previousRule: undefined,
       previousAppointment: props.appointmentData || {},
     };
 

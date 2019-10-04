@@ -1,3 +1,13 @@
+# [2.1.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.1.0...v2.1.1) (2019-10-01)
+
+
+### Bug Fixes
+
+* **react-grid:** correctly import interface from grid-core package ([#2375](https://github.com/DevExpress/devextreme-reactive/issues/2375)) ([906b5b2](https://github.com/DevExpress/devextreme-reactive/commit/906b5b2))
+* **react-scheduler-material-ui:** correct AppointmentTooltip OpenButton position ([#2367](https://github.com/DevExpress/devextreme-reactive/issues/2367)) ([3fbcf4a](https://github.com/DevExpress/devextreme-reactive/commit/3fbcf4a))
+
+
+
 # [2.1.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.0.5...v2.1.0) (2019-09-30)
 
 

@@ -4,7 +4,6 @@
 
 ```ts
 
-import { EditingCell } from '@devexpress/dx-grid-core';
 import * as React from 'react';
 
 // @public (undocumented)
@@ -184,6 +183,14 @@ export namespace DragDropProvider {
 export interface DragDropProviderProps {
   columnComponent: React.ComponentType<DragDropProvider.ColumnProps>;
   containerComponent: React.ComponentType<DragDropProvider.ContainerProps>;
+}
+
+// @public (undocumented)
+export interface EditingCell {
+    // (undocumented)
+    columnName: string;
+    // (undocumented)
+    rowId: number | string;
 }
 
 // @public (undocumented)
@@ -1379,4 +1386,3 @@ export interface VirtualTableStateProps {
 // (No @packageDocumentation comment for this package)
 
 ```
-

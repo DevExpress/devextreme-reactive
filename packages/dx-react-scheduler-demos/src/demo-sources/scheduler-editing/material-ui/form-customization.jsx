@@ -36,7 +36,7 @@ const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
     >
       <AppointmentForm.Label
         text="Custom Field"
-        id="titleLabel"
+        type="title"
       />
       <AppointmentForm.TextEditor
         value={appointmentData.customField}

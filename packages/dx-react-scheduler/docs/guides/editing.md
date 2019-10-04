@@ -62,7 +62,7 @@ You can also use the `onAddedAppointmentChange` event to initialize a new appoin
 
 ## Preprocess Changes
 
-To validate user input or prevent user actions, add the [ConfirmationDialog](../reference/confirmation-dialog.md) plugin. If added, the dialog opens on delete an appointment and cancel appointment changes events. If you do not want dialog to open on cancel appointment changes events, use `doNotOpenOnCancel` property, as shown in the demo below. To not open the dialog on delete events, use `doNotOpenOnDeete` property.
+To validate user input or prevent user actions, add the [ConfirmationDialog](../reference/confirmation-dialog.md) plugin. If added, the dialog opens on delete an appointment and cancel appointment changes events. If you do not want the dialog to open on cancel appointment changes events, use `doNotOpenOnCancel` property, as shown in the demo below. To not open the dialog on delete events, use `doNotOpenOnDeete` property.
 
 .embedded-demo({ "path": "scheduler-editing/delete-confirmation", "showThemeSelector": true })
 

@@ -5,7 +5,6 @@ import { Layout } from './layout';
 describe('ConfirmationDialog', () => {
   let shallow;
   const defaultProps = {
-    availableOperations: [{ value: '1', title: 'operation1' }],
     handleClose: jest.fn(),
     confirm: jest.fn(),
     getMessage: jest.fn(),

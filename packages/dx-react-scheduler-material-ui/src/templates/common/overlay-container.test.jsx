@@ -12,7 +12,7 @@ describe('Common', () => {
     classes = getClasses(<OverlayContainer {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
-  describe('ModalContainer', () => {
+  describe('OverlayContainer', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
         <OverlayContainer {...defaultProps} className="custom-class">

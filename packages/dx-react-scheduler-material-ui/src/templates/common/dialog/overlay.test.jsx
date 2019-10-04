@@ -3,7 +3,7 @@ import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import Dialog from '@material-ui/core/Dialog';
 import { Overlay } from './overlay';
 
-describe('Common', () => {
+describe('Common Dialog', () => {
   let shallow;
   let classes;
   const defaultProps = {

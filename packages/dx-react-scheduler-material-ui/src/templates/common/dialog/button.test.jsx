@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
 import { Button } from './button';
 
-describe('Common', () => {
+describe('Common Dialog', () => {
   let shallow;
   const defaultProps = {
     onClick: jest.fn(),

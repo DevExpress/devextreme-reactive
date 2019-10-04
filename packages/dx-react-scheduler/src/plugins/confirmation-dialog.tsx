@@ -40,7 +40,7 @@ const ConfirmationDialogBase: React.SFC<ConfirmationDialogProps> & {components: 
 
   const [isOpen, setIsOpen] = React.useState(false);
   const [actionType, setActionType] = React.useState('');
-  const [pluginToClose, setPluginToClose] = React.useState('');
+  const [editingPlugin, setEditingPlugin] = React.useState('');
   const [appointmentData, setAppointmentData] = React.useState({});
 
   const toggleIsOpen = React.useCallback(() => {
@@ -49,23 +49,24 @@ const ConfirmationDialogBase: React.SFC<ConfirmationDialogProps> & {components: 
 
   const confirmCancelChanges = React.useCallback((pluginName) => {
     toggleIsOpen();
-    setPluginToClose(pluginName);
+    setEditingPlugin(pluginName);
     setActionType(ACTION_TYPES.CANCEL);
-  }, [toggleIsOpen, setPluginToClose, setActionType]);
+  }, [toggleIsOpen, setEditingPlugin, setActionType]);
+
   const confirmDelete = React.useCallback(({
     pluginName, appointmentData: changedAppointment,
   }) => {
     toggleIsOpen();
-    setPluginToClose(pluginName);
+    setEditingPlugin(pluginName);
     setActionType(ACTION_TYPES.DELETE);
     setAppointmentData(changedAppointment);
-  }, [toggleIsOpen, setPluginToClose, setActionType, setAppointmentData]);
+  }, [toggleIsOpen, setEditingPlugin, setActionType, setAppointmentData]);
 
   const confirmAction = React.useCallback((
-    isNewAppointment, closeCallingPlugin, stopEditAppointment, finishDeleteAppointment,
+    isNewAppointment, closeEditingPlugin, stopEditAppointment, finishDeleteAppointment,
     cancelAddedAppointment, cancelChangedAppointment,
   ) => () => {
-    closeCallingPlugin();
+    closeEditingPlugin();
     toggleIsOpen();
     if (actionType === ACTION_TYPES.DELETE && finishDeleteAppointment) {
       finishDeleteAppointment(appointmentData);
@@ -109,10 +110,10 @@ const ConfirmationDialogBase: React.SFC<ConfirmationDialogProps> & {components: 
             cancelAddedAppointment,
             cancelChangedAppointment,
           }) => {
-            const closeCallingPlugin = pluginToClose === APPOINTMENT_FORM ?
+            const closeEditingPlugin = editingPlugin === APPOINTMENT_FORM ?
             toggleAppointmentFormVisibility : toggleAppointmentTooltipVisibility;
             const confirm = confirmAction(
-              !editingAppointment, closeCallingPlugin, stopEditAppointment,
+              !editingAppointment, closeEditingPlugin, stopEditAppointment,
               finishDeleteAppointment, cancelAddedAppointment, cancelChangedAppointment,
             );
 

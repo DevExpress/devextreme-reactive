@@ -23,8 +23,6 @@ import { AppointmentTooltipProps, AppointmentTooltipState, Appointments } from '
 const pluginDependencies = [
   { name: 'Appointments' },
   { name: 'EditingState', optional: true },
-  // { name: 'IntegratedEditing', optional: true },
-  // { name: 'EditRecurrenceMenu', optional: true },
 ];
 
 const commandButtonIds = {

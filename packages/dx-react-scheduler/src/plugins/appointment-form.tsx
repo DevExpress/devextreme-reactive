@@ -193,8 +193,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
   });
 
   deleteAppointment = memoize((
-    finishDeleteAppointment, appointmentData, stopEditAppointment,
-    openDeleteConfirmationDialog, changedAppointment,
+    finishDeleteAppointment, appointmentData, openDeleteConfirmationDialog,
+    changedAppointment, cancelAddedAppointment, cancelChangedAppointment,
+    stopEditAppointment, isNew,
   ) => () => {
     if (openDeleteConfirmationDialog) {
       openDeleteConfirmationDialog({
@@ -202,6 +203,12 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
       });
     } else {
       callActionIfExists(finishDeleteAppointment, appointmentData);
+      if (isNew) {
+        callActionIfExists(cancelAddedAppointment, appointmentData);
+      } else {
+        callActionIfExists(cancelChangedAppointment, appointmentData);
+        callActionIfExists(stopEditAppointment, appointmentData);
+      }
       this.toggleVisibility();
     }
     this.setState({ previousAppointment: changedAppointment });
@@ -209,7 +216,11 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
 
   changeAppointmentField = memoize((isNew, changeAddedAppointment, changeAppointment) =>
     (change) => {
-      if (change && change.rRule) this.setState({ previousRule: change.rRule });
+      if (change && change.rRule) {
+        this.setState({ previousAppointment: {
+          ...this.state.previousAppointment, rRule: change.rRule,
+        }});
+      }
       if (isNew) {
         callActionIfExists(changeAddedAppointment, { change });
       } else {
@@ -240,7 +251,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
       readOnly,
       messages,
     } = this.props;
-    const { previousRule, visible, appointmentData, previousAppointment } = this.state;
+    const { visible, appointmentData, previousAppointment } = this.state;
     const getMessage = this.getMessage(defaultMessages, messages);
     return (
       <Plugin
@@ -296,6 +307,8 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               finishDeleteAppointment,
 
               stopEditAppointment,
+              cancelAddedAppointment,
+              cancelChangedAppointment,
 
               openCancelConfirmationDialog,
               openDeleteConfirmationDialog,
@@ -316,10 +329,12 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   onCancelButtonClick={this.cancelChanges(
                     openCancelConfirmationDialog, isNew, stopEditAppointment,
                     { ...appointmentChanges, ...addedAppointment }, changedAppointment,
+                    cancelAddedAppointment, cancelChangedAppointment,
                   )}
                   onDeleteButtonClick={this.deleteAppointment(
-                    finishDeleteAppointment, appointmentData, stopEditAppointment,
-                    openDeleteConfirmationDialog, changedAppointment,
+                    finishDeleteAppointment, appointmentData, openDeleteConfirmationDialog,
+                    changedAppointment, cancelAddedAppointment, cancelChangedAppointment,
+                    stopEditAppointment, isNew,
                   )}
                   getMessage={getMessage}
                   readOnly={readOnly}
@@ -385,7 +400,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                 visible, changedAppointment.rRule, previousAppointment.rRule,
               );
               const correctedAppointment = !changedAppointment.rRule
-                ? { ...changedAppointment, rRule: previousRule } : changedAppointment;
+                ? { ...changedAppointment, rRule: previousAppointment.rRule } : changedAppointment;
 
               return (
                 <RecurrenceLayout

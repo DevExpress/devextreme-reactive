@@ -68,15 +68,14 @@ const ConfirmationDialogBase: React.SFC<ConfirmationDialogProps> & {components: 
   ) => () => {
     closeEditingPlugin();
     toggleIsOpen();
+    if (isNewAppointment) {
+      callActionIfExists(cancelAddedAppointment, appointmentData);
+    } else {
+      callActionIfExists(stopEditAppointment, appointmentData);
+      callActionIfExists(cancelChangedAppointment, appointmentData);
+    }
     if (actionType === ACTION_TYPES.DELETE && finishDeleteAppointment) {
       finishDeleteAppointment(appointmentData);
-    } else {
-      if (isNewAppointment) {
-        callActionIfExists(cancelAddedAppointment, appointmentData);
-      } else {
-        callActionIfExists(stopEditAppointment, appointmentData);
-        callActionIfExists(cancelChangedAppointment, appointmentData);
-      }
     }
   }, [toggleIsOpen, actionType, appointmentData]);
 

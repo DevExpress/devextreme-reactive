@@ -153,7 +153,6 @@ describe('ConfirmationDialog', () => {
         {pluginDepsToComponents(defaultDeps)}
         <ConfirmationDialog
           {...defaultProps}
-          doNotOpenOnDelete
         />
       </PluginHost>
     ));
@@ -181,7 +180,6 @@ describe('ConfirmationDialog', () => {
         {pluginDepsToComponents(defaultDeps)}
         <ConfirmationDialog
           {...defaultProps}
-          doNotOpenOnDelete
         />
       </PluginHost>
     ));
@@ -230,6 +228,10 @@ describe('ConfirmationDialog', () => {
       .toBeCalled();
     expect(defaultDeps.action.finishDeleteAppointment)
       .toBeCalled();
+    expect(defaultDeps.action.cancelChangedAppointment)
+      .toBeCalled();
+    expect(defaultDeps.action.stopEditAppointment)
+      .toBeCalled();
   });
   it('should confirm delete action dispatched by the AppointmentTooltip and close it', () => {
     const tree = mount((
@@ -257,6 +259,10 @@ describe('ConfirmationDialog', () => {
     expect(defaultDeps.action.toggleAppointmentTooltipVisibility)
       .toBeCalled();
     expect(defaultDeps.action.finishDeleteAppointment)
+      .toBeCalled();
+    expect(defaultDeps.action.cancelChangedAppointment)
+      .toBeCalled();
+    expect(defaultDeps.action.stopEditAppointment)
       .toBeCalled();
 
   });
@@ -316,7 +322,7 @@ describe('ConfirmationDialog', () => {
     expect(defaultDeps.action.stopEditAppointment)
       .not.toBeCalled();
   });
-  it('should csncel the delete action dispatched by the AppointmentForm', () => {
+  it('should cancel the delete action dispatched by the AppointmentForm', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -340,6 +346,10 @@ describe('ConfirmationDialog', () => {
     expect(defaultDeps.action.toggleAppointmentFormVisibility)
       .not.toBeCalled();
     expect(defaultDeps.action.finishDeleteAppointment)
+      .not.toBeCalled();
+    expect(defaultDeps.action.cancelChangedAppointment)
+      .not.toBeCalled();
+    expect(defaultDeps.action.stopEditAppointment)
       .not.toBeCalled();
   });
   it('should cancel the delete action dispatched by the AppointmentTooltip', () => {
@@ -367,6 +377,10 @@ describe('ConfirmationDialog', () => {
       .not.toBeCalled();
     expect(defaultDeps.action.finishDeleteAppointment)
       .not.toBeCalled();
+    expect(defaultDeps.action.cancelChangedAppointment)
+      .not.toBeCalled();
+    expect(defaultDeps.action.stopEditAppointment)
+      .not.toBeCalled();
   });
   it('should correctly cancel a new appointment and close AppointmentForm', () => {
     const tree = mount((
@@ -391,6 +405,37 @@ describe('ConfirmationDialog', () => {
     });
 
     expect(defaultDeps.action.toggleAppointmentFormVisibility)
+      .toBeCalled();
+    expect(defaultDeps.action.cancelAddedAppointment)
+      .toBeCalled();
+  });
+  it('should correctly delete a new appointment and close AppointmentForm', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents({
+          ...defaultDeps,
+          getter: { ...defaultDeps.getter, editingAppointment: undefined },
+        })}
+        <ConfirmationDialog
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    executeComputedAction(tree, (computedActions) => {
+      computedActions.openDeleteConfirmationDialog({
+        pluginName: 'appointmentForm', appointmentData: {},
+      });
+    });
+
+    tree.update();
+    act(() => {
+      tree.find(defaultProps.layoutComponent).prop('confirm')();
+    });
+
+    expect(defaultDeps.action.toggleAppointmentFormVisibility)
+      .toBeCalled();
+    expect(defaultDeps.action.finishDeleteAppointment)
       .toBeCalled();
     expect(defaultDeps.action.cancelAddedAppointment)
       .toBeCalled();

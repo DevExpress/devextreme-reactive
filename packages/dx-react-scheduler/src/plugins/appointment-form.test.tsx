@@ -19,6 +19,7 @@ describe('AppointmentForm', () => {
       changeAppointment: jest.fn(),
       cancelChangedAppointment: jest.fn(),
       finishCommitAppointment: jest.fn(),
+      finishDeleteAppointment: jest.fn(),
       changeAddedAppointment: jest.fn(),
       cancelAddedAppointment: jest.fn(),
       commitAddedAppointment: jest.fn(),
@@ -364,6 +365,80 @@ describe('AppointmentForm', () => {
 
     tree.find(defaultProps.commandLayoutComponent).props().onCancelButtonClick();
     expect(openCancelConfirmationDialog)
+      .toBeCalled();
+  });
+
+  it('should cancel a changed appointment correctly', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <AppointmentForm
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    tree.find(defaultProps.commandLayoutComponent).props().onCancelButtonClick();
+    expect(defaultDeps.action.cancelChangedAppointment)
+      .toBeCalled();
+    expect(defaultDeps.action.stopEditAppointment)
+      .toBeCalled();
+  });
+
+  it('should cancel a new appointment correctly', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents({
+          ...defaultDeps,
+          getter: { ...defaultDeps.getter, editingAppointment: undefined },
+        })}
+        <AppointmentForm
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    tree.find(defaultProps.commandLayoutComponent).props().onCancelButtonClick();
+    expect(defaultDeps.action.cancelAddedAppointment)
+      .toBeCalled();
+  });
+
+  it('should delete a changed appointment correctly', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <AppointmentForm
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    tree.find(defaultProps.commandLayoutComponent).props().onDeleteButtonClick();
+    expect(defaultDeps.action.cancelChangedAppointment)
+      .toBeCalled();
+    expect(defaultDeps.action.stopEditAppointment)
+      .toBeCalled();
+    expect(defaultDeps.action.finishDeleteAppointment)
+      .toBeCalled();
+  });
+
+  it('should delete a new appointment correctly', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents({
+          ...defaultDeps,
+          getter: { ...defaultDeps.getter, editingAppointment: undefined },
+        })}
+        <AppointmentForm
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    tree.find(defaultProps.commandLayoutComponent).props().onDeleteButtonClick();
+    expect(defaultDeps.action.cancelAddedAppointment)
+      .toBeCalled();
+    expect(defaultDeps.action.finishDeleteAppointment)
       .toBeCalled();
   });
 });

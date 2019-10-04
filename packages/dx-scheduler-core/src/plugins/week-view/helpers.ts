@@ -11,9 +11,14 @@ export const sliceAppointmentByDay: PureComputed<
   if (start.isSame(end, 'day')) {
     return [appointment];
   }
+
+  debugger
+  const a = moment(start).endOf('day').diff(start, 'minutes') < 15;
+  const b = moment(end).diff(end.clone().startOf('day'), 'minutes') < 15;
+
   return [
-    { start, end: moment(start).endOf('day'), dataItem },
-    { start: moment(end).startOf('day'), end, dataItem },
+    a ? { start: start.clone().endOf('day').add(-15, 'minutes'), end: start.clone().endOf('day'), dataItem } : { start, end: start.clone().endOf('day'), dataItem },
+    b ? { start: end.clone().startOf('day'), end: end.clone().startOf('day').add(15, 'minutes'), dataItem } : { start: end.clone().startOf('day'), end, dataItem },
   ];
 };
 
@@ -51,6 +56,18 @@ export const reduceAppointmentByDayBounds: ReduceAppointmentByDayBoundsFn = (
     .minutes(dayEnd.minutes())
     .seconds(dayEnd.seconds());
 
+  const a = moment(endDayTime).diff(appointment.start, 'minutes') < 15;
+  const b = moment(appointment.end).diff(startDayTime, 'minutes') < 15;
+
+  if (a) {
+    return { ...appointment, start: moment(endDayTime).add(-15, 'minutes'), end: endDayTime };
+  }
+
+  if (b) {
+    return { ...appointment, start: startDayTime, end: moment(startDayTime).add(15, 'minutes') };
+  }
+
+  // return appointment;
   return {
     ...appointment,
     ...(appointment.start.isSameOrBefore(startDayTime) ? { start: startDayTime } : null),

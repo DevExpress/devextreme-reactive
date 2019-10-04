@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
@@ -56,6 +57,7 @@ const VerticalAppointmentBase = ({
   ...restProps
 }) => {
   const repeat = !!data.rRule;
+  const isShort = moment(data.endDate).diff(data.startDate, 'minutes') < 15;
   return (
     <div className={classNames(classes.content, className)} {...restProps}>
       {children || (
@@ -64,17 +66,21 @@ const VerticalAppointmentBase = ({
             <div className={classes.title}>
               {data.title}
             </div>
-            <div className={classes.textContainer}>
-              <div className={classes.time}>
-                {formatDate(data.startDate, HOUR_MINUTE_OPTIONS)}
+            {isShort ? (
+              <div />
+            ) : (
+              <div className={classes.textContainer}>
+                <div className={classes.time}>
+                  {formatDate(data.startDate, HOUR_MINUTE_OPTIONS)}
+                </div>
+                <div className={classes.time}>
+                  {' - '}
+                </div>
+                <div className={classes.time}>
+                  {formatDate(data.endDate, HOUR_MINUTE_OPTIONS)}
+                </div>
               </div>
-              <div className={classes.time}>
-                {' - '}
-              </div>
-              <div className={classes.time}>
-                {formatDate(data.endDate, HOUR_MINUTE_OPTIONS)}
-              </div>
-            </div>
+            )}
           </div>
           {repeat ? (
             <div className={classes.imageContainer}>

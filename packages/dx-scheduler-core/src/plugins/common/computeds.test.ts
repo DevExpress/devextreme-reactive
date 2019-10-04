@@ -70,11 +70,34 @@ describe('#timeScale', () => {
   const currentDate = new Date(2018, 5, 28);
   const firstDateOfWeek = new Date(2018, 5, 25);
   const format = date => `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+
   it('should start calculation from start view date', () => {
     const units = timeScale(currentDate, 1, 0, 1, 30);
     expect(format(units[0].start))
       .toEqual(format(firstDateOfWeek));
   });
+
+  it('should process fractional startDayHour/endDayHour values', () => {
+    const units = timeScale(currentDate, 0, 8.5, 9.5, 23);
+
+    expect(units.length).toBe(3);
+
+    expect(units[0].start.getHours()).toBe(8);
+    expect(units[0].start.getMinutes()).toBe(30);
+    expect(units[0].end.getHours()).toBe(8);
+    expect(units[0].end.getMinutes()).toBe(30 + 23);
+
+    expect(units[1].start.getHours()).toBe(8);
+    expect(units[1].start.getMinutes()).toBe(30 + 23);
+    expect(units[1].end.getHours()).toBe(9);
+    expect(units[1].end.getMinutes()).toBe(16);
+
+    expect(units[2].start.getHours()).toBe(9);
+    expect(units[2].start.getMinutes()).toBe(16);
+    expect(units[2].end.getHours()).toBe(9);
+    expect(units[2].end.getMinutes()).toBe(16 + 23 - 1);
+  });
+
   it('should return time units', () => {
     const units = timeScale(currentDate, 1, 0, 24, 30);
     expect(units).toHaveLength(48);

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import { ModalContainer } from './modal-container';
+import { OverlayContainer } from './overlay-container';
 
 describe('Common', () => {
   const defaultProps = {
@@ -9,15 +9,15 @@ describe('Common', () => {
   let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<ModalContainer {...defaultProps} />);
+    classes = getClasses(<OverlayContainer {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
   describe('ModalContainer', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <ModalContainer {...defaultProps} className="custom-class">
+        <OverlayContainer {...defaultProps} className="custom-class">
           <div />
-        </ModalContainer>
+        </OverlayContainer>
       ));
 
       expect(tree.find('.custom-class'))
@@ -27,9 +27,9 @@ describe('Common', () => {
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <ModalContainer {...defaultProps} data={{ a: 1 }}>
+        <OverlayContainer {...defaultProps} data={{ a: 1 }}>
           <div />
-        </ModalContainer>
+        </OverlayContainer>
       ));
 
       expect(tree.find(`.${classes.container}`).props().data)
@@ -37,9 +37,9 @@ describe('Common', () => {
     });
     it('should render children inside', () => {
       const tree = shallow((
-        <ModalContainer {...defaultProps} data={{ a: 1 }}>
+        <OverlayContainer {...defaultProps} data={{ a: 1 }}>
           <div className="child" />
-        </ModalContainer>
+        </OverlayContainer>
       ));
 
       expect(tree.find('.child').exists())

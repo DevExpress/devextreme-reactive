@@ -11,7 +11,7 @@ const styles = {
   },
 };
 
-export const ModalContainerBase = React.forwardRef(({
+export const OverlayContainerBase = React.forwardRef(({
   children, classes, className, ...restProps
 }, ref) => (
   <div
@@ -23,15 +23,15 @@ export const ModalContainerBase = React.forwardRef(({
   </div>
 ));
 
-ModalContainerBase.propTypes = {
+OverlayContainerBase.propTypes = {
   classes: PropTypes.object.isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
 };
 
-ModalContainerBase.defaultProps = {
+OverlayContainerBase.defaultProps = {
   children: null,
   className: undefined,
 };
 
-export const ModalContainer = withStyles(styles, { name: 'ModalContainer' })(ModalContainerBase);
+export const OverlayContainer = withStyles(styles, { name: 'OverlayContainer' })(OverlayContainerBase);

@@ -334,6 +334,5 @@ export interface AppointmentFormProps {
 export type AppointmentFormState = {
   visible: boolean;
   appointmentData: AppointmentModel;
-  previousRule: string | undefined;
   previousAppointment: AppointmentModel;
 };

@@ -178,6 +178,11 @@ const IndexPage = () => (
         <LandingTitle
           text="Why DevExtreme for React?"
         />
+      </LandingLayout>
+    </LandingAlternatedBackground>
+    <LandingChessBoardLayoutList data={pageData} />
+    <LandingAlternatedBackground>
+      <LandingLayout>
         <LandingImageFeature
           iconLink={bootstrapLogo}
           title="Twitter Bootstrap React Components"
@@ -190,10 +195,9 @@ const IndexPage = () => (
         />
       </LandingLayout>
     </LandingAlternatedBackground>
-    <LandingChessBoardLayoutList data={pageData} />
-    <AlternatedBackground style={{ paddingTop: '10px', paddingBottom: '20px' }}>
+    <div style={{ paddingTop: '10px', paddingBottom: '20px' }}>
       <LandingMaintainence />
-    </AlternatedBackground>
+    </div>
 
     <AlternatedBackground>
       <LandingProductLayout

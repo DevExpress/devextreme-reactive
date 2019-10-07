@@ -2,6 +2,7 @@
 
 .smallChild {
   @include feature-item(13px);
+  text-align: center;
 }
 
 .small-layout-item {

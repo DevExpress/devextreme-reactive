@@ -4,43 +4,46 @@ import { Location } from '@reach/router';
 import Link from 'gatsby-link';
 import styles from './menu-section.module.scss';
 
-const Section = ({ section }) => {
-  let { items } = section;
-  if (section.title === 'API Reference') {
-    items = items.sort((a, b) => a.title.localeCompare(b.title));
-  }
-  const [collapsed, setCollapsed] = React.useState(false);
+const SectionBase = ({ title, items, onHeaderClick, classes }) => (
+  <Location>
+    {({ location }) => (
+      <React.Fragment key={title}>
+        <h3
+          className={classes.title}
+          onClick={onHeaderClick}
+        >
+          {title}
+        </h3>
 
-  return (
-    <Location>
-      {({ location }) => (
-        <React.Fragment key={section.title}>
-          <h3
-            className={`${styles.title} ${collapsed ? styles.collapsed : ''} `}
-            onClick={() => setCollapsed(!collapsed)}
-          >
-            {section.title}
-          </h3>
+        <ul
+          className={`list-unstyled ${classes.list} ${styles.menuList}`}
+        >
+          {items.map(item => (
+            <li key={item.path}>
+              {location.pathname.endsWith(item.path)
+                ? item.title
+                : <Link to={item.path}>{item.title}</Link>
+              }
+            </li>
+          ))}
+        </ul>
+      </React.Fragment>
+    )}
+  </Location>
+);
 
-          <ul
-          className={`list-unstyled ${collapsed ? styles.collapsed : '' } ${styles.menuList}`} >
-            {items.map(item => (
-              <li key={item.path}>
-                {location.pathname.endsWith(item.path)
-                  ? item.title
-                  : <Link to={item.path}>{item.title}</Link>
-                }
-              </li>
-            ))}
-          </ul>
-        </React.Fragment>
-      )}
-    </Location>
-  );
-};
-
-Section.propTypes = {
+SectionBase.propTypes = {
   section: PropTypes.object.isRequired,
+  onHeaderClick: PropTypes.function,
+  claaes: PropTypes.object,
 };
 
-export default Section;
+SectionBase.defaultProps = {
+  onHeaderClick: () => {},
+  classes: {
+    title: '',
+    list: '',
+  },
+};
+
+export default SectionBase;

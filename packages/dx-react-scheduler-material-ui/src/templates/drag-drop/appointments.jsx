@@ -27,7 +27,7 @@ const sourceStyles = {
 
 const DraftAppointmentBase = ({
   classes, className, data, formatDate,
-  type, fromPrev, toNext, ...restProps
+  type, fromPrev, toNext, short, ...restProps
 }) => (
   <Appointment
     className={classNames(classes.appointment, className)}
@@ -40,6 +40,7 @@ const DraftAppointmentBase = ({
       type={type}
       recurringIconComponent={Repeat}
       formatDate={formatDate}
+      short={short}
     />
     {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
   </Appointment>

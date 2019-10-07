@@ -27,11 +27,12 @@ const renderAppointmentItems = (items, formatDate, data, Wrapper, Appointment) =
   items.length > 0 ? (
     <Wrapper>
       {items.map(({
-        dataItem, type, fromPrev, toNext, ...geometry
+        dataItem, type, fromPrev, toNext, short, ...geometry
       }, index) => (
         <Appointment
           key={index.toString()}
           data={data}
+          short={short}
           style={getAppointmentStyle(geometry)}
           type={type}
           fromPrev={fromPrev}
@@ -178,6 +179,7 @@ class DragDropProviderBase extends React.PureComponent<
       },
       start: this.appointmentStartTime,
       end: this.appointmentEndTime,
+      short: moment(this.appointmentEndTime).diff(this.appointmentStartTime) > cellDurationMinutes / 2 + 1;
     }];
 
     const {

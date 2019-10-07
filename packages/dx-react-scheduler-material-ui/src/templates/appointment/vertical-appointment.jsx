@@ -31,6 +31,19 @@ const styles = ({ palette, spacing }) => ({
     whiteSpace: 'nowrap',
     display: 'flex',
   },
+  shortContent: {
+    padding: spacing(0.25, 1),
+  },
+  shortContainer: {
+    display: 'flex',
+  },
+  shortTime: {
+    textOverflow: 'initial',
+    flexShrink: 0.5,
+  },
+  shortTitle: {
+    flexShrink: 3,
+  },
   container: {
     width: '100%',
   },
@@ -54,32 +67,51 @@ const VerticalAppointmentBase = ({
   className,
   formatDate,
   recurringIconComponent: RecurringIcon,
+  short,
   ...restProps
 }) => {
+  console.log(short);
   const repeat = !!data.rRule;
-  const isShort = moment(data.endDate).diff(data.startDate, 'minutes') < 15;
+  const isShort = !!short; //moment(data.endDate).diff(data.startDate, 'minutes') < 16;
   return (
-    <div className={classNames(classes.content, className)} {...restProps}>
+    <div
+      className={classNames({
+        [classes.content]: true,
+        [classes.shortContent]: isShort,
+      }, className)}
+      {...restProps}
+    >
       {children || (
         <>
           <div className={repeat ? classes.recurringContainer : classes.container}>
-            <div className={classes.title}>
-              {data.title}
-            </div>
             {isShort ? (
-              <div />
-            ) : (
-              <div className={classes.textContainer}>
-                <div className={classes.time}>
+              <div className={classes.shortContainer}>
+                <div className={classNames(classes.title, classes.shortTitle)}>
+                  {data.title}
+                  ,
+                  &nbsp;
+                </div>
+                <div className={classNames(classes.time, classes.shortTime)}>
                   {formatDate(data.startDate, HOUR_MINUTE_OPTIONS)}
                 </div>
-                <div className={classes.time}>
-                  {' - '}
-                </div>
-                <div className={classes.time}>
-                  {formatDate(data.endDate, HOUR_MINUTE_OPTIONS)}
-                </div>
               </div>
+            ) : (
+              <>
+                <div className={classes.title}>
+                  {data.title}
+                </div>
+                <div className={classes.textContainer}>
+                  <div className={classes.time}>
+                    {formatDate(data.startDate, HOUR_MINUTE_OPTIONS)}
+                  </div>
+                  <div className={classes.time}>
+                    {' - '}
+                  </div>
+                  <div className={classes.time}>
+                    {formatDate(data.endDate, HOUR_MINUTE_OPTIONS)}
+                  </div>
+                </div>
+              </>
             )}
           </div>
           {repeat ? (

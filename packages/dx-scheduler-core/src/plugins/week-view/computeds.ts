@@ -46,7 +46,7 @@ const normalizeAppointmentDuration = (appointment, cellDuration) => {
   }
 
   if (moment(appointment.end).isSame(moment(appointment.start).add(MINIMAL_DURATION, 'minutes'), 'day')) {
-    return [{ ...appointment, start: moment(appointment.start), end: moment(appointment.start).add(MINIMAL_DURATION, 'minutes') }];
+    return [{ ...appointment, start: moment(appointment.start), end: moment(appointment.start).add(MINIMAL_DURATION, 'minutes'), short: true }];
   }
-  return [{ ...appointment, start: moment(appointment.start).endOf('day').add(-MINIMAL_DURATION, 'minutes'), end: moment(appointment.start).endOf('day') }];
+  return [{ ...appointment, start: moment(appointment.start).endOf('day').add(-MINIMAL_DURATION, 'minutes'), end: moment(appointment.start).endOf('day'), short: true }];
 };

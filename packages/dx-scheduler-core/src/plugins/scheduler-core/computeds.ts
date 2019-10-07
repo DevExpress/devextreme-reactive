@@ -8,12 +8,6 @@ export const appointments: PureComputed<
   const a = {
     dataItem: appointment,
     start: appointment.startDate,
-    // ...(appointment.endDate === undefined) ? {
-    //   // end: moment(appointment.startDate).add(15, 'minutes'),
-    //   end: appointment.startDate,
-    // } : {
-    //   end: appointment.endDate,
-    // },
     ...appointment.endDate !== undefined ? {
       end: appointment.endDate,
     } : {

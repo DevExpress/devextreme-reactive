@@ -58,6 +58,7 @@ export const verticalTimeTableRects: VerticalRects = (
     },
   );
 
+  debugger
   return a;
 };
 

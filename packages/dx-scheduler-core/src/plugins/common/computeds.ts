@@ -6,17 +6,11 @@ import {
   SchedulerView,
 } from '../../types';
 import { calculateFirstDateOfWeek } from '../../utils';
+import { isMidnight } from './helpers';
 
 const subtractSecond: PureComputed<
   [Date]
 > = date => moment(date as Date).subtract(1, 'second').toDate();
-
-const isMidnight: PureComputed<
-  [Date], boolean
-> = (date) => {
-  const momentDate = moment(date as Date);
-  return momentDate.hours() === 0 && momentDate.minutes() === 0 && momentDate.seconds() === 0;
-};
 
 export const dayScale: DayScaleFn = (
   currentDate,

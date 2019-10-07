@@ -4,7 +4,6 @@ import {
   isHeadingTableCell,
   isHeadingTableRow,
   splitHeaderColumnChains,
-  getLastColumnName,
   getNextColumnName,
 } from './helpers';
 
@@ -56,25 +55,12 @@ describe('TableHeaderRow Plugin helpers', () => {
     });
   });
 
-  describe('#getLastColumnName', () => {
-    it('should work', () => {
-      const tableColumns = [
-        { column: { name: 'a' }, type: TABLE_DATA_TYPE },
-        { column: { name: 'b' }, type: TABLE_DATA_TYPE },
-        { column: { name: 'c' }, type: TABLE_DATA_TYPE },
-      ];
-
-      expect(getLastColumnName(tableColumns)).toMatch('c');
-      expect(getLastColumnName([])).toBeUndefined();
-    });
-  });
-
   describe('#getNextColumnName', () => {
     it('should work', () => {
       const tableColumns = [
-        { column: { name: 'a' }, type: TABLE_DATA_TYPE },
-        { column: { name: 'b' }, type: TABLE_DATA_TYPE },
-        { column: { name: 'c' }, type: TABLE_DATA_TYPE },
+        { key: 'a', column: { name: 'a' } },
+        { key: 'b', column: { name: 'b' } },
+        { key: 'c', column: { name: 'c' } },
       ];
 
       expect(getNextColumnName(tableColumns, 'a')).toMatch('b');
@@ -84,16 +70,18 @@ describe('TableHeaderRow Plugin helpers', () => {
 
     it('should return undefined for no data columns', () => {
       const tableColumns = [
-        { column: { name: 'a' }, type: TABLE_DATA_TYPE },
-        { column: { name: 'b' } },
-        { column: { name: 'c' }, type: TABLE_DATA_TYPE },
-        { column: { name: 'd' }, type: TABLE_DATA_TYPE },
+        { key: 'a', column: { name: 'a' } },
+        { key: 'b' },
+        { key: 'd', column: { name: 'c' } },
+        { key: 'e', column: { name: 'd' } },
+        { key: 'f' },
       ];
 
       expect(getNextColumnName(tableColumns, 'a')).toBeUndefined();
       expect(getNextColumnName(tableColumns, 'b')).toBeUndefined();
       expect(getNextColumnName(tableColumns, 'c')).toMatch('d');
       expect(getNextColumnName(tableColumns, 'd')).toBeUndefined();
+      expect(getNextColumnName(tableColumns, 'e')).toBeUndefined();
     });
   });
 });

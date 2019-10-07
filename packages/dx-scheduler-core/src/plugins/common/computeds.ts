@@ -11,6 +11,13 @@ const subtractSecond: PureComputed<
   [Date]
 > = date => moment(date as Date).subtract(1, 'second').toDate();
 
+const isMidnight: PureComputed<
+  [Date], boolean
+> = (date) => {
+  const momentDate = moment(date as Date);
+  return momentDate.hours() === 0 && momentDate.minutes() === 0 && momentDate.seconds() === 0;
+};
+
 export const dayScale: DayScaleFn = (
   currentDate,
   firstDayOfWeek,
@@ -50,7 +57,11 @@ export const timeScale: TimeScaleFn = (
     left.add(cellDuration, 'minutes');
     result.push({ start: startDate, end: left.toDate() });
   }
-  result[result.length - 1].end = subtractSecond(result[result.length - 1].end) as Date;
+
+  const timeScaleLastIndex = result.length - 1;
+  if (isMidnight(result[timeScaleLastIndex].end)) {
+    result[timeScaleLastIndex].end = subtractSecond(result[timeScaleLastIndex].end) as Date;
+  }
   return result;
 };
 

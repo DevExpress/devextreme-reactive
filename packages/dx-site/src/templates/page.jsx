@@ -6,6 +6,11 @@ import { graphql, withPrefix } from 'gatsby';
 import Helmet from 'react-helmet';
 import PageLayout from '../components/page-layout';
 
+const getNpmTag = () => {
+  const versionTag = process.env.VERSION_TAG;
+  return versionTag && versionTag !== 'latest' ? `@${versionTag}` : '';
+};
+
 export default class extends React.Component {
   static get propTypes() {
     return {
@@ -66,6 +71,10 @@ export default class extends React.Component {
             </div>
           </div>`;
         },
+      )
+      .replace(
+        /\.npm\-tag\(\)/g,
+        getNpmTag(),
       );
 
     const title = content.split('</h1>')[0].split('</a>')[1];

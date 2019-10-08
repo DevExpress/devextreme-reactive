@@ -486,7 +486,7 @@ export const EditRecurrenceMenu: React.ComponentType<EditRecurrenceMenuProps> & 
 export interface EditRecurrenceMenuProps {
   buttonComponent?: React.ComponentType<EditRecurrenceMenu_2.ButtonProps>;
   layoutComponent?: React.ComponentType<EditRecurrenceMenu_2.LayoutProps>;
-  messages?: React.ComponentType<EditRecurrenceMenu_2.LocalizationMessages>;
+  messages?: EditRecurrenceMenu_2.LocalizationMessages;
   overlayComponent?: React.ComponentType<EditRecurrenceMenu_2.OverlayProps>;
 }
 

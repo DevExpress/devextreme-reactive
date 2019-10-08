@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { createShallow } from '@material-ui/core/test-utils';
 import { Layout } from './layout';
 
 describe('Vertical view TimePanel', () => {
-  let classes;
   let shallow;
   const defaultProps = {
     cellsData: [
@@ -16,49 +15,33 @@ describe('Vertical view TimePanel', () => {
         { startDate: new Date(2018, 6, 8, 18), endDate: new Date(2018, 6, 7, 20) },
       ],
     ],
-    cellComponent: () => undefined,
-    rowComponent: () => undefined,
+    labelComponent: () => undefined,
     formatDate: () => undefined,
   };
   beforeAll(() => {
-    classes = getClasses(<Layout {...defaultProps} />);
-    shallow = createShallow({ dive: true });
+    shallow = createShallow();
   });
   describe('Layout', () => {
-    it('should pass className to the root element', () => {
-      const tree = shallow((
-        <Layout {...defaultProps} className="custom-class" />
-      ));
-
-      expect(tree.find('.custom-class'))
-        .toBeTruthy();
-      expect(tree.find(`.${classes.table}`))
-        .toBeTruthy();
-    });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
         <Layout {...defaultProps} data={{ a: 1 }} />
       ));
 
-      expect(tree.find(`.${classes.table}`).props().data)
+      expect(tree.props().data)
         .toMatchObject({ a: 1 });
     });
     it('should render array of days', () => {
-      const cell = () => <td />;
+      const label = () => <div />;
       /* eslint-disable-next-line */
-      const row = ({ children }) => <tr>{children}</tr>;
       const tree = shallow((
         <Layout
           {...defaultProps}
-          cellComponent={cell}
-          rowComponent={row}
+          labelComponent={label}
         />
       ));
 
-      expect(tree.find(cell))
-        .toHaveLength(1);
-      expect(tree.find(row))
-        .toHaveLength(2);
+      expect(tree.find(label))
+        .toHaveLength(3);
     });
   });
 });

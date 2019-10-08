@@ -40,9 +40,12 @@ const LabelBase = React.memo(({
     }, className)}
     {...restProps}
   >
-    <span className={classes.text}>
-      {time ? formatDate(time, HOUR_MINUTE_OPTIONS) : null}
-    </span>
+    {time && (
+      <span className={classes.text}>
+        {formatDate(time, HOUR_MINUTE_OPTIONS)}
+      </span>
+    )}
+
   </div>
 ));
 

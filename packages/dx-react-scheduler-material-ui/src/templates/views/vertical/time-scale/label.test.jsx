@@ -4,7 +4,7 @@ import { Label } from './label';
 
 describe('Vertical view TimePanel', () => {
   const defaultProps = {
-    endDate: new Date(2018, 6, 7, 16, 20),
+    time: new Date(2018, 6, 7, 16, 20),
     formatDate: () => undefined,
   };
   let classes;
@@ -13,7 +13,7 @@ describe('Vertical view TimePanel', () => {
     classes = getClasses(<Label {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
-  describe('Cell', () => {
+  describe('Label', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
         <Label {...defaultProps} className="custom-class" />
@@ -21,7 +21,7 @@ describe('Vertical view TimePanel', () => {
 
       expect(tree.is('.custom-class'))
         .toBeTruthy();
-      expect(tree.is(`.${classes.cell}`))
+      expect(tree.is(`.${classes.label}`))
         .toBeTruthy();
     });
     it('should pass rest props to the root element', () => {
@@ -40,9 +40,21 @@ describe('Vertical view TimePanel', () => {
       ));
 
       expect(formatDate)
-        .toHaveBeenCalledWith(defaultProps.endDate, { hour: 'numeric', minute: 'numeric' });
+        .toHaveBeenCalledWith(defaultProps.time, { hour: 'numeric', minute: 'numeric' });
       expect(tree.find(`.${classes.text}`).props().children)
         .toBeTruthy();
+    });
+    it('shouldn\'t call date format function if time prop is undefined', () => {
+      const formatDate = jest.fn();
+      formatDate.mockImplementation(() => 'time');
+      const tree = shallow((
+        <Label {...defaultProps} formatDate={formatDate} time={undefined} />
+      ));
+
+      expect(formatDate)
+        .not.toHaveBeenCalledWith(defaultProps.time, { hour: 'numeric', minute: 'numeric' });
+      expect(tree.find(`.${classes.text}`).exists())
+        .toBeFalsy();
     });
   });
 });

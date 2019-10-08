@@ -19,10 +19,8 @@ export interface VerticalViewProps {
   layoutComponent: React.ComponentType<VerticalView.LayoutProps>;
   /** A component that renders a time scale layout. */
   timeScaleLayoutComponent: React.ComponentType<VerticalView.TimeScaleLayoutProps>;
-  /** A component that renders a time scale row. */
-  timeScaleRowComponent: React.ComponentType<VerticalView.RowProps>;
   /** A component that renders a time scale cell. */
-  timeScaleCellComponent: React.ComponentType<VerticalView.TimeScaleCellProps>;
+  timeScaleLabelComponent: React.ComponentType<VerticalView.TimeScaleLabelProps>;
   /** A component that renders a day scale layout. */
   dayScaleLayoutComponent: React.ComponentType<VerticalView.DayScaleLayoutProps>;
   /** A component that renders a day scale cell. */
@@ -68,10 +66,8 @@ export namespace VerticalView {
   export interface TimeScaleLayoutProps {
     /** Specifies the cells meta data. */
     cellsData: VerticalView.CellData[][];
-    /** A component that renders a time scale cell. */
-    cellComponent: React.ComponentType<VerticalView.TimeScaleCellProps>;
-    /** A component that renders a time scale row. */
-    rowComponent: React.ComponentType<VerticalView.RowProps>;
+    /** A component that renders a time scale label. */
+    labelComponent: React.ComponentType<VerticalView.TimeScaleLabelProps>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
   }
@@ -107,11 +103,9 @@ export namespace VerticalView {
   }
 
   /** Describes properties passed to a component that renders a time scale cell. */
-  export interface TimeScaleCellProps {
+  export interface TimeScaleLabelProps {
     /** Specifies the cell end time. */
-    endDate: Date;
-    /** Specifies the cell start time. */
-    startDate: Date;
+    time: Date;
   }
 
   /** Describes properties passed to a component that renders a day scale layout. */

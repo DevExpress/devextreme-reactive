@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import { Cell } from './cell';
+import { Label } from './label';
 
 describe('Vertical view TimePanel', () => {
   const defaultProps = {
@@ -10,13 +10,13 @@ describe('Vertical view TimePanel', () => {
   let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Cell {...defaultProps} />);
+    classes = getClasses(<Label {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
   describe('Cell', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <Cell {...defaultProps} className="custom-class" />
+        <Label {...defaultProps} className="custom-class" />
       ));
 
       expect(tree.is('.custom-class'))
@@ -26,7 +26,7 @@ describe('Vertical view TimePanel', () => {
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Cell {...defaultProps} data={{ a: 1 }} />
+        <Label {...defaultProps} data={{ a: 1 }} />
       ));
 
       expect(tree.props().data)
@@ -36,7 +36,7 @@ describe('Vertical view TimePanel', () => {
       const formatDate = jest.fn();
       formatDate.mockImplementation(() => 'time');
       const tree = shallow((
-        <Cell {...defaultProps} formatDate={formatDate} />
+        <Label {...defaultProps} formatDate={formatDate} />
       ));
 
       expect(formatDate)

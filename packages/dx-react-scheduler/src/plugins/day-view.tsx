@@ -70,8 +70,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     appointmentLayerComponent: 'AppointmentLayer',
     dayScaleEmptyCellComponent: 'DayScaleEmptyCell',
     timeScaleLayoutComponent: 'TimeScaleLayout',
-    timeScaleCellComponent: 'TimeScaleCell',
-    timeScaleRowComponent: 'TimeScaleRow',
+    timeScaleLabelComponent: 'TimeScaleLabel',
     dayScaleLayoutComponent: 'DayScaleLayout',
     dayScaleCellComponent: 'DayScaleCell',
     dayScaleRowComponent: 'DayScaleRow',
@@ -143,8 +142,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
       layoutComponent: Layout,
       dayScaleEmptyCellComponent: DayScaleEmptyCell,
       timeScaleLayoutComponent: TimeScale,
-      timeScaleRowComponent: TimeScaleRow,
-      timeScaleCellComponent: TimeScaleCell,
+      timeScaleLabelComponent: TimeScaleLabel,
       dayScaleLayoutComponent: DayScale,
       dayScaleCellComponent: DayScaleCell,
       dayScaleRowComponent: DayScaleRow,
@@ -243,8 +241,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <TimeScale
-                  rowComponent={TimeScaleRow}
-                  cellComponent={TimeScaleCell}
+                  labelComponent={TimeScaleLabel}
                   cellsData={viewCellsData}
                   formatDate={formatDate}
                 />

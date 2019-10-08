@@ -1,59 +1,62 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'classnames';
-import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
 
 const styles = theme => ({
-  cell: {
+  label: {
     userSelect: 'none',
     border: 0,
-    height: theme.spacing(12) + 2,
+    height: theme.spacing(6) + 1,
+    lineHeight: `${theme.spacing(6)}px`,
     padding: 0,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     textAlign: 'right',
-    '&:last-child': {
-      paddingLeft: theme.spacing(0.25),
-      paddingRight: theme.spacing(0.5),
-    },
+    paddingLeft: theme.spacing(0.25),
+    paddingRight: theme.spacing(0.5),
   },
   text: {
     ...theme.typography.caption,
     whiteSpace: 'nowrap',
   },
+  emptyLabel: {
+    height: theme.spacing(3),
+  },
 });
 
-const CellBase = React.memo(({
+const LabelBase = React.memo(({
   classes,
   className,
-  startDate,
-  endDate,
+  time,
   formatDate,
   ...restProps
 }) => (
-  <TableCell
-    className={classNames(classes.cell, className)}
+  <div
+    className={classNames({
+      [classes.label]: true,
+      [classes.emptyLabel]: !time,
+    }, className)}
     {...restProps}
   >
     <span className={classes.text}>
-      {formatDate(endDate, HOUR_MINUTE_OPTIONS)}
+      {time ? formatDate(time, HOUR_MINUTE_OPTIONS) : null}
     </span>
-  </TableCell>
+  </div>
 ));
 
-CellBase.propTypes = {
-  formatDate: PropTypes.func.isRequired,
-  endDate: PropTypes.instanceOf(Date).isRequired,
-  startDate: PropTypes.instanceOf(Date),
+LabelBase.propTypes = {
+  formatDate: PropTypes.func,
+  time: PropTypes.instanceOf(Date),
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
-CellBase.defaultProps = {
+LabelBase.defaultProps = {
   className: undefined,
-  startDate: undefined,
+  time: undefined,
+  formatDate: () => undefined,
 };
 
-export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);
+export const Label = withStyles(styles, { name: 'Label' })(LabelBase);

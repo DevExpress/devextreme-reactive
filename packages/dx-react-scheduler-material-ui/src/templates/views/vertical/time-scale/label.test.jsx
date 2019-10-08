@@ -55,6 +55,8 @@ describe('Vertical view TimePanel', () => {
         .not.toHaveBeenCalledWith(defaultProps.time, { hour: 'numeric', minute: 'numeric' });
       expect(tree.find(`.${classes.text}`).exists())
         .toBeFalsy();
+      expect(tree.is(`.${classes.emptyLabel}`))
+        .toBeTruthy();
     });
   });
 });

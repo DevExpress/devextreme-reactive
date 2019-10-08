@@ -34,7 +34,6 @@ TicksLayoutBase.propTypes = {
   cellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  formatDate: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };

@@ -1,9 +1,11 @@
 import * as React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
+import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Layout } from './layout';
+import { TicksLayout } from './ticks-layout';
 
 describe('Vertical view TimePanel', () => {
   let shallow;
+  let classes;
   const defaultProps = {
     cellsData: [
       [
@@ -15,11 +17,14 @@ describe('Vertical view TimePanel', () => {
         { startDate: new Date(2018, 6, 8, 18), endDate: new Date(2018, 6, 7, 20) },
       ],
     ],
-    labelComponent: () => undefined,
+    labelComponent: jest.fn(),
+    rowComponent: jest.fn(),
+    tickCellComponent: jest.fn(),
     formatDate: () => undefined,
   };
   beforeAll(() => {
-    shallow = createShallow();
+    shallow = createShallow({ dive: true });
+    classes = getClasses(<Layout {...defaultProps} />);
   });
   describe('Layout', () => {
     it('should pass rest props to the root element', () => {
@@ -30,18 +35,33 @@ describe('Vertical view TimePanel', () => {
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
     });
-    it('should render array of days', () => {
-      const label = () => <div />;
-      /* eslint-disable-next-line */
+    it('should render its components properly', () => {
       const tree = shallow((
-        <Layout
-          {...defaultProps}
-          labelComponent={label}
-        />
+        <Layout {...defaultProps} />
       ));
 
-      expect(tree.find(label))
+      expect(tree.find(`.${classes.timeScale}`).exists())
+        .toBeTruthy();
+      expect(tree.find(`.${classes.ticks}`).exists())
+        .toBeTruthy();
+    });
+    it('should render array of time labels and TicksLayout', () => {
+      const tree = shallow((
+        <Layout {...defaultProps} />
+      ));
+
+      const labels = tree.find(defaultProps.labelComponent);
+      expect(labels)
         .toHaveLength(3);
+      expect(labels.at(0).prop('time'))
+        .toBeUndefined();
+      expect(labels.at(1).prop('time'))
+        .toEqual(expect.any(Date));
+      expect(labels.at(2).prop('time'))
+        .toBeUndefined();
+
+      expect(tree.find(TicksLayout))
+        .toHaveLength(1);
     });
   });
 });

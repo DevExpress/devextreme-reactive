@@ -1,6 +1,6 @@
 # ConfirmationDialog Plugin Reference
 
-A plugin that renders the dialog that allows users to confirm or cancel delete and cancel appointment actions.
+A plugin that renders the dialog that allows users to confirm or to discard delete and cancel appointment actions.
 
 ## Import
 

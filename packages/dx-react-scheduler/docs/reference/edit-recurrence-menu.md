@@ -29,7 +29,7 @@ Name | Type | Default | Description
 layoutComponent | ComponentType&lt;[EditRecurrenceMenu.LayoutProps](#editrecurrencemenulayoutprops)&gt; | | A component that renders the menu's layout.
 overlayComponent | ComponentType&lt;[EditRecurrenceMenu.OverlayProps](#editrecurrencemenuoverlayprops)&gt; | | A component that renders the overlay window.
 buttonComponent | ComponentType&lt;[EditRecurrenceMenu.ButtonProps](#editrecurrencemenubuttonprops)&gt; | | A component that renders the OK and Cancel buttons.
-messages | ComponentType&lt;[EditRecurrenceMenu.LocalizationMessages](#localization-messages)&gt; | | An object that contains localized messages.
+messages | [EditRecurrenceMenu.LocalizationMessages](#localization-messages) | | An object that contains localized messages.
 
 ## Interfaces
 

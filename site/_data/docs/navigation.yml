@@ -323,6 +323,8 @@
         path: /react/scheduler/docs/guides/appointment-tooltip
       - title: Editing
         path: /react/scheduler/docs/guides/editing
+      - title: Validation Actions
+        path: /react/scheduler/docs/guides/validation-actions
       - title: Localization
         path: /react/scheduler/docs/guides/localization
       - title: TypeScript Support

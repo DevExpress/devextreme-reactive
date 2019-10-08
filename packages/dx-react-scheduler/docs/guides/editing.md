@@ -12,7 +12,7 @@ The following plugins implement this feature:
 - [AppointmentTooltip](../reference/appointment-tooltip.md) - renders a tooltip with controls that manage the appointment
 - [AppointmentForm](../reference/appointment-form.md) - renders a form that allows a user to edit an appointment
 - [DragDropProvider](../reference/drag-drop-provider.md) - implements drag-and-drop editing
-- [ConfirmationDialog](../reference/confirmation-dialog.md) - renders a dialog that allows a user to confirm or cancel delete and cancel appointment actions.
+- [ConfirmationDialog](../reference/confirmation-dialog.md) - renders a dialog that allows a user to confirm or cancel delete and cancel appointment actions
 
 ## User Interaction
 

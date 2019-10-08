@@ -3,7 +3,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Link from 'gatsby-link';
-import { StaticQuery, graphql } from 'gatsby';
 import Layout from './layout';
 import Header from './header';
 import ProductLogo from './logos/product';
@@ -11,6 +10,14 @@ import LeftMenu from './docs/left-menu';
 import VersionLink from './docs/version-link';
 
 import styles from './page-layout.module.scss';
+
+const PartiallyActiveLink = props => (
+  <Link
+    partiallyActive
+    activeClassName={styles.activeLink}
+    {...props}
+  />
+);
 
 class PageLayout extends React.PureComponent {
   render() {
@@ -23,8 +30,8 @@ class PageLayout extends React.PureComponent {
           links={(
             <React.Fragment>
               {isDocPage ? (<VersionLink />) : null}
-              <Link to={`/${technologyName}/demos/`}>Demos</Link>
-              <Link to={`/${technologyName}/docs/`}>Docs</Link>
+              <PartiallyActiveLink to={`/${technologyName}/demos/`}>Demos</PartiallyActiveLink>
+              <PartiallyActiveLink to={`/${technologyName}/docs/`}>Docs</PartiallyActiveLink>
             </React.Fragment>
           )}
         />

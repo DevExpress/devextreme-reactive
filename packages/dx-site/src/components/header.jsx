@@ -55,21 +55,6 @@ class Header extends React.Component {
                 ref={this.menuRef}
               >
                 {links}
-                {/* <a
-                  href="https://github.com/DevExpress/devextreme-reactive"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Demos
-                </a>
-                <a
-                  href="https://github.com/DevExpress/devextreme-reactive"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Docs
-                </a> */}
-
                 <a
                   href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx"
                   target="_blank"

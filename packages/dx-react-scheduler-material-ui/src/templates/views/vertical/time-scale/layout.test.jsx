@@ -4,8 +4,8 @@ import { Layout } from './layout';
 import { TicksLayout } from './ticks-layout';
 
 describe('Vertical view TimePanel', () => {
-  let shallow;
   let classes;
+  let shallow;
   const defaultProps = {
     cellsData: [
       [
@@ -23,8 +23,8 @@ describe('Vertical view TimePanel', () => {
     formatDate: () => undefined,
   };
   beforeAll(() => {
-    shallow = createShallow({ dive: true });
     classes = getClasses(<Layout {...defaultProps} />);
+    shallow = createShallow({ dive: true });
   });
   describe('Layout', () => {
     it('should pass rest props to the root element', () => {

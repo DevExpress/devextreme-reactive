@@ -19,7 +19,7 @@ export interface VerticalViewProps {
   layoutComponent: React.ComponentType<VerticalView.LayoutProps>;
   /** A component that renders a time scale layout. */
   timeScaleLayoutComponent: React.ComponentType<VerticalView.TimeScaleLayoutProps>;
-  /** A component that renders a time scale cell. */
+  /** A component that renders a time scale label. */
   timeScaleLabelComponent: React.ComponentType<VerticalView.TimeScaleLabelProps>;
   /** A component that renders a day scale layout. */
   dayScaleLayoutComponent: React.ComponentType<VerticalView.DayScaleLayoutProps>;

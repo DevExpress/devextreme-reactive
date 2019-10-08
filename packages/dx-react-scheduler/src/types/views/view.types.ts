@@ -37,6 +37,10 @@ export interface VerticalViewProps {
   timeTableRowComponent: React.ComponentType<VerticalView.RowProps>;
   /** A component that renders the appointment layer. */
   appointmentLayerComponent: React.ComponentType<VerticalView.AppointmentLayerProps>;
+  /** @internal */
+  timeScaleTickCellComponent: React.ComponentType<VerticalView.TimeScaleTickCellProps>;
+  /** @internal */
+  timeScaleTicksRowComponent: React.ComponentType<VerticalView.RowProps>;
 }
 
 /** @internal */
@@ -68,6 +72,10 @@ export namespace VerticalView {
     cellsData: VerticalView.CellData[][];
     /** A component that renders a time scale label. */
     labelComponent: React.ComponentType<VerticalView.TimeScaleLabelProps>;
+    /** @internal */
+    tickCellComponent: React.ComponentType<VerticalView.TimeScaleTickCellProps>;
+    /** @internal */
+    rowComponent: React.ComponentType<VerticalView.RowProps>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
   }
@@ -102,10 +110,18 @@ export namespace VerticalView {
     children?: React.ReactNode;
   }
 
-  /** Describes properties passed to a component that renders a time scale cell. */
+  /** Describes properties passed to a component that renders a time scale label. */
   export interface TimeScaleLabelProps {
-    /** Specifies the cell end time. */
+    /** Specifies the label's time. */
     time: Date;
+  }
+
+  /** @internal */
+  export interface TimeScaleTickCellProps {
+    /** Specifies the cell a start time. */
+    startDate?: Date;
+    /** Specifies the cell end time. */
+    endDate?: Date;
   }
 
   /** Describes properties passed to a component that renders a day scale layout. */

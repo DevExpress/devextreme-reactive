@@ -71,6 +71,8 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
     dayScaleEmptyCellComponent: 'DayScaleEmptyCell',
     timeScaleLayoutComponent: 'TimeScaleLayout',
     timeScaleLabelComponent: 'TimeScaleLabel',
+    timeScaleTickCellComponent: 'TimeScaleTickCell',
+    timeScaleTicksRowComponent: 'TimeScaleTicksRow',
     dayScaleLayoutComponent: 'DayScaleLayout',
     dayScaleCellComponent: 'DayScaleCell',
     dayScaleRowComponent: 'DayScaleRow',
@@ -143,6 +145,8 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
       dayScaleEmptyCellComponent: DayScaleEmptyCell,
       timeScaleLayoutComponent: TimeScale,
       timeScaleLabelComponent: TimeScaleLabel,
+      timeScaleTickCellComponent,
+      timeScaleTicksRowComponent,
       dayScaleLayoutComponent: DayScale,
       dayScaleCellComponent: DayScaleCell,
       dayScaleRowComponent: DayScaleRow,
@@ -242,6 +246,8 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
               return (
                 <TimeScale
                   labelComponent={TimeScaleLabel}
+                  tickCellComponent={timeScaleTickCellComponent}
+                  rowComponent={timeScaleTicksRowComponent}
                   cellsData={viewCellsData}
                   formatDate={formatDate}
                 />

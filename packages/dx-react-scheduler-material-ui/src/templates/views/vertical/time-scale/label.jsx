@@ -15,7 +15,7 @@ const styles = theme => ({
     textOverflow: 'ellipsis',
     textAlign: 'right',
     paddingLeft: theme.spacing(0.25),
-    paddingRight: theme.spacing(0.5),
+    paddingRight: theme.spacing(1),
   },
   text: {
     ...theme.typography.caption,

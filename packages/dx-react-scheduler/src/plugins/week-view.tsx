@@ -74,6 +74,8 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
     dayScaleEmptyCellComponent: 'DayScaleEmptyCell',
     timeScaleLayoutComponent: 'TimeScaleLayout',
     timeScaleLabelComponent: 'TimeScaleLabel',
+    timeScaleTickCellComponent: 'TimeScaleTickCell',
+    timeScaleTicksRowComponent: 'TimeScaleTicksRow',
     dayScaleLayoutComponent: 'DayScaleLayout',
     dayScaleCellComponent: 'DayScaleCell',
     dayScaleRowComponent: 'DayScaleRow',
@@ -150,6 +152,8 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
       dayScaleEmptyCellComponent: DayScaleEmptyCell,
       timeScaleLayoutComponent: TimeScale,
       timeScaleLabelComponent: TimeScaleLabel,
+      timeScaleTickCellComponent,
+      timeScaleTicksRowComponent,
       dayScaleLayoutComponent: DayScale,
       dayScaleCellComponent: DayScaleCell,
       dayScaleRowComponent: DayScaleRow,
@@ -250,6 +254,8 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
               return (
                 <TimeScale
                   labelComponent={TimeScaleLabel}
+                  tickCellComponent={timeScaleTickCellComponent}
+                  rowComponent={timeScaleTicksRowComponent}
                   cellsData={viewCellsData}
                   formatDate={formatDate}
                 />

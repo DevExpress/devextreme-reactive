@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
@@ -72,7 +71,7 @@ const VerticalAppointmentBase = ({
 }) => {
   console.log(short);
   const repeat = !!data.rRule;
-  const isShort = !!short; //moment(data.endDate).diff(data.startDate, 'minutes') < 16;
+  const isShort = short;
   return (
     <div
       className={classNames({

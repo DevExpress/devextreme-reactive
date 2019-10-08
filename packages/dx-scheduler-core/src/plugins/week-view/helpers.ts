@@ -1,24 +1,43 @@
 import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  AppointmentMoment, DayBoundaryPredicateFn, ReduceAppointmentByDayBoundsFn,
+  AppointmentMoment, DayBoundaryPredicateFn,
+  ReduceAppointmentByDayBoundsFn, NormalizeAppointmentDurationFn,
 } from '../../types';
 
 export const sliceAppointmentByDay: PureComputed<
-  [AppointmentMoment], AppointmentMoment[]
-> = (appointment) => {
+  [AppointmentMoment, number], AppointmentMoment[]
+> = (appointment, cellDuration) => {
   const { start, end, dataItem } = appointment;
-  if (start.isSame(end, 'day')) {
-    return [appointment];
-  }
+  if (start.isSame(end, 'day')) return [appointment];
 
-  debugger
-  const a = moment(start).endOf('day').diff(start, 'minutes') < 15;
-  const b = moment(end).diff(end.clone().startOf('day'), 'minutes') < 15;
+  const minDuration = cellDuration / 2;
+  const isLeftShorted = start.clone().endOf('day').diff(start, 'minutes') < minDuration;
+  const isRightShorted = end.clone().diff(end.clone().startOf('day'), 'minutes') < minDuration;
 
   return [
-    a ? { start: start.clone().endOf('day').add(-15, 'minutes'), end: start.clone().endOf('day'), dataItem, short: true } : { start, end: start.clone().endOf('day'), dataItem },
-    b ? { start: end.clone().startOf('day'), end: end.clone().startOf('day').add(15, 'minutes'), dataItem, short: true } : { start: end.clone().startOf('day'), end, dataItem },
+    isLeftShorted ? {
+      start: start.clone().endOf('day').add(-minDuration, 'minutes'),
+      end: start.clone().endOf('day'),
+      dataItem,
+      short: true,
+    } : {
+      start,
+      end: start.clone().endOf('day'),
+      dataItem,
+      short: false,
+    },
+    isRightShorted ? {
+      start: end.clone().startOf('day'),
+      end: end.clone().startOf('day').add(minDuration, 'minutes'),
+      dataItem,
+      short: true,
+    } : {
+      start: end.clone().startOf('day'),
+      end,
+      dataItem,
+      short: false,
+    },
   ];
 };
 
@@ -43,7 +62,7 @@ export const dayBoundaryPredicate: DayBoundaryPredicateFn = (
 };
 
 export const reduceAppointmentByDayBounds: ReduceAppointmentByDayBoundsFn = (
-  appointment, leftBound, rightBound,
+  appointment, leftBound, rightBound, cellDuration,
 ) => {
   const dayStart = moment(leftBound as Date);
   const dayEnd = moment(rightBound as Date);
@@ -56,21 +75,54 @@ export const reduceAppointmentByDayBounds: ReduceAppointmentByDayBoundsFn = (
     .minutes(dayEnd.minutes())
     .seconds(dayEnd.seconds());
 
-  const a = moment(endDayTime).diff(appointment.start, 'minutes') < 15;
-  const b = moment(appointment.end).diff(startDayTime, 'minutes') < 15;
+  const minDuration = cellDuration / 2;
+  const isLeftShorted = endDayTime.clone().diff(appointment.start, 'minutes') < minDuration;
+  const isRightShorted = appointment.end.clone().diff(startDayTime, 'minutes') < minDuration;
 
-  if (a) {
-    return { ...appointment, start: moment(endDayTime).add(-15, 'minutes'), end: endDayTime, short: true };
+  if (isLeftShorted) {
+    return {
+      ...appointment,
+      start: endDayTime.clone().add(-minDuration, 'minutes'),
+      end: endDayTime,
+      short: true,
+    };
   }
 
-  if (b) {
-    return { ...appointment, start: startDayTime, end: moment(startDayTime).add(15, 'minutes'), short: true };
+  if (isRightShorted) {
+    return {
+      ...appointment,
+      start: startDayTime,
+      end: startDayTime.clone().add(minDuration, 'minutes'),
+      short: true,
+    };
   }
 
-  // return appointment;
   return {
     ...appointment,
     ...(appointment.start.isSameOrBefore(startDayTime) ? { start: startDayTime } : null),
     ...(appointment.end.isSameOrAfter(endDayTime) ? { end: endDayTime } : null),
+  };
+};
+
+export const normalizeAppointmentDuration: NormalizeAppointmentDurationFn = (
+  appointment, cellDuration,
+) => {
+  const minDuration = cellDuration / 2;
+  const start = moment(appointment.start as Date);
+  const end = moment(appointment.end as Date);
+
+  if (end.diff(start, 'minutes') > minDuration) {
+    return { ...appointment, start, end, short: false };
+  }
+
+  if (end.isSame(start.clone().add(minDuration, 'minutes'), 'day')) {
+    return { ...appointment, start, end: start.clone().add(minDuration, 'minutes'), short: true };
+  }
+
+  return {
+    ...appointment,
+    start: start.clone().endOf('day').add(-minDuration, 'minutes'),
+    end: start.clone().endOf('day'),
+    short: true,
   };
 };

@@ -40,9 +40,9 @@ export const verticalTimeTableRects: VerticalRects = (
   viewCellsData, cellDuration, cellElementsMeta,
 ) => {
   const intervals = calculateWeekDateIntervals(
-    appointments, startViewDate, endViewDate, excludedDays,
+    appointments, startViewDate, endViewDate, excludedDays, cellDuration,
   );
-  const a = calculateRectByDateIntervals(
+  return calculateRectByDateIntervals(
     {
       growDirection: VERTICAL_TYPE,
       multiline: false,
@@ -57,9 +57,6 @@ export const verticalTimeTableRects: VerticalRects = (
       cellElementsMeta,
     },
   );
-
-  debugger
-  return a;
 };
 
 export const horizontalTimeTableRects: HorizontalRects = (

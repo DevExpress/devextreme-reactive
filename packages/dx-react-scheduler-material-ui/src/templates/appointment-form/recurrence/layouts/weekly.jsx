@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { getRecurrenceOptions, changeRecurrenceOptions } from '@devexpress/dx-scheduler-core';
+import { getRecurrenceOptions, changeRecurrenceOptions, checkIsNaturalNumber } from '@devexpress/dx-scheduler-core';
 import { IntervalEditor } from './interval-editor';
 
 const styles = theme => ({
@@ -28,9 +28,11 @@ const WeeklyBase = ({
   const { rRule } = appointmentData;
   const recurrenceOptions = React.useMemo(() => getRecurrenceOptions(rRule) || {}, [rRule]);
 
-  const changeRecurrenceInterval = React.useCallback(interval => interval > 0 && onFieldChange({
-    rRule: changeRecurrenceOptions({ ...recurrenceOptions, interval }),
-  }), [recurrenceOptions, onFieldChange]);
+  const changeRecurrenceInterval = React.useCallback(
+    interval => checkIsNaturalNumber(interval) && onFieldChange({
+      rRule: changeRecurrenceOptions({ ...recurrenceOptions, interval }),
+    }), [recurrenceOptions, onFieldChange],
+  );
   return (
     <div
       {...restProps}

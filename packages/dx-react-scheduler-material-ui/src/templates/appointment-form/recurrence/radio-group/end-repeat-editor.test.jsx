@@ -79,12 +79,12 @@ describe('AppointmentForm recurrence RadioGroup', () => {
         <EndRepeatEditor {...defaultProps} />
       ));
 
-      tree.find(defaultProps.textEditorComponent).at(0).prop('onValueChange')('abc');
+      tree.find(defaultProps.textEditorComponent).at(0).prop('onValueChange')(45);
       expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
           rRule: {
             ...getRecurrenceOptions(),
-            count: 'abc',
+            count: 45,
           },
         });
 

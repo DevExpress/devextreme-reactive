@@ -31,8 +31,8 @@ displayName? | string |  | The view's name used in UI plugins. The default value
 excludedDays? | Array&lt;number&gt; | [] | Specifies the days of week that should not be displayed in the view. Accepts an array of zero-bazed day indexes (0 - Sunday).
 intervalCount? | number | 1 | Multiplies the default view interval.
 cellDuration? | number | 30 | Specifies the cell's duration in minutes.
-startDayHour? | number | 0 | Specifies the start hour of the view time scale.
-endDayHour? | number | 24 | Specifies the end hour of the view time scale.
+startDayHour? | number | 0 | Specifies the start hour of the view time scale. Accepts floating values from 0 to 24.
+endDayHour? | number | 24 | Specifies the end hour of the view time scale. Accepts floating values from 0 to 24.
 layoutComponent | ComponentType&lt;[WeekView.LayoutProps](#weekviewlayoutprops)&gt; | | A component that renders a week view layout.
 timeScaleLayoutComponent | ComponentType&lt;[WeekView.TimeScaleLayoutProps](#weekviewtimescalelayoutprops)&gt; | | A component that renders a time scale layout.
 timeScaleRowComponent | ComponentType&lt;[WeekView.RowProps](#weekviewrowprops)&gt; | | A component that renders a time scale row.

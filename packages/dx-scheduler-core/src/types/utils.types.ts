@@ -32,6 +32,7 @@ export interface ElementRect extends Rect {
   type: string;
   fromPrev: boolean;
   toNext: boolean;
+  short: boolean;
 }
 /** @internal */
 export type ComputedHelperFn = PureComputed<

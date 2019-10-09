@@ -130,6 +130,7 @@ VerticalAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   formatDate: PropTypes.func.isRequired,
+  short: PropTypes.func.isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
 };

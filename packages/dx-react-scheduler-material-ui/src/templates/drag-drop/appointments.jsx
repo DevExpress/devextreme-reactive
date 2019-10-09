@@ -52,6 +52,7 @@ DraftAppointmentBase.propTypes = {
   fromPrev: PropTypes.bool.isRequired,
   toNext: PropTypes.bool.isRequired,
   formatDate: PropTypes.func.isRequired,
+  short: PropTypes.func.isRequired,
   className: PropTypes.string,
   type: PropTypes.string,
 };

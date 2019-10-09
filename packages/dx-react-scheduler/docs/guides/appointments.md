@@ -13,6 +13,12 @@ One-time appointments are appointments with specified start and end date and tim
 
 .embedded-demo({ "path": "scheduler-basic/day", "showThemeSelector": true })
 
+## Zero-Time Appointments
+
+Zero-time appointments are appointments with specified only start date and time. They show instantaneous actions such as reminders, public transportation scheduler and so on. To display zero-time appointments on a view you should set only the `startDate` field in [AppointmentModel](../reference/scheduler.md#appointmentmodel) shape and add the [Appointments](../reference/appointments.md) plugin.
+
+.embedded-demo({ "path": "scheduler-basic/zero-time", "showThemeSelector": true })
+
 ## All-Day Appointments
 
 All-day appointments last for the entire day or multiple days. They are displayed only on the [MonthView](../reference/month-view.md). To display them on the day or week views, use the [AllDayPanel](../reference/all-day-panel.md) plugin.

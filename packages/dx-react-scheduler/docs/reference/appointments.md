@@ -58,6 +58,7 @@ Field | Type | Description
 children | ReactNode | A React node used to render the appointment content.
 data | object | An object that represents appointment data.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the locale.
+short | boolean | A flag that shows when appointment has a duration less then a half of cell in minutes.
 recurringIconComponent | ComponentType&lt;object&gt; | A component that renders an icon for recurring appointments.
 
 ### Appointments.SplitIndicatorProps

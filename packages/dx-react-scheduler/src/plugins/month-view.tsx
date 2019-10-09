@@ -65,7 +65,6 @@ class MonthViewBase extends React.PureComponent<MonthViewProps> {
           name={viewName}
           intervalCount={intervalCount}
           displayName={displayName}
-          // firstDayOfWeek={firstDayOfWeek}
           dayScaleLayoutComponent={dayScaleLayoutComponent}
           dayScaleCellComponent={dayScaleCellComponent}
           dayScaleRowComponent={dayScaleRowComponent}

@@ -15,7 +15,7 @@ import {
   availableViews as availableViewsCore,
 } from '@devexpress/dx-scheduler-core';
 import { memoize } from '@devexpress/dx-core';
-import { BasicViewProps, ViewState } from '../types';
+import { BasicViewProps, ViewState, ScrollingStrategy, ElementRect } from '../types';
 
 const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
@@ -94,7 +94,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, ViewState> {
     this.setState({ rects, timeTableElementsMeta: cellElementsMeta });
   });
 
-  setScrollingStrategy = (scrollingStrategy) => {
+  setScrollingStrategy = (scrollingStrategy: ScrollingStrategy) => {
     this.setState({ scrollingStrategy });
   }
 
@@ -227,7 +227,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, ViewState> {
                     setCellElementsMeta={setRects}
                   />
                   <AppointmentLayer>
-                    {(rects as any).map(({
+                    {(rects as ElementRect[]).map(({
                       dataItem, type: rectType, fromPrev, toNext, ...geometry
                     }, index) => (
                       <AppointmentPlaceholder

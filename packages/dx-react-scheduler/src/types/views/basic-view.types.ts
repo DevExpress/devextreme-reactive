@@ -1,50 +1,73 @@
-import { ViewCell } from '../index';
+import { ViewCell, VerticalViewProps, VerticalView, ScrollingStrategy, MonthView } from '../index';
 
-/* tslint:disable no-namespace max-line-length no-empty-interface */
+/* tslint:disable no-namespace max-line-length */
+type BasicViewPropsType =
+  Pick<
+    VerticalViewProps,
+    Exclude<
+      keyof VerticalViewProps,
+      'timeScaleLayoutComponent' | 'timeScaleRowComponent' | 'timeScaleCellComponent' | 'layoutComponent' | 'dayScaleEmptyCellComponent'
+    >
+  >;
+
+interface LayoutBaseProps {
+  /** The scrolling API callback */
+  setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
+  /** A component that renders a day scale layout. */
+  dayScaleComponent: React.ComponentType<VerticalView.DayScaleLayoutProps> | React.ComponentType<MonthView.DayScaleLayoutProps>;
+  /** A component that renders a time table layout. */
+  timeTableComponent: React.ComponentType<VerticalView.TimeTableLayoutProps> | React.ComponentType<MonthView.TimeTableLayoutProps>;
+  /** A component that renders a time scale layout. */
+  timeScaleComponent?: React.ComponentType<VerticalView.TimeScaleLayoutProps>;
+  /** A component that renders a day scale empty cell. */
+  dayScaleEmptyCellComponent?: React.ComponentType<VerticalView.DayScaleEmptyCellProps>;
+}
+
 /** @internal */
-export interface BasicViewProps {
+export interface BasicViewProps extends BasicViewPropsType {
   /** The function that calculate cells data */
   /** @internal */
   viewCellsDataComputed: (cellDuration: any, startDayHour: any, endDayHour: any) => (payload: any) => readonly ViewCell[][];
   /** The view's type */
   type: string;
-  /** The view's unique identifier. */
-  name?: string;
-  /** The view's name used in UI plugins. */
-  displayName?: string;
-  /** Multiplies the default view interval. */
-  intervalCount?: number;
-  /** Specifies the first day of week. */
-  firstDayOfWeek?: number;
-  /** Specifies the days of week that should not be displayed on the view. Accepts an array of zero-bazed day indexes (0 - Sunday). */
+  /** Specifies the days of week that should not be displayed on the view. Accepts an array of zero-based day indexes (0 - Sunday). */
   excludedDays?: number[];
-  /** Specifies the cell's duration in minutes. */
-  cellDuration?: number;
-  /** Specifies the start hour of the view time scale. */
-  startDayHour?: number;
-  /** Specifies the end hour of the view time scale. */
-  endDayHour?: number;
   /** The function that calculate time table appointment rects */
   timeTableRects: any;
   /** The properties that passed into layout component */
   layoutProps?: {
-    dayScaleEmptyCellComponent: React.ComponentType<any>,
-    timeScaleComponent: React.ComponentType<any>,
+    dayScaleEmptyCellComponent: React.ComponentType<VerticalView.DayScaleEmptyCellProps>,
+    timeScaleComponent: React.ComponentType<VerticalView.TimeScaleLayoutProps>,
   };
-  /** A component that renders a view layout. */
-  layoutComponent: React.ComponentType<any>;
-  /** A component that renders a day scale layout. */
-  dayScaleLayoutComponent: React.ComponentType<any>;
-  /** A component that renders a day scale cell. */
-  dayScaleCellComponent: React.ComponentType<any>;
-  /** A component that renders a day scale row.  */
-  dayScaleRowComponent: React.ComponentType<any>;
-  /** A component that renders a time table layout. */
-  timeTableLayoutComponent: React.ComponentType<any>;
-  /** A component that renders a time table cell. */
-  timeTableCellComponent: React.ComponentType<any>;
-  /** A component that renders a time table row. */
-  timeTableRowComponent: React.ComponentType<any>;
-  /** A component that renders the appointment layer. */
-  appointmentLayerComponent: React.ComponentType<any>;
+  layoutComponent: React.ComponentType<BasicView.LayoutProps>; // | React.ComponentType<MonthView.LayoutProps>;
+}
+
+/** @internal */
+export namespace BasicView {
+  /** @internal */
+  export interface LayoutProps {
+    /** The scrolling API callback */
+    setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
+    /** A component that renders a day scale layout. */
+    dayScaleComponent: React.ComponentType<VerticalView.DayScaleLayoutProps> | React.ComponentType<MonthView.DayScaleLayoutProps>;
+    /** A component that renders a time table layout. */
+    timeTableComponent: React.ComponentType<VerticalView.TimeTableLayoutProps> | React.ComponentType<MonthView.TimeTableLayoutProps>;
+    /** A component that renders a time scale layout. */
+    timeScaleComponent?: React.ComponentType<VerticalView.TimeScaleLayoutProps>;
+    /** A component that renders a day scale empty cell. */
+    dayScaleEmptyCellComponent?: React.ComponentType<VerticalView.DayScaleEmptyCellProps>;
+  }
+
+  export interface LayoutProps2 {
+    /** The scrolling API callback */
+    setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
+    /** A component that renders a time scale layout. */
+    timeScaleComponent: React.ComponentType<VerticalView.TimeScaleLayoutProps>;
+    /** A component that renders a day scale layout. */
+    dayScaleComponent: React.ComponentType<VerticalView.DayScaleLayoutProps>;
+    /** A component that renders a time table layout. */
+    timeTableComponent: React.ComponentType<VerticalView.TimeTableLayoutProps>;
+    /** A component that renders a day scale empty cell. */
+    dayScaleEmptyCellComponent: React.ComponentType<VerticalView.DayScaleEmptyCellProps>;
+  }
 }

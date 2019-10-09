@@ -95,7 +95,7 @@ describe('#timeScale', () => {
     expect(units[2].start.getHours()).toBe(9);
     expect(units[2].start.getMinutes()).toBe(16);
     expect(units[2].end.getHours()).toBe(9);
-    expect(units[2].end.getMinutes()).toBe(16 + 23 - 1);
+    expect(units[2].end.getMinutes()).toBe(16 + 23);
   });
 
   it('should return time units', () => {

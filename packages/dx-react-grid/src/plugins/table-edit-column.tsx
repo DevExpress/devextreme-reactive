@@ -55,7 +55,7 @@ class TableEditColumnBase extends React.PureComponent<TableEditColumnProps> {
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
     const tableColumnsComputed = (
       { tableColumns }: Getters,
-    ) => tableColumnsWithEditing(tableColumns, width as number);
+    ) => tableColumnsWithEditing(tableColumns, width!);
 
     return (
       <Plugin

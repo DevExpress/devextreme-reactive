@@ -1,38 +1,30 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import Section from './menu-section';
 import Search from './search';
-import navigation from '../../../page-navigation.json';
 import DocsSection from './docs-menu-section';
 import DemosSection from './demos-menu-section';
 
 import styles from './left-menu.module.scss';
 
 const LeftMenu = (props) => {
-  const { sectionName } = props;
-  const isDocs = sectionName === 'docs';
+  const { collapsible } = props;
+  // console.log(props.items)
   return (
     <LeftMenuBase
       {...props}
-      showSearch={isDocs}
-      sectionComponent={isDocs ? DocsSection : DemosSection}
+      sectionComponent={collapsible ? DocsSection : DemosSection}
     />
   );
 };
 
 const LeftMenuBase = ({
   technologyName, sectionName, showSearch,
-  sectionComponent: Section,
+  sectionComponent: Section, items,
+  menuAddon,
 }) => (
   <div className={styles.leftMenu}>
-    {showSearch ? (
-      <Search
-        technologyName={technologyName}
-        sectionName={sectionName}
-      />
-      ) : null
-    }
-    {navigation[technologyName][sectionName].map((section, index, arr) => (
+    {menuAddon}
+    {items.map((section, index, arr) => (
       <>
         <Section
           key={section.title}
@@ -45,8 +37,12 @@ const LeftMenuBase = ({
 );
 
 LeftMenu.propTypes = {
-  technologyName: PropTypes.string.isRequired,
-  sectionName: PropTypes.string.isRequired,
+  // technologyName: PropTypes.string.isRequired,
+  // sectionName: PropTypes.string.isRequired,
+};
+
+LeftMenu.defaultProps = {
+  menuAddon: null,
 };
 
 export default LeftMenu;

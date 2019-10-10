@@ -1,0 +1,13 @@
+@import '../../../constants';
+@import '../../../typography';
+
+.container {
+  padding: $inner-offset;
+}
+
+.title {
+  @include title-large(
+    $margin-bottom: 1rem,
+    $use-left-offset: false
+  );
+}

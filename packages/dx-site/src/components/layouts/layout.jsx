@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { StaticQuery, graphql } from 'gatsby';
-import Footer from './footer';
-import Cookie from './cookie';
+import Footer from '../footer';
+import Cookie from '../cookie';
 
 const Layout = ({ children }) => (
   <StaticQuery

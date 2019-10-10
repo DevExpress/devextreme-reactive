@@ -4,11 +4,14 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Link from 'gatsby-link';
 import Layout from './layout';
-import Header from './header';
-import ProductLogo from './logos/product';
-import LeftMenu from './docs/left-menu';
-import VersionLink from './docs/version-link';
+import Header from '../header';
+import ProductLogo from '../logos/product';
+import LeftMenu from '../docs/left-menu';
+import VersionLink from '../docs/version-link';
+import ContainerWithMenu from './container-with-menu';
+import Search from '../docs/search';
 
+import navigation from '../../../page-navigation.json';
 import styles from './page-layout.module.scss';
 
 const PartiallyActiveLink = props => (
@@ -35,25 +38,18 @@ class PageLayout extends React.PureComponent {
             </React.Fragment>
           )}
         />
-        <div className={isDocPage ? styles.docsPageLayout : styles.pageLayout}>
-          <div className="container">
-            <div className="row">
-              <div className="col-md-9 order-md-2">
-                <div className={styles.content}>
-                  {children}
-                </div>
-              </div>
-              <div className="col-md-3 order-md-1">
-                <div className={styles.sidebar}>
-                  <LeftMenu
-                    sectionName={sectionName}
-                    technologyName={technologyName}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ContainerWithMenu
+          collapsible={isDocPage}
+          items={navigation[technologyName][sectionName]}
+          menuAddon={isDocPage ? (
+            <Search
+              technologyName={technologyName}
+              sectionName={sectionName}
+            />
+          ) : null}
+        >
+          {children}
+        </ContainerWithMenu>
       </Layout>
     );
   }

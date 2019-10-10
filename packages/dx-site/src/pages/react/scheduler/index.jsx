@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Helmet from 'react-helmet';
-import Layout from '../../../components/layout';
+import Layout from '../../../components/layouts/layout';
 import Header from '../../../components/header';
 import ProductLogo from '../../../components/logos/product';
 import LandingHeaderAddon from '../../../components/landing/header-addon';

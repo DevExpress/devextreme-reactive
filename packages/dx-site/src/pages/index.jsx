@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Helmet from 'react-helmet';
-import Layout from '../components/layout';
+import Layout from '../components/layouts/layout';
 import Header from '../components/header';
 import ProductLogo from '../components/logos/product';
 import LandingHeaderAddon from '../components/landing/header-addon';
@@ -78,7 +78,7 @@ const IndexPage = () => (
         links={(
           <LandingProductLinks
             productInfo={[
-              { title: 'Demos', location: '/react/grid/demos/' },
+              { title: 'Demos', location: '/demos' },
               { title: 'Docs', location: '/react/core/docs/guides/fundamentals/' },
             ]}
           />

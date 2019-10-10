@@ -1,0 +1,20 @@
+@import '../../constants';
+
+.sidebar {
+  padding-left: 10px;
+}
+
+.content {
+  padding-right: $inner-offset;
+  padding-left: 20px;
+}
+
+.page-layout {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.docs-page-layout {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}

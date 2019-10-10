@@ -33,7 +33,7 @@ export namespace AllDayPanel {
   }
   export interface LayoutProps {
     cellComponent: React.ComponentType<AllDayPanel.CellProps>;
-    cellsData: CellData[];
+    cellsData: AllDayPanel.CellData[];
     formatDate: FormatterFn;
     rowComponent: React.ComponentType<CommonView.RowProps>;
     setCellElementsMeta: (cellElementsMeta: CellElementsMeta) => void;

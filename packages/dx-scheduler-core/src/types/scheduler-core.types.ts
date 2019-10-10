@@ -44,9 +44,11 @@ export interface TimeScale {
   start: Date;
   end: Date;
 }
-
+/** Describes a AllDay cell data configuration object. */
 export type AllDayCell = {
+  /** The cell’s start time. */
   startDate: SchedulerDateTime;
+  /** The cell’s end time. */
   endDate: SchedulerDateTime;
 };
 

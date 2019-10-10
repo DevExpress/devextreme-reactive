@@ -1,30 +1,46 @@
-import { ViewCell, VerticalViewProps, VerticalView } from '../index';
+import {
+  ViewCell,
+  ScrollingStrategy,
+  CellElementsMeta,
+  ElementRect,
+  MonthView,
+  CommonView,
+  CommonViewProps,
+} from '../index';
 
 /* tslint:disable no-namespace max-line-length */
-type BasicViewPropsType =
-  Pick<
-    VerticalViewProps,
-    Exclude<
-      keyof VerticalViewProps,
-      'timeScaleLayoutComponent' | 'timeScaleRowComponent' | 'timeScaleCellComponent' | 'layoutComponent' | 'dayScaleEmptyCellComponent'
-    >
-  >;
 
 /** @internal */
-export interface BasicViewProps extends BasicViewPropsType {
+export type BasicViewState = {
+  rects: readonly ElementRect[];
+  scrollingStrategy: ScrollingStrategy;
+  timeTableElementsMeta: CellElementsMeta | {};
+};
+
+/** @internal */
+export interface BasicViewProps extends CommonViewProps {
   /** The function that calculate cells data */
-  /** @internal */
   viewCellsDataComputed: (cellDuration: number, startDayHour: number, endDayHour: number) => (payload: any) => readonly ViewCell[][];
   /** The view's type */
   type: string;
+  /** Specifies the start hour of the view time scale. */
+  cellDuration?: number;
+  /** Specifies the start hour of the view time scale. */
+  startDayHour?: number;
+  /** Specifies the end hour of the view time scale. */
+  endDayHour?: number;
   /** Specifies the days of week that should not be displayed on the view. Accepts an array of zero-based day indexes (0 - Sunday). */
   excludedDays?: number[];
   /** The function that calculate time table appointment rects */
   timeTableRects: any;
   /** The properties that passed into layout component */
   layoutProps?: {
-    dayScaleEmptyCellComponent: React.ComponentType<VerticalView.DayScaleEmptyCellProps>,
-    timeScaleComponent: React.ComponentType<VerticalView.TimeScaleLayoutProps>,
+    dayScaleEmptyCellComponent: React.ComponentType<CommonView.DayScaleEmptyCellProps>,
+    timeScaleComponent: React.ComponentType<CommonView.TimeScaleLayoutProps>,
   };
   layoutComponent: React.ComponentType<any>;
+  /** A component that renders a day scale layout. */
+  dayScaleLayoutComponent: React.ComponentType<CommonView.DayScaleLayoutProps> | React.ComponentType<MonthView.DayScaleLayoutProps>;
+  /** A component that renders a time table layout. */
+  timeTableLayoutComponent: React.ComponentType<CommonView.TimeTableLayoutProps> | React.ComponentType<MonthView.TimeTableLayoutProps>;
 }

@@ -15,7 +15,7 @@ import {
   availableViews as availableViewsCore,
 } from '@devexpress/dx-scheduler-core';
 import { memoize } from '@devexpress/dx-core';
-import { BasicViewProps, ViewState, ScrollingStrategy, ElementRect } from '../types';
+import { BasicViewProps, BasicViewState, ScrollingStrategy, ElementRect } from '../types';
 
 const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
 const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
@@ -26,7 +26,7 @@ const endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCells
 const TimeTablePlaceholder = () => <TemplatePlaceholder name="timeTable" />;
 const DayScalePlaceholder = () => <TemplatePlaceholder name="dayScale" />;
 
-class BasicViewBase extends React.PureComponent<BasicViewProps, ViewState> {
+class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> {
   state = {
     rects: [],
     timeTableElementsMeta: {},

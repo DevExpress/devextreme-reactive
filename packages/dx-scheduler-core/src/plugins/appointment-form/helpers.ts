@@ -11,6 +11,7 @@ import {
   DEFAULT_RULE_OBJECT, RRULE_REPEAT_TYPES, REPEAT_TYPES, LAST_WEEK,
   DAYS_OF_WEEK_ARRAY, DAYS_IN_WEEK, DAYS_OF_WEEK_DATES,
 } from './constants';
+import { getCountDependingOnRecurrenceType } from './utils';
 
 export const callActionIfExists: PureComputed<[Action, object], void> = (action, payload) => {
   if (action) {
@@ -35,6 +36,7 @@ export const changeRecurrenceFrequency: PureComputed<
         ...DEFAULT_RULE_OBJECT,
         freq,
         bymonthday: [startDate.getDate()],
+        count: getCountDependingOnRecurrenceType(freq),
       })).toString();
     }
     if (freq === RRULE_REPEAT_TYPES.YEARLY) {
@@ -43,15 +45,19 @@ export const changeRecurrenceFrequency: PureComputed<
         freq,
         bymonthday: [startDate.getDate()],
         bymonth: startDate.getMonth() + 1,
+        count: getCountDependingOnRecurrenceType(freq),
       })).toString();
     }
-    return (new RRule({ ...DEFAULT_RULE_OBJECT, freq })).toString();
+    return (new RRule({
+      ...DEFAULT_RULE_OBJECT, freq, count: getCountDependingOnRecurrenceType(freq),
+    })).toString();
   }
 
   const options = RRule.parseString(rule);
   if (options.freq === freq) return rule;
 
   options.freq = freq;
+  options.count = getCountDependingOnRecurrenceType(freq);
   if (freq === RRULE_REPEAT_TYPES.MONTHLY || freq === RRULE_REPEAT_TYPES.YEARLY) {
     options.bymonthday = startDate.getDate();
   }

@@ -8,7 +8,7 @@ import {
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-material-ui';
-import classnames from 'classnames';
+import classNames from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import { Stack, Animation } from '@devexpress/dx-react-chart';
 import { carbonEmmision as data } from '../../../demo-data/data-vizualization';
@@ -16,7 +16,7 @@ import { carbonEmmision as data } from '../../../demo-data/data-vizualization';
 const setStyle = (style) => {
   const wrap = withStyles({ root: style });
   return Target => wrap(({ classes, className, ...restProps }) => (
-    <Target className={classnames(classes.root, className)} {...restProps} />
+    <Target className={classNames(classes.root, className)} {...restProps} />
   ));
 };
 

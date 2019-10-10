@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import classNames from 'clsx';
 
 const handleMouseDown = (e) => { e.currentTarget.style.outline = 'none'; };
 const handleBlur = (e) => { e.currentTarget.style.outline = ''; };

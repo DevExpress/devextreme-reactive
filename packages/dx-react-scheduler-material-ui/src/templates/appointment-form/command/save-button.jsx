@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import { setColor } from '../../utils';
 
 const styles = ({ spacing, palette }) => ({

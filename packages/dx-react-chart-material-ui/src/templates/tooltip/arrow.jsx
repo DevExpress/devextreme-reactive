@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import * as PropTypes from 'prop-types';
 
 const styles = (theme) => {

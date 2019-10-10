@@ -79,7 +79,7 @@
     "rollup-plugin-node-resolve": "^5.2.0"
   },
   "dependencies": {
-    "classnames": "^2.2.6",
+    "clsx": "^1.0.4",
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {

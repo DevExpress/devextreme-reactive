@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import {
   TITLE_TEXT_EDITOR,
   MULTILINE_TEXT_EDITOR,

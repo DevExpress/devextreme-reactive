@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import classNames from 'clsx';
 
 const styles = ({ palette, spacing }) => ({
   cell: {

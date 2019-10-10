@@ -35,7 +35,7 @@ export namespace AllDayPanel {
   /** Describes properties passed to a component that renders an All Day panel layout. */
   export interface LayoutProps {
     /** Cells’ meta data. */
-    cellsData: CellData[];
+    cellsData: AllDayPanel.CellData[];
     /** A component that renders an All Day panel cell. */
     cellComponent: React.ComponentType<AllDayPanel.CellProps>;
     /** A component that renders an All Day panel row. */

@@ -89,7 +89,7 @@ describe('#timeScale', () => {
     expect(units[47].end.getMinutes()).toBe(59);
   });
 
-  it('should return time units depend on start/end day hours', () => {
+  it('should return time units depending on start/end day hours', () => {
     const units = timeScale(currentDate, 1, 10, 11, 30);
     expect(units[0].start.getHours()).toBe(10);
     expect(units[0].start.getMinutes()).toBe(0);
@@ -98,8 +98,8 @@ describe('#timeScale', () => {
 
     expect(units[1].start.getHours()).toBe(10);
     expect(units[1].start.getMinutes()).toBe(30);
-    expect(units[1].end.getHours()).toBe(10);
-    expect(units[1].end.getMinutes()).toBe(59);
+    expect(units[1].end.getHours()).toBe(11);
+    expect(units[1].end.getMinutes()).toBe(0);
   });
 
   it('should return time units depend on cell duration', () => {
@@ -113,6 +113,24 @@ describe('#timeScale', () => {
     expect(units[1].start.getMinutes()).toBe(20);
     expect(units[1].end.getHours()).toBe(10);
     expect(units[1].end.getMinutes()).toBe(40);
+  });
+
+  it('should return subtract a second only if the last date is midnight', () => {
+    const units = timeScale(currentDate, 1, 23, 24, 20);
+    expect(units[0].start.getHours()).toBe(23);
+    expect(units[0].start.getMinutes()).toBe(0);
+    expect(units[0].end.getHours()).toBe(23);
+    expect(units[0].end.getMinutes()).toBe(20);
+
+    expect(units[1].start.getHours()).toBe(23);
+    expect(units[1].start.getMinutes()).toBe(20);
+    expect(units[1].end.getHours()).toBe(23);
+    expect(units[1].end.getMinutes()).toBe(40);
+
+    expect(units[2].start.getHours()).toBe(23);
+    expect(units[2].start.getMinutes()).toBe(40);
+    expect(units[2].end.getHours()).toBe(23);
+    expect(units[2].end.getMinutes()).toBe(59);
   });
 });
 
@@ -165,12 +183,12 @@ describe('#viewCellsData', () => {
       [
         {
           startDate: new Date('2018-10-9 10:30'),
-          endDate: new Date('2018-10-9 10:59'),
+          endDate: new Date('2018-10-9 11:00'),
           today: false,
         },
         {
           startDate: new Date('2018-10-10 10:30'),
-          endDate: new Date('2018-10-10 10:59'),
+          endDate: new Date('2018-10-10 11:00'),
           today: false,
         },
       ],
@@ -195,7 +213,7 @@ describe('#viewCellsData', () => {
         startDate: new Date('2018-10-9 10:00'), endDate: new Date('2018-10-9 10:30'), today: true,
       }],
       [{
-        startDate: new Date('2018-10-9 10:30'), endDate: new Date('2018-10-9 10:59'), today: true,
+        startDate: new Date('2018-10-9 10:30'), endDate: new Date('2018-10-9 11:00'), today: true,
       }],
     ]);
   });

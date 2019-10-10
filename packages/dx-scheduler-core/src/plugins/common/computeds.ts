@@ -6,6 +6,7 @@ import {
   SchedulerView,
 } from '../../types';
 import { calculateFirstDateOfWeek } from '../../utils';
+import { isMidnight } from './helpers';
 
 const subtractSecond: PureComputed<
   [Date]
@@ -50,7 +51,11 @@ export const timeScale: TimeScaleFn = (
     left.add(cellDuration, 'minutes');
     result.push({ start: startDate, end: left.toDate() });
   }
-  result[result.length - 1].end = subtractSecond(result[result.length - 1].end) as Date;
+
+  const timeScaleLastIndex = result.length - 1;
+  if (isMidnight(result[timeScaleLastIndex].end)) {
+    result[timeScaleLastIndex].end = subtractSecond(result[timeScaleLastIndex].end) as Date;
+  }
   return result;
 };
 

@@ -46,10 +46,10 @@
     "lint:fix": "yarn lint -- --fix"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.2",
+    "@babel/core": "^7.6.3",
     "@babel/plugin-transform-runtime": "^7.6.2",
-    "@babel/preset-env": "^7.6.2",
-    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.6.3",
     "@devexpress/dx-core": "2.1.1",
     "@devexpress/dx-react-core": "2.1.1",
     "@devexpress/dx-testing": "2.1.1",
@@ -58,12 +58,12 @@
     "core-js": "^3.2.1",
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
-    "enzyme-to-json": "^3.4.0",
+    "enzyme-to-json": "^3.4.2",
     "jest": "^24.9.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-test-renderer": "^16.9.0",
-    "rollup": "^1.21.4",
+    "react-test-renderer": "^16.10.2",
+    "rollup": "^1.23.1",
     "rollup-plugin-license": "^0.12.1",
     "ts-jest": "^24.1.0",
     "tslint": "^5.20.0",
@@ -77,7 +77,7 @@
     "@devexpress/dx-core": "2.1.1",
     "@devexpress/dx-react-core": "2.1.1",
     "moment": "^2.24.0",
-    "react": ">=16.9.0",
-    "react-dom": ">=16.9.0"
+    "react": ">=16.10.2",
+    "react-dom": ">=16.10.2"
   }
 }

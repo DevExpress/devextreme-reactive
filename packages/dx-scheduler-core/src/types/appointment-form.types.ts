@@ -1,5 +1,6 @@
 import { AppointmentModel, SchedulerDateTime } from './scheduler-core.types';
 import { PureComputed } from '@devexpress/dx-core';
+import { RRULE_REPEAT_TYPES } from '../plugins/appointment-form/constants';
 
 /** @internal */
 export type Action = ([fieldName]?: any) => void;
@@ -35,3 +36,10 @@ export type OptionsFormatterFn = PureComputed<
 export type DateFormatterFn = PureComputed<
   [(date: Date, formatOptions: object) => string], Array<Option>
 >;
+/** @internal */
+export enum RecurrenceFrequency {
+  Daily = RRULE_REPEAT_TYPES.DAILY,
+  Weekly = RRULE_REPEAT_TYPES.WEEKLY,
+  Monthly = RRULE_REPEAT_TYPES.MONTHLY,
+  Yearly = RRULE_REPEAT_TYPES.YEARLY,
+}

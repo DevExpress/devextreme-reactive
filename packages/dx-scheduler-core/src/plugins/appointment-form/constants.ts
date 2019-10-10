@@ -37,12 +37,12 @@ export const MONTHS = {
 };
 
 export const RRULE_REPEAT_TYPES = {
-  YEARLY: RRule.YEARLY,
-  MONTHLY: RRule.MONTHLY,
-  WEEKLY: RRule.WEEKLY,
-  DAILY: RRule.DAILY,
-  HOURLY: RRule.HOURLY,
-  MINUTELY: RRule.MINUTELY,
+  YEARLY: RRule.YEARLY as number,
+  MONTHLY: RRule.MONTHLY as number,
+  WEEKLY: RRule.WEEKLY as number,
+  DAILY: RRule.DAILY as number,
+  HOURLY: RRule.HOURLY as number,
+  MINUTELY: RRule.MINUTELY as number,
 };
 
 export const REPEAT_TYPES = {
@@ -116,3 +116,8 @@ export const SECOND_WEEK = 1;
 export const THIRD_WEEK = 2;
 export const FOURTH_WEEK = 3;
 export const LAST_WEEK = 4;
+
+export const BASIC_YEALY_COUNT = 5;
+export const BASIC_MONTHLY_COUNT = 12;
+export const BASIC_WEEKLY_COUNT = 13;
+export const BASIC_DAILY_COUNT = 30;

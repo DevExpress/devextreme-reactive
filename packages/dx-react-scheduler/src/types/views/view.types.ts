@@ -113,7 +113,7 @@ export namespace VerticalView {
   /** Describes properties passed to a component that renders a time scale label. */
   export interface TimeScaleLabelProps {
     /** Specifies the label's time. */
-    time: Date;
+    time?: Date;
   }
 
   /** @internal */

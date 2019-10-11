@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Label } from './label';
 
-describe('Vertical view TimePanel', () => {
+describe('Vertical view TimeScale', () => {
   const defaultProps = {
     time: new Date(2018, 6, 7, 16, 20),
     formatDate: () => undefined,

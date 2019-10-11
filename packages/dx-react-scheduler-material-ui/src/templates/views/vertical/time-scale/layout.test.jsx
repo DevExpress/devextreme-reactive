@@ -3,7 +3,7 @@ import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Layout } from './layout';
 import { TicksLayout } from './ticks-layout';
 
-describe('Vertical view TimePanel', () => {
+describe('Vertical view TimeScale', () => {
   let classes;
   let shallow;
   const defaultProps = {

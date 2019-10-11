@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { TickCell } from './tick-cell';
 
-describe('Vertical view TimePanel', () => {
+describe('Vertical view TimeScale', () => {
   let classes;
   let shallow;
   beforeAll(() => {

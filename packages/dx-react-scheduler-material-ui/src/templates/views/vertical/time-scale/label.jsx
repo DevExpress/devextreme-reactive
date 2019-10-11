@@ -19,6 +19,7 @@ const styles = theme => ({
   },
   text: {
     ...theme.typography.caption,
+    fontSize: '0.7rem',
     whiteSpace: 'nowrap',
   },
   emptyLabel: {

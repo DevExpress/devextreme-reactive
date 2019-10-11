@@ -26,6 +26,7 @@ const styles = theme => ({
   title: {
     padding: theme.spacing(2),
     ...theme.typography.caption,
+    fontSize: '0.7rem',
   },
 });
 

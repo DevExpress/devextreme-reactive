@@ -15,8 +15,8 @@ const styles = ({ spacing }) => ({
 
 const LayoutBase = ({
   labelComponent: Label,
-  rowComponent: Row,
-  tickCellComponent: TickCell,
+  rowComponent,
+  tickCellComponent,
   cellsData,
   formatDate,
   classes,
@@ -37,8 +37,8 @@ const LayoutBase = ({
       <Label key={cellsData[cellsData.length - 1][0].endDate} />
     </div>
     <TicksLayout
-      rowComponent={Row}
-      cellComponent={TickCell}
+      rowComponent={rowComponent}
+      cellComponent={tickCellComponent}
       cellsData={cellsData}
       className={classes.ticks}
     />

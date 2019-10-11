@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { TicksLayout } from './ticks-layout';
 
-describe('Vertical view TimePanel', () => {
+describe('Vertical view TimeScale', () => {
   let shallow;
   let classes;
   const defaultProps = {

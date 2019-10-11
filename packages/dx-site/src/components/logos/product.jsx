@@ -4,27 +4,44 @@ import Link from 'gatsby-link';
 import styles from './product.module.scss';
 
 const titles = {
-  react: 'React Components',
-  'react/core': 'React Core',
-  'react/grid': 'React Grid',
-  'react/chart': 'React Chart',
-  'react/scheduler': 'React Scheduler',
+  react: '',
+  'react/core': 'Core',
+  'react/grid': 'Grid',
+  'react/chart': 'Chart',
+  'react/scheduler': 'Scheduler',
 };
 
-const Product = ({ link }) => (
-  <Link to="/" className={`${styles.product} ${styles[link.split('/')[0]]}`}>
-    <span className={styles.main}>
-      {titles[link]}
-    </span>
-
-    <span className={styles.title}>
-      DevExtreme
-    </span>
-    {' '}
-    <span className={styles.name}>
-      Reactive
-    </span>
+const RootLink = ({ children }) => (
+  <Link to="/" className={`${styles.product}`}>
+    {children}
   </Link>
+);
+
+const ProductBreadcrumbs = ({ link }) => (
+  link !== 'react' ? (
+    <>
+      <span className={styles.prefix}>/ React /</span>
+      <span className={styles.main}>{titles[link]}</span>
+    </>
+  ) : null
+);
+
+const Product = ({ link }) => (
+  <>
+    <div>
+      <RootLink>
+        <span className={styles.title}>
+          DevExtreme
+        </span>
+      </RootLink>
+      <ProductBreadcrumbs link={link} />
+    </div>
+    <RootLink>
+      <span className={styles.name}>
+        Reactive
+      </span>
+    </RootLink>
+  </>
 );
 
 Product.propTypes = {

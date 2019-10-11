@@ -8,9 +8,10 @@ import {
   Legend,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 import { ValueScale, Animation } from '@devexpress/dx-react-chart';
-import { easeBounceOut } from 'd3-ease';
 
 import { sales as data } from '../../../demo-data/data-vizualization';
+
+const option = [2017, 2018, 2019];
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -20,6 +21,25 @@ export default class Demo extends React.PureComponent {
       data: data[2017],
     };
     this.changeData = this.changeData.bind(this);
+    this.id = undefined;
+    this.index = 1;
+  }
+
+  componentDidMount() {
+    const selectElement = document.getElementById('select');
+    this.id = setInterval(() => {
+      selectElement.selectedIndex = this.index;
+      this.setState({ data: data[option[this.index]] });
+      if (this.index === 2) {
+        this.index = 0;
+      } else {
+        this.index += 1;
+      }
+    }, 4000);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.id);
   }
 
   changeData(e) {
@@ -54,13 +74,13 @@ export default class Demo extends React.PureComponent {
             argumentField="month"
             scaleName="total"
           />
-          <Animation duration={2000} easing={easeBounceOut} />
+          <Animation />
           <Legend />
         </Chart>
-        <select style={{ width: '100px', margin: '10px' }} onChange={this.changeData}>
-          <option>2017</option>
-          <option>2018</option>
-          <option>2019</option>
+        <select id="select" style={{ width: '100px', margin: '10px' }} onChange={this.changeData}>
+          <option>{ option[0] }</option>
+          <option>{ option[1] }</option>
+          <option>{ option[2] }</option>
         </select>
       </<%&wrapperTag%>>
     );

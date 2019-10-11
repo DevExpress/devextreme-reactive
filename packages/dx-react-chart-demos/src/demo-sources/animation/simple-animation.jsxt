@@ -8,7 +8,6 @@ import {
   Legend,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 import { ValueScale, Animation } from '@devexpress/dx-react-chart';
-import { easeBounceOut } from 'd3-ease';
 
 import { sales as data } from '../../../demo-data/data-vizualization';
 
@@ -19,11 +18,6 @@ export default class Demo extends React.PureComponent {
     this.state = {
       data: data[2017],
     };
-    this.changeData = this.changeData.bind(this);
-  }
-
-  changeData(e) {
-    this.setState({ data: data[e.target.value] });
   }
 
   render() {
@@ -54,14 +48,9 @@ export default class Demo extends React.PureComponent {
             argumentField="month"
             scaleName="total"
           />
-          <Animation duration={2000} easing={easeBounceOut} />
+          <Animation />
           <Legend />
         </Chart>
-        <select style={{ width: '100px', margin: '10px' }} onChange={this.changeData}>
-          <option>2017</option>
-          <option>2018</option>
-          <option>2019</option>
-        </select>
       </<%&wrapperTag%>>
     );
   }

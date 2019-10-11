@@ -28,7 +28,6 @@ Name | Type | Default | Description
 -----|------|---------|------------
 name? | string | `Month` | The view's unique identifier. Required if you use several `MonthView` plugins.
 displayName? | string |  | The view's name used in UI plugins. The default value is equal to `name`.
-firstDayOfWeek? | number | 0 | Specifies first day of week.
 intervalCount? | number | 1 | Multiplies the default view interval.
 layoutComponent | ComponentType&lt;[MonthView.LayoutProps](#monthviewlayoutprops)&gt; | | A component that renders a month view layout.
 dayScaleLayoutComponent | ComponentType&lt;[MonthView.DayScaleLayoutProps](#monthviewdayscalelayoutprops)&gt; | | A component that renders a day scale layout.
@@ -127,12 +126,12 @@ children? | ReactNode | A React node used to render the row content.
 
 Name | Properties | Description
 -----|------------|------------
-MonthView.Layout | ComponentType&lt;[MonthView.LayoutProps](#monthviewlayoutprops)&gt; | A component that renders a month view layout.
-MonthView.DayScaleLayout | ComponentType&lt;[MonthView.DayScaleLayoutProps](#monthviewdayscalelayoutprops)&gt; | A component that renders a day scale layout.
-MonthView.DayScaleCell | ComponentType&lt;[MonthView.DayScaleCellProps](#monthviewdayscalecellprops)&gt; | A component that renders a day scale cell.
-MonthView.TimeTableLayout | ComponentType&lt;[MonthView.TimeTableLayoutProps](#monthviewtimetablelayoutprops)&gt; | A component that renders a time table layout.
-MonthView.TimeTableCell | ComponentType&lt;[MonthView.TimeTableCellProps](#monthviewtimetablecellprops)&gt; | A component that renders a time table cell.
-MonthView.Row | ComponentType&lt;[MonthView.RowProps](#monthviewrowprops)&gt; | A component that renders a generic row.
-MonthView.AppointmentLayer | ComponentType&lt;[MonthView.AppointmentLayerProps](#monthviewappointmentlayerprops)&gt; | A component that renders the appointment layer.
+MonthView.Layout | [MonthView.LayoutProps](#monthviewlayoutprops) | A component that renders a month view layout.
+MonthView.DayScaleLayout | [MonthView.DayScaleLayoutProps](#monthviewdayscalelayoutprops) | A component that renders a day scale layout.
+MonthView.DayScaleCell | [MonthView.DayScaleCellProps](#monthviewdayscalecellprops) | A component that renders a day scale cell.
+MonthView.TimeTableLayout | [MonthView.TimeTableLayoutProps](#monthviewtimetablelayoutprops) | A component that renders a time table layout.
+MonthView.TimeTableCell | [MonthView.TimeTableCellProps](#monthviewtimetablecellprops) | A component that renders a time table cell.
+MonthView.Row | [MonthView.RowProps](#monthviewrowprops) | A component that renders a generic row.
+MonthView.AppointmentLayer | [MonthView.AppointmentLayerProps](#monthviewappointmentlayerprops) | A component that renders the appointment layer.
 
 Additional properties are added to the component's root element.

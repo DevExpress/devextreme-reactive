@@ -186,6 +186,14 @@ export interface DragDropProviderProps {
 }
 
 // @public (undocumented)
+export interface EditingCell {
+    // (undocumented)
+    columnName: string;
+    // (undocumented)
+    rowId: number | string;
+}
+
+// @public (undocumented)
 export interface EditingColumnExtension {
     columnName: string;
     createRowChange?: (row: any, value: any, columnName: string) => any;
@@ -211,15 +219,18 @@ export interface EditingStateProps {
   columnExtensions?: Array<EditingState.ColumnExtension>;
   createRowChange?: (row: any, value: string | number, columnName: string) => any;
   defaultAddedRows?: Array<any>;
+  defaultEditingCells?: Array<EditingCell>;
   defaultEditingRowIds?: Array<number | string>;
   defaultRowChanges?: {
     [key: string]: any;
   };
+  editingCells?: Array<EditingCell>;
   editingRowIds?: Array<number | string>;
   onAddedRowsChange?: (addedRows: Array<any>) => void;
   onCommitChanges: (changes: ChangeSet) => void;
   // (undocumented)
   onDeletedRowIdsChange?: (deletedRowIds: Array<number | string>) => void;
+  onEditingCellsChange?: (editingRowIds: Array<EditingCell>) => void;
   onEditingRowIdsChange?: (editingRowIds: Array<number | string>) => void;
   onRowChangesChange?: (rowChanges: {
     [key: string]: any;
@@ -580,7 +591,7 @@ export interface SelectionStateProps {
 // @public
 export interface Sorting {
   columnName: string;
-  direction: 'asc' | 'desc';
+  direction: SortingDirection;
 }
 
 // @public (undocumented)
@@ -1058,6 +1069,31 @@ export interface TableHeaderRowProps {
   showSortingControls?: boolean;
   sortLabelComponent: React.ComponentType<TableHeaderRow.SortLabelProps>;
   titleComponent: React.ComponentType<object>;
+}
+
+// @public (undocumented)
+export const TableInlineCellEditing: React.ComponentType<TableInlineCellEditingProps>;
+
+// @public (undocumented)
+export namespace TableInlineCellEditing {
+  export interface CellProps extends Table.CellProps {
+    autoFocus: boolean;
+    column: Column;
+    editingEnabled: boolean;
+    onBlur: () => void;
+    onFocus: (e: any) => void;
+    onKeyDown: (e: any) => void;
+    onValueChange: (newValue: any) => void;
+    row: any;
+    value: any;
+  }
+}
+
+// @public (undocumented)
+export interface TableInlineCellEditingProps {
+  cellComponent: React.ComponentType<TableInlineCellEditing.CellProps>;
+  selectTextOnEditStart: boolean;
+  startEditAction: 'click' | 'doubleClick';
 }
 
 // @public (undocumented)

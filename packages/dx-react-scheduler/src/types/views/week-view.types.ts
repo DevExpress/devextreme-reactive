@@ -29,6 +29,4 @@ export namespace WeekView {
 export interface WeekViewProps extends VerticalViewProps {
   /** Specifies the days of week that should not be displayed on the view. Accepts an array of zero-bazed day indexes (0 - Sunday). */
   excludedDays?: number[];
-  /** Specifies the first day of week. */
-  firstDayOfWeek?: number;
 }

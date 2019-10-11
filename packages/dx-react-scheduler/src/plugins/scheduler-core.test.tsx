@@ -57,6 +57,21 @@ describe('Scheduler Core', () => {
       .toEqual('fr-FR');
   });
 
+  it('should provide the "firstDayOfWeek" getter', () => {
+    const tree = mount((
+      <PluginHost>
+        <SchedulerCore
+          firstDayOfWeek={3}
+          {...defaultProps}
+        />
+        {pluginDepsToComponents({})}
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree).firstDayOfWeek)
+      .toEqual(3);
+  });
+
   it('should render root template', () => {
     const tree = mount((
       <PluginHost>

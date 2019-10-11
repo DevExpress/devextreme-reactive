@@ -29,11 +29,10 @@ Name | Type | Default | Description
 name? | string | `Week` | The view's unique identifier. Required if you use several `WeekView` plugins.
 displayName? | string |  | The view's name used in UI plugins. The default value is equal to `name`.
 excludedDays? | Array&lt;number&gt; | [] | Specifies the days of week that should not be displayed in the view. Accepts an array of zero-bazed day indexes (0 - Sunday).
-firstDayOfWeek? | number | 0 | Specifies the first day of week.
 intervalCount? | number | 1 | Multiplies the default view interval.
 cellDuration? | number | 30 | Specifies the cell's duration in minutes.
-startDayHour? | number | 0 | Specifies the start hour of the view time scale.
-endDayHour? | number | 24 | Specifies the end hour of the view time scale.
+startDayHour? | number | 0 | Specifies the start hour of the view time scale. Accepts floating-point numbers from 0 to 24.
+endDayHour? | number | 24 | Specifies the end hour of the view time scale. Accepts floating-point numbers from 0 to 24.
 layoutComponent | ComponentType&lt;[WeekView.LayoutProps](#weekviewlayoutprops)&gt; | | A component that renders a week view layout.
 timeScaleLayoutComponent | ComponentType&lt;[WeekView.TimeScaleLayoutProps](#weekviewtimescalelayoutprops)&gt; | | A component that renders a time scale layout.
 timeScaleRowComponent | ComponentType&lt;[WeekView.RowProps](#weekviewrowprops)&gt; | | A component that renders a time scale row.
@@ -164,15 +163,15 @@ children? | ReactNode | A React node used to render the row content.
 
 Name | Properties | Description
 -----|------------|------------
-WeekView.Layout | ComponentType&lt;[WeekView.LayoutProps](#weekviewlayoutprops)&gt; | A component that renders a week view layout.
-WeekView.TimeScaleLayout | ComponentType&lt;[WeekView.TimeScaleLayoutProps](#weekviewtimescalelayoutprops)&gt; | A component that renders a time scale layout.
-WeekView.TimeScaleCell | ComponentType&lt;[WeekView.TimeScaleCellProps](#weekviewtimescalecellprops)&gt; | A component that renders a time scale cell.
-WeekView.DayScaleLayout | ComponentType&lt;[WeekView.DayScaleLayoutProps](#weekviewdayscalelayoutprops)&gt; | A component that renders a day scale layout.
-WeekView.DayScaleCell | ComponentType&lt;[WeekView.DayScaleCellProps](#weekviewdayscalecellprops)&gt; | A component that renders a day scale cell.
-WeekView.DayScaleEmptyCell | ComponentType&lt;[WeekView.DayScaleEmptyCellProps](#weekviewdayscaleemptycellprops)&gt; | A component that renders a day scale empty cell.
-WeekView.TimeTableLayout | ComponentType&lt;[WeekView.TimeTableLayoutProps](#weekviewtimetablelayoutprops)&gt; | A component that renders a time table layout.
-WeekView.TimeTableCell | ComponentType&lt;[WeekView.TimeTableCellProps](#weekviewtimetablecellprops)&gt; | A component that renders a time table cell.
-WeekView.Row | ComponentType&lt;[WeekView.RowProps](#weekviewrowprops)&gt; | A component that renders a week view's generic row.
-WeekView.AppointmentLayer | ComponentType&lt;[WeekView.AppointmentLayerProps](#weekviewappointmentlayerprops)&gt; | A component that renders the appointment layer.
+WeekView.Layout | [WeekView.LayoutProps](#weekviewlayoutprops) | A component that renders a week view layout.
+WeekView.TimeScaleLayout | [WeekView.TimeScaleLayoutProps](#weekviewtimescalelayoutprops) | A component that renders a time scale layout.
+WeekView.TimeScaleCell | [WeekView.TimeScaleCellProps](#weekviewtimescalecellprops) | A component that renders a time scale cell.
+WeekView.DayScaleLayout | [WeekView.DayScaleLayoutProps](#weekviewdayscalelayoutprops) | A component that renders a day scale layout.
+WeekView.DayScaleCell | [WeekView.DayScaleCellProps](#weekviewdayscalecellprops) | A component that renders a day scale cell.
+WeekView.DayScaleEmptyCell | [WeekView.DayScaleEmptyCellProps](#weekviewdayscaleemptycellprops) | A component that renders a day scale empty cell.
+WeekView.TimeTableLayout | [WeekView.TimeTableLayoutProps](#weekviewtimetablelayoutprops) | A component that renders a time table layout.
+WeekView.TimeTableCell | [WeekView.TimeTableCellProps](#weekviewtimetablecellprops) | A component that renders a time table cell.
+WeekView.Row | [WeekView.RowProps](#weekviewrowprops) | A component that renders a week view's generic row.
+WeekView.AppointmentLayer | [WeekView.AppointmentLayerProps](#weekviewappointmentlayerprops) | A component that renders the appointment layer.
 
 Additional properties are added to the component's root element.

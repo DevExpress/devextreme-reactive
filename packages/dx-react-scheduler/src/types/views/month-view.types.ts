@@ -1,6 +1,5 @@
 import { ScrollingStrategy } from '../index';
 import { VerticalViewProps, VerticalView } from './view.types';
-import { WeekViewProps } from './week-view.types';
 
 /* tslint:disable no-namespace max-line-length no-empty-interface */
 type MonthViewPropsType =
@@ -10,9 +9,7 @@ type MonthViewPropsType =
       keyof VerticalViewProps,
       'timeScaleLayoutComponent' | 'timeScaleRowComponent' | 'timeScaleCellComponent' | 'layoutComponent' | 'dayScaleEmptyCellComponent'
     >
-  >
-  &
-  Pick<WeekViewProps, 'firstDayOfWeek'>;
+  >;
 
 export interface MonthViewProps extends MonthViewPropsType {
   /** A component that renders a view layout. */

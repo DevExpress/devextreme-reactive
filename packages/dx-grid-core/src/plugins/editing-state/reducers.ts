@@ -1,5 +1,7 @@
 import { PureReducer } from '@devexpress/dx-core';
-import { RowId, Row, RowIdsPayload, RowPayload, RowChangePayload, RowChanges } from '../../types';
+import { RowId, Row, RowIdsPayload, RowPayload, RowChangePayload,
+  RowChanges, EditingCell, EditingCellsPayload,
+} from '../../types';
 
 export const startEditRows: PureReducer<RowId[], RowIdsPayload> = (
   prevEditingRowIds, { rowIds },
@@ -10,6 +12,20 @@ export const stopEditRows: PureReducer<RowId[], RowIdsPayload> = (
 ) => {
   const rowIdSet = new Set(rowIds);
   return prevEditingRowIds.filter(id => !rowIdSet.has(id));
+};
+
+export const startEditCells: PureReducer<EditingCell[], EditingCellsPayload> = (
+  prevEditingCells, { editingCells },
+) => [...prevEditingCells, ...editingCells];
+
+export const stopEditCells: PureReducer<EditingCell[], EditingCellsPayload> = (
+  prevEditingCells, { editingCells },
+) => {
+  return prevEditingCells.filter(({ rowId, columnName }) => (
+    !editingCells.some(({ rowId: currentRowId, columnName: currentColumnName }) => (
+      currentRowId === rowId && currentColumnName === columnName
+    ))
+  ));
 };
 
 export const addRow: PureReducer<Row[], RowPayload> = (

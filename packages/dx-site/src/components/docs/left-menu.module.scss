@@ -3,3 +3,17 @@
   padding: 20px;
   line-height: 2.0;
 }
+
+.item {
+  list-style: none;
+}
+
+.single-item {
+  padding-left: 30px;
+}
+
+.active-link, .active-link:hover {
+  color: black;
+  text-decoration: none;
+  cursor: default;
+}

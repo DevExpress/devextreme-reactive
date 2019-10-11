@@ -1,5 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { Location } from '@reach/router';
+import Link from 'gatsby-link';
 import Search from './search';
 import DocsSection from './docs-menu-section';
 import DemosSection from './demos-menu-section';
@@ -8,7 +10,6 @@ import styles from './left-menu.module.scss';
 
 const LeftMenu = (props) => {
   const { collapsible } = props;
-  // console.log(props.items)
   return (
     <LeftMenuBase
       {...props}
@@ -17,8 +18,24 @@ const LeftMenu = (props) => {
   );
 };
 
+const Item = ({ path, title }) => (
+  <li key={path} className={styles.item}>
+    <Link
+      activeClassName={styles.activeLink}
+      to={path}
+    >
+      {title}
+    </Link>
+  </li>
+);
+
+const SingleItem = props => (
+  <div className={styles.singleItem}>
+    <Item {...props} />
+  </div>
+);
+
 const LeftMenuBase = ({
-  technologyName, sectionName, showSearch,
   sectionComponent: Section, items,
   menuAddon,
 }) => (
@@ -26,10 +43,15 @@ const LeftMenuBase = ({
     {menuAddon}
     {items.map((section, index, arr) => (
       <>
-        <Section
-          key={section.title}
-          section={section}
-        />
+        {section.items ? (
+          <Section
+            key={section.title}
+            section={section}
+            itemComponent={Item}
+          />
+        ) : (
+          <SingleItem {...section} />
+        )}
         {index < arr.length - 1 ? <hr /> : null}
       </>
     ))}

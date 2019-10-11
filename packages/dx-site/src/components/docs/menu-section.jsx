@@ -1,35 +1,48 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Location } from '@reach/router';
-import Link from 'gatsby-link';
+
 import styles from './menu-section.module.scss';
 
-const SectionBase = ({ title, items, onHeaderClick, classes }) => (
-  <Location>
-    {({ location }) => (
-      <React.Fragment key={title}>
-        <h3
-          className={classes.title}
-          onClick={onHeaderClick}
-        >
-          {title}
-        </h3>
 
-        <ul
-          className={`list-unstyled ${classes.list} ${styles.menuList}`}
-        >
-          {items.map(item => (
-            <li key={item.path}>
-              {location.pathname.endsWith(item.path)
-                ? item.title
-                : <Link to={item.path}>{item.title}</Link>
-              }
-            </li>
-          ))}
-        </ul>
-      </React.Fragment>
-    )}
-  </Location>
+const SectionTitle = ({ nested, ...restProps }) => {
+  const H3 = props => <h3 {...props} />;
+  const H4 = props => <h5 {...props} />;
+  const Title = nested ? H4 : H3;
+  return <Title {...restProps} />
+};
+
+const SectionBase = ({
+  title, items, subSectionComponent: SubSection, itemComponent: Item,
+  onHeaderClick, classes, nested,
+}) => (
+  <React.Fragment key={title}>
+    <SectionTitle
+      nested={nested}
+      className={classes.title}
+      onClick={onHeaderClick}
+    >
+      {title}
+    </SectionTitle>
+
+    <ul
+      className={`list-unstyled ${classes.list} ${styles.menuList}`}
+    >
+      {items.map(item => (
+        item.items ? (
+          <SubSection
+            nested
+            onHeaderClick={onHeaderClick}
+            classes={classes}
+            section={item}
+            itemComponent={Item}
+          />
+        ) : (
+          <Item {...item} />
+        )
+      ))}
+    </ul>
+  </React.Fragment>
 );
 
 SectionBase.propTypes = {

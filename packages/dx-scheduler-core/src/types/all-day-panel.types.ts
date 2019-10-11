@@ -7,7 +7,6 @@ export type ViewCellData = { startDate: Date; endDate: Date; };
 export interface AppointmentMoment {
   start: moment.Moment;
   end: moment.Moment;
-  short: boolean;
   title?: string;
   allDay?: boolean;
   id?: number | string;

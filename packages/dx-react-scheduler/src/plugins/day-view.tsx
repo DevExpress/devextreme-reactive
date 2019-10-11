@@ -276,7 +276,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
                   />
                   <AppointmentLayer>
                     {rects.map(({
-                      dataItem, type, fromPrev, toNext, short, ...geometry
+                      dataItem, type, fromPrev, toNext, heightType, ...geometry
                     }, index) => (
                         <AppointmentPlaceholder
                           key={index.toString()}
@@ -284,7 +284,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps, ViewState> {
                           data={dataItem}
                           fromPrev={fromPrev}
                           toNext={toNext}
-                          short={short}
+                          heightType={heightType}
                           style={getAppointmentStyle(geometry)}
                         />
                       ))}

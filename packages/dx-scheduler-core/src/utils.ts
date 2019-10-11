@@ -16,6 +16,13 @@ export const computed: ComputedHelperFn = (getters, viewName, baseComputed, defa
   return baseComputed(getters, viewName);
 };
 
+const appointmentHeightType = (appointment: AppointmentMoment, cellDuration: number) => {
+  const durationRatio = appointment.end.clone().diff(appointment.start, 'minutes') / cellDuration;
+  if (durationRatio === 1) return 'middle';
+  if (durationRatio > 1) return 'long';
+  return 'short';
+};
+
 export const toPercentage: PureComputed<
   [number, number]
 > = (value, total) => (value * 100) / total;
@@ -183,7 +190,6 @@ export const unwrapGroups: PureComputed<
     reduceValue,
     fromPrev: moment(appointment.start).diff(appointment.dataItem.startDate, 'minutes') > 1,
     toNext: moment(appointment.dataItem.endDate).diff(appointment.end, 'minutes') > 1,
-    short: appointment.short,
   })));
   return acc;
 }, [] as AppointmentUnwrappedGroup[]);
@@ -286,7 +292,7 @@ const verticalRectCalculator: CustomFunction<
     dataItem: appointment.dataItem,
     fromPrev: appointment.fromPrev,
     toNext: appointment.toNext,
-    short: appointment.short,
+    heightType: appointmentHeightType(appointment, cellDuration),
     type: VERTICAL_TYPE,
   };
 };

@@ -17,6 +17,9 @@ const styles = ({ palette, spacing }) => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
+  textContainer2: {
+    lineHeight: '0.9!important',
+  },
   time: {
     display: 'inline-block',
     overflow: 'hidden',
@@ -57,6 +60,9 @@ const styles = ({ palette, spacing }) => ({
     width: '100%',
     height: '100%',
   },
+  oneCellSHort: {
+    lineHeight: 1.2,
+  },
 });
 
 const VerticalAppointmentBase = ({
@@ -66,24 +72,29 @@ const VerticalAppointmentBase = ({
   className,
   formatDate,
   recurringIconComponent: RecurringIcon,
-  short,
+  heightType,
   ...restProps
 }) => {
-  console.log(short);
   const repeat = !!data.rRule;
-  const isShort = short;
+  const isShortHeight = heightType === 'short';
+  const isMiddleHeight = heightType === 'middle';
   return (
     <div
       className={classNames({
         [classes.content]: true,
-        [classes.shortContent]: isShort,
+        [classes.shortContent]: isShortHeight || isMiddleHeight,
       }, className)}
       {...restProps}
     >
       {children || (
         <>
-          <div className={repeat ? classes.recurringContainer : classes.container}>
-            {isShort ? (
+          <div className={classNames({
+            [classes.container]: true,
+            [classes.oneCellSHort]: heightType === 1,
+            [classes.recurringContainer]: repeat,
+          })}
+          >
+            {isShortHeight ? (
               <div className={classes.shortContainer}>
                 <div className={classNames(classes.title, classes.shortTitle)}>
                   {data.title}
@@ -99,7 +110,12 @@ const VerticalAppointmentBase = ({
                 <div className={classes.title}>
                   {data.title}
                 </div>
-                <div className={classes.textContainer}>
+                <div
+                  className={classNames({
+                    [classes.textContainer]: true,
+                    [classes.textContainer2]: isMiddleHeight,
+                  })}
+                >
                   <div className={classes.time}>
                     {formatDate(data.startDate, HOUR_MINUTE_OPTIONS)}
                   </div>
@@ -130,7 +146,7 @@ VerticalAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   formatDate: PropTypes.func.isRequired,
-  short: PropTypes.func.isRequired,
+  heightType: PropTypes.string.isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
 };

@@ -27,8 +27,8 @@ export namespace Appointments {
     type: 'vertical' | 'horizontal';
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
-    /** A flag that shows when appointment has a duration less then a half of cell in minutes */
-    short: boolean;
+    /** A property that shows appointment's duration height. */
+    heightType: 'short' | 'middle' | 'long';
   }
   /***
    * Properties passed to a component that renders an element

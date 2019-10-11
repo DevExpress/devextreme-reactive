@@ -285,11 +285,11 @@ class WeekViewBase extends React.PureComponent<WeekViewProps, ViewState> {
                   />
                   <AppointmentLayer>
                     {rects.map(({
-                      dataItem, type, fromPrev, toNext, short, ...geometry
+                      dataItem, type, fromPrev, toNext, heightType, ...geometry
                     }, index) => (
                       <AppointmentPlaceholder
                         key={index.toString()}
-                        short={short}
+                        heightType={heightType}
                         type={type}
                         data={dataItem}
                         fromPrev={fromPrev}

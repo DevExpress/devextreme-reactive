@@ -64,7 +64,8 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
         <Template name="appointmentContent">
           {({
             onClick, onDoubleClick, formatDate,
-            data, type, fromPrev, toNext, short,
+            data, type, fromPrev, toNext,
+            heightType,
             ...restParams
           }: any) => (
             <Appointment
@@ -76,7 +77,7 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
               <AppointmentContent
                 data={data}
                 type={type}
-                short={short}
+                heightType={heightType}
                 recurringIconComponent={recurringIconComponent}
                 formatDate={formatDate}
               />

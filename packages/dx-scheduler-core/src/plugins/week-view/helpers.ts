@@ -20,23 +20,15 @@ export const sliceAppointmentByDay: PureComputed<
       start: start.clone().endOf('day').add(-minDuration, 'minutes'),
       end: start.clone().endOf('day'),
       dataItem,
-      short: true,
     } : {
-      start,
-      end: start.clone().endOf('day'),
-      dataItem,
-      short: false,
+      start, end: start.clone().endOf('day'), dataItem,
     },
     isRightShorted ? {
       start: end.clone().startOf('day'),
       end: end.clone().startOf('day').add(minDuration, 'minutes'),
       dataItem,
-      short: true,
     } : {
-      start: end.clone().startOf('day'),
-      end,
-      dataItem,
-      short: false,
+      start: end.clone().startOf('day'), end, dataItem,
     },
   ];
 };
@@ -84,7 +76,7 @@ export const reduceAppointmentByDayBounds: ReduceAppointmentByDayBoundsFn = (
       ...appointment,
       start: endDayTime.clone().add(-minDuration, 'minutes'),
       end: endDayTime,
-      short: true,
+      // heightType,
     };
   }
 
@@ -93,7 +85,7 @@ export const reduceAppointmentByDayBounds: ReduceAppointmentByDayBoundsFn = (
       ...appointment,
       start: startDayTime,
       end: startDayTime.clone().add(minDuration, 'minutes'),
-      short: true,
+      // heightType,
     };
   }
 
@@ -101,6 +93,7 @@ export const reduceAppointmentByDayBounds: ReduceAppointmentByDayBoundsFn = (
     ...appointment,
     ...(appointment.start.isSameOrBefore(startDayTime) ? { start: startDayTime } : null),
     ...(appointment.end.isSameOrAfter(endDayTime) ? { end: endDayTime } : null),
+    // heightType,
   };
 };
 
@@ -112,17 +105,16 @@ export const normalizeAppointmentDuration: NormalizeAppointmentDurationFn = (
   const end = moment(appointment.end as Date);
 
   if (end.diff(start, 'minutes') > minDuration) {
-    return { ...appointment, start, end, short: false };
+    return { ...appointment, start, end };
   }
 
   if (end.isSame(start.clone().add(minDuration, 'minutes'), 'day')) {
-    return { ...appointment, start, end: start.clone().add(minDuration, 'minutes'), short: true };
+    return { ...appointment, start, end: start.clone().add(minDuration, 'minutes') };
   }
 
   return {
     ...appointment,
     start: start.clone().endOf('day').add(-minDuration, 'minutes'),
     end: start.clone().endOf('day'),
-    short: true,
   };
 };

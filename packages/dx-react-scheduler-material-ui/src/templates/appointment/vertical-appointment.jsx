@@ -17,7 +17,7 @@ const styles = ({ palette, spacing }) => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
-  textContainer2: {
+  middleContainer: {
     lineHeight: '0.9!important',
   },
   time: {
@@ -60,9 +60,6 @@ const styles = ({ palette, spacing }) => ({
     width: '100%',
     height: '100%',
   },
-  oneCellSHort: {
-    lineHeight: 1.2,
-  },
 });
 
 const VerticalAppointmentBase = ({
@@ -89,8 +86,7 @@ const VerticalAppointmentBase = ({
       {children || (
         <>
           <div className={classNames({
-            [classes.container]: true,
-            [classes.oneCellSHort]: heightType === 1,
+            [classes.container]: !repeat,
             [classes.recurringContainer]: repeat,
           })}
           >
@@ -113,14 +109,16 @@ const VerticalAppointmentBase = ({
                 <div
                   className={classNames({
                     [classes.textContainer]: true,
-                    [classes.textContainer2]: isMiddleHeight,
+                    [classes.middleContainer]: isMiddleHeight,
                   })}
                 >
                   <div className={classes.time}>
                     {formatDate(data.startDate, HOUR_MINUTE_OPTIONS)}
                   </div>
                   <div className={classes.time}>
-                    {' - '}
+                    &nbsp;
+                    -
+                    &nbsp;
                   </div>
                   <div className={classes.time}>
                     {formatDate(data.endDate, HOUR_MINUTE_OPTIONS)}

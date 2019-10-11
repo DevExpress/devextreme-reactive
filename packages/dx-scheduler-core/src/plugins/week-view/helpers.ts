@@ -73,19 +73,13 @@ export const reduceAppointmentByDayBounds: ReduceAppointmentByDayBoundsFn = (
 
   if (isLeftShorted) {
     return {
-      ...appointment,
-      start: endDayTime.clone().add(-minDuration, 'minutes'),
-      end: endDayTime,
-      // heightType,
+      ...appointment, start: endDayTime.clone().add(-minDuration, 'minutes'), end: endDayTime,
     };
   }
 
   if (isRightShorted) {
     return {
-      ...appointment,
-      start: startDayTime,
-      end: startDayTime.clone().add(minDuration, 'minutes'),
-      // heightType,
+      ...appointment, start: startDayTime, end: startDayTime.clone().add(minDuration, 'minutes'),
     };
   }
 
@@ -93,7 +87,6 @@ export const reduceAppointmentByDayBounds: ReduceAppointmentByDayBoundsFn = (
     ...appointment,
     ...(appointment.start.isSameOrBefore(startDayTime) ? { start: startDayTime } : null),
     ...(appointment.end.isSameOrAfter(endDayTime) ? { end: endDayTime } : null),
-    // heightType,
   };
 };
 

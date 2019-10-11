@@ -52,12 +52,13 @@ DraftAppointmentBase.propTypes = {
   fromPrev: PropTypes.bool.isRequired,
   toNext: PropTypes.bool.isRequired,
   formatDate: PropTypes.func.isRequired,
-  heightType: PropTypes.string.isRequired,
+  heightType: PropTypes.string,
   className: PropTypes.string,
   type: PropTypes.string,
 };
 
 DraftAppointmentBase.defaultProps = {
+  heightType: undefined,
   className: undefined,
   type: undefined,
 };

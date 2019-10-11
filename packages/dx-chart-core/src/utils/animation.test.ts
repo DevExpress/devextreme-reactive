@@ -60,7 +60,7 @@ describe('build animation', () => {
   });
 });
 
-describe('process animation animation', () => {
+describe('process animation', () => {
   it('#processPointAnimation', () => {
     const start = { x: 2, y: 3 };
     const end = { x: 5, y: 6 };

@@ -30,21 +30,16 @@ const getUniqueId = () => {
   numDefs += 1;
   return numDefs;
 };
-export class PaneLayout extends React.PureComponent<{}, { ready: boolean }> {
+export class PaneLayout extends React.PureComponent<{}, { readyToRenderSeries: boolean }> {
   ref = React.createRef<SVGSVGElement>();
   clipPathId = `clip_path_${getUniqueId()}`;
   size = { width: 0, height: 0 };
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      ready: false,
-    };
-  }
+  state: { readyToRenderSeries: boolean } = {
+    readyToRenderSeries: false,
+  };
 
   render() {
-    const { ready } = this.state;
+    const { readyToRenderSeries } = this.state;
     return (
       <Plugin name="PaneLayout">
         <Getter name="rootRef" value={this.ref} />
@@ -59,7 +54,7 @@ export class PaneLayout extends React.PureComponent<{}, { ready: boolean }> {
                   containerComponent={SizerContainer}
                   onSizeChange={(size) => {
                     if (this.size.width === size.width && this.size.height === size.height) {
-                      this.setState({ ready: true });
+                      this.setState({ readyToRenderSeries: true });
                     } else {
                       this.size = size;
                     }
@@ -74,7 +69,7 @@ export class PaneLayout extends React.PureComponent<{}, { ready: boolean }> {
                     style={SVG_STYLE}
                   >
                     <ClipPath id={this.clipPathId} width={width} height={height} />
-                    {ready && <TemplatePlaceholder name="series" />}
+                    {readyToRenderSeries && <TemplatePlaceholder name="series" />}
                   </svg>
                 </UpdatableSizer>
               );

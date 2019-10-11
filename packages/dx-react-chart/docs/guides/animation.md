@@ -4,15 +4,15 @@ You can add the [Animation](../reference/animation.md) plugin to the Chart compo
 
 ## Basic Setup
 
-Import the `Animation` plugin.
+Import the [Animation](../reference/animation.md) plugin.
 
-## Animation setups
+## Animation Customization
 
 You can modify animation easing and duration. For that use `duration` and `easing` properties in the `Animation` plugin. The following example demonstrates how to change easing using the d3 library and how to change duration:
 
 .embedded-demo({ "path": "animation/custom-easing", "showThemeSelector": true })
 
-## Transition animation
+## Transition Animation
 
 In the following example shows animation when data updated:
 

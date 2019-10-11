@@ -13,29 +13,23 @@ const runAnimation = (
   setAttributes: SetAttributeFn,
   getNewPositions: GetNewPositionsFn,
   easing: EasingFn, duration: number, delay: number,
-) => {
-  const promise = () => new Promise((resolve) => {
-    setTimeout(() => {
-      const time = {
-        start: new Date().getTime(),
-        total: duration,
-        elapsed: 0,
-      };
-      const step = () => {
-        time.elapsed = new Date().getTime() - time.start;
-        const progress = getProgress(time);
-        setAttributes(getNewPositions(easing(progress)));
+) => new Promise((resolve) => {
+  setTimeout(() => {
+    const time = {
+      start: Date.now(),
+      total: duration,
+      elapsed: 0,
+    };
+    const step = () => {
+      time.elapsed = Date.now() - time.start;
+      const progress = getProgress(time);
+      setAttributes(getNewPositions(easing(progress)));
 
-        if (progress < 1) requestAnimationFrame(step);
-      };
-      resolve(requestAnimationFrame(step));
-    }, delay);
-  });
-
-  return promise().then((res) => {
-    return res;
-  });
-};
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    resolve(requestAnimationFrame(step));
+  }, delay);
+});
 
 /** @internal */
 export const buildAnimation = (easing: EasingFn, duration: number): AnimationFn => (
@@ -45,7 +39,9 @@ export const buildAnimation = (easing: EasingFn, duration: number): AnimationFn 
 
   animationID = runAnimation(
     setAttributes, processAnimation(startCoords, endCoords), easing, duration, delay,
-  );
+  ).then((res) => {
+    animationID = res;
+  });
 
   return {
     update: (updatedStartCoords, updatedEndCoords, updatedDelay = 0, startVal) => {
@@ -56,7 +52,9 @@ export const buildAnimation = (easing: EasingFn, duration: number): AnimationFn 
       animationID = runAnimation(
         setAttributes, processAnimation(updatedStartCoords, updatedEndCoords, startVal),
         easing, duration, updatedDelay,
-      );
+      ).then((res) => {
+        animationID = res;
+      });
     },
     stop: () => {
       if (animationID) {
@@ -67,14 +65,16 @@ export const buildAnimation = (easing: EasingFn, duration: number): AnimationFn 
   };
 };
 
+const lerp = (a: number, b: number, t: number) => a + t * (b - a);
+
 /** @internal */
 export const processPointAnimation = (
   startCoords: PointCoordinates, endCoords: PointCoordinates,
 ) => {
   return (progress: number) => {
     return {
-      x: startCoords.x + progress * (endCoords.x - startCoords.x),
-      y: startCoords.y + progress * (endCoords.y - startCoords.y),
+      x: lerp(startCoords.x, endCoords.x, progress),
+      y: lerp(startCoords.y, endCoords.y, progress),
     };
   };
 };
@@ -83,9 +83,9 @@ export const processPointAnimation = (
 export const processBarAnimation = (startCoords: BarCoordinates, endCoords: BarCoordinates) => {
   return (progress: number) => {
     return {
-      x: startCoords.x + progress * (endCoords.x - startCoords.x),
-      y: startCoords.y + progress * (endCoords.y - startCoords.y),
-      startY: startCoords.startY + progress * (endCoords.startY - startCoords.startY),
+      x: lerp(startCoords.x, endCoords.x, progress),
+      y: lerp(startCoords.y, endCoords.y, progress),
+      startY: lerp(startCoords.startY, endCoords.startY, progress),
     };
   };
 };
@@ -100,8 +100,8 @@ export const processLineAnimation = (
         const startCurCoord = startCoords[index] || { arg: coord.arg, val: startVal };
         return {
           ...coord,
-          arg: startCurCoord.arg + progress * (coord.arg - startCurCoord.arg),
-          val: startCurCoord.val + progress * (coord.val - startCurCoord.val),
+          arg: lerp(startCurCoord.arg, coord.arg, progress),
+          val: lerp(startCurCoord.val, coord.val, progress),
         };
       }),
     };
@@ -118,9 +118,9 @@ export const processAreaAnimation = (
         const startCurCoord = startCoords[index] || { arg: coord.arg, val: startVal, startVal };
         return {
           ...coord,
-          arg: startCurCoord.arg + progress * (coord.arg - startCurCoord.arg),
-          val: startCurCoord.val + progress * (coord.val - startCurCoord.val),
-          startVal: startCurCoord.startVal + progress * (coord.startVal - startCurCoord.startVal),
+          arg: lerp(startCurCoord.arg, coord.arg, progress),
+          val: lerp(startCurCoord.val, coord.val, progress),
+          startVal: lerp(startCurCoord.startVal, coord.startVal, progress),
         };
       }),
     };
@@ -131,10 +131,10 @@ export const processAreaAnimation = (
 export const processPieAnimation = (start: PieCoordinates, end: PieCoordinates) => {
   return (progress: number) => {
     return {
-      innerRadius: start.innerRadius + progress * (end.innerRadius - start.innerRadius),
-      outerRadius: start.outerRadius + progress * (end.outerRadius - start.outerRadius),
-      startAngle: start.startAngle + progress * (end.startAngle - start.startAngle),
-      endAngle: start.endAngle + progress * (end.endAngle - start.endAngle),
+      innerRadius: lerp(start.innerRadius, end.innerRadius, progress),
+      outerRadius: lerp(start.outerRadius, end.outerRadius, progress),
+      startAngle: lerp(start.startAngle, end.startAngle, progress),
+      endAngle: lerp(start.endAngle, end.endAngle, progress),
     };
   };
 };

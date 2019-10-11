@@ -3,10 +3,10 @@ import {
   TUESDAY_DATE, WEDNESDAY_DATE, THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE,
   JANUARY_DATE, LONG_MONTH_OPTIONS, FEBRUARY_DATE, MARCH_DATE, APRIL_DATE,
   MAY_DATE, AUGUST_DATE, OCTOBER_DATE, NOVEMBER_DATE, DECEMBER_DATE, SEPTEMBER_DATE,
-  JULY_DATE, JUNE_DATE,
+  JULY_DATE, JUNE_DATE, RRULE_REPEAT_TYPES, checkIsNaturalNumber,
 } from '@devexpress/dx-scheduler-core';
 import {
-  getDaysOfWeek, getMonths, getWeekNumberLabels, getMonthsWithOf,
+  getDaysOfWeek, getMonths, getWeekNumberLabels, getMonthsWithOf, getCountDependingOnRecurrenceType,
 } from './utils';
 
 describe('AppointmentForm utils', () => {
@@ -149,6 +149,38 @@ describe('AppointmentForm utils', () => {
         .toHaveBeenCalledWith('fourthLabel');
       expect(defaultProps.getMessage)
         .toHaveBeenCalledWith('lastLabel');
+    });
+  });
+  describe('#getCountDependingOnRecurrenceType', () => {
+    it('should return count = 30 for daily appointments', () => {
+      expect(getCountDependingOnRecurrenceType(RRULE_REPEAT_TYPES.DAILY))
+        .toEqual(30);
+    });
+    it('should return count = 13 for weekly appointments', () => {
+      expect(getCountDependingOnRecurrenceType(RRULE_REPEAT_TYPES.WEEKLY))
+        .toEqual(13);
+    });
+    it('should return count = 12 for monthly appointments', () => {
+      expect(getCountDependingOnRecurrenceType(RRULE_REPEAT_TYPES.MONTHLY))
+        .toEqual(12);
+    });
+    it('should return count = 5 for yearly appointments', () => {
+      expect(getCountDependingOnRecurrenceType(RRULE_REPEAT_TYPES.YEARLY))
+        .toEqual(5);
+    });
+  });
+  describe('#checkIsNaturalNumber', () => {
+    it('should return true if a number is bigger than 0 and less or equal to max integer', () => {
+      expect(checkIsNaturalNumber(1))
+        .toBeTruthy();
+      expect(checkIsNaturalNumber(Number.MAX_SAFE_INTEGER))
+        .toBeTruthy();
+    });
+    it('should return false otherwise', () => {
+      expect(checkIsNaturalNumber(0))
+        .toBeFalsy();
+      expect(checkIsNaturalNumber(-5))
+        .toBeFalsy();
     });
   });
 });

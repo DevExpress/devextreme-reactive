@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import MomentUtils from '@date-io/moment';
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import {
   KeyboardDateTimePicker,
   MuiPickersUtilsProvider,

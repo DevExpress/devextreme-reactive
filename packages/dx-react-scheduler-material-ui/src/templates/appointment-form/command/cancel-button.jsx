@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import CloseIcon from '@material-ui/icons/Close';
 
 const styles = () => ({

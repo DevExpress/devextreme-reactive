@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import Input from '@material-ui/core/Input';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
@@ -8,6 +8,11 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   cell: {
     padding: theme.spacing(1),
+    // NOTE: without the TableEditColumn first EditCell changes size
+    // (because first TableCell and EditCell have different paddings)
+    '&:first-child': {
+      paddingLeft: theme.spacing(3),
+    },
   },
   inputRoot: {
     width: '100%',

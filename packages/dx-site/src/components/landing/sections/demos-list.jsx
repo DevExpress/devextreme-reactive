@@ -1,6 +1,7 @@
 import * as React from 'react';
 import GatsbyLink from 'gatsby-link';
 import FeaturePreview from '../feature-list/feature-preview';
+import Title from './title';
 
 import styles from './demos-list.module.scss';
 
@@ -17,13 +18,7 @@ const allocateToColumns = (items, columns) => {
 
 const DemosList = ({ data: { title, featured, technical } }) => (
   <div className={`container ${styles.container}`}>
-    <div className="row">
-      <div className="col-md-12">
-        <div className={styles.title}>
-          {title}
-        </div>
-      </div>
-    </div>
+    <Title text={title} />
 
     <div className="row">
       <div className="col-12">

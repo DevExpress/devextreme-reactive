@@ -14,14 +14,6 @@ import Search from '../docs/search';
 import navigation from '../../../page-navigation.json';
 import styles from './page-layout.module.scss';
 
-const PartiallyActiveLink = props => (
-  <Link
-    partiallyActive
-    activeClassName={styles.activeLink}
-    {...props}
-  />
-);
-
 class PageLayout extends React.PureComponent {
   render() {
     const { technologyName, sectionName, children } = this.props;
@@ -33,8 +25,12 @@ class PageLayout extends React.PureComponent {
           links={(
             <React.Fragment>
               {isDocPage ? (<VersionLink />) : null}
-              <PartiallyActiveLink to={`/${technologyName}/demos/`}>Demos</PartiallyActiveLink>
-              <PartiallyActiveLink to={`/${technologyName}/docs/`}>Docs</PartiallyActiveLink>
+              <LandingProductLinks
+                productInfo={[
+                  { title: 'Demos', location: `/${technologyName}/demos/` },
+                  { title: 'Docs', location: `/${technologyName}/docs/` },
+                ]}
+              />
             </React.Fragment>
           )}
         />

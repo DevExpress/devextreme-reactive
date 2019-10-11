@@ -1,7 +1,6 @@
 import * as React from 'react';
-
-import DemosList from '../components/landing/demos/demos-list';
-import PageLayout from '../components/layouts/all-demos-page';
+import DemosList from '../components/landing/sections/demos-list';
+import PageLayout from '../components/layouts/section-main-page';
 import AlternatedBackground from '../components/landing/alternated-background';
 import GridDataShapingImage from './demo-images/Integrated-Data-Shaping.png';
 import GridReduxIntegrationImage from './demo-images/Redux-Integration.png';
@@ -113,7 +112,7 @@ const chartDemos = {
 };
 
 export default () => (
-  <PageLayout>
+  <PageLayout section="demos" title="Reactive Demos">
     <AlternatedBackground>
       <DemosList
         data={gridDemos}

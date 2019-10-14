@@ -123,7 +123,8 @@ describe('Day View', () => {
       expect(tree.find(timeScaleLayout).props())
         .toMatchObject({
           rowComponent: expect.any(Function),
-          cellComponent: expect.any(Function),
+          tickCellComponent: expect.any(Function),
+          labelComponent: expect.any(Function),
           cellsData: getComputedState(tree).viewCellsData,
           formatDate: defaultDeps.getter.formatDate,
         });

@@ -2,7 +2,7 @@ import React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import Radio from '@material-ui/core/Radio';
 import Grid from '@material-ui/core/Grid';
 

@@ -8,7 +8,6 @@ import {
   tableRowsWithHeading,
   isHeadingTableCell,
   isHeadingTableRow,
-  getLastColumnName,
   getNextColumnName,
   TABLE_DATA_TYPE,
   TABLE_HEADING_TYPE,
@@ -85,7 +84,6 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
                   && isColumnGroupingEnabled(columnName)
                   && atLeastOneDataColumn;
                 const nextColumnName = getNextColumnName(tableColumns, columnName);
-                const lastColumn = getLastColumnName(tableColumns) === columnName;
 
                 return (
                   <HeaderCell
@@ -94,7 +92,7 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
                     draggingEnabled={draggingEnabled && atLeastOneDataColumn}
                     resizingEnabled={
                       tableColumnResizingEnabled
-                      && (!lastColumn || columnResizingMode === 'widget')
+                      && (!!nextColumnName || columnResizingMode === 'widget')
                     }
                     onWidthChange={({ shift }) => changeTableColumnWidth({
                       columnName, nextColumnName, shift,

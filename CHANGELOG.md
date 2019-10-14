@@ -1,3 +1,23 @@
+# [2.1.2](https://github.com/DevExpress/devextreme-reactive/compare/v2.1.1...v2.1.2) (2019-10-11)
+
+
+### Bug Fixes
+
+* **react-grid:** add width convert for TableEditColumn ([#2408](https://github.com/DevExpress/devextreme-reactive/issues/2408)) ([6f7592f](https://github.com/DevExpress/devextreme-reactive/commit/6f7592ffaac26875b72554465e012cd83010b495))
+* **react-grid:** allow inline cell editing only for table data type rows ([#2390](https://github.com/DevExpress/devextreme-reactive/issues/2390)) ([ac1b279](https://github.com/DevExpress/devextreme-reactive/commit/ac1b279e64960bd32e4f0276f8514276c607b97b))
+* **react-grid:** check next column name by column.name instead type ([#2399](https://github.com/DevExpress/devextreme-reactive/issues/2399)) ([7acfcbb](https://github.com/DevExpress/devextreme-reactive/commit/7acfcbb970dbc6ea599d1ec8126285050bd54a20))
+* **react-grid-demos:** correct displaying custom selector in Edge ([#2422](https://github.com/DevExpress/devextreme-reactive/issues/2422)) ([832586f](https://github.com/DevExpress/devextreme-reactive/commit/832586f10788b6d8154414d00256aee420a1bc47))
+* **react-grid-material-ui:** add padding for first edit cell in in-line cell editing mode ([#2392](https://github.com/DevExpress/devextreme-reactive/issues/2392)) ([f011a55](https://github.com/DevExpress/devextreme-reactive/commit/f011a559d1e46e99bc77ed5ce245fa55a2ee0d2e))
+* **scheduler-core:** calculate the last TimeScale EndDate correctly ([#2404](https://github.com/DevExpress/devextreme-reactive/issues/2404)) ([0411235](https://github.com/DevExpress/devextreme-reactive/commit/04112353d007442c2b5e4b2b2cf21b8298241f9a))
+
+
+### Features
+
+* **scheduler-core:** time scale should take fractional startDayHour/endDayHour values ([#2396](https://github.com/DevExpress/devextreme-reactive/issues/2396)) ([272b351](https://github.com/DevExpress/devextreme-reactive/commit/272b3511fadf713d1e65e88a52e7693621ee06a9))
+* **scheduler-core:** use different default counts for different recurrence types ([#2372](https://github.com/DevExpress/devextreme-reactive/issues/2372)) ([6eb2dc3](https://github.com/DevExpress/devextreme-reactive/commit/6eb2dc3baeb7b8e0cd0088ae0134f207beed12f1))
+
+
+
 # [2.1.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.1.0...v2.1.1) (2019-10-01)
 
 

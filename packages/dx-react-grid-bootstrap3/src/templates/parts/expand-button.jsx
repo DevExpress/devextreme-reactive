@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classnames from 'classnames';
+import classNames from 'clsx';
 
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
@@ -27,7 +27,7 @@ export const ExpandButton = ({
   };
   return (
     <i
-      className={classnames({
+      className={classNames({
         glyphicon: true,
         'glyphicon-triangle-bottom': expanded,
         'glyphicon-triangle-right': !expanded,

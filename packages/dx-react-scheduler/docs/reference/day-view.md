@@ -30,8 +30,8 @@ name? | string | `Day` | The view's unique identifier. Required if you use sever
 displayName? | string |  | The view's name used in UI plugins. The default value is `name`.
 intervalCount? | number | 1 | Multiplies the default view interval.
 cellDuration? | number | 30 | Specifies the cell's duration in minutes.
-startDayHour? | number | 0 | Specifies the start hour of the view time scale.
-endDayHour? | number | 24 | Specifies the end hour of the view time scale.
+startDayHour? | number | 0 | Specifies the start hour of the view time scale. Accepts floating-point numbers from 0 to 24.
+endDayHour? | number | 24 | Specifies the end hour of the view time scale. Accepts floating-point numbers from 0 to 24.
 layoutComponent | ComponentType&lt;[DayView.LayoutProps](#dayviewlayoutprops)&gt; | | A component that renders a day view layout.
 timeScaleLayoutComponent | ComponentType&lt;[DayView.TimeScaleLayoutProps](#dayviewtimescalelayoutprops)&gt; | | A component that renders a time scale layout.
 timeScaleLabelComponent | ComponentType&lt;[DayView.TimeScaleLabelProps](#dayviewtimescalelabelprops)&gt; | | A component that renders a time scale label.

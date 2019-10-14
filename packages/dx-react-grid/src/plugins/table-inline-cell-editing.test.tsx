@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { pluginDepsToComponents, getComputedState, setupConsole } from '@devexpress/dx-testing';
+import { pluginDepsToComponents, setupConsole } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   TABLE_DATA_TYPE,
@@ -35,12 +35,12 @@ const defaultDeps = {
   },
   template: {
     tableCell: {
-      tableRow: { type: 'undefined', rowId: 1, row: { a: 'a' } },
+      tableRow: { type: TABLE_DATA_TYPE, rowId: 1, row: { a: 'a' } },
       tableColumn: { type: TABLE_DATA_TYPE, column: 'column' },
       style: {},
     },
     tableRow: {
-      tableRow: { type: 'undefined', rowId: 1, row: { a: 'a' } },
+      tableRow: { type: TABLE_DATA_TYPE, rowId: 1, row: { a: 'a' } },
       style: {},
     },
   },

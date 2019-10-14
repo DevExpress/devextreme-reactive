@@ -7,7 +7,7 @@ import styles from './product-links.module.scss';
 export default ({ productInfo }) => (
   productInfo.map(({ title, location }) => (
     <Link
-      // partiallyActive
+      partiallyActive
       activeClassName={styles.active}
       to={location}
     >

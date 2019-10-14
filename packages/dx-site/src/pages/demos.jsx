@@ -54,28 +54,28 @@ const schedulerDemos = {
   featured: [
     {
       title: 'Appearance Customization',
-      path: '/demos/...',
+      path: '/react/scheduler/demos/featured/appearance-customization/',
       image: SchedulerAppearanceCustomizationImage,
     },
     {
       title: 'Data Editing',
-      path: '/demos/...',
+      path: '/react/scheduler/demos/featured/data-editing/',
       image: SchedulerDataEditingImage,
     },
     {
       title: 'Redux Integration',
-      path: '/demos/...',
+      path: '/react/scheduler/demos/featured/redux-integration/',
       image: SchedulerReduxIntegrationImage,
     },
   ],
   technical: [
-    { title: 'Views', path: '' },
-    { title: 'Appointments', path: '' },
-    { title: 'View Switching', path: '' },
-    { title: 'Date Navigation', path: '' },
-    { title: 'Appointment Tooltip', path: '' },
-    { title: 'Editing', path: '' },
-    { title: 'Localization', path: '' },
+    { title: 'Views', path: '/react/scheduler/docs/guides/views/' },
+    { title: 'Appointments', path: '/react/scheduler/docs/guides/appointments/' },
+    { title: 'View Switching', path: '/react/scheduler/docs/guides/view-switching/' },
+    { title: 'Date Navigation', path: '/react/scheduler/docs/guides/date-navigation/' },
+    { title: 'Appointment Tooltip', path: '/react/scheduler/docs/guides/appointment-tooltip/' },
+    { title: 'Editing', path: '/react/scheduler/docs/guides/editing/' },
+    { title: 'Localization', path: '/react/scheduler/docs/guides/localization/' },
   ],
 };
 
@@ -84,30 +84,30 @@ const chartDemos = {
   featured: [
     {
       title: 'Multiple Axes',
-      path: '/demos/...',
+      path: '/react/chart/demos/combination/multiple-axes/',
       image: ChartMultipleAxesImage,
     },
     {
       title: 'Rotated Chart',
-      path: '/demos/...',
+      path: '/react/chart/demos/bar/rotated-bar/',
       image: ChartRotatedImage,
     },
     {
       title: 'Steamgraph',
-      path: '/demos/...',
+      path: '/react/chart/demos/area/streamgraph/',
       image: ChartSteamgraphImage,
     },
   ],
   technical: [
-    { title: 'Series', path: '' },
-    { title: 'Axes', path: '' },
-    { title: 'Legend and Title', path: '' },
-    { title: 'Stacked Series', path: '' },
-    { title: 'Palette', path: '' },
-    { title: 'Animation', path: '' },
-    { title: 'Hover and Selection', path: '' },
-    { title: 'Tooltip', path: '' },
-    { title: 'Zoom and Pan', path: '' },
+    { title: 'Series', path: '/react/chart/docs/guides/series/' },
+    { title: 'Axes', path: '/react/chart/docs/guides/axes/' },
+    { title: 'Legend and Title', path: '/react/chart/docs/guides/legend_title/' },
+    { title: 'Stacked Series', path: '/react/chart/docs/guides/stacked-series/' },
+    { title: 'Palette', path: '/react/chart/docs/guides/palette/' },
+    { title: 'Animation', path: '/react/chart/docs/guides/animation/' },
+    { title: 'Hover and Selection', path: '/react/chart/docs/guides/hover-and-selection/' },
+    { title: 'Tooltip', path: '/react/chart/docs/guides/tooltip/' },
+    { title: 'Zoom and Pan', path: '/react/chart/docs/guides/zoom-and-pan/' },
   ],
 };
 

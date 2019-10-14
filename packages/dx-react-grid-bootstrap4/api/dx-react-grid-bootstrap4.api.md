@@ -102,11 +102,11 @@ export const Grid: React.ComponentType<GridProps> & {
 
 // @public (undocumented)
 export interface GridProps {
-  columns: Array<Column>;
+  columns: ReadonlyArray<Column>;
   getCellValue?: (row: any, columnName: string) => any;
   getRowId?: (row: any) => number | string;
   rootComponent?: React.ComponentType<Grid_2.RootProps>;
-  rows: Array<any>;
+  rows: ReadonlyArray<any>;
 }
 
 // @public (undocumented)

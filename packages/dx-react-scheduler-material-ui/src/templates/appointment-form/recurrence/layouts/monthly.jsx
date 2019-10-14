@@ -5,6 +5,7 @@ import {
   MONTHLY_RADIO_GROUP,
   getRecurrenceOptions,
   changeRecurrenceOptions,
+  checkIsNaturalNumber,
 } from '@devexpress/dx-scheduler-core';
 import { IntervalEditor } from './interval-editor';
 
@@ -32,9 +33,11 @@ const MonthlyBase = ({
   const { rRule } = appointmentData;
   const recurrenceOptions = React.useMemo(() => getRecurrenceOptions(rRule) || {}, [rRule]);
 
-  const changeRecurrenceInterval = React.useCallback(interval => interval > 0 && onFieldChange({
-    rRule: changeRecurrenceOptions({ ...recurrenceOptions, interval }),
-  }), [recurrenceOptions, onFieldChange]);
+  const changeRecurrenceInterval = React.useCallback(
+    interval => checkIsNaturalNumber(interval) && onFieldChange({
+      rRule: changeRecurrenceOptions({ ...recurrenceOptions, interval }),
+    }), [recurrenceOptions, onFieldChange],
+  );
   return (
     <div {...restProps}>
       <IntervalEditor

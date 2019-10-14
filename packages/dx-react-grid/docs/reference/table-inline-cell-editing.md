@@ -50,7 +50,7 @@ value | any | The cell's value.
 editingEnabled | boolean | Specifies whether cells in this column can be edited.
 onValueChange | (newValue: any) => void | Handles value changes.
 autoFocus | boolean | Specifies whether the cell should be automatically focused when it switches to edit mode. The default value is `true`.
-onFocus | boolean | An event raised when the cell gets focus.
+onFocus | (event: any) => void | An event raised when the cell gets focus.
 onBlur | () => void | An event raised when the cell loses focus.
 onKeyDown | (key: string) => void | An event raised when a key on the keyboard is pressed.
 

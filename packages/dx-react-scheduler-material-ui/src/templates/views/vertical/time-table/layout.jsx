@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import { cellsMeta } from '../../../utils';
 
 const styles = {

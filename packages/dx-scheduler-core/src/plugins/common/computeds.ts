@@ -43,8 +43,12 @@ export const timeScale: TimeScaleFn = (
   const startDateOfView = firstDayOfWeek !== undefined
     ? calculateFirstDateOfWeek(currentDate, firstDayOfWeek, excludedDays)
     : currentDate;
-  const left = moment(startDateOfView as Date).startOf('hour').hour(startDayHour);
-  const right = moment(startDateOfView as Date).startOf('hour').hour(endDayHour);
+  const left = moment(startDateOfView as Date)
+    .startOf('day')
+    .add(startDayHour, 'hour');
+  const right = moment(startDateOfView as Date)
+    .startOf('day')
+    .add(endDayHour, 'hour');
 
   while (left.isBefore(right)) {
     const startDate = left.toDate();

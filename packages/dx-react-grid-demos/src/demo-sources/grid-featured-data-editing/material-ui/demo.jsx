@@ -43,6 +43,9 @@ const styles = theme => ({
   inputRoot: {
     width: '100%',
   },
+  selectMenu: {
+    position: 'absolute !important',
+  },
 });
 
 const AddButton = ({ onExecute }) => (
@@ -121,11 +124,14 @@ const LookupEditCellBase = ({
     <Select
       value={value}
       onChange={event => onValueChange(event.target.value)}
+      MenuProps={{
+        className: classes.selectMenu,
+      }}
       input={(
         <Input
           classes={{ root: classes.inputRoot }}
         />
-)}
+      )}
     >
       {availableColumnValues.map(item => (
         <MenuItem key={item} value={item}>

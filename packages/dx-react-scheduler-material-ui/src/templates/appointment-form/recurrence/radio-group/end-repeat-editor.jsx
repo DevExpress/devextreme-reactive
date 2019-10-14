@@ -7,7 +7,9 @@ import Radio from '@material-ui/core/Radio';
 import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import moment from 'moment';
-import { NUMBER_EDITOR, getRecurrenceOptions, changeRecurrenceOptions } from '@devexpress/dx-scheduler-core';
+import {
+  NUMBER_EDITOR, getRecurrenceOptions, changeRecurrenceOptions, checkIsNaturalNumber,
+} from '@devexpress/dx-scheduler-core';
 
 const styles = ({ spacing, typography }) => ({
   textEditor: {
@@ -50,9 +52,11 @@ const EndRepeatEditorBase = ({
 
   const { rRule } = appointmentData;
   const recurrenceOptions = React.useMemo(() => getRecurrenceOptions(rRule) || {}, [rRule]);
-  const changeRecurrenceCount = React.useCallback(nextCount => onFieldChange({
-    rRule: changeRecurrenceOptions({ ...recurrenceOptions, count: nextCount }),
-  }), [recurrenceOptions, onFieldChange]);
+  const changeRecurrenceCount = React.useCallback(
+    nextCount => checkIsNaturalNumber(nextCount) && onFieldChange({
+      rRule: changeRecurrenceOptions({ ...recurrenceOptions, count: nextCount }),
+    }), [recurrenceOptions, onFieldChange],
+  );
   const changeRecurrenceEndDate = React.useCallback((date) => {
     if (moment(date).isValid()) {
       onFieldChange({

@@ -1,5 +1,5 @@
 import { ScatterSeries, withPatchedProps } from '@devexpress/dx-react-chart';
-import classNames from 'classnames';
+import classNames from 'clsx';
 
 const setClassName = ({ classes, ...restProps }) => {
   if (restProps.state) {

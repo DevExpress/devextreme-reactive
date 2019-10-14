@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import classNames from 'clsx';
 
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;

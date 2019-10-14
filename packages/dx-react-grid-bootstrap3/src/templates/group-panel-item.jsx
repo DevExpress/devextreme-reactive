@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import { SortingIndicator } from './parts/sorting-indicator';
 
 const ENTER_KEY_CODE = 13;

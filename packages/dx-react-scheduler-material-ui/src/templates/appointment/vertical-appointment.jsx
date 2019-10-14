@@ -41,7 +41,7 @@ const styles = ({ palette, spacing }) => ({
   },
   shortTime: {
     textOverflow: 'initial',
-    flexShrink: 0.5,
+    flexShrink: 0,
   },
   shortTitle: {
     flexShrink: 3,

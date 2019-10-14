@@ -4,9 +4,9 @@ import { PureComputed } from '@devexpress/dx-core';
 /** @internal */
 export type HeaderColumnChain = { start: number, columns: ReadonlyArray<TableColumn> };
 /** @internal */
-export type HeaderColumnChainRow = HeaderColumnChain[];
+export type HeaderColumnChainRow<T = {}> = Array<HeaderColumnChain & T>;
 /** @internal */
-export type HeaderColumnChainRows = HeaderColumnChainRow[];
+export type HeaderColumnChainRows<T = {}> = HeaderColumnChainRow<T>[];
 
 /** @internal */
 export type ShouldSplitChainFn = PureComputed<
@@ -36,9 +36,6 @@ export type FindChainByColumnIndexFn = PureComputed<
 
 /** @internal */
 export type GenerateChainsFn = PureComputed<[TableRow[], TableColumn[]], HeaderColumnChainRows>;
-
-/** @internal */
-export type LastColumnNameFn = PureComputed<[TableColumn[]], string | undefined>;
 
 /** @internal */
 export type GetNextColumnNameFn = PureComputed<[TableColumn[], string], string | undefined>;

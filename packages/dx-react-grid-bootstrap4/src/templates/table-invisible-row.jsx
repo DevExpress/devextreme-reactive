@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import { TableRow } from './table-row';
 
 export const TableInvisibleRow = ({ className, ...restParams }) => (

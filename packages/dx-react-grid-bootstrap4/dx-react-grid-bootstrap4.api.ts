@@ -34,11 +34,11 @@ module Grid {
 
 // @public (undocumented)
 interface GridProps {
-  columns: Array<Column>;
+  columns: ReadonlyArray<Column>;
   getCellValue?: (row: any, columnName: string) => any;
   getRowId?: (row: any) => number | string;
   rootComponent?: React.ComponentType<GridBase.RootProps>;
-  rows: Array<any>;
+  rows: ReadonlyArray<any>;
 }
 
 // WARNING: Unsupported export: ContainerProps

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import classNames from 'clsx';
 
 export const TableNoDataCell = ({
   className, colSpan,
@@ -8,7 +8,7 @@ export const TableNoDataCell = ({
   tableColumn, ...restProps
 }) => (
   <td
-    className={classNames('py-5', className)}
+    className={classNames('py-5 dx-g-bs4-no-data-cell', className)}
     colSpan={colSpan}
     {...restProps}
   >

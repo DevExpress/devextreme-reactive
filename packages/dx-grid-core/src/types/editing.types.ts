@@ -33,8 +33,7 @@ export type TableRowsWithEditingFn = PureComputed<
   [TableRow[], RowId[], TableRow[], number?]
 >;
 
-/** @internal */
-export type EditingCell = {
+export interface EditingCell {
   rowId: number | string;
   columnName: string;
-};
+}

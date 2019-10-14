@@ -205,6 +205,23 @@ describe('EditingState', () => {
           },
         });
       });
+      it('should edit if changes\' startDate is undefined', () => {
+        const appointmentData = {
+          ...appointmentDataBase,
+          rRule: 'FREQ=DAILY;UNTIL=20190717T142000Z',
+        };
+        const changes = {
+          rRule: 'FREQ=DAILY;COUNT=7',
+        };
+
+        expect(editAll(appointmentData, changes)).toEqual({
+          changed: {
+            4: {
+              rRule: 'FREQ=DAILY;COUNT=7',
+            },
+          },
+        });
+      });
     });
 
     describe('#editCurrent', () => {
@@ -395,6 +412,36 @@ describe('EditingState', () => {
               endDate: new Date(Date.UTC(2019, 6, 17, 16)),
               rRule: 'FREQ=DAILY;COUNT=1',
               exDate: '',
+            },
+          },
+        });
+      });
+      it('should edit correctly if RRULE contains UNTIL field', () => {
+        const appointmentData = {
+          id: 4,
+          startDate: new Date(Date.UTC(2019, 6, 18, 14, 20)),
+          endDate: new Date(Date.UTC(2019, 6, 18, 16)),
+          rRule: 'FREQ=DAILY;UNTIL=20190720T142000Z',
+          parentData: {
+            id: 4,
+            startDate: new Date(Date.UTC(2019, 6, 16, 14, 20)),
+            endDate: new Date(Date.UTC(2019, 6, 16, 16)),
+          },
+        };
+        const changes = {
+          startDate: new Date(Date.UTC(2019, 6, 14, 14, 20)),
+          endDate: new Date(Date.UTC(2019, 6, 14, 16)),
+        };
+
+        expect(editCurrentAndFollowing(appointmentData, changes)).toEqual({
+          added: {
+            startDate: new Date(Date.UTC(2019, 6, 14, 14, 20)),
+            endDate: new Date(Date.UTC(2019, 6, 14, 16)),
+            rRule: 'FREQ=DAILY;UNTIL=20190720T142000Z;COUNT=3',
+          },
+          changed: {
+            4: {
+              rRule: 'FREQ=DAILY;UNTIL=20190717T142000Z',
             },
           },
         });

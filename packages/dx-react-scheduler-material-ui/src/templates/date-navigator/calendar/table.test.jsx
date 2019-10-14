@@ -20,7 +20,7 @@ describe('Calendar', () => {
     // eslint-disable-next-line jsx-a11y/control-has-associated-label
     headerCellComponent: () => <th className="header-cell" />,
     cells: [],
-    formatDate: () => '',
+    formatDate: key => key,
   };
   let classes;
   let shallow;

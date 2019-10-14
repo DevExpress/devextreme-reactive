@@ -1,3 +1,86 @@
+# [2.1.2](https://github.com/DevExpress/devextreme-reactive/compare/v2.1.1...v2.1.2) (2019-10-11)
+
+
+### Bug Fixes
+
+* **react-grid:** add width convert for TableEditColumn ([#2408](https://github.com/DevExpress/devextreme-reactive/issues/2408)) ([6f7592f](https://github.com/DevExpress/devextreme-reactive/commit/6f7592ffaac26875b72554465e012cd83010b495))
+* **react-grid:** allow inline cell editing only for table data type rows ([#2390](https://github.com/DevExpress/devextreme-reactive/issues/2390)) ([ac1b279](https://github.com/DevExpress/devextreme-reactive/commit/ac1b279e64960bd32e4f0276f8514276c607b97b))
+* **react-grid:** check next column name by column.name instead type ([#2399](https://github.com/DevExpress/devextreme-reactive/issues/2399)) ([7acfcbb](https://github.com/DevExpress/devextreme-reactive/commit/7acfcbb970dbc6ea599d1ec8126285050bd54a20))
+* **react-grid-demos:** correct displaying custom selector in Edge ([#2422](https://github.com/DevExpress/devextreme-reactive/issues/2422)) ([832586f](https://github.com/DevExpress/devextreme-reactive/commit/832586f10788b6d8154414d00256aee420a1bc47))
+* **react-grid-material-ui:** add padding for first edit cell in in-line cell editing mode ([#2392](https://github.com/DevExpress/devextreme-reactive/issues/2392)) ([f011a55](https://github.com/DevExpress/devextreme-reactive/commit/f011a559d1e46e99bc77ed5ce245fa55a2ee0d2e))
+* **scheduler-core:** calculate the last TimeScale EndDate correctly ([#2404](https://github.com/DevExpress/devextreme-reactive/issues/2404)) ([0411235](https://github.com/DevExpress/devextreme-reactive/commit/04112353d007442c2b5e4b2b2cf21b8298241f9a))
+
+
+### Features
+
+* **scheduler-core:** time scale should take fractional startDayHour/endDayHour values ([#2396](https://github.com/DevExpress/devextreme-reactive/issues/2396)) ([272b351](https://github.com/DevExpress/devextreme-reactive/commit/272b3511fadf713d1e65e88a52e7693621ee06a9))
+* **scheduler-core:** use different default counts for different recurrence types ([#2372](https://github.com/DevExpress/devextreme-reactive/issues/2372)) ([6eb2dc3](https://github.com/DevExpress/devextreme-reactive/commit/6eb2dc3baeb7b8e0cd0088ae0134f207beed12f1))
+
+
+
+# [2.1.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.1.0...v2.1.1) (2019-10-01)
+
+
+### Bug Fixes
+
+* **react-grid:** correctly import interface from grid-core package ([#2375](https://github.com/DevExpress/devextreme-reactive/issues/2375)) ([906b5b2](https://github.com/DevExpress/devextreme-reactive/commit/906b5b2))
+* **react-scheduler-material-ui:** correct AppointmentTooltip OpenButton position ([#2367](https://github.com/DevExpress/devextreme-reactive/issues/2367)) ([3fbcf4a](https://github.com/DevExpress/devextreme-reactive/commit/3fbcf4a))
+
+
+
+# [2.1.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.0.5...v2.1.0) (2019-09-30)
+
+
+### Bug Fixes
+
+* **react-grid:** add type checking for next column in getNextColumnName ([#2354](https://github.com/DevExpress/devextreme-reactive/issues/2354)) ([03e261c](https://github.com/DevExpress/devextreme-reactive/commit/03e261c))
+* **react-grid:** allow columns bands to work in virtual table ([#2291](https://github.com/DevExpress/devextreme-reactive/issues/2291)) ([582eb94](https://github.com/DevExpress/devextreme-reactive/commit/582eb94))
+* **react-grid:** correct displaying "No data" message in Edge ([#2332](https://github.com/DevExpress/devextreme-reactive/issues/2332)) ([e16be01](https://github.com/DevExpress/devextreme-reactive/commit/e16be01)), closes [#2330](https://github.com/DevExpress/devextreme-reactive/issues/2330)
+* **react-grid:** correct getCellWidth property's default value ([#2353](https://github.com/DevExpress/devextreme-reactive/issues/2353)) ([9fde9b0](https://github.com/DevExpress/devextreme-reactive/commit/9fde9b0))
+* **react-grid-bootstrap4:** correct position when horizontal scrolling ([#2364](https://github.com/DevExpress/devextreme-reactive/issues/2364)) ([908bcbe](https://github.com/DevExpress/devextreme-reactive/commit/908bcbe))
+* **react-scheduler:** move firstDayOfWeek prop from views to Scheduler ([#2360](https://github.com/DevExpress/devextreme-reactive/issues/2360)) ([dd5753b](https://github.com/DevExpress/devextreme-reactive/commit/dd5753b))
+* **react-scheduler-demos:** add capability to delete zero index appointment ([#2341](https://github.com/DevExpress/devextreme-reactive/issues/2341)) ([1e837eb](https://github.com/DevExpress/devextreme-reactive/commit/1e837eb)), closes [#2338](https://github.com/DevExpress/devextreme-reactive/issues/2338)
+* **scheduler-core:** correct date formatting string for Safari ([#2365](https://github.com/DevExpress/devextreme-reactive/issues/2365)) ([04989e8](https://github.com/DevExpress/devextreme-reactive/commit/04989e8))
+* **scheduler-core:** get rid of different `new Date` behavior in Safari ([#2370](https://github.com/DevExpress/devextreme-reactive/issues/2370)) ([061fd31](https://github.com/DevExpress/devextreme-reactive/commit/061fd31)), closes [#2369](https://github.com/DevExpress/devextreme-reactive/issues/2369)
+
+
+### Features
+
+* **react-grid:** implement Inline Cell Editing ([#2302](https://github.com/DevExpress/devextreme-reactive/issues/2302)) ([27be87f](https://github.com/DevExpress/devextreme-reactive/commit/27be87f))
+* **react-scheduler:** add capability to edit recurrent appointments to appointment form ([#2205](https://github.com/DevExpress/devextreme-reactive/issues/2205)) ([da2c36a](https://github.com/DevExpress/devextreme-reactive/commit/da2c36a)), closes [#2203](https://github.com/DevExpress/devextreme-reactive/issues/2203)
+
+
+### BREAKING CHANGES
+
+* **react-scheduler:** The `AppointmentForm` plugin now doesn't have the `popupComponent`, `containerComponent`, `scrollableAreaComponent` and `staticAreaComponent` properties. We have made many changes to the form. You can find all the new properties in the [AppointmentForm Plugin Reference](https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/appointment-form/).
+
+```diff
+...
+<AppointmentForm
+-  popupComponent
+-  containerComponent
+-  scrollableAreaComponent
+-  staticAreaComponent
+/>
+...
+```
+
+* **react-scheduler:** The `MonthView` and `WeekView` plugins now do not have firstDayOfWeek property. It was moved to the `Scheduler` plugin.
+
+```diff
+<Scheduler
++  firstDayOfWeek={firstDayOfWeek}
+>
+  <MonthView
+-    firstDayOfWeek={firstDayOfWeek}
+  >
+  <WeekView
+-    firstDayOfWeek={firstDayOfWeek}
+  >
+   ...
+</Scheduler>
+```
+
 # [2.0.5](https://github.com/DevExpress/devextreme-reactive/compare/v2.0.4...v2.0.5) (2019-09-16)
 
 

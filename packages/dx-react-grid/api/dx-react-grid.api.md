@@ -4,7 +4,6 @@
 
 ```ts
 
-import { EditingCell } from '@devexpress/dx-grid-core';
 import * as React from 'react';
 
 // @public (undocumented)
@@ -187,6 +186,14 @@ export interface DragDropProviderProps {
 }
 
 // @public (undocumented)
+export interface EditingCell {
+    // (undocumented)
+    columnName: string;
+    // (undocumented)
+    rowId: number | string;
+}
+
+// @public (undocumented)
 export interface EditingColumnExtension {
     columnName: string;
     createRowChange?: (row: any, value: any, columnName: string) => any;
@@ -292,11 +299,11 @@ export type GridColumnExtension = {
 
 // @public (undocumented)
 export interface GridProps {
-    columns: Column[];
+    columns: ReadonlyArray<Column>;
     getCellValue?: (row: any, columnName: string) => any;
     getRowId?: (row: any) => number | string;
     rootComponent: React.ComponentType<Grid.RootProps>;
-    rows: any[];
+    rows: ReadonlyArray<any>;
 }
 
 // @public
@@ -1379,4 +1386,3 @@ export interface VirtualTableStateProps {
 // (No @packageDocumentation comment for this package)
 
 ```
-

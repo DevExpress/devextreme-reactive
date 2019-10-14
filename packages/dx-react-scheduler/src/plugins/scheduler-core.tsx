@@ -15,6 +15,7 @@ class SchedulerCoreBase extends React.PureComponent<SchedulerProps> {
       rootComponent: Root,
       locale,
       height,
+      firstDayOfWeek,
     } = this.props;
 
     return (
@@ -23,6 +24,8 @@ class SchedulerCoreBase extends React.PureComponent<SchedulerProps> {
       >
         <Getter name="appointments" value={appointments(data)} />
         <Getter name="formatDate" value={formatDateTimeGetter(locale)} />
+        <Getter name="firstDayOfWeek" value={firstDayOfWeek} />
+        <Getter name="locale" value={locale} />
         <Template name="root">
           <Root height={height}>
             <TemplatePlaceholder name="schedulerRoot" />

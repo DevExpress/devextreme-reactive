@@ -6,6 +6,7 @@ import {
   SchedulerView,
 } from '../../types';
 import { calculateFirstDateOfWeek } from '../../utils';
+import { isMidnight } from './helpers';
 
 const subtractSecond: PureComputed<
   [Date]
@@ -42,15 +43,23 @@ export const timeScale: TimeScaleFn = (
   const startDateOfView = firstDayOfWeek !== undefined
     ? calculateFirstDateOfWeek(currentDate, firstDayOfWeek, excludedDays)
     : currentDate;
-  const left = moment(startDateOfView as Date).startOf('hour').hour(startDayHour);
-  const right = moment(startDateOfView as Date).startOf('hour').hour(endDayHour);
+  const left = moment(startDateOfView as Date)
+    .startOf('day')
+    .add(startDayHour, 'hour');
+  const right = moment(startDateOfView as Date)
+    .startOf('day')
+    .add(endDayHour, 'hour');
 
   while (left.isBefore(right)) {
     const startDate = left.toDate();
     left.add(cellDuration, 'minutes');
     result.push({ start: startDate, end: left.toDate() });
   }
-  result[result.length - 1].end = subtractSecond(result[result.length - 1].end) as Date;
+
+  const timeScaleLastIndex = result.length - 1;
+  if (isMidnight(result[timeScaleLastIndex].end)) {
+    result[timeScaleLastIndex].end = subtractSecond(result[timeScaleLastIndex].end) as Date;
+  }
   return result;
 };
 

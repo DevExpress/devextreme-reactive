@@ -104,7 +104,6 @@ class TableBase extends React.PureComponent<TableProps> {
         <Getter name="tableFooterRows" value={tableFooterRows} />
         <Getter name="tableColumns" computed={tableColumnsComputed} />
         <Getter name="getTableCellColSpan" value={tableCellColSpanGetter} />
-        <Getter name="visibleBoundaries" value={[]} />
 
         <Template name="body">
           <TemplatePlaceholder name="table" />

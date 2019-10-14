@@ -12,9 +12,9 @@ export namespace Grid {
 export interface GridProps {
   /*** An array containing custom data. A user defines the access to this data.
    * Refer to Data Accessors for details. */
-  rows: any[];
+  rows: ReadonlyArray<any>;
   /** Specifies for which row fields columns are created. */
-  columns: Column[];
+  columns: ReadonlyArray<Column>;
   /*** Specifies the function used to get a unique row identifier.
    * Define this function if the identifier is different than the row index. */
   getRowId?: (row: any) => number | string;

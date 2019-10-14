@@ -1,4 +1,4 @@
-import { EditingCell } from '@devexpress/dx-grid-core';
+import { EditingCell } from '../index';
 
 // tslint:disable-next-line:no-namespace
 export namespace EditingState {

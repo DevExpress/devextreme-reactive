@@ -60,7 +60,7 @@ describe('Pagination', () => {
       expect(onCurrentPageChange.mock.calls).toHaveLength(2);
     });
 
-    it('disables the prev arrow if the first page is active', () => {
+    it('should disable the prev arrow if current page is first one', () => {
       const paginations = shallow((
         <Pagination
           {...defaultProps}
@@ -76,7 +76,7 @@ describe('Pagination', () => {
       expect(next.props().disabled).toBeFalsy();
     });
 
-    it('disables the next arrow if current page equals to total page count', () => {
+    it('should disable the next arrow if current page is last one', () => {
       const paginations = shallow((
         <Pagination
           {...defaultProps}
@@ -132,7 +132,7 @@ describe('Pagination', () => {
       expect(onCurrentPageChange.mock.calls).toHaveLength(2);
     });
 
-    it('disables the prev arrow if the first page is active', () => {
+    it('should disable the prev arrow if current page is first one', () => {
       const paginations = shallow((
         <Pagination
           {...defaultProps}
@@ -148,7 +148,7 @@ describe('Pagination', () => {
       expect(next.props().disabled).toBeFalsy();
     });
 
-    it('disables the next arrow if current page equals to total page count', () => {
+    it('should disable the next arrow if current page is last one', () => {
       const paginations = shallow((
         <Pagination
           {...defaultProps}

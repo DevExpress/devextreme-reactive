@@ -53,7 +53,7 @@ describe('Pagination', () => {
       expect(onCurrentPageChange.mock.calls).toHaveLength(2);
     });
 
-    it('disables the prev arrow if the first page is active', () => {
+    it('should disable the prev arrow if current page is first one', () => {
       const onCurrentPageChange = jest.fn();
       const pagination = shallow((
         <Pagination
@@ -70,7 +70,7 @@ describe('Pagination', () => {
       expect(next.props().disabled).toBeFalsy();
     });
 
-    it('disables the next arrow if current page equals to total page count', () => {
+    it('should disable the next arrow if current page is last one', () => {
       const onCurrentPageChange = jest.fn();
       const pagination = shallow((
         <Pagination
@@ -142,7 +142,7 @@ describe('Pagination', () => {
       expect(onCurrentPageChange.mock.calls).toHaveLength(2);
     });
 
-    it('disables the prev arrow if the first page is active', () => {
+    it('should disable the prev arrow if current page is first one', () => {
       const onCurrentPageChange = jest.fn();
       const arrows = mount((
         <Pagination
@@ -163,7 +163,7 @@ describe('Pagination', () => {
       expect(onCurrentPageChange.mock.calls).toHaveLength(1);
     });
 
-    it('disables the next arrow if current page equals to total page count', () => {
+    it('should disable the next arrow if current page is last one', () => {
       const onCurrentPageChange = jest.fn();
       const arrows = mount((
         <Pagination

@@ -19,11 +19,11 @@ export type BasicViewState = {
 
 /** @internal */
 export interface BasicViewProps extends CommonViewProps {
-  /** The function that calculate cells data */
+  /** A function that calculates cells data. */
   viewCellsDataComputed: (cellDuration: number, startDayHour: number, endDayHour: number) => (payload: any) => readonly ViewCell[][];
   /** The view's type */
   type: string;
-  /** Specifies the start hour of the view time scale. */
+  /** Specifies the cell’s duration in minutes. */
   cellDuration?: number;
   /** Specifies the start hour of the view time scale. */
   startDayHour?: number;

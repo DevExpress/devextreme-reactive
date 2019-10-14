@@ -4,7 +4,7 @@ import { CommonView, VerticalViewProps } from './index';
 export namespace DayView {
   /** Describes a cell data configuration object. */
   export interface CellData extends CommonView.CellData {}
-  /** Describes properties passed to a component that renders a week view layout. */
+  /** Describes properties passed to a component that renders a day view layout. */
   export interface LayoutProps extends CommonView.LayoutProps {}
   /** Describes properties passed to a component that renders a time scale layout. */
   export interface TimeScaleLayoutProps extends CommonView.TimeScaleLayoutProps {}
@@ -22,7 +22,7 @@ export namespace DayView {
   export interface TimeTableCellProps extends CommonView.TimeTableCellProps {}
   /** Describes properties passed to a component that renders the appointment layer. */
   export interface AppointmentLayerProps extends CommonView.AppointmentLayerProps {}
-  /** Describes properties passed to a component that renders a week view row. */
+  /** Describes properties passed to a component that renders a day view row. */
   export interface RowProps extends CommonView.RowProps {}
 }
 

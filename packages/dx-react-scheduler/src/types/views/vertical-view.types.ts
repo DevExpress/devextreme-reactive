@@ -2,7 +2,7 @@ import { CommonViewProps, CommonView } from '../index';
 
 // tslint:disable: no-namespace no-empty-interface
 export interface VerticalViewProps extends CommonViewProps {
-  /** Specifies the start hour of the view time scale. */
+  /** Specifies the cell’s duration in minutes. */
   cellDuration?: number;
   /** Specifies the start hour of the view time scale. */
   startDayHour?: number;

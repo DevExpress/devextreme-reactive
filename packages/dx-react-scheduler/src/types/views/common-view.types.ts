@@ -33,7 +33,7 @@ export namespace CommonView {
   /** Describes properties passed to a component that renders a time table layout. */
   export interface TimeTableLayoutProps {
     /** Specifies the cells meta data. */
-    cellsData:	CommonView.CellData[][];
+    cellsData: CommonView.CellData[][];
     /** A component that renders a time table cell. */
     cellComponent: React.ComponentType<CommonView.TimeTableCellProps>;
     /** A component that renders a time table row. */
@@ -80,18 +80,18 @@ export namespace CommonView {
   /** Describes properties passed to a component that renders a day scale layout. */
   export interface DayScaleLayoutProps {
     /** Specifies the cells meta data. */
-    cellsData:	CommonView.CellData[][];
+    cellsData: CommonView.CellData[][];
     /** A component that renders a day scale cell. */
-    cellComponent:	React.ComponentType<CommonView.DayScaleCellProps>;
+    cellComponent: React.ComponentType<CommonView.DayScaleCellProps>;
     /** A component that renders a day scale row. */
-    rowComponent:	React.ComponentType<CommonView.RowProps>;
+    rowComponent: React.ComponentType<CommonView.RowProps>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
   }
   /** Describes properties passed to a component that renders a day scale cell. */
   export interface DayScaleCellProps {
     /** Specifies the cell end time. */
-    startDate:	Date;
+    startDate: Date;
     /** Specifies the cell start time. */
     endDate?: Date;
     /** Indicates whether the cell’s date is today. */

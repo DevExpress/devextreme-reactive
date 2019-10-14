@@ -4,7 +4,7 @@ import Link from 'gatsby-link';
 
 import styles from './product-links.module.scss';
 
-export default ({ productInfo }) => (
+const ProductLinks = ({ productInfo }) => (
   productInfo.map(({ title, location }) => (
     <Link
       partiallyActive
@@ -15,3 +15,16 @@ export default ({ productInfo }) => (
     </Link>
   ))
 );
+
+ProductLinks.propsTypes = {
+  productInfo: PropTypes.object,
+};
+
+ProductLinks.defaultProps = {
+  productInfo: [
+    { title: 'Demos', location: '/demos' },
+    { title: 'Docs', location: '/docs' },
+  ],
+};
+
+export default ProductLinks;

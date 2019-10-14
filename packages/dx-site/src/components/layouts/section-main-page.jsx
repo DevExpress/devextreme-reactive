@@ -44,14 +44,7 @@ export default ({ title, section, children }) => (
     <Helmet title={title} />
     <Header
       logo={<ProductLogo link="react" />}
-      links={(
-        <LandingProductLinks
-          productInfo={[
-            { title: 'Demos', location: '/demos' },
-            { title: 'Docs', location: '/docs' },
-          ]}
-        />
-      )}
+      links={<LandingProductLinks />}
     />
 
     <ContainerWithMenu

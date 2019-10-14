@@ -169,14 +169,7 @@ const IndexPage = () => (
     <Header
       page="productPage"
       logo={<ProductLogo link="react/grid" />}
-      links={(
-        <LandingProductLinks
-          productInfo={[
-            { title: 'Demos', location: '/react/grid/demos/' },
-            { title: 'Docs', location: '/react/grid/docs/guides/getting-started/' },
-          ]}
-        />
-      )}
+      links={<LandingProductLinks />}
       addon={(
         <LandingHeaderAddon
           main="React Grid"

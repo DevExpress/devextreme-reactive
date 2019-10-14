@@ -99,14 +99,7 @@ const IndexPage = () => (
     <Header
       page="productPage"
       logo={<ProductLogo link="react/scheduler" />}
-      links={(
-        <LandingProductLinks
-          productInfo={[
-            { title: 'Demos', location: '/react/scheduler/demos/' },
-            { title: 'Docs', location: '/react/scheduler/docs/guides/getting-started/' },
-          ]}
-        />
-      )}
+      links={<LandingProductLinks />}
       addon={(
         <LandingHeaderAddon
           main="React Scheduler"

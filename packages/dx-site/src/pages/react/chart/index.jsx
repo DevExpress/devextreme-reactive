@@ -142,12 +142,7 @@ const IndexPage = () => (
       page="productPage"
       logo={<ProductLogo link="react/chart" />}
       links={(
-        <LandingProductLinks
-          productInfo={[
-            { title: 'Demos', location: '/react/chart/demos/' },
-            { title: 'Docs', location: '/react/chart/docs/guides/getting-started/' },
-          ]}
-        />
+        <LandingProductLinks />
       )}
       addon={(
         <LandingHeaderAddon

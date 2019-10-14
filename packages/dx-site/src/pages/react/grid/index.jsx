@@ -172,7 +172,7 @@ const IndexPage = () => (
       links={(
         <LandingProductLinks
           productInfo={[
-            { title: 'Demos', location: '/demos' },
+            { title: 'Demos', location: '/react/grid/demos/' },
             { title: 'Docs', location: '/react/grid/docs/guides/getting-started/' },
           ]}
         />

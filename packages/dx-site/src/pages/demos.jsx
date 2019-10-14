@@ -17,35 +17,35 @@ const gridDemos = {
   featured: [
     {
       title: 'Integrated Data Shaping',
-      path: '/demos/...',
+      path: '/react/grid/demos/featured/integrated-data-shaping/',
       image: GridDataShapingImage
     },
     {
       title: 'Redux integration',
-      path: '/demos/...',
+      path: '/react/grid/demos/featured/redux-integration/',
       image: GridReduxIntegrationImage
     },
     {
       title: 'Chart integration',
-      path: '/demos/...',
+      path: '/react/grid/demos/featured/chart-integration/',
       image: GridChartIntegrationImage
     },
   ],
   technical: [
-    { title: 'Data Formatting', path: '' },
-    { title: 'Sorting', path: '' },
-    { title: 'Paging', path: '' },
-    { title: 'Filtering', path: '' },
-    { title: 'Searching', path: '' },
-    { title: 'Editing', path: '' },
-    { title: 'Grouping', path: '' },
-    { title: 'Selection', path: '' },
-    { title: 'Summaries', path: '' },
-    { title: 'Detail Row', path: '' },
-    { title: 'Fixed Columns', path: '' },
-    { title: 'Banded Columns', path: '' },
-    { title: 'Virtual Scrolling', path: '' },
-    { title: 'Tree Data', path: '' },
+    { title: 'Data Formatting', path: '/react/grid/docs/guides/data-formatting/' },
+    { title: 'Sorting', path: '/react/grid/docs/guides/sorting/' },
+    { title: 'Paging', path: '/react/grid/docs/guides/paging/' },
+    { title: 'Filtering', path: '/react/grid/docs/guides/filtering/' },
+    { title: 'Searching', path: '/react/grid/docs/guides/searching/' },
+    { title: 'Editing', path: '/react/grid/docs/guides/editing/' },
+    { title: 'Grouping', path: '/react/grid/docs/guides/grouping/' },
+    { title: 'Selection', path: '/react/grid/docs/guides/selection/' },
+    { title: 'Summary Row', path: '/react/grid/docs/guides/summary-row/' },
+    { title: 'Detail Row', path: '/react/grid/docs/guides/detail-row/' },
+    { title: 'Fixed Columns', path: '/react/grid/docs/guides/fixed-columns/' },
+    { title: 'Banded Columns', path: '/react/grid/docs/guides/banded-columns/' },
+    { title: 'Virtual Scrolling', path: '/react/grid/docs/guides/virtual-scrolling/' },
+    { title: 'Tree Data', path: '/react/grid/docs/guides/tree-data/' },
   ],
 };
 

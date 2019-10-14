@@ -6,4 +6,7 @@
 
 .title {
   color: white;
+  &:hover {
+    text-decoration: none;
+  }
 }

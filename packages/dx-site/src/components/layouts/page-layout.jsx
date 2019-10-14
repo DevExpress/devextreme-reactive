@@ -10,6 +10,7 @@ import LeftMenu from '../docs/left-menu';
 import VersionLink from '../docs/version-link';
 import ContainerWithMenu from './container-with-menu';
 import Search from '../docs/search';
+import LandingProductLinks from '../landing/product-links';
 
 import navigation from '../../../page-navigation.json';
 import styles from './page-layout.module.scss';

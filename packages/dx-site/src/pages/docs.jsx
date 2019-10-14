@@ -8,12 +8,12 @@ import reactChartIcon from './images/react-chart.svg';
 import reactSchedulerIcon from './images/react-scheduler.svg';
 
 const concepts = [
-  { title: 'Core Design', path: '' },
+  { title: 'Core Design', path: '/react/core/docs/guides/fundamentals/' },
   { title: 'State Management', path: '' },
   { title: 'Using Redux', path: '' },
   { title: 'Localization', path: '' },
-  { title: 'Theming', path: '' },
-  { title: 'Performance', path: '' },
+  { title: 'Theming', path: '/react/common/docs/guides/custom-theme/' },
+  { title: 'Performance', path: '/react/common/docs/guides/performance-optimization/' },
 ]
 
 export default () => (
@@ -23,14 +23,17 @@ export default () => (
 
       <div className="row my-3">  
         <DocPreview
+          path="/react/grid/docs/"
           title="Grid"
           imageLink={reactGridIcon}
         />
         <DocPreview
+          path="/react/scheduler/docs/"
           title="Scheduler"
           imageLink={reactSchedulerIcon}
         />
         <DocPreview
+          path="/react/chart/docs/"
           title="Chart"
           imageLink={reactChartIcon}
         />
@@ -42,8 +45,8 @@ export default () => (
         </div>
       </div>
       <div className="row">
-        {concepts.map(({ title, path }) => (
-          <DocPreview title={title} />
+        {concepts.map(concept => (
+          <DocPreview {...concept} />
         ))}
       </div>
 

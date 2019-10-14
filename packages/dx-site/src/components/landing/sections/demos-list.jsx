@@ -28,10 +28,12 @@ const DemosList = ({ data: { title, featured, technical } }) => (
     <div className="row my-3">
       {featured.map(({ title, path, image }) => (
         <div className="col-4">
-          <FeaturePreview
-            size="dense"
-            imageLink={image}
-          />
+          <GatsbyLink to={path}>
+            <FeaturePreview
+              size="dense"
+              imageLink={image}
+            />
+          </GatsbyLink>
         </div>
       ))}
     </div>
@@ -46,7 +48,7 @@ const DemosList = ({ data: { title, featured, technical } }) => (
         <div className="col-12 col-sm-4">
           {column.map(({ title, path }) => (
             <div>
-              <GatsbyLink>{title}</GatsbyLink>
+              <GatsbyLink to={path}>{title}</GatsbyLink>
             </div>
           ))}
         </div>

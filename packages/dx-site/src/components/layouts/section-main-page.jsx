@@ -28,6 +28,9 @@ const generateMenuItems = (siteSection) => ([
           if (navigation[productSlug][siteSection].length === 1) {
             return section['items'];
           }
+          if (section['title'] === 'Related Docs') {
+            return items;
+          }
           return [...items, section];
         }, []),
       })

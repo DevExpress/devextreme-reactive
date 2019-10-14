@@ -24,7 +24,7 @@ const styles = theme => ({
     justifyContent: 'flex-end',
   },
   title: {
-    padding: theme.spacing(1),
+    padding: theme.spacing(2),
     ...theme.typography.caption,
   },
 });

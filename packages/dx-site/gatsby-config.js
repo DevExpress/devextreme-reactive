@@ -72,6 +72,7 @@ module.exports = {
               rel: 'noopener noreferrer',
             },
           },
+          'gatsby-remark-relative-linker',
           'gatsby-remark-autolink-headers',
           'gatsby-remark-prismjs',
         ],

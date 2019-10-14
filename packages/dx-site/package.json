@@ -48,6 +48,7 @@
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.0",
     "reactstrap": "^7.1.0",
-    "segoe-fonts": "^1.0.1"
+    "segoe-fonts": "^1.0.1",
+    "unist-util-visit": "^2.0.0"
   }
 }

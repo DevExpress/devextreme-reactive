@@ -12,10 +12,14 @@ export interface VerticalViewProps extends CommonViewProps {
   layoutComponent: React.ComponentType<VerticalView.LayoutProps>;
   /** A component that renders a time scale layout. */
   timeScaleLayoutComponent: React.ComponentType<CommonView.TimeScaleLayoutProps>;
+  /** A component that renders a time scale label. */
+  timeScaleLabelComponent: React.ComponentType<CommonView.TimeScaleLabelProps>;
   /** A component that renders a time scale row. */
   timeScaleRowComponent: React.ComponentType<CommonView.RowProps>;
-  /** A component that renders a time scale cell. */
-  timeScaleCellComponent: React.ComponentType<CommonView.TimeScaleCellProps>;
+  /** @internal */
+  timeScaleTickCellComponent: React.ComponentType<CommonView.TimeScaleTickCellProps>;
+  /** @internal */
+  timeScaleTicksRowComponent: React.ComponentType<CommonView.RowProps>;
   /** A component that renders a day scale layout. */
   dayScaleLayoutComponent: React.ComponentType<CommonView.DayScaleLayoutProps>;
   /** A component that renders a day scale empty cell. */

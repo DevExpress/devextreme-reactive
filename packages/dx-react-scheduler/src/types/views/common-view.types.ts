@@ -18,10 +18,6 @@ export interface CommonViewProps {
   timeTableRowComponent: React.ComponentType<CommonView.RowProps>;
   /** A component that renders the appointment layer. */
   appointmentLayerComponent: React.ComponentType<CommonView.AppointmentLayerProps>;
-  /** @internal */
-  timeScaleTickCellComponent: React.ComponentType<CommonView.TimeScaleTickCellProps>;
-  /** @internal */
-  timeScaleTicksRowComponent: React.ComponentType<CommonView.RowProps>;
 }
 
 export namespace CommonView {
@@ -61,22 +57,15 @@ export namespace CommonView {
     /** A React node used to render the row content. */
     children?: React.ReactNode;
   }
-  /** Describes properties passed to a component that renders a time scale cell. */
-  export interface TimeScaleCellProps {
-    /** Specifies the cell end time. */
-    endDate: Date;
-    /** Specifies the cell start time. */
-    startDate: Date;
-    /** A function that formats dates according to the locale. */
-    formatDate: FormatterFn;
-  }
   /** Describes properties passed to a component that renders a time scale layout. */
   export interface TimeScaleLayoutProps {
     /** Specifies the cells meta data. */
     cellsData: CommonView.CellData[][];
     /** A component that renders a time scale cell. */
-    cellComponent: React.ComponentType<CommonView.TimeScaleCellProps>;
-    /** A component that renders a time scale row. */
+    labelComponent: React.ComponentType<CommonView.TimeScaleLabelProps>;
+    /** @internal */
+    tickCellComponent: React.ComponentType<CommonView.TimeScaleTickCellProps>;
+    /** @internal */
     rowComponent: React.ComponentType<CommonView.RowProps>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
@@ -85,6 +74,8 @@ export namespace CommonView {
   export interface TimeScaleLabelProps {
     /** Specifies the label's time. */
     time?: Date;
+    /** A function that formats dates according to the locale. */
+    formatDate: FormatterFn;
   }
   /** @internal */
   export interface TimeScaleTickCellProps {

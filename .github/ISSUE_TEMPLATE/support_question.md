@@ -26,6 +26,8 @@ about: Ask a question about our product
     Ask your question. Provide as many details as possible.
 -->
 
+Link to the example that reproduces the issue: &lt;put your link here&gt; (you can fork one of our pre-configured [examples on CodeSandbox](https://github.com/DevExpress/devextreme-reactive/issues/2358)).
+
 
 ### Environment
 <!---

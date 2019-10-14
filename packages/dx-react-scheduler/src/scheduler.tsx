@@ -9,6 +9,7 @@ const SchedulerBase: React.SFC<SchedulerProps> = ({
   children,
   locale,
   height,
+  firstDayOfWeek,
 }) => (
   <PluginHost>
     <SchedulerCore
@@ -16,6 +17,7 @@ const SchedulerBase: React.SFC<SchedulerProps> = ({
       rootComponent={rootComponent}
       locale={locale}
       height={height}
+      firstDayOfWeek={firstDayOfWeek}
     />
     {children}
   </PluginHost>
@@ -25,6 +27,7 @@ SchedulerBase.defaultProps = {
   data: [],
   locale: 'en-US',
   height: 'auto',
+  firstDayOfWeek: 0,
 };
 
 // tslint:disable: max-line-length

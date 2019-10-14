@@ -81,42 +81,183 @@ export const AppointmentForm: React.ComponentType<AppointmentFormProps>;
 
 // @public (undocumented)
 export namespace AppointmentForm {
-  export interface ContainerProps {
-    children: React.ReactNode;
+  export interface BasicLayoutProps {
+    appointmentData: AppointmentModel;
+    booleanEditorComponent: React.ComponentType<AppointmentForm.BooleanEditorProps>;
+    children?: React.ReactNode;
+    dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
+    // (undocumented)
+    fullSize: boolean;
+    getMessage: (messageKey: string) => string;
+    labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
+    locale: string | string[];
+    onFieldChange: (change: any) => void;
+    readOnly?: boolean;
+    selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
+    textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
+  }
+  export interface BooleanEditorProps {
+    label?: string;
+    onValueChange: (nextValue: boolean) => void;
+    readOnly?: boolean;
+    value?: boolean;
+  }
+  export interface CommandButtonProps {
+    getMessage?: (messageKey: string) => string;
+    id: 'saveButton' | 'deleteButton' | 'cancelButton';
+    onExecute: () => void;
+  }
+  export interface CommandLayoutProps {
+    children?: React.ReactNode;
+    commandButtonComponent: React.ComponentType<AppointmentForm.CommandButtonProps>;
+    disableSaveButton?: boolean;
+    fullSize: boolean;
+    getMessage: (messageKey: string) => string;
+    onCancelButtonClick: () => void;
+    onCommitButtonClick: () => void;
+    onDeleteButtonClick: () => void;
+    readOnly?: boolean;
+  }
+  export interface DateEditorProps {
+    excludeTime?: boolean;
+    locale?: string | string[];
+    onValueChange: (nextValue: Date) => void;
+    readOnly?: boolean;
+    value?: string | number;
+  }
+  export interface LabelProps {
+    text?: string;
+    type?: 'titleLabel' | 'ordinaryLabel';
+  }
+  export interface LayoutProps {
+    basicLayoutComponent: React.ComponentType<AppointmentForm.BasicLayoutProps>;
+    children?: React.ReactNode;
+    commandLayoutComponent: React.ComponentType<AppointmentForm.CommandLayoutProps>;
+    isRecurrence: boolean;
+    recurrenceLayoutComponent: React.ComponentType<AppointmentForm.RecurrenceLayoutProps>;
   }
   export interface LocalizationMessages {
+    afterLabel?: string;
     allDayLabel?: string;
-    cancelCommand?: string;
     commitCommand?: string;
+    daily?: string;
+    daysLabel?: string;
     endDateLabel?: string;
+    endRepeatLabel?: string;
+    everyLabel?: string;
+    firstLabel?: string;
+    fourthLabel?: string;
+    lastLabel?: string;
+    monthly?: string;
+    monthsLabel?: string;
+    moreInformationLabel?: string;
+    never?: string;
+    notesLabel?: string;
+    occurrencesLabel?: string;
+    ofEveryMonthLabel?: string;
+    ofLabel?: string;
+    onLabel?: string;
+    repeatEveryLabel?: string;
+    repeatLabel?: string;
+    secondLabel?: string;
     startDateLabel?: string;
+    theLabel?: string;
+    thirdLabel?: string;
     titleLabel?: string;
+    weekly?: string;
+    weeksOnLabel?: string;
+    yearly?: string;
+    yearsLabel?: string;
   }
-  export interface PopupProps {
+  export interface OverlayProps {
     children: React.ReactNode;
-    visible?: boolean;
+    fullSize: boolean;
+    onHide: () => void;
+    target: React.RefObject<unknown>;
+    visible: boolean;
   }
-  export interface ScrollableAreaProps {
+  export interface RadioGroupProps {
+    appointmentData: AppointmentModel;
+    dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
+    firstDayOfWeek: number;
+    formatDate: FormatterFn;
+    getMessage?: (messageKey: string) => string;
+    labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
+    locale?: string | string[];
+    onFieldChange: (nextFieldValue: {
+      [fieldName: string]: any;
+    }) => void;
+    readOnly?: boolean;
+    selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
+    textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
+    type: 'endRepeat' | 'monthlyRadioGroup' | 'yearlyRadioGroup';
+  }
+  export interface RecurrenceLayoutProps {
+    appointmentData: AppointmentModel;
+    children?: React.ReactNode;
+    dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
+    firstDayOfWeek: number;
+    formatDate: FormatterFn;
+    getMessage: (messageKey: string) => string;
+    labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
+    locale: string | string[];
+    onFieldChange: (nextFieldValue: {
+      [fieldName: string]: any;
+    }) => void;
+    radioGroupComponent: React.ComponentType<AppointmentForm.RadioGroupProps>;
+    readOnly?: boolean;
+    selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
+    textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
     // (undocumented)
-    children: React.ReactNode;
+    visible: boolean;
+    weeklyRecurrenceSelectorComponent: React.ComponentType<AppointmentForm.WeeklyRecurrenceSelectorProps>;
   }
-  export interface StaticAreaProps {
-    children: React.ReactNode;
+  export interface SelectProps {
+    availableOptions?: Array<object>;
+    onValueChange: (nextValue: string | number) => void;
+    readOnly?: boolean;
+    type: 'outlinedSelect' | 'filledSelect';
+    value: string | number;
+  }
+  export interface TextEditorProps {
+    onValueChange: (nextValue: string) => void;
+    placeholder: string;
+    readOnly: boolean;
+    type: 'titleTextEditor' | 'multilineTextEditor' | 'ordinaryTextEditor' | 'numberEditor';
+    value: string | number;
+  }
+  export interface WeeklyRecurrenceSelectorProps {
+    firstDayOfWeek: number;
+    formatDate: FormatterFn;
+    onFieldChange: (nextFieldValue: {
+      [fieldName: string]: any;
+    }) => void;
+    readOnly: boolean;
+    rRule: string;
   }
 }
 
 // @public (undocumented)
 export interface AppointmentFormProps {
   appointmentData?: AppointmentModel;
-  containerComponent: React.ComponentType<AppointmentForm.ContainerProps>;
+  basicLayoutComponent: React.ComponentType<AppointmentForm.BasicLayoutProps>;
+  booleanEditorComponent: React.ComponentType<AppointmentForm.BooleanEditorProps>;
+  commandButtonComponent: React.ComponentType<AppointmentForm.CommandButtonProps>;
+  commandLayoutComponent: React.ComponentType<AppointmentForm.CommandLayoutProps>;
+  dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
+  labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
+  layoutComponent: React.ComponentType<AppointmentForm.LayoutProps>;
   messages?: AppointmentForm.LocalizationMessages;
   onAppointmentDataChange?: (appointmentData: AppointmentModel) => void;
   onVisibilityChange?: (visible: boolean) => void;
-  popupComponent: React.ComponentType<AppointmentForm.PopupProps>;
+  overlayComponent: React.ComponentType<AppointmentForm.OverlayProps>;
+  radioGroupComponent: React.ComponentType<AppointmentForm.RadioGroupProps>;
   readOnly?: boolean;
-  scrollableAreaComponent: React.ComponentType<AppointmentForm.ScrollableAreaProps>;
-  staticAreaComponent: React.ComponentType<AppointmentForm.StaticAreaProps>;
+  recurrenceLayoutComponent: React.ComponentType<AppointmentForm.RecurrenceLayoutProps>;
+  selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
+  textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
   visible?: boolean;
+  weeklyRecurrenceSelectorComponent: React.ComponentType<AppointmentForm.WeeklyRecurrenceSelectorProps>;
 }
 
 // @public (undocumented)
@@ -335,7 +476,7 @@ export namespace DayView {
   }
   export interface RowProps extends VerticalView.RowProps {
   }
-  export interface TimeScaleCellProps extends VerticalView.TimeScaleCellProps {
+  export interface TimeScaleLabelProps extends VerticalView.TimeScaleLabelProps {
   }
   export interface TimeScaleLayoutProps extends VerticalView.TimeScaleLayoutProps {
   }
@@ -519,7 +660,7 @@ export interface MonthViewProps extends MonthViewPropsType {
 }
 
 // @public (undocumented)
-export type MonthViewPropsType = Pick<VerticalViewProps, Exclude<keyof VerticalViewProps, 'timeScaleLayoutComponent' | 'timeScaleRowComponent' | 'timeScaleCellComponent' | 'layoutComponent' | 'dayScaleEmptyCellComponent'>> & Pick<WeekViewProps, 'firstDayOfWeek'>;
+export type MonthViewPropsType = Pick<VerticalViewProps, Exclude<keyof VerticalViewProps, 'timeScaleLayoutComponent' | 'timeScaleRowComponent' | 'timeScaleCellComponent' | 'layoutComponent' | 'dayScaleEmptyCellComponent'>>;
 
 // @public (undocumented)
 export type PreCommitChangesFn = (changes: Changes | null, appointmentData: Partial<AppointmentModel>, type: RecurrenceEditType) => ChangeSet;
@@ -544,6 +685,7 @@ export type SchedulerDateTime = Date | number | string;
 // @public (undocumented)
 export interface SchedulerProps {
     data: AppointmentModel[];
+    firstDayOfWeek: number;
     height: number | 'auto';
     locale: string | string[];
     rootComponent: React.ComponentType<Scheduler.RootProps>;
@@ -644,15 +786,13 @@ export namespace VerticalView {
   export interface RowProps {
     children?: React.ReactNode;
   }
-  export interface TimeScaleCellProps {
-    endDate: Date;
-    startDate: Date;
+  export interface TimeScaleLabelProps {
+    time?: Date;
   }
   export interface TimeScaleLayoutProps {
-    cellComponent: React.ComponentType<VerticalView.TimeScaleCellProps>;
     cellsData: VerticalView.CellData[][];
     formatDate: FormatterFn;
-    rowComponent: React.ComponentType<VerticalView.RowProps>;
+    labelComponent: React.ComponentType<VerticalView.TimeScaleLabelProps>;
   }
   export interface TimeTableCellProps {
     children?: React.ReactNode;
@@ -682,9 +822,8 @@ export interface VerticalViewProps {
   layoutComponent: React.ComponentType<VerticalView.LayoutProps>;
   name?: string;
   startDayHour?: number;
-  timeScaleCellComponent: React.ComponentType<VerticalView.TimeScaleCellProps>;
+  timeScaleLabelComponent: React.ComponentType<VerticalView.TimeScaleLabelProps>;
   timeScaleLayoutComponent: React.ComponentType<VerticalView.TimeScaleLayoutProps>;
-  timeScaleRowComponent: React.ComponentType<VerticalView.RowProps>;
   timeTableCellComponent: React.ComponentType<VerticalView.TimeTableCellProps>;
   timeTableLayoutComponent: React.ComponentType<VerticalView.TimeTableLayoutProps>;
   timeTableRowComponent: React.ComponentType<VerticalView.RowProps>;
@@ -745,7 +884,7 @@ export namespace WeekView {
   }
   export interface RowProps extends VerticalView.RowProps {
   }
-  export interface TimeScaleCellProps extends VerticalView.TimeScaleCellProps {
+  export interface TimeScaleLabelProps extends VerticalView.TimeScaleLabelProps {
   }
   export interface TimeScaleLayoutProps extends VerticalView.TimeScaleLayoutProps {
   }
@@ -758,7 +897,6 @@ export namespace WeekView {
 // @public (undocumented)
 export interface WeekViewProps extends VerticalViewProps {
   excludedDays?: number[];
-  firstDayOfWeek?: number;
 }
 
 

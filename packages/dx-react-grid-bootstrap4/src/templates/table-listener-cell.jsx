@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Sizer } from '@devexpress/dx-react-core';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import { TableStubCell } from './table-stub-cell';
 
 const TableBorderlessStubCell = ({ className, ...restProps }) => (

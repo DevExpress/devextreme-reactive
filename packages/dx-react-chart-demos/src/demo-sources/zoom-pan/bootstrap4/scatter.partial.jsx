@@ -1,16 +1,16 @@
 // BLOCK:imports
-import classnames from 'classnames';
+import classNames from 'clsx';
 // BLOCK:imports
 
 // BLOCK:body
 const TooltipLabelCell = ({ className, ...props }) => (
-  <span className={classnames('text-black-50', className)} {...props} />
+  <span className={classNames('text-black-50', className)} {...props} />
 );
 const TooltipValueCell = props => (
   <span {...props} />
 );
 const TooltipSplitter = ({ className, ...props }) => (
-  <hr className={classnames('mt-1 mb-1', className)} {...props} />
+  <hr className={classNames('mt-1 mb-1', className)} {...props} />
 );
 const TooltipHeader = props => (
   <h6 {...props} /> // eslint-disable-line jsx-a11y/heading-has-content

@@ -1,5 +1,5 @@
 export {
-  Column, TableColumn, TableRow, SummaryType, ColumnSummary,
+  Column, TableColumn, TableRow, SummaryType, ColumnSummary, EditingCell,
   ColumnDimensions, ColumnAnimationStyleMap, SummaryItem, IntegratedFiltering,
   GroupKey, Grouping, GroupingPanelItem, Filter, ColumnFilterOperations,
   Sorting, TargetColumnGeometry, FilterOperation, ColumnChooserItem,
@@ -7,7 +7,7 @@ export {
 } from '../../../dx-grid-core/src/index';
 
 /** @internal */
-export { GetCellColSpanFn } from '../../../dx-grid-core/src/index';
+export { GetCellColSpanFn, BandHeaderRow } from '../../../dx-grid-core/src/index';
 
 export * from './column-operations';
 export * from './data-type-provider';

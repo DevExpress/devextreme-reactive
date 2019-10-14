@@ -8,8 +8,8 @@ export namespace WeekView {
   export interface LayoutProps extends VerticalView.LayoutProps {}
   /** Describes properties passed to a component that renders a time scale layout. */
   export interface TimeScaleLayoutProps extends VerticalView.TimeScaleLayoutProps {}
-  /** Describes properties passed to a component that renders a time scale cell. */
-  export interface TimeScaleCellProps extends VerticalView.TimeScaleCellProps {}
+  /** Describes properties passed to a component that renders a time scale label. */
+  export interface TimeScaleLabelProps extends VerticalView.TimeScaleLabelProps {}
   /** Describes properties passed to a component that renders a day scale layout. */
   export interface DayScaleLayoutProps extends VerticalView.DayScaleLayoutProps {}
   /** Describes properties passed to a component that renders a day scale cell. */
@@ -29,6 +29,4 @@ export namespace WeekView {
 export interface WeekViewProps extends VerticalViewProps {
   /** Specifies the days of week that should not be displayed on the view. Accepts an array of zero-bazed day indexes (0 - Sunday). */
   excludedDays?: number[];
-  /** Specifies the first day of week. */
-  firstDayOfWeek?: number;
 }

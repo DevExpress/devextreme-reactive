@@ -1,7 +1,7 @@
 // BLOCK:imports
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import classnames from 'classnames';
+import classNames from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 // BLOCK:imports
 
@@ -14,7 +14,7 @@ const tooltipLabelCellStyle = {
   },
 };
 const TooltipLabelCell = withStyles(tooltipLabelCellStyle)(({ classes, className, ...props }) => (
-  <Typography className={classnames(classes.style, className)} {...props} />
+  <Typography className={classNames(classes.style, className)} {...props} />
 ));
 const tooltipValueCellStyle = {
   style: {
@@ -23,7 +23,7 @@ const tooltipValueCellStyle = {
   },
 };
 const TooltipValueCell = withStyles(tooltipValueCellStyle)(({ classes, className, ...props }) => (
-  <Typography className={classnames(classes.style, className)} {...props} />
+  <Typography className={classNames(classes.style, className)} {...props} />
 ));
 const tooltipSplitterStyle = theme => ({
   style: {
@@ -33,7 +33,7 @@ const tooltipSplitterStyle = theme => ({
   },
 });
 const TooltipSplitter = withStyles(tooltipSplitterStyle)(({ classes, className, ...props }) => (
-  <hr className={classnames(classes.style, className)} {...props} />
+  <hr className={classNames(classes.style, className)} {...props} />
 ));
 const tooltipHeaderStyle = theme => ({
   style: {
@@ -42,7 +42,7 @@ const tooltipHeaderStyle = theme => ({
   },
 });
 const TooltipHeader = withStyles(tooltipHeaderStyle)(({ classes, className, ...props }) => (
-  <Typography className={classnames(classes.style, className)} {...props} />
+  <Typography className={classNames(classes.style, className)} {...props} />
 ));
 
 const ResetButton = withStyles(theme => ({

@@ -48,7 +48,6 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
 
   static defaultProps: Partial<MonthViewProps> = {
     intervalCount: 1,
-    firstDayOfWeek: 0,
     name: 'Month',
   };
 
@@ -69,9 +68,6 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
 
   timeTableElementsMetaComputed = memoize((viewName, timeTableElementsMeta) => getters =>
     computed(getters, viewName!, () => timeTableElementsMeta, getters.timeTableElementsMeta));
-
-  firstDayOfWeekComputed = memoize((viewName, firstDayOfWeek) => getters =>
-    computed(getters, viewName!, () => firstDayOfWeek, getters.firstDayOfWeek));
 
   intervalCountComputed = memoize((viewName, intervalCount) => getters =>
     computed(getters, viewName!, () => intervalCount, getters.intervalCount));
@@ -135,7 +131,6 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
       timeTableCellComponent: TimeTableCell,
       appointmentLayerComponent: AppointmentLayer,
       name: viewName,
-      firstDayOfWeek,
       intervalCount,
       displayName,
     } = this.props;
@@ -152,10 +147,6 @@ class MonthViewBase extends React.PureComponent<MonthViewProps, ViewState> {
         />
         <Getter name="currentView" computed={this.currentViewComputed(viewName, viewDisplayName)} />
 
-        <Getter
-          name="firstDayOfWeek"
-          computed={this.firstDayOfWeekComputed(viewName, firstDayOfWeek)}
-        />
         <Getter
           name="intervalCount"
           computed={this.intervalCountComputed(viewName, intervalCount)}

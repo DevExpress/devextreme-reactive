@@ -4,8 +4,8 @@ import {
   IsSpecificCellFn, IsSpecificRowFn, HeaderColumnChain,
   SplitHeaderColumnChainsFn, FindChainByColumnIndexFn,
   GenerateChainsFn,
-  LastColumnNameFn,
   NextColumnNameFn,
+  GetNextColumnNameFn,
 } from '../../types';
 
 export const isHeadingTableCell: IsSpecificCellFn = (
@@ -60,18 +60,18 @@ export const generateSimpleChains: GenerateChainsFn = (rows, columns) => (
   }]))
 );
 
-export const getLastColumnName: LastColumnNameFn = (tableColumns) => {
-  const index = tableColumns.length - 1;
-  return index >= 0 && tableColumns[index].type === TABLE_DATA_TYPE
-    ? tableColumns[index].column!.name
+const nextColumnName: NextColumnNameFn = (tableColumns , index) => {
+  const isNextColumnHasName = index < tableColumns.length - 1 && tableColumns[index + 1].column;
+  return isNextColumnHasName
+    ? tableColumns[index + 1].column!.name
     : undefined;
 };
 
-export const getNextColumnName: NextColumnNameFn = (tableColumns, columnName) => {
+export const getNextColumnName: GetNextColumnNameFn = (tableColumns, columnName) => {
   const index = tableColumns.findIndex(elem =>
-      elem.type === TABLE_DATA_TYPE && elem.column!.name === columnName,
-    );
-  return index >= 0 && index < tableColumns.length - 1
-    ? tableColumns[index + 1].column!.name
+    elem.column && elem.column.name === columnName,
+  );
+  return index >= 0
+    ? nextColumnName(tableColumns, index)
     : undefined;
 };

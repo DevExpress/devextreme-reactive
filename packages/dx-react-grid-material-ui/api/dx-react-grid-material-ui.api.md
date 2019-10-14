@@ -23,6 +23,7 @@ import { TableFilterRow as TableFilterRow_2 } from '@devexpress/dx-react-grid';
 import { TableFixedColumns as TableFixedColumns_2 } from '@devexpress/dx-react-grid';
 import { TableGroupRow as TableGroupRow_2 } from '@devexpress/dx-react-grid';
 import { TableHeaderRow as TableHeaderRow_2 } from '@devexpress/dx-react-grid';
+import { TableInlineCellEditing as TableInlineCellEditing_2 } from '@devexpress/dx-react-grid';
 import { TableRowDetail as TableRowDetail_2 } from '@devexpress/dx-react-grid';
 import { TableSelection as TableSelection_2 } from '@devexpress/dx-react-grid';
 import { TableSummaryRow as TableSummaryRow_2 } from '@devexpress/dx-react-grid';
@@ -101,11 +102,11 @@ export const Grid: React.ComponentType<GridProps> & {
 
 // @public (undocumented)
 export interface GridProps {
-  columns: Array<Column>;
+  columns: ReadonlyArray<Column>;
   getCellValue?: (row: any, columnName: string) => any;
   getRowId?: (row: any) => number | string;
   rootComponent?: React.ComponentType<Grid_2.RootProps>;
-  rows: Array<any>;
+  rows: ReadonlyArray<any>;
 }
 
 // @public (undocumented)
@@ -236,8 +237,8 @@ export namespace TableBandHeader {
 export const TableBandHeader: React.ComponentType<TableBandHeaderProps> & {
   ROW_TYPE: symbol;
 } & {
-  Cell: React.ComponentType<React.ComponentType<Table_2.CellProps> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Row: React.ComponentType<React.ComponentType<Table_2.RowProps> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Cell: React.ComponentType<Table_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Row: React.ComponentType<Table_2.RowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
 };
 
 // @public (undocumented)
@@ -531,6 +532,23 @@ export interface TableHeaderRowProps {
 }
 
 // @public (undocumented)
+export namespace TableInlineCellEditing {
+  export type CellProps = TableInlineCellEditing_2.CellProps;
+}
+
+// @public
+export const TableInlineCellEditing: React.ComponentType<TableInlineCellEditingProps> & {
+  Cell: React.ComponentType<TableInlineCellEditing_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+};
+
+// @public (undocumented)
+export interface TableInlineCellEditingProps {
+  cellComponent?: React.ComponentType<TableInlineCellEditing_2.CellProps>;
+  selectTextOnEditStart?: boolean;
+  startEditAction?: 'click' | 'doubleClick';
+}
+
+// @public (undocumented)
 export interface TableProps {
   bodyComponent?: React.ComponentType<object>;
   cellComponent?: React.ComponentType<Table_2.DataCellProps>;
@@ -644,16 +662,16 @@ export const TableSummaryRow: React.ComponentType<TableSummaryRowProps> & {
   TOTAL_ROW_TYPE: symbol;
 } & {
   Cell: React.ComponentType<TableSummaryRow_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  TotalRow: React.ComponentType<React.ComponentType<Table_2.RowProps> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  GroupRow: React.ComponentType<React.ComponentType<Table_2.RowProps> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  TreeRow: React.ComponentType<React.ComponentType<Table_2.RowProps> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  TotalCell: React.ComponentType<React.ComponentType<TableSummaryRow_2.CellProps> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  GroupCell: React.ComponentType<React.ComponentType<TableSummaryRow_2.CellProps> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  TreeCell: React.ComponentType<React.ComponentType<TableSummaryRow_2.CellProps> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  TreeColumnCell: React.ComponentType<React.ComponentType<TableSummaryRow_2.CellProps> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  TreeColumnContent: React.ComponentType<React.ComponentType<TableSummaryRow_2.ContentProps> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  TreeColumnIndent: React.ComponentType<React.ComponentType<TableSummaryRow_2.IndentProps> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Item: React.ComponentType<React.ComponentType<object> & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  TotalRow: React.ComponentType<Table_2.RowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  GroupRow: React.ComponentType<Table_2.RowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  TreeRow: React.ComponentType<Table_2.RowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  TotalCell: React.ComponentType<TableSummaryRow_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  GroupCell: React.ComponentType<TableSummaryRow_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  TreeCell: React.ComponentType<TableSummaryRow_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  TreeColumnCell: React.ComponentType<TableSummaryRow_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  TreeColumnContent: React.ComponentType<TableSummaryRow_2.ContentProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  TreeColumnIndent: React.ComponentType<TableSummaryRow_2.IndentProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Item: React.ComponentType<object & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
 };
 
 // @public (undocumented)

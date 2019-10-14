@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import Input from '@material-ui/core/Input';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
@@ -8,6 +8,11 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   cell: {
     padding: theme.spacing(1),
+    // NOTE: without the TableEditColumn first EditCell changes size
+    // (because first TableCell and EditCell have different paddings)
+    '&:first-child': {
+      paddingLeft: theme.spacing(3),
+    },
   },
   inputRoot: {
     width: '100%',
@@ -22,12 +27,21 @@ const styles = theme => ({
 
 const EditCellBase = ({
   column, value, onValueChange, style, classes, children,
-  row, tableRow, tableColumn, editingEnabled, className, ...restProps
+  row, tableRow, tableColumn, editingEnabled, className,
+  autoFocus, onBlur, onFocus, onKeyDown, ...restProps
 }) => {
   const inputClasses = classNames({
     [classes.inputRight]: tableColumn && tableColumn.align === 'right',
     [classes.inputCenter]: tableColumn && tableColumn.align === 'center',
   });
+  const patchedChildren = children
+    ? React.cloneElement(children, {
+      autoFocus,
+      onBlur,
+      onFocus,
+      onKeyDown,
+    })
+    : children;
 
   return (
     <TableCell
@@ -35,13 +49,18 @@ const EditCellBase = ({
       style={style}
       {...restProps}
     >
-      {children || (
+      {patchedChildren || (
         <Input
           className={classes.inputRoot}
           classes={{ input: inputClasses }}
           value={value || ''}
           disabled={!editingEnabled}
           onChange={e => onValueChange(e.target.value)}
+          // eslint-disable-next-line jsx-a11y/no-autofocus
+          autoFocus={autoFocus}
+          onBlur={onBlur}
+          onFocus={onFocus}
+          onKeyDown={onKeyDown}
         />
       )}
     </TableCell>
@@ -60,6 +79,10 @@ EditCellBase.propTypes = {
   editingEnabled: PropTypes.bool,
   children: PropTypes.node,
   className: PropTypes.string,
+  autoFocus: PropTypes.bool,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
+  onKeyDown: PropTypes.func,
 };
 
 EditCellBase.defaultProps = {
@@ -72,6 +95,10 @@ EditCellBase.defaultProps = {
   children: undefined,
   className: undefined,
   editingEnabled: true,
+  autoFocus: false,
+  onBlur: () => {},
+  onFocus: () => {},
+  onKeyDown: () => {},
 };
 
 export const EditCell = withStyles(styles, { name: 'EditCell' })(EditCellBase);

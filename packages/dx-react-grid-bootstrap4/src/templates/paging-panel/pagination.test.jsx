@@ -17,73 +17,152 @@ const defaultProps = {
 };
 
 describe('Pagination', () => {
-  it('can show info about rendered pages', () => {
-    const getMessage = jest.fn(key => key);
-    const tree = shallow((
-      <Pagination
-        {...defaultProps}
-        getMessage={getMessage}
-      />
-    ));
+  describe('default pagination', () => {
+    it('can render pages', () => {
+      const pages = ['1', '2', '3', '10'];
+      const paginations = shallow((
+        <Pagination
+          {...defaultProps}
+        />
+      )).find(PaginationBS4);
 
-    expect(getMessage)
-      .toBeCalledWith('info', { from: 11, to: 20, count: 96 });
-    expect(tree.find('span > span').text())
-      .toBe('info');
+      const itemsCount = paginations.at(0).find('PaginationLink')
+        .reduce((acc, item) => {
+          if (item.children().length && pages
+            .includes(item.find('PaginationLink').childAt(0).text())
+          ) {
+            return acc + 1;
+          }
+          return acc;
+        }, 0);
+
+      expect(itemsCount === pages.length).toBeTruthy();
+    });
+
+    it('can render pagination arrows', () => {
+      const onCurrentPageChange = jest.fn();
+      const paginations = shallow((
+        <Pagination
+          {...defaultProps}
+          onCurrentPageChange={onCurrentPageChange}
+        />
+      )).find(PaginationBS4);
+
+      const arrows = paginations.at(0).find(PaginationItem);
+      const prev = arrows.first();
+      const next = arrows.last();
+
+      prev.find(PaginationLink).simulate('click', { preventDefault: jest.fn() });
+      next.find(PaginationLink).simulate('click', { preventDefault: jest.fn() });
+
+      expect(prev.props('previews')).toBeTruthy();
+      expect(next.props('next')).toBeTruthy();
+      expect(onCurrentPageChange.mock.calls).toHaveLength(2);
+    });
+
+    it('disables the prev arrow if the first page is active', () => {
+      const paginations = shallow((
+        <Pagination
+          {...defaultProps}
+          currentPage={0}
+        />
+      )).find(PaginationBS4);
+
+      const arrows = paginations.at(0).find(PaginationItem);
+      const prev = arrows.first();
+      const next = arrows.last();
+
+      expect(prev.props().disabled).toBeTruthy();
+      expect(next.props().disabled).toBeFalsy();
+    });
+
+    it('disables the next arrow if current page equals to total page count', () => {
+      const paginations = shallow((
+        <Pagination
+          {...defaultProps}
+          currentPage={9}
+          pageSize={5}
+        />
+      )).find(PaginationBS4);
+
+      const arrows = paginations.at(0).find(PaginationItem);
+      const prev = arrows.first();
+      const next = arrows.last();
+
+      expect(prev.props().disabled).toBeFalsy();
+      expect(next.props().disabled).toBeTruthy();
+    });
   });
 
-  it('can render pagination arrows', () => {
-    const onCurrentPageChange = jest.fn();
-    const paginations = shallow((
-      <Pagination
-        {...defaultProps}
-        onCurrentPageChange={onCurrentPageChange}
-      />
-    )).find(PaginationBS4);
+  describe('xs pagination', () => {
+    it('can show info about rendered pages', () => {
+      const getMessage = jest.fn(key => key);
+      const tree = shallow((
+        <Pagination
+          {...defaultProps}
+          getMessage={getMessage}
+        />
+      ));
 
-    const arrows = paginations.at(1).find(PaginationItem);
-    const prev = arrows.at(0);
-    const next = arrows.at(1);
+      expect(getMessage)
+        .toBeCalledWith('info', { from: 11, to: 20, count: 96 });
+      expect(tree.find('span > span').text())
+        .toBe('info');
+    });
 
-    prev.find(PaginationLink).simulate('click', { preventDefault: jest.fn() });
-    next.find(PaginationLink).simulate('click', { preventDefault: jest.fn() });
+    it('can render pagination arrows', () => {
+      const onCurrentPageChange = jest.fn();
+      const paginations = shallow((
+        <Pagination
+          {...defaultProps}
+          onCurrentPageChange={onCurrentPageChange}
+        />
+      )).find(PaginationBS4);
 
-    expect(arrows).toHaveLength(2);
-    expect(prev.props('previews')).toBeTruthy();
-    expect(next.props('next')).toBeTruthy();
-    expect(onCurrentPageChange.mock.calls).toHaveLength(2);
-  });
+      const arrows = paginations.at(1).find(PaginationItem);
+      const prev = arrows.at(0);
+      const next = arrows.at(1);
 
-  it('disables the prev arrow if the first page is active', () => {
-    const paginations = shallow((
-      <Pagination
-        {...defaultProps}
-        currentPage={0}
-      />
-    )).find(PaginationBS4);
+      prev.find(PaginationLink).simulate('click', { preventDefault: jest.fn() });
+      next.find(PaginationLink).simulate('click', { preventDefault: jest.fn() });
 
-    const arrows = paginations.at(1).find(PaginationItem);
-    const prev = arrows.at(0);
-    const next = arrows.at(1);
+      expect(arrows).toHaveLength(2);
+      expect(prev.props('previews')).toBeTruthy();
+      expect(next.props('next')).toBeTruthy();
+      expect(onCurrentPageChange.mock.calls).toHaveLength(2);
+    });
 
-    expect(prev.props().disabled).toBeTruthy();
-    expect(next.props().disabled).toBeFalsy();
-  });
+    it('disables the prev arrow if the first page is active', () => {
+      const paginations = shallow((
+        <Pagination
+          {...defaultProps}
+          currentPage={0}
+        />
+      )).find(PaginationBS4);
 
-  it('disables the next arrow if current page equals to total page count', () => {
-    const paginations = shallow((
-      <Pagination
-        {...defaultProps}
-        currentPage={9}
-        pageSize={5}
-      />
-    )).find(PaginationBS4);
+      const arrows = paginations.at(1).find(PaginationItem);
+      const prev = arrows.at(0);
+      const next = arrows.at(1);
 
-    const arrows = paginations.at(1).find(PaginationItem);
-    const prev = arrows.at(0);
-    const next = arrows.at(1);
+      expect(prev.props().disabled).toBeTruthy();
+      expect(next.props().disabled).toBeFalsy();
+    });
 
-    expect(prev.props().disabled).toBeFalsy();
-    expect(next.props().disabled).toBeTruthy();
+    it('disables the next arrow if current page equals to total page count', () => {
+      const paginations = shallow((
+        <Pagination
+          {...defaultProps}
+          currentPage={9}
+          pageSize={5}
+        />
+      )).find(PaginationBS4);
+
+      const arrows = paginations.at(1).find(PaginationItem);
+      const prev = arrows.at(0);
+      const next = arrows.at(1);
+
+      expect(prev.props().disabled).toBeFalsy();
+      expect(next.props().disabled).toBeTruthy();
+    });
   });
 });

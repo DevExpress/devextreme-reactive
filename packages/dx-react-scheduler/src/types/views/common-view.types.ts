@@ -18,6 +18,10 @@ export interface CommonViewProps {
   timeTableRowComponent: React.ComponentType<CommonView.RowProps>;
   /** A component that renders the appointment layer. */
   appointmentLayerComponent: React.ComponentType<CommonView.AppointmentLayerProps>;
+  /** @internal */
+  timeScaleTickCellComponent: React.ComponentType<CommonView.TimeScaleTickCellProps>;
+  /** @internal */
+  timeScaleTicksRowComponent: React.ComponentType<CommonView.RowProps>;
 }
 
 export namespace CommonView {
@@ -76,6 +80,18 @@ export namespace CommonView {
     rowComponent: React.ComponentType<CommonView.RowProps>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
+  }
+  /** Describes properties passed to a component that renders a time scale label. */
+  export interface TimeScaleLabelProps {
+    /** Specifies the label's time. */
+    time?: Date;
+  }
+  /** @internal */
+  export interface TimeScaleTickCellProps {
+    /** Specifies the cell a start time. */
+    startDate?: Date;
+    /** Specifies the cell end time. */
+    endDate?: Date;
   }
   /** Describes properties passed to a component that renders a day scale layout. */
   export interface DayScaleLayoutProps {

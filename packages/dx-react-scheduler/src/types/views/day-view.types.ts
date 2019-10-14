@@ -8,8 +8,8 @@ export namespace DayView {
   export interface LayoutProps extends CommonView.LayoutProps {}
   /** Describes properties passed to a component that renders a time scale layout. */
   export interface TimeScaleLayoutProps extends CommonView.TimeScaleLayoutProps {}
-  /** Describes properties passed to a component that renders a time scale cell. */
-  export interface TimeScaleCellProps extends CommonView.TimeScaleCellProps {}
+  /** Describes properties passed to a component that renders a time scale label. */
+  export interface TimeScaleLabelProps extends CommonView.TimeScaleLabelProps {}
   /** Describes properties passed to a component that renders a day scale layout. */
   export interface DayScaleLayoutProps extends CommonView.DayScaleLayoutProps {}
   /** Describes properties passed to a component that renders a day scale cell. */

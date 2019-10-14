@@ -476,7 +476,7 @@ export namespace DayView {
   }
   export interface RowProps extends VerticalView.RowProps {
   }
-  export interface TimeScaleCellProps extends VerticalView.TimeScaleCellProps {
+  export interface TimeScaleLabelProps extends VerticalView.TimeScaleLabelProps {
   }
   export interface TimeScaleLayoutProps extends VerticalView.TimeScaleLayoutProps {
   }
@@ -786,15 +786,13 @@ export namespace VerticalView {
   export interface RowProps {
     children?: React.ReactNode;
   }
-  export interface TimeScaleCellProps {
-    endDate: Date;
-    startDate: Date;
+  export interface TimeScaleLabelProps {
+    time?: Date;
   }
   export interface TimeScaleLayoutProps {
-    cellComponent: React.ComponentType<VerticalView.TimeScaleCellProps>;
     cellsData: VerticalView.CellData[][];
     formatDate: FormatterFn;
-    rowComponent: React.ComponentType<VerticalView.RowProps>;
+    labelComponent: React.ComponentType<VerticalView.TimeScaleLabelProps>;
   }
   export interface TimeTableCellProps {
     children?: React.ReactNode;
@@ -824,9 +822,8 @@ export interface VerticalViewProps {
   layoutComponent: React.ComponentType<VerticalView.LayoutProps>;
   name?: string;
   startDayHour?: number;
-  timeScaleCellComponent: React.ComponentType<VerticalView.TimeScaleCellProps>;
+  timeScaleLabelComponent: React.ComponentType<VerticalView.TimeScaleLabelProps>;
   timeScaleLayoutComponent: React.ComponentType<VerticalView.TimeScaleLayoutProps>;
-  timeScaleRowComponent: React.ComponentType<VerticalView.RowProps>;
   timeTableCellComponent: React.ComponentType<VerticalView.TimeTableCellProps>;
   timeTableLayoutComponent: React.ComponentType<VerticalView.TimeTableLayoutProps>;
   timeTableRowComponent: React.ComponentType<VerticalView.RowProps>;
@@ -887,7 +884,7 @@ export namespace WeekView {
   }
   export interface RowProps extends VerticalView.RowProps {
   }
-  export interface TimeScaleCellProps extends VerticalView.TimeScaleCellProps {
+  export interface TimeScaleLabelProps extends VerticalView.TimeScaleLabelProps {
   }
   export interface TimeScaleLayoutProps extends VerticalView.TimeScaleLayoutProps {
   }

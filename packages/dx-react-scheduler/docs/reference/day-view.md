@@ -34,8 +34,7 @@ startDayHour? | number | 0 | Specifies the start hour of the view time scale. Ac
 endDayHour? | number | 24 | Specifies the end hour of the view time scale. Accepts floating-point numbers from 0 to 24.
 layoutComponent | ComponentType&lt;[DayView.LayoutProps](#dayviewlayoutprops)&gt; | | A component that renders a day view layout.
 timeScaleLayoutComponent | ComponentType&lt;[DayView.TimeScaleLayoutProps](#dayviewtimescalelayoutprops)&gt; | | A component that renders a time scale layout.
-timeScaleRowComponent | ComponentType&lt;[DayView.RowProps](#dayviewrowprops)&gt; | | A component that renders a time scale row.
-timeScaleCellComponent | ComponentType&lt;[DayView.TimeScaleCellProps](#dayviewtimescalecellprops)&gt; | | A component that renders a time scale cell.
+timeScaleLabelComponent | ComponentType&lt;[DayView.TimeScaleLabelProps](#dayviewtimescalelabelprops)&gt; | | A component that renders a time scale label.
 dayScaleLayoutComponent | ComponentType&lt;[DayView.DayScaleLayoutProps](#dayviewdayscalelayoutprops)&gt; | | A component that renders a day scale layout.
 dayScaleCellComponent | ComponentType&lt;[DayView.DayScaleCellProps](#dayviewdayscalecellprops)&gt; | | A component that renders a day scale cell.
 dayScaleRowComponent | ComponentType&lt;[DayView.RowProps](#dayviewrowprops)&gt; | | A component that renders a day scale row.
@@ -76,18 +75,16 @@ Describes properties passed to a component that renders a time scale layout.
 Field | Type | Description
 ------|------|------------
 cellsData | Array&lt;Array&lt;[DayView.CellData](#dayviewcelldata)&gt;&gt; | Specifies the cells meta data.
-cellComponent | ComponentType&lt;[DayView.TimeScaleCellProps](#dayviewtimescalecellprops)&gt; | A component that renders a time scale cell.
-rowComponent | ComponentType&lt;[DayView.RowProps](#dayviewrowprops)&gt; | A component that renders a time scale row.
+labelComponent | ComponentType&lt;[DayView.TimeScaleLabelProps](#dayviewtimescalelabelprops)&gt; | A component that renders a time scale label.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the locale.
 
-### DayView.TimeScaleCellProps
+### DayView.TimeScaleLabelProps
 
-Describes properties passed to a component that renders a time scale cell.
+Describes properties passed to a component that renders a time scale label.
 
 Field | Type | Description
 ------|------|------------
-endDate | Date | Specifies the cell end time.
-startDate? | Date | Specifies the cell start time.
+time? | Date | Specifies the cell's time.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the locale.
 
 ### DayView.DayScaleLayoutProps
@@ -164,7 +161,7 @@ Name | Properties | Description
 -----|------------|------------
 DayView.Layout | [DayView.LayoutProps](#dayviewlayoutprops) | A component that renders a day view layout.
 DayView.TimeScaleLayout | [DayView.TimeScaleLayoutProps](#dayviewtimescalelayoutprops) | A component that renders a time scale layout.
-DayView.TimeScaleCell | [DayView.TimeScaleCellProps](#dayviewtimescalecellprops) | A component that renders a time scale cell.
+DayView.TimeScaleLabel | [DayView.TimeScaleLabelProps](#dayviewtimescalelabelprops) | A component that renders a time scale label.
 DayView.DayScaleLayout | [DayView.DayScaleLayoutProps](#dayviewdayscalelayoutprops) | A component that renders a day scale layout.
 DayView.DayScaleCell | [DayView.DayScaleCellProps](#dayviewdayscalecellprops) | A component that renders a day scale cell.
 DayView.DayScaleEmptyCell | [DayView.DayScaleEmptyCellProps](#dayviewdayscaleemptycellprops) | A component that renders a day scale empty cell.

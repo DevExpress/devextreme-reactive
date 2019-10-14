@@ -1,11 +1,11 @@
-import { ScrollingStrategy, CommonView, CommonViewProps, FormatterFn, CellElementsMeta } from '../index';
+import { ScrollingStrategy, BaseView, CommonViewProps, FormatterFn, CellElementsMeta } from '../index';
 
 /* tslint:disable no-namespace no-empty-interface */
 export namespace MonthView {
   /** Describes properties passed to a component that renders a month scale cell. */
-  export interface DayScaleCellProps extends CommonView.DayScaleCellProps {}
+  export interface DayScaleCellProps extends BaseView.DayScaleCellProps {}
   /** Describes properties passed to a component that renders a month scale empty cell. */
-  export interface DayScaleEmptyCellProps extends CommonView.DayScaleEmptyCellProps {}
+  export interface DayScaleEmptyCellProps extends BaseView.DayScaleEmptyCellProps {}
   /** Describes properties passed to a component that renders a time table layout. */
   export interface TimeTableLayoutProps {
     /** Specifies the cells meta data. */
@@ -33,20 +33,20 @@ export namespace MonthView {
     formatDate?: FormatterFn;
   }
   /** Describes properties passed to a component that renders the appointment layer. */
-  export interface AppointmentLayerProps extends CommonView.AppointmentLayerProps {}
+  export interface AppointmentLayerProps extends BaseView.AppointmentLayerProps {}
   /** Describes properties passed to a component that renders a month view row. */
-  export interface RowProps extends CommonView.RowProps {}
+  export interface RowProps extends BaseView.RowProps {}
   /** Describes properties passed to a component that renders a month view layout. */
   export interface LayoutProps {
     /** A component that renders a month scale layout. */
-    dayScaleComponent: React.ComponentType<CommonView.DayScaleLayoutProps>;
+    dayScaleComponent: React.ComponentType<BaseView.DayScaleLayoutProps>;
     /** A component that renders a time table layout. */
-    timeTableComponent: React.ComponentType<CommonView.TimeTableLayoutProps>;
+    timeTableComponent: React.ComponentType<BaseView.TimeTableLayoutProps>;
     /** The scrolling API callback */
     setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
   }
   /** Describes a cell data configuration object. */
-  export interface CellData extends CommonView.CellData {
+  export interface CellData extends BaseView.CellData {
     /** Indicates whether the cell’s date is not in the current month. */
     otherMonth: boolean;
   }
@@ -55,9 +55,9 @@ export namespace MonthView {
     /** Specifies the cells meta data. */
     cellsData: MonthView.CellData[][];
     /** A component that renders a month scale cell. */
-    cellComponent: React.ComponentType<CommonView.DayScaleCellProps>;
+    cellComponent: React.ComponentType<BaseView.DayScaleCellProps>;
     /** A component that renders a month scale row. */
-    rowComponent: React.ComponentType<CommonView.RowProps>;
+    rowComponent: React.ComponentType<BaseView.RowProps>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
   }

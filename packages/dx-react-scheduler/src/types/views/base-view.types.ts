@@ -9,35 +9,35 @@ export interface CommonViewProps {
   /** Multiplies the default view interval. */
   intervalCount?: number;
   /** A component that renders a day scale cell. */
-  dayScaleCellComponent: React.ComponentType<CommonView.DayScaleCellProps>;
+  dayScaleCellComponent: React.ComponentType<BaseView.DayScaleCellProps>;
   /** A component that renders a day scale row.  */
-  dayScaleRowComponent: React.ComponentType<CommonView.RowProps>;
+  dayScaleRowComponent: React.ComponentType<BaseView.RowProps>;
   /** A component that renders a time table cell. */
-  timeTableCellComponent: React.ComponentType<CommonView.TimeTableCellProps>;
+  timeTableCellComponent: React.ComponentType<BaseView.TimeTableCellProps>;
   /** A component that renders a time table row. */
-  timeTableRowComponent: React.ComponentType<CommonView.RowProps>;
+  timeTableRowComponent: React.ComponentType<BaseView.RowProps>;
   /** A component that renders the appointment layer. */
-  appointmentLayerComponent: React.ComponentType<CommonView.AppointmentLayerProps>;
+  appointmentLayerComponent: React.ComponentType<BaseView.AppointmentLayerProps>;
 }
 
-export namespace CommonView {
+export namespace BaseView {
   /** Describes properties passed to a component that renders a vertical view layout. */
   export interface LayoutProps {
     /** The scrolling API callback */
     setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
     /** A component that renders a day scale layout. */
-    dayScaleComponent: React.ComponentType<CommonView.DayScaleLayoutProps>;
+    dayScaleComponent: React.ComponentType<BaseView.DayScaleLayoutProps>;
     /** A component that renders a time table layout. */
-    timeTableComponent: React.ComponentType<CommonView.TimeTableLayoutProps>;
+    timeTableComponent: React.ComponentType<BaseView.TimeTableLayoutProps>;
   }
   /** Describes properties passed to a component that renders a time table layout. */
   export interface TimeTableLayoutProps {
     /** Specifies the cells meta data. */
-    cellsData: CommonView.CellData[][];
+    cellsData: BaseView.CellData[][];
     /** A component that renders a time table cell. */
-    cellComponent: React.ComponentType<CommonView.TimeTableCellProps>;
+    cellComponent: React.ComponentType<BaseView.TimeTableCellProps>;
     /** A component that renders a time table row. */
-    rowComponent: React.ComponentType<CommonView.RowProps>;
+    rowComponent: React.ComponentType<BaseView.RowProps>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
     /** A setCellElementsMeta callback */
@@ -60,13 +60,13 @@ export namespace CommonView {
   /** Describes properties passed to a component that renders a time scale layout. */
   export interface TimeScaleLayoutProps {
     /** Specifies the cells meta data. */
-    cellsData: CommonView.CellData[][];
+    cellsData: BaseView.CellData[][];
     /** A component that renders a time scale cell. */
-    labelComponent: React.ComponentType<CommonView.TimeScaleLabelProps>;
+    labelComponent: React.ComponentType<BaseView.TimeScaleLabelProps>;
     /** @internal */
-    tickCellComponent: React.ComponentType<CommonView.TimeScaleTickCellProps>;
+    tickCellComponent: React.ComponentType<BaseView.TimeScaleTickCellProps>;
     /** @internal */
-    rowComponent: React.ComponentType<CommonView.RowProps>;
+    rowComponent: React.ComponentType<BaseView.RowProps>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
   }
@@ -87,11 +87,11 @@ export namespace CommonView {
   /** Describes properties passed to a component that renders a day scale layout. */
   export interface DayScaleLayoutProps {
     /** Specifies the cells meta data. */
-    cellsData: CommonView.CellData[][];
+    cellsData: BaseView.CellData[][];
     /** A component that renders a day scale cell. */
-    cellComponent: React.ComponentType<CommonView.DayScaleCellProps>;
+    cellComponent: React.ComponentType<BaseView.DayScaleCellProps>;
     /** A component that renders a day scale row. */
-    rowComponent: React.ComponentType<CommonView.RowProps>;
+    rowComponent: React.ComponentType<BaseView.RowProps>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
   }

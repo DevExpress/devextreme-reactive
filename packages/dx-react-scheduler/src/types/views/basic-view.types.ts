@@ -4,7 +4,7 @@ import {
   CellElementsMeta,
   ElementRect,
   MonthView,
-  CommonView,
+  BaseView,
   CommonViewProps,
 } from '../index';
 
@@ -35,12 +35,12 @@ export interface BasicViewProps extends CommonViewProps {
   timeTableRects: any;
   /** The properties that passed into layout component */
   layoutProps?: {
-    dayScaleEmptyCellComponent: React.ComponentType<CommonView.DayScaleEmptyCellProps>,
-    timeScaleComponent: React.ComponentType<CommonView.TimeScaleLayoutProps>,
+    dayScaleEmptyCellComponent: React.ComponentType<BaseView.DayScaleEmptyCellProps>,
+    timeScaleComponent: React.ComponentType<BaseView.TimeScaleLayoutProps>,
   };
   layoutComponent: React.ComponentType<any>;
   /** A component that renders a day scale layout. */
-  dayScaleLayoutComponent: React.ComponentType<CommonView.DayScaleLayoutProps> | React.ComponentType<MonthView.DayScaleLayoutProps>;
+  dayScaleLayoutComponent: React.ComponentType<BaseView.DayScaleLayoutProps> | React.ComponentType<MonthView.DayScaleLayoutProps>;
   /** A component that renders a time table layout. */
-  timeTableLayoutComponent: React.ComponentType<CommonView.TimeTableLayoutProps> | React.ComponentType<MonthView.TimeTableLayoutProps>;
+  timeTableLayoutComponent: React.ComponentType<BaseView.TimeTableLayoutProps> | React.ComponentType<MonthView.TimeTableLayoutProps>;
 }

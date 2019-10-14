@@ -1,4 +1,4 @@
-import { CommonViewProps, CommonView } from '../index';
+import { CommonViewProps, BaseView } from '../index';
 
 // tslint:disable: no-namespace no-empty-interface
 export interface VerticalViewProps extends CommonViewProps {
@@ -11,29 +11,29 @@ export interface VerticalViewProps extends CommonViewProps {
   /** A component that renders a view layout. */
   layoutComponent: React.ComponentType<VerticalView.LayoutProps>;
   /** A component that renders a time scale layout. */
-  timeScaleLayoutComponent: React.ComponentType<CommonView.TimeScaleLayoutProps>;
+  timeScaleLayoutComponent: React.ComponentType<BaseView.TimeScaleLayoutProps>;
   /** A component that renders a time scale label. */
-  timeScaleLabelComponent: React.ComponentType<CommonView.TimeScaleLabelProps>;
+  timeScaleLabelComponent: React.ComponentType<BaseView.TimeScaleLabelProps>;
   /** A component that renders a time scale row. */
-  timeScaleRowComponent: React.ComponentType<CommonView.RowProps>;
+  timeScaleRowComponent: React.ComponentType<BaseView.RowProps>;
   /** @internal */
-  timeScaleTickCellComponent: React.ComponentType<CommonView.TimeScaleTickCellProps>;
+  timeScaleTickCellComponent: React.ComponentType<BaseView.TimeScaleTickCellProps>;
   /** @internal */
-  timeScaleTicksRowComponent: React.ComponentType<CommonView.RowProps>;
+  timeScaleTicksRowComponent: React.ComponentType<BaseView.RowProps>;
   /** A component that renders a day scale layout. */
-  dayScaleLayoutComponent: React.ComponentType<CommonView.DayScaleLayoutProps>;
+  dayScaleLayoutComponent: React.ComponentType<BaseView.DayScaleLayoutProps>;
   /** A component that renders a day scale empty cell. */
-  dayScaleEmptyCellComponent: React.ComponentType<CommonView.DayScaleEmptyCellProps>;
+  dayScaleEmptyCellComponent: React.ComponentType<BaseView.DayScaleEmptyCellProps>;
   /** A component that renders a time table layout. */
-  timeTableLayoutComponent: React.ComponentType<CommonView.TimeTableLayoutProps>;
+  timeTableLayoutComponent: React.ComponentType<BaseView.TimeTableLayoutProps>;
 }
 
 export namespace VerticalView {
   /** Describes properties passed to a component that renders a vertical view layout. */
-  export interface LayoutProps extends CommonView.LayoutProps {
+  export interface LayoutProps extends BaseView.LayoutProps {
     /** A component that renders a time scale layout. */
-    timeScaleComponent: React.ComponentType<CommonView.TimeScaleLayoutProps>;
+    timeScaleComponent: React.ComponentType<BaseView.TimeScaleLayoutProps>;
     /** A component that renders a day scale empty cell. */
-    dayScaleEmptyCellComponent: React.ComponentType<CommonView.DayScaleEmptyCellProps>;
+    dayScaleEmptyCellComponent: React.ComponentType<BaseView.DayScaleEmptyCellProps>;
   }
 }

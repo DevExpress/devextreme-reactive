@@ -1,4 +1,4 @@
-import { ElementRect, CellElementsMeta, FormatterFn, CommonView } from '../index';
+import { ElementRect, CellElementsMeta, FormatterFn, BaseView } from '../index';
 
 /* tslint:disable no-namespace max-line-length no-empty-interface */
 /** @internal */
@@ -39,7 +39,7 @@ export namespace AllDayPanel {
     /** A component that renders an All Day panel cell. */
     cellComponent: React.ComponentType<AllDayPanel.CellProps>;
     /** A component that renders an All Day panel row. */
-    rowComponent: React.ComponentType<CommonView.RowProps>;
+    rowComponent: React.ComponentType<BaseView.RowProps>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
     /** A setCellElementsMeta callback */
@@ -53,14 +53,14 @@ export namespace AllDayPanel {
     endDate: Date;
   }
   /** Describes properties passed to a component that renders an All Day panel row. */
-  export interface RowProps extends CommonView.RowProps {}
+  export interface RowProps extends BaseView.RowProps {}
   /** Describes properties passed to a component that renders a title cell. */
   export interface TitleCellProps {
     /** Returns a localization message by the message key. */
     getMessage: (messageKey: string) => string;
   }
   /** Describes properties passed to a component that renders the appointment layer. */
-  export interface AppointmentLayerProps extends CommonView.AppointmentLayerProps {}
+  export interface AppointmentLayerProps extends BaseView.AppointmentLayerProps {}
   /** Describes properties passed to a component that renders an All Day panel container. */
   export interface ContainerProps {
     /** A React node used to render the All Day panel container content. */

@@ -7,7 +7,7 @@
 import moment from 'moment';
 import * as React from 'react';
 
-// @public (undocumented)
+// @public
 export type AllDayCell = {
   startDate: SchedulerDateTime;
   endDate: SchedulerDateTime;
@@ -18,8 +18,7 @@ export const AllDayPanel: React.ComponentType<AllDayPanelProps>;
 
 // @public (undocumented)
 export namespace AllDayPanel {
-  export interface AppointmentLayerProps {
-    children?: React.ReactNode;
+  export interface AppointmentLayerProps extends BaseView.AppointmentLayerProps {
   }
   export interface CellData {
     endDate: Date;
@@ -34,16 +33,15 @@ export namespace AllDayPanel {
   }
   export interface LayoutProps {
     cellComponent: React.ComponentType<AllDayPanel.CellProps>;
-    cellsData: AllDayCell[];
+    cellsData: AllDayPanel.CellData[];
     formatDate: FormatterFn;
-    rowComponent: React.ComponentType<AllDayPanel.RowProps>;
+    rowComponent: React.ComponentType<BaseView.RowProps>;
     setCellElementsMeta: (cellElementsMeta: CellElementsMeta) => void;
   }
   export interface LocalizationMessages {
     allDay?: string;
   }
-  export interface RowProps {
-    children?: React.ReactNode;
+  export interface RowProps extends BaseView.RowProps {
   }
   export interface TitleCellProps {
     getMessage: (messageKey: string) => string;
@@ -383,6 +381,62 @@ export interface AppointmentTooltipProps {
 }
 
 // @public (undocumented)
+export namespace BaseView {
+  export interface AppointmentLayerProps {
+    children?: React.ReactNode;
+  }
+  export interface CellData {
+    endDate: Date;
+    startDate: Date;
+    today: boolean;
+  }
+  export interface DayScaleCellProps {
+    endDate?: Date;
+    formatDate: FormatterFn;
+    startDate: Date;
+    today?: boolean;
+  }
+  export interface DayScaleEmptyCellProps {
+    children?: React.ReactNode;
+  }
+  export interface DayScaleLayoutProps {
+    cellComponent: React.ComponentType<BaseView.DayScaleCellProps>;
+    cellsData: BaseView.CellData[][];
+    formatDate: FormatterFn;
+    rowComponent: React.ComponentType<BaseView.RowProps>;
+  }
+  export interface LayoutProps {
+    dayScaleComponent: React.ComponentType<BaseView.DayScaleLayoutProps>;
+    setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
+    timeTableComponent: React.ComponentType<BaseView.TimeTableLayoutProps>;
+  }
+  export interface RowProps {
+    children?: React.ReactNode;
+  }
+  export interface TimeScaleLabelProps {
+    formatDate: FormatterFn;
+    time?: Date;
+  }
+  export interface TimeScaleLayoutProps {
+    cellsData: BaseView.CellData[][];
+    formatDate: FormatterFn;
+    labelComponent: React.ComponentType<BaseView.TimeScaleLabelProps>;
+  }
+  export interface TimeTableCellProps {
+    children?: React.ReactNode;
+    endDate?: Date;
+    startDate?: Date;
+  }
+  export interface TimeTableLayoutProps {
+    cellComponent: React.ComponentType<BaseView.TimeTableCellProps>;
+    cellsData: BaseView.CellData[][];
+    formatDate: FormatterFn;
+    rowComponent: React.ComponentType<BaseView.RowProps>;
+    setCellElementsMeta: (cellElementsMeta: CellElementsMeta) => void;
+  }
+}
+
+// @public (undocumented)
 export type CellElementsMeta = {
   parentRect: () => ClientRect | DOMRect;
   getCellRects: Array<() => ClientRect | DOMRect>;
@@ -419,6 +473,18 @@ export type ClientOffset = {
   x: number;
   y: number;
 };
+
+// @public (undocumented)
+export interface CommonViewProps {
+  appointmentLayerComponent: React.ComponentType<BaseView.AppointmentLayerProps>;
+  dayScaleCellComponent: React.ComponentType<BaseView.DayScaleCellProps>;
+  dayScaleRowComponent: React.ComponentType<BaseView.RowProps>;
+  displayName?: string;
+  intervalCount?: number;
+  name?: string;
+  timeTableCellComponent: React.ComponentType<BaseView.TimeTableCellProps>;
+  timeTableRowComponent: React.ComponentType<BaseView.RowProps>;
+}
 
 // @public
 export const DateNavigator: React.ComponentType<DateNavigatorProps>;
@@ -462,28 +528,32 @@ export const DayView: React.ComponentType<VerticalViewProps>;
 
 // @public (undocumented)
 export namespace DayView {
-  export interface AppointmentLayerProps extends VerticalView.AppointmentLayerProps {
+  export interface AppointmentLayerProps extends BaseView.AppointmentLayerProps {
   }
-  export interface CellData extends VerticalView.CellData {
+  export interface CellData extends BaseView.CellData {
   }
-  export interface DayScaleCellProps extends VerticalView.DayScaleCellProps {
+  export interface DayScaleCellProps extends BaseView.DayScaleCellProps {
   }
-  export interface DayScaleEmptyCellProps extends VerticalView.DayScaleEmptyCellProps {
+  export interface DayScaleEmptyCellProps extends BaseView.DayScaleEmptyCellProps {
   }
-  export interface DayScaleLayoutProps extends VerticalView.DayScaleLayoutProps {
+  export interface DayScaleLayoutProps extends BaseView.DayScaleLayoutProps {
   }
-  export interface LayoutProps extends VerticalView.LayoutProps {
+  export interface LayoutProps extends BaseView.LayoutProps {
   }
-  export interface RowProps extends VerticalView.RowProps {
+  export interface RowProps extends BaseView.RowProps {
   }
-  export interface TimeScaleLabelProps extends VerticalView.TimeScaleLabelProps {
+  export interface TimeScaleLabelProps extends BaseView.TimeScaleLabelProps {
   }
-  export interface TimeScaleLayoutProps extends VerticalView.TimeScaleLayoutProps {
+  export interface TimeScaleLayoutProps extends BaseView.TimeScaleLayoutProps {
   }
-  export interface TimeTableCellProps extends VerticalView.TimeTableCellProps {
+  export interface TimeTableCellProps extends BaseView.TimeTableCellProps {
   }
-  export interface TimeTableLayoutProps extends VerticalView.TimeTableLayoutProps {
+  export interface TimeTableLayoutProps extends BaseView.TimeTableLayoutProps {
   }
+}
+
+// @public (undocumented)
+export interface DayViewProps extends VerticalViewProps {
 }
 
 // @public
@@ -614,53 +684,50 @@ export const MonthView: React.ComponentType<MonthViewProps>;
 
 // @public (undocumented)
 export namespace MonthView {
-  export interface AppointmentLayerProps extends VerticalView.AppointmentLayerProps {
+  export interface AppointmentLayerProps extends BaseView.AppointmentLayerProps {
   }
-  export interface CellData {
-    endDate: Date;
+  export interface CellData extends BaseView.CellData {
     otherMonth: boolean;
-    startDate: Date;
-    today: boolean;
   }
-  export interface DayScaleCellProps {
-    endDate?: Date;
-    startDate: Date;
+  export interface DayScaleCellProps extends BaseView.DayScaleCellProps {
+  }
+  export interface DayScaleEmptyCellProps extends BaseView.DayScaleEmptyCellProps {
   }
   export interface DayScaleLayoutProps {
-    cellComponent: React.ComponentType<MonthView.DayScaleCellProps>;
+    cellComponent: React.ComponentType<BaseView.DayScaleCellProps>;
     cellsData: MonthView.CellData[][];
-    rowComponent: React.ComponentType<MonthView.RowProps>;
+    formatDate: FormatterFn;
+    rowComponent: React.ComponentType<BaseView.RowProps>;
   }
-  // (undocumented)
   export interface LayoutProps {
-    dayScaleComponent: React.ComponentType<MonthView.DayScaleLayoutProps>;
+    dayScaleComponent: React.ComponentType<BaseView.DayScaleLayoutProps>;
     setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
-    timeTableComponent: React.ComponentType<MonthView.TimeTableLayoutProps>;
+    timeTableComponent: React.ComponentType<BaseView.TimeTableLayoutProps>;
   }
-  export interface RowProps {
-    children?: React.ReactNode;
+  export interface RowProps extends BaseView.RowProps {
   }
   export interface TimeTableCellProps {
     endDate?: Date;
+    formatDate?: FormatterFn;
     otherMonth?: boolean;
-    startDate?: Date;
+    startDate: Date;
     today?: boolean;
   }
   export interface TimeTableLayoutProps {
     cellComponent: React.ComponentType<MonthView.TimeTableCellProps>;
     cellsData: MonthView.CellData[][];
+    formatDate: FormatterFn;
     rowComponent: React.ComponentType<MonthView.RowProps>;
-    tableRef: React.RefObject<HTMLElement>;
+    setCellElementsMeta: (cellElementsMeta: CellElementsMeta) => void;
   }
 }
 
 // @public (undocumented)
-export interface MonthViewProps extends MonthViewPropsType {
+export interface MonthViewProps extends CommonViewProps {
+  dayScaleLayoutComponent: React.ComponentType<MonthView.DayScaleLayoutProps>;
   layoutComponent: React.ComponentType<MonthView.LayoutProps>;
+  timeTableLayoutComponent: React.ComponentType<MonthView.TimeTableLayoutProps>;
 }
-
-// @public (undocumented)
-export type MonthViewPropsType = Pick<VerticalViewProps, Exclude<keyof VerticalViewProps, 'timeScaleLayoutComponent' | 'timeScaleRowComponent' | 'timeScaleCellComponent' | 'layoutComponent' | 'dayScaleEmptyCellComponent'>>;
 
 // @public (undocumented)
 export type PreCommitChangesFn = (changes: Changes | null, appointmentData: Partial<AppointmentModel>, type: RecurrenceEditType) => ChangeSet;
@@ -754,79 +821,24 @@ export interface ToolbarProps {
 
 // @public (undocumented)
 export namespace VerticalView {
-  export interface AppointmentLayerProps {
-    children?: React.ReactNode;
-  }
-  export interface CellData {
-    endDate: Date;
-    startDate: Date;
-    today: boolean;
-  }
-  export interface DayScaleCellProps {
-    endDate?: Date;
-    startDate: Date;
-    today?: boolean;
-  }
-  export interface DayScaleEmptyCellProps {
-    children?: React.ReactNode;
-  }
-  export interface DayScaleLayoutProps {
-    cellComponent: React.ComponentType<VerticalView.DayScaleCellProps>;
-    cellsData: VerticalView.CellData[][];
-    formatDate: FormatterFn;
-    rowComponent: React.ComponentType<VerticalView.RowProps>;
-  }
-  export interface LayoutProps {
-    dayScaleComponent: React.ComponentType<VerticalView.DayScaleLayoutProps>;
-    dayScaleEmptyCellComponent: React.ComponentType<VerticalView.DayScaleEmptyCellProps>;
-    setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
-    timeScaleComponent: React.ComponentType<VerticalView.TimeScaleLayoutProps>;
-    timeTableComponent: React.ComponentType<VerticalView.TimeTableLayoutProps>;
-  }
-  export interface RowProps {
-    children?: React.ReactNode;
-  }
-  export interface TimeScaleLabelProps {
-    time?: Date;
-  }
-  export interface TimeScaleLayoutProps {
-    cellsData: VerticalView.CellData[][];
-    formatDate: FormatterFn;
-    labelComponent: React.ComponentType<VerticalView.TimeScaleLabelProps>;
-  }
-  export interface TimeTableCellProps {
-    children?: React.ReactNode;
-    endDate?: Date;
-    startDate?: Date;
-  }
-  export interface TimeTableLayoutProps {
-    cellComponent: React.ComponentType<VerticalView.TimeTableCellProps>;
-    cellsData: VerticalView.CellData[][];
-    formatDate: FormatterFn;
-    rowComponent: React.ComponentType<VerticalView.RowProps>;
-    setCellElementsMeta: (cellElementsMeta: CellElementsMeta) => void;
+  export interface LayoutProps extends BaseView.LayoutProps {
+    dayScaleEmptyCellComponent: React.ComponentType<BaseView.DayScaleEmptyCellProps>;
+    timeScaleComponent: React.ComponentType<BaseView.TimeScaleLayoutProps>;
   }
 }
 
 // @public (undocumented)
-export interface VerticalViewProps {
-  appointmentLayerComponent: React.ComponentType<VerticalView.AppointmentLayerProps>;
+export interface VerticalViewProps extends CommonViewProps {
   cellDuration?: number;
-  dayScaleCellComponent: React.ComponentType<VerticalView.DayScaleCellProps>;
-  dayScaleEmptyCellComponent: React.ComponentType<VerticalView.DayScaleEmptyCellProps>;
-  dayScaleLayoutComponent: React.ComponentType<VerticalView.DayScaleLayoutProps>;
-  dayScaleRowComponent: React.ComponentType<VerticalView.RowProps>;
-  displayName?: string;
+  dayScaleEmptyCellComponent: React.ComponentType<BaseView.DayScaleEmptyCellProps>;
+  dayScaleLayoutComponent: React.ComponentType<BaseView.DayScaleLayoutProps>;
   endDayHour?: number;
-  intervalCount?: number;
   layoutComponent: React.ComponentType<VerticalView.LayoutProps>;
-  name?: string;
   startDayHour?: number;
-  timeScaleLabelComponent: React.ComponentType<VerticalView.TimeScaleLabelProps>;
-  timeScaleLayoutComponent: React.ComponentType<VerticalView.TimeScaleLayoutProps>;
-  timeTableCellComponent: React.ComponentType<VerticalView.TimeTableCellProps>;
-  timeTableLayoutComponent: React.ComponentType<VerticalView.TimeTableLayoutProps>;
-  timeTableRowComponent: React.ComponentType<VerticalView.RowProps>;
+  timeScaleLabelComponent: React.ComponentType<BaseView.TimeScaleLabelProps>;
+  timeScaleLayoutComponent: React.ComponentType<BaseView.TimeScaleLayoutProps>;
+  timeScaleRowComponent: React.ComponentType<BaseView.RowProps>;
+  timeTableLayoutComponent: React.ComponentType<BaseView.TimeTableLayoutProps>;
 }
 
 // @public (undocumented)
@@ -870,27 +882,27 @@ export const WeekView: React.ComponentType<WeekViewProps>;
 
 // @public (undocumented)
 export namespace WeekView {
-  export interface AppointmentLayerProps extends VerticalView.AppointmentLayerProps {
+  export interface AppointmentLayerProps extends BaseView.AppointmentLayerProps {
   }
-  export interface CellData extends VerticalView.CellData {
+  export interface CellData extends BaseView.CellData {
   }
-  export interface DayScaleCellProps extends VerticalView.DayScaleCellProps {
+  export interface DayScaleCellProps extends BaseView.DayScaleCellProps {
   }
-  export interface DayScaleEmptyCellProps extends VerticalView.DayScaleEmptyCellProps {
+  export interface DayScaleEmptyCellProps extends BaseView.DayScaleEmptyCellProps {
   }
-  export interface DayScaleLayoutProps extends VerticalView.DayScaleLayoutProps {
+  export interface DayScaleLayoutProps extends BaseView.DayScaleLayoutProps {
   }
-  export interface LayoutProps extends VerticalView.LayoutProps {
+  export interface LayoutProps extends BaseView.LayoutProps {
   }
-  export interface RowProps extends VerticalView.RowProps {
+  export interface RowProps extends BaseView.RowProps {
   }
-  export interface TimeScaleLabelProps extends VerticalView.TimeScaleLabelProps {
+  export interface TimeScaleLabelProps extends BaseView.TimeScaleLabelProps {
   }
-  export interface TimeScaleLayoutProps extends VerticalView.TimeScaleLayoutProps {
+  export interface TimeScaleLayoutProps extends BaseView.TimeScaleLayoutProps {
   }
-  export interface TimeTableCellProps extends VerticalView.TimeTableCellProps {
+  export interface TimeTableCellProps extends BaseView.TimeTableCellProps {
   }
-  export interface TimeTableLayoutProps extends VerticalView.TimeTableLayoutProps {
+  export interface TimeTableLayoutProps extends BaseView.TimeTableLayoutProps {
   }
 }
 

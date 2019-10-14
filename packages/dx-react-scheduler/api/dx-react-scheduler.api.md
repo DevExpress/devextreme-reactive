@@ -787,7 +787,7 @@ export namespace VerticalView {
     children?: React.ReactNode;
   }
   export interface TimeScaleLabelProps {
-    time: Date;
+    time?: Date;
   }
   export interface TimeScaleLayoutProps {
     cellsData: VerticalView.CellData[][];

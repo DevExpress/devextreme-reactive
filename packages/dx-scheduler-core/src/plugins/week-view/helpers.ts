@@ -12,18 +12,18 @@ export const sliceAppointmentByDay: PureComputed<
   if (start.isSame(end, 'day')) return [appointment];
 
   const minDuration = cellDuration / 2;
-  const isLeftShorted = start.clone().endOf('day').diff(start, 'minutes') < minDuration;
-  const isRightShorted = end.clone().diff(end.clone().startOf('day'), 'minutes') < minDuration;
+  const isShortOnFirstDay = start.clone().endOf('day').diff(start, 'minutes') < minDuration;
+  const isShortOnSecondDay = end.clone().diff(end.clone().startOf('day'), 'minutes') < minDuration;
 
   return [
-    isLeftShorted ? {
+    isShortOnFirstDay ? {
       start: start.clone().endOf('day').add(-minDuration, 'minutes'),
       end: start.clone().endOf('day'),
       dataItem,
     } : {
       start, end: start.clone().endOf('day'), dataItem,
     },
-    isRightShorted ? {
+    isShortOnSecondDay ? {
       start: end.clone().startOf('day'),
       end: end.clone().startOf('day').add(minDuration, 'minutes'),
       dataItem,
@@ -68,16 +68,16 @@ export const reduceAppointmentByDayBounds: ReduceAppointmentByDayBoundsFn = (
     .seconds(dayEnd.seconds());
 
   const minDuration = cellDuration / 2;
-  const isLeftShorted = endDayTime.clone().diff(appointment.start, 'minutes') < minDuration;
-  const isRightShorted = appointment.end.clone().diff(startDayTime, 'minutes') < minDuration;
+  const isShortOnFirstDay = endDayTime.clone().diff(appointment.start, 'minutes') < minDuration;
+  const isShortOnSecondDay = appointment.end.clone().diff(startDayTime, 'minutes') < minDuration;
 
-  if (isLeftShorted) {
+  if (isShortOnFirstDay) {
     return {
       ...appointment, start: endDayTime.clone().add(-minDuration, 'minutes'), end: endDayTime,
     };
   }
 
-  if (isRightShorted) {
+  if (isShortOnSecondDay) {
     return {
       ...appointment, start: startDayTime, end: startDayTime.clone().add(minDuration, 'minutes'),
     };

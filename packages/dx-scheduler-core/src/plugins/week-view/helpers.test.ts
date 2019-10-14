@@ -41,7 +41,7 @@ describe('Week view helpers', () => {
         expect(slicedAppointments[0].end.format())
           .toEqual(moment('2018-06-27 11:00').format());
       });
-      it('should correct slice left short appointment', () => {
+      it('should correct slice a short-on-first-day appointment', () => {
         const slicedAppointments = sliceAppointmentByDay({
           start: moment('2018-06-27T23:55'),
           end: moment('2018-06-28T00:30'),
@@ -59,7 +59,7 @@ describe('Week view helpers', () => {
         expect(slicedAppointments[1].end.format())
           .toEqual(moment('2018-06-28T00:30').format());
       });
-      it('should correct slice right short appointment', () => {
+      it('should correct slice a short-on-second-day short appointment', () => {
         const slicedAppointments = sliceAppointmentByDay({
           start: moment('2018-06-27T23:00'),
           end: moment('2018-06-28T00:05'),
@@ -77,7 +77,7 @@ describe('Week view helpers', () => {
         expect(slicedAppointments[1].end.format())
           .toEqual(moment('2018-06-28T00:15').format());
       });
-      it('should correct slice left and right short appointment', () => {
+      it('should correct slice short-on-first-and-second-day appointment', () => {
         const slicedAppointments = sliceAppointmentByDay({
           start: moment('2018-06-27T23:55'),
           end: moment('2018-06-28T00:05'),
@@ -166,64 +166,64 @@ describe('Week view helpers', () => {
 
     describe('#reduceAppointmentByDayBounds', () => {
       const cellDuration = 30;
-      it('should crop appointment start', () => {
-        const appointemnt = reduceAppointmentByDayBounds(
+      it('should cut appointment start', () => {
+        const appointment = reduceAppointmentByDayBounds(
           { start: moment('2018-07-12T04:00'), end: moment('2018-07-12T11:00') },
           '2018-07-12T10:00', '2018-07-12T15:00', cellDuration,
         );
-        expect(appointemnt.start.format())
+        expect(appointment.start.format())
           .toBe(moment('2018-07-12T10:00').format());
-        expect(appointemnt.end.format())
+        expect(appointment.end.format())
           .toBe(moment('2018-07-12T11:00').format());
       });
-      it('should crop appointment start and end', () => {
-        const appointemnt = reduceAppointmentByDayBounds(
+      it('should cut appointment start and end', () => {
+        const appointment = reduceAppointmentByDayBounds(
           { start: moment('2018-07-12T03:00'), end: moment('2018-07-12T11:00') },
           '2018-07-12T04:00', '2018-07-12T07:00', cellDuration,
         );
-        expect(appointemnt.start.format())
+        expect(appointment.start.format())
           .toBe(moment('2018-07-12T04:00').format());
-        expect(appointemnt.end.format())
+        expect(appointment.end.format())
           .toBe(moment('2018-07-12T07:00').format());
       });
-      it('should crop apoitnment end', () => {
-        const appointemnt = reduceAppointmentByDayBounds(
+      it('should cut appointment end', () => {
+        const appointment = reduceAppointmentByDayBounds(
           { start: moment('2018-07-12T03:00'), end: moment('2018-07-12T11:00') },
           '2018-07-12T02:00', '2018-07-12T07:00', cellDuration,
         );
-        expect(appointemnt.start.format())
+        expect(appointment.start.format())
           .toBe(moment('2018-07-12T03:00').format());
-        expect(appointemnt.end.format())
+        expect(appointment.end.format())
           .toBe(moment('2018-07-12T07:00').format());
       });
-      it('should not crop appointment', () => {
-        const appointemnt = reduceAppointmentByDayBounds(
+      it('should not cut appointment', () => {
+        const appointment = reduceAppointmentByDayBounds(
           { start: moment('2018-07-12T03:00'), end: moment('2018-07-12T11:00') },
           '2018-07-12T02:00', '2018-07-12T15:00', cellDuration,
         );
-        expect(appointemnt.start.format())
+        expect(appointment.start.format())
           .toBe(moment('2018-07-12T03:00').format());
-        expect(appointemnt.end.format())
+        expect(appointment.end.format())
           .toBe(moment('2018-07-12T11:00').format());
       });
-      it('should crop left short appointment', () => {
-        const appointemnt = reduceAppointmentByDayBounds(
+      it('should cut a short-on-first-day appointment', () => {
+        const appointment = reduceAppointmentByDayBounds(
           { start: moment('2018-07-12T01:20'), end: moment('2018-07-12T02:05') },
           '2018-07-12T02:00', '2018-07-12T04:00', cellDuration,
         );
-        expect(appointemnt.start.format())
+        expect(appointment.start.format())
           .toBe(moment('2018-07-12T02:00').format());
-        expect(appointemnt.end.format())
+        expect(appointment.end.format())
           .toBe(moment('2018-07-12T02:15').format());
       });
-      it('should crop right short appointment', () => {
-        const appointemnt = reduceAppointmentByDayBounds(
+      it('should cut short-on-second-day appointment', () => {
+        const appointment = reduceAppointmentByDayBounds(
           { start: moment('2018-07-12T03:55'), end: moment('2018-07-12T05:00') },
           '2018-07-12T02:00', '2018-07-12T04:00', cellDuration,
         );
-        expect(appointemnt.start.format())
+        expect(appointment.start.format())
           .toBe(moment('2018-07-12T03:45:00').format());
-        expect(appointemnt.end.format())
+        expect(appointment.end.format())
           .toBe(moment('2018-07-12T04:00').format());
       });
     });

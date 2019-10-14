@@ -25,7 +25,6 @@ export default () => (
       <DayView
         startDayHour={9.5}
         endDayHour={13.5}
-        cellDuration={30}
       />
       <Appointments />
     </Scheduler>

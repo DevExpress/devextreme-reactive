@@ -9,12 +9,13 @@ export const Layout = React.memo(({
   confirm,
   getMessage,
   isDeleting,
+  appointmentData,
   ...restProps
 }) => (
   <div
     {...restProps}
   >
-    <DialogTitle>{getMessage(isDeleting ? 'confirmDeleteMeesage' : 'confirmCancelMessage')}</DialogTitle>
+    <DialogTitle>{getMessage(isDeleting ? 'confirmDeleteMessage' : 'confirmCancelMessage')}</DialogTitle>
     <DialogActions>
       <Button onClick={handleClose} title={getMessage('cancelButton')} />
       <Button
@@ -32,6 +33,15 @@ Layout.propTypes = {
   confirm: PropTypes.func,
   getMessage: PropTypes.func,
   isDeleting: PropTypes.bool,
+  appointmentData: PropTypes.shape({
+    title: PropTypes.string,
+    startDate: PropTypes.instanceOf(Date),
+    endDate: PropTypes.instanceOf(Date),
+    rRule: PropTypes.string,
+    notes: PropTypes.string,
+    additionalInformation: PropTypes.string,
+    allDay: PropTypes.bool,
+  }),
 };
 
 Layout.defaultProps = {
@@ -39,4 +49,5 @@ Layout.defaultProps = {
   confirm: () => undefined,
   getMessage: () => undefined,
   isDeleting: false,
+  appointmentData: { startDate: new Date(), endDate: new Date() },
 };

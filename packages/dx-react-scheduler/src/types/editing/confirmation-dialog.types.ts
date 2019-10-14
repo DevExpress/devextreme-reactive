@@ -5,6 +5,8 @@ export namespace ConfirmationDialog {
   export interface LayoutProps {
     /** 'true' if the appointment is being deleted or 'false' if it is being edited. */
     isDeleting: boolean;
+    /** The appointment's data. */
+    appointmentData?: AppointmentModel;
     /** A component that renders the dialog's buttons. */
     buttonComponent: React.ComponentType<ConfirmationDialog.ButtonProps>;
     /** A function that closes the dialog. */
@@ -44,7 +46,7 @@ export namespace ConfirmationDialog {
     /** The Cancel button's text. */
     cancelButton?: string;
     /** The delete confirmation dialog text. */
-    confirmDeleteMeesage?: string;
+    confirmDeleteMessage?: string;
     /** The cancel confirmation dialog text. */
     confirmCancelMessage?: string;
   }
@@ -66,11 +68,3 @@ export interface ConfirmationDialogProps {
   /** An object that contains localized messages. */
   messages?: ConfirmationDialog.LocalizationMessages;
 }
-
-/** @internal */
-export type ConfirmationDialogState = {
-  isOpen: boolean;
-  caller: string;
-  actionType: string | undefined;
-  appointmentData: AppointmentModel | {};
-};

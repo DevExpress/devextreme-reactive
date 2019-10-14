@@ -8,13 +8,13 @@ import {
   Action,
 } from '@devexpress/dx-react-core';
 import { ConfirmationDialogProps } from '../types/editing/confirmation-dialog.types';
-import { APPOINTMENT_FORM, callActionIfExists } from '@devexpress/dx-scheduler-core';
+import { APPOINTMENT_FORM, callActionIfExists, AppointmentModel } from '@devexpress/dx-scheduler-core';
 
 const defaultMessages = {
   discardButton: 'Discard',
   deleteButton: 'Delete',
   cancelButton: 'Cancel',
-  confirmDeleteMeesage: 'Are you sure you want to delete this appointment?',
+  confirmDeleteMessage: 'Are you sure you want to delete this appointment?',
   confirmCancelMessage: 'Discard unsaved changes?',
 };
 
@@ -128,6 +128,7 @@ const ConfirmationDialogBase: React.SFC<ConfirmationDialogProps> & {components: 
                   confirm={confirm}
                   getMessage={getMessage}
                   isDeleting={actionType === ACTION_TYPES.DELETE}
+                  appointmentData={appointmentData as AppointmentModel}
                 />
               </Overlay>
             );
@@ -150,7 +151,8 @@ ConfirmationDialogBase.defaultProps = {
   doNotOpenOnCancel: false,
 };
 
-/** A plugin that renders the Scheduler's button which sets the current date to today's date. */
+// tslint:disable-next-line: max-line-length
+/** A plugin that renders the dialog which allows users to confirm or to discard delete and cancel appointment actions. */
 export const ConfirmationDialog: React.ComponentType<
   ConfirmationDialogProps
 > = ConfirmationDialogBase;

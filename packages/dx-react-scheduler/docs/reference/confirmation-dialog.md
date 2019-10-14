@@ -1,6 +1,6 @@
 # ConfirmationDialog Plugin Reference
 
-A plugin that renders the dialog that allows users to confirm or to discard delete and cancel appointment actions.
+A plugin that renders the dialog which allows users to confirm or to discard delete and cancel appointment actions.
 
 ## Import
 
@@ -42,6 +42,7 @@ Properties passed to a component that renders the dialog's layout.
 Field | Type | Description
 ------|------|------------
 isDeleting | boolean | **true** if the appointment is being deleted or **false** if it is being edited.
+appointmentData? | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment's data.
 buttonComponent | ComponentType&lt;[ConfirmationDialog.ButtonProps](#confirmationdialogbuttonprops)&gt; | A component that renders the dialog's buttons.
 handleClose | () => void | A function that closes the dialog.
 confirm | () => void | A function that confirms changes.
@@ -74,7 +75,7 @@ Field | Type | Default | Description
 discardButton? | string | `Discard` | The Discard button's text.
 deleteButton? | string | `Delete` | The Delete button's text.
 cancelButton? | string | `Cancel` | The Cancel button's text.
-confirmDeleteMeesage? | string | `Are you sure you want to delete this appointment?` | The delete confirmation dialog text.
+confirmDeleteMessage? | string | `Are you sure you want to delete this appointment?` | The delete confirmation dialog text.
 confirmCancelMessage? | string | `Discard unsaved changes?` | The cancel confirmation dialog text.
 
 ## Plugin Components

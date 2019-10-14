@@ -65,7 +65,7 @@ describe('ConfirmationDialog', () => {
       tree.update();
 
       expect(defaultProps.getMessage)
-        .toBeCalledWith('confirmDeleteMeesage');
+        .toBeCalledWith('confirmDeleteMessage');
       expect(defaultProps.getMessage)
         .toBeCalledWith('deleteButton');
     });

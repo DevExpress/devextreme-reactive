@@ -932,5 +932,39 @@
         ]
       }
     ]
+  },
+  "react/common": {
+    "docs": [
+      {
+        "title": "Common Concepts",
+        "items": [
+          {
+            "title": "Optimize performance",
+            "path": "/react/common/docs/guides/performance-optimization/"
+          },
+          {
+            "title": "Create a Custom Theme",
+            "path": "/react/common/docs/guides/custom-theme/"
+          }
+        ]
+      },
+      {
+        "title": "Related Docs",
+        "items": [
+          {
+            "title": "React Core",
+            "path": "/react/core/docs/guides/fundamentals/"
+          },
+          {
+            "title": "React Chart",
+            "path": "/react/chart/docs/guides/getting-started/"
+          },
+          {
+            "title": "React Grid",
+            "path": "/react/grid/docs/guides/getting-started/"
+          }
+        ]
+      }
+    ]
   }
 }

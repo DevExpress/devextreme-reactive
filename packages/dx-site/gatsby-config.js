@@ -61,6 +61,14 @@ module.exports = {
         path: path.join(__dirname, '../dx-react-scheduler/docs/'),
       },
     },
+    // React common docs
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'react/common|docs',
+        path: path.join(__dirname, '../dx-react-common/docs/'),
+      },
+    },
     {
       resolve: 'gatsby-transformer-remark',
       options: {

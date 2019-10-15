@@ -1,46 +1,159 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { ViewState } from '@devexpress/dx-react-scheduler';
-import { orange, red, green } from '@material-ui/core/colors';
+import { indigo, blue, teal } from '@material-ui/core/colors';
 import {
   Scheduler, DayView, Appointments, MonthView, Toolbar, DateNavigator, ViewSwitcher, TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import { withStyles } from '@material-ui/core';
+import { withStyles, Theme, createStyles } from '@material-ui/core';
 import classNames from 'clsx';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import { appointments } from '../../../demo-data/month-appointments';
 import { WithStyles } from '@material-ui/styles';
 
-const styles = ({ palette }) => ({
-  toolbarRoot: {
-    backgroundColor: fade(palette.primary[400], 0.04),
+export const appointments = [
+  {
+    title: 'Prepare 2015 Marketing Plan',
+    startDate: new Date(2018, 5, 25, 13, 0),
+    endDate: new Date(2018, 5, 25, 13, 30),
+    priority: 1,
+    location: 'Room 3',
+  }, {
+    title: 'Brochure Design Review',
+    startDate: new Date(2018, 5, 28, 14, 10),
+    endDate: new Date(2018, 5, 28, 15, 30),
+    priority: 3,
+    location: 'Room 1',
+  },
+  {
+    title: 'Website Re-Design Plan',
+    startDate: new Date(2018, 5, 29, 9, 30),
+    endDate: new Date(2018, 5, 29, 11, 30),
+    priority: 1,
+    location: 'Room 3',
+  }, {
+    title: 'Book Flights to San Fran for Sales Trip',
+    startDate: new Date(2018, 6, 2, 12, 0),
+    endDate: new Date(2018, 6, 2, 13, 0),
+    priority: 2,
+    location: 'Room 2',
+  }, {
+    title: 'Install New Router in Dev Room',
+    startDate: new Date(2018, 6, 2, 14, 30),
+    endDate: new Date(2018, 6, 2, 15, 30),
+    priority: 1,
+    location: 'Room 3',
+  }, {
+    title: 'Approve Personal Computer Upgrade Plan',
+    startDate: new Date(2018, 6, 4, 10, 0),
+    endDate: new Date(2018, 6, 4, 11, 0),
+    priority: 3,
+    location: 'Room 1',
+  }, {
+    title: 'Final Budget Review',
+    startDate: new Date(2018, 6, 6, 12, 0),
+    endDate: new Date(2018, 6, 6, 13, 35),
+    priority: 3,
+    location: 'Room 1',
+  }, {
+    title: 'New Brochures',
+    startDate: new Date(2018, 6, 6, 14, 30),
+    endDate: new Date(2018, 6, 6, 15, 45),
+    priority: 1,
+    location: 'Room 3',
+  }, {
+    title: 'Install New Database',
+    startDate: new Date(2018, 6, 10, 9, 45),
+    endDate: new Date(2018, 6, 10, 11, 15),
+    priority: 2,
+    location: 'Room 2',
+  }, {
+    title: 'Approve New Online Marketing Strategy',
+    startDate: new Date(2018, 6, 12, 12, 0),
+    endDate: new Date(2018, 6, 12, 14, 0),
+    priority: 2,
+    location: 'Room 2',
+  }, {
+    title: 'Upgrade Personal Computers',
+    startDate: new Date(2018, 6, 16, 15, 15),
+    endDate: new Date(2018, 6, 16, 16, 30),
+    priority: 1,
+    location: 'Room 3',
+  }, {
+    title: 'Customer Workshop',
+    startDate: new Date(2018, 6, 18, 11, 0),
+    endDate: new Date(2018, 6, 18, 12, 0),
+    priority: 3,
+    location: 'Room 1',
+  }, {
+    title: 'Prepare 2015 Marketing Plan',
+    startDate: new Date(2018, 6, 20, 11, 0),
+    endDate: new Date(2018, 6, 20, 13, 30),
+    priority: 1,
+    location: 'Room 3',
+  },
+  {
+    title: 'New Brochures',
+    startDate: new Date(2018, 6, 23, 14, 30),
+    endDate: new Date(2018, 6, 23, 15, 45),
+    priority: 1,
+    location: 'Room 3',
+  }, {
+    title: 'Install New Database',
+    startDate: new Date(2018, 6, 23, 9, 45),
+    endDate: new Date(2018, 6, 23, 11, 15),
+    priority: 2,
+    location: 'Room 2',
+  }, {
+    title: 'Approve New Online Marketing Strategy',
+    startDate: new Date(2018, 6, 26, 12, 0),
+    endDate: new Date(2018, 6, 26, 14, 0),
+    priority: 3,
+    location: 'Room 1',
+  }, {
+    title: 'Upgrade Personal Computers',
+    startDate: new Date(2018, 6, 31, 15, 15),
+    endDate: new Date(2018, 6, 31, 16, 30),
+    priority: 1,
+    location: 'Room 3',
+  }, {
+    title: 'Install New Database',
+    startDate: new Date(2018, 6, 31, 9, 45),
+    endDate: new Date(2018, 6, 31, 11, 15),
+    priority: 2,
+    location: 'Room 2',
+  },
+];
+
+const styles = ({ palette }: Theme) => createStyles({
+  appointment: {
+    borderRadius: 0,
   },
   firstRoomAppointment: {
-    backgroundColor: green[400],
+    backgroundColor: indigo[300],
     '&:hover': {
-      backgroundColor: green[500],
+      backgroundColor: indigo[400],
     },
   },
   secondRoomAppointment: {
-    backgroundColor: orange[400],
+    backgroundColor: blue[300],
     '&:hover': {
-      backgroundColor: orange[500],
+      backgroundColor: blue[400],
     },
   },
   thirdRoomAppointment: {
-    backgroundColor: red[400],
+    backgroundColor: teal[300],
     '&:hover': {
-      backgroundColor: red[500],
+      backgroundColor: teal[400],
     },
   },
   highPriorityAppointment: {
-    borderLeft: '5px solid red',
+    borderLeft: `4px solid ${teal[500]}`,
   },
   middlePriorityAppointment: {
-    borderLeft: '5px solid yellow',
+    borderLeft: `4px solid ${blue[500]}`,
   },
   lowPriorityAppointment: {
-    borderLeft: '5px solid green',
+    borderLeft: `4px solid ${indigo[500]}`,
   },
   weekEndCell: {
     backgroundColor: fade(palette.action.disabledBackground, 0.04),
@@ -54,34 +167,28 @@ const styles = ({ palette }) => ({
   weekEndDayScaleCell: {
     backgroundColor: fade(palette.action.disabledBackground, 0.06),
   },
+  text: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+  container: {
+    width: '100%',
+    lineHeight: 1.2,
+  },
+  image: {
+    paddingRight: '4px',
+  },
 });
 
 type AppointmentProps = Appointments.AppointmentProps & WithStyles<typeof styles>;
-type ToolbarRootProps = Toolbar.RootProps & WithStyles<typeof styles>;
+type AppointmentContentProps = Appointments.AppointmentContentProps & WithStyles<typeof styles>;
 type TimeTableCellProps = MonthView.TimeTableCellProps & WithStyles<typeof styles>;
 type DayScaleCellProps = MonthView.DayScaleCellProps & WithStyles<typeof styles>;
 
 const isWeekEnd = (date: Date): boolean => date.getDay() === 0 || date.getDay() === 6;
 
-const Appointment = withStyles(styles)(({
-  classes, data, ...restProps
-}: AppointmentProps) => {
-  return (
-    <Appointments.Appointment
-      {...restProps}
-      className={classNames({
-        [classes.firstRoomAppointment]: data.location === 'Room 1',
-        [classes.secondRoomAppointment]: data.location === 'Room 2',
-        [classes.thirdRoomAppointment]: data.location === 'Room 3',
-        [classes.highPriorityAppointment]: data.priority === 1,
-        [classes.middlePriorityAppointment]: data.priority === 2,
-        [classes.lowPriorityAppointment]: data.priority === 3,
-      })}
-      data={data}
-    />
-  );
-
-});
+const defaultCurrentDate = new Date(2018, 6, 2, 11, 15);
 
 const DayScaleCell = withStyles(styles)(({
   startDate, classes, ...restProps
@@ -111,40 +218,70 @@ const TimeTableCell = withStyles(styles)((
   );
 });
 
-const ToolbarRoot = withStyles(styles)((
-  { classes, children, ...restProps }: ToolbarRootProps) => {
+const Appointment = withStyles(styles)(({
+  classes, data, ...restProps
+}: AppointmentProps) => {
+
   return (
-    <Toolbar.Root {...restProps} className={classes.toolbarRoot}>
-      {children}
-    </Toolbar.Root>
+    <Appointments.Appointment
+      {...restProps}
+      className={classNames({
+        [classes.firstRoomAppointment]: data.location === 'Room 1',
+        [classes.secondRoomAppointment]: data.location === 'Room 2',
+        [classes.thirdRoomAppointment]: data.location === 'Room 3',
+        [classes.highPriorityAppointment]: data.priority === 1,
+        [classes.middlePriorityAppointment]: data.priority === 2,
+        [classes.lowPriorityAppointment]: data.priority === 3,
+        [classes.appointment]: true,
+      })}
+      data={data}
+    />
   );
 });
 
-const Demo: React.SFC = () => {
+const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({
+  classes, data, formatDate, ...restProps
+}: AppointmentContentProps) => {
+  let priority = 'low';
+  if (data.priority === 2) priority = 'middle';
+  if (data.priority === 3) priority = 'high';
+  return (
+    <Appointments.AppointmentContent {...restProps} formatDate={formatDate} data={data}>
+      <div className={classes.container}>
+        <div className={classes.text}>
+          {data.title}
+        </div>
+        <div className={classes.text}>
+          {`Priority: ${priority}`}
+        </div>
+      </div>
+    </Appointments.AppointmentContent>
+  );
+});
+
+export default () => {
   return (
     <Paper>
       <Scheduler
         data={appointments}
       >
         <ViewState
-          defaultCurrentDate={'2018-7-1'}
+          defaultCurrentDate={defaultCurrentDate}
         />
         <MonthView
-          name="Work Weeks"
           dayScaleCellComponent={DayScaleCell}
           timeTableCellComponent={TimeTableCell}
         />
-        <MonthView />
         <DayView
-          startDayHour={7}
-          endDayHour={12}
+          startDayHour={9}
+          endDayHour={17}
+          intervalCount={3}
         />
         <Appointments
           appointmentComponent={Appointment}
+          appointmentContentComponent={AppointmentContent}
         />
-        <Toolbar
-          rootComponent={ToolbarRoot}
-        />
+        <Toolbar />
         <DateNavigator />
         <ViewSwitcher />
         <TodayButton />
@@ -152,5 +289,3 @@ const Demo: React.SFC = () => {
     </Paper>
   );
 };
-
-export default Demo;

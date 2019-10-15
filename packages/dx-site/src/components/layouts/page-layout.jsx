@@ -26,7 +26,12 @@ class PageLayout extends React.PureComponent {
           links={(
             <React.Fragment>
               {isDocPage ? (<VersionLink />) : null}
-              <LandingProductLinks />
+              <LandingProductLinks
+                productInfo={[
+                  { title: 'Demos', location: `/${technologyName}/demos/` },
+                  { title: 'Docs', location: `/${technologyName}/docs/` },
+                ]}
+              />
             </React.Fragment>
           )}
         />

@@ -27,6 +27,10 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
   }
 };
 
+const getDocSection = (technology, section) => (
+  pageNavigation[technology].docs.find(item => item.title === section)
+);
+
 exports.createPages = ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions;
 
@@ -40,24 +44,25 @@ exports.createPages = ({ graphql, actions }) => {
         });
       }
       if (pageNavigation[technology].docs) {
-        if (pageNavigation[technology].docs.find(item => item.title === 'Guides')) {
+        const guides = getDocSection(technology, 'Guides');
+        if (guides) {
           createRedirect({
             fromPath: `/${technology}/docs/`,
-            toPath: pageNavigation[technology].docs.find(item => item.title === 'Guides').items[0].path,
+            toPath: guides.items[0].path,
             redirectInBrowser: true,
           });
-        }
-        if (pageNavigation[technology].docs.find(item => item.title === 'Guides')) {
           createRedirect({
             fromPath: `/${technology}/docs/guides/`,
-            toPath: pageNavigation[technology].docs.find(item => item.title === 'Guides').items[0].path,
+            toPath: guides.items[0].path,
             redirectInBrowser: true,
           });
         }
-        if (pageNavigation[technology].docs.find(item => item.title === 'API Reference')) {
+
+        const reference = getDocSection(technology, 'API Reference');
+        if (reference) {
           createRedirect({
             fromPath: `/${technology}/docs/reference/`,
-            toPath: pageNavigation[technology].docs.find(item => item.title === 'API Reference').items[0].path,
+            toPath: reference.items[0].path,
             redirectInBrowser: true,
           });
         }
@@ -139,18 +144,25 @@ exports.onPostBuild = () => {
         });
       }
       if (pageNavigation[technology].docs) {
-        createRedirectPage({
-          fromPath: `/${technology}/docs/`,
-          toPath: pageNavigation[technology].docs.find(item => item.title === 'Guides').items[0].path,
-        });
-        createRedirectPage({
-          fromPath: `/${technology}/docs/guides/`,
-          toPath: pageNavigation[technology].docs.find(item => item.title === 'Guides').items[0].path,
-        });
-        createRedirectPage({
-          fromPath: `/${technology}/docs/reference/`,
-          toPath: pageNavigation[technology].docs.find(item => item.title === 'API Reference').items[0].path,
-        });
+        const guides = getDocSection(technology, 'Guides');
+        if (guides) {
+          createRedirectPage({
+            fromPath: `/${technology}/docs/`,
+            toPath: guides.items[0].path,
+          });
+          createRedirectPage({
+            fromPath: `/${technology}/docs/guides/`,
+            toPath: guides.items[0].path,
+          });
+        }
+
+        const reference = getDocSection(technology, 'API Reference');
+        if (reference) {
+          createRedirectPage({
+            fromPath: `/${technology}/docs/reference/`,
+            toPath: reference.items[0].path,
+          });
+        }
       }
     });
 };

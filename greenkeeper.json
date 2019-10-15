@@ -22,11 +22,7 @@
         "packages/dx-react-scheduler-material-ui/package.json",
         "packages/dx-react-scheduler/package.json",
         "packages/dx-scheduler-core/package.json",
-        "packages/dx-testing/package.json",
-        "packages/dx-vue-core/package.json",
-        "packages/dx-vue-grid-bootstrap4/package.json",
-        "packages/dx-vue-grid-demos/package.json",
-        "packages/dx-vue-grid/package.json"
+        "packages/dx-testing/package.json"
       ]
     }
   }

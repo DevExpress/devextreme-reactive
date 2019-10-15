@@ -70,6 +70,13 @@
       "pre-push": "yarn build:ts && yarn update-api"
     }
   },
+  "greenkeeper": {
+    "prTitles": {
+      "initialSubgroupPR": "build: update dependencies for ${group}",
+      "basicPR": "build: update ${dependency} to the latest",
+      "groupPR": "build: update ${dependency} in group ${group} to the latest"
+    }
+  },
   "workspaces": [
     "packages/*"
   ]

@@ -3,27 +3,15 @@ import * as PropTypes from 'prop-types';
 import Link from 'gatsby-link';
 import styles from './product.module.scss';
 
-const titles = {
-  react: '',
-  'react/core': 'Core',
-  'react/grid': 'Grid',
-  'react/chart': 'Chart',
-  'react/scheduler': 'Scheduler',
-};
-
-const RootLink = ({ children }) => (
-  <Link to="/" className={styles.product}>
-    {children}
-  </Link>
-);
-
 const capitalizeFirstLetter = str => str.charAt(0).toUpperCase() + str.slice(1);
 
 const Separator = () => <span className={styles.prefix}>/</span>;
 
+const disableLinks = ['react', 'common'];
+
 const ProductBreadcrumbs = ({ link, section }) => {
   const breadcrumbs = [
-    ...(link.split('/').filter(l => l !== 'react') || []),
+    ...(link.split('/').filter(l => !disableLinks.includes(l)) || []),
     ...(section ? [section] : []),
   ].map(b => ({
     link: `react/${b}`,
@@ -50,6 +38,12 @@ const ProductBreadcrumbs = ({ link, section }) => {
   );
 }
 
+const RootLink = ({ children }) => (
+  <Link to="/" className={styles.product}>
+    {children}
+  </Link>
+);
+
 const Product = ({ link, section }) => (
   <>
     <div>
@@ -70,6 +64,11 @@ const Product = ({ link, section }) => (
 
 Product.propTypes = {
   link: PropTypes.string.isRequired,
+  section: PropTypes.string,
+};
+
+Product.defaultProps = {
+  section: null,
 };
 
 export default Product;

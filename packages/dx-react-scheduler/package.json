@@ -55,7 +55,7 @@
     "@devexpress/dx-testing": "2.1.2",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.9.0",
-    "core-js": "^3.2.1",
+    "core-js": "^3.3.2",
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "enzyme-to-json": "^3.4.2",
@@ -63,12 +63,12 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-test-renderer": "^16.10.2",
-    "rollup": "^1.23.1",
+    "rollup": "^1.24.0",
     "rollup-plugin-license": "^0.12.1",
     "ts-jest": "^24.1.0",
     "tslint": "^5.20.0",
     "tslint-config-airbnb": "^5.11.2",
-    "typescript": "3.6.3"
+    "typescript": "3.6.4"
   },
   "dependencies": {
     "@devexpress/dx-scheduler-core": "2.1.2"

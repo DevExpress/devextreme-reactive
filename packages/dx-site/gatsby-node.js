@@ -40,21 +40,27 @@ exports.createPages = ({ graphql, actions }) => {
         });
       }
       if (pageNavigation[technology].docs) {
-        createRedirect({
-          fromPath: `/${technology}/docs/`,
-          toPath: pageNavigation[technology].docs.find(item => item.title === 'Guides').items[0].path,
-          redirectInBrowser: true,
-        });
-        createRedirect({
-          fromPath: `/${technology}/docs/guides/`,
-          toPath: pageNavigation[technology].docs.find(item => item.title === 'Guides').items[0].path,
-          redirectInBrowser: true,
-        });
-        createRedirect({
-          fromPath: `/${technology}/docs/reference/`,
-          toPath: pageNavigation[technology].docs.find(item => item.title === 'API Reference').items[0].path,
-          redirectInBrowser: true,
-        });
+        if (pageNavigation[technology].docs.find(item => item.title === 'Guides')) {
+          createRedirect({
+            fromPath: `/${technology}/docs/`,
+            toPath: pageNavigation[technology].docs.find(item => item.title === 'Guides').items[0].path,
+            redirectInBrowser: true,
+          });
+        }
+        if (pageNavigation[technology].docs.find(item => item.title === 'Guides')) {
+          createRedirect({
+            fromPath: `/${technology}/docs/guides/`,
+            toPath: pageNavigation[technology].docs.find(item => item.title === 'Guides').items[0].path,
+            redirectInBrowser: true,
+          });
+        }
+        if (pageNavigation[technology].docs.find(item => item.title === 'API Reference')) {
+          createRedirect({
+            fromPath: `/${technology}/docs/reference/`,
+            toPath: pageNavigation[technology].docs.find(item => item.title === 'API Reference').items[0].path,
+            redirectInBrowser: true,
+          });
+        }
       }
     });
 

@@ -43,7 +43,7 @@ export default ({ title, section, children }) => (
   <Layout>
     <Helmet title={title} />
     <Header
-      logo={<ProductLogo link="react" />}
+      logo={<ProductLogo link="react" section={section} />}
       links={<LandingProductLinks />}
     />
 

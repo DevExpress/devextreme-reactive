@@ -22,7 +22,7 @@ class PageLayout extends React.PureComponent {
     return (
       <Layout>
         <Header
-          logo={<ProductLogo link={technologyName} />}
+          logo={<ProductLogo link={technologyName} section={sectionName} />}
           links={(
             <React.Fragment>
               {isDocPage ? (<VersionLink />) : null}

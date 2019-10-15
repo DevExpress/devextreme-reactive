@@ -12,21 +12,36 @@ const titles = {
 };
 
 const RootLink = ({ children }) => (
-  <Link to="/" className={`${styles.product}`}>
+  <Link to="/" className={styles.product}>
     {children}
   </Link>
 );
 
-const ProductBreadcrumbs = ({ link }) => (
-  link !== 'react' ? (
-    <>
-      <span className={styles.prefix}>/ React /</span>
-      <span className={styles.main}>{titles[link]}</span>
-    </>
-  ) : null
-);
+const capitalizeFirst = str => str.charAt(0).toUpperCase() + str.slice(1);
 
-const Product = ({ link }) => (
+const ProductBreadcrumbs = ({ link, section }) => {
+  const breadcrumbs = [
+    ...(link.split('/').filter(l => l !== 'react') || []),
+    ...(section ? [section] : []),
+  ].map(b => ({ link: `react/${b}`, text: capitalizeFirst(b) }));
+
+  if (!breadcrumbs.length) return null;
+
+  const { text: activeText } = breadcrumbs.pop();
+
+  return (
+    <>
+      {breadcrumbs.map(({ link, text }) => (
+        <Link to={link}>
+          <span className={styles.main}>/ {text}</span>
+        </Link>
+      ))}
+      <span className={styles.prefix}>/ {activeText}</span>
+    </>
+  );
+}
+
+const Product = ({ link, section }) => (
   <>
     <div>
       <RootLink>
@@ -34,7 +49,7 @@ const Product = ({ link }) => (
           DevExtreme
         </span>
       </RootLink>
-      <ProductBreadcrumbs link={link} />
+      <ProductBreadcrumbs link={link} section={section} />
     </div>
     <RootLink>
       <span className={styles.name}>

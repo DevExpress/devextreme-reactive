@@ -1,32 +1,46 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import brown from '@material-ui/core/colors/brown';
 import { ViewState } from '@devexpress/dx-react-scheduler';
+import { orange, red, green } from '@material-ui/core/colors';
 import {
   Scheduler, DayView, Appointments, MonthView, Toolbar, DateNavigator, ViewSwitcher, TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { withStyles } from '@material-ui/core';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import { appointments } from '../../../demo-data/month-appointments-with-types';
+import { appointments } from '../../../demo-data/month-appointments';
 import { WithStyles } from '@material-ui/styles';
-import { amber } from '@material-ui/core/colors';
 
 const styles = ({ palette }) => ({
   toolbarRoot: {
     backgroundColor: fade(palette.primary[400], 0.04),
   },
-  personalAppointment: {
-    backgroundColor: amber[200],
+  firstRoomAppointment: {
+    backgroundColor: green[400],
     '&:hover': {
-      backgroundColor: amber[300],
+      backgroundColor: green[500],
     },
   },
-  nonPersonalAppoinment: {
-    backgroundColor: brown[700],
+  secondRoomAppointment: {
+    backgroundColor: orange[400],
     '&:hover': {
-      backgroundColor: brown[800],
+      backgroundColor: orange[500],
     },
+  },
+  thirdRoomAppointment: {
+    backgroundColor: red[400],
+    '&:hover': {
+      backgroundColor: red[500],
+    },
+  },
+  highPriorityAppointment: {
+    borderLeft: '5px solid red',
+  },
+  middlePriorityAppointment: {
+    borderLeft: '5px solid yellow',
+  },
+  lowPriorityAppointment: {
+    borderLeft: '5px solid green',
   },
   weekEndCell: {
     backgroundColor: fade(palette.action.disabledBackground, 0.04),
@@ -52,25 +66,26 @@ const isWeekEnd = (date: Date): boolean => date.getDay() === 0 || date.getDay() 
 const Appointment = withStyles(styles)(({
   classes, data, ...restProps
 }: AppointmentProps) => {
-  if (data.type === 'personal') {
-    return (
-      <Appointments.Appointment
-        {...restProps}
-        className={classes.personalAppointment}
-        data={data}
-      />
-    );
-  }
   return (
     <Appointments.Appointment
-      className={classes.nonPersonalAppoinment}
-      data={data}
       {...restProps}
+      className={classNames({
+        [classes.firstRoomAppointment]: data.location === 'Room 1',
+        [classes.secondRoomAppointment]: data.location === 'Room 2',
+        [classes.thirdRoomAppointment]: data.location === 'Room 3',
+        [classes.highPriorityAppointment]: data.priority === 1,
+        [classes.middlePriorityAppointment]: data.priority === 2,
+        [classes.lowPriorityAppointment]: data.priority === 3,
+      })}
+      data={data}
     />
   );
+
 });
 
-const DayScaleCell = withStyles(styles)(({ startDate, classes, ...restProps }: DayScaleCellProps) => {
+const DayScaleCell = withStyles(styles)(({
+  startDate, classes, ...restProps
+}: DayScaleCellProps) => {
   return (
     <MonthView.DayScaleCell
       className={classNames({
@@ -83,7 +98,7 @@ const DayScaleCell = withStyles(styles)(({ startDate, classes, ...restProps }: D
 });
 
 const TimeTableCell = withStyles(styles)((
-  { startDate, classes, ...restProps }: TimeTableCellProps
+  { startDate, classes, ...restProps }: TimeTableCellProps,
 ) => {
   return (
     <MonthView.TimeTableCell
@@ -112,7 +127,7 @@ const Demo: React.SFC = () => {
         data={appointments}
       >
         <ViewState
-          defaultCurrentDate={'2018-10-31'}
+          defaultCurrentDate={'2018-7-1'}
         />
         <MonthView
           name="Work Weeks"

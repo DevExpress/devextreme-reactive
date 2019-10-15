@@ -17,13 +17,18 @@ const RootLink = ({ children }) => (
   </Link>
 );
 
-const capitalizeFirst = str => str.charAt(0).toUpperCase() + str.slice(1);
+const capitalizeFirstLetter = str => str.charAt(0).toUpperCase() + str.slice(1);
+
+const Separator = () => <span className={styles.prefix}>/</span>;
 
 const ProductBreadcrumbs = ({ link, section }) => {
   const breadcrumbs = [
     ...(link.split('/').filter(l => l !== 'react') || []),
     ...(section ? [section] : []),
-  ].map(b => ({ link: `react/${b}`, text: capitalizeFirst(b) }));
+  ].map(b => ({
+    link: `react/${b}`,
+    text: capitalizeFirstLetter(b),
+  }));
 
   if (!breadcrumbs.length) return null;
 
@@ -32,11 +37,15 @@ const ProductBreadcrumbs = ({ link, section }) => {
   return (
     <>
       {breadcrumbs.map(({ link, text }) => (
-        <Link to={link}>
-          <span className={styles.main}>/ {text}</span>
-        </Link>
+        <>
+          <Separator />
+          <Link to={link}>
+            <span className={styles.prefix}>{text}</span>
+          </Link>
+        </>
       ))}
-      <span className={styles.prefix}>/ {activeText}</span>
+      <Separator />
+      <span className={styles.main}>{activeText}</span>
     </>
   );
 }

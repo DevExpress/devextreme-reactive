@@ -192,56 +192,49 @@ const defaultCurrentDate = new Date(2018, 6, 2, 11, 15);
 
 const DayScaleCell = withStyles(styles)(({
   startDate, classes, ...restProps
-}: DayScaleCellProps) => {
-  return (
-    <MonthView.DayScaleCell
-      className={classNames({
-        [classes.weekEndDayScaleCell]: isWeekEnd(startDate),
-      })}
-      startDate={startDate}
-      {...restProps}
-    />
-  );
-});
+}: DayScaleCellProps) => (
+  <MonthView.DayScaleCell
+    className={classNames({
+      [classes.weekEndDayScaleCell]: isWeekEnd(startDate),
+    })}
+    startDate={startDate}
+    {...restProps}
+  />
+));
 
 const TimeTableCell = withStyles(styles)((
   { startDate, classes, ...restProps }: TimeTableCellProps,
-) => {
-  return (
-    <MonthView.TimeTableCell
-      className={classNames({
-        [classes.weekEndCell]: isWeekEnd(startDate!),
-      })}
-      startDate={startDate}
-      {...restProps}
-    />
-  );
-});
+) => (
+  <MonthView.TimeTableCell
+    className={classNames({
+      [classes.weekEndCell]: isWeekEnd(startDate!),
+    })}
+    startDate={startDate}
+    {...restProps}
+  />
+));
 
 const Appointment = withStyles(styles)(({
   classes, data, ...restProps
-}: AppointmentProps) => {
-
-  return (
-    <Appointments.Appointment
-      {...restProps}
-      className={classNames({
-        [classes.firstRoomAppointment]: data.location === 'Room 1',
-        [classes.secondRoomAppointment]: data.location === 'Room 2',
-        [classes.thirdRoomAppointment]: data.location === 'Room 3',
-        [classes.highPriorityAppointment]: data.priority === 1,
-        [classes.middlePriorityAppointment]: data.priority === 2,
-        [classes.lowPriorityAppointment]: data.priority === 3,
-        [classes.appointment]: true,
-      })}
-      data={data}
-    />
-  );
-});
+}: AppointmentProps) => (
+  <Appointments.Appointment
+    {...restProps}
+    className={classNames({
+      [classes.firstRoomAppointment]: data.location === 'Room 1',
+      [classes.secondRoomAppointment]: data.location === 'Room 2',
+      [classes.thirdRoomAppointment]: data.location === 'Room 3',
+      [classes.highPriorityAppointment]: data.priority === 1,
+      [classes.middlePriorityAppointment]: data.priority === 2,
+      [classes.lowPriorityAppointment]: data.priority === 3,
+      [classes.appointment]: true,
+    })}
+    data={data}
+  />
+));
 
 const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({
   classes, data, formatDate, ...restProps
-}: AppointmentContentProps) => {
+}: AppointmentContentProps) =>  {
   let priority = 'low';
   if (data.priority === 2) priority = 'middle';
   if (data.priority === 3) priority = 'high';

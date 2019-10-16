@@ -230,14 +230,14 @@ const Appointment = withStyles(styles)(({
 
 // #FOLD_BLOCK
 const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({
-  classes, data, formatDate, ...restProps
+  classes, data, ...restProps
   // #FOLD_BLOCK
 }: AppointmentContentProps) =>  {
   let priority = 'low';
   if (data.priority === 2) priority = 'middle';
   if (data.priority === 3) priority = 'high';
   return (
-    <Appointments.AppointmentContent {...restProps} formatDate={formatDate} data={data}>
+    <Appointments.AppointmentContent {...restProps} data={data}>
       <div className={classes.container}>
         <div className={classes.text}>
           {data.title}

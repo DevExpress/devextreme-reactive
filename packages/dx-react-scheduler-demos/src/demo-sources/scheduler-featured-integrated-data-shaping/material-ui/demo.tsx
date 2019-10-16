@@ -1,16 +1,16 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
 import { ViewState } from '@devexpress/dx-react-scheduler';
-import { indigo, blue, teal } from '@material-ui/core/colors';
 import {
   Scheduler, DayView, Appointments, MonthView, Toolbar, DateNavigator, ViewSwitcher, TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { withStyles, Theme, createStyles } from '@material-ui/core';
-import classNames from 'clsx';
+import { indigo, blue, teal } from '@material-ui/core/colors';
+import Paper from '@material-ui/core/Paper';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { WithStyles } from '@material-ui/styles';
+import classNames from 'clsx';
 
-export const appointments = [
+const appointments = [
   {
     title: 'Prepare 2015 Marketing Plan',
     startDate: new Date(2018, 5, 25, 13, 0),

@@ -8,6 +8,7 @@
   "commitMessagePrefix": "chore:",
   "timezone": "America/Los_Angeles",
   "rangeStrategy": "update-lockfile",
+  "schedule": ["after 1pm and before 5am on Tuesday every two weeks"],
   "packageRules": [
     {
       "packagePatterns": [ "^(?!@material-ui|react|@types|typescript).*" ],

@@ -29,7 +29,7 @@
     "rimraf": "^3.0.0",
     "run-sequence": "^2.2.1",
     "semver": "^6.3.0",
-    "start-server-and-test": "^1.10.4",
+    "start-server-and-test": "^1.10.6",
     "testcafe": "^1.5.0",
     "testcafe-reporter-xunit": "^2.1.0",
     "typescript": "3.6.3"

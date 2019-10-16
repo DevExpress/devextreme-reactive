@@ -31,7 +31,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 
 import { tasks, priorities } from '../../../demo-data/tasks';

@@ -299,11 +299,11 @@ export type GridColumnExtension = {
 
 // @public (undocumented)
 export interface GridProps {
-    columns: Column[];
+    columns: ReadonlyArray<Column>;
     getCellValue?: (row: any, columnName: string) => any;
     getRowId?: (row: any) => number | string;
     rootComponent: React.ComponentType<Grid.RootProps>;
-    rows: any[];
+    rows: ReadonlyArray<any>;
 }
 
 // @public

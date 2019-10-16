@@ -1,7 +1,7 @@
 import { withPatchedProps } from '@devexpress/dx-react-chart';
 import { darken, fade, lighten } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import classNames from 'clsx';
 
 export const getBorderColor = theme => (
   theme.palette.type === 'light'

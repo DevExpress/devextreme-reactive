@@ -11,7 +11,7 @@ import {
   getAvailableRecurrenceOptions,
   handleChangeFrequency,
 } from '@devexpress/dx-scheduler-core';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import { Daily as DailyLayout } from './layouts/daily';
 import { Weekly as WeeklyLayout } from './layouts/weekly';
 import { Monthly as MonthlyLayout } from './layouts/monthly';

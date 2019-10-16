@@ -348,7 +348,7 @@ export namespace DayView {
 
 // @public (undocumented)
 export namespace DayView {
-  export type TimeScaleCellProps = DayView_2.TimeScaleCellProps;
+  export type TimeScaleLabelProps = DayView_2.TimeScaleLabelProps;
 }
 
 // @public (undocumented)
@@ -390,7 +390,7 @@ export namespace DayView {
 export const DayView: React.ComponentType<DayViewProps> & {
   Layout: React.ComponentType<DayView_2.LayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   TimeScaleLayout: React.ComponentType<DayView_2.TimeScaleLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  TimeScaleCell: React.ComponentType<DayView_2.TimeScaleCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  TimeScaleLabel: React.ComponentType<DayView_2.TimeScaleLabelProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleLayout: React.ComponentType<DayView_2.DayScaleLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleCell: React.ComponentType<DayView_2.DayScaleCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleEmptyCell: React.ComponentType<DayView_2.DayScaleEmptyCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
@@ -414,9 +414,8 @@ export interface DayViewProps {
   layoutComponent?: React.ComponentType<DayView_2.LayoutProps>;
   name?: string;
   startDayHour?: number;
-  timeScaleCellComponent?: React.ComponentType<DayView_2.TimeScaleCellProps>;
+  timeScaleLabelComponent?: React.ComponentType<DayView_2.TimeScaleLabelProps>;
   timeScaleLayoutComponent?: React.ComponentType<DayView_2.TimeScaleLayoutProps>;
-  timeScaleRowComponent?: React.ComponentType<DayView_2.RowProps>;
   timeTableCellComponent?: React.ComponentType<DayView_2.TimeTableCellProps>;
   timeTableLayoutComponent?: React.ComponentType<DayView_2.TimeTableLayoutProps>;
   timeTableRowComponent?: React.ComponentType<DayView_2.RowProps>;
@@ -645,7 +644,7 @@ export namespace WeekView {
 
 // @public (undocumented)
 export namespace WeekView {
-  export type TimeScaleCellProps = WeekView_2.TimeScaleCellProps;
+  export type TimeScaleLabelProps = WeekView_2.TimeScaleLabelProps;
 }
 
 // @public (undocumented)
@@ -687,7 +686,7 @@ export namespace WeekView {
 export const WeekView: React.ComponentType<WeekViewProps> & {
   Layout: React.ComponentType<WeekView_2.LayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   TimeScaleLayout: React.ComponentType<WeekView_2.TimeScaleLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  TimeScaleCell: React.ComponentType<WeekView_2.TimeScaleCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  TimeScaleLabel: React.ComponentType<WeekView_2.TimeScaleLabelProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleLayout: React.ComponentType<WeekView_2.DayScaleLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleCell: React.ComponentType<WeekView_2.DayScaleCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleEmptyCell: React.ComponentType<WeekView_2.DayScaleEmptyCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
@@ -712,9 +711,8 @@ export interface WeekViewProps {
   layoutComponent?: React.ComponentType<WeekView_2.LayoutProps>;
   name?: string;
   startDayHour?: number;
-  timeScaleCellComponent?: React.ComponentType<WeekView_2.TimeScaleCellProps>;
+  timeScaleLabelComponent?: React.ComponentType<WeekView_2.TimeScaleLabelProps>;
   timeScaleLayoutComponent?: React.ComponentType<WeekView_2.TimeScaleLayoutProps>;
-  timeScaleRowComponent?: React.ComponentType<WeekView_2.RowProps>;
   timeTableCellComponent?: React.ComponentType<WeekView_2.TimeTableCellProps>;
   timeTableLayoutComponent?: React.ComponentType<WeekView_2.TimeTableLayoutProps>;
   timeTableRowComponent?: React.ComponentType<WeekView_2.RowProps>;

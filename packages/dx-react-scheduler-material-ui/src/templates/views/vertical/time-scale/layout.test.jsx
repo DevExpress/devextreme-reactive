@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Layout } from './layout';
+import { TicksLayout } from './ticks-layout';
 
-describe('Vertical view TimePanel', () => {
+describe('Vertical view TimeScale', () => {
   let classes;
   let shallow;
   const defaultProps = {
@@ -16,8 +17,9 @@ describe('Vertical view TimePanel', () => {
         { startDate: new Date(2018, 6, 8, 18), endDate: new Date(2018, 6, 7, 20) },
       ],
     ],
-    cellComponent: () => undefined,
-    rowComponent: () => undefined,
+    labelComponent: jest.fn(),
+    rowComponent: jest.fn(),
+    tickCellComponent: jest.fn(),
     formatDate: () => undefined,
   };
   beforeAll(() => {
@@ -25,40 +27,41 @@ describe('Vertical view TimePanel', () => {
     shallow = createShallow({ dive: true });
   });
   describe('Layout', () => {
-    it('should pass className to the root element', () => {
-      const tree = shallow((
-        <Layout {...defaultProps} className="custom-class" />
-      ));
-
-      expect(tree.find('.custom-class'))
-        .toBeTruthy();
-      expect(tree.find(`.${classes.table}`))
-        .toBeTruthy();
-    });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
         <Layout {...defaultProps} data={{ a: 1 }} />
       ));
 
-      expect(tree.find(`.${classes.table}`).props().data)
+      expect(tree.props().data)
         .toMatchObject({ a: 1 });
     });
-    it('should render array of days', () => {
-      const cell = () => <td />;
-      /* eslint-disable-next-line */
-      const row = ({ children }) => <tr>{children}</tr>;
+    it('should render its components properly', () => {
       const tree = shallow((
-        <Layout
-          {...defaultProps}
-          cellComponent={cell}
-          rowComponent={row}
-        />
+        <Layout {...defaultProps} />
       ));
 
-      expect(tree.find(cell))
+      expect(tree.find(`.${classes.timeScale}`).exists())
+        .toBeTruthy();
+      expect(tree.find(`.${classes.ticks}`).exists())
+        .toBeTruthy();
+    });
+    it('should render array of time labels and TicksLayout', () => {
+      const tree = shallow((
+        <Layout {...defaultProps} />
+      ));
+
+      const labels = tree.find(defaultProps.labelComponent);
+      expect(labels)
+        .toHaveLength(3);
+      expect(labels.at(0).prop('time'))
+        .toBeUndefined();
+      expect(labels.at(1).prop('time'))
+        .toEqual(expect.any(Date));
+      expect(labels.at(2).prop('time'))
+        .toBeUndefined();
+
+      expect(tree.find(TicksLayout))
         .toHaveLength(1);
-      expect(tree.find(row))
-        .toHaveLength(2);
     });
   });
 });

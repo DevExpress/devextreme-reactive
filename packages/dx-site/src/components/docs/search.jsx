@@ -13,8 +13,8 @@ const Search = ({ technologyName, sectionName }) => {
       apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
       indexName: 'devextreme_reactive',
       inputSelector: '#docsearch',
-      algoliaOptions: { facetFilters: [`techno:${techno}`, `tool:${tool}`] },
-      debug: false,
+      algoliaOptions: { facetFilters: [`techno:${techno}`] },
+      debug: true,
     });
   });
 

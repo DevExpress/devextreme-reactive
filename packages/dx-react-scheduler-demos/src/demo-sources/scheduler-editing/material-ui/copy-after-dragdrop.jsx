@@ -19,14 +19,10 @@ export default class Demo extends React.PureComponent {
     this.state = {
       data: appointments,
       currentDate: '2018-06-27',
-      deletedAppointmentId: null,
-      confirmationVisibility: false,
       isShiftPressed: false,
     };
 
     this.commitChanges = this.commitChanges.bind(this);
-    this.toggleConfirmationVisibility = this.toggleConfirmationVisibility.bind(this);
-    this.commitDeletedAppointment = this.commitDeletedAppointment.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
   }
@@ -53,24 +49,6 @@ export default class Demo extends React.PureComponent {
     }
   }
 
-  setDeletedAppointmentId(deletedAppointmentId) {
-    this.setState({ deletedAppointmentId });
-  }
-
-  toggleConfirmationVisibility() {
-    const { confirmationVisibility } = this.state;
-    this.setState({ confirmationVisibility: !confirmationVisibility });
-  }
-
-  commitDeletedAppointment() {
-    this.setState((state) => {
-      const { data, deletedAppointmentId } = state;
-      const nextData = data.filter(appointment => appointment.id !== deletedAppointmentId);
-      this.toggleConfirmationVisibility();
-      return { data: nextData, deletedAppointmentId: null };
-    });
-  }
-
   commitChanges({ added, changed, deleted }) {
     this.setState((state) => {
       let { data } = state;
@@ -95,8 +73,7 @@ export default class Demo extends React.PureComponent {
         }
       }
       if (deleted !== undefined) {
-        this.setDeletedAppointmentId(deleted);
-        this.toggleConfirmationVisibility();
+        data = data.filter(appointment => appointment.id !== deleted);
       }
       return { data };
     });

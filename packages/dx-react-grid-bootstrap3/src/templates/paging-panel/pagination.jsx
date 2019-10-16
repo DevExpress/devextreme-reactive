@@ -86,8 +86,23 @@ export const Pagination = ({
         }}
         className="pull-right hidden-xs"
       >
+        <PaginationBS3.Item
+          disabled={currentPage === 0}
+          onClick={() => onCurrentPageChange(currentPage - 1)}
+          aria-label="Previous"
+        >
+          &laquo;
+        </PaginationBS3.Item>
         {renderPageButtons(currentPage, totalPages, onCurrentPageChange)}
+        <PaginationBS3.Item
+          disabled={currentPage === totalPages - 1 || totalCount === 0}
+          onClick={() => onCurrentPageChange(currentPage + 1)}
+          aria-label="Next"
+        >
+          &raquo;
+        </PaginationBS3.Item>
       </PaginationBS3>
+
       <PagerBS3
         className="pull-right visible-xs"
         style={{ margin: 0 }}

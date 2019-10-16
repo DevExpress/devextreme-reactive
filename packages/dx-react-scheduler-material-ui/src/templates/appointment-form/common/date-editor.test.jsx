@@ -68,7 +68,6 @@ describe('AppointmentForm common', () => {
       const tree = shallow((
         <DateEditor
           {...defaultProps}
-          readOnly
         />
       ));
 

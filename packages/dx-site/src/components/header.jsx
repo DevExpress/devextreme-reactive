@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import ProductLogo from './logos/product';
 
 import styles from './header.module.scss';
 
@@ -35,14 +36,14 @@ class Header extends React.Component {
   }
 
   render() {
-    const { logo, links, addon, page } = this.props;
+    const { links, addon, page } = this.props;
     const { menuVisibility } = this.state;
     return (
       <header className={`${styles.header} ${styles[page]} `}>
         <div className={`container ${styles.headerContainer}`}>
           <div className="row align-items-center">
             <div className="col-auto mr-auto">
-              {logo}
+              <ProductLogo />
             </div>
             <div className="col-auto">
               <button
@@ -87,7 +88,6 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  logo: PropTypes.node.isRequired,
   links: PropTypes.node,
   addon: PropTypes.node,
 };

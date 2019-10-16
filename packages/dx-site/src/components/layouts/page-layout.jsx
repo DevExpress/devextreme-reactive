@@ -5,7 +5,6 @@ import * as PropTypes from 'prop-types';
 import Link from 'gatsby-link';
 import Layout from './layout';
 import Header from '../header';
-import ProductLogo from '../logos/product';
 import LeftMenu from '../docs/left-menu';
 import VersionLink from '../docs/version-link';
 import ContainerWithMenu from './container-with-menu';
@@ -22,7 +21,6 @@ class PageLayout extends React.PureComponent {
     return (
       <Layout>
         <Header
-          logo={<ProductLogo link={technologyName} section={sectionName} />}
           links={(
             <React.Fragment>
               {isDocPage ? (<VersionLink />) : null}

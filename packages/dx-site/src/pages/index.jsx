@@ -2,7 +2,6 @@ import * as React from 'react';
 import Helmet from 'react-helmet';
 import Layout from '../components/layouts/layout';
 import Header from '../components/header';
-import ProductLogo from '../components/logos/product';
 import LandingHeaderAddon from '../components/landing/header-addon';
 import LandingAlternatedBackground from '../components/landing/alternated-background';
 import LandingLayout from '../components/landing/layout';
@@ -74,7 +73,6 @@ const IndexPage = () => (
     <Helmet title="React Components" />
     <LandingAlternatedBackground>
       <Header
-        logo={<ProductLogo link="react" />}
         links={<LandingProductLinks />}
         addon={(
           <LandingHeaderAddon

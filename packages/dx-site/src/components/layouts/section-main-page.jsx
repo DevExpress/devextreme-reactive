@@ -5,7 +5,6 @@ import Helmet from 'react-helmet';
 import Link from 'gatsby-link';
 import Layout from './layout';
 import Header from '../header';
-import ProductLogo from '../logos/product';
 import LandingProductLinks from '../landing/product-links';
 import LeftMenu from '../docs/left-menu';
 import ContainerWithMenu from './container-with-menu';
@@ -43,7 +42,6 @@ export default ({ title, section, children }) => (
   <Layout>
     <Helmet title={title} />
     <Header
-      logo={<ProductLogo link="react" section={section} />}
       links={<LandingProductLinks />}
     />
 

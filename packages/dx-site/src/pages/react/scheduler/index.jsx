@@ -2,7 +2,6 @@ import * as React from 'react';
 import Helmet from 'react-helmet';
 import Layout from '../../../components/layouts/layout';
 import Header from '../../../components/header';
-import ProductLogo from '../../../components/logos/product';
 import LandingHeaderAddon from '../../../components/landing/header-addon';
 import LandingChessBoardLayoutList from '../../../components/landing/features-list';
 import LandingMaintainence from '../../../components/landing/maintainence';
@@ -98,7 +97,6 @@ const IndexPage = () => (
     <Helmet title="React Scheduler" />
     <Header
       page="productPage"
-      logo={<ProductLogo link="react/scheduler" />}
       links={<LandingProductLinks />}
       addon={(
         <LandingHeaderAddon

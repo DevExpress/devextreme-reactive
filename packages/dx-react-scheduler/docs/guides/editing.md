@@ -60,12 +60,6 @@ You can also use the `onAddedAppointmentChange` event to initialize a new appoin
 
 .embedded-demo({ "path": "scheduler-editing/controlled", "showThemeSelector": true })
 
-## Preprocess Changes
-
-To validate user input or prevent user actions, add the [ConfirmationDialog](../reference/confirmation-dialog.md) plugin. If added, the dialog opens on delete an appointment and cancel appointment changes events. If you do not want the dialog to open on cancel appointment changes events, use `doNotOpenOnCancel` property, as shown in the demo below. To not open the dialog on delete events, use `doNotOpenOnDeete` property.
-
-.embedded-demo({ "path": "scheduler-editing/delete-confirmation", "showThemeSelector": true })
-
 ## Drag-and-Drop Editing
 
 Add the [DragDropProvider](../reference/drag-drop-provider.md) plugin to enable users to drag and drop appointments. Use its `allowDrag` and `allowResize` properties to disallow dragging and resizing specific appointments. You can also add the `EditRecurrenceMenu` plugin to allow users to specify how recurrent appointments are edited.
@@ -73,6 +67,14 @@ Add the [DragDropProvider](../reference/drag-drop-provider.md) plugin to enable 
 .embedded-demo({ "path": "scheduler-editing/drag-drop", "showThemeSelector": true })
 
 The [DragDropProvider](../reference/drag-drop-provider.md) plugin also allows you to customize the appointment being dragged (via the `draftAppointmentComponent` property) and its copy displayed in its previous location (via `sourceAppointmentComponent`). In addition, it provides the `resizeComponent` property that allows you to customize the handles used to resize appointments.
+
+## Preprocess Changes
+
+To validate user input or prevent user actions, handle the `EditingState` plugin’s `onCommitChanges` event.
+
+For example, you can make a copy of an appointment after a drag-drop event with a key is pressed (the `shift` key is used in the demo below). To do that, check the `changed` parameter’s value in the `commitChanges` handler:
+
+.embedded-demo({ "path": "scheduler-editing/copy-after-dragdrop", "showThemeSelector": true })
 
 ## Customize the Appointment Form
 

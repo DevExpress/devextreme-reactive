@@ -41,5 +41,5 @@ export const RECURRENCE_EDIT_SCOPE = {
   CURRENT: 'current',
 };
 
-export const HIDE_APPOINTMENT_FORM_ACTION_NAME = 'hideAppointmentForm';
-export const HIDE_APPOINTMENT_TOOLTIP_ACTION_NAME = 'hideAppointmentTooltip';
+export const TOGGLE_APPOINTMENT_FORM_VISIBILITY = 'toggleAppointmentFormVisibility';
+export const TOGGLE_APPOINTMENT_TOOLTIP_VISIBILITY = 'toggleAppointmentTooltipVisibility';

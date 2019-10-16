@@ -159,7 +159,7 @@ describe('ConfirmationDialog', () => {
 
     // open the dialog
     executeComputedAction(tree, (computedActions) => {
-      computedActions.openCancelConfirmationDialog('appointmentForm');
+      computedActions.openCancelConfirmationDialog('toggleAppointmentFormVisibility');
     });
 
     tree.update();
@@ -186,7 +186,7 @@ describe('ConfirmationDialog', () => {
 
     // open the dialog
     executeComputedAction(tree, (computedActions) => {
-      computedActions.openCancelConfirmationDialog('appointmentTooltip');
+      computedActions.openCancelConfirmationDialog('toggleAppointmentTooltipVisibility');
     });
 
     tree.update();
@@ -214,7 +214,7 @@ describe('ConfirmationDialog', () => {
     // open the dialog
     executeComputedAction(tree, (computedActions) => {
       computedActions.openDeleteConfirmationDialog({
-        pluginName: 'appointmentForm', appointmentData: {},
+        hideActionName: 'toggleAppointmentFormVisibility', appointmentData: {},
       });
     });
 
@@ -246,7 +246,7 @@ describe('ConfirmationDialog', () => {
     // open the dialog
     executeComputedAction(tree, (computedActions) => {
       computedActions.openDeleteConfirmationDialog({
-        pluginName: 'appointmentTooltip', appointmentData: {},
+        hideActionName: 'toggleAppointmentTooltipVisibility', appointmentData: {},
       });
     });
 
@@ -279,7 +279,7 @@ describe('ConfirmationDialog', () => {
 
     // open the dialog
     executeComputedAction(tree, (computedActions) => {
-      computedActions.openCancelConfirmationDialog('appointmentForm');
+      computedActions.openCancelConfirmationDialog('toggleAppointmentFormVisibility');
     });
 
     tree.update();
@@ -307,7 +307,7 @@ describe('ConfirmationDialog', () => {
 
     // open the dialog
     executeComputedAction(tree, (computedActions) => {
-      computedActions.openCancelConfirmationDialog('appointmentTooltip');
+      computedActions.openCancelConfirmationDialog('toggleAppointmentTooltipVisibility');
     });
 
     tree.update();
@@ -334,7 +334,7 @@ describe('ConfirmationDialog', () => {
 
     executeComputedAction(tree, (computedActions) => {
       computedActions.openDeleteConfirmationDialog({
-        pluginName: 'appointmentForm', appointmentData: {},
+        hideActionName: 'toggleAppointmentFormVisibility', appointmentData: {},
       });
     });
 
@@ -364,7 +364,7 @@ describe('ConfirmationDialog', () => {
 
     executeComputedAction(tree, (computedActions) => {
       computedActions.openDeleteConfirmationDialog({
-        pluginName: 'appointmentTooltip', appointmentData: {},
+        hideActionName: 'toggleAppointmentTooltipVisibility', appointmentData: {},
       });
     });
 
@@ -396,7 +396,7 @@ describe('ConfirmationDialog', () => {
     ));
 
     executeComputedAction(tree, (computedActions) => {
-      computedActions.openCancelConfirmationDialog('appointmentForm');
+      computedActions.openCancelConfirmationDialog('toggleAppointmentFormVisibility');
     });
 
     tree.update();
@@ -424,7 +424,7 @@ describe('ConfirmationDialog', () => {
 
     executeComputedAction(tree, (computedActions) => {
       computedActions.openDeleteConfirmationDialog({
-        pluginName: 'appointmentForm', appointmentData: {},
+        hideActionName: 'toggleAppointmentFormVisibility', appointmentData: {},
       });
     });
 

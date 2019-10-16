@@ -27,7 +27,7 @@ const DateEditorBase = React.memo(({
   const memoizedChangeHandler = React.useCallback(
     nextDate => nextDate && onValueChange(nextDate.toDate()), [onValueChange],
   );
-  const dateFormat = excludeTime ? 'DD/MM/YYYY' : 'DD/MM/YYYY HH:mm A';
+  const dateFormat = excludeTime ? 'DD/MM/YYYY' : 'DD/MM/YYYY hh:mm A';
 
   return (
     <MuiPickersUtilsProvider utils={MomentUtils} locale={locale}>

@@ -15,7 +15,7 @@ import {
   DELETE_COMMAND_BUTTON,
   setAppointmentMeta,
   AppointmentMeta,
-  APPOINTMENT_TOOLTIP,
+  HIDE_APPOINTMENT_TOOLTIP_ACTION_NAME,
 } from '@devexpress/dx-scheduler-core';
 
 import { AppointmentTooltipProps, AppointmentTooltipState, Appointments } from '../types';
@@ -114,7 +114,8 @@ class AppointmentTooltipBase extends React.PureComponent<
         name="AppointmentTooltip"
         dependencies={pluginDependencies}
       >
-        <Action name="toggleAppointmentTooltipVisibility" action={this.toggleVisibility} />
+        <Action name={HIDE_APPOINTMENT_TOOLTIP_ACTION_NAME} action={this.toggleVisibility} />
+
         <Template name="timeTable">
           <TemplatePlaceholder />
           <TemplateConnector>
@@ -126,7 +127,9 @@ class AppointmentTooltipBase extends React.PureComponent<
               const onDeleteButtonClick = () => {
                 if (openDeleteConfirmationDialog) {
                   openDeleteConfirmationDialog({
-                    pluginName: APPOINTMENT_TOOLTIP, appointmentData: appointmentMeta.data });
+                    hideActionName: HIDE_APPOINTMENT_TOOLTIP_ACTION_NAME,
+                    appointmentData: appointmentMeta.data,
+                  });
                 } else {
                   this.toggleVisibility();
                   finishDeleteAppointment(appointmentMeta.data);

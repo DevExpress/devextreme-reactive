@@ -8,7 +8,7 @@ import {
   Action,
 } from '@devexpress/dx-react-core';
 import { ConfirmationDialogProps } from '../types/editing/confirmation-dialog.types';
-import { APPOINTMENT_FORM, callActionIfExists, AppointmentModel } from '@devexpress/dx-scheduler-core';
+import { callActionIfExists, AppointmentModel } from '@devexpress/dx-scheduler-core';
 
 const defaultMessages = {
   discardButton: 'Discard',
@@ -30,43 +30,42 @@ const ACTION_TYPES = {
 const ConfirmationDialogBase: React.SFC<ConfirmationDialogProps> & {components: {
   overlayComponent: string, containerComponent: string,
   layoutComponent: string, buttonComponent: string,
-}} = (props) => {
-  const {
-    messages, overlayComponent: Overlay, layoutComponent: Layout, containerComponent: Container,
-    buttonComponent, doNotOpenOnDelete, doNotOpenOnCancel,
-  } = props;
+}} = ({
+  messages, overlayComponent: Overlay, layoutComponent: Layout, containerComponent: Container,
+  buttonComponent, doNotOpenOnDelete, doNotOpenOnCancel,
+}) => {
   const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
   const modalContainer = React.useRef();
 
   const [isOpen, setIsOpen] = React.useState(false);
   const [actionType, setActionType] = React.useState('');
-  const [editingPlugin, setEditingPlugin] = React.useState('');
+  const [hideActionName, setHideActionName] = React.useState('');
   const [appointmentData, setAppointmentData] = React.useState({});
 
   const toggleIsOpen = React.useCallback(() => {
     setIsOpen(!isOpen);
   }, [isOpen, setIsOpen]);
 
-  const confirmCancelChanges = React.useCallback((pluginName) => {
+  const confirmCancelChanges = React.useCallback((hideAction) => {
     toggleIsOpen();
-    setEditingPlugin(pluginName);
+    setHideActionName(hideAction);
     setActionType(ACTION_TYPES.CANCEL);
-  }, [toggleIsOpen, setEditingPlugin, setActionType]);
+  }, [toggleIsOpen, setHideActionName, setActionType]);
 
   const confirmDelete = React.useCallback(({
-    pluginName, appointmentData: changedAppointment,
+    hideActionName: hideAction, appointmentData: changedAppointment,
   }) => {
     toggleIsOpen();
-    setEditingPlugin(pluginName);
+    setHideActionName(hideAction);
     setActionType(ACTION_TYPES.DELETE);
     setAppointmentData(changedAppointment);
-  }, [toggleIsOpen, setEditingPlugin, setActionType, setAppointmentData]);
+  }, [toggleIsOpen, setHideActionName, setActionType, setAppointmentData]);
 
   const confirmAction = React.useCallback((
-    isNewAppointment, closeEditingPlugin, stopEditAppointment, finishDeleteAppointment,
+    isNewAppointment, hideEditingPlugin, stopEditAppointment, finishDeleteAppointment,
     cancelAddedAppointment, cancelChangedAppointment,
   ) => () => {
-    closeEditingPlugin();
+    hideEditingPlugin();
     toggleIsOpen();
     if (isNewAppointment) {
       callActionIfExists(cancelAddedAppointment, appointmentData);
@@ -101,19 +100,11 @@ const ConfirmationDialogBase: React.SFC<ConfirmationDialogProps> & {components: 
         <TemplateConnector>
           {({
             editingAppointment,
-          }, {
-            toggleAppointmentFormVisibility,
-            toggleAppointmentTooltipVisibility,
-            stopEditAppointment,
-            finishDeleteAppointment,
-            cancelAddedAppointment,
-            cancelChangedAppointment,
-          }) => {
-            const closeEditingPlugin = editingPlugin === APPOINTMENT_FORM ?
-              toggleAppointmentFormVisibility : toggleAppointmentTooltipVisibility;
+          }, actions) => {
             const confirm = confirmAction(
-              !editingAppointment, closeEditingPlugin, stopEditAppointment,
-              finishDeleteAppointment, cancelAddedAppointment, cancelChangedAppointment,
+              !editingAppointment, actions[hideActionName], actions.stopEditAppointment,
+              actions.finishDeleteAppointment, actions.cancelAddedAppointment,
+              actions.cancelChangedAppointment,
             );
 
             return (

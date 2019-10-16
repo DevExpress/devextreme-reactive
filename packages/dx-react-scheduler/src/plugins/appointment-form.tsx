@@ -15,7 +15,7 @@ import {
   isAllDayCell,
   callActionIfExists,
   AppointmentModel,
-  APPOINTMENT_FORM,
+  HIDE_APPOINTMENT_FORM_ACTION_NAME,
 } from '@devexpress/dx-scheduler-core';
 
 import {
@@ -178,7 +178,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
     changedAppointment, cancelAddedAppointment, cancelChangedAppointment,
   ) => () => {
     if (openCancelConfirmationDialog && Object.keys(appointmentChanges).length !== 0) {
-      openCancelConfirmationDialog(APPOINTMENT_FORM);
+      openCancelConfirmationDialog(HIDE_APPOINTMENT_FORM_ACTION_NAME);
     } else {
       if (isNew) {
         callActionIfExists(cancelAddedAppointment, appointmentChanges);
@@ -198,7 +198,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
   ) => () => {
     if (openDeleteConfirmationDialog) {
       openDeleteConfirmationDialog({
-        pluginName: APPOINTMENT_FORM, appointmentData: changedAppointment,
+        hideActionName: HIDE_APPOINTMENT_FORM_ACTION_NAME, appointmentData: changedAppointment,
       });
     } else {
       callActionIfExists(finishDeleteAppointment, appointmentData);
@@ -257,7 +257,8 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
         name="AppointmentForm"
         dependencies={pluginDependencies}
       >
-        <Action name="toggleAppointmentFormVisibility" action={this.toggleVisibility} />
+        <Action name={HIDE_APPOINTMENT_FORM_ACTION_NAME} action={this.toggleVisibility} />
+
         <Template name="schedulerRoot">
           <TemplateConnector>
             {({

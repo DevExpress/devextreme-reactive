@@ -5,12 +5,13 @@
   "statusCheckVerify": true,
   "semanticCommits": true,
   "semanticPrefix": "chore:",
+  "commitMessagePrefix": "chore:",
   "timezone": "America/Los_Angeles",
   "rangeStrategy": "update-lockfile",
   "packageRules": [
     {
-      "packagePatterns": [ "^(?!@material-ui|react|@types).*" ],
-      "groupName": "all packages"
+      "packagePatterns": [ "^(?!@material-ui|react|@types|typescript).*" ],
+      "groupName": "deps"
     },
     {
       "packagePatterns": [ "^@material-ui" ],
@@ -23,6 +24,10 @@
     {
       "packagePatterns": [ "^react" ],
       "groupName": "React"
+    },
+    {
+      "packageNames": [ "typescript" ],
+      "groupName": "TypeScript"
     }
   ],
   "ignorePaths": [".circleci"]

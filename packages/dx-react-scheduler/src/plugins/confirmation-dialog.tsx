@@ -62,10 +62,10 @@ const ConfirmationDialogBase: React.SFC<ConfirmationDialogProps> & {components: 
   }, [toggleIsOpen, setHideActionName, setActionType, setAppointmentData]);
 
   const confirmAction = React.useCallback((
-    isNewAppointment, hideEditingPlugin, stopEditAppointment, finishDeleteAppointment,
+    isNewAppointment, hideEditor, stopEditAppointment, finishDeleteAppointment,
     cancelAddedAppointment, cancelChangedAppointment,
   ) => () => {
-    hideEditingPlugin();
+    hideEditor();
     toggleIsOpen();
     if (isNewAppointment) {
       callActionIfExists(cancelAddedAppointment, appointmentData);

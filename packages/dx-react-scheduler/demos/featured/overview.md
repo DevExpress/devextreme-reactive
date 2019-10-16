@@ -1,6 +1,6 @@
 # React Scheduler Overview
 
-The DevExtreme Reactive Scheduler is a React component for scheduling and displaying appointments. Its features include:
+The DevExtreme Reactive Scheduler enables its users to schedule and display appointments. Its features include:
 
 - [Appointment editing using a popup form](../../docs/guides/editing.md)
 - [Appointment re-scheduling using drag-and-drop](../../docs/guides/editing/#drag-and-drop-editing)

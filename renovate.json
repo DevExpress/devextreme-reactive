@@ -8,8 +8,21 @@
   "timezone": "America/Los_Angeles",
   "packageRules": [
     {
-      "packagePatterns": [ "^.*" ],
+      "packagePatterns": [ "^(?!@material-ui|react|@types).*" ],
       "groupName": "all packages"
+    },
+    {
+      "packagePatterns": [ "^@material-ui" ],
+      "groupName": "Material-UI"
+    },
+    {
+      "packagePatterns": [ "^@types" ],
+      "groupName": "Types"
+    },
+    {
+      "packagePatterns": [ "^react" ],
+      "groupName": "React"
     }
-  ]
+  ],
+  "ignorePaths": ".circleci"
 }

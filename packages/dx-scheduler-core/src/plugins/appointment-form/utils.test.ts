@@ -6,7 +6,8 @@ import {
   JULY_DATE, JUNE_DATE, RRULE_REPEAT_TYPES, checkIsNaturalNumber,
 } from '@devexpress/dx-scheduler-core';
 import {
-  getDaysOfWeek, getMonths, getWeekNumberLabels, getMonthsWithOf, getCountDependingOnRecurrenceType,
+  getDaysOfWeek, getMonths, getWeekNumberLabels, getMonthsWithOf,
+  getCountDependingOnRecurrenceType, getRecurrenceInterval,
 } from './utils';
 
 describe('AppointmentForm utils', () => {
@@ -181,6 +182,16 @@ describe('AppointmentForm utils', () => {
         .toBeFalsy();
       expect(checkIsNaturalNumber(-5))
         .toBeFalsy();
+    });
+  });
+  describe('#getRecurrenceInterval', () => {
+    it('should work', () => {
+      expect(getRecurrenceInterval(3))
+        .toBe(3);
+    });
+    it('should return 1 if interval is undefined', () => {
+      expect(getRecurrenceInterval(undefined))
+        .toBe(1);
     });
   });
 });

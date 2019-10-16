@@ -6,6 +6,7 @@ import {
   getRecurrenceOptions,
   changeRecurrenceOptions,
   checkIsNaturalNumber,
+  getRecurrenceInterval,
 } from '@devexpress/dx-scheduler-core';
 import { IntervalEditor } from './interval-editor';
 
@@ -47,7 +48,7 @@ const MonthlyBase = ({
         textEditorComponent={textEditorComponent}
         labelComponent={labelComponent}
         changeRecurrenceInterval={changeRecurrenceInterval}
-        interval={recurrenceOptions.interval}
+        interval={getRecurrenceInterval(recurrenceOptions.interval)}
         readOnly={readOnly}
         {...restProps}
       />

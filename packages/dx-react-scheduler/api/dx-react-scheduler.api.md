@@ -430,6 +430,7 @@ export namespace ConfirmationDialog {
     title: string;
   }
   export interface LayoutProps {
+    appointmentData?: AppointmentModel;
     buttonComponent: React.ComponentType<ConfirmationDialog.ButtonProps>;
     confirm: () => void;
     getMessage: (messageKey: string) => string;
@@ -439,7 +440,7 @@ export namespace ConfirmationDialog {
   export interface LocalizationMessages {
     cancelButton?: string;
     confirmCancelMessage?: string;
-    confirmDeleteMeesage?: string;
+    confirmDeleteMessage?: string;
     deleteButton?: string;
     discardButton?: string;
   }

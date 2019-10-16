@@ -2,5 +2,14 @@
   "extends": [
     "config:base"
   ],
-  "statusCheckVerify": true
+  "statusCheckVerify": true,
+  "semanticCommits": true,
+  "semanticPrefix": "chore:",
+  "timezone": "America/Los_Angeles",
+  "packageRules": [
+    {
+      "packagePatterns": [ "^.*" ],
+      "groupName": "all packages"
+    }
+  ]
 }

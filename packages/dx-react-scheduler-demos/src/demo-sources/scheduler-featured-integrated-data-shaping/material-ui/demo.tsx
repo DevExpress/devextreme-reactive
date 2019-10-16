@@ -176,9 +176,6 @@ const styles = ({ palette }: Theme) => createStyles({
     width: '100%',
     lineHeight: 1.2,
   },
-  image: {
-    paddingRight: '4px',
-  },
 });
 
 type AppointmentProps = Appointments.AppointmentProps & WithStyles<typeof styles>;
@@ -187,7 +184,6 @@ type TimeTableCellProps = MonthView.TimeTableCellProps & WithStyles<typeof style
 type DayScaleCellProps = MonthView.DayScaleCellProps & WithStyles<typeof styles>;
 
 const isWeekEnd = (date: Date): boolean => date.getDay() === 0 || date.getDay() === 6;
-
 const defaultCurrentDate = new Date(2018, 6, 2, 11, 15);
 
 const DayScaleCell = withStyles(styles)(({
@@ -252,33 +248,31 @@ const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({
   );
 });
 
-export default () => {
-  return (
-    <Paper>
-      <Scheduler
-        data={appointments}
-      >
-        <ViewState
-          defaultCurrentDate={defaultCurrentDate}
-        />
-        <MonthView
-          dayScaleCellComponent={DayScaleCell}
-          timeTableCellComponent={TimeTableCell}
-        />
-        <DayView
-          startDayHour={9}
-          endDayHour={17}
-          intervalCount={3}
-        />
-        <Appointments
-          appointmentComponent={Appointment}
-          appointmentContentComponent={AppointmentContent}
-        />
-        <Toolbar />
-        <DateNavigator />
-        <ViewSwitcher />
-        <TodayButton />
-      </Scheduler>
-    </Paper>
-  );
-};
+export default () => (
+  <Paper>
+    <Scheduler
+      data={appointments}
+    >
+      <ViewState
+        defaultCurrentDate={defaultCurrentDate}
+      />
+      <MonthView
+        dayScaleCellComponent={DayScaleCell}
+        timeTableCellComponent={TimeTableCell}
+      />
+      <DayView
+        startDayHour={9}
+        endDayHour={17}
+        intervalCount={3}
+      />
+      <Appointments
+        appointmentComponent={Appointment}
+        appointmentContentComponent={AppointmentContent}
+      />
+      <Toolbar />
+      <DateNavigator />
+      <ViewSwitcher />
+      <TodayButton />
+    </Scheduler>
+  </Paper>
+);

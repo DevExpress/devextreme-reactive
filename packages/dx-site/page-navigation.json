@@ -1,865 +1,970 @@
 {
-  "docs": [
-    {
-      "title": "Overview",
-      "path": "/docs/"
-    },
-    {
-      "title": "Grid",
-      "items": [
-        {
-          "title": "Guides",
-          "items": [
-            {
-              "title": "Getting Started",
-              "path": "/react/grid/docs/guides/getting-started/"
-            },
-            {
-              "title": "Plugin Overview",
-              "path": "/react/grid/docs/guides/plugin-overview/"
-            },
-            {
-              "title": "Fundamentals",
-              "path": "/react/grid/docs/guides/fundamentals/"
-            },
-            {
-              "title": "Controlled and Uncontrolled Modes",
-              "path": "/react/grid/docs/guides/controlled-and-uncontrolled-modes/"
-            },
-            {
-              "title": "Data Accessors",
-              "path": "/react/grid/docs/guides/data-accessors/"
-            },
-            {
-              "title": "Data Formatting",
-              "path": "/react/grid/docs/guides/data-formatting/"
-            },
-            {
-              "title": "Sorting",
-              "path": "/react/grid/docs/guides/sorting/"
-            },
-            {
-              "title": "Paging",
-              "path": "/react/grid/docs/guides/paging/"
-            },
-            {
-              "title": "Filtering",
-              "path": "/react/grid/docs/guides/filtering/"
-            },
-            {
-              "title": "Searching",
-              "path": "/react/grid/docs/guides/searching/"
-            },
-            {
-              "title": "Grouping",
-              "path": "/react/grid/docs/guides/grouping/"
-            },
-            {
-              "title": "Selection",
-              "path": "/react/grid/docs/guides/selection/"
-            },
-            {
-              "title": "Editing",
-              "path": "/react/grid/docs/guides/editing/"
-            },
-            {
-              "title": "Detail Row",
-              "path": "/react/grid/docs/guides/detail-row/"
-            },
-            {
-              "title": "Column Reordering",
-              "path": "/react/grid/docs/guides/column-reordering/"
-            },
-            {
-              "title": "Column Resizing",
-              "path": "/react/grid/docs/guides/column-resizing/"
-            },
-            {
-              "title": "Column Visibility",
-              "path": "/react/grid/docs/guides/column-visibility/"
-            },
-            {
-              "title": "Banded Columns",
-              "path": "/react/grid/docs/guides/banded-columns/"
-            },
-            {
-              "title": "Fixed Columns",
-              "path": "/react/grid/docs/guides/fixed-columns/"
-            },
-            {
-              "title": "Virtual Scrolling",
-              "path": "/react/grid/docs/guides/virtual-scrolling/"
-            },
-            {
-              "title": "Lazy Loading",
-              "path": "/react/grid/docs/guides/lazy-loading/"
-            },
-            {
-              "title": "Tree Data",
-              "path": "/react/grid/docs/guides/tree-data/"
-            },
-            {
-              "title": "Summary Row",
-              "path": "/react/grid/docs/guides/summary-row/"
-            },
-            {
-              "title": "Localization",
-              "path": "/react/grid/docs/guides/localization/"
-            },
-            {
-              "title": "TypeScript Support",
-              "path": "/react/grid/docs/guides/typescript/"
-            },
-            {
-              "title": "Custom Plugin Development",
-              "path": "/react/grid/docs/guides/custom-plugin-development/"
-            }
-          ]
-        },
-        {
-          "title": "API Reference",
-          "items": [
-            {
-              "title": "Grid",
-              "path": "/react/grid/docs/reference/grid/"
-            },
-            {
-              "title": "FilteringState",
-              "path": "/react/grid/docs/reference/filtering-state/"
-            },
-            {
-              "title": "SortingState",
-              "path": "/react/grid/docs/reference/sorting-state/"
-            },
-            {
-              "title": "GroupingState",
-              "path": "/react/grid/docs/reference/grouping-state/"
-            },
-            {
-              "title": "PagingState",
-              "path": "/react/grid/docs/reference/paging-state/"
-            },
-            {
-              "title": "SearchPanel",
-              "path": "/react/grid/docs/reference/search-panel/"
-            },
-            {
-              "title": "SearchState",
-              "path": "/react/grid/docs/reference/search-state/"
-            },
-            {
-              "title": "SelectionState",
-              "path": "/react/grid/docs/reference/selection-state/"
-            },
-            {
-              "title": "EditingState",
-              "path": "/react/grid/docs/reference/editing-state/"
-            },
-            {
-              "title": "RowDetailState",
-              "path": "/react/grid/docs/reference/row-detail-state/"
-            },
-            {
-              "title": "TableColumnReordering",
-              "path": "/react/grid/docs/reference/table-column-reordering/"
-            },
-            {
-              "title": "IntegratedFiltering",
-              "path": "/react/grid/docs/reference/integrated-filtering/"
-            },
-            {
-              "title": "IntegratedSelection",
-              "path": "/react/grid/docs/reference/integrated-selection/"
-            },
-            {
-              "title": "IntegratedSorting",
-              "path": "/react/grid/docs/reference/integrated-sorting/"
-            },
-            {
-              "title": "IntegratedGrouping",
-              "path": "/react/grid/docs/reference/integrated-grouping/"
-            },
-            {
-              "title": "CustomGrouping",
-              "path": "/react/grid/docs/reference/custom-grouping/"
-            },
-            {
-              "title": "IntegratedPaging",
-              "path": "/react/grid/docs/reference/integrated-paging/"
-            },
-            {
-              "title": "Table",
-              "path": "/react/grid/docs/reference/table/"
-            },
-            {
-              "title": "VirtualTable",
-              "path": "/react/grid/docs/reference/virtual-table/"
-            },
-            {
-              "title": "TableHeaderRow",
-              "path": "/react/grid/docs/reference/table-header-row/"
-            },
-            {
-              "title": "TableSelection",
-              "path": "/react/grid/docs/reference/table-selection/"
-            },
-            {
-              "title": "TableFilterRow",
-              "path": "/react/grid/docs/reference/table-filter-row/"
-            },
-            {
-              "title": "TableRowDetail",
-              "path": "/react/grid/docs/reference/table-row-detail/"
-            },
-            {
-              "title": "TableGroupRow",
-              "path": "/react/grid/docs/reference/table-group-row/"
-            },
-            {
-              "title": "TableEditRow",
-              "path": "/react/grid/docs/reference/table-edit-row/"
-            },
-            {
-              "title": "TableEditColumn",
-              "path": "/react/grid/docs/reference/table-edit-column/"
-            },
-            {
-              "title": "TableBandHeader",
-              "path": "/react/grid/docs/reference/table-band-header/"
-            },
-            {
-              "title": "TableColumnResizing",
-              "path": "/react/grid/docs/reference/table-column-resizing/"
-            },
-            {
-              "title": "PagingPanel",
-              "path": "/react/grid/docs/reference/paging-panel/"
-            },
-            {
-              "title": "GroupingPanel",
-              "path": "/react/grid/docs/reference/grouping-panel/"
-            },
-            {
-              "title": "DragDropProvider",
-              "path": "/react/grid/docs/reference/drag-drop-provider/"
-            },
-            {
-              "title": "DataTypeProvider",
-              "path": "/react/grid/docs/reference/data-type-provider/"
-            },
-            {
-              "title": "ColumnChooser",
-              "path": "/react/grid/docs/reference/column-chooser/"
-            },
-            {
-              "title": "TableColumnVisibility",
-              "path": "/react/grid/docs/reference/table-column-visibility/"
-            },
-            {
-              "title": "Toolbar",
-              "path": "/react/grid/docs/reference/toolbar/"
-            },
-            {
-              "title": "CustomPaging",
-              "path": "/react/grid/docs/reference/custom-paging/"
-            },
-            {
-              "title": "TreeDataState",
-              "path": "/react/grid/docs/reference/tree-data-state/"
-            },
-            {
-              "title": "CustomTreeData",
-              "path": "/react/grid/docs/reference/custom-tree-data/"
-            },
-            {
-              "title": "TableTreeColumn",
-              "path": "/react/grid/docs/reference/table-tree-column/"
-            },
-            {
-              "title": "TableFixedColumns",
-              "path": "/react/grid/docs/reference/table-fixed-columns/"
-            },
-            {
-              "title": "SummaryState",
-              "path": "/react/grid/docs/reference/summary-state/"
-            },
-            {
-              "title": "IntegratedSummary",
-              "path": "/react/grid/docs/reference/integrated-summary/"
-            },
-            {
-              "title": "CustomSummary",
-              "path": "/react/grid/docs/reference/custom-summary/"
-            },
-            {
-              "title": "TableSummaryRow",
-              "path": "/react/grid/docs/reference/table-summary-row/"
-            },
-            {
-              "title": "VirtualTableState",
-              "path": "/react/grid/docs/reference/virtual-table-state/"
-            },
-            {
-              "title": "createRowCache",
-              "path": "/react/grid/docs/reference/create-row-cache/"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Scheduler",
-      "items": [
-        {
-          "title": "Guides",
-          "items": [
-            {
-              "title": "Getting Started",
-              "path": "/react/scheduler/docs/guides/getting-started/"
-            },
-            {
-              "title": "Fundamentals",
-              "path": "/react/scheduler/docs/guides/fundamentals/"
-            },
-            {
-              "title": "Views",
-              "path": "/react/scheduler/docs/guides/views/"
-            },
-            {
-              "title": "Appointments",
-              "path": "/react/scheduler/docs/guides/appointments/"
-            },
-            {
-              "title": "View Switching",
-              "path": "/react/scheduler/docs/guides/view-switching/"
-            },
-            {
-              "title": "Date Navigation",
-              "path": "/react/scheduler/docs/guides/date-navigation/"
-            },
-            {
-              "title": "Appointment Tooltip",
-              "path": "/react/scheduler/docs/guides/appointment-tooltip/"
-            },
-            {
-              "title": "Editing",
-              "path": "/react/scheduler/docs/guides/editing/"
-            },
-            {
-              "title": "Localization",
-              "path": "/react/scheduler/docs/guides/localization/"
-            },
-            {
-              "title": "TypeScript Support",
-              "path": "/react/scheduler/docs/guides/typescript/"
-            }
-          ]
-        },
-        {
-          "title": "API Reference",
-          "items": [
-            {
-              "title": "Scheduler",
-              "path": "/react/scheduler/docs/reference/scheduler/"
-            },
-            {
-              "title": "ViewState",
-              "path": "/react/scheduler/docs/reference/view-state/"
-            },
-            {
-              "title": "DayView",
-              "path": "/react/scheduler/docs/reference/day-view/"
-            },
-            {
-              "title": "WeekView",
-              "path": "/react/scheduler/docs/reference/week-view/"
-            },
-            {
-              "title": "MonthView",
-              "path": "/react/scheduler/docs/reference/month-view/"
-            },
-            {
-              "title": "Appointments",
-              "path": "/react/scheduler/docs/reference/appointments/"
-            },
-            {
-              "title": "AppointmentForm",
-              "path": "/react/scheduler/docs/reference/appointment-form/"
-            },
-            {
-              "title": "AppointmentTooltip",
-              "path": "/react/scheduler/docs/reference/appointment-tooltip/"
-            },
-            {
-              "title": "EditingState",
-              "path": "/react/scheduler/docs/reference/editing-state/"
-            },
-            {
-              "title": "DragDropProvider",
-              "path": "/react/scheduler/docs/reference/drag-drop-provider/"
-            },
-            {
-              "title": "EditRecurrenceMenu",
-              "path": "/react/scheduler/docs/reference/edit-recurrence-menu/"
-            },
-            {
-              "title": "IntegratedEditing",
-              "path": "/react/scheduler/docs/reference/integrated-editing/"
-            },
-            {
-              "title": "TodayButton",
-              "path": "/react/scheduler/docs/reference/today-button/"
-            },
-            {
-              "title": "Toolbar",
-              "path": "/react/scheduler/docs/reference/toolbar/"
-            },
-            {
-              "title": "AllDayPanel",
-              "path": "/react/scheduler/docs/reference/all-day-panel/"
-            },
-            {
-              "title": "DateNavigator",
-              "path": "/react/scheduler/docs/reference/date-navigator/"
-            },
-            {
-              "title": "ViewSwitcher",
-              "path": "/react/scheduler/docs/reference/view-switcher/"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Chart",
-      "items": [
-        {
-          "title": "Guides",
-          "items": [
-            {
-              "title": "Getting Started",
-              "path": "/react/chart/docs/guides/getting-started/"
-            },
-            {
-              "title": "Plugin Overview",
-              "path": "/react/chart/docs/guides/plugin-overview/"
-            },
-            {
-              "title": "Series",
-              "path": "/react/chart/docs/guides/series/"
-            },
-            {
-              "title": "Axes",
-              "path": "/react/chart/docs/guides/axes/"
-            },
-            {
-              "title": "Legend and Title",
-              "path": "/react/chart/docs/guides/legend_title/"
-            },
-            {
-              "title": "Stacked Series",
-              "path": "/react/chart/docs/guides/stacked-series/"
-            },
-            {
-              "title": "Palette",
-              "path": "/react/chart/docs/guides/palette/"
-            },
-            {
-              "title": "Animation",
-              "path": "/react/chart/docs/guides/animation/"
-            },
-            {
-              "title": "Hover and Selection",
-              "path": "/react/chart/docs/guides/hover-and-selection/"
-            },
-            {
-              "title": "Tooltip",
-              "path": "/react/chart/docs/guides/tooltip/"
-            },
-            {
-              "title": "Zoom and Pan",
-              "path": "/react/chart/docs/guides/zoom-and-pan/"
-            },
-            {
-              "title": "Rotated",
-              "path": "/react/chart/docs/guides/rotated/"
-            },
-            {
-              "title": "TypeScript Support",
-              "path": "/react/chart/docs/guides/typescript/"
-            }
-          ]
-        },
-        {
-          "title": "API Reference",
-          "items": [
-            {
-              "title": "Animation",
-              "path": "/react/chart/docs/reference/animation/"
-            },
-            {
-              "title": "AreaSeries",
-              "path": "/react/chart/docs/reference/area-series/"
-            },
-            {
-              "title": "ArgumentAxis",
-              "path": "/react/chart/docs/reference/argument-axis/"
-            },
-            {
-              "title": "ArgumentScale",
-              "path": "/react/chart/docs/reference/argument-scale/"
-            },
-            {
-              "title": "BarSeries",
-              "path": "/react/chart/docs/reference/bar-series/"
-            },
-            {
-              "title": "Chart",
-              "path": "/react/chart/docs/reference/chart/"
-            },
-            {
-              "title": "EventTracker",
-              "path": "/react/chart/docs/reference/event-tracker/"
-            },
-            {
-              "title": "HoverState",
-              "path": "/react/chart/docs/reference/hover-state/"
-            },
-            {
-              "title": "Legend",
-              "path": "/react/chart/docs/reference/legend/"
-            },
-            {
-              "title": "LineSeries",
-              "path": "/react/chart/docs/reference/line-series/"
-            },
-            {
-              "title": "Palette",
-              "path": "/react/chart/docs/reference/palette/"
-            },
-            {
-              "title": "PieSeries",
-              "path": "/react/chart/docs/reference/pie-series/"
-            },
-            {
-              "title": "ScatterSeries",
-              "path": "/react/chart/docs/reference/scatter-series/"
-            },
-            {
-              "title": "SelectionState",
-              "path": "/react/chart/docs/reference/selection-state/"
-            },
-            {
-              "title": "SplineSeries",
-              "path": "/react/chart/docs/reference/spline-series/"
-            },
-            {
-              "title": "Stack",
-              "path": "/react/chart/docs/reference/stack/"
-            },
-            {
-              "title": "Title",
-              "path": "/react/chart/docs/reference/title/"
-            },
-            {
-              "title": "Tooltip",
-              "path": "/react/chart/docs/reference/tooltip/"
-            },
-            {
-              "title": "ValueAxis",
-              "path": "/react/chart/docs/reference/value-axis/"
-            },
-            {
-              "title": "ValueScale",
-              "path": "/react/chart/docs/reference/value-scale/"
-            },
-            {
-              "title": "ZoomAndPan",
-              "path": "/react/chart/docs/reference/zoom-and-pan/"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Core",
-      "items": [
-        {
-          "title": "Guides",
-          "items": [
-            {
-              "title": "Fundamentals",
-              "path": "/react/core/docs/guides/fundamentals/"
-            },
-            {
-              "title": "Render Markup",
-              "path": "/react/core/docs/guides/rendering-markup/"
-            },
-            {
-              "title": "Provide Values",
-              "path": "/react/core/docs/guides/providing-values/"
-            },
-            {
-              "title": "Provide Actions",
-              "path": "/react/core/docs/guides/providing-actions/"
-            }
-          ]
-        },
-        {
-          "title": "API Reference",
-          "items": [
-            {
-              "title": "PluginHost",
-              "path": "/react/core/docs/reference/plugin-host/"
-            },
-            {
-              "title": "Plugin",
-              "path": "/react/core/docs/reference/plugin/"
-            },
-            {
-              "title": "Action",
-              "path": "/react/core/docs/reference/action/"
-            },
-            {
-              "title": "Getter",
-              "path": "/react/core/docs/reference/getter/"
-            },
-            {
-              "title": "Template",
-              "path": "/react/core/docs/reference/template/"
-            },
-            {
-              "title": "TemplatePlaceholder",
-              "path": "/react/core/docs/reference/template-placeholder/"
-            },
-            {
-              "title": "TemplateConnector",
-              "path": "/react/core/docs/reference/template-connector/"
-            },
-            {
-              "title": "connectProps",
-              "path": "/react/core/docs/reference/connect-props/"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "title": "Common Concepts",
-      "items": [
-        {
-          "title": "Optimize performance",
-          "path": "/react/common/docs/guides/performance-optimization/"
-        },
-        {
-          "title": "Create a Custom Theme",
-          "path": "/react/common/docs/guides/custom-theme/"
-        }
-      ]
-    }
-  ],
-  "demos": [
-    {
-      "title": "Overview",
-      "path": "/demos/"
-    },
-    {
-      "title": "Grid",
-      "items":[
-        {
-          "title": "Integrated Data Shaping",
-          "path": "/react/grid/demos/featured/integrated-data-shaping/"
-        },
-        {
-          "title": "Data Editing",
-          "path": "/react/grid/demos/featured/data-editing/"
-        },
-        {
-          "title": "Virtual Scrolling",
-          "path": "/react/grid/demos/featured/virtual-scrolling/"
-        },
-        {
-          "title": "Redux Integration",
-          "path": "/react/grid/demos/featured/redux-integration/"
-        },
-        {
-          "title": "Remote Data",
-          "path": "/react/grid/demos/featured/remote-data/"
-        },
-        {
-          "title": "Tree Data",
-          "path": "/react/grid/demos/featured/tree-data/"
-        },
-        {
-          "title": "Chart Integration",
-          "path": "/react/grid/demos/featured/chart-integration/"
-        }
-      ]
-    },
-    {
-      "title": "Scheduler",
-      "items": [
-        {
-          "title": "Data Editing",
-          "path": "/react/scheduler/demos/featured/data-editing/"
-        },
-        {
-          "title": "Appearance Customization",
-          "path": "/react/scheduler/demos/featured/appearance-customization/"
-        },
-        {
-          "title": "Remote Data",
-          "path": "/react/scheduler/demos/featured/remote-data/"
-        },
-        {
-          "title": "Redux Integration",
-          "path": "/react/scheduler/demos/featured/redux-integration/"
-        }
-      ]
-    },
-    {
-      "title": "Chart",
-      "items": [
-        {
-          "title": "Overview",
-          "path": "/react/chart/demos/overview/multiple-axes/"
-        },
-        {
-          "title": "Area Chart",
-          "items": [
-            {
-              "title": "Simple Area",
-              "path": "/react/chart/demos/area/simple-area/"
-            },
-            {
-              "title": "Spline Area",
-              "path": "/react/chart/demos/area/spline-area/"
-            },
-            {
-              "title": "Stacked Area",
-              "path": "/react/chart/demos/area/stacked-area/"
-            },
-            {
-              "title": "Full-Stacked Area",
-              "path": "/react/chart/demos/area/fullstacked-area/"
-            },
-            {
-              "title": "Step Area",
-              "path": "/react/chart/demos/area/step-area/"
-            },
-            {
-              "title": "Streamgraph",
-              "path": "/react/chart/demos/area/streamgraph/"
-            }
-          ]
-        },
-        {
-          "title": "Bar Chart",
-          "items": [
-            {
-              "title": "Simple Bar",
-              "path": "/react/chart/demos/bar/simple-bar/"
-            },
-            {
-              "title": "Side-By-Side Bars",
-              "path": "/react/chart/demos/bar/side-by-side/"
-            },
-            {
-              "title": "Side-By-Side Stacked Bars",
-              "path": "/react/chart/demos/bar/side-by-side-stacked-bar/"
-            },
-            {
-              "title": "Stacked Bar",
-              "path": "/react/chart/demos/bar/stacked-bar/"
-            },
-            {
-              "title": "Full-Stacked Bar",
-              "path": "/react/chart/demos/bar/fullstacked-bar/"
-            },
-            {
-              "title": "Component Customization",
-              "path": "/react/chart/demos/bar/component-customization/"
-            },
-            {
-              "title": "Series Interaction",
-              "path": "/react/chart/demos/bar/series-interaction/"
-            },
-            {
-              "title": "Rotated Bar",
-              "path": "/react/chart/demos/bar/rotated-bar/"
-            }
-          ]
-        },
-        {
-          "title": "Line Chart",
-          "items": [
-            {
-              "title": "Simple Line",
-              "path": "/react/chart/demos/line/line/"
-            },
-            {
-              "title": "Spline",
-              "path": "/react/chart/demos/line/spline/"
-            },
-            {
-              "title": "Step Line",
-              "path": "/react/chart/demos/line/step-line/"
-            },
-            {
-              "title": "Step Line With Gaps",
-              "path": "/react/chart/demos/line/step-line-with-gaps/"
-            },
-            {
-              "title": "Axes Type Customization",
-              "path": "/react/chart/demos/line/log-time-axes/"
-            }
-          ]
-        },
-        {
-          "title": "Point Chart",
-          "items": [
-            {
-              "title": "Scatter Series",
-              "path": "/react/chart/demos/point/scatter/"
-            }
-          ]
-        },
-        {
-          "title": "Pie Chart",
-          "items": [
-            {
-              "title": "Pie Chart",
-              "path": "/react/chart/demos/pie/pie/"
-            },
-            {
-              "title": "Doughnut Chart",
-              "path": "/react/chart/demos/pie/doughnut/"
-            }
-          ]
-        },
-        {
-          "title": "Combination",
-          "items": [
-            {
-              "title": "Multiple Axes",
-              "path": "/react/chart/demos/combination/multiple-axes/"
-            }
-          ]
-        },
-        {
-          "title": "More Features",
-          "items": [
-            {
-              "title": "Export",
-              "path": "/react/chart/demos/export/demo/"
-            },
-            {
-              "title": "Zoom and Pan",
-              "path": "/react/chart/demos/more_features/zoom-and-pan/"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "react/core": {
+    "docs": [
+      {
+        "title": "Guides",
+        "items": [
+          {
+            "title": "Fundamentals",
+            "path": "/react/core/docs/guides/fundamentals/"
+          },
+          {
+            "title": "Render Markup",
+            "path": "/react/core/docs/guides/rendering-markup/"
+          },
+          {
+            "title": "Provide Values",
+            "path": "/react/core/docs/guides/providing-values/"
+          },
+          {
+            "title": "Provide Actions",
+            "path": "/react/core/docs/guides/providing-actions/"
+          }
+        ]
+      },
+      {
+        "title": "API Reference",
+        "items": [
+          {
+            "title": "PluginHost",
+            "path": "/react/core/docs/reference/plugin-host/"
+          },
+          {
+            "title": "Plugin",
+            "path": "/react/core/docs/reference/plugin/"
+          },
+          {
+            "title": "Action",
+            "path": "/react/core/docs/reference/action/"
+          },
+          {
+            "title": "Getter",
+            "path": "/react/core/docs/reference/getter/"
+          },
+          {
+            "title": "Template",
+            "path": "/react/core/docs/reference/template/"
+          },
+          {
+            "title": "TemplatePlaceholder",
+            "path": "/react/core/docs/reference/template-placeholder/"
+          },
+          {
+            "title": "TemplateConnector",
+            "path": "/react/core/docs/reference/template-connector/"
+          },
+          {
+            "title": "connectProps",
+            "path": "/react/core/docs/reference/connect-props/"
+          }
+        ]
+      },
+      {
+        "title": "Related Docs",
+        "items": [
+          {
+            "title": "React Grid",
+            "path": "/react/grid/docs/guides/getting-started/"
+          },
+          {
+            "title": "React Chart",
+            "path": "/react/chart/docs/guides/getting-started/"
+          },
+          {
+            "title": "React Scheduler",
+            "path": "/react/scheduler/docs/guides/getting-started/"
+          }
+        ]
+      }
+    ]
+  },
+  "react/grid": {
+    "demos": [
+      {
+        "title": "Demos",
+        "items": [
+          {
+            "title": "Integrated Data Shaping",
+            "path": "/react/grid/demos/featured/integrated-data-shaping/"
+          },
+          {
+            "title": "Data Editing",
+            "path": "/react/grid/demos/featured/data-editing/"
+          },
+          {
+            "title": "Virtual Scrolling",
+            "path": "/react/grid/demos/featured/virtual-scrolling/"
+          },
+          {
+            "title": "Redux Integration",
+            "path": "/react/grid/demos/featured/redux-integration/"
+          },
+          {
+            "title": "Remote Data",
+            "path": "/react/grid/demos/featured/remote-data/"
+          },
+          {
+            "title": "Tree Data",
+            "path": "/react/grid/demos/featured/tree-data/"
+          },
+          {
+            "title": "Chart Integration",
+            "path": "/react/grid/demos/featured/chart-integration/"
+          }
+        ]
+      }
+    ],
+    "docs": [
+      {
+        "title": "Guides",
+        "items": [
+          {
+            "title": "Getting Started",
+            "path": "/react/grid/docs/guides/getting-started/"
+          },
+          {
+            "title": "Plugin Overview",
+            "path": "/react/grid/docs/guides/plugin-overview/"
+          },
+          {
+            "title": "Fundamentals",
+            "path": "/react/grid/docs/guides/fundamentals/"
+          },
+          {
+            "title": "Controlled and Uncontrolled Modes",
+            "path": "/react/grid/docs/guides/controlled-and-uncontrolled-modes/"
+          },
+          {
+            "title": "Data Accessors",
+            "path": "/react/grid/docs/guides/data-accessors/"
+          },
+          {
+            "title": "Data Formatting",
+            "path": "/react/grid/docs/guides/data-formatting/"
+          },
+          {
+            "title": "Sorting",
+            "path": "/react/grid/docs/guides/sorting/"
+          },
+          {
+            "title": "Paging",
+            "path": "/react/grid/docs/guides/paging/"
+          },
+          {
+            "title": "Filtering",
+            "path": "/react/grid/docs/guides/filtering/"
+          },
+          {
+            "title": "Searching",
+            "path": "/react/grid/docs/guides/searching/"
+          },
+          {
+            "title": "Grouping",
+            "path": "/react/grid/docs/guides/grouping/"
+          },
+          {
+            "title": "Selection",
+            "path": "/react/grid/docs/guides/selection/"
+          },
+          {
+            "title": "Editing",
+            "path": "/react/grid/docs/guides/editing/"
+          },
+          {
+            "title": "Detail Row",
+            "path": "/react/grid/docs/guides/detail-row/"
+          },
+          {
+            "title": "Column Reordering",
+            "path": "/react/grid/docs/guides/column-reordering/"
+          },
+          {
+            "title": "Column Resizing",
+            "path": "/react/grid/docs/guides/column-resizing/"
+          },
+          {
+            "title": "Column Visibility",
+            "path": "/react/grid/docs/guides/column-visibility/"
+          },
+          {
+            "title": "Banded Columns",
+            "path": "/react/grid/docs/guides/banded-columns/"
+          },
+          {
+            "title": "Fixed Columns",
+            "path": "/react/grid/docs/guides/fixed-columns/"
+          },
+          {
+            "title": "Virtual Scrolling",
+            "path": "/react/grid/docs/guides/virtual-scrolling/"
+          },
+          {
+            "title": "Lazy Loading",
+            "path": "/react/grid/docs/guides/lazy-loading/"
+          },
+          {
+            "title": "Tree Data",
+            "path": "/react/grid/docs/guides/tree-data/"
+          },
+          {
+            "title": "Summary Row",
+            "path": "/react/grid/docs/guides/summary-row/"
+          },
+          {
+            "title": "Localization",
+            "path": "/react/grid/docs/guides/localization/"
+          },
+          {
+            "title": "TypeScript Support",
+            "path": "/react/grid/docs/guides/typescript/"
+          },
+          {
+            "title": "Custom Plugin Development",
+            "path": "/react/grid/docs/guides/custom-plugin-development/"
+          }
+        ]
+      },
+      {
+        "title": "API Reference",
+        "items": [
+          {
+            "title": "Grid",
+            "path": "/react/grid/docs/reference/grid/"
+          },
+          {
+            "title": "FilteringState",
+            "path": "/react/grid/docs/reference/filtering-state/"
+          },
+          {
+            "title": "SortingState",
+            "path": "/react/grid/docs/reference/sorting-state/"
+          },
+          {
+            "title": "GroupingState",
+            "path": "/react/grid/docs/reference/grouping-state/"
+          },
+          {
+            "title": "PagingState",
+            "path": "/react/grid/docs/reference/paging-state/"
+          },
+          {
+            "title": "SearchPanel",
+            "path": "/react/grid/docs/reference/search-panel/"
+          },
+          {
+            "title": "SearchState",
+            "path": "/react/grid/docs/reference/search-state/"
+          },
+          {
+            "title": "SelectionState",
+            "path": "/react/grid/docs/reference/selection-state/"
+          },
+          {
+            "title": "EditingState",
+            "path": "/react/grid/docs/reference/editing-state/"
+          },
+          {
+            "title": "RowDetailState",
+            "path": "/react/grid/docs/reference/row-detail-state/"
+          },
+          {
+            "title": "TableColumnReordering",
+            "path": "/react/grid/docs/reference/table-column-reordering/"
+          },
+          {
+            "title": "IntegratedFiltering",
+            "path": "/react/grid/docs/reference/integrated-filtering/"
+          },
+          {
+            "title": "IntegratedSelection",
+            "path": "/react/grid/docs/reference/integrated-selection/"
+          },
+          {
+            "title": "IntegratedSorting",
+            "path": "/react/grid/docs/reference/integrated-sorting/"
+          },
+          {
+            "title": "IntegratedGrouping",
+            "path": "/react/grid/docs/reference/integrated-grouping/"
+          },
+          {
+            "title": "CustomGrouping",
+            "path": "/react/grid/docs/reference/custom-grouping/"
+          },
+          {
+            "title": "IntegratedPaging",
+            "path": "/react/grid/docs/reference/integrated-paging/"
+          },
+          {
+            "title": "Table",
+            "path": "/react/grid/docs/reference/table/"
+          },
+          {
+            "title": "VirtualTable",
+            "path": "/react/grid/docs/reference/virtual-table/"
+          },
+          {
+            "title": "TableHeaderRow",
+            "path": "/react/grid/docs/reference/table-header-row/"
+          },
+          {
+            "title": "TableSelection",
+            "path": "/react/grid/docs/reference/table-selection/"
+          },
+          {
+            "title": "TableFilterRow",
+            "path": "/react/grid/docs/reference/table-filter-row/"
+          },
+          {
+            "title": "TableRowDetail",
+            "path": "/react/grid/docs/reference/table-row-detail/"
+          },
+          {
+            "title": "TableGroupRow",
+            "path": "/react/grid/docs/reference/table-group-row/"
+          },
+          {
+            "title": "TableEditRow",
+            "path": "/react/grid/docs/reference/table-edit-row/"
+          },
+          {
+            "title": "TableEditColumn",
+            "path": "/react/grid/docs/reference/table-edit-column/"
+          },
+          {
+            "title": "TableBandHeader",
+            "path": "/react/grid/docs/reference/table-band-header/"
+          },
+          {
+            "title": "TableColumnResizing",
+            "path": "/react/grid/docs/reference/table-column-resizing/"
+          },
+          {
+            "title": "PagingPanel",
+            "path": "/react/grid/docs/reference/paging-panel/"
+          },
+          {
+            "title": "GroupingPanel",
+            "path": "/react/grid/docs/reference/grouping-panel/"
+          },
+          {
+            "title": "DragDropProvider",
+            "path": "/react/grid/docs/reference/drag-drop-provider/"
+          },
+          {
+            "title": "DataTypeProvider",
+            "path": "/react/grid/docs/reference/data-type-provider/"
+          },
+          {
+            "title": "ColumnChooser",
+            "path": "/react/grid/docs/reference/column-chooser/"
+          },
+          {
+            "title": "TableColumnVisibility",
+            "path": "/react/grid/docs/reference/table-column-visibility/"
+          },
+          {
+            "title": "Toolbar",
+            "path": "/react/grid/docs/reference/toolbar/"
+          },
+          {
+            "title": "CustomPaging",
+            "path": "/react/grid/docs/reference/custom-paging/"
+          },
+          {
+            "title": "TreeDataState",
+            "path": "/react/grid/docs/reference/tree-data-state/"
+          },
+          {
+            "title": "CustomTreeData",
+            "path": "/react/grid/docs/reference/custom-tree-data/"
+          },
+          {
+            "title": "TableTreeColumn",
+            "path": "/react/grid/docs/reference/table-tree-column/"
+          },
+          {
+            "title": "TableFixedColumns",
+            "path": "/react/grid/docs/reference/table-fixed-columns/"
+          },
+          {
+            "title": "SummaryState",
+            "path": "/react/grid/docs/reference/summary-state/"
+          },
+          {
+            "title": "IntegratedSummary",
+            "path": "/react/grid/docs/reference/integrated-summary/"
+          },
+          {
+            "title": "CustomSummary",
+            "path": "/react/grid/docs/reference/custom-summary/"
+          },
+          {
+            "title": "TableSummaryRow",
+            "path": "/react/grid/docs/reference/table-summary-row/"
+          },
+          {
+            "title": "VirtualTableState",
+            "path": "/react/grid/docs/reference/virtual-table-state/"
+          },
+          {
+            "title": "createRowCache",
+            "path": "/react/grid/docs/reference/create-row-cache/"
+          }
+        ]
+      },
+      {
+        "title": "Related Docs",
+        "items": [
+          {
+            "title": "React Core",
+            "path": "/react/core/docs/guides/fundamentals/"
+          },
+          {
+            "title": "React Chart",
+            "path": "/react/chart/docs/guides/getting-started/"
+          },
+          {
+            "title": "React Scheduler",
+            "path": "/react/scheduler/docs/guides/getting-started/"
+          }
+        ]
+      }
+    ]
+  },
+  "react/chart": {
+    "demos": [
+      {
+        "title": "Demos",
+        "items": [
+          {
+            "title": "Overview",
+            "path": "/react/chart/demos/overview/multiple-axes/"
+          }
+        ]
+      },
+      {
+        "title": "Area Chart",
+        "items": [
+          {
+            "title": "Simple Area",
+            "path": "/react/chart/demos/area/simple-area/"
+          },
+          {
+            "title": "Spline Area",
+            "path": "/react/chart/demos/area/spline-area/"
+          },
+          {
+            "title": "Stacked Area",
+            "path": "/react/chart/demos/area/stacked-area/"
+          },
+          {
+            "title": "Full-Stacked Area",
+            "path": "/react/chart/demos/area/fullstacked-area/"
+          },
+          {
+            "title": "Step Area",
+            "path": "/react/chart/demos/area/step-area/"
+          },
+          {
+            "title": "Streamgraph",
+            "path": "/react/chart/demos/area/streamgraph/"
+          }
+        ]
+      },
+      {
+        "title": "Bar Chart",
+        "items": [
+          {
+            "title": "Simple Bar",
+            "path": "/react/chart/demos/bar/simple-bar/"
+          },
+          {
+            "title": "Side-By-Side Bars",
+            "path": "/react/chart/demos/bar/side-by-side/"
+          },
+          {
+            "title": "Side-By-Side Stacked Bars",
+            "path": "/react/chart/demos/bar/side-by-side-stacked-bar/"
+          },
+          {
+            "title": "Stacked Bar",
+            "path": "/react/chart/demos/bar/stacked-bar/"
+          },
+          {
+            "title": "Full-Stacked Bar",
+            "path": "/react/chart/demos/bar/fullstacked-bar/"
+          },
+          {
+            "title": "Component Customization",
+            "path": "/react/chart/demos/bar/component-customization/"
+          },
+          {
+            "title": "Series Interaction",
+            "path": "/react/chart/demos/bar/series-interaction/"
+          },
+          {
+            "title": "Rotated Bar",
+            "path": "/react/chart/demos/bar/rotated-bar/"
+          }
+        ]
+      },
+      {
+        "title": "Line Chart",
+        "items": [
+          {
+            "title": "Simple Line",
+            "path": "/react/chart/demos/line/line/"
+          },
+          {
+            "title": "Spline",
+            "path": "/react/chart/demos/line/spline/"
+          },
+          {
+            "title": "Step Line",
+            "path": "/react/chart/demos/line/step-line/"
+          },
+          {
+            "title": "Step Line With Gaps",
+            "path": "/react/chart/demos/line/step-line-with-gaps/"
+          },
+          {
+            "title": "Axes Type Customization",
+            "path": "/react/chart/demos/line/log-time-axes/"
+          }
+        ]
+      },
+      {
+        "title": "Point Chart",
+        "items": [
+          {
+            "title": "Scatter Series",
+            "path": "/react/chart/demos/point/scatter/"
+          }
+        ]
+      },
+      {
+        "title": "Pie Chart",
+        "items": [
+          {
+            "title": "Pie Chart",
+            "path": "/react/chart/demos/pie/pie/"
+          },
+          {
+            "title": "Doughnut Chart",
+            "path": "/react/chart/demos/pie/doughnut/"
+          }
+        ]
+      },
+      {
+        "title": "Combination",
+        "items": [
+          {
+            "title": "Multiple Axes",
+            "path": "/react/chart/demos/combination/multiple-axes/"
+          }
+        ]
+      },
+      {
+        "title": "More Features",
+        "items": [
+          {
+            "title": "Export",
+            "path": "/react/chart/demos/export/demo/"
+          },
+          {
+            "title": "Zoom and Pan",
+            "path": "/react/chart/demos/more_features/zoom-and-pan/"
+          }
+        ]
+      }
+    ],
+    "docs": [
+      {
+        "title": "Guides",
+        "items": [
+          {
+            "title": "Getting Started",
+            "path": "/react/chart/docs/guides/getting-started/"
+          },
+          {
+            "title": "Plugin Overview",
+            "path": "/react/chart/docs/guides/plugin-overview/"
+          },
+          {
+            "title": "Series",
+            "path": "/react/chart/docs/guides/series/"
+          },
+          {
+            "title": "Axes",
+            "path": "/react/chart/docs/guides/axes/"
+          },
+          {
+            "title": "Legend and Title",
+            "path": "/react/chart/docs/guides/legend_title/"
+          },
+          {
+            "title": "Stacked Series",
+            "path": "/react/chart/docs/guides/stacked-series/"
+          },
+          {
+            "title": "Palette",
+            "path": "/react/chart/docs/guides/palette/"
+          },
+          {
+            "title": "Animation",
+            "path": "/react/chart/docs/guides/animation/"
+          },
+          {
+            "title": "Hover and Selection",
+            "path": "/react/chart/docs/guides/hover-and-selection/"
+          },
+          {
+            "title": "Tooltip",
+            "path": "/react/chart/docs/guides/tooltip/"
+          },
+          {
+            "title": "Zoom and Pan",
+            "path": "/react/chart/docs/guides/zoom-and-pan/"
+          },
+          {
+            "title": "Rotated",
+            "path": "/react/chart/docs/guides/rotated/"
+          },
+          {
+            "title": "TypeScript Support",
+            "path": "/react/chart/docs/guides/typescript/"
+          }
+        ]
+      },
+      {
+        "title": "Common Concepts",
+        "items": [
+          {
+            "title": "Optimize performance",
+            "path": "/react/common/docs/guides/performance-optimization/"
+          },
+          {
+            "title": "Create a Custom Theme",
+            "path": "/react/common/docs/guides/custom-theme/"
+          }
+        ]
+      },
+      {
+        "title": "API Reference",
+        "items": [
+          {
+            "title": "Animation",
+            "path": "/react/chart/docs/reference/animation/"
+          },
+          {
+            "title": "AreaSeries",
+            "path": "/react/chart/docs/reference/area-series/"
+          },
+          {
+            "title": "ArgumentAxis",
+            "path": "/react/chart/docs/reference/argument-axis/"
+          },
+          {
+            "title": "ArgumentScale",
+            "path": "/react/chart/docs/reference/argument-scale/"
+          },
+          {
+            "title": "BarSeries",
+            "path": "/react/chart/docs/reference/bar-series/"
+          },
+          {
+            "title": "Chart",
+            "path": "/react/chart/docs/reference/chart/"
+          },
+          {
+            "title": "EventTracker",
+            "path": "/react/chart/docs/reference/event-tracker/"
+          },
+          {
+            "title": "HoverState",
+            "path": "/react/chart/docs/reference/hover-state/"
+          },
+          {
+            "title": "Legend",
+            "path": "/react/chart/docs/reference/legend/"
+          },
+          {
+            "title": "LineSeries",
+            "path": "/react/chart/docs/reference/line-series/"
+          },
+          {
+            "title": "Palette",
+            "path": "/react/chart/docs/reference/palette/"
+          },
+          {
+            "title": "PieSeries",
+            "path": "/react/chart/docs/reference/pie-series/"
+          },
+          {
+            "title": "ScatterSeries",
+            "path": "/react/chart/docs/reference/scatter-series/"
+          },
+          {
+            "title": "SelectionState",
+            "path": "/react/chart/docs/reference/selection-state/"
+          },
+          {
+            "title": "SplineSeries",
+            "path": "/react/chart/docs/reference/spline-series/"
+          },
+          {
+            "title": "Stack",
+            "path": "/react/chart/docs/reference/stack/"
+          },
+          {
+            "title": "Title",
+            "path": "/react/chart/docs/reference/title/"
+          },
+          {
+            "title": "Tooltip",
+            "path": "/react/chart/docs/reference/tooltip/"
+          },
+          {
+            "title": "ValueAxis",
+            "path": "/react/chart/docs/reference/value-axis/"
+          },
+          {
+            "title": "ValueScale",
+            "path": "/react/chart/docs/reference/value-scale/"
+          },
+          {
+            "title": "ZoomAndPan",
+            "path": "/react/chart/docs/reference/zoom-and-pan/"
+          }
+        ]
+      },
+      {
+        "title": "Related Docs",
+        "items": [
+          {
+            "title": "React Core",
+            "path": "/react/core/docs/guides/fundamentals/"
+          },
+          {
+            "title": "React Grid",
+            "path": "/react/grid/docs/guides/getting-started/"
+          },
+          {
+            "title": "React Scheduler",
+            "path": "/react/scheduler/docs/guides/getting-started/"
+          }
+        ]
+      }
+    ]
+  },
+  "react/scheduler": {
+    "demos": [
+      {
+        "title": "Demos",
+        "items": [
+          {
+            "title": "Data Editing",
+            "path": "/react/scheduler/demos/featured/data-editing/"
+          },
+          {
+            "title": "Appearance Customization",
+            "path": "/react/scheduler/demos/featured/appearance-customization/"
+          },
+          {
+            "title": "Remote Data",
+            "path": "/react/scheduler/demos/featured/remote-data/"
+          },
+          {
+            "title": "Redux Integration",
+            "path": "/react/scheduler/demos/featured/redux-integration/"
+          }
+        ]
+      }
+    ],
+    "docs": [
+      {
+        "title": "Guides",
+        "items": [
+          {
+            "title": "Getting Started",
+            "path": "/react/scheduler/docs/guides/getting-started/"
+          },
+          {
+            "title": "Fundamentals",
+            "path": "/react/scheduler/docs/guides/fundamentals/"
+          },
+          {
+            "title": "Views",
+            "path": "/react/scheduler/docs/guides/views/"
+          },
+          {
+            "title": "Appointments",
+            "path": "/react/scheduler/docs/guides/appointments/"
+          },
+          {
+            "title": "View Switching",
+            "path": "/react/scheduler/docs/guides/view-switching/"
+          },
+          {
+            "title": "Date Navigation",
+            "path": "/react/scheduler/docs/guides/date-navigation/"
+          },
+          {
+            "title": "Appointment Tooltip",
+            "path": "/react/scheduler/docs/guides/appointment-tooltip/"
+          },
+          {
+            "title": "Editing",
+            "path": "/react/scheduler/docs/guides/editing/"
+          },
+          {
+            "title": "Localization",
+            "path": "/react/scheduler/docs/guides/localization/"
+          },
+          {
+            "title": "TypeScript Support",
+            "path": "/react/scheduler/docs/guides/typescript/"
+          }
+        ]
+      },
+      {
+        "title": "Common Concepts",
+        "items": [
+          {
+            "title": "Optimize performance",
+            "path": "/react/common/docs/guides/performance-optimization/"
+          },
+          {
+            "title": "Create a Custom Theme",
+            "path": "/react/common/docs/guides/custom-theme/"
+          }
+        ]
+      },
+      {
+        "title": "API Reference",
+        "items": [
+          {
+            "title": "Scheduler",
+            "path": "/react/scheduler/docs/reference/scheduler/"
+          },
+          {
+            "title": "ViewState",
+            "path": "/react/scheduler/docs/reference/view-state/"
+          },
+          {
+            "title": "DayView",
+            "path": "/react/scheduler/docs/reference/day-view/"
+          },
+          {
+            "title": "WeekView",
+            "path": "/react/scheduler/docs/reference/week-view/"
+          },
+          {
+            "title": "MonthView",
+            "path": "/react/scheduler/docs/reference/month-view/"
+          },
+          {
+            "title": "Appointments",
+            "path": "/react/scheduler/docs/reference/appointments/"
+          },
+          {
+            "title": "AppointmentForm",
+            "path": "/react/scheduler/docs/reference/appointment-form/"
+          },
+          {
+            "title": "AppointmentTooltip",
+            "path": "/react/scheduler/docs/reference/appointment-tooltip/"
+          },
+          {
+            "title": "EditingState",
+            "path": "/react/scheduler/docs/reference/editing-state/"
+          },
+          {
+            "title": "DragDropProvider",
+            "path": "/react/scheduler/docs/reference/drag-drop-provider/"
+          },
+          {
+            "title": "EditRecurrenceMenu",
+            "path": "/react/scheduler/docs/reference/edit-recurrence-menu/"
+          },
+          {
+            "title": "IntegratedEditing",
+            "path": "/react/scheduler/docs/reference/integrated-editing/"
+          },
+          {
+            "title": "TodayButton",
+            "path": "/react/scheduler/docs/reference/today-button/"
+          },
+          {
+            "title": "Toolbar",
+            "path": "/react/scheduler/docs/reference/toolbar/"
+          },
+          {
+            "title": "AllDayPanel",
+            "path": "/react/scheduler/docs/reference/all-day-panel/"
+          },
+          {
+            "title": "DateNavigator",
+            "path": "/react/scheduler/docs/reference/date-navigator/"
+          },
+          {
+            "title": "ViewSwitcher",
+            "path": "/react/scheduler/docs/reference/view-switcher/"
+          }
+        ]
+      },
+      {
+        "title": "Related Docs",
+        "items": [
+          {
+            "title": "React Core",
+            "path": "/react/core/docs/guides/fundamentals/"
+          },
+          {
+            "title": "React Chart",
+            "path": "/react/chart/docs/guides/getting-started/"
+          },
+          {
+            "title": "React Grid",
+            "path": "/react/grid/docs/guides/getting-started/"
+          }
+        ]
+      }
+    ]
+  },
+  "react/common": {
+    "docs": [
+      {
+        "title": "Common Concepts",
+        "items": [
+          {
+            "title": "Optimize performance",
+            "path": "/react/common/docs/guides/performance-optimization/"
+          },
+          {
+            "title": "Create a Custom Theme",
+            "path": "/react/common/docs/guides/custom-theme/"
+          }
+        ]
+      },
+      {
+        "title": "Related Docs",
+        "items": [
+          {
+            "title": "React Core",
+            "path": "/react/core/docs/guides/fundamentals/"
+          },
+          {
+            "title": "React Chart",
+            "path": "/react/chart/docs/guides/getting-started/"
+          },
+          {
+            "title": "React Grid",
+            "path": "/react/grid/docs/guides/getting-started/"
+          }
+        ]
+      }
+    ]
+  }
 }

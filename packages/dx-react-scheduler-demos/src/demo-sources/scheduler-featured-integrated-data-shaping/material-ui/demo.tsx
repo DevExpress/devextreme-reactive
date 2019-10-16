@@ -228,8 +228,10 @@ const Appointment = withStyles(styles)(({
   />
 ));
 
+// #FOLD_BLOCK
 const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({
   classes, data, formatDate, ...restProps
+  // #FOLD_BLOCK
 }: AppointmentContentProps) =>  {
   let priority = 'low';
   if (data.priority === 2) priority = 'middle';

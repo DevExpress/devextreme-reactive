@@ -13,7 +13,7 @@ import { scaleBand } from '@devexpress/dx-chart-core';
 import {
   ArgumentScale, Stack, Animation, EventTracker, HoverState, SelectionState,
 } from '@devexpress/dx-react-chart';
-import classNames from 'classnames';
+import classNames from 'clsx';
 
 import { annualVehiclesSales as data } from '../../../demo-data/data-vizualization';
 

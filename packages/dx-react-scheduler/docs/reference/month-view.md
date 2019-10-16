@@ -28,7 +28,6 @@ Name | Type | Default | Description
 -----|------|---------|------------
 name? | string | `Month` | The view's unique identifier. Required if you use several `MonthView` plugins.
 displayName? | string |  | The view's name used in UI plugins. The default value is equal to `name`.
-firstDayOfWeek? | number | 0 | Specifies first day of week.
 intervalCount? | number | 1 | Multiplies the default view interval.
 layoutComponent | ComponentType&lt;[MonthView.LayoutProps](#monthviewlayoutprops)&gt; | | A component that renders a month view layout.
 dayScaleLayoutComponent | ComponentType&lt;[MonthView.DayScaleLayoutProps](#monthviewdayscalelayoutprops)&gt; | | A component that renders a day scale layout.
@@ -81,6 +80,7 @@ Field | Type | Description
 ------|------|------------
 startDate | Date | Specifies the cell start time.
 endDate? | Date | Specifies the cell end time.
+today? | boolean | Indicates whether the cell's date is today.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the set locale.
 
 ### MonthView.TimeTableLayoutProps
@@ -90,7 +90,6 @@ Describes properties passed to a component that renders a time table layout.
 Field | Type | Description
 ------|------|------------
 cellsData | Array&lt;Array&lt;[MonthView.CellData](#monthviewcelldata)&gt;&gt; | Specifies the cells meta data.
-tableRef | (ref: ReactInstance) => void | A function that accepts the table's root React element.
 cellComponent | ComponentType&lt;[MonthView.TimeTableCellProps](#monthviewtimetablecellprops)&gt; | A component that renders a time table cell.
 rowComponent | ComponentType&lt;[MonthView.RowProps](#monthviewrowprops)&gt; | A component that renders a time table row.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the set locale.

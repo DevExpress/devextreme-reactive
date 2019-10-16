@@ -1,12 +1,13 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   cell: {
     padding: theme.spacing(6, 0),
+    position: 'static !important',
   },
   textContainer: {
     display: 'inline-block',

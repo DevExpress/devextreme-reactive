@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { getBorder } from '../utils';
@@ -24,7 +24,7 @@ const styles = theme => ({
     justifyContent: 'flex-end',
   },
   title: {
-    padding: theme.spacing(1),
+    padding: theme.spacing(2),
     ...theme.typography.caption,
   },
 });

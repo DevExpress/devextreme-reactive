@@ -1,7 +1,7 @@
 /* globals document:true window:true */
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import { findDOMNode } from 'react-dom';
 import { getStickyPosition } from '../utils/css-fallback-properties';
 

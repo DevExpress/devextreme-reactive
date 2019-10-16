@@ -24,8 +24,8 @@ import { Grid } from '@devexpress/dx-react-grid';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-rows | Array&lt;any&gt; | | An array containing custom data. A user defines the access to this data. Refer to [Data Accessors](../guides/data-accessors.md) for details.
-columns | Array&lt;[Column](#column)&gt; | | Specifies for which row fields columns are created.
+rows | ReadonlyArray&lt;any&gt; | | An array containing custom data. A user defines the access to this data. Refer to [Data Accessors](../guides/data-accessors.md) for details.
+columns | ReadonlyArray&lt;[Column](#column)&gt; | | Specifies for which row fields columns are created.
 getRowId? | (row: any) => number &#124; string | | Specifies the function used to get a unique row identifier. Define this function if the identifier is different than the row index.
 getCellValue? | (row: any, columnName: string) => any | | Specifies the function used to get a cell's value.
 rootComponent | ComponentType&lt;[Grid.RootProps](#gridrootprops)&gt; | | A component that renders the grid root layout.

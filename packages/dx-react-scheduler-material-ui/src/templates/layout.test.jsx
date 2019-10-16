@@ -13,7 +13,9 @@ describe('Root layout', () => {
 
   it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <Root {...defaultProps} data={{ a: 1 }} />
+      <Root {...defaultProps} data={{ a: 1 }}>
+        <div />
+      </Root>
     ));
 
     expect(tree.prop('data'))
@@ -22,7 +24,9 @@ describe('Root layout', () => {
 
   it('should pass style to the root element', () => {
     const tree = shallow((
-      <Root {...defaultProps} style={{ a: 1 }} />
+      <Root {...defaultProps} style={{ a: 1 }}>
+        <div />
+      </Root>
     ));
 
     expect(tree.prop('style'))
@@ -31,7 +35,9 @@ describe('Root layout', () => {
 
   it('should replace style of the root element', () => {
     const tree = shallow((
-      <Root {...defaultProps} style={{ height: 1 }} />
+      <Root {...defaultProps} style={{ height: 1 }}>
+        <div />
+      </Root>
     ));
 
     expect(tree.prop('style'))

@@ -28,7 +28,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 name? | string | `Week` | The view's unique identifier. Required if you use several `WeekView` plugins.
 displayName? | string |  | The view's name used in UI plugins. The default value is equal to `name`.
-excludedDays? | Array&lt;number&gt; | [] | Specifies the days of week that should not be displayed in the view. Accepts an array of zero-bazed day indexes (0 - Sunday).
+excludedDays? | Array&lt;number&gt; | [] | Specifies the days of week that should not be displayed in the view. Accepts an array of zero-based day indexes (0 - Sunday).
 intervalCount? | number | 1 | Multiplies the default view interval.
 cellDuration? | number | 30 | Specifies the cell's duration in minutes.
 startDayHour? | number | 0 | Specifies the start hour of the view time scale. Accepts floating-point numbers from 0 to 24.
@@ -125,7 +125,6 @@ Describes properties passed to a component that renders a time table layout.
 Field | Type | Description
 ------|------|------------
 cellsData | Array&lt;Array&lt;[WeekView.CellData](#weekviewcelldata)&gt;&gt; | Specifies the cells meta data.
-tableRef | (ref: ReactInstance) => void | A function that accepts the table root React element.
 cellComponent | ComponentType&lt;[WeekView.TimeTableCellProps](#weekviewtimetablecellprops)&gt; | A component that renders a time table cell.
 rowComponent | ComponentType&lt;[WeekView.RowProps](#weekviewrowprops)&gt; | A component that renders a time table row.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the set locale.

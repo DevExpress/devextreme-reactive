@@ -8,7 +8,7 @@ import reactChartIcon from './images/react-chart.svg';
 import reactSchedulerIcon from './images/react-scheduler.svg';
 
 const concepts = [
-  { title: 'Core Design', path: '/react/core/docs/guides/fundamentals/' },
+  { title: 'Fundamentals', path: '/react/core/docs/guides/fundamentals/' },
   { title: 'State Management', path: '' },
   { title: 'Using Redux', path: '' },
   { title: 'Localization', path: '' },

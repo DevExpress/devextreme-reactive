@@ -40,7 +40,7 @@ const DemosList = ({ data: { title, featured, technical } }) => (
 
     <div className="row">
       <div className="col-12">
-        <h4>Technical Demos</h4>
+        <h4>Docs and Examples</h4>
       </div>
     </div>
     <div className="row my-3">

@@ -116,12 +116,14 @@ const EndRepeatEditorBase = ({
         control={<Radio color="primary" />}
         label={getMessage('never')}
         classes={{ label: classes.radioLabel }}
+        disabled={readOnly}
       />
       <FormControlLabel
         className={classes.formControl}
         value="endAfter"
         classes={{ label: classes.controlLabel }}
         control={<Radio color="primary" />}
+        disabled={readOnly}
         label={(
           <Grid
             container
@@ -148,6 +150,7 @@ const EndRepeatEditorBase = ({
         className={classes.formControl}
         classes={{ label: classes.controlLabel }}
         value="endBy"
+        disabled={readOnly}
         control={<Radio color="primary" />}
         label={(
           <Grid

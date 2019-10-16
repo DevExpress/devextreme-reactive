@@ -22,7 +22,7 @@
     "gulp-clean": "^0.4.0",
     "gulp-intercept": "^0.1.0",
     "gulp-rename": "^1.4.0",
-    "husky": "^3.0.8",
+    "husky": "^3.0.9",
     "inquirer": "^7.0.0",
     "lerna": "^3.16.5",
     "replace-in-file": "^4.1.3",

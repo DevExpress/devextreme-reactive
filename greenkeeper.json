@@ -1,0 +1,29 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "package.json",
+        "packages/dx-chart-core/package.json",
+        "packages/dx-core/package.json",
+        "packages/dx-demo-shell/package.json",
+        "packages/dx-grid-core/package.json",
+        "packages/dx-react-chart-bootstrap4/package.json",
+        "packages/dx-react-chart-demos/package.json",
+        "packages/dx-react-chart-material-ui/package.json",
+        "packages/dx-react-chart/package.json",
+        "packages/dx-react-common/package.json",
+        "packages/dx-react-core/package.json",
+        "packages/dx-react-grid-bootstrap3/package.json",
+        "packages/dx-react-grid-bootstrap4/package.json",
+        "packages/dx-react-grid-demos/package.json",
+        "packages/dx-react-grid-material-ui/package.json",
+        "packages/dx-react-grid/package.json",
+        "packages/dx-react-scheduler-demos/package.json",
+        "packages/dx-react-scheduler-material-ui/package.json",
+        "packages/dx-react-scheduler/package.json",
+        "packages/dx-scheduler-core/package.json",
+        "packages/dx-testing/package.json"
+      ]
+    }
+  }
+}

@@ -28,15 +28,14 @@ Name | Type | Default | Description
 -----|------|---------|------------
 name? | string | `Week` | The view's unique identifier. Required if you use several `WeekView` plugins.
 displayName? | string |  | The view's name used in UI plugins. The default value is equal to `name`.
-excludedDays? | Array&lt;number&gt; | [] | Specifies the days of week that should not be displayed in the view. Accepts an array of zero-bazed day indexes (0 - Sunday).
+excludedDays? | Array&lt;number&gt; | [] | Specifies the days of week that should not be displayed in the view. Accepts an array of zero-based day indexes (0 - Sunday).
 intervalCount? | number | 1 | Multiplies the default view interval.
 cellDuration? | number | 30 | Specifies the cell's duration in minutes.
 startDayHour? | number | 0 | Specifies the start hour of the view time scale. Accepts floating-point numbers from 0 to 24.
 endDayHour? | number | 24 | Specifies the end hour of the view time scale. Accepts floating-point numbers from 0 to 24.
 layoutComponent | ComponentType&lt;[WeekView.LayoutProps](#weekviewlayoutprops)&gt; | | A component that renders a week view layout.
 timeScaleLayoutComponent | ComponentType&lt;[WeekView.TimeScaleLayoutProps](#weekviewtimescalelayoutprops)&gt; | | A component that renders a time scale layout.
-timeScaleRowComponent | ComponentType&lt;[WeekView.RowProps](#weekviewrowprops)&gt; | | A component that renders a time scale row.
-timeScaleCellComponent | ComponentType&lt;[WeekView.TimeScaleCellProps](#weekviewtimescalecellprops)&gt; | | A component that renders a time scale cell.
+timeScaleLabelComponent | ComponentType&lt;[WeekView.TimeScaleLabelProps](#weekviewtimescalelabelprops)&gt; | | A component that renders a time scale label.
 dayScaleLayoutComponent | ComponentType&lt;[WeekView.DayScaleLayoutProps](#weekviewdayscalelayoutprops)&gt; | | A component that renders a day scale layout.
 dayScaleCellComponent | ComponentType&lt;[WeekView.DayScaleCellProps](#weekviewdayscalecellprops)&gt; | | A component that renders a day scale cell.
 dayScaleRowComponent | ComponentType&lt;[WeekView.RowProps](#weekviewrowprops)&gt; | | A component that renders a day scale row.
@@ -77,18 +76,16 @@ Describes properties passed to a component that renders a time scale layout.
 Field | Type | Description
 ------|------|------------
 cellsData | Array&lt;Array&lt;[WeekView.CellData](#weekviewcelldata)&gt;&gt; | Specifies the cells meta data.
-cellComponent | ComponentType&lt;[WeekView.TimeScaleCellProps](#weekviewtimescalecellprops)&gt; | A component that renders a time scale cell.
-rowComponent | ComponentType&lt;[WeekView.RowProps](#weekviewrowprops)&gt; | A component that renders a time scale row.
+labelComponent | ComponentType&lt;[WeekView.TimeScaleLabelProps](#weekviewtimescalelabelprops)&gt; | A component that renders a time scale label.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the set locale.
 
-### WeekView.TimeScaleCellProps
+### WeekView.TimeScaleLabelProps
 
-Describes properties passed to a component that renders a time scale cell.
+Describes properties passed to a component that renders a time scale label.
 
 Field | Type | Description
 ------|------|------------
-endDate | Date | Specifies the cell end time.
-startDate? | Date | Specifies the cell start time.
+time? | Date | Specifies the cell's time.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the set locale.
 
 ### WeekView.DayScaleLayoutProps
@@ -128,7 +125,6 @@ Describes properties passed to a component that renders a time table layout.
 Field | Type | Description
 ------|------|------------
 cellsData | Array&lt;Array&lt;[WeekView.CellData](#weekviewcelldata)&gt;&gt; | Specifies the cells meta data.
-tableRef | (ref: ReactInstance) => void | A function that accepts the table root React element.
 cellComponent | ComponentType&lt;[WeekView.TimeTableCellProps](#weekviewtimetablecellprops)&gt; | A component that renders a time table cell.
 rowComponent | ComponentType&lt;[WeekView.RowProps](#weekviewrowprops)&gt; | A component that renders a time table row.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the set locale.
@@ -165,7 +161,7 @@ Name | Properties | Description
 -----|------------|------------
 WeekView.Layout | [WeekView.LayoutProps](#weekviewlayoutprops) | A component that renders a week view layout.
 WeekView.TimeScaleLayout | [WeekView.TimeScaleLayoutProps](#weekviewtimescalelayoutprops) | A component that renders a time scale layout.
-WeekView.TimeScaleCell | [WeekView.TimeScaleCellProps](#weekviewtimescalecellprops) | A component that renders a time scale cell.
+WeekView.TimeScaleLabel | [WeekView.TimeScaleLabelProps](#weekviewtimescalelabelprops) | A component that renders a time scale label.
 WeekView.DayScaleLayout | [WeekView.DayScaleLayoutProps](#weekviewdayscalelayoutprops) | A component that renders a day scale layout.
 WeekView.DayScaleCell | [WeekView.DayScaleCellProps](#weekviewdayscalecellprops) | A component that renders a day scale cell.
 WeekView.DayScaleEmptyCell | [WeekView.DayScaleEmptyCellProps](#weekviewdayscaleemptycellprops) | A component that renders a day scale empty cell.

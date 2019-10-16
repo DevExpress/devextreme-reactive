@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PageLayout from '../components/layouts/section-main-page';
+import PageLayout from '../components/layouts/page-layout';
 import Title from '../components/landing/sections/title';
 import DocPreview from '../components/landing/sections/doc-preview';
 
@@ -17,7 +17,7 @@ const concepts = [
 ]
 
 export default () => (
-  <PageLayout section="docs" title="Documentation">
+  <PageLayout sectionName="docs">
     <div className="container">
       <Title text="Documentation" />
 

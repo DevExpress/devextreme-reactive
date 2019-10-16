@@ -22,8 +22,8 @@ ProductLinks.propsTypes = {
 
 ProductLinks.defaultProps = {
   productInfo: [
-    { title: 'Demos', location: '/demos' },
-    { title: 'Docs', location: '/docs' },
+    { title: 'Demos', location: '/demos/' },
+    { title: 'Docs', location: '/docs/' },
   ],
 };
 

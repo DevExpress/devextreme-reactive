@@ -5,7 +5,7 @@ import styles from './doc-preview.module.scss';
 
 const DocPreview = ({ title, path, imageLink, description }) => (
   <div className="col-4 my-2">
-    <GatsbyLink to={path}>
+    <GatsbyLink to={path} className={styles.link}>
       <div className={`${styles.container} py-4`}>
         <h3 className={styles.title}>{title}</h3>
         {imageLink ? <img src={imageLink} /> : null}

@@ -24,18 +24,13 @@ class PageLayout extends React.PureComponent {
           links={(
             <React.Fragment>
               {isDocPage ? (<VersionLink />) : null}
-              <LandingProductLinks
-                productInfo={[
-                  { title: 'Demos', location: `/demos/` },
-                  { title: 'Docs', location: `/docs/` },
-                ]}
-              />
+              <LandingProductLinks />
             </React.Fragment>
           )}
         />
         <ContainerWithMenu
-          collapsible={isDocPage}
-          items={navigation[technologyName][sectionName]}
+          // collapsible={isDocPage}
+          items={navigation[sectionName]}
           menuAddon={isDocPage ? (
             <Search
               technologyName={technologyName}
@@ -58,6 +53,7 @@ PageLayout.propTypes = {
 
 PageLayout.defaultProps = {
   children: undefined,
+  technologyName: 'react',
 };
 
 export default PageLayout;

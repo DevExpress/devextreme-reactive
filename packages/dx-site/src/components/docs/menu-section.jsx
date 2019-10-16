@@ -14,7 +14,7 @@ const SectionTitle = ({ nested, ...restProps }) => {
 
 const SectionBase = ({
   title, items, subSectionComponent: SubSection, itemComponent: Item,
-  onHeaderClick, classes, nested,
+  onHeaderClick, classes, nested, location,
 }) => (
   <React.Fragment key={title}>
     <SectionTitle
@@ -36,6 +36,7 @@ const SectionBase = ({
             classes={classes}
             section={item}
             itemComponent={Item}
+            location={location}
           />
         ) : (
           <Item {...item} />

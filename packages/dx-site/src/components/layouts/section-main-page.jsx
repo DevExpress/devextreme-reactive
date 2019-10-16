@@ -17,26 +17,7 @@ const titles = {
   'react/scheduler': 'Scheduler',
 };
 
-const generateMenuItems = (siteSection) => ([
-  { title: 'Overview', path: `/${siteSection}`},
-  ...Object.keys(navigation).reduce((acc, productSlug) => {
-    if (productSlug !== 'react/core' && navigation[productSlug][siteSection]) {
-      acc.push({
-        title: titles[productSlug],
-        items: navigation[productSlug][siteSection].reduce((items, section) => {
-          if (navigation[productSlug][siteSection].length === 1) {
-            return section['items'];
-          }
-          if (section['title'] === 'Related Docs') {
-            return items;
-          }
-          return [...items, section];
-        }, []),
-      })
-    }
-    return acc;
-  }, [])
-]);
+const generateMenuItems = (siteSection) => (navigation[siteSection]);
 
 export default ({ title, section, children }) => (
   <Layout>

@@ -11,10 +11,15 @@ import styles from './left-menu.module.scss';
 const LeftMenu = (props) => {
   const { collapsible } = props;
   return (
-    <LeftMenuBase
-      {...props}
-      sectionComponent={collapsible ? DocsSection : DemosSection}
-    />
+    <Location>
+      {({ location }) => (
+        <LeftMenuBase
+          {...props}
+          location={location}
+          sectionComponent={DocsSection}
+        />
+      )}
+      </Location>
   );
 };
 
@@ -37,7 +42,7 @@ const SingleItem = props => (
 
 const LeftMenuBase = ({
   sectionComponent: Section, items,
-  menuAddon,
+  menuAddon, location,
 }) => (
   <div className={styles.leftMenu}>
     {menuAddon}
@@ -48,6 +53,7 @@ const LeftMenuBase = ({
             key={section.title}
             section={section}
             itemComponent={Item}
+            location={location}
           />
         ) : (
           <SingleItem {...section} />

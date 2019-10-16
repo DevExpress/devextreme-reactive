@@ -2,6 +2,9 @@
   background-color: rgb(89, 208, 240);
   padding: 20px;
   text-align: center;
+  &:hover {
+    background-color: #007d9e;
+  }
 }
 
 .title {
@@ -9,4 +12,8 @@
   &:hover {
     text-decoration: none;
   }
+}
+
+a.link:hover {
+  text-decoration: none;
 }

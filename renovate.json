@@ -6,6 +6,7 @@
   "semanticCommits": true,
   "semanticPrefix": "chore:",
   "timezone": "America/Los_Angeles",
+  "rangeStrategy": "update-lockfile",
   "packageRules": [
     {
       "packagePatterns": [ "^(?!@material-ui|react|@types).*" ],

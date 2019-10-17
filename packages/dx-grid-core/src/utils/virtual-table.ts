@@ -113,6 +113,9 @@ export const getSpanBoundary: GetSpanBoundaryFn = (
     let [start] = visibleBoundary;
     const endIndex = Math.min(visibleBoundary[1], items.length - 1);
     let end = endIndex;
+    if (start > end) {
+      start = 0;
+    }
 
     for (let index = 0; index <= endIndex; index += 1) {
       const span = getItemSpan(items[index]);

@@ -5,8 +5,8 @@ import { Layout } from './layout';
 describe('ConfirmationDialog', () => {
   let shallow;
   const defaultProps = {
-    handleClose: jest.fn(),
-    confirm: jest.fn(),
+    handleCancel: jest.fn(),
+    handleConfirm: jest.fn(),
     getMessage: jest.fn(),
     // eslint-disable-next-line react/prop-types
     buttonComponent: ({ children }) => <div>{children}</div>,
@@ -34,7 +34,7 @@ describe('ConfirmationDialog', () => {
 
       const closeButton = tree.find(defaultProps.buttonComponent).at(0);
       closeButton.simulate('click');
-      expect(defaultProps.handleClose)
+      expect(defaultProps.handleCancel)
         .toBeCalled();
     });
     it('should handle click on confirm button', () => {
@@ -44,7 +44,7 @@ describe('ConfirmationDialog', () => {
 
       const closeButton = tree.find(defaultProps.buttonComponent).at(1);
       closeButton.simulate('click');
-      expect(defaultProps.confirm)
+      expect(defaultProps.handleConfirm)
         .toBeCalled();
     });
     it('should render messages', () => {

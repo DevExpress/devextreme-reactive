@@ -288,8 +288,8 @@ export const ConfirmationDialog: React.ComponentType<ConfirmationDialogProps> & 
 // @public (undocumented)
 export interface ConfirmationDialogProps {
   buttonComponent?: React.ComponentType<ConfirmationDialog_2.ButtonProps>;
-  doNotOpenOnCancel?: boolean;
-  doNotOpenOnDelete?: boolean;
+  ignoreCancel?: boolean;
+  ignoreDelete?: boolean;
   layoutComponent?: React.ComponentType<ConfirmationDialog_2.LayoutProps>;
   messages?: React.ComponentType<ConfirmationDialog_2.LocalizationMessages>;
   overlayComponent?: React.ComponentType<ConfirmationDialog_2.OverlayProps>;

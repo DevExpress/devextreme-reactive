@@ -7,7 +7,12 @@
   "semanticPrefix": "chore:",
   "commitMessagePrefix": "chore:",
   "timezone": "America/Los_Angeles",
-  "rangeStrategy": "update-lockfile",
+  "schedule": ["after 1pm and before 5pm on Tuesday every 2 week"],
+  "rangeStrategy": "bump",
+  "lockFileMaintenance": { "enabled": true },
+  "node": {
+    "supportPolicy": ["lts_latest"]
+  },
   "packageRules": [
     {
       "packagePatterns": [ "^(?!@material-ui|react|@types|typescript).*" ],

@@ -184,14 +184,4 @@ describe('AppointmentForm utils', () => {
         .toBeFalsy();
     });
   });
-  describe('#getRecurrenceInterval', () => {
-    it('should work', () => {
-      expect(getRecurrenceInterval(3))
-        .toBe(3);
-    });
-    it('should return 1 if interval is undefined', () => {
-      expect(getRecurrenceInterval(undefined))
-        .toBe(1);
-    });
-  });
 });

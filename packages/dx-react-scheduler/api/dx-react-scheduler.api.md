@@ -498,9 +498,9 @@ export namespace ConfirmationDialog {
   export interface LayoutProps {
     appointmentData?: AppointmentModel;
     buttonComponent: React.ComponentType<ConfirmationDialog.ButtonProps>;
-    confirm: () => void;
     getMessage: (messageKey: string) => string;
-    handleClose: () => void;
+    handleCancel: () => void;
+    handleConfirm: () => void;
     isDeleting: boolean;
   }
   export interface LocalizationMessages {
@@ -520,8 +520,8 @@ export namespace ConfirmationDialog {
 // @public (undocumented)
 export interface ConfirmationDialogProps {
   buttonComponent: React.ComponentType<ConfirmationDialog.ButtonProps>;
-  doNotOpenOnCancel: boolean;
-  doNotOpenOnDelete: boolean;
+  ignoreCancel: boolean;
+  ignoreDelete: boolean;
   layoutComponent: React.ComponentType<ConfirmationDialog.LayoutProps>;
   messages?: ConfirmationDialog.LocalizationMessages;
   overlayComponent: React.ComponentType<ConfirmationDialog.OverlayProps>;

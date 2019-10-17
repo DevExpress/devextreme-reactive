@@ -111,6 +111,7 @@ export namespace AppointmentForm {
     disableSaveButton?: boolean;
     fullSize: boolean;
     getMessage: (messageKey: string) => string;
+    hideDeleteButton?: boolean;
     onCancelButtonClick: () => void;
     onCommitButtonClick: () => void;
     onDeleteButtonClick: () => void;

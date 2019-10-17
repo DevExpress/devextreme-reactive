@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import moment from 'moment';
 import Popover from '@material-ui/core/Popover';
 import AccessTime from '@material-ui/icons/AccessTime';
 import Grid from '@material-ui/core/Grid';
@@ -59,6 +60,10 @@ const LayoutBase = ({
     onOpenButtonClick();
   };
 
+  const timeText = moment(data.startDate).isSame(data.endDate)
+    ? formatDate(data.startDate, HOUR_MINUTE_OPTIONS)
+    : `${formatDate(data.startDate, HOUR_MINUTE_OPTIONS)} - ${formatDate(data.endDate, HOUR_MINUTE_OPTIONS)}`;
+
   return (
     <Popover
       open={visible}
@@ -95,7 +100,7 @@ const LayoutBase = ({
           </Grid>
           <Grid item xs={10}>
             <div className={classes.text}>
-              {`${formatDate(data.startDate, HOUR_MINUTE_OPTIONS)} - ${formatDate(data.endDate, HOUR_MINUTE_OPTIONS)}`}
+              {timeText}
             </div>
           </Grid>
         </Grid>

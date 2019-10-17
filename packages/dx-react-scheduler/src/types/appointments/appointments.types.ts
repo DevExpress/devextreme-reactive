@@ -27,6 +27,13 @@ export namespace Appointments {
     type: 'vertical' | 'horizontal';
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
+    /**
+     * The appointment's duration type: `"short"`
+     * (the appointment occupies half of a timetable cell or less),
+     * `"middle"` (occupies the entire cell), or `"long"`
+     * (occupies more than one cell).
+     */
+    durationType: 'short' | 'middle' | 'long';
   }
   /***
    * Properties passed to a component that renders an element

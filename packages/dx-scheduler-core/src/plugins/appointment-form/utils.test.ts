@@ -6,7 +6,8 @@ import {
   JULY_DATE, JUNE_DATE, RRULE_REPEAT_TYPES, checkIsNaturalNumber,
 } from '@devexpress/dx-scheduler-core';
 import {
-  getDaysOfWeek, getMonths, getWeekNumberLabels, getMonthsWithOf, getCountDependingOnRecurrenceType,
+  getDaysOfWeek, getMonths, getWeekNumberLabels, getMonthsWithOf,
+  getCountDependingOnRecurrenceType, getRecurrenceInterval,
 } from './utils';
 
 describe('AppointmentForm utils', () => {

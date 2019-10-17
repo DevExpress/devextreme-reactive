@@ -15,7 +15,9 @@ One-time appointments are appointments with specified start and end date and tim
 
 ## Zero-Time Appointments
 
-Zero-time appointments are appointments with specified only start date and time. They show instantaneous actions such as reminders, public transportation scheduler and so on. To display zero-time appointments on a view you should set only the `startDate` field in [AppointmentModel](../reference/scheduler.md#appointmentmodel) shape and add the [Appointments](../reference/appointments.md) plugin.
+Zero-time appointments do not have an end date and time. They represent events without duration (reminders, arrival/departure time, and so on).
+
+To add a zero-time appointment, set the `startDate` field in the [AppointmentModel](../reference/scheduler.md#appointmentmodel), leave the `endDate` field unspecified, and add the [Appointments](../reference/appointments.md) plugin.
 
 .embedded-demo({ "path": "scheduler-basic/zero-time", "showThemeSelector": true })
 

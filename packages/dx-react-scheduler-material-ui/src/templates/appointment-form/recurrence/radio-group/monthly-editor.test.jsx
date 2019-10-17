@@ -9,6 +9,7 @@ import {
   getDaysOfWeek,
   getWeekNumberLabels,
 } from '@devexpress/dx-scheduler-core';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { MonthlyEditor } from './monthly-editor';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
@@ -177,6 +178,17 @@ describe('AppointmentForm recurrence RadioGroup', () => {
 
       expect(getWeekNumberLabels)
         .toHaveBeenCalled();
+    });
+
+    it('should be read-only if readOnly is true', () => {
+      const tree = shallow((<MonthlyEditor {...defaultProps} readOnly />));
+
+      const formControlLabels = tree.find(FormControlLabel);
+
+      expect(formControlLabels.at(0).prop('disabled'))
+        .toBeTruthy();
+      expect(formControlLabels.at(1).prop('disabled'))
+        .toBeTruthy();
     });
   });
 });

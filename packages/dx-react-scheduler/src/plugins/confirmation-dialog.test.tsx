@@ -49,8 +49,8 @@ describe('ConfirmationDialog', () => {
       .toMatchObject({
         isDeleting: false,
         buttonComponent: defaultProps.buttonComponent,
-        handleClose: expect.any(Function),
-        confirm: expect.any(Function),
+        handleCancel: expect.any(Function),
+        handleConfirm: expect.any(Function),
         getMessage: expect.any(Function),
       });
   });
@@ -117,13 +117,13 @@ describe('ConfirmationDialog', () => {
       });
     })).not.toThrow();
   });
-  it('shouldn\'t provide openCancelConfirmationDialog action if doNotOpenOnCancel is true', () => {
+  it('shouldn\'t provide openCancelConfirmationDialog action if ignoreCancel is true', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <ConfirmationDialog
           {...defaultProps}
-          doNotOpenOnCancel
+          ignoreCancel
         />
       </PluginHost>
     ));
@@ -132,13 +132,13 @@ describe('ConfirmationDialog', () => {
       computedActions.openCancelConfirmationDialog();
     })).toThrow();
   });
-  it('shouldn\'t provide confirmCancelChanges action if doNotOpenOnDelete is true', () => {
+  it('shouldn\'t provide confirmCancelChanges action if ignoreDelete is true', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <ConfirmationDialog
           {...defaultProps}
-          doNotOpenOnDelete
+          ignoreDelete
         />
       </PluginHost>
     ));
@@ -164,7 +164,7 @@ describe('ConfirmationDialog', () => {
 
     tree.update();
     act(() => {
-      tree.find(defaultProps.layoutComponent).prop('confirm')();
+      tree.find(defaultProps.layoutComponent).prop('handleConfirm')();
     });
 
     expect(defaultDeps.action.toggleAppointmentFormVisibility)
@@ -191,7 +191,7 @@ describe('ConfirmationDialog', () => {
 
     tree.update();
     act(() => {
-      tree.find(defaultProps.layoutComponent).prop('confirm')();
+      tree.find(defaultProps.layoutComponent).prop('handleConfirm')();
     });
 
     expect(defaultDeps.action.toggleAppointmentTooltipVisibility)
@@ -221,7 +221,7 @@ describe('ConfirmationDialog', () => {
     tree.update();
 
     act(() => {
-      tree.find(defaultProps.layoutComponent).prop('confirm')();
+      tree.find(defaultProps.layoutComponent).prop('handleConfirm')();
     });
 
     expect(defaultDeps.action.toggleAppointmentFormVisibility)
@@ -253,7 +253,7 @@ describe('ConfirmationDialog', () => {
     tree.update();
 
     act(() => {
-      tree.find(defaultProps.layoutComponent).prop('confirm')();
+      tree.find(defaultProps.layoutComponent).prop('handleConfirm')();
     });
 
     expect(defaultDeps.action.toggleAppointmentTooltipVisibility)
@@ -272,7 +272,6 @@ describe('ConfirmationDialog', () => {
         {pluginDepsToComponents(defaultDeps)}
         <ConfirmationDialog
           {...defaultProps}
-          doNotOpenOnDelete
         />
       </PluginHost>
     ));
@@ -284,7 +283,7 @@ describe('ConfirmationDialog', () => {
 
     tree.update();
     act(() => {
-      tree.find(defaultProps.layoutComponent).prop('handleClose')();
+      tree.find(defaultProps.layoutComponent).prop('handleCancel')();
     });
 
     expect(defaultDeps.action.toggleAppointmentFormVisibility)
@@ -300,7 +299,6 @@ describe('ConfirmationDialog', () => {
         {pluginDepsToComponents(defaultDeps)}
         <ConfirmationDialog
           {...defaultProps}
-          doNotOpenOnDelete
         />
       </PluginHost>
     ));
@@ -312,7 +310,7 @@ describe('ConfirmationDialog', () => {
 
     tree.update();
     act(() => {
-      tree.find(defaultProps.layoutComponent).prop('handleClose')();
+      tree.find(defaultProps.layoutComponent).prop('handleCancel')();
     });
 
     expect(defaultDeps.action.toggleAppointmentTooltipVisibility)
@@ -340,7 +338,7 @@ describe('ConfirmationDialog', () => {
 
     tree.update();
     act(() => {
-      tree.find(defaultProps.layoutComponent).prop('handleClose')();
+      tree.find(defaultProps.layoutComponent).prop('handleCancel')();
     });
 
     expect(defaultDeps.action.toggleAppointmentFormVisibility)
@@ -370,7 +368,7 @@ describe('ConfirmationDialog', () => {
 
     tree.update();
     act(() => {
-      tree.find(defaultProps.layoutComponent).prop('handleClose')();
+      tree.find(defaultProps.layoutComponent).prop('handleCancel')();
     });
 
     expect(defaultDeps.action.toggleAppointmentTooltipVisibility)
@@ -401,7 +399,7 @@ describe('ConfirmationDialog', () => {
 
     tree.update();
     act(() => {
-      tree.find(defaultProps.layoutComponent).prop('confirm')();
+      tree.find(defaultProps.layoutComponent).prop('handleConfirm')();
     });
 
     expect(defaultDeps.action.toggleAppointmentFormVisibility)
@@ -430,7 +428,7 @@ describe('ConfirmationDialog', () => {
 
     tree.update();
     act(() => {
-      tree.find(defaultProps.layoutComponent).prop('confirm')();
+      tree.find(defaultProps.layoutComponent).prop('handleConfirm')();
     });
 
     expect(defaultDeps.action.toggleAppointmentFormVisibility)

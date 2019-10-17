@@ -26,8 +26,8 @@ import { ConfirmationDialog } from '@devexpress/dx-react-scheduler';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-doNotOpenOnDelete | boolean | false | Specifies whether to open the dialog on delete events.
-doNotOpenOnCancel | boolean | false | Specifies whether to open the dialog on cancel events.
+ignoreDelete | boolean | false | Specifies whether to open the dialog on delete events.
+ignoreCancel | boolean | false | Specifies whether to open the dialog on cancel events.
 layoutComponent | ComponentType&lt;[ConfirmationDialog.LayoutProps](#confirmationdialoglayoutprops)&gt; | | A component that renders the dialog's layout.
 overlayComponent | ComponentType&lt;[ConfirmationDialog.OverlayProps](#confirmationdialogoverlayprops)&gt; | | A component that renders the overlay window.
 buttonComponent | ComponentType&lt;[ConfirmationDialog.ButtonProps](#confirmationdialogbuttonprops)&gt; | | A component that renders the dialog's buttons.
@@ -44,8 +44,8 @@ Field | Type | Description
 isDeleting | boolean | **true** if the appointment is being deleted or **false** if it is being edited.
 appointmentData? | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment's data.
 buttonComponent | ComponentType&lt;[ConfirmationDialog.ButtonProps](#confirmationdialogbuttonprops)&gt; | A component that renders the dialog's buttons.
-handleClose | () => void | A function that closes the dialog.
-confirm | () => void | A function that confirms changes.
+handleCancel | () => void | A function that cancels the confirmation event.
+handleConfirm | () => void | A function that confirms changes.
 getMessage | (messageKey: string) => string | Uses a localization message's key to retrieve the message.
 
 ### ConfirmationDialog.OverlayProps

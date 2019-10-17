@@ -32,7 +32,7 @@ const ConfirmationDialogBase: React.SFC<ConfirmationDialogProps> & {components: 
   layoutComponent: string, buttonComponent: string,
 }} = ({
   messages, overlayComponent: Overlay, layoutComponent: Layout, containerComponent: Container,
-  buttonComponent, doNotOpenOnDelete, doNotOpenOnCancel,
+  buttonComponent, ignoreDelete, ignoreCancel,
 }) => {
   const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
   const modalContainer = React.useRef();
@@ -83,10 +83,10 @@ const ConfirmationDialogBase: React.SFC<ConfirmationDialogProps> & {components: 
       name="ConfirmationDialog"
       dependencies={pluginDependencies}
     >
-      {!doNotOpenOnCancel &&
+      {!ignoreCancel &&
         <Action name="openCancelConfirmationDialog" action={confirmCancelChanges} />
       }
-      {!doNotOpenOnDelete &&
+      {!ignoreDelete &&
         <Action name="openDeleteConfirmationDialog" action={confirmDelete} />
       }
 
@@ -101,7 +101,7 @@ const ConfirmationDialogBase: React.SFC<ConfirmationDialogProps> & {components: 
           {({
             editingAppointment,
           }, actions) => {
-            const confirm = confirmAction(
+            const handleConfirm = confirmAction(
               !editingAppointment, actions[hideActionName], actions.stopEditAppointment,
               actions.finishDeleteAppointment, actions.cancelAddedAppointment,
               actions.cancelChangedAppointment,
@@ -115,8 +115,8 @@ const ConfirmationDialogBase: React.SFC<ConfirmationDialogProps> & {components: 
               >
                 <Layout
                   buttonComponent={buttonComponent}
-                  handleClose={toggleIsOpen}
-                  confirm={confirm}
+                  handleCancel={toggleIsOpen}
+                  handleConfirm={handleConfirm}
                   getMessage={getMessage}
                   isDeleting={actionType === ACTION_TYPES.DELETE}
                   appointmentData={appointmentData as AppointmentModel}
@@ -138,8 +138,8 @@ ConfirmationDialogBase.components = {
 };
 
 ConfirmationDialogBase.defaultProps = {
-  doNotOpenOnDelete: false,
-  doNotOpenOnCancel: false,
+  ignoreCancel: false,
+  ignoreDelete: false,
 };
 
 // tslint:disable-next-line: max-line-length

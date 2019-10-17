@@ -5,8 +5,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 export const Layout = React.memo(({
   buttonComponent: Button,
-  handleClose,
-  confirm,
+  handleCancel,
+  handleConfirm,
   getMessage,
   isDeleting,
   appointmentData,
@@ -17,9 +17,9 @@ export const Layout = React.memo(({
   >
     <DialogTitle>{getMessage(isDeleting ? 'confirmDeleteMessage' : 'confirmCancelMessage')}</DialogTitle>
     <DialogActions>
-      <Button onClick={handleClose} title={getMessage('cancelButton')} />
+      <Button onClick={handleCancel} title={getMessage('cancelButton')} />
       <Button
-        onClick={confirm}
+        onClick={handleConfirm}
         title={getMessage(isDeleting ? 'deleteButton' : 'discardButton')}
         color="primary"
       />
@@ -29,8 +29,8 @@ export const Layout = React.memo(({
 
 Layout.propTypes = {
   buttonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  handleClose: PropTypes.func,
-  confirm: PropTypes.func,
+  handleCancel: PropTypes.func,
+  handleConfirm: PropTypes.func,
   getMessage: PropTypes.func,
   isDeleting: PropTypes.bool,
   appointmentData: PropTypes.shape({
@@ -45,8 +45,8 @@ Layout.propTypes = {
 };
 
 Layout.defaultProps = {
-  handleClose: () => undefined,
-  confirm: () => undefined,
+  handleCancel: () => undefined,
+  handleConfirm: () => undefined,
   getMessage: () => undefined,
   isDeleting: false,
   appointmentData: { startDate: new Date(), endDate: new Date() },

@@ -9,10 +9,10 @@ export namespace ConfirmationDialog {
     appointmentData?: AppointmentModel;
     /** A component that renders the dialog's buttons. */
     buttonComponent: React.ComponentType<ConfirmationDialog.ButtonProps>;
-    /** A function that closes the dialog. */
-    handleClose: () => void;
+    /** A function that cancels the confirmation event. */
+    handleCancel: () => void;
     /** A function that confirms changes. */
-    confirm: () => void;
+    handleConfirm: () => void;
     /** Uses a localization message's key to retrieve the message. */
     getMessage: (messageKey: string) => string;
   }
@@ -54,9 +54,9 @@ export namespace ConfirmationDialog {
 
 export interface ConfirmationDialogProps {
   /** Specifies whether to open the dialog on delete events. */
-  doNotOpenOnDelete: boolean;
+  ignoreDelete: boolean;
   /** Specifies whether to open the dialog on cancel events. */
-  doNotOpenOnCancel: boolean;
+  ignoreCancel: boolean;
   /** A component that renders the dialog's layout. */
   layoutComponent: React.ComponentType<ConfirmationDialog.LayoutProps>;
   /** A component that renders the overlay window. */

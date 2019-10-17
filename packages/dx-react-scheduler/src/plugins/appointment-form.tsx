@@ -64,6 +64,8 @@ const pluginDependencies = [
   { name: 'EditingState', optional: true },
   { name: 'Appointments', optional: true },
   { name: 'AppointmentTooltip', optional: true },
+  { name: 'EditRecurrenceMenu', optional: true },
+  { name: 'IntegratedEditing', optional: true },
 ];
 
 const prepareChanges = (
@@ -257,7 +259,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
         name="AppointmentForm"
         dependencies={pluginDependencies}
       >
-        <Action name="toggleAppointmentFormVisibility" action={this.toggleVisibility} />
+        <Action name={TOGGLE_APPOINTMENT_FORM_VISIBILITY} action={this.toggleVisibility} />
 
         <Template name="schedulerRoot">
           <TemplateConnector>

@@ -63,7 +63,7 @@ export default class Demo extends React.PureComponent {
           />
           <Appointments />
           <ConfirmationDialog
-            doNotOpenOnCancel
+            ignoreCancel
           />
           <AppointmentTooltip
             showOpenButton

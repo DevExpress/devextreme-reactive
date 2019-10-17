@@ -23,6 +23,8 @@ import { AppointmentTooltipProps, AppointmentTooltipState, Appointments } from '
 const pluginDependencies = [
   { name: 'Appointments' },
   { name: 'EditingState', optional: true },
+  { name: 'EditRecurrenceMenu', optional: true },
+  { name: 'IntegratedEditing', optional: true },
 ];
 
 const commandButtonIds = {
@@ -114,7 +116,7 @@ class AppointmentTooltipBase extends React.PureComponent<
         name="AppointmentTooltip"
         dependencies={pluginDependencies}
       >
-        <Action name="toggleAppointmentTooltipVisibility" action={this.toggleVisibility} />
+        <Action name={TOGGLE_APPOINTMENT_TOOLTIP_VISIBILITY} action={this.toggleVisibility} />
 
         <Template name="timeTable">
           <TemplatePlaceholder />

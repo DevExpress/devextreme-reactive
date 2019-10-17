@@ -140,6 +140,7 @@ const MonthlyEditorBase = ({
         className={classes.formControl}
         value="onDayNumber"
         control={<Radio color="primary" />}
+        disabled={readOnly}
         label={(
           <Grid
             container
@@ -171,6 +172,7 @@ const MonthlyEditorBase = ({
         className={classes.formControl}
         classes={{ label: classes.controlLabel }}
         control={<Radio color="primary" />}
+        disabled={readOnly}
         label={(
           <Grid
             container

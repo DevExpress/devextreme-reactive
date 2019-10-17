@@ -63,6 +63,7 @@ const ChangeWeekNumberEditorBase = React.memo(({
     className={classNames(classes.formControlLabel, classes.formControl, className)}
     classes={{ label: classes.controlLabel }}
     control={<Radio color="primary" className={classes.radioButton} />}
+    disabled={readOnly}
     {...restProps}
     label={(
       <div>

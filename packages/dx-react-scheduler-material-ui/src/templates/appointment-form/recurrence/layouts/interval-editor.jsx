@@ -66,7 +66,7 @@ IntervalEditorBase.propTypes = {
   repeatEveryLabel: PropTypes.string.isRequired,
   repeatIntervalLabel: PropTypes.string.isRequired,
   readOnly: PropTypes.bool.isRequired,
-  interval: PropTypes.number.isRequired,
+  interval: PropTypes.number,
   changeRecurrenceInterval: PropTypes.func.isRequired,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -74,6 +74,7 @@ IntervalEditorBase.propTypes = {
 
 IntervalEditorBase.defaultProps = {
   className: undefined,
+  interval: 1,
 };
 
 export const IntervalEditor = withStyles(styles)(IntervalEditorBase, { name: 'IntervalEditor' });

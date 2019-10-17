@@ -55,6 +55,19 @@ describe('SchedulerCore computeds', () => {
         },
       ]);
     });
+    it('should add endDate if it not exists', () => {
+      const result = appointments(
+        [{ startDate: '2018-06-27 09:00' }],
+      );
+
+      expect(result).toEqual([
+        {
+          start: '2018-06-27 09:00',
+          end: '2018-06-27 09:00',
+          dataItem: { startDate: '2018-06-27 09:00', endDate: '2018-06-27 09:00' },
+        },
+      ]);
+    });
   });
 
   describe('#formatDateTimeGetter', () => {

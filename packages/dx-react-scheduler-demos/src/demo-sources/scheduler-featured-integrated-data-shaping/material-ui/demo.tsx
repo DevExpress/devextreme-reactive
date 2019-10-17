@@ -172,9 +172,13 @@ const styles = ({ palette }: Theme) => createStyles({
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
+  content: {
+    opacity: 0.7,
+  },
   container: {
     width: '100%',
     lineHeight: 1.2,
+    height: '100%',
   },
 });
 
@@ -242,10 +246,10 @@ const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({
         <div className={classes.text}>
           {data.title}
         </div>
-        <div className={classes.text}>
+        <div className={classNames(classes.text, classes.content)}>
           {`Priority: ${priority}`}
         </div>
-        <div className={classes.text}>
+        <div className={classNames(classes.text, classes.content)}>
           {`Location: ${data.location}`}
         </div>
       </div>

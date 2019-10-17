@@ -293,10 +293,9 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
     columns.length,
     columnsVisibleBoundary,
     rowSpanBoundaries,
-    0,
   );
 
-  const rowBoundaries = collapseBoundaries(totalRowCount!, [boundaries], [], offset);
+  const rowBoundaries = collapseBoundaries(totalRowCount!, [boundaries], []);
 
   return {
     columns: getCollapsedColumns(

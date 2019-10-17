@@ -199,7 +199,7 @@ describe('VirtualTableLayout utils', () => {
       expect(getSpanBoundary(items, [[2, 4]], item => item.colSpan))
         .toEqual([[1, 5]]);
     });
-    
+
     it('should nullify start of interval if that greater than end', () => {
       const items = [
         { colSpan: 1 }, // 0

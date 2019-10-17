@@ -9,6 +9,7 @@ describe('DragDrop', () => {
     fromPrev: false,
     toNext: false,
     formatDate: jest.fn(),
+    durationType: 'long',
   };
   describe('DraftAppointment', () => {
     let shallow;

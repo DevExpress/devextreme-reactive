@@ -127,6 +127,7 @@ const appointments = [
 const styles = ({ palette }: Theme) => createStyles({
   appointment: {
     borderRadius: 0,
+    borderBottom: 0,
   },
   firstRoomAppointment: {
     backgroundColor: indigo[300],

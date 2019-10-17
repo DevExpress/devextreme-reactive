@@ -69,12 +69,12 @@ const VerticalAppointmentBase = ({
   className,
   formatDate,
   recurringIconComponent: RecurringIcon,
-  heightType,
+  durationType,
   ...restProps
 }) => {
   const repeat = !!data.rRule;
-  const isShortHeight = heightType === 'short';
-  const isMiddleHeight = heightType === 'middle';
+  const isShortHeight = durationType === 'short';
+  const isMiddleHeight = durationType === 'middle';
   return (
     <div
       className={classNames({
@@ -144,7 +144,7 @@ VerticalAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   formatDate: PropTypes.func.isRequired,
-  heightType: PropTypes.string.isRequired,
+  durationType: PropTypes.string.isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
 };

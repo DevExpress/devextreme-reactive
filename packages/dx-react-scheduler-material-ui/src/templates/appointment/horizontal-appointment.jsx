@@ -40,7 +40,7 @@ const HorizontalAppointmentBase = ({
   className,
   recurringIconComponent: RecurringIcon,
   formatDate,
-  heightType,
+  durationType,
   ...restProps
 }) => {
   const repeat = !!data.rRule;
@@ -70,7 +70,7 @@ HorizontalAppointmentBase.propTypes = {
   recurringIconComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
-  heightType: PropTypes.string,
+  durationType: PropTypes.string,
   children: PropTypes.node,
   className: PropTypes.string,
   formatDate: PropTypes.func,
@@ -80,7 +80,7 @@ HorizontalAppointmentBase.defaultProps = {
   formatDate: () => '',
   children: undefined,
   className: undefined,
-  heightType: undefined,
+  durationType: undefined,
 };
 
 export const HorizontalAppointment = withStyles(styles, { name: 'HorizontalAppointment' })(HorizontalAppointmentBase);

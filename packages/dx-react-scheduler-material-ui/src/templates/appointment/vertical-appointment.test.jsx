@@ -11,7 +11,7 @@ describe('VerticalAppointment', () => {
     },
     recurringIconComponent: () => <div />,
     formatDate: () => undefined,
-    heightType: 'long',
+    durationType: 'long',
   };
 
   let classes;
@@ -126,7 +126,7 @@ describe('VerticalAppointment', () => {
 
     it('should consider on middle appointment height type', () => {
       const tree = mount((
-        <VerticalAppointment {...defaultProps} heightType="middle" />
+        <VerticalAppointment {...defaultProps} durationType="middle" />
       ));
 
       expect(tree.find(`.${classes.shortContent}`).exists())
@@ -138,7 +138,7 @@ describe('VerticalAppointment', () => {
     });
     it('should consider on short appointment height type', () => {
       const tree = mount((
-        <VerticalAppointment {...defaultProps} heightType="short" />
+        <VerticalAppointment {...defaultProps} durationType="short" />
       ));
 
       expect(tree.find(`.${classes.shortContainer}`).exists())

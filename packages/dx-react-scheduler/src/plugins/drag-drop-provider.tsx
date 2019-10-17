@@ -27,12 +27,12 @@ const renderAppointmentItems = (items, formatDate, data, Wrapper, Appointment) =
   items.length > 0 ? (
     <Wrapper>
       {items.map(({
-        dataItem, type, fromPrev, toNext, heightType, ...geometry
+        dataItem, type, fromPrev, toNext, durationType, ...geometry
       }, index) => (
         <Appointment
           key={index.toString()}
           data={data}
-          heightType={heightType}
+          durationType={durationType}
           style={getAppointmentStyle(geometry)}
           type={type}
           fromPrev={fromPrev}

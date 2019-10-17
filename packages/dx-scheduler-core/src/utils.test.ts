@@ -426,7 +426,7 @@ describe('Utils', () => {
           width: 11,
           dataItem: 'c',
           type: 'vertical',
-          heightType: 'long',
+          durationType: 'long',
         });
       expect(rects[1])
         .toMatchObject({
@@ -436,7 +436,7 @@ describe('Utils', () => {
           width: 11,
           dataItem: 'b',
           type: 'vertical',
-          heightType: 'middle',
+          durationType: 'middle',
         });
       expect(rects[2])
         .toMatchObject({
@@ -446,7 +446,7 @@ describe('Utils', () => {
           width: 11,
           dataItem: 'a',
           type: 'vertical',
-          heightType: 'short',
+          durationType: 'short',
         });
     });
   });

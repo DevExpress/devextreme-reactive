@@ -304,7 +304,7 @@ export namespace Appointments {
         children?: React.ReactNode;
         data: AppointmentModel;
         formatDate: FormatterFn;
-        heightType: 'short' | 'middle' | 'long';
+        durationType: 'short' | 'middle' | 'long';
         recurringIconComponent: React.ComponentType<object>;
         type: 'vertical' | 'horizontal';
     }

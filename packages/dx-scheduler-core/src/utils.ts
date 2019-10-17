@@ -292,7 +292,7 @@ const verticalRectCalculator: CustomFunction<
     dataItem: appointment.dataItem,
     fromPrev: appointment.fromPrev,
     toNext: appointment.toNext,
-    heightType: appointmentHeightType(appointment, cellDuration),
+    durationType: appointmentHeightType(appointment, cellDuration),
     type: VERTICAL_TYPE,
   };
 };

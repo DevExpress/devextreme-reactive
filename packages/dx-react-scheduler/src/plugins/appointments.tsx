@@ -65,7 +65,7 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
           {({
             onClick, onDoubleClick, formatDate,
             data, type, fromPrev, toNext,
-            heightType,
+            durationType,
             ...restParams
           }: any) => (
             <Appointment
@@ -77,7 +77,7 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
               <AppointmentContent
                 data={data}
                 type={type}
-                heightType={heightType}
+                durationType={durationType}
                 recurringIconComponent={recurringIconComponent}
                 formatDate={formatDate}
               />

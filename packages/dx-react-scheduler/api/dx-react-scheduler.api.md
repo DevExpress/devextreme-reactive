@@ -303,8 +303,8 @@ export namespace Appointments {
     export interface AppointmentContentProps {
         children?: React.ReactNode;
         data: AppointmentModel;
-        formatDate: FormatterFn;
         durationType: 'short' | 'middle' | 'long';
+        formatDate: FormatterFn;
         recurringIconComponent: React.ComponentType<object>;
         type: 'vertical' | 'horizontal';
     }

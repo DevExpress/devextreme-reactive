@@ -85,7 +85,7 @@ Field | Type | Description
 readOnly? | boolean | Specifies whether the appointment form is read-only.
 fullSize | boolean | Specifies whether the command layout is full-size.
 disableSaveButton? | boolean | Specifies whether to disable the Save button.
-hideDeleteButton? | boolean | Specifies whether to hide the DeleteButton.
+hideDeleteButton? | boolean | Specifies whether to hide the Delete button.
 onCommitButtonClick | () => void | An event raised when the Commit button is clicked. The event handler should commit appointment changes.
 onCancelButtonClick | () => void | An event raised when the Cancel button is clicked. The event handler should close the appointment form.
 onDeleteButtonClick | () => void | An event raised when the Delete button is clicked. The event handler should delete an appointment.

@@ -63,5 +63,16 @@ describe('AppointmentForm common', () => {
       expect(tree.find(KeyboardDateTimePicker).at(0).prop('disabled'))
         .toBeTruthy();
     });
+
+    it('should display time correctly', () => {
+      const tree = shallow((
+        <DateEditor
+          {...defaultProps}
+        />
+      ));
+
+      expect(tree.find(KeyboardDateTimePicker).at(0).prop('format'))
+        .toBe('DD/MM/YYYY hh:mm A');
+    });
   });
 });

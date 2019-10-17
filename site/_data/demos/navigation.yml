@@ -87,6 +87,8 @@
 /react/scheduler:
   - title: Demos
     items:
+      - title: Overview
+        path: /react/scheduler/demos/featured/overview
       - title: Data Editing
         path: /react/scheduler/demos/featured/data-editing
       - title: Appearance Customization

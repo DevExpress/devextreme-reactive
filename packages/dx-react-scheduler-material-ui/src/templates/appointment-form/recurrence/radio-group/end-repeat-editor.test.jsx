@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { createShallow, getClasses, createMount } from '@material-ui/core/test-utils';
 import { getRecurrenceOptions, changeRecurrenceOptions } from '@devexpress/dx-scheduler-core';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { EndRepeatEditor } from './end-repeat-editor';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
@@ -152,6 +153,19 @@ describe('AppointmentForm recurrence RadioGroup', () => {
       ));
 
       expect(tree.exists())
+        .toBeTruthy();
+    });
+
+    it('should be read-only if readOnly is true', () => {
+      const tree = shallow((<EndRepeatEditor {...defaultProps} readOnly />));
+
+      const formControlLabels = tree.find(FormControlLabel);
+
+      expect(formControlLabels.at(0).prop('disabled'))
+        .toBeTruthy();
+      expect(formControlLabels.at(1).prop('disabled'))
+        .toBeTruthy();
+      expect(formControlLabels.at(2).prop('disabled'))
         .toBeTruthy();
     });
   });

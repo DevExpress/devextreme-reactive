@@ -48,7 +48,7 @@
     "lint:fix": "yarn lint -- --fix"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.3",
+    "@babel/core": "^7.6.4",
     "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
@@ -58,7 +58,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "core-js": "^3.3.2",
     "enzyme": "3.10.0",
-    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-adapter-react-16": "^1.15.1",
     "enzyme-to-json": "^3.4.2",
     "jest": "^24.9.0",
     "react": "^16.9.0",
@@ -71,7 +71,7 @@
     "ts-jest": "^24.1.0",
     "tslint": "^5.20.0",
     "tslint-config-airbnb": "^5.11.2",
-    "typescript": "3.6.3"
+    "typescript": "3.6.4"
   },
   "dependencies": {
     "@devexpress/dx-grid-core": "2.1.2"

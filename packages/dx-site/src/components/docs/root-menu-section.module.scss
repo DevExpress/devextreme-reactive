@@ -1,0 +1,24 @@
+.title {
+  cursor: pointer;
+  margin-bottom: 0.4rem;
+  margin-left: 0.1rem;
+  font-size: 1.25rem;
+  color: #114E5F;
+
+  &::before {
+    content: "\25BE\00a0"; // -
+  }
+  &.collapsed::before {
+    content: "\25B8\00a0"; // +
+    margin-right: 2px;
+  }
+}
+
+.list {
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
+
+  &.collapsed {
+    display: none;
+  }
+}

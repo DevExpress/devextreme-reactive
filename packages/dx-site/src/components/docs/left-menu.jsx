@@ -3,8 +3,7 @@ import * as PropTypes from 'prop-types';
 import { Location } from '@reach/router';
 import Link from 'gatsby-link';
 import Search from './search';
-import DocsSection from './docs-menu-section';
-import DemosSection from './demos-menu-section';
+import RootSection from './root-menu-section';
 
 import styles from './left-menu.module.scss';
 
@@ -16,7 +15,7 @@ const LeftMenu = (props) => {
         <LeftMenuBase
           {...props}
           location={location}
-          sectionComponent={DocsSection}
+          sectionComponent={RootSection}
         />
       )}
       </Location>
@@ -35,9 +34,9 @@ const Item = ({ path, title }) => (
 );
 
 const SingleItem = props => (
-  <div className={styles.singleItem}>
+  <ul className={`list-unstyled ${styles.singleItem}`}>
     <Item {...props} />
-  </div>
+  </ul>
 );
 
 const LeftMenuBase = ({
@@ -46,19 +45,19 @@ const LeftMenuBase = ({
 }) => (
   <div className={styles.leftMenu}>
     {menuAddon}
-    {items.map((section, index, arr) => (
+    {items.map(section => (
       <>
         {section.items ? (
           <Section
+            {...section}
             key={section.title}
-            section={section}
             itemComponent={Item}
             location={location}
           />
         ) : (
           <SingleItem {...section} />
         )}
-        {index < arr.length - 1 ? <hr /> : null}
+        <hr />
       </>
     ))}
   </div>

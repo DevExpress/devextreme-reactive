@@ -58,23 +58,6 @@
             "path": "/react/core/docs/reference/connect-props/"
           }
         ]
-      },
-      {
-        "title": "Related Docs",
-        "items": [
-          {
-            "title": "React Grid",
-            "path": "/react/grid/docs/guides/getting-started/"
-          },
-          {
-            "title": "React Chart",
-            "path": "/react/chart/docs/guides/getting-started/"
-          },
-          {
-            "title": "React Scheduler",
-            "path": "/react/scheduler/docs/guides/getting-started/"
-          }
-        ]
       }
     ]
   },
@@ -412,23 +395,6 @@
             "path": "/react/grid/docs/reference/create-row-cache/"
           }
         ]
-      },
-      {
-        "title": "Related Docs",
-        "items": [
-          {
-            "title": "React Core",
-            "path": "/react/core/docs/guides/fundamentals/"
-          },
-          {
-            "title": "React Chart",
-            "path": "/react/chart/docs/guides/getting-started/"
-          },
-          {
-            "title": "React Scheduler",
-            "path": "/react/scheduler/docs/guides/getting-started/"
-          }
-        ]
       }
     ]
   },
@@ -638,19 +604,6 @@
         ]
       },
       {
-        "title": "Common Concepts",
-        "items": [
-          {
-            "title": "Optimize performance",
-            "path": "/react/common/docs/guides/performance-optimization/"
-          },
-          {
-            "title": "Create a Custom Theme",
-            "path": "/react/common/docs/guides/custom-theme/"
-          }
-        ]
-      },
-      {
         "title": "API Reference",
         "items": [
           {
@@ -738,23 +691,6 @@
             "path": "/react/chart/docs/reference/zoom-and-pan/"
           }
         ]
-      },
-      {
-        "title": "Related Docs",
-        "items": [
-          {
-            "title": "React Core",
-            "path": "/react/core/docs/guides/fundamentals/"
-          },
-          {
-            "title": "React Grid",
-            "path": "/react/grid/docs/guides/getting-started/"
-          },
-          {
-            "title": "React Scheduler",
-            "path": "/react/scheduler/docs/guides/getting-started/"
-          }
-        ]
       }
     ]
   },
@@ -825,19 +761,6 @@
           {
             "title": "TypeScript Support",
             "path": "/react/scheduler/docs/guides/typescript/"
-          }
-        ]
-      },
-      {
-        "title": "Common Concepts",
-        "items": [
-          {
-            "title": "Optimize performance",
-            "path": "/react/common/docs/guides/performance-optimization/"
-          },
-          {
-            "title": "Create a Custom Theme",
-            "path": "/react/common/docs/guides/custom-theme/"
           }
         ]
       },
@@ -913,23 +836,6 @@
             "path": "/react/scheduler/docs/reference/view-switcher/"
           }
         ]
-      },
-      {
-        "title": "Related Docs",
-        "items": [
-          {
-            "title": "React Core",
-            "path": "/react/core/docs/guides/fundamentals/"
-          },
-          {
-            "title": "React Chart",
-            "path": "/react/chart/docs/guides/getting-started/"
-          },
-          {
-            "title": "React Grid",
-            "path": "/react/grid/docs/guides/getting-started/"
-          }
-        ]
       }
     ]
   },
@@ -945,23 +851,6 @@
           {
             "title": "Create a Custom Theme",
             "path": "/react/common/docs/guides/custom-theme/"
-          }
-        ]
-      },
-      {
-        "title": "Related Docs",
-        "items": [
-          {
-            "title": "React Core",
-            "path": "/react/core/docs/guides/fundamentals/"
-          },
-          {
-            "title": "React Chart",
-            "path": "/react/chart/docs/guides/getting-started/"
-          },
-          {
-            "title": "React Grid",
-            "path": "/react/grid/docs/guides/getting-started/"
           }
         ]
       }

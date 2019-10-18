@@ -22,18 +22,36 @@ const titles = {
   'react/core': 'Core',
 };
 
-const generateMenuItems = (siteSection) => ([
-  { title: 'Overview', path: `/${siteSection}`},
+const startsWithCapitalLetter = word => word[0] === word[0].toUpperCase();
+
+const sortApiItems = (apiItems) => {
+  const classes = apiItems.filter(({ title }) => startsWithCapitalLetter(title));
+  const methods = apiItems.filter(({ title }) => !startsWithCapitalLetter(title));
+
+  const sort = items => items.sort((a, b) => a.title.localeCompare(b.title));
+
+  return [
+    ...sort(classes),
+    ...sort(methods),
+  ];
+};
+
+const prepareMenuItems = (siteSection) => ([
+  { title: 'OVERVIEW', path: `/${siteSection}/`},
   ...Object.keys(navigation).reduce((acc, productSlug) => {
-    if (productSlug !== 'react/core1' && navigation[productSlug][siteSection]) {
+    if (navigation[productSlug][siteSection]) {
       acc.push({
         title: titles[productSlug],
-        items: navigation[productSlug][siteSection].reduce((items, section) => {
+        items: navigation[productSlug][siteSection].reduce((items, rawSection) => {
+          let section = rawSection;
           if (navigation[productSlug][siteSection].length === 1) {
             return section['items'];
           }
-          if (section['title'] === 'Related Docs') {
-            return items;
+          if (section['title'] === 'API Reference') {
+            section = {
+              ...rawSection,
+              items: sortApiItems(rawSection.items),
+            };
           }
           return [...items, section];
         }, []),
@@ -58,8 +76,7 @@ class PageLayout extends React.PureComponent {
           )}
         />
         <ContainerWithMenu
-          // collapsible={isDocPage}
-          items={generateMenuItems(sectionName)}
+          items={prepareMenuItems(sectionName)}
           menuAddon={isDocPage ? (
             <Search
               technologyName={technologyName}

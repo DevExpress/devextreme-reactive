@@ -41,7 +41,7 @@
     "gatsby-remark-prismjs": "^3.3.17",
     "gatsby-source-filesystem": "^2.0.28",
     "gatsby-transformer-remark": "^2.3.8",
-    "node-sass": "4.11.0",
+    "node-sass": "^4.12.0",
     "prismjs": "^1.17.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",

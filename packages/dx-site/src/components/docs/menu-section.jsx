@@ -4,37 +4,27 @@ import { Location } from '@reach/router';
 
 import styles from './menu-section.module.scss';
 
-
-const SectionTitle = ({ nested, ...restProps }) => {
-  const H3 = props => <h3 {...props} />;
-  const H4 = props => <h5 {...props} />;
-  const Title = nested ? H4 : H3;
-  return <Title {...restProps} />
-};
-
 const SectionBase = ({
-  title, items, subSectionComponent: SubSection, itemComponent: Item,
-  onHeaderClick, classes, nested, location,
+  title, items, location,
+  onHeaderClick, listClassName, titleClassName,
+  subSectionComponent: SubSection,
+  itemComponent: Item,
+  titleComponent: Title,
 }) => (
   <React.Fragment key={title}>
-    <SectionTitle
-      nested={nested}
-      className={classes.title}
+    <Title
+      className={titleClassName}
       onClick={onHeaderClick}
-    >
-      {title}
-    </SectionTitle>
+      title={title}
+    />
 
     <ul
-      className={`list-unstyled ${classes.list} ${styles.menuList}`}
+      className={`list-unstyled ${listClassName} ${styles.menuList}`}
     >
       {items.map(item => (
         item.items ? (
           <SubSection
-            nested
-            onHeaderClick={onHeaderClick}
-            classes={classes}
-            section={item}
+            {...item}
             itemComponent={Item}
             location={location}
           />
@@ -49,15 +39,14 @@ const SectionBase = ({
 SectionBase.propTypes = {
   section: PropTypes.object.isRequired,
   onHeaderClick: PropTypes.function,
-  claaes: PropTypes.object,
+  listClassName: PropTypes.string,
+  titleClassName: PropTypes.string,
 };
 
 SectionBase.defaultProps = {
   onHeaderClick: () => {},
-  classes: {
-    title: '',
-    list: '',
-  },
+  listClassName: '',
+  titleClassName: '',
 };
 
 export default SectionBase;

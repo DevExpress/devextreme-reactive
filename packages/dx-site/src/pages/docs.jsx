@@ -1,52 +1,82 @@
 import * as React from 'react';
 import PageLayout from '../components/layouts/page-layout';
 import Title from '../components/landing/sections/title';
-import DocPreview from '../components/landing/sections/doc-preview';
+import ProductDocPreview from '../components/landing/sections/product-doc-preview';
+import ConceptDocPreview from '../components/landing/sections/concept-doc-preview';
 
-import reactGridIcon from './images/react-grid.svg';
-import reactChartIcon from './images/react-chart.svg';
-import reactSchedulerIcon from './images/react-scheduler.svg';
+import ReactGridIcon from './images/react-grid.svg';
+import ReactChartIcon from './images/react-chart.svg';
+import ReactSchedulerIcon from './images/react-scheduler.svg';
 
 const concepts = [
-  { title: 'Fundamentals', path: '/react/core/docs/guides/fundamentals/' },
-  { title: 'State Management', path: '' },
-  { title: 'Using Redux', path: '' },
-  { title: 'Localization', path: '' },
-  { title: 'Theming', path: '/react/common/docs/guides/custom-theme/' },
-  { title: 'Performance', path: '/react/common/docs/guides/performance-optimization/' },
+  { 
+    title: 'Fundamentals',
+    path: '/react/core/docs/guides/fundamentals/',
+    description: 'React Core provides components for creating a plugin-based component.',
+  },
+  {
+    title: 'State Management',
+    path: '',
+    description: 'React Core provides components for creating a plugin-based component.',
+  },
+  {
+    title: 'Using Redux',
+    path: '',
+    description: 'React Core provides components for creating a plugin-based component.',
+  },
+  {
+    title: 'Localization',
+    path: '',
+    description: 'React Core provides components for creating a plugin-based component.',
+  },
+  {
+    title: 'Theming',
+    path: '/react/common/docs/guides/custom-theme/',
+    description: 'React Core provides components for creating a plugin-based component.',
+  },
+  {
+    title: 'Performance',
+    path: '/react/common/docs/guides/performance-optimization/',
+    description: 'React Core provides components for creating a plugin-based component.',
+  },
 ]
 
 export default () => (
   <PageLayout sectionName="docs">
     <div className="container">
-      <Title text="Documentation" />
+      <div className="row">
+        <div className="col-12">
+          <h1>Documentation</h1>
+        </div>
+      </div>
+      {/* <Title text="Documentation" /> */}
 
       <div className="row my-3">  
-        <DocPreview
+        <ProductDocPreview
           path="/react/grid/docs/"
           title="Grid"
-          imageLink={reactGridIcon}
+          imageComponent={ReactGridIcon}
         />
-        <DocPreview
+        <ProductDocPreview
           path="/react/scheduler/docs/"
           title="Scheduler"
-          imageLink={reactSchedulerIcon}
+          imageComponent={ReactSchedulerIcon}
         />
-        <DocPreview
+        <ProductDocPreview
           path="/react/chart/docs/"
           title="Chart"
-          imageLink={reactChartIcon}
+          imageComponent={ReactChartIcon}
         />
       </div>
 
       <div className="row my-2">
         <div className="col-12">
-          <h4>Common Concepts</h4>
+          <h2>Common Concepts</h2>
         </div>
       </div>
       <div className="row">
         {concepts.map(concept => (
-          <DocPreview {...concept} />
+          <ConceptDocPreview {...concept} />
         ))}
       </div>
 

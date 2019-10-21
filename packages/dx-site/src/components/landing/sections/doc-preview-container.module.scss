@@ -1,0 +1,20 @@
+.container {
+  background-color: white;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  color: #0096BD;
+  padding: 2.4rem 1rem;
+  text-align: center;
+  cursor: pointer;
+
+  &.dense {
+    padding: 1.2rem;
+  }
+
+  &:hover {
+    box-shadow: 0px 2px 6px rgba(0, 150, 189, 0.6);
+  }
+}
+
+a.link:hover {
+  text-decoration: none;
+}

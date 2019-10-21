@@ -4,9 +4,9 @@ import styles from './title.module.scss';
 export default ({ text }) => (
   <div className="row">
     <div className="col-md-12">
-      <div className={styles.title}>
+      <h1 className={styles.title}>
         {text}
-      </div>
+      </h1>
     </div>
   </div>
 );

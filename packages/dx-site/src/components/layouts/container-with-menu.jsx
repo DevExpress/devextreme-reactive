@@ -11,12 +11,12 @@ const ContainerWithMenu = ({
   <div className={isDocPage ? styles.docsPageLayout : styles.pageLayout}>
     <div className="container">
       <div className="row">
-        <div className="col-md-9 order-md-2">
+        <div className="col-lg-9 col-md-8 order-md-2">
           <div className={styles.content}>
             {children}
           </div>
         </div>
-        <div className="col-md-3 order-md-1">
+        <div className="col-lg-3 col-md-4 order-md-1">
           <div className={styles.sidebar}>
             <LeftMenu
               {...menuProps}

@@ -3,6 +3,7 @@
 .title {
   @include title-large(
     $margin-bottom: 1rem,
-    $use-left-offset: false
+    $use-left-offset: false,
+    $font-family: "Segoe UI Bold"
   );
 }

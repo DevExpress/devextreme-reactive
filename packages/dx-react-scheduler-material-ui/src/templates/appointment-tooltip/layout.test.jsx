@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { createShallow, getClasses, createMount } from '@material-ui/core/test-utils';
 import Popover from '@material-ui/core/Popover';
 import { Layout } from './layout';
 
 describe('Appointment Tooltip ', () => {
   let shallow;
   let classes;
+  let mount;
   const defaultProps = {
     headerComponent: () => null,
     commandButtonComponent: () => null,
@@ -34,6 +35,10 @@ describe('Appointment Tooltip ', () => {
   });
   beforeEach(() => {
     jest.resetAllMocks();
+    mount = createMount();
+  });
+  afterEach(() => {
+    mount.cleanUp();
   });
   describe('Layout', () => {
     it('should pass rest props to the root element', () => {
@@ -46,19 +51,21 @@ describe('Appointment Tooltip ', () => {
     });
 
     it('should render Popover component', () => {
-      const tree = shallow((
+      const tree = mount((
         <Layout className="custom-class" visible {...defaultProps} />
       ));
 
       const popover = tree.find(Popover).at(0);
       expect(popover.exists())
         .toBeTruthy();
+      expect(tree.find(`.${classes.popover}`).exists())
+        .toBeTruthy();
     });
 
     it('should handle onHide', () => {
       const onHide = jest.fn();
       const tree = shallow((
-        <Layout className="custom-class" onHide={onHide} {...defaultProps} />
+        <Layout onHide={onHide} {...defaultProps} />
       ));
 
       tree.prop('onClose')();
@@ -107,7 +114,7 @@ describe('Appointment Tooltip ', () => {
     it('should handle onOpenButtonClick', () => {
       const onOpenButtonClick = jest.fn();
       const tree = shallow((
-        <Layout className="custom-class" onOpenButtonClick={onOpenButtonClick} {...defaultProps} />
+        <Layout onOpenButtonClick={onOpenButtonClick} {...defaultProps} />
       ));
 
       tree.find(defaultProps.headerComponent).prop('onOpenButtonClick')();
@@ -118,7 +125,7 @@ describe('Appointment Tooltip ', () => {
     it('should handle onDeleteButtonClick', () => {
       const onDeleteButtonClick = jest.fn();
       const tree = shallow((
-        <Layout className="custom-class" onDeleteButtonClick={onDeleteButtonClick} {...defaultProps} />
+        <Layout onDeleteButtonClick={onDeleteButtonClick} {...defaultProps} />
       ));
 
       tree.find(defaultProps.headerComponent).prop('onDeleteButtonClick')();

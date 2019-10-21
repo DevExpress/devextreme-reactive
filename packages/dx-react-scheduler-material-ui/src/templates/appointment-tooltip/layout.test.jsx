@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import Popover from '@material-ui/core/Popover';
 import { Layout } from './layout';
 
-describe('Appointment Tooltip', () => {
-  let classes;
+describe('Appointment Tooltip ', () => {
   let shallow;
+  let classes;
   const defaultProps = {
     headerComponent: () => null,
     commandButtonComponent: () => null,
@@ -18,17 +19,21 @@ describe('Appointment Tooltip', () => {
         endDate: new Date('2018-08-17 11:00'),
         title: 'title',
       },
+      target: {},
     },
     commandButtonIds: {
       open: 'open',
       close: 'close',
       delete: 'delete',
     },
-    formatDate: () => undefined,
+    formatDate: jest.fn(),
   };
   beforeAll(() => {
     classes = getClasses(<Layout {...defaultProps} />);
     shallow = createShallow({ dive: true });
+  });
+  beforeEach(() => {
+    jest.resetAllMocks();
   });
   describe('Layout', () => {
     it('should pass rest props to the root element', () => {
@@ -40,77 +45,48 @@ describe('Appointment Tooltip', () => {
         .toMatchObject({ a: 1 });
     });
 
+    it('should render Popover component', () => {
+      const tree = shallow((
+        <Layout className="custom-class" visible {...defaultProps} />
+      ));
+
+      const popover = tree.find(Popover).at(0);
+      expect(popover.exists())
+        .toBeTruthy();
+    });
+
+    it('should handle onHide', () => {
+      const onHide = jest.fn();
+      const tree = shallow((
+        <Layout className="custom-class" onHide={onHide} {...defaultProps} />
+      ));
+
+      tree.prop('onClose')();
+      tree.find(defaultProps.headerComponent).prop('onHide')();
+      expect(onHide)
+        .toHaveBeenCalledTimes(2);
+    });
+
     it('should render Header component', () => {
       const tree = shallow((
         <Layout {...defaultProps} />
       ));
 
-      expect(tree.find(defaultProps.headerComponent).exists())
+      const header = tree.find(defaultProps.headerComponent).at(0);
+      expect(header.exists())
         .toBeTruthy();
-    });
-
-    it('should render OpenButton', () => {
-      const onOpenButtonClick = jest.fn();
-      const tree = shallow((
-        <Layout {...defaultProps} showOpenButton onOpenButtonClick={onOpenButtonClick} />
-      ));
-
-      const { id, onExecute } = tree
-        .find(defaultProps.headerComponent)
-        .find(defaultProps.commandButtonComponent).props();
-
-      onExecute();
-
-      expect(id).toBe('open');
-      expect(onOpenButtonClick).toBeCalled();
-    });
-
-    it('should render CloseButton', () => {
-      const onHideMock = jest.fn();
-      const tree = shallow((
-        <Layout
-          {...defaultProps}
-          showCloseButton
-          onHide={onHideMock}
-        />
-      ));
-      const { id, onExecute } = tree
-        .find(defaultProps.headerComponent)
-        .find(defaultProps.commandButtonComponent).props();
-
-      onExecute();
-
-      expect(id).toBe('close');
-      expect(onHideMock).toBeCalled();
-    });
-
-    it('should render DeleteButton', () => {
-      const onDeleteButtonClick = jest.fn();
-      const tree = shallow((
-        <Layout
-          {...defaultProps}
-          showDeleteButton
-          onDeleteButtonClick={onDeleteButtonClick}
-        />
-      ));
-
-      const { id, onExecute } = tree
-        .find(defaultProps.headerComponent)
-        .find(defaultProps.commandButtonComponent).props();
-
-      onExecute();
-
-      expect(id).toBe('delete');
-      expect(onDeleteButtonClick).toBeCalled();
-    });
-
-    it('should render title', () => {
-      const tree = shallow((
-        <Layout {...defaultProps} />
-      ));
-
-      expect(tree.find(defaultProps.headerComponent).find(`.${classes.title}`).exists())
-        .toBeTruthy();
+      expect(header.props())
+        .toMatchObject({
+          appointmentData: defaultProps.appointmentMeta.data,
+          commandButtonComponent: defaultProps.commandButtonComponent,
+          showOpenButton: defaultProps.showOpenButton,
+          showCloseButton: defaultProps.showCloseButton,
+          showDeleteButton: defaultProps.showDeleteButton,
+          commandButtonIds: defaultProps.commandButtonIds,
+          onOpenButtonClick: expect.any(Function),
+          onDeleteButtonClick: expect.any(Function),
+          onHide: expect.any(Function),
+        });
     });
 
     it('should render Content component', () => {
@@ -118,24 +94,36 @@ describe('Appointment Tooltip', () => {
         <Layout {...defaultProps} />
       ));
 
-      expect(tree.find(defaultProps.contentComponent).exists())
+      const content = tree.find(defaultProps.contentComponent).at(0);
+      expect(content.exists())
         .toBeTruthy();
+      expect(content.props())
+        .toMatchObject({
+          appointmentData: defaultProps.appointmentMeta.data,
+          formatDate: defaultProps.formatDate,
+        });
     });
 
-    it('should call dates format function', () => {
-      const dateTimeFormat = jest.fn();
+    it('should handle onOpenButtonClick', () => {
+      const onOpenButtonClick = jest.fn();
       const tree = shallow((
-        <Layout {...defaultProps} formatDate={dateTimeFormat} />
+        <Layout className="custom-class" onOpenButtonClick={onOpenButtonClick} {...defaultProps} />
       ));
 
-      expect(dateTimeFormat)
-        .toBeCalledTimes(2);
-      expect(dateTimeFormat)
-        .toHaveBeenCalledWith(defaultProps.appointmentMeta.data.startDate, { hour: 'numeric', minute: 'numeric' });
-      expect(dateTimeFormat)
-        .toHaveBeenCalledWith(defaultProps.appointmentMeta.data.endDate, { hour: 'numeric', minute: 'numeric' });
-      expect(tree.find(`.${classes.text}`).props().children)
-        .toBeTruthy();
+      tree.find(defaultProps.headerComponent).prop('onOpenButtonClick')();
+      expect(onOpenButtonClick)
+        .toHaveBeenCalled();
+    });
+
+    it('should handle onDeleteButtonClick', () => {
+      const onDeleteButtonClick = jest.fn();
+      const tree = shallow((
+        <Layout className="custom-class" onDeleteButtonClick={onDeleteButtonClick} {...defaultProps} />
+      ));
+
+      tree.find(defaultProps.headerComponent).prop('onDeleteButtonClick')();
+      expect(onDeleteButtonClick)
+        .toHaveBeenCalled();
     });
   });
 });

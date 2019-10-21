@@ -15,7 +15,7 @@ import {
 
 const getRowId = row => row.id;
 
-const TabCell = (props) => {
+const FocusableCell = (props) => {
   const { onClick } = props;
   return (
     <Table.Cell {...props} tabIndex={0} onFocus={onClick} />
@@ -93,7 +93,7 @@ export default () => {
           editingCells={editingCells}
           onEditingCellsChange={setEditingCells}
         />
-        <Table cellComponent={TabCell} />
+        <Table cellComponent={FocusableCell} />
         <TableHeaderRow />
         <TableInlineCellEditing
           selectTextOnEditStart={selectTextOnEditStart}

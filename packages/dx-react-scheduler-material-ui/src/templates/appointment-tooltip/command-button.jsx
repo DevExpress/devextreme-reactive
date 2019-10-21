@@ -28,14 +28,11 @@ export const CommandButton = ({
 );
 
 CommandButton.propTypes = {
-  classes: PropTypes.object.isRequired,
   id: PropTypes.string,
-  className: PropTypes.string,
   onExecute: PropTypes.func,
 };
 
 CommandButton.defaultProps = {
-  className: undefined,
   onExecute: () => undefined,
   id: '',
 };

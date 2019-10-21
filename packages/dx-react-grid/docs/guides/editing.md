@@ -51,9 +51,9 @@ End-users can click cells and thus activate in-place editors, provided that you 
 .embedded-demo({ "path": "grid-editing/inline-cell-editing", "showThemeSelector": true })
 
 
-`TableInlineCellEditing` can be coupled with the `TableEditRow` and `TableEditColumn` plugins to provide richer functionality. For example, in the following code, users can not only activate in-place editors for individual cells, but also switch entire rows to edit mode:
+`TableInlineCellEditing` can be coupled with the `TableEditColumn` plugins to provide richer functionality. Also users can define their own 'Table.Cell' component, to implement tabulation for edit cells.:
 
-.embedded-demo({ "path": "grid-editing/edit-row-with-inline-cell-editing", "showThemeSelector": true })
+.embedded-demo({ "path": "grid-editing/cell-editing-tab-with-edit-column", "showThemeSelector": true })
 
 ## Disable Editing in a Column
 

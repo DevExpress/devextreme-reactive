@@ -4,7 +4,6 @@ import {
   Grid,
   Table,
   TableHeaderRow,
-  TableEditRow,
   TableEditColumn,
   TableInlineCellEditing,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
@@ -15,6 +14,13 @@ import {
 } from '../../../demo-data/generator';
 
 const getRowId = row => row.id;
+
+const TabCell = (props) => {
+  const { onClick } = props;
+  return (
+    <Table.Cell {...props} tabIndex={0} onFocus={onClick} />
+  );
+};
 
 export default () => {
   const [columns] = useState([
@@ -27,28 +33,53 @@ export default () => {
     columnValues: { id: ({ index }) => index, ...defaultColumnValues },
     length: 8,
   }));
+  const [editingCells, setEditingCells] = useState([]);
+  const [selectTextOnEditStart] = useState(true);
 
-  const commitChanges = ({ added, changed, deleted }) => {
+  const commitChanges = React.useCallback(({ added, changed, deleted }) => {
     let changedRows;
     if (added) {
-      const startingAddedId = rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
+      const startingAddedId = rows.length > 0
+        ? Math.max(rows[rows.length - 1].id, rows[0].id) + 1
+        : 0;
       changedRows = [
-        ...rows,
         ...added.map((row, index) => ({
           id: startingAddedId + index,
           ...row,
         })),
+        ...rows,
       ];
+      setEditingCells([{ rowId: startingAddedId, columnName: columns[0].name }]);
     }
     if (changed) {
-      changedRows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+      const rowIds = Object.keys(changed);
+      if (rowIds.some(id => changed[id] !== undefined)) {
+        changedRows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+      }
     }
     if (deleted) {
       const deletedSet = new Set(deleted);
       changedRows = rows.filter(row => !deletedSet.has(row.id));
     }
-    setRows(changedRows);
-  };
+
+    if (changedRows) {
+      setRows(changedRows);
+    }
+  }, [rows]);
+
+  const Command = React.useCallback((params) => {
+    const { id } = params;
+    if (id === 'add') {
+      return (
+        <TableEditColumn.Command
+          {...params}
+          onExecute={() => commitChanges({ added: [{}] })}
+          tabIndex={-1}
+        />
+      );
+    }
+    return <TableEditColumn.Command {...params} tabIndex={-1} />;
+  }, [commitChanges]);
 
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>
@@ -59,15 +90,18 @@ export default () => {
       >
         <EditingState
           onCommitChanges={commitChanges}
+          editingCells={editingCells}
+          onEditingCellsChange={setEditingCells}
         />
-        <Table />
+        <Table cellComponent={TabCell} />
         <TableHeaderRow />
-        <TableInlineCellEditing />
-        <TableEditRow />
+        <TableInlineCellEditing
+          selectTextOnEditStart={selectTextOnEditStart}
+        />
         <TableEditColumn
           showAddCommand
-          showEditCommand
           showDeleteCommand
+          commandComponent={Command}
         />
       </Grid>
     </<%&wrapperTag%>>

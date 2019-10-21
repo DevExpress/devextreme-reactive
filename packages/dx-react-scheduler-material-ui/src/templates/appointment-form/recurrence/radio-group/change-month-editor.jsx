@@ -50,6 +50,7 @@ const ChangeMonthEditorBase = React.memo(({
     className={classNames(classes.formControl, className)}
     classes={{ label: classes.controlLabel }}
     control={<Radio color="primary" />}
+    disabled={readOnly}
     {...restProps}
     label={(
       <Grid

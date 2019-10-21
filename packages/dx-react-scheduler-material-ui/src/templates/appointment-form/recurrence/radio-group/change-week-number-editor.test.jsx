@@ -86,5 +86,12 @@ describe('AppointmentForm recurrence RadioGroup', () => {
       expect(defaultProps.getMessage)
         .toHaveBeenCalledWith('theLabel');
     });
+
+    it('should be read-only if readOnly is true', () => {
+      const tree = shallow((<ChangeWeekNumberEditor {...defaultProps} readOnly />));
+
+      expect(tree.prop('disabled'))
+        .toBeTruthy();
+    });
   });
 });

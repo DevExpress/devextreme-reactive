@@ -67,6 +67,7 @@ const LayoutBase = ({
   fullSize,
   readOnly,
   disableSaveButton,
+  hideDeleteButton,
   ...restProps
 }) => (
   <Grid
@@ -86,12 +87,16 @@ const LayoutBase = ({
     />
     {!readOnly && (
       <>
-        <CommandButton
-          onExecute={onDeleteButtonClick}
-          getMessage={getMessage}
-          id={DELETE_BUTTON}
-        />
-        <div className={classes.line} />
+        {!hideDeleteButton && (
+          <>
+            <CommandButton
+              onExecute={onDeleteButtonClick}
+              getMessage={getMessage}
+              id={DELETE_BUTTON}
+            />
+            <div className={classes.line} />
+          </>
+        )}
         <CommandButton
           getMessage={getMessage}
           disabled={disableSaveButton}
@@ -116,6 +121,7 @@ LayoutBase.propTypes = {
   readOnly: PropTypes.bool,
   children: PropTypes.node,
   disableSaveButton: PropTypes.bool,
+  hideDeleteButton: PropTypes.bool,
 };
 
 LayoutBase.defaultProps = {
@@ -124,6 +130,7 @@ LayoutBase.defaultProps = {
   fullSize: false,
   readOnly: false,
   disableSaveButton: false,
+  hideDeleteButton: false,
 };
 
 export const Layout = withStyles(styles)(LayoutBase, { name: 'Layout' });

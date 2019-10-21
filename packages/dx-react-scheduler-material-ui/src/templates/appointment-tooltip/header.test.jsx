@@ -31,10 +31,12 @@ describe('Appointment Tooltip ', () => {
         <Header className="custom-class" {...defaultProps} />
       ));
 
-      expect(tree.is('.custom-class'))
+      expect(tree.is(`.${classes.head}.${classes.flexContainer}.custom-class`))
         .toBeTruthy();
-      expect(tree.is(`.${classes.head}`))
+      expect(tree.find(`.${classes.line}`).exists())
         .toBeTruthy();
+      expect(tree.find(`.${classes.flexContainer}`))
+        .toHaveLength(2);
     });
 
     it('should pass rest props to the root element', () => {

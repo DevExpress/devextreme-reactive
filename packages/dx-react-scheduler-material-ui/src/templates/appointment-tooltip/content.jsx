@@ -71,7 +71,7 @@ export const ContentBase = ({
           <Circle className={classes.circle} />
         </Grid>
         <Grid item xs={10}>
-          <div className={classes.dateAndTitle}>
+          <div>
             <div className={classNames(classes.title, classes.dateAndTitle)}>
               {appointmentData.title}
             </div>

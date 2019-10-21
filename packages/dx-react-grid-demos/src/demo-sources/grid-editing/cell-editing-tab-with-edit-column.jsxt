@@ -52,20 +52,15 @@ export default () => {
       setEditingCells([{ rowId: startingAddedId, columnName: columns[0].name }]);
     }
     if (changed) {
-      const rowIds = Object.keys(changed);
-      if (rowIds.some(id => changed[id] !== undefined)) {
-        changedRows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
-      }
+      changedRows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
     }
     if (deleted) {
       const deletedSet = new Set(deleted);
       changedRows = rows.filter(row => !deletedSet.has(row.id));
     }
 
-    if (changedRows) {
-      setRows(changedRows);
-    }
-  }, [rows]);
+    setRows(changedRows);
+  }, [rows, columns]);
 
   const Command = React.useCallback((params) => {
     const { id } = params;

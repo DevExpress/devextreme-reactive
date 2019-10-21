@@ -35,6 +35,7 @@
     "gatsby-plugin-catch-links": "^2.0.13",
     "gatsby-plugin-google-analytics": "^2.0.18",
     "gatsby-plugin-react-helmet": "^3.0.11",
+    "gatsby-plugin-react-svg": "^2.1.2",
     "gatsby-plugin-sass": "^2.0.11",
     "gatsby-remark-autolink-headers": "^2.0.16",
     "gatsby-remark-external-links": "^0.0.4",

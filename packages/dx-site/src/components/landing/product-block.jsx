@@ -6,17 +6,13 @@ import styles from './product-block.module.scss';
 const Title = ({ text }) => text.split('\n').map(chunk => <span key={Math.random().toString()}>{chunk}</span>);
 
 const ProductLink = ({
-  type, iconLink, title, links, condensed,
+  type, icon: Icon, title, links, condensed,
 }) => (
   <div className={`col-lg-${condensed ? 3 : 4} col-md-4  ${styles.productBlock}`}>
     <div className={`d-flex flex-row flex-md-column align-content-end ${styles.container} ${styles[type]}`}>
       <div className={`${styles.titleWrapper} align-self-center`}>
         <div className="d-flex flex-row justify-content-md-center align-items-end">
-          <img
-            className={styles.icon}
-            alt="title"
-            src={iconLink}
-          />
+          <Icon className={styles.icon} />
           <div className={styles.title}>
             <Title text={title} />
           </div>

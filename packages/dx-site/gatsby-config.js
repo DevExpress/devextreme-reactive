@@ -69,6 +69,16 @@ module.exports = {
         path: path.join(__dirname, '../dx-react-common/docs/'),
       },
     },
+    // inline svg images
+    {
+      resolve: 'gatsby-plugin-react-svg',
+      options: {
+        rule: {
+          include: /images\/react.+svg/,
+        },
+      },
+    },
+    // transform .md files
     {
       resolve: 'gatsby-transformer-remark',
       options: {

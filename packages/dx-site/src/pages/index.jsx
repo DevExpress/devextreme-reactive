@@ -19,9 +19,9 @@ import AlternatedBackground from '../components/landing/alternated-background';
 import headerLink from './images/header.png';
 import bootstrapLogo from './images/bootstrap-logo.svg';
 import materialUiLogo from './images/material-ui-logo.svg';
-import reactGridIcon from './images/react-grid.svg';
-import reactChartIcon from './images/react-chart.svg';
-import reactSchedulerIcon from './images/react-scheduler.svg';
+import ReactGridIcon from './images/react-grid.svg';
+import ReactChartIcon from './images/react-chart.svg';
+import ReactSchedulerIcon from './images/react-scheduler.svg';
 import nativeReactImage from './images/reactive-100-react.png';
 import lovesReduxImage from './images/reactive-love-redux.png';
 import pluginBasedImage from './images/reactive-plugins.png';
@@ -96,7 +96,7 @@ const IndexPage = () => (
         <LandingProductBlock
           condensed
           type="react"
-          iconLink={reactGridIcon}
+          icon={ReactGridIcon}
           title={'React\nGrid'}
           links={[
             <LandingLink
@@ -119,7 +119,7 @@ const IndexPage = () => (
         <LandingProductBlock
           condensed
           type="react"
-          iconLink={reactChartIcon}
+          icon={ReactChartIcon}
           title={'React\nChart'}
           links={[
             <LandingLink
@@ -142,7 +142,7 @@ const IndexPage = () => (
         <LandingProductBlock
           condensed
           type="react"
-          iconLink={reactSchedulerIcon}
+          icon={ReactSchedulerIcon}
           title={'React\nScheduler'}
           links={[
             <LandingLink
@@ -196,7 +196,7 @@ const IndexPage = () => (
       >
         <LandingProductBlock
           type="react"
-          iconLink={reactGridIcon}
+          icon={ReactGridIcon}
           title={'React\nGrid'}
           links={[
             <LandingLink
@@ -218,7 +218,7 @@ const IndexPage = () => (
         />
         <LandingProductBlock
           type="react"
-          iconLink={reactChartIcon}
+          icon={ReactChartIcon}
           title={'React\nChart'}
           links={[
             <LandingLink
@@ -240,7 +240,7 @@ const IndexPage = () => (
         />
         <LandingProductBlock
           type="react"
-          iconLink={reactSchedulerIcon}
+          icon={ReactSchedulerIcon}
           title={'React\nScheduler'}
           links={[
             <LandingLink

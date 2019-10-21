@@ -48,6 +48,9 @@ const styles = ({ spacing, palette, typography }) => ({
   titleContainer: {
     paddingBottom: spacing(2),
   },
+  container: {
+    paddingBottom: spacing(1.5),
+  },
 });
 
 export const ContentBase = ({
@@ -81,7 +84,7 @@ export const ContentBase = ({
           </div>
         </Grid>
       </Grid>
-      <Grid container alignItems="center">
+      <Grid container alignItems="center" className={classes.container}>
         <Grid item xs={2} className={classes.textCenter}>
           <AccessTime className={classes.icon} />
         </Grid>

@@ -17,19 +17,14 @@ import {
   AppointmentForm,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
-import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
 import PriorityHigh from '@material-ui/icons/PriorityHigh';
 import LowPriority from '@material-ui/icons/LowPriority';
 import Event from '@material-ui/icons/Event';
-import AccessTime from '@material-ui/icons/AccessTime';
 import Paper from '@material-ui/core/Paper';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
 import classNames from 'clsx';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
@@ -68,7 +63,7 @@ const styles = theme => ({
     padding: 0,
   },
   contentItemIcon: {
-    marginRight: theme.spacing(1),
+    textAlign: 'center',
   },
   flexibleSpace: {
     margin: '0 auto 0 0',
@@ -179,15 +174,10 @@ const EditButton = withStyles(styles, { name: 'EditButton' })(
 
 const TooltipHeader = withStyles(styles, { name: 'TooltipHeader' })(
   ({ classes, appointmentData, ...restProps }) => {
-    const priorityClasses = createClassesByPriorityId(
-      appointmentData.priorityId, classes,
-      { background: true },
-    );
     return (
       <AppointmentTooltip.Header
         {...restProps}
         appointmentData={appointmentData}
-        className={classNames(priorityClasses, classes.titleNoWrap)}
       />
     );
   },
@@ -203,27 +193,19 @@ const TooltipContent = withStyles(styles, { name: 'TooltipContent' })(
     if (appointmentData.priorityId === 2) icon = <Event />;
     else if (appointmentData.priorityId === 3) icon = <PriorityHigh />;
     return (
-      <AppointmentTooltip.Content {...restProps} className={classes.tooltipContent}>
-        <List>
-          <ListItem className={classes.contentItem}>
-            <ListItemIcon className={`${classes.contentItemIcon} ${priorityClasses}`}>
-              {icon}
-            </ListItemIcon>
-            <ListItemText className={classes.contentItemValue}>
-              <span className={priorityClasses}>{` ${priority} priority`}</span>
-            </ListItemText>
-          </ListItem>
-          <ListItem className={classes.contentItem}>
-            <ListItemIcon className={`${classes.contentItemIcon}`}>
-              <AccessTime />
-            </ListItemIcon>
-            <ListItemText className={classes.contentItemValue}>
-              {moment(appointmentData.startDate).format('h:mm A')}
-              {' - '}
-              {moment(appointmentData.endDate).format('h:mm A')}
-            </ListItemText>
-          </ListItem>
-        </List>
+      <AppointmentTooltip.Content
+        {...restProps}
+        appointmentData={appointmentData}
+        className={classes.tooltipContent}
+      >
+        <Grid container alignItems="center">
+          <Grid className={classNames(classes.contentItemIcon, priorityClasses)} item xs={2}>
+            {icon}
+          </Grid>
+          <Grid className={classes.contentItemValue} item xs={10}>
+            <span className={priorityClasses}>{` ${priority} priority`}</span>
+          </Grid>
+        </Grid>
       </AppointmentTooltip.Content>
     );
   },

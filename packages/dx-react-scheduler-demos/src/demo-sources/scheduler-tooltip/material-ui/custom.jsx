@@ -7,6 +7,8 @@ import {
   AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import MoreIcon from '@material-ui/icons/MoreVert';
 import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 
@@ -41,30 +43,17 @@ const Header = withStyles(style, { name: 'Header' })(({
     {...restProps}
     className={classes.header}
   >
-    <span role="img" aria-label="Clock" className={classes.icon}>🕒</span>
-    <div className={classes.title}>
-      {appointmentData.title}
-    </div>
+    <IconButton>
+      <MoreIcon />
+    </IconButton>
   </AppointmentTooltip.Header>
 ));
 
 const Content = withStyles(style, { name: 'Content' })(({
   children, appointmentData, classes, ...restProps
 }) => (
-  <AppointmentTooltip.Content {...restProps}>
-    <div className={classes.text}>
-      {moment(appointmentData.startDate).format('h:mm A')}
-      {' - '}
-      {moment(appointmentData.endDate).format('h:mm A')}
-    </div>
-    <Button
-      variant="outlined"
-      color="primary"
-      // eslint-disable-next-line no-alert
-      onClick={() => alert(JSON.stringify(appointmentData))}
-    >
-      Details
-    </Button>
+  <AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
+
   </AppointmentTooltip.Content>
 ));
 

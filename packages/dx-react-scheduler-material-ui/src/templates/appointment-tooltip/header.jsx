@@ -9,6 +9,7 @@ const styles = ({ spacing, palette }) => ({
     position: 'relative',
     paddingLeft: spacing(1),
     paddingRight: spacing(0.5),
+    paddingTop: spacing(0.25),
     minHeight: spacing(3),
   },
   line: {

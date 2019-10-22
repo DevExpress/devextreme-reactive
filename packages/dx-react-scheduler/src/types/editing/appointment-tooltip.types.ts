@@ -14,7 +14,7 @@ export namespace AppointmentTooltip {
     commandButtonIds: Array<string>;
     /** An event raised when the Open button is clicked. The event handler should open the appointment form. */
     onOpenButtonClick?: () => void;
-    /** An event raised when the Open button is clicked. The event handler should delete an appointment. */
+    /** An event raised when the Delete button is clicked. The event handler should delete an appointment. */
     onDeleteButtonClick?: () => void;
     /** The appointment’s displayed metadata. */
     appointmentMeta?: AppointmentMeta;
@@ -45,7 +45,7 @@ export namespace AppointmentTooltip {
     commandButtonIds: Array<string>;
     /** An event raised when the Open button is clicked. The event handler should open the appointment form. */
     onOpenButtonClick?: () => void;
-    /** An event raised when the Open button is clicked. The event handler should delete an appointment. */
+    /** An event raised when the Delete button is clicked. The event handler should delete an appointment. */
     onDeleteButtonClick?: () => void;
     /** An event that hides the tooltip. */
     onHide?: () => void;

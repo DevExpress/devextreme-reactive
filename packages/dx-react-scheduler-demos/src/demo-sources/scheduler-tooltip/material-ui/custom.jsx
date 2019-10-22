@@ -5,6 +5,7 @@ import {
   WeekView,
   Appointments,
   AppointmentTooltip,
+  AppointmentForm,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import IconButton from '@material-ui/core/IconButton';
 import MoreIcon from '@material-ui/icons/MoreVert';
@@ -77,8 +78,9 @@ export default class Demo extends React.PureComponent {
             headerComponent={Header}
             contentComponent={Content}
             showCloseButton
-            showDeleteButton
+            showOpenButton
           />
+          <AppointmentForm readOnly />
         </Scheduler>
       </Paper>
     );

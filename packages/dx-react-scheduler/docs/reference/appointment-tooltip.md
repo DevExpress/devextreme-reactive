@@ -64,7 +64,7 @@ showDeleteButton | boolean | Specifies the Delete button's visibility.
 commandButtonIds | Array&lt;string&gt; | A command button's identifier list.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the locale.
 onOpenButtonClick? | () => void | An event raised when the Open button is clicked. The event handler should open the appointment form.
-onDeleteButtonClick? | () => void | An event raised when the Open button is clicked. The event handler should delete an appointment.
+onDeleteButtonClick? | () => void | An event raised when the Delete button is clicked. The event handler should delete an appointment.
 appointmentMeta? | [AppointmentMeta](#appointmentmeta) | The appointment's displayed metadata.
 visible? | boolean | Specifies the tooltip's visibility.
 onHide? | () => void | An event that hides the tooltip.
@@ -78,12 +78,12 @@ Describes properties passed to a component that renders the tooltip header.
 
 Field | Type | Description
 ------|------|------------
-showOpenButton? | boolean | false | Specifies the Open button's visibility.
-showCloseButton? | boolean | false | Specifies the Close button's visibility.
-showDeleteButton? | boolean | false | Specifies the Delete button's visibility.
+showOpenButton? | boolean | Specifies the Open button's visibility.
+showCloseButton? | boolean | Specifies the Close button's visibility.
+showDeleteButton? | boolean | Specifies the Delete button's visibility.
 appointmentData? | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment's displayed metadata.
 onOpenButtonClick? | () => void | An event raised when the Open button is clicked. The event handler should open the appointment form.
-onDeleteButtonClick? | () => void | An event raised when the Open button is clicked. The event handler should delete an appointment.
+onDeleteButtonClick? | () => void | An event raised when the Delete button is clicked. The event handler should delete an appointment.
 onHide? | () => void | An event that hides the tooltip.
 commandButtonComponent | ComponentType&lt;[AppointmentTooltip.CommandButtonProps](#appointmenttooltipcommandbuttonprops)&gt; | | A component that renders a command button.
 children? | ReactNode | A React node used to render the tooltip header.

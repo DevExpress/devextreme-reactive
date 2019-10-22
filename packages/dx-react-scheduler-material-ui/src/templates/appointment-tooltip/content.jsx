@@ -16,9 +16,9 @@ const styles = ({ spacing, palette, typography }) => ({
     backgroundColor: palette.background.paper,
     boxSizing: 'border-box',
     width: '400px',
+    ...typography.body2,
   },
   text: {
-    ...typography.body2,
     display: 'inline-block',
   },
   title: {

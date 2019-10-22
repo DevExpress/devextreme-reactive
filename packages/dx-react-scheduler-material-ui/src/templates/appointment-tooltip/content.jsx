@@ -11,7 +11,7 @@ import { setColor } from '../utils';
 
 const styles = ({ spacing, palette, typography }) => ({
   content: {
-    padding: spacing(3, 1),
+    padding: spacing(1.5, 1),
     paddingTop: 0,
     backgroundColor: palette.background.paper,
     boxSizing: 'border-box',

@@ -36,7 +36,7 @@ export default () => {
   const [editingCells, setEditingCells] = useState([]);
   const [selectTextOnEditStart] = useState(true);
 
-  const commitChanges = React.useCallback(({ added, changed, deleted }) => {
+  const commitChanges = ({ added, changed, deleted }) => {
     let changedRows;
     if (added) {
       const startingAddedId = rows.length > 0
@@ -60,21 +60,9 @@ export default () => {
     }
 
     setRows(changedRows);
-  }, [rows, columns]);
+  };
 
-  const Command = React.useCallback((params) => {
-    const { id } = params;
-    if (id === 'add') {
-      return (
-        <TableEditColumn.Command
-          {...params}
-          onExecute={() => commitChanges({ added: [{}] })}
-          tabIndex={-1}
-        />
-      );
-    }
-    return <TableEditColumn.Command {...params} tabIndex={-1} />;
-  }, [commitChanges]);
+  const addEmptyRow = () => commitChanges({ added: [{}] });
 
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>
@@ -87,6 +75,8 @@ export default () => {
           onCommitChanges={commitChanges}
           editingCells={editingCells}
           onEditingCellsChange={setEditingCells}
+          addedRows={[]}
+          onAddedRowsChange={addEmptyRow}
         />
         <Table cellComponent={FocusableCell} />
         <TableHeaderRow />
@@ -96,7 +86,6 @@ export default () => {
         <TableEditColumn
           showAddCommand
           showDeleteCommand
-          commandComponent={Command}
         />
       </Grid>
     </<%&wrapperTag%>>

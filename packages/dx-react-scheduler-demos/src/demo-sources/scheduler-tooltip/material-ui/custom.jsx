@@ -43,7 +43,8 @@ const Header = withStyles(style, { name: 'Header' })(({
     {...restProps}
     className={classes.header}
   >
-    <IconButton>
+    {/* eslint-disable-next-line no-alert */}
+    <IconButton onClick={() => alert(JSON.stringify(appointmentData))}>
       <MoreIcon />
     </IconButton>
   </AppointmentTooltip.Header>
@@ -84,6 +85,8 @@ export default class Demo extends React.PureComponent {
           <AppointmentTooltip
             headerComponent={Header}
             contentComponent={Content}
+            showCloseButton
+            showDeleteButton
           />
         </Scheduler>
       </Paper>

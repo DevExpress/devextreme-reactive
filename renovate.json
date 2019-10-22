@@ -15,7 +15,13 @@
   },
   "packageRules": [
     {
-      "packagePatterns": [ "^(?!@material-ui|react|@types|typescript).*" ],
+      "packagePatterns": [ "*" ],
+      "excludePackagePatterns": [
+        "^@material-ui",
+        "^@types",
+        "^react",
+        "typescript"
+      ],
       "groupName": "deps"
     },
     {

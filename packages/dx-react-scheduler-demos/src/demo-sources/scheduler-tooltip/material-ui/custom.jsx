@@ -6,11 +6,11 @@ import {
   Appointments,
   AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import Grid from '@material-ui/core/Grid';
+import Room from '@material-ui/icons/Room';
 import { withStyles } from '@material-ui/core/styles';
-import moment from 'moment';
 
 import appointments from '../../../demo-data/today-appointments';
 
@@ -31,8 +31,10 @@ const style = theme => ({
     marginBottom: theme.spacing(2),
   },
   icon: {
-    fontSize: '18px',
-    paddingRight: theme.spacing(1),
+    color: theme.palette.action.active,
+  },
+  textCenter: {
+    textAlign: 'center',
   },
 });
 
@@ -54,7 +56,14 @@ const Content = withStyles(style, { name: 'Content' })(({
   children, appointmentData, classes, ...restProps
 }) => (
   <AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
-
+    <Grid container alignItems="center">
+      <Grid item xs={2} className={classes.textCenter}>
+        <Room className={classes.icon} />
+      </Grid>
+      <Grid item xs={10}>
+        <span>{appointmentData.location}</span>
+      </Grid>
+    </Grid>
   </AppointmentTooltip.Content>
 ));
 

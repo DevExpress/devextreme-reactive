@@ -30,8 +30,8 @@ const styles = ({ spacing, palette, typography }) => ({
     whiteSpace: 'nowrap',
   },
   icon: {
-    color: typography.body2.color,
     verticalAlign: 'middle',
+    color: palette.action.active,
   },
   circle: {
     color: setColor(300, palette.primary),

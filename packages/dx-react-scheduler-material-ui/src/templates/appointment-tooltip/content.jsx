@@ -4,7 +4,7 @@ import classNames from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import AccessTime from '@material-ui/icons/AccessTime';
-import Circle from '@material-ui/icons/Lens';
+import Lens from '@material-ui/icons/Lens';
 import moment from 'moment';
 import { HOUR_MINUTE_OPTIONS, DAY_LONG_WEEK_DAY_OPTIONS } from '@devexpress/dx-scheduler-core';
 import { setColor } from '../utils';
@@ -33,7 +33,7 @@ const styles = ({ spacing, palette, typography }) => ({
     verticalAlign: 'middle',
     color: palette.action.active,
   },
-  circle: {
+  lens: {
     color: setColor(300, palette.primary),
     width: spacing(4.5),
     height: spacing(4.5),
@@ -71,7 +71,7 @@ export const ContentBase = ({
     >
       <Grid container alignItems="center" className={classes.titleContainer}>
         <Grid item xs={2} className={classes.textCenter}>
-          <Circle className={classes.circle} />
+          <Lens className={classes.lens} />
         </Grid>
         <Grid item xs={10}>
           <div>

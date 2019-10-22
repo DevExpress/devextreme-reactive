@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Header } from './header';
 
-describe('Appointment Tooltip ', () => {
+describe('Appointment Tooltip', () => {
   let classes;
   let shallow;
   const defaultProps = {

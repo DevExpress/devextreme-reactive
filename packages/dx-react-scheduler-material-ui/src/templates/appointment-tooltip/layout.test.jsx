@@ -3,7 +3,7 @@ import { createShallow, getClasses, createMount } from '@material-ui/core/test-u
 import Popover from '@material-ui/core/Popover';
 import { Layout } from './layout';
 
-describe('Appointment Tooltip ', () => {
+describe('Appointment Tooltip', () => {
   let shallow;
   let classes;
   let mount;

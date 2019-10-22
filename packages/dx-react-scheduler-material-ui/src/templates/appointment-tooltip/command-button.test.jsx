@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { OPEN_COMMAND_BUTTON, CLOSE_COMMAND_BUTTON, DELETE_COMMAND_BUTTON } from '@devexpress/dx-scheduler-core';
 import { CommandButton } from './command-button';
 
-describe('Appointment Tooltip ', () => {
+describe('Appointment Tooltip', () => {
   let shallow;
   beforeAll(() => {
     shallow = createShallow();

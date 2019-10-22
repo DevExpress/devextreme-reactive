@@ -194,7 +194,6 @@ const styles = theme => ({
     alignItems: 'center',
   },
   ...owners.reduce((acc, { id, color }) => {
-    acc[`${id}PriorityBackground`] = { background: fade(color, 0.4) };
     acc[`${id}PriorityColor`] = { color };
     return acc;
   }, {}),
@@ -310,10 +309,9 @@ const FlexibleSpace = withStyles(styles, { name: 'ToolbarRoot' })(({ classes, ..
     </div>
   </Toolbar.FlexibleSpace>
 ));
-// #FOLD_BLOCK
 const TooltipContent = withStyles(styles, { name: 'TooltipContent' })(
+  // #FOLD_BLOCK
   ({ classes, appointmentData, formatDate }) => {
-    // #FOLD_BLOCK
     const priorityClasses = createClassesByPriorityId(
       appointmentData.ownerId, classes, { color: true },
     );

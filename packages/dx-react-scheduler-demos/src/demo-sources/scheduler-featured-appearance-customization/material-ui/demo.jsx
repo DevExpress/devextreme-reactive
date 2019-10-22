@@ -209,10 +209,10 @@ const EditButton = withStyles(styles, { name: 'EditButton' })(
     />
   ),
 );
-// #FOLD_BLOCK
+
 const TooltipContent = withStyles(styles, { name: 'TooltipContent' })(
+  // #FOLD_BLOCK
   ({ classes, appointmentData, formatDate }) => {
-    // #FOLD_BLOCK
     const priority = getPriorityById(appointmentData.priorityId);
     const priorityClasses = createClassesByPriorityId(
       appointmentData.priorityId, classes, { color: true },

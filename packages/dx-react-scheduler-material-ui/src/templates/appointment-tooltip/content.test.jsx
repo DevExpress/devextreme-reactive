@@ -20,7 +20,7 @@ describe('Appointment Tooltip', () => {
   beforeEach(() => {
     jest.resetAllMocks();
   });
-  describe('Content ', () => {
+  describe('Content', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
         <Content className="custom-class" {...defaultProps} />

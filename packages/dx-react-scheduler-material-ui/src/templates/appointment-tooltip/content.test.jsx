@@ -48,7 +48,7 @@ describe('Appointment Tooltip', () => {
 
       expect(tree.find(`.${classes.titleContainer}`).exists())
         .toBeTruthy();
-      expect(tree.find(`.${classes.circle}`).exists())
+      expect(tree.find(`.${classes.lens}`).exists())
         .toBeTruthy();
       expect(tree.find(`.${classes.title}`).exists())
         .toBeTruthy();

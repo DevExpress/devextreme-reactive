@@ -1,4 +1,4 @@
-import { AppointmentMeta, AppointmentModel } from '../index';
+import { AppointmentMeta, AppointmentModel, FormatterFn } from '../index';
 
 /* tslint:disable no-namespace max-line-length */
 export namespace AppointmentTooltip {
@@ -18,6 +18,8 @@ export namespace AppointmentTooltip {
     onDeleteButtonClick?: () => void;
     /** The appointment’s displayed metadata. */
     appointmentMeta?: AppointmentMeta;
+    /** A function that formats dates according to the locale. */
+    formatDate: FormatterFn;
     /** Specifies the tooltip’s visibility. */
     visible?: boolean;
     /** An event that hides the tooltip. */
@@ -33,6 +35,22 @@ export namespace AppointmentTooltip {
   export interface HeaderProps {
     /** The appointment’s displayed metadata. */
     appointmentData?: AppointmentModel;
+    /** Specifies the Open button’s visibility. */
+    showOpenButton: boolean;
+    /** Specifies the Close button’s visibility. */
+    showCloseButton: boolean;
+    /** Specifies the Delete button’s visibility. */
+    showDeleteButton: boolean;
+    /** A command button’s identifier list. */
+    commandButtonIds: Array<string>;
+    /** An event raised when the Open button is clicked. The event handler should open the appointment form. */
+    onOpenButtonClick?: () => void;
+    /** An event raised when the Open button is clicked. The event handler should delete an appointment. */
+    onDeleteButtonClick?: () => void;
+    /** An event that hides the tooltip. */
+    onHide?: () => void;
+    /** A component that renders a command button. */
+    commandButtonComponent: React.ComponentType<AppointmentTooltip.CommandButtonProps>;
     /** A React node used to render the tooltip header. */
     children?: React.ReactNode;
   }
@@ -40,6 +58,8 @@ export namespace AppointmentTooltip {
   export interface ContentProps {
     /** The appointment’s displayed metadata. */
     appointmentData?: AppointmentModel;
+    /** A function that formats dates according to the locale. */
+    formatDate: FormatterFn;
     /** A React node used to render the tooltip content. */
     children?: React.ReactNode;
   }

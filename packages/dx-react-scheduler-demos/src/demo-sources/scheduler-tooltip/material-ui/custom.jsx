@@ -15,21 +15,6 @@ import { withStyles } from '@material-ui/core/styles';
 import appointments from '../../../demo-data/today-appointments';
 
 const style = theme => ({
-  header: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  title: {
-    ...theme.typography.h6,
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-    color: theme.palette.primary.contrastText,
-  },
-  text: {
-    ...theme.typography.body2,
-    marginBottom: theme.spacing(2),
-  },
   icon: {
     color: theme.palette.action.active,
   },
@@ -41,10 +26,7 @@ const style = theme => ({
 const Header = withStyles(style, { name: 'Header' })(({
   children, appointmentData, classes, ...restProps
 }) => (
-  <AppointmentTooltip.Header
-    {...restProps}
-    className={classes.header}
-  >
+  <AppointmentTooltip.Header {...restProps}>
     {/* eslint-disable-next-line no-alert */}
     <IconButton onClick={() => alert(JSON.stringify(appointmentData))}>
       <MoreIcon />

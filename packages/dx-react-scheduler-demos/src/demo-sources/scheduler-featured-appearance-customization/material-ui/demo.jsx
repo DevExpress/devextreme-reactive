@@ -20,7 +20,7 @@ import { connectProps } from '@devexpress/dx-react-core';
 import { withStyles } from '@material-ui/core/styles';
 import PriorityHigh from '@material-ui/icons/PriorityHigh';
 import LowPriority from '@material-ui/icons/LowPriority';
-import Circle from '@material-ui/icons/Lens';
+import Lens from '@material-ui/icons/Lens';
 import Event from '@material-ui/icons/Event';
 import AccessTime from '@material-ui/icons/AccessTime';
 import Paper from '@material-ui/core/Paper';
@@ -58,9 +58,6 @@ const styles = theme => ({
     acc[`${title}PriorityHover`] = { '&:hover': { background: activeColor } };
     return acc;
   }, {}),
-  contentItem: {
-    paddingLeft: 0,
-  },
   contentItemValue: {
     padding: 0,
   },
@@ -89,10 +86,6 @@ const styles = theme => ({
   defaultBullet: {
     background: theme.palette.divider,
   },
-  tooltipContent: {
-    paddingLeft: theme.spacing(2.2),
-    paddingRight: theme.spacing(2.2),
-  },
   titleNoWrap: {
     '& div > div > div': {
       whiteSpace: 'normal',
@@ -118,10 +111,12 @@ const styles = theme => ({
     whiteSpace: 'nowrap',
   },
   icon: {
-    color: theme.palette.action.active,
     verticalAlign: 'middle',
   },
-  circle: {
+  grayIcon: {
+    color: theme.palette.action.active,
+  },
+  lens: {
     width: theme.spacing(4.5),
     height: theme.spacing(4.5),
     verticalAlign: 'super',
@@ -214,9 +209,10 @@ const EditButton = withStyles(styles, { name: 'EditButton' })(
     />
   ),
 );
-
+// #FOLD_BLOCK
 const TooltipContent = withStyles(styles, { name: 'TooltipContent' })(
   ({ classes, appointmentData, formatDate }) => {
+    // #FOLD_BLOCK
     const priority = getPriorityById(appointmentData.priorityId);
     const priorityClasses = createClassesByPriorityId(
       appointmentData.priorityId, classes, { color: true },
@@ -228,7 +224,7 @@ const TooltipContent = withStyles(styles, { name: 'TooltipContent' })(
       <div className={classes.content}>
         <Grid container alignItems="center" className={classes.titleContainer}>
           <Grid item xs={2} className={classNames(classes.textCenter, priorityClasses)}>
-            <Circle className={classes.circle} />
+            <Lens className={classes.lens} />
           </Grid>
           <Grid item xs={10}>
             <div>
@@ -243,7 +239,7 @@ const TooltipContent = withStyles(styles, { name: 'TooltipContent' })(
         </Grid>
         <Grid container alignItems="center" className={classes.container}>
           <Grid item xs={2} className={classes.textCenter}>
-            <AccessTime className={classes.icon} />
+            <AccessTime className={classNames(classes.icon, classes.grayIcon)} />
           </Grid>
           <Grid item xs={10}>
             <div className={classes.text}>

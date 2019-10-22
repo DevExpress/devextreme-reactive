@@ -310,9 +310,10 @@ const FlexibleSpace = withStyles(styles, { name: 'ToolbarRoot' })(({ classes, ..
     </div>
   </Toolbar.FlexibleSpace>
 ));
-
+// #FOLD_BLOCK
 const TooltipContent = withStyles(styles, { name: 'TooltipContent' })(
   ({ classes, appointmentData, formatDate }) => {
+    // #FOLD_BLOCK
     const priorityClasses = createClassesByPriorityId(
       appointmentData.ownerId, classes, { color: true },
     );

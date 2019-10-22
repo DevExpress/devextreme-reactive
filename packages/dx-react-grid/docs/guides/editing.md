@@ -51,7 +51,7 @@ End-users can click cells and thus activate in-place editors, provided that you 
 .embedded-demo({ "path": "grid-editing/inline-cell-editing", "showThemeSelector": true })
 
 
-`TableInlineCellEditing` can be coupled with the `TableEditColumn` plugins to provide richer functionality. Also users can define their own 'Table.Cell' component, to implement tabulation for edit cells.:
+`TableInlineCellEditing` can be coupled with the `TableEditColumn` plugins to provide richer functionality. Also users can define their own 'Table.Cell' component, to implement tabulation for edit cells. You can see how to override our built-in components in the [Fundamentals Guide](./fundamentals.md#customize-the-appearance).
 
 .embedded-demo({ "path": "grid-editing/cell-editing-tab-with-edit-column", "showThemeSelector": true })
 

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import moment from 'moment';
 import Popover from '@material-ui/core/Popover';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -28,6 +29,10 @@ const LayoutBase = ({
   ...restProps
 }) => {
   const { target, data = {} } = appointmentMeta;
+
+  const timeText = moment(data.startDate).isSame(data.endDate)
+    ? formatDate(data.startDate, HOUR_MINUTE_OPTIONS)
+    : `${formatDate(data.startDate, HOUR_MINUTE_OPTIONS)} - ${formatDate(data.endDate, HOUR_MINUTE_OPTIONS)}`;
 
   return (
     <Popover

@@ -39,8 +39,10 @@ export namespace AppointmentForm {
     readOnly?: boolean;
     /** Specifies whether the command layout is full-size. */
     fullSize: boolean;
-    /** Specifies whether to disable the SaveButton. */
+    /** Specifies whether to disable the Save button. */
     disableSaveButton?: boolean;
+    /** Specifies whether to hide the Delete button. */
+    hideDeleteButton?: boolean;
     /** An event raised when the Commit button is clicked. The event handler should commit an appointment changes. */
     onCommitButtonClick: () => void;
     /** An event raised when the Cancel button is clicked. The event handler should close the appointment form. */

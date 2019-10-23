@@ -352,6 +352,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   readOnly={readOnly}
                   fullSize={isRecurrence}
                   disableSaveButton={!isFormEdited}
+                  hideDeleteButton={isNew}
                 />
               );
             }}

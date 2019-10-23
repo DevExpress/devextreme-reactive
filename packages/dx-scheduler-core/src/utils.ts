@@ -16,6 +16,13 @@ export const computed: ComputedHelperFn = (getters, viewName, baseComputed, defa
   return baseComputed(getters, viewName);
 };
 
+const appointmentHeightType = (appointment: AppointmentMoment, cellDuration: number) => {
+  const durationRatio = appointment.end.clone().diff(appointment.start, 'minutes') / cellDuration;
+  if (durationRatio === 1) return 'middle';
+  if (durationRatio > 1) return 'long';
+  return 'short';
+};
+
 export const toPercentage: PureComputed<
   [number, number]
 > = (value, total) => (value * 100) / total;
@@ -285,6 +292,7 @@ const verticalRectCalculator: CustomFunction<
     dataItem: appointment.dataItem,
     fromPrev: appointment.fromPrev,
     toNext: appointment.toNext,
+    durationType: appointmentHeightType(appointment, cellDuration),
     type: VERTICAL_TYPE,
   };
 };

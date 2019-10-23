@@ -17,6 +17,9 @@ const styles = ({ palette, spacing }) => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
+  middleContainer: {
+    lineHeight: '0.9!important',
+  },
   time: {
     display: 'inline-block',
     overflow: 'hidden',
@@ -29,6 +32,19 @@ const styles = ({ palette, spacing }) => ({
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     display: 'flex',
+  },
+  shortContent: {
+    padding: spacing(0.25, 1),
+  },
+  shortContainer: {
+    display: 'flex',
+  },
+  shortTime: {
+    textOverflow: 'initial',
+    flexShrink: 0,
+  },
+  shortTitle: {
+    flexShrink: 3,
   },
   container: {
     width: '100%',
@@ -53,28 +69,63 @@ const VerticalAppointmentBase = ({
   className,
   formatDate,
   recurringIconComponent: RecurringIcon,
+  durationType,
   ...restProps
 }) => {
   const repeat = !!data.rRule;
+  const isShortHeight = durationType === 'short';
+  const isMiddleHeight = durationType === 'middle';
   return (
-    <div className={classNames(classes.content, className)} {...restProps}>
+    <div
+      className={classNames({
+        [classes.content]: true,
+        [classes.shortContent]: isShortHeight || isMiddleHeight,
+      }, className)}
+      {...restProps}
+    >
       {children || (
         <>
-          <div className={repeat ? classes.recurringContainer : classes.container}>
-            <div className={classes.title}>
-              {data.title}
-            </div>
-            <div className={classes.textContainer}>
-              <div className={classes.time}>
-                {formatDate(data.startDate, HOUR_MINUTE_OPTIONS)}
+          <div className={classNames({
+            [classes.container]: !repeat,
+            [classes.recurringContainer]: repeat,
+          })}
+          >
+            {isShortHeight ? (
+              <div className={classes.shortContainer}>
+                <div className={classNames(classes.title, classes.shortTitle)}>
+                  {data.title}
+                  ,
+                  &nbsp;
+                </div>
+                <div className={classNames(classes.time, classes.shortTime)}>
+                  {formatDate(data.startDate, HOUR_MINUTE_OPTIONS)}
+                </div>
               </div>
-              <div className={classes.time}>
-                {' - '}
-              </div>
-              <div className={classes.time}>
-                {formatDate(data.endDate, HOUR_MINUTE_OPTIONS)}
-              </div>
-            </div>
+            ) : (
+              <>
+                <div className={classes.title}>
+                  {data.title}
+                </div>
+                <div
+                  className={classNames({
+                    [classes.textContainer]: true,
+                    [classes.middleContainer]: isMiddleHeight,
+                  })}
+                >
+                  <div className={classes.time}>
+                    {formatDate(data.startDate, HOUR_MINUTE_OPTIONS)}
+                  </div>
+                  <div className={classes.time}>
+                    &nbsp;
+                    -
+                    &nbsp;
+                  </div>
+                  <div className={classes.time}>
+                    {formatDate(data.endDate, HOUR_MINUTE_OPTIONS)}
+                  </div>
+                </div>
+              </>
+            )}
           </div>
           {repeat ? (
             <div className={classes.imageContainer}>
@@ -93,6 +144,7 @@ VerticalAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   formatDate: PropTypes.func.isRequired,
+  durationType: PropTypes.string.isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
 };

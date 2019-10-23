@@ -87,7 +87,7 @@ appointmentData? | [AppointmentModel](./scheduler.md#appointmentmodel) | The app
 onOpenButtonClick? | () => void | An event raised when the Open button is clicked. The event handler should open the appointment form.
 onDeleteButtonClick? | () => void | An event raised when the Delete button is clicked. The event handler should delete an appointment.
 onHide? | () => void | An event that hides the tooltip.
-commandButtonComponent | ComponentType&lt;[AppointmentTooltip.CommandButtonProps](#appointmenttooltipcommandbuttonprops)&gt; A component that renders a command button.
+commandButtonComponent | ComponentType&lt;[AppointmentTooltip.CommandButtonProps](#appointmenttooltipcommandbuttonprops)&gt; | A component that renders a command button.
 children? | ReactNode | A React node used to render the additional part of the tooltip header.
 
 ### AppointmentTooltip.ContentProps

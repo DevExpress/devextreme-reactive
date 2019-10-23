@@ -256,6 +256,7 @@ export interface AppointmentTooltipProps {
   layoutComponent?: React.ComponentType<AppointmentTooltip_2.LayoutProps>;
   onAppointmentMetaChange?: (appointmentMeta: AppointmentMeta) => void;
   onVisibilityChange?: (visible: boolean) => void;
+  recurringIconComponent?: React.ComponentType<object>;
   showCloseButton?: boolean;
   showDeleteButton?: boolean;
   showOpenButton?: boolean;

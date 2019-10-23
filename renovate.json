@@ -22,11 +22,7 @@
         "^react",
         "typescript"
       ],
-      "groupName": "deps",
-      "depTypeList": [
-        "dependencies",
-        "devDependencies"
-      ]
+      "groupName": "deps"
     },
     {
       "packagePatterns": [ "^@material-ui" ],

@@ -13,7 +13,7 @@ export const VirtualTable = makeVirtualTable(Table, {
   FixedHeader,
   FixedFooter,
   SkeletonCell,
-  defaultEstimatedRowHeight: 49,
+  defaultEstimatedRowHeight: 52,
   defaultHeight: 530,
 });
 

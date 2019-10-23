@@ -26,19 +26,35 @@
     },
     {
       "packagePatterns": [ "^@material-ui" ],
-      "groupName": "Material-UI"
+      "groupName": "Material-UI",
+      "depTypeList": [
+        "dependencies",
+        "devDependencies"
+      ]
     },
     {
       "packagePatterns": [ "^@types" ],
-      "groupName": "Types"
+      "groupName": "Types",
+      "depTypeList": [
+        "dependencies",
+        "devDependencies"
+      ]
     },
     {
       "packagePatterns": [ "^react" ],
-      "groupName": "React"
+      "groupName": "React",
+      "depTypeList": [
+        "dependencies",
+        "devDependencies"
+      ]
     },
     {
       "packageNames": [ "typescript" ],
-      "groupName": "TypeScript"
+      "groupName": "TypeScript",
+      "depTypeList": [
+        "dependencies",
+        "devDependencies"
+      ]
     }
   ],
   "ignorePaths": [".circleci"]

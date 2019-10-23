@@ -17,13 +17,14 @@ const styles = ({ spacing, palette }) => ({
     height: spacing(3.5),
     marginLeft: spacing(1),
     marginRight: spacing(1),
+    marginTop: spacing(1.25),
     width: '1px',
   },
   flexContainer: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
 });
 

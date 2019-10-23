@@ -5,31 +5,60 @@ import {
   WeekView,
   Appointments,
   AppointmentTooltip,
-  AppointmentForm,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import IconButton from '@material-ui/core/IconButton';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Grid from '@material-ui/core/Grid';
 import Room from '@material-ui/icons/Room';
 import { withStyles } from '@material-ui/core/styles';
+import classNames from 'clsx';
 
 import appointments from '../../../demo-data/today-appointments';
 
-const style = theme => ({
+const style = ({ palette }) => ({
   icon: {
-    color: theme.palette.action.active,
+    color: palette.action.active,
   },
   textCenter: {
     textAlign: 'center',
   },
+  firstRoom: {
+    background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/Lobby-4.jpg)',
+  },
+  secondRoom: {
+    background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-4.jpg)',
+  },
+  thirdRoom: {
+    background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-0.jpg)',
+  },
+  header: {
+    height: '260px',
+    backgroundSize: 'cover',
+  },
+  commandButton: {
+    backgroundColor: 'rgba(255,255,255,0.65)',
+  },
 });
+
+const getClassByLocation = (classes, location) => {
+  if (location === 'Room 1') return classes.firstRoom;
+  if (location === 'Room 2') return classes.secondRoom;
+  return classes.thirdRoom;
+};
 
 const Header = withStyles(style, { name: 'Header' })(({
   children, appointmentData, classes, ...restProps
 }) => (
-  <AppointmentTooltip.Header {...restProps}>
-    {/* eslint-disable-next-line no-alert */}
-    <IconButton onClick={() => alert(JSON.stringify(appointmentData))}>
+  <AppointmentTooltip.Header
+    {...restProps}
+    className={classNames(getClassByLocation(classes, appointmentData.location), classes.header)}
+    appointmentData={appointmentData}
+  >
+    <IconButton
+      /* eslint-disable-next-line no-alert */
+      onClick={() => alert(JSON.stringify(appointmentData))}
+      className={classes.commandButton}
+    >
       <MoreIcon />
     </IconButton>
   </AppointmentTooltip.Header>
@@ -48,6 +77,12 @@ const Content = withStyles(style, { name: 'Content' })(({
       </Grid>
     </Grid>
   </AppointmentTooltip.Content>
+));
+
+const CommandButton = withStyles(style, { name: 'CommandButton' })(({
+  classes, ...restProps
+}) => (
+  <AppointmentTooltip.CommandButton {...restProps} className={classes.commandButton} />
 ));
 
 export default class Demo extends React.PureComponent {
@@ -77,10 +112,9 @@ export default class Demo extends React.PureComponent {
           <AppointmentTooltip
             headerComponent={Header}
             contentComponent={Content}
+            commandButtonComponent={CommandButton}
             showCloseButton
-            showOpenButton
           />
-          <AppointmentForm readOnly />
         </Scheduler>
       </Paper>
     );

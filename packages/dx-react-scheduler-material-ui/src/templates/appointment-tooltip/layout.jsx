@@ -15,6 +15,7 @@ const LayoutBase = ({
   headerComponent: Header,
   contentComponent: Content,
   commandButtonComponent,
+  recurringIconComponent,
   appointmentMeta,
   showOpenButton,
   showCloseButton,
@@ -55,6 +56,7 @@ const LayoutBase = ({
       <Content
         appointmentData={data}
         formatDate={formatDate}
+        recurringIconComponent={recurringIconComponent}
       />
     </Popover>
   );
@@ -65,6 +67,7 @@ LayoutBase.propTypes = {
   commandButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   headerComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   contentComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  recurringIconComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   showOpenButton: PropTypes.bool.isRequired,
   showCloseButton: PropTypes.bool.isRequired,
   showDeleteButton: PropTypes.bool.isRequired,

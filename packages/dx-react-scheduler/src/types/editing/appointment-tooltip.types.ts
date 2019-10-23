@@ -30,6 +30,8 @@ export namespace AppointmentTooltip {
     contentComponent: React.ComponentType<AppointmentTooltip.ContentProps>;
     /** A component that renders a command button. */
     commandButtonComponent: React.ComponentType<AppointmentTooltip.CommandButtonProps>;
+    /** A component that renders an icon for recurring appointments inside the AppointmentTooltip. */
+    recurringIconComponent: React.ComponentType<object>;
   }
   /** Describes properties passed to a component that renders the tooltip header. */
   export interface HeaderProps {
@@ -51,7 +53,7 @@ export namespace AppointmentTooltip {
     onHide?: () => void;
     /** A component that renders a command button. */
     commandButtonComponent: React.ComponentType<AppointmentTooltip.CommandButtonProps>;
-    /** A React node used to render the tooltip header. */
+    /** A React node used to render the additional part of the tooltip header. */
     children?: React.ReactNode;
   }
   /** Describes properties passed to a component that renders the tooltip content. */
@@ -60,7 +62,9 @@ export namespace AppointmentTooltip {
     appointmentData?: AppointmentModel;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
-    /** A React node used to render the tooltip content. */
+    /** A component that renders an icon for recurring appointments inside the AppointmentTooltip. */
+    recurringIconComponent: React.ComponentType<object>;
+    /** A React node used to render the additional part of the tooltip content. */
     children?: React.ReactNode;
   }
   /** Describes properties passed to a component that renders a command button. */
@@ -95,6 +99,8 @@ export interface AppointmentTooltipProps {
   contentComponent: React.ComponentType<AppointmentTooltip.ContentProps>;
   /** A component that renders a command button. */
   commandButtonComponent: React.ComponentType<AppointmentTooltip.CommandButtonProps>;
+  /** A component that renders an icon for recurring appointments inside the AppointmentTooltip. */
+  recurringIconComponent: React.ComponentType<object>;
 }
 
 /** @internal */

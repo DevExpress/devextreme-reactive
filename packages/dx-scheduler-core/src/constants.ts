@@ -34,7 +34,6 @@ export const DAY_SHORT_MONTH_SHORT_YEAR_OPTIONS = {
 export const LONG_WEEK_DAY_OPTIONS = { weekday: 'long' };
 export const LONG_MONTH_OPTIONS = { month: 'long' };
 export const DAY_LONG_MONTH_OPTIONS = { day: 'numeric', month: 'long' };
-export const DAY_LONG_WEEK_DAY_OPTIONS = { day: 'numeric', weekday: 'long' };
 
 export const RECURRENCE_EDIT_SCOPE = {
   ALL: 'all',

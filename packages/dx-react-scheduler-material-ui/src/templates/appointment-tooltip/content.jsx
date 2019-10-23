@@ -5,14 +5,13 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import AccessTime from '@material-ui/icons/AccessTime';
 import Lens from '@material-ui/icons/Lens';
-import moment from 'moment';
-import { HOUR_MINUTE_OPTIONS, DAY_LONG_WEEK_DAY_OPTIONS } from '@devexpress/dx-scheduler-core';
+import { HOUR_MINUTE_OPTIONS, viewBoundText } from '@devexpress/dx-scheduler-core';
 import { setColor } from '../utils';
 
 const styles = ({ spacing, palette, typography }) => ({
   content: {
     padding: spacing(1.5, 1),
-    paddingTop: 0,
+    paddingTop: spacing(1),
     backgroundColor: palette.background.paper,
     boxSizing: 'border-box',
     width: '400px',
@@ -27,7 +26,6 @@ const styles = ({ spacing, palette, typography }) => ({
     fontWeight: typography.fontWeightBold,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
   },
   icon: {
     verticalAlign: 'middle',
@@ -38,18 +36,33 @@ const styles = ({ spacing, palette, typography }) => ({
     width: spacing(4.5),
     height: spacing(4.5),
     verticalAlign: 'super',
+    position: 'absolute',
+    left: '50%',
+    transform: 'translate(-50%,0)',
   },
   textCenter: {
     textAlign: 'center',
   },
   dateAndTitle: {
-    lineHeight: 1.1,
+    lineHeight: 1.4,
   },
   titleContainer: {
     paddingBottom: spacing(2),
   },
   contentContainer: {
     paddingBottom: spacing(1.5),
+  },
+  recurringIcon: {
+    position: 'absolute',
+    paddingTop: spacing(0.625),
+    left: '50%',
+    transform: 'translate(-50%,0)',
+    color: palette.background.paper,
+  },
+  relativeContainer: {
+    position: 'relative',
+    width: '100%',
+    height: '100%',
   },
 });
 
@@ -59,19 +72,25 @@ export const ContentBase = ({
   children,
   appointmentData,
   formatDate,
+  recurringIconComponent: RecurringIcon,
   ...restProps
 }) => {
-  const weekDays = moment(appointmentData.endDate).isAfter(appointmentData.startDate, 'day')
-    ? `${formatDate(appointmentData.startDate, DAY_LONG_WEEK_DAY_OPTIONS)} - ${formatDate(appointmentData.endDate, DAY_LONG_WEEK_DAY_OPTIONS)}`
-    : formatDate(appointmentData.startDate, DAY_LONG_WEEK_DAY_OPTIONS);
+  const weekDays = viewBoundText(
+    appointmentData.startDate, appointmentData.endDate, '', appointmentData.startDate, 1, formatDate,
+  );
   return (
     <div
       className={classNames(classes.content, className)}
       {...restProps}
     >
-      <Grid container alignItems="center" className={classes.titleContainer}>
-        <Grid item xs={2} className={classes.textCenter}>
-          <Lens className={classes.lens} />
+      <Grid container alignItems="flex-start" className={classes.titleContainer}>
+        <Grid item xs={2}>
+          <div className={classes.relativeContainer}>
+            <Lens className={classes.lens} />
+            {!!appointmentData.rRule && (
+              <RecurringIcon className={classes.recurringIcon} />
+            )}
+          </div>
         </Grid>
         <Grid item xs={10}>
           <div>
@@ -106,6 +125,7 @@ ContentBase.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   formatDate: PropTypes.func.isRequired,
+  recurringIconComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 };
 
 ContentBase.defaultProps = {

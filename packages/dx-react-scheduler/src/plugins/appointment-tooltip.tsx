@@ -48,6 +48,7 @@ class AppointmentTooltipBase extends React.PureComponent<
     headerComponent: 'Header',
     contentComponent: 'Content',
     commandButtonComponent: 'CommandButton',
+    recurringIconComponent: 'RecurringIcon',
   };
 
   constructor(props) {
@@ -106,6 +107,7 @@ class AppointmentTooltipBase extends React.PureComponent<
       headerComponent,
       contentComponent,
       commandButtonComponent,
+      recurringIconComponent,
     } = this.props;
     const { visible, appointmentMeta } = this.state;
 
@@ -131,6 +133,7 @@ class AppointmentTooltipBase extends React.PureComponent<
                   name="tooltip"
                   params={{
                     commandButtonComponent,
+                    recurringIconComponent,
                     showOpenButton,
                     showDeleteButton,
                     showCloseButton,

@@ -1,6 +1,12 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { viewBoundText } from '@devexpress/dx-scheduler-core';
 import { Content } from './content';
+
+jest.mock('@devexpress/dx-scheduler-core', () => ({
+  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  viewBoundText: jest.fn(),
+}));
 
 describe('Appointment Tooltip', () => {
   let classes;
@@ -12,6 +18,7 @@ describe('Appointment Tooltip', () => {
       title: 'title',
     },
     formatDate: jest.fn(),
+    recurringIconComponent: jest.fn(),
   };
   beforeAll(() => {
     classes = getClasses(<Content />);
@@ -19,6 +26,7 @@ describe('Appointment Tooltip', () => {
   });
   beforeEach(() => {
     jest.resetAllMocks();
+    viewBoundText.mockImplementation(() => 'viewBoundText');
   });
   describe('Content', () => {
     it('should pass className to the root element', () => {
@@ -50,6 +58,8 @@ describe('Appointment Tooltip', () => {
         .toBeTruthy();
       expect(tree.find(`.${classes.lens}`).exists())
         .toBeTruthy();
+      expect(tree.find(`.${classes.recurringIcon}`).exists())
+        .toBeFalsy();
       expect(tree.find(`.${classes.title}`).exists())
         .toBeTruthy();
       expect(tree.find(`.${classes.icon}`).exists())
@@ -59,7 +69,9 @@ describe('Appointment Tooltip', () => {
       expect(tree.find(`.${classes.dateAndTitle}`))
         .toHaveLength(2);
       expect(tree.find(`.${classes.textCenter}`))
-        .toHaveLength(2);
+        .toBeTruthy();
+      expect(tree.find(`.${classes.relativeContainer}`).exists())
+        .toBeTruthy();
     });
 
     it('should render children', () => {
@@ -78,35 +90,34 @@ describe('Appointment Tooltip', () => {
       ));
 
       expect(defaultProps.formatDate)
-        .toHaveBeenCalledTimes(3);
-      expect(defaultProps.formatDate)
-        .toHaveBeenCalledWith(defaultProps.appointmentData.startDate, { day: 'numeric', weekday: 'long' });
+        .toHaveBeenCalledTimes(2);
       expect(defaultProps.formatDate)
         .toHaveBeenCalledWith(defaultProps.appointmentData.startDate, { hour: 'numeric', minute: 'numeric' });
       expect(defaultProps.formatDate)
         .toHaveBeenCalledWith(defaultProps.appointmentData.endDate, { hour: 'numeric', minute: 'numeric' });
     });
 
-    it('should call format date with proper parameters when start day if different from end day', () => {
-      const appointmentData = {
-        startDate: new Date('2018-08-15 10:00'),
-        endDate: new Date('2018-08-17 11:00'),
-        title: 'title',
-      };
+    it('should call viewBoundText with proper parameters', () => {
       shallow((
-        <Content {...defaultProps} appointmentData={appointmentData} />
+        <Content {...defaultProps} />
       ));
 
-      expect(defaultProps.formatDate)
-        .toHaveBeenCalledTimes(4);
-      expect(defaultProps.formatDate)
-        .toHaveBeenCalledWith(appointmentData.startDate, { day: 'numeric', weekday: 'long' });
-      expect(defaultProps.formatDate)
-        .toHaveBeenCalledWith(appointmentData.endDate, { day: 'numeric', weekday: 'long' });
-      expect(defaultProps.formatDate)
-        .toHaveBeenCalledWith(appointmentData.startDate, { hour: 'numeric', minute: 'numeric' });
-      expect(defaultProps.formatDate)
-        .toHaveBeenCalledWith(appointmentData.endDate, { hour: 'numeric', minute: 'numeric' });
+      expect(viewBoundText)
+        .toHaveBeenCalledWith(
+          defaultProps.appointmentData.startDate,
+          defaultProps.appointmentData.endDate, '',
+          defaultProps.appointmentData.startDate, 1,
+          defaultProps.formatDate,
+        );
+    });
+
+    it('should render recurring icon if the appointment is recurring', () => {
+      const tree = shallow((
+        <Content {...defaultProps} appointmentData={{ ...defaultProps.appointmentData, rRule: 'test' }} />
+      ));
+
+      expect(tree.find(`.${classes.recurringIcon}`).exists())
+        .toBeTruthy();
     });
   });
 });

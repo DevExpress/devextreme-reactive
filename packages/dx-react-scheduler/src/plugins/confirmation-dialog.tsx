@@ -111,7 +111,7 @@ const ConfirmationDialogBase: React.SFC<ConfirmationDialogProps> & {components: 
               <Overlay
                 target={modalContainer}
                 visible={isOpen}
-                onHide={toggleIsOpen}
+                onHide={() => isOpen && toggleIsOpen()}
               >
                 <Layout
                   buttonComponent={buttonComponent}

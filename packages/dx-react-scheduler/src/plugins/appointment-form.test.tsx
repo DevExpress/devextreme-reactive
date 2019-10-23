@@ -441,4 +441,25 @@ describe('AppointmentForm', () => {
     expect(defaultDeps.action.finishDeleteAppointment)
       .toBeCalled();
   });
+
+  it('should call onHide correctly', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents({
+          ...defaultDeps,
+          getter: { ...defaultDeps.getter, editingAppointment: undefined },
+        })}
+        <AppointmentForm
+          {...defaultProps}
+          visible
+        />
+      </PluginHost>
+    ));
+
+    tree.find(defaultProps.overlayComponent).props().onHide();
+    expect(defaultDeps.action.cancelChangedAppointment)
+      .toBeCalled();
+    expect(defaultDeps.action.stopEditAppointment)
+      .toBeCalled();
+  });
 });

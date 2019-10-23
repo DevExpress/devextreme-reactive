@@ -267,14 +267,24 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               editingAppointment,
               addedAppointment,
               appointmentChanges,
+            }, {
+              openCancelConfirmationDialog,
+
+              stopEditAppointment,
+              cancelAddedAppointment,
+              cancelChangedAppointment,
             }) => {
-              const { changedAppointment } = prepareChanges(
+              const { changedAppointment, isNew } = prepareChanges(
                 appointmentData, editingAppointment, addedAppointment, appointmentChanges,
               );
               const fullSize = isFormFullSize(
                 visible, changedAppointment.rRule, previousAppointment.rRule,
               );
-              const onHideAction = () => this.state.visible && this.toggleVisibility();
+              const onHideAction = () => visible && this.cancelChanges(
+                openCancelConfirmationDialog, isNew, stopEditAppointment,
+                { ...appointmentChanges, ...addedAppointment }, changedAppointment,
+                cancelAddedAppointment, cancelChangedAppointment,
+              )();
 
               return (
                 <React.Fragment>

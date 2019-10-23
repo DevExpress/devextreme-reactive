@@ -347,6 +347,7 @@ export namespace AppointmentTooltip {
     appointmentData?: AppointmentModel;
     children?: React.ReactNode;
     formatDate: FormatterFn;
+    recurringIconComponent: React.ComponentType<object>;
   }
   export interface HeaderProps {
     appointmentData?: AppointmentModel;
@@ -370,6 +371,7 @@ export namespace AppointmentTooltip {
     onDeleteButtonClick?: () => void;
     onHide?: () => void;
     onOpenButtonClick?: () => void;
+    recurringIconComponent: React.ComponentType<object>;
     showCloseButton: boolean;
     showDeleteButton: boolean;
     showOpenButton: boolean;
@@ -386,6 +388,7 @@ export interface AppointmentTooltipProps {
   layoutComponent: React.ComponentType<AppointmentTooltip.LayoutProps>;
   onAppointmentMetaChange?: (appointmentMeta: AppointmentMeta) => void;
   onVisibilityChange?: (visible: boolean) => void;
+  recurringIconComponent: React.ComponentType<object>;
   showCloseButton?: boolean;
   showDeleteButton?: boolean;
   showOpenButton?: boolean;

@@ -10,7 +10,7 @@ const styles = ({ spacing, palette }) => ({
     paddingLeft: spacing(1),
     paddingRight: spacing(0.5),
     paddingTop: spacing(0.25),
-    minHeight: '12px',
+    minHeight: spacing(1.5),
   },
   line: {
     backgroundColor: palette.action.disabledBackground,

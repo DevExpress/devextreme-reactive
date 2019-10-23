@@ -55,9 +55,10 @@ Properties passed to a component that renders the appointment content.
 
 Field | Type | Description
 ------|------|------------
-children | ReactNode | A React node used to render the appointment content.
+children | ReactNode | A React node used to render the appointment's content.
 data | object | An object that represents appointment data.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the locale.
+durationType | string | The appointment's duration type: `"short"` (the appointment occupies half of a timetable cell or less), `"middle"` (occupies the entire cell), or `"long"` (occupies more than one cell).
 recurringIconComponent | ComponentType&lt;object&gt; | A component that renders an icon for recurring appointments.
 
 ### Appointments.SplitIndicatorProps

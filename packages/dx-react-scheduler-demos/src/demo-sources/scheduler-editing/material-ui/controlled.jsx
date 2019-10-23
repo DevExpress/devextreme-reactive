@@ -87,13 +87,13 @@ export default class Demo extends React.PureComponent {
             editingAppointmentId={editingAppointmentId}
             onEditingAppointmentIdChange={this.changeEditingAppointmentId}
           />
-          <ConfirmationDialog />
           <WeekView
             startDayHour={9}
             endDayHour={17}
           />
           <AllDayPanel />
           <EditRecurrenceMenu />
+          <ConfirmationDialog />
           <Appointments />
           <AppointmentTooltip
             showOpenButton

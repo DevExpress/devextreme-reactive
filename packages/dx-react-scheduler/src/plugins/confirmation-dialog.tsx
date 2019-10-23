@@ -8,7 +8,7 @@ import {
   Action,
 } from '@devexpress/dx-react-core';
 import { ConfirmationDialogProps } from '../types/editing/confirmation-dialog.types';
-import { callActionIfExists, AppointmentModel } from '@devexpress/dx-scheduler-core';
+import { AppointmentModel } from '@devexpress/dx-scheduler-core';
 
 const defaultMessages = {
   discardButton: 'Discard',
@@ -20,6 +20,8 @@ const defaultMessages = {
 
 const pluginDependencies = [
   { name: 'EditingState' },
+  { name: 'EditRecurrenceMenu', optional: true },
+  { name: 'IntegratedEditing', optional: true },
 ];
 
 const ACTION_TYPES = {
@@ -37,46 +39,46 @@ const ConfirmationDialogBase: React.SFC<ConfirmationDialogProps> & {components: 
   const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
   const modalContainer = React.useRef();
 
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [visible, setVisible] = React.useState(false);
   const [actionType, setActionType] = React.useState('');
   const [hideActionName, setHideActionName] = React.useState('');
   const [appointmentData, setAppointmentData] = React.useState({});
 
-  const toggleIsOpen = React.useCallback(() => {
-    setIsOpen(!isOpen);
-  }, [isOpen, setIsOpen]);
+  const toggleVisibility = React.useCallback(() => {
+    setVisible(!visible);
+  }, [visible, setVisible]);
 
   const confirmCancelChanges = React.useCallback((hideAction) => {
-    toggleIsOpen();
+    toggleVisibility();
     setHideActionName(hideAction);
     setActionType(ACTION_TYPES.CANCEL);
-  }, [toggleIsOpen, setHideActionName, setActionType]);
+  }, [toggleVisibility, setHideActionName, setActionType]);
 
   const confirmDelete = React.useCallback(({
     hideActionName: hideAction, appointmentData: changedAppointment,
   }) => {
-    toggleIsOpen();
+    toggleVisibility();
     setHideActionName(hideAction);
     setActionType(ACTION_TYPES.DELETE);
     setAppointmentData(changedAppointment);
-  }, [toggleIsOpen, setHideActionName, setActionType, setAppointmentData]);
+  }, [toggleVisibility, setHideActionName, setActionType, setAppointmentData]);
 
   const confirmAction = React.useCallback((
     isNewAppointment, hideEditor, stopEditAppointment, finishDeleteAppointment,
     cancelAddedAppointment, cancelChangedAppointment,
   ) => () => {
     hideEditor();
-    toggleIsOpen();
+    toggleVisibility();
     if (isNewAppointment) {
-      callActionIfExists(cancelAddedAppointment, appointmentData);
+      cancelAddedAppointment();
     } else {
-      callActionIfExists(stopEditAppointment, appointmentData);
-      callActionIfExists(cancelChangedAppointment, appointmentData);
+      stopEditAppointment();
+      cancelChangedAppointment();
     }
     if (actionType === ACTION_TYPES.DELETE && finishDeleteAppointment) {
       finishDeleteAppointment(appointmentData);
     }
-  }, [toggleIsOpen, actionType, appointmentData]);
+  }, [toggleVisibility, actionType, appointmentData]);
 
   return (
     <Plugin
@@ -110,12 +112,12 @@ const ConfirmationDialogBase: React.SFC<ConfirmationDialogProps> & {components: 
             return (
               <Overlay
                 target={modalContainer}
-                visible={isOpen}
-                onHide={() => isOpen && toggleIsOpen()}
+                visible={visible}
+                onHide={toggleVisibility}
               >
                 <Layout
                   buttonComponent={buttonComponent}
-                  handleCancel={toggleIsOpen}
+                  handleCancel={toggleVisibility}
                   handleConfirm={handleConfirm}
                   getMessage={getMessage}
                   isDeleting={actionType === ACTION_TYPES.DELETE}

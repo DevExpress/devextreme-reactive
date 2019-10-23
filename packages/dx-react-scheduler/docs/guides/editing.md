@@ -84,7 +84,7 @@ The following demo shows how to customize the appointment form. A custom `TextEd
 
 .embedded-demo({ "path": "scheduler-editing/form-customization", "showThemeSelector": true })
 
-## React Scheduler - Validation Actions
+## Validation Actions
 
 
 The React Scheduler allows to prevent user actions, such as delete appointment or cancel appointment changes events. To do that, add the [ConfirmationDialog](../reference/confirmation-dialog.md) plugin. If added, the dialog opens on delete an appointment and cancel appointment changes events. If you do not want the dialog to open on cancel appointment changes events, use `ignoreCancel` property, as shown in the demo below. To not open the dialog on delete events, use `ignoreDelete` property.

@@ -1,25 +1,28 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
 import { withStates } from '../../utils/with-states';
+import { withAnimation } from '../../utils/with-animation';
 import { Path } from './path';
 import {
-  getStartCoordinates, processLineAnimation, isArrayValuesChanged,
-  isScalesChanged,
+  getPathStart, processLineAnimation, isCoordinatesChanged,
 } from '@devexpress/dx-chart-core';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   HOVERED: 'test_hovered',
   SELECTED: 'test_selected',
-  isArrayValuesChanged: jest.fn().mockReturnValue(true),
-  getStartCoordinates: jest.fn().mockReturnValue('startCoordinates'),
+  isCoordinatesChanged: jest.fn(),
+  getPathStart: jest.fn(),
   processLineAnimation: jest.fn(),
-  isScalesChanged: jest.fn().mockReturnValue(false),
-  getStartVal: jest.fn().mockReturnValue(55),
 }));
 
 jest.mock('../../utils/with-states', () => ({
   withStates: jest.fn().mockReturnValue(x => x),
 }));
+
+jest.mock('../../utils/with-animation', () => ({
+  withAnimation: jest.fn().mockReturnValue(x => x)
+}));
+
 
 describe('Path', () => {
   const defaultProps = {
@@ -87,6 +90,11 @@ describe('Path', () => {
       .toEqual({ a: 1, b: 2, strokeWidth: 4 });
   });
 
+  it('should animate', () => {
+    expect(withAnimation)
+    .toBeCalledWith(processLineAnimation, expect.any(Function), getPathStart, isCoordinatesChanged);
+  });
+
   it('should update props', () => {
     const tree = shallow((
       <Path
@@ -104,75 +112,5 @@ describe('Path', () => {
       clipPath: 'url(#clipPathId)',
       style: { tag: 'test-style' },
     });
-  });
-});
-
-describe('Animation', () => {
-  const updateAnimation = jest.fn();
-  const stopAnimation = jest.fn();
-  const createAnimation = jest.fn().mockReturnValue({
-    update: updateAnimation, stop: stopAnimation,
-  });
-  const defaultProps = {
-    path: jest.fn(value => value.join('-')),
-    coordinates: [1, 2, 3],
-    index: 1,
-    color: 'red',
-    scales: { tag: 'test-scales' },
-    rotated: true,
-    clipPathId: 'clipPathId',
-    style: { tag: 'test-style' },
-    animation: createAnimation,
-  };
-  afterEach(jest.clearAllMocks);
-
-  it('should start animation on mount', () => {
-    shallow((
-      <Path
-        {...defaultProps}
-      />
-    ));
-
-    expect(getStartCoordinates).lastCalledWith({ tag: 'test-scales' }, [1, 2, 3]);
-    expect(createAnimation).toBeCalledWith(
-      'startCoordinates', [1, 2, 3], processLineAnimation, expect.any(Function),
-    );
-  });
-
-  it('should start animation from previous values, update values', () => {
-    const tree = shallow((
-      <Path
-        {...defaultProps}
-      />
-    ));
-    tree.setProps({ ...defaultProps, coordinates: [4, 5, 6] });
-
-    expect(isArrayValuesChanged).lastCalledWith([1, 2, 3], [4, 5, 6], 'arg', 'val');
-    expect(updateAnimation).lastCalledWith([1, 2, 3], [4, 5, 6], 0, 55);
-  });
-
-  it('should not start animation on resize/zoom', () => {
-    isScalesChanged.mockReturnValueOnce(true);
-    isArrayValuesChanged.mockReturnValueOnce(false);
-    const tree = shallow((
-      <Path
-        {...defaultProps}
-      />
-    ));
-    tree.setProps({ ...defaultProps, coordinates: [4, 5, 6] });
-
-    expect(isScalesChanged).toBeCalled();
-    expect(updateAnimation).not.toBeCalled();
-  });
-
-  it('should call stop animation on unmount', () => {
-    const tree = shallow((
-      <Path
-        {...defaultProps}
-      />
-    ));
-    tree.unmount();
-
-    expect(stopAnimation).toBeCalled();
   });
 });

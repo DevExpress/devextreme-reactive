@@ -2,16 +2,18 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
+import { withAnimation } from '../../utils/with-animation';
 import { Slice } from './slice';
-import { dPie, isValuesChanged, processPieAnimation, getDelay } from '@devexpress/dx-chart-core';
+import { dPie, isValuesChanged, processPieAnimation, getPieStart, getDelay } from '@devexpress/dx-chart-core';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   dPie: jest.fn().mockReturnValue('test-d-attribute'),
   HOVERED: 'test_hovered',
   SELECTED: 'test_selected',
-  isValuesChanged: jest.fn().mockReturnValue(true),
+  isValuesChanged: jest.fn(),
   processPieAnimation: jest.fn(),
-  getDelay: jest.fn().mockReturnValue('delay'),
+  getDelay: jest.fn(),
+  getPieStart: jest.fn(),
 }));
 
 jest.mock('../../utils/with-states', () => ({
@@ -19,6 +21,9 @@ jest.mock('../../utils/with-states', () => ({
 }));
 jest.mock('../../utils/with-pattern', () => ({
   withPattern: jest.fn().mockReturnValue(x => x),
+}));
+jest.mock('../../utils/with-animation', () => ({
+  withAnimation: jest.fn().mockReturnValue(x => x)
 }));
 
 describe('Slice', () => {
@@ -85,6 +90,11 @@ describe('Slice', () => {
       .toEqual('series-2-point-3-selection');
   });
 
+  it('should animate', () => {
+    expect(withAnimation)
+    .toBeCalledWith(processPieAnimation, expect.any(Function), getPieStart, isValuesChanged, getDelay);
+  });
+
   it('should update props', () => {
     const tree = shallow((
       <Slice {...(defaultProps as any)} />
@@ -96,71 +106,5 @@ describe('Slice', () => {
     });
 
     expect(dPie).toBeCalledWith(20, 6, 8, 22, 23);
-  });
-});
-
-describe('Animation', () => {
-  const updateAnimation = jest.fn();
-  const stopAnimation = jest.fn();
-  const createAnimation = jest.fn().mockReturnValue({
-    update: updateAnimation, stop: stopAnimation,
-  });
-  const defaultProps = {
-    argument: 'arg',
-    value: 15,
-    seriesIndex: 1,
-    index: 2,
-    arg: 1,
-    val: 2,
-    maxRadius: 20,
-    innerRadius: 2,
-    outerRadius: 4,
-    startAngle: 11,
-    endAngle: 12,
-    color: 'color',
-    style: { tag: 'test-style' },
-    scales: { tag: 'test-scales' },
-    animation: createAnimation,
-  };
-
-  afterEach(jest.clearAllMocks);
-
-  it('should start animation on mount', () => {
-    shallow((
-      <Slice {...(defaultProps as any)} />
-    ));
-
-    expect(createAnimation).toBeCalledWith(
-      { innerRadius: 0, outerRadius: 0, startAngle: 11, endAngle:  12 },
-      { innerRadius: 2, outerRadius: 4, startAngle: 11, endAngle: 12 },
-      processPieAnimation, expect.any(Function), 'delay',
-    );
-    expect(getDelay).toBeCalledWith(2, true);
-  });
-
-  it('should start animation from previous values, update values', () => {
-    const tree = shallow((
-      <Slice {...(defaultProps as any)} />
-    ));
-
-    tree.setProps({ ...defaultProps, value: 32 });
-    expect(isValuesChanged).lastCalledWith([11, 12, 2, 4], [11, 12, 2, 4]);
-    expect(updateAnimation).lastCalledWith(
-      { innerRadius: 2, outerRadius: 4, startAngle: 11, endAngle: 12 },
-      { innerRadius: 2, outerRadius: 4, startAngle: 11, endAngle: 12 },
-      'delay',
-    );
-    expect(getDelay).toBeCalledWith(2, false);
-  });
-
-  it('should call stop animation on unmount', () => {
-    const tree = shallow((
-      <Slice
-        {...defaultProps}
-      />
-    ));
-    tree.unmount();
-
-    expect(stopAnimation).toBeCalled();
   });
 });

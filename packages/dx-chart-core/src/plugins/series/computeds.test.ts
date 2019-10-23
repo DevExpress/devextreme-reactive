@@ -20,8 +20,9 @@ import {
   scaleSeriesPoints,
   getVisibility,
   isValuesChanged,
-  isArrayValuesChanged,
-  adjustBarSize, isScalesChanged,
+  isCoordinatesChanged,
+  adjustBarSize,
+  isScalesChanged,
 } from './computeds';
 
 jest.mock('d3-scale', () => ({
@@ -640,15 +641,23 @@ describe('#adjustBarSize', () => {
 
 describe('Values changed', () => {
   it('#isValuesChanged', () => {
-    expect(isValuesChanged([2, 5, 6], [4, 5, 7])).toBeTruthy();
-    expect(isValuesChanged([2, 5, 6], [2, 5, 6])).toBeFalsy();
+    expect(isValuesChanged({ arg: 1, val: 2 }, { arg: 3, val: 4 })).toBeTruthy();
+    expect(isValuesChanged({ arg: 1, val: 2 }, { arg:1, val: 2 })).toBeFalsy();
   });
 
-  it('#isArrayValuesChanged', () => {
-    expect(isArrayValuesChanged([{ arg: 1, val: 2 }] as any, [{ arg: 2, val: 2 }]as any, 'arg', 'val'))
+  it('#isCoordinatesChanged', () => {
+    expect(isCoordinatesChanged(
+      { coordinates: [{ arg: 1, val: 2 }] } as any,
+      { coordinates: [{ arg: 2, val: 2 }] } as any))
     .toBeTruthy();
-    expect(isArrayValuesChanged([{ arg: 1, val: 2 }] as any, [{ arg: 1, val: 2 }]as any, 'arg', 'val'))
+    expect(isCoordinatesChanged(
+      { coordinates: [{ arg: 1, val: 2 }] } as any,
+      { coordinates:[{ arg: 1, val: 2 }] } as any))
     .toBeFalsy();
+    expect(isCoordinatesChanged(
+      { coordinates:[{ arg: 1, val: 2 }, { arg: 2, val: 3 }] } as any,
+      { coordinates:[{ arg: 2, val: 2 }] } as any),
+      ).toBeTruthy();
   });
 
   it('#isScalesChanged', () => {

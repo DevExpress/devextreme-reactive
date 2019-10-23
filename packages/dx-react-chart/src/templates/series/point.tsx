@@ -1,90 +1,32 @@
 import * as React from 'react';
 import {
   processPointAnimation, dSymbol, HOVERED, SELECTED, getVisibility,
-  isValuesChanged, getStartVal, Animation, isScalesChanged,
+  isValuesChanged, getPointStart,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
-import { ScatterSeries, ScatterSeriesState } from '../../types';
+import { withAnimation } from '../../utils/with-animation';
+import { ScatterSeries } from '../../types';
 
-class RawPoint extends React.PureComponent<ScatterSeries.PointProps, ScatterSeriesState> {
-  d: string = '';
-  animate: Animation | undefined;
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      cx: undefined,
-      cy: undefined,
-      style: undefined,
-    };
-    this.setAttribute = this.setAttribute.bind(this);
-  }
-
-  setAttribute({ x, y, style }: { x: number, y: number, style?: object }) {
-    this.setState({ cx: x, cy: y, style });
-  }
-
-  componentDidMount() {
-    const {
-      arg, val, animation, point, scales,
-    } = this.props;
-
-    this.d = dSymbol(point);
-    if (!animation) {
-      this.setAttribute({ x: arg, y: val });
-    } else {
-      this.animate = animation({ x: arg, y: getStartVal(scales) }, { x: arg, y: val },
-        processPointAnimation, this.setAttribute,
-      );
-    }
-  }
-
-  componentDidUpdate({
-    arg: prevArg, val: prevVal, scales: prevScales,
-  }) {
-    const {
-      arg, val, scales,
-    } = this.props;
-
-    if (this.animate) {
-      if (isScalesChanged(prevScales, scales)) {
-        this.setAttribute({ x: arg, y: val });
-      } else if (isValuesChanged([prevArg, prevVal], [arg, val])) {
-        this.animate.update({ x: prevArg, y: prevVal }, { x: arg, y: val });
-      }
-    } else {
-      this.setAttribute({ x: arg, y: val });
-    }
-  }
-
-  componentWillUnmount() {
-    return this.animate && this.animate.stop();
-  }
-
+class RawPoint extends React.PureComponent<ScatterSeries.PointProps> {
   render() {
-    const { cx, cy, style: animateStyle } = this.state;
-    if (cx === undefined && cy === undefined) {
-      return null;
-    }
     const {
       arg, val, rotated, animation,
       argument, value, seriesIndex, index, state,
       point: pointOptions,
       color, pane,
-      style, scales,
+      scales,
       ...restProps
     } = this.props;
-    const x = rotated ? cy : cx;
-    const y = rotated ? cx : cy;
+    const x = rotated ? val : arg;
+    const y = rotated ? arg : val;
     const visibility = getVisibility(pane, x!, y!, 0, 0);
     return (
       <path
         transform={`translate(${x} ${y})`}
-        d={this.d}
+        d={dSymbol(pointOptions)}
         fill={color}
         visibility={visibility}
         stroke="none"
-        style={{ ...style, ...animateStyle }}
         {...restProps}
       />
     );
@@ -110,4 +52,9 @@ export const Point: React.ComponentType<ScatterSeries.PointProps> = withStates({
     point: getAdjustedOptions(point),
     ...restProps,
   }),
-})(RawPoint);
+})(withAnimation(
+  processPointAnimation,
+  ({ arg, val }) => ({ arg, val }),
+  getPointStart,
+  isValuesChanged,
+)(RawPoint));

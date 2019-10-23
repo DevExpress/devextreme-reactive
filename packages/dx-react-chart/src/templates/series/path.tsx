@@ -1,84 +1,28 @@
 import * as React from 'react';
 import {
-  processLineAnimation, HOVERED, SELECTED, isArrayValuesChanged, getStartCoordinates,
-  PathComponentPathState, PathPoints, Animation, isScalesChanged, getStartVal,
+  processLineAnimation, HOVERED, SELECTED, isCoordinatesChanged, getPathStart,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
+import { withAnimation } from '../../utils/with-animation';
 import { PathComponentPathProps } from '../../types';
 
-class RawPath extends React.PureComponent<PathComponentPathProps, PathComponentPathState> {
-  animate: Animation | undefined;
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      coordinates: [],
-      style: undefined,
-    };
-    this.setAttribute = this.setAttribute.bind(this);
-  }
-
-  setAttribute({ coordinates, style }: { coordinates: PathPoints, style?: React.CSSProperties }) {
-    this.setState({ coordinates, style });
-  }
-
-  componentDidMount() {
-    const {
-      coordinates, animation, scales,
-    } = this.props;
-    if (!animation) {
-      this.setAttribute({ coordinates });
-    } else {
-      this.animate = animation(
-        getStartCoordinates(scales, coordinates), coordinates,
-        processLineAnimation, this.setAttribute,
-      );
-    }
-  }
-
-  componentDidUpdate({
-    coordinates: prevCoordinates, scales: prevScales,
-  }) {
-    const {
-      coordinates, scales,
-    } = this.props;
-
-    if (this.animate) {
-      if (isScalesChanged(prevScales, scales)) {
-        this.setAttribute({ coordinates });
-      } else if (isArrayValuesChanged(prevCoordinates, coordinates, 'arg', 'val')) {
-        this.animate.update(prevCoordinates, coordinates, 0, getStartVal(scales));
-      }
-    } else {
-      this.setAttribute({ coordinates });
-    }
-  }
-
-  componentWillUnmount() {
-    return this.animate && this.animate.stop();
-  }
-
+class RawPath extends React.PureComponent<PathComponentPathProps> {
   render() {
-    const { coordinates: coords, style: animateStyle } = this.state;
-    if (!coords.length) {
-      return null;
-    }
     const {
       path, animation,
       coordinates, rotated,
       index, state, pointComponent,
       color, clipPathId,
-      style, scales, pane,
+      scales, pane,
       ...restProps
     } = this.props;
     return (
       <path
         clipPath={`url(#${clipPathId})`}
-        d={path!(coords)}
+        d={path!(coordinates)}
         fill="none"
         strokeWidth={2}
         stroke={color}
-        style={{ ...style, ...animateStyle }}
         {...restProps}
       />
     );
@@ -88,4 +32,9 @@ class RawPath extends React.PureComponent<PathComponentPathProps, PathComponentP
 export const Path = withStates({
   [HOVERED]: props => ({ strokeWidth: 4, ...props }),
   [SELECTED]: props => ({ strokeWidth: 4, ...props }),
-})(RawPath);
+})(withAnimation(
+  processLineAnimation,
+  ({ coordinates }) => ({ coordinates }),
+  getPathStart,
+  isCoordinatesChanged,
+)(RawPath));

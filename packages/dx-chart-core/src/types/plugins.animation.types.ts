@@ -1,4 +1,5 @@
 import { PureComputed } from '@devexpress/dx-core';
+import { PathPoints } from './plugins.series.types';
 
 /** @internal */
 export type EasingFn = PureComputed<[number], number>;
@@ -30,13 +31,23 @@ export type AnimationFn = PureComputed<
   [any, any, ProcessAnimationFn, SetAttributeFn, number?], Animation
 >;
 /** @internal */
-export type BarCoordinates = { readonly x: number, readonly y: number, readonly startY: number };
+export type RangePointCoordinates = {
+  readonly arg: number, readonly val: number, readonly startVal: number,
+};
 
 /** @internal */
-export type PointCoordinates = { readonly x: number, readonly y: number };
+export type PathStartCoordinates = {
+  readonly coordinates: RangePointCoordinates[],
+};
 
 /** @internal */
-export type PathCoordinates = { readonly arg: number, readonly val: number };
+export type PathEndCoordinates = {
+  readonly coordinates: PathPoints,
+};
+
+/** @internal */
+export type PointCoordinates = { readonly arg: number, readonly val: number };
+
 /** @internal */
 export type PieCoordinates = {
   readonly innerRadius: number,

@@ -1,102 +1,30 @@
 import * as React from 'react';
 import {
-  dPie, HOVERED, SELECTED, processPieAnimation, isValuesChanged, getDelay, Animation,
+  dPie, HOVERED, SELECTED, processPieAnimation, isValuesChanged, getDelay,
+  getPieStart,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
-import { PieSeries, PieSeriesState } from '../../types';
+import { withAnimation } from '../../utils/with-animation';
+import { PieSeries } from '../../types';
 
-class RawSlice extends React.PureComponent<PieSeries.PointProps, PieSeriesState> {
-  animate: Animation | undefined = undefined;
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      innerRadius: 0,
-      outerRadius: 0,
-      startAngle: 0,
-      endAngle: 0,
-      style: undefined,
-    };
-    this.setAttribute = this.setAttribute.bind(this);
-  }
-
-  setAttribute({ innerRadius, outerRadius, startAngle, endAngle, style }:
-    {
-      innerRadius: number,
-      outerRadius: number,
-      startAngle: number,
-      endAngle: number,
-      style?: object,
-    }) {
-    this.setState({ innerRadius, outerRadius, style, startAngle, endAngle });
-  }
-
-  componentDidMount() {
-    const {
-      innerRadius, outerRadius, startAngle, endAngle, animation, index,
-    } = this.props;
-    if (animation) {
-      this.animate = animation(
-        { innerRadius: 0, outerRadius: 0, startAngle, endAngle },
-        { innerRadius, outerRadius, startAngle, endAngle },
-        processPieAnimation, this.setAttribute, getDelay(index, true),
-      );
-    } else {
-      this.setAttribute({ innerRadius, outerRadius, startAngle, endAngle });
-    }
-  }
-
-  componentDidUpdate({
-    startAngle: prevStartAngle, endAngle: prevEndAngle,
-    innerRadius: prevInnerRadius, outerRadius: prevOuterRadius,
-  }) {
-    const {
-      innerRadius, outerRadius, startAngle, endAngle, index,
-    } = this.props;
-    if (this.animate) {
-      if (isValuesChanged([
-        prevStartAngle, prevEndAngle, prevInnerRadius, prevOuterRadius,
-      ], [
-        startAngle, endAngle, innerRadius, outerRadius,
-      ])) {
-        this.animate.update(
-        { innerRadius, outerRadius, startAngle: prevStartAngle, endAngle: prevEndAngle },
-        { innerRadius, outerRadius, startAngle, endAngle }, getDelay(index, false));
-      }
-    } else {
-      this.setAttribute({ innerRadius, outerRadius, startAngle, endAngle });
-    }
-  }
-
-  componentWillUnmount() {
-    return this.animate && this.animate.stop();
-  }
-
+class RawSlice extends React.PureComponent<PieSeries.PointProps> {
   render() {
-    const {
-      innerRadius: innerRadiusState,
-      outerRadius: outerRadiusState,
-      startAngle: startAngleState,
-      endAngle: endAngleState,
-      style: animateStyle,
-    } = this.state;
     const {
       arg, val, rotated,
       argument, value, seriesIndex, index, state, maxRadius,
       innerRadius, outerRadius, startAngle, endAngle,
       color, animation, pane,
-      style, scales,
+      scales,
       ...restProps
     } = this.props;
     return (
       <g transform={`translate(${arg} ${val})`}>
         <path
-          d={dPie(maxRadius, innerRadiusState!, outerRadiusState!,
-            startAngleState!, endAngleState!)}
+          d={dPie(maxRadius, innerRadius, outerRadius,
+            startAngle, endAngle)}
           fill={color}
           stroke="none"
-          style={{ ...style, ...animateStyle }}
           {...restProps}
         />
       </g>
@@ -114,4 +42,11 @@ export const Slice: React.ComponentType<PieSeries.PointProps> = withStates({
   [SELECTED]: withPattern<any>(
     ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-selection`, { opacity: 0.5 },
   )(RawSlice),
-})(RawSlice);
+})(withAnimation(
+  processPieAnimation,
+  ({ innerRadius, outerRadius, startAngle, endAngle }) =>
+  ({ innerRadius, outerRadius, startAngle, endAngle }),
+  getPieStart,
+  isValuesChanged,
+  getDelay,
+)(RawSlice));

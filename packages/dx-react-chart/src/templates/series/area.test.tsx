@@ -2,20 +2,18 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
+import { withAnimation } from '../../utils/with-animation';
 import { Area } from './area';
 import {
-  getStartCoordinates, processAreaAnimation, isArrayValuesChanged,
-  isScalesChanged,
+  getPathStart, processAreaAnimation, isCoordinatesChanged,
 } from '@devexpress/dx-chart-core';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   HOVERED: 'test_hovered',
   SELECTED: 'test_selected',
-  isArrayValuesChanged: jest.fn().mockReturnValue(true),
-  getStartCoordinates: jest.fn().mockReturnValue('startCoordinates'),
+  isCoordinatesChanged: jest.fn(),
+  getPathStart: jest.fn(),
   processAreaAnimation: jest.fn(),
-  isScalesChanged: jest.fn().mockReturnValue(false),
-  getStartVal: jest.fn().mockReturnValue(55),
 }));
 
 jest.mock('../../utils/with-states', () => ({
@@ -23,6 +21,9 @@ jest.mock('../../utils/with-states', () => ({
 }));
 jest.mock('../../utils/with-pattern', () => ({
   withPattern: jest.fn().mockReturnValue(x => x),
+}));
+jest.mock('../../utils/with-animation', () => ({
+  withAnimation: jest.fn().mockReturnValue(x => x)
 }));
 
 describe('Area', () => {
@@ -95,6 +96,11 @@ describe('Area', () => {
     expect((withPattern as jest.Mock).mock.calls[1][0]({ index: 3 })).toEqual('series-3-selection');
   });
 
+  it('should animate', () => {
+    expect(withAnimation)
+    .toBeCalledWith(processAreaAnimation, expect.any(Function), getPathStart, isCoordinatesChanged);
+  });
+
   it('should update props', () => {
     const tree = shallow((
       <Area
@@ -111,74 +117,5 @@ describe('Area', () => {
       clipPath: 'url(#clipPathId)',
       style: { tag: 'test-style' },
     });
-  });
-});
-
-describe('Animation', () => {
-  const updateAnimation = jest.fn();
-  const stopAnimation = jest.fn();
-  const createAnimation = jest.fn().mockReturnValue({
-    update: updateAnimation, stop: stopAnimation,
-  });
-  const defaultProps = {
-    path: jest.fn(value => value.join('-')),
-    coordinates: [1, 2, 3],
-    index: 1,
-    color: 'red',
-    scales: { tag: 'test-scales' },
-    clipPathId: 'clipPathId',
-    style: { tag: 'test-style' },
-    animation: createAnimation,
-  };
-  afterEach(jest.clearAllMocks);
-
-  it('should start animation on mount', () => {
-    shallow((
-      <Area
-        {...defaultProps}
-      />
-    ));
-
-    expect(getStartCoordinates).lastCalledWith({ tag: 'test-scales' }, [1, 2, 3]);
-    expect(createAnimation).toBeCalledWith(
-      'startCoordinates', [1, 2, 3], processAreaAnimation, expect.any(Function),
-    );
-  });
-
-  it('should start animation from previous values, update values', () => {
-    const tree = shallow((
-      <Area
-        {...defaultProps}
-      />
-    ));
-    tree.setProps({ ...defaultProps, coordinates: [4, 5, 6] });
-
-    expect(isArrayValuesChanged).lastCalledWith([1, 2, 3], [4, 5, 6], 'arg', 'val');
-    expect(updateAnimation).lastCalledWith([1, 2, 3], [4, 5, 6], 0, 55);
-  });
-
-  it('should not start animation on resize/zoom', () => {
-    isScalesChanged.mockReturnValueOnce(true);
-    isArrayValuesChanged.mockReturnValueOnce(false);
-    const tree = shallow((
-      <Area
-        {...defaultProps}
-      />
-    ));
-    tree.setProps({ ...defaultProps, coordinates: [4, 5, 6] });
-
-    expect(isScalesChanged).toBeCalled();
-    expect(updateAnimation).not.toBeCalled();
-  });
-
-  it('should call stop animation on unmount', () => {
-    const tree = shallow((
-      <Area
-        {...defaultProps}
-      />
-    ));
-    tree.unmount();
-
-    expect(stopAnimation).toBeCalled();
   });
 });

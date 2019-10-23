@@ -1,86 +1,31 @@
 import * as React from 'react';
 import {
-  HOVERED, SELECTED, dArea, dRotateArea, isArrayValuesChanged,
-  processAreaAnimation, getStartCoordinates, PathPoints, Animation,
-  isScalesChanged, getStartVal,
+  HOVERED, SELECTED, dArea, dRotateArea,
+  processAreaAnimation, getPathStart,
+  isCoordinatesChanged,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
-import { AreaSeries, AreaSeriesState } from '../../types';
+import { withAnimation } from '../../utils/with-animation';
+import { AreaSeries } from '../../types';
 
-class RawArea extends React.PureComponent<AreaSeries.SeriesProps, AreaSeriesState> {
-  animate: Animation | undefined;
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      coordinates: [],
-      style: undefined,
-    };
-    this.setAttribute = this.setAttribute.bind(this);
-  }
-
-  setAttribute({ coordinates, style }: { coordinates: PathPoints, style?: React.CSSProperties }) {
-    this.setState({ coordinates, style });
-  }
-
-  componentDidMount() {
-    const {
-      coordinates, animation, scales,
-    } = this.props;
-    if (!animation) {
-      this.setAttribute({ coordinates });
-    } else {
-      this.animate = animation(
-        getStartCoordinates(scales, coordinates), coordinates,
-        processAreaAnimation, this.setAttribute,
-      );
-    }
-  }
-
-  componentDidUpdate({
-    coordinates: prevCoordinates, scales: prevScales,
-  }) {
-    const {
-      coordinates, scales,
-    } = this.props;
-
-    if (this.animate) {
-      if (isScalesChanged(prevScales, scales)) {
-        this.setAttribute({ coordinates });
-      } else if (isArrayValuesChanged(prevCoordinates, coordinates, 'arg', 'val')) {
-        this.animate.update(prevCoordinates, coordinates, 0, getStartVal(scales));
-      }
-    } else {
-      this.setAttribute({ coordinates });
-    }
-  }
-
-  componentWillUnmount() {
-    return this.animate && this.animate.stop();
-  }
-
+class RawArea extends React.PureComponent<AreaSeries.SeriesProps> {
   render() {
-    const { coordinates: coords, style: animateStyle } = this.state;
-    if (!coords.length) {
-      return null;
-    }
     const {
       path,
       coordinates, animation,
       index, state, pointComponent,
       color, clipPathId, pane,
-      style, scales, rotated,
+      scales, rotated,
       ...restProps
     } = this.props;
     const dPath = path === undefined ? (rotated ? dRotateArea : dArea) : path;
     return (
       <path
         clipPath={`url(#${clipPathId})`}
-        d={dPath!(coords)}
+        d={dPath!(coordinates)}
         fill={color}
         opacity={0.5}
-        style={{ ...style, ...animateStyle }}
         {...restProps}
       />
     );
@@ -97,4 +42,9 @@ export const Area: React.ComponentType<AreaSeries.SeriesProps> = withStates({
   [SELECTED]: withPattern<any>(
     ({ index }) => `series-${index}-selection`, { opacity: 0.5 },
   )(RawArea),
-})(RawArea);
+})(withAnimation(
+  processAreaAnimation,
+  ({ coordinates }) => ({ coordinates }),
+  getPathStart,
+  isCoordinatesChanged,
+)(RawArea));

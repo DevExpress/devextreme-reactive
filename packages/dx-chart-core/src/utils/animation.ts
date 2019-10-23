@@ -1,7 +1,7 @@
 import {
   EasingFn, SetAttributeFn, AnimationFn, GetNewPositionsFn,
-  BarCoordinates, PointCoordinates,
-  PathCoordinates, PieCoordinates, PathPoints,
+  RangePointCoordinates, PointCoordinates,
+  PieCoordinates, PathStartCoordinates, PathEndCoordinates,
 } from '../types';
 
 /** @internal */
@@ -43,25 +43,24 @@ export const buildAnimation = (easing: EasingFn, duration: number): AnimationFn 
     animationID = res;
   });
 
+  const stop = () => {
+    if (animationID) {
+      cancelAnimationFrame(animationID);
+      animationID = undefined;
+    }
+  };
+
   return {
-    update: (updatedStartCoords, updatedEndCoords, updatedDelay = 0, startVal) => {
-      if (animationID) {
-        cancelAnimationFrame(animationID);
-        animationID = undefined;
-      }
+    update: (updatedStartCoords, updatedEndCoords, updatedDelay = 0) => {
+      stop();
       animationID = runAnimation(
-        setAttributes, processAnimation(updatedStartCoords, updatedEndCoords, startVal),
+        setAttributes, processAnimation(updatedStartCoords, updatedEndCoords),
         easing, duration, updatedDelay,
       ).then((res) => {
         animationID = res;
       });
     },
-    stop: () => {
-      if (animationID) {
-        cancelAnimationFrame(animationID);
-        animationID = undefined;
-      }
-    },
+    stop,
   };
 };
 
@@ -73,31 +72,34 @@ export const processPointAnimation = (
 ) => {
   return (progress: number) => {
     return {
-      x: lerp(startCoords.x, endCoords.x, progress),
-      y: lerp(startCoords.y, endCoords.y, progress),
+      arg: lerp(startCoords.arg, endCoords.arg, progress),
+      val: lerp(startCoords.val, endCoords.val, progress),
     };
   };
 };
 
 /** @internal */
-export const processBarAnimation = (startCoords: BarCoordinates, endCoords: BarCoordinates) => {
+export const processBarAnimation = (
+  startCoords: RangePointCoordinates, endCoords: RangePointCoordinates,
+) => {
   return (progress: number) => {
     return {
-      x: lerp(startCoords.x, endCoords.x, progress),
-      y: lerp(startCoords.y, endCoords.y, progress),
-      startY: lerp(startCoords.startY, endCoords.startY, progress),
+      arg: lerp(startCoords.arg, endCoords.arg, progress),
+      val: lerp(startCoords.val, endCoords.val, progress),
+      startVal: lerp(startCoords.startVal, endCoords.startVal, progress),
     };
   };
 };
 
 /** @internal */
 export const processLineAnimation = (
-  startCoords: PathCoordinates, endCoords: PathPoints, startVal?: number,
+  { coordinates }: PathStartCoordinates,
+  { coordinates: endCoordinates }: PathEndCoordinates,
 ) => {
   return (progress: number) => {
     return {
-      coordinates: endCoords.map((coord, index) => {
-        const startCurCoord = startCoords[index] || { arg: coord.arg, val: startVal };
+      coordinates: endCoordinates.map((coord, index) => {
+        const startCurCoord = coordinates[index];
         return {
           ...coord,
           arg: lerp(startCurCoord.arg, coord.arg, progress),
@@ -110,12 +112,13 @@ export const processLineAnimation = (
 
 /** @internal */
 export const processAreaAnimation = (
-  startCoords: PathCoordinates, endCoords: PathPoints, startVal?: number,
+  { coordinates }: PathStartCoordinates,
+  { coordinates: endCoordinates }: PathEndCoordinates,
 ) => {
   return (progress: number) => {
     return {
-      coordinates: endCoords.map((coord, index) => {
-        const startCurCoord = startCoords[index] || { arg: coord.arg, val: startVal, startVal };
+      coordinates: endCoordinates.map((coord, index) => {
+        const startCurCoord = coordinates[index];
         return {
           ...coord,
           arg: lerp(startCurCoord.arg, coord.arg, progress),

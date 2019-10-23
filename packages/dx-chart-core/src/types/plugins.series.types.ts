@@ -113,12 +113,6 @@ export interface PathComponentPathProps extends PathComponentProps {
   path?: PathFn;
 }
 
-/** @internal */
-export type PathComponentPathState = {
-  coordinates: PathPoints;
-  style?: React.CSSProperties;
-};
-
 export interface AreaSeriesProps extends SeriesProps {
   /** A component that renders series */
   seriesComponent?: React.ComponentType<AreaSeries.SeriesProps>;
@@ -137,12 +131,6 @@ export namespace AreaSeries {
   // tslint:disable-next-line: no-empty-interface
   export interface PathSeriesProps extends SeriesProps { }
 }
-
-  /** @internal */
-export type AreaSeriesState = {
-  coordinates: PathPoints;
-  style?: React.CSSProperties;
-};
 
 export interface LineSeriesProps extends SeriesProps {
   /** A component that renders series */
@@ -185,14 +173,6 @@ export namespace BarSeries {
   }
 }
 
-/** @internal */
-export type BarSeriesState = {
-  x?: number;
-  y?: number;
-  startY?: number;
-  style?: React.CSSProperties;
-};
-
 export interface BarSeriesProps extends SeriesProps {
   /** The bar width in relative units */
   barWidth?: number;
@@ -216,15 +196,6 @@ export namespace PieSeries {
     endAngle: number;
   }
 }
-
-/** @internal */
-export type PieSeriesState = {
-  innerRadius?: number;
-  outerRadius?: number;
-  startAngle?: number;
-  endAngle?: number;
-  style?: React.CSSProperties;
-};
 
 export interface PieSeriesProps extends SeriesProps {
   /** The inner radius in relative units */
@@ -251,12 +222,6 @@ export namespace ScatterSeries {
   export interface SeriesProps extends PathComponentProps { }
 
 }
-/** @internal */
-export type ScatterSeriesState = {
-  cx?: number;
-  cy?: number;
-  style?: React.CSSProperties;
-};
 
 export interface ScatterSeriesProps extends SeriesProps {
   /** Point options */

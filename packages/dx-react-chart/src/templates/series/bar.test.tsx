@@ -2,9 +2,9 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
+import { withAnimation } from '../../utils/with-animation';
 import {
-  dBar, adjustBarSize, getStartVal, processBarAnimation, isValuesChanged,
-  isScalesChanged,
+  dBar, adjustBarSize, processBarAnimation, isValuesChanged, getPointStart
 } from '@devexpress/dx-chart-core';
 import { Bar } from './bar';
 
@@ -14,10 +14,9 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   SELECTED: 'test_selected',
   getVisibility: jest.fn().mockReturnValue('visible'),
   adjustBarSize: jest.fn(value => value),
-  isValuesChanged: jest.fn().mockReturnValue(true),
-  getStartVal: jest.fn().mockReturnValue('startY'),
+  isValuesChanged: jest.fn(),
+  getPointStart: jest.fn(),
   processBarAnimation: jest.fn(),
-  isScalesChanged: jest.fn().mockReturnValue(false),
 }));
 
 jest.mock('../../utils/with-states', () => ({
@@ -25,6 +24,9 @@ jest.mock('../../utils/with-states', () => ({
 }));
 jest.mock('../../utils/with-pattern', () => ({
   withPattern: jest.fn().mockReturnValue(x => x),
+}));
+jest.mock('../../utils/with-animation', () => ({
+  withAnimation: jest.fn().mockReturnValue(x => x)
 }));
 
 describe('Bar', () => {
@@ -92,6 +94,11 @@ describe('Bar', () => {
       .toEqual('series-2-point-3-selection');
   });
 
+  it('should animate', () => {
+    expect(withAnimation)
+    .toBeCalledWith(processBarAnimation, expect.any(Function), getPointStart, isValuesChanged);
+  });
+
   it('should update props', () => {
     const tree = shallow((
       <Bar {...defaultProps} />
@@ -100,82 +107,5 @@ describe('Bar', () => {
     tree.setProps({ ...defaultProps, arg: 3, val: 4 });
 
     expect(dBar).toBeCalledWith(3, 4, 18, 40, true);
-  });
-});
-
-describe('Animation', () => {
-  const updateAnimation = jest.fn();
-  const stopAnimation = jest.fn();
-  const createAnimation = jest.fn().mockReturnValue({
-    update: updateAnimation, stop: stopAnimation,
-  });
-  const defaultProps = {
-    argument: 'arg',
-    value: 15,
-    seriesIndex: 1,
-    index: 2,
-    arg: 1,
-    barWidth: 2,
-    maxBarWidth: 20,
-    val: 2,
-    startVal: 18,
-    color: 'color',
-    rotated: true,
-    style: { tag: 'test-style' },
-    scales: { tag: 'test-scales' } as any,
-    pane: { width: 100, height: 200 },
-    animation: createAnimation,
-  };
-  afterEach(jest.clearAllMocks);
-
-  it('should start animation on mount', () => {
-    shallow((
-      <Bar
-        {...defaultProps}
-      />
-    ));
-
-    expect(getStartVal).lastCalledWith({ tag: 'test-scales' });
-    expect(createAnimation).lastCalledWith(
-      { x: 1, y: 'startY', startY: 'startY' }, { x: 1, y: 2, startY: 18 },
-      processBarAnimation, expect.any(Function),
-    );
-  });
-
-  it('should start animation from previous values, update values', () => {
-    const tree = shallow((
-      <Bar
-        {...defaultProps}
-      />
-    ));
-    tree.setProps({ ...defaultProps, value: 3 });
-
-    expect(isValuesChanged).lastCalledWith([1, 2, 18], [1, 2, 18]);
-    expect(updateAnimation).lastCalledWith({ x: 1, y: 2, startY: 18 }, { x: 1, y: 2, startY: 18 });
-  });
-
-  it('should not start animation on resize/zoom', () => {
-    isScalesChanged.mockReturnValueOnce(true);
-    isValuesChanged.mockReturnValueOnce(false);
-    const tree = shallow((
-      <Bar
-        {...defaultProps}
-      />
-    ));
-    tree.setProps({ ...defaultProps, val: 3 });
-
-    expect(isScalesChanged).toBeCalled();
-    expect(updateAnimation).not.toBeCalled();
-  });
-
-  it('should call stop animation on unmount', () => {
-    const tree = shallow((
-      <Bar
-        {...defaultProps}
-      />
-    ));
-    tree.unmount();
-
-    expect(stopAnimation).toBeCalled();
   });
 });

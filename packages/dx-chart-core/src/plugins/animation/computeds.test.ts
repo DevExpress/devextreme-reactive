@@ -1,5 +1,5 @@
 import {
-  getDelay, easeOutCubic, getStartVal, getStartCoordinates,
+  getDelay, easeOutCubic, getStartVal, getPathStart, getPointStart, getPieStart,
 } from './computeds';
 
 describe('Animation', () => {
@@ -20,12 +20,26 @@ describe('Animation', () => {
     expect(getStartVal(scales as any)).toBe(4);
   });
 
-  it('#getStartCoordinates', () => {
+  it('#getPathStart', () => {
     const scale = () => 4;
     scale.copy = () => scale;
     scale.clamp = () => scale;
     const scales = { valScale: scale };
-    expect(getStartCoordinates(scales as any, [{ arg: 5, val: 5, startVal: 10 }] as any))
-    .toEqual([{ arg: 5, val: 4, startVal: 4 }]);
+    expect(getPathStart(scales as any, { coordinates: [{ arg: 5, val: 5, startVal: 10 }] } as any))
+    .toEqual({ coordinates: [{ arg: 5, val: 4, startVal: 4 }] });
+  });
+
+  it('#getPointStart', () => {
+    const scale = () => 4;
+    scale.copy = () => scale;
+    scale.clamp = () => scale;
+    const scales = { valScale: scale };
+    expect(getPointStart(scales as any, { arg: 5, val: 5, startVal: 10 } as any))
+    .toEqual({ arg: 5, val: 4, startVal: 4 });
+  });
+
+  it('#getPieStart', () => {
+    expect(getPieStart(undefined, { startAngle: 2, endAngle: 4 } as any))
+    .toEqual({ startAngle: 2, endAngle: 4, innerRadius: 0, outerRadius: 0 });
   });
 });

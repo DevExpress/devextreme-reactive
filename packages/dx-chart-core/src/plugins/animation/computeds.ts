@@ -1,5 +1,5 @@
 import {
-  Scales, PathPoints,
+  Scales, PointComponentProps, PieSeries, PathComponentProps,
 } from '../../types';
 
 /** @internal */
@@ -14,9 +14,18 @@ export const getStartVal = (scales: Scales) => {
 };
 
 /** @internal */
-export const getStartCoordinates = (scales: Scales, coordinates: PathPoints) => {
-  const startPosition = getStartVal(scales);
-  return coordinates.map((coord) => {
-    return { arg: coord.arg, val: startPosition, startVal: startPosition };
-  });
+export const getPathStart = (scales: Scales, { coordinates }: PathComponentProps) => {
+  const start = getStartVal(scales);
+  return { coordinates: coordinates.map(coord =>
+    ({ arg: coord.arg, val: start, startVal: start })) };
 };
+
+/** @internal */
+export const getPointStart = (scales: Scales, { arg }: PointComponentProps) => {
+  const start = getStartVal(scales);
+  return { arg, val: start, startVal: start };
+};
+
+/** @internal */
+export const getPieStart = (scales: Scales, { startAngle, endAngle }: PieSeries.PointProps) =>
+({ innerRadius: 0, outerRadius: 0, startAngle, endAngle });

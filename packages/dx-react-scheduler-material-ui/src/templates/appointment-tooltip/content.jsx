@@ -54,10 +54,12 @@ const styles = ({ spacing, palette, typography }) => ({
   },
   recurringIcon: {
     position: 'absolute',
-    paddingTop: spacing(0.625),
+    paddingTop: spacing(0.875),
     left: '50%',
     transform: 'translate(-50%,0)',
     color: palette.background.paper,
+    width: spacing(2.625),
+    height: spacing(2.625),
   },
   relativeContainer: {
     position: 'relative',

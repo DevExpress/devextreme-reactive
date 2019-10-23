@@ -75,7 +75,7 @@ const ConfirmationDialogBase: React.SFC<ConfirmationDialogProps> & {components: 
       stopEditAppointment();
       cancelChangedAppointment();
     }
-    if (actionType === ACTION_TYPES.DELETE && finishDeleteAppointment) {
+    if (actionType === ACTION_TYPES.DELETE) {
       finishDeleteAppointment(appointmentData);
     }
   }, [toggleVisibility, actionType, appointmentData]);

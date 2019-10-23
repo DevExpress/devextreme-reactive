@@ -48,7 +48,7 @@ Note, you can also use the `onAddedRowsChange` event to initialize a created row
 
 End-users can click cells and thus activate in-place editors, provided that you include the `TableInlineCellEditing` plugin into the Grid's configuration. To save changes, they can move focus or press Enter. Esc discards changes and deactivates the cell editor.
 
-Note that plugin hasn't built-in tabulation. Users can implement in by define custom `Table.Cell` component. You can see how to override our built-in components in the [Fundamentals Guide](./fundamentals.md#customize-the-appearance).
+Note that plugin hasn't built-in tabulation. Users can implement it by defining custom `Table.Cell` component. You can see how to override our built-in components in the [Fundamentals Guide](./fundamentals.md#customize-the-appearance).
 
 .embedded-demo({ "path": "grid-editing/inline-cell-editing", "showThemeSelector": true })
 

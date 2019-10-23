@@ -15,12 +15,9 @@ import {
 
 const getRowId = row => row.id;
 
-const FocusableCell = (props) => {
-  const { onClick } = props;
-  return (
-    <Table.Cell {...props} tabIndex={0} onFocus={onClick} />
-  );
-};
+const FocusableCell = ({ onClick, ...restProps }) => (
+  <Table.Cell {...restProps} tabIndex={0} onFocus={onClick} />
+);
 
 export default () => {
   const [columns] = useState([

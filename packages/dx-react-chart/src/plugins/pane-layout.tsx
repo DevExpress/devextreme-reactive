@@ -30,16 +30,11 @@ const getUniqueId = () => {
   numDefs += 1;
   return numDefs;
 };
-export class PaneLayout extends React.PureComponent<{}, { readyToRenderSeries: boolean }> {
+export class PaneLayout extends React.PureComponent {
   ref = React.createRef<SVGSVGElement>();
   clipPathId = `clip_path_${getUniqueId()}`;
-  size = { width: 0, height: 0 };
-  state: { readyToRenderSeries: boolean } = {
-    readyToRenderSeries: false,
-  };
 
   render() {
-    const { readyToRenderSeries } = this.state;
     return (
       <Plugin name="PaneLayout">
         <Getter name="rootRef" value={this.ref} />
@@ -47,19 +42,12 @@ export class PaneLayout extends React.PureComponent<{}, { readyToRenderSeries: b
         <Template name="canvas">
         {params => (
           <TemplateConnector>
-            {({ layouts }, { changeBBox }) => {
+            {({ layouts, readyToRenderSeries }, { changeBBox }) => {
               const { width, height } = layouts.pane;
               return (
                 <UpdatableSizer
                   containerComponent={SizerContainer}
-                  onSizeChange={(size) => {
-                    if (this.size.width === size.width && this.size.height === size.height) {
-                      this.setState({ readyToRenderSeries: true });
-                    } else {
-                      this.size = size;
-                    }
-                    changeBBox({ placeholder: 'pane', bBox: size });
-                  }}
+                  onSizeChange={size => changeBBox({ placeholder: 'pane', bBox: size })}
                 >
                   <svg
                     ref={this.ref}

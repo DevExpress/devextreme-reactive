@@ -1,0 +1,20 @@
+/** @internal */
+export const getReadiness = ({ pane, ...restLayouts }, { current }) => {
+  if (!pane.width && !pane.height) {
+    return false;
+  }
+
+  const bbox = current.getBoundingClientRect();
+  let width = pane.width;
+  let height = pane.height;
+  Object.entries(restLayouts).forEach((el) => {
+    if (el[0].includes('top') || el[0].includes('bottom')) {
+      height += el[1].height;
+    } else {
+      width += el[1].width;
+    }
+  });
+
+  return Math.round(bbox.width) === Math.round(width) &&
+  Math.round(bbox.height) === Math.round(height);
+};

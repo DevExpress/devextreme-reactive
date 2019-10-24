@@ -6,6 +6,7 @@ export * from './plugins/stack/computeds';
 export * from './plugins/animation/computeds';
 export * from './plugins/tooltip/computeds';
 export * from './plugins/zoom-and-pan/computeds';
+export * from './plugins/controller-component/computeds';
 export * from './utils/series';
 export * from './utils/scale';
 export * from './utils/legend';

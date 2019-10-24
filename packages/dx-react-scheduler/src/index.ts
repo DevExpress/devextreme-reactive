@@ -15,3 +15,4 @@ export * from './plugins/drag-drop-provider';
 export * from './plugins/today-button';
 export * from './plugins/edit-recurrence-menu';
 export * from './plugins/integrated-editing';
+export * from './plugins/confirmation-dialog';

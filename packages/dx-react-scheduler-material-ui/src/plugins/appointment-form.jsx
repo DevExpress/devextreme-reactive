@@ -13,7 +13,7 @@ import { Select } from '../templates/common/select/select';
 import { Layout as RecurrenceLayout } from '../templates/appointment-form/recurrence/layout';
 import { RadioGroup } from '../templates/appointment-form/recurrence/radio-group/radio-group';
 import { WeeklyRecurrenceSelector } from '../templates/appointment-form/recurrence/weekly-recurrence-selector';
-import { Container } from '../templates/appointment-form/container';
+import { OverlayContainer as Container } from '../templates/common/overlay-container';
 
 export const AppointmentForm = withComponents({
   Overlay,

@@ -40,3 +40,6 @@ export const RECURRENCE_EDIT_SCOPE = {
   CURRENT_AND_FOLLOWING: 'currentAndFollowing',
   CURRENT: 'current',
 };
+
+export const TOGGLE_APPOINTMENT_FORM_VISIBILITY = 'toggleAppointmentFormVisibility';
+export const TOGGLE_APPOINTMENT_TOOLTIP_VISIBILITY = 'toggleAppointmentTooltipVisibility';

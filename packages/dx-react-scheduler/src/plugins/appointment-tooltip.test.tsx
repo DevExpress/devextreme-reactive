@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost, Template } from '@devexpress/dx-react-core';
-import { pluginDepsToComponents } from '@devexpress/dx-testing';
-import { setAppointmentMeta } from '@devexpress/dx-scheduler-core';
+import { pluginDepsToComponents, executeComputedAction } from '@devexpress/dx-testing';
+import { setAppointmentMeta, TOGGLE_APPOINTMENT_TOOLTIP_VISIBILITY } from '@devexpress/dx-scheduler-core';
 import { AppointmentTooltip } from './appointment-tooltip';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
+  ...require.requireActual('@devexpress/dx-scheduler-core'),
   setAppointmentMeta: jest.fn(),
 }));
 
@@ -125,6 +126,47 @@ describe('AppointmentTooltip', () => {
       data: 'data',
     });
     expect(setAppointmentMeta)
+      .toBeCalled();
+  });
+
+  it('should provide toggleAppointmentTooltipVisibility action', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <AppointmentTooltip
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    executeComputedAction(tree, (computedActions) => {
+      computedActions.toggleAppointmentTooltipVisibility();
+    });
+
+    expect(tree.find(AppointmentTooltip).state().visible)
+      .toBeTruthy();
+  });
+
+  it('should call openDeleteConfirmationDialog on delete event', () => {
+    const openDeleteConfirmationDialog = jest.fn();
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents({
+          ...defaultDeps,
+          action: { ...defaultDeps.action, openDeleteConfirmationDialog },
+        })}
+        <AppointmentTooltip
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    const templatePlaceholder = tree
+      .find('TemplatePlaceholderBase')
+      .filterWhere(node => node.props().name === 'tooltip').last();
+
+    templatePlaceholder.props().params.onDeleteButtonClick();
+    expect(openDeleteConfirmationDialog)
       .toBeCalled();
   });
 });

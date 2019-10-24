@@ -8,6 +8,12 @@ const styles = {
   modal: {
     position: 'absolute!important',
   },
+  paper: {
+    zIndex: '1302!important',
+  },
+  root: {
+    zIndex: '1301!important',
+  },
 };
 
 const OverlayBase = ({
@@ -16,8 +22,9 @@ const OverlayBase = ({
   <Dialog
     open={visible}
     onClose={onHide}
-    className={classNames(classes.modal, className)}
+    className={classNames(classes.modal, classes.root, className)}
     BackdropProps={{ className: classes.modal }}
+    PaperProps={{ className: classes.paper }}
     container={target.current}
     onBackdropClick={onHide}
     {...restProps}

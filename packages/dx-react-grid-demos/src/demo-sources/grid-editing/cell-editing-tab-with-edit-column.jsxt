@@ -31,7 +31,6 @@ export default () => {
     length: 8,
   }));
   const [editingCells, setEditingCells] = useState([]);
-  const [selectTextOnEditStart] = useState(true);
 
   const commitChanges = ({ added, changed, deleted }) => {
     let changedRows;
@@ -77,9 +76,7 @@ export default () => {
         />
         <Table cellComponent={FocusableCell} />
         <TableHeaderRow />
-        <TableInlineCellEditing
-          selectTextOnEditStart={selectTextOnEditStart}
-        />
+        <TableInlineCellEditing selectTextOnEditStart />
         <TableEditColumn
           showAddCommand
           showDeleteCommand

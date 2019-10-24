@@ -20,7 +20,7 @@ jest.mock('../../utils/with-states', () => ({
 }));
 
 jest.mock('../../utils/with-animation', () => ({
-  withAnimation: jest.fn().mockReturnValue(x => x)
+  withAnimation: jest.fn().mockReturnValue(x => x),
 }));
 
 describe('Point', () => {
@@ -98,7 +98,7 @@ describe('Point', () => {
       a: 1, b: 2, strokeWidth: 4, fill: 'none', stroke: 'blue', point: { size: 15 },
     });
   });
-  
+
   it('should animate', () => {
     expect(withAnimation)
     .toBeCalledWith(processPointAnimation, expect.any(Function), getPointStart, isValuesChanged);

@@ -4,7 +4,7 @@ import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
 import { withAnimation } from '../../utils/with-animation';
 import {
-  dBar, adjustBarSize, processBarAnimation, isValuesChanged, getPointStart
+  dBar, adjustBarSize, processBarAnimation, isValuesChanged, getPointStart,
 } from '@devexpress/dx-chart-core';
 import { Bar } from './bar';
 
@@ -26,7 +26,7 @@ jest.mock('../../utils/with-pattern', () => ({
   withPattern: jest.fn().mockReturnValue(x => x),
 }));
 jest.mock('../../utils/with-animation', () => ({
-  withAnimation: jest.fn().mockReturnValue(x => x)
+  withAnimation: jest.fn().mockReturnValue(x => x),
 }));
 
 describe('Bar', () => {

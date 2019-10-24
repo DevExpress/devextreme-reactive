@@ -23,7 +23,7 @@ jest.mock('../../utils/with-pattern', () => ({
   withPattern: jest.fn().mockReturnValue(x => x),
 }));
 jest.mock('../../utils/with-animation', () => ({
-  withAnimation: jest.fn().mockReturnValue(x => x)
+  withAnimation: jest.fn().mockReturnValue(x => x),
 }));
 
 describe('Slice', () => {
@@ -91,8 +91,9 @@ describe('Slice', () => {
   });
 
   it('should animate', () => {
-    expect(withAnimation)
-    .toBeCalledWith(processPieAnimation, expect.any(Function), getPieStart, isValuesChanged, getDelay);
+    expect(withAnimation).toBeCalledWith(
+      processPieAnimation, expect.any(Function), getPieStart, isValuesChanged, getDelay,
+    );
   });
 
   it('should update props', () => {

@@ -23,7 +23,7 @@ jest.mock('../../utils/with-pattern', () => ({
   withPattern: jest.fn().mockReturnValue(x => x),
 }));
 jest.mock('../../utils/with-animation', () => ({
-  withAnimation: jest.fn().mockReturnValue(x => x)
+  withAnimation: jest.fn().mockReturnValue(x => x),
 }));
 
 describe('Area', () => {

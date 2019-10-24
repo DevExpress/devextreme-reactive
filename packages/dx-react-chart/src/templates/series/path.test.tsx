@@ -20,9 +20,8 @@ jest.mock('../../utils/with-states', () => ({
 }));
 
 jest.mock('../../utils/with-animation', () => ({
-  withAnimation: jest.fn().mockReturnValue(x => x)
+  withAnimation: jest.fn().mockReturnValue(x => x),
 }));
-
 
 describe('Path', () => {
   const defaultProps = {

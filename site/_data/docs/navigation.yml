@@ -369,6 +369,8 @@
         path: /react/scheduler/docs/reference/drag-drop-provider
       - title: TodayButton
         path: /react/scheduler/docs/reference/today-button
+      - title: ConfirmationDialog
+        path: /react/scheduler/docs/reference/confirmation-dialog
   - title: Related Docs
     items:
       - title: React Core

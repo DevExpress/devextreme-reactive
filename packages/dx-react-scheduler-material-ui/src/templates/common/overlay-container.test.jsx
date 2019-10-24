@@ -1,23 +1,23 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import { Container } from './container';
+import { OverlayContainer } from './overlay-container';
 
-describe('EditRecurrenceMenu', () => {
+describe('Common', () => {
   const defaultProps = {
     ref: React.createRef(),
   };
   let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Container {...defaultProps} />);
+    classes = getClasses(<OverlayContainer {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
-  describe('Container', () => {
+  describe('OverlayContainer', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
-        <Container {...defaultProps} className="custom-class">
+        <OverlayContainer {...defaultProps} className="custom-class">
           <div />
-        </Container>
+        </OverlayContainer>
       ));
 
       expect(tree.find('.custom-class'))
@@ -27,9 +27,9 @@ describe('EditRecurrenceMenu', () => {
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <Container {...defaultProps} data={{ a: 1 }}>
+        <OverlayContainer {...defaultProps} data={{ a: 1 }}>
           <div />
-        </Container>
+        </OverlayContainer>
       ));
 
       expect(tree.find(`.${classes.container}`).props().data)
@@ -37,9 +37,9 @@ describe('EditRecurrenceMenu', () => {
     });
     it('should render children inside', () => {
       const tree = shallow((
-        <Container {...defaultProps} data={{ a: 1 }}>
+        <OverlayContainer {...defaultProps} data={{ a: 1 }}>
           <div className="child" />
-        </Container>
+        </OverlayContainer>
       ));
 
       expect(tree.find('.child').exists())

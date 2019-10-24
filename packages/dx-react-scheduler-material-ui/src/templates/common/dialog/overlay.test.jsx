@@ -3,7 +3,7 @@ import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import Dialog from '@material-ui/core/Dialog';
 import { Overlay } from './overlay';
 
-describe('EditRecurrenceMenu', () => {
+describe('Common Dialog', () => {
   let shallow;
   let classes;
   const defaultProps = {
@@ -52,7 +52,7 @@ describe('EditRecurrenceMenu', () => {
         .toMatchObject({
           open: defaultProps.visible,
           onClose: defaultProps.onHide,
-          className: `${classes.modal} custom-class`,
+          className: `${classes.modal} ${classes.root} custom-class`,
           BackdropProps: { className: classes.modal },
           container: null,
           onBackdropClick: defaultProps.onHide,

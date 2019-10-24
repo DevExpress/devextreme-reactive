@@ -9,6 +9,7 @@ import {
   WeekView,
   EditRecurrenceMenu,
   AllDayPanel,
+  ConfirmationDialog,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { appointments } from '../../../demo-data/appointments';
 
@@ -92,6 +93,7 @@ export default class Demo extends React.PureComponent {
           />
           <AllDayPanel />
           <EditRecurrenceMenu />
+          <ConfirmationDialog />
           <Appointments />
           <AppointmentTooltip
             showOpenButton

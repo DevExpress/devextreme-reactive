@@ -10,6 +10,7 @@ import { AppointmentMeta } from '@devexpress/dx-react-scheduler';
 import { AppointmentModel } from '@devexpress/dx-react-scheduler';
 import { Appointments as Appointments_2 } from '@devexpress/dx-react-scheduler';
 import { AppointmentTooltip as AppointmentTooltip_2 } from '@devexpress/dx-react-scheduler';
+import { ConfirmationDialog as ConfirmationDialog_2 } from '@devexpress/dx-react-scheduler';
 import { DateNavigator as DateNavigator_2 } from '@devexpress/dx-react-scheduler';
 import { DayView as DayView_2 } from '@devexpress/dx-react-scheduler';
 import { DragDropProvider as DragDropProvider_2 } from '@devexpress/dx-react-scheduler';
@@ -263,6 +264,38 @@ export interface AppointmentTooltipProps {
 }
 
 // @public (undocumented)
+export namespace ConfirmationDialog {
+  export type LayoutProps = ConfirmationDialog_2.LayoutProps;
+}
+
+// @public (undocumented)
+export namespace ConfirmationDialog {
+  export type OverlayProps = ConfirmationDialog_2.OverlayProps;
+}
+
+// @public (undocumented)
+export namespace ConfirmationDialog {
+  export type ButtonProps = ConfirmationDialog_2.ButtonProps;
+}
+
+// @public
+export const ConfirmationDialog: React.ComponentType<ConfirmationDialogProps> & {
+  Layout: React.ComponentType<ConfirmationDialog_2.LayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Overlay: React.ComponentType<ConfirmationDialog_2.OverlayProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Button: React.ComponentType<ConfirmationDialog_2.ButtonProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+};
+
+// @public (undocumented)
+export interface ConfirmationDialogProps {
+  buttonComponent?: React.ComponentType<ConfirmationDialog_2.ButtonProps>;
+  ignoreCancel?: boolean;
+  ignoreDelete?: boolean;
+  layoutComponent?: React.ComponentType<ConfirmationDialog_2.LayoutProps>;
+  messages?: React.ComponentType<ConfirmationDialog_2.LocalizationMessages>;
+  overlayComponent?: React.ComponentType<ConfirmationDialog_2.OverlayProps>;
+}
+
+// @public (undocumented)
 export namespace DateNavigator {
   export type RootProps = DateNavigator_2.RootProps;
 }
@@ -452,7 +485,7 @@ export const EditRecurrenceMenu: React.ComponentType<EditRecurrenceMenuProps> & 
 export interface EditRecurrenceMenuProps {
   buttonComponent?: React.ComponentType<EditRecurrenceMenu_2.ButtonProps>;
   layoutComponent?: React.ComponentType<EditRecurrenceMenu_2.LayoutProps>;
-  messages?: React.ComponentType<EditRecurrenceMenu_2.LocalizationMessages>;
+  messages?: EditRecurrenceMenu_2.LocalizationMessages;
   overlayComponent?: React.ComponentType<EditRecurrenceMenu_2.OverlayProps>;
 }
 

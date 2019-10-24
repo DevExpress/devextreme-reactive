@@ -7,6 +7,7 @@ import {
   Appointments,
   AppointmentForm,
   AppointmentTooltip,
+  ConfirmationDialog,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 import { appointments } from '../../../demo-data/appointments';
@@ -99,6 +100,7 @@ export default class Demo extends React.PureComponent {
             showOpenButton
             showDeleteButton
           />
+          <ConfirmationDialog />
           <AppointmentForm
             basicLayoutComponent={BasicLayout}
             textEditorComponent={TextEditor}

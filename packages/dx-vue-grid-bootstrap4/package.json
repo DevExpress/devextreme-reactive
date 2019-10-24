@@ -42,32 +42,32 @@
   },
   "devDependencies": {
     "@devexpress/dx-testing": "2.1.2",
-    "@vue/test-utils": "1.0.0-beta.12",
+    "@vue/test-utils": "1.0.0-beta.29",
     "babel-core": "^6.26.3",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
-    "babel-jest": "^23.4.2",
+    "babel-jest": "^24.9.0",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "babel-preset-env": "^1.7.0",
-    "core-js": "^2.5.7",
-    "eslint": "^5.6.1",
-    "eslint-config-airbnb-base": "^13.1.0",
+    "core-js": "^3.3.3",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-filenames": "^1.3.2",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jest": "^21.24.0",
-    "eslint-plugin-vue": "^4.7.1",
-    "jest": "^23.6.0",
-    "rollup": "^0.66.2",
-    "rollup-plugin-babel": "^3.0.4",
-    "rollup-plugin-commonjs": "^9.1.8",
-    "rollup-plugin-license": "^0.7.0",
-    "rollup-plugin-node-resolve": "^3.4.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.20.0",
+    "eslint-plugin-vue": "^5.2.3",
+    "jest": "^24.9.0",
+    "rollup": "^1.25.2",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-license": "^0.12.1",
+    "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-sass": "^1.2.2",
-    "vue": "^2.5.17",
-    "vue-server-renderer": "^2.5.17",
-    "vue-template-compiler": "^2.5.17"
+    "vue": "^2.6.10",
+    "vue-server-renderer": "^2.6.10",
+    "vue-template-compiler": "^2.6.10"
   },
   "dependencies": {
     "@devexpress/dx-core": "2.1.2",
@@ -76,6 +76,6 @@
   "peerDependencies": {
     "@devexpress/dx-vue-core": "2.1.2",
     "@devexpress/dx-vue-grid": "2.1.2",
-    "vue": ">=2.5.16"
+    "vue": ">=2.6.10"
   }
 }

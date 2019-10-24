@@ -18,7 +18,7 @@
     "lint:fix": "yarn lint --fix"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.3",
+    "@babel/core": "^7.6.4",
     "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
@@ -29,7 +29,7 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.16.0",
-    "rollup": "^1.23.1",
+    "rollup": "^1.25.2",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-license": "^0.12.1",
     "rollup-plugin-node-resolve": "^5.2.0"
@@ -37,7 +37,7 @@
   "dependencies": {
     "@devexpress/dx-react-core": "2.1.2",
     "enzyme": "3.10.0",
-    "react": "^16.10.2",
+    "react": "^16.11.0",
     "util": "^0.12.1"
   },
   "peerDependencies": {

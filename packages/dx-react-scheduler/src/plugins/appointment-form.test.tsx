@@ -186,6 +186,7 @@ describe('AppointmentForm', () => {
           onDeleteButtonClick: expect.any(Function),
           readOnly: false,
           disableSaveButton: false,
+          hideDeleteButton: false,
         });
     });
 
@@ -202,6 +203,40 @@ describe('AppointmentForm', () => {
 
       expect(tree.find(defaultProps.commandLayoutComponent).prop('fullSize'))
         .toBeTruthy();
+    });
+
+    it('should hide delete button if a new appointment is being edited', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents({
+            ...defaultDeps,
+            getter: { ...defaultDeps.getter, editingAppointment: undefined },
+          })}
+          <AppointmentForm
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      const templatePlaceholder = tree
+        .find(Template)
+        .filterWhere(node => node.props().name === 'commandLayout');
+
+      const commandLayoutComponent = tree.find(defaultProps.commandLayoutComponent);
+      expect(commandLayoutComponent.exists())
+        .toBeTruthy();
+      expect(commandLayoutComponent.props())
+        .toMatchObject({
+          commandButtonComponent: defaultProps.commandButtonComponent,
+          fullSize: false,
+          getMessage: expect.any(Function),
+          onCancelButtonClick: expect.any(Function),
+          onCommitButtonClick: expect.any(Function),
+          onDeleteButtonClick: expect.any(Function),
+          readOnly: false,
+          disableSaveButton: false,
+          hideDeleteButton: true,
+        });
     });
   });
 

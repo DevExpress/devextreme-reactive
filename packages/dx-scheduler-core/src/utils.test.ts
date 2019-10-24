@@ -358,7 +358,7 @@ describe('Utils', () => {
     });
   });
   describe('#calculateRectByDateIntervals', () => {
-    it('should work', () => {
+    it('should work with horizontal', () => {
       const rectByDatesMock = jest.fn();
       rectByDatesMock.mockImplementation(() => ({
         top: 10,
@@ -395,6 +395,58 @@ describe('Utils', () => {
           width: 33,
           dataItem: 'b',
           type: 'horizontal',
+        });
+    });
+    it('should work with vertical', () => {
+      const rectByDatesMock = jest.fn();
+      rectByDatesMock.mockImplementation(() => ({
+        top: 10,
+        left: 0,
+        height: 50,
+        width: 99,
+        parentWidth: 300,
+      }));
+      const type = { growDirection: 'vertical' };
+      const rectByDatesMeta = { cellDuration: 30 };
+      const intervals = [
+        { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 10:10'), dataItem: 'a' },
+        { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 10:30'), dataItem: 'b' },
+        { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 10:35'), dataItem: 'c' },
+      ];
+
+      const rects = calculateRectByDateIntervals(type, intervals, rectByDatesMock, rectByDatesMeta);
+
+      expect(rects)
+        .toHaveLength(3);
+      expect(rects[0])
+        .toMatchObject({
+          top: 10,
+          height: 50,
+          left: 0,
+          width: 11,
+          dataItem: 'c',
+          type: 'vertical',
+          durationType: 'long',
+        });
+      expect(rects[1])
+        .toMatchObject({
+          top: 10,
+          height: 50,
+          left: 11,
+          width: 11,
+          dataItem: 'b',
+          type: 'vertical',
+          durationType: 'middle',
+        });
+      expect(rects[2])
+        .toMatchObject({
+          top: 10,
+          height: 50,
+          left: 22,
+          width: 11,
+          dataItem: 'a',
+          type: 'vertical',
+          durationType: 'short',
         });
     });
   });

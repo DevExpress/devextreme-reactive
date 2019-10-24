@@ -23,6 +23,10 @@ const getRowId = row => row.id;
 
 <%&body%>
 
+const FocusableCell = ({ onClick, ...restProps }) => (
+  <Table.Cell {...restProps} tabIndex={0} onFocus={onClick} />
+);
+
 export default () => {
   const [columns] = useState([
     { name: 'name', title: 'Name' },
@@ -67,7 +71,7 @@ export default () => {
         getRowId={getRowId}
       >
         <EditingState onCommitChanges={commitChanges} />
-        <Table />
+        <Table cellComponent={FocusableCell} />
         <TableHeaderRow />
         <Toolbar />
         <EditPropsPanel

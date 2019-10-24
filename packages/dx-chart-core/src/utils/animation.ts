@@ -1,6 +1,6 @@
 import {
   EasingFn, SetAttributeFn, AnimationFn, GetNewPositionsFn,
-  RangePointCoordinates, PointCoordinates,
+  RangePointCoordinates, PointCoordinates, PointComponentProps,
   PieCoordinates, PathStartCoordinates, PathEndCoordinates,
 } from '../types';
 
@@ -68,7 +68,7 @@ const lerp = (a: number, b: number, t: number) => a + t * (b - a);
 
 /** @internal */
 export const processPointAnimation = (
-  startCoords: PointCoordinates, endCoords: PointCoordinates,
+  startCoords: PointCoordinates, endCoords: PointComponentProps,
 ) => {
   return (progress: number) => {
     return {
@@ -80,7 +80,7 @@ export const processPointAnimation = (
 
 /** @internal */
 export const processBarAnimation = (
-  startCoords: RangePointCoordinates, endCoords: RangePointCoordinates,
+  startCoords: RangePointCoordinates, endCoords: PointComponentProps,
 ) => {
   return (progress: number) => {
     return {

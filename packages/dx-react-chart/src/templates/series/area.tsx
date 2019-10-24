@@ -42,7 +42,7 @@ export const Area: React.ComponentType<AreaSeries.SeriesProps> = withStates({
   [SELECTED]: withPattern<any>(
     ({ index }) => `series-${index}-selection`, { opacity: 0.5 },
   )(RawArea),
-})(withAnimation(
+})(withAnimation<any>(
   processAreaAnimation,
   ({ coordinates }) => ({ coordinates }),
   getPathStart,

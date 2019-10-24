@@ -1,11 +1,14 @@
 import * as React from 'react';
 import { Animation, isScalesChanged } from '@devexpress/dx-chart-core';
+import { GetDelayFn, Scales } from '../types';
 
-export const withAnimation = (
-    processAnimation: any, getProps: any,
-    getStartCoordinates: any, isValuesChanged: any, getDelay?: any,
-) => (Component: React.ComponentType<any>) => {
-  class ComponentWithAnimation extends React.PureComponent<any, any> {
+export const withAnimation = <T extends any>(
+    processAnimation: (start: T, end: T) => (progress: number) => any, getProps: (props: T) => any,
+    getStartCoordinates: (scales: Scales, props: T) => any,
+    isValuesChanged: (previous: T, current: T) => boolean,
+    getDelay?: GetDelayFn,
+) => (Component: React.ComponentType<T>): React.ComponentType<T> => {
+  class ComponentWithAnimation extends React.PureComponent<T, T> {
     animate: Animation | undefined;
     constructor(props) {
       super(props);
@@ -33,16 +36,14 @@ export const withAnimation = (
       }
     }
 
-    componentDidUpdate({
-      scales: prevScales, ...prevProps
-    }) {
+    componentDidUpdate(prevProps) {
       const {
         scales, index,
       } = this.props;
       const props = getProps(this.props);
       const neededPrevProps = getProps(prevProps);
       if (this.animate) {
-        if (isScalesChanged(prevScales, scales)) {
+        if (isScalesChanged(prevProps.scales, scales)) {
           this.setAttribute(props);
         } else if (isValuesChanged(neededPrevProps, props)) {
           const delay = getDelay ? getDelay(index, false) : 0;

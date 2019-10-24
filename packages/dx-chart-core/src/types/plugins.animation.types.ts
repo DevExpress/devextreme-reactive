@@ -55,3 +55,6 @@ export type PieCoordinates = {
   readonly startAngle: number,
   readonly endAngle: number,
 };
+
+/** @internal */
+export type GetDelayFn = PureComputed<[number, boolean], number>;

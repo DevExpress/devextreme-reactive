@@ -42,7 +42,7 @@ export const Slice: React.ComponentType<PieSeries.PointProps> = withStates({
   [SELECTED]: withPattern<any>(
     ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-selection`, { opacity: 0.5 },
   )(RawSlice),
-})(withAnimation(
+})(withAnimation<any>(
   processPieAnimation,
   ({ innerRadius, outerRadius, startAngle, endAngle }) =>
   ({ innerRadius, outerRadius, startAngle, endAngle }),

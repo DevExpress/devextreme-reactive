@@ -44,7 +44,7 @@ export const Bar: React.ComponentType<BarSeries.PointProps> = withStates({
   [SELECTED]: withPattern<any>(
     ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-selection`, { opacity: 0.5 },
   )(RawBar),
-})(withAnimation(
+})(withAnimation<any>(
   processBarAnimation,
   ({ arg, val, startVal }) => ({ arg, val, startVal }),
   getPointStart,

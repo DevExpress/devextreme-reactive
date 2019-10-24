@@ -52,7 +52,7 @@ export const Point: React.ComponentType<ScatterSeries.PointProps> = withStates({
     point: getAdjustedOptions(point),
     ...restProps,
   }),
-})(withAnimation(
+})(withAnimation<any>(
   processPointAnimation,
   ({ arg, val }) => ({ arg, val }),
   getPointStart,

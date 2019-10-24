@@ -40,7 +40,7 @@ layoutComponent | ComponentType&lt;[AppointmentTooltip.LayoutProps](#appointment
 headerComponent | ComponentType&lt;[AppointmentTooltip.HeaderProps](#appointmenttooltipheaderprops)&gt; | | A component that renders the header.
 contentComponent | ComponentType&lt;[AppointmentTooltip.ContentProps](#appointmenttooltipcontentprops)&gt; | | A component that renders the tooltip content.
 commandButtonComponent | ComponentType&lt;[AppointmentTooltip.CommandButtonProps](#appointmenttooltipcommandbuttonprops)&gt; | | A component that renders a command button.
-recurringIconComponent | ComponentType&lt;object&gt; | | A component that renders an icon for recurring appointments inside the AppointmentTooltip.
+recurringIconComponent | ComponentType&lt;object&gt; | | A component that renders an icon that indicates a recurring appointment.
 
 ## Interfaces
 
@@ -72,7 +72,7 @@ onHide? | () => void | An event that hides the tooltip.
 headerComponent | ComponentType&lt;[AppointmentTooltip.HeaderProps](#appointmenttooltipheaderprops)&gt; | A component that renders the tooltip header.
 contentComponent | ComponentType&lt;[AppointmentTooltip.ContentProps](#appointmenttooltipcontentprops)&gt; | A component that renders the tooltip content.
 commandButtonComponent | ComponentType&lt;[AppointmentTooltip.CommandButtonProps](#appointmenttooltipcommandbuttonprops)&gt; | A component that renders a command button.
-recurringIconComponent | ComponentType&lt;object&gt; | A component that renders an icon for recurring appointments inside the AppointmentTooltip.
+recurringIconComponent | ComponentType&lt;object&gt; | A component that renders an icon that indicates a recurring appointment.
 
 ### AppointmentTooltip.HeaderProps
 
@@ -86,9 +86,9 @@ showDeleteButton? | boolean | Specifies the Delete button's visibility.
 appointmentData? | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment's displayed metadata.
 onOpenButtonClick? | () => void | An event raised when the Open button is clicked. The event handler should open the appointment form.
 onDeleteButtonClick? | () => void | An event raised when the Delete button is clicked. The event handler should delete an appointment.
-onHide? | () => void | An event that hides the tooltip.
+onHide? | () => void | An event raised when the tooltip hides.
 commandButtonComponent | ComponentType&lt;[AppointmentTooltip.CommandButtonProps](#appointmenttooltipcommandbuttonprops)&gt; | A component that renders a command button.
-children? | ReactNode | A React node used to render the additional part of the tooltip header.
+children? | ReactNode | A React node that renders custom elements in the tooltip header.
 
 ### AppointmentTooltip.ContentProps
 
@@ -98,8 +98,8 @@ Field | Type | Description
 ------|------|------------
 appointmentData? | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment's displayed metadata.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the locale.
-recurringIconComponent | ComponentType&lt;object&gt; | A component that renders an icon for recurring appointments inside the AppointmentTooltip.
-children? | ReactNode | A React node used to render the additional part of the tooltip content.
+recurringIconComponent | ComponentType&lt;object&gt; | A component that renders an icon that indicates a recurring appointment.
+children? | ReactNode | A React node that renders custom elements in the tooltip.
 
 ### AppointmentTooltip.CommandButtonProps
 

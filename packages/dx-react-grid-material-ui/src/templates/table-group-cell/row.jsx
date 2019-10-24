@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import { TableRow } from '../table-row';
 
@@ -20,11 +20,13 @@ const RowBase = ({ children, classes, className, ...restProps }) => (
 );
 
 RowBase.propTypes = {
+  children: PropTypes.node,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
 RowBase.defaultProps = {
+  children: null,
   className: undefined,
 };
 

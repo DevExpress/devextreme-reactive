@@ -5,7 +5,7 @@ import {
 import { TABLE_DATA_TYPE } from '../table/constants';
 import {
   GetColumnSummariesFn, IsSpecificCellFn, IsSpecificRowFn, SummaryItem,
-  GetGroupInlineSummariesFn, InlineSummary, GroupSummaryItem,
+  GetGroupInlineSummariesFn, ColumnInlineSummaries, GroupSummaryItem,
 } from '../../types';
 
 export const isTotalSummaryTableCell: IsSpecificCellFn = (
@@ -65,5 +65,5 @@ export const getGroupInlineSummaries: GetGroupInlineSummariesFn = (
     }
 
     return acc;
-  }, [] as InlineSummary[]);
+  }, [] as ColumnInlineSummaries[]);
 };

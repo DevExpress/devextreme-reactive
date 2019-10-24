@@ -83,13 +83,12 @@ export type ExpandRowsFn = PureComputed<
   TableRow[]
 >;
 
-/** @internal */
-export type InlineSummary = {
+export type ColumnInlineSummaries = {
   column: Column,
   summaries: ReadonlyArray<ColumnSummary>,
 };
 
 /** @internal */
 export type GetGroupInlineSummariesFn = PureComputed<
-  [GroupSummaryItem[], TableColumn[], SummaryValue[]], InlineSummary[]
+  [GroupSummaryItem[], TableColumn[], SummaryValue[]], ColumnInlineSummaries[]
 >;

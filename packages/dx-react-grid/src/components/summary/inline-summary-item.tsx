@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { GetMessageFn } from '@devexpress/dx-core';
-import { InlineSummary } from '../../types';
+import { InlineSummary, GetMessageFn } from '../../types';
 
 interface InlineSummaryItemProps {
   getMessage: GetMessageFn;

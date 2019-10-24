@@ -127,7 +127,6 @@ export type GetInlineSummaryComponent = PureComputed<
   React.FunctionComponent<any>
 >;
 
-/** @internal */
 export type InlineSummary = ColumnSummary & {
   columnTitle: string | undefined;
   messageKey: string;

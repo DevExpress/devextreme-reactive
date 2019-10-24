@@ -1,5 +1,4 @@
-import { Table, SummaryType, Column, ColumnSummary } from '../index';
-import { GetMessageFn } from '@devexpress/dx-core';
+import { Table, SummaryType, Column, ColumnSummary, GetMessageFn } from '../index';
 
 // tslint:disable-next-line: no-namespace
 export namespace TableSummaryRow {

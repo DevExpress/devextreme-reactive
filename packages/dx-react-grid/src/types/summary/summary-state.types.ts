@@ -1,5 +1,5 @@
-import { GroupSummaryItem } from '@devexpress/dx-grid-core';
-import { SummaryItem } from '../index';
+
+import { SummaryItem, GroupSummaryItem } from '../index';
 
 export interface SummaryStateProps {
   /** The total summary items. */

@@ -1,6 +1,6 @@
 # ConfirmationDialog Plugin Reference
 
-A plugin that renders a dialog that prompts a user to confirm that an appointment should be deleted or edits made to an appointment should be discarded.
+A plugin that renders a dialog that prompts a user to confirm that an appointment should be deleted or changes to an appointment should be discarded.
 
 ## Import
 

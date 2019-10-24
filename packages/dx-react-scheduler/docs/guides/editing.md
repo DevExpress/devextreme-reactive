@@ -12,7 +12,7 @@ The following plugins implement this feature:
 - [AppointmentTooltip](../reference/appointment-tooltip.md) - renders a tooltip with controls that manage the appointment
 - [AppointmentForm](../reference/appointment-form.md) - renders a form that allows a user to edit an appointment
 - [DragDropProvider](../reference/drag-drop-provider.md) - implements drag-and-drop editing
-- [ConfirmationDialog](../reference/confirmation-dialog.md) - renders a dialog that prompts a user to confirm that an appointment should be deleted or edits made to an appointment should be discarded
+- [ConfirmationDialog](../reference/confirmation-dialog.md) - renders a dialog that prompts a user to confirm that an appointment should be deleted or changes to an appointment should be discarded
 
 ## User Interaction
 
@@ -72,7 +72,7 @@ The [DragDropProvider](../reference/drag-drop-provider.md) plugin also allows yo
 
 To validate user input or prevent user actions, handle the `EditingState` plugin's `onCommitChanges` event.
 
-For example, you can copy an appointment if it was drag-and-dropped with a specific key pressed (the `shift` key is used in the demo below). To detect the drop event, check the `changed` parameter's value in the `commitChanges` handler:
+For example, you can copy an appointment if it was drag-and-dropped while a specific key was pressed (the `shift` key is used in the demo below). To detect the drop event, check the `changed` parameter's value in the `commitChanges` handler:
 
 .embedded-demo({ "path": "scheduler-editing/copy-after-dragdrop", "showThemeSelector": true })
 
@@ -87,6 +87,6 @@ The following demo shows how to customize the appointment form. A custom `TextEd
 ## Add a Confirmation Dialog
 
 
-To enable the confirmation dialog, add the [ConfirmationDialog](../reference/confirmation-dialog.md) plugin. The dialog will pop up when a user attempts to delete an appointment or discard edits made to it. If the dialog should not appear in either of these cases, set the  `ignoreDelete` or `ignoreCancel` property to `true`. 
+To enable the confirmation dialog, add the [ConfirmationDialog](../reference/confirmation-dialog.md) plugin. The dialog pops up when a user attempts to delete an appointment or discard edits made to it. If the dialog should not appear in these cases, set the `ignoreDelete` or `ignoreCancel` property to `true`. 
 
 .embedded-demo({ "path": "scheduler-editing/delete-confirmation", "showThemeSelector": true })

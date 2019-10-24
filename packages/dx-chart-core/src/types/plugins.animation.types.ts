@@ -11,7 +11,7 @@ export type GetNewPositionsFn = PureComputed<[number], any>;
 export type ProcessAnimationFn = PureComputed<[any, any, number?], GetNewPositionsFn>;
 
 /** @internal */
-export type SetAttributeFn = PureComputed<[any], void>;
+export type SetAttributeFn = (props: any) => void;
 
 /** @internal */
 export type RunAnimationFn = PureComputed<[

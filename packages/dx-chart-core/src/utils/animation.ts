@@ -37,12 +37,6 @@ export const buildAnimation = (easing: EasingFn, duration: number): AnimationFn 
 ) => {
   let animationID;
 
-  animationID = runAnimation(
-    setAttributes, processAnimation(startCoords, endCoords), easing, duration, delay,
-  ).then((res) => {
-    animationID = res;
-  });
-
   const stop = () => {
     if (animationID) {
       cancelAnimationFrame(animationID);
@@ -50,15 +44,21 @@ export const buildAnimation = (easing: EasingFn, duration: number): AnimationFn 
     }
   };
 
+  const run = (start, end, delayValue) => {
+    animationID = runAnimation(
+      setAttributes, processAnimation(start, end),
+      easing, duration, delayValue,
+    ).then((res) => {
+      animationID = res;
+    });
+  };
+
+  run(startCoords, endCoords, delay);
+
   return {
     update: (updatedStartCoords, updatedEndCoords, updatedDelay = 0) => {
       stop();
-      animationID = runAnimation(
-        setAttributes, processAnimation(updatedStartCoords, updatedEndCoords),
-        easing, duration, updatedDelay,
-      ).then((res) => {
-        animationID = res;
-      });
+      run(updatedStartCoords, updatedEndCoords, updatedDelay);
     },
     stop,
   };

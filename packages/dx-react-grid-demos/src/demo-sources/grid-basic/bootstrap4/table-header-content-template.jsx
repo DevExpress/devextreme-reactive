@@ -9,26 +9,6 @@ import {
   globalSalesValues,
 } from '../../../demo-data/generator';
 
-const TableHeaderContent = ({ column, children, ...restProps }) => (
-  <TableHeaderRow.Content
-    column={column}
-    {...restProps}
-  >
-    {children}
-    {column.name === 'region' ? (
-      <button
-        type="button"
-        className="btn btn-outline-secondary"
-        style={{ margin: '-7px 5px' }}
-        // eslint-disable-next-line no-alert
-        onClick={() => alert('Custom action')}
-      >
-        <span className="oi oi-eye" />
-      </button>
-    ) : null}
-  </TableHeaderRow.Content>
-);
-
 export default () => {
   const [columns] = useState([
     { name: 'region', title: 'Region' },
@@ -51,3 +31,26 @@ export default () => {
     </div>
   );
 };
+
+function TableHeaderContent({ column, children, ...restProps }) {
+  return (
+// const TableHeaderContent = ({ column, children, ...restProps }) => (
+  <TableHeaderRow.Content
+    column={column}
+    {...restProps}
+  >
+    {children}
+    {column.name === 'region' ? (
+      <button
+        type="button"
+        className="btn btn-outline-secondary"
+        style={{ margin: '-7px 5px' }}
+        // eslint-disable-next-line no-alert
+        onClick={() => alert('Custom action')}
+      >
+        <span className="oi oi-eye" />
+      </button>
+    ) : null}
+  </TableHeaderRow.Content>
+  );
+}

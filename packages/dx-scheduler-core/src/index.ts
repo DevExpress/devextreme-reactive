@@ -47,6 +47,8 @@ export * from './plugins/vertical-rect/helpers';
 /** @internal */
 export * from './plugins/drag-drop-provider/helpers';
 /** @internal */
+export * from './plugins/resources/computeds';
+/** @internal */
 export * from './constants';
 /** @internal */
 export * from './utils';

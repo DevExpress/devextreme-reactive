@@ -62,7 +62,7 @@ Field | Type | Description
 showOpenButton | boolean | Specifies the Open button's visibility.
 showCloseButton | boolean | Specifies the Close button's visibility.
 showDeleteButton | boolean | Specifies the Delete button's visibility.
-commandButtonIds | Array&lt;string&gt; | A command button's identifier list.
+commandButtonIds | Array&lt;string&gt; | The command button's identifier list.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the locale.
 onOpenButtonClick? | () => void | An event raised when the Open button is clicked. The event handler should open the appointment form.
 onDeleteButtonClick? | () => void | An event raised when the Delete button is clicked. The event handler should delete an appointment.
@@ -83,6 +83,7 @@ Field | Type | Description
 showOpenButton? | boolean | Specifies the Open button's visibility.
 showCloseButton? | boolean | Specifies the Close button's visibility.
 showDeleteButton? | boolean | Specifies the Delete button's visibility.
+commandButtonIds | Array&lt;string&gt; | The command button's identifier list.
 appointmentData? | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment's displayed metadata.
 onOpenButtonClick? | () => void | An event raised when the Open button is clicked. The event handler should open the appointment form.
 onDeleteButtonClick? | () => void | An event raised when the Delete button is clicked. The event handler should delete an appointment.

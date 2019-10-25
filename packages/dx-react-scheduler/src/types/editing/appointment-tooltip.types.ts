@@ -10,7 +10,7 @@ export namespace AppointmentTooltip {
     showCloseButton: boolean;
     /** Specifies the Delete button’s visibility. */
     showDeleteButton: boolean;
-    /** A command button’s identifier list. */
+    /** The command button’s identifier list. */
     commandButtonIds: Array<string>;
     /** An event raised when the Open button is clicked. The event handler should open the appointment form. */
     onOpenButtonClick?: () => void;
@@ -22,7 +22,7 @@ export namespace AppointmentTooltip {
     formatDate: FormatterFn;
     /** Specifies the tooltip’s visibility. */
     visible?: boolean;
-    /** An event that hides the tooltip. */
+    /** An event raised when the tooltip hides. */
     onHide?: () => void;
     /** A component that renders the tooltip header. */
     headerComponent: React.ComponentType<AppointmentTooltip.HeaderProps>;
@@ -43,17 +43,17 @@ export namespace AppointmentTooltip {
     showCloseButton: boolean;
     /** Specifies the Delete button’s visibility. */
     showDeleteButton: boolean;
-    /** A command button’s identifier list. */
+    /** The command button’s identifier list. */
     commandButtonIds: Array<string>;
     /** An event raised when the Open button is clicked. The event handler should open the appointment form. */
     onOpenButtonClick?: () => void;
     /** An event raised when the Delete button is clicked. The event handler should delete an appointment. */
     onDeleteButtonClick?: () => void;
-    /** An event that hides the tooltip. */
+    /** An event raised when the tooltip hides. */
     onHide?: () => void;
     /** A component that renders a command button. */
     commandButtonComponent: React.ComponentType<AppointmentTooltip.CommandButtonProps>;
-    /** A React node used to render the additional part of the tooltip header. */
+    /** A React node that renders custom elements in the tooltip header. */
     children?: React.ReactNode;
   }
   /** Describes properties passed to a component that renders the tooltip content. */
@@ -62,9 +62,9 @@ export namespace AppointmentTooltip {
     appointmentData?: AppointmentModel;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
-    /** A component that renders an icon for recurring appointments inside the AppointmentTooltip. */
+    /** A component that renders an icon that indicates a recurring appointment. */
     recurringIconComponent: React.ComponentType<object>;
-    /** A React node used to render the additional part of the tooltip content. */
+    /** A React node that renders custom elements in the tooltip. */
     children?: React.ReactNode;
   }
   /** Describes properties passed to a component that renders a command button. */
@@ -99,7 +99,7 @@ export interface AppointmentTooltipProps {
   contentComponent: React.ComponentType<AppointmentTooltip.ContentProps>;
   /** A component that renders a command button. */
   commandButtonComponent: React.ComponentType<AppointmentTooltip.CommandButtonProps>;
-  /** A component that renders an icon for recurring appointments inside the AppointmentTooltip. */
+  /** A component that renders an icon that indicates a recurring appointment. */
   recurringIconComponent: React.ComponentType<object>;
 }
 

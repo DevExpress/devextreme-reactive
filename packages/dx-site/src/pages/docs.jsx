@@ -4,9 +4,9 @@ import Title from '../components/landing/sections/title';
 import ProductDocPreview from '../components/landing/sections/product-doc-preview';
 import ConceptDocPreview from '../components/landing/sections/concept-doc-preview';
 
-import ReactGridIcon from './images/react-grid.svg';
-import ReactChartIcon from './images/react-chart.svg';
-import ReactSchedulerIcon from './images/react-scheduler.svg';
+import ReactGridIcon from './images/react-grid.inline.svg';
+import ReactChartIcon from './images/react-chart.inline.svg';
+import ReactSchedulerIcon from './images/react-scheduler.inline.svg';
 
 const concepts = [
   { 

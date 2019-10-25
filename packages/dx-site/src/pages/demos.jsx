@@ -1,7 +1,6 @@
 import * as React from 'react';
 import DemosList from '../components/landing/sections/demos-list';
 import PageLayout from '../components/layouts/page-layout';
-import AlternatedBackground from '../components/landing/alternated-background';
 
 import ReactGridIcon from './images/react-grid.inline.svg';
 import ReactChartIcon from './images/react-chart.inline.svg';
@@ -15,6 +14,8 @@ import SchedulerReduxIntegrationImage from './demo-images/scheduler/Redux-Integr
 import ChartMultipleAxesImage from './demo-images/chart/Multiple-Axes.png';
 import ChartRotatedImage from './demo-images/chart/Rotated-Chart.png';
 import ChartSteamgraphImage from './demo-images/chart/Steamgraph.png';
+
+import styles from './demos.module.scss';
 
 const gridDemos = {
   title: 'React Grid Demos',

@@ -23,7 +23,7 @@ const DemosList = ({ data: { title, icon, featured, technical } }) => (
   <div className={`container ${styles.container}`}>
     <Title text={title} iconComponent={icon} />
 
-    <div className="row my-3">
+    <div className="row my-4">
       {featured.map((demo) => (
         <FeaturedDemoPreview {...demo} />
       ))}

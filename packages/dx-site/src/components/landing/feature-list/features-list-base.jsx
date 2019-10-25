@@ -19,20 +19,18 @@ const FeaturesList = ({
   }, []);
 
   return rows.map((rowItems, index) => {
-    const sectionTitle = rowItems[0].sectionTitle;
+    const sectionTitle = rowItems[0].title;
     const items = rowItems.map((item, idx) => <LayoutItem {...item} md={12 / columns} key={idx} />);
     const alternate = index % 2 === 1;
 
     return (
-      <React.Fragment>
-        {(alternate ? (
-            <AlternatedBackground key={index}>
-              <LayoutRow items={items} title={sectionTitle} />
-            </AlternatedBackground>
-          )
-          : <LayoutRow items={items} title={sectionTitle} key={index} />
-        )}
-      </React.Fragment>
+      (alternate ? (
+          <AlternatedBackground key={sectionTitle}>
+            <LayoutRow items={items} title={sectionTitle} />
+          </AlternatedBackground>
+        )
+        : <LayoutRow items={items} title={sectionTitle} key={sectionTitle} />
+      )
     );
   });
 };

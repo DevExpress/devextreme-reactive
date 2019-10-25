@@ -25,11 +25,12 @@ const SectionBase = ({
         item.items ? (
           <SubSection
             {...item}
+            key={item.title}
             itemComponent={Item}
             location={location}
           />
         ) : (
-          <Item {...item} />
+          <Item {...item} key={item.title} />
         )
       ))}
     </ul>
@@ -37,8 +38,9 @@ const SectionBase = ({
 );
 
 SectionBase.propTypes = {
-  section: PropTypes.object.isRequired,
-  onHeaderClick: PropTypes.function,
+  title: PropTypes.string.isRequired,
+  items: PropTypes.array.isRequired,
+  onHeaderClick: PropTypes.func,
   listClassName: PropTypes.string,
   titleClassName: PropTypes.string,
 };

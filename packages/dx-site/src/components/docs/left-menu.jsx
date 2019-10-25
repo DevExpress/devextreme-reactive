@@ -46,11 +46,10 @@ const LeftMenuBase = ({
   <div className={styles.leftMenu}>
     {menuAddon}
     {items.map(section => (
-      <>
+      <React.Fragment key={section.title}>
         {section.items ? (
           <Section
             {...section}
-            key={section.title}
             itemComponent={Item}
             location={location}
           />
@@ -58,7 +57,7 @@ const LeftMenuBase = ({
           <SingleItem {...section} />
         )}
         <hr />
-      </>
+      </React.Fragment>
     ))}
   </div>
 );

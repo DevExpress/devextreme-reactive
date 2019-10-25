@@ -7,6 +7,7 @@ import styles from './product-links.module.scss';
 const ProductLinks = ({ productInfo }) => (
   productInfo.map(({ title, location }) => (
     <Link
+      key={title}
       partiallyActive
       activeClassName={styles.active}
       to={location}

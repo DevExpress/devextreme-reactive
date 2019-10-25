@@ -19,10 +19,10 @@ const DocPreviewContainer = ({
 DocPreviewContainer.propTypes = {
   path: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
-  dense: PropTypes.boolean,
+  dense: PropTypes.bool,
 };
 
-DocPreviewContainer.propTypes = {
+DocPreviewContainer.defaultProps = {
   dense: false,
 };
 

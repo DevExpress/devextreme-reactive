@@ -28,7 +28,7 @@ const ProductLink = ({
 
 ProductLink.propTypes = {
   type: PropTypes.string.isRequired,
-  iconLink: PropTypes.string.isRequired,
+  icon: PropTypes.elementType.isRequired,
   title: PropTypes.string.isRequired,
   links: PropTypes.node.isRequired,
 };

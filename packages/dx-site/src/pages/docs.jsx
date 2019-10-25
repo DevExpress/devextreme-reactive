@@ -76,7 +76,7 @@ export default () => (
       </div>
       <div className="row">
         {concepts.map(concept => (
-          <ConceptDocPreview {...concept} />
+          <ConceptDocPreview {...concept} key={concept.title} />
         ))}
       </div>
 

@@ -5,10 +5,9 @@ import LeftMenu from '../docs/left-menu';
 import styles from './container-with-menu.module.scss';
 
 const ContainerWithMenu = ({
-  isDocPage, children,
-  ...menuProps
+  children, ...menuProps
 }) => (
-  <div className={isDocPage ? styles.docsPageLayout : styles.pageLayout}>
+  <div className={styles.pageLayout}>
     <div className="container">
       <div className="row">
         <div className="col-lg-9 col-md-8 order-md-2">
@@ -27,13 +26,5 @@ const ContainerWithMenu = ({
     </div>
   </div>
 );
-
-ContainerWithMenu.propTypes = {
-  isDocPage: PropTypes.boolean,
-};
-
-ContainerWithMenu.defaultProps = {
-  isDocPage: false,
-};
 
 export default ContainerWithMenu;

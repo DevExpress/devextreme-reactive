@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1570792366">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1570792366">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1572007753">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1572007753">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <!-- Google Tag Manager -->
@@ -61,7 +61,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             
-            <li><a href="/devextreme-reactive/react/scheduler/demos/featured/data-editing/">Demos</a></li>
+            <li><a href="/devextreme-reactive/react/scheduler/demos/featured/overview/">Demos</a></li>
             
             <li class="active"><a href="/devextreme-reactive/react/scheduler/docs/guides/getting-started/">Docs</a></li>
             <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -101,8 +101,6 @@
       <th>Type</th>
       <th>Default</th>
       <th>Description</th>
-      <th> </th>
-      <th> </th>
     </tr>
   </thead>
   <tbody>
@@ -111,86 +109,64 @@
       <td>Partial&lt;<a href="/devextreme-reactive/react/scheduler/docs/reference/scheduler/#appointmentmodel">AppointmentModel</a>&gt;</td>
       <td> </td>
       <td>The appointment being edited.</td>
-      <td> </td>
-      <td> </td>
     </tr>
     <tr>
       <td>defaultEditingAppointment?</td>
       <td>Partial&lt;<a href="/devextreme-reactive/react/scheduler/docs/reference/scheduler/#appointmentmodel">AppointmentModel</a>&gt;</td>
       <td> </td>
       <td>The initial value of the <code class="highlighter-rouge">editingAppointment</code> property in uncontrolled mode.</td>
-      <td> </td>
-      <td> </td>
     </tr>
     <tr>
       <td>onEditingAppointmentChange?</td>
       <td>(editingAppointment: Partial&lt;<a href="/devextreme-reactive/react/scheduler/docs/reference/scheduler/#appointmentmodel">AppointmentModel</a>&gt;) =&gt; void</td>
       <td> </td>
       <td>Handles changes to the <code class="highlighter-rouge">editingAppointment</code> property value.</td>
-      <td> </td>
-      <td> </td>
     </tr>
     <tr>
       <td>addedAppointment?</td>
       <td>object</td>
       <td> </td>
       <td>A created but not committed appointment.</td>
-      <td> </td>
-      <td> </td>
     </tr>
     <tr>
       <td>defaultAddedAppointment?</td>
       <td>object</td>
       <td> </td>
       <td>The initial value of the <code class="highlighter-rouge">addedAppointment</code> property in uncontrolled mode.</td>
-      <td> </td>
-      <td> </td>
     </tr>
     <tr>
       <td>onAddedAppointmentChange?</td>
       <td>(addedAppointment: object) =&gt; void</td>
       <td> </td>
       <td>Handles changes to the <code class="highlighter-rouge">addedAppointment</code> property value.</td>
-      <td> </td>
-      <td> </td>
     </tr>
     <tr>
       <td>appointmentChanges?</td>
       <td>{ [key: string]: object }</td>
       <td> </td>
       <td>Uncommitted appointment changes.</td>
-      <td> </td>
-      <td> </td>
     </tr>
     <tr>
       <td>defaultAppointmentChanges?</td>
       <td>{ [key: string]: object }</td>
       <td> </td>
       <td>The initial value of the <code class="highlighter-rouge">appointmentChanges</code> property in uncontrolled mode.</td>
-      <td> </td>
-      <td> </td>
     </tr>
     <tr>
       <td>onAppointmentChangesChange?</td>
       <td>(appointmentChanges: { [key: string]: any }) =&gt; void</td>
       <td> </td>
       <td>Handles changes to the <code class="highlighter-rouge">appointmentChanges</code> property value.</td>
-      <td> </td>
-      <td> </td>
     </tr>
     <tr>
       <td>onCommitChanges</td>
       <td>(changes: <a href="#changeset">ChangeSet</a>) =&gt; void</td>
       <td> </td>
       <td>Handles commiting appointment changes.</td>
-      <td> </td>
-      <td> </td>
     </tr>
     <tr>
       <td>preCommitChanges?</td>
-      <td>(changes: object, appointmentData: Partial&lt;<a href="/devextreme-reactive/react/scheduler/docs/reference/scheduler/#appointmentmodel">AppointmentModel</a>&gt;, type: <code class="highlighter-rouge">all</code></td>
-      <td><code class="highlighter-rouge">current</code></td>
-      <td><code class="highlighter-rouge">currentAndFollowing</code>) =&gt; <a href="#changeset">ChangeSet</a></td>
+      <td>(changes: object, appointmentData: Partial&lt;<a href="/devextreme-reactive/react/scheduler/docs/reference/scheduler/#appointmentmodel">AppointmentModel</a>&gt;, type: <code class="highlighter-rouge">all</code> | <code class="highlighter-rouge">current</code> | <code class="highlighter-rouge">currentAndFollowing</code>) =&gt; <a href="#changeset">ChangeSet</a></td>
       <td> </td>
       <td>Allows you to process changes that are not committed yet.</td>
     </tr>
@@ -240,9 +216,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.1.2">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.2.0">
             Version
-            <span>2.1.2</span>
+            <span>2.2.0</span>
           </a>
         </li>
       </ul>
@@ -399,6 +375,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/confirmation-dialog/">ConfirmationDialog</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/scheduler/docs/reference/date-navigator/">DateNavigator</a></li>
           
 
@@ -536,7 +520,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/common/dist/index.js?v=1570792366"></script>
+<script src="/devextreme-reactive/react/common/dist/index.js?v=1572007753"></script>
 
 <script
   type="text/javascript"
@@ -560,7 +544,7 @@
                 <div class="col-md-3">
                     <ul class="list-inline">
                       
-                      <li><a href="/devextreme-reactive/react/scheduler/demos/featured/data-editing/">Demos</a></li>
+                      <li><a href="/devextreme-reactive/react/scheduler/demos/featured/overview/">Demos</a></li>
                       
                       <li class="active"><a href="/devextreme-reactive/react/scheduler/docs/guides/getting-started/">Docs</a></li>
                       <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -592,7 +576,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1570792366"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1572007753"></script>
     <script>
         trackingCookie.notice();
     </script>

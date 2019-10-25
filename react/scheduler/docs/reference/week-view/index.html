@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1570792366">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1570792366">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1572007753">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1572007753">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <!-- Google Tag Manager -->
@@ -61,7 +61,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             
-            <li><a href="/devextreme-reactive/react/scheduler/demos/featured/data-editing/">Demos</a></li>
+            <li><a href="/devextreme-reactive/react/scheduler/demos/featured/overview/">Demos</a></li>
             
             <li class="active"><a href="/devextreme-reactive/react/scheduler/docs/guides/getting-started/">Docs</a></li>
             <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -125,7 +125,7 @@
       <td>excludedDays?</td>
       <td>Array&lt;number&gt;</td>
       <td>[]</td>
-      <td>Specifies the days of week that should not be displayed in the view. Accepts an array of zero-bazed day indexes (0 - Sunday).</td>
+      <td>Specifies the days of week that should not be displayed in the view. Accepts an array of zero-based day indexes (0 - Sunday).</td>
     </tr>
     <tr>
       <td>intervalCount?</td>
@@ -164,16 +164,10 @@
       <td>A component that renders a time scale layout.</td>
     </tr>
     <tr>
-      <td>timeScaleRowComponent</td>
-      <td>ComponentType&lt;<a href="#weekviewrowprops">WeekView.RowProps</a>&gt;</td>
+      <td>timeScaleLabelComponent</td>
+      <td>ComponentType&lt;<a href="#weekviewtimescalelabelprops">WeekView.TimeScaleLabelProps</a>&gt;</td>
       <td> </td>
-      <td>A component that renders a time scale row.</td>
-    </tr>
-    <tr>
-      <td>timeScaleCellComponent</td>
-      <td>ComponentType&lt;<a href="#weekviewtimescalecellprops">WeekView.TimeScaleCellProps</a>&gt;</td>
-      <td> </td>
-      <td>A component that renders a time scale cell.</td>
+      <td>A component that renders a time scale label.</td>
     </tr>
     <tr>
       <td>dayScaleLayoutComponent</td>
@@ -319,14 +313,9 @@
       <td>Specifies the cells meta data.</td>
     </tr>
     <tr>
-      <td>cellComponent</td>
-      <td>ComponentType&lt;<a href="#weekviewtimescalecellprops">WeekView.TimeScaleCellProps</a>&gt;</td>
-      <td>A component that renders a time scale cell.</td>
-    </tr>
-    <tr>
-      <td>rowComponent</td>
-      <td>ComponentType&lt;<a href="#weekviewrowprops">WeekView.RowProps</a>&gt;</td>
-      <td>A component that renders a time scale row.</td>
+      <td>labelComponent</td>
+      <td>ComponentType&lt;<a href="#weekviewtimescalelabelprops">WeekView.TimeScaleLabelProps</a>&gt;</td>
+      <td>A component that renders a time scale label.</td>
     </tr>
     <tr>
       <td>formatDate</td>
@@ -336,9 +325,9 @@
   </tbody>
 </table>
 
-<h3 id="weekviewtimescalecellprops">WeekView.TimeScaleCellProps</h3>
+<h3 id="weekviewtimescalelabelprops">WeekView.TimeScaleLabelProps</h3>
 
-<p>Describes properties passed to a component that renders a time scale cell.</p>
+<p>Describes properties passed to a component that renders a time scale label.</p>
 
 <table class="table table-bordered table-striped">
   <thead>
@@ -350,14 +339,9 @@
   </thead>
   <tbody>
     <tr>
-      <td>endDate</td>
+      <td>time?</td>
       <td>Date</td>
-      <td>Specifies the cell end time.</td>
-    </tr>
-    <tr>
-      <td>startDate?</td>
-      <td>Date</td>
-      <td>Specifies the cell start time.</td>
+      <td>Specifies the cell’s time.</td>
     </tr>
     <tr>
       <td>formatDate</td>
@@ -479,11 +463,6 @@
       <td>Specifies the cells meta data.</td>
     </tr>
     <tr>
-      <td>tableRef</td>
-      <td>(ref: ReactInstance) =&gt; void</td>
-      <td>A function that accepts the table root React element.</td>
-    </tr>
-    <tr>
       <td>cellComponent</td>
       <td>ComponentType&lt;<a href="#weekviewtimetablecellprops">WeekView.TimeTableCellProps</a>&gt;</td>
       <td>A component that renders a time table cell.</td>
@@ -596,9 +575,9 @@
       <td>A component that renders a time scale layout.</td>
     </tr>
     <tr>
-      <td>WeekView.TimeScaleCell</td>
-      <td><a href="#weekviewtimescalecellprops">WeekView.TimeScaleCellProps</a></td>
-      <td>A component that renders a time scale cell.</td>
+      <td>WeekView.TimeScaleLabel</td>
+      <td><a href="#weekviewtimescalelabelprops">WeekView.TimeScaleLabelProps</a></td>
+      <td>A component that renders a time scale label.</td>
     </tr>
     <tr>
       <td>WeekView.DayScaleLayout</td>
@@ -650,9 +629,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.1.2">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.2.0">
             Version
-            <span>2.1.2</span>
+            <span>2.2.0</span>
           </a>
         </li>
       </ul>
@@ -809,6 +788,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/confirmation-dialog/">ConfirmationDialog</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/scheduler/docs/reference/date-navigator/">DateNavigator</a></li>
           
 
@@ -946,7 +933,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/common/dist/index.js?v=1570792366"></script>
+<script src="/devextreme-reactive/react/common/dist/index.js?v=1572007753"></script>
 
 <script
   type="text/javascript"
@@ -970,7 +957,7 @@
                 <div class="col-md-3">
                     <ul class="list-inline">
                       
-                      <li><a href="/devextreme-reactive/react/scheduler/demos/featured/data-editing/">Demos</a></li>
+                      <li><a href="/devextreme-reactive/react/scheduler/demos/featured/overview/">Demos</a></li>
                       
                       <li class="active"><a href="/devextreme-reactive/react/scheduler/docs/guides/getting-started/">Docs</a></li>
                       <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -1002,7 +989,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1570792366"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1572007753"></script>
     <script>
         trackingCookie.notice();
     </script>

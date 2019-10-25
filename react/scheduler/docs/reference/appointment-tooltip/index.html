@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1570792366">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1570792366">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1572007753">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1572007753">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <!-- Google Tag Manager -->
@@ -61,7 +61,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             
-            <li><a href="/devextreme-reactive/react/scheduler/demos/featured/data-editing/">Demos</a></li>
+            <li><a href="/devextreme-reactive/react/scheduler/demos/featured/overview/">Demos</a></li>
             
             <li class="active"><a href="/devextreme-reactive/react/scheduler/docs/guides/getting-started/">Docs</a></li>
             <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -180,6 +180,12 @@
       <td> </td>
       <td>A component that renders a command button.</td>
     </tr>
+    <tr>
+      <td>recurringIconComponent</td>
+      <td>ComponentType&lt;object&gt;</td>
+      <td> </td>
+      <td>A component that renders an icon that indicates a recurring appointment.</td>
+    </tr>
   </tbody>
 </table>
 
@@ -242,7 +248,7 @@
     <tr>
       <td>commandButtonIds</td>
       <td>Array&lt;string&gt;</td>
-      <td>A command button’s identifier list.</td>
+      <td>The command button’s identifier list.</td>
     </tr>
     <tr>
       <td>formatDate</td>
@@ -257,7 +263,7 @@
     <tr>
       <td>onDeleteButtonClick?</td>
       <td>() =&gt; void</td>
-      <td>An event raised when the Open button is clicked. The event handler should delete an appointment.</td>
+      <td>An event raised when the Delete button is clicked. The event handler should delete an appointment.</td>
     </tr>
     <tr>
       <td>appointmentMeta?</td>
@@ -289,6 +295,11 @@
       <td>ComponentType&lt;<a href="#appointmenttooltipcommandbuttonprops">AppointmentTooltip.CommandButtonProps</a>&gt;</td>
       <td>A component that renders a command button.</td>
     </tr>
+    <tr>
+      <td>recurringIconComponent</td>
+      <td>ComponentType&lt;object&gt;</td>
+      <td>A component that renders an icon that indicates a recurring appointment.</td>
+    </tr>
   </tbody>
 </table>
 
@@ -306,14 +317,54 @@
   </thead>
   <tbody>
     <tr>
+      <td>showOpenButton?</td>
+      <td>boolean</td>
+      <td>Specifies the Open button’s visibility.</td>
+    </tr>
+    <tr>
+      <td>showCloseButton?</td>
+      <td>boolean</td>
+      <td>Specifies the Close button’s visibility.</td>
+    </tr>
+    <tr>
+      <td>showDeleteButton?</td>
+      <td>boolean</td>
+      <td>Specifies the Delete button’s visibility.</td>
+    </tr>
+    <tr>
+      <td>commandButtonIds</td>
+      <td>Array&lt;string&gt;</td>
+      <td>The command button’s identifier list.</td>
+    </tr>
+    <tr>
       <td>appointmentData?</td>
       <td><a href="/devextreme-reactive/react/scheduler/docs/reference/scheduler/#appointmentmodel">AppointmentModel</a></td>
       <td>The appointment’s displayed metadata.</td>
     </tr>
     <tr>
+      <td>onOpenButtonClick?</td>
+      <td>() =&gt; void</td>
+      <td>An event raised when the Open button is clicked. The event handler should open the appointment form.</td>
+    </tr>
+    <tr>
+      <td>onDeleteButtonClick?</td>
+      <td>() =&gt; void</td>
+      <td>An event raised when the Delete button is clicked. The event handler should delete an appointment.</td>
+    </tr>
+    <tr>
+      <td>onHide?</td>
+      <td>() =&gt; void</td>
+      <td>An event raised when the tooltip hides.</td>
+    </tr>
+    <tr>
+      <td>commandButtonComponent</td>
+      <td>ComponentType&lt;<a href="#appointmenttooltipcommandbuttonprops">AppointmentTooltip.CommandButtonProps</a>&gt;</td>
+      <td>A component that renders a command button.</td>
+    </tr>
+    <tr>
       <td>children?</td>
       <td>ReactNode</td>
-      <td>A React node used to render the tooltip header.</td>
+      <td>A React node that renders custom elements in the tooltip header.</td>
     </tr>
   </tbody>
 </table>
@@ -337,9 +388,19 @@
       <td>The appointment’s displayed metadata.</td>
     </tr>
     <tr>
+      <td>formatDate</td>
+      <td><a href="/devextreme-reactive/react/scheduler/docs/reference/scheduler/#formatterfn">FormatterFn</a></td>
+      <td>A function that formats dates according to the locale.</td>
+    </tr>
+    <tr>
+      <td>recurringIconComponent</td>
+      <td>ComponentType&lt;object&gt;</td>
+      <td>A component that renders an icon that indicates a recurring appointment.</td>
+    </tr>
+    <tr>
       <td>children?</td>
       <td>ReactNode</td>
-      <td>A React node used to render the tooltip content.</td>
+      <td>A React node that renders custom elements in the tooltip.</td>
     </tr>
   </tbody>
 </table>
@@ -416,9 +477,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.1.2">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.2.0">
             Version
-            <span>2.1.2</span>
+            <span>2.2.0</span>
           </a>
         </li>
       </ul>
@@ -575,6 +636,14 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/confirmation-dialog/">ConfirmationDialog</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/scheduler/docs/reference/date-navigator/">DateNavigator</a></li>
           
 
@@ -712,7 +781,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/common/dist/index.js?v=1570792366"></script>
+<script src="/devextreme-reactive/react/common/dist/index.js?v=1572007753"></script>
 
 <script
   type="text/javascript"
@@ -736,7 +805,7 @@
                 <div class="col-md-3">
                     <ul class="list-inline">
                       
-                      <li><a href="/devextreme-reactive/react/scheduler/demos/featured/data-editing/">Demos</a></li>
+                      <li><a href="/devextreme-reactive/react/scheduler/demos/featured/overview/">Demos</a></li>
                       
                       <li class="active"><a href="/devextreme-reactive/react/scheduler/docs/guides/getting-started/">Docs</a></li>
                       <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
@@ -768,7 +837,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1570792366"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1572007753"></script>
     <script>
         trackingCookie.notice();
     </script>

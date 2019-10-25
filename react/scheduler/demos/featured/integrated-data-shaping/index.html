@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>React Scheduler Integrated Data Shaping - DevExtreme Reactive Components</title>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="prefetch" href="/devextreme-reactive/fonts/OpenSansCondensedBold.woff">
+    <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1572007753">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1572007753">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l='+l : '';
+            j.async = true;
+            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WQWSD3L');
+    </script>
+    <!-- End Google Tag Manager -->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQWSD3L" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top navbar-main">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/devextreme-reactive/react/scheduler/">
+            <div>
+              <img src="/devextreme-reactive/img/scheduler-logo.svg" alt="React Scheduler">
+              <div class="logo-container">
+                <h3 class="logo-team">DevExtreme</h3>
+                <h3 class="logo-product">React Scheduler</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            
+            <li class="active"><a href="/devextreme-reactive/react/scheduler/demos/featured/overview/">Demos</a></li>
+            
+            <li><a href="/devextreme-reactive/react/scheduler/docs/guides/getting-started/">Docs</a></li>
+            <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+
+    <style>
+  body {
+    overflow-y: scroll;
+  }
+</style>
+
+<div class="container demos-container">
+  <div class="row">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+      <h1 id="react-scheduler-integrated-data-shaping">React Scheduler Integrated Data Shaping</h1>
+
+<p>This demo shows how to use TypeScript to create a Scheduler with <a href="/devextreme-reactive/react/scheduler/docs/guides/date-navigation/">date navigation</a> and <a href="/devextreme-reactive/react/scheduler/docs/guides/view-switching/">view switching</a> in Uncontrolled mode. Use this mode if you do not need to share the Scheduler’s state with other parts of your application.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/scheduler-featured-integrated-data-shaping/demo&quot;,&quot;showThemeSelector&quot;:true,&quot;showThemeVariants&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/scheduler/demos/dist/index.js?v=1572007753&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1572007753&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      
+        <h3>Demos</h3>
+
+        <ul class="list-unstyled">
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/demos/featured/overview/">Overview</a></li>
+          
+
+        
+          
+          
+
+          
+          <li>Integrated Data Shaping</li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/demos/featured/data-editing/">Data Editing</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/demos/featured/appearance-customization/">Appearance Customization</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/demos/featured/remote-data/">Remote Data</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/demos/featured/redux-integration/">Redux Integration</a></li>
+          
+
+        
+        </ul>
+
+      
+    </div>
+  </div>
+</div>
+
+<script src="/devextreme-reactive/react/scheduler/demos/dist/index.js?v=1572007753"></script>
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="list-inline">
+                      
+                      <li class="active"><a href="/devextreme-reactive/react/scheduler/demos/featured/overview/">Demos</a></li>
+                      
+                      <li><a href="/devextreme-reactive/react/scheduler/docs/guides/getting-started/">Docs</a></li>
+                      <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9 copyright">
+                  <p>
+                    Copyright © 2011-2019 Developer Express Inc.<br />
+                    All trademarks or registered trademarks are property of their respective owners.
+                    <div class="links">
+                      <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
+                      <br>
+                      <a href="https://js.devexpress.com/Licensing/">Licensing</a>
+                  </div>
+                  <p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Remove unexpected global variable generated by kramdown to fix js-cookie
+      // <h3 id="exports">Exports</h3>
+      window.exports = undefined;
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
+
+    <script src="/devextreme-reactive/js/tracking.js?v=1572007753"></script>
+    <script>
+        trackingCookie.notice();
+    </script>
+
+  </body>
+</html>

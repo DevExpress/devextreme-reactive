@@ -9,8 +9,11 @@ a.version-link {
   }
   @media (max-width: 680px) {
     display: block;
-    &:first-child {
-      margin-left: 10px;
+
+    @media (min-width: 640px) {
+      &:first-child {
+        margin-left: 10px;
+      }
     }
     &::after {
       content: '';

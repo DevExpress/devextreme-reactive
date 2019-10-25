@@ -2,14 +2,14 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import GatsbyLink from 'gatsby-link';
 
-import styles from './doc-preview-container.module.scss';
+import styles from './shadow-container.module.scss';
 
 const DocPreviewContainer = ({ 
-  path, children, dense,
+  path, children, variant,
 }) => (
   <div className="col-lg-4 col-md-6 col-sm-6 col-12 my-2">
     <GatsbyLink to={path} className={styles.link}>
-      <div className={`${styles.container} ${dense ? styles.dense : ''}`}>
+      <div className={`${styles.container} ${styles[variant]}`}>
         {children}
       </div>
     </GatsbyLink>
@@ -19,11 +19,11 @@ const DocPreviewContainer = ({
 DocPreviewContainer.propTypes = {
   path: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
-  dense: PropTypes.bool,
+  variant: PropTypes.oneOf(['no-padding', 'dense', 'normal']),
 };
 
 DocPreviewContainer.defaultProps = {
-  dense: false,
+  variant: 'normal',
 };
 
 export default DocPreviewContainer;

@@ -1,7 +1,10 @@
 import * as React from 'react';
 import GatsbyLink from 'gatsby-link';
 import FeaturePreview from '../feature-list/feature-preview';
+import ShadowContainer from './shadow-container';
+import FeaturedDemoPreview from './featured-demo-preview';
 import Title from './title';
+import ExampleLink from './example-link';
 
 import styles from './demos-list.module.scss';
 
@@ -16,40 +19,29 @@ const allocateToColumns = (items, columns) => {
   }, [[]])
 };
 
-const DemosList = ({ data: { title, featured, technical } }) => (
+const DemosList = ({ data: { title, icon, featured, technical } }) => (
   <div className={`container ${styles.container}`}>
-    <Title text={title} />
+    <Title text={title} iconComponent={icon} />
 
-    <div className="row">
-      <div className="col-12">
-        <h4>Featured Demos</h4>
-      </div>
-    </div>
     <div className="row my-3">
-      {featured.map(({ title, path, image }) => (
-        <div className="col-4">
-          <GatsbyLink to={path}>
-            <FeaturePreview
-              size="dense"
-              imageLink={image}
-            />
-          </GatsbyLink>
-        </div>
+      {featured.map((demo) => (
+        <FeaturedDemoPreview {...demo} />
       ))}
     </div>
 
     <div className="row">
       <div className="col-12">
-        <h4>Docs and Examples</h4>
+        <h3 className={styles.subTitle}>
+          Docs and Examples
+        </h3>
       </div>
     </div>
-    <div className="row my-3">
-      {allocateToColumns(technical, 3).map(column => (
-        <div className="col-12 col-sm-4">
-          {column.map(({ title, path }) => (
-            <div>
-              <GatsbyLink to={path}>{title}</GatsbyLink>
-            </div>
+
+    <div className="row my-2">
+      {allocateToColumns(technical, 4).map(column => (
+        <div className="col-6 col-sm-4 col-md-3">
+          {column.map(item => (
+            <ExampleLink {...item} />
           ))}
         </div>
       ))}

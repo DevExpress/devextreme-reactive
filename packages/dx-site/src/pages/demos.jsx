@@ -2,9 +2,13 @@ import * as React from 'react';
 import DemosList from '../components/landing/sections/demos-list';
 import PageLayout from '../components/layouts/page-layout';
 import AlternatedBackground from '../components/landing/alternated-background';
-import GridDataShapingImage from './demo-images/Integrated-Data-Shaping.png';
-import GridReduxIntegrationImage from './demo-images/Redux-Integration.png';
-import GridChartIntegrationImage from './demo-images/Chart-Integration.png';
+
+import ReactGridIcon from './images/react-grid.inline.svg';
+import ReactChartIcon from './images/react-chart.inline.svg';
+import ReactSchedulerIcon from './images/react-scheduler.inline.svg';
+import GridDataShapingImage from './demo-images/grid/Integrated-Data-Shaping.png';
+import GridReduxIntegrationImage from './demo-images/grid/Redux-Integration.png';
+import GridChartIntegrationImage from './demo-images/grid/Chart-Integration.png';
 import SchedulerAppearanceCustomizationImage from './demo-images/scheduler/Appearance-Customization.png';
 import SchedulerDataEditingImage from './demo-images/scheduler/Data-Editing.png';
 import SchedulerReduxIntegrationImage from './demo-images/scheduler/Redux-Integration.png';
@@ -14,6 +18,7 @@ import ChartSteamgraphImage from './demo-images/chart/Steamgraph.png';
 
 const gridDemos = {
   title: 'React Grid Demos',
+  icon: ReactGridIcon,
   featured: [
     {
       title: 'Integrated Data Shaping',
@@ -51,6 +56,7 @@ const gridDemos = {
 
 const schedulerDemos = {
   title: 'React Scheduler Demos',
+  icon: ReactSchedulerIcon,
   featured: [
     {
       title: 'Appearance Customization',
@@ -81,6 +87,7 @@ const schedulerDemos = {
 
 const chartDemos = {
   title: 'React Chart Demos',
+  icon: ReactChartIcon,
   featured: [
     {
       title: 'Multiple Axes',
@@ -113,18 +120,10 @@ const chartDemos = {
 
 export default () => (
   <PageLayout sectionName="demos">
-    <AlternatedBackground>
-      <DemosList
-        data={gridDemos}
-      />
-    </AlternatedBackground>
-    <DemosList
-      data={schedulerDemos}
-    />
-    <AlternatedBackground>
-      <DemosList
-        data={chartDemos}
-      />
-    </AlternatedBackground>
+    <DemosList data={gridDemos} />
+    <hr />
+    <DemosList data={schedulerDemos} />
+    <hr />
+    <DemosList data={chartDemos} />
   </PageLayout>
 );

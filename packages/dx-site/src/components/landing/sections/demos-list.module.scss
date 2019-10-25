@@ -1,5 +1,9 @@
 @import '../../../constants';
 
 .container {
-  padding: $inner-offset;
+  padding-bottom: 0.75rem;
+}
+
+.subTitle {
+  line-height: 1.3;
 }

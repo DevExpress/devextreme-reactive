@@ -1,6 +1,6 @@
 # React Scheduler - Getting Started
 
-Project status: **CTP**
+Project status: **Beta**
 
 ## Overview
 

@@ -1,7 +1,5 @@
 # React Chart - Getting Started
 
-Project status: **Beta**
-
 ## Overview
 
 The DevExtreme React Chart is a data visualization component that provides different series types, including bar, line, area, scatter, pie, and so on. It can function in uncontrolled and controlled state modes. In uncontrolled mode, the UI plugins manage the state internally. In controlled mode, the state is managed externally via plugin props. The DevExtreme React Chart has a composable and extendable architecture in which plugins provide additional elements (such as a legend, grid, and axes). It also supports Twitter Bootstrap and Material-UI rendering and theming.

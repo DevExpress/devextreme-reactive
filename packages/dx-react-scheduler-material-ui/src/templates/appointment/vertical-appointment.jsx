@@ -32,9 +32,17 @@ const styles = ({ palette, spacing }) => ({
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     display: 'flex',
+    '@media (max-width: 500px)': {
+      paddingLeft: spacing(0.5),
+      paddingRight: spacing(0.5),
+    },
   },
   shortContent: {
     padding: spacing(0.25, 1),
+    '@media (max-width: 500px)': {
+      paddingLeft: spacing(0.5),
+      paddingRight: spacing(0.5),
+    },
   },
   shortContainer: {
     display: 'flex',

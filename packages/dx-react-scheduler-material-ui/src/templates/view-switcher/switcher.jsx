@@ -8,6 +8,9 @@ const styles = ({ spacing }) => ({
     padding: spacing(1.25, 1.75),
     paddingRight: spacing(4),
     textTransform: 'uppercase',
+    '@media (max-width: 700px)': {
+      fontSize: '0.75rem',
+    },
   },
   inputRoot: {
     marginLeft: spacing(0.5),

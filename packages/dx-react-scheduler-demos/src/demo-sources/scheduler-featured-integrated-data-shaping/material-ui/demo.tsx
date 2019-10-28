@@ -271,6 +271,7 @@ export default () => (
         timeTableCellComponent={TimeTableCell}
       />
       <DayView
+        displayName={'Three days'}
         startDayHour={9}
         endDayHour={17}
         intervalCount={3}

@@ -6,66 +6,83 @@ import {
   Appointments,
   AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import MoreIcon from '@material-ui/icons/MoreVert';
+import Grid from '@material-ui/core/Grid';
+import Room from '@material-ui/icons/Room';
 import { withStyles } from '@material-ui/core/styles';
-import moment from 'moment';
+import classNames from 'clsx';
 
 import appointments from '../../../demo-data/today-appointments';
 
-const style = theme => ({
-  header: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  title: {
-    ...theme.typography.h6,
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-    color: theme.palette.primary.contrastText,
-  },
-  text: {
-    ...theme.typography.body2,
-    marginBottom: theme.spacing(2),
-  },
+const style = ({ palette }) => ({
   icon: {
-    fontSize: '18px',
-    paddingRight: theme.spacing(1),
+    color: palette.action.active,
+  },
+  textCenter: {
+    textAlign: 'center',
+  },
+  firstRoom: {
+    background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/Lobby-4.jpg)',
+  },
+  secondRoom: {
+    background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-4.jpg)',
+  },
+  thirdRoom: {
+    background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-0.jpg)',
+  },
+  header: {
+    height: '260px',
+    backgroundSize: 'cover',
+  },
+  commandButton: {
+    backgroundColor: 'rgba(255,255,255,0.65)',
   },
 });
+
+const getClassByLocation = (classes, location) => {
+  if (location === 'Room 1') return classes.firstRoom;
+  if (location === 'Room 2') return classes.secondRoom;
+  return classes.thirdRoom;
+};
 
 const Header = withStyles(style, { name: 'Header' })(({
   children, appointmentData, classes, ...restProps
 }) => (
   <AppointmentTooltip.Header
     {...restProps}
-    className={classes.header}
+    className={classNames(getClassByLocation(classes, appointmentData.location), classes.header)}
+    appointmentData={appointmentData}
   >
-    <span role="img" aria-label="Clock" className={classes.icon}>🕒</span>
-    <div className={classes.title}>
-      {appointmentData.title}
-    </div>
+    <IconButton
+      /* eslint-disable-next-line no-alert */
+      onClick={() => alert(JSON.stringify(appointmentData))}
+      className={classes.commandButton}
+    >
+      <MoreIcon />
+    </IconButton>
   </AppointmentTooltip.Header>
 ));
 
 const Content = withStyles(style, { name: 'Content' })(({
   children, appointmentData, classes, ...restProps
 }) => (
-  <AppointmentTooltip.Content {...restProps}>
-    <div className={classes.text}>
-      {moment(appointmentData.startDate).format('h:mm A')}
-      {' - '}
-      {moment(appointmentData.endDate).format('h:mm A')}
-    </div>
-    <Button
-      variant="outlined"
-      color="primary"
-      // eslint-disable-next-line no-alert
-      onClick={() => alert(JSON.stringify(appointmentData))}
-    >
-      Details
-    </Button>
+  <AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
+    <Grid container alignItems="center">
+      <Grid item xs={2} className={classes.textCenter}>
+        <Room className={classes.icon} />
+      </Grid>
+      <Grid item xs={10}>
+        <span>{appointmentData.location}</span>
+      </Grid>
+    </Grid>
   </AppointmentTooltip.Content>
+));
+
+const CommandButton = withStyles(style, { name: 'CommandButton' })(({
+  classes, ...restProps
+}) => (
+  <AppointmentTooltip.CommandButton {...restProps} className={classes.commandButton} />
 ));
 
 export default class Demo extends React.PureComponent {
@@ -95,6 +112,8 @@ export default class Demo extends React.PureComponent {
           <AppointmentTooltip
             headerComponent={Header}
             contentComponent={Content}
+            commandButtonComponent={CommandButton}
+            showCloseButton
           />
         </Scheduler>
       </Paper>

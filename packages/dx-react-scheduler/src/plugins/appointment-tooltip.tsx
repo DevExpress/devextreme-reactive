@@ -7,6 +7,7 @@ import {
   createStateHelper,
   StateHelper,
   PluginComponents,
+  Action,
 } from '@devexpress/dx-react-core';
 import {
   OPEN_COMMAND_BUTTON,
@@ -14,6 +15,7 @@ import {
   DELETE_COMMAND_BUTTON,
   setAppointmentMeta,
   AppointmentMeta,
+  TOGGLE_APPOINTMENT_TOOLTIP_VISIBILITY,
 } from '@devexpress/dx-scheduler-core';
 
 import { AppointmentTooltipProps, AppointmentTooltipState, Appointments } from '../types';
@@ -21,8 +23,8 @@ import { AppointmentTooltipProps, AppointmentTooltipState, Appointments } from '
 const pluginDependencies = [
   { name: 'Appointments' },
   { name: 'EditingState', optional: true },
-  { name: 'IntegratedEditing', optional: true },
   { name: 'EditRecurrenceMenu', optional: true },
+  { name: 'IntegratedEditing', optional: true },
 ];
 
 const commandButtonIds = {
@@ -48,6 +50,7 @@ class AppointmentTooltipBase extends React.PureComponent<
     headerComponent: 'Header',
     contentComponent: 'Content',
     commandButtonComponent: 'CommandButton',
+    recurringIconComponent: 'RecurringIcon',
   };
 
   constructor(props) {
@@ -106,6 +109,7 @@ class AppointmentTooltipBase extends React.PureComponent<
       headerComponent,
       contentComponent,
       commandButtonComponent,
+      recurringIconComponent,
     } = this.props;
     const { visible, appointmentMeta } = this.state;
 
@@ -114,23 +118,33 @@ class AppointmentTooltipBase extends React.PureComponent<
         name="AppointmentTooltip"
         dependencies={pluginDependencies}
       >
+        <Action name={TOGGLE_APPOINTMENT_TOOLTIP_VISIBILITY} action={this.toggleVisibility} />
+
         <Template name="timeTable">
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
               formatDate,
             }, {
-              finishDeleteAppointment,
+              finishDeleteAppointment, openDeleteConfirmationDialog,
             }) => {
               const onDeleteButtonClick = () => {
-                finishDeleteAppointment(appointmentMeta.data);
-                this.toggleVisibility();
+                if (openDeleteConfirmationDialog) {
+                  openDeleteConfirmationDialog({
+                    hideActionName: TOGGLE_APPOINTMENT_TOOLTIP_VISIBILITY,
+                    appointmentData: appointmentMeta.data,
+                  });
+                } else {
+                  this.toggleVisibility();
+                  finishDeleteAppointment(appointmentMeta.data);
+                }
               };
               return (
                 <TemplatePlaceholder
                   name="tooltip"
                   params={{
                     commandButtonComponent,
+                    recurringIconComponent,
                     showOpenButton,
                     showDeleteButton,
                     showCloseButton,

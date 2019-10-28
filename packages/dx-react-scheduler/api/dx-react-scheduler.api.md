@@ -346,20 +346,32 @@ export namespace AppointmentTooltip {
   export interface ContentProps {
     appointmentData?: AppointmentModel;
     children?: React.ReactNode;
+    formatDate: FormatterFn;
+    recurringIconComponent: React.ComponentType<object>;
   }
   export interface HeaderProps {
     appointmentData?: AppointmentModel;
     children?: React.ReactNode;
+    commandButtonComponent: React.ComponentType<AppointmentTooltip.CommandButtonProps>;
+    commandButtonIds: Array<string>;
+    onDeleteButtonClick?: () => void;
+    onHide?: () => void;
+    onOpenButtonClick?: () => void;
+    showCloseButton: boolean;
+    showDeleteButton: boolean;
+    showOpenButton: boolean;
   }
   export interface LayoutProps {
     appointmentMeta?: AppointmentMeta;
     commandButtonComponent: React.ComponentType<AppointmentTooltip.CommandButtonProps>;
     commandButtonIds: Array<string>;
     contentComponent: React.ComponentType<AppointmentTooltip.ContentProps>;
+    formatDate: FormatterFn;
     headerComponent: React.ComponentType<AppointmentTooltip.HeaderProps>;
     onDeleteButtonClick?: () => void;
     onHide?: () => void;
     onOpenButtonClick?: () => void;
+    recurringIconComponent: React.ComponentType<object>;
     showCloseButton: boolean;
     showDeleteButton: boolean;
     showOpenButton: boolean;
@@ -376,6 +388,7 @@ export interface AppointmentTooltipProps {
   layoutComponent: React.ComponentType<AppointmentTooltip.LayoutProps>;
   onAppointmentMetaChange?: (appointmentMeta: AppointmentMeta) => void;
   onVisibilityChange?: (visible: boolean) => void;
+  recurringIconComponent: React.ComponentType<object>;
   showCloseButton?: boolean;
   showDeleteButton?: boolean;
   showOpenButton?: boolean;
@@ -486,6 +499,47 @@ export interface CommonViewProps {
   name?: string;
   timeTableCellComponent: React.ComponentType<BaseView.TimeTableCellProps>;
   timeTableRowComponent: React.ComponentType<BaseView.RowProps>;
+}
+
+// @public
+export const ConfirmationDialog: React.ComponentType<ConfirmationDialogProps>;
+
+// @public (undocumented)
+export namespace ConfirmationDialog {
+  export interface ButtonProps {
+    onClick: () => void;
+    title: string;
+  }
+  export interface LayoutProps {
+    appointmentData?: AppointmentModel;
+    buttonComponent: React.ComponentType<ConfirmationDialog.ButtonProps>;
+    getMessage: (messageKey: string) => string;
+    handleCancel: () => void;
+    handleConfirm: () => void;
+    isDeleting: boolean;
+  }
+  export interface LocalizationMessages {
+    cancelButton?: string;
+    confirmCancelMessage?: string;
+    confirmDeleteMessage?: string;
+    deleteButton?: string;
+    discardButton?: string;
+  }
+  export interface OverlayProps {
+    onHide: () => void;
+    target: React.RefObject<unknown>;
+    visible: boolean;
+  }
+}
+
+// @public (undocumented)
+export interface ConfirmationDialogProps {
+  buttonComponent: React.ComponentType<ConfirmationDialog.ButtonProps>;
+  ignoreCancel: boolean;
+  ignoreDelete: boolean;
+  layoutComponent: React.ComponentType<ConfirmationDialog.LayoutProps>;
+  messages?: ConfirmationDialog.LocalizationMessages;
+  overlayComponent: React.ComponentType<ConfirmationDialog.OverlayProps>;
 }
 
 // @public

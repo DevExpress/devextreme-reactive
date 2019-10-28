@@ -1,3 +1,80 @@
+# [2.2.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.1.2...v2.2.0) (2019-10-25)
+
+
+### Bug Fixes
+
+* **react-grid:** handle column count decrease in virtual table ([#2464](https://github.com/DevExpress/devextreme-reactive/issues/2464)) ([2c21e30](https://github.com/DevExpress/devextreme-reactive/commit/2c21e30381d03ab21ec65b3b21e2e53b3074c3a7))
+* **react-grid:** incorrect 'row' property type in the documentation ([#2424](https://github.com/DevExpress/devextreme-reactive/issues/2424)) ([23ba6c5](https://github.com/DevExpress/devextreme-reactive/commit/23ba6c54c7929af811ceae0ac87260f2bd45c25b))
+* **react-grid-demos:** fix object assign on Safari ([#2489](https://github.com/DevExpress/devextreme-reactive/issues/2489)) ([64b330f](https://github.com/DevExpress/devextreme-reactive/commit/64b330f7b60373a2402e1ba21d04034dbaef044d)), closes [#2488](https://github.com/DevExpress/devextreme-reactive/issues/2488)
+* **react-grid-material-ui:** correct default properties for Virtual Table ([#2484](https://github.com/DevExpress/devextreme-reactive/issues/2484)) ([973f928](https://github.com/DevExpress/devextreme-reactive/commit/973f928071a831b86f8a05e022e8005a1c9e43e1))
+* **react-scheduler:** make it impossible to edit radio groups in read-only mode and set default interval to 1 ([#2439](https://github.com/DevExpress/devextreme-reactive/issues/2439)) ([dbb414c](https://github.com/DevExpress/devextreme-reactive/commit/dbb414cff6ae465fe20d6aedac68e4377721a86d))
+* **react-scheduler:** render TimeScale of the same size as TimeTable ([#2409](https://github.com/DevExpress/devextreme-reactive/issues/2409)) ([d753090](https://github.com/DevExpress/devextreme-reactive/commit/d75309073a7c9b595b7ae6c56370aa59793ad313))
+* **react-scheduler-material-ui:** display dates in the AppointmentFrom correctly ([#2441](https://github.com/DevExpress/devextreme-reactive/issues/2441)) ([4af2688](https://github.com/DevExpress/devextreme-reactive/commit/4af26886d177323004475a2b4a0b1f12cd5f63e1))
+
+
+### Features
+
+* **react-grid-bootstrap3:** add previous and next buttons for pagination ([#2428](https://github.com/DevExpress/devextreme-reactive/issues/2428)) ([8740f83](https://github.com/DevExpress/devextreme-reactive/commit/8740f83e783752134e45f96b392a66296b393f32))
+* **react-scheduler:** add capability to render zero time appointments ([#2406](https://github.com/DevExpress/devextreme-reactive/issues/2406)) ([731b4b8](https://github.com/DevExpress/devextreme-reactive/commit/731b4b8bf2e16f5914adb151f7aab8e50e030963))
+* **react-scheduler:** add ConfirmationDialog plugin ([#2393](https://github.com/DevExpress/devextreme-reactive/issues/2393)) ([9041bd5](https://github.com/DevExpress/devextreme-reactive/commit/9041bd53312e941b1a7789eeff42f5ebd4f7190c))
+* **react-scheduler:** do not show AppointmentForm's Delete Button if a new appointment is being edited ([#2462](https://github.com/DevExpress/devextreme-reactive/issues/2462)) ([4eb83bc](https://github.com/DevExpress/devextreme-reactive/commit/4eb83bc0989974be5efd4a0e46c9391b8bd1241d))
+* **react-scheduler:** redesign AppointmentTooltip ([#2474](https://github.com/DevExpress/devextreme-reactive/issues/2474)) ([41b8f28](https://github.com/DevExpress/devextreme-reactive/commit/41b8f2878f5e9838663826d54977d2b078ff90a2))
+
+
+### BREAKING CHANGES
+
+* **react-scheduler:** The `DayView` and `WeekView` plugins now do not have the `timeScaleRowComponent` and `timeScaleCellComponent` properties. Instead, they have a new, `timeScaleLabelComponent`, property.
+
+```diff
+...
+<WeekView
+-  timeScaleRowComponent
+-  timeScaleCellComponent
++  timeScaleLabelComponent
+/>
+<DayView
+-  timeScaleRowComponent
+-  timeScaleCellComponent
++  timeScaleLabelComponent
+/>
+...
+```
+
+* **react-scheduler:** We have extended the `headerComponent` and `contentComponent` in the `AppointmentTooltip` plugin with new properties. If you use these components, add the following properties in your code:
+
+```diff
+...
+<AppointmentTooltip
+  headerComponent={({
++  commandButtonComponent
++  showOpenButton
++  showCloseButton
++  showDeleteButton
++  commandBottonIds
+     ...restProps
+  }) => (
+    <AppointmentTooltip.Header
++      commandButtonComponent={commandButtonComponent}
++      showOpenButton={showOpenButton}
++      showCloseButton={showCloseButton}
++      showDeleteButton={showDeleteButton}
++      commandBottonIds={commandBottonIds}
+       {...restProps}
+    />
+  )}
+contentComponent={({
++   formatDate
+     ...restProps
+  }) => (
+    <AppointmentTooltip.Content
++      formatDate={formatDate}
+       {...restProps}
+    />
+  )}
+/>
+...
+```
+
 # [2.1.2](https://github.com/DevExpress/devextreme-reactive/compare/v2.1.1...v2.1.2) (2019-10-11)
 
 

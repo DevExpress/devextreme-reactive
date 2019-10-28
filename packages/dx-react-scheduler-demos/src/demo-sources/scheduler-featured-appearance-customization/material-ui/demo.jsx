@@ -17,19 +17,16 @@ import {
   AppointmentForm,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
-import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
 import PriorityHigh from '@material-ui/icons/PriorityHigh';
 import LowPriority from '@material-ui/icons/LowPriority';
+import Lens from '@material-ui/icons/Lens';
 import Event from '@material-ui/icons/Event';
 import AccessTime from '@material-ui/icons/AccessTime';
 import Paper from '@material-ui/core/Paper';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
 import classNames from 'clsx';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
@@ -61,14 +58,12 @@ const styles = theme => ({
     acc[`${title}PriorityHover`] = { '&:hover': { background: activeColor } };
     return acc;
   }, {}),
-  contentItem: {
-    paddingLeft: 0,
-  },
   contentItemValue: {
     padding: 0,
   },
   contentItemIcon: {
-    marginRight: theme.spacing(1),
+    textAlign: 'center',
+    verticalAlign: 'middle',
   },
   flexibleSpace: {
     margin: '0 auto 0 0',
@@ -91,14 +86,52 @@ const styles = theme => ({
   defaultBullet: {
     background: theme.palette.divider,
   },
-  tooltipContent: {
-    paddingLeft: theme.spacing(2.2),
-    paddingRight: theme.spacing(2.2),
-  },
   titleNoWrap: {
     '& div > div > div': {
       whiteSpace: 'normal',
     },
+  },
+  content: {
+    padding: theme.spacing(3, 1),
+    paddingTop: 0,
+    backgroundColor: theme.palette.background.paper,
+    boxSizing: 'border-box',
+    width: '400px',
+  },
+  text: {
+    ...theme.typography.body2,
+    display: 'inline-block',
+  },
+  title: {
+    ...theme.typography.h6,
+    color: theme.palette.text.secondary,
+    fontWeight: theme.typography.fontWeightBold,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+  icon: {
+    verticalAlign: 'middle',
+  },
+  grayIcon: {
+    color: theme.palette.action.active,
+  },
+  lens: {
+    width: theme.spacing(4.5),
+    height: theme.spacing(4.5),
+    verticalAlign: 'super',
+  },
+  textCenter: {
+    textAlign: 'center',
+  },
+  dateAndTitle: {
+    lineHeight: 1.1,
+  },
+  titleContainer: {
+    paddingBottom: theme.spacing(2),
+  },
+  container: {
+    paddingBottom: theme.spacing(1.5),
   },
 });
 
@@ -177,54 +210,53 @@ const EditButton = withStyles(styles, { name: 'EditButton' })(
   ),
 );
 
-const TooltipHeader = withStyles(styles, { name: 'TooltipHeader' })(
-  ({ classes, appointmentData, ...restProps }) => {
-    const priorityClasses = createClassesByPriorityId(
-      appointmentData.priorityId, classes,
-      { background: true },
-    );
-    return (
-      <AppointmentTooltip.Header
-        {...restProps}
-        appointmentData={appointmentData}
-        className={classNames(priorityClasses, classes.titleNoWrap)}
-      />
-    );
-  },
-);
-
 const TooltipContent = withStyles(styles, { name: 'TooltipContent' })(
-  ({ classes, appointmentData, ...restProps }) => {
+  // #FOLD_BLOCK
+  ({ classes, appointmentData, formatDate }) => {
     const priority = getPriorityById(appointmentData.priorityId);
     const priorityClasses = createClassesByPriorityId(
       appointmentData.priorityId, classes, { color: true },
     );
-    let icon = <LowPriority />;
-    if (appointmentData.priorityId === 2) icon = <Event />;
-    else if (appointmentData.priorityId === 3) icon = <PriorityHigh />;
+    let icon = <LowPriority className={classes.icon} />;
+    if (appointmentData.priorityId === 2) icon = <Event className={classes.icon} />;
+    else if (appointmentData.priorityId === 3) icon = <PriorityHigh className={classes.icon} />;
     return (
-      <AppointmentTooltip.Content {...restProps} className={classes.tooltipContent}>
-        <List>
-          <ListItem className={classes.contentItem}>
-            <ListItemIcon className={`${classes.contentItemIcon} ${priorityClasses}`}>
-              {icon}
-            </ListItemIcon>
-            <ListItemText className={classes.contentItemValue}>
-              <span className={priorityClasses}>{` ${priority} priority`}</span>
-            </ListItemText>
-          </ListItem>
-          <ListItem className={classes.contentItem}>
-            <ListItemIcon className={`${classes.contentItemIcon}`}>
-              <AccessTime />
-            </ListItemIcon>
-            <ListItemText className={classes.contentItemValue}>
-              {moment(appointmentData.startDate).format('h:mm A')}
-              {' - '}
-              {moment(appointmentData.endDate).format('h:mm A')}
-            </ListItemText>
-          </ListItem>
-        </List>
-      </AppointmentTooltip.Content>
+      <div className={classes.content}>
+        <Grid container alignItems="center" className={classes.titleContainer}>
+          <Grid item xs={2} className={classNames(classes.textCenter, priorityClasses)}>
+            <Lens className={classes.lens} />
+          </Grid>
+          <Grid item xs={10}>
+            <div>
+              <div className={classNames(classes.title, classes.dateAndTitle)}>
+                {appointmentData.title}
+              </div>
+              <div className={classNames(classes.text, classes.dateAndTitle)}>
+                {formatDate(appointmentData.startDate, { day: 'numeric', weekday: 'long' })}
+              </div>
+            </div>
+          </Grid>
+        </Grid>
+        <Grid container alignItems="center" className={classes.container}>
+          <Grid item xs={2} className={classes.textCenter}>
+            <AccessTime className={classNames(classes.icon, classes.grayIcon)} />
+          </Grid>
+          <Grid item xs={10}>
+            <div className={classes.text}>
+              {`${formatDate(appointmentData.startDate, { hour: 'numeric', minute: 'numeric' })}
+              - ${formatDate(appointmentData.endDate, { hour: 'numeric', minute: 'numeric' })}`}
+            </div>
+          </Grid>
+        </Grid>
+        <Grid container alignItems="center">
+          <Grid className={classNames(classes.contentItemIcon, priorityClasses)} item xs={2}>
+            {icon}
+          </Grid>
+          <Grid className={classes.contentItemValue} item xs={10}>
+            <span className={priorityClasses}>{` ${priority} priority`}</span>
+          </Grid>
+        </Grid>
+      </div>
     );
   },
 );
@@ -294,7 +326,6 @@ export default class Demo extends React.PureComponent {
           <ViewSwitcher />
           <AllDayPanel />
           <AppointmentTooltip
-            headerComponent={TooltipHeader}
             contentComponent={TooltipContent}
             commandButtonComponent={EditButton}
             showOpenButton

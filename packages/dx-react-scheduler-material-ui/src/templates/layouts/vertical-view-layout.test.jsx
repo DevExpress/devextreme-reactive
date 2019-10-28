@@ -52,4 +52,19 @@ describe('Vertical View Layout', () => {
     expect(scrollingStrategy)
       .toBeCalledTimes(1);
   });
+
+  it('should render its components correctly', () => {
+    const tree = shallow((
+      <VerticalViewLayout {...defaultProps} className="custom-class" />
+    ));
+
+    expect(tree.find(`.${classes.stickyHeader}`).exists())
+      .toBeTruthy();
+    expect(tree.find(`.${classes.mainTable}`))
+      .toHaveLength(2);
+    expect(tree.find(`.${classes.timeScale}`))
+      .toHaveLength(2);
+    expect(tree.find(`.${classes.timeTable}`).exists())
+      .toBeTruthy();
+  });
 });

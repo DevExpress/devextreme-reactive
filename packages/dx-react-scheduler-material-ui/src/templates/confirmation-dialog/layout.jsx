@@ -2,20 +2,35 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { withStyles } from '@material-ui/core/styles';
 
-export const Layout = React.memo(({
+const styles = ({ typography }) => ({
+  title: {
+    ...typography.h6,
+  },
+  '@media (max-width: 500px)': {
+    title: {
+      fontSize: '1.1rem',
+    },
+  },
+});
+
+const LayoutBase = React.memo(({
   buttonComponent: Button,
   handleCancel,
   handleConfirm,
   getMessage,
   isDeleting,
   appointmentData,
+  classes,
   ...restProps
 }) => (
   <div
     {...restProps}
   >
-    <DialogTitle>{getMessage(isDeleting ? 'confirmDeleteMessage' : 'confirmCancelMessage')}</DialogTitle>
+    <DialogTitle className={classes.title} disableTypography>
+      {getMessage(isDeleting ? 'confirmDeleteMessage' : 'confirmCancelMessage')}
+    </DialogTitle>
     <DialogActions>
       <Button onClick={handleCancel} title={getMessage('cancelButton')} />
       <Button
@@ -27,7 +42,7 @@ export const Layout = React.memo(({
   </div>
 ));
 
-Layout.propTypes = {
+LayoutBase.propTypes = {
   buttonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   handleCancel: PropTypes.func,
   handleConfirm: PropTypes.func,
@@ -42,12 +57,15 @@ Layout.propTypes = {
     additionalInformation: PropTypes.string,
     allDay: PropTypes.bool,
   }),
+  classes: PropTypes.object.isRequired,
 };
 
-Layout.defaultProps = {
+LayoutBase.defaultProps = {
   handleCancel: () => undefined,
   handleConfirm: () => undefined,
   getMessage: () => undefined,
   isDeleting: false,
   appointmentData: { startDate: new Date(), endDate: new Date() },
 };
+
+export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);

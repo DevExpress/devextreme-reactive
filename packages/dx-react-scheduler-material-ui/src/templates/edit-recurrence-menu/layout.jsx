@@ -6,14 +6,33 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { withStyles } from '@material-ui/core/styles';
 
-export const Layout = React.memo(({
+const styles = ({ typography }) => ({
+  title: {
+    ...typography.h6,
+  },
+  content: {
+    fontSize: '1rem',
+  },
+  '@media (max-width: 500px)': {
+    title: {
+      fontSize: '1.1rem',
+    },
+    content: {
+      fontSize: '0.9rem',
+    },
+  },
+});
+
+const LayoutBase = React.memo(({
   buttonComponent: Button,
   handleClose,
   commit,
   availableOperations,
   getMessage,
   isDeleting,
+  classes,
   ...restProps
 }) => {
   const [currentValue, setCurrentValue] = React.useState(availableOperations[0].value);
@@ -31,7 +50,9 @@ export const Layout = React.memo(({
     <div
       {...restProps}
     >
-      <DialogTitle>{getMessage(isDeleting ? 'menuDeleteTitle' : 'menuEditTitle')}</DialogTitle>
+      <DialogTitle className={classes.title} disableTypography>
+        {getMessage(isDeleting ? 'menuDeleteTitle' : 'menuEditTitle')}
+      </DialogTitle>
       <DialogContent>
         <RadioGroup
           value={currentValue}
@@ -43,6 +64,7 @@ export const Layout = React.memo(({
               control={<Radio />}
               label={operation.title}
               key={operation.value}
+              classes={{ label: classes.content }}
             />
           ))}
         </RadioGroup>
@@ -55,18 +77,21 @@ export const Layout = React.memo(({
   );
 });
 
-Layout.propTypes = {
+LayoutBase.propTypes = {
   buttonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   availableOperations: PropTypes.array.isRequired,
   handleClose: PropTypes.func,
   commit: PropTypes.func,
   getMessage: PropTypes.func,
   isDeleting: PropTypes.bool,
+  classes: PropTypes.object.isRequired,
 };
 
-Layout.defaultProps = {
+LayoutBase.defaultProps = {
   handleClose: () => undefined,
   commit: () => undefined,
   getMessage: () => undefined,
   isDeleting: false,
 };
+
+export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);

@@ -11,7 +11,7 @@ const styles = ({ spacing }) => ({
     '@media (max-width: 500px)': {
       width: spacing(4),
       height: spacing(4),
-      padding:0,
+      padding: 0,
     },
   },
 });

@@ -58,7 +58,10 @@ const styles = ({ spacing }) => ({
     },
   },
   invisible: {
-    maxHeight: '500px',
+    maxHeight: 0,
+    '@media (min-width: 700px)': {
+      maxHeight: '500px',
+    },
   },
   label: {
     width: '8em',

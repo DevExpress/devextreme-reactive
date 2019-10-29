@@ -21,7 +21,7 @@ const styles = theme => ({
   timeTable: {
     position: 'relative',
   },
-  timeScale: {
+  fixedWidth: {
     width: theme.spacing(9),
   },
   mainTable: {
@@ -80,7 +80,7 @@ class VerticalViewLayoutBase extends React.PureComponent {
               container
               direction="row"
             >
-              <div className={classes.timeScale}>
+              <div className={classes.fixedWidth}>
                 <DayScaleEmptyCell />
               </div>
 
@@ -92,7 +92,7 @@ class VerticalViewLayoutBase extends React.PureComponent {
 
           <Grid item xs="auto">
             <Grid container direction="row">
-              <div className={classes.timeScale}>
+              <div className={classes.fixedWidth}>
                 <TimeScale />
               </div>
               <div className={classNames(classes.timeTable, classes.mainTable)}>

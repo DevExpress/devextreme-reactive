@@ -62,7 +62,7 @@ describe('Vertical View Layout', () => {
       .toBeTruthy();
     expect(tree.find(`.${classes.mainTable}`))
       .toHaveLength(2);
-    expect(tree.find(`.${classes.timeScale}`))
+    expect(tree.find(`.${classes.fixedWidth}`))
       .toHaveLength(2);
     expect(tree.find(`.${classes.timeTable}`).exists())
       .toBeTruthy();

@@ -1,9 +1,9 @@
-import { AttachResources, AttachResourcesComputed, ConvertResourcesToPlane } from '../../types';
+import { AttachResources, AttachResourcesComputed, convertResourcesToPlain } from '../../types';
 
 // TODO: move to helpers
-const convertResourcesToPlane: ConvertResourcesToPlane = (resources, mainResourceName) => {
+const convertResourcesToPlain: convertResourcesToPlain = (resources, mainResourceName) => {
   let isMainGlobal = false;
-  const planeResources = resources.reduce((acc, resource) => {
+  const plainResources = resources.reduce((acc, resource) => {
     const isMain = !(mainResourceName !== resource.fieldName);
     isMainGlobal = isMainGlobal || isMain;
     return [
@@ -19,10 +19,10 @@ const convertResourcesToPlane: ConvertResourcesToPlane = (resources, mainResourc
   }, []);
 
   if (!isMainGlobal) {
-    planeResources[0].isMain = true;
+    plainResources[0].isMain = true;
   }
 
-  return planeResources;
+  return plainResources;
 };
 
 export const attachResourcesBase: AttachResourcesComputed = (
@@ -32,7 +32,7 @@ export const attachResourcesBase: AttachResourcesComputed = (
 export const attachResources: AttachResources = (
   appointment, resources, mainResourceName,
 ) => {
-  const planeResources = convertResourcesToPlane(resources, mainResourceName);
+  const plainResources = convertResourcesToPlain(resources, mainResourceName);
 
   debugger
   const appointmentResources = resources.reduce((acc, resource) => {
@@ -47,13 +47,13 @@ export const attachResources: AttachResources = (
       if (resource.allowMultiple) {
         return [
           ...acc,
-          ...appointmentResourceId.map(resourceItemId => planeResources.filter(resourceItem => resourceItem.id === resourceItemId && resource.fieldName === resourceItem.fieldName)[0]),
+          ...appointmentResourceId.map(resourceItemId => plainResources.filter(resourceItem => resourceItem.id === resourceItemId && resource.fieldName === resourceItem.fieldName)[0]),
         ];
       }
       // number
       return [
         ...acc,
-        ...planeResources.filter(resourceItem => resourceItem.id === appointmentResourceId && resource.fieldName === resourceItem.fieldName),
+        ...plainResources.filter(resourceItem => resourceItem.id === appointmentResourceId && resource.fieldName === resourceItem.fieldName),
       ];
     }
     return acc;

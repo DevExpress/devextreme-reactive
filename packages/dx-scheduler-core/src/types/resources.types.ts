@@ -1,7 +1,7 @@
 import { PureComputed } from '@devexpress/dx-core';
 import { Appointment } from './../index';
 
-export type PlaneResourceItem = {
+export type PlainResourceItem = {
   /**
    * Specifies a resource item's identifier.
    * This id should be related with scheduler's data `fieldName` id.
@@ -53,7 +53,7 @@ export type Resource = {
 };
 
 export interface AppointmentWithResources extends Appointment {
-  resources: PlaneResourceItem;
+  resources: PlainResourceItem;
 }
 
 /** @internal */
@@ -67,6 +67,6 @@ export type AttachResources = PureComputed<
 >;
 
 /** @internal */
-export type ConvertResourcesToPlane = PureComputed<
-  [Array<Resource>, string | undefined], Array<PlaneResourceItem>
+export type convertResourcesToPlain = PureComputed<
+  [Array<Resource>, string | undefined], Array<PlainResourceItem>
 >;

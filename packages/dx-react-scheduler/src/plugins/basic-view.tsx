@@ -217,6 +217,8 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
                 timeTableRects,
               );
 
+              console.log(rects);
+
               return (
                 <>
                   <TimeTableLayout
@@ -228,12 +230,13 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
                   />
                   <AppointmentLayer>
                     {(rects as ElementRect[]).map(({
-                      dataItem, type: rectType, fromPrev, toNext, durationType, ...geometry
+                      dataItem, type: rectType, fromPrev, toNext, durationType, resources, ...geometry
                     }, index) => (
                       <AppointmentPlaceholder
                         key={index.toString()}
                         type={rectType}
                         data={dataItem}
+                        resources={resources}
                         fromPrev={fromPrev}
                         toNext={toNext}
                         durationType={durationType}

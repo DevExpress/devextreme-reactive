@@ -174,9 +174,11 @@ class AppointmentTooltipBase extends React.PureComponent<
             <TemplatePlaceholder
               params={{
                 ...params,
-                onClick: (
-                  { target, data },
-                ) => this.onAppointmentClick({ target, data }),
+                onClick: ({ target }) =>
+                  this.onAppointmentClick({
+                    target,
+                    data: { ...params.data, resources: params.resources }
+                  }),
               }}
             />
           )}

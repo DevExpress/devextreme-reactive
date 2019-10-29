@@ -1,14 +1,14 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import AccessTime from '@material-ui/icons/AccessTime';
 import Lens from '@material-ui/icons/Lens';
 import { HOUR_MINUTE_OPTIONS, viewBoundText } from '@devexpress/dx-scheduler-core';
-import { setColor } from '../utils';
+import { getAppointmentColor, getResourceColor } from '../utils';
 
-const styles = ({ spacing, palette, typography }) => ({
+const useStyles = makeStyles(({ spacing, palette, typography }) => ({
   content: {
     padding: spacing(1.5, 1),
     paddingTop: spacing(1),
@@ -32,7 +32,7 @@ const styles = ({ spacing, palette, typography }) => ({
     color: palette.action.active,
   },
   lens: {
-    color: setColor(300, palette.primary),
+    color: resources => getAppointmentColor(300, getResourceColor(resources), palette.primary),
     width: spacing(4.5),
     height: spacing(4.5),
     verticalAlign: 'super',
@@ -66,10 +66,9 @@ const styles = ({ spacing, palette, typography }) => ({
     width: '100%',
     height: '100%',
   },
-});
+}));
 
 export const ContentBase = ({
-  classes,
   className,
   children,
   appointmentData,
@@ -77,6 +76,7 @@ export const ContentBase = ({
   recurringIconComponent: RecurringIcon,
   ...restProps
 }) => {
+  const classes = useStyles(appointmentData.resources);
   const weekDays = viewBoundText(
     appointmentData.startDate, appointmentData.endDate, '', appointmentData.startDate, 1, formatDate,
   );
@@ -122,7 +122,6 @@ export const ContentBase = ({
 };
 
 ContentBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   appointmentData: PropTypes.object,
   children: PropTypes.node,
   className: PropTypes.string,
@@ -136,4 +135,4 @@ ContentBase.defaultProps = {
   children: undefined,
 };
 
-export const Content = withStyles(styles, { name: 'Content' })(ContentBase);
+export const Content = ContentBase;

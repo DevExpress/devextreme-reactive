@@ -13,8 +13,9 @@ const ResourcesBase: React.SFC<ResourcesProps> = ({
   data,
   mainResourceName,
 }) => {
-  const attachResources = ({ appointments }: Getters) =>
-    attachResourcesBase(appointments, data, mainResourceName);
+  const attachResources = ({ appointments }: Getters) => {
+    return attachResourcesBase(appointments, data, mainResourceName);
+  };
 
   return (
   <Plugin
@@ -24,6 +25,10 @@ const ResourcesBase: React.SFC<ResourcesProps> = ({
     <Getter name="appointments" computed={attachResources} />
   </Plugin>
   );
+};
+
+ResourcesBase.defaultProps = {
+  data: [],
 };
 
 /** A plugin that manages schedule's resources. */

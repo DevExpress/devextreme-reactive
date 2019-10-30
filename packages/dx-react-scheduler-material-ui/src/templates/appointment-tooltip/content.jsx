@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import AccessTime from '@material-ui/icons/AccessTime';
 import Lens from '@material-ui/icons/Lens';
-import { HOUR_MINUTE_OPTIONS, viewBoundText } from '@devexpress/dx-scheduler-core';
+import { HOUR_MINUTE_OPTIONS, APPOINTMENT_TOOLTIP, viewBoundText } from '@devexpress/dx-scheduler-core';
 import { setColor } from '../utils';
 
 const styles = ({ spacing, palette, typography }) => ({
@@ -78,7 +78,8 @@ export const ContentBase = ({
   ...restProps
 }) => {
   const weekDays = viewBoundText(
-    appointmentData.startDate, appointmentData.endDate, '', appointmentData.startDate, 1, formatDate,
+    appointmentData.startDate, appointmentData.endDate, APPOINTMENT_TOOLTIP,
+    appointmentData.startDate, 1, formatDate,
   );
   return (
     <div

@@ -52,21 +52,41 @@ export type Resource = {
   items: Array<ResourceItem>;
 };
 
+export interface Color {
+  50: string;
+  100: string;
+  200: string;
+  300: string;
+  400: string;
+  500: string;
+  600: string;
+  700: string;
+  800: string;
+  900: string;
+  A100: string;
+  A200: string;
+  A400: string;
+  A700: string;
+}
+
+export type Palette = Array<string | Color>;
+
 export interface AppointmentWithResources extends Appointment {
   resources: PlainResourceItem;
 }
 
 /** @internal */
 export type AttachResourcesComputed = PureComputed<
-  [Array<Appointment>, Array<Resource>, string | undefined], Array<AppointmentWithResources>
+  [Array<Appointment>, Array<Resource>, string | undefined, Palette],
+  Array<AppointmentWithResources>
 >;
 
 /** @internal */
 export type AttachResources = PureComputed<
-  [Appointment, Array<Resource>, string | undefined], AppointmentWithResources
+  [Appointment, Array<Resource>, Array<PlainResourceItem>], AppointmentWithResources
 >;
 
 /** @internal */
-export type convertResourcesToPlain = PureComputed<
-  [Array<Resource>, string | undefined], Array<PlainResourceItem>
+export type ConvertResourcesToPlain = PureComputed<
+  [Array<Resource>, string | undefined, Palette], Array<PlainResourceItem>
 >;

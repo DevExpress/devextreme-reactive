@@ -26,7 +26,7 @@ export default class Demo extends React.PureComponent {
           data={data}
         >
           <DayView
-            startDayHour={8.5}
+            startDayHour={8}
             endDayHour={13}
           />
           <Appointments />

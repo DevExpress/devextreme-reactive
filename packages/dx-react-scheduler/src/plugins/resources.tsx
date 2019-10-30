@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { Plugin, Getter, Getters } from '@devexpress/dx-react-core';
-import { attachResourcesBase } from '@devexpress/dx-scheduler-core';
+import { attachResourcesBase, convertResourcesToPlain, validateResources } from '@devexpress/dx-scheduler-core';
 import { ResourcesProps } from '../types/resources/resources.types';
-import { checkPropTypes } from 'prop-types';
 
 // const pluginDependencies = [
 //   { name: 'Scheduler' },
@@ -13,8 +12,8 @@ const ResourcesBase: React.SFC<ResourcesProps> = ({
   mainResourceName,
   palette,
 }) => {
-  const attachResources = ({ appointments }: Getters) => {
-    return attachResourcesBase(appointments, data, mainResourceName, palette);
+  const attachResources = ({ appointments, resources }: Getters) => {
+    return attachResourcesBase(appointments, resources, mainResourceName, palette);
   };
 
   return (
@@ -22,6 +21,11 @@ const ResourcesBase: React.SFC<ResourcesProps> = ({
     name="Resources"
     // dependencies={pluginDependencies}
   >
+    <Getter name="resources" value={validateResources(data, mainResourceName, palette)} />
+    <Getter
+      name="planeResources"
+      value={convertResourcesToPlain(data, mainResourceName, palette)}
+    />
     <Getter name="appointments" computed={attachResources} />
   </Plugin>
   );

@@ -40,8 +40,13 @@ const useStyles = makeStyles(({ spacing, palette, typography }) => ({
     left: '50%',
     transform: 'translate(-50%,0)',
   },
+  lensMini: {
+    width: spacing(2.5),
+    height: spacing(2.5),
+  },
   textCenter: {
     textAlign: 'center',
+    height: spacing(2.5),
   },
   dateAndTitle: {
     lineHeight: 1.4,
@@ -51,6 +56,9 @@ const useStyles = makeStyles(({ spacing, palette, typography }) => ({
   },
   contentContainer: {
     paddingBottom: spacing(1.5),
+  },
+  resourceContainer: {
+    paddingBottom: spacing(0.25),
   },
   recurringIcon: {
     position: 'absolute',
@@ -80,6 +88,7 @@ export const ContentBase = ({
   const weekDays = viewBoundText(
     appointmentData.startDate, appointmentData.endDate, '', appointmentData.startDate, 1, formatDate,
   );
+  console.log(appointmentData.resources);
   return (
     <div
       className={classNames(classes.content, className)}
@@ -116,6 +125,23 @@ export const ContentBase = ({
           </div>
         </Grid>
       </Grid>
+      {appointmentData.resources.map(resourceItem => (
+        <Grid container alignItems="center" className={classes.resourceContainer} key={resourceItem.id}>
+          <Grid item xs={2} className={classes.textCenter}>
+            <div className={classes.relativeContainer}>
+              <Lens
+                className={classNames(classes.lens, classes.lensMini)}
+                style={{ color: getAppointmentColor(300, resourceItem.color) }}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={10}>
+            <div className={classes.text}>
+              {resourceItem.text}
+            </div>
+          </Grid>
+        </Grid>
+      ))}
       {children}
     </div>
   );

@@ -365,6 +365,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               addedAppointment,
               appointmentChanges,
               locale,
+              resources,
             }, {
               changeAppointment,
               changeAddedAppointment,
@@ -387,6 +388,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   selectComponent={selectComponent}
                   labelComponent={labelComponent}
                   fullSize={!changedAppointment.rRule}
+                  resources={resources}
                 />
               );
             }}
@@ -465,7 +467,10 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   params={{
                     ...params,
                     onDoubleClick: () => {
-                      this.openFormHandler(params.data);
+                      this.openFormHandler({
+                        ...params.data,
+                        resources: params.resources,
+                      });
                       callActionIfExists(startEditAppointment, params.data);
                     },
                   }}

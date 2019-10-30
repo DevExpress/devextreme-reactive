@@ -1,11 +1,13 @@
-import { AttachResources, AttachResourcesComputed, convertResourcesToPlain } from '../../types';
+import { AttachResources, AttachResourcesComputed, ConvertResourcesToPlain } from '../../types';
 
 // TODO: move to helpers
-const convertResourcesToPlain: convertResourcesToPlain = (resources, mainResourceName, palette) => {
+export const convertResourcesToPlain: ConvertResourcesToPlain = (
+  resources, mainResourceName, palette,
+) => {
   const isMainResourceDefined = !!mainResourceName;
   let currentPaletteIndex = 0;
   const plainResources = resources.reduce((acc, resource, groupIndex) => {
-    const isMain = isMainResourceDefined && !(mainResourceName !== resource.fieldName)
+    const isMain = isMainResourceDefined && mainResourceName === resource.fieldName
       || groupIndex === 0; // TODO: add test!
     return [
       ...acc,
@@ -30,19 +32,46 @@ const convertResourcesToPlain: convertResourcesToPlain = (resources, mainResourc
   return plainResources;
 };
 
+export const validateResources = (resources, mainResourceName, palette) => {
+  const isMainResourceDefined = !!mainResourceName;
+  let currentPaletteIndex = 0;
+  return resources.map((resource, groupIndex) => {
+    const isMain = isMainResourceDefined && !(mainResourceName !== resource.fieldName)
+      || groupIndex === 0; // TODO: add test!
+    return {
+      ...resource,
+      items: resource.items.map((resourceItem) => {
+        let color = resourceItem.color;
+        if (!resourceItem.color) {
+          color = palette[currentPaletteIndex];
+          currentPaletteIndex += 1;
+        }
+
+        return ({
+          ...resourceItem,
+          color,
+          fieldName: resource.fieldName,
+          title: resource.title || resource.fieldName,
+          allowMultiple: !!resource.allowMultiple,
+          isMain,
+        });
+      }),
+    };
+  });
+};
+
 export const attachResourcesBase: AttachResourcesComputed = (
   appointments, resources, mainResourceName, palette,
 ) => {
   if (resources.length > 0) {
-    return appointments.map(appointment => attachResources(appointment, resources, mainResourceName, palette));
+    const plainResources = convertResourcesToPlain(resources, mainResourceName, palette);
+    return appointments.map(appointment => attachResources(appointment, resources, plainResources));
   } return appointments;
 };
 
 export const attachResources: AttachResources = (
-  appointment, resources, mainResourceName, palette,
+  appointment, resources, plainResources,
 ) => {
-  const plainResources = convertResourcesToPlain(resources, mainResourceName, palette);
-
   const appointmentResources = resources.reduce((acc, resource) => {
     const appointmentResourceId = appointment.dataItem[resource.fieldName];
     if (appointmentResourceId !== undefined) {

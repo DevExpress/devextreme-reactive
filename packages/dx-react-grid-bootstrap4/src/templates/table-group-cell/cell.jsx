@@ -19,6 +19,7 @@ export const Cell = ({
 
   return (
     <td
+      colSpan={colSpan}
       className={classNames({
         'dx-g-bs4-group-cell': true,
         'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
@@ -41,7 +42,6 @@ export const Cell = ({
         {
           inlineSummaries.length ? (
             <InlineSummary
-              column={column}
               inlineSummaries={inlineSummaries}
               getMessage={getMessage}
               inlineSummaryItemComponent={InlineSummaryItem}
@@ -57,10 +57,15 @@ Cell.propTypes = {
   contentComponent: PropTypes.func.isRequired,
   iconComponent: PropTypes.func.isRequired,
   containerComponent: PropTypes.func.isRequired,
+  inlineSummaryComponent: PropTypes.func.isRequired,
+  inlineSummaryItemComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  inlineSummaries: PropTypes.array,
   row: PropTypes.any,
   column: PropTypes.object,
+  expanded: PropTypes.bool,
   className: PropTypes.string,
   colSpan: PropTypes.number,
+  getMessage: PropTypes.func.isRequired,
   onToggle: PropTypes.func,
   children: PropTypes.oneOfType([
     PropTypes.node,
@@ -75,6 +80,8 @@ Cell.propTypes = {
 Cell.defaultProps = {
   row: {},
   column: {},
+  expanded: false,
+  inlineSummaries: [],
   className: undefined,
   colSpan: 1,
   onToggle: () => {},

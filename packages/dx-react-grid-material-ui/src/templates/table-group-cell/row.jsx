@@ -10,7 +10,9 @@ const styles = () => ({
   },
 });
 
-const RowBase = ({ children, classes, className, ...restProps }) => (
+const RowBase = ({
+  children, classes, className, ...restProps
+}) => (
   <TableRow
     {...restProps}
     className={classNames(classes.row, className)}

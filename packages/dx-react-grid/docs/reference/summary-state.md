@@ -21,7 +21,7 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 totalItems? | Array&lt;[SummaryItem](#summaryitem)&gt; | | The total summary items.
-groupItems? | Array&lt;[SummaryItem](#summaryitem)&gt; | | The group summary items.
+groupItems? | Array&lt;[GroupSummaryItem](#summaryitem)&gt; | | The group summary items.
 treeItems? | Array&lt;[SummaryItem](#summaryitem)&gt; | | The tree summary items.
 
 ## Interfaces
@@ -34,6 +34,15 @@ Field | Type | Default | Description
 ------|------|---------|--
 columnName | string | | The name of a column associated with the current summary item.
 type | [SummaryType](#summarytype) | | A summary type.
+
+### GroupSummaryItem
+
+Describes the group summary item associated with a column.
+
+Extends [SummaryItem](#summaryitem)
+
+Field | Type | Default | Description
+------|------|---------|--
 showInGroupRow? | boolean | false | Specifies whether a summary should be rendered in a group row instead of a summary row.
 showInGroupCaption? | boolean | false | Specifies whether a summary should be rendered inside a group row caption instead of a summary row.
 
@@ -56,5 +65,5 @@ none
 Name | Plugin | Type | Description
 -----|--------|------|------------
 totalSummaryItems | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[SummaryItem](#summaryitem)&gt; | Total summary items.
-groupSummaryItems | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[SummaryItem](#summaryitem)&gt; | Group summary items.
+groupSummaryItems | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[GroupSummaryItem](#groupsummaryitem)&gt; | Group summary items.
 treeSummaryItems | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[SummaryItem](#summaryitem)&gt; | Summary items applied to rows that contain child rows.

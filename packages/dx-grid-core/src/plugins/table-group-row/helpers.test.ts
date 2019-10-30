@@ -172,22 +172,24 @@ describe('TableRowDetail Plugin helpers', () => {
         ))
           .toBeFalsy();
       });
-
-  describe('#calculateGroupCellIndent', () => {
-    const grouping = [
-      { columnName: 'a' },
-      { columnName: 'b' },
-      { columnName: 'c' },
-    ];
-
-    it('should calculate left position for first level', () => {
-      expect(calculateGroupCellIndent({ column: { name: 'a' } }, grouping, 30))
-        .toBe(0);
     });
 
-    it('should calculate left position for nested group', () => {
-      expect(calculateGroupCellIndent({ column: { name: 'c' } }, grouping, 30))
-        .toBe(60);
+    describe('#calculateGroupCellIndent', () => {
+      const testGrouping = [
+        { columnName: 'a' },
+        { columnName: 'b' },
+        { columnName: 'c' },
+      ];
+
+      it('should calculate left position for first level', () => {
+        expect(calculateGroupCellIndent({ column: { name: 'a' } }, testGrouping, 30))
+          .toBe(0);
+      });
+
+      it('should calculate left position for nested group', () => {
+        expect(calculateGroupCellIndent({ column: { name: 'c' } }, testGrouping, 30))
+          .toBe(60);
+      });
     });
   });
 });

@@ -36,7 +36,7 @@ describe('TableSummaryContent', () => {
           value: 5,
           getMessage: expect.any(Function),
           children: '5',
-        }
+        },
       ]);
   };
 

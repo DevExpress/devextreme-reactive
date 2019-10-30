@@ -1,12 +1,7 @@
 import * as React from 'react';
-import { InlineSummary, GetMessageFn } from '../../types';
+import { TableGroupRow } from '../../types';
 
-interface InlineSummaryItemProps {
-  getMessage: GetMessageFn;
-  summary: InlineSummary;
-}
-
-export const InlineSummaryItem: React.SFC<InlineSummaryItemProps> = React.memo(({
+export const InlineSummaryItem: React.SFC<TableGroupRow.InlineSummaryItemProps> = React.memo(({
   summary: { messageKey, columnTitle, component: SummaryComponent },
   getMessage,
 }) => (

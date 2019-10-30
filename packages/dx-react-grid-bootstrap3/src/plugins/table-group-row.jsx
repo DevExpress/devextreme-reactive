@@ -22,7 +22,7 @@ export const TableGroupRow = withComponents({
   Row,
   Cell,
   IndentCell,
-  Container, 
+  Container,
   Content,
   Icon,
   InlineSummary,

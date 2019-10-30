@@ -12,6 +12,9 @@ const styles = theme => ({
     paddingTop: theme.spacing(0.5),
     paddingBottom: theme.spacing(0.5),
   },
+  cellNoWrap: {
+    whiteSpace: 'nowrap',
+  },
 });
 
 const CellBase = ({
@@ -35,7 +38,10 @@ const CellBase = ({
     <TableCell
       colSpan={colSpan}
       style={style}
-      className={classNames(classes.cell, className)}
+      className={classNames({
+        [classes.cell]: true,
+        [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
+      }, className)}
       onClick={handleClick}
       {...restProps}
     >
@@ -68,8 +74,8 @@ CellBase.propTypes = {
   contentComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   iconComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   containerComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  inlineSummaryComponent: PropTypes.func.isRequired,
-  inlineSummaryItemComponent: PropTypes.func.isRequired,
+  inlineSummaryComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  inlineSummaryItemComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   style: PropTypes.object,
   colSpan: PropTypes.number,
   row: PropTypes.any,

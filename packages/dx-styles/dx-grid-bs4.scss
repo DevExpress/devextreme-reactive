@@ -136,8 +136,7 @@ button.dx-g-bs4-table-edit-command-cell {
 .dx-g-bs4-sorting-control-text,
 .dx-g-bs4-table-tree-content,
 .dx-g-bs4-table-cell,
-.dx-rg-bs4-table-header-title,
-.dx-g-bs4-group-cell {
+.dx-rg-bs4-table-header-title {
   @include ellipsis-overflow();
 }
 .dx-g-bs4-resizing-control-wrapper {
@@ -223,7 +222,10 @@ button.dx-g-bs4-table-edit-command-cell {
   position: static !important;
 }
 .dx-g-bs4-fixed-group-cell {
-  display: inline-block;
+  float: left;
+  max-width: 100%;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
 }
 .dx-g-bs4-table-summary-item {
   font-weight: bold;
@@ -255,4 +257,5 @@ button.dx-g-bs4-table-edit-command-cell {
 }
 .dx-g-bs4-group-cell {
   vertical-align: middle;
+  cursor: pointer;
 }

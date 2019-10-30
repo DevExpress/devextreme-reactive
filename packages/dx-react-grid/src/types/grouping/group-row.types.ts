@@ -1,6 +1,9 @@
 import { PureComputed } from '@devexpress/dx-core';
-import { GroupSummaryItem, GroupSummaryValue, ColumnSummary } from '@devexpress/dx-grid-core';
-import { Table, Column, TableColumn, TableRow } from '../index';
+import { GroupSummaryItem, GroupSummaryValue } from '@devexpress/dx-grid-core';
+import {
+  Table, Column, TableColumn, TableRow, GetMessageFn,
+  TableSummaryRow, ColumnSummary,
+} from '../index';
 
 // tslint:disable-next-line: no-namespace
 export namespace TableGroupRow {
@@ -33,9 +36,9 @@ export namespace TableGroupRow {
     position: string;
     /** @internal */
     side: string;
-    inlineSummaries: any;
-    inlineSummaryComponent: React.ComponentType<any>;
-    inlineSummaryItemComponent: React.ComponentType<any>;
+    inlineSummaries: readonly GroupInlineSummary[];
+    inlineSummaryComponent: React.ComponentType<InlineSummaryProps>;
+    inlineSummaryItemComponent: React.ComponentType<InlineSummaryItemProps>;
     getMessage: (string) => string;
   }
 
@@ -73,6 +76,43 @@ export namespace TableGroupRow {
     /** A column associated with the group. */
     column: Column;
   }
+
+  export interface InlineSummaryItemProps {
+    getMessage: GetMessageFn;
+    summary: GroupInlineSummary;
+  }
+
+  export interface InlineSummaryProps {
+    getMessage: GetMessageFn;
+    inlineSummaries: readonly GroupInlineSummary[];
+    inlineSummaryItemComponent: React.ComponentType<InlineSummaryItemProps>;
+  }
+
+  export interface SummaryCellProps extends Table.CellProps {
+    /** The group row. */
+    row: GroupRow;
+    /** The column associated with the group. */
+    column: Column;
+    onToggle(): void;
+  }
+
+  export interface StubCellProps extends Table.CellProps {
+    onToggle(): void;
+  }
+
+  export interface LocalizationMessages {
+    countOf?: string;
+    sumOf?: string;
+    maxOf?: string;
+    minOf?: string;
+    avgOf?: string;
+  }
+
+  export type GroupInlineSummary = ColumnSummary & {
+    columnTitle: string | undefined;
+    messageKey: string;
+    component: React.FunctionComponent<any>;
+  };
 }
 
 /** Describes the group row structure. */
@@ -99,18 +139,18 @@ export interface TableGroupRowProps {
   contentComponent: React.ComponentType<TableGroupRow.ContentProps>;
   /** A component that renders a group expand icon. */
   iconComponent: React.ComponentType<TableGroupRow.IconProps>;
-  inlineSummaryItemComponent: React.ComponentType<any>;
-  inlineSummaryComponent: React.ComponentType<any>;
-  summaryCellComponent: React.ComponentType<any>;
-  summaryItemComponent: React.ComponentType<any>;
-  stubCellComponent: React.ComponentType<any>;
+  inlineSummaryItemComponent: React.ComponentType<TableGroupRow.InlineSummaryItemProps>;
+  inlineSummaryComponent: React.ComponentType<TableGroupRow.InlineSummaryProps>;
+  summaryCellComponent: React.ComponentType<TableGroupRow.SummaryCellProps>;
+  summaryItemComponent: React.ComponentType<TableSummaryRow.ItemProps>;
+  stubCellComponent: React.ComponentType<TableGroupRow.StubCellProps>;
   /** A component that renders a content container */
   containerComponent: React.ComponentType<TableGroupRow.ContainerProps>;
   /** A component that renders a group indent cell. */
   indentCellComponent?: React.ComponentType<TableGroupRow.IndentCellProps>;
   /** The group indent column's width. */
   indentColumnWidth: number;
-  messages: object;
+  messages?: TableGroupRow.LocalizationMessages;
   formatlessSummaryTypes: string[];
   /** The group cell's left padding value */
   contentCellPadding: string;
@@ -127,14 +167,8 @@ export type GetInlineSummaryComponent = PureComputed<
   React.FunctionComponent<any>
 >;
 
-export type InlineSummary = ColumnSummary & {
-  columnTitle: string | undefined;
-  messageKey: string;
-  component: React.FunctionComponent<any>;
-};
-
 /** @internal */
 export type FlattenGroupInlineSummariesFn = PureComputed<
   [TableColumn[], TableRow, GroupSummaryItem[], GroupSummaryValue, string[]],
-  InlineSummary[]
+  TableGroupRow.GroupInlineSummary[]
 >;

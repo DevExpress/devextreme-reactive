@@ -38,6 +38,7 @@ const pluginDependencies = [
 ];
 const side = 'left';
 
+/** @internal */
 export const defaultMessages = {
   countOf: 'Count: ',
   sumOf: 'Sum of {columnTitle} is ',
@@ -243,7 +244,7 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
                     <SummaryCell
                       {...params}
                       row={params.tableRow.row}
-                      column={params.tableColumn.column}
+                      column={params.tableColumn.column!}
                       onToggle={onToggle}
                     >
                       <TableSummaryContent

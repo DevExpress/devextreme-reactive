@@ -39,18 +39,6 @@ describe('GroupRowCell', () => {
       });
   });
 
-  it('should render Container', () => {
-    const tree = mount((
-      <Cell {...defaultProps} />
-    ));
-
-    expect(tree.find(defaultProps.containerComponent).props())
-      .toMatchObject({
-        position: '13px',
-        side: 'left',
-      });
-  });
-
   it('should pass rest props to the root element', () => {
     const tree = shallow((
       <Cell data={{ a: 1 }} />

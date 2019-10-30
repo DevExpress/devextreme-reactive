@@ -15,8 +15,6 @@ export const Cell = ({
         cursor: 'pointer',
         // TOOD: extract to constant
         whiteSpace: (tableColumn && tableColumn.wordWrapEnabled) ? 'normal' : 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
         ...style,
       }}
       onClick={handleClick}
@@ -38,11 +36,6 @@ Cell.propTypes = {
   ]),
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
-  iconComponent: PropTypes.func.isRequired,
-  contentComponent: PropTypes.func.isRequired,
-  containerComponent: PropTypes.func.isRequired,
-  side: PropTypes.string,
-  position: PropTypes.string,
   style: PropTypes.object,
 };
 

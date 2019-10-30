@@ -49,16 +49,16 @@ describe('InlineSummary component', () => {
 
     expect(tree.find(defaultProps.inlineSummaryItemComponent)
       .map(item => item.props()))
-        .toEqual([
-          {
-            summary: summaries[0],
-            getMessage: defaultProps.getMessage,
-          },
-          {
-            summary: summaries[1],
-            getMessage: defaultProps.getMessage,
-          },
-        ]);
+      .toEqual([
+        {
+          summary: summaries[0],
+          getMessage: defaultProps.getMessage,
+        },
+        {
+          summary: summaries[1],
+          getMessage: defaultProps.getMessage,
+        },
+      ]);
   });
 
   it('should format summary text', () => {

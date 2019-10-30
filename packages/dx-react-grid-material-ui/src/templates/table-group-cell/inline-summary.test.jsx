@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { createMount, getClasses } from '@material-ui/core/test-utils';
+import { setupConsole } from '@devexpress/dx-testing';
 import { InlineSummary } from './inline-summary';
 
 describe('InlineSummary component', () => {
@@ -15,10 +16,10 @@ describe('InlineSummary component', () => {
     { type: 'count', value: 10 },
   ];
 
+  let resetConsole;
   beforeAll(() => {
     classes = getClasses(<InlineSummary {...defaultProps} />);
-    // resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
-    // shallow = createShallow({ dive: true });
+    resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
   });
 
   beforeEach(() => {
@@ -26,6 +27,9 @@ describe('InlineSummary component', () => {
   });
   afterEach(() => {
     mount.cleanUp();
+  });
+  afterAll(() => {
+    resetConsole();
   });
 
   it('should pass classes to the root element', () => {
@@ -64,16 +68,16 @@ describe('InlineSummary component', () => {
 
     expect(tree.find(defaultProps.inlineSummaryItemComponent)
       .map(item => item.props()))
-        .toEqual([
-          {
-            summary: summaries[0],
-            getMessage: defaultProps.getMessage,
-          },
-          {
-            summary: summaries[1],
-            getMessage: defaultProps.getMessage,
-          },
-        ]);
+      .toEqual([
+        {
+          summary: summaries[0],
+          getMessage: defaultProps.getMessage,
+        },
+        {
+          summary: summaries[1],
+          getMessage: defaultProps.getMessage,
+        },
+      ]);
   });
 
   it('should format summary text', () => {

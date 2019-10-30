@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { CaptionCell as Cell } from './caption-cell';
 
-describe('TableGroupCell', () => {
+describe('GroupCaptionCell', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -14,6 +14,7 @@ describe('TableGroupCell', () => {
 
   const defaultProps = {
     contentComponent: () => null,
+    containerComponent: ({ children }) => children,
     iconComponent: () => null,
     inlineSummaryComponent: () => null,
     inlineSummaryItemComponent: () => null,
@@ -26,7 +27,7 @@ describe('TableGroupCell', () => {
   };
 
   it('should render children inside content component if passed', () => {
-    const tree = shallow((
+    const tree = mount((
       <Cell
         {...defaultProps}
         contentComponent={({ children }) => children}

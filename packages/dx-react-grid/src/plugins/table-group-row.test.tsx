@@ -81,8 +81,8 @@ const defaultProps = {
   containerComponent: ({ children }) => children,
   indentCellComponent: () => null,
   rowComponent: () => null,
-  rowSummaryCellComponent: ({ children }) => children,
-  rowSummaryItemComponent: () => null,
+  summaryCellComponent: ({ children }) => children,
+  summaryItemComponent: () => null,
   inlineSummaryComponent: () => null,
   inlineSummaryItemComponent: () => null,
   indentColumnWidth: 100,
@@ -474,6 +474,7 @@ describe('TableGroupRow', () => {
   describe('Group summary', () => {
     const columnSummaries = [];
     beforeEach(() => {
+      isGroupTableRow.mockImplementation(() => true);
       isGroupRowOrdinaryCell.mockReturnValue(true);
       isRowSummaryCell.mockReturnValue(true);
       getColumnSummaries.mockReturnValue(columnSummaries);
@@ -501,7 +502,7 @@ describe('TableGroupRow', () => {
           defaultDeps.getter.grouping,
           defaultDeps.getter.groupSummaryItems,
         );
-      expect(tree.find(defaultProps.rowSummaryCellComponent).props())
+      expect(tree.find(defaultProps.summaryCellComponent).props())
         .toMatchObject({
           ...defaultDeps.template.tableCell,
           row: defaultDeps.template.tableCell.tableRow.row,
@@ -525,7 +526,7 @@ describe('TableGroupRow', () => {
           column: defaultDeps.template.tableCell.tableColumn.column,
           columnSummaries,
           formatlessSummaryTypes: defaultProps.formatlessSummaryTypes,
-          itemComponent: defaultProps.rowSummaryItemComponent,
+          itemComponent: defaultProps.summaryItemComponent,
           messages: defaultProps.messages,
         });
     });
@@ -563,7 +564,7 @@ describe('TableGroupRow', () => {
           />
         </PluginHost>
       ));
-      const onToggle = tree.find(defaultProps.rowSummaryCellComponent)
+      const onToggle = tree.find(defaultProps.summaryCellComponent)
         .prop('onToggle');
       defaultDeps.action.toggleGroupExpanded.mockClear();
 
@@ -621,7 +622,9 @@ describe('TableGroupRow', () => {
         </PluginHost>
       ));
 
-      expect(getMessagesFormatter).toBeCalledWith({ ...defaultMessages, ...messages });
+      expect(getMessagesFormatter)
+        .toBeCalledWith({ ...defaultMessages, ...messages });
+
       const getMessage = tree
         .find(defaultProps.cellComponent)
         .prop('getMessage');

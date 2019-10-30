@@ -9,44 +9,48 @@ export const CaptionCell = ({
   iconComponent: Icon, contentComponent: Content,
   inlineSummaryComponent: InlineSummary,
   inlineSummaryItemComponent: InlineSummaryItem,
-  inlineSummaries,
-  getMessage,
+  inlineSummaries, getMessage,
+  containerComponent: Container,
+  side, position,
   ...restProps
 }) => (
   <Cell
     onToggle={onToggle}
     {...restProps}
   >
-    <Icon
-      expanded={expanded}
-      onToggle={onToggle}
-      style={{
-        marginRight: '8px',
-      }}
-    />
-    <Content
-      column={column}
-      row={row}
-    >
-      {children}
-    </Content>
-    {
-      inlineSummaries.length ? (
-        <InlineSummary
-          inlineSummaries={inlineSummaries}
-          getMessage={getMessage}
-          inlineSummaryItemComponent={InlineSummaryItem}
-        />
-      ) : null
-    }
+    <Container side={side} position={position}>
+      <Icon
+        expanded={expanded}
+        onToggle={onToggle}
+        style={{
+          marginRight: '8px',
+        }}
+      />
+      <Content
+        column={column}
+        row={row}
+      >
+        {children}
+      </Content>
+      {
+        inlineSummaries.length ? (
+          <InlineSummary
+            inlineSummaries={inlineSummaries}
+            getMessage={getMessage}
+            inlineSummaryItemComponent={InlineSummaryItem}
+          />
+        ) : null
+      }
+    </Container>
   </Cell>
 );
 
 CaptionCell.propTypes = {
+  containerComponent: PropTypes.func.isRequired,
   contentComponent: PropTypes.func.isRequired,
   iconComponent: PropTypes.func.isRequired,
   inlineSummaryComponent: PropTypes.func.isRequired,
-  inlineSummaryItemComponent: PropTypes.func.isRequired,
+  inlineSummaryItemComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   colSpan: PropTypes.number,
   row: PropTypes.any,
   column: PropTypes.object,
@@ -60,6 +64,8 @@ CaptionCell.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   inlineSummaries: PropTypes.array,
+  side: PropTypes.string,
+  position: PropTypes.string,
 };
 
 CaptionCell.defaultProps = {
@@ -72,4 +78,6 @@ CaptionCell.defaultProps = {
   children: undefined,
   tableRow: undefined,
   tableColumn: undefined,
+  side: 'left',
+  position: '',
 };

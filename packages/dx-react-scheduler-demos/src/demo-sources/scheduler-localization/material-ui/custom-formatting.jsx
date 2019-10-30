@@ -21,7 +21,7 @@ const formatTimeScaleDate = date => moment(date).format('hh:mm:ss');
 const styles = {
   dayScaleCell: {
     overflow: 'hidden',
-    textOverflow: 'ellipsis!important',
+    textOverflow: 'ellipsis',
   },
 };
 

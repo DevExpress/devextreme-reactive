@@ -14,6 +14,10 @@ const styles = theme => ({
     '&:last-child': {
       paddingRight: 0,
     },
+    '@media (max-width: 700px)': {
+      padding: theme.spacing(1),
+      paddingBottom: 0,
+    },
   },
   dayOfWeek: {
     ...theme.typography.caption,
@@ -21,6 +25,9 @@ const styles = theme => ({
   },
   dayOfMonth: {
     ...theme.typography.h4,
+    '@media (max-width: 700px)': {
+      ...theme.typography.h6,
+    },
   },
   highlightCell: {
     color: theme.palette.primary.main,

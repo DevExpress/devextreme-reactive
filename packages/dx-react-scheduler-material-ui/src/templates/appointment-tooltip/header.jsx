@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = ({ spacing, palette }) => ({
   head: {
-    width: '400px',
     position: 'relative',
     paddingLeft: spacing(1),
     paddingRight: spacing(0.5),

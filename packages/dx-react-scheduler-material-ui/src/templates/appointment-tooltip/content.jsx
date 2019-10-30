@@ -14,7 +14,6 @@ const styles = ({ spacing, palette, typography }) => ({
     paddingTop: spacing(1),
     backgroundColor: palette.background.paper,
     boxSizing: 'border-box',
-    width: '400px',
     ...typography.body2,
   },
   text: {

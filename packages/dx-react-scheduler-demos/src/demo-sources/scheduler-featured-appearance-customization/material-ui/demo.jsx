@@ -37,6 +37,8 @@ const filterTasks = (items, priorityId) => items.filter(task => (
   !priorityId || task.priorityId === priorityId
 ));
 const getPriorityById = priorityId => priorities.find(({ id }) => id === priorityId).title;
+const getShortPriorityById = priorityId => priorities
+  .find(({ id }) => id === priorityId).shortTitle;
 
 const createClassesByPriorityId = (
   priorityId, classes,
@@ -71,6 +73,11 @@ const styles = theme => ({
   prioritySelector: {
     marginLeft: theme.spacing(2),
     minWidth: 140,
+    '@media (max-width: 500px)': {
+      minWidth: 0,
+      fontSize: '0.75rem',
+      marginLeft: theme.spacing(0.5),
+    },
   },
   prioritySelectorItem: {
     display: 'flex',
@@ -82,6 +89,16 @@ const styles = theme => ({
     height: theme.spacing(2),
     marginRight: theme.spacing(2),
     display: 'inline-block',
+  },
+  priorityText: {
+    '@media (max-width: 500px)': {
+      display: 'none',
+    },
+  },
+  priorityShortText: {
+    '@media (min-width: 500px)': {
+      display: 'none',
+    },
   },
   defaultBullet: {
     background: theme.palette.divider,
@@ -138,14 +155,17 @@ const styles = theme => ({
 const PrioritySelectorItem = ({ id, classes }) => {
   let bulletClass = classes.defaultBullet;
   let text = 'All Tasks';
+  let shortText = 'All';
   if (id) {
     bulletClass = createClassesByPriorityId(id, classes, { background: true });
     text = getPriorityById(id);
+    shortText = getShortPriorityById(id);
   }
   return (
     <div className={classes.prioritySelectorItem}>
       <span className={`${classes.priorityBullet} ${bulletClass}`} />
-      {text}
+      <span className={classes.priorityText}>{text}</span>
+      <span className={classes.priorityShortText}>{shortText}</span>
     </div>
   );
 };

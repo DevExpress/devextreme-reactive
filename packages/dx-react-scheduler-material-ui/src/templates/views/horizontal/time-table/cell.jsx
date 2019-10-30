@@ -33,6 +33,9 @@ const styles = theme => ({
   },
   text: {
     padding: '1em',
+    '@media (max-width: 500px)': {
+      padding: '0.5em',
+    },
   },
   today: {
     margin: '0.85em',

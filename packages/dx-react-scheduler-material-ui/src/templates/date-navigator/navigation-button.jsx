@@ -3,25 +3,45 @@ import * as PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
+import { withStyles } from '@material-ui/core/styles';
+import classNames from 'clsx';
 
-export const NavigationButton = React.memo(({
+const styles = ({ spacing }) => ({
+  button: {
+    '@media (max-width: 500px)': {
+      width: spacing(4),
+      height: spacing(4),
+      padding: 0,
+    },
+  },
+});
+
+const NavigationButtonBase = React.memo(({
   type,
   onClick,
+  classes,
+  className,
   ...restProps
 }) => (
   <IconButton
     onClick={onClick}
+    className={classNames(classes.button, className)}
     {...restProps}
   >
     {type === 'back' ? <ChevronLeft /> : <ChevronRight />}
   </IconButton>
 ));
 
-NavigationButton.propTypes = {
+NavigationButtonBase.propTypes = {
   type: PropTypes.oneOf(['forward', 'back']).isRequired,
   onClick: PropTypes.func,
+  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
 };
 
-NavigationButton.defaultProps = {
+NavigationButtonBase.defaultProps = {
   onClick: () => {},
+  className: undefined,
 };
+
+export const NavigationButton = withStyles(styles, { name: 'NavigationButton' })(NavigationButtonBase);

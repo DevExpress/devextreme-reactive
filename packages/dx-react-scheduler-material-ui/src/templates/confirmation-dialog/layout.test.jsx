@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
+import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Layout } from './layout';
 
 describe('ConfirmationDialog', () => {
   let shallow;
+  let classes;
   const defaultProps = {
     handleCancel: jest.fn(),
     handleConfirm: jest.fn(),
@@ -12,7 +13,8 @@ describe('ConfirmationDialog', () => {
     buttonComponent: ({ children }) => <div>{children}</div>,
   };
   beforeAll(() => {
-    shallow = createShallow();
+    shallow = createShallow({ dive: true });
+    classes = getClasses(<Layout {...defaultProps} />);
   });
   beforeEach(() => {
     jest.resetAllMocks();
@@ -26,6 +28,14 @@ describe('ConfirmationDialog', () => {
 
       expect(tree.props().data)
         .toMatchObject({ testData: 'testData' });
+    });
+    it('should render its elements properly', () => {
+      const tree = shallow((
+        <Layout {...defaultProps} />
+      ));
+
+      expect(tree.find(`.${classes.title}`).exists())
+        .toBeTruthy();
     });
     it('should handle click on close button', () => {
       const tree = shallow((

@@ -9,9 +9,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = ({ typography }) => ({
-  title: {
-    ...typography.h6,
-  },
+  title: typography.h6,
   content: {
     fontSize: '1rem',
   },

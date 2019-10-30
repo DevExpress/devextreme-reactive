@@ -41,7 +41,6 @@ const AppointmentBase = ({
   resources,
   ...restProps
 }) => {
-  console.log(resources);
   const onClick = handleClick
     ? {
       onClick: ({ target }) => {

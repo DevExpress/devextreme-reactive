@@ -76,7 +76,6 @@ const VerticalAppointmentBase = ({
   const repeat = !!data.rRule;
   const isShortHeight = durationType === 'short';
   const isMiddleHeight = durationType === 'middle';
-  console.log(resources);
   return (
     <div
       className={classNames({

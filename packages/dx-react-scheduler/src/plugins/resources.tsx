@@ -2,19 +2,19 @@ import * as React from 'react';
 import { Plugin, Getter, Getters } from '@devexpress/dx-react-core';
 import { attachResourcesBase } from '@devexpress/dx-scheduler-core';
 import { ResourcesProps } from '../types/resources/resources.types';
+import { checkPropTypes } from 'prop-types';
 
 // const pluginDependencies = [
-//   { name: 'EditingState' },
-//   { name: 'EditRecurrenceMenu', optional: true },
-//   { name: 'IntegratedEditing', optional: true },
+//   { name: 'Scheduler' },
 // ];
 
 const ResourcesBase: React.SFC<ResourcesProps> = ({
   data,
   mainResourceName,
+  palette,
 }) => {
   const attachResources = ({ appointments }: Getters) => {
-    return attachResourcesBase(appointments, data, mainResourceName);
+    return attachResourcesBase(appointments, data, mainResourceName, palette);
   };
 
   return (
@@ -25,10 +25,6 @@ const ResourcesBase: React.SFC<ResourcesProps> = ({
     <Getter name="appointments" computed={attachResources} />
   </Plugin>
   );
-};
-
-ResourcesBase.defaultProps = {
-  data: [],
 };
 
 /** A plugin that manages schedule's resources. */

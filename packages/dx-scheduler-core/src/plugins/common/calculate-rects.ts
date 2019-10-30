@@ -42,7 +42,6 @@ export const verticalTimeTableRects: VerticalRects = (
   const intervals = calculateWeekDateIntervals(
     appointments, startViewDate, endViewDate, excludedDays, cellDuration,
   );
-  console.log(appointments);
   return calculateRectByDateIntervals(
     {
       growDirection: VERTICAL_TYPE,

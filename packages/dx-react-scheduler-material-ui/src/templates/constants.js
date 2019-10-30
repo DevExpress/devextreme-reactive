@@ -5,7 +5,7 @@ import {
 
 export const PRIMARY_COLOR = blue;
 export const TRANSITIONS_TIME = 400;
-export const DEFAULT_COLORS = [
+export const DEFAULT_PALETTE = [
   red, pink, purple, deepPurple, indigo, blue, lightBlue, cyan, teal,
   green, lightGreen, lime, yellow, amber, orange, deepOrange,
 ];

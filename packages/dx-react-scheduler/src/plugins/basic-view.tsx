@@ -217,8 +217,6 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
                 timeTableRects,
               );
 
-              console.log(rects);
-
               return (
                 <>
                   <TimeTableLayout

@@ -1,9 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Chip from "@material-ui/core/Chip";
-import MuiSelect from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import classNames from 'clsx';
 import Grid from '@material-ui/core/Grid';
 import {
@@ -13,8 +10,8 @@ import {
   REPEAT_TYPES,
   handleChangeFrequency,
 } from '@devexpress/dx-scheduler-core';
+import { ResourcesEditors } from './resources-editors';
 import { TRANSITIONS_TIME } from '../../constants';
-import { getAppointmentColor } from '../../utils';
 
 const styles = ({ spacing, typography }) => ({
   root: {
@@ -128,7 +125,6 @@ const LayoutBase = ({
   booleanEditorComponent: BooleanEditor,
   ...restProps
 }) => {
-  console.log(appointmentData);
   const changeTitle = React.useCallback(title => onFieldChange({ title }), [onFieldChange]);
   const changeNotes = React.useCallback(notes => onFieldChange({ notes }), [onFieldChange]);
   const changeStartDate = React.useCallback(
@@ -218,43 +214,11 @@ const LayoutBase = ({
         onValueChange={changeNotes}
         className={classes.notesEditor}
       />
-
-      {resources.map(resource => (
-        <React.Fragment key={resource.fieldName}>
-          <Label
-            text={resource.title}
-            type={TITLE}
-            className={classes.labelWithMargins}
-          />
-          {console.log(resource.items[0])}
-          <MuiSelect
-            multiple={resource.allowMultiple}
-            value={appointmentData.resources.map(resource => resource.id)}
-            onValueChange={() => undefined}
-            className={classes.selectBox}
-            variant="outlined"
-            classes={{ select: classes.select }}
-            renderValue={selected => (
-              <div className={classes.chips}>
-                {selected.map(value => (
-                  <Chip
-                    key={value}
-                    label={value}
-                    className={classes.chip}
-                    style={{ backgroundColor: getAppointmentColor(300, resource.items.find(item => item.id === value).color) }}
-                  />
-                ))}
-              </div>
-            )}
-          >
-            {resource.items.map(resourceItem => (
-              <MenuItem key={resourceItem.id} value={resourceItem.id}>
-                {resourceItem.text}
-              </MenuItem>
-            ))}
-          </MuiSelect>
-        </React.Fragment>
-      ))}
+      <ResourcesEditors
+        resources={resources}
+        appointmentData={appointmentData}
+        labelComponent={Label}
+      />
 
       {children}
     </div>

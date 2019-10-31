@@ -26,6 +26,7 @@ const styles = theme => ({
     padding: theme.spacing(1),
     paddingBottom: 0,
     color: theme.palette.text.secondary,
+    fontWeight: 'bold',
   },
 });
 

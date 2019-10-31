@@ -40,8 +40,7 @@ const styles = theme => ({
     },
   },
   today: {
-    margin: '0.85em',
-    display: 'inline-block',
+    marginTop: '0.33em',
     width: '1.72em',
     height: '1.72em',
     lineHeight: 1.72,
@@ -50,6 +49,8 @@ const styles = theme => ({
     background: theme.palette.primary.main,
     color: theme.palette.primary.contrastText,
     cursor: 'default',
+    marginRight: 'auto',
+    marginLeft: 'auto',
   },
   otherMonth: {
     color: theme.palette.text.disabled,

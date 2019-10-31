@@ -38,6 +38,6 @@ If the Grid should have the same size as the container element, set the `Virtual
 
 .embedded-demo({ "path": "grid-virtual-scrolling/stretching-to-parent-element", "showThemeSelector": true })
 
-## Use Virtual Table with Data Formatting and custom components
+## Note on the use of `VirtualTable` with `DataTypeProvider` and custom components
 
-The virtual table renders only visible rows. Empty space before and after rows is calculated using `estimatedRowHeight` property. Default `estamatedRowHeight` property is equal default row height. If you use [DataTypeProvider](../reference/data-type-provider.md) plugin to define custom formatter, you have to be sure that `estimatedRowHeight` property is equal to new row height. The same applies to the custom cell and row components.
+If you use a custom `rowComponent` or `cellComponent`, their height and the `estimatedRowHeight` value should be equal. The same applies to a custom formatter defined in the [DataTypeProvider](../reference/data-type-provider.md) plugin.

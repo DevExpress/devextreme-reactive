@@ -45,4 +45,4 @@ export const RECURRENCE_EDIT_SCOPE = {
 export const TOGGLE_APPOINTMENT_FORM_VISIBILITY = 'toggleAppointmentFormVisibility';
 export const TOGGLE_APPOINTMENT_TOOLTIP_VISIBILITY = 'toggleAppointmentTooltipVisibility';
 
-export const APPOINTMENT_TOOLTIP = 'appointmentTooltip';
+export const WEEKDAY_INTERVAL = 'weekdayInterval';

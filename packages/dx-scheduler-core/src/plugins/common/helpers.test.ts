@@ -87,7 +87,7 @@ describe('viewBoundText', () => {
   describe('Tooltip text', () => {
     it('should add weekday for tooltip texts', () => {
       const text = viewBoundText(
-        '2018-07-06 10:00', '2018-07-06 15:00', 'appointmentTooltip',
+        '2018-07-06 10:00', '2018-07-06 15:00', 'weekdayInterval',
         undefined, undefined, dateTimeFormatter,
       );
       expect(text)
@@ -95,7 +95,7 @@ describe('viewBoundText', () => {
     });
     it('shouldn\'t add weekday for tooltip texts if it includes more than 1 day', () => {
       const text = viewBoundText(
-        '2018-07-06 10:00', '2018-07-10 15:00', 'appointmentTooltip',
+        '2018-07-06 10:00', '2018-07-10 15:00', 'weekdayInterval',
         undefined, undefined, dateTimeFormatter,
       );
       expect(text)

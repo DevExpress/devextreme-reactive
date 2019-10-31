@@ -5,7 +5,7 @@ import {
   DAY_SHORT_MONTH_OPTIONS, SHORT_MONTH_LONG_YEAR_OPTIONS,
   SHORT_MONTH_SHORT_YEAR_OPTIONS, MONTH_YEAR_OPTIONS,
   DAY_LONG_MONTH_LONG_YEAR_OPTIONS, DAY_SHORT_MONTH_SHORT_YEAR_OPTIONS,
-  DAY_SHORT_MONTH_LONG_YEAR_OPTIONS, LONG_WEEK_DAY_OPTIONS, APPOINTMENT_TOOLTIP, EMPTY_OPTIONS,
+  DAY_SHORT_MONTH_LONG_YEAR_OPTIONS, LONG_WEEK_DAY_OPTIONS, EMPTY_OPTIONS, WEEKDAY_INTERVAL,
 } from '../../constants';
 import { ViewBoundTextFn, FormatterFn } from '../../types';
 
@@ -85,7 +85,7 @@ export const viewBoundText: ViewBoundTextFn = (
 ) => (type !== 'month'
   ? calculateTextByDays(
     startViewDate, endViewDate, formatDate,
-    type === APPOINTMENT_TOOLTIP ? LONG_WEEK_DAY_OPTIONS : EMPTY_OPTIONS,
+    type === WEEKDAY_INTERVAL ? LONG_WEEK_DAY_OPTIONS : EMPTY_OPTIONS,
   )
   : calculateTextByMonths(currentDate, intervalCount, formatDate)
 );

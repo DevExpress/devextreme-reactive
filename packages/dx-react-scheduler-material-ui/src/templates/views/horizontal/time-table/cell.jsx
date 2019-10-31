@@ -33,6 +33,8 @@ const styles = theme => ({
   },
   text: {
     padding: '1em',
+    paddingTop: '0.5em',
+    textAlign: 'center',
     '@media (max-width: 500px)': {
       padding: '0.5em',
     },

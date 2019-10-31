@@ -37,3 +37,7 @@ The Grid also supports column virtualization, which is demonstrated in the follo
 If the Grid should have the same size as the container element, set the `VirtualTable` plugin's `height` property to "auto" and the Grid root element's style setting to `height: 100%`.
 
 .embedded-demo({ "path": "grid-virtual-scrolling/stretching-to-parent-element", "showThemeSelector": true })
+
+## Use Virtual Table with Data Formatting and custom components
+
+The virtual table renders only visible rows. Empty space before and after rows is calculated using `estimatedRowHeight` property. Default `estamatedRowHeight` property is equal default row height. If you use `DataTypeProvider` plugin to define custom formatter, you have to be sure that `estimatedRowHeight` property is equal to new row height. The same applies to custom the cell and row components.

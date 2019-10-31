@@ -17,31 +17,36 @@ type Immutable<T> =
   T extends object ? ReadonlyObject<T> :
   Readonly<T>;
 
+  /** @internal */
 export type ReadonlyObject<T> = { readonly [K in keyof T]: Immutable<T[K]>; };
 
 type TupleHead<T> = T extends [infer U, ...any[]] ? U : never;
 
+/** @internal */
 export type PureReducer<TState = any, TPayload = any, TResult = TState> = (
   ...args: ReadonlyTuple<[TState, TPayload]>
 ) => Immutable<TResult>;
 
+/** @internal */
 export type PureComputed<TArgs extends any[], TReturn = TupleHead<TArgs>> =
   (...args: ReadonlyTuple<TArgs>) => Immutable<TReturn>;
 
 /**
  * For compatibility with current definitions
  */
+/** @internal */
 export type CustomFunction<TArgs extends any[], TReturn = TupleHead<TArgs>> =
   (...args: TArgs) => TReturn;
 
+  /** @internal */
 export type MemoizedFunction<TArg extends any[], T extends (...args: any[]) => any> =
   (...args: TArg) => T;
 
+  /** @internal */
 export type MemoizedComputed<TArg, T extends (...args: any[]) => any> =
   (arg: TArg) =>
     (...args: [Getters, Actions]) => ReturnType<T>;
 
-export type Mutable<T> = { -readonly [P in keyof T]: T[P] };
-
 export type GetMessageFn = (messageKey: string, params?: object) => string;
+/** @internal */
 export type GetMessagesFormatterFn = PureComputed<[object], GetMessageFn>;

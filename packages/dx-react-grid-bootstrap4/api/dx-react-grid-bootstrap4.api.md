@@ -439,6 +439,11 @@ export namespace TableGroupRow {
 
 // @public (undocumented)
 export namespace TableGroupRow {
+  export type GroupInlineSummary = TableGroupRow_2.GroupInlineSummary;
+}
+
+// @public (undocumented)
+export namespace TableGroupRow {
   export type CellProps = TableGroupRow_2.CellProps;
 }
 
@@ -462,6 +467,26 @@ export namespace TableGroupRow {
   export type IndentCellProps = TableGroupRow_2.IndentCellProps;
 }
 
+// @public (undocumented)
+export namespace TableGroupRow {
+  export type InlineSummaryProps = TableGroupRow_2.InlineSummaryProps;
+}
+
+// @public (undocumented)
+export namespace TableGroupRow {
+  export type InlineSummaryItemProps = TableGroupRow_2.InlineSummaryItemProps;
+}
+
+// @public (undocumented)
+export namespace TableGroupRow {
+  export type SummaryCellProps = TableGroupRow_2.SummaryCellProps;
+}
+
+// @public (undocumented)
+export namespace TableGroupRow {
+  export type StubCellProps = TableGroupRow_2.StubCellProps;
+}
+
 // @public
 export const TableGroupRow: React.ComponentType<TableGroupRowProps> & {
   COLUMN_TYPE: symbol;
@@ -471,6 +496,10 @@ export const TableGroupRow: React.ComponentType<TableGroupRowProps> & {
   Cell: React.ComponentType<TableGroupRow_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   Content: React.ComponentType<TableGroupRow_2.ContentProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   Icon: React.ComponentType<TableGroupRow_2.IconProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  InlineSummary: React.ComponentType<TableGroupRow_2.InlineSummaryProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  InlineSummaryItem: React.ComponentType<TableGroupRow_2.InlineSummaryItemProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  SummaryCell: React.ComponentType<TableGroupRow_2.SummaryCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  SummaryItem: React.ComponentType<TableSummaryRow_2.ItemProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
 };
 
 // @public (undocumented)
@@ -479,11 +508,18 @@ export interface TableGroupRowProps {
   columnExtensions?: Array<TableGroupRow_2.ColumnExtension>;
   contentCellPadding?: string;
   contentComponent?: React.ComponentType<TableGroupRow_2.ContentProps>;
+  formatlessSummaryTypes?: Array<string>;
   iconComponent?: React.ComponentType<TableGroupRow_2.IconProps>;
   indentCellComponent?: React.ComponentType<TableGroupRow_2.IndentCellProps>;
   indentColumnWidth?: number;
+  inlineSummaryComponent?: React.ComponentType<TableGroupRow_2.InlineSummaryProps>;
+  inlineSummaryItemComponent?: React.ComponentType<TableGroupRow_2.InlineSummaryItemProps>;
+  messages?: TableGroupRow_2.LocalizationMessages;
   rowComponent?: React.ComponentType<TableGroupRow_2.RowProps>;
   showColumnsWhenGrouped?: boolean;
+  stubCellComponent?: React.ComponentType<TableGroupRow_2.StubCellProps>;
+  summaryCellComponent?: React.ComponentType<TableGroupRow_2.SummaryCellProps>;
+  summaryItemComponent?: React.ComponentType<TableSummaryRow_2.ItemProps>;
 }
 
 // @public (undocumented)

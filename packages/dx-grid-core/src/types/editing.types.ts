@@ -1,6 +1,6 @@
 import { Row, RowId } from './grid-core.types';
 import { CustomFunction, PureComputed } from '@devexpress/dx-core';
-import { TableRow } from './table.types';
+import { TableRow, TableColumn } from './table.types';
 
 export interface EditingColumnExtension {
   /** The name of a column to extend. */
@@ -37,3 +37,12 @@ export interface EditingCell {
   rowId: number | string;
   columnName: string;
 }
+
+/** @internal */
+export type TableRowWithEditingCellsFn = PureComputed<
+  [TableRow[], EditingCell[]]
+>;
+/** @internal */
+export type TableColumnsWithEditingCellsFn = PureComputed<
+  [TableColumn[], EditingCell[]]
+>;

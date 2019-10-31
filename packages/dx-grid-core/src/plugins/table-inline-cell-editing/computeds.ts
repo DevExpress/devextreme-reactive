@@ -1,6 +1,6 @@
-import { TableRowWithEditingCellsFn, TableColumnsWithEditingCellsFn } from '../../types';
+import { TableRowsWithEditingCellsFn, TableColumnsWithEditingCellsFn } from '../../types';
 
-export const rowsWithEditingCells: TableRowWithEditingCellsFn = (
+export const rowsWithEditingCells: TableRowsWithEditingCellsFn = (
   tableBodyRows, editingCells,
 ) => tableBodyRows.map((row) => {
   const { rowId } = row;

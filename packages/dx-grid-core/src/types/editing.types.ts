@@ -39,7 +39,7 @@ export interface EditingCell {
 }
 
 /** @internal */
-export type TableRowWithEditingCellsFn = PureComputed<
+export type TableRowsWithEditingCellsFn = PureComputed<
   [TableRow[], EditingCell[]]
 >;
 /** @internal */

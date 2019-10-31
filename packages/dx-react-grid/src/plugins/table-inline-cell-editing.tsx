@@ -49,9 +49,7 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
         {(params: TableCellProps) => (
           <TemplateConnector>
             {({}, { startEditCells }) => {
-              const { tableRow, tableColumn } = params;
-              const { rowId } = tableRow;
-              const { column } = tableColumn;
+              const { tableRow : { rowId }, tableColumn: { column } } = params;
               const { name: columnName } = column!;
 
               if (startEditAction !== 'click' && startEditAction !== 'doubleClick') {
@@ -62,10 +60,8 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
                 startEditCells({
                   editingCells: [{ rowId, columnName }],
                 });
-              const newParams =
-                startEditAction === 'click'
-                  ? { ...params, onClick: startEditCellCallback }
-                  : { ...params, onDoubleClick: startEditCellCallback };
+              const eventName = startEditAction === 'click' ? 'onClick' : 'onDoubleClick';
+              const newParams = { ...params, [eventName]: startEditCellCallback };
 
               return <TemplatePlaceholder params={newParams} />;
             }}
@@ -84,9 +80,7 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
               { getCellValue, createRowChange, rowChanges, isColumnEditingEnabled },
               { changeRow, stopEditCells, commitChangedRows, cancelChangedRows },
             ) => {
-              const { tableRow, tableColumn } = params;
-              const { rowId, row } = tableRow;
-              const { column } = tableColumn;
+              const { tableRow : { rowId, row }, tableColumn: { column } } = params;
               const { name: columnName } = column!;
 
               const changedRow = {

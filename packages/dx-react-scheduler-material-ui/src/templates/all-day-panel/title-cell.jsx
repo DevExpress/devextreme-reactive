@@ -15,7 +15,6 @@ const styles = theme => ({
     position: 'relative',
   },
   content: {
-    borderTop: getBorder(theme),
     borderBottom: getBorder(theme),
     height: theme.spacing(7),
     textAlign: 'right',
@@ -24,8 +23,9 @@ const styles = theme => ({
     justifyContent: 'flex-end',
   },
   title: {
-    padding: theme.spacing(2),
+    paddingRight: theme.spacing(2),
     ...theme.typography.caption,
+    color: theme.palette.text.secondary,
   },
 });
 

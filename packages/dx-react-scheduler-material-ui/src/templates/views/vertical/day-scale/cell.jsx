@@ -10,7 +10,8 @@ const styles = theme => ({
   cell: {
     userSelect: 'none',
     paddingBottom: 0,
-    borderLeft: getBorder(theme),
+    textAlign: 'center',
+    borderBottom: 'none',
     '&:last-child': {
       paddingRight: 0,
     },
@@ -18,16 +19,21 @@ const styles = theme => ({
       padding: theme.spacing(1),
       paddingBottom: 0,
     },
+    'table:last-child &': {
+      borderBottom: getBorder(theme),
+    },
   },
   dayOfWeek: {
     ...theme.typography.caption,
     margin: 0,
+    color: theme.palette.text.secondary,
   },
   dayOfMonth: {
     ...theme.typography.h4,
     '@media (max-width: 700px)': {
       ...theme.typography.h6,
     },
+    color: theme.palette.text.secondary,
   },
   highlightCell: {
     color: theme.palette.primary.main,

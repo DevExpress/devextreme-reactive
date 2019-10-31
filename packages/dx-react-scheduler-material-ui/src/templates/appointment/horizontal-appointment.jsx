@@ -12,6 +12,8 @@ const styles = ({ palette, spacing }) => ({
   content: {
     color: palette.common.white,
     padding: spacing(0.5),
+    paddingTop: spacing(0.125),
+    paddingLeft: spacing(0.75),
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',

@@ -17,11 +17,13 @@ const styles = theme => ({
     '&:last-child': {
       paddingRight: 0,
     },
+    textAlign: 'center',
   },
   dayOfWeek: {
     ...theme.typography.caption,
     margin: 0,
     padding: theme.spacing(1),
+    color: theme.palette.text.secondary,
   },
 });
 

@@ -1,6 +1,11 @@
-import { attachResources } from './computeds';
+import { attachResources, validateResources } from './computeds';
 
 describe('Resources computeds', () => {
+  describe('#validateResources', () => {
+    it('should assign a main flag', () => {
+
+    });
+  });
   describe('#attachResources', () => {
     it('should not provide resources if these are not existed', () => {
       const appointment = {

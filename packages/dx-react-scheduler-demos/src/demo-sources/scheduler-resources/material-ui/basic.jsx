@@ -53,6 +53,7 @@ export default class Demo extends React.PureComponent {
     super(props);
     this.state = {
       data: appointments,
+      mainResourceName: 'owner',
       resources: [
         {
           fieldName: 'location',
@@ -97,6 +98,8 @@ export default class Demo extends React.PureComponent {
     };
 
     this.commitChanges = this.commitChanges.bind(this);
+    this.changeMainResource = this.changeMainResource.bind(this);
+    this.changeMainResource2 = this.changeMainResource2.bind(this);
   }
 
   commitChanges({ added, changed, deleted }) {
@@ -117,11 +120,30 @@ export default class Demo extends React.PureComponent {
     });
   }
 
+  changeMainResource() {
+    this.setState({
+      mainResourceName: 'owner',
+    });
+  }
+
+  changeMainResource2() {
+    this.setState({
+      mainResourceName: 'location',
+    });
+  }
+
   render() {
-    const { data, resources } = this.state;
+    const { data, resources, mainResourceName } = this.state;
 
     return (
       <Paper>
+        <button onClick={this.changeMainResource}>
+          Owner
+        </button>
+        <button onClick={this.changeMainResource2}>
+          Location
+        </button>
+
         <Scheduler
           data={data}
         >
@@ -141,7 +163,7 @@ export default class Demo extends React.PureComponent {
           <AppointmentForm />
           <Resources
             data={resources}
-            mainResourceName="owner"
+            mainResourceName={mainResourceName}
           />
           <DragDropProvider />
         </Scheduler>

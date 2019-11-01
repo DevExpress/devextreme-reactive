@@ -8,7 +8,7 @@ export const convertResourcesToPlain: ConvertResourcesToPlain = (
   let currentPaletteIndex = 0;
   const plainResources = resources.reduce((acc, resource, groupIndex) => {
     const isMain = isMainResourceDefined && mainResourceName === resource.fieldName
-      || groupIndex === 0; // TODO: add test!
+      || groupIndex === 0 && resources.length < 2; // TODO: add test!
     return [
       ...acc,
       ...resource.items.map((item) => {
@@ -36,8 +36,8 @@ export const validateResources = (resources, mainResourceName, palette) => {
   const isMainResourceDefined = !!mainResourceName;
   let currentPaletteIndex = 0;
   return resources.map((resource, groupIndex) => {
-    const isMain = isMainResourceDefined && !(mainResourceName !== resource.fieldName)
-      || groupIndex === 0; // TODO: add test!
+    const isMain = isMainResourceDefined && mainResourceName === resource.fieldName
+      || groupIndex === 0 && resources.length < 2; // TODO: add test!
     return {
       ...resource,
       items: resource.items.map((resourceItem) => {

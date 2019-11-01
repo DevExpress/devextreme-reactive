@@ -25,7 +25,7 @@ const sourceStyles = makeStyles({
   },
 });
 
-export const DraftBase = ({ className, resources, ...restProps }) => {
+export const DraftAppointment = ({ className, resources, ...restProps }) => {
   const classes = draftStyles(resources);
   return (
     <DraftAppointmentBase
@@ -36,7 +36,7 @@ export const DraftBase = ({ className, resources, ...restProps }) => {
   );
 };
 
-export const SourceBase = ({ className, ...restProps }) => {
+export const SourceAppointment = ({ className, ...restProps }) => {
   const classes = sourceStyles();
   return (
     <DraftAppointmentBase

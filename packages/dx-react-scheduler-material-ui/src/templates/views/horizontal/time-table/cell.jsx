@@ -68,7 +68,7 @@ const CellBase = React.memo(({
   ...restProps
 }) => {
   const isFirstMonthDay = startDate.getDate() === 1;
-  const formatOptions = isFirstMonthDay ? DAY_SHORT_MONTH_OPTIONS : DAY_OPTIONS;
+  const formatOptions = isFirstMonthDay && !today ? DAY_SHORT_MONTH_OPTIONS : DAY_OPTIONS;
   return (
     <TableCell
       tabIndex={0}

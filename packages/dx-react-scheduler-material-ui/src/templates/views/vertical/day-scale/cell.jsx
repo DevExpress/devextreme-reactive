@@ -9,7 +9,7 @@ import { getBorder } from '../../../utils';
 const styles = theme => ({
   cell: {
     userSelect: 'none',
-    paddingBottom: theme.spacing(1),
+    paddingBottom: 0,
     textAlign: 'center',
     borderBottom: 'none',
     paddingRight: 0,
@@ -60,7 +60,7 @@ const styles = theme => ({
   highlight: {
     color: theme.palette.primary.main,
   },
-  style: {
+  dayView: {
     'td:only-child &': {
       textAlign: 'center',
       width: 'fit-content',
@@ -81,7 +81,7 @@ const CellBase = React.memo(({
     className={classNames(classes.cell, className)}
     {...restProps}
   >
-    <div className={classes.style}>
+    <div className={classes.dayView}>
       <p
         className={classNames({
           [classes.dayOfWeek]: true,

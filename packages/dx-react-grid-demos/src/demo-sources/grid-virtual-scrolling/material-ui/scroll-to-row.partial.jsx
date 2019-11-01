@@ -71,9 +71,15 @@ const IdScroller = withStyles(styles, { name: 'IdScroller' })(IdScrollerBase);
 const ScrollPanel = props => (
   <Plugin name="EditPropsPanel">
     <Template name="toolbarContent">
-      <IndexScroller {...props} />
+      <GridMUI
+        container
+        direction="row"
+        justify="space-between"
+      >
+        <IndexScroller {...props} />
+        <IdScroller {...props} />
+      </GridMUI>
       <TemplatePlaceholder />
-      <IdScroller {...props} />
     </Template>
   </Plugin>
 );

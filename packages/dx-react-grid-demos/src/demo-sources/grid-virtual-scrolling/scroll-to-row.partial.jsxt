@@ -1,0 +1,73 @@
+import React, { useState, useRef, useCallback } from 'react';<%&additionalImports%>
+<%&imports%>
+import {
+  Grid,
+  VirtualTable,
+  TableHeaderRow,
+  Toolbar,
+} from '@devexpress/dx-react-grid-<%&themeName%>';
+import {
+  Plugin,
+  Template,
+  TemplatePlaceholder,
+} from '@devexpress/dx-react-core';
+
+import {
+  generateRows,
+  defaultColumnValues,
+} from '../../../demo-data/generator';
+
+const getRowId = row => row.id;
+
+<%&body%>
+
+export default () => {
+  const [columns] = useState([
+    { name: 'id', title: 'ID' },
+    { name: 'name', title: 'Name' },
+    { name: 'gender', title: 'Gender' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows] = useState(generateRows({
+    columnValues: { id: ({ index }) => `id_${99999 - index}`, ...defaultColumnValues },
+    length: 100000,
+  }));
+  const [topIndex, setTopIndex] = useState(0);
+  const [topId, setTopId] = useState(0);
+  const vtRef = useRef();
+
+  const goToIndex = useCallback(() => {
+    vtRef.current.scrollToIndex(topIndex);
+  }, [topIndex]);
+
+  const goToId = useCallback(() => {
+    vtRef.current.scrollToId(topId);
+  }, [topId]);
+
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+        getRowId={getRowId}
+      >
+        <VirtualTable
+          ref={vtRef}
+          onRowIndexChange={setTopIndex}
+          onRowIdChange={setTopId}
+        />
+        <TableHeaderRow />
+        <Toolbar />
+        <ScrollPanel
+          topIndex={topIndex}
+          setTopIndex={setTopIndex}
+          goToIndex={goToIndex}
+          topId={topId}
+          setTopId={setTopId}
+          goToId={goToId}
+        />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

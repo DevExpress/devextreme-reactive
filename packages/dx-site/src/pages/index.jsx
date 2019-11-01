@@ -6,6 +6,7 @@ import LandingHeaderAddon from '../components/landing/header-addon';
 import LandingAlternatedBackground from '../components/landing/alternated-background';
 import LandingLayout from '../components/landing/layout';
 import LandingTitle from '../components/landing/title';
+import WhyDevExtremeForReact from '../components/landing/why-devextreme-react';
 import LandingImageFeature from '../components/landing/image-feature';
 import LandingChessBoardLayoutList from '../components/landing/features-list';
 import LandingMaintainence from '../components/landing/maintainence';
@@ -163,16 +164,13 @@ const IndexPage = () => (
           ]}
         />
       </LandingProductLayout>
-    </LandingAlternatedBackground>
-    <LandingAlternatedBackground>
-      <LandingLayout>
-        <LandingTitle
-          text="Why DevExtreme for React?"
-        />
-      </LandingLayout>
-    </LandingAlternatedBackground>
-    <LandingChessBoardLayoutList data={pageData} />
-    <LandingAlternatedBackground>
+
+      <div className="py-4" />
+      <WhyDevExtremeForReact />
+
+      <LandingChessBoardLayoutList data={pageData} />
+
+      <div className="py-3" />
       <LandingLayout>
         <LandingImageFeature
           iconLink={bootstrapLogo}
@@ -186,9 +184,9 @@ const IndexPage = () => (
         />
       </LandingLayout>
     </LandingAlternatedBackground>
-    <div style={{ paddingTop: '10px', paddingBottom: '20px' }}>
+    <LandingLayout>
       <LandingMaintainence />
-    </div>
+    </LandingLayout>
 
     <AlternatedBackground>
       <LandingProductLayout

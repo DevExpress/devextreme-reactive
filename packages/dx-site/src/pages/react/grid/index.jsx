@@ -199,9 +199,12 @@ const IndexPage = () => (
         />
       )}
     />
-    <LandingProductFloatImage imageLink={headerLink} />
-    <div className="row my-3" />
-    <LandingChessBoardLayoutList data={pageData} colSize={6} />
+
+    <AlternatedBackground>
+      <LandingProductFloatImage imageLink={headerLink} />
+      <div className="row my-3" />
+      <LandingChessBoardLayoutList data={pageData} colSize={6} />
+    </AlternatedBackground>
 
     <LandingLayout>
       <LandingTitle text="Native Support for the UI Library of Your Choice" />

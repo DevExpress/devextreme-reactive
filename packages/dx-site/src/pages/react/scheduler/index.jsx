@@ -130,28 +130,31 @@ const IndexPage = () => (
       )}
     />
     <LandingProductFloatImage imageLink={headerImage} />
-    <div className="row my-3" />
-    <LandingChessBoardLayoutList data={pageData} columns={3} />
-    <LandingChessBoardLayoutList data={comingSoonItems} />
 
     <AlternatedBackground>
-      <LandingLayout>
-        <LandingTitle text="Native Support for the UI Library of Your Choice" />
-        <LandingImageFeature
-          imageLink={materialThemeLink}
-          title="Material Design Rendering"
-          description="We ship additional Material-UI packages that allow you to utilize the familiar approaches and appearance."
-        />
-      </LandingLayout>
+      <div className="row my-3" />
+      <LandingChessBoardLayoutList data={pageData} columns={3} />
+      <LandingChessBoardLayoutList data={comingSoonItems} />
     </AlternatedBackground>
 
     <LandingLayout>
-      <LandingThingsThatMatter />
+      <LandingTitle text="Native Support for the UI Library of Your Choice" />
+      <LandingImageFeature
+        imageLink={materialThemeLink}
+        title="Material Design Rendering"
+        description="We ship additional Material-UI packages that allow you to utilize the familiar approaches and appearance."
+      />
     </LandingLayout>
 
-    <AlternatedBackground style={{ paddingTop: '10px', paddingBottom: '10px' }}>
-      <LandingMaintainence />
+    <AlternatedBackground>
+      <LandingLayout>
+        <LandingThingsThatMatter />
+      </LandingLayout>
     </AlternatedBackground>
+
+    <div style={{ paddingTop: '10px', paddingBottom: '10px' }}>
+      <LandingMaintainence />
+    </div>
     <LandingReadyToLearnMore
       links={(
         <React.Fragment>

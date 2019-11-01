@@ -176,11 +176,12 @@ describe('#checkColumnWidths', () => {
 
     it('should work', () => {
       expect(calculateScrollHeight(rowHeight, 10))
-        .toEqual(1000)
+        .toEqual(1000);
     });
-  
+
     it('should return "undefined" if index not defined', () => {
       expect(calculateScrollHeight(rowHeight, undefined))
-        .toEqual(undefined)
+        .toEqual(undefined);
     });
+  });
 });

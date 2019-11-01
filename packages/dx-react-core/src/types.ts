@@ -32,6 +32,7 @@ export type SizerProps = {
   onScroll?: (e) => void;
   containerComponent?: any;
   style?: object;
+  scrollHeight?: number;
 };
 
 export type Getters = { readonly [getterName: string]: any };

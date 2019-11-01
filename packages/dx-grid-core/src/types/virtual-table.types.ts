@@ -159,3 +159,7 @@ export type PageTriggersMetaFn = PureComputed<
 export type CheckTableColumnWidths = PureComputed<
   [TableColumn[]], void
 >;
+/** @internal */
+export type GetScrollHeightByindex = PureComputed<
+  [number, number], number | undefined
+>;

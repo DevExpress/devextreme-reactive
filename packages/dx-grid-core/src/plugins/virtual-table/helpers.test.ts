@@ -1,4 +1,4 @@
-import { getViewport, checkColumnWidths } from './helpers';
+import { getViewport, checkColumnWidths, calculateScrollHeight } from './helpers';
 
 const estimatedRowheight = 40;
 const createItems = length => (
@@ -170,4 +170,17 @@ describe('#checkColumnWidths', () => {
         .toThrow(/columnExtension.*VirtualTable/);
     });
   });
+
+  describe('#calculateScrollHeight', () => {
+    const rowHeight = 100;
+
+    it('should work', () => {
+      expect(calculateScrollHeight(rowHeight, 10))
+        .toEqual(1000)
+    });
+  
+    it('should return "undefined" if index not defined', () => {
+      expect(calculateScrollHeight(rowHeight, undefined))
+        .toEqual(undefined)
+    });
 });

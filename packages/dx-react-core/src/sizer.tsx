@@ -126,11 +126,22 @@ export class Sizer extends React.PureComponent<SizerProps> {
     this.contractTrigger.appendChild(this.contractNotifier);
   }
 
+  componentDidUpdate() {
+    // We can scroll the VirtualTable mannual only by changing
+    // containter's (rootNode) scrollTop property.
+    // Viewport changes own properties automatically.
+    const { scrollHeight } = this.props;
+    if (scrollHeight! > -1) {
+      this.rootNode.scrollTop = scrollHeight!;
+    }
+  }
+
   render() {
     const {
       onSizeChange,
       containerComponent: Container,
       style,
+      scrollHeight,
       ...restProps
     } = this.props;
 

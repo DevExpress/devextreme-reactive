@@ -57,11 +57,19 @@ export interface VirtualTableProps {
   footerTableComponent: React.ComponentType<object>;
   // TODO
   skeletonCellComponent: React.ComponentType<Table.CellProps>;
+  /** Return index of current top row  */
+  onRowIndexChange: (index: number | undefined) => void;
+  /** Return id of current top row */
+  onRowIdChange: (id: number | string | undefined) => void;
 }
 
 /** @internal */
 export type VirtualTablePluginState = {
   viewport: GridViewport;
+  /** Index of row, which be scrolled into view */
+  nextScrollIndex: number | undefined;
+  /** Id of row, which be scrolled into view */
+  nextScrollId: number | string | undefined;
 };
 
 // tslint:disable-next-line:max-line-length

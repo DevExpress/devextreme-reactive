@@ -1,7 +1,7 @@
 import {
   getRowsVisibleBoundary, getColumnBoundaries,
 } from '../../utils/virtual-table';
-import { GetViewportFn, CheckTableColumnWidths, TableColumn } from '../../types';
+import { GetViewportFn, CheckTableColumnWidths, TableColumn, GetScrollHeightByindex } from '../../types';
 import { arraysEqual } from './utils';
 
 const VALID_UNITS = ['px', ''];
@@ -88,3 +88,6 @@ export const checkColumnWidths: CheckTableColumnWidths = (tableColumns) => {
     return acc;
   }, []  as TableColumn[]);
 };
+
+export const calculateScrollHeight: GetScrollHeightByindex = (rowHeight, index) =>
+index >= 0 ? rowHeight * index : undefined;

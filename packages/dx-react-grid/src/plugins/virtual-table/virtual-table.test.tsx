@@ -21,6 +21,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isStubTableCell: jest.fn(),
   checkColumnWidths: jest.fn(),
   checkTableColumnExtensions: jest.fn(),
+  calculateScrollHeight: jest.fn(),
 }));
 
 describe('#makeVirtualTable', () => {

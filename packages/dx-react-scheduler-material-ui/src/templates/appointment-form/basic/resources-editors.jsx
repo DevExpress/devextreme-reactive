@@ -138,3 +138,18 @@ export const ResourcesEditors = React.memo(({
     );
   });
 });
+
+ResourcesEditors.propTypes = {
+  labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  readOnly: PropTypes.bool,
+  appointmentResources: PropTypes.array,
+  onResourceChange: PropTypes.func,
+  resources: PropTypes.array,
+};
+
+ResourcesEditors.defaultProps = {
+  readOnly: false,
+  appointmentResources: [],
+  onResourceChange: () => undefined,
+  resources: [],
+};

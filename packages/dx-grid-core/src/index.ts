@@ -80,7 +80,7 @@ export * from './plugins/table-edit-row/helpers';
 export * from './plugins/table-edit-row/computeds';
 
 /** @internal */
-export * from './plugins/table-inline-cell-editing/helpers';
+export * from './plugins/table-inline-cell-editing/computeds';
 
 /** @internal */
 export * from './plugins/table-filter-row/constants';

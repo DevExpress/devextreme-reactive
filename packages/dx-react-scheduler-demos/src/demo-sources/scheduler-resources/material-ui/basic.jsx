@@ -8,6 +8,7 @@ import {
   Appointments,
   AppointmentTooltip,
   AppointmentForm,
+  DragDropProvider,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 const appointments = [{
@@ -131,10 +132,6 @@ export default class Demo extends React.PureComponent {
             onCommitChanges={this.commitChanges}
           />
           <IntegratedEditing />
-          <Resources
-            data={resources}
-            mainResourceName="owner"
-          />
           <WeekView
             startDayHour={11.5}
             endDayHour={16}
@@ -142,6 +139,11 @@ export default class Demo extends React.PureComponent {
           <Appointments />
           <AppointmentTooltip />
           <AppointmentForm />
+          <Resources
+            data={resources}
+            mainResourceName="owner"
+          />
+          <DragDropProvider />
         </Scheduler>
       </Paper>
     );

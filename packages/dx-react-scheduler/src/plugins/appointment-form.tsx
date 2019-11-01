@@ -16,6 +16,7 @@ import {
   callActionIfExists,
   AppointmentModel,
   TOGGLE_APPOINTMENT_FORM_VISIBILITY,
+  attachResources,
 } from '@devexpress/dx-scheduler-core';
 
 import {
@@ -69,14 +70,21 @@ const pluginDependencies = [
 ];
 
 const prepareChanges = (
-  appointmentData, editingAppointment, addedAppointment, appointmentChanges,
+  appointmentData, editingAppointment,
+  addedAppointment, appointmentChanges,
+  resources, plainResources,
 ) => {
   const isNew = !editingAppointment;
-  const changedAppointment = {
+  // const changedAppointment = {
+  //   ...appointmentData,
+  //   ...appointmentChanges,
+  //   ...isNew && addedAppointment,
+  // };
+  const changedAppointment = attachResources({
     ...appointmentData,
     ...appointmentChanges,
     ...isNew && addedAppointment,
-  };
+  }, resources, plainResources);
   const isFormEdited = isNew || Object.getOwnPropertyNames(appointmentChanges).length !== 0;
   return { changedAppointment, isNew, isFormEdited };
 };
@@ -267,6 +275,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               editingAppointment,
               addedAppointment,
               appointmentChanges,
+
+              resources,
+              plainResources,
             }, {
               openCancelConfirmationDialog,
 
@@ -275,7 +286,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               cancelChangedAppointment,
             }) => {
               const { changedAppointment, isNew } = prepareChanges(
-                appointmentData, editingAppointment, addedAppointment, appointmentChanges,
+                appointmentData, editingAppointment,
+                addedAppointment, appointmentChanges,
+                resources, plainResources,
               );
               const fullSize = isFormFullSize(
                 visible, changedAppointment.rRule, previousAppointment.rRule,
@@ -313,6 +326,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               editingAppointment,
               addedAppointment,
               appointmentChanges,
+
+              resources,
+              plainResources,
             }, {
               commitAddedAppointment,
               finishCommitAppointment,
@@ -325,9 +341,10 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               openCancelConfirmationDialog,
               openDeleteConfirmationDialog,
             }) => {
-
               const { isNew, changedAppointment, isFormEdited } = prepareChanges(
-                appointmentData, editingAppointment, addedAppointment, appointmentChanges,
+                appointmentData, editingAppointment,
+                addedAppointment, appointmentChanges,
+                resources, plainResources,
               );
               const isRecurrence = isFormFullSize(
                 visible, changedAppointment.rRule, previousAppointment.rRule,
@@ -365,13 +382,17 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               addedAppointment,
               appointmentChanges,
               locale,
+
               resources,
+              plainResources,
             }, {
               changeAppointment,
               changeAddedAppointment,
             }) => {
               const { isNew, changedAppointment } = prepareChanges(
-                appointmentData, editingAppointment, addedAppointment, appointmentChanges,
+                appointmentData, editingAppointment,
+                addedAppointment, appointmentChanges,
+                resources, plainResources,
               );
               return (
                 <BasicLayout

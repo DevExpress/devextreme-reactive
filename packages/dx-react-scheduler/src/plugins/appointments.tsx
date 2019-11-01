@@ -67,7 +67,8 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
             data, type, fromPrev, toNext,
             durationType, resources,
             ...restParams
-          }: any) => (
+          }: any) => {
+          return (
             <Appointment
               data={data}
               resources={resources}
@@ -85,7 +86,8 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
               />
               {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
             </Appointment>
-          )}
+          );
+          }}
         </Template>
       </Plugin>
     );

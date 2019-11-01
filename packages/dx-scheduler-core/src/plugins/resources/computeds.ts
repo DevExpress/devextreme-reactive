@@ -72,8 +72,9 @@ export const attachResourcesBase: AttachResourcesComputed = (
 export const attachResources: AttachResources = (
   appointment, resources, plainResources,
 ) => {
+  if (!resources || resources.length === 0) return appointment;
   const appointmentResources = resources.reduce((acc, resource) => {
-    const appointmentResourceId = appointment.dataItem[resource.fieldName];
+    const appointmentResourceId = appointment[resource.fieldName]; // dataItem
     if (appointmentResourceId !== undefined) {
       // Array<number>
       if (resource.allowMultiple && !Array.isArray(appointmentResourceId)

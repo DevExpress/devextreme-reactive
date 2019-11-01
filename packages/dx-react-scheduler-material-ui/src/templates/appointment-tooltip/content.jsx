@@ -88,7 +88,6 @@ export const ContentBase = ({
   const weekDays = viewBoundText(
     appointmentData.startDate, appointmentData.endDate, '', appointmentData.startDate, 1, formatDate,
   );
-  console.log(appointmentData.resources);
   return (
     <div
       className={classNames(classes.content, className)}

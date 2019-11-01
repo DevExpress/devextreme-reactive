@@ -3,48 +3,71 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import Repeat from '@material-ui/icons/Repeat';
 import { POSITION_START, POSITION_END } from '@devexpress/dx-scheduler-core';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { AppointmentContent } from '../appointment/appointment-content';
 import { Appointment } from '../appointment/appointment';
 import { SplitIndicator } from '../appointment/split-indicator';
-import { setColor } from '../utils';
+import { getAppointmentColor, getResourceColor } from '../utils';
 
-const draftStyles = theme => ({
+const draftStyles = makeStyles(theme => ({
   appointment: {
     boxShadow: theme.shadows[3],
     cursor: 'move',
     overflow: 'hidden',
-    backgroundColor: setColor(600, theme.palette.primary),
+    backgroundColor: resources => getAppointmentColor(600, getResourceColor(resources), theme.palette.primary),
     border: 0,
   },
-});
+}));
 
-const sourceStyles = {
+const sourceStyles = makeStyles({
   appointment: {
     opacity: 0.5,
   },
+});
+
+export const DraftBase = ({ className, resources, ...restProps }) => {
+  const classes = draftStyles(resources);
+  return (
+    <DraftAppointmentBase
+      className={classNames(classes.appointment, className)}
+      resources={resources}
+      {...restProps}
+    />
+  );
+};
+
+export const SourceBase = ({ className, ...restProps }) => {
+  const classes = sourceStyles();
+  return (
+    <DraftAppointmentBase
+      className={classNames(classes.appointment, className)}
+      {...restProps}
+    />
+  );
 };
 
 const DraftAppointmentBase = ({
-  classes, className, data, formatDate,
+  className, data, formatDate,
   type, fromPrev, toNext, durationType, ...restProps
-}) => (
-  <Appointment
-    className={classNames(classes.appointment, className)}
-    type={type}
-    {...restProps}
-  >
-    {fromPrev && <SplitIndicator position={POSITION_START} appointmentType={type} />}
-    <AppointmentContent
-      data={data}
+}) => {
+  return (
+    <Appointment
+      className={className}
       type={type}
-      recurringIconComponent={Repeat}
-      formatDate={formatDate}
-      durationType={durationType}
-    />
-    {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
-  </Appointment>
-);
+      {...restProps}
+    >
+      {fromPrev && <SplitIndicator position={POSITION_START} appointmentType={type} />}
+      <AppointmentContent
+        data={data}
+        type={type}
+        recurringIconComponent={Repeat}
+        formatDate={formatDate}
+        durationType={durationType}
+      />
+      {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
+    </Appointment>
+  );
+};
 
 DraftAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -62,6 +85,3 @@ DraftAppointmentBase.defaultProps = {
   className: undefined,
   type: undefined,
 };
-
-export const DraftAppointment = withStyles(draftStyles, { name: 'DraftAppointment' })(DraftAppointmentBase);
-export const SourceAppointment = withStyles(sourceStyles, { name: 'SourceAppointment' })(DraftAppointmentBase);

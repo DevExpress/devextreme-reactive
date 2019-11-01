@@ -32,7 +32,7 @@ export const scrollingStrategy = (scrollablePart, fixedPart) => {
 export const setColor = (level, color) => (color[level] || PRIMARY_COLOR[level]);
 
 export const getResourceColor = (resources) => {
-  if (resources.length) {
+  if (resources && resources.length) {
     return resources.find(resource => resource.isMain).color; // string | { [100], [200], [300], ... }
   }
   return undefined;

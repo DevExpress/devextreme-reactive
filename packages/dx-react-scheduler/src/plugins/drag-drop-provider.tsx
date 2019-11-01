@@ -20,10 +20,11 @@ import {
   RESIZE_BOTTOM,
   POSITION_START,
   POSITION_END,
+  attachResources,
 } from '@devexpress/dx-scheduler-core';
 import { DragDropProviderProps, DragDropProviderState } from '../types';
 
-const renderAppointmentItems = (items, formatDate, data, Wrapper, Appointment) => (
+const renderAppointmentItems = (items, formatDate, data, Wrapper, Appointment, resources, plainResources) => (
   items.length > 0 ? (
     <Wrapper>
       {items.map(({
@@ -32,6 +33,7 @@ const renderAppointmentItems = (items, formatDate, data, Wrapper, Appointment) =
         <Appointment
           key={index.toString()}
           data={data}
+          resources={attachResources(data, resources, plainResources).resources}
           durationType={durationType}
           style={getAppointmentStyle(geometry)}
           type={type}
@@ -266,17 +268,19 @@ class DragDropProviderBase extends React.PureComponent<
           name="appointmentContent"
           predicate={({ data }: any) => allowDrag!(data)}
         >
-          {({ styles, ...params }: any) => (
-            <DragSource
-              payload={{ ...params.data, type: params.type }}
-            >
-              {payload && params.data.id === payload.id ? (
-                <SourceAppointment {...params} />
-              ) : (
-                <TemplatePlaceholder params={{ ...params, draggable: true }} />
-              )}
-            </DragSource>
-          )}
+          {({ styles, ...params }: any) => {
+            return (
+              <DragSource
+                payload={{ ...params.data, type: params.type }}
+              >
+                {payload && params.data.id === payload.id ? (
+                  <SourceAppointment {...params} />
+                ) : (
+                  <TemplatePlaceholder params={{ ...params, draggable: true }} />
+                )}
+              </DragSource>
+            );
+          }}
         </Template>
 
         <Template
@@ -308,8 +312,8 @@ class DragDropProviderBase extends React.PureComponent<
         <Template name="allDayPanel">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ formatDate }) => renderAppointmentItems(
-              this.allDayDraftAppointments, formatDate, draftData, Container, DraftAppointment,
+            {({ formatDate, resources, plainResources }) => renderAppointmentItems(
+              this.allDayDraftAppointments, formatDate, draftData, Container, DraftAppointment, resources, plainResources
             )}
           </TemplateConnector>
         </Template>
@@ -317,8 +321,8 @@ class DragDropProviderBase extends React.PureComponent<
         <Template name="timeTable">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ formatDate }) => renderAppointmentItems(
-              this.timeTableDraftAppointments, formatDate, draftData, Container, DraftAppointment,
+            {({ formatDate, resources, plainResources }) => renderAppointmentItems(
+              this.timeTableDraftAppointments, formatDate, draftData, Container, DraftAppointment, resources, plainResources
             )}
           </TemplateConnector>
         </Template>

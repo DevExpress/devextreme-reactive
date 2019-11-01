@@ -132,6 +132,7 @@ const LayoutBase = ({
   );
   const changeEndDate = React.useCallback(endDate => onFieldChange({ endDate }), [onFieldChange]);
   const changeAllDay = React.useCallback(allDay => onFieldChange({ allDay }), [onFieldChange]);
+  const changeResources = React.useCallback(resource => onFieldChange(resource), [onFieldChange]);
 
   const { rRule, startDate } = appointmentData;
   const changeFrequency = React.useCallback(value => handleChangeFrequency(
@@ -215,9 +216,11 @@ const LayoutBase = ({
         className={classes.notesEditor}
       />
       <ResourcesEditors
+        readOnly={readOnly}
         resources={resources}
-        appointmentData={appointmentData}
+        appointmentResources={appointmentData.resources}
         labelComponent={Label}
+        onResourceChange={changeResources}
       />
 
       {children}

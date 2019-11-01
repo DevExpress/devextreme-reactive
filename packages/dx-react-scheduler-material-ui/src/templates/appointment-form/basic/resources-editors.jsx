@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import MuiSelect from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import classNames from 'clsx';
 import { TITLE } from '@devexpress/dx-scheduler-core';
 import { getAppointmentColor } from '../../utils';
 
@@ -19,6 +18,7 @@ const useStyles = makeStyles(({ spacing }) => ({
     padding: spacing(1),
   },
   selectBox: {
+    minHeight: spacing(6.5),
     width: '100%',
   },
   chips: {
@@ -30,26 +30,53 @@ const useStyles = makeStyles(({ spacing }) => ({
     margin: 2,
   },
   resourceCircle: {
-    height: spacing(1.5),
-    width: spacing(1.5),
+    height: spacing(2),
+    width: spacing(2),
     borderRadius: '50%',
     marginRight: spacing(1),
   },
+  itemContainer: {
+    display: 'flex',
+    padding: spacing(0.75),
+  },
+  circleContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
 }));
 
-export const ResourcesEditors = ({
+export const ResourcesEditors = React.memo(({
+  readOnly,
   resources,
-  appointmentData,
+  appointmentResources,
+  onResourceChange,
   labelComponent: Label,
 }) => {
   const classes = useStyles();
+  const appointmentResourceItems = [...appointmentResources];
 
   return resources.map((resource) => {
-    const values = appointmentData.resources.reduce((acc, resourceItem) => (
+    const values = appointmentResources.reduce((acc, resourceItem) => (
       resourceItem.fieldName === resource.fieldName
         ? [...acc, resourceItem.id]
         : acc),
     []);
+
+    const onChange = (nextValue) => {
+      const nextIds = resource.allowMultiple ? nextValue : [nextValue];
+      const nextApptResources = resources.reduce((acc, groupItems) => {
+        if (groupItems.fieldName === resource.fieldName) {
+          return [...acc, ...resource.items.filter(item => nextIds.includes(item.id))];
+        }
+        return [
+          ...acc,
+          ...groupItems.items.filter(item => appointmentResourceItems.findIndex(apptItems => apptItems.id === item.id) !== -1),
+        ];
+      }, []);
+      onResourceChange({ resources: nextApptResources });
+      onResourceChange({ [resource.fieldName]: nextValue });
+    };
+
     return (
       <React.Fragment key={resource.fieldName}>
         <Label
@@ -57,28 +84,44 @@ export const ResourcesEditors = ({
           type={TITLE}
           className={classes.labelWithMargins}
         />
-        {console.log(resource.items)}
         <MuiSelect
+          readOnly={readOnly}
           variant="outlined"
           value={values}
           multiple={resource.allowMultiple}
-          onValueChange={() => undefined}
+          onChange={(event) => { onChange(event.target.value); }}
           className={classes.selectBox}
           classes={{ select: classes.select }}
           renderValue={selected => (
-            <div className={classes.chips}>
-              {selected.map((value) => {
-                const resourceItem = getResourceItem(resource.items, value);
-                return (
-                  <Chip
-                    key={value}
-                    label={resourceItem.text}
-                    className={classes.chip}
-                    style={{ backgroundColor: getAppointmentColor(300, resourceItem.color) }}
+            resource.allowMultiple ? (
+              <div className={classes.chips}>
+                {selected.map((value) => {
+                  const resourceItem = getResourceItem(resource.items, value);
+                  return (
+                    <Chip
+                      key={value}
+                      label={resourceItem.text}
+                      className={classes.chip}
+                      style={{ backgroundColor: getAppointmentColor(300, resourceItem.color) }}
+                    />
+                  );
+                })}
+              </div>
+            ) : (
+              <div className={classes.itemContainer}>
+                <div className={classes.circleContainer}>
+                  <div
+                    className={classes.resourceCircle}
+                    style={{
+                      backgroundColor: getAppointmentColor(
+                        400, getResourceItem(resource.items, selected[0]).color,
+                      ),
+                    }}
                   />
-                );
-              })}
-            </div>
+                </div>
+                {getResourceItem(resource.items, selected[0]).text}
+              </div>
+            )
           )}
         >
           {resource.items.map(resourceItem => (
@@ -94,4 +137,4 @@ export const ResourcesEditors = ({
       </React.Fragment>
     );
   });
-};
+});

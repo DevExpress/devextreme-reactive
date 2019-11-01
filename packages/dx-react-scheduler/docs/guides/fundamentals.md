@@ -5,7 +5,7 @@ The [DevExtreme React Scheduler](https://devexpress.github.io/devextreme-reactiv
 The Scheduler's UI elements include [date navigator](../reference/date-navigator.md), [view switcher](../reference/view-switcher.md), [all-day panel](../reference/all-day-panel.md), [appointment tooltip](../reference/appointment-tooltip.md), [appointment form](../reference/appointment-form.md), and others. The following image illustrates these elements:
 
 <p align="center">
-  <img class="img-responsive" src="../../img/scheduler-elements.png">
+  <img class="img-responsive" src="../img/scheduler-elements.png">
 </p>
 
 The Scheduler adheres to the plugin-based architecture: every feature is encapsulated in a dedicated plugin (or React component).

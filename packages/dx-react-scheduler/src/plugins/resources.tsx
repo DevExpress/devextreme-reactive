@@ -3,9 +3,9 @@ import { Plugin, Getter, Getters, Template, TemplatePlaceholder, TemplateConnect
 import { attachResourcesBase, convertResourcesToPlain, validateResources, attachResources } from '@devexpress/dx-scheduler-core';
 import { ResourcesProps } from '../types/resources/resources.types';
 
-// const pluginDependencies = [
-//   { name: 'Scheduler' },
-// ];
+const pluginDependencies = [
+  { name: 'Appointments' },
+];
 
 const ResourcesBase: React.SFC<ResourcesProps> = ({
   data,
@@ -19,7 +19,7 @@ const ResourcesBase: React.SFC<ResourcesProps> = ({
   return (
   <Plugin
     name="Resources"
-    // dependencies={pluginDependencies}
+    dependencies={pluginDependencies}
   >
     <Getter name="resources" value={validateResources(data, mainResourceName, palette)} />
     <Getter

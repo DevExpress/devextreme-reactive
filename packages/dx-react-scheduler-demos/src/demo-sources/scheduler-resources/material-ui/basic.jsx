@@ -31,7 +31,7 @@ const appointments = [{
   startDate: new Date(2018, 5, 27, 12, 35),
   endDate: new Date(2018, 5, 27, 15, 0),
   id: 2,
-  members: [5],
+  members: [3],
   location: 'Room 3',
 }, {
   title: 'Approve Personal Computer Upgrade Plan',

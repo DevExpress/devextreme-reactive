@@ -11,7 +11,7 @@ export type PlainResourceItem = {
    * Specifies resource item's color.
    * It is used to indicate appointments related to this resource.
    */
-  color: string;
+  color: string | Color;
   /** Specifies the resource item's text that would be used in UI */
   text: string;
   /** The name of the appointment object field that specifies a resource of this kind. */
@@ -35,9 +35,33 @@ export type ResourceItem = {
    * Specifies resource item's color.
    * It is used to indicate appointments related to this resource.
    */
-  color?: string;
+  color?: string | Color;
   /** Specifies the resource item's text that would be used in UI */
   text?: string;
+};
+
+/** @internal */
+export type ValidResourceItem = {
+  /**
+   * Specifies a resource item's identifier.
+   * This id should be related with scheduler's data `fieldName` id.
+   */
+  id: number | string;
+  /**
+   * Specifies resource item's color.
+   * It is used to indicate appointments related to this resource.
+   */
+  color: string | Color;
+  /** Specifies the resource item's text that would be used in UI */
+  text: string;
+  /** Specifies the resource title. */
+  title: string;
+  /** The name of the appointment object field that specifies a resource of this kind. */
+  fieldName: string;
+  /** Indicates whether or not several resources of this kind can be assigned to an appointment. */
+  allowMultiple?: boolean;
+  /** Specifies the main resource kind */
+  isMain: boolean;
 };
 
 /** Specifies a resource that available in scheduler. */
@@ -50,6 +74,20 @@ export type Resource = {
   allowMultiple?: boolean;
   /** Specifies an array of resource item objects. */
   items: Array<ResourceItem>;
+};
+
+/** @internal */
+export type ValidResource = {
+  /** The name of the appointment object field that specifies a resource of this kind. */
+  fieldName: string;
+  /** Specifies the resource title. */
+  title: string;
+  /** Indicates whether or not several resources of this kind can be assigned to an appointment. */
+  allowMultiple: boolean;
+  /** Specifies an array of resource item objects. */
+  items: Array<ValidResourceItem>;
+  /** Specifies the main resource kind */
+  isMain: boolean;
 };
 
 export interface Color {
@@ -88,5 +126,10 @@ export type AttachResources = PureComputed<
 
 /** @internal */
 export type ConvertResourcesToPlain = PureComputed<
-  [Array<Resource>, string | undefined, Palette], Array<PlainResourceItem>
+  [Array<ValidResource>], Array<ValidResourceItem>
+>;
+
+/** @internal */
+export type ValidateResources = PureComputed<
+  [Array<Resource>, string | undefined, Palette], Array<ValidResource>
 >;

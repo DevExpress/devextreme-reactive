@@ -1,251 +1,209 @@
-import { attachResources, validateResources } from './computeds';
+import { attachResources, validateResources, convertResourcesToPlain } from './computeds';
 
 describe('Resources computeds', () => {
   describe('#validateResources', () => {
-    it('should assign a main flag', () => {
+    const baseResources = [
+      { fieldName: 'ownerId', items: [{ id: 0 }] },
+    ];
+    const palette = ['red', 'brown', 'green', 'pink'];
 
+    it('should assign properties according to resource title', () => {
+      const resources = [
+        { fieldName: 'ownerId', title: 'Owner', items: [{ id: 0 }] },
+      ];
+      expect(validateResources(resources, undefined, palette))
+        .toEqual([
+          {
+            fieldName: 'ownerId',
+            allowMultiple: false,
+            isMain: true,
+            title: 'Owner',
+            items: [{
+              id: 0,
+              color: 'red',
+              allowMultiple: false,
+              isMain: true,
+              text: 'Owner',
+              title: 'Owner',
+              fieldName: 'ownerId',
+            }],
+          },
+        ]);
+    });
+    it('should assign properties according to resource text', () => {
+      const resources = [
+        { fieldName: 'ownerId', title: 'Owner', items: [{ id: 0, text: 'Maxim' }] },
+      ];
+      expect(validateResources(resources, undefined, palette))
+        .toEqual([
+          {
+            fieldName: 'ownerId',
+            allowMultiple: false,
+            isMain: true,
+            title: 'Owner',
+            items: [{
+              id: 0,
+              color: 'red',
+              allowMultiple: false,
+              isMain: true,
+              text: 'Maxim',
+              title: 'Owner',
+              fieldName: 'ownerId',
+            }],
+          },
+        ]);
+    });
+    it('should assign the Main flag to single resource', () => {
+      expect(validateResources(baseResources, undefined, palette))
+        .toEqual([
+          {
+            fieldName: 'ownerId',
+            allowMultiple: false,
+            isMain: true,
+            title: 'ownerId',
+            items: [{
+              id: 0,
+              color: 'red',
+              allowMultiple: false,
+              isMain: true,
+              text: 'ownerId',
+              title: 'ownerId',
+              fieldName: 'ownerId',
+            }],
+          },
+        ]);
+    });
+    it('should assign the Main flag to two resource', () => {
+      const resources = [
+        { fieldName: 'ownerId', items: [{ id: 0 }] },
+        { fieldName: 'roomId', items: [{ id: 0 }] },
+      ];
+      expect(validateResources(resources, undefined, palette))
+        .toEqual([
+          {
+            fieldName: 'ownerId',
+            allowMultiple: false,
+            isMain: true,
+            title: 'ownerId',
+            items: [{
+              id: 0,
+              color: 'red',
+              allowMultiple: false,
+              isMain: true,
+              text: 'ownerId',
+              title: 'ownerId',
+              fieldName: 'ownerId',
+            }],
+          },
+          {
+            fieldName: 'roomId',
+            allowMultiple: false,
+            isMain: false,
+            title: 'roomId',
+            items: [{
+              id: 0,
+              color: 'brown',
+              allowMultiple: false,
+              isMain: false,
+              text: 'roomId',
+              title: 'roomId',
+              fieldName: 'roomId',
+            }],
+          },
+        ]);
+    });
+    it('should assign the Main flag according to MainResourceName', () => {
+      const resources = [
+        { fieldName: 'ownerId', items: [{ id: 0 }] },
+        { fieldName: 'roomId', items: [{ id: 0 }] },
+      ];
+      expect(validateResources(resources, 'roomId', palette))
+        .toEqual([
+          {
+            fieldName: 'ownerId',
+            allowMultiple: false,
+            isMain: false,
+            title: 'ownerId',
+            items: [{
+              id: 0,
+              color: 'red',
+              allowMultiple: false,
+              isMain: false,
+              text: 'ownerId',
+              title: 'ownerId',
+              fieldName: 'ownerId',
+            }],
+          },
+          {
+            fieldName: 'roomId',
+            allowMultiple: false,
+            isMain: true,
+            title: 'roomId',
+            items: [{
+              id: 0,
+              color: 'brown',
+              allowMultiple: false,
+              isMain: true,
+              text: 'roomId',
+              title: 'roomId',
+              fieldName: 'roomId',
+            }],
+          },
+        ]);
     });
   });
-  describe('#attachResources', () => {
-    it('should not provide resources if these are not existed', () => {
-      const appointment = {
-        start: new Date('2019-10-23T12:00'),
-        end: new Date('2019-10-23T12:00'),
-        dataItem: { data: 1 },
-      };
-      const resources = [{
+  describe('#convertResourcesToPlain', () => {
+    const validResources = [
+      {
         fieldName: 'ownerId',
+        allowMultiple: false,
+        isMain: false,
+        title: 'ownerId',
         items: [{
-          id: 0, color: 'red', text: 'owner 0',
+          id: 0,
+          color: 'red',
+          allowMultiple: false,
+          isMain: false,
+          text: 'ownerId',
+          title: 'ownerId',
+          fieldName: 'ownerId',
         }],
-      }];
-
-      expect(attachResources(appointment, resources, undefined))
-        .toEqual(appointment);
-    });
-    it('should provide resources if these are existed', () => {
-      const appointment = {
-        start: new Date('2019-10-23T12:00'),
-        end: new Date('2019-10-23T12:00'),
-        dataItem: { data: 1, ownerId: 0 },
-      };
-      const resources = [{
-        fieldName: 'ownerId',
+      },
+      {
+        fieldName: 'roomId',
+        allowMultiple: false,
+        isMain: true,
+        title: 'roomId',
         items: [{
-          id: 0, color: 'red', text: 'owner 0',
+          id: 0,
+          color: 'brown',
+          allowMultiple: false,
+          isMain: true,
+          text: 'roomId',
+          title: 'roomId',
+          fieldName: 'roomId',
         }],
-      }];
-
-      expect(attachResources(appointment, resources, undefined))
-        .toEqual({
-          ...appointment,
-          resources: [
-            {
-              id: 0,
-              fieldName: 'ownerId',
-              color: 'red',
-              text: 'owner 0',
-              title: 'ownerId',
-              isMain: true,
-              allowMultiple: false,
-            },
-          ],
-        });
-    });
-    it('should provide multiple resources', () => {
-      const appointment = {
-        start: new Date('2019-10-23T12:00'),
-        end: new Date('2019-10-23T12:00'),
-        dataItem: { data: 1, ownerId: [0, 1] },
-      };
-      const resources = [{
-        fieldName: 'ownerId',
-        allowMultiple: true,
-        items: [
-          { id: 0, color: 'red', text: 'owner 0' },
-          { id: 1, color: 'blue', text: 'owner 1' },
-        ],
-      }];
-
-      expect(attachResources(appointment, resources, undefined))
-        .toEqual({
-          ...appointment,
-          resources: [
-            {
-              id: 0,
-              fieldName: 'ownerId',
-              color: 'red',
-              text: 'owner 0',
-              title: 'ownerId',
-              isMain: true,
-              allowMultiple: true,
-            },
-            {
-              id: 1,
-              fieldName: 'ownerId',
-              color: 'blue',
-              text: 'owner 1',
-              title: 'ownerId',
-              isMain: false,
-              allowMultiple: true,
-            },
-          ],
-        });
-    });
-    it('should not provide multiple resources without allowMultiple flag', () => {
-      // maybe throw error?
-      const appointment = {
-        start: new Date('2019-10-23T12:00'),
-        end: new Date('2019-10-23T12:00'),
-        dataItem: { data: 1, ownerId: [1, 0] },
-      };
-      const resources = [{
-        fieldName: 'ownerId',
-        items: [
-          { id: 0, color: 'red', text: 'owner 0' },
-          { id: 1, color: 'blue', text: 'owner 1' },
-        ],
-      }];
-
-      expect(attachResources(appointment, resources, undefined))
-        .toEqual(appointment);
-    });
-    it('should not provide multiple resources groups', () => {
-      const appointment = {
-        start: new Date('2019-10-23T12:00'),
-        end: new Date('2019-10-23T12:00'),
-        dataItem: { data: 1, ownerId: 0, locationId: 1 },
-      };
-      const resources = [{
-        fieldName: 'ownerId',
-        items: [
-          { id: 0, color: 'red', text: 'owner 0' },
-          { id: 1, color: 'blue', text: 'owner 1' },
-        ],
-      }, {
-        fieldName: 'locationId',
-        items: [
-          { id: 0, color: 'green', text: 'location 0' },
-          { id: 1, color: 'brown', text: 'location 1' },
-        ],
-      }];
-
-      expect(attachResources(appointment, resources, undefined))
-        .toEqual({
-          ...appointment,
-          resources: [
-            {
-              id: 0,
-              fieldName: 'ownerId',
-              color: 'red',
-              text: 'owner 0',
-              title: 'ownerId',
-              isMain: true,
-              allowMultiple: false,
-            },
-            {
-              id: 1,
-              fieldName: 'locationId',
-              color: 'brown',
-              text: 'location 1',
-              title: 'locationId',
-              isMain: false,
-              allowMultiple: false,
-            },
-          ],
-        });
-    });
-    // TODO: maybe remove this test because it is excess?
-    it('should not provide main resource group to first appointment resource item', () => {
-      const appointment = {
-        start: new Date('2019-10-23T12:00'),
-        end: new Date('2019-10-23T12:00'),
-        dataItem: { data: 1, ownerId: 0, locationId: 1 },
-      };
-      const resources = [{
-        fieldName: 'ownerId',
-        items: [
-          { id: 0, color: 'red', text: 'owner 0' },
-          { id: 1, color: 'blue', text: 'owner 1' },
-        ],
-      }, {
-        fieldName: 'locationId',
-        items: [
-          { id: 0, color: 'green', text: 'location 0' },
-          { id: 1, color: 'brown', text: 'location 1' },
-        ],
-      }];
-
-      expect(attachResources(appointment, resources, undefined))
-        .toEqual({
-          ...appointment,
-          resources: [
-            {
-              id: 0,
-              fieldName: 'ownerId',
-              color: 'red',
-              text: 'owner 0',
-              title: 'ownerId',
-              isMain: true,
-              allowMultiple: false,
-            },
-            {
-              id: 1,
-              fieldName: 'locationId',
-              color: 'brown',
-              text: 'location 1',
-              title: 'locationId',
-              isMain: false,
-              allowMultiple: false,
-            },
-          ],
-        });
-    });
-    it('should provide main resources groups', () => {
-      const mainResourceName = 'locationId';
-      const appointment = {
-        start: new Date('2019-10-23T12:00'),
-        end: new Date('2019-10-23T12:00'),
-        dataItem: { data: 1, ownerId: 0, locationId: 1 },
-      };
-      const resources = [{
-        fieldName: 'ownerId',
-        items: [
-          { id: 0, color: 'red', text: 'owner 0' },
-          { id: 1, color: 'blue', text: 'owner 1' },
-        ],
-      }, {
-        fieldName: 'locationId',
-        items: [
-          { id: 0, color: 'green', text: 'location 0' },
-          { id: 1, color: 'brown', text: 'location 1' },
-        ],
-      }];
-
-      expect(attachResources(appointment, resources, mainResourceName))
-        .toEqual({
-          ...appointment,
-          resources: [
-            {
-              id: 0,
-              fieldName: 'ownerId',
-              color: 'red',
-              text: 'owner 0',
-              title: 'ownerId',
-              isMain: false,
-              allowMultiple: false,
-            },
-            {
-              id: 1,
-              fieldName: 'locationId',
-              color: 'brown',
-              text: 'location 1',
-              title: 'locationId',
-              isMain: true,
-              allowMultiple: false,
-            },
-          ],
-        });
+      },
+    ];
+    it('should convert resource', () => {
+      expect(convertResourcesToPlain(validResources))
+        .toEqual([{
+          id: 0,
+          color: 'red',
+          allowMultiple: false,
+          isMain: false,
+          text: 'ownerId',
+          title: 'ownerId',
+          fieldName: 'ownerId',
+        }, {
+          id: 0,
+          color: 'brown',
+          allowMultiple: false,
+          isMain: true,
+          text: 'roomId',
+          title: 'roomId',
+          fieldName: 'roomId',
+        }]);
     });
   });
 });

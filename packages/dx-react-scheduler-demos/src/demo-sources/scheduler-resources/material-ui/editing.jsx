@@ -9,6 +9,7 @@ import {
   AppointmentTooltip,
   AppointmentForm,
   EditRecurrenceMenu,
+  DragDropProvider,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { owners } from '../../../demo-data/tasks';
 import { appointments, resourcesData } from '../../../demo-data/resources';
@@ -79,6 +80,7 @@ export default class Demo extends React.PureComponent {
             data={resources}
             mainResourceName="roomId"
           />
+          <DragDropProvider />
         </Scheduler>
       </Paper>
     );

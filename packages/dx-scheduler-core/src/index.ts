@@ -49,6 +49,8 @@ export * from './plugins/drag-drop-provider/helpers';
 /** @internal */
 export * from './plugins/resources/computeds';
 /** @internal */
+export * from './plugins/resources/helpers';
+/** @internal */
 export * from './constants';
 /** @internal */
 export * from './utils';

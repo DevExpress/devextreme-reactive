@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Plugin, Getter, Getters, Template, TemplatePlaceholder, TemplateConnector } from '@devexpress/dx-react-core';
-import { attachResourcesBase, convertResourcesToPlain, validateResources, attachResources } from '@devexpress/dx-scheduler-core';
+import { Plugin, Getter, Template, TemplatePlaceholder, TemplateConnector, Getters } from '@devexpress/dx-react-core';
+import { convertResourcesToPlain, validateResources, attachResources } from '@devexpress/dx-scheduler-core';
 import { ResourcesProps } from '../types/resources/resources.types';
 
 const pluginDependencies = [
@@ -8,13 +8,11 @@ const pluginDependencies = [
 ];
 
 const ResourcesBase: React.SFC<ResourcesProps> = ({
-  data,
-  mainResourceName,
-  palette,
+  data, mainResourceName, palette,
 }) => {
-  const attachResources2 = ({ appointments, resources }: Getters) => {
-    return attachResourcesBase(appointments, resources, mainResourceName, palette);
-  };
+  // const resourcesData = validateResources(data, mainResourceName, palette);
+  const convertResources = ({ resources }: Getters) =>
+    convertResourcesToPlain(resources);
 
   return (
   <Plugin
@@ -22,31 +20,9 @@ const ResourcesBase: React.SFC<ResourcesProps> = ({
     dependencies={pluginDependencies}
   >
     <Getter name="resources" value={validateResources(data, mainResourceName, palette)} />
-    <Getter
-      name="plainResources"
-      value={convertResourcesToPlain(data, mainResourceName, palette)}
-    />
-    {/* <Getter name="appointments" computed={attachResources2} /> */}
+    <Getter name="plainResources" computed={convertResources} />
 
     <Template name="appointment">
-      {params => (
-        <TemplateConnector>
-          {({ resources, plainResources }) => {
-            return (
-              <TemplatePlaceholder
-                params={{
-                  ...params,
-                  resources: attachResources(params.data, resources, plainResources).resources,
-                }}
-              />
-            );
-          }}
-        </TemplateConnector>
-      )}
-    </Template>
-
-{/* // ??? */}
-    <Template name="appointmentContent">
       {params => (
         <TemplateConnector>
           {({ resources, plainResources }) => {

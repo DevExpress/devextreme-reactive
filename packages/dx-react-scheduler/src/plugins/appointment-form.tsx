@@ -75,11 +75,6 @@ const prepareChanges = (
   resources, plainResources,
 ) => {
   const isNew = !editingAppointment;
-  // const changedAppointment = {
-  //   ...appointmentData,
-  //   ...appointmentChanges,
-  //   ...isNew && addedAppointment,
-  // };
   const changedAppointment = attachResources({
     ...appointmentData,
     ...appointmentChanges,

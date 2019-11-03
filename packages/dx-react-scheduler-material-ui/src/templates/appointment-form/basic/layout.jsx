@@ -118,6 +118,7 @@ const LayoutBase = ({
   appointmentData,
   fullSize,
   resources,
+  appointmentResources,
   textEditorComponent: TextEditor,
   dateEditorComponent: DateEditor,
   selectComponent: Select,
@@ -218,7 +219,7 @@ const LayoutBase = ({
       <ResourcesEditors
         readOnly={readOnly}
         resources={resources}
-        appointmentResources={appointmentData.resources}
+        appointmentResources={appointmentResources}
         labelComponent={Label}
         onResourceChange={changeResources}
       />

@@ -120,8 +120,8 @@ export type AttachResourcesComputed = PureComputed<
 >;
 
 /** @internal */
-export type AttachResources = PureComputed<
-  [Appointment, Array<Resource>, Array<PlainResourceItem>], AppointmentWithResources
+export type GetAppointmentResources = PureComputed<
+  [Appointment, Array<ValidResource>, Array<ValidResourceItem>], Array<ValidResourceItem>
 >;
 
 /** @internal */

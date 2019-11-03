@@ -20,7 +20,7 @@ import {
   RESIZE_BOTTOM,
   POSITION_START,
   POSITION_END,
-  attachResources,
+  getAppointmentResources,
 } from '@devexpress/dx-scheduler-core';
 import { DragDropProviderProps, DragDropProviderState } from '../types';
 
@@ -33,7 +33,7 @@ const renderAppointmentItems = (items, formatDate, data, Wrapper, Appointment, r
         <Appointment
           key={index.toString()}
           data={data}
-          resources={attachResources(data, resources, plainResources).resources}
+          resources={getAppointmentResources(data, resources, plainResources)}
           durationType={durationType}
           style={getAppointmentStyle(geometry)}
           type={type}

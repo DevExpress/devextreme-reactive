@@ -1,7 +1,18 @@
-import { attachResources } from './helpers';
+import { getAppointmentResources } from './helpers';
 
 describe('Resources helpers', () => {
-  describe('#attachResources', () => {
+  describe('#getAppointmentResources', () => {
+    it('should not provide resources if these are zero array', () => {
+      const appointment = {
+        start: new Date('2019-10-23T12:00'),
+        end: new Date('2019-10-23T12:00'),
+        dataItem: { data: 1 },
+      };
+      const resources = [];
+
+      expect(getAppointmentResources(appointment, resources, undefined))
+        .toEqual([]);
+    });
     it('should not provide resources if these are not existed', () => {
       const appointment = {
         start: new Date('2019-10-23T12:00'),
@@ -15,8 +26,8 @@ describe('Resources helpers', () => {
         }],
       }];
 
-      expect(attachResources(appointment, resources, undefined))
-        .toEqual(appointment);
+      expect(getAppointmentResources(appointment, resources, undefined))
+        .toEqual([]);
     });
     it('should provide resources if these are existed', () => {
       const appointment = {
@@ -35,21 +46,18 @@ describe('Resources helpers', () => {
         id: 0, color: 'red', text: 'owner 0', fieldName: 'ownerId', allowMultiple: false, title: 'owner 0', isMain: true,
       }];
 
-      expect(attachResources(appointment, resources, plainResources))
-        .toEqual({
-          ...appointment,
-          resources: [
-            {
-              id: 0,
-              fieldName: 'ownerId',
-              color: 'red',
-              text: 'owner 0',
-              title: 'owner 0',
-              isMain: true,
-              allowMultiple: false,
-            },
-          ],
-        });
+      expect(getAppointmentResources(appointment, resources, plainResources))
+        .toEqual([
+          {
+            id: 0,
+            fieldName: 'ownerId',
+            color: 'red',
+            text: 'owner 0',
+            title: 'owner 0',
+            isMain: true,
+            allowMultiple: false,
+          },
+        ]);
     });
     it('should provide multiple resources', () => {
       const appointment = {
@@ -71,30 +79,27 @@ describe('Resources helpers', () => {
         { id: 1, color: 'blue', text: 'owner 1', fieldName: 'ownerId', allowMultiple: true, title: 'owner 1', isMain: true },
       ];
 
-      expect(attachResources(appointment, resources, plainResources))
-        .toEqual({
-          ...appointment,
-          resources: [
-            {
-              id: 0,
-              fieldName: 'ownerId',
-              color: 'red',
-              text: 'owner 0',
-              title: 'owner 0',
-              isMain: true,
-              allowMultiple: true,
-            },
-            {
-              id: 1,
-              fieldName: 'ownerId',
-              color: 'blue',
-              text: 'owner 1',
-              title: 'owner 1',
-              isMain: true,
-              allowMultiple: true,
-            },
-          ],
-        });
+      expect(getAppointmentResources(appointment, resources, plainResources))
+        .toEqual([
+          {
+            id: 0,
+            fieldName: 'ownerId',
+            color: 'red',
+            text: 'owner 0',
+            title: 'owner 0',
+            isMain: true,
+            allowMultiple: true,
+          },
+          {
+            id: 1,
+            fieldName: 'ownerId',
+            color: 'blue',
+            text: 'owner 1',
+            title: 'owner 1',
+            isMain: true,
+            allowMultiple: true,
+          },
+        ]);
     });
     it('should not provide multiple resources without allowMultiple flag', () => {
       // maybe throw error?
@@ -116,8 +121,8 @@ describe('Resources helpers', () => {
         { id: 1, color: 'blue', text: 'owner 1' },
       ];
 
-      expect(attachResources(appointment, resources, plainResources))
-        .toEqual(appointment);
+      expect(getAppointmentResources(appointment, resources, plainResources))
+        .toEqual([]);
     });
     it('should not provide multiple resources groups', () => {
       const appointment = {
@@ -147,28 +152,25 @@ describe('Resources helpers', () => {
         { id: 1, color: 'brown', text: 'location 1', fieldName: 'locationId', isMain: false, allowMultiple: false },
       ];
 
-      expect(attachResources(appointment, resources, plainResources))
-        .toEqual({
-          ...appointment,
-          resources: [
-            {
-              id: 0,
-              fieldName: 'ownerId',
-              color: 'red',
-              text: 'owner 0',
-              isMain: true,
-              allowMultiple: false,
-            },
-            {
-              id: 1,
-              fieldName: 'locationId',
-              color: 'brown',
-              text: 'location 1',
-              isMain: false,
-              allowMultiple: false,
-            },
-          ],
-        });
+      expect(getAppointmentResources(appointment, resources, plainResources))
+        .toEqual([
+          {
+            id: 0,
+            fieldName: 'ownerId',
+            color: 'red',
+            text: 'owner 0',
+            isMain: true,
+            allowMultiple: false,
+          },
+          {
+            id: 1,
+            fieldName: 'locationId',
+            color: 'brown',
+            text: 'location 1',
+            isMain: false,
+            allowMultiple: false,
+          },
+        ]);
     });
     it('should provide main resources groups', () => {
       const mainResourceName = 'locationId';
@@ -199,28 +201,25 @@ describe('Resources helpers', () => {
         { id: 1, color: 'brown', text: 'location 1', fieldName: 'locationId', isMain: true, allowMultiple: false },
       ];
 
-      expect(attachResources(appointment, resources, plainResources))
-        .toEqual({
-          ...appointment,
-          resources: [
-            {
-              id: 0,
-              fieldName: 'ownerId',
-              color: 'red',
-              text: 'owner 0',
-              isMain: false,
-              allowMultiple: false,
-            },
-            {
-              id: 1,
-              fieldName: 'locationId',
-              color: 'brown',
-              text: 'location 1',
-              isMain: true,
-              allowMultiple: false,
-            },
-          ],
-        });
+      expect(getAppointmentResources(appointment, resources, plainResources))
+        .toEqual([
+          {
+            id: 0,
+            fieldName: 'ownerId',
+            color: 'red',
+            text: 'owner 0',
+            isMain: false,
+            allowMultiple: false,
+          },
+          {
+            id: 1,
+            fieldName: 'locationId',
+            color: 'brown',
+            text: 'location 1',
+            isMain: true,
+            allowMultiple: false,
+          },
+        ]);
     });
   });
 });

@@ -16,7 +16,7 @@ import {
   callActionIfExists,
   AppointmentModel,
   TOGGLE_APPOINTMENT_FORM_VISIBILITY,
-  attachResources,
+  getAppointmentResources,
 } from '@devexpress/dx-scheduler-core';
 
 import {
@@ -75,13 +75,16 @@ const prepareChanges = (
   resources, plainResources,
 ) => {
   const isNew = !editingAppointment;
-  const changedAppointment = attachResources({
+  const changedAppointment = {
     ...appointmentData,
     ...appointmentChanges,
     ...isNew && addedAppointment,
-  }, resources, plainResources);
+  };
+  const appointmentResources = getAppointmentResources(
+    changedAppointment, resources, plainResources,
+  );
   const isFormEdited = isNew || Object.getOwnPropertyNames(appointmentChanges).length !== 0;
-  return { changedAppointment, isNew, isFormEdited };
+  return { changedAppointment, appointmentResources, isNew, isFormEdited };
 };
 
 const isFormFullSize = (
@@ -384,7 +387,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               changeAppointment,
               changeAddedAppointment,
             }) => {
-              const { isNew, changedAppointment } = prepareChanges(
+              const { isNew, changedAppointment, appointmentResources } = prepareChanges(
                 appointmentData, editingAppointment,
                 addedAppointment, appointmentChanges,
                 resources, plainResources,
@@ -405,6 +408,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   labelComponent={labelComponent}
                   fullSize={!changedAppointment.rRule}
                   resources={resources}
+                  appointmentResources={appointmentResources}
                 />
               );
             }}

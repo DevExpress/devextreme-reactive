@@ -1,4 +1,4 @@
-import { attachResources, validateResources, convertResourcesToPlain } from './computeds';
+import { getAppointmentResources, validateResources, convertResourcesToPlain } from './computeds';
 
 describe('Resources computeds', () => {
   describe('#validateResources', () => {

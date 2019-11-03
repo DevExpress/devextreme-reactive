@@ -88,7 +88,7 @@ export default class Demo extends React.PureComponent {
     super(props);
     this.state = {
       data: appointments,
-      mainResourceName: 'location',
+      mainResourceName: 'members',
       resources: [
         {
           fieldName: 'location',

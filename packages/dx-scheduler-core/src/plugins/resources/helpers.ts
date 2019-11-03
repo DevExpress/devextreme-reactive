@@ -1,40 +1,39 @@
-import { AttachResources } from '../../types';
+import { GetAppointmentResources, ValidResourceItem } from '../../types';
 
-export const attachResources: AttachResources = (
+export const getAppointmentResources: GetAppointmentResources = (
   appointment, resources, plainResources,
 ) => {
-  if (!resources || resources.length === 0) return appointment;
+  if (
+    !resources || resources.length === 0
+    || !plainResources || plainResources.length === 0
+  ) return [];
 
   const appointmentResources = resources.reduce((acc, resource) => {
-    const appointmentResourceId = appointment[resource.fieldName]; // dataItem
+    const appointmentResourceId = appointment[resource.fieldName];
     if (appointmentResourceId === undefined) return acc;
 
-    // Array<number>
     if (resource.allowMultiple && !Array.isArray(appointmentResourceId)
     || !resource.allowMultiple && Array.isArray(appointmentResourceId)) {
-      // error
+      // throw error
       return acc;
     }
 
     if (resource.allowMultiple) {
       return [
         ...acc,
-        ...appointmentResourceId.map(itemId => plainResources.find(
+        ...(appointmentResourceId as Array<number | string>).map(itemId => plainResources.find(
           plainItem => resource.fieldName === plainItem.fieldName && plainItem.id === itemId),
         ),
       ];
     }
-    // number
+
     return [
       ...acc,
-      ...plainResources.find(plainItem => resource.fieldName === plainItem.fieldName && plainItem.id === appointmentResourceId),
+      ...(plainResources as Array<ValidResourceItem>).find(plainItem =>
+        resource.fieldName === plainItem.fieldName && plainItem.id === appointmentResourceId,
+      ),
     ];
-  }, []);
+  }, [] as Array<ValidResourceItem>);
 
-  return {
-    ...appointment,
-    ...appointmentResources.length > 0 && {
-      resources: appointmentResources,
-    },
-  };
+  return appointmentResources;
 };

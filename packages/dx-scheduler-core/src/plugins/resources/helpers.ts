@@ -29,7 +29,7 @@ export const getAppointmentResources: GetAppointmentResources = (
 
     return [
       ...acc,
-      ...(plainResources as Array<ValidResourceItem>).find(plainItem =>
+      ...(plainResources as Array<any>).find(plainItem =>
         resource.fieldName === plainItem.fieldName && plainItem.id === appointmentResourceId,
       ),
     ];

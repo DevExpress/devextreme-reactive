@@ -17,6 +17,7 @@ const LayoutBase = ({
   commandButtonComponent,
   recurringIconComponent,
   appointmentMeta,
+  appointmentResources,
   showOpenButton,
   showCloseButton,
   showDeleteButton,
@@ -55,6 +56,7 @@ const LayoutBase = ({
       />
       <Content
         appointmentData={data}
+        appointmentResources={appointmentResources}
         formatDate={formatDate}
         recurringIconComponent={recurringIconComponent}
       />
@@ -83,6 +85,7 @@ LayoutBase.propTypes = {
     ]),
     data: PropTypes.object,
   }),
+  appointmentResources: PropTypes.array,
   visible: PropTypes.bool,
   onHide: PropTypes.func,
 };
@@ -91,6 +94,7 @@ LayoutBase.defaultProps = {
   onDeleteButtonClick: () => undefined,
   onHide: () => undefined,
   appointmentMeta: {},
+  appointmentResources: [],
   visible: false,
 };
 

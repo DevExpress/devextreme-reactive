@@ -44,7 +44,7 @@ const AppointmentBase = ({
   const onClick = handleClick
     ? {
       onClick: ({ target }) => {
-        handleClick({ target });
+        handleClick({ target, data });
       },
     }
     : null;

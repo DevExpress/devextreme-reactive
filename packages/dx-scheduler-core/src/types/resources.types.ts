@@ -49,7 +49,7 @@ export interface Color {
   A700: string;
 }
 
-/** @internal */
+/** The resource item with all properties. */
 export type ValidResourceItem = {
   /**
    * Specifies a resource item's identifier.
@@ -73,7 +73,7 @@ export type ValidResourceItem = {
   isMain: boolean;
 };
 
-/** @internal */
+/** The resource with all properties. */
 export type ValidResource = {
   /** The name of the appointment object field that specifies a resource of this kind. */
   fieldName: string;

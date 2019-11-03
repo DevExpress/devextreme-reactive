@@ -80,11 +80,12 @@ export const ContentBase = ({
   className,
   children,
   appointmentData,
+  appointmentResources,
   formatDate,
   recurringIconComponent: RecurringIcon,
   ...restProps
 }) => {
-  const classes = useStyles(appointmentData.resources);
+  const classes = useStyles(appointmentResources);
   const weekDays = viewBoundText(
     appointmentData.startDate, appointmentData.endDate, '', appointmentData.startDate, 1, formatDate,
   );
@@ -124,7 +125,7 @@ export const ContentBase = ({
           </div>
         </Grid>
       </Grid>
-      {appointmentData.resources.map(resourceItem => (
+      {appointmentResources.map(resourceItem => (
         <Grid container alignItems="center" className={classes.resourceContainer} key={resourceItem.id}>
           <Grid item xs={2} className={classes.textCenter}>
             <div className={classes.relativeContainer}>
@@ -148,6 +149,7 @@ export const ContentBase = ({
 
 ContentBase.propTypes = {
   appointmentData: PropTypes.object,
+  appointmentResources: PropTypes.array,
   children: PropTypes.node,
   className: PropTypes.string,
   formatDate: PropTypes.func.isRequired,
@@ -156,6 +158,7 @@ ContentBase.propTypes = {
 
 ContentBase.defaultProps = {
   appointmentData: undefined,
+  appointmentResources: [],
   className: undefined,
   children: undefined,
 };

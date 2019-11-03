@@ -17,6 +17,7 @@ import {
   AppointmentModel,
   TOGGLE_APPOINTMENT_FORM_VISIBILITY,
   getAppointmentResources,
+  ValidResourceItem,
 } from '@devexpress/dx-scheduler-core';
 
 import {
@@ -408,7 +409,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   labelComponent={labelComponent}
                   fullSize={!changedAppointment.rRule}
                   resources={resources}
-                  appointmentResources={appointmentResources}
+                  appointmentResources={appointmentResources as Array<ValidResourceItem>}
                 />
               );
             }}
@@ -429,7 +430,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               changeAppointment,
             }) => {
               const { isNew, changedAppointment } = prepareChanges(
-                appointmentData, editingAppointment, addedAppointment, appointmentChanges,
+                appointmentData, editingAppointment,
+                addedAppointment, appointmentChanges,
+                undefined, undefined,
               );
               const isRecurrenceLayoutVisible = isFormFullSize(
                 visible, changedAppointment.rRule, previousAppointment.rRule,
@@ -487,10 +490,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   params={{
                     ...params,
                     onDoubleClick: () => {
-                      this.openFormHandler({
-                        ...params.data,
-                        resources: params.resources,
-                      });
+                      this.openFormHandler(params.data);
                       callActionIfExists(startEditAppointment, params.data);
                     },
                   }}

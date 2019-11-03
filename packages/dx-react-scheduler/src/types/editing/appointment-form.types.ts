@@ -1,4 +1,4 @@
-import { AppointmentModel, FormatterFn } from '../index';
+import { AppointmentModel, FormatterFn, ValidResourceItem, ValidResource } from '../index';
 
 /* tslint:disable no-namespace max-line-length */
 export namespace AppointmentForm {
@@ -24,7 +24,7 @@ export namespace AppointmentForm {
   export interface LayoutProps {
     /** A component that renders a layout for command buttons. */
     commandLayoutComponent: React.ComponentType<AppointmentForm.CommandLayoutProps>;
-    /** A component that renders a layout for editors that edit basic appoinement data. */
+    /** A component that renders a layout for editors that edit basic appointment data. */
     basicLayoutComponent: React.ComponentType<AppointmentForm.BasicLayoutProps>;
     /** A component that renders a layout for editors that specify the appointment's recurrence. */
     recurrenceLayoutComponent: React.ComponentType<AppointmentForm.RecurrenceLayoutProps>;
@@ -62,6 +62,10 @@ export namespace AppointmentForm {
     fullSize: boolean;
     /** The appointment's data. */
     appointmentData: AppointmentModel;
+    /** The appointment's resource items. */
+    appointmentResources: Array<ValidResourceItem>;
+    /** The all resources that were defined. */
+    resources: Array<ValidResource>;
     /** An event raised when a field value in the appointment form is changed. */
     onFieldChange: (change: any) => void;
     /** Uses a localization message's key to retrieve the message. */

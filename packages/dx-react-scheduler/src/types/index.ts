@@ -1,7 +1,7 @@
 export {
-  AppointmentModel, AppointmentMeta, ElementRect,
+  AppointmentModel, AppointmentMeta, ElementRect, ValidResource,
   ScrollingStrategy, CellElementsMeta, FormatterFn, SchedulerView,
-  PreCommitChangesFn, ChangeSet, ViewCell, Resource,
+  PreCommitChangesFn, ChangeSet, ViewCell, Resource, ValidResourceItem,
 } from '../../../dx-scheduler-core/src/index';
 
 /** @internal */

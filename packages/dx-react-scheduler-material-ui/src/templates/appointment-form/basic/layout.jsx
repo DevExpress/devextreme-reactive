@@ -250,12 +250,16 @@ LayoutBase.propTypes = {
     additionalInformation: PropTypes.string,
     allDay: PropTypes.bool,
   }).isRequired,
+  resources: PropTypes.array,
+  appointmentResources: PropTypes.array,
   readOnly: PropTypes.bool,
   fullSize: PropTypes.bool.isRequired,
 };
 
 LayoutBase.defaultProps = {
   onFieldChange: () => undefined,
+  resources: [],
+  appointmentResources: [],
   className: undefined,
   readOnly: false,
   children: null,

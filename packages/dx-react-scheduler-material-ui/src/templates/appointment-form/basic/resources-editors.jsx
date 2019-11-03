@@ -53,7 +53,6 @@ export const ResourcesEditors = React.memo(({
   labelComponent: Label,
 }) => {
   const classes = useStyles();
-  // const appointmentResourceItems = [...appointmentResources];
 
   return resources.map((resource) => {
     const values = appointmentResources.reduce((acc, resourceItem) => (
@@ -63,17 +62,6 @@ export const ResourcesEditors = React.memo(({
     []);
 
     const onChange = (nextValue) => {
-      // const nextIds = resource.allowMultiple ? nextValue : [nextValue];
-      // const nextApptResources = resources.reduce((acc, groupItems) => {
-      //   if (groupItems.fieldName === resource.fieldName) {
-      //     return [...acc, ...resource.items.filter(item => nextIds.includes(item.id))];
-      //   }
-      //   return [
-      //     ...acc,
-      //     ...groupItems.items.filter(item => appointmentResourceItems.findIndex(apptItems => apptItems.id === item.id) !== -1),
-      //   ];
-      // }, []);
-      // onResourceChange({ resources: nextApptResources });
       onResourceChange({ [resource.fieldName]: nextValue });
     };
 

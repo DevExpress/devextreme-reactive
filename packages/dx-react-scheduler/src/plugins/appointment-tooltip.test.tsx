@@ -123,7 +123,7 @@ describe('AppointmentTooltip', () => {
 
     appointmentTemplate.props().children().props.params.onClick({
       target: 'target',
-      // data: 'data',
+      data: 'data',
     });
     expect(setAppointmentMeta)
       .toBeCalled();

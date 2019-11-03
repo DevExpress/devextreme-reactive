@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Plugin, Getter, Template, TemplatePlaceholder, TemplateConnector, Getters } from '@devexpress/dx-react-core';
 import { convertResourcesToPlain, validateResources, getAppointmentResources } from '@devexpress/dx-scheduler-core';
 import { ResourcesProps } from '../types/resources/resources.types';
+import { Appointments } from '../types';
 
 const pluginDependencies = [
   { name: 'Appointments' },
@@ -10,7 +11,6 @@ const pluginDependencies = [
 const ResourcesBase: React.SFC<ResourcesProps> = ({
   data, mainResourceName, palette,
 }) => {
-  // const resourcesData = validateResources(data, mainResourceName, palette);
   const convertResources = ({ resources }: Getters) =>
     convertResourcesToPlain(resources);
 
@@ -23,14 +23,14 @@ const ResourcesBase: React.SFC<ResourcesProps> = ({
     <Getter name="plainResources" computed={convertResources} />
 
     <Template name="appointment">
-      {params => (
+      {(params: Appointments.AppointmentProps) => (
         <TemplateConnector>
           {({ resources, plainResources }) => {
             return (
               <TemplatePlaceholder
                 params={{
                   ...params,
-                  resources: getAppointmentResources(params.data, resources, plainResources),
+                  resources: getAppointmentResources(params.data as any, resources, plainResources),
                 }}
               />
             );

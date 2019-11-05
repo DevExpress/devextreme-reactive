@@ -773,6 +773,9 @@ export const VirtualTable: React.ComponentType<VirtualTableProps> & {
   StubRow: React.ComponentType<Table_2.RowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   StubCell: React.ComponentType<Table_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   StubHeaderCell: React.ComponentType<Table_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+} & {
+scrollToIndex: (index: number) => void;
+scrollToId: (id: number | string) => void;
 };
 
 // @public (undocumented)
@@ -788,6 +791,8 @@ export interface VirtualTableProps {
   messages?: Table_2.LocalizationMessages;
   noDataCellComponent?: React.ComponentType<Table_2.NoDataCellProps>;
   noDataRowComponent?: React.ComponentType<Table_2.RowProps>;
+  onRowIdChange?: (id: number | string) => void;
+  onRowIndexChange?: (index: number) => void;
   rowComponent?: React.ComponentType<Table_2.DataRowProps>;
   stubCellComponent?: React.ComponentType<Table_2.CellProps>;
   stubHeaderCellComponent?: React.ComponentType<Table_2.CellProps>;

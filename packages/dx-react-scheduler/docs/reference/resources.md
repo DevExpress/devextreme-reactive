@@ -26,7 +26,7 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-data | Array&lt;Resource&gt; | The resources data set.
+data | Array&lt;[Resources.Resource](#resourcesresourceitem)&gt; | The resources data set.
 mainResourceName? | string | | Specifies whether appointments are colored like this resource kind.
 palette? | Array&lt;string &#124; Color&gt; | [red, pink, purple, deepPurple, indigo, blue, lightBlue, cyan, teal, green, lightGreen, lime, yellow, ember, orange, deepOrange] | The palette that would be used if resource item colors were not defined.
 

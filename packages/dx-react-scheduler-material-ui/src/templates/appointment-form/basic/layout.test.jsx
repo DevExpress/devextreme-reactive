@@ -16,6 +16,7 @@ describe('AppointmentForm basic', () => {
     labelComponent: () => null,
     booleanEditorComponent: () => null,
     selectComponent: () => null,
+    resourceEditorComponent: () => null,
     getMessage: jest.fn(),
     onFieldChange: jest.fn(),
     appointmentData: {},

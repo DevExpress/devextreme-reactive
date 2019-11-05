@@ -82,6 +82,8 @@ export namespace AppointmentForm {
     booleanEditorComponent: React.ComponentType<AppointmentForm.BooleanEditorProps>;
     /** A component that renders a menu of options. */
     selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
+    /** A component that renders a resource editor. */
+    resourceEditorComponent: React.ComponentType<AppointmentForm.ResourceEditorProps>;
     /** A component that renders a text label. */
     labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
     /** A React node used to render additional components to the Basic Layout. */
@@ -169,6 +171,17 @@ export namespace AppointmentForm {
     readOnly?: boolean;
     /** The menu's type. */
     type: 'outlinedSelect' | 'filledSelect';
+  }
+  /** A component that renders a resource editor. */
+  export interface ResourceEditorProps {
+    /** The appointment's resource items. */
+    appointmentResources: Array<ValidResourceItem>;
+    /** The all resources that were defined. */
+    resources: Array<ValidResource>;
+    /** Handles value changes. */
+    onResourceChange: (nextValue: string | number | Array<string | number>) => void;
+    /** Specifies whether the menu is read-only. */
+    readOnly?: boolean;
   }
   /** Properties passed to a component that renders a command button on the appointment form. */
   export interface CommandButtonProps {
@@ -312,7 +325,7 @@ export interface AppointmentFormProps {
   layoutComponent: React.ComponentType<AppointmentForm.LayoutProps>;
   /** A component that renders a layout for command buttons. */
   commandLayoutComponent: React.ComponentType<AppointmentForm.CommandLayoutProps>;
-  /** A component that renders a layout for editors that edit basic appoinement data. */
+  /** A component that renders a layout for editors that edit basic appointment data. */
   basicLayoutComponent: React.ComponentType<AppointmentForm.BasicLayoutProps>;
   /** A component that renders a layout for editors that specify the appointment's recurrence. */
   recurrenceLayoutComponent: React.ComponentType<AppointmentForm.RecurrenceLayoutProps>;
@@ -328,6 +341,8 @@ export interface AppointmentFormProps {
   booleanEditorComponent: React.ComponentType<AppointmentForm.BooleanEditorProps>;
   /** A component that renders a menu of options. */
   selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
+  /** A component that renders a resource editor. */
+  resourceEditorComponent: React.ComponentType<AppointmentForm.ResourceEditorProps>;
   /** A component that renders a radio group. */
   radioGroupComponent: React.ComponentType<AppointmentForm.RadioGroupProps>;
   /** A component that renders a weekly recurrence selector. */

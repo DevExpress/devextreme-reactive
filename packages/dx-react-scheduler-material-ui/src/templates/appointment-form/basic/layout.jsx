@@ -10,7 +10,6 @@ import {
   REPEAT_TYPES,
   handleChangeFrequency,
 } from '@devexpress/dx-scheduler-core';
-import { ResourcesEditors } from './resources-editors';
 import { TRANSITIONS_TIME } from '../../constants';
 
 const styles = ({ spacing, typography }) => ({
@@ -124,6 +123,7 @@ const LayoutBase = ({
   selectComponent: Select,
   labelComponent: Label,
   booleanEditorComponent: BooleanEditor,
+  resourceEditorComponent: ResourceEditor,
   ...restProps
 }) => {
   const changeTitle = React.useCallback(title => onFieldChange({ title }), [onFieldChange]);
@@ -216,13 +216,21 @@ const LayoutBase = ({
         onValueChange={changeNotes}
         className={classes.notesEditor}
       />
-      <ResourcesEditors
-        readOnly={readOnly}
-        resources={resources}
-        appointmentResources={appointmentResources}
-        labelComponent={Label}
-        onResourceChange={changeResources}
-      />
+      {resources.map(resource => (
+        <>
+          <Label
+            text={resource.title}
+            type={TITLE}
+            className={classes.labelWithMargins}
+          />
+          <ResourceEditor
+            readOnly={readOnly}
+            resource={resource}
+            appointmentResources={appointmentResources}
+            onResourceChange={changeResources}
+          />
+        </>
+      ))}
 
       {children}
     </div>
@@ -235,6 +243,7 @@ LayoutBase.propTypes = {
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   booleanEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  resourceEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   locale: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]).isRequired,
   children: PropTypes.node,
   className: PropTypes.string,

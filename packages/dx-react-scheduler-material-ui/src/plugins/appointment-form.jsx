@@ -14,6 +14,7 @@ import { Layout as RecurrenceLayout } from '../templates/appointment-form/recurr
 import { RadioGroup } from '../templates/appointment-form/recurrence/radio-group/radio-group';
 import { WeeklyRecurrenceSelector } from '../templates/appointment-form/recurrence/weekly-recurrence-selector';
 import { OverlayContainer as Container } from '../templates/common/overlay-container';
+import { ResourceEditor } from '../templates/appointment-form/basic/resource-editor';
 
 export const AppointmentForm = withComponents({
   Overlay,
@@ -30,4 +31,5 @@ export const AppointmentForm = withComponents({
   RadioGroup,
   WeeklyRecurrenceSelector,
   Container,
+  ResourceEditor,
 })(AppointmentFormBase);

@@ -160,6 +160,6 @@ export type CheckTableColumnWidths = PureComputed<
   [TableColumn[]], void
 >;
 /** @internal */
-export type GetScrollHeightByindex = PureComputed<
+export type GetScrollHeightByIndex = PureComputed<
   [number, number], number | undefined
 >;

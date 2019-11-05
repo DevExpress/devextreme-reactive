@@ -59,8 +59,8 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
     static SkeletonCell: React.ComponentType;
 
     layoutRenderComponent: React.ComponentType<VirtualTableLayoutProps> & { update(): void; };
-    scrollToIndex: (index) => void;
-    scrollToId: (id) => void;
+    scrollToIndex: (index: number) => void;
+    scrollToId: (id: number | string) => void;
 
     constructor(props) {
       super(props);
@@ -82,10 +82,10 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
           footerTableComponent,
         };
       });
-      this.scrollToIndex = (index: number) => {
+      this.scrollToIndex = (index) => {
         this.setState({ nextScrollIndex: index });
       };
-      this.scrollToId = (id: number | string) => {
+      this.scrollToId = (id) => {
         this.setState({ nextScrollId: id });
       };
     }

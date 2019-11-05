@@ -68,6 +68,9 @@ const parseFile = (source) => {
   const propertiesBlock = extractBlock(source, '### Properties')
     .filter(isNotNone);
 
+  const methodsBlock = extractBlock(source, '## Methods')
+    .filter(isNotNone);
+
   const argumentsBlock = extractBlock(source, '### Arguments', block => block.indexOf('### Return Value') + 1)
     .filter(isTableRow);
 
@@ -108,6 +111,7 @@ const parseFile = (source) => {
   return {
     description,
     properties: propertiesBlock,
+    methods: methodsBlock,
     argumentsBlock: argumentsBlock,
     returnValueBlock: returnValueBlock,
     interfaces: interfacesBlock,
@@ -220,6 +224,10 @@ const getThemesTypeScript = (data, componentName, packageName) => {
       return result;
     }, '');
 
+  const methods = data.methods
+    .reduce((acc, line) => acc
+      + getFormattedLine(line, ''), '');
+
   const staticFields = data.staticFields
     .reduce((acc, line) => acc
       + getFormattedLine(line), '');
@@ -243,7 +251,8 @@ const getThemesTypeScript = (data, componentName, packageName) => {
     + `/** ${data.description} */\n`
     + `export declare const ${componentName}: React.ComponentType<${componentName}Props>`
     + `${staticFields.length ? ` & {\n${staticFields}}` : ''}`
-    + `${pluginComponents.length ? ` & {\n${pluginComponents}}` : ''};\n`;
+    + `${pluginComponents.length ? ` & {\n${pluginComponents}}` : ''}`
+    + `${methods.length ? ` & {\n${methods}}` : ''};\n`;
 };
 
 const ensureDirectory = (dir) => {

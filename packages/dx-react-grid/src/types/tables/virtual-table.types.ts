@@ -57,9 +57,9 @@ export interface VirtualTableProps {
   footerTableComponent: React.ComponentType<object>;
   // TODO
   skeletonCellComponent: React.ComponentType<Table.CellProps>;
-  /** Return index of current top row  */
+  /** Handles top row index changes. */
   onRowIndexChange: (index: number | undefined) => void;
-  /** Return id of current top row */
+  /** Handles top row ID changes. */
   onRowIdChange: (id: number | string | undefined) => void;
 }
 

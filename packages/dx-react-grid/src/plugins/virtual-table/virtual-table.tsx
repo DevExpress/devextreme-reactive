@@ -95,7 +95,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       const hasViewportRows = viewport && viewport.rows;
       const hasBodyRows = tableBodyRows && tableBodyRows.length;
       const changedIndex = hasViewportRows ? viewport.rows[0] : undefined;
-      const changedId = hasViewportRows && hasBodyRows
+      const changedId = hasViewportRows && hasBodyRows && !isDataRemote
         ? tableBodyRows[viewport.rows[0]].rowId
         : undefined;
 
@@ -107,8 +107,8 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
     componentDidUpdate(prevProps, prevState) {
       const { nextScrollIndex: prevIndex, nextScrollId: prevId } = prevState;
       const { nextScrollIndex: currentIndex, nextScrollId: currentId } = this.state;
-      const equalIds = currentId && currentId === prevId;
-      const equalIndexes = currentIndex && currentIndex === prevIndex;
+      const equalIds = currentId !== undefined && currentId === prevId;
+      const equalIndexes = currentIndex !== undefined && currentIndex === prevIndex;
 
       this.layoutRenderComponent.update();
       if (equalIds || equalIndexes) {
@@ -151,9 +151,11 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                   const indexById = !isDataRemote && nextScrollId !== undefined
                     ? tableBodyRows.findIndex(row => row.rowId === nextScrollId)
                     : undefined;
+                  const scrollIndex = indexById !== undefined
+                    ? indexById : nextScrollIndex;
                   const scrollHeight = calculateScrollHeight(
                     estimatedRowHeight,
-                    indexById || nextScrollIndex,
+                    scrollIndex,
                   );
 
                   return (

@@ -90,4 +90,4 @@ export const checkColumnWidths: CheckTableColumnWidths = (tableColumns) => {
 };
 
 export const calculateScrollHeight: GetScrollHeightByindex = (rowHeight, index) =>
-index >= 0 ? rowHeight * index : undefined;
+index > -1 ? rowHeight * index : undefined;

@@ -99,6 +99,7 @@ Describes properties passed to a component that renders the tooltip content.
 Field | Type | Description
 ------|------|------------
 appointmentData? | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment's displayed metadata.
+appointmentResources? | Array&lt;[Resources.ValidResourceItem](./resources.md#resourcesvalidresourceitem)&gt; | The appointment's resource items.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the locale.
 recurringIconComponent | ComponentType&lt;object&gt; | A component that renders an icon that indicates a recurring appointment.
 children? | ReactNode | A React node that renders custom elements in the tooltip.

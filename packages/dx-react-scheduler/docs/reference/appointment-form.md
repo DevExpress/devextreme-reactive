@@ -217,10 +217,10 @@ Properties passed to a component that renders a resource editor on the appointme
 
 Field | Type | Description
 ------|------|------------
-appointmentResources | Array&lt;[Resources.ValidResourceItem](./resources.md#resourcesvalidresourceitem)&gt; | The appointment's resource items.
-resources | Array&lt;[Resources.Resource](./resources.md#resourcesresourceitem)&gt; | The resources data set.
-onResourceChange | ({ [fieldName: string]: string &#124; number }) => void | Handles value changes.
-readOnly | boolean | Specifies whether the menu is read-only.
+appointmentResources? | Array&lt;[Resources.ValidResourceItem](./resources.md#resourcesvalidresourceitem)&gt; | The appointment's resource items.
+resources? | Array&lt;[Resources.Resource](./resources.md#resourcesresourceitem)&gt; | The resources data set.
+onResourceChange? | ({ [fieldName: string]: string &#124; number }) => void | Handles value changes.
+readOnly? | boolean | Specifies whether the menu is read-only.
 
 ### AppointmentForm.TextEditorProps
 

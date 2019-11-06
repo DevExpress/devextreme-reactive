@@ -1,7 +1,7 @@
 import { PureComputed } from '@devexpress/dx-core';
 import { GroupSummaryItem, GroupSummaryValue } from '@devexpress/dx-grid-core';
 import {
-  Table, Column, TableColumn, TableRow, GetMessageFn,
+  Table, Column, TableRow, GetMessageFn,
   TableSummaryRow, ColumnSummary,
 } from '../index';
 

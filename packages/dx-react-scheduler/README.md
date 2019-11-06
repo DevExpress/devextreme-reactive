@@ -1,6 +1,6 @@
 # DevExtreme React Scheduler
 
-Project status: **CTP**
+Project status: **Beta**
 
 DevExtreme React Scheduler is a component that displays appointments from a local or remote source.
 

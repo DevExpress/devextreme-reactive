@@ -346,20 +346,32 @@ export namespace AppointmentTooltip {
   export interface ContentProps {
     appointmentData?: AppointmentModel;
     children?: React.ReactNode;
+    formatDate: FormatterFn;
+    recurringIconComponent: React.ComponentType<object>;
   }
   export interface HeaderProps {
     appointmentData?: AppointmentModel;
     children?: React.ReactNode;
+    commandButtonComponent: React.ComponentType<AppointmentTooltip.CommandButtonProps>;
+    commandButtonIds: Array<string>;
+    onDeleteButtonClick?: () => void;
+    onHide?: () => void;
+    onOpenButtonClick?: () => void;
+    showCloseButton: boolean;
+    showDeleteButton: boolean;
+    showOpenButton: boolean;
   }
   export interface LayoutProps {
     appointmentMeta?: AppointmentMeta;
     commandButtonComponent: React.ComponentType<AppointmentTooltip.CommandButtonProps>;
     commandButtonIds: Array<string>;
     contentComponent: React.ComponentType<AppointmentTooltip.ContentProps>;
+    formatDate: FormatterFn;
     headerComponent: React.ComponentType<AppointmentTooltip.HeaderProps>;
     onDeleteButtonClick?: () => void;
     onHide?: () => void;
     onOpenButtonClick?: () => void;
+    recurringIconComponent: React.ComponentType<object>;
     showCloseButton: boolean;
     showDeleteButton: boolean;
     showOpenButton: boolean;
@@ -376,6 +388,7 @@ export interface AppointmentTooltipProps {
   layoutComponent: React.ComponentType<AppointmentTooltip.LayoutProps>;
   onAppointmentMetaChange?: (appointmentMeta: AppointmentMeta) => void;
   onVisibilityChange?: (visible: boolean) => void;
+  recurringIconComponent: React.ComponentType<object>;
   showCloseButton?: boolean;
   showDeleteButton?: boolean;
   showOpenButton?: boolean;

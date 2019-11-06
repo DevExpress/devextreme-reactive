@@ -15,17 +15,17 @@ const styles = theme => ({
     position: 'relative',
   },
   content: {
-    borderTop: getBorder(theme),
     borderBottom: getBorder(theme),
-    height: theme.spacing(7),
+    height: theme.spacing(5.75),
     textAlign: 'right',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
   title: {
-    padding: theme.spacing(2),
+    paddingRight: theme.spacing(2),
     ...theme.typography.caption,
+    color: theme.palette.text.secondary,
   },
 });
 

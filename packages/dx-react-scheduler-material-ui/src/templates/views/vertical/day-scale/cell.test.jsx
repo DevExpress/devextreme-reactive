@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Cell } from './cell';
 
-describe('Vertical view DayPanel', () => {
+describe('Vertical view DayScale', () => {
   const defaultProps = {
     startDate: new Date(2018, 6, 7, 16, 20),
     formatDate: () => undefined,
@@ -23,6 +23,8 @@ describe('Vertical view DayPanel', () => {
         .toBeTruthy();
       expect(tree.is(`.${classes.cell}`))
         .toBeTruthy();
+      expect(tree.find(`.${classes.dayView}`).exists())
+        .toBeTruthy();
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
@@ -37,9 +39,9 @@ describe('Vertical view DayPanel', () => {
         <Cell {...defaultProps} today />
       ));
 
-      expect(tree.find(`p.${classes.highlightCell}`).exists())
+      expect(tree.find(`p.${classes.highlight}`).exists())
         .toBeTruthy();
-      expect(tree.find(`span.${classes.highlightCell}`).exists())
+      expect(tree.find(`div.${classes.today}`).exists())
         .toBeTruthy();
     });
     it('should call formatDate function', () => {

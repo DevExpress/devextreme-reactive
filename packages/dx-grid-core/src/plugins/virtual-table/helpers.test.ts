@@ -179,8 +179,13 @@ describe('#checkColumnWidths', () => {
         .toEqual(1000);
     });
 
-    it('should return "undefined" if index not defined', () => {
+    it('should return "undefined" if index is not defined', () => {
       expect(calculateScrollHeight(rowHeight, undefined))
+        .toEqual(undefined);
+    });
+
+    it('should return "undefined" if index is less than 0', () => {
+      expect(calculateScrollHeight(rowHeight, -1))
         .toEqual(undefined);
     });
   });

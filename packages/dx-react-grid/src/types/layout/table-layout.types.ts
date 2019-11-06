@@ -46,7 +46,7 @@ export interface VirtualTableLayoutProps extends TableLayoutProps {
   isDataRemote: boolean;
   setViewport: any;
   viewport: any;
-  scrollHeight?: number;
+  scrollTop?: number;
 }
 /** @internal */
 export type VirtualTableLayoutState = {

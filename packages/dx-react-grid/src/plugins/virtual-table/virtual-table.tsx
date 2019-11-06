@@ -153,7 +153,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                     : undefined;
                   const scrollIndex = indexById !== undefined
                     ? indexById : nextScrollIndex;
-                  const scrollHeight = calculateScrollHeight(
+                  const scrollTop = calculateScrollHeight(
                     estimatedRowHeight,
                     scrollIndex,
                   );
@@ -169,7 +169,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                         estimatedRowHeight,
                         setViewport,
                         viewport,
-                        scrollHeight,
+                        scrollTop,
                       }}
                     />
                   );

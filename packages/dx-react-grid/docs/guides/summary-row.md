@@ -25,7 +25,7 @@ In the following example, the summary items array is passed to the `SummaryState
 
 .embedded-demo({ "path": "grid-summary/total-summary", "showThemeSelector": true })
 
-Pass the summary items array to the `SummaryState` plugin's `groupItems` property to display group summary rows as demonstrated in the following example:
+Pass the summary items array to the `SummaryState` plugin's `groupItems` property to display group summary rows. By default, group summaries are displayed in a group footer row, but you can move them to a group row using the `showInGroupCaption` and `showInGroupRow` properties.
 
 .embedded-demo({ "path": "grid-summary/group-summary", "showThemeSelector": true })
 

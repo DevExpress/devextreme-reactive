@@ -49,6 +49,8 @@ export default () => {
   const [groupSummaryItems] = useState([
     { columnName: 'region', type: 'count' },
     { columnName: 'amount', type: 'sum' },
+    { columnName: 'region', type: 'count', showInGroupCaption: true },
+    { columnName: 'amount', type: 'max', showInGroupRow: true },
   ]);
 
   return (

@@ -169,6 +169,6 @@ export type GetInlineSummaryComponent = PureComputed<
 
 /** @internal */
 export type FlattenGroupInlineSummariesFn = PureComputed<
-  [TableColumn[], TableRow, GroupSummaryItem[], GroupSummaryValue, string[]],
+  [Column[], TableRow, GroupSummaryItem[], GroupSummaryValue, string[]],
   TableGroupRow.GroupInlineSummary[]
 >;

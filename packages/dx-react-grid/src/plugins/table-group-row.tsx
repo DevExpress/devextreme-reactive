@@ -137,7 +137,7 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
             <TemplateConnector>
               {(
                 {
-                  grouping, expandedGroups, groupSummaryItems, groupSummaryValues, tableColumns,
+                  grouping, expandedGroups, groupSummaryItems, groupSummaryValues, columns,
                 },
                 { toggleGroupExpanded },
               ) => {
@@ -147,7 +147,7 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
 
                   const inlineSummaries = groupSummaryItems
                     ? flattenGroupInlineSummaries(
-                      tableColumns, params.tableRow, groupSummaryItems,
+                      columns, params.tableRow, groupSummaryItems,
                       groupSummaryValues, formatlessSummaries,
                     ) : [];
                   const cellIndent = calculateGroupCellIndent(

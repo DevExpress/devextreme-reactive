@@ -23,11 +23,11 @@ const getInlineSummaryComponent: GetInlineSummaryComponent = (
 );
 
 export const flattenGroupInlineSummaries: FlattenGroupInlineSummariesFn = (
-  tableColumns, tableRow, groupSummaryItems, groupSummaryValues,
+  columns, tableRow, groupSummaryItems, groupSummaryValues,
   formatlessSummaries,
 ) => (
   getGroupInlineSummaries(
-    groupSummaryItems, tableColumns,
+    groupSummaryItems, columns,
     groupSummaryValues[tableRow.row.compoundKey],
   )
     .map(colSummaries => ([

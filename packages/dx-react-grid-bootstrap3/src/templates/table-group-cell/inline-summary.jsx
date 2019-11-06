@@ -8,7 +8,7 @@ export const InlineSummary = ({
 }) => (
   <span
     style={{
-      marginLeft: '12px',
+      marginLeft: '6px',
       ...style,
     }}
     {...restProps}

@@ -91,5 +91,5 @@ export type ColumnInlineSummaries = {
 
 /** @internal */
 export type GetGroupInlineSummariesFn = PureComputed<
-  [GroupSummaryItem[], TableColumn[], SummaryValue[]], ColumnInlineSummaries[]
+  [GroupSummaryItem[], Column[], SummaryValue[]], ColumnInlineSummaries[]
 >;

@@ -46,20 +46,20 @@ export const isInlineGroupCaptionSummary: PureComputed<[SummaryItem], boolean> =
 );
 
 export const getGroupInlineSummaries: GetGroupInlineSummariesFn = (
-  summaryItems, tableColumns, summaryValues,
+  summaryItems, columns, summaryValues,
 ) => {
   if (!summaryItems.some(isInlineGroupCaptionSummary)) {
     return [];
   }
 
-  return tableColumns.reduce((acc, col) => {
-    const colName = col.column!.name;
+  return columns.reduce((acc, column) => {
+    const colName = column.name;
     const summaries = getColumnSummaries(
       summaryItems, colName, summaryValues, isInlineGroupCaptionSummary,
     );
     if (summaries.length) {
       acc.push({
-        column: col.column!,
+        column,
         summaries,
       });
     }

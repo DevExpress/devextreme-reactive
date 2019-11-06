@@ -11,6 +11,9 @@ const styles = ({ spacing }) => ({
     '&:first-child': {
       marginLeft: 0,
     },
+    '@media (max-width: 700px)': {
+      fontSize: '0.75rem',
+    },
   },
 });
 

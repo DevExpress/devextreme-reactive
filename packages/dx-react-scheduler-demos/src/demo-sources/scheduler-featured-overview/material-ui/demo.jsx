@@ -15,10 +15,13 @@ import {
   AppointmentForm,
   EditRecurrenceMenu,
 } from '@devexpress/dx-react-scheduler-material-ui';
+import Grid from '@material-ui/core/Grid';
 import WbSunny from '@material-ui/icons/WbSunny';
 import FilterDrama from '@material-ui/icons/FilterDrama';
 import Opacity from '@material-ui/icons/Opacity';
 import ColorLens from '@material-ui/icons/ColorLens';
+import Lens from '@material-ui/icons/Lens';
+import AccessTime from '@material-ui/icons/AccessTime';
 import { withStyles } from '@material-ui/core/styles';
 import { owners } from '../../../demo-data/tasks';
 
@@ -191,10 +194,49 @@ const styles = theme => ({
     alignItems: 'center',
   },
   ...owners.reduce((acc, { id, color }) => {
-    acc[`${id}PriorityBackground`] = { background: color, '& button.edit-button': { background: lighten(color, 0.15) } };
     acc[`${id}PriorityColor`] = { color };
     return acc;
   }, {}),
+  tooltipContent: {
+    padding: theme.spacing(3, 1),
+    paddingTop: 0,
+    backgroundColor: theme.palette.background.paper,
+    boxSizing: 'border-box',
+    width: '400px',
+  },
+  tooltipText: {
+    ...theme.typography.body2,
+    display: 'inline-block',
+  },
+  title: {
+    ...theme.typography.h6,
+    color: theme.palette.text.secondary,
+    fontWeight: theme.typography.fontWeightBold,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+  icon: {
+    color: theme.palette.action.active,
+    verticalAlign: 'middle',
+  },
+  circle: {
+    width: theme.spacing(4.5),
+    height: theme.spacing(4.5),
+    verticalAlign: 'super',
+  },
+  textCenter: {
+    textAlign: 'center',
+  },
+  dateAndTitle: {
+    lineHeight: 1.1,
+  },
+  titleContainer: {
+    paddingBottom: theme.spacing(2),
+  },
+  container: {
+    paddingBottom: theme.spacing(1.5),
+  },
 });
 
 const WeatherIcon = ({ classes, id }) => {
@@ -267,32 +309,43 @@ const FlexibleSpace = withStyles(styles, { name: 'ToolbarRoot' })(({ classes, ..
     </div>
   </Toolbar.FlexibleSpace>
 ));
-
-const TooltipHeader = withStyles(styles, { name: 'TooltipHeader' })(
+const TooltipContent = withStyles(styles, { name: 'TooltipContent' })(
   // #FOLD_BLOCK
-  ({ classes, appointmentData, ...restProps }) => {
+  ({ classes, appointmentData, formatDate }) => {
     const priorityClasses = createClassesByPriorityId(
-      appointmentData.ownerId, classes,
-      { background: true },
+      appointmentData.ownerId, classes, { color: true },
     );
     return (
-      <AppointmentTooltip.Header
-        {...restProps}
-        appointmentData={appointmentData}
-        className={priorityClasses}
-      />
+      <div className={classes.tooltipContent}>
+        <Grid container alignItems="center" className={classes.titleContainer}>
+          <Grid item xs={2} className={classNames(classes.textCenter, priorityClasses)}>
+            <Lens className={classes.circle} />
+          </Grid>
+          <Grid item xs={10}>
+            <div>
+              <div className={classNames(classes.title, classes.dateAndTitle)}>
+                {appointmentData.title}
+              </div>
+              <div className={classNames(classes.tooltipText, classes.dateAndTitle)}>
+                {formatDate(appointmentData.startDate, { day: 'numeric', weekday: 'long' })}
+              </div>
+            </div>
+          </Grid>
+        </Grid>
+        <Grid container alignItems="center" className={classes.container}>
+          <Grid item xs={2} className={classes.textCenter}>
+            <AccessTime className={classes.icon} />
+          </Grid>
+          <Grid item xs={10}>
+            <div className={classes.tooltipText}>
+              {`${formatDate(appointmentData.startDate, { hour: 'numeric', minute: 'numeric' })}
+              - ${formatDate(appointmentData.endDate, { hour: 'numeric', minute: 'numeric' })}`}
+            </div>
+          </Grid>
+        </Grid>
+      </div>
     );
   },
-);
-
-const EditButton = withStyles(styles, { name: 'EditButton' })(
-  ({ classes, id, ...restProps }) => (
-    <AppointmentTooltip.CommandButton
-      {...restProps}
-      {...id === 'open' ? { className: 'edit-button' } : null}
-      id={id}
-    />
-  ),
 );
 
 export default class Demo extends React.PureComponent {
@@ -360,8 +413,7 @@ export default class Demo extends React.PureComponent {
             showCloseButton
             showDeleteButton
             showOpenButton
-            headerComponent={TooltipHeader}
-            commandButtonComponent={EditButton}
+            contentComponent={TooltipContent}
           />
           <AppointmentForm
             readOnly

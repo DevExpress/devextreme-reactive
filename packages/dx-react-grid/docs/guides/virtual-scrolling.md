@@ -45,3 +45,7 @@ The virtual table can be scrolled programmatically, through the `scrollToIndex` 
 .embedded-demo({ "path": "grid-virtual-scrolling/scroll-to-row", "showThemeSelector": true })
 
 Note that remote data doesn't able to use `scrollToId` method.
+
+## Note on the use of `VirtualTable` with `DataTypeProvider` and custom components
+
+If you use a custom `rowComponent` or `cellComponent`, its height and the `estimatedRowHeight` value should be equal. The same applies to a custom formatter defined in the [DataTypeProvider](../reference/data-type-provider.md) plugin.

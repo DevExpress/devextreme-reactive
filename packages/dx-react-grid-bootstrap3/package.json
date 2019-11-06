@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid-bootstrap3",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "Bootstrap 3 templates for DevExtreme React Grid component",
   "author": {
     "name": "Developer Express Inc.",
@@ -48,10 +48,10 @@
     "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
-    "@devexpress/dx-grid-core": "2.1.2",
-    "@devexpress/dx-react-core": "2.1.2",
-    "@devexpress/dx-react-grid": "2.1.2",
-    "@devexpress/dx-testing": "2.1.2",
+    "@devexpress/dx-grid-core": "2.2.0",
+    "@devexpress/dx-react-core": "2.2.0",
+    "@devexpress/dx-react-grid": "2.2.0",
+    "@devexpress/dx-testing": "2.2.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
@@ -69,7 +69,7 @@
     "eslint-plugin-react": "^7.16.0",
     "jest": "^24.9.0",
     "react": "^16.11.0",
-    "react-bootstrap": "=0.32.4",
+    "react-bootstrap": "=0.33.0",
     "react-dom": "^16.11.0",
     "react-test-renderer": "^16.11.0",
     "rollup": "^1.25.2",
@@ -82,11 +82,11 @@
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {
-    "@devexpress/dx-grid-core": "2.1.2",
-    "@devexpress/dx-react-core": "2.1.2",
-    "@devexpress/dx-react-grid": "2.1.2",
+    "@devexpress/dx-grid-core": "2.2.0",
+    "@devexpress/dx-react-core": "2.2.0",
+    "@devexpress/dx-react-grid": "2.2.0",
     "react": "^16.10.2",
-    "react-bootstrap": "=0.32.4",
+    "react-bootstrap": "=0.33.0",
     "react-dom": "^16.10.2"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-scheduler-core",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "Core library for the DevExtreme Reactive Scheduler component",
   "author": {
     "name": "Developer Express Inc.",
@@ -41,7 +41,7 @@
     "@babel/core": "^7.6.4",
     "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "^7.6.3",
-    "@devexpress/dx-core": "2.1.2",
+    "@devexpress/dx-core": "2.2.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.9.0",
     "core-js": "^3.3.3",
@@ -55,11 +55,11 @@
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-license": "^0.12.1",
     "rollup-plugin-replace": "^2.2.0",
-    "rollup-plugin-typescript2": "^0.24.3",
+    "rollup-plugin-typescript2": "^0.25.2",
     "typescript": "3.6.4"
   },
   "peerDependencies": {
-    "@devexpress/dx-core": "2.1.2"
+    "@devexpress/dx-core": "2.2.0"
   },
   "dependencies": {
     "moment": "^2.24.0",

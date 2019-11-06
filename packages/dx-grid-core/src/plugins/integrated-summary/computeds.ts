@@ -44,21 +44,27 @@ const rowsSummary: RowsSummaryValuesFn = (
 
 const expandRows: ExpandRowsFn = (
   rows, getRowLevelKey, getCollapsedRows, isGroupRow, includeGroupRow = false,
-) => rows
-  .reduce((acc, row) => {
-    if (getRowLevelKey && getRowLevelKey(row)) {
-      if (includeGroupRow || !(isGroupRow && isGroupRow(row))) {
-        acc.push(row);
+) => {
+  const shouldIncludeRow = includeGroupRow || !isGroupRow
+    ? () => true
+    : (row: TableRow) => !isGroupRow(row);
+
+  return rows
+    .reduce((acc, row) => {
+      if (getRowLevelKey && getRowLevelKey(row)) {
+        if (shouldIncludeRow(row)) {
+          acc.push(row);
+        }
+        const collapsedRows = getCollapsedRows && getCollapsedRows(row);
+        if (collapsedRows) {
+          acc.push(...collapsedRows);
+        }
+        return acc;
       }
-      const collapsedRows = getCollapsedRows && getCollapsedRows(row);
-      if (collapsedRows) {
-        acc.push(...collapsedRows);
-      }
+      acc.push(row);
       return acc;
-    }
-    acc.push(row);
-    return acc;
-  }, [] as TableRow[]);
+    }, [] as TableRow[]);
+  };
 
 export const totalSummaryValues: TotalSummaryValuesFn = (
   rows,

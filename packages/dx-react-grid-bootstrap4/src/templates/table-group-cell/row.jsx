@@ -3,9 +3,9 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import { TableRow as RowBase } from '../table-row';
 
-export const Row = ({ children, className, ...props }) => (
+export const Row = ({ children, className, ...restProps }) => (
   <RowBase
-    {...props}
+    {...restProps}
     className={classNames('dx-g-bs4-cursor-pointer', className)}
   >
     {children}

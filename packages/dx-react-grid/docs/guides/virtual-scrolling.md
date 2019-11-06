@@ -40,4 +40,4 @@ If the Grid should have the same size as the container element, set the `Virtual
 
 ## Note on the use of `VirtualTable` with `DataTypeProvider` and custom components
 
-If you use a custom `rowComponent` or `cellComponent`, their height and the `estimatedRowHeight` value should be equal. The same applies to a custom formatter defined in the [DataTypeProvider](../reference/data-type-provider.md) plugin.
+If you use a custom `rowComponent` or `cellComponent`, its height and the `estimatedRowHeight` value should be equal. The same applies to a custom formatter defined in the [DataTypeProvider](../reference/data-type-provider.md) plugin.

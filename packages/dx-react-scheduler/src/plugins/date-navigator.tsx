@@ -107,7 +107,7 @@ class DateNavigatorBase extends React.PureComponent<DateNavigatorProps, DateNavi
               const navigatorText = viewBoundText(
                 startViewDate,
                 endViewDate,
-                currentView,
+                currentView.type,
                 currentDate,
                 intervalCount,
                 formatDate,

@@ -105,7 +105,7 @@ describe('Appointment Tooltip', () => {
       expect(viewBoundText)
         .toHaveBeenCalledWith(
           defaultProps.appointmentData.startDate,
-          defaultProps.appointmentData.endDate, '',
+          defaultProps.appointmentData.endDate, 'weekdayInterval',
           defaultProps.appointmentData.startDate, 1,
           defaultProps.formatDate,
         );

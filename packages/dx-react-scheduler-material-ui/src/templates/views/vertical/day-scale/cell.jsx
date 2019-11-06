@@ -10,27 +10,61 @@ const styles = theme => ({
   cell: {
     userSelect: 'none',
     paddingBottom: 0,
-    borderLeft: getBorder(theme),
-    '&:last-child': {
-      paddingRight: 0,
-    },
+    textAlign: 'center',
+    borderBottom: 'none',
+    paddingRight: 0,
+    paddingLeft: 0,
     '@media (max-width: 700px)': {
       padding: theme.spacing(1),
       paddingBottom: 0,
     },
+    'table:last-child &': {
+      borderBottom: getBorder(theme),
+    },
+    '&:only-child': {
+      textAlign: 'left',
+      paddingLeft: theme.spacing(2),
+    },
+    paddingTop: theme.spacing(0.5),
   },
   dayOfWeek: {
     ...theme.typography.caption,
     margin: 0,
+    color: theme.palette.text.secondary,
   },
   dayOfMonth: {
     ...theme.typography.h4,
     '@media (max-width: 700px)': {
       ...theme.typography.h6,
     },
+    color: theme.palette.text.secondary,
+    lineHeight: 1.5,
   },
-  highlightCell: {
+  today: {
+    width: '1.5em',
+    height: '1.5em',
+    lineHeight: 1.5,
+    textAlign: 'center',
+    borderRadius: '50%',
+    background: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText,
+    cursor: 'default',
+    paddingBottom: 0,
+    marginRight: 'auto',
+    marginLeft: 'auto',
+    'td:only-child &': {
+      marginRight: 0,
+      marginLeft: 0,
+    },
+  },
+  highlight: {
     color: theme.palette.primary.main,
+  },
+  dayView: {
+    'td:only-child &': {
+      textAlign: 'center',
+      width: 'fit-content',
+    },
   },
 });
 
@@ -47,22 +81,24 @@ const CellBase = React.memo(({
     className={classNames(classes.cell, className)}
     {...restProps}
   >
-    <p
-      className={classNames({
-        [classes.dayOfWeek]: true,
-        [classes.highlightCell]: today,
-      })}
-    >
-      {formatDate(startDate, WEEK_DAY_OPTIONS)}
-    </p>
-    <span
-      className={classNames({
-        [classes.dayOfMonth]: true,
-        [classes.highlightCell]: today,
-      })}
-    >
-      {formatDate(startDate, DAY_OPTIONS)}
-    </span>
+    <div className={classes.dayView}>
+      <p
+        className={classNames({
+          [classes.dayOfWeek]: true,
+          [classes.highlight]: today,
+        })}
+      >
+        {formatDate(startDate, WEEK_DAY_OPTIONS)}
+      </p>
+      <div
+        className={classNames({
+          [classes.dayOfMonth]: true,
+          [classes.today]: today,
+        })}
+      >
+        {formatDate(startDate, DAY_OPTIONS)}
+      </div>
+    </div>
   </TableCell>
 ));
 

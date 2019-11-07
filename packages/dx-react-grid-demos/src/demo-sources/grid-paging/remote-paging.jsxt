@@ -12,7 +12,7 @@ import {
 
 import { Loading } from '../../../theme-sources/<%&themeName%>/components/loading';
 
-const URL = 'https://js.devexpress.com/Demos/WidgetsGallery/data/orderItems';
+const URL = 'https://js.devexpress.com/Demos/WidgetsGalleryDataService/api/orders?requireTotalCount=true';
 
 export default () => {
   const [columns] = useState([
@@ -31,7 +31,7 @@ export default () => {
   const [lastQuery, setLastQuery] = useState();
 
   const getQueryString = () => (
-    `${URL}?take=${pageSize}&skip=${pageSize * currentPage}`
+    `${URL}&take=${pageSize}&skip=${pageSize * currentPage}`
   );
 
   const loadData = () => {
@@ -41,7 +41,7 @@ export default () => {
       fetch(queryString)
         .then(response => response.json())
         .then((data) => {
-          setRows(data.items);
+          setRows(data.data);
           setTotalCount(data.totalCount);
           setLoading(false);
         })

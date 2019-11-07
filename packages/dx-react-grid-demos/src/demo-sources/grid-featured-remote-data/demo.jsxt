@@ -14,7 +14,7 @@ import {
 import { Loading } from '../../../theme-sources/<%&themeName%>/components/loading';
 import { CurrencyTypeProvider } from '../../../theme-sources/<%&themeName%>/components/currency-type-provider';
 
-const URL = 'https://js.devexpress.com/Demos/WidgetsGallery/data/orderItems';
+const URL = 'https://js.devexpress.com/Demos/WidgetsGalleryDataService/api/orders?requireTotalCount=true';
 
 export default () => {
   const [columns] = useState([
@@ -47,12 +47,16 @@ export default () => {
   };
 
   const getQueryString = () => {
-    let queryString = `${URL}?take=${pageSize}&skip=${pageSize * currentPage}`;
+    let queryString = `${URL}&take=${pageSize}&skip=${pageSize * currentPage}`;
 
-    const columnSorting = sorting[0];
-    if (columnSorting) {
-      const sortingDirectionString = columnSorting.direction === 'desc' ? ' desc' : '';
-      queryString = `${queryString}&orderby=${columnSorting.columnName}${sortingDirectionString}`;
+    if (sorting.length) {
+      const sortingConfig = sorting
+        .map(({ columnName, direction }) => ({
+          selector: columnName,
+          desc: direction === 'desc',
+        }));
+      const sortingStr = JSON.stringify(sortingConfig);
+      queryString = `${queryString}&sort=${escape(`${sortingStr}`)}`
     }
 
     return queryString;
@@ -64,9 +68,9 @@ export default () => {
       setLoading(true);
       fetch(queryString)
         .then(response => response.json())
-        .then((data) => {
-          setRows(data.items);
-          setTotalCount(data.totalCount);
+        .then(({ data, totalCount }) => {
+          setRows(data);
+          setTotalCount(totalCount);
           setLoading(false);
         })
         .catch(() => setLoading(false));

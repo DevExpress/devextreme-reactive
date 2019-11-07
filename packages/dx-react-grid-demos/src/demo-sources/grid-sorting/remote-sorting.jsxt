@@ -38,7 +38,7 @@ export default () => {
           desc: direction === 'desc',
         }));
       const sortingStr = JSON.stringify(sortingConfig);
-      queryString = `${queryString}&sort=${escape(`${sortingStr}`)}`
+      queryString = `${queryString}&sort=${escape(`${sortingStr}`)}`;
     }
 
     return queryString;

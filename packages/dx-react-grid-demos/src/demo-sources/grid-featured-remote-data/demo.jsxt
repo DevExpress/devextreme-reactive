@@ -56,7 +56,7 @@ export default () => {
           desc: direction === 'desc',
         }));
       const sortingStr = JSON.stringify(sortingConfig);
-      queryString = `${queryString}&sort=${escape(`${sortingStr}`)}`
+      queryString = `${queryString}&sort=${escape(`${sortingStr}`)}`;
     }
 
     return queryString;
@@ -68,9 +68,9 @@ export default () => {
       setLoading(true);
       fetch(queryString)
         .then(response => response.json())
-        .then(({ data, totalCount }) => {
+        .then(({ data, totalCount: newTotalCount }) => {
           setRows(data);
-          setTotalCount(totalCount);
+          setTotalCount(newTotalCount);
           setLoading(false);
         })
         .catch(() => setLoading(false));

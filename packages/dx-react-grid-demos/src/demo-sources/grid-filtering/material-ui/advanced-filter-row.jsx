@@ -16,12 +16,16 @@ const FilterIcon = ({ type, ...restProps }) => {
   return <TableFilterRow.Icon type={type} {...restProps} />;
 };
 
-const styles = {
+const styles = theme => ({
+  root: {
+    margin: theme.spacing(1),
+  },
   numericInput: {
+    fontSize: '14px',
     textAlign: 'right',
     width: '100%',
   },
-};
+});
 
 const CurrencyEditorBase = ({ value, onValueChange, classes }) => {
   const handleChange = (event) => {
@@ -37,6 +41,7 @@ const CurrencyEditorBase = ({ value, onValueChange, classes }) => {
       type="number"
       classes={{
         input: classes.numericInput,
+        root: classes.root,
       }}
       fullWidth
       value={value === undefined ? '' : value}

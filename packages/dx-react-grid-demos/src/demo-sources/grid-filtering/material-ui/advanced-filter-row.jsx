@@ -17,8 +17,11 @@ const FilterIcon = ({ type, ...restProps }) => {
 };
 
 const styles = theme => ({
+  root: {
+    margin: theme.spacing(1),
+  },
   numericInput: {
-    marginRight: theme.spacing(1),
+    fontSize: '14px',
     textAlign: 'right',
     width: '100%',
   },
@@ -36,7 +39,10 @@ const CurrencyEditorBase = ({ value, onValueChange, classes }) => {
   return (
     <Input
       type="number"
-      className={classes.numericInput}
+      classes={{
+        input: classes.numericInput,
+        root: classes.root,
+      }}
       fullWidth
       value={value === undefined ? '' : value}
       inputProps={{

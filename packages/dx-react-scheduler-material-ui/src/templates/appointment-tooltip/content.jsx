@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import AccessTime from '@material-ui/icons/AccessTime';
 import Lens from '@material-ui/icons/Lens';
-import { HOUR_MINUTE_OPTIONS, viewBoundText } from '@devexpress/dx-scheduler-core';
+import { HOUR_MINUTE_OPTIONS, WEEKDAY_INTERVAL, viewBoundText } from '@devexpress/dx-scheduler-core';
 import { getAppointmentColor, getResourceColor } from '../utils';
 
 const useStyles = makeStyles(({ spacing, palette, typography }) => ({
@@ -14,7 +14,6 @@ const useStyles = makeStyles(({ spacing, palette, typography }) => ({
     paddingTop: spacing(1),
     backgroundColor: palette.background.paper,
     boxSizing: 'border-box',
-    width: '400px',
     ...typography.body2,
   },
   text: {
@@ -87,7 +86,8 @@ export const ContentBase = ({
 }) => {
   const classes = useStyles(appointmentResources);
   const weekDays = viewBoundText(
-    appointmentData.startDate, appointmentData.endDate, '', appointmentData.startDate, 1, formatDate,
+    appointmentData.startDate, appointmentData.endDate, WEEKDAY_INTERVAL,
+    appointmentData.startDate, 1, formatDate,
   );
   return (
     <div

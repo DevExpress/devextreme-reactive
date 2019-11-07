@@ -8,6 +8,10 @@ const verticalTopHorizontalCenterOptions = { vertical: 'top', horizontal: 'cente
 const styles = {
   popover: {
     borderRadius: '8px',
+    width: '400px',
+    '@media (max-width: 500px)': {
+      width: '300px',
+    },
   },
 };
 

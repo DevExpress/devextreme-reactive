@@ -7,6 +7,8 @@ import {
   WeekView,
   Appointments,
 } from '@devexpress/dx-react-scheduler-material-ui';
+import { withStyles } from '@material-ui/core/styles';
+
 import { appointments } from '../../../demo-data/appointments';
 
 const formatDayScaleDate = (date, options) => {
@@ -16,9 +18,22 @@ const formatDayScaleDate = (date, options) => {
 };
 const formatTimeScaleDate = date => moment(date).format('hh:mm:ss');
 
-const DayScaleCell = (
-  { formatDate, ...restProps },
-) => <WeekView.DayScaleCell {...restProps} formatDate={formatDayScaleDate} />;
+const styles = {
+  dayScaleCell: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+};
+
+const DayScaleCell = withStyles(styles, 'DayScaleCell')((
+  { formatDate, classes, ...restProps },
+) => (
+  <WeekView.DayScaleCell
+    {...restProps}
+    formatDate={formatDayScaleDate}
+    className={classes.dayScaleCell}
+  />
+));
 const TimeScaleCell = (
   { formatDate, ...restProps },
 ) => <WeekView.TimeScaleCell {...restProps} formatDate={formatTimeScaleDate} />;

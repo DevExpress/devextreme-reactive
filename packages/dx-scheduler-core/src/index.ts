@@ -17,8 +17,6 @@ export * from './plugins/week-view/helpers';
 /** @internal */
 export * from './plugins/view-state/reducers';
 /** @internal */
-export * from './plugins/date-navigator/helpers';
-/** @internal */
 export * from './plugins/appointment-tooltip/reducers';
 /** @internal */
 export * from './plugins/appointment-tooltip/constants';

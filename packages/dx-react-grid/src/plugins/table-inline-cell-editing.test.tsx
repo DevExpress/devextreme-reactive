@@ -5,18 +5,21 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import {
   TABLE_DATA_TYPE,
   getRowChange,
-  isInlineEditTableCell,
+  rowsWithEditingCells,
+  columnsWithEditingCells,
 } from '@devexpress/dx-grid-core';
 import { TableInlineCellEditing } from './table-inline-cell-editing';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   getRowChange: jest.fn(),
-  isInlineEditTableCell: jest.fn(),
+  rowsWithEditingCells: jest.fn(),
+  columnsWithEditingCells: jest.fn(),
 }));
 
 const defaultDeps = {
   getter: {
     tableBodyRows: [{ type: 'undefined', rowId: 1 }],
+    tableColumns: [{ type: 'undefined', columnName: 'a' }],
     editingCells: [
       { rowId: 1, columnName: 'a' },
       { rowId: 2, columnName: 'a' },
@@ -35,8 +38,8 @@ const defaultDeps = {
   },
   template: {
     tableCell: {
-      tableRow: { type: TABLE_DATA_TYPE, rowId: 1, row: { a: 'a' } },
-      tableColumn: { type: TABLE_DATA_TYPE, column: 'column' },
+      tableRow: { type: TABLE_DATA_TYPE, rowId: 1, row: { a: 'a' }, hasEditCell: true },
+      tableColumn: { type: TABLE_DATA_TYPE, column: 'column', hasEditCell: true },
       style: {},
     },
     tableRow: {
@@ -57,6 +60,8 @@ describe('TableInlineCellEditing', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+    rowsWithEditingCells.mockImplementation(() => 'rowsWithEditingCells');
+    columnsWithEditingCells.mockImplementation(() => 'columnsWithEditingCells');
   });
   afterAll(() => {
     resetConsole();
@@ -64,15 +69,12 @@ describe('TableInlineCellEditing', () => {
 
   beforeEach(() => {
     getRowChange.mockImplementation(() => ({}));
-    isInlineEditTableCell.mockImplementation(() => false);
   });
   afterEach(() => {
     jest.resetAllMocks();
   });
 
   it('should render edit cell on user-defined column and edit row intersection', () => {
-    isInlineEditTableCell.mockImplementation(() => true);
-
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -87,12 +89,6 @@ describe('TableInlineCellEditing', () => {
         { ...defaultDeps.template.tableCell.tableRow.row },
         defaultDeps.template.tableCell.tableColumn.column.name,
       );
-    expect(isInlineEditTableCell)
-      .toBeCalledWith(
-        defaultDeps.template.tableCell.tableRow,
-        defaultDeps.template.tableCell.tableColumn,
-        defaultDeps.getter.editingCells,
-      );
     expect(tree.find(defaultProps.cellComponent).props())
       .toMatchObject({
         ...defaultDeps.template.tableCell,
@@ -102,8 +98,6 @@ describe('TableInlineCellEditing', () => {
   });
 
   it('can render custom editors', () => {
-    isInlineEditTableCell.mockImplementation(() => true);
-
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, {
@@ -132,8 +126,6 @@ describe('TableInlineCellEditing', () => {
   });
 
   it('should pass disabled prop to the custom editor if editing is not allowed', () => {
-    isInlineEditTableCell.mockImplementation(() => true);
-
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, {
@@ -155,8 +147,6 @@ describe('TableInlineCellEditing', () => {
   });
 
   it('should pass autoFocus, onBlur, onFocus and onKeyDown props into cellComponent', () => {
-    isInlineEditTableCell.mockImplementation(() => true);
-
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, {
@@ -178,6 +168,6 @@ describe('TableInlineCellEditing', () => {
     expect(cellComponent.prop('onFocus'))
       .toBeDefined();
     expect(cellComponent.prop('onKeyDown'))
-    .toBeDefined();
+      .toBeDefined();
   });
 });

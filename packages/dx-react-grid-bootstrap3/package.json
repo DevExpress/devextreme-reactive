@@ -69,7 +69,7 @@
     "eslint-plugin-react": "^7.16.0",
     "jest": "^24.9.0",
     "react": "^16.11.0",
-    "react-bootstrap": "=0.32.4",
+    "react-bootstrap": "=0.33.0",
     "react-dom": "^16.11.0",
     "react-test-renderer": "^16.11.0",
     "rollup": "^1.25.2",

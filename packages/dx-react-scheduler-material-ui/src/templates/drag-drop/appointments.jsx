@@ -14,7 +14,9 @@ const draftStyles = makeStyles(theme => ({
     boxShadow: theme.shadows[3],
     cursor: 'move',
     overflow: 'hidden',
-    backgroundColor: resources => getAppointmentColor(600, getResourceColor(resources), theme.palette.primary),
+    backgroundColor: resources => getAppointmentColor(
+      600, getResourceColor(resources), theme.palette.primary,
+    ),
     border: 0,
   },
 }));
@@ -28,7 +30,7 @@ const sourceStyles = makeStyles({
 export const DraftAppointment = ({ className, resources, ...restProps }) => {
   const classes = draftStyles(resources);
   return (
-    <DraftAppointmentBase
+    <AppointmentBase
       className={classNames(classes.appointment, className)}
       resources={resources}
       {...restProps}
@@ -36,41 +38,56 @@ export const DraftAppointment = ({ className, resources, ...restProps }) => {
   );
 };
 
+DraftAppointment.propTypes = {
+  resources: PropTypes.array,
+  className: PropTypes.string,
+};
+
+DraftAppointment.defaultProps = {
+  className: undefined,
+  resources: [],
+};
+
 export const SourceAppointment = ({ className, ...restProps }) => {
   const classes = sourceStyles();
   return (
-    <DraftAppointmentBase
+    <AppointmentBase
       className={classNames(classes.appointment, className)}
       {...restProps}
     />
   );
 };
 
-const DraftAppointmentBase = ({
-  className, data, formatDate,
-  type, fromPrev, toNext, durationType, ...restProps
-}) => {
-  return (
-    <Appointment
-      className={className}
-      type={type}
-      {...restProps}
-    >
-      {fromPrev && <SplitIndicator position={POSITION_START} appointmentType={type} />}
-      <AppointmentContent
-        data={data}
-        type={type}
-        recurringIconComponent={Repeat}
-        formatDate={formatDate}
-        durationType={durationType}
-      />
-      {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
-    </Appointment>
-  );
+SourceAppointment.propTypes = {
+  className: PropTypes.string,
 };
 
-DraftAppointmentBase.propTypes = {
-  classes: PropTypes.object.isRequired,
+SourceAppointment.defaultProps = {
+  className: undefined,
+};
+
+const AppointmentBase = ({
+  className, data, formatDate,
+  type, fromPrev, toNext, durationType, ...restProps
+}) => (
+  <Appointment
+    className={className}
+    type={type}
+    {...restProps}
+  >
+    {fromPrev && <SplitIndicator position={POSITION_START} appointmentType={type} />}
+    <AppointmentContent
+      data={data}
+      type={type}
+      recurringIconComponent={Repeat}
+      formatDate={formatDate}
+      durationType={durationType}
+    />
+    {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
+  </Appointment>
+);
+
+AppointmentBase.propTypes = {
   data: PropTypes.object.isRequired,
   fromPrev: PropTypes.bool.isRequired,
   toNext: PropTypes.bool.isRequired,
@@ -80,7 +97,7 @@ DraftAppointmentBase.propTypes = {
   type: PropTypes.string,
 };
 
-DraftAppointmentBase.defaultProps = {
+AppointmentBase.defaultProps = {
   durationType: undefined,
   className: undefined,
   type: undefined,

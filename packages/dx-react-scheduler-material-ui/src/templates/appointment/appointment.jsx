@@ -17,13 +17,19 @@ const useStyles = makeStyles(({ palette, typography, spacing }) => ({
     borderBottom: '1px solid transparent',
     backgroundClip: 'padding-box',
     borderRadius: spacing(0.5),
-    backgroundColor: resources => getAppointmentColor(300, getResourceColor(resources), palette.primary),
+    backgroundColor: resources => getAppointmentColor(
+      300, getResourceColor(resources), palette.primary,
+    ),
     ...typography.caption,
     '&:hover': {
-      backgroundColor: resources => getAppointmentColor(400, getResourceColor(resources), palette.primary),
+      backgroundColor: resources => getAppointmentColor(
+        400, getResourceColor(resources), palette.primary,
+      ),
     },
     '&:focus': {
-      backgroundColor: resources => getAppointmentColor(100, getResourceColor(resources), palette.primary),
+      backgroundColor: resources => getAppointmentColor(
+        100, getResourceColor(resources), palette.primary,
+      ),
       outline: 0,
     },
   },
@@ -65,7 +71,6 @@ const AppointmentBase = ({
 };
 
 AppointmentBase.propTypes = {
-  // classes: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
   resources: PropTypes.array,
   className: PropTypes.string,
@@ -83,4 +88,3 @@ AppointmentBase.defaultProps = {
 };
 
 export const Appointment = AppointmentBase;
-// export const Appointment = withStyles(styles, { name: 'Appointment' })(AppointmentBase);

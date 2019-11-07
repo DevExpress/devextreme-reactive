@@ -78,7 +78,6 @@ const VerticalAppointmentBase = ({
   formatDate,
   recurringIconComponent: RecurringIcon,
   durationType,
-  resources,
   ...restProps
 }) => {
   const repeat = !!data.rRule;

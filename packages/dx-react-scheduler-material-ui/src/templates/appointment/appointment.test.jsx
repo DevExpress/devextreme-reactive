@@ -1,21 +1,23 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { createShallow } from '@material-ui/core/test-utils';
 import { Appointment } from './appointment';
+
+jest.mock('@material-ui/core/styles', () => ({
+  ...require.requireActual('@material-ui/core/styles'),
+  makeStyles: jest.fn(() => () => ({
+    appointment: 'appointment',
+    clickableAppointment: 'clickableAppointment',
+  })),
+}));
 
 describe('Appointment', () => {
   const defaultProps = {
     style: {},
   };
 
-  let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(
-      <Appointment {...defaultProps}>
-        <div />
-      </Appointment>,
-    );
-    shallow = createShallow({ dive: true });
+    shallow = createShallow();
   });
   describe('AppointmentWrapper', () => {
     it('should pass className to the root element', () => {
@@ -27,9 +29,9 @@ describe('Appointment', () => {
 
       expect(tree.is('.custom-class'))
         .toBeTruthy();
-      expect(tree.is(`.${classes.appointment}`))
+      expect(tree.is('.appointment'))
         .toBeTruthy();
-      expect(tree.is(`.${classes.clickableAppointment}`))
+      expect(tree.is('.clickableAppointment'))
         .toBeFalsy();
     });
 
@@ -65,7 +67,7 @@ describe('Appointment', () => {
         >
           <div />
         </Appointment>
-      )).find(`.${classes.appointment}`);
+      )).find('.appointment');
 
       appointment.simulate('click', { target: 'target' });
 
@@ -83,7 +85,7 @@ describe('Appointment', () => {
         </Appointment>
       ));
 
-      expect(tree.is(`.${classes.clickableAppointment}`))
+      expect(tree.is('.clickableAppointment'))
         .toBeTruthy();
     });
 
@@ -97,7 +99,7 @@ describe('Appointment', () => {
         </Appointment>
       ));
 
-      expect(tree.is(`.${classes.clickableAppointment}`))
+      expect(tree.is('.clickableAppointment'))
         .toBeTruthy();
     });
 
@@ -111,7 +113,7 @@ describe('Appointment', () => {
         </Appointment>
       ));
 
-      expect(tree.is(`.${classes.clickableAppointment}`))
+      expect(tree.is('.clickableAppointment'))
         .toBeTruthy();
     });
   });

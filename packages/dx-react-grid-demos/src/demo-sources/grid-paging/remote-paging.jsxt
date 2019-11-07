@@ -40,9 +40,9 @@ export default () => {
       setLoading(true);
       fetch(queryString)
         .then(response => response.json())
-        .then((data) => {
-          setRows(data.data);
-          setTotalCount(data.totalCount);
+        .then(({ data, totalCount }) => {
+          setRows(data);
+          setTotalCount(totalCount);
           setLoading(false);
         })
         .catch(() => setLoading(false));

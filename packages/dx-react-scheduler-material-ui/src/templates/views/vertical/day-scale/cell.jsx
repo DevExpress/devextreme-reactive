@@ -63,7 +63,8 @@ const styles = theme => ({
   dayView: {
     'td:only-child &': {
       textAlign: 'center',
-      width: 'fit-content',
+      width: 'auto',
+      display: 'inline-block',
     },
   },
 });

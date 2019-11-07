@@ -13,6 +13,12 @@ export namespace VirtualTable {
     /** Specifies whether word wrap is enabled in a column's cells. */
     wordWrapEnabled?: boolean;
   }
+
+  /** Describes the row's index and id. */
+  export interface RowIdentifier {
+    index?: number;
+    id?: string | number;
+  }
 }
 
 export interface VirtualTableProps {
@@ -57,19 +63,15 @@ export interface VirtualTableProps {
   footerTableComponent: React.ComponentType<object>;
   // TODO
   skeletonCellComponent: React.ComponentType<Table.CellProps>;
-  /** Handles top row index changes. */
-  onRowIndexChange: (index: number | undefined) => void;
-  /** Handles top row ID changes. */
-  onRowIdChange: (id: number | string | undefined) => void;
+  /** Handles top row changes. */
+  onTopRowChange: (row: VirtualTable.RowIdentifier) => void;
 }
 
 /** @internal */
 export type VirtualTablePluginState = {
   viewport: GridViewport;
-  /** Index of row, which be scrolled into view */
-  nextScrollIndex: number | undefined;
-  /** Id of row, which be scrolled into view */
-  nextScrollId: number | string | undefined;
+  /** Id and index of row, which be scrolled into view */
+  nextRow: VirtualTable.RowIdentifier;
 };
 
 // tslint:disable-next-line:max-line-length

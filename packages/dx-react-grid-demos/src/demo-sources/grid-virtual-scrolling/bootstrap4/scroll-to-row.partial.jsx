@@ -3,38 +3,38 @@
 
 // BLOCK:body
 const IndexScroller = ({
-  topIndex, setTopIndex, goToIndex,
+  index, setIndex, goToRow,
 }) => (
   <div className="form-inline">
     Index:
     <input
       id="index_scroll"
       type="number"
-      value={topIndex}
-      onChange={e => setTopIndex(e.target.value)}
+      value={index}
+      onChange={e => setIndex(e.target.value)}
       className="form-control m-2"
       style={{ width: '6em' }}
     />
-    <button type="button" onClick={goToIndex} className="btn">
+    <button type="button" onClick={() => goToRow({ index })} className="btn">
       Go
     </button>
   </div>
 );
 
 const IdScroller = ({
-  topId, setTopId, goToId,
+  id, setId, goToRow,
 }) => (
   <div className="form-inline">
     Id:
     <input
       id="id_scroll"
       type="text"
-      value={topId}
-      onChange={e => setTopId(e.target.value)}
+      value={id}
+      onChange={e => setId(e.target.value)}
       className="form-control m-2"
       style={{ width: '6em' }}
     />
-    <button type="button" onClick={goToId} className="btn">
+    <button type="button" onClick={() => goToRow({ id })} className="btn">
       Go
     </button>
   </div>

@@ -26,21 +26,21 @@ const styles = ({ spacing }) => ({
 });
 
 const IndexScrollerBase = ({
-  classes, topIndex, setTopIndex, goToIndex,
+  classes, index, setIndex, goToRow,
 }) => (
   <GridMUI alignItems="center" container className={classes.container}>
     <Typography>Index: </Typography>
     <TextField
       type="number"
-      value={topIndex}
-      onChange={e => setTopIndex(e.target.value)}
+      value={index}
+      onChange={e => setIndex(e.target.value)}
       variant="outlined"
       className={classes.textContainer}
       inputProps={{
         className: classes.text,
       }}
     />
-    <Button onClick={goToIndex} variant="outlined" className={classes.button}>
+    <Button onClick={() => goToRow({ index })} variant="outlined" className={classes.button}>
       Go
     </Button>
   </GridMUI>
@@ -48,20 +48,20 @@ const IndexScrollerBase = ({
 const IndexScroller = withStyles(styles, { name: 'IndexScroller' })(IndexScrollerBase);
 
 const IdScrollerBase = ({
-  classes, topId, setTopId, goToId,
+  classes, id, setId, goToRow,
 }) => (
   <GridMUI alignItems="center" container className={classes.container}>
     <Typography>Id: </Typography>
     <TextField
-      value={topId}
-      onChange={e => setTopId(e.target.value)}
+      value={id}
+      onChange={e => setId(e.target.value)}
       variant="outlined"
       className={classes.textContainer}
       inputProps={{
         className: classes.text,
       }}
     />
-    <Button onClick={goToId} variant="outlined" className={classes.button}>
+    <Button onClick={() => goToRow({ id })} variant="outlined" className={classes.button}>
       Go
     </Button>
   </GridMUI>

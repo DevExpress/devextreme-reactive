@@ -15,6 +15,7 @@ import {
   Table as TableNS,
   TableLayoutProps,
   VirtualTablePluginState,
+  VirtualTable as VirtualTableNS,
 } from '../../types';
 
 /** @internal */
@@ -51,24 +52,21 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       headTableComponent: FixedHeader,
       footerTableComponent: FixedFooter,
       skeletonCellComponent: SkeletonCell,
-      onRowIndexChange: () => {},
-      onRowIdChange: () => {},
+      onTopRowChange: () => {},
     };
     static FixedHeader: React.ComponentType;
     static FixedFooter: React.ComponentType;
     static SkeletonCell: React.ComponentType;
 
     layoutRenderComponent: React.ComponentType<VirtualTableLayoutProps> & { update(): void; };
-    scrollToIndex: (index: number) => void;
-    scrollToId: (id: number | string) => void;
+    scrollToRow: (prop: VirtualTableNS.RowIdentifier) => void;
 
     constructor(props) {
       super(props);
 
       this.state = {
         viewport: emptyViewport,
-        nextScrollIndex: undefined,
-        nextScrollId: undefined,
+        nextRow: {},
       };
 
       this.layoutRenderComponent = connectProps(VirtualLayout, () => {
@@ -82,37 +80,31 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
           footerTableComponent,
         };
       });
-      this.scrollToIndex = (index) => {
-        this.setState({ nextScrollIndex: index });
-      };
-      this.scrollToId = (id) => {
-        this.setState({ nextScrollId: id });
-      };
+      this.scrollToRow = nextRow => this.setState({ nextRow });
     }
 
     setViewport = (viewport, { tableBodyRows, isDataRemote }: Getters) => {
-      const { onRowIndexChange, onRowIdChange } = this.props;
+      const { onTopRowChange } = this.props;
       const hasViewportRows = viewport && viewport.rows;
       const hasBodyRows = tableBodyRows && tableBodyRows.length;
-      const changedIndex = hasViewportRows ? viewport.rows[0] : undefined;
-      const changedId = hasViewportRows && hasBodyRows && !isDataRemote
+      const index = hasViewportRows ? viewport.rows[0] : undefined;
+      const id = hasViewportRows && hasBodyRows && !isDataRemote
         ? tableBodyRows[viewport.rows[0]].rowId
         : undefined;
 
-      onRowIndexChange(changedIndex);
-      onRowIdChange(changedId);
+      onTopRowChange({ id, index });
       this.setState({ viewport });
     }
 
     componentDidUpdate(prevProps, prevState) {
-      const { nextScrollIndex: prevIndex, nextScrollId: prevId } = prevState;
-      const { nextScrollIndex: currentIndex, nextScrollId: currentId } = this.state;
+      const { nextRow: { id: prevId, index: prevIndex } } = prevState;
+      const { nextRow: { id: currentId, index: currentIndex } } = this.state;
       const equalIds = currentId !== undefined && currentId === prevId;
       const equalIndexes = currentIndex !== undefined && currentIndex === prevIndex;
 
       this.layoutRenderComponent.update();
       if (equalIds || equalIndexes) {
-        this.setState({ nextScrollIndex: undefined, nextScrollId: undefined });
+        this.setState({ nextRow: {} });
       }
     }
 
@@ -126,8 +118,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       } = this.props;
       const {
         viewport: stateViewport,
-        nextScrollIndex,
-        nextScrollId,
+        nextRow: { id: nextId, index: nextIndex },
       } = this.state;
 
       return (
@@ -148,11 +139,11 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                 ) => {
                   const totalRowCount = availableRowCount || tableBodyRows.length;
 
-                  const indexById = !isDataRemote && nextScrollId !== undefined
-                    ? tableBodyRows.findIndex(row => row.rowId === nextScrollId)
+                  const indexById = !isDataRemote && nextId !== undefined
+                    ? tableBodyRows.findIndex(row => row.rowId === nextId)
                     : undefined;
                   const scrollIndex = indexById !== undefined
-                    ? indexById : nextScrollIndex;
+                    ? indexById : nextIndex;
                   const scrollTop = calculateScrollHeight(
                     estimatedRowHeight,
                     scrollIndex,

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';<%&additionalImports%>
+import React, { useState, useRef } from 'react';<%&additionalImports%>
 <%&imports%>
 import {
   Grid,
@@ -33,17 +33,18 @@ export default () => {
     columnValues: { id: ({ index }) => `id_${99999 - index}`, ...defaultColumnValues },
     length: 100000,
   }));
-  const [topIndex, setTopIndex] = useState(0);
-  const [topId, setTopId] = useState(0);
+  const [index, setIndex] = useState(0);
+  const [id, setId] = useState(0);
   const vtRef = useRef();
 
-  const goToIndex = useCallback(() => {
-    vtRef.current.scrollToIndex(topIndex);
-  }, [topIndex]);
+  const topRowChange = ({ id: newId, index: newIndex }) => {
+    setIndex(newIndex);
+    setId(newId);
+  };
 
-  const goToId = useCallback(() => {
-    vtRef.current.scrollToId(topId);
-  }, [topId]);
+  const goToRow = (row) => {
+    vtRef.current.scrollToRow(row);
+  };
 
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>
@@ -54,18 +55,16 @@ export default () => {
       >
         <VirtualTable
           ref={vtRef}
-          onRowIndexChange={setTopIndex}
-          onRowIdChange={setTopId}
+          onTopRowChange={topRowChange}
         />
         <TableHeaderRow />
         <Toolbar />
         <ScrollPanel
-          topIndex={topIndex}
-          setTopIndex={setTopIndex}
-          goToIndex={goToIndex}
-          topId={topId}
-          setTopId={setTopId}
-          goToId={goToId}
+          index={index}
+          setIndex={setIndex}
+          id={id}
+          setId={setId}
+          goToRow={goToRow}
         />
       </Grid>
     </<%&wrapperTag%>>

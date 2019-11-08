@@ -26,7 +26,7 @@ import { Resources } from '@devexpress/dx-react-scheduler';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-data | Array&lt;[Resource](#resourceitem)&gt; | The resources data set.
+data | Array&lt;[Resource](#resource)&gt; | The resources data set.
 mainResourceName? | string | | Specifies whether appointments are colored like this resource kind.
 palette? | [Palette](#palette) | [red, pink, purple, deepPurple, indigo, blue, lightBlue, cyan, teal, green, lightGreen, lime, yellow, ember, orange, deepOrange] | The palette that would be used if resource item colors were not defined.
 
@@ -52,7 +52,7 @@ Field | Type | Description
 ------|------|------------
 id | number &#124; string | The resource item ID.
 text? | string | The resource item text that would displays inside UI components.
-color? | string &#124; [Color](#сolor) | The resource item color that would used inside UI components.
+color? | string &#124; [Color](#color) | The resource item color that would used inside UI components.
 
 ### Palette
 
@@ -70,7 +70,7 @@ title | string | The resource kind title that would displays inside UI component
 allowMultiple | boolean | Indicates whether or not several resources of this kind can be assigned to an appointment.
 isMain | boolean | Specifies the main resource kind.
 items | Array&lt;[ValidResourceItem](#validresourceitem)&gt; | The array of resource items.
-color? | string &#124; [Color](#сolor) | The resource item color that would used inside UI components.
+color? | string &#124; [Color](#color) | The resource item color that would used inside UI components.
 
 ### ValidResourceItem
 
@@ -82,7 +82,7 @@ text | string | The resource item text that would displays inside UI components.
 title | string | The resource kind title that would displays inside UI components.
 allowMultiple | boolean | The flag that specifies multiple instances resource kind.
 isMain | boolean | Specifies the main resource kind.
-color? | string &#124; [Color](#сolor) | The resource item color that would used inside UI components.
+color? | string &#124; [Color](#color) | The resource item color that would used inside UI components.
 
 ### Color
 

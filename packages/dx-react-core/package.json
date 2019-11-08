@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-core",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Core library for DevExtreme React Components",
   "author": {
     "name": "Developer Express Inc.",
@@ -55,14 +55,14 @@
     "rollup-plugin-license": "^0.12.1",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-replace": "^2.2.0",
-    "rollup-plugin-typescript2": "^0.24.3",
+    "rollup-plugin-typescript2": "^0.25.2",
     "ts-jest": "^24.1.0",
     "tslint": "^5.20.0",
     "tslint-config-airbnb": "^5.11.2",
     "typescript": "3.6.4"
   },
   "dependencies": {
-    "@devexpress/dx-core": "2.2.0",
+    "@devexpress/dx-core": "2.2.1",
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {

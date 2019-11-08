@@ -21,6 +21,7 @@ const styles = theme => ({
     ...theme.typography.caption,
     fontSize: '0.7rem',
     whiteSpace: 'nowrap',
+    color: theme.palette.text.secondary,
   },
   emptyLabel: {
     height: theme.spacing(3),

@@ -38,7 +38,7 @@ const useStyles = makeStyles(({ palette, typography, spacing }) => ({
   },
 }));
 
-const AppointmentBase = ({
+export const Appointment = ({
   className,
   children,
   data,
@@ -70,7 +70,7 @@ const AppointmentBase = ({
   );
 };
 
-AppointmentBase.propTypes = {
+Appointment.propTypes = {
   children: PropTypes.node.isRequired,
   resources: PropTypes.array,
   className: PropTypes.string,
@@ -79,12 +79,10 @@ AppointmentBase.propTypes = {
   draggable: PropTypes.bool,
 };
 
-AppointmentBase.defaultProps = {
+Appointment.defaultProps = {
   resources: [],
   onClick: undefined,
   className: undefined,
   data: {},
   draggable: false,
 };
-
-export const Appointment = AppointmentBase;

@@ -67,7 +67,7 @@ describe('Appointment', () => {
         >
           <div />
         </Appointment>
-      )).find('.appointment');
+      ));
 
       appointment.simulate('click', { target: 'target' });
 

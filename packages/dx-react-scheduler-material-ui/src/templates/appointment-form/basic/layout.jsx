@@ -200,7 +200,7 @@ const LayoutBase = ({
         className={classes.notesEditor}
       />
       {resources.map(resource => (
-        <>
+        <React.Fragment key={resource.fieldName}>
           <Label
             text={resource.title}
             type={TITLE}
@@ -212,7 +212,7 @@ const LayoutBase = ({
             appointmentResources={appointmentResources}
             onResourceChange={changeResources}
           />
-        </>
+        </React.Fragment>
       ))}
 
       {children}

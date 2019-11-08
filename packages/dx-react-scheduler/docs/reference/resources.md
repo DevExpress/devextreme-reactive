@@ -26,7 +26,7 @@ import { Resources } from '@devexpress/dx-react-scheduler';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-data | Array&lt;[Resource](#resource)&gt; | The resources data set.
+data | Array&lt;[Resource](#resource)&gt; | | The resources data set.
 mainResourceName? | string | | Specifies whether appointments are colored like this resource kind.
 palette? | [Palette](#palette) | [red, pink, purple, deepPurple, indigo, blue, lightBlue, cyan, teal, green, lightGreen, lime, yellow, ember, orange, deepOrange] | The palette that would be used if resource item colors were not defined.
 
@@ -62,6 +62,8 @@ Type: `Array<string | Color>`
 
 ### ValidResource
 
+The resource with all properties.
+
 Field | Type | Description
 ------|------|------------
 fieldName | string | The appointment data field name that would binding to resource.
@@ -73,6 +75,8 @@ items | Array&lt;[ValidResourceItem](#validresourceitem)&gt; | The array of reso
 color? | string &#124; [Color](#color) | The resource item color that would used inside UI components.
 
 ### ValidResourceItem
+
+The resource item with all properties.
 
 Field | Type | Description
 ------|------|------------

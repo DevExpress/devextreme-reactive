@@ -43,7 +43,7 @@ export const appointments = [
     startDate: new Date(2017, 4, 26, 10, 0),
     endDate: new Date(2017, 4, 26, 11, 0),
     rRule: 'FREQ=YEARLY;BYWEEKNO=23',
-    recurrenceException: '20170611T100000',
+    exDate: '20170611T100000',
   }, {
     id: 5,
     title: 'Final exams',

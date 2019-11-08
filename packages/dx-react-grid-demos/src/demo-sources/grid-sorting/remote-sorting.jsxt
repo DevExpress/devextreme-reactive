@@ -8,7 +8,7 @@ import {
 
 import { Loading } from '../../../theme-sources/<%&themeName%>/components/loading';
 
-const URL = 'https://js.devexpress.com/Demos/WidgetsGallery/data/orderItems';
+const URL = 'https://js.devexpress.com/Demos/WidgetsGalleryDataService/api/orders?requireTotalCount=true';
 
 export default () => {
   const [columns] = useState([
@@ -29,13 +29,18 @@ export default () => {
   const [lastQuery, setLastQuery] = useState();
 
   const getQueryString = () => {
-    let queryString = `${URL}?`;
+    let queryString = `${URL}`;
 
-    const columnSorting = sorting[0];
-    if (columnSorting) {
-      const sortDirectionString = columnSorting.direction === 'desc' ? ' desc' : '';
-      queryString = `${queryString}orderby=${columnSorting.columnName}${sortDirectionString}`;
+    if (sorting.length) {
+      const sortingConfig = sorting
+        .map(({ columnName, direction }) => ({
+          selector: columnName,
+          desc: direction === 'desc',
+        }));
+      const sortingStr = JSON.stringify(sortingConfig);
+      queryString = `${queryString}&sort=${escape(`${sortingStr}`)}`;
     }
+
     return queryString;
   };
 
@@ -45,8 +50,8 @@ export default () => {
       setLoading(true);
       fetch(queryString)
         .then(response => response.json())
-        .then((data) => {
-          setRows(data.items);
+        .then(({ data }) => {
+          setRows(data);
           setLoading(false);
         })
         .catch(() => setLoading(false));

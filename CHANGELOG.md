@@ -1,3 +1,22 @@
+# [2.2.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.2.0...v2.2.1) (2019-11-07)
+
+
+### Bug Fixes
+
+* **react-grid:** make TableInlineCellEditing.Cell available ([#2508](https://github.com/DevExpress/devextreme-reactive/issues/2508)) ([3eb81f2](https://github.com/DevExpress/devextreme-reactive/commit/3eb81f236b98a2a94afe372edafb419b51664285))
+* **react-grid:** rerender only cell being edited in inline cell editing mode ([#2507](https://github.com/DevExpress/devextreme-reactive/issues/2507)) ([9adadea](https://github.com/DevExpress/devextreme-reactive/commit/9adadea6c728093391f69960dcb2bea99efce3b7))
+* **react-grid-demos:** add margin for custom numeric input ([#2521](https://github.com/DevExpress/devextreme-reactive/issues/2521)) ([aa1dd34](https://github.com/DevExpress/devextreme-reactive/commit/aa1dd34efe2439a7274fd41acf0bcde50de62963))
+* **react-scheduler-material-ui:** Fix DayView DayScale cell ([#2524](https://github.com/DevExpress/devextreme-reactive/issues/2524)) ([2901f59](https://github.com/DevExpress/devextreme-reactive/commit/2901f592c77e0855b49c2f890ba09f89ed7f6f4c))
+
+
+### Features
+
+* **react-scheduler:** add mobile adaptability to the Scheduler ([#2497](https://github.com/DevExpress/devextreme-reactive/issues/2497)) ([cfe48bd](https://github.com/DevExpress/devextreme-reactive/commit/cfe48bd028fd519bcbf841f0b1df522c69cf2f48))
+* **react-scheduler:** show day of week in the AppointmentTooltip ([#2501](https://github.com/DevExpress/devextreme-reactive/issues/2501)) ([75394a5](https://github.com/DevExpress/devextreme-reactive/commit/75394a52296b7628a7935b18ec7496c5c93db457))
+* **react-scheduler-material-ui:** redesign Scheduler's views ([#2506](https://github.com/DevExpress/devextreme-reactive/issues/2506)) ([94c00e6](https://github.com/DevExpress/devextreme-reactive/commit/94c00e69a7cfd13e27d5febf0ae5d82fd58e9104))
+
+
+
 # [2.2.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.1.2...v2.2.0) (2019-10-25)
 
 

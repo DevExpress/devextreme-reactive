@@ -1,8 +1,7 @@
-/* globals document:true window:true */
+/* globals window:true */
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import { findDOMNode } from 'react-dom';
 import { getStickyPosition } from '../utils/css-fallback-properties';
 
 export const StyleContext = React.createContext();
@@ -11,6 +10,7 @@ export class Root extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    this.panelRef = React.createRef();
     this.state = {
       backgroundColor: undefined,
       borderColor: undefined,
@@ -19,10 +19,10 @@ export class Root extends React.PureComponent {
   }
 
   componentDidMount() {
-    const body = document.getElementsByTagName('body')[0];
-    const { backgroundColor } = window.getComputedStyle(body);
-    // eslint-disable-next-line react/no-find-dom-node
-    const borderColor = window.getComputedStyle(findDOMNode(this)).borderBottomColor;
+    const {
+      backgroundColor,
+      borderBottomColor: borderColor,
+    } = window.getComputedStyle(this.panelRef.current);
     const stickyPosition = getStickyPosition();
 
     this.setState({ backgroundColor, borderColor, stickyPosition });
@@ -37,6 +37,7 @@ export class Root extends React.PureComponent {
     return (
       <StyleContext.Provider value={{ backgroundColor, borderColor, stickyPosition }}>
         <div
+          ref={this.panelRef}
           className={classNames('panel panel-default', className)}
           style={{
             display: 'flex',

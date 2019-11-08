@@ -41,7 +41,7 @@ describe('AppointmentForm helpers', () => {
 
   describe('#changeRecurrenceFrequency', () => {
     const rule = 'RRULE:INTERVAL=3';
-    const testDate = new Date(2019, 1, 1, 0, 0);
+    const testDate = new Date(2019, 0, 1, 0, 0);
     beforeEach(() => {
       getCountDependingOnRecurrenceType.mockImplementation(() => 5);
     });
@@ -49,104 +49,29 @@ describe('AppointmentForm helpers', () => {
       jest.resetAllMocks();
     });
     it('should create new rule for a given frequency', () => {
-      expect((new RRule(
-        RRule.parseString(changeRecurrenceFrequency(undefined, RRule.DAILY, testDate)))
-      )
-        .options)
-        .toMatchObject((new RRule({
-          ...DEFAULT_RULE_OBJECT,
-          freq: RRule.DAILY,
-          count: 5,
-        }))
-          .options);
-
-      expect((new RRule(
-        RRule.parseString(changeRecurrenceFrequency(undefined, RRule.WEEKLY, testDate)))
-      )
-        .options)
-        .toMatchObject((new RRule({
-          ...DEFAULT_RULE_OBJECT,
-          freq: RRule.WEEKLY,
-          count: 5,
-        }))
-          .options);
-
-      expect((new RRule(
-        RRule.parseString(changeRecurrenceFrequency(undefined, RRule.MONTHLY, testDate)))
-      )
-        .options)
-        .toMatchObject((new RRule({
-          ...DEFAULT_RULE_OBJECT,
-          freq: RRule.MONTHLY,
-          bymonthday: 1,
-          count: 5,
-        }))
-          .options);
-
-      expect((new RRule(
-        RRule.parseString(changeRecurrenceFrequency(undefined, RRule.YEARLY, testDate)))
-      )
-        .options)
-        .toMatchObject((new RRule({
-          ...DEFAULT_RULE_OBJECT,
-          freq: RRule.YEARLY,
-          bymonthday: 1,
-          bymonth: 2,
-          count: 5,
-        }))
-          .options);
+      expect(changeRecurrenceFrequency(undefined, RRule.DAILY, testDate))
+        .toBe('RRULE:INTERVAL=1;FREQ=DAILY;COUNT=5');
+      expect(changeRecurrenceFrequency(undefined, RRule.WEEKLY, testDate))
+        .toBe('RRULE:INTERVAL=1;FREQ=WEEKLY;COUNT=5');
+      expect(changeRecurrenceFrequency(undefined, RRule.MONTHLY, testDate))
+        .toBe('RRULE:INTERVAL=1;FREQ=MONTHLY;BYMONTHDAY=1;COUNT=5');
+      expect(changeRecurrenceFrequency(undefined, RRule.YEARLY, testDate))
+        .toBe('RRULE:INTERVAL=1;FREQ=YEARLY;BYMONTHDAY=1;BYMONTH=1;COUNT=5');
 
       expect(getCountDependingOnRecurrenceType)
         .toBeCalledTimes(4);
     });
 
     it('should return a changed rule depending on frequency', () => {
-      expect((new RRule(
-        RRule.parseString(changeRecurrenceFrequency(rule, RRule.DAILY, testDate)))
-      )
-        .options)
-        .toMatchObject((new RRule({
-          ...RRule.parseString(rule),
-          freq: RRule.DAILY,
-          count: 5,
-        }))
-          .options);
+      expect(changeRecurrenceFrequency(rule, RRule.DAILY, testDate))
+        .toBe('RRULE:INTERVAL=3;FREQ=DAILY;COUNT=5');
+      expect(changeRecurrenceFrequency(rule, RRule.WEEKLY, testDate))
+        .toBe('RRULE:INTERVAL=3;FREQ=WEEKLY;COUNT=5');
+      expect(changeRecurrenceFrequency(rule, RRule.MONTHLY, testDate))
+        .toBe('RRULE:INTERVAL=3;FREQ=MONTHLY;COUNT=5;BYMONTHDAY=1');
+      expect(changeRecurrenceFrequency(rule, RRule.YEARLY, testDate))
+        .toBe('RRULE:INTERVAL=3;FREQ=YEARLY;COUNT=5;BYMONTHDAY=1;BYMONTH=1');
 
-      expect((new RRule(
-        RRule.parseString(changeRecurrenceFrequency(rule, RRule.WEEKLY, testDate)))
-      )
-        .options)
-        .toMatchObject((new RRule({
-          ...RRule.parseString(rule),
-          freq: RRule.WEEKLY,
-          count: 5,
-        }))
-          .options);
-
-      expect((new RRule(
-        RRule.parseString(changeRecurrenceFrequency(rule, RRule.MONTHLY, testDate)))
-      )
-        .options)
-        .toMatchObject((new RRule({
-          ...RRule.parseString(rule),
-          freq: RRule.MONTHLY,
-          bymonthday: 1,
-          count: 5,
-        }))
-          .options);
-
-      expect((new RRule(
-        RRule.parseString(changeRecurrenceFrequency(rule, RRule.YEARLY, testDate)))
-      )
-        .options)
-        .toMatchObject((new RRule({
-          ...RRule.parseString(rule),
-          freq: RRule.YEARLY,
-          bymonthday: 1,
-          bymonth: 2,
-          count: 5,
-        }))
-          .options);
       expect(getCountDependingOnRecurrenceType)
         .toBeCalledTimes(4);
     });
@@ -154,18 +79,8 @@ describe('AppointmentForm helpers', () => {
     it('should clear bymonthday and byweekday when switching to daily', () => {
       const testRule = 'RRULE:INTERVAL=4;BYMONTHDAY=24;BYWEEKDAY=MO';
 
-      expect((new RRule(
-        RRule.parseString(changeRecurrenceFrequency(testRule, RRule.DAILY, testDate)))
-      )
-        .options)
-        .toMatchObject((new RRule({
-          ...RRule.parseString(testRule),
-          freq: RRule.DAILY,
-          bymonthday: undefined,
-          byweekday: undefined,
-          count: 5,
-        }))
-          .options);
+      expect(changeRecurrenceFrequency(testRule, RRule.DAILY, testDate))
+        .toBe('RRULE:INTERVAL=4;FREQ=DAILY;COUNT=5');
       expect(getCountDependingOnRecurrenceType)
         .toHaveBeenCalled();
     });
@@ -173,18 +88,8 @@ describe('AppointmentForm helpers', () => {
     it('should clear bymonthday and byweekday when switching to weekly', () => {
       const testRule = 'RRULE:INTERVAL=4;BYMONTHDAY=24;BYWEEKDAY=MO';
 
-      expect((new RRule(
-        RRule.parseString(changeRecurrenceFrequency(testRule, RRule.WEEKLY, testDate)))
-      )
-        .options)
-        .toMatchObject((new RRule({
-          ...RRule.parseString(testRule),
-          freq: RRule.WEEKLY,
-          bymonthday: undefined,
-          byweekday: undefined,
-          count: 5,
-        }))
-          .options);
+      expect(changeRecurrenceFrequency(testRule, RRule.WEEKLY, testDate))
+        .toBe('RRULE:INTERVAL=4;FREQ=WEEKLY;COUNT=5');
       expect(getCountDependingOnRecurrenceType)
         .toHaveBeenCalled();
     });
@@ -192,19 +97,8 @@ describe('AppointmentForm helpers', () => {
     it('should clear byweekday when switching to yearly', () => {
       const testRule = 'RRULE:INTERVAL=4;BYWEEKDAY=MO';
 
-      expect((new RRule(
-        RRule.parseString(changeRecurrenceFrequency(testRule, RRule.YEARLY, testDate)))
-      )
-        .options)
-        .toMatchObject((new RRule({
-          ...RRule.parseString(testRule),
-          freq: RRule.YEARLY,
-          byweekday: undefined,
-          bymonthday: testDate.getDate(),
-          bymonth: testDate.getMonth() + 1,
-          count: 5,
-        }))
-          .options);
+      expect(changeRecurrenceFrequency(testRule, RRule.YEARLY, testDate))
+        .toBe('RRULE:INTERVAL=4;FREQ=YEARLY;COUNT=5;BYMONTHDAY=1;BYMONTH=1');
       expect(getCountDependingOnRecurrenceType)
         .toHaveBeenCalled();
     });
@@ -212,18 +106,8 @@ describe('AppointmentForm helpers', () => {
     it('should clear byweekday when switching to monthly', () => {
       const testRule = 'RRULE:INTERVAL=4;BYWEEKDAY=MO';
 
-      expect((new RRule(
-        RRule.parseString(changeRecurrenceFrequency(testRule, RRule.MONTHLY, testDate)))
-      )
-        .options)
-        .toMatchObject((new RRule({
-          ...RRule.parseString(testRule),
-          freq: RRule.MONTHLY,
-          byweekday: undefined,
-          bymonthday: testDate.getDate(),
-          count: 5,
-        }))
-          .options);
+      expect(changeRecurrenceFrequency(testRule, RRule.MONTHLY, testDate))
+        .toBe('RRULE:INTERVAL=4;FREQ=MONTHLY;COUNT=5;BYMONTHDAY=1');
       expect(getCountDependingOnRecurrenceType)
         .toHaveBeenCalled();
     });

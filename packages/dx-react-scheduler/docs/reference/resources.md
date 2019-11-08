@@ -20,7 +20,7 @@ import { Resources } from '@devexpress/dx-react-scheduler';
 
 ### Dependencies
 
-none
+- [Appointments](appointments.md)
 
 ### Properties
 

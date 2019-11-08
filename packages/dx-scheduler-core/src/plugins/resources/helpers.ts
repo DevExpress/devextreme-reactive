@@ -8,7 +8,7 @@ export const getAppointmentResources: GetAppointmentResources = (
     || !plainResources || plainResources.length === 0
   ) return [];
 
-  const appointmentResources = resources.reduce((acc, resource) => {
+  return resources.reduce((acc, resource) => {
     const appointmentResourceId = appointment[resource.fieldName];
     if (appointmentResourceId === undefined) return acc;
 
@@ -34,6 +34,4 @@ export const getAppointmentResources: GetAppointmentResources = (
       ),
     ];
   }, [] as Array<ValidResourceItem>);
-
-  return appointmentResources;
 };

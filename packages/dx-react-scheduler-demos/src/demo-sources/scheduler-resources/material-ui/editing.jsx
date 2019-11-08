@@ -73,7 +73,9 @@ export default class Demo extends React.PureComponent {
 
           <MonthView />
           <Appointments />
-          <AppointmentTooltip />
+          <AppointmentTooltip
+            showOpenButton
+          />
           <AppointmentForm />
 
           <Resources

@@ -50,12 +50,6 @@ const styles = ({ spacing, typography }) => ({
   notesEditor: {
     marginTop: spacing(0),
   },
-  select: {
-    padding: spacing(1),
-  },
-  selectBox: {
-    width: '100%',
-  },
   dateEditor: {
     width: '45%',
     paddingTop: '0px!important',
@@ -69,19 +63,8 @@ const styles = ({ spacing, typography }) => ({
     textAlign: 'center',
     paddingTop: spacing(2),
   },
-  allDayEditor: {
-    marginRight: spacing(5),
-  },
   booleanEditors: {
     marginTop: spacing(0.875),
-  },
-  chips: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  chip: {
-    color: 'white',
-    margin: 2,
   },
   '@media (max-width: 570px)': {
     dateEditors: {

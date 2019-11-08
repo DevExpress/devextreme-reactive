@@ -73,7 +73,7 @@ describe('Resources computeds', () => {
           },
         ]);
     });
-    it('should assign the Main flag to two resource', () => {
+    it('should not assign the Main flag to two resource', () => {
       const resources = [
         { fieldName: 'ownerId', items: [{ id: 0 }] },
         { fieldName: 'roomId', items: [{ id: 0 }] },

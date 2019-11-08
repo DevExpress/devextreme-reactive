@@ -2,14 +2,14 @@ import { getAppointmentResources } from './helpers';
 
 describe('Resources helpers', () => {
   describe('#getAppointmentResources', () => {
-    it('should not provide resources if these are zero array', () => {
+    it('should return an empty array if resources is an empty array', () => {
       const appointment = {};
       const resources = [];
 
       expect(getAppointmentResources(appointment, resources, undefined))
         .toEqual([]);
     });
-    it('should not provide resources if these are not existed', () => {
+    it('should not return resources if none of them belong to the appointment', () => {
       const appointment = {};
       const resources = [{
         fieldName: 'ownerId',
@@ -19,7 +19,7 @@ describe('Resources helpers', () => {
       expect(getAppointmentResources(appointment, resources, undefined))
         .toEqual([]);
     });
-    it('should provide resources if these are existed', () => {
+    it('should provide resources in simple case', () => {
       const appointment = { ownerId: 0 };
       const resources = [{
         fieldName: 'ownerId',

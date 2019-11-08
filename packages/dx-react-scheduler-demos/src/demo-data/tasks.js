@@ -243,15 +243,15 @@ export const owners = [
   }, {
     text: 'John Heart',
     id: 3,
-    color: '#880E4F',
+    color: '#E91E63',
   }, {
     text: 'Taylor Riley',
     id: 4,
-    color: '#006064',
+    color: '#E91E63',
   }, {
     text: 'Brad Farkus',
     id: 5,
-    color: '#004D40',
+    color: '#AB47BC',
   }, {
     text: 'Arthur Miller',
     id: 6,

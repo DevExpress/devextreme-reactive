@@ -75,7 +75,7 @@ const useStyles = makeStyles(({ spacing, palette, typography }) => ({
   },
 }));
 
-export const ContentBase = ({
+export const Content = ({
   className,
   children,
   appointmentData,
@@ -147,7 +147,7 @@ export const ContentBase = ({
   );
 };
 
-ContentBase.propTypes = {
+Content.propTypes = {
   appointmentData: PropTypes.object,
   appointmentResources: PropTypes.array,
   children: PropTypes.node,
@@ -156,11 +156,9 @@ ContentBase.propTypes = {
   recurringIconComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 };
 
-ContentBase.defaultProps = {
+Content.defaultProps = {
   appointmentData: undefined,
   appointmentResources: [],
   className: undefined,
   children: undefined,
 };
-
-export const Content = ContentBase;

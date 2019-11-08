@@ -547,6 +547,14 @@ export interface RowDetailStateProps {
 export type RowId = number | string;
 
 // @public
+export interface RowIdentifier {
+  // (undocumented)
+  id?: string | number;
+  // (undocumented)
+  index?: number;
+}
+
+// @public
 export const SearchPanel: React.ComponentType<SearchPanelProps>;
 
 // @public (undocumented)
@@ -1332,12 +1340,6 @@ export namespace VirtualTable {
         width?: number | string;
         wordWrapEnabled?: boolean;
     }
-    export interface RowIdentifier {
-        // (undocumented)
-        id?: string | number;
-        // (undocumented)
-        index?: number;
-    }
 }
 
 // @public
@@ -1360,7 +1362,7 @@ export interface VirtualTableProps {
     messages?: Table.LocalizationMessages;
     noDataCellComponent: React.ComponentType<Table.NoDataCellProps>;
     noDataRowComponent: React.ComponentType<Table.RowProps>;
-    onTopRowChange: (row: VirtualTable.RowIdentifier) => void;
+    onTopRowChange: (row: RowIdentifier) => void;
     rowComponent: React.ComponentType<Table.DataRowProps>;
     // (undocumented)
     skeletonCellComponent: React.ComponentType<Table.CellProps>;

@@ -15,7 +15,7 @@ import {
   Table as TableNS,
   TableLayoutProps,
   VirtualTablePluginState,
-  VirtualTable as VirtualTableNS,
+  RowIdentifier,
 } from '../../types';
 
 /** @internal */
@@ -59,7 +59,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
     static SkeletonCell: React.ComponentType;
 
     layoutRenderComponent: React.ComponentType<VirtualTableLayoutProps> & { update(): void; };
-    scrollToRow: (prop: VirtualTableNS.RowIdentifier) => void;
+    scrollToRow: (prop: RowIdentifier) => void;
 
     constructor(props) {
       super(props);

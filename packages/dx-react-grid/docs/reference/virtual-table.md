@@ -38,13 +38,13 @@ stubRowComponent | ComponentType&lt;[Table.RowProps](#tablerowprops)&gt; | | A c
 stubCellComponent | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a stub table cell if the cell value is not provided.
 stubHeaderCellComponent | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a stub header cell if the cell value is not provided.
 messages? | [Table.LocalizationMessages](table.md#localization-messages) | | An object that specifies the localization messages.
-onTopRowChange? | (row: [VirtualTable.RowIdentifier](#virtualtablerowidentifier)) => void | | Handles top row index and id changes.
+onTopRowChange? | (row: [RowIdentifier](#row-identifier)) => void | | Handles top row index and id changes.
 
 ## Methods
 
 Name | Type | Description
 -----|------|------------
-scrollToRow | (row: [VirtualTable.RowIdentifier](#row-identificator)) => void | A function, that scroll table to specified row.
+scrollToRow | (row: [RowIdentifier](#row-identificator)) => void | A function, that scroll table to specified row.
 
 ## Interfaces
 
@@ -59,7 +59,7 @@ width? | number &#124; string | The table column width in pixels. Can be specifi
 align? | 'left' &#124; 'right' &#124; 'center' | The table column alignment.
 wordWrapEnabled? | boolean | Specifies whether word wrap is enabled in a column's cells.
 
-### VirtualTable.RowIdentifier
+### Row Identifier
 
 Describes the row's index and id.
 

@@ -29,6 +29,13 @@ export type GridViewport = {
   width: number;
   height: number;
 };
+
+/** Describes the row's index and id. */
+export interface RowIdentifier {
+  index?: number;
+  id?: string | number;
+}
+
 /** @internal */
 export type GetVisibleBoundaryFn = PureComputed<
   [ReadonlyArray<any>, number, number, (item: any) => number | null, number, number?],

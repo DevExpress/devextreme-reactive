@@ -23,6 +23,7 @@ const getRowId = row => row.id;
 
 export default () => {
   const [columns] = useState([
+    { name: 'index', title: 'Index' },
     { name: 'id', title: 'ID' },
     { name: 'name', title: 'Name' },
     { name: 'gender', title: 'Gender' },
@@ -30,9 +31,13 @@ export default () => {
     { name: 'car', title: 'Car' },
   ]);
   const [rows] = useState(generateRows({
-    columnValues: { id: ({ index }) => `id_${99999 - index}`, ...defaultColumnValues },
+    columnValues: { id: ({ index }) => `id_${99999 - index}`, index: ({ index }) => index, ...defaultColumnValues },
     length: 100000,
   }));
+  const [tableColumnExtensions] = useState([
+    { columnName: 'index', width: 75 },
+    { columnName: 'id', width: 75 },
+  ]);
   const [index, setIndex] = useState(0);
   const [id, setId] = useState(0);
   const vtRef = useRef();
@@ -54,6 +59,7 @@ export default () => {
         getRowId={getRowId}
       >
         <VirtualTable
+          columnExtensions={tableColumnExtensions}
           ref={vtRef}
           onTopRowChange={topRowChange}
         />

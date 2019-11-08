@@ -28,11 +28,13 @@ Name | Type | Default | Description
 -----|------|---------|------------
 data | Array&lt;[Resources.Resource](#resourcesresourceitem)&gt; | The resources data set.
 mainResourceName? | string | | Specifies whether appointments are colored like this resource kind.
-palette? | Array&lt;string &#124; Color&gt; | [red, pink, purple, deepPurple, indigo, blue, lightBlue, cyan, teal, green, lightGreen, lime, yellow, ember, orange, deepOrange] | The palette that would be used if resource item colors were not defined.
+palette? | [Resource.Palette](#resources.palette) | [red, pink, purple, deepPurple, indigo, blue, lightBlue, cyan, teal, green, lightGreen, lime, yellow, ember, orange, deepOrange] | The palette that would be used if resource item colors were not defined.
 
 ## Interfaces
 
 ### Resources.Resource
+
+Specifies a resource that available in scheduler.
 
 Field | Type | Description
 ------|------|------------
@@ -44,11 +46,19 @@ allowMultiple? | boolean | Indicates whether or not several resources of this ki
 
 ### Resources.ResourceItem
 
+Specifies the resource item object.
+
 Field | Type | Description
 ------|------|------------
 id | number &#124; string | The resource item ID.
 text? | string | The resource item text that would displays inside UI components.
-color? | string &#124; Color | The resource item color that would used inside UI components.
+color? | string &#124; [Resources.Color](#resources.color) | The resource item color that would used inside UI components.
+
+### Resources.Palette
+
+Specifies the resources palette.
+
+Type: `Array<string | Resources.Color>`
 
 ### Resources.ValidResource
 
@@ -60,7 +70,7 @@ title | string | The resource kind title that would displays inside UI component
 allowMultiple | boolean | Indicates whether or not several resources of this kind can be assigned to an appointment.
 isMain | boolean | Specifies the main resource kind.
 items | Array&lt;[Resources.ValidResourceItem](#resourcesvalidresourceitem)&gt; | The array of resource items.
-color? | string &#124; Color | The resource item color that would used inside UI components.
+color? | string &#124; [Resources.Color](#resources.color) | The resource item color that would used inside UI components.
 
 ### Resources.ValidResourceItem
 
@@ -72,13 +82,19 @@ text | string | The resource item text that would displays inside UI components.
 title | string | The resource kind title that would displays inside UI components.
 allowMultiple | boolean | The flag that specifies multiple instances resource kind.
 isMain | boolean | Specifies the main resource kind.
-color? | string &#124; Color | The resource item color that would used inside UI components.
+color? | string &#124; [Resources.Color](#resources.color) | The resource item color that would used inside UI components.
+
+### Resources.Color
+
+The Material-UI Color object that described [here](https://material-ui.com/customization/color/#color-palette). You see the [following examples](https://material-ui.com/customization/color/#examples) to use the color objects.
+
+Type: `object`
 
 ## Plugin Components
 
 Name | Properties | Description
 -----|------------|------------
-Resources.Root | [Resources.RootProps](#resourcesrootprops) | A component that renders the resources's root element.
-Resources.FlexibleSpace | [Resources.FlexibleSpaceProps](#resourcesflexiblespaceprops) | A component that renders the resources's empty area.
+Resources.Root | [Resources.RootProps](#resourcesrootprops) | A component that renders the resources root element.
+Resources.FlexibleSpace | [Resources.FlexibleSpaceProps](#resourcesflexiblespaceprops) | A component that renders the resources empty area.
 
 Additional properties are added to the component's root element.

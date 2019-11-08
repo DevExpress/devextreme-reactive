@@ -1,6 +1,8 @@
+import { Color as MUIColor } from '@material-ui/core';
 import { PureComputed } from '@devexpress/dx-core';
 import { Appointment } from './../index';
 
+/* tslint:disable no-empty-interface */
 /** Specifies a resource that available in scheduler. */
 export type Resource = {
   /** The name of the appointment object field that specifies a resource of this kind. */
@@ -32,22 +34,7 @@ export type ResourceItem = {
 export type Palette = Array<string | Color>;
 
 /** Specifies the color object. */
-export interface Color {
-  50: string;
-  100: string;
-  200: string;
-  300: string;
-  400: string;
-  500: string;
-  600: string;
-  700: string;
-  800: string;
-  900: string;
-  A100: string;
-  A200: string;
-  A400: string;
-  A700: string;
-}
+export interface Color extends MUIColor {}
 
 /** The resource item with all properties. */
 export type ValidResourceItem = {

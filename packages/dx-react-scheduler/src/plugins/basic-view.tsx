@@ -228,13 +228,13 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
                   />
                   <AppointmentLayer>
                     {(rects as ElementRect[]).map(({
-                      dataItem, type: rectType, fromPrev, toNext, durationType, resources, ...geometry
+                      dataItem, type: rectType, fromPrev, toNext,
+                      durationType, ...geometry
                     }, index) => (
                       <AppointmentPlaceholder
                         key={index.toString()}
                         type={rectType}
                         data={dataItem}
-                        resources={resources}
                         fromPrev={fromPrev}
                         toNext={toNext}
                         durationType={durationType}

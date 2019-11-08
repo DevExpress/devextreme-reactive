@@ -126,7 +126,7 @@ export const ContentBase = ({
         </Grid>
       </Grid>
       {appointmentResources.map(resourceItem => (
-        <Grid container alignItems="center" className={classes.resourceContainer} key={resourceItem.id}>
+        <Grid container alignItems="center" className={classes.resourceContainer} key={`${resourceItem.fieldName}_${resourceItem.id}`}>
           <Grid item xs={2} className={classes.textCenter}>
             <div className={classes.relativeContainer}>
               <Lens

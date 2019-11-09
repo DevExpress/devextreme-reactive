@@ -37,19 +37,7 @@ export type Palette = Array<string | Color>;
 export interface Color extends MUIColor {}
 
 /** The resource item with all properties. */
-export type ValidResourceItem = {
-  /**
-   * Specifies a resource item's identifier.
-   * This id should be related with scheduler's data `fieldName` id.
-   */
-  id: number | string;
-  /**
-   * Specifies resource item's color.
-   * It is used to indicate appointments related to this resource.
-   */
-  color: string | Color;
-  /** Specifies the resource item's text that would be used in UI */
-  text: string;
+export type ValidResourceItem = Required<ResourceItem> & {
   /** Specifies the resource title. */
   title: string;
   /** The name of the appointment object field that specifies a resource of this kind. */

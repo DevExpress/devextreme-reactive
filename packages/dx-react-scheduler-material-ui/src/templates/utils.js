@@ -29,7 +29,7 @@ export const scrollingStrategy = (scrollablePart, fixedPart) => {
   });
 };
 
-export const setColor = (level, color) => (color[level] || PRIMARY_COLOR[level]);
+export const ensureColor = (level, color) => (color[level] || PRIMARY_COLOR[level]);
 
 export const getResourceColor = (resources) => {
   if (resources && resources.length) {
@@ -38,7 +38,7 @@ export const getResourceColor = (resources) => {
 };
 
 export const getAppointmentColor = (level, color, defaultColor) => {
-  if (!color) return setColor(level, defaultColor);
+  if (!color) return ensureColor(level, defaultColor);
   if (typeof color === 'string') return color;
-  return setColor(level, color);
+  return ensureColor(level, color);
 };

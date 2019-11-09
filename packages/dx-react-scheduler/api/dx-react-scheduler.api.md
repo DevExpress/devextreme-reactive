@@ -934,10 +934,7 @@ export type ValidResource = {
 };
 
 // @public
-export type ValidResourceItem = {
-    id: number | string;
-    color: string | Color;
-    text: string;
+export type ValidResourceItem = Required<ResourceItem> & {
     title: string;
     fieldName: string;
     allowMultiple?: boolean;

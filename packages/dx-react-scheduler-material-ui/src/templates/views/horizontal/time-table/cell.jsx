@@ -33,10 +33,14 @@ const styles = theme => ({
   },
   text: {
     padding: '1em',
+    paddingTop: '0.5em',
+    textAlign: 'center',
+    '@media (max-width: 500px)': {
+      padding: '0.5em',
+    },
   },
   today: {
-    margin: '0.85em',
-    display: 'inline-block',
+    marginTop: '0.33em',
     width: '1.72em',
     height: '1.72em',
     lineHeight: 1.72,
@@ -45,6 +49,8 @@ const styles = theme => ({
     background: theme.palette.primary.main,
     color: theme.palette.primary.contrastText,
     cursor: 'default',
+    marginRight: 'auto',
+    marginLeft: 'auto',
   },
   otherMonth: {
     color: theme.palette.text.disabled,
@@ -62,7 +68,7 @@ const CellBase = React.memo(({
   ...restProps
 }) => {
   const isFirstMonthDay = startDate.getDate() === 1;
-  const formatOptions = isFirstMonthDay ? DAY_SHORT_MONTH_OPTIONS : DAY_OPTIONS;
+  const formatOptions = isFirstMonthDay && !today ? DAY_SHORT_MONTH_OPTIONS : DAY_OPTIONS;
   return (
     <TableCell
       tabIndex={0}

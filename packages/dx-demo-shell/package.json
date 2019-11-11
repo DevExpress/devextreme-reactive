@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@devexpress/dx-demo-shell",
-  "version": "2.1.2",
+  "version": "2.2.1",
   "description": "DevExtreme Reactive Components Demo Shell",
   "author": {
     "name": "Developer Express Inc.",
@@ -21,7 +21,7 @@
     "codemirror": "^5.49.2",
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
-    "react-bootstrap": "=0.32.4",
+    "react-bootstrap": "=0.33.0",
     "react-dom": "^16.10.2",
     "react-frame-component": "^4.1.1",
     "react-router": "^5.1.2",

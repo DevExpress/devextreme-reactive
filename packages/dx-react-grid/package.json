@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid",
-  "version": "2.1.2",
+  "version": "2.2.1",
   "description": "Composable plugin-based data grid component for React",
   "author": {
     "name": "Developer Express Inc.",
@@ -52,9 +52,9 @@
     "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
-    "@devexpress/dx-core": "2.1.2",
-    "@devexpress/dx-react-core": "2.1.2",
-    "@devexpress/dx-testing": "2.1.2",
+    "@devexpress/dx-core": "2.2.1",
+    "@devexpress/dx-react-core": "2.2.1",
+    "@devexpress/dx-testing": "2.2.1",
     "babel-core": "^7.0.0-bridge.0",
     "core-js": "^3.3.3",
     "enzyme": "3.10.0",
@@ -67,18 +67,18 @@
     "rollup": "^1.25.2",
     "rollup-plugin-license": "^0.12.1",
     "rollup-plugin-replace": "^2.2.0",
-    "rollup-plugin-typescript2": "^0.24.3",
+    "rollup-plugin-typescript2": "^0.25.2",
     "ts-jest": "^24.1.0",
     "tslint": "^5.20.0",
     "tslint-config-airbnb": "^5.11.2",
     "typescript": "3.6.4"
   },
   "dependencies": {
-    "@devexpress/dx-grid-core": "2.1.2"
+    "@devexpress/dx-grid-core": "2.2.1"
   },
   "peerDependencies": {
-    "@devexpress/dx-core": "2.1.2",
-    "@devexpress/dx-react-core": "2.1.2",
+    "@devexpress/dx-core": "2.2.1",
+    "@devexpress/dx-react-core": "2.2.1",
     "react": ">=16.10.2",
     "react-dom": ">=16.10.2"
   }

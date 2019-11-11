@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-grid-core",
-  "version": "2.1.2",
+  "version": "2.2.1",
   "description": "Core library for the DevExtreme Reactive Grid component",
   "author": {
     "name": "Developer Express Inc.",
@@ -40,12 +40,12 @@
     "lint:fix": "yarn lint -- --fix"
   },
   "devDependencies": {
-    "@devexpress/dx-core": "2.1.2",
+    "@devexpress/dx-core": "2.2.1",
     "core-js": "^3.3.3",
     "jest": "^24.9.0",
     "rollup": "^1.25.2",
     "rollup-plugin-license": "^0.12.1",
-    "rollup-plugin-typescript2": "^0.24.3",
+    "rollup-plugin-typescript2": "^0.25.2",
     "seamless-immutable": "^7.1.4",
     "tslint": "^5.20.0",
     "tslint-config-airbnb": "^5.11.2",
@@ -53,6 +53,6 @@
     "typescript-tslint-plugin": "^0.5.4"
   },
   "peerDependencies": {
-    "@devexpress/dx-core": "2.1.2"
+    "@devexpress/dx-core": "2.2.1"
   }
 }

@@ -9,35 +9,35 @@ import ReactChartIcon from './images/react-chart.inline.svg';
 import ReactSchedulerIcon from './images/react-scheduler.inline.svg';
 
 const concepts = [
-  { 
+  {
     title: 'Fundamentals',
     path: '/react/core/docs/guides/fundamentals/',
-    description: 'React Core provides components for creating a plugin-based component.',
+    description: 'Learn the basics of our plugin-based architecture.',
   },
   {
     title: 'State Management',
     path: '',
-    description: 'React Core provides components for creating a plugin-based component.',
+    description: 'Learn how to configure our components in controlled and uncontrolled modes.',
   },
   {
     title: 'Using Redux',
     path: '',
-    description: 'React Core provides components for creating a plugin-based component.',
+    description: 'Learn how to connect our components to a Redux store.',
   },
   {
     title: 'Localization',
     path: '',
-    description: 'React Core provides components for creating a plugin-based component.',
+    description: 'Learn how to localize DevExtreme Reactive components.',
   },
   {
     title: 'Theming',
     path: '/react/common/docs/guides/custom-theme/',
-    description: 'React Core provides components for creating a plugin-based component.',
+    description: 'Integrate DevExtreme Reactive components with a third-party UI framework.',
   },
   {
     title: 'Performance',
     path: '/react/common/docs/guides/performance-optimization/',
-    description: 'React Core provides components for creating a plugin-based component.',
+    description: 'This article describes how to provide high performance for your application.',
   },
 ]
 
@@ -51,7 +51,7 @@ export default () => (
       </div>
       {/* <Title text="Documentation" /> */}
 
-      <div className="row my-3">  
+      <div className="row my-3">
         <ProductDocPreview
           path="/react/grid/docs/"
           title="Grid"

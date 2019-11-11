@@ -50,7 +50,8 @@ export default class extends React.Component {
           if (p1.startsWith('http') || p1.startsWith('#')) {
             return `href="${p1}"`;
           }
-          return `href="../${p1.replace('.md', '')}/"`;
+          const endChar = p1.includes('#') ? '' : '/';
+          return `href="../${p1.replace('.md', '')}${endChar}"`;
         },
       )
       .replace(

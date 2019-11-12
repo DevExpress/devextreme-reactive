@@ -8,6 +8,7 @@ import { getBorder } from '../../../utils';
 
 const styles = theme => ({
   cell: {
+    position: 'relative',
     height: theme.spacing(6),
     padding: 0,
     borderLeft: getBorder(theme),
@@ -33,16 +34,30 @@ const CellBase = ({
   children,
   startDate,
   endDate,
+  currentTime,
+  currentTimeIndicatorComponent: CurrentTimeIndicator,
   ...restProps
-}) => (
-  <TableCell
-    tabIndex={0}
-    className={classNames(classes.cell, className)}
-    {...restProps}
-  >
-    {children}
-  </TableCell>
-);
+}) => {
+  const isNow = !!currentTime && !!startDate && !!endDate
+    && currentTime.getTime() <= endDate.getTime() && currentTime.getTime() > startDate.getTime();
+
+  return (
+    <TableCell
+      tabIndex={0}
+      className={classNames(classes.cell, className)}
+      {...restProps}
+    >
+      {isNow && (
+        <CurrentTimeIndicator
+          startDate={startDate}
+          endDate={endDate}
+          currentTime={currentTime}
+        />
+      )}
+      {children}
+    </TableCell>
+  );
+};
 
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -50,6 +65,8 @@ CellBase.propTypes = {
   endDate: PropTypes.instanceOf(Date),
   children: PropTypes.node,
   className: PropTypes.string,
+  currentTime: PropTypes.instanceOf(Date),
+  currentTimeIndicatorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 CellBase.defaultProps = {
@@ -57,6 +74,8 @@ CellBase.defaultProps = {
   className: undefined,
   startDate: undefined,
   endDate: undefined,
+  currentTime: undefined,
+  currentTimeIndicatorComponent: () => null,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

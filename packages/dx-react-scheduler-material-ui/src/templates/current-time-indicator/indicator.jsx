@@ -25,12 +25,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const Indicator = ({
-  cellStartDate,
-  cellEndDate,
+  startDate,
+  endDate,
   currentTime,
   ...restProps
 }) => {
-  const currentTimeIndicatorTop = `${((currentTime - cellStartDate.getTime()) * 100) / (cellEndDate.getTime() - cellStartDate.getTime())}%`;
+  const currentTimeIndicatorTop = `${((currentTime - startDate.getTime()) * 100) / (endDate.getTime() - startDate.getTime())}%`;
   const classes = useStyles({ top: currentTimeIndicatorTop });
 
   return (
@@ -42,13 +42,13 @@ export const Indicator = ({
 };
 
 Indicator.propTypes = {
-  cellStartDate: PropTypes.instanceOf(Date),
-  cellEndDate: PropTypes.instanceOf(Date),
-  currentTime: PropTypes.number,
+  startDate: PropTypes.instanceOf(Date),
+  endDate: PropTypes.instanceOf(Date),
+  currentTime: PropTypes.instanceOf(Date),
 };
 
 Indicator.defaultProps = {
-  cellStartDate: new Date(),
-  cellEndDate: new Date(),
-  currentTime: 0,
+  startDate: new Date(),
+  endDate: new Date(),
+  currentTime: new Date(),
 };

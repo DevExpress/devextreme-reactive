@@ -1,0 +1,28 @@
+// tslint:disable-next-line:no-namespace
+export namespace CurrentTimeIndicator {
+  /** Properties passed to the component that renders the today button. */
+  export interface IndicatorProps {
+    /** Represents current time. */
+    currentTime: Date;
+    /** The startDate of the element containing the CurrentTimeIndicator. */
+    startDate: Date;
+    /** The endDate of the element containing the CurrentTimeIndicator. */
+    endDate: Date;
+  }
+}
+
+export interface CurrentTimeIndicatorProps {
+  /** The time interval in milliseconds between Indicator's position updates. */
+  updateInterval: number;
+  /** Specifies whether the past appointments should be shaded. */
+  shadePastAppointments: boolean;
+  /** Specifies whether past cells should be shaded. */
+  shadePastCells: boolean;
+  /** A component that renders the CurrentTimeIndicator. */
+  indicatorComponent: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
+}
+
+/** @internal */
+export type CurrentTimeIndicatorState = {
+  currentTime: number;
+};

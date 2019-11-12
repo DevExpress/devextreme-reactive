@@ -1,4 +1,5 @@
 import { FormatterFn, CellElementsMeta, ScrollingStrategy } from '../index';
+import { CurrentTimeIndicator } from '../current-time-indicator';
 
 // tslint:disable: no-namespace
 export interface CommonViewProps {
@@ -49,6 +50,10 @@ export namespace BaseView {
     startDate?: Date;
     /** Specifies the cell end time. */
     endDate?: Date;
+    /** Specifies the current time. */
+    currentTime?: Date;
+    /** A component that renders the current time indicator. */
+    currentTimeIndicator: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
     /** A React node used to render the time table cell content. */
     children?: React.ReactNode;
   }

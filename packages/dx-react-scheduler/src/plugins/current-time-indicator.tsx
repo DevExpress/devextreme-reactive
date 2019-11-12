@@ -4,16 +4,16 @@ import {
   Template,
   TemplatePlaceholder,
   PluginComponents,
-  Getter,
 } from '@devexpress/dx-react-core';
-import { memoize } from '@devexpress/dx-core';
-import { TodayButtonProps } from '../types';
+import { CurrentTimeIndicatorProps, CurrentTimeIndicatorState } from '../types';
 
 const pluginDependencies = [];
 
 const BASE_INTERVAL = 60000;
 
-class CurrentTimeIndicatorBase extends React.PureComponent {
+class CurrentTimeIndicatorBase extends React.PureComponent<
+  CurrentTimeIndicatorProps, CurrentTimeIndicatorState
+> {
   static components: PluginComponents = {
     indicatorComponent: 'Indicator',
   };
@@ -46,30 +46,30 @@ class CurrentTimeIndicatorBase extends React.PureComponent {
     clearTimeout(this.indicatorUpdateTimer);
   }
 
-  viewCellsDataComputed = memoize(currentTime => ({ viewCellsData }) => {
-    // console.log(viewCellsData)
-    return viewCellsData.map((rowCellData) => {
-      return rowCellData.map((cellData) => {
-        return cellData.startDate.getTime() <= currentTime
-          && cellData.endDate.getTime() >= currentTime
-          ? { ...cellData, isNow: true }
-          : cellData;
-      })
-    });
-  });
+  // viewCellsDataComputed = memoize(currentTime => ({ viewCellsData }) => {
+  //   // console.log(viewCellsData)
+  //   return viewCellsData.map((rowCellData) => {
+  //     return rowCellData.map((cellData) => {
+  //       return cellData.startDate.getTime() <= currentTime
+  //         && cellData.endDate.getTime() >= currentTime
+  //         ? { ...cellData, isNow: true }
+  //         : cellData;
+  //     })
+  //   });
+  // });
 
   render() {
     const { currentTime } = this.state;
-    const { indicatorComponent } = this.props;
+    const { indicatorComponent, shadePastAppointments, shadePastCells } = this.props;
     return (
       <Plugin
         name="CurrentTimeIndicator"
         dependencies={pluginDependencies}
       >
-        <Getter
+        {/* <Getter
           name="viewCellsData"
           computed={this.viewCellsDataComputed(currentTime)}
-        />
+        /> */}
         <Template
           name="cell"
         >
@@ -77,7 +77,7 @@ class CurrentTimeIndicatorBase extends React.PureComponent {
             <TemplatePlaceholder
               params={{
                 ...params,
-                currentTime,
+                currentTime: new Date(currentTime),
                 currentTimeIndicatorComponent: indicatorComponent,
               }}
             />
@@ -89,4 +89,6 @@ class CurrentTimeIndicatorBase extends React.PureComponent {
 }
 
 /** A plugin that renders the Scheduler's button which sets the current date to today's date. */
-export const CurrentTimeIndicator: React.ComponentType = CurrentTimeIndicatorBase;
+export const CurrentTimeIndicator: React.ComponentType<
+  CurrentTimeIndicatorProps
+> = CurrentTimeIndicatorBase;

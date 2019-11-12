@@ -51,7 +51,7 @@ const BarPoint = props => (
 );
 
 const pointOptions = { size: 7 };
-const getPointOptions = (state) => state ? { size: 7 } : { size: 0 };
+const getPointOptions = state => (state ? { size: 7 } : { size: 0 });
 
 const AreaPoint = (props) => {
   const patched = patchProps(props);

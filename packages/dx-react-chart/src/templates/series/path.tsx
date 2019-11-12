@@ -29,12 +29,12 @@ class RawPath extends React.PureComponent<PathComponentPathProps> {
   }
 }
 
-export const Path = withStates({
-  [HOVERED]: props => ({ strokeWidth: 4, ...props }),
-  [SELECTED]: props => ({ strokeWidth: 4, ...props }),
-})(withAnimation<any>(
+export const Path = withAnimation<any>(
   processLineAnimation,
   ({ coordinates }) => ({ coordinates }),
   getPathStart,
   isCoordinatesChanged,
-)(RawPath));
+)(withStates({
+  [HOVERED]: props => ({ strokeWidth: 4, ...props }),
+  [SELECTED]: props => ({ strokeWidth: 4, ...props }),
+})(RawPath));

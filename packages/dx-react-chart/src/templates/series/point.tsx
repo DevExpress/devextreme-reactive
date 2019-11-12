@@ -37,7 +37,12 @@ class RawPoint extends React.PureComponent<ScatterSeries.PointProps> {
 // and to adjust hovered or selected size when custom *point.size* is defined.
 const getAdjustedOptions = ({ size }) => ({ size: Math.round(size * 1.7) });
 
-export const Point: React.ComponentType<ScatterSeries.PointProps> = withStates({
+export const Point: React.ComponentType<ScatterSeries.PointProps> = withAnimation<any>(
+  processPointAnimation,
+  ({ arg, val }) => ({ arg, val }),
+  getPointStart,
+  isValuesChanged,
+)(withStates({
   [HOVERED]: ({ color, point, ...restProps }) => ({
     stroke: color,
     strokeWidth: 4,
@@ -52,9 +57,4 @@ export const Point: React.ComponentType<ScatterSeries.PointProps> = withStates({
     point: getAdjustedOptions(point),
     ...restProps,
   }),
-})(withAnimation<any>(
-  processPointAnimation,
-  ({ arg, val }) => ({ arg, val }),
-  getPointStart,
-  isValuesChanged,
-)(RawPoint));
+})(RawPoint));

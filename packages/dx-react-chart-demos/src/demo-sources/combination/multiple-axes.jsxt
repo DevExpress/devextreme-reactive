@@ -51,13 +51,11 @@ const BarPoint = props => (
 );
 
 const pointOptions = { size: 7 };
+const getPointOptions = (state) => state ? { size: 7 } : { size: 0 };
 
-const areaPointStyle = { animation: null };
 const AreaPoint = (props) => {
   const patched = patchProps(props);
-  return patched.state
-    ? <ScatterSeries.Point style={areaPointStyle} point={pointOptions} {...patched} />
-    : null;
+  return <ScatterSeries.Point point={getPointOptions(patched.state)} {...patched} />;
 };
 
 const AreaWithPoints = ({ state, ...props }) => (

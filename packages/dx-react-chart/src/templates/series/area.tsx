@@ -35,16 +35,16 @@ class RawArea extends React.PureComponent<AreaSeries.SeriesProps> {
 // It should actually be `withPattern<AreaSeries.PointProps>` but `opacity` is not decleared there.
 // It is not clear if `opacity` should be explicitly enumerated or stay as part of `restProps`.
 
-export const Area: React.ComponentType<AreaSeries.SeriesProps> = withStates({
+export const Area: React.ComponentType<AreaSeries.SeriesProps> = withAnimation<any>(
+  processAreaAnimation,
+  ({ coordinates }) => ({ coordinates }),
+  getPathStart,
+  isCoordinatesChanged,
+)(withStates({
   [HOVERED]: withPattern<any>(
     ({ index }) => `series-${index}-hover`, { opacity: 0.75 },
   )(RawArea),
   [SELECTED]: withPattern<any>(
     ({ index }) => `series-${index}-selection`, { opacity: 0.5 },
   )(RawArea),
-})(withAnimation<any>(
-  processAreaAnimation,
-  ({ coordinates }) => ({ coordinates }),
-  getPathStart,
-  isCoordinatesChanged,
-)(RawArea));
+})(RawArea));

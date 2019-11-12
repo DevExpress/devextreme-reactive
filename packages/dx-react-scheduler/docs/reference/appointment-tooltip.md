@@ -67,7 +67,7 @@ formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats d
 onOpenButtonClick? | () => void | An event raised when the Open button is clicked. The event handler should open the appointment form.
 onDeleteButtonClick? | () => void | An event raised when the Delete button is clicked. The event handler should delete an appointment.
 appointmentMeta? | [AppointmentMeta](#appointmentmeta) | The appointment's displayed metadata.
-appointmentResources | Array&lt;[Resources.ValidResourceItem](./resources.md#resourcesvalidresourceitem)&gt; | The appointment's resource items.
+appointmentResources | Array&lt;[ValidResourceItem](./resources.md#validresourceitem)&gt; | The appointment's resource items.
 visible? | boolean | Specifies the tooltip's visibility.
 onHide? | () => void | An event that hides the tooltip.
 headerComponent | ComponentType&lt;[AppointmentTooltip.HeaderProps](#appointmenttooltipheaderprops)&gt; | A component that renders the tooltip header.
@@ -99,7 +99,7 @@ Describes properties passed to a component that renders the tooltip content.
 Field | Type | Description
 ------|------|------------
 appointmentData? | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment's displayed metadata.
-appointmentResources? | Array&lt;[Resources.ValidResourceItem](./resources.md#resourcesvalidresourceitem)&gt; | The appointment's resource items.
+appointmentResources? | Array&lt;[ValidResourceItem](./resources.md#validresourceitem)&gt; | The appointment's resource items.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the locale.
 recurringIconComponent | ComponentType&lt;object&gt; | A component that renders an icon that indicates a recurring appointment.
 children? | ReactNode | A React node that renders custom elements in the tooltip.

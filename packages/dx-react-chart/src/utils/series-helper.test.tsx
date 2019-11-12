@@ -60,6 +60,7 @@ describe('#declareSeries', () => {
       scales: { test_argument_domain: 'argument-scale', value_domain: 'value-scale' },
       layouts: { pane: { width: 20, height: 30 } },
       clipPathId: 'clipPathId',
+      readyToRenderSeries: 'readyToRenderSeries',
     },
     template: {
       series: {},
@@ -96,6 +97,7 @@ describe('#declareSeries', () => {
       scales: { argScale: 'argument-scale', valScale: 'value-scale' },
       clipPathId: 'clipPathId',
       pane: { width: 20, height: 30 },
+      readyToRenderSeries: 'readyToRenderSeries',
     });
   });
 

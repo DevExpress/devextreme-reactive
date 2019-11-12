@@ -63,6 +63,8 @@ interface CommonComponentProps {
   clipPathId: string;
   /** @internal */
   animation: AnimationFn;
+  /** @internal */
+  readyToRenderSeries: boolean;
 }
 
 export interface PathComponentProps extends CommonComponentProps {

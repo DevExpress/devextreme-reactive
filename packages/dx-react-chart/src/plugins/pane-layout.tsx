@@ -42,7 +42,7 @@ export class PaneLayout extends React.PureComponent {
         <Template name="canvas">
         {params => (
           <TemplateConnector>
-            {({ layouts, readyToRenderSeries }, { changeBBox }) => {
+            {({ layouts }, { changeBBox }) => {
               const { width, height } = layouts.pane;
               return (
                 <UpdatableSizer
@@ -57,7 +57,7 @@ export class PaneLayout extends React.PureComponent {
                     style={SVG_STYLE}
                   >
                     <ClipPath id={this.clipPathId} width={width} height={height} />
-                    {readyToRenderSeries && <TemplatePlaceholder name="series" />}
+                    <TemplatePlaceholder name="series" />
                   </svg>
                 </UpdatableSizer>
               );

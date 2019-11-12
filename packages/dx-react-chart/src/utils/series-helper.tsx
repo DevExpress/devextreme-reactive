@@ -61,7 +61,9 @@ export const declareSeries = <T extends SeriesProps>(
           <Template name="series">
             <TemplatePlaceholder />
             <TemplateConnector>
-              {({ series, scales, animation, rotated, layouts, clipPathId }) => {
+              {({
+                series, scales, animation, rotated, layouts, clipPathId, readyToRenderSeries,
+              }) => {
                 const { pane } = layouts;
                 const currentSeries = findSeriesByName(symbolName, series);
                 const currentScales: Scales = {
@@ -82,6 +84,7 @@ export const declareSeries = <T extends SeriesProps>(
                     pane={pane}
                     clipPathId={clipPathId}
                     animation={animation}
+                    readyToRenderSeries={readyToRenderSeries}
                   />
                 );
               }}

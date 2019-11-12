@@ -26,14 +26,20 @@ describe('#withAnimation', () => {
     jest.clearAllMocks();
   });
 
+  const defaultProps = {
+    x: 11,
+    y: 12,
+    readyToRenderSeries: true,
+  };
+
   it('should render base element without animation', () => {
-    const tree = mount(<TestComponent x={11} y={12} />);
+    const tree = mount(<TestComponent {...defaultProps} />);
 
     expect(tree.find(BaseComponent).props()).toEqual({ x: 11, y: 12 });
   });
 
   it('should update base element without animation', () => {
-    const tree = mount(<TestComponent x={11} y={12} />);
+    const tree = mount(<TestComponent {...defaultProps} />);
 
     tree.setProps({ x: 19, y: 21 });
     expect(tree.find(BaseComponent).props()).toEqual({ x: 11, y: 12 });
@@ -41,18 +47,39 @@ describe('#withAnimation', () => {
 
   it('should start animation on mount', () => {
     const animation = jest.fn();
-    mount(<TestComponent x={11} y={12} animation={animation} />);
+    mount(<TestComponent {...defaultProps} animation={animation} />);
 
     expect(animation).toBeCalledWith(
       'startCoordinates', { x: 11, y: 12 }, processAnimation, expect.any(Function), 'delay',
     );
   });
 
+  it('should start animation on update, when series ready to draw', () => {
+    const animation = jest.fn();
+    const tree = mount(
+      <TestComponent {...defaultProps} readyToRenderSeries={false} animation={animation} />,
+    );
+    tree.setProps({ x: 19, y: 21, readyToRenderSeries: true });
+    expect(animation).toBeCalledWith(
+      'startCoordinates', { x: 19, y: 21 }, processAnimation, expect.any(Function), 'delay',
+    );
+  });
+
+  it('should not start animation on mount and update if series is not ready to draw', () => {
+    const animation = jest.fn();
+    const tree = mount(
+      <TestComponent {...defaultProps} readyToRenderSeries={false} animation={animation} />,
+    );
+    tree.setProps({ x: 19, y: 21 });
+    expect(animation).toBeCalledTimes(0);
+    expect(tree.find(BaseComponent)).toEqual({});
+  });
+
   it('should update animation, values are changed', () => {
     const update = jest.fn();
     const animation = jest.fn().mockReturnValue({ update });
     const tree = mount(
-    <TestComponent x={11} y={12} scales="scales" index={2} animation={animation} />,
+    <TestComponent {...defaultProps} scales="scales" index={2} animation={animation} />,
     );
 
     tree.setProps({ x: 19, y: 21 });
@@ -68,7 +95,7 @@ describe('#withAnimation', () => {
     const update = jest.fn();
     const animation = jest.fn().mockReturnValue({ update });
     const tree = mount(
-    <TestComponent x={11} y={12} scales="scales" index={2} animation={animation} />,
+    <TestComponent {...defaultProps} scales="scales" index={2} animation={animation} />,
     );
 
     tree.setProps({ x: 19, y: 21 });
@@ -80,7 +107,7 @@ describe('#withAnimation', () => {
     const update = jest.fn();
     const animation = jest.fn().mockReturnValue({ update });
     const tree = mount(
-    <TestComponent x={11} y={12} scales="scales" animation={animation} />,
+    <TestComponent {...defaultProps} scales="scales" animation={animation} />,
     );
     tree.setProps({ x: 19, y: 21 });
     expect(isScalesChanged).toBeCalledWith('scales', 'scales');
@@ -92,7 +119,7 @@ describe('#withAnimation', () => {
     const stop = jest.fn();
     const animation = jest.fn().mockReturnValue({ stop });
     const tree = mount(
-    <TestComponent x={11} y={12} animation={animation} />,
+    <TestComponent {...defaultProps} animation={animation} />,
     );
     tree.unmount();
     expect(stop).toBeCalled();
@@ -102,7 +129,7 @@ describe('#withAnimation', () => {
     getProps.mockReturnValue(null);
     const animation = jest.fn();
     const tree = mount(
-      <TestComponent x={11} y={12} animation={animation} />,
+      <TestComponent {...defaultProps} animation={animation} />,
     );
     expect(tree.find(BaseComponent)).toEqual({});
   });

@@ -22,12 +22,37 @@ export const withAnimation = <T extends any>(
 
     componentDidMount() {
       const {
-        animation, scales, index,
+        animation, scales, index, readyToRenderSeries,
       } = this.props;
-
+      if (!readyToRenderSeries) {
+        return;
+      }
       const props = getProps(this.props);
+      this.processComponent(animation, {}, scales, props, {}, index);
+    }
+
+    componentDidUpdate(prevProps) {
+      const {
+        scales, index, animation, readyToRenderSeries,
+      } = this.props;
+      if (!readyToRenderSeries) {
+        return;
+      }
+      const props = getProps(this.props);
+      const neededPrevProps = getProps(prevProps);
+      this.processComponent(animation, prevProps, scales, props, neededPrevProps, index);
+    }
+
+    processComponent(animation, prevProps, scales, props, neededPrevProps, index) {
       if (!animation) {
         this.setAttribute(props);
+      } else if (this.animate) {
+        if (isScalesChanged(prevProps.scales, scales)) {
+          this.setAttribute(props);
+        } else if (isValuesChanged(neededPrevProps, props)) {
+          const delay = getDelay ? getDelay(index, false) : 0;
+          this.animate.update(neededPrevProps, props, delay);
+        }
       } else {
         this.animate = animation(
           getStartCoordinates(scales, props), props,
@@ -36,34 +61,17 @@ export const withAnimation = <T extends any>(
       }
     }
 
-    componentDidUpdate(prevProps) {
-      const {
-        scales, index,
-      } = this.props;
-      const props = getProps(this.props);
-      const neededPrevProps = getProps(prevProps);
-      if (this.animate) {
-        if (isScalesChanged(prevProps.scales, scales)) {
-          this.setAttribute(props);
-        } else if (isValuesChanged(neededPrevProps, props)) {
-          const delay = getDelay ? getDelay(index, false) : 0;
-          this.animate.update(neededPrevProps, props, delay);
-        }
-      } else {
-        this.setAttribute(props);
-      }
-    }
-
     componentWillUnmount() {
       return this.animate && this.animate.stop();
     }
 
     render() {
+      const { readyToRenderSeries, ...restProps } = this.props;
       if (!this.state) {
         return null;
       }
       return (
-        <Component {...this.props} {...this.state} />
+        <Component {...restProps} {...this.state} />
       );
     }
   }

@@ -78,18 +78,4 @@ describe('PaneLayout', () => {
 
     expect(tree.find('svg').props().children[1].props).toEqual({ name: 'series' });
   });
-
-  it('should not render series, is not ready', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents({
-          ...defaultDeps,
-          getter: { ...defaultDeps.getter, readyToRenderSeries: false },
-        })}
-        <PaneLayout />
-      </PluginHost>
-    ));
-
-    expect(tree.find('svg').props().children[1]).toBeFalsy();
-  });
 });

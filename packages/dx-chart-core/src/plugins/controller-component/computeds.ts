@@ -1,3 +1,5 @@
+const difference = 0.9;
+
 /** @internal */
 export const getReadiness = ({ pane, ...restLayouts }, { current }) => {
   if (!pane.width && !pane.height) {
@@ -14,7 +16,6 @@ export const getReadiness = ({ pane, ...restLayouts }, { current }) => {
       width += el[1].width;
     }
   });
-
-  return Math.round(bbox.width) === Math.round(width) &&
-  Math.round(bbox.height) === Math.round(height);
+  return Math.abs(bbox.width - width) < difference &&
+  Math.abs(bbox.height - height) < difference;
 };

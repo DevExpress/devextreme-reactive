@@ -28,7 +28,7 @@ export const withAnimation = <T extends any>(
         return;
       }
       const props = getProps(this.props);
-      this.processComponent(animation, {}, scales, props, {}, index);
+      this.processComponent(animation, { scales: {} }, scales, props, {}, index);
     }
 
     componentDidUpdate(prevProps) {
@@ -38,20 +38,21 @@ export const withAnimation = <T extends any>(
       if (!readyToRenderSeries) {
         return;
       }
-      const props = getProps(this.props);
-      const neededPrevProps = getProps(prevProps);
-      this.processComponent(animation, prevProps, scales, props, neededPrevProps, index);
+      this.processComponent(
+        animation, prevProps, scales, getProps(this.props),
+        getProps(prevProps), index,
+      );
     }
 
-    processComponent(animation, prevProps, scales, props, neededPrevProps, index) {
+    processComponent(animation, { scales: prevScales }, scales, props, prevProps, index) {
       if (!animation) {
         this.setAttribute(props);
       } else if (this.animate) {
-        if (isScalesChanged(prevProps.scales, scales)) {
+        if (isScalesChanged(prevScales, scales)) {
           this.setAttribute(props);
-        } else if (isValuesChanged(neededPrevProps, props)) {
+        } else if (isValuesChanged(prevProps, props)) {
           const delay = getDelay ? getDelay(index, false) : 0;
-          this.animate.update(neededPrevProps, props, delay);
+          this.animate.update(prevProps, props, delay);
         }
       } else {
         this.animate = animation(

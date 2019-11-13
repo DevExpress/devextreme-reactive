@@ -90,6 +90,20 @@ class CurrentTimeIndicatorBase extends React.PureComponent<
           }}
         </Template>
         <Template
+          name="allDayPanelCell"
+        >
+          {({ endDate, ...restParams }: any) => (
+              <TemplatePlaceholder
+                params={{
+                  ...restParams,
+                  endDate,
+                  isShaded: endDate.getTime() < currentTime && shadePastCells,
+                }}
+              />
+            )
+          }
+        </Template>
+        <Template
           name="appointmentContent"
         >
           {({ data, ...restParams }: any) => {

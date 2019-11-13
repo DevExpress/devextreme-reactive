@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
+import { getCurrentTimeIndicatorTop } from '@devexpress/dx-scheduler-core';
 
 const useStyles = makeStyles(theme => ({
   line: {
@@ -30,7 +31,7 @@ export const Indicator = ({
   currentTime,
   ...restProps
 }) => {
-  const currentTimeIndicatorTop = `${((currentTime - startDate.getTime()) * 100) / (endDate.getTime() - startDate.getTime())}%`;
+  const currentTimeIndicatorTop = getCurrentTimeIndicatorTop(startDate, endDate, currentTime);
   const classes = useStyles({ top: currentTimeIndicatorTop });
 
   return (

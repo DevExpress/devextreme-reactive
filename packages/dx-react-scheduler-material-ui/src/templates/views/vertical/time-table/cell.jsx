@@ -4,6 +4,7 @@ import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { makeStyles } from '@material-ui/core/styles';
+import { getCurrentTimeIndicatorTop } from '@devexpress/dx-scheduler-core';
 import { getBorder } from '../../../utils';
 
 const useStyles = makeStyles(theme => ({
@@ -61,7 +62,7 @@ export const Cell = ({
 }) => {
   const isNow = !!currentTime && currentTime.getTime() <= endDate.getTime()
     && currentTime.getTime() > startDate.getTime();
-  const shadedHeight = `${((currentTime - startDate.getTime()) * 100) / (endDate.getTime() - startDate.getTime())}%`;
+  const shadedHeight = getCurrentTimeIndicatorTop(startDate, endDate, currentTime);
   const classes = useStyles({ shadedHeight });
 
   return (

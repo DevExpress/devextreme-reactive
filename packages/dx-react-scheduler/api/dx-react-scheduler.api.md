@@ -832,12 +832,9 @@ export const Resources: React.ComponentType<ResourcesProps>;
 
 // @public (undocumented)
 export interface ResourcesProps {
-  // (undocumented)
   data: Array<Resource>;
-  // (undocumented)
   mainResourceName?: string;
-  // (undocumented)
-  palette: Array<any>;
+  palette: Array<Color | string>;
 }
 
 // @public

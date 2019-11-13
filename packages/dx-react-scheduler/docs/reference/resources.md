@@ -1,6 +1,6 @@
 # Resources Plugin Reference
 
-A plugin that configure resources.
+A plugin that configures [resources]().
 
 ## Import
 
@@ -26,37 +26,37 @@ import { Resources } from '@devexpress/dx-react-scheduler';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-data | Array&lt;[Resource](#resource)&gt; | | The resources data set.
-mainResourceName? | string | | Specifies whether appointments are colored like this resource kind.
-palette? | [Palette](#palette) | [red, pink, purple, deepPurple, indigo, blue, lightBlue, cyan, teal, green, lightGreen, lime, yellow, ember, orange, deepOrange] | The palette that would be used if resource item colors were not defined.
+data | Array&lt;[Resource](#resource)&gt; | | Resource data objects.
+mainResourceName? | string | | Specifies which of several resources provides colors for appointments.
+palette? | [Palette](#palette) | [red, pink, purple, deepPurple, indigo, blue, lightBlue, cyan, teal, green, lightGreen, lime, yellow, ember, orange, deepOrange] | A palette used if a resource instance color is not defined.
 
 ## Interfaces
 
 ### Resource
 
-Specifies a resource that available in scheduler.
+Configures a resource.
 
 Field | Type | Description
 ------|------|------------
-id | number &#124; string | The resource kind ID.
-fieldName | string | The appointment data field name that would binding to resource.
-items | Array&lt;[ResourceItem](#resourceitem)&gt; | The array of resource items.
-title? | string | The resource kind title that would displays inside UI components.
-allowMultiple? | boolean | Indicates whether or not several resources of this kind can be assigned to an appointment.
+id | number &#124; string | The resource ID.
+fieldName | string | A data field name used to assign appointments to this resource. This field should be present in appointment data objects.
+items | Array&lt;[ResourceItem](#resourceitem)&gt; | Resource instances.
+title? | string | The resource title.
+allowMultiple? | boolean | Indicates whether an appointment can be assigned to several instances of this resource.
 
 ### ResourceItem
 
-Specifies the resource item object.
+Configures a resource instance.
 
 Field | Type | Description
 ------|------|------------
-id | number &#124; string | The resource item ID.
-text? | string | The resource item text that would displays inside UI components.
-color? | string &#124; [Color](#color) | The resource item color that would used inside UI components.
+id | number &#124; string | The resource instance ID.
+text? | string | The resource instance text.
+color? | string &#124; [Color](#color) | The resource instance color.
 
 ### Palette
 
-Specifies the resources palette.
+Specifies a palette that provides colors for those resource instances whose color is not defined.
 
 Type: `Array<string | Color>`
 
@@ -66,28 +66,28 @@ The resource with all properties.
 
 Field | Type | Description
 ------|------|------------
-fieldName | string | The appointment data field name that would binding to resource.
-title | string | The resource kind title that would displays inside UI components.
-allowMultiple | boolean | Indicates whether or not several resources of this kind can be assigned to an appointment.
-isMain | boolean | Specifies the main resource kind.
-items | Array&lt;[ValidResourceItem](#validresourceitem)&gt; | The array of resource items.
+fieldName | string | A data field name used to assign an appointment to this resource.
+title | string | The resource title.
+allowMultiple | boolean | Indicates whether an appointment can be assigned to several instances of this resource.
+isMain | boolean | `true` if this resource's name is assigned to the `mainResourceName` property.
+items | Array&lt;[ValidResourceItem](#validresourceitem)&gt; | Resource instances.
 
 ### ValidResourceItem
 
-The resource item with all properties.
+An object that provides information about a resource instance.
 
 Field | Type | Description
 ------|------|------------
-id | number &#124; string | The resource item ID.
-fieldName | string | The appointment data field name that would binding to resource.
-text | string | The resource item text that would displays inside UI components.
-title | string | The resource kind title that would displays inside UI components.
-allowMultiple | boolean | The flag that specifies multiple instances resource kind.
-isMain | boolean | Specifies the main resource kind.
-color? | string &#124; [Color](#color) | The resource item color that would used inside UI components.
+id | number &#124; string | The resource instance ID.
+fieldName | string | A data field name used to assign an appointment to the instance's resource.
+text | string | The resource instance text.
+title | string | The title of the instance's resource.
+allowMultiple | boolean | Indicates whether the instance's resource allows users to assign an appointment to several resource instances.
+isMain | boolean | `true` if the name of the instance's resource is assigned to the `mainResourceName` property.
+color? | string &#124; [Color](#color) | The resource instance color.
 
 ### Color
 
-The Material-UI Color object that described [here](https://material-ui.com/customization/color/#color-palette). You see the [following examples](https://material-ui.com/customization/color/#examples) to use the color objects.
+The [Material-UI Color](https://material-ui.com/customization/color/#color-palette) object. See [these examples](https://material-ui.com/customization/color/#examples) for information on how to use it.
 
 Type: `object`

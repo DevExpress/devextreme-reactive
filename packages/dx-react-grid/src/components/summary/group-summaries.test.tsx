@@ -6,9 +6,9 @@ import { flattenGroupInlineSummaries } from './group-summaries';
 
 describe('#flattenGroupInlineSummaries', () => {
   const key = { key: 'key' };
-  const tableColumns = ['a', 'b', 'c', 'd', 'e', 'g']
+  const columns = ['a', 'b', 'c', 'd', 'e', 'g']
     .map(name => (
-      { column: { name, title: name } }),
+      { name, title: name }),
     );
   const tableRow = {
     ...key,
@@ -26,7 +26,7 @@ describe('#flattenGroupInlineSummaries', () => {
 
   it('should consider only in-caption summaries', () => {
     const summaries = flattenGroupInlineSummaries(
-      tableColumns, tableRow, groupSummaryItems, groupSummaryValues, [],
+      columns, tableRow, groupSummaryItems, groupSummaryValues, [],
     );
 
     expect(summaries)
@@ -35,7 +35,7 @@ describe('#flattenGroupInlineSummaries', () => {
 
   it('should provide summary info', () => {
     const summaries = flattenGroupInlineSummaries(
-      tableColumns, tableRow, groupSummaryItems, groupSummaryValues, [],
+      columns, tableRow, groupSummaryItems, groupSummaryValues, [],
     );
 
     expect(summaries[0])
@@ -59,7 +59,7 @@ describe('#flattenGroupInlineSummaries', () => {
   describe('inline summary component', () => {
     it('should render formatted summary value', () => {
       const summaries = flattenGroupInlineSummaries(
-        tableColumns, tableRow, groupSummaryItems, groupSummaryValues, [],
+        columns, tableRow, groupSummaryItems, groupSummaryValues, [],
       );
       const [Summary1, Summary2] = summaries.map(s => s.component);
       const tree = mount((
@@ -76,11 +76,11 @@ describe('#flattenGroupInlineSummaries', () => {
       expect(valueFormatters.map(node => node.prop('params')))
         .toEqual([
           {
-            column: tableColumns[0].column,
+            column: columns[0],
             value: 53,
           },
           {
-            column: tableColumns[3].column,
+            column: columns[3],
             value: 7,
           },
         ]);
@@ -88,7 +88,7 @@ describe('#flattenGroupInlineSummaries', () => {
 
     it('should render unformatted summary value', () => {
       const summaries = flattenGroupInlineSummaries(
-        tableColumns, tableRow, groupSummaryItems, groupSummaryValues, ['sum', 'min'],
+        columns, tableRow, groupSummaryItems, groupSummaryValues, ['sum', 'min'],
       );
       const [Summary1, Summary2] = summaries.map(s => s.component);
 

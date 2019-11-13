@@ -601,7 +601,7 @@ describe('TableGroupRow', () => {
         });
       expect(flattenGroupInlineSummaries)
         .toBeCalledWith(
-          'tableColumnsWithGrouping',
+          defaultDeps.getter.columns,
           defaultDeps.template.tableCell.tableRow,
           defaultDeps.getter.groupSummaryItems,
           defaultDeps.getter.groupSummaryValues,

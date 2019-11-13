@@ -6,7 +6,7 @@ import {
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import { CurrentTimeIndicatorProps, CurrentTimeIndicatorState } from '../types';
-import { isMonthCell } from '@devexpress/dx-scheduler-core/src';
+import { isMonthCell, isPastAppointment } from '@devexpress/dx-scheduler-core/src';
 
 const pluginDependencies = [];
 
@@ -91,7 +91,7 @@ class CurrentTimeIndicatorBase extends React.PureComponent<
                 params={{
                   ...restParams,
                   data,
-                  isBrightnessReduced: data.endDate < currentTime
+                  isBrightnessReduced: isPastAppointment(data, currentTime)
                     && reduceBrightnessOfPastAppointments,
                 }}
               />
@@ -107,7 +107,7 @@ class CurrentTimeIndicatorBase extends React.PureComponent<
                 params={{
                   ...restParams,
                   data,
-                  isBrightnessReduced: data.endDate < currentTime
+                  isBrightnessReduced: isPastAppointment(data, currentTime)
                     && reduceBrightnessOfPastAppointments,
                 }}
               />

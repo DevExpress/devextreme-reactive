@@ -59,8 +59,8 @@ export const Cell = ({
   isShaded,
   ...restProps
 }) => {
-  const isNow = !!currentTime && !!startDate && !!endDate
-    && currentTime.getTime() <= endDate.getTime() && currentTime.getTime() > startDate.getTime();
+  const isNow = !!currentTime && currentTime.getTime() <= endDate.getTime()
+    && currentTime.getTime() > startDate.getTime();
   const shadedHeight = `${((currentTime - startDate.getTime()) * 100) / (endDate.getTime() - startDate.getTime())}%`;
   const classes = useStyles({ shadedHeight });
 
@@ -101,8 +101,8 @@ Cell.propTypes = {
 Cell.defaultProps = {
   children: null,
   className: undefined,
-  startDate: undefined,
-  endDate: undefined,
+  startDate: new Date(),
+  endDate: new Date(),
   currentTime: undefined,
   currentTimeIndicatorComponent: () => null,
   isShaded: false,

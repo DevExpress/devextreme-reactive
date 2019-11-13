@@ -19,6 +19,8 @@ describe('AllDayPanel', () => {
         .toBeTruthy();
       expect(tree.is(`.${classes.cell}`))
         .toBeTruthy();
+      expect(tree.is(`.${classes.shadedCell}`))
+        .toBeFalsy();
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
@@ -27,6 +29,14 @@ describe('AllDayPanel', () => {
 
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
+    });
+    it('should be shaded if isShaded is true', () => {
+      const tree = shallow((
+        <Cell isShaded />
+      ));
+
+      expect(tree.is(`.${classes.shadedCell}`))
+        .toBeTruthy();
     });
   });
 });

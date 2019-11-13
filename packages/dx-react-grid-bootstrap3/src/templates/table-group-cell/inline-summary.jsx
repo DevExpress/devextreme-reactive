@@ -30,7 +30,7 @@ export const InlineSummary = ({
 InlineSummary.propTypes = {
   getMessage: PropTypes.func.isRequired,
   inlineSummaries: PropTypes.array,
-  inlineSummaryItemComponent: PropTypes.func.isRequired,
+  inlineSummaryItemComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   style: PropTypes.object,
 };
 

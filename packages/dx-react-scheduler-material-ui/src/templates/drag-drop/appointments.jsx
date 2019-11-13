@@ -32,15 +32,14 @@ const DraftAppointmentBase = ({
   classes, className, data, formatDate,
   type, fromPrev, toNext, durationType,
   isBrightnessReduced, ...restProps
-}) => {
-  // console.log(isBrightnessReduced)
-  return (
+}) => (
   <Appointment
     className={classNames({
       [classes.appointment]: true,
       [classes.reducedBrightness]: isBrightnessReduced,
     }, className)}
     type={type}
+    isBrightnessReduced={isBrightnessReduced}
     {...restProps}
   >
     {fromPrev && <SplitIndicator position={POSITION_START} appointmentType={type} />}
@@ -53,7 +52,7 @@ const DraftAppointmentBase = ({
     />
     {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
   </Appointment>
-);}
+);
 
 DraftAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -64,12 +63,14 @@ DraftAppointmentBase.propTypes = {
   durationType: PropTypes.string,
   className: PropTypes.string,
   type: PropTypes.string,
+  isBrightnessReduced: PropTypes.bool,
 };
 
 DraftAppointmentBase.defaultProps = {
   durationType: undefined,
   className: undefined,
   type: undefined,
+  isBrightnessReduced: false,
 };
 
 export const DraftAppointment = withStyles(draftStyles, { name: 'DraftAppointment' })(DraftAppointmentBase);

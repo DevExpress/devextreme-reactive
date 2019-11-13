@@ -7,7 +7,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import classNames from 'clsx';
 import { getAppointmentColor } from '../../utils';
 
-const getResourceItem = (resourceItems, id) => resourceItems.find(item => item.id === id);
+const getResourceInstance = (resourceInstances, id) => resourceInstances
+  .find(item => item.id === id);
 
 const useStyles = makeStyles(({ spacing }) => ({
   select: {
@@ -74,7 +75,7 @@ export const ResourceEditor = React.memo(({
         resource.allowMultiple ? (
           <div className={classes.chips}>
             {selected.map((value) => {
-              const resourceItem = getResourceItem(resource.items, value);
+              const resourceItem = getResourceInstance(resource.instances, value);
               return (
                 <Chip
                   key={value}
@@ -92,18 +93,18 @@ export const ResourceEditor = React.memo(({
                 className={classes.resourceCircle}
                 style={{
                   backgroundColor: getAppointmentColor(
-                    400, getResourceItem(resource.items, selected[0]).color,
+                    400, getResourceInstance(resource.instances, selected[0]).color,
                   ),
                 }}
               />
             </div>
-            {getResourceItem(resource.items, selected[0]).text}
+            {getResourceInstance(resource.instances, selected[0]).text}
           </div>
         )
       )}
       {...restProps}
     >
-      {resource.items.map(resourceItem => (
+      {resource.instances.map(resourceItem => (
         <MenuItem key={resourceItem.id} value={resourceItem.id}>
           <div
             className={classes.resourceCircle}

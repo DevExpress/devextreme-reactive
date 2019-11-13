@@ -12,7 +12,7 @@ describe('AppointmentForm resource editor', () => {
     resource: {
       fieldName: 'location',
       title: 'title',
-      items: [
+      instances: [
         { id: 0, text: 'text-0', title: 'title-0', fieldName: 'location', color: 'red' },
         { id: 1, text: 'text-1', title: 'title-1', fieldName: 'location', color: 'blue' },
       ],
@@ -49,7 +49,7 @@ describe('AppointmentForm resource editor', () => {
       expect(defaultProps.onResourceChange)
         .toBeCalledWith({ location: 'next' });
     });
-    it('should render items depending on resource items', () => {
+    it('should render instances depending on resource instances', () => {
       const tree = shallow((
         <ResourceEditor {...defaultProps} />
       ));

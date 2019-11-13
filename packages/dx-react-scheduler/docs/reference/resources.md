@@ -1,6 +1,6 @@
 # Resources Plugin Reference
 
-A plugin that configures [resources]().
+A plugin that configures [resources](../guides/resources.md).
 
 ## Import
 
@@ -40,7 +40,7 @@ Field | Type | Description
 ------|------|------------
 id | number &#124; string | The resource ID.
 fieldName | string | A data field name used to assign appointments to this resource. This field should be present in appointment data objects.
-items | Array&lt;[ResourceItem](#resourceitem)&gt; | Resource instances.
+instances | Array&lt;[ResourceItem](#resourceitem)&gt; | Resource instances.
 title? | string | The resource title.
 allowMultiple? | boolean | Indicates whether an appointment can be assigned to several instances of this resource.
 
@@ -62,7 +62,7 @@ Type: `Array<string | Color>`
 
 ### ValidResource
 
-The resource with all properties.
+An object that provides information about a resource.
 
 Field | Type | Description
 ------|------|------------
@@ -70,7 +70,7 @@ fieldName | string | A data field name used to assign an appointment to this res
 title | string | The resource title.
 allowMultiple | boolean | Indicates whether an appointment can be assigned to several instances of this resource.
 isMain | boolean | `true` if this resource's name is assigned to the `mainResourceName` property.
-items | Array&lt;[ValidResourceItem](#validresourceitem)&gt; | Resource instances.
+instances | Array&lt;[ValidResourceItem](#validresourceitem)&gt; | Resource instances.
 
 ### ValidResourceItem
 

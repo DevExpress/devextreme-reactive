@@ -93,7 +93,7 @@ export default class Demo extends React.PureComponent {
         {
           fieldName: 'location',
           title: 'Location',
-          items: [
+          instances: [
             { id: 'Room 1', text: 'Room 1' },
             { id: 'Room 2', text: 'Room 2' },
             { id: 'Room 3', text: 'Room 3' },
@@ -105,7 +105,7 @@ export default class Demo extends React.PureComponent {
           fieldName: 'members',
           title: 'Members',
           allowMultiple: true,
-          items: [
+          instances: [
             { id: 1, text: 'Andrew Glover' },
             { id: 2, text: 'Arnie Schwartz' },
             { id: 3, text: 'John Heart' },

@@ -137,7 +137,7 @@ describe('Appointment Tooltip', () => {
         .toBeTruthy();
     });
 
-    it('should render resource items', () => {
+    it('should render resource instances', () => {
       const appointmentResources = [
         { id: 0, text: 'text-0', color: 'red' },
         { id: 1, text: 'text-1', color: 'blue' },

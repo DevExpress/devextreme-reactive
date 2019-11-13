@@ -23,12 +23,12 @@ export default class Demo extends React.PureComponent {
         {
           fieldName: 'roomId',
           title: 'Room',
-          items: resourcesData,
+          instances: resourcesData,
         },
         {
           fieldName: 'members',
           title: 'Members',
-          items: owners,
+          instances: owners,
           allowMultiple: true,
         },
       ],

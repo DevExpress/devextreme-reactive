@@ -817,7 +817,7 @@ export type Resource = {
     fieldName: string;
     title?: string;
     allowMultiple?: boolean;
-    items: Array<ResourceItem>;
+    instances: Array<ResourceItem>;
 };
 
 // @public
@@ -929,7 +929,7 @@ export type ValidResource = {
     fieldName: string;
     title: string;
     allowMultiple: boolean;
-    items: Array<ValidResourceItem>;
+    instances: Array<ValidResourceItem>;
     isMain: boolean;
 };
 

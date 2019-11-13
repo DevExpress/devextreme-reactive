@@ -3,61 +3,71 @@ import { PureComputed } from '@devexpress/dx-core';
 import { Appointment } from './../index';
 
 /* tslint:disable no-empty-interface */
-/** Specifies a resource that available in scheduler. */
+/** Configures a resource. */
 export type Resource = {
-  /** The name of the appointment object field that specifies a resource of this kind. */
+  /**
+   * A data field name used to assign appointments to this resource.
+   * This field should be present in appointment data objects.
+   */
   fieldName: string;
-  /** Specifies the resource title. */
+  /** The resource title. */
   title?: string;
-  /** Indicates whether or not several resources of this kind can be assigned to an appointment. */
+  /** Indicates whether an appointment can be assigned to several instances of this resource. */
   allowMultiple?: boolean;
-  /** Specifies an array of resource item objects. */
-  items: Array<ResourceItem>;
+  /** Resource instances. */
+  instances: Array<ResourceItem>;
 };
 
-/** Specifies the resource item object. */
+/** Configures a resource instance. */
 export type ResourceItem = {
-  /**
-   * Specifies a resource item's identifier.
-   * This id should be related with scheduler's data `fieldName` id.
-   */
+  /** The resource ID. */
   id: number | string;
-  /**
-   * Specifies resource item's color.
-   * It is used to indicate appointments related to this resource.
-   */
+  /** The resource instance color. */
   color?: string | Color;
-  /** Specifies the resource item's text that would be used in UI */
+  /** The resource instance text. */
   text?: string;
 };
-/** Specifies the resources palette. */
+/**
+ * Specifies a palette that provides colors for those resource instances
+ * whose color is not defined.
+ */
 export type Palette = Array<string | Color>;
 
-/** Specifies the color object. */
+/**
+ * The [Material-UI Color](https://material-ui.com/customization/color/#color-palette) object.
+ * See [these examples](https://material-ui.com/customization/color/#examples)
+ * for information on how to use it.
+ */
 export interface Color extends MUIColor {}
 
-/** The resource item with all properties. */
+/** An object that provides information about a resource instance. */
 export type ValidResourceItem = Required<ResourceItem> & {
-  /** Specifies the resource title. */
+  /** The resource title. */
   title: string;
-  /** The name of the appointment object field that specifies a resource of this kind. */
+  /**
+   * A data field name used to assign appointments to this resource.
+   * This field should be present in appointment data objects.
+   */
   fieldName: string;
-  /** Indicates whether or not several resources of this kind can be assigned to an appointment. */
+  /** Indicates whether an appointment can be assigned to several instances of this resource. */
   allowMultiple: boolean;
   /** Specifies the main resource kind */
   isMain: boolean;
 };
 
-/** The resource with all properties. */
+/** An object that provides information about a resource. */
 export type ValidResource = {
-  /** The name of the appointment object field that specifies a resource of this kind. */
+  /**
+   * A data field name used to assign appointments to this resource.
+   * This field should be present in appointment data objects.
+   */
   fieldName: string;
-  /** Specifies the resource title. */
+  /** The resource title. */
   title: string;
-  /** Indicates whether or not several resources of this kind can be assigned to an appointment. */
+  /** Indicates whether an appointment can be assigned to several instances of this resource. */
   allowMultiple: boolean;
-  /** Specifies an array of resource item objects. */
-  items: Array<ValidResourceItem>;
+  /** Resource instances. */
+  instances: Array<ValidResourceItem>;
   /** Specifies the main resource kind */
   isMain: boolean;
 };

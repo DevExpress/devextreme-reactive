@@ -13,7 +13,7 @@ describe('Resources helpers', () => {
       const appointment = {};
       const resources = [{
         fieldName: 'ownerId',
-        items: [{ id: 0 }],
+        instances: [{ id: 0 }],
       }];
 
       expect(getAppointmentResources(appointment, resources, undefined))
@@ -23,7 +23,7 @@ describe('Resources helpers', () => {
       const appointment = { ownerId: 0 };
       const resources = [{
         fieldName: 'ownerId',
-        items: [{ id: 0, fieldName: 'ownerId', allowMultiple: false }],
+        instances: [{ id: 0, fieldName: 'ownerId', allowMultiple: false }],
       }];
       const plainResources = [{ id: 0, fieldName: 'ownerId', allowMultiple: false }];
 
@@ -39,7 +39,7 @@ describe('Resources helpers', () => {
       const resources = [{
         fieldName: 'ownerId',
         allowMultiple: true,
-        items: [
+        instances: [
           { id: 0, fieldName: 'ownerId', allowMultiple: true },
           { id: 1, fieldName: 'ownerId', allowMultiple: true },
         ],
@@ -60,7 +60,7 @@ describe('Resources helpers', () => {
       const appointment = { ownerId: [1, 0] };
       const resources = [{
         fieldName: 'ownerId',
-        items: [{ id: 0, fieldName: 'ownerId' }, { id: 1, fieldName: 'ownerId' }],
+        instances: [{ id: 0, fieldName: 'ownerId' }, { id: 1, fieldName: 'ownerId' }],
       }];
       const plainResources = [
         { id: 0, fieldName: 'ownerId' },
@@ -74,10 +74,10 @@ describe('Resources helpers', () => {
       const appointment = { ownerId: 0, locationId: 1 };
       const resources = [{
         fieldName: 'ownerId',
-        items: [{ id: 0, fieldName: 'ownerId' }, { id: 1, fieldName: 'ownerId' }],
+        instances: [{ id: 0, fieldName: 'ownerId' }, { id: 1, fieldName: 'ownerId' }],
       }, {
         fieldName: 'locationId',
-        items: [{ id: 0, fieldName: 'locationId' }, { id: 1, fieldName: 'locationId' }],
+        instances: [{ id: 0, fieldName: 'locationId' }, { id: 1, fieldName: 'locationId' }],
       }];
       const plainResources = [
         { id: 0, fieldName: 'ownerId', allowMultiple: false },
@@ -102,13 +102,13 @@ describe('Resources helpers', () => {
       };
       const resources = [{
         fieldName: 'ownerId',
-        items: [
+        instances: [
           { id: 0, fieldName: 'ownerId' },
           { id: 1, fieldName: 'ownerId' },
         ],
       }, {
         fieldName: 'locationId',
-        items: [
+        instances: [
           { id: 0, fieldName: 'locationId' },
           { id: 1, fieldName: 'locationId' },
         ],

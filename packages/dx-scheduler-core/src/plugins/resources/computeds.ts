@@ -5,7 +5,7 @@ import {
 export const convertResourcesToPlain: ConvertResourcesToPlain = (validResources) => {
   return validResources.reduce((acc, resource) => [
     ...acc,
-    ...resource.items.map(item => item),
+    ...resource.instances.map(item => item),
   ], [] as Array<ValidResourceItem>);
 };
 
@@ -23,7 +23,7 @@ export const validateResources: ValidateResources = (resources, mainResourceName
       isMain,
       title,
       allowMultiple,
-      items: resource.items.map((resourceItem) => {
+      instances: resource.instances.map((resourceItem) => {
         const color = resourceItem.color || palette[currentPaletteIndex];
         if (!resourceItem.color) currentPaletteIndex += 1;
 

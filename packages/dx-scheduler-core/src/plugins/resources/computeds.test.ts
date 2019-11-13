@@ -1,15 +1,15 @@
-import { getAppointmentResources, validateResources, convertResourcesToPlain } from './computeds';
+import { validateResources, convertResourcesToPlain } from './computeds';
 
 describe('Resources computeds', () => {
   describe('#validateResources', () => {
     const baseResources = [
-      { fieldName: 'ownerId', items: [{ id: 0 }] },
+      { fieldName: 'ownerId', instances: [{ id: 0 }] },
     ];
     const palette = ['red', 'brown', 'green', 'pink'];
 
     it('should assign properties according to resource title', () => {
       const resources = [
-        { fieldName: 'ownerId', title: 'Owner', items: [{ id: 0 }] },
+        { fieldName: 'ownerId', title: 'Owner', instances: [{ id: 0 }] },
       ];
       expect(validateResources(resources, undefined, palette))
         .toEqual([
@@ -18,7 +18,7 @@ describe('Resources computeds', () => {
             allowMultiple: false,
             isMain: true,
             title: 'Owner',
-            items: [{
+            instances: [{
               id: 0,
               color: 'red',
               allowMultiple: false,
@@ -32,7 +32,7 @@ describe('Resources computeds', () => {
     });
     it('should assign properties according to resource text', () => {
       const resources = [
-        { fieldName: 'ownerId', title: 'Owner', items: [{ id: 0, text: 'Maxim' }] },
+        { fieldName: 'ownerId', title: 'Owner', instances: [{ id: 0, text: 'Maxim' }] },
       ];
       expect(validateResources(resources, undefined, palette))
         .toEqual([
@@ -41,7 +41,7 @@ describe('Resources computeds', () => {
             allowMultiple: false,
             isMain: true,
             title: 'Owner',
-            items: [{
+            instances: [{
               id: 0,
               color: 'red',
               allowMultiple: false,
@@ -61,7 +61,7 @@ describe('Resources computeds', () => {
             allowMultiple: false,
             isMain: true,
             title: 'ownerId',
-            items: [{
+            instances: [{
               id: 0,
               color: 'red',
               allowMultiple: false,
@@ -75,8 +75,8 @@ describe('Resources computeds', () => {
     });
     it('should not assign the Main flag to two resource', () => {
       const resources = [
-        { fieldName: 'ownerId', items: [{ id: 0 }] },
-        { fieldName: 'roomId', items: [{ id: 0 }] },
+        { fieldName: 'ownerId', instances: [{ id: 0 }] },
+        { fieldName: 'roomId', instances: [{ id: 0 }] },
       ];
       expect(validateResources(resources, undefined, palette))
         .toEqual([
@@ -85,7 +85,7 @@ describe('Resources computeds', () => {
             allowMultiple: false,
             isMain: true,
             title: 'ownerId',
-            items: [{
+            instances: [{
               id: 0,
               color: 'red',
               allowMultiple: false,
@@ -100,7 +100,7 @@ describe('Resources computeds', () => {
             allowMultiple: false,
             isMain: false,
             title: 'roomId',
-            items: [{
+            instances: [{
               id: 0,
               color: 'brown',
               allowMultiple: false,
@@ -114,8 +114,8 @@ describe('Resources computeds', () => {
     });
     it('should assign the Main flag according to MainResourceName', () => {
       const resources = [
-        { fieldName: 'ownerId', items: [{ id: 0 }] },
-        { fieldName: 'roomId', items: [{ id: 0 }] },
+        { fieldName: 'ownerId', instances: [{ id: 0 }] },
+        { fieldName: 'roomId', instances: [{ id: 0 }] },
       ];
       expect(validateResources(resources, 'roomId', palette))
         .toEqual([
@@ -124,7 +124,7 @@ describe('Resources computeds', () => {
             allowMultiple: false,
             isMain: false,
             title: 'ownerId',
-            items: [{
+            instances: [{
               id: 0,
               color: 'red',
               allowMultiple: false,
@@ -139,7 +139,7 @@ describe('Resources computeds', () => {
             allowMultiple: false,
             isMain: true,
             title: 'roomId',
-            items: [{
+            instances: [{
               id: 0,
               color: 'brown',
               allowMultiple: false,
@@ -159,7 +159,7 @@ describe('Resources computeds', () => {
         allowMultiple: false,
         isMain: false,
         title: 'ownerId',
-        items: [{
+        instances: [{
           id: 0,
           color: 'red',
           allowMultiple: false,
@@ -174,7 +174,7 @@ describe('Resources computeds', () => {
         allowMultiple: false,
         isMain: true,
         title: 'roomId',
-        items: [{
+        instances: [{
           id: 0,
           color: 'brown',
           allowMultiple: false,

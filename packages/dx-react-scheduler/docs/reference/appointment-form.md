@@ -46,7 +46,7 @@ textEditorComponent | ComponentType&lt;[AppointmentForm.TextEditorProps](#appoin
 dateEditorComponent | ComponentType&lt;[AppointmentForm.DateEditorProps](#appointmentformdateeditorprops)&gt; | | A component that renders a date-time editor.
 labelComponent | ComponentType&lt;[AppointmentForm.LabelProps](#appointmentformlabelprops)&gt; | | A component that renders a text label.
 booleanEditorComponent | ComponentType&lt;[AppointmentForm.BooleanEditorProps](#appointmentformbooleaneditorprops)&gt; | | A component that renders an editor of Boolean values.
-selectComponent | ComponentType&lt;[AppointmentForm.SelectProps](#appointmentformselectprops)&gt; | | A component that renders a menu of options.
+selectComponent | ComponentType&lt;[AppointmentForm.SelectProps](#appointmentformselectprops)&gt; | | A component that renders an options menu.
 radioGroupComponent | ComponentType&lt;[AppointmentForm.RadioGroupProps](#appointmentformradiogroupprops)&gt; | | A component that renders a radio group.
 resourceEditorComponent | ComponentType&lt;[AppointmentForm.ResourceEditorProps](#appointmentformresourceeditorprops)&gt; | | A component that renders a resource editor.
 weeklyRecurrenceSelectorComponent | ComponentType&lt;[AppointmentForm.WeeklyRecurrenceSelectorProps](#appointmentformweeklyrecurrenceselectorprops)&gt; | | A component that renders a weekly recurrence selector.
@@ -125,7 +125,8 @@ Field | Type | Description
 readOnly? | boolean | Specifies whether the appointment form is read-only.
 visible | boolean | Specifies whether the layout is visible.
 appointmentData | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment's data.
-onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | An event raised when a field value in the appointment form is changed.
+onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | An event that is raised when a field value in the appointment form is changed.
+
 getMessage | (messageKey: string) => string | Uses a localization message's key to retrieve the message.
 locale | string &#124; Array&lt;string&gt; | Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale is used to format date-time values.
 firstDayOfWeek | number | A number between 0 (Sunday) and 6 (Saturday) that specifies the first day of the week.
@@ -134,7 +135,7 @@ radioGroupComponent | ComponentType&lt;[AppointmentForm.RadioGroupProps](#appoin
 weeklyRecurrenceSelectorComponent | ComponentType&lt;[AppointmentForm.WeeklyRecurrenceSelectorProps](#appointmentformweeklyrecurrenceselectorprops)&gt; | A component that renders a weekly recurrence selector.
 textEditorComponent | ComponentType&lt;[AppointmentForm.TextEditorProps](#appointmentformtexteditorprops)&gt; | A component that renders a text editor.
 dateEditorComponent | ComponentType&lt;[AppointmentForm.DateEditorProps](#appointmentformdateeditorprops)&gt; | A component that renders a date-time editor.
-selectComponent | ComponentType&lt;[AppointmentForm.SelectProps](#appointmentformselectprops)&gt; | A component that renders a menu of options.
+selectComponent | ComponentType&lt;[AppointmentForm.SelectProps](#appointmentformselectprops)&gt; | A component that renders an options menu.
 labelComponent | ComponentType&lt;[AppointmentForm.LabelProps](#appointmentformlabelprops)&gt; | A component that renders a text label.
 children? | ReactNode | A React node used to render additional components to the Recurrence Layout.
 
@@ -190,13 +191,14 @@ appointmentData | [AppointmentModel](./scheduler.md#appointmentmodel) | The appo
 firstDayOfWeek | number | A number between 0 (Sunday) and 6 (Saturday) that specifies the first day of the week.
 locale? | string &#124; Array&lt;string&gt; | Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale is used to format date-time values.
 formatDate | [FormatterFn](./scheduler.md#formatterfn) | A function that formats dates based on the locale.
-onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | An event raised when a field value in the appointment form is changed.
+onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | An event that is raised when a field value in the appointment form is changed.
+
 readOnly? | boolean | Specifies whether the radio group is read-only.
 type? | `endRepeat` &#124; `monthlyRadioGroup` &#124; `yearlyRadioGroup` | The radio group's type.
 getMessage | (messageKey: string) => string | Uses a localization message's key to retrieve the message.
 textEditorComponent | ComponentType&lt;[AppointmentForm.TextEditorProps](#appointmentformtexteditorprops)&gt; | A component that renders a text editor.
 dateEditorComponent | ComponentType&lt;[AppointmentForm.DateEditorProps](#appointmentformdateeditorprops)&gt; | A component that renders a date-time editor.
-selectComponent | ComponentType&lt;[AppointmentForm.SelectProps](#appointmentformselectprops)&gt; | A component that renders a menu of options.
+selectComponent | ComponentType&lt;[AppointmentForm.SelectProps](#appointmentformselectprops)&gt; | A component that renders an options menu.
 labelComponent | ComponentType&lt;[AppointmentForm.LabelProps](#appointmentformlabelprops)&gt; | A component that renders a text label.
 
 ### AppointmentForm.SelectProps

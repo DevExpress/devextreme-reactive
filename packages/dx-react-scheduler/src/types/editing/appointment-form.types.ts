@@ -66,7 +66,7 @@ export namespace AppointmentForm {
     appointmentResources: Array<ValidResourceInstance>;
     /** The all resources that were defined. */
     resources: Array<ValidResource>;
-    /** An event raised when a field value in the appointment form is changed. */
+    /** An event that is raised when a field value in the appointment form is changed. */
     onFieldChange: (change: any) => void;
     /** Uses a localization message's key to retrieve the message. */
     getMessage: (messageKey: string) => string;
@@ -80,7 +80,7 @@ export namespace AppointmentForm {
     dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
     /** A component that renders an editor of Boolean values. */
     booleanEditorComponent: React.ComponentType<AppointmentForm.BooleanEditorProps>;
-    /** A component that renders a menu of options. */
+    /** A component that renders an options menu. */
     selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
     /** A component that renders a resource editor. */
     resourceEditorComponent: React.ComponentType<AppointmentForm.ResourceEditorProps>;
@@ -95,7 +95,7 @@ export namespace AppointmentForm {
     visible: boolean;
     /** The appointment's data. */
     appointmentData: AppointmentModel;
-    /** An event raised when a field value in the appointment form is changed. */
+    /** An event that is raised when a field value in the appointment form is changed. */
     onFieldChange: (nextFieldValue: { [fieldName: string]: any }) => void;
     /** Uses a localization message's key to retrieve the message. */
     getMessage: (messageKey: string) => string;
@@ -115,7 +115,7 @@ export namespace AppointmentForm {
     textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
     /** A component that renders a date-time editor. */
     dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
-    /** A component that renders a menu of options. */
+    /** A component that renders an options menu. */
     selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
     /** A component that renders a text label. */
     labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
@@ -209,7 +209,7 @@ export namespace AppointmentForm {
     formatDate: FormatterFn;
     /** A number between 0 (Sunday) and 6 (Saturday) that specifies the first day of the week. */
     firstDayOfWeek: number;
-    /** An event raised when a field value in the appointment form is changed. */
+    /** An event that is raised when a field value in the appointment form is changed. */
     onFieldChange: (nextFieldValue: { [fieldName: string]: any }) => void;
     /** Specifies the date editor is read-only. */
     readOnly?: boolean;
@@ -221,7 +221,7 @@ export namespace AppointmentForm {
     textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
     /** A component that renders a date-time editor. */
     dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
-    /** A component that renders a menu of options. */
+    /** A component that renders an options menu. */
     selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
     /** A component that renders a text label. */
     labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
@@ -339,7 +339,7 @@ export interface AppointmentFormProps {
   dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
   /** A component that renders an editor of Boolean values. */
   booleanEditorComponent: React.ComponentType<AppointmentForm.BooleanEditorProps>;
-  /** A component that renders a menu of options. */
+  /** A component that renders an options menu. */
   selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
   /** A component that renders a resource editor. */
   resourceEditorComponent: React.ComponentType<AppointmentForm.ResourceEditorProps>;

@@ -50,6 +50,8 @@ export namespace BaseView {
     startDate?: Date;
     /** Specifies the cell end time. */
     endDate?: Date;
+    /** Specifies whether the cell is shaded. */
+    isShaded?: boolean;
     /** Specifies the current time. */
     currentTime?: Date;
     /** A component that renders the current time indicator. */

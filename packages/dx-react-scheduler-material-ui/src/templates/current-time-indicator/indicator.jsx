@@ -1,26 +1,26 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
+import classNames from 'clsx';
 
 const useStyles = makeStyles(theme => ({
-  nowIndicator: {
-    left: 0,
-    top: ({ top }) => top,
-    position: 'absolute',
+  line: {
     height: '2px',
     width: '100%',
-    backgroundColor: theme.palette.secondary.main,
     transform: 'translate(0, -1px)',
   },
   circle: {
-    left: 0,
-    top: ({ top }) => top,
-    position: 'absolute',
     width: theme.spacing(1.5),
     height: theme.spacing(1.5),
     borderRadius: '50%',
-    background: theme.palette.secondary.main,
     transform: 'translate(-50%, -50%)',
+  },
+  nowIndicator: {
+    position: 'absolute',
+    zIndex: 1,
+    left: 0,
+    top: ({ top }) => top,
+    background: theme.palette.secondary.main,
   },
 }));
 
@@ -35,8 +35,8 @@ export const Indicator = ({
 
   return (
     <div {...restProps}>
-      <div className={classes.circle} />
-      <div className={classes.nowIndicator} />
+      <div className={classNames(classes.nowIndicator, classes.circle)} />
+      <div className={classNames(classes.nowIndicator, classes.line)} />
     </div>
   );
 };

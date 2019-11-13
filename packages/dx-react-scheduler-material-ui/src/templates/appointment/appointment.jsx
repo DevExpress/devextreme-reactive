@@ -30,6 +30,12 @@ const styles = ({ palette, typography, spacing }) => ({
   clickableAppointment: {
     cursor: 'pointer',
   },
+  reducedBrightness: {
+    backgroundColor: setColor(200, palette.primary),
+    '&:hover': {
+      backgroundColor: setColor(200, palette.primary),
+    },
+  },
 });
 
 const AppointmentBase = ({
@@ -38,6 +44,7 @@ const AppointmentBase = ({
   data,
   onClick: handleClick,
   draggable,
+  isBrightnessReduced,
   ...restProps
 }) => {
   const onClick = handleClick
@@ -53,6 +60,7 @@ const AppointmentBase = ({
       className={classNames({
         [classes.appointment]: true,
         [classes.clickableAppointment]: clickable,
+        [classes.reducedBrightness]: isBrightnessReduced,
       }, className)}
       {...onClick}
       {...restProps}
@@ -69,6 +77,7 @@ AppointmentBase.propTypes = {
   data: PropTypes.object,
   onClick: PropTypes.func,
   draggable: PropTypes.bool,
+  isBrightnessReduced: PropTypes.bool,
 };
 
 AppointmentBase.defaultProps = {
@@ -76,6 +85,7 @@ AppointmentBase.defaultProps = {
   className: undefined,
   data: {},
   draggable: false,
+  isBrightnessReduced: false,
 };
 
 export const Appointment = withStyles(styles, { name: 'Appointment' })(AppointmentBase);

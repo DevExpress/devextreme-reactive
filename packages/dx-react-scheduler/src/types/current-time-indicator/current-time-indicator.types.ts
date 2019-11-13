@@ -14,8 +14,8 @@ export namespace CurrentTimeIndicator {
 export interface CurrentTimeIndicatorProps {
   /** The time interval in milliseconds between Indicator's position updates. */
   updateInterval: number;
-  /** Specifies whether the past appointments should be shaded. */
-  shadePastAppointments: boolean;
+  /** Specifies whether the brightness of past appointments should be reduced. */
+  reduceBrightnessOfPastAppointments: boolean;
   /** Specifies whether past cells should be shaded. */
   shadePastCells: boolean;
   /** A component that renders the CurrentTimeIndicator. */

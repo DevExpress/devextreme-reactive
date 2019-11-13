@@ -6,6 +6,7 @@ import {
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import { CurrentTimeIndicatorProps, CurrentTimeIndicatorState } from '../types';
+import { isMonthCell } from '@devexpress/dx-scheduler-core/src';
 
 const pluginDependencies = [];
 
@@ -46,32 +47,17 @@ class CurrentTimeIndicatorBase extends React.PureComponent<
     clearTimeout(this.indicatorUpdateTimer);
   }
 
-  // viewCellsDataComputed = memoize(currentTime => ({ viewCellsData }) => {
-  //   // console.log(viewCellsData)
-  //   return viewCellsData.map((rowCellData) => {
-  //     return rowCellData.map((cellData) => {
-  //       return cellData.startDate.getTime() <= currentTime
-  //         && cellData.endDate.getTime() >= currentTime
-  //         ? { ...cellData, isNow: true }
-  //         : cellData;
-  //     })
-  //   });
-  // });
-
   render() {
     const { currentTime } = this.state;
-    const { indicatorComponent, shadePastAppointments, shadePastCells } = this.props;
+    const { indicatorComponent, reduceBrightnessOfPastAppointments, shadePastCells } = this.props;
     return (
       <Plugin
         name="CurrentTimeIndicator"
         dependencies={pluginDependencies}
       >
-        {/* <Getter
-          name="viewCellsData"
-          computed={this.viewCellsDataComputed(currentTime)}
-        /> */}
         <Template
           name="cell"
+          predicate={({ otherMonth }: any) => !isMonthCell(otherMonth)}
         >
           {params => (
             <TemplatePlaceholder
@@ -82,6 +68,51 @@ class CurrentTimeIndicatorBase extends React.PureComponent<
               }}
             />
           )}
+        </Template>
+        <Template
+          name="cell"
+        >
+          {({ startDate, ...restParams }: any) => (
+            <TemplatePlaceholder
+              params={{
+                ...restParams,
+                startDate,
+                isShaded: startDate.getTime() < currentTime && shadePastCells,
+              }}
+            />
+          )}
+        </Template>
+        <Template
+          name="appointmentContent"
+        >
+          {({ data, ...restParams }: any) => {
+            return (
+              <TemplatePlaceholder
+                params={{
+                  ...restParams,
+                  data,
+                  isBrightnessReduced: data.endDate < currentTime
+                    && reduceBrightnessOfPastAppointments,
+                }}
+              />
+            );
+          }}
+        </Template>
+        <Template
+          name="draftAppointment"
+        >
+          {({ data, ...restParams }: any) => {
+            return (
+              <TemplatePlaceholder
+                params={{
+                  ...restParams,
+                  data,
+                  isBrightnessReduced: data.endDate < currentTime
+                    && reduceBrightnessOfPastAppointments,
+                }}
+              />
+            );
+          }}
         </Template>
       </Plugin>
     );

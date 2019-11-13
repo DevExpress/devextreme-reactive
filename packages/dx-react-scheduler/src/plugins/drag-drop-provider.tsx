@@ -23,7 +23,7 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { DragDropProviderProps, DragDropProviderState } from '../types';
 
-const renderAppointmentItems = (items, formatDate, data, Wrapper, Appointment) => (
+const renderAppointmentItems = (items, formatDate, data, Wrapper, Appointment, params) => (
   items.length > 0 ? (
     <Wrapper>
       {items.map(({
@@ -38,6 +38,7 @@ const renderAppointmentItems = (items, formatDate, data, Wrapper, Appointment) =
           fromPrev={fromPrev}
           toNext={toNext}
           formatDate={formatDate}
+          {...params}
         />
       ))}
     </Wrapper>
@@ -307,20 +308,32 @@ class DragDropProviderBase extends React.PureComponent<
 
         <Template name="allDayPanel">
           <TemplatePlaceholder />
-          <TemplateConnector>
-            {({ formatDate }) => renderAppointmentItems(
-              this.allDayDraftAppointments, formatDate, draftData, Container, DraftAppointment,
-            )}
-          </TemplateConnector>
+          <TemplatePlaceholder
+            name="draftAppointment"
+            params={{ data: draftData, draftAppointments: this.allDayDraftAppointments }}
+          />
         </Template>
 
         <Template name="timeTable">
           <TemplatePlaceholder />
-          <TemplateConnector>
-            {({ formatDate }) => renderAppointmentItems(
-              this.timeTableDraftAppointments, formatDate, draftData, Container, DraftAppointment,
-            )}
+          <TemplatePlaceholder
+            name="draftAppointment"
+            params={{ data: draftData, draftAppointments: this.timeTableDraftAppointments }}
+          />
+        </Template>
+
+        <Template name="draftAppointment">
+          {(params: any) => (
+            <TemplateConnector>
+              {({ formatDate }) => {
+                return renderAppointmentItems(
+                  params.draftAppointments, formatDate, params.data,
+                  Container, DraftAppointment, params,
+                );
+              }
+            }
           </TemplateConnector>
+          )}
         </Template>
       </Plugin>
     );

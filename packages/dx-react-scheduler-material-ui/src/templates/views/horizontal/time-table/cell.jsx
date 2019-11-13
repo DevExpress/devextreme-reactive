@@ -65,6 +65,7 @@ const CellBase = React.memo(({
   today,
   otherMonth,
   formatDate,
+  isShaded,
   ...restProps
 }) => {
   const isFirstMonthDay = startDate.getDate() === 1;
@@ -96,6 +97,7 @@ CellBase.propTypes = {
   className: PropTypes.string,
   today: PropTypes.bool,
   otherMonth: PropTypes.bool,
+  isShaded: PropTypes.bool,
 };
 
 CellBase.defaultProps = {
@@ -103,6 +105,7 @@ CellBase.defaultProps = {
   className: undefined,
   today: false,
   otherMonth: false,
+  isShaded: false,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

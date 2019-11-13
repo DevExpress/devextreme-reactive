@@ -17,6 +17,9 @@ const draftStyles = theme => ({
     backgroundColor: setColor(600, theme.palette.primary),
     border: 0,
   },
+  reducedBrightness: {
+    backgroundColor: setColor(300, theme.palette.primary),
+  },
 });
 
 const sourceStyles = {
@@ -27,10 +30,16 @@ const sourceStyles = {
 
 const DraftAppointmentBase = ({
   classes, className, data, formatDate,
-  type, fromPrev, toNext, durationType, ...restProps
-}) => (
+  type, fromPrev, toNext, durationType,
+  isBrightnessReduced, ...restProps
+}) => {
+  // console.log(isBrightnessReduced)
+  return (
   <Appointment
-    className={classNames(classes.appointment, className)}
+    className={classNames({
+      [classes.appointment]: true,
+      [classes.reducedBrightness]: isBrightnessReduced,
+    }, className)}
     type={type}
     {...restProps}
   >
@@ -44,7 +53,7 @@ const DraftAppointmentBase = ({
     />
     {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
   </Appointment>
-);
+);}
 
 DraftAppointmentBase.propTypes = {
   classes: PropTypes.object.isRequired,

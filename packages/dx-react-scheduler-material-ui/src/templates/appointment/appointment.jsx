@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import { withStyles } from '@material-ui/core/styles';
-import { setColor } from '../utils';
+import { makeStyles } from '@material-ui/core/styles';
+import { getAppointmentColor, getResourceColor } from '../utils';
 
-const styles = ({ palette, typography, spacing }) => ({
+const useStyles = makeStyles(({ palette, typography, spacing }) => ({
   appointment: {
     userSelect: 'none',
     position: 'absolute',
@@ -17,27 +17,34 @@ const styles = ({ palette, typography, spacing }) => ({
     borderBottom: '1px solid transparent',
     backgroundClip: 'padding-box',
     borderRadius: spacing(0.5),
-    backgroundColor: setColor(300, palette.primary),
+    backgroundColor: resources => getAppointmentColor(
+      300, getResourceColor(resources), palette.primary,
+    ),
     ...typography.caption,
     '&:hover': {
-      backgroundColor: setColor(400, palette.primary),
+      backgroundColor: resources => getAppointmentColor(
+        400, getResourceColor(resources), palette.primary,
+      ),
     },
     '&:focus': {
-      backgroundColor: setColor(100, palette.primary),
+      backgroundColor: resources => getAppointmentColor(
+        100, getResourceColor(resources), palette.primary,
+      ),
       outline: 0,
     },
   },
   clickableAppointment: {
     cursor: 'pointer',
   },
-});
+}));
 
-const AppointmentBase = ({
-  classes, className,
+export const Appointment = ({
+  className,
   children,
   data,
   onClick: handleClick,
   draggable,
+  resources,
   ...restProps
 }) => {
   const onClick = handleClick
@@ -47,6 +54,7 @@ const AppointmentBase = ({
       },
     }
     : null;
+  const classes = useStyles(resources);
   const clickable = onClick || restProps.onDoubleClick || draggable;
   return (
     <div
@@ -62,20 +70,19 @@ const AppointmentBase = ({
   );
 };
 
-AppointmentBase.propTypes = {
-  classes: PropTypes.object.isRequired,
+Appointment.propTypes = {
   children: PropTypes.node.isRequired,
+  resources: PropTypes.array,
   className: PropTypes.string,
   data: PropTypes.object,
   onClick: PropTypes.func,
   draggable: PropTypes.bool,
 };
 
-AppointmentBase.defaultProps = {
+Appointment.defaultProps = {
+  resources: [],
   onClick: undefined,
   className: undefined,
   data: {},
   draggable: false,
 };
-
-export const Appointment = withStyles(styles, { name: 'Appointment' })(AppointmentBase);

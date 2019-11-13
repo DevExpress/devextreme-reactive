@@ -11,3 +11,4 @@ export * from './view-state.types';
 export * from './utils.types';
 export * from './week-view.types';
 export * from './drag-drop.types';
+export * from './resources.types';

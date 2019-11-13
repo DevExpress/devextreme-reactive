@@ -12,9 +12,9 @@ To assign appointments to resources, users can edit a dedicated [AppointmentForm
 
 ## Single and Multiple Instance Resources
 
-Appointments can be assigned to multiple or only one instance of a resource, depending on the resource type. To illustrate the difference, let us return to the example in which appointments are talks at a conference and resources are rooms, speakers, and attendees.
+Appointments can be assigned to single/multiple resource instances, depending on the resource type. The same example about a conference can be used to illustrate the difference:
 
-A talk can only be held in a single room, so the appointment can only be assigned to one instance of the Rooms resource. Such resources are called **single instance resources**. This is the default resource type.
+A talk can only be held in one room, and the appointment can only be assigned to one instance of the Rooms resource. These are default resource types called **single instance resources**.
 
 Many people can attend a talk and more than one speaker can give it. In this case, the appointment can be assigned to multiple instances of the Attendees and Speakers resources. Such resources are called **multiple instance resources**. Set `allowMultiple` to `true` in the resource data object to allow multiple instances for a resource.
 

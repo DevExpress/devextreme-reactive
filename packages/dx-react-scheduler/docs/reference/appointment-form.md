@@ -104,14 +104,14 @@ readOnly? | boolean | Specifies whether the appointment form is read-only.
 appointmentData | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment's data.
 appointmentResources | Array&lt;[ValidResourceInstance](./resources.md#validresourceinstance)&gt; | The appointment's resource instances.
 resources | Array&lt;[ValidResource](./resources.md#validresource)&gt; | All resources.
-onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | An event raised when a field value in the appointment form is changed.
+onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | An event that is raised when a field value in the appointment form is changed.
 getMessage | (messageKey: string) => string | Uses a localization message's key to retrieve the message.
 locale | string &#124; Array&lt;string&gt; | Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale is used to format date-time values.
 fullSize | boolean | Specifies whether the layout is full-size.
 textEditorComponent | ComponentType&lt;[AppointmentForm.TextEditorProps](#appointmentformtexteditorprops)&gt; | A component that renders a text editor.
 dateEditorComponent | ComponentType&lt;[AppointmentForm.DateEditorProps](#appointmentformdateeditorprops)&gt; | A component that renders a date-time editor.
 booleanEditorComponent | ComponentType&lt;[AppointmentForm.BooleanEditorProps](#appointmentformbooleanteditorprops)&gt; | A component that renders an editor of Boolean values.
-selectComponent | ComponentType&lt;[AppointmentForm.SelectProps](#appointmentformselectprops)&gt; | A component that renders a menu of options.
+selectComponent | ComponentType&lt;[AppointmentForm.SelectProps](#appointmentformselectprops)&gt; | A component that renders an options menu.
 labelComponent | ComponentType&lt;[AppointmentForm.LabelProps](#appointmentformlabelprops)&gt; | A component that renders a text label.
 resourceEditorComponent | ComponentType&lt;[AppointmentForm.ResourceEditorProps](#appointmentformresourceeditorprops)&gt; | | A component that renders a resource editor.
 children? | ReactNode | A React node used to render additional components to the Basic Layout.

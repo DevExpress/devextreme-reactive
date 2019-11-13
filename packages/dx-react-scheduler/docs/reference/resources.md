@@ -56,7 +56,7 @@ color? | string &#124; [Color](#color) | The resource instance color.
 
 ### Palette
 
-Specifies a palette that provides colors for those resource instances whose color is not defined.
+Specifies a palette that provides colors for resource instances with undefined colors.
 
 Type: `Array<string | Color>`
 

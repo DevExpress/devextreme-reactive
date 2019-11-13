@@ -35,6 +35,19 @@ describe('DragDrop', () => {
         .toBeTruthy();
       expect(tree.is(`.${classes.appointment}`))
         .toBeTruthy();
+      expect(tree.is(`.${classes.reducedBrightness}`))
+        .toBeFalsy();
+    });
+    it('should reduce its brightness if "isBrightnessReduced" is true', () => {
+      const tree = shallow((
+        <DraftAppointment
+          {...defaultProps}
+          isBrightnessReduced
+        />
+      ));
+
+      expect(tree.is(`.${classes.reducedBrightness}`))
+        .toBeTruthy();
     });
   });
 
@@ -61,6 +74,14 @@ describe('DragDrop', () => {
       expect(tree.is('.custom-class'))
         .toBeTruthy();
       expect(tree.is(`.${classes.appointment}`))
+        .toBeTruthy();
+    });
+    it('should pass "isBrightnessReduced" to the root component', () => {
+      const tree = shallow((
+        <SourceAppointment {...defaultProps} isBrightnessReduced />
+      ));
+
+      expect(tree.prop('isBrightnessReduced'))
         .toBeTruthy();
     });
   });

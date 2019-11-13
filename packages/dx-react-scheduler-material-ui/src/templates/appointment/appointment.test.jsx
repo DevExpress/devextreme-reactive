@@ -31,6 +31,8 @@ describe('Appointment', () => {
         .toBeTruthy();
       expect(tree.is(`.${classes.clickableAppointment}`))
         .toBeFalsy();
+      expect(tree.is(`.${classes.reducedBrightness}`))
+        .toBeFalsy();
     });
 
     it('should pass rest props to the root element', () => {
@@ -112,6 +114,20 @@ describe('Appointment', () => {
       ));
 
       expect(tree.is(`.${classes.clickableAppointment}`))
+        .toBeTruthy();
+    });
+
+    it('should reduce its brightness if "isBrightnessReduced" is true', () => {
+      const tree = shallow((
+        <Appointment
+          {...defaultProps}
+          isBrightnessReduced
+        >
+          <div />
+        </Appointment>
+      ));
+
+      expect(tree.is(`.${classes.reducedBrightness}`))
         .toBeTruthy();
     });
   });

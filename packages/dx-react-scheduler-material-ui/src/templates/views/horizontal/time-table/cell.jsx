@@ -55,6 +55,16 @@ const styles = theme => ({
   otherMonth: {
     color: theme.palette.text.disabled,
   },
+  shadedCell: {
+    backgroundColor: theme.palette.action.hover,
+    '&:hover': {
+      backgroundColor: theme.palette.action.selected,
+    },
+    '&:focus': {
+      backgroundColor: fade(theme.palette.primary.main, 0.15),
+      outline: 0,
+    },
+  },
 });
 
 const CellBase = React.memo(({
@@ -73,7 +83,10 @@ const CellBase = React.memo(({
   return (
     <TableCell
       tabIndex={0}
-      className={classNames(classes.cell, className)}
+      className={classNames({
+        [classes.cell]: true,
+        [classes.shadedCell]: isShaded,
+      }, className)}
       {...restProps}
     >
       <div

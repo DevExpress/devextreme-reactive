@@ -72,15 +72,22 @@ class CurrentTimeIndicatorBase extends React.PureComponent<
         <Template
           name="cell"
         >
-          {({ startDate, ...restParams }: any) => (
-            <TemplatePlaceholder
-              params={{
-                ...restParams,
-                startDate,
-                isShaded: startDate.getTime() < currentTime && shadePastCells,
-              }}
-            />
-          )}
+          {({ startDate, endDate, otherMonth, ...restParams }: any) => {
+            const monthCell = isMonthCell(otherMonth);
+            return (
+              <TemplatePlaceholder
+                params={{
+                  ...restParams,
+                  startDate,
+                  endDate,
+                  otherMonth,
+                  isShaded: ((startDate.getTime() < currentTime && !monthCell)
+                    || endDate.getTime() < currentTime && monthCell)
+                    && shadePastCells,
+                }}
+              />
+            );
+          }}
         </Template>
         <Template
           name="appointmentContent"

@@ -22,7 +22,7 @@ describe('InlineSummary component', () => {
 
     expect(tree.find('span').prop('style'))
       .toEqual({
-        marginLeft: '12px',
+        marginLeft: '6px',
         background: 'red',
       });
   });

@@ -937,7 +937,7 @@ export type ValidResource = {
 export type ValidResourceItem = Required<ResourceItem> & {
     title: string;
     fieldName: string;
-    allowMultiple?: boolean;
+    allowMultiple: boolean;
     isMain: boolean;
 };
 

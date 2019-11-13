@@ -43,7 +43,7 @@ export type ValidResourceItem = Required<ResourceItem> & {
   /** The name of the appointment object field that specifies a resource of this kind. */
   fieldName: string;
   /** Indicates whether or not several resources of this kind can be assigned to an appointment. */
-  allowMultiple?: boolean;
+  allowMultiple: boolean;
   /** Specifies the main resource kind */
   isMain: boolean;
 };

@@ -67,12 +67,10 @@ The resource with all properties.
 Field | Type | Description
 ------|------|------------
 fieldName | string | The appointment data field name that would binding to resource.
-text | string | The resource item text that would displays inside UI components.
 title | string | The resource kind title that would displays inside UI components.
 allowMultiple | boolean | Indicates whether or not several resources of this kind can be assigned to an appointment.
 isMain | boolean | Specifies the main resource kind.
 items | Array&lt;[ValidResourceItem](#validresourceitem)&gt; | The array of resource items.
-color? | string &#124; [Color](#color) | The resource item color that would used inside UI components.
 
 ### ValidResourceItem
 

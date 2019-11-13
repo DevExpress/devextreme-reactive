@@ -5,6 +5,8 @@
         path: /react/common/docs/guides/performance-optimization
       - title: Create a Custom Theme
         path: /react/common/docs/guides/custom-theme
+      - title: Localization
+        path: /react/common/docs/guides/localization
   - title: Related Docs
     items:
       - title: React Core
@@ -113,6 +115,8 @@
         path: /react/common/docs/guides/performance-optimization
       - title: Create a Custom Theme
         path: /react/common/docs/guides/custom-theme
+      - title: Localization
+        path: /react/common/docs/guides/localization
   - title: API Reference
     items:
       - title: Grid
@@ -252,6 +256,8 @@
         path: /react/common/docs/guides/performance-optimization
       - title: Create a Custom Theme
         path: /react/common/docs/guides/custom-theme
+      - title: Localization
+        path: /react/common/docs/guides/localization
   - title: API Reference
     items:
       - title: Animation
@@ -333,6 +339,8 @@
         path: /react/common/docs/guides/performance-optimization
       - title: Create a Custom Theme
         path: /react/common/docs/guides/custom-theme
+      - title: Localization
+        path: /react/common/docs/guides/localization
   - title: API Reference
     items:
       - title: AllDayPanel

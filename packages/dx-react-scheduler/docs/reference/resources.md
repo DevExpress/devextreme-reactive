@@ -40,11 +40,11 @@ Field | Type | Description
 ------|------|------------
 id | number &#124; string | The resource ID.
 fieldName | string | A data field name used to assign appointments to this resource. This field should be present in appointment data objects.
-instances | Array&lt;[ResourceItem](#resourceitem)&gt; | Resource instances.
+instances | Array&lt;[ResourceInstance](#resourceinstance)&gt; | Resource instances.
 title? | string | The resource title.
 allowMultiple? | boolean | Indicates whether an appointment can be assigned to several instances of this resource.
 
-### ResourceItem
+### ResourceInstance
 
 Configures a resource instance.
 
@@ -70,9 +70,9 @@ fieldName | string | A data field name used to assign an appointment to this res
 title | string | The resource title.
 allowMultiple | boolean | Indicates whether an appointment can be assigned to several instances of this resource.
 isMain | boolean | `true` if this resource's name is assigned to the `mainResourceName` property.
-instances | Array&lt;[ValidResourceItem](#validresourceitem)&gt; | Resource instances.
+instances | Array&lt;[ValidResourceInstance](#validresourceinstance)&gt; | Resource instances.
 
-### ValidResourceItem
+### ValidResourceInstance
 
 An object that provides information about a resource instance.
 

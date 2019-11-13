@@ -1,4 +1,4 @@
-import { GetAppointmentResources, ValidResourceItem } from '../../types';
+import { GetAppointmentResources, ValidResourceInstance } from '../../types';
 
 export const getAppointmentResources: GetAppointmentResources = (
   appointment, resources, plainResources,
@@ -33,5 +33,5 @@ export const getAppointmentResources: GetAppointmentResources = (
         resource.fieldName === plainItem.fieldName && plainItem.id === appointmentResourceId,
       ),
     ];
-  }, [] as Array<ValidResourceItem>);
+  }, [] as Array<ValidResourceInstance>);
 };

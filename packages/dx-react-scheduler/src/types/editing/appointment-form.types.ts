@@ -1,4 +1,4 @@
-import { AppointmentModel, FormatterFn, ValidResourceItem, ValidResource } from '../index';
+import { AppointmentModel, FormatterFn, ValidResourceInstance, ValidResource } from '../index';
 
 /* tslint:disable no-namespace max-line-length */
 export namespace AppointmentForm {
@@ -63,7 +63,7 @@ export namespace AppointmentForm {
     /** The appointment's data. */
     appointmentData: AppointmentModel;
     /** The appointment's resource items. */
-    appointmentResources: Array<ValidResourceItem>;
+    appointmentResources: Array<ValidResourceInstance>;
     /** The all resources that were defined. */
     resources: Array<ValidResource>;
     /** An event raised when a field value in the appointment form is changed. */
@@ -175,7 +175,7 @@ export namespace AppointmentForm {
   /** A component that renders a resource editor. */
   export interface ResourceEditorProps {
     /** The appointment's resource items. */
-    appointmentResources: Array<ValidResourceItem>;
+    appointmentResources: Array<ValidResourceInstance>;
     /** The all resources that were defined. */
     resources: Array<ValidResource>;
     /** Handles value changes. */

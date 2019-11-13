@@ -1,4 +1,4 @@
-import { AppointmentModel, FormatterFn, ValidResourceItem } from '../index';
+import { AppointmentModel, FormatterFn, ValidResourceInstance } from '../index';
 
 // tslint:disable-next-line:no-namespace
 export namespace Appointments {
@@ -15,7 +15,7 @@ export namespace Appointments {
     /** A function that handles a double click on the appointment. */
     onDoubleClick?: (e: any) => void;
     /** Specifies the appointment resource items */
-    resources: Array<ValidResourceItem>;
+    resources: Array<ValidResourceInstance>;
   }
   /** Properties passed to a component that renders the appointment content. */
   export interface AppointmentContentProps {
@@ -37,7 +37,7 @@ export namespace Appointments {
      */
     durationType: 'short' | 'middle' | 'long';
     /** Specifies the appointment resource items */
-    resources: Array<ValidResourceItem>;
+    resources: Array<ValidResourceInstance>;
   }
   /***
    * Properties passed to a component that renders an element

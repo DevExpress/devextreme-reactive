@@ -17,7 +17,7 @@ import {
   AppointmentModel,
   TOGGLE_APPOINTMENT_FORM_VISIBILITY,
   getAppointmentResources,
-  ValidResourceItem,
+  ValidResourceInstance,
 } from '@devexpress/dx-scheduler-core';
 
 import {
@@ -412,7 +412,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
                   resourceEditorComponent={resourceEditorComponent}
                   fullSize={!changedAppointment.rRule}
                   resources={resources}
-                  appointmentResources={appointmentResources as Array<ValidResourceItem>}
+                  appointmentResources={appointmentResources as Array<ValidResourceInstance>}
                 />
               );
             }}

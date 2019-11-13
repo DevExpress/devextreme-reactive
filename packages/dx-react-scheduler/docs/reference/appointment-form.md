@@ -102,8 +102,8 @@ Field | Type | Description
 ------|------|------------
 readOnly? | boolean | Specifies whether the appointment form is read-only.
 appointmentData | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment's data.
-appointmentResources | Array&lt;[ValidResourceItem](./resources.md#validresourceitem)&gt; | The appointment's resource instances.
-resources | Array&lt;[Resource](./resources.md#resourceitem)&gt; | All resources.
+appointmentResources | Array&lt;[ValidResourceInstance](./resources.md#validresourceinstance)&gt; | The appointment's resource instances.
+resources | Array&lt;[ValidResource](./resources.md#validresource)&gt; | All resources.
 onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | An event raised when a field value in the appointment form is changed.
 getMessage | (messageKey: string) => string | Uses a localization message's key to retrieve the message.
 locale | string &#124; Array&lt;string&gt; | Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale is used to format date-time values.
@@ -217,8 +217,8 @@ Properties passed to a component that renders a resource editor on the appointme
 
 Field | Type | Description
 ------|------|------------
-appointmentResources? | Array&lt;[ValidResourceItem](./resources.md#validresourceitem)&gt; | The appointment's resource instances.
-resources? | Array&lt;[Resource](./resources.md#resourceitem)&gt; | All resources.
+appointmentResources? | Array&lt;[ValidResourceInstance](./resources.md#validresourceinstance)&gt; | The appointment's resource instances.
+resources? | Array&lt;[Resource](./resources.md#resourceinstance)&gt; | All resources.
 onResourceChange? | ({ [fieldName: string]: string &#124; number }) => void | A function that is called when the resource is edited.
 readOnly? | boolean | Specifies whether the resource editor is read-only.
 

@@ -1,4 +1,4 @@
-import { AppointmentMeta, AppointmentModel, FormatterFn, ValidResourceItem } from '../index';
+import { AppointmentMeta, AppointmentModel, FormatterFn, ValidResourceInstance } from '../index';
 
 /* tslint:disable no-namespace max-line-length */
 export namespace AppointmentTooltip {
@@ -19,7 +19,7 @@ export namespace AppointmentTooltip {
     /** The appointment’s displayed metadata. */
     appointmentMeta?: AppointmentMeta;
     /** The appointment's resource items. */
-    appointmentResources: Array<ValidResourceItem>;
+    appointmentResources: Array<ValidResourceInstance>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
     /** Specifies the tooltip’s visibility. */

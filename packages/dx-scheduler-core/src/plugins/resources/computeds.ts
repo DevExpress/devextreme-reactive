@@ -1,12 +1,12 @@
 import {
-  ConvertResourcesToPlain, ValidateResources, ValidResourceItem,
+  ConvertResourcesToPlain, ValidateResources, ValidResourceInstance,
 } from '../../types';
 
 export const convertResourcesToPlain: ConvertResourcesToPlain = (validResources) => {
   return validResources.reduce((acc, resource) => [
     ...acc,
     ...resource.instances.map(item => item),
-  ], [] as Array<ValidResourceItem>);
+  ], [] as Array<ValidResourceInstance>);
 };
 
 export const validateResources: ValidateResources = (resources, mainResourceName, palette) => {

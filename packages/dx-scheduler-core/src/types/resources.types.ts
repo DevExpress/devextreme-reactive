@@ -15,11 +15,11 @@ export type Resource = {
   /** Indicates whether an appointment can be assigned to several instances of this resource. */
   allowMultiple?: boolean;
   /** Resource instances. */
-  instances: Array<ResourceItem>;
+  instances: Array<ResourceInstance>;
 };
 
 /** Configures a resource instance. */
-export type ResourceItem = {
+export type ResourceInstance = {
   /** The resource ID. */
   id: number | string;
   /** The resource instance color. */
@@ -41,7 +41,7 @@ export type Palette = Array<string | Color>;
 export interface Color extends MUIColor {}
 
 /** An object that provides information about a resource instance. */
-export type ValidResourceItem = Required<ResourceItem> & {
+export type ValidResourceInstance = Required<ResourceInstance> & {
   /** The resource title. */
   title: string;
   /**
@@ -67,19 +67,19 @@ export type ValidResource = {
   /** Indicates whether an appointment can be assigned to several instances of this resource. */
   allowMultiple: boolean;
   /** Resource instances. */
-  instances: Array<ValidResourceItem>;
+  instances: Array<ValidResourceInstance>;
   /** Specifies the main resource kind */
   isMain: boolean;
 };
 
 /** @internal */
 export type GetAppointmentResources = PureComputed<
-  [Appointment, Array<ValidResource>, Array<ValidResourceItem>], Array<ValidResourceItem>
+  [Appointment, Array<ValidResource>, Array<ValidResourceInstance>], Array<ValidResourceInstance>
 >;
 
 /** @internal */
 export type ConvertResourcesToPlain = PureComputed<
-  [Array<ValidResource>], Array<ValidResourceItem>
+  [Array<ValidResource>], Array<ValidResourceInstance>
 >;
 
 /** @internal */

@@ -82,7 +82,7 @@ export const AppointmentForm: React.ComponentType<AppointmentFormProps>;
 export namespace AppointmentForm {
   export interface BasicLayoutProps {
     appointmentData: AppointmentModel;
-    appointmentResources: Array<ValidResourceItem>;
+    appointmentResources: Array<ValidResourceInstance>;
     booleanEditorComponent: React.ComponentType<AppointmentForm.BooleanEditorProps>;
     children?: React.ReactNode;
     dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
@@ -216,7 +216,7 @@ export namespace AppointmentForm {
     weeklyRecurrenceSelectorComponent: React.ComponentType<AppointmentForm.WeeklyRecurrenceSelectorProps>;
   }
   export interface ResourceEditorProps {
-    appointmentResources: Array<ValidResourceItem>;
+    appointmentResources: Array<ValidResourceInstance>;
     onResourceChange: (nextValue: string | number | Array<string | number>) => void;
     readOnly?: boolean;
     resources: Array<ValidResource>;
@@ -318,7 +318,7 @@ export namespace Appointments {
         durationType: 'short' | 'middle' | 'long';
         formatDate: FormatterFn;
         recurringIconComponent: React.ComponentType<object>;
-        resources: Array<ValidResourceItem>;
+        resources: Array<ValidResourceInstance>;
         type: 'vertical' | 'horizontal';
     }
     export interface AppointmentProps {
@@ -327,7 +327,7 @@ export namespace Appointments {
         draggable: boolean;
         onClick?: (e: any) => void;
         onDoubleClick?: (e: any) => void;
-        resources: Array<ValidResourceItem>;
+        resources: Array<ValidResourceInstance>;
     }
     export interface ContainerProps {
         style: any;
@@ -376,7 +376,7 @@ export namespace AppointmentTooltip {
   }
   export interface LayoutProps {
     appointmentMeta?: AppointmentMeta;
-    appointmentResources: Array<ValidResourceItem>;
+    appointmentResources: Array<ValidResourceInstance>;
     commandButtonComponent: React.ComponentType<AppointmentTooltip.CommandButtonProps>;
     commandButtonIds: Array<string>;
     contentComponent: React.ComponentType<AppointmentTooltip.ContentProps>;
@@ -817,11 +817,11 @@ export type Resource = {
     fieldName: string;
     title?: string;
     allowMultiple?: boolean;
-    instances: Array<ResourceItem>;
+    instances: Array<ResourceInstance>;
 };
 
 // @public
-export type ResourceItem = {
+export type ResourceInstance = {
     id: number | string;
     color?: string | Color;
     text?: string;
@@ -929,12 +929,12 @@ export type ValidResource = {
     fieldName: string;
     title: string;
     allowMultiple: boolean;
-    instances: Array<ValidResourceItem>;
+    instances: Array<ValidResourceInstance>;
     isMain: boolean;
 };
 
 // @public
-export type ValidResourceItem = Required<ResourceItem> & {
+export type ValidResourceInstance = Required<ResourceInstance> & {
     title: string;
     fieldName: string;
     allowMultiple: boolean;

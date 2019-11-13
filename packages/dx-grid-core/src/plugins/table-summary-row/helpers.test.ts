@@ -97,14 +97,14 @@ describe('TableSummaryRow Plugin helpers', () => {
   });
 
   describe('#getGroupInlineSummaries', () => {
-    const tableColumns = ['a', 'b', 'c'].map(name => ({ column: { name } }));
+    const columns = ['a', 'b', 'c'].map(name => ({ name }));
 
     it('should return an empty array if no inline summaries exist', () => {
       const summaryItems = [
         { columnName: 'a', type: 'min' },
         { columnName: 'b', type: 'max' },
       ];
-      expect(getGroupInlineSummaries(summaryItems, tableColumns, [11, 17]))
+      expect(getGroupInlineSummaries(summaryItems, columns, [11, 17]))
         .toEqual([]);
     });
 
@@ -116,7 +116,7 @@ describe('TableSummaryRow Plugin helpers', () => {
         { columnName: 'b', type: 'sum', showInGroupCaption: true },
         { columnName: 'c', type: 'avg', showInGroupCaption: true },
       ];
-      expect(getGroupInlineSummaries(summaryItems, tableColumns, [11, 17, 3, 51, 5]))
+      expect(getGroupInlineSummaries(summaryItems, columns, [11, 17, 3, 51, 5]))
         .toMatchObject([
           {
             column: { name: 'b' },

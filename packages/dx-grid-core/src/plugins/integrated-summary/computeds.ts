@@ -64,7 +64,7 @@ const expandRows: ExpandRowsFn = (
       acc.push(row);
       return acc;
     }, [] as TableRow[]);
-  };
+};
 
 export const totalSummaryValues: TotalSummaryValuesFn = (
   rows,

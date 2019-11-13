@@ -55,7 +55,7 @@ const columnHasGroupRowSummary: PureComputed<[TableColumn, GroupSummaryItem[]], 
   tableColumn, groupSummaryItems,
 ) => (
   !!(groupSummaryItems && groupSummaryItems
-    .find(summaryItem => (
+    .some(summaryItem => (
       summaryItem.showInGroupRow
         && summaryItem.columnName === (tableColumn.column && tableColumn.column.name)
     )))

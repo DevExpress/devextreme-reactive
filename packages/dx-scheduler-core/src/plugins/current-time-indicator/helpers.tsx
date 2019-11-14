@@ -14,7 +14,7 @@ export const isReducedBrightnessAppointment: IsReducedBrightnessAppointmentFn = 
     return momentCurrentDate.isAfter(appointmentData.endDate as Date, 'day')
     && reduceBrightness;
   }
-  if (momentCurrentDate.isAfter(appointmentData.endDate as Date)){
+  if (momentCurrentDate.isAfter(appointmentData.endDate as Date)) {
     return true && reduceBrightness;
   }
   return false;

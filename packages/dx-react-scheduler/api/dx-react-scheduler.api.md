@@ -439,7 +439,10 @@ export namespace BaseView {
   }
   export interface TimeTableCellProps {
     children?: React.ReactNode;
+    currentTime?: Date;
+    currentTimeIndicatorComponent?: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
     endDate?: Date;
+    isShaded?: boolean;
     startDate?: Date;
   }
   export interface TimeTableLayoutProps {
@@ -540,6 +543,26 @@ export interface ConfirmationDialogProps {
   layoutComponent: React.ComponentType<ConfirmationDialog.LayoutProps>;
   messages?: ConfirmationDialog.LocalizationMessages;
   overlayComponent: React.ComponentType<ConfirmationDialog.OverlayProps>;
+}
+
+// @public
+export const CurrentTimeIndicator: React.ComponentType<CurrentTimeIndicatorProps>;
+
+// @public (undocumented)
+export namespace CurrentTimeIndicator {
+  export interface IndicatorProps {
+    currentTime: Date;
+    endDate: Date;
+    startDate: Date;
+  }
+}
+
+// @public (undocumented)
+export interface CurrentTimeIndicatorProps {
+  indicatorComponent: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
+  reduceBrightnessOfPastAppointments: boolean;
+  shadePastCells: boolean;
+  updateInterval: number;
 }
 
 // @public
@@ -765,6 +788,7 @@ export namespace MonthView {
   export interface TimeTableCellProps {
     endDate?: Date;
     formatDate?: FormatterFn;
+    isShaded?: boolean;
     otherMonth?: boolean;
     startDate: Date;
     today?: boolean;

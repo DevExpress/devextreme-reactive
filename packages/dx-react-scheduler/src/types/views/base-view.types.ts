@@ -55,7 +55,7 @@ export namespace BaseView {
     /** Specifies the current time. */
     currentTime?: Date;
     /** A component that renders the current time indicator. */
-    currentTimeIndicator: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
+    currentTimeIndicatorComponent?: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
     /** A React node used to render the time table cell content. */
     children?: React.ReactNode;
   }

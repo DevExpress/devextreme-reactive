@@ -31,6 +31,8 @@ export namespace MonthView {
     today?: boolean;
     /** A function that formats dates according to the set locale. */
     formatDate?: FormatterFn;
+    /** Specifies whether the cell is shaded. */
+    isShaded?: boolean;
   }
   /** Describes properties passed to a component that renders the appointment layer. */
   export interface AppointmentLayerProps extends BaseView.AppointmentLayerProps {}

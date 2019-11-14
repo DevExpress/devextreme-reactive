@@ -3,142 +3,122 @@ import {
   Plugin,
   Template,
   TemplatePlaceholder,
-  PluginComponents,
 } from '@devexpress/dx-react-core';
-import { CurrentTimeIndicatorProps, CurrentTimeIndicatorState } from '../types';
-import { isMonthCell, isPastAppointment } from '@devexpress/dx-scheduler-core/src';
+import { isMonthCell, isReducedBrightnessAppointment, isCellShaded, isAllDayCellShaded } from '@devexpress/dx-scheduler-core';
+import { CurrentTimeIndicatorProps, Appointments } from '../types';
 
-const pluginDependencies = [];
+const pluginDependencies = [
+  { name: 'DayView', optional: true },
+  { name: 'WeekView', optional: true },
+  { name: 'MonthView', optional: true },
+  { name: 'DragDropProvider', optional: true },
+  { name: 'AllDayPanel', optional: true },
+];
 
-const BASE_INTERVAL = 60000;
+const CurrentTimeIndicatorBase: React.SFC<CurrentTimeIndicatorProps>  & {components: {
+  indicatorComponent: string,
+}} = ({
+  indicatorComponent, reduceBrightnessOfPastAppointments, shadePastCells, updateInterval,
+}) => {
+  const [currentTime, setCurrentTime] = React.useState(Date.now);
+  const [indicatorUpdateTimer, setIndicatorUpdateTimer] = React.useState<any>(undefined);
 
-class CurrentTimeIndicatorBase extends React.PureComponent<
-  CurrentTimeIndicatorProps, CurrentTimeIndicatorState
-> {
-  static components: PluginComponents = {
-    indicatorComponent: 'Indicator',
-  };
-  indicatorUpdateTimer;
+  React.useEffect(() => {
+    clearInterval(indicatorUpdateTimer);
+    setIndicatorUpdateTimer(setInterval(() => {
+      setCurrentTime(Date.now());
+    }, updateInterval));
+    return () => clearInterval(indicatorUpdateTimer);
+  }, [updateInterval]);
 
-  constructor(props) {
-    super(props);
-    this.state = { currentTime: Date.now() };
-  }
-
-  componentDidMount() {
-    this.setIndicatorUpdateTimer();
-  }
-
-  componentDidUpdate() {
-    clearTimeout(this.indicatorUpdateTimer);
-    this.setIndicatorUpdateTimer();
-  }
-
-  setIndicatorUpdateTimer() {
-    this.indicatorUpdateTimer = setTimeout(
-      () => this.setState({
-        currentTime: Date.now(),
-      }),
-      this.props.updateInterval || BASE_INTERVAL,
-    );
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this.indicatorUpdateTimer);
-  }
-
-  render() {
-    const { currentTime } = this.state;
-    const { indicatorComponent, reduceBrightnessOfPastAppointments, shadePastCells } = this.props;
-    return (
-      <Plugin
-        name="CurrentTimeIndicator"
-        dependencies={pluginDependencies}
+  return (
+    <Plugin
+      name="CurrentTimeIndicator"
+      dependencies={pluginDependencies}
+    >
+      <Template
+        name="cell"
+        predicate={({ otherMonth }: any) => !isMonthCell(otherMonth)}
       >
-        <Template
-          name="cell"
-          predicate={({ otherMonth }: any) => !isMonthCell(otherMonth)}
-        >
-          {params => (
+        {(params: any) => (
+          <TemplatePlaceholder
+            params={{
+              ...params,
+              currentTime: new Date(currentTime),
+              currentTimeIndicatorComponent: indicatorComponent,
+            }}
+          />
+        )}
+      </Template>
+      <Template
+        name="cell"
+      >
+        {(params: any) => (
+          <TemplatePlaceholder
+            params={{
+              ...params,
+              isShaded: isCellShaded(params, currentTime, shadePastCells),
+            }}
+          />
+        )}
+      </Template>
+      <Template
+        name="allDayPanelCell"
+      >
+        {(params: any) => (
+          <TemplatePlaceholder
+            params={{
+              ...params,
+              isShaded: isAllDayCellShaded(params, currentTime, shadePastCells),
+            }}
+          />
+        )}
+      </Template>
+      <Template
+        name="appointmentContent"
+      >
+        {(params: Appointments.AppointmentProps) => {
+          return (
             <TemplatePlaceholder
               params={{
                 ...params,
-                currentTime: new Date(currentTime),
-                currentTimeIndicatorComponent: indicatorComponent,
+                isBrightnessReduced: isReducedBrightnessAppointment(
+                  params, currentTime, reduceBrightnessOfPastAppointments,
+                ),
               }}
             />
-          )}
-        </Template>
-        <Template
-          name="cell"
-        >
-          {({ startDate, endDate, otherMonth, ...restParams }: any) => {
-            const monthCell = isMonthCell(otherMonth);
-            return (
-              <TemplatePlaceholder
-                params={{
-                  ...restParams,
-                  startDate,
-                  endDate,
-                  otherMonth,
-                  isShaded: ((startDate.getTime() < currentTime && !monthCell)
-                    || endDate.getTime() < currentTime && monthCell)
-                    && shadePastCells,
-                }}
-              />
-            );
-          }}
-        </Template>
-        <Template
-          name="allDayPanelCell"
-        >
-          {({ endDate, ...restParams }: any) => (
-              <TemplatePlaceholder
-                params={{
-                  ...restParams,
-                  endDate,
-                  isShaded: endDate.getTime() < currentTime && shadePastCells,
-                }}
-              />
-            )
-          }
-        </Template>
-        <Template
-          name="appointmentContent"
-        >
-          {({ data, ...restParams }: any) => {
-            return (
-              <TemplatePlaceholder
-                params={{
-                  ...restParams,
-                  data,
-                  isBrightnessReduced: isPastAppointment(data, currentTime)
-                    && reduceBrightnessOfPastAppointments,
-                }}
-              />
-            );
-          }}
-        </Template>
-        <Template
-          name="draftAppointment"
-        >
-          {({ data, ...restParams }: any) => {
-            return (
-              <TemplatePlaceholder
-                params={{
-                  ...restParams,
-                  data,
-                  isBrightnessReduced: isPastAppointment(data, currentTime)
-                    && reduceBrightnessOfPastAppointments,
-                }}
-              />
-            );
-          }}
-        </Template>
-      </Plugin>
-    );
-  }
-}
+          );
+        }}
+      </Template>
+      <Template
+        name="draftAppointment"
+      >
+        {(params: Appointments.AppointmentProps) => {
+          return (
+            <TemplatePlaceholder
+              params={{
+                ...params,
+                isBrightnessReduced: isReducedBrightnessAppointment(
+                  params, currentTime, reduceBrightnessOfPastAppointments,
+                ),
+              }}
+            />
+          );
+        }}
+      </Template>
+    </Plugin>
+  );
+};
+
+CurrentTimeIndicatorBase.defaultProps = {
+  updateInterval: 60000,
+  shadePastCells: false,
+  reduceBrightnessOfPastAppointments: false,
+};
+
+CurrentTimeIndicatorBase.components = {
+  indicatorComponent: 'Indicator',
+};
 
 /** A plugin that renders the Scheduler's button which sets the current date to today's date. */
 export const CurrentTimeIndicator: React.ComponentType<

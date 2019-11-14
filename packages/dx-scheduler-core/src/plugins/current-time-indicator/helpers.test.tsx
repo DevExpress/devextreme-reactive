@@ -1,4 +1,7 @@
-import { isMonthCell, isPastAppointment, getCurrentTimeIndicatorTop } from './helpers';
+import {
+  isMonthCell, isReducedBrightnessAppointment, getCurrentTimeIndicatorTop,
+  isCellShaded, isAllDayCellShaded,
+} from './helpers';
 
 describe('CurrentTimeIndicator helpers', () => {
   describe('#isMonthCell', () => {
@@ -15,7 +18,7 @@ describe('CurrentTimeIndicator helpers', () => {
     });
   });
 
-  describe('#isPastAppointment', () => {
+  describe('#isReducedBrightnessAppointment', () => {
     const defaultCurrentTime = (new Date(2019, 10, 13, 12, 0)).getTime();
 
     it('should return true when appointment ends before current time', () => {
@@ -23,7 +26,16 @@ describe('CurrentTimeIndicator helpers', () => {
         startDate: new Date(2019, 10, 13, 10, 10),
         endDate: new Date(2019, 10, 13, 11, 10),
       };
-      expect(isPastAppointment(testAppointment, defaultCurrentTime))
+      expect(isReducedBrightnessAppointment({ data: testAppointment }, defaultCurrentTime, true))
+        .toBeTruthy();
+    });
+
+    it('should return false when reduceBrightness is false', () => {
+      const testAppointment = {
+        startDate: new Date(2019, 10, 13, 10, 10),
+        endDate: new Date(2019, 10, 13, 11, 10),
+      };
+      expect(isReducedBrightnessAppointment({ data: testAppointment }, defaultCurrentTime, true))
         .toBeTruthy();
     });
 
@@ -32,7 +44,7 @@ describe('CurrentTimeIndicator helpers', () => {
         startDate: new Date(2019, 10, 13, 10, 10),
         endDate: new Date(2019, 10, 13, 12, 10),
       };
-      expect(isPastAppointment(testAppointment, defaultCurrentTime))
+      expect(isReducedBrightnessAppointment({ data: testAppointment }, defaultCurrentTime, true))
         .toBeFalsy();
     });
 
@@ -41,7 +53,7 @@ describe('CurrentTimeIndicator helpers', () => {
         startDate: new Date(2019, 10, 13, 12, 10),
         endDate: new Date(2019, 10, 13, 13, 10),
       };
-      expect(isPastAppointment(testAppointment, defaultCurrentTime))
+      expect(isReducedBrightnessAppointment({ data: testAppointment }, defaultCurrentTime, true))
         .toBeFalsy();
     });
 
@@ -51,7 +63,7 @@ describe('CurrentTimeIndicator helpers', () => {
         endDate: new Date(2019, 10, 13, 11, 10),
         allDay: true,
       };
-      expect(isPastAppointment(testAppointment, defaultCurrentTime))
+      expect(isReducedBrightnessAppointment({ data: testAppointment }, defaultCurrentTime, true))
         .toBeFalsy();
     });
 
@@ -61,7 +73,7 @@ describe('CurrentTimeIndicator helpers', () => {
         endDate: new Date(2019, 10, 14, 11, 10),
         allDay: true,
       };
-      expect(isPastAppointment(testAppointment, defaultCurrentTime))
+      expect(isReducedBrightnessAppointment({ data: testAppointment }, defaultCurrentTime, true))
         .toBeFalsy();
     });
 
@@ -71,7 +83,7 @@ describe('CurrentTimeIndicator helpers', () => {
         endDate: new Date(2019, 10, 12, 11, 10),
         allDay: true,
       };
-      expect(isPastAppointment(testAppointment, defaultCurrentTime))
+      expect(isReducedBrightnessAppointment({ data: testAppointment }, defaultCurrentTime, true))
         .toBeTruthy();
     });
   });
@@ -93,5 +105,106 @@ describe('CurrentTimeIndicator helpers', () => {
       expect(getCurrentTimeIndicatorTop(startDate, endDate, currentDate))
         .toBe('50%');
     });
+  });
+
+  describe('#isCellShaded', () => {
+    const defaultCurrentTime = (new Date(2019, 10, 13, 12, 0)).getTime();
+
+    it('should return true if cell\'s endDate is before currentTime', () => {
+      const testCell = {
+        startDate: new Date(defaultCurrentTime - 200),
+        endDate: new Date(defaultCurrentTime - 100),
+      };
+
+      expect(isCellShaded({ ...testCell }, defaultCurrentTime, true))
+        .toBeTruthy();
+    });
+
+    it('should return false if shadePastCells is false', () => {
+      const testCell = {
+        startDate: new Date(defaultCurrentTime - 200),
+        endDate: new Date(defaultCurrentTime - 100),
+      };
+
+      expect(isCellShaded({ ...testCell }, defaultCurrentTime, false))
+        .toBeFalsy();
+    });
+
+    it('should return true if cell\'s startDate is before currentTime', () => {
+      const testCell = {
+        startDate: new Date(defaultCurrentTime - 100),
+        endDate: new Date(defaultCurrentTime + 100),
+      };
+
+      expect(isCellShaded({ ...testCell }, defaultCurrentTime, true))
+        .toBeTruthy();
+    });
+
+    it('should work with otherMonth', () => {
+      const testCell = {
+        startDate: new Date(defaultCurrentTime - 200),
+        endDate: new Date(defaultCurrentTime - 100),
+        otherMonth: true,
+      };
+
+      expect(isCellShaded({ ...testCell }, defaultCurrentTime, true))
+        .toBeTruthy();
+    });
+
+    it(
+      'should return false if cell\'s startDate is before currentTime but otherMonth if defined',
+      () => {
+        const testCell = {
+          startDate: new Date(defaultCurrentTime - 100),
+          endDate: new Date(defaultCurrentTime + 100),
+          otherMonth: true,
+        };
+
+        expect(isCellShaded({ ...testCell }, defaultCurrentTime, true))
+          .toBeFalsy();
+      },
+    );
+
+    it('should return false if startDate is after currentTime', () => {
+      const testCell = {
+        startDate: new Date(defaultCurrentTime + 100),
+        endDate: new Date(defaultCurrentTime + 200),
+      };
+
+      expect(isCellShaded({ ...testCell }, defaultCurrentTime, true))
+        .toBeFalsy();
+    });
+  });
+
+  describe('#isAllDayCellShaded', () => {
+    const defaultCurrentTime = (new Date(2019, 10, 13, 12, 0)).getTime();
+
+    it('should return true if endDate is before current time', () => {
+      const testCell = {
+        endDate: new Date(defaultCurrentTime - 200),
+        startDate: new Date(defaultCurrentTime - 300),
+      };
+      expect(isAllDayCellShaded({ ...testCell }, defaultCurrentTime, true))
+        .toBeTruthy();
+    });
+
+    it('should return false if shadePastCells if false', () => {
+      const testCell = {
+        endDate: new Date(defaultCurrentTime - 200),
+        startDate: new Date(defaultCurrentTime - 300),
+      };
+      expect(isAllDayCellShaded({ ...testCell }, defaultCurrentTime, false))
+        .toBeFalsy();
+    });
+
+    it('should return false if endDate is after current time', () => {
+      const testCell = {
+        endDate: new Date(defaultCurrentTime + 200),
+        startDate: new Date(defaultCurrentTime - 300),
+      };
+      expect(isAllDayCellShaded({ ...testCell }, defaultCurrentTime, true))
+        .toBeFalsy();
+    });
+
   });
 });

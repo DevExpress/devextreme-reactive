@@ -4,9 +4,9 @@ export namespace CurrentTimeIndicator {
   export interface IndicatorProps {
     /** Represents current time. */
     currentTime: Date;
-    /** The startDate of the element containing the CurrentTimeIndicator. */
+    /** The start date of the element containing the CurrentTimeIndicator. */
     startDate: Date;
-    /** The endDate of the element containing the CurrentTimeIndicator. */
+    /** The end date of the element containing the CurrentTimeIndicator. */
     endDate: Date;
   }
 }

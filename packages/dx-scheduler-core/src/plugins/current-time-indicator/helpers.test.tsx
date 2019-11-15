@@ -1,6 +1,5 @@
 import {
-  isMonthCell, isReducedBrightnessAppointment, getCurrentTimeIndicatorTop,
-  isCellShaded, isAllDayCellShaded,
+  isMonthCell, isReducedBrightnessAppointment, getCurrentTimeIndicatorTop, isCellShaded,
 } from './helpers';
 
 describe('CurrentTimeIndicator helpers', () => {

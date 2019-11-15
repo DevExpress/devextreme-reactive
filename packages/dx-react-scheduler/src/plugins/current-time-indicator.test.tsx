@@ -124,39 +124,6 @@ describe('TodayButton', () => {
   });
 
   describe('Properties', () => {
-    it('should call isCellShaded and isAllDayCellShaded with default shadePastCells prop', () => {
-      mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <CurrentTimeIndicator
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      expect(isCellShaded)
-        .toBeCalledWith(expect.anything(), expect.anything(), false);
-      expect(isAllDayCellShaded)
-        .toBeCalledWith(expect.anything(), expect.anything(), false);
-    });
-
-    it('should call isCellShaded and isAllDayCellShaded with user\'s shadePastCells prop', () => {
-      mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <CurrentTimeIndicator
-            {...defaultProps}
-            shadePastCells
-          />
-        </PluginHost>
-      ));
-
-      expect(isCellShaded)
-        .toBeCalledWith(expect.anything(), expect.anything(), true);
-      expect(isAllDayCellShaded)
-        .toBeCalledWith(expect.anything(), expect.anything(), true);
-    });
-
     it('should call isReducedBrightnessAppointment with default reduceBrightnessOfPastAppointments prop', () => {
       mount((
         <PluginHost>

@@ -51,6 +51,6 @@ endDate | Date | The end date of the element containing the CurrentTimeIndicator
 
 Name | Properties | Description
 -----|------------|------------
-CurrentTimeIndicator.Indicator | [CurrentTimeIndicator.Indicator](#currenttimeindicatorindicatorprops) | A component that renders the CurrentTimeIndicator.
+CurrentTimeIndicator.Indicator | [CurrentTimeIndicator.IndicatorProps](#currenttimeindicatorindicatorprops) | A component that renders the CurrentTimeIndicator.
 
 Additional properties are added to the component's root element.

@@ -22,6 +22,7 @@ export namespace AllDayPanel {
   }
   export interface CellData {
     endDate: Date;
+    isShaded?: boolean;
     startDate: Date;
   }
   export interface CellProps {
@@ -313,6 +314,7 @@ export namespace Appointments {
         children: React.ReactNode;
         data: AppointmentModel;
         draggable: boolean;
+        isBrightnessReduced?: boolean;
         onClick?: (e: any) => void;
         onDoubleClick?: (e: any) => void;
     }
@@ -646,6 +648,7 @@ export namespace DragDropProvider {
     export interface DraftAppointmentProps {
         data: AppointmentModel;
         fromPrev: boolean;
+        isBrightnessReduced?: boolean;
         style: React.CSSProperties;
         toNext: boolean;
         type: string;
@@ -656,6 +659,7 @@ export namespace DragDropProvider {
     }
     export interface SourceAppointmentProps {
         data: AppointmentModel;
+        isBrightnessReduced?: boolean;
         type: string;
     }
 }

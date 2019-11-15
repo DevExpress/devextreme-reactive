@@ -1,4 +1,4 @@
-const difference = 0.9;
+import { DIFFERENCE } from '../../constants';
 
 /** @internal */
 export const getReadiness = ({ pane, ...restLayouts }, { current }) => {
@@ -16,6 +16,6 @@ export const getReadiness = ({ pane, ...restLayouts }, { current }) => {
       width += el[1].width;
     }
   });
-  return Math.abs(bbox.width - width) < difference &&
-  Math.abs(bbox.height - height) < difference;
+  return Math.abs(bbox.width - width) < DIFFERENCE &&
+  Math.abs(bbox.height - height) < DIFFERENCE;
 };

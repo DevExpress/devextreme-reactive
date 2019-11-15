@@ -141,7 +141,7 @@ describe('TableInlineCellEditing', () => {
 
     expect(tree
       .find('TemplatePlaceholderBase')
-      .findWhere(node => node.prop('name') === 'valueEditor').exists()
+      .findWhere(node => node.prop('name') === 'valueEditor').exists(),
     )
       .toBeFalsy();
   });

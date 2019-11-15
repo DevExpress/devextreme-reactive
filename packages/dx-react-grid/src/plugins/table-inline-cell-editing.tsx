@@ -84,9 +84,9 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
               const { name: columnName } = column!;
               const editingEnabled = isColumnEditingEnabled(columnName);
 
-              if(!editingEnabled) {
+              if (!editingEnabled) {
                 stopEditCells({ editingCells: [{ rowId, columnName }] });
-                return <TemplatePlaceholder />
+                return <TemplatePlaceholder />;
               }
 
               const changedRow = {

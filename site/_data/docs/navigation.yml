@@ -323,6 +323,8 @@
         path: /react/scheduler/docs/guides/appointment-tooltip
       - title: Editing
         path: /react/scheduler/docs/guides/editing
+      - title: Current Time Visualization
+        path: /react/scheduler/docs/guides/current-time-visualization
       - title: Localization
         path: /react/scheduler/docs/guides/localization
       - title: TypeScript Support

@@ -21,8 +21,3 @@ export interface CurrentTimeIndicatorProps {
   /** A component that renders the CurrentTimeIndicator. */
   indicatorComponent: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
 }
-
-/** @internal */
-export type CurrentTimeIndicatorState = {
-  currentTime: number;
-};

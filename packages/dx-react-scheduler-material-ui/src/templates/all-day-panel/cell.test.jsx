@@ -30,13 +30,5 @@ describe('AllDayPanel', () => {
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
     });
-    it('should be shaded if isShaded is true', () => {
-      const tree = shallow((
-        <Cell isShaded />
-      ));
-
-      expect(tree.is(`.${classes.shadedCell}`))
-        .toBeTruthy();
-    });
   });
 });

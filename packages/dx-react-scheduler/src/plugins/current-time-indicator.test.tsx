@@ -4,14 +4,13 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { CurrentTimeIndicator } from './current-time-indicator';
 import {
-  isMonthCell, isCellShaded, isAllDayCellShaded, isReducedBrightnessAppointment,
+  isMonthCell, isCellShaded, isReducedBrightnessAppointment,
 } from '@devexpress/dx-scheduler-core';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...require.requireActual('@devexpress/dx-scheduler-core'),
   isMonthCell: jest.fn(),
   isCellShaded: jest.fn(),
-  isAllDayCellShaded: jest.fn(),
   isReducedBrightnessAppointment: jest.fn(),
 }));
 
@@ -74,29 +73,6 @@ describe('TodayButton', () => {
       expect(isMonthCell)
         .toBeCalledWith(undefined);
       expect(isCellShaded)
-        .toBeCalledWith(undefined, expect.any(Number), false);
-    });
-
-    it('should render allDayPanelCell template', () => {
-      isAllDayCellShaded.mockImplementation(() => false);
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <CurrentTimeIndicator
-            {...defaultProps}
-          />
-        </PluginHost>
-      ));
-
-      const cellTemplate = tree
-        .find('TemplateBase')
-        .filterWhere(node => node.props().name === 'allDayPanelCell')
-        .first();
-
-      expect(cellTemplate.props().children().props.params.isShaded)
-        .toBe(false);
-
-      expect(isAllDayCellShaded)
         .toBeCalledWith(undefined, expect.any(Number), false);
     });
 

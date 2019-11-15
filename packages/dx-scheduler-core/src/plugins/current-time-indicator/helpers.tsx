@@ -34,7 +34,3 @@ export const isCellShaded: IsCellShadedFn = (
   return ((startDate.getTime() < currentTime && !monthCell)
     || endDate.getTime() < currentTime && monthCell) && shadePastCells;
 };
-
-export const isAllDayCellShaded: IsCellShadedFn = (
-  { endDate }, currentTime, shadePastCells,
-) => (endDate.getTime() < currentTime && shadePastCells);

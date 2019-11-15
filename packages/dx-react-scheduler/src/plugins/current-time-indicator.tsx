@@ -4,7 +4,7 @@ import {
   Template,
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
-import { isMonthCell, isReducedBrightnessAppointment, isCellShaded, isAllDayCellShaded } from '@devexpress/dx-scheduler-core';
+import { isMonthCell, isReducedBrightnessAppointment, isCellShaded } from '@devexpress/dx-scheduler-core';
 import { CurrentTimeIndicatorProps, Appointments } from '../types';
 
 const pluginDependencies = [
@@ -58,18 +58,6 @@ const CurrentTimeIndicatorBase: React.SFC<CurrentTimeIndicatorProps>  & {compone
             params={{
               ...params,
               isShaded: isCellShaded(params, currentTime, shadePastCells),
-            }}
-          />
-        )}
-      </Template>
-      <Template
-        name="allDayPanelCell"
-      >
-        {(params: any) => (
-          <TemplatePlaceholder
-            params={{
-              ...params,
-              isShaded: isAllDayCellShaded(params, currentTime, shadePastCells),
             }}
           />
         )}

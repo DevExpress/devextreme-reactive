@@ -19,16 +19,6 @@ const styles = theme => ({
       outline: 0,
     },
   },
-  shadedCell: {
-    backgroundColor: theme.palette.action.hover,
-    '&:hover': {
-      backgroundColor: theme.palette.action.selected,
-    },
-    '&:focus': {
-      backgroundColor: fade(theme.palette.primary.main, 0.15),
-      outline: 0,
-    },
-  },
 });
 
 const CellBase = ({
@@ -37,15 +27,11 @@ const CellBase = ({
   children,
   startDate,
   endDate,
-  isShaded,
   ...restProps
 }) => (
   <TableCell
     tabIndex={0}
-    className={classNames({
-      [classes.cell]: true,
-      [classes.shadedCell]: isShaded,
-    }, className)}
+    className={classNames(classes.cell, className)}
     {...restProps}
   >
     {children}
@@ -58,7 +44,6 @@ CellBase.propTypes = {
   endDate: PropTypes.instanceOf(Date),
   children: PropTypes.node,
   className: PropTypes.string,
-  isShaded: PropTypes.bool,
 };
 
 CellBase.defaultProps = {
@@ -66,7 +51,6 @@ CellBase.defaultProps = {
   startDate: undefined,
   endDate: undefined,
   className: undefined,
-  isShaded: false,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

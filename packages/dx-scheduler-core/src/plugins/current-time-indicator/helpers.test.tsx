@@ -175,36 +175,4 @@ describe('CurrentTimeIndicator helpers', () => {
         .toBeFalsy();
     });
   });
-
-  describe('#isAllDayCellShaded', () => {
-    const defaultCurrentTime = (new Date(2019, 10, 13, 12, 0)).getTime();
-
-    it('should return true if endDate is before current time', () => {
-      const testCell = {
-        endDate: new Date(defaultCurrentTime - 200),
-        startDate: new Date(defaultCurrentTime - 300),
-      };
-      expect(isAllDayCellShaded({ ...testCell }, defaultCurrentTime, true))
-        .toBeTruthy();
-    });
-
-    it('should return false if shadePastCells if false', () => {
-      const testCell = {
-        endDate: new Date(defaultCurrentTime - 200),
-        startDate: new Date(defaultCurrentTime - 300),
-      };
-      expect(isAllDayCellShaded({ ...testCell }, defaultCurrentTime, false))
-        .toBeFalsy();
-    });
-
-    it('should return false if endDate is after current time', () => {
-      const testCell = {
-        endDate: new Date(defaultCurrentTime + 200),
-        startDate: new Date(defaultCurrentTime - 300),
-      };
-      expect(isAllDayCellShaded({ ...testCell }, defaultCurrentTime, true))
-        .toBeFalsy();
-    });
-
-  });
 });

@@ -22,11 +22,12 @@ const defaultDeps = {
     tableColumns: [{ type: 'undefined', columnName: 'a' }],
     editingCells: [
       { rowId: 1, columnName: 'a' },
+      { rowId: 2, columnName: 'a' },
     ],
     rowChanges: [{ 1: { a: 'text' } }],
     getCellValue: jest.fn(),
     createRowChange: jest.fn(),
-    isColumnEditingEnabled: jest.fn(),
+    isColumnEditingEnabled: () => true,
   },
   action: {
     changeRow: jest.fn(),
@@ -38,7 +39,7 @@ const defaultDeps = {
   template: {
     tableCell: {
       tableRow: { type: TABLE_DATA_TYPE, rowId: 1, row: { a: 'a' }, hasEditCell: true },
-      tableColumn: { type: TABLE_DATA_TYPE, column: { name: 'column' }, hasEditCell: true },
+      tableColumn: { type: TABLE_DATA_TYPE, column: 'column', hasEditCell: true },
       style: {},
     },
     tableRow: {
@@ -124,19 +125,12 @@ describe('TableInlineCellEditing', () => {
       });
   });
 
-  it('should call "isColumnEditingEnabled" to check if cell\'s editing is disabled', () => {
+  it('should pass disabled prop to the custom editor if editing is not allowed', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, {
           getter: {
-            editingCells: [],
-          },
-          template: {
-            tableCell: {
-              tableRow: { type: TABLE_DATA_TYPE, rowId: 1, row: { a: 'a' } },
-              tableColumn: { type: TABLE_DATA_TYPE, column: { name: 'column' } },
-              style: {},
-            },
+            isColumnEditingEnabled: () => false,
           },
         })}
         <TableInlineCellEditing
@@ -145,8 +139,11 @@ describe('TableInlineCellEditing', () => {
       </PluginHost>
     ));
 
-    expect(defaultDeps.getter.isColumnEditingEnabled)
-      .toBeCalledWith('column');
+    expect(tree
+      .find('TemplatePlaceholderBase')
+      .findWhere(node => node.prop('name') === 'valueEditor').last().prop('params'),
+    )
+      .toMatchObject({ disabled: true });
   });
 
   it('should pass autoFocus, onBlur, onFocus and onKeyDown props into cellComponent', () => {

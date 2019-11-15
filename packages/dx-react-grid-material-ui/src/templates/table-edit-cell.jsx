@@ -17,6 +17,9 @@ const styles = theme => ({
   inputRoot: {
     width: '100%',
   },
+  disabledCell: {
+    color: theme.palette.action.disabled,
+  },
   inputRight: {
     textAlign: 'right',
   },
@@ -33,6 +36,7 @@ const EditCellBase = ({
   const inputClasses = classNames({
     [classes.inputRight]: tableColumn && tableColumn.align === 'right',
     [classes.inputCenter]: tableColumn && tableColumn.align === 'center',
+    [classes.disabledCell]: !editingEnabled,
   });
   const patchedChildren = children
     ? React.cloneElement(children, {
@@ -54,7 +58,7 @@ const EditCellBase = ({
           className={classes.inputRoot}
           classes={{ input: inputClasses }}
           value={value || ''}
-          disabled={!editingEnabled}
+          readOnly={!editingEnabled}
           onChange={e => onValueChange(e.target.value)}
           // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus={autoFocus}

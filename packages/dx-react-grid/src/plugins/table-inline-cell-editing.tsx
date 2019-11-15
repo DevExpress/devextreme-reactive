@@ -48,7 +48,7 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
       >
         {(params: TableCellProps) => (
           <TemplateConnector>
-            {({ isColumnEditingEnabled }, { startEditCells }) => {
+            {({}, { startEditCells }) => {
               const { tableRow : { rowId }, tableColumn: { column } } = params;
               const { name: columnName } = column!;
 
@@ -56,18 +56,14 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
                 throw new Error(INLINE_CELL_EDITING_ERROR);
               }
 
-              if (isColumnEditingEnabled(columnName)) {
-                const startEditCellCallback = () =>
-                  startEditCells({
-                    editingCells: [{ rowId, columnName }],
-                  });
-                const eventName = startEditAction === 'click' ? 'onClick' : 'onDoubleClick';
-                const newParams = { ...params, [eventName]: startEditCellCallback };
+              const startEditCellCallback = () =>
+                startEditCells({
+                  editingCells: [{ rowId, columnName }],
+                });
+              const eventName = startEditAction === 'click' ? 'onClick' : 'onDoubleClick';
+              const newParams = { ...params, [eventName]: startEditCellCallback };
 
-                return <TemplatePlaceholder params={newParams} />;
-              }
-
-              return <TemplatePlaceholder />;
+              return <TemplatePlaceholder params={newParams} />;
             }}
           </TemplateConnector>
         )}
@@ -86,7 +82,6 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
             ) => {
               const { tableRow : { rowId, row }, tableColumn: { column } } = params;
               const { name: columnName } = column!;
-              const editingEnabled = isColumnEditingEnabled(columnName);
 
               const changedRow = {
                 ...row,
@@ -115,6 +110,7 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
                 stopEditCells({ editingCells: [{ rowId, columnName }] });
               };
               const onFocus = selectTextOnEditStart ? e => e.target.select() : () => {};
+              const editingEnabled = isColumnEditingEnabled(columnName);
 
               return (
                 <TemplatePlaceholder

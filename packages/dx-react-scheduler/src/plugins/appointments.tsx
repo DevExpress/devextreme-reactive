@@ -65,11 +65,12 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
           {({
             onClick, onDoubleClick, formatDate,
             data, type, fromPrev, toNext,
-            durationType,
+            durationType, resources,
             ...restParams
           }: any) => (
             <Appointment
               data={data}
+              resources={resources}
               {...createClickHandlers(onClick, onDoubleClick)}
               {...restParams}
             >
@@ -80,6 +81,7 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
                 durationType={durationType}
                 recurringIconComponent={recurringIconComponent}
                 formatDate={formatDate}
+                resources={resources}
               />
               {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
             </Appointment>

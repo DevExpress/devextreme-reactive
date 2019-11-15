@@ -16,6 +16,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { withStyles } from '@material-ui/core/styles';
+
 import appointments from '../../../demo-data/today-appointments';
 
 // #FOLD_BLOCK
@@ -54,7 +55,7 @@ const ReduceAppointmentBrightnessCheckBox = ({ reduceBrightness, handleChange })
         color="primary"
       />
     )}
-    label="Reduce brightness of past appointments"
+    label="Reduce past appointments brightness"
   />
 );
 

@@ -74,15 +74,15 @@ export const Cell = ({
       }, className)}
       {...restProps}
     >
+      {isNow && isShaded && (
+        <div className={classes.shadedPart} />
+      )}
       {isNow && (
-        <>
-          <div className={classes.shadedPart} />
-          <CurrentTimeIndicator
-            startDate={startDate}
-            endDate={endDate}
-            currentTime={currentTime}
-          />
-        </>
+        <CurrentTimeIndicator
+          startDate={startDate}
+          endDate={endDate}
+          currentTime={currentTime}
+        />
       )}
       {children}
     </TableCell>

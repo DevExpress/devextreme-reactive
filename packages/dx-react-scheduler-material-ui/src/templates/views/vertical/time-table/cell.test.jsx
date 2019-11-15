@@ -53,7 +53,7 @@ describe('Vertical view TimeTable', () => {
       expect(tree.is('.shadedCell'))
         .toBeTruthy();
     });
-    it('should contain a shaded part if isShaded is true and ', () => {
+    it('should contain a shaded part if isShaded is true', () => {
       const currentTime = new Date();
       const startDate = new Date(currentTime.getTime() - 100);
       const endDate = new Date(currentTime.getTime() + 100);
@@ -65,6 +65,23 @@ describe('Vertical view TimeTable', () => {
         .toBeTruthy();
       expect(tree.is('.shadedCell'))
         .toBeFalsy();
+    });
+    it('should contain currentTimeIndicator', () => {
+      const currentTime = new Date();
+      const startDate = new Date(currentTime.getTime() - 100);
+      const endDate = new Date(currentTime.getTime() + 100);
+      const currentTimeIndicatorComponent = jest.fn();
+      const tree = shallow((
+        <Cell
+          currentTime={currentTime}
+          startDate={startDate}
+          endDate={endDate}
+          currentTimeIndicatorComponent={currentTimeIndicatorComponent}
+        />
+      ));
+
+      expect(tree.find(currentTimeIndicatorComponent).exists())
+        .toBeTruthy();
     });
   });
 });

@@ -24,7 +24,7 @@ import {
 import { DragDropProviderProps, DragDropProviderState } from '../types';
 
 const renderAppointmentItems = (
-  formatDate, Wrapper, Appointment, { draftAppointments: items, data, ...restParams }
+  formatDate, Wrapper, Appointment, { draftAppointments: items, data, ...restParams },
 ) => (
   items.length > 0 ? (
     <Wrapper>

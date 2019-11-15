@@ -141,19 +141,15 @@ describe('TableInlineCellEditing', () => {
 
     expect(tree
       .find('TemplatePlaceholderBase')
-      .findWhere(node => node.prop('name') === 'valueEditor').last().prop('params'),
+      .findWhere(node => node.prop('name') === 'valueEditor').exists()
     )
-      .toMatchObject({ disabled: true });
+      .toBeFalsy();
   });
 
   it('should pass autoFocus, onBlur, onFocus and onKeyDown props into cellComponent', () => {
     const tree = mount((
       <PluginHost>
-        {pluginDepsToComponents(defaultDeps, {
-          getter: {
-            isColumnEditingEnabled: () => false,
-          },
-        })}
+        {pluginDepsToComponents(defaultDeps)}
         <TableInlineCellEditing
           {...defaultProps}
         />

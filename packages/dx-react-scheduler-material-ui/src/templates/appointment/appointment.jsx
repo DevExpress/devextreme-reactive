@@ -33,7 +33,7 @@ const styles = ({ palette, typography, spacing }) => ({
   reducedBrightness: {
     backgroundColor: setColor(200, palette.primary),
     '&:hover': {
-      backgroundColor: setColor(200, palette.primary),
+      backgroundColor: setColor(300, palette.primary),
     },
   },
 });

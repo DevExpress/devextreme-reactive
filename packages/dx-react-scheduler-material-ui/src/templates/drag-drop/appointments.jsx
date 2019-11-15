@@ -18,7 +18,7 @@ const draftStyles = theme => ({
     border: 0,
   },
   reducedBrightness: {
-    backgroundColor: setColor(300, theme.palette.primary),
+    backgroundColor: setColor(400, theme.palette.primary),
   },
 });
 

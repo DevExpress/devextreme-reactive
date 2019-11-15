@@ -82,6 +82,12 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
             ) => {
               const { tableRow : { rowId, row }, tableColumn: { column } } = params;
               const { name: columnName } = column!;
+              const editingEnabled = isColumnEditingEnabled(columnName);
+
+              if(!editingEnabled) {
+                stopEditCells({ editingCells: [{ rowId, columnName }] });
+                return <TemplatePlaceholder />
+              }
 
               const changedRow = {
                 ...row,
@@ -110,7 +116,6 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
                 stopEditCells({ editingCells: [{ rowId, columnName }] });
               };
               const onFocus = selectTextOnEditStart ? e => e.target.select() : () => {};
-              const editingEnabled = isColumnEditingEnabled(columnName);
 
               return (
                 <TemplatePlaceholder

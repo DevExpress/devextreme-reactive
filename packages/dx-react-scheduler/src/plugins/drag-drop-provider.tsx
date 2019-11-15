@@ -23,7 +23,9 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { DragDropProviderProps, DragDropProviderState } from '../types';
 
-const renderAppointmentItems = (items, formatDate, data, Wrapper, Appointment, params) => (
+const renderAppointmentItems = (
+  formatDate, Wrapper, Appointment, { draftAppointments: items, data, ...restParams }
+) => (
   items.length > 0 ? (
     <Wrapper>
       {items.map(({
@@ -38,7 +40,7 @@ const renderAppointmentItems = (items, formatDate, data, Wrapper, Appointment, p
           fromPrev={fromPrev}
           toNext={toNext}
           formatDate={formatDate}
-          {...params}
+          {...restParams}
         />
       ))}
     </Wrapper>
@@ -327,8 +329,7 @@ class DragDropProviderBase extends React.PureComponent<
             <TemplateConnector>
               {({ formatDate }) => {
                 return renderAppointmentItems(
-                  params.draftAppointments, formatDate, params.data,
-                  Container, DraftAppointment, params,
+                  formatDate, Container, DraftAppointment, params,
                 );
               }
             }

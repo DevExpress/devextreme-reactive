@@ -12,7 +12,7 @@ const pluginDependencies = [
   { name: 'WeekView', optional: true },
   { name: 'MonthView', optional: true },
   { name: 'DragDropProvider', optional: true },
-  { name: 'AllDayPanel', optional: true },
+  { name: 'Appointments', optional: true },
 ];
 
 const CurrentTimeIndicatorBase: React.SFC<CurrentTimeIndicatorProps>  & {components: {

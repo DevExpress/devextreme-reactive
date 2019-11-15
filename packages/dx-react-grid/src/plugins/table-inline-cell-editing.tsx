@@ -48,12 +48,16 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
       >
         {(params: TableCellProps) => (
           <TemplateConnector>
-            {({}, { startEditCells }) => {
+            {({ isColumnEditingEnabled }, { startEditCells }) => {
               const { tableRow : { rowId }, tableColumn: { column } } = params;
               const { name: columnName } = column!;
 
               if (startEditAction !== 'click' && startEditAction !== 'doubleClick') {
                 throw new Error(INLINE_CELL_EDITING_ERROR);
+              }
+
+              if (!isColumnEditingEnabled(columnName)) {
+                return <TemplatePlaceholder />;
               }
 
               const startEditCellCallback = () =>
@@ -83,11 +87,6 @@ const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {comp
               const { tableRow : { rowId, row }, tableColumn: { column } } = params;
               const { name: columnName } = column!;
               const editingEnabled = isColumnEditingEnabled(columnName);
-
-              if (!editingEnabled) {
-                stopEditCells({ editingCells: [{ rowId, columnName }] });
-                return <TemplatePlaceholder />;
-              }
 
               const changedRow = {
                 ...row,

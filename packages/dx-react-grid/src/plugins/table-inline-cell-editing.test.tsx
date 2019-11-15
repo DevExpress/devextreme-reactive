@@ -22,12 +22,11 @@ const defaultDeps = {
     tableColumns: [{ type: 'undefined', columnName: 'a' }],
     editingCells: [
       { rowId: 1, columnName: 'a' },
-      { rowId: 2, columnName: 'a' },
     ],
     rowChanges: [{ 1: { a: 'text' } }],
     getCellValue: jest.fn(),
     createRowChange: jest.fn(),
-    isColumnEditingEnabled: () => true,
+    isColumnEditingEnabled: jest.fn(),
   },
   action: {
     changeRow: jest.fn(),
@@ -39,7 +38,7 @@ const defaultDeps = {
   template: {
     tableCell: {
       tableRow: { type: TABLE_DATA_TYPE, rowId: 1, row: { a: 'a' }, hasEditCell: true },
-      tableColumn: { type: TABLE_DATA_TYPE, column: 'column', hasEditCell: true },
+      tableColumn: { type: TABLE_DATA_TYPE, column: { name: 'column' }, hasEditCell: true },
       style: {},
     },
     tableRow: {
@@ -125,12 +124,19 @@ describe('TableInlineCellEditing', () => {
       });
   });
 
-  it('should pass disabled prop to the custom editor if editing is not allowed', () => {
+  it('should call "isColumnEditingEnabled" to check if cell\'s editing is disabled', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, {
           getter: {
-            isColumnEditingEnabled: () => false,
+            editingCells: [],
+          },
+          template: {
+            tableCell: {
+              tableRow: { type: TABLE_DATA_TYPE, rowId: 1, row: { a: 'a' } },
+              tableColumn: { type: TABLE_DATA_TYPE, column: { name: 'column' } },
+              style: {},
+            },
           },
         })}
         <TableInlineCellEditing
@@ -139,11 +145,8 @@ describe('TableInlineCellEditing', () => {
       </PluginHost>
     ));
 
-    expect(tree
-      .find('TemplatePlaceholderBase')
-      .findWhere(node => node.prop('name') === 'valueEditor').exists(),
-    )
-      .toBeFalsy();
+    expect(defaultDeps.getter.isColumnEditingEnabled)
+      .toBeCalledWith('column');
   });
 
   it('should pass autoFocus, onBlur, onFocus and onKeyDown props into cellComponent', () => {

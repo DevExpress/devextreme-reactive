@@ -180,15 +180,15 @@ value | any | The current group value.
 Field | Type | Default | Description
 ------|------|---------|------------
 count? | string | 'Count' | Specifies a text for a `count` summary item when it is displayed in a column.
-sum? | string | 'Sum' | Specifies the summary type's text for a group row summary.
-min? | string | 'Min' | Specifies the minimum type's text for a group row summary.
-max? | string | 'Max' | Specifies the maximum type's text for a group row summary.
-avg? | string | 'Avg' | Specifies the average type text for a group row summary.
+sum? | string | 'Sum' | Specifies a text for a `sum` summary item when it is displayed in a column.
+min? | string | 'Min' | Specifies a text for a `min` summary item when it is displayed in a column.
+max? | string | 'Max' | Specifies a text for a `max` summary item when it is displayed in a column.
+avg? | string | 'Avg' | Specifies a text for a `avg` summary item when it is displayed in a column.
 countOf? | string | 'Count: ' | Specifies a text for a `count` summary item when it is displayed in a group caption.
-sumOf? | string | 'Sum of {columnTitle} is' | Specifies the summary type's text for a group inline summary.
-minOf? | string | 'Min of {columnTitle} is' | Specifies the minimum type's text for a group inline summary.
-maxOf? | string | 'Max of {columnTitle} is' | Specifies the maximum type's text for a group inline summary.
-avgOf? | string | 'Avg of {columnTitle} is' | Specifies the average type text for a group inline summary.
+sumOf? | string | 'Sum of {columnTitle} is' | Specifies a text for a `sum` summary item when it is displayed in a group caption.
+minOf? | string | 'Min of {columnTitle} is' | Specifies a text for a `min` summary item when it is displayed in a group caption.
+maxOf? | string | 'Max of {columnTitle} is' | Specifies a text for a `max` summary item when it is displayed in a group caption.
+avgOf? | string | 'Avg of {columnTitle} is' | Specifies a text for a `avg` summary item when it is displayed in a group caption.
 
 ## Plugin Components
 

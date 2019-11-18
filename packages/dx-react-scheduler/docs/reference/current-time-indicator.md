@@ -43,9 +43,7 @@ Properties passed to the component that renders the CurrentTimeIndicator.
 
 Field | Type | Description
 ------|------|------------
-currentTime | Date | Represents current time.
-startDate | Date | The start date of the element containing the CurrentTimeIndicator.
-endDate | Date | The end date of the element containing the CurrentTimeIndicator.
+top? | string | `Top` CSS property in percentages of the containing element's height.
 
 ## Plugin Components
 

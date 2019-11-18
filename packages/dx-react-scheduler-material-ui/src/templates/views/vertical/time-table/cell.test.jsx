@@ -58,7 +58,12 @@ describe('Vertical view TimeTable', () => {
       const startDate = new Date(currentTime.getTime() - 100);
       const endDate = new Date(currentTime.getTime() + 100);
       const tree = shallow((
-        <Cell isShaded currentTime={currentTime} startDate={startDate} endDate={endDate} />
+        <Cell
+          isShaded
+          currentTimeIndicatorPosition="50%"
+          startDate={startDate}
+          endDate={endDate}
+        />
       ));
 
       expect(tree.find('.shadedPart').exists())
@@ -73,7 +78,7 @@ describe('Vertical view TimeTable', () => {
       const currentTimeIndicatorComponent = jest.fn();
       const tree = shallow((
         <Cell
-          currentTime={currentTime}
+          currentTimeIndicatorPosition="50%"
           startDate={startDate}
           endDate={endDate}
           currentTimeIndicatorComponent={currentTimeIndicatorComponent}

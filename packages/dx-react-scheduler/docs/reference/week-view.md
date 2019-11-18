@@ -138,7 +138,7 @@ Field | Type | Description
 startDate? | Date | Specifies the cell a start time.
 endDate? | Date | Specifies the cell end time.
 isShaded? | boolean | Specifies whether the cell is shaded.
-currentTime? | Date | Specifies the current time.
+currentTimeIndicatorPosition? | string | Specifies the current time indicator top position relative to the cell's height.
 currentTimeIndicatorComponent? | ComponentType&lt;[CurrentTimeIndicator.IndicatorProps](#currenttimeindicatorindicatorprops)&gt; | A component that renders the current time indicator.
 children? | ReactNode | A React node used to render the time table cell content.
 

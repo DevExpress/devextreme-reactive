@@ -1,6 +1,9 @@
 import { PureComputed } from '@devexpress/dx-core';
 import moment from 'moment';
-import { IsCellShadedFn, IsReducedBrightnessAppointmentFn } from '../../types';
+import {
+  IsCellShadedFn, IsReducedBrightnessAppointmentFn,
+  GetCurrentTimeIndicatorTopFn,
+} from '../../types';
 
 export const isMonthCell: PureComputed<
   [boolean | undefined], boolean
@@ -20,11 +23,12 @@ export const isReducedBrightnessAppointment: IsReducedBrightnessAppointmentFn = 
   return false;
 };
 
-export const getCurrentTimeIndicatorTop: PureComputed<
-  [Date | undefined, Date | undefined, Date | undefined], string
-> = (startDate, endDate, currentTime) => {
-  if (!startDate || !endDate || !currentTime) return '0';
-  return `${((currentTime.getTime() - startDate.getTime()) * 100) / (endDate.getTime() - startDate.getTime())}%`;
+export const getCurrentTimeIndicatorTop: GetCurrentTimeIndicatorTopFn = (
+  cellData, currentTime,
+) => {
+  const top = ((currentTime - cellData.startDate.getTime()) * 100)
+  / (cellData.endDate.getTime() - cellData.startDate.getTime());
+  return (top < 0 || top > 100) ? undefined : `${top}%`;
 };
 
 export const isCellShaded: IsCellShadedFn = (

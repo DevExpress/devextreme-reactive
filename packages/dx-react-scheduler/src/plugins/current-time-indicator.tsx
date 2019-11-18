@@ -4,7 +4,10 @@ import {
   Template,
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
-import { isMonthCell, isReducedBrightnessAppointment, isCellShaded } from '@devexpress/dx-scheduler-core';
+import {
+  isMonthCell, isReducedBrightnessAppointment,
+  isCellShaded, getCurrentTimeIndicatorTop,
+} from '@devexpress/dx-scheduler-core';
 import { CurrentTimeIndicatorProps, Appointments } from '../types';
 
 const pluginDependencies = [
@@ -44,7 +47,7 @@ const CurrentTimeIndicatorBase: React.SFC<CurrentTimeIndicatorProps>  & {compone
           <TemplatePlaceholder
             params={{
               ...params,
-              currentTime: new Date(currentTime),
+              currentTimeIndicatorPosition: getCurrentTimeIndicatorTop(params, currentTime),
               currentTimeIndicatorComponent: indicatorComponent,
             }}
           />

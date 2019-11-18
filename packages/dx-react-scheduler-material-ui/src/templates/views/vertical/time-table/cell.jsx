@@ -4,7 +4,6 @@ import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { makeStyles } from '@material-ui/core/styles';
-import { getCurrentTimeIndicatorTop } from '@devexpress/dx-scheduler-core';
 import { getBorder } from '../../../utils';
 
 const useStyles = makeStyles(theme => ({
@@ -55,15 +54,13 @@ export const Cell = ({
   children,
   startDate,
   endDate,
-  currentTime,
+  currentTimeIndicatorPosition,
   currentTimeIndicatorComponent: CurrentTimeIndicator,
   isShaded,
   ...restProps
 }) => {
-  const isNow = !!currentTime && currentTime.getTime() <= endDate.getTime()
-    && currentTime.getTime() > startDate.getTime();
-  const shadedHeight = getCurrentTimeIndicatorTop(startDate, endDate, currentTime);
-  const classes = useStyles({ shadedHeight });
+  const classes = useStyles({ shadedHeight: currentTimeIndicatorPosition });
+  const isNow = !!currentTimeIndicatorPosition;
 
   return (
     <TableCell
@@ -79,9 +76,7 @@ export const Cell = ({
       )}
       {isNow && (
         <CurrentTimeIndicator
-          startDate={startDate}
-          endDate={endDate}
-          currentTime={currentTime}
+          top={currentTimeIndicatorPosition}
         />
       )}
       {children}
@@ -94,7 +89,7 @@ Cell.propTypes = {
   endDate: PropTypes.instanceOf(Date),
   children: PropTypes.node,
   className: PropTypes.string,
-  currentTime: PropTypes.instanceOf(Date),
+  currentTimeIndicatorPosition: PropTypes.string,
   currentTimeIndicatorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   isShaded: PropTypes.bool,
 };
@@ -104,7 +99,7 @@ Cell.defaultProps = {
   className: undefined,
   startDate: new Date(),
   endDate: new Date(),
-  currentTime: undefined,
+  currentTimeIndicatorPosition: undefined,
   currentTimeIndicatorComponent: () => null,
   isShaded: false,
 };

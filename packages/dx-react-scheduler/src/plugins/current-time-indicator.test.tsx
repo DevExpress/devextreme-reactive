@@ -4,7 +4,7 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { CurrentTimeIndicator } from './current-time-indicator';
 import {
-  isMonthCell, isCellShaded, isReducedBrightnessAppointment,
+  isMonthCell, isCellShaded, isReducedBrightnessAppointment, getCurrentTimeIndicatorTop,
 } from '@devexpress/dx-scheduler-core';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
@@ -12,6 +12,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   isMonthCell: jest.fn(),
   isCellShaded: jest.fn(),
   isReducedBrightnessAppointment: jest.fn(),
+  getCurrentTimeIndicatorTop: jest.fn(),
 }));
 
 describe('TodayButton', () => {
@@ -21,10 +22,6 @@ describe('TodayButton', () => {
   const defaultDeps = {
     template: {
       cell: { startDate: new Date(2019, 10, 10, 10, 10), endDate: new Date(2019, 10, 10, 11, 10) },
-      allDayPanelCell: {
-        startDate: new Date(2019, 10, 10, 0, 0),
-        endDate: new Date(2019, 10, 11, 0, 0),
-      },
       appointmentContent: { data: {
         startDate: new Date(2019, 10, 10, 10, 10),
         endDate: new Date(2019, 10, 10, 11, 10),
@@ -43,6 +40,7 @@ describe('TodayButton', () => {
     it('should render cell templates', () => {
       isMonthCell.mockImplementation(() => false);
       isCellShaded.mockImplementation(() => false);
+      getCurrentTimeIndicatorTop.mockImplementation(() => 'getCurrentTimeIndicatorTop');
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -57,8 +55,8 @@ describe('TodayButton', () => {
         .filterWhere(node => node.props().name === 'cell')
         .first();
 
-      expect(firstCellTemplate.props().children().props.params.currentTime)
-        .toEqual(expect.any(Date));
+      expect(firstCellTemplate.props().children().props.params.currentTimeIndicatorPosition)
+        .toBe('getCurrentTimeIndicatorTop');
       expect(firstCellTemplate.props().children().props.params.currentTimeIndicatorComponent)
         .toEqual(defaultProps.indicatorComponent);
 
@@ -74,6 +72,12 @@ describe('TodayButton', () => {
         .toBeCalledWith(undefined);
       expect(isCellShaded)
         .toBeCalledWith(undefined, expect.any(Number), false);
+      expect(getCurrentTimeIndicatorTop)
+        .toBeCalledWith({
+          startDate: defaultDeps.template.cell.startDate,
+          endDate: defaultDeps.template.cell.endDate,
+          isShaded: expect.any(Boolean),
+        }, expect.any(Number));
     });
 
     it('should render appointmentContent template', () => {

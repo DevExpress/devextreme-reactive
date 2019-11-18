@@ -52,8 +52,8 @@ export namespace BaseView {
     endDate?: Date;
     /** Specifies whether the cell is shaded. */
     isShaded?: boolean;
-    /** Specifies the current time. */
-    currentTime?: Date;
+    /** Specifies the current time indicator top position relative to the cell's height. */
+    currentTimeIndicatorPosition?: string;
     /** A component that renders the current time indicator. */
     currentTimeIndicatorComponent?: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
     /** A React node used to render the time table cell content. */

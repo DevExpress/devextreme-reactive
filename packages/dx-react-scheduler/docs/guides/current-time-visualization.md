@@ -4,18 +4,13 @@ The React Scheduler displays information about current time. It's implemented by
 
 ## Related Plugins
 
-The following plugins implement this feature:
+The following plugin implements this feature:
 
 - [CurrentTimeIndicator](../reference/current-time-indicator.md) - displays current time
-- [DayView](../reference/day-view.md) - renders a day view
-- [WeekView](../reference/week-view.md) - renders a week view
-- [MonthView](../reference/month-view.md) - renders a month view
-- [Appointments](../reference/appointments.md) - renders appointments
-- [DragDropProvider](../reference/drag-drop-provider.md) - implements drag-and-drop editing
 
 ## Basic Usage
 
-Import the `CurrentTimeIndicator` plugin. Use its `updateInterval` property to change the Indicator's update interval. Its `shadePastCells` and `reduceBrightnessOfPastAppointments` are used to differentiate between past and future (including present) cells and appointments. Note that `CurrentTimeIndicator` is not displayed by `MonthView` but `shadePastCells` and `reduceBrightnessOfPastAppointments` work with this plugin as well.
+Import the [CurrentTimeIndicator](../reference/current-time-indicator.md) plugin. Use its `updateInterval` property to change the Indicator's update interval. Its `shadePastCells` and `reduceBrightnessOfPastAppointments` are used to differentiate between past and future (including present) cells and appointments. Note that the current time indicator is not displayed by [MonthView](../reference/month-view.md) but `shadePastCells` and `reduceBrightnessOfPastAppointments` work with this plugin as well.
 
 The following demo shows how to use the current time indicator:
 

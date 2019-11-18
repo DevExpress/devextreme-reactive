@@ -88,21 +88,28 @@ describe('CurrentTimeIndicator helpers', () => {
   });
 
   describe('#getCurrentTimeIndicatorTop', () => {
-    it('should return "0" if any of the parameters is undefined', () => {
-      expect(getCurrentTimeIndicatorTop(undefined, new Date(), new Date()))
-        .toBe('0');
-      expect(getCurrentTimeIndicatorTop(new Date(), undefined, new Date()))
-        .toBe('0');
-      expect(getCurrentTimeIndicatorTop(new Date(), new Date(), undefined))
-        .toBe('0');
-    });
-
     it('should work', () => {
       const currentDate = new Date();
       const startDate = new Date(currentDate.getTime() - 100);
       const endDate = new Date(currentDate.getTime() + 100);
-      expect(getCurrentTimeIndicatorTop(startDate, endDate, currentDate))
+      expect(getCurrentTimeIndicatorTop({ startDate, endDate }, currentDate.getTime()))
         .toBe('50%');
+    });
+
+    it('should return "undefined" if currentTime is before start date', () => {
+      const currentDate = new Date();
+      const startDate = new Date(currentDate.getTime() + 100);
+      const endDate = new Date(currentDate.getTime() + 200);
+      expect(getCurrentTimeIndicatorTop({ startDate, endDate }, currentDate.getTime()))
+        .toBeUndefined();
+    });
+
+    it('should return "undefined" if currentTime is after end date', () => {
+      const currentDate = new Date();
+      const startDate = new Date(currentDate.getTime() - 200);
+      const endDate = new Date(currentDate.getTime() - 100);
+      expect(getCurrentTimeIndicatorTop({ startDate, endDate }, currentDate.getTime()))
+        .toBeUndefined();
     });
   });
 

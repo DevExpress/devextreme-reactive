@@ -1,4 +1,5 @@
 import { AppointmentModel } from './scheduler-core.types';
+import { ViewCellData } from './all-day-panel.types';
 
 /** @internal */
 export type IsCellShadedFn = (
@@ -13,3 +14,9 @@ export type IsReducedBrightnessAppointmentFn = (
   currentTime: number,
   reduceBrightness: boolean,
 ) => boolean;
+
+/** @internal */
+export type GetCurrentTimeIndicatorTopFn = (
+  cellData: ViewCellData,
+  currentTime: number,
+ ) => string | undefined;

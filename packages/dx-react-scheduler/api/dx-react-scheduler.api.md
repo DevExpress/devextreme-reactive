@@ -23,7 +23,6 @@ export namespace AllDayPanel {
   }
   export interface CellData {
     endDate: Date;
-    isShaded?: boolean;
     startDate: Date;
   }
   export interface CellProps {
@@ -571,9 +570,9 @@ export const CurrentTimeIndicator: React.ComponentType<CurrentTimeIndicatorProps
 // @public (undocumented)
 export namespace CurrentTimeIndicator {
   export interface IndicatorProps {
-    currentTime: Date;
-    endDate: Date;
-    startDate: Date;
+    currentTime?: Date;
+    endDate?: Date;
+    startDate?: Date;
   }
 }
 

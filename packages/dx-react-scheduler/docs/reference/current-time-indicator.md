@@ -43,7 +43,7 @@ Properties passed to the component that renders the CurrentTimeIndicator.
 
 Field | Type | Description
 ------|------|------------
-top? | string | `Top` CSS property in percentages of the containing element's height.
+top? | string | Specifies `top` CSS property in percentage of the containing element's height
 
 ## Plugin Components
 

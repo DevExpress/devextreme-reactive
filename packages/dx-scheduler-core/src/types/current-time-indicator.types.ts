@@ -9,10 +9,10 @@ export type IsCellShadedFn = (
 ) => boolean;
 
 /** @internal */
-export type IsReducedBrightnessAppointmentFn = (
+export type IsShadedAppointment = (
   params: { data: AppointmentModel; },
   currentTime: number,
-  reduceBrightness: boolean,
+  shadePastAppointments: boolean,
 ) => boolean;
 
 /** @internal */

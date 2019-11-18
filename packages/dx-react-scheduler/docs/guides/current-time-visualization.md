@@ -10,7 +10,7 @@ The following plugin implements this feature:
 
 ## Basic Usage
 
-Import the [CurrentTimeIndicator](../reference/current-time-indicator.md) plugin. Use its `updateInterval` property to change the Indicator's update interval. Its `shadePastCells` and `reduceBrightnessOfPastAppointments` are used to differentiate between past and future (including present) cells and appointments. Note that the current time indicator is not displayed by [MonthView](../reference/month-view.md) but `shadePastCells` and `reduceBrightnessOfPastAppointments` work with this plugin as well.
+Import the [CurrentTimeIndicator](../reference/current-time-indicator.md) plugin. Use its `updateInterval` property to change the Indicator's update interval. Its `shadePastCells` and `shadePastAppointments` are used to differentiate between past and future (including present) cells and appointments. Note that the current time indicator is not displayed by [MonthView](../reference/month-view.md) but `shadePastCells` and `shadePastAppointments` work with this plugin as well.
 
 The following demo shows how to use the current time indicator:
 

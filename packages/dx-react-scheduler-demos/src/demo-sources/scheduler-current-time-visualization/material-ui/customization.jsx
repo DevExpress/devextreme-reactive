@@ -61,26 +61,19 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: teal[400],
     },
   },
-  reducedBrightness: {
+  shadedAppointment: {
     backgroundColor: teal[200],
     '&:hover': {
       backgroundColor: teal[300],
     },
   },
 }));
-
-// #FOLD_BLOCK
-const getIndicatorTop = (startDate, endDate, currentTime) => {
-  if (!startDate || !endDate || !currentTime) return '0';
-  return `${((currentTime.getTime() - startDate.getTime()) * 100) / (endDate.getTime() - startDate.getTime())}%`;
-};
-
 // #FOLD_BLOCK
 const TimeIndicator = ({
-  startDate, endDate, currentTime, ...restProps
+  top, ...restProps
   // #FOLD_BLOCK
 }) => {
-  const classes = useStyles({ top: getIndicatorTop(startDate, endDate, currentTime) });
+  const classes = useStyles({ top });
   return (
     <div {...restProps}>
       <div className={classNames(classes.nowIndicator, classes.circle)} />
@@ -91,18 +84,15 @@ const TimeIndicator = ({
 
 // #FOLD_BLOCK
 const TimeTableCell = ({
-  startDate, endDate, currentTime, isShaded, ...restProps
+  currentTimeIndicatorPosition, isShaded, ...restProps
   // #FOLD_BLOCK
 }) => {
-  const classes = useStyles({ shadedHeight: getIndicatorTop(startDate, endDate, currentTime) });
-  const isNow = !!currentTime && currentTime.getTime() <= endDate.getTime()
-    && currentTime.getTime() > startDate.getTime();
+  const classes = useStyles({ shadedHeight: currentTimeIndicatorPosition });
+  const isNow = !!currentTimeIndicatorPosition;
   return (
     <WeekView.TimeTableCell
-      startDate={startDate}
-      endDate={endDate}
-      currentTime={currentTime}
       isShaded={isShaded && !isNow}
+      currentTimeIndicatorPosition={currentTimeIndicatorPosition}
       className={classNames({
         [classes.shadedCell]: isShaded && !isNow,
       })}
@@ -117,7 +107,7 @@ const TimeTableCell = ({
 
 // #FOLD_BLOCK
 const Appointment = ({
-  isBrightnessReduced, ...restProps
+  isShadedAppointment, ...restProps
   // #FOLD_BLOCK
 }) => {
   const classes = useStyles();
@@ -125,7 +115,7 @@ const Appointment = ({
     <Appointments.Appointment
       className={classNames({
         [classes.appointment]: true,
-        [classes.reducedBrightness]: isBrightnessReduced,
+        [classes.shadedAppointment]: isShadedAppointment,
       })}
       {...restProps}
     />
@@ -160,7 +150,7 @@ export default class Demo extends React.PureComponent {
           <CurrentTimeIndicator
             indicatorComponent={TimeIndicator}
             shadePastCells
-            reduceBrightnessOfPastAppointments
+            shadePastAppointments
           />
         </Scheduler>
       </Paper>

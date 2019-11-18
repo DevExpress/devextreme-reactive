@@ -7,7 +7,7 @@ jest.mock('@material-ui/core/styles', () => ({
   makeStyles: jest.fn(() => () => ({
     appointment: 'appointment',
     clickableAppointment: 'clickableAppointment',
-    reducedBrightness: 'reducedBrightness',
+    shadedAppointment: 'shadedAppointment',
   })),
 }));
 
@@ -34,7 +34,7 @@ describe('Appointment', () => {
         .toBeTruthy();
       expect(tree.is('.clickableAppointment'))
         .toBeFalsy();
-      expect(tree.is('.reducedBrightness'))
+      expect(tree.is('.shadedAppointment'))
         .toBeFalsy();
     });
 
@@ -120,17 +120,17 @@ describe('Appointment', () => {
         .toBeTruthy();
     });
 
-    it('should reduce its brightness if "isBrightnessReduced" is true', () => {
+    it('should be shaded if "isShadedAppointment" is true', () => {
       const tree = shallow((
         <Appointment
           {...defaultProps}
-          isBrightnessReduced
+          isShadedAppointment
         >
           <div />
         </Appointment>
       ));
 
-      expect(tree.is('.reducedBrightness'))
+      expect(tree.is('.shadedAppointment'))
         .toBeTruthy();
     });
   });

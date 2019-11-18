@@ -31,7 +31,7 @@ import { CurrentTimeIndicator } from '@devexpress/dx-react-scheduler';
 Name | Type | Default | Description
 -----|------|---------|------------
 updateInterval | number | 60000 | The time interval in milliseconds between Indicator's position updates.
-reduceBrightnessOfPastAppointments | boolean | `false` | Specifies whether the brightness of past appointments should be reduced.
+shadePastAppointments | boolean | `false` | Specifies whether the brightness of past appointments should be reduced.
 shadePastCells | boolean | `false` | Specifies whether past cells should be shaded.
 indicatorComponent | ComponentType&lt;[CurrentTimeIndicator.IndicatorProps](#currenttimeindicatorindicatorprops)&gt; | | A component that renders the CurrentTimeIndicator.
 

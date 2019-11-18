@@ -1,5 +1,5 @@
 import {
-  isMonthCell, isReducedBrightnessAppointment, getCurrentTimeIndicatorTop, isCellShaded,
+  isMonthCell, isShadedAppointment, getCurrentTimeIndicatorTop, isCellShaded,
 } from './helpers';
 
 describe('CurrentTimeIndicator helpers', () => {
@@ -17,7 +17,7 @@ describe('CurrentTimeIndicator helpers', () => {
     });
   });
 
-  describe('#isReducedBrightnessAppointment', () => {
+  describe('#isShadedAppointment', () => {
     const defaultCurrentTime = (new Date(2019, 10, 13, 12, 0)).getTime();
 
     it('should return true when appointment ends before current time', () => {
@@ -25,17 +25,17 @@ describe('CurrentTimeIndicator helpers', () => {
         startDate: new Date(2019, 10, 13, 10, 10),
         endDate: new Date(2019, 10, 13, 11, 10),
       };
-      expect(isReducedBrightnessAppointment({ data: testAppointment }, defaultCurrentTime, true))
+      expect(isShadedAppointment({ data: testAppointment }, defaultCurrentTime, true))
         .toBeTruthy();
     });
 
-    it('should return false when reduceBrightness is false', () => {
+    it('should return false when shadePastAppointments is false', () => {
       const testAppointment = {
         startDate: new Date(2019, 10, 13, 10, 10),
         endDate: new Date(2019, 10, 13, 11, 10),
       };
-      expect(isReducedBrightnessAppointment({ data: testAppointment }, defaultCurrentTime, true))
-        .toBeTruthy();
+      expect(isShadedAppointment({ data: testAppointment }, defaultCurrentTime, false))
+        .toBeFalsy();
     });
 
     it('should return false when appointment begins before the current time but ends after', () => {
@@ -43,7 +43,7 @@ describe('CurrentTimeIndicator helpers', () => {
         startDate: new Date(2019, 10, 13, 10, 10),
         endDate: new Date(2019, 10, 13, 12, 10),
       };
-      expect(isReducedBrightnessAppointment({ data: testAppointment }, defaultCurrentTime, true))
+      expect(isShadedAppointment({ data: testAppointment }, defaultCurrentTime, true))
         .toBeFalsy();
     });
 
@@ -52,7 +52,7 @@ describe('CurrentTimeIndicator helpers', () => {
         startDate: new Date(2019, 10, 13, 12, 10),
         endDate: new Date(2019, 10, 13, 13, 10),
       };
-      expect(isReducedBrightnessAppointment({ data: testAppointment }, defaultCurrentTime, true))
+      expect(isShadedAppointment({ data: testAppointment }, defaultCurrentTime, true))
         .toBeFalsy();
     });
 
@@ -62,7 +62,7 @@ describe('CurrentTimeIndicator helpers', () => {
         endDate: new Date(2019, 10, 13, 11, 10),
         allDay: true,
       };
-      expect(isReducedBrightnessAppointment({ data: testAppointment }, defaultCurrentTime, true))
+      expect(isShadedAppointment({ data: testAppointment }, defaultCurrentTime, true))
         .toBeFalsy();
     });
 
@@ -72,7 +72,7 @@ describe('CurrentTimeIndicator helpers', () => {
         endDate: new Date(2019, 10, 14, 11, 10),
         allDay: true,
       };
-      expect(isReducedBrightnessAppointment({ data: testAppointment }, defaultCurrentTime, true))
+      expect(isShadedAppointment({ data: testAppointment }, defaultCurrentTime, true))
         .toBeFalsy();
     });
 
@@ -82,7 +82,7 @@ describe('CurrentTimeIndicator helpers', () => {
         endDate: new Date(2019, 10, 12, 11, 10),
         allDay: true,
       };
-      expect(isReducedBrightnessAppointment({ data: testAppointment }, defaultCurrentTime, true))
+      expect(isShadedAppointment({ data: testAppointment }, defaultCurrentTime, true))
         .toBeTruthy();
     });
   });

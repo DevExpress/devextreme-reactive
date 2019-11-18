@@ -24,7 +24,7 @@ export namespace DragDropProvider {
     /** true if the appointment continues on the next day/week/month/year. */
     toNext: boolean;
     /** Specifies whether the appointment's brightness is reduced. */
-    isBrightnessReduced?: boolean;
+    isShadedAppointment?: boolean;
   }
   /** Describes properties of the component that renders a copy of the appointment being dragged in its previous location. */
   export interface SourceAppointmentProps {
@@ -33,7 +33,7 @@ export namespace DragDropProvider {
     /** Specifies the appointment’s type. */
     type: string;
     /** Specifies whether the appointment's brightness is reduced. */
-    isBrightnessReduced?: boolean;
+    isShadedAppointment?: boolean;
   }
   /** Describes properties of the component that renders a handle used to resize the appointment. */
   export interface ResizeProps {

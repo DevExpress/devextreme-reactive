@@ -48,21 +48,21 @@ const ShadeCellsCheckBox = ({ shadePastCells, handleChange }) => (
 );
 
 // #FOLD_BLOCK
-const ReduceAppointmentBrightnessCheckBox = ({ reduceBrightness, handleChange }) => (
+const ShadePastAppointmentsCheckBox = ({ shadePastAppointments, handleChange }) => (
   <FormControlLabel
     control={(
       <Checkbox
-        checked={reduceBrightness}
-        onChange={() => handleChange('reduceBrightnessOfPastAppointments')}
+        checked={shadePastAppointments}
+        onChange={() => handleChange('shadePastAppointments')}
         color="primary"
       />
     )}
-    label="Reduce past appointments brightness"
+    label="Shade past appointments"
   />
 );
 // #FOLD_BLOCK
 const CheckBoxContainer = withStyles(styles, { name: 'CheckBoxContainer' })(({
-  shadePastCells, reduceBrightnessOfPastAppointments, handleCheckboxChange, classes,
+  shadePastCells, shadePastAppointments, handleCheckboxChange, classes,
   // #FOLD_BLOCK
 }) => (
   <Grid item container direction="column" className={classes.checkBoxContainer} xs={6}>
@@ -70,8 +70,8 @@ const CheckBoxContainer = withStyles(styles, { name: 'CheckBoxContainer' })(({
       shadePastCells={shadePastCells}
       handleChange={handleCheckboxChange}
     />
-    <ReduceAppointmentBrightnessCheckBox
-      reduceBrightness={reduceBrightnessOfPastAppointments}
+    <ShadePastAppointmentsCheckBox
+      shadePastAppointments={shadePastAppointments}
       handleChange={handleCheckboxChange}
     />
   </Grid>
@@ -105,7 +105,7 @@ export default class Demo extends React.PureComponent {
     this.state = {
       data: appointments,
       shadePastCells: true,
-      reduceBrightnessOfPastAppointments: true,
+      shadePastAppointments: true,
       updateInterval: 10000,
     };
 
@@ -148,7 +148,7 @@ export default class Demo extends React.PureComponent {
       data,
       shadePastCells,
       updateInterval,
-      reduceBrightnessOfPastAppointments,
+      shadePastAppointments,
     } = this.state;
 
     return (
@@ -156,7 +156,7 @@ export default class Demo extends React.PureComponent {
         <Grid container>
           <CheckBoxContainer
             shadePastCells={shadePastCells}
-            reduceBrightnessOfPastAppointments={reduceBrightnessOfPastAppointments}
+            shadePastAppointments={shadePastAppointments}
             handleCheckboxChange={this.handleCheckboxChange}
           />
           <UpdateIntervalBox
@@ -184,7 +184,7 @@ export default class Demo extends React.PureComponent {
 
             <CurrentTimeIndicator
               shadePastCells={shadePastCells}
-              reduceBrightnessOfPastAppointments={reduceBrightnessOfPastAppointments}
+              shadePastAppointments={shadePastAppointments}
               updateInterval={updateInterval}
             />
           </Scheduler>

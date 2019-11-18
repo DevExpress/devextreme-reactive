@@ -36,7 +36,7 @@ const useStyles = makeStyles(({ palette, typography, spacing }) => ({
   clickableAppointment: {
     cursor: 'pointer',
   },
-  reducedBrightness: {
+  shadedAppointment: {
     backgroundColor: resources => getAppointmentColor(
       200, getResourceColor(resources), palette.primary,
     ),
@@ -54,7 +54,7 @@ export const Appointment = ({
   data,
   onClick: handleClick,
   draggable,
-  isBrightnessReduced,
+  isShadedAppointment,
   resources,
   ...restProps
 }) => {
@@ -72,7 +72,7 @@ export const Appointment = ({
       className={classNames({
         [classes.appointment]: true,
         [classes.clickableAppointment]: clickable,
-        [classes.reducedBrightness]: isBrightnessReduced,
+        [classes.shadedAppointment]: isShadedAppointment,
       }, className)}
       {...onClick}
       {...restProps}
@@ -89,7 +89,7 @@ Appointment.propTypes = {
   data: PropTypes.object,
   onClick: PropTypes.func,
   draggable: PropTypes.bool,
-  isBrightnessReduced: PropTypes.bool,
+  isShadedAppointment: PropTypes.bool,
 };
 
 Appointment.defaultProps = {
@@ -98,5 +98,5 @@ Appointment.defaultProps = {
   className: undefined,
   data: {},
   draggable: false,
-  isBrightnessReduced: false,
+  isShadedAppointment: false,
 };

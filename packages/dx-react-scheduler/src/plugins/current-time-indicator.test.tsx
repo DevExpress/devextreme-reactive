@@ -4,14 +4,14 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { CurrentTimeIndicator } from './current-time-indicator';
 import {
-  isMonthCell, isCellShaded, isReducedBrightnessAppointment, getCurrentTimeIndicatorTop,
+  isMonthCell, isCellShaded, isShadedAppointment, getCurrentTimeIndicatorTop,
 } from '@devexpress/dx-scheduler-core';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...require.requireActual('@devexpress/dx-scheduler-core'),
   isMonthCell: jest.fn(),
   isCellShaded: jest.fn(),
-  isReducedBrightnessAppointment: jest.fn(),
+  isShadedAppointment: jest.fn(),
   getCurrentTimeIndicatorTop: jest.fn(),
 }));
 
@@ -81,7 +81,7 @@ describe('TodayButton', () => {
     });
 
     it('should render appointmentContent template', () => {
-      isReducedBrightnessAppointment.mockImplementation(() => false);
+      isShadedAppointment.mockImplementation(() => false);
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -96,15 +96,15 @@ describe('TodayButton', () => {
         .filterWhere(node => node.props().name === 'appointmentContent')
         .first();
 
-      expect(appointmentContentTemplate.props().children().props.params.isBrightnessReduced)
+      expect(appointmentContentTemplate.props().children().props.params.isShadedAppointment)
         .toBe(false);
 
-      expect(isReducedBrightnessAppointment)
+      expect(isShadedAppointment)
         .toBeCalledWith(undefined, expect.any(Number), false);
     });
 
     it('should render draftAppointment template', () => {
-      isReducedBrightnessAppointment.mockImplementation(() => false);
+      isShadedAppointment.mockImplementation(() => false);
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -119,16 +119,16 @@ describe('TodayButton', () => {
         .filterWhere(node => node.props().name === 'draftAppointment')
         .first();
 
-      expect(draftAppointmentTemplate.props().children().props.params.isBrightnessReduced)
+      expect(draftAppointmentTemplate.props().children().props.params.isShadedAppointment)
         .toBe(false);
 
-      expect(isReducedBrightnessAppointment)
+      expect(isShadedAppointment)
         .toBeCalledWith(undefined, expect.any(Number), false);
     });
   });
 
   describe('Properties', () => {
-    it('should call isReducedBrightnessAppointment with default reduceBrightnessOfPastAppointments prop', () => {
+    it('should call isShadedAppointment with default shadePastAppointments prop', () => {
       mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -138,22 +138,22 @@ describe('TodayButton', () => {
         </PluginHost>
       ));
 
-      expect(isReducedBrightnessAppointment)
+      expect(isShadedAppointment)
         .toBeCalledWith(expect.anything(), expect.anything(), false);
     });
 
-    it('should call isReducedBrightnessAppointment with user\'s reduceBrightnessOfPastAppointments prop', () => {
+    it('should call isShadedAppointment with user\'s shadePastAppointments prop', () => {
       mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <CurrentTimeIndicator
             {...defaultProps}
-            reduceBrightnessOfPastAppointments
+            shadePastAppointments
           />
         </PluginHost>
       ));
 
-      expect(isReducedBrightnessAppointment)
+      expect(isShadedAppointment)
         .toBeCalledWith(expect.anything(), expect.anything(), true);
     });
 

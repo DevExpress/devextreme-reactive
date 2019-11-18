@@ -1,7 +1,7 @@
 import { PureComputed } from '@devexpress/dx-core';
 import moment from 'moment';
 import {
-  IsCellShadedFn, IsReducedBrightnessAppointmentFn,
+  IsCellShadedFn, IsShadedAppointment,
   GetCurrentTimeIndicatorTopFn,
 } from '../../types';
 
@@ -9,16 +9,16 @@ export const isMonthCell: PureComputed<
   [boolean | undefined], boolean
 > = otherMonth => otherMonth !== undefined;
 
-export const isReducedBrightnessAppointment: IsReducedBrightnessAppointmentFn = (
-  { data: appointmentData }, currentTime, reduceBrightness,
+export const isShadedAppointment: IsShadedAppointment = (
+  { data: appointmentData }, currentTime, shadePastAppointments,
 ) => {
   const momentCurrentDate = moment(currentTime);
   if (appointmentData.allDay) {
     return momentCurrentDate.isAfter(appointmentData.endDate as Date, 'day')
-    && reduceBrightness;
+    && shadePastAppointments;
   }
   if (momentCurrentDate.isAfter(appointmentData.endDate as Date)) {
-    return reduceBrightness;
+    return shadePastAppointments;
   }
   return false;
 };

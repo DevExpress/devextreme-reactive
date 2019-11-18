@@ -19,7 +19,7 @@ const draftStyles = makeStyles(theme => ({
     ),
     border: 0,
   },
-  reducedBrightness: {
+  shadedAppointment: {
     backgroundColor: resources => getAppointmentColor(
       400, getResourceColor(resources), theme.palette.primary,
     ),
@@ -33,14 +33,14 @@ const sourceStyles = makeStyles({
 });
 
 export const DraftAppointment = ({
-  className, resources, isBrightnessReduced, ...restProps
+  className, resources, isShadedAppointment, ...restProps
 }) => {
   const classes = draftStyles(resources);
   return (
     <AppointmentBase
       className={classNames({
         [classes.appointment]: true,
-        [classes.reducedBrightness]: isBrightnessReduced,
+        [classes.shadedAppointment]: isShadedAppointment,
       }, className)}
       resources={resources}
       {...restProps}
@@ -51,13 +51,13 @@ export const DraftAppointment = ({
 DraftAppointment.propTypes = {
   resources: PropTypes.array,
   className: PropTypes.string,
-  isBrightnessReduced: PropTypes.bool,
+  isShadedAppointment: PropTypes.bool,
 };
 
 DraftAppointment.defaultProps = {
   className: undefined,
   resources: [],
-  isBrightnessReduced: false,
+  isShadedAppointment: false,
 };
 
 export const SourceAppointment = ({ className, ...restProps }) => {
@@ -80,12 +80,12 @@ SourceAppointment.defaultProps = {
 
 const AppointmentBase = ({
   className, data, formatDate, type, fromPrev,
-  toNext, durationType, isBrightnessReduced, ...restProps
+  toNext, durationType, isShadedAppointment, ...restProps
 }) => (
   <Appointment
     className={className}
     type={type}
-    isBrightnessReduced={isBrightnessReduced}
+    isShadedAppointment={isShadedAppointment}
     {...restProps}
   >
     {fromPrev && <SplitIndicator position={POSITION_START} appointmentType={type} />}
@@ -108,12 +108,12 @@ AppointmentBase.propTypes = {
   durationType: PropTypes.string,
   className: PropTypes.string,
   type: PropTypes.string,
-  isBrightnessReduced: PropTypes.bool,
+  isShadedAppointment: PropTypes.bool,
 };
 
 AppointmentBase.defaultProps = {
   durationType: undefined,
   className: undefined,
   type: undefined,
-  isBrightnessReduced: false,
+  isShadedAppointment: false,
 };

@@ -5,7 +5,7 @@ import {
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import {
-  isMonthCell, isReducedBrightnessAppointment,
+  isMonthCell, isShadedAppointment,
   isCellShaded, getCurrentTimeIndicatorTop,
 } from '@devexpress/dx-scheduler-core';
 import { CurrentTimeIndicatorProps, Appointments } from '../types';
@@ -21,7 +21,7 @@ const pluginDependencies = [
 const CurrentTimeIndicatorBase: React.SFC<CurrentTimeIndicatorProps>  & {components: {
   indicatorComponent: string,
 }} = ({
-  indicatorComponent, reduceBrightnessOfPastAppointments, shadePastCells, updateInterval,
+  indicatorComponent, shadePastAppointments, shadePastCells, updateInterval,
 }) => {
   const [currentTime, setCurrentTime] = React.useState(Date.now);
   const [indicatorUpdateTimer, setIndicatorUpdateTimer] = React.useState<any>(undefined);
@@ -72,8 +72,8 @@ const CurrentTimeIndicatorBase: React.SFC<CurrentTimeIndicatorProps>  & {compone
           <TemplatePlaceholder
             params={{
               ...params,
-              isBrightnessReduced: isReducedBrightnessAppointment(
-                params, currentTime, reduceBrightnessOfPastAppointments,
+              isShadedAppointment: isShadedAppointment(
+                params, currentTime, shadePastAppointments,
               ),
             }}
           />
@@ -86,8 +86,8 @@ const CurrentTimeIndicatorBase: React.SFC<CurrentTimeIndicatorProps>  & {compone
           <TemplatePlaceholder
             params={{
               ...params,
-              isBrightnessReduced: isReducedBrightnessAppointment(
-                params, currentTime, reduceBrightnessOfPastAppointments,
+              isShadedAppointment: isShadedAppointment(
+                params, currentTime, shadePastAppointments,
               ),
             }}
           />
@@ -100,7 +100,7 @@ const CurrentTimeIndicatorBase: React.SFC<CurrentTimeIndicatorProps>  & {compone
 CurrentTimeIndicatorBase.defaultProps = {
   updateInterval: 60000,
   shadePastCells: false,
-  reduceBrightnessOfPastAppointments: false,
+  shadePastAppointments: false,
 };
 
 CurrentTimeIndicatorBase.components = {

@@ -318,7 +318,7 @@ export const CurrentTimeIndicator: React.ComponentType<CurrentTimeIndicatorProps
 // @public (undocumented)
 export interface CurrentTimeIndicatorProps {
   indicatorComponent?: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
-  reduceBrightnessOfPastAppointments?: boolean;
+  shadePastAppointments?: boolean;
   shadePastCells?: boolean;
   updateInterval?: number;
 }

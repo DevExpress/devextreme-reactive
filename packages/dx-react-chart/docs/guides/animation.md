@@ -17,6 +17,8 @@ In the following example shows animation when data updated:
 
 ## Customize Animation
 
-You can modify animation easing and duration. For that use `duration` and `easing` properties in the `Animation` plugin. The following example demonstrates how to change easing using the d3 library and how to change duration:
+Use the `Animation` plugin's `duration` and `easing` properties to specify animation's duration and easing type.
+
+In the following code, the easing implementation is taken from the `d3` library:
 
 .embedded-demo({ "path": "animation/custom-easing", "showThemeSelector": true })

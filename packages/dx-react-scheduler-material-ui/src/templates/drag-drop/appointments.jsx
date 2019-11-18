@@ -21,7 +21,7 @@ const draftStyles = makeStyles(theme => ({
   },
   reducedBrightness: {
     backgroundColor: resources => getAppointmentColor(
-      499, getResourceColor(resources), theme.palette.primary,
+      400, getResourceColor(resources), theme.palette.primary,
     ),
   },
 }));
@@ -58,18 +58,6 @@ DraftAppointment.defaultProps = {
   isBrightnessReduced: PropTypes.bool,
 };
 
-// <<<<<<< HEAD
-// const DraftAppointmentBase = ({
-//   classes, className, data, formatDate,
-//   type, fromPrev, toNext, durationType,
-//   isBrightnessReduced, ...restProps
-// }) => (
-//   <Appointment
-//     className={classNames({
-//       [classes.appointment]: true,
-//       [classes.reducedBrightness]: isBrightnessReduced,
-//     }, className)}
-// =======
 export const SourceAppointment = ({ className, ...restProps }) => {
   const classes = sourceStyles();
   return (

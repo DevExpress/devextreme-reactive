@@ -178,7 +178,7 @@ describe('EditCell', () => {
       .toMatchObject({ a: 1 });
   });
 
-  it('should render disabled editor if editing is not allowed', () => {
+  it('should render read-only editor if editing is not allowed', () => {
     const tree = mount((
       <EditCell
         {...defaultProps}
@@ -186,7 +186,7 @@ describe('EditCell', () => {
       />
     ));
 
-    expect(tree.find(Input).prop('disabled'))
+    expect(tree.find(Input).prop('readOnly'))
       .toBeTruthy();
   });
 });

@@ -19,6 +19,17 @@ const styles = theme => ({
   },
   disabledCell: {
     color: theme.palette.action.disabled,
+    '&:before': {
+      borderBottom: '1px dotted',
+      borderBottomColor: theme.palette.action.disabled,
+    },
+    '&&:hover:before': {
+      borderBottom: '1px dotted',
+      borderBottomColor: theme.palette.action.disabled,
+    },
+    '&:after': {
+      borderBottom: '0px',
+    },
   },
   inputRight: {
     textAlign: 'right',
@@ -36,7 +47,6 @@ const EditCellBase = ({
   const inputClasses = classNames({
     [classes.inputRight]: tableColumn && tableColumn.align === 'right',
     [classes.inputCenter]: tableColumn && tableColumn.align === 'center',
-    [classes.disabledCell]: !editingEnabled,
   });
   const patchedChildren = children
     ? React.cloneElement(children, {
@@ -55,7 +65,7 @@ const EditCellBase = ({
     >
       {patchedChildren || (
         <Input
-          className={classes.inputRoot}
+          className={classNames(classes.inputRoot, !editingEnabled && classes.disabledCell)}
           classes={{ input: inputClasses }}
           value={value || ''}
           readOnly={!editingEnabled}

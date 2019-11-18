@@ -17,7 +17,7 @@ import appointments from '../../../demo-data/today-appointments';
 const useStyles = makeStyles(theme => ({
   line: {
     height: '2px',
-    borderTop: `2px ${teal[400]} dotted`,
+    borderTop: `2px ${theme.palette.primary.main} dotted`,
     width: '100%',
     transform: 'translate(0, -1px)',
   },
@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     height: theme.spacing(1.5),
     borderRadius: '50%',
     transform: 'translate(-50%, -50%)',
-    background: teal[400],
+    background: theme.palette.primary.main,
   },
   nowIndicator: {
     position: 'absolute',

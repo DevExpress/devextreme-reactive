@@ -325,7 +325,7 @@ export namespace Appointments {
         children: React.ReactNode;
         data: AppointmentModel;
         draggable: boolean;
-        isBrightnessReduced?: boolean;
+        isShadedAppointment?: boolean;
         onClick?: (e: any) => void;
         onDoubleClick?: (e: any) => void;
         resources: Array<ValidResourceInstance>;
@@ -454,8 +454,8 @@ export namespace BaseView {
   }
   export interface TimeTableCellProps {
     children?: React.ReactNode;
-    currentTime?: Date;
     currentTimeIndicatorComponent?: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
+    currentTimeIndicatorPosition?: string;
     endDate?: Date;
     isShaded?: boolean;
     startDate?: Date;
@@ -570,16 +570,14 @@ export const CurrentTimeIndicator: React.ComponentType<CurrentTimeIndicatorProps
 // @public (undocumented)
 export namespace CurrentTimeIndicator {
   export interface IndicatorProps {
-    currentTime?: Date;
-    endDate?: Date;
-    startDate?: Date;
+    top?: string;
   }
 }
 
 // @public (undocumented)
 export interface CurrentTimeIndicatorProps {
   indicatorComponent: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
-  reduceBrightnessOfPastAppointments: boolean;
+  shadePastAppointments: boolean;
   shadePastCells: boolean;
   updateInterval: number;
 }
@@ -665,7 +663,7 @@ export namespace DragDropProvider {
     export interface DraftAppointmentProps {
         data: AppointmentModel;
         fromPrev: boolean;
-        isBrightnessReduced?: boolean;
+        isShadedAppointment?: boolean;
         style: React.CSSProperties;
         toNext: boolean;
         type: string;
@@ -676,7 +674,7 @@ export namespace DragDropProvider {
     }
     export interface SourceAppointmentProps {
         data: AppointmentModel;
-        isBrightnessReduced?: boolean;
+        isShadedAppointment?: boolean;
         type: string;
     }
 }

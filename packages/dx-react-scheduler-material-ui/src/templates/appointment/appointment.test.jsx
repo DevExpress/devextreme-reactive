@@ -33,7 +33,7 @@ describe('Appointment', () => {
         .toBeTruthy();
       expect(tree.is('.clickableAppointment'))
         .toBeFalsy();
-      expect(tree.is(`.${classes.reducedBrightness}`))
+      expect(tree.is('.reducedBrightness'))
         .toBeFalsy();
     });
 
@@ -129,7 +129,7 @@ describe('Appointment', () => {
         </Appointment>
       ));
 
-      expect(tree.is(`.${classes.reducedBrightness}`))
+      expect(tree.is('.reducedBrightness'))
         .toBeTruthy();
     });
   });

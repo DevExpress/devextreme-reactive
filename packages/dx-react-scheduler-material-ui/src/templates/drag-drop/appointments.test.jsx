@@ -40,7 +40,7 @@ describe('DragDrop', () => {
         .toBeTruthy();
       expect(tree.is('.appointment'))
         .toBeTruthy();
-      expect(tree.is(`.${classes.reducedBrightness}`))
+      expect(tree.is('.reducedBrightness'))
         .toBeFalsy();
     });
     it('should reduce its brightness if "isBrightnessReduced" is true', () => {
@@ -51,7 +51,7 @@ describe('DragDrop', () => {
         />
       ));
 
-      expect(tree.is(`.${classes.reducedBrightness}`))
+      expect(tree.is('.reducedBrightness'))
         .toBeTruthy();
     });
   });

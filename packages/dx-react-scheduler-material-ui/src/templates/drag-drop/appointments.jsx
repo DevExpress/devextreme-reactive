@@ -32,7 +32,9 @@ const sourceStyles = makeStyles({
   },
 });
 
-export const DraftAppointment = ({ className, resources, isBrightnessReduced, ...restProps }) => {
+export const DraftAppointment = ({
+  className, resources, isBrightnessReduced, ...restProps
+}) => {
   const classes = draftStyles(resources);
   return (
     <AppointmentBase

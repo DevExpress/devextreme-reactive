@@ -1,66 +1,4 @@
 {
-  "react/core": {
-    "docs": [
-      {
-        "title": "Guides",
-        "items": [
-          {
-            "title": "Fundamentals",
-            "path": "/react/core/docs/guides/fundamentals/"
-          },
-          {
-            "title": "Render Markup",
-            "path": "/react/core/docs/guides/rendering-markup/"
-          },
-          {
-            "title": "Provide Values",
-            "path": "/react/core/docs/guides/providing-values/"
-          },
-          {
-            "title": "Provide Actions",
-            "path": "/react/core/docs/guides/providing-actions/"
-          }
-        ]
-      },
-      {
-        "title": "API Reference",
-        "items": [
-          {
-            "title": "PluginHost",
-            "path": "/react/core/docs/reference/plugin-host/"
-          },
-          {
-            "title": "Plugin",
-            "path": "/react/core/docs/reference/plugin/"
-          },
-          {
-            "title": "Action",
-            "path": "/react/core/docs/reference/action/"
-          },
-          {
-            "title": "Getter",
-            "path": "/react/core/docs/reference/getter/"
-          },
-          {
-            "title": "Template",
-            "path": "/react/core/docs/reference/template/"
-          },
-          {
-            "title": "TemplatePlaceholder",
-            "path": "/react/core/docs/reference/template-placeholder/"
-          },
-          {
-            "title": "TemplateConnector",
-            "path": "/react/core/docs/reference/template-connector/"
-          },
-          {
-            "title": "connectProps",
-            "path": "/react/core/docs/reference/connect-props/"
-          }
-        ]
-      }
-    ]
-  },
   "react/grid": {
     "demos": [
       {
@@ -851,6 +789,68 @@
           {
             "title": "Create a Custom Theme",
             "path": "/react/common/docs/guides/custom-theme/"
+          }
+        ]
+      }
+    ]
+  },
+  "react/core": {
+    "docs": [
+      {
+        "title": "Guides",
+        "items": [
+          {
+            "title": "Fundamentals",
+            "path": "/react/core/docs/guides/fundamentals/"
+          },
+          {
+            "title": "Render Markup",
+            "path": "/react/core/docs/guides/rendering-markup/"
+          },
+          {
+            "title": "Provide Values",
+            "path": "/react/core/docs/guides/providing-values/"
+          },
+          {
+            "title": "Provide Actions",
+            "path": "/react/core/docs/guides/providing-actions/"
+          }
+        ]
+      },
+      {
+        "title": "API Reference",
+        "items": [
+          {
+            "title": "PluginHost",
+            "path": "/react/core/docs/reference/plugin-host/"
+          },
+          {
+            "title": "Plugin",
+            "path": "/react/core/docs/reference/plugin/"
+          },
+          {
+            "title": "Action",
+            "path": "/react/core/docs/reference/action/"
+          },
+          {
+            "title": "Getter",
+            "path": "/react/core/docs/reference/getter/"
+          },
+          {
+            "title": "Template",
+            "path": "/react/core/docs/reference/template/"
+          },
+          {
+            "title": "TemplatePlaceholder",
+            "path": "/react/core/docs/reference/template-placeholder/"
+          },
+          {
+            "title": "TemplateConnector",
+            "path": "/react/core/docs/reference/template-connector/"
+          },
+          {
+            "title": "connectProps",
+            "path": "/react/core/docs/reference/connect-props/"
           }
         ]
       }

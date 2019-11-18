@@ -7,11 +7,9 @@ const Title = () => (
   <div className="container">
     <div className="row">
       <div className="col-md-12">
-        {/* <div className={styles.title}> */}
-          <h2>
-            Why DevExtreme for React?
-          </h2>
-        {/* </div> */}
+        <h2 className={styles.title}>
+          Why DevExtreme for React?
+        </h2>
       </div>
     </div>
   </div>

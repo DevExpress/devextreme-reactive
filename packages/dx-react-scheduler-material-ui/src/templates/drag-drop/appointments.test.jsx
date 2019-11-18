@@ -6,6 +6,7 @@ jest.mock('@material-ui/core/styles', () => ({
   ...require.requireActual('@material-ui/core/styles'),
   makeStyles: jest.fn(() => () => ({
     appointment: 'appointment',
+    reducedBrightness: 'reducedBrightness',
   })),
 }));
 

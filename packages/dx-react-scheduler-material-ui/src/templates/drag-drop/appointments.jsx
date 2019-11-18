@@ -57,7 +57,7 @@ DraftAppointment.propTypes = {
 DraftAppointment.defaultProps = {
   className: undefined,
   resources: [],
-  isBrightnessReduced: PropTypes.bool,
+  isBrightnessReduced: false,
 };
 
 export const SourceAppointment = ({ className, ...restProps }) => {

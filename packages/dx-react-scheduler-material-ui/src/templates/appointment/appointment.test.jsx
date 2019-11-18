@@ -7,6 +7,7 @@ jest.mock('@material-ui/core/styles', () => ({
   makeStyles: jest.fn(() => () => ({
     appointment: 'appointment',
     clickableAppointment: 'clickableAppointment',
+    reducedBrightness: 'reducedBrightness',
   })),
 }));
 

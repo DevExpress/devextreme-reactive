@@ -6,7 +6,7 @@ This article describes how to localize UI texts in DevExtreme React Components.
 
 Plugins that render UI texts have the `messages` property. It accepts an object that contains messages as key-value pairs in which keys are message IDs and values are messages. For a list of supported message IDs, see the Localization Messages section of the plugin's API Reference.
 
-To translate a message, find the plugin the renders it and specify the plugin's `messages` property with an object that contains your translations. Those message IDs that you omit from the object use default translations.
+To translate a message, find the plugin that renders it and specify the plugin's `messages` property with an object that contains your translations. Those message IDs that you omit from the object use default translations.
 
 The following code translates a message from the `Table` plugin:
 

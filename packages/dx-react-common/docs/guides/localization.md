@@ -41,7 +41,7 @@ Messages can contain texts in curly braces. These are placeholders used to displ
 const pagingMessages = {
   info: '${from}-${to} of ${count}',
 };
-``
+```
 They will be replaced with real data when the plugin is rendered.
 
 

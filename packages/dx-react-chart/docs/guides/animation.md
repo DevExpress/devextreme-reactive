@@ -11,7 +11,7 @@ Import the [Animation](../reference/animation.md) plugin.
 
 ## Animation on Transitions
 
-In the following example shows animation when data updated:
+The following example shows how series are animated on data update:
 
 .embedded-demo({ "path": "animation/with-transition", "showThemeSelector": true })
 

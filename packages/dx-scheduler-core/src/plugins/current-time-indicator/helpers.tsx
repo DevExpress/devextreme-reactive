@@ -4,7 +4,7 @@ import { IsCellShadedFn, IsReducedBrightnessAppointmentFn } from '../../types';
 
 export const isMonthCell: PureComputed<
   [boolean | undefined], boolean
-> = otherMonth => otherMonth === undefined ? false : true;
+> = otherMonth => otherMonth !== undefined;
 
 export const isReducedBrightnessAppointment: IsReducedBrightnessAppointmentFn = (
   { data: appointmentData }, currentTime, reduceBrightness,
@@ -15,7 +15,7 @@ export const isReducedBrightnessAppointment: IsReducedBrightnessAppointmentFn = 
     && reduceBrightness;
   }
   if (momentCurrentDate.isAfter(appointmentData.endDate as Date)) {
-    return true && reduceBrightness;
+    return reduceBrightness;
   }
   return false;
 };

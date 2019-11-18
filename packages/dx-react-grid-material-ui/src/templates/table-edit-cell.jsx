@@ -17,7 +17,7 @@ const styles = theme => ({
   inputRoot: {
     width: '100%',
   },
-  disabledCell: {
+  disabledInput: {
     color: theme.palette.action.disabled,
     '&:before': {
       borderBottom: '1px dotted',
@@ -65,7 +65,7 @@ const EditCellBase = ({
     >
       {patchedChildren || (
         <Input
-          className={classNames(classes.inputRoot, !editingEnabled && classes.disabledCell)}
+          className={classNames(classes.inputRoot, !editingEnabled && classes.disabledInput)}
           classes={{ input: inputClasses }}
           value={value || ''}
           readOnly={!editingEnabled}

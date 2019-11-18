@@ -185,8 +185,11 @@ describe('EditCell', () => {
         editingEnabled={false}
       />
     ));
+    const input = tree.find(Input);
 
-    expect(tree.find(Input).prop('readOnly'))
+    expect(input.prop('readOnly'))
+      .toBeTruthy();
+    expect(input.hasClass(classes.disabledInput))
       .toBeTruthy();
   });
 });

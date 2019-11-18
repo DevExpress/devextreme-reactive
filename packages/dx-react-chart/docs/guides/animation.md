@@ -9,7 +9,7 @@ Import the [Animation](../reference/animation.md) plugin.
 .embedded-demo({ "path": "animation/simple-animation", "showThemeSelector": true })
 
 
-## Transition Animation
+## Animation on Transitions
 
 In the following example shows animation when data updated:
 

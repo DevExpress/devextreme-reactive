@@ -12,7 +12,7 @@ const styles = theme => ({
   },
   stickyHeader: {
     top: 0,
-    zIndex: 1,
+    zIndex: 2,
     tableLayout: 'fixed',
     position: 'sticky',
     overflow: 'visible',

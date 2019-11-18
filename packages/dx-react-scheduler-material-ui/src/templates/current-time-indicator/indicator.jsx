@@ -18,10 +18,10 @@ const useStyles = makeStyles(theme => ({
   },
   nowIndicator: {
     position: 'absolute',
-    zIndex: 1,
     left: 0,
     top: ({ top }) => top,
     background: theme.palette.secondary.main,
+    zIndex: 1,
   },
 }));
 

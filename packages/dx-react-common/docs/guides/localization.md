@@ -28,10 +28,10 @@ In some cases, components allow you to use custom message IDs. For example, in t
   availableFilterOperations={['month', ...]}
 />
 <TableFilterRow
-  messages={{ month: 'Month equals' }}
+  messages={ { month: 'Month equals' } }
 />
 ```
-The complete code is available in the [Custom Filter Operations](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/filtering/#custom-filter-operations) article.
+The complete code is available in the [Custom Filter Operations](../../../../grid/docs/guides/filtering/#custom-filter-operations) article.
 
 ## Placeholders
 
@@ -46,5 +46,5 @@ They will be replaced with real data when the plugin is rendered.
 
 
 See also:  
-[Grid Localization]()  
-[Scheduler Localization]()
+[Grid localization](../../../../grid/docs/guides/localization/)  
+[Scheduler localization](../../../../scheduler/docs/guides/localization/)

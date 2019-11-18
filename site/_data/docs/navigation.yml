@@ -377,6 +377,8 @@
         path: /react/scheduler/docs/reference/confirmation-dialog
       - title: Resources
         path: /react/scheduler/docs/reference/resources
+      - title: CurrentTimeIndicator
+        path: /react/scheduler/docs/reference/current-time-indicator
   - title: Related Docs
     items:
       - title: React Core

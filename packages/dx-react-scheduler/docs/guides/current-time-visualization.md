@@ -15,7 +15,7 @@ The following plugins implement this feature:
 
 ## Basic Usage
 
-Import the plugin listed above. Use its `updateInterval` property to change the Indicator's update interval. Use its `shadePastCells` and `reduceBrightnessOfPastAppointments` to differentiate between past and future (including present) appointments. Note that `CurrentTimeIndicator` is not displayed be `MonthView` but `shadePastCells` and `reduceBrightnessOfPastAppointments` work with this plugin as well.
+Import the `CurrentTimeIndicator` plugin. Use its `updateInterval` property to change the Indicator's update interval. Its `shadePastCells` and `reduceBrightnessOfPastAppointments` are used to differentiate between past and future (including present) cells and appointments. Note that `CurrentTimeIndicator` is not displayed by `MonthView` but `shadePastCells` and `reduceBrightnessOfPastAppointments` work with this plugin as well.
 
 The following demo shows how to use the current time indicator:
 
@@ -23,8 +23,6 @@ The following demo shows how to use the current time indicator:
 
 ### Customize the Appearance
 
-To customize the indicator's appearance use its `indicatorComponent`. To customize the cell's appearance, use `timetableCellComponent` of the displayed view. To customize appointment's appearance, use `Appointments`'s `appointmentComponent`. You may also customize `DragDropProvider`'s `sourceAppointment` and `draftAppointment`.
-
-The demo below demonstrates how to customize timetable cells, appointments and current time indicator:
+To customize the indicator's appearance, use its `indicatorComponent` prop. You may also customize cells and appointments depending on their date. The demo below demonstrates how to customize timetable cells, appointments and current time indicator:
 
 .embedded-demo({ "path": "scheduler-current-time-visualization/customization", "showThemeSelector": true })

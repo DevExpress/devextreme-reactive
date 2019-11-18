@@ -33,6 +33,7 @@ const styles = ({ spacing }) => ({
   },
 });
 
+// #FOLD_BLOCK
 const ShadeCellsCheckBox = ({ shadePastCells, handleChange }) => (
   <FormControlLabel
     control={(
@@ -46,6 +47,7 @@ const ShadeCellsCheckBox = ({ shadePastCells, handleChange }) => (
   />
 );
 
+// #FOLD_BLOCK
 const ReduceAppointmentBrightnessCheckBox = ({ reduceBrightness, handleChange }) => (
   <FormControlLabel
     control={(
@@ -58,9 +60,10 @@ const ReduceAppointmentBrightnessCheckBox = ({ reduceBrightness, handleChange })
     label="Reduce past appointments brightness"
   />
 );
-
+// #FOLD_BLOCK
 const CheckBoxContainer = withStyles(styles, { name: 'CheckBoxContainer' })(({
   shadePastCells, reduceBrightnessOfPastAppointments, handleCheckboxChange, classes,
+  // #FOLD_BLOCK
 }) => (
   <Grid item container direction="column" className={classes.checkBoxContainer} xs={6}>
     <ShadeCellsCheckBox
@@ -74,8 +77,10 @@ const CheckBoxContainer = withStyles(styles, { name: 'CheckBoxContainer' })(({
   </Grid>
 ));
 
+// #FOLD_BLOCK
 const UpdateIntervalBox = withStyles(styles, { name: 'UpdateIntervalSetter' })(({
   updateInterval, onValueChange, classes,
+  // #FOLD_BLOCK
 }) => (
   <Grid item container xs={6} alignItems="center" justify="flex-end">
     <Typography>

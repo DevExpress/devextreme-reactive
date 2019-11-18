@@ -3,11 +3,11 @@ export namespace CurrentTimeIndicator {
   /** Properties passed to the component that renders the today button. */
   export interface IndicatorProps {
     /** Represents current time. */
-    currentTime: Date;
+    currentTime?: Date;
     /** The start date of the element containing the CurrentTimeIndicator. */
-    startDate: Date;
+    startDate?: Date;
     /** The end date of the element containing the CurrentTimeIndicator. */
-    endDate: Date;
+    endDate?: Date;
   }
 }
 

@@ -19,8 +19,6 @@ describe('AllDayPanel', () => {
         .toBeTruthy();
       expect(tree.is(`.${classes.cell}`))
         .toBeTruthy();
-      expect(tree.is(`.${classes.shadedCell}`))
-        .toBeFalsy();
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((

@@ -66,7 +66,6 @@ Field | Type | Description
 ------|------|------------
 startDate | Date | The cell's start time.
 endDate | Date | The cell's end time.
-isShaded? | boolean | Specifies whether the cell is shaded.
 
 ### AllDayPanel.RowProps
 

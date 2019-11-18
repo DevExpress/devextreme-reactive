@@ -330,11 +330,11 @@ class DragDropProviderBase extends React.PureComponent<
         <Template name="draftAppointment">
           {(params: any) => (
             <TemplateConnector>
-              {({ formatDate, resources, plainResources }) => {
-                return renderAppointmentItems(
+              {({ formatDate, resources, plainResources }) => (
+                renderAppointmentItems(
                   formatDate, Container, DraftAppointment, resources, plainResources, params,
-                );
-              }
+                )
+              )
             }
             </TemplateConnector>
           )}

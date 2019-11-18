@@ -65,34 +65,30 @@ const CurrentTimeIndicatorBase: React.SFC<CurrentTimeIndicatorProps>  & {compone
       <Template
         name="appointmentContent"
       >
-        {(params: Appointments.AppointmentProps) => {
-          return (
-            <TemplatePlaceholder
-              params={{
-                ...params,
-                isBrightnessReduced: isReducedBrightnessAppointment(
-                  params, currentTime, reduceBrightnessOfPastAppointments,
-                ),
-              }}
-            />
-          );
-        }}
+        {(params: Appointments.AppointmentProps) => (
+          <TemplatePlaceholder
+            params={{
+              ...params,
+              isBrightnessReduced: isReducedBrightnessAppointment(
+                params, currentTime, reduceBrightnessOfPastAppointments,
+              ),
+            }}
+          />
+        )}
       </Template>
       <Template
         name="draftAppointment"
       >
-        {(params: Appointments.AppointmentProps) => {
-          return (
-            <TemplatePlaceholder
-              params={{
-                ...params,
-                isBrightnessReduced: isReducedBrightnessAppointment(
-                  params, currentTime, reduceBrightnessOfPastAppointments,
-                ),
-              }}
-            />
-          );
-        }}
+        {(params: Appointments.AppointmentProps) => (
+          <TemplatePlaceholder
+            params={{
+              ...params,
+              isBrightnessReduced: isReducedBrightnessAppointment(
+                params, currentTime, reduceBrightnessOfPastAppointments,
+              ),
+            }}
+          />
+        )}
       </Template>
     </Plugin>
   );

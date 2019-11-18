@@ -69,13 +69,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+// #FOLD_BLOCK
 const getIndicatorTop = (startDate, endDate, currentTime) => {
   if (!startDate || !endDate || !currentTime) return '0';
   return `${((currentTime.getTime() - startDate.getTime()) * 100) / (endDate.getTime() - startDate.getTime())}%`;
 };
 
+// #FOLD_BLOCK
 const TimeIndicator = ({
   startDate, endDate, currentTime, ...restProps
+  // #FOLD_BLOCK
 }) => {
   const classes = useStyles({ top: getIndicatorTop(startDate, endDate, currentTime) });
   return (
@@ -86,8 +89,10 @@ const TimeIndicator = ({
   );
 };
 
+// #FOLD_BLOCK
 const TimeTableCell = ({
   startDate, endDate, currentTime, isShaded, ...restProps
+  // #FOLD_BLOCK
 }) => {
   const classes = useStyles({ shadedHeight: getIndicatorTop(startDate, endDate, currentTime) });
   const isNow = !!currentTime && currentTime.getTime() <= endDate.getTime()
@@ -110,8 +115,10 @@ const TimeTableCell = ({
   );
 };
 
+// #FOLD_BLOCK
 const Appointment = ({
   isBrightnessReduced, ...restProps
+  // #FOLD_BLOCK
 }) => {
   const classes = useStyles();
   return (

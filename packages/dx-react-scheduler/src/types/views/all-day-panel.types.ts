@@ -31,8 +31,6 @@ export namespace AllDayPanel {
     startDate: Date;
     /** The cell’s end time. */
     endDate: Date;
-    /** Specifies whether the cell is shaded. */
-    isShaded?: boolean;
   }
   /** Describes properties passed to a component that renders an All Day panel layout. */
   export interface LayoutProps {

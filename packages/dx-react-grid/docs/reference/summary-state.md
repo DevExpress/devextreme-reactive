@@ -37,14 +37,14 @@ type | [SummaryType](#summarytype) | A summary type.
 
 ### GroupSummaryItem
 
-Describes the group summary item associated with a column.
+Describes a group summary item.
 
 Extends [SummaryItem](#summaryitem)
 
 Field | Type | Description
 ------|------|--
 showInGroupRow? | boolean | Specifies whether a summary should be rendered in a group row instead of a summary row.
-showInGroupCaption? | boolean | Specifies whether a summary should be rendered inside a group row caption instead of a summary row.
+showInGroupCaption? | boolean | Specifies whether the summary item should be displayed in the group caption.
 
 ### SummaryType
 

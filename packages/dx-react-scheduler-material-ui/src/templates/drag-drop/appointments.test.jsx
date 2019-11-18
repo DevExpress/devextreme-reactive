@@ -1,6 +1,13 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { createShallow } from '@material-ui/core/test-utils';
 import { DraftAppointment, SourceAppointment } from './appointments';
+
+jest.mock('@material-ui/core/styles', () => ({
+  ...require.requireActual('@material-ui/core/styles'),
+  makeStyles: jest.fn(() => () => ({
+    appointment: 'appointment',
+  })),
+}));
 
 describe('DragDrop', () => {
   const defaultProps = {
@@ -13,9 +20,7 @@ describe('DragDrop', () => {
   };
   describe('DraftAppointment', () => {
     let shallow;
-    let classes;
     beforeAll(() => {
-      classes = getClasses(<DraftAppointment {...defaultProps} />);
       shallow = createShallow({ dive: true });
     });
     it('should pass rest props to the root element', () => {
@@ -33,7 +38,7 @@ describe('DragDrop', () => {
 
       expect(tree.is('.custom-class'))
         .toBeTruthy();
-      expect(tree.is(`.${classes.appointment}`))
+      expect(tree.is('.appointment'))
         .toBeTruthy();
       expect(tree.is(`.${classes.reducedBrightness}`))
         .toBeFalsy();
@@ -53,9 +58,7 @@ describe('DragDrop', () => {
 
   describe('SourceAppointment', () => {
     let shallow;
-    let classes;
     beforeAll(() => {
-      classes = getClasses(<SourceAppointment {...defaultProps} />);
       shallow = createShallow({ dive: true });
     });
     it('should pass rest props to the root element', () => {
@@ -73,7 +76,7 @@ describe('DragDrop', () => {
 
       expect(tree.is('.custom-class'))
         .toBeTruthy();
-      expect(tree.is(`.${classes.appointment}`))
+      expect(tree.is('.appointment'))
         .toBeTruthy();
     });
     it('should pass "isBrightnessReduced" to the root component', () => {

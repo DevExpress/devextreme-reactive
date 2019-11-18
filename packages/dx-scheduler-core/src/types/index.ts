@@ -12,3 +12,4 @@ export * from './utils.types';
 export * from './week-view.types';
 export * from './drag-drop.types';
 export * from './current-time-indicator.types';
+export * from './resources.types';

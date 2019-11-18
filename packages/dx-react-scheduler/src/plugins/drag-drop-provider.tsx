@@ -20,11 +20,13 @@ import {
   RESIZE_BOTTOM,
   POSITION_START,
   POSITION_END,
+  getAppointmentResources,
 } from '@devexpress/dx-scheduler-core';
 import { DragDropProviderProps, DragDropProviderState } from '../types';
 
 const renderAppointmentItems = (
-  formatDate, Wrapper, Appointment, { draftAppointments: items, data, ...restParams },
+  formatDate, Wrapper, Appointment, resources,
+  plainResources, { draftAppointments: items, data, ...restParams },
 ) => (
   items.length > 0 ? (
     <Wrapper>
@@ -34,6 +36,7 @@ const renderAppointmentItems = (
         <Appointment
           key={index.toString()}
           data={data}
+          resources={getAppointmentResources(data, resources, plainResources)}
           durationType={durationType}
           style={getAppointmentStyle(geometry)}
           type={type}
@@ -327,13 +330,13 @@ class DragDropProviderBase extends React.PureComponent<
         <Template name="draftAppointment">
           {(params: any) => (
             <TemplateConnector>
-              {({ formatDate }) => {
+              {({ formatDate, resources, plainResources }) => {
                 return renderAppointmentItems(
-                  formatDate, Container, DraftAppointment, params,
+                  formatDate, Container, DraftAppointment, resources, plainResources, params,
                 );
               }
             }
-          </TemplateConnector>
+            </TemplateConnector>
           )}
         </Template>
       </Plugin>

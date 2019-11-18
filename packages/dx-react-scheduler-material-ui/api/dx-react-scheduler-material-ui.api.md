@@ -17,7 +17,9 @@ import { DayView as DayView_2 } from '@devexpress/dx-react-scheduler';
 import { DragDropProvider as DragDropProvider_2 } from '@devexpress/dx-react-scheduler';
 import { EditRecurrenceMenu as EditRecurrenceMenu_2 } from '@devexpress/dx-react-scheduler';
 import { MonthView as MonthView_2 } from '@devexpress/dx-react-scheduler';
+import { Palette } from '@devexpress/dx-react-scheduler';
 import * as React from 'react';
+import { Resource } from '@devexpress/dx-react-scheduler';
 import { Scheduler as Scheduler_2 } from '@devexpress/dx-react-scheduler';
 import { TodayButton as TodayButton_2 } from '@devexpress/dx-react-scheduler';
 import { Toolbar as Toolbar_2 } from '@devexpress/dx-react-scheduler';
@@ -137,6 +139,11 @@ export namespace AppointmentForm {
 
 // @public (undocumented)
 export namespace AppointmentForm {
+  export type ResourceEditorProps = AppointmentForm_2.ResourceEditorProps;
+}
+
+// @public (undocumented)
+export namespace AppointmentForm {
   export type TextEditorProps = AppointmentForm_2.TextEditorProps;
 }
 
@@ -178,6 +185,7 @@ export interface AppointmentFormProps {
   radioGroupComponent?: React.ComponentType<AppointmentForm_2.RadioGroupProps>;
   readOnly?: boolean;
   recurrenceLayoutComponent?: React.ComponentType<AppointmentForm_2.RecurrenceLayoutProps>;
+  resourceEditorComponent?: React.ComponentType<AppointmentForm_2.ResourceEditorProps>;
   selectComponent?: React.ComponentType<AppointmentForm_2.SelectProps>;
   textEditorComponent?: React.ComponentType<AppointmentForm_2.TextEditorProps>;
   visible?: boolean;
@@ -573,6 +581,16 @@ export interface MonthViewProps {
   timeTableCellComponent?: React.ComponentType<MonthView_2.TimeTableCellProps>;
   timeTableLayoutComponent?: React.ComponentType<MonthView_2.TimeTableLayoutProps>;
   timeTableRowComponent?: React.ComponentType<MonthView_2.RowProps>;
+}
+
+// @public
+export const Resources: React.ComponentType<ResourcesProps>;
+
+// @public (undocumented)
+export interface ResourcesProps {
+  data?: Array<Resource>;
+  mainResourceName?: string;
+  palette?: Palette;
 }
 
 // @public (undocumented)

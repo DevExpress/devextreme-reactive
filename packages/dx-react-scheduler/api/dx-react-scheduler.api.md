@@ -4,6 +4,7 @@
 
 ```ts
 
+import { Color as Color_2 } from '@material-ui/core';
 import moment from 'moment';
 import * as React from 'react';
 
@@ -82,6 +83,7 @@ export const AppointmentForm: React.ComponentType<AppointmentFormProps>;
 export namespace AppointmentForm {
   export interface BasicLayoutProps {
     appointmentData: AppointmentModel;
+    appointmentResources: Array<ValidResourceInstance>;
     booleanEditorComponent: React.ComponentType<AppointmentForm.BooleanEditorProps>;
     children?: React.ReactNode;
     dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
@@ -92,6 +94,8 @@ export namespace AppointmentForm {
     locale: string | string[];
     onFieldChange: (change: any) => void;
     readOnly?: boolean;
+    resourceEditorComponent: React.ComponentType<AppointmentForm.ResourceEditorProps>;
+    resources: Array<ValidResource>;
     selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
     textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
   }
@@ -212,6 +216,12 @@ export namespace AppointmentForm {
     visible: boolean;
     weeklyRecurrenceSelectorComponent: React.ComponentType<AppointmentForm.WeeklyRecurrenceSelectorProps>;
   }
+  export interface ResourceEditorProps {
+    appointmentResources: Array<ValidResourceInstance>;
+    onResourceChange: (nextValue: string | number | Array<string | number>) => void;
+    readOnly?: boolean;
+    resources: Array<ValidResource>;
+  }
   export interface SelectProps {
     availableOptions?: Array<object>;
     onValueChange: (nextValue: string | number) => void;
@@ -254,6 +264,7 @@ export interface AppointmentFormProps {
   radioGroupComponent: React.ComponentType<AppointmentForm.RadioGroupProps>;
   readOnly?: boolean;
   recurrenceLayoutComponent: React.ComponentType<AppointmentForm.RecurrenceLayoutProps>;
+  resourceEditorComponent: React.ComponentType<AppointmentForm.ResourceEditorProps>;
   selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
   textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
   visible?: boolean;
@@ -308,6 +319,7 @@ export namespace Appointments {
         durationType: 'short' | 'middle' | 'long';
         formatDate: FormatterFn;
         recurringIconComponent: React.ComponentType<object>;
+        resources: Array<ValidResourceInstance>;
         type: 'vertical' | 'horizontal';
     }
     export interface AppointmentProps {
@@ -317,6 +329,7 @@ export namespace Appointments {
         isBrightnessReduced?: boolean;
         onClick?: (e: any) => void;
         onDoubleClick?: (e: any) => void;
+        resources: Array<ValidResourceInstance>;
     }
     export interface ContainerProps {
         style: any;
@@ -365,6 +378,7 @@ export namespace AppointmentTooltip {
   }
   export interface LayoutProps {
     appointmentMeta?: AppointmentMeta;
+    appointmentResources: Array<ValidResourceInstance>;
     commandButtonComponent: React.ComponentType<AppointmentTooltip.CommandButtonProps>;
     commandButtonIds: Array<string>;
     contentComponent: React.ComponentType<AppointmentTooltip.ContentProps>;
@@ -493,6 +507,10 @@ export type ClientOffset = {
   x: number;
   y: number;
 };
+
+// @public
+export interface Color extends Color_2 {
+}
 
 // @public (undocumented)
 export interface CommonViewProps {
@@ -813,11 +831,39 @@ export interface MonthViewProps extends CommonViewProps {
   timeTableLayoutComponent: React.ComponentType<MonthView.TimeTableLayoutProps>;
 }
 
+// @public
+export type Palette = Array<string | Color>;
+
 // @public (undocumented)
 export type PreCommitChangesFn = (changes: Changes | null, appointmentData: Partial<AppointmentModel>, type: RecurrenceEditType) => ChangeSet;
 
 // @public (undocumented)
 export type RecurrenceEditType = 'all' | 'currentAndFollowing' | 'current';
+
+// @public
+export type Resource = {
+    fieldName: string;
+    title?: string;
+    allowMultiple?: boolean;
+    instances: Array<ResourceInstance>;
+};
+
+// @public
+export type ResourceInstance = {
+    id: number | string;
+    color?: string | Color;
+    text?: string;
+};
+
+// @public
+export const Resources: React.ComponentType<ResourcesProps>;
+
+// @public (undocumented)
+export interface ResourcesProps {
+  data: Array<Resource>;
+  mainResourceName?: string;
+  palette: Array<Color | string>;
+}
 
 // @public
 export const Scheduler: React.ComponentType<SchedulerProps>;
@@ -902,6 +948,23 @@ export interface ToolbarProps {
   flexibleSpaceComponent: React.ComponentType<Toolbar.FlexibleSpaceProps>;
   rootComponent: React.ComponentType<Toolbar.RootProps>;
 }
+
+// @public
+export type ValidResource = {
+    fieldName: string;
+    title: string;
+    allowMultiple: boolean;
+    instances: Array<ValidResourceInstance>;
+    isMain: boolean;
+};
+
+// @public
+export type ValidResourceInstance = Required<ResourceInstance> & {
+    title: string;
+    fieldName: string;
+    allowMultiple: boolean;
+    isMain: boolean;
+};
 
 // @public (undocumented)
 export namespace VerticalView {

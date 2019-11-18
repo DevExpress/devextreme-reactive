@@ -49,6 +49,7 @@ describe('AppointmentForm', () => {
     commandButtonComponent: () => null,
     booleanEditorComponent: () => null,
     selectComponent: () => null,
+    resourceEditorComponent: () => null,
     radioGroupComponent: () => null,
     weeklyRecurrenceSelectorComponent: () => null,
     appointmentData: {},
@@ -270,6 +271,7 @@ describe('AppointmentForm', () => {
         dateEditorComponent: defaultProps.dateEditorComponent,
         labelComponent: defaultProps.labelComponent,
         booleanEditorComponent: defaultProps.booleanEditorComponent,
+        resourceEditorComponent: defaultProps.resourceEditorComponent,
         readOnly: false,
         fullSize: true,
       });

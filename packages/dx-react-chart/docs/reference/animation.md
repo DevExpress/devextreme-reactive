@@ -16,5 +16,5 @@ import { Animation } from '@devexpress/dx-react-chart';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-easing? | ( t: number ) => number | | Easing functions for smooth animation.
+easing? | ( t: number ) => number | | An easing function for smooth animation.
 duration? | number | 1000 | Animation's duration.

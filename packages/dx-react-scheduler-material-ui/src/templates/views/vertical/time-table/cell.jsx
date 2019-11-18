@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   shadedCell: {
-    backgroundColor: theme.palette.action.hover,
+    backgroundColor: fade(theme.palette.action.disabledBackground, 0.04),
     '&:hover': {
       backgroundColor: theme.palette.action.selected,
     },
@@ -37,12 +37,15 @@ const useStyles = makeStyles(theme => ({
     },
   },
   shadedPart: {
-    backgroundColor: theme.palette.action.hover,
+    backgroundColor: fade(theme.palette.action.disabledBackground, 0.04),
     position: 'absolute',
     height: ({ shadedHeight }) => shadedHeight,
     width: '100%',
     left: 0,
     top: 0,
+    '&:hover': {
+      backgroundColor: theme.palette.action.hover,
+    },
     'td:focus &': {
       opacity: 0,
     },

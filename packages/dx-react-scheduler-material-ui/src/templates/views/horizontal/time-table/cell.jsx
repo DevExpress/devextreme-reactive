@@ -56,7 +56,7 @@ const styles = theme => ({
     color: theme.palette.text.disabled,
   },
   shadedCell: {
-    backgroundColor: theme.palette.action.hover,
+    backgroundColor: fade(theme.palette.action.disabledBackground, 0.04),
     '&:hover': {
       backgroundColor: theme.palette.action.selected,
     },

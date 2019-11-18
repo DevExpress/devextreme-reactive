@@ -1,11 +1,14 @@
 # React Components - Localization
 
-React Components provide an easy way to localize UI texts such as button captions, menu items and error messages. This article describes a recommended approach to localization.
+This article describes how to localize UI texts in DevExtreme React Components.
 
-## 'Messages' property
+## The "Messages" Property
 
-The mechanism is straightforward: plugins that render such texts accept the `messages` property. A `messages` is a plain object with following shape: `{ messageId: text }`. A `messageId` is a string identifictor specified in a plugin's API Reference page in a "Localization Messages" section. To translate a particular message you should find a plugin that renders the message and provide the plugin with `messages` object containing you translation. The `messages` object then merges with default translation so it's possible to omit some `messageId`s.  
-Below is a sample code to translate the Table plugin.
+Plugins that render UI texts have the `messages` property. It accepts an object that contains messages as key-value pairs in which keys are message IDs and values are the messages. For a list of message IDs that a plugin supports, see the Localization Messages section of the plugin's API Reference.
+
+To translate a message, find the plugin the renders it and specify the plugin's `messages` property with an object that contains your translations. Those message IDs that you omit from the object use default translations.
+
+The following code translates a message from the `Table` plugin.
 
 ```jsx
 const tableMessages = {
@@ -15,9 +18,9 @@ const tableMessages = {
 <Table messages={tableMessages}>
 ```
 
-## Custom messages
+## Custom Message IDs
 
-In some cases you can display text using your own `messageId`. For example, in the React Grid component a custom filter operation name is used as a messageId to retrieve a text for a filter selector drop-down.
+In some cases, components allow you to use custom message IDs. For example, in the React Grid component, custom filter operation names are used as message IDs to retrieve texts for filter selector items:
 
 ```jsx
 <DataTypeProvider
@@ -28,13 +31,20 @@ In some cases you can display text using your own `messageId`. For example, in t
   messages={{ month: 'Month equals' }}
 />
 ```
-Complete code for this example is available at the following [link](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/filtering/#custom-filter-operations).
+The complete code is available in the [Custom Filter Operations](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/filtering/#custom-filter-operations) article.
 
-## Dynamic Data
+## Placeholders
 
-Some string contain text in a curly brackets. They are placeholders that are used to display some dynamic value. For example, the following string 'info' from the PagingPanel plugin "`${from}-${to} of ${count}`" contains 3 placeholders that will be replaced with actual data on rendering.
+Messages can contain texts in curly braces. These are placeholders used to display dynamic values. For example, the `PagingPanel` plugin's `info` message contains three placeholders:
+
+```jsx
+const pagingMessages = {
+  info: '${from}-${to} of ${count}',
+};
+``
+They will be replaced with real data when the plugin is rendered.
 
 
 See also:  
-[Grid localization]()  
-[Scheduler localization]()
+[Grid Localization]()  
+[Scheduler Localization]()

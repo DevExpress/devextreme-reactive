@@ -7,10 +7,9 @@ import {
   BarSeries,
   Title,
   Legend,
-  Tooltip,
 } from '@devexpress/dx-react-chart-material-ui';
 import { withStyles } from '@material-ui/core/styles';
-import { Stack, Animation, EventTracker } from '@devexpress/dx-react-chart';
+import { Stack, Animation } from '@devexpress/dx-react-chart';
 
 import { olimpicMedals as data } from '../../../demo-data/data-vizualization';
 
@@ -35,27 +34,6 @@ const legendLabelBase = ({ classes, ...restProps }) => (
 );
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
 
-const sheetStyles = {
-  paper: {
-    background: 'red',
-  },
-};
-
-const arrowStyles = {
-  arrow: { '&::after': { backgroundColor: 'red' } },
-};
-
-const Arrow = withStyles(arrowStyles)(({ classes, ...restProps }) => (
-  <Tooltip.Arrow className={classes.arrow} {...restProps} />
-));
-
-const SheetBase = ({ classes, ...restProps }) => (
-  <Tooltip.Sheet
-    className={classes.paper}
-    {...restProps}
-  />
-);
-const Sheet = withStyles(sheetStyles)(SheetBase);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -99,8 +77,6 @@ export default class Demo extends React.PureComponent {
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
           <Title text="Olimpic Medals in 2008" />
           <Stack />
-          <EventTracker />
-          <Tooltip sheetComponent={Sheet} arrowComponent={Arrow} />
         </Chart>
       </Paper>
     );

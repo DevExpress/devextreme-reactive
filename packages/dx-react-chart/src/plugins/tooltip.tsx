@@ -5,19 +5,16 @@ import {
   TemplateConnector,
   Template,
   TemplatePlaceholder,
-  withComponents,
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import { getParameters, processHandleTooltip, createReference } from '@devexpress/dx-chart-core';
-import { Target } from '../templates/tooltip/target';
 import { TooltipProps, TooltipState, GetPointerMoveHandlersFn } from '../types';
 
 const dependencies = [{ name: 'EventTracker', optional: true }];
 
-class RawTooltip extends React.PureComponent<TooltipProps, TooltipState> {
+class TooltipBase extends React.PureComponent<TooltipProps, TooltipState> {
   static components: PluginComponents = {
     overlayComponent: 'Overlay',
-    targetComponent: 'Target',
     contentComponent: 'Content',
     arrowComponent: 'Arrow',
     sheetComponent: 'Sheet',
@@ -91,4 +88,4 @@ class RawTooltip extends React.PureComponent<TooltipProps, TooltipState> {
   }
 }
 
-export const Tooltip: React.ComponentType<TooltipProps> = withComponents({ Target })(RawTooltip);
+export const Tooltip: React.ComponentType<TooltipProps> = TooltipBase;

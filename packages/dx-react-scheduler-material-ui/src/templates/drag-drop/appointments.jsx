@@ -3,34 +3,75 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import Repeat from '@material-ui/icons/Repeat';
 import { POSITION_START, POSITION_END } from '@devexpress/dx-scheduler-core';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { AppointmentContent } from '../appointment/appointment-content';
 import { Appointment } from '../appointment/appointment';
 import { SplitIndicator } from '../appointment/split-indicator';
-import { setColor } from '../utils';
+import { getAppointmentColor, getResourceColor } from '../utils';
 
-const draftStyles = theme => ({
+const draftStyles = makeStyles(theme => ({
   appointment: {
     boxShadow: theme.shadows[3],
     cursor: 'move',
     overflow: 'hidden',
-    backgroundColor: setColor(600, theme.palette.primary),
+    backgroundColor: resources => getAppointmentColor(
+      600, getResourceColor(resources), theme.palette.primary,
+    ),
     border: 0,
   },
-});
+}));
 
-const sourceStyles = {
+const sourceStyles = makeStyles({
   appointment: {
     opacity: 0.5,
   },
+});
+
+export const DraftAppointment = ({ className, resources, ...restProps }) => {
+  const classes = draftStyles(resources);
+  return (
+    <AppointmentBase
+      className={classNames(classes.appointment, className)}
+      resources={resources}
+      {...restProps}
+    />
+  );
 };
 
-const DraftAppointmentBase = ({
-  classes, className, data, formatDate,
+DraftAppointment.propTypes = {
+  resources: PropTypes.array,
+  className: PropTypes.string,
+};
+
+DraftAppointment.defaultProps = {
+  className: undefined,
+  resources: [],
+};
+
+export const SourceAppointment = ({ className, ...restProps }) => {
+  const classes = sourceStyles();
+  return (
+    <AppointmentBase
+      className={classNames(classes.appointment, className)}
+      {...restProps}
+    />
+  );
+};
+
+SourceAppointment.propTypes = {
+  className: PropTypes.string,
+};
+
+SourceAppointment.defaultProps = {
+  className: undefined,
+};
+
+const AppointmentBase = ({
+  className, data, formatDate,
   type, fromPrev, toNext, durationType, ...restProps
 }) => (
   <Appointment
-    className={classNames(classes.appointment, className)}
+    className={className}
     type={type}
     {...restProps}
   >
@@ -46,8 +87,7 @@ const DraftAppointmentBase = ({
   </Appointment>
 );
 
-DraftAppointmentBase.propTypes = {
-  classes: PropTypes.object.isRequired,
+AppointmentBase.propTypes = {
   data: PropTypes.object.isRequired,
   fromPrev: PropTypes.bool.isRequired,
   toNext: PropTypes.bool.isRequired,
@@ -57,11 +97,8 @@ DraftAppointmentBase.propTypes = {
   type: PropTypes.string,
 };
 
-DraftAppointmentBase.defaultProps = {
+AppointmentBase.defaultProps = {
   durationType: undefined,
   className: undefined,
   type: undefined,
 };
-
-export const DraftAppointment = withStyles(draftStyles, { name: 'DraftAppointment' })(DraftAppointmentBase);
-export const SourceAppointment = withStyles(sourceStyles, { name: 'SourceAppointment' })(DraftAppointmentBase);

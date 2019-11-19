@@ -14,7 +14,7 @@ import { LayoutManagerProps, LayoutManagerState, BBoxesChange } from '../types';
 
 const doGetRanges = ({ layouts, rotated }: Getters) => getRanges(layouts.pane, rotated);
 
-export class LayoutManager extends React.Component<LayoutManagerProps, LayoutManagerState> {
+export class LayoutManager extends React.PureComponent<LayoutManagerProps, LayoutManagerState> {
   static defaultProps: Partial<LayoutManagerProps> = {
     width: 0,
   };
@@ -22,9 +22,8 @@ export class LayoutManager extends React.Component<LayoutManagerProps, LayoutMan
 
   constructor(props: LayoutManagerProps) {
     super(props);
-    const { width, height } = this.props;
 
-    this.state = { bBoxes: { pane: { width: width!, height } } };
+    this.state = { bBoxes: { pane: { width: 0, height: 0 } } };
 
     const stateHelper = createStateHelper(this);
     this.changeBBox = stateHelper.applyFieldReducer.bind(

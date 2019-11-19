@@ -1,0 +1,69 @@
+import * as React from 'react';<%&additionalImports%>
+import {
+  Chart,
+  LineSeries,
+  ArgumentAxis,
+  ValueAxis,
+} from '@devexpress/dx-react-chart-<%&themeName%>';
+import { Animation } from '@devexpress/dx-react-chart';
+
+const data = [
+  { x: -20, y: -20 },
+  { x: -15, y: 15 },
+  { x: -10, y: -10 },
+  { x: -5, y: 5 },
+  { x: 0, y: 0 },
+  { x: 5, y: -5 },
+  { x: 10, y: 10 },
+  { x: 15, y: -15 },
+  { x: 20, y: 20 },
+];
+
+const updatedData = [
+  { x: -20, y: 20 },
+  { x: -15, y: -15 },
+  { x: -10, y: 10 },
+  { x: -5, y: -5 },
+  { x: 0, y: 0 },
+  { x: 5, y: 5 },
+  { x: 10, y: -10 },
+  { x: 15, y: 15 },
+  { x: 20, y: -20 },
+];
+
+export default class Demo extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data,
+    };
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ data: updatedData });
+    }, 3000);
+  }
+
+  render() {
+    const { data: chartData } = this.state;
+
+    return (
+      <<%&wrapperTag%><%&wrapperAttributes%>>
+        <Chart
+          data={chartData}
+        >
+          <ArgumentAxis />
+          <ValueAxis />
+
+          <LineSeries
+            valueField="y"
+            argumentField="x"
+          />
+          <Animation />
+        </Chart>
+      </<%&wrapperTag%>>
+    );
+  }
+}

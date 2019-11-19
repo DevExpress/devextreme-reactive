@@ -19,7 +19,10 @@ import {
   getPiePointTransformer,
   scaleSeriesPoints,
   getVisibility,
+  isValuesChanged,
+  isCoordinatesChanged,
   adjustBarSize,
+  isScalesChanged,
 } from './computeds';
 
 jest.mock('d3-scale', () => ({
@@ -405,9 +408,7 @@ describe('dPie', () => {
   afterEach(jest.clearAllMocks);
 
   it('should return pie coordinates', () => {
-    const result = dPie({
-      maxRadius: 10, innerRadius: 4, outerRadius: 8, startAngle: 90, endAngle: 180,
-    } as any);
+    const result = dPie(10, 4, 8, 90, 180);
 
     expect(mockArc).toBeCalledWith({
       innerRadius: 40,
@@ -635,5 +636,54 @@ describe('#adjustBarSize', () => {
     .toEqual({ x: 0, y: 0, width: 8, height: 17 });
     expect(adjustBarSize({ x: 2, y: 3, width: 30, height: 40 }, { width: 30, height: 40 }))
     .toEqual({ x: 2, y: 3, width: 28, height: 37 });
+  });
+});
+
+describe('Values changed', () => {
+  it('#isValuesChanged', () => {
+    expect(isValuesChanged({ arg: 1, val: 2 }, { arg: 3, val: 4 })).toBeTruthy();
+    expect(isValuesChanged({ arg: 1, val: 2 }, { arg:1, val: 2 })).toBeFalsy();
+  });
+
+  it('#isCoordinatesChanged', () => {
+    expect(isCoordinatesChanged(
+      { coordinates: [{ arg: 1, val: 2 }] } as any,
+      { coordinates: [{ arg: 2, val: 2 }] } as any))
+    .toBeTruthy();
+    expect(isCoordinatesChanged(
+      { coordinates: [{ arg: 1, val: 2 }] } as any,
+      { coordinates:[{ arg: 1, val: 2 }] } as any))
+    .toBeFalsy();
+    expect(isCoordinatesChanged(
+      { coordinates:[{ arg: 1, val: 2 }, { arg: 2, val: 3 }] } as any,
+      { coordinates:[{ arg: 2, val: 2 }] } as any),
+      ).toBeTruthy();
+  });
+
+  it('#isScalesChanged', () => {
+    const mockRange = (value1, value2) => () => [value1, value2];
+    expect(isScalesChanged({
+      argScale: { range: mockRange(2, 3) } as any,
+      valScale: { range: mockRange(5, 6) } as any,
+    }, {
+      argScale: { range: mockRange(2, 3) } as any,
+      valScale: { range: mockRange(5, 6) } as any,
+    })).toBeFalsy();
+
+    expect(isScalesChanged({
+      argScale: { range: mockRange(2, 3) } as any,
+      valScale: { range: mockRange(5, 6) } as any,
+    }, {
+      argScale: { range: mockRange(2, 7) } as any,
+      valScale: { range: mockRange(5, 6) } as any,
+    })).toBeTruthy();
+
+    expect(isScalesChanged({
+      argScale: { range: mockRange(2, 3) } as any,
+      valScale: { range: mockRange(3, 6) } as any,
+    }, {
+      argScale: { range: mockRange(2, 3) } as any,
+      valScale: { range: mockRange(5, 6) } as any,
+    })).toBeTruthy();
   });
 });

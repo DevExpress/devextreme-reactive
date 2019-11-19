@@ -1,10 +1,8 @@
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  Colors, SeriesList, DataItems, ScalesCache,
+  Colors, SeriesList, DataItems, ScalesCache, ScaleObject,
 } from './chart-core.types';
-import {
-  Scales, GetSeriesAnimatedStyleFn,
-} from './plugins.animation.types';
+import { AnimationFn } from './plugins.animation.types';
 import { Size } from '@devexpress/dx-react-core';
 
 /** @internal */
@@ -12,8 +10,14 @@ export type AddSeriesFn = PureComputed<[SeriesList, DataItems, Colors, any, any]
 /** @internal */
 export type ScaleSeriesPointsFn = PureComputed<[SeriesList, ScalesCache, boolean]>;
 
-type PathPoints = ReadonlyArray<PointComponentProps>;
+export type PathPoints = ReadonlyArray<PointComponentProps>;
 export type GetPointFieldFn = (point: PointComponentProps) => number;
+
+/** @internal */
+export type Scales = {
+  readonly argScale: ScaleObject;
+  readonly valScale: ScaleObject;
+};
 
 export interface PathFn {
   (points: PathPoints): string;
@@ -50,15 +54,17 @@ interface CommonComponentProps {
   /** @internal */
   rotated: boolean;
   /** @internal */
-  style?: any;
+  style?: React.CSSProperties;
   /** @internal */
   scales: Scales;
-  /** @internal */
-  getAnimatedStyle: GetSeriesAnimatedStyleFn;
   /** @internal */
   pane: Size;
   /** @internal */
   clipPathId: string;
+  /** @internal */
+  animation: AnimationFn;
+  /** @internal */
+  readyToRenderSeries: boolean;
 }
 
 export interface PathComponentProps extends CommonComponentProps {
@@ -84,7 +90,7 @@ export interface PointComponentProps extends CommonComponentProps {
   /** coordinate on value axis */
   val: number;
   /** start coordinate on value axis  */
-  startVal?: number;
+  startVal: number;
 }
 
 export interface SeriesProps {
@@ -216,6 +222,7 @@ export namespace ScatterSeries {
   /** Describes properties passed to a component that renders the series */
   // tslint:disable-next-line: no-shadowed-variable no-empty-interface
   export interface SeriesProps extends PathComponentProps { }
+
 }
 
 export interface ScatterSeriesProps extends SeriesProps {

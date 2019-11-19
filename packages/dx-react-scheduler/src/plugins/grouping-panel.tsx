@@ -8,6 +8,8 @@ import {
 } from '@devexpress/dx-react-core';
 import { getGroupingItemsFromResources } from '@devexpress/dx-scheduler-core';
 
+const GroupingPanelPlaceholder = () => <TemplatePlaceholder name="groupingPanel" />;
+
 const pluginDependencies = [
   { name: 'Resources' },
 ];
@@ -18,6 +20,7 @@ class GroupingPanelBase extends React.PureComponent {
     rowComponent: 'Row',
     cellComponent: 'Cell',
     iconComponent: 'Icon',
+    containerComponent: 'Container',
   };
 
   static defaultProps = {
@@ -26,8 +29,8 @@ class GroupingPanelBase extends React.PureComponent {
 
   render() {
     const {
-      containerComponent,
-      layoutComponent,
+      containerComponent: Container,
+      layoutComponent: Layout,
       rowComponent,
       cellComponent,
       iconComponent,
@@ -39,12 +42,31 @@ class GroupingPanelBase extends React.PureComponent {
         dependencies={pluginDependencies}
       >
         <Template name="dayScale">
+          <TemplateConnector>
+            {() => {
+              return (
+                <Container>
+                  <GroupingPanelPlaceholder />
+                </Container>
+              );
+            }}
+          </TemplateConnector>
           <TemplatePlaceholder />
+        </Template>
+
+        <Template name="groupingPanel">
           <TemplateConnector>
             {({ resources, grouping }) => {
               const groupingItems = getGroupingItemsFromResources(resources, grouping);
               console.log(groupingItems)
-              return null;
+
+              return (
+                <Layout
+                  rowComponent={rowComponent}
+                  cellComponent={cellComponent}
+                  groups={groupingItems}
+                />
+              );
             }}
           </TemplateConnector>
         </Template>

@@ -3,7 +3,8 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = {};
+const styles = {
+};
 
 const LayoutBase = ({
   rowComponent: Row,
@@ -20,11 +21,15 @@ const LayoutBase = ({
     {groups.map((group) => {
       return (
         <Row>
-          {group.map(groupItem => {
-            return <Cell></Cell>
+          {group.map((groupingItem) => {
+            return (
+              <Cell
+                groupingItem={groupingItem}
+              />
+            );
           })}
         </Row>
-      )
+      );
     })}
   </div>
 );

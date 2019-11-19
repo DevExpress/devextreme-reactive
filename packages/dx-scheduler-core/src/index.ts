@@ -49,7 +49,9 @@ export * from './plugins/resources/computeds';
 /** @internal */
 export * from './plugins/resources/helpers';
 /** @internal */
-export * from './plugins/grouping/reducers';
+export * from './plugins/grouping-state/reducers';
+/** @internal */
+export * from './plugins/grouping-panel/helpers';
 /** @internal */
 export * from './constants';
 /** @internal */

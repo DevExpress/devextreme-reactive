@@ -15,7 +15,5 @@ export const toggleExpandedGroups: PureReducer<ResourceGroupingState, ToggleGrou
     expandedGroups.push(groupKey);
   }
 
-  return {
-    expandedGroups,
-  };
+  return { expandedGroups };
 };

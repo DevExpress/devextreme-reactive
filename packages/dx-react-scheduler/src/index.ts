@@ -18,3 +18,4 @@ export * from './plugins/integrated-editing';
 export * from './plugins/resources';
 export * from './plugins/confirmation-dialog';
 export * from './plugins/grouping-state';
+export * from './plugins/grouping-panel';

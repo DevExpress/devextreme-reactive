@@ -59,7 +59,7 @@ SortLabel.propTypes = {
   disabled: PropTypes.bool,
   className: PropTypes.string,
   getMessage: PropTypes.func,
-  sortIconComponent: PropTypes.func,
+  sortIconComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 };
 
 SortLabel.defaultProps = {

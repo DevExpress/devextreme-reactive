@@ -26,7 +26,8 @@ const onClick = (e, onSort) => {
 };
 
 export const SortLabel = ({
-  align, direction, disabled, children, onSort, getMessage, className, column, sortIconComponent: SortingIndicator, ...restProps
+  align, direction, disabled, children, onSort, getMessage, className, column,
+  sortIconComponent: SortingIndicatorComponent, ...restProps
 }) => (
   <span
     className={classNames({
@@ -42,7 +43,7 @@ export const SortLabel = ({
     {...restProps}
   >
     {children}
-    <SortingIndicator
+    <SortingIndicatorComponent
       direction={direction}
       className={direction ? '' : 'dx-g-bs4-sort-indicator-invisible'}
     />

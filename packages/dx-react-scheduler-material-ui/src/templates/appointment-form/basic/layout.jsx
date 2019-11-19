@@ -63,9 +63,6 @@ const styles = ({ spacing, typography }) => ({
     textAlign: 'center',
     paddingTop: spacing(2),
   },
-  allDayEditor: {
-    marginRight: spacing(5),
-  },
   booleanEditors: {
     marginTop: spacing(0.875),
   },
@@ -102,11 +99,14 @@ const LayoutBase = ({
   onFieldChange,
   appointmentData,
   fullSize,
+  resources,
+  appointmentResources,
   textEditorComponent: TextEditor,
   dateEditorComponent: DateEditor,
   selectComponent: Select,
   labelComponent: Label,
   booleanEditorComponent: BooleanEditor,
+  resourceEditorComponent: ResourceEditor,
   ...restProps
 }) => {
   const changeTitle = React.useCallback(title => onFieldChange({ title }), [onFieldChange]);
@@ -116,6 +116,7 @@ const LayoutBase = ({
   );
   const changeEndDate = React.useCallback(endDate => onFieldChange({ endDate }), [onFieldChange]);
   const changeAllDay = React.useCallback(allDay => onFieldChange({ allDay }), [onFieldChange]);
+  const changeResources = React.useCallback(resource => onFieldChange(resource), [onFieldChange]);
 
   const { rRule, startDate } = appointmentData;
   const changeFrequency = React.useCallback(value => handleChangeFrequency(
@@ -198,6 +199,22 @@ const LayoutBase = ({
         onValueChange={changeNotes}
         className={classes.notesEditor}
       />
+      {resources.map(resource => (
+        <React.Fragment key={resource.fieldName}>
+          <Label
+            text={resource.title}
+            type={TITLE}
+            className={classes.labelWithMargins}
+          />
+          <ResourceEditor
+            readOnly={readOnly}
+            resource={resource}
+            appointmentResources={appointmentResources}
+            onResourceChange={changeResources}
+          />
+        </React.Fragment>
+      ))}
+
       {children}
     </div>
   );
@@ -209,6 +226,7 @@ LayoutBase.propTypes = {
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   booleanEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  resourceEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   locale: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]).isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
@@ -224,12 +242,16 @@ LayoutBase.propTypes = {
     additionalInformation: PropTypes.string,
     allDay: PropTypes.bool,
   }).isRequired,
+  resources: PropTypes.array,
+  appointmentResources: PropTypes.array,
   readOnly: PropTypes.bool,
   fullSize: PropTypes.bool.isRequired,
 };
 
 LayoutBase.defaultProps = {
   onFieldChange: () => undefined,
+  resources: [],
+  appointmentResources: [],
   className: undefined,
   readOnly: false,
   children: null,

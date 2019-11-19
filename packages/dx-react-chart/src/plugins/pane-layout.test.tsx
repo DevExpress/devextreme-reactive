@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { PaneLayout } from './pane-layout';
 import { ClipPath } from '../templates/clip-path';
@@ -16,6 +16,11 @@ describe('PaneLayout', () => {
     },
     getter: {
       layouts: { pane: { width: 400, height: 300 } },
+      readyToRenderSeries: true,
+    },
+    template: {
+      canvas: {},
+      series: {},
     },
   };
 
@@ -24,7 +29,6 @@ describe('PaneLayout', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <PaneLayout />
-        <TemplatePlaceholder name="canvas" />
       </PluginHost>
     ));
 
@@ -54,7 +58,6 @@ describe('PaneLayout', () => {
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <PaneLayout />
-        <TemplatePlaceholder name="canvas" />
       </PluginHost>
     ));
 
@@ -63,5 +66,16 @@ describe('PaneLayout', () => {
       onSizeChange: expect.any(Function),
       children: expect.anything(),
     });
+  });
+
+  it('should render series TemplatePlaceholder', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <PaneLayout />
+      </PluginHost>
+    ));
+
+    expect(tree.find('svg').props().children[1].props).toEqual({ name: 'series' });
   });
 });

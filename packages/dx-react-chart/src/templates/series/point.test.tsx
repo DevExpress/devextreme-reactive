@@ -1,19 +1,26 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { dSymbol } from '@devexpress/dx-chart-core';
+import { dSymbol, getPointStart, processPointAnimation, isValuesChanged } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
+import { withAnimation } from '../../utils/with-animation';
 import { Point } from './point';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   dSymbol: jest.fn().mockReturnValue('test-d-attribute'),
-  getScatterAnimationStyle: 'test-animation-style',
   HOVERED: 'test_hovered',
   SELECTED: 'test_selected',
   getVisibility: jest.fn().mockReturnValue('visible'),
+  isValuesChanged: jest.fn(),
+  getPointStart: jest.fn(),
+  processPointAnimation: jest.fn(),
 }));
 
 jest.mock('../../utils/with-states', () => ({
   withStates: jest.fn().mockReturnValue(x => x),
+}));
+
+jest.mock('../../utils/with-animation', () => ({
+  withAnimation: jest.fn().mockReturnValue(x => x),
 }));
 
 describe('Point', () => {
@@ -28,12 +35,10 @@ describe('Point', () => {
     color: 'color',
     style: { tag: 'test-style' },
     scales: { tag: 'test-scales' },
-    getAnimatedStyle: jest.fn().mockReturnValue('animated-style'),
   };
 
   afterEach(() => {
     (dSymbol as jest.Mock).mockClear();
-    defaultProps.getAnimatedStyle.mockClear();
   });
 
   it('should render point', () => {
@@ -45,7 +50,7 @@ describe('Point', () => {
       transform: 'translate(1 2)',
       d: 'test-d-attribute',
       fill: 'color',
-      style: 'animated-style',
+      style: { tag: 'test-style' },
       stroke: 'none',
       visibility: 'visible',
     });
@@ -61,7 +66,7 @@ describe('Point', () => {
       transform: 'translate(2 1)',
       d: 'test-d-attribute',
       fill: 'color',
-      style: 'animated-style',
+      style: { tag: 'test-style' },
       stroke: 'none',
       visibility: 'visible',
     });
@@ -75,15 +80,6 @@ describe('Point', () => {
     const { custom } = tree.find('path').props() as any;
 
     expect(custom).toEqual(10);
-  });
-
-  it('should apply animation style', () => {
-    shallow((
-      <Point {...(defaultProps as any)} />
-    ));
-
-    expect(defaultProps.getAnimatedStyle)
-      .toBeCalledWith(defaultProps.style, 'test-animation-style', defaultProps.scales);
   });
 
   it('should have hovered and selected states', () => {
@@ -100,6 +96,28 @@ describe('Point', () => {
       a: 1, b: 2, color: 'blue', point: { size: 9 },
     })).toEqual({
       a: 1, b: 2, strokeWidth: 4, fill: 'none', stroke: 'blue', point: { size: 15 },
+    });
+  });
+
+  it('should animate', () => {
+    expect(withAnimation)
+    .toBeCalledWith(processPointAnimation, expect.any(Function), getPointStart, isValuesChanged);
+  });
+
+  it('should update props', () => {
+    const tree = shallow((
+      <Point {...defaultProps} />
+    ));
+
+    tree.setProps({ ...defaultProps, arg: 3, val: 4 });
+
+    expect(tree.find('path').props()).toEqual({
+      transform: 'translate(3 4)',
+      d: 'test-d-attribute',
+      fill: 'color',
+      style: { tag: 'test-style' },
+      stroke: 'none',
+      visibility: 'visible',
     });
   });
 });

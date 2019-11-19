@@ -40,29 +40,29 @@ export class PaneLayout extends React.PureComponent {
         <Getter name="rootRef" value={this.ref} />
         <Getter name="clipPathId" value={this.clipPathId} />
         <Template name="canvas">
-          {params => (
-            <TemplateConnector>
-              {({ layouts }, { changeBBox }) => {
-                const { width, height } = layouts.pane;
-                return (
-                  <UpdatableSizer
-                    containerComponent={SizerContainer}
-                    onSizeChange={size => changeBBox({ placeholder: 'pane', bBox: size })}
+        {params => (
+          <TemplateConnector>
+            {({ layouts }, { changeBBox }) => {
+              const { width, height } = layouts.pane;
+              return (
+                <UpdatableSizer
+                  containerComponent={SizerContainer}
+                  onSizeChange={size => changeBBox({ placeholder: 'pane', bBox: size })}
+                >
+                  <svg
+                    ref={this.ref}
+                    {...params}
+                    width={width}
+                    height={height}
+                    style={SVG_STYLE}
                   >
-                    <svg
-                      ref={this.ref}
-                      {...params}
-                      width={width}
-                      height={height}
-                      style={SVG_STYLE}
-                    >
-                      <ClipPath id={this.clipPathId} width={width} height={height} />
-                      <TemplatePlaceholder name="series" />
-                    </svg>
-                  </UpdatableSizer>
-                );
-              }}
-            </TemplateConnector>
+                    <ClipPath id={this.clipPathId} width={width} height={height} />
+                    <TemplatePlaceholder name="series" />
+                  </svg>
+                </UpdatableSizer>
+              );
+            }}
+          </TemplateConnector>
           )}
         </Template>
       </Plugin>

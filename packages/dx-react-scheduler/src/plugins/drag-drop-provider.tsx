@@ -24,26 +24,14 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { DragDropProviderProps, DragDropProviderState } from '../types';
 
-const renderAppointmentItems = (
-  formatDate, Wrapper, Appointment, resources,
-  plainResources, { draftAppointments: items, data, ...restParams },
-) => (
+const renderAppointmentItems = (items, Wrapper, draftData) => (
   items.length > 0 ? (
     <Wrapper>
-      {items.map(({
-        dataItem, type, fromPrev, toNext, durationType, ...geometry
-      }, index) => (
-        <Appointment
+      {items.map((draftAppointment, index) => (
+        <TemplatePlaceholder
+          name="draftAppointment"
           key={index.toString()}
-          data={data}
-          resources={getAppointmentResources(data, resources, plainResources)}
-          durationType={durationType}
-          style={getAppointmentStyle(geometry)}
-          type={type}
-          fromPrev={fromPrev}
-          toNext={toNext}
-          formatDate={formatDate}
-          {...restParams}
+          params={{ data: draftData, draftAppointment }}
         />
       ))}
     </Wrapper>
@@ -313,29 +301,35 @@ class DragDropProviderBase extends React.PureComponent<
 
         <Template name="allDayPanel">
           <TemplatePlaceholder />
-          <TemplatePlaceholder
-            name="draftAppointment"
-            params={{ data: draftData, draftAppointments: this.allDayDraftAppointments }}
-          />
+          {renderAppointmentItems(this.allDayDraftAppointments, Container, draftData)}
         </Template>
 
         <Template name="timeTable">
           <TemplatePlaceholder />
-          <TemplatePlaceholder
-            name="draftAppointment"
-            params={{ data: draftData, draftAppointments: this.timeTableDraftAppointments }}
-          />
+          {renderAppointmentItems(this.timeTableDraftAppointments, Container, draftData)}
         </Template>
 
         <Template name="draftAppointment">
-          {(params: any) => (
+          {({ data, draftAppointment, ...restParams }: any) => (
             <TemplateConnector>
-              {({ formatDate, resources, plainResources }) => (
-                renderAppointmentItems(
-                  formatDate, Container, DraftAppointment, resources, plainResources, params,
-                )
-              )
-            }
+              {({ formatDate, resources, plainResources }) => {
+                const {
+                  dataItem, type, fromPrev, toNext, durationType, ...geometry
+                } = draftAppointment;
+                return (
+                  <DraftAppointment
+                    data={data}
+                    resources={getAppointmentResources(data, resources, plainResources)}
+                    durationType={durationType}
+                    style={getAppointmentStyle(geometry)}
+                    type={type}
+                    fromPrev={fromPrev}
+                    toNext={toNext}
+                    formatDate={formatDate}
+                    {...restParams}
+                  />
+                );
+              }}
             </TemplateConnector>
           )}
         </Template>

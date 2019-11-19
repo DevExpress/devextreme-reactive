@@ -54,7 +54,7 @@ export const Appointment = ({
   data,
   onClick: handleClick,
   draggable,
-  isShadedAppointment,
+  isShaded,
   resources,
   ...restProps
 }) => {
@@ -72,7 +72,7 @@ export const Appointment = ({
       className={classNames({
         [classes.appointment]: true,
         [classes.clickableAppointment]: clickable,
-        [classes.shadedAppointment]: isShadedAppointment,
+        [classes.shadedAppointment]: isShaded,
       }, className)}
       {...onClick}
       {...restProps}
@@ -89,7 +89,7 @@ Appointment.propTypes = {
   data: PropTypes.object,
   onClick: PropTypes.func,
   draggable: PropTypes.bool,
-  isShadedAppointment: PropTypes.bool,
+  isShaded: PropTypes.bool,
 };
 
 Appointment.defaultProps = {
@@ -98,5 +98,5 @@ Appointment.defaultProps = {
   className: undefined,
   data: {},
   draggable: false,
-  isShadedAppointment: false,
+  isShaded: false,
 };

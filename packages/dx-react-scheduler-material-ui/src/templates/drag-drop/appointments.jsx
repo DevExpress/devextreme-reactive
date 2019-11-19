@@ -33,14 +33,14 @@ const sourceStyles = makeStyles({
 });
 
 export const DraftAppointment = ({
-  className, resources, isShadedAppointment, ...restProps
+  className, resources, isShaded, ...restProps
 }) => {
   const classes = draftStyles(resources);
   return (
     <AppointmentBase
       className={classNames({
         [classes.appointment]: true,
-        [classes.shadedAppointment]: isShadedAppointment,
+        [classes.shadedAppointment]: isShaded,
       }, className)}
       resources={resources}
       {...restProps}
@@ -51,13 +51,13 @@ export const DraftAppointment = ({
 DraftAppointment.propTypes = {
   resources: PropTypes.array,
   className: PropTypes.string,
-  isShadedAppointment: PropTypes.bool,
+  isShaded: PropTypes.bool,
 };
 
 DraftAppointment.defaultProps = {
   className: undefined,
   resources: [],
-  isShadedAppointment: false,
+  isShaded: false,
 };
 
 export const SourceAppointment = ({ className, ...restProps }) => {
@@ -80,12 +80,12 @@ SourceAppointment.defaultProps = {
 
 const AppointmentBase = ({
   className, data, formatDate, type, fromPrev,
-  toNext, durationType, isShadedAppointment, ...restProps
+  toNext, durationType, isShaded, ...restProps
 }) => (
   <Appointment
     className={className}
     type={type}
-    isShadedAppointment={isShadedAppointment}
+    isShaded={isShaded}
     {...restProps}
   >
     {fromPrev && <SplitIndicator position={POSITION_START} appointmentType={type} />}
@@ -108,12 +108,12 @@ AppointmentBase.propTypes = {
   durationType: PropTypes.string,
   className: PropTypes.string,
   type: PropTypes.string,
-  isShadedAppointment: PropTypes.bool,
+  isShaded: PropTypes.bool,
 };
 
 AppointmentBase.defaultProps = {
   durationType: undefined,
   className: undefined,
   type: undefined,
-  isShadedAppointment: false,
+  isShaded: false,
 };

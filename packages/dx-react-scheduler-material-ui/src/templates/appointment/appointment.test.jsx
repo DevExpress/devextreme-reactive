@@ -120,11 +120,11 @@ describe('Appointment', () => {
         .toBeTruthy();
     });
 
-    it('should be shaded if "isShadedAppointment" is true', () => {
+    it('should be shaded if "isShaded" is true', () => {
       const tree = shallow((
         <Appointment
           {...defaultProps}
-          isShadedAppointment
+          isShaded
         >
           <div />
         </Appointment>

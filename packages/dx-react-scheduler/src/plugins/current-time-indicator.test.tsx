@@ -96,7 +96,7 @@ describe('TodayButton', () => {
         .filterWhere(node => node.props().name === 'appointmentContent')
         .first();
 
-      expect(appointmentContentTemplate.props().children().props.params.isShadedAppointment)
+      expect(appointmentContentTemplate.props().children().props.params.isShaded)
         .toBe(false);
 
       expect(isShadedAppointment)
@@ -119,7 +119,7 @@ describe('TodayButton', () => {
         .filterWhere(node => node.props().name === 'draftAppointment')
         .first();
 
-      expect(draftAppointmentTemplate.props().children().props.params.isShadedAppointment)
+      expect(draftAppointmentTemplate.props().children().props.params.isShaded)
         .toBe(false);
 
       expect(isShadedAppointment)

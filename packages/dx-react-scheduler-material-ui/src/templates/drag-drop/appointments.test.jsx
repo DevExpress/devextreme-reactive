@@ -44,11 +44,11 @@ describe('DragDrop', () => {
       expect(tree.is('.shadedAppointment'))
         .toBeFalsy();
     });
-    it('should be shaded if "isShadedAppointment" is true', () => {
+    it('should be shaded if "isShaded" is true', () => {
       const tree = shallow((
         <DraftAppointment
           {...defaultProps}
-          isShadedAppointment
+          isShaded
         />
       ));
 
@@ -80,12 +80,12 @@ describe('DragDrop', () => {
       expect(tree.is('.appointment'))
         .toBeTruthy();
     });
-    it('should pass "isShadedAppointment" to the root component', () => {
+    it('should pass "isShaded" to the root component', () => {
       const tree = shallow((
-        <SourceAppointment {...defaultProps} isShadedAppointment />
+        <SourceAppointment {...defaultProps} isShaded />
       ));
 
-      expect(tree.prop('isShadedAppointment'))
+      expect(tree.prop('isShaded'))
         .toBeTruthy();
     });
   });

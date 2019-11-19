@@ -72,7 +72,7 @@ const CurrentTimeIndicatorBase: React.SFC<CurrentTimeIndicatorProps>  & {compone
           <TemplatePlaceholder
             params={{
               ...params,
-              isShadedAppointment: isShadedAppointment(
+              isShaded: isShadedAppointment(
                 params, currentTime, shadePastAppointments,
               ),
             }}
@@ -86,7 +86,7 @@ const CurrentTimeIndicatorBase: React.SFC<CurrentTimeIndicatorProps>  & {compone
           <TemplatePlaceholder
             params={{
               ...params,
-              isShadedAppointment: isShadedAppointment(
+              isShaded: isShadedAppointment(
                 params, currentTime, shadePastAppointments,
               ),
             }}

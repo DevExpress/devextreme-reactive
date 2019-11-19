@@ -107,7 +107,7 @@ const TimeTableCell = ({
 
 // #FOLD_BLOCK
 const Appointment = ({
-  isShadedAppointment, ...restProps
+  isShaded, ...restProps
   // #FOLD_BLOCK
 }) => {
   const classes = useStyles();
@@ -115,7 +115,7 @@ const Appointment = ({
     <Appointments.Appointment
       className={classNames({
         [classes.appointment]: true,
-        [classes.shadedAppointment]: isShadedAppointment,
+        [classes.shadedAppointment]: isShaded,
       })}
       {...restProps}
     />

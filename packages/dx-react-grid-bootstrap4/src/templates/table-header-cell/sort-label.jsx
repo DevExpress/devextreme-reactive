@@ -26,7 +26,7 @@ const onClick = (e, onSort) => {
 };
 
 export const SortLabel = ({
-  align, direction, disabled, children, onSort, getMessage, className, column, sortIconComponent: SortIcon = SortingIndicator, ...restProps
+  align, direction, disabled, children, onSort, getMessage, className, column, sortIconComponent: SortingIndicator, ...restProps
 }) => (
   <span
     className={classNames({
@@ -42,7 +42,7 @@ export const SortLabel = ({
     {...restProps}
   >
     {children}
-    <SortIcon
+    <SortingIndicator
       direction={direction}
       className={direction ? '' : 'dx-g-bs4-sort-indicator-invisible'}
     />
@@ -58,6 +58,7 @@ SortLabel.propTypes = {
   disabled: PropTypes.bool,
   className: PropTypes.string,
   getMessage: PropTypes.func,
+  sortIconComponent: PropTypes.func,
 };
 
 SortLabel.defaultProps = {
@@ -68,4 +69,5 @@ SortLabel.defaultProps = {
   className: undefined,
   align: 'left',
   getMessage: () => {},
+  sortIconComponent: SortingIndicator,
 };

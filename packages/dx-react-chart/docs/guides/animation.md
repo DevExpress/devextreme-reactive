@@ -17,7 +17,7 @@ The following example shows how series are animated on data update:
 
 ## Customize Animation
 
-Use the `Animation` plugin's `duration` and `easing` properties to specify animation's duration and easing type.
+Use the `Animation` plugin's `duration` and `easing` properties to specify the animation's duration and easing type.
 
 In the following code, the easing implementation is taken from the `d3` library:
 

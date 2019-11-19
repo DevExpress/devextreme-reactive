@@ -325,7 +325,7 @@ export namespace Appointments {
         children: React.ReactNode;
         data: AppointmentModel;
         draggable: boolean;
-        isShadedAppointment?: boolean;
+        isShaded?: boolean;
         onClick?: (e: any) => void;
         onDoubleClick?: (e: any) => void;
         resources: Array<ValidResourceInstance>;
@@ -663,7 +663,7 @@ export namespace DragDropProvider {
     export interface DraftAppointmentProps {
         data: AppointmentModel;
         fromPrev: boolean;
-        isShadedAppointment?: boolean;
+        isShaded?: boolean;
         style: React.CSSProperties;
         toNext: boolean;
         type: string;
@@ -674,7 +674,7 @@ export namespace DragDropProvider {
     }
     export interface SourceAppointmentProps {
         data: AppointmentModel;
-        isShadedAppointment?: boolean;
+        isShaded?: boolean;
         type: string;
     }
 }

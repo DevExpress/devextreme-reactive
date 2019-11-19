@@ -1,19 +1,22 @@
 import * as React from 'react';
 import {
-  getAreaAnimationStyle, HOVERED, SELECTED, dArea, dRotateArea,
+  HOVERED, SELECTED, dArea, dRotateArea,
+  processAreaAnimation, getPathStart,
+  isCoordinatesChanged,
 } from '@devexpress/dx-chart-core';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
+import { withAnimation } from '../../utils/with-animation';
 import { AreaSeries } from '../../types';
 
 class RawArea extends React.PureComponent<AreaSeries.SeriesProps> {
   render() {
     const {
       path,
-      coordinates,
+      coordinates, animation,
       index, state, pointComponent,
-      color, clipPathId,
-      style, scales, getAnimatedStyle, rotated,
+      color, clipPathId, pane,
+      scales, rotated,
       ...restProps
     } = this.props;
     const dPath = path === undefined ? (rotated ? dRotateArea : dArea) : path;
@@ -23,7 +26,6 @@ class RawArea extends React.PureComponent<AreaSeries.SeriesProps> {
         d={dPath!(coordinates)}
         fill={color}
         opacity={0.5}
-        style={getAnimatedStyle(style, getAreaAnimationStyle, scales)}
         {...restProps}
       />
     );
@@ -33,11 +35,16 @@ class RawArea extends React.PureComponent<AreaSeries.SeriesProps> {
 // It should actually be `withPattern<AreaSeries.PointProps>` but `opacity` is not decleared there.
 // It is not clear if `opacity` should be explicitly enumerated or stay as part of `restProps`.
 
-export const Area: React.ComponentType<AreaSeries.SeriesProps> = withStates({
+export const Area: React.ComponentType<AreaSeries.SeriesProps> = withAnimation<any>(
+  processAreaAnimation,
+  ({ coordinates }) => ({ coordinates }),
+  getPathStart,
+  isCoordinatesChanged,
+)(withStates({
   [HOVERED]: withPattern<any>(
     ({ index }) => `series-${index}-hover`, { opacity: 0.75 },
   )(RawArea),
   [SELECTED]: withPattern<any>(
     ({ index }) => `series-${index}-selection`, { opacity: 0.5 },
   )(RawArea),
-})(RawArea);
+})(RawArea));

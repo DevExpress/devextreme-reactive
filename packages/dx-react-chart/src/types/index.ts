@@ -10,6 +10,7 @@ export {
 
   AreaSeries, LineSeries, SplineSeries, BarSeries, ScatterSeries, PieSeries,
   SeriesProps, PathComponentProps, PathComponentPathProps, PointComponentProps,
+
   AreaSeriesProps,
   LineSeriesProps,
   SplineSeriesProps,
@@ -17,6 +18,7 @@ export {
   ScatterSeriesProps,
   PieSeriesProps,
   Interaction,
+  GetDelayFn,
 } from '../../../dx-chart-core/src/index';
 
 export * from './plugins.animation.types';

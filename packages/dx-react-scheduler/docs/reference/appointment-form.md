@@ -46,8 +46,9 @@ textEditorComponent | ComponentType&lt;[AppointmentForm.TextEditorProps](#appoin
 dateEditorComponent | ComponentType&lt;[AppointmentForm.DateEditorProps](#appointmentformdateeditorprops)&gt; | | A component that renders a date-time editor.
 labelComponent | ComponentType&lt;[AppointmentForm.LabelProps](#appointmentformlabelprops)&gt; | | A component that renders a text label.
 booleanEditorComponent | ComponentType&lt;[AppointmentForm.BooleanEditorProps](#appointmentformbooleaneditorprops)&gt; | | A component that renders an editor of Boolean values.
-selectComponent | ComponentType&lt;[AppointmentForm.SelectProps](#appointmentformselectprops)&gt; | | A component that renders a menu of options.
+selectComponent | ComponentType&lt;[AppointmentForm.SelectProps](#appointmentformselectprops)&gt; | | A component that renders an options menu.
 radioGroupComponent | ComponentType&lt;[AppointmentForm.RadioGroupProps](#appointmentformradiogroupprops)&gt; | | A component that renders a radio group.
+resourceEditorComponent | ComponentType&lt;[AppointmentForm.ResourceEditorProps](#appointmentformresourceeditorprops)&gt; | | A component that renders a resource editor.
 weeklyRecurrenceSelectorComponent | ComponentType&lt;[AppointmentForm.WeeklyRecurrenceSelectorProps](#appointmentformweeklyrecurrenceselectorprops)&gt; | | A component that renders a weekly recurrence selector.
 
 ## Interfaces
@@ -101,15 +102,18 @@ Field | Type | Description
 ------|------|------------
 readOnly? | boolean | Specifies whether the appointment form is read-only.
 appointmentData | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment's data.
-onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | An event raised when a field value in the appointment form is changed.
+appointmentResources | Array&lt;[ValidResourceInstance](./resources.md#validresourceinstance)&gt; | The appointment's resource instances.
+resources | Array&lt;[ValidResource](./resources.md#validresource)&gt; | All resources.
+onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | An event that is raised when a field value in the appointment form is changed.
 getMessage | (messageKey: string) => string | Uses a localization message's key to retrieve the message.
 locale | string &#124; Array&lt;string&gt; | Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale is used to format date-time values.
 fullSize | boolean | Specifies whether the layout is full-size.
 textEditorComponent | ComponentType&lt;[AppointmentForm.TextEditorProps](#appointmentformtexteditorprops)&gt; | A component that renders a text editor.
 dateEditorComponent | ComponentType&lt;[AppointmentForm.DateEditorProps](#appointmentformdateeditorprops)&gt; | A component that renders a date-time editor.
 booleanEditorComponent | ComponentType&lt;[AppointmentForm.BooleanEditorProps](#appointmentformbooleanteditorprops)&gt; | A component that renders an editor of Boolean values.
-selectComponent | ComponentType&lt;[AppointmentForm.SelectProps](#appointmentformselectprops)&gt; | A component that renders a menu of options.
+selectComponent | ComponentType&lt;[AppointmentForm.SelectProps](#appointmentformselectprops)&gt; | A component that renders an options menu.
 labelComponent | ComponentType&lt;[AppointmentForm.LabelProps](#appointmentformlabelprops)&gt; | A component that renders a text label.
+resourceEditorComponent | ComponentType&lt;[AppointmentForm.ResourceEditorProps](#appointmentformresourceeditorprops)&gt; | | A component that renders a resource editor.
 children? | ReactNode | A React node used to render additional components to the Basic Layout.
 
 ### AppointmentForm.RecurrenceLayoutProps
@@ -121,7 +125,8 @@ Field | Type | Description
 readOnly? | boolean | Specifies whether the appointment form is read-only.
 visible | boolean | Specifies whether the layout is visible.
 appointmentData | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment's data.
-onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | An event raised when a field value in the appointment form is changed.
+onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | An event that is raised when a field value in the appointment form is changed.
+
 getMessage | (messageKey: string) => string | Uses a localization message's key to retrieve the message.
 locale | string &#124; Array&lt;string&gt; | Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale is used to format date-time values.
 firstDayOfWeek | number | A number between 0 (Sunday) and 6 (Saturday) that specifies the first day of the week.
@@ -130,7 +135,7 @@ radioGroupComponent | ComponentType&lt;[AppointmentForm.RadioGroupProps](#appoin
 weeklyRecurrenceSelectorComponent | ComponentType&lt;[AppointmentForm.WeeklyRecurrenceSelectorProps](#appointmentformweeklyrecurrenceselectorprops)&gt; | A component that renders a weekly recurrence selector.
 textEditorComponent | ComponentType&lt;[AppointmentForm.TextEditorProps](#appointmentformtexteditorprops)&gt; | A component that renders a text editor.
 dateEditorComponent | ComponentType&lt;[AppointmentForm.DateEditorProps](#appointmentformdateeditorprops)&gt; | A component that renders a date-time editor.
-selectComponent | ComponentType&lt;[AppointmentForm.SelectProps](#appointmentformselectprops)&gt; | A component that renders a menu of options.
+selectComponent | ComponentType&lt;[AppointmentForm.SelectProps](#appointmentformselectprops)&gt; | A component that renders an options menu.
 labelComponent | ComponentType&lt;[AppointmentForm.LabelProps](#appointmentformlabelprops)&gt; | A component that renders a text label.
 children? | ReactNode | A React node used to render additional components to the Recurrence Layout.
 
@@ -186,13 +191,14 @@ appointmentData | [AppointmentModel](./scheduler.md#appointmentmodel) | The appo
 firstDayOfWeek | number | A number between 0 (Sunday) and 6 (Saturday) that specifies the first day of the week.
 locale? | string &#124; Array&lt;string&gt; | Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale is used to format date-time values.
 formatDate | [FormatterFn](./scheduler.md#formatterfn) | A function that formats dates based on the locale.
-onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | An event raised when a field value in the appointment form is changed.
+onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | An event that is raised when a field value in the appointment form is changed.
+
 readOnly? | boolean | Specifies whether the radio group is read-only.
 type? | `endRepeat` &#124; `monthlyRadioGroup` &#124; `yearlyRadioGroup` | The radio group's type.
 getMessage | (messageKey: string) => string | Uses a localization message's key to retrieve the message.
 textEditorComponent | ComponentType&lt;[AppointmentForm.TextEditorProps](#appointmentformtexteditorprops)&gt; | A component that renders a text editor.
 dateEditorComponent | ComponentType&lt;[AppointmentForm.DateEditorProps](#appointmentformdateeditorprops)&gt; | A component that renders a date-time editor.
-selectComponent | ComponentType&lt;[AppointmentForm.SelectProps](#appointmentformselectprops)&gt; | A component that renders a menu of options.
+selectComponent | ComponentType&lt;[AppointmentForm.SelectProps](#appointmentformselectprops)&gt; | A component that renders an options menu.
 labelComponent | ComponentType&lt;[AppointmentForm.LabelProps](#appointmentformlabelprops)&gt; | A component that renders a text label.
 
 ### AppointmentForm.SelectProps
@@ -206,6 +212,17 @@ onValueChange | (nextValue: string &#124; number) => void | Handles value change
 availableOptions? | Array&lt;object&gt; | Specifies available menu options.
 type? | `outlinedSelect` &#124; `filledSelect` | The menu's type.
 readOnly | boolean | Specifies whether the menu is read-only.
+
+### AppointmentForm.ResourceEditorProps
+
+Properties passed to a component that renders a resource editor on the appointment form.
+
+Field | Type | Description
+------|------|------------
+appointmentResources? | Array&lt;[ValidResourceInstance](./resources.md#validresourceinstance)&gt; | The appointment's resource instances.
+resources? | Array&lt;[Resource](./resources.md#resourceinstance)&gt; | All resources.
+onResourceChange? | ({ [fieldName: string]: string &#124; number }) => void | A function that is called when the resource is edited.
+readOnly? | boolean | Specifies whether the resource editor is read-only.
 
 ### AppointmentForm.TextEditorProps
 
@@ -274,7 +291,7 @@ Name | Properties | Description
 AppointmentForm.Overlay |  [AppointmentForm.OverlayProps](#appointmentformoverlayprops) | A component that renders the appointment form's overlay.
 AppointmentForm.Layout | [AppointmentForm.LayoutProps](#appointmentformlayoutprops) | A component that renders the appointment form's layout.
 AppointmentForm.CommandLayout | [AppointmentForm.CommandLayoutProps](#appointmentformcommandlayoutprops) | A component that renders a layout for command buttons.
-AppointmentForm.BasicLayout | [AppointmentForm.BasicLayoutProps](#appointmentformbasiclayoutprops) | A component that renders a layout for editors that edit basic appoinement data.
+AppointmentForm.BasicLayout | [AppointmentForm.BasicLayoutProps](#appointmentformbasiclayoutprops) | A component that renders a layout for editors that edit basic appointment data.
 AppointmentForm.RecurrenceLayout | [AppointmentForm.RecurrenceLayoutProps](#appointmentformrecurrencelayoutprops) | A component that renders a layout for editors that specify the appointment's recurrence.
 AppointmentForm.TextEditor | [AppointmentForm.TextEditorProps](#appointmentformtexteditorprops) | A component that renders a text editor.
 AppointmentForm.DateEditor | [AppointmentForm.DateEditorProps](#appointmentformdateeditorprops) | A component that renders a date-time editor.

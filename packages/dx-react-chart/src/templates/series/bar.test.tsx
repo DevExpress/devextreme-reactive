@@ -2,16 +2,21 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
-import { dBar, adjustBarSize } from '@devexpress/dx-chart-core';
+import { withAnimation } from '../../utils/with-animation';
+import {
+  dBar, adjustBarSize, processBarAnimation, isValuesChanged, getPointStart,
+} from '@devexpress/dx-chart-core';
 import { Bar } from './bar';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   dBar: jest.fn().mockReturnValue({ attributes: 'test-attributes' }),
-  getAreaAnimationStyle: 'test-animation-style',
   HOVERED: 'test_hovered',
   SELECTED: 'test_selected',
   getVisibility: jest.fn().mockReturnValue('visible'),
   adjustBarSize: jest.fn(value => value),
+  isValuesChanged: jest.fn(),
+  getPointStart: jest.fn(),
+  processBarAnimation: jest.fn(),
 }));
 
 jest.mock('../../utils/with-states', () => ({
@@ -19,6 +24,9 @@ jest.mock('../../utils/with-states', () => ({
 }));
 jest.mock('../../utils/with-pattern', () => ({
   withPattern: jest.fn().mockReturnValue(x => x),
+}));
+jest.mock('../../utils/with-animation', () => ({
+  withAnimation: jest.fn().mockReturnValue(x => x),
 }));
 
 describe('Bar', () => {
@@ -37,11 +45,10 @@ describe('Bar', () => {
     style: { tag: 'test-style' },
     scales: { tag: 'test-scales' } as any,
     pane: { width: 100, height: 200 },
-    getAnimatedStyle: jest.fn().mockReturnValue('animated-style'),
   };
 
   afterEach(() => {
-    defaultProps.getAnimatedStyle.mockClear();
+    (dBar as jest.Mock).mockClear();
   });
 
   it('should render bar', () => {
@@ -52,7 +59,7 @@ describe('Bar', () => {
     expect(tree.find('rect').props()).toEqual({
       attributes: 'test-attributes',
       fill: 'color',
-      style: 'animated-style',
+      style: { tag: 'test-style' },
       visibility: 'visible',
     });
     expect(adjustBarSize)
@@ -67,15 +74,6 @@ describe('Bar', () => {
 
     const { custom } = tree.find('rect').props() as any;
     expect(custom).toEqual(10);
-  });
-
-  it('should apply animation style', () => {
-    shallow((
-      <Bar {...defaultProps} />
-    ));
-
-    expect(defaultProps.getAnimatedStyle)
-      .toBeCalledWith(defaultProps.style, 'test-animation-style', defaultProps.scales);
   });
 
   it('should have hovered and selected states', () => {
@@ -94,5 +92,20 @@ describe('Bar', () => {
       .toEqual('series-1-point-2-hover');
     expect((withPattern as jest.Mock).mock.calls[1][0]({ seriesIndex: 2, index: 3 }))
       .toEqual('series-2-point-3-selection');
+  });
+
+  it('should animate', () => {
+    expect(withAnimation)
+    .toBeCalledWith(processBarAnimation, expect.any(Function), getPointStart, isValuesChanged);
+  });
+
+  it('should update props', () => {
+    const tree = shallow((
+      <Bar {...defaultProps} />
+    ));
+
+    tree.setProps({ ...defaultProps, arg: 3, val: 4 });
+
+    expect(dBar).toBeCalledWith(3, 4, 18, 40, true);
   });
 });

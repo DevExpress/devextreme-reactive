@@ -8,20 +8,20 @@ import {
   getRecurrenceOptions, WEEK_DAY_OPTIONS, handleWeekDaysChange, changeRecurrenceOptions,
   getDaysOfWeekArray, getDaysOfWeekDates,
 } from '@devexpress/dx-scheduler-core';
-import { setColor } from '../../utils';
+import { ensureColor } from '../../utils';
 
 const styles = ({ palette, spacing }) => ({
   selectedButton: {
-    backgroundColor: setColor(400, palette.primary),
+    backgroundColor: ensureColor(400, palette.primary),
     '&:hover': {
-      backgroundColor: setColor(500, palette.primary),
+      backgroundColor: ensureColor(500, palette.primary),
     },
-    border: `1px solid ${setColor(400, palette.primary)}!important`,
-    borderLeft: `1px solid ${setColor(50, palette.primary)}!important`,
+    border: `1px solid ${ensureColor(400, palette.primary)}!important`,
+    borderLeft: `1px solid ${ensureColor(50, palette.primary)}!important`,
     '&:first-child': {
-      borderLeft: `1px solid ${setColor(400, palette.primary)}!important`,
+      borderLeft: `1px solid ${ensureColor(400, palette.primary)}!important`,
     },
-    color: setColor(50, palette.primary),
+    color: ensureColor(50, palette.primary),
   },
   button: {
     minWidth: spacing(3),

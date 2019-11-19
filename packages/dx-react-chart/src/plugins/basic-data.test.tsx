@@ -22,7 +22,6 @@ describe('Basis Data', () => {
       data,
       domains: 'test-domains',
       series: [],
-      getAnimatedStyle: expect.any(Function),
       rotated: 'test-rotated',
     });
   });

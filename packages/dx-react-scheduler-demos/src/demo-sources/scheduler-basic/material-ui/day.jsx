@@ -4,6 +4,7 @@ import {
   Scheduler,
   DayView,
   Appointments,
+  AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 import appointments from '../../../demo-data/today-appointments';
@@ -29,6 +30,7 @@ export default class Demo extends React.PureComponent {
             endDayHour={13}
           />
           <Appointments />
+          <AppointmentTooltip />
         </Scheduler>
       </Paper>
     );

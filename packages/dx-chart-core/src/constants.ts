@@ -28,3 +28,5 @@ export const VALUE_DOMAIN = 'value-domain';
 export const HOVERED = 'hovered';
 /** @internal */
 export const SELECTED = 'selected';
+/** @internal */
+export const DIFFERENCE = 0.9;

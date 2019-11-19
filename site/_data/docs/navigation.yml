@@ -329,6 +329,8 @@
         path: /react/scheduler/docs/guides/appointment-tooltip
       - title: Editing
         path: /react/scheduler/docs/guides/editing
+      - title: Resources
+        path: /react/scheduler/docs/guides/resources
       - title: Localization
         path: /react/scheduler/docs/guides/localization
       - title: TypeScript Support
@@ -379,6 +381,8 @@
         path: /react/scheduler/docs/reference/today-button
       - title: ConfirmationDialog
         path: /react/scheduler/docs/reference/confirmation-dialog
+      - title: Resources
+        path: /react/scheduler/docs/reference/resources
   - title: Related Docs
     items:
       - title: React Core

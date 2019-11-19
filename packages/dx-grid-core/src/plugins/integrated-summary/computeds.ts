@@ -95,7 +95,7 @@ export const groupSummaryValues: GroupSummaryValuesFn = (
   const summaries = {};
 
   const anyRowLevelSummaryExist = summaryItems.some(item => (
-    (item as any).showInGroupCaption || (item as any).showInGroupRow
+    !(item as any).showInGroupFooter
   ));
   const expandedRows = anyRowLevelSummaryExist
     ? expandRows(rows, getRowLevelKey, getCollapsedRows, isGroupRow, true)

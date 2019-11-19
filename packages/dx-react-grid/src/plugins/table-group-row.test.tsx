@@ -542,9 +542,9 @@ describe('TableGroupRow', () => {
       ));
 
       const summaryPredicate = getColumnSummaries.mock.calls[0][3];
-      expect(summaryPredicate({ showInGroupRow: true }))
+      expect(summaryPredicate({ showInGroupFooter: false, alignByColumn: true }))
         .toBeTruthy();
-      expect(summaryPredicate({ showInGroupRow: false }))
+      expect(summaryPredicate({ showInGroupFooter: true }))
         .toBeFalsy();
       expect(getColumnSummaries)
         .toBeCalledWith(

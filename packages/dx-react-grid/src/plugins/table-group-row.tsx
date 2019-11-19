@@ -18,6 +18,7 @@ import {
   isGroupRowOrdinaryCell,
   calculateGroupCellIndent,
   isGroupIndentStubTableCell,
+  GroupSummaryItem,
 } from '@devexpress/dx-grid-core';
 import {
   TableGroupRowProps, ShowColumnWhenGroupedGetterFn, TableCellProps, TableRowProps,
@@ -237,7 +238,10 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
                     groupSummaryItems,
                     tableColumn.column!.name,
                     groupSummaryValues[tableRow.row.compoundKey],
-                    summaryItem => (summaryItem as any).showInGroupRow,
+                    summaryItem => (
+                      !(summaryItem as GroupSummaryItem).showInGroupFooter! &&
+                      (summaryItem as GroupSummaryItem).alignByColumn!
+                    ),
                   );
 
                   return (

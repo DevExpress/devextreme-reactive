@@ -19,7 +19,7 @@ import {
   TABLE_TREE_SUMMARY_TYPE,
   TABLE_GROUP_SUMMARY_TYPE,
   TABLE_TOTAL_SUMMARY_TYPE,
-  isInlineGroupSummary,
+  isFooterSummary,
 } from '@devexpress/dx-grid-core';
 import { TableCellProps, TableRowProps, TableSummaryRowProps } from '../types';
 import { TableSummaryContent } from '../components/summary/table-summary-content';
@@ -145,7 +145,7 @@ export class TableSummaryRowBase extends React.PureComponent<TableSummaryRowProp
                   groupSummaryItems,
                   params.tableColumn.column!.name,
                   groupSummaryValues[params.tableRow.row.compoundKey],
-                  summaryItem => !isInlineGroupSummary(summaryItem),
+                  summaryItem => !isFooterSummary(summaryItem),
                 );
                 return (
                   <GroupCell

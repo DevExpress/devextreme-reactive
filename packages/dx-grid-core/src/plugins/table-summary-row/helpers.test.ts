@@ -10,7 +10,7 @@ import {
   isTotalSummaryTableRow,
   isTreeSummaryTableRow,
   getColumnSummaries,
-  isInlineGroupSummary,
+  isFooterSummary,
   getGroupInlineSummaries,
   isInlineGroupCaptionSummary,
 } from './helpers';
@@ -76,22 +76,22 @@ describe('TableSummaryRow Plugin helpers', () => {
     });
   });
 
-  describe('#isInlineGroupSummary', () => {
+  describe('#isFooterSummary', () => {
     it('should work', () => {
-      expect(isInlineGroupSummary({ type: 'avg' }))
+      expect(isFooterSummary({ type: 'avg', showInGroupFooter: false }))
         .toBeFalsy();
-      expect(isInlineGroupSummary({ type: 'avg', showInGroupCaption: true }))
+      expect(isFooterSummary({ type: 'avg', showInGroupFooter: true }))
         .toBeTruthy();
-      expect(isInlineGroupSummary({ type: 'avg', showInGroupRow: true }))
-        .toBeTruthy();
+      expect(isFooterSummary({ type: 'avg', showInGroupFooter: false, alignByColumn: true }))
+        .toBeFalsy();
     });
   });
 
   describe('#isInlineGroupCaptionSummary', () => {
     it('should work', () => {
-      expect(isInlineGroupCaptionSummary({ type: 'avg' }))
+      expect(isInlineGroupCaptionSummary({ type: 'avg', showInGroupFooter: true }))
         .toBeFalsy();
-      expect(isInlineGroupCaptionSummary({ type: 'avg', showInGroupCaption: true }))
+      expect(isInlineGroupCaptionSummary({ type: 'avg', showInGroupFooter: false }))
         .toBeTruthy();
     });
   });
@@ -101,8 +101,8 @@ describe('TableSummaryRow Plugin helpers', () => {
 
     it('should return an empty array if no inline summaries exist', () => {
       const summaryItems = [
-        { columnName: 'a', type: 'min' },
-        { columnName: 'b', type: 'max' },
+        { columnName: 'a', type: 'min', showInGroupFooter: true },
+        { columnName: 'b', type: 'max', showInGroupFooter: true },
       ];
       expect(getGroupInlineSummaries(summaryItems, columns, [11, 17]))
         .toEqual([]);
@@ -110,11 +110,11 @@ describe('TableSummaryRow Plugin helpers', () => {
 
     it('should return correct inline summaries', () => {
       const summaryItems = [
-        { columnName: 'a', type: 'min' },
-        { columnName: 'b', type: 'max', showInGroupRow: true },
-        { columnName: 'b', type: 'count', showInGroupCaption: true },
-        { columnName: 'b', type: 'sum', showInGroupCaption: true },
-        { columnName: 'c', type: 'avg', showInGroupCaption: true },
+        { columnName: 'a', type: 'min', showInGroupFooter: true },
+        { columnName: 'b', type: 'max', showInGroupFooter: false, alignByColumn: true },
+        { columnName: 'b', type: 'count', showInGroupFooter: false },
+        { columnName: 'b', type: 'sum', showInGroupFooter: false },
+        { columnName: 'c', type: 'avg', showInGroupFooter: false },
       ];
       expect(getGroupInlineSummaries(summaryItems, columns, [11, 17, 3, 51, 5]))
         .toMatchObject([

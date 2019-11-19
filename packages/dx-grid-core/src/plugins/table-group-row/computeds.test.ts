@@ -199,9 +199,9 @@ describe('TableGroupRow Plugin computeds', () => {
       const tableColumns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
         .map(name => ({ column: { name } }));
       const groupSummaryItems = [
-        { columnName: 'b', type: 'sum', showInGroupRow: true },
-        { columnName: 'd', type: 'sum', showInGroupCaption: true },
-        { columnName: 'e', type: 'sum', showInGroupRow: true },
+        { columnName: 'b', type: 'sum', showInGroupFooter: false, alignByColumn: true },
+        { columnName: 'd', type: 'sum', showInGroupFooter: false },
+        { columnName: 'e', type: 'sum', showInGroupFooter: false, alignByColumn: true },
       ];
       const tableRow = { type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } };
 

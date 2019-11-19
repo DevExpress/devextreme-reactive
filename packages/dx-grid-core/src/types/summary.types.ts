@@ -12,8 +12,8 @@ export interface SummaryItem {
   type: SummaryType;
 }
 export interface GroupSummaryItem extends SummaryItem {
-  showInGroupRow: boolean;
-  showInGroupCaption: boolean;
+  showInGroupFooter?: boolean;
+  alignByColumn?: boolean;
 }
 export type SummaryType = string;
 

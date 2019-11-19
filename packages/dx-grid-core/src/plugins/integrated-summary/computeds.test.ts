@@ -156,7 +156,7 @@ describe('IntegratedSummary', () => {
         { a: 6 },
       ];
       const summaryItems = [
-        { columnName: 'a', type: 'count' },
+        { columnName: 'a', type: 'count', showInGroupFooter: true },
       ];
       const result = {
         'b|1': [0],
@@ -217,7 +217,7 @@ describe('IntegratedSummary', () => {
         { levelKey: 'c', compoundKey: 'b|c|2', group: true, collapsedRows: [{ a: 3 }, { a: 4 }] },
       ];
       const summaryItems = [
-        { columnName: 'a', type: 'sum' },
+        { columnName: 'a', type: 'sum', showInGroupFooter: true },
       ];
       const result = {
         'b|1': [10],
@@ -249,7 +249,7 @@ describe('IntegratedSummary', () => {
         { levelKey: 'b', compoundKey: 'b|2', group: true, collapsedRows: [{ a: 5 }, { a: 6 }] },
       ];
       const summaryItems = [
-        { columnName: 'a', type: 'sum' },
+        { columnName: 'a', type: 'sum', showInGroupFooter: true },
       ];
       const result = {
         'b|1': [10],

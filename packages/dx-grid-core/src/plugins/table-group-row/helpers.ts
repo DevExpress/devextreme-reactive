@@ -55,9 +55,9 @@ const columnHasGroupRowSummary: PureComputed<[TableColumn, GroupSummaryItem[]], 
   tableColumn, groupSummaryItems,
 ) => (
   !!(groupSummaryItems && groupSummaryItems
-    .some(summaryItem => (
-      summaryItem.showInGroupRow
-        && summaryItem.columnName === (tableColumn.column && tableColumn.column.name)
+    .some(item => (
+      (!item.showInGroupFooter && item.alignByColumn)
+        && item.columnName === (tableColumn.column && tableColumn.column.name)
     )))
 );
 

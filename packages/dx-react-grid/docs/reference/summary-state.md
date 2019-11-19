@@ -43,8 +43,8 @@ Extends [SummaryItem](#summaryitem)
 
 Field | Type | Description
 ------|------|--
-showInGroupRow? | boolean | Specifies whether a summary should be rendered in a group row instead of a summary row.
-showInGroupCaption? | boolean | Specifies whether the summary item should be displayed in the group caption.
+showInGroupFooter? | boolean | Specifies whether a summary should be rendered in a group row instead of a summary row.
+alignByColumn? | boolean | Specifies whether the summary item should be displayed in the group caption.
 
 ### SummaryType
 

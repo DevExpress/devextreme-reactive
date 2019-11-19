@@ -1,6 +1,11 @@
 import * as React from 'react';
-import { Getter, Plugin } from '@devexpress/dx-react-core';
+import { Getter, Plugin, Getters } from '@devexpress/dx-react-core';
+import { prepareGroupSummaryItems } from '@devexpress/dx-grid-core';
 import { SummaryStateProps } from '../types';
+
+const groupSummaryItemsComputed = (
+  { groupSummaryItems }: Getters
+) => prepareGroupSummaryItems(groupSummaryItems);
 
 class SummaryStateBase extends React.PureComponent<SummaryStateProps> {
   render() {
@@ -12,6 +17,7 @@ class SummaryStateBase extends React.PureComponent<SummaryStateProps> {
       >
         <Getter name="totalSummaryItems" value={totalItems} />
         <Getter name="groupSummaryItems" value={groupItems} />
+        <Getter name="groupSummaryItems" computed={groupSummaryItemsComputed} />
         <Getter name="treeSummaryItems" value={treeItems} />
       </Plugin>
     );

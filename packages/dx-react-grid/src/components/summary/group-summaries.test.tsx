@@ -16,11 +16,11 @@ describe('#flattenGroupInlineSummaries', () => {
     row: { groupedBy: 'g', compoundKey: 'g|key' },
   };
   const groupSummaryItems = [
-    { columnName: 'a', type: 'max' },
-    { columnName: 'a', type: 'sum', showInGroupCaption: true },
-    { columnName: 'c', type: 'sum', showInGroupRow: true },
-    { columnName: 'd', type: 'min', showInGroupCaption: true },
-    { columnName: 'e', type: 'sum' },
+    { columnName: 'a', type: 'max', showInGroupFooter: true },
+    { columnName: 'a', type: 'sum', showInGroupFooter: false },
+    { columnName: 'c', type: 'sum', showInGroupFooter: false, alignByColumn: true },
+    { columnName: 'd', type: 'min', showInGroupFooter: false },
+    { columnName: 'e', type: 'sum', showInGroupFooter: true },
   ];
   const groupSummaryValues = { 'g|key': [13, 53, 19, 7, 101] };
 

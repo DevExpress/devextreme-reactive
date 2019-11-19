@@ -139,7 +139,12 @@ describe('TableRowDetail Plugin helpers', () => {
   describe('Summary helpers', () => {
     const tableRow = { ...key, type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } };
     const tableColumns = ['g', 'a', 'b', 'c', 'd'].map(name => ({ column: { name } }));
-    const groupSummaryItems = [{ columnName: 'b', type: 'sum', showInGroupRow: true }];
+    const groupSummaryItems = [{
+      columnName: 'b',
+      type: 'sum',
+      showInGroupFooter: false,
+      alignByColumn: true,
+    }];
     const grouping = [{ columnName: 'g' }];
 
     describe('#isRowSummaryCell', () => {

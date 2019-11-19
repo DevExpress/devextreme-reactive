@@ -37,12 +37,12 @@ export const getColumnSummaries: GetColumnSummariesFn = (
     value: summaryValues[index],
   }));
 
-export const isInlineGroupSummary: PureComputed<[SummaryItem], boolean> = summaryItem => (
-  (summaryItem as GroupSummaryItem).showInGroupCaption ||
-  (summaryItem as GroupSummaryItem).showInGroupRow
+export const isFooterSummary: PureComputed<[SummaryItem], boolean> = summaryItem => (
+  (summaryItem as GroupSummaryItem).showInGroupFooter!
 );
 export const isInlineGroupCaptionSummary: PureComputed<[SummaryItem], boolean> = summaryItem => (
-  (summaryItem as GroupSummaryItem).showInGroupCaption
+  !((summaryItem as GroupSummaryItem).showInGroupFooter ||
+  (summaryItem as GroupSummaryItem).alignByColumn)
 );
 
 export const getGroupInlineSummaries: GetGroupInlineSummariesFn = (

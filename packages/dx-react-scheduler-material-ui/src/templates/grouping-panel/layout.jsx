@@ -13,26 +13,34 @@ const LayoutBase = ({
   classes,
   className,
   ...restProps
-}) => (
-  <div
-    className={classNames(classes.root, className)}
-    {...restProps}
-  >
-    {groups.map((group) => {
-      return (
-        <Row>
-          {group.map((groupingItem) => {
-            return (
-              <Cell
-                groupingItem={groupingItem}
-              />
-            );
-          })}
-        </Row>
-      );
-    })}
-  </div>
-);
+}) => {
+  // eslint-disable-next-line prefer-spread
+  const maxCells = groups[groups.length - 1].length;
+  return (
+    <div
+      className={classNames(classes.root, className)}
+      {...restProps}
+    >
+      {groups.map((group) => {
+        const cellWidth = `${100 / group.length}%`;
+        const colSpan = maxCells / group.length;
+        return (
+          <Row>
+            {group.map((groupingItem) => {
+              return (
+                <Cell
+                  groupingItem={groupingItem}
+                  width={cellWidth}
+                  colspan={colSpan}
+                />
+              );
+            })}
+          </Row>
+        );
+      })}
+    </div>
+  );
+};
 
 LayoutBase.propTypes = {
   rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,

@@ -5,14 +5,32 @@ import {
   TemplatePlaceholder,
   TemplateConnector,
   PluginComponents,
+  Getter,
 } from '@devexpress/dx-react-core';
-import { getGroupingItemsFromResources } from '@devexpress/dx-scheduler-core';
+import { memoize } from '@devexpress/dx-core';
+import { getGroupingItemsFromResources, getGroupedViewCellsData, sortFilteredResources, filterResourcesByGrouping } from '@devexpress/dx-scheduler-core';
 
 const GroupingPanelPlaceholder = () => <TemplatePlaceholder name="groupingPanel" />;
 
 const pluginDependencies = [
   { name: 'Resources' },
 ];
+
+const getViewCellsDataComputed = memoize(({ viewCellsData, groupingItems, sortedResources }) => {
+  console.log(viewCellsData)
+  console.log(groupingItems)
+  const result = getGroupedViewCellsData(viewCellsData, groupingItems, sortedResources);
+  console.log(result)
+  return result;
+});
+
+const getGroupingItemsComputed = memoize((
+  { grouping, resources },
+) => getGroupingItemsFromResources(resources, grouping));
+
+const getSortedResourcesComputed = memoize((
+  { resources, grouping },
+) => sortFilteredResources(filterResourcesByGrouping(resources, grouping), grouping));
 
 class GroupingPanelBase extends React.PureComponent {
   static components: PluginComponents = {
@@ -41,6 +59,10 @@ class GroupingPanelBase extends React.PureComponent {
         name="GroupingPanel"
         dependencies={pluginDependencies}
       >
+        <Getter name="sortedResources" computed={getSortedResourcesComputed} />
+        <Getter name="groupingItems" computed={getGroupingItemsComputed} />
+        <Getter name="viewCellsData" computed={getViewCellsDataComputed} />
+
         <Template name="dayScale">
           <TemplateConnector>
             {() => {
@@ -56,10 +78,7 @@ class GroupingPanelBase extends React.PureComponent {
 
         <Template name="groupingPanel">
           <TemplateConnector>
-            {({ resources, grouping }) => {
-              const groupingItems = getGroupingItemsFromResources(resources, grouping);
-              console.log(groupingItems)
-
+            {({ groupingItems }) => {
               return (
                 <Layout
                   rowComponent={rowComponent}

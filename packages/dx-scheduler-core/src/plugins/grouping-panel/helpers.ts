@@ -1,13 +1,13 @@
 import { PureComputed } from '@devexpress/dx-core';
 import { Resource, Grouping, ResourceInstance } from '../../types';
 
-const filterResourcesByGrouping: PureComputed<
+export const filterResourcesByGrouping: PureComputed<
   [Array<Resource>, Array<Grouping>], Array<Resource>
 > = (resources, grouping) => resources.filter(
   resource => grouping.find(resourceId => resource.fieldName === resourceId.resourceName),
 );
 
-const sortFilteredResources: PureComputed<
+export const sortFilteredResources: PureComputed<
   [Array<Resource>, Array<Grouping>], Array<Resource>
 > = (resources, grouping) => {
   return grouping.map(({ resourceName }: Grouping) => {

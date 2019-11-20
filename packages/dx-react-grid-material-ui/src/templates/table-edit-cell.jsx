@@ -65,7 +65,10 @@ const EditCellBase = ({
     >
       {patchedChildren || (
         <Input
-          className={classNames(classes.inputRoot, !editingEnabled && classes.disabledInput)}
+          className={classNames({
+            [classes.inputRoot]: true,
+            [classes.disabledInput]: !editingEnabled,
+          })}
           classes={{ input: inputClasses }}
           value={value || ''}
           readOnly={!editingEnabled}

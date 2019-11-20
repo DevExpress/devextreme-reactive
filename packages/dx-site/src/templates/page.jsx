@@ -4,7 +4,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { graphql, withPrefix } from 'gatsby';
 import Helmet from 'react-helmet';
-import PageLayout from '../components/layouts/page-layout';
+import PageLayout from '../components/layouts/docs-page-layout';
 
 const getNpmTag = () => {
   const versionTag = process.env.VERSION_TAG;

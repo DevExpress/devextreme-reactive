@@ -1,6 +1,6 @@
 import * as React from 'react';
 import DemosList from '../components/landing/sections/demos-list';
-import PageLayout from '../components/layouts/page-layout';
+import PageLayout from '../components/layouts/demo-page-layout';
 
 import ReactGridIcon from './images/react-grid.inline.svg';
 import ReactChartIcon from './images/react-chart.inline.svg';

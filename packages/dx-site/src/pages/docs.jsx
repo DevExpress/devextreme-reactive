@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PageLayout from '../components/layouts/page-layout';
+import PageLayout from '../components/layouts/docs-page-layout';
 import Title from '../components/landing/sections/title';
 import ProductDocPreview from '../components/landing/sections/product-doc-preview';
 import ConceptDocPreview from '../components/landing/sections/concept-doc-preview';

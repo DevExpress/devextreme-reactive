@@ -1,27 +1,24 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import LeftMenu from '../docs/left-menu';
+import ContentContainer from './content-container';
 
 import styles from './container-with-menu.module.scss';
 
 const ContainerWithMenu = ({
   children, ...menuProps
 }) => (
-  <div className={styles.pageLayout}>
-    <div className="container">
-      <div className="row">
-        <div className="col-lg-9 col-md-8 order-md-2">
-          <div className={styles.content}>
-            {children}
-          </div>
-        </div>
-        <div className="col-lg-3 col-md-4 order-md-1">
-          <div className={styles.sidebar}>
-            <LeftMenu
-              {...menuProps}
-            />
-          </div>
-        </div>
+  <div className="row">
+    <div className="col-lg-9 col-md-8 order-md-2">
+      <div className={styles.content}>
+        {children}
+      </div>
+    </div>
+    <div className="col-lg-3 col-md-4 order-md-1">
+      <div className={styles.sidebar}>
+        <LeftMenu
+          {...menuProps}
+        />
       </div>
     </div>
   </div>

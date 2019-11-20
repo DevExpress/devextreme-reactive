@@ -29,6 +29,8 @@ import pluginBasedImage from './images/reactive-plugins.png';
 import typeScriptImage from './images/reactive-type-script.png';
 import localizationImage from './images/reactive-localization.png';
 import docImage from './images/reactive-doc.png';
+import bsImage from './images/bootstrap-theme.png';
+import muiImage from './images/material-theme.png';
 
 const pageData = [
   {
@@ -67,6 +69,16 @@ const pageData = [
     description: 'Every component feature has a complete API reference and a usage guide with code examples and live demos with sources available on GitHub.',
     imageLink: docImage,
   },
+  {
+    title: 'Twitter Bootstrap React Components',
+    description: 'Use any existing or create your custom bootstrap theme. No need for any additional configuration.',
+    imageLink: bsImage,
+  },
+  {
+    title: 'Material Design React Components',
+    description: 'We ship additional Material-UI packages that allow you to utilize the familiar approaches and appearance.',
+    imageLink: muiImage,
+  }
 ];
 
 const IndexPage = () => (
@@ -171,95 +183,81 @@ const IndexPage = () => (
       <LandingChessBoardLayoutList data={pageData} />
 
       <div className="py-3" />
-      <LandingLayout>
-        <LandingImageFeature
-          iconLink={bootstrapLogo}
-          title="Twitter Bootstrap React Components"
-          description="Use any existing or create your custom bootstrap theme. No need for any additional configuration."
-        />
-        <LandingImageFeature
-          title="Material Design React Components"
-          iconLink={materialUiLogo}
-          description="We ship additional Material-UI packages that allow you to utilize the familiar approaches and appearance."
-        />
-      </LandingLayout>
     </LandingAlternatedBackground>
     <LandingLayout>
       <LandingMaintainence />
     </LandingLayout>
 
-    <AlternatedBackground>
-      <LandingProductLayout
-        position="footer"
-      >
-        <LandingProductBlock
-          type="react"
-          icon={ReactGridIcon}
-          title={'React\nGrid'}
-          links={[
-            <LandingLink
-              to="/react/grid/docs/guides/getting-started/"
-              variant="button"
-              title="Getting Started"
-              key="react-grid-footer"
-            >
-              Getting Started
-            </LandingLink>,
-            <LandingLink
-              to="/react/grid/demos/"
-              title="Grid Demos"
-              key="react-grid-demos-footer"
-            >
-              Demos
-            </LandingLink>,
-          ]}
-        />
-        <LandingProductBlock
-          type="react"
-          icon={ReactChartIcon}
-          title={'React\nChart'}
-          links={[
-            <LandingLink
-              to="/react/chart/docs/guides/getting-started/"
-              variant="button"
-              title="Getting Started"
-              key="react-chart-footer"
-            >
-              Getting Started
-            </LandingLink>,
-            <LandingLink
-              to="/react/chart/demos/"
-              title="Chart Demos"
-              key="react-chart-demos-footer"
-            >
-              Demos
-            </LandingLink>,
-          ]}
-        />
-        <LandingProductBlock
-          type="react"
-          icon={ReactSchedulerIcon}
-          title={'React\nScheduler'}
-          links={[
-            <LandingLink
-              to="/react/scheduler/docs/guides/getting-started/"
-              variant="button"
-              title="Getting Started"
-              key="react-scheduler-footer"
-            >
-              Getting Started
-            </LandingLink>,
-            <LandingLink
-              to="/react/scheduler/demos/"
-              title="Scheduler Demos"
-              key="react-scheduler-demos-footer"
-            >
-              Demos
-            </LandingLink>,
-          ]}
-        />
-      </LandingProductLayout>
-    </AlternatedBackground>
+    <LandingProductLayout
+      position="footer"
+    >
+      <LandingProductBlock
+        type="react"
+        icon={ReactGridIcon}
+        title={'React\nGrid'}
+        links={[
+          <LandingLink
+            to="/react/grid/docs/guides/getting-started/"
+            variant="button"
+            title="Getting Started"
+            key="react-grid-footer"
+          >
+            Getting Started
+          </LandingLink>,
+          <LandingLink
+            to="/react/grid/demos/"
+            title="Grid Demos"
+            key="react-grid-demos-footer"
+          >
+            Demos
+          </LandingLink>,
+        ]}
+      />
+      <LandingProductBlock
+        type="react"
+        icon={ReactChartIcon}
+        title={'React\nChart'}
+        links={[
+          <LandingLink
+            to="/react/chart/docs/guides/getting-started/"
+            variant="button"
+            title="Getting Started"
+            key="react-chart-footer"
+          >
+            Getting Started
+          </LandingLink>,
+          <LandingLink
+            to="/react/chart/demos/"
+            title="Chart Demos"
+            key="react-chart-demos-footer"
+          >
+            Demos
+          </LandingLink>,
+        ]}
+      />
+      <LandingProductBlock
+        type="react"
+        icon={ReactSchedulerIcon}
+        title={'React\nScheduler'}
+        links={[
+          <LandingLink
+            to="/react/scheduler/docs/guides/getting-started/"
+            variant="button"
+            title="Getting Started"
+            key="react-scheduler-footer"
+          >
+            Getting Started
+          </LandingLink>,
+          <LandingLink
+            to="/react/scheduler/demos/"
+            title="Scheduler Demos"
+            key="react-scheduler-demos-footer"
+          >
+            Demos
+          </LandingLink>,
+        ]}
+      />
+    </LandingProductLayout>
   </Layout>
 );
 

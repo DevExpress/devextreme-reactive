@@ -29,6 +29,7 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
     cellComponent: 'Cell',
     rowComponent: 'Row',
     contentComponent: 'Content',
+    sortIconComponent: 'SortingIndicator',
     sortLabelComponent: 'SortLabel',
     titleComponent: 'Title',
     groupButtonComponent: 'GroupButton',
@@ -41,6 +42,7 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
       cellComponent: HeaderCell,
       rowComponent: HeaderRow,
       contentComponent: Content,
+      sortIconComponent: SortingIndicator,
       sortLabelComponent: SortLabel,
       groupButtonComponent: GroupButton,
       titleComponent: Title,
@@ -152,6 +154,7 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
                             changeColumnSorting({ columnName, direction, keepOther });
                           }}
                           getMessage={getMessage}
+                          sortIconComponent={SortingIndicator}
                         >
                           <Title>
                             {columnTitle || columnName}
@@ -190,6 +193,7 @@ TableHeaderRowBase.components = {
   cellComponent: 'Cell',
   rowComponent: 'Row',
   contentComponent: 'Content',
+  sortIconComponent: 'SortingIndicator',
   sortLabelComponent: 'SortLabel',
   titleComponent: 'Title',
   groupButtonComponent: 'GroupButton',

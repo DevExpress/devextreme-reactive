@@ -85,7 +85,7 @@ const generateDirRegistry = (dir) => {
     }
     return acc;
   }, { deps: {}, files: {} });
-}
+};
 
 const generateThemeFilesRegistry = (dir) => {
   const helperRegistry = fs.readdirSync(THEME_SOURCES_FOLDER).reduce((themeAcc, themeName) => {
@@ -101,10 +101,10 @@ const generateThemeFilesRegistry = (dir) => {
   writeObjectToFile(THEME_COMPONENTS_REGISTRY_FILE, helperRegistry, 'themeComponents');
 };
 
-parseDepsVersions = () => {
+const parseDepsVersions = () => {
   const deps = require(process.cwd() + '/package.json').dependencies;
   return JSON.stringify(deps);
-}
+};
 
 const generateDataHelpersRegistry = () => {
   const registry = generateDirRegistry(path.normalize(DEMO_DATA_FOLDER));

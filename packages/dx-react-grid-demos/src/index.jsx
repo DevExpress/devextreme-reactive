@@ -8,8 +8,6 @@ import { themeComponents } from './theme-components-registry';
 import { demoData } from './demo-data-registry';
 import './index.css';
 
-console.log('init demo 2')
-
 initialize({
   demoSources: demos,
   themeSources: themes,

@@ -149,11 +149,7 @@ describe('TableInlineCellEditing', () => {
   it('should pass autoFocus, onBlur, onFocus and onKeyDown props into cellComponent', () => {
     const tree = mount((
       <PluginHost>
-        {pluginDepsToComponents(defaultDeps, {
-          getter: {
-            isColumnEditingEnabled: () => false,
-          },
-        })}
+        {pluginDepsToComponents(defaultDeps)}
         <TableInlineCellEditing
           {...defaultProps}
         />

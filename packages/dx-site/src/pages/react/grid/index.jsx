@@ -200,7 +200,7 @@ const IndexPage = () => (
       )}
     />
 
-    <AlternatedBackground>
+    <AlternatedBackground style={{ paddingBottom: '2rem' }}>
       <LandingProductFloatImage imageLink={headerLink} />
       <div className="row my-3" />
       <LandingChessBoardLayoutList data={pageData} colSize={6} />

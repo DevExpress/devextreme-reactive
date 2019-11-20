@@ -174,7 +174,7 @@ const IndexPage = () => (
       )}
     />
     <LandingProductFloatImage imageLink={headerLink} />
-    <AlternatedBackground style={{ paddingTop: '4rem' }}>
+    <AlternatedBackground style={{ paddingTop: '4rem', paddingBottom: '2rem' }}>
       <LandingChessBoardSmallLayoutList data={chartTypes} />
       <LandingChessBoardLayoutList data={pageData} columns={3} />
     </AlternatedBackground>

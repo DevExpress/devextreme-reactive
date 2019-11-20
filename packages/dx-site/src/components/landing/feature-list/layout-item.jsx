@@ -21,7 +21,7 @@ const LayoutItem = ({
         description={description}
       />
     </div>
-    <div className={`${styles.child} mx-sm-auto ${styles.imageContainer}`}>
+    <div className={`${styles.child} ${styles.imageContainer}`}>
       <LandingFeaturePreview
         title={title}
         guideLink={guideLink}

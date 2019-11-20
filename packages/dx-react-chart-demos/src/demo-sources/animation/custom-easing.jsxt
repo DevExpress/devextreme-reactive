@@ -8,31 +8,22 @@ import {
   Legend,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
 import { ValueScale, Animation } from '@devexpress/dx-react-chart';
+import { easeBounceOut } from 'd3-ease';
 
-const Point = (props) => {
-  const { style, ...restProps } = props;
-  return (
-    <BarSeries.Point
-      style={{ ...style, animationDuration: `${(restProps.index + 1) * 0.3}s` }}
-      {...restProps}
-    />
-  );
-};
+import { sales as data } from '../../../demo-data/data-vizualization';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: [
-        { month: 'Jan', sale: 50, total: 987 },
-        { month: 'Feb', sale: 100, total: 3000 },
-        { month: 'March', sale: 30, total: 1100 },
-        { month: 'April', sale: 107, total: 7100 },
-        { month: 'May', sale: 95, total: 4300 },
-        { month: 'June', sale: 150, total: 7500 },
-      ],
+      data: data[2017],
     };
+    this.changeData = this.changeData.bind(this);
+  }
+
+  changeData(e) {
+    this.setState({ data: data[e.target.value] });
   }
 
   render() {
@@ -55,7 +46,6 @@ export default class Demo extends React.PureComponent {
             valueField="sale"
             argumentField="month"
             scaleName="sale"
-            pointComponent={Point}
           />
 
           <SplineSeries
@@ -64,9 +54,14 @@ export default class Demo extends React.PureComponent {
             argumentField="month"
             scaleName="total"
           />
-          <Animation />
+          <Animation duration={2000} easing={easeBounceOut} />
           <Legend />
         </Chart>
+        <select style={{ width: '100px', margin: '10px' }} onChange={this.changeData}>
+          <option>2017</option>
+          <option>2018</option>
+          <option>2019</option>
+        </select>
       </<%&wrapperTag%>>
     );
   }

@@ -46,9 +46,9 @@ export namespace BaseView {
   }
   /** Describes properties passed to a component that renders a time table cell. */
   export interface TimeTableCellProps {
-    /** Specifies the cell a start time. */
+    /** Specifies the cell's start time. */
     startDate?: Date;
-    /** Specifies the cell end time. */
+    /** Specifies the cell's end time. */
     endDate?: Date;
     /** Specifies whether the cell is shaded. */
     isShaded?: boolean;
@@ -86,9 +86,9 @@ export namespace BaseView {
   }
   /** @internal */
   export interface TimeScaleTickCellProps {
-    /** Specifies the cell a start time. */
+    /** Specifies the cell's start time. */
     startDate?: Date;
-    /** Specifies the cell end time. */
+    /** Specifies the cell's end time. */
     endDate?: Date;
   }
   /** Describes properties passed to a component that renders a day scale layout. */
@@ -104,9 +104,9 @@ export namespace BaseView {
   }
   /** Describes properties passed to a component that renders a day scale cell. */
   export interface DayScaleCellProps {
-    /** Specifies the cell end time. */
+    /** Specifies the cell's end time. */
     startDate: Date;
-    /** Specifies the cell start time. */
+    /** Specifies the cell's start time. */
     endDate?: Date;
     /** Indicates whether the cell’s date is today. */
     today?: boolean;
@@ -125,9 +125,9 @@ export namespace BaseView {
   }
   /** Describes a cell data configuration object. */
   export interface CellData {
-    /** Specifies the cell start time. */
+    /** Specifies the cell's start time. */
     startDate: Date;
-    /** Specifies the cell end time. */
+    /** Specifies the cell's end time. */
     endDate: Date;
     /** Indicates whether the cell’s date is today. */
     today: boolean;

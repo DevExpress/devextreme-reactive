@@ -52,8 +52,8 @@ Describes a cell data configuration object.
 
 Field | Type | Description
 ------|------|------------
-startDate | Date | Specifies the cell start time.
-endDate | Date | Specifies the cell end time.
+startDate | Date | Specifies the cell's start time.
+endDate | Date | Specifies the cell's end time.
 today | boolean | Indicates whether the cell's date is today.
 
 ### DayView.LayoutProps
@@ -104,8 +104,8 @@ Describes properties passed to a component that renders a day scale cell.
 
 Field | Type | Description
 ------|------|------------
-startDate | Date | Specifies the cell end time.
-endDate? | Date | Specifies the cell start time.
+startDate | Date | Specifies the cell's end time.
+endDate? | Date | Specifies the cell's start time.
 today? | boolean | Indicates whether the cell's date is today.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the set locale.
 
@@ -134,8 +134,8 @@ Describes properties passed to a component that renders a time table cell.
 
 Field | Type | Description
 ------|------|------------
-startDate? | Date | Specifies the cell a start time.
-endDate? | Date | Specifies the cell end time.
+startDate? | Date | Specifies the cell's start time.
+endDate? | Date | Specifies the cell's end time.
 isShaded? | boolean | Indicates whether the cell is shaded.
 currentTimeIndicatorPosition? | string | Indicates the distance from the top edge of the containing element (usually, a timetable cell). The distance is measured as a percentage of the element's height.
 currentTimeIndicatorComponent? | ComponentType&lt;[CurrentTimeIndicator.IndicatorProps](#currenttimeindicatorindicatorprops)&gt; | A component that renders the current time indicator.

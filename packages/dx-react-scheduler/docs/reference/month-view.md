@@ -104,7 +104,7 @@ startDate | Date | Specifies the cell start time.
 endDate? | Date | Specifies the cell end time.
 otherMonth? | boolean | Indicates whether the cell's date is not in the current month.
 today? | boolean | Indicates whether the cell's date is today.
-isShaded? | boolean | Specifies whether the cell is shaded.
+isShaded? | boolean | Indicates whether the cell is shaded.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the set locale.
 
 ### MonthView.AppointmentLayerProps

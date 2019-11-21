@@ -10,7 +10,7 @@ The following plugin implements this feature:
 
 ## Basic Usage
 
-Import the [CurrentTimeIndicator](../reference/current-time-indicator.md) plugin. Its `updateInterval` property specify how frequently the indicator's position should be updated. Set the `shadePastAppointments` and `shadePastCells` properties to `true` to shade past appointments and timetable cells:
+Import the [CurrentTimeIndicator](../reference/current-time-indicator.md) plugin. Its `updateInterval` property specifies how frequently the indicator's position should be updated. Set the `shadePastAppointments` and `shadePastCells` properties to `true` to shade past appointments and timetable cells:
 
 
 .embedded-demo({ "path": "scheduler-current-time-visualization/current-time-indicator", "showThemeSelector": true })

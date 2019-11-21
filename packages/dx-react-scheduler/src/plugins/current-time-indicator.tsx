@@ -107,7 +107,8 @@ CurrentTimeIndicatorBase.components = {
   indicatorComponent: 'Indicator',
 };
 
-/** A plugin that renders the Scheduler's button which sets the current date to today's date. */
+// tslint:disable-next-line: max-line-length
+/** A plugin that renders the current time indicator and the shading that covers appointments and timetable cells up to the current time. */
 export const CurrentTimeIndicator: React.ComponentType<
   CurrentTimeIndicatorProps
 > = CurrentTimeIndicatorBase;

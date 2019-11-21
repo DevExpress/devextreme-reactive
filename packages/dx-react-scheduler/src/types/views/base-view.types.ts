@@ -50,9 +50,12 @@ export namespace BaseView {
     startDate?: Date;
     /** Specifies the cell's end time. */
     endDate?: Date;
-    /** Specifies whether the cell is shaded. */
+    /** Indicates whether the cell is shaded. */
     isShaded?: boolean;
-    /** Specifies the current time indicator top position relative to the cell's height. */
+    // tslint:disable-next-line: max-line-length
+    /*** Indicates the distance from the top edge of the containing element (usually, a timetable cell).
+     * The distance is measured as a percentage of the element's height.
+     * */
     currentTimeIndicatorPosition?: string;
     /** A component that renders the current time indicator. */
     currentTimeIndicatorComponent?: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;

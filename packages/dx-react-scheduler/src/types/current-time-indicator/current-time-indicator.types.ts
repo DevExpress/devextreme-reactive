@@ -2,18 +2,22 @@
 export namespace CurrentTimeIndicator {
   /** Properties passed to the component that renders the today button. */
   export interface IndicatorProps {
-    /** Top CSS property in percentages of the containing element's height. */
+    // tslint:disable-next-line: max-line-length
+    /*** Indicates the distance from the top edge of the containing element (usually, a timetable cell).
+     * The distance is a percentage of the element's height.
+     * */
     top?: string;
   }
 }
 
 export interface CurrentTimeIndicatorProps {
-  /** The time interval in milliseconds between Indicator's position updates. */
+  // tslint:disable-next-line: max-line-length
+  /** An interval in milliseconds that specifies how frequently the indicator's position is updated. */
   updateInterval: number;
-  /** Specifies whether the past appointments should be shaded. */
+  /** Specifies whether previous appointments should be shaded. */
   shadePreviousAppointments: boolean;
-  /** Specifies whether past cells should be shaded. */
+  /** Specifies whether previous cells should be shaded. */
   shadePreviousCells: boolean;
-  /** A component that renders the CurrentTimeIndicator. */
+  /** A component that renders the current time indicator. */
   indicatorComponent: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
 }

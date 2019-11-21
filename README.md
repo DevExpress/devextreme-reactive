@@ -19,7 +19,7 @@ DevExtreme Reactive is a set of business React components that deeply integrate 
 
 [Website](https://devexpress.github.io/devextreme-reactive/react/chart/) | [Demos](https://devexpress.github.io/devextreme-reactive/react/chart/demos/) | [Docs](https://devexpress.github.io/devextreme-reactive/react/chart/docs/)
 
-## React Scheduler (Beta)
+## React Scheduler
 
 [Website](https://devexpress.github.io/devextreme-reactive/react/scheduler/) | [Demos](https://devexpress.github.io/devextreme-reactive/react/scheduler/demos/) | [Docs](https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/)
 

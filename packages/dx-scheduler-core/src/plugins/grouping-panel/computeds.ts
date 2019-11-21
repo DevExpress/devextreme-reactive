@@ -34,14 +34,21 @@ const addGroupInfoToCells: PureComputed<
   const result = viewCellRow.map((
     viewCell: ViewCell,
   ) => {
-    let groupingInfo = [currentGroup];
+    const lastIndex = groupingItems.length - 1;
     let previousIndex = index;
-    for (let i = groupingItems.length - 2; i >= 0; i -= 1) {
-      const previousGroupingItem = i + 1;
+    const groupingInfo = groupingItems.reduce((
+      acc: ResourceInstance[], groupingItem: ResourceInstance[], index: number,
+    ) => {
+      if (index === 0) return acc;
+      const currentIndex = lastIndex - index;
+      const previousGroupingItem = lastIndex - index + 1;
       const previousResourceLength = sortedResources[previousGroupingItem].instances.length;
-      const currentResourceInstance = groupingItems[i][Math.floor(previousIndex / previousResourceLength)];
-      groupingInfo.push(currentResourceInstance);
-    }
+      const currentResourceInstance = groupingItems[currentIndex][Math.floor(
+        previousIndex / previousResourceLength,
+      )];
+      previousIndex = currentIndex;
+      return [...acc, currentResourceInstance];
+    }, [currentGroup]);
     return { ...viewCell, groupingInfo };
   });
   return result;

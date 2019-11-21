@@ -48,15 +48,15 @@
     "lint:fix": "yarn lint -- --fix"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.4",
+    "@babel/core": "^7.7.2",
     "@babel/plugin-transform-runtime": "^7.6.2",
-    "@babel/preset-env": "^7.6.3",
-    "@babel/preset-react": "^7.6.3",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-react": "^7.7.0",
     "@devexpress/dx-core": "2.2.1",
     "@devexpress/dx-react-core": "2.2.1",
     "@devexpress/dx-testing": "2.2.1",
     "babel-core": "^7.0.0-bridge.0",
-    "core-js": "^3.3.3",
+    "core-js": "^3.4.1",
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "enzyme-to-json": "^3.4.3",
@@ -64,14 +64,14 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-test-renderer": "^16.12.0",
-    "rollup": "^1.25.2",
+    "rollup": "^1.27.2",
     "rollup-plugin-license": "^0.12.1",
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-typescript2": "^0.25.2",
     "ts-jest": "^24.1.0",
-    "tslint": "^5.20.0",
+    "tslint": "^5.20.1",
     "tslint-config-airbnb": "^5.11.2",
-    "typescript": "3.6.4"
+    "typescript": "3.7.2"
   },
   "dependencies": {
     "@devexpress/dx-grid-core": "2.2.1"

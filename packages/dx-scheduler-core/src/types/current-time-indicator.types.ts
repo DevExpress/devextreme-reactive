@@ -5,14 +5,14 @@ import { ViewCellData } from './all-day-panel.types';
 export type IsCellShadedFn = (
   params: { startDate: Date; endDate: Date; otherMonth?: boolean },
   currentTime: number,
-  shadePastCells: boolean,
+  shadePreviousCells: boolean,
 ) => boolean;
 
 /** @internal */
 export type IsShadedAppointment = (
   params: { data: AppointmentModel; },
   currentTime: number,
-  shadePastAppointments: boolean,
+  shadePreviousAppointments: boolean,
 ) => boolean;
 
 /** @internal */

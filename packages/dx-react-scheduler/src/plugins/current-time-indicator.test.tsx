@@ -128,7 +128,7 @@ describe('TodayButton', () => {
   });
 
   describe('Properties', () => {
-    it('should call isShadedAppointment with default shadePastAppointments prop', () => {
+    it('should call isShadedAppointment with default shadePreviousAppointments prop', () => {
       mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -142,13 +142,13 @@ describe('TodayButton', () => {
         .toBeCalledWith(expect.anything(), expect.anything(), false);
     });
 
-    it('should call isShadedAppointment with user\'s shadePastAppointments prop', () => {
+    it('should call isShadedAppointment with user\'s shadePreviousAppointments prop', () => {
       mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <CurrentTimeIndicator
             {...defaultProps}
-            shadePastAppointments
+            shadePreviousAppointments
           />
         </PluginHost>
       ));

@@ -29,7 +29,7 @@ describe('CurrentTimeIndicator helpers', () => {
         .toBeTruthy();
     });
 
-    it('should return false when shadePastAppointments is false', () => {
+    it('should return false when shadePreviousAppointments is false', () => {
       const testAppointment = {
         startDate: new Date(2019, 10, 13, 10, 10),
         endDate: new Date(2019, 10, 13, 11, 10),
@@ -126,7 +126,7 @@ describe('CurrentTimeIndicator helpers', () => {
         .toBeTruthy();
     });
 
-    it('should return false if shadePastCells is false', () => {
+    it('should return false if shadePreviousCells is false', () => {
       const testCell = {
         startDate: new Date(defaultCurrentTime - 200),
         endDate: new Date(defaultCurrentTime - 100),

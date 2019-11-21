@@ -21,7 +21,7 @@ const pluginDependencies = [
 const CurrentTimeIndicatorBase: React.SFC<CurrentTimeIndicatorProps>  & {components: {
   indicatorComponent: string,
 }} = ({
-  indicatorComponent, shadePastAppointments, shadePastCells, updateInterval,
+  indicatorComponent, shadePreviousAppointments, shadePreviousCells, updateInterval,
 }) => {
   const [currentTime, setCurrentTime] = React.useState(Date.now);
   const [indicatorUpdateTimer, setIndicatorUpdateTimer] = React.useState<any>(undefined);
@@ -60,7 +60,7 @@ const CurrentTimeIndicatorBase: React.SFC<CurrentTimeIndicatorProps>  & {compone
           <TemplatePlaceholder
             params={{
               ...params,
-              isShaded: isCellShaded(params, currentTime, shadePastCells),
+              isShaded: isCellShaded(params, currentTime, shadePreviousCells),
             }}
           />
         )}
@@ -73,7 +73,7 @@ const CurrentTimeIndicatorBase: React.SFC<CurrentTimeIndicatorProps>  & {compone
             params={{
               ...params,
               isShaded: isShadedAppointment(
-                params, currentTime, shadePastAppointments,
+                params, currentTime, shadePreviousAppointments,
               ),
             }}
           />
@@ -87,7 +87,7 @@ const CurrentTimeIndicatorBase: React.SFC<CurrentTimeIndicatorProps>  & {compone
             params={{
               ...params,
               isShaded: isShadedAppointment(
-                params, currentTime, shadePastAppointments,
+                params, currentTime, shadePreviousAppointments,
               ),
             }}
           />
@@ -99,8 +99,8 @@ const CurrentTimeIndicatorBase: React.SFC<CurrentTimeIndicatorProps>  & {compone
 
 CurrentTimeIndicatorBase.defaultProps = {
   updateInterval: 60000,
-  shadePastCells: false,
-  shadePastAppointments: false,
+  shadePreviousCells: false,
+  shadePreviousAppointments: false,
 };
 
 CurrentTimeIndicatorBase.components = {

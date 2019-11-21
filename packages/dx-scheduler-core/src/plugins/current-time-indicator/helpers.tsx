@@ -10,15 +10,15 @@ export const isMonthCell: PureComputed<
 > = otherMonth => otherMonth !== undefined;
 
 export const isShadedAppointment: IsShadedAppointment = (
-  { data: appointmentData }, currentTime, shadePastAppointments,
+  { data: appointmentData }, currentTime, shadePreviousAppointments,
 ) => {
   const momentCurrentDate = moment(currentTime);
   if (appointmentData.allDay) {
     return momentCurrentDate.isAfter(appointmentData.endDate as Date, 'day')
-    && shadePastAppointments;
+    && shadePreviousAppointments;
   }
   if (momentCurrentDate.isAfter(appointmentData.endDate as Date)) {
-    return shadePastAppointments;
+    return shadePreviousAppointments;
   }
   return false;
 };
@@ -32,9 +32,9 @@ export const getCurrentTimeIndicatorTop: GetCurrentTimeIndicatorTopFn = (
 };
 
 export const isCellShaded: IsCellShadedFn = (
-  { startDate, endDate, otherMonth }, currentTime, shadePastCells,
+  { startDate, endDate, otherMonth }, currentTime, shadePreviousCells,
 ) => {
   const monthCell = isMonthCell(otherMonth);
   return ((startDate.getTime() < currentTime && !monthCell)
-    || endDate.getTime() < currentTime && monthCell) && shadePastCells;
+    || endDate.getTime() < currentTime && monthCell) && shadePreviousCells;
 };

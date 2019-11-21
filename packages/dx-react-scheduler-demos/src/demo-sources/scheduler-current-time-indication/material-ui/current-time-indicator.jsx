@@ -34,44 +34,44 @@ const styles = ({ spacing }) => ({
 });
 
 // #FOLD_BLOCK
-const ShadeCellsCheckBox = ({ shadePastCells, handleChange }) => (
+const ShadeCellsCheckBox = ({ shadePreviousCells, handleChange }) => (
   <FormControlLabel
     control={(
       <Checkbox
-        checked={shadePastCells}
-        onChange={() => handleChange('shadePastCells')}
+        checked={shadePreviousCells}
+        onChange={() => handleChange('shadePreviousCells')}
         color="primary"
       />
     )}
-    label="Shade past cells"
+    label="Shade previous cells"
   />
 );
 
 // #FOLD_BLOCK
-const ShadePastAppointmentsCheckBox = ({ shadePastAppointments, handleChange }) => (
+const ShadePreviousAppointmentsCheckBox = ({ shadePreviousAppointments, handleChange }) => (
   <FormControlLabel
     control={(
       <Checkbox
-        checked={shadePastAppointments}
-        onChange={() => handleChange('shadePastAppointments')}
+        checked={shadePreviousAppointments}
+        onChange={() => handleChange('shadePreviousAppointments')}
         color="primary"
       />
     )}
-    label="Shade past appointments"
+    label="Shade previous appointments"
   />
 );
 // #FOLD_BLOCK
 const CheckBoxContainer = withStyles(styles, { name: 'CheckBoxContainer' })(({
-  shadePastCells, shadePastAppointments, handleCheckboxChange, classes,
+  shadePreviousCells, shadePreviousAppointments, handleCheckboxChange, classes,
   // #FOLD_BLOCK
 }) => (
   <Grid item container direction="column" className={classes.checkBoxContainer} xs={6}>
     <ShadeCellsCheckBox
-      shadePastCells={shadePastCells}
+      shadePreviousCells={shadePreviousCells}
       handleChange={handleCheckboxChange}
     />
-    <ShadePastAppointmentsCheckBox
-      shadePastAppointments={shadePastAppointments}
+    <ShadePreviousAppointmentsCheckBox
+      shadePreviousAppointments={shadePreviousAppointments}
       handleChange={handleCheckboxChange}
     />
   </Grid>
@@ -104,8 +104,8 @@ export default class Demo extends React.PureComponent {
     super(props);
     this.state = {
       data: appointments,
-      shadePastCells: true,
-      shadePastAppointments: true,
+      shadePreviousCells: true,
+      shadePreviousAppointments: true,
       updateInterval: 10000,
     };
 
@@ -146,17 +146,17 @@ export default class Demo extends React.PureComponent {
   render() {
     const {
       data,
-      shadePastCells,
+      shadePreviousCells,
       updateInterval,
-      shadePastAppointments,
+      shadePreviousAppointments,
     } = this.state;
 
     return (
       <>
         <Grid container>
           <CheckBoxContainer
-            shadePastCells={shadePastCells}
-            shadePastAppointments={shadePastAppointments}
+            shadePreviousCells={shadePreviousCells}
+            shadePreviousAppointments={shadePreviousAppointments}
             handleCheckboxChange={this.handleCheckboxChange}
           />
           <UpdateIntervalBox
@@ -183,8 +183,8 @@ export default class Demo extends React.PureComponent {
             <DragDropProvider />
 
             <CurrentTimeIndicator
-              shadePastCells={shadePastCells}
-              shadePastAppointments={shadePastAppointments}
+              shadePreviousCells={shadePreviousCells}
+              shadePreviousAppointments={shadePreviousAppointments}
               updateInterval={updateInterval}
             />
           </Scheduler>

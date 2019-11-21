@@ -9,7 +9,7 @@ The React Scheduler can display a current time indicator and shade appointments 
 
 ## Basic Usage
 
-Import the [CurrentTimeIndicator](../reference/current-time-indicator.md) plugin. Its `updateInterval` property specifies how frequently the indicator's position should be updated. Set the `shadePastAppointments` and `shadePastCells` properties to `true` to shade previous appointments and timetable cells:
+Import the [CurrentTimeIndicator](../reference/current-time-indicator.md) plugin. Its `updateInterval` property specifies how frequently the indicator's position should be updated. Set the `shadePreviousAppointments` and `shadePreviousCells` properties to `true` to shade previous appointments and timetable cells:
 
 
 .embedded-demo({ "path": "scheduler-current-time-indication/current-time-indicator", "showThemeSelector": true })

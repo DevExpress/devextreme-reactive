@@ -149,8 +149,8 @@ export default class Demo extends React.PureComponent {
           />
           <CurrentTimeIndicator
             indicatorComponent={TimeIndicator}
-            shadePastCells
-            shadePastAppointments
+            shadePreviousCells
+            shadePreviousAppointments
           />
         </Scheduler>
       </Paper>

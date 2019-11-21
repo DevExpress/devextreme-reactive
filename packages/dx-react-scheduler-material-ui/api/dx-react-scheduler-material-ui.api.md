@@ -318,8 +318,8 @@ export const CurrentTimeIndicator: React.ComponentType<CurrentTimeIndicatorProps
 // @public (undocumented)
 export interface CurrentTimeIndicatorProps {
   indicatorComponent?: React.ComponentType<CurrentTimeIndicator_2.IndicatorProps>;
-  shadePastAppointments?: boolean;
-  shadePastCells?: boolean;
+  shadePreviousAppointments?: boolean;
+  shadePreviousCells?: boolean;
   updateInterval?: number;
 }
 

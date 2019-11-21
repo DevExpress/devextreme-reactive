@@ -577,8 +577,8 @@ export namespace CurrentTimeIndicator {
 // @public (undocumented)
 export interface CurrentTimeIndicatorProps {
   indicatorComponent: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
-  shadePastAppointments: boolean;
-  shadePastCells: boolean;
+  shadePreviousAppointments: boolean;
+  shadePreviousCells: boolean;
   updateInterval: number;
 }
 

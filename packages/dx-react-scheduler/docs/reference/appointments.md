@@ -48,7 +48,7 @@ data | object | An object that specifies the appointment data.
 draggable | boolean | Specifies whether the appointment is draggable.
 onClick? | (e: object) => void | A function that handles a click on the appointment.
 onDoubleClick? | (e: object) => void | A function that handles a double click on the appointment.
-isShaded? | boolean | Specifies whether the appointment is shaded.
+isShaded? | boolean | Indicates whether the appointment is shaded.
 
 ### Appointments.AppointmentContentProps
 

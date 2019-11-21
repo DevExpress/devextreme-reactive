@@ -1,23 +1,22 @@
-# React Scheduler - Current Time Visualization
+# React Scheduler - Current Time Indication
 
-The React Scheduler displays information about current time. It's implemented by the `CurrentTimeIndicator` plugin that shows current time in week and day views.
+The React Scheduler can display a current time indicator and shade appointments and cells up to the current time. This feature can be enabled in the day, week, and month views, but the month view supports only the shading.
 
 ## Related Plugins
 
 The following plugin implements this feature:
 
-- [CurrentTimeIndicator](../reference/current-time-indicator.md) - displays current time
+- [CurrentTimeIndicator](../reference/current-time-indicator.md) - renders the current time indicator and shades that cover appointments and timetable cells up to the current time
 
 ## Basic Usage
 
-Import the [CurrentTimeIndicator](../reference/current-time-indicator.md) plugin. Use its `updateInterval` property to change the Indicator's update interval. Its `shadePastCells` and `shadePastAppointments` are used to differentiate between past and future (including present) cells and appointments. Note that the current time indicator is not displayed by [MonthView](../reference/month-view.md) but `shadePastCells` and `shadePastAppointments` work with this plugin as well.
+Import the [CurrentTimeIndicator](../reference/current-time-indicator.md) plugin. Its `updateInterval` property specify how frequently the indicator's position should be updated. Set the `shadePastAppointments` and `shadePastCells` properties to `true` to shade past appointments and timetable cells:
 
-The following demo shows how to use the current time indicator:
 
 .embedded-demo({ "path": "scheduler-current-time-visualization/current-time-indicator", "showThemeSelector": true })
 
 ### Customize the Appearance
 
-To customize the indicator's appearance, use its `indicatorComponent` prop. You may also customize cells and appointments depending on their date. The demo below demonstrates how to customize timetable cells, appointments and current time indicator:
+To customize the current time indicator, use the `indicatorComponent` property. You can also customize appointments  and timetable cells:
 
 .embedded-demo({ "path": "scheduler-current-time-visualization/customization", "showThemeSelector": true })

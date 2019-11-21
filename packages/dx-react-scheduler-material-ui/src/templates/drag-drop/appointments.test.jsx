@@ -6,6 +6,7 @@ jest.mock('@material-ui/core/styles', () => ({
   ...require.requireActual('@material-ui/core/styles'),
   makeStyles: jest.fn(() => () => ({
     appointment: 'appointment',
+    shadedAppointment: 'shadedAppointment',
   })),
 }));
 
@@ -40,6 +41,19 @@ describe('DragDrop', () => {
         .toBeTruthy();
       expect(tree.is('.appointment'))
         .toBeTruthy();
+      expect(tree.is('.shadedAppointment'))
+        .toBeFalsy();
+    });
+    it('should be shaded if "isShaded" is true', () => {
+      const tree = shallow((
+        <DraftAppointment
+          {...defaultProps}
+          isShaded
+        />
+      ));
+
+      expect(tree.is('.shadedAppointment'))
+        .toBeTruthy();
     });
   });
 
@@ -64,6 +78,14 @@ describe('DragDrop', () => {
       expect(tree.is('.custom-class'))
         .toBeTruthy();
       expect(tree.is('.appointment'))
+        .toBeTruthy();
+    });
+    it('should pass "isShaded" to the root component', () => {
+      const tree = shallow((
+        <SourceAppointment {...defaultProps} isShaded />
+      ));
+
+      expect(tree.prop('isShaded'))
         .toBeTruthy();
     });
   });

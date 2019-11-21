@@ -36,6 +36,16 @@ const useStyles = makeStyles(({ palette, typography, spacing }) => ({
   clickableAppointment: {
     cursor: 'pointer',
   },
+  shadedAppointment: {
+    backgroundColor: resources => getAppointmentColor(
+      200, getResourceColor(resources), palette.primary,
+    ),
+    '&:hover': {
+      backgroundColor: resources => getAppointmentColor(
+        300, getResourceColor(resources), palette.primary,
+      ),
+    },
+  },
 }));
 
 export const Appointment = ({
@@ -44,6 +54,7 @@ export const Appointment = ({
   data,
   onClick: handleClick,
   draggable,
+  isShaded,
   resources,
   ...restProps
 }) => {
@@ -61,6 +72,7 @@ export const Appointment = ({
       className={classNames({
         [classes.appointment]: true,
         [classes.clickableAppointment]: clickable,
+        [classes.shadedAppointment]: isShaded,
       }, className)}
       {...onClick}
       {...restProps}
@@ -77,6 +89,7 @@ Appointment.propTypes = {
   data: PropTypes.object,
   onClick: PropTypes.func,
   draggable: PropTypes.bool,
+  isShaded: PropTypes.bool,
 };
 
 Appointment.defaultProps = {
@@ -85,4 +98,5 @@ Appointment.defaultProps = {
   className: undefined,
   data: {},
   draggable: false,
+  isShaded: false,
 };

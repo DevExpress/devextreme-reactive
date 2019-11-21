@@ -19,6 +19,11 @@ const draftStyles = makeStyles(theme => ({
     ),
     border: 0,
   },
+  shadedAppointment: {
+    backgroundColor: resources => getAppointmentColor(
+      400, getResourceColor(resources), theme.palette.primary,
+    ),
+  },
 }));
 
 const sourceStyles = makeStyles({
@@ -27,11 +32,16 @@ const sourceStyles = makeStyles({
   },
 });
 
-export const DraftAppointment = ({ className, resources, ...restProps }) => {
+export const DraftAppointment = ({
+  className, resources, isShaded, ...restProps
+}) => {
   const classes = draftStyles(resources);
   return (
     <AppointmentBase
-      className={classNames(classes.appointment, className)}
+      className={classNames({
+        [classes.appointment]: true,
+        [classes.shadedAppointment]: isShaded,
+      }, className)}
       resources={resources}
       {...restProps}
     />
@@ -41,11 +51,13 @@ export const DraftAppointment = ({ className, resources, ...restProps }) => {
 DraftAppointment.propTypes = {
   resources: PropTypes.array,
   className: PropTypes.string,
+  isShaded: PropTypes.bool,
 };
 
 DraftAppointment.defaultProps = {
   className: undefined,
   resources: [],
+  isShaded: false,
 };
 
 export const SourceAppointment = ({ className, ...restProps }) => {
@@ -67,12 +79,13 @@ SourceAppointment.defaultProps = {
 };
 
 const AppointmentBase = ({
-  className, data, formatDate,
-  type, fromPrev, toNext, durationType, ...restProps
+  className, data, formatDate, type, fromPrev,
+  toNext, durationType, isShaded, ...restProps
 }) => (
   <Appointment
     className={className}
     type={type}
+    isShaded={isShaded}
     {...restProps}
   >
     {fromPrev && <SplitIndicator position={POSITION_START} appointmentType={type} />}
@@ -95,10 +108,12 @@ AppointmentBase.propTypes = {
   durationType: PropTypes.string,
   className: PropTypes.string,
   type: PropTypes.string,
+  isShaded: PropTypes.bool,
 };
 
 AppointmentBase.defaultProps = {
   durationType: undefined,
   className: undefined,
   type: undefined,
+  isShaded: false,
 };

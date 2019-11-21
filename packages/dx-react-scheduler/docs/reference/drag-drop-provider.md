@@ -53,6 +53,7 @@ style | object | Configures the appointment's geometry and position.
 type | string | Specifies the appointment's type.
 fromPrev | boolean | **true** if the appointment is continued from the previous day/week/month/year.
 toNext | boolean | **true** if the appointment continues on the next day/week/month/year.
+isShaded? | boolean | Indicates whether the appointment is shaded.
 
 ### DragDropProvider.SourceAppointmentProps
 
@@ -62,6 +63,7 @@ Field | Type | Description
 ------|------|------------
 data | [AppointmentModel](./scheduler.md#appointmentmodel) | Specifies the appointment's data.
 type | string | Specifies the appointment's type.
+isShaded? | boolean | Indicates whether the appointment is shaded.
 
 ### DragDropProvider.ResizeProps
 

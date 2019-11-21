@@ -23,6 +23,8 @@ export namespace DragDropProvider {
     fromPrev: boolean;
     /** true if the appointment continues on the next day/week/month/year. */
     toNext: boolean;
+    /** Indicates whether the appointment is shaded. */
+    isShaded?: boolean;
   }
   /** Describes properties of the component that renders a copy of the appointment being dragged in its previous location. */
   export interface SourceAppointmentProps {
@@ -30,6 +32,8 @@ export namespace DragDropProvider {
     data: AppointmentModel;
     /** Specifies the appointment’s type. */
     type: string;
+    /** Indicates whether the appointment is shaded. */
+    isShaded?: boolean;
   }
   /** Describes properties of the component that renders a handle used to resize the appointment. */
   export interface ResizeProps {

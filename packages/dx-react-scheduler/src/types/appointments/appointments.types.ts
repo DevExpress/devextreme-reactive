@@ -14,6 +14,8 @@ export namespace Appointments {
     onClick?: (e: any) => void;
     /** A function that handles a double click on the appointment. */
     onDoubleClick?: (e: any) => void;
+    /** Indicates whether the appointment is shaded. */
+    isShaded?: boolean;
     /** Specifies the appointment resource items */
     resources: Array<ValidResourceInstance>;
   }

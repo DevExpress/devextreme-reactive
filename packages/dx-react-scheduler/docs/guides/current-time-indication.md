@@ -4,7 +4,6 @@ The React Scheduler can display a current time indicator and shade appointments 
 
 ## Related Plugins
 
-
 - [CurrentTimeIndicator](../reference/current-time-indicator.md) - renders the current time indicator and the shading that covers appointments and timetable cells up to the current time
 
 ## Basic Usage

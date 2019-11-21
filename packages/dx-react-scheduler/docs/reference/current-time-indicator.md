@@ -1,6 +1,6 @@
 # CurrentTimeIndicator Plugin Reference
 
-A plugin that renders the current time indicator and shades that cover appointments and timetable cells up to the current time.
+A plugin that renders the current time indicator and the shading that covers appointments and timetable cells up to the current time.
 
 ## Import
 
@@ -31,8 +31,8 @@ import { CurrentTimeIndicator } from '@devexpress/dx-react-scheduler';
 Name | Type | Default | Description
 -----|------|---------|------------
 updateInterval | number | 60000 | An interval in milliseconds that specifies how frequently the indicator's position is updated.
-shadePastAppointments | boolean | `false` | Specifies whether past appointments should be shaded.
-shadePastCells | boolean | `false` | Specifies whether past cells should be shaded.
+shadePastAppointments | boolean | `false` | Specifies whether previous appointments should be shaded.
+shadePastCells | boolean | `false` | Specifies whether previous cells should be shaded.
 indicatorComponent | ComponentType&lt;[CurrentTimeIndicator.IndicatorProps](#currenttimeindicatorindicatorprops)&gt; | | A component that renders the current time indicator.
 
 ## Interfaces
@@ -43,7 +43,7 @@ Properties passed to the `indicatorComponent`.
 
 Field | Type | Description
 ------|------|------------
-top? | string | Indicates the distance from the top edge of the containing element (usually, a timetable cell). The distance is measured as a percentage of the element's height.
+top? | string | Indicates the distance from the top edge of the containing element (usually, a timetable cell). The distance is a percentage of the element's height.
 
 ## Plugin Components
 

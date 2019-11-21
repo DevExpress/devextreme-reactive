@@ -17,6 +17,20 @@ const styles = theme => ({
   inputRoot: {
     width: '100%',
   },
+  disabledInput: {
+    color: theme.palette.action.disabled,
+    '&:before': {
+      borderBottom: '1px dotted',
+      borderBottomColor: theme.palette.action.disabled,
+    },
+    '&&:hover:before': {
+      borderBottom: '1px dotted',
+      borderBottomColor: theme.palette.action.disabled,
+    },
+    '&:after': {
+      borderBottom: '0px',
+    },
+  },
   inputRight: {
     textAlign: 'right',
   },
@@ -51,10 +65,13 @@ const EditCellBase = ({
     >
       {patchedChildren || (
         <Input
-          className={classes.inputRoot}
+          className={classNames({
+            [classes.inputRoot]: true,
+            [classes.disabledInput]: !editingEnabled,
+          })}
           classes={{ input: inputClasses }}
           value={value || ''}
-          disabled={!editingEnabled}
+          readOnly={!editingEnabled}
           onChange={e => onValueChange(e.target.value)}
           // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus={autoFocus}

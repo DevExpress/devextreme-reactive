@@ -178,15 +178,18 @@ describe('EditCell', () => {
       .toMatchObject({ a: 1 });
   });
 
-  it('should render disabled editor if editing is not allowed', () => {
+  it('should render read-only editor if editing is not allowed', () => {
     const tree = mount((
       <EditCell
         {...defaultProps}
         editingEnabled={false}
       />
     ));
+    const input = tree.find(Input);
 
-    expect(tree.find(Input).prop('disabled'))
+    expect(input.prop('readOnly'))
+      .toBeTruthy();
+    expect(input.hasClass(classes.disabledInput))
       .toBeTruthy();
   });
 });

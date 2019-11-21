@@ -312,12 +312,12 @@ export namespace CurrentTimeIndicator {
 
 // @public
 export const CurrentTimeIndicator: React.ComponentType<CurrentTimeIndicatorProps> & {
-  Indicator: React.ComponentType<CurrentTimeIndicator.IndicatorProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Indicator: React.ComponentType<CurrentTimeIndicator_2.IndicatorProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
 };
 
 // @public (undocumented)
 export interface CurrentTimeIndicatorProps {
-  indicatorComponent?: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
+  indicatorComponent?: React.ComponentType<CurrentTimeIndicator_2.IndicatorProps>;
   shadePastAppointments?: boolean;
   shadePastCells?: boolean;
   updateInterval?: number;

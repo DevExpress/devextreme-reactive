@@ -331,8 +331,8 @@
         path: /react/scheduler/docs/guides/editing
       - title: Resources
         path: /react/scheduler/docs/guides/resources
-      - title: Current Time Visualization
-        path: /react/scheduler/docs/guides/current-time-visualization
+      - title: Current Time Indication
+        path: /react/scheduler/docs/guides/current-time-indication
       - title: Localization
         path: /react/scheduler/docs/guides/localization
       - title: TypeScript Support

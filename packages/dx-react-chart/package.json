@@ -61,7 +61,7 @@
     "ts-jest": "^24.1.0",
     "tslint": "^5.20.1",
     "tslint-config-airbnb": "^5.11.2",
-    "typescript": "3.6.4"
+    "typescript": "3.7.2"
   },
   "dependencies": {
     "@devexpress/dx-chart-core": "2.2.1",

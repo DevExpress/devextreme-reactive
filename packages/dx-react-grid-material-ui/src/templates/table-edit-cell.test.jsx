@@ -192,4 +192,17 @@ describe('EditCell', () => {
     expect(input.hasClass(classes.disabledInput))
       .toBeTruthy();
   });
+
+  it('should render zero values', () => {
+    const tree = mount((
+      <EditCell
+        {...defaultProps}
+        value={0}
+      />
+    ));
+    const input = tree.find(Input);
+
+    expect(input.prop('value'))
+      .toBe(0);
+  });
 });

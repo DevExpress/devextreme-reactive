@@ -302,13 +302,15 @@ export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
 ) => {
   const { growDirection, multiline } = type;
   const sorted = sortAppointments(intervals, multiline);
-  const grouped = findOverlappedAppointments(sorted as AppointmentMoment[], multiline);
+  const grouped = findOverlappedAppointments(
+    sorted as AppointmentMoment[], growDirection === HORIZONTAL_TYPE,
+  );
 
   const rectCalculator = growDirection === HORIZONTAL_TYPE
     ? horizontalRectCalculator
     : verticalRectCalculator;
 
-  return unwrapGroups(adjustAppointments(grouped, multiline))
+  return unwrapGroups(adjustAppointments(grouped, growDirection === HORIZONTAL_TYPE))
     .map(appointment => rectCalculator(appointment, { rectByDates, multiline, rectByDatesMeta }));
 };
 

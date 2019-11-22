@@ -7,7 +7,7 @@ import {
   BarSeries,
   Title,
 } from '@devexpress/dx-react-chart-bootstrap4';
-import { Popover, PopoverBody } from 'reactstrap';
+import { Popper } from 'react-popper';
 import domtoimage from 'dom-to-image';
 import { Plugin, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import JsPDF from 'jspdf';
@@ -156,27 +156,29 @@ const Export = () => {
         </button>
         { anchorEl
           ? (
-            <Popover
-              placement="bottom"
-              isOpen
-              target={anchorEl}
+            <Popper
+              referenceElement={anchorEl}
             >
-              <PopoverBody className="px-0 py-2">
-                {
-                options.map(option => (
-                  <button
-                    type="button"
-                    onClick={handleExport(option)}
-                    className="dropdown-item"
-                  >
-                    {option.text}
-                  </button>
-                ))
-              }
-              </PopoverBody>
-            </Popover>
+              {({
+                ref, style, arrowProps,
+              }) => (
+                <div className={'popover show bs-popover-bottom'} ref={ref} style={style}>
+                  {options.map((option, index) => (
+                    <button
+                      type="button"
+                      key={index.toString()}
+                      onClick={handleExport(option)}
+                      className="dropdown-item"
+                    >
+                      {option.text}
+                    </button>
+                  ))}
+                  <div className="arrow" ref={ref} {...arrowProps} />
+                </div>
+              )}
+            </Popper>
           )
-          : null }
+          : null}
       </Template>
     </Plugin>
   );

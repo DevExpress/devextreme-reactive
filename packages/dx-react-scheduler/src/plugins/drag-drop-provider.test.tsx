@@ -4,7 +4,7 @@ import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import {
   PluginHost, DropTarget, DragSource,
   DragDropProvider as DragDropProviderCore,
-  TemplatePlaceholder,
+  TemplatePlaceholder, Template,
 } from '@devexpress/dx-react-core';
 import {
   cellIndex,
@@ -285,6 +285,23 @@ describe('DragDropProvider', () => {
         .toBeFalsy();
       expect(allowResize)
         .toBeCalledWith(deps.template.appointmentTop.data);
+    });
+    it('should render draftAppointment template', () => {
+      const deps = {
+        template: {
+          appointmentTop: {
+            data: {},
+          },
+        },
+      };
+
+      const { tree } = mountPlugin({}, deps);
+      const templatePlaceholder = tree
+        .find(Template)
+        .filterWhere(node => node.props().name === 'draftAppointment');
+
+      expect(templatePlaceholder.exists())
+        .toBeTruthy();
     });
   });
 

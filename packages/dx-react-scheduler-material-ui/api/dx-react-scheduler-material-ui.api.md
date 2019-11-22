@@ -11,6 +11,7 @@ import { AppointmentModel } from '@devexpress/dx-react-scheduler';
 import { Appointments as Appointments_2 } from '@devexpress/dx-react-scheduler';
 import { AppointmentTooltip as AppointmentTooltip_2 } from '@devexpress/dx-react-scheduler';
 import { ConfirmationDialog as ConfirmationDialog_2 } from '@devexpress/dx-react-scheduler';
+import { CurrentTimeIndicator as CurrentTimeIndicator_2 } from '@devexpress/dx-react-scheduler';
 import { DateNavigator as DateNavigator_2 } from '@devexpress/dx-react-scheduler';
 import { DayView as DayView_2 } from '@devexpress/dx-react-scheduler';
 import { DragDropProvider as DragDropProvider_2 } from '@devexpress/dx-react-scheduler';
@@ -302,6 +303,24 @@ export interface ConfirmationDialogProps {
   layoutComponent?: React.ComponentType<ConfirmationDialog_2.LayoutProps>;
   messages?: React.ComponentType<ConfirmationDialog_2.LocalizationMessages>;
   overlayComponent?: React.ComponentType<ConfirmationDialog_2.OverlayProps>;
+}
+
+// @public (undocumented)
+export namespace CurrentTimeIndicator {
+  export type IndicatorProps = CurrentTimeIndicator_2.IndicatorProps;
+}
+
+// @public
+export const CurrentTimeIndicator: React.ComponentType<CurrentTimeIndicatorProps> & {
+  Indicator: React.ComponentType<CurrentTimeIndicator_2.IndicatorProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+};
+
+// @public (undocumented)
+export interface CurrentTimeIndicatorProps {
+  indicatorComponent?: React.ComponentType<CurrentTimeIndicator_2.IndicatorProps>;
+  shadePreviousAppointments?: boolean;
+  shadePreviousCells?: boolean;
+  updateInterval?: number;
 }
 
 // @public (undocumented)

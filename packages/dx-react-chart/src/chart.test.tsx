@@ -6,6 +6,7 @@ import { Chart } from './chart';
 import { BasicData } from './plugins/basic-data';
 import { ChartCore } from './plugins/chart-core';
 import { LayoutManager } from './plugins/layout-manager';
+import { ControllerComponent } from './plugins/controller-component';
 
 jest.mock('./plugins/chart-core', () => ({
   ChartCore: () => null,
@@ -57,6 +58,12 @@ describe('Chart', () => {
     const tree = mount(<Chart {...defaultProps} />);
 
     expect(tree.find(LayoutManager).exists())
+      .toBeTruthy();
+  });
+
+  it('should add controller component', () => {
+    const tree = mount(<Chart {...defaultProps} />);
+    expect(tree.find(ControllerComponent).exists())
       .toBeTruthy();
   });
 });

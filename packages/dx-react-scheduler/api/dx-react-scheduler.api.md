@@ -325,6 +325,7 @@ export namespace Appointments {
         children: React.ReactNode;
         data: AppointmentModel;
         draggable: boolean;
+        isShaded?: boolean;
         onClick?: (e: any) => void;
         onDoubleClick?: (e: any) => void;
         resources: Array<ValidResourceInstance>;
@@ -453,7 +454,10 @@ export namespace BaseView {
   }
   export interface TimeTableCellProps {
     children?: React.ReactNode;
+    currentTimeIndicatorComponent?: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
+    currentTimeIndicatorPosition?: string;
     endDate?: Date;
+    isShaded?: boolean;
     startDate?: Date;
   }
   export interface TimeTableLayoutProps {
@@ -561,6 +565,24 @@ export interface ConfirmationDialogProps {
 }
 
 // @public
+export const CurrentTimeIndicator: React.ComponentType<CurrentTimeIndicatorProps>;
+
+// @public (undocumented)
+export namespace CurrentTimeIndicator {
+  export interface IndicatorProps {
+    top?: string;
+  }
+}
+
+// @public (undocumented)
+export interface CurrentTimeIndicatorProps {
+  indicatorComponent: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
+  shadePreviousAppointments: boolean;
+  shadePreviousCells: boolean;
+  updateInterval: number;
+}
+
+// @public
 export const DateNavigator: React.ComponentType<DateNavigatorProps>;
 
 // @public (undocumented)
@@ -641,6 +663,7 @@ export namespace DragDropProvider {
     export interface DraftAppointmentProps {
         data: AppointmentModel;
         fromPrev: boolean;
+        isShaded?: boolean;
         style: React.CSSProperties;
         toNext: boolean;
         type: string;
@@ -651,6 +674,7 @@ export namespace DragDropProvider {
     }
     export interface SourceAppointmentProps {
         data: AppointmentModel;
+        isShaded?: boolean;
         type: string;
     }
 }
@@ -783,6 +807,7 @@ export namespace MonthView {
   export interface TimeTableCellProps {
     endDate?: Date;
     formatDate?: FormatterFn;
+    isShaded?: boolean;
     otherMonth?: boolean;
     startDate: Date;
     today?: boolean;

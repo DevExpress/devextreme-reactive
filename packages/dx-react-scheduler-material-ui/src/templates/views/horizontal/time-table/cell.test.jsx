@@ -29,6 +29,8 @@ describe('Horizontal view TimeTable', () => {
         .toBeTruthy();
       expect(tree.is(`.${classes.cell}`))
         .toBeTruthy();
+      expect(tree.is(`.${classes.shadedCell}`))
+        .toBeFalsy();
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
@@ -102,5 +104,13 @@ describe('Horizontal view TimeTable', () => {
 
     expect(defaultProps.formatDate)
       .toHaveBeenCalledWith(startDate, { day: 'numeric' });
+  });
+  it('should be shaded if isShaded is true', () => {
+    const tree = shallow((
+      <Cell {...defaultProps} isShaded />
+    ));
+
+    expect(tree.is(`.${classes.shadedCell}`))
+      .toBeTruthy();
   });
 });

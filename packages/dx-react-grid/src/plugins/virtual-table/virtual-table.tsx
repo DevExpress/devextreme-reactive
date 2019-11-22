@@ -15,7 +15,6 @@ import {
   Table as TableNS,
   TableLayoutProps,
   VirtualTablePluginState,
-  RowIdentifier,
 } from '../../types';
 
 /** @internal */
@@ -59,14 +58,14 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
     static SkeletonCell: React.ComponentType;
 
     layoutRenderComponent: React.ComponentType<VirtualTableLayoutProps> & { update(): void; };
-    scrollToRow: (prop: RowIdentifier) => void;
+    scrollToRow: (prop: number | string) => void;
 
     constructor(props) {
       super(props);
 
       this.state = {
         viewport: emptyViewport,
-        nextRow: {},
+        nextRowId: undefined,
       };
 
       this.layoutRenderComponent = connectProps(VirtualLayout, () => {
@@ -80,31 +79,29 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
           footerTableComponent,
         };
       });
-      this.scrollToRow = nextRow => this.setState({ nextRow });
+      this.scrollToRow = nextRowId => this.setState({ nextRowId });
     }
 
     setViewport = (viewport, { tableBodyRows, isDataRemote }: Getters) => {
       const { onTopRowChange } = this.props;
       const hasViewportRows = viewport && viewport.rows;
       const hasBodyRows = tableBodyRows && tableBodyRows.length;
-      const index = hasViewportRows ? viewport.rows[0] : undefined;
       const id = hasViewportRows && hasBodyRows && !isDataRemote
         ? tableBodyRows[viewport.rows[0]].rowId
         : undefined;
 
-      onTopRowChange({ id, index });
+      onTopRowChange(id);
       this.setState({ viewport });
     }
 
     componentDidUpdate(prevProps, prevState) {
-      const { nextRow: { id: prevId, index: prevIndex } } = prevState;
-      const { nextRow: { id: currentId, index: currentIndex } } = this.state;
+      const { nextRowId: prevId } = prevState;
+      const { nextRowId: currentId } = this.state;
       const equalIds = currentId !== undefined && currentId === prevId;
-      const equalIndexes = currentIndex !== undefined && currentIndex === prevIndex;
 
       this.layoutRenderComponent.update();
-      if (equalIds || equalIndexes) {
-        this.setState({ nextRow: {} });
+      if (equalIds) {
+        this.setState({ nextRowId: undefined });
       }
     }
 
@@ -118,7 +115,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       } = this.props;
       const {
         viewport: stateViewport,
-        nextRow: { id: nextId, index: nextIndex },
+        nextRowId: nextId,
       } = this.state;
 
       return (
@@ -142,11 +139,9 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                   const indexById = !isDataRemote && nextId !== undefined
                     ? tableBodyRows.findIndex(row => row.rowId === nextId)
                     : undefined;
-                  const scrollIndex = indexById !== undefined
-                    ? indexById : nextIndex;
                   const scrollTop = calculateScrollHeight(
                     estimatedRowHeight,
-                    scrollIndex,
+                    indexById,
                   );
 
                   return (

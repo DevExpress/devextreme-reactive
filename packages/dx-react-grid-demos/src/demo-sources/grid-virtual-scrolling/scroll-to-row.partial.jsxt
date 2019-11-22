@@ -23,7 +23,6 @@ const getRowId = row => row.id;
 
 export default () => {
   const [columns] = useState([
-    { name: 'index', title: 'Index' },
     { name: 'id', title: 'ID' },
     { name: 'name', title: 'Name' },
     { name: 'gender', title: 'Gender' },
@@ -31,25 +30,23 @@ export default () => {
     { name: 'car', title: 'Car' },
   ]);
   const [rows] = useState(generateRows({
-    columnValues: { id: ({ index }) => `id_${99999 - index}`, index: ({ index }) => index, ...defaultColumnValues },
+    columnValues: { id: ({ index }) => `id_${index}`, ...defaultColumnValues },
     length: 100000,
   }));
   const [tableColumnExtensions] = useState([
-    { columnName: 'index', width: 75 },
     { columnName: 'id', width: 75 },
   ]);
-  const [index, setIndex] = useState(0);
   const [id, setId] = useState(0);
   const vtRef = useRef();
 
-  const topRowChange = ({ id: newId, index: newIndex }) => {
-    setIndex(newIndex);
+  const topRowChange = (newId) => {
     setId(newId);
   };
 
-  const goToRow = (row) => {
-    vtRef.current.scrollToRow(row);
+  const scrollToRow = (rowId) => {
+    vtRef.current.scrollToRow(rowId);
   };
+  console.log(id)
 
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>
@@ -66,11 +63,9 @@ export default () => {
         <TableHeaderRow />
         <Toolbar />
         <ScrollPanel
-          index={index}
-          setIndex={setIndex}
           id={id}
           setId={setId}
-          goToRow={goToRow}
+          scrollToRow={scrollToRow}
         />
       </Grid>
     </<%&wrapperTag%>>

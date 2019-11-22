@@ -25,30 +25,8 @@ const styles = ({ spacing }) => ({
   },
 });
 
-const IndexScrollerBase = ({
-  classes, index, setIndex, goToRow,
-}) => (
-  <GridMUI alignItems="center" container className={classes.container}>
-    <Typography>Index: </Typography>
-    <TextField
-      type="number"
-      value={index}
-      onChange={e => setIndex(e.target.value)}
-      variant="outlined"
-      className={classes.textContainer}
-      inputProps={{
-        className: classes.text,
-      }}
-    />
-    <Button onClick={() => goToRow({ index })} variant="outlined" className={classes.button}>
-      Go
-    </Button>
-  </GridMUI>
-);
-const IndexScroller = withStyles(styles, { name: 'IndexScroller' })(IndexScrollerBase);
-
 const IdScrollerBase = ({
-  classes, id, setId, goToRow,
+  classes, id, setId, scrollToRow,
 }) => (
   <GridMUI alignItems="center" container className={classes.container}>
     <Typography>Id: </Typography>
@@ -61,7 +39,7 @@ const IdScrollerBase = ({
         className: classes.text,
       }}
     />
-    <Button onClick={() => goToRow({ id })} variant="outlined" className={classes.button}>
+    <Button onClick={() => scrollToRow(id)} variant="outlined" className={classes.button}>
       Go
     </Button>
   </GridMUI>
@@ -71,14 +49,7 @@ const IdScroller = withStyles(styles, { name: 'IdScroller' })(IdScrollerBase);
 const ScrollPanel = props => (
   <Plugin name="EditPropsPanel">
     <Template name="toolbarContent">
-      <GridMUI
-        container
-        direction="row"
-        justify="space-between"
-      >
-        <IndexScroller {...props} />
-        <IdScroller {...props} />
-      </GridMUI>
+      <IdScroller {...props} />
       <TemplatePlaceholder />
     </Template>
   </Plugin>

@@ -1,4 +1,4 @@
-import { Table, GridViewport, RowIdentifier } from '../index';
+import { Table, GridViewport } from '../index';
 
 // tslint:disable-next-line: no-namespace
 export namespace VirtualTable {
@@ -58,14 +58,14 @@ export interface VirtualTableProps {
   // TODO
   skeletonCellComponent: React.ComponentType<Table.CellProps>;
   /** Handles top row changes. */
-  onTopRowChange: (row: RowIdentifier) => void;
+  onTopRowChange: (rowId: number | string) => void;
 }
 
 /** @internal */
 export type VirtualTablePluginState = {
   viewport: GridViewport;
   /** Id and index of row, which be scrolled into view */
-  nextRow: RowIdentifier;
+  nextRowId?: number | string;
 };
 
 // tslint:disable-next-line:max-line-length

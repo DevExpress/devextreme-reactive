@@ -72,4 +72,16 @@ describe('EditCell', () => {
     expect(tree.find('input').prop('readOnly'))
       .toBeTruthy();
   });
+
+  it('should render zero values', () => {
+    const tree = shallow((
+      <EditCell
+        {...defaultProps}
+        value={0}
+      />
+    ));
+
+    expect(tree.find('input').prop('value'))
+      .toBe(0);
+  });
 });

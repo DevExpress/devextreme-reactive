@@ -70,7 +70,7 @@ const EditCellBase = ({
             [classes.disabledInput]: !editingEnabled,
           })}
           classes={{ input: inputClasses }}
-          value={value || ''}
+          value={value}
           readOnly={!editingEnabled}
           onChange={e => onValueChange(e.target.value)}
           // eslint-disable-next-line jsx-a11y/no-autofocus

@@ -1,3 +1,22 @@
+# [2.3.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.2.1...v2.3.0) (2019-11-22)
+
+
+### Bug Fixes
+
+* **demo-shell:** re-render demo frame on submitting custom theme link ([#2529](https://github.com/DevExpress/devextreme-reactive/issues/2529)) ([28177d6](https://github.com/DevExpress/devextreme-reactive/commit/28177d6df56e695b80aa88db2bb1a174db965365))
+* **react-grid-bootstrap3:** correct sticky header colors ([#2527](https://github.com/DevExpress/devextreme-reactive/issues/2527)) ([21e82f2](https://github.com/DevExpress/devextreme-reactive/commit/21e82f259ba0920da79c14bb2f73f97b85d3d7ae))
+* **react-grid-material-ui:** correct disabled behaviour for inline cell editing ([#2537](https://github.com/DevExpress/devextreme-reactive/issues/2537)) ([909f0bd](https://github.com/DevExpress/devextreme-reactive/commit/909f0bdb561fa07e89b5d433d78555d7f4a425f4))
+* **react-grid-material-ui:** show zero numbers in editors ([#2553](https://github.com/DevExpress/devextreme-reactive/issues/2553)) ([fdc8b9d](https://github.com/DevExpress/devextreme-reactive/commit/fdc8b9df45b7f6d3c0d30950303c061166a7d37f))
+
+
+### Features
+
+* **react-chart:** add animation on transition ([#2334](https://github.com/DevExpress/devextreme-reactive/issues/2334)) ([54d11b7](https://github.com/DevExpress/devextreme-reactive/commit/54d11b71e409e114f40734725cd7c237a5f01ab2))
+* **react-scheduler:** add appointment resources support ([#2498](https://github.com/DevExpress/devextreme-reactive/issues/2498)) ([0100670](https://github.com/DevExpress/devextreme-reactive/commit/0100670d5b2d89d2717b37d75d133f82bdb96ded))
+* **react-scheduler:** add CurrentTimeIndicator plugin ([#2536](https://github.com/DevExpress/devextreme-reactive/issues/2536)) ([8fe5abb](https://github.com/DevExpress/devextreme-reactive/commit/8fe5abba8278bdc68a46ef1daeb740f7fe3c1876))
+
+
+
 # [2.2.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.2.0...v2.2.1) (2019-11-07)
 
 

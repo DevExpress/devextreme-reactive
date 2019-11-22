@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1573137997">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1573137997">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1574418180">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1574418180">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <!-- Google Tag Manager -->
@@ -215,13 +215,19 @@
       <td>selectComponent</td>
       <td>ComponentType&lt;<a href="#appointmentformselectprops">AppointmentForm.SelectProps</a>&gt;</td>
       <td> </td>
-      <td>A component that renders a menu of options.</td>
+      <td>A component that renders an options menu.</td>
     </tr>
     <tr>
       <td>radioGroupComponent</td>
       <td>ComponentType&lt;<a href="#appointmentformradiogroupprops">AppointmentForm.RadioGroupProps</a>&gt;</td>
       <td> </td>
       <td>A component that renders a radio group.</td>
+    </tr>
+    <tr>
+      <td>resourceEditorComponent</td>
+      <td>ComponentType&lt;<a href="#appointmentformresourceeditorprops">AppointmentForm.ResourceEditorProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a resource editor.</td>
     </tr>
     <tr>
       <td>weeklyRecurrenceSelectorComponent</td>
@@ -392,6 +398,7 @@
       <th>Field</th>
       <th>Type</th>
       <th>Description</th>
+      <th> </th>
     </tr>
   </thead>
   <tbody>
@@ -399,61 +406,91 @@
       <td>readOnly?</td>
       <td>boolean</td>
       <td>Specifies whether the appointment form is read-only.</td>
+      <td> </td>
     </tr>
     <tr>
       <td>appointmentData</td>
       <td><a href="/devextreme-reactive/react/scheduler/docs/reference/scheduler/#appointmentmodel">AppointmentModel</a></td>
       <td>The appointment’s data.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>appointmentResources</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/scheduler/docs/reference/resources/#validresourceinstance">ValidResourceInstance</a>&gt;</td>
+      <td>The appointment’s resource instances.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>resources</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/scheduler/docs/reference/resources/#validresource">ValidResource</a>&gt;</td>
+      <td>All resources.</td>
+      <td> </td>
     </tr>
     <tr>
       <td>onFieldChange</td>
       <td>(nextFieldValue: { [fieldName: string]: any }) =&gt; void</td>
-      <td>An event raised when a field value in the appointment form is changed.</td>
+      <td>An event that is raised when a field value in the appointment form is changed.</td>
+      <td> </td>
     </tr>
     <tr>
       <td>getMessage</td>
       <td>(messageKey: string) =&gt; string</td>
       <td>Uses a localization message’s key to retrieve the message.</td>
+      <td> </td>
     </tr>
     <tr>
       <td>locale</td>
       <td>string | Array&lt;string&gt;</td>
       <td>Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale is used to format date-time values.</td>
+      <td> </td>
     </tr>
     <tr>
       <td>fullSize</td>
       <td>boolean</td>
       <td>Specifies whether the layout is full-size.</td>
+      <td> </td>
     </tr>
     <tr>
       <td>textEditorComponent</td>
       <td>ComponentType&lt;<a href="#appointmentformtexteditorprops">AppointmentForm.TextEditorProps</a>&gt;</td>
       <td>A component that renders a text editor.</td>
+      <td> </td>
     </tr>
     <tr>
       <td>dateEditorComponent</td>
       <td>ComponentType&lt;<a href="#appointmentformdateeditorprops">AppointmentForm.DateEditorProps</a>&gt;</td>
       <td>A component that renders a date-time editor.</td>
+      <td> </td>
     </tr>
     <tr>
       <td>booleanEditorComponent</td>
       <td>ComponentType&lt;<a href="#appointmentformbooleanteditorprops">AppointmentForm.BooleanEditorProps</a>&gt;</td>
       <td>A component that renders an editor of Boolean values.</td>
+      <td> </td>
     </tr>
     <tr>
       <td>selectComponent</td>
       <td>ComponentType&lt;<a href="#appointmentformselectprops">AppointmentForm.SelectProps</a>&gt;</td>
-      <td>A component that renders a menu of options.</td>
+      <td>A component that renders an options menu.</td>
+      <td> </td>
     </tr>
     <tr>
       <td>labelComponent</td>
       <td>ComponentType&lt;<a href="#appointmentformlabelprops">AppointmentForm.LabelProps</a>&gt;</td>
       <td>A component that renders a text label.</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>resourceEditorComponent</td>
+      <td>ComponentType&lt;<a href="#appointmentformresourceeditorprops">AppointmentForm.ResourceEditorProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a resource editor.</td>
     </tr>
     <tr>
       <td>children?</td>
       <td>ReactNode</td>
       <td>A React node used to render additional components to the Basic Layout.</td>
+      <td> </td>
     </tr>
   </tbody>
 </table>
@@ -489,8 +526,13 @@
     <tr>
       <td>onFieldChange</td>
       <td>(nextFieldValue: { [fieldName: string]: any }) =&gt; void</td>
-      <td>An event raised when a field value in the appointment form is changed.</td>
+      <td>An event that is raised when a field value in the appointment form is changed.</td>
     </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
     <tr>
       <td>getMessage</td>
       <td>(messageKey: string) =&gt; string</td>
@@ -534,7 +576,7 @@
     <tr>
       <td>selectComponent</td>
       <td>ComponentType&lt;<a href="#appointmentformselectprops">AppointmentForm.SelectProps</a>&gt;</td>
-      <td>A component that renders a menu of options.</td>
+      <td>A component that renders an options menu.</td>
     </tr>
     <tr>
       <td>labelComponent</td>
@@ -719,8 +761,13 @@
     <tr>
       <td>onFieldChange</td>
       <td>(nextFieldValue: { [fieldName: string]: any }) =&gt; void</td>
-      <td>An event raised when a field value in the appointment form is changed.</td>
+      <td>An event that is raised when a field value in the appointment form is changed.</td>
     </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
     <tr>
       <td>readOnly?</td>
       <td>boolean</td>
@@ -749,7 +796,7 @@
     <tr>
       <td>selectComponent</td>
       <td>ComponentType&lt;<a href="#appointmentformselectprops">AppointmentForm.SelectProps</a>&gt;</td>
-      <td>A component that renders a menu of options.</td>
+      <td>A component that renders an options menu.</td>
     </tr>
     <tr>
       <td>labelComponent</td>
@@ -796,6 +843,42 @@
       <td>readOnly</td>
       <td>boolean</td>
       <td>Specifies whether the menu is read-only.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="appointmentformresourceeditorprops">AppointmentForm.ResourceEditorProps</h3>
+
+<p>Properties passed to a component that renders a resource editor on the appointment form.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>appointmentResources?</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/scheduler/docs/reference/resources/#validresourceinstance">ValidResourceInstance</a>&gt;</td>
+      <td>The appointment’s resource instances.</td>
+    </tr>
+    <tr>
+      <td>resources?</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/scheduler/docs/reference/resources/#resourceinstance">Resource</a>&gt;</td>
+      <td>All resources.</td>
+    </tr>
+    <tr>
+      <td>onResourceChange?</td>
+      <td>({ [fieldName: string]: string | number }) =&gt; void</td>
+      <td>A function that is called when the resource is edited.</td>
+    </tr>
+    <tr>
+      <td>readOnly?</td>
+      <td>boolean</td>
+      <td>Specifies whether the resource editor is read-only.</td>
     </tr>
   </tbody>
 </table>
@@ -1112,7 +1195,7 @@
     <tr>
       <td>AppointmentForm.BasicLayout</td>
       <td><a href="#appointmentformbasiclayoutprops">AppointmentForm.BasicLayoutProps</a></td>
-      <td>A component that renders a layout for editors that edit basic appoinement data.</td>
+      <td>A component that renders a layout for editors that edit basic appointment data.</td>
     </tr>
     <tr>
       <td>AppointmentForm.RecurrenceLayout</td>
@@ -1169,9 +1252,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.2.1">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.3.0">
             Version
-            <span>2.2.1</span>
+            <span>2.3.0</span>
           </a>
         </li>
       </ul>
@@ -1250,6 +1333,22 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/scheduler/docs/guides/resources/">Resources</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/guides/current-time-indication/">Current Time Indication</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/scheduler/docs/guides/localization/">Localization</a></li>
           
 
@@ -1282,6 +1381,14 @@
 
           
           <li><a href="/devextreme-reactive/react/common/docs/guides/custom-theme/">Create a Custom Theme</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/common/docs/guides/localization/">Localization</a></li>
           
 
         
@@ -1329,6 +1436,14 @@
 
           
           <li><a href="/devextreme-reactive/react/scheduler/docs/reference/confirmation-dialog/">ConfirmationDialog</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/current-time-indicator/">CurrentTimeIndicator</a></li>
           
 
         
@@ -1385,6 +1500,14 @@
 
           
           <li><a href="/devextreme-reactive/react/scheduler/docs/reference/month-view/">MonthView</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/resources/">Resources</a></li>
           
 
         
@@ -1473,7 +1596,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/common/dist/index.js?v=1573137997"></script>
+<script src="/devextreme-reactive/react/common/dist/index.js?v=1574418180"></script>
 
 <script
   type="text/javascript"
@@ -1529,7 +1652,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1573137997"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1574418180"></script>
     <script>
         trackingCookie.notice();
     </script>

@@ -304,9 +304,7 @@ export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
   const isHorizontal = growDirection === HORIZONTAL_TYPE;
 
   const sorted = sortAppointments(intervals, multiline);
-  const grouped = findOverlappedAppointments(
-    sorted as AppointmentMoment[], isHorizontal,
-  );
+  const grouped = findOverlappedAppointments(sorted as AppointmentMoment[], isHorizontal);
 
   const rectCalculator = isHorizontal
     ? horizontalRectCalculator

@@ -66,7 +66,7 @@ export const horizontalTimeTableRects: HorizontalRects = (
   const intervals = calculateMonthDateIntervals(
     appointments, startViewDate, endViewDate,
   );
-  return calculateRectByDateIntervals(
+  const result =  calculateRectByDateIntervals(
     {
       growDirection: HORIZONTAL_TYPE,
       multiline: true,
@@ -80,4 +80,5 @@ export const horizontalTimeTableRects: HorizontalRects = (
       cellElementsMeta,
     },
   );
+  return result;
 };

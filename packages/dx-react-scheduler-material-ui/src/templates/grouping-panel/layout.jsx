@@ -2,8 +2,12 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
+import { Table } from '@material-ui/core';
 
 const styles = {
+  table: {
+    tableLayout: 'fixed',
+  },
 };
 
 const LayoutBase = ({
@@ -17,8 +21,8 @@ const LayoutBase = ({
   // eslint-disable-next-line prefer-spread
   const maxCells = groups[groups.length - 1].length;
   return (
-    <div
-      className={classNames(classes.root, className)}
+    <Table
+      className={classNames(classes.table, className)}
       {...restProps}
     >
       {groups.map((group) => {
@@ -38,7 +42,7 @@ const LayoutBase = ({
           </Row>
         );
       })}
-    </div>
+    </Table>
   );
 };
 

@@ -10,12 +10,18 @@ export const allDayPredicate: PureComputed<[AppointmentMoment], boolean> = appoi
   || !!appointment.allDay
 );
 
-export const getAllDayCellIndexByDate: GetAllDayCellIndexByDateFn = (
-  viewCellsData, date, takePrev,
+export const getAllDayCellIndex: GetAllDayCellIndexByDateFn = (
+  viewCellsData, date, appointment, takePrev,
 ) => {
   const currentDate = moment(date as SchedulerDateTime);
   let cellIndex = viewCellsData[0]
-    .findIndex(day => moment(day.startDate).day() === currentDate.day());
+    .findIndex(timeCell => {
+      let flag = true;
+      timeCell.groupingInfo.map((groupingItem) => {
+        flag = flag && groupingItem.id === appointment.dataItem[groupingItem.fieldName]
+      });
+      return moment(date as SchedulerDateTime).isSame(timeCell.startDate, 'date') && flag;
+    });
   if (takePrev && currentDate.format() === currentDate.startOf('day').format()) {
     cellIndex -= 1;
   }

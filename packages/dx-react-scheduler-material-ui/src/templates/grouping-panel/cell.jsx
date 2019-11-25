@@ -40,6 +40,7 @@ export const Cell = React.memo(({
     <TableCell
       className={classNames(classes.cell, className)}
       {...restProps}
+      colspan={7}
     >
       {groupingItem.text}
     </TableCell>

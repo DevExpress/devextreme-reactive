@@ -17,10 +17,7 @@ const pluginDependencies = [
 ];
 
 const getViewCellsDataComputed = memoize(({ viewCellsData, groupingItems, sortedResources }) => {
-  console.log(viewCellsData)
-  console.log(groupingItems)
   const result = getGroupedViewCellsData(viewCellsData, groupingItems, sortedResources);
-  console.log(result)
   return result;
 });
 

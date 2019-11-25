@@ -210,9 +210,9 @@ export const getAppointmentStyle: PureComputed<
 
 const rectCalculatorBase: RectCalculatorBaseFn = (
   appointment,
-  getRectByDates,
+  getRectByAppointment,
   options,
-) => getRectByDates(appointment.start, appointment.end, options);
+) => getRectByAppointment(appointment, options);
 
 const horizontalRectCalculator: CustomFunction<
   [AppointmentUnwrappedGroup, any], ElementRect

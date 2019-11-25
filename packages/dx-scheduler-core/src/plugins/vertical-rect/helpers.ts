@@ -7,10 +7,15 @@ const CELL_GAP_PX = 10;
 const CELL_BOUND_HORIZONTAL_OFFSET_PX = 1;
 const CELL_BOUND_VERTICAL_OFFSET_PX = 4;
 
-export const getCellByDate: GetCellByDateFn = (viewCellsData, date, takePrev = false) => {
+export const getVerticalCellIndex: GetCellByDateFn = (appointment, viewCellsData, date, takePrev = false) => {
   const cellIndex =
-    viewCellsData[0].findIndex(timeCell => moment(date as SchedulerDateTime)
-      .isSame(timeCell.startDate, 'date'));
+    viewCellsData[0].findIndex(timeCell => {
+      let flag = true;
+      timeCell.groupingInfo.map((groupingItem) => {
+        flag = flag && groupingItem.id === appointment.dataItem[groupingItem.fieldName]
+      });
+      return moment(date as SchedulerDateTime).isSame(timeCell.startDate, 'date') && flag;
+    });
 
   const rowIndex = viewCellsData.findIndex(timeCell => moment(date as SchedulerDateTime)
     .isBetween(
@@ -28,12 +33,12 @@ export const getCellByDate: GetCellByDateFn = (viewCellsData, date, takePrev = f
 };
 
 const getCellRect: GetCellRectVerticalFn = (
-  date, viewCellsData, cellDuration, cellElementsMeta, takePrev,
+  date, appointment, viewCellsData, cellDuration, cellElementsMeta, takePrev,
 ) => {
   const {
     index: cellIndex,
     startDate: cellStartDate,
-  } = getCellByDate(viewCellsData, date, takePrev);
+  } = getVerticalCellIndex(appointment, viewCellsData, date, takePrev);
 
   const {
     top,
@@ -41,7 +46,6 @@ const getCellRect: GetCellRectVerticalFn = (
     width,
     height: cellHeight,
   } = cellElementsMeta.getCellRects[cellIndex]();
-
   const timeOffset = moment(date as SchedulerDateTime).diff(cellStartDate as Date, 'minutes');
   const topOffset = cellHeight * (timeOffset / cellDuration);
   const parentRect = cellElementsMeta.parentRect();
@@ -55,19 +59,20 @@ const getCellRect: GetCellRectVerticalFn = (
   };
 };
 
-export const getVerticalRectByDates: GetVerticalRectByDatesFn = (
-  startDate,
-  endDate,
+export const getVerticalRectByDates = (
+  appointment: any,
   {
     viewCellsData,
     cellDuration,
     cellElementsMeta,
-  },
+  }: any,
 ) => {
   const firstCellRect = getCellRect(
-    startDate, viewCellsData, cellDuration, cellElementsMeta, false,
+    appointment.start, appointment, viewCellsData, cellDuration, cellElementsMeta, false,
   );
-  const lastCellRect = getCellRect(endDate, viewCellsData, cellDuration, cellElementsMeta, true);
+  const lastCellRect = getCellRect(
+    appointment.end, appointment, viewCellsData, cellDuration, cellElementsMeta, true,
+  );
 
   const top = firstCellRect.top + firstCellRect.topOffset;
   const height = (lastCellRect.top + lastCellRect.topOffset) - top;

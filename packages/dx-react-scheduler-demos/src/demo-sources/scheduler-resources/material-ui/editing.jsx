@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
+import { ViewState, EditingState, GroupingState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   Resources,
@@ -10,6 +10,7 @@ import {
   AppointmentForm,
   EditRecurrenceMenu,
   DragDropProvider,
+  GroupingPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { owners } from '../../../demo-data/tasks';
 import { appointments, resourcesData } from '../../../demo-data/resources';
@@ -69,6 +70,11 @@ export default class Demo extends React.PureComponent {
           <EditingState
             onCommitChanges={this.commitChanges}
           />
+          <GroupingState
+            grouping={[{
+              resourceName: 'roomId',
+            }]}
+          />
           <EditRecurrenceMenu />
 
           <MonthView />
@@ -82,6 +88,7 @@ export default class Demo extends React.PureComponent {
             data={resources}
             mainResourceName="roomId"
           />
+          <GroupingPanel />
           <DragDropProvider />
         </Scheduler>
       </Paper>

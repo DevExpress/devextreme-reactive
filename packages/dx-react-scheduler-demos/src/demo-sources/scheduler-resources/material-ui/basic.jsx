@@ -8,6 +8,11 @@ import {
   Appointments,
   AppointmentTooltip,
   GroupingPanel,
+  MonthView,
+  Toolbar,
+  ViewSwitcher,
+  DayView,
+  AllDayPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -15,8 +20,8 @@ import { withStyles } from '@material-ui/core/styles';
 
 const appointments = [{
   title: 'Website Re-Design Plan',
-  startDate: new Date(2018, 5, 25, 12, 35),
-  endDate: new Date(2018, 5, 25, 15, 0),
+  startDate: new Date(2018, 5, 27, 12, 35),
+  endDate: new Date(2018, 5, 27, 15, 0),
   id: 0,
   members: 1,
   location: 'Room 1',
@@ -27,6 +32,22 @@ const appointments = [{
   id: 1,
   members: 2,
   location: 'Room 2',
+}, {
+  title: 'Website Re-Design Plan',
+  startDate: new Date(2018, 5, 25, 12, 35),
+  endDate: new Date(2018, 5, 25, 15, 0),
+  id: 2,
+  members: 1,
+  location: 'Room 1',
+  allDay: true,
+}, {
+  title: 'Book Flights to San Fran for Sales Trip',
+  startDate: new Date(2018, 5, 26, 12, 35),
+  endDate: new Date(2018, 5, 26, 15, 0),
+  id: 3,
+  members: 2,
+  location: 'Room 2',
+  allDay: true,
 }];
 
 const styles = theme => ({
@@ -148,6 +169,12 @@ export default class Demo extends React.PureComponent {
               startDayHour={11.5}
               endDayHour={16}
             />
+            <DayView
+              startDayHour={11.5}
+              endDayHour={16}
+            />
+            <MonthView />
+            <AllDayPanel />
             <Appointments />
             <AppointmentTooltip />
             <Resources
@@ -155,6 +182,8 @@ export default class Demo extends React.PureComponent {
               mainResourceName={mainResourceName}
             />
             <GroupingPanel />
+            <Toolbar />
+            <ViewSwitcher />
           </Scheduler>
         </Paper>
       </>

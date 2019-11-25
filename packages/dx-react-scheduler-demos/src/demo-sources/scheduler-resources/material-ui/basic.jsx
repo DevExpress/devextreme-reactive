@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { ViewState, GroupingState } from '@devexpress/dx-react-scheduler';
+import { ViewState, GroupingState, IntegratedGrouping } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   Resources,
@@ -176,11 +176,12 @@ export default class Demo extends React.PureComponent {
             <MonthView />
             <AllDayPanel />
             <Appointments />
-            <AppointmentTooltip />
             <Resources
               data={resources}
               mainResourceName={mainResourceName}
             />
+            <IntegratedGrouping />
+            <AppointmentTooltip />
             <GroupingPanel />
             <Toolbar />
             <ViewSwitcher />

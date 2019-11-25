@@ -449,6 +449,45 @@ describe('Utils', () => {
           durationType: 'short',
         });
     });
+    it('should group 2 all-day appointments if the first ends on the same day as the second starts, but earlier', () => {
+      const rectByDatesMock = jest.fn();
+      rectByDatesMock.mockImplementation(() => ({
+        top: 10,
+        left: 0,
+        height: 50,
+        width: 99,
+        parentWidth: 300,
+      }));
+      const type = { growDirection: 'horizontal', multiline: false };
+      const rectByDatesMeta = {};
+      const intervals = [
+        { start: moment('2018-09-12 10:00'), end: moment('2018-09-13 10:00'), dataItem: 'a' },
+        { start: moment('2018-09-13 11:00'), end: moment('2018-09-14 15:00'), dataItem: 'b' },
+      ];
+
+      const rects = calculateRectByDateIntervals(type, intervals, rectByDatesMock, rectByDatesMeta);
+
+      expect(rects)
+        .toHaveLength(2);
+      expect(rects[0])
+        .toMatchObject({
+          top: 10,
+          height: 25,
+          left: 0,
+          width: 33,
+          dataItem: 'a',
+          type: 'horizontal',
+        });
+      expect(rects[1])
+        .toMatchObject({
+          top: 35,
+          height: 25,
+          left: 0,
+          width: 33,
+          dataItem: 'b',
+          type: 'horizontal',
+        });
+    });
   });
   describe('#computed', () => {
     it('should work if viewName === currentView', () => {

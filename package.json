@@ -74,6 +74,6 @@
     "packages/*"
   ],
   "engines": {
-    "yarn": "1.19.2"
+    "yarn": ">= 1.19.1"
   }
 }

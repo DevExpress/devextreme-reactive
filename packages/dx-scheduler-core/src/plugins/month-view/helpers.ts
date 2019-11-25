@@ -50,9 +50,11 @@ export const getMonthCellIndex: GetMonthCellIndexByDateFn = (
 
   while (cellIndex === -1) {
     let flag = true;
-    viewCellsData[weekNumber][dayOfWeek].groupingInfo.map((groupingItem) => {
-      flag = flag && groupingItem.id === appointment.dataItem[groupingItem.fieldName]
-    });
+    if (viewCellsData[weekNumber][dayOfWeek].groupingInfo) {
+      viewCellsData[weekNumber][dayOfWeek].groupingInfo.map((groupingItem) => {
+        flag = flag && groupingItem.id === appointment.dataItem[groupingItem.fieldName]
+      });
+    }
     if (flag) {
       cellIndex = dayOfWeek;
     }

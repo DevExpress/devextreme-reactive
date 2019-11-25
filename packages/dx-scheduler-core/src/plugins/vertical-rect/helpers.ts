@@ -11,9 +11,11 @@ export const getVerticalCellIndex: GetCellByDateFn = (appointment, viewCellsData
   const cellIndex =
     viewCellsData[0].findIndex(timeCell => {
       let flag = true;
-      timeCell.groupingInfo.map((groupingItem) => {
-        flag = flag && groupingItem.id === appointment.dataItem[groupingItem.fieldName]
-      });
+      if (timeCell.groupingInfo) {
+        timeCell.groupingInfo.map((groupingItem) => {
+          flag = flag && groupingItem.id === appointment.dataItem[groupingItem.fieldName]
+        });
+      }
       return moment(date as SchedulerDateTime).isSame(timeCell.startDate, 'date') && flag;
     });
 

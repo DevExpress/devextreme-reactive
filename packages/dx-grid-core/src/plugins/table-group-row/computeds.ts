@@ -70,7 +70,7 @@ export const tableRowsWithGrouping: PureComputed<[TableRow[], IsSpecificRowFn]> 
 const isRowLevelSummary: PureComputed<[SummaryItem[], string], boolean> = (
   groupSummaryItems, colName,
 ) => (
-  !!groupSummaryItems.find((item: any) => (
+  groupSummaryItems.some((item: any) => (
     !item.showInGroupFooter && item.alignByColumn && item.columnName === colName)
   )
 );

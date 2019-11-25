@@ -17,7 +17,7 @@ const getInlineSummaryComponent: GetInlineSummaryComponent = (
           value: summary.value,
         }}
       >
-        {content => content}
+        {content => content || summary.value}
       </TemplatePlaceholder>
     )
 );

@@ -5,6 +5,7 @@ import {
   AllDayCell, CalculateAppointmentTimeBoundaries,
   TimeBoundariesByDrag, TimeBoundariesByResize, AppointmentModel,
   CellElementsMeta,
+  ResourceInstance,
 } from '../../types';
 import { allDayCells as allDayCellsCore } from '../common/computeds';
 import {
@@ -206,4 +207,17 @@ export const calculateDraftAppointments = (
       viewCellsData, getTableCellElementRects,
     ),
   };
+};
+
+export const calculateAppointmentGroups: PureComputed<
+  [Array<ResourceInstance> | undefined], any
+> = (cellGroupingInfo) => {
+  if (!cellGroupingInfo) return {};
+  const groups = cellGroupingInfo.reduce((acc, groupingItem: ResourceInstance) => {
+    return {
+      ...acc,
+      [groupingItem.fieldName]: groupingItem.id,
+    };
+  }, {});
+  return groups;
 };

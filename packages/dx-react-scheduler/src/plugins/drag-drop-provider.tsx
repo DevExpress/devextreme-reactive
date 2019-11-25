@@ -21,6 +21,7 @@ import {
   POSITION_START,
   POSITION_END,
   getAppointmentResources,
+  calculateAppointmentGroups,
 } from '@devexpress/dx-scheduler-core';
 import { DragDropProviderProps, DragDropProviderState } from '../types';
 
@@ -59,6 +60,7 @@ class DragDropProviderBase extends React.PureComponent<
   offsetTimeTop: number | null = null;
   appointmentStartTime: any = null;
   appointmentEndTime: any = null;
+  appointmentGroupingInfo: any = {};
 
   state: DragDropProviderState = {
     startTime: null,
@@ -91,6 +93,7 @@ class DragDropProviderBase extends React.PureComponent<
     this.offsetTimeTop = null;
     this.appointmentStartTime = null;
     this.appointmentEndTime = null;
+    this.appointmentGroupingInfo = {};
 
     this.setState({
       payload: null,
@@ -107,6 +110,7 @@ class DragDropProviderBase extends React.PureComponent<
         startDate: startTime,
         endDate: endTime,
         ...payload.allDay && { allDay: undefined },
+        ...this.appointmentGroupingInfo,
       },
     });
     this.setState({ startTime, endTime, payload, isOutside: false });
@@ -157,8 +161,11 @@ class DragDropProviderBase extends React.PureComponent<
       insidePart, this.offsetTimeTop!,
     );
 
+    const appointmentGroups = calculateAppointmentGroups(targetData.groupingInfo);
+
     this.appointmentStartTime = appointmentStartTime || this.appointmentStartTime;
     this.appointmentEndTime = appointmentEndTime || this.appointmentEndTime;
+    this.appointmentGroupingInfo = appointmentGroups || this.appointmentGroupingInfo;
     this.offsetTimeTop = offsetTimeTop!;
 
     const { startTime, endTime } = this.state;
@@ -170,6 +177,7 @@ class DragDropProviderBase extends React.PureComponent<
         ...payload,
         startDate: this.appointmentStartTime,
         endDate: this.appointmentEndTime,
+        ...this.appointmentGroupingInfo,
       },
       start: this.appointmentStartTime,
       end: this.appointmentEndTime,
@@ -185,6 +193,7 @@ class DragDropProviderBase extends React.PureComponent<
     );
     this.allDayDraftAppointments = allDayDraftAppointments;
     this.timeTableDraftAppointments = timeTableDraftAppointments;
+    console.log(this.timeTableDraftAppointments)
 
     this.applyChanges(
       this.appointmentStartTime, this.appointmentEndTime,
@@ -319,7 +328,7 @@ class DragDropProviderBase extends React.PureComponent<
                 return (
                   <DraftAppointment
                     data={data}
-                    resources={getAppointmentResources(data, resources, plainResources)}
+                    resources={getAppointmentResources(dataItem, resources, plainResources)}
                     durationType={durationType}
                     style={getAppointmentStyle(geometry)}
                     type={type}

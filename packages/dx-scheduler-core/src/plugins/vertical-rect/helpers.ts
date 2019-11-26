@@ -10,13 +10,13 @@ const CELL_BOUND_VERTICAL_OFFSET_PX = 4;
 export const getVerticalCellIndex: GetCellByDateFn = (appointment, viewCellsData, date, takePrev = false) => {
   const cellIndex =
     viewCellsData[0].findIndex(timeCell => {
-      let flag = true;
+      let isCorrectCell = true;
       if (timeCell.groupingInfo) {
         timeCell.groupingInfo.map((groupingItem) => {
-          flag = flag && groupingItem.id === appointment[groupingItem.fieldName]
+          isCorrectCell = isCorrectCell && groupingItem.id === appointment[groupingItem.fieldName]
         });
       }
-      return moment(date as SchedulerDateTime).isSame(timeCell.startDate, 'date') && flag;
+      return moment(date as SchedulerDateTime).isSame(timeCell.startDate, 'date') && isCorrectCell;
     });
 
   const rowIndex = viewCellsData.findIndex(timeCell => moment(date as SchedulerDateTime)

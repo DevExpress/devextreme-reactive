@@ -16,13 +16,13 @@ export const getAllDayCellIndex: GetAllDayCellIndexByDateFn = (
   const currentDate = moment(date as SchedulerDateTime);
   let cellIndex = viewCellsData[0]
     .findIndex(timeCell => {
-      let flag = true;
+      let isCorrectCell = true;
       if (timeCell.groupingInfo) {
         timeCell.groupingInfo.map((groupingItem) => {
-          flag = flag && groupingItem.id === appointment[groupingItem.fieldName];
+          isCorrectCell = isCorrectCell && groupingItem.id === appointment[groupingItem.fieldName];
         });
       }
-      return moment(date as SchedulerDateTime).isSame(timeCell.startDate, 'date') && flag;
+      return moment(date as SchedulerDateTime).isSame(timeCell.startDate, 'date') && isCorrectCell;
     });
   if (takePrev && currentDate.format() === currentDate.startOf('day').format()) {
     cellIndex -= 1;

@@ -231,8 +231,8 @@ export const calculateAppointmentGroups: PureComputed<
   }, {});
 };
 
-export const updateMultipleResourceInfo: PureComputed<
-  [ResourceInstance | undefined, AppointmentModel], any
+const updateMultipleResourceInfo: PureComputed<
+  [ResourceInstance, AppointmentModel], any
 > = (cellResource, appointmentData) => {
   const cellInfo = cellResource!.id;
   const appointmentGroupItems = appointmentData[cellResource.fieldName];

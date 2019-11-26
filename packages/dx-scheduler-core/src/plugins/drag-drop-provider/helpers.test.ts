@@ -1,7 +1,7 @@
 import {
   intervalDuration, cellIndex, cellData, autoScroll, cellType,
   timeBoundariesByDrag, calculateInsidePart,
-  calculateDraftAppointments, timeBoundariesByResize,
+  calculateDraftAppointments, timeBoundariesByResize, calculateAppointmentGroups,
 } from './helpers';
 import {
   allDayRects, horizontalTimeTableRects, verticalTimeTableRects,
@@ -503,6 +503,70 @@ describe('DragDropProvider', () => {
         allDayDraftAppointments: [],
         timeTableDraftAppointments: [{}],
       });
+    });
+  });
+
+  describe('#calculateAppointmentGroups', () => {
+    const cellGroupingInfo = [{
+      fieldName: 'test1',
+      id: 1,
+    }, {
+      fieldName: 'test2',
+      id: 2,
+    }];
+    it('should return an empty object if cellGroupingInfo is undefined', () => {
+      expect(calculateAppointmentGroups(undefined, undefined, undefined))
+        .toEqual({});
+    });
+    it('should set the groups defined in cellGroupingInfo', () => {
+      const resources = [{
+        fieldName: 'test1',
+        allowMultiple: false,
+      }, {
+        fieldName: 'test2',
+        allowMultiple: false,
+      }];
+      expect(calculateAppointmentGroups(cellGroupingInfo, resources, undefined))
+        .toEqual({
+          test1: 1,
+          test2: 2,
+        });
+    });
+    it('shouldn\'t change appointment groups if the appointment already contains it', () => {
+      const resources = [{
+        fieldName: 'test1',
+        allowMultiple: true,
+      }, {
+        fieldName: 'test2',
+        allowMultiple: false,
+      }];
+      const appointmentData = {
+        test1: [1, 2],
+        test2: 2,
+      };
+      expect(calculateAppointmentGroups(cellGroupingInfo, resources, appointmentData))
+        .toEqual({
+          test1: [1, 2],
+          test2: 2,
+        });
+    });
+    it('should change replace multiple resource group with an array with a single instance', () => {
+      const resources = [{
+        fieldName: 'test1',
+        allowMultiple: true,
+      }, {
+        fieldName: 'test2',
+        allowMultiple: false,
+      }];
+      const appointmentData = {
+        test1: [2, 3],
+        test2: 2,
+      };
+      expect(calculateAppointmentGroups(cellGroupingInfo, resources, appointmentData))
+        .toEqual({
+          test1: [1],
+          test2: 2,
+        });
     });
   });
 });

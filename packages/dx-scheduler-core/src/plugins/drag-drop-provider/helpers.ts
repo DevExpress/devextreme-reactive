@@ -219,7 +219,7 @@ export const calculateAppointmentGroups: PureComputed<
   [Array<ResourceInstance> | undefined, Array<Resource>, AppointmentModel], any
 > = (cellGroupingInfo, resources, appointmentData) => {
   if (!cellGroupingInfo) return {};
-  const groups = cellGroupingInfo.reduce((acc, groupingItem: ResourceInstance) => {
+  return cellGroupingInfo.reduce((acc, groupingItem: ResourceInstance) => {
     const isMultipleResource = resources.find(
       resource => (resource.fieldName === groupingItem.fieldName),
     )!.allowMultiple;
@@ -229,7 +229,6 @@ export const calculateAppointmentGroups: PureComputed<
         ? updateMultipleResourceInfo(groupingItem, appointmentData) : groupingItem.id,
     };
   }, {});
-  return groups;
 };
 
 export const updateMultipleResourceInfo: PureComputed<

@@ -421,21 +421,25 @@ describe('DragDropProvider', () => {
     const targetType = 'vertical';
     const cellDurationMinutes = 0;
     const timeTableCells = 0;
+    const grouping = [];
+    const resources = [];
     it('should return all day array while drag above at AllDayPanel', () => {
       calculateDraftAppointments(
         allDayIndex, draftAppointments, startViewDate,
         endViewDate, excludedDays, viewCellsData, allDayCells,
         'horizontal', cellDurationMinutes, timeTableCells,
+        grouping, resources,
       );
       expect(allDayRects)
         .toBeCalledWith([{ allDay: true }], startViewDate, endViewDate,
-          excludedDays, viewCellsData, allDayCells);
+          excludedDays, viewCellsData, allDayCells, grouping, resources);
     });
     it('should format appointment if allDay flag exists', () => {
       expect(calculateDraftAppointments(
         allDayIndex, draftAppointments, startViewDate,
         endViewDate, excludedDays, viewCellsData, allDayCells,
         'horizontal', cellDurationMinutes, timeTableCells,
+        grouping, resources,
       ))
       .toEqual({
         allDayDraftAppointments: [{}],
@@ -459,6 +463,7 @@ describe('DragDropProvider', () => {
         nextAllDayIndex, longDraftAppointment, startViewDate,
         endViewDate, excludedDays, viewCellsData, nextAllDayCells,
         targetType, cellDurationMinutes, timeTableCells,
+        grouping, resources,
       ))
       .toEqual({
         allDayDraftAppointments: [{}],
@@ -469,6 +474,7 @@ describe('DragDropProvider', () => {
         nextAllDayIndex, longDraftAppointment, startViewDate,
         endViewDate, excludedDays, viewCellsData, nextAllDayCells,
         'horizontal', cellDurationMinutes, timeTableCells,
+        grouping, resources,
       ))
       .toEqual({
         allDayDraftAppointments: [],
@@ -486,6 +492,7 @@ describe('DragDropProvider', () => {
         nextAllDayIndex, shortAppointment, startViewDate,
         endViewDate, excludedDays, viewCellsData, nextAllDayCells,
         targetType, cellDurationMinutes, timeTableCells,
+        grouping, resources,
       ))
       .toEqual({
         allDayDraftAppointments: [],
@@ -498,6 +505,7 @@ describe('DragDropProvider', () => {
         nextAllDayIndex, draftAppointments, startViewDate,
         endViewDate, excludedDays, viewCellsData, allDayCells,
         targetType, cellDurationMinutes, timeTableCells,
+        grouping, resources,
       ))
       .toEqual({
         allDayDraftAppointments: [],

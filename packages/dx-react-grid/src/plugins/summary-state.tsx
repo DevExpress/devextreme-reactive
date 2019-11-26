@@ -4,7 +4,7 @@ import { prepareGroupSummaryItems } from '@devexpress/dx-grid-core';
 import { SummaryStateProps } from '../types';
 
 const groupSummaryItemsComputed = (
-  { groupSummaryItems }: Getters
+  { groupSummaryItems }: Getters,
 ) => prepareGroupSummaryItems(groupSummaryItems);
 
 class SummaryStateBase extends React.PureComponent<SummaryStateProps> {

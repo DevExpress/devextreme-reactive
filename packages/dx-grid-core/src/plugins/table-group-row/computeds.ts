@@ -71,7 +71,7 @@ const isRowLevelSummary: PureComputed<[SummaryItem[], string], boolean> = (
   groupSummaryItems, colName,
 ) => (
   groupSummaryItems.some((item: any) => (
-    !item.showInGroupFooter && item.alignByColumn && item.columnName === colName)
+    !item.showInGroupFooter && item.alignByColumn && item.columnName === colName),
   )
 );
 

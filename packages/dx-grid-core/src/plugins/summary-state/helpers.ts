@@ -1,4 +1,4 @@
-import { GroupSummaryItem } from "../../types";
+import { GroupSummaryItem } from '../../types';
 
 export const prepareGroupSummaryItems = (items: GroupSummaryItem[]) => (
   !!items
@@ -7,8 +7,8 @@ export const prepareGroupSummaryItems = (items: GroupSummaryItem[]) => (
       showInGroupFooter: (
         item.showInGroupFooter === undefined && !item.alignByColumn
       )
-         ? true
-         : item.showInGroupFooter,
+        ? true
+        : item.showInGroupFooter,
     }))
     : items
 );

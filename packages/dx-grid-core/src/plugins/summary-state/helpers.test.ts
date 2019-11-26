@@ -3,7 +3,8 @@ import { prepareGroupSummaryItems } from './helpers';
 describe('#prepareSummaryGroupItems', () => {
   it('should set showInGroupFooter if it is undefined', () => {
     const item = { columnName: 'a', type: 'sum' };
-    const items = [{
+    const items = [
+      {
         ...item,
       }, {
         ...item,

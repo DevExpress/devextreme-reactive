@@ -129,6 +129,7 @@ class DragDropProviderBase extends React.PureComponent<
     {
       viewCellsData, startViewDate, endViewDate, excludedDays,
       timeTableElementsMeta, allDayElementsMeta, scrollingStrategy,
+      grouping, resources,
     },
     { changeAppointment, startEditAppointment },
   ) {
@@ -161,7 +162,7 @@ class DragDropProviderBase extends React.PureComponent<
       insidePart, this.offsetTimeTop!,
     );
 
-    const appointmentGroups = calculateAppointmentGroups(targetData.groupingInfo);
+    const appointmentGroups = calculateAppointmentGroups(targetData.groupingInfo, resources, payload);
 
     this.appointmentStartTime = appointmentStartTime || this.appointmentStartTime;
     this.appointmentEndTime = appointmentEndTime || this.appointmentEndTime;
@@ -189,11 +190,10 @@ class DragDropProviderBase extends React.PureComponent<
     } = calculateDraftAppointments(
       allDayIndex, draftAppointments, startViewDate,
       endViewDate, excludedDays, viewCellsData, allDayCellsElementsMeta,
-      targetType, cellDurationMinutes, tableCellElementsMeta,
+      targetType, cellDurationMinutes, tableCellElementsMeta, grouping, resources,
     );
     this.allDayDraftAppointments = allDayDraftAppointments;
     this.timeTableDraftAppointments = timeTableDraftAppointments;
-    console.log(this.timeTableDraftAppointments)
 
     this.applyChanges(
       this.appointmentStartTime, this.appointmentEndTime,
@@ -235,6 +235,7 @@ class DragDropProviderBase extends React.PureComponent<
             {({
               viewCellsData, startViewDate, endViewDate, excludedDays,
               timeTableElementsMeta, allDayElementsMeta, scrollingStrategy,
+              grouping, resources,
             }, {
               changeAppointment, startEditAppointment, finishCommitAppointment,
             }) => {
@@ -246,6 +247,7 @@ class DragDropProviderBase extends React.PureComponent<
                 timeTableElementsMeta,
                 allDayElementsMeta,
                 scrollingStrategy,
+                grouping, resources,
               }, { changeAppointment, startEditAppointment });
               return (
                 <DragDropProviderCore

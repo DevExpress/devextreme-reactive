@@ -62,7 +62,7 @@ class LayoutBase extends React.PureComponent {
                 otherMonth,
               }) => (
                 <Cell
-                  key={startDate}
+                  key={Math.random()}
                   startDate={startDate}
                   endDate={endDate}
                   today={today}

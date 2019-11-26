@@ -30,6 +30,7 @@ const styles = theme => ({
       backgroundColor: fade(theme.palette.primary.main, 0.15),
       outline: 0,
     },
+    minWidth: '50px',
   },
   text: {
     padding: '1em',

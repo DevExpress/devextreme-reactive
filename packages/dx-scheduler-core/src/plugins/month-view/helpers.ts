@@ -52,7 +52,7 @@ export const getMonthCellIndex: GetMonthCellIndexByDateFn = (
     let flag = true;
     if (viewCellsData[weekNumber][dayOfWeek].groupingInfo) {
       viewCellsData[weekNumber][dayOfWeek].groupingInfo.map((groupingItem) => {
-        flag = flag && groupingItem.id === appointment.dataItem[groupingItem.fieldName]
+        flag = flag && groupingItem.id === appointment[groupingItem.fieldName];
       });
     }
     if (flag) {

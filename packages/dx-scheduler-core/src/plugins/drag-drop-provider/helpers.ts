@@ -6,6 +6,8 @@ import {
   TimeBoundariesByDrag, TimeBoundariesByResize, AppointmentModel,
   CellElementsMeta,
   ResourceInstance,
+  Grouping,
+  Resource,
 } from '../../types';
 import { allDayCells as allDayCellsCore } from '../common/computeds';
 import {
@@ -173,6 +175,7 @@ export const calculateDraftAppointments = (
   getAllDayCellsElementRects: CellElementsMeta,
   targetType: string, cellDurationMinutes: number,
   getTableCellElementRects: CellElementsMeta,
+  grouping: Grouping[], resources: Resource[],
 ) => {
   if (allDayIndex !== -1 || (targetType === VERTICAL_TYPE
     && getAllDayCellsElementRects.getCellRects.length
@@ -186,6 +189,7 @@ export const calculateDraftAppointments = (
       allDayDraftAppointments: allDayRects(
         allDayDrafts, startViewDate, endViewDate,
         excludedDays, viewCellsData, getAllDayCellsElementRects,
+        grouping, resources,
       ),
       timeTableDraftAppointments: [],
     };
@@ -197,6 +201,7 @@ export const calculateDraftAppointments = (
       timeTableDraftAppointments: verticalTimeTableRects(
         draftAppointments, startViewDate, endViewDate,
         excludedDays, viewCellsData, cellDurationMinutes, getTableCellElementRects,
+        grouping, resources,
       ),
     };
   }
@@ -205,19 +210,32 @@ export const calculateDraftAppointments = (
     timeTableDraftAppointments: horizontalTimeTableRects(
       draftAppointments, startViewDate, endViewDate,
       viewCellsData, getTableCellElementRects,
+      grouping, resources,
     ),
   };
 };
 
 export const calculateAppointmentGroups: PureComputed<
-  [Array<ResourceInstance> | undefined], any
-> = (cellGroupingInfo) => {
+  [Array<ResourceInstance> | undefined, Array<Resource>, AppointmentModel], any
+> = (cellGroupingInfo, resources, appointmentData) => {
   if (!cellGroupingInfo) return {};
   const groups = cellGroupingInfo.reduce((acc, groupingItem: ResourceInstance) => {
+    const isMultipleResource = resources.find(resource => (resource.fieldName === groupingItem.fieldName)).allowMultiple;
     return {
       ...acc,
-      [groupingItem.fieldName]: groupingItem.id,
+      [groupingItem.fieldName]: isMultipleResource ? updateMultipleResourceInfo(groupingItem, appointmentData) : groupingItem.id,
     };
   }, {});
   return groups;
+};
+
+export const updateMultipleResourceInfo: PureComputed<
+  [ResourceInstance | undefined, AppointmentModel], any
+> = (cellResource, appointmentData) => {
+  const cellInfo = cellResource!.id;
+  const appointmentGroupItems = appointmentData[cellResource.fieldName];
+  if (appointmentGroupItems.findIndex(groupItem => groupItem === cellInfo) !== -1){
+    return appointmentGroupItems;
+  }
+  return [cellInfo];
 };

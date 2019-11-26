@@ -74,7 +74,7 @@ export default class Demo extends React.PureComponent {
           />
           <GroupingState
             grouping={[{
-              resourceName: 'roomId',
+              resourceName: 'members',
             }]}
           />
 
@@ -82,7 +82,7 @@ export default class Demo extends React.PureComponent {
           <Appointments />
           <Resources
             data={resources}
-            mainResourceName="roomId"
+            mainResourceName="members"
           />
 
           <IntegratedGrouping />

@@ -19,6 +19,7 @@ const styles = theme => ({
       paddingRight: 0,
     },
     textAlign: 'center',
+    minWidth: '50px',
   },
   dayOfWeek: {
     ...theme.typography.caption,

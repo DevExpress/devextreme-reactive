@@ -57,7 +57,7 @@ class LayoutBase extends React.PureComponent {
             <Row key={index.toString()}>
               {days.map(({ startDate, endDate }) => (
                 <Cell
-                  key={startDate}
+                  // key={Math.random()}
                   startDate={startDate}
                   endDate={endDate}
                 />

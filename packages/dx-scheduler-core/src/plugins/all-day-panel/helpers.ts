@@ -19,7 +19,7 @@ export const getAllDayCellIndex: GetAllDayCellIndexByDateFn = (
       let flag = true;
       if (timeCell.groupingInfo) {
         timeCell.groupingInfo.map((groupingItem) => {
-          flag = flag && groupingItem.id === appointment.dataItem[groupingItem.fieldName]
+          flag = flag && groupingItem.id === appointment[groupingItem.fieldName];
         });
       }
       return moment(date as SchedulerDateTime).isSame(timeCell.startDate, 'date') && flag;

@@ -15,9 +15,10 @@ import { PureComputed } from '@devexpress/dx-core/src';
 export const allDayRects: AllDayRects = (
   appointments, startViewDate, endViewDate,
   excludedDays, viewCellsData, cellElementsMeta,
+  grouping, resources,
 ) => {
   const intervals = calculateAllDayDateIntervals(
-    appointments, startViewDate, endViewDate, excludedDays,
+    appointments, startViewDate, endViewDate, excludedDays, grouping, resources,
   );
   return calculateRectByDateIntervals(
     {
@@ -38,11 +39,12 @@ export const allDayRects: AllDayRects = (
 
 export const verticalTimeTableRects: VerticalRects = (
   appointments, startViewDate, endViewDate, excludedDays,
-  viewCellsData, cellDuration, cellElementsMeta,
+  viewCellsData, cellDuration, cellElementsMeta, grouping, resources,
 ) => {
   const intervals = calculateWeekDateIntervals(
-    appointments, startViewDate, endViewDate, excludedDays, cellDuration,
+    appointments, startViewDate, endViewDate, excludedDays, cellDuration, grouping, resources,
   );
+
   return calculateRectByDateIntervals(
     {
       growDirection: VERTICAL_TYPE,

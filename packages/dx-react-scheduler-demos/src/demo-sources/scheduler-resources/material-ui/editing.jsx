@@ -13,6 +13,8 @@ import {
   EditRecurrenceMenu,
   DragDropProvider,
   GroupingPanel,
+  WeekView,
+  AllDayPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { owners } from '../../../demo-data/tasks';
 import { appointments, resourcesData } from '../../../demo-data/resources';
@@ -67,7 +69,7 @@ export default class Demo extends React.PureComponent {
           data={data}
         >
           <ViewState
-            defaultCurrentDate="2017-05-25"
+            defaultCurrentDate="2017-05-6"
           />
           <EditingState
             onCommitChanges={this.commitChanges}
@@ -78,8 +80,13 @@ export default class Demo extends React.PureComponent {
             }]}
           />
 
+          <WeekView
+            startDayHour={9}
+            endDayHour={17}
+          />
           <MonthView />
           <Appointments />
+          <AllDayPanel />
           <Resources
             data={resources}
             mainResourceName="members"

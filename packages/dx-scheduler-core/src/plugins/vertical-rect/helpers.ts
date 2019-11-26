@@ -13,7 +13,7 @@ export const getVerticalCellIndex: GetCellByDateFn = (appointment, viewCellsData
       let flag = true;
       if (timeCell.groupingInfo) {
         timeCell.groupingInfo.map((groupingItem) => {
-          flag = flag && groupingItem.id === appointment.dataItem[groupingItem.fieldName]
+          flag = flag && groupingItem.id === appointment[groupingItem.fieldName]
         });
       }
       return moment(date as SchedulerDateTime).isSame(timeCell.startDate, 'date') && flag;
@@ -26,7 +26,6 @@ export const getVerticalCellIndex: GetCellByDateFn = (appointment, viewCellsData
       'seconds',
       takePrev ? '(]' : '[)'),
     );
-
   const totalCellIndex = (rowIndex * viewCellsData[0].length) + cellIndex;
   return {
     index: totalCellIndex,

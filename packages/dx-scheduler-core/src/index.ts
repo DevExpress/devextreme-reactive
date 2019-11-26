@@ -53,7 +53,7 @@ export * from './plugins/resources/helpers';
 /** @internal */
 export * from './plugins/grouping-state/reducers';
 /** @internal */
-export * from './plugins/grouping-panel/helpers';
+export * from './plugins/integrated-grouping/computeds';
 /** @internal */
 export * from './plugins/grouping-panel/computeds';
 /** @internal */

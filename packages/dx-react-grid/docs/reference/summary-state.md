@@ -41,10 +41,10 @@ Describes a group summary item.
 
 Extends [SummaryItem](#summaryitem)
 
-Field | Type | Description
-------|------|--
-showInGroupFooter? | boolean | Specifies whether a summary should be rendered in a group row instead of a summary row.
-alignByColumn? | boolean | Specifies whether the summary item should be displayed in the group caption.
+Field | Type | Default | Description
+------|------|---------|-----
+showInGroupFooter? | boolean | true | Specifies whether a summary should be rendered in a group footer row.
+alignByColumn? | boolean | false | Specifies whether the summary item should be displayed in corresponding column when `showInGroupFooter` is set to false.
 
 ### SummaryType
 

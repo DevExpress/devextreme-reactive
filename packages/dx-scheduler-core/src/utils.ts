@@ -389,8 +389,8 @@ export const formatDateToString = (date: Date | string | number) => moment.utc(d
 
 export const expandGroupedAppointment: PureComputed<
   [AppointmentMoment, Grouping[], Resource[]], AppointmentMoment[]
-> = (appointment, grouping, resources) => {
-  return resources.reduce((acc: AppointmentMoment[], resource: Resource) => {
+> = (appointment, grouping, resources) => resources
+  .reduce((acc: AppointmentMoment[], resource: Resource) => {
     const isGroupedByResource = grouping.find(
       groupingItem => groupingItem.resourceName === resource.fieldName,
     ) !== undefined;
@@ -410,4 +410,3 @@ export const expandGroupedAppointment: PureComputed<
       })];
     }, []);
   }, [appointment] as AppointmentMoment[]);
-};

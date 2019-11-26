@@ -12,6 +12,7 @@ import {
   filterByViewBoundaries,
   getRRuleSetWithExDates,
   formatDateToString,
+  expandGroupedAppointment,
 } from './utils';
 
 describe('Utils', () => {
@@ -746,6 +747,89 @@ describe('Utils', () => {
 
       expect(formatDateToString(date))
         .toContain('2019-06-10T12:30');
+    });
+  });
+  describe('#expandGroupedAppointment', () => {
+    const grouping = [{
+      resourceName: 'test1',
+    }, {
+      resourceName: 'test2',
+    }];
+    it('should add grouping fields from appointment\'s dataItem', () => {
+      const resources = [{
+        fieldName: 'test1',
+      }, {
+        fieldName: 'test2',
+      }, {
+        resourceName: 'test3',
+      }];
+      const appointment = {
+        dataItem: {
+          test1: 1,
+          test2: 2,
+          test3: 3,
+        },
+      };
+
+      expect(expandGroupedAppointment(appointment, grouping, resources))
+        .toEqual([{
+          dataItem: {
+            test1: 1,
+            test2: 2,
+            test3: 3,
+          },
+          test1: 1,
+          test2: 2,
+        }]);
+    });
+    it('should create several appointments if a multiple resource is present', () => {
+      const resources = [{
+        fieldName: 'test1',
+        allowMultiple: true,
+      }, {
+        fieldName: 'test2',
+      }, {
+        resourceName: 'test3',
+      }];
+      const appointment = {
+        dataItem: {
+          test1: [1, 2, 3],
+          test2: 2,
+          test3: 3,
+        },
+      };
+
+      const result = expandGroupedAppointment(appointment, grouping, resources);
+      expect(result[0])
+        .toEqual({
+          dataItem: {
+            test1: [1, 2, 3],
+            test2: 2,
+            test3: 3,
+          },
+          test1: 1,
+          test2: 2,
+        });
+      expect(result[1])
+        .toEqual({
+          dataItem: {
+            test1: [1, 2, 3],
+            test2: 2,
+            test3: 3,
+          },
+          test1: 2,
+          test2: 2,
+        });
+      expect(result[2])
+        .toEqual({
+          dataItem: {
+            test1: [1, 2, 3],
+            test2: 2,
+            test3: 3,
+          },
+          test1: 3,
+          test2: 2,
+        });
     });
   });
 });

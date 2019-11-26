@@ -1,4 +1,5 @@
 import { FormatterFn, CellElementsMeta, ScrollingStrategy } from '../index';
+import { CurrentTimeIndicator } from '../current-time-indicator';
 
 // tslint:disable: no-namespace
 export interface CommonViewProps {
@@ -45,10 +46,19 @@ export namespace BaseView {
   }
   /** Describes properties passed to a component that renders a time table cell. */
   export interface TimeTableCellProps {
-    /** Specifies the cell a start time. */
+    /** Specifies the cell's start time. */
     startDate?: Date;
-    /** Specifies the cell end time. */
+    /** Specifies the cell's end time. */
     endDate?: Date;
+    /** Indicates whether the cell is shaded. */
+    isShaded?: boolean;
+    // tslint:disable-next-line: max-line-length
+    /*** Indicates the distance from the top edge of the containing element (usually, a timetable cell).
+     * The distance is measured as a percentage of the element's height.
+     * */
+    currentTimeIndicatorPosition?: string;
+    /** A component that renders the current time indicator. */
+    currentTimeIndicatorComponent?: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
     /** A React node used to render the time table cell content. */
     children?: React.ReactNode;
   }
@@ -79,9 +89,9 @@ export namespace BaseView {
   }
   /** @internal */
   export interface TimeScaleTickCellProps {
-    /** Specifies the cell a start time. */
+    /** Specifies the cell's start time. */
     startDate?: Date;
-    /** Specifies the cell end time. */
+    /** Specifies the cell's end time. */
     endDate?: Date;
   }
   /** Describes properties passed to a component that renders a day scale layout. */
@@ -97,9 +107,9 @@ export namespace BaseView {
   }
   /** Describes properties passed to a component that renders a day scale cell. */
   export interface DayScaleCellProps {
-    /** Specifies the cell end time. */
+    /** Specifies the cell's end time. */
     startDate: Date;
-    /** Specifies the cell start time. */
+    /** Specifies the cell's start time. */
     endDate?: Date;
     /** Indicates whether the cell’s date is today. */
     today?: boolean;
@@ -118,9 +128,9 @@ export namespace BaseView {
   }
   /** Describes a cell data configuration object. */
   export interface CellData {
-    /** Specifies the cell start time. */
+    /** Specifies the cell's start time. */
     startDate: Date;
-    /** Specifies the cell end time. */
+    /** Specifies the cell's end time. */
     endDate: Date;
     /** Indicates whether the cell’s date is today. */
     today: boolean;

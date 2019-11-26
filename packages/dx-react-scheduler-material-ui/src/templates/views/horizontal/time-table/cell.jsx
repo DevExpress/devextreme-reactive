@@ -33,13 +33,14 @@ const styles = theme => ({
   },
   text: {
     padding: '1em',
+    paddingTop: '0.5em',
+    textAlign: 'center',
     '@media (max-width: 500px)': {
       padding: '0.5em',
     },
   },
   today: {
-    margin: '0.85em',
-    display: 'inline-block',
+    marginTop: '0.33em',
     width: '1.72em',
     height: '1.72em',
     lineHeight: 1.72,
@@ -48,9 +49,21 @@ const styles = theme => ({
     background: theme.palette.primary.main,
     color: theme.palette.primary.contrastText,
     cursor: 'default',
+    marginRight: 'auto',
+    marginLeft: 'auto',
   },
   otherMonth: {
     color: theme.palette.text.disabled,
+  },
+  shadedCell: {
+    backgroundColor: fade(theme.palette.action.disabledBackground, 0.04),
+    '&:hover': {
+      backgroundColor: theme.palette.action.selected,
+    },
+    '&:focus': {
+      backgroundColor: fade(theme.palette.primary.main, 0.15),
+      outline: 0,
+    },
   },
 });
 
@@ -62,14 +75,18 @@ const CellBase = React.memo(({
   today,
   otherMonth,
   formatDate,
+  isShaded,
   ...restProps
 }) => {
   const isFirstMonthDay = startDate.getDate() === 1;
-  const formatOptions = isFirstMonthDay ? DAY_SHORT_MONTH_OPTIONS : DAY_OPTIONS;
+  const formatOptions = isFirstMonthDay && !today ? DAY_SHORT_MONTH_OPTIONS : DAY_OPTIONS;
   return (
     <TableCell
       tabIndex={0}
-      className={classNames(classes.cell, className)}
+      className={classNames({
+        [classes.cell]: true,
+        [classes.shadedCell]: isShaded,
+      }, className)}
       {...restProps}
     >
       <div
@@ -93,6 +110,7 @@ CellBase.propTypes = {
   className: PropTypes.string,
   today: PropTypes.bool,
   otherMonth: PropTypes.bool,
+  isShaded: PropTypes.bool,
 };
 
 CellBase.defaultProps = {
@@ -100,6 +118,7 @@ CellBase.defaultProps = {
   className: undefined,
   today: false,
   otherMonth: false,
+  isShaded: false,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

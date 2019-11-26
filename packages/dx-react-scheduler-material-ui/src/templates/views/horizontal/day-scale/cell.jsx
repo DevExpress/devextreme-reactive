@@ -11,17 +11,22 @@ const styles = theme => ({
     userSelect: 'none',
     padding: 0,
     borderLeft: getBorder(theme),
+    borderBottom: 'none',
     '&:first-child': {
       borderLeft: 'none',
     },
     '&:last-child': {
       paddingRight: 0,
     },
+    textAlign: 'center',
   },
   dayOfWeek: {
     ...theme.typography.caption,
     margin: 0,
     padding: theme.spacing(1),
+    paddingBottom: 0,
+    color: theme.palette.text.secondary,
+    fontWeight: 'bold',
   },
 });
 

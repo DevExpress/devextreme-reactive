@@ -58,9 +58,9 @@ describe('#declareSeries', () => {
       data: 'test-data',
       palette: 'test-palette',
       scales: { test_argument_domain: 'argument-scale', value_domain: 'value-scale' },
-      getAnimatedStyle: 'test-animated-style-getter',
       layouts: { pane: { width: 20, height: 30 } },
       clipPathId: 'clipPathId',
+      readyToRenderSeries: 'readyToRenderSeries',
     },
     template: {
       series: {},
@@ -94,10 +94,10 @@ describe('#declareSeries', () => {
       pointComponent: undefined,
       state: 'test-state',
       color: 'color',
-      scales: { xScale: 'argument-scale', yScale: 'value-scale' },
-      getAnimatedStyle: 'test-animated-style-getter',
+      scales: { argScale: 'argument-scale', valScale: 'value-scale' },
       clipPathId: 'clipPathId',
       pane: { width: 20, height: 30 },
+      readyToRenderSeries: 'readyToRenderSeries',
     });
   });
 

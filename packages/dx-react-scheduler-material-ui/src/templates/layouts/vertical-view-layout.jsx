@@ -12,7 +12,7 @@ const styles = theme => ({
   },
   stickyHeader: {
     top: 0,
-    zIndex: 1,
+    zIndex: 2,
     tableLayout: 'fixed',
     position: 'sticky',
     overflow: 'visible',
@@ -22,10 +22,10 @@ const styles = theme => ({
     position: 'relative',
   },
   fixedWidth: {
-    width: theme.spacing(9),
+    width: theme.spacing(10),
   },
   mainTable: {
-    width: `calc(100% - ${theme.spacing(9)}px)`,
+    width: `calc(100% - ${theme.spacing(10)}px)`,
   },
 });
 

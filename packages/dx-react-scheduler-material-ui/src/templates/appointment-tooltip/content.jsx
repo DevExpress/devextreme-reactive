@@ -1,14 +1,14 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import AccessTime from '@material-ui/icons/AccessTime';
 import Lens from '@material-ui/icons/Lens';
-import { HOUR_MINUTE_OPTIONS, viewBoundText } from '@devexpress/dx-scheduler-core';
-import { setColor } from '../utils';
+import { HOUR_MINUTE_OPTIONS, WEEKDAY_INTERVAL, viewBoundText } from '@devexpress/dx-scheduler-core';
+import { getAppointmentColor, getResourceColor } from '../utils';
 
-const styles = ({ spacing, palette, typography }) => ({
+const useStyles = makeStyles(({ spacing, palette, typography }) => ({
   content: {
     padding: spacing(1.5, 1),
     paddingTop: spacing(1),
@@ -31,7 +31,7 @@ const styles = ({ spacing, palette, typography }) => ({
     color: palette.action.active,
   },
   lens: {
-    color: setColor(300, palette.primary),
+    color: resources => getAppointmentColor(300, getResourceColor(resources), palette.primary),
     width: spacing(4.5),
     height: spacing(4.5),
     verticalAlign: 'super',
@@ -39,8 +39,13 @@ const styles = ({ spacing, palette, typography }) => ({
     left: '50%',
     transform: 'translate(-50%,0)',
   },
+  lensMini: {
+    width: spacing(2.5),
+    height: spacing(2.5),
+  },
   textCenter: {
     textAlign: 'center',
+    height: spacing(2.5),
   },
   dateAndTitle: {
     lineHeight: 1.4,
@@ -50,6 +55,9 @@ const styles = ({ spacing, palette, typography }) => ({
   },
   contentContainer: {
     paddingBottom: spacing(1.5),
+  },
+  resourceContainer: {
+    paddingBottom: spacing(0.25),
   },
   recurringIcon: {
     position: 'absolute',
@@ -65,19 +73,21 @@ const styles = ({ spacing, palette, typography }) => ({
     width: '100%',
     height: '100%',
   },
-});
+}));
 
-export const ContentBase = ({
-  classes,
+export const Content = ({
   className,
   children,
   appointmentData,
+  appointmentResources,
   formatDate,
   recurringIconComponent: RecurringIcon,
   ...restProps
 }) => {
+  const classes = useStyles(appointmentResources);
   const weekDays = viewBoundText(
-    appointmentData.startDate, appointmentData.endDate, '', appointmentData.startDate, 1, formatDate,
+    appointmentData.startDate, appointmentData.endDate, WEEKDAY_INTERVAL,
+    appointmentData.startDate, 1, formatDate,
   );
   return (
     <div
@@ -115,24 +125,40 @@ export const ContentBase = ({
           </div>
         </Grid>
       </Grid>
+      {appointmentResources.map(resourceItem => (
+        <Grid container alignItems="center" className={classes.resourceContainer} key={`${resourceItem.fieldName}_${resourceItem.id}`}>
+          <Grid item xs={2} className={classes.textCenter}>
+            <div className={classes.relativeContainer}>
+              <Lens
+                className={classNames(classes.lens, classes.lensMini)}
+                style={{ color: getAppointmentColor(300, resourceItem.color) }}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={10}>
+            <div className={classes.text}>
+              {resourceItem.text}
+            </div>
+          </Grid>
+        </Grid>
+      ))}
       {children}
     </div>
   );
 };
 
-ContentBase.propTypes = {
-  classes: PropTypes.object.isRequired,
+Content.propTypes = {
   appointmentData: PropTypes.object,
+  appointmentResources: PropTypes.array,
   children: PropTypes.node,
   className: PropTypes.string,
   formatDate: PropTypes.func.isRequired,
   recurringIconComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 };
 
-ContentBase.defaultProps = {
+Content.defaultProps = {
   appointmentData: undefined,
+  appointmentResources: [],
   className: undefined,
   children: undefined,
 };
-
-export const Content = withStyles(styles, { name: 'Content' })(ContentBase);

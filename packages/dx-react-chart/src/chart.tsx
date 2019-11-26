@@ -9,6 +9,7 @@ import { BasicData } from './plugins/basic-data';
 import { ChartCore } from './plugins/chart-core';
 import { AxesLayout } from './plugins/axes-layout';
 import { SpaceFillingRects } from './plugins/space-filling-rects';
+import { ControllerComponent } from './plugins/controller-component';
 import { PaneLayout } from './plugins/pane-layout';
 import { LayoutManager } from './plugins/layout-manager';
 import { ComponentLayout } from './plugins/component-layout';
@@ -61,6 +62,7 @@ class RawChart extends React.PureComponent<ChartProps> {
         <AxesLayout />
         <ComponentLayout />
         <SpaceFillingRects placeholders={placeholders} />
+        <ControllerComponent />
         {children}
         <ChartCore />
       </PluginHost>

@@ -37,3 +37,7 @@ The Grid also supports column virtualization, which is demonstrated in the follo
 If the Grid should have the same size as the container element, set the `VirtualTable` plugin's `height` property to "auto" and the Grid root element's style setting to `height: 100%`.
 
 .embedded-demo({ "path": "grid-virtual-scrolling/stretching-to-parent-element", "showThemeSelector": true })
+
+## Note on the use of `VirtualTable` with `DataTypeProvider` and custom components
+
+If you use a custom `rowComponent` or `cellComponent`, its height and the `estimatedRowHeight` value should be equal. The same applies to a custom formatter defined in the [DataTypeProvider](../reference/data-type-provider.md) plugin.

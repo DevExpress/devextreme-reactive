@@ -45,7 +45,7 @@ describe('Pie series', () => {
 
   const defaultDeps = {
     getter: {
-      layouts: { pane: { } },
+      layouts: { pane: { width: 1, height: 2 } },
       scales: { test_argument_domain: 'arg-scale', test_value_domain: 'val-scale' },
     },
     template: {
@@ -70,9 +70,8 @@ describe('Pie series', () => {
       color: 'color',
       coordinates: coords,
       path: undefined,
-      getAnimatedStyle: undefined,
-      scales: { xScale: 'arg-scale', yScale: 'val-scale' },
-      pane: {},
+      scales: { argScale: 'arg-scale', valScale: 'val-scale' },
+      pane: { width: 1, height: 2 },
     });
   });
 });

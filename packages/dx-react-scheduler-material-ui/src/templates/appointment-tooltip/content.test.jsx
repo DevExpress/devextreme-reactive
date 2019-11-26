@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { createShallow } from '@material-ui/core/test-utils';
 import { viewBoundText } from '@devexpress/dx-scheduler-core';
 import { Content } from './content';
 
@@ -8,8 +8,26 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   viewBoundText: jest.fn(),
 }));
 
+jest.mock('@material-ui/core/styles', () => ({
+  ...require.requireActual('@material-ui/core/styles'),
+  makeStyles: jest.fn(() => () => ({
+    content: 'content',
+    text: 'text',
+    title: 'title',
+    icon: 'icon',
+    lens: 'lens',
+    lensMini: 'lensMini',
+    textCenter: 'textCenter',
+    dateAndTitle: 'dateAndTitle',
+    titleContainer: 'titleContainer',
+    contentContainer: 'contentContainer',
+    resourceContainer: 'resourceContainer',
+    recurringIcon: 'recurringIcon',
+    relativeContainer: 'relativeContainer',
+  })),
+}));
+
 describe('Appointment Tooltip', () => {
-  let classes;
   let shallow;
   const defaultProps = {
     appointmentData: {
@@ -21,8 +39,7 @@ describe('Appointment Tooltip', () => {
     recurringIconComponent: jest.fn(),
   };
   beforeAll(() => {
-    classes = getClasses(<Content />);
-    shallow = createShallow({ dive: true });
+    shallow = createShallow();
   });
   beforeEach(() => {
     jest.resetAllMocks();
@@ -36,7 +53,7 @@ describe('Appointment Tooltip', () => {
 
       expect(tree.is('.custom-class'))
         .toBeTruthy();
-      expect(tree.is(`.${classes.content}`))
+      expect(tree.is('.content'))
         .toBeTruthy();
     });
 
@@ -54,23 +71,23 @@ describe('Appointment Tooltip', () => {
         <Content {...defaultProps} />
       ));
 
-      expect(tree.find(`.${classes.titleContainer}`).exists())
+      expect(tree.find('.titleContainer').exists())
         .toBeTruthy();
-      expect(tree.find(`.${classes.lens}`).exists())
+      expect(tree.find('.lens').exists())
         .toBeTruthy();
-      expect(tree.find(`.${classes.recurringIcon}`).exists())
+      expect(tree.find('.recurringIcon').exists())
         .toBeFalsy();
-      expect(tree.find(`.${classes.title}`).exists())
+      expect(tree.find('.title').exists())
         .toBeTruthy();
-      expect(tree.find(`.${classes.icon}`).exists())
+      expect(tree.find('.icon').exists())
         .toBeTruthy();
-      expect(tree.find(`.${classes.text}`))
+      expect(tree.find('.text'))
         .toHaveLength(2);
-      expect(tree.find(`.${classes.dateAndTitle}`))
+      expect(tree.find('.dateAndTitle'))
         .toHaveLength(2);
-      expect(tree.find(`.${classes.textCenter}`))
+      expect(tree.find('.textCenter'))
         .toBeTruthy();
-      expect(tree.find(`.${classes.relativeContainer}`).exists())
+      expect(tree.find('.relativeContainer').exists())
         .toBeTruthy();
     });
 
@@ -105,7 +122,7 @@ describe('Appointment Tooltip', () => {
       expect(viewBoundText)
         .toHaveBeenCalledWith(
           defaultProps.appointmentData.startDate,
-          defaultProps.appointmentData.endDate, '',
+          defaultProps.appointmentData.endDate, 'weekdayInterval',
           defaultProps.appointmentData.startDate, 1,
           defaultProps.formatDate,
         );
@@ -116,8 +133,21 @@ describe('Appointment Tooltip', () => {
         <Content {...defaultProps} appointmentData={{ ...defaultProps.appointmentData, rRule: 'test' }} />
       ));
 
-      expect(tree.find(`.${classes.recurringIcon}`).exists())
+      expect(tree.find('.recurringIcon').exists())
         .toBeTruthy();
+    });
+
+    it('should render resource instances', () => {
+      const appointmentResources = [
+        { id: 0, text: 'text-0', color: 'red' },
+        { id: 1, text: 'text-1', color: 'blue' },
+      ];
+      const tree = shallow((
+        <Content {...defaultProps} appointmentResources={appointmentResources} />
+      ));
+
+      expect(tree.find('.resourceContainer'))
+        .toHaveLength(2);
     });
   });
 });

@@ -12,6 +12,9 @@ jest.spyOn(Element.prototype, 'getBoundingClientRect').mockImplementation(() => 
   height: 600,
   right: 800,
   bottom: 600,
+  x: 0,
+  y: 0,
+  toJSON: jest.fn(),
 }));
 
 // eslint-disable-next-line

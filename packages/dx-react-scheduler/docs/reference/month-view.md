@@ -46,8 +46,8 @@ Describes a cell data configuration object.
 
 Field | Type | Description
 ------|------|------------
-startDate | Date | Specifies the cell start time.
-endDate | Date | Specifies the cell end time.
+startDate | Date | Specifies the cell's start time.
+endDate | Date | Specifies the cell's end time.
 otherMonth | boolean | Indicates whether the cell's date is not in the current month.
 today | boolean | Indicates whether the cell's date is today.
 
@@ -78,8 +78,8 @@ Describes properties passed to a component that renders a day scale cell.
 
 Field | Type | Description
 ------|------|------------
-startDate | Date | Specifies the cell start time.
-endDate? | Date | Specifies the cell end time.
+startDate | Date | Specifies the cell's start time.
+endDate? | Date | Specifies the cell's end time.
 today? | boolean | Indicates whether the cell's date is today.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the set locale.
 
@@ -100,11 +100,12 @@ Describes properties passed to a component that renders a time table cell.
 
 Field | Type | Description
 ------|------|------------
-startDate | Date | Specifies the cell start time.
-endDate? | Date | Specifies the cell end time.
+startDate | Date | Specifies the cell's start time.
+endDate? | Date | Specifies the cell's end time.
 otherMonth? | boolean | Indicates whether the cell's date is not in the current month.
 today? | boolean | Indicates whether the cell's date is today.
-formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the set locale.
+isShaded? | boolean | Indicates whether the cell is shaded.
+formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the locale.
 
 ### MonthView.AppointmentLayerProps
 

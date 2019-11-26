@@ -1,4 +1,4 @@
-import { AppointmentModel, FormatterFn } from '../index';
+import { AppointmentModel, FormatterFn, ValidResourceInstance, ValidResource } from '../index';
 
 /* tslint:disable no-namespace max-line-length */
 export namespace AppointmentForm {
@@ -24,7 +24,7 @@ export namespace AppointmentForm {
   export interface LayoutProps {
     /** A component that renders a layout for command buttons. */
     commandLayoutComponent: React.ComponentType<AppointmentForm.CommandLayoutProps>;
-    /** A component that renders a layout for editors that edit basic appoinement data. */
+    /** A component that renders a layout for editors that edit basic appointment data. */
     basicLayoutComponent: React.ComponentType<AppointmentForm.BasicLayoutProps>;
     /** A component that renders a layout for editors that specify the appointment's recurrence. */
     recurrenceLayoutComponent: React.ComponentType<AppointmentForm.RecurrenceLayoutProps>;
@@ -62,7 +62,11 @@ export namespace AppointmentForm {
     fullSize: boolean;
     /** The appointment's data. */
     appointmentData: AppointmentModel;
-    /** An event raised when a field value in the appointment form is changed. */
+    /** The appointment's resource items. */
+    appointmentResources: Array<ValidResourceInstance>;
+    /** The all resources that were defined. */
+    resources: Array<ValidResource>;
+    /** An event that is raised when a field value in the appointment form is changed. */
     onFieldChange: (change: any) => void;
     /** Uses a localization message's key to retrieve the message. */
     getMessage: (messageKey: string) => string;
@@ -76,8 +80,10 @@ export namespace AppointmentForm {
     dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
     /** A component that renders an editor of Boolean values. */
     booleanEditorComponent: React.ComponentType<AppointmentForm.BooleanEditorProps>;
-    /** A component that renders a menu of options. */
+    /** A component that renders an options menu. */
     selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
+    /** A component that renders a resource editor. */
+    resourceEditorComponent: React.ComponentType<AppointmentForm.ResourceEditorProps>;
     /** A component that renders a text label. */
     labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
     /** A React node used to render additional components to the Basic Layout. */
@@ -89,7 +95,7 @@ export namespace AppointmentForm {
     visible: boolean;
     /** The appointment's data. */
     appointmentData: AppointmentModel;
-    /** An event raised when a field value in the appointment form is changed. */
+    /** An event that is raised when a field value in the appointment form is changed. */
     onFieldChange: (nextFieldValue: { [fieldName: string]: any }) => void;
     /** Uses a localization message's key to retrieve the message. */
     getMessage: (messageKey: string) => string;
@@ -109,7 +115,7 @@ export namespace AppointmentForm {
     textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
     /** A component that renders a date-time editor. */
     dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
-    /** A component that renders a menu of options. */
+    /** A component that renders an options menu. */
     selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
     /** A component that renders a text label. */
     labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
@@ -166,6 +172,17 @@ export namespace AppointmentForm {
     /** The menu's type. */
     type: 'outlinedSelect' | 'filledSelect';
   }
+  /** A component that renders a resource editor. */
+  export interface ResourceEditorProps {
+    /** The appointment's resource items. */
+    appointmentResources: Array<ValidResourceInstance>;
+    /** The all resources that were defined. */
+    resources: Array<ValidResource>;
+    /** Handles value changes. */
+    onResourceChange: (nextValue: string | number | Array<string | number>) => void;
+    /** Specifies whether the menu is read-only. */
+    readOnly?: boolean;
+  }
   /** Properties passed to a component that renders a command button on the appointment form. */
   export interface CommandButtonProps {
     /** The command button's identifier. */
@@ -192,7 +209,7 @@ export namespace AppointmentForm {
     formatDate: FormatterFn;
     /** A number between 0 (Sunday) and 6 (Saturday) that specifies the first day of the week. */
     firstDayOfWeek: number;
-    /** An event raised when a field value in the appointment form is changed. */
+    /** An event that is raised when a field value in the appointment form is changed. */
     onFieldChange: (nextFieldValue: { [fieldName: string]: any }) => void;
     /** Specifies the date editor is read-only. */
     readOnly?: boolean;
@@ -204,7 +221,7 @@ export namespace AppointmentForm {
     textEditorComponent: React.ComponentType<AppointmentForm.TextEditorProps>;
     /** A component that renders a date-time editor. */
     dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
-    /** A component that renders a menu of options. */
+    /** A component that renders an options menu. */
     selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
     /** A component that renders a text label. */
     labelComponent: React.ComponentType<AppointmentForm.LabelProps>;
@@ -308,7 +325,7 @@ export interface AppointmentFormProps {
   layoutComponent: React.ComponentType<AppointmentForm.LayoutProps>;
   /** A component that renders a layout for command buttons. */
   commandLayoutComponent: React.ComponentType<AppointmentForm.CommandLayoutProps>;
-  /** A component that renders a layout for editors that edit basic appoinement data. */
+  /** A component that renders a layout for editors that edit basic appointment data. */
   basicLayoutComponent: React.ComponentType<AppointmentForm.BasicLayoutProps>;
   /** A component that renders a layout for editors that specify the appointment's recurrence. */
   recurrenceLayoutComponent: React.ComponentType<AppointmentForm.RecurrenceLayoutProps>;
@@ -322,8 +339,10 @@ export interface AppointmentFormProps {
   dateEditorComponent: React.ComponentType<AppointmentForm.DateEditorProps>;
   /** A component that renders an editor of Boolean values. */
   booleanEditorComponent: React.ComponentType<AppointmentForm.BooleanEditorProps>;
-  /** A component that renders a menu of options. */
+  /** A component that renders an options menu. */
   selectComponent: React.ComponentType<AppointmentForm.SelectProps>;
+  /** A component that renders a resource editor. */
+  resourceEditorComponent: React.ComponentType<AppointmentForm.ResourceEditorProps>;
   /** A component that renders a radio group. */
   radioGroupComponent: React.ComponentType<AppointmentForm.RadioGroupProps>;
   /** A component that renders a weekly recurrence selector. */

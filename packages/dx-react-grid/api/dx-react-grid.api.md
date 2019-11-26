@@ -401,9 +401,9 @@ export interface GroupRow {
 // @public (undocumented)
 export interface GroupSummaryItem extends SummaryItem {
   // (undocumented)
-  alignByColumn: boolean;
+  alignByColumn?: boolean;
   // (undocumented)
-  showInGroupFooter: boolean;
+  showInGroupFooter?: boolean;
 }
 
 // @public (undocumented)

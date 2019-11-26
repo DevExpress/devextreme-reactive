@@ -3,7 +3,7 @@ import {
   sliceAppointmentByDay, dayBoundaryPredicate, reduceAppointmentByDayBounds,
   normalizeAppointmentDuration,
 } from './helpers';
-import { filterByViewBoundaries, expandGroupedAppointments } from '../../utils';
+import { filterByViewBoundaries, expandGroupedAppointment } from '../../utils';
 
 export const calculateWeekDateIntervals: CalculateWeekDateIntervalsFn = (
   appointments,
@@ -18,7 +18,7 @@ export const calculateWeekDateIntervals: CalculateWeekDateIntervalsFn = (
     [] as AppointmentMoment[],
   )
   .reduce((acc, appointment) =>
-    [...acc, ...expandGroupedAppointments(appointment, grouping, resources)],
+    [...acc, ...expandGroupedAppointment(appointment, grouping, resources)],
     [] as AppointmentMoment[],
   )
   .reduce((acc, appointment) => (

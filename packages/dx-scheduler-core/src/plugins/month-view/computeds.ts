@@ -3,7 +3,7 @@ import {
   MonthCellsDataComputedFn, MonthCellData,
   CalculateMonthDateIntervalsFn, AppointmentMoment,
 } from '../../types';
-import { filterByViewBoundaries, expandGroupedAppointments } from '../../utils';
+import { filterByViewBoundaries, expandGroupedAppointment } from '../../utils';
 import { sliceAppointmentByWeek } from './helpers';
 
 const DAY_COUNT = 7;
@@ -57,7 +57,7 @@ export const calculateMonthDateIntervals: CalculateMonthDateIntervalsFn = (
     [] as AppointmentMoment[],
   )
   .reduce((acc, appointment) =>
-    [...acc, ...expandGroupedAppointments(appointment, grouping, resources)],
+    [...acc, ...expandGroupedAppointment(appointment, grouping, resources)],
     [] as AppointmentMoment[],
   )
   .reduce((acc, appointment) => ([

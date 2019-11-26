@@ -3,7 +3,7 @@ import {
   AppointmentMoment, CalculateAllDayDateIntervalsFn,
 } from '../../types';
 import { allDayPredicate, sliceAppointmentsByBoundaries } from './helpers';
-import { filterByViewBoundaries, expandGroupedAppointments } from '../../utils';
+import { filterByViewBoundaries, expandGroupedAppointment } from '../../utils';
 
 export const calculateAllDayDateIntervals: CalculateAllDayDateIntervalsFn = (
   appointments,
@@ -17,7 +17,7 @@ export const calculateAllDayDateIntervals: CalculateAllDayDateIntervalsFn = (
   )
   .filter(appointment => allDayPredicate(appointment))
   .reduce((acc, appointment) =>
-    [...acc, ...expandGroupedAppointments(appointment, grouping, resources)],
+    [...acc, ...expandGroupedAppointment(appointment, grouping, resources)],
     [] as AppointmentMoment[],
   )
   .reduce((acc, appointment) => ([

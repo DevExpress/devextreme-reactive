@@ -387,11 +387,10 @@ export const getRRuleSetWithExDates: PureComputed<
 
 export const formatDateToString = (date: Date | string | number) => moment.utc(date).format('YYYY-MM-DDTHH:mm');
 
-export const expandGroupedAppointments: PureComputed<
+export const expandGroupedAppointment: PureComputed<
   [AppointmentMoment, Grouping[], Resource[]], AppointmentMoment[]
 > = (appointment, grouping, resources) => {
-  const result = resources.reduce((acc: AppointmentMoment[], resource: Resource) => {
-
+  return resources.reduce((acc: AppointmentMoment[], resource: Resource) => {
     const isGroupedByResource = grouping.find(
       groupingItem => groupingItem.resourceName === resource.fieldName,
     ) !== undefined;
@@ -411,5 +410,4 @@ export const expandGroupedAppointments: PureComputed<
       })];
     }, []);
   }, [appointment] as AppointmentMoment[]);
-  return result;
 };

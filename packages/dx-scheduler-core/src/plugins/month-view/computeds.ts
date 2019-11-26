@@ -50,20 +50,21 @@ export const monthCellsData: MonthCellsDataComputedFn = (
 
 export const calculateMonthDateIntervals: CalculateMonthDateIntervalsFn = (
   appointments, leftBound, rightBound, grouping, resources,
-) => {
-  const result1 =  appointments
-    .map(({ start, end, ...restArgs }) => ({ start: moment(start), end: moment(end), ...restArgs }))
-    .reduce((acc, appointment) =>
-      [...acc, ...filterByViewBoundaries(appointment, leftBound, rightBound, [], false)],
-      [] as AppointmentMoment[],
-    );
-  return expandGroupedAppointments(result1, grouping, resources)
-    .reduce((acc, appointment) => ([
-      ...acc,
-      ...sliceAppointmentByWeek(
-        { left: moment(leftBound as Date), right: moment(rightBound as Date) },
-        appointment,
-        DAY_COUNT,
-      ),
-    ]), [] as AppointmentMoment[]);
-};
+) => appointments
+  .map(({ start, end, ...restArgs }) => ({ start: moment(start), end: moment(end), ...restArgs }))
+  .reduce((acc, appointment) =>
+    [...acc, ...filterByViewBoundaries(appointment, leftBound, rightBound, [], false)],
+    [] as AppointmentMoment[],
+  )
+  .reduce((acc, appointment) =>
+    [...acc, ...expandGroupedAppointments(appointment, grouping, resources)],
+    [] as AppointmentMoment[],
+  )
+  .reduce((acc, appointment) => ([
+    ...acc,
+    ...sliceAppointmentByWeek(
+      { left: moment(leftBound as Date), right: moment(rightBound as Date) },
+      appointment,
+      DAY_COUNT,
+    ),
+  ]), [] as AppointmentMoment[]);

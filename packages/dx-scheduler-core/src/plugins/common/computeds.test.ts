@@ -1,7 +1,7 @@
 import moment from 'moment';
 import {
   dayScale as dayScaleComputed, availableViews, viewCellsData,
-  startViewDate, endViewDate, timeScale,
+  startViewDate, endViewDate, timeScale, allDayCells,
 } from './computeds';
 
 describe('#dayScale', () => {
@@ -266,5 +266,29 @@ describe('#endViewDate', () => {
   it('should work', () => {
     expect(endViewDate(viewCells))
       .toEqual(moment('2018-06-12 10:59:59').toDate());
+  });
+});
+
+describe('#allDayCells', () => {
+  const viewCells = [
+    [{
+      startDate: moment('2018-06-10T10:00:00'),
+      endDate: moment('2018-06-10T11:00:00'),
+      groupingInfo: [
+        { testResourceField: 1 },
+      ],
+    }],
+  ];
+
+  it('should work', () => {
+    const result = allDayCells(viewCells);
+    expect(result[0])
+      .toMatchObject({
+        startDate: moment('2018-06-10T00:00').toDate(),
+        endDate: moment('2018-06-11T00:00:00').toDate(),
+        groupingInfo: [
+          { testResourceField: 1 },
+        ],
+      });
   });
 });

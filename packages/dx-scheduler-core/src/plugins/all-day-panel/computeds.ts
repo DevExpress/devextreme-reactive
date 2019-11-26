@@ -3,8 +3,7 @@ import {
   AppointmentMoment, CalculateAllDayDateIntervalsFn,
 } from '../../types';
 import { allDayPredicate, sliceAppointmentsByBoundaries } from './helpers';
-import { filterByViewBoundaries } from '../../utils';
-import { expandGroupedAppointments } from '../common/calculate-rects';
+import { filterByViewBoundaries, expandGroupedAppointments } from '../../utils';
 
 export const calculateAllDayDateIntervals: CalculateAllDayDateIntervalsFn = (
   appointments,

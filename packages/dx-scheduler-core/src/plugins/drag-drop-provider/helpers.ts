@@ -223,7 +223,8 @@ export const calculateAppointmentGroups: PureComputed<
     const isMultipleResource = resources.find(resource => (resource.fieldName === groupingItem.fieldName)).allowMultiple;
     return {
       ...acc,
-      [groupingItem.fieldName]: isMultipleResource ? updateMultipleResourceInfo(groupingItem, appointmentData) : groupingItem.id,
+      [groupingItem.fieldName]: isMultipleResource
+        ? updateMultipleResourceInfo(groupingItem, appointmentData) : groupingItem.id,
     };
   }, {});
   return groups;

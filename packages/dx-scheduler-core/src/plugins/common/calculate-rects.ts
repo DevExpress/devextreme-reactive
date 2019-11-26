@@ -1,5 +1,5 @@
 import {
-  AllDayRects, VerticalRects, HorizontalRects, AppointmentMoment, Grouping, Resource,
+  AllDayRects, VerticalRects, HorizontalRects,
 } from '../../types';
 import {
   VERTICAL_TYPE, HORIZONTAL_TYPE,
@@ -10,7 +10,6 @@ import { getVerticalRectByDates } from '../vertical-rect/helpers';
 import { getHorizontalRectByDates } from '../horizontal-rect/helpers';
 import { calculateMonthDateIntervals } from '../month-view/computeds';
 import { calculateAllDayDateIntervals } from '../all-day-panel/computeds';
-import { PureComputed } from '@devexpress/dx-core/src';
 
 export const allDayRects: AllDayRects = (
   appointments, startViewDate, endViewDate,
@@ -84,30 +83,4 @@ export const horizontalTimeTableRects: HorizontalRects = (
     },
   );
   return result;
-};
-
-export const expandGroupedAppointments: PureComputed<
-  [AppointmentMoment[], Grouping[], Resource[]], AppointmentMoment[]
-> = (appointments, grouping, resources) => {
-  return appointments.reduce((acc: AppointmentMoment[], appointment: AppointmentMoment) => {
-    const result = resources.reduce((acc: AppointmentMoment[], resource: Resource) => {
-
-      const isGroupedByResource = grouping.find(
-        groupingItem => groupingItem.resourceName === resource.fieldName,
-      ) !== undefined;
-      if (!isGroupedByResource) return acc;
-      const resourceField = resource.fieldName;
-      if (!resource.allowMultiple) {
-        return acc.reduce((accumulator, currentAppointment) => {
-          return [...accumulator, { ...currentAppointment, [resourceField]: currentAppointment.dataItem[resourceField] }]
-        }, [] as AppointmentMoment[]);
-      }
-      return acc.reduce((accumulator, currentAppointment) => {
-        return [...accumulator, ...currentAppointment.dataItem[resourceField].map((resourceValue) => {
-          return { ...currentAppointment, [resourceField]: resourceValue };
-        })];
-      }, []);
-    }, [appointment] as AppointmentMoment[]);
-    return [...acc, ...result];
-  }, [] as AppointmentMoment[]);
 };

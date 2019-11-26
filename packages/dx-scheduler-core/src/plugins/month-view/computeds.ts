@@ -3,10 +3,8 @@ import {
   MonthCellsDataComputedFn, MonthCellData,
   CalculateMonthDateIntervalsFn, AppointmentMoment,
 } from '../../types';
-import { filterByViewBoundaries } from '../../utils';
+import { filterByViewBoundaries, expandGroupedAppointments } from '../../utils';
 import { sliceAppointmentByWeek } from './helpers';
-import { PureComputed } from '@devexpress/dx-core/src';
-import { expandGroupedAppointments } from '../common/calculate-rects';
 
 const DAY_COUNT = 7;
 const MONTH_LENGTH = 31;

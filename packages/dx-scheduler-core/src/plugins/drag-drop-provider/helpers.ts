@@ -220,7 +220,9 @@ export const calculateAppointmentGroups: PureComputed<
 > = (cellGroupingInfo, resources, appointmentData) => {
   if (!cellGroupingInfo) return {};
   const groups = cellGroupingInfo.reduce((acc, groupingItem: ResourceInstance) => {
-    const isMultipleResource = resources.find(resource => (resource.fieldName === groupingItem.fieldName)).allowMultiple;
+    const isMultipleResource = resources.find(
+      resource => (resource.fieldName === groupingItem.fieldName),
+    )!.allowMultiple;
     return {
       ...acc,
       [groupingItem.fieldName]: isMultipleResource

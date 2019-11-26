@@ -16,24 +16,20 @@ export const sortFilteredResources: PureComputed<
 };
 
 export const getGroupingItemsFromResources: PureComputed<
-  [Array<Resource>, Array<Grouping>], Array<Array<ResourceInstance>>
-> = (resources, grouping) => {
-  const filteredResources = filterResourcesByGrouping(resources, grouping);
-  const sortedResources = sortFilteredResources(filteredResources, grouping);
-  return sortedResources.reduce((
+  [Array<Resource>], Array<Array<ResourceInstance>>
+> = sortedAndFilteredResources => sortedAndFilteredResources.reduce((
     acc: Array<Array<ResourceInstance>>, resource: Resource, index: number,
   ) => {
-    if (index === 0) {
-      return [resource.instances.map(
-        (instance: ResourceInstance) => instance,
-      )];
-    }
-    const result = acc[index - 1].reduce((currentResourceNames: Array<ResourceInstance>) => [
-      ...currentResourceNames,
-      ...resource.instances.map(
-        (instance: ResourceInstance) => instance,
-      ),
-    ], []);
-    return [...acc, result];
-  }, []);
-};
+  if (index === 0) {
+    return [resource.instances.map(
+      (instance: ResourceInstance) => instance,
+    )];
+  }
+  const result = acc[index - 1].reduce((currentResourceNames: Array<ResourceInstance>) => [
+    ...currentResourceNames,
+    ...resource.instances.map(
+      (instance: ResourceInstance) => instance,
+    ),
+  ], []);
+  return [...acc, result];
+}, []);

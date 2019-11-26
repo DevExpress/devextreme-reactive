@@ -48,13 +48,6 @@ describe('GroupingPanel helpers', () => {
   describe('#getGroupingItemsFromResources', () => {
     it('should work', () => {
       const resources = [{
-        fieldName: 'resource1',
-        instances: [{
-          id: 'resource1_1',
-        }, {
-          id: 'resource1_2',
-        }],
-      }, {
         fieldName: 'resource2',
         instances: [{
           id: 'resource2_1',
@@ -62,11 +55,11 @@ describe('GroupingPanel helpers', () => {
           id: 'resource2_2',
         }],
       }, {
-        fieldName: 'resource3',
+        fieldName: 'resource1',
         instances: [{
-          id: 'resource3_1',
+          id: 'resource1_1',
         }, {
-          id: 'resource3_2',
+          id: 'resource1_2',
         }],
       }];
       const grouping = [{

@@ -100,18 +100,21 @@ const pageData = [
     title: 'Series/Point Selection',
     description: 'React Chart supports both programmatic and interactive series/point selection. The selected elements can be automatically highlighted and the associated data is exposed to your application for use. The both single and multiple selection are supported.',
     imageLink: seriesSelectionImage,
+    guideLink: '/react/chart/docs/guides/hover-and-selection/#selection',
   },
   {
     alternative: true,
     title: 'Series/Point Hover & Event Tracking',
     description: 'Hover Tracking allows you to know which series or point is hovered and reflect this information in your application UI. For instance, you can show a point details in a separate or popup form. You can also track and handle other series/point mouse/touch events.',
     imageLink: seriesHoverImage,
+    guideLink: '/react/chart/docs/guides/hover-and-selection/#hover-in-uncontrolled-mode',
   },
   {
     reversed: true,
     title: 'Zooming and Scrolling',
     description: 'End-users can effeciently analyse long point series using the React Chart zooming and scrolling capabilities. We support instant zooming using mouse wheel or zoom gestures and zoom to a square region. Horizontal scrolling/panning is also available.',
     imageLink: zoomingScrollingImage,
+    guideLink: '/react/chart/docs/guides/zoom-and-pan/',
   },
   {
     alternative: true,
@@ -119,18 +122,21 @@ const pageData = [
     title: 'Customize Chart via HTML/CSS',
     description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG. This means that you can use HTML and CSS to influence layout and appearance of chart building blocks such as title and legend.',
     imageLink: customizeHTMLImage,
+    guideLink:'/react/chart/demos/bar/component-customization/',
   },
   {
     reversed: true,
     title: 'Enhance Charts Using D3',
     description: 'You can use the existing D3 modules to apply different kinds of custom chart behavior or data visualization. Explore our online React Chart demos and learn how we utilize the d3-scale, d3-shape, d3-format and other D3 modules.',
     imageLink: enhanceD3Image,
+    guideLink: '/react/chart/demos/area/streamgraph/',
   },
   {
     alternative: true,
     title: 'Customize Chart Rendering',
     description: 'The React Chart UI plugins allow you to use custom React components to render particular pieces of the React Chart UI in a custom way. All you need is to pass your custom components to the required plugins via their props.',
     imageLink: customizeRenderingImage,
+    guideLink: '/react/chart/demos/combination/multiple-axes/',
   },
 ];
 

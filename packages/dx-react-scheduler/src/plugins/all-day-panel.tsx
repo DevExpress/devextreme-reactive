@@ -50,14 +50,15 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
   allDayCellsData = memoize(viewCellsData => allDayCells(viewCellsData));
 
   updateRects = memoize((
-    appointments, startViewDate, excludedDays, endViewDate, viewCellsData, grouping, resources,
+    appointments, startViewDate, excludedDays, endViewDate,
+    viewCellsData, grouping, resources, groupingItems,
   ) => (cellElementsMeta) => {
     const allDayLeftBound = moment(startViewDate).hours(0).minutes(0).toDate();
     const allDayRightBound = moment(endViewDate).hours(23).minutes(59).toDate();
     const rects = allDayRects(
       appointments, allDayLeftBound, allDayRightBound,
       excludedDays, viewCellsData, cellElementsMeta,
-      grouping, resources,
+      grouping, resources, groupingItems,
     );
 
     this.setState({ rects, elementsMeta: cellElementsMeta });
@@ -116,12 +117,12 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           <TemplateConnector>
             {({
               currentView, appointments, startViewDate, formatDate,
-              endViewDate, excludedDays, viewCellsData, grouping, resources,
+              endViewDate, excludedDays, viewCellsData, grouping, resources, groupingItems,
             }) => {
               if (currentView.name === MONTH) return null;
               const setRects = this.updateRects(
                 appointments, startViewDate, excludedDays, endViewDate,
-                viewCellsData, grouping, resources,
+                viewCellsData, grouping, resources, groupingItems,
               );
               return (
                 <>

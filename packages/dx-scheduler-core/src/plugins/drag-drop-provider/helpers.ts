@@ -175,7 +175,7 @@ export const calculateDraftAppointments = (
   getAllDayCellsElementRects: CellElementsMeta,
   targetType: string, cellDurationMinutes: number,
   getTableCellElementRects: CellElementsMeta,
-  grouping: Grouping[], resources: Resource[],
+  grouping: Grouping[], resources: Resource[], groupingItems: ResourceInstance[][],
 ) => {
   if (allDayIndex !== -1 || (targetType === VERTICAL_TYPE
     && getAllDayCellsElementRects.getCellRects.length
@@ -189,7 +189,7 @@ export const calculateDraftAppointments = (
       allDayDraftAppointments: allDayRects(
         allDayDrafts, startViewDate, endViewDate,
         excludedDays, viewCellsData, getAllDayCellsElementRects,
-        grouping, resources,
+        grouping, resources, groupingItems,
       ),
       timeTableDraftAppointments: [],
     };
@@ -201,7 +201,7 @@ export const calculateDraftAppointments = (
       timeTableDraftAppointments: verticalTimeTableRects(
         draftAppointments, startViewDate, endViewDate,
         excludedDays, viewCellsData, cellDurationMinutes, getTableCellElementRects,
-        grouping, resources,
+        grouping, resources, groupingItems,
       ),
     };
   }
@@ -210,7 +210,7 @@ export const calculateDraftAppointments = (
     timeTableDraftAppointments: horizontalTimeTableRects(
       draftAppointments, startViewDate, endViewDate,
       viewCellsData, getTableCellElementRects,
-      grouping, resources,
+      grouping, resources, groupingItems
     ),
   };
 };

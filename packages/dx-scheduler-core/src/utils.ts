@@ -6,7 +6,8 @@ import {
   ComputedHelperFn, ViewPredicateFn,
   CalculateFirstDateOfWeekFn, AppointmentMoment,
   Interval, AppointmentGroup, AppointmentUnwrappedGroup,
-  Rect, ElementRect, RectCalculatorBaseFn, CalculateRectByDateIntervalsFn, Grouping, Resource,
+  Rect, ElementRect, RectCalculatorBaseFn, CalculateRectByDateIntervalsFn,
+  Grouping, Resource, ResourceInstance,
 } from './types';
 
 export const computed: ComputedHelperFn = (getters, viewName, baseComputed, defaultValue) => {
@@ -294,18 +295,56 @@ const verticalRectCalculator: CustomFunction<
   };
 };
 
+export const groupAppointments: PureComputed<
+  [AppointmentMoment[], Resource[] | undefined,
+  ResourceInstance[][] | undefined], AppointmentMoment[][]
+> = (appointments, resources, groupingItems) => {
+  if (!resources || !groupingItems) {
+    return [appointments.slice()];
+  }
+
+  return groupingItems![groupingItems!.length - 1].map((groupingItem, index) => {
+    let currentIndex = index;
+    const currentGroup = groupingItems.reduceRight((groupAcc, groupingItemsRow, i) => {
+      if (i === groupingItems!.length - 1) return groupAcc;
+      currentIndex = Math.floor(currentIndex / resources[i + 1].instances.length);
+      const currentInstance = groupingItemsRow[currentIndex];
+      return [
+        ...groupAcc,
+        {
+          fieldName:  currentInstance.fieldName,
+          id: currentInstance.id,
+        },
+      ];
+    }, [{ id: groupingItem.id, fieldName: [groupingItem.fieldName] }]);
+
+    return appointments.reduce((acc, appointment) => {
+      const belongsToGroup = currentGroup.reduce((acc, groupItem) => {
+        return acc && groupItem.id === appointment[groupItem.fieldName];
+      }, true);
+      return belongsToGroup ? [...acc, appointment] : acc;
+    }, [] as AppointmentMoment[]);
+  });
+};
+
 export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
-  type, intervals, rectByDates, rectByDatesMeta,
+  type, intervals, rectByDates, rectByDatesMeta, resources, groupingItems,
 ) => {
   const { growDirection, multiline } = type;
-  const sorted = sortAppointments(intervals, multiline);
-  const grouped = findOverlappedAppointments(sorted as AppointmentMoment[], multiline);
+
+  const intervalGroups = groupAppointments(intervals, resources, groupingItems);
+  const sortedGroups = intervalGroups.map(
+    intervalGroup => sortAppointments(intervalGroup, multiline),
+  );
+  const groupedIntervals = sortedGroups.reduce((acc, sortedGroup) => {
+    return [...acc, ...findOverlappedAppointments(sortedGroup as AppointmentMoment[], multiline)];
+  }, [] as AppointmentMoment[]);
 
   const rectCalculator = growDirection === HORIZONTAL_TYPE
     ? horizontalRectCalculator
     : verticalRectCalculator;
 
-  return unwrapGroups(adjustAppointments(grouped, multiline))
+  return unwrapGroups(adjustAppointments(groupedIntervals, multiline))
     .map(appointment => rectCalculator(appointment, { rectByDates, multiline, rectByDatesMeta }));
 };
 

@@ -129,7 +129,7 @@ class DragDropProviderBase extends React.PureComponent<
     {
       viewCellsData, startViewDate, endViewDate, excludedDays,
       timeTableElementsMeta, allDayElementsMeta, scrollingStrategy,
-      grouping, resources,
+      grouping, resources, groupingItems,
     },
     { changeAppointment, startEditAppointment },
   ) {
@@ -190,7 +190,7 @@ class DragDropProviderBase extends React.PureComponent<
     } = calculateDraftAppointments(
       allDayIndex, draftAppointments, startViewDate,
       endViewDate, excludedDays, viewCellsData, allDayCellsElementsMeta,
-      targetType, cellDurationMinutes, tableCellElementsMeta, grouping, resources,
+      targetType, cellDurationMinutes, tableCellElementsMeta, grouping, resources, groupingItems,
     );
     this.allDayDraftAppointments = allDayDraftAppointments;
     this.timeTableDraftAppointments = timeTableDraftAppointments;
@@ -235,7 +235,7 @@ class DragDropProviderBase extends React.PureComponent<
             {({
               viewCellsData, startViewDate, endViewDate, excludedDays,
               timeTableElementsMeta, allDayElementsMeta, scrollingStrategy,
-              grouping, resources,
+              grouping, resources, groupingItems,
             }, {
               changeAppointment, startEditAppointment, finishCommitAppointment,
             }) => {
@@ -247,7 +247,7 @@ class DragDropProviderBase extends React.PureComponent<
                 timeTableElementsMeta,
                 allDayElementsMeta,
                 scrollingStrategy,
-                grouping, resources,
+                grouping, resources, groupingItems,
               }, { changeAppointment, startEditAppointment });
               return (
                 <DragDropProviderCore

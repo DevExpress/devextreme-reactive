@@ -84,11 +84,11 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
 
   updateRects = memoize((
     appointments, startViewDate, endViewDate,
-    viewCellsData, cellDuration, excludedDays, timeTableRects, grouping, resources,
+    viewCellsData, cellDuration, excludedDays, timeTableRects, grouping, resources, groupingItems,
   ) => (cellElementsMeta) => {
     const rects = timeTableRects(
       appointments, startViewDate, endViewDate, excludedDays,
-      viewCellsData, cellDuration, cellElementsMeta, grouping, resources,
+      viewCellsData, cellDuration, cellElementsMeta, grouping, resources, groupingItems,
     );
 
     this.setState({ rects, timeTableElementsMeta: cellElementsMeta });
@@ -206,7 +206,8 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
             {({
               formatDate,
               currentView,
-              viewCellsData, grouping, resources,
+              viewCellsData,
+              grouping, sortedResources, groupingItems,
               appointments, startViewDate, endViewDate,
               excludedDays: excludedDaysGetter,
             }) => {
@@ -214,7 +215,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
               const setRects = this.updateRects(
                 appointments, startViewDate, endViewDate,
                 viewCellsData, cellDuration, excludedDaysGetter,
-                timeTableRects, grouping, resources,
+                timeTableRects, grouping, sortedResources, groupingItems,
               );
 
               return (

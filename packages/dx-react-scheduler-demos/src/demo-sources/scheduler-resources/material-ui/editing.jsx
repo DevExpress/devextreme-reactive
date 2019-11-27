@@ -80,10 +80,10 @@ export default class Demo extends React.PureComponent {
             }]}
           />
 
-          <WeekView
+          {/* <WeekView
             startDayHour={9}
             endDayHour={17}
-          />
+          /> */}
           <MonthView />
           <Appointments />
           <AllDayPanel />

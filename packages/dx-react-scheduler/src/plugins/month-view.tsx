@@ -6,10 +6,10 @@ import { MonthViewProps } from '../types';
 
 const timeTableRects = (
   appointments, startViewDate, endViewDate, excludedDays,
-  viewCellsData, cellDuration, cellElementsMeta, grouping, resources,
+  viewCellsData, cellDuration, cellElementsMeta, grouping, resources, groupingItems,
 ) => horizontalTimeTableRects(
   appointments, startViewDate, endViewDate,
-  viewCellsData, cellElementsMeta, grouping, resources,
+  viewCellsData, cellElementsMeta, grouping, resources, groupingItems,
 );
 
 const TYPE = 'month';

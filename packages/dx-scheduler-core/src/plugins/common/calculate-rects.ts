@@ -14,10 +14,10 @@ import { calculateAllDayDateIntervals } from '../all-day-panel/computeds';
 export const allDayRects: AllDayRects = (
   appointments, startViewDate, endViewDate,
   excludedDays, viewCellsData, cellElementsMeta,
-  grouping, resources,
+  grouping, resources, groupingItems,
 ) => {
   const intervals = calculateAllDayDateIntervals(
-    appointments, startViewDate, endViewDate, excludedDays, grouping, resources,
+    appointments, startViewDate, endViewDate, excludedDays, grouping, resources, groupingItems,
   );
   return calculateRectByDateIntervals(
     {
@@ -33,12 +33,13 @@ export const allDayRects: AllDayRects = (
       cellElementsMeta,
       excludedDays,
     },
+    resources, groupingItems,
   );
 };
 
 export const verticalTimeTableRects: VerticalRects = (
   appointments, startViewDate, endViewDate, excludedDays,
-  viewCellsData, cellDuration, cellElementsMeta, grouping, resources,
+  viewCellsData, cellDuration, cellElementsMeta, grouping, resources, groupingItems,
 ) => {
   const intervals = calculateWeekDateIntervals(
     appointments, startViewDate, endViewDate, excludedDays, cellDuration, grouping, resources,
@@ -58,12 +59,13 @@ export const verticalTimeTableRects: VerticalRects = (
       cellDuration,
       cellElementsMeta,
     },
+    resources, groupingItems,
   );
 };
 
 export const horizontalTimeTableRects: HorizontalRects = (
   appointments, startViewDate, endViewDate,
-  viewCellsData, cellElementsMeta, grouping, resources,
+  viewCellsData, cellElementsMeta, grouping, resources, groupingItems,
 ) => {
   const intervals = calculateMonthDateIntervals(
     appointments, startViewDate, endViewDate, grouping, resources,
@@ -81,6 +83,7 @@ export const horizontalTimeTableRects: HorizontalRects = (
       viewCellsData,
       cellElementsMeta,
     },
+    resources, groupingItems,
   );
   return result;
 };

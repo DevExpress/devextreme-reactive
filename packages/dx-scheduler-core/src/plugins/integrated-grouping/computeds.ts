@@ -21,9 +21,7 @@ export const getGroupingItemsFromResources: PureComputed<
     acc: Array<Array<ResourceInstance>>, resource: Resource, index: number,
   ) => {
   if (index === 0) {
-    return [resource.instances.map(
-      (instance: ResourceInstance) => instance,
-    )];
+    return [resource.instances.slice()];
   }
   const result = acc[index - 1].reduce((currentResourceNames: Array<ResourceInstance>) => [
     ...currentResourceNames,

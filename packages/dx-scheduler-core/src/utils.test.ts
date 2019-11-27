@@ -13,6 +13,7 @@ import {
   getRRuleSetWithExDates,
   formatDateToString,
   expandGroupedAppointment,
+  groupAppointments,
 } from './utils';
 
 describe('Utils', () => {
@@ -830,6 +831,102 @@ describe('Utils', () => {
           test1: 3,
           test2: 2,
         });
+    });
+  });
+  describe('#groupAppointments', () => {
+    fit('should group appointments into different arrays depending on their resources', () => {
+      const resources = [{
+        fieldName: 'resource1',
+        instances: [{ id: 'resource1_1' }, { id: 'resource1_2' }],
+      }, {
+        fieldName: 'resource2',
+        instances: [{ id: 'resource2_1' }, { id: 'resource2_2' }],
+      }, {
+        fieldName: 'resource3',
+        instances: [{ id: 'resource3_1' }, { id: 'resource3_2' }],
+      }];
+      const appointments = [{
+        resource1: 'resource1_1',
+        resource2: 'resource2_1',
+        resource3: 'resource3_1',
+      }, {
+        resource1: 'resource1_1',
+        resource2: 'resource2_1',
+        resource3: 'resource3_2',
+      }, {
+        resource1: 'resource1_1',
+        resource2: 'resource2_2',
+        resource3: 'resource3_1',
+      }, {
+        resource1: 'resource1_1',
+        resource2: 'resource2_2',
+        resource3: 'resource3_2',
+      }, {
+        resource1: 'resource1_2',
+        resource2: 'resource2_1',
+        resource3: 'resource3_1',
+      }, {
+        resource1: 'resource1_2',
+        resource2: 'resource2_1',
+        resource3: 'resource3_2',
+      }, {
+        resource1: 'resource1_2',
+        resource2: 'resource2_2',
+        resource3: 'resource3_1',
+      }, {
+        resource1: 'resource1_2',
+        resource2: 'resource2_2',
+        resource3: 'resource3_2',
+      }];
+      const groupingItems = [[{
+        fieldName: 'resource1',
+        id: 'resource1_1',
+      }, {
+        fieldName: 'resource1',
+        id: 'resource1_2',
+      }], [{
+        fieldName: 'resource2',
+        id: 'resource2_1',
+      }, {
+        fieldName: 'resource2',
+        id: 'resource2_2',
+      }, {
+        fieldName: 'resource2',
+        id: 'resource2_1',
+      }, {
+        fieldName: 'resource2',
+        id: 'resource2_2',
+      }], [{
+        fieldName: 'resource3',
+        id: 'resource3_1',
+      }, {
+        fieldName: 'resource3',
+        id: 'resource3_2',
+      }, {
+        fieldName: 'resource3',
+        id: 'resource3_1',
+      }, {
+        fieldName: 'resource3',
+        id: 'resource3_2',
+      }, {
+        fieldName: 'resource3',
+        id: 'resource3_1',
+      }, {
+        fieldName: 'resource3',
+        id: 'resource3_2',
+      }, {
+        fieldName: 'resource3',
+        id: 'resource3_1',
+      }, {
+        fieldName: 'resource3',
+        id: 'resource3_2',
+      }]];
+
+      expect(groupAppointments(appointments, resources, groupingItems))
+        .toEqual([
+          [appointments[0]], [appointments[1]], [appointments[2]], [appointments[3]],
+          [appointments[4]], [appointments[5]], [appointments[6]], [appointments[7]],
+        ]);
     });
   });
 });

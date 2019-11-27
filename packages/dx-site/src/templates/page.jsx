@@ -39,7 +39,7 @@ export default class extends React.Component {
 
   getScriptPath({ product }) {
     return product
-      ? `/static/react-${product}-demos.js`
+      ? withPrefix(`/static/react-${product}-demos.js`)
       : this.demosScriptLink;
   }
 

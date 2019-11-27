@@ -42,7 +42,7 @@ const pageData = [
     reversed: true,
     alternative: true,
     title: 'Loves Redux by Design',
-    description: 'Fully control React Grid state and treat it as a pure view component. Effortlessly enable state persistence and time-traveling without side-effects. Our React Grid can also manage its state internally helping you write less code, so you focus on more important business tasks.',
+    description: 'Fully control Reactive components state and treat it as a pure view component. Effortlessly enable state persistence and time-traveling without side-effects. Our React Grid can also manage its state internally helping you write less code, so you focus on more important business tasks.',
     imageLink: lovesReduxImage,
   },
   {

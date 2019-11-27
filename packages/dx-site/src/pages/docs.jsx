@@ -12,32 +12,32 @@ const concepts = [
   {
     title: 'Fundamentals',
     path: '/react/core/docs/guides/fundamentals/',
-    description: 'Learn the basics of our plugin-based architecture.',
+    description: 'Learn the principles of our plugin-based architecture.',
   },
+  // {
+  //   title: 'State Management',
+  //   path: '',
+  //   description: 'Configure DevExtreme Reactive components for controlled and uncontrolled modes.',
+  // },
+  // {
+  //   title: 'Using Redux',
+  //   path: '',
+  //   description: 'Connect DevExtreme Reactive components to a Redux store',
+  // },
+  // {
+  //   title: 'Localization',
+  //   path: '',
+  //   description: 'Translate messages and format numbers and dates in DevExtreme Reactive components.',
+  // },
   {
-    title: 'State Management',
-    path: '',
-    description: 'Learn how to configure our components in controlled and uncontrolled modes.',
-  },
-  {
-    title: 'Using Redux',
-    path: '',
-    description: 'Learn how to connect our components to a Redux store.',
-  },
-  {
-    title: 'Localization',
-    path: '',
-    description: 'Learn how to localize DevExtreme Reactive components.',
-  },
-  {
-    title: 'Theming',
+    title: 'Themes',
     path: '/react/common/docs/guides/custom-theme/',
     description: 'Integrate DevExtreme Reactive components with a third-party UI framework.',
   },
   {
     title: 'Performance',
     path: '/react/common/docs/guides/performance-optimization/',
-    description: 'This article describes how to provide high performance for your application.',
+    description: 'Apply tips and tricks for higher performance.',
   },
 ]
 

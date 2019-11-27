@@ -2,6 +2,14 @@ import * as React from 'react';
 import { EmbeddedDemoContext } from '../context';
 
 export class DemoCodeProvider extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      editableLink: '',
+    };
+  }
+
   getHtml() {
     const { themeName, sectionName, demoName, variantName, perfSamplesCount } = this.props;
     const {
@@ -52,15 +60,27 @@ export class DemoCodeProvider extends React.PureComponent {
 </html>`;
   }
 
-  getThemeLinks() {
-    const { themeName, variantName } = this.props;
+  getThemeVariantOptions() {
+    const {
+      themeName,
+      variantName,
+    } = this.props;
     const { themeSources } = this.context;
-    const themeVariantOptions = themeSources
+
+    return themeSources
       .find(theme => theme.name === themeName).variants
       .find(variant => variant.name === variantName);
+  }
 
-    return themeVariantOptions.links
-      ? themeVariantOptions.links.map(link => `<link rel="stylesheet" href="${link}">`).join('\n')
+  getThemeLinks() {
+    const { editableLink } = this.state;
+    const themeVariantOptions = this.getThemeVariantOptions();
+    const links = [
+      ...(themeVariantOptions.links || []),
+      (editableLink ? [editableLink] : []),
+    ];
+    return links.length
+      ? links.map(link => `<link rel="stylesheet" href="${link}">`).join('\n')
       : '';
   }
 
@@ -116,6 +136,10 @@ export class DemoCodeProvider extends React.PureComponent {
     }), {});
   }
 
+  onEditableLinkChange(editableLink) {
+    this.setState({ editableLink });
+  }
+
   render() {
     const { children } = this.props;
     const html = this.getHtml();
@@ -123,8 +147,9 @@ export class DemoCodeProvider extends React.PureComponent {
     const code = this.getCode();
     const helperFiles = this.getHelperFiles();
     const externalDeps = this.getExternalDependencies();
+    const onEditableLinkChange = this.onEditableLinkChange.bind(this);
 
-    return children({ html, sandboxHtml, code, helperFiles, externalDeps });
+    return children({ html, sandboxHtml, code, helperFiles, externalDeps, onEditableLinkChange });
   }
 }
 

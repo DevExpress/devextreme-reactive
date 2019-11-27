@@ -18,9 +18,11 @@ class DemoFrameRenderer extends React.PureComponent {
     };
     this.nodeRef = React.createRef();
 
+
     this.onSubmitCustomLink = (e) => {
       e.preventDefault();
-      this.setState({ editableLink: this.customThemeLinkNode.value });
+      const { onEditableLinkChange } = this.props;
+      onEditableLinkChange(this.customThemeLinkNode.value);
     };
   }
 
@@ -38,50 +40,6 @@ class DemoFrameRenderer extends React.PureComponent {
     return themeSources
       .find(theme => theme.name === themeName).variants
       .find(variant => variant.name === variantName);
-  }
-
-  getMarkup() {
-    const {
-      themeSources,
-    } = this.context;
-    const {
-      themeName,
-      variantName,
-      perfSamplesCount,
-    } = this.props;
-    const {
-      scriptPath, firstPart, lastPart, demoSources,
-    } = this.context;
-
-    let demoScript = scriptPath;
-    if (firstPart !== undefined) {
-      // eslint-disable-next-line prefer-destructuring
-      const productName = demoSources[sectionName][demoName][themeName].productName;
-      demoScript = `${firstPart}${productName}${lastPart}`;
-    }
-
-    const frameUrl = `/demo/${sectionName}/${demoName}/${themeName}/${variantName}`;
-    const themeLinks = this.getThemeLinks();
-
-    const mode = perfSamplesCount > 0 ? `/perf/${perfSamplesCount}` : '/clean';
-    return `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        ${themeLinks}
-        <style>
-          body { margin: 8px; overflow: hidden; }
-          .panel { margin: 0; }
-        </style>
-      </head>
-      <body>
-        <div id="mountPoint"></div>
-        <div class="embedded-demo" data-options='{ "path": "${frameUrl}${mode}", "frame": true }'>
-          <div style="min-height: 500px;">Loading...</div>
-        </div>
-        <script src="${demoScript}"></script>
-      </body>
-      </html>`;
   }
 
   getThemeLinks() {
@@ -161,7 +119,7 @@ class DemoFrameRenderer extends React.PureComponent {
                   height: `${frameHeight}px`,
                   marginBottom: '20px',
                 }}
-                initialContent={this.getMarkup()}
+                initialContent={markup}
                 mountTarget="#mountPoint"
                 scrolling="no"
               >

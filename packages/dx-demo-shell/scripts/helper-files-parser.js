@@ -20,6 +20,8 @@ const knownDeepImports = ['@material-ui/core', '@material-ui/icons', '@material-
 const dependencies = {
   '"@material-ui/core"': ['"@material-ui/icons"'],
   '"@devexpress/dx-react-grid"': ['"@devexpress/dx-react-core"'],
+  '"@devexpress/dx-react-chart"': ['"@devexpress/dx-react-core"'],
+  '"@devexpress/dx-react-scheduler"': ['"@devexpress/dx-react-core"'],
 };
 
 const parseHelperFiles = (source) => {

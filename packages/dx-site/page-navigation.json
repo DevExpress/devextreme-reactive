@@ -331,6 +331,10 @@
           {
             "title": "createRowCache",
             "path": "/react/grid/docs/reference/create-row-cache/"
+          },
+          {
+            "title": "TableInlineCellEditing",
+            "path": "/react/grid/docs/reference/table-inline-cell-editing/"
           }
         ]
       }
@@ -638,6 +642,14 @@
         "title": "Demos",
         "items": [
           {
+            "title": "Overview",
+            "path": "/react/scheduler/demos/featured/overview/"
+          },
+          {
+            "title": "Integrated Data Shaping",
+            "path": "/react/scheduler/demos/featured/integrated-data-shaping/"
+          },
+          {
             "title": "Data Editing",
             "path": "/react/scheduler/demos/featured/data-editing/"
           },
@@ -691,6 +703,14 @@
           {
             "title": "Editing",
             "path": "/react/scheduler/docs/guides/editing/"
+          },
+          {
+            "title": "Resources",
+            "path": "/react/scheduler/docs/guides/resources/"
+          },
+          {
+            "title": "Current Time Indication",
+            "path": "/react/scheduler/docs/guides/current-time-indication/"
           },
           {
             "title": "Localization",
@@ -772,6 +792,18 @@
           {
             "title": "ViewSwitcher",
             "path": "/react/scheduler/docs/reference/view-switcher/"
+          },
+          {
+            "title": "ConfirmationDialog",
+            "path": "/react/scheduler/docs/reference/confirmation-dialog/"
+          },
+          {
+            "title": "Resources",
+            "path": "/react/scheduler/docs/reference/resources/"
+          },
+          {
+            "title": "CurrentTimeIndicator",
+            "path": "/react/scheduler/docs/reference/current-time-indicator/"
           }
         ]
       }
@@ -789,6 +821,10 @@
           {
             "title": "Create a Custom Theme",
             "path": "/react/common/docs/guides/custom-theme/"
+          },
+          {
+            "title": "Localization",
+            "path": "/react/common/docs/guides/localization/"
           }
         ]
       }

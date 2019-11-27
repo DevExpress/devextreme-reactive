@@ -24,11 +24,11 @@ const concepts = [
   //   path: '',
   //   description: 'Connect DevExtreme Reactive components to a Redux store',
   // },
-  // {
-  //   title: 'Localization',
-  //   path: '',
-  //   description: 'Translate messages and format numbers and dates in DevExtreme Reactive components.',
-  // },
+  {
+    title: 'Localization',
+    path: '/react/common/docs/guides/localization/',
+    description: 'Translate messages and format numbers and dates in DevExtreme Reactive components.',
+  },
   {
     title: 'Themes',
     path: '/react/common/docs/guides/custom-theme/',

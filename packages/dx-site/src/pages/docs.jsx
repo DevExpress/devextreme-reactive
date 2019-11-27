@@ -14,6 +14,7 @@ const concepts = [
     path: '/react/core/docs/guides/fundamentals/',
     description: 'Learn the principles of our plugin-based architecture.',
   },
+  // TODO: write guides
   // {
   //   title: 'State Management',
   //   path: '',
@@ -30,7 +31,7 @@ const concepts = [
     description: 'Translate messages and format numbers and dates in DevExtreme Reactive components.',
   },
   {
-    title: 'Themes',
+    title: 'Custom Themes',
     path: '/react/common/docs/guides/custom-theme/',
     description: 'Integrate DevExtreme Reactive components with a third-party UI framework.',
   },

@@ -46,5 +46,5 @@ They are replaced with actual data when the plugin is rendered.
 
 
 See also:  
-[Grid localization](../../../../grid/docs/guides/localization/)  
-[Scheduler localization](../../../../scheduler/docs/guides/localization/)
+[Grid localization](../../../grid/docs/guides/localization/)  
+[Scheduler localization](../../../scheduler/docs/guides/localization/)

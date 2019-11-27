@@ -55,7 +55,7 @@ const prepareMenuItems = (siteSection) => ([
 
 
 const DocsPageLayout = ({ children, sectionName, technologyName }) => (
-  <PageLayout>
+  <PageLayout sectionName="docs">
     <ContainerWithMenu
       items={prepareMenuItems(sectionName)}
       menuAddon={(

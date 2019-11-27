@@ -5,15 +5,11 @@ export class DemoCodeProvider extends React.PureComponent {
   getHtml() {
     const { themeName, sectionName, demoName, variantName, perfSamplesCount } = this.props;
     const {
-      scriptPath, firstPart, lastPart, demoSources,
+      scriptPath,
     } = this.context;
 
     let demoScript = scriptPath;
-    if (firstPart !== undefined) {
-      // eslint-disable-next-line prefer-destructuring
-      const productName = demoSources[sectionName][demoName][themeName].productName;
-      demoScript = `${firstPart}${productName}${lastPart}`;
-    }
+
 
     const themeLinks = this.getThemeLinks();
     const frameUrl = `/demo/${sectionName}/${demoName}/${themeName}/${variantName}`;
@@ -95,10 +91,14 @@ export class DemoCodeProvider extends React.PureComponent {
     const { themeName, sectionName, demoName } = this.props;
     const { demoSources, themeComponents, demoData } = this.context;
     const importedHelpers = demoSources[sectionName][demoName][themeName].helperFiles;
+    const productName = demoSources[sectionName][demoName][themeName].productName;
 
     return {
-      ...this.getImportedFiles(demoData, importedHelpers.demoData),
-      ...this.getImportedFiles(themeComponents[themeName], importedHelpers.themeComponents),
+      ...this.getImportedFiles(demoData[productName], importedHelpers.demoData),
+      ...this.getImportedFiles(
+        themeComponents[productName][themeName],
+        importedHelpers.themeComponents,
+      ),
     };
   }
 
@@ -106,8 +106,9 @@ export class DemoCodeProvider extends React.PureComponent {
     const { themeName, sectionName, demoName } = this.props;
     const { demoSources, themeComponents, demoData } = this.context;
     const importedHelpers = demoSources[sectionName][demoName][themeName].helperFiles;
+    const productName = demoSources[sectionName][demoName][themeName].productName;
     const { externalDeps } = importedHelpers;
-    const { depsVersions } = demoData;
+    const { depsVersions } = demoData[productName];
 
     return externalDeps.reduce((acc, dep) => ({
       ...acc,
@@ -122,7 +123,6 @@ export class DemoCodeProvider extends React.PureComponent {
     const code = this.getCode();
     const helperFiles = this.getHelperFiles();
     const externalDeps = this.getExternalDependencies();
-    // console.log('helpers', helperFiles)
 
     return children({ html, sandboxHtml, code, helperFiles, externalDeps });
   }

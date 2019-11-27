@@ -38,7 +38,7 @@ const generateDemoRegistry = (demos, folderPath, getDemoLink) => {
           const helperFiles = parseHelperFiles(demoSource);
 
           themesAcc[themeName] = {
-            demo: getDemoLink(fileName),
+            ...getDemoLink(fileName) ? { demo: getDemoLink(fileName) } : {},
             source: demoSource,
             productName: `"${productName}"`,
             helperFiles,
@@ -57,4 +57,4 @@ const generateDemoRegistry = (demos, folderPath, getDemoLink) => {
 
 module.exports = {
   generateDemoRegistry,
-}
+};

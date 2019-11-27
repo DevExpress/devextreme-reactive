@@ -119,6 +119,7 @@ exports.onPostBootstrap = () => {
   setupFileSynchronization('../dx-react-chart-demos/dist/index.js', './public/static/react-chart-demos.js');
   setupFileSynchronization('../dx-react-grid-demos/dist/index.js', './public/static/react-grid-demos.js');
   setupFileSynchronization('../dx-react-scheduler-demos/dist/index.js', './public/static/react-scheduler-demos.js');
+  setupFileSynchronization('../dx-react-common/dist/index.js', './public/static/react-common-demos.js');
 };
 
 const createRedirectPage = ({ fromPath, toPath }) => {

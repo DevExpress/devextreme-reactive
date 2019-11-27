@@ -44,7 +44,7 @@ export class DemoRenderer extends React.Component {
     try {
       demoSource = demoSources[sectionName][demoName][themeName].demo;
     } catch (e) {} // eslint-disable-line no-empty
-
+    
     if (!demoSource) {
       this.demoRenderSkipped = true;
       rootElement.textContent = 'DEMO NOT AVALIABLE!';

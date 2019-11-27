@@ -37,6 +37,12 @@ export default class extends React.Component {
     document.getElementsByTagName('head')[0].removeChild(this.demosScript);
   }
 
+  getScriptPath({ product }) {
+    return product
+      ? `/static/react-${product}-demos.js`
+      : this.demosScriptLink;
+  }
+
   render() {
     const { data: { markdownRemark } } = this.props;
     const content = markdownRemark.html
@@ -61,7 +67,7 @@ export default class extends React.Component {
           const options = {
             ...data,
             path: `/demo/${data.path}`,
-            scriptPath: this.demosScriptLink,
+            scriptPath: this.getScriptPath(data),
           };
           return `<div
             class="embedded-demo"

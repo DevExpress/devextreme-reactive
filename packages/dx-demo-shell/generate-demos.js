@@ -1,6 +1,9 @@
 const fs = require('fs');
 const path = require('path');
-const { generateHelperFilesRegistry } = require('./scripts/helper-files-parser');
+const {
+  generateThemeFilesRegistry,
+  generateDataHelpersRegistry,
+} = require('./scripts/helper-files-parser');
 // const mustache = require('mustache');
 // const {
 //   overrideFileIfChanged, getFileContents, writeObjectToFile,
@@ -16,7 +19,12 @@ const THEMES_FOLDER = './src/theme-sources';
 
 const DEMOS_REGISTRY_FILE = './src/demo-registry.js';
 
-const productDemosFile = productName => `../dx-react-common/src/${productName}-demo-registry.js`;
+const reactCommonPath = `../dx-react-common/src`;
+const productDemosFile = productName => `${reactCommonPath}/${productName}-demo-registry.js`;
+const productDemoDataFile = productName => `${reactCommonPath}/${productName}-demo-data-registry.js`;
+const productThemeComponentsFile = productName => (
+  `${reactCommonPath}/${productName}-theme-components-registry.js`
+);
 
 const loadThemeNames = () => {
   const themeNames = [];
@@ -36,8 +44,8 @@ const loadThemeNames = () => {
 //   "path/file": "file contents",
 // }
 
-
-generateHelperFilesRegistry();
+generateThemeFilesRegistry(productThemeComponentsFile(getCurrentProductName()));
+generateDataHelpersRegistry(productDemoDataFile(getCurrentProductName()));
 
 const themeNames = loadThemeNames();
 const demos = loadDemosToGenerate(themeNames);

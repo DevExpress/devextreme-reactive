@@ -27,11 +27,8 @@ class DemoFrameRenderer extends React.PureComponent {
       themeSources,
     } = this.context;
     const {
-      sectionName,
-      demoName,
       themeName,
       variantName,
-      perfSamplesCount,
     } = props;
 
     const themeVariantOptions = themeSources

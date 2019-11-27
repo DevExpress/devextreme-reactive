@@ -3,17 +3,18 @@ const path = require('path');
 const {
   overrideFileIfChanged, getFileContents, writeObjectToFile,
 } = require('./fs-utils');
+const { getCurrentProductName } = require('./utils');
 
 const THEME_SOURCES_FOLDER = './src/theme-sources';
 const DEMO_DATA_FOLDER = './src/demo-data';
-const THEME_COMPONENTS_REGISTRY_FILE = './src/theme-components-registry.js'
-const DEMO_DATA_REGISTRY_FILE = './src/demo-data-registry.js'
+const THEME_COMPONENTS_REGISTRY_FILE = './src/theme-components-registry.js';
+const DEMO_DATA_REGISTRY_FILE = './src/demo-data-registry.js';
 
 const quotify = arr => arr.map(i => `"${i.replace(/[\'\"]+/g, '')}"`);
 const retrieveImportFiles = (imports, regex) => imports
-    .map(s => s.match(regex))
-    .filter(r => !!r)
-    .map(r => r[1]);
+  .map(s => s.match(regex))
+  .filter(r => !!r)
+  .map(r => r[1]);
 
 const knownDeepImports = ['@material-ui/core', '@material-ui/icons', '@material-ui/styles'];
 const dependencies = {
@@ -32,7 +33,7 @@ const parseHelperFiles = (source) => {
   let externalDeps = quotify(retrieveImportFiles(imports, /from '([^\.].+?)'/));
   externalDeps = quotify(externalDeps
     .map(d => (knownDeepImports.filter(di => d.includes(di)) || [''])[0] || d) // get package by path import
-    .reduce((acc, d) => acc.includes(d) ? acc : [...acc, d], [])) // unique
+    .reduce((acc, d) => (acc.includes(d) ? acc : [...acc, d]), [])) // unique
     .reduce((acc, d) => ([...acc, d, ...(dependencies[d] || [])]), []); // get direct deps
 
   // console.log(externalDeps)
@@ -57,11 +58,11 @@ const listFilesRecursively = dir => (
 // returns flat file structure
 const listFilesRecursivelyCore = (dir) => (
   fs.readdirSync(dir)
-    .reduce((files, item) =>
+    .reduce((files, item) => (
       fs.statSync(path.join(dir, item)).isDirectory()
         ? [...files, ...listFilesRecursivelyCore(path.join(dir, item))]
-        : [...files, path.join(dir, item)],
-      [])
+        : [...files, path.join(dir, item)]),
+    [])
 );
 const getFileName = f => path.basename(f, path.extname(f));
 const isSameFile = (path1, path2) => getFileName(path1) === getFileName(path2);
@@ -87,7 +88,7 @@ const generateDirRegistry = (dir) => {
   }, { deps: {}, files: {} });
 };
 
-const generateThemeFilesRegistry = (dir) => {
+const generateThemeFilesRegistry = (commonPath) => {
   const helperRegistry = fs.readdirSync(THEME_SOURCES_FOLDER).reduce((themeAcc, themeName) => {
     const componentsPath = path.join(THEME_SOURCES_FOLDER, themeName, 'components');
 
@@ -98,7 +99,18 @@ const generateThemeFilesRegistry = (dir) => {
     return themeAcc;
   }, {});
 
-  writeObjectToFile(THEME_COMPONENTS_REGISTRY_FILE, helperRegistry, 'themeComponents');
+  writeObjectToFile(
+    THEME_COMPONENTS_REGISTRY_FILE,
+    { [getCurrentProductName()]: helperRegistry },
+    'themeComponents',
+  );
+
+  writeObjectToFile(
+    commonPath,
+    { [getCurrentProductName()]: helperRegistry },
+    'themeComponents',
+  );
+
 };
 
 const parseDepsVersions = () => {
@@ -106,20 +118,25 @@ const parseDepsVersions = () => {
   return JSON.stringify(deps);
 };
 
-const generateDataHelpersRegistry = () => {
+const generateDataHelpersRegistry = (commonPath) => {
   const registry = generateDirRegistry(path.normalize(DEMO_DATA_FOLDER));
   const depsVersions = parseDepsVersions();
   writeObjectToFile(
     DEMO_DATA_REGISTRY_FILE,
-    { ...registry, depsVersions },
+    { [getCurrentProductName()]: { ...registry, depsVersions } },
+    'demoData',
+  );
+  writeObjectToFile(
+    commonPath,
+    { [getCurrentProductName()]: { ...registry, depsVersions } },
     'demoData',
   );
 };
 
 module.exports = {
-  generateHelperFilesRegistry: () => {
-    generateThemeFilesRegistry();
-    generateDataHelpersRegistry();
-  },
+  generateThemeFilesRegistry,
+  generateDataHelpersRegistry,
+  // generateHelperFilesRegistry: () => {
+  // },
   parseHelperFiles,
 };

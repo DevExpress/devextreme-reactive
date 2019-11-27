@@ -834,7 +834,7 @@ describe('Utils', () => {
     });
   });
   describe('#groupAppointments', () => {
-    fit('should group appointments into different arrays depending on their resources', () => {
+    it('should group appointments into different arrays depending on their resources', () => {
       const resources = [{
         fieldName: 'resource1',
         instances: [{ id: 'resource1_1' }, { id: 'resource1_2' }],

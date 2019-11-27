@@ -5,7 +5,7 @@ import {
 } from '@devexpress/dx-react-core';
 import { memoize } from '@devexpress/dx-core';
 import {
-  getGroupingItemsFromResources, getGroupedViewCellsData,
+  getGroupingItemsFromResources, expandViewCellsDataWithGroups,
   sortFilteredResources, filterResourcesByGrouping,
 } from '@devexpress/dx-scheduler-core';
 
@@ -15,7 +15,7 @@ const pluginDependencies = [
 ];
 
 const getViewCellsDataComputed = memoize(({ viewCellsData, groupingItems, sortedResources }) => {
-  const result = getGroupedViewCellsData(viewCellsData, groupingItems, sortedResources);
+  const result = expandViewCellsDataWithGroups(viewCellsData, groupingItems, sortedResources);
   return result;
 });
 

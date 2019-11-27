@@ -305,9 +305,9 @@ export const groupAppointments: PureComputed<
 
   return groupingItems![groupingItems!.length - 1].map((groupingItem, index) => {
     let currentIndex = index;
-    const currentGroup = groupingItems.reduceRight((groupAcc, groupingItemsRow, i) => {
-      if (i === groupingItems!.length - 1) return groupAcc;
-      currentIndex = Math.floor(currentIndex / resources[i + 1].instances.length);
+    const currentGroup = groupingItems.reduceRight((groupAcc, groupingItemsRow, rowIndex) => {
+      if (rowIndex === groupingItems!.length - 1) return groupAcc;
+      currentIndex = Math.floor(currentIndex / resources[rowIndex + 1].instances.length);
       const currentInstance = groupingItemsRow[currentIndex];
       return [
         ...groupAcc,

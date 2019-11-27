@@ -1,0 +1,87 @@
+import React, { useState } from 'react';<%&additionalImports%>
+import { EditingState } from '@devexpress/dx-react-grid';
+import {
+  Grid,
+  Table,
+  TableHeaderRow,
+  TableEditColumn,
+  TableInlineCellEditing,
+} from '@devexpress/dx-react-grid-<%&themeName%>';
+
+import {
+  generateRows,
+  defaultColumnValues,
+} from '../../../demo-data/generator';
+
+const getRowId = row => row.id;
+
+const FocusableCell = ({ onClick, ...restProps }) => (
+  <Table.Cell {...restProps} tabIndex={0} onFocus={onClick} />
+);
+
+export default () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'gender', title: 'Gender' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows, setRows] = useState(generateRows({
+    columnValues: { id: ({ index }) => index, ...defaultColumnValues },
+    length: 8,
+  }));
+  const [editingCells, setEditingCells] = useState([]);
+
+  const commitChanges = ({ added, changed, deleted }) => {
+    let changedRows;
+    if (added) {
+      const startingAddedId = rows.length > 0
+        ? Math.max(rows[rows.length - 1].id, rows[0].id) + 1
+        : 0;
+      changedRows = [
+        ...added.map((row, index) => ({
+          id: startingAddedId + index,
+          ...row,
+        })),
+        ...rows,
+      ];
+      setEditingCells([{ rowId: startingAddedId, columnName: columns[0].name }]);
+    }
+    if (changed) {
+      changedRows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+    }
+    if (deleted) {
+      const deletedSet = new Set(deleted);
+      changedRows = rows.filter(row => !deletedSet.has(row.id));
+    }
+
+    setRows(changedRows);
+  };
+
+  const addEmptyRow = () => commitChanges({ added: [{}] });
+
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+        getRowId={getRowId}
+      >
+        <EditingState
+          onCommitChanges={commitChanges}
+          editingCells={editingCells}
+          onEditingCellsChange={setEditingCells}
+          addedRows={[]}
+          onAddedRowsChange={addEmptyRow}
+        />
+        <Table cellComponent={FocusableCell} />
+        <TableHeaderRow />
+        <TableInlineCellEditing selectTextOnEditStart />
+        <TableEditColumn
+          showAddCommand
+          showDeleteCommand
+        />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

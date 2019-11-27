@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 
 import ChevronRight from '@material-ui/icons/ChevronRight';

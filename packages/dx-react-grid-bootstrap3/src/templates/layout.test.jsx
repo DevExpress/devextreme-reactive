@@ -74,6 +74,23 @@ describe('Layout', () => {
             backgroundColor, borderColor, stickyPosition,
           });
       });
+
+      it('should provide panel`s colors', () => {
+        let targetElement;
+        window.getComputedStyle.mockImplementation((element) => {
+          targetElement = element;
+          return {};
+        });
+
+        mount((
+          <Root>
+            <TestWrapper />
+          </Root>
+        ));
+
+        expect(targetElement.className)
+          .toBe('panel panel-default');
+      });
     });
   });
 });

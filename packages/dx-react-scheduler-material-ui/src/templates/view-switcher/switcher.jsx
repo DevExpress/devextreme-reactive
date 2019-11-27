@@ -1,22 +1,16 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { withStyles } from '@material-ui/core/styles';
+import { OutlinedSelect } from '../common/select/outlined-select';
 
-const styles = ({ spacing, typography }) => ({
-  root: {
-    fontSize: typography.fontSize,
-  },
+const styles = ({ spacing }) => ({
   input: {
     padding: spacing(1.25, 1.75),
     paddingRight: spacing(4),
     textTransform: 'uppercase',
-  },
-  menuItem: {
-    fontSize: typography.fontSize,
-    textTransform: 'uppercase',
+    '@media (max-width: 700px)': {
+      fontSize: '0.75rem',
+    },
   },
   inputRoot: {
     marginLeft: spacing(0.5),
@@ -32,33 +26,19 @@ const SwitcherBase = React.memo(({
   onChange, classes,
   ...restProps
 }) => {
-  const handleChange = (event) => {
-    onChange(event.target.value);
-  };
+  const availableOptions = availableViews.map(({ name, displayName }) => ({
+    id: name,
+    text: displayName,
+  }));
 
   return (
-    <Select
-      classes={{ root: classes.root }}
+    <OutlinedSelect
       value={currentView.name}
-      onChange={handleChange}
-      input={(
-        <OutlinedInput
-          classes={{ input: classes.input, root: classes.inputRoot }}
-          labelWidth={0}
-        />
-      )}
+      availableOptions={availableOptions}
+      onValueChange={onChange}
+      inputClasses={{ input: classes.input, root: classes.inputRoot }}
       {...restProps}
-    >
-      {availableViews.map(({ name, displayName }) => (
-        <MenuItem
-          value={name}
-          key={name}
-          className={classes.menuItem}
-        >
-          {displayName}
-        </MenuItem>
-      ))}
-    </Select>
+    />
   );
 });
 

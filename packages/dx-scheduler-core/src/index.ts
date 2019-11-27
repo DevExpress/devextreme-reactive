@@ -17,8 +17,6 @@ export * from './plugins/week-view/helpers';
 /** @internal */
 export * from './plugins/view-state/reducers';
 /** @internal */
-export * from './plugins/date-navigator/helpers';
-/** @internal */
 export * from './plugins/appointment-tooltip/reducers';
 /** @internal */
 export * from './plugins/appointment-tooltip/constants';
@@ -26,6 +24,10 @@ export * from './plugins/appointment-tooltip/constants';
 export * from './plugins/appointment-form/reducers';
 /** @internal */
 export * from './plugins/appointment-form/helpers';
+/** @internal */
+export * from './plugins/appointment-form/constants';
+/** @internal */
+export * from './plugins/appointment-form/utils';
 /** @internal */
 export * from './plugins/all-day-panel/computeds';
 /** @internal */
@@ -42,6 +44,12 @@ export * from './plugins/horizontal-rect/helpers';
 export * from './plugins/vertical-rect/helpers';
 /** @internal */
 export * from './plugins/drag-drop-provider/helpers';
+/** @internal */
+export * from './plugins/current-time-indicator/helpers';
+/** @internal */
+export * from './plugins/resources/computeds';
+/** @internal */
+export * from './plugins/resources/helpers';
 /** @internal */
 export * from './constants';
 /** @internal */

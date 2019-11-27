@@ -1,22 +1,35 @@
 import { withComponents } from '@devexpress/dx-react-core';
 import { AppointmentForm as AppointmentFormBase } from '@devexpress/dx-react-scheduler';
-import { Popup } from '../templates/appointment-form/popup';
-import { CommandButton } from '../templates/appointment-form/command-button';
-import { TextEditor } from '../templates/appointment-form/text-editor';
-import { DateEditor } from '../templates/appointment-form/date-editor';
-import { BooleanEditor } from '../templates/appointment-form/boolean-editor';
-import { Container } from '../templates/appointment-form/container';
-import { ScrollableArea } from '../templates/appointment-form/scrollable-area';
-import { StaticArea } from '../templates/appointment-form/static-area';
+import { Layout } from '../templates/appointment-form/layout';
+import { TextEditor } from '../templates/appointment-form/common/text-editor';
+import { Layout as BasicLayout } from '../templates/appointment-form/basic/layout';
+import { Layout as CommandLayout } from '../templates/appointment-form/command/layout';
+import { CommandButton } from '../templates/appointment-form/command/command-button';
+import { Overlay } from '../templates/appointment-form/overlay';
+import { DateEditor } from '../templates/appointment-form/common/date-editor';
+import { Label } from '../templates/appointment-form/common/label';
+import { BooleanEditor } from '../templates/appointment-form/common/boolean-editor';
+import { Select } from '../templates/common/select/select';
+import { Layout as RecurrenceLayout } from '../templates/appointment-form/recurrence/layout';
+import { RadioGroup } from '../templates/appointment-form/recurrence/radio-group/radio-group';
+import { WeeklyRecurrenceSelector } from '../templates/appointment-form/recurrence/weekly-recurrence-selector';
+import { OverlayContainer as Container } from '../templates/common/overlay-container';
+import { ResourceEditor } from '../templates/appointment-form/basic/resource-editor';
 
 export const AppointmentForm = withComponents({
-  Popup,
+  Overlay,
+  Layout,
+  TextEditor,
+  BasicLayout,
+  CommandLayout,
   CommandButton,
-  TitleEditor: TextEditor,
-  StartDateEditor: DateEditor,
-  EndDateEditor: DateEditor,
-  AllDayEditor: BooleanEditor,
+  DateEditor,
+  Label,
+  BooleanEditor,
+  Select,
+  RecurrenceLayout,
+  RadioGroup,
+  WeeklyRecurrenceSelector,
   Container,
-  ScrollableArea,
-  StaticArea,
+  ResourceEditor,
 })(AppointmentFormBase);

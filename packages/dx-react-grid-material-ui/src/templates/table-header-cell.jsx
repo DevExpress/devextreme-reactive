@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import classNames from 'clsx';
 
 import { DragSource } from '@devexpress/dx-react-core';
 
@@ -126,12 +126,12 @@ class TableHeaderCellBase extends React.PureComponent {
   render() {
     const {
       style, column, tableColumn,
-      showGroupingControls, onGroup, groupingEnabled,
-      draggingEnabled,
-      resizingEnabled, onWidthChange, onWidthDraft, onWidthDraftCancel,
+      draggingEnabled, resizingEnabled,
+      onWidthChange, onWidthDraft, onWidthDraftCancel, getCellWidth,
       classes, tableRow, className, children,
       // @deprecated
-      showSortingControls, sortingDirection, sortingEnabled, onSort, before, getCellWidth,
+      showGroupingControls, onGroup, groupingEnabled,
+      showSortingControls, sortingDirection, sortingEnabled, onSort, before,
       ...restProps
     } = this.props;
 
@@ -226,7 +226,7 @@ TableHeaderCellBase.defaultProps = {
   className: undefined,
   children: undefined,
   before: undefined,
-  getCellWidth: undefined,
+  getCellWidth: () => {},
 };
 
 export const TableHeaderCell = withStyles(styles, { name: 'TableHeaderCell' })(TableHeaderCellBase);

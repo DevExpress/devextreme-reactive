@@ -10,6 +10,8 @@ import {
   getAppointmentStyle,
   calculateRectByDateIntervals,
   filterByViewBoundaries,
+  getRRuleSetWithExDates,
+  formatDateToString,
 } from './utils';
 
 describe('Utils', () => {
@@ -356,7 +358,7 @@ describe('Utils', () => {
     });
   });
   describe('#calculateRectByDateIntervals', () => {
-    it('should work', () => {
+    it('should work with horizontal', () => {
       const rectByDatesMock = jest.fn();
       rectByDatesMock.mockImplementation(() => ({
         top: 10,
@@ -370,6 +372,97 @@ describe('Utils', () => {
       const intervals = [
         { start: moment('2018-09-12 10:00'), end: moment('2018-09-13 10:00'), dataItem: 'a' },
         { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 15:00'), dataItem: 'b' },
+      ];
+
+      const rects = calculateRectByDateIntervals(type, intervals, rectByDatesMock, rectByDatesMeta);
+
+      expect(rects)
+        .toHaveLength(2);
+      expect(rects[0])
+        .toMatchObject({
+          top: 10,
+          height: 25,
+          left: 0,
+          width: 33,
+          dataItem: 'a',
+          type: 'horizontal',
+        });
+      expect(rects[1])
+        .toMatchObject({
+          top: 35,
+          height: 25,
+          left: 0,
+          width: 33,
+          dataItem: 'b',
+          type: 'horizontal',
+        });
+    });
+    it('should work with vertical', () => {
+      const rectByDatesMock = jest.fn();
+      rectByDatesMock.mockImplementation(() => ({
+        top: 10,
+        left: 0,
+        height: 50,
+        width: 99,
+        parentWidth: 300,
+      }));
+      const type = { growDirection: 'vertical' };
+      const rectByDatesMeta = { cellDuration: 30 };
+      const intervals = [
+        { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 10:10'), dataItem: 'a' },
+        { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 10:30'), dataItem: 'b' },
+        { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 10:35'), dataItem: 'c' },
+      ];
+
+      const rects = calculateRectByDateIntervals(type, intervals, rectByDatesMock, rectByDatesMeta);
+
+      expect(rects)
+        .toHaveLength(3);
+      expect(rects[0])
+        .toMatchObject({
+          top: 10,
+          height: 50,
+          left: 0,
+          width: 11,
+          dataItem: 'c',
+          type: 'vertical',
+          durationType: 'long',
+        });
+      expect(rects[1])
+        .toMatchObject({
+          top: 10,
+          height: 50,
+          left: 11,
+          width: 11,
+          dataItem: 'b',
+          type: 'vertical',
+          durationType: 'middle',
+        });
+      expect(rects[2])
+        .toMatchObject({
+          top: 10,
+          height: 50,
+          left: 22,
+          width: 11,
+          dataItem: 'a',
+          type: 'vertical',
+          durationType: 'short',
+        });
+    });
+    it('should group 2 all-day appointments if the first ends on the same day as the second starts, but earlier', () => {
+      const rectByDatesMock = jest.fn();
+      rectByDatesMock.mockImplementation(() => ({
+        top: 10,
+        left: 0,
+        height: 50,
+        width: 99,
+        parentWidth: 300,
+      }));
+      const type = { growDirection: 'horizontal', multiline: false };
+      const rectByDatesMeta = {};
+      const intervals = [
+        { start: moment('2018-09-12 10:00'), end: moment('2018-09-13 10:00'), dataItem: 'a' },
+        { start: moment('2018-09-13 11:00'), end: moment('2018-09-14 15:00'), dataItem: 'b' },
       ];
 
       const rects = calculateRectByDateIntervals(type, intervals, rectByDatesMock, rectByDatesMeta);
@@ -676,6 +769,22 @@ describe('Utils', () => {
         .toBe(moment(new Date('2019-04-10 0:00')).toString());
       expect(result[1].end.toString())
         .toBe(moment(new Date('2019-04-10 23:59')).toString());
+    });
+  });
+  describe('#getRRuleSetWithExDates', () => {
+    it('should create RRuleSet', () => {
+      const exDate = '20190410T100000Z';
+
+      expect(getRRuleSetWithExDates(exDate).valueOf()[0])
+        .toContain('EXDATE');
+    });
+  });
+  describe('#formatDateToString', () => {
+    it('should return valid string format to pass into Date constructor (Safari)', () => {
+      const date = Date.UTC(2019, 5, 10, 12, 30);
+
+      expect(formatDateToString(date))
+        .toContain('2019-06-10T12:30');
     });
   });
 });

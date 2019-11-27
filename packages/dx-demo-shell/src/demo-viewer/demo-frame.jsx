@@ -8,42 +8,92 @@ import {
 import { DemoRenderer } from './demo-renderer';
 import { EmbeddedDemoContext } from '../context';
 
-const Link = ({ link }) => (
-  <link rel="stylesheet" href={link} />
-);
-
-Link.propTypes = {
-  link: PropTypes.string,
-};
-Link.defaultProps = {
-  link: '',
-};
-
 class DemoFrameRenderer extends React.PureComponent {
   constructor(props, context) {
     super(props, context);
 
+    this.state = {
+      editableLink: this.getThemeVariantOptions().editableLink,
+      frameHeight: 600,
+    };
+    this.nodeRef = React.createRef();
+
+    this.onSubmitCustomLink = (e) => {
+      e.preventDefault();
+      this.setState({ editableLink: this.customThemeLinkNode.value });
+    };
+  }
+
+  componentDidMount() {
+    this.updateFrameHeight();
+  }
+
+  getThemeVariantOptions() {
+    const {
+      themeName,
+      variantName,
+    } = this.props;
+    const { themeSources } = this.context;
+
+    return themeSources
+      .find(theme => theme.name === themeName).variants
+      .find(variant => variant.name === variantName);
+  }
+
+  getMarkup() {
     const {
       themeSources,
     } = this.context;
     const {
       themeName,
       variantName,
-    } = props;
+      perfSamplesCount,
+    } = this.props;
+    const {
+      scriptPath, firstPart, lastPart, demoSources,
+    } = this.context;
 
-    const themeVariantOptions = themeSources
-      .find(theme => theme.name === themeName).variants
-      .find(variant => variant.name === variantName);
+    let demoScript = scriptPath;
+    if (firstPart !== undefined) {
+      // eslint-disable-next-line prefer-destructuring
+      const productName = demoSources[sectionName][demoName][themeName].productName;
+      demoScript = `${firstPart}${productName}${lastPart}`;
+    }
 
-    this.state = {
-      editableLink: themeVariantOptions.editableLink,
-      frameHeight: 600,
-    };
-    this.nodeRef = React.createRef();
+    const frameUrl = `/demo/${sectionName}/${demoName}/${themeName}/${variantName}`;
+    const themeLinks = this.getThemeLinks();
+
+    const mode = perfSamplesCount > 0 ? `/perf/${perfSamplesCount}` : '/clean';
+    return `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        ${themeLinks}
+        <style>
+          body { margin: 8px; overflow: hidden; }
+          .panel { margin: 0; }
+        </style>
+      </head>
+      <body>
+        <div id="mountPoint"></div>
+        <div class="embedded-demo" data-options='{ "path": "${frameUrl}${mode}", "frame": true }'>
+          <div style="min-height: 500px;">Loading...</div>
+        </div>
+        <script src="${demoScript}"></script>
+      </body>
+      </html>`;
   }
 
-  componentDidMount() {
-    this.updateFrameHeight();
+  getThemeLinks() {
+    const { editableLink } = this.state;
+    const themeVariantOptions = this.getThemeVariantOptions();
+    const links = [
+      ...(themeVariantOptions.links || []),
+      (editableLink ? [editableLink] : []),
+    ];
+    return links.length
+      ? links.map(link => `<link rel="stylesheet" href="${link}">`).join('\n')
+      : '';
   }
 
   updateFrameHeight() {
@@ -69,6 +119,7 @@ class DemoFrameRenderer extends React.PureComponent {
         {!frame && !!editableLink ? (
           <form
             style={{ marginBottom: '20px' }}
+            onSubmit={this.onSubmitCustomLink}
           >
             <FormGroup controlId="customThemeLink">
               <ControlLabel>
@@ -82,11 +133,7 @@ class DemoFrameRenderer extends React.PureComponent {
                   defaultValue={editableLink}
                 />
                 <InputGroup.Button>
-                  <Button
-                    onClick={() => {
-                      this.setState({ editableLink: this.customThemeLinkNode.value });
-                    }}
-                  >
+                  <Button type="submit">
                     Apply
                   </Button>
                 </InputGroup.Button>
@@ -106,6 +153,7 @@ class DemoFrameRenderer extends React.PureComponent {
               }}
             >
               <Frame
+                key={editableLink} // NOTE: re-render frame once theme link has changed
                 style={{
                   border: 'none',
                   minWidth: '100%',
@@ -113,8 +161,7 @@ class DemoFrameRenderer extends React.PureComponent {
                   height: `${frameHeight}px`,
                   marginBottom: '20px',
                 }}
-                head={<Link link={editableLink} />}
-                initialContent={markup}
+                initialContent={this.getMarkup()}
                 mountTarget="#mountPoint"
                 scrolling="no"
               >

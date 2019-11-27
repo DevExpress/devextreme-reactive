@@ -12,6 +12,9 @@ jest.spyOn(Element.prototype, 'getBoundingClientRect').mockImplementation(() => 
   right: 800,
   top: 0,
   width: 800,
+  x: 0,
+  y: 0,
+  toJSON: jest.fn(),
 }));
 
 window.fetch = jest.fn().mockImplementation(() => new Promise(() => {}));

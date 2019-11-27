@@ -2,13 +2,18 @@ import * as React from 'react';
 import { shallow } from 'enzyme';
 import { withStates } from '../../utils/with-states';
 import { withPattern } from '../../utils/with-pattern';
+import { withAnimation } from '../../utils/with-animation';
 import { Slice } from './slice';
+import { dPie, isValuesChanged, processPieAnimation, getPieStart, getDelay } from '@devexpress/dx-chart-core';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
   dPie: jest.fn().mockReturnValue('test-d-attribute'),
-  getPieAnimationStyle: 'test-animation-style',
   HOVERED: 'test_hovered',
   SELECTED: 'test_selected',
+  isValuesChanged: jest.fn(),
+  processPieAnimation: jest.fn(),
+  getDelay: jest.fn(),
+  getPieStart: jest.fn(),
 }));
 
 jest.mock('../../utils/with-states', () => ({
@@ -16,6 +21,9 @@ jest.mock('../../utils/with-states', () => ({
 }));
 jest.mock('../../utils/with-pattern', () => ({
   withPattern: jest.fn().mockReturnValue(x => x),
+}));
+jest.mock('../../utils/with-animation', () => ({
+  withAnimation: jest.fn().mockReturnValue(x => x),
 }));
 
 describe('Slice', () => {
@@ -34,8 +42,11 @@ describe('Slice', () => {
     color: 'color',
     style: { tag: 'test-style' },
     scales: { tag: 'test-scales' },
-    getAnimatedStyle: jest.fn().mockReturnValue('animated-style'),
   };
+
+  afterEach(() => {
+    (dPie as jest.Mock).mockClear();
+  });
 
   it('should render slice', () => {
     const tree = shallow((
@@ -47,8 +58,9 @@ describe('Slice', () => {
       d: 'test-d-attribute',
       fill: 'color',
       stroke: 'none',
-      style: 'animated-style',
+      style: { tag: 'test-style' },
     });
+    expect(dPie).toBeCalledWith(20, 2, 4, 11, 12);
   });
 
   it('should pass rest properties', () => {
@@ -76,5 +88,24 @@ describe('Slice', () => {
       .toEqual('series-1-point-2-hover');
     expect((withPattern as jest.Mock).mock.calls[1][0]({ seriesIndex: 2, index: 3 }))
       .toEqual('series-2-point-3-selection');
+  });
+
+  it('should animate', () => {
+    expect(withAnimation).toBeCalledWith(
+      processPieAnimation, expect.any(Function), getPieStart, isValuesChanged, getDelay,
+    );
+  });
+
+  it('should update props', () => {
+    const tree = shallow((
+      <Slice {...(defaultProps as any)} />
+    ));
+
+    tree.setProps({
+      ...defaultProps, innerRadius: 6, outerRadius: 8,
+      startAngle: 22, endAngle: 23,
+    });
+
+    expect(dPie).toBeCalledWith(20, 6, 8, 22, 23);
   });
 });

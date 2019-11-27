@@ -15,11 +15,11 @@ DevExtreme Reactive is a set of business React components that deeply integrate 
 
 [Website](https://devexpress.github.io/devextreme-reactive/react/grid/) | [Demos](https://devexpress.github.io/devextreme-reactive/react/grid/demos/) | [Docs](https://devexpress.github.io/devextreme-reactive/react/grid/docs/)
 
-## React Chart (Beta)
+## React Chart
 
 [Website](https://devexpress.github.io/devextreme-reactive/react/chart/) | [Demos](https://devexpress.github.io/devextreme-reactive/react/chart/demos/) | [Docs](https://devexpress.github.io/devextreme-reactive/react/chart/docs/)
 
-## React Scheduler (CTP)
+## React Scheduler
 
 [Website](https://devexpress.github.io/devextreme-reactive/react/scheduler/) | [Demos](https://devexpress.github.io/devextreme-reactive/react/scheduler/demos/) | [Docs](https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/)
 

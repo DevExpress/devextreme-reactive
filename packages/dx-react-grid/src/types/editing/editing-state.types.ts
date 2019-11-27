@@ -1,3 +1,5 @@
+import { EditingCell } from '../index';
+
 // tslint:disable-next-line:no-namespace
 export namespace EditingState {
   /** Describes additional column properties that the plugin can handle. */
@@ -33,8 +35,15 @@ export interface EditingStateProps {
   editingRowIds?: Array<number | string>;
   /** IDs of the rows initially added to the `editingRowIds` array in uncontrolled mode. */
   defaultEditingRowIds?: Array<number | string>;
+  /** Row ID and column name of cells that are being edited. */
+  editingCells?: Array<EditingCell>;
+  // tslint:disable-next-line:max-line-length
+  /** Row ID and column name of cells initially added to the `editingCells` array in uncontrolled mode. */
+  defaultEditingCells?: Array<EditingCell>;
   /** Handles adding or removing a row to/from the `editingRowIds` array. */
   onEditingRowIdsChange?: (editingRowIds: Array<number | string>) => void;
+  /** Handles changing a cell to/from the `editingRowIds` array. */
+  onEditingCellsChange?: (editingRowIds: Array<EditingCell>) => void;
   /** @internal */
   deletedRowIds?: Array<number | string>;
   /** @internal */
@@ -59,6 +68,7 @@ export interface EditingStateProps {
 /** @internal */
 export type EditingStateState = {
   editingRowIds: Array<number | string>;
+  editingCells: Array<EditingCell>;
   addedRows: Array<any>;
   rowChanges: { [key: string]: any };
   deletedRowIds: Array<number | string>;

@@ -1,9 +1,11 @@
 import * as React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
+import { createShallow, getClasses, createMount } from '@material-ui/core/test-utils';
 import { Layout } from './layout';
 
 describe('EditRecurrenceMenu', () => {
   let shallow;
+  let classes;
+  let mount;
   const defaultProps = {
     availableOperations: [{ value: '1', title: 'operation1' }],
     handleClose: jest.fn(),
@@ -13,7 +15,9 @@ describe('EditRecurrenceMenu', () => {
     buttonComponent: ({ children }) => <div>{children}</div>,
   };
   beforeAll(() => {
-    shallow = createShallow();
+    shallow = createShallow({ dive: true });
+    mount = createMount();
+    classes = getClasses(<Layout {...defaultProps} />);
   });
   beforeEach(() => {
     jest.resetAllMocks();
@@ -27,6 +31,16 @@ describe('EditRecurrenceMenu', () => {
 
       expect(tree.props().data)
         .toMatchObject({ testData: 'testData' });
+    });
+    it('should render its elements properly', () => {
+      const tree = mount((
+        <Layout {...defaultProps} />
+      ));
+
+      expect(tree.find(`.${classes.title}`).exists())
+        .toBeTruthy();
+      expect(tree.find(`.${classes.content}`))
+        .toHaveLength(3);
     });
     it('should handle click on close button', () => {
       const tree = shallow((

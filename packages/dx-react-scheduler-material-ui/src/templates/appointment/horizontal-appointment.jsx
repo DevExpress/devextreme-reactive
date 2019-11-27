@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import classNames from 'clsx';
 
 const styles = ({ palette, spacing }) => ({
   title: {
@@ -12,6 +12,8 @@ const styles = ({ palette, spacing }) => ({
   content: {
     color: palette.common.white,
     padding: spacing(0.5),
+    paddingTop: spacing(0.125),
+    paddingLeft: spacing(0.75),
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
@@ -40,6 +42,7 @@ const HorizontalAppointmentBase = ({
   className,
   recurringIconComponent: RecurringIcon,
   formatDate,
+  durationType,
   ...restProps
 }) => {
   const repeat = !!data.rRule;
@@ -69,6 +72,7 @@ HorizontalAppointmentBase.propTypes = {
   recurringIconComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
+  durationType: PropTypes.string,
   children: PropTypes.node,
   className: PropTypes.string,
   formatDate: PropTypes.func,
@@ -78,6 +82,7 @@ HorizontalAppointmentBase.defaultProps = {
   formatDate: () => '',
   children: undefined,
   className: undefined,
+  durationType: undefined,
 };
 
 export const HorizontalAppointment = withStyles(styles, { name: 'HorizontalAppointment' })(HorizontalAppointmentBase);

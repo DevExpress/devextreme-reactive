@@ -1,0 +1,61 @@
+{
+  "extends": [
+    "config:base"
+  ],
+  "statusCheckVerify": true,
+  "semanticCommits": true,
+  "semanticPrefix": "chore:",
+  "commitMessagePrefix": "chore:",
+  "timezone": "America/Los_Angeles",
+  "schedule": ["after 1pm and before 5pm on Tuesday every 2 week"],
+  "rangeStrategy": "bump",
+  "lockFileMaintenance": { "enabled": true },
+  "node": {
+    "supportPolicy": ["lts_latest"]
+  },
+  "packageRules": [
+    {
+      "packagePatterns": [ "*" ],
+      "excludePackagePatterns": [
+        "^@material-ui",
+        "^@types",
+        "^react",
+        "typescript"
+      ],
+      "groupName": "deps"
+    },
+    {
+      "packagePatterns": [ "^@material-ui" ],
+      "groupName": "Material-UI",
+      "depTypeList": [
+        "dependencies",
+        "devDependencies"
+      ]
+    },
+    {
+      "packagePatterns": [ "^@types" ],
+      "groupName": "Types",
+      "depTypeList": [
+        "dependencies",
+        "devDependencies"
+      ]
+    },
+    {
+      "packagePatterns": [ "^react" ],
+      "groupName": "React",
+      "depTypeList": [
+        "dependencies",
+        "devDependencies"
+      ]
+    },
+    {
+      "packageNames": [ "typescript" ],
+      "groupName": "TypeScript",
+      "depTypeList": [
+        "dependencies",
+        "devDependencies"
+      ]
+    }
+  ],
+  "ignorePaths": [".circleci"]
+}

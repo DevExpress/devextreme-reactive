@@ -28,13 +28,13 @@ export default () => {
   const [data] = useState([{
     key: 'Male',
     items: generateRows({
-      columnValues: { ...defaultColumnValues, gender: ['Male'] },
+      columnValues: Object.assign(defaultColumnValues, { gender: ['Male'] }),
       length: 5,
     }),
   }, {
     key: 'Female',
     items: generateRows({
-      columnValues: { ...defaultColumnValues, gender: ['Female'] },
+      columnValues: Object.assign(defaultColumnValues, { gender: ['Female'] }),
       length: 5,
     }),
   }]);

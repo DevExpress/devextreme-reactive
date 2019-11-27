@@ -213,17 +213,48 @@ export const priorities = [
     title: 'Low',
     color: '#81c784',
     activeColor: '#43a047',
+    shortTitle: 'L',
   },
   {
     id: 2,
     title: 'Medium',
     color: '#4fc3f7',
     activeColor: '#039be5',
+    shortTitle: 'M',
   },
   {
     id: 3,
     title: 'High',
     color: '#ff8a65',
     activeColor: '#f4511e',
+    shortTitle: 'H',
+  },
+];
+
+export const owners = [
+  {
+    text: 'Andrew Glover',
+    id: 1,
+    color: '#7E57C2',
+  }, {
+    text: 'Arnie Schwartz',
+    id: 2,
+    color: '#FF7043',
+  }, {
+    text: 'John Heart',
+    id: 3,
+    color: '#E91E63',
+  }, {
+    text: 'Taylor Riley',
+    id: 4,
+    color: '#E91E63',
+  }, {
+    text: 'Brad Farkus',
+    id: 5,
+    color: '#AB47BC',
+  }, {
+    text: 'Arthur Miller',
+    id: 6,
+    color: '#FFA726',
   },
 ];

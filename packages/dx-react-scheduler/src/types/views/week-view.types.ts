@@ -1,34 +1,32 @@
-import { VerticalViewProps, VerticalView } from './view.types';
+import { BaseView, VerticalViewProps } from './index';
 
 /* tslint:disable no-namespace max-line-length no-empty-interface */
 export namespace WeekView {
   /** Describes a cell data configuration object. */
-  export interface CellData extends VerticalView.CellData {}
+  export interface CellData extends BaseView.CellData {}
   /** Describes properties passed to a component that renders a week view layout. */
-  export interface LayoutProps extends VerticalView.LayoutProps {}
+  export interface LayoutProps extends BaseView.LayoutProps {}
   /** Describes properties passed to a component that renders a time scale layout. */
-  export interface TimeScaleLayoutProps extends VerticalView.TimeScaleLayoutProps {}
-  /** Describes properties passed to a component that renders a time scale cell. */
-  export interface TimeScaleCellProps extends VerticalView.TimeScaleCellProps {}
+  export interface TimeScaleLayoutProps extends BaseView.TimeScaleLayoutProps {}
+  /** Describes properties passed to a component that renders a time scale label. */
+  export interface TimeScaleLabelProps extends BaseView.TimeScaleLabelProps {}
   /** Describes properties passed to a component that renders a day scale layout. */
-  export interface DayScaleLayoutProps extends VerticalView.DayScaleLayoutProps {}
+  export interface DayScaleLayoutProps extends BaseView.DayScaleLayoutProps {}
   /** Describes properties passed to a component that renders a day scale cell. */
-  export interface DayScaleCellProps extends VerticalView.DayScaleCellProps {}
+  export interface DayScaleCellProps extends BaseView.DayScaleCellProps {}
   /** Describes properties passed to a component that renders a day scale empty cell. */
-  export interface DayScaleEmptyCellProps extends VerticalView.DayScaleEmptyCellProps {}
+  export interface DayScaleEmptyCellProps extends BaseView.DayScaleEmptyCellProps {}
   /** Describes properties passed to a component that renders a time table layout. */
-  export interface TimeTableLayoutProps extends VerticalView.TimeTableLayoutProps {}
+  export interface TimeTableLayoutProps extends BaseView.TimeTableLayoutProps {}
   /** Describes properties passed to a component that renders a time table cell. */
-  export interface TimeTableCellProps extends VerticalView.TimeTableCellProps {}
+  export interface TimeTableCellProps extends BaseView.TimeTableCellProps {}
   /** Describes properties passed to a component that renders the appointment layer. */
-  export interface AppointmentLayerProps extends VerticalView.AppointmentLayerProps {}
+  export interface AppointmentLayerProps extends BaseView.AppointmentLayerProps {}
   /** Describes properties passed to a component that renders a week view row. */
-  export interface RowProps extends VerticalView.RowProps {}
+  export interface RowProps extends BaseView.RowProps {}
 }
 
 export interface WeekViewProps extends VerticalViewProps {
-  /** Specifies the days of week that should not be displayed on the view. Accepts an array of zero-bazed day indexes (0 - Sunday). */
+  /** Specifies the days of week that should not be displayed on the view. Accepts an array of zero-based day indexes (0 - Sunday). */
   excludedDays?: number[];
-  /** Specifies the first day of week. */
-  firstDayOfWeek?: number;
 }

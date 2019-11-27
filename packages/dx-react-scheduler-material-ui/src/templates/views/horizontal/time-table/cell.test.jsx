@@ -5,13 +5,19 @@ import { Cell } from './cell';
 describe('Horizontal view TimeTable', () => {
   const defaultProps = {
     startDate: new Date(2018, 6, 7, 16),
-    formatDate: () => undefined,
+    formatDate: jest.fn(),
   };
   let classes;
   let shallow;
   beforeAll(() => {
     classes = getClasses(<Cell {...defaultProps} />);
     shallow = createShallow({ dive: true });
+  });
+  beforeEach(() => {
+    defaultProps.formatDate.mockImplementation(() => 'time');
+  });
+  afterEach(() => {
+    jest.clearAllMocks();
   });
   describe('Cell', () => {
     it('should pass className to the root element', () => {
@@ -23,6 +29,8 @@ describe('Horizontal view TimeTable', () => {
         .toBeTruthy();
       expect(tree.is(`.${classes.cell}`))
         .toBeTruthy();
+      expect(tree.is(`.${classes.shadedCell}`))
+        .toBeFalsy();
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
@@ -48,7 +56,7 @@ describe('Horizontal view TimeTable', () => {
       expect(tree.find(`.${classes.today}`))
         .toHaveLength(1);
     });
-    it('should not highlight a commont cell', () => {
+    it('should not highlight a common cell', () => {
       const tree = shallow((
         <Cell {...defaultProps} />
       ));
@@ -59,7 +67,7 @@ describe('Horizontal view TimeTable', () => {
         .toHaveLength(1);
     });
   });
-  it('should highlight cells from an other month', () => {
+  it('should highlight cells from another month', () => {
     const tree = shallow((
       <Cell {...defaultProps} otherMonth />
     ));
@@ -68,28 +76,41 @@ describe('Horizontal view TimeTable', () => {
       .toHaveLength(1);
   });
   it('should call date format function', () => {
-    const formatDate = jest.fn();
-    formatDate.mockImplementation(() => 'time');
     const tree = shallow((
-      <Cell {...defaultProps} formatDate={formatDate} />
+      <Cell {...defaultProps} />
     ));
 
-    expect(formatDate)
+    expect(defaultProps.formatDate)
       .toHaveBeenCalledWith(defaultProps.startDate, { day: 'numeric' });
     expect(tree.find(`.${classes.text}`).props().children)
       .toBeTruthy();
   });
   it('should call date format function with month and day parameter', () => {
-    const formatDate = jest.fn();
-    formatDate.mockImplementation(() => 'time');
     const startDate = new Date(2018, 6, 1, 16);
     const tree = shallow((
-      <Cell formatDate={formatDate} startDate={startDate} />
+      <Cell {...defaultProps} startDate={startDate} />
     ));
 
-    expect(formatDate)
+    expect(defaultProps.formatDate)
       .toHaveBeenCalledWith(startDate, { day: 'numeric', month: 'short' });
     expect(tree.find(`.${classes.text}`).props().children)
+      .toBeTruthy();
+  });
+  it('shouldn\'t call date format function with month and day parameter if it is the beginning of the month and the today\'s date', () => {
+    const startDate = new Date(2018, 6, 1, 16);
+    shallow((
+      <Cell {...defaultProps} startDate={startDate} today />
+    ));
+
+    expect(defaultProps.formatDate)
+      .toHaveBeenCalledWith(startDate, { day: 'numeric' });
+  });
+  it('should be shaded if isShaded is true', () => {
+    const tree = shallow((
+      <Cell {...defaultProps} isShaded />
+    ));
+
+    expect(tree.is(`.${classes.shadedCell}`))
       .toBeTruthy();
   });
 });

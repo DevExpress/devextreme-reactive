@@ -49,7 +49,7 @@ export type GetSpanBoundaryFn = PureComputed<
 
 /** @internal */
 export type CollapseBoundariesFn = PureComputed<
-  [number, VisibleBoundary[], ReadonlyArray<VisibleBoundary>[], number],
+  [number, VisibleBoundary[], ReadonlyArray<VisibleBoundary>[]],
   VisibleBoundary[]
 >;
 

@@ -18,6 +18,7 @@ describe('Common view DayScale', () => {
     ],
     cellComponent: () => undefined,
     rowComponent: () => undefined,
+    formatDate: jest.fn(),
   };
   beforeAll(() => {
     classes = getClasses(<Layout {...defaultProps} />);

@@ -110,9 +110,9 @@ export const getSpanBoundary: GetSpanBoundaryFn = (
   items, visibleBoundaries, getItemSpan,
 ) => visibleBoundaries
   .map((visibleBoundary) => {
-    let [start] = visibleBoundary;
     const endIndex = Math.min(visibleBoundary[1], items.length - 1);
     let end = endIndex;
+    let start = visibleBoundary[0] <= end ? visibleBoundary[0] : 0;
 
     for (let index = 0; index <= endIndex; index += 1) {
       const span = getItemSpan(items[index]);
@@ -290,10 +290,9 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
     columns.length,
     columnsVisibleBoundary,
     rowSpanBoundaries,
-    0,
   );
 
-  const rowBoundaries = collapseBoundaries(totalRowCount!, [boundaries], [], offset);
+  const rowBoundaries = collapseBoundaries(totalRowCount!, [boundaries], []);
 
   return {
     columns: getCollapsedColumns(

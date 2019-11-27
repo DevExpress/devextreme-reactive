@@ -211,6 +211,21 @@ describe('VirtualTableLayout utils', () => {
         .toEqual([[1, 5]]);
     });
 
+    it('should nullify start of interval if that greater than end', () => {
+      const items = [
+        { colSpan: 1 }, // 0
+        { colSpan: 2 }, // 1, 2
+        { colSpan: 1 }, // 3
+        { colSpan: 1 }, // 4
+        { colSpan: 1 }, // 5
+        { colSpan: 1 }, // 6
+        { colSpan: 1 }, // 7
+      ];
+
+      expect(getSpanBoundary(items, [[5, 4]], item => item.colSpan))
+        .toEqual([[0, 4]]);
+    });
+
     it('should work with multiple visible boundaries in a simple case', () => {
       const items = [
         { colSpan: 1 }, // 0

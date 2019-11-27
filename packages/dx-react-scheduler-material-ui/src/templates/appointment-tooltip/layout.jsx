@@ -1,47 +1,27 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Popover from '@material-ui/core/Popover';
-import AccessTime from '@material-ui/icons/AccessTime';
-import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
-import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
 
 const verticalTopHorizontalCenterOptions = { vertical: 'top', horizontal: 'center' };
 
-const styles = theme => ({
-  text: {
-    ...theme.typography.body2,
-    display: 'inline-block',
+const styles = {
+  popover: {
+    borderRadius: '8px',
+    width: '400px',
+    '@media (max-width: 500px)': {
+      width: '300px',
+    },
   },
-  title: {
-    ...theme.typography.h6,
-    paddingBottom: theme.spacing(1.75),
-    color: theme.palette.primary.contrastText,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-  },
-  buttonsLeft: {
-    position: 'relative',
-    bottom: -theme.spacing(2.5),
-    textAlign: 'center',
-  },
-  buttonsRight: {
-    textAlign: 'right',
-  },
-  icon: {
-    color: theme.typography.body2.color,
-  },
-  textCenter: {
-    textAlign: 'center',
-  },
-});
+};
 
 const LayoutBase = ({
   headerComponent: Header,
   contentComponent: Content,
-  commandButtonComponent: CommandButton,
+  commandButtonComponent,
+  recurringIconComponent,
   appointmentMeta,
+  appointmentResources,
   showOpenButton,
   showCloseButton,
   showDeleteButton,
@@ -54,10 +34,6 @@ const LayoutBase = ({
   ...restProps
 }) => {
   const { target, data = {} } = appointmentMeta;
-  const openButtonClickHandler = () => {
-    onHide();
-    onOpenButtonClick();
-  };
 
   return (
     <Popover
@@ -66,40 +42,28 @@ const LayoutBase = ({
       onClose={onHide}
       anchorOrigin={verticalTopHorizontalCenterOptions}
       transformOrigin={verticalTopHorizontalCenterOptions}
+      PaperProps={{
+        className: classes.popover,
+      }}
       {...restProps}
     >
-      <Header appointmentData={data}>
-        <div className={classes.buttonsRight}>
-          {showDeleteButton
-            && <CommandButton id={commandButtonIds.delete} onExecute={onDeleteButtonClick} />}
-          {showCloseButton && <CommandButton id={commandButtonIds.close} onExecute={onHide} />}
-        </div>
-        <Grid container spacing={1} alignItems="center">
-          <Grid item xs={2} className={classes.flexItem}>
-            <div className={classes.buttonsLeft}>
-              {showOpenButton
-                && <CommandButton id={commandButtonIds.open} onExecute={openButtonClickHandler} />}
-            </div>
-          </Grid>
-          <Grid item xs={10}>
-            <div className={classes.title}>
-              {data.title}
-            </div>
-          </Grid>
-        </Grid>
-      </Header>
-      <Content appointmentData={data}>
-        <Grid container spacing={1} alignItems="center">
-          <Grid item xs={2} className={classes.textCenter}>
-            <AccessTime className={classes.icon} />
-          </Grid>
-          <Grid item xs={10}>
-            <div className={classes.text}>
-              {`${formatDate(data.startDate, HOUR_MINUTE_OPTIONS)} - ${formatDate(data.endDate, HOUR_MINUTE_OPTIONS)}`}
-            </div>
-          </Grid>
-        </Grid>
-      </Content>
+      <Header
+        appointmentData={data}
+        commandButtonComponent={commandButtonComponent}
+        showOpenButton={showOpenButton}
+        showCloseButton={showCloseButton}
+        showDeleteButton={showDeleteButton}
+        commandButtonIds={commandButtonIds}
+        onOpenButtonClick={onOpenButtonClick}
+        onDeleteButtonClick={onDeleteButtonClick}
+        onHide={onHide}
+      />
+      <Content
+        appointmentData={data}
+        appointmentResources={appointmentResources}
+        formatDate={formatDate}
+        recurringIconComponent={recurringIconComponent}
+      />
     </Popover>
   );
 };
@@ -109,6 +73,7 @@ LayoutBase.propTypes = {
   commandButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   headerComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   contentComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  recurringIconComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   showOpenButton: PropTypes.bool.isRequired,
   showCloseButton: PropTypes.bool.isRequired,
   showDeleteButton: PropTypes.bool.isRequired,
@@ -124,6 +89,7 @@ LayoutBase.propTypes = {
     ]),
     data: PropTypes.object,
   }),
+  appointmentResources: PropTypes.array,
   visible: PropTypes.bool,
   onHide: PropTypes.func,
 };
@@ -132,6 +98,7 @@ LayoutBase.defaultProps = {
   onDeleteButtonClick: () => undefined,
   onHide: () => undefined,
   appointmentMeta: {},
+  appointmentResources: [],
   visible: false,
 };
 

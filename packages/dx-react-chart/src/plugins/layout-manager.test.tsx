@@ -38,10 +38,10 @@ describe('LayoutManager', () => {
 
     expect(getComputedState(tree)).toEqual({
       layouts: {
-        pane: { width: 200, height: 100 },
+        pane: { width: 0, height: 0 },
       },
       ranges: 'test-ranges',
     });
-    expect(getRanges).toBeCalledWith({ width: 200, height: 100 }, undefined);
+    expect(getRanges).toBeCalledWith({ width: 0, height: 0 }, undefined);
   });
 });

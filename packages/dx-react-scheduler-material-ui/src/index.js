@@ -12,3 +12,6 @@ export * from './plugins/appointment-form';
 export * from './plugins/drag-drop-provider';
 export * from './plugins/today-button';
 export * from './plugins/edit-recurrence-menu';
+export * from './plugins/confirmation-dialog';
+export * from './plugins/current-time-indicator';
+export * from './plugins/resources';

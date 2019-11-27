@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { teal, orange, red } from '@material-ui/core/colors';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -29,7 +29,7 @@ const styles = ({ spacing, palette }) => ({
     alignItems: 'center',
   },
   textField: {
-    width: '100px',
+    width: '75px',
     marginLeft: spacing(1),
     marginTop: 0,
     marginBottom: 0,
@@ -43,11 +43,12 @@ const styles = ({ spacing, palette }) => ({
     paddingLeft: spacing(1),
     paddingRight: spacing(1),
     width: spacing(10),
+    '@media (max-width: 800px)': {
+      width: spacing(2),
+      fontSize: '0.75rem',
+    },
   },
   selectedButton: {
-    paddingLeft: spacing(1),
-    paddingRight: spacing(1),
-    width: spacing(10),
     background: palette.primary[400],
     color: palette.primary[50],
     '&:hover': {
@@ -57,6 +58,16 @@ const styles = ({ spacing, palette }) => ({
     borderLeft: `1px solid ${palette.primary[50]}!important`,
     '&:first-child': {
       borderLeft: `1px solid ${palette.primary[50]}!important`,
+    },
+  },
+  longButtonText: {
+    '@media (max-width: 800px)': {
+      display: 'none',
+    },
+  },
+  shortButtonText: {
+    '@media (min-width: 800px)': {
+      display: 'none',
     },
   },
   title: {
@@ -118,6 +129,7 @@ const styles = ({ spacing, palette }) => ({
 });
 
 const LOCATIONS = ['Room 1', 'Room 2', 'Room 3'];
+const LOCATIONS_SHORT = [1, 2, 3];
 
 const Appointment = withStyles(styles, { name: 'Appointment' })(({ classes, data, ...restProps }) => (
   <Appointments.Appointment
@@ -179,18 +191,21 @@ const handleButtonClick = (locationName, locations) => {
 };
 
 const getButtonClass = (locations, classes, location) => (
-  locations.indexOf(location) > -1 ? classes.selectedButton : classes.button
+  locations.indexOf(location) > -1 && classes.selectedButton
 );
 
 const LocationSelector = withStyles(styles, { name: 'LocationSelector' })(({ onLocationsChange, locations, classes }) => (
   <ButtonGroup className={classes.locationSelector}>
-    {LOCATIONS.map(location => (
+    {LOCATIONS.map((location, index) => (
       <Button
-        className={getButtonClass(locations, classes, location)}
+        className={classNames(classes.button, getButtonClass(locations, classes, location))}
         onClick={() => onLocationsChange(handleButtonClick(location, locations))}
         key={location}
       >
-        {location}
+        <>
+          <span className={classes.shortButtonText}>{LOCATIONS_SHORT[index]}</span>
+          <span className={classes.longButtonText}>{location}</span>
+        </>
       </Button>
     ))}
   </ButtonGroup>

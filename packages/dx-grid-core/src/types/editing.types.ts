@@ -1,6 +1,6 @@
 import { Row, RowId } from './grid-core.types';
 import { CustomFunction, PureComputed } from '@devexpress/dx-core';
-import { TableRow } from './table.types';
+import { TableRow, TableColumn } from './table.types';
 
 export interface EditingColumnExtension {
   /** The name of a column to extend. */
@@ -20,6 +20,8 @@ export type CreateRowChangeFn = CustomFunction<[Row, any, string], any>;
 /** @internal */
 export type RowIdsPayload = { rowIds: RowId[]; };
 /** @internal */
+export type EditingCellsPayload = { editingCells: EditingCell[]; };
+/** @internal */
 export type RowPayload = { row: Row };
 /** @internal */
 export type RowChangePayload = { rowId: RowId, change: any };
@@ -29,4 +31,18 @@ export type RowChanges = { [key: string]: any };
 /** @internal */
 export type TableRowsWithEditingFn = PureComputed<
   [TableRow[], RowId[], TableRow[], number?]
+>;
+
+export interface EditingCell {
+  rowId: number | string;
+  columnName: string;
+}
+
+/** @internal */
+export type TableRowsWithEditingCellsFn = PureComputed<
+  [TableRow[], EditingCell[]]
+>;
+/** @internal */
+export type TableColumnsWithEditingCellsFn = PureComputed<
+  [TableColumn[], EditingCell[]]
 >;

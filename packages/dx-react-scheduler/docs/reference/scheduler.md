@@ -25,6 +25,7 @@ Name | Type | Default | Description
 data | Array&lt;[AppointmentModel](#appointmentmodel)&gt; | | An array of appointment data objects.
 height | number &#124; `auto` | `auto` | The scheduler's height. If the value is `auto`, the height equals that of the container component.
 locale | string &#124; Array&lt;string&gt; | 'en-US' | The locale according to which dates should be formatted.
+firstDayOfWeek | number | 0 | A number between 0 (Sunday) and 6 (Saturday) that specifies the first day of the week.
 rootComponent | ComponentType&lt;[Scheduler.RootProps](#schedulerrootprops)&gt; | | A component that renders the root layout.
 
 ## Interfaces
@@ -36,7 +37,7 @@ Describes an appointment data object. If you use another data structure, map it 
 Field | Type | Description
 ------|------|------------
 startDate | [SchedulerDateTime](#schedulerdatetime) | The start date.
-endDate | [SchedulerDateTime](#schedulerdatetime) | The end date.
+endDate? | [SchedulerDateTime](#schedulerdatetime) | The end date.
 title? | string | The title.
 allDay? | boolean | The all day flag.
 id? | number &#124; string | The identifier.

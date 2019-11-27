@@ -1,4 +1,4 @@
-import { AppointmentModel, FormatterFn } from '../index';
+import { AppointmentModel, FormatterFn, ValidResourceInstance } from '../index';
 
 // tslint:disable-next-line:no-namespace
 export namespace Appointments {
@@ -14,6 +14,10 @@ export namespace Appointments {
     onClick?: (e: any) => void;
     /** A function that handles a double click on the appointment. */
     onDoubleClick?: (e: any) => void;
+    /** Indicates whether the appointment is shaded. */
+    isShaded?: boolean;
+    /** Specifies the appointment resource items */
+    resources: Array<ValidResourceInstance>;
   }
   /** Properties passed to a component that renders the appointment content. */
   export interface AppointmentContentProps {
@@ -27,6 +31,15 @@ export namespace Appointments {
     type: 'vertical' | 'horizontal';
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
+    /**
+     * The appointment's duration type: `"short"`
+     * (the appointment occupies half of a timetable cell or less),
+     * `"middle"` (occupies the entire cell), or `"long"`
+     * (occupies more than one cell).
+     */
+    durationType: 'short' | 'middle' | 'long';
+    /** Specifies the appointment resource items */
+    resources: Array<ValidResourceInstance>;
   }
   /***
    * Properties passed to a component that renders an element

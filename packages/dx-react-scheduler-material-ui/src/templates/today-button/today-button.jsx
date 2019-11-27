@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import classNames from 'classnames';
+import classNames from 'clsx';
 
 const styles = ({ spacing }) => ({
   button: {
@@ -10,6 +10,9 @@ const styles = ({ spacing }) => ({
     marginLeft: spacing(0.5),
     '&:first-child': {
       marginLeft: 0,
+    },
+    '@media (max-width: 700px)': {
+      fontSize: '0.75rem',
     },
   },
 });

@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid",
-  "version": "2.0.5",
+  "version": "2.3.0",
   "description": "Composable plugin-based data grid component for React",
   "author": {
     "name": "Developer Express Inc.",
@@ -48,38 +48,38 @@
     "lint:fix": "yarn lint -- --fix"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.0",
-    "@babel/plugin-transform-runtime": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
-    "@babel/preset-react": "^7.0.0",
-    "@devexpress/dx-core": "2.0.5",
-    "@devexpress/dx-react-core": "2.0.5",
-    "@devexpress/dx-testing": "2.0.5",
+    "@babel/core": "^7.7.2",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-react": "^7.7.0",
+    "@devexpress/dx-core": "2.3.0",
+    "@devexpress/dx-react-core": "2.3.0",
+    "@devexpress/dx-testing": "2.3.0",
     "babel-core": "^7.0.0-bridge.0",
-    "core-js": "^3.2.1",
+    "core-js": "^3.4.1",
     "enzyme": "3.10.0",
-    "enzyme-adapter-react-16": "^1.14.0",
-    "enzyme-to-json": "^3.4.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "enzyme-to-json": "^3.4.3",
     "jest": "^24.9.0",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-test-renderer": "^16.9.0",
-    "rollup": "^1.21.4",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-test-renderer": "^16.12.0",
+    "rollup": "^1.27.2",
     "rollup-plugin-license": "^0.12.1",
     "rollup-plugin-replace": "^2.2.0",
-    "rollup-plugin-typescript2": "^0.24.2",
+    "rollup-plugin-typescript2": "^0.25.2",
     "ts-jest": "^24.1.0",
-    "tslint": "^5.20.0",
-    "tslint-config-airbnb": "^5.11.1",
-    "typescript": "3.6.3"
+    "tslint": "^5.20.1",
+    "tslint-config-airbnb": "^5.11.2",
+    "typescript": "3.7.2"
   },
   "dependencies": {
-    "@devexpress/dx-grid-core": "2.0.5"
+    "@devexpress/dx-grid-core": "2.3.0"
   },
   "peerDependencies": {
-    "@devexpress/dx-core": "2.0.5",
-    "@devexpress/dx-react-core": "2.0.5",
-    "react": ">=16.9.0",
-    "react-dom": ">=16.9.0"
+    "@devexpress/dx-core": "2.3.0",
+    "@devexpress/dx-react-core": "2.3.0",
+    "react": ">=16.10.2",
+    "react-dom": ">=16.10.2"
   }
 }

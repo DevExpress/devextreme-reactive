@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import { Overlay } from '../parts/overlay';
 
 export class FilterSelector extends React.PureComponent {

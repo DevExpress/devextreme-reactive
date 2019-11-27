@@ -31,9 +31,18 @@ export const DAY_SHORT_MONTH_LONG_YEAR_OPTIONS = {
 export const DAY_SHORT_MONTH_SHORT_YEAR_OPTIONS = {
   day: 'numeric', month: 'short', year: '2-digit',
 };
+export const LONG_WEEK_DAY_OPTIONS = { weekday: 'long' };
+export const LONG_MONTH_OPTIONS = { month: 'long' };
+export const DAY_LONG_MONTH_OPTIONS = { day: 'numeric', month: 'long' };
+export const EMPTY_OPTIONS = {};
 
 export const RECURRENCE_EDIT_SCOPE = {
   ALL: 'all',
   CURRENT_AND_FOLLOWING: 'currentAndFollowing',
   CURRENT: 'current',
 };
+
+export const TOGGLE_APPOINTMENT_FORM_VISIBILITY = 'toggleAppointmentFormVisibility';
+export const TOGGLE_APPOINTMENT_TOOLTIP_VISIBILITY = 'toggleAppointmentTooltipVisibility';
+
+export const WEEKDAY_INTERVAL = 'weekdayInterval';

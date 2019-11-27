@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import { scrollingStrategy } from '../utils';
 
 const styles = theme => ({
@@ -12,7 +12,7 @@ const styles = theme => ({
   },
   stickyHeader: {
     top: 0,
-    zIndex: 1,
+    zIndex: 2,
     tableLayout: 'fixed',
     position: 'sticky',
     overflow: 'visible',
@@ -20,6 +20,12 @@ const styles = theme => ({
   },
   timeTable: {
     position: 'relative',
+  },
+  fixedWidth: {
+    width: theme.spacing(10),
+  },
+  mainTable: {
+    width: `calc(100% - ${theme.spacing(10)}px)`,
   },
 });
 
@@ -74,25 +80,24 @@ class VerticalViewLayoutBase extends React.PureComponent {
               container
               direction="row"
             >
-              <Grid item xs={1} className={classes.emptySpace}>
+              <div className={classes.fixedWidth}>
                 <DayScaleEmptyCell />
-              </Grid>
+              </div>
 
-              <Grid item xs={11}>
+              <div className={classes.mainTable}>
                 <DayScale />
-              </Grid>
+              </div>
             </Grid>
           </Grid>
 
           <Grid item xs="auto">
             <Grid container direction="row">
-              <Grid item xs={1}>
+              <div className={classes.fixedWidth}>
                 <TimeScale />
-              </Grid>
-
-              <Grid item xs={11} className={classes.timeTable}>
+              </div>
+              <div className={classNames(classes.timeTable, classes.mainTable)}>
                 <TimeTable />
-              </Grid>
+              </div>
             </Grid>
           </Grid>
         </div>

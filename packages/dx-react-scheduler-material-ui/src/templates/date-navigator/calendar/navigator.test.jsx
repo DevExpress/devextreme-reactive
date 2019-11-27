@@ -11,6 +11,7 @@ describe('Calendar', () => {
     currentDate: '2018-07-12',
     textComponent: Text,
     navigationButtonComponent: NavigationButton,
+    formatDate: jest.fn(),
   };
   beforeAll(() => {
     classes = getClasses(<Navigator {...defaultProps} />);

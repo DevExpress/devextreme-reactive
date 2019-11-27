@@ -40,7 +40,7 @@ export const verticalTimeTableRects: VerticalRects = (
   viewCellsData, cellDuration, cellElementsMeta,
 ) => {
   const intervals = calculateWeekDateIntervals(
-    appointments, startViewDate, endViewDate, excludedDays,
+    appointments, startViewDate, endViewDate, excludedDays, cellDuration,
   );
   return calculateRectByDateIntervals(
     {

@@ -1,6 +1,6 @@
 import { ScatterSeries, withPatchedProps } from '@devexpress/dx-react-chart';
 import { withStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import classNames from 'clsx';
 
 const styles = theme => ({
   point: {

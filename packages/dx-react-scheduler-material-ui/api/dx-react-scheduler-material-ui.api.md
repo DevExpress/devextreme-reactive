@@ -10,12 +10,16 @@ import { AppointmentMeta } from '@devexpress/dx-react-scheduler';
 import { AppointmentModel } from '@devexpress/dx-react-scheduler';
 import { Appointments as Appointments_2 } from '@devexpress/dx-react-scheduler';
 import { AppointmentTooltip as AppointmentTooltip_2 } from '@devexpress/dx-react-scheduler';
+import { ConfirmationDialog as ConfirmationDialog_2 } from '@devexpress/dx-react-scheduler';
+import { CurrentTimeIndicator as CurrentTimeIndicator_2 } from '@devexpress/dx-react-scheduler';
 import { DateNavigator as DateNavigator_2 } from '@devexpress/dx-react-scheduler';
 import { DayView as DayView_2 } from '@devexpress/dx-react-scheduler';
 import { DragDropProvider as DragDropProvider_2 } from '@devexpress/dx-react-scheduler';
 import { EditRecurrenceMenu as EditRecurrenceMenu_2 } from '@devexpress/dx-react-scheduler';
 import { MonthView as MonthView_2 } from '@devexpress/dx-react-scheduler';
+import { Palette } from '@devexpress/dx-react-scheduler';
 import * as React from 'react';
+import { Resource } from '@devexpress/dx-react-scheduler';
 import { Scheduler as Scheduler_2 } from '@devexpress/dx-react-scheduler';
 import { TodayButton as TodayButton_2 } from '@devexpress/dx-react-scheduler';
 import { Toolbar as Toolbar_2 } from '@devexpress/dx-react-scheduler';
@@ -80,44 +84,112 @@ export interface AllDayPanelProps {
 
 // @public (undocumented)
 export namespace AppointmentForm {
-  export type PopupProps = AppointmentForm_2.PopupProps;
+  export type OverlayProps = AppointmentForm_2.OverlayProps;
 }
 
 // @public (undocumented)
 export namespace AppointmentForm {
-  export type ContainerProps = AppointmentForm_2.ContainerProps;
+  export type LayoutProps = AppointmentForm_2.LayoutProps;
 }
 
 // @public (undocumented)
 export namespace AppointmentForm {
-  export type ScrollableAreaProps = AppointmentForm_2.ScrollableAreaProps;
+  export type CommandLayoutProps = AppointmentForm_2.CommandLayoutProps;
 }
 
 // @public (undocumented)
 export namespace AppointmentForm {
-  export type StaticAreaProps = AppointmentForm_2.StaticAreaProps;
+  export type BasicLayoutProps = AppointmentForm_2.BasicLayoutProps;
+}
+
+// @public (undocumented)
+export namespace AppointmentForm {
+  export type RecurrenceLayoutProps = AppointmentForm_2.RecurrenceLayoutProps;
+}
+
+// @public (undocumented)
+export namespace AppointmentForm {
+  export type BooleanEditorProps = AppointmentForm_2.BooleanEditorProps;
+}
+
+// @public (undocumented)
+export namespace AppointmentForm {
+  export type CommandButtonProps = AppointmentForm_2.CommandButtonProps;
+}
+
+// @public (undocumented)
+export namespace AppointmentForm {
+  export type DateEditorProps = AppointmentForm_2.DateEditorProps;
+}
+
+// @public (undocumented)
+export namespace AppointmentForm {
+  export type LabelProps = AppointmentForm_2.LabelProps;
+}
+
+// @public (undocumented)
+export namespace AppointmentForm {
+  export type RadioGroupProps = AppointmentForm_2.RadioGroupProps;
+}
+
+// @public (undocumented)
+export namespace AppointmentForm {
+  export type SelectProps = AppointmentForm_2.SelectProps;
+}
+
+// @public (undocumented)
+export namespace AppointmentForm {
+  export type ResourceEditorProps = AppointmentForm_2.ResourceEditorProps;
+}
+
+// @public (undocumented)
+export namespace AppointmentForm {
+  export type TextEditorProps = AppointmentForm_2.TextEditorProps;
+}
+
+// @public (undocumented)
+export namespace AppointmentForm {
+  export type WeeklyRecurrenceSelectorProps = AppointmentForm_2.WeeklyRecurrenceSelectorProps;
 }
 
 // @public
 export const AppointmentForm: React.ComponentType<AppointmentFormProps> & {
-  Popup: React.ComponentType<AppointmentForm_2.PopupProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Container: React.ComponentType<AppointmentForm_2.ContainerProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  ScrollableArea: React.ComponentType<AppointmentForm_2.ScrollableAreaProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  StaticArea: React.ComponentType<AppointmentForm_2.StaticAreaProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Overlay: React.ComponentType<AppointmentForm_2.OverlayProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Layout: React.ComponentType<AppointmentForm_2.LayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  CommandLayout: React.ComponentType<AppointmentForm_2.CommandLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  BasicLayout: React.ComponentType<AppointmentForm_2.BasicLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  RecurrenceLayout: React.ComponentType<AppointmentForm_2.RecurrenceLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  TextEditor: React.ComponentType<AppointmentForm_2.TextEditorProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  DateEditor: React.ComponentType<AppointmentForm_2.DateEditorProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Label: React.ComponentType<AppointmentForm_2.LabelProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  BooleanEditor: React.ComponentType<AppointmentForm_2.BooleanEditorProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Select: React.ComponentType<AppointmentForm_2.SelectProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  RadioGroup: React.ComponentType<AppointmentForm_2.RadioGroupProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  WeeklyRecurrenceSelector: React.ComponentType<AppointmentForm_2.WeeklyRecurrenceSelectorProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
 };
 
 // @public (undocumented)
 export interface AppointmentFormProps {
   appointmentData?: AppointmentModel;
-  containerComponent?: React.ComponentType<AppointmentForm_2.ContainerProps>;
+  basicLayoutComponent?: React.ComponentType<AppointmentForm_2.BasicLayoutProps>;
+  booleanEditorComponent?: React.ComponentType<AppointmentForm_2.BooleanEditorProps>;
+  commandButtonComponent?: React.ComponentType<AppointmentForm_2.CommandButtonProps>;
+  commandLayoutComponent?: React.ComponentType<AppointmentForm_2.CommandLayoutProps>;
+  dateEditorComponent?: React.ComponentType<AppointmentForm_2.DateEditorProps>;
+  labelComponent?: React.ComponentType<AppointmentForm_2.LabelProps>;
+  layoutComponent?: React.ComponentType<AppointmentForm_2.LayoutProps>;
   messages?: AppointmentForm_2.LocalizationMessages;
   onAppointmentDataChange?: (appointmentData: AppointmentModel) => void;
   onVisibilityChange?: (visible: boolean) => void;
-  popupComponent?: React.ComponentType<AppointmentForm_2.PopupProps>;
+  overlayComponent?: React.ComponentType<AppointmentForm_2.OverlayProps>;
+  radioGroupComponent?: React.ComponentType<AppointmentForm_2.RadioGroupProps>;
   readOnly?: boolean;
-  scrollableAreaComponent?: React.ComponentType<AppointmentForm_2.ScrollableAreaProps>;
-  staticAreaComponent?: React.ComponentType<AppointmentForm_2.StaticAreaProps>;
+  recurrenceLayoutComponent?: React.ComponentType<AppointmentForm_2.RecurrenceLayoutProps>;
+  resourceEditorComponent?: React.ComponentType<AppointmentForm_2.ResourceEditorProps>;
+  selectComponent?: React.ComponentType<AppointmentForm_2.SelectProps>;
+  textEditorComponent?: React.ComponentType<AppointmentForm_2.TextEditorProps>;
   visible?: boolean;
+  weeklyRecurrenceSelectorComponent?: React.ComponentType<AppointmentForm_2.WeeklyRecurrenceSelectorProps>;
 }
 
 // @public (undocumented)
@@ -194,10 +266,61 @@ export interface AppointmentTooltipProps {
   layoutComponent?: React.ComponentType<AppointmentTooltip_2.LayoutProps>;
   onAppointmentMetaChange?: (appointmentMeta: AppointmentMeta) => void;
   onVisibilityChange?: (visible: boolean) => void;
+  recurringIconComponent?: React.ComponentType<object>;
   showCloseButton?: boolean;
   showDeleteButton?: boolean;
   showOpenButton?: boolean;
   visible?: boolean;
+}
+
+// @public (undocumented)
+export namespace ConfirmationDialog {
+  export type LayoutProps = ConfirmationDialog_2.LayoutProps;
+}
+
+// @public (undocumented)
+export namespace ConfirmationDialog {
+  export type OverlayProps = ConfirmationDialog_2.OverlayProps;
+}
+
+// @public (undocumented)
+export namespace ConfirmationDialog {
+  export type ButtonProps = ConfirmationDialog_2.ButtonProps;
+}
+
+// @public
+export const ConfirmationDialog: React.ComponentType<ConfirmationDialogProps> & {
+  Layout: React.ComponentType<ConfirmationDialog_2.LayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Overlay: React.ComponentType<ConfirmationDialog_2.OverlayProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Button: React.ComponentType<ConfirmationDialog_2.ButtonProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+};
+
+// @public (undocumented)
+export interface ConfirmationDialogProps {
+  buttonComponent?: React.ComponentType<ConfirmationDialog_2.ButtonProps>;
+  ignoreCancel?: boolean;
+  ignoreDelete?: boolean;
+  layoutComponent?: React.ComponentType<ConfirmationDialog_2.LayoutProps>;
+  messages?: React.ComponentType<ConfirmationDialog_2.LocalizationMessages>;
+  overlayComponent?: React.ComponentType<ConfirmationDialog_2.OverlayProps>;
+}
+
+// @public (undocumented)
+export namespace CurrentTimeIndicator {
+  export type IndicatorProps = CurrentTimeIndicator_2.IndicatorProps;
+}
+
+// @public
+export const CurrentTimeIndicator: React.ComponentType<CurrentTimeIndicatorProps> & {
+  Indicator: React.ComponentType<CurrentTimeIndicator_2.IndicatorProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+};
+
+// @public (undocumented)
+export interface CurrentTimeIndicatorProps {
+  indicatorComponent?: React.ComponentType<CurrentTimeIndicator_2.IndicatorProps>;
+  shadePreviousAppointments?: boolean;
+  shadePreviousCells?: boolean;
+  updateInterval?: number;
 }
 
 // @public (undocumented)
@@ -253,7 +376,7 @@ export namespace DayView {
 
 // @public (undocumented)
 export namespace DayView {
-  export type TimeScaleCellProps = DayView_2.TimeScaleCellProps;
+  export type TimeScaleLabelProps = DayView_2.TimeScaleLabelProps;
 }
 
 // @public (undocumented)
@@ -295,7 +418,7 @@ export namespace DayView {
 export const DayView: React.ComponentType<DayViewProps> & {
   Layout: React.ComponentType<DayView_2.LayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   TimeScaleLayout: React.ComponentType<DayView_2.TimeScaleLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  TimeScaleCell: React.ComponentType<DayView_2.TimeScaleCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  TimeScaleLabel: React.ComponentType<DayView_2.TimeScaleLabelProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleLayout: React.ComponentType<DayView_2.DayScaleLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleCell: React.ComponentType<DayView_2.DayScaleCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleEmptyCell: React.ComponentType<DayView_2.DayScaleEmptyCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
@@ -319,9 +442,8 @@ export interface DayViewProps {
   layoutComponent?: React.ComponentType<DayView_2.LayoutProps>;
   name?: string;
   startDayHour?: number;
-  timeScaleCellComponent?: React.ComponentType<DayView_2.TimeScaleCellProps>;
+  timeScaleLabelComponent?: React.ComponentType<DayView_2.TimeScaleLabelProps>;
   timeScaleLayoutComponent?: React.ComponentType<DayView_2.TimeScaleLayoutProps>;
-  timeScaleRowComponent?: React.ComponentType<DayView_2.RowProps>;
   timeTableCellComponent?: React.ComponentType<DayView_2.TimeTableCellProps>;
   timeTableLayoutComponent?: React.ComponentType<DayView_2.TimeTableLayoutProps>;
   timeTableRowComponent?: React.ComponentType<DayView_2.RowProps>;
@@ -391,7 +513,7 @@ export const EditRecurrenceMenu: React.ComponentType<EditRecurrenceMenuProps> & 
 export interface EditRecurrenceMenuProps {
   buttonComponent?: React.ComponentType<EditRecurrenceMenu_2.ButtonProps>;
   layoutComponent?: React.ComponentType<EditRecurrenceMenu_2.LayoutProps>;
-  messages?: React.ComponentType<EditRecurrenceMenu_2.LocalizationMessages>;
+  messages?: EditRecurrenceMenu_2.LocalizationMessages;
   overlayComponent?: React.ComponentType<EditRecurrenceMenu_2.OverlayProps>;
 }
 
@@ -453,13 +575,22 @@ export interface MonthViewProps {
   dayScaleLayoutComponent?: React.ComponentType<MonthView_2.DayScaleLayoutProps>;
   dayScaleRowComponent?: React.ComponentType<MonthView_2.RowProps>;
   displayName?: string;
-  firstDayOfWeek?: number;
   intervalCount?: number;
   layoutComponent?: React.ComponentType<MonthView_2.LayoutProps>;
   name?: string;
   timeTableCellComponent?: React.ComponentType<MonthView_2.TimeTableCellProps>;
   timeTableLayoutComponent?: React.ComponentType<MonthView_2.TimeTableLayoutProps>;
   timeTableRowComponent?: React.ComponentType<MonthView_2.RowProps>;
+}
+
+// @public
+export const Resources: React.ComponentType<ResourcesProps>;
+
+// @public (undocumented)
+export interface ResourcesProps {
+  data?: Array<Resource>;
+  mainResourceName?: string;
+  palette?: Palette;
 }
 
 // @public (undocumented)
@@ -475,6 +606,7 @@ export const Scheduler: React.ComponentType<SchedulerProps> & {
 // @public (undocumented)
 export interface SchedulerProps {
   data?: Array<AppointmentModel>;
+  firstDayOfWeek?: number;
   height?: number | `auto`;
   locale?: string | Array<string>;
   rootComponent?: React.ComponentType<Scheduler_2.RootProps>;
@@ -550,7 +682,7 @@ export namespace WeekView {
 
 // @public (undocumented)
 export namespace WeekView {
-  export type TimeScaleCellProps = WeekView_2.TimeScaleCellProps;
+  export type TimeScaleLabelProps = WeekView_2.TimeScaleLabelProps;
 }
 
 // @public (undocumented)
@@ -592,7 +724,7 @@ export namespace WeekView {
 export const WeekView: React.ComponentType<WeekViewProps> & {
   Layout: React.ComponentType<WeekView_2.LayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   TimeScaleLayout: React.ComponentType<WeekView_2.TimeScaleLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  TimeScaleCell: React.ComponentType<WeekView_2.TimeScaleCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  TimeScaleLabel: React.ComponentType<WeekView_2.TimeScaleLabelProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleLayout: React.ComponentType<WeekView_2.DayScaleLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleCell: React.ComponentType<WeekView_2.DayScaleCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleEmptyCell: React.ComponentType<WeekView_2.DayScaleEmptyCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
@@ -613,14 +745,12 @@ export interface WeekViewProps {
   displayName?: string;
   endDayHour?: number;
   excludedDays?: Array<number>;
-  firstDayOfWeek?: number;
   intervalCount?: number;
   layoutComponent?: React.ComponentType<WeekView_2.LayoutProps>;
   name?: string;
   startDayHour?: number;
-  timeScaleCellComponent?: React.ComponentType<WeekView_2.TimeScaleCellProps>;
+  timeScaleLabelComponent?: React.ComponentType<WeekView_2.TimeScaleLabelProps>;
   timeScaleLayoutComponent?: React.ComponentType<WeekView_2.TimeScaleLayoutProps>;
-  timeScaleRowComponent?: React.ComponentType<WeekView_2.RowProps>;
   timeTableCellComponent?: React.ComponentType<WeekView_2.TimeTableCellProps>;
   timeTableLayoutComponent?: React.ComponentType<WeekView_2.TimeTableLayoutProps>;
   timeTableRowComponent?: React.ComponentType<WeekView_2.RowProps>;

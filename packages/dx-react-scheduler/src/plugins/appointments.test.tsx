@@ -38,6 +38,7 @@ const defaultDeps = {
         endDate: '2018-07-05',
         startDate: '2018-07-06',
       },
+      resources: [],
       onClick: 'onClick',
       onDoubleClick: 'onDoubleClick',
       style: {
@@ -99,6 +100,7 @@ describe('Appointments', () => {
     const {
       type, data: appointmentContentData,
       recurringIconComponent, formatDate,
+      resources,
     } = appointmentContent.props();
 
     expect(appointment).toHaveLength(1);
@@ -114,6 +116,7 @@ describe('Appointments', () => {
       endDate: '2018-07-05',
       startDate: '2018-07-06',
     });
+    expect(resources).toEqual([]);
 
     expect(recurringIconComponent).toBe(defaultProps.recurringIconComponent);
     expect(formatDate).toBe(defaultDeps.getter.formatDate);

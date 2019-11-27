@@ -16,6 +16,13 @@ export const computed: ComputedHelperFn = (getters, viewName, baseComputed, defa
   return baseComputed(getters, viewName);
 };
 
+const appointmentHeightType = (appointment: AppointmentMoment, cellDuration: number) => {
+  const durationRatio = appointment.end.clone().diff(appointment.start, 'minutes') / cellDuration;
+  if (durationRatio === 1) return 'middle';
+  if (durationRatio > 1) return 'long';
+  return 'short';
+};
+
 export const toPercentage: PureComputed<
   [number, number]
 > = (value, total) => (value * 100) / total;
@@ -285,6 +292,7 @@ const verticalRectCalculator: CustomFunction<
     dataItem: appointment.dataItem,
     fromPrev: appointment.fromPrev,
     toNext: appointment.toNext,
+    durationType: appointmentHeightType(appointment, cellDuration),
     type: VERTICAL_TYPE,
   };
 };
@@ -293,46 +301,41 @@ export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
   type, intervals, rectByDates, rectByDatesMeta,
 ) => {
   const { growDirection, multiline } = type;
-  const sorted = sortAppointments(intervals, multiline);
-  const grouped = findOverlappedAppointments(sorted as AppointmentMoment[], multiline);
+  const isHorizontal = growDirection === HORIZONTAL_TYPE;
 
-  const rectCalculator = growDirection === HORIZONTAL_TYPE
+  const sorted = sortAppointments(intervals, multiline);
+  const grouped = findOverlappedAppointments(sorted as AppointmentMoment[], isHorizontal);
+
+  const rectCalculator = isHorizontal
     ? horizontalRectCalculator
     : verticalRectCalculator;
 
-  return unwrapGroups(adjustAppointments(grouped, multiline))
+  return unwrapGroups(adjustAppointments(grouped, isHorizontal))
     .map(appointment => rectCalculator(appointment, { rectByDates, multiline, rectByDatesMeta }));
 };
 
 const expandRecurrenceAppointment = (
   appointment: AppointmentMoment, leftBound: Date, rightBound: Date,
 ) => {
-  const rightBoundUTC = new Date(getUTCDate(rightBound));
-  const leftBoundUTC = new Date(getUTCDate(leftBound));
+  const rightBoundUTC = moment(getUTCDate(rightBound)).toDate();
+  const leftBoundUTC = moment(getUTCDate(leftBound)).toDate();
   const appointmentStartDate = moment(appointment.start).toDate();
   const options = {
     ...RRule.parseString(appointment.rRule),
-    dtstart: new Date(getUTCDate(appointmentStartDate)),
+    dtstart: moment(getUTCDate(appointmentStartDate)).toDate(),
   };
   const correctedOptions = options.until
-    ? { ...options, until: new Date(getUTCDate(options.until)) }
+    ? { ...options, until: moment(getUTCDate(options.until)).toDate() }
     : options;
 
-  const rruleSet = new RRuleSet();
-
-  if (appointment.exDate) {
-    appointment.exDate.split(',').reduce((acc: Date[], date: string) => {
-      const currentExDate = moment(date).toDate();
-      rruleSet.exdate(new Date(getUTCDate(currentExDate)));
-    }, []);
-  }
+  const rruleSet = getRRuleSetWithExDates(appointment.exDate);
 
   rruleSet.rrule(new RRule(correctedOptions));
 
   // According to https://github.com/jakubroztocil/rrule#important-use-utc-dates
   // we have to format the dates we get from RRuleSet to get local dates
   const datesInBoundaries = rruleSet.between(leftBoundUTC as Date, rightBoundUTC as Date, true)
-    .map(date => moment.utc(date).format('YYYY-MM-DD HH:mm'));
+    .map(formatDateToString);
   if (datesInBoundaries.length === 0) return [];
 
   const appointmentDuration = moment(appointment.end)
@@ -365,7 +368,7 @@ export const filterByViewBoundaries: PureComputed<
   ));
 };
 
-const getUTCDate: PureComputed<[Date], number> = date =>
+export const getUTCDate: PureComputed<[Date], number> = date =>
   Date.UTC(
     date.getFullYear(),
     date.getMonth(),
@@ -373,3 +376,18 @@ const getUTCDate: PureComputed<[Date], number> = date =>
     date.getHours(),
     date.getMinutes(),
 );
+
+export const getRRuleSetWithExDates: PureComputed<
+  [string | undefined], RRuleSet
+> = (exDate) => {
+  const rruleSet = new RRuleSet();
+  if (exDate) {
+    exDate.split(',').map((date: string) => {
+      const currentExDate = moment(date).toDate();
+      rruleSet.exdate(moment(getUTCDate(currentExDate)).toDate());
+    });
+  }
+  return rruleSet;
+};
+
+export const formatDateToString = (date: Date | string | number) => moment.utc(date).format('YYYY-MM-DDTHH:mm');

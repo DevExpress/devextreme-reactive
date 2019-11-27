@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
@@ -9,7 +9,7 @@ import { getBorder } from '../utils';
 const styles = theme => ({
   cell: {
     padding: 0,
-    height: theme.spacing(7),
+    height: theme.spacing(5.75),
     borderLeft: getBorder(theme),
     '&:hover': {
       backgroundColor: theme.palette.action.hover,

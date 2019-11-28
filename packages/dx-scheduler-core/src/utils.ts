@@ -7,7 +7,7 @@ import {
   CalculateFirstDateOfWeekFn, AppointmentMoment,
   Interval, AppointmentGroup, AppointmentUnwrappedGroup,
   Rect, ElementRect, RectCalculatorBaseFn, CalculateRectByDateIntervalsFn,
-  Grouping, Resource, ResourceInstance, ValidResource, ValidResourceInstance,
+  Grouping, ValidResource, ValidResourceInstance,
 } from './types';
 
 export const computed: ComputedHelperFn = (getters, viewName, baseComputed, defaultValue) => {
@@ -344,7 +344,7 @@ const rearrangeResourceIds: PureComputed<
 > = (mainResource, appointment, mainResourceId) => {
   if (!mainResource.allowMultiple) return mainResourceId;
   const updatedIds = appointment
-    .dataItem[mainResource!.fieldName].filter(id => id !== mainResourceId);
+    .dataItem[mainResource!.fieldName].filter((id: any) => id !== mainResourceId);
   return [mainResourceId, ...updatedIds];
 };
 
@@ -359,7 +359,7 @@ export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
   );
   const groupedIntervals = sortedGroups.reduce((acc, sortedGroup) => {
     return [...acc, ...findOverlappedAppointments(sortedGroup as AppointmentMoment[], multiline)];
-  }, [] as AppointmentMoment[]);
+  }, [] as any[]);
 
   const rectCalculator = growDirection === HORIZONTAL_TYPE
     ? horizontalRectCalculator
@@ -448,9 +448,9 @@ export const getRRuleSetWithExDates: PureComputed<
 export const formatDateToString = (date: Date | string | number) => moment.utc(date).format('YYYY-MM-DDTHH:mm');
 
 export const expandGroupedAppointment: PureComputed<
-  [AppointmentMoment, Grouping[], Resource[]], AppointmentMoment[]
+  [AppointmentMoment, Grouping[], ValidResource[]], AppointmentMoment[]
 > = (appointment, grouping, resources) => resources
-  .reduce((acc: AppointmentMoment[], resource: Resource) => {
+  .reduce((acc: AppointmentMoment[], resource: ValidResource) => {
     const isGroupedByResource = grouping.find(
       groupingItem => groupingItem.resourceName === resource.fieldName,
     ) !== undefined;
@@ -465,8 +465,9 @@ export const expandGroupedAppointment: PureComputed<
       }, [] as AppointmentMoment[]);
     }
     return acc.reduce((accumulator, currentAppointment) => {
-      return [...accumulator, ...currentAppointment.dataItem[resourceField].map((resourceValue) => {
-        return { ...currentAppointment, [resourceField]: resourceValue };
-      })];
-    }, []);
+      return [...accumulator, ...currentAppointment.dataItem[resourceField].map(
+        (resourceValue: any) => {
+          return { ...currentAppointment, [resourceField]: resourceValue };
+        })];
+    }, [] as AppointmentMoment[]);
   }, [appointment] as AppointmentMoment[]);

@@ -1,43 +1,43 @@
 import { PureComputed } from '@devexpress/dx-core';
-import { Resource, Grouping, ResourceInstance, ViewCell } from '../../types';
+import { Grouping, ValidResourceInstance, ViewCell, ValidResource } from '../../types';
 
 export const filterResourcesByGrouping: PureComputed<
-  [Array<Resource>, Array<Grouping>], Array<Resource>
+  [Array<ValidResource>, Array<Grouping>], Array<ValidResource>
 > = (resources, grouping) => resources.filter(
   resource => grouping.find(resourceId => resource.fieldName === resourceId.resourceName),
 );
 
 export const sortFilteredResources: PureComputed<
-  [Array<Resource>, Array<Grouping>], Array<Resource>
+  [Array<ValidResource>, Array<Grouping>], Array<ValidResource>
 > = (resources, grouping) => {
   return grouping.map(({ resourceName }: Grouping) => {
-    return resources.find(resource => resource.fieldName === resourceName) as Resource;
+    return resources.find(resource => resource.fieldName === resourceName) as ValidResource;
   });
 };
 
 export const getGroupingItemsFromResources: PureComputed<
-  [Array<Resource>], Array<Array<ResourceInstance>>
+  [Array<ValidResource>], Array<Array<ValidResourceInstance>>
 > = sortedAndFilteredResources => sortedAndFilteredResources.reduce((
-    acc: Array<Array<ResourceInstance>>, resource: Resource, index: number,
+    acc: Array<Array<ValidResourceInstance>>, resource: ValidResource, index: number,
   ) => {
   if (index === 0) {
     return [resource.instances.slice()];
   }
-  const result = acc[index - 1].reduce((currentResourceNames: Array<ResourceInstance>) => [
+  const result = acc[index - 1].reduce((currentResourceNames: Array<ValidResourceInstance>) => [
     ...currentResourceNames,
     ...resource.instances.map(
-      (instance: ResourceInstance) => instance,
+      (instance: ValidResourceInstance) => instance,
     ),
   ], []);
   return [...acc, result];
 }, []);
 
 export const expandViewCellsDataWithGroups: PureComputed<
-  [ViewCell[][], ResourceInstance[][], Resource[]], ViewCell[][]
+  [ViewCell[][], ValidResourceInstance[][], ValidResource[]], ViewCell[][]
 > = (viewCellsData, groupingItems, sortedResources) => {
   if (groupingItems.length === 0) return viewCellsData;
   return groupingItems[groupingItems.length - 1].reduce((
-    acc: ViewCell[][], groupingItem: ResourceInstance, index: number,
+    acc: ViewCell[][], groupingItem: ValidResourceInstance, index: number,
   ) => {
     if (index === 0) {
       return viewCellsData.map((viewCellsRow: ViewCell[]) =>
@@ -59,13 +59,14 @@ export const expandViewCellsDataWithGroups: PureComputed<
 };
 
 const addGroupInfoToCells: PureComputed<
-  [ResourceInstance, ResourceInstance[][], Resource[], ViewCell[], number], ViewCell[]
+  [ValidResourceInstance, ValidResourceInstance[][],
+  ValidResource[], ViewCell[], number], ViewCell[]
 > = (currentGroup, groupingItems, sortedResources, viewCellRow, index) => viewCellRow.map((
     viewCell: ViewCell,
   ) => {
   let previousIndex = index;
   const groupingInfo = groupingItems.reduceRight((
-    acc: ResourceInstance[], groupingItem: ResourceInstance[], currentIndex: number,
+    acc: ValidResourceInstance[], groupingItem: ValidResourceInstance[], currentIndex: number,
   ) => {
     if (currentIndex === groupingItems.length - 1) return acc;
     const previousResourceLength = sortedResources[currentIndex + 1].instances.length;

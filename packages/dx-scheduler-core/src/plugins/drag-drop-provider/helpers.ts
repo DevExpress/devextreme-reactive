@@ -5,9 +5,9 @@ import {
   AllDayCell, CalculateAppointmentTimeBoundaries,
   TimeBoundariesByDrag, TimeBoundariesByResize, AppointmentModel,
   CellElementsMeta,
-  ResourceInstance,
   Grouping,
-  Resource,
+  ValidResourceInstance,
+  ValidResource,
 } from '../../types';
 import { allDayCells as allDayCellsCore } from '../common/computeds';
 import {
@@ -175,7 +175,7 @@ export const calculateDraftAppointments = (
   getAllDayCellsElementRects: CellElementsMeta,
   targetType: string, cellDurationMinutes: number,
   getTableCellElementRects: CellElementsMeta,
-  grouping: Grouping[], resources: Resource[], groupingItems: ResourceInstance[][],
+  grouping: Grouping[], resources: ValidResource[], groupingItems: ValidResourceInstance[][],
 ) => {
   if (allDayIndex !== -1 || (targetType === VERTICAL_TYPE
     && getAllDayCellsElementRects.getCellRects.length
@@ -210,16 +210,16 @@ export const calculateDraftAppointments = (
     timeTableDraftAppointments: horizontalTimeTableRects(
       draftAppointments, startViewDate, endViewDate,
       viewCellsData, getTableCellElementRects,
-      grouping, resources, groupingItems
+      grouping, resources, groupingItems,
     ),
   };
 };
 
 export const calculateAppointmentGroups: PureComputed<
-  [Array<ResourceInstance> | undefined, Array<Resource>, AppointmentModel], any
+  [Array<ValidResourceInstance> | undefined, Array<ValidResource>, AppointmentModel], any
 > = (cellGroupingInfo, resources, appointmentData) => {
   if (!cellGroupingInfo) return {};
-  return cellGroupingInfo.reduce((acc, groupingItem: ResourceInstance) => {
+  return cellGroupingInfo.reduce((acc, groupingItem: ValidResourceInstance) => {
     const isMultipleResource = resources.find(
       resource => (resource.fieldName === groupingItem.fieldName),
     )!.allowMultiple;
@@ -232,11 +232,11 @@ export const calculateAppointmentGroups: PureComputed<
 };
 
 const updateMultipleResourceInfo: PureComputed<
-  [ResourceInstance, AppointmentModel], any
+  [ValidResourceInstance, AppointmentModel], any
 > = (cellResource, appointmentData) => {
   const cellInfo = cellResource!.id;
   const appointmentGroupItems = appointmentData[cellResource.fieldName];
-  if (appointmentGroupItems.findIndex(groupItem => groupItem === cellInfo) !== -1){
+  if (appointmentGroupItems.findIndex((groupItem: any) => groupItem === cellInfo) !== -1) {
     return appointmentGroupItems;
   }
   return [cellInfo];

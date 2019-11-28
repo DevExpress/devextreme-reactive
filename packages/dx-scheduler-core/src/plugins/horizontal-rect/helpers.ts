@@ -36,8 +36,12 @@ export const getHorizontalRectByDates: GetHorizontalRectByDatesFn = (
     cellElementsMeta,
   },
 ) => {
-  const firstCellRect = getCellRect(appointment.start, appointment, viewCellsData, cellElementsMeta, false, multiline);
-  const lastCellRect = getCellRect(appointment.end, appointment, viewCellsData, cellElementsMeta, true, multiline);
+  const firstCellRect = getCellRect(
+    appointment.start.toDate(), appointment, viewCellsData, cellElementsMeta, false, multiline,
+  );
+  const lastCellRect = getCellRect(
+    appointment.end.toDate(), appointment, viewCellsData, cellElementsMeta, true, multiline,
+  );
 
   const top = firstCellRect.top + (firstCellRect.height * TOP_CELL_OFFSET);
   const height = firstCellRect.height - (firstCellRect.height * TOP_CELL_OFFSET);

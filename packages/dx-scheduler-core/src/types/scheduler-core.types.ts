@@ -1,4 +1,5 @@
 import { PureComputed } from '@devexpress/dx-core';
+import { ValidResourceInstance } from './resources.types';
 
 export type SchedulerDateTime = Date | number | string;
 export type AppointmentId = number | string;
@@ -58,6 +59,7 @@ export interface ViewCell {
   endDate?: Date;
   otherMonth?: boolean;
   today?: boolean;
+  groupingInfo?: ValidResourceInstance[];
 }
 /** @internal */
 export type DayScaleFn = PureComputed<

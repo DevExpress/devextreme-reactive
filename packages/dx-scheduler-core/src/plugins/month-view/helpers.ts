@@ -51,7 +51,7 @@ export const getMonthCellIndex: GetMonthCellIndexByDateFn = (
   while (cellIndex === -1) {
     let isCorrectCell = true;
     if (viewCellsData[weekNumber][dayOfWeek].groupingInfo) {
-      viewCellsData[weekNumber][dayOfWeek].groupingInfo.map((groupingItem) => {
+      viewCellsData[weekNumber][dayOfWeek].groupingInfo!.map((groupingItem) => {
         isCorrectCell = isCorrectCell && groupingItem.id === appointment[groupingItem.fieldName];
       });
     }

@@ -15,7 +15,7 @@ export const getAllDayCellIndex: GetAllDayCellIndexByDateFn = (
 ) => {
   const currentDate = moment(date as SchedulerDateTime);
   let cellIndex = viewCellsData[0]
-    .findIndex(timeCell => {
+    .findIndex((timeCell) => {
       let isCorrectCell = true;
       if (timeCell.groupingInfo) {
         timeCell.groupingInfo.map((groupingItem) => {

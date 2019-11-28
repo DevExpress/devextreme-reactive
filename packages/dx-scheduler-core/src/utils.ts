@@ -7,7 +7,7 @@ import {
   CalculateFirstDateOfWeekFn, AppointmentMoment,
   Interval, AppointmentGroup, AppointmentUnwrappedGroup,
   Rect, ElementRect, RectCalculatorBaseFn, CalculateRectByDateIntervalsFn,
-  Grouping, Resource, ResourceInstance,
+  Grouping, Resource, ResourceInstance, ValidResource, ValidResourceInstance,
 } from './types';
 
 export const computed: ComputedHelperFn = (getters, viewName, baseComputed, defaultValue) => {
@@ -296,13 +296,14 @@ const verticalRectCalculator: CustomFunction<
 };
 
 export const groupAppointments: PureComputed<
-  [AppointmentMoment[], Resource[] | undefined,
-  ResourceInstance[][] | undefined], AppointmentMoment[][]
+  [AppointmentMoment[], ValidResource[] | undefined,
+  ValidResourceInstance[][] | undefined], AppointmentMoment[][]
 > = (appointments, resources, groupingItems) => {
   if (!resources || !groupingItems) {
     return [appointments.slice()];
   }
 
+  const mainResource = resources.find(resource => resource.isMain);
   return groupingItems![groupingItems!.length - 1].map((groupingItem, index) => {
     let currentIndex = index;
     const currentGroup = groupingItems.reduceRight((groupAcc, groupingItemsRow, rowIndex) => {
@@ -312,19 +313,39 @@ export const groupAppointments: PureComputed<
       return [
         ...groupAcc,
         {
-          fieldName:  currentInstance.fieldName,
+          fieldName: currentInstance.fieldName,
           id: currentInstance.id,
         },
       ];
-    }, [{ id: groupingItem.id, fieldName: [groupingItem.fieldName] }]);
+    }, [{ id: groupingItem.id, fieldName: groupingItem.fieldName }]);
 
     return appointments.reduce((acc, appointment) => {
       const belongsToGroup = currentGroup.reduce((acc, groupItem) => {
         return acc && groupItem.id === appointment[groupItem.fieldName];
       }, true);
-      return belongsToGroup ? [...acc, appointment] : acc;
+      const currentMainResourceId = currentGroup.find(
+        groupItem => groupItem.fieldName === mainResource!.fieldName)!.id;
+      const updatedAppointment = {
+        ...appointment,
+        dataItem: {
+          ...appointment.dataItem,
+          [mainResource!.fieldName]: rearrangeResourceIds(
+            mainResource!, appointment, currentMainResourceId,
+          ),
+        },
+      };
+      return belongsToGroup ? [...acc, updatedAppointment] : acc;
     }, [] as AppointmentMoment[]);
   });
+};
+
+const rearrangeResourceIds: PureComputed<
+  [ValidResource, AppointmentMoment, any], any[] | any
+> = (mainResource, appointment, mainResourceId) => {
+  if (!mainResource.allowMultiple) return mainResourceId;
+  const updatedIds = appointment
+    .dataItem[mainResource!.fieldName].filter(id => id !== mainResourceId);
+  return [mainResourceId, ...updatedIds];
 };
 
 export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (

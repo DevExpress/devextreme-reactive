@@ -6,6 +6,7 @@ import {
   TemplateConnector,
   PluginComponents,
 } from '@devexpress/dx-react-core';
+import { GroupingPanelProps } from '../types';
 const GroupingPanelPlaceholder = () => <TemplatePlaceholder name="groupingPanel" />;
 
 const pluginDependencies = [
@@ -13,12 +14,11 @@ const pluginDependencies = [
   { name: 'IntegratedGrouping' },
 ];
 
-class GroupingPanelBase extends React.PureComponent {
+class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
   static components: PluginComponents = {
     horizontalLayoutComponent: 'HorizontalLayout',
     rowComponent: 'Row',
     cellComponent: 'Cell',
-    iconComponent: 'Icon',
     containerComponent: 'Container',
   };
 
@@ -67,4 +67,4 @@ class GroupingPanelBase extends React.PureComponent {
 }
 
 /** A plugin that renders the Scheduler's grouping panel. */
-export const GroupingPanel: React.ComponentType = GroupingPanelBase;
+export const GroupingPanel: React.ComponentType<GroupingPanelProps> = GroupingPanelBase;

@@ -49,18 +49,12 @@ export const Cell = React.memo(({
 
 Cell.propTypes = {
   classes: PropTypes.object.isRequired,
-  formatDate: PropTypes.func.isRequired,
-  startDate: PropTypes.instanceOf(Date).isRequired,
-  endDate: PropTypes.instanceOf(Date),
   className: PropTypes.string,
-  today: PropTypes.bool,
   width: PropTypes.string,
 };
 
 Cell.defaultProps = {
   className: undefined,
-  endDate: undefined,
-  today: false,
   width: '0',
 };
 

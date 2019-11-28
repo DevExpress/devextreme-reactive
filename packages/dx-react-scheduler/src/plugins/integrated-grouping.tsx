@@ -8,6 +8,7 @@ import {
   getGroupingItemsFromResources, expandViewCellsDataWithGroups,
   sortFilteredResources, filterResourcesByGrouping,
 } from '@devexpress/dx-scheduler-core';
+import { IntegratedGroupingProps } from '../types';
 
 const pluginDependencies = [
   { name: 'Resources' },
@@ -27,7 +28,7 @@ const getSortedResourcesComputed = memoize((
   { resources, grouping },
 ) => sortFilteredResources(filterResourcesByGrouping(resources, grouping), grouping));
 
-class IntegratedGroupingBase extends React.PureComponent {
+class IntegratedGroupingBase extends React.PureComponent<IntegratedGroupingProps> {
   render() {
     return (
       <Plugin
@@ -42,5 +43,7 @@ class IntegratedGroupingBase extends React.PureComponent {
   }
 }
 
-/** A plugin that renders the Scheduler's grouping panel. */
-export const IntegratedGrouping: React.ComponentType = IntegratedGroupingBase;
+/** A plugin that implements Scheduler's grouping logic. */
+export const IntegratedGrouping: React.ComponentType<
+  IntegratedGroupingProps
+> = IntegratedGroupingBase;

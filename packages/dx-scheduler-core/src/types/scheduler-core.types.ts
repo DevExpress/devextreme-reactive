@@ -51,6 +51,7 @@ export type AllDayCell = {
   startDate: SchedulerDateTime;
   /** The cell’s end time. */
   endDate: SchedulerDateTime;
+  groupingInfo?: ValidResourceInstance[];
 };
 
 /** @internal */

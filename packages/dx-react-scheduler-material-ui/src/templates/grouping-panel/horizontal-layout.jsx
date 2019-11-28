@@ -52,13 +52,11 @@ HorizontalLayoutBase.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
-  isRecurrence: PropTypes.bool,
   groups: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
 };
 
 HorizontalLayoutBase.defaultProps = {
   className: undefined,
-  isRecurrence: false,
   children: null,
 };
 

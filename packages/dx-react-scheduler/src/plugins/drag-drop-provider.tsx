@@ -162,7 +162,9 @@ class DragDropProviderBase extends React.PureComponent<
       insidePart, this.offsetTimeTop!,
     );
 
-    const appointmentGroups = calculateAppointmentGroups(targetData.groupingInfo, resources, payload);
+    const appointmentGroups = calculateAppointmentGroups(
+      targetData.groupingInfo, resources, payload,
+    );
 
     this.appointmentStartTime = appointmentStartTime || this.appointmentStartTime;
     this.appointmentEndTime = appointmentEndTime || this.appointmentEndTime;

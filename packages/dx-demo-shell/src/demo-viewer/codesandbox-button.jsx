@@ -13,12 +13,17 @@ render(<Demo />, document.getElementById("root"));
 
 export const CodeSandBoxButton = ({
   code, sandboxHtml, helperFiles, externalDeps, themeName,
-  sectionName, demoName,
+  sectionName, demoName, requireTs,
 }) => {
   const helpers = Object.entries(helperFiles).reduce((acc, [name, content]) => ({
     ...acc,
     [name]: { content },
   }), {});
+
+  const ext = requireTs ? 'tsx' : 'js';
+  const devDeps = requireTs
+    ? { devDependencies: { typescript: 'latest' } }
+    : {};
 
   const parameters = getParameters({
     files: {
@@ -28,12 +33,13 @@ export const CodeSandBoxButton = ({
             'react-dom': 'latest',
             ...externalDeps,
           },
+          ...devDeps,
         },
       },
-      'index.js': {
+      [`index.${ext}`]: {
         content: indexCode,
       },
-      'demo.js': {
+      [`demo.${ext}`]: {
         content: code,
       },
       'index.html': {

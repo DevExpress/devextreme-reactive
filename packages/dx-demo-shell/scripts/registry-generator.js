@@ -42,6 +42,7 @@ const generateDemoRegistry = (demos, folderPath, getDemoLink) => {
             source: demoSource,
             productName: `"${productName}"`,
             helperFiles,
+            ...(demoExtension === 'tsx') ? { requireTs: "true" } : {},
           };
           return themesAcc;
         }, {});

@@ -85,9 +85,7 @@ export class DemoCodeProvider extends React.PureComponent {
   }
 
   getCode() {
-    const { themeName, sectionName, demoName } = this.props;
-    const { demoSources } = this.context;
-    return demoSources[sectionName][demoName][themeName].source || '';
+    return this.getDemoConfig().source || '';
   }
 
   getFileWithDeps(registry, fileName) {
@@ -107,11 +105,16 @@ export class DemoCodeProvider extends React.PureComponent {
     }), {});
   }
 
-  getHelperFiles() {
+  getDemoConfig() {
     const { themeName, sectionName, demoName } = this.props;
-    const { demoSources, themeComponents, demoData } = this.context;
-    const importedHelpers = demoSources[sectionName][demoName][themeName].helperFiles;
-    const productName = demoSources[sectionName][demoName][themeName].productName;
+    const { demoSources } = this.context;
+    return demoSources[sectionName][demoName][themeName];
+  }
+
+  getHelperFiles() {
+    const { themeName } = this.props;
+    const { themeComponents, demoData } = this.context;
+    const { helperFiles: importedHelpers, productName } = this.getDemoConfig();
 
     return {
       ...this.getImportedFiles(demoData[productName], importedHelpers.demoData),
@@ -123,11 +126,8 @@ export class DemoCodeProvider extends React.PureComponent {
   }
 
   getExternalDependencies() {
-    const { themeName, sectionName, demoName } = this.props;
-    const { demoSources, themeComponents, demoData } = this.context;
-    const importedHelpers = demoSources[sectionName][demoName][themeName].helperFiles;
-    const productName = demoSources[sectionName][demoName][themeName].productName;
-    const { externalDeps } = importedHelpers;
+    const { demoData } = this.context;
+    const { helperFiles: { externalDeps }, productName } = this.getDemoConfig();
     const { depsVersions } = demoData[productName];
 
     return externalDeps.reduce((acc, dep) => ({
@@ -147,9 +147,13 @@ export class DemoCodeProvider extends React.PureComponent {
     const code = this.getCode();
     const helperFiles = this.getHelperFiles();
     const externalDeps = this.getExternalDependencies();
+    const { requireTs } = this.getDemoConfig();
     const onEditableLinkChange = this.onEditableLinkChange.bind(this);
 
-    return children({ html, sandboxHtml, code, helperFiles, externalDeps, onEditableLinkChange });
+    return children({
+      html, sandboxHtml, code, helperFiles, externalDeps, requireTs,
+      onEditableLinkChange,
+    });
   }
 }
 

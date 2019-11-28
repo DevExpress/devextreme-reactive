@@ -92,7 +92,10 @@ export class DemoViewer extends React.Component {
                         sectionName={sectionName}
                         demoName={demoName}
                       >
-                        {({ html, sandboxHtml, code, helperFiles, externalDeps, onEditableLinkChange }) => (
+                        {({
+                          html, sandboxHtml, code, helperFiles, externalDeps,
+                          onEditableLinkChange, requireTs,
+                        }) => (
                           <div style={{ marginTop: showThemeSelector ? '-42px' : 0 }}>
                             <Nav tabs>
                               <NavItem>
@@ -122,6 +125,7 @@ export class DemoViewer extends React.Component {
                                   sectionName={sectionName}
                                   demoName={demoName}
                                   themeName={themeName}
+                                  requireTs={requireTs}
                                 />
                               </NavItem>
                             </Nav>

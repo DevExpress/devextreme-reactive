@@ -3,8 +3,7 @@ import * as PropTypes from 'prop-types';
 import { getParameters } from 'codesandbox/lib/api/define';
 import './codesandbox-button.css';
 
-const indexCode = `
-import React from "react";
+const indexCode = `import React from "react";
 import { render } from "react-dom";
 import Demo from "./demo";
 

@@ -103,7 +103,7 @@ const IndexPage = () => (
           main="React Scheduler"
           additional={(
             <React.Fragment>
-              for Bootstrap and Material-UI
+              for Material-UI
               <ButtonLinksContainer>
                 <LandingLink
                   to="/react/scheduler/docs/guides/getting-started/"

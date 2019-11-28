@@ -7,7 +7,6 @@ import { getBorder, getBrightBorder } from '../utils';
 
 const useStyles = makeStyles(theme => ({
   cell: {
-    width: ({ width }) => width,
     userSelect: 'none',
     paddingBottom: 0,
     textAlign: 'center',

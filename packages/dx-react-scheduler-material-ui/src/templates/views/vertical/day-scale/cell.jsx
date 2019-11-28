@@ -4,7 +4,7 @@ import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 import { WEEK_DAY_OPTIONS, DAY_OPTIONS } from '@devexpress/dx-scheduler-core';
-import { getBorder } from '../../../utils';
+import { getBorder, getBrightBorder } from '../../../utils';
 
 const styles = theme => ({
   cell: {
@@ -67,6 +67,12 @@ const styles = theme => ({
       display: 'inline-block',
     },
   },
+  lastHorizontalCell: {
+    borderRight: getBrightBorder(theme),
+    '&:last-child': {
+      borderRight: 'none',
+    },
+  },
 });
 
 const CellBase = React.memo(({
@@ -76,10 +82,14 @@ const CellBase = React.memo(({
   endDate,
   today,
   formatDate,
+  isLastHorizontalGroupCell,
   ...restProps
 }) => (
   <TableCell
-    className={classNames(classes.cell, className)}
+    className={classNames({
+      [classes.cell]: true,
+      [classes.lastHorizontalCell]: isLastHorizontalGroupCell,
+    }, className)}
     {...restProps}
   >
     <div className={classes.dayView}>
@@ -110,12 +120,14 @@ CellBase.propTypes = {
   endDate: PropTypes.instanceOf(Date),
   className: PropTypes.string,
   today: PropTypes.bool,
+  isLastHorizontalGroupCell: PropTypes.bool,
 };
 
 CellBase.defaultProps = {
   className: undefined,
   endDate: undefined,
   today: false,
+  isLastHorizontalGroupCell: false,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

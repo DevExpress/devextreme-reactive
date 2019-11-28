@@ -60,6 +60,7 @@ class LayoutBase extends React.PureComponent {
                 endDate,
                 today,
                 otherMonth,
+                isLastHorizontalGroupCell,
               }) => (
                 <Cell
                   key={Math.random()}
@@ -68,6 +69,7 @@ class LayoutBase extends React.PureComponent {
                   today={today}
                   otherMonth={otherMonth}
                   formatDate={formatDate}
+                  isLastHorizontalGroupCell={isLastHorizontalGroupCell}
                 />
               ))}
             </Row>

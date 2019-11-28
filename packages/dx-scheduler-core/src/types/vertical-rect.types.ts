@@ -4,7 +4,6 @@ import {
 } from './scheduler-core.types';
 import { ViewCellData, AppointmentMoment } from './all-day-panel.types';
 import { ParentRect, Coordinates } from './horizontal-rect.types';
-import { EndDate } from './appointment-form.types';
 
 /** @internal */
 export type CellByDate = { index: AppointmentId; startDate: SchedulerDateTime };

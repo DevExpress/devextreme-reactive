@@ -4,7 +4,7 @@ import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { makeStyles } from '@material-ui/core/styles';
-import { getBorder } from '../../../utils';
+import { getBorder, getBrightBorder } from '../../../utils';
 
 const useStyles = makeStyles(theme => ({
   cell: {
@@ -50,6 +50,12 @@ const useStyles = makeStyles(theme => ({
       opacity: 0,
     },
   },
+  lastHorizontalCell: {
+    borderRight: getBrightBorder(theme),
+    '&:last-child': {
+      borderRight: 'none',
+    },
+  },
 }));
 
 export const Cell = ({
@@ -60,6 +66,7 @@ export const Cell = ({
   currentTimeIndicatorPosition,
   currentTimeIndicatorComponent: CurrentTimeIndicator,
   isShaded,
+  isLastHorizontalGroupCell,
   ...restProps
 }) => {
   const classes = useStyles({ shadedHeight: currentTimeIndicatorPosition });
@@ -71,6 +78,7 @@ export const Cell = ({
       className={classNames({
         [classes.cell]: true,
         [classes.shadedCell]: isShaded && !isNow,
+        [classes.lastHorizontalCell]: isLastHorizontalGroupCell,
       }, className)}
       {...restProps}
     >
@@ -95,6 +103,7 @@ Cell.propTypes = {
   currentTimeIndicatorPosition: PropTypes.string,
   currentTimeIndicatorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   isShaded: PropTypes.bool,
+  isLastHorizontalGroupCell: PropTypes.bool,
 };
 
 Cell.defaultProps = {
@@ -105,4 +114,5 @@ Cell.defaultProps = {
   currentTimeIndicatorPosition: undefined,
   currentTimeIndicatorComponent: () => null,
   isShaded: false,
+  isLastHorizontalGroupCell: false,
 };

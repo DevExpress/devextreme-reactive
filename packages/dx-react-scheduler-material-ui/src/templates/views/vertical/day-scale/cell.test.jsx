@@ -25,6 +25,8 @@ describe('Vertical view DayScale', () => {
         .toBeTruthy();
       expect(tree.find(`.${classes.dayView}`).exists())
         .toBeTruthy();
+      expect(tree.is(`.${classes.lastHorizontalCell}`))
+        .toBeFalsy();
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
@@ -58,6 +60,14 @@ describe('Vertical view DayScale', () => {
       expect(tree.find(`.${classes.dayOfWeek}`).props().children)
         .toBeTruthy();
       expect(tree.find(`.${classes.dayOfMonth}`).props().children)
+        .toBeTruthy();
+    });
+    it('should render a cell with a bright border', () => {
+      const tree = shallow((
+        <Cell {...defaultProps} isLastHorizontalGroupCell />
+      ));
+
+      expect(tree.is(`.${classes.lastHorizontalCell}`))
         .toBeTruthy();
     });
   });

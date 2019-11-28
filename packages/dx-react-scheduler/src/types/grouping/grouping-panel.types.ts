@@ -13,6 +13,7 @@ export namespace GroupingPanel {
     rowComponent: React.ComponentType<GroupingPanel.RowProps>;
     cellComponent: React.ComponentType<GroupingPanel.CellProps>;
     groups: Array<Array<ValidResourceInstance>>;
+    width: number;
     /** A React node used to render the Grouping panel container content. */
     children?: React.ReactNode;
   }

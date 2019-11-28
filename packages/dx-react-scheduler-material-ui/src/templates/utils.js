@@ -7,6 +7,12 @@ export const getBorder = theme => (`1px solid ${
     : darken(fade(theme.palette.divider, 1), 0.68)
 }`);
 
+export const getBrightBorder = theme => (`1px solid ${
+  theme.palette.type === 'light'
+    ? lighten(fade(theme.palette.divider, 1), 0.72)
+    : darken(fade(theme.palette.divider, 1), 0.5)
+}`);
+
 export const cellsMeta = (tableElement) => {
   const cellElements = Array.from(tableElement.querySelectorAll('td'));
   return {

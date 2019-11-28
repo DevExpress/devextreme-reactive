@@ -165,14 +165,14 @@ export default class Demo extends React.PureComponent {
                 resourceName: 'members',
               }]}
             />
-            {/* <WeekView
+            <WeekView
               startDayHour={11.5}
               endDayHour={16}
             />
             <DayView
               startDayHour={11.5}
               endDayHour={16}
-            /> */}
+            />
             <MonthView />
             <AllDayPanel />
             <Appointments />

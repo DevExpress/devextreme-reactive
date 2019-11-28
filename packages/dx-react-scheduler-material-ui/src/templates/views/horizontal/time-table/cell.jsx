@@ -5,7 +5,7 @@ import TableCell from '@material-ui/core/TableCell';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import { DAY_OPTIONS, DAY_SHORT_MONTH_OPTIONS } from '@devexpress/dx-scheduler-core';
-import { getBorder } from '../../../utils';
+import { getBorder, getBrightBorder } from '../../../utils';
 
 const styles = theme => ({
   cell: {
@@ -66,6 +66,12 @@ const styles = theme => ({
       outline: 0,
     },
   },
+  lastHorizontalCell: {
+    borderRight: getBrightBorder(theme),
+    '&:last-child': {
+      borderRight: 'none',
+    },
+  },
 });
 
 const CellBase = React.memo(({
@@ -77,6 +83,7 @@ const CellBase = React.memo(({
   otherMonth,
   formatDate,
   isShaded,
+  isLastHorizontalGroupCell,
   ...restProps
 }) => {
   const isFirstMonthDay = startDate.getDate() === 1;
@@ -87,6 +94,7 @@ const CellBase = React.memo(({
       className={classNames({
         [classes.cell]: true,
         [classes.shadedCell]: isShaded,
+        [classes.lastHorizontalCell]: isLastHorizontalGroupCell,
       }, className)}
       {...restProps}
     >
@@ -112,6 +120,7 @@ CellBase.propTypes = {
   today: PropTypes.bool,
   otherMonth: PropTypes.bool,
   isShaded: PropTypes.bool,
+  isLastHorizontalGroupCell: PropTypes.bool,
 };
 
 CellBase.defaultProps = {
@@ -120,6 +129,7 @@ CellBase.defaultProps = {
   today: false,
   otherMonth: false,
   isShaded: false,
+  isLastHorizontalGroupCell: false,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

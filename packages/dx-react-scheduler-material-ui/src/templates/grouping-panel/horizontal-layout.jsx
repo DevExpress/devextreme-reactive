@@ -16,10 +16,9 @@ const HorizontalLayoutBase = ({
   groups,
   classes,
   className,
+  width,
   ...restProps
 }) => {
-  // eslint-disable-next-line prefer-spread
-  const maxCells = groups[groups.length - 1].length;
   return (
     <Table
       className={classNames(classes.table, className)}
@@ -27,7 +26,7 @@ const HorizontalLayoutBase = ({
     >
       {groups.map((group) => {
         const cellWidth = `${100 / group.length}%`;
-        const colSpan = maxCells / group.length;
+        const colSpan = width / group.length;
         return (
           <Row>
             {group.map((groupingItem) => {
@@ -53,6 +52,7 @@ HorizontalLayoutBase.propTypes = {
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
   groups: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
+  width: PropTypes.number.isRequired,
 };
 
 HorizontalLayoutBase.defaultProps = {

@@ -50,12 +50,13 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
 
         <Template name="groupingPanel">
           <TemplateConnector>
-            {({ groupingItems }) => {
+            {({ groupingItems, viewCellsData }) => {
               return (
                 <HorizontalLayout
                   rowComponent={rowComponent}
                   cellComponent={cellComponent}
                   groups={groupingItems}
+                  width={viewCellsData[0].length}
                 />
               );
             }}

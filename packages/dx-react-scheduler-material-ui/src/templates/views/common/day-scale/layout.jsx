@@ -30,6 +30,7 @@ const LayoutBase = ({
           startDate,
           endDate,
           today,
+          isLastHorizontalGroupCell,
         }, index) => (
           <Cell
             key={index.toString()}
@@ -37,6 +38,7 @@ const LayoutBase = ({
             endDate={endDate}
             today={today}
             formatDate={formatDate}
+            isLastHorizontalGroupCell={isLastHorizontalGroupCell}
           />
         ))}
       </Row>

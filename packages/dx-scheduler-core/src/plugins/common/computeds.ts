@@ -108,6 +108,7 @@ export const allDayCells: PureComputed<
   startDate: moment(cell.startDate).startOf('day').toDate(),
   endDate: moment(cell.startDate).add(1, 'day').startOf('day').toDate(),
   groupingInfo: cell.groupingInfo,
+  isLastHorizontalGroupCell: cell.isLastHorizontalGroupCell,
 }));
 
 export const startViewDate: PureComputed<

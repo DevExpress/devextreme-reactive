@@ -62,7 +62,7 @@ const addGroupInfoToCells: PureComputed<
   [ValidResourceInstance, ValidResourceInstance[][],
   ValidResource[], ViewCell[], number], ViewCell[]
 > = (currentGroup, groupingItems, sortedResources, viewCellRow, index) => viewCellRow.map((
-    viewCell: ViewCell,
+    viewCell: ViewCell, cellIndex: number,
   ) => {
   let previousIndex = index;
   const groupingInfo = groupingItems.reduceRight((
@@ -76,5 +76,8 @@ const addGroupInfoToCells: PureComputed<
     previousIndex = currentIndex;
     return [...acc, currentResourceInstance];
   }, [currentGroup]);
-  return { ...viewCell, groupingInfo };
+  if (cellIndex !== viewCellRow.length - 1) {
+    return { ...viewCell, groupingInfo };
+  }
+  return { ...viewCell, groupingInfo, isLastHorizontalGroupCell: true };
 });

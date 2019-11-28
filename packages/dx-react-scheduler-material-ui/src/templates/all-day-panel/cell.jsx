@@ -4,7 +4,7 @@ import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import { getBorder } from '../utils';
+import { getBorder, getBrightBorder } from '../utils';
 
 const styles = theme => ({
   cell: {
@@ -19,6 +19,12 @@ const styles = theme => ({
       outline: 0,
     },
   },
+  lastHorizontalCell: {
+    borderRight: getBrightBorder(theme),
+    '&:last-child': {
+      borderRight: 'none',
+    },
+  },
 });
 
 const CellBase = ({
@@ -27,11 +33,15 @@ const CellBase = ({
   children,
   startDate,
   endDate,
+  isLastHorizontalGroupCell,
   ...restProps
 }) => (
   <TableCell
     tabIndex={0}
-    className={classNames(classes.cell, className)}
+    className={classNames({
+      [classes.cell]: true,
+      [classes.lastHorizontalCell]: isLastHorizontalGroupCell,
+    }, className)}
     {...restProps}
   >
     {children}
@@ -44,6 +54,7 @@ CellBase.propTypes = {
   endDate: PropTypes.instanceOf(Date),
   children: PropTypes.node,
   className: PropTypes.string,
+  isLastHorizontalGroupCell: PropTypes.bool,
 };
 
 CellBase.defaultProps = {
@@ -51,6 +62,7 @@ CellBase.defaultProps = {
   startDate: undefined,
   endDate: undefined,
   className: undefined,
+  isLastHorizontalGroupCell: false,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

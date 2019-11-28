@@ -54,13 +54,13 @@ class LayoutBase extends React.PureComponent {
         <TableBody>
           <Row>
             {cellsData.map(({
-              startDate,
-              endDate,
+              startDate, endDate, isLastHorizontalGroupCell,
             }) => (
               <Cell
                 key={startDate}
                 startDate={startDate}
                 endDate={endDate}
+                isLastHorizontalGroupCell={isLastHorizontalGroupCell}
               />
             ))}
           </Row>

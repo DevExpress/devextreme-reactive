@@ -19,9 +19,30 @@ const retrieveImportFiles = (imports, regex) => imports
 const knownDeepImports = ['@material-ui/core', '@material-ui/icons', '@material-ui/styles'];
 const dependencies = {
   '"@material-ui/core"': ['"@material-ui/icons"'],
-  '"@devexpress/dx-react-grid"': ['"@devexpress/dx-react-core"'],
+  '"@devexpress/dx-react-chart-material-ui"': ['"@devexpress/dx-react-chart"'],
+  '"@devexpress/dx-react-chart-bootstrap4"': ['"@devexpress/dx-react-chart"'],
   '"@devexpress/dx-react-chart"': ['"@devexpress/dx-react-core"'],
+  '"@devexpress/dx-react-grid-bootstrap3"': ['"@devexpress/dx-react-grid"'],
+  '"@devexpress/dx-react-grid-bootstrap4"': ['"@devexpress/dx-react-grid"'],
+  '"@devexpress/dx-react-grid-material-ui"': ['"@devexpress/dx-react-grid"'],
+  '"@devexpress/dx-react-grid"': ['"@devexpress/dx-react-core"'],
+  '"@devexpress/dx-react-scheduler-material-ui"': [
+    '"@devexpress/dx-react-scheduler"',
+    '"@material-ui/icons"',
+  ],
   '"@devexpress/dx-react-scheduler"': ['"@devexpress/dx-react-core"'],
+};
+
+const getDepsRecursive = (name, deps = []) => {
+  if (dependencies[name]) {
+    return dependencies[name].reduce((acc, dep) => (
+      [...acc, ...getDepsRecursive(dep, [...deps, dep, ...(dependencies[dep] || [])])]
+    ), []);
+  }
+  if (name) {
+    return [...deps, name];
+  }
+  return deps;
 };
 
 const parseHelperFiles = (source) => {
@@ -35,10 +56,8 @@ const parseHelperFiles = (source) => {
   let externalDeps = quotify(retrieveImportFiles(imports, /from '([^\.].+?)'/));
   externalDeps = quotify(externalDeps
     .map(d => (knownDeepImports.filter(di => d.includes(di)) || [''])[0] || d) // get package by path import
-    .reduce((acc, d) => (acc.includes(d) ? acc : [...acc, d]), [])) // unique
-    .reduce((acc, d) => ([...acc, d, ...(dependencies[d] || [])]), []); // get direct deps
-
-  // console.log(externalDeps)
+    .reduce((acc, d) => ([...acc, d, ...(getDepsRecursive(d) || [])]), []) // get direct deps
+    .reduce((acc, d) => (acc.includes(d) ? acc : [...acc, d]), [])); // unique
 
   return {
     themeComponents,

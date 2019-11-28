@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
-import { Table } from '@material-ui/core';
+import Table from '@material-ui/core/Table';
 
 const styles = {
   table: {
@@ -10,7 +10,7 @@ const styles = {
   },
 };
 
-const LayoutBase = ({
+const HorizontalLayoutBase = ({
   rowComponent: Row,
   cellComponent: Cell,
   groups,
@@ -46,7 +46,7 @@ const LayoutBase = ({
   );
 };
 
-LayoutBase.propTypes = {
+HorizontalLayoutBase.propTypes = {
   rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   children: PropTypes.node,
@@ -56,10 +56,10 @@ LayoutBase.propTypes = {
   groups: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
 };
 
-LayoutBase.defaultProps = {
+HorizontalLayoutBase.defaultProps = {
   className: undefined,
   isRecurrence: false,
   children: null,
 };
 
-export const Layout = withStyles(styles)(LayoutBase, { name: 'Layout' });
+export const HorizontalLayout = withStyles(styles)(HorizontalLayoutBase, { name: 'HorizontalLayout' });

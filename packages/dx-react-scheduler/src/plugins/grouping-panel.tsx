@@ -9,31 +9,25 @@ import {
 const GroupingPanelPlaceholder = () => <TemplatePlaceholder name="groupingPanel" />;
 
 const pluginDependencies = [
-  { name: 'Resources' },
   { name: 'GroupingState' },
   { name: 'IntegratedGrouping' },
 ];
 
 class GroupingPanelBase extends React.PureComponent {
   static components: PluginComponents = {
-    layoutComponent: 'Layout',
+    horizontalLayoutComponent: 'HorizontalLayout',
     rowComponent: 'Row',
     cellComponent: 'Cell',
     iconComponent: 'Icon',
     containerComponent: 'Container',
   };
 
-  static defaultProps = {
-    grouping: [],
-  };
-
   render() {
     const {
       containerComponent: Container,
-      layoutComponent: Layout,
+      horizontalLayoutComponent: HorizontalLayout,
       rowComponent,
       cellComponent,
-      iconComponent,
     } = this.props;
 
     return (
@@ -58,7 +52,7 @@ class GroupingPanelBase extends React.PureComponent {
           <TemplateConnector>
             {({ groupingItems }) => {
               return (
-                <Layout
+                <HorizontalLayout
                   rowComponent={rowComponent}
                   cellComponent={cellComponent}
                   groups={groupingItems}

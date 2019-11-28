@@ -449,25 +449,28 @@ export const formatDateToString = (date: Date | string | number) => moment.utc(d
 
 export const expandGroupedAppointment: PureComputed<
   [AppointmentMoment, Grouping[], ValidResource[]], AppointmentMoment[]
-> = (appointment, grouping, resources) => resources
-  .reduce((acc: AppointmentMoment[], resource: ValidResource) => {
-    const isGroupedByResource = grouping.find(
-      groupingItem => groupingItem.resourceName === resource.fieldName,
-    ) !== undefined;
-    if (!isGroupedByResource) return acc;
-    const resourceField = resource.fieldName;
-    if (!resource.allowMultiple) {
+> = (appointment, grouping, resources) => {
+  if (!resources) return [appointment];
+  return resources
+    .reduce((acc: AppointmentMoment[], resource: ValidResource) => {
+      const isGroupedByResource = grouping.find(
+        groupingItem => groupingItem.resourceName === resource.fieldName,
+      ) !== undefined;
+      if (!isGroupedByResource) return acc;
+      const resourceField = resource.fieldName;
+      if (!resource.allowMultiple) {
+        return acc.reduce((accumulator, currentAppointment) => {
+          return [
+            ...accumulator,
+            { ...currentAppointment, [resourceField]: currentAppointment.dataItem[resourceField] },
+          ];
+        }, [] as AppointmentMoment[]);
+      }
       return acc.reduce((accumulator, currentAppointment) => {
-        return [
-          ...accumulator,
-          { ...currentAppointment, [resourceField]: currentAppointment.dataItem[resourceField] },
-        ];
+        return [...accumulator, ...currentAppointment.dataItem[resourceField].map(
+          (resourceValue: any) => {
+            return { ...currentAppointment, [resourceField]: resourceValue };
+          })];
       }, [] as AppointmentMoment[]);
-    }
-    return acc.reduce((accumulator, currentAppointment) => {
-      return [...accumulator, ...currentAppointment.dataItem[resourceField].map(
-        (resourceValue: any) => {
-          return { ...currentAppointment, [resourceField]: resourceValue };
-        })];
-    }, [] as AppointmentMoment[]);
-  }, [appointment] as AppointmentMoment[]);
+    }, [appointment] as AppointmentMoment[]);
+};

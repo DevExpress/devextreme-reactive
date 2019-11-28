@@ -832,6 +832,18 @@ describe('Utils', () => {
           test2: 2,
         });
     });
+    it('should return appointment as it is (inside an array) if resources are undefined', () => {
+      const appointment = {
+        dataItem: {
+          test1: 1,
+          test2: 2,
+          test3: 3,
+        },
+      };
+
+      expect(expandGroupedAppointment(appointment, undefined, undefined))
+        .toEqual([appointment]);
+    });
   });
   describe('#groupAppointments', () => {
     it('should group appointments into different arrays depending on their resources', () => {

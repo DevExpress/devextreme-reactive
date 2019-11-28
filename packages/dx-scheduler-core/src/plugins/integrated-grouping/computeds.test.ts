@@ -1,4 +1,7 @@
-import { filterResourcesByGrouping, sortFilteredResources, getGroupingItemsFromResources, expandViewCellsDataWithGroups } from './computeds';
+import {
+  filterResourcesByGrouping, sortFilteredResources,
+  getGroupingItemsFromResources, expandViewCellsDataWithGroups,
+} from './computeds';
 
 describe('IntegratedGrouping computeds', () => {
   describe('#filterResourcesByGrouping', () => {

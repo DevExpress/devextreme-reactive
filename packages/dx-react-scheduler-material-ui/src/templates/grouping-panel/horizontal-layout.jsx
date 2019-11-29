@@ -3,12 +3,21 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import { getBrightBorder } from '../utils';
+import { TableHead } from '@material-ui/core';
 
-const styles = {
+const styles = theme => ({
   table: {
-    tableLayout: 'fixed',
+    // tableLayout: 'fixed',
   },
-};
+  cell: {
+    borderLeft: getBrightBorder(theme),
+    '&:first-child': {
+      borderLeft: 'none',
+    },
+  }
+});
 
 const HorizontalLayoutBase = ({
   rowComponent: Row,
@@ -19,28 +28,42 @@ const HorizontalLayoutBase = ({
   width,
   ...restProps
 }) => {
+  const a = [];
+  for (let i = 0; i < width; i += 1) {
+    a.push(i);
+  }
   return (
     <Table
       className={classNames(classes.table, className)}
       {...restProps}
     >
-      {groups.map((group) => {
-        const cellWidth = `${100 / group.length}%`;
-        const colSpan = width / group.length;
-        return (
-          <Row>
-            {group.map((groupingItem) => {
+      <TableHead>
+        {groups.map((group) => {
+          const cellWidth = `${100 / group.length}%`;
+          const divWidth = `${100 / width}%`;
+          const colSpan = width / group.length;
+          return (
+            <Row>
+              {group.map((groupingItem) => {
+                return (
+                  <Cell
+                    groupingItem={groupingItem}
+                    width={cellWidth}
+                    colspan={colSpan}
+                  />
+                );
+              })}
+              {/* {a.map((num) => {
               return (
-                <Cell
-                  groupingItem={groupingItem}
-                  width={cellWidth}
-                  colspan={colSpan}
-                />
+                <div className={classes.cell} style={{ display: 'table-cell' }}>
+                  {num}
+                </div>
               );
-            })}
-          </Row>
-        );
-      })}
+            })} */}
+            </Row>
+          );
+        })}
+      </TableHead>
     </Table>
   );
 };

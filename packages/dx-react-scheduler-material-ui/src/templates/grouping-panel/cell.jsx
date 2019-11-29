@@ -7,6 +7,7 @@ import { getBorder, getBrightBorder } from '../utils';
 
 const useStyles = makeStyles(theme => ({
   cell: {
+    // display: 'table-cell',
     userSelect: 'none',
     paddingBottom: 0,
     textAlign: 'center',
@@ -24,11 +25,19 @@ const useStyles = makeStyles(theme => ({
     'table:last-child &': {
       borderBottom: getBorder(theme),
     },
-    '&:only-child': {
-      textAlign: 'left',
-      paddingLeft: theme.spacing(2),
-    },
     paddingTop: theme.spacing(0.5),
+    minWidth: '560px',
+    boxSizing: 'border-box',
+    // display: 'inline-block',
+    // width: '50%',
+  },
+  text: {
+    padding: '1em',
+    paddingTop: '0.5em',
+    textAlign: 'center',
+    '@media (max-width: 500px)': {
+      padding: '0.5em',
+    },
   },
 }));
 
@@ -44,7 +53,9 @@ export const Cell = React.memo(({
       className={classNames(classes.cell, className)}
       {...restProps}
     >
-      {groupingItem.text}
+      <div className={classes.text}>
+        {groupingItem.text}
+      </div>
     </TableCell>
   );
 });

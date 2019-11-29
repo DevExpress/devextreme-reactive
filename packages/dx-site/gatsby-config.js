@@ -100,7 +100,12 @@ module.exports = {
             },
           },
           'gatsby-remark-relative-linker',
-          'gatsby-remark-autolink-headers',
+          {
+            resolve: 'gatsby-remark-autolink-headers',
+            options: {
+              offsetY: -110,
+            },
+          },
           'gatsby-remark-prismjs',
         ],
       },

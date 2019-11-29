@@ -78,6 +78,11 @@ class DemoFrameRenderer extends React.PureComponent {
         <div class="embedded-demo" data-options='{ "path": "${frameUrl}${mode}", "frame": true }'>
           <div style="min-height: 500px;">Loading...</div>
         </div>
+        <script>
+          if (window.parent !== window) {
+            window.__REACT_DEVTOOLS_GLOBAL_HOOK__ = window.parent.__REACT_DEVTOOLS_GLOBAL_HOOK__;
+          }
+        </script>
         <script src="${demoScript}"></script>
       </body>
       </html>`;

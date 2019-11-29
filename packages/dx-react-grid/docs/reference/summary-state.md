@@ -43,8 +43,8 @@ Extends [SummaryItem](#summaryitem)
 
 Field | Type | Default | Description
 ------|------|---------|-----
-showInGroupFooter? | boolean | true | Specifies whether a summary should be rendered in a group footer row.
-alignByColumn? | boolean | false | Specifies whether the summary item should be displayed in corresponding column when `showInGroupFooter` is set to false.
+showInGroupFooter? | boolean | true | If `true`, the summary item is rendered in the group footer. Otherwise, it is rendered in the group row.
+alignByColumn? | boolean | false | If `true`, the summary item is rendered in the column for which it is calculated. Otherwise, it is appended to the group caption. Applies only when `showInGroupFooter` is set to `false`.
 
 ### SummaryType
 

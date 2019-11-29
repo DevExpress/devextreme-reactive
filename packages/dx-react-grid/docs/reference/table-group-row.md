@@ -44,7 +44,7 @@ indentCellComponent? | ComponentType&lt;[TableGroupRow.IndentCellProps](#tablegr
 inlineSummaryComponent | ComponentType&lt;[TableGroupRow.InlineSummaryProps](#tablegrouprowinlinesummaryprops)&gt; | | A component that renders a container for group summary items in a group caption.
 inlineSummaryItemComponent | ComponentType&lt;[TableGroupRow.InlineSummaryItemProps](#tablegrouprowinlinesummaryitemprops)&gt; | | A component that renders a single group summary item in a group caption.
 summaryCellComponent | ComponentType&lt;[TableGroupRow.SummaryCellProps](#tablegrouprowsummarycellprops)&gt; | | A component that renders a cell for a group summary item in an appropriate column.
-summaryItemComponent | ComponentType&lt;[TableSummaryRow.ItemProps](table-summary-row.md#tablesummaryrowitemprops)&gt; | | A component that renders a group row summary item.
+summaryItemComponent | ComponentType&lt;[TableSummaryRow.ItemProps](table-summary-row.md#tablesummaryrowitemprops)&gt; | | A component that renders a group summary item in its column.
 stubCellComponent | ComponentType&lt;[TableGroupRow.StubCellProps](#tablegrouprowstubcellprops)&gt; | | A component that renders a stub cell used to align summary items against their columns.
 formatlessSummaryTypes | Array&lt;string&gt; | | Summary types that the `DataTypeProvider` plugin should not format.
 messages? | [TableGroupRow.LocalizationMessages](#localization-messages) | | Localization messages.
@@ -62,7 +62,7 @@ Field | Type | Description
 columnName | string | The name of a column to extend.
 showWhenGrouped? | boolean | Specifies whether the grid displays the column by which data is grouped.
 
-### TableGroupRow.GroupInlineSummary
+### TableGroupRow.InlineSummaryItem
 
 Describes a summary item to be displayed in a group caption.
 

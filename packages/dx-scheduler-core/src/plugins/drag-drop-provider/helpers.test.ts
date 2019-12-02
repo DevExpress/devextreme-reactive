@@ -104,7 +104,10 @@ describe('DragDropProvider', () => {
     const scrollAPI = {
       topBoundary: 0,
       bottomBoundary: 1000,
+      leftBoundary: 0,
+      rightBoundary: 1000,
       changeVerticalScroll: jest.fn(),
+      changeHorizontalScroll: jest.fn(),
     };
     it('should scroll up', () => {
       const clientOffset = { x: 1, y: 21 };
@@ -125,6 +128,27 @@ describe('DragDropProvider', () => {
 
       autoScroll(clientOffset, scrollAPI);
       expect(scrollAPI.changeVerticalScroll)
+        .not.toBeCalled();
+    });
+    it('should scroll left', () => {
+      const clientOffset = { x: 21, y: 1 };
+
+      autoScroll(clientOffset, scrollAPI);
+      expect(scrollAPI.changeHorizontalScroll)
+        .toBeCalledWith(-30);
+    });
+    it('should scroll right', () => {
+      const clientOffset = { x: 960, y: 1 };
+
+      autoScroll(clientOffset, scrollAPI);
+      expect(scrollAPI.changeHorizontalScroll)
+        .toBeCalledWith(30);
+    });
+    it('should not scroll left if cursor is to the left of the left boundary', () => {
+      const clientOffset = { x: -10, y: 1 };
+
+      autoScroll(clientOffset, scrollAPI);
+      expect(scrollAPI.changeHorizontalScroll)
         .not.toBeCalled();
     });
   });

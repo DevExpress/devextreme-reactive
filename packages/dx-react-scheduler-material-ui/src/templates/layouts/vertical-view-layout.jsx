@@ -10,13 +10,19 @@ const styles = theme => ({
     overflowY: 'auto',
     position: 'relative',
   },
-  stickyHeader: {
-    top: 0,
-    zIndex: 2,
+  stickyElement: {
     tableLayout: 'fixed',
     position: 'sticky',
     overflow: 'visible',
     background: theme.palette.background.paper,
+  },
+  stickyHeader: {
+    top: 0,
+    zIndex: 2,
+  },
+  stickyScale: {
+    left: 0,
+    zIndex: 1,
   },
   timeTable: {
     position: 'relative',
@@ -31,6 +37,10 @@ const styles = theme => ({
     minWidth: '100%',
     display: 'table',
     position: 'relative',
+  },
+  autoWidth: {
+    display: 'inline-block',
+    width: 'auto',
   },
 });
 
@@ -79,13 +89,19 @@ class VerticalViewLayoutBase extends React.PureComponent {
       >
         {/* Fix Safari sticky header https://bugs.webkit.org/show_bug.cgi?id=175029 */}
         <div>
-          <Grid item xs="auto" className={classes.stickyHeader}>
+          <Grid
+            className={classNames(classes.stickyElement, classes.stickyHeader, classes.autoWidth)}
+          >
             <Grid
               ref={this.layoutHeader}
               container
               direction="row"
             >
-              <div className={classes.fixedWidth}>
+              <div
+                className={classNames(
+                  classes.fixedWidth, classes.stickyElement, classes.stickyScale,
+                )}
+              >
                 <DayScaleEmptyCell />
               </div>
 
@@ -97,9 +113,13 @@ class VerticalViewLayoutBase extends React.PureComponent {
             </Grid>
           </Grid>
 
-          <Grid item xs="auto">
+          <Grid className={classes.autoWidth}>
             <Grid container direction="row">
-              <div className={classes.fixedWidth}>
+              <div
+                className={classNames(
+                  classes.fixedWidth, classes.stickyElement, classes.stickyScale,
+                )}
+              >
                 <TimeScale />
               </div>
               <div className={classNames(classes.mainTable, classes.timeTable)}>

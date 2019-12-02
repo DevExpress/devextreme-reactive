@@ -9,6 +9,7 @@ const styles = theme => ({
   cell: {
     height: theme.spacing(6),
     padding: 0,
+    boxSizing: 'border-box',
     borderBottom: getBorder(theme),
     'tr:last-child &': {
       borderBottom: 'none',

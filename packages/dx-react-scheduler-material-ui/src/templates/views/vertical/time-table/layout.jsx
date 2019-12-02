@@ -10,7 +10,8 @@ import { minCellWidth } from '../../../constants';
 const useStyles = makeStyles({
   table: {
     tableLayout: 'fixed',
-    width: cellNumber => `${cellNumber * minCellWidth}px`,
+    minWidth: cellsNumber => `${cellsNumber * minCellWidth}px`,
+    width: '100%',
   },
 });
 

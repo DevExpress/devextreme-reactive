@@ -12,6 +12,13 @@ const getTargetOffset = (hash) => {
   return null;
 };
 
+const scrollToHash = () => {
+  const offset = getTargetOffset(window.location.hash);
+  if (offset !== null) {
+    window.scrollTo(0, offset);
+  }
+};
+
 exports.onInitialClientRender = (_, pluginOptions) => {
   if (pluginOptions.offsetY) {
     // eslint-disable-next-line prefer-destructuring
@@ -19,10 +26,8 @@ exports.onInitialClientRender = (_, pluginOptions) => {
   }
 
   window.addEventListener('load', () => {
-    const offset = getTargetOffset(window.location.hash);
-    if (offset !== null) {
-      window.scrollTo(0, offset);
-    }
+    window.requestAnimationFrame(scrollToHash);
+    window.setTimeout(scrollToHash, 500); // NOTE: wait for iframes to load
   });
 };
 

@@ -53,7 +53,7 @@ exports.onRenderBody = ({ setHeadComponents }, pluginOptions) => {
           var offset = element.offsetTop
           // Wait for the browser to finish rendering before scrolling.
           setTimeout((function() {
-            window.scrollTo(0, offset + ${offsetY})
+            window.scrollTo(0, offset - ${offsetY})
           }), 0)
         }
       }

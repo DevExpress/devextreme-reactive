@@ -27,11 +27,18 @@ export const scrollingStrategy = (scrollablePart, fixedPart) => {
     // eslint-disable-next-line no-param-reassign
     scrollablePart.scrollTop += value;
   };
+  const changeHorizontalScroll = (value) => {
+    // eslint-disable-next-line no-param-reassign
+    scrollablePart.scrollLeft += value;
+  };
 
   return ({
     topBoundary: fixedPartRect.height + fixedPartRect.top,
     bottomBoundary: scrollablePart.offsetTop + scrollablePart.clientHeight,
+    leftBoundary: scrollablePart.offsetLeft,
+    rightBoundary: scrollablePart.offsetLeft + scrollablePart.clientWidth,
     changeVerticalScroll,
+    changeHorizontalScroll,
   });
 };
 

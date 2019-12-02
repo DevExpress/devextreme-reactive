@@ -61,12 +61,24 @@ export const cellData: PureComputed<
 export const autoScroll: PureComputed<
   [ClientOffset, ScrollingStrategy], void
 > = (clientOffset, scrollingStrategy) => {
-  if ((clientOffset.y < scrollingStrategy.topBoundary + SCROLL_OFFSET)
-    && (clientOffset.y > scrollingStrategy.topBoundary)) {
-    scrollingStrategy.changeVerticalScroll(-SCROLL_SPEED_PX);
+  scroll(
+    clientOffset.y, scrollingStrategy.topBoundary,
+    scrollingStrategy.bottomBoundary, scrollingStrategy.changeVerticalScroll,
+  );
+  scroll(
+    clientOffset.x, scrollingStrategy.leftBoundary,
+    scrollingStrategy.rightBoundary, scrollingStrategy.changeHorizontalScroll,
+  );
+};
+
+const scroll: PureComputed<
+  [number, number, number, (value: number) => void], void
+> = (offset, firstBoundary, secondBoundary, changeScroll) => {
+  if ((offset < firstBoundary + SCROLL_OFFSET) && (offset > firstBoundary)) {
+    changeScroll(-SCROLL_SPEED_PX);
   }
-  if (scrollingStrategy.bottomBoundary - SCROLL_OFFSET < clientOffset.y) {
-    scrollingStrategy.changeVerticalScroll(+SCROLL_SPEED_PX);
+  if (secondBoundary - SCROLL_OFFSET < offset) {
+    changeScroll(+SCROLL_SPEED_PX);
   }
 };
 

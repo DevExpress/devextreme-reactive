@@ -98,7 +98,10 @@ export interface SchedulerView {
 export type ScrollingStrategy = {
   topBoundary: number;
   bottomBoundary: number;
+  leftBoundary: number;
+  rightBoundary: number;
   changeVerticalScroll: (value: number) => void;
+  changeHorizontalScroll: (value: number) => void;
 };
 
 export type CellElementsMeta = {

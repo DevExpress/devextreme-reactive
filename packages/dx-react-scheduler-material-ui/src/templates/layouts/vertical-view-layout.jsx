@@ -30,6 +30,7 @@ const styles = theme => ({
   fullScreenContainer: {
     minWidth: '100%',
     display: 'table',
+    position: 'relative',
   },
 });
 

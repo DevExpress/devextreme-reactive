@@ -30,7 +30,7 @@ const styles = theme => ({
   lastHorizontalCell: {
     borderRight: getBrightBorder(theme),
     '&:last-child': {
-      borderRight: getBrightBorder(theme),
+      borderRight: 'none',
     },
   },
 });

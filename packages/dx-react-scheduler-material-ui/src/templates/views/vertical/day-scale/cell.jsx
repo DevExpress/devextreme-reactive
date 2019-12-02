@@ -14,6 +14,7 @@ const styles = theme => ({
     borderBottom: 'none',
     paddingRight: 0,
     paddingLeft: 0,
+    boxSizing: 'border-box',
     '@media (max-width: 700px)': {
       padding: theme.spacing(1),
       paddingBottom: 0,

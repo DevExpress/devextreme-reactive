@@ -17,7 +17,6 @@ const styles = theme => ({
       paddingRight: 0,
     },
     textAlign: 'center',
-    minWidth: '100px',
     boxSizing: 'border-box',
   },
   dayOfWeek: {

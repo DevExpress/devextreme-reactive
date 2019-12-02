@@ -17,10 +17,9 @@ const useStyles = makeStyles(theme => ({
       borderBottom: getBorder(theme),
     },
     paddingTop: theme.spacing(0.5),
-    minWidth: '700px',
     boxSizing: 'border-box',
     borderRight: getBrightBorder(theme),
-    'th:last-child &': {
+    '&:last-child': {
       borderRight: 'none',
     },
   },

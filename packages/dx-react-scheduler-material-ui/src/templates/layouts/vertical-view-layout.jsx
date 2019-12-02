@@ -27,6 +27,10 @@ const styles = theme => ({
   mainTable: {
     width: `calc(100% - ${theme.spacing(10)}px)`,
   },
+  fullScreenContainer: {
+    minWidth: '100%',
+    display: 'table',
+  },
 });
 
 class VerticalViewLayoutBase extends React.PureComponent {
@@ -85,7 +89,9 @@ class VerticalViewLayoutBase extends React.PureComponent {
               </div>
 
               <div className={classes.mainTable}>
-                <DayScale />
+                <div className={classes.fullScreenContainer}>
+                  <DayScale />
+                </div>
               </div>
             </Grid>
           </Grid>
@@ -95,8 +101,10 @@ class VerticalViewLayoutBase extends React.PureComponent {
               <div className={classes.fixedWidth}>
                 <TimeScale />
               </div>
-              <div className={classNames(classes.timeTable, classes.mainTable)}>
-                <TimeTable />
+              <div className={classNames(classes.mainTable, classes.timeTable)}>
+                <div className={classes.fullScreenContainer}>
+                  <TimeTable />
+                </div>
               </div>
             </Grid>
           </Grid>

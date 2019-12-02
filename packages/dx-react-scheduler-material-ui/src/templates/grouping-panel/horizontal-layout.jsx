@@ -1,15 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import { getBrightBorder } from '../utils';
-import { TableHead } from '@material-ui/core';
 
 const styles = theme => ({
   table: {
-    // tableLayout: 'fixed',
+    tableLayout: 'fixed',
   },
   cell: {
     borderLeft: getBrightBorder(theme),

@@ -2,76 +2,58 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
 import { cellsMeta } from '../../../utils';
+import { minCellWidth } from '../../../constants';
 
-const styles = {
+const useStyles = makeStyles({
   table: {
     tableLayout: 'fixed',
+    width: cellNumber => `${cellNumber * minCellWidth}px`,
   },
-};
+});
 
-class LayoutBase extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export const Layout = React.memo(({
+  setCellElementsMeta,
+  cellComponent: Cell,
+  rowComponent: Row,
+  className,
+  cellsData,
+  formatDate,
+  ...restProps
+}) => {
+  const table = React.useRef(null);
+  React.useEffect(() => {
+    setCellElementsMeta(cellsMeta(table.current));
+  });
+  const classes = useStyles(cellsData[0].length);
 
-    this.table = React.createRef();
-  }
+  return (
+    <Table
+      ref={table}
+      className={classNames(classes.table, className)}
+      {...restProps}
+    >
+      <TableBody>
+        {cellsData.map((days, index) => (
+          <Row key={index.toString()}>
+            {days.map(({ startDate, endDate, isLastHorizontalGroupCell }) => (
+              <Cell
+                // key={Math.random()}
+                startDate={startDate}
+                endDate={endDate}
+                isLastHorizontalGroupCell={isLastHorizontalGroupCell}
+              />
+            ))}
+          </Row>
+        ))}
+      </TableBody>
+    </Table>
+  );
+});
 
-  componentDidMount() {
-    this.setCells();
-  }
-
-  componentDidUpdate() {
-    this.setCells();
-  }
-
-  setCells() {
-    const { setCellElementsMeta } = this.props;
-
-    const tableElement = this.table.current;
-    setCellElementsMeta(cellsMeta(tableElement));
-  }
-
-  render() {
-    const {
-      setCellElementsMeta,
-      cellComponent: Cell,
-      rowComponent: Row,
-      classes,
-      className,
-      cellsData,
-      formatDate,
-      ...restProps
-    } = this.props;
-
-    return (
-      <Table
-        ref={this.table}
-        className={classNames(classes.table, className)}
-        {...restProps}
-      >
-        <TableBody>
-          {cellsData.map((days, index) => (
-            <Row key={index.toString()}>
-              {days.map(({ startDate, endDate, isLastHorizontalGroupCell }) => (
-                <Cell
-                  // key={Math.random()}
-                  startDate={startDate}
-                  endDate={endDate}
-                  isLastHorizontalGroupCell={isLastHorizontalGroupCell}
-                />
-              ))}
-            </Row>
-          ))}
-        </TableBody>
-      </Table>
-    );
-  }
-}
-
-LayoutBase.propTypes = {
+Layout.propTypes = {
   // oneOfType is a workaround because withStyles returns react object
   classes: PropTypes.object.isRequired,
   cellsData: PropTypes.arrayOf(Array).isRequired,
@@ -81,8 +63,7 @@ LayoutBase.propTypes = {
   setCellElementsMeta: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
-LayoutBase.defaultProps = {
+
+Layout.defaultProps = {
   className: undefined,
 };
-
-export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);

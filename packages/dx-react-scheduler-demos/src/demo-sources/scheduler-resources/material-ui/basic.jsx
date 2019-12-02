@@ -160,8 +160,6 @@ export default class Demo extends React.PureComponent {
             />
             <GroupingState
               grouping={[{
-                resourceName: 'location',
-              }, {
                 resourceName: 'members',
               }]}
             />

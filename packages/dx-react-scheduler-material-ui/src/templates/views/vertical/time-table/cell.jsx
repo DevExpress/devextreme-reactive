@@ -12,6 +12,7 @@ const useStyles = makeStyles(theme => ({
     height: theme.spacing(6),
     padding: 0,
     borderLeft: getBorder(theme),
+    boxSizing: 'border-box',
     'tr:last-child &': {
       borderBottom: 'none',
     },

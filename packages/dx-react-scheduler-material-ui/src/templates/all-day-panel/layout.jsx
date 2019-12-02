@@ -8,6 +8,7 @@ import { cellsMeta } from '../utils';
 
 const styles = {
   table: {
+    // display: 'table',
     tableLayout: 'fixed',
   },
 };

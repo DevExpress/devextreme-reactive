@@ -9,3 +9,6 @@ export const DEFAULT_PALETTE = [
   red, pink, purple, deepPurple, indigo, blue, lightBlue, cyan, teal,
   green, lightGreen, lime, yellow, amber, orange, deepOrange,
 ];
+
+export const minCellWidth = 100;
+export const minCellWidthMobile = 50;

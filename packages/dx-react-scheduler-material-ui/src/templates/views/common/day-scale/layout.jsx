@@ -3,54 +3,57 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableMUI from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
+import { minCellWidth } from '../../../constants';
 
-const styles = {
+const useStyles = makeStyles({
   table: {
-    // tableLayout: 'fixed',
+    tableLayout: 'fixed',
+    width: width => `${width * minCellWidth}px`,
   },
-};
+});
 
-const LayoutBase = ({
+export const Layout = ({
   cellComponent: Cell,
   rowComponent: Row,
   groupingPanelComponent: GroupingPanel,
   cellsData,
   className,
-  classes,
   formatDate,
   ...restProps
-}) => (
-  <TableMUI
-    className={classNames(classes.table, className)}
-    {...restProps}
-  >
-    <TableBody>
-      <GroupingPanel />
-      <Row>
-        {cellsData[0].map(({
-          startDate,
-          endDate,
-          today,
-          isLastHorizontalGroupCell,
-        }, index) => (
-          <Cell
-            key={index.toString()}
-            startDate={startDate}
-            endDate={endDate}
-            today={today}
-            formatDate={formatDate}
-            isLastHorizontalGroupCell={isLastHorizontalGroupCell}
-          />
-        ))}
-      </Row>
-    </TableBody>
-  </TableMUI>
-);
+}) => {
+  const classes = useStyles(cellsData[0].length);
+  return (
+    <TableMUI
+      className={classNames(classes.table, className)}
+      {...restProps}
+    >
+      <TableBody>
+        <GroupingPanel />
+        <Row>
+          {cellsData[0].map(({
+            startDate,
+            endDate,
+            today,
+            isLastHorizontalGroupCell,
+          }, index) => (
+            <Cell
+              key={index.toString()}
+              startDate={startDate}
+              endDate={endDate}
+              today={today}
+              formatDate={formatDate}
+              isLastHorizontalGroupCell={isLastHorizontalGroupCell}
+            />
+          ))}
+        </Row>
+      </TableBody>
+    </TableMUI>
+  );
+};
 
-LayoutBase.propTypes = {
+Layout.propTypes = {
   // oneOfType is a workaround because withStyles returns react object
-  classes: PropTypes.object.isRequired,
   cellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -58,9 +61,9 @@ LayoutBase.propTypes = {
   formatDate: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
-LayoutBase.defaultProps = {
+Layout.defaultProps = {
   className: undefined,
   groupingPanelComponent: () => null,
 };
 
-export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);
+// export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);

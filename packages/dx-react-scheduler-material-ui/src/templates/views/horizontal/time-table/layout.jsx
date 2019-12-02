@@ -3,95 +3,75 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableMUI from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { cellsMeta } from '../../../utils';
+import { minCellWidth } from '../../../constants';
 
-const styles = {
+const useStyles = makeStyles({
   table: {
-    // tableLayout: 'fixed',
+    tableLayout: 'fixed',
+    width: cellNumber => `${cellNumber * minCellWidth}px`,
   },
-};
+});
 
-class LayoutBase extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export const Layout = React.memo(({
+  setCellElementsMeta,
+  cellComponent: Cell,
+  rowComponent: Row,
+  className,
+  cellsData,
+  formatDate,
+  ...restProps
+}) => {
+  const table = React.useRef(null);
+  React.useEffect(() => {
+    setCellElementsMeta(cellsMeta(table.current));
+  });
+  const classes = useStyles(cellsData[0].length);
 
-    this.table = React.createRef();
-  }
+  return (
+    <TableMUI
+      ref={table}
+      className={classNames(classes.table, className)}
+      {...restProps}
+    >
+      <TableBody>
+        {cellsData.map(row => (
+          <Row key={row[0].startDate.toString()}>
+            {row.map(({
+              startDate,
+              endDate,
+              today,
+              otherMonth,
+              isLastHorizontalGroupCell,
+            }) => (
+              <Cell
+                key={Math.random()}
+                startDate={startDate}
+                endDate={endDate}
+                today={today}
+                otherMonth={otherMonth}
+                formatDate={formatDate}
+                isLastHorizontalGroupCell={isLastHorizontalGroupCell}
+              />
+            ))}
+          </Row>
+        ))}
+      </TableBody>
+    </TableMUI>
+  );
+});
 
-  componentDidMount() {
-    this.setCells();
-  }
-
-  componentDidUpdate() {
-    this.setCells();
-  }
-
-  setCells() {
-    const { setCellElementsMeta } = this.props;
-
-    const tableElement = this.table.current;
-    setCellElementsMeta(cellsMeta(tableElement));
-  }
-
-  render() {
-    const {
-      setCellElementsMeta,
-      cellComponent: Cell,
-      rowComponent: Row,
-      classes,
-      className,
-      cellsData,
-      formatDate,
-      ...restProps
-    } = this.props;
-
-    return (
-      <TableMUI
-        ref={this.table}
-        className={classNames(classes.table, className)}
-        {...restProps}
-      >
-        <TableBody>
-          {cellsData.map(row => (
-            <Row key={row[0].startDate.toString()}>
-              {row.map(({
-                startDate,
-                endDate,
-                today,
-                otherMonth,
-                isLastHorizontalGroupCell,
-              }) => (
-                <Cell
-                  key={Math.random()}
-                  startDate={startDate}
-                  endDate={endDate}
-                  today={today}
-                  otherMonth={otherMonth}
-                  formatDate={formatDate}
-                  isLastHorizontalGroupCell={isLastHorizontalGroupCell}
-                />
-              ))}
-            </Row>
-          ))}
-        </TableBody>
-      </TableMUI>
-    );
-  }
-}
-
-LayoutBase.propTypes = {
+Layout.propTypes = {
   // oneOfType is a workaround because withStyles returns react object
   cellsData: PropTypes.arrayOf(Array).isRequired,
-  classes: PropTypes.object.isRequired,
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   formatDate: PropTypes.func.isRequired,
   setCellElementsMeta: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
-LayoutBase.defaultProps = {
+
+Layout.defaultProps = {
   className: undefined,
 };
-
-export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);

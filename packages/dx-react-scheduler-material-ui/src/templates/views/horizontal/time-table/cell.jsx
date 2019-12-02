@@ -28,7 +28,6 @@ const styles = theme => ({
       backgroundColor: fade(theme.palette.primary.main, 0.15),
       outline: 0,
     },
-    minWidth: '100px',
     boxSizing: 'border-box',
   },
   text: {
@@ -68,7 +67,7 @@ const styles = theme => ({
   lastHorizontalCell: {
     borderRight: getBrightBorder(theme),
     '&:last-child': {
-      borderRight: getBrightBorder(theme),
+      borderRight: 'none',
     },
   },
 });

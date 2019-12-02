@@ -11,6 +11,7 @@ const styles = theme => ({
     padding: 0,
     height: theme.spacing(5.75),
     borderLeft: getBorder(theme),
+    boxSizing: 'border-box',
     '&:hover': {
       backgroundColor: theme.palette.action.hover,
     },

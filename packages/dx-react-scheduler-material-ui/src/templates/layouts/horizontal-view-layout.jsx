@@ -20,9 +20,8 @@ const styles = theme => ({
   },
   timeTable: {
     position: 'relative',
-    // width: 'fit-content',
     minWidth: '100%',
-    // display: 'table',
+    display: 'table',
   },
 });
 

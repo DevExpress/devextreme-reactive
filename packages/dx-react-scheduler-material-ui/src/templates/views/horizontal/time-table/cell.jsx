@@ -13,11 +13,9 @@ const styles = theme => ({
     verticalAlign: 'top',
     padding: 0,
     height: 100,
-    borderLeft: getBorder(theme),
-    '&:first-child': {
-      borderLeft: 'none',
-    },
+    borderRight: getBorder(theme),
     '&:last-child': {
+      borderRight: 'none',
       paddingRight: 0,
     },
     'tr:last-child &': {
@@ -30,7 +28,8 @@ const styles = theme => ({
       backgroundColor: fade(theme.palette.primary.main, 0.15),
       outline: 0,
     },
-    minWidth: '50px',
+    minWidth: '100px',
+    boxSizing: 'border-box',
   },
   text: {
     padding: '1em',
@@ -69,7 +68,7 @@ const styles = theme => ({
   lastHorizontalCell: {
     borderRight: getBrightBorder(theme),
     '&:last-child': {
-      borderRight: 'none',
+      borderRight: getBrightBorder(theme),
     },
   },
 });
@@ -88,6 +87,7 @@ const CellBase = React.memo(({
 }) => {
   const isFirstMonthDay = startDate.getDate() === 1;
   const formatOptions = isFirstMonthDay && !today ? DAY_SHORT_MONTH_OPTIONS : DAY_OPTIONS;
+  console.log(isLastHorizontalGroupCell)
   return (
     <TableCell
       tabIndex={0}

@@ -10,16 +10,15 @@ const styles = theme => ({
   cell: {
     userSelect: 'none',
     padding: 0,
-    borderLeft: getBorder(theme),
+    borderRight: getBorder(theme),
     borderBottom: 'none',
-    '&:first-child': {
-      borderLeft: 'none',
-    },
     '&:last-child': {
+      borderRight: 'none',
       paddingRight: 0,
     },
     textAlign: 'center',
-    minWidth: '50px',
+    minWidth: '100px',
+    boxSizing: 'border-box',
   },
   dayOfWeek: {
     ...theme.typography.caption,
@@ -32,7 +31,7 @@ const styles = theme => ({
   lastHorizontalCell: {
     borderRight: getBrightBorder(theme),
     '&:last-child': {
-      borderRight: 'none',
+      borderRight: getBrightBorder(theme),
     },
   },
 });

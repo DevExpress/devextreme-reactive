@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   table: {
-    tableLayout: 'fixed',
+    // tableLayout: 'fixed',
   },
 };
 

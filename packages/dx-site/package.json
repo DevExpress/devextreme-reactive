@@ -38,7 +38,6 @@
     "gatsby-plugin-react-svg": "^2.1.2",
     "gatsby-plugin-sass": "^2.0.11",
     "gatsby-plugin-sharp": "^2.2.36",
-    "gatsby-remark-autolink-headers": "^2.0.16",
     "gatsby-remark-external-links": "^0.0.4",
     "gatsby-remark-images": "^3.1.28",
     "gatsby-remark-prismjs": "^3.3.17",

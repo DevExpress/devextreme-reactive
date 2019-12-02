@@ -1,4 +1,7 @@
-import { ScrollingStrategy, BaseView, CommonViewProps, FormatterFn, CellElementsMeta } from '../index';
+import {
+  ScrollingStrategy, BaseView, CommonViewProps,
+  FormatterFn, CellElementsMeta, GroupingPanel,
+} from '../index';
 
 /* tslint:disable no-namespace no-empty-interface */
 export namespace MonthView {
@@ -60,6 +63,8 @@ export namespace MonthView {
     cellComponent: React.ComponentType<BaseView.DayScaleCellProps>;
     /** A component that renders a month scale row. */
     rowComponent: React.ComponentType<BaseView.RowProps>;
+    /** A component that renders Grouping panel */
+    groupingPanel: React.ComponentType<GroupingPanel.HorizontalLayoutProps>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
   }

@@ -14,6 +14,7 @@ const styles = {
 const LayoutBase = ({
   cellComponent: Cell,
   rowComponent: Row,
+  groupingPanelComponent: GroupingPanel,
   cellsData,
   className,
   classes,
@@ -25,6 +26,7 @@ const LayoutBase = ({
     {...restProps}
   >
     <TableBody>
+      <GroupingPanel />
       <Row>
         {cellsData[0].map(({
           startDate,
@@ -52,11 +54,13 @@ LayoutBase.propTypes = {
   cellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  groupingPanelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   formatDate: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 LayoutBase.defaultProps = {
   className: undefined,
+  groupingPanelComponent: () => null,
 };
 
 export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);

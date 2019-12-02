@@ -28,43 +28,24 @@ const HorizontalLayoutBase = ({
   width,
   ...restProps
 }) => {
-  const a = [];
-  for (let i = 0; i < width; i += 1) {
-    a.push(i);
-  }
   return (
-    <Table
-      className={classNames(classes.table, className)}
-      {...restProps}
-    >
-      <TableHead>
-        {groups.map((group) => {
-          const cellWidth = `${100 / group.length}%`;
-          const divWidth = `${100 / width}%`;
-          const colSpan = width / group.length;
-          return (
-            <Row>
-              {group.map((groupingItem) => {
-                return (
-                  <Cell
-                    groupingItem={groupingItem}
-                    width={cellWidth}
-                    colspan={colSpan}
-                  />
-                );
-              })}
-              {/* {a.map((num) => {
+    <>
+      {groups.map((group) => {
+        const colSpan = width / group.length;
+        return (
+          <Row {...restProps}>
+            {group.map((groupingItem) => {
               return (
-                <div className={classes.cell} style={{ display: 'table-cell' }}>
-                  {num}
-                </div>
+                <Cell
+                  groupingItem={groupingItem}
+                  colSpan={colSpan}
+                />
               );
-            })} */}
-            </Row>
-          );
-        })}
-      </TableHead>
-    </Table>
+            })}
+          </Row>
+        );
+      })}
+    </>
   );
 };
 

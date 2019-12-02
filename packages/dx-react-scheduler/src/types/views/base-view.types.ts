@@ -1,5 +1,6 @@
 import { FormatterFn, CellElementsMeta, ScrollingStrategy } from '../index';
 import { CurrentTimeIndicator } from '../current-time-indicator';
+import { GroupingPanel } from '../grouping';
 
 // tslint:disable: no-namespace
 export interface CommonViewProps {
@@ -102,6 +103,8 @@ export namespace BaseView {
     cellComponent: React.ComponentType<BaseView.DayScaleCellProps>;
     /** A component that renders a day scale row. */
     rowComponent: React.ComponentType<BaseView.RowProps>;
+    /** A component that renders Grouping panel */
+    groupingPanel: React.ComponentType<GroupingPanel.HorizontalLayoutProps>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
   }

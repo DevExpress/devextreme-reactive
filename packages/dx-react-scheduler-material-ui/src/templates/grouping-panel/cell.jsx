@@ -19,6 +19,10 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(0.5),
     minWidth: '700px',
     boxSizing: 'border-box',
+    borderRight: getBrightBorder(theme),
+    'th:last-child &': {
+      borderRight: 'none',
+    },
   },
   text: {
     padding: '1em',
@@ -27,15 +31,6 @@ const useStyles = makeStyles(theme => ({
     '@media (max-width: 500px)': {
       padding: '0.5em',
     },
-  },
-  border: {
-    borderRight: getBrightBorder(theme),
-    'th:last-child &': {
-      borderRight: 'none',
-    },
-    width: '100%',
-    height: '100%',
-    boxSizing: 'border-box',
   },
 }));
 
@@ -51,10 +46,8 @@ export const Cell = React.memo(({
       className={classNames(classes.cell, className)}
       {...restProps}
     >
-      <div className={classes.border}>
-        <div className={classes.text}>
-          {groupingItem.text}
-        </div>
+      <div className={classes.text}>
+        {groupingItem.text}
       </div>
     </TableCell>
   );

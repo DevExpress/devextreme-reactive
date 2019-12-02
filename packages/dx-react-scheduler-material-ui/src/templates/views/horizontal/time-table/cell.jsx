@@ -87,7 +87,6 @@ const CellBase = React.memo(({
 }) => {
   const isFirstMonthDay = startDate.getDate() === 1;
   const formatOptions = isFirstMonthDay && !today ? DAY_SHORT_MONTH_OPTIONS : DAY_OPTIONS;
-  console.log(isLastHorizontalGroupCell)
   return (
     <TableCell
       tabIndex={0}

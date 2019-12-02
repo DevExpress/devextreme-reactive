@@ -19,12 +19,10 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
     horizontalLayoutComponent: 'HorizontalLayout',
     rowComponent: 'Row',
     cellComponent: 'Cell',
-    containerComponent: 'Container',
   };
 
   render() {
     const {
-      containerComponent: Container,
       horizontalLayoutComponent: HorizontalLayout,
       rowComponent,
       cellComponent,
@@ -35,19 +33,6 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
         name="GroupingPanel"
         dependencies={pluginDependencies}
       >
-        <Template name="dayScale">
-          <TemplateConnector>
-            {() => {
-              return (
-                <Container>
-                  <GroupingPanelPlaceholder />
-                </Container>
-              );
-            }}
-          </TemplateConnector>
-          <TemplatePlaceholder />
-        </Template>
-
         <Template name="groupingPanel">
           <TemplateConnector>
             {({ groupingItems, viewCellsData }) => {

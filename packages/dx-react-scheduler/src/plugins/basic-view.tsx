@@ -26,6 +26,8 @@ const endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCells
 const TimeTablePlaceholder = () => <TemplatePlaceholder name="timeTable" />;
 const DayScalePlaceholder = () => <TemplatePlaceholder name="dayScale" />;
 
+const GroupingPanelPlaceholder = () => <TemplatePlaceholder name="groupingPanel" />;
+
 class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> {
   state = {
     rects: [],
@@ -180,6 +182,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
                 <DayScale
                   cellComponent={dayScaleCellComponent}
                   rowComponent={dayScaleRowComponent}
+                  groupingPanelComponent={GroupingPanelPlaceholder}
                   cellsData={viewCellsData}
                   formatDate={formatDate}
                 />

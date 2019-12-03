@@ -2,10 +2,10 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
-import { makeStyles } from '@material-ui/core/styles';
-import { getBorder, getBrightBorder } from '../utils';
+import { withStyles } from '@material-ui/core/styles';
+import { getBrightBorder } from '../utils';
 
-const useStyles = makeStyles(theme => ({
+const styles = theme => ({
   cell: {
     userSelect: 'none',
     paddingBottom: 0,
@@ -13,8 +13,9 @@ const useStyles = makeStyles(theme => ({
     borderBottom: 'none',
     paddingRight: 0,
     paddingLeft: 0,
-    'table:last-child &': {
-      borderBottom: getBorder(theme),
+    borderTop: getBrightBorder(theme),
+    'tr:first-child &': {
+      borderTop: 'none',
     },
     paddingTop: theme.spacing(0.5),
     boxSizing: 'border-box',
@@ -24,43 +25,39 @@ const useStyles = makeStyles(theme => ({
     },
   },
   text: {
-    padding: '1em',
-    paddingTop: '0.5em',
+    ...theme.typography.caption,
+    padding: theme.spacing(1),
     textAlign: 'center',
-    '@media (max-width: 500px)': {
-      padding: '0.5em',
-    },
+    color: theme.palette.text.secondary,
+    fontWeight: 'bold',
+    fontSize: '1rem',
   },
-}));
-
-export const Cell = React.memo(({
-  className,
-  groupingItem,
-  width,
-  ...restProps
-}) => {
-  const classes = useStyles({ width });
-  return (
-    <TableCell
-      className={classNames(classes.cell, className)}
-      {...restProps}
-    >
-      <div className={classes.text}>
-        {groupingItem.text}
-      </div>
-    </TableCell>
-  );
 });
 
-Cell.propTypes = {
+const CellBase = React.memo(({
+  className,
+  groupingItem,
+  classes,
+  ...restProps
+}) => (
+  <TableCell
+    className={classNames(classes.cell, className)}
+    {...restProps}
+  >
+    <div className={classes.text}>
+      {groupingItem.text}
+    </div>
+  </TableCell>
+));
+
+CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  width: PropTypes.string,
+  groupingItem: PropTypes.object.isRequired,
 };
 
-Cell.defaultProps = {
+CellBase.defaultProps = {
   className: undefined,
-  width: '0',
 };
 
-// export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);
+export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

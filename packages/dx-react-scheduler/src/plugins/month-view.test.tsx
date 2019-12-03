@@ -90,9 +90,9 @@ describe('Month View', () => {
       expect(monthCellsData)
         .toHaveBeenCalledWith(7, 4, 5, 123);
 
-      tree.find(BasicView).props().timeTableRects(1, 2, 3, 4, 5, 6, 7);
+      tree.find(BasicView).props().timeTableRects(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
       expect(horizontalTimeTableRects)
-        .toHaveBeenCalledWith(1, 2, 3, 5, 7);
+        .toHaveBeenCalledWith(1, 2, 3, 5, 7, 8, 9, 10);
     });
   });
 });

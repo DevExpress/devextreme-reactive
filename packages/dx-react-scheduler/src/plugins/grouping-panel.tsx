@@ -2,12 +2,10 @@ import * as React from 'react';
 import {
   Plugin,
   Template,
-  TemplatePlaceholder,
   TemplateConnector,
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import { GroupingPanelProps } from '../types';
-const GroupingPanelPlaceholder = () => <TemplatePlaceholder name="groupingPanel" />;
 
 const pluginDependencies = [
   { name: 'GroupingState' },

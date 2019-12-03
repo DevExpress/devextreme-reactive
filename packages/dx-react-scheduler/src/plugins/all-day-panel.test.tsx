@@ -23,6 +23,9 @@ const defaultDeps = {
     endViewDate: '',
     excludedDays: [],
     formatDate: jest.fn(),
+    grouping: [],
+    resources: [],
+    groupingItems: [],
   },
   template: {
     body: {},
@@ -172,7 +175,7 @@ describe('AllDayPanel', () => {
       expect(allDayRects)
         .toHaveBeenCalledWith(
           'test appointments', new Date(2018, 6, 4, 0, 0), new Date(2018, 6, 6, 23, 59),
-          [], 'test view cells data', 'test',
+          [], 'test view cells data', 'test', [], [], [],
         );
     });
   });

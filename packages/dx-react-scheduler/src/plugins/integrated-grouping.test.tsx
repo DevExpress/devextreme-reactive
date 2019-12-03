@@ -3,14 +3,14 @@ import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import {
-  getGroupingItemsFromResources, getGroupedViewCellsData,
+  getGroupingItemsFromResources, expandViewCellsDataWithGroups,
   sortFilteredResources, filterResourcesByGrouping,
 } from '@devexpress/dx-scheduler-core';
 import { IntegratedGrouping } from './integrated-grouping';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   getGroupingItemsFromResources: jest.fn(),
-  getGroupedViewCellsData: jest.fn(),
+  expandViewCellsDataWithGroups: jest.fn(),
   sortFilteredResources: jest.fn(),
   filterResourcesByGrouping: jest.fn(),
 }));
@@ -28,7 +28,7 @@ describe('IntegratedGrouping', () => {
     filterResourcesByGrouping.mockImplementation(() => 'filteredResources');
     sortFilteredResources.mockImplementation(() => 'sortedResources');
     getGroupingItemsFromResources.mockImplementation(() => 'groupingItems');
-    getGroupedViewCellsData.mockImplementation(() => 'groupedViewCellsData');
+    expandViewCellsDataWithGroups.mockImplementation(() => 'groupedViewCellsData');
   });
 
   it('should provide sortedResources getter', () => {
@@ -69,7 +69,7 @@ describe('IntegratedGrouping', () => {
       </PluginHost>
     ));
 
-    expect(getGroupedViewCellsData)
+    expect(expandViewCellsDataWithGroups)
       .toHaveBeenCalledWith('viewCellsData', 'groupingItems', 'sortedResources');
     expect(getComputedState(tree).viewCellsData)
       .toBe('groupedViewCellsData');

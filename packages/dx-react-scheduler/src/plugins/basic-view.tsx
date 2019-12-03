@@ -210,7 +210,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
               formatDate,
               currentView,
               viewCellsData,
-              grouping, sortedResources, groupingItems,
+              grouping, resourcesToGroupBy, groupingItems,
               appointments, startViewDate, endViewDate,
               excludedDays: excludedDaysGetter,
             }) => {
@@ -218,7 +218,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
               const setRects = this.updateRects(
                 appointments, startViewDate, endViewDate,
                 viewCellsData, cellDuration, excludedDaysGetter,
-                timeTableRects, grouping, sortedResources, groupingItems,
+                timeTableRects, grouping, resourcesToGroupBy, groupingItems,
               );
 
               return (

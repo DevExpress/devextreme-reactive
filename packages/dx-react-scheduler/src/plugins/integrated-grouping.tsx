@@ -15,16 +15,16 @@ const pluginDependencies = [
   { name: 'GroupingState' },
 ];
 
-const getViewCellsDataComputed = memoize(({ viewCellsData, groupingItems, sortedResources }) => {
-  const result = expandViewCellsDataWithGroups(viewCellsData, groupingItems, sortedResources);
+const getViewCellsDataComputed = memoize(({ viewCellsData, groupingItems, resourcesToGroupBy }) => {
+  const result = expandViewCellsDataWithGroups(viewCellsData, groupingItems, resourcesToGroupBy);
   return result;
 });
 
 const getGroupingItemsComputed = memoize((
-  { sortedResources },
-) => getGroupingItemsFromResources(sortedResources));
+  { resourcesToGroupBy },
+) => getGroupingItemsFromResources(resourcesToGroupBy));
 
-const getSortedResourcesComputed = memoize((
+const getResourcesToGroupByComputed = memoize((
   { resources, grouping },
 ) => sortFilteredResources(filterResourcesByGrouping(resources, grouping), grouping));
 
@@ -35,7 +35,7 @@ class IntegratedGroupingBase extends React.PureComponent<IntegratedGroupingProps
         name="IntegratedGrouping"
         dependencies={pluginDependencies}
       >
-        <Getter name="sortedResources" computed={getSortedResourcesComputed} />
+        <Getter name="resourcesToGroupBy" computed={getResourcesToGroupByComputed} />
         <Getter name="groupingItems" computed={getGroupingItemsComputed} />
         <Getter name="viewCellsData" computed={getViewCellsDataComputed} />
       </Plugin>

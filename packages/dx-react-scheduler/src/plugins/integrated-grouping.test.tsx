@@ -26,12 +26,12 @@ describe('IntegratedGrouping', () => {
   };
   beforeEach(() => {
     filterResourcesByGrouping.mockImplementation(() => 'filteredResources');
-    sortFilteredResources.mockImplementation(() => 'sortedResources');
+    sortFilteredResources.mockImplementation(() => 'resourcesToGroupBy');
     getGroupingItemsFromResources.mockImplementation(() => 'groupingItems');
     expandViewCellsDataWithGroups.mockImplementation(() => 'groupedViewCellsData');
   });
 
-  it('should provide sortedResources getter', () => {
+  it('should provide resourcesToGroupBy getter', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -43,8 +43,8 @@ describe('IntegratedGrouping', () => {
       .toHaveBeenCalledWith('resources', 'grouping');
     expect(sortFilteredResources)
       .toHaveBeenCalledWith('filteredResources', 'grouping');
-    expect(getComputedState(tree).sortedResources)
-      .toBe('sortedResources');
+    expect(getComputedState(tree).resourcesToGroupBy)
+      .toBe('resourcesToGroupBy');
   });
 
   it('should provide groupingItems getter', () => {
@@ -56,7 +56,7 @@ describe('IntegratedGrouping', () => {
     ));
 
     expect(getGroupingItemsFromResources)
-      .toHaveBeenCalledWith('sortedResources');
+      .toHaveBeenCalledWith('resourcesToGroupBy');
     expect(getComputedState(tree).groupingItems)
       .toBe('groupingItems');
   });
@@ -70,7 +70,7 @@ describe('IntegratedGrouping', () => {
     ));
 
     expect(expandViewCellsDataWithGroups)
-      .toHaveBeenCalledWith('viewCellsData', 'groupingItems', 'sortedResources');
+      .toHaveBeenCalledWith('viewCellsData', 'groupingItems', 'resourcesToGroupBy');
     expect(getComputedState(tree).viewCellsData)
       .toBe('groupedViewCellsData');
   });

@@ -2,6 +2,13 @@ import * as React from 'react';
 import { getClasses, createMount } from '@material-ui/core/test-utils';
 import { Layout } from './layout';
 
+jest.mock('@material-ui/core/styles', () => ({
+  ...require.requireActual('@material-ui/core/styles'),
+  makeStyles: jest.fn(() => () => ({
+    table: 'table',
+  })),
+}));
+
 describe('Vertical view TimeTable', () => {
   const defaultProps = {
     cellsData: [
@@ -20,11 +27,7 @@ describe('Vertical view TimeTable', () => {
     formatDate: jest.fn(),
     setCellElementsMeta: jest.fn(),
   };
-  let classes;
   let mount;
-  beforeAll(() => {
-    classes = getClasses(<Layout {...defaultProps} />);
-  });
   beforeEach(() => {
     mount = createMount();
     defaultProps.setCellElementsMeta.mockClear();
@@ -40,7 +43,7 @@ describe('Vertical view TimeTable', () => {
 
       expect(tree.find('.custom-class'))
         .toBeTruthy();
-      expect(tree.find(`.${classes.table}`))
+      expect(tree.find('.table'))
         .toBeTruthy();
     });
     it('should pass rest props to the root element', () => {
@@ -48,7 +51,7 @@ describe('Vertical view TimeTable', () => {
         <Layout {...defaultProps} data={{ a: 1 }} />
       ));
 
-      expect(tree.find(`.${classes.table}`).at(0).props().data)
+      expect(tree.find('.table').at(0).props().data)
         .toMatchObject({ a: 1 });
     });
     it('should render array of days', () => {

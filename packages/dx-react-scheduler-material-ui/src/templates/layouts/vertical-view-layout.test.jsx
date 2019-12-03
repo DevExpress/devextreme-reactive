@@ -55,7 +55,7 @@ describe('Vertical View Layout', () => {
 
   it('should render its components correctly', () => {
     const tree = shallow((
-      <VerticalViewLayout {...defaultProps} className="custom-class" />
+      <VerticalViewLayout {...defaultProps} />
     ));
 
     expect(tree.find(`.${classes.stickyHeader}`).exists())
@@ -65,6 +65,8 @@ describe('Vertical View Layout', () => {
     expect(tree.find(`.${classes.fixedWidth}`))
       .toHaveLength(2);
     expect(tree.find(`.${classes.timeTable}`).exists())
+      .toBeTruthy();
+    expect(tree.find(`.${classes.stickyScale}`).exists())
       .toBeTruthy();
   });
 });

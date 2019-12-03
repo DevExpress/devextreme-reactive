@@ -4,13 +4,13 @@ import classNames from 'clsx';
 import TableMUI from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import { makeStyles } from '@material-ui/core/styles';
-import { cellsMeta } from '../../../utils';
-import { minCellWidth } from '../../../constants';
+import { cellsMeta, getMinWidth } from '../../../utils';
+import { MIN_CELL_WIDTH } from '../../../constants';
 
 const useStyles = makeStyles({
   table: {
     tableLayout: 'fixed',
-    minWidth: cellsNumber => `${cellsNumber * minCellWidth}px`,
+    minWidth: cellsNumber => getMinWidth(cellsNumber, MIN_CELL_WIDTH),
     width: '100%',
   },
 });
@@ -64,10 +64,9 @@ export const Layout = React.memo(({
 });
 
 Layout.propTypes = {
-  // oneOfType is a workaround because withStyles returns react object
   cellsData: PropTypes.arrayOf(Array).isRequired,
-  cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  cellComponent: PropTypes.func.isRequired,
+  rowComponent: PropTypes.func.isRequired,
   formatDate: PropTypes.func.isRequired,
   setCellElementsMeta: PropTypes.func.isRequired,
   className: PropTypes.string,

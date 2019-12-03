@@ -60,3 +60,5 @@ export const getAppointmentColor = (level, color, defaultColor) => {
   if (typeof color === 'string') return color;
   return ensureColor(level, color);
 };
+
+export const getMinWidth = (cellsNumber, minCellWidth) => `${cellsNumber * minCellWidth}px`;

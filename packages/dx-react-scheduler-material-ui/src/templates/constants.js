@@ -10,5 +10,5 @@ export const DEFAULT_PALETTE = [
   green, lightGreen, lime, yellow, amber, orange, deepOrange,
 ];
 
-export const minCellWidth = 100;
-export const minCellWidthMobile = 50;
+export const MIN_CELL_WIDTH = 100;
+export const MIN_CELL_WIDTH_MOBILE = 50;

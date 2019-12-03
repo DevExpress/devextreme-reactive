@@ -4,12 +4,13 @@ import classNames from 'clsx';
 import TableMUI from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import { makeStyles } from '@material-ui/core/styles';
-import { minCellWidth } from '../../../constants';
+import { MIN_CELL_WIDTH } from '../../../constants';
+import { getMinWidth } from '../../../utils';
 
 const useStyles = makeStyles({
   table: {
     tableLayout: 'fixed',
-    minWidth: cellsNumber => `${cellsNumber * minCellWidth}px`,
+    minWidth: cellsNumber => getMinWidth(cellsNumber, MIN_CELL_WIDTH),
     width: '100%',
   },
 });
@@ -54,11 +55,10 @@ export const Layout = ({
 };
 
 Layout.propTypes = {
-  // oneOfType is a workaround because withStyles returns react object
   cellsData: PropTypes.arrayOf(Array).isRequired,
-  cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  groupingPanelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  cellComponent: PropTypes.func.isRequired,
+  rowComponent: PropTypes.func.isRequired,
+  groupingPanelComponent: PropTypes.func,
   formatDate: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
@@ -66,5 +66,3 @@ Layout.defaultProps = {
   className: undefined,
   groupingPanelComponent: () => null,
 };
-
-// export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);

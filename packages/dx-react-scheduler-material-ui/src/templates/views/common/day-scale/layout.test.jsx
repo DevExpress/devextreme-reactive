@@ -1,9 +1,15 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { createShallow } from '@material-ui/core/test-utils';
 import { Layout } from './layout';
 
+jest.mock('@material-ui/core/styles', () => ({
+  ...require.requireActual('@material-ui/core/styles'),
+  makeStyles: jest.fn(() => () => ({
+    table: 'table',
+  })),
+}));
+
 describe('Common view DayScale', () => {
-  let classes;
   let shallow;
   const defaultProps = {
     cellsData: [
@@ -21,7 +27,6 @@ describe('Common view DayScale', () => {
     formatDate: jest.fn(),
   };
   beforeAll(() => {
-    classes = getClasses(<Layout {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
   describe('Layout', () => {
@@ -32,7 +37,7 @@ describe('Common view DayScale', () => {
 
       expect(tree.find('.custom-class'))
         .toBeTruthy();
-      expect(tree.find(`.${classes.table}`))
+      expect(tree.find('.table'))
         .toBeTruthy();
     });
     it('should pass rest props to the root element', () => {
@@ -40,7 +45,7 @@ describe('Common view DayScale', () => {
         <Layout {...defaultProps} data={{ a: 1 }} />
       ));
 
-      expect(tree.find(`.${classes.table}`).props().data)
+      expect(tree.props().data)
         .toMatchObject({ a: 1 });
     });
     it('should render array of days', () => {

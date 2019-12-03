@@ -21,8 +21,11 @@ export const cellsMeta = (tableElement) => {
   };
 };
 
-export const scrollingStrategy = (scrollablePart, fixedPart) => {
-  const fixedPartRect = fixedPart.getBoundingClientRect();
+export const scrollingStrategy = (scrollablePart, fixedPartVertical, fixedPartHorizontal) => {
+  const fixedPartVerticalRect = fixedPartVertical.getBoundingClientRect();
+  const fixedPartHorizontalRect = fixedPartHorizontal
+    && fixedPartHorizontal.getBoundingClientRect();
+
   const changeVerticalScroll = (value) => {
     // eslint-disable-next-line no-param-reassign
     scrollablePart.scrollTop += value;
@@ -33,9 +36,11 @@ export const scrollingStrategy = (scrollablePart, fixedPart) => {
   };
 
   return ({
-    topBoundary: fixedPartRect.height + fixedPartRect.top,
+    topBoundary: fixedPartVerticalRect.height + fixedPartVerticalRect.top,
     bottomBoundary: scrollablePart.offsetTop + scrollablePart.clientHeight,
-    leftBoundary: scrollablePart.offsetLeft,
+    leftBoundary: fixedPartHorizontalRect
+      ? fixedPartHorizontalRect.width + fixedPartHorizontalRect.left
+      : scrollablePart.offsetLeft,
     rightBoundary: scrollablePart.offsetLeft + scrollablePart.clientWidth,
     changeVerticalScroll,
     changeHorizontalScroll,

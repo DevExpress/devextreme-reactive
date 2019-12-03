@@ -50,6 +50,7 @@ class VerticalViewLayoutBase extends React.PureComponent {
 
     this.layout = React.createRef();
     this.layoutHeader = React.createRef();
+    this.timeScale = React.createRef();
   }
 
   componentDidMount() {
@@ -63,7 +64,9 @@ class VerticalViewLayoutBase extends React.PureComponent {
   setScrollingStrategy() {
     const { setScrollingStrategy } = this.props;
 
-    setScrollingStrategy(scrollingStrategy(this.layout.current, this.layoutHeader.current));
+    setScrollingStrategy(scrollingStrategy(
+      this.layout.current, this.layoutHeader.current, this.timeScale.current,
+    ));
   }
 
   render() {
@@ -116,6 +119,7 @@ class VerticalViewLayoutBase extends React.PureComponent {
           <Grid className={classes.autoWidth}>
             <Grid container direction="row">
               <div
+                ref={this.timeScale}
                 className={classNames(
                   classes.fixedWidth, classes.stickyElement, classes.stickyScale,
                 )}

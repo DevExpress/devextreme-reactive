@@ -447,16 +447,17 @@ describe('DragDropProvider', () => {
     const timeTableCells = 0;
     const grouping = [];
     const resources = [];
+    const groupingItems = [];
     it('should return all day array while drag above at AllDayPanel', () => {
       calculateDraftAppointments(
         allDayIndex, draftAppointments, startViewDate,
         endViewDate, excludedDays, viewCellsData, allDayCells,
         'horizontal', cellDurationMinutes, timeTableCells,
-        grouping, resources,
+        grouping, resources, groupingItems,
       );
       expect(allDayRects)
         .toBeCalledWith([{ allDay: true }], startViewDate, endViewDate,
-          excludedDays, viewCellsData, allDayCells, grouping, resources);
+          excludedDays, viewCellsData, allDayCells, grouping, resources, groupingItems);
     });
     it('should format appointment if allDay flag exists', () => {
       expect(calculateDraftAppointments(

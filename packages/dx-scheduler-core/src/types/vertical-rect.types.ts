@@ -36,6 +36,6 @@ export type GetCellRectVerticalFn = PureComputed<
   number, CellElementsMeta, boolean], VerticalCellRect
 >;
 /** @internal */
-export type GetVerticalRectByDatesFn = PureComputed<
+export type GetVerticalRectByAppointmentDataFn = PureComputed<
   [AppointmentMoment, VerticalPayload], VerticalCellRectByDate
 >;

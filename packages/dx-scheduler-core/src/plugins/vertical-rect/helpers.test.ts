@@ -1,10 +1,11 @@
 import {
-  getCellByDate,
-  getVerticalRectByDates,
+  getVerticalCellIndex,
+  getVerticalRectByAppointmentData,
 } from './helpers';
+import moment = require('moment');
 
 describe('Vertical rect helpers', () => {
-  describe('#getCellByDate', () => {
+  describe('#getVerticalCellIndex', () => {
     it('should calculate cell index and start date', () => {
       const viewCellsData = [
         [
@@ -23,7 +24,9 @@ describe('Vertical rect helpers', () => {
           { startDate: new Date('2018-06-26 09:00'), endDate: new Date('2018-06-26 09:30') },
         ],
       ];
-      const { index, startDate } = getCellByDate(viewCellsData, new Date(2018, 5, 25, 8, 30));
+      const { index, startDate } = getVerticalCellIndex(
+        {}, viewCellsData, new Date(2018, 5, 25, 8, 30),
+      );
       expect(index)
         .toBe(4);
       expect(startDate.toString())
@@ -36,7 +39,7 @@ describe('Vertical rect helpers', () => {
           startDate: new Date('2018-06-26 08:00:04:100'), endDate: new Date('2018-06-26 08:30:04'),
         }],
       ];
-      expect(getCellByDate(viewCellsData, new Date(2018, 5, 26, 8, 0, 4, 50)).index)
+      expect(getVerticalCellIndex({}, viewCellsData, new Date(2018, 5, 26, 8, 0, 4, 50)).index)
         .toBe(0);
     });
 
@@ -50,14 +53,59 @@ describe('Vertical rect helpers', () => {
         ],
       ];
       const takePrev = true;
-      expect(getCellByDate(viewCellsData, new Date(2018, 5, 26, 8, 30), takePrev).index)
+      expect(getVerticalCellIndex({}, viewCellsData, new Date(2018, 5, 26, 8, 30), takePrev).index)
         .toBe(0);
-      expect(getCellByDate(viewCellsData, new Date(2018, 5, 26, 8, 30)).index)
+      expect(getVerticalCellIndex({}, viewCellsData, new Date(2018, 5, 26, 8, 30)).index)
         .toBe(1);
+    });
+
+    it('should return cell index depending on grouping info', () => {
+      const viewCellsData = [
+        [{
+          startDate: new Date('2018-06-26 08:00'),
+          endDate: new Date('2018-06-26 08:30'),
+          groupingInfo: [{
+            fieldName: 'test',
+            id: 1,
+          }],
+        }, {
+          startDate: new Date('2018-06-26 08:00'),
+          endDate: new Date('2018-06-26 08:30'),
+          groupingInfo: [{
+            fieldName: 'test',
+            id: 2,
+          }],
+        }], [{
+          startDate: new Date('2018-06-26 08:30'),
+          endDate: new Date('2018-06-26 09:00'),
+          groupingInfo: [{
+            fieldName: 'test',
+            id: 1,
+          }],
+        }, {
+          startDate: new Date('2018-06-26 08:30'),
+          endDate: new Date('2018-06-26 09:00'),
+          groupingInfo: [{
+            fieldName: 'test',
+            id: 2,
+          }],
+        }],
+      ];
+      const firstTestAppointment = { test: 1 };
+      const secondTestAppointment = { test: 2 };
+
+      expect(getVerticalCellIndex(
+        firstTestAppointment, viewCellsData, new Date('2018-06-26 08:20'), false,
+      ).index)
+        .toBe(0);
+      expect(getVerticalCellIndex(
+        secondTestAppointment, viewCellsData, new Date('2018-06-26 08:40'),
+      ).index)
+        .toBe(3);
     });
   });
 
-  describe('#getVerticalRectByDates', () => {
+  describe('#getVerticalRectByAppointmentData', () => {
     const cellElementsMeta = {
       parentRect: () => ({ top: 10, left: 10, width: 250 }),
       getCellRects: [{}, {}, {}, {},
@@ -93,13 +141,15 @@ describe('Vertical rect helpers', () => {
         ],
       ];
       const cellDuration = 30;
-      const startDate = new Date(2018, 5, 25, 8, 45);
-      const endDate = new Date(2018, 5, 25, 9, 15);
+      const start = moment(new Date(2018, 5, 25, 8, 45));
+      const end = moment(new Date(2018, 5, 25, 9, 15));
       const {
         top, left, height, width, parentWidth,
-      } = getVerticalRectByDates(
-        startDate,
-        endDate,
+      } = getVerticalRectByAppointmentData(
+        {
+          start,
+          end,
+        },
         {
           cellDuration,
           viewCellsData,

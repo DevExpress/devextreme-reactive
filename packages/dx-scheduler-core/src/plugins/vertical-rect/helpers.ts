@@ -1,6 +1,7 @@
 import moment from 'moment';
 import {
-  GetCellByDateFn, GetVerticalRectByDatesFn, GetCellRectVerticalFn, SchedulerDateTime, ViewCell,
+  GetCellByDateFn, GetVerticalRectByAppointmentDataFn,
+  GetCellRectVerticalFn, SchedulerDateTime, ViewCell,
 } from '../../types';
 
 const CELL_GAP_PX = 10;
@@ -15,7 +16,7 @@ export const getVerticalCellIndex: GetCellByDateFn = (
       let isCorrectCell = true;
       if (timeCell.groupingInfo) {
         timeCell.groupingInfo.map((groupingItem) => {
-          isCorrectCell = isCorrectCell && groupingItem.id === appointment[groupingItem.fieldName]
+          isCorrectCell = isCorrectCell && groupingItem.id === appointment[groupingItem.fieldName];
         });
       }
       return moment(date as SchedulerDateTime).isSame(timeCell.startDate, 'date') && isCorrectCell;
@@ -62,7 +63,7 @@ const getCellRect: GetCellRectVerticalFn = (
   };
 };
 
-export const getVerticalRectByDates: GetVerticalRectByDatesFn = (
+export const getVerticalRectByAppointmentData: GetVerticalRectByAppointmentDataFn = (
   appointment,
   {
     viewCellsData,

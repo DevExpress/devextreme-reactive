@@ -1,5 +1,5 @@
-import { GetCellRectHorizontalFn, GetHorizontalRectByDatesFn } from '../../types';
-import { getAllDayCellIndex } from '../all-day-panel/helpers';
+import { GetCellRectHorizontalFn, GetHorizontalRectByAppointmentDataFn } from '../../types';
+import { getAllDayCellIndexByAppointmentData } from '../all-day-panel/helpers';
 import { getMonthCellIndexByAppointmentData } from '../month-view/helpers';
 
 const TOP_CELL_OFFSET = 0.32;
@@ -10,7 +10,7 @@ const getCellRect: GetCellRectHorizontalFn = (
 ) => {
   const cellIndex = multiline
     ? getMonthCellIndexByAppointmentData(viewCellsData, date, appointment, takePrev)
-    : getAllDayCellIndex(viewCellsData, date, appointment, takePrev);
+    : getAllDayCellIndexByAppointmentData(viewCellsData, date, appointment, takePrev);
 
   const {
     top,
@@ -28,7 +28,7 @@ const getCellRect: GetCellRectHorizontalFn = (
   };
 };
 
-export const getHorizontalRectByDates: GetHorizontalRectByDatesFn = (
+export const getHorizontalRectByAppointmentData: GetHorizontalRectByAppointmentDataFn = (
   appointment,
   {
     multiline,

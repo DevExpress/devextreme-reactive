@@ -1,10 +1,10 @@
 import moment from 'moment';
-import { getHorizontalRectByDates } from './helpers';
-import { getAllDayCellIndexByDate } from '../all-day-panel/helpers';
+import { getHorizontalRectByAppointmentData } from './helpers';
+import { getAllDayCellIndexByAppointmentData } from '../all-day-panel/helpers';
 import { getMonthCellIndexByAppointmentData } from '../month-view/helpers';
 
 jest.mock('../all-day-panel/helpers', () => ({
-  getAllDayCellIndexByDate: jest.fn(),
+  getAllDayCellIndexByAppointmentData: jest.fn(),
 }));
 jest.mock('../month-view/helpers', () => ({
   getMonthCellIndexByAppointmentData: jest.fn(),
@@ -67,7 +67,7 @@ describe('Horizontal rect helpers', () => {
       { startDate: moment('2018-08-08'), endDate: moment('2018-08-09') },
     ],
   ];
-  describe('#getHorizontalRectByDates', () => {
+  describe('#getHorizontalRectByAppointmentData', () => {
     const cellElementsMeta = {
       parentRect: () => ({ top: 10, left: 10, width: 250 }),
       getCellRects: [{}, {}, {}, {}, {}, {}, {},
@@ -86,13 +86,15 @@ describe('Horizontal rect helpers', () => {
       getMonthCellIndexByAppointmentData
         .mockImplementationOnce(() => 7)
         .mockImplementationOnce(() => 7);
-      const startDate = new Date('2018-07-05 10:20');
-      const endDate = new Date('2018-07-06 00:00');
+      const appointment = {
+        start: moment(new Date('2018-07-05 10:20')),
+        end: moment(new Date('2018-07-06 00:00')),
+      };
+
       const {
         top, left, height, width, parentWidth,
-      } = getHorizontalRectByDates(
-        startDate,
-        endDate,
+      } = getHorizontalRectByAppointmentData(
+        appointment,
         {
           viewCellsData,
           multiline: true,
@@ -110,13 +112,15 @@ describe('Horizontal rect helpers', () => {
       getMonthCellIndexByAppointmentData
         .mockImplementationOnce(() => 7)
         .mockImplementationOnce(() => 9);
-      const startDate = new Date('2018-07-05 00:00');
-      const endDate = new Date('2018-07-08 00:00');
+      const appointment = {
+        start: moment(new Date('2018-07-05 00:00')),
+        end: moment(new Date('2018-07-08 00:00')),
+      };
+
       const {
         top, left, height, width, parentWidth,
-      } = getHorizontalRectByDates(
-        startDate,
-        endDate,
+      } = getHorizontalRectByAppointmentData(
+        appointment,
         {
           viewCellsData,
           multiline: true,
@@ -132,13 +136,14 @@ describe('Horizontal rect helpers', () => {
     });
     it('should correct call with multiline property', () => {
       getMonthCellIndexByAppointmentData.mockImplementation(() => 7);
-      getAllDayCellIndexByDate.mockImplementation(() => 7);
+      getAllDayCellIndexByAppointmentData.mockImplementation(() => 7);
+      const appointment = {
+        start: moment(new Date('2018-07-05 00:00')),
+        end: moment(new Date('2018-07-08 00:00')),
+      };
 
-      const startDate = new Date('2018-07-05 00:00');
-      const endDate = new Date('2018-07-08 00:00');
-      getHorizontalRectByDates(
-        startDate,
-        endDate,
+      getHorizontalRectByAppointmentData(
+        appointment,
         {
           viewCellsData,
           multiline: false,
@@ -148,10 +153,12 @@ describe('Horizontal rect helpers', () => {
 
       expect(getMonthCellIndexByAppointmentData)
         .not.toBeCalled();
-      expect(getAllDayCellIndexByDate)
+      expect(getAllDayCellIndexByAppointmentData)
         .toBeCalledTimes(2);
-      expect(getAllDayCellIndexByDate)
-        .toHaveBeenCalledWith(viewCellsData, startDate, false);
+      expect(getAllDayCellIndexByAppointmentData)
+        .toHaveBeenCalledWith(viewCellsData, appointment.start.toDate(), appointment, false);
+      expect(getAllDayCellIndexByAppointmentData)
+        .toHaveBeenCalledWith(viewCellsData, appointment.end.toDate(), appointment, true);
     });
   });
 });

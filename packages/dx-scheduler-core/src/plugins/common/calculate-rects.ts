@@ -7,7 +7,7 @@ import {
 import { calculateRectByDateIntervals } from '../../utils';
 import { calculateWeekDateIntervals } from '../week-view/computeds';
 import { getVerticalRectByAppointmentData } from '../vertical-rect/helpers';
-import { getHorizontalRectByDates } from '../horizontal-rect/helpers';
+import { getHorizontalRectByAppointmentData } from '../horizontal-rect/helpers';
 import { calculateMonthDateIntervals } from '../month-view/computeds';
 import { calculateAllDayDateIntervals } from '../all-day-panel/computeds';
 
@@ -25,7 +25,7 @@ export const allDayRects: AllDayRects = (
       multiline: false,
     },
     intervals,
-    getHorizontalRectByDates,
+    getHorizontalRectByAppointmentData,
     {
       startViewDate,
       endViewDate,
@@ -76,7 +76,7 @@ export const horizontalTimeTableRects: HorizontalRects = (
       multiline: true,
     },
     intervals,
-    getHorizontalRectByDates,
+    getHorizontalRectByAppointmentData,
     {
       startViewDate,
       endViewDate,

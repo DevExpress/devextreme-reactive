@@ -24,7 +24,7 @@ export type CalculateAllDayDateIntervalsFn = PureComputed<
   ValidResource[], ValidResourceInstance[][]], AppointmentMoment[]
 >;
 /** @internal */
-export type GetAllDayCellIndexByDateFn = PureComputed<
+export type GetAllDayCellIndexByAppointmentDataFn = PureComputed<
   [ViewCellData[][], SchedulerDateTime, AppointmentMoment, boolean], number
 >;
 /** @internal */

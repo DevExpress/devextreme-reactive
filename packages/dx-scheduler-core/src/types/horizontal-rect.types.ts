@@ -43,6 +43,6 @@ export type GetCellRectHorizontalFn = PureComputed<
 >;
 
 /** @internal */
-export type GetHorizontalRectByDatesFn = PureComputed<
+export type GetHorizontalRectByAppointmentDataFn = PureComputed<
   [AppointmentMoment, HorizontalPayload], HorizontalCellRect
 >;

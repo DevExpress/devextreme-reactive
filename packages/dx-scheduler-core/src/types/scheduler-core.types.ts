@@ -1,5 +1,5 @@
 import { PureComputed } from '@devexpress/dx-core';
-import { ValidResourceInstance } from './resources.types';
+import { GroupingItem } from '../types';
 
 export type SchedulerDateTime = Date | number | string;
 export type AppointmentId = number | string;
@@ -51,7 +51,7 @@ export type AllDayCell = {
   startDate: SchedulerDateTime;
   /** The cell’s end time. */
   endDate: SchedulerDateTime;
-  groupingInfo?: ValidResourceInstance[];
+  groupingInfo?: GroupingItem[];
   isLastHorizontalGroupCell?: boolean;
 };
 
@@ -61,7 +61,7 @@ export interface ViewCell {
   endDate?: Date;
   otherMonth?: boolean;
   today?: boolean;
-  groupingInfo?: ValidResourceInstance[];
+  groupingInfo?: GroupingItem[];
   isLastHorizontalGroupCell?: boolean;
 }
 /** @internal */

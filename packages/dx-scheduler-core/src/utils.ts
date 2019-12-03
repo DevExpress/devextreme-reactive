@@ -7,7 +7,7 @@ import {
   CalculateFirstDateOfWeekFn, AppointmentMoment,
   Interval, AppointmentGroup, AppointmentUnwrappedGroup,
   Rect, ElementRect, RectCalculatorBaseFn, CalculateRectByDateIntervalsFn,
-  Grouping, ValidResource, ValidResourceInstance,
+  Grouping, ValidResource, GroupingItem,
 } from './types';
 
 export const computed: ComputedHelperFn = (getters, viewName, baseComputed, defaultValue) => {
@@ -297,7 +297,7 @@ const verticalRectCalculator: CustomFunction<
 
 export const groupAppointments: PureComputed<
   [AppointmentMoment[], ValidResource[] | undefined,
-  ValidResourceInstance[][] | undefined], AppointmentMoment[][]
+  GroupingItem[][] | undefined], AppointmentMoment[][]
 > = (appointments, resources, groupingItems) => {
   if (!resources || !groupingItems) {
     return [appointments.slice()];

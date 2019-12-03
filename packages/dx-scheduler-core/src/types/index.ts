@@ -14,3 +14,4 @@ export * from './drag-drop.types';
 export * from './current-time-indicator.types';
 export * from './resources.types';
 export * from './grouping-state.types';
+export * from './integrated-grouping.types';

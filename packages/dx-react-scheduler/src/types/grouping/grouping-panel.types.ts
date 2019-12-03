@@ -1,4 +1,4 @@
-import { ValidResourceInstance } from '@devexpress/dx-scheduler-core';
+import { GroupingItem } from '@devexpress/dx-scheduler-core';
 import { BaseView } from '../views';
 
 /* tslint:disable no-namespace max-line-length no-empty-interface */
@@ -12,7 +12,7 @@ export namespace GroupingPanel {
   export interface HorizontalLayoutProps {
     rowComponent: React.ComponentType<GroupingPanel.RowProps>;
     cellComponent: React.ComponentType<GroupingPanel.CellProps>;
-    groups: Array<Array<ValidResourceInstance>>;
+    groups: Array<Array<GroupingItem>>;
     width: number;
     /** A React node used to render the Grouping panel container content. */
     children?: React.ReactNode;
@@ -22,7 +22,7 @@ export namespace GroupingPanel {
   /** Describes properties passed to a component that renders a Grouping panel horizontal layout. */
   export interface CellProps {
     width: string;
-    groupingItem: ValidResourceInstance;
+    groupingItem: GroupingItem;
   }
 }
 

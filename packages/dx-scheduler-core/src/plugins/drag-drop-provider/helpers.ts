@@ -4,10 +4,7 @@ import {
   ViewCell, ClientOffset, TimeType, ScrollingStrategy,
   AllDayCell, CalculateAppointmentTimeBoundaries,
   TimeBoundariesByDrag, TimeBoundariesByResize, AppointmentModel,
-  CellElementsMeta,
-  Grouping,
-  ValidResourceInstance,
-  ValidResource,
+  CellElementsMeta, Grouping, ValidResource, GroupingItem,
 } from '../../types';
 import { allDayCells as allDayCellsCore } from '../common/computeds';
 import {
@@ -187,7 +184,7 @@ export const calculateDraftAppointments = (
   getAllDayCellsElementRects: CellElementsMeta,
   targetType: string, cellDurationMinutes: number,
   getTableCellElementRects: CellElementsMeta,
-  grouping: Grouping[], resources: ValidResource[], groupingItems: ValidResourceInstance[][],
+  grouping: Grouping[], resources: ValidResource[], groupingItems: GroupingItem[][],
 ) => {
   if (allDayIndex !== -1 || (targetType === VERTICAL_TYPE
     && getAllDayCellsElementRects.getCellRects.length
@@ -228,10 +225,10 @@ export const calculateDraftAppointments = (
 };
 
 export const calculateAppointmentGroups: PureComputed<
-  [Array<ValidResourceInstance> | undefined, Array<ValidResource>, AppointmentModel], any
+  [Array<GroupingItem> | undefined, Array<ValidResource>, AppointmentModel], any
 > = (cellGroupingInfo, resources, appointmentData) => {
   if (!cellGroupingInfo) return {};
-  return cellGroupingInfo.reduce((acc, groupingItem: ValidResourceInstance) => {
+  return cellGroupingInfo.reduce((acc, groupingItem: GroupingItem) => {
     const isMultipleResource = resources.find(
       resource => (resource.fieldName === groupingItem.fieldName),
     )!.allowMultiple;
@@ -244,7 +241,7 @@ export const calculateAppointmentGroups: PureComputed<
 };
 
 const updateMultipleResourceInfo: PureComputed<
-  [ValidResourceInstance, AppointmentModel], any
+  [GroupingItem, AppointmentModel], any
 > = (cellResource, appointmentData) => {
   const cellInfo = cellResource!.id;
   const appointmentGroupItems = appointmentData[cellResource.fieldName];

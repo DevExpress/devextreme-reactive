@@ -1,13 +1,13 @@
 import moment from 'moment';
 import { getHorizontalRectByDates } from './helpers';
 import { getAllDayCellIndexByDate } from '../all-day-panel/helpers';
-import { getMonthCellIndexByDate } from '../month-view/helpers';
+import { getMonthCellIndexByAppointmentData } from '../month-view/helpers';
 
 jest.mock('../all-day-panel/helpers', () => ({
   getAllDayCellIndexByDate: jest.fn(),
 }));
 jest.mock('../month-view/helpers', () => ({
-  getMonthCellIndexByDate: jest.fn(),
+  getMonthCellIndexByAppointmentData: jest.fn(),
 }));
 
 describe('Horizontal rect helpers', () => {
@@ -83,7 +83,7 @@ describe('Horizontal rect helpers', () => {
     });
 
     it('should calculate geometry by dates for single day appointment', () => {
-      getMonthCellIndexByDate
+      getMonthCellIndexByAppointmentData
         .mockImplementationOnce(() => 7)
         .mockImplementationOnce(() => 7);
       const startDate = new Date('2018-07-05 10:20');
@@ -107,7 +107,7 @@ describe('Horizontal rect helpers', () => {
       expect(parentWidth).toBe(250);
     });
     it('should calculate geometry by dates for many days appointment', () => {
-      getMonthCellIndexByDate
+      getMonthCellIndexByAppointmentData
         .mockImplementationOnce(() => 7)
         .mockImplementationOnce(() => 9);
       const startDate = new Date('2018-07-05 00:00');
@@ -131,7 +131,7 @@ describe('Horizontal rect helpers', () => {
       expect(parentWidth).toBe(250);
     });
     it('should correct call with multiline property', () => {
-      getMonthCellIndexByDate.mockImplementation(() => 7);
+      getMonthCellIndexByAppointmentData.mockImplementation(() => 7);
       getAllDayCellIndexByDate.mockImplementation(() => 7);
 
       const startDate = new Date('2018-07-05 00:00');
@@ -146,7 +146,7 @@ describe('Horizontal rect helpers', () => {
         },
       );
 
-      expect(getMonthCellIndexByDate)
+      expect(getMonthCellIndexByAppointmentData)
         .not.toBeCalled();
       expect(getAllDayCellIndexByDate)
         .toBeCalledTimes(2);

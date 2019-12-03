@@ -1,6 +1,7 @@
 import moment from 'moment';
 import {
-  SliceAppointmentByWeekFn, GetMonthCellIndexByDateFn, SchedulerDateTime, AppointmentMoment,
+  SliceAppointmentByWeekFn, GetMonthCellIndexByAppointmentDataFn,
+  SchedulerDateTime, AppointmentMoment,
 } from '../../types';
 import { DAYS_IN_WEEK } from '../appointment-form/constants';
 
@@ -35,7 +36,7 @@ export const sliceAppointmentByWeek: SliceAppointmentByWeekFn = (timeBounds, app
   return pieces;
 };
 
-export const getMonthCellIndex: GetMonthCellIndexByDateFn = (
+export const getMonthCellIndexByAppointmentData: GetMonthCellIndexByAppointmentDataFn = (
   viewCellsData, date, appointment, takePrev = false,
 ) => {
   let cellIndex = -1;

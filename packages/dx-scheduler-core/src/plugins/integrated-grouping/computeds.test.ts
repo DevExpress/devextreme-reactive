@@ -88,7 +88,7 @@ describe('IntegratedGrouping computeds', () => {
     });
   });
 
-  describe('#getGroupedViewCellsData', () => {
+  describe('#expandViewCellsDataWithGroups', () => {
     const viewCellsDataBase = [
       [{ startDate: new Date('2018-06-24 08:00'), endDate: new Date('2018-06-24 08:30') }],
       [{ startDate: new Date('2018-06-24 08:30'), endDate: new Date('2018-06-24 09:00') }],
@@ -112,6 +112,7 @@ describe('IntegratedGrouping computeds', () => {
             fieldName: 'resource1',
             id: 1,
           }],
+          isLastHorizontalGroupCell: true,
         });
       expect(result[0][1])
         .toEqual({
@@ -120,6 +121,7 @@ describe('IntegratedGrouping computeds', () => {
             fieldName: 'resource1',
             id: 2,
           }],
+          isLastHorizontalGroupCell: true,
         });
       expect(result[1][0])
         .toEqual({
@@ -128,6 +130,7 @@ describe('IntegratedGrouping computeds', () => {
             fieldName: 'resource1',
             id: 1,
           }],
+          isLastHorizontalGroupCell: true,
         });
       expect(result[1][1])
         .toEqual({
@@ -136,6 +139,7 @@ describe('IntegratedGrouping computeds', () => {
             fieldName: 'resource1',
             id: 2,
           }],
+          isLastHorizontalGroupCell: true,
         });
     });
 
@@ -171,6 +175,7 @@ describe('IntegratedGrouping computeds', () => {
             fieldName: 'resource1',
             id: 1,
           }],
+          isLastHorizontalGroupCell: true,
         });
       expect(result[0][1])
         .toEqual({
@@ -182,6 +187,7 @@ describe('IntegratedGrouping computeds', () => {
             fieldName: 'resource1',
             id: 1,
           }],
+          isLastHorizontalGroupCell: true,
         });
       expect(result[0][2])
         .toEqual({
@@ -193,6 +199,7 @@ describe('IntegratedGrouping computeds', () => {
             fieldName: 'resource1',
             id: 2,
           }],
+          isLastHorizontalGroupCell: true,
         });
       expect(result[0][3])
         .toEqual({
@@ -204,6 +211,7 @@ describe('IntegratedGrouping computeds', () => {
             fieldName: 'resource1',
             id: 2,
           }],
+          isLastHorizontalGroupCell: true,
         });
     });
 

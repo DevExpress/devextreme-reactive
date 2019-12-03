@@ -45,7 +45,7 @@ inlineSummaryComponent | ComponentType&lt;[TableGroupRow.InlineSummaryProps](#ta
 inlineSummaryItemComponent | ComponentType&lt;[TableGroupRow.InlineSummaryItemProps](#tablegrouprowinlinesummaryitemprops)&gt; | | A component that renders a single group summary item in a group caption.
 summaryCellComponent | ComponentType&lt;[TableGroupRow.SummaryCellProps](#tablegrouprowsummarycellprops)&gt; | | A component that renders a cell for a group summary item in an appropriate column.
 summaryItemComponent | ComponentType&lt;[TableSummaryRow.ItemProps](table-summary-row.md#tablesummaryrowitemprops)&gt; | | A component that renders a group summary item in its column.
-stubCellComponent | ComponentType&lt;[TableGroupRow.StubCellProps](#tablegrouprowstubcellprops)&gt; | | A component that renders a stub cell used to align summary items against their columns.
+stubCellComponent | ComponentType&lt;[TableGroupRow.StubCellProps](#tablegrouprowstubcellprops)&gt; | | A component that renders a stub cell used to align summary items in their columns.
 formatlessSummaryTypes | Array&lt;string&gt; | | Summary types that the `DataTypeProvider` plugin should not format.
 messages? | [TableGroupRow.LocalizationMessages](#localization-messages) | | Localization messages.
 indentColumnWidth | number | `33` for [Bootstrap4](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap4) and for [Bootstrap](https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3); `48` for [Material-UI](https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui) | The group indent column's width.
@@ -134,7 +134,7 @@ Field | Type | Description
 ------|------|------------
 inlineSummaries | Array&lt;[GroupInlineSummary](#groupinlinesummary)&gt; | Summary items in this container.
 inlineSummaryItemComponent | ComponentType&lt;[TableGroupRow.InlineSummaryItemProps](#tablegrouprowinlinesummaryitemprops)&gt; | A component that renders an inline group summary item.
-getMessage | ([messageKey](#localization-messages): string) => string | A function that gets a localized message by message ID.
+getMessage | ([messageKey](#localization-messages): string) => string | A function that uses the message ID to get a localized message.
 
 ### TableGroupRow.InlineSummaryItemProps
 
@@ -153,18 +153,18 @@ Field | Type | Description
 ------|------|------------
 row | [GroupRow](#grouprow) | The group row.
 column | [Column](grid.md#column) | The column for which the summary is calculated.
-onToggle | () => void | A function that is executed when the group row is being expanded or collapsed.
+onToggle | () => void | A function that is executed when the group row is expanded or collapsed.
 children | ReactNode | A React node to be rendered within the cell.
 
 ### TableGroupRow.StubCellProps
 
-Describes properties passed to a component that renders a stub cell used to align summary items against their columns.
+Describes properties passed to a component that renders a stub cell used to align summary items in their columns.
 
 Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------
-onToggle | () => void |  A function that is executed when a group row is being expanded or collapsed.
+onToggle | () => void |  A function that is executed when a group row is expanded or collapsed.
 
 ### GroupRow
 

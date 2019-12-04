@@ -1,5 +1,5 @@
 import {
-  GetRowLevelKeyFn, IsSpecificRowFn, GetCollapsedRowsFn, GetRowIdFn, Row, GetCellValueFn,
+  GetRowLevelKeyFn, IsSpecificRowFn, GetCollapsedRowsFn, GetRowIdFn, Row, GetCellValueFn, Column,
 } from './grid-core.types';
 import { TableRow } from './table.types';
 import { PureComputed, CustomFunction } from '@devexpress/dx-core';
@@ -11,6 +11,10 @@ export interface SummaryItem {
   /** A summary type. */
   type: SummaryType;
 }
+export interface GroupSummaryItem extends SummaryItem {
+  showInGroupFooter?: boolean;
+  alignByColumn?: boolean;
+}
 export type SummaryType = string;
 
 /** @internal */
@@ -21,11 +25,11 @@ export type GroupLevel = { levelKey: string, row: Row, rows: Row[] };
 
 /** @internal */
 type GetRowValueFn = PureComputed<[Row], any>;
-/** @internal */
+
 export type ColumnSummary = { type: SummaryType, value: SummaryValue };
 /** @internal */
 export type GetColumnSummariesFn = PureComputed<
-  [SummaryItem[], string, SummaryValue[]],
+  [SummaryItem[], string, SummaryValue[], ((item: SummaryItem) => boolean)?],
   ColumnSummary[]
 >;
 
@@ -38,10 +42,10 @@ export type TableRowsWithSummariesFn = PureComputed<
 type DefaultSummaryCalulator = PureComputed<[Row[], GetRowValueFn], SummaryValue>;
 /** @internal */
 export type DefaultSummaryCalculators = { [key: string]: DefaultSummaryCalulator };
-/** @internal */
+
 export type SummaryValue = number | null;
 /** @internal */
-type GroupSummaryValue = { [key: string]: SummaryValue[] };
+export type GroupSummaryValue = { [key: string]: SummaryValue[] };
 /** @internal */
 type TreeSummaryValue = { [key: number]: SummaryValue[] };
 
@@ -72,3 +76,20 @@ export type TreeSummaryValuesFn = PureComputed<[
   TableRow[], SummaryItem[], GetCellValueFn, GetRowLevelKeyFn,
   IsSpecificRowFn, GetRowIdFn, SummaryCalculator?
 ], TreeSummaryValue>;
+
+/** @internal */
+export type ExpandRowsFn = PureComputed<
+  [TableRow[], GetRowLevelKeyFn, GetCollapsedRowsFn, IsSpecificRowFn, boolean?],
+  TableRow[]
+>;
+
+/** @internal */
+export type ColumnInlineSummaries = {
+  column: Column,
+  summaries: ReadonlyArray<ColumnSummary>,
+};
+
+/** @internal */
+export type GetGroupInlineSummariesFn = PureComputed<
+  [GroupSummaryItem[], Column[], SummaryValue[]], ColumnInlineSummaries[]
+>;

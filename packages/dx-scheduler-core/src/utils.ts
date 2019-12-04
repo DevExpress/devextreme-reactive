@@ -81,13 +81,20 @@ export const viewPredicate: ViewPredicateFn = (
 };
 
 export const sortAppointments: PureComputed<
-  [AppointmentMoment[], boolean], AppointmentMoment[]
-> = (appointments, byDay = false) => appointments
+  [AppointmentMoment[]], AppointmentMoment[]
+> = appointments => appointments
   .slice().sort((a, b) => {
-    const compareValue = byDay ? 'day' : undefined;
-    if (a.start.isBefore(b.start, compareValue)) return -1;
-    if (a.start.isAfter(b.start, compareValue)) return 1;
-    if (a.start.isSame(b.start, compareValue)) {
+    if (a.start.isSame(b.start, 'day')) {
+      if (a.allDay && !b.allDay) return -1;
+      if (!a.allDay && b.allDay) return 1;
+      if (a.allDay && b.allDay) {
+        if (a.end.isBefore(b.end)) return 1;
+        if (a.end.isAfter(b.end)) return -1;
+      }
+    }
+    if (a.start.isBefore(b.start)) return -1;
+    if (a.start.isAfter(b.start)) return 1;
+    if (a.start.isSame(b.start)) {
       if (a.end.isBefore(b.end)) return 1;
       if (a.end.isAfter(b.end)) return -1;
     }
@@ -303,7 +310,7 @@ export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
   const { growDirection, multiline } = type;
   const isHorizontal = growDirection === HORIZONTAL_TYPE;
 
-  const sorted = sortAppointments(intervals, multiline);
+  const sorted = sortAppointments(intervals);
   const grouped = findOverlappedAppointments(sorted as AppointmentMoment[], isHorizontal);
 
   const rectCalculator = isHorizontal

@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
 import { Cell } from './cell';
 
-describe('TableGroupCell', () => {
+describe('GroupRowCell', () => {
   let resetConsole;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -15,17 +15,37 @@ describe('TableGroupCell', () => {
   const defaultProps = {
     contentComponent: () => null,
     iconComponent: () => null,
+    inlineSummaryComponent: () => null,
+    inlineSummaryItemComponent: () => null,
     containerComponent: ({ children }) => children,
     row: {},
     column: {},
     onToggle: jest.fn(),
+    getMessage: jest.fn(),
     expanded: true,
+    inlineSummaries: [],
     position: '13px',
     side: 'left',
   };
 
-  it('should render children inside content component if passed', () => {
+  it('should assign onClick handler', () => {
+    const onToggle = jest.fn();
     const tree = shallow((
+      <Cell
+        {...defaultProps}
+        onToggle={onToggle}
+      />
+    ));
+    const onClick = tree.prop('onClick');
+
+    onClick();
+
+    expect(onToggle)
+      .toBeCalled();
+  });
+
+  fit('should render children inside content component if passed', () => {
+    const tree = mount((
       <Cell
         {...defaultProps}
         contentComponent={({ children }) => children}
@@ -63,6 +83,29 @@ describe('TableGroupCell', () => {
       });
   });
 
+  it('should render inline summary if exists', () => {
+    const inlineSummaries = [{}, {}];
+    const tree = mount((
+      <Cell {...defaultProps} inlineSummaries={inlineSummaries} />
+    ));
+
+    expect(tree.find(defaultProps.inlineSummaryComponent).props())
+      .toEqual({
+        inlineSummaries,
+        getMessage: defaultProps.getMessage,
+        inlineSummaryItemComponent: defaultProps.inlineSummaryItemComponent,
+      });
+  });
+
+  it('should not render inline summary if not exists', () => {
+    const tree = mount((
+      <Cell {...defaultProps} />
+    ));
+
+    expect(tree.find(defaultProps.inlineSummaryComponent).exists())
+      .toBeFalsy();
+  });
+
   it('should render Container', () => {
     const tree = mount((
       <Cell {...defaultProps} />
@@ -83,7 +126,7 @@ describe('TableGroupCell', () => {
       />
     ));
 
-    expect(tree.is('.dx-g-bs4-cursor-pointer.custom-class'))
+    expect(tree.is('.dx-g-bs4-group-cell.custom-class'))
       .toBeTruthy();
   });
 

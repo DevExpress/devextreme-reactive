@@ -1,8 +1,14 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
+import { prepareGroupSummaryItems } from '@devexpress/dx-grid-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { SummaryState } from './summary-state';
+
+jest.mock('@devexpress/dx-grid-core', () => ({
+  ...require.requireActual('@devexpress/dx-grid-core'),
+  prepareGroupSummaryItems: jest.fn(),
+}));
 
 const defaultDeps = {
   plugins: [],
@@ -25,6 +31,7 @@ describe('SummaryState', () => {
   });
 
   it('should provide value from the "groupItems" property', () => {
+    prepareGroupSummaryItems.mockReturnValue('prepareGroupSummaryItems');
     const groupSummaryItems = [{ columnName: 'a', type: 'count' }];
     const tree = mount((
       <PluginHost>
@@ -36,7 +43,7 @@ describe('SummaryState', () => {
     ));
 
     expect(getComputedState(tree).groupSummaryItems)
-      .toBe(groupSummaryItems);
+      .toBe('prepareGroupSummaryItems');
   });
 
   it('should provide value from the "treeItems" property', () => {

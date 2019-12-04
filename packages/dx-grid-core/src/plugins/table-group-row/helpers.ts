@@ -1,6 +1,6 @@
 import { PureComputed } from '@devexpress/dx-core';
 import { TABLE_GROUP_TYPE } from './constants';
-import { TableRow, TableColumn, IsSpecificCellFn, Grouping } from '../../types';
+import { TableRow, TableColumn, IsSpecificCellFn, Grouping, GroupSummaryItem } from '../../types';
 import { TABLE_STUB_TYPE } from '../../utils/virtual-table';
 
 type IsGroupIndentCellFn = PureComputed<[TableRow, TableColumn, Grouping[]], boolean>;
@@ -46,6 +46,40 @@ export const isGroupIndentStubTableCell: IsGroupIndentCellFn = (
 );
 
 export const isGroupTableRow = (tableRow: TableRow) => tableRow.type === TABLE_GROUP_TYPE;
+
+export const isGroupRowOrdinaryCell: IsSpecificCellFn = (tableRow, tableColumn) => (
+  isGroupTableRow(tableRow) && !isGroupTableCell(tableRow, tableColumn)
+);
+
+const columnHasGroupRowSummary: PureComputed<[TableColumn, GroupSummaryItem[]], boolean> = (
+  tableColumn, groupSummaryItems,
+) => (
+  !!(groupSummaryItems && groupSummaryItems
+    .some(item => (
+      (!item.showInGroupFooter && item.alignByColumn)
+        && item.columnName === (tableColumn.column && tableColumn.column.name)
+    )))
+);
+
+export const isRowSummaryCell: PureComputed<
+  [TableRow, TableColumn, Grouping[], GroupSummaryItem[]], boolean
+> = (
+  tableRow, tableColumn, grouping, groupSummaryItems,
+) => (
+  columnHasGroupRowSummary(tableColumn, groupSummaryItems)
+  && !isGroupIndentTableCell(tableRow, tableColumn, grouping)
+);
+
+export const isPreviousCellContainSummary: PureComputed<
+  [TableRow, TableColumn, TableColumn[], Grouping[], GroupSummaryItem[]], boolean
+> = (
+  tableRow, tableColumn, tableColumns, grouping, groupSummaryItems,
+) => {
+  const columnIndex = tableColumns.indexOf(tableColumn);
+  return columnIndex > 0 && isRowSummaryCell(
+    tableRow, tableColumns[columnIndex - 1], grouping, groupSummaryItems,
+  );
+};
 
 export const calculateGroupCellIndent: PureComputed<[TableColumn, Grouping[], number], number> = (
   tableColumn, grouping, indentWidth,

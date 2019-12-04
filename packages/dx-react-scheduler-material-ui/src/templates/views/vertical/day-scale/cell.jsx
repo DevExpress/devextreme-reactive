@@ -5,6 +5,7 @@ import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 import { WEEK_DAY_OPTIONS, DAY_OPTIONS } from '@devexpress/dx-scheduler-core';
 import { getBorder, getBrightBorder } from '../../../utils';
+import { LARGE_MOBILE_LAYOUT_QUERY } from '../../../constants';
 
 const styles = theme => ({
   cell: {
@@ -15,7 +16,7 @@ const styles = theme => ({
     paddingRight: 0,
     paddingLeft: 0,
     boxSizing: 'border-box',
-    '@media (max-width: 700px)': {
+    [`${LARGE_MOBILE_LAYOUT_QUERY}`]: {
       padding: theme.spacing(1),
       paddingBottom: 0,
     },
@@ -35,7 +36,7 @@ const styles = theme => ({
   },
   dayOfMonth: {
     ...theme.typography.h4,
-    '@media (max-width: 700px)': {
+    [`${LARGE_MOBILE_LAYOUT_QUERY}`]: {
       ...theme.typography.h6,
     },
     color: theme.palette.text.secondary,

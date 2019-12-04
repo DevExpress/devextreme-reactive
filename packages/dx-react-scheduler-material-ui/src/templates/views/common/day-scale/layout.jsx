@@ -4,13 +4,22 @@ import classNames from 'clsx';
 import TableMUI from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import { makeStyles } from '@material-ui/core/styles';
-import { MIN_CELL_WIDTH } from '../../../constants';
+import {
+  MIN_CELL_WIDTH, LARGE_MOBILE_MIN_CELL_WIDTH,
+  MIN_CELL_WIDTH_MOBILE, MOBILE_LAYOUT_QUERY, LARGE_MOBILE_LAYOUT_QUERY,
+} from '../../../constants';
 import { getMinWidth } from '../../../utils';
 
 const useStyles = makeStyles({
   table: {
     tableLayout: 'fixed',
     minWidth: cellsNumber => getMinWidth(cellsNumber, MIN_CELL_WIDTH),
+    [`${LARGE_MOBILE_LAYOUT_QUERY}`]: {
+      minWidth: cellsNumber => getMinWidth(cellsNumber, LARGE_MOBILE_MIN_CELL_WIDTH),
+    },
+    [`${MOBILE_LAYOUT_QUERY}`]: {
+      minWidth: cellsNumber => getMinWidth(cellsNumber, MIN_CELL_WIDTH_MOBILE),
+    },
     width: '100%',
   },
 });

@@ -24,7 +24,7 @@ describe('GroupingPanel', () => {
         .toMatchObject({ a: 1 });
     });
 
-    it('should render row and cells depending on groups prop',() => {
+    it('should render row and cells depending on groups prop', () => {
       const groups = [[{
         text: '1',
       }, {

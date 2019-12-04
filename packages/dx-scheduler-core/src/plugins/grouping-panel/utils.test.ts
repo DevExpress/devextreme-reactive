@@ -1,4 +1,4 @@
-import { getCellKey } from "./utils";
+import { getCellKey } from './utils';
 
 describe('GroupingPanel utils', () => {
   describe('#getCellKey', () => {
@@ -6,7 +6,7 @@ describe('GroupingPanel utils', () => {
       const groups = [[
         { text: '1' },
         { text: '2' },
-      ],[
+      ], [
         { text: '3' },
         { text: '4' },
         { text: '3' },

@@ -320,8 +320,8 @@ export const groupAppointments: PureComputed<
     }, [{ id: groupingItem.id, fieldName: groupingItem.fieldName }]);
 
     return appointments.reduce((acc, appointment) => {
-      const belongsToGroup = currentGroup.reduce((acc, groupItem) => {
-        return acc && groupItem.id === appointment[groupItem.fieldName];
+      const belongsToGroup = currentGroup.reduce((isBelonging, groupItem) => {
+        return isBelonging && groupItem.id === appointment[groupItem.fieldName];
       }, true);
       const currentMainResourceId = currentGroup.find(
         groupItem => groupItem.fieldName === mainResource!.fieldName)!.id;

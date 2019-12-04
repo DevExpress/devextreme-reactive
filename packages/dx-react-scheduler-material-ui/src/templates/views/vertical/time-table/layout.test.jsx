@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { getClasses, createMount } from '@material-ui/core/test-utils';
+import { createMount } from '@material-ui/core/test-utils';
 import { Layout } from './layout';
 
 jest.mock('@material-ui/core/styles', () => ({

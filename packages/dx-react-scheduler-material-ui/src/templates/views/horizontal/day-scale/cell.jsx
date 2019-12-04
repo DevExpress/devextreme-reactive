@@ -10,10 +10,12 @@ const styles = theme => ({
   cell: {
     userSelect: 'none',
     padding: 0,
-    borderRight: getBorder(theme),
+    borderLeft: getBorder(theme),
     borderBottom: 'none',
+    '&:first-child': {
+      borderLeft: 'none',
+    },
     '&:last-child': {
-      borderRight: 'none',
       paddingRight: 0,
     },
     textAlign: 'center',

@@ -8,18 +8,16 @@ import { getBrightBorder } from '../utils';
 const styles = theme => ({
   cell: {
     userSelect: 'none',
-    paddingBottom: 0,
+    padding: 0,
     textAlign: 'center',
     borderBottom: 'none',
-    paddingRight: 0,
-    paddingLeft: 0,
     borderTop: getBrightBorder(theme),
-    'tr:first-child &': {
-      borderTop: 'none',
-    },
     paddingTop: theme.spacing(0.5),
     boxSizing: 'border-box',
     borderRight: getBrightBorder(theme),
+    'tr:first-child &': {
+      borderTop: 'none',
+    },
     '&:last-child': {
       borderRight: 'none',
     },

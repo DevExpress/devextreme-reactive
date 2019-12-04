@@ -17,6 +17,8 @@ const styles = theme => ({
     position: 'sticky',
     overflow: 'visible',
     background: theme.palette.background.paper,
+    display: 'inline-block',
+    width: 'auto',
   },
   timeTable: {
     position: 'relative',

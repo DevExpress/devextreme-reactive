@@ -24,6 +24,7 @@ describe('Common view DayScale', () => {
     ],
     cellComponent: () => undefined,
     rowComponent: () => undefined,
+    groupingPanelComponent: () => undefined,
     formatDate: jest.fn(),
   };
   beforeAll(() => {
@@ -56,6 +57,14 @@ describe('Common view DayScale', () => {
 
       expect(tree.find(cell))
         .toHaveLength(2);
+    });
+    it('should render groupingPanelComponent', () => {
+      const tree = shallow((
+        <Layout {...defaultProps} />
+      ));
+
+      expect(tree.find(defaultProps.groupingPanelComponent).exists())
+        .toBeTruthy();
     });
   });
 });

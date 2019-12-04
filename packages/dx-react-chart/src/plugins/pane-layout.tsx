@@ -11,7 +11,7 @@ import { ClipPath } from '../templates/clip-path';
 // Original *Sizer* cannot be used because it ignores (as it should do) *forceUpdate* request.
 // *UpdatableSizer* implements *componentDidUpdate* and forces internal *Sizer* size calculation.
 // It allows to run chart size recalculation by calling *forceUpdate* on chart instance.
-import { UpdatableSizer } from '../utils/updatable-sizer';
+import { Sizer } from '@devexpress/dx-react-core';
 
 const DIV_STYLE: React.CSSProperties = {
   flex: 1, zIndex: 1, position: 'relative', width: '100%',
@@ -45,7 +45,7 @@ export class PaneLayout extends React.PureComponent {
             {({ layouts }, { changeBBox }) => {
               const { width, height } = layouts.pane;
               return (
-                <UpdatableSizer
+                <Sizer
                   containerComponent={SizerContainer}
                   onSizeChange={size => changeBBox({ placeholder: 'pane', bBox: size })}
                 >
@@ -59,7 +59,7 @@ export class PaneLayout extends React.PureComponent {
                     <ClipPath id={this.clipPathId} width={width} height={height} />
                     <TemplatePlaceholder name="series" />
                   </svg>
-                </UpdatableSizer>
+                </Sizer>
               );
             }}
           </TemplateConnector>

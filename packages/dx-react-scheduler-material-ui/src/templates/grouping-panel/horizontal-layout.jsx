@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { getCellKey } from '@devexpress/dx-scheduler-core';
 
 export const HorizontalLayout = ({
   rowComponent: Row,
@@ -9,18 +10,18 @@ export const HorizontalLayout = ({
   ...restProps
 }) => (
   <>
-    {groups.map((group) => {
-      const colSpan = width / group.length;
+    {groups.map((groupRow, rowIndex) => {
+      const colSpan = width / groupRow.length;
       return (
         <Row
           key={groups[0][0].text.concat('row')}
           {...restProps}
         >
-          {group.map(groupingItem => (
+          {groupRow.map((groupingItem, index) => (
             <Cell
               groupingItem={groupingItem}
               colSpan={colSpan}
-              key={groupingItem.text}
+              key={getCellKey(groups, index, rowIndex)}
             />
           ))}
         </Row>

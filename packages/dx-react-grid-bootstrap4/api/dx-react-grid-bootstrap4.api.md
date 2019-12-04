@@ -439,7 +439,7 @@ export namespace TableGroupRow {
 
 // @public (undocumented)
 export namespace TableGroupRow {
-  export type GroupInlineSummary = TableGroupRow_2.GroupInlineSummary;
+  export type InlineSummaryItemInfo = TableGroupRow_2.InlineSummaryItemInfo;
 }
 
 // @public (undocumented)

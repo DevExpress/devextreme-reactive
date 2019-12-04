@@ -981,7 +981,7 @@ export namespace TableGroupRow {
         // (undocumented)
         getMessage: (string: any) => string;
         // (undocumented)
-        inlineSummaries: readonly GroupInlineSummary[];
+        inlineSummaries: readonly InlineSummaryItemInfo[];
         // (undocumented)
         inlineSummaryComponent: React.ComponentType<InlineSummaryProps>;
         // (undocumented)
@@ -1005,12 +1005,6 @@ export namespace TableGroupRow {
         column: Column;
         row: GroupRow;
     }
-    // (undocumented)
-    export type GroupInlineSummary = ColumnSummary & {
-        columnTitle: string | undefined;
-        messageKey: string;
-        component: React.FunctionComponent<any>;
-    };
     export interface IconProps {
         expanded: boolean;
     }
@@ -1019,23 +1013,29 @@ export namespace TableGroupRow {
         row: GroupRow;
     }
     // (undocumented)
+    export type InlineSummaryItemInfo = ColumnSummary & {
+        columnTitle: string | undefined;
+        messageKey: string;
+        component: React.FunctionComponent<any>;
+    };
+    // (undocumented)
     export interface InlineSummaryItemProps {
         // (undocumented)
         getMessage: GetMessageFn;
         // (undocumented)
-        summary: GroupInlineSummary;
+        summary: InlineSummaryItemInfo;
     }
     // (undocumented)
     export interface InlineSummaryProps {
         // (undocumented)
         getMessage: GetMessageFn;
         // (undocumented)
-        inlineSummaries: readonly GroupInlineSummary[];
+        inlineSummaries: readonly InlineSummaryItemInfo[];
         // (undocumented)
         inlineSummaryItemComponent: React.ComponentType<InlineSummaryItemProps>;
     }
     // (undocumented)
-    export interface LocalizationMessages {
+    export interface LocalizationMessages extends TableSummaryRow.LocalizationMessages {
         // (undocumented)
         avgOf?: string;
         // (undocumented)

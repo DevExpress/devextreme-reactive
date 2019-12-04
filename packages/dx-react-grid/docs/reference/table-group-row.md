@@ -62,7 +62,7 @@ Field | Type | Description
 columnName | string | The name of a column to extend.
 showWhenGrouped? | boolean | Specifies whether the grid displays the column by which data is grouped.
 
-### TableGroupRow.InlineSummaryItem
+### TableGroupRow.InlineSummaryItemInfo
 
 Describes a summary item to be displayed in a group caption.
 
@@ -86,6 +86,10 @@ row | [GroupRow](#grouprow) | The group row.
 column | [Column](grid.md#column) | The column associated with the group.
 expanded | boolean | Specifies whether the row is expanded.
 onToggle | () => void | An event that initiates group row expanding or collapsing.
+inlineSummaries | Array&lt;[GroupInlineSummary](#groupinlinesummary)&gt; | Summary items in this container.
+inlineSummaryComponent |ComponentType&lt;[TableGroupRow.InlineSummaryProps](#tablegrouprowinlinesummaryprops)&gt; | A component that renders a container for group summary items in a group caption.
+inlineSummaryItemComponent | ComponentType&lt;[TableGroupRow.InlineSummaryItemProps](#tablegrouprowinlinesummaryitemprops)&gt; | A component that renders an inline group summary item.
+getMessage | ([messageKey](#localization-messages): string) => string | A function that uses the message ID to get a localized message.
 
 ### TableGroupRow.RowProps
 

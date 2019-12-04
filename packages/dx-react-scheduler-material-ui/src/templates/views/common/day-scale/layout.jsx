@@ -65,8 +65,8 @@ export const Layout = ({
 
 Layout.propTypes = {
   cellsData: PropTypes.arrayOf(Array).isRequired,
-  cellComponent: PropTypes.func.isRequired,
-  rowComponent: PropTypes.func.isRequired,
+  cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   groupingPanelComponent: PropTypes.func,
   formatDate: PropTypes.func.isRequired,
   className: PropTypes.string,

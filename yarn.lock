@@ -12321,10 +12321,10 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-bootstrap@=0.33.0:
-  version "0.33.0"
-  resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-0.33.0.tgz#db0004ae6c5b4822921c23448ff214de0e300d2e"
-  integrity sha512-UcxxaczDIPEsY+O4EqCIIEPDjxvLqqfUfXhQO+yzhk0yXzR0Y7+6xqBW01sy3gN717GUXhrkpwZiyn9uFX1s0A==
+react-bootstrap@=0.33.1:
+  version "0.33.1"
+  resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-0.33.1.tgz#e072592aa143b9792526281272eca754bc9a4940"
+  integrity sha512-qWTRravSds87P8WC82tETy2yIso8qDqlIm0czsrduCaYAFtHuyLu0XDbUlfLXeRzqgwm5sRk2wRaTNoiVkk/YQ==
   dependencies:
     "@babel/runtime-corejs2" "^7.0.0"
     classnames "^2.2.5"

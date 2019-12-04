@@ -5,13 +5,9 @@ import {
   Template,
   TemplateConnector,
   TemplatePlaceholder,
+  Sizer,
 } from '@devexpress/dx-react-core';
 import { ClipPath } from '../templates/clip-path';
-
-// Original *Sizer* cannot be used because it ignores (as it should do) *forceUpdate* request.
-// *UpdatableSizer* implements *componentDidUpdate* and forces internal *Sizer* size calculation.
-// It allows to run chart size recalculation by calling *forceUpdate* on chart instance.
-import { Sizer } from '@devexpress/dx-react-core';
 
 const DIV_STYLE: React.CSSProperties = {
   flex: 1, zIndex: 1, position: 'relative', width: '100%',

@@ -841,7 +841,19 @@ describe('Utils', () => {
         },
       };
 
-      expect(expandGroupedAppointment(appointment, undefined, undefined))
+      expect(expandGroupedAppointment(appointment, [], undefined))
+        .toEqual([appointment]);
+    });
+    it('should return appointment as it is (inside an array) if grouping is undefined', () => {
+      const appointment = {
+        dataItem: {
+          test1: 1,
+          test2: 2,
+          test3: 3,
+        },
+      };
+
+      expect(expandGroupedAppointment(appointment, undefined, []))
         .toEqual([appointment]);
     });
   });

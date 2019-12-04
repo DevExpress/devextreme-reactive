@@ -48,7 +48,7 @@
     "jspdf": "^1.5.3",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
-    "react-bootstrap": "=0.33.0",
+    "react-bootstrap": "=0.33.1",
     "react-dom": "^16.12.0",
     "react-frame-component": "^4.1.1",
     "react-popper": "^1.3.6",

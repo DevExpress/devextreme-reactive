@@ -24,6 +24,24 @@ import {
   AppointmentFormProps, AppointmentFormState, AppointmentTooltip, Appointments,
 } from '../types';
 
+const addDoubleClickToCell = (
+  title, startDate, endDate, allDay, openFormHandler, addAppointment, params,
+) => {
+  const newAppointmentData = { title, startDate, endDate, allDay };
+  return (
+    <TemplatePlaceholder
+      params={{
+        ...params,
+        onDoubleClick: () => {
+          openFormHandler(newAppointmentData);
+          callActionIfExists(addAppointment,
+            { appointmentData: newAppointmentData });
+        },
+      }}
+    />
+  );
+}
+
 const defaultMessages = {
   allDayLabel: 'All Day',
   titleLabel: 'Title',
@@ -506,26 +524,22 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
         <Template name="cell">
           {(params: any) => (
             <TemplateConnector>
-              {(getters, { addAppointment }) => {
-                const newAppointmentData = {
-                  title: undefined,
-                  startDate: params.startDate,
-                  endDate: params.endDate,
-                  allDay: isAllDayCell(params.startDate, params.endDate),
-                };
-                return (
-                  <TemplatePlaceholder
-                    params={{
-                      ...params,
-                      onDoubleClick: () => {
-                        this.openFormHandler(newAppointmentData);
-                        callActionIfExists(addAppointment,
-                          { appointmentData: newAppointmentData });
-                      },
-                    }}
-                  />
-                );
-              }}
+              {(getters, { addAppointment }) => addDoubleClickToCell(
+                undefined, params.startDate, params.endDate,
+                isAllDayCell(params.startDate, params.endDate),
+                this.openFormHandler, addAppointment, params,
+              )}
+            </TemplateConnector>
+          )}
+        </Template>
+
+        <Template name="allDayPanelCell">
+          {(params: any) => (
+            <TemplateConnector>
+              {(getters, { addAppointment }) => addDoubleClickToCell(
+                undefined, params.startDate, params.endDate,
+                true, this.openFormHandler, addAppointment, params,
+              )}
             </TemplateConnector>
           )}
         </Template>

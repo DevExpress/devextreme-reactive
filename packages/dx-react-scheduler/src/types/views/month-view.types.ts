@@ -64,7 +64,7 @@ export namespace MonthView {
     /** A component that renders a month scale row. */
     rowComponent: React.ComponentType<BaseView.RowProps>;
     /** A component that renders Grouping panel */
-    groupingPanel: React.ComponentType<GroupingPanel.HorizontalLayoutProps>;
+    groupingPanelComponent: React.ComponentType<GroupingPanel.HorizontalLayoutProps>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
   }

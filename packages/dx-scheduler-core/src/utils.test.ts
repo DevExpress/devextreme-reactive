@@ -376,7 +376,9 @@ describe('Utils', () => {
         { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 15:00'), dataItem: 'b' },
       ];
 
-      const rects = calculateRectByDateAndGroupIntervals(type, intervals, rectByDatesMock, rectByDatesMeta);
+      const rects = calculateRectByDateAndGroupIntervals(
+        type, intervals, rectByDatesMock, rectByDatesMeta,
+      );
 
       expect(rects)
         .toHaveLength(2);
@@ -416,7 +418,9 @@ describe('Utils', () => {
         { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 10:35'), dataItem: 'c' },
       ];
 
-      const rects = calculateRectByDateAndGroupIntervals(type, intervals, rectByDatesMock, rectByDatesMeta);
+      const rects = calculateRectByDateAndGroupIntervals(
+        type, intervals, rectByDatesMock, rectByDatesMeta,
+      );
 
       expect(rects)
         .toHaveLength(3);
@@ -792,19 +796,16 @@ describe('Utils', () => {
     });
   });
   describe('#expandGroupedAppointment', () => {
-    const grouping = [{
-      resourceName: 'test1',
-    }, {
-      resourceName: 'test2',
-    }];
+    const grouping = [
+      { resourceName: 'test1' },
+      { resourceName: 'test2' },
+    ];
     it('should add grouping fields from appointment\'s dataItem', () => {
-      const resources = [{
-        fieldName: 'test1',
-      }, {
-        fieldName: 'test2',
-      }, {
-        resourceName: 'test3',
-      }];
+      const resources = [
+        { fieldName: 'test1' },
+        { fieldName: 'test2' },
+        { fieldName: 'test3' },
+      ];
       const appointment = {
         dataItem: {
           test1: 1,
@@ -825,14 +826,11 @@ describe('Utils', () => {
         }]);
     });
     it('should create several appointments if a multiple resource is present', () => {
-      const resources = [{
-        fieldName: 'test1',
-        allowMultiple: true,
-      }, {
-        fieldName: 'test2',
-      }, {
-        resourceName: 'test3',
-      }];
+      const resources = [
+        { fieldName: 'test1', allowMultiple: true },
+        { fieldName: 'test2' },
+        { resourceName: 'test3' },
+      ];
       const appointment = {
         dataItem: {
           test1: [1, 2, 3],
@@ -984,49 +982,24 @@ describe('Utils', () => {
           resource3: 'resource3_2',
         },
       }];
-      const groupingItems = [[{
-        fieldName: 'resource1',
-        id: 'resource1_1',
-      }, {
-        fieldName: 'resource1',
-        id: 'resource1_2',
-      }], [{
-        fieldName: 'resource2',
-        id: 'resource2_1',
-      }, {
-        fieldName: 'resource2',
-        id: 'resource2_2',
-      }, {
-        fieldName: 'resource2',
-        id: 'resource2_1',
-      }, {
-        fieldName: 'resource2',
-        id: 'resource2_2',
-      }], [{
-        fieldName: 'resource3',
-        id: 'resource3_1',
-      }, {
-        fieldName: 'resource3',
-        id: 'resource3_2',
-      }, {
-        fieldName: 'resource3',
-        id: 'resource3_1',
-      }, {
-        fieldName: 'resource3',
-        id: 'resource3_2',
-      }, {
-        fieldName: 'resource3',
-        id: 'resource3_1',
-      }, {
-        fieldName: 'resource3',
-        id: 'resource3_2',
-      }, {
-        fieldName: 'resource3',
-        id: 'resource3_1',
-      }, {
-        fieldName: 'resource3',
-        id: 'resource3_2',
-      }]];
+      const groupingItems = [[
+        { fieldName: 'resource1', id: 'resource1_1' },
+        { fieldName: 'resource1', id: 'resource1_2' },
+      ], [
+        { fieldName: 'resource2', id: 'resource2_1' },
+        { fieldName: 'resource2', id: 'resource2_2' },
+        { fieldName: 'resource2', id: 'resource2_1' },
+        { fieldName: 'resource2', id: 'resource2_2' },
+      ], [
+        { fieldName: 'resource3', id: 'resource3_1' },
+        { fieldName: 'resource3', id: 'resource3_2' },
+        { fieldName: 'resource3', id: 'resource3_1' },
+        { fieldName: 'resource3', id: 'resource3_2' },
+        { fieldName: 'resource3', id: 'resource3_1' },
+        { fieldName: 'resource3', id: 'resource3_2' },
+        { fieldName: 'resource3', id: 'resource3_1' },
+        { fieldName: 'resource3', id: 'resource3_2' },
+      ]];
 
       expect(groupAppointments(appointments, resources, groupingItems))
         .toEqual([
@@ -1063,22 +1036,15 @@ describe('Utils', () => {
       }];
       const appointments = [{
         resource1: 1,
-        dataItem: {
-          resource1: [1, 2],
-        },
+        dataItem: { resource1: [1, 2] },
       }, {
         resource1: 2,
-        dataItem: {
-          resource1: [1, 2],
-        },
+        dataItem: { resource1: [1, 2] },
       }];
-      const groupingItems = [[{
-        fieldName: 'resource1',
-        id: 1,
-      }, {
-        fieldName: 'resource1',
-        id: 2,
-      }]];
+      const groupingItems = [[
+        { fieldName: 'resource1', id: 1 },
+        { fieldName: 'resource1', id: 2 },
+      ]];
 
       expect(groupAppointments(appointments, resources, groupingItems))
         .toEqual([[appointments[0]], [{

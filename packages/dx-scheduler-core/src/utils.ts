@@ -327,7 +327,8 @@ export const groupAppointments: PureComputed<
         isBelonging && groupItem.id === appointment[groupItem.fieldName]
       ), true);
       const currentMainResourceId = currentGroup.find(
-        groupItem => groupItem.fieldName === mainResource!.fieldName)!.id;
+        groupItem => groupItem.fieldName === mainResource!.fieldName,
+      )!.id;
 
       const updatedAppointment = {
         ...appointment,

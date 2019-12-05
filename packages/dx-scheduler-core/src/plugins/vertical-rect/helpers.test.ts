@@ -1,5 +1,5 @@
 import {
-  getVerticalCellIndex,
+  getVerticalCellIndexByAppointmentData,
   getVerticalRectByAppointmentData,
 } from './helpers';
 import moment = require('moment');
@@ -24,7 +24,7 @@ describe('Vertical rect helpers', () => {
           { startDate: new Date('2018-06-26 09:00'), endDate: new Date('2018-06-26 09:30') },
         ],
       ];
-      const { index, startDate } = getVerticalCellIndex(
+      const { index, startDate } = getVerticalCellIndexByAppointmentData(
         {}, viewCellsData, new Date(2018, 5, 25, 8, 30),
       );
       expect(index)
@@ -39,7 +39,9 @@ describe('Vertical rect helpers', () => {
           startDate: new Date('2018-06-26 08:00:04:100'), endDate: new Date('2018-06-26 08:30:04'),
         }],
       ];
-      expect(getVerticalCellIndex({}, viewCellsData, new Date(2018, 5, 26, 8, 0, 4, 50)).index)
+      expect(getVerticalCellIndexByAppointmentData(
+        {}, viewCellsData, new Date(2018, 5, 26, 8, 0, 4, 50)).index,
+      )
         .toBe(0);
     });
 
@@ -53,9 +55,13 @@ describe('Vertical rect helpers', () => {
         ],
       ];
       const takePrev = true;
-      expect(getVerticalCellIndex({}, viewCellsData, new Date(2018, 5, 26, 8, 30), takePrev).index)
+      expect(getVerticalCellIndexByAppointmentData(
+        {}, viewCellsData, new Date(2018, 5, 26, 8, 30), takePrev).index,
+      )
         .toBe(0);
-      expect(getVerticalCellIndex({}, viewCellsData, new Date(2018, 5, 26, 8, 30)).index)
+      expect(getVerticalCellIndexByAppointmentData(
+        {}, viewCellsData, new Date(2018, 5, 26, 8, 30)).index,
+      )
         .toBe(1);
     });
 
@@ -82,11 +88,11 @@ describe('Vertical rect helpers', () => {
       const firstTestAppointment = { test: 1 };
       const secondTestAppointment = { test: 2 };
 
-      expect(getVerticalCellIndex(
+      expect(getVerticalCellIndexByAppointmentData(
         firstTestAppointment, viewCellsData, new Date('2018-06-26 08:20'), false,
       ).index)
         .toBe(0);
-      expect(getVerticalCellIndex(
+      expect(getVerticalCellIndexByAppointmentData(
         secondTestAppointment, viewCellsData, new Date('2018-06-26 08:40'),
       ).index)
         .toBe(3);

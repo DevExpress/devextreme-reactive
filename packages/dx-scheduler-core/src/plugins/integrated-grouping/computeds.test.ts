@@ -144,7 +144,7 @@ describe('IntegratedGrouping computeds', () => {
           ...viewCellsData[0][0],
           groupingInfo: [
             { fieldName: 'resource2', id: 1 },
-            { fieldName: 'resource1', id: 1 }
+            { fieldName: 'resource1', id: 1 },
           ],
           isLastHorizontalGroupCell: true,
         });

@@ -1,6 +1,6 @@
 import moment from 'moment';
 import {
-  GetCellByDateFn, GetVerticalRectByAppointmentDataFn,
+  GetCellByAppointmentDataFn, GetVerticalRectByAppointmentDataFn,
   GetCellRectVerticalFn, SchedulerDateTime, ViewCell,
 } from '../../types';
 
@@ -8,7 +8,7 @@ const CELL_GAP_PX = 10;
 const CELL_BOUND_HORIZONTAL_OFFSET_PX = 1;
 const CELL_BOUND_VERTICAL_OFFSET_PX = 4;
 
-export const getVerticalCellIndex: GetCellByDateFn = (
+export const getVerticalCellIndexByAppointmentData: GetCellByAppointmentDataFn = (
   appointment, viewCellsData, date, takePrev = false,
 ) => {
   const cellIndex =
@@ -42,7 +42,7 @@ const getCellRect: GetCellRectVerticalFn = (
   const {
     index: cellIndex,
     startDate: cellStartDate,
-  } = getVerticalCellIndex(appointment, viewCellsData, date, takePrev);
+  } = getVerticalCellIndexByAppointmentData(appointment, viewCellsData, date, takePrev);
 
   const {
     top,

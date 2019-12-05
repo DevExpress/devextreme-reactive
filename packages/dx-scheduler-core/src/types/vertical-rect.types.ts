@@ -27,7 +27,7 @@ export type VerticalPayload = {
   cellElementsMeta: CellElementsMeta;
 };
 /** @internal */
-export type GetCellByDateFn = PureComputed<
+export type GetCellByAppointmentDataFn = PureComputed<
   [AppointmentMoment, ViewCellData[][], SchedulerDateTime, boolean], CellByDate
 >;
 /** @internal */

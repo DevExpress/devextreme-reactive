@@ -20,7 +20,7 @@ export interface AppointmentMoment {
   [propertyName: string]: any;
 }
 /** @internal */
-export type CalculateAllDayDateIntervalsFn = PureComputed<
+export type CalculateAllDayDateAndGroupIntervalsFn = PureComputed<
   [Appointment[], Date, Date, number[], Grouping[],
   ValidResource[], GroupingItem[][]], AppointmentMoment[]
 >;

@@ -1,11 +1,11 @@
-import { CalculateWeekDateIntervalsFn, AppointmentMoment } from '../../types';
+import { CalculateWeekDateAndGroupIntervalsFn, AppointmentMoment } from '../../types';
 import {
   sliceAppointmentByDay, dayBoundaryPredicate, reduceAppointmentByDayBounds,
   normalizeAppointmentDuration,
 } from './helpers';
 import { filterByViewBoundaries, expandGroupedAppointment } from '../../utils';
 
-export const calculateWeekDateIntervals: CalculateWeekDateIntervalsFn = (
+export const calculateWeekDateAndGroupIntervals: CalculateWeekDateAndGroupIntervalsFn = (
   appointments,
   leftBound, rightBound, // startViewDate, endViewDate
   excludedDays,

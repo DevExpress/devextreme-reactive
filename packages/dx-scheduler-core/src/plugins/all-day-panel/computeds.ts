@@ -1,11 +1,11 @@
 import moment from 'moment';
 import {
-  AppointmentMoment, CalculateAllDayDateIntervalsFn,
+  AppointmentMoment, CalculateAllDayDateAndGroupIntervalsFn,
 } from '../../types';
 import { allDayPredicate, sliceAppointmentsByBoundaries } from './helpers';
 import { filterByViewBoundaries, expandGroupedAppointment } from '../../utils';
 
-export const calculateAllDayDateIntervals: CalculateAllDayDateIntervalsFn = (
+export const calculateAllDayDateAndGroupIntervals: CalculateAllDayDateAndGroupIntervalsFn = (
   appointments,
   leftBound, rightBound,
   excludedDays, grouping, resources,

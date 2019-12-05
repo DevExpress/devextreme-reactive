@@ -243,10 +243,9 @@ export const calculateAppointmentGroups: PureComputed<
 const updateMultipleResourceInfo: PureComputed<
   [GroupingItem, AppointmentModel], any
 > = (cellResource, appointmentData) => {
-  const cellInfo = cellResource!.id;
   const appointmentGroupItems = appointmentData[cellResource.fieldName];
-  if (appointmentGroupItems.findIndex((groupItem: any) => groupItem === cellInfo) !== -1) {
+  if (appointmentGroupItems.findIndex((groupItem: any) => groupItem === cellResource.id) !== -1) {
     return appointmentGroupItems;
   }
-  return [cellInfo];
+  return [cellResource.id];
 };

@@ -1,7 +1,7 @@
 import moment from 'moment';
 import {
   MonthCellsDataComputedFn, MonthCellData,
-  CalculateMonthDateIntervalsFn, AppointmentMoment,
+  CalculateMonthDateAndGroupIntervalsFn, AppointmentMoment,
 } from '../../types';
 import { filterByViewBoundaries, expandGroupedAppointment } from '../../utils';
 import { sliceAppointmentByWeek } from './helpers';
@@ -48,7 +48,7 @@ export const monthCellsData: MonthCellsDataComputedFn = (
   return result;
 };
 
-export const calculateMonthDateIntervals: CalculateMonthDateIntervalsFn = (
+export const calculateMonthDateAndGroupIntervals: CalculateMonthDateAndGroupIntervalsFn = (
   appointments, leftBound, rightBound, grouping, resources,
 ) => appointments
   .map(({ start, end, ...restArgs }) => ({ start: moment(start), end: moment(end), ...restArgs }))

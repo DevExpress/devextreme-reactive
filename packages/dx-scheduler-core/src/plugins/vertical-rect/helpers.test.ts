@@ -64,31 +64,19 @@ describe('Vertical rect helpers', () => {
         [{
           startDate: new Date('2018-06-26 08:00'),
           endDate: new Date('2018-06-26 08:30'),
-          groupingInfo: [{
-            fieldName: 'test',
-            id: 1,
-          }],
+          groupingInfo: [{ fieldName: 'test', id: 1 }],
         }, {
           startDate: new Date('2018-06-26 08:00'),
           endDate: new Date('2018-06-26 08:30'),
-          groupingInfo: [{
-            fieldName: 'test',
-            id: 2,
-          }],
+          groupingInfo: [{ fieldName: 'test', id: 2 }],
         }], [{
           startDate: new Date('2018-06-26 08:30'),
           endDate: new Date('2018-06-26 09:00'),
-          groupingInfo: [{
-            fieldName: 'test',
-            id: 1,
-          }],
+          groupingInfo: [{ fieldName: 'test', id: 1 }],
         }, {
           startDate: new Date('2018-06-26 08:30'),
           endDate: new Date('2018-06-26 09:00'),
-          groupingInfo: [{
-            fieldName: 'test',
-            id: 2,
-          }],
+          groupingInfo: [{ fieldName: 'test', id: 2 }],
         }],
       ];
       const firstTestAppointment = { test: 1 };

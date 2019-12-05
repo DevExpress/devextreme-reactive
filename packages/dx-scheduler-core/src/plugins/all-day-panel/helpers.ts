@@ -2,7 +2,7 @@ import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import {
   AppointmentMoment, GetAllDayCellIndexByAppointmentDataFn,
-  SliceAppointmentsByBoundariesFn, SchedulerDateTime,
+  SliceAppointmentsByBoundariesFn, SchedulerDateTime, GroupingItem,
 } from '../../types';
 
 export const allDayPredicate: PureComputed<[AppointmentMoment], boolean> = appointment => (
@@ -18,9 +18,9 @@ export const getAllDayCellIndexByAppointmentData: GetAllDayCellIndexByAppointmen
     .findIndex((timeCell) => {
       let isCorrectCell = true;
       if (timeCell.groupingInfo) {
-        timeCell.groupingInfo.map((groupingItem) => {
-          isCorrectCell = isCorrectCell && groupingItem.id === appointment[groupingItem.fieldName];
-        });
+        isCorrectCell = timeCell.groupingInfo.reduce((acc: boolean, groupingItem: GroupingItem) => (
+          acc && groupingItem.id === appointment[groupingItem.fieldName]
+        ), true);
       }
       return moment(date as SchedulerDateTime).isSame(timeCell.startDate, 'date') && isCorrectCell;
     });

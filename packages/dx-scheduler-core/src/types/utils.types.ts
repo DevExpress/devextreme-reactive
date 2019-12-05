@@ -52,7 +52,7 @@ export type RectCalculatorBaseFn = PureComputed<
   [AppointmentUnwrappedGroup, (...args: any) => any, object], any
 >;
 /** @internal */
-export type CalculateRectByDateIntervalsFn = PureComputed<
+export type CalculateRectByDateAndGroupIntervalsFn = PureComputed<
   [any, AppointmentMoment[], (...args: any) => any, any,
   ValidResource[], GroupingItem[][]], ElementRect[]
 >;

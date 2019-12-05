@@ -15,10 +15,9 @@ const pluginDependencies = [
   { name: 'GroupingState' },
 ];
 
-const getViewCellsDataComputed = memoize(({ viewCellsData, groupingItems, resourcesToGroupBy }) => {
-  const result = expandViewCellsDataWithGroups(viewCellsData, groupingItems, resourcesToGroupBy);
-  return result;
-});
+const getViewCellsDataComputed = memoize((
+  { viewCellsData, groupingItems, resourcesToGroupBy },
+) => expandViewCellsDataWithGroups(viewCellsData, groupingItems, resourcesToGroupBy));
 
 const getGroupingItemsComputed = memoize((
   { resourcesToGroupBy },

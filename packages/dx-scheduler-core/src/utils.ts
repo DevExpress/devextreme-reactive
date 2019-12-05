@@ -6,7 +6,7 @@ import {
   ComputedHelperFn, ViewPredicateFn,
   CalculateFirstDateOfWeekFn, AppointmentMoment,
   Interval, AppointmentGroup, AppointmentUnwrappedGroup,
-  Rect, ElementRect, RectCalculatorBaseFn, CalculateRectByDateIntervalsFn,
+  Rect, ElementRect, RectCalculatorBaseFn, CalculateRectByDateAndGroupIntervalsFn,
   Grouping, ValidResource, GroupingItem,
 } from './types';
 
@@ -353,7 +353,7 @@ const rearrangeResourceIds: PureComputed<
   ];
 };
 
-export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
+export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIntervalsFn = (
   type, intervals, rectByDates, rectByDatesMeta, resources, groupingItems,
 ) => {
   const { growDirection, multiline } = type;

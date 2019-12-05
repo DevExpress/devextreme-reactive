@@ -295,6 +295,21 @@ const verticalRectCalculator: CustomFunction<
   };
 };
 
+const getCurrentGroup: PureComputed<
+  [GroupingItem[][], ValidResource[], number, GroupingItem], GroupingItem[]
+> = (groupingItems, resources, index, groupingItem) => {
+  let currentIndex = index;
+  return groupingItems.reduceRight((groupAcc, groupingItemsRow, rowIndex) => {
+    if (rowIndex === groupingItems!.length - 1) return groupAcc;
+    currentIndex = Math.floor(currentIndex / resources[rowIndex + 1].instances.length);
+    const currentInstance = groupingItemsRow[currentIndex];
+    return [
+      ...groupAcc,
+      currentInstance,
+    ];
+  }, [groupingItem]);
+};
+
 export const groupAppointments: PureComputed<
   [AppointmentMoment[], ValidResource[] | undefined,
   GroupingItem[][] | undefined], AppointmentMoment[][]
@@ -305,26 +320,15 @@ export const groupAppointments: PureComputed<
 
   const mainResource = resources.find(resource => resource.isMain);
   return groupingItems![groupingItems!.length - 1].map((groupingItem, index) => {
-    let currentIndex = index;
-    const currentGroup = groupingItems.reduceRight((groupAcc, groupingItemsRow, rowIndex) => {
-      if (rowIndex === groupingItems!.length - 1) return groupAcc;
-      currentIndex = Math.floor(currentIndex / resources[rowIndex + 1].instances.length);
-      const currentInstance = groupingItemsRow[currentIndex];
-      return [
-        ...groupAcc,
-        {
-          fieldName: currentInstance.fieldName,
-          id: currentInstance.id,
-        },
-      ];
-    }, [{ id: groupingItem.id, fieldName: groupingItem.fieldName }]);
+    const currentGroup = getCurrentGroup(groupingItems, resources, index, groupingItem);
 
     return appointments.reduce((acc, appointment) => {
-      const belongsToGroup = currentGroup.reduce((isBelonging, groupItem) => {
-        return isBelonging && groupItem.id === appointment[groupItem.fieldName];
-      }, true);
+      const belongsToGroup = currentGroup.reduce((isBelonging, groupItem) => (
+        isBelonging && groupItem.id === appointment[groupItem.fieldName]
+      ), true);
       const currentMainResourceId = currentGroup.find(
         groupItem => groupItem.fieldName === mainResource!.fieldName)!.id;
+
       const updatedAppointment = {
         ...appointment,
         dataItem: {
@@ -343,9 +347,10 @@ const rearrangeResourceIds: PureComputed<
   [ValidResource, AppointmentMoment, any], any[] | any
 > = (mainResource, appointment, mainResourceId) => {
   if (!mainResource.allowMultiple) return mainResourceId;
-  const updatedIds = appointment
-    .dataItem[mainResource!.fieldName].filter((id: any) => id !== mainResourceId);
-  return [mainResourceId, ...updatedIds];
+  return [
+    mainResourceId,
+    ...appointment.dataItem[mainResource!.fieldName].filter((id: any) => id !== mainResourceId),
+  ];
 };
 
 export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
@@ -357,9 +362,10 @@ export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
   const sortedGroups = intervalGroups.map(
     intervalGroup => sortAppointments(intervalGroup, multiline),
   );
-  const groupedIntervals = sortedGroups.reduce((acc, sortedGroup) => {
-    return [...acc, ...findOverlappedAppointments(sortedGroup as AppointmentMoment[], multiline)];
-  }, [] as any[]);
+  const groupedIntervals = sortedGroups.reduce((acc, sortedGroup) => [
+    ...acc,
+    ...findOverlappedAppointments(sortedGroup as AppointmentMoment[], multiline),
+  ], [] as any[]);
 
   const rectCalculator = growDirection === HORIZONTAL_TYPE
     ? horizontalRectCalculator
@@ -459,18 +465,16 @@ export const expandGroupedAppointment: PureComputed<
       if (!isGroupedByResource) return acc;
       const resourceField = resource.fieldName;
       if (!resource.allowMultiple) {
-        return acc.reduce((accumulator, currentAppointment) => {
-          return [
-            ...accumulator,
-            { ...currentAppointment, [resourceField]: currentAppointment.dataItem[resourceField] },
-          ];
-        }, [] as AppointmentMoment[]);
+        return acc.reduce((accumulatedAppointments, currentAppointment) => [
+          ...accumulatedAppointments,
+          { ...currentAppointment, [resourceField]: currentAppointment.dataItem[resourceField] },
+        ], [] as AppointmentMoment[]);
       }
-      return acc.reduce((accumulator, currentAppointment) => {
-        return [...accumulator, ...currentAppointment.dataItem[resourceField].map(
-          (resourceValue: any) => {
-            return { ...currentAppointment, [resourceField]: resourceValue };
-          })];
-      }, [] as AppointmentMoment[]);
+      return acc.reduce((accumulatedAppointments, currentAppointment) => [
+        ...accumulatedAppointments,
+        ...currentAppointment.dataItem[resourceField].map(
+          (resourceValue: any) => ({ ...currentAppointment, [resourceField]: resourceValue }),
+        ),
+      ], [] as AppointmentMoment[]);
     }, [appointment] as AppointmentMoment[]);
 };

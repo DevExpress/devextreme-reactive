@@ -1,37 +1,33 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
+import { purple, teal, deepOrange } from '@material-ui/core/colors';
+import {
+  ViewState, EditingState, GroupingState, IntegratedGrouping,
+} from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
   Resources,
-  MonthView,
   Appointments,
   AppointmentTooltip,
   AppointmentForm,
   EditRecurrenceMenu,
   DragDropProvider,
+  GroupingPanel,
+  WeekView,
+  AllDayPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import { owners } from '../../../demo-data/tasks';
-import { appointments, resourcesData } from '../../../demo-data/resources';
+import { data as appointments, priorityData } from '../../../demo-data/grouping';
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       data: appointments,
-      resources: [
-        {
-          fieldName: 'roomId',
-          title: 'Room',
-          instances: resourcesData,
-        },
-        {
-          fieldName: 'members',
-          title: 'Members',
-          instances: owners,
-          allowMultiple: true,
-        },
-      ],
+      resources: [{
+        fieldName: 'priorityId',
+        title: 'Priority',
+        instances: priorityData,
+      }],
     };
 
     this.commitChanges = this.commitChanges.bind(this);
@@ -64,24 +60,37 @@ export default class Demo extends React.PureComponent {
           data={data}
         >
           <ViewState
-            defaultCurrentDate="2017-05-25"
+            defaultCurrentDate="2018-05-30"
           />
           <EditingState
             onCommitChanges={this.commitChanges}
           />
-          <EditRecurrenceMenu />
+          <GroupingState
+            grouping={[{
+              resourceName: 'priorityId',
+            }]}
+          />
 
-          <MonthView />
+          <WeekView
+            startDayHour={9}
+            endDayHour={17}
+            excludedDays={[0, 6]}
+          />
           <Appointments />
+          <AllDayPanel />
+          <Resources
+            data={resources}
+            mainResourceName="priorityId"
+          />
+
+          <IntegratedGrouping />
+          <EditRecurrenceMenu />
           <AppointmentTooltip
             showOpenButton
           />
           <AppointmentForm />
 
-          <Resources
-            data={resources}
-            mainResourceName="roomId"
-          />
+          <GroupingPanel />
           <DragDropProvider />
         </Scheduler>
       </Paper>

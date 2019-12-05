@@ -348,6 +348,42 @@ describe('AppointmentForm', () => {
       .toBeTruthy();
   });
 
+  it('should render cell template', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <AppointmentForm
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    const templatePlaceholder = tree
+      .find(Template)
+      .filterWhere(node => node.props().name === 'cell');
+
+    expect(templatePlaceholder.exists())
+      .toBeTruthy();
+  });
+
+  it('should render allDayCell template', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <AppointmentForm
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    const templatePlaceholder = tree
+      .find(Template)
+      .filterWhere(node => node.props().name === 'allDayPanelCell');
+
+    expect(templatePlaceholder.exists())
+      .toBeTruthy();
+  });
+
   it('should provide toggleAppointmentFormVisibility action', () => {
     const tree = mount((
       <PluginHost>

@@ -24,7 +24,7 @@ export interface FilterExpression {
 
 /*** Describes a filter operation. Accepts one of the built-in operations or a custom string.
  * Built-in operations: `contains`, `notContains`, `startsWith`, `endsWith`, `equal`, `notEqual`,
- * `greaterThan`, `graterThenOrEqual`, `lessThan`, `lessThanOrEqual` */
+ * `greaterThan`, `greaterThanOrEqual`, `lessThan`, `lessThanOrEqual` */
 export type FilterOperation = string;
 
 /* tslint:disable no-namespace max-line-length */

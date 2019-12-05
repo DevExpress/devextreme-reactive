@@ -2,68 +2,50 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 export const Cell = ({
-  style, colSpan, row, column,
-  expanded, onToggle,
-  children, tableRow, tableColumn,
-  iconComponent: Icon, contentComponent: Content,
-  containerComponent: Container,
-  side, position,
+  row, column,
+  tableRow, tableColumn,
+  onToggle, children, style,
   ...restProps
-}) => (
-  <td
-    colSpan={colSpan}
-    style={{
-      cursor: 'pointer',
-      ...style,
-    }}
-    onClick={onToggle}
-    {...restProps}
-  >
-    <Container side={side} position={position}>
-      <Icon
-        expanded={expanded}
-        onToggle={onToggle}
-        style={{
-          marginRight: '8px',
-        }}
-      />
-      <Content
-        column={column}
-        row={row}
-      >
-        {children}
-      </Content>
-    </Container>
-  </td>
-);
+}) => {
+  const handleClick = () => onToggle();
+
+  return (
+    <td
+      style={{
+        cursor: 'pointer',
+        // TOOD: extract to constant
+        whiteSpace: (tableColumn && tableColumn.wordWrapEnabled) ? 'normal' : 'nowrap',
+        ...style,
+      }}
+      onClick={handleClick}
+      {...restProps}
+    >
+      {children}
+    </td>
+  );
+};
 
 Cell.propTypes = {
-  style: PropTypes.object,
-  colSpan: PropTypes.number,
   row: PropTypes.any,
   column: PropTypes.object,
-  expanded: PropTypes.bool,
+  colSpan: PropTypes.number,
   onToggle: PropTypes.func,
-  children: PropTypes.node,
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
-  iconComponent: PropTypes.func.isRequired,
-  contentComponent: PropTypes.func.isRequired,
-  containerComponent: PropTypes.func.isRequired,
-  side: PropTypes.string,
-  position: PropTypes.string,
+  style: PropTypes.object,
 };
 
 Cell.defaultProps = {
-  style: null,
-  colSpan: 1,
   row: {},
   column: {},
-  expanded: false,
+  colSpan: 1,
   onToggle: () => {},
   children: undefined,
   tableRow: undefined,
   tableColumn: undefined,
-  side: 'left',
-  position: '',
+  style: null,
 };

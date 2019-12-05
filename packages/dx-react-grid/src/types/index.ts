@@ -1,9 +1,12 @@
+export { GetMessageFn } from '../../../dx-core/src/types';
+
 export {
   Column, TableColumn, TableRow, SummaryType, ColumnSummary, EditingCell,
   ColumnDimensions, ColumnAnimationStyleMap, SummaryItem, IntegratedFiltering,
   GroupKey, Grouping, GroupingPanelItem, Filter, ColumnFilterOperations,
   Sorting, TargetColumnGeometry, FilterOperation, ColumnChooserItem,
-  TableColumnWidthInfo, TableColumnResizing, RowId, GridViewport,
+  TableColumnWidthInfo, TableColumnResizing, RowId, GridViewport, GroupSummaryItem,
+  ColumnInlineSummaries,
 } from '../../../dx-grid-core/src/index';
 
 /** @internal */

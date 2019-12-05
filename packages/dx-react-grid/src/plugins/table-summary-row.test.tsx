@@ -22,6 +22,7 @@ jest.mock('@devexpress/dx-core', () => ({
 }));
 
 jest.mock('@devexpress/dx-grid-core', () => ({
+  ...require.requireActual('@devexpress/dx-grid-core'),
   tableRowsWithSummaries: jest.fn(),
   tableRowsWithTotalSummaries: jest.fn(),
   isTotalSummaryTableCell: jest.fn(),
@@ -270,6 +271,7 @@ describe('TableSummaryRow', () => {
         defaultDeps.getter.groupSummaryItems,
         defaultDeps.template.tableCell.tableColumn.column.name,
         defaultDeps.getter.groupSummaryValues.g,
+        expect.any(Function),
       );
     expect(tree.find(defaultProps.itemComponent).text())
       .toBe('Sum=20');

@@ -46,7 +46,7 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
       titleComponent: Title,
       messages,
     } = this.props;
-    const getMessage = getMessagesFormatter(messages);
+    const getMessage = getMessagesFormatter(messages!);
 
     return (
       <Plugin

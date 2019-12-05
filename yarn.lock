@@ -1875,16 +1875,16 @@
     npmlog "^4.1.2"
     write-file-atomic "^2.3.0"
 
-"@material-ui/core@^4.6.1":
-  version "4.6.1"
-  resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.6.1.tgz#039f97443547a88c41d290deabfb4a044c6031ec"
-  integrity sha512-TljDMCJmi1zh7JhAFTp8qjIlbkVACiNftrcitzJJ+hAqpuP9PTO4euEkkAuYjISfUFZl3Z4kaOrBwN1HDrhIOQ==
+"@material-ui/core@^4.7.1":
+  version "4.7.1"
+  resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.7.1.tgz#87b83da3f6adf45772c0a2be9fd9d162e026f10c"
+  integrity sha512-gqbZqpwUT5/59KTrWyA9Mr9s8NaNyfWHlEQToM1tfpiHqrIJajLVg2ZgVDzExvN985v2YQIfbuTNVzJDOnM28Q==
   dependencies:
     "@babel/runtime" "^7.4.4"
-    "@material-ui/styles" "^4.6.0"
-    "@material-ui/system" "^4.5.2"
+    "@material-ui/styles" "^4.7.1"
+    "@material-ui/system" "^4.7.1"
     "@material-ui/types" "^4.1.1"
-    "@material-ui/utils" "^4.5.2"
+    "@material-ui/utils" "^4.7.1"
     "@types/react-transition-group" "^4.2.0"
     clsx "^1.0.2"
     convert-css-length "^2.0.1"
@@ -1892,6 +1892,7 @@
     normalize-scroll-left "^0.2.0"
     popper.js "^1.14.1"
     prop-types "^15.7.2"
+    react-is "^16.8.0"
     react-transition-group "^4.3.0"
 
 "@material-ui/icons@^4.5.1":
@@ -1912,15 +1913,15 @@
     react-transition-group "^4.0.0"
     rifm "^0.7.0"
 
-"@material-ui/styles@^4.6.0":
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/@material-ui/styles/-/styles-4.6.0.tgz#15679fab6dcbe0cc2416f01a22966f3ea26607c5"
-  integrity sha512-lqqh4UEMdIYcU1Yth4pQyMTah02uAkg3NOT3MirN9FUexdL8pNA6zCHigEgDSfwmvnXyxHhxTkphfy0DRfnt9w==
+"@material-ui/styles@^4.7.1":
+  version "4.7.1"
+  resolved "https://registry.yarnpkg.com/@material-ui/styles/-/styles-4.7.1.tgz#48fa70f06441c35e301a9c4b6c825526a97b7a29"
+  integrity sha512-BBfxVThaPrglqHmKtSdrZJxnbFGJqKdZ5ZvDarj3HsmkteGCXsP1ohrDi5TWoa5JEJFo9S6q6NywqsENZn9rZA==
   dependencies:
     "@babel/runtime" "^7.4.4"
     "@emotion/hash" "^0.7.1"
     "@material-ui/types" "^4.1.1"
-    "@material-ui/utils" "^4.5.2"
+    "@material-ui/utils" "^4.7.1"
     clsx "^1.0.2"
     csstype "^2.5.2"
     hoist-non-react-statics "^3.2.1"
@@ -1934,13 +1935,13 @@
     jss-plugin-vendor-prefixer "^10.0.0"
     prop-types "^15.7.2"
 
-"@material-ui/system@^4.5.2":
-  version "4.5.2"
-  resolved "https://registry.yarnpkg.com/@material-ui/system/-/system-4.5.2.tgz#7143bd8422a3f33f435c23f378136254004bbd60"
-  integrity sha512-h9RWvdM9XKlHHqwiuhyvWdobptQkHli+m2jJFs7i1AI/hmGsIc4reDmS7fInhETgt/Txx7uiAIznfRNIIVHmQw==
+"@material-ui/system@^4.7.1":
+  version "4.7.1"
+  resolved "https://registry.yarnpkg.com/@material-ui/system/-/system-4.7.1.tgz#d928dacc0eeae6bea569ff3ee079f409efb3517d"
+  integrity sha512-zH02p+FOimXLSKOW/OT2laYkl9bB3dD1AvnZqsHYoseUaq0aVrpbl2BGjQi+vJ5lg8w73uYlt9zOWzb3+1UdMQ==
   dependencies:
     "@babel/runtime" "^7.4.4"
-    "@material-ui/utils" "^4.5.2"
+    "@material-ui/utils" "^4.7.1"
     prop-types "^15.7.2"
 
 "@material-ui/types@^4.1.1":
@@ -1950,14 +1951,14 @@
   dependencies:
     "@types/react" "*"
 
-"@material-ui/utils@^4.5.2":
-  version "4.5.2"
-  resolved "https://registry.yarnpkg.com/@material-ui/utils/-/utils-4.5.2.tgz#4c2fb531d357cf0da8cece53b588dff9b0bde934"
-  integrity sha512-zhbNfHd1gLa8At6RPDG7uMZubHxbY+LtM6IkSfeWi6Lo4Ax80l62YaN1QmUpO1IvGCkn/j62tQX3yObiQZrJsQ==
+"@material-ui/utils@^4.7.1":
+  version "4.7.1"
+  resolved "https://registry.yarnpkg.com/@material-ui/utils/-/utils-4.7.1.tgz#dc16c7f0d2cd02fbcdd5cfe601fd6863ae3cc652"
+  integrity sha512-+ux0SlLdlehvzCk2zdQ3KiS3/ylWvuo/JwAGhvb8dFVvwR21K28z0PU9OQW2PGogrMEdvX3miEI5tGxTwwWiwQ==
   dependencies:
     "@babel/runtime" "^7.4.4"
     prop-types "^15.7.2"
-    react-is "^16.8.6"
+    react-is "^16.8.0"
 
 "@microsoft/api-extractor-model@7.5.6":
   version "7.5.6"
@@ -12320,10 +12321,10 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-bootstrap@=0.33.0:
-  version "0.33.0"
-  resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-0.33.0.tgz#db0004ae6c5b4822921c23448ff214de0e300d2e"
-  integrity sha512-UcxxaczDIPEsY+O4EqCIIEPDjxvLqqfUfXhQO+yzhk0yXzR0Y7+6xqBW01sy3gN717GUXhrkpwZiyn9uFX1s0A==
+react-bootstrap@=0.33.1:
+  version "0.33.1"
+  resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-0.33.1.tgz#e072592aa143b9792526281272eca754bc9a4940"
+  integrity sha512-qWTRravSds87P8WC82tETy2yIso8qDqlIm0czsrduCaYAFtHuyLu0XDbUlfLXeRzqgwm5sRk2wRaTNoiVkk/YQ==
   dependencies:
     "@babel/runtime-corejs2" "^7.0.0"
     classnames "^2.2.5"
@@ -12357,6 +12358,11 @@ react-is@^16.10.2, react-is@^16.3.2, react-is@^16.6.0, react-is@^16.7.0, react-i
   version "16.10.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.10.2.tgz#984120fd4d16800e9a738208ab1fba422d23b5ab"
   integrity sha512-INBT1QEgtcCCgvccr5/86CfD71fw9EPmDxgiJX4I2Ddr6ZsV6iFXsuby+qWJPtmNuMY0zByTsG4468P7nHuNWA==
+
+react-is@^16.8.0:
+  version "16.12.0"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
+  integrity sha512-rPCkf/mWBtKc97aLL9/txD8DZdemK0vkA3JMLShjlJB3Pj3s+lpf1KaBzMfQrAmhMQB0n1cU/SUGgKKBCe837Q==
 
 react-lifecycles-compat@^3.0.4:
   version "3.0.4"
@@ -13204,10 +13210,10 @@ rollup-plugin-sass@^1.2.2:
     rollup-pluginutils ">= 1.3.1"
     sass "1.7.2"
 
-rollup-plugin-typescript2@^0.25.2:
-  version "0.25.2"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-typescript2/-/rollup-plugin-typescript2-0.25.2.tgz#1a165df08560902da45b355413464caca1765d3a"
-  integrity sha512-+tpZj/ZIf2lwjyjX6xEW1S5Y38/21TB3p6poLodISIia8owMMfIKuFFnWcESE4FPBHkR8XPKqjY0PH9IUJJK+Q==
+rollup-plugin-typescript2@^0.25.3:
+  version "0.25.3"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-typescript2/-/rollup-plugin-typescript2-0.25.3.tgz#a5fb2f0f85488789334ce540abe6c7011cbdf40f"
+  integrity sha512-ADkSaidKBovJmf5VBnZBZe+WzaZwofuvYdzGAKTN/J4hN7QJCFYAq7IrH9caxlru6T5qhX41PNFS1S4HqhsGQg==
   dependencies:
     find-cache-dir "^3.0.0"
     fs-extra "8.1.0"
@@ -14990,12 +14996,7 @@ typescript-tslint-plugin@^0.5.5:
     mock-require "^3.0.3"
     vscode-languageserver "^5.2.1"
 
-typescript@3.7.2, typescript@^3.3.3:
-  version "3.7.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.2.tgz#27e489b95fa5909445e9fef5ee48d81697ad18fb"
-  integrity sha512-ml7V7JfiN2Xwvcer+XAf2csGO1bPBdRbFCkYBczNZggrBZ9c7G3riSUeJmqEU5uOtXNPMhE3n+R4FA/3YOAWOQ==
-
-typescript@~3.7.2:
+typescript@3.7.2, typescript@^3.3.3, typescript@~3.7.2:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.2.tgz#27e489b95fa5909445e9fef5ee48d81697ad18fb"
   integrity sha512-ml7V7JfiN2Xwvcer+XAf2csGO1bPBdRbFCkYBczNZggrBZ9c7G3riSUeJmqEU5uOtXNPMhE3n+R4FA/3YOAWOQ==

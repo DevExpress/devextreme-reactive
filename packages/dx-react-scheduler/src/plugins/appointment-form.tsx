@@ -40,7 +40,7 @@ const addDoubleClickToCell = (
       }}
     />
   );
-}
+};
 
 const defaultMessages = {
   allDayLabel: 'All Day',

@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1574418180">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1574418180">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1575558477">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1575558477">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <!-- Google Tag Manager -->
@@ -112,7 +112,7 @@
     </tr>
     <tr>
       <td>groupItems?</td>
-      <td>Array&lt;<a href="#summaryitem">SummaryItem</a>&gt;</td>
+      <td>Array&lt;<a href="#groupsummaryitem">GroupSummaryItem</a>&gt;</td>
       <td> </td>
       <td>The group summary items.</td>
     </tr>
@@ -153,6 +153,37 @@
   </tbody>
 </table>
 
+<h3 id="groupsummaryitem">GroupSummaryItem</h3>
+
+<p>Describes a group summary item.</p>
+
+<p>Extends <a href="#summaryitem">SummaryItem</a></p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>showInGroupFooter?</td>
+      <td>boolean</td>
+      <td>true</td>
+      <td>If <code class="highlighter-rouge">true</code>, the summary item is rendered in the group footer. Otherwise, it is rendered in the group row.</td>
+    </tr>
+    <tr>
+      <td>alignByColumn?</td>
+      <td>boolean</td>
+      <td>false</td>
+      <td>If <code class="highlighter-rouge">true</code>, the summary item is rendered in the column for which it is calculated. Otherwise, it is appended to the group caption. Applies only when <code class="highlighter-rouge">showInGroupFooter</code> is set to <code class="highlighter-rouge">false</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
 <h3 id="summarytype">SummaryType</h3>
 
 <p>Describes a filter operation. Accepts a built-in operation or custom string.</p>
@@ -188,7 +219,7 @@
     <tr>
       <td>groupSummaryItems</td>
       <td><a href="/devextreme-reactive/react/core/docs/reference/getter/">Getter</a></td>
-      <td>Array&lt;<a href="#summaryitem">SummaryItem</a>&gt;</td>
+      <td>Array&lt;<a href="#groupsummaryitem">GroupSummaryItem</a>&gt;</td>
       <td>Group summary items.</td>
     </tr>
     <tr>
@@ -210,9 +241,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.3.0">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.3.1">
             Version
-            <span>2.3.0</span>
+            <span>2.3.1</span>
           </a>
         </li>
       </ul>
@@ -882,7 +913,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/common/dist/index.js?v=1574418180"></script>
+<script src="/devextreme-reactive/react/common/dist/index.js?v=1575558477"></script>
 
 <script
   type="text/javascript"
@@ -938,7 +969,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1574418180"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1575558477"></script>
     <script>
         trackingCookie.notice();
     </script>

@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1574418180">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1574418180">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1575558477">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1575558477">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <!-- Google Tag Manager -->
@@ -102,6 +102,9 @@
   <li><a href="/devextreme-reactive/react/grid/docs/reference/table/">Table</a></li>
   <li><a href="/devextreme-reactive/react/grid/docs/reference/data-type-provider/">DataTypeProvider</a> [Optional]</li>
   <li><a href="/devextreme-reactive/react/grid/docs/reference/table-selection/">TableSelection</a> [Optional]</li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-summary/">IntegratedSummary</a> [Optional]</li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/custom-summary/">CustomSummary</a> [Optional]</li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/summary-state/">SummaryState</a> [Optional]</li>
 </ul>
 
 <h3 id="properties">Properties</h3>
@@ -159,6 +162,48 @@
       <td>A component that renders a group indent cell.</td>
     </tr>
     <tr>
+      <td>inlineSummaryComponent</td>
+      <td>ComponentType&lt;<a href="#tablegrouprowinlinesummaryprops">TableGroupRow.InlineSummaryProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a container for group summary items in a group caption.</td>
+    </tr>
+    <tr>
+      <td>inlineSummaryItemComponent</td>
+      <td>ComponentType&lt;<a href="#tablegrouprowinlinesummaryitemprops">TableGroupRow.InlineSummaryItemProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a single group summary item in a group caption.</td>
+    </tr>
+    <tr>
+      <td>summaryCellComponent</td>
+      <td>ComponentType&lt;<a href="#tablegrouprowsummarycellprops">TableGroupRow.SummaryCellProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a cell for a group summary item in an appropriate column.</td>
+    </tr>
+    <tr>
+      <td>summaryItemComponent</td>
+      <td>ComponentType&lt;<a href="/devextreme-reactive/react/grid/docs/reference/table-summary-row/#tablesummaryrowitemprops">TableSummaryRow.ItemProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a group summary item in its column.</td>
+    </tr>
+    <tr>
+      <td>stubCellComponent</td>
+      <td>ComponentType&lt;<a href="#tablegrouprowstubcellprops">TableGroupRow.StubCellProps</a>&gt;</td>
+      <td> </td>
+      <td>A component that renders a stub cell used to align summary items in their columns.</td>
+    </tr>
+    <tr>
+      <td>formatlessSummaryTypes</td>
+      <td>Array&lt;string&gt;</td>
+      <td> </td>
+      <td>Summary types that the <code class="highlighter-rouge">DataTypeProvider</code> plugin should not format.</td>
+    </tr>
+    <tr>
+      <td>messages?</td>
+      <td><a href="#localization-messages">TableGroupRow.LocalizationMessages</a></td>
+      <td> </td>
+      <td>Localization messages.</td>
+    </tr>
+    <tr>
       <td>indentColumnWidth</td>
       <td>number</td>
       <td><code class="highlighter-rouge">33</code> for <a href="https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap4">Bootstrap4</a> and for <a href="https://www.npmjs.com/package/@devexpress/dx-react-grid-bootstrap3">Bootstrap</a>; <code class="highlighter-rouge">48</code> for <a href="https://www.npmjs.com/package/@devexpress/dx-react-grid-material-ui">Material-UI</a></td>
@@ -201,6 +246,47 @@
   </tbody>
 </table>
 
+<h3 id="tablegrouprowinlinesummaryiteminfo">TableGroupRow.InlineSummaryItemInfo</h3>
+
+<p>Describes a summary item to be displayed in a group caption.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>columnTitle</td>
+      <td>string</td>
+      <td>The title of the column for which the summary item is calculated.</td>
+    </tr>
+    <tr>
+      <td>type</td>
+      <td><a href="#summarytype">SummaryType</a></td>
+      <td>The summary type.</td>
+    </tr>
+    <tr>
+      <td>value</td>
+      <td>number</td>
+      <td>The summary value.</td>
+    </tr>
+    <tr>
+      <td>messageKey</td>
+      <td>string</td>
+      <td>A <a href="#localization-messages">key</a> used to get a localized message.</td>
+    </tr>
+    <tr>
+      <td>component</td>
+      <td>ReactNode</td>
+      <td>A React node used to render the summary value.</td>
+    </tr>
+  </tbody>
+</table>
+
 <h3 id="tablegrouprowcellprops">TableGroupRow.CellProps</h3>
 
 <p>Describes properties passed to a component that renders a group cell.</p>
@@ -235,6 +321,26 @@
       <td>onToggle</td>
       <td>() =&gt; void</td>
       <td>An event that initiates group row expanding or collapsing.</td>
+    </tr>
+    <tr>
+      <td>inlineSummaries</td>
+      <td>Array&lt;<a href="#groupinlinesummary">GroupInlineSummary</a>&gt;</td>
+      <td>Summary items in this container.</td>
+    </tr>
+    <tr>
+      <td>inlineSummaryComponent</td>
+      <td>ComponentType&lt;<a href="#tablegrouprowinlinesummaryprops">TableGroupRow.InlineSummaryProps</a>&gt;</td>
+      <td>A component that renders a container for group summary items in a group caption.</td>
+    </tr>
+    <tr>
+      <td>inlineSummaryItemComponent</td>
+      <td>ComponentType&lt;<a href="#tablegrouprowinlinesummaryitemprops">TableGroupRow.InlineSummaryItemProps</a>&gt;</td>
+      <td>A component that renders an inline group summary item.</td>
+    </tr>
+    <tr>
+      <td>getMessage</td>
+      <td>(<a href="#localization-messages">messageKey</a>: string) =&gt; string</td>
+      <td>A function that uses the message ID to get a localized message.</td>
     </tr>
   </tbody>
 </table>
@@ -342,6 +448,122 @@
   </tbody>
 </table>
 
+<h3 id="tablegrouprowinlinesummaryprops">TableGroupRow.InlineSummaryProps</h3>
+
+<p>Describes properties passed to a component that renders a container for summary items to be displayed in a group caption.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>inlineSummaries</td>
+      <td>Array&lt;<a href="#groupinlinesummary">GroupInlineSummary</a>&gt;</td>
+      <td>Summary items in this container.</td>
+    </tr>
+    <tr>
+      <td>inlineSummaryItemComponent</td>
+      <td>ComponentType&lt;<a href="#tablegrouprowinlinesummaryitemprops">TableGroupRow.InlineSummaryItemProps</a>&gt;</td>
+      <td>A component that renders an inline group summary item.</td>
+    </tr>
+    <tr>
+      <td>getMessage</td>
+      <td>(<a href="#localization-messages">messageKey</a>: string) =&gt; string</td>
+      <td>A function that uses the message ID to get a localized message.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tablegrouprowinlinesummaryitemprops">TableGroupRow.InlineSummaryItemProps</h3>
+
+<p>Describes properties passed to a component that renders a summary item in a group caption.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>summary</td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/summary-state/#summaryitem">SummaryItem</a></td>
+      <td>The summary item.</td>
+    </tr>
+    <tr>
+      <td>getMessage</td>
+      <td>(<a href="#localization-messages">messageKey</a>: string) =&gt; string</td>
+      <td>A function that gets a localized message by message ID.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tablegrouprowsummarycellprops">TableGroupRow.SummaryCellProps</h3>
+
+<p>Describes properties passed to a component that renders a cell for a summary item in an appropriate column.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>row</td>
+      <td><a href="#grouprow">GroupRow</a></td>
+      <td>The group row.</td>
+    </tr>
+    <tr>
+      <td>column</td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/grid/#column">Column</a></td>
+      <td>The column for which the summary is calculated.</td>
+    </tr>
+    <tr>
+      <td>onToggle</td>
+      <td>() =&gt; void</td>
+      <td>A function that is executed when the group row is expanded or collapsed.</td>
+    </tr>
+    <tr>
+      <td>children</td>
+      <td>ReactNode</td>
+      <td>A React node to be rendered within the cell.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="tablegrouprowstubcellprops">TableGroupRow.StubCellProps</h3>
+
+<p>Describes properties passed to a component that renders a stub cell used to align summary items in their columns.</p>
+
+<p>Extends <a href="/devextreme-reactive/react/grid/docs/reference/table/#tablecellprops">Table.CellProps</a></p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>onToggle</td>
+      <td>() =&gt; void</td>
+      <td>A function that is executed when a group row is expanded or collapsed.</td>
+    </tr>
+  </tbody>
+</table>
+
 <h3 id="grouprow">GroupRow</h3>
 
 <p>Describes the group row structure.</p>
@@ -364,6 +586,81 @@
       <td>value</td>
       <td>any</td>
       <td>The current group value.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="localization-messages">Localization Messages</h2>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>count?</td>
+      <td>string</td>
+      <td>‘Count’</td>
+      <td>Specifies a text for a <code class="highlighter-rouge">count</code> summary item when it is displayed in a column.</td>
+    </tr>
+    <tr>
+      <td>sum?</td>
+      <td>string</td>
+      <td>‘Sum’</td>
+      <td>Specifies a text for a <code class="highlighter-rouge">sum</code> summary item when it is displayed in a column.</td>
+    </tr>
+    <tr>
+      <td>min?</td>
+      <td>string</td>
+      <td>‘Min’</td>
+      <td>Specifies a text for a <code class="highlighter-rouge">min</code> summary item when it is displayed in a column.</td>
+    </tr>
+    <tr>
+      <td>max?</td>
+      <td>string</td>
+      <td>‘Max’</td>
+      <td>Specifies a text for a <code class="highlighter-rouge">max</code> summary item when it is displayed in a column.</td>
+    </tr>
+    <tr>
+      <td>avg?</td>
+      <td>string</td>
+      <td>‘Avg’</td>
+      <td>Specifies a text for a <code class="highlighter-rouge">avg</code> summary item when it is displayed in a column.</td>
+    </tr>
+    <tr>
+      <td>countOf?</td>
+      <td>string</td>
+      <td>‘Count: ‘</td>
+      <td>Specifies a text for a <code class="highlighter-rouge">count</code> summary item when it is displayed in a group caption.</td>
+    </tr>
+    <tr>
+      <td>sumOf?</td>
+      <td>string</td>
+      <td>‘Sum of {columnTitle} is’</td>
+      <td>Specifies a text for a <code class="highlighter-rouge">sum</code> summary item when it is displayed in a group caption.</td>
+    </tr>
+    <tr>
+      <td>minOf?</td>
+      <td>string</td>
+      <td>‘Min of {columnTitle} is’</td>
+      <td>Specifies a text for a <code class="highlighter-rouge">min</code> summary item when it is displayed in a group caption.</td>
+    </tr>
+    <tr>
+      <td>maxOf?</td>
+      <td>string</td>
+      <td>‘Max of {columnTitle} is’</td>
+      <td>Specifies a text for a <code class="highlighter-rouge">max</code> summary item when it is displayed in a group caption.</td>
+    </tr>
+    <tr>
+      <td>avgOf?</td>
+      <td>string</td>
+      <td>‘Avg of {columnTitle} is’</td>
+      <td>Specifies a text for a <code class="highlighter-rouge">avg</code> summary item when it is displayed in a group caption.</td>
     </tr>
   </tbody>
 </table>
@@ -398,6 +695,26 @@
       <td>TableGroupRow.Icon</td>
       <td><a href="#tablegrouprowiconprops">TableGroupRow.IconProps</a></td>
       <td>A component that renders a group expand icon.</td>
+    </tr>
+    <tr>
+      <td>TableGroupRow.InlineSummary</td>
+      <td><a href="#tablegrouprowinlinesummaryprops">TableGroupRow.InlineSummaryProps</a></td>
+      <td>A component that renders a container for group summary items in a group caption.</td>
+    </tr>
+    <tr>
+      <td>TableGroupRow.InlineSummaryItem</td>
+      <td><a href="#tablegrouprowinlinesummaryitemprops">TableGroupRow.InlineSummaryItemProps</a></td>
+      <td>A component that renders a single group summary item in a group caption.</td>
+    </tr>
+    <tr>
+      <td>TableGroupRow.SummaryCell</td>
+      <td><a href="#tablegrouprowsummarycellprops">TableGroupRow.SummaryCellProps</a></td>
+      <td>A component that renders a cell for a group summary item in an appropriate column.</td>
+    </tr>
+    <tr>
+      <td>TableGroupRow.SummaryItem</td>
+      <td><a href="/devextreme-reactive/react/grid/docs/reference/table-summary-row/#tablesummaryrowitemprops">TableSummaryRow.ItemProps</a></td>
+      <td>A component that renders a group summary item in its column.</td>
     </tr>
   </tbody>
 </table>
@@ -548,9 +865,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.3.0">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.3.1">
             Version
-            <span>2.3.0</span>
+            <span>2.3.1</span>
           </a>
         </li>
       </ul>
@@ -1220,7 +1537,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/common/dist/index.js?v=1574418180"></script>
+<script src="/devextreme-reactive/react/common/dist/index.js?v=1575558477"></script>
 
 <script
   type="text/javascript"
@@ -1276,7 +1593,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1574418180"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1575558477"></script>
     <script>
         trackingCookie.notice();
     </script>

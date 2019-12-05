@@ -44,7 +44,7 @@ Describes a filter operation. Accepts one of the built-in operations or a custom
 
 Type: `string`
 
-Built-in operations: `contains`, `notContains`, `startsWith`, `endsWith`, `equal`, `notEqual`, `greaterThan`, `graterThenOrEqual`, `lessThan`, `lessThanOrEqual`
+Built-in operations: `contains`, `notContains`, `startsWith`, `endsWith`, `equal`, `notEqual`, `greaterThan`, `greaterThanOrEqual`, `lessThan`, `lessThanOrEqual`
 
 ### FilteringState.ColumnExtension
 

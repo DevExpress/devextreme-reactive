@@ -17,6 +17,9 @@ export const Container = ({
         backgroundClip: 'padding-box',
         zIndex: 300,
         display: 'inline-block',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        maxWidth: '100%',
       }}
       {...restProps}
     >

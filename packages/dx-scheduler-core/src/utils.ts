@@ -357,6 +357,7 @@ export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
   type, intervals, rectByDates, rectByDatesMeta, resources, groupingItems,
 ) => {
   const { growDirection, multiline } = type;
+  const isHorizontal = growDirection === HORIZONTAL_TYPE;
 
   const intervalGroups = groupAppointments(intervals, resources, groupingItems);
   const sortedGroups = intervalGroups.map(
@@ -364,14 +365,14 @@ export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
   );
   const groupedIntervals = sortedGroups.reduce((acc, sortedGroup) => [
     ...acc,
-    ...findOverlappedAppointments(sortedGroup as AppointmentMoment[], multiline),
+    ...findOverlappedAppointments(sortedGroup as AppointmentMoment[], isHorizontal),
   ], [] as any[]);
 
-  const rectCalculator = growDirection === HORIZONTAL_TYPE
+  const rectCalculator = isHorizontal
     ? horizontalRectCalculator
     : verticalRectCalculator;
 
-  return unwrapGroups(adjustAppointments(groupedIntervals, multiline))
+  return unwrapGroups(adjustAppointments(groupedIntervals, isHorizontal))
     .map(appointment => rectCalculator(appointment, { rectByDates, multiline, rectByDatesMeta }));
 };
 

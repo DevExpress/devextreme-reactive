@@ -1,3 +1,20 @@
+# [2.3.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.3.0...v2.3.1) (2019-12-05)
+
+
+### Bug Fixes
+
+* **react-core:** allow Sizer to update size on cDU ([#2577](https://github.com/DevExpress/devextreme-reactive/issues/2577)) ([183539f](https://github.com/DevExpress/devextreme-reactive/commit/183539fd1ba77d2c38a741a2f03681145a66dbf1))
+* **react-scheduler:** display all-day appointments of the same day correctly ([#2557](https://github.com/DevExpress/devextreme-reactive/issues/2557)) ([b831767](https://github.com/DevExpress/devextreme-reactive/commit/b83176765f6c8849a17adc258d582c76cab55d7d))
+* **react-scheduler:** display horizontal appointments in chronological order ([#2579](https://github.com/DevExpress/devextreme-reactive/issues/2579)) ([0c1071b](https://github.com/DevExpress/devextreme-reactive/commit/0c1071bb364befc524676c7926be9e76dd7018ec))
+* **react-scheduler:** open the AppointmentForm from AllDayPanel ([#2583](https://github.com/DevExpress/devextreme-reactive/issues/2583)) ([8d384e0](https://github.com/DevExpress/devextreme-reactive/commit/8d384e0f717544271c6fc2b0bf1c7bdf4b4a7f89))
+
+
+### Features
+
+* **react-grid:** allow showing group summary in a group row ([#1738](https://github.com/DevExpress/devextreme-reactive/issues/1738)) ([71b14a4](https://github.com/DevExpress/devextreme-reactive/commit/71b14a4a9ba36b55289f1bd7c752c1b8f1b61dc4))
+
+
+
 # [2.3.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.2.1...v2.3.0) (2019-11-22)
 
 

@@ -6,45 +6,38 @@ import {
 describe('IntegratedGrouping computeds', () => {
   describe('#filterResourcesByGrouping', () => {
     it('should work', () => {
-      const resources = [{
-        fieldName: 'resource1',
-      }, {
-        fieldName: 'resource2',
-      }, {
-        fieldName: 'resource3',
-      }];
-      const grouping = [{
-        resourceName: 'resource3',
-      }, {
-        resourceName: 'resource1',
-      }];
+      const resources = [
+        { fieldName: 'resource1' },
+        { fieldName: 'resource2' },
+        { fieldName: 'resource3' },
+      ];
+      const grouping = [
+        { resourceName: 'resource3' },
+        { resourceName: 'resource1' },
+      ];
       expect(filterResourcesByGrouping(resources, grouping))
-        .toEqual([{
-          fieldName: 'resource1',
-        }, {
-          fieldName: 'resource3',
-        }]);
+        .toEqual([
+          { fieldName: 'resource1' },
+          { fieldName: 'resource3' },
+        ]);
     });
   });
 
   describe('#sortFilteredResources', () => {
     it('should work', () => {
-      const resources = [{
-        fieldName: 'resource1',
-      }, {
-        fieldName: 'resource2',
-      }];
-      const grouping = [{
-        resourceName: 'resource2',
-      }, {
-        resourceName: 'resource1',
-      }];
+      const resources = [
+        { fieldName: 'resource1' },
+        { fieldName: 'resource2' },
+      ];
+      const grouping = [
+        { resourceName: 'resource2' },
+        { resourceName: 'resource1' },
+      ];
       expect(sortFilteredResources(resources, grouping))
-        .toEqual([{
-          fieldName: 'resource2',
-        }, {
-          fieldName: 'resource1',
-        }]);
+        .toEqual([
+          { fieldName: 'resource2' },
+          { fieldName: 'resource1' },
+        ]);
     });
   });
 
@@ -52,39 +45,32 @@ describe('IntegratedGrouping computeds', () => {
     it('should work', () => {
       const resources = [{
         fieldName: 'resource2',
-        instances: [{
-          id: 'resource2_1',
-        }, {
-          id: 'resource2_2',
-        }],
+        instances: [
+          { id: 'resource2_1' },
+          { id: 'resource2_2' },
+        ],
       }, {
         fieldName: 'resource1',
-        instances: [{
-          id: 'resource1_1',
-        }, {
-          id: 'resource1_2',
-        }],
+        instances: [
+          { id: 'resource1_1' },
+          { id: 'resource1_2' },
+        ],
       }];
-      const grouping = [{
-        resourceName: 'resource2',
-      }, {
-        resourceName: 'resource1',
-      }];
+      const grouping = [
+        { resourceName: 'resource2' },
+        { resourceName: 'resource1' },
+      ];
 
       expect(getGroupingItemsFromResources(resources, grouping))
-        .toEqual([[{
-          id: 'resource2_1',
-        }, {
-          id: 'resource2_2',
-        }], [{
-          id: 'resource1_1',
-        }, {
-          id: 'resource1_2',
-        }, {
-          id: 'resource1_1',
-        }, {
-          id: 'resource1_2',
-        }]]);
+        .toEqual([[
+          { id: 'resource2_1' },
+          { id: 'resource2_2' },
+        ], [
+          { id: 'resource1_1' },
+          { id: 'resource1_2' },
+          { id: 'resource1_1' },
+          { id: 'resource1_2' },
+        ]]);
     });
   });
 
@@ -108,37 +94,25 @@ describe('IntegratedGrouping computeds', () => {
       expect(result[0][0])
         .toEqual({
           ...viewCellsDataBase[0][0],
-          groupingInfo: [{
-            fieldName: 'resource1',
-            id: 1,
-          }],
+          groupingInfo: [{ fieldName: 'resource1', id: 1 }],
           isLastHorizontalGroupCell: true,
         });
       expect(result[0][1])
         .toEqual({
           ...viewCellsDataBase[0][0],
-          groupingInfo: [{
-            fieldName: 'resource1',
-            id: 2,
-          }],
+          groupingInfo: [{ fieldName: 'resource1', id: 2 }],
           isLastHorizontalGroupCell: true,
         });
       expect(result[1][0])
         .toEqual({
           ...viewCellsDataBase[1][0],
-          groupingInfo: [{
-            fieldName: 'resource1',
-            id: 1,
-          }],
+          groupingInfo: [{ fieldName: 'resource1', id: 1 }],
           isLastHorizontalGroupCell: true,
         });
       expect(result[1][1])
         .toEqual({
           ...viewCellsDataBase[1][0],
-          groupingInfo: [{
-            fieldName: 'resource1',
-            id: 2,
-          }],
+          groupingInfo: [{ fieldName: 'resource1', id: 2 }],
           isLastHorizontalGroupCell: true,
         });
     });
@@ -168,49 +142,37 @@ describe('IntegratedGrouping computeds', () => {
       expect(result[0][0])
         .toEqual({
           ...viewCellsData[0][0],
-          groupingInfo: [{
-            fieldName: 'resource2',
-            id: 1,
-          }, {
-            fieldName: 'resource1',
-            id: 1,
-          }],
+          groupingInfo: [
+            { fieldName: 'resource2', id: 1 },
+            { fieldName: 'resource1', id: 1 }
+          ],
           isLastHorizontalGroupCell: true,
         });
       expect(result[0][1])
         .toEqual({
           ...viewCellsData[0][0],
-          groupingInfo: [{
-            fieldName: 'resource2',
-            id: 2,
-          }, {
-            fieldName: 'resource1',
-            id: 1,
-          }],
+          groupingInfo: [
+            { fieldName: 'resource2', id: 2 },
+            { fieldName: 'resource1', id: 1 },
+          ],
           isLastHorizontalGroupCell: true,
         });
       expect(result[0][2])
         .toEqual({
           ...viewCellsData[0][0],
-          groupingInfo: [{
-            fieldName: 'resource2',
-            id: 1,
-          }, {
-            fieldName: 'resource1',
-            id: 2,
-          }],
+          groupingInfo: [
+            { fieldName: 'resource2', id: 1 },
+            { fieldName: 'resource1', id: 2 },
+          ],
           isLastHorizontalGroupCell: true,
         });
       expect(result[0][3])
         .toEqual({
           ...viewCellsData[0][0],
-          groupingInfo: [{
-            fieldName: 'resource2',
-            id: 2,
-          }, {
-            fieldName: 'resource1',
-            id: 2,
-          }],
+          groupingInfo: [
+            { fieldName: 'resource2', id: 2 },
+            { fieldName: 'resource1', id: 2 },
+          ],
           isLastHorizontalGroupCell: true,
         });
     });

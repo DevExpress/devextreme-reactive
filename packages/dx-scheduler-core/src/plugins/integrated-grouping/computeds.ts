@@ -11,11 +11,9 @@ export const filterResourcesByGrouping: PureComputed<
 
 export const sortFilteredResources: PureComputed<
   [Array<ValidResource>, Array<Grouping>], Array<ValidResource>
-> = (resources, grouping) => {
-  return grouping.map(({ resourceName }: Grouping) => {
-    return resources.find(resource => resource.fieldName === resourceName) as ValidResource;
-  });
-};
+> = (resources, grouping) => grouping.map(({ resourceName }: Grouping) => (
+  resources.find(resource => resource.fieldName === resourceName) as ValidResource
+));
 
 export const getGroupingItemsFromResources: PureComputed<
   [Array<ValidResource>], Array<Array<GroupingItem>>
@@ -25,17 +23,20 @@ export const getGroupingItemsFromResources: PureComputed<
   if (index === 0) {
     return [resource.instances.slice()];
   }
-  const result = acc[index - 1].reduce((currentResourceNames: Array<GroupingItem>) => [
-    ...currentResourceNames,
-    ...resource.instances.map(
-      (instance: ValidResourceInstance) => ({
-        fieldName: instance.fieldName,
-        id: instance.id,
-        text: instance.text,
-      }),
-    ),
-  ], []);
-  return [...acc, result];
+
+  return [
+    ...acc,
+    acc[index - 1].reduce((currentResourceNames: Array<GroupingItem>) => [
+      ...currentResourceNames,
+      ...resource.instances.map(
+        (instance: ValidResourceInstance) => ({
+          fieldName: instance.fieldName,
+          id: instance.id,
+          text: instance.text,
+        }),
+      ),
+    ], []),
+  ];
 }, []);
 
 export const expandViewCellsDataWithGroups: PureComputed<
@@ -53,14 +54,14 @@ export const expandViewCellsDataWithGroups: PureComputed<
         ) as ViewCell[],
       );
     }
-    return acc.map((item: ViewCell[], id: number) => {
-      const result = addGroupInfoToCells(
+    return acc.map((item: ViewCell[], id: number) => [
+      ...item,
+      ...addGroupInfoToCells(
         groupingItem,
         groupingItems, sortedResources,
         viewCellsData[id], index,
-      );
-      return [...item, ...result];
-    });
+      ),
+    ]);
   }, [[]] as ViewCell[][]);
 };
 

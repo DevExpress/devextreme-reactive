@@ -35,7 +35,10 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
     scrollingStrategy: {
       topBoundary: 0,
       bottomBoundary: 0,
+      leftBoundary: 0,
+      rightBoundary: 0,
       changeVerticalScroll: () => undefined,
+      changeHorizontalScroll: () => undefined,
     },
   };
 

@@ -2,7 +2,7 @@ export {
   AppointmentModel, AppointmentMeta, ElementRect, ValidResource, Color,
   ScrollingStrategy, CellElementsMeta, FormatterFn, SchedulerView,
   PreCommitChangesFn, ChangeSet, ViewCell, Resource, ValidResourceInstance,
-  Grouping, GroupKey, GroupOrientation,
+  Grouping, GroupKey, GroupOrientation, GroupingItem,
 } from '../../../dx-scheduler-core/src/index';
 
 /** @internal */

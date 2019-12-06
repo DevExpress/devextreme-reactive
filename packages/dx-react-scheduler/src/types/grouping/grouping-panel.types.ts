@@ -1,4 +1,4 @@
-import { GroupingItem } from '@devexpress/dx-scheduler-core';
+import { GroupingItem } from '../index';
 import { BaseView } from '../views';
 
 /* tslint:disable no-namespace max-line-length no-empty-interface */

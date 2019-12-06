@@ -10,6 +10,9 @@ import { IntegratedGroupingProps } from '../types';
 const pluginDependencies = [
   { name: 'Resources' },
   { name: 'GroupingState' },
+  { name: 'DayView', optional: true },
+  { name: 'MonthView', optional: true },
+  { name: 'WeekView', optional: true },
 ];
 
 const getViewCellsDataComputed = memoize((

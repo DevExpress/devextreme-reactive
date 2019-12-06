@@ -16,6 +16,9 @@ import { IntegratedGrouping } from '@devexpress/dx-react-scheduler';
 
 - [GroupingState](grouping-state.md)
 - [Resources](resources.md)
+- [DayView](day-view.md) [Optional]
+- [MonthView](month-view.md) [Optional]
+- [WeekView](week-view.md) [Optional]
 
 ### Properties
 

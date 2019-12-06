@@ -15,7 +15,7 @@ To change the group an appointment belongs to users can edit a corresponding app
 
 First of all, you need to configure the Scheduler's resources. For that, add and configure the `Resources` plugin as described in [this article](./resources.md).
 
-After you've added the resources, you need to add the `GroupingState` plugin. Use this plugin's `grouping` property to specify grouping options. The grouping order depends on grouping options' order. Fro example, if you want to group the appointments by `members` and then by `location` resources, the first item of the `grouping` property should correspond to the `members` resource, the second - to the `location`. Then, you need to add the `IntegratedGrouping` plugin. And finally, if you want to display grouping headers, add the `GroupingPanel` plugin.
+After you've added the resources, you need to add the `GroupingState` plugin. Use this plugin's `grouping` property to specify grouping options. The grouping order depends on grouping options' order. Fro example, if you want to group the appointments by `members` and then by `location` resources, the first item of the `grouping` property should correspond to the `members` resource, the second - to the `location`. If the `grouping` property is not specified, the appointments will be grouped by the main resource. Then, you need to add the `IntegratedGrouping` plugin. And finally, if you want to display grouping headers, add the `GroupingPanel` plugin.
 
 In the following example the appointments are grouped by their `priorityId` resource:
 

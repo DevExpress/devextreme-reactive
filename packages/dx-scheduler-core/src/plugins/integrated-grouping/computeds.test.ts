@@ -2,6 +2,7 @@ import {
   filterResourcesByGrouping, sortFilteredResources,
   getGroupingItemsFromResources, expandViewCellsDataWithGroups,
 } from './computeds';
+import { updateGroupingWithMainResource } from '../../../dist/dx-scheduler-core.umd';
 
 describe('IntegratedGrouping computeds', () => {
   describe('#filterResourcesByGrouping', () => {
@@ -182,6 +183,24 @@ describe('IntegratedGrouping computeds', () => {
 
       expect(expandViewCellsDataWithGroups(viewCellsDataBase, groupingItems, resourcesBase))
         .toEqual(viewCellsDataBase);
+    });
+  });
+
+  describe('#updateGroupingWithMainResource', () => {
+    it('should return grouping if it is defined', () => {
+      expect(updateGroupingWithMainResource('test'))
+        .toBe('test');
+    });
+
+    it('should return grouping use the main resource for grouping', () => {
+      const resources = [
+        { fieldName: 'test 1', isMain: false },
+        { fieldName: 'test 2', isMain: true },
+      ];
+      expect(updateGroupingWithMainResource(undefined, resources))
+        .toEqual([{
+          resourceName: 'test 2',
+        }]);
     });
   });
 });

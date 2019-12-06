@@ -3,7 +3,7 @@ import { Plugin, Getter } from '@devexpress/dx-react-core';
 import { memoize } from '@devexpress/dx-core';
 import {
   getGroupingItemsFromResources, expandViewCellsDataWithGroups,
-  sortFilteredResources, filterResourcesByGrouping,
+  sortFilteredResources, filterResourcesByGrouping, updateGroupingWithMainResource,
 } from '@devexpress/dx-scheduler-core';
 import { IntegratedGroupingProps } from '../types';
 
@@ -24,6 +24,10 @@ const getResourcesToGroupByComputed = memoize((
   { resources, grouping },
 ) => sortFilteredResources(filterResourcesByGrouping(resources, grouping), grouping));
 
+const getGroupingComputed = memoize((
+  { grouping, resources },
+) => updateGroupingWithMainResource(grouping, resources));
+
 class IntegratedGroupingBase extends React.PureComponent<IntegratedGroupingProps> {
   render() {
     return (
@@ -31,6 +35,7 @@ class IntegratedGroupingBase extends React.PureComponent<IntegratedGroupingProps
         name="IntegratedGrouping"
         dependencies={pluginDependencies}
       >
+        <Getter name="grouping" computed={getGroupingComputed} />
         <Getter name="resourcesToGroupBy" computed={getResourcesToGroupByComputed} />
         <Getter name="groupingItems" computed={getGroupingItemsComputed} />
         <Getter name="viewCellsData" computed={getViewCellsDataComputed} />

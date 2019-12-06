@@ -88,3 +88,8 @@ const addGroupInfoToCells: PureComputed<
   }
   return { ...viewCell, groupingInfo, isLastHorizontalGroupCell: true };
 });
+
+export const updateGroupingWithMainResource: PureComputed<
+  [Grouping[] | undefined, ValidResource[]], Grouping[]
+> = (grouping, resources) => grouping
+  || [{ resourceName: resources.find(resource => resource.isMain)!.fieldName }];

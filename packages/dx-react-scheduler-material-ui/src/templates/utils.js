@@ -62,3 +62,8 @@ export const getAppointmentColor = (level, color, defaultColor) => {
 };
 
 export const getMinWidth = (cellsNumber, minCellWidth) => `${cellsNumber * minCellWidth}px`;
+
+export const getViewCellKey = (startDate, groups) => {
+  if (!groups) return startDate;
+  return groups.reduce((acc, group) => acc.concat(group.id), startDate.toString());
+};

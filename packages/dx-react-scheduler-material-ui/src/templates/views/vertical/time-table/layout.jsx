@@ -4,7 +4,7 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
-import { cellsMeta, getMinWidth } from '../../../utils';
+import { cellsMeta, getMinWidth, getViewCellKey } from '../../../utils';
 import {
   MIN_CELL_WIDTH, LARGE_MOBILE_MIN_CELL_WIDTH,
   MIN_CELL_WIDTH_MOBILE, MOBILE_LAYOUT_QUERY, LARGE_MOBILE_LAYOUT_QUERY,
@@ -52,7 +52,7 @@ export const Layout = React.memo(({
               startDate, endDate, isLastHorizontalGroupCell, groupingInfo,
             }) => (
               <Cell
-                // key={Math.random()}
+                key={getViewCellKey(startDate, groupingInfo)}
                 startDate={startDate}
                 endDate={endDate}
                 isLastHorizontalGroupCell={isLastHorizontalGroupCell}
@@ -67,7 +67,6 @@ export const Layout = React.memo(({
 });
 
 Layout.propTypes = {
-  classes: PropTypes.object.isRequired,
   cellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,

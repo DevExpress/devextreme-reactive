@@ -4,7 +4,7 @@ import classNames from 'clsx';
 import TableMUI from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import { makeStyles } from '@material-ui/core/styles';
-import { cellsMeta, getMinWidth } from '../../../utils';
+import { cellsMeta, getMinWidth, getViewCellKey } from '../../../utils';
 import {
   MIN_CELL_WIDTH, LARGE_MOBILE_MIN_CELL_WIDTH,
   MIN_CELL_WIDTH_MOBILE, MOBILE_LAYOUT_QUERY, LARGE_MOBILE_LAYOUT_QUERY,
@@ -57,7 +57,7 @@ export const Layout = React.memo(({
               groupingInfo,
             }) => (
               <Cell
-                key={Math.random()}
+                key={getViewCellKey(startDate, groupingInfo)}
                 startDate={startDate}
                 endDate={endDate}
                 today={today}

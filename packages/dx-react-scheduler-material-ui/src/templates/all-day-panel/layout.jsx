@@ -4,7 +4,7 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
-import { cellsMeta } from '../utils';
+import { cellsMeta, getViewCellKey } from '../utils';
 
 const styles = {
   table: {
@@ -57,7 +57,7 @@ class LayoutBase extends React.PureComponent {
               startDate, endDate, isLastHorizontalGroupCell, groupingInfo,
             }) => (
               <Cell
-                // key={startDate}
+                key={getViewCellKey(startDate, groupingInfo)}
                 startDate={startDate}
                 endDate={endDate}
                 isLastHorizontalGroupCell={isLastHorizontalGroupCell}

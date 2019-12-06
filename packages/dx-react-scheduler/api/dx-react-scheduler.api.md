@@ -5,7 +5,6 @@
 ```ts
 
 import { Color as Color_2 } from '@material-ui/core';
-import { GroupingItem as GroupingItem_2 } from '@devexpress/dx-scheduler-core';
 import moment from 'moment';
 import * as React from 'react';
 
@@ -13,7 +12,7 @@ import * as React from 'react';
 export type AllDayCell = {
   startDate: SchedulerDateTime;
   endDate: SchedulerDateTime;
-  groupingInfo?: GroupingItem_2[];
+  groupingInfo?: GroupingItem[];
   isLastHorizontalGroupCell?: boolean;
 };
 
@@ -26,7 +25,7 @@ export namespace AllDayPanel {
   }
   export interface CellData {
     endDate: Date;
-    groupingInfo?: Array<GroupingItem_2>;
+    groupingInfo?: Array<GroupingItem>;
     isLastHorizontalGroupCell?: boolean;
     startDate: Date;
   }
@@ -428,7 +427,7 @@ export namespace BaseView {
     export interface DayScaleCellProps {
         endDate?: Date;
         formatDate: FormatterFn;
-        groupingInfo?: Array<GroupingItem_2>;
+        groupingInfo?: Array<GroupingItem>;
         isLastHorizontalGroupCell?: boolean;
         startDate: Date;
         today?: boolean;
@@ -465,7 +464,7 @@ export namespace BaseView {
         currentTimeIndicatorComponent?: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
         currentTimeIndicatorPosition?: string;
         endDate?: Date;
-        groupingInfo?: Array<GroupingItem_2>;
+        groupingInfo?: Array<GroupingItem>;
         isLastHorizontalGroupCell?: boolean;
         isShaded?: boolean;
         startDate?: Date;
@@ -791,11 +790,11 @@ export const GroupingPanel: React.ComponentType<GroupingPanelProps>;
 export namespace GroupingPanel {
   export interface CellProps {
     colSpan: number;
-    groupingItem: GroupingItem_2;
+    groupingItem: GroupingItem;
   }
   export interface HorizontalLayoutProps {
     cellComponent: React.ComponentType<GroupingPanel.CellProps>;
-    groups: Array<Array<GroupingItem_2>>;
+    groups: Array<Array<GroupingItem>>;
     rowComponent: React.ComponentType<GroupingPanel.RowProps>;
     width: number;
   }
@@ -883,7 +882,7 @@ export namespace MonthView {
   export interface TimeTableCellProps {
     endDate?: Date;
     formatDate?: FormatterFn;
-    groupingInfo?: Array<GroupingItem_2>;
+    groupingInfo?: Array<GroupingItem>;
     isLastHorizontalGroupCell?: boolean;
     isShaded?: boolean;
     otherMonth?: boolean;
@@ -1070,7 +1069,7 @@ export interface VerticalViewProps extends CommonViewProps {
 export type ViewCellData = {
   startDate: Date;
   endDate: Date;
-  groupingInfo?: GroupingItem_2[];
+  groupingInfo?: GroupingItem[];
 };
 
 // @public

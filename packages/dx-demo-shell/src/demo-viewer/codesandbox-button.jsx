@@ -9,6 +9,12 @@ import Demo from "./demo";
 
 render(<Demo />, document.getElementById("root"));
 `;
+// prevent Potential infinite loop error in virtual table demos (100k rows)
+const sandboxConfig = `{
+  "infiniteLoopProtection": false,
+  "hardReloadOnChange": false,
+  "view": "browser"
+}`;
 
 export const CodeSandBoxButton = ({
   code, sandboxHtml, helperFiles, externalDeps, themeName,
@@ -44,10 +50,12 @@ export const CodeSandBoxButton = ({
       'index.html': {
         content: sandboxHtml,
       },
+      'sandbox.config.json': {
+        content: sandboxConfig,
+      },
       ...helpers,
     },
   });
-
 
   return (
     <form action="https://codesandbox.io/api/v1/sandboxes/define" method="POST" target="_blank">
@@ -60,9 +68,11 @@ export const CodeSandBoxButton = ({
 
 CodeSandBoxButton.propTypes = {
   code: PropTypes.string.isRequired,
-  html: PropTypes.string.isRequired,
+  sandboxHtml: PropTypes.string.isRequired,
   helperFiles: PropTypes.array.isRequired,
+  externalDeps: PropTypes.array.isRequired,
   themeName: PropTypes.string.isRequired,
   sectionName: PropTypes.string.isRequired,
   demoName: PropTypes.string.isRequired,
+  requireTs: PropTypes.bool.isRequired,
 };

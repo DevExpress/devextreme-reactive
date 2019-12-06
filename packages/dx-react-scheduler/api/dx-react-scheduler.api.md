@@ -5,6 +5,7 @@
 ```ts
 
 import { Color as Color_2 } from '@material-ui/core';
+import { GroupingItem as GroupingItem_2 } from '@devexpress/dx-scheduler-core';
 import moment from 'moment';
 import * as React from 'react';
 
@@ -12,6 +13,8 @@ import * as React from 'react';
 export type AllDayCell = {
   startDate: SchedulerDateTime;
   endDate: SchedulerDateTime;
+  groupingInfo?: GroupingItem_2[];
+  isLastHorizontalGroupCell?: boolean;
 };
 
 // @public
@@ -23,6 +26,8 @@ export namespace AllDayPanel {
   }
   export interface CellData {
     endDate: Date;
+    groupingInfo?: Array<GroupingItem_2>;
+    isLastHorizontalGroupCell?: boolean;
     startDate: Date;
   }
   export interface CellProps {
@@ -412,61 +417,66 @@ export interface AppointmentTooltipProps {
 
 // @public (undocumented)
 export namespace BaseView {
-  export interface AppointmentLayerProps {
-    children?: React.ReactNode;
-  }
-  export interface CellData {
-    endDate: Date;
-    startDate: Date;
-    today: boolean;
-  }
-  export interface DayScaleCellProps {
-    endDate?: Date;
-    formatDate: FormatterFn;
-    startDate: Date;
-    today?: boolean;
-  }
-  export interface DayScaleEmptyCellProps {
-    children?: React.ReactNode;
-  }
-  export interface DayScaleLayoutProps {
-    cellComponent: React.ComponentType<BaseView.DayScaleCellProps>;
-    cellsData: BaseView.CellData[][];
-    formatDate: FormatterFn;
-    rowComponent: React.ComponentType<BaseView.RowProps>;
-  }
-  export interface LayoutProps {
-    dayScaleComponent: React.ComponentType<BaseView.DayScaleLayoutProps>;
-    setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
-    timeTableComponent: React.ComponentType<BaseView.TimeTableLayoutProps>;
-  }
-  export interface RowProps {
-    children?: React.ReactNode;
-  }
-  export interface TimeScaleLabelProps {
-    formatDate: FormatterFn;
-    time?: Date;
-  }
-  export interface TimeScaleLayoutProps {
-    cellsData: BaseView.CellData[][];
-    formatDate: FormatterFn;
-    labelComponent: React.ComponentType<BaseView.TimeScaleLabelProps>;
-  }
-  export interface TimeTableCellProps {
-    children?: React.ReactNode;
-    currentTimeIndicatorComponent?: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
-    currentTimeIndicatorPosition?: string;
-    endDate?: Date;
-    isShaded?: boolean;
-    startDate?: Date;
-  }
-  export interface TimeTableLayoutProps {
-    cellComponent: React.ComponentType<BaseView.TimeTableCellProps>;
-    cellsData: BaseView.CellData[][];
-    formatDate: FormatterFn;
-    rowComponent: React.ComponentType<BaseView.RowProps>;
-    setCellElementsMeta: (cellElementsMeta: CellElementsMeta) => void;
-  }
+    export interface AppointmentLayerProps {
+        children?: React.ReactNode;
+    }
+    export interface CellData {
+        endDate: Date;
+        startDate: Date;
+        today: boolean;
+    }
+    export interface DayScaleCellProps {
+        endDate?: Date;
+        formatDate: FormatterFn;
+        groupingInfo?: Array<GroupingItem_2>;
+        isLastHorizontalGroupCell?: boolean;
+        startDate: Date;
+        today?: boolean;
+    }
+    export interface DayScaleEmptyCellProps {
+        children?: React.ReactNode;
+    }
+    export interface DayScaleLayoutProps {
+        cellComponent: React.ComponentType<BaseView.DayScaleCellProps>;
+        cellsData: BaseView.CellData[][];
+        formatDate: FormatterFn;
+        groupingPanelComponent?: React.ComponentType<GroupingPanel.HorizontalLayoutProps>;
+        rowComponent: React.ComponentType<BaseView.RowProps>;
+    }
+    export interface LayoutProps {
+        dayScaleComponent: React.ComponentType<BaseView.DayScaleLayoutProps>;
+        setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
+        timeTableComponent: React.ComponentType<BaseView.TimeTableLayoutProps>;
+    }
+    export interface RowProps {
+        children?: React.ReactNode;
+    }
+    export interface TimeScaleLabelProps {
+        formatDate: FormatterFn;
+        time?: Date;
+    }
+    export interface TimeScaleLayoutProps {
+        cellsData: BaseView.CellData[][];
+        formatDate: FormatterFn;
+        labelComponent: React.ComponentType<BaseView.TimeScaleLabelProps>;
+    }
+    export interface TimeTableCellProps {
+        children?: React.ReactNode;
+        currentTimeIndicatorComponent?: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
+        currentTimeIndicatorPosition?: string;
+        endDate?: Date;
+        groupingInfo?: Array<GroupingItem_2>;
+        isLastHorizontalGroupCell?: boolean;
+        isShaded?: boolean;
+        startDate?: Date;
+    }
+    export interface TimeTableLayoutProps {
+        cellComponent: React.ComponentType<BaseView.TimeTableCellProps>;
+        cellsData: BaseView.CellData[][];
+        formatDate: FormatterFn;
+        rowComponent: React.ComponentType<BaseView.RowProps>;
+        setCellElementsMeta: (cellElementsMeta: CellElementsMeta) => void;
+    }
 }
 
 // @public (undocumented)
@@ -513,14 +523,14 @@ export interface Color extends Color_2 {
 
 // @public (undocumented)
 export interface CommonViewProps {
-  appointmentLayerComponent: React.ComponentType<BaseView.AppointmentLayerProps>;
-  dayScaleCellComponent: React.ComponentType<BaseView.DayScaleCellProps>;
-  dayScaleRowComponent: React.ComponentType<BaseView.RowProps>;
-  displayName?: string;
-  intervalCount?: number;
-  name?: string;
-  timeTableCellComponent: React.ComponentType<BaseView.TimeTableCellProps>;
-  timeTableRowComponent: React.ComponentType<BaseView.RowProps>;
+    appointmentLayerComponent: React.ComponentType<BaseView.AppointmentLayerProps>;
+    dayScaleCellComponent: React.ComponentType<BaseView.DayScaleCellProps>;
+    dayScaleRowComponent: React.ComponentType<BaseView.RowProps>;
+    displayName?: string;
+    intervalCount?: number;
+    name?: string;
+    timeTableCellComponent: React.ComponentType<BaseView.TimeTableCellProps>;
+    timeTableRowComponent: React.ComponentType<BaseView.RowProps>;
 }
 
 // @public
@@ -569,17 +579,17 @@ export const CurrentTimeIndicator: React.ComponentType<CurrentTimeIndicatorProps
 
 // @public (undocumented)
 export namespace CurrentTimeIndicator {
-  export interface IndicatorProps {
-    top?: string;
-  }
+    export interface IndicatorProps {
+        top?: string;
+    }
 }
 
 // @public (undocumented)
 export interface CurrentTimeIndicatorProps {
-  indicatorComponent: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
-  shadePreviousAppointments: boolean;
-  shadePreviousCells: boolean;
-  updateInterval: number;
+    indicatorComponent: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
+    shadePreviousAppointments: boolean;
+    shadePreviousCells: boolean;
+    updateInterval: number;
 }
 
 // @public
@@ -763,10 +773,75 @@ export interface EditRecurrenceMenuProps {
 export type FormatterFn = (nextDate: SchedulerDateTime | undefined, nextOptions: Intl.DateTimeFormatOptions) => string;
 
 // @public
+export interface Grouping {
+  resourceName: string;
+}
+
+// @public
+export type GroupingItem = {
+  id: number | string;
+  text: string;
+  fieldName: string;
+};
+
+// @public
+export const GroupingPanel: React.ComponentType<GroupingPanelProps>;
+
+// @public (undocumented)
+export namespace GroupingPanel {
+  export interface CellProps {
+    colSpan: number;
+    groupingItem: GroupingItem_2;
+  }
+  export interface HorizontalLayoutProps {
+    cellComponent: React.ComponentType<GroupingPanel.CellProps>;
+    groups: Array<Array<GroupingItem_2>>;
+    rowComponent: React.ComponentType<GroupingPanel.RowProps>;
+    width: number;
+  }
+  export interface RowProps extends BaseView.RowProps {
+  }
+}
+
+// @public (undocumented)
+export interface GroupingPanelProps {
+  cellComponent: React.ComponentType<GroupingPanel.CellProps>;
+  horizontalLayoutComponent: React.ComponentType<GroupingPanel.HorizontalLayoutProps>;
+  rowComponent: React.ComponentType<GroupingPanel.RowProps>;
+}
+
+// @public
+export const GroupingState: React.ComponentType<GroupingStateProps>;
+
+// @public (undocumented)
+export interface GroupingStateProps {
+  defaultExpandedGroups?: Array<GroupKey>;
+  expandedGroups?: Array<GroupKey>;
+  groupByDate?: (view: string) => boolean;
+  grouping: Array<Grouping>;
+  // (undocumented)
+  groupOrientation?: (view: string) => GroupOrientation;
+  onExpandedGroupsChange?: (expandedGroups: Array<GroupKey>) => void;
+}
+
+// @public
+export type GroupKey = string;
+
+// @public
+export type GroupOrientation = 'Vertical' | 'Horizontal';
+
+// @public
 export const IntegratedEditing: React.ComponentType<IntegratedEditingProps>;
 
 // @public (undocumented)
 export interface IntegratedEditingProps {
+}
+
+// @public
+export const IntegratedGrouping: React.ComponentType<IntegratedGroupingProps>;
+
+// @public (undocumented)
+export interface IntegratedGroupingProps {
 }
 
 // @public
@@ -795,6 +870,7 @@ export namespace MonthView {
     cellComponent: React.ComponentType<BaseView.DayScaleCellProps>;
     cellsData: MonthView.CellData[][];
     formatDate: FormatterFn;
+    groupingPanelComponent: React.ComponentType<GroupingPanel.HorizontalLayoutProps>;
     rowComponent: React.ComponentType<BaseView.RowProps>;
   }
   export interface LayoutProps {
@@ -807,6 +883,8 @@ export namespace MonthView {
   export interface TimeTableCellProps {
     endDate?: Date;
     formatDate?: FormatterFn;
+    groupingInfo?: Array<GroupingItem_2>;
+    isLastHorizontalGroupCell?: boolean;
     isShaded?: boolean;
     otherMonth?: boolean;
     startDate: Date;
@@ -895,7 +973,10 @@ export interface SchedulerView {
 export type ScrollingStrategy = {
   topBoundary: number;
   bottomBoundary: number;
+  leftBoundary: number;
+  rightBoundary: number;
   changeVerticalScroll: (value: number) => void;
+  changeHorizontalScroll: (value: number) => void;
 };
 
 // @public (undocumented)
@@ -989,6 +1070,7 @@ export interface VerticalViewProps extends CommonViewProps {
 export type ViewCellData = {
   startDate: Date;
   endDate: Date;
+  groupingInfo?: GroupingItem_2[];
 };
 
 // @public

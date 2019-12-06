@@ -31,21 +31,17 @@ const getGroupingComputed = memoize((
   { grouping, resources },
 ) => updateGroupingWithMainResource(grouping, resources));
 
-class IntegratedGroupingBase extends React.PureComponent<IntegratedGroupingProps> {
-  render() {
-    return (
-      <Plugin
-        name="IntegratedGrouping"
-        dependencies={pluginDependencies}
-      >
-        <Getter name="grouping" computed={getGroupingComputed} />
-        <Getter name="resourcesToGroupBy" computed={getResourcesToGroupByComputed} />
-        <Getter name="groupingItems" computed={getGroupingItemsComputed} />
-        <Getter name="viewCellsData" computed={getViewCellsDataComputed} />
-      </Plugin>
-    );
-  }
-}
+const IntegratedGroupingBase: React.SFC<IntegratedGroupingProps> = React.memo(() => (
+  <Plugin
+    name="IntegratedGrouping"
+    dependencies={pluginDependencies}
+  >
+    <Getter name="grouping" computed={getGroupingComputed} />
+    <Getter name="resourcesToGroupBy" computed={getResourcesToGroupByComputed} />
+    <Getter name="groupingItems" computed={getGroupingItemsComputed} />
+    <Getter name="viewCellsData" computed={getViewCellsDataComputed} />
+  </Plugin>
+));
 
 /** A plugin that performs built-in grouping. */
 export const IntegratedGrouping: React.ComponentType<

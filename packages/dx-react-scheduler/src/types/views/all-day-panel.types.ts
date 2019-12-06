@@ -1,5 +1,4 @@
-import { ElementRect, CellElementsMeta, FormatterFn, BaseView } from '../index';
-import { GroupingItem } from '@devexpress/dx-scheduler-core';
+import { ElementRect, CellElementsMeta, FormatterFn, BaseView, GroupingItem } from '../index';
 
 /* tslint:disable no-namespace max-line-length no-empty-interface */
 /** @internal */

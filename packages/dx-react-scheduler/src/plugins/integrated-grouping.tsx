@@ -1,8 +1,5 @@
 import * as React from 'react';
-import {
-  Plugin,
-  Getter,
-} from '@devexpress/dx-react-core';
+import { Plugin, Getter } from '@devexpress/dx-react-core';
 import { memoize } from '@devexpress/dx-core';
 import {
   getGroupingItemsFromResources, expandViewCellsDataWithGroups,

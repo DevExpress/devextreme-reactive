@@ -1,8 +1,7 @@
 import {
   ScrollingStrategy, BaseView, CommonViewProps,
-  FormatterFn, CellElementsMeta, GroupingPanel,
+  FormatterFn, CellElementsMeta, GroupingPanel, GroupingItem,
 } from '../index';
-import { GroupingItem } from '@devexpress/dx-scheduler-core';
 
 /* tslint:disable no-namespace no-empty-interface */
 export namespace MonthView {

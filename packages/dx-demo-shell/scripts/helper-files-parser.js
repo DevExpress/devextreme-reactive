@@ -25,7 +25,10 @@ const dependencies = {
   ],
   '"@devexpress/dx-react-chart-bootstrap4"': ['"@devexpress/dx-react-chart"'],
   '"@devexpress/dx-react-chart"': ['"@devexpress/dx-react-core"'],
-  '"@devexpress/dx-react-grid-bootstrap3"': ['"@devexpress/dx-react-grid"'],
+  '"@devexpress/dx-react-grid-bootstrap3"': [
+    '"@devexpress/dx-react-grid"',
+    'react-bootstrap',
+  ],
   '"@devexpress/dx-react-grid-bootstrap4"': ['"@devexpress/dx-react-grid"'],
   '"@devexpress/dx-react-grid-material-ui"': [
     '"@devexpress/dx-react-grid"',

@@ -1,5 +1,3 @@
-import { blue, teal } from '@material-ui/core/colors';
-
 export const data = [
   {
     title: 'Website Re-Design Plan',

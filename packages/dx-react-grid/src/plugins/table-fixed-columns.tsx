@@ -63,12 +63,15 @@ class TableFixedColumnsBase extends React.PureComponent<TableFixedColumnsProps, 
   }
 
   handleListenerSizeChange(key, width) {
-    this.setState(state => ({
-      tableColumnDimensions: {
-        ...state.tableColumnDimensions,
-        [key]: width,
-      },
-    }));
+    const { tableColumnDimensions } = this.state;
+    if (tableColumnDimensions[key] !== width) {
+      this.setState(state => ({
+        tableColumnDimensions: {
+          ...state.tableColumnDimensions,
+          [key]: width,
+        },
+      }));
+    }
   }
 
   render() {

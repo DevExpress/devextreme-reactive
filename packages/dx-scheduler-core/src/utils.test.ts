@@ -113,16 +113,17 @@ describe('Utils', () => {
       expect(sortAppointments(appointments))
         .toEqual(sortedAppointments);
     });
-    it('should sort appointments depend on day', () => {
+    it('should place all-day appointments before ordinary ones if they are on the same day', () => {
       const appointments = [
-        { start: moment('2018-07-01 09:00'), end: moment('2018-07-01 12:00') },
-        { start: moment('2018-07-02 10:00'), end: moment('2018-07-02 11:00') },
-        { start: moment('2018-07-01 10:00'), end: moment('2018-07-02 11:00') },
+        { start: moment('2018-07-02 09:30'), end: moment('2018-07-02 12:00') },
+        { start: moment('2018-07-01 10:00'), end: moment('2018-07-01 13:00') },
+        { start: moment('2018-07-02 10:00'), end: moment('2018-07-02 11:00'), allDay: true },
+        { start: moment('2018-07-02 10:00'), end: moment('2018-07-04 11:00'), allDay: true },
       ];
       const sortedAppointments = [
-        appointments[2], appointments[0], appointments[1],
+        appointments[1], appointments[3], appointments[2], appointments[0],
       ];
-      expect(sortAppointments(appointments, true))
+      expect(sortAppointments(appointments))
         .toEqual(sortedAppointments);
     });
   });

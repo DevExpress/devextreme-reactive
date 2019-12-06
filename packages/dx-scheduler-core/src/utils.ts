@@ -81,19 +81,36 @@ export const viewPredicate: ViewPredicateFn = (
   return isAppointmentInBoundary && !isAppointmentInExcludedDays && considerAllDayAppointment;
 };
 
+const compareByDay: PureComputed<
+  [AppointmentMoment, AppointmentMoment], number
+> = (first, second) => {
+  if (first.start.isBefore(second.start, 'day')) return -1;
+  if (first.start.isAfter(second.start, 'day')) return 1;
+  return 0;
+};
+
+const compareByAllDay: PureComputed<
+  [AppointmentMoment, AppointmentMoment], number
+> = (first, second) => {
+  if (first.allDay && !second.allDay) return -1;
+  if (!first.allDay && second.allDay) return 1;
+  return 0;
+};
+
+const compareByTime: PureComputed<
+  [AppointmentMoment, AppointmentMoment], number
+> = (first, second) => {
+  if (first.start.isBefore(second.start)) return -1;
+  if (first.start.isAfter(second.start)) return 1;
+  if (first.end.isBefore(second.end)) return 1;
+  if (first.end.isAfter(second.end)) return -1;
+  return 0;
+};
+
 export const sortAppointments: PureComputed<
-  [AppointmentMoment[], boolean], AppointmentMoment[]
-> = (appointments, byDay = false) => appointments
-  .slice().sort((a, b) => {
-    const compareValue = byDay ? 'day' : undefined;
-    if (a.start.isBefore(b.start, compareValue)) return -1;
-    if (a.start.isAfter(b.start, compareValue)) return 1;
-    if (a.start.isSame(b.start, compareValue)) {
-      if (a.end.isBefore(b.end)) return 1;
-      if (a.end.isAfter(b.end)) return -1;
-    }
-    return 0;
-  });
+  [AppointmentMoment[]], AppointmentMoment[]
+> = appointments => appointments
+  .slice().sort((a, b) => compareByDay(a, b) || compareByAllDay(a, b) || compareByTime(a, b));
 
 export const findOverlappedAppointments: CustomFunction<
   [AppointmentMoment[], boolean], any[]
@@ -362,7 +379,7 @@ export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIn
 
   const intervalGroups = groupAppointments(intervals, resources, groupingItems);
   const sortedGroups = intervalGroups.map(
-    intervalGroup => sortAppointments(intervalGroup, multiline),
+    intervalGroup => sortAppointments(intervalGroup),
   );
   const groupedIntervals = sortedGroups.reduce((acc, sortedGroup) => [
     ...acc,

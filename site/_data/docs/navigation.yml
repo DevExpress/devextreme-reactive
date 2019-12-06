@@ -389,6 +389,12 @@
         path: /react/scheduler/docs/reference/resources
       - title: CurrentTimeIndicator
         path: /react/scheduler/docs/reference/current-time-indicator
+      - title: GroupingState
+        path: /react/scheduler/docs/reference/grouping-state
+      - title: IntegratedGrouping
+        path: /react/scheduler/docs/reference/integrated-grouping
+      - title: GroupingPanel
+        path: /react/scheduler/docs/reference/grouping-panel
   - title: Related Docs
     items:
       - title: React Core

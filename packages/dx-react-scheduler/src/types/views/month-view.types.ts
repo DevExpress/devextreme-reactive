@@ -2,6 +2,7 @@ import {
   ScrollingStrategy, BaseView, CommonViewProps,
   FormatterFn, CellElementsMeta, GroupingPanel,
 } from '../index';
+import { GroupingItem } from '@devexpress/dx-scheduler-core';
 
 /* tslint:disable no-namespace no-empty-interface */
 export namespace MonthView {
@@ -34,6 +35,10 @@ export namespace MonthView {
     today?: boolean;
     /** A function that formats dates according to the set locale. */
     formatDate?: FormatterFn;
+    /** The cell's group. */
+    groupingInfo?: Array<GroupingItem>;
+    /** Specifies whether the cell is the last horizontal cell in a given group. */
+    isLastHorizontalGroupCell?: boolean;
     /** Indicates whether the cell is shaded. */
     isShaded?: boolean;
   }

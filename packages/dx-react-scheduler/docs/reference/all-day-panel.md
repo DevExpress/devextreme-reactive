@@ -66,6 +66,8 @@ Field | Type | Description
 ------|------|------------
 startDate | Date | The cell's start time.
 endDate | Date | The cell's end time.
+groupingInfo? | Array&lt;[GroupingItem](./grouping-panel/#grouping)&gt;; | The cell's group.
+isLastHorizontalGroupCell? | boolean / Specifies whether the cell is the last horizontal cell in a given group.
 
 ### AllDayPanel.RowProps
 

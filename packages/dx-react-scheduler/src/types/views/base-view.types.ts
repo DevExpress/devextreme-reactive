@@ -1,6 +1,7 @@
 import { FormatterFn, CellElementsMeta, ScrollingStrategy } from '../index';
 import { CurrentTimeIndicator } from '../current-time-indicator';
 import { GroupingPanel } from '../grouping';
+import { GroupingItem } from '@devexpress/dx-scheduler-core';
 
 // tslint:disable: no-namespace
 export interface CommonViewProps {
@@ -51,6 +52,10 @@ export namespace BaseView {
     startDate?: Date;
     /** Specifies the cell's end time. */
     endDate?: Date;
+    /** The cell's group. */
+    groupingInfo?: Array<GroupingItem>;
+    /** Specifies whether the cell is the last horizontal cell in a given group. */
+    isLastHorizontalGroupCell?: boolean;
     /** Indicates whether the cell is shaded. */
     isShaded?: boolean;
     // tslint:disable-next-line: max-line-length
@@ -104,7 +109,7 @@ export namespace BaseView {
     /** A component that renders a day scale row. */
     rowComponent: React.ComponentType<BaseView.RowProps>;
     /** A component that renders Grouping panel */
-    groupingPanelComponent: React.ComponentType<GroupingPanel.HorizontalLayoutProps>;
+    groupingPanelComponent?: React.ComponentType<GroupingPanel.HorizontalLayoutProps>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
   }
@@ -118,6 +123,10 @@ export namespace BaseView {
     today?: boolean;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
+    /** The cell's group. */
+    groupingInfo?: Array<GroupingItem>;
+    /** Specifies whether the cell is the last horizontal cell in a given group. */
+    isLastHorizontalGroupCell?: boolean;
   }
   /** Describes properties passed to a component that renders the appointment layer. */
   export interface AppointmentLayerProps {

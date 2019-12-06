@@ -21,9 +21,6 @@ None
 Name | Type | Default | Description
 -----|------|---------|------------
 grouping? | Array&lt;[Grouping](#grouping)&gt; | | Specifies resources to group by.
-expandedGroups? | Array&lt;[GroupKey](#groupkey)&gt; | | Specifies expanded groups.
-defaultExpandedGroups? | Array&lt;[GroupKey](#groupkey)&gt; | [] | Specifies initially expanded groups in the uncontrolled mode.
-onExpandedGroupsChange? | (expandedGroups: Array&lt;[GroupKey](#groupkey)&gt;) => void | | Handles expanded group changes.
 
 ## Interfaces
 
@@ -33,12 +30,4 @@ Describes grouping options.
 
 Field | Type | Description
 ------|------|------------
-resourceId | string | Specifies the name of the column by which the data is grouped.
-
-### GroupKey
-
-Type: `string`
-
-Describes a group that can be nested in another one.
-
-A string value that consists of values by which rows are grouped, separated by the `|` character. For example, the expanded group 'Male' is described as `Male` and 'Male'/'Audi' as `Male|Audi` and so on.
+resourceName | string | Specifies the name of the resource by which the appointments are grouped.

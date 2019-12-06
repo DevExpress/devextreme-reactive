@@ -1,4 +1,5 @@
 import { ElementRect, CellElementsMeta, FormatterFn, BaseView } from '../index';
+import { GroupingItem } from '@devexpress/dx-scheduler-core';
 
 /* tslint:disable no-namespace max-line-length no-empty-interface */
 /** @internal */
@@ -31,6 +32,10 @@ export namespace AllDayPanel {
     startDate: Date;
     /** The cell’s end time. */
     endDate: Date;
+    /** The cell's group. */
+    groupingInfo?: Array<GroupingItem>;
+    /** Specifies whether the cell is the last horizontal cell in a given group. */
+    isLastHorizontalGroupCell?: boolean;
   }
   /** Describes properties passed to a component that renders an All Day panel layout. */
   export interface LayoutProps {

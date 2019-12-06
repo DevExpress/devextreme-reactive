@@ -42,7 +42,7 @@ class IntegratedGroupingBase extends React.PureComponent<IntegratedGroupingProps
   }
 }
 
-/** A plugin that implements Scheduler's grouping logic. */
+/** A plugin that performs built-in grouping. */
 export const IntegratedGrouping: React.ComponentType<
   IntegratedGroupingProps
 > = IntegratedGroupingBase;

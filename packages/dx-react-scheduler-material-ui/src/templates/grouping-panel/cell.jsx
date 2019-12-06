@@ -35,11 +35,13 @@ const styles = theme => ({
 const CellBase = React.memo(({
   className,
   groupingItem,
+  colSpan,
   classes,
   ...restProps
 }) => (
   <TableCell
     className={classNames(classes.cell, className)}
+    colSpan={colSpan}
     {...restProps}
   >
     <div className={classes.text}>
@@ -52,6 +54,7 @@ CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   groupingItem: PropTypes.object.isRequired,
+  colSpan: PropTypes.number.isRequired,
 };
 
 CellBase.defaultProps = {

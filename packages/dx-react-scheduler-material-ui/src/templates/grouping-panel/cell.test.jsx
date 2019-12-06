@@ -5,6 +5,7 @@ import { Cell } from './cell';
 describe('GroupingPanel', () => {
   const defaultProps = {
     groupingItem: {},
+    colSpan: 1,
   };
   let classes;
   let shallow;

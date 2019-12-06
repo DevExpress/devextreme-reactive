@@ -6,6 +6,7 @@ import {
   BarSeries,
   Title,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
+<%&cssImports%>
 
 import { Animation } from '@devexpress/dx-react-chart';
 

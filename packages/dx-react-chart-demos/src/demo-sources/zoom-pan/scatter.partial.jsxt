@@ -16,6 +16,7 @@ import {
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
+<%&cssImports%>
 <%&imports%>
 import { format } from 'd3-format';
 

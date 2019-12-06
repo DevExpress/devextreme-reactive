@@ -10,6 +10,7 @@ import {
   TableFixedColumns,
   TableSelection,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
+<%&cssImports%>
 
 import {
   generateRows,

@@ -7,6 +7,7 @@ import {
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
+<%&cssImports%>
 import { ArgumentScale, Animation } from '@devexpress/dx-react-chart';
 import { scalePoint } from 'd3-scale';
 <%&imports%>

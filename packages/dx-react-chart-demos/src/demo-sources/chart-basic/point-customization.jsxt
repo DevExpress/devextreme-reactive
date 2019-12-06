@@ -4,6 +4,7 @@ import {
   LineSeries,
   ScatterSeries,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
+<%&cssImports%>
 
 import {
   symbol,

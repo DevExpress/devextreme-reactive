@@ -13,6 +13,7 @@ import {
   TableTreeColumn,
   TableSummaryRow,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
+<%&cssImports%>
 
 import {
   generateRows,

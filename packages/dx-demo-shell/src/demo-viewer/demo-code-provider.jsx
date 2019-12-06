@@ -44,20 +44,9 @@ export class DemoCodeProvider extends React.PureComponent {
   }
 
   getSandboxHtml() {
-    return `
-<!DOCTYPE html>
-<html>
-  <head>
-    ${this.getThemeLinks()}
-    <style>
-      body { margin: 8px; overflow: hidden; }
-      .panel { margin: 0; }
-    </style>
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
-</html>`;
+    return `${this.getThemeLinks()}
+<div id="root"></div>
+`;
   }
 
   getThemeVariantOptions() {
@@ -80,7 +69,10 @@ export class DemoCodeProvider extends React.PureComponent {
       (editableLink ? [editableLink] : []),
     ];
     return links.length
-      ? links.map(link => `<link rel="stylesheet" href="${link}">`).join('\n')
+      ? links
+        .filter(l => !!l)
+        .map(link => `<link rel="stylesheet" href="${link}">`)
+        .join('\n')
       : '';
   }
 

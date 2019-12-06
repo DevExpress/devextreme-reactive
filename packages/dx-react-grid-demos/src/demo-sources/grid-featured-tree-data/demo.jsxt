@@ -10,7 +10,7 @@ import {
   PagingPanel, TableColumnResizing, Toolbar, TableColumnVisibility, ColumnChooser,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 
-import { tasks, employees, priorities } from '../data.json';
+import { tasks, employees, priorities } from '../../../demo-data/tree-data';
 
 const EmployeeFormatter = ({ row }) => (
   <div

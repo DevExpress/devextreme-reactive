@@ -106,6 +106,7 @@ Cell.propTypes = {
   currentTimeIndicatorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   isShaded: PropTypes.bool,
   isLastHorizontalGroupCell: PropTypes.bool,
+  groupingInfo: PropTypes.arrayOf(PropTypes.object),
 };
 
 Cell.defaultProps = {
@@ -117,4 +118,5 @@ Cell.defaultProps = {
   currentTimeIndicatorComponent: () => null,
   isShaded: false,
   isLastHorizontalGroupCell: false,
+  groupingInfo: undefined,
 };

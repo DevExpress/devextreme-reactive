@@ -57,6 +57,7 @@ CellBase.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   isLastHorizontalGroupCell: PropTypes.bool,
+  groupingInfo: PropTypes.arrayOf(PropTypes.object),
 };
 
 CellBase.defaultProps = {
@@ -65,6 +66,7 @@ CellBase.defaultProps = {
   endDate: undefined,
   className: undefined,
   isLastHorizontalGroupCell: false,
+  groupingInfo: undefined,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

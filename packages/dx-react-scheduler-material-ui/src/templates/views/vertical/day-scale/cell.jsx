@@ -124,6 +124,7 @@ CellBase.propTypes = {
   className: PropTypes.string,
   today: PropTypes.bool,
   isLastHorizontalGroupCell: PropTypes.bool,
+  groupingInfo: PropTypes.arrayOf(PropTypes.object),
 };
 
 CellBase.defaultProps = {
@@ -131,6 +132,7 @@ CellBase.defaultProps = {
   endDate: undefined,
   today: false,
   isLastHorizontalGroupCell: false,
+  groupingInfo: undefined,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

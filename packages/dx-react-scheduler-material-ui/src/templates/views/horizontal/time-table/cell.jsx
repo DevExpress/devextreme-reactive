@@ -123,6 +123,7 @@ CellBase.propTypes = {
   otherMonth: PropTypes.bool,
   isShaded: PropTypes.bool,
   isLastHorizontalGroupCell: PropTypes.bool,
+  groupingInfo: PropTypes.arrayOf(PropTypes.object),
 };
 
 CellBase.defaultProps = {
@@ -132,6 +133,7 @@ CellBase.defaultProps = {
   otherMonth: false,
   isShaded: false,
   isLastHorizontalGroupCell: false,
+  groupingInfo: undefined,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

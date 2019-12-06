@@ -235,7 +235,10 @@ describe('Basic View', () => {
         .toEqual({
           topBoundary: 0,
           bottomBoundary: 0,
+          leftBoundary: 0,
+          rightBoundary: 0,
           changeVerticalScroll: expect.any(Function),
+          changeHorizontalScroll: expect.any(Function),
         });
     });
     it('should not override previous view type', () => {

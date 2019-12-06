@@ -331,6 +331,8 @@
         path: /react/scheduler/docs/guides/editing
       - title: Resources
         path: /react/scheduler/docs/guides/resources
+      - title: Grouping
+        path: /react/scheduler/docs/guides/grouping
       - title: Current Time Indication
         path: /react/scheduler/docs/guides/current-time-indication
       - title: Localization

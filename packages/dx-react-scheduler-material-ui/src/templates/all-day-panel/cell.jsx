@@ -35,6 +35,7 @@ const CellBase = ({
   startDate,
   endDate,
   isLastHorizontalGroupCell,
+  groupingInfo,
   ...restProps
 }) => (
   <TableCell

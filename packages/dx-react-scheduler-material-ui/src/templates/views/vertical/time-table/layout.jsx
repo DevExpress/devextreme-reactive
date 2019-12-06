@@ -48,12 +48,15 @@ export const Layout = React.memo(({
       <TableBody>
         {cellsData.map((days, index) => (
           <Row key={index.toString()}>
-            {days.map(({ startDate, endDate, isLastHorizontalGroupCell }) => (
+            {days.map(({
+              startDate, endDate, isLastHorizontalGroupCell, groupingInfo,
+            }) => (
               <Cell
                 // key={Math.random()}
                 startDate={startDate}
                 endDate={endDate}
                 isLastHorizontalGroupCell={isLastHorizontalGroupCell}
+                groupingInfo={groupingInfo}
               />
             ))}
           </Row>

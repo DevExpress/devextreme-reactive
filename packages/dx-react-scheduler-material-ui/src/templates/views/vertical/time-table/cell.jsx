@@ -68,6 +68,7 @@ export const Cell = ({
   currentTimeIndicatorComponent: CurrentTimeIndicator,
   isShaded,
   isLastHorizontalGroupCell,
+  groupingInfo,
   ...restProps
 }) => {
   const classes = useStyles({ shadedHeight: currentTimeIndicatorPosition });

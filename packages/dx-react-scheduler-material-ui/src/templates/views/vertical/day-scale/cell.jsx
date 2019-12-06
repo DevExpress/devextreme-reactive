@@ -85,6 +85,7 @@ const CellBase = React.memo(({
   today,
   formatDate,
   isLastHorizontalGroupCell,
+  groupingInfo,
   ...restProps
 }) => (
   <TableCell

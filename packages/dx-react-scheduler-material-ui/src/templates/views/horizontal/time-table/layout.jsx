@@ -54,6 +54,7 @@ export const Layout = React.memo(({
               today,
               otherMonth,
               isLastHorizontalGroupCell,
+              groupingInfo,
             }) => (
               <Cell
                 key={Math.random()}
@@ -63,6 +64,7 @@ export const Layout = React.memo(({
                 otherMonth={otherMonth}
                 formatDate={formatDate}
                 isLastHorizontalGroupCell={isLastHorizontalGroupCell}
+                groupingInfo={groupingInfo}
               />
             ))}
           </Row>

@@ -47,6 +47,7 @@ export const Layout = ({
             endDate,
             today,
             isLastHorizontalGroupCell,
+            groupingInfo,
           }, index) => (
             <Cell
               key={index.toString()}
@@ -55,6 +56,7 @@ export const Layout = ({
               today={today}
               formatDate={formatDate}
               isLastHorizontalGroupCell={isLastHorizontalGroupCell}
+              groupingInfo={groupingInfo}
             />
           ))}
         </Row>

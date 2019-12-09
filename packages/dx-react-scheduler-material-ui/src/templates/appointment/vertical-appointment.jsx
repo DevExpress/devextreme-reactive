@@ -92,7 +92,7 @@ const VerticalAppointmentBase = ({
       {...restProps}
     >
       {children || (
-        <>
+        <React.Fragment>
           <div className={classNames({
             [classes.container]: !repeat,
             [classes.recurringContainer]: repeat,
@@ -110,7 +110,7 @@ const VerticalAppointmentBase = ({
                 </div>
               </div>
             ) : (
-              <>
+              <React.Fragment>
                 <div className={classes.title}>
                   {data.title}
                 </div>
@@ -132,7 +132,7 @@ const VerticalAppointmentBase = ({
                     {formatDate(data.endDate, HOUR_MINUTE_OPTIONS)}
                   </div>
                 </div>
-              </>
+              </React.Fragment>
             )}
           </div>
           {repeat ? (
@@ -140,7 +140,7 @@ const VerticalAppointmentBase = ({
               <RecurringIcon className={classes.image} />
             </div>
           ) : undefined}
-        </>
+        </React.Fragment>
       )}
     </div>
   );

@@ -152,7 +152,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <>
+      <React.Fragment>
         <Grid container>
           <CheckBoxContainer
             shadePreviousCells={shadePreviousCells}
@@ -189,7 +189,7 @@ export default class Demo extends React.PureComponent {
             />
           </Scheduler>
         </Paper>
-      </>
+      </React.Fragment>
     );
   }
 }

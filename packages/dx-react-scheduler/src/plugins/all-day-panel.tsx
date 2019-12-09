@@ -122,7 +122,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                 appointments, startViewDate, excludedDays, endViewDate, viewCellsData,
               );
               return (
-                <>
+                <React.Fragment>
                   <Layout
                     cellComponent={CellPlaceholder}
                     rowComponent={rowComponent}
@@ -144,7 +144,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                       />
                     ))}
                   </AppointmentLayer>
-                </>
+                </React.Fragment>
               );
             }}
           </TemplateConnector>

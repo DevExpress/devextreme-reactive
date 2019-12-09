@@ -36,7 +36,7 @@ const AppointmentBase = ({
   <Appointments.Appointment
     {...restProps}
   >
-    <>
+    <React.Fragment>
       <IconButton
         className={classes.button}
         onClick={({ target }) => {
@@ -47,7 +47,7 @@ const AppointmentBase = ({
         <InfoIcon fontSize="small" />
       </IconButton>
       {children}
-    </>
+    </React.Fragment>
   </Appointments.Appointment>
 );
 

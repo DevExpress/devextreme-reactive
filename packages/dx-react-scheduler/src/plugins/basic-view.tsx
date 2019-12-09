@@ -218,7 +218,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
               );
 
               return (
-                <>
+                <React.Fragment>
                   <TimeTableLayout
                     cellsData={viewCellsData}
                     rowComponent={timeTableRowComponent}
@@ -242,7 +242,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
                       />
                     ))}
                   </AppointmentLayer>
-                </>
+                </React.Fragment>
               );
             }}
           </TemplateConnector>

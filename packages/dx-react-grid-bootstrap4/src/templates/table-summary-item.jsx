@@ -15,11 +15,11 @@ export const TableSummaryItem = ({
     {...restProps}
   >
     {
-      <>
+      <React.Fragment>
         {getMessage(type)}
         :&nbsp;&nbsp;
         {children}
-      </>
+      </React.Fragment>
     }
   </div>
 );

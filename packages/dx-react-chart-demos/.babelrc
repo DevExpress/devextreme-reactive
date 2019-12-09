@@ -1,7 +1,7 @@
 {
   "presets": [
     [ "@babel/preset-env", { "modules": false, "targets": {
-      "node": "10"
+      "browsers": ["last 2 versions"]
     } } ],
     "@babel/preset-react"
   ],

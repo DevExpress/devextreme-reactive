@@ -14,9 +14,10 @@
 }
 
 .title {
+  font-weight: 400;
   @include title-large(
     $margin-bottom: 10px,
-    $use-left-offset: false
+    $use-left-offset: false,
   );
 }
 

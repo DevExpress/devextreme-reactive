@@ -8,12 +8,12 @@ const HeaderAddon = ({ main, additional, imageLink, isIndexPage }) => (
     <div className="container">
       <div className={`row ${styles.container} ${imageLink !== undefined ? styles.withImage : ''}`}>
         <div className={`col-md-6 col-sm-7 ${isIndexPage ? styles.indexBlock : styles.block}`}>
-          <div className={styles.main}>
+          <h1 className={styles.main}>
             {main}
-          </div>
-          <div className={styles.additional}>
+          </h1>
+          <h3 className={styles.additional}>
             {additional}
-          </div>
+          </h3>
         </div>
         {imageLink ? (
           <div className={`col-md-6 col-sm-5 ${styles.block} d-none d-sm-block`}>

@@ -11,6 +11,6 @@ export default ({ guideLink, className, ...restProps}) => (
       {...restProps}
     />
   ) : (
-    <div className={className} {...restProps} />
+    <strong className={className} {...restProps} />
   )
 );

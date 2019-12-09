@@ -26,7 +26,13 @@
   background-color: white;
   padding: 15px 45px;
   color: black;
-  border-radius: 3px;
+  border-radius: 3px;;
+  border: none;
   box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
   cursor: pointer;
+  
+  &:hover {
+    color: #fff;
+    background-color: #007d9e;
+  }
 }

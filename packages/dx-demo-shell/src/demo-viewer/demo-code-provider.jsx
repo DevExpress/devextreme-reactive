@@ -134,7 +134,12 @@ export class DemoCodeProvider extends React.PureComponent {
   }
 
   static getDerivedStateFromProps(props, state) {
-    const { editableLink } = state.editableLink ? state : getThemeVariantOptions(props);
+    let { editableLink } = getThemeVariantOptions(props);
+    if (editableLink) {
+      // take a link from state only if a custom theme is selected
+      editableLink = state.editableLink || editableLink;
+    }
+
     return { editableLink };
   }
 

@@ -1,12 +1,24 @@
 import * as React from 'react';
 import { EmbeddedDemoContext } from '../context';
 
+const getThemeVariantOptions = (props) => {
+  const {
+    themeName,
+    variantName,
+    themeSources,
+  } = props;
+
+  return themeSources
+    .find(theme => theme.name === themeName).variants
+    .find(variant => variant.name === variantName);
+};
+
 export class DemoCodeProvider extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      editableLink: '',
+      editableLink: getThemeVariantOptions(props).editableLink,
     };
   }
 
@@ -17,7 +29,6 @@ export class DemoCodeProvider extends React.PureComponent {
     } = this.context;
 
     let demoScript = scriptPath;
-
 
     const themeLinks = this.getThemeLinks();
     const frameUrl = `/demo/${sectionName}/${demoName}/${themeName}/${variantName}`;
@@ -49,21 +60,9 @@ export class DemoCodeProvider extends React.PureComponent {
 `;
   }
 
-  getThemeVariantOptions() {
-    const {
-      themeName,
-      variantName,
-    } = this.props;
-    const { themeSources } = this.context;
-
-    return themeSources
-      .find(theme => theme.name === themeName).variants
-      .find(variant => variant.name === variantName);
-  }
-
   getThemeLinks() {
     const { editableLink } = this.state;
-    const themeVariantOptions = this.getThemeVariantOptions();
+    const themeVariantOptions = getThemeVariantOptions(this.props);
     const links = [
       ...(themeVariantOptions.links || []),
       (editableLink ? [editableLink] : []),
@@ -77,7 +76,9 @@ export class DemoCodeProvider extends React.PureComponent {
   }
 
   getCode() {
-    return this.getDemoConfig().source || '';
+    return (this.getDemoConfig().source || '')
+      .replace('<>', '<React.Fragment>')
+      .replace('</>', '</React.Fragment>');
   }
 
   getFileWithDeps(registry, fileName) {
@@ -132,6 +133,11 @@ export class DemoCodeProvider extends React.PureComponent {
     this.setState({ editableLink });
   }
 
+  static getDerivedStateFromProps(props, state) {
+    const { editableLink } = state.editableLink ? state : getThemeVariantOptions(props);
+    return { editableLink };
+  }
+
   render() {
     const { children } = this.props;
     const html = this.getHtml();
@@ -141,10 +147,11 @@ export class DemoCodeProvider extends React.PureComponent {
     const externalDeps = this.getExternalDependencies();
     const { requireTs } = this.getDemoConfig();
     const onEditableLinkChange = this.onEditableLinkChange.bind(this);
+    const { editableLink } = this.state;
 
     return children({
       html, sandboxHtml, code, helperFiles, externalDeps, requireTs,
-      onEditableLinkChange,
+      onEditableLinkChange, editableLink,
     });
   }
 }

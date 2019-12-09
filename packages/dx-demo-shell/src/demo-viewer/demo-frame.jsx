@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Frame from 'react-frame-component';
 import {
-  FormGroup, ControlLabel, FormControl, InputGroup, Button,
+  FormGroup, Label, Input, InputGroup, Button,
 } from 'reactstrap';
 import { DemoRenderer } from './demo-renderer';
 import { EmbeddedDemoContext } from '../context';
@@ -13,7 +13,6 @@ class DemoFrameRenderer extends React.PureComponent {
     super(props, context);
 
     this.state = {
-      editableLink: this.getThemeVariantOptions().editableLink,
       frameHeight: 600,
     };
     this.nodeRef = React.createRef();
@@ -42,18 +41,6 @@ class DemoFrameRenderer extends React.PureComponent {
       .find(variant => variant.name === variantName);
   }
 
-  getThemeLinks() {
-    const { editableLink } = this.state;
-    const themeVariantOptions = this.getThemeVariantOptions();
-    const links = [
-      ...(themeVariantOptions.links || []),
-      (editableLink ? [editableLink] : []),
-    ];
-    return links.length
-      ? links.map(link => `<link rel="stylesheet" href="${link}">`).join('\n')
-      : '';
-  }
-
   updateFrameHeight() {
     const { frameHeight } = this.state;
     const node = this.nodeRef.current;
@@ -70,7 +57,8 @@ class DemoFrameRenderer extends React.PureComponent {
   render() {
     const { markup } = this.props;
     const { frame } = this.context;
-    const { editableLink, frameHeight } = this.state;
+    const { frameHeight } = this.state;
+    const { editableLink } = this.props;
 
     return (
       <div>
@@ -80,21 +68,19 @@ class DemoFrameRenderer extends React.PureComponent {
             onSubmit={this.onSubmitCustomLink}
           >
             <FormGroup controlId="customThemeLink">
-              <ControlLabel>
+              <Label>
                 Custom theme link
-              </ControlLabel>
+              </Label>
               <InputGroup>
-                <FormControl
+                <Input
                   type="text"
                   id="customLink"
                   innerRef={(node) => { this.customThemeLinkNode = node; }}
                   defaultValue={editableLink}
                 />
-                <InputGroup.Button>
-                  <Button type="submit">
-                    Apply
-                  </Button>
-                </InputGroup.Button>
+                <Button type="submit">
+                  Apply
+                </Button>
               </InputGroup>
             </FormGroup>
           </form>

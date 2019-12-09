@@ -11,7 +11,6 @@ import { SourceCode } from './source-code';
 import { EmbeddedDemoContext } from '../context';
 import { DemoCodeProvider } from './demo-code-provider';
 import { CodeSandBoxButton } from './codesandbox-button';
-// import CodeSandBoxButton from './codesandboxer-button';
 import './demo-viewer.css';
 
 export class DemoViewer extends React.Component {
@@ -53,7 +52,7 @@ export class DemoViewer extends React.Component {
 
     return (
       <EmbeddedDemoContext.Consumer>
-        {({ showThemeSelector, demoSources, themeComponents, demoData }) => (
+        {({ showThemeSelector, themeSources, demoSources, themeComponents, demoData }) => (
           <Switch>
             <Route
               path={`${url}/:themeName/:variantName/clean`}
@@ -64,6 +63,7 @@ export class DemoViewer extends React.Component {
                     variantName={variantName}
                     sectionName={sectionName}
                     demoName={demoName}
+                    themeSources={themeSources}
                   >
                     {({ html }) => (
                       <DemoFrame
@@ -91,10 +91,11 @@ export class DemoViewer extends React.Component {
                         variantName={variantName}
                         sectionName={sectionName}
                         demoName={demoName}
+                        themeSources={themeSources}
                       >
                         {({
                           html, sandboxHtml, code, helperFiles, externalDeps,
-                          onEditableLinkChange, requireTs,
+                          onEditableLinkChange, editableLink, requireTs,
                         }) => (
                           <div style={{ marginTop: showThemeSelector ? '-42px' : 0 }}>
                             <Nav tabs>
@@ -141,6 +142,7 @@ export class DemoViewer extends React.Component {
                                   demoName={demoName}
                                   markup={html}
                                   onEditableLinkChange={onEditableLinkChange}
+                                  editableLink={editableLink}
                                 />
                               </TabPane>
                               <TabPane tabId="source">

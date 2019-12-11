@@ -16,11 +16,11 @@ const styles = theme => ({
     overflow: 'visible',
     background: theme.palette.background.paper,
   },
-  stickyHeader: {
+  header: {
     top: 0,
     zIndex: 2,
   },
-  stickyScale: {
+  leftPanel: {
     left: 0,
     zIndex: 1,
   },
@@ -41,6 +41,10 @@ const styles = theme => ({
   autoWidth: {
     display: 'inline-block',
     width: 'auto',
+  },
+  background: {
+    background: theme.palette.background.paper,
+    width: `calc(100% + ${theme.spacing(10)}px)`,
   },
 });
 
@@ -93,27 +97,29 @@ class VerticalViewLayoutBase extends React.PureComponent {
         {/* Fix Safari sticky header https://bugs.webkit.org/show_bug.cgi?id=175029 */}
         <div>
           <Grid
-            className={classNames(classes.stickyElement, classes.stickyHeader, classes.autoWidth)}
+            className={classNames(classes.stickyElement, classes.header, classes.autoWidth)}
           >
-            <Grid
-              ref={this.layoutHeader}
-              container
-              direction="row"
-            >
-              <div
-                className={classNames(
-                  classes.fixedWidth, classes.stickyElement, classes.stickyScale,
-                )}
+            <div className={classes.background}>
+              <Grid
+                ref={this.layoutHeader}
+                container
+                direction="row"
               >
-                <DayScaleEmptyCell />
-              </div>
-
-              <div className={classes.mainTable}>
-                <div className={classes.fullScreenContainer}>
-                  <DayScale />
+                <div
+                  className={classNames(
+                    classes.fixedWidth, classes.stickyElement, classes.leftPanel,
+                  )}
+                >
+                  <DayScaleEmptyCell />
                 </div>
-              </div>
-            </Grid>
+
+                <div className={classes.mainTable}>
+                  <div className={classes.fullScreenContainer}>
+                    <DayScale />
+                  </div>
+                </div>
+              </Grid>
+            </div>
           </Grid>
 
           <Grid className={classes.autoWidth}>
@@ -121,7 +127,7 @@ class VerticalViewLayoutBase extends React.PureComponent {
               <div
                 ref={this.timeScale}
                 className={classNames(
-                  classes.fixedWidth, classes.stickyElement, classes.stickyScale,
+                  classes.fixedWidth, classes.stickyElement, classes.leftPanel,
                 )}
               >
                 <TimeScale />

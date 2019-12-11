@@ -58,7 +58,7 @@ describe('Vertical View Layout', () => {
       <VerticalViewLayout {...defaultProps} />
     ));
 
-    expect(tree.find(`.${classes.stickyHeader}`).exists())
+    expect(tree.find(`.${classes.header}`).exists())
       .toBeTruthy();
     expect(tree.find(`.${classes.mainTable}`))
       .toHaveLength(2);
@@ -66,7 +66,9 @@ describe('Vertical View Layout', () => {
       .toHaveLength(2);
     expect(tree.find(`.${classes.timeTable}`).exists())
       .toBeTruthy();
-    expect(tree.find(`.${classes.stickyScale}`).exists())
+    expect(tree.find(`.${classes.leftPanel}`).exists())
+      .toBeTruthy();
+    expect(tree.find(`.${classes.background}`).exists())
       .toBeTruthy();
   });
 });

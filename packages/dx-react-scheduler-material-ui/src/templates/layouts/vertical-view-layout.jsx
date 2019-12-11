@@ -44,6 +44,8 @@ const styles = theme => ({
   },
   background: {
     background: theme.palette.background.paper,
+  },
+  table: {
     width: `calc(100% + ${theme.spacing(10)}px)`,
   },
 });
@@ -99,7 +101,7 @@ class VerticalViewLayoutBase extends React.PureComponent {
           <Grid
             className={classNames(classes.stickyElement, classes.header, classes.autoWidth)}
           >
-            <div className={classes.background}>
+            <div className={classNames(classes.background, classes.table)}>
               <Grid
                 ref={this.layoutHeader}
                 container
@@ -123,7 +125,7 @@ class VerticalViewLayoutBase extends React.PureComponent {
           </Grid>
 
           <Grid className={classes.autoWidth}>
-            <Grid container direction="row">
+            <Grid container direction="row" className={classes.table}>
               <div
                 ref={this.timeScale}
                 className={classNames(

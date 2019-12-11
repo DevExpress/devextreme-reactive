@@ -5,9 +5,7 @@ import Header from '../components/header';
 import LandingHeaderAddon from '../components/landing/header-addon';
 import LandingAlternatedBackground from '../components/landing/alternated-background';
 import LandingLayout from '../components/landing/layout';
-import LandingTitle from '../components/landing/title';
 import WhyDevExtremeForReact from '../components/landing/why-devextreme-react';
-import LandingImageFeature from '../components/landing/image-feature';
 import LandingChessBoardLayoutList from '../components/landing/features-list';
 import LandingMaintainence from '../components/landing/maintainence';
 import LandingProductLayout from '../components/landing/product-layout';
@@ -15,11 +13,8 @@ import LandingProductBlock from '../components/landing/product-block';
 import LandingLink from '../components/landing/link';
 import LandingProductLinks from '../components/landing/product-links';
 import LandingProductFloatImage from '../components/landing/product-float-image';
-import AlternatedBackground from '../components/landing/alternated-background';
 
 import headerLink from './images/header.png';
-import bootstrapLogo from './images/bootstrap-logo.svg';
-import materialUiLogo from './images/material-ui-logo.svg';
 import ReactGridIcon from './images/react-grid.inline.svg';
 import ReactChartIcon from './images/react-chart.inline.svg';
 import ReactSchedulerIcon from './images/react-scheduler.inline.svg';
@@ -35,14 +30,14 @@ import muiImage from './images/material-theme.png';
 const pageData = [
   {
     title: '100% Native React',
-    description: 'We\'ve focused our energy on performance and leveraged the best practice recomendations oferred by the React team. Through immutability and pure functions, we can apply memoization and built-in react optimisations to archieve outstanding performance.',
+    description: 'We\'ve focused our energy on performance and leveraged the best practice recomendations oferred by the React team. Through immutability and pure functions, we can apply memoization and built-in react optimizations to archieve outstanding performance.',
     imageLink: nativeReactImage,
   },
   {
     reversed: true,
     alternative: true,
     title: 'Loves Redux by Design',
-    description: 'Fully control Reactive components state and treat it as a pure view component. Effortlessly enable state persistence and time-traveling without side-effects. Our React Grid can also manage its state internally helping you write less code, so you focus on more important business tasks.',
+    description: 'Fully control Reactive components state and treat it as a pure view component. Effortlessly enable state persistence and time-traveling without side-effects. Our components can also manage their state internally helping you write less code, so you focus on more important business tasks.',
     imageLink: lovesReduxImage,
   },
   {
@@ -70,6 +65,7 @@ const pageData = [
     imageLink: docImage,
   },
   {
+    sectionTitle: 'Native Support for the UI Library of Your Choice',
     title: 'Twitter Bootstrap React Components',
     description: 'Use any existing or create your custom bootstrap theme. No need for any additional configuration.',
     imageLink: bsImage,
@@ -78,7 +74,7 @@ const pageData = [
     title: 'Material Design React Components',
     description: 'We ship additional Material-UI packages that allow you to utilize the familiar approaches and appearance.',
     imageLink: muiImage,
-  }
+  },
 ];
 
 const IndexPage = () => (

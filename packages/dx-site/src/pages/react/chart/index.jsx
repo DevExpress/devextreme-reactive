@@ -9,8 +9,6 @@ import LandingProductLinks from '../../../components/landing/product-links';
 import LandingReadyToLearnMore from '../../../components/landing/ready-to-learn-more';
 import LandingChessBoardLayoutList from '../../../components/landing/features-list';
 import LandingChessBoardSmallLayoutList from '../../../components/landing/features-list-small';
-import imageBoxLink from '../../images/image-box.png';
-import smallImageBoxLink from '../../images/image-box-small.png';
 import headerLink from './images/header.png';
 import barImage from './images/series/Bar.svg';
 import lineImage from './images/series/Line.svg';
@@ -122,7 +120,7 @@ const pageData = [
     title: 'Customize Chart via HTML/CSS',
     description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG. This means that you can use HTML and CSS to influence layout and appearance of chart building blocks such as title and legend.',
     imageLink: customizeHTMLImage,
-    guideLink:'/react/chart/demos/bar/component-customization/',
+    guideLink: '/react/chart/demos/bar/component-customization/',
   },
   {
     reversed: true,

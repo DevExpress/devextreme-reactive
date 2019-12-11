@@ -8,7 +8,7 @@ const styles = theme => ({
   label: {
     userSelect: 'none',
     border: 0,
-    height: theme.spacing(6) + 1,
+    height: theme.spacing(6),
     lineHeight: `${theme.spacing(6)}px`,
     padding: 0,
     overflow: 'hidden',

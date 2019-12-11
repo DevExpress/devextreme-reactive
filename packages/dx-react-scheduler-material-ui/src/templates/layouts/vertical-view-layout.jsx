@@ -45,9 +45,6 @@ const styles = theme => ({
   background: {
     background: theme.palette.background.paper,
   },
-  table: {
-    width: `calc(100% + ${theme.spacing(10)}px)`,
-  },
 });
 
 class VerticalViewLayoutBase extends React.PureComponent {
@@ -101,31 +98,29 @@ class VerticalViewLayoutBase extends React.PureComponent {
           <Grid
             className={classNames(classes.stickyElement, classes.header, classes.autoWidth)}
           >
-            <div className={classNames(classes.background, classes.table)}>
-              <Grid
-                ref={this.layoutHeader}
-                container
-                direction="row"
+            <Grid
+              ref={this.layoutHeader}
+              container
+              direction="row"
+            >
+              <div
+                className={classNames(
+                  classes.fixedWidth, classes.stickyElement, classes.leftPanel,
+                )}
               >
-                <div
-                  className={classNames(
-                    classes.fixedWidth, classes.stickyElement, classes.leftPanel,
-                  )}
-                >
-                  <DayScaleEmptyCell />
-                </div>
+                <DayScaleEmptyCell />
+              </div>
 
-                <div className={classes.mainTable}>
-                  <div className={classes.fullScreenContainer}>
-                    <DayScale />
-                  </div>
+              <div className={classes.mainTable}>
+                <div className={classNames(classes.fullScreenContainer, classes.background)}>
+                  <DayScale />
                 </div>
-              </Grid>
-            </div>
+              </div>
+            </Grid>
           </Grid>
 
           <Grid className={classes.autoWidth}>
-            <Grid container direction="row" className={classes.table}>
+            <Grid container direction="row">
               <div
                 ref={this.timeScale}
                 className={classNames(

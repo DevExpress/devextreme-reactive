@@ -9,7 +9,8 @@ export const getCellKey: PureComputed<
     if (rowNumber < rowIndex) return acc;
     const currentKey = groupRow[currentIndex].text;
     if (rowIndex > 0) {
-      currentIndex = Math.floor(currentIndex / groups[rowIndex - 1].length);
+      const currentRowLength = groups[rowIndex].length / groups[rowIndex - 1].length;
+      currentIndex = Math.floor(currentIndex / currentRowLength);
     }
     return acc.concat(currentKey);
   }, '' as string);

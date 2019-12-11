@@ -13,7 +13,7 @@ export type AllDayCell = {
   startDate: SchedulerDateTime;
   endDate: SchedulerDateTime;
   groupingInfo?: GroupingItem[];
-  isLastHorizontalGroupCell?: boolean;
+  isBorderRight?: boolean;
 };
 
 // @public
@@ -26,7 +26,7 @@ export namespace AllDayPanel {
   export interface CellData {
     endDate: Date;
     groupingInfo?: Array<GroupingItem>;
-    isLastHorizontalGroupCell?: boolean;
+    isBorderRight?: boolean;
     startDate: Date;
   }
   export interface CellProps {
@@ -428,7 +428,7 @@ export namespace BaseView {
         endDate?: Date;
         formatDate: FormatterFn;
         groupingInfo?: Array<GroupingItem>;
-        isLastHorizontalGroupCell?: boolean;
+        isBorderRight?: boolean;
         startDate: Date;
         today?: boolean;
     }
@@ -465,7 +465,7 @@ export namespace BaseView {
         currentTimeIndicatorPosition?: string;
         endDate?: Date;
         groupingInfo?: Array<GroupingItem>;
-        isLastHorizontalGroupCell?: boolean;
+        isBorderRight?: boolean;
         isShaded?: boolean;
         startDate?: Date;
     }
@@ -817,7 +817,7 @@ export interface GroupingStateProps {
   defaultExpandedGroups?: Array<GroupKey>;
   expandedGroups?: Array<GroupKey>;
   groupByDate?: (view: string) => boolean;
-  grouping: Array<Grouping>;
+  grouping?: Array<Grouping>;
   // (undocumented)
   groupOrientation?: (view: string) => GroupOrientation;
   onExpandedGroupsChange?: (expandedGroups: Array<GroupKey>) => void;
@@ -883,7 +883,7 @@ export namespace MonthView {
     endDate?: Date;
     formatDate?: FormatterFn;
     groupingInfo?: Array<GroupingItem>;
-    isLastHorizontalGroupCell?: boolean;
+    isBorderRight?: boolean;
     isShaded?: boolean;
     otherMonth?: boolean;
     startDate: Date;

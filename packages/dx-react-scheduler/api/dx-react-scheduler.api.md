@@ -789,11 +789,14 @@ export const GroupingPanel: React.ComponentType<GroupingPanelProps>;
 // @public (undocumented)
 export namespace GroupingPanel {
   export interface CellProps {
+    children?: React.ReactNode;
     colSpan: number;
     groupingItem: GroupingItem;
+    left: number;
   }
   export interface HorizontalLayoutProps {
     cellComponent: React.ComponentType<GroupingPanel.CellProps>;
+    cellStyle: object;
     groups: Array<Array<GroupingItem>>;
     rowComponent: React.ComponentType<GroupingPanel.RowProps>;
     width: number;

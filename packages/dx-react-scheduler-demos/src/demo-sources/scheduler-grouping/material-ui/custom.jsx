@@ -2,6 +2,8 @@ import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { green, orange } from '@material-ui/core/colors';
 import { makeStyles, fade } from '@material-ui/core/styles';
+import LowPriority from '@material-ui/icons/LowPriority';
+import PriorityHigh from '@material-ui/icons/PriorityHigh';
 import {
   ViewState, GroupingState, IntegratedGrouping,
 } from '@devexpress/dx-react-scheduler';
@@ -20,7 +22,7 @@ const priorityData = [
   { text: 'High Priority', id: 2, color: orange },
 ];
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(({ spacing }) => ({
   cell: {
     backgroundColor: color => fade(color[400], 0.1),
     '&:hover': {
@@ -39,9 +41,14 @@ const useStyles = makeStyles({
       backgroundColor: color => fade(color[400], 0.1),
     },
   },
-});
+  icon: {
+    paddingLeft: spacing(1),
+    verticalAlign: 'middle',
+  },
+}));
 
 const findColorByGroupId = id => (priorityData.find(item => item.id === id)).color;
+const getIconById = id => (id === 1 ? LowPriority : PriorityHigh);
 
 const TimeTableCell = React.memo(({ groupingInfo, ...restProps }) => {
   const classes = useStyles(findColorByGroupId(groupingInfo[0].id));
@@ -78,12 +85,17 @@ const AllDayCell = React.memo(({ groupingInfo, ...restProps }) => {
 
 const GroupingPanelCell = React.memo(({ groupingItem, ...restProps }) => {
   const classes = useStyles(findColorByGroupId(groupingItem.id));
+  const Icon = getIconById(groupingItem.id);
   return (
     <GroupingPanel.Cell
       className={classes.headerCell}
       groupingItem={groupingItem}
       {...restProps}
-    />
+    >
+      <Icon
+        className={classes.icon}
+      />
+    </GroupingPanel.Cell>
   );
 });
 

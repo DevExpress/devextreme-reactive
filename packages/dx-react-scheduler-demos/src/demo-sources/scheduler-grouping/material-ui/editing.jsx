@@ -33,6 +33,9 @@ export default class Demo extends React.PureComponent {
         title: 'Priority',
         instances: priorityData,
       }],
+      grouping: [{
+        resourceName: 'priorityId',
+      }],
     };
 
     this.commitChanges = this.commitChanges.bind(this);
@@ -57,7 +60,7 @@ export default class Demo extends React.PureComponent {
   }
 
   render() {
-    const { data, resources } = this.state;
+    const { data, resources, grouping } = this.state;
 
     return (
       <Paper>
@@ -72,9 +75,7 @@ export default class Demo extends React.PureComponent {
             onCommitChanges={this.commitChanges}
           />
           <GroupingState
-            grouping={[{
-              resourceName: 'priorityId',
-            }]}
+            grouping={grouping}
           />
 
           <WeekView

@@ -18,9 +18,9 @@ export const getAllDayCellIndexByAppointmentData: GetAllDayCellIndexByAppointmen
     .findIndex((timeCell) => {
       let isCorrectCell = true;
       if (timeCell.groupingInfo) {
-        isCorrectCell = timeCell.groupingInfo.reduce((acc: boolean, groupingItem: GroupingItem) => (
-          acc && groupingItem.id === appointment[groupingItem.fieldName]
-        ), true);
+        isCorrectCell = timeCell.groupingInfo.every((groupingItem: GroupingItem) => (
+          groupingItem.id === appointment[groupingItem.fieldName]
+        ));
       }
       return moment(date as SchedulerDateTime).isSame(timeCell.startDate, 'date') && isCorrectCell;
     });

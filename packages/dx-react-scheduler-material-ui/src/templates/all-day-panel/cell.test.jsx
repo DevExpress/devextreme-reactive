@@ -32,7 +32,7 @@ describe('AllDayPanel', () => {
     });
     it('should render a cell with a bright border', () => {
       const tree = shallow((
-        <Cell isLastHorizontalGroupCell />
+        <Cell isBorderRight />
       ));
 
       expect(tree.is(`.${classes.lastHorizontalCell}`))

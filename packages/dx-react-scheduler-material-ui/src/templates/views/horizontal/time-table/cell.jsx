@@ -84,7 +84,7 @@ const CellBase = React.memo(({
   otherMonth,
   formatDate,
   isShaded,
-  isLastHorizontalGroupCell,
+  isBorderRight,
   groupingInfo,
   ...restProps
 }) => {
@@ -96,7 +96,7 @@ const CellBase = React.memo(({
       className={classNames({
         [classes.cell]: true,
         [classes.shadedCell]: isShaded,
-        [classes.lastHorizontalCell]: isLastHorizontalGroupCell,
+        [classes.lastHorizontalCell]: isBorderRight,
       }, className)}
       {...restProps}
     >
@@ -122,7 +122,7 @@ CellBase.propTypes = {
   today: PropTypes.bool,
   otherMonth: PropTypes.bool,
   isShaded: PropTypes.bool,
-  isLastHorizontalGroupCell: PropTypes.bool,
+  isBorderRight: PropTypes.bool,
   groupingInfo: PropTypes.arrayOf(PropTypes.object),
 };
 
@@ -132,7 +132,7 @@ CellBase.defaultProps = {
   today: false,
   otherMonth: false,
   isShaded: false,
-  isLastHorizontalGroupCell: false,
+  isBorderRight: false,
   groupingInfo: undefined,
 };
 

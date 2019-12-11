@@ -44,14 +44,14 @@ const CellBase = React.memo(({
   endDate,
   today,
   formatDate,
-  isLastHorizontalGroupCell,
+  isBorderRight,
   groupingInfo,
   ...restProps
 }) => (
   <TableCell
     className={classNames({
       [classes.cell]: true,
-      [classes.lastHorizontalCell]: isLastHorizontalGroupCell,
+      [classes.lastHorizontalCell]: isBorderRight,
     }, className)}
     {...restProps}
   >
@@ -68,7 +68,7 @@ CellBase.propTypes = {
   endDate: PropTypes.instanceOf(Date),
   className: PropTypes.string,
   today: PropTypes.bool,
-  isLastHorizontalGroupCell: PropTypes.bool,
+  isBorderRight: PropTypes.bool,
   groupingInfo: PropTypes.arrayOf(PropTypes.object),
 };
 
@@ -76,7 +76,7 @@ CellBase.defaultProps = {
   className: undefined,
   endDate: undefined,
   today: false,
-  isLastHorizontalGroupCell: false,
+  isBorderRight: false,
   groupingInfo: undefined,
 };
 

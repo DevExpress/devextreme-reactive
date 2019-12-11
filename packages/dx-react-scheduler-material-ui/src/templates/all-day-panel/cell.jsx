@@ -34,7 +34,7 @@ const CellBase = ({
   children,
   startDate,
   endDate,
-  isLastHorizontalGroupCell,
+  isBorderRight,
   groupingInfo,
   ...restProps
 }) => (
@@ -42,7 +42,7 @@ const CellBase = ({
     tabIndex={0}
     className={classNames({
       [classes.cell]: true,
-      [classes.lastHorizontalCell]: isLastHorizontalGroupCell,
+      [classes.lastHorizontalCell]: isBorderRight,
     }, className)}
     {...restProps}
   >
@@ -56,7 +56,7 @@ CellBase.propTypes = {
   endDate: PropTypes.instanceOf(Date),
   children: PropTypes.node,
   className: PropTypes.string,
-  isLastHorizontalGroupCell: PropTypes.bool,
+  isBorderRight: PropTypes.bool,
   groupingInfo: PropTypes.arrayOf(PropTypes.object),
 };
 
@@ -65,7 +65,7 @@ CellBase.defaultProps = {
   startDate: undefined,
   endDate: undefined,
   className: undefined,
-  isLastHorizontalGroupCell: false,
+  isBorderRight: false,
   groupingInfo: undefined,
 };
 

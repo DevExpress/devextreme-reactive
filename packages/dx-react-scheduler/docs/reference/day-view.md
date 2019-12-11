@@ -110,7 +110,7 @@ endDate? | Date | Specifies the cell's start time.
 today? | boolean | Indicates whether the cell's date is today.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the set locale.
 groupingInfo? | Array&lt;[GroupingItem](./grouping-panel/#grouping)&gt;; | The cell's group.
-isLastHorizontalGroupCell? | boolean / Specifies whether the cell is the last horizontal cell in a given group.
+isBorderRight? | boolean | Specifies whether the cell has the right border.
 
 ### DayView.DayScaleEmptyCellProps
 
@@ -140,7 +140,7 @@ Field | Type | Description
 startDate? | Date | Specifies the cell's start time.
 endDate? | Date | Specifies the cell's end time.
 groupingInfo? | Array&lt;[GroupingItem](./grouping-panel/#grouping)&gt;; | The cell's group.
-isLastHorizontalGroupCell? | boolean / Specifies whether the cell is the last horizontal cell in a given group.
+isBorderRight? | boolean | Specifies whether the cell has the right border.
 isShaded? | boolean | Indicates whether the cell is shaded.
 currentTimeIndicatorPosition? | string | Indicates the distance from the top edge of the containing element (usually, a timetable cell). The distance is a percentage of the element's height.
 currentTimeIndicatorComponent? | ComponentType&lt;[CurrentTimeIndicator.IndicatorProps](#currenttimeindicatorindicatorprops)&gt; | A component that renders the current time indicator.

@@ -53,9 +53,9 @@ export const getMonthCellIndexByAppointmentData: GetMonthCellIndexByAppointmentD
     let isCorrectCell = true;
     if (viewCellsData[weekNumber][dayOfWeek].groupingInfo) {
       isCorrectCell = viewCellsData[weekNumber][dayOfWeek].groupingInfo!
-        .reduce((acc: boolean, groupingItem: GroupingItem) => (
-          acc && groupingItem.id === appointment[groupingItem.fieldName]
-        ), true);
+        .every((groupingItem: GroupingItem) => (
+          groupingItem.id === appointment[groupingItem.fieldName]
+        ));
     }
     if (isCorrectCell) {
       cellIndex = dayOfWeek;

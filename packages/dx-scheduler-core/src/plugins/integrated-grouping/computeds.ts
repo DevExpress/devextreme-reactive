@@ -86,7 +86,7 @@ const addGroupInfoToCells: PureComputed<
   if (cellIndex !== viewCellRow.length - 1) {
     return { ...viewCell, groupingInfo };
   }
-  return { ...viewCell, groupingInfo, isLastHorizontalGroupCell: true };
+  return { ...viewCell, groupingInfo, isBorderRight: true };
 });
 
 export const updateGroupingWithMainResource: PureComputed<

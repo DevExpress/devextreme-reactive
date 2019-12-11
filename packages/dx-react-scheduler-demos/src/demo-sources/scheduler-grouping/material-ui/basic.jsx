@@ -23,11 +23,14 @@ export default class Demo extends React.PureComponent {
         title: 'Priority',
         instances: priorityData,
       }],
+      grouping: [{
+        resourceName: 'priorityId',
+      }],
     };
   }
 
   render() {
-    const { data, resources } = this.state;
+    const { data, resources, grouping } = this.state;
 
     return (
       <Paper>
@@ -39,9 +42,7 @@ export default class Demo extends React.PureComponent {
             defaultCurrentDate="2018-05-30"
           />
           <GroupingState
-            grouping={[{
-              resourceName: 'priorityId',
-            }]}
+            grouping={grouping}
           />
 
           <WeekView

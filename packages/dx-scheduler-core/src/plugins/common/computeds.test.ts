@@ -277,7 +277,7 @@ describe('#allDayCells', () => {
       groupingInfo: [
         { testResourceField: 1 },
       ],
-      isLastHorizontalGroupCell: true,
+      isBorderRight: true,
     }],
   ];
 
@@ -290,7 +290,7 @@ describe('#allDayCells', () => {
         groupingInfo: [
           { testResourceField: 1 },
         ],
-        isLastHorizontalGroupCell: true,
+        isBorderRight: true,
       });
   });
 });

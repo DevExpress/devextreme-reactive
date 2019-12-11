@@ -39,8 +39,7 @@ const styles = theme => ({
     position: 'relative',
   },
   autoWidth: {
-    display: 'inline-block',
-    width: 'auto',
+    display: 'table',
   },
   background: {
     background: theme.palette.background.paper,

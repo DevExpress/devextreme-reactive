@@ -1,12 +1,12 @@
 import {
-  getMinWidth,
+  getWidthInPixels,
   getViewCellKey,
 } from './utils';
 
 describe('Utils', () => {
-  describe('#getMinWidth', () => {
+  describe('#getWidthInPixels', () => {
     it('should work', () => {
-      expect(getMinWidth(5, 25))
+      expect(getWidthInPixels(5, 25))
         .toBe('125px');
     });
   });

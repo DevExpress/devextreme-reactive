@@ -70,5 +70,7 @@ describe('Vertical View Layout', () => {
       .toBeTruthy();
     expect(tree.find(`.${classes.background}`).exists())
       .toBeTruthy();
+    expect(tree.find(`.${classes.table}`).exists())
+      .toBeTruthy();
   });
 });

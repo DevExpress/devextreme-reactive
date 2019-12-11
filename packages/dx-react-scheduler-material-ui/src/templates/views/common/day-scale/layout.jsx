@@ -8,17 +8,17 @@ import {
   CELL_WIDTH, SMALL_CELL_WIDTH,
   XS_CELL_WIDTH, XS_LAYOUT, SMALL_LAYOUT,
 } from '../../../constants';
-import { getMinWidth } from '../../../utils';
+import { getWidthInPixels } from '../../../utils';
 
 const useStyles = makeStyles({
   table: {
     tableLayout: 'fixed',
-    minWidth: cellsNumber => getMinWidth(cellsNumber, CELL_WIDTH),
+    minWidth: cellsNumber => getWidthInPixels(cellsNumber, CELL_WIDTH),
     [`${SMALL_LAYOUT}`]: {
-      minWidth: cellsNumber => getMinWidth(cellsNumber, SMALL_CELL_WIDTH),
+      minWidth: cellsNumber => getWidthInPixels(cellsNumber, SMALL_CELL_WIDTH),
     },
     [`${XS_LAYOUT}`]: {
-      minWidth: cellsNumber => getMinWidth(cellsNumber, XS_CELL_WIDTH),
+      minWidth: cellsNumber => getWidthInPixels(cellsNumber, XS_CELL_WIDTH),
     },
     width: '100%',
   },

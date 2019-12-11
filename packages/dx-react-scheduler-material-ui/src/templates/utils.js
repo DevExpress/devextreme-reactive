@@ -61,7 +61,7 @@ export const getAppointmentColor = (level, color, defaultColor) => {
   return ensureColor(level, color);
 };
 
-export const getMinWidth = (cellsNumber, minCellWidth) => `${cellsNumber * minCellWidth}px`;
+export const getWidthInPixels = (cellsNumber, cellWidth) => `${cellsNumber * cellWidth}px`;
 
 export const getViewCellKey = (startDate, groups) => {
   if (!groups) return startDate;

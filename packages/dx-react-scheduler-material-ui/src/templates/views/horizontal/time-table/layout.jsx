@@ -4,7 +4,7 @@ import classNames from 'clsx';
 import TableMUI from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import { makeStyles } from '@material-ui/core/styles';
-import { cellsMeta, getMinWidth, getViewCellKey } from '../../../utils';
+import { cellsMeta, getWidthInPixels, getViewCellKey } from '../../../utils';
 import {
   CELL_WIDTH, SMALL_CELL_WIDTH,
   XS_CELL_WIDTH, XS_LAYOUT, SMALL_LAYOUT,
@@ -13,13 +13,13 @@ import {
 const useStyles = makeStyles({
   table: {
     tableLayout: 'fixed',
-    minWidth: cellsNumber => getMinWidth(cellsNumber, CELL_WIDTH),
+    minWidth: cellsNumber => getWidthInPixels(cellsNumber, CELL_WIDTH),
     width: '100%',
     [`${SMALL_LAYOUT}`]: {
-      minWidth: cellsNumber => getMinWidth(cellsNumber, SMALL_CELL_WIDTH),
+      minWidth: cellsNumber => getWidthInPixels(cellsNumber, SMALL_CELL_WIDTH),
     },
     [`${XS_LAYOUT}`]: {
-      minWidth: cellsNumber => getMinWidth(cellsNumber, XS_CELL_WIDTH),
+      minWidth: cellsNumber => getWidthInPixels(cellsNumber, XS_CELL_WIDTH),
     },
   },
 });

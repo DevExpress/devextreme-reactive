@@ -5,11 +5,11 @@ import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
-import { MOBILE_LAYOUT_QUERY } from '../constants';
+import { XS_LAYOUT } from '../constants';
 
 const styles = ({ spacing }) => ({
   button: {
-    [`${MOBILE_LAYOUT_QUERY}`]: {
+    [`${XS_LAYOUT}`]: {
       width: spacing(4),
       height: spacing(4),
       padding: 0,

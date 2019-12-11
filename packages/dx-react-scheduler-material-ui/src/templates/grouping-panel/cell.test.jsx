@@ -1,17 +1,23 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { createShallow } from '@material-ui/core/test-utils';
 import { Cell } from './cell';
+
+jest.mock('@material-ui/core/styles', () => ({
+  ...require.requireActual('@material-ui/core/styles'),
+  makeStyles: jest.fn(() => () => ({
+    cell: 'cell',
+    text: 'text',
+  })),
+}));
 
 describe('GroupingPanel', () => {
   const defaultProps = {
     groupingItem: {},
     colSpan: 1,
   };
-  let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Cell {...defaultProps} />);
-    shallow = createShallow({ dive: true });
+    shallow = createShallow();
   });
   describe('Cell', () => {
     it('should pass className to the root element', () => {
@@ -21,7 +27,7 @@ describe('GroupingPanel', () => {
 
       expect(tree.is('.custom-class'))
         .toBeTruthy();
-      expect(tree.is(`.${classes.cell}`))
+      expect(tree.is('.cell'))
         .toBeTruthy();
     });
 
@@ -39,7 +45,7 @@ describe('GroupingPanel', () => {
         <Cell {...defaultProps} />
       ));
 
-      expect(tree.find(`.${classes.text}`))
+      expect(tree.find('.text'))
         .toBeTruthy();
     });
   });

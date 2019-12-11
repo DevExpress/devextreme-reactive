@@ -6,20 +6,20 @@ import TableBody from '@material-ui/core/TableBody';
 import { makeStyles } from '@material-ui/core/styles';
 import { cellsMeta, getMinWidth, getViewCellKey } from '../../../utils';
 import {
-  MIN_CELL_WIDTH, LARGE_MOBILE_MIN_CELL_WIDTH,
-  MIN_CELL_WIDTH_MOBILE, MOBILE_LAYOUT_QUERY, LARGE_MOBILE_LAYOUT_QUERY,
+  CELL_WIDTH, SMALL_CELL_WIDTH,
+  XS_CELL_WIDTH, XS_LAYOUT, SMALL_LAYOUT,
 } from '../../../constants';
 
 const useStyles = makeStyles({
   table: {
     tableLayout: 'fixed',
-    minWidth: cellsNumber => getMinWidth(cellsNumber, MIN_CELL_WIDTH),
+    minWidth: cellsNumber => getMinWidth(cellsNumber, CELL_WIDTH),
     width: '100%',
-    [`${LARGE_MOBILE_LAYOUT_QUERY}`]: {
-      minWidth: cellsNumber => getMinWidth(cellsNumber, LARGE_MOBILE_MIN_CELL_WIDTH),
+    [`${SMALL_LAYOUT}`]: {
+      minWidth: cellsNumber => getMinWidth(cellsNumber, SMALL_CELL_WIDTH),
     },
-    [`${MOBILE_LAYOUT_QUERY}`]: {
-      minWidth: cellsNumber => getMinWidth(cellsNumber, MIN_CELL_WIDTH_MOBILE),
+    [`${XS_LAYOUT}`]: {
+      minWidth: cellsNumber => getMinWidth(cellsNumber, XS_CELL_WIDTH),
     },
   },
 });

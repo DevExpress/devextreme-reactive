@@ -2,14 +2,14 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { OutlinedSelect } from '../common/select/outlined-select';
-import { LARGE_MOBILE_LAYOUT_QUERY } from '../constants';
+import { SMALL_LAYOUT } from '../constants';
 
 const styles = ({ spacing }) => ({
   input: {
     padding: spacing(1.25, 1.75),
     paddingRight: spacing(4),
     textTransform: 'uppercase',
-    [`${LARGE_MOBILE_LAYOUT_QUERY}`]: {
+    [`${SMALL_LAYOUT}`]: {
       fontSize: '0.75rem',
     },
   },

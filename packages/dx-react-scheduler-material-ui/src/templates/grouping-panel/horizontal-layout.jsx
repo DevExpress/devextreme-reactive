@@ -14,7 +14,7 @@ export const HorizontalLayout = ({
       const colSpan = width / groupRow.length;
       return (
         <Row
-          key={groups[rowIndex][0].text.concat('row')}
+          key={groups[rowIndex][0].text}
           {...restProps}
         >
           {groupRow.map((groupingItem, index) => (

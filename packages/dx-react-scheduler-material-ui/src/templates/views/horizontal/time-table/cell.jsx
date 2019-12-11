@@ -6,7 +6,7 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import { DAY_OPTIONS, DAY_SHORT_MONTH_OPTIONS } from '@devexpress/dx-scheduler-core';
 import { getBorder, getBrightBorder } from '../../../utils';
-import { MOBILE_LAYOUT_QUERY } from '../../../constants';
+import { XS_LAYOUT } from '../../../constants';
 
 const styles = theme => ({
   cell: {
@@ -37,7 +37,7 @@ const styles = theme => ({
     padding: '1em',
     paddingTop: '0.5em',
     textAlign: 'center',
-    [`${MOBILE_LAYOUT_QUERY}`]: {
+    [`${XS_LAYOUT}`]: {
       padding: '0.5em',
     },
   },

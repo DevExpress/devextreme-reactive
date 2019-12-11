@@ -4,7 +4,7 @@ import { PluginHost, Template } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { GroupingPanel } from './grouping-panel';
 
-describe('TodayButton', () => {
+describe('GroupingPanel', () => {
   const defaultProps = {
     buttonComponent: () => null,
     horizontalLayoutComponent: () => null,

@@ -7,14 +7,14 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { withStyles } from '@material-ui/core/styles';
-import { MOBILE_LAYOUT_QUERY } from '../constants';
+import { XS_LAYOUT } from '../constants';
 
 const styles = ({ typography }) => ({
   title: typography.h6,
   content: {
     fontSize: '1rem',
   },
-  [`${MOBILE_LAYOUT_QUERY}`]: {
+  [`${XS_LAYOUT}`]: {
     title: {
       fontSize: '1.1rem',
     },

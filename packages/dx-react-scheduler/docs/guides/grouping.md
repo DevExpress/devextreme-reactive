@@ -9,7 +9,7 @@ To change the group an appointment belongs to users can edit a corresponding app
 - [Resources](../reference/resources.md) - configures resources
 - [GroupingState](../reference/grouping-state.md) - manages the grouping state
 - [IntegratedGrouping](../reference/integrated-grouping.md) - performs built-in grouping
-- [GroupingPanel](../reference/grouping-panel.md) - renders the Grouping Panel
+- [GroupingPanel](../reference/grouping-panel.md) - displays resource titles by which appointments are grouped
 
 ## Basic Usage
 

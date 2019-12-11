@@ -8,7 +8,7 @@ import {
   DELETE_BUTTON,
   CANCEL_BUTTON,
 } from '@devexpress/dx-scheduler-core';
-import { TRANSITIONS_TIME, LARGE_MOBILE_LAYOUT_QUERY } from '../../constants';
+import { TRANSITIONS_TIME, SMALL_LAYOUT } from '../../constants';
 
 const styles = ({ spacing, palette }) => ({
   root: {
@@ -35,7 +35,7 @@ const styles = ({ spacing, palette }) => ({
       width: '1000px',
     },
   },
-  [`${LARGE_MOBILE_LAYOUT_QUERY}`]: {
+  [`${SMALL_LAYOUT}`]: {
     basic: {
       maxWidth: '700px',
       width: '100%',

@@ -2,10 +2,10 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { getBrightBorder } from '../utils';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   cell: {
     userSelect: 'none',
     padding: 0,
@@ -30,35 +30,36 @@ const styles = theme => ({
     fontWeight: 'bold',
     fontSize: '1rem',
   },
-});
+}));
 
-const CellBase = React.memo(({
+export const Cell = React.memo(({
   className,
   groupingItem,
   colSpan,
-  classes,
   ...restProps
-}) => (
-  <TableCell
-    className={classNames(classes.cell, className)}
-    colSpan={colSpan}
-    {...restProps}
-  >
-    <div className={classes.text}>
-      {groupingItem.text}
-    </div>
-  </TableCell>
-));
+}) => {
+  const classes = useStyles();
+  return (
+    <TableCell
+      className={classNames(classes.cell, className)}
+      colSpan={colSpan}
+      {...restProps}
+    >
+      <div className={classes.text}>
+        {groupingItem.text}
+      </div>
+    </TableCell>
+  );
+});
 
-CellBase.propTypes = {
-  classes: PropTypes.object.isRequired,
+Cell.propTypes = {
   className: PropTypes.string,
   groupingItem: PropTypes.object.isRequired,
   colSpan: PropTypes.number.isRequired,
 };
 
-CellBase.defaultProps = {
+Cell.defaultProps = {
   className: undefined,
 };
 
-export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);
+// export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

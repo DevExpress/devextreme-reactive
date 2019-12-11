@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
-import { LARGE_MOBILE_LAYOUT_QUERY } from '../constants';
+import { SMALL_LAYOUT } from '../constants';
 
 const styles = {
   root: {
@@ -12,7 +12,7 @@ const styles = {
   },
   container: {
     display: 'flex',
-    [`${LARGE_MOBILE_LAYOUT_QUERY}`]: {
+    [`${SMALL_LAYOUT}`]: {
       flexDirection: 'column',
     },
   },

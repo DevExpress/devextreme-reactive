@@ -46,3 +46,6 @@ export const TOGGLE_APPOINTMENT_FORM_VISIBILITY = 'toggleAppointmentFormVisibili
 export const TOGGLE_APPOINTMENT_TOOLTIP_VISIBILITY = 'toggleAppointmentTooltipVisibility';
 
 export const WEEKDAY_INTERVAL = 'weekdayInterval';
+
+export const LEFT_OFFSET = 80;
+export const MONTH_VIEW_LEFT_OFFSET = 0;

@@ -19,6 +19,7 @@ describe('GroupingPanel', () => {
     getter: {
       groupingItems: [],
       viewCellsData: [[{}, {}]],
+      currentView: {},
     },
   };
 

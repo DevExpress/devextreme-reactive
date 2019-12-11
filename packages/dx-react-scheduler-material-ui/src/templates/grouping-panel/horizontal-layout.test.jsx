@@ -8,6 +8,7 @@ describe('GroupingPanel', () => {
     groups: [[{ text: 'test' }]],
     rowComponent: () => null,
     cellComponent: () => null,
+    cellStyle: {},
   };
   let shallow;
   beforeAll(() => {

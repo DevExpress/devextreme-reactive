@@ -22,6 +22,10 @@ import { GroupingPanel } from '@devexpress/dx-react-scheduler';
 
 - [IntegratedGrouping](integrated-grouping.md)
 - [GroupingState](grouping-state.md)
+- [DayView](day-view.md) [Optional]
+- [MonthView](month-view.md) [Optional]
+- [WeekView](week-view.md) [Optional]
+- [ViewState](view-state.md) [Optional]
 
 ### Properties
 
@@ -51,6 +55,7 @@ Field | Type | Description
 ------|------|------------
 groups | Array&lt;Array&lt;[GroupingItem](#groupingitem)&gt;&gt; | Specifies the final representation of Scheduler's groups and the order they will be rendered in.
 width | number | Indicates the number of cells in the Scheduler's timetable.
+cellStyle | object | Grouping Panel cell's style.
 rowComponent | ComponentType&lt;[GroupingPanel.RowProps](#groupingpanelrowprops)&gt; |  A component that renders a Grouping panel row.
 cellComponent | ComponentType&lt;[GroupingPanel.CellProps](#groupingpanelcellprops)&gt; | | A component that renders a Grouping panel cell.
 
@@ -70,6 +75,8 @@ Field | Type | Description
 ------|------|------------
 groupingItem | [GroupingItem](#groupingitem) | The group the cell represents.
 colSpan | number | Specifies the cell's size in the number of Scheduler's timetable cells.
+left | number | Specifies cell's horizontal position.
+children? | ReactNode | A React node used to render an additional content to the cell.
 
 ## Plugin Components
 

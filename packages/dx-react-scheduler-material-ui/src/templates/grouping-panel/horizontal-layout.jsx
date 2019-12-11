@@ -7,6 +7,7 @@ export const HorizontalLayout = ({
   cellComponent: Cell,
   groups,
   width,
+  cellStyle,
   ...restProps
 }) => (
   <>
@@ -22,6 +23,7 @@ export const HorizontalLayout = ({
               groupingItem={groupingItem}
               colSpan={colSpan}
               key={getCellKey(groups, index, rowIndex)}
+              left={cellStyle.left}
             />
           ))}
         </Row>
@@ -35,4 +37,5 @@ HorizontalLayout.propTypes = {
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   groups: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
   width: PropTypes.number.isRequired,
+  cellStyle: PropTypes.object.isRequired,
 };

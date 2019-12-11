@@ -9,7 +9,6 @@ const useStyles = makeStyles(theme => ({
   cell: {
     userSelect: 'none',
     padding: 0,
-    textAlign: 'center',
     borderBottom: 'none',
     borderTop: getBrightBorder(theme),
     paddingTop: theme.spacing(0.5),
@@ -25,10 +24,12 @@ const useStyles = makeStyles(theme => ({
   text: {
     ...theme.typography.caption,
     padding: theme.spacing(1),
-    textAlign: 'center',
     color: theme.palette.text.secondary,
     fontWeight: 'bold',
     fontSize: '1rem',
+    position: 'sticky',
+    display: 'inline-block',
+    left: ({ left }) => theme.spacing(left / 8),
   },
 }));
 
@@ -36,9 +37,11 @@ export const Cell = React.memo(({
   className,
   groupingItem,
   colSpan,
+  left,
+  children,
   ...restProps
 }) => {
-  const classes = useStyles();
+  const classes = useStyles({ left });
   return (
     <TableCell
       className={classNames(classes.cell, className)}
@@ -47,6 +50,7 @@ export const Cell = React.memo(({
     >
       <div className={classes.text}>
         {groupingItem.text}
+        {children}
       </div>
     </TableCell>
   );
@@ -56,10 +60,11 @@ Cell.propTypes = {
   className: PropTypes.string,
   groupingItem: PropTypes.object.isRequired,
   colSpan: PropTypes.number.isRequired,
+  left: PropTypes.number.isRequired,
+  children: PropTypes.node,
 };
 
 Cell.defaultProps = {
   className: undefined,
+  children: null,
 };
-
-// export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

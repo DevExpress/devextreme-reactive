@@ -13,6 +13,8 @@ export namespace GroupingPanel {
     groups: Array<Array<GroupingItem>>;
     /** Indicates the number of cells in the Scheduler's timetable. */
     width: number;
+    /** Style object applied to the Groping Panel's cell component. */
+    cellStyle: object;
   }
   /** Describes properties passed to a component that renders a Grouping panel row. */
   export interface RowProps extends BaseView.RowProps {}
@@ -22,6 +24,10 @@ export namespace GroupingPanel {
     colSpan: number;
     /** The group the cell represents. */
     groupingItem: GroupingItem;
+    /** Specifies cell's horizontal position. */
+    left: number;
+    /** A React node used to render an additional content to the cell. */
+    children?: React.ReactNode;
   }
 }
 

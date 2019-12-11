@@ -14,6 +14,7 @@ describe('GroupingPanel', () => {
   const defaultProps = {
     groupingItem: {},
     colSpan: 1,
+    left: 0,
   };
   let shallow;
   beforeAll(() => {

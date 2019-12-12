@@ -4,6 +4,7 @@ import { VerticalViewLayout } from './vertical-view-layout';
 import { scrollingStrategy } from '../utils';
 
 jest.mock('../utils', () => ({
+  ...require.requireActual('../utils'),
   scrollingStrategy: jest.fn(),
 }));
 

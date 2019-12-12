@@ -4,7 +4,7 @@ import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 import { WEEK_DAY_OPTIONS, DAY_OPTIONS } from '@devexpress/dx-scheduler-core';
-import { getBorder, getBrightBorder } from '../../../utils';
+import { getBrightBorder } from '../../../utils';
 import { SMALL_LAYOUT } from '../../../constants';
 
 const styles = theme => ({

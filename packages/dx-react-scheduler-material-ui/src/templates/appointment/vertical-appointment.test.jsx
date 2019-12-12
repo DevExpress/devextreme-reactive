@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { createMount, getClasses } from '@material-ui/core/test-utils';
 import { VerticalAppointment } from './vertical-appointment';
-import { addCommaToString } from '../utils';
+import { addCommaAndSpaceToString } from '../utils';
 
 jest.mock('../utils', () => ({
   ...require.requireActual('../utils'),
-  addCommaToString: jest.fn(),
+  addCommaAndSpaceToString: jest.fn(),
 }));
 
 describe('VerticalAppointment', () => {
@@ -156,12 +156,12 @@ describe('VerticalAppointment', () => {
       expect(tree.find(`.${classes.middleContainer}`).exists())
         .toBeFalsy();
     });
-    it('should call addCommaToString', () => {
+    it('should call addCommaAndSpaceToString', () => {
       mount((
         <VerticalAppointment {...defaultProps} durationType="short" />
       ));
 
-      expect(addCommaToString)
+      expect(addCommaAndSpaceToString)
         .toBeCalledWith('title');
     });
   });

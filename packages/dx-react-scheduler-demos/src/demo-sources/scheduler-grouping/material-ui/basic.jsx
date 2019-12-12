@@ -7,11 +7,27 @@ import {
   Scheduler,
   Resources,
   Appointments,
+  AppointmentTooltip,
   GroupingPanel,
-  WeekView,
-  AllDayPanel,
+  DayView,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import { data as appointments, priorityData } from '../../../demo-data/grouping';
+import { owners } from '../../../demo-data/tasks';
+
+const appointments = [
+  {
+    id: 0,
+    title: 'Watercolor Landscape',
+    members: [1, 2, 3],
+    startDate: new Date(2017, 4, 28, 9, 30),
+    endDate: new Date(2017, 4, 28, 12, 30),
+  }, {
+    id: 1,
+    title: 'Oil Painting for Beginners',
+    members: [4, 5, 6],
+    startDate: new Date(2017, 4, 28, 9, 30),
+    endDate: new Date(2017, 4, 28, 12, 30),
+  },
+];
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -19,12 +35,13 @@ export default class Demo extends React.PureComponent {
     this.state = {
       data: appointments,
       resources: [{
-        fieldName: 'priorityId',
-        title: 'Priority',
-        instances: priorityData,
+        fieldName: 'members',
+        title: 'Members',
+        instances: owners,
+        allowMultiple: true,
       }],
       grouping: [{
-        resourceName: 'priorityId',
+        resourceName: 'members',
       }],
     };
   }
@@ -36,28 +53,27 @@ export default class Demo extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
-          height={660}
         >
           <ViewState
-            defaultCurrentDate="2018-05-30"
+            defaultCurrentDate="2017-05-28"
           />
           <GroupingState
             grouping={grouping}
           />
 
-          <WeekView
+          <DayView
             startDayHour={9}
-            endDayHour={17}
+            endDayHour={13}
             excludedDays={[0, 6]}
           />
           <Appointments />
-          <AllDayPanel />
           <Resources
             data={resources}
-            mainResourceName="priorityId"
+            mainResourceName="members"
           />
 
           <IntegratedGrouping />
+          <AppointmentTooltip />
 
           <GroupingPanel />
         </Scheduler>

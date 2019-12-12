@@ -13,38 +13,14 @@ import {
   EditRecurrenceMenu,
   DragDropProvider,
   GroupingPanel,
+  WeekView,
   AllDayPanel,
-  DayView,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import { owners } from '../../../demo-data/tasks';
+import { data as appointments } from '../../../demo-data/grouping';
 
-const appointments = [
-  {
-    id: 0,
-    title: 'Watercolor Landscape',
-    members: [1, 2, 3],
-    startDate: new Date(2017, 4, 28, 9, 30),
-    endDate: new Date(2017, 4, 28, 13, 30),
-  }, {
-    id: 1,
-    title: 'Oil Painting for Beginners',
-    members: [4, 5, 6],
-    startDate: new Date(2017, 4, 28, 9, 30),
-    endDate: new Date(2017, 4, 28, 13, 30),
-  },
-  {
-    id: 2,
-    title: 'Testing',
-    members: [1, 2, 3],
-    startDate: new Date(2017, 4, 29, 9, 30),
-    endDate: new Date(2017, 4, 29, 13, 30),
-  }, {
-    id: 3,
-    title: 'Final Exams',
-    members: [4, 5, 6],
-    startDate: new Date(2017, 4, 29, 9, 30),
-    endDate: new Date(2017, 4, 29, 13, 30),
-  },
+const priorityData = [
+  { text: 'Low Priority', id: 1, color: blue },
+  { text: 'High Priority', id: 2, color: teal },
 ];
 
 export default class Demo extends React.PureComponent {
@@ -53,13 +29,12 @@ export default class Demo extends React.PureComponent {
     this.state = {
       data: appointments,
       resources: [{
-        fieldName: 'members',
-        title: 'Members',
-        instances: owners,
-        allowMultiple: true,
+        fieldName: 'priorityId',
+        title: 'Priority',
+        instances: priorityData,
       }],
       grouping: [{
-        resourceName: 'members',
+        resourceName: 'priorityId',
       }],
     };
 
@@ -91,9 +66,10 @@ export default class Demo extends React.PureComponent {
       <Paper>
         <Scheduler
           data={data}
+          height={660}
         >
           <ViewState
-            defaultCurrentDate="2017-05-28"
+            defaultCurrentDate="2018-05-30"
           />
           <EditingState
             onCommitChanges={this.commitChanges}
@@ -102,16 +78,16 @@ export default class Demo extends React.PureComponent {
             grouping={grouping}
           />
 
-          <DayView
+          <WeekView
             startDayHour={9}
-            endDayHour={14}
+            endDayHour={17}
             excludedDays={[0, 6]}
-            intervalCount={2}
           />
           <Appointments />
+          <AllDayPanel />
           <Resources
             data={resources}
-            mainResourceName="members"
+            mainResourceName="priorityId"
           />
 
           <IntegratedGrouping />

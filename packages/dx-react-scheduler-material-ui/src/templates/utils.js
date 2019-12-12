@@ -43,4 +43,4 @@ export const getAppointmentColor = (level, color, defaultColor) => {
   return ensureColor(level, color);
 };
 
-export const addCommaAndSpaceToString = string => !!string && `${string},\xa0`;
+export const addCommaAndSpaceToString = string => string && `${string},\xa0`;

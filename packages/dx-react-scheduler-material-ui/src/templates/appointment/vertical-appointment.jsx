@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
 import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
+import { addCommaToString } from '../utils';
 
 const styles = ({ palette, spacing }) => ({
   title: {
@@ -101,9 +102,7 @@ const VerticalAppointmentBase = ({
             {isShortHeight ? (
               <div className={classes.shortContainer}>
                 <div className={classNames(classes.title, classes.shortTitle)}>
-                  {data.title}
-                  ,
-                  &nbsp;
+                  {addCommaToString(data.title)}
                 </div>
                 <div className={classNames(classes.time, classes.shortTime)}>
                   {formatDate(data.startDate, HOUR_MINUTE_OPTIONS)}

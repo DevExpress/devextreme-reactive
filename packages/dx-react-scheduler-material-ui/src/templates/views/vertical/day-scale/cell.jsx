@@ -20,9 +20,6 @@ const styles = theme => ({
       padding: theme.spacing(1),
       paddingBottom: 0,
     },
-    'table:last-child &': {
-      borderBottom: getBorder(theme),
-    },
     '&:only-child': {
       textAlign: 'left',
       paddingLeft: theme.spacing(2),

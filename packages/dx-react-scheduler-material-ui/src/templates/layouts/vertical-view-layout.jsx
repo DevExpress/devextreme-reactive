@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
-import { scrollingStrategy } from '../utils';
+import { scrollingStrategy, getBorder, getBrightBorder } from '../utils';
 
 const styles = theme => ({
   container: {
@@ -19,6 +19,7 @@ const styles = theme => ({
   header: {
     top: 0,
     zIndex: 2,
+    borderBottom: getBorder(theme),
   },
   leftPanel: {
     left: 0,
@@ -44,6 +45,13 @@ const styles = theme => ({
   background: {
     background: theme.palette.background.paper,
   },
+  borderedCell: {
+    borderRight: getBrightBorder(theme),
+    boxSizing: 'border-box',
+  },
+  brightBorderHeader: {
+    borderBottom: getBrightBorder(theme),
+  },
 });
 
 class VerticalViewLayoutBase extends React.PureComponent {
@@ -53,6 +61,13 @@ class VerticalViewLayoutBase extends React.PureComponent {
     this.layout = React.createRef();
     this.layoutHeader = React.createRef();
     this.timeScale = React.createRef();
+
+    this.state = {
+      isLeftBorderSet: false,
+      isTopBorderSet: false,
+    };
+
+    this.setBorders = this.setBorders.bind(this);
   }
 
   componentDidMount() {
@@ -71,6 +86,30 @@ class VerticalViewLayoutBase extends React.PureComponent {
     ));
   }
 
+  setBorders(event) {
+    const { isLeftBorderSet, isTopBorderSet } = this.state;
+    if (!event.target.scrollLeft && isLeftBorderSet) {
+      this.setState({
+        isLeftBorderSet: false,
+      });
+    }
+    if (event.target.scrollLeft && !isLeftBorderSet) {
+      this.setState({
+        isLeftBorderSet: true,
+      });
+    }
+    if (!event.target.scrollTop && isTopBorderSet) {
+      this.setState({
+        isTopBorderSet: false,
+      });
+    }
+    if (event.target.scrollTop && !isTopBorderSet) {
+      this.setState({
+        isTopBorderSet: true,
+      });
+    }
+  }
+
   render() {
     const {
       timeScaleComponent: TimeScale,
@@ -82,6 +121,7 @@ class VerticalViewLayoutBase extends React.PureComponent {
       className,
       ...restProps
     } = this.props;
+    const { isLeftBorderSet, isTopBorderSet } = this.state;
 
     return (
       <Grid
@@ -90,12 +130,18 @@ class VerticalViewLayoutBase extends React.PureComponent {
         className={classNames(classes.container, className)}
         direction="column"
         wrap="nowrap"
+        onScroll={this.setBorders}
         {...restProps}
       >
         {/* Fix Safari sticky header https://bugs.webkit.org/show_bug.cgi?id=175029 */}
         <div>
           <Grid
-            className={classNames(classes.stickyElement, classes.header, classes.autoWidth)}
+            className={classNames({
+              [classes.stickyElement]: true,
+              [classes.header]: true,
+              [classes.autoWidth]: true,
+              [classes.brightBorderHeader]: isTopBorderSet,
+            })}
           >
             <Grid
               ref={this.layoutHeader}
@@ -103,9 +149,12 @@ class VerticalViewLayoutBase extends React.PureComponent {
               direction="row"
             >
               <div
-                className={classNames(
-                  classes.fixedWidth, classes.stickyElement, classes.leftPanel,
-                )}
+                className={classNames({
+                  [classes.fixedWidth]: true,
+                  [classes.stickyElement]: true,
+                  [classes.leftPanel]: true,
+                  [classes.borderedCell]: isLeftBorderSet,
+                })}
               >
                 <DayScaleEmptyCell />
               </div>

@@ -26,6 +26,9 @@ const useStyles = makeStyles(theme => ({
     '&:last-child': {
       paddingRight: 0,
     },
+    '&:first-child': {
+      borderLeft: 'none',
+    },
   },
   shadedCell: {
     backgroundColor: fade(theme.palette.action.disabledBackground, 0.04),

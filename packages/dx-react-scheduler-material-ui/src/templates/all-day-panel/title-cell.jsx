@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorder } from '../utils';
+import { getBrightBorder } from '../utils';
 
 const styles = theme => ({
   container: {
@@ -15,7 +15,9 @@ const styles = theme => ({
     position: 'relative',
   },
   content: {
-    borderBottom: getBorder(theme),
+    borderRight: getBrightBorder(theme),
+    width: theme.spacing(10),
+    boxSizing: 'border-box',
     height: theme.spacing(5.75),
     textAlign: 'right',
     display: 'flex',

@@ -11,7 +11,11 @@ const styles = theme => ({
     padding: 0,
     height: theme.spacing(5.75),
     borderLeft: getBorder(theme),
+    borderBottom: 'none',
     boxSizing: 'border-box',
+    '&:first-child': {
+      borderLeft: 'none',
+    },
     '&:hover': {
       backgroundColor: theme.palette.action.hover,
     },

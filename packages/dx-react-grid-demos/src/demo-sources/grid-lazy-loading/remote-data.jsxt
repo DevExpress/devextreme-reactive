@@ -130,7 +130,7 @@ export default () => {
     dispatch({
       type: 'UPDATE_ROWS',
       payload: {
-        skip,
+        skip: Math.min(skip, newTotalCount),
         rows: cache.getRows(skip, count),
         totalCount: newTotalCount < MAX_ROWS ? newTotalCount : MAX_ROWS,
       },

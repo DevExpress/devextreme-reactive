@@ -2,6 +2,7 @@ import { PureComputed } from '@devexpress/dx-core';
 import {
   Grouping, ValidResourceInstance, ViewCell, ValidResource, GroupingItem,
 } from '../../types';
+import { getGroupingItemFromResourceInstance, addGroupInfoToCells } from './helpers';
 
 export const filterResourcesByGrouping: PureComputed<
   [Array<ValidResource>, Array<Grouping>], Array<ValidResource>
@@ -21,7 +22,7 @@ export const getGroupingItemsFromResources: PureComputed<
     acc: Array<Array<GroupingItem>>, resource: ValidResource, index: number,
   ) => {
   if (index === 0) {
-    return [resource.instances.slice()];
+    return [resource.instances.map(instance => getGroupingItemFromResourceInstance(instance))];
   }
 
   return [
@@ -29,11 +30,7 @@ export const getGroupingItemsFromResources: PureComputed<
     acc[index - 1].reduce((currentResourceNames: Array<GroupingItem>) => [
       ...currentResourceNames,
       ...resource.instances.map(
-        (instance: ValidResourceInstance) => ({
-          fieldName: instance.fieldName,
-          id: instance.id,
-          text: instance.text,
-        }),
+        (instance: ValidResourceInstance) => getGroupingItemFromResourceInstance(instance),
       ),
     ], []),
   ];
@@ -64,30 +61,6 @@ export const expandViewCellsDataWithGroups: PureComputed<
     ]);
   }, [[]] as ViewCell[][]);
 };
-
-const addGroupInfoToCells: PureComputed<
-  [GroupingItem, GroupingItem[][],
-  ValidResource[], ViewCell[], number], ViewCell[]
-> = (currentGroup, groupingItems, sortedResources, viewCellRow, index) => viewCellRow.map((
-    viewCell: ViewCell, cellIndex: number,
-  ) => {
-  let previousIndex = index;
-  const groupingInfo = groupingItems.reduceRight((
-    acc: GroupingItem[], groupingItem: GroupingItem[], currentIndex: number,
-  ) => {
-    if (currentIndex === groupingItems.length - 1) return acc;
-    const previousResourceLength = sortedResources[currentIndex + 1].instances.length;
-    const currentGroupingInstance = groupingItem[Math.floor(
-      previousIndex / previousResourceLength,
-    )];
-    previousIndex = currentIndex;
-    return [...acc, currentGroupingInstance];
-  }, [currentGroup]);
-  if (cellIndex !== viewCellRow.length - 1) {
-    return { ...viewCell, groupingInfo };
-  }
-  return { ...viewCell, groupingInfo, isBorderRight: true };
-});
 
 export const updateGroupingWithMainResource: PureComputed<
   [Grouping[] | undefined, ValidResource[]], Grouping[]

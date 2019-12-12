@@ -1,8 +1,8 @@
 import {
   filterResourcesByGrouping, sortFilteredResources,
   getGroupingItemsFromResources, expandViewCellsDataWithGroups,
+  updateGroupingWithMainResource,
 } from './computeds';
-import { updateGroupingWithMainResource } from '../../../dist/dx-scheduler-core.umd';
 
 describe('IntegratedGrouping computeds', () => {
   describe('#filterResourcesByGrouping', () => {

@@ -67,3 +67,5 @@ export const getViewCellKey = (startDate, groups) => {
   if (!groups) return startDate;
   return groups.reduce((acc, group) => acc.concat(group.id), startDate.toString());
 };
+
+export const addCommaAndSpaceToString = string => string && `${string},\xa0`;

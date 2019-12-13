@@ -130,11 +130,7 @@ class VerticalViewLayoutBase extends React.PureComponent {
         {/* Fix Safari sticky header https://bugs.webkit.org/show_bug.cgi?id=175029 */}
         <div>
           <Grid
-            className={classNames({
-              [classes.stickyElement]: true,
-              [classes.header]: true,
-              [classes.autoWidth]: true,
-            })}
+            className={classNames(classes.stickyElement, classes.header, classes.autoWidth)}
           >
             <Grid
               ref={this.layoutHeader}

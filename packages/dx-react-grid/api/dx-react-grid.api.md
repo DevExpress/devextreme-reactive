@@ -981,7 +981,7 @@ export namespace TableGroupRow {
         // (undocumented)
         getMessage: (string: any) => string;
         // (undocumented)
-        readonly inlineSummaries: InlineSummaryItemInfo[];
+        readonly inlineSummaries: Readonly<InlineSummaryItemInfo[]>;
         // (undocumented)
         inlineSummaryComponent: React.ComponentType<InlineSummaryProps>;
         // (undocumented)
@@ -1030,7 +1030,7 @@ export namespace TableGroupRow {
         // (undocumented)
         getMessage: GetMessageFn;
         // (undocumented)
-        readonly inlineSummaries: Readonly<InlineSummaryItemInfo[]>;
+        readonly inlineSummaries: InlineSummaryItemInfo[];
         // (undocumented)
         inlineSummaryItemComponent: React.ComponentType<InlineSummaryItemProps>;
     }

@@ -19,7 +19,6 @@ const styles = theme => ({
   header: {
     top: 0,
     zIndex: 2,
-    borderBottom: getBorder(theme),
   },
   leftPanel: {
     left: 0,
@@ -48,6 +47,9 @@ const styles = theme => ({
   borderedCell: {
     borderRight: getBrightBorder(theme),
     boxSizing: 'border-box',
+  },
+  ordinaryBorderHeader: {
+    borderBottom: getBorder(theme),
   },
   brightBorderHeader: {
     borderBottom: getBrightBorder(theme),
@@ -132,7 +134,6 @@ class VerticalViewLayoutBase extends React.PureComponent {
               [classes.stickyElement]: true,
               [classes.header]: true,
               [classes.autoWidth]: true,
-              [classes.brightBorderHeader]: isTopBorderSet,
             })}
           >
             <Grid
@@ -146,13 +147,22 @@ class VerticalViewLayoutBase extends React.PureComponent {
                   [classes.stickyElement]: true,
                   [classes.leftPanel]: true,
                   [classes.borderedCell]: isLeftBorderSet,
+                  [classes.ordinaryBorderHeader]: !isTopBorderSet,
+                  [classes.brightBorderHeader]: isTopBorderSet,
                 })}
               >
                 <DayScaleEmptyCell />
               </div>
 
               <div className={classes.mainTable}>
-                <div className={classNames(classes.fullScreenContainer, classes.background)}>
+                <div
+                  className={classNames({
+                    [classes.fullScreenContainer]: true,
+                    [classes.background]: true,
+                    [classes.ordinaryBorderHeader]: !isTopBorderSet,
+                    [classes.brightBorderHeader]: isTopBorderSet,
+                  })}
+                >
                   <DayScale />
                 </div>
               </div>

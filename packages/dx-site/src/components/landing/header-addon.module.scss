@@ -41,8 +41,11 @@
 }
 
 .indexBlock {
-  padding-bottom: 500px;
+  padding-bottom: 700px;
 
+  @media screen and (min-width: 530px) {
+    padding-bottom: 500px;
+  }
   @media screen and (min-width: 640px) {
     padding-bottom: 500px;
   }

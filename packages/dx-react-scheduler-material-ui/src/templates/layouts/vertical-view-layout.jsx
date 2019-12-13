@@ -23,6 +23,7 @@ const styles = theme => ({
   leftPanel: {
     left: 0,
     zIndex: 1,
+    boxSizing: 'border-box',
   },
   timeTable: {
     position: 'relative',
@@ -44,9 +45,11 @@ const styles = theme => ({
   background: {
     background: theme.palette.background.paper,
   },
-  borderedCell: {
+  ordinaryBorderLeftPanel: {
+    borderRight: getBorder(theme),
+  },
+  brightBorderLeftPanel: {
     borderRight: getBrightBorder(theme),
-    boxSizing: 'border-box',
   },
   ordinaryBorderHeader: {
     borderBottom: getBorder(theme),
@@ -142,7 +145,8 @@ class VerticalViewLayoutBase extends React.PureComponent {
                   [classes.fixedWidth]: true,
                   [classes.stickyElement]: true,
                   [classes.leftPanel]: true,
-                  [classes.borderedCell]: isLeftBorderSet,
+                  [classes.ordinaryBorderLeftPanel]: !isLeftBorderSet,
+                  [classes.brightBorderLeftPanel]: isLeftBorderSet,
                   [classes.ordinaryBorderHeader]: !isTopBorderSet,
                   [classes.brightBorderHeader]: isTopBorderSet,
                 })}
@@ -169,9 +173,13 @@ class VerticalViewLayoutBase extends React.PureComponent {
             <Grid container direction="row">
               <div
                 ref={this.timeScale}
-                className={classNames(
-                  classes.fixedWidth, classes.stickyElement, classes.leftPanel,
-                )}
+                className={classNames({
+                  [classes.fixedWidth]: true,
+                  [classes.stickyElement]: true,
+                  [classes.leftPanel]: true,
+                  [classes.ordinaryBorderLeftPanel]: !isLeftBorderSet,
+                  [classes.brightBorderLeftPanel]: isLeftBorderSet,
+                })}
               >
                 <TimeScale />
               </div>

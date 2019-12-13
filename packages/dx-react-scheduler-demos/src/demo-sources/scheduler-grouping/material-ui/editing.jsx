@@ -2,7 +2,7 @@ import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { blue, teal } from '@material-ui/core/colors';
 import {
-  ViewState, EditingState, GroupingState, IntegratedGrouping,
+  ViewState, EditingState, GroupingState, IntegratedGrouping, IntegratedEditing,
 } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -10,7 +10,6 @@ import {
   Appointments,
   AppointmentTooltip,
   AppointmentForm,
-  EditRecurrenceMenu,
   DragDropProvider,
   GroupingPanel,
   WeekView,
@@ -91,7 +90,7 @@ export default class Demo extends React.PureComponent {
           />
 
           <IntegratedGrouping />
-          <EditRecurrenceMenu />
+          <IntegratedEditing />
           <AppointmentTooltip />
           <AppointmentForm />
 

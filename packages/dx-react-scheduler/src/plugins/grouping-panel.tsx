@@ -6,7 +6,7 @@ import {
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import { GroupingPanelProps } from '../types';
-import { LEFT_OFFSET, MONTH_VIEW_LEFT_OFFSET } from '@devexpress/dx-scheduler-core';
+import { VERTICAL_VIEW_LEFT_OFFSET, HORIZONTAL_VIEW_LEFT_OFFSET } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
   { name: 'GroupingState' },
@@ -46,8 +46,8 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
                 width={viewCellsData[0].length}
                 cellStyle={{
                   left: currentView && currentView.type === 'month'
-                  ? MONTH_VIEW_LEFT_OFFSET
-                  : LEFT_OFFSET,
+                  ? HORIZONTAL_VIEW_LEFT_OFFSET
+                  : VERTICAL_VIEW_LEFT_OFFSET,
                 }}
               />
             )}

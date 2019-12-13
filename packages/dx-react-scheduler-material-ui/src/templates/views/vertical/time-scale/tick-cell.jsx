@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorder, getBrightBorder } from '../../../utils';
+import { getBorder } from '../../../utils';
 
 const styles = theme => ({
   cell: {
@@ -11,7 +11,6 @@ const styles = theme => ({
     padding: 0,
     boxSizing: 'border-box',
     borderBottom: getBorder(theme),
-    borderRight: getBrightBorder(theme),
     'tr:last-child &': {
       borderBottom: 'none',
     },

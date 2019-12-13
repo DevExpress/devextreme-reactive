@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import {
-  ViewState, GroupingState, IntegratedGrouping,
+  ViewState, GroupingState, IntegratedGrouping, IntegratedEditing, EditingState,
 } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -10,6 +10,7 @@ import {
   AppointmentTooltip,
   GroupingPanel,
   DayView,
+  DragDropProvider,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import {
   blue, teal, indigo, deepPurple, green, purple,
@@ -18,27 +19,21 @@ import {
 const appointments = [{
   id: 0,
   title: 'Watercolor Landscape',
-  members: [1, 2, 3],
-  startDate: new Date(2017, 4, 28, 9, 30),
-  endDate: new Date(2017, 4, 28, 12, 30),
+  members: [1, 2],
+  startDate: new Date(2017, 4, 28, 10, 0),
+  endDate: new Date(2017, 4, 28, 12, 0),
 }, {
   id: 1,
   title: 'Oil Painting for Beginners',
-  members: [4, 5, 6],
+  members: [3, 4],
   startDate: new Date(2017, 4, 28, 9, 30),
-  endDate: new Date(2017, 4, 28, 12, 30),
+  endDate: new Date(2017, 4, 28, 11, 30),
 }, {
   id: 2,
   title: 'Testing',
-  members: [1, 2, 3],
-  startDate: new Date(2017, 4, 29, 9, 30),
-  endDate: new Date(2017, 4, 29, 12, 30),
-}, {
-  id: 3,
-  title: 'Final Exams',
-  members: [4, 5, 6],
-  startDate: new Date(2017, 4, 29, 9, 30),
-  endDate: new Date(2017, 4, 29, 12, 30),
+  members: [5, 6],
+  startDate: new Date(2017, 4, 28, 10, 30),
+  endDate: new Date(2017, 4, 28, 12, 30),
 }];
 
 export const owners = [{
@@ -82,6 +77,26 @@ export default class Demo extends React.PureComponent {
         resourceName: 'members',
       }],
     };
+
+    this.commitChanges = this.commitChanges.bind(this);
+  }
+
+  commitChanges({ added, changed, deleted }) {
+    this.setState((state) => {
+      let { data } = state;
+      if (added) {
+        const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
+        data = [...data, { id: startingAddedId, ...added }];
+      }
+      if (changed) {
+        data = data.map(appointment => (
+          changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
+      }
+      if (deleted !== undefined) {
+        data = data.filter(appointment => appointment.id !== deleted);
+      }
+      return { data };
+    });
   }
 
   render() {
@@ -95,6 +110,9 @@ export default class Demo extends React.PureComponent {
           <ViewState
             defaultCurrentDate="2017-05-28"
           />
+          <EditingState
+            onCommitChanges={this.commitChanges}
+          />
           <GroupingState
             grouping={grouping}
           />
@@ -103,7 +121,6 @@ export default class Demo extends React.PureComponent {
             startDayHour={9}
             endDayHour={13}
             excludedDays={[0, 6]}
-            intervalCount={2}
           />
           <Appointments />
           <Resources
@@ -112,9 +129,11 @@ export default class Demo extends React.PureComponent {
           />
 
           <IntegratedGrouping />
+          <IntegratedEditing />
           <AppointmentTooltip />
 
           <GroupingPanel />
+          <DragDropProvider />
         </Scheduler>
       </Paper>
     );

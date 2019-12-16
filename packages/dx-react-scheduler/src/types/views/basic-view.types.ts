@@ -12,7 +12,7 @@ import {
 
 /** @internal */
 export type BasicViewState = {
-  rects: readonly ElementRect[];
+  readonly rects: Readonly<ElementRect[]>;
   scrollingStrategy: ScrollingStrategy;
   timeTableElementsMeta: CellElementsMeta | {};
 };

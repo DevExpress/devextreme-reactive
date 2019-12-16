@@ -3,7 +3,7 @@ import { ElementRect, CellElementsMeta, FormatterFn, BaseView, GroupingItem } fr
 /* tslint:disable no-namespace max-line-length no-empty-interface */
 /** @internal */
 export interface AllDayPanelState {
-  rects: readonly ElementRect[];
+  readonly rects: Readonly<ElementRect[]>;
   elementsMeta: CellElementsMeta | {};
 }
 

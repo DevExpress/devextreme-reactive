@@ -53,7 +53,7 @@ export const Layout = React.memo(({
               endDate,
               today,
               otherMonth,
-              isBorderRight,
+              hasRightBorder,
               groupingInfo,
             }) => (
               <Cell
@@ -63,7 +63,7 @@ export const Layout = React.memo(({
                 today={today}
                 otherMonth={otherMonth}
                 formatDate={formatDate}
-                isBorderRight={isBorderRight}
+                hasRightBorder={hasRightBorder}
                 groupingInfo={groupingInfo}
               />
             ))}

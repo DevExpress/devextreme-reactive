@@ -24,7 +24,7 @@ const styles = theme => ({
       outline: 0,
     },
   },
-  lastHorizontalCell: {
+  rightBorderCell: {
     borderRight: getBrightBorder(theme),
     '&:last-child': {
       borderRight: 'none',
@@ -38,7 +38,7 @@ const CellBase = ({
   children,
   startDate,
   endDate,
-  isBorderRight,
+  hasRightBorder,
   groupingInfo,
   ...restProps
 }) => (
@@ -46,7 +46,7 @@ const CellBase = ({
     tabIndex={0}
     className={classNames({
       [classes.cell]: true,
-      [classes.lastHorizontalCell]: isBorderRight,
+      [classes.rightBorderCell]: hasRightBorder,
     }, className)}
     {...restProps}
   >
@@ -60,7 +60,7 @@ CellBase.propTypes = {
   endDate: PropTypes.instanceOf(Date),
   children: PropTypes.node,
   className: PropTypes.string,
-  isBorderRight: PropTypes.bool,
+  hasRightBorder: PropTypes.bool,
   groupingInfo: PropTypes.arrayOf(PropTypes.object),
 };
 
@@ -69,7 +69,7 @@ CellBase.defaultProps = {
   startDate: undefined,
   endDate: undefined,
   className: undefined,
-  isBorderRight: false,
+  hasRightBorder: false,
   groupingInfo: undefined,
 };
 

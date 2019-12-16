@@ -34,7 +34,7 @@ export namespace AllDayPanel {
     /** The cell's group. */
     groupingInfo?: Array<GroupingItem>;
     /** Specifies whether the cell has the right border. */
-    isBorderRight?: boolean;
+    hasRightBorder?: boolean;
   }
   /** Describes properties passed to a component that renders an All Day panel layout. */
   export interface LayoutProps {

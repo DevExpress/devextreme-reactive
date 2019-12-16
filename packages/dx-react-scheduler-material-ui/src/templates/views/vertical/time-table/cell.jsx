@@ -54,7 +54,7 @@ const useStyles = makeStyles(theme => ({
       opacity: 0,
     },
   },
-  lastHorizontalCell: {
+  rightBorderCell: {
     borderRight: getBrightBorder(theme),
     '&:last-child': {
       borderRight: 'none',
@@ -70,7 +70,7 @@ export const Cell = ({
   currentTimeIndicatorPosition,
   currentTimeIndicatorComponent: CurrentTimeIndicator,
   isShaded,
-  isBorderRight,
+  hasRightBorder,
   groupingInfo,
   ...restProps
 }) => {
@@ -83,7 +83,7 @@ export const Cell = ({
       className={classNames({
         [classes.cell]: true,
         [classes.shadedCell]: isShaded && !isNow,
-        [classes.lastHorizontalCell]: isBorderRight,
+        [classes.rightBorderCell]: hasRightBorder,
       }, className)}
       {...restProps}
     >
@@ -108,7 +108,7 @@ Cell.propTypes = {
   currentTimeIndicatorPosition: PropTypes.string,
   currentTimeIndicatorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   isShaded: PropTypes.bool,
-  isBorderRight: PropTypes.bool,
+  hasRightBorder: PropTypes.bool,
   groupingInfo: PropTypes.arrayOf(PropTypes.object),
 };
 
@@ -120,6 +120,6 @@ Cell.defaultProps = {
   currentTimeIndicatorPosition: undefined,
   currentTimeIndicatorComponent: () => null,
   isShaded: false,
-  isBorderRight: false,
+  hasRightBorder: false,
   groupingInfo: undefined,
 };

@@ -67,7 +67,7 @@ const styles = theme => ({
       outline: 0,
     },
   },
-  lastHorizontalCell: {
+  rightBorderCell: {
     borderRight: getBrightBorder(theme),
     '&:last-child': {
       borderRight: 'none',
@@ -84,7 +84,7 @@ const CellBase = React.memo(({
   otherMonth,
   formatDate,
   isShaded,
-  isBorderRight,
+  hasRightBorder,
   groupingInfo,
   ...restProps
 }) => {
@@ -96,7 +96,7 @@ const CellBase = React.memo(({
       className={classNames({
         [classes.cell]: true,
         [classes.shadedCell]: isShaded,
-        [classes.lastHorizontalCell]: isBorderRight,
+        [classes.rightBorderCell]: hasRightBorder,
       }, className)}
       {...restProps}
     >
@@ -122,7 +122,7 @@ CellBase.propTypes = {
   today: PropTypes.bool,
   otherMonth: PropTypes.bool,
   isShaded: PropTypes.bool,
-  isBorderRight: PropTypes.bool,
+  hasRightBorder: PropTypes.bool,
   groupingInfo: PropTypes.arrayOf(PropTypes.object),
 };
 
@@ -132,7 +132,7 @@ CellBase.defaultProps = {
   today: false,
   otherMonth: false,
   isShaded: false,
-  isBorderRight: false,
+  hasRightBorder: false,
   groupingInfo: undefined,
 };
 

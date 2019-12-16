@@ -54,7 +54,7 @@ export type AllDayCell = {
   /** The cell's group. */
   groupingInfo?: GroupingItem[];
   /** Specifies whether the cell has the right border. */
-  isBorderRight?: boolean;
+  hasRightBorder?: boolean;
 };
 
 /** @internal */
@@ -64,7 +64,7 @@ export interface ViewCell {
   otherMonth?: boolean;
   today?: boolean;
   groupingInfo?: GroupingItem[];
-  isBorderRight?: boolean;
+  hasRightBorder?: boolean;
 }
 /** @internal */
 export type DayScaleFn = PureComputed<

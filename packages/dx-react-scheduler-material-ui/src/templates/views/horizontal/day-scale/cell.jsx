@@ -29,7 +29,7 @@ const styles = theme => ({
     color: theme.palette.text.secondary,
     fontWeight: 'bold',
   },
-  lastHorizontalCell: {
+  rightBorderCell: {
     borderRight: getBrightBorder(theme),
     '&:last-child': {
       borderRight: 'none',
@@ -44,14 +44,14 @@ const CellBase = React.memo(({
   endDate,
   today,
   formatDate,
-  isBorderRight,
+  hasRightBorder,
   groupingInfo,
   ...restProps
 }) => (
   <TableCell
     className={classNames({
       [classes.cell]: true,
-      [classes.lastHorizontalCell]: isBorderRight,
+      [classes.rightBorderCell]: hasRightBorder,
     }, className)}
     {...restProps}
   >
@@ -68,7 +68,7 @@ CellBase.propTypes = {
   endDate: PropTypes.instanceOf(Date),
   className: PropTypes.string,
   today: PropTypes.bool,
-  isBorderRight: PropTypes.bool,
+  hasRightBorder: PropTypes.bool,
   groupingInfo: PropTypes.arrayOf(PropTypes.object),
 };
 
@@ -76,7 +76,7 @@ CellBase.defaultProps = {
   className: undefined,
   endDate: undefined,
   today: false,
-  isBorderRight: false,
+  hasRightBorder: false,
   groupingInfo: undefined,
 };
 

@@ -23,7 +23,7 @@ describe('Horizontal view DayScale', () => {
         .toBeTruthy();
       expect(tree.is(`.${classes.cell}`))
         .toBeTruthy();
-      expect(tree.is(`.${classes.lastHorizontalCell}`))
+      expect(tree.is(`.${classes.rightBorderCell}`))
         .toBeFalsy();
     });
     it('should pass rest props to the root element', () => {
@@ -48,10 +48,10 @@ describe('Horizontal view DayScale', () => {
     });
     it('should render a cell with a bright border', () => {
       const tree = shallow((
-        <Cell {...defaultProps} isBorderRight />
+        <Cell {...defaultProps} hasRightBorder />
       ));
 
-      expect(tree.is(`.${classes.lastHorizontalCell}`))
+      expect(tree.is(`.${classes.rightBorderCell}`))
         .toBeTruthy();
     });
   });

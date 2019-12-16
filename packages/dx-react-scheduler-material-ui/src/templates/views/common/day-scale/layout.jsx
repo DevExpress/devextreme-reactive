@@ -46,7 +46,7 @@ export const Layout = ({
             startDate,
             endDate,
             today,
-            isBorderRight,
+            hasRightBorder,
             groupingInfo,
           }, index) => (
             <Cell
@@ -55,7 +55,7 @@ export const Layout = ({
               endDate={endDate}
               today={today}
               formatDate={formatDate}
-              isBorderRight={isBorderRight}
+              hasRightBorder={hasRightBorder}
               groupingInfo={groupingInfo}
             />
           ))}

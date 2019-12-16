@@ -19,7 +19,7 @@ describe('AllDayPanel', () => {
         .toBeTruthy();
       expect(tree.is(`.${classes.cell}`))
         .toBeTruthy();
-      expect(tree.is(`.${classes.lastHorizontalCell}`))
+      expect(tree.is(`.${classes.rightBorderCell}`))
         .toBeFalsy();
     });
     it('should pass rest props to the root element', () => {
@@ -32,10 +32,10 @@ describe('AllDayPanel', () => {
     });
     it('should render a cell with a bright border', () => {
       const tree = shallow((
-        <Cell isBorderRight />
+        <Cell hasRightBorder />
       ));
 
-      expect(tree.is(`.${classes.lastHorizontalCell}`))
+      expect(tree.is(`.${classes.rightBorderCell}`))
         .toBeTruthy();
     });
   });

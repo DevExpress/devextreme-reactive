@@ -30,5 +30,5 @@ export const addGroupInfoToCells: PureComputed<
   if (cellIndex !== viewCellRow.length - 1) {
     return { ...viewCell, groupingInfo };
   }
-  return { ...viewCell, groupingInfo, isBorderRight: true };
+  return { ...viewCell, groupingInfo, hasRightBorder: true };
 });

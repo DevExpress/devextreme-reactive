@@ -54,7 +54,7 @@ export namespace BaseView {
     /** The cell's group. */
     groupingInfo?: Array<GroupingItem>;
     /** Specifies whether the cell has the right border. */
-    isBorderRight?: boolean;
+    hasRightBorder?: boolean;
     /** Indicates whether the cell is shaded. */
     isShaded?: boolean;
     // tslint:disable-next-line: max-line-length
@@ -125,7 +125,7 @@ export namespace BaseView {
     /** The cell's group. */
     groupingInfo?: Array<GroupingItem>;
     /** Specifies whether the cell has the right border. */
-    isBorderRight?: boolean;
+    hasRightBorder?: boolean;
   }
   /** Describes properties passed to a component that renders the appointment layer. */
   export interface AppointmentLayerProps {

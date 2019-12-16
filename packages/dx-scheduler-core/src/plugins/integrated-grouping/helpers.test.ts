@@ -49,7 +49,7 @@ describe('IntegratedGrouping helpers', () => {
           startDate: new Date('2018-06-24 08:30'),
           endDate: new Date('2018-06-24 09:00'),
           groupingInfo: [groupingItems[0][0]],
-          isBorderRight: true,
+          hasRightBorder: true,
         }]);
     });
   });

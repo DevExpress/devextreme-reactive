@@ -65,7 +65,7 @@ describe('Horizontal view TimeTable', () => {
         .toHaveLength(0);
       expect(tree.find(`.${classes.text}`))
         .toHaveLength(1);
-      expect(tree.is(`.${classes.lastHorizontalCell}`))
+      expect(tree.is(`.${classes.rightBorderCell}`))
         .toBeFalsy();
     });
   });
@@ -117,10 +117,10 @@ describe('Horizontal view TimeTable', () => {
   });
   it('should render a cell with a bright border', () => {
     const tree = shallow((
-      <Cell {...defaultProps} isBorderRight />
+      <Cell {...defaultProps} hasRightBorder />
     ));
 
-    expect(tree.is(`.${classes.lastHorizontalCell}`))
+    expect(tree.is(`.${classes.rightBorderCell}`))
       .toBeTruthy();
   });
 });

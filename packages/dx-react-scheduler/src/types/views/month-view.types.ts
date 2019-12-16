@@ -37,7 +37,7 @@ export namespace MonthView {
     /** The cell's group. */
     groupingInfo?: Array<GroupingItem>;
     /** Specifies whether the cell has the right border. */
-    isBorderRight?: boolean;
+    hasRightBorder?: boolean;
     /** Indicates whether the cell is shaded. */
     isShaded?: boolean;
   }

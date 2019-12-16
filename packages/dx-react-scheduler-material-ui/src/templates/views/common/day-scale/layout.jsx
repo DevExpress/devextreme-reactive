@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const Layout = ({
+export const Layout = React.memo(({
   cellComponent: Cell,
   rowComponent: Row,
   groupingPanelComponent: GroupingPanel,
@@ -63,7 +63,7 @@ export const Layout = ({
       </TableBody>
     </TableMUI>
   );
-};
+});
 
 Layout.propTypes = {
   cellsData: PropTypes.arrayOf(Array).isRequired,

@@ -22,36 +22,39 @@ const priorityData = [
   { text: 'High Priority', id: 2, color: orange },
 ];
 
-const useStyles = makeStyles(({ spacing }) => ({
-  cell: {
-    backgroundColor: color => fade(color[400], 0.1),
-    '&:hover': {
-      backgroundColor: color => fade(color[400], 0.15),
-    },
-    '&:focus': {
-      backgroundColor: color => fade(color[400], 0.2),
-    },
-  },
-  headerCell: {
-    backgroundColor: color => fade(color[400], 0.1),
-    '&:hover': {
-      backgroundColor: color => fade(color[400], 0.1),
-    },
-    '&:focus': {
-      backgroundColor: color => fade(color[400], 0.1),
-    },
-  },
-  icon: {
-    paddingLeft: spacing(1),
-    verticalAlign: 'middle',
-  },
-}));
-
 const findColorByGroupId = id => (priorityData.find(item => item.id === id)).color;
 const getIconById = id => (id === 1 ? LowPriority : PriorityHigh);
 
+const useStyles = (groupingItem) => {
+  const color = findColorByGroupId(groupingItem.id);
+  return makeStyles(({ spacing }) => ({
+    cell: {
+      backgroundColor: fade(color[400], 0.1),
+      '&:hover': {
+        backgroundColor: fade(color[400], 0.15),
+      },
+      '&:focus': {
+        backgroundColor: fade(color[400], 0.2),
+      },
+    },
+    headerCell: {
+      backgroundColor: fade(color[400], 0.1),
+      '&:hover': {
+        backgroundColor: fade(color[400], 0.1),
+      },
+      '&:focus': {
+        backgroundColor: fade(color[400], 0.1),
+      },
+    },
+    icon: {
+      paddingLeft: spacing(1),
+      verticalAlign: 'middle',
+    },
+  }))();
+};
+
 const TimeTableCell = React.memo(({ groupingInfo, ...restProps }) => {
-  const classes = useStyles(findColorByGroupId(groupingInfo[0].id));
+  const classes = useStyles(groupingInfo[0]);
   return (
     <DayView.TimeTableCell
       className={classes.cell}
@@ -62,7 +65,7 @@ const TimeTableCell = React.memo(({ groupingInfo, ...restProps }) => {
 });
 
 const DayScaleCell = React.memo(({ groupingInfo, ...restProps }) => {
-  const classes = useStyles(findColorByGroupId(groupingInfo[0].id));
+  const classes = useStyles(groupingInfo[0]);
   return (
     <DayView.DayScaleCell
       className={classes.headerCell}
@@ -73,7 +76,7 @@ const DayScaleCell = React.memo(({ groupingInfo, ...restProps }) => {
 });
 
 const AllDayCell = React.memo(({ groupingInfo, ...restProps }) => {
-  const classes = useStyles(findColorByGroupId(groupingInfo[0].id));
+  const classes = useStyles(groupingInfo[0]);
   return (
     <AllDayPanel.Cell
       className={classes.cell}
@@ -84,7 +87,7 @@ const AllDayCell = React.memo(({ groupingInfo, ...restProps }) => {
 });
 
 const GroupingPanelCell = React.memo(({ groupingItem, ...restProps }) => {
-  const classes = useStyles(findColorByGroupId(groupingItem.id));
+  const classes = useStyles(groupingItem);
   const Icon = getIconById(groupingItem.id);
   return (
     <GroupingPanel.Cell

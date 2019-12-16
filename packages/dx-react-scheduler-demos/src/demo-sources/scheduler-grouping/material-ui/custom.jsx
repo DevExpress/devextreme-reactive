@@ -25,7 +25,7 @@ const priorityData = [
 const findColorByGroupId = id => (priorityData.find(item => item.id === id)).color;
 const getIconById = id => (id === 1 ? LowPriority : PriorityHigh);
 
-const useStyles = (groupingItem) => {
+const useGroupingStyles = (groupingItem) => {
   const color = findColorByGroupId(groupingItem.id);
   return makeStyles(({ spacing }) => ({
     cell: {
@@ -54,7 +54,7 @@ const useStyles = (groupingItem) => {
 };
 
 const TimeTableCell = React.memo(({ groupingInfo, ...restProps }) => {
-  const classes = useStyles(groupingInfo[0]);
+  const classes = useGroupingStyles(groupingInfo[0]);
   return (
     <DayView.TimeTableCell
       className={classes.cell}
@@ -65,7 +65,7 @@ const TimeTableCell = React.memo(({ groupingInfo, ...restProps }) => {
 });
 
 const DayScaleCell = React.memo(({ groupingInfo, ...restProps }) => {
-  const classes = useStyles(groupingInfo[0]);
+  const classes = useGroupingStyles(groupingInfo[0]);
   return (
     <DayView.DayScaleCell
       className={classes.headerCell}
@@ -76,7 +76,7 @@ const DayScaleCell = React.memo(({ groupingInfo, ...restProps }) => {
 });
 
 const AllDayCell = React.memo(({ groupingInfo, ...restProps }) => {
-  const classes = useStyles(groupingInfo[0]);
+  const classes = useGroupingStyles(groupingInfo[0]);
   return (
     <AllDayPanel.Cell
       className={classes.cell}
@@ -87,7 +87,7 @@ const AllDayCell = React.memo(({ groupingInfo, ...restProps }) => {
 });
 
 const GroupingPanelCell = React.memo(({ groupingItem, ...restProps }) => {
-  const classes = useStyles(groupingItem);
+  const classes = useGroupingStyles(groupingItem);
   const Icon = getIconById(groupingItem.id);
   return (
     <GroupingPanel.Cell

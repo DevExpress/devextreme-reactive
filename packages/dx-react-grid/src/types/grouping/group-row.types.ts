@@ -37,7 +37,7 @@ export namespace TableGroupRow {
     /** @internal */
     side: string;
     /* Summary items in this container. */
-    inlineSummaries: readonly InlineSummaryItemInfo[];
+    readonly inlineSummaries: Readonly<InlineSummaryItemInfo[]>;
     /* A component that renders a container for group summary items in a group caption. */
     inlineSummaryComponent: React.ComponentType<InlineSummaryProps>;
     /* A component that renders an inline group summary item. */
@@ -95,7 +95,7 @@ export namespace TableGroupRow {
     /* A function that uses the message ID to get a localized message. */
     getMessage: GetMessageFn;
     /* Summary items in this container. */
-    inlineSummaries: readonly InlineSummaryItemInfo[];
+    readonly inlineSummaries: InlineSummaryItemInfo[];
     /* A component that renders an inline group summary item. */
     inlineSummaryItemComponent: React.ComponentType<InlineSummaryItemProps>;
   }

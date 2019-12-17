@@ -178,7 +178,8 @@ const IndexPage = () => (
 
       <LandingChessBoardLayoutList data={pageData} />
 
-      <div className="py-3" />
+      <div style={{ padding: '2em 0' }} />
+
     </LandingAlternatedBackground>
     <LandingLayout>
       <LandingMaintainence />

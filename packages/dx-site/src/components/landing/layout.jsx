@@ -3,8 +3,8 @@ import * as PropTypes from 'prop-types';
 
 import styles from './layout.module.scss';
 
-const Layout = ({ children }) => (
-  <div className={styles.container}>
+const Layout = ({ children, ...restProps }) => (
+  <div {...restProps} className={styles.container}>
     <div className="container">
       <div className="row">
         {children}

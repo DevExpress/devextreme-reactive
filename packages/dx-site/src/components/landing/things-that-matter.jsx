@@ -4,7 +4,7 @@ import LandingIconFeature from './icon-feature';
 import styles from './things-that-matter.module.scss';
 
 export default () => (
-  <div className="container">
+  <div className={`container ${styles.container}`}>
     <div className="row">
       <LandingTitle text="And Things That Also Matter..." />
     </div>

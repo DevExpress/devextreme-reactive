@@ -206,7 +206,7 @@ const IndexPage = () => (
       <LandingChessBoardLayoutList data={pageData} colSize={6} />
     </AlternatedBackground>
 
-    <LandingLayout>
+    <LandingLayout style={{ paddingTop: '2em', paddingBottom: '2em' }}>
       <LandingTitle text="Native Support for the UI Library of Your Choice" />
       <LandingImageFeature
         imageLink={bootstrapThemeLink}

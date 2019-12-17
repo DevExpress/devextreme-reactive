@@ -4,25 +4,26 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing
 import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import {
   allDayCells,
-  allDayRects,
   getAppointmentStyle,
+  calculateAllDayDateIntervals,
 } from '@devexpress/dx-scheduler-core';
 import { AllDayPanel } from './all-day-panel';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   allDayCells: jest.fn(),
-  allDayRects: jest.fn(),
   getAppointmentStyle: jest.fn(),
+  calculateAllDayDateIntervals: jest.fn(),
 }));
 
 const defaultDeps = {
   getter: {
     currentDate: '2018-07-04',
     currentView: 'week',
-    startViewDate: '',
-    endViewDate: '',
+    startViewDate: '2018-07-04',
+    endViewDate: '2018-07-06',
     excludedDays: [],
     formatDate: jest.fn(),
+    appointments: [],
   },
   template: {
     body: {},
@@ -49,8 +50,8 @@ const defaultProps = {
 describe('AllDayPanel', () => {
   beforeEach(() => {
     allDayCells.mockImplementation(() => [[{}]]);
-    allDayRects.mockImplementation(() => [{ data: 1 }]);
     getAppointmentStyle.mockImplementation(() => undefined);
+    calculateAllDayDateIntervals.mockImplementation(() => 'allDayAppointments');
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -73,15 +74,29 @@ describe('AllDayPanel', () => {
       const setCellElementsMeta = tree.find(defaultProps.layoutComponent)
         .props().setCellElementsMeta;
       setCellElementsMeta('elementsMeta');
-
-      const allDayPanelState = tree.find(AllDayPanel).state();
-      expect(allDayPanelState.rects)
-        .toEqual([{ data: 1 }]);
-
       tree.update();
 
       expect(getComputedState(tree).allDayElementsMeta)
         .toEqual('elementsMeta');
+    });
+
+    it('should provide "allDayAppointments" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <AllDayPanel
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).allDayAppointments)
+        .toEqual('allDayAppointments');
+      const endDate = new Date('2018-07-06');
+      endDate.setHours(23);
+      endDate.setMinutes(59);
+      expect(calculateAllDayDateIntervals)
+        .toHaveBeenCalledWith([], new Date(2018, 6, 4, 0, 0), new Date(2018, 6, 6, 23, 59), []);
     });
   });
 
@@ -149,31 +164,31 @@ describe('AllDayPanel', () => {
         .toBeTruthy();
     });
 
-    it('should call allDayRects with correct parameters', () => {
-      const deps = {
-        getter: {
-          startViewDate: new Date(2018, 6, 4, 22, 23),
-          endViewDate: new Date(2018, 6, 6, 14, 15),
-          appointments: 'test appointments',
-          viewCellsData: 'test view cells data',
-        },
-      };
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps, deps)}
-          <AllDayPanel
-            {...defaultProps}
-          />
-          <TemplatePlaceholder name="allDayPanelCell" />
-        </PluginHost>
-      ));
+    // it('should call calculateAllDayDateIntervals with correct parameters', () => {
+    //   const deps = {
+    //     getter: {
+    //       startViewDate: new Date(2018, 6, 4, 22, 23),
+    //       endViewDate: new Date(2018, 6, 6, 14, 15),
+    //       appointments: 'test appointments',
+    //       viewCellsData: 'test view cells data',
+    //     },
+    //   };
+    //   const tree = mount((
+    //     <PluginHost>
+    //       {pluginDepsToComponents(defaultDeps, deps)}
+    //       <AllDayPanel
+    //         {...defaultProps}
+    //       />
+    //       <TemplatePlaceholder name="allDayPanelCell" />
+    //     </PluginHost>
+    //   ));
 
-      tree.find(defaultProps.layoutComponent).prop('setCellElementsMeta')('test');
-      expect(allDayRects)
-        .toHaveBeenCalledWith(
-          'test appointments', new Date(2018, 6, 4, 0, 0), new Date(2018, 6, 6, 23, 59),
-          [], 'test view cells data', 'test',
-        );
-    });
+    //   tree.find(defaultProps.layoutComponent).prop('setCellElementsMeta')('test');
+    //   expect(calculateAllDayDateIntervals)
+    //     .toHaveBeenCalledWith(
+    //       'test appointments', new Date(2018, 6, 4, 0, 0), new Date(2018, 6, 6, 23, 59),
+    //       [], 'test view cells data', 'test',
+    //     );
+    // });
   });
 });

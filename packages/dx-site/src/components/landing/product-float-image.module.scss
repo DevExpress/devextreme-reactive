@@ -21,17 +21,16 @@
 
 .image {
   position: absolute;
-  // top: -470px;
-  // left: 0;
-  max-width: 727px;
+  // left: 0; 536 > 477
+  max-width: 647px;
 }
 
 .image {
   left: 40px;
-  top: -460px;
+  top: -390px;
 
   &.indexImage {
-    top: -600px;
+    top: -610px;
   }
 
   @media (min-width: 680px) {
@@ -46,18 +45,18 @@
   }
 
   @media (min-width: 1000px) {
-    top: -450px;
+    top: -380px;
 
     &.indexImage {
-      top: -400px;
+      top: -350px;
     }
   }
 
   @media (min-width: 1280px) {
-    top: -450px;
+    top: -390px;
 
     &.indexImage {
-      top: -450px;
+      top: -390px;
     }
   }
 

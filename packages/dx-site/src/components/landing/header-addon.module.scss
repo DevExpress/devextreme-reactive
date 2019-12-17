@@ -29,14 +29,18 @@
   padding-bottom: 30px;
 
   @media screen and (min-width: 640px) {
-    padding-bottom: 260px;
+    padding-bottom: 210px;
   }
   @media screen and (min-width: 800px) {
     padding-top: 40px;
-    padding-bottom: 190px;
+    padding-bottom: 160px;
+  }
+  @media screen and (min-width: 1000px) {
+    padding-top: 40px;
+    padding-bottom: 150px;
   }
   @media screen and (min-width: 1280px) {
-    padding-bottom: 110px;
+    padding-bottom: 81px;
   }
 }
 
@@ -54,6 +58,9 @@
   }
   @media screen and (min-width: 1000px) {
     padding-bottom: 220px;
+  }
+  @media screen and (min-width: 1280px) {
+    padding-bottom: 160px;
   }
 }
 

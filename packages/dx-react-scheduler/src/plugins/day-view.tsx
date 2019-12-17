@@ -7,7 +7,9 @@ import {
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
-  viewCellsData as viewCellsDataCore, verticalTimeTableRects } from '@devexpress/dx-scheduler-core';
+  viewCellsData as viewCellsDataCore,
+  calculateWeekDateIntervals as calculateWeekDateIntervalsCore,
+} from '@devexpress/dx-scheduler-core';
 import { BasicView } from './basic-view';
 import { VerticalViewProps } from '../types';
 
@@ -22,6 +24,11 @@ const viewCellsDataBaseComputed = (
     Date.now(),
   );
 };
+const calculateAppointmentsIntervalsBaseComputed = cellDuration => ({
+  appointments, startViewDate, endViewDate, excludedDays,
+}) => calculateWeekDateIntervalsCore(
+  appointments, startViewDate, endViewDate, excludedDays, cellDuration,
+);
 const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
 const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 
@@ -88,6 +95,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps> {
           displayName={displayName}
           startDayHour={startDayHour}
           endDayHour={endDayHour}
+          calculateAppointmentsIntervals={calculateAppointmentsIntervalsBaseComputed}
           dayScaleLayoutComponent={dayScaleLayoutComponent}
           dayScaleCellComponent={dayScaleCellComponent}
           dayScaleRowComponent={dayScaleRowComponent}
@@ -95,7 +103,6 @@ class DayViewBase extends React.PureComponent<VerticalViewProps> {
           timeTableLayoutComponent={timeTableLayoutComponent}
           timeTableRowComponent={timeTableRowComponent}
           appointmentLayerComponent={appointmentLayerComponent}
-          timeTableRects={verticalTimeTableRects}
           layoutComponent={layoutComponent}
           layoutProps={{
             dayScaleEmptyCellComponent: DayScaleEmptyCellPlaceholder,

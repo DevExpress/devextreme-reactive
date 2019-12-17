@@ -1,9 +1,8 @@
-import { ElementRect, CellElementsMeta, FormatterFn, BaseView } from '../index';
+import { CellElementsMeta, FormatterFn, BaseView } from '../index';
 
 /* tslint:disable no-namespace max-line-length no-empty-interface */
 /** @internal */
 export interface AllDayPanelState {
-  readonly rects: Readonly<ElementRect[]>;
   elementsMeta: CellElementsMeta | {};
 }
 

@@ -1,26 +1,20 @@
 import * as React from 'react';
 import { Plugin, PluginComponents } from '@devexpress/dx-react-core';
-import { monthCellsData, horizontalTimeTableRects } from '@devexpress/dx-scheduler-core';
+import { monthCellsData, calculateMonthDateIntervals as calculateMonthDateIntervalsCore } from '@devexpress/dx-scheduler-core';
 import { BasicView } from './basic-view';
 import { MonthViewProps } from '../types';
-
-const timeTableRects = (
-  appointments, startViewDate, endViewDate, excludedDays,
-  viewCellsData, cellDuration, cellElementsMeta,
-) => horizontalTimeTableRects(
-  appointments, startViewDate, endViewDate,
-  viewCellsData, cellElementsMeta,
-);
 
 const TYPE = 'month';
 const viewCellsDataBaseComputed = (
   cellDuration, startDayHour, endDayHour,
-) => ({ currentDate, firstDayOfWeek, intervalCount }) => {
-  return monthCellsData(
-    currentDate, firstDayOfWeek,
-    intervalCount!, Date.now(),
-  );
-};
+) => ({ currentDate, firstDayOfWeek, intervalCount }) => monthCellsData(
+  currentDate, firstDayOfWeek, intervalCount!, Date.now(),
+);
+const calculateAppointmentsIntervalsBaseComputed = cellDuration => ({
+  appointments, startViewDate, endViewDate, excludedDays,
+}) => calculateMonthDateIntervalsCore(
+  appointments, startViewDate, endViewDate,
+);
 
 class MonthViewBase extends React.PureComponent<MonthViewProps> {
   static defaultProps: Partial<MonthViewProps> = {
@@ -65,6 +59,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps> {
           name={viewName}
           intervalCount={intervalCount}
           displayName={displayName}
+          calculateAppointmentsIntervals={calculateAppointmentsIntervalsBaseComputed}
           dayScaleLayoutComponent={dayScaleLayoutComponent}
           dayScaleCellComponent={dayScaleCellComponent}
           dayScaleRowComponent={dayScaleRowComponent}
@@ -72,7 +67,6 @@ class MonthViewBase extends React.PureComponent<MonthViewProps> {
           timeTableLayoutComponent={timeTableLayoutComponent}
           timeTableRowComponent={timeTableRowComponent}
           appointmentLayerComponent={appointmentLayerComponent}
-          timeTableRects={timeTableRects}
           layoutComponent={layoutComponent}
         />
       </Plugin>

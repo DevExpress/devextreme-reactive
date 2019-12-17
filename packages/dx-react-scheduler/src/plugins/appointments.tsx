@@ -3,9 +3,15 @@ import {
   Plugin, Template, TemplatePlaceholder, TemplateConnector, PluginComponents,
 } from '@devexpress/dx-react-core';
 import { createClickHandlers } from '@devexpress/dx-core';
-import { POSITION_START, POSITION_END } from '@devexpress/dx-scheduler-core';
+import {
+  POSITION_START, POSITION_END, VERTICAL_TYPE,
+  getVerticalRectByDates, calculateRectByDateIntervals,
+  getAppointmentStyle, HORIZONTAL_TYPE, getHorizontalRectByDates,
+} from '@devexpress/dx-scheduler-core';
 
 import { AppointmentsProps } from '../types';
+
+const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
 
 const pluginDependencies = [
   { name: 'DayView', optional: true },
@@ -36,6 +42,120 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
         name="Appointments"
         dependencies={pluginDependencies}
       >
+        <Template
+          name="timeTableAppointmentLayer"
+        >
+          <TemplateConnector>
+            {({
+              timeTableAppointments, viewCellsData, timeTableElementsMeta, currentView,
+              startViewDate, endViewDate, cellDuration,
+            }) => {
+              if (!timeTableElementsMeta.getCellRects) return null;
+              if (currentView.type !== 'month') {
+                const rects = calculateRectByDateIntervals(
+                  {
+                    growDirection: VERTICAL_TYPE,
+                    multiline: false,
+                  },
+                  timeTableAppointments,
+                  getVerticalRectByDates,
+                  {
+                    startViewDate,
+                    endViewDate,
+                    viewCellsData,
+                    cellDuration,
+                    cellElementsMeta: timeTableElementsMeta,
+                  },
+                );
+                return rects.map(({
+                  dataItem, type: rectType, fromPrev, toNext,
+                  durationType, resources, ...geometry
+                }, index) => (
+                  <AppointmentPlaceholder
+                    key={index.toString()}
+                    type={rectType}
+                    data={dataItem}
+                    fromPrev={fromPrev}
+                    toNext={toNext}
+                    durationType={durationType}
+                    resources={resources}
+                    style={getAppointmentStyle(geometry)}
+                  />
+                ));
+              }
+              const rects = calculateRectByDateIntervals(
+                {
+                  growDirection: HORIZONTAL_TYPE,
+                  multiline: true,
+                },
+                timeTableAppointments,
+                getHorizontalRectByDates,
+                {
+                  startViewDate,
+                  endViewDate,
+                  viewCellsData,
+                  cellElementsMeta: timeTableElementsMeta,
+                },
+              );
+              return rects.map(({
+                dataItem, type: rectType, fromPrev, toNext,
+                durationType, resources, ...geometry
+              }, index) => (
+                <AppointmentPlaceholder
+                  key={index.toString()}
+                  type={rectType}
+                  data={dataItem}
+                  fromPrev={fromPrev}
+                  toNext={toNext}
+                  durationType={durationType}
+                  resources={resources}
+                  style={getAppointmentStyle(geometry)}
+                />
+              ));
+            }}
+          </TemplateConnector>
+        </Template>
+        <Template
+          name="allDayAppointmentLayer"
+        >
+          <TemplateConnector>
+            {({
+              allDayAppointments, viewCellsData, timeTableElementsMeta,
+              startViewDate, endViewDate,
+            }) => {
+              if (!timeTableElementsMeta.getCellRects || !allDayAppointments) return null;
+              const rects = calculateRectByDateIntervals(
+                {
+                  growDirection: HORIZONTAL_TYPE,
+                  multiline: false,
+                },
+                allDayAppointments,
+                getHorizontalRectByDates,
+                {
+                  startViewDate,
+                  endViewDate,
+                  viewCellsData,
+                  cellElementsMeta: timeTableElementsMeta,
+                },
+              );
+              return rects.map(({
+                dataItem, type: rectType, fromPrev, toNext,
+                durationType, resources, ...geometry
+              }, index) => (
+                <AppointmentPlaceholder
+                  key={index.toString()}
+                  type={rectType}
+                  data={dataItem}
+                  fromPrev={fromPrev}
+                  toNext={toNext}
+                  durationType={durationType}
+                  resources={resources}
+                  style={getAppointmentStyle(geometry)}
+                />
+              ));
+            }}
+          </TemplateConnector>
+        </Template>
         <Template
           name="appointment"
         >

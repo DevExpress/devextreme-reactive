@@ -12,7 +12,6 @@ import {
 
 /** @internal */
 export type BasicViewState = {
-  readonly rects: Readonly<ElementRect[]>;
   scrollingStrategy: ScrollingStrategy;
   timeTableElementsMeta: CellElementsMeta | {};
 };
@@ -31,8 +30,8 @@ export interface BasicViewProps extends CommonViewProps {
   endDayHour?: number;
   /** Specifies the days of week that should not be displayed on the view. Accepts an array of zero-based day indexes (0 - Sunday). */
   excludedDays?: number[];
-  /** The function that calculate time table appointment rects */
-  timeTableRects: any;
+  /** A function that calculates appointments' time intervals. */
+  calculateAppointmentsIntervals: any;
   /** The properties that passed into layout component */
   layoutProps?: {
     dayScaleEmptyCellComponent: React.ComponentType<BaseView.DayScaleEmptyCellProps>,

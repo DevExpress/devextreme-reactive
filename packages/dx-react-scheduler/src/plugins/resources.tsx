@@ -1,14 +1,25 @@
 import * as React from 'react';
-import { Plugin, Getter, Template, TemplatePlaceholder, TemplateConnector, Getters } from '@devexpress/dx-react-core';
-import { convertResourcesToPlain, validateResources, getAppointmentResources } from '@devexpress/dx-scheduler-core';
+import { Plugin, Getter, Getters } from '@devexpress/dx-react-core';
+import {
+  convertResourcesToPlain, validateResources, addResourcesToAppointments,
+} from '@devexpress/dx-scheduler-core';
 import { ResourcesProps } from '../types/resources/resources.types';
-import { Appointments } from '../types';
+import { memoize } from '@devexpress/dx-core';
 
 const pluginDependencies = [
   { name: 'Appointments' },
 ];
 
-const ResourcesBase: React.SFC<ResourcesProps> = ({
+const addResourcesToTimeTableAppointments = memoize(({
+  timeTableAppointments, resources, plainResources,
+}) => timeTableAppointments
+  && addResourcesToAppointments(timeTableAppointments[0], resources, plainResources));
+const addResourcesToAllDayAppointments = memoize(({
+    allDayAppointments, resources, plainResources,
+  }) => allDayAppointments
+    && addResourcesToAppointments(allDayAppointments[0], resources, plainResources));
+
+const ResourcesBase: React.SFC<ResourcesProps> = React.memo(({
   data, mainResourceName, palette,
 }) => {
   const convertResources = ({ resources }: Getters) =>
@@ -21,26 +32,11 @@ const ResourcesBase: React.SFC<ResourcesProps> = ({
   >
     <Getter name="resources" value={validateResources(data, mainResourceName, palette)} />
     <Getter name="plainResources" computed={convertResources} />
-
-    <Template name="appointment">
-      {(params: Appointments.AppointmentProps) => (
-        <TemplateConnector>
-          {({ resources, plainResources }) => {
-            return (
-              <TemplatePlaceholder
-                params={{
-                  ...params,
-                  resources: getAppointmentResources(params.data as any, resources, plainResources),
-                }}
-              />
-            );
-          }}
-        </TemplateConnector>
-      )}
-    </Template>
+    <Getter name="timeTableAppointments" computed={addResourcesToTimeTableAppointments} />
+    <Getter name="allDayAppointments" computed={addResourcesToAllDayAppointments} />
   </Plugin>
   );
-};
+});
 
 /** A plugin that manages schedule's resources. */
 export const Resources: React.ComponentType<ResourcesProps> = ResourcesBase;

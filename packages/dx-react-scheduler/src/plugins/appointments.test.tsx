@@ -4,6 +4,9 @@ import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { createClickHandlers } from '@devexpress/dx-core';
 import { Appointments } from './appointments';
+import {
+  calculateRectByDateIntervals, getVerticalRectByDates, getHorizontalRectByDates,
+} from '@devexpress/dx-scheduler-core';
 
 // eslint-disable-next-line react/prop-types
 const Appointment = ({ children }) => <div>{children}</div>;
@@ -24,32 +27,51 @@ const defaultProps = {
 jest.mock('@devexpress/dx-core', () => ({
   ...require.requireActual('@devexpress/dx-core'),
   createClickHandlers: jest.fn(),
+  calculateRectByDateIntervals: jest.fn(),
+}));
+
+jest.mock('@devexpress/dx-scheduler-core', () => ({
+  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  getVerticalRectByDates: jest.fn(),
+  getHorizontalRectByDates: jest.fn(),
+  calculateRectByDateIntervals: jest.fn(),
 }));
 
 const defaultDeps = {
   getter: {
     formatDate: jest.fn(),
+    viewCellsData: [],
+    timeTableAppointments: [],
+    allDayAppointments: [],
+    timeTableElementsMeta: { getCellRects: 'getCellRects' },
+    allDayElementsMeta: { getCellRects: 'getCellRects' },
+    currentView: 'day',
+    startViewDate: '',
+    endViewDate: '',
+    cellDuration: '',
   },
   template: {
-    appointment: {
-      type: 'horizontal',
-      data: {
-        title: 'a',
-        endDate: '2018-07-05',
-        startDate: '2018-07-06',
-      },
-      resources: [],
-      onClick: 'onClick',
-      onDoubleClick: 'onDoubleClick',
-      style: {
-        height: 150,
-        width: '60%',
-        transform: 'translateY(10px)',
-        msTransform: 'translateY(10px)',
-        left: '20%',
-        position: 'absolute',
-      },
-    },
+    // appointment: {
+    //   type: 'horizontal',
+    //   data: {
+    //     title: 'a',
+    //     endDate: '2018-07-05',
+    //     startDate: '2018-07-06',
+    //   },
+    //   resources: [],
+    //   onClick: 'onClick',
+    //   onDoubleClick: 'onDoubleClick',
+    //   style: {
+    //     height: 150,
+    //     width: '60%',
+    //     transform: 'translateY(10px)',
+    //     msTransform: 'translateY(10px)',
+    //     left: '20%',
+    //     position: 'absolute',
+    //   },
+    // },
+    timeTableAppointmentLayer: {},
+    allDayAppointmentLayer: {},
   },
 };
 
@@ -59,6 +81,7 @@ describe('Appointments', () => {
       onClick: click,
       onDoubleClick: dblClick,
     }));
+    calculateRectByDateIntervals.mockImplementation(() => []);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -270,5 +293,72 @@ describe('Appointments', () => {
       position: 'end',
       appointmentType: 'horizontal',
     });
+  });
+  it('should render "timeTableAppointmentLayer" template when currentView is not "month"', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <Appointments
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    const timeTableAppointmentsLayer = tree.findWhere(
+      node => node.prop('name') === 'timeTableAppointmentLayer',
+    ).at(0);
+
+    expect(timeTableAppointmentsLayer.exists())
+      .toBeTruthy();
+    expect(calculateRectByDateIntervals)
+      .toHaveBeenCalledWith(
+        { growDirection: 'vertical', multiline: false },
+        defaultDeps.getter.timeTableAppointments,
+        getVerticalRectByDates,
+      {
+        startViewDate: defaultDeps.getter.startViewDate,
+        endViewDate: defaultDeps.getter.endViewDate,
+        cellDuration: defaultDeps.getter.cellDuration,
+        viewCellsData: defaultDeps.getter.viewCellsData,
+        cellElementsMeta: defaultDeps.getter.timeTableElementsMeta,
+      },
+      );
+  });
+  it('should render "timeTableAppointmentLayer" template when currentView is "month"', () => {
+    const deps = {
+      getter: {
+        currentView: {
+          type: 'month',
+        },
+      },
+    };
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps, deps)}
+        <Appointments
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    const timeTableAppointmentsLayer = tree.findWhere(
+      node => node.prop('name') === 'timeTableAppointmentLayer',
+    ).at(0);
+
+    expect(timeTableAppointmentsLayer.exists())
+      .toBeTruthy();
+    expect(calculateRectByDateIntervals)
+      .toHaveBeenCalledWith(
+        { growDirection: 'horizontal', multiline: true },
+        defaultDeps.getter.timeTableAppointments,
+        getHorizontalRectByDates,
+      {
+        startViewDate: defaultDeps.getter.startViewDate,
+        endViewDate: defaultDeps.getter.endViewDate,
+        cellDuration: defaultDeps.getter.cellDuration,
+        viewCellsData: defaultDeps.getter.viewCellsData,
+        cellElementsMeta: defaultDeps.getter.timeTableElementsMeta,
+      },
+      );
   });
 });

@@ -163,32 +163,5 @@ describe('AllDayPanel', () => {
       expect(tree.find(defaultProps.cellComponent).exists())
         .toBeTruthy();
     });
-
-    // it('should call calculateAllDayDateIntervals with correct parameters', () => {
-    //   const deps = {
-    //     getter: {
-    //       startViewDate: new Date(2018, 6, 4, 22, 23),
-    //       endViewDate: new Date(2018, 6, 6, 14, 15),
-    //       appointments: 'test appointments',
-    //       viewCellsData: 'test view cells data',
-    //     },
-    //   };
-    //   const tree = mount((
-    //     <PluginHost>
-    //       {pluginDepsToComponents(defaultDeps, deps)}
-    //       <AllDayPanel
-    //         {...defaultProps}
-    //       />
-    //       <TemplatePlaceholder name="allDayPanelCell" />
-    //     </PluginHost>
-    //   ));
-
-    //   tree.find(defaultProps.layoutComponent).prop('setCellElementsMeta')('test');
-    //   expect(calculateAllDayDateIntervals)
-    //     .toHaveBeenCalledWith(
-    //       'test appointments', new Date(2018, 6, 4, 0, 0), new Date(2018, 6, 6, 23, 59),
-    //       [], 'test view cells data', 'test',
-    //     );
-    // });
   });
 });

@@ -2,7 +2,6 @@ import {
   ViewCell,
   ScrollingStrategy,
   CellElementsMeta,
-  ElementRect,
   MonthView,
   BaseView,
   CommonViewProps,

@@ -17,5 +17,5 @@ export const CELL_WIDTH = 100;
 export const XS_LAYOUT_WIDTH = 500;
 export const SMALL_LAYOUT_WIDTH = 700;
 
-export const XS_LAYOUT = `@media (max-width: ${XS_LAYOUT_WIDTH}px)`;
-export const SMALL_LAYOUT = `@media (max-width: ${SMALL_LAYOUT_WIDTH}px)`;
+export const SMALL_LAYOUT_MEDIA_QUERY = `@media (max-width: ${XS_LAYOUT_WIDTH}px)`;
+export const LAYOUT_MEDIA_QUERY = `@media (max-width: ${SMALL_LAYOUT_WIDTH}px)`;

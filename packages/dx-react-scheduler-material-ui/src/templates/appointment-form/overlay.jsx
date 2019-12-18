@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import Drawer from '@material-ui/core/Drawer';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
-import { TRANSITIONS_TIME, SMALL_LAYOUT } from '../constants';
+import { TRANSITIONS_TIME, LAYOUT_MEDIA_QUERY } from '../constants';
 
 const styles = ({ spacing }) => ({
   root: {
@@ -28,7 +28,7 @@ const styles = ({ spacing }) => ({
     '@media (min-width: 1000px) and (max-width: 1150px)': {
       width: '1000px',
     },
-    [`${SMALL_LAYOUT}`]: {
+    [`${LAYOUT_MEDIA_QUERY}`]: {
       width: '100%',
       maxWidth: '700px',
     },
@@ -36,7 +36,7 @@ const styles = ({ spacing }) => ({
   halfSize: {
     height: '100%',
     width: '650px',
-    [`${SMALL_LAYOUT}`]: {
+    [`${LAYOUT_MEDIA_QUERY}`]: {
       width: '100%',
       maxWidth: '700px',
     },

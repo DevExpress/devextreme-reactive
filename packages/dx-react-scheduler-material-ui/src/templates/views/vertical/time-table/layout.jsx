@@ -7,17 +7,17 @@ import classNames from 'clsx';
 import { cellsMeta, getWidthInPixels, getViewCellKey } from '../../../utils';
 import {
   CELL_WIDTH, SMALL_CELL_WIDTH,
-  XS_CELL_WIDTH, XS_LAYOUT, SMALL_LAYOUT,
+  XS_CELL_WIDTH, SMALL_LAYOUT_MEDIA_QUERY, LAYOUT_MEDIA_QUERY,
 } from '../../../constants';
 
 const useStyles = makeStyles({
   table: {
     tableLayout: 'fixed',
     minWidth: cellsNumber => getWidthInPixels(cellsNumber, CELL_WIDTH),
-    [`${SMALL_LAYOUT}`]: {
+    [`${LAYOUT_MEDIA_QUERY}`]: {
       minWidth: cellsNumber => getWidthInPixels(cellsNumber, SMALL_CELL_WIDTH),
     },
-    [`${XS_LAYOUT}`]: {
+    [`${SMALL_LAYOUT_MEDIA_QUERY}`]: {
       minWidth: cellsNumber => getWidthInPixels(cellsNumber, XS_CELL_WIDTH),
     },
     width: '100%',

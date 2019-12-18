@@ -3,13 +3,13 @@ import * as PropTypes from 'prop-types';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
-import { XS_LAYOUT } from '../constants';
+import { SMALL_LAYOUT_MEDIA_QUERY } from '../constants';
 
 const styles = ({ typography }) => ({
   title: {
     ...typography.h6,
   },
-  [`${XS_LAYOUT}`]: {
+  [`${SMALL_LAYOUT_MEDIA_QUERY}`]: {
     title: {
       fontSize: '1.1rem',
     },

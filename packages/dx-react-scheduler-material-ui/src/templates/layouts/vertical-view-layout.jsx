@@ -93,14 +93,14 @@ class VerticalViewLayoutBase extends React.PureComponent {
 
   setBorders(event) {
     const { isLeftBorderSet, isTopBorderSet } = this.state;
-    if ((!event.target.scrollLeft && isLeftBorderSet)
-      || (event.target.scrollLeft && !isLeftBorderSet)) {
+    // eslint-disable-next-line no-bitwise
+    if ((!!event.target.scrollLeft ^ isLeftBorderSet)) {
       this.setState({
         isLeftBorderSet: !isLeftBorderSet,
       });
     }
-    if ((!event.target.scrollTop && isTopBorderSet)
-        || (event.target.scrollTop && !isTopBorderSet)) {
+    // eslint-disable-next-line no-bitwise
+    if (!!event.target.scrollTop ^ isTopBorderSet) {
       this.setState({
         isTopBorderSet: !isTopBorderSet,
       });

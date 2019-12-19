@@ -431,7 +431,7 @@ class Demo extends React.PureComponent {
             endDayHour={endDayHour}
           />
           <MonthView />
-          <AllDayPanel />
+          {/* <AllDayPanel /> */}
           <EditRecurrenceMenu />
           <Appointments />
           <AppointmentTooltip

@@ -152,7 +152,6 @@ export const adjustAppointments: CustomFunction<
 > = (groups, byDay = false) => groups.map((items) => {
   let offset = 0;
   let reduceValue = 1;
-  // const appointments = items.slice();
   const appointments = items.map((appointment: any) => ({ ...appointment }));
   const groupLength = appointments.length;
   for (let startIndex = 0; startIndex < groupLength; startIndex += 1) {

@@ -1,3 +1,14 @@
+# [2.3.2](https://github.com/DevExpress/devextreme-reactive/compare/v2.3.1...v2.3.2) (2019-12-19)
+
+
+### Bug Fixes
+
+* **react-grid:** Adjust readonly property to match Typescript spec ([#2597](https://github.com/DevExpress/devextreme-reactive/issues/2597)) ([abe64f3](https://github.com/DevExpress/devextreme-reactive/commit/abe64f3e9e77330ca062eea5fb254b96fb040abc))
+* **react-grid-demos:** show no data message after scrolling and filtering ([#2591](https://github.com/DevExpress/devextreme-reactive/issues/2591)) ([b8d60f1](https://github.com/DevExpress/devextreme-reactive/commit/b8d60f114ae86e8522fecad794d7378d6e985f18))
+* **react-scheduler-material-ui:** do not show comma in zero-time appointments' title if the title is undefined ([#2596](https://github.com/DevExpress/devextreme-reactive/issues/2596)) ([4be4e92](https://github.com/DevExpress/devextreme-reactive/commit/4be4e921d506254ccf83cf1efbe53c8fbb8e6f51))
+
+
+
 # [2.3.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.3.0...v2.3.1) (2019-12-05)
 
 

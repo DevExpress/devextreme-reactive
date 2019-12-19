@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-core",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "Core library for DevExtreme React Components",
   "author": {
     "name": "Developer Express Inc.",
@@ -59,10 +59,10 @@
     "ts-jest": "^24.1.0",
     "tslint": "^5.20.1",
     "tslint-config-airbnb": "^5.11.2",
-    "typescript": "3.7.2"
+    "typescript": "3.7.3"
   },
   "dependencies": {
-    "@devexpress/dx-core": "2.3.1",
+    "@devexpress/dx-core": "2.3.2",
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {

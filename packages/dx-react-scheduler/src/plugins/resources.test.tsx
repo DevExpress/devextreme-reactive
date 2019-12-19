@@ -73,21 +73,6 @@ describe('Resources', () => {
     expect(getComputedState(tree).plainResources)
       .toBe('plainResources');
   });
-  it('should provide the "plainResources" getter', () => {
-    const tree = mount((
-      <PluginHost>
-      {pluginDepsToComponents(defaultDeps)}
-        <Resources
-          data={[]}
-        />
-      </PluginHost>
-    ));
-
-    expect(convertResourcesToPlain)
-      .toBeCalledWith('validResources');
-    expect(getComputedState(tree).plainResources)
-      .toBe('plainResources');
-  });
   it('should provide the "timeTableAppointments" getter', () => {
     const tree = mount((
       <PluginHost>

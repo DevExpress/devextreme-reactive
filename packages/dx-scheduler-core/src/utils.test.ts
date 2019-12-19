@@ -249,6 +249,12 @@ describe('Utils', () => {
           },
         ]);
     });
+    it('shouldn\'t change appointments but should create new ones and change them instead', () => {
+      const groups = [[{ ...appointmentsBase[0] }]];
+      const result = adjustAppointments(groups, true);
+      expect(result[0].items[0])
+        .not.toBe(groups[0][0]);
+    });
   });
   describe('#unwrapGroups', () => {
     it('should calculate appointment offset and reduce coefficient', () => {

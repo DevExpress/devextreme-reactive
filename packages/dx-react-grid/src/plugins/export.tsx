@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  Plugin, Getter, Action, Getters, Actions,
+  Plugin, Action, Getters, Actions,
 } from '@devexpress/dx-react-core';
 import { Workbook } from 'exceljs';
 import { Table } from '@devexpress/dx-react-grid';
@@ -39,7 +39,7 @@ class ExportBase extends React.PureComponent<ExporterProps> {
 
     exportHeader(worksheet, columns);
 
-    const outlineLevels = grouping.reduce((acc, { columnName }, index) => ({ ...acc, [columnName]: index }), {});
+    const outlineLevels = grouping?.reduce((acc, { columnName }, index) => ({ ...acc, [columnName]: index }), {});
 
     // console.log(worksheet.columns, outlineLevels)
 
@@ -71,7 +71,7 @@ class ExportBase extends React.PureComponent<ExporterProps> {
 
       groupSummaryItems.forEach((s) => {
         exportSummary(s, start, end)
-      })
+      });
     };
 
     const closeSheet = () => {
@@ -79,49 +79,79 @@ class ExportBase extends React.PureComponent<ExporterProps> {
 
       totalSummaryItems.forEach((s) => {
         exportSummary(s, 2, worksheet.rowCount - 1)
-      })
+      });
     }
 
     const groupRanges = {};
 
     let currentLevel = 0;
     let currentGroup: any | null = null;
+    let openGroups: any[] = [];
+    // const groupTree = {};
+    // let rowType: string = '';
+
+    // let currentGroup;
+    // asia: [health, care]
+    // asia|health: [2, 4]
+    // asia|care: [5, 8]
+    const groupTree = allRows.reduce((acc, row) => {
+      const level = outlineLevels[row.groupedBy];
+      if (level === 0) {
+        return {...acc, [row.compoundKey]: {} };
+      }
+      
+    }, {});
+
+    allRows.forEach((row) => {
+      
+    });
+
+
     allRows.forEach((row) => {
       let r;
 
       if (row.groupedBy) {
-        console.log(row)
+        currentLevel = outlineLevels[row.groupedBy];
+
+        openGroups = [...openGroups.slice(0, currentLevel), row.compoundKey];
+
         if (currentGroup !== null) {
           currentGroup.end = worksheet.lastRow!.number;
-          // groupRanges[row.]
+          groupRanges[row.compoundKey] = {};
+          console.log(row)
           closeGroup(currentGroup);
         }
 
         const lastIndex = worksheet.lastRow!.number;
         currentGroup = { start: lastIndex, groupedBy: row.groupedBy, level: outlineLevels[row.groupedBy] + 1 }
 
+        // add group row 
         const title = dataColumns.find(({ name }) => name === row.groupedBy).title;
-        r = { [columns[0].name]: `${title}: ${row.value}` };
+        r = { [columns[0].column.name]: `${title}: ${row.value}` };
+
         worksheet.addRow(r);
 
+        // merge into single cell
         worksheet.mergeCells(lastIndex + 1, 1, lastIndex + 1, columns.length);
         worksheet.lastRow!.getCell(1).font = { bold: true };
-        currentLevel = outlineLevels[row.groupedBy];
+
         if (currentLevel > 0) {
           worksheet.lastRow!.outlineLevel = currentLevel;
         }
         currentLevel += 1;
         // console.log(worksheet.lastRow.actualCellCount)
       } else {
-        r = columns.reduce((acc, { name }) => ({ ...acc, [name]: getCellValue(row, name) }), {});
+        r = columns.reduce((acc, { column: { name }}) => ({
+          ...acc,
+          [name]: getCellValue(row, name),
+        }), {});
         worksheet.addRow(r);
         worksheet.lastRow!.outlineLevel = currentLevel;
       }
 
       worksheet.lastRow!.eachCell((cell, colNumber) => {
         customizeCell(cell, row, columns[colNumber - 1]);
-      })
-      // customizeRow(worksheet.lastRow, row);
+      });
     });
 
     closeSheet();
@@ -135,8 +165,8 @@ class ExportBase extends React.PureComponent<ExporterProps> {
     // const exportGridAction = this.exportGrid;
 
     return (
-      <Plugin name="Export">
-        <Action name="startExport" action={this.exportGrid} />
+      <Plugin name="Exporter">
+        <Action name="performExport" action={this.exportGrid} />
       </Plugin>
     )
   }

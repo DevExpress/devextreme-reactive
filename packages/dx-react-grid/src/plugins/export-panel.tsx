@@ -8,32 +8,42 @@ const defaultMessages = {
   export: 'Export',
 };
 
-export const ExportPanelBase: React.SFC<any> = ({
-  buttonComponent: Button,
-  messages,
-}) => (
-  <Plugin
-    name="ExportPanel"
-    dependencies={[
-      { name: 'Toolbar' },
-      { name: 'GridExporter' },
-    ]}
-  >
-    <Template name="toolbarContent">
-      <TemplatePlaceholder />
-      <TemplateConnector>
-        {(_, { initiateExport, performExport }) => (
-          <Button
-            onClick={() => {
-              initiateExport();
-              window.setTimeout(performExport, 0);
-            }}
-            getMessage={getMessagesFormatter({ ...defaultMessages, ...messages })}
-          />
-        )}
-      </TemplateConnector>
-    </Template>
-  </Plugin>
-);
+class ExportPanelBase extends React.PureComponent<any> {
+  static components = {
+    buttonComponent: 'ExportButton',
+  }
+
+  render() {
+    const {
+      buttonComponent: Button,
+      messages,
+    } = this.props;
+
+    return (
+      <Plugin
+        name="ExportPanel"
+        dependencies={[
+          { name: 'Toolbar' },
+          { name: 'Exporter' },
+        ]}
+      >
+        <Template name="toolbarContent">
+          <TemplatePlaceholder />
+          <TemplateConnector>
+            {(_, { initiateExport, performExport }) => (
+              <Button
+                onClick={() => {
+                  initiateExport();
+                  window.setTimeout(performExport, 0);
+                }}
+                getMessage={getMessagesFormatter({ ...defaultMessages, ...messages })}
+              />
+            )}
+          </TemplateConnector>
+        </Template>
+      </Plugin>
+    )
+  }
+}
 
 export const ExportPanel: React.ComponentType<any> = ExportPanelBase;

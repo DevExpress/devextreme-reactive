@@ -47,7 +47,7 @@ class Header extends React.Component {
             </div>
             <div className="col-auto">
               <button
-                className={`${styles.menuSandwich} ${menuVisibility ? styles.clicked : ''} d-block d-sm-none`}
+                className={`${styles.menuSandwich} ${menuVisibility ? styles.clicked : ''}`}
                 type="button"
                 onClick={this.toggleMenuVisibility}
               />

@@ -23,6 +23,7 @@
 .links {
   padding-right: $inner-offset;
   a {
+    display: inline-block; // prevent margins collapsing
     margin: 0 15px;
     color: rgba(255, 255, 255, 255);
     &:first-child {
@@ -35,6 +36,7 @@
 }
 
 .menu-sandwich {
+  display: block;
   background: url(../pages/images/icon-sandwich.svg) no-repeat 0 0;
   width: 24px;
   height: 24px;
@@ -51,9 +53,13 @@
   &:focus {
     outline: none;
   }
+
+  @media (min-width: 731px) {
+    display: none;
+  }
 }
 
-@media(max-width: 639px) {
+@media(max-width: 730px) {
   .links {
     transition: right .1s linear;
     position: fixed;
@@ -70,6 +76,7 @@
       right: 0;
     }
     a {
+      display: inline;
       font-size: 24px;
       margin: 0;
       &:after {

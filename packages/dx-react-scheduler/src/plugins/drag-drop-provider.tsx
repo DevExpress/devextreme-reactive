@@ -1,5 +1,4 @@
 import * as React from 'react';
-import moment from 'moment';
 import {
   Plugin, Template, TemplatePlaceholder,
   TemplateConnector, DropTarget, DragSource,
@@ -237,6 +236,7 @@ class DragDropProviderBase extends React.PureComponent<
     const draftData = {
       ...payload, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime,
     };
+    console.log('here')
 
     return (
       <Plugin

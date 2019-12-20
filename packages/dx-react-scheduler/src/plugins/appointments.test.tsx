@@ -54,7 +54,6 @@ const defaultDeps = {
   },
   template: {
     timeTableAppointmentLayer: {},
-    // allDayAppointmentLayer: {},
   },
 };
 

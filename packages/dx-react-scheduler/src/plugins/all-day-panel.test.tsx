@@ -92,9 +92,6 @@ describe('AllDayPanel', () => {
 
       expect(getComputedState(tree).allDayAppointments)
         .toEqual('allDayAppointments');
-      const endDate = new Date('2018-07-06');
-      endDate.setHours(23);
-      endDate.setMinutes(59);
       expect(calculateAllDayDateIntervals)
         .toHaveBeenCalledWith([], new Date(2018, 6, 4, 0, 0), new Date(2018, 6, 6, 23, 59), []);
     });

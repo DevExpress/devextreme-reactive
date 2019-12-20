@@ -467,7 +467,7 @@ describe('Utils', () => {
       }));
       const type = { growDirection: 'horizontal', multiline: false };
       const rectByDatesMeta = {};
-      const intervals =[[
+      const intervals = [[
         { start: moment('2018-09-12 10:00'), end: moment('2018-09-13 10:00'), dataItem: 'a' },
         { start: moment('2018-09-13 11:00'), end: moment('2018-09-14 15:00'), dataItem: 'b' },
       ]];

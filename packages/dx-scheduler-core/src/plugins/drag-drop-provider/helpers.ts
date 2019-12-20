@@ -253,10 +253,24 @@ const updateMultipleResourceInfo: PureComputed<
 export const appointmentDragged: PureComputed<
   [SchedulerDateTime, SchedulerDateTime, SchedulerDateTime, SchedulerDateTime, any, any], boolean
 > = (start, startPrev, end, endPrev, groupingInfo, groupingInfoPrev) => {
-  const fields = Object.getOwnPropertyNames(groupingInfo);
   if (moment(start as Date).isSame(startPrev as Date)
       && moment(end as Date).isSame(endPrev as Date)
-      && fields.every(field =>
-        groupingInfo[field] === groupingInfoPrev[field])) return false;
+      && checkAppointmentFields(groupingInfo, groupingInfoPrev)) {
+    return false;
+  }
   return true;
+};
+
+const checkAppointmentFields: PureComputed<
+  [any, any], boolean
+> = (groupingInfo, groupingInfoPrev) => {
+  const fields = Object.getOwnPropertyNames(groupingInfo);
+  return fields.every((field) => {
+    if (Array.isArray(groupingInfo[field]) && Array.isArray(groupingInfoPrev[field])) {
+      return groupingInfo[field].every((item: any, index: number) => (
+        item === groupingInfoPrev[field][index]
+      ));
+    }
+    return groupingInfo[field] === groupingInfoPrev[field];
+  });
 };

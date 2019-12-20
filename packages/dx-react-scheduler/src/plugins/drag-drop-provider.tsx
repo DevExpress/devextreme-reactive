@@ -236,7 +236,6 @@ class DragDropProviderBase extends React.PureComponent<
     const draftData = {
       ...payload, startDate: this.appointmentStartTime, endDate: this.appointmentEndTime,
     };
-    console.log('here')
 
     return (
       <Plugin

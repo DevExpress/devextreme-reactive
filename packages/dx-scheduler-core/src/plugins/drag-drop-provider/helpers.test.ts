@@ -623,5 +623,15 @@ describe('DragDropProvider', () => {
       ))
         .toBeTruthy();
     });
+    it('should work with arrays', () => {
+      expect(appointmentDragged(
+        new Date(2019), new Date(2019), new Date(2020), new Date(2020), [1], [2],
+      ))
+        .toBeTruthy();
+      expect(appointmentDragged(
+        new Date(2019), new Date(2019), new Date(2020), new Date(2020), [1], [1],
+      ))
+        .toBeFalsy();
+    });
   });
 });

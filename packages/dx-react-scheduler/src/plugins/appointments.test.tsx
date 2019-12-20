@@ -54,7 +54,7 @@ const defaultDeps = {
   },
   template: {
     timeTableAppointmentLayer: {},
-    allDayAppointmentLayer: {},
+    // allDayAppointmentLayer: {},
   },
 };
 
@@ -92,9 +92,9 @@ describe('Appointments', () => {
 
     const container = tree.find(Container);
 
-    expect(container).toHaveLength(2);
+    expect(container).toHaveLength(1);
     expect(getAppointmentStyle)
-      .toHaveBeenCalledTimes(2);
+      .toHaveBeenCalledTimes(1);
     expect(getAppointmentStyle)
       .toHaveBeenCalledWith({
         top: 'test top',
@@ -114,17 +114,17 @@ describe('Appointments', () => {
     ));
     const appointment = tree.find(Appointment);
     const appointmentContent = tree.find(AppointmentContent);
-    const { data: firstAppointmentData } = appointment.at(0).props();
+    const { data } = appointment.at(0).props();
     const {
       type, data: appointmentContentData,
       recurringIconComponent, formatDate,
       resources,
     } = appointmentContent.at(0).props();
 
-    expect(appointment).toHaveLength(2);
-    expect(appointmentContent).toHaveLength(2);
+    expect(appointment).toHaveLength(1);
+    expect(appointmentContent).toHaveLength(1);
     expect(type).toBe('horizontal');
-    expect(firstAppointmentData).toEqual({ test: 'test' });
+    expect(data).toEqual({ test: 'test' });
     expect(appointmentContentData).toEqual({ test: 'test' });
     expect(resources).toEqual([]);
 
@@ -314,6 +314,42 @@ describe('Appointments', () => {
         startViewDate: defaultDeps.getter.startViewDate,
         endViewDate: defaultDeps.getter.endViewDate,
         cellDuration: defaultDeps.getter.cellDuration,
+        viewCellsData: defaultDeps.getter.viewCellsData,
+        cellElementsMeta: defaultDeps.getter.timeTableElementsMeta,
+      },
+      );
+  });
+  it('should render "allDayAppointmentLayer" template when currentView is not "month"', () => {
+    const deps = {
+      ...defaultDeps,
+      template: {
+        allDayAppointmentLayer: {},
+      },
+    };
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(deps)}
+        <Appointments
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    const allDayAppointmentLayer = tree.findWhere(
+      node => node.prop('name') === 'allDayAppointmentLayer',
+    ).at(0);
+
+    expect(allDayAppointmentLayer.exists())
+      .toBeTruthy();
+    expect(calculateRectByDateIntervals)
+      .toHaveBeenCalledWith({
+        growDirection: 'horizontal', multiline: false,
+      },
+        defaultDeps.getter.allDayAppointments,
+        getHorizontalRectByDates,
+      {
+        startViewDate: defaultDeps.getter.startViewDate,
+        endViewDate: defaultDeps.getter.endViewDate,
         viewCellsData: defaultDeps.getter.viewCellsData,
         cellElementsMeta: defaultDeps.getter.timeTableElementsMeta,
       },

@@ -87,24 +87,46 @@ class ExportBase extends React.PureComponent<ExporterProps> {
     let currentLevel = 0;
     let currentGroup: any | null = null;
     let openGroups: any[] = [];
-    // const groupTree = {};
+    
+    const groupTree = {};
     // let rowType: string = '';
 
     // let currentGroup;
-    // asia: [health, care]
+    // asia: [asia|health, asia|care]
     // asia|health: [2, 4]
     // asia|care: [5, 8]
-    const groupTree = allRows.reduce((acc, row) => {
-      const level = outlineLevels[row.groupedBy];
-      if (level === 0) {
-        return {...acc, [row.compoundKey]: {} };
-      }
+    // const groupTree = allRows.reduce((acc, row) => {
+    //   const level = outlineLevels[row.groupedBy];
+    //   if (level === 0) {
+    //     return {...acc, [row.compoundKey]: {} };
+    //   }
       
-    }, {});
+    // }, {});
 
-    allRows.forEach((row) => {
-      
+    const maxLevel = grouping?.length - 1;
+    let parentChain = {};
+    let lastDataIndex = 0;
+    let openGroup = '';
+    allRows.forEach(({ groupedBy, compoundKey }, index) => {
+      if (groupedBy) {
+        const level = outlineLevels[groupedBy];
+        groupTree[compoundKey] = [];
+        parentChain[level] = compoundKey;
+        if (0 < level && level < maxLevel) {
+          groupTree[parentChain[level - 1]].push(compoundKey);
+        } else if (level === maxLevel) {
+          if (openGroup) {
+            groupTree[openGroup].push(lastDataIndex);
+          }
+          openGroup = compoundKey;
+          groupTree[compoundKey].push(index + 1);
+        }
+      } else {
+        lastDataIndex = index;
+      }
     });
+
+    console.log(groupTree);
 
 
     allRows.forEach((row) => {

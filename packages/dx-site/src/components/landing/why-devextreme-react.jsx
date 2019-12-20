@@ -8,7 +8,7 @@ const Title = () => (
     <div className="row">
       <div className="col-md-12">
         <h2 className={styles.title}>
-          Why DevExtreme for React?
+          Why DevExtreme Reactive?
         </h2>
       </div>
     </div>

@@ -40,7 +40,7 @@ import AlternatedBackground from '../../../components/landing/alternated-backgro
 
 const chartTypes = [
   {
-    sectionTitle: '5 Built-in Chart Types With Customizable Series',
+    sectionTitle: '5 Built-in Chart Types with Customizable Series',
     title: 'Bar Chart',
     imageLink: barImage,
     guideLink: '/react/chart/demos/bar/simple-bar/',
@@ -94,7 +94,7 @@ const chartTypes = [
 const pageData = [
   {
     reversed: true,
-    sectionTitle: 'Interactivity At Your Full Control',
+    sectionTitle: 'Interactivity at Your Full Control',
     title: 'Series/Point Selection',
     description: 'React Chart supports both programmatic and interactive series/point selection. The selected elements can be automatically highlighted and the associated data is exposed to your application for use. The both single and multiple selection are supported.',
     imageLink: seriesSelectionImage,
@@ -110,7 +110,7 @@ const pageData = [
   {
     reversed: true,
     title: 'Zooming and Scrolling',
-    description: 'End-users can effeciently analyse long point series using the React Chart zooming and scrolling capabilities. We support instant zooming using mouse wheel or zoom gestures and zoom to a square region. Horizontal scrolling/panning is also available.',
+    description: 'End-users can effeciently analyze long point series using the React Chart zooming and scrolling capabilities. We support instant zooming using mouse wheel or zoom gestures and zoom to a square region. Horizontal scrolling/panning is also available.',
     imageLink: zoomingScrollingImage,
     guideLink: '/react/chart/docs/guides/zoom-and-pan/',
   },

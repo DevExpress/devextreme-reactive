@@ -8,7 +8,7 @@ const Maintainance = () => (
       <div className="col-12">
         <div className={styles.content}>
           <h2 className={styles.title}>
-            Maintainence & Customer Support
+            Maintenance & Customer Support
           </h2>
           <div className={styles.description}>
             The product is developed on a full-time basis by a dedicated team.

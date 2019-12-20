@@ -29,8 +29,8 @@ import muiImage from './images/material-theme.png';
 
 const pageData = [
   {
-    title: '100% Native React',
-    description: 'We\'ve focused our energy on performance and leveraged the best practice recomendations oferred by the React team. Through immutability and pure functions, we can apply memoization and built-in react optimizations to archieve outstanding performance.',
+    title: '100% Pure React',
+    description: 'We\'ve focused our energy on performance and leveraged the best practice recommendations offered by the React team. Through immutability and pure functions, we can apply memoization and built-in react optimizations to achieve outstanding performance.',
     imageLink: nativeReactImage,
   },
   {

@@ -35,7 +35,7 @@ const pageData = [
     alternative: true,
     sectionTitle: 'Inspired by Google Calendar',
     title: 'Lightweight & Concise UI',
-    description: 'Our React Scheduler built using the UI/UX best practises proved by millions of Google Calendar users. Create your own scheduling application extending the default UI and behavior according to your specific business requirements.',
+    description: 'Our React Scheduler built using the UI/UX best practices proved by millions of Google Calendar users. Create your own scheduling application extending the default UI and behavior according to your specific business requirements.',
     imageLink: lightweightUIImage,
     guideLink: '/react/scheduler/demos/featured/data-editing/',
   },
@@ -49,7 +49,7 @@ const pageData = [
   {
     alternative: true,
     title: 'Recurring Appointments',
-    description: 'Use built-in plugins for handling recurring event chains. You can easily customize all recurrence related functionality and address even the most complex requirements with minimal effort. The iCalendar recurrency rule and exception formats are supported.',
+    description: 'Use built-in plugins for handling recurring event chains. You can easily customize all recurrence related functionality and address even the most complex requirements with minimal effort. The iCalendar recurrence rule and exception formats are supported.',
     imageLink: recurringAppointmentsImage,
     guideLink: '/react/scheduler/docs/guides/appointments/#recurring-appointments',
   },
@@ -137,7 +137,7 @@ const IndexPage = () => (
     </AlternatedBackground>
 
     <LandingLayout style={{ paddingTop: '2em', paddingBottom: '2em' }}>
-      <LandingTitle text="Native Support for the UI Library of Your Choice" />
+      <LandingTitle text="Native Support for the Material-UI Library" />
       <LandingImageFeature
         imageLink={materialThemeLink}
         title="Material Design Rendering"

@@ -50,12 +50,12 @@ const pageData = [
   },
   {
     title: 'Virtual Scrolling',
-    description: 'Virtual scrolling allows the Grid component to display thousands of records on a single page. It can render only the records that are currently visible to a user and remove them from DOM once the user scroll them out of visible range.',
+    description: 'Virtual scrolling allows the Grid component to display thousands of records on a single page. It can render only the records that are currently visible to a user and remove them from DOM once the user scrolls them out of visible range.',
     imageLink: virtualScrollingImage,
     guideLink: '/react/grid/docs/guides/virtual-scrolling/',
   },
   {
-    sectionTitle: 'Shape and Analyse Data as You Need',
+    sectionTitle: 'Shape and Analyze Data as You Need',
     title: 'Milti-Column Sorting',
     description: 'Allow a user to sort data in the Grid by any number of columns. It is possible to apply and remove soring for a specific column using the command keys on your keyboard. You can also perform sorting operations on the server-side.',
     imageLink: sortingImage,
@@ -91,7 +91,7 @@ const pageData = [
   {
     sectionTitle: 'Manage Complex Data Structures',
     title: 'Tree View Mode',
-    description: 'The Tree View plugin allows you to display hierarchical data sets of any structures withing the React Grid. It smoothly integrates with other Grid plugins enabling sorting, paging, filtering and other features of a regular plain data grid.',
+    description: 'The Tree View plugin allows you to display hierarchical data sets of any structures within the React Grid. It smoothly integrates with other Grid plugins enabling sorting, paging, filtering and other features of a regular plain data grid.',
     imageLink: treeViewImage,
     guideLink: '/react/grid/docs/guides/tree-data/',
   },
@@ -110,15 +110,15 @@ const pageData = [
     guideLink: '/react/grid/docs/guides/editing/#uncontrolled-mode',
   },
   {
-    title: 'Customizable Inplace Cell Editors',
-    description: 'The React Grid ships with the Data Type Provider plugin that allows you to show custom inplace cell editors depending on a specific data type. Use what you need in your app - from standard textboxes, to date pickers and everything in between.',
+    title: 'Customizable In-place Cell Editors',
+    description: 'The React Grid ships with the Data Type Provider plugin that allows you to show custom in-place cell editors depending on a specific data type. Use what you need in your app - from standard textboxes, to date pickers and everything in between.',
     imageLink: cellEditorsImage,
     guideLink: '/react/grid/docs/guides/data-formatting/#custom-editors',
   },
   {
     reversed: true,
     title: 'Batch Editing',
-    description: 'Batch modifications allow you to apply several record changes at once to improve user experience and data entry effeciency. If you work with remote data, it can also eliminate the unnecessary remote data update requests improving the overall performance.',
+    description: 'Batch modifications allow you to apply several record changes at once to improve user experience and data entry efficiency. If you work with remote data, it can also eliminate the unnecessary remote data update requests improving the overall performance.',
     imageLink: batchEditingImage,
     guideLink: '/react/grid/docs/guides/editing/',
   },
@@ -130,7 +130,7 @@ const pageData = [
     guideLink: '/react/grid/docs/guides/selection/',
   },
   {
-    sectionTitle: 'UI Customization For Your Users and You',
+    sectionTitle: 'UI Customization for Your Users and You',
     title: 'Column Resizing/Reordering',
     description: 'End-users can resize and reorder columns while working with your application. Use the \'controlled state\' mode to expose the current customization state to your application logic for persistence. Save and restore it when a user leaves and returns to your app.',
     imageLink: columnResizingImage,

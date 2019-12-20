@@ -22,6 +22,7 @@ import {
   POSITION_END,
   getAppointmentResources,
   calculateAppointmentGroups,
+  appointmentDragged,
 } from '@devexpress/dx-scheduler-core';
 import { DragDropProviderProps, DragDropProviderState } from '../types';
 
@@ -65,6 +66,7 @@ class DragDropProviderBase extends React.PureComponent<
   state: DragDropProviderState = {
     startTime: null,
     endTime: null,
+    appointmentGroupingInfo: null,
     payload: null,
     isOutside: false,
   };
@@ -103,7 +105,9 @@ class DragDropProviderBase extends React.PureComponent<
     });
   }
 
-  applyChanges(startTime, endTime, payload, startEditAppointment, changeAppointment) {
+  applyChanges(
+    startTime, endTime, payload, startEditAppointment, changeAppointment, appointmentGroupingInfo,
+  ) {
     startEditAppointment(payload);
     changeAppointment({
       change: {
@@ -113,7 +117,7 @@ class DragDropProviderBase extends React.PureComponent<
         ...this.appointmentGroupingInfo,
       },
     });
-    this.setState({ startTime, endTime, payload, isOutside: false });
+    this.setState({ startTime, endTime, payload, isOutside: false, appointmentGroupingInfo });
   }
 
   handlePayloadChange({ payload }, { finishCommitAppointment }) {
@@ -171,9 +175,14 @@ class DragDropProviderBase extends React.PureComponent<
     this.appointmentGroupingInfo = appointmentGroups || this.appointmentGroupingInfo;
     this.offsetTimeTop = offsetTimeTop!;
 
-    const { startTime, endTime } = this.state;
-    if (moment(startTime!).isSame(this.appointmentStartTime)
-      && moment(endTime!).isSame(this.appointmentEndTime)) return;
+    const { startTime, endTime, appointmentGroupingInfo } = this.state;
+    if (!appointmentDragged(
+      this.appointmentStartTime, startTime!,
+      this.appointmentEndTime, endTime!,
+      this.appointmentGroupingInfo, appointmentGroupingInfo,
+    )) {
+      return;
+    }
 
     const draftAppointments = [{
       dataItem: {
@@ -194,12 +203,14 @@ class DragDropProviderBase extends React.PureComponent<
       endViewDate, excludedDays, viewCellsData, allDayCellsElementsMeta,
       targetType, cellDurationMinutes, tableCellElementsMeta, grouping, resources, groupingItems,
     );
+    console.log(timeTableDraftAppointments)
     this.allDayDraftAppointments = allDayDraftAppointments;
     this.timeTableDraftAppointments = timeTableDraftAppointments;
 
     this.applyChanges(
       this.appointmentStartTime, this.appointmentEndTime,
       payload, startEditAppointment, changeAppointment,
+      this.appointmentGroupingInfo,
     );
   }
 

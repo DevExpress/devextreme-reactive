@@ -4,7 +4,7 @@ import {
   ViewCell, ClientOffset, TimeType, ScrollingStrategy,
   AllDayCell, CalculateAppointmentTimeBoundaries,
   TimeBoundariesByDrag, TimeBoundariesByResize, AppointmentModel,
-  CellElementsMeta, Grouping, ValidResource, GroupingItem,
+  CellElementsMeta, Grouping, ValidResource, GroupingItem, SchedulerDateTime,
 } from '../../types';
 import { allDayCells as allDayCellsCore } from '../common/computeds';
 import {
@@ -248,4 +248,15 @@ const updateMultipleResourceInfo: PureComputed<
     return appointmentGroupItems;
   }
   return [cellResource.id];
+};
+
+export const appointmentDragged: PureComputed<
+  [SchedulerDateTime, SchedulerDateTime, SchedulerDateTime, SchedulerDateTime, any, any], boolean
+> = (start, startPrev, end, endPrev, groupingInfo, groupingInfoPrev) => {
+  const fields = Object.getOwnPropertyNames(groupingInfo);
+  if (moment(start as Date).isSame(startPrev as Date)
+      && moment(end as Date).isSame(endPrev as Date)
+      && fields.every(field =>
+        groupingInfo[field] === groupingInfoPrev[field])) return false;
+  return true;
 };

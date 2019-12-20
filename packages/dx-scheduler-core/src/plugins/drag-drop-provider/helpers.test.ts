@@ -1,7 +1,7 @@
 import {
   intervalDuration, cellIndex, cellData, autoScroll, cellType,
   timeBoundariesByDrag, calculateInsidePart,
-  calculateDraftAppointments, timeBoundariesByResize, calculateAppointmentGroups,
+  calculateDraftAppointments, timeBoundariesByResize, calculateAppointmentGroups, appointmentDragged,
 } from './helpers';
 import {
   allDayRects, horizontalTimeTableRects, verticalTimeTableRects,
@@ -600,6 +600,28 @@ describe('DragDropProvider', () => {
           test1: [1],
           test2: 2,
         });
+    });
+  });
+  describe('#calculateAppointmentGroups', () => {
+    it('should return false if dates and groups are equal', () => {
+      expect(appointmentDragged(
+        new Date(2019), new Date(2019), new Date(2020), new Date(2020), {}, {},
+      ))
+        .toBeFalsy();
+    });
+    it('should return true if dates or groups are not equal', () => {
+      expect(appointmentDragged(
+        new Date(2019), new Date(2020), new Date(2020), new Date(2020), {}, {},
+      ))
+        .toBeTruthy();
+      expect(appointmentDragged(
+        new Date(2019), new Date(2019), new Date(2019), new Date(2020), {}, {},
+      ))
+        .toBeTruthy();
+      expect(appointmentDragged(
+        new Date(2019), new Date(2019), new Date(2020), new Date(2020), { test: 1 }, { test: 2 },
+      ))
+        .toBeTruthy();
     });
   });
 });

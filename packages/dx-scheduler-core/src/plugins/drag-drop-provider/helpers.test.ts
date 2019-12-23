@@ -1,7 +1,8 @@
 import {
   intervalDuration, cellIndex, cellData, autoScroll, cellType,
   timeBoundariesByDrag, calculateInsidePart,
-  calculateDraftAppointments, timeBoundariesByResize, calculateAppointmentGroups, appointmentDragged,
+  calculateDraftAppointments, timeBoundariesByResize,
+  calculateAppointmentGroups, appointmentDragged,
 } from './helpers';
 import {
   allDayRects, horizontalTimeTableRects, verticalTimeTableRects,

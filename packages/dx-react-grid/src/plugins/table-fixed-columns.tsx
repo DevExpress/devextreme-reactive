@@ -37,6 +37,7 @@ const pluginDependencies = [
   { name: 'TableFilterRow', optional: true },
   { name: 'TableGroupRow', optional: true },
   { name: 'TableHeaderRow', optional: true },
+  { name: 'TableRowDetail', optional: true },
   { name: 'TableSelection', optional: true },
   { name: 'TableSummaryRow', optional: true },
   { name: 'TableTreeColumn', optional: true },

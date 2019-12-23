@@ -323,7 +323,7 @@ export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
   const { growDirection, multiline } = type;
   const isHorizontal = growDirection === HORIZONTAL_TYPE;
 
-  const sorted = intervals.map(intervalGroup => sortAppointments(intervalGroup));
+  const sorted = intervals.map(sortAppointments);
   const grouped = sorted.reduce(((acc, sortedGroup) => [
     ...acc,
     ...findOverlappedAppointments(sortedGroup as AppointmentMoment[], isHorizontal),

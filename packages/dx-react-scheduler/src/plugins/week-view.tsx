@@ -7,8 +7,7 @@ import {
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
-  viewCellsData as viewCellsDataCore,
-  calculateWeekDateIntervals as calculateWeekDateIntervalsCore,
+  viewCellsData as viewCellsDataCore, calculateWeekDateIntervals,
 } from '@devexpress/dx-scheduler-core';
 import { BasicView } from './basic-view';
 import { WeekViewProps } from '../types';
@@ -27,7 +26,7 @@ const viewCellsDataBaseComputed = (
 };
 const calculateAppointmentsIntervalsBaseComputed = cellDuration => ({
   appointments, startViewDate, endViewDate, excludedDays,
-}) => calculateWeekDateIntervalsCore(
+}) => calculateWeekDateIntervals(
   appointments, startViewDate, endViewDate, excludedDays, cellDuration,
 );
 const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;

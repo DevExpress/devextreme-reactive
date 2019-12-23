@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Plugin, PluginComponents } from '@devexpress/dx-react-core';
-import { monthCellsData, calculateMonthDateIntervals as calculateMonthDateIntervalsCore } from '@devexpress/dx-scheduler-core';
+import { monthCellsData, calculateMonthDateIntervals } from '@devexpress/dx-scheduler-core';
 import { BasicView } from './basic-view';
 import { MonthViewProps } from '../types';
 
@@ -12,7 +12,7 @@ const viewCellsDataBaseComputed = (
 );
 const calculateAppointmentsIntervalsBaseComputed = cellDuration => ({
   appointments, startViewDate, endViewDate, excludedDays,
-}) => calculateMonthDateIntervalsCore(
+}) => calculateMonthDateIntervals(
   appointments, startViewDate, endViewDate,
 );
 

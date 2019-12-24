@@ -9,7 +9,7 @@ import {
   cellIndex, cellData, cellType, getAppointmentStyle, intervalDuration, autoScroll,
   calculateAppointmentTimeBoundaries, calculateInsidePart, RESIZE_TOP, RESIZE_BOTTOM,
   POSITION_START, POSITION_END, getAppointmentResources, calculateAppointmentGroups,
-  appointmentDragged, calculateDraftAppointments
+  appointmentDragged, calculateDraftAppointments,
 } from '@devexpress/dx-scheduler-core';
 import { DragDropProviderProps, DragDropProviderState } from '../types';
 

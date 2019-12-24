@@ -5,6 +5,7 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing
 import {
   getGroupingItemsFromResources, expandViewCellsDataWithGroups,
   sortFilteredResources, filterResourcesByGrouping, updateGroupingWithMainResource,
+  expandGroups,
 } from '@devexpress/dx-scheduler-core';
 import { IntegratedGrouping } from './integrated-grouping';
 
@@ -14,12 +15,15 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   sortFilteredResources: jest.fn(),
   filterResourcesByGrouping: jest.fn(),
   updateGroupingWithMainResource: jest.fn(),
+  expandGroups: jest.fn(),
 }));
 
 describe('IntegratedGrouping', () => {
   const defaultDeps = {
     plugins: ['Resources', 'GroupingState'],
     getter: {
+      timeTableAppointments: 'timeTableAppointments',
+      allDayAppointments: 'allDayAppointments',
       viewCellsData: 'viewCellsData',
       resources: 'resources',
       grouping: 'grouping',
@@ -31,6 +35,7 @@ describe('IntegratedGrouping', () => {
     getGroupingItemsFromResources.mockImplementation(() => 'groupingItems');
     expandViewCellsDataWithGroups.mockImplementation(() => 'groupedViewCellsData');
     updateGroupingWithMainResource.mockImplementation(() => 'groupingComputed');
+    expandGroups.mockImplementation(() => 'expandGroups');
   });
 
   it('should provide grouping getter', () => {
@@ -89,5 +94,35 @@ describe('IntegratedGrouping', () => {
       .toHaveBeenCalledWith('viewCellsData', 'groupingItems', 'resourcesToGroupBy');
     expect(getComputedState(tree).viewCellsData)
       .toBe('groupedViewCellsData');
+  });
+
+  it('should provide timeTableAppointments getter', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <IntegratedGrouping />
+      </PluginHost>
+    ));
+
+    expect(expandGroups)
+      .toHaveBeenCalledWith('timeTableAppointments', 'groupingComputed', 'resourcesToGroupBy', 'groupingItems');
+    expect(getComputedState(tree).timeTableAppointments)
+      .toBe('expandGroups');
+  });
+
+  it('should provide allDayAppointments getter', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <IntegratedGrouping />
+      </PluginHost>
+    ));
+
+    expect(expandGroups)
+      .toHaveBeenCalledWith(
+        'allDayAppointments', 'groupingComputed', 'resourcesToGroupBy', 'groupingItems',
+      );
+    expect(getComputedState(tree).allDayAppointments)
+      .toBe('expandGroups');
   });
 });

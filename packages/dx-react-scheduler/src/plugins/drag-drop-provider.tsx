@@ -6,21 +6,9 @@ import {
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
-  cellIndex,
-  cellData,
-  cellType,
-  getAppointmentStyle,
-  intervalDuration,
-  autoScroll,
-  calculateAppointmentTimeBoundaries,
-  calculateInsidePart,
-  calculateDraftAppointments,
-  RESIZE_TOP,
-  RESIZE_BOTTOM,
-  POSITION_START,
-  POSITION_END,
-  getAppointmentResources,
-  calculateAppointmentGroups,
+  cellIndex, cellData, cellType, getAppointmentStyle, intervalDuration, autoScroll,
+  calculateAppointmentTimeBoundaries, calculateInsidePart, RESIZE_TOP, RESIZE_BOTTOM,
+  POSITION_START, POSITION_END, getAppointmentResources, calculateAppointmentGroups,
   appointmentDragged,
 } from '@devexpress/dx-scheduler-core';
 import { DragDropProviderProps, DragDropProviderState } from '../types';

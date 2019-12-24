@@ -1,6 +1,7 @@
 import {
-  ConvertResourcesToPlain, ValidateResources, ValidResourceInstance,
+  ConvertResourcesToPlain, ValidateResources, ValidResourceInstance, AddResourcesToAppointments,
 } from '../../types';
+import { getAppointmentResources } from './helpers';
 
 export const convertResourcesToPlain: ConvertResourcesToPlain = (validResources) => {
   return validResources.reduce((acc, resource) => [
@@ -40,3 +41,12 @@ export const validateResources: ValidateResources = (resources, mainResourceName
     };
   });
 };
+
+export const addResourcesToAppointments: AddResourcesToAppointments = (
+  appointments, resources, plainResources,
+) => [
+  appointments.map(appointment => ({
+    ...appointment,
+    resources: getAppointmentResources(appointment.dataItem, resources, plainResources),
+  })),
+];

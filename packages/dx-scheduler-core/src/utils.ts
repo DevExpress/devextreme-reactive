@@ -152,7 +152,7 @@ export const adjustAppointments: CustomFunction<
 > = (groups, byDay = false) => groups.map((items) => {
   let offset = 0;
   let reduceValue = 1;
-  const appointments = items.slice();
+  const appointments = items.map((appointment: any) => ({ ...appointment }));
   const groupLength = appointments.length;
   for (let startIndex = 0; startIndex < groupLength; startIndex += 1) {
     const appointment = appointments[startIndex];
@@ -207,6 +207,7 @@ export const unwrapGroups: PureComputed<
     reduceValue,
     fromPrev: moment(appointment.start).diff(appointment.dataItem.startDate, 'minutes') > 1,
     toNext: moment(appointment.dataItem.endDate).diff(appointment.end, 'minutes') > 1,
+    resources: appointment.resources,
   })));
   return acc;
 }, [] as AppointmentUnwrappedGroup[]);
@@ -258,6 +259,7 @@ const horizontalRectCalculator: CustomFunction<
   );
 
   return {
+    resources: appointment.resources,
     top: top + ((height / appointment.reduceValue) * appointment.offset),
     height: height / appointment.reduceValue,
     left: toPercentage(left, parentWidth),
@@ -302,6 +304,7 @@ const verticalRectCalculator: CustomFunction<
   const widthInPx = width / appointment.reduceValue;
 
   return {
+    resources: appointment.resources,
     top,
     height,
     left: toPercentage(left + (widthInPx * appointment.offset), parentWidth),
@@ -320,14 +323,17 @@ export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
   const { growDirection, multiline } = type;
   const isHorizontal = growDirection === HORIZONTAL_TYPE;
 
-  const sorted = sortAppointments(intervals);
-  const grouped = findOverlappedAppointments(sorted as AppointmentMoment[], isHorizontal);
+  const sorted = intervals.map(sortAppointments);
+  const grouped = sorted.reduce(((acc, sortedGroup) => [
+    ...acc,
+    ...findOverlappedAppointments(sortedGroup as AppointmentMoment[], isHorizontal),
+  ]), [] as AppointmentMoment[]);
 
   const rectCalculator = isHorizontal
     ? horizontalRectCalculator
     : verticalRectCalculator;
 
-  return unwrapGroups(adjustAppointments(grouped, isHorizontal))
+  return unwrapGroups(adjustAppointments(grouped as any[], isHorizontal))
     .map(appointment => rectCalculator(appointment, { rectByDates, multiline, rectByDatesMeta }));
 };
 

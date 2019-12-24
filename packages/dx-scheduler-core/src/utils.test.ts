@@ -249,6 +249,12 @@ describe('Utils', () => {
           },
         ]);
     });
+    it('shouldn\'t change appointments but should create new ones and change them instead', () => {
+      const groups = [[{ ...appointmentsBase[0] }]];
+      const result = adjustAppointments(groups, true);
+      expect(result[0].items[0])
+        .not.toBe(groups[0][0]);
+    });
   });
   describe('#unwrapGroups', () => {
     it('should calculate appointment offset and reduce coefficient', () => {
@@ -370,10 +376,10 @@ describe('Utils', () => {
       }));
       const type = { growDirection: 'horizontal' };
       const rectByDatesMeta = {};
-      const intervals = [
+      const intervals = [[
         { start: moment('2018-09-12 10:00'), end: moment('2018-09-13 10:00'), dataItem: 'a' },
         { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 15:00'), dataItem: 'b' },
-      ];
+      ]];
 
       const rects = calculateRectByDateIntervals(type, intervals, rectByDatesMock, rectByDatesMeta);
 
@@ -409,11 +415,11 @@ describe('Utils', () => {
       }));
       const type = { growDirection: 'vertical' };
       const rectByDatesMeta = { cellDuration: 30 };
-      const intervals = [
+      const intervals = [[
         { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 10:10'), dataItem: 'a' },
         { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 10:30'), dataItem: 'b' },
         { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 10:35'), dataItem: 'c' },
-      ];
+      ]];
 
       const rects = calculateRectByDateIntervals(type, intervals, rectByDatesMock, rectByDatesMeta);
 
@@ -461,10 +467,10 @@ describe('Utils', () => {
       }));
       const type = { growDirection: 'horizontal', multiline: false };
       const rectByDatesMeta = {};
-      const intervals = [
+      const intervals = [[
         { start: moment('2018-09-12 10:00'), end: moment('2018-09-13 10:00'), dataItem: 'a' },
         { start: moment('2018-09-13 11:00'), end: moment('2018-09-14 15:00'), dataItem: 'b' },
-      ];
+      ]];
 
       const rects = calculateRectByDateIntervals(type, intervals, rectByDatesMock, rectByDatesMeta);
 

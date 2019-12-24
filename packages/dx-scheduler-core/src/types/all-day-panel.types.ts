@@ -14,7 +14,7 @@ export interface AppointmentMoment {
 }
 /** @internal */
 export type CalculateAllDayDateIntervalsFn = PureComputed<
-  [Appointment[], Date, Date, number[]], AppointmentMoment[]
+  [Appointment[], Date, Date, number[]], AppointmentMoment[][]
 >;
 /** @internal */
 export type GetAllDayCellIndexByDateFn = PureComputed<

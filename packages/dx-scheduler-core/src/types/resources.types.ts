@@ -1,6 +1,7 @@
 import { Color as MUIColor } from '@material-ui/core';
 import { PureComputed } from '@devexpress/dx-core';
 import { Appointment } from './../index';
+import { AppointmentMoment } from './all-day-panel.types';
 
 /* tslint:disable no-empty-interface */
 /** Configures a resource. */
@@ -84,4 +85,10 @@ export type ConvertResourcesToPlain = PureComputed<
 /** @internal */
 export type ValidateResources = PureComputed<
   [Array<Resource>, string | undefined, Palette], Array<ValidResource>
+>;
+
+/** @internal */
+export type AddResourcesToAppointments = PureComputed<
+  [Array<AppointmentMoment>, Array<ValidResource>,
+    Array<ValidResourceInstance>], Array<Array<AppointmentMoment>>
 >;

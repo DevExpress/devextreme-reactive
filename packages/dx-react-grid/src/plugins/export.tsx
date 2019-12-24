@@ -178,22 +178,21 @@ class ExportBase extends React.PureComponent<ExporterProps> {
       if (row.groupedBy) {
         currentLevel = outlineLevels[row.groupedBy];
 
-        const groupsToClose = openGroups.slice(currentLevel);
-        groupsToClose.reverse().forEach(closeGroup); // close nested groups first
+        openGroups.slice(currentLevel).reverse().forEach(closeGroup); // close nested groups first
 
         openGroups = openGroups.slice(0, currentLevel);
         openGroups[currentLevel] = { groupedBy: row.groupedBy, compoundKey: row.compoundKey };
 
-        const lastIndex = worksheet.lastRow!.number;
-
+        
         // add group row 
         const title = dataColumns.find(({ name }) => name === row.groupedBy).title;
         r = { [columns[0].column.name]: `${title}: ${row.value}` };
-
+        
         worksheet.addRow(r);
+        const lastIndex = worksheet.lastRow!.number;
 
         // merge into single cell
-        worksheet.mergeCells(lastIndex + 1, 1, lastIndex + 1, columns.length);
+        worksheet.mergeCells(lastIndex, 1, lastIndex, columns.length);
         worksheet.lastRow!.getCell(1).font = { bold: true };
 
         if (currentLevel > 0) {

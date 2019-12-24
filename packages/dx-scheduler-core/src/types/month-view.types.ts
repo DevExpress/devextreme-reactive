@@ -2,8 +2,6 @@ import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import { Appointment, SchedulerDateTime, AppointmentId } from './scheduler-core.types';
 import { AppointmentMoment, ViewCellData } from './all-day-panel.types';
-import { Grouping } from './grouping-state.types';
-import { ValidResource } from './resources.types';
 
 /** @internal */
 export type TimeBounds = { left: moment.Moment, right: moment.Moment };

@@ -1,8 +1,6 @@
 import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import { Appointment, SchedulerDateTime } from './scheduler-core.types';
-import { Grouping } from './grouping-state.types';
-import { ValidResource } from './resources.types';
 import { GroupingItem } from './integrated-grouping.types';
 
 export type ViewCellData = {

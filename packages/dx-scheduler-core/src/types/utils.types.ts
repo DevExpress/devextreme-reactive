@@ -3,7 +3,7 @@ import { PureComputed } from '@devexpress/dx-core';
 import { AppointmentModel } from './scheduler-core.types';
 import { Rect } from './horizontal-rect.types';
 import { AppointmentMoment } from './all-day-panel.types';
-import { ValidResource, GroupingItem, ValidResourceInstance } from '../types';
+import { ValidResourceInstance } from '../types';
 
 /** @internal */
 export type Interval = [moment.Moment, moment.Moment];
@@ -54,6 +54,6 @@ export type RectCalculatorBaseFn = PureComputed<
   [AppointmentUnwrappedGroup, (...args: any) => any, object], any
 >;
 /** @internal */
-export type CalculateRectByDateIntervalsFn = PureComputed<
+export type CalculateRectByDateAndGroupIntervalsFn = PureComputed<
   [any, AppointmentMoment[][], (...args: any) => any, any], ElementRect[]
 >;

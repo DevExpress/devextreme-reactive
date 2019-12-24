@@ -5,7 +5,7 @@ import {
 } from './helpers';
 import { filterByViewBoundaries } from '../../utils';
 
-export const calculateWeekDateAndGroupIntervals: CalculateWeekDateIntervalsFn = (
+export const calculateWeekDateIntervals: CalculateWeekDateIntervalsFn = (
   appointments,
   leftBound, rightBound, // startViewDate, endViewDate
   excludedDays,

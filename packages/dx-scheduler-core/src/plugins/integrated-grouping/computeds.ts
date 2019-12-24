@@ -1,8 +1,9 @@
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  Grouping, ValidResourceInstance, ViewCell, ValidResource, GroupingItem,
+  Grouping, ValidResourceInstance, ViewCell, ValidResource, GroupingItem, AppointmentMoment,
 } from '../../types';
-import { getGroupingItemFromResourceInstance, addGroupInfoToCells } from './helpers';
+import { getGroupingItemFromResourceInstance, addGroupInfoToCells, groupAppointments } from './helpers';
+import { expandGroupedAppointment } from '../../utils';
 
 export const filterResourcesByGrouping: PureComputed<
   [Array<ValidResource>, Array<Grouping>], Array<ValidResource>
@@ -66,3 +67,14 @@ export const updateGroupingWithMainResource: PureComputed<
   [Grouping[] | undefined, ValidResource[]], Grouping[]
 > = (grouping, resources) => grouping
   || [{ resourceName: resources.find(resource => resource.isMain)!.fieldName }];
+
+export const expandGroups: PureComputed<
+  [AppointmentMoment[][], Grouping[], ValidResource[], GroupingItem[][]], AppointmentMoment[][]
+> = (appointments, grouping, resources, groupingItems) => {
+  const expandedAppointments = appointments.map(appointmentGroup => appointmentGroup
+    .reduce((acc: AppointmentMoment[], appointment: AppointmentMoment) => [
+      ...acc,
+      ...expandGroupedAppointment(appointment, grouping, resources),
+    ], [] as AppointmentMoment[]));
+  return groupAppointments(expandedAppointments[0], resources, groupingItems);
+};

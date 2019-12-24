@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { Plugin, Getter } from '@devexpress/dx-react-core';
-import { memoize } from '@devexpress/dx-core';
+import { Plugin, Getter, Getters } from '@devexpress/dx-react-core';
 import {
   getGroupingItemsFromResources, expandViewCellsDataWithGroups,
-  sortFilteredResources, filterResourcesByGrouping, updateGroupingWithMainResource,
+  sortFilteredResources, filterResourcesByGrouping, updateGroupingWithMainResource, expandGroups,
 } from '@devexpress/dx-scheduler-core';
 import { IntegratedGroupingProps } from '../types';
 
@@ -15,21 +14,31 @@ const pluginDependencies = [
   { name: 'WeekView', optional: true },
 ];
 
-const getViewCellsDataComputed = memoize((
-  { viewCellsData, groupingItems, resourcesToGroupBy },
-) => expandViewCellsDataWithGroups(viewCellsData, groupingItems, resourcesToGroupBy));
+const getViewCellsDataComputed = (
+  { viewCellsData, groupingItems, resourcesToGroupBy }: Getters,
+) => expandViewCellsDataWithGroups(viewCellsData, groupingItems, resourcesToGroupBy);
 
-const getGroupingItemsComputed = memoize((
-  { resourcesToGroupBy },
-) => getGroupingItemsFromResources(resourcesToGroupBy));
+const getGroupingItemsComputed = (
+  { resourcesToGroupBy }: Getters,
+) => getGroupingItemsFromResources(resourcesToGroupBy);
 
-const getResourcesToGroupByComputed = memoize((
-  { resources, grouping },
-) => sortFilteredResources(filterResourcesByGrouping(resources, grouping), grouping));
+const getResourcesToGroupByComputed = (
+  { resources, grouping }: Getters,
+) => sortFilteredResources(filterResourcesByGrouping(resources, grouping), grouping);
 
-const getGroupingComputed = memoize((
-  { grouping, resources },
-) => updateGroupingWithMainResource(grouping, resources));
+const getGroupingComputed = (
+  { grouping, resources }: Getters,
+) => updateGroupingWithMainResource(grouping, resources);
+
+const getTimeTableAppointmentsComputed = (
+  { timeTableAppointments, grouping, resourcesToGroupBy, groupingItems }: Getters,
+) => timeTableAppointments
+  && expandGroups(timeTableAppointments, grouping, resourcesToGroupBy, groupingItems);
+
+const getAllDayAppointmentsComputed = (
+  { allDayAppointments, grouping, resourcesToGroupBy, groupingItems }: Getters,
+) => allDayAppointments &&
+  expandGroups(allDayAppointments, grouping, resourcesToGroupBy, groupingItems);
 
 const IntegratedGroupingBase: React.SFC<IntegratedGroupingProps> = React.memo(() => (
   <Plugin
@@ -40,6 +49,8 @@ const IntegratedGroupingBase: React.SFC<IntegratedGroupingProps> = React.memo(()
     <Getter name="resourcesToGroupBy" computed={getResourcesToGroupByComputed} />
     <Getter name="groupingItems" computed={getGroupingItemsComputed} />
     <Getter name="viewCellsData" computed={getViewCellsDataComputed} />
+    <Getter name="timeTableAppointments" computed={getTimeTableAppointmentsComputed} />
+    <Getter name="allDayAppointments" computed={getAllDayAppointmentsComputed} />
   </Plugin>
 ));
 

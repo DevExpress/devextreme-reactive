@@ -24,6 +24,7 @@ const styles = theme => ({
     left: 0,
     zIndex: 1,
     boxSizing: 'border-box',
+    float: 'left',
   },
   timeTable: {
     position: 'relative',
@@ -33,6 +34,7 @@ const styles = theme => ({
   },
   mainTable: {
     width: `calc(100% - ${theme.spacing(10)}px)`,
+    float: 'right',
   },
   fullScreenContainer: {
     minWidth: '100%',
@@ -170,25 +172,23 @@ class VerticalViewLayoutBase extends React.PureComponent {
           </Grid>
 
           <Grid className={classes.autoWidth}>
-            <Grid container direction="row">
-              <div
-                ref={this.timeScale}
-                className={classNames({
-                  [classes.fixedWidth]: true,
-                  [classes.stickyElement]: true,
-                  [classes.leftPanel]: true,
-                  [classes.ordinaryBorderLeftPanel]: !isLeftBorderSet,
-                  [classes.brightBorderLeftPanel]: isLeftBorderSet,
-                })}
-              >
-                <TimeScale />
+            <div
+              ref={this.timeScale}
+              className={classNames({
+                [classes.fixedWidth]: true,
+                [classes.stickyElement]: true,
+                [classes.leftPanel]: true,
+                [classes.ordinaryBorderLeftPanel]: !isLeftBorderSet,
+                [classes.brightBorderLeftPanel]: isLeftBorderSet,
+              })}
+            >
+              <TimeScale />
+            </div>
+            <div className={classNames(classes.mainTable, classes.timeTable)}>
+              <div className={classes.fullScreenContainer}>
+                <TimeTable />
               </div>
-              <div className={classNames(classes.mainTable, classes.timeTable)}>
-                <div className={classes.fullScreenContainer}>
-                  <TimeTable />
-                </div>
-              </div>
-            </Grid>
+            </div>
           </Grid>
         </div>
       </Grid>

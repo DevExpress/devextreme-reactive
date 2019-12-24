@@ -1,5 +1,6 @@
 import {
   getGroupingItemFromResourceInstance, addGroupInfoToCells,
+  groupAppointments, expandGroupedAppointment,
 } from './helpers';
 
 describe('IntegratedGrouping helpers', () => {
@@ -51,6 +52,264 @@ describe('IntegratedGrouping helpers', () => {
           groupingInfo: [groupingItems[0][0]],
           hasRightBorder: true,
         }]);
+    });
+  });
+  describe('#groupAppointments', () => {
+    it('should group appointments into different arrays depending on their resources', () => {
+      const resources = [{
+        fieldName: 'resource1',
+        instances: [{ id: 'resource1_1' }, { id: 'resource1_2' }],
+        isMain: true,
+      }, {
+        fieldName: 'resource2',
+        instances: [{ id: 'resource2_1' }, { id: 'resource2_2' }],
+      }, {
+        fieldName: 'resource3',
+        instances: [{ id: 'resource3_1' }, { id: 'resource3_2' }],
+      }];
+      const appointments = [{
+        resource1: 'resource1_1',
+        resource2: 'resource2_1',
+        resource3: 'resource3_1',
+        dataItem: {
+          resource1: 'resource1_1',
+          resource2: 'resource2_1',
+          resource3: 'resource3_1',
+        },
+      }, {
+        resource1: 'resource1_1',
+        resource2: 'resource2_1',
+        resource3: 'resource3_2',
+        dataItem: {
+          resource1: 'resource1_1',
+          resource2: 'resource2_1',
+          resource3: 'resource3_2',
+        },
+      }, {
+        resource1: 'resource1_1',
+        resource2: 'resource2_2',
+        resource3: 'resource3_1',
+        dataItem: {
+          resource1: 'resource1_1',
+          resource2: 'resource2_2',
+          resource3: 'resource3_1',
+        },
+      }, {
+        resource1: 'resource1_1',
+        resource2: 'resource2_2',
+        resource3: 'resource3_2',
+        dataItem: {
+          resource1: 'resource1_1',
+          resource2: 'resource2_2',
+          resource3: 'resource3_2',
+        },
+      }, {
+        resource1: 'resource1_2',
+        resource2: 'resource2_1',
+        resource3: 'resource3_1',
+        dataItem: {
+          resource1: 'resource1_2',
+          resource2: 'resource2_1',
+          resource3: 'resource3_1',
+        },
+      }, {
+        resource1: 'resource1_2',
+        resource2: 'resource2_1',
+        resource3: 'resource3_2',
+        dataItem: {
+          resource1: 'resource1_2',
+          resource2: 'resource2_1',
+          resource3: 'resource3_2',
+        },
+      }, {
+        resource1: 'resource1_2',
+        resource2: 'resource2_2',
+        resource3: 'resource3_1',
+        dataItem: {
+          resource1: 'resource1_2',
+          resource2: 'resource2_2',
+          resource3: 'resource3_1',
+        },
+      }, {
+        resource1: 'resource1_2',
+        resource2: 'resource2_2',
+        resource3: 'resource3_2',
+        dataItem: {
+          resource1: 'resource1_2',
+          resource2: 'resource2_2',
+          resource3: 'resource3_2',
+        },
+      }];
+      const groupingItems = [[
+        { fieldName: 'resource1', id: 'resource1_1' },
+        { fieldName: 'resource1', id: 'resource1_2' },
+      ], [
+        { fieldName: 'resource2', id: 'resource2_1' },
+        { fieldName: 'resource2', id: 'resource2_2' },
+        { fieldName: 'resource2', id: 'resource2_1' },
+        { fieldName: 'resource2', id: 'resource2_2' },
+      ], [
+        { fieldName: 'resource3', id: 'resource3_1' },
+        { fieldName: 'resource3', id: 'resource3_2' },
+        { fieldName: 'resource3', id: 'resource3_1' },
+        { fieldName: 'resource3', id: 'resource3_2' },
+        { fieldName: 'resource3', id: 'resource3_1' },
+        { fieldName: 'resource3', id: 'resource3_2' },
+        { fieldName: 'resource3', id: 'resource3_1' },
+        { fieldName: 'resource3', id: 'resource3_2' },
+      ]];
+
+      expect(groupAppointments(appointments, resources, groupingItems))
+        .toEqual([
+          [appointments[0]], [appointments[1]], [appointments[2]], [appointments[3]],
+          [appointments[4]], [appointments[5]], [appointments[6]], [appointments[7]],
+        ]);
+    });
+    it('should group into one array if resources or groupingItems are undefined', () => {
+      const appointments = [{
+        resource1: 'resource1_1',
+        resource2: 'resource2_1',
+        resource3: 'resource3_1',
+      }, {
+        resource1: 'resource1_1',
+        resource2: 'resource2_1',
+        resource3: 'resource3_2',
+      }, {
+        resource1: 'resource1_1',
+        resource2: 'resource2_2',
+        resource3: 'resource3_1',
+      }];
+
+      expect(groupAppointments(appointments, undefined, []))
+        .toEqual([appointments]);
+      expect(groupAppointments(appointments, [], undefined))
+        .toEqual([appointments]);
+    });
+    it('should should work with multiple resources', () => {
+      const resources = [{
+        fieldName: 'resource1',
+        allowMultiple: true,
+        instances: [{ id: 1 }, { id: 2 }],
+        isMain: true,
+      }];
+      const appointments = [{
+        resource1: 1,
+        dataItem: { resource1: [1, 2] },
+      }, {
+        resource1: 2,
+        dataItem: { resource1: [1, 2] },
+      }];
+      const groupingItems = [[
+        { fieldName: 'resource1', id: 1 },
+        { fieldName: 'resource1', id: 2 },
+      ]];
+
+      expect(groupAppointments(appointments, resources, groupingItems))
+        .toEqual([[appointments[0]], [{
+          ...appointments[1],
+          dataItem: { resource1: [2, 1] },
+        }]]);
+    });
+  });
+  describe('#expandGroupedAppointment', () => {
+    const grouping = [
+      { resourceName: 'test1' },
+      { resourceName: 'test2' },
+    ];
+    it('should add grouping fields from appointment\'s dataItem', () => {
+      const resources = [
+        { fieldName: 'test1' },
+        { fieldName: 'test2' },
+        { fieldName: 'test3' },
+      ];
+      const appointment = {
+        dataItem: {
+          test1: 1,
+          test2: 2,
+          test3: 3,
+        },
+      };
+
+      expect(expandGroupedAppointment(appointment, grouping, resources))
+        .toEqual([{
+          dataItem: {
+            test1: 1,
+            test2: 2,
+            test3: 3,
+          },
+          test1: 1,
+          test2: 2,
+        }]);
+    });
+    it('should create several appointments if a multiple resource is present', () => {
+      const resources = [
+        { fieldName: 'test1', allowMultiple: true },
+        { fieldName: 'test2' },
+        { resourceName: 'test3' },
+      ];
+      const appointment = {
+        dataItem: {
+          test1: [1, 2, 3],
+          test2: 2,
+          test3: 3,
+        },
+      };
+
+      const result = expandGroupedAppointment(appointment, grouping, resources);
+      expect(result[0])
+        .toEqual({
+          dataItem: {
+            test1: [1, 2, 3],
+            test2: 2,
+            test3: 3,
+          },
+          test1: 1,
+          test2: 2,
+        });
+      expect(result[1])
+        .toEqual({
+          dataItem: {
+            test1: [1, 2, 3],
+            test2: 2,
+            test3: 3,
+          },
+          test1: 2,
+          test2: 2,
+        });
+      expect(result[2])
+        .toEqual({
+          dataItem: {
+            test1: [1, 2, 3],
+            test2: 2,
+            test3: 3,
+          },
+          test1: 3,
+          test2: 2,
+        });
+    });
+    it('should return appointment as it is (inside an array) if resources are undefined', () => {
+      const appointment = {
+        dataItem: {
+          test1: 1,
+          test2: 2,
+          test3: 3,
+        },
+      };
+
+      expect(expandGroupedAppointment(appointment, [], undefined))
+        .toEqual([appointment]);
+    });
+    it('should return appointment as it is (inside an array) if grouping is undefined', () => {
+      const appointment = {
+        dataItem: {
+          test1: 1,
+          test2: 2,
+          test3: 3,
+        },
+      };
+
+      expect(expandGroupedAppointment(appointment, undefined, []))
+        .toEqual([appointment]);
     });
   });
 });

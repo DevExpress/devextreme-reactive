@@ -1,5 +1,8 @@
 import { PureComputed } from '@devexpress/dx-core';
-import { ValidResourceInstance, GroupingItem, ViewCell, ValidResource, AppointmentMoment } from '../../types';
+import {
+  ValidResourceInstance, GroupingItem, ViewCell,
+  ValidResource, AppointmentMoment, Grouping,
+} from '../../types';
 
 export const getGroupingItemFromResourceInstance: PureComputed<
   [ValidResourceInstance], GroupingItem
@@ -87,4 +90,30 @@ const rearrangeResourceIds: PureComputed<
     mainResourceId,
     ...appointment.dataItem[mainResource!.fieldName].filter((id: any) => id !== mainResourceId),
   ];
+};
+
+export const expandGroupedAppointment: PureComputed<
+  [AppointmentMoment, Grouping[], ValidResource[]], AppointmentMoment[]
+> = (appointment, grouping, resources) => {
+  if (!resources || !grouping) return [appointment];
+  return resources
+    .reduce((acc: AppointmentMoment[], resource: ValidResource) => {
+      const isGroupedByResource = grouping.find(
+        groupingItem => groupingItem.resourceName === resource.fieldName,
+      ) !== undefined;
+      if (!isGroupedByResource) return acc;
+      const resourceField = resource.fieldName;
+      if (!resource.allowMultiple) {
+        return acc.reduce((accumulatedAppointments, currentAppointment) => [
+          ...accumulatedAppointments,
+          { ...currentAppointment, [resourceField]: currentAppointment.dataItem[resourceField] },
+        ], [] as AppointmentMoment[]);
+      }
+      return acc.reduce((accumulatedAppointments, currentAppointment) => [
+        ...accumulatedAppointments,
+        ...currentAppointment.dataItem[resourceField].map(
+          (resourceValue: any) => ({ ...currentAppointment, [resourceField]: resourceValue }),
+        ),
+      ], [] as AppointmentMoment[]);
+    }, [appointment] as AppointmentMoment[]);
 };

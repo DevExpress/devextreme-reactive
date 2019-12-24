@@ -2,8 +2,10 @@ import { PureComputed } from '@devexpress/dx-core';
 import {
   Grouping, ValidResourceInstance, ViewCell, ValidResource, GroupingItem, AppointmentMoment,
 } from '../../types';
-import { getGroupingItemFromResourceInstance, addGroupInfoToCells, groupAppointments } from './helpers';
-import { expandGroupedAppointment } from '../../utils';
+import {
+  getGroupingItemFromResourceInstance, addGroupInfoToCells,
+  groupAppointments, expandGroupedAppointment,
+} from './helpers';
 
 export const filterResourcesByGrouping: PureComputed<
   [Array<ValidResource>, Array<Grouping>], Array<ValidResource>

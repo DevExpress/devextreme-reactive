@@ -7,7 +7,6 @@ import {
   CalculateFirstDateOfWeekFn, AppointmentMoment,
   Interval, AppointmentGroup, AppointmentUnwrappedGroup,
   Rect, ElementRect, RectCalculatorBaseFn, CalculateRectByDateAndGroupIntervalsFn,
-  Grouping, ValidResource,
 } from './types';
 
 export const computed: ComputedHelperFn = (getters, viewName, baseComputed, defaultValue) => {
@@ -411,29 +410,3 @@ export const getRRuleSetWithExDates: PureComputed<
 };
 
 export const formatDateToString = (date: Date | string | number) => moment.utc(date).format('YYYY-MM-DDTHH:mm');
-
-export const expandGroupedAppointment: PureComputed<
-  [AppointmentMoment, Grouping[], ValidResource[]], AppointmentMoment[]
-> = (appointment, grouping, resources) => {
-  if (!resources || !grouping) return [appointment];
-  return resources
-    .reduce((acc: AppointmentMoment[], resource: ValidResource) => {
-      const isGroupedByResource = grouping.find(
-        groupingItem => groupingItem.resourceName === resource.fieldName,
-      ) !== undefined;
-      if (!isGroupedByResource) return acc;
-      const resourceField = resource.fieldName;
-      if (!resource.allowMultiple) {
-        return acc.reduce((accumulatedAppointments, currentAppointment) => [
-          ...accumulatedAppointments,
-          { ...currentAppointment, [resourceField]: currentAppointment.dataItem[resourceField] },
-        ], [] as AppointmentMoment[]);
-      }
-      return acc.reduce((accumulatedAppointments, currentAppointment) => [
-        ...accumulatedAppointments,
-        ...currentAppointment.dataItem[resourceField].map(
-          (resourceValue: any) => ({ ...currentAppointment, [resourceField]: resourceValue }),
-        ),
-      ], [] as AppointmentMoment[]);
-    }, [appointment] as AppointmentMoment[]);
-};

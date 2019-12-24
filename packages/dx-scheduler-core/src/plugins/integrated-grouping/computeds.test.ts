@@ -1,8 +1,15 @@
 import {
   filterResourcesByGrouping, sortFilteredResources,
   getGroupingItemsFromResources, expandViewCellsDataWithGroups,
-  updateGroupingWithMainResource,
+  updateGroupingWithMainResource, expandGroups,
 } from './computeds';
+import { expandGroupedAppointment, groupAppointments } from './helpers';
+
+jest.mock('./helpers', () => ({
+  ...require.requireActual('./helpers'),
+  expandGroupedAppointment: jest.fn(),
+  groupAppointments: jest.fn(),
+}));
 
 describe('IntegratedGrouping computeds', () => {
   describe('#filterResourcesByGrouping', () => {
@@ -201,6 +208,20 @@ describe('IntegratedGrouping computeds', () => {
         .toEqual([{
           resourceName: 'test 2',
         }]);
+    });
+  });
+
+  describe('#expandGroups', () => {
+    beforeEach(() => {
+      expandGroupedAppointment.mockImplementation(() => ['expandGroupedAppointment']);
+    });
+    it('should group and expand appointments', () => {
+      expandGroups([[{}]], 'grouping', 'resources', 'groupingItems');
+
+      expect(expandGroupedAppointment)
+        .toHaveBeenCalledWith({}, 'grouping', 'resources');
+      expect(groupAppointments)
+        .toHaveBeenCalledWith(['expandGroupedAppointment'], 'resources', 'groupingItems');
     });
   });
 });

@@ -64,6 +64,7 @@ export const groupAppointments: PureComputed<
       const belongsToGroup = currentGroup.reduce((isBelonging, groupItem) => (
         isBelonging && groupItem.id === appointment[groupItem.fieldName]
       ), true);
+      if (!belongsToGroup) return acc;
       const currentMainResourceId = currentGroup.find(
         groupItem => groupItem.fieldName === mainResource!.fieldName,
       )!.id;
@@ -76,8 +77,11 @@ export const groupAppointments: PureComputed<
             mainResource!, appointment, currentMainResourceId,
           ),
         },
+        resources: appointment.resources && rearrangeResources(
+          mainResource!, appointment, currentMainResourceId,
+        ),
       };
-      return belongsToGroup ? [...acc, updatedAppointment] : acc;
+      return [...acc, updatedAppointment];
     }, [] as AppointmentMoment[]);
   });
 };
@@ -90,6 +94,20 @@ const rearrangeResourceIds: PureComputed<
     mainResourceId,
     ...appointment.dataItem[mainResource!.fieldName].filter((id: any) => id !== mainResourceId),
   ];
+};
+
+export const rearrangeResources: PureComputed<
+  [ValidResource, AppointmentMoment, any], ValidResourceInstance[]
+> = (mainResource, appointment, currentResourceInstanceId) => {
+  if (!mainResource.allowMultiple) return appointment.resources;
+  const resources = appointment.resources.slice();
+  const firstMainResource = resources.findIndex((el: ValidResourceInstance) => el.isMain);
+  const currentResourceIndex = resources.findIndex(
+    (el: ValidResourceInstance) => el.isMain && el.id === currentResourceInstanceId,
+  );
+  [resources[firstMainResource], resources[currentResourceIndex]] =
+    [resources[currentResourceIndex], resources[firstMainResource]];
+  return resources;
 };
 
 export const expandGroupedAppointment: PureComputed<

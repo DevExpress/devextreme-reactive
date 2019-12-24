@@ -1,6 +1,6 @@
 import {
   getGroupingItemFromResourceInstance, addGroupInfoToCells,
-  groupAppointments, expandGroupedAppointment,
+  groupAppointments, expandGroupedAppointment, rearrangeResources,
 } from './helpers';
 
 describe('IntegratedGrouping helpers', () => {
@@ -54,6 +54,7 @@ describe('IntegratedGrouping helpers', () => {
         }]);
     });
   });
+
   describe('#groupAppointments', () => {
     it('should group appointments into different arrays depending on their resources', () => {
       const resources = [{
@@ -310,6 +311,38 @@ describe('IntegratedGrouping helpers', () => {
 
       expect(expandGroupedAppointment(appointment, undefined, []))
         .toEqual([appointment]);
+    });
+  });
+
+  describe('#rearrangeResources', () => {
+    const appointment = {
+      resources: [
+        { id: 1, isMain: false },
+        { id: 1, isMain: true },
+        { id: 2, isMain: true },
+      ],
+    };
+    it('should work', () => {
+      const resource = {
+        allowMultiple: true,
+      };
+      expect(rearrangeResources(resource, appointment, 2))
+        .toEqual([
+          { id: 1, isMain: false },
+          { id: 2, isMain: true },
+          { id: 1, isMain: true },
+        ]);
+    });
+    it('should return resources without changes if main resource is not multiple', () => {
+      const resource = {
+        allowMultiple: false,
+      };
+      expect(rearrangeResources(resource, appointment, 2))
+        .toEqual([
+          { id: 1, isMain: false },
+          { id: 1, isMain: true },
+          { id: 2, isMain: true },
+        ]);
     });
   });
 });

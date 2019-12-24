@@ -2,20 +2,34 @@ import * as React from 'react';
 import {
   Plugin, Action, Getters, Actions,
 } from '@devexpress/dx-react-core';
-import { Workbook } from 'exceljs';
+import { Workbook, Worksheet } from 'exceljs';
 import { Table } from '@devexpress/dx-react-grid';
 import { ExporterProps } from '../types';
 import { defaultSummaryMessages } from '../components/summary/table-summary-content';
 
 
-const exportHeader = (worksheet, columns) => {
+const exportHeader = (worksheet: Worksheet, columns) => {
   const cols = columns
     .map(({ column, width }) => ({ ...column, width: (width || 150) / 8 }))
     .map(({ name, title, width }) => ({
       key: name, header: title, width,
     }));
   worksheet.columns = cols;
-  worksheet.views.push({ state: 'frozen', ySplit: 1, topLeftCell: 'A1' })
+
+  let { lastRow } = worksheet;
+  if (lastRow) {
+    worksheet.addRow({});
+  }
+  
+  const r = columns.reduce((acc, { column: { name, title }}) => ({
+    ...acc,
+    [name]: title,
+  }), {});
+  worksheet.addRow(r);
+  
+  worksheet.views.push({
+    state: 'frozen', ySplit: worksheet.lastRow!.number,
+  });
 };
 
 
@@ -34,15 +48,16 @@ class ExportBase extends React.PureComponent<ExporterProps> {
   }: Actions) => {
     const columns = tableColumns.filter(c => c.type === Table.COLUMN_TYPE)
 
-    const { onSave, customizeCell } = this.props;
+    const { onSave, customizeCell, customizeHeader, customizeFooter } = this.props;
     const workbook: Workbook = new Workbook();
     const worksheet = workbook.addWorksheet('Main');
+
+    customizeHeader(worksheet);
 
     exportHeader(worksheet, columns);
 
     const outlineLevels = grouping?.reduce((acc, { columnName }, index) => ({ ...acc, [columnName]: index }), {});
     const maxLevel = grouping?.length - 1;
-    // console.log(worksheet.columns, outlineLevels)
 
     const expandRows = rows =>
       rows.reduce((acc, row) => (
@@ -59,22 +74,19 @@ class ExportBase extends React.PureComponent<ExporterProps> {
       const row = worksheet.lastRow!;
       const letter = worksheet.getColumn(columnName).letter;
       const operation = operations[type] || type.toUpperCase();
-      const rangesStr = ranges.map(/* r => r.map( */range => {
+      const rangesStr = ranges.map(range => (
+        range
+          .map(r => `${letter}${r}`)
+          .filter((val, index, arr) => arr.indexOf(val) === index)
+          .join(':')
+      )).join(',');
 
-        return range.map(r => `${letter}${r}`).join(':')
-
-      }).join(';');
-
-      console.log('export summary at', row.number, rangesStr)
       const cell = row.getCell(columnName);
       cell.value = {
         formula: `${operation}(${rangesStr})`,
         date1904: false,
       };
       cell.numFmt = `"${defaultSummaryMessages[type]}:" 0`;
-      // row.getCell(columnName).
-      // console.log(`${operation}(${rangesStr})`)
-      // row.getCell(columnName).value = { formula: `${operation}(${letter}${start}:${letter}${end})`, date1904: false }
     };
 
     const findRanges = (compoundKey, level, result) => {
@@ -107,40 +119,30 @@ class ExportBase extends React.PureComponent<ExporterProps> {
       worksheet.addRow({});
 
       totalSummaryItems.forEach((s) => {
-        // exportSummary(s, 2, worksheet.rowCount - 1)
+        exportSummary(s, findRanges('__root', -1, []));
       });
     }
 
-    // const groupRanges = {};
 
     let currentLevel = 0;
-    // let currentGroup: any | null = null;
     let openGroups: any[] = [];
     
-    const groupTree = {};
-    // let rowType: string = '';
-
-    // let currentGroup;
-    // asia: [asia|health, asia|care]
-    // asia|health: [2, 4]
-    // asia|care: [5, 8]
-    // const groupTree = allRows.reduce((acc, row) => {
-    //   const level = outlineLevels[row.groupedBy];
-    //   if (level === 0) {
-    //     return {...acc, [row.compoundKey]: {} };
-    //   }
-      
-    // }, {});
+    const groupTree = { '__root': [] as any[] };
 
     let parentChain = {};
     let lastDataIndex = 0;
     let openGroup = '';
-    let index = 2; // 1 is for header 
+    let index = worksheet.lastRow!.number + 1;
+    let level = 0;
+    let prevLevel = 0;
     allRows.forEach((row) => {
       const { groupedBy, compoundKey } = row;
       debugger;
       if (groupedBy) {
-        const level = outlineLevels[groupedBy];
+        level = outlineLevels[groupedBy];
+        if (level === 0) {
+          groupTree['__root'].push(compoundKey);
+        }
         groupTree[compoundKey] = [];
         parentChain[level] = compoundKey;
         if (0 < level && level <= maxLevel) {
@@ -157,18 +159,18 @@ class ExportBase extends React.PureComponent<ExporterProps> {
             start += 1;
             index += 1;
           }
-          console.log(index, start, level);
           groupTree[compoundKey].push(start);
-        } else {
-
+        } else if (level < prevLevel) {
+          index += maxLevel - level;
         }
+        prevLevel = level;
       } else {
         lastDataIndex = index;
       }
       index += 1;
     });
 
-    console.log(groupTree);
+    console.log('v2', groupTree);
 
     allRows.forEach((row) => {
       let r;
@@ -176,28 +178,13 @@ class ExportBase extends React.PureComponent<ExporterProps> {
       if (row.groupedBy) {
         currentLevel = outlineLevels[row.groupedBy];
 
-        // if (currentLevel <= openGroups.length) {
-          const groupsToClose = openGroups.slice(currentLevel);
-          groupsToClose.reverse().forEach(closeGroup); // close nested groups first
-
-          // const currentGroup = openGroups[openGroups.length - 1];
-          // currentGroup.end = worksheet.lastRow!.number;
-
-          // closeGroup(currentGroup);
-
-          // openGroups = openGroups.slice(0, openGroups.length - 1);
-        // }
+        const groupsToClose = openGroups.slice(currentLevel);
+        groupsToClose.reverse().forEach(closeGroup); // close nested groups first
 
         openGroups = openGroups.slice(0, currentLevel);
         openGroups[currentLevel] = { groupedBy: row.groupedBy, compoundKey: row.compoundKey };
 
-        // if (currentGroup !== null) {
-          // groupRanges[row.compoundKey] = {};
-          // console.log(row)
-        // }
         const lastIndex = worksheet.lastRow!.number;
-
-        // currentGroup = { groupedBy: row.groupedBy, compoundKey: row.compoundKey }
 
         // add group row 
         const title = dataColumns.find(({ name }) => name === row.groupedBy).title;
@@ -213,7 +200,6 @@ class ExportBase extends React.PureComponent<ExporterProps> {
           worksheet.lastRow!.outlineLevel = currentLevel;
         }
         currentLevel += 1;
-        // console.log(worksheet.lastRow.actualCellCount)
       } else {
         r = columns.reduce((acc, { column: { name }}) => ({
           ...acc,
@@ -229,6 +215,8 @@ class ExportBase extends React.PureComponent<ExporterProps> {
     });
 
     closeSheet();
+
+    customizeFooter(worksheet);
 
     onSave(workbook);
 

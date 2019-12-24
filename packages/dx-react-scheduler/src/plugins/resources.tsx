@@ -4,20 +4,19 @@ import {
   convertResourcesToPlain, validateResources, addResourcesToAppointments,
 } from '@devexpress/dx-scheduler-core';
 import { ResourcesProps } from '../types/resources/resources.types';
-import { memoize } from '@devexpress/dx-core';
 
 const pluginDependencies = [
   { name: 'Appointments' },
 ];
 
-const addResourcesToTimeTableAppointments = memoize(({
+const addResourcesToTimeTableAppointments = ({
   timeTableAppointments, resources, plainResources,
-}) => timeTableAppointments
-  && addResourcesToAppointments(timeTableAppointments[0], resources, plainResources));
-const addResourcesToAllDayAppointments = memoize(({
+}: Getters) => timeTableAppointments
+  && addResourcesToAppointments(timeTableAppointments[0], resources, plainResources);
+const addResourcesToAllDayAppointments = ({
     allDayAppointments, resources, plainResources,
-  }) => allDayAppointments
-    && addResourcesToAppointments(allDayAppointments[0], resources, plainResources));
+  }: Getters) => allDayAppointments
+    && addResourcesToAppointments(allDayAppointments[0], resources, plainResources);
 
 const ResourcesBase: React.SFC<ResourcesProps> = React.memo(({
   data, mainResourceName, palette,

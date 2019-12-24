@@ -153,7 +153,7 @@ export const adjustAppointments: CustomFunction<
 > = (groups, byDay = false) => groups.map((items) => {
   let offset = 0;
   let reduceValue = 1;
-  const appointments = items.slice();
+  const appointments = items.map((appointment: any) => ({ ...appointment }));
   const groupLength = appointments.length;
   for (let startIndex = 0; startIndex < groupLength; startIndex += 1) {
     const appointment = appointments[startIndex];
@@ -200,8 +200,8 @@ export const calculateFirstDateOfWeek: CalculateFirstDateOfWeekFn = (
 export const unwrapGroups: PureComputed<
   [AppointmentGroup[]], AppointmentUnwrappedGroup[]
 > = groups => groups.reduce((acc, { items, reduceValue }) => {
-  acc.push(...items.map(({ start, end, dataItem, offset, ...restProps }) => ({
-    start, end, dataItem, offset, reduceValue,
+  acc.push(...items.map(({ start, end, dataItem, offset, resources, ...restProps }) => ({
+    start, end, dataItem, offset, reduceValue, resources,
     fromPrev: moment(start).diff(dataItem.startDate, 'minutes') > 1,
     toNext: moment(dataItem.endDate).diff(end, 'minutes') > 1,
     ...restProps,
@@ -256,6 +256,7 @@ const horizontalRectCalculator: CustomFunction<
   );
 
   return {
+    resources: appointment.resources,
     top: top + ((height / appointment.reduceValue) * appointment.offset),
     height: height / appointment.reduceValue,
     left: toPercentage(left, parentWidth),
@@ -300,6 +301,7 @@ const verticalRectCalculator: CustomFunction<
   const widthInPx = width / appointment.reduceValue;
 
   return {
+    resources: appointment.resources,
     top,
     height,
     left: toPercentage(left + (widthInPx * appointment.offset), parentWidth),
@@ -377,20 +379,17 @@ export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIn
   const { growDirection, multiline } = type;
   const isHorizontal = growDirection === HORIZONTAL_TYPE;
 
-  const intervalGroups = groupAppointments(intervals, resources, groupingItems);
-  const sortedGroups = intervalGroups.map(
-    intervalGroup => sortAppointments(intervalGroup),
-  );
-  const groupedIntervals = sortedGroups.reduce((acc, sortedGroup) => [
+  const sorted = intervals.map(sortAppointments);
+  const grouped = sorted.reduce(((acc, sortedGroup) => [
     ...acc,
     ...findOverlappedAppointments(sortedGroup as AppointmentMoment[], isHorizontal),
-  ], [] as any[]);
+  ]), [] as AppointmentMoment[]);
 
   const rectCalculator = isHorizontal
     ? horizontalRectCalculator
     : verticalRectCalculator;
 
-  return unwrapGroups(adjustAppointments(groupedIntervals, isHorizontal))
+  return unwrapGroups(adjustAppointments(grouped as any[], isHorizontal))
     .map(appointment => rectCalculator(appointment, { rectByDates, multiline, rectByDatesMeta }));
 };
 

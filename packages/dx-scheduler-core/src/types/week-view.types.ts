@@ -1,12 +1,10 @@
 import { PureComputed } from '@devexpress/dx-core';
 import { Appointment } from './scheduler-core.types';
 import { AppointmentMoment } from './all-day-panel.types';
-import { Grouping } from './grouping-state.types';
-import { ValidResource } from './resources.types';
 
 /** @internal */
-export type CalculateWeekDateAndGroupIntervalsFn = PureComputed<
-  [Appointment[], Date, Date, number[], number, Grouping[], ValidResource[]], AppointmentMoment[]
+export type CalculateWeekDateIntervalsFn = PureComputed<
+  [Appointment[], Date, Date, number[], number], AppointmentMoment[][]
 >;
 /** @internal */
 export type DayBoundaryPredicateFn = PureComputed<

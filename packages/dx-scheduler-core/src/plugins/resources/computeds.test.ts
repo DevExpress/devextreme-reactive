@@ -1,4 +1,12 @@
-import { validateResources, convertResourcesToPlain } from './computeds';
+import {
+  validateResources, convertResourcesToPlain, addResourcesToAppointments,
+} from './computeds';
+import { getAppointmentResources } from './helpers';
+
+jest.mock('./helpers', () => ({
+  ...require.requireActual('./helpers'),
+  getAppointmentResources: jest.fn(),
+}));
 
 describe('Resources computeds', () => {
   describe('#validateResources', () => {
@@ -204,6 +212,33 @@ describe('Resources computeds', () => {
           title: 'roomId',
           fieldName: 'roomId',
         }]);
+    });
+  });
+  describe('#addResourcesToAppointments', () => {
+    const appointments = [
+      { dataItem: { test: 'test1' } },
+      { dataItem: { test: 'test2' } },
+    ];
+    const resources = [];
+    const plainResources = [];
+    beforeEach(() => {
+      getAppointmentResources.mockImplementation(() => 'getAppointmentResources');
+    });
+    it('should add resources to all the appointments and wrap them in an array', () => {
+      expect(addResourcesToAppointments(appointments, resources, plainResources))
+        .toEqual([[{
+          dataItem: { test: 'test1' },
+          resources: 'getAppointmentResources',
+        }, {
+          dataItem: { test: 'test2' },
+          resources: 'getAppointmentResources',
+        }]]);
+      expect(getAppointmentResources)
+        .toHaveBeenCalledTimes(2);
+      expect(getAppointmentResources)
+        .toHaveBeenCalledWith({ test: 'test1' }, resources, plainResources);
+      expect(getAppointmentResources)
+        .toHaveBeenCalledWith({ test: 'test1' }, resources, plainResources);
     });
   });
 });

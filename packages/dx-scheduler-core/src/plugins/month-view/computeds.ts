@@ -1,9 +1,9 @@
 import moment from 'moment';
 import {
   MonthCellsDataComputedFn, MonthCellData,
-  CalculateMonthDateAndGroupIntervalsFn, AppointmentMoment,
+  CalculateMonthDateIntervalsFn, AppointmentMoment,
 } from '../../types';
-import { filterByViewBoundaries, expandGroupedAppointment } from '../../utils';
+import { filterByViewBoundaries } from '../../utils';
 import { sliceAppointmentByWeek } from './helpers';
 
 const DAY_COUNT = 7;
@@ -48,23 +48,21 @@ export const monthCellsData: MonthCellsDataComputedFn = (
   return result;
 };
 
-export const calculateMonthDateAndGroupIntervals: CalculateMonthDateAndGroupIntervalsFn = (
-  appointments, leftBound, rightBound, grouping, resources,
-) => appointments
-  .map(({ start, end, ...restArgs }) => ({ start: moment(start), end: moment(end), ...restArgs }))
-  .reduce((acc, appointment) =>
-    [...acc, ...filterByViewBoundaries(appointment, leftBound, rightBound, [], false)],
-    [] as AppointmentMoment[],
-  )
-  .reduce((acc, appointment) =>
-    [...acc, ...expandGroupedAppointment(appointment, grouping, resources)],
-    [] as AppointmentMoment[],
-  )
-  .reduce((acc, appointment) => ([
-    ...acc,
-    ...sliceAppointmentByWeek(
-      { left: moment(leftBound as Date), right: moment(rightBound as Date) },
-      appointment,
-      DAY_COUNT,
-    ),
-  ]), [] as AppointmentMoment[]);
+export const calculateMonthDateIntervals: CalculateMonthDateIntervalsFn = (
+  appointments, leftBound, rightBound,
+) => [
+  appointments
+    .map(({ start, end, ...restArgs }) => ({ start: moment(start), end: moment(end), ...restArgs }))
+    .reduce((acc, appointment) =>
+      [...acc, ...filterByViewBoundaries(appointment, leftBound, rightBound, [], false)],
+      [] as AppointmentMoment[],
+    )
+    .reduce((acc, appointment) => ([
+      ...acc,
+      ...sliceAppointmentByWeek(
+        { left: moment(leftBound as Date), right: moment(rightBound as Date) },
+        appointment,
+        DAY_COUNT,
+      ),
+    ]), [] as AppointmentMoment[]),
+];

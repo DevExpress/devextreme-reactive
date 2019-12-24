@@ -4,8 +4,8 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
-  verticalTimeTableRects,
   viewCellsData,
+  calculateWeekDateIntervals,
 } from '@devexpress/dx-scheduler-core';
 import { DayView } from './day-view';
 import { BasicView } from './basic-view';
@@ -16,7 +16,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
   availableViews: jest.fn(),
-  verticalTimeTableRects: jest.fn(),
+  calculateWeekDateIntervals:jest.fn(),
 }));
 
 const defaultDeps = {
@@ -101,9 +101,11 @@ describe('Day View', () => {
       expect(viewCellsData)
         .toHaveBeenCalledWith(7, undefined, 5, [], 2, 3, 1, 123);
 
-      tree.find(BasicView).props().timeTableRects(1, 2, 3, 4, 5, 6, 7);
-      expect(verticalTimeTableRects)
-        .toHaveBeenCalledWith(1, 2, 3, 4, 5, 6, 7);
+      tree.find(BasicView).props().calculateAppointmentsIntervals(1)({
+        appointments: 2, startViewDate: 3, endViewDate: 4, excludedDays: 5,
+      });
+      expect(calculateWeekDateIntervals)
+        .toHaveBeenCalledWith(2, 3, 4, 5, 1);
     });
   });
 

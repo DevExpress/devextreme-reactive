@@ -25,8 +25,8 @@ export type MonthCellsDataComputedFn = PureComputed<
   [Date, number, number, Date | number], MonthCellData[][]
 >;
 /** @internal */
-export type CalculateMonthDateAndGroupIntervalsFn = PureComputed<
-  [Appointment[], Date, Date, Grouping[], ValidResource[]], AppointmentMoment[]
+export type CalculateMonthDateIntervalsFn = PureComputed<
+  [Appointment[], Date, Date], AppointmentMoment[][]
 >;
 /** @internal */
 export type SliceAppointmentByWeekFn = PureComputed<

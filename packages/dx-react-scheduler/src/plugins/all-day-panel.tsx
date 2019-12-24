@@ -8,11 +8,7 @@ import {
   TemplateConnector,
   PluginComponents,
 } from '@devexpress/dx-react-core';
-import {
-  allDayCells,
-  getAppointmentStyle,
-  allDayRects,
-} from '@devexpress/dx-scheduler-core';
+import { allDayCells, calculateAllDayDateIntervals } from '@devexpress/dx-scheduler-core';
 import moment from 'moment';
 
 import { AllDayPanelProps, AllDayPanelState } from '../types';
@@ -25,13 +21,13 @@ const defaultMessages = {
   allDay: 'All Day',
 };
 const MONTH = 'Month';
-const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
+const AllDayAppointmentLayerPlaceholder = () =>
+  <TemplatePlaceholder name="allDayAppointmentLayer" />;
 const AllDayPanelPlaceholder = params => <TemplatePlaceholder name="allDayPanel" params={params} />;
 const CellPlaceholder = params => <TemplatePlaceholder name="allDayPanelCell" params={params} />;
 
 class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelState> {
   state: AllDayPanelState = {
-    rects: [],
     elementsMeta: {},
   };
   static defaultProps: Partial<AllDayPanelProps> = {
@@ -49,19 +45,18 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
 
   allDayCellsData = memoize(viewCellsData => allDayCells(viewCellsData));
 
-  updateRects = memoize((
-    appointments, startViewDate, excludedDays, endViewDate,
-    viewCellsData, grouping, resources, groupingItems,
-  ) => (cellElementsMeta) => {
+  updateCellElementsMeta = memoize((cellElementsMeta) => {
+    this.setState({ elementsMeta: cellElementsMeta });
+  });
+
+  allDayAppointmentsComputed = memoize(({
+    appointments, startViewDate, endViewDate, excludedDays,
+  }) => {
     const allDayLeftBound = moment(startViewDate).hours(0).minutes(0).toDate();
     const allDayRightBound = moment(endViewDate).hours(23).minutes(59).toDate();
-    const rects = allDayRects(
-      appointments, allDayLeftBound, allDayRightBound,
-      excludedDays, viewCellsData, cellElementsMeta,
-      grouping, resources, groupingItems,
+    return calculateAllDayDateIntervals(
+      appointments, allDayLeftBound, allDayRightBound, excludedDays,
     );
-
-    this.setState({ rects, elementsMeta: cellElementsMeta });
   });
 
   getMessageFormatter = memoize((messages, allDayPanelDefaultMessages) =>
@@ -77,7 +72,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
       containerComponent: Container,
       messages,
     } = this.props;
-    const { rects, elementsMeta } = this.state;
+    const { elementsMeta } = this.state;
     const getMessage = this.getMessageFormatter(messages, defaultMessages);
 
     return (
@@ -86,6 +81,10 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
         dependencies={pluginDependencies}
       >
         <Getter name="allDayElementsMeta" value={elementsMeta} />
+        <Getter
+          name="allDayAppointments"
+          computed={this.allDayAppointmentsComputed}
+        />
 
         <Template name="dayScaleEmptyCell">
           <TemplateConnector>
@@ -116,36 +115,20 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-              currentView, appointments, startViewDate, formatDate,
-              endViewDate, excludedDays, viewCellsData, grouping, resources, groupingItems,
+              currentView, formatDate, viewCellsData,
             }) => {
               if (currentView.name === MONTH) return null;
-              const setRects = this.updateRects(
-                appointments, startViewDate, excludedDays, endViewDate,
-                viewCellsData, grouping, resources, groupingItems,
-              );
               return (
                 <>
                   <Layout
                     cellComponent={CellPlaceholder}
                     rowComponent={rowComponent}
                     cellsData={this.allDayCellsData(viewCellsData)}
-                    setCellElementsMeta={setRects}
+                    setCellElementsMeta={this.updateCellElementsMeta}
                     formatDate={formatDate}
                   />
                   <AppointmentLayer>
-                    {rects.map(({
-                      dataItem, type, fromPrev, toNext, ...geometry
-                    }, index) => (
-                      <AppointmentPlaceholder
-                        style={getAppointmentStyle(geometry)}
-                        type={type}
-                        key={index.toString()}
-                        data={dataItem}
-                        fromPrev={fromPrev}
-                        toNext={toNext}
-                      />
-                    ))}
+                    <AllDayAppointmentLayerPlaceholder />
                   </AppointmentLayer>
                 </>
               );

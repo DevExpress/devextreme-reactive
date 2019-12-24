@@ -7,7 +7,6 @@ import { Table } from '@devexpress/dx-react-grid';
 import { ExporterProps } from '../types';
 import { defaultSummaryMessages } from '../components/summary/table-summary-content';
 
-
 const exportHeader = (worksheet: Worksheet, columns) => {
   const cols = columns
     .map(({ column, width }) => ({ ...column, width: (width || 150) / 8 }))
@@ -32,7 +31,101 @@ const exportHeader = (worksheet: Worksheet, columns) => {
   });
 };
 
+const buildGroupTree = (allRows, outlineLevels, startIndex) => {
+  const groupTree = { '__root': [] as any[] };
+  const maxLevel = outlineLevels.length;
 
+  let parentChain = {};
+  let lastDataIndex = 0;
+  let openGroup = '';
+  let index = startIndex;
+  let level = 0;
+  let prevLevel = 0;
+
+  allRows.forEach((row) => {
+    const { groupedBy, compoundKey } = row;
+    if (groupedBy) {
+      level = outlineLevels[groupedBy];
+      if (level === 0) {
+        groupTree['__root'].push(compoundKey);
+      }
+      groupTree[compoundKey] = [];
+      parentChain[level] = compoundKey;
+      if (0 < level && level <= maxLevel) {
+        groupTree[parentChain[level - 1]].push(compoundKey);
+      }
+      if (level === maxLevel) {
+        if (openGroup) {
+          // close prev group
+          groupTree[openGroup].push(lastDataIndex);
+        }
+        openGroup = compoundKey;
+        let start = index + 1;
+        if (lastDataIndex > 0) {
+          start += 1;
+          index += 1;
+        }
+        groupTree[compoundKey].push(start);
+      } else if (level < prevLevel) {
+        index += maxLevel - level;
+      }
+      prevLevel = level;
+    } else {
+      lastDataIndex = index;
+    }
+    index += 1;
+  });
+
+  return groupTree;
+};
+
+const exportRows = (
+  worksheet, allRows, dataColumns, columns, outlineLevels,
+  getCellValue, closeGroup, customizeCell,
+) => {
+  let currentLevel = 0;
+  let openGroups: any[] = [];
+
+  allRows.forEach((row) => {
+    let r;
+
+    if (row.groupedBy) {
+      currentLevel = outlineLevels[row.groupedBy];
+
+      openGroups.slice(currentLevel).reverse().forEach(closeGroup); // close nested groups first
+
+      openGroups = openGroups.slice(0, currentLevel);
+      openGroups[currentLevel] = { groupedBy: row.groupedBy, compoundKey: row.compoundKey };
+
+      // add group row 
+      const title = dataColumns.find(({ name }) => name === row.groupedBy).title;
+      r = { [columns[0].column.name]: `${title}: ${row.value}` };
+      
+      worksheet.addRow(r);
+      const lastIndex = worksheet.lastRow!.number;
+
+      // merge into single cell
+      worksheet.mergeCells(lastIndex, 1, lastIndex, columns.length);
+      worksheet.lastRow!.getCell(1).font = { bold: true };
+
+      if (currentLevel > 0) {
+        worksheet.lastRow!.outlineLevel = currentLevel;
+      }
+      currentLevel += 1;
+    } else {
+      r = columns.reduce((acc, { column: { name }}) => ({
+        ...acc,
+        [name]: getCellValue(row, name),
+      }), {});
+      worksheet.addRow(r);
+      worksheet.lastRow!.outlineLevel = currentLevel;
+    }
+
+    worksheet.lastRow!.eachCell((cell, colNumber) => {
+      customizeCell(cell, row, columns[colNumber - 1]);
+    });
+  });
+}
 
 class ExportBase extends React.PureComponent<ExporterProps> {
   constructor(props) {
@@ -51,11 +144,6 @@ class ExportBase extends React.PureComponent<ExporterProps> {
     const { onSave, customizeCell, customizeHeader, customizeFooter } = this.props;
     const workbook: Workbook = new Workbook();
     const worksheet = workbook.addWorksheet('Main');
-
-    customizeHeader(worksheet);
-
-    exportHeader(worksheet, columns);
-
     const outlineLevels = grouping?.reduce((acc, { columnName }, index) => ({ ...acc, [columnName]: index }), {});
     const maxLevel = grouping?.length - 1;
 
@@ -123,96 +211,18 @@ class ExportBase extends React.PureComponent<ExporterProps> {
       });
     }
 
+    // export work
+    customizeHeader(worksheet);
 
-    let currentLevel = 0;
-    let openGroups: any[] = [];
+    exportHeader(worksheet, columns);
+
+    const groupTree = buildGroupTree(allRows, outlineLevels, worksheet.lastRow!.number + 1);
+
+    exportRows(
+      worksheet, allRows, dataColumns, columns, outlineLevels,
+      getCellValue, closeGroup, customizeCell,
+    );
     
-    const groupTree = { '__root': [] as any[] };
-
-    let parentChain = {};
-    let lastDataIndex = 0;
-    let openGroup = '';
-    let index = worksheet.lastRow!.number + 1;
-    let level = 0;
-    let prevLevel = 0;
-    allRows.forEach((row) => {
-      const { groupedBy, compoundKey } = row;
-      debugger;
-      if (groupedBy) {
-        level = outlineLevels[groupedBy];
-        if (level === 0) {
-          groupTree['__root'].push(compoundKey);
-        }
-        groupTree[compoundKey] = [];
-        parentChain[level] = compoundKey;
-        if (0 < level && level <= maxLevel) {
-          groupTree[parentChain[level - 1]].push(compoundKey);
-        }
-        if (level === maxLevel) {
-          if (openGroup) {
-            // close prev group
-            groupTree[openGroup].push(lastDataIndex);
-          }
-          openGroup = compoundKey;
-          let start = index + 1;
-          if (lastDataIndex > 0) {
-            start += 1;
-            index += 1;
-          }
-          groupTree[compoundKey].push(start);
-        } else if (level < prevLevel) {
-          index += maxLevel - level;
-        }
-        prevLevel = level;
-      } else {
-        lastDataIndex = index;
-      }
-      index += 1;
-    });
-
-    console.log('v2', groupTree);
-
-    allRows.forEach((row) => {
-      let r;
-
-      if (row.groupedBy) {
-        currentLevel = outlineLevels[row.groupedBy];
-
-        openGroups.slice(currentLevel).reverse().forEach(closeGroup); // close nested groups first
-
-        openGroups = openGroups.slice(0, currentLevel);
-        openGroups[currentLevel] = { groupedBy: row.groupedBy, compoundKey: row.compoundKey };
-
-        
-        // add group row 
-        const title = dataColumns.find(({ name }) => name === row.groupedBy).title;
-        r = { [columns[0].column.name]: `${title}: ${row.value}` };
-        
-        worksheet.addRow(r);
-        const lastIndex = worksheet.lastRow!.number;
-
-        // merge into single cell
-        worksheet.mergeCells(lastIndex, 1, lastIndex, columns.length);
-        worksheet.lastRow!.getCell(1).font = { bold: true };
-
-        if (currentLevel > 0) {
-          worksheet.lastRow!.outlineLevel = currentLevel;
-        }
-        currentLevel += 1;
-      } else {
-        r = columns.reduce((acc, { column: { name }}) => ({
-          ...acc,
-          [name]: getCellValue(row, name),
-        }), {});
-        worksheet.addRow(r);
-        worksheet.lastRow!.outlineLevel = currentLevel;
-      }
-
-      worksheet.lastRow!.eachCell((cell, colNumber) => {
-        customizeCell(cell, row, columns[colNumber - 1]);
-      });
-    });
-
     closeSheet();
 
     customizeFooter(worksheet);
@@ -223,8 +233,6 @@ class ExportBase extends React.PureComponent<ExporterProps> {
   }
 
   render() {
-    // const exportGridAction = this.exportGrid;
-
     return (
       <Plugin name="Exporter">
         <Action name="performExport" action={this.exportGrid} />

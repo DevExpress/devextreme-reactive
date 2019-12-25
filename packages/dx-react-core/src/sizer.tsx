@@ -79,6 +79,13 @@ export class Sizer extends React.PureComponent<SizerProps> {
 
   componentDidUpdate() {
     this.setupListeners();
+    // We can scroll the VirtualTable manually only by changing
+    // containter's (rootNode) scrollTop property.
+    // Viewport changes its own properties automatically.
+    const { scrollTop } = this.props;
+    if (scrollTop! > -1) {
+      this.rootNode.scrollTop = scrollTop!;
+    }
   }
 
   // There is no need to remove listeners as divs are removed from DOM when component is unmount.
@@ -131,16 +138,6 @@ export class Sizer extends React.PureComponent<SizerProps> {
     this.contractNotifier = document.createElement('div');
     Object.assign(this.contractNotifier.style, styles.contractNotifier);
     this.contractTrigger.appendChild(this.contractNotifier);
-  }
-
-  componentDidUpdate() {
-    // We can scroll the VirtualTable manually only by changing
-    // containter's (rootNode) scrollTop property.
-    // Viewport changes its own properties automatically.
-    const { scrollTop } = this.props;
-    if (scrollTop! > -1) {
-      this.rootNode.scrollTop = scrollTop!;
-    }
   }
 
   render() {

@@ -173,6 +173,8 @@ export * from './plugins/table-summary-row/computeds';
 export * from './plugins/table-summary-row/helpers';
 /** @internal */
 export * from './plugins/table-summary-row/constants';
+/** @internal */
+export * from './plugins/summary-state/helpers';
 
 /** @internal */
 export { getColumnExtension, getColumnExtensionValueGetter } from './utils/column-extension';

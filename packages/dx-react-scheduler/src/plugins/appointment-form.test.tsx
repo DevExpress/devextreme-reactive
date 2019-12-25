@@ -49,6 +49,7 @@ describe('AppointmentForm', () => {
     commandButtonComponent: () => null,
     booleanEditorComponent: () => null,
     selectComponent: () => null,
+    resourceEditorComponent: () => null,
     radioGroupComponent: () => null,
     weeklyRecurrenceSelectorComponent: () => null,
     appointmentData: {},
@@ -270,6 +271,7 @@ describe('AppointmentForm', () => {
         dateEditorComponent: defaultProps.dateEditorComponent,
         labelComponent: defaultProps.labelComponent,
         booleanEditorComponent: defaultProps.booleanEditorComponent,
+        resourceEditorComponent: defaultProps.resourceEditorComponent,
         readOnly: false,
         fullSize: true,
       });
@@ -341,6 +343,42 @@ describe('AppointmentForm', () => {
     const templatePlaceholder = tree
       .find(Template)
       .filterWhere(node => node.props().name === 'tooltip');
+
+    expect(templatePlaceholder.exists())
+      .toBeTruthy();
+  });
+
+  it('should render cell template', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <AppointmentForm
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    const templatePlaceholder = tree
+      .find(Template)
+      .filterWhere(node => node.props().name === 'cell');
+
+    expect(templatePlaceholder.exists())
+      .toBeTruthy();
+  });
+
+  it('should render allDayCell template', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <AppointmentForm
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    const templatePlaceholder = tree
+      .find(Template)
+      .filterWhere(node => node.props().name === 'allDayPanelCell');
 
     expect(templatePlaceholder.exists())
       .toBeTruthy();

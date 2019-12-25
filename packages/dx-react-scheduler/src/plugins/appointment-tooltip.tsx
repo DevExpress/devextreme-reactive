@@ -16,6 +16,7 @@ import {
   setAppointmentMeta,
   AppointmentMeta,
   TOGGLE_APPOINTMENT_TOOLTIP_VISIBILITY,
+  getAppointmentResources,
 } from '@devexpress/dx-scheduler-core';
 
 import { AppointmentTooltipProps, AppointmentTooltipState, Appointments } from '../types';
@@ -124,7 +125,7 @@ class AppointmentTooltipBase extends React.PureComponent<
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-              formatDate,
+              formatDate, resources, plainResources,
             }, {
               finishDeleteAppointment, openDeleteConfirmationDialog,
             }) => {
@@ -151,6 +152,9 @@ class AppointmentTooltipBase extends React.PureComponent<
                     headerComponent,
                     contentComponent,
                     appointmentMeta,
+                    appointmentResources: appointmentMeta ? getAppointmentResources(
+                      appointmentMeta.data as any, resources, plainResources,
+                    ) : [],
                     visible,
                     onHide: this.toggleVisibility,
                     commandButtonIds,
@@ -174,9 +178,8 @@ class AppointmentTooltipBase extends React.PureComponent<
             <TemplatePlaceholder
               params={{
                 ...params,
-                onClick: (
-                  { target, data },
-                ) => this.onAppointmentClick({ target, data }),
+                onClick: ({ target, data }) =>
+                 this.onAppointmentClick({ target, data }),
               }}
             />
           )}

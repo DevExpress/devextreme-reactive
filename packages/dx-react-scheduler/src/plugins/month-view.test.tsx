@@ -5,7 +5,7 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
   monthCellsData,
-  horizontalTimeTableRects,
+  calculateMonthDateIntervals,
 } from '@devexpress/dx-scheduler-core';
 import { MonthView } from './month-view';
 import { BasicView } from './basic-view';
@@ -17,7 +17,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   availableViews: jest.fn(),
   endViewDate: jest.fn(),
   monthCellsData: jest.fn(),
-  horizontalTimeTableRects: jest.fn(),
+  calculateMonthDateIntervals: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -90,9 +90,11 @@ describe('Month View', () => {
       expect(monthCellsData)
         .toHaveBeenCalledWith(7, 4, 5, 123);
 
-      tree.find(BasicView).props().timeTableRects(1, 2, 3, 4, 5, 6, 7);
-      expect(horizontalTimeTableRects)
-        .toHaveBeenCalledWith(1, 2, 3, 5, 7);
+      tree.find(BasicView).props().calculateAppointmentsIntervals(1)({
+        appointments: 2, startViewDate: 3, endViewDate: 4, excludedDays: 5,
+      });
+      expect(calculateMonthDateIntervals)
+        .toHaveBeenCalledWith(2, 3, 4);
     });
   });
 });

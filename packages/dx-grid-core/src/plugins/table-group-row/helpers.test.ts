@@ -4,6 +4,9 @@ import {
   isGroupIndentTableCell,
   isGroupIndentStubTableCell,
   isGroupTableRow,
+  isGroupRowOrdinaryCell,
+  isPreviousCellContainSummary,
+  isRowSummaryCell,
   calculateGroupCellIndent,
 } from './helpers';
 import { TABLE_STUB_TYPE } from '../../utils/virtual-table';
@@ -113,21 +116,85 @@ describe('TableRowDetail Plugin helpers', () => {
     });
   });
 
-  describe('#calculateGroupCellIndent', () => {
-    const grouping = [
-      { columnName: 'a' },
-      { columnName: 'b' },
-      { columnName: 'c' },
-    ];
+  describe('#isGroupRowOrdinaryCell', () => {
+    it('should work', () => {
+      expect(isGroupRowOrdinaryCell(
+        { ...key, type: Symbol('undefined'), row: { groupedBy: 'b' } },
+        { ...key, type: TABLE_GROUP_TYPE, column: { name: 'a' } },
+      ))
+        .toBeFalsy();
+      expect(isGroupRowOrdinaryCell(
+        { ...key, type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } },
+        { ...key, type: TABLE_GROUP_TYPE, column: { name: 'a' } },
+      ))
+        .toBeFalsy();
+      expect(isGroupRowOrdinaryCell(
+        { ...key, type: TABLE_GROUP_TYPE, row: { groupedBy: 'b' } },
+        { ...key, type: TABLE_GROUP_TYPE, column: { name: 'a' } },
+      ))
+        .toBeTruthy();
+    });
+  });
 
-    it('should calculate left position for first level', () => {
-      expect(calculateGroupCellIndent({ column: { name: 'a' } }, grouping, 30))
-        .toBe(0);
+  describe('Summary helpers', () => {
+    const tableRow = { ...key, type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } };
+    const tableColumns = ['g', 'a', 'b', 'c', 'd'].map(name => ({ column: { name } }));
+    const groupSummaryItems = [{
+      columnName: 'b',
+      type: 'sum',
+      showInGroupFooter: false,
+      alignByColumn: true,
+    }];
+    const grouping = [{ columnName: 'g' }];
+
+    describe('#isRowSummaryCell', () => {
+      it('should work', () => {
+        expect(isRowSummaryCell(tableRow, tableColumns[1], grouping, groupSummaryItems))
+          .toBeFalsy();
+        expect(isRowSummaryCell(tableRow, tableColumns[2], grouping, groupSummaryItems))
+          .toBeTruthy();
+        expect(isRowSummaryCell(tableRow, tableColumns[3], grouping, groupSummaryItems))
+          .toBeFalsy();
+      });
     });
 
-    it('should calculate left position for nested group', () => {
-      expect(calculateGroupCellIndent({ column: { name: 'c' } }, grouping, 30))
-        .toBe(60);
+    describe('#isPreviousCellContainSummary', () => {
+      it('should work', () => {
+        expect(isPreviousCellContainSummary(
+          tableRow, tableColumns[1], tableColumns, grouping, groupSummaryItems,
+        ))
+          .toBeFalsy();
+        expect(isPreviousCellContainSummary(
+          tableRow, tableColumns[2], tableColumns, grouping, groupSummaryItems,
+        ))
+          .toBeFalsy();
+        expect(isPreviousCellContainSummary(
+          tableRow, tableColumns[3], tableColumns, grouping, groupSummaryItems,
+        ))
+          .toBeTruthy();
+        expect(isPreviousCellContainSummary(
+          tableRow, tableColumns[4], tableColumns, grouping, groupSummaryItems,
+        ))
+          .toBeFalsy();
+      });
+    });
+
+    describe('#calculateGroupCellIndent', () => {
+      const testGrouping = [
+        { columnName: 'a' },
+        { columnName: 'b' },
+        { columnName: 'c' },
+      ];
+
+      it('should calculate left position for first level', () => {
+        expect(calculateGroupCellIndent({ column: { name: 'a' } }, testGrouping, 30))
+          .toBe(0);
+      });
+
+      it('should calculate left position for nested group', () => {
+        expect(calculateGroupCellIndent({ column: { name: 'c' } }, testGrouping, 30))
+          .toBe(60);
+      });
     });
   });
 });

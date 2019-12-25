@@ -12,11 +12,11 @@ import {
   SeriesList, Series, PointList, Point, DataItems, AddSeriesFn, ScalesCache, ScaleSeriesPointsFn,
   GetPointTransformerFn, Colors, Rect,
   BarSeries, ScatterSeries, PieSeries,
-  PointComponentProps, PathFn,
+  PointComponentProps, PathFn, PathStartCoordinates, PathEndCoordinates, Scales,
 } from '../../types';
 import { Size } from '@devexpress/dx-react-core';
 import { ARGUMENT_DOMAIN } from '../../constants';
-import { getValueDomainName, getWidth } from '../../utils/scale';
+import { getValueDomainName, getWidth, rangesEqual } from '../../utils/scale';
 
 const getArg = ({ arg }: PointComponentProps) => arg;
 const getVal = ({ val }: PointComponentProps) => val;
@@ -153,9 +153,9 @@ export const dSymbol = (
 ) => symbol().size(size ** 2).type(symbolCircle)()!;
 
 /** @internal */
-export const dPie = ({
-  maxRadius, innerRadius, outerRadius, startAngle, endAngle,
-}: PieSeries.PointProps) => arc()({
+export const dPie = (
+  maxRadius: number, innerRadius: number, outerRadius: number, startAngle: number, endAngle: number,
+) => arc()({
   startAngle,
   endAngle,
   innerRadius: innerRadius * maxRadius,
@@ -309,4 +309,27 @@ export const adjustBarSize = (
     width: Math.min(width, bar.x + bar.width) - x,
     height: Math.min(height, bar.y + bar.height) - y,
   };
+};
+
+/** @internal */
+export const isValuesChanged = (previous: any, current: any): boolean => {
+  return Object.entries(previous).some(el => el[1] !== current[el[0]]);
+};
+
+/** @internal */
+export const isCoordinatesChanged = (
+  { coordinates: prevCoordinates }: PathStartCoordinates, { coordinates }: PathEndCoordinates,
+) => {
+  if (prevCoordinates.length !== coordinates.length) {
+    return true;
+  }
+  return prevCoordinates.some((el, index) => {
+    return el.arg !== coordinates[index].arg || el.val !== coordinates[index].val;
+  });
+};
+
+/** @internal */
+export const isScalesChanged = (previous: Scales, current: Scales): boolean => {
+  return !rangesEqual(previous.argScale.range(), current.argScale.range()) ||
+  !rangesEqual(previous.valScale.range(), current.valScale.range());
 };

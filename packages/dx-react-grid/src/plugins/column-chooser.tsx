@@ -56,7 +56,7 @@ class ColumnChooserBase extends React.PureComponent<ColumnChooserProps, ColumnCh
       toggleButtonComponent: ToggleButton,
       messages,
     } = this.props;
-    const getMessage = getMessagesFormatter(messages);
+    const getMessage = getMessagesFormatter(messages!);
     const { visible } = this.state;
 
     return (

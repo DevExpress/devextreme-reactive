@@ -7,6 +7,10 @@ export const Cell = ({
   expanded, onToggle,
   children, tableRow, tableColumn,
   iconComponent: Icon, contentComponent: Content,
+  inlineSummaryComponent: InlineSummary,
+  inlineSummaryItemComponent: InlineSummaryItem,
+  inlineSummaries,
+  getMessage,
   containerComponent: Container,
   side, position,
   ...restProps
@@ -16,7 +20,10 @@ export const Cell = ({
   return (
     <td
       colSpan={colSpan}
-      className={classNames('dx-g-bs4-cursor-pointer', className)}
+      className={classNames({
+        'dx-g-bs4-group-cell': true,
+        'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
+      }, className)}
       onClick={handleClick}
       {...restProps}
     >
@@ -32,6 +39,15 @@ export const Cell = ({
         >
           {children}
         </Content>
+        {
+          inlineSummaries.length ? (
+            <InlineSummary
+              inlineSummaries={inlineSummaries}
+              getMessage={getMessage}
+              inlineSummaryItemComponent={InlineSummaryItem}
+            />
+          ) : null
+        }
       </Container>
     </td>
   );
@@ -41,11 +57,15 @@ Cell.propTypes = {
   contentComponent: PropTypes.func.isRequired,
   iconComponent: PropTypes.func.isRequired,
   containerComponent: PropTypes.func.isRequired,
-  className: PropTypes.string,
-  colSpan: PropTypes.number,
+  inlineSummaryComponent: PropTypes.func.isRequired,
+  inlineSummaryItemComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  inlineSummaries: PropTypes.array,
   row: PropTypes.any,
   column: PropTypes.object,
   expanded: PropTypes.bool,
+  className: PropTypes.string,
+  colSpan: PropTypes.number,
+  getMessage: PropTypes.func.isRequired,
   onToggle: PropTypes.func,
   children: PropTypes.oneOfType([
     PropTypes.node,
@@ -58,11 +78,12 @@ Cell.propTypes = {
 };
 
 Cell.defaultProps = {
-  className: undefined,
-  colSpan: 1,
   row: {},
   column: {},
   expanded: false,
+  inlineSummaries: [],
+  className: undefined,
+  colSpan: 1,
   onToggle: () => {},
   children: undefined,
   tableRow: undefined,

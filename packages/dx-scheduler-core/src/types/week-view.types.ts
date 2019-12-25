@@ -4,7 +4,7 @@ import { AppointmentMoment } from './all-day-panel.types';
 
 /** @internal */
 export type CalculateWeekDateIntervalsFn = PureComputed<
-  [Appointment[], Date, Date, number[], number], AppointmentMoment[]
+  [Appointment[], Date, Date, number[], number], AppointmentMoment[][]
 >;
 /** @internal */
 export type DayBoundaryPredicateFn = PureComputed<

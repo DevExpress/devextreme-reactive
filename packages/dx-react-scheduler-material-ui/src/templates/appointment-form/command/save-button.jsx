@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import classNames from 'clsx';
-import { setColor } from '../../utils';
+import { ensureColor } from '../../utils';
 
 const styles = ({ spacing, palette }) => ({
   button: {
@@ -13,10 +13,10 @@ const styles = ({ spacing, palette }) => ({
     '&:first-child': {
       marginLeft: 0,
     },
-    backgroundColor: setColor(300, palette.primary),
+    backgroundColor: ensureColor(300, palette.primary),
     color: palette.primary.contrastText,
     '&:hover': {
-      backgroundColor: setColor(400, palette.primary),
+      backgroundColor: ensureColor(400, palette.primary),
     },
   },
 });

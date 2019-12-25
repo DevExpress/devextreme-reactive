@@ -86,6 +86,12 @@ export interface ColumnSizes {
 }
 
 // @public (undocumented)
+export type ColumnSummary = {
+  type: SummaryType;
+  value: SummaryValue;
+};
+
+// @public (undocumented)
 export const createRowCache: (pageSize?: number, capacity?: number) => RowCache;
 
 // @public
@@ -279,6 +285,9 @@ export type FilterOperation = string;
 // @public (undocumented)
 export type GetCellValueFn = (row: any, columnName: string) => any;
 
+// @public (undocumented)
+export type GetMessageFn = (messageKey: string, params?: object) => string;
+
 // @public
 export const Grid: React.ComponentType<GridProps>;
 
@@ -388,6 +397,17 @@ export interface GroupRow {
     key: number | string;
     value: any;
 }
+
+// @public (undocumented)
+export interface GroupSummaryItem extends SummaryItem {
+  // (undocumented)
+  alignByColumn?: boolean;
+  // (undocumented)
+  showInGroupFooter?: boolean;
+}
+
+// @public (undocumented)
+export const InlineSummaryItem: React.SFC<TableGroupRow.InlineSummaryItemProps>;
 
 // @public (undocumented)
 export const IntegratedFiltering: React.ComponentType<IntegratedFilteringProps> & {
@@ -636,13 +656,16 @@ export const SummaryState: React.ComponentType<SummaryStateProps>;
 
 // @public (undocumented)
 export interface SummaryStateProps {
-  groupItems?: Array<SummaryItem>;
+  groupItems?: Array<GroupSummaryItem>;
   totalItems?: Array<SummaryItem>;
   treeItems?: Array<SummaryItem>;
 }
 
 // @public (undocumented)
 export type SummaryType = string;
+
+// @public (undocumented)
+export type SummaryValue = number | null;
 
 // @public
 export const Table: React.ComponentType<TableProps> & {
@@ -963,6 +986,14 @@ export namespace TableGroupRow {
     export interface CellProps extends Table.CellProps {
         column: Column;
         expanded: boolean;
+        // (undocumented)
+        getMessage: (string: any) => string;
+        // (undocumented)
+        readonly inlineSummaries: Readonly<InlineSummaryItemInfo[]>;
+        // (undocumented)
+        inlineSummaryComponent: React.ComponentType<InlineSummaryProps>;
+        // (undocumented)
+        inlineSummaryItemComponent: React.ComponentType<InlineSummaryItemProps>;
         onToggle(): void;
         row: GroupRow;
     }
@@ -989,7 +1020,54 @@ export namespace TableGroupRow {
         column: Column;
         row: GroupRow;
     }
+    // (undocumented)
+    export type InlineSummaryItemInfo = ColumnSummary & {
+        columnTitle: string | undefined;
+        messageKey: string;
+        component: React.FunctionComponent<any>;
+    };
+    // (undocumented)
+    export interface InlineSummaryItemProps {
+        // (undocumented)
+        getMessage: GetMessageFn;
+        // (undocumented)
+        summary: InlineSummaryItemInfo;
+    }
+    // (undocumented)
+    export interface InlineSummaryProps {
+        // (undocumented)
+        getMessage: GetMessageFn;
+        // (undocumented)
+        readonly inlineSummaries: InlineSummaryItemInfo[];
+        // (undocumented)
+        inlineSummaryItemComponent: React.ComponentType<InlineSummaryItemProps>;
+    }
+    // (undocumented)
+    export interface LocalizationMessages extends TableSummaryRow.LocalizationMessages {
+        // (undocumented)
+        avgOf?: string;
+        // (undocumented)
+        countOf?: string;
+        // (undocumented)
+        maxOf?: string;
+        // (undocumented)
+        minOf?: string;
+        // (undocumented)
+        sumOf?: string;
+    }
     export interface RowProps extends Table.RowProps {
+        row: GroupRow;
+    }
+    // (undocumented)
+    export interface StubCellProps extends Table.CellProps {
+        // (undocumented)
+        onToggle(): void;
+    }
+    // (undocumented)
+    export interface SummaryCellProps extends Table.CellProps {
+        column: Column;
+        // (undocumented)
+        onToggle(): void;
         row: GroupRow;
     }
 }
@@ -1001,11 +1079,25 @@ export interface TableGroupRowProps {
     containerComponent: React.ComponentType<TableGroupRow.ContainerProps>;
     contentCellPadding: string;
     contentComponent: React.ComponentType<TableGroupRow.ContentProps>;
+    // (undocumented)
+    formatlessSummaryTypes: string[];
     iconComponent: React.ComponentType<TableGroupRow.IconProps>;
     indentCellComponent?: React.ComponentType<TableGroupRow.IndentCellProps>;
     indentColumnWidth: number;
+    // (undocumented)
+    inlineSummaryComponent: React.ComponentType<TableGroupRow.InlineSummaryProps>;
+    // (undocumented)
+    inlineSummaryItemComponent: React.ComponentType<TableGroupRow.InlineSummaryItemProps>;
+    // (undocumented)
+    messages?: TableGroupRow.LocalizationMessages;
     rowComponent: React.ComponentType<TableGroupRow.RowProps>;
     showColumnsWhenGrouped?: boolean;
+    // (undocumented)
+    stubCellComponent: React.ComponentType<TableGroupRow.StubCellProps>;
+    // (undocumented)
+    summaryCellComponent: React.ComponentType<TableGroupRow.SummaryCellProps>;
+    // (undocumented)
+    summaryItemComponent: React.ComponentType<TableSummaryRow.ItemProps>;
 }
 
 // @public
@@ -1230,7 +1322,7 @@ export namespace TableSummaryRow {
   }
   export interface ItemProps {
     children?: React.ReactNode;
-    getMessage: (messageKey: string) => string;
+    getMessage: GetMessageFn;
     type: SummaryType;
     value?: number | null;
   }
@@ -1242,6 +1334,38 @@ export namespace TableSummaryRow {
     min?: string;
     sum?: string;
   }
+}
+
+// @public (undocumented)
+export class TableSummaryRowBase extends React.PureComponent<TableSummaryRowProps> {
+  // (undocumented)
+  static components: {
+    totalRowComponent: string;
+    groupRowComponent: string;
+    treeRowComponent: string;
+    totalCellComponent: string;
+    groupCellComponent: string;
+    treeCellComponent: string;
+    treeColumnCellComponent: string;
+    treeColumnContentComponent: string;
+    treeColumnIndentComponent: string;
+    itemComponent: string;
+  };
+  // (undocumented)
+  static defaultProps: {
+    formatlessSummaryTypes: never[];
+    messages: {};
+  };
+  // (undocumented)
+  static GROUP_ROW_TYPE: symbol;
+  // (undocumented)
+  render(): JSX.Element;
+  // (undocumented)
+  renderContent(column: any, columnSummaries: any): JSX.Element;
+  // (undocumented)
+  static TOTAL_ROW_TYPE: symbol;
+  // (undocumented)
+  static TREE_ROW_TYPE: symbol;
 }
 
 // @public (undocumented)

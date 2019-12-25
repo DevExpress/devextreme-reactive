@@ -1,79 +1,45 @@
 import {
-  getAreaAnimationStyle,
-  getPieAnimationStyle,
-  getScatterAnimationStyle,
-  buildAnimatedStyleGetter,
+  getDelay, easeOutCubic, getStartVal, getPathStart, getPointStart, getPieStart,
 } from './computeds';
 
-describe('Animation styles', () => {
-  const { head } = document;
-
-  afterEach(() => {
-    const style = head.getElementsByTagName('style')[0];
-    head.removeChild(style);
+describe('Animation', () => {
+  it('#getDelay', () => {
+    expect(getDelay(1, true)).toBe(30);
+    expect(getDelay(2, false)).toBe(0);
   });
 
-  describe('#getAreaAnimationStyle', () => {
+  it('#easeOutCubic', () => {
+    expect(easeOutCubic(0.5)).toBe(0.875);
+  });
+
+  it('#getStartVal', () => {
     const scale = () => 4;
     scale.copy = () => scale;
     scale.clamp = () => scale;
-
-    it('should return style', () => {
-      expect(getAreaAnimationStyle(false, { yScale: scale } as any)).toEqual({
-        animation: 'animation_transform 1s',
-        transformOrigin: '0px 4px',
-      });
-    });
-
-    it('should return rotated style', () => {
-      expect(getAreaAnimationStyle(true, { xScale: scale } as any)).toEqual({
-        animation: 'animation_transform 1s',
-        transformOrigin: '4px 0px',
-      });
-    });
+    const scales = { valScale: scale };
+    expect(getStartVal(scales as any)).toBe(4);
   });
 
-  describe('#getPieAnimationStyle', () => {
-    it('should return style', () => {
-      expect(getPieAnimationStyle({} as any, {} as any, { index: 3 } as any)).toEqual({
-        animation: 'animation_pie 1s',
-      });
-    });
+  it('#getPathStart', () => {
+    const scale = () => 4;
+    scale.copy = () => scale;
+    scale.clamp = () => scale;
+    const scales = { valScale: scale };
+    expect(getPathStart(scales as any, { coordinates: [{ arg: 5, val: 5, startVal: 10 }] } as any))
+    .toEqual({ coordinates: [{ arg: 5, val: 4, startVal: 4 }] });
   });
 
-  describe('#getScatterAnimationStyle', () => {
-    it('should return style', () => {
-      expect(getScatterAnimationStyle({} as any, {} as any)).toEqual({
-        animation: 'animation_scatter 1.6s',
-      });
-    });
+  it('#getPointStart', () => {
+    const scale = () => 4;
+    scale.copy = () => scale;
+    scale.clamp = () => scale;
+    const scales = { valScale: scale };
+    expect(getPointStart(scales as any, { arg: 5, val: 5, startVal: 10 } as any))
+    .toEqual({ arg: 5, val: 4, startVal: 4 });
   });
 
-  describe('style element generation', () => {
-    it('should reuse single "style" element', () => {
-      getScatterAnimationStyle({} as any, {} as any);
-      getScatterAnimationStyle({} as any, {} as any);
-
-      expect(head.getElementsByTagName('style').length).toEqual(1);
-      expect(head.getElementsByTagName('style')[0].textContent).toEqual(
-        // tslint:disable-next-line: max-line-length
-        '\n@keyframes animation_scatter { 0% { opacity: 0; } 50% { opacity: 0; } 100% { opacity: 1 } }\n',
-      );
-    });
-  });
-});
-
-describe('#buildAnimatedStyleGetter', () => {
-  it('should create function', () => {
-    const getAnimationStyle = jest.fn().mockReturnValue({ animation: 'test' });
-
-    expect(buildAnimatedStyleGetter(true)(
-      { style: 'base' }, getAnimationStyle, 'test-scales' as any, 'test-point' as any,
-    )).toEqual({
-      style: 'base',
-      animation: 'test',
-    });
-    expect(getAnimationStyle)
-      .toBeCalledWith(true, 'test-scales', 'test-point');
+  it('#getPieStart', () => {
+    expect(getPieStart(undefined, { startAngle: 2, endAngle: 4 } as any))
+    .toEqual({ startAngle: 2, endAngle: 4, innerRadius: 0, outerRadius: 0 });
   });
 });

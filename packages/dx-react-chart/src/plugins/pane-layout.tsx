@@ -5,13 +5,9 @@ import {
   Template,
   TemplateConnector,
   TemplatePlaceholder,
+  Sizer,
 } from '@devexpress/dx-react-core';
 import { ClipPath } from '../templates/clip-path';
-
-// Original *Sizer* cannot be used because it ignores (as it should do) *forceUpdate* request.
-// *UpdatableSizer* implements *componentDidUpdate* and forces internal *Sizer* size calculation.
-// It allows to run chart size recalculation by calling *forceUpdate* on chart instance.
-import { UpdatableSizer } from '../utils/updatable-sizer';
 
 const DIV_STYLE: React.CSSProperties = {
   flex: 1, zIndex: 1, position: 'relative', width: '100%',
@@ -40,29 +36,29 @@ export class PaneLayout extends React.PureComponent {
         <Getter name="rootRef" value={this.ref} />
         <Getter name="clipPathId" value={this.clipPathId} />
         <Template name="canvas">
-          {params => (
-            <TemplateConnector>
-              {({ layouts }, { changeBBox }) => {
-                const { width, height } = layouts.pane;
-                return (
-                  <UpdatableSizer
-                    containerComponent={SizerContainer}
-                    onSizeChange={size => changeBBox({ placeholder: 'pane', bBox: size })}
+        {params => (
+          <TemplateConnector>
+            {({ layouts }, { changeBBox }) => {
+              const { width, height } = layouts.pane;
+              return (
+                <Sizer
+                  containerComponent={SizerContainer}
+                  onSizeChange={size => changeBBox({ placeholder: 'pane', bBox: size })}
+                >
+                  <svg
+                    ref={this.ref}
+                    {...params}
+                    width={width}
+                    height={height}
+                    style={SVG_STYLE}
                   >
-                    <svg
-                      ref={this.ref}
-                      {...params}
-                      width={width}
-                      height={height}
-                      style={SVG_STYLE}
-                    >
-                      <ClipPath id={this.clipPathId} width={width} height={height} />
-                      <TemplatePlaceholder name="series" />
-                    </svg>
-                  </UpdatableSizer>
-                );
-              }}
-            </TemplateConnector>
+                    <ClipPath id={this.clipPathId} width={width} height={height} />
+                    <TemplatePlaceholder name="series" />
+                  </svg>
+                </Sizer>
+              );
+            }}
+          </TemplateConnector>
           )}
         </Template>
       </Plugin>

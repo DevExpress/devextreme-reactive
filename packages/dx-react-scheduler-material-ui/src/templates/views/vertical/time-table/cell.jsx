@@ -3,11 +3,12 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { getBorder } from '../../../utils';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   cell: {
+    position: 'relative',
     height: theme.spacing(6),
     padding: 0,
     borderLeft: getBorder(theme),
@@ -25,38 +26,83 @@ const styles = theme => ({
       paddingRight: 0,
     },
   },
-});
+  shadedCell: {
+    backgroundColor: fade(theme.palette.action.disabledBackground, 0.04),
+    '&:hover': {
+      backgroundColor: theme.palette.action.selected,
+    },
+    '&:focus': {
+      backgroundColor: fade(theme.palette.primary.main, 0.15),
+      outline: 0,
+    },
+  },
+  shadedPart: {
+    backgroundColor: fade(theme.palette.action.disabledBackground, 0.04),
+    position: 'absolute',
+    height: ({ shadedHeight }) => shadedHeight,
+    width: '100%',
+    left: 0,
+    top: 0,
+    '&:hover': {
+      backgroundColor: theme.palette.action.hover,
+    },
+    'td:focus &': {
+      opacity: 0,
+    },
+  },
+}));
 
-const CellBase = ({
-  classes,
+export const Cell = ({
   className,
   children,
   startDate,
   endDate,
+  currentTimeIndicatorPosition,
+  currentTimeIndicatorComponent: CurrentTimeIndicator,
+  isShaded,
   ...restProps
-}) => (
-  <TableCell
-    tabIndex={0}
-    className={classNames(classes.cell, className)}
-    {...restProps}
-  >
-    {children}
-  </TableCell>
-);
+}) => {
+  const classes = useStyles({ shadedHeight: currentTimeIndicatorPosition });
+  const isNow = !!currentTimeIndicatorPosition;
 
-CellBase.propTypes = {
-  classes: PropTypes.object.isRequired,
+  return (
+    <TableCell
+      tabIndex={0}
+      className={classNames({
+        [classes.cell]: true,
+        [classes.shadedCell]: isShaded && !isNow,
+      }, className)}
+      {...restProps}
+    >
+      {isNow && isShaded && (
+        <div className={classes.shadedPart} />
+      )}
+      {isNow && (
+        <CurrentTimeIndicator
+          top={currentTimeIndicatorPosition}
+        />
+      )}
+      {children}
+    </TableCell>
+  );
+};
+
+Cell.propTypes = {
   startDate: PropTypes.instanceOf(Date),
   endDate: PropTypes.instanceOf(Date),
   children: PropTypes.node,
   className: PropTypes.string,
+  currentTimeIndicatorPosition: PropTypes.string,
+  currentTimeIndicatorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  isShaded: PropTypes.bool,
 };
 
-CellBase.defaultProps = {
+Cell.defaultProps = {
   children: null,
   className: undefined,
-  startDate: undefined,
-  endDate: undefined,
+  startDate: new Date(),
+  endDate: new Date(),
+  currentTimeIndicatorPosition: undefined,
+  currentTimeIndicatorComponent: () => null,
+  isShaded: false,
 };
-
-export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

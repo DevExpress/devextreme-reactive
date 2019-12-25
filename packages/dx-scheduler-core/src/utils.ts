@@ -80,19 +80,36 @@ export const viewPredicate: ViewPredicateFn = (
   return isAppointmentInBoundary && !isAppointmentInExcludedDays && considerAllDayAppointment;
 };
 
+const compareByDay: PureComputed<
+  [AppointmentMoment, AppointmentMoment], number
+> = (first, second) => {
+  if (first.start.isBefore(second.start, 'day')) return -1;
+  if (first.start.isAfter(second.start, 'day')) return 1;
+  return 0;
+};
+
+const compareByAllDay: PureComputed<
+  [AppointmentMoment, AppointmentMoment], number
+> = (first, second) => {
+  if (first.allDay && !second.allDay) return -1;
+  if (!first.allDay && second.allDay) return 1;
+  return 0;
+};
+
+const compareByTime: PureComputed<
+  [AppointmentMoment, AppointmentMoment], number
+> = (first, second) => {
+  if (first.start.isBefore(second.start)) return -1;
+  if (first.start.isAfter(second.start)) return 1;
+  if (first.end.isBefore(second.end)) return 1;
+  if (first.end.isAfter(second.end)) return -1;
+  return 0;
+};
+
 export const sortAppointments: PureComputed<
-  [AppointmentMoment[], boolean], AppointmentMoment[]
-> = (appointments, byDay = false) => appointments
-  .slice().sort((a, b) => {
-    const compareValue = byDay ? 'day' : undefined;
-    if (a.start.isBefore(b.start, compareValue)) return -1;
-    if (a.start.isAfter(b.start, compareValue)) return 1;
-    if (a.start.isSame(b.start, compareValue)) {
-      if (a.end.isBefore(b.end)) return 1;
-      if (a.end.isAfter(b.end)) return -1;
-    }
-    return 0;
-  });
+  [AppointmentMoment[]], AppointmentMoment[]
+> = appointments => appointments
+  .slice().sort((a, b) => compareByDay(a, b) || compareByAllDay(a, b) || compareByTime(a, b));
 
 export const findOverlappedAppointments: CustomFunction<
   [AppointmentMoment[], boolean], any[]
@@ -135,7 +152,7 @@ export const adjustAppointments: CustomFunction<
 > = (groups, byDay = false) => groups.map((items) => {
   let offset = 0;
   let reduceValue = 1;
-  const appointments = items.slice();
+  const appointments = items.map((appointment: any) => ({ ...appointment }));
   const groupLength = appointments.length;
   for (let startIndex = 0; startIndex < groupLength; startIndex += 1) {
     const appointment = appointments[startIndex];
@@ -190,6 +207,7 @@ export const unwrapGroups: PureComputed<
     reduceValue,
     fromPrev: moment(appointment.start).diff(appointment.dataItem.startDate, 'minutes') > 1,
     toNext: moment(appointment.dataItem.endDate).diff(appointment.end, 'minutes') > 1,
+    resources: appointment.resources,
   })));
   return acc;
 }, [] as AppointmentUnwrappedGroup[]);
@@ -241,6 +259,7 @@ const horizontalRectCalculator: CustomFunction<
   );
 
   return {
+    resources: appointment.resources,
     top: top + ((height / appointment.reduceValue) * appointment.offset),
     height: height / appointment.reduceValue,
     left: toPercentage(left, parentWidth),
@@ -285,6 +304,7 @@ const verticalRectCalculator: CustomFunction<
   const widthInPx = width / appointment.reduceValue;
 
   return {
+    resources: appointment.resources,
     top,
     height,
     left: toPercentage(left + (widthInPx * appointment.offset), parentWidth),
@@ -301,14 +321,19 @@ export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
   type, intervals, rectByDates, rectByDatesMeta,
 ) => {
   const { growDirection, multiline } = type;
-  const sorted = sortAppointments(intervals, multiline);
-  const grouped = findOverlappedAppointments(sorted as AppointmentMoment[], multiline);
+  const isHorizontal = growDirection === HORIZONTAL_TYPE;
 
-  const rectCalculator = growDirection === HORIZONTAL_TYPE
+  const sorted = intervals.map(sortAppointments);
+  const grouped = sorted.reduce(((acc, sortedGroup) => [
+    ...acc,
+    ...findOverlappedAppointments(sortedGroup as AppointmentMoment[], isHorizontal),
+  ]), [] as AppointmentMoment[]);
+
+  const rectCalculator = isHorizontal
     ? horizontalRectCalculator
     : verticalRectCalculator;
 
-  return unwrapGroups(adjustAppointments(grouped, multiline))
+  return unwrapGroups(adjustAppointments(grouped as any[], isHorizontal))
     .map(appointment => rectCalculator(appointment, { rectByDates, multiline, rectByDatesMeta }));
 };
 

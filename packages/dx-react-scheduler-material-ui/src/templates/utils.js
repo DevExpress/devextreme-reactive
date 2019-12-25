@@ -29,4 +29,18 @@ export const scrollingStrategy = (scrollablePart, fixedPart) => {
   });
 };
 
-export const setColor = (level, color) => (color[level] || PRIMARY_COLOR[level]);
+export const ensureColor = (level, color) => (color[level] || PRIMARY_COLOR[level]);
+
+export const getResourceColor = (resources) => {
+  if (resources && resources.length) {
+    return resources.find(resource => resource.isMain).color;
+  } return undefined;
+};
+
+export const getAppointmentColor = (level, color, defaultColor) => {
+  if (!color) return ensureColor(level, defaultColor);
+  if (typeof color === 'string') return color;
+  return ensureColor(level, color);
+};
+
+export const addCommaAndSpaceToString = string => string && `${string},\xa0`;

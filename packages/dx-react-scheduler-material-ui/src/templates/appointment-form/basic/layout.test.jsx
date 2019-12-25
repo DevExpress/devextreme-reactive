@@ -16,6 +16,7 @@ describe('AppointmentForm basic', () => {
     labelComponent: () => null,
     booleanEditorComponent: () => null,
     selectComponent: () => null,
+    resourceEditorComponent: () => null,
     getMessage: jest.fn(),
     onFieldChange: jest.fn(),
     appointmentData: {},
@@ -160,6 +161,18 @@ describe('AppointmentForm basic', () => {
 
       expect(tree.find('.child'))
         .toBeTruthy();
+    });
+
+    it('should render resource editor components', () => {
+      const tree = shallow((
+        <Layout
+          {...defaultProps}
+          resources={[{}, {}]}
+        />
+      ));
+
+      expect(tree.find(defaultProps.resourceEditorComponent))
+        .toHaveLength(2);
     });
   });
 });

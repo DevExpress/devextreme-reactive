@@ -56,3 +56,5 @@ export * from './types/tables/virtual-table.types';
 
 export * from './types/utils';
 export * from './utils/row-cache';
+
+export * from './components/summary/inline-summary-item';

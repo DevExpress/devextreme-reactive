@@ -8,9 +8,9 @@ export type TimeBounds = { left: moment.Moment, right: moment.Moment };
 
 /** Describes a cell data configuration object. */
 export interface MonthCellData {
-  /** Specifies the cell start time. */
+  /** Specifies the cell's start time. */
   startDate: Date;
-  /** Specifies the cell end time. */
+  /** Specifies the cell's end time. */
   endDate: Date;
   /** Indicates whether the cell's date is not in the current month. */
   otherMonth: boolean;
@@ -24,7 +24,7 @@ export type MonthCellsDataComputedFn = PureComputed<
 >;
 /** @internal */
 export type CalculateMonthDateIntervalsFn = PureComputed<
-  [Appointment[], Date, Date], AppointmentMoment[]
+  [Appointment[], Date, Date], AppointmentMoment[][]
 >;
 /** @internal */
 export type SliceAppointmentByWeekFn = PureComputed<

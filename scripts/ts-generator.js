@@ -200,6 +200,7 @@ const getThemesTypeScript = (data, componentName, packageName) => {
       const baseName = name
         .replace(`${componentName}.`, `${componentName}Base.`)
         .replace('Table.', 'TableBase.')
+        .replace('TableSummaryRow.', 'TableSummaryRowBase.')
         .replace('TableHeaderRow.', 'TableHeaderRowBase.');
       return `${acc}export namespace ${namespace} {\n`
         + `  /** ${description} */\n`
@@ -215,6 +216,7 @@ const getThemesTypeScript = (data, componentName, packageName) => {
         + getFormattedLine(line)
           .replace(`${componentName}.`, `${componentName}Base.`)
           .replace('Table.', 'TableBase.')
+          .replace('TableSummaryRow.', 'TableSummaryRowBase.')
           .replace('TableHeaderRow.', 'TableHeaderRowBase.');
       if (componentName !== 'Grid') {
         result = result.replace(/(\s\s\w+):/g, '$1?:');
@@ -238,6 +240,7 @@ const getThemesTypeScript = (data, componentName, packageName) => {
         .replace(/\w+\.(\w+:\s)(.+);/, '$1React.ComponentType<$2>;')
         .replace(`${componentName}.`, `${componentName}Base.`)
         .replace('Table.', 'TableBase.')
+        .replace('TableSummaryRow.', 'TableSummaryRowBase.')
         .replace('TableHeaderRow.', 'TableHeaderRowBase.'), '')
         .replace(/(\w+: React\.ComponentType<.*)>/g, '$1 & { className?: string; style?: React.CSSProperties; [x: string]: any }>');
 
@@ -308,7 +311,7 @@ const generateTypeScriptForPackage = (packageName) => {
         .reduce((acc, line) => {
           const matches = /\[(\w+)(?:\.\w+)?\]\(.*#.*\)/.exec(line);
           if (matches !== null && matches[1] !== componentName
-            && matches[1] !== 'Table' && matches[1] !== 'TableHeaderRow'
+            && matches[1] !== 'Table' && matches[1] !== 'TableHeaderRow' && matches[1] !== 'TableSummaryRow'
             && acc.indexOf(matches[1]) === -1) {
             acc.push(matches[1]);
           }

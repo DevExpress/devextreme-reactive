@@ -37,6 +37,7 @@ const pluginDependencies = [
   { name: 'TableFilterRow', optional: true },
   { name: 'TableGroupRow', optional: true },
   { name: 'TableHeaderRow', optional: true },
+  { name: 'TableRowDetail', optional: true },
   { name: 'TableSelection', optional: true },
   { name: 'TableSummaryRow', optional: true },
   { name: 'TableTreeColumn', optional: true },
@@ -63,12 +64,15 @@ class TableFixedColumnsBase extends React.PureComponent<TableFixedColumnsProps, 
   }
 
   handleListenerSizeChange(key, width) {
-    this.setState(state => ({
-      tableColumnDimensions: {
-        ...state.tableColumnDimensions,
-        [key]: width,
-      },
-    }));
+    const { tableColumnDimensions } = this.state;
+    if (tableColumnDimensions[key] !== width) {
+      this.setState(state => ({
+        tableColumnDimensions: {
+          ...state.tableColumnDimensions,
+          [key]: width,
+        },
+      }));
+    }
   }
 
   render() {

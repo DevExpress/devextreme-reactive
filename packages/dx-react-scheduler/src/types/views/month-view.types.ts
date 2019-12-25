@@ -21,9 +21,9 @@ export namespace MonthView {
   }
   /** Describes properties passed to a component that renders a time table cell. */
   export interface TimeTableCellProps {
-    /** Specifies the cell a start time. */
+    /** Specifies the cell's start time. */
     startDate: Date;
-    /** Specifies the cell end time. */
+    /** Specifies the cell's end time. */
     endDate?: Date;
     /** Indicates whether the cell’s date is not in the current month. */
     otherMonth?: boolean;
@@ -31,6 +31,8 @@ export namespace MonthView {
     today?: boolean;
     /** A function that formats dates according to the set locale. */
     formatDate?: FormatterFn;
+    /** Indicates whether the cell is shaded. */
+    isShaded?: boolean;
   }
   /** Describes properties passed to a component that renders the appointment layer. */
   export interface AppointmentLayerProps extends BaseView.AppointmentLayerProps {}

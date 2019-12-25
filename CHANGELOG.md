@@ -1,3 +1,50 @@
+# [2.3.2](https://github.com/DevExpress/devextreme-reactive/compare/v2.3.1...v2.3.2) (2019-12-19)
+
+
+### Bug Fixes
+
+* **react-grid:** Adjust readonly property to match Typescript spec ([#2597](https://github.com/DevExpress/devextreme-reactive/issues/2597)) ([abe64f3](https://github.com/DevExpress/devextreme-reactive/commit/abe64f3e9e77330ca062eea5fb254b96fb040abc))
+* **react-grid-demos:** show no data message after scrolling and filtering ([#2591](https://github.com/DevExpress/devextreme-reactive/issues/2591)) ([b8d60f1](https://github.com/DevExpress/devextreme-reactive/commit/b8d60f114ae86e8522fecad794d7378d6e985f18))
+* **react-scheduler-material-ui:** do not show comma in zero-time appointments' title if the title is undefined ([#2596](https://github.com/DevExpress/devextreme-reactive/issues/2596)) ([4be4e92](https://github.com/DevExpress/devextreme-reactive/commit/4be4e921d506254ccf83cf1efbe53c8fbb8e6f51))
+
+
+
+# [2.3.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.3.0...v2.3.1) (2019-12-05)
+
+
+### Bug Fixes
+
+* **react-core:** allow Sizer to update size on cDU ([#2577](https://github.com/DevExpress/devextreme-reactive/issues/2577)) ([183539f](https://github.com/DevExpress/devextreme-reactive/commit/183539fd1ba77d2c38a741a2f03681145a66dbf1))
+* **react-scheduler:** display all-day appointments of the same day correctly ([#2557](https://github.com/DevExpress/devextreme-reactive/issues/2557)) ([b831767](https://github.com/DevExpress/devextreme-reactive/commit/b83176765f6c8849a17adc258d582c76cab55d7d))
+* **react-scheduler:** display horizontal appointments in chronological order ([#2579](https://github.com/DevExpress/devextreme-reactive/issues/2579)) ([0c1071b](https://github.com/DevExpress/devextreme-reactive/commit/0c1071bb364befc524676c7926be9e76dd7018ec))
+* **react-scheduler:** open the AppointmentForm from AllDayPanel ([#2583](https://github.com/DevExpress/devextreme-reactive/issues/2583)) ([8d384e0](https://github.com/DevExpress/devextreme-reactive/commit/8d384e0f717544271c6fc2b0bf1c7bdf4b4a7f89))
+
+
+### Features
+
+* **react-grid:** allow showing group summary in a group row ([#1738](https://github.com/DevExpress/devextreme-reactive/issues/1738)) ([71b14a4](https://github.com/DevExpress/devextreme-reactive/commit/71b14a4a9ba36b55289f1bd7c752c1b8f1b61dc4))
+
+
+
+# [2.3.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.2.1...v2.3.0) (2019-11-22)
+
+
+### Bug Fixes
+
+* **demo-shell:** re-render demo frame on submitting custom theme link ([#2529](https://github.com/DevExpress/devextreme-reactive/issues/2529)) ([28177d6](https://github.com/DevExpress/devextreme-reactive/commit/28177d6df56e695b80aa88db2bb1a174db965365))
+* **react-grid-bootstrap3:** correct sticky header colors ([#2527](https://github.com/DevExpress/devextreme-reactive/issues/2527)) ([21e82f2](https://github.com/DevExpress/devextreme-reactive/commit/21e82f259ba0920da79c14bb2f73f97b85d3d7ae))
+* **react-grid-material-ui:** correct disabled behaviour for inline cell editing ([#2537](https://github.com/DevExpress/devextreme-reactive/issues/2537)) ([909f0bd](https://github.com/DevExpress/devextreme-reactive/commit/909f0bdb561fa07e89b5d433d78555d7f4a425f4))
+* **react-grid-material-ui:** show zero numbers in editors ([#2553](https://github.com/DevExpress/devextreme-reactive/issues/2553)) ([fdc8b9d](https://github.com/DevExpress/devextreme-reactive/commit/fdc8b9df45b7f6d3c0d30950303c061166a7d37f))
+
+
+### Features
+
+* **react-chart:** add animation on transition ([#2334](https://github.com/DevExpress/devextreme-reactive/issues/2334)) ([54d11b7](https://github.com/DevExpress/devextreme-reactive/commit/54d11b71e409e114f40734725cd7c237a5f01ab2))
+* **react-scheduler:** add appointment resources support ([#2498](https://github.com/DevExpress/devextreme-reactive/issues/2498)) ([0100670](https://github.com/DevExpress/devextreme-reactive/commit/0100670d5b2d89d2717b37d75d133f82bdb96ded))
+* **react-scheduler:** add CurrentTimeIndicator plugin ([#2536](https://github.com/DevExpress/devextreme-reactive/issues/2536)) ([8fe5abb](https://github.com/DevExpress/devextreme-reactive/commit/8fe5abba8278bdc68a46ef1daeb740f7fe3c1876))
+
+
+
 # [2.2.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.2.0...v2.2.1) (2019-11-07)
 
 

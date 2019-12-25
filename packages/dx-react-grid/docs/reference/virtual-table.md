@@ -38,13 +38,13 @@ stubRowComponent | ComponentType&lt;[Table.RowProps](#tablerowprops)&gt; | | A c
 stubCellComponent | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a stub table cell if the cell value is not provided.
 stubHeaderCellComponent | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a stub header cell if the cell value is not provided.
 messages? | [Table.LocalizationMessages](table.md#localization-messages) | | An object that specifies the localization messages.
-onTopRowChange? | (row: number &#124; string) => void | | Handles top row index and id changes.
+onTopRowChange? | (rowId: number &#124; string) => void | | Handles top row index and id changes.
 
 ## Methods
 
 Name | Type | Description
 -----|------|------------
-scrollToRow | (row: number &#124; string) => void | A function, that scroll table to specified row.
+scrollToRow | (rowId: number &#124; string) => void | A function, that scroll table to specified row.
 
 ## Interfaces
 

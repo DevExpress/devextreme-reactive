@@ -86,11 +86,11 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       const { onTopRowChange } = this.props;
       const hasViewportRows = viewport && viewport.rows;
       const hasBodyRows = tableBodyRows && tableBodyRows.length;
-      const id = hasViewportRows && hasBodyRows && !isDataRemote
+      const rowId = hasViewportRows && hasBodyRows && !isDataRemote
         ? tableBodyRows[viewport.rows[0]].rowId
         : undefined;
 
-      onTopRowChange(id);
+      onTopRowChange(rowId);
       this.setState({ viewport });
     }
 

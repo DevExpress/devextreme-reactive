@@ -8,15 +8,9 @@ import {
   Grid,
   VirtualTable,
   TableHeaderRow,
-  Toolbar,
   TableEditColumn,
   TableEditRow,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
-import {
-  Plugin,
-  Template,
-  TemplatePlaceholder,
-} from '@devexpress/dx-react-core';
 
 import {
   generateRows,
@@ -39,13 +33,12 @@ export default () => {
   const [tableColumnExtensions] = useState([
     { columnName: 'id', width: 75 },
   ]);
-  const [id, setId] = useState(0);
   const vtRef = useRef();
 
   const scrollToRow = (rowId) => {
     vtRef.current.scrollToRow(rowId);
   };
-  
+
   const commitChanges = ({ added, changed, deleted }) => {
     let changedRows;
     let startingAddedId;
@@ -58,7 +51,6 @@ export default () => {
           ...row,
         })),
       ];
-
     }
     if (changed) {
       changedRows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
@@ -83,7 +75,7 @@ export default () => {
           defaultAddedRows={generateRows({ length: 1 })}
           onCommitChanges={commitChanges}
         />
-        <SortingState 
+        <SortingState
           sorting={[{ columnName: 'name', direction: 'asc' }]}
         />
         <IntegratedSorting />

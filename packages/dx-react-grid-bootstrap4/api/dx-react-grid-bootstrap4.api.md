@@ -11,7 +11,6 @@ import { Grid as Grid_2 } from '@devexpress/dx-react-grid';
 import { GroupingPanel as GroupingPanel_2 } from '@devexpress/dx-react-grid';
 import { PagingPanel as PagingPanel_2 } from '@devexpress/dx-react-grid';
 import * as React from 'react';
-import { RowIdentifier } from '@devexpress/dx-react-grid';
 import { SearchPanel as SearchPanel_2 } from '@devexpress/dx-react-grid';
 import { Table as Table_2 } from '@devexpress/dx-react-grid';
 import { TableBandHeader as TableBandHeader_2 } from '@devexpress/dx-react-grid';
@@ -811,7 +810,7 @@ export const VirtualTable: React.ComponentType<VirtualTableProps> & {
   StubCell: React.ComponentType<Table_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   StubHeaderCell: React.ComponentType<Table_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
 } & {
-scrollToRow: (row: RowIdentifier) => void;
+scrollToRow: (rowId: number | string) => void;
 };
 
 // @public (undocumented)
@@ -827,7 +826,7 @@ export interface VirtualTableProps {
   messages?: Table_2.LocalizationMessages;
   noDataCellComponent?: React.ComponentType<Table_2.NoDataCellProps>;
   noDataRowComponent?: React.ComponentType<Table_2.RowProps>;
-  onTopRowChange?: (row: RowIdentifier) => void;
+  onTopRowChange?: (rowId: number | string) => void;
   rowComponent?: React.ComponentType<Table_2.DataRowProps>;
   stubCellComponent?: React.ComponentType<Table_2.CellProps>;
   stubHeaderCellComponent?: React.ComponentType<Table_2.CellProps>;

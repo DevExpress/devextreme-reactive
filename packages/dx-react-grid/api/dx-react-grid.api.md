@@ -567,14 +567,6 @@ export interface RowDetailStateProps {
 export type RowId = number | string;
 
 // @public
-export interface RowIdentifier {
-  // (undocumented)
-  id?: string | number;
-  // (undocumented)
-  index?: number;
-}
-
-// @public
 export const SearchPanel: React.ComponentType<SearchPanelProps>;
 
 // @public (undocumented)
@@ -1486,7 +1478,7 @@ export interface VirtualTableProps {
     messages?: Table.LocalizationMessages;
     noDataCellComponent: React.ComponentType<Table.NoDataCellProps>;
     noDataRowComponent: React.ComponentType<Table.RowProps>;
-    onTopRowChange: (row: RowIdentifier) => void;
+    onTopRowChange: (rowId: number | string) => void;
     rowComponent: React.ComponentType<Table.DataRowProps>;
     // (undocumented)
     skeletonCellComponent: React.ComponentType<Table.CellProps>;

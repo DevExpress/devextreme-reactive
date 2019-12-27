@@ -110,7 +110,7 @@ startDate | Date | Specifies the cell's start time.
 endDate? | Date | Specifies the cell's end time.
 today? | boolean | Indicates whether the cell's date is today.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the set locale.
-groupingInfo? | Array&lt;[Group](./grouping-panel/#group)&gt;; | The cell's group.
+groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt;; | The cell's group.
 hasRightBorder? | boolean | Specifies whether the cell has the right border.
 
 ### WeekView.DayScaleEmptyCellProps
@@ -140,7 +140,7 @@ Field | Type | Description
 ------|------|------------
 startDate? | Date | Specifies the cell's start time.
 endDate? | Date | Specifies the cell's end time.
-groupingInfo? | Array&lt;[Group](./grouping-panel/#group)&gt;; | The cell's group.
+groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt;; | The cell's group.
 hasRightBorder? | boolean | Specifies whether the cell has the right border.
 isShaded? | boolean | Indicates whether the cell is shaded.
 currentTimeIndicatorPosition? | string | Indicates the distance from the top edge of the containing element (usually, a timetable cell). The distance is measured as a percentage of the element's height.

@@ -66,7 +66,7 @@ Field | Type | Description
 ------|------|------------
 startDate | Date | The cell's start time.
 endDate | Date | The cell's end time.
-groupingInfo? | Array&lt;[Group](./grouping-panel/#grouping)&gt;; | The cell's group.
+groupingInfo? | Array&lt;[Group](./grouping-panel.md/#grouping)&gt;; | The cell's group.
 hasRightBorder? | boolean | Specifies whether the cell has the right border.
 
 ### AllDayPanel.RowProps

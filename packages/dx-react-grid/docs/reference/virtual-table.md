@@ -84,6 +84,8 @@ Field | Type | Description
 COLUMN_TYPE | symbol | The data column type's indentifier.
 ROW_TYPE | symbol | The data row type's indentifier.
 NODATA_ROW_TYPE | symbol | The nodata row type's indentifier.
+TOP_POSITION | symbol | The top table position for scroll.
+BOTTOM_POSITION | symbol | The bottom table position for scroll.
 
 ## Plugin Developer Reference
 

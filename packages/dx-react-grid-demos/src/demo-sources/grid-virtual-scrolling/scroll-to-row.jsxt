@@ -64,6 +64,22 @@ export default () => {
     if (added) scrollToRow(startingAddedId);
   };
 
+  const commandComponent = (props) => {
+    const { id, onExecute } = props;
+    if (id === 'add') {
+      return (
+        <TableEditColumn.Command
+          {...props}
+          onExecute={() => {
+            scrollToRow(VirtualTable.TOP_POSITION);
+            onExecute();
+          }}
+        />
+      );
+    }
+    return <TableEditColumn.Command {...props} />;
+  };
+
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>
       <Grid
@@ -88,6 +104,7 @@ export default () => {
         <TableEditColumn
           showAddCommand
           showDeleteCommand
+          commandComponent={commandComponent}
         />
       </Grid>
     </<%&wrapperTag%>>

@@ -8,7 +8,8 @@ import {
   Getters,
 } from '@devexpress/dx-react-core';
 import {
-  isStubTableCell, checkColumnWidths, calculateScrollHeight,
+  isStubTableCell, checkColumnWidths, getScrollTop,
+  TOP_POSITION, BOTTOM_POSITION,
 } from '@devexpress/dx-grid-core';
 import {
   VirtualTableProps, VirtualTableLayoutProps,
@@ -56,9 +57,11 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
     static FixedHeader: React.ComponentType;
     static FixedFooter: React.ComponentType;
     static SkeletonCell: React.ComponentType;
+    static TOP_POSITION = TOP_POSITION;
+    static BOTTOM_POSITION = BOTTOM_POSITION;
 
     layoutRenderComponent: React.ComponentType<VirtualTableLayoutProps> & { update(): void; };
-    scrollToRow: (prop: number | string) => void;
+    scrollToRow: (prop: number | string | symbol) => void;
 
     constructor(props) {
       super(props);
@@ -135,13 +138,12 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                   { setViewport },
                 ) => {
                   const totalRowCount = availableRowCount || tableBodyRows.length;
-
-                  const indexById = !isDataRemote && nextId !== undefined
-                    ? tableBodyRows.findIndex(row => row.rowId === nextId)
-                    : undefined;
-                  const scrollTop = calculateScrollHeight(
+                  const scrollTop = getScrollTop(
+                    tableBodyRows,
+                    totalRowCount,
+                    nextId,
                     estimatedRowHeight,
-                    indexById,
+                    isDataRemote,
                   );
 
                   return (

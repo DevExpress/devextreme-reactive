@@ -22,6 +22,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   checkColumnWidths: jest.fn(),
   checkTableColumnExtensions: jest.fn(),
   calculateScrollHeight: jest.fn(),
+  getScrollTop: jest.fn(),
 }));
 
 describe('#makeVirtualTable', () => {

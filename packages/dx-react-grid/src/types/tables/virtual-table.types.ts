@@ -58,14 +58,14 @@ export interface VirtualTableProps {
   // TODO
   skeletonCellComponent: React.ComponentType<Table.CellProps>;
   /** Handles top row changes. */
-  onTopRowChange: (rowId: number | string) => void;
+  onTopRowChange: (rowId: number | string | symbol) => void;
 }
 
 /** @internal */
 export type VirtualTablePluginState = {
   viewport: GridViewport;
   /** Id and index of row, which be scrolled into view */
-  nextRowId?: number | string;
+  nextRowId?: number | string | symbol;
 };
 
 // tslint:disable-next-line:max-line-length

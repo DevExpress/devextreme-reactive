@@ -798,8 +798,8 @@ export namespace GroupingPanel {
     cellComponent: React.ComponentType<GroupingPanel.CellProps>;
     cellStyle: object;
     groups: Array<Array<GroupingItem>>;
+    length: number;
     rowComponent: React.ComponentType<GroupingPanel.RowProps>;
-    width: number;
   }
   export interface RowProps extends BaseView.RowProps {
   }

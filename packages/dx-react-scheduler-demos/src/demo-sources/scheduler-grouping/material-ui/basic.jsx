@@ -27,7 +27,7 @@ const appointments = [{
 }, {
   id: 1,
   title: 'Oil Painting for Beginners',
-  members: [1, 2],
+  members: [1],
   roomId: 2,
   startDate: new Date(2017, 4, 28, 12, 30),
   endDate: new Date(2017, 4, 28, 14, 30),

@@ -1,65 +1,38 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Table } from '../../common/table';
-import { cellsMeta, getViewCellKey } from '../../../utils';
+import { Layout as LayoutBase } from '../../common/layout';
+import { getViewCellKey } from '../../../utils';
 
-export class Layout extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.table = React.createRef();
-  }
-
-  componentDidMount() {
-    this.setCells();
-  }
-
-  componentDidUpdate() {
-    this.setCells();
-  }
-
-  setCells() {
-    const { setCellElementsMeta } = this.props;
-
-    const tableElement = this.table.current;
-    setCellElementsMeta(cellsMeta(tableElement));
-  }
-
-  render() {
-    const {
-      setCellElementsMeta,
-      cellComponent: Cell,
-      rowComponent: Row,
-      cellsData,
-      formatDate,
-      ...restProps
-    } = this.props;
-
-    return (
-      <Table
-        ref={this.table}
-        cellsNumber={cellsData[0].length}
-        {...restProps}
-      >
-        {cellsData.map((days, index) => (
-          <Row key={index.toString()}>
-            {days.map(({
-              startDate, endDate, hasRightBorder, groupingInfo,
-            }) => (
-              <Cell
-                key={getViewCellKey(startDate, groupingInfo)}
-                startDate={startDate}
-                endDate={endDate}
-                hasRightBorder={hasRightBorder}
-                groupingInfo={groupingInfo}
-              />
-            ))}
-          </Row>
+export const Layout = React.memo(({
+  setCellElementsMeta,
+  cellComponent: Cell,
+  rowComponent: Row,
+  cellsData,
+  formatDate,
+  ...restProps
+}) => (
+  <LayoutBase
+    setCellElementsMeta={setCellElementsMeta}
+    cellsNumber={cellsData[0].length}
+    {...restProps}
+  >
+    {cellsData.map((days, index) => (
+      <Row key={index.toString()}>
+        {days.map(({
+          startDate, endDate, hasRightBorder, groupingInfo,
+        }) => (
+          <Cell
+            key={getViewCellKey(startDate, groupingInfo)}
+            startDate={startDate}
+            endDate={endDate}
+            hasRightBorder={hasRightBorder}
+            groupingInfo={groupingInfo}
+          />
         ))}
-      </Table>
-    );
-  }
-}
+      </Row>
+    ))}
+  </LayoutBase>
+));
 
 Layout.propTypes = {
   cellsData: PropTypes.arrayOf(Array).isRequired,

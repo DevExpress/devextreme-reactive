@@ -41,7 +41,9 @@ const getCurrentGroup: PureComputed<
 > = (groupingItems, resources, index, groupingItem) => {
   let currentIndex = index;
   return groupingItems.reduceRight((groupAcc, groupingItemsRow, rowIndex) => {
-    if (rowIndex === groupingItems!.length - 1) return groupAcc;
+    if (rowIndex === groupingItems!.length - 1) {
+      return groupAcc;
+    }
     currentIndex = Math.floor(currentIndex / resources[rowIndex + 1].instances.length);
     const currentInstance = groupingItemsRow[currentIndex];
     return [
@@ -89,7 +91,9 @@ export const groupAppointments: PureComputed<
 const rearrangeResourceIds: PureComputed<
   [ValidResource, AppointmentMoment, any], any[] | any
 > = (mainResource, appointment, mainResourceId) => {
-  if (!mainResource.allowMultiple) return mainResourceId;
+  if (!mainResource.allowMultiple) {
+    return mainResourceId;
+  }
   return [
     mainResourceId,
     ...appointment.dataItem[mainResource!.fieldName].filter((id: any) => id !== mainResourceId),
@@ -99,7 +103,9 @@ const rearrangeResourceIds: PureComputed<
 export const rearrangeResources: PureComputed<
   [ValidResource, AppointmentMoment, any], ValidResourceInstance[]
 > = (mainResource, appointment, currentResourceInstanceId) => {
-  if (!mainResource.allowMultiple) return appointment.resources;
+  if (!mainResource.allowMultiple) {
+    return appointment.resources;
+  }
   const resources = appointment.resources.slice();
   const firstMainResource = resources.findIndex((el: ValidResourceInstance) => el.isMain);
   const currentResourceIndex = resources.findIndex(
@@ -113,7 +119,9 @@ export const rearrangeResources: PureComputed<
 export const expandGroupedAppointment: PureComputed<
   [AppointmentMoment, Grouping[], ValidResource[]], AppointmentMoment[]
 > = (appointment, grouping, resources) => {
-  if (!resources || !grouping) return [appointment];
+  if (!resources || !grouping) {
+    return [appointment];
+  }
   return resources
     .reduce((acc: AppointmentMoment[], resource: ValidResource) => {
       const isGroupedByResource = grouping.find(

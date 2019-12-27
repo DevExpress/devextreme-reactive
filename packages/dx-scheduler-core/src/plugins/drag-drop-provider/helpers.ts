@@ -255,13 +255,13 @@ export const appointmentDragged: PureComputed<
 > = (start, startPrev, end, endPrev, groupingInfo, groupingInfoPrev) => {
   if (moment(start as Date).isSame(startPrev as Date)
       && moment(end as Date).isSame(endPrev as Date)
-      && checkAppointmentFields(groupingInfo, groupingInfoPrev)) {
+      && groupingInfoNotChanged(groupingInfo, groupingInfoPrev)) {
     return false;
   }
   return true;
 };
 
-const checkAppointmentFields: PureComputed<
+const groupingInfoNotChanged: PureComputed<
   [any, any], boolean
 > = (groupingInfo, groupingInfoPrev) => {
   const fields = Object.getOwnPropertyNames(groupingInfo);

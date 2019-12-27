@@ -186,7 +186,7 @@ describe('IntegratedGrouping helpers', () => {
       expect(groupAppointments(appointments, [], undefined))
         .toEqual([appointments]);
     });
-    it('should should work with multiple resources', () => {
+    it('should work with multiple resources', () => {
       const resources = [{
         fieldName: 'resource1',
         allowMultiple: true,

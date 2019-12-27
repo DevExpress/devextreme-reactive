@@ -15,13 +15,11 @@ export class GridCore extends React.PureComponent<GridProps, any> {
     };
 
     this.startExportAction = () => {
-      console.log('grid core start export')
       this.setState({ isExporting: true });
       this.forceUpdate();
       // startExport();
     };
     this.endExportAction = () => {
-      console.log('grid core finish export')
       this.setState({ isExporting: false });
     }
   }
@@ -34,7 +32,6 @@ export class GridCore extends React.PureComponent<GridProps, any> {
       rootComponent: Root,
     } = this.props;
     const { isExporting } = this.state;
-    console.log('isExporting', isExporting)
 
     return (
       <Plugin>

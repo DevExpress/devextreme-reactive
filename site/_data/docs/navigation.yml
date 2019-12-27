@@ -103,6 +103,8 @@
         path: /react/grid/docs/guides/tree-data
       - title: Summary Row
         path: /react/grid/docs/guides/summary-row
+      - title: Export
+        path: /react/grid/docs/guides/export
       - title: Localization
         path: /react/grid/docs/guides/localization
       - title: TypeScript Support

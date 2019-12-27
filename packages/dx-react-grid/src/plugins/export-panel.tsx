@@ -17,6 +17,7 @@ class ExportPanelBase extends React.PureComponent<any> {
     const {
       buttonComponent: Button,
       messages,
+      startExport,
     } = this.props;
 
     return (
@@ -24,17 +25,18 @@ class ExportPanelBase extends React.PureComponent<any> {
         name="ExportPanel"
         dependencies={[
           { name: 'Toolbar' },
-          { name: 'Exporter' },
+          // { name: 'Exporter' },
         ]}
       >
         <Template name="toolbarContent">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {(_, { initiateExport, performExport }) => (
+            {(/* _, { initiateExport, performExport } */) => (
               <Button
                 onClick={() => {
-                  initiateExport();
-                  window.setTimeout(performExport, 0);
+                  startExport();
+                  // initiateExport();
+                  // window.setTimeout(performExport, 0);
                 }}
                 getMessage={getMessagesFormatter({ ...defaultMessages, ...messages })}
               />

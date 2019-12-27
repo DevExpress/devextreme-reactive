@@ -1,17 +1,42 @@
 import * as React from 'react';
 import {
-  Plugin, Action, Getters, Actions,
+  Action, Actions, PluginHost, Getter, Template, TemplateConnector, Getters,
 } from '@devexpress/dx-react-core';
-import { Workbook, Worksheet } from 'exceljs';
-import { Table } from '@devexpress/dx-react-grid';
-import { ExporterProps } from '../types';
+import { cellValueGetter, GridColumnExtension, tableColumnsWithDataRows, rowIdGetter, tableColumnsWithGrouping } from '@devexpress/dx-grid-core';
+import { IntegratedGrouping } from './integrated-grouping';
+import { GroupingState } from './grouping-state';
+import { SummaryState } from './summary-state';
+import { IntegratedSummary } from './integrated-summary';
+import * as Excel from 'exceljs/dist/exceljs.min.js';
+import { Table } from './table';
 import { defaultSummaryMessages } from '../components/summary/table-summary-content';
+import { MemoizedComputed, memoize } from '@devexpress/dx-core';
+import { ShowColumnWhenGroupedGetterFn, ExporterProps } from '../types';
+import { SelectionState } from './selection-state';
 
-const exportHeader = (worksheet: Worksheet, columns) => {
+const ROOT_GROUP = '__root__';
+
+const showColumnWhenGroupedGetter: ShowColumnWhenGroupedGetterFn = (
+  showColumnsWhenGrouped, columnExtensions = [],
+) => {
+  const map = columnExtensions.reduce((acc, columnExtension) => {
+    acc[columnExtension.columnName] = columnExtension.showWhenGrouped;
+    return acc;
+  }, {});
+
+  return columnName => map[columnName] || showColumnsWhenGrouped;
+};
+
+const filterSelectedRows = (rows, getRowId, selection) => {
+  const selectionSet = new Set<any>(selection);
+  return rows.filter(row => selectionSet.has(getRowId(row)));
+};
+
+const exportHeader = (worksheet: Excel.Worksheet, columns) => {
   const cols = columns
     .map(({ column, width }) => ({ ...column, width: (width || 150) / 8 }))
     .map(({ name, title, width }) => ({
-      key: name, header: title, width,
+      key: name, width,
     }));
   worksheet.columns = cols;
 
@@ -32,9 +57,8 @@ const exportHeader = (worksheet: Worksheet, columns) => {
 };
 
 const buildGroupTree = (allRows, outlineLevels, startIndex) => {
-  const groupTree = { '__root': [] as any[] };
-  const maxLevel = Object.keys(outlineLevels).length;
-  console.log('max level', maxLevel)
+  const groupTree = { [ROOT_GROUP]: [] as any[] };
+  const maxLevel = Object.keys(outlineLevels).length - 1;
 
   let parentChain = {};
   let lastDataIndex = 0;
@@ -48,7 +72,7 @@ const buildGroupTree = (allRows, outlineLevels, startIndex) => {
     if (groupedBy) {
       level = outlineLevels[groupedBy];
       if (level === 0) {
-        groupTree['__root'].push(compoundKey);
+        groupTree[ROOT_GROUP].push(compoundKey);
       }
       groupTree[compoundKey] = [];
       parentChain[level] = compoundKey;
@@ -76,6 +100,11 @@ const buildGroupTree = (allRows, outlineLevels, startIndex) => {
     }
     index += 1;
   });
+
+  // TODO: consider grouping instead
+  if (Object.keys(groupTree).length === 1 && groupTree[ROOT_GROUP].length === 0) {
+    groupTree[ROOT_GROUP] = [startIndex, startIndex + allRows.length - 1];
+  }
 
   return groupTree;
 };
@@ -123,27 +152,42 @@ const exportRows = (
     }
 
     worksheet.lastRow!.eachCell((cell, colNumber) => {
-      customizeCell(cell, row, columns[colNumber - 1]);
+      customizeCell(cell, row, columns[colNumber - 1].column);
     });
   });
 }
 
-class ExportBase extends React.PureComponent<ExporterProps> {
+class GridExporterBase extends React.PureComponent<any, any> {
+  tableColumnsComputed: MemoizedComputed<GridColumnExtension[], typeof tableColumnsWithDataRows>;
+
   constructor(props) {
     super(props);
-  }
 
-  exportGrid = (_: any, {
-    tableColumns, columns: dataColumns,
-    getCellValue, grouping, rows, getCollapsedRows,
+    this.state = {
+      isExporting: false,
+    };
+
+    this.tableColumnsComputed = memoize(
+      (columnExtensions: GridColumnExtension[]) => ({
+        columns,
+      }) => tableColumnsWithDataRows(columns, columnExtensions),
+    );
+  }
+  performExport = (_: any, 
+    {
+    tableColumns, columns: dataColumns, getRowId,
+    getCellValue, grouping, rows, getCollapsedRows, selection,
     groupSummaryItems, groupSummaryValues, totalSummaryItems, totalSummaryValues,
-  }: Getters, {
+  }: Getters,
+  {
     finishExport,
   }: Actions) => {
     const columns = tableColumns.filter(c => c.type === Table.COLUMN_TYPE)
 
-    const { onSave, customizeCell, customizeHeader, customizeFooter } = this.props;
-    const workbook: Workbook = new Workbook();
+    const {
+      onSave, customizeCell, customizeSummaryCell, customizeHeader, customizeFooter,
+    } = this.props;
+    const workbook: Excel.Workbook = new Excel.Workbook();
     const worksheet = workbook.addWorksheet('Main');
     const outlineLevels = grouping?.reduce((acc, { columnName }, index) => ({ ...acc, [columnName]: index }), {});
     const maxLevel = grouping?.length - 1;
@@ -153,7 +197,11 @@ class ExportBase extends React.PureComponent<ExporterProps> {
         [...acc, row, ...(expandRows(getCollapsedRows(row) || []))]
       ), []
     );
-    const allRows = expandRows(rows);
+
+    let allRows = expandRows(rows);
+    if (!!selection) {
+      allRows = filterSelectedRows(rows, getRowId, selection);
+    }
 
     const operations = {
       count: 'COUNTA',
@@ -176,23 +224,20 @@ class ExportBase extends React.PureComponent<ExporterProps> {
         date1904: false,
       };
       cell.numFmt = `"${defaultSummaryMessages[type]}:" 0`;
+
+      const column = dataColumns.find(({ name }) => name === columnName);
+      const summary = {
+        type,
+        ranges,
+      }
+      customizeSummaryCell(cell, column, summary);
     };
 
     const findRanges = (compoundKey, level, result) => {
       if (level !== maxLevel) {
-        // let ranges: any[] = [];
-
-        const ranges = groupTree[compoundKey].reduce((acc, val) => {
-          console.log(compoundKey, val, level)
-          return (
-          [...acc, ...findRanges(val, level + 1, result)]
-        )}, []);
-
-        // console.log(ranges)
-
-        // for (let i = 0; i < groupTree[compoundKey].length; i++) {
-        //   ranges = [...ranges, ...findRanges(groupTree[compoundKey][i], level + 1, result)];
-        // }
+        const ranges = groupTree[compoundKey].reduce((acc, range) => (
+          [...acc, ...findRanges(range, level + 1, result)]
+        ), []);
         return [...result, ...ranges];
       } else {
         return [...result, groupTree[compoundKey]];
@@ -205,7 +250,6 @@ class ExportBase extends React.PureComponent<ExporterProps> {
 
       worksheet.addRow({});
       worksheet.lastRow!.outlineLevel = outlineLevels[groupedBy] + 1;
-      // console.log('close group', group)
 
       const ranges = findRanges(compoundKey, outlineLevels[groupedBy], []);
 
@@ -218,7 +262,7 @@ class ExportBase extends React.PureComponent<ExporterProps> {
       worksheet.addRow({});
 
       totalSummaryItems.forEach((s) => {
-        exportSummary(s, findRanges('__root', -1, []));
+        exportSummary(s, findRanges(ROOT_GROUP, -1, []));
       });
     }
 
@@ -228,7 +272,7 @@ class ExportBase extends React.PureComponent<ExporterProps> {
     exportHeader(worksheet, columns);
 
     const groupTree = buildGroupTree(allRows, outlineLevels, worksheet.lastRow!.number + 1);
-    console.log('v2', groupTree)
+    // console.log('v3', groupTree)
 
     exportRows(
       worksheet, allRows, dataColumns, columns, outlineLevels,
@@ -244,13 +288,85 @@ class ExportBase extends React.PureComponent<ExporterProps> {
     finishExport();
   }
 
+  exportGrid = () => {
+    this.setState({ isExporting: true });
+  }
+
+  finishExport = () => {
+    this.setState({ isExporting: false });
+  }
+
   render() {
+    const {
+      rows: propRows, columns: propColumns, getCellValue, getRowId,
+      grouping, showColumnsWhenGrouped, /* filters, sorting, */ selection, totalSummaryItems,
+      groupSummaryItems, columnExtensions,
+    } = this.props;
+    const { isExporting } = this.state;
+    
+    if (!isExporting) return null;
+    
+    const summaryExists = totalSummaryItems || groupSummaryItems;
+    const useSelection = !!selection;
+    const tableColumnsComputed = this.tableColumnsComputed(columnExtensions!);
+
+    const tableColumnsWithGroupingComputed = ({
+      columns, tableColumns, grouping, draftGrouping,
+    }: Getters) => tableColumnsWithGrouping(
+      columns,
+      tableColumns,
+      grouping,
+      draftGrouping,
+      0,
+      showColumnWhenGroupedGetter(showColumnsWhenGrouped!, columnExtensions),
+    );
+
     return (
-      <Plugin name="Exporter">
-        <Action name="performExport" action={this.exportGrid} />
-      </Plugin>
+      <PluginHost>
+        <Getter name="rows" value={propRows} />
+        <Getter name="getRowId" value={rowIdGetter(getRowId!, propRows)} />
+        <Getter name="columns" value={propColumns} />
+        <Getter name="getCellValue" value={cellValueGetter(getCellValue!, propColumns)} />
+        <Getter name="tableColumns" computed={tableColumnsComputed} />
+        <Getter name="isExporting" value />
+
+        {/* State */}
+        {grouping && (
+          <GroupingState grouping={grouping} />
+        )}
+        {summaryExists && (
+          <SummaryState totalItems={totalSummaryItems} groupItems={groupSummaryItems} />
+        )}
+        {useSelection && (
+          <SelectionState selection={selection} />
+        )}
+
+        {/* Integrated */}
+        {grouping && (
+          <Getter name="tableColumns" computed={tableColumnsWithGroupingComputed} />
+        )}
+        {grouping && (
+          <IntegratedGrouping />
+        )}
+        {summaryExists && (
+          <IntegratedSummary />
+        )}
+    
+        <Action name="finishExport" action={this.finishExport} />
+        <Action name="performExport" action={this.performExport} />
+        <Template name="root">
+          {() => (
+            <TemplateConnector>
+              {(_, { performExport }) => {
+                performExport();
+                return null;
+              }}
+            </TemplateConnector>
+          )}
+        </Template>
+      </PluginHost>
     )
   }
 }
 
-export const Exporter: React.ComponentType<ExporterProps> = ExportBase;
+export const GridExporter: React.ComponentType<ExporterProps> = GridExporterBase;

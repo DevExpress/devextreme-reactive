@@ -29,9 +29,6 @@ React Scheduler supports the latest stable releases of all major browsers: Googl
 
 React Scheduler can work in other browsers if they use the latest version of WebKit, Blink, or Gecko, whether directly or via the platform's web view API. Some of these browsers may require adding [polyfills](#polyfills). However, such browsers, including Internet Explorer, may not work correctly.
 
-Currently, there are issues with sticky-positioned element support in Microsoft Edge:
-  - [nested sticky positioning element will not stick](https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/18940617/)
-
 ## Polyfills
 
 React Scheduler uses the latest web platform standards, and cannot support older browsers like IE11 and Android 4. Use the ES2015 (ES6) polyfill to support these browsers. We recommend [BABEL Polyfill](https://babeljs.io/docs/usage/polyfill/), but you can use an alternative.

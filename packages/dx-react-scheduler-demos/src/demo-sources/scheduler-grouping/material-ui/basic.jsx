@@ -11,56 +11,56 @@ import {
   GroupingPanel,
   DayView,
   DragDropProvider,
+  AppointmentForm,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import {
-  blue, teal, indigo, deepPurple, green, purple,
+  teal, indigo,
 } from '@material-ui/core/colors';
 
 const appointments = [{
   id: 0,
   title: 'Watercolor Landscape',
   members: [1, 2],
-  startDate: new Date(2017, 4, 28, 10, 0),
+  roomId: 1,
+  startDate: new Date(2017, 4, 28, 9, 30),
   endDate: new Date(2017, 4, 28, 12, 0),
 }, {
   id: 1,
   title: 'Oil Painting for Beginners',
-  members: [3, 4],
-  startDate: new Date(2017, 4, 28, 9, 30),
-  endDate: new Date(2017, 4, 28, 11, 30),
+  members: [1, 2],
+  roomId: 2,
+  startDate: new Date(2017, 4, 28, 12, 30),
+  endDate: new Date(2017, 4, 28, 14, 30),
 }, {
   id: 2,
   title: 'Testing',
-  members: [5, 6],
-  startDate: new Date(2017, 4, 28, 10, 30),
-  endDate: new Date(2017, 4, 28, 12, 30),
+  members: [1, 2],
+  roomId: 1,
+  startDate: new Date(2017, 4, 29, 12, 30),
+  endDate: new Date(2017, 4, 29, 14, 30),
+}, {
+  id: 3,
+  title: 'Final exams',
+  members: [1, 2],
+  roomId: 2,
+  startDate: new Date(2017, 4, 29, 9, 30),
+  endDate: new Date(2017, 4, 29, 12, 0),
 }];
 
-export const owners = [{
+const owners = [{
   text: 'Andrew Glover',
   id: 1,
-  color: blue,
+  color: indigo,
 }, {
   text: 'Arnie Schwartz',
   id: 2,
   color: teal,
-}, {
-  text: 'John Heart',
-  id: 3,
-  color: indigo,
-}, {
-  text: 'Taylor Riley',
-  id: 4,
-  color: deepPurple,
-}, {
-  text: 'Brad Farkus',
-  id: 5,
-  color: green,
-}, {
-  text: 'Arthur Miller',
-  id: 6,
-  color: purple,
 }];
+
+const locations = [
+  { text: 'Room 1', id: 1 },
+  { text: 'Room 2', id: 2 },
+];
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -72,8 +72,14 @@ export default class Demo extends React.PureComponent {
         title: 'Members',
         instances: owners,
         allowMultiple: true,
+      }, {
+        fieldName: 'roomId',
+        title: 'Location',
+        instances: locations,
       }],
       grouping: [{
+        resourceName: 'roomId',
+      }, {
         resourceName: 'members',
       }],
     };
@@ -119,7 +125,8 @@ export default class Demo extends React.PureComponent {
 
           <DayView
             startDayHour={9}
-            endDayHour={13}
+            endDayHour={15}
+            intervalCount={2}
           />
           <Appointments />
           <Resources
@@ -129,8 +136,9 @@ export default class Demo extends React.PureComponent {
 
           <IntegratedGrouping />
           <IntegratedEditing />
-          <AppointmentTooltip />
 
+          <AppointmentTooltip showOpenButton />
+          <AppointmentForm />
           <GroupingPanel />
           <DragDropProvider />
         </Scheduler>

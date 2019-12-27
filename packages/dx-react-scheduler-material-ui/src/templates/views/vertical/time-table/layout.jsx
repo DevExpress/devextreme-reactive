@@ -1,51 +1,46 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import { makeStyles } from '@material-ui/core/styles';
-import classNames from 'clsx';
-import { cellsMeta, getWidthInPixels, getViewCellKey } from '../../../utils';
-import {
-  CELL_WIDTH, SMALL_CELL_WIDTH,
-  XS_CELL_WIDTH, SMALL_LAYOUT_MEDIA_QUERY, LAYOUT_MEDIA_QUERY,
-} from '../../../constants';
+import { Table } from '../../common/table';
+import { cellsMeta, getViewCellKey } from '../../../utils';
 
-const useStyles = makeStyles({
-  table: {
-    tableLayout: 'fixed',
-    minWidth: cellsNumber => getWidthInPixels(cellsNumber, CELL_WIDTH),
-    [`${LAYOUT_MEDIA_QUERY}`]: {
-      minWidth: cellsNumber => getWidthInPixels(cellsNumber, SMALL_CELL_WIDTH),
-    },
-    [`${SMALL_LAYOUT_MEDIA_QUERY}`]: {
-      minWidth: cellsNumber => getWidthInPixels(cellsNumber, XS_CELL_WIDTH),
-    },
-    width: '100%',
-  },
-});
+export class Layout extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
-export const Layout = React.memo(({
-  setCellElementsMeta,
-  cellComponent: Cell,
-  rowComponent: Row,
-  className,
-  cellsData,
-  formatDate,
-  ...restProps
-}) => {
-  const table = React.useRef(null);
-  React.useEffect(() => {
-    setCellElementsMeta(cellsMeta(table.current));
-  });
-  const classes = useStyles(cellsData[0].length);
+    this.table = React.createRef();
+  }
 
-  return (
-    <Table
-      ref={table}
-      className={classNames(classes.table, className)}
-      {...restProps}
-    >
-      <TableBody>
+  componentDidMount() {
+    this.setCells();
+  }
+
+  componentDidUpdate() {
+    this.setCells();
+  }
+
+  setCells() {
+    const { setCellElementsMeta } = this.props;
+
+    const tableElement = this.table.current;
+    setCellElementsMeta(cellsMeta(tableElement));
+  }
+
+  render() {
+    const {
+      setCellElementsMeta,
+      cellComponent: Cell,
+      rowComponent: Row,
+      cellsData,
+      formatDate,
+      ...restProps
+    } = this.props;
+
+    return (
+      <Table
+        ref={this.table}
+        width={cellsData[0].length}
+        {...restProps}
+      >
         {cellsData.map((days, index) => (
           <Row key={index.toString()}>
             {days.map(({
@@ -61,10 +56,10 @@ export const Layout = React.memo(({
             ))}
           </Row>
         ))}
-      </TableBody>
-    </Table>
-  );
-});
+      </Table>
+    );
+  }
+}
 
 Layout.propTypes = {
   cellsData: PropTypes.arrayOf(Array).isRequired,
@@ -72,9 +67,4 @@ Layout.propTypes = {
   rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   formatDate: PropTypes.func.isRequired,
   setCellElementsMeta: PropTypes.func.isRequired,
-  className: PropTypes.string,
-};
-
-Layout.defaultProps = {
-  className: undefined,
 };

@@ -797,6 +797,8 @@ export const VirtualTable: React.ComponentType<VirtualTableProps> & {
   COLUMN_TYPE: symbol;
   ROW_TYPE: symbol;
   NODATA_ROW_TYPE: symbol;
+  TOP_POSITION: symbol;
+  BOTTOM_POSITION: symbol;
 } & {
   Table: React.ComponentType<object & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   TableHead: React.ComponentType<object & { className?: string; style?: React.CSSProperties; [x: string]: any }>;

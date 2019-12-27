@@ -12,7 +12,7 @@ jest.mock('@material-ui/core/styles', () => ({
 describe('Common view DayScale', () => {
   let shallow;
   const defaultProps = {
-    width: 0,
+    cellsNumber: 0,
   };
   beforeAll(() => {
     shallow = createShallow();

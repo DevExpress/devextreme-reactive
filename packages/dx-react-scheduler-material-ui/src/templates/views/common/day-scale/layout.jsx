@@ -11,7 +11,7 @@ export const Layout = React.memo(({
   ...restProps
 }) => (
   <Table
-    width={cellsData[0].length}
+    cellsNumber={cellsData[0].length}
     {...restProps}
   >
     <GroupingPanel />

@@ -38,7 +38,7 @@ export class Layout extends React.PureComponent {
     return (
       <Table
         ref={this.table}
-        width={cellsData[0].length}
+        cellsNumber={cellsData[0].length}
         {...restProps}
       >
         {cellsData.map((days, index) => (

@@ -24,13 +24,19 @@ const useStyles = makeStyles({
   },
 });
 
+/* This component is a workaround to the bug when appointments flicker after being drag-dropped.
+  It is used to define the minimum width of a parent layout depending on the number of cells.
+  It's impossible to do it in the layout because appointments begin to flicker when using
+  functional component instead of PureComponent (and to define the minimum width it is necessary
+  to use material-ui's makeStyles).
+*/
 export const Table = React.forwardRef(({
   className,
-  width,
+  cellsNumber,
   children,
   ...restProps
 }, ref) => {
-  const classes = useStyles(width);
+  const classes = useStyles(cellsNumber);
 
   return (
     <TableMUI
@@ -46,7 +52,7 @@ export const Table = React.forwardRef(({
 });
 
 Table.propTypes = {
-  width: PropTypes.number.isRequired,
+  cellsNumber: PropTypes.number.isRequired,
   className: PropTypes.string,
   children: PropTypes.node.isRequired,
 };

@@ -12,7 +12,7 @@ export namespace GroupingPanel {
     /** Specifies the final representation of Scheduler's groups and the order they will be rendered in. */
     groups: Array<Array<GroupingItem>>;
     /** Indicates the number of cells in the Scheduler's timetable. */
-    width: number;
+    length: number;
     /** Style object applied to the Groping Panel's cell component. */
     cellStyle: object;
   }

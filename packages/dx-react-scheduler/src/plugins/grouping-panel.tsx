@@ -43,7 +43,7 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
                 rowComponent={rowComponent}
                 cellComponent={cellComponent}
                 groups={groupingItems}
-                width={viewCellsData[0].length}
+                length={viewCellsData[0].length}
                 cellStyle={{
                   left: currentView && currentView.type === 'month'
                   ? HORIZONTAL_VIEW_LEFT_OFFSET

@@ -54,7 +54,7 @@ Describes properties passed to a component that renders a Grouping panel horizon
 Field | Type | Description
 ------|------|------------
 groups | Array&lt;Array&lt;[GroupingItem](#groupingitem)&gt;&gt; | Specifies the final representation of Scheduler's groups and the order they will be rendered in.
-width | number | Indicates the number of cells in the Scheduler's timetable.
+length | number | Indicates the number of cells in the Scheduler's timetable.
 cellStyle | object | Grouping Panel cell's style.
 rowComponent | ComponentType&lt;[GroupingPanel.RowProps](#groupingpanelrowprops)&gt; |  A component that renders a Grouping panel row.
 cellComponent | ComponentType&lt;[GroupingPanel.CellProps](#groupingpanelcellprops)&gt; | | A component that renders a Grouping panel cell.

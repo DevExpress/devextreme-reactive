@@ -12,7 +12,7 @@ import * as React from 'react';
 export type AllDayCell = {
   startDate: SchedulerDateTime;
   endDate: SchedulerDateTime;
-  groupingInfo?: GroupingItem[];
+  groupingInfo?: Group[];
   hasRightBorder?: boolean;
 };
 
@@ -25,7 +25,7 @@ export namespace AllDayPanel {
   }
   export interface CellData {
     endDate: Date;
-    groupingInfo?: Array<GroupingItem>;
+    groupingInfo?: Array<Group>;
     hasRightBorder?: boolean;
     startDate: Date;
   }
@@ -427,7 +427,7 @@ export namespace BaseView {
     export interface DayScaleCellProps {
         endDate?: Date;
         formatDate: FormatterFn;
-        groupingInfo?: Array<GroupingItem>;
+        groupingInfo?: Array<Group>;
         hasRightBorder?: boolean;
         startDate: Date;
         today?: boolean;
@@ -464,7 +464,7 @@ export namespace BaseView {
         currentTimeIndicatorComponent?: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
         currentTimeIndicatorPosition?: string;
         endDate?: Date;
-        groupingInfo?: Array<GroupingItem>;
+        groupingInfo?: Array<Group>;
         hasRightBorder?: boolean;
         isShaded?: boolean;
         startDate?: Date;
@@ -772,16 +772,16 @@ export interface EditRecurrenceMenuProps {
 export type FormatterFn = (nextDate: SchedulerDateTime | undefined, nextOptions: Intl.DateTimeFormatOptions) => string;
 
 // @public
-export interface Grouping {
-  resourceName: string;
-}
-
-// @public
-export type GroupingItem = {
+export type Group = {
   id: number | string;
   text: string;
   fieldName: string;
 };
+
+// @public
+export interface Grouping {
+  resourceName: string;
+}
 
 // @public
 export const GroupingPanel: React.ComponentType<GroupingPanelProps>;
@@ -791,14 +791,14 @@ export namespace GroupingPanel {
   export interface CellProps {
     children?: React.ReactNode;
     colSpan: number;
-    groupingItem: GroupingItem;
+    group: Group;
     left: number;
   }
   export interface HorizontalLayoutProps {
     cellComponent: React.ComponentType<GroupingPanel.CellProps>;
     cellStyle: object;
-    groups: Array<Array<GroupingItem>>;
-    length: number;
+    colSpan: number;
+    groups: Array<Array<Group>>;
     rowComponent: React.ComponentType<GroupingPanel.RowProps>;
   }
   export interface RowProps extends BaseView.RowProps {
@@ -885,7 +885,7 @@ export namespace MonthView {
   export interface TimeTableCellProps {
     endDate?: Date;
     formatDate?: FormatterFn;
-    groupingInfo?: Array<GroupingItem>;
+    groupingInfo?: Array<Group>;
     hasRightBorder?: boolean;
     isShaded?: boolean;
     otherMonth?: boolean;
@@ -1072,7 +1072,7 @@ export interface VerticalViewProps extends CommonViewProps {
 export type ViewCellData = {
   startDate: Date;
   endDate: Date;
-  groupingInfo?: GroupingItem[];
+  groupingInfo?: Group[];
 };
 
 // @public

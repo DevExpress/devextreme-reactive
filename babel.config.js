@@ -7,6 +7,8 @@ module.exports = {
     ["transform-react-remove-prop-types", {
       "mode": "unsafe-wrap"
     }],
+    "@babel/plugin-proposal-nullish-coalescing-operator",
+    "@babel/plugin-proposal-optional-chaining",
   ],
   "env": {
     "test": {

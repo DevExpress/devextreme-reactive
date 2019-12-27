@@ -17,7 +17,7 @@ describe('GroupingPanel', () => {
     },
     plugins: ['GroupingState', 'IntegratedGrouping'],
     getter: {
-      groupingItems: [],
+      groups: [],
       viewCellsData: [[{}, {}]],
       currentView: {},
     },
@@ -47,8 +47,8 @@ describe('GroupingPanel', () => {
       .toMatchObject({
         rowComponent: defaultProps.rowComponent,
         cellComponent: defaultProps.cellComponent,
-        width: defaultDeps.getter.viewCellsData[0].length,
-        groups: defaultDeps.getter.groupingItems,
+        colSpan: defaultDeps.getter.viewCellsData[0].length,
+        groups: defaultDeps.getter.groups,
       });
   });
 });

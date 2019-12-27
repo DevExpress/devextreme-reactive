@@ -1,9 +1,9 @@
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  Grouping, ValidResourceInstance, ViewCell, ValidResource, GroupingItem, AppointmentMoment,
+  Grouping, ValidResourceInstance, ViewCell, ValidResource, Group, AppointmentMoment,
 } from '../../types';
 import {
-  getGroupingItemFromResourceInstance, addGroupInfoToCells,
+  getGroupFromResourceInstance, addGroupInfoToCells,
   groupAppointments, expandGroupedAppointment,
 } from './helpers';
 
@@ -19,37 +19,37 @@ export const sortFilteredResources: PureComputed<
   resources.find(resource => resource.fieldName === resourceName) as ValidResource
 ));
 
-export const getGroupingItemsFromResources: PureComputed<
-  [Array<ValidResource>], Array<Array<GroupingItem>>
+export const getGroupsFromResources: PureComputed<
+  [Array<ValidResource>], Array<Array<Group>>
 > = sortedAndFilteredResources => sortedAndFilteredResources.reduce((
-    acc: Array<Array<GroupingItem>>, resource: ValidResource, index: number,
+    acc: Array<Array<Group>>, resource: ValidResource, index: number,
   ) => {
   if (index === 0) {
-    return [resource.instances.map(instance => getGroupingItemFromResourceInstance(instance))];
+    return [resource.instances.map(instance => getGroupFromResourceInstance(instance))];
   }
 
   return [
     ...acc,
-    acc[index - 1].reduce((currentResourceNames: Array<GroupingItem>) => [
+    acc[index - 1].reduce((currentResourceNames: Array<Group>) => [
       ...currentResourceNames,
       ...resource.instances.map(
-        (instance: ValidResourceInstance) => getGroupingItemFromResourceInstance(instance),
+        (instance: ValidResourceInstance) => getGroupFromResourceInstance(instance),
       ),
     ], []),
   ];
 }, []);
 
 export const expandViewCellsDataWithGroups: PureComputed<
-  [ViewCell[][], GroupingItem[][], ValidResource[]], ViewCell[][]
-> = (viewCellsData, groupingItems, sortedResources) => {
-  if (groupingItems.length === 0) return viewCellsData;
-  return groupingItems[groupingItems.length - 1].reduce((
-    acc: ViewCell[][], groupingItem: GroupingItem, index: number,
+  [ViewCell[][], Group[][], ValidResource[]], ViewCell[][]
+> = (viewCellsData, groups, sortedResources) => {
+  if (groups.length === 0) return viewCellsData;
+  return groups[groups.length - 1].reduce((
+    acc: ViewCell[][], group: Group, index: number,
   ) => {
     if (index === 0) {
       return viewCellsData.map((viewCellsRow: ViewCell[]) =>
         addGroupInfoToCells(
-          groupingItem, groupingItems,
+          group, groups,
           sortedResources, viewCellsRow, index,
         ) as ViewCell[],
       );
@@ -57,8 +57,8 @@ export const expandViewCellsDataWithGroups: PureComputed<
     return acc.map((item: ViewCell[], id: number) => [
       ...item,
       ...addGroupInfoToCells(
-        groupingItem,
-        groupingItems, sortedResources,
+        group,
+        groups, sortedResources,
         viewCellsData[id], index,
       ),
     ]);
@@ -71,12 +71,12 @@ export const updateGroupingWithMainResource: PureComputed<
   || [{ resourceName: resources.find(resource => resource.isMain)!.fieldName }];
 
 export const expandGroups: PureComputed<
-  [AppointmentMoment[][], Grouping[], ValidResource[], GroupingItem[][]], AppointmentMoment[][]
-> = (appointments, grouping, resources, groupingItems) => {
+  [AppointmentMoment[][], Grouping[], ValidResource[], Group[][]], AppointmentMoment[][]
+> = (appointments, grouping, resources, groups) => {
   const expandedAppointments = appointments.map(appointmentGroup => appointmentGroup
     .reduce((acc: AppointmentMoment[], appointment: AppointmentMoment) => [
       ...acc,
       ...expandGroupedAppointment(appointment, grouping, resources),
     ], [] as AppointmentMoment[]));
-  return groupAppointments(expandedAppointments[0], resources, groupingItems);
+  return groupAppointments(expandedAppointments[0], resources, groups);
 };

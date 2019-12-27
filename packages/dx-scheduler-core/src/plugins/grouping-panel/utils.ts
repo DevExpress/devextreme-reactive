@@ -1,11 +1,11 @@
 import { PureComputed } from '@devexpress/dx-core';
-import { GroupingItem } from '../../types';
+import { Group } from '../../types';
 
 export const getCellKey: PureComputed<
-  [GroupingItem[][], number, number], string
+  [Group[][], number, number], string
 > = (groups, index, rowNumber) => {
   let currentIndex = index;
-  return groups.reduceRight((acc: string, groupRow: GroupingItem[], rowIndex: number) => {
+  return groups.reduceRight((acc: string, groupRow: Group[], rowIndex: number) => {
     if (rowNumber < rowIndex) return acc;
     const currentKey = groupRow[currentIndex].text;
     if (rowIndex > 0) {

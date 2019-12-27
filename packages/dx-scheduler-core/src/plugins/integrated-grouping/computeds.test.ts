@@ -1,6 +1,6 @@
 import {
   filterResourcesByGrouping, sortFilteredResources,
-  getGroupingItemsFromResources, expandViewCellsDataWithGroups,
+  getGroupsFromResources, expandViewCellsDataWithGroups,
   updateGroupingWithMainResource, expandGroups,
 } from './computeds';
 import { expandGroupedAppointment, groupAppointments } from './helpers';
@@ -49,7 +49,7 @@ describe('IntegratedGrouping computeds', () => {
     });
   });
 
-  describe('#getGroupingItemsFromResources', () => {
+  describe('#getGroupsFromResources', () => {
     it('should work', () => {
       const resources = [{
         fieldName: 'resource2',
@@ -69,7 +69,7 @@ describe('IntegratedGrouping computeds', () => {
         { resourceName: 'resource1' },
       ];
 
-      expect(getGroupingItemsFromResources(resources, grouping))
+      expect(getGroupsFromResources(resources, grouping))
         .toEqual([[
           { id: 'resource2_1' },
           { id: 'resource2_2' },
@@ -92,13 +92,13 @@ describe('IntegratedGrouping computeds', () => {
       instances: [{ id: 1 }, { id: 2 }],
     }];
 
-    it('should add cells and groupingInfo to the cells depending on groupingItems', () => {
-      const groupingItems = [[
+    it('should add cells and groupingInfo to the cells depending on groups', () => {
+      const groups = [[
         { fieldName: 'resource1', id: 1 },
         { fieldName: 'resource1', id: 2 },
       ]];
 
-      const result = expandViewCellsDataWithGroups(viewCellsDataBase, groupingItems, resourcesBase);
+      const result = expandViewCellsDataWithGroups(viewCellsDataBase, groups, resourcesBase);
       expect(result[0][0])
         .toEqual({
           ...viewCellsDataBase[0][0],
@@ -125,11 +125,11 @@ describe('IntegratedGrouping computeds', () => {
         });
     });
 
-    it('should work with multiple groupingItems', () => {
+    it('should work with multiple groups', () => {
       const viewCellsData = [
         [{ startDate: new Date('2018-06-24 08:00'), endDate: new Date('2018-06-24 08:30') }],
       ];
-      const groupingItems = [[
+      const groups = [[
         { fieldName: 'resource1', id: 1 },
         { fieldName: 'resource1', id: 2 },
       ], [
@@ -146,7 +146,7 @@ describe('IntegratedGrouping computeds', () => {
         instances: [{ id: 1 }, { id: 2 }],
       }];
 
-      const result = expandViewCellsDataWithGroups(viewCellsData, groupingItems, resources);
+      const result = expandViewCellsDataWithGroups(viewCellsData, groups, resources);
       expect(result[0][0])
         .toEqual({
           ...viewCellsData[0][0],
@@ -185,10 +185,10 @@ describe('IntegratedGrouping computeds', () => {
         });
     });
 
-    it('should not add groupingInfo if groupingItems is an empty array', () => {
-      const groupingItems = [];
+    it('should not add groupingInfo if groups is an empty array', () => {
+      const groups = [];
 
-      expect(expandViewCellsDataWithGroups(viewCellsDataBase, groupingItems, resourcesBase))
+      expect(expandViewCellsDataWithGroups(viewCellsDataBase, groups, resourcesBase))
         .toEqual(viewCellsDataBase);
     });
   });
@@ -216,12 +216,12 @@ describe('IntegratedGrouping computeds', () => {
       expandGroupedAppointment.mockImplementation(() => ['expandGroupedAppointment']);
     });
     it('should group and expand appointments', () => {
-      expandGroups([[{}]], 'grouping', 'resources', 'groupingItems');
+      expandGroups([[{}]], 'grouping', 'resources', 'groups');
 
       expect(expandGroupedAppointment)
         .toHaveBeenCalledWith({}, 'grouping', 'resources');
       expect(groupAppointments)
-        .toHaveBeenCalledWith(['expandGroupedAppointment'], 'resources', 'groupingItems');
+        .toHaveBeenCalledWith(['expandGroupedAppointment'], 'resources', 'groups');
     });
   });
 });

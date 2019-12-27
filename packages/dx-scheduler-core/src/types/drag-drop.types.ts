@@ -5,7 +5,7 @@ import {
 import { ElementRect } from './utils.types';
 import { Grouping } from './grouping-state.types';
 import { ValidResource } from './resources.types';
-import { GroupingItem } from './integrated-grouping.types';
+import { Group } from './integrated-grouping.types';
 
 export type ClientOffset = {
   x: number;
@@ -18,17 +18,17 @@ export type TimeType = 'seconds' | 'minutes' | 'hours';
 /** @internal */
 export type AllDayRects = PureComputed<
   [Appointment[], Date,  Date, number[], ViewCell[][], CellElementsMeta,
-  Grouping[], ValidResource[], GroupingItem[][]], ElementRect[]
+  Grouping[], ValidResource[], Group[][]], ElementRect[]
 >;
 /** @internal */
 export type VerticalRects = PureComputed<
   [Appointment[], Date,  Date, number[], ViewCell[][], number, CellElementsMeta,
-  Grouping[], ValidResource[], GroupingItem[][]], ElementRect[]
+  Grouping[], ValidResource[], Group[][]], ElementRect[]
 >;
 /** @internal */
 export type HorizontalRects = PureComputed<
   [Appointment[], Date,  Date, ViewCell[][], CellElementsMeta,
-  Grouping[], ValidResource[], GroupingItem[][]], ElementRect[]
+  Grouping[], ValidResource[], Group[][]], ElementRect[]
 >;
 
 type AppointmentBoundaries = {

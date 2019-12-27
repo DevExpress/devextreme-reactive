@@ -1,12 +1,12 @@
 import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import { Appointment, SchedulerDateTime } from './scheduler-core.types';
-import { GroupingItem } from './integrated-grouping.types';
+import { Group } from './integrated-grouping.types';
 
 export type ViewCellData = {
   startDate: Date;
   endDate: Date;
-  groupingInfo?: GroupingItem[];
+  groupingInfo?: Group[];
 };
 
 export interface AppointmentMoment {

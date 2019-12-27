@@ -6,22 +6,22 @@ export const HorizontalLayout = ({
   rowComponent: Row,
   cellComponent: Cell,
   groups,
-  length,
+  colSpan,
   cellStyle,
   ...restProps
 }) => (
   <>
     {groups.map((groupRow, rowIndex) => {
-      const colSpan = length / groupRow.length;
+      const cellColSpan = colSpan / groupRow.length;
       return (
         <Row
           key={groups[rowIndex][0].text}
           {...restProps}
         >
-          {groupRow.map((groupingItem, index) => (
+          {groupRow.map((group, index) => (
             <Cell
-              groupingItem={groupingItem}
-              colSpan={colSpan}
+              group={group}
+              colSpan={cellColSpan}
               key={getCellKey(groups, index, rowIndex)}
               left={cellStyle.left}
             />
@@ -36,6 +36,6 @@ HorizontalLayout.propTypes = {
   rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   groups: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
-  length: PropTypes.number.isRequired,
+  colSpan: PropTypes.number.isRequired,
   cellStyle: PropTypes.object.isRequired,
 };

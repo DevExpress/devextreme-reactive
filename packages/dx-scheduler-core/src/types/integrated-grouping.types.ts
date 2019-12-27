@@ -1,5 +1,5 @@
 /** Configures a single grouping item the appointments may belong to. */
-export type GroupingItem = {
+export type Group = {
   /** The ID of the corresponding resource the appointments are grouped by. */
   id: number | string;
   /** The grouping item text. */

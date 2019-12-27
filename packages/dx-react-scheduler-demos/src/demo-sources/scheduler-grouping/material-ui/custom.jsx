@@ -25,8 +25,8 @@ const priorityData = [
 const findColorByGroupId = id => (priorityData.find(item => item.id === id)).color;
 const getIconById = id => (id === 1 ? LowPriority : PriorityHigh);
 
-const useGroupingStyles = (groupingItem) => {
-  const color = findColorByGroupId(groupingItem.id);
+const useGroupingStyles = (group) => {
+  const color = findColorByGroupId(group.id);
   return makeStyles(({ spacing }) => ({
     cell: {
       backgroundColor: fade(color[400], 0.1),
@@ -86,13 +86,13 @@ const AllDayCell = React.memo(({ groupingInfo, ...restProps }) => {
   );
 });
 
-const GroupingPanelCell = React.memo(({ groupingItem, ...restProps }) => {
-  const classes = useGroupingStyles(groupingItem);
-  const Icon = getIconById(groupingItem.id);
+const GroupingPanelCell = React.memo(({ group, ...restProps }) => {
+  const classes = useGroupingStyles(group);
+  const Icon = getIconById(group.id);
   return (
     <GroupingPanel.Cell
       className={classes.headerCell}
-      groupingItem={groupingItem}
+      group={group}
       {...restProps}
     >
       <Icon

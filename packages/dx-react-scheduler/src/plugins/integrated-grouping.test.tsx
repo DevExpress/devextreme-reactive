@@ -3,14 +3,14 @@ import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import {
-  getGroupingItemsFromResources, expandViewCellsDataWithGroups,
+  getGroupsFromResources, expandViewCellsDataWithGroups,
   sortFilteredResources, filterResourcesByGrouping, updateGroupingWithMainResource,
   expandGroups,
 } from '@devexpress/dx-scheduler-core';
 import { IntegratedGrouping } from './integrated-grouping';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  getGroupingItemsFromResources: jest.fn(),
+  getGroupsFromResources: jest.fn(),
   expandViewCellsDataWithGroups: jest.fn(),
   sortFilteredResources: jest.fn(),
   filterResourcesByGrouping: jest.fn(),
@@ -32,7 +32,7 @@ describe('IntegratedGrouping', () => {
   beforeEach(() => {
     filterResourcesByGrouping.mockImplementation(() => 'filteredResources');
     sortFilteredResources.mockImplementation(() => 'resourcesToGroupBy');
-    getGroupingItemsFromResources.mockImplementation(() => 'groupingItems');
+    getGroupsFromResources.mockImplementation(() => 'groups');
     expandViewCellsDataWithGroups.mockImplementation(() => 'groupedViewCellsData');
     updateGroupingWithMainResource.mockImplementation(() => 'groupingComputed');
     expandGroups.mockImplementation(() => 'expandGroups');
@@ -68,7 +68,7 @@ describe('IntegratedGrouping', () => {
       .toBe('resourcesToGroupBy');
   });
 
-  it('should provide groupingItems getter', () => {
+  it('should provide groups getter', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -76,10 +76,10 @@ describe('IntegratedGrouping', () => {
       </PluginHost>
     ));
 
-    expect(getGroupingItemsFromResources)
+    expect(getGroupsFromResources)
       .toHaveBeenCalledWith('resourcesToGroupBy');
-    expect(getComputedState(tree).groupingItems)
-      .toBe('groupingItems');
+    expect(getComputedState(tree).groups)
+      .toBe('groups');
   });
 
   it('should provide viewCellsData getter', () => {
@@ -91,7 +91,7 @@ describe('IntegratedGrouping', () => {
     ));
 
     expect(expandViewCellsDataWithGroups)
-      .toHaveBeenCalledWith('viewCellsData', 'groupingItems', 'resourcesToGroupBy');
+      .toHaveBeenCalledWith('viewCellsData', 'groups', 'resourcesToGroupBy');
     expect(getComputedState(tree).viewCellsData)
       .toBe('groupedViewCellsData');
   });
@@ -105,7 +105,7 @@ describe('IntegratedGrouping', () => {
     ));
 
     expect(expandGroups)
-      .toHaveBeenCalledWith('timeTableAppointments', 'groupingComputed', 'resourcesToGroupBy', 'groupingItems');
+      .toHaveBeenCalledWith('timeTableAppointments', 'groupingComputed', 'resourcesToGroupBy', 'groups');
     expect(getComputedState(tree).timeTableAppointments)
       .toBe('expandGroups');
   });
@@ -120,7 +120,7 @@ describe('IntegratedGrouping', () => {
 
     expect(expandGroups)
       .toHaveBeenCalledWith(
-        'allDayAppointments', 'groupingComputed', 'resourcesToGroupBy', 'groupingItems',
+        'allDayAppointments', 'groupingComputed', 'resourcesToGroupBy', 'groups',
       );
     expect(getComputedState(tree).allDayAppointments)
       .toBe('expandGroups');

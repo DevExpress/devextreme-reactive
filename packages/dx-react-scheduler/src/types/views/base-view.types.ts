@@ -1,4 +1,4 @@
-import { FormatterFn, CellElementsMeta, ScrollingStrategy, GroupingItem } from '../index';
+import { FormatterFn, CellElementsMeta, ScrollingStrategy, Group } from '../index';
 import { CurrentTimeIndicator } from '../current-time-indicator';
 import { GroupingPanel } from '../grouping';
 
@@ -52,7 +52,7 @@ export namespace BaseView {
     /** Specifies the cell's end time. */
     endDate?: Date;
     /** The cell's group. */
-    groupingInfo?: Array<GroupingItem>;
+    groupingInfo?: Array<Group>;
     /** Specifies whether the cell has the right border. */
     hasRightBorder?: boolean;
     /** Indicates whether the cell is shaded. */
@@ -123,7 +123,7 @@ export namespace BaseView {
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
     /** The cell's group. */
-    groupingInfo?: Array<GroupingItem>;
+    groupingInfo?: Array<Group>;
     /** Specifies whether the cell has the right border. */
     hasRightBorder?: boolean;
   }

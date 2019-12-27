@@ -1,7 +1,7 @@
 import moment from 'moment';
 import {
   SliceAppointmentByWeekFn, GetMonthCellIndexByAppointmentDataFn,
-  SchedulerDateTime, AppointmentMoment, GroupingItem,
+  SchedulerDateTime, AppointmentMoment, Group,
 } from '../../types';
 import { DAYS_IN_WEEK } from '../appointment-form/constants';
 
@@ -53,8 +53,8 @@ export const getMonthCellIndexByAppointmentData: GetMonthCellIndexByAppointmentD
     let isCorrectCell = true;
     if (viewCellsData[weekNumber][dayOfWeek].groupingInfo) {
       isCorrectCell = viewCellsData[weekNumber][dayOfWeek].groupingInfo!
-        .every((groupingItem: GroupingItem) => (
-          groupingItem.id === appointment[groupingItem.fieldName]
+        .every((group: Group) => (
+          group.id === appointment[group.fieldName]
         ));
     }
     if (isCorrectCell) {

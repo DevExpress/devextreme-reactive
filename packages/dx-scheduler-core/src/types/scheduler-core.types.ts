@@ -1,5 +1,5 @@
 import { PureComputed } from '@devexpress/dx-core';
-import { GroupingItem } from '../types';
+import { Group } from '../types';
 
 export type SchedulerDateTime = Date | number | string;
 export type AppointmentId = number | string;
@@ -52,7 +52,7 @@ export type AllDayCell = {
   /** The cell’s end time. */
   endDate: SchedulerDateTime;
   /** The cell's group. */
-  groupingInfo?: GroupingItem[];
+  groupingInfo?: Group[];
   /** Specifies whether the cell has the right border. */
   hasRightBorder?: boolean;
 };
@@ -63,7 +63,7 @@ export interface ViewCell {
   endDate?: Date;
   otherMonth?: boolean;
   today?: boolean;
-  groupingInfo?: GroupingItem[];
+  groupingInfo?: Group[];
   hasRightBorder?: boolean;
 }
 /** @internal */

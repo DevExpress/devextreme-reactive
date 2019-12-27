@@ -38,12 +38,12 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
       >
         <Template name="groupingPanel">
           <TemplateConnector>
-            {({ groupingItems, viewCellsData, currentView }) => (
+            {({ groups, viewCellsData, currentView }) => (
               <HorizontalLayout
                 rowComponent={rowComponent}
                 cellComponent={cellComponent}
-                groups={groupingItems}
-                length={viewCellsData[0].length}
+                groups={groups}
+                colSpan={viewCellsData[0].length}
                 cellStyle={{
                   left: currentView && currentView.type === 'month'
                   ? HORIZONTAL_VIEW_LEFT_OFFSET

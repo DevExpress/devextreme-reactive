@@ -1,10 +1,10 @@
 import {
-  getGroupingItemFromResourceInstance, addGroupInfoToCells,
+  getGroupFromResourceInstance, addGroupInfoToCells,
   groupAppointments, expandGroupedAppointment, rearrangeResources,
 } from './helpers';
 
 describe('IntegratedGrouping helpers', () => {
-  describe('#getGroupingItemFromResourceInstance', () => {
+  describe('#getGroupFromResourceInstance', () => {
     it('should work', () => {
       const resourceInstance = {
         id: 1,
@@ -12,7 +12,7 @@ describe('IntegratedGrouping helpers', () => {
         fieldName: 'fieldName',
         color: '#ffffff',
       };
-      expect(getGroupingItemFromResourceInstance(resourceInstance))
+      expect(getGroupFromResourceInstance(resourceInstance))
         .toEqual({
           id: 1,
           text: 'text',
@@ -34,22 +34,22 @@ describe('IntegratedGrouping helpers', () => {
           { id: 2, text: 'text2', fieldName: 'resource1' },
         ],
       }];
-      const groupingItems = [[
+      const groups = [[
         { fieldName: 'resource1', id: 1 },
         { fieldName: 'resource1', id: 2 },
       ]];
       expect(addGroupInfoToCells(
-        groupingItems[0][0], groupingItems, resources, viewCellsDataRow, 0,
+        groups[0][0], groups, resources, viewCellsDataRow, 0,
       ))
         .toEqual([{
           startDate: new Date('2018-06-24 08:00'),
           endDate: new Date('2018-06-24 08:30'),
-          groupingInfo: [groupingItems[0][0]],
+          groupingInfo: [groups[0][0]],
         },
         {
           startDate: new Date('2018-06-24 08:30'),
           endDate: new Date('2018-06-24 09:00'),
-          groupingInfo: [groupingItems[0][0]],
+          groupingInfo: [groups[0][0]],
           hasRightBorder: true,
         }]);
     });
@@ -141,7 +141,7 @@ describe('IntegratedGrouping helpers', () => {
           resource3: 'resource3_2',
         },
       }];
-      const groupingItems = [[
+      const groups = [[
         { fieldName: 'resource1', id: 'resource1_1' },
         { fieldName: 'resource1', id: 'resource1_2' },
       ], [
@@ -160,13 +160,13 @@ describe('IntegratedGrouping helpers', () => {
         { fieldName: 'resource3', id: 'resource3_2' },
       ]];
 
-      expect(groupAppointments(appointments, resources, groupingItems))
+      expect(groupAppointments(appointments, resources, groups))
         .toEqual([
           [appointments[0]], [appointments[1]], [appointments[2]], [appointments[3]],
           [appointments[4]], [appointments[5]], [appointments[6]], [appointments[7]],
         ]);
     });
-    it('should group into one array if resources or groupingItems are undefined', () => {
+    it('should group into one array if resources or groups are undefined', () => {
       const appointments = [{
         resource1: 'resource1_1',
         resource2: 'resource2_1',
@@ -200,12 +200,12 @@ describe('IntegratedGrouping helpers', () => {
         resource1: 2,
         dataItem: { resource1: [1, 2] },
       }];
-      const groupingItems = [[
+      const groups = [[
         { fieldName: 'resource1', id: 1 },
         { fieldName: 'resource1', id: 2 },
       ]];
 
-      expect(groupAppointments(appointments, resources, groupingItems))
+      expect(groupAppointments(appointments, resources, groups))
         .toEqual([[appointments[0]], [{
           ...appointments[1],
           dataItem: { resource1: [2, 1] },

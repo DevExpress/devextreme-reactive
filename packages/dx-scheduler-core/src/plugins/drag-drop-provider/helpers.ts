@@ -4,7 +4,7 @@ import {
   ViewCell, ClientOffset, TimeType, ScrollingStrategy,
   AllDayCell, CalculateAppointmentTimeBoundaries,
   TimeBoundariesByDrag, TimeBoundariesByResize, AppointmentModel,
-  CellElementsMeta, Grouping, ValidResource, GroupingItem, SchedulerDateTime,
+  CellElementsMeta, Grouping, ValidResource, Group, SchedulerDateTime,
 } from '../../types';
 import { allDayCells as allDayCellsCore } from '../common/computeds';
 import {
@@ -184,7 +184,7 @@ export const calculateDraftAppointments = (
   getAllDayCellsElementRects: CellElementsMeta,
   targetType: string, cellDurationMinutes: number,
   getTableCellElementRects: CellElementsMeta,
-  grouping: Grouping[], resources: ValidResource[], groupingItems: GroupingItem[][],
+  grouping: Grouping[], resources: ValidResource[], groups: Group[][],
 ) => {
   if (allDayIndex !== -1 || (targetType === VERTICAL_TYPE
     && getAllDayCellsElementRects.getCellRects.length
@@ -198,7 +198,7 @@ export const calculateDraftAppointments = (
       allDayDraftAppointments: allDayRects(
         allDayDrafts, startViewDate, endViewDate,
         excludedDays, viewCellsData, getAllDayCellsElementRects,
-        grouping, resources, groupingItems,
+        grouping, resources, groups,
       ),
       timeTableDraftAppointments: [],
     };
@@ -210,7 +210,7 @@ export const calculateDraftAppointments = (
       timeTableDraftAppointments: verticalTimeTableRects(
         draftAppointments, startViewDate, endViewDate,
         excludedDays, viewCellsData, cellDurationMinutes, getTableCellElementRects,
-        grouping, resources, groupingItems,
+        grouping, resources, groups,
       ),
     };
   }
@@ -219,29 +219,29 @@ export const calculateDraftAppointments = (
     timeTableDraftAppointments: horizontalTimeTableRects(
       draftAppointments, startViewDate, endViewDate,
       viewCellsData, getTableCellElementRects,
-      grouping, resources, groupingItems,
+      grouping, resources, groups,
     ),
   };
 };
 
 export const calculateAppointmentGroups: PureComputed<
-  [Array<GroupingItem> | undefined, Array<ValidResource>, AppointmentModel], any
+  [Array<Group> | undefined, Array<ValidResource>, AppointmentModel], any
 > = (cellGroupingInfo, resources, appointmentData) => {
   if (!cellGroupingInfo) return {};
-  return cellGroupingInfo.reduce((acc, groupingItem: GroupingItem) => {
+  return cellGroupingInfo.reduce((acc, group: Group) => {
     const isMultipleResource = resources.find(
-      resource => (resource.fieldName === groupingItem.fieldName),
+      resource => (resource.fieldName === group.fieldName),
     )!.allowMultiple;
     return {
       ...acc,
-      [groupingItem.fieldName]: isMultipleResource
-        ? updateMultipleResourceInfo(groupingItem, appointmentData) : groupingItem.id,
+      [group.fieldName]: isMultipleResource
+        ? updateMultipleResourceInfo(group, appointmentData) : group.id,
     };
   }, {});
 };
 
 const updateMultipleResourceInfo: PureComputed<
-  [GroupingItem, AppointmentModel], any
+  [Group, AppointmentModel], any
 > = (cellResource, appointmentData) => {
   const appointmentGroupItems = appointmentData[cellResource.fieldName];
   if (appointmentGroupItems.findIndex((groupItem: any) => groupItem === cellResource.id) !== -1) {

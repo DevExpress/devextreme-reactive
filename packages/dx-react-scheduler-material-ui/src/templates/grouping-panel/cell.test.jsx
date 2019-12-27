@@ -12,7 +12,7 @@ jest.mock('@material-ui/core/styles', () => ({
 
 describe('GroupingPanel', () => {
   const defaultProps = {
-    groupingItem: {},
+    group: {},
     colSpan: 1,
     left: 0,
   };

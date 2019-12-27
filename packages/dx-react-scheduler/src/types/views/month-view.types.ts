@@ -1,6 +1,6 @@
 import {
   ScrollingStrategy, BaseView, CommonViewProps,
-  FormatterFn, CellElementsMeta, GroupingPanel, GroupingItem,
+  FormatterFn, CellElementsMeta, GroupingPanel, Group,
 } from '../index';
 
 /* tslint:disable no-namespace no-empty-interface */
@@ -35,7 +35,7 @@ export namespace MonthView {
     /** A function that formats dates according to the set locale. */
     formatDate?: FormatterFn;
     /** The cell's group. */
-    groupingInfo?: Array<GroupingItem>;
+    groupingInfo?: Array<Group>;
     /** Specifies whether the cell has the right border. */
     hasRightBorder?: boolean;
     /** Indicates whether the cell is shaded. */

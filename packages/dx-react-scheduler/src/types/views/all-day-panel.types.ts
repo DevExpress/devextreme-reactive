@@ -1,4 +1,4 @@
-import { CellElementsMeta, FormatterFn, BaseView, GroupingItem } from '../index';
+import { CellElementsMeta, FormatterFn, BaseView, Group } from '../index';
 
 /* tslint:disable no-namespace max-line-length no-empty-interface */
 /** @internal */
@@ -31,7 +31,7 @@ export namespace AllDayPanel {
     /** The cell’s end time. */
     endDate: Date;
     /** The cell's group. */
-    groupingInfo?: Array<GroupingItem>;
+    groupingInfo?: Array<Group>;
     /** Specifies whether the cell has the right border. */
     hasRightBorder?: boolean;
   }

@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
 
 export const Cell = React.memo(({
   className,
-  groupingItem,
+  group,
   colSpan,
   left,
   children,
@@ -49,7 +49,7 @@ export const Cell = React.memo(({
       {...restProps}
     >
       <div className={classes.text}>
-        {groupingItem.text}
+        {group.text}
         {children}
       </div>
     </TableCell>
@@ -58,7 +58,7 @@ export const Cell = React.memo(({
 
 Cell.propTypes = {
   className: PropTypes.string,
-  groupingItem: PropTypes.object.isRequired,
+  group: PropTypes.object.isRequired,
   colSpan: PropTypes.number.isRequired,
   left: PropTypes.number.isRequired,
   children: PropTypes.node,

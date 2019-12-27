@@ -37,7 +37,7 @@ cellComponent | ComponentType&lt;[GroupingPanel.CellProps](#groupingpanelcellpro
 
 ## Interfaces
 
-### GroupingItem
+### Group
 
 Describes a single grouping instance.
 
@@ -53,8 +53,8 @@ Describes properties passed to a component that renders a Grouping panel horizon
 
 Field | Type | Description
 ------|------|------------
-groups | Array&lt;Array&lt;[GroupingItem](#groupingitem)&gt;&gt; | Specifies the final representation of Scheduler's groups and the order they will be rendered in.
-length | number | Indicates the number of cells in the Scheduler's timetable.
+groups | Array&lt;Array&lt;[Group](#group)&gt;&gt; | Specifies the final representation of Scheduler's groups and the order they will be rendered in.
+colSpan | number | Indicates the number of cells in the Scheduler's timetable.
 cellStyle | object | Grouping Panel cell's style.
 rowComponent | ComponentType&lt;[GroupingPanel.RowProps](#groupingpanelrowprops)&gt; |  A component that renders a Grouping panel row.
 cellComponent | ComponentType&lt;[GroupingPanel.CellProps](#groupingpanelcellprops)&gt; | | A component that renders a Grouping panel cell.
@@ -73,7 +73,7 @@ Describes properties passed to a component that renders a Grouping panel horizon
 
 Field | Type | Description
 ------|------|------------
-groupingItem | [GroupingItem](#groupingitem) | The group the cell represents.
+group | [Group](#group) | The group the cell represents.
 colSpan | number | Specifies the cell's size in the number of Scheduler's timetable cells.
 left | number | Specifies cell's horizontal position.
 children? | ReactNode | A React node used to render an additional content to the cell.

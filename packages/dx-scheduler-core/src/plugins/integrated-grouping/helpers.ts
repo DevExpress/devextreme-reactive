@@ -1,11 +1,11 @@
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  ValidResourceInstance, GroupingItem, ViewCell,
+  ValidResourceInstance, Group, ViewCell,
   ValidResource, AppointmentMoment, Grouping,
 } from '../../types';
 
-export const getGroupingItemFromResourceInstance: PureComputed<
-  [ValidResourceInstance], GroupingItem
+export const getGroupFromResourceInstance: PureComputed<
+  [ValidResourceInstance], Group
 > = resourceInstance => ({
   id: resourceInstance.id,
   fieldName: resourceInstance.fieldName,
@@ -13,18 +13,18 @@ export const getGroupingItemFromResourceInstance: PureComputed<
 });
 
 export const addGroupInfoToCells: PureComputed<
-  [GroupingItem, GroupingItem[][],
+  [Group, Group[][],
   ValidResource[], ViewCell[], number], ViewCell[]
-> = (currentGroup, groupingItems, sortedResources, viewCellRow, index) => viewCellRow.map((
+> = (currentGroup, groups, sortedResources, viewCellRow, index) => viewCellRow.map((
     viewCell: ViewCell, cellIndex: number,
   ) => {
   let previousIndex = index;
-  const groupingInfo = groupingItems.reduceRight((
-    acc: GroupingItem[], groupingItem: GroupingItem[], currentIndex: number,
+  const groupingInfo = groups.reduceRight((
+    acc: Group[], group: Group[], currentIndex: number,
   ) => {
-    if (currentIndex === groupingItems.length - 1) return acc;
+    if (currentIndex === groups.length - 1) return acc;
     const previousResourceLength = sortedResources[currentIndex + 1].instances.length;
-    const currentGroupingInstance = groupingItem[Math.floor(
+    const currentGroupingInstance = group[Math.floor(
       previousIndex / previousResourceLength,
     )];
     previousIndex = currentIndex;
@@ -37,30 +37,30 @@ export const addGroupInfoToCells: PureComputed<
 });
 
 const getCurrentGroup: PureComputed<
-  [GroupingItem[][], ValidResource[], number, GroupingItem], GroupingItem[]
-> = (groupingItems, resources, index, groupingItem) => {
+  [Group[][], ValidResource[], number, Group], Group[]
+> = (groups, resources, index, group) => {
   let currentIndex = index;
-  return groupingItems.reduceRight((groupAcc, groupingItemsRow, rowIndex) => {
-    if (rowIndex === groupingItems!.length - 1) {
+  return groups.reduceRight((groupAcc, groupsRow, rowIndex) => {
+    if (rowIndex === groups!.length - 1) {
       return groupAcc;
     }
     currentIndex = Math.floor(currentIndex / resources[rowIndex + 1].instances.length);
-    const currentInstance = groupingItemsRow[currentIndex];
+    const currentInstance = groupsRow[currentIndex];
     return [
       ...groupAcc,
       currentInstance,
     ];
-  }, [groupingItem]);
+  }, [group]);
 };
 
 export const groupAppointments: PureComputed<
   [AppointmentMoment[], ValidResource[] | undefined,
-  GroupingItem[][] | undefined], AppointmentMoment[][]
-> = (appointments, resources, groupingItems) => {
-  if (!resources || !groupingItems) return [appointments.slice()];
+  Group[][] | undefined], AppointmentMoment[][]
+> = (appointments, resources, groups) => {
+  if (!resources || !groups) return [appointments.slice()];
   const mainResource = resources.find(resource => resource.isMain);
-  return groupingItems![groupingItems!.length - 1].map((groupingItem, index) => {
-    const currentGroup = getCurrentGroup(groupingItems, resources, index, groupingItem);
+  return groups![groups!.length - 1].map((group, index) => {
+    const currentGroup = getCurrentGroup(groups, resources, index, group);
 
     return appointments.reduce((acc, appointment) => {
       const belongsToGroup = currentGroup.reduce((isBelonging, groupItem) => (
@@ -125,7 +125,7 @@ export const expandGroupedAppointment: PureComputed<
   return resources
     .reduce((acc: AppointmentMoment[], resource: ValidResource) => {
       const isGroupedByResource = grouping.find(
-        groupingItem => groupingItem.resourceName === resource.fieldName,
+        group => group.resourceName === resource.fieldName,
       ) !== undefined;
       if (!isGroupedByResource) return acc;
       const resourceField = resource.fieldName;

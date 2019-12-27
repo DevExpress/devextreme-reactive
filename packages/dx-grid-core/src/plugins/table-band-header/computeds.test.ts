@@ -158,9 +158,9 @@ describe('TableBandHeader Plugin computeds', () => {
               children: [
                 { columnName: 'a' },
                 { columnName: 'b' },
-              ]
-            }
-          ]
+              ],
+            },
+          ],
         },
         {
           title: 'parent2',
@@ -170,9 +170,9 @@ describe('TableBandHeader Plugin computeds', () => {
               children: [
                 { columnName: 'c' },
                 { columnName: 'd' },
-              ]
-            }
-          ]
+              ],
+            },
+          ],
         },
       ];
       const rows = [

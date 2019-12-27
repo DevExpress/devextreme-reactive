@@ -63,46 +63,6 @@ describe('TableBandHeader Plugin computeds', () => {
     const columns = [
       'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
     ].map(name => ({ column: { name }, key: name, type: TABLE_DATA_TYPE }));
-    const bands = [
-      {
-        title: 'band A-0',
-        children: [
-          { columnName: 'a' },
-          { columnName: 'b' },
-          { columnName: 'c' },
-          {
-            title: 'Band B-0',
-            children: [
-              { columnName: 'c' },
-              { columnName: 'd' },
-            ],
-          },
-          {
-            title: 'Band B-1',
-            children: [
-              { columnName: 'e' },
-              { columnName: 'f' },
-              {
-                title: 'Band C-0',
-                children: [
-                  { columnName: 'f' },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-      {
-        title: 'band A-1',
-        children: [{ columnName: 'h' }],
-      },
-    ];
-    const rows = [
-      { key: 'band_0', type: TABLE_BAND_TYPE, level: 0 },
-      { key: 'band_1', type: TABLE_BAND_TYPE, level: 1 },
-      { key: 'band_2', type: TABLE_BAND_TYPE, level: 2 },
-      { key: 'heading', type: 'heading' },
-    ];
     const expandChains = rowChains => rowChains && expandChainsCore(
       rowChains,
       col => ({
@@ -119,12 +79,14 @@ describe('TableBandHeader Plugin computeds', () => {
       ))
     );
     const assertChainsSplit = (
+      rows,
+      columnBands,
       expectedCompressedChains,
     ) => {
       const expectedChains = expandChains(expectedCompressedChains);
 
       const result = tableHeaderColumnChainsWithBands(
-        rows, columns, bands,
+        rows, columns, columnBands,
       );
       const collapsedChains = compressChains(result);
 
@@ -133,11 +95,98 @@ describe('TableBandHeader Plugin computeds', () => {
     };
 
     it('should split columns to band chains', () => {
+      const bands = [
+        {
+          title: 'band A-0',
+          children: [
+            { columnName: 'a' },
+            { columnName: 'b' },
+            { columnName: 'c' },
+            {
+              title: 'Band B-0',
+              children: [
+                { columnName: 'c' },
+                { columnName: 'd' },
+              ],
+            },
+            {
+              title: 'Band B-1',
+              children: [
+                { columnName: 'e' },
+                { columnName: 'f' },
+                {
+                  title: 'Band C-0',
+                  children: [
+                    { columnName: 'f' },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          title: 'band A-1',
+          children: [{ columnName: 'h' }],
+        },
+      ];
+      const rows = [
+        { key: 'band_0', type: TABLE_BAND_TYPE, level: 0 },
+        { key: 'band_1', type: TABLE_BAND_TYPE, level: 1 },
+        { key: 'band_2', type: TABLE_BAND_TYPE, level: 2 },
+        { key: 'heading', type: 'heading' },
+      ];
+
       assertChainsSplit(
+        rows,
+        bands,
         [
           [['a', 'b', 'c', 'd', 'e', 'f'], ['g'], ['h'], ['i']],
           [['a', 'b'], ['c', 'd'], ['e', 'f'], ['g'], ['h'], ['i']],
           [['a', 'b'], ['c', 'd'], ['e'], ['f'], ['g'], ['h'], ['i']],
+          [['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']],
+        ],
+      );
+    });
+
+    it('should split columns if adjust bands have the same title but different parents', () => {
+      const adjacentBands = [
+        {
+          title: 'parent1',
+          children: [
+            {
+              title: 'sharedName',
+              children: [
+                { columnName: 'a' },
+                { columnName: 'b' },
+              ]
+            }
+          ]
+        },
+        {
+          title: 'parent2',
+          children: [
+            {
+              title: 'sharedName',
+              children: [
+                { columnName: 'c' },
+                { columnName: 'd' },
+              ]
+            }
+          ]
+        },
+      ];
+      const rows = [
+        { key: 'band_0', type: TABLE_BAND_TYPE, level: 0 },
+        { key: 'band_1', type: TABLE_BAND_TYPE, level: 1 },
+        { key: 'heading', type: 'heading' },
+      ];
+
+      assertChainsSplit(
+        rows,
+        adjacentBands,
+        [
+          [['a', 'b'], ['c', 'd'], ['e', 'f', 'g', 'h', 'i']],
+          [['a', 'b'], ['c', 'd'], ['e', 'f', 'g', 'h', 'i']],
           [['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']],
         ],
       );

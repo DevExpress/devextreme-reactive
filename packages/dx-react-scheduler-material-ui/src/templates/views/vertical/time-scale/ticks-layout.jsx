@@ -8,6 +8,7 @@ import classNames from 'clsx';
 const styles = {
   table: {
     tableLayout: 'fixed',
+    boxSizing: 'border-box',
   },
 };
 

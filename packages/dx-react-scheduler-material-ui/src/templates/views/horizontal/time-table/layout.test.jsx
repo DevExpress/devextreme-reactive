@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { createMount, getClasses } from '@material-ui/core/test-utils';
+import { createMount } from '@material-ui/core/test-utils';
 import { Layout } from './layout';
 
-describe('Horizontal view TimeTable', () => {
+describe('Horizontal view TimeTable ', () => {
   const defaultProps = {
     cellsData: [
       [
@@ -20,11 +20,7 @@ describe('Horizontal view TimeTable', () => {
     formatDate: () => undefined,
     setCellElementsMeta: jest.fn(),
   };
-  let classes;
   let mount;
-  beforeAll(() => {
-    classes = getClasses(<Layout {...defaultProps} />);
-  });
   beforeEach(() => {
     mount = createMount();
     defaultProps.setCellElementsMeta.mockClear();
@@ -33,22 +29,12 @@ describe('Horizontal view TimeTable', () => {
     mount.cleanUp();
   });
   describe('Layout', () => {
-    it('should pass className to the root element', () => {
-      const tree = mount((
-        <Layout {...defaultProps} className="custom-class" />
-      ));
-
-      expect(tree.find('.custom-class'))
-        .toBeTruthy();
-      expect(tree.find(`.${classes.table}`))
-        .toBeTruthy();
-    });
     it('should pass rest props to the root element', () => {
       const tree = mount((
         <Layout {...defaultProps} data={{ a: 1 }} />
       ));
 
-      expect(tree.find(`.${classes.table}`).at(0).props().data)
+      expect(tree.find('table').at(0).props().data)
         .toMatchObject({ a: 1 });
     });
     it('should render array of days', () => {

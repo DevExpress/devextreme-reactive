@@ -1,4 +1,4 @@
-import { CellElementsMeta, FormatterFn, BaseView } from '../index';
+import { CellElementsMeta, FormatterFn, BaseView, Group } from '../index';
 
 /* tslint:disable no-namespace max-line-length no-empty-interface */
 /** @internal */
@@ -30,6 +30,10 @@ export namespace AllDayPanel {
     startDate: Date;
     /** The cell’s end time. */
     endDate: Date;
+    /** Information about the cell's group(s). */
+    groupingInfo?: Array<Group>;
+    /** Specifies whether the cell has the right border. */
+    hasRightBorder?: boolean;
   }
   /** Describes properties passed to a component that renders an All Day panel layout. */
   export interface LayoutProps {

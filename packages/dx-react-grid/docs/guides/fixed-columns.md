@@ -9,10 +9,7 @@ The Grid allows you to fix one or more first and last columns. Fixed columns rem
   - WebView for Android before 5.0
   - Internet Explorer
 
-- Currently, there are issues with fixed columns support in Microsoft Edge:
-  - [sticky elements flicker on scroll](https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/18769340/)
-  - [nested sticky positioning element will not stick](https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/18940617/)
-  - [sticky causes border to dissapear on table elements](https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/16792336/)
+Scrolling issues have also been noticed in Microsoft Edge. They are caused by the browser's implementation of sticky positioning.
 
 ## Related Plugins
 

@@ -1,5 +1,6 @@
-import { FormatterFn, CellElementsMeta, ScrollingStrategy } from '../index';
+import { FormatterFn, CellElementsMeta, ScrollingStrategy, Group } from '../index';
 import { CurrentTimeIndicator } from '../current-time-indicator';
+import { GroupingPanel } from '../grouping';
 
 // tslint:disable: no-namespace
 export interface CommonViewProps {
@@ -50,6 +51,10 @@ export namespace BaseView {
     startDate?: Date;
     /** Specifies the cell's end time. */
     endDate?: Date;
+    /** Information about the cell's group(s). */
+    groupingInfo?: Array<Group>;
+    /** Specifies whether the cell has the right border. */
+    hasRightBorder?: boolean;
     /** Indicates whether the cell is shaded. */
     isShaded?: boolean;
     // tslint:disable-next-line: max-line-length
@@ -102,6 +107,8 @@ export namespace BaseView {
     cellComponent: React.ComponentType<BaseView.DayScaleCellProps>;
     /** A component that renders a day scale row. */
     rowComponent: React.ComponentType<BaseView.RowProps>;
+    /** A component that renders the grouping panel. */
+    groupingPanelComponent?: React.ComponentType<GroupingPanel.HorizontalLayoutProps>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
   }
@@ -115,6 +122,10 @@ export namespace BaseView {
     today?: boolean;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
+    /** Information about the cell's group(s). */
+    groupingInfo?: Array<Group>;
+    /** Specifies whether the cell has the right border. */
+    hasRightBorder?: boolean;
   }
   /** Describes properties passed to a component that renders the appointment layer. */
   export interface AppointmentLayerProps {

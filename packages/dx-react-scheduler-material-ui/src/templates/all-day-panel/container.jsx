@@ -4,6 +4,8 @@ import { ContainerBase } from '../common/container';
 const styles = {
   container: {
     position: 'relative',
+    display: 'table',
+    minWidth: '100%',
   },
 };
 

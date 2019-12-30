@@ -4,7 +4,7 @@ import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { makeStyles } from '@material-ui/core/styles';
-import { getBorder } from '../../../utils';
+import { getBorder, getBrightBorder } from '../../../utils';
 
 const useStyles = makeStyles(theme => ({
   cell: {
@@ -12,6 +12,7 @@ const useStyles = makeStyles(theme => ({
     height: theme.spacing(6),
     padding: 0,
     borderLeft: getBorder(theme),
+    boxSizing: 'border-box',
     'tr:last-child &': {
       borderBottom: 'none',
     },
@@ -24,6 +25,9 @@ const useStyles = makeStyles(theme => ({
     },
     '&:last-child': {
       paddingRight: 0,
+    },
+    '&:first-child': {
+      borderLeft: 'none',
     },
   },
   shadedCell: {
@@ -50,6 +54,12 @@ const useStyles = makeStyles(theme => ({
       opacity: 0,
     },
   },
+  rightBorderCell: {
+    borderRight: getBrightBorder(theme),
+    '&:last-child': {
+      borderRight: 'none',
+    },
+  },
 }));
 
 export const Cell = ({
@@ -60,6 +70,8 @@ export const Cell = ({
   currentTimeIndicatorPosition,
   currentTimeIndicatorComponent: CurrentTimeIndicator,
   isShaded,
+  hasRightBorder,
+  groupingInfo,
   ...restProps
 }) => {
   const classes = useStyles({ shadedHeight: currentTimeIndicatorPosition });
@@ -71,6 +83,7 @@ export const Cell = ({
       className={classNames({
         [classes.cell]: true,
         [classes.shadedCell]: isShaded && !isNow,
+        [classes.rightBorderCell]: hasRightBorder,
       }, className)}
       {...restProps}
     >
@@ -95,6 +108,8 @@ Cell.propTypes = {
   currentTimeIndicatorPosition: PropTypes.string,
   currentTimeIndicatorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   isShaded: PropTypes.bool,
+  hasRightBorder: PropTypes.bool,
+  groupingInfo: PropTypes.arrayOf(PropTypes.object),
 };
 
 Cell.defaultProps = {
@@ -105,4 +120,6 @@ Cell.defaultProps = {
   currentTimeIndicatorPosition: undefined,
   currentTimeIndicatorComponent: () => null,
   isShaded: false,
+  hasRightBorder: false,
+  groupingInfo: undefined,
 };

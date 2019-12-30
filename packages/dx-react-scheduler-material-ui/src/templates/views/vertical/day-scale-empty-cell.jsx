@@ -2,16 +2,13 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorder } from '../../utils';
 
-const styles = theme => ({
+const styles = {
   emptyCell: {
-    borderBottom: getBorder(theme),
-    boxSizing: 'border-box',
     height: '100%',
     width: '100%',
   },
-});
+};
 
 export const DayScaleEmptyCellBase = ({
   classes,

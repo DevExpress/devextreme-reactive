@@ -8,7 +8,7 @@ import {
   adjustAppointments,
   unwrapGroups,
   getAppointmentStyle,
-  calculateRectByDateIntervals,
+  calculateRectByDateAndGroupIntervals,
   filterByViewBoundaries,
   getRRuleSetWithExDates,
   formatDateToString,
@@ -364,7 +364,7 @@ describe('Utils', () => {
         });
     });
   });
-  describe('#calculateRectByDateIntervals', () => {
+  describe('#calculateRectByDateAndGroupIntervals', () => {
     it('should work with horizontal', () => {
       const rectByDatesMock = jest.fn();
       rectByDatesMock.mockImplementation(() => ({
@@ -381,7 +381,9 @@ describe('Utils', () => {
         { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 15:00'), dataItem: 'b' },
       ]];
 
-      const rects = calculateRectByDateIntervals(type, intervals, rectByDatesMock, rectByDatesMeta);
+      const rects = calculateRectByDateAndGroupIntervals(
+        type, intervals, rectByDatesMock, rectByDatesMeta,
+      );
 
       expect(rects)
         .toHaveLength(2);
@@ -421,7 +423,9 @@ describe('Utils', () => {
         { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 10:35'), dataItem: 'c' },
       ]];
 
-      const rects = calculateRectByDateIntervals(type, intervals, rectByDatesMock, rectByDatesMeta);
+      const rects = calculateRectByDateAndGroupIntervals(
+        type, intervals, rectByDatesMock, rectByDatesMeta,
+      );
 
       expect(rects)
         .toHaveLength(3);
@@ -472,7 +476,9 @@ describe('Utils', () => {
         { start: moment('2018-09-13 11:00'), end: moment('2018-09-14 15:00'), dataItem: 'b' },
       ]];
 
-      const rects = calculateRectByDateIntervals(type, intervals, rectByDatesMock, rectByDatesMeta);
+      const rects = calculateRectByDateAndGroupIntervals(
+        type, intervals, rectByDatesMock, rectByDatesMeta,
+      );
 
       expect(rects)
         .toHaveLength(2);

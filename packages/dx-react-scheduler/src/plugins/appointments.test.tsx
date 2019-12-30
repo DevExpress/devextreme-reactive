@@ -5,8 +5,8 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import { createClickHandlers } from '@devexpress/dx-core';
 import { Appointments } from './appointments';
 import {
-  calculateRectByDateIntervals, getVerticalRectByDates,
-  getHorizontalRectByDates, getAppointmentStyle,
+  calculateRectByDateAndGroupIntervals, getVerticalRectByAppointmentData,
+  getHorizontalRectByAppointmentData, getAppointmentStyle,
 } from '@devexpress/dx-scheduler-core';
 
 // eslint-disable-next-line react/prop-types
@@ -28,14 +28,13 @@ const defaultProps = {
 jest.mock('@devexpress/dx-core', () => ({
   ...require.requireActual('@devexpress/dx-core'),
   createClickHandlers: jest.fn(),
-  calculateRectByDateIntervals: jest.fn(),
 }));
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...require.requireActual('@devexpress/dx-scheduler-core'),
-  getVerticalRectByDates: jest.fn(),
-  getHorizontalRectByDates: jest.fn(),
-  calculateRectByDateIntervals: jest.fn(),
+  getVerticalRectByAppointmentData: jest.fn(),
+  getHorizontalRectByAppointmentData: jest.fn(),
+  calculateRectByDateAndGroupIntervals: jest.fn(),
   getAppointmentStyle: jest.fn(),
 }));
 
@@ -63,7 +62,7 @@ describe('Appointments', () => {
       onClick: click,
       onDoubleClick: dblClick,
     }));
-    calculateRectByDateIntervals.mockImplementation(() => [{
+    calculateRectByDateAndGroupIntervals.mockImplementation(() => [{
       type: 'horizontal',
       dataItem: { test: 'test' },
       fromPrev: false,
@@ -266,12 +265,12 @@ describe('Appointments', () => {
 
     expect(timeTableAppointmentsLayer.exists())
       .toBeTruthy();
-    expect(calculateRectByDateIntervals)
+    expect(calculateRectByDateAndGroupIntervals)
       .toHaveBeenCalledWith({
         growDirection: 'vertical', multiline: false,
       },
         defaultDeps.getter.timeTableAppointments,
-        getVerticalRectByDates,
+        getVerticalRectByAppointmentData,
       {
         startViewDate: defaultDeps.getter.startViewDate,
         endViewDate: defaultDeps.getter.endViewDate,
@@ -304,11 +303,11 @@ describe('Appointments', () => {
 
     expect(timeTableAppointmentsLayer.exists())
       .toBeTruthy();
-    expect(calculateRectByDateIntervals)
+    expect(calculateRectByDateAndGroupIntervals)
       .toHaveBeenCalledWith(
         { growDirection: 'horizontal', multiline: true },
         defaultDeps.getter.timeTableAppointments,
-        getHorizontalRectByDates,
+        getHorizontalRectByAppointmentData,
       {
         startViewDate: defaultDeps.getter.startViewDate,
         endViewDate: defaultDeps.getter.endViewDate,
@@ -340,12 +339,12 @@ describe('Appointments', () => {
 
     expect(allDayAppointmentLayer.exists())
       .toBeTruthy();
-    expect(calculateRectByDateIntervals)
+    expect(calculateRectByDateAndGroupIntervals)
       .toHaveBeenCalledWith({
         growDirection: 'horizontal', multiline: false,
       },
         defaultDeps.getter.allDayAppointments,
-        getHorizontalRectByDates,
+        getHorizontalRectByAppointmentData,
       {
         startViewDate: defaultDeps.getter.startViewDate,
         endViewDate: defaultDeps.getter.endViewDate,

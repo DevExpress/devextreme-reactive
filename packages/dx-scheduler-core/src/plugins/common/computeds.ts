@@ -107,6 +107,8 @@ export const allDayCells: PureComputed<
 > = viewCells => viewCells[0].map(cell => ({
   startDate: moment(cell.startDate).startOf('day').toDate(),
   endDate: moment(cell.startDate).add(1, 'day').startOf('day').toDate(),
+  groupingInfo: cell.groupingInfo,
+  hasRightBorder: cell.hasRightBorder,
 }));
 
 export const startViewDate: PureComputed<

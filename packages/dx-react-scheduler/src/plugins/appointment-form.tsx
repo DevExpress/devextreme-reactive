@@ -25,9 +25,20 @@ import {
 } from '../types';
 
 const addDoubleClickToCell = (
-  title, startDate, endDate, allDay, openFormHandler, addAppointment, params,
+  title, startDate, endDate, groupingInfo, allDay, openFormHandler, addAppointment, params,
 ) => {
-  const newAppointmentData = { title, startDate, endDate, allDay };
+  const resourceFields = !!groupingInfo
+    ? groupingInfo.reduce((acc, currentGroup) => (
+      { ...acc, [currentGroup.fieldName]: currentGroup.id }
+    ), {}) : {};
+  const newAppointmentData = {
+    title,
+    startDate,
+    endDate,
+    allDay,
+    ...resourceFields,
+  };
+
   return (
     <TemplatePlaceholder
       params={{
@@ -525,7 +536,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
           {(params: any) => (
             <TemplateConnector>
               {(getters, { addAppointment }) => addDoubleClickToCell(
-                undefined, params.startDate, params.endDate,
+                undefined, params.startDate, params.endDate, params.groupingInfo,
                 isAllDayCell(params.startDate, params.endDate),
                 this.openFormHandler, addAppointment, params,
               )}
@@ -537,7 +548,7 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
           {(params: any) => (
             <TemplateConnector>
               {(getters, { addAppointment }) => addDoubleClickToCell(
-                undefined, params.startDate, params.endDate,
+                undefined, params.startDate, params.endDate, params.groupingInfo,
                 true, this.openFormHandler, addAppointment, params,
               )}
             </TemplateConnector>

@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
 import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
+import { SMALL_LAYOUT_MEDIA_QUERY } from '../constants';
 import { addCommaAndSpaceToString } from '../utils';
 
 const styles = ({ palette, spacing }) => ({
@@ -33,14 +34,14 @@ const styles = ({ palette, spacing }) => ({
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     display: 'flex',
-    '@media (max-width: 500px)': {
+    [`${SMALL_LAYOUT_MEDIA_QUERY}`]: {
       paddingLeft: spacing(0.5),
       paddingRight: spacing(0.5),
     },
   },
   shortContent: {
     padding: spacing(0.25, 1),
-    '@media (max-width: 500px)': {
+    [`${SMALL_LAYOUT_MEDIA_QUERY}`]: {
       paddingLeft: spacing(0.5),
       paddingRight: spacing(0.5),
     },

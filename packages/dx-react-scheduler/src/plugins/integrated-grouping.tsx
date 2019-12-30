@@ -54,7 +54,7 @@ const IntegratedGroupingBase: React.SFC<IntegratedGroupingProps> = React.memo(()
   </Plugin>
 ));
 
-/** A plugin that performs built-in grouping. */
+/** A plugin that implements grouping. */
 export const IntegratedGrouping: React.ComponentType<
   IntegratedGroupingProps
 > = IntegratedGroupingBase;

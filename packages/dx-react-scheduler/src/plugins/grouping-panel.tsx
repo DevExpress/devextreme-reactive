@@ -58,5 +58,5 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
   }
 }
 
-/** A plugin that renders the Grouping Panel and used to display groups. */
+/** A plugin that renders the grouping panel used to display group names. */
 export const GroupingPanel: React.ComponentType<GroupingPanelProps> = GroupingPanelBase;

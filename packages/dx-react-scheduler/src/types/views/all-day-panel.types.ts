@@ -30,7 +30,7 @@ export namespace AllDayPanel {
     startDate: Date;
     /** The cell’s end time. */
     endDate: Date;
-    /** The cell's group. */
+    /** Information about the cell's group(s). */
     groupingInfo?: Array<Group>;
     /** Specifies whether the cell has the right border. */
     hasRightBorder?: boolean;

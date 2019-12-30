@@ -872,7 +872,7 @@ export namespace MonthView {
     cellComponent: React.ComponentType<BaseView.DayScaleCellProps>;
     cellsData: MonthView.CellData[][];
     formatDate: FormatterFn;
-    groupingPanelComponent: React.ComponentType<GroupingPanel.HorizontalLayoutProps>;
+    groupingPanelComponent?: React.ComponentType<GroupingPanel.HorizontalLayoutProps>;
     rowComponent: React.ComponentType<BaseView.RowProps>;
   }
   export interface LayoutProps {

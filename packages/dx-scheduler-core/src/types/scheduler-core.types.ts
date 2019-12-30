@@ -51,7 +51,7 @@ export type AllDayCell = {
   startDate: SchedulerDateTime;
   /** The cell’s end time. */
   endDate: SchedulerDateTime;
-  /** The cell's group. */
+  /** Information about the cell's group(s). */
   groupingInfo?: Group[];
   /** Specifies whether the cell has the right border. */
   hasRightBorder?: boolean;

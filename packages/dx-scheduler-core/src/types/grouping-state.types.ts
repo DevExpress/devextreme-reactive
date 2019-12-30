@@ -1,6 +1,6 @@
 /** Describes grouping options. */
 export interface Grouping {
-  /** Specifies the name of the resource by which the data is grouped. */
+  /** The name of the resource by which the appointments are grouped. */
   resourceName: string;
 }
 /** Describes a group that can be nested in another one. */

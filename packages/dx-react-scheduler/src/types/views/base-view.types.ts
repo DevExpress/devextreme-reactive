@@ -51,7 +51,7 @@ export namespace BaseView {
     startDate?: Date;
     /** Specifies the cell's end time. */
     endDate?: Date;
-    /** The cell's group. */
+    /** Information about the cell's group(s). */
     groupingInfo?: Array<Group>;
     /** Specifies whether the cell has the right border. */
     hasRightBorder?: boolean;
@@ -107,7 +107,7 @@ export namespace BaseView {
     cellComponent: React.ComponentType<BaseView.DayScaleCellProps>;
     /** A component that renders a day scale row. */
     rowComponent: React.ComponentType<BaseView.RowProps>;
-    /** A component that renders Grouping panel */
+    /** A component that renders the grouping panel. */
     groupingPanelComponent?: React.ComponentType<GroupingPanel.HorizontalLayoutProps>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
@@ -122,7 +122,7 @@ export namespace BaseView {
     today?: boolean;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
-    /** The cell's group. */
+    /** Information about the cell's group(s). */
     groupingInfo?: Array<Group>;
     /** Specifies whether the cell has the right border. */
     hasRightBorder?: boolean;

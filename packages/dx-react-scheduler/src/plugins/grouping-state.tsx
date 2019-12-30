@@ -57,8 +57,5 @@ class GroupingStateBase extends React.PureComponent<GroupingStateProps, Grouping
   }
 }
 
-/***
- * A plugin that manages the grouping state.
- * It lists resources used for grouping and stores information about expanded/collapsed groups.
- * */
+/** A plugin that manages the grouping state. */
 export const GroupingState: React.ComponentType<GroupingStateProps> = GroupingStateBase;

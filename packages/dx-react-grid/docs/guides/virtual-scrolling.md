@@ -46,7 +46,7 @@ In the following demo, the `scrollToRow` method is used to scroll the table to a
 
 .embedded-demo({ "path": "grid-virtual-scrolling/scroll-to-row", "showThemeSelector": true })
 
-NOTE: Scrolling to a row does not work with lazy loading. This feature requires the IDs of all rows, but in lazy loading mode, the Grid loads rows in parts.
+NOTE: Scrolling to a row does not work with [lazy loading](./lazy-loading.md/#react-grid---virtual-scrolling-with-remote-data-lazy-loading). This feature requires the IDs of all rows, but in lazy loading mode, the Grid loads rows in parts.
 
 ## Note on the use of `VirtualTable` with `DataTypeProvider` and custom components
 

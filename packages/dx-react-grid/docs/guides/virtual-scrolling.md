@@ -40,11 +40,11 @@ If the Grid should have the same size as the container element, set the `Virtual
 
 ## Scroll to Row
 
-The virtual table can be scrolled programmatically, through the `scrollToRow` methods. To call these, you should use `VirtualTable` plugin's reference. The following demo demonstrates how scroll table to new and added rows:
+The virtual table can be scrolled programmatically, through the `scrollToRow` methods. To call these, you should use `VirtualTable` plugin's ref property. The following demo demonstrates how scroll table to new and added rows:
 
 .embedded-demo({ "path": "grid-virtual-scrolling/scroll-to-row", "showThemeSelector": true })
 
-Note that the virtual table with remote data doesn't able to scroll to row's id.
+Note that the virtual table with Lazy Loading doesn't allow to scroll to row's id.
 
 ## Note on the use of `VirtualTable` with `DataTypeProvider` and custom components
 

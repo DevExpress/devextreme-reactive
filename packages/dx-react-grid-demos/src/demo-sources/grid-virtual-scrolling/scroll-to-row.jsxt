@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';<%&additionalImports%>
+import React, { useState, useRef, useCallback } from 'react';<%&additionalImports%>
 import {
   EditingState,
   SortingState,
@@ -35,9 +35,9 @@ export default () => {
   ]);
   const vtRef = useRef();
 
-  const scrollToRow = (rowId) => {
+  const scrollToRow = useCallback((rowId) => {
     vtRef.current.scrollToRow(rowId);
-  };
+  }, [vtRef]);
 
   const commitChanges = ({ added, changed, deleted }) => {
     let changedRows;
@@ -64,7 +64,7 @@ export default () => {
     if (added) scrollToRow(startingAddedId);
   };
 
-  const commandComponent = (props) => {
+  const commandWithScroll = useCallback((props) => {
     const { id, onExecute } = props;
     if (id === 'add') {
       return (
@@ -78,7 +78,7 @@ export default () => {
       );
     }
     return <TableEditColumn.Command {...props} />;
-  };
+  }, [scrollToRow]);
 
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>
@@ -99,12 +99,14 @@ export default () => {
           columnExtensions={tableColumnExtensions}
           ref={vtRef}
         />
-        <TableHeaderRow />
+        <TableHeaderRow
+          showSortingControls
+        />
         <TableEditRow />
         <TableEditColumn
           showAddCommand
           showDeleteCommand
-          commandComponent={commandComponent}
+          commandComponent={commandWithScroll}
         />
       </Grid>
     </<%&wrapperTag%>>

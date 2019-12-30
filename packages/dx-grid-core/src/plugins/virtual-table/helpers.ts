@@ -97,7 +97,7 @@ export const checkColumnWidths: CheckTableColumnWidths = (tableColumns) => {
 };
 
 export const calculateScrollHeight: GetScrollHeightByIndex = (rowHeight, index) =>
-index > -1 ? rowHeight * index : undefined;
+  index > -1 ? rowHeight * index : undefined;
 
 export const getScrollTop: GetScrollPosition = (rows, rowsCount, rowId, rowHeight, isDataRemote) => {
   if (rowId === TOP_POSITION) {

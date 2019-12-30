@@ -100,10 +100,10 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
     componentDidUpdate(prevProps, prevState) {
       const { nextRowId: prevId } = prevState;
       const { nextRowId: currentId } = this.state;
-      const equalIds = currentId !== undefined && currentId === prevId;
+      const areIdsEqual = currentId !== undefined && currentId === prevId;
 
       this.layoutRenderComponent.update();
-      if (equalIds) {
+      if (areIdsEqual) {
         this.setState({ nextRowId: undefined });
       }
     }

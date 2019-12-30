@@ -1,6 +1,6 @@
 # GroupingState Plugin Reference
 
-A plugin that manages the grouping state. It lists resources used for grouping and stores information about expanded/collapsed groups.
+A plugin that manages the grouping state.
 
 ## Import
 
@@ -30,4 +30,4 @@ Describes grouping options.
 
 Field | Type | Description
 ------|------|------------
-resourceName | string | Specifies the name of the resource by which the appointments are grouped.
+resourceName | string | The name of the resource by which the appointments are grouped.

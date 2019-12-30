@@ -56,12 +56,12 @@ getCellRects | Array<() => ClientRect &#124; DOMRect> | An array of the cell rec
 
 Field | Type | Description
 ------|------|------------
-topBoundary | number | Specifies the top boundary of the scrollable layout area.
-bottomBoundary | number | Specifies the bottom boundary of the scrollable layout area.
-changeVerticalScroll | (value: number) => void | A function that can change vertical scroll position.
-leftBoundary? | number | Specifies the left boundary of the scrollable layout area.
-rightBoundary? | number | Specifies the right boundary of the scrollable layout area.
-changeHorizontalScroll? | (value: number) => void | A function that can change horizontal scroll position.
+topBoundary | number | The position of the scrollable area's top boundary.
+bottomBoundary | number | The position of the scrollable area's bottom boundary.
+changeVerticalScroll | (value: number) => void | A function that is called when the vertical scroll position is changed.
+leftBoundary? | number | The position of the scrollable area's left boundary.
+rightBoundary? | number | The position of the scrollable area's right boundary.
+changeHorizontalScroll? | (value: number) => void | A function that is called when the horizontal scroll position is changed.
 
 ### Scheduler.RootProps
 

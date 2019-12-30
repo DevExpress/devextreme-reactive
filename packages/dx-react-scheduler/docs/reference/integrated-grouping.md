@@ -1,6 +1,6 @@
 # IntegratedGrouping Plugin Reference
 
-A plugin that performs built-in grouping.
+A plugin that implements grouping.
 
 ## Import
 

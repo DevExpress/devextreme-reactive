@@ -1,34 +1,41 @@
 # React Scheduler - Grouping
 
-The React Scheduler allows you to group appointments by their [resources](../reference/resources.md). The group names are displayed by [GroupingPanel](../reference/grouping-panel.md) plugin.
+Appointments can be grouped by [resources](../reference/resources.md). Group names are displayed on a grouping panel.
 
 ## Related Plugins
 
 - [Resources](../reference/resources.md) - configures resources
 - [GroupingState](../reference/grouping-state.md) - manages the grouping state
-- [IntegratedGrouping](../reference/integrated-grouping.md) - performs built-in grouping
-- [GroupingPanel](../reference/grouping-panel.md) - displays resource titles by which appointments are grouped
+- [IntegratedGrouping](../reference/integrated-grouping.md) - implements grouping
+- [GroupingPanel](../reference/grouping-panel.md) - displays resource titles (group names)
 
 ## Basic Usage
 
-First of all, you need to configure the Scheduler's resources. For that, add and configure the `Resources` plugin as described in [this article](./resources.md).
+To group by resources, [configure them](./resources.md) first.
 
-After you've added the resources, you need to add the [GroupingState](../reference/grouping-state.md) plugin. Use this plugin's `grouping` property to specify grouping options. The grouping order depends on grouping options' order. For example, if you want to group the appointments by `members` and then by `location` resources, the first item of the `grouping` property should correspond to the members resource, the second - to the location. If the grouping is not specified, the appointments will be grouped by the main resource. Then, you need to add the [IntegratedGrouping](../reference/integrated-grouping.md) plugin. And finally, if you want to display grouping headers, add the [GroupingPanel](../reference/grouping-panel.md) plugin.
+Grouping is implemented in the [IntegratedGrouping](../reference/integrated-grouping.md) plugin. Add this and the [GroupingState](../reference/grouping-state.md) plugin to enable this feature.
 
-It is worth mentioning that multiple instance resource appointments may be displayed several times. For instance, if one of the appointments belongs to three instances of a multiple resource, it will be displayed three times in the corresponding groups. The appointment's color will depend on the group a particular instance belongs to.
+`GroupingState` has a `grouping` property that accepts an array of resources to group by. Resource order in this array is important. For example, if the Room resource goes first, and Attendees goes second, appointments will be grouped in that order. If you leave the `grouping` property unspecified, the appointments are grouped by the main resource. 
 
-In the following example the appointments are grouped by their `members` resource which supports multiple resource instances. All of the appointments in this demo are displayed three times (once for every instance they belong to) and their color changes depending on the color specified in the corresponding resource instance:
+Group names (resource titles) are displayed on a grouping panel. To show it, add the [GroupingPanel](../reference/grouping-panel.md) plugin.
+
+A single appointment can appear in multiple groups if it is assigned to multiple instances of a resource. For example, an appointment assigned to three instances appears thrice - once in each group. The appointment's color is inherited from a particular resource instance. The `members` resource from the following demo illustrates this case:
+
 
 .embedded-demo({ "path": "scheduler-grouping/basic", "showThemeSelector": true })
 
-## Group Editing
+## Move Appointments Between Groups
 
-To allow users to edit the appointments' groups, it is sufficient to configure [Editing](./editing.md). You may change the resources an appointment belongs to through the `AppointmentForm` or just drag-drop it from one group into another. The following example demonstrates this:
+Users can drag-and-drop appointments between groups or use the appointment editing form to assign an an appointment to another resource (group). To enable these capabilities, configure [editing](./editing.md):
 
 .embedded-demo({ "path": "scheduler-grouping/editing", "showThemeSelector": true })
 
 ## Customize the Appearance
 
-You can change `GroupingPanel`'s appearance using its `horizontalLayoutComponent`, `rowComponent` and `cellComponent`. You can also customize the Scheduler's cells depending on the group a cell belongs to using cell's `groupInfo` property. The example below shows how to do that:
+Timetable cells have the `groupingInfo` property that lists groups to which a particular cell belongs. Use this property to customize cells depending on their group.
+
+In addition, the `GroupingPanel` plugin has properties that customize the grouping panel: `horizontalLayoutComponent`, `rowComponent`, and `cellComponent`.
+
+The following example shows how to use the properties mentioned above:
 
 .embedded-demo({ "path": "scheduler-grouping/custom", "showThemeSelector": true })

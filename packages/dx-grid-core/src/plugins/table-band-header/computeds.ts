@@ -60,10 +60,11 @@ export const tableHeaderColumnChainsWithBands: GetHeaderColumnChainsFn<
     const columnName = column.column && column.column.name || '';
     currentBand = getColumnMeta(columnName, bands, rowIndex);
     return !chain
-      || (chain as any).bandTitle !== currentBand.title;
+      || (chain as any).key !== currentBand.key;
   };
   const extendChainProps = () => ({
-    bandTitle: (currentBand || {}).title,
+    bandTitle: currentBand?.title,
+    key: currentBand?.key,
   });
 
   const bandChains = splitHeaderColumnChains(

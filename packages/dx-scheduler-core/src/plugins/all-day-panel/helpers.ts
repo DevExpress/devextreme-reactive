@@ -74,7 +74,7 @@ export const sliceAppointmentsByDays: PureComputed<
       appointments.push({
         ...appointment,
         start: nextStart,
-        end: nextStart.endOf('day'),
+        end: moment(nextStart).endOf('day'),
       });
     }
     nextStart = moment(nextStart).add(1, 'day');

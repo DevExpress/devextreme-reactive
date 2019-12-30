@@ -65,11 +65,6 @@
     "start-demo-servers": "yarn build:generator && lerna run --parallel start-demo-server:prod",
     "update-deps": "ncu -u && ./node_modules/.bin/lerna exec \"ncu -u\" --ignore @devexpress/dx-vue-*"
   },
-  "husky": {
-    "hooks": {
-      "pre-push": "yarn build:ts && yarn update-api"
-    }
-  },
   "workspaces": [
     "packages/*"
   ],

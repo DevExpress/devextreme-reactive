@@ -414,6 +414,11 @@ class Demo extends React.PureComponent {
 
     return (
       <Paper>
+        <React.Profiler id="scheduler" onRender={(id, phase, actualTime) => {
+          console.log(id)
+          console.log(phase)
+          console.log(actualTime)
+        }}>
         <Scheduler
           data={data}
           height={660}
@@ -448,6 +453,7 @@ class Demo extends React.PureComponent {
           />
           <DragDropProvider />
         </Scheduler>
+        </React.Profiler>
 
         <Dialog
           open={confirmationVisible}

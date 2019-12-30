@@ -185,6 +185,7 @@ export const calculateDraftAppointments = (
   targetType: string, cellDurationMinutes: number,
   getTableCellElementRects: CellElementsMeta,
   grouping: Grouping[], resources: ValidResource[], groups: Group[][],
+  sliceAppointments: boolean,
 ) => {
   if (allDayIndex !== -1 || (targetType === VERTICAL_TYPE
     && getAllDayCellsElementRects.getCellRects.length
@@ -198,7 +199,7 @@ export const calculateDraftAppointments = (
       allDayDraftAppointments: allDayRects(
         allDayDrafts, startViewDate, endViewDate,
         excludedDays, viewCellsData, getAllDayCellsElementRects,
-        grouping, resources, groups,
+        grouping, resources, groups, sliceAppointments,
       ),
       timeTableDraftAppointments: [],
     };

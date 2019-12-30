@@ -15,6 +15,7 @@ export namespace GroupingPanel {
     colSpan: number;
     /** The CSS styles of a cell on the grouping panel. */
     cellStyle: object;
+    showHeaderForEveryDate?: boolean;
   }
   /** Describes properties passed to a component that renders a row on the grouping panel. */
   export interface RowProps extends BaseView.RowProps {}

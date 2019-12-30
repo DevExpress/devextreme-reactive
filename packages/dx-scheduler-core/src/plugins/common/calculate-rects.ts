@@ -15,12 +15,14 @@ import { expandGroups } from '../integrated-grouping/computeds';
 export const allDayRects: AllDayRects = (
   appointments, startViewDate, endViewDate,
   excludedDays, viewCellsData, cellElementsMeta,
-  grouping, resources, groups,
+  grouping, resources, groups, sliceAppointments,
 ) => {
   const intervals = calculateAllDayDateIntervals(
     appointments, startViewDate, endViewDate, excludedDays,
   );
-  const groupedIntervals = expandGroups(intervals, grouping, resources, groups);
+  const groupedIntervals = expandGroups(
+    intervals, grouping, resources, groups, excludedDays, sliceAppointments,
+  );
 
   return calculateRectByDateAndGroupIntervals(
     {
@@ -46,7 +48,9 @@ export const verticalTimeTableRects: VerticalRects = (
   const intervals = calculateWeekDateIntervals(
     appointments, startViewDate, endViewDate, excludedDays, cellDuration,
   );
-  const groupedIntervals = expandGroups(intervals, grouping, resources, groups);
+  const groupedIntervals = expandGroups(
+    intervals, grouping, resources, groups, excludedDays, false,
+  );
 
   return calculateRectByDateAndGroupIntervals(
     {
@@ -72,7 +76,7 @@ export const horizontalTimeTableRects: HorizontalRects = (
   const intervals = calculateMonthDateIntervals(
     appointments, startViewDate, endViewDate,
   );
-  const groupedIntervals = expandGroups(intervals, grouping, resources, groups);
+  const groupedIntervals = expandGroups(intervals, grouping, resources, groups, [], false);
 
   return calculateRectByDateAndGroupIntervals(
     {

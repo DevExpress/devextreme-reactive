@@ -103,6 +103,7 @@ export namespace BaseView {
   export interface DayScaleLayoutProps {
     /** Specifies the cells meta data. */
     cellsData: BaseView.CellData[][];
+    groupPanelAfterDates?: boolean;
     /** A component that renders a day scale cell. */
     cellComponent: React.ComponentType<BaseView.DayScaleCellProps>;
     /** A component that renders a day scale row. */

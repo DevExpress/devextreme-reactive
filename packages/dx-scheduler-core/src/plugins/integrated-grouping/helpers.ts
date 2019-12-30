@@ -143,3 +143,22 @@ export const expandGroupedAppointment: PureComputed<
       ], [] as AppointmentMoment[]);
     }, [appointment] as AppointmentMoment[]);
 };
+
+export const addGroupInfoToCell: PureComputed<
+  [Group, Group[][],
+  ValidResource[], ViewCell, number], ViewCell
+> = (currentGroup, groupingItems, sortedResources, viewCell, index) => {
+  let previousIndex = index;
+  const groupingInfo = groupingItems.reduceRight((
+    acc: Group[], groupingItem: Group[], currentIndex: number,
+  ) => {
+    if (currentIndex === groupingItems.length - 1) return acc;
+    const previousResourceLength = sortedResources[currentIndex + 1].instances.length;
+    const currentGroupingInstance = groupingItem[Math.floor(
+      previousIndex / previousResourceLength,
+    )];
+    previousIndex = currentIndex;
+    return [...acc, currentGroupingInstance];
+  }, [currentGroup]);
+  return { ...viewCell, groupingInfo };
+};

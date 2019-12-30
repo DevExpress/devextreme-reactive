@@ -18,7 +18,7 @@ export type TimeType = 'seconds' | 'minutes' | 'hours';
 /** @internal */
 export type AllDayRects = PureComputed<
   [Appointment[], Date,  Date, number[], ViewCell[][], CellElementsMeta,
-  Grouping[], ValidResource[], Group[][]], ElementRect[]
+  Grouping[], ValidResource[], Group[][], boolean], ElementRect[]
 >;
 /** @internal */
 export type VerticalRects = PureComputed<

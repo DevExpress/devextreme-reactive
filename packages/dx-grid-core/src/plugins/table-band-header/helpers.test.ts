@@ -98,12 +98,12 @@ describe('TableBandHeader Plugin helpers', () => {
   describe('#getColumnMeta', () => {
     it('should return correct column meta for the first level children', () => {
       expect(getColumnMeta('d', columnBands, 1))
-        .toEqual({ title: 'Band A', level: 1 });
+        .toEqual({ title: 'Band A', level: 1, key: '_Band A' });
     });
 
     it('should return correct column meta for the deeper children levels', () => {
       expect(getColumnMeta('a', columnBands, 2))
-        .toEqual({ title: 'Band B', level: 2 });
+        .toEqual({ title: 'Band B', level: 2, key: '_Band A_Band B' });
     });
 
     it('should work with immutable properties', () => {
@@ -202,7 +202,7 @@ describe('TableBandHeader Plugin helpers', () => {
           payload: {
             colSpan: 4,
             value: 'Band A',
-            column: { title: 'Band A', level: 2 },
+            column: { title: 'Band A', level: 2, key: '_Band A' },
           },
         });
     });
@@ -255,7 +255,7 @@ describe('TableBandHeader Plugin helpers', () => {
             payload: {
               colSpan: 1,
               value: 'Band A',
-              column: { title: 'Band A', level: 2 },
+              column: { title: 'Band A', level: 2, key: '_Band A' },
             },
           });
 
@@ -271,7 +271,7 @@ describe('TableBandHeader Plugin helpers', () => {
             payload: {
               colSpan: 1,
               value: 'Band B',
-              column: { title: 'Band B', level: 2 },
+              column: { title: 'Band B', level: 2, key: '_Band A_Band B' },
             },
           });
 
@@ -316,7 +316,7 @@ describe('TableBandHeader Plugin helpers', () => {
             payload: {
               colSpan: 3,
               value: 'Band A',
-              column: { title: 'Band A', level: 2 },
+              column: { title: 'Band A', level: 2, key: '_Band A' },
             },
           });
       });
@@ -344,7 +344,7 @@ describe('TableBandHeader Plugin helpers', () => {
             payload: {
               colSpan: 2,
               value: 'Band A',
-              column: { title: 'Band A', level: 2 },
+              column: { title: 'Band A', level: 2, key: '_Band A' },
             },
           });
       });
@@ -389,7 +389,7 @@ describe('TableBandHeader Plugin helpers', () => {
             payload: {
               colSpan: 2,
               value: 'Band A',
-              column: { title: 'Band A', level: 1 },
+              column: { title: 'Band A', level: 1, key: '_Band A' },
               beforeBorder: true,
             },
           });
@@ -454,7 +454,7 @@ describe('TableBandHeader Plugin helpers', () => {
           payload: {
             colSpan,
             value: 'Band0',
-            column: { title: 'Band0', level: 1 },
+            column: { title: 'Band0', level: 1, key: '_Band0' },
           },
         });
 

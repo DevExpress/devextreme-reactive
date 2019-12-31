@@ -7,6 +7,12 @@ export const getBorder = theme => (`1px solid ${
     : darken(fade(theme.palette.divider, 1), 0.68)
 }`);
 
+export const getBrightBorder = theme => (`1px solid ${
+  theme.palette.type === 'light'
+    ? lighten(fade(theme.palette.divider, 1), 0.72)
+    : darken(fade(theme.palette.divider, 1), 0.5)
+}`);
+
 export const cellsMeta = (tableElement) => {
   const cellElements = Array.from(tableElement.querySelectorAll('td'));
   return {
@@ -15,17 +21,29 @@ export const cellsMeta = (tableElement) => {
   };
 };
 
-export const scrollingStrategy = (scrollablePart, fixedPart) => {
-  const fixedPartRect = fixedPart.getBoundingClientRect();
+export const scrollingStrategy = (scrollablePart, fixedPartVertical, fixedPartHorizontal) => {
+  const fixedPartVerticalRect = fixedPartVertical.getBoundingClientRect();
+  const fixedPartHorizontalRect = fixedPartHorizontal
+    && fixedPartHorizontal.getBoundingClientRect();
+
   const changeVerticalScroll = (value) => {
     // eslint-disable-next-line no-param-reassign
     scrollablePart.scrollTop += value;
   };
+  const changeHorizontalScroll = (value) => {
+    // eslint-disable-next-line no-param-reassign
+    scrollablePart.scrollLeft += value;
+  };
 
   return ({
-    topBoundary: fixedPartRect.height + fixedPartRect.top,
+    topBoundary: fixedPartVerticalRect.height + fixedPartVerticalRect.top,
     bottomBoundary: scrollablePart.offsetTop + scrollablePart.clientHeight,
+    leftBoundary: fixedPartHorizontalRect
+      ? fixedPartHorizontalRect.width + fixedPartHorizontalRect.left
+      : scrollablePart.offsetLeft,
+    rightBoundary: scrollablePart.offsetLeft + scrollablePart.clientWidth,
     changeVerticalScroll,
+    changeHorizontalScroll,
   });
 };
 
@@ -41,6 +59,13 @@ export const getAppointmentColor = (level, color, defaultColor) => {
   if (!color) return ensureColor(level, defaultColor);
   if (typeof color === 'string') return color;
   return ensureColor(level, color);
+};
+
+export const getWidthInPixels = (cellsNumber, cellWidth) => `${cellsNumber * cellWidth}px`;
+
+export const getViewCellKey = (startDate, groups) => {
+  if (!groups) return startDate;
+  return groups.reduce((acc, group) => acc.concat(group.id), startDate.toString());
 };
 
 export const addCommaAndSpaceToString = string => string && `${string},\xa0`;

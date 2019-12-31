@@ -4,7 +4,7 @@ import {
   ViewCell, ClientOffset, TimeType, ScrollingStrategy,
   AllDayCell, CalculateAppointmentTimeBoundaries,
   TimeBoundariesByDrag, TimeBoundariesByResize, AppointmentModel,
-  CellElementsMeta,
+  CellElementsMeta, Grouping, ValidResource, Group, SchedulerDateTime,
 } from '../../types';
 import { allDayCells as allDayCellsCore } from '../common/computeds';
 import {
@@ -58,12 +58,24 @@ export const cellData: PureComputed<
 export const autoScroll: PureComputed<
   [ClientOffset, ScrollingStrategy], void
 > = (clientOffset, scrollingStrategy) => {
-  if ((clientOffset.y < scrollingStrategy.topBoundary + SCROLL_OFFSET)
-    && (clientOffset.y > scrollingStrategy.topBoundary)) {
-    scrollingStrategy.changeVerticalScroll(-SCROLL_SPEED_PX);
+  scroll(
+    clientOffset.y, scrollingStrategy.topBoundary,
+    scrollingStrategy.bottomBoundary, scrollingStrategy.changeVerticalScroll,
+  );
+  scroll(
+    clientOffset.x, scrollingStrategy.leftBoundary,
+    scrollingStrategy.rightBoundary, scrollingStrategy.changeHorizontalScroll,
+  );
+};
+
+const scroll: PureComputed<
+  [number, number, number, (value: number) => void], void
+> = (offset, firstBoundary, secondBoundary, changeScroll) => {
+  if ((offset < firstBoundary + SCROLL_OFFSET) && (offset > firstBoundary)) {
+    changeScroll(-SCROLL_SPEED_PX);
   }
-  if (scrollingStrategy.bottomBoundary - SCROLL_OFFSET < clientOffset.y) {
-    scrollingStrategy.changeVerticalScroll(+SCROLL_SPEED_PX);
+  if (secondBoundary - SCROLL_OFFSET < offset) {
+    changeScroll(+SCROLL_SPEED_PX);
   }
 };
 
@@ -172,6 +184,7 @@ export const calculateDraftAppointments = (
   getAllDayCellsElementRects: CellElementsMeta,
   targetType: string, cellDurationMinutes: number,
   getTableCellElementRects: CellElementsMeta,
+  grouping: Grouping[], resources: ValidResource[], groups: Group[][],
 ) => {
   if (allDayIndex !== -1 || (targetType === VERTICAL_TYPE
     && getAllDayCellsElementRects.getCellRects.length
@@ -185,6 +198,7 @@ export const calculateDraftAppointments = (
       allDayDraftAppointments: allDayRects(
         allDayDrafts, startViewDate, endViewDate,
         excludedDays, viewCellsData, getAllDayCellsElementRects,
+        grouping, resources, groups,
       ),
       timeTableDraftAppointments: [],
     };
@@ -196,6 +210,7 @@ export const calculateDraftAppointments = (
       timeTableDraftAppointments: verticalTimeTableRects(
         draftAppointments, startViewDate, endViewDate,
         excludedDays, viewCellsData, cellDurationMinutes, getTableCellElementRects,
+        grouping, resources, groups,
       ),
     };
   }
@@ -204,6 +219,58 @@ export const calculateDraftAppointments = (
     timeTableDraftAppointments: horizontalTimeTableRects(
       draftAppointments, startViewDate, endViewDate,
       viewCellsData, getTableCellElementRects,
+      grouping, resources, groups,
     ),
   };
+};
+
+export const calculateAppointmentGroups: PureComputed<
+  [Array<Group> | undefined, Array<ValidResource>, AppointmentModel], any
+> = (cellGroupingInfo, resources, appointmentData) => {
+  if (!cellGroupingInfo) return {};
+  return cellGroupingInfo.reduce((acc, group: Group) => {
+    const isMultipleResource = resources.find(
+      resource => (resource.fieldName === group.fieldName),
+    )!.allowMultiple;
+    return {
+      ...acc,
+      [group.fieldName]: isMultipleResource
+        ? updateMultipleResourceInfo(group, appointmentData) : group.id,
+    };
+  }, {});
+};
+
+const updateMultipleResourceInfo: PureComputed<
+  [Group, AppointmentModel], any
+> = (cellResource, appointmentData) => {
+  const appointmentGroupItems = appointmentData[cellResource.fieldName];
+  if (appointmentGroupItems.findIndex((groupItem: any) => groupItem === cellResource.id) !== -1) {
+    return appointmentGroupItems;
+  }
+  return [cellResource.id];
+};
+
+export const appointmentDragged: PureComputed<
+  [SchedulerDateTime, SchedulerDateTime, SchedulerDateTime, SchedulerDateTime, any, any], boolean
+> = (start, startPrev, end, endPrev, groupingInfo, groupingInfoPrev) => {
+  if (moment(start as Date).isSame(startPrev as Date)
+      && moment(end as Date).isSame(endPrev as Date)
+      && groupingInfoNotChanged(groupingInfo, groupingInfoPrev)) {
+    return false;
+  }
+  return true;
+};
+
+const groupingInfoNotChanged: PureComputed<
+  [any, any], boolean
+> = (groupingInfo, groupingInfoPrev) => {
+  const fields = Object.getOwnPropertyNames(groupingInfo);
+  return fields.every((field) => {
+    if (Array.isArray(groupingInfo[field]) && Array.isArray(groupingInfoPrev[field])) {
+      return groupingInfo[field].every((item: any, index: number) => (
+        item === groupingInfoPrev[field][index]
+      ));
+    }
+    return groupingInfo[field] === groupingInfoPrev[field];
+  });
 };

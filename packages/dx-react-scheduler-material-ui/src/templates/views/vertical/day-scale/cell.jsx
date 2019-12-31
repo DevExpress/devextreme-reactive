@@ -4,7 +4,8 @@ import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 import { WEEK_DAY_OPTIONS, DAY_OPTIONS } from '@devexpress/dx-scheduler-core';
-import { getBorder } from '../../../utils';
+import { getBrightBorder } from '../../../utils';
+import { LAYOUT_MEDIA_QUERY } from '../../../constants';
 
 const styles = theme => ({
   cell: {
@@ -14,12 +15,10 @@ const styles = theme => ({
     borderBottom: 'none',
     paddingRight: 0,
     paddingLeft: 0,
-    '@media (max-width: 700px)': {
+    boxSizing: 'border-box',
+    [`${LAYOUT_MEDIA_QUERY}`]: {
       padding: theme.spacing(1),
       paddingBottom: 0,
-    },
-    'table:last-child &': {
-      borderBottom: getBorder(theme),
     },
     '&:only-child': {
       textAlign: 'left',
@@ -34,7 +33,7 @@ const styles = theme => ({
   },
   dayOfMonth: {
     ...theme.typography.h4,
-    '@media (max-width: 700px)': {
+    [`${LAYOUT_MEDIA_QUERY}`]: {
       ...theme.typography.h6,
     },
     color: theme.palette.text.secondary,
@@ -67,6 +66,12 @@ const styles = theme => ({
       display: 'inline-block',
     },
   },
+  rightBorderCell: {
+    borderRight: getBrightBorder(theme),
+    '&:last-child': {
+      borderRight: 'none',
+    },
+  },
 });
 
 const CellBase = React.memo(({
@@ -76,10 +81,15 @@ const CellBase = React.memo(({
   endDate,
   today,
   formatDate,
+  hasRightBorder,
+  groupingInfo,
   ...restProps
 }) => (
   <TableCell
-    className={classNames(classes.cell, className)}
+    className={classNames({
+      [classes.cell]: true,
+      [classes.rightBorderCell]: hasRightBorder,
+    }, className)}
     {...restProps}
   >
     <div className={classes.dayView}>
@@ -110,12 +120,16 @@ CellBase.propTypes = {
   endDate: PropTypes.instanceOf(Date),
   className: PropTypes.string,
   today: PropTypes.bool,
+  hasRightBorder: PropTypes.bool,
+  groupingInfo: PropTypes.arrayOf(PropTypes.object),
 };
 
 CellBase.defaultProps = {
   className: undefined,
   endDate: undefined,
   today: false,
+  hasRightBorder: false,
+  groupingInfo: undefined,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

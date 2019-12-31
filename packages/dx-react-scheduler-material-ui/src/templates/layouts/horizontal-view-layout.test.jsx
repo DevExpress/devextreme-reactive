@@ -30,6 +30,10 @@ describe('Horizontal View Layout', () => {
       .toBeTruthy();
     expect(tree.hasClass(`${classes.container}`))
       .toBeTruthy();
+    expect(tree.find(`${classes.stickyHeader}`))
+      .toBeTruthy();
+    expect(tree.find(`${classes.timeTable}`))
+      .toBeTruthy();
   });
 
   it('should pass rest props to the root element', () => {
@@ -49,5 +53,16 @@ describe('Horizontal View Layout', () => {
 
     expect(scrollingStrategy)
       .toBeCalledTimes(1);
+  });
+
+  it('should render its components correctly', () => {
+    const tree = shallow((
+      <HorizontalViewLayout {...defaultProps} />
+    ));
+
+    expect(tree.find(`.${classes.stickyHeader}`).exists())
+      .toBeTruthy();
+    expect(tree.find(`.${classes.timeTable}`).exists())
+      .toBeTruthy();
   });
 });

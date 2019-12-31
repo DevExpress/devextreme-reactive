@@ -4,6 +4,7 @@ import { VerticalViewLayout } from './vertical-view-layout';
 import { scrollingStrategy } from '../utils';
 
 jest.mock('../utils', () => ({
+  ...require.requireActual('../utils'),
   scrollingStrategy: jest.fn(),
 }));
 
@@ -55,16 +56,20 @@ describe('Vertical View Layout', () => {
 
   it('should render its components correctly', () => {
     const tree = shallow((
-      <VerticalViewLayout {...defaultProps} className="custom-class" />
+      <VerticalViewLayout {...defaultProps} />
     ));
 
-    expect(tree.find(`.${classes.stickyHeader}`).exists())
+    expect(tree.find(`.${classes.header}`).exists())
       .toBeTruthy();
     expect(tree.find(`.${classes.mainTable}`))
       .toHaveLength(2);
     expect(tree.find(`.${classes.fixedWidth}`))
       .toHaveLength(2);
     expect(tree.find(`.${classes.timeTable}`).exists())
+      .toBeTruthy();
+    expect(tree.find(`.${classes.leftPanel}`).exists())
+      .toBeTruthy();
+    expect(tree.find(`.${classes.background}`).exists())
       .toBeTruthy();
   });
 });

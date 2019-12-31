@@ -5,7 +5,8 @@ import TableCell from '@material-ui/core/TableCell';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
 import { DAY_OPTIONS, DAY_SHORT_MONTH_OPTIONS } from '@devexpress/dx-scheduler-core';
-import { getBorder } from '../../../utils';
+import { getBorder, getBrightBorder } from '../../../utils';
+import { SMALL_LAYOUT_MEDIA_QUERY } from '../../../constants';
 
 const styles = theme => ({
   cell: {
@@ -30,12 +31,13 @@ const styles = theme => ({
       backgroundColor: fade(theme.palette.primary.main, 0.15),
       outline: 0,
     },
+    boxSizing: 'border-box',
   },
   text: {
     padding: '1em',
     paddingTop: '0.5em',
     textAlign: 'center',
-    '@media (max-width: 500px)': {
+    [`${SMALL_LAYOUT_MEDIA_QUERY}`]: {
       padding: '0.5em',
     },
   },
@@ -65,6 +67,12 @@ const styles = theme => ({
       outline: 0,
     },
   },
+  rightBorderCell: {
+    borderRight: getBrightBorder(theme),
+    '&:last-child': {
+      borderRight: 'none',
+    },
+  },
 });
 
 const CellBase = React.memo(({
@@ -76,6 +84,8 @@ const CellBase = React.memo(({
   otherMonth,
   formatDate,
   isShaded,
+  hasRightBorder,
+  groupingInfo,
   ...restProps
 }) => {
   const isFirstMonthDay = startDate.getDate() === 1;
@@ -86,6 +96,7 @@ const CellBase = React.memo(({
       className={classNames({
         [classes.cell]: true,
         [classes.shadedCell]: isShaded,
+        [classes.rightBorderCell]: hasRightBorder,
       }, className)}
       {...restProps}
     >
@@ -111,6 +122,8 @@ CellBase.propTypes = {
   today: PropTypes.bool,
   otherMonth: PropTypes.bool,
   isShaded: PropTypes.bool,
+  hasRightBorder: PropTypes.bool,
+  groupingInfo: PropTypes.arrayOf(PropTypes.object),
 };
 
 CellBase.defaultProps = {
@@ -119,6 +132,8 @@ CellBase.defaultProps = {
   today: false,
   otherMonth: false,
   isShaded: false,
+  hasRightBorder: false,
+  groupingInfo: undefined,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

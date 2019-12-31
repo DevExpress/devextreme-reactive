@@ -4,7 +4,7 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
-import { cellsMeta } from '../utils';
+import { cellsMeta, getViewCellKey } from '../utils';
 
 const styles = {
   table: {
@@ -54,13 +54,14 @@ class LayoutBase extends React.PureComponent {
         <TableBody>
           <Row>
             {cellsData.map(({
-              startDate,
-              endDate,
+              startDate, endDate, hasRightBorder, groupingInfo,
             }) => (
               <Cell
-                key={startDate}
+                key={getViewCellKey(startDate, groupingInfo)}
                 startDate={startDate}
                 endDate={endDate}
+                hasRightBorder={hasRightBorder}
+                groupingInfo={groupingInfo}
               />
             ))}
           </Row>
@@ -74,8 +75,8 @@ LayoutBase.propTypes = {
   classes: PropTypes.object.isRequired,
   formatDate: PropTypes.func.isRequired,
   cellsData: PropTypes.arrayOf(Array).isRequired,
-  cellComponent: PropTypes.func.isRequired,
-  rowComponent: PropTypes.func.isRequired,
+  cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   setCellElementsMeta: PropTypes.func.isRequired,
   className: PropTypes.string,
 };

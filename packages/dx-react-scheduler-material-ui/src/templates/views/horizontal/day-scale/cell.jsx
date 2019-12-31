@@ -4,7 +4,7 @@ import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 import { WEEK_DAY_OPTIONS } from '@devexpress/dx-scheduler-core';
-import { getBorder } from '../../../utils';
+import { getBorder, getBrightBorder } from '../../../utils';
 
 const styles = theme => ({
   cell: {
@@ -19,6 +19,7 @@ const styles = theme => ({
       paddingRight: 0,
     },
     textAlign: 'center',
+    boxSizing: 'border-box',
   },
   dayOfWeek: {
     ...theme.typography.caption,
@@ -27,6 +28,12 @@ const styles = theme => ({
     paddingBottom: 0,
     color: theme.palette.text.secondary,
     fontWeight: 'bold',
+  },
+  rightBorderCell: {
+    borderRight: getBrightBorder(theme),
+    '&:last-child': {
+      borderRight: 'none',
+    },
   },
 });
 
@@ -37,10 +44,15 @@ const CellBase = React.memo(({
   endDate,
   today,
   formatDate,
+  hasRightBorder,
+  groupingInfo,
   ...restProps
 }) => (
   <TableCell
-    className={classNames(classes.cell, className)}
+    className={classNames({
+      [classes.cell]: true,
+      [classes.rightBorderCell]: hasRightBorder,
+    }, className)}
     {...restProps}
   >
     <div className={classes.dayOfWeek}>
@@ -56,12 +68,16 @@ CellBase.propTypes = {
   endDate: PropTypes.instanceOf(Date),
   className: PropTypes.string,
   today: PropTypes.bool,
+  hasRightBorder: PropTypes.bool,
+  groupingInfo: PropTypes.arrayOf(PropTypes.object),
 };
 
 CellBase.defaultProps = {
   className: undefined,
   endDate: undefined,
   today: false,
+  hasRightBorder: false,
+  groupingInfo: undefined,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

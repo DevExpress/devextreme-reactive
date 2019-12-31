@@ -25,13 +25,18 @@ const endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCells
 const TimeTablePlaceholder = () => <TemplatePlaceholder name="timeTable" />;
 const DayScalePlaceholder = () => <TemplatePlaceholder name="dayScale" />;
 
+const GroupingPanelPlaceholder = () => <TemplatePlaceholder name="groupingPanel" />;
+
 class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> {
   state = {
     timeTableElementsMeta: {},
     scrollingStrategy: {
       topBoundary: 0,
       bottomBoundary: 0,
+      leftBoundary: 0,
+      rightBoundary: 0,
       changeVerticalScroll: () => undefined,
+      changeHorizontalScroll: () => undefined,
     },
   };
 
@@ -193,6 +198,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
                 <DayScale
                   cellComponent={dayScaleCellComponent}
                   rowComponent={dayScaleRowComponent}
+                  groupingPanelComponent={GroupingPanelPlaceholder}
                   cellsData={viewCellsData}
                   formatDate={formatDate}
                 />
@@ -218,7 +224,6 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
           <TemplateConnector>
             {({ formatDate, currentView, viewCellsData }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
-
               return (
                 <>
                   <TimeTableLayout

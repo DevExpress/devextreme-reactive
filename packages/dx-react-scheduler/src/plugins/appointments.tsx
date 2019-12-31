@@ -5,8 +5,8 @@ import {
 import { createClickHandlers, memoize } from '@devexpress/dx-core';
 import {
   POSITION_START, POSITION_END, VERTICAL_TYPE,
-  getVerticalRectByDates, calculateRectByDateIntervals,
-  getAppointmentStyle, HORIZONTAL_TYPE, getHorizontalRectByDates,
+  getVerticalRectByAppointmentData, calculateRectByDateAndGroupIntervals,
+  getAppointmentStyle, HORIZONTAL_TYPE, getHorizontalRectByAppointmentData,
 } from '@devexpress/dx-scheduler-core';
 
 import { AppointmentsProps } from '../types';
@@ -50,12 +50,12 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
   ) => {
     if (!timeTableElementsMeta.getCellRects) return null;
     let appointmentType = { growDirection: VERTICAL_TYPE, multiline: false };
-    let getRects = getVerticalRectByDates as any;
+    let getRects = getVerticalRectByAppointmentData as any;
     if (currentView.type === 'month') {
       appointmentType = { growDirection: HORIZONTAL_TYPE, multiline: true };
-      getRects = getHorizontalRectByDates;
+      getRects = getHorizontalRectByAppointmentData;
     }
-    return renderAppointments(calculateRectByDateIntervals(
+    return renderAppointments(calculateRectByDateAndGroupIntervals(
       appointmentType, timeTableAppointments, getRects,
       {
         startViewDate, endViewDate, cellDuration,
@@ -69,10 +69,10 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
     startViewDate, endViewDate,
   ) => {
     if (!allDayElementsMeta.getCellRects) return null;
-    return renderAppointments(calculateRectByDateIntervals(
+    return renderAppointments(calculateRectByDateAndGroupIntervals(
       { growDirection: HORIZONTAL_TYPE,  multiline: false },
       allDayAppointments,
-      getHorizontalRectByDates,
+      getHorizontalRectByAppointmentData,
       {
         startViewDate, endViewDate,
         viewCellsData, cellElementsMeta: allDayElementsMeta,

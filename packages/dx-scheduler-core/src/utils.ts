@@ -6,7 +6,7 @@ import {
   ComputedHelperFn, ViewPredicateFn,
   CalculateFirstDateOfWeekFn, AppointmentMoment,
   Interval, AppointmentGroup, AppointmentUnwrappedGroup,
-  Rect, ElementRect, RectCalculatorBaseFn, CalculateRectByDateIntervalsFn,
+  Rect, ElementRect, RectCalculatorBaseFn, CalculateRectByDateAndGroupIntervalsFn,
 } from './types';
 
 export const computed: ComputedHelperFn = (getters, viewName, baseComputed, defaultValue) => {
@@ -199,15 +199,11 @@ export const calculateFirstDateOfWeek: CalculateFirstDateOfWeekFn = (
 export const unwrapGroups: PureComputed<
   [AppointmentGroup[]], AppointmentUnwrappedGroup[]
 > = groups => groups.reduce((acc, { items, reduceValue }) => {
-  acc.push(...items.map(appointment => ({
-    start: appointment.start,
-    end: appointment.end,
-    dataItem: appointment.dataItem,
-    offset: appointment.offset,
-    reduceValue,
-    fromPrev: moment(appointment.start).diff(appointment.dataItem.startDate, 'minutes') > 1,
-    toNext: moment(appointment.dataItem.endDate).diff(appointment.end, 'minutes') > 1,
-    resources: appointment.resources,
+  acc.push(...items.map(({ start, end, dataItem, offset, resources, ...restProps }) => ({
+    start, end, dataItem, offset, reduceValue, resources,
+    fromPrev: moment(start).diff(dataItem.startDate, 'minutes') > 1,
+    toNext: moment(dataItem.endDate).diff(end, 'minutes') > 1,
+    ...restProps,
   })));
   return acc;
 }, [] as AppointmentUnwrappedGroup[]);
@@ -228,9 +224,9 @@ export const getAppointmentStyle: PureComputed<
 
 const rectCalculatorBase: RectCalculatorBaseFn = (
   appointment,
-  getRectByDates,
+  getRectByAppointment,
   options,
-) => getRectByDates(appointment.start, appointment.end, options);
+) => getRectByAppointment(appointment, options);
 
 const horizontalRectCalculator: CustomFunction<
   [AppointmentUnwrappedGroup, any], ElementRect
@@ -317,7 +313,7 @@ const verticalRectCalculator: CustomFunction<
   };
 };
 
-export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
+export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIntervalsFn = (
   type, intervals, rectByDates, rectByDatesMeta,
 ) => {
   const { growDirection, multiline } = type;

@@ -8,6 +8,7 @@ jest.mock('@material-ui/core/styles', () => ({
     cell: 'cell',
     shadedCell: 'shadedCell',
     shadedPart: 'shadedPart',
+    rightBorderCell: 'rightBorderCell',
   })),
 }));
 
@@ -27,6 +28,8 @@ describe('Vertical view TimeTable', () => {
       expect(tree.is('.cell'))
         .toBeTruthy();
       expect(tree.is('.shadedCell'))
+        .toBeFalsy();
+      expect(tree.is('.rightBorderCell'))
         .toBeFalsy();
     });
     it('should pass rest props to the root element', () => {
@@ -86,6 +89,14 @@ describe('Vertical view TimeTable', () => {
       ));
 
       expect(tree.find(currentTimeIndicatorComponent).exists())
+        .toBeTruthy();
+    });
+    it('should render a cell with a bright border', () => {
+      const tree = shallow((
+        <Cell hasRightBorder />
+      ));
+
+      expect(tree.is('.rightBorderCell'))
         .toBeTruthy();
     });
   });

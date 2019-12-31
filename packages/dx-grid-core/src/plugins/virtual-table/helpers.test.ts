@@ -1,4 +1,5 @@
-import { getViewport, checkColumnWidths } from './helpers';
+import { getViewport, checkColumnWidths, calculateScrollHeight, getScrollTop } from './helpers';
+import { TOP_POSITION, BOTTOM_POSITION } from './constants';
 
 const estimatedRowheight = 40;
 const createItems = length => (
@@ -168,6 +169,46 @@ describe('#checkColumnWidths', () => {
       ];
       expect(() => checkColumnWidths(tableColumns))
         .toThrow(/columnExtension.*VirtualTable/);
+    });
+  });
+
+  describe('#calculateScrollHeight', () => {
+    const rowHeight = 100;
+
+    it('should work', () => {
+      expect(calculateScrollHeight(rowHeight, 10))
+        .toEqual(1000);
+    });
+
+    it('should return "undefined" if index is not defined', () => {
+      expect(calculateScrollHeight(rowHeight, undefined))
+        .toEqual(undefined);
+    });
+
+    it('should return "undefined" if index is less than 0', () => {
+      expect(calculateScrollHeight(rowHeight, -1))
+        .toEqual(undefined);
+    });
+  });
+
+  describe('#getScrollTop', () => {
+    const rows = [{ rowId: 1 }, { rowId: 2 }, { rowId: 3 }, { rowId: 4 }, { rowId: 5 }];
+    const rowHeight = 100;
+    const rowId = 4;
+
+    it('should work', () => {
+      expect(getScrollTop(rows, rows.length, rowId, rowHeight, false))
+        .toEqual(300);
+    });
+
+    it('should return 0 if scrolled to TOP_POSITION', () => {
+      expect(getScrollTop(rows, rows.length, TOP_POSITION, rowHeight, false))
+        .toEqual(0);
+    });
+
+    it('should return height of scroll if scrolled to BOTTOM_POSITION', () => {
+      expect(getScrollTop(rows, rows.length, BOTTOM_POSITION, rowHeight, false))
+        .toEqual(rowHeight * rows.length);
     });
   });
 });

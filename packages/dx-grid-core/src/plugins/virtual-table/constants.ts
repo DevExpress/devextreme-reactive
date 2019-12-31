@@ -11,3 +11,6 @@ export const emptyViewport: GridViewport = {
   width: 800,
   height: 600,
 };
+
+export const TOP_POSITION = Symbol('top');
+export const BOTTOM_POSITION = Symbol('bottom');

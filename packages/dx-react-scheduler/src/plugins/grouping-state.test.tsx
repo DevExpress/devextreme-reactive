@@ -67,4 +67,24 @@ describe('GroupingState', () => {
         resourceName: 'a',
       }]);
   });
+  it('should provide "groupByDate" getter', () => {
+    const tree = mount((
+      <PluginHost>
+        <GroupingState
+          groupByDate={(viewName) => {
+            if (viewName === 'month') {
+              return false;
+            }
+            return true;
+          }}
+        />
+        {pluginDepsToComponents({})}
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree).groupByDate('month'))
+      .toBeFalsy();
+    expect(getComputedState(tree).groupByDate('week'))
+      .toBeTruthy();
+  });
 });

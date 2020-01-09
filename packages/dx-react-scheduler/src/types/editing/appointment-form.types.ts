@@ -245,10 +245,6 @@ export namespace AppointmentForm {
     allDayLabel?: string;
     /** The "Title" editor's label text. */
     titleLabel?: string;
-    /** The "Start Date" editor's label text. */
-    startDateLabel?: string;
-    /** The "End Date" editor's label text. */
-    endDateLabel?: string;
     /** The commit button's text. */
     commitCommand?: string;
     /** The "More Information" editor’s label text. */
@@ -303,6 +299,8 @@ export namespace AppointmentForm {
     ofLabel?: string;
     /** The "Every" label text. */
     everyLabel?: string;
+    /** The "Details" label text. */
+    detailsLabel?: string;
   }
 }
 

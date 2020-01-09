@@ -57,7 +57,6 @@ const defaultMessages = {
   allDayLabel: 'All Day',
   titleLabel: 'Title',
   commitCommand: 'Save',
-  cancelCommand: 'Cancel',
   detailsLabel: 'Details',
   moreInformationLabel: 'More Information',
   repeatLabel: 'Repeat',

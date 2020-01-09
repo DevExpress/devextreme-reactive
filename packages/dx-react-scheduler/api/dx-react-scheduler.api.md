@@ -149,7 +149,7 @@ export namespace AppointmentForm {
     commitCommand?: string;
     daily?: string;
     daysLabel?: string;
-    endDateLabel?: string;
+    detailsLabel?: string;
     endRepeatLabel?: string;
     everyLabel?: string;
     firstLabel?: string;
@@ -167,7 +167,6 @@ export namespace AppointmentForm {
     repeatEveryLabel?: string;
     repeatLabel?: string;
     secondLabel?: string;
-    startDateLabel?: string;
     theLabel?: string;
     thirdLabel?: string;
     titleLabel?: string;

@@ -19,6 +19,7 @@ import {
 import { TableGroupRow, defaultMessages } from './table-group-row';
 import { TableSummaryContent } from '../components/summary/table-summary-content';
 import { flattenGroupInlineSummaries } from '../components/summary/group-summaries';
+import { TableColumnsWithGrouping } from './internal';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   ...require.requireActual('@devexpress/dx-grid-core'),
@@ -133,28 +134,24 @@ describe('TableGroupRow', () => {
         .toBeCalledWith(defaultDeps.getter.tableBodyRows, defaultDeps.getter.isGroupRow);
     });
 
-    it('should extend tableColumns', () => {
+    it('should render TableColumnsWithGrouping', () => {
+      const columnExtensions = [];
       const tree = mount((
-
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableGroupRow
             {...defaultProps}
+            columnExtensions={columnExtensions}
           />
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).tableColumns)
-        .toBe('tableColumnsWithGrouping');
-      expect(tableColumnsWithGrouping)
-        .toBeCalledWith(
-          defaultDeps.getter.columns,
-          defaultDeps.getter.tableColumns,
-          defaultDeps.getter.grouping,
-          defaultDeps.getter.draftGrouping,
-          defaultProps.indentColumnWidth,
-          expect.any(Function),
-        );
+      expect(tree.find(TableColumnsWithGrouping).props())
+        .toEqual({
+          columnExtensions: columnExtensions,
+          indentColumnWidth: 100,
+          showColumnsWhenGrouped: false,
+        });
     });
 
     it('should extend getTableCellColSpan', () => {

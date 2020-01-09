@@ -2,112 +2,19 @@ import * as React from 'react';
 import {
   Action, Actions, PluginHost, Getter, Template, TemplateConnector, Getters,
 } from '@devexpress/dx-react-core';
-import { cellValueGetter, GridColumnExtension, tableColumnsWithDataRows, rowIdGetter, tableColumnsWithGrouping } from '@devexpress/dx-grid-core';
+import { filterSelectedRows, exportHeader, ROOT_GROUP, buildGroupTree, findRanges } from '@devexpress/dx-grid-core';
+import * as Excel from 'exceljs/dist/exceljs.min.js';
 import { IntegratedGrouping } from './integrated-grouping';
 import { GroupingState } from './grouping-state';
 import { SummaryState } from './summary-state';
 import { IntegratedSummary } from './integrated-summary';
-import * as Excel from 'exceljs/dist/exceljs.min.js';
 import { Table } from './table';
 import { defaultSummaryMessages } from '../components/summary/table-summary-content';
-import { MemoizedComputed, memoize } from '@devexpress/dx-core';
-import { ShowColumnWhenGroupedGetterFn, ExporterProps } from '../types';
+import { ExporterProps } from '../types';
 import { SelectionState } from './selection-state';
-
-const ROOT_GROUP = '__root__';
-
-const showColumnWhenGroupedGetter: ShowColumnWhenGroupedGetterFn = (
-  showColumnsWhenGrouped, columnExtensions = [],
-) => {
-  const map = columnExtensions.reduce((acc, columnExtension) => {
-    acc[columnExtension.columnName] = columnExtension.showWhenGrouped;
-    return acc;
-  }, {});
-
-  return columnName => map[columnName] || showColumnsWhenGrouped;
-};
-
-const filterSelectedRows = (rows, getRowId, selection) => {
-  const selectionSet = new Set<any>(selection);
-  return rows.filter(row => selectionSet.has(getRowId(row)));
-};
-
-const exportHeader = (worksheet: Excel.Worksheet, columns) => {
-  const cols = columns
-    .map(({ column, width }) => ({ ...column, width: (width || 150) / 8 }))
-    .map(({ name, title, width }) => ({
-      key: name, width,
-    }));
-  worksheet.columns = cols;
-
-  let { lastRow } = worksheet;
-  if (lastRow) {
-    worksheet.addRow({});
-  }
-  
-  const r = columns.reduce((acc, { column: { name, title }}) => ({
-    ...acc,
-    [name]: title,
-  }), {});
-  worksheet.addRow(r);
-  
-  worksheet.views.push({
-    state: 'frozen', ySplit: worksheet.lastRow!.number,
-  });
-};
-
-const buildGroupTree = (allRows, outlineLevels, startIndex) => {
-  const groupTree = { [ROOT_GROUP]: [] as any[] };
-  const maxLevel = Object.keys(outlineLevels).length - 1;
-
-  let parentChain = {};
-  let lastDataIndex = 0;
-  let openGroup = '';
-  let index = startIndex;
-  let level = 0;
-  let prevLevel = 0;
-
-  allRows.forEach((row) => {
-    const { groupedBy, compoundKey } = row;
-    if (groupedBy) {
-      level = outlineLevels[groupedBy];
-      if (level === 0) {
-        groupTree[ROOT_GROUP].push(compoundKey);
-      }
-      groupTree[compoundKey] = [];
-      parentChain[level] = compoundKey;
-      if (0 < level && level <= maxLevel) {
-        groupTree[parentChain[level - 1]].push(compoundKey);
-      }
-      if (level === maxLevel) {
-        if (openGroup) {
-          // close prev group
-          groupTree[openGroup].push(lastDataIndex);
-        }
-        openGroup = compoundKey;
-        let start = index + 1;
-        if (lastDataIndex > 0) {
-          start += 1;
-          index += 1;
-        }
-        groupTree[compoundKey].push(start);
-      } else if (level < prevLevel) {
-        index += maxLevel - level;
-      }
-      prevLevel = level;
-    } else {
-      lastDataIndex = index;
-    }
-    index += 1;
-  });
-
-  // TODO: consider grouping instead
-  if (Object.keys(groupTree).length === 1 && groupTree[ROOT_GROUP].length === 0) {
-    groupTree[ROOT_GROUP] = [startIndex, startIndex + allRows.length - 1];
-  }
-
-  return groupTree;
-};
+import {
+  TableColumnsWithGrouping, TableColumnsWithDataRowsGetter, GridCoreGetters,
+} from './internal';
 
 const exportRows = (
   worksheet, allRows, dataColumns, columns, outlineLevels,
@@ -122,7 +29,8 @@ const exportRows = (
     if (row.groupedBy) {
       currentLevel = outlineLevels[row.groupedBy];
 
-      openGroups.slice(currentLevel).reverse().forEach(closeGroup); // close nested groups first
+      // close nested groups first
+      openGroups.slice(currentLevel).reverse().forEach(closeGroup);
 
       openGroups = openGroups.slice(0, currentLevel);
       openGroups[currentLevel] = { groupedBy: row.groupedBy, compoundKey: row.compoundKey };
@@ -155,24 +63,19 @@ const exportRows = (
       customizeCell(cell, row, columns[colNumber - 1].column);
     });
   });
+
+  openGroups.reverse().forEach(closeGroup)
 }
 
 class GridExporterBase extends React.PureComponent<any, any> {
-  tableColumnsComputed: MemoizedComputed<GridColumnExtension[], typeof tableColumnsWithDataRows>;
-
   constructor(props) {
     super(props);
 
     this.state = {
       isExporting: false,
     };
-
-    this.tableColumnsComputed = memoize(
-      (columnExtensions: GridColumnExtension[]) => ({
-        columns,
-      }) => tableColumnsWithDataRows(columns, columnExtensions),
-    );
   }
+
   performExport = (_: any, 
     {
     tableColumns, columns: dataColumns, getRowId,
@@ -229,19 +132,8 @@ class GridExporterBase extends React.PureComponent<any, any> {
       const summary = {
         type,
         ranges,
-      }
+      };
       customizeSummaryCell(cell, column, summary);
-    };
-
-    const findRanges = (compoundKey, level, result) => {
-      if (level !== maxLevel) {
-        const ranges = groupTree[compoundKey].reduce((acc, range) => (
-          [...acc, ...findRanges(range, level + 1, result)]
-        ), []);
-        return [...result, ...ranges];
-      } else {
-        return [...result, groupTree[compoundKey]];
-      }
     };
 
     const closeGroup = (group) => {
@@ -251,7 +143,7 @@ class GridExporterBase extends React.PureComponent<any, any> {
       worksheet.addRow({});
       worksheet.lastRow!.outlineLevel = outlineLevels[groupedBy] + 1;
 
-      const ranges = findRanges(compoundKey, outlineLevels[groupedBy], []);
+      const ranges = findRanges(groupTree, compoundKey, outlineLevels[groupedBy], maxLevel, []);
 
       groupSummaryItems.forEach((s) => {
         exportSummary(s, ranges)
@@ -262,9 +154,9 @@ class GridExporterBase extends React.PureComponent<any, any> {
       worksheet.addRow({});
 
       totalSummaryItems.forEach((s) => {
-        exportSummary(s, findRanges(ROOT_GROUP, -1, []));
+        exportSummary(s, findRanges(groupTree, ROOT_GROUP, -1, maxLevel, []));
       });
-    }
+    };
 
     // export work
     customizeHeader(worksheet);
@@ -272,13 +164,12 @@ class GridExporterBase extends React.PureComponent<any, any> {
     exportHeader(worksheet, columns);
 
     const groupTree = buildGroupTree(allRows, outlineLevels, worksheet.lastRow!.number + 1);
-    // console.log('v3', groupTree)
 
     exportRows(
       worksheet, allRows, dataColumns, columns, outlineLevels,
       getCellValue, closeGroup, customizeCell,
     );
-    
+
     closeSheet();
 
     customizeFooter(worksheet);
@@ -298,36 +189,28 @@ class GridExporterBase extends React.PureComponent<any, any> {
 
   render() {
     const {
-      rows: propRows, columns: propColumns, getCellValue, getRowId,
-      grouping, showColumnsWhenGrouped, /* filters, sorting, */ selection, totalSummaryItems,
-      groupSummaryItems, columnExtensions,
+      rows: propRows, columns: propColumns, getCellValue, getRowId, columnExtensions,
+      grouping, showColumnsWhenGrouped, groupColumnExtensions, /* filters, sorting, */
+      selection, totalSummaryItems, groupSummaryItems,
     } = this.props;
     const { isExporting } = this.state;
-    
+
     if (!isExporting) return null;
-    
+
     const summaryExists = totalSummaryItems || groupSummaryItems;
     const useSelection = !!selection;
-    const tableColumnsComputed = this.tableColumnsComputed(columnExtensions!);
-
-    const tableColumnsWithGroupingComputed = ({
-      columns, tableColumns, grouping, draftGrouping,
-    }: Getters) => tableColumnsWithGrouping(
-      columns,
-      tableColumns,
-      grouping,
-      draftGrouping,
-      0,
-      showColumnWhenGroupedGetter(showColumnsWhenGrouped!, columnExtensions),
-    );
 
     return (
       <PluginHost>
-        <Getter name="rows" value={propRows} />
-        <Getter name="getRowId" value={rowIdGetter(getRowId!, propRows)} />
-        <Getter name="columns" value={propColumns} />
-        <Getter name="getCellValue" value={cellValueGetter(getCellValue!, propColumns)} />
-        <Getter name="tableColumns" computed={tableColumnsComputed} />
+        <GridCoreGetters
+          rows={propRows}
+          columns={propColumns}
+          getRowId={getRowId}
+          getCellValue={getCellValue}
+        />
+        <TableColumnsWithDataRowsGetter
+          columnExtensions={columnExtensions}
+        />
         <Getter name="isExporting" value />
 
         {/* State */}
@@ -343,7 +226,10 @@ class GridExporterBase extends React.PureComponent<any, any> {
 
         {/* Integrated */}
         {grouping && (
-          <Getter name="tableColumns" computed={tableColumnsWithGroupingComputed} />
+          <TableColumnsWithGrouping
+            columnExtensions={groupColumnExtensions}
+            showColumnsWhenGrouped={showColumnsWhenGrouped}
+          />
         )}
         {grouping && (
           <IntegratedGrouping />
@@ -351,7 +237,7 @@ class GridExporterBase extends React.PureComponent<any, any> {
         {summaryExists && (
           <IntegratedSummary />
         )}
-    
+
         <Action name="finishExport" action={this.finishExport} />
         <Action name="performExport" action={this.performExport} />
         <Template name="root">
@@ -365,7 +251,7 @@ class GridExporterBase extends React.PureComponent<any, any> {
           )}
         </Template>
       </PluginHost>
-    )
+    );
   }
 }
 

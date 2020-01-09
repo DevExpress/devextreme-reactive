@@ -14,7 +14,7 @@ const getRow = (width, groupRow, cellStyle, groups, rowIndex) => {
         {
           group,
           colSpan,
-          key: getCellKey(groups, index, rowIndex),
+          key: getCellKey(groups, index, rowIndex) + i,
           left: cellStyle.left,
           hasBrightBorder: index === currentRowLength - 1,
         },
@@ -36,8 +36,6 @@ export const HorizontalLayout = ({
   <>
     {groups.map((groupRow, rowIndex) => {
       const cellColSpan = colSpan / groupRow.length;
-      console.log('hiiiiiiiiiiiiiiiii')
-      console.log(groups)
       return (
         <Row
           key={groups[rowIndex][0].text}
@@ -60,11 +58,11 @@ export const HorizontalLayout = ({
                 <Cell
                   group={group}
                   colSpan={columnSpan}
-                  // key={key}
+                  key={key}
                   left={cellStyle.left}
                   hasBrightBorder={hasBrightBorder}
                 />
-              )
+              );
             })
           )}
         </Row>

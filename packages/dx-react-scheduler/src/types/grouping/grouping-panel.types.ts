@@ -15,6 +15,7 @@ export namespace GroupingPanel {
     colSpan: number;
     /** The CSS styles of a cell on the grouping panel. */
     cellStyle: object;
+    /** Specifies whether to show group headings for every date or not. */
     showHeaderForEveryDate?: boolean;
   }
   /** Describes properties passed to a component that renders a row on the grouping panel. */
@@ -27,6 +28,8 @@ export namespace GroupingPanel {
     group: Group;
     /** The cell's offset from the left. */
     left: number;
+    /** Indicates whether to draw a bright right border or an ordinary right border. */
+    hasBrightBorder?: boolean;
     /** A React node used to render an additional content to the cell. */
     children?: React.ReactNode;
   }

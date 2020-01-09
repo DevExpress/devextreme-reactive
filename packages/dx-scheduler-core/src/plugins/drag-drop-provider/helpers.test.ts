@@ -458,7 +458,7 @@ describe('DragDropProvider', () => {
       );
       expect(allDayRects)
         .toBeCalledWith([{ allDay: true }], startViewDate, endViewDate,
-          excludedDays, viewCellsData, allDayCells, grouping, resources, groups);
+          excludedDays, viewCellsData, allDayCells, grouping, resources, groups, undefined);
     });
     it('should format appointment if allDay flag exists', () => {
       expect(calculateDraftAppointments(

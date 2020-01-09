@@ -24,18 +24,16 @@ export const getRowFromGroups: PureComputed<
   const standardWidth = width / groups[groups.length - 1].length;
   const colSpan = groups[groups.length - 1].length / currentRowLength;
   for (let i = 0; i < standardWidth; i += 1) {
-    row = [...row, ...groupRow.reduce((acc, group, index) => {
-      return [
-        ...acc,
-        {
-          group,
-          colSpan,
-          key: getCellKey(groups, index, rowIndex) + i,
-          left: cellStyle.left,
-          hasBrightBorder: index === currentRowLength - 1,
-        },
-      ];
-    }, [] as any[])];
+    row = [...row, ...groupRow.reduce((acc, group, index) => [
+      ...acc,
+      {
+        group,
+        colSpan,
+        key: getCellKey(groups, index, rowIndex) + i,
+        left: cellStyle.left,
+        hasBrightBorder: index === currentRowLength - 1,
+      },
+    ], [] as any[])];
   }
   return row;
 };

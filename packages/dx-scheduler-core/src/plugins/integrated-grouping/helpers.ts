@@ -18,23 +18,33 @@ export const addGroupInfoToCells: PureComputed<
 > = (currentGroup, groups, sortedResources, viewCellRow, index) => viewCellRow.map((
     viewCell: ViewCell, cellIndex: number,
   ) => {
+  const groupedCell = addGroupInfoToCell(
+    currentGroup, groups, sortedResources, viewCell, index,
+  ) as ViewCell;
+  if (cellIndex !== viewCellRow.length - 1) {
+    return groupedCell;
+  }
+  return { ...groupedCell, hasRightBorder: true };
+});
+
+export const addGroupInfoToCell: PureComputed<
+  [Group, Group[][],
+  ValidResource[], ViewCell, number], ViewCell
+> = (currentGroup, groups, sortedResources, viewCell, index) => {
   let previousIndex = index;
   const groupingInfo = groups.reduceRight((
-    acc: Group[], group: Group[], currentIndex: number,
+    acc: Group[], groupingItem: Group[], currentIndex: number,
   ) => {
     if (currentIndex === groups.length - 1) return acc;
     const previousResourceLength = sortedResources[currentIndex + 1].instances.length;
-    const currentGroupingInstance = group[Math.floor(
+    const currentGroupingInstance = groupingItem[Math.floor(
       previousIndex / previousResourceLength,
     )];
     previousIndex = currentIndex;
     return [...acc, currentGroupingInstance];
   }, [currentGroup]);
-  if (cellIndex !== viewCellRow.length - 1) {
-    return { ...viewCell, groupingInfo };
-  }
-  return { ...viewCell, groupingInfo, hasRightBorder: true };
-});
+  return { ...viewCell, groupingInfo };
+};
 
 const getCurrentGroup: PureComputed<
   [Group[][], ValidResource[], number, Group], Group[]
@@ -142,23 +152,4 @@ export const expandGroupedAppointment: PureComputed<
         ),
       ], [] as AppointmentMoment[]);
     }, [appointment] as AppointmentMoment[]);
-};
-
-export const addGroupInfoToCell: PureComputed<
-  [Group, Group[][],
-  ValidResource[], ViewCell, number], ViewCell
-> = (currentGroup, groupingItems, sortedResources, viewCell, index) => {
-  let previousIndex = index;
-  const groupingInfo = groupingItems.reduceRight((
-    acc: Group[], groupingItem: Group[], currentIndex: number,
-  ) => {
-    if (currentIndex === groupingItems.length - 1) return acc;
-    const previousResourceLength = sortedResources[currentIndex + 1].instances.length;
-    const currentGroupingInstance = groupingItem[Math.floor(
-      previousIndex / previousResourceLength,
-    )];
-    previousIndex = currentIndex;
-    return [...acc, currentGroupingInstance];
-  }, [currentGroup]);
-  return { ...viewCell, groupingInfo };
 };

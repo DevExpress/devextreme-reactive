@@ -55,6 +55,31 @@ describe('IntegratedGrouping helpers', () => {
     });
   });
 
+  describe('#addGroupInfoToCell', () => {
+    it('should work', () => {
+      const viewCell = { startDate: new Date('2018-06-24 08:00'), endDate: new Date('2018-06-24 08:30') };
+      const resources = [{
+        fieldName: 'resource1',
+        instances: [
+          { id: 1, text: 'text1', fieldName: 'resource1' },
+          { id: 2, text: 'text2', fieldName: 'resource1' },
+        ],
+      }];
+      const groups = [[
+        { fieldName: 'resource1', id: 1 },
+        { fieldName: 'resource1', id: 2 },
+      ]];
+      expect(addGroupInfoToCell(
+        groups[0][0], groups, resources, viewCell, 0,
+      ))
+        .toEqual({
+          startDate: new Date('2018-06-24 08:00'),
+          endDate: new Date('2018-06-24 08:30'),
+          groupingInfo: [groups[0][0]],
+        });
+    });
+  });
+
   describe('#groupAppointments', () => {
     it('should group appointments into different arrays depending on their resources', () => {
       const resources = [{

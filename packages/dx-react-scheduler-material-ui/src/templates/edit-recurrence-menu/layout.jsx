@@ -50,7 +50,7 @@ const LayoutBase = React.memo(({
       {...restProps}
     >
       <DialogTitle className={classes.title} disableTypography>
-        {getMessage(isDeleting ? 'menuDeleteTitle' : 'menuEditTitle')}
+        {getMessage(isDeleting ? 'menuDeletingTitle' : 'menuEditingTitle')}
       </DialogTitle>
       <DialogContent>
         <RadioGroup

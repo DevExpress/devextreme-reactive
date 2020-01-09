@@ -20,8 +20,8 @@ const defaultMessages = {
   [RECURRENCE_EDIT_SCOPE.CURRENT]: 'This appointment',
   [RECURRENCE_EDIT_SCOPE.CURRENT_AND_FOLLOWING]: 'This and following appointments',
   [RECURRENCE_EDIT_SCOPE.ALL]: 'All appointments',
-  menuEditTitle: 'Edit recurring appointment',
-  menuDeleteTitle: 'Delete recurring appointment',
+  menuEditingTitle: 'Edit recurring appointment',
+  menuDeletingTitle: 'Delete recurring appointment',
   cancelButton: 'Cancel',
   commitButton: 'OK',
 };

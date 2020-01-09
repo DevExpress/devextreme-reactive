@@ -32,7 +32,7 @@ export const Layout = React.memo(({
           formatDate={formatDate}
           hasRightBorder={hasRightBorder}
           groupingInfo={groupingInfo}
-          colspan={colSpan}
+          colSpan={colSpan}
         />
       ))}
     </Row>

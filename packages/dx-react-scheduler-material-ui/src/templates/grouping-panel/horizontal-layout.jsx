@@ -1,28 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { getCellKey } from '@devexpress/dx-scheduler-core';
-
-const getRow = (width, groupRow, cellStyle, groups, rowIndex) => {
-  let row = [];
-  const currentRowLength = groupRow.length;
-  const standardWidth = width / groups[groups.length - 1].length;
-  const colSpan = groups[groups.length - 1].length / currentRowLength;
-  for (let i = 0; i < standardWidth; i += 1) {
-    row = [...row, ...groupRow.reduce((acc, group, index) => {
-      return [
-        ...acc,
-        {
-          group,
-          colSpan,
-          key: getCellKey(groups, index, rowIndex) + i,
-          left: cellStyle.left,
-          hasBrightBorder: index === currentRowLength - 1,
-        },
-      ];
-    }, [])];
-  }
-  return row;
-};
+import { getCellKey, getRowFromGroups } from '@devexpress/dx-scheduler-core';
 
 export const HorizontalLayout = ({
   rowComponent: Row,
@@ -51,19 +29,17 @@ export const HorizontalLayout = ({
             />
           ))}
           {showHeaderForEveryDate && (
-            getRow(colSpan, groupRow, cellStyle, groups, rowIndex).map(({
+            getRowFromGroups(colSpan, groupRow, cellStyle, groups, rowIndex).map(({
               group, colSpan: columnSpan, key, hasBrightBorder,
-            }) => {
-              return (
-                <Cell
-                  group={group}
-                  colSpan={columnSpan}
-                  key={key}
-                  left={cellStyle.left}
-                  hasBrightBorder={hasBrightBorder}
-                />
-              );
-            })
+            }) => (
+              <Cell
+                group={group}
+                colSpan={columnSpan}
+                key={key}
+                left={cellStyle.left}
+                hasBrightBorder={hasBrightBorder}
+              />
+            ))
           )}
         </Row>
       );

@@ -21,10 +21,8 @@ export const addGroupInfoToCells: PureComputed<
   const groupedCell = addGroupInfoToCell(
     currentGroup, groups, sortedResources, viewCell, index,
   ) as ViewCell;
-  if (cellIndex !== viewCellRow.length - 1) {
-    return groupedCell;
-  }
-  return { ...groupedCell, hasRightBorder: true };
+  return cellIndex !== viewCellRow.length - 1
+    ? groupedCell : { ...groupedCell, hasRightBorder: true };
 });
 
 export const addGroupInfoToCell: PureComputed<

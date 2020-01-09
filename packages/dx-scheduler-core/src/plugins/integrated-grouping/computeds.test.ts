@@ -191,6 +191,41 @@ describe('IntegratedGrouping computeds', () => {
       expect(expandViewCellsDataWithGroups(viewCellsDataBase, groups, resourcesBase))
         .toEqual(viewCellsDataBase);
     });
+
+    it('should work when grouping by dates is used', () => {
+      const groups = [[
+        { fieldName: 'resource1', id: 1 },
+        { fieldName: 'resource1', id: 2 },
+      ]];
+      const viewCellsData = [
+        [{ startDate: new Date('2018-06-24 08:00'), endDate: new Date('2018-06-24 08:30') }],
+        [{ startDate: new Date('2018-06-25 08:00'), endDate: new Date('2018-06-25 08:30') }],
+      ];
+
+      const result = expandViewCellsDataWithGroups(viewCellsData, groups, resourcesBase, true);
+      expect(result[0][0])
+        .toEqual({
+          ...viewCellsData[0][0],
+          groupingInfo: [{ fieldName: 'resource1', id: 1 }],
+        });
+      expect(result[0][1])
+        .toEqual({
+          ...viewCellsData[0][0],
+          groupingInfo: [{ fieldName: 'resource1', id: 2 }],
+          hasRightBorder: true,
+        });
+      expect(result[1][0])
+        .toEqual({
+          ...viewCellsData[1][0],
+          groupingInfo: [{ fieldName: 'resource1', id: 1 }],
+        });
+      expect(result[1][1])
+        .toEqual({
+          ...viewCellsData[1][0],
+          groupingInfo: [{ fieldName: 'resource1', id: 2 }],
+          hasRightBorder: true,
+        });
+    });
   });
 
   describe('#updateGroupingWithMainResource', () => {

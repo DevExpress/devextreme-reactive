@@ -51,6 +51,8 @@ const defaultDeps = {
       bottomBoundary: 20,
       changeVerticalScroll: jest.fn(),
     },
+    currentView: { name: 'currentView' },
+    groupByDate: () => 'groupByDate',
   },
   action: {
     finishCommitAppointment: jest.fn(),

@@ -43,7 +43,7 @@ const getAllDayAppointmentsComputed = ({
   }: Getters) => allDayAppointments &&
   expandGroups(
     allDayAppointments, grouping, resourcesToGroupBy,
-    groups, excludedDays, groupByDate(currentView.name),
+    groups, excludedDays, groupByDate(currentView && currentView.name),
   );
 
 const IntegratedGroupingBase: React.SFC<IntegratedGroupingProps> = React.memo(() => (

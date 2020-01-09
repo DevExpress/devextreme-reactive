@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core/styles';
-import { getBrightBorder } from '../utils';
+import { getBrightBorder, getBorder } from '../utils';
 
 const useStyles = makeStyles(theme => ({
   cell: {
@@ -13,7 +13,9 @@ const useStyles = makeStyles(theme => ({
     borderTop: getBrightBorder(theme),
     paddingTop: theme.spacing(0.5),
     boxSizing: 'border-box',
-    borderRight: getBrightBorder(theme),
+    borderRight: ({ hasBrightBorder }) => (
+      hasBrightBorder ? getBrightBorder(theme) : getBorder(theme)
+    ),
     'tr:first-child &': {
       borderTop: 'none',
     },
@@ -38,10 +40,11 @@ export const Cell = React.memo(({
   group,
   colSpan,
   left,
+  hasBrightBorder,
   children,
   ...restProps
 }) => {
-  const classes = useStyles({ left });
+  const classes = useStyles({ left, hasBrightBorder });
   return (
     <TableCell
       className={classNames(classes.cell, className)}
@@ -61,10 +64,12 @@ Cell.propTypes = {
   group: PropTypes.object.isRequired,
   colSpan: PropTypes.number.isRequired,
   left: PropTypes.number.isRequired,
+  hasBrightBorder: PropTypes.bool,
   children: PropTypes.node,
 };
 
 Cell.defaultProps = {
   className: undefined,
+  hasBrightBorder: true,
   children: null,
 };

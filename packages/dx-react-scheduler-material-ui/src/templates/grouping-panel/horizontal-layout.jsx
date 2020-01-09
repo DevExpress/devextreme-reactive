@@ -4,8 +4,9 @@ import { getCellKey } from '@devexpress/dx-scheduler-core';
 
 const getRow = (width, groupRow, cellStyle, groups, rowIndex) => {
   let row = [];
+  const currentRowLength = groupRow.length;
   const standardWidth = width / groups[groups.length - 1].length;
-  const colSpan = groups[groups.length - 1].length / groupRow.length;
+  const colSpan = groups[groups.length - 1].length / currentRowLength;
   for (let i = 0; i < standardWidth; i += 1) {
     row = [...row, ...groupRow.reduce((acc, group, index) => {
       return [
@@ -15,6 +16,7 @@ const getRow = (width, groupRow, cellStyle, groups, rowIndex) => {
           colSpan,
           key: getCellKey(groups, index, rowIndex),
           left: cellStyle.left,
+          hasBrightBorder: index === currentRowLength - 1,
         },
       ];
     }, [])];
@@ -35,6 +37,7 @@ export const HorizontalLayout = ({
     {groups.map((groupRow, rowIndex) => {
       const cellColSpan = colSpan / groupRow.length;
       console.log('hiiiiiiiiiiiiiiiii')
+      console.log(groups)
       return (
         <Row
           key={groups[rowIndex][0].text}
@@ -44,13 +47,14 @@ export const HorizontalLayout = ({
             <Cell
               group={group}
               colSpan={cellColSpan}
-              // key={getCellKey(groups, index, rowIndex)}
+              key={getCellKey(groups, index, rowIndex)}
               left={cellStyle.left}
+              hasBrightBorder
             />
           ))}
           {showHeaderForEveryDate && (
             getRow(colSpan, groupRow, cellStyle, groups, rowIndex).map(({
-              group, colSpan: columnSpan, key,
+              group, colSpan: columnSpan, key, hasBrightBorder,
             }) => {
               return (
                 <Cell
@@ -58,6 +62,7 @@ export const HorizontalLayout = ({
                   colSpan={columnSpan}
                   // key={key}
                   left={cellStyle.left}
+                  hasBrightBorder={hasBrightBorder}
                 />
               )
             })

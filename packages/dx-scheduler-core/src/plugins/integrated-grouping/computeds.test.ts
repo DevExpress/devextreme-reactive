@@ -4,11 +4,17 @@ import {
   updateGroupingWithMainResource, expandGroups,
 } from './computeds';
 import { expandGroupedAppointment, groupAppointments } from './helpers';
+import { sliceAppointmentsByDays } from '../all-day-panel/helpers';
 
 jest.mock('./helpers', () => ({
   ...require.requireActual('./helpers'),
   expandGroupedAppointment: jest.fn(),
   groupAppointments: jest.fn(),
+}));
+
+jest.mock('../all-day-panel/helpers', () => ({
+  ...require.requireActual('../all-day-panel/helpers'),
+  sliceAppointmentsByDays: jest.fn(),
 }));
 
 describe('IntegratedGrouping computeds', () => {
@@ -249,14 +255,29 @@ describe('IntegratedGrouping computeds', () => {
   describe('#expandGroups', () => {
     beforeEach(() => {
       expandGroupedAppointment.mockImplementation(() => ['expandGroupedAppointment']);
+      sliceAppointmentsByDays.mockImplementation(() => [{}]);
+    });
+    afterEach(() => {
+      jest.resetAllMocks();
     });
     it('should group and expand appointments', () => {
-      expandGroups([[{}]], 'grouping', 'resources', 'groups');
+      expandGroups([[{}]], 'grouping', 'resources', 'groups', [], false);
 
       expect(expandGroupedAppointment)
         .toHaveBeenCalledWith({}, 'grouping', 'resources');
       expect(groupAppointments)
         .toHaveBeenCalledWith(['expandGroupedAppointment'], 'resources', 'groups');
+    });
+
+    it('should slice appointments if sliceByDay is true', () => {
+      expandGroups([[{}]], 'grouping', 'resources', 'groups', [], true);
+
+      expect(expandGroupedAppointment)
+        .toHaveBeenCalledWith({}, 'grouping', 'resources');
+      expect(groupAppointments)
+        .toHaveBeenCalledWith(['expandGroupedAppointment'], 'resources', 'groups');
+      expect(sliceAppointmentsByDays)
+      .toHaveBeenCalledWith({}, []);
     });
   });
 });

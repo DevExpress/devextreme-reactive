@@ -45,26 +45,20 @@ export const expandViewCellsDataWithGroups: PureComputed<
 > = (viewCellsData, groups, sortedResources, groupByDate) => {
   if (groups.length === 0) return viewCellsData;
   if (groupByDate) {
-    const result = viewCellsData.map(
-      (cellsRow: ViewCell[]) => {
-        const cells = cellsRow.reduce((acc: ViewCell[], viewCell: ViewCell) => {
-          const res = groups[groups.length - 1].map((
-            group: Group, index: number,
-          ) => {
-            const cell = addGroupInfoToCell(
-              group, groups, sortedResources, viewCell, index,
-            );
-            return cell;
-          });
-          res[res.length - 1] = {
-            ...res[res.length - 1],
-            hasRightBorder: true,
-          };
-          return [...acc, ...res] as ViewCell[];
-        }, [] as ViewCell[]);
-        return cells;
-      });
-    return result;
+    return viewCellsData.map(
+      (cellsRow: ViewCell[]) => cellsRow.reduce((acc: ViewCell[], viewCell: ViewCell) => {
+        const groupedCells = groups[groups.length - 1].map((
+          group: Group, index: number,
+        ) => addGroupInfoToCell(
+          group, groups, sortedResources, viewCell, index,
+        ));
+        groupedCells[groupedCells.length - 1] = {
+          ...groupedCells[groupedCells.length - 1],
+          hasRightBorder: true,
+        };
+        return [...acc, ...groupedCells] as ViewCell[];
+      }, [] as ViewCell[]),
+    );
   }
   return groups[groups.length - 1].reduce((
     acc: ViewCell[][], group: Group, index: number,
@@ -72,17 +66,14 @@ export const expandViewCellsDataWithGroups: PureComputed<
     if (index === 0) {
       return viewCellsData.map((viewCellsRow: ViewCell[]) =>
         addGroupInfoToCells(
-          group, groups,
-          sortedResources, viewCellsRow, index,
+          group, groups, sortedResources, viewCellsRow, index,
         ) as ViewCell[],
       );
     }
     return acc.map((item: ViewCell[], id: number) => [
       ...item,
       ...addGroupInfoToCells(
-        group,
-        groups, sortedResources,
-        viewCellsData[id], index,
+        group, groups, sortedResources, viewCellsData[id], index,
       ),
     ]);
   }, [[]] as ViewCell[][]);
@@ -98,12 +89,10 @@ export const expandGroups: PureComputed<
   Group[][], number[], boolean], AppointmentMoment[][]
 > = (appointments, grouping, resources, groups, excludedDays, sliceByDay = false) => {
   const slicedAppointments = sliceByDay ?
-    appointments[0].reduce((acc: AppointmentMoment[], appointment: AppointmentMoment) => {
-      return ([
-        ...acc,
-        ...sliceAppointmentsByDays(appointment, excludedDays),
-      ]);
-    }, [] as AppointmentMoment[]) : appointments[0];
+    appointments[0].reduce((acc: AppointmentMoment[], appointment: AppointmentMoment) => ([
+      ...acc,
+      ...sliceAppointmentsByDays(appointment, excludedDays),
+    ]), [] as AppointmentMoment[]) : appointments[0];
 
   const expandedAppointments = (slicedAppointments as AppointmentMoment[])
     .reduce((acc: AppointmentMoment[], appointment: AppointmentMoment) => [

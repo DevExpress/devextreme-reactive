@@ -370,32 +370,4 @@ describe('IntegratedGrouping helpers', () => {
         ]);
     });
   });
-
-  describe('#addGroupInfoToCell', () => {
-    it('should work', () => {
-      const viewCell = {
-        startDate: new Date('2018-06-24 08:00'),
-        endDate: new Date('2018-06-24 08:30'),
-      };
-      const resources = [{
-        fieldName: 'resource1',
-        instances: [
-          { id: 1, text: 'text1', fieldName: 'resource1' },
-          { id: 2, text: 'text2', fieldName: 'resource1' },
-        ],
-      }];
-      const groupingItems = [[
-        { fieldName: 'resource1', id: 1 },
-        { fieldName: 'resource1', id: 2 },
-      ]];
-      expect(addGroupInfoToCell(
-        groupingItems[0][0], groupingItems, resources, viewCell, 0,
-      ))
-        .toEqual({
-          startDate: new Date('2018-06-24 08:00'),
-          endDate: new Date('2018-06-24 08:30'),
-          groupingInfo: [groupingItems[0][0]],
-        });
-    });
-  });
 });

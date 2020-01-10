@@ -56,6 +56,7 @@ Field | Type | Description
 groups | Array&lt;Array&lt;[Group](#group)&gt;&gt; | Specifies the final representation of Scheduler's groups and the order they will be rendered in.
 colSpan | number | The layout's length measured in timetable cells.
 cellStyle | object | The CSS styles of a cell on the grouping panel.
+showHeaderForEveryDate? | boolean | Specifies whether to show group headings for every date or not.
 rowComponent | ComponentType&lt;[GroupingPanel.RowProps](#groupingpanelrowprops)&gt; |  A component that renders a row on the grouping panel.
 cellComponent | ComponentType&lt;[GroupingPanel.CellProps](#groupingpanelcellprops)&gt; | | A component that renders a cell in a row on the grouping panel.
 
@@ -76,6 +77,7 @@ Field | Type | Description
 group | [Group](#group) | The group the cell represents.
 colSpan | number | The number of columns the cell spans.
 left | number | The cell's offset from the left.
+hasBrightBorder? | boolean | Indicates whether to draw a bright right border or an ordinary right border.
 children? | ReactNode | A React node used to render additional content to the cell.
 
 ## Plugin Components

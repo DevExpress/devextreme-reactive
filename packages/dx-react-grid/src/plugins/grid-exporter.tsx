@@ -158,12 +158,14 @@ class GridExporterBase extends React.PureComponent<any, any> {
       });
     };
 
-    // export work
+    // export routine
     customizeHeader(worksheet);
 
     exportHeader(worksheet, columns);
 
-    const groupTree = buildGroupTree(allRows, outlineLevels, worksheet.lastRow!.number + 1);
+    const groupTree = buildGroupTree(
+      allRows, outlineLevels, grouping, groupSummaryItems, worksheet.lastRow!.number + 1
+    );
 
     exportRows(
       worksheet, allRows, dataColumns, columns, outlineLevels,

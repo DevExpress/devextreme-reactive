@@ -31,11 +31,19 @@ export const exportHeader = (worksheet: Excel.Worksheet, columns: TableColumn[])
   });
 };
 
-export const buildGroupTree: BuildGroupTreeFn = (allRows, outlineLevels, startIndex) => {
+export const buildGroupTree: BuildGroupTreeFn = (
+  allRows, outlineLevels, grouping, groupSummaryItems, startIndex,
+) => {
   const groupTree = { [ROOT_GROUP]: [] as any[] };
   const maxLevel = Object.keys(outlineLevels).length - 1;
+  const groupSummaryExists = !!groupSummaryItems;
 
-  let parentChain = {};
+  if (!(grouping && grouping.length)) {
+    groupTree[ROOT_GROUP] = [startIndex, startIndex + allRows.length - 1];
+    return groupTree;
+  }
+
+  let parentChain = { '-1': ROOT_GROUP };
   let lastDataIndex = 0;
   let openGroup = '';
   let index = startIndex;
@@ -46,27 +54,23 @@ export const buildGroupTree: BuildGroupTreeFn = (allRows, outlineLevels, startIn
     const { groupedBy, compoundKey } = row;
     if (groupedBy) {
       level = outlineLevels[groupedBy];
-      if (level === 0) {
-        groupTree[ROOT_GROUP].push(compoundKey);
-      }
       groupTree[compoundKey] = [];
       parentChain[level] = compoundKey;
-      if (0 < level && level <= maxLevel) {
+      if (level <= maxLevel) {
         groupTree[parentChain[level - 1]].push(compoundKey);
       }
       if (level === maxLevel) {
         if (openGroup) {
-          // close prev group
+          // close previous group
           groupTree[openGroup].push(lastDataIndex);
         }
         openGroup = compoundKey;
-        let start = index + 1;
-        if (lastDataIndex > 0) {
-          start += 1;
+        if (groupSummaryExists && lastDataIndex > 0) {
           index += 1;
         }
-        groupTree[compoundKey].push(start);
-      } else if (level < prevLevel) {
+        groupTree[compoundKey].push(index + 1); // first row index
+      } else if (groupSummaryExists && level < prevLevel) {
+        // jump over summary rows
         index += maxLevel - level;
       }
       prevLevel = level;
@@ -78,11 +82,6 @@ export const buildGroupTree: BuildGroupTreeFn = (allRows, outlineLevels, startIn
 
   if (openGroup) {
     groupTree[openGroup].push(lastDataIndex);
-  }
-
-  // TODO: consider grouping instead
-  if (Object.keys(groupTree).length === 1 && groupTree[ROOT_GROUP].length === 0) {
-    groupTree[ROOT_GROUP] = [startIndex, startIndex + allRows.length - 1];
   }
 
   return groupTree;

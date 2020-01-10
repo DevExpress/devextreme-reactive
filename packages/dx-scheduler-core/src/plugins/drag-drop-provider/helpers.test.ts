@@ -454,18 +454,18 @@ describe('DragDropProvider', () => {
         allDayIndex, draftAppointments, startViewDate,
         endViewDate, excludedDays, viewCellsData, allDayCells,
         'horizontal', cellDurationMinutes, timeTableCells,
-        grouping, resources, groups,
+        grouping, resources, groups, [], false,
       );
       expect(allDayRects)
         .toBeCalledWith([{ allDay: true }], startViewDate, endViewDate,
-          excludedDays, viewCellsData, allDayCells, grouping, resources, groups, undefined);
+          excludedDays, viewCellsData, allDayCells, grouping, resources, groups, []);
     });
     it('should format appointment if allDay flag exists', () => {
       expect(calculateDraftAppointments(
         allDayIndex, draftAppointments, startViewDate,
         endViewDate, excludedDays, viewCellsData, allDayCells,
         'horizontal', cellDurationMinutes, timeTableCells,
-        grouping, resources,
+        grouping, resources, [], false,
       ))
       .toEqual({
         allDayDraftAppointments: [{}],
@@ -489,7 +489,7 @@ describe('DragDropProvider', () => {
         nextAllDayIndex, longDraftAppointment, startViewDate,
         endViewDate, excludedDays, viewCellsData, nextAllDayCells,
         targetType, cellDurationMinutes, timeTableCells,
-        grouping, resources,
+        grouping, resources, [], false,
       ))
       .toEqual({
         allDayDraftAppointments: [{}],
@@ -500,7 +500,7 @@ describe('DragDropProvider', () => {
         nextAllDayIndex, longDraftAppointment, startViewDate,
         endViewDate, excludedDays, viewCellsData, nextAllDayCells,
         'horizontal', cellDurationMinutes, timeTableCells,
-        grouping, resources,
+        grouping, resources, [], false,
       ))
       .toEqual({
         allDayDraftAppointments: [],
@@ -518,7 +518,7 @@ describe('DragDropProvider', () => {
         nextAllDayIndex, shortAppointment, startViewDate,
         endViewDate, excludedDays, viewCellsData, nextAllDayCells,
         targetType, cellDurationMinutes, timeTableCells,
-        grouping, resources,
+        grouping, resources, [], false,
       ))
       .toEqual({
         allDayDraftAppointments: [],
@@ -531,12 +531,49 @@ describe('DragDropProvider', () => {
         nextAllDayIndex, draftAppointments, startViewDate,
         endViewDate, excludedDays, viewCellsData, allDayCells,
         targetType, cellDurationMinutes, timeTableCells,
-        grouping, resources,
+        grouping, resources, [], false,
       ))
       .toEqual({
         allDayDraftAppointments: [],
         timeTableDraftAppointments: [{}],
       });
+    });
+    it('should work with groups', () => {
+      calculateDraftAppointments(
+        -1, draftAppointments, 'startViewDate',
+        'endViewDate', 'excludedDays', 'viewCellsData', allDayCells,
+        'vertical', 'cellDurationMinutes', 'timeTableCells',
+        'grouping', 'resources', 'groups', 'groupByDate',
+      );
+      expect(verticalTimeTableRects)
+        .toBeCalledWith(
+          [{}], 'startViewDate', 'endViewDate', 'excludedDays', 'viewCellsData', 'cellDurationMinutes',
+          'timeTableCells', 'grouping', 'resources', 'groups',
+        );
+
+      calculateDraftAppointments(
+        1, draftAppointments, 'startViewDate',
+        'endViewDate', 'excludedDays', 'viewCellsData', allDayCells,
+        'horizontal', 'cellDurationMinutes', 'timeTableCells',
+        'grouping', 'resources', 'groups', 'groupByDate',
+      );
+      expect(allDayRects)
+        .toBeCalledWith(
+          [{ allDay: true }], 'startViewDate', 'endViewDate', 'excludedDays', 'viewCellsData',
+          allDayCells, 'grouping', 'resources', 'groups', 'groupByDate',
+        );
+
+      calculateDraftAppointments(
+        -1, draftAppointments, 'startViewDate',
+        'endViewDate', 'excludedDays', 'viewCellsData', allDayCells,
+        'horizontal', 'cellDurationMinutes', 'timeTableCells',
+        'grouping', 'resources', 'groups', 'groupByDate',
+      );
+      expect(verticalTimeTableRects)
+        .toBeCalledWith(
+          [{}], 'startViewDate', 'endViewDate', 'excludedDays', 'viewCellsData', 'cellDurationMinutes',
+          'timeTableCells', 'grouping', 'resources', 'groups',
+        );
     });
   });
 

@@ -1,6 +1,9 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import { green, lightBlue } from '@material-ui/core/colors';
+import { withStyles } from '@material-ui/core/styles';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import {
   ViewState, EditingState, GroupingState, IntegratedGrouping, IntegratedEditing,
 } from '@devexpress/dx-react-scheduler';
@@ -24,6 +27,34 @@ const priorityData = [
   { text: 'High Priority', id: 2, color: green },
 ];
 
+const styles = ({ spacing, palette, typography }) => ({
+  formControlLabel: {
+    padding: spacing(2),
+    paddingLeft: spacing(10),
+  },
+  text: {
+    ...typography.caption,
+    color: palette.text.secondary,
+    fontWeight: 'bold',
+    fontSize: '1rem',
+  },
+});
+
+const GroupOrderSwitcher = withStyles(styles, { name: 'ResourceSwitcher' })(
+  ({
+    isGroupByDate, onChange, classes,
+  }) => (
+    <FormControlLabel
+      control={
+        <Checkbox checked={isGroupByDate} onChange={onChange} color="primary" />
+      }
+      label="Group by Date First"
+      className={classes.formControlLabel}
+      classes={{ label: classes.text }}
+    />
+  ),
+);
+
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -38,9 +69,17 @@ export default class Demo extends React.PureComponent {
         resourceName: 'priorityId',
       }],
       groupByDate,
+      isGroupByDate: true,
     };
 
     this.commitChanges = this.commitChanges.bind(this);
+    this.onGroupOrderChange = () => {
+      const { isGroupByDate } = this.state;
+      this.setState({
+        isGroupByDate: !isGroupByDate,
+        groupByDate: isGroupByDate ? undefined : groupByDate,
+      });
+    };
   }
 
   commitChanges({ added, changed, deleted }) {
@@ -63,47 +102,50 @@ export default class Demo extends React.PureComponent {
 
   render() {
     const {
-      data, resources, grouping, groupByDate: groupingByDate,
+      data, resources, grouping, groupByDate: groupingByDate, isGroupByDate,
     } = this.state;
 
     return (
-      <Paper>
-        <Scheduler
-          data={data}
-          height={660}
-        >
-          <ViewState
-            defaultCurrentDate="2018-05-30"
-          />
-          <EditingState
-            onCommitChanges={this.commitChanges}
-          />
-          <GroupingState
-            grouping={grouping}
-            groupByDate={groupingByDate}
-          />
+      <>
+        <GroupOrderSwitcher isGroupByDate={isGroupByDate} onChange={this.onGroupOrderChange} />
+        <Paper>
+          <Scheduler
+            data={data}
+            height={660}
+          >
+            <ViewState
+              defaultCurrentDate="2018-05-30"
+            />
+            <EditingState
+              onCommitChanges={this.commitChanges}
+            />
+            <GroupingState
+              grouping={grouping}
+              groupByDate={groupingByDate}
+            />
 
-          <WeekView
-            startDayHour={9}
-            endDayHour={17}
-            excludedDays={[0, 6]}
-          />
-          <Appointments />
-          <AllDayPanel />
-          <Resources
-            data={resources}
-            mainResourceName="priorityId"
-          />
+            <WeekView
+              startDayHour={9}
+              endDayHour={17}
+              excludedDays={[0, 6]}
+            />
+            <Appointments />
+            <AllDayPanel />
+            <Resources
+              data={resources}
+              mainResourceName="priorityId"
+            />
 
-          <IntegratedGrouping />
-          <IntegratedEditing />
-          <AppointmentTooltip />
-          <AppointmentForm />
+            <IntegratedGrouping />
+            <IntegratedEditing />
+            <AppointmentTooltip />
+            <AppointmentForm />
 
-          <GroupingPanel />
-          <DragDropProvider />
-        </Scheduler>
-      </Paper>
+            <GroupingPanel />
+            <DragDropProvider />
+          </Scheduler>
+        </Paper>
+      </>
     );
   }
 }

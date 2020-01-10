@@ -39,3 +39,9 @@ In addition, the `GroupingPanel` plugin has properties that customize the groupi
 The following example shows how to use the properties mentioned above:
 
 .embedded-demo({ "path": "scheduler-grouping/custom", "showThemeSelector": true })
+
+## Grouping by Date
+
+The example below shows how to group appointments by date and then by resource. To group by date, use the `GroupingState`'s `groupByDate` property. You can change this order by clicking "Group by Date First" above the Scheduler.
+
+.embedded-demo({ "path": "scheduler-grouping/group-by-dates", "showThemeSelector": true })

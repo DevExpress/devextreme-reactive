@@ -143,7 +143,7 @@ class GridExporterBase extends React.PureComponent<any, any> {
       worksheet.addRow({});
       worksheet.lastRow!.outlineLevel = outlineLevels[groupedBy] + 1;
 
-      const ranges = findRanges(groupTree, compoundKey, outlineLevels[groupedBy], maxLevel, []);
+      const ranges = findRanges(groupTree, compoundKey, outlineLevels[groupedBy], maxLevel);
 
       groupSummaryItems.forEach((s) => {
         exportSummary(s, ranges)
@@ -154,7 +154,7 @@ class GridExporterBase extends React.PureComponent<any, any> {
       worksheet.addRow({});
 
       totalSummaryItems.forEach((s) => {
-        exportSummary(s, findRanges(groupTree, ROOT_GROUP, -1, maxLevel, []));
+        exportSummary(s, findRanges(groupTree, ROOT_GROUP, -1, maxLevel));
       });
     };
 

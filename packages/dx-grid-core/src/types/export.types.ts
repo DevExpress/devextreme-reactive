@@ -11,6 +11,6 @@ export type BuildGroupTreeFn = PureComputed<
   GroupTree
 >;
 export type FindRangesFn = PureComputed<
-  [GroupTree, string, number, number, Array<number[]>],
+  [GroupTree, string, number, number, Array<number[]>?],
   Array<number[]>
 >;

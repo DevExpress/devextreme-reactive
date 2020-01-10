@@ -9,7 +9,7 @@ export const filterSelectedRows: FilterSelectedRowsFn = (rows, getRowId, selecti
 
 export const exportHeader = (worksheet: Excel.Worksheet, columns: TableColumn[]) => {
   const cols = columns
-    .map(({ column, width }) => ({ ...column!, width: (width as number || 150 / 8) }))
+    .map(({ column, width }) => ({ ...column!, width: (width as number || 150) / 8 }))
     .map(({ name, width }) => ({
       key: name, width,
     }));
@@ -87,7 +87,7 @@ export const buildGroupTree: BuildGroupTreeFn = (
   return groupTree;
 };
 
-export const findRanges: FindRangesFn = (groupTree, compoundKey, level, maxLevel, result) => {
+export const findRanges: FindRangesFn = (groupTree, compoundKey, level, maxLevel, result = []) => {
   if (level !== maxLevel) {
     const ranges = (groupTree[compoundKey] as string[]).reduce((acc, groupKey) => (
       [...acc, ...findRanges(groupTree, groupKey, level + 1, maxLevel, result)]

@@ -9,18 +9,18 @@ export const Layout = React.memo(({
   groupingPanelComponent: GroupingPanel,
   cellsData,
   formatDate,
-  groupPanelAfterDates,
+  isGroupingPanelAfterDates,
   ...restProps
 }) => (
   <Table
     cellsNumber={cellsData[0].length}
     {...restProps}
   >
-    {!groupPanelAfterDates && (
+    {!isGroupingPanelAfterDates && (
       <GroupingPanel />
     )}
     <Row>
-      {getDayScaleCells(cellsData, groupPanelAfterDates, Cell, formatDate).map(({
+      {getDayScaleCells(cellsData, isGroupingPanelAfterDates, Cell, formatDate).map(({
         startDate, endDate, today, key,
         hasRightBorder, groupingInfo, colSpan,
       }) => (
@@ -36,7 +36,7 @@ export const Layout = React.memo(({
         />
       ))}
     </Row>
-    {groupPanelAfterDates && (
+    {isGroupingPanelAfterDates && (
       <GroupingPanel />
     )}
   </Table>
@@ -48,9 +48,9 @@ Layout.propTypes = {
   rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   groupingPanelComponent: PropTypes.func,
   formatDate: PropTypes.func.isRequired,
-  groupPanelAfterDates: PropTypes.bool,
+  isGroupingPanelAfterDates: PropTypes.bool,
 };
 Layout.defaultProps = {
   groupingPanelComponent: () => null,
-  groupPanelAfterDates: false,
+  isGroupingPanelAfterDates: false,
 };

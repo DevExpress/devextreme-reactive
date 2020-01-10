@@ -202,7 +202,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
                   groupingPanelComponent={GroupingPanelPlaceholder}
                   cellsData={viewCellsData}
                   formatDate={formatDate}
-                  groupPanelAfterDates={isGroupByDate}
+                  isGroupingPanelAfterDates={isGroupByDate}
                 />
               );
             }}

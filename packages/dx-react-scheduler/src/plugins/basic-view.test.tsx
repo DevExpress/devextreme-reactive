@@ -316,7 +316,7 @@ describe('Basic View', () => {
           cellComponent: defaultProps.dayScaleCellComponent,
           rowComponent: defaultProps.dayScaleRowComponent,
           cellsData: [[{}, {}], [{}, {}]],
-          groupPanelAfterDates: 'groupByDate',
+          isGroupingPanelAfterDates: 'groupByDate',
         });
     });
     it('should render time table', () => {

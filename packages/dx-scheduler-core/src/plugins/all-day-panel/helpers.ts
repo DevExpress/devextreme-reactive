@@ -67,7 +67,7 @@ export const sliceAppointmentsByDays: PureComputed<
   const startDate = appointment.start;
   const endDate = appointment.end;
   let nextStart = startDate.clone();
-  const appointments = [];
+  const appointments = [] as AppointmentMoment[];
 
   while (nextStart.isBefore(endDate)) {
     if (excludedDays.findIndex(day => day === nextStart.day()) === - 1) {

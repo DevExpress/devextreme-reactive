@@ -200,6 +200,8 @@ describe('AllDayPanel helpers', () => {
       };
 
       const appointments = sliceAppointmentsByDays(appointment, []);
+      expect(appointments)
+        .toHaveLength(1);
       expect(appointments[0].start.format())
         .toEqual(moment(new Date(2020, 0, 1, 0, 0)).format());
       expect(appointments[0].end.format())
@@ -213,6 +215,8 @@ describe('AllDayPanel helpers', () => {
       };
 
       const appointments = sliceAppointmentsByDays(appointment, []);
+      expect(appointments)
+        .toHaveLength(2);
       expect(appointments[0].start.format())
         .toEqual(moment(new Date(2020, 0, 1, 0, 0)).format());
       expect(appointments[0].end.format())
@@ -231,6 +235,8 @@ describe('AllDayPanel helpers', () => {
       const excludedDys = [4];
 
       const appointments = sliceAppointmentsByDays(appointment, excludedDys);
+      expect(appointments)
+        .toHaveLength(2);
       expect(appointments[0].start.format())
         .toEqual(moment(new Date(2020, 0, 1, 0, 0)).format());
       expect(appointments[0].end.format())

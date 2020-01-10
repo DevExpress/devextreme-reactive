@@ -440,6 +440,7 @@ export namespace BaseView {
         cellsData: BaseView.CellData[][];
         formatDate: FormatterFn;
         groupingPanelComponent?: React.ComponentType<GroupingPanel.HorizontalLayoutProps>;
+        isGroupingPanelAfterDates?: boolean;
         rowComponent: React.ComponentType<BaseView.RowProps>;
     }
     export interface LayoutProps {
@@ -792,6 +793,7 @@ export namespace GroupingPanel {
     children?: React.ReactNode;
     colSpan: number;
     group: Group;
+    hasBrightBorder?: boolean;
     left: number;
   }
   export interface HorizontalLayoutProps {
@@ -800,6 +802,7 @@ export namespace GroupingPanel {
     colSpan: number;
     groups: Array<Array<Group>>;
     rowComponent: React.ComponentType<GroupingPanel.RowProps>;
+    showHeaderForEveryDate?: boolean;
   }
   export interface RowProps extends BaseView.RowProps {
   }
@@ -819,7 +822,7 @@ export const GroupingState: React.ComponentType<GroupingStateProps>;
 export interface GroupingStateProps {
   defaultExpandedGroups?: Array<GroupKey>;
   expandedGroups?: Array<GroupKey>;
-  groupByDate?: (view: string) => boolean;
+  groupByDate?: (viewName: string) => boolean;
   grouping?: Array<Grouping>;
   // (undocumented)
   groupOrientation?: (view: string) => GroupOrientation;

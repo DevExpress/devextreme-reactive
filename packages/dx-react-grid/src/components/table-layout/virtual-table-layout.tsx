@@ -295,6 +295,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       cellComponent,
       rowComponent,
       viewport,
+      scrollTop,
     } = this.props;
     const {
       headerHeight,
@@ -321,6 +322,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
           ...(height === AUTO_HEIGHT ? null : { height }),
         }}
         onScroll={this.onScroll}
+        scrollTop={scrollTop}
       >
         {
           (!!headerRows.length) && (

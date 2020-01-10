@@ -1,0 +1,114 @@
+import React, { useState, useRef, useCallback } from 'react';<%&additionalImports%>
+import {
+  EditingState,
+  SortingState,
+  IntegratedSorting,
+} from '@devexpress/dx-react-grid';
+import {
+  Grid,
+  VirtualTable,
+  TableHeaderRow,
+  TableEditColumn,
+  TableEditRow,
+} from '@devexpress/dx-react-grid-<%&themeName%>';
+
+import {
+  generateRows,
+  defaultColumnValues,
+} from '../../../demo-data/generator';
+
+const getRowId = row => row.id;
+
+export default () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'gender', title: 'Gender' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows, setRows] = useState(generateRows({
+    columnValues: { id: ({ index }) => index, ...defaultColumnValues },
+    length: 100000,
+  }));
+  const [tableColumnExtensions] = useState([
+    { columnName: 'id', width: 75 },
+  ]);
+  const vtRef = useRef();
+
+  const scrollToRow = useCallback((rowId) => {
+    vtRef.current.scrollToRow(rowId);
+  }, [vtRef]);
+
+  const commitChanges = ({ added, changed, deleted }) => {
+    let changedRows;
+    let startingAddedId;
+    if (added) {
+      startingAddedId = rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
+      changedRows = [
+        ...rows,
+        ...added.map((row, index) => ({
+          id: startingAddedId + index,
+          ...row,
+        })),
+      ];
+    }
+    if (changed) {
+      changedRows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+    }
+    if (deleted) {
+      const deletedSet = new Set(deleted);
+      changedRows = rows.filter(row => !deletedSet.has(row.id));
+    }
+
+    setRows(changedRows);
+    if (added) scrollToRow(startingAddedId);
+  };
+
+  const commandWithScroll = useCallback((props) => {
+    const { id, onExecute } = props;
+    if (id === 'add') {
+      return (
+        <TableEditColumn.Command
+          {...props}
+          onExecute={() => {
+            scrollToRow(VirtualTable.TOP_POSITION);
+            onExecute();
+          }}
+        />
+      );
+    }
+    return <TableEditColumn.Command {...props} />;
+  }, [scrollToRow]);
+
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+        getRowId={getRowId}
+      >
+        <EditingState
+          defaultAddedRows={generateRows({ length: 1 })}
+          onCommitChanges={commitChanges}
+        />
+        <SortingState
+          sorting={[{ columnName: 'name', direction: 'asc' }]}
+        />
+        <IntegratedSorting />
+        <VirtualTable
+          columnExtensions={tableColumnExtensions}
+          ref={vtRef}
+        />
+        <TableHeaderRow
+          showSortingControls
+        />
+        <TableEditRow />
+        <TableEditColumn
+          showAddCommand
+          showDeleteCommand
+          commandComponent={commandWithScroll}
+        />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

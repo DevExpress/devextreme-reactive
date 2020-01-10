@@ -1478,6 +1478,7 @@ export interface VirtualTableProps {
     messages?: Table.LocalizationMessages;
     noDataCellComponent: React.ComponentType<Table.NoDataCellProps>;
     noDataRowComponent: React.ComponentType<Table.RowProps>;
+    onTopRowChange: (rowId: number | string | symbol) => void;
     rowComponent: React.ComponentType<Table.DataRowProps>;
     // (undocumented)
     skeletonCellComponent: React.ComponentType<Table.CellProps>;

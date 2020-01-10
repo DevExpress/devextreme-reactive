@@ -31,11 +31,11 @@ export const addGroupInfoToCell: PureComputed<
 > = (currentGroup, groups, sortedResources, viewCell, index) => {
   let previousIndex = index;
   const groupingInfo = groups.reduceRight((
-    acc: Group[], groupingItem: Group[], currentIndex: number,
+    acc: Group[], group: Group[], currentIndex: number,
   ) => {
     if (currentIndex === groups.length - 1) return acc;
     const previousResourceLength = sortedResources[currentIndex + 1].instances.length;
-    const currentGroupingInstance = groupingItem[Math.floor(
+    const currentGroupingInstance = group[Math.floor(
       previousIndex / previousResourceLength,
     )];
     previousIndex = currentIndex;

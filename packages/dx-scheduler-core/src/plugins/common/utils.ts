@@ -2,7 +2,7 @@ import moment, { Moment } from 'moment';
 import { ViewCell } from '../../types';
 import { PureComputed } from '@devexpress/dx-core';
 
-export const getColSpan: PureComputed<
+export const getDayScaleCellColSpan: PureComputed<
   [ViewCell[][]], number
 > = (cellsData) => {
   const firstDate = moment(cellsData[0][0].startDate);
@@ -14,8 +14,8 @@ export const getColSpan: PureComputed<
 };
 
 export const getDayScaleCells: PureComputed<
-[ViewCell[][], boolean, () => any], ViewCell[]
-> = (cellsData, isGroupingPanelAfterDates, formatDate) => {
+[ViewCell[][], boolean], ViewCell[]
+> = (cellsData, isGroupingPanelAfterDates) => {
   if (!isGroupingPanelAfterDates) {
     return cellsData[0].map(({
       startDate, endDate, today,
@@ -23,13 +23,13 @@ export const getDayScaleCells: PureComputed<
     }, index) => ({
       key: index.toString(),
       startDate, endDate, today,
-      formatDate, hasRightBorder, groupingInfo,
+      hasRightBorder, groupingInfo,
     }));
   }
   let prevDate: Moment;
-  const colSpan = getColSpan(cellsData);
+  const colSpan = getDayScaleCellColSpan(cellsData);
   return cellsData[0].reduce((acc, {
-    startDate, endDate, today, groupingInfo,
+    startDate, endDate, today,
   }, index) => {
     const currentDate = moment(startDate);
     if (currentDate.isSame(prevDate)) {
@@ -40,9 +40,9 @@ export const getDayScaleCells: PureComputed<
       ...acc,
       ({
         key: index.toString(),
-        startDate, endDate, today, formatDate,
+        startDate, endDate, today,
         hasRightBorder: true,
-        groupingInfo, colSpan,
+        colSpan,
       }),
     ];
   }, [] as ViewCell[]);

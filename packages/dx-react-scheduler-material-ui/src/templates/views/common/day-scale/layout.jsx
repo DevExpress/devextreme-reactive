@@ -20,7 +20,7 @@ export const Layout = React.memo(({
       <GroupingPanel />
     )}
     <Row>
-      {getDayScaleCells(cellsData, isGroupingPanelAfterDates, Cell, formatDate).map(({
+      {getDayScaleCells(cellsData, isGroupingPanelAfterDates).map(({
         startDate, endDate, today, key,
         hasRightBorder, groupingInfo, colSpan,
       }) => (

@@ -1,6 +1,6 @@
 # PagingPanel Plugin Reference
 
-A plugin that renders the paging panel used for navigation through data pages.
+A plugin that renders the paging panel used for navigation through data pages. The panel occupies the entire Grid footer.
 
 ## Import
 

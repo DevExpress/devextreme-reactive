@@ -22,6 +22,9 @@ const useStyles = makeStyles(theme => ({
     '&:last-child': {
       borderRight: 'none',
     },
+    'tr:nth-child(2n) &': {
+      borderTop: getBorder(theme),
+    },
   },
   text: {
     ...theme.typography.caption,

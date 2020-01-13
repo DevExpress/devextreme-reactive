@@ -55,5 +55,5 @@ export type RectCalculatorBaseFn = PureComputed<
 >;
 /** @internal */
 export type CalculateRectByDateAndGroupIntervalsFn = PureComputed<
-  [any, AppointmentMoment[][], (...args: any) => any, any], ElementRect[]
+  [any, AppointmentMoment[][], (...args: any) => any, any, boolean], ElementRect[]
 >;

@@ -548,7 +548,7 @@ describe('DragDropProvider', () => {
       expect(verticalTimeTableRects)
         .toBeCalledWith(
           [{}], 'startViewDate', 'endViewDate', 'excludedDays', 'viewCellsData', 'cellDurationMinutes',
-          'timeTableCells', 'grouping', 'resources', 'groups',
+          'timeTableCells', 'grouping', 'resources', 'groups', 'groupByDate',
         );
 
       calculateDraftAppointments(
@@ -572,7 +572,7 @@ describe('DragDropProvider', () => {
       expect(verticalTimeTableRects)
         .toBeCalledWith(
           [{}], 'startViewDate', 'endViewDate', 'excludedDays', 'viewCellsData', 'cellDurationMinutes',
-          'timeTableCells', 'grouping', 'resources', 'groups',
+          'timeTableCells', 'grouping', 'resources', 'groups', 'groupByDate',
         );
     });
   });

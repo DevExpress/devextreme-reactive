@@ -32,10 +32,14 @@ const getGroupingComputed = (
   { grouping, resources }: Getters,
 ) => updateGroupingWithMainResource(grouping, resources);
 
-const getTimeTableAppointmentsComputed = (
-  { timeTableAppointments, grouping, resourcesToGroupBy, groups, excludedDays }: Getters,
-) => timeTableAppointments
-  && expandGroups(timeTableAppointments, grouping, resourcesToGroupBy, groups, excludedDays, false);
+const getTimeTableAppointmentsComputed = ({
+  timeTableAppointments, grouping, resourcesToGroupBy,
+  groups, groupByDate, currentView, excludedDays,
+}: Getters) => timeTableAppointments
+  && expandGroups(
+    timeTableAppointments, grouping, resourcesToGroupBy, groups,
+    excludedDays, groupByDate(currentView?.name) && currentView?.type === 'month',
+  );
 
 const getAllDayAppointmentsComputed = ({
     allDayAppointments, grouping, resourcesToGroupBy,
@@ -43,7 +47,7 @@ const getAllDayAppointmentsComputed = ({
   }: Getters) => allDayAppointments &&
   expandGroups(
     allDayAppointments, grouping, resourcesToGroupBy,
-    groups, excludedDays, groupByDate(currentView && currentView.name),
+    groups, excludedDays, groupByDate(currentView?.name),
   );
 
 const IntegratedGroupingBase: React.SFC<IntegratedGroupingProps> = React.memo(() => (

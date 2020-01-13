@@ -32,5 +32,5 @@ export type SliceAppointmentByWeekFn = PureComputed<
 >;
 /** @internal */
 export type GetMonthCellIndexByAppointmentDataFn = PureComputed<
-  [ViewCellData[][], SchedulerDateTime, AppointmentMoment, boolean], AppointmentId
+  [ViewCellData[][], SchedulerDateTime, AppointmentMoment, boolean, boolean], AppointmentId
 >;

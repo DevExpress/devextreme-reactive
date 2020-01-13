@@ -16,10 +16,13 @@ import {
   DragDropProvider,
   GroupingPanel,
   WeekView,
+  MonthView,
+  Toolbar,
+  ViewSwitcher,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { data as appointments } from '../../../demo-data/grouping';
 
-const groupByDate = viewName => viewName === 'Week';
+const isWeekOrMonthView = viewName => viewName === 'Week' || viewName === 'Month';
 
 const priorityData = [
   { text: 'Low Priority', id: 1, color: lightBlue },
@@ -67,7 +70,7 @@ export default class Demo extends React.PureComponent {
       grouping: [{
         resourceName: 'priorityId',
       }],
-      groupByDate,
+      groupByDate: isWeekOrMonthView,
       isGroupByDate: true,
     };
 
@@ -76,7 +79,7 @@ export default class Demo extends React.PureComponent {
       const { isGroupByDate } = this.state;
       this.setState({
         isGroupByDate: !isGroupByDate,
-        groupByDate: isGroupByDate ? undefined : groupByDate,
+        groupByDate: isGroupByDate ? undefined : isWeekOrMonthView,
       });
     };
   }
@@ -101,7 +104,7 @@ export default class Demo extends React.PureComponent {
 
   render() {
     const {
-      data, resources, grouping, groupByDate: groupingByDate, isGroupByDate,
+      data, resources, grouping, groupByDate, isGroupByDate,
     } = this.state;
 
     return (
@@ -120,7 +123,7 @@ export default class Demo extends React.PureComponent {
             />
             <GroupingState
               grouping={grouping}
-              groupByDate={groupingByDate}
+              groupByDate={groupByDate}
             />
 
             <WeekView
@@ -128,6 +131,7 @@ export default class Demo extends React.PureComponent {
               endDayHour={17}
               excludedDays={[0, 6]}
             />
+            <MonthView />
 
             <Appointments />
             <Resources
@@ -140,6 +144,8 @@ export default class Demo extends React.PureComponent {
             <AppointmentTooltip />
             <AppointmentForm />
 
+            <Toolbar />
+            <ViewSwitcher />
             <GroupingPanel />
             <DragDropProvider />
           </Scheduler>

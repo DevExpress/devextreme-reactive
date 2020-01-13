@@ -45,11 +45,11 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
                 groups={groups}
                 colSpan={viewCellsData[0].length}
                 cellStyle={{
-                  left: currentView && currentView.type === 'month'
+                  left: currentView?.type === 'month'
                   ? HORIZONTAL_VIEW_LEFT_OFFSET
                   : VERTICAL_VIEW_LEFT_OFFSET,
                 }}
-                showHeaderForEveryDate={groupByDate && groupByDate(currentView && currentView.name)}
+                showHeaderForEveryDate={groupByDate && groupByDate(currentView?.name)}
               />
             )}
           </TemplateConnector>

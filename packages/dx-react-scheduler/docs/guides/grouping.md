@@ -45,5 +45,3 @@ The following example shows how to use the properties mentioned above:
 The example below shows how to group appointments by date and then by resource. To group by date, use the `GroupingState`'s `groupByDate` property. You can change this order by clicking "Group by Date First" above the Scheduler.
 
 .embedded-demo({ "path": "scheduler-grouping/group-by-dates", "showThemeSelector": true })
-
-It is worth mentioning that grouping by date doesn't work with the [MonthView](./month-view.md) plugin) due to how the timetable cells are distributed in the Scheduler.

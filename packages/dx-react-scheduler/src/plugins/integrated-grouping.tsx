@@ -17,7 +17,7 @@ const pluginDependencies = [
 const getViewCellsDataComputed = (
   { viewCellsData, groups, resourcesToGroupBy, groupByDate, currentView }: Getters,
 ) => expandViewCellsDataWithGroups(
-  viewCellsData, groups, resourcesToGroupBy, groupByDate(currentView.name),
+  viewCellsData, groups, resourcesToGroupBy, groupByDate(currentView?.name),
 );
 
 const getGroupsComputed = (

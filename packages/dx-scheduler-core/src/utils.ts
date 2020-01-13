@@ -332,7 +332,9 @@ export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIn
     : verticalRectCalculator;
 
   return unwrapGroups(adjustAppointments(grouped as any[], isHorizontal))
-    .map(appointment => rectCalculator(appointment, { rectByDates, multiline, rectByDatesMeta, groupByDate }));
+    .map(appointment => rectCalculator(
+      appointment, { rectByDates, multiline, rectByDatesMeta, groupByDate },
+    ));
 };
 
 const expandRecurrenceAppointment = (

@@ -1,4 +1,4 @@
-import { findRanges, buildGroupTree, exportHeader } from './helpers';
+import { findRanges, buildGroupTree, exportHeader, exportRows } from './helpers';
 import { ROOT_GROUP } from './constants';
 
 describe('export helpers', () => {
@@ -150,6 +150,139 @@ describe('export helpers', () => {
         groupTree, ROOT_GROUP, -1, 1,
       ))
         .toEqual([[4, 10], [12, 15], [18, 23], [25, 30]]);
+    });
+  });
+
+  describe('#exportRows', () => {
+    const dataColumns = ['a', 'b', 'c'].map((name) => ({ name, title: name }));
+    const tableColumns = dataColumns.map((column) => ({ column }));
+    const getCellValue = (row, name) => row[name];
+    const cells = [{}, {}, {}];
+    let worksheet;
+    let cellStub;
+    let rows;
+    const closeGroup = jest.fn();
+    const customizeCell = jest.fn();
+    const getCell = jest.fn();
+    const eachCell = jest.fn().mockImplementation((callback) => {
+      cells.forEach((cell, index) => callback(cell, index + 1));
+    });
+    let lastRowStub;
+
+    beforeEach(() => {
+      lastRowStub = {
+        number: 'last index',
+        getCell,
+        eachCell,
+      };
+      cellStub = {};
+      getCell.mockReturnValue(cellStub);
+      worksheet = {
+        addRow: jest.fn(),
+        mergeCells: jest.fn(),
+        lastRow: lastRowStub,
+      }
+    });
+    afterEach(jest.clearAllMocks);
+
+    describe('data rows', () => {
+      const dataRows = [
+        { a: 1, b: 2, c: 3 },
+        { a: 4, b: 5, c: 6 },
+      ];
+      beforeEach(() => {
+        exportRows(
+          worksheet, dataRows, dataColumns, tableColumns, {},
+          getCellValue, closeGroup, customizeCell,
+        );
+      });
+
+      it('should export all rows', () => { 
+        expect(worksheet.addRow)
+          .toHaveBeenCalledTimes(2);
+        expect(worksheet.addRow)
+          .toHaveBeenNthCalledWith(1, dataRows[0]);
+        expect(worksheet.addRow)
+          .toHaveBeenNthCalledWith(2, dataRows[1]);
+      });
+
+      it('should customize each cell', () => {
+        expect(customizeCell)
+          .toHaveBeenCalledTimes(6);
+        expect(customizeCell)
+          .toHaveBeenNthCalledWith(1, cells[0], dataRows[0], dataColumns[0]);
+        expect(customizeCell)
+          .toHaveBeenNthCalledWith(2, cells[1], dataRows[0], dataColumns[1]);
+        expect(customizeCell)
+          .toHaveBeenNthCalledWith(3, cells[2], dataRows[0], dataColumns[2]);
+        expect(customizeCell)
+          .toHaveBeenNthCalledWith(4, cells[0], dataRows[1], dataColumns[0]);
+        expect(customizeCell)
+          .toHaveBeenNthCalledWith(5, cells[1], dataRows[1], dataColumns[1]);
+        expect(customizeCell)
+          .toHaveBeenNthCalledWith(6, cells[2], dataRows[1], dataColumns[2]);
+      });
+    });
+
+    describe('group rows', () => {
+      const groupRows = [
+        { groupedBy: 'a', compoundKey: 'a_0', value: 'group A' },
+        { groupedBy: 'b', compoundKey: 'a_0|b', value: 'group B' },
+        { a: 1, b: 2, c: 3 },
+      ];
+      const outlineLevels = { a: 0, b: 1 };
+      const rows = [];
+
+      beforeEach(() => {
+        worksheet.addRow.mockImplementation((row) => {
+          rows.push({
+            ...lastRowStub,
+            ...row,
+          });
+        });
+        Object.defineProperty(worksheet, 'lastRow', {
+          get: () => rows[rows.length - 1],
+        });
+
+        exportRows(
+          worksheet, groupRows, dataColumns, tableColumns, outlineLevels,
+          getCellValue, closeGroup, customizeCell,
+        );
+      })
+
+      it('should export group rows', () => {
+        expect(worksheet.addRow)
+          .toHaveBeenCalledTimes(3);
+        expect(worksheet.addRow)
+          .toHaveBeenNthCalledWith(1, { a: 'a: group A' });
+        expect(worksheet.addRow)
+          .toHaveBeenNthCalledWith(2, { a: 'b: group B' });
+        expect(worksheet.addRow)
+          .toHaveBeenNthCalledWith(3, groupRows[2]);
+      });
+
+      it('should merge group cells', () => {
+        expect(worksheet.mergeCells)
+          .toHaveBeenCalledTimes(2);
+        expect(worksheet.mergeCells)
+          .toHaveBeenNthCalledWith(1, 'last index', 1, 'last index', 3);
+        expect(worksheet.mergeCells)
+          .toHaveBeenNthCalledWith(2, 'last index', 1, 'last index', 3);
+      });
+
+      it('should set outline levels', () => {
+        expect(rows[0].outlineLevel)
+          .toBe(undefined);
+        expect(rows[1].outlineLevel)
+          .toBe(1);
+        expect(rows[2].outlineLevel)
+          .toBe(2);
+      });
+
+      it('should apply bold font', () => {
+        expect(cellStub.font)
+          .toEqual({ bold: true });
+      });
     });
   });
 });

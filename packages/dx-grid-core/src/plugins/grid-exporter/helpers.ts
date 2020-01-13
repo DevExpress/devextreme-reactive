@@ -1,5 +1,5 @@
 import * as Excel from 'exceljs';
-import { TableColumn, FilterSelectedRowsFn, BuildGroupTreeFn, FindRangesFn } from "../../types";
+import { TableColumn, FilterSelectedRowsFn, BuildGroupTreeFn, FindRangesFn, ExportRowsFn } from "../../types";
 import { ROOT_GROUP } from './constants';
 
 export const filterSelectedRows: FilterSelectedRowsFn = (rows, getRowId, selection) => {
@@ -97,3 +97,54 @@ export const findRanges: FindRangesFn = (groupTree, compoundKey, level, maxLevel
     return [...result, groupTree[compoundKey] as number[]];
   }
 };
+
+export const exportRows: ExportRowsFn = (
+  worksheet, allRows, dataColumns, columns, outlineLevels,
+  getCellValue, closeGroup, customizeCell,
+) => {
+  let currentLevel = 0;
+  let openGroups: any[] = [];
+
+  allRows.forEach((row) => {
+    let r;
+
+    if (row.groupedBy) {
+      currentLevel = outlineLevels[row.groupedBy];
+
+      // close nested groups first
+      openGroups.slice(currentLevel).reverse().forEach(closeGroup);
+
+      openGroups = openGroups.slice(0, currentLevel);
+      openGroups[currentLevel] = { groupedBy: row.groupedBy, compoundKey: row.compoundKey };
+
+      // add group row 
+      const title = dataColumns.find(({ name }) => name === row.groupedBy)?.title;
+      r = { [columns[0].column!.name]: `${title}: ${row.value}` };
+      
+      worksheet.addRow(r);
+      const lastIndex = worksheet.lastRow!.number;
+
+      // merge into single cell
+      worksheet.mergeCells(lastIndex, 1, lastIndex, columns.length);
+      worksheet.lastRow!.getCell(1).font = { bold: true };
+
+      if (currentLevel > 0) {
+        worksheet.lastRow!.outlineLevel = currentLevel;
+      }
+      currentLevel += 1;
+    } else {
+      r = columns.reduce((acc, { column }) => ({
+        ...acc,
+        ...(column ? { [column.name]: getCellValue(row, column.name) } : null),
+      }), {});
+      worksheet.addRow(r);
+      worksheet.lastRow!.outlineLevel = currentLevel; 
+    }
+
+    worksheet.lastRow!.eachCell((cell, colNumber) => {
+      customizeCell(cell, row, columns[colNumber - 1].column!);
+    });
+  });
+
+  openGroups.reverse().forEach(closeGroup)
+}

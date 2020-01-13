@@ -125,19 +125,19 @@ export default class Demo extends React.PureComponent {
             />
 
             <WeekView
-              startDayHour={9}
+              startDayHour={8.5}
               endDayHour={17}
               excludedDays={[0, 6]}
             />
+
             <Appointments />
-            <AllDayPanel />
             <Resources
               data={resources}
               mainResourceName="priorityId"
             />
-
             <IntegratedGrouping />
             <IntegratedEditing />
+
             <AppointmentTooltip />
             <AppointmentForm />
 

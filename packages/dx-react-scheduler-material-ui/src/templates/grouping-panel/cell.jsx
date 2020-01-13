@@ -32,6 +32,7 @@ const useStyles = makeStyles(theme => ({
     position: 'sticky',
     display: 'inline-block',
     left: ({ left }) => theme.spacing(left / 8),
+    lineHeight: 1.5,
   },
 }));
 

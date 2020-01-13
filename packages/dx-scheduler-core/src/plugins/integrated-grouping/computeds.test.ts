@@ -277,7 +277,7 @@ describe('IntegratedGrouping computeds', () => {
       expect(groupAppointments)
         .toHaveBeenCalledWith(['expandGroupedAppointment'], 'resources', 'groups');
       expect(sliceAppointmentsByDays)
-      .toHaveBeenCalledWith({}, []);
+        .toHaveBeenCalledWith({}, []);
     });
   });
 });

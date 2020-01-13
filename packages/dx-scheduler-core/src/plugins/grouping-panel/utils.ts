@@ -1,5 +1,5 @@
 import { PureComputed } from '@devexpress/dx-core';
-import { Group } from '../../types';
+import { Group, GroupingCellData } from '../../types';
 
 export const getCellKey: PureComputed<
   [Group[][], number, number], string
@@ -17,7 +17,7 @@ export const getCellKey: PureComputed<
 };
 
 export const getRowFromGroups: PureComputed<
-  [number, Group[], any, Group[][], number], any[]
+  [number, Group[], any, Group[][], number], GroupingCellData[]
 > = (width, groupRow, cellStyle, groups, rowIndex) => {
   let row = [] as any[];
   const currentRowLength = groupRow.length;

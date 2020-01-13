@@ -72,7 +72,7 @@ describe('GroupingState', () => {
       <PluginHost>
         <GroupingState
           groupByDate={(viewName) => {
-            if (viewName === 'month') {
+            if (viewName === 'day') {
               return false;
             }
             return true;
@@ -82,7 +82,7 @@ describe('GroupingState', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).groupByDate('month'))
+    expect(getComputedState(tree).groupByDate('day'))
       .toBeFalsy();
     expect(getComputedState(tree).groupByDate('week'))
       .toBeTruthy();

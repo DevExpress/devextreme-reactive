@@ -194,7 +194,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
           <TemplateConnector>
             {({ currentView, viewCellsData, formatDate, groupByDate }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              const isGroupByDate = groupByDate && groupByDate(viewName);
+              const isGroupByDate = groupByDate && groupByDate(viewName) && currentView.type !== 'month';
               return (
                 <DayScale
                   cellComponent={dayScaleCellComponent}

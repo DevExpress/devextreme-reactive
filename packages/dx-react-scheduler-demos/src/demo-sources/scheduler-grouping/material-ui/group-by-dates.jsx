@@ -16,7 +16,6 @@ import {
   DragDropProvider,
   GroupingPanel,
   WeekView,
-  AllDayPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { data as appointments } from '../../../demo-data/grouping';
 

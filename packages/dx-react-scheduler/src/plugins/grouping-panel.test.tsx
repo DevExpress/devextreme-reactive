@@ -20,7 +20,7 @@ describe('GroupingPanel', () => {
       groups: [],
       viewCellsData: [[{}, {}]],
       currentView: {},
-      groupByDate: () => 'groupByDate',
+      groupByDate: () => true,
     },
   };
 
@@ -50,7 +50,7 @@ describe('GroupingPanel', () => {
         cellComponent: defaultProps.cellComponent,
         colSpan: defaultDeps.getter.viewCellsData[0].length,
         groups: defaultDeps.getter.groups,
-        showHeaderForEveryDate: 'groupByDate',
+        showHeaderForEveryDate: true,
       });
   });
 });

@@ -481,7 +481,7 @@ describe('DragDropProvider', () => {
           resources: 'resources',
           groups: 'groups',
           currentView: {},
-          groupByDate: () => 'groupByDate',
+          groupByDate: () => true,
         },
       };
       const payload = {
@@ -520,7 +520,7 @@ describe('DragDropProvider', () => {
           defaultDeps.getter.allDayElementsMeta,
           'vertical', 60,
           deps.getter.timeTableElementsMeta,
-          'grouping', 'resources', 'groups', 'groupByDate',
+          'grouping', 'resources', 'groups', true,
         );
     });
   });

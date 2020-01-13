@@ -300,7 +300,7 @@ describe('Basic View', () => {
             ...defaultDeps,
             getter: {
               ...defaultDeps.getter,
-              groupByDate: () => 'groupByDate',
+              groupByDate: () => true,
             },
           })}
           <BasicView
@@ -316,7 +316,7 @@ describe('Basic View', () => {
           cellComponent: defaultProps.dayScaleCellComponent,
           rowComponent: defaultProps.dayScaleRowComponent,
           cellsData: [[{}, {}], [{}, {}]],
-          isGroupingPanelAfterDates: 'groupByDate',
+          isGroupingPanelAfterDates: true,
         });
     });
     it('should render time table', () => {

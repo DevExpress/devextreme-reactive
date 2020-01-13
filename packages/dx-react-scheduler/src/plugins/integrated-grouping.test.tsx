@@ -28,7 +28,7 @@ describe('IntegratedGrouping', () => {
       resources: 'resources',
       grouping: 'grouping',
       currentView: { name: 'currentView' },
-      groupByDate: () => 'groupByDate',
+      groupByDate: () => true,
       excludedDays: 'excludedDays',
     },
   };
@@ -94,7 +94,7 @@ describe('IntegratedGrouping', () => {
     ));
 
     expect(expandViewCellsDataWithGroups)
-      .toHaveBeenCalledWith('viewCellsData', 'groups', 'resourcesToGroupBy', 'groupByDate');
+      .toHaveBeenCalledWith('viewCellsData', 'groups', 'resourcesToGroupBy', true);
     expect(getComputedState(tree).viewCellsData)
       .toBe('groupedViewCellsData');
   });
@@ -123,7 +123,8 @@ describe('IntegratedGrouping', () => {
 
     expect(expandGroups)
       .toHaveBeenCalledWith(
-        'allDayAppointments', 'groupingComputed', 'resourcesToGroupBy', 'groups', 'excludedDays', 'groupByDate',
+        'allDayAppointments', 'groupingComputed',
+        'resourcesToGroupBy', 'groups', 'excludedDays', true,
       );
     expect(getComputedState(tree).allDayAppointments)
       .toBe('expandGroups');

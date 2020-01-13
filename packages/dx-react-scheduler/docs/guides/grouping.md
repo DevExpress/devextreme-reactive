@@ -24,6 +24,12 @@ A single appointment can appear in multiple groups if it is assigned to [multipl
 
 .embedded-demo({ "path": "scheduler-grouping/basic", "showThemeSelector": true })
 
+## Grouping by Date
+
+The example below shows how to group appointments by date and then by resource. To group by date, use the `GroupingState`'s `groupByDate` property. You can change this order by clicking "Group by Date First" above the Scheduler.
+
+.embedded-demo({ "path": "scheduler-grouping/group-by-dates", "showThemeSelector": true })
+
 ## Move Appointments Between Groups
 
 Users can drag-and-drop appointments between groups or use the appointment edit form to assign an appointment to another resource (group). To enable this, configure [editing](./editing.md):
@@ -39,9 +45,3 @@ In addition, the `GroupingPanel` plugin has properties that customize the groupi
 The following example shows how to use the properties mentioned above:
 
 .embedded-demo({ "path": "scheduler-grouping/custom", "showThemeSelector": true })
-
-## Grouping by Date
-
-The example below shows how to group appointments by date and then by resource. To group by date, use the `GroupingState`'s `groupByDate` property. You can change this order by clicking "Group by Date First" above the Scheduler.
-
-.embedded-demo({ "path": "scheduler-grouping/group-by-dates", "showThemeSelector": true })

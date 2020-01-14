@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
-import { scrollingStrategy } from '../utils';
+import { scrollingStrategy, getBorder, getBrightBorder } from '../utils';
 
 const styles = theme => ({
   container: {
@@ -24,14 +24,26 @@ const styles = theme => ({
     minWidth: '100%',
     display: 'table',
   },
+  ordinaryBorderHeader: {
+    borderBottom: getBorder(theme),
+  },
+  brightBorderHeader: {
+    borderBottom: getBrightBorder(theme),
+  },
 });
 
 class HorizontalViewLayoutBase extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    this.state = {
+      isTopBorderSet: false,
+    };
+
     this.layout = React.createRef();
     this.layoutHeader = React.createRef();
+
+    this.setTopBorder = this.setTopBorder.bind(this);
   }
 
   componentDidMount() {
@@ -48,6 +60,17 @@ class HorizontalViewLayoutBase extends React.PureComponent {
     setScrollingStrategy(scrollingStrategy(this.layout.current, this.layoutHeader.current));
   }
 
+  setTopBorder(event) {
+    const { isTopBorderSet } = this.state;
+
+    // eslint-disable-next-line no-bitwise
+    if (!!event.target.scrollTop ^ isTopBorderSet) {
+      this.setState({
+        isTopBorderSet: !isTopBorderSet,
+      });
+    }
+  }
+
   render() {
     const {
       dayScaleComponent: DayScale,
@@ -57,6 +80,7 @@ class HorizontalViewLayoutBase extends React.PureComponent {
       className,
       ...restProps
     } = this.props;
+    const { isTopBorderSet } = this.state;
 
     return (
       <Grid
@@ -65,6 +89,7 @@ class HorizontalViewLayoutBase extends React.PureComponent {
         container
         direction="column"
         wrap="nowrap"
+        onScroll={this.setTopBorder}
         {...restProps}
       >
         {/* Fix Safari sticky header https://bugs.webkit.org/show_bug.cgi?id=175029 */}
@@ -72,7 +97,11 @@ class HorizontalViewLayoutBase extends React.PureComponent {
           <Grid
             ref={this.layoutHeader}
             item
-            className={classes.stickyHeader}
+            className={classNames({
+              [classes.stickyHeader]: true,
+              [classes.ordinaryBorderHeader]: !isTopBorderSet,
+              [classes.brightBorderHeader]: isTopBorderSet,
+            })}
           >
             <DayScale />
           </Grid>

@@ -30,6 +30,8 @@ describe('Horizontal View Layout', () => {
       .toBeTruthy();
     expect(tree.hasClass(`${classes.container}`))
       .toBeTruthy();
+    expect(tree.hasClass(`${classes.ordinaryBorderHeader}`))
+      .toBeTruthy();
     expect(tree.find(`${classes.stickyHeader}`))
       .toBeTruthy();
     expect(tree.find(`${classes.timeTable}`))

@@ -3,7 +3,8 @@ import {
   Action, Actions, PluginHost, Getter, Template, TemplateConnector, Getters,
 } from '@devexpress/dx-react-core';
 import {
-  filterSelectedRows, exportHeader, ROOT_GROUP, buildGroupTree, findRanges, exportRows,
+  exportHeader, ROOT_GROUP, buildGroupTree, findRanges, exportRows, getExportSummary,
+  getCloseGroup, getOutlineLevels, getRowsToExport,
 } from '@devexpress/dx-grid-core';
 import * as Excel from 'exceljs/dist/exceljs.min.js';
 import { IntegratedGrouping } from './integrated-grouping';
@@ -18,8 +19,6 @@ import {
   TableColumnsWithGrouping, TableColumnsWithDataRowsGetter, GridCoreGetters,
 } from './internal';
 
-
-
 class GridExporterBase extends React.PureComponent<any, any> {
   constructor(props) {
     super(props);
@@ -32,8 +31,8 @@ class GridExporterBase extends React.PureComponent<any, any> {
   performExport = (_: any, 
     {
     tableColumns, columns: dataColumns, getRowId,
-    getCellValue, grouping, rows, getCollapsedRows, selection,
-    groupSummaryItems, groupSummaryValues, totalSummaryItems, totalSummaryValues,
+    getCellValue, grouping, isGroupRow, rows, getCollapsedRows, selection,
+    groupSummaryItems, totalSummaryItems,
   }: Getters,
   {
     finishExport,
@@ -45,66 +44,20 @@ class GridExporterBase extends React.PureComponent<any, any> {
     } = this.props;
     const workbook: Excel.Workbook = new Excel.Workbook();
     const worksheet = workbook.addWorksheet('Main');
-    const outlineLevels = grouping?.reduce((acc, { columnName }, index) => ({
-      ...acc,
-      [columnName]: index,
-    }), {});
+    const outlineLevels = getOutlineLevels(grouping);
     const maxLevel = grouping?.length - 1;
+    const allRows = getRowsToExport(rows, selection, getCollapsedRows, getRowId);
 
-    const expandRows = rows =>
-      rows.reduce((acc, row) => (
-        [...acc, row, ...(expandRows(getCollapsedRows(row) || []))]
-      ), []
+    const groupTree = buildGroupTree(
+      allRows, outlineLevels, grouping, isGroupRow, groupSummaryItems, worksheet.lastRow!.number + 1
     );
 
-    let allRows = expandRows(rows);
-    if (!!selection) {
-      allRows = filterSelectedRows(rows, getRowId, selection);
-    }
-
-    const operations = {
-      count: 'COUNTA',
-    };
-
-    const exportSummary = ({ columnName, type }, ranges) => {
-      const row = worksheet.lastRow!;
-      const letter = worksheet.getColumn(columnName).letter;
-      const operation = operations[type] || type.toUpperCase();
-      const rangesStr = ranges.map(range => (
-        range
-          .map(r => `${letter}${r}`)
-          .filter((val, index, arr) => arr.indexOf(val) === index)
-          .join(':')
-      )).join(',');
-
-      const cell = row.getCell(columnName);
-      cell.value = {
-        formula: `${operation}(${rangesStr})`,
-        date1904: false,
-      };
-      cell.numFmt = `"${defaultSummaryMessages[type]}:" 0`;
-
-      const column = dataColumns.find(({ name }) => name === columnName);
-      const summary = {
-        type,
-        ranges,
-      };
-      customizeSummaryCell(cell, column, summary);
-    };
-
-    const closeGroup = (group) => {
-      const { groupedBy, compoundKey } = group;
-      if (!groupSummaryItems) return;
-
-      worksheet.addRow({});
-      worksheet.lastRow!.outlineLevel = outlineLevels[groupedBy] + 1;
-
-      const ranges = findRanges(groupTree, compoundKey, outlineLevels[groupedBy], maxLevel);
-
-      groupSummaryItems.forEach((s) => {
-        exportSummary(s, ranges)
-      });
-    };
+    const exportSummary = getExportSummary(
+      worksheet, dataColumns, customizeSummaryCell, defaultSummaryMessages,
+    );
+    const closeGroup = getCloseGroup(
+      worksheet, groupTree, outlineLevels, maxLevel, groupSummaryItems, exportSummary,
+    );
 
     const closeSheet = () => {
       worksheet.addRow({});
@@ -118,10 +71,6 @@ class GridExporterBase extends React.PureComponent<any, any> {
     customizeHeader(worksheet);
 
     exportHeader(worksheet, columns);
-
-    const groupTree = buildGroupTree(
-      allRows, outlineLevels, grouping, groupSummaryItems, worksheet.lastRow!.number + 1
-    );
 
     exportRows(
       worksheet, allRows, dataColumns, columns, outlineLevels,

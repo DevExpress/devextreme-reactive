@@ -1,11 +1,39 @@
 import * as Excel from 'exceljs';
-import { TableColumn, FilterSelectedRowsFn, BuildGroupTreeFn, FindRangesFn, ExportRowsFn } from "../../types";
+import { PureComputed } from '@devexpress/dx-core/src';
+import {
+  TableColumn, FilterSelectedRowsFn, BuildGroupTreeFn, FindRangesFn, ExportRowsFn,
+  GetExportSummaryFn, GetCloseGroupFn, GetOutlineLevelsFn, GetRowsToExportFn, Row,
+} from "../../types";
 import { ROOT_GROUP } from './constants';
 
 export const filterSelectedRows: FilterSelectedRowsFn = (rows, getRowId, selection) => {
   const selectionSet = new Set<any>(selection);
   return rows.filter(row => selectionSet.has(getRowId(row)));
 };
+
+export const getOutlineLevels: GetOutlineLevelsFn = (grouping) => (
+  grouping?.reduce((acc, { columnName }, index) => ({
+    ...acc,
+    [columnName]: index,
+  }), {}) || {}
+);
+
+export const getRowsToExport: GetRowsToExportFn = (
+  rows, selection, getCollapsedRows, getRowId,
+) => {
+  const expandRows: PureComputed<[Row[]]> = (rows) => (
+    rows.reduce((acc, row) => (
+      [...acc, row, ...(expandRows(getCollapsedRows(row) || []))]
+    ), [])
+  );
+
+  const expandedRows = expandRows(rows);
+
+  if (!!selection) {
+    return filterSelectedRows(expandedRows, getRowId, selection);
+  }
+  return expandedRows;
+}
 
 export const exportHeader = (worksheet: Excel.Worksheet, columns: TableColumn[]) => {
   const cols = columns
@@ -32,7 +60,7 @@ export const exportHeader = (worksheet: Excel.Worksheet, columns: TableColumn[])
 };
 
 export const buildGroupTree: BuildGroupTreeFn = (
-  allRows, outlineLevels, grouping, groupSummaryItems, startIndex,
+  allRows, outlineLevels, grouping, isGroupRow, groupSummaryItems, startIndex,
 ) => {
   const groupTree = { [ROOT_GROUP]: [] as any[] };
   const maxLevel = Object.keys(outlineLevels).length - 1;
@@ -52,7 +80,7 @@ export const buildGroupTree: BuildGroupTreeFn = (
 
   allRows.forEach((row) => {
     const { groupedBy, compoundKey } = row;
-    if (groupedBy) {
+    if (isGroupRow(row)) {
       level = outlineLevels[groupedBy];
       groupTree[compoundKey] = [];
       parentChain[level] = compoundKey;
@@ -147,4 +175,55 @@ export const exportRows: ExportRowsFn = (
   });
 
   openGroups.reverse().forEach(closeGroup)
-}
+};
+
+const operations = {
+  count: 'COUNTA',
+};
+export const getExportSummary: GetExportSummaryFn = (
+  worksheet, dataColumns, customizeSummaryCell, defaultSummaryMessages
+) => (
+  { columnName, type }, ranges,
+) => {
+  const row = worksheet.lastRow!;
+  const letter = worksheet.getColumn(columnName).letter;
+  const operation = operations[type] || type.toUpperCase();
+  const rangesStr = ranges.map(range => (
+    range
+      .map(r => `${letter}${r}`)
+      .filter((val, index, arr) => arr.indexOf(val) === index)
+      .join(':')
+  )).join(',');
+
+  const cell = row.getCell(columnName);
+  cell.value = {
+    formula: `${operation}(${rangesStr})`,
+    date1904: false,
+  };
+  cell.numFmt = `"${defaultSummaryMessages[type]}:" 0`;
+
+  const column = dataColumns.find(({ name }) => name === columnName);
+  const summary = {
+    type,
+    ranges,
+  };
+  customizeSummaryCell(cell, column!, summary);
+};
+
+export const getCloseGroup: GetCloseGroupFn = (
+  worksheet, groupTree, outlineLevels, maxLevel, groupSummaryItems, exportSummary,
+) => (group) => {
+  const { groupedBy, compoundKey } = group;
+  if (!groupSummaryItems) return;
+
+  worksheet.addRow({});
+  worksheet.lastRow!.outlineLevel = outlineLevels[groupedBy] + 1;
+
+  const ranges = findRanges(groupTree, compoundKey, outlineLevels[groupedBy], maxLevel);
+
+  groupSummaryItems.forEach((s) => {
+    exportSummary(s, ranges)
+  });
+};
+
+export const closeSheet = 

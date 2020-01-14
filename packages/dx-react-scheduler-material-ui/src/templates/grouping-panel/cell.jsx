@@ -10,12 +10,14 @@ const useStyles = makeStyles(theme => ({
     userSelect: 'none',
     padding: 0,
     borderBottom: 'none',
-    borderTop: getBrightBorder(theme),
+    borderTop: ({ brightBorderTop }) => (
+      brightBorderTop ? getBrightBorder(theme) : getBorder(theme)
+    ),
+    borderRight: ({ brightBorderRight }) => (
+      brightBorderRight ? getBrightBorder(theme) : getBorder(theme)
+    ),
     paddingTop: theme.spacing(0.5),
     boxSizing: 'border-box',
-    borderRight: ({ hasBrightBorder }) => (
-      hasBrightBorder ? getBrightBorder(theme) : getBorder(theme)
-    ),
     'tr:first-child &': {
       borderTop: 'none',
     },
@@ -41,11 +43,12 @@ export const Cell = React.memo(({
   group,
   colSpan,
   left,
-  hasBrightBorder,
+  brightBorderRight,
+  brightBorderTop,
   children,
   ...restProps
 }) => {
-  const classes = useStyles({ left, hasBrightBorder });
+  const classes = useStyles({ left, brightBorderRight, brightBorderTop });
   return (
     <TableCell
       className={classNames(classes.cell, className)}
@@ -65,12 +68,14 @@ Cell.propTypes = {
   group: PropTypes.object.isRequired,
   colSpan: PropTypes.number.isRequired,
   left: PropTypes.number.isRequired,
-  hasBrightBorder: PropTypes.bool,
+  brightBorderRight: PropTypes.bool,
+  brightBorderTop: PropTypes.bool,
   children: PropTypes.node,
 };
 
 Cell.defaultProps = {
   className: undefined,
-  hasBrightBorder: true,
+  brightBorderRight: true,
   children: null,
+  brightBorderTop: true,
 };

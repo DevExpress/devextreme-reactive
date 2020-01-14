@@ -49,7 +49,7 @@ To specify static widths for specific columns, use the `Table` plugin's [`column
 
 ### Multiline Cells
 
-The Grid cuts off values that do not fit in a cell. Set the [column extension](../reference/table.md/#tablecolumnextension)s' `wordWrapEnabled` property to true to enable word wrap for these columns.
+The Grid cuts off values that overflow their cells. Set the [column extension](../reference/table.md/#tablecolumnextension)s' `wordWrapEnabled` property to true to enable word wrap for these columns.
 
 .embedded-demo({ "path": "grid-basic/cell-wordwrap", "showThemeSelector": true })
 
@@ -58,7 +58,3 @@ The Grid cuts off values that do not fit in a cell. Set the [column extension](.
 You can pass a custom component to the TableHeaderRow plugin's `contentComponent` property to display additional elements in the Grid's header.
 
 .embedded-demo({ "path": "grid-basic/table-header-content-template", "showThemeSelector": true })
-
-
-
-

@@ -10,7 +10,7 @@ import {
   REPEAT_TYPES,
   handleChangeFrequency,
 } from '@devexpress/dx-scheduler-core';
-import { TRANSITIONS_TIME } from '../../constants';
+import { TRANSITIONS_TIME, LAYOUT_MEDIA_QUERY } from '../../constants';
 
 const styles = ({ spacing, typography }) => ({
   root: {
@@ -21,7 +21,7 @@ const styles = ({ spacing, typography }) => ({
     paddingRight: spacing(4),
     boxSizing: 'border-box',
     transition: `all ${TRANSITIONS_TIME}ms cubic-bezier(0, 0, 0.2, 1)`,
-    '@media (max-width: 700px)': {
+    [`${LAYOUT_MEDIA_QUERY}`]: {
       width: '100%',
       maxWidth: '700px',
       paddingRight: spacing(2),

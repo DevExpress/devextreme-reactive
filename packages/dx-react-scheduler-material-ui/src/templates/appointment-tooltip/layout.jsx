@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Popover from '@material-ui/core/Popover';
 import { withStyles } from '@material-ui/core/styles';
+import { SMALL_LAYOUT_MEDIA_QUERY } from '../constants';
 
 const verticalTopHorizontalCenterOptions = { vertical: 'top', horizontal: 'center' };
 
@@ -9,7 +10,7 @@ const styles = {
   popover: {
     borderRadius: '8px',
     width: '400px',
-    '@media (max-width: 500px)': {
+    [`${SMALL_LAYOUT_MEDIA_QUERY}`]: {
       width: '300px',
     },
   },

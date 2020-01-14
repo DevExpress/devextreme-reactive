@@ -34,7 +34,12 @@ jest.mock('@devexpress/dx-react-core', () => {
       }
 
       render() {
-        const { containerComponent: Container, onSizeChange, ...restProps } = this.props;
+        const {
+          containerComponent: Container,
+          onSizeChange,
+          scrollTop,
+          ...restProps
+        } = this.props;
         return (
           <Container {...restProps} />
         );
@@ -163,6 +168,21 @@ describe('VirtualTableLayout', () => {
 
     expect(tree.find(Sizer).dive())
       .toMatchSnapshot();
+  });
+
+  it('should provide scrollTop property', () => {
+    const scrollTop = 100;
+    const tree = shallow((
+      <VirtualTableLayout
+        {...defaultProps}
+        headerRows={defaultProps.bodyRows.slice(0, 1)}
+        footerRows={defaultProps.bodyRows.slice(0, 1)}
+        scrollTop={scrollTop}
+      />
+    ));
+
+    expect(tree.find(Sizer).prop('scrollTop'))
+      .toEqual(scrollTop);
   });
 
   it('should not render width for a flex column', () => {

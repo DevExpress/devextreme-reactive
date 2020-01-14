@@ -9,16 +9,15 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   computed,
-  getAppointmentStyle,
   startViewDate as startViewDateCore,
   endViewDate as endViewDateCore,
   availableViews as availableViewsCore,
 } from '@devexpress/dx-scheduler-core';
 import { memoize } from '@devexpress/dx-core';
-import { BasicViewProps, BasicViewState, ScrollingStrategy, ElementRect } from '../types';
+import { BasicViewProps, BasicViewState, ScrollingStrategy } from '../types';
 
 const CellPlaceholder = params => <TemplatePlaceholder name="cell" params={params} />;
-const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
+const TimeTableAppointmentLayer = () => <TemplatePlaceholder name="timeTableAppointmentLayer" />;
 
 const startViewDateBaseComputed = ({ viewCellsData }) => startViewDateCore(viewCellsData);
 const endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCellsData);
@@ -26,14 +25,18 @@ const endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCells
 const TimeTablePlaceholder = () => <TemplatePlaceholder name="timeTable" />;
 const DayScalePlaceholder = () => <TemplatePlaceholder name="dayScale" />;
 
+const GroupingPanelPlaceholder = () => <TemplatePlaceholder name="groupingPanel" />;
+
 class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> {
   state = {
-    rects: [],
     timeTableElementsMeta: {},
     scrollingStrategy: {
       topBoundary: 0,
       bottomBoundary: 0,
+      leftBoundary: 0,
+      rightBoundary: 0,
       changeVerticalScroll: () => undefined,
+      changeHorizontalScroll: () => undefined,
     },
   };
 
@@ -45,6 +48,9 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
 
   intervalCountComputed = memoize((viewName, intervalCount) => getters =>
     computed(getters, viewName!, () => intervalCount, getters.intervalCount));
+
+  cellDurationComputed = memoize((viewName, cellDuration) => getters =>
+    computed(getters, viewName, () => cellDuration, getters.cellDuration));
 
   excludedDaysComputed = memoize((viewName, excludedDays) => getters => computed(
     getters, viewName!, () => excludedDays, getters.excludedDays,
@@ -82,16 +88,17 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
     getters.viewCellsData,
   ));
 
-  updateRects = memoize((
-    appointments, startViewDate, endViewDate,
-    viewCellsData, cellDuration, excludedDays, timeTableRects,
-  ) => (cellElementsMeta) => {
-    const rects = timeTableRects(
-      appointments, startViewDate, endViewDate, excludedDays,
-      viewCellsData, cellDuration, cellElementsMeta,
-    );
+  timeTableAppointmentsComputed = memoize((
+    viewName, cellDuration, calculateAppointmentsIntervals,
+  ) => getters => computed(
+      getters,
+      viewName,
+      calculateAppointmentsIntervals(cellDuration),
+      getters.timeTableAppointments,
+    ));
 
-    this.setState({ rects, timeTableElementsMeta: cellElementsMeta });
+  updateCellElementsMeta = memoize((cellElementsMeta) => {
+    this.setState({ timeTableElementsMeta: cellElementsMeta });
   });
 
   setScrollingStrategy = (scrollingStrategy: ScrollingStrategy) => {
@@ -109,7 +116,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
       startDayHour,
       endDayHour,
       viewCellsDataComputed,
-      timeTableRects,
+      calculateAppointmentsIntervals,
       dayScaleCellComponent,
       dayScaleRowComponent,
       dayScaleLayoutComponent: DayScale,
@@ -120,7 +127,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
       layoutProps,
       layoutComponent: Layout,
     } = this.props;
-    const { rects, timeTableElementsMeta, scrollingStrategy } = this.state;
+    const { timeTableElementsMeta, scrollingStrategy } = this.state;
     const viewDisplayName = displayName || viewName;
 
     return (
@@ -146,6 +153,10 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
         />
         <Getter name="startViewDate" computed={this.startViewDateComputed} />
         <Getter name="endViewDate" computed={this.endViewDateComputed} />
+        <Getter
+          name="cellDuration"
+          computed={this.cellDurationComputed(viewName, cellDuration)}
+        />
 
         <Getter
           name="timeTableElementsMeta"
@@ -154,6 +165,13 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
         <Getter
           name="scrollingStrategy"
           computed={this.scrollingStrategyComputed(viewName, scrollingStrategy)}
+        />
+
+        <Getter
+          name="timeTableAppointments"
+          computed={this.timeTableAppointmentsComputed(
+            viewName, cellDuration, calculateAppointmentsIntervals,
+          )}
         />
 
         <Template name="body">
@@ -180,6 +198,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
                 <DayScale
                   cellComponent={dayScaleCellComponent}
                   rowComponent={dayScaleRowComponent}
+                  groupingPanelComponent={GroupingPanelPlaceholder}
                   cellsData={viewCellsData}
                   formatDate={formatDate}
                 />
@@ -203,20 +222,8 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
 
         <Template name="timeTable">
           <TemplateConnector>
-            {({
-              formatDate,
-              currentView,
-              viewCellsData,
-              appointments, startViewDate, endViewDate,
-              excludedDays: excludedDaysGetter,
-            }) => {
+            {({ formatDate, currentView, viewCellsData }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              const setRects = this.updateRects(
-                appointments, startViewDate, endViewDate,
-                viewCellsData, cellDuration, excludedDaysGetter,
-                timeTableRects,
-              );
-
               return (
                 <>
                   <TimeTableLayout
@@ -224,23 +231,10 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
                     rowComponent={timeTableRowComponent}
                     cellComponent={CellPlaceholder}
                     formatDate={formatDate}
-                    setCellElementsMeta={setRects}
+                    setCellElementsMeta={this.updateCellElementsMeta}
                   />
                   <AppointmentLayer>
-                    {(rects as ElementRect[]).map(({
-                      dataItem, type: rectType, fromPrev, toNext,
-                      durationType, ...geometry
-                    }, index) => (
-                      <AppointmentPlaceholder
-                        key={index.toString()}
-                        type={rectType}
-                        data={dataItem}
-                        fromPrev={fromPrev}
-                        toNext={toNext}
-                        durationType={durationType}
-                        style={getAppointmentStyle(geometry)}
-                      />
-                    ))}
+                    <TimeTableAppointmentLayer />
                   </AppointmentLayer>
                 </>
               );

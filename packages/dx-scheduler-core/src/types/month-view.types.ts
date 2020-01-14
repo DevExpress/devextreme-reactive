@@ -24,13 +24,13 @@ export type MonthCellsDataComputedFn = PureComputed<
 >;
 /** @internal */
 export type CalculateMonthDateIntervalsFn = PureComputed<
-  [Appointment[], Date, Date], AppointmentMoment[]
+  [Appointment[], Date, Date], AppointmentMoment[][]
 >;
 /** @internal */
 export type SliceAppointmentByWeekFn = PureComputed<
   [TimeBounds, AppointmentMoment, number], AppointmentMoment[]
 >;
 /** @internal */
-export type GetMonthCellIndexByDateFn = PureComputed<
-  [ViewCellData[][], SchedulerDateTime, boolean], AppointmentId
+export type GetMonthCellIndexByAppointmentDataFn = PureComputed<
+  [ViewCellData[][], SchedulerDateTime, AppointmentMoment, boolean], AppointmentId
 >;

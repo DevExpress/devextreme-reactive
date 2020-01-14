@@ -9,6 +9,7 @@ const styles = theme => ({
   cell: {
     height: theme.spacing(6),
     padding: 0,
+    boxSizing: 'border-box',
     borderBottom: getBorder(theme),
     'tr:last-child &': {
       borderBottom: 'none',
@@ -16,7 +17,7 @@ const styles = theme => ({
   },
 });
 
-const TickCellBase = ({
+const TickCellBase = React.memo(({
   classes,
   className,
   startDate,
@@ -27,7 +28,7 @@ const TickCellBase = ({
     className={classNames(classes.cell, className)}
     {...restProps}
   />
-);
+));
 
 TickCellBase.propTypes = {
   classes: PropTypes.object.isRequired,

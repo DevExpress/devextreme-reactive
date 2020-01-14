@@ -1,21 +1,25 @@
 import * as React from 'react';
 import {
-  testStatePluginField, pluginDepsToComponents, getComputedState, setupConsole,
+  pluginDepsToComponents, getComputedState, setupConsole,
 } from '@devexpress/dx-testing';
-import { convertResourcesToPlain, validateResources, getAppointmentResources } from '@devexpress/dx-scheduler-core';
+import {
+  convertResourcesToPlain, validateResources, addResourcesToAppointments,
+} from '@devexpress/dx-scheduler-core';
 import { mount } from 'enzyme';
-import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import { PluginHost } from '@devexpress/dx-react-core';
 import { Resources } from './resources';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   convertResourcesToPlain: jest.fn(),
   validateResources: jest.fn(),
-  getAppointmentResources: jest.fn(),
+  addResourcesToAppointments: jest.fn(),
 }));
 
 const defaultDeps = {
   getter: {
     appointments: [],
+    timeTableAppointments: ['test'],
+    allDayAppointments: ['test'],
   },
   template: {
     appointment: {},
@@ -33,7 +37,7 @@ describe('Resources', () => {
   beforeEach(() => {
     validateResources.mockImplementation(() => 'validResources');
     convertResourcesToPlain.mockImplementation(() => 'plainResources');
-    getAppointmentResources.mockImplementation(() => 'appointmentResources');
+    addResourcesToAppointments.mockImplementation(() => 'appointments');
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -57,10 +61,10 @@ describe('Resources', () => {
   it('should provide the "plainResources" getter', () => {
     const tree = mount((
       <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
         <Resources
           data={[]}
         />
-        {pluginDepsToComponents(defaultDeps)}
       </PluginHost>
     ));
 
@@ -69,7 +73,7 @@ describe('Resources', () => {
     expect(getComputedState(tree).plainResources)
       .toBe('plainResources');
   });
-  it('should render appointment content template', () => {
+  it('should provide the "timeTableAppointments" getter', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -79,7 +83,24 @@ describe('Resources', () => {
       </PluginHost>
     ));
 
-    const appointment = tree.find(TemplatePlaceholder).at(3);
-    expect(appointment.props().params.resources).toBe('appointmentResources');
+    expect(addResourcesToAppointments)
+      .toBeCalledWith('test', 'validResources', 'plainResources');
+    expect(getComputedState(tree).timeTableAppointments)
+      .toBe('appointments');
+  });
+  it('should provide the "allDayAppointments" getter', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <Resources
+          data={[]}
+        />
+      </PluginHost>
+    ));
+
+    expect(addResourcesToAppointments)
+      .toBeCalledWith('test', 'validResources', 'plainResources');
+    expect(getComputedState(tree).allDayAppointments)
+      .toBe('appointments');
   });
 });

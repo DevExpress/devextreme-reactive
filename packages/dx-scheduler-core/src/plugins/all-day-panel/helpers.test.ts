@@ -1,6 +1,6 @@
 import moment from 'moment';
 import {
-  allDayPredicate, sliceAppointmentsByBoundaries, getAllDayCellIndexByDate,
+  allDayPredicate, sliceAppointmentsByBoundaries, getAllDayCellIndexByAppointmentData,
 } from './helpers';
 
 describe('AllDayPanel helpers', () => {
@@ -141,7 +141,7 @@ describe('AllDayPanel helpers', () => {
   });
 
   describe('#getAllDayCellIndexByDate', () => {
-    const viewCellsData = [
+    const viewCellsDataBase = [
       [
         { startDate: new Date('2018-06-24 08:00'), endDate: new Date('2018-06-24 08:30') },
         { startDate: new Date('2018-06-25 08:00'), endDate: new Date('2018-06-25 08:30') },
@@ -158,16 +158,36 @@ describe('AllDayPanel helpers', () => {
     it('should return cell index', () => {
       const date = '2018-06-24 07:30';
       const takePrev = false;
-      expect(getAllDayCellIndexByDate(viewCellsData, date, takePrev))
+      expect(getAllDayCellIndexByAppointmentData(viewCellsDataBase, date, {}, takePrev))
         .toEqual(0);
     });
 
     it('should return cell index with takePrev property', () => {
       const date = '2018-06-25';
-      expect(getAllDayCellIndexByDate(viewCellsData, date, false))
+      expect(getAllDayCellIndexByAppointmentData(viewCellsDataBase, date, {}, false))
         .toEqual(1);
-      expect(getAllDayCellIndexByDate(viewCellsData, date, true))
+      expect(getAllDayCellIndexByAppointmentData(viewCellsDataBase, date, {}, true))
         .toEqual(0);
+    });
+
+    it('should return cell index depending on groupingInfo', () => {
+      const viewCellsData = [[{
+        startDate: new Date('2018-06-24 08:00'),
+        endDate: new Date('2018-06-24 08:30'),
+        groupingInfo: [{ fieldName: 'test', id: 1 }],
+      }, {
+        startDate: new Date('2018-06-24 08:00'),
+        endDate: new Date('2018-06-24 08:30'),
+        groupingInfo: [{ fieldName: 'test', id: 2 }],
+      }]];
+      const date = '2018-06-24 07:30';
+      const firstTestAppointment = { test: 1 };
+      const secondTestAppointment = { test: 2 };
+
+      expect(getAllDayCellIndexByAppointmentData(viewCellsData, date, firstTestAppointment, false))
+        .toEqual(0);
+      expect(getAllDayCellIndexByAppointmentData(viewCellsData, date, secondTestAppointment, false))
+        .toEqual(1);
     });
   });
 });

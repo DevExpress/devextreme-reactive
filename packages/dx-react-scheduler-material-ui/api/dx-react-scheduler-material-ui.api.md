@@ -16,6 +16,7 @@ import { DateNavigator as DateNavigator_2 } from '@devexpress/dx-react-scheduler
 import { DayView as DayView_2 } from '@devexpress/dx-react-scheduler';
 import { DragDropProvider as DragDropProvider_2 } from '@devexpress/dx-react-scheduler';
 import { EditRecurrenceMenu as EditRecurrenceMenu_2 } from '@devexpress/dx-react-scheduler';
+import { GroupingPanel as GroupingPanel_2 } from '@devexpress/dx-react-scheduler';
 import { MonthView as MonthView_2 } from '@devexpress/dx-react-scheduler';
 import { Palette } from '@devexpress/dx-react-scheduler';
 import * as React from 'react';
@@ -515,6 +516,35 @@ export interface EditRecurrenceMenuProps {
   layoutComponent?: React.ComponentType<EditRecurrenceMenu_2.LayoutProps>;
   messages?: EditRecurrenceMenu_2.LocalizationMessages;
   overlayComponent?: React.ComponentType<EditRecurrenceMenu_2.OverlayProps>;
+}
+
+// @public (undocumented)
+export namespace GroupingPanel {
+  export type HorizontalLayoutProps = GroupingPanel_2.HorizontalLayoutProps;
+}
+
+// @public (undocumented)
+export namespace GroupingPanel {
+  export type RowProps = GroupingPanel_2.RowProps;
+}
+
+// @public (undocumented)
+export namespace GroupingPanel {
+  export type CellProps = GroupingPanel_2.CellProps;
+}
+
+// @public
+export const GroupingPanel: React.ComponentType<GroupingPanelProps> & {
+  HorizontalLayout: React.ComponentType<GroupingPanel_2.HorizontalLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Row: React.ComponentType<GroupingPanel_2.RowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Cell: React.ComponentType<GroupingPanel_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+};
+
+// @public (undocumented)
+export interface GroupingPanelProps {
+  cellComponent?: React.ComponentType<GroupingPanel_2.CellProps>;
+  horizontalLayoutComponent?: React.ComponentType<GroupingPanel_2.HorizontalLayoutProps>;
+  rowComponent?: React.ComponentType<GroupingPanel_2.RowProps>;
 }
 
 // @public (undocumented)

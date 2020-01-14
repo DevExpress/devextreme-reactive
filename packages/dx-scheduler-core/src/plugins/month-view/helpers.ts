@@ -1,7 +1,9 @@
 import moment from 'moment';
 import {
-  SliceAppointmentByWeekFn, GetMonthCellIndexByDateFn, SchedulerDateTime, AppointmentMoment,
+  SliceAppointmentByWeekFn, GetMonthCellIndexByAppointmentDataFn,
+  SchedulerDateTime, AppointmentMoment, Group,
 } from '../../types';
+import { DAYS_IN_WEEK } from '../appointment-form/constants';
 
 export const sliceAppointmentByWeek: SliceAppointmentByWeekFn = (timeBounds, appointment, step) => {
   const { left, right } = timeBounds;
@@ -34,16 +36,33 @@ export const sliceAppointmentByWeek: SliceAppointmentByWeekFn = (timeBounds, app
   return pieces;
 };
 
-export const getMonthCellIndexByDate: GetMonthCellIndexByDateFn = (
-  viewCellsData, date, takePrev = false,
+export const getMonthCellIndexByAppointmentData: GetMonthCellIndexByAppointmentDataFn = (
+  viewCellsData, date, appointment, takePrev = false,
 ) => {
   const startViewDate = moment(viewCellsData[0][0].startDate);
   const currentDate = moment(date as SchedulerDateTime);
-  let cellIndex = currentDate.diff(startViewDate, 'days');
-
+  let dayNumber = currentDate.diff(startViewDate, 'days');
   if (takePrev && currentDate.format() === currentDate.startOf('day').format()) {
-    cellIndex -= 1;
+    dayNumber -= 1;
+  }
+  const weekNumber = Math.floor(dayNumber / DAYS_IN_WEEK);
+  let dayOfWeek = dayNumber % DAYS_IN_WEEK;
+
+  let cellIndex = -1;
+  while (cellIndex === -1) {
+    let isCorrectCell = true;
+    if (viewCellsData[weekNumber][dayOfWeek].groupingInfo) {
+      isCorrectCell = viewCellsData[weekNumber][dayOfWeek].groupingInfo!
+        .every((group: Group) => (
+          group.id === appointment[group.fieldName]
+        ));
+    }
+    if (isCorrectCell) {
+      cellIndex = dayOfWeek;
+    }
+    dayOfWeek += DAYS_IN_WEEK;
   }
 
-  return cellIndex;
+  const totalCellIndex = weekNumber * viewCellsData[0].length + cellIndex;
+  return totalCellIndex;
 };

@@ -3,20 +3,28 @@ import * as PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
-import { scrollingStrategy } from '../utils';
+import { scrollingStrategy, getBorder, getBrightBorder } from '../utils';
 
 const styles = theme => ({
   container: {
     overflowY: 'auto',
     position: 'relative',
   },
-  stickyHeader: {
-    top: 0,
-    zIndex: 2,
+  stickyElement: {
     tableLayout: 'fixed',
     position: 'sticky',
     overflow: 'visible',
     background: theme.palette.background.paper,
+  },
+  header: {
+    top: 0,
+    zIndex: 2,
+  },
+  leftPanel: {
+    left: 0,
+    zIndex: 1,
+    boxSizing: 'border-box',
+    float: 'left',
   },
   timeTable: {
     position: 'relative',
@@ -26,6 +34,30 @@ const styles = theme => ({
   },
   mainTable: {
     width: `calc(100% - ${theme.spacing(10)}px)`,
+    float: 'right',
+  },
+  fullScreenContainer: {
+    minWidth: '100%',
+    display: 'table',
+    position: 'relative',
+  },
+  autoWidth: {
+    display: 'table',
+  },
+  background: {
+    background: theme.palette.background.paper,
+  },
+  ordinaryBorderLeftPanel: {
+    borderRight: getBorder(theme),
+  },
+  brightBorderLeftPanel: {
+    borderRight: getBrightBorder(theme),
+  },
+  ordinaryBorderHeader: {
+    borderBottom: getBorder(theme),
+  },
+  brightBorderHeader: {
+    borderBottom: getBrightBorder(theme),
   },
 });
 
@@ -35,6 +67,14 @@ class VerticalViewLayoutBase extends React.PureComponent {
 
     this.layout = React.createRef();
     this.layoutHeader = React.createRef();
+    this.timeScale = React.createRef();
+
+    this.state = {
+      isLeftBorderSet: false,
+      isTopBorderSet: false,
+    };
+
+    this.setBorders = this.setBorders.bind(this);
   }
 
   componentDidMount() {
@@ -48,7 +88,25 @@ class VerticalViewLayoutBase extends React.PureComponent {
   setScrollingStrategy() {
     const { setScrollingStrategy } = this.props;
 
-    setScrollingStrategy(scrollingStrategy(this.layout.current, this.layoutHeader.current));
+    setScrollingStrategy(scrollingStrategy(
+      this.layout.current, this.layoutHeader.current, this.timeScale.current,
+    ));
+  }
+
+  setBorders(event) {
+    const { isLeftBorderSet, isTopBorderSet } = this.state;
+    // eslint-disable-next-line no-bitwise
+    if ((!!event.target.scrollLeft ^ isLeftBorderSet)) {
+      this.setState({
+        isLeftBorderSet: !isLeftBorderSet,
+      });
+    }
+    // eslint-disable-next-line no-bitwise
+    if (!!event.target.scrollTop ^ isTopBorderSet) {
+      this.setState({
+        isTopBorderSet: !isTopBorderSet,
+      });
+    }
   }
 
   render() {
@@ -62,6 +120,7 @@ class VerticalViewLayoutBase extends React.PureComponent {
       className,
       ...restProps
     } = this.props;
+    const { isLeftBorderSet, isTopBorderSet } = this.state;
 
     return (
       <Grid
@@ -70,35 +129,66 @@ class VerticalViewLayoutBase extends React.PureComponent {
         className={classNames(classes.container, className)}
         direction="column"
         wrap="nowrap"
+        onScroll={this.setBorders}
         {...restProps}
       >
         {/* Fix Safari sticky header https://bugs.webkit.org/show_bug.cgi?id=175029 */}
         <div>
-          <Grid item xs="auto" className={classes.stickyHeader}>
+          <Grid
+            className={classNames(classes.stickyElement, classes.header, classes.autoWidth)}
+          >
             <Grid
               ref={this.layoutHeader}
               container
               direction="row"
             >
-              <div className={classes.fixedWidth}>
+              <div
+                className={classNames({
+                  [classes.fixedWidth]: true,
+                  [classes.stickyElement]: true,
+                  [classes.leftPanel]: true,
+                  [classes.ordinaryBorderLeftPanel]: !isLeftBorderSet,
+                  [classes.brightBorderLeftPanel]: isLeftBorderSet,
+                  [classes.ordinaryBorderHeader]: !isTopBorderSet,
+                  [classes.brightBorderHeader]: isTopBorderSet,
+                })}
+              >
                 <DayScaleEmptyCell />
               </div>
 
               <div className={classes.mainTable}>
-                <DayScale />
+                <div
+                  className={classNames({
+                    [classes.fullScreenContainer]: true,
+                    [classes.background]: true,
+                    [classes.ordinaryBorderHeader]: !isTopBorderSet,
+                    [classes.brightBorderHeader]: isTopBorderSet,
+                  })}
+                >
+                  <DayScale />
+                </div>
               </div>
             </Grid>
           </Grid>
 
-          <Grid item xs="auto">
-            <Grid container direction="row">
-              <div className={classes.fixedWidth}>
-                <TimeScale />
-              </div>
-              <div className={classNames(classes.timeTable, classes.mainTable)}>
+          <Grid className={classes.autoWidth}>
+            <div
+              ref={this.timeScale}
+              className={classNames({
+                [classes.fixedWidth]: true,
+                [classes.stickyElement]: true,
+                [classes.leftPanel]: true,
+                [classes.ordinaryBorderLeftPanel]: !isLeftBorderSet,
+                [classes.brightBorderLeftPanel]: isLeftBorderSet,
+              })}
+            >
+              <TimeScale />
+            </div>
+            <div className={classNames(classes.mainTable, classes.timeTable)}>
+              <div className={classes.fullScreenContainer}>
                 <TimeTable />
               </div>
-            </Grid>
+            </div>
           </Grid>
         </div>
       </Grid>

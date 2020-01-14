@@ -15,3 +15,4 @@ export * from './plugins/edit-recurrence-menu';
 export * from './plugins/confirmation-dialog';
 export * from './plugins/current-time-indicator';
 export * from './plugins/resources';
+export * from './plugins/grouping-panel';

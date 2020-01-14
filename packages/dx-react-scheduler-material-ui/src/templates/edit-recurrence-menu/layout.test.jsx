@@ -70,7 +70,7 @@ describe('EditRecurrenceMenu', () => {
       expect(defaultProps.getMessage)
         .toBeCalledTimes(3);
       expect(defaultProps.getMessage)
-        .toBeCalledWith('menuEditTitle');
+        .toBeCalledWith('menuEditingTitle');
       expect(defaultProps.getMessage)
         .toBeCalledWith('cancelButton');
       expect(defaultProps.getMessage)
@@ -80,7 +80,7 @@ describe('EditRecurrenceMenu', () => {
       tree.update();
 
       expect(defaultProps.getMessage)
-        .toBeCalledWith('menuDeleteTitle');
+        .toBeCalledWith('menuDeletingTitle');
     });
   });
 });

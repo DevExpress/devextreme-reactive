@@ -65,6 +65,8 @@ describe('Horizontal view TimeTable', () => {
         .toHaveLength(0);
       expect(tree.find(`.${classes.text}`))
         .toHaveLength(1);
+      expect(tree.is(`.${classes.rightBorderCell}`))
+        .toBeFalsy();
     });
   });
   it('should highlight cells from another month', () => {
@@ -111,6 +113,14 @@ describe('Horizontal view TimeTable', () => {
     ));
 
     expect(tree.is(`.${classes.shadedCell}`))
+      .toBeTruthy();
+  });
+  it('should render a cell with a bright border', () => {
+    const tree = shallow((
+      <Cell {...defaultProps} hasRightBorder />
+    ));
+
+    expect(tree.is(`.${classes.rightBorderCell}`))
       .toBeTruthy();
   });
 });

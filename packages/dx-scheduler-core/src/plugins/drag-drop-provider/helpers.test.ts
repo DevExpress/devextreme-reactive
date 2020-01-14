@@ -2,6 +2,7 @@ import {
   intervalDuration, cellIndex, cellData, autoScroll, cellType,
   timeBoundariesByDrag, calculateInsidePart,
   calculateDraftAppointments, timeBoundariesByResize,
+  calculateAppointmentGroups, appointmentDragged,
 } from './helpers';
 import {
   allDayRects, horizontalTimeTableRects, verticalTimeTableRects,
@@ -104,7 +105,10 @@ describe('DragDropProvider', () => {
     const scrollAPI = {
       topBoundary: 0,
       bottomBoundary: 1000,
+      leftBoundary: 0,
+      rightBoundary: 1000,
       changeVerticalScroll: jest.fn(),
+      changeHorizontalScroll: jest.fn(),
     };
     it('should scroll up', () => {
       const clientOffset = { x: 1, y: 21 };
@@ -125,6 +129,27 @@ describe('DragDropProvider', () => {
 
       autoScroll(clientOffset, scrollAPI);
       expect(scrollAPI.changeVerticalScroll)
+        .not.toBeCalled();
+    });
+    it('should scroll left', () => {
+      const clientOffset = { x: 21, y: 1 };
+
+      autoScroll(clientOffset, scrollAPI);
+      expect(scrollAPI.changeHorizontalScroll)
+        .toBeCalledWith(-30);
+    });
+    it('should scroll right', () => {
+      const clientOffset = { x: 960, y: 1 };
+
+      autoScroll(clientOffset, scrollAPI);
+      expect(scrollAPI.changeHorizontalScroll)
+        .toBeCalledWith(30);
+    });
+    it('should not scroll left if cursor is to the left of the left boundary', () => {
+      const clientOffset = { x: -10, y: 1 };
+
+      autoScroll(clientOffset, scrollAPI);
+      expect(scrollAPI.changeHorizontalScroll)
         .not.toBeCalled();
     });
   });
@@ -421,21 +446,26 @@ describe('DragDropProvider', () => {
     const targetType = 'vertical';
     const cellDurationMinutes = 0;
     const timeTableCells = 0;
+    const grouping = [];
+    const resources = [];
+    const groups = [];
     it('should return all day array while drag above at AllDayPanel', () => {
       calculateDraftAppointments(
         allDayIndex, draftAppointments, startViewDate,
         endViewDate, excludedDays, viewCellsData, allDayCells,
         'horizontal', cellDurationMinutes, timeTableCells,
+        grouping, resources, groups,
       );
       expect(allDayRects)
         .toBeCalledWith([{ allDay: true }], startViewDate, endViewDate,
-          excludedDays, viewCellsData, allDayCells);
+          excludedDays, viewCellsData, allDayCells, grouping, resources, groups);
     });
     it('should format appointment if allDay flag exists', () => {
       expect(calculateDraftAppointments(
         allDayIndex, draftAppointments, startViewDate,
         endViewDate, excludedDays, viewCellsData, allDayCells,
         'horizontal', cellDurationMinutes, timeTableCells,
+        grouping, resources,
       ))
       .toEqual({
         allDayDraftAppointments: [{}],
@@ -459,6 +489,7 @@ describe('DragDropProvider', () => {
         nextAllDayIndex, longDraftAppointment, startViewDate,
         endViewDate, excludedDays, viewCellsData, nextAllDayCells,
         targetType, cellDurationMinutes, timeTableCells,
+        grouping, resources,
       ))
       .toEqual({
         allDayDraftAppointments: [{}],
@@ -469,6 +500,7 @@ describe('DragDropProvider', () => {
         nextAllDayIndex, longDraftAppointment, startViewDate,
         endViewDate, excludedDays, viewCellsData, nextAllDayCells,
         'horizontal', cellDurationMinutes, timeTableCells,
+        grouping, resources,
       ))
       .toEqual({
         allDayDraftAppointments: [],
@@ -486,6 +518,7 @@ describe('DragDropProvider', () => {
         nextAllDayIndex, shortAppointment, startViewDate,
         endViewDate, excludedDays, viewCellsData, nextAllDayCells,
         targetType, cellDurationMinutes, timeTableCells,
+        grouping, resources,
       ))
       .toEqual({
         allDayDraftAppointments: [],
@@ -498,11 +531,108 @@ describe('DragDropProvider', () => {
         nextAllDayIndex, draftAppointments, startViewDate,
         endViewDate, excludedDays, viewCellsData, allDayCells,
         targetType, cellDurationMinutes, timeTableCells,
+        grouping, resources,
       ))
       .toEqual({
         allDayDraftAppointments: [],
         timeTableDraftAppointments: [{}],
       });
+    });
+  });
+
+  describe('#calculateAppointmentGroups', () => {
+    const cellGroupingInfo = [{
+      fieldName: 'test1',
+      id: 1,
+    }, {
+      fieldName: 'test2',
+      id: 2,
+    }];
+    it('should return an empty object if cellGroupingInfo is undefined', () => {
+      expect(calculateAppointmentGroups(undefined, undefined, undefined))
+        .toEqual({});
+    });
+    it('should set the groups defined in cellGroupingInfo', () => {
+      const resources = [{
+        fieldName: 'test1',
+        allowMultiple: false,
+      }, {
+        fieldName: 'test2',
+        allowMultiple: false,
+      }];
+      expect(calculateAppointmentGroups(cellGroupingInfo, resources, undefined))
+        .toEqual({
+          test1: 1,
+          test2: 2,
+        });
+    });
+    it('shouldn\'t change appointment groups if the appointment already contains it', () => {
+      const resources = [{
+        fieldName: 'test1',
+        allowMultiple: true,
+      }, {
+        fieldName: 'test2',
+        allowMultiple: false,
+      }];
+      const appointmentData = {
+        test1: [1, 2],
+        test2: 2,
+      };
+      expect(calculateAppointmentGroups(cellGroupingInfo, resources, appointmentData))
+        .toEqual({
+          test1: [1, 2],
+          test2: 2,
+        });
+    });
+    it('should change replace multiple resource group with an array with a single instance', () => {
+      const resources = [{
+        fieldName: 'test1',
+        allowMultiple: true,
+      }, {
+        fieldName: 'test2',
+        allowMultiple: false,
+      }];
+      const appointmentData = {
+        test1: [2, 3],
+        test2: 2,
+      };
+      expect(calculateAppointmentGroups(cellGroupingInfo, resources, appointmentData))
+        .toEqual({
+          test1: [1],
+          test2: 2,
+        });
+    });
+  });
+  describe('#calculateAppointmentGroups', () => {
+    it('should return false if dates and groups are equal', () => {
+      expect(appointmentDragged(
+        new Date(2019), new Date(2019), new Date(2020), new Date(2020), {}, {},
+      ))
+        .toBeFalsy();
+    });
+    it('should return true if dates or groups are not equal', () => {
+      expect(appointmentDragged(
+        new Date(2019), new Date(2020), new Date(2020), new Date(2020), {}, {},
+      ))
+        .toBeTruthy();
+      expect(appointmentDragged(
+        new Date(2019), new Date(2019), new Date(2019), new Date(2020), {}, {},
+      ))
+        .toBeTruthy();
+      expect(appointmentDragged(
+        new Date(2019), new Date(2019), new Date(2020), new Date(2020), { test: 1 }, { test: 2 },
+      ))
+        .toBeTruthy();
+    });
+    it('should work with arrays', () => {
+      expect(appointmentDragged(
+        new Date(2019), new Date(2019), new Date(2020), new Date(2020), [1], [2],
+      ))
+        .toBeTruthy();
+      expect(appointmentDragged(
+        new Date(2019), new Date(2019), new Date(2020), new Date(2020), [1], [1],
+      ))
+        .toBeFalsy();
     });
   });
 });

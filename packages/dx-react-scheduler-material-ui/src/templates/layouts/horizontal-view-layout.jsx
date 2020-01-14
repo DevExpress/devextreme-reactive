@@ -17,9 +17,12 @@ const styles = theme => ({
     position: 'sticky',
     overflow: 'visible',
     background: theme.palette.background.paper,
+    display: 'table',
   },
   timeTable: {
     position: 'relative',
+    minWidth: '100%',
+    display: 'table',
   },
 });
 

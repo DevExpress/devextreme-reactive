@@ -51,6 +51,14 @@ export * from './plugins/resources/computeds';
 /** @internal */
 export * from './plugins/resources/helpers';
 /** @internal */
+export * from './plugins/grouping-state/reducers';
+/** @internal */
+export * from './plugins/integrated-grouping/computeds';
+/** @internal */
+export * from './plugins/integrated-grouping/helpers';
+/** @internal */
+export * from './plugins/grouping-panel/utils';
+/** @internal */
 export * from './constants';
 /** @internal */
 export * from './utils';

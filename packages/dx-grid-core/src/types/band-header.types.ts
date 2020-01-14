@@ -36,6 +36,7 @@ export type GetColumnBandMetaFn = (
   columnName: string,
   bands: ReadonlyArray<ColumnBands>,
   tableRowLevel: number,
+  key?: string,
   level?: number,
   title?: string | null | undefined,
   result?: ColumnBandMeta | null,

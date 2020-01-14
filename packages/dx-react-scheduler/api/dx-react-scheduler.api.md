@@ -789,10 +789,11 @@ export const GroupingPanel: React.ComponentType<GroupingPanelProps>;
 // @public (undocumented)
 export namespace GroupingPanel {
   export interface CellProps {
+    brightBorderRight?: boolean;
+    brightBorderTop?: boolean;
     children?: React.ReactNode;
     colSpan: number;
     group: Group;
-    hasBrightBorder?: boolean;
     left: number;
   }
   export interface HorizontalLayoutProps {

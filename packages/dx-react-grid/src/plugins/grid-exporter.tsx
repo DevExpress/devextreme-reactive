@@ -3,8 +3,8 @@ import {
   Action, Actions, PluginHost, Getter, Template, TemplateConnector, Getters,
 } from '@devexpress/dx-react-core';
 import {
-  exportHeader, ROOT_GROUP, buildGroupTree, findRanges, exportRows, getExportSummary,
-  getCloseGroup, getOutlineLevels, getRowsToExport,
+  exportHeader, buildGroupTree, exportRows, getExportSummary,
+  getCloseGroup, getOutlineLevels, getRowsToExport, closeSheet,
 } from '@devexpress/dx-grid-core';
 import * as Excel from 'exceljs/dist/exceljs.min.js';
 import { IntegratedGrouping } from './integrated-grouping';
@@ -59,25 +59,15 @@ class GridExporterBase extends React.PureComponent<any, any> {
       worksheet, groupTree, outlineLevels, maxLevel, groupSummaryItems, exportSummary,
     );
 
-    const closeSheet = () => {
-      worksheet.addRow({});
-
-      totalSummaryItems.forEach((s) => {
-        exportSummary(s, findRanges(groupTree, ROOT_GROUP, -1, maxLevel));
-      });
-    };
-
-    // export routine
     customizeHeader(worksheet);
 
     exportHeader(worksheet, columns);
-
     exportRows(
       worksheet, allRows, dataColumns, columns, outlineLevels,
       getCellValue, closeGroup, customizeCell,
     );
 
-    closeSheet();
+    closeSheet(worksheet, groupTree, maxLevel, totalSummaryItems, exportSummary);
 
     customizeFooter(worksheet);
 

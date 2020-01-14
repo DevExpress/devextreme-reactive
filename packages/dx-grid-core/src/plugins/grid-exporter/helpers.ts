@@ -2,7 +2,7 @@ import * as Excel from 'exceljs';
 import { PureComputed } from '@devexpress/dx-core/src';
 import {
   TableColumn, FilterSelectedRowsFn, BuildGroupTreeFn, FindRangesFn, ExportRowsFn,
-  GetExportSummaryFn, GetCloseGroupFn, GetOutlineLevelsFn, GetRowsToExportFn, Row,
+  GetExportSummaryFn, GetCloseGroupFn, GetOutlineLevelsFn, GetRowsToExportFn, Row, CloseSheetFn,
 } from "../../types";
 import { ROOT_GROUP } from './constants';
 
@@ -226,4 +226,12 @@ export const getCloseGroup: GetCloseGroupFn = (
   });
 };
 
-export const closeSheet = 
+export const closeSheet: CloseSheetFn = (
+  worksheet, groupTree, maxLevel, totalSummaryItems, exportSummary,
+) => {
+  worksheet.addRow({});
+
+  totalSummaryItems.forEach((s) => {
+    exportSummary(s, findRanges(groupTree, ROOT_GROUP, -1, maxLevel));
+  });
+};

@@ -42,3 +42,7 @@ export type GetCloseGroupFn = (
   sheet: Worksheet, groupTree: ReadonlyObject<GroupTree>, outlineLevels: OutlineLevels, maxLevel: number,
   groupSummaryItems: GroupSummaryItem[], exportSummary: ExportSummaryFn,
 ) => CloseGroupFn;
+export type CloseSheetFn = (
+  sheet: Worksheet, groupTree: ReadonlyObject<GroupTree>, maxLevel: number,
+  totalSummaryItems: SummaryItem[], exportSummary: ExportSummaryFn,
+) => void;

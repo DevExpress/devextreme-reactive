@@ -5,7 +5,7 @@ import { PureComputed } from '@devexpress/dx-core';
 export const getDayScaleCellColSpan: PureComputed<
   [ViewCell[][]], number
 > = (cellsData) => {
-  const firstDate = moment(cellsData[0][0].startDate);
+  const firstDate = cellsData[0][0].startDate;
   let count = 1;
   while (cellsData[0][count] && moment(cellsData[0][count].startDate).isSame(firstDate, 'day')) {
     count += 1;

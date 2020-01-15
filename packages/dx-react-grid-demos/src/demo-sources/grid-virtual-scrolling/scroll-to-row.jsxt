@@ -19,6 +19,10 @@ import {
 
 const getRowId = row => row.id;
 
+const defaultSorting = [
+  { columnName: 'name', direction: 'asc' },
+];
+
 export default () => {
   const [columns] = useState([
     { name: 'name', title: 'Name' },
@@ -34,9 +38,6 @@ export default () => {
     { columnName: 'id', width: 75 },
   ]);
   const vtRef = useRef();
-  const [defaultSorting] = useState([
-    { columnName: 'name', direction: 'asc' },
-  ]);
   const [sortingStateColumnExtensions] = useState([
     { columnName: 'gender', sortingEnabled: false },
     { columnName: 'city', sortingEnabled: false },

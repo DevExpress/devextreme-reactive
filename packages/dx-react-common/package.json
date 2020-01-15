@@ -30,7 +30,7 @@
     "@babel/preset-env": "^7.7.1",
     "@babel/preset-react": "^7.7.0",
     "@devexpress/dx-testing": "2.3.2",
-    "@types/jest": "^24.0.18",
+    "@types/jest": "^24.0.25",
     "babel-loader": "^8.0.6",
     "concurrently": "^5.0.0",
     "css-loader": "^3.2.0",

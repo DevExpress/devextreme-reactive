@@ -43,7 +43,7 @@
     "tsc": "tsc"
   },
   "devDependencies": {
-    "@types/enzyme": "^3.10.3",
+    "@types/enzyme": "^3.10.4",
     "core-js": "^3.4.1",
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
@@ -59,7 +59,7 @@
     "ts-jest": "^24.1.0",
     "tslint": "^5.20.1",
     "tslint-config-airbnb": "^5.11.2",
-    "typescript": "3.7.3"
+    "typescript": "3.7.4"
   },
   "dependencies": {
     "@devexpress/dx-core": "2.3.2",

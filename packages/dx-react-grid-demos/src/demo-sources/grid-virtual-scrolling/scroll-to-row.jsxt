@@ -19,6 +19,10 @@ import {
 
 const getRowId = row => row.id;
 
+const defaultSorting = [
+  { columnName: 'name', direction: 'asc' },
+];
+
 export default () => {
   const [columns] = useState([
     { name: 'name', title: 'Name' },
@@ -34,6 +38,11 @@ export default () => {
     { columnName: 'id', width: 75 },
   ]);
   const vtRef = useRef();
+  const [sortingStateColumnExtensions] = useState([
+    { columnName: 'gender', sortingEnabled: false },
+    { columnName: 'city', sortingEnabled: false },
+    { columnName: 'car', sortingEnabled: false },
+  ]);
 
   const scrollToRow = useCallback((rowId) => {
     vtRef.current.scrollToRow(rowId);
@@ -92,7 +101,8 @@ export default () => {
           onCommitChanges={commitChanges}
         />
         <SortingState
-          sorting={[{ columnName: 'name', direction: 'asc' }]}
+          defaultSorting={defaultSorting}
+          columnExtensions={sortingStateColumnExtensions}
         />
         <IntegratedSorting />
         <VirtualTable

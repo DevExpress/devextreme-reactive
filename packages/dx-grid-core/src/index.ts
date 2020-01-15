@@ -215,6 +215,8 @@ export * from './plugins/virtual-table-state/utils';
 /** @internal */
 export * from './plugins/virtual-table-state/helpers';
 /** @internal */
+export * from './plugins/grid-exporter/computeds';
+/** @internal */
 export * from './plugins/grid-exporter/helpers';
 /** @internal */
 export * from './plugins/grid-exporter/constants';

@@ -3,8 +3,8 @@ import {
   Action, Actions, PluginHost, Getter, Template, TemplateConnector, Getters,
 } from '@devexpress/dx-react-core';
 import {
-  exportHeader, buildGroupTree, exportRows, getExportSummary,
-  getCloseGroup, getOutlineLevels, getRowsToExport, closeSheet,
+  exportHeader, exportRows,
+  closeGroupGetter, closeSheet, outlineLevels, rowsToExport, groupTree, exportSummaryGetter, maxGroupLevel,
 } from '@devexpress/dx-grid-core';
 import * as Excel from 'exceljs/dist/exceljs.min.js';
 import { IntegratedGrouping } from './integrated-grouping';
@@ -19,7 +19,34 @@ import {
   TableColumnsWithGrouping, TableColumnsWithDataRowsGetter, GridCoreGetters,
 } from './internal';
 
+const maxGroupLevelComputed = ({ grouping }: Getters) => maxGroupLevel(grouping);
+const outlineLevelsComputed = ({ grouping }: Getters) => outlineLevels(grouping);
+const rowsToExportComputed = ({
+  rows, selection, getCollapsedRows, getRowId,
+}: Getters) => rowsToExport(
+  rows, selection, getCollapsedRows, getRowId,
+);
+const groupTreeComputed = ({
+  rows, outlineLevels, grouping, isGroupRow, groupSummaryItems,
+}: Getters) => groupTree(
+  rows, outlineLevels, grouping, isGroupRow, groupSummaryItems,
+);
+const exportSummaryComputed = ({
+  worksheet, columns, customizeSummaryCell,
+}: Getters) => exportSummaryGetter(
+  worksheet, columns, customizeSummaryCell, defaultSummaryMessages,
+);
+const getCloseGroupComputed = ({
+  worksheet, groupTree, outlineLevels, maxGroupLevel, groupSummaryItems, exportSummary,
+}: Getters) => closeGroupGetter(
+  worksheet, groupTree, outlineLevels, maxGroupLevel, groupSummaryItems, exportSummary,
+);
+
 class GridExporterBase extends React.PureComponent<any, any> {
+  static defaultProps = {
+    grouping: [],
+  };
+
   constructor(props) {
     super(props);
 
@@ -30,44 +57,29 @@ class GridExporterBase extends React.PureComponent<any, any> {
 
   performExport = (_: any, 
     {
-    tableColumns, columns: dataColumns, getRowId,
-    getCellValue, grouping, isGroupRow, rows, getCollapsedRows, selection,
-    groupSummaryItems, totalSummaryItems,
+    tableColumns, columns: dataColumns, exportSummary, getCloseGroup,
+    getCellValue, isGroupRow, rows, worksheet, workbook, maxGroupLevel,
+    totalSummaryItems, outlineLevels, groupTree,
   }: Getters,
   {
     finishExport,
   }: Actions) => {
-    const columns = tableColumns.filter(c => c.type === Table.COLUMN_TYPE)
-
     const {
-      onSave, customizeCell, customizeSummaryCell, customizeHeader, customizeFooter,
+      onSave, customizeCell, customizeHeader, customizeFooter,
     } = this.props;
-    const workbook: Excel.Workbook = new Excel.Workbook();
-    const worksheet = workbook.addWorksheet('Main');
-    const outlineLevels = getOutlineLevels(grouping);
-    const maxLevel = grouping?.length - 1;
-    const allRows = getRowsToExport(rows, selection, getCollapsedRows, getRowId);
-
-    const groupTree = buildGroupTree(
-      allRows, outlineLevels, grouping, isGroupRow, groupSummaryItems, worksheet.lastRow!.number + 1
-    );
-
-    const exportSummary = getExportSummary(
-      worksheet, dataColumns, customizeSummaryCell, defaultSummaryMessages,
-    );
-    const closeGroup = getCloseGroup(
-      worksheet, groupTree, outlineLevels, maxLevel, groupSummaryItems, exportSummary,
-    );
+    const columns = tableColumns.filter(c => c.type === Table.COLUMN_TYPE)
 
     customizeHeader(worksheet);
 
     exportHeader(worksheet, columns);
+    const dataRowsOffset = worksheet.lastRow?.number + 1;
+
     exportRows(
-      worksheet, allRows, dataColumns, columns, outlineLevels,
-      getCellValue, closeGroup, customizeCell,
+      worksheet, rows, dataColumns, columns, isGroupRow, outlineLevels, dataRowsOffset,
+      getCellValue, getCloseGroup, customizeCell,
     );
 
-    closeSheet(worksheet, groupTree, maxLevel, totalSummaryItems, exportSummary);
+    closeSheet(worksheet, groupTree, maxGroupLevel, dataRowsOffset, totalSummaryItems, exportSummary);
 
     customizeFooter(worksheet);
 
@@ -88,11 +100,14 @@ class GridExporterBase extends React.PureComponent<any, any> {
     const {
       rows: propRows, columns: propColumns, getCellValue, getRowId, columnExtensions,
       grouping, showColumnsWhenGrouped, groupColumnExtensions, /* filters, sorting, */
-      selection, totalSummaryItems, groupSummaryItems,
+      selection, totalSummaryItems, groupSummaryItems, customizeSummaryCell,
     } = this.props;
     const { isExporting } = this.state;
 
     if (!isExporting) return null;
+
+    const workbook = new Excel.Workbook();
+    const worksheet = workbook.addWorksheet('Main');
 
     const summaryExists = totalSummaryItems || groupSummaryItems;
     const useSelection = !!selection;
@@ -134,6 +149,16 @@ class GridExporterBase extends React.PureComponent<any, any> {
         {summaryExists && (
           <IntegratedSummary />
         )}
+
+        <Getter name="customizeSummaryCell" value={customizeSummaryCell} />
+        <Getter name="workbook" value={workbook} />
+        <Getter name="worksheet" value={worksheet} />
+        <Getter name="maxGroupLevel" computed={maxGroupLevelComputed} />
+        <Getter name="outlineLevels" computed={outlineLevelsComputed} />
+        <Getter name="rows" computed={rowsToExportComputed} />
+        <Getter name="groupTree" computed={groupTreeComputed} />
+        <Getter name="exportSummary" computed={exportSummaryComputed} />
+        <Getter name="getCloseGroup" computed={getCloseGroupComputed} />
 
         <Action name="finishExport" action={this.finishExport} />
         <Action name="performExport" action={this.performExport} />

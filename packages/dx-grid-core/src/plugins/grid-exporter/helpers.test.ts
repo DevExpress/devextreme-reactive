@@ -1,81 +1,7 @@
-import { findRanges, buildGroupTree, exportHeader, exportRows } from './helpers';
+import { findRanges, exportHeader, exportRows, closeSheet, normalizeRanges, } from './helpers';
 import { ROOT_GROUP } from './constants';
 
 describe('export helpers', () => {
-  describe('#buildGroupTree', () => {
-    describe('withour grouping', () => {
-      it('should work with flat rows', () => {
-        const rows = [{}, {}, {}];
-        expect(buildGroupTree(
-          rows, {}, undefined, undefined, 2,
-        ))
-          .toEqual({
-            [ROOT_GROUP]: [2, 4],
-          });
-      });
-    });
-
-    describe('with grouping', () => {
-      const grouping = [{ columnName: 'a' }, { columnName: 'b' }];
-      const rows = [
-        { groupedBy: 'a', compoundKey: '1' },   // 2
-        { groupedBy: 'b', compoundKey: '1|1' }, // 3
-        {}, // 4
-        {}, // 5
-        {}, // 6
-        // summary
-        { groupedBy: 'b', compoundKey: '1|2' }, // 7 [8]
-        {}, // 8 [9]
-        // summary
-        { groupedBy: 'b', compoundKey: '1|3' }, // 9 [11]
-        {}, // 10 [12]
-        {}, // 11 [13]
-        // summary for b
-        // summary for a
-        { groupedBy: 'a', compoundKey: '2' }, // 12 [16]
-        { groupedBy: 'b', compoundKey: '2|1' }, // 13 [17]
-        {}, // 14 [18]
-        {}, // 15 [19]
-        // summary for b
-        // summary for a
-      ];
-      const outlineLevels = {
-        'a': 0,
-        'b': 1,
-      };
-
-      it('should work without group summary', () => {
-        expect(buildGroupTree(
-          rows, outlineLevels, grouping, undefined, 2,
-        ))
-          .toEqual({
-            [ROOT_GROUP]: ['1', '2'],
-            1: ['1|1', '1|2', '1|3'],
-            '1|1': [4, 6],
-            '1|2': [8, 8],
-            '1|3': [10, 11],
-            2: ['2|1'],
-            '2|1': [14, 15],
-          });
-      });
-
-      it('should work with group summary', () => {
-        expect(buildGroupTree(
-          rows, outlineLevels, grouping, [], 2,
-        ))
-          .toEqual({
-            [ROOT_GROUP]: ['1', '2'],
-            1: ['1|1', '1|2', '1|3'],
-            '1|1': [4, 6],
-            '1|2': [9, 9],
-            '1|3': [12, 13],
-            2: ['2|1'],
-            '2|1': [18, 19],
-          });
-      });
-    });
-  });
-
   describe('#exportHeader', () => {
     it('should work', () => {
       const worksheet = {
@@ -157,11 +83,13 @@ describe('export helpers', () => {
     const dataColumns = ['a', 'b', 'c'].map((name) => ({ name, title: name }));
     const tableColumns = dataColumns.map((column) => ({ column }));
     const getCellValue = (row, name) => row[name];
+    const isGroupRow = ({ groupedBy }) => !!groupedBy;
     const cells = [{}, {}, {}];
     let worksheet;
     let cellStub;
     let rows;
     const closeGroup = jest.fn();
+    const getCloseGroup = jest.fn();
     const customizeCell = jest.fn();
     const getCell = jest.fn();
     const eachCell = jest.fn().mockImplementation((callback) => {
@@ -177,6 +105,7 @@ describe('export helpers', () => {
       };
       cellStub = {};
       getCell.mockReturnValue(cellStub);
+      getCloseGroup.mockReturnValue(closeGroup);
       worksheet = {
         addRow: jest.fn(),
         mergeCells: jest.fn(),
@@ -192,8 +121,8 @@ describe('export helpers', () => {
       ];
       beforeEach(() => {
         exportRows(
-          worksheet, dataRows, dataColumns, tableColumns, {},
-          getCellValue, closeGroup, customizeCell,
+          worksheet, dataRows, dataColumns, tableColumns, isGroupRow, {},
+          0, getCellValue, getCloseGroup, customizeCell,
         );
       });
 
@@ -245,8 +174,8 @@ describe('export helpers', () => {
         });
 
         exportRows(
-          worksheet, groupRows, dataColumns, tableColumns, outlineLevels,
-          getCellValue, closeGroup, customizeCell,
+          worksheet, groupRows, dataColumns, tableColumns, isGroupRow, outlineLevels,
+          0, getCellValue, getCloseGroup, customizeCell,
         );
       })
 
@@ -283,6 +212,55 @@ describe('export helpers', () => {
         expect(cellStub.font)
           .toEqual({ bold: true });
       });
+    });
+  });
+
+  describe('#closeSheet', () => {
+    const worksheet = {
+      addRow: jest.fn(),
+      views: [],
+      columns: null,
+      lastRow: { number: 'last' },
+    };
+    const groupTree = {
+      [ROOT_GROUP]: ['group1', 'group2'],
+      group1: ['group1|nested1', 'group1|nested2'],
+      'group1|nested1': [4, 10],
+      'group1|nested2': [12, 15],
+      group2: ['group2|nested1', 'group2|nested2'],
+      'group2|nested1': [18, 23],
+      'group2|nested2': [25, 30],
+    };
+
+    it('should export total summaries', () => {
+      const exportSummary = jest.fn();
+      const totalSummaryItems = [
+        { columnName: 'a', type: 'sum' },
+        { columnName: 'b', type: 'count' },
+      ];
+      const expectedRanges = [[7, 13], [15, 18], [21, 26], [28, 33]];
+
+      closeSheet(worksheet, groupTree, 1, 3, totalSummaryItems, exportSummary);
+
+      expect(worksheet.addRow)
+        .toBeCalledTimes(1);
+      expect(worksheet.addRow)
+        .toBeCalledWith({});
+      expect(exportSummary)
+        .toBeCalledTimes(2);
+      expect(exportSummary)
+        .toHaveBeenNthCalledWith(1, totalSummaryItems[0], expectedRanges);
+      expect(exportSummary)
+        .toHaveBeenNthCalledWith(2, totalSummaryItems[1], expectedRanges);
+    });
+  });
+
+  describe('#normalizeRanges', () => {
+    it('should apply row offset to ranges', () => {
+      const ranges = [[0, 3], [10, 15]];
+
+      expect(normalizeRanges(ranges, 5))
+        .toEqual([[5, 8], [15, 20]]);
     });
   });
 });

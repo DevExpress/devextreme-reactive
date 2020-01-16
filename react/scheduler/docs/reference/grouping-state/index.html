@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>GroupingState Plugin Reference - DevExtreme Reactive Components</title>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="prefetch" href="/devextreme-reactive/fonts/OpenSansCondensedBold.woff">
+    <link rel="shortcut icon" type="image/png" href="/devextreme-reactive/favicon.ico" >
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1579171459">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1579171459">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
+
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l='+l : '';
+            j.async = true;
+            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WQWSD3L');
+    </script>
+    <!-- End Google Tag Manager -->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQWSD3L" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-static-top navbar-main">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/devextreme-reactive/react/scheduler/">
+            <div>
+              <img src="/devextreme-reactive/img/scheduler-logo.svg" alt="React Scheduler">
+              <div class="logo-container">
+                <h3 class="logo-team">DevExtreme</h3>
+                <h3 class="logo-product">React Scheduler</h3>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            
+            <li><a href="/devextreme-reactive/react/scheduler/demos/featured/overview/">Demos</a></li>
+            
+            <li class="active"><a href="/devextreme-reactive/react/scheduler/docs/guides/getting-started/">Docs</a></li>
+            <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+            <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
+
+    <div class="container docs-container">
+  <div class="row">
+    <div class="col-sm-9 col-sm-push-3 docs-content">
+        <h1 id="groupingstate-plugin-reference">GroupingState Plugin Reference</h1>
+
+<p>A plugin that manages the grouping state.</p>
+
+<h2 id="import">Import</h2>
+
+<p>Use the following statement to import the plugin:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">GroupingState</span> <span class="p">}</span> <span class="k">from</span> <span class="s1">'@devexpress/dx-react-scheduler'</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="user-reference">User Reference</h2>
+
+<h3 id="dependencies">Dependencies</h3>
+
+<p>None</p>
+
+<h3 id="properties">Properties</h3>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Default</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>grouping?</td>
+      <td>Array&lt;<a href="#grouping">Grouping</a>&gt;</td>
+      <td> </td>
+      <td>Specifies resources to group by.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="interfaces">Interfaces</h2>
+
+<h3 id="grouping">Grouping</h3>
+
+<p>Describes grouping options.</p>
+
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>resourceName</td>
+      <td>string</td>
+      <td>The name of the resource by which the appointments are grouped.</td>
+    </tr>
+  </tbody>
+</table>
+
+    </div>
+
+    <div class="col-sm-3 col-sm-pull-9 main-menu">
+      <ul class="list-unstyled">
+        <li>
+          <input id="docsearch" type="text" class="form-control" placeholder="Search...">
+        </li>
+      </ul>
+      <ul class="list-unstyled version">
+        <li>
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.4.0">
+            Version
+            <span>2.4.0</span>
+          </a>
+        </li>
+      </ul>
+      <hr />
+      
+        <h3>Guides</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/guides/getting-started/">Getting Started</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/guides/fundamentals/">Fundamentals</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/guides/views/">Views</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/guides/appointments/">Appointments</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/guides/view-switching/">View Switching</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/guides/date-navigation/">Date Navigation</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/guides/appointment-tooltip/">Appointment Tooltip</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/guides/editing/">Editing</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/guides/resources/">Resources</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/guides/grouping/">Grouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/guides/current-time-indication/">Current Time Indication</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/guides/localization/">Localization</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/guides/typescript/">TypeScript Support</a></li>
+          
+
+        
+        </ul>
+      
+        <h3>Common Concepts</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/common/docs/guides/performance-optimization/">Optimize Performance</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/common/docs/guides/custom-theme/">Create a Custom Theme</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/common/docs/guides/localization/">Localization</a></li>
+          
+
+        
+        </ul>
+      
+        <h3>API Reference</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/all-day-panel/">AllDayPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/appointment-form/">AppointmentForm</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/appointment-tooltip/">AppointmentTooltip</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/appointments/">Appointments</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/confirmation-dialog/">ConfirmationDialog</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/current-time-indicator/">CurrentTimeIndicator</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/date-navigator/">DateNavigator</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/day-view/">DayView</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/drag-drop-provider/">DragDropProvider</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/edit-recurrence-menu/">EditRecurrenceMenu</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/editing-state/">EditingState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/grouping-panel/">GroupingPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li>GroupingState</li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/integrated-editing/">IntegratedEditing</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/integrated-grouping/">IntegratedGrouping</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/month-view/">MonthView</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/resources/">Resources</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/scheduler/">Scheduler</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/today-button/">TodayButton</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/toolbar/">Toolbar</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/view-state/">ViewState</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/view-switcher/">ViewSwitcher</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/week-view/">WeekView</a></li>
+          
+
+        
+        </ul>
+      
+        <h3>Related Docs</h3>
+
+        <ul class="list-unstyled">
+        
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/core/docs/guides/fundamentals/">React Core</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/grid/docs/guides/getting-started/">React Grid</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/chart/docs/guides/getting-started/">React Chart</a></li>
+          
+
+        
+        </ul>
+      
+    </div>
+  </div>
+</div>
+
+<script src="/devextreme-reactive/react/common/dist/index.js?v=1579171459"></script>
+
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"
+  onload="docsearch({
+    apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
+    indexName: 'devextreme_reactive',
+    inputSelector: '#docsearch',
+    algoliaOptions: { 'facetFilters': ['techno:react', 'tool: scheduler'] },
+    debug: false
+  })"
+  async
+>
+</script>
+</script>
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <ul class="list-inline">
+                      
+                      <li><a href="/devextreme-reactive/react/scheduler/demos/featured/overview/">Demos</a></li>
+                      
+                      <li class="active"><a href="/devextreme-reactive/react/scheduler/docs/guides/getting-started/">Docs</a></li>
+                      <li><a href="https://community.devexpress.com/tags/DevExtreme+Reactive/default.aspx" target="_blank">Blog</a></li>
+                      <li><a href="https://github.com/DevExpress/devextreme-reactive" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-9 copyright">
+                  <p>
+                    Copyright © 2011-2020 Developer Express Inc.<br />
+                    All trademarks or registered trademarks are property of their respective owners.
+                    <div class="links">
+                      <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
+                      <br>
+                      <a href="https://js.devexpress.com/Licensing/">Licensing</a>
+                  </div>
+                  <p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Remove unexpected global variable generated by kramdown to fix js-cookie
+      // <h3 id="exports">Exports</h3>
+      window.exports = undefined;
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
+
+    <script src="/devextreme-reactive/js/tracking.js?v=1579171459"></script>
+    <script>
+        trackingCookie.notice();
+    </script>
+
+  </body>
+</html>

@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1576756365">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1576756365">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1579171459">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1579171459">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <!-- Google Tag Manager -->
@@ -89,14 +89,9 @@
       <li>Internet Explorer</li>
     </ul>
   </li>
-  <li>Currently, there are issues with fixed columns support in Microsoft Edge:
-    <ul>
-      <li><a href="https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/18769340/">sticky elements flicker on scroll</a></li>
-      <li><a href="https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/18940617/">nested sticky positioning element will not stick</a></li>
-      <li><a href="https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/16792336/">sticky causes border to dissapear on table elements</a></li>
-    </ul>
-  </li>
 </ul>
+
+<p>Scrolling issues have also been noticed in Microsoft Edge. They are caused by the browser’s implementation of sticky positioning.</p>
 
 <h2 id="related-plugins">Related Plugins</h2>
 
@@ -110,7 +105,7 @@
 
 <p>Import the <a href="/devextreme-reactive/react/grid/docs/reference/table-fixed-columns/">TableFixedColumns</a> plugin and specify the names of the columns that should be fixed. The <code class="highlighter-rouge">leftColumns</code> property specifies columns fixed at the grid’s left side, the <code class="highlighter-rouge">rightColumns</code> property - at the right side.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-fixed-columns/basic&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/grid/demos/dist/index.js?v=1576756365&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1576756365&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-fixed-columns/basic&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/grid/demos/dist/index.js?v=1579171459&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1579171459&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -120,7 +115,7 @@
 
 <p>You can also use the <code class="highlighter-rouge">leftColumns</code> and <code class="highlighter-rouge">rightColumns</code> properties to fix service columns, such as Selection Column or Editing Column.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-fixed-columns/with-selection&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/grid/demos/dist/index.js?v=1576756365&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1576756365&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-fixed-columns/with-selection&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/grid/demos/dist/index.js?v=1579171459&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1579171459&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -130,7 +125,7 @@
 
 <p>You can use the <a href="/devextreme-reactive/react/grid/docs/reference/table-fixed-columns/">TableFixedColumns</a> plugin with other plugins.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-fixed-columns/bands&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/grid/demos/dist/index.js?v=1576756365&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1576756365&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-fixed-columns/bands&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/grid/demos/dist/index.js?v=1579171459&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1579171459&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -140,7 +135,7 @@
 
 <p>The plugin works smoothly with both regular and virtual tables.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-fixed-columns/virtual-table&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/grid/demos/dist/index.js?v=1576756365&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1576756365&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-fixed-columns/virtual-table&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/grid/demos/dist/index.js?v=1579171459&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1579171459&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -156,9 +151,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.3.2">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.4.0">
             Version
-            <span>2.3.2</span>
+            <span>2.4.0</span>
           </a>
         </li>
       </ul>
@@ -828,7 +823,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/common/dist/index.js?v=1576756365"></script>
+<script src="/devextreme-reactive/react/common/dist/index.js?v=1579171459"></script>
 
 <script
   type="text/javascript"
@@ -861,7 +856,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2019 Developer Express Inc.<br />
+                    Copyright © 2011-2020 Developer Express Inc.<br />
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -884,7 +879,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1576756365"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1579171459"></script>
     <script>
         trackingCookie.notice();
     </script>

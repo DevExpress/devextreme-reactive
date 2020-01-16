@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1576756365">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1576756365">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1579171459">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1579171459">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <!-- Google Tag Manager -->
@@ -87,7 +87,7 @@
   <li><a href="/devextreme-reactive/react/grid/docs/reference/paging-state/">PagingState</a> - controls the paging state</li>
   <li><a href="/devextreme-reactive/react/grid/docs/reference/integrated-paging/">IntegratedPaging</a> - performs built-in data paging</li>
   <li><a href="/devextreme-reactive/react/grid/docs/reference/custom-paging/">CustomPaging</a> - allows implementing a custom totalCount calculation logic</li>
-  <li><a href="/devextreme-reactive/react/grid/docs/reference/paging-panel/">PagingPanel</a> - renders the Paging Panel</li>
+  <li><a href="/devextreme-reactive/react/grid/docs/reference/paging-panel/">PagingPanel</a> - renders the Paging Panel in the Grid footer</li>
 </ul>
 
 <p>Note that the <a href="/devextreme-reactive/react/grid/docs/guides/plugin-overview/#plugin-order">plugin order</a> is important.</p>
@@ -102,7 +102,7 @@
 
 <p>In the following example, the page size is specified using the <code class="highlighter-rouge">PagingState</code> plugin’s <code class="highlighter-rouge">pageSize</code> property, which is usual for the controlled mode. However, the <code class="highlighter-rouge">onPageSizeChange</code> event handler is not specified because the page size is not supposed to be changed internally as the Page Size Selector is not available.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-paging/uncontrolled-mode&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/grid/demos/dist/index.js?v=1576756365&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1576756365&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-paging/uncontrolled-mode&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/grid/demos/dist/index.js?v=1579171459&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1579171459&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -114,7 +114,7 @@
 
 <p>The example below demonstrates a basic configuration for the uncontrolled mode. The <code class="highlighter-rouge">PagingState</code> plugin’s <code class="highlighter-rouge">defaultPageSize</code> property defines the initial page size.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-paging/page-size-selector&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/grid/demos/dist/index.js?v=1576756365&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1576756365&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-paging/page-size-selector&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/grid/demos/dist/index.js?v=1579171459&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1579171459&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -131,7 +131,7 @@
 
 <p>Note that the <code class="highlighter-rouge">onPageSizeChange</code> handler makes sense only if the <code class="highlighter-rouge">pageSizes</code> option is specified. Otherwise, a user is not able to change the page size.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-paging/controlled-mode&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/grid/demos/dist/index.js?v=1576756365&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1576756365&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-paging/controlled-mode&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/grid/demos/dist/index.js?v=1579171459&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1579171459&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -145,7 +145,7 @@
 
 <p>For remote paging, use the <code class="highlighter-rouge">CustomPaging</code> plugin instead of the <code class="highlighter-rouge">IntegratedPaging</code> plugin.</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-paging/remote-paging&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/grid/demos/dist/index.js?v=1576756365&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1576756365&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/grid-paging/remote-paging&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/grid/demos/dist/index.js?v=1579171459&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1579171459&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -165,9 +165,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.3.2">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.4.0">
             Version
-            <span>2.3.2</span>
+            <span>2.4.0</span>
           </a>
         </li>
       </ul>
@@ -837,7 +837,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/common/dist/index.js?v=1576756365"></script>
+<script src="/devextreme-reactive/react/common/dist/index.js?v=1579171459"></script>
 
 <script
   type="text/javascript"
@@ -870,7 +870,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2019 Developer Express Inc.<br />
+                    Copyright © 2011-2020 Developer Express Inc.<br />
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -893,7 +893,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1576756365"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1579171459"></script>
     <script>
         trackingCookie.notice();
     </script>

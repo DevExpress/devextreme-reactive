@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1576756365">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1576756365">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1579171459">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1579171459">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <!-- Google Tag Manager -->
@@ -374,6 +374,11 @@
       <td>A component that renders a day scale row.</td>
     </tr>
     <tr>
+      <td>groupingPanelComponent?</td>
+      <td>ComponentType&lt;<a href="/devextreme-reactive/react/scheduler/docs/reference/grouping-panel/#groupingpanelhorizontallayoutprops">GroupingPanel.HorizontalLayoutProps</a>&gt;</td>
+      <td>A component that renders the grouping panel.</td>
+    </tr>
+    <tr>
       <td>formatDate</td>
       <td><a href="/devextreme-reactive/react/scheduler/docs/reference/scheduler/#formatterfn">FormatterFn</a></td>
       <td>A function that formats dates according to the set locale.</td>
@@ -413,6 +418,16 @@
       <td>formatDate</td>
       <td><a href="/devextreme-reactive/react/scheduler/docs/reference/scheduler/#formatterfn">FormatterFn</a></td>
       <td>A function that formats dates according to the set locale.</td>
+    </tr>
+    <tr>
+      <td>groupingInfo?</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/scheduler/docs/reference/grouping-panel/#group">Group</a>&gt;</td>
+      <td>Information about the cell’s group(s).</td>
+    </tr>
+    <tr>
+      <td>hasRightBorder?</td>
+      <td>boolean</td>
+      <td>Specifies whether the cell has the right border.</td>
     </tr>
   </tbody>
 </table>
@@ -496,6 +511,16 @@
       <td>endDate?</td>
       <td>Date</td>
       <td>Specifies the cell’s end time.</td>
+    </tr>
+    <tr>
+      <td>groupingInfo?</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/scheduler/docs/reference/grouping-panel/#group">Group</a>&gt;</td>
+      <td>Information about the cell’s group(s).</td>
+    </tr>
+    <tr>
+      <td>hasRightBorder?</td>
+      <td>boolean</td>
+      <td>Specifies whether the cell has the right border.</td>
     </tr>
     <tr>
       <td>isShaded?</td>
@@ -638,9 +663,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.3.2">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.4.0">
             Version
-            <span>2.3.2</span>
+            <span>2.4.0</span>
           </a>
         </li>
       </ul>
@@ -720,6 +745,14 @@
 
           
           <li><a href="/devextreme-reactive/react/scheduler/docs/guides/resources/">Resources</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/guides/grouping/">Grouping</a></li>
           
 
         
@@ -877,7 +910,31 @@
           
 
           
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/grouping-panel/">GroupingPanel</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/grouping-state/">GroupingState</a></li>
+          
+
+        
+          
+          
+
+          
           <li><a href="/devextreme-reactive/react/scheduler/docs/reference/integrated-editing/">IntegratedEditing</a></li>
+          
+
+        
+          
+          
+
+          
+          <li><a href="/devextreme-reactive/react/scheduler/docs/reference/integrated-grouping/">IntegratedGrouping</a></li>
           
 
         
@@ -982,7 +1039,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/common/dist/index.js?v=1576756365"></script>
+<script src="/devextreme-reactive/react/common/dist/index.js?v=1579171459"></script>
 
 <script
   type="text/javascript"
@@ -1015,7 +1072,7 @@
                 </div>
                 <div class="col-md-9 copyright">
                   <p>
-                    Copyright © 2011-2019 Developer Express Inc.<br />
+                    Copyright © 2011-2020 Developer Express Inc.<br />
                     All trademarks or registered trademarks are property of their respective owners.
                     <div class="links">
                       <a href="https://js.devexpress.com/Privacy/">Your Privacy - Legal Statements</a>
@@ -1038,7 +1095,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1576756365"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1579171459"></script>
     <script>
         trackingCookie.notice();
     </script>

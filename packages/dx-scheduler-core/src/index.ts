@@ -59,6 +59,8 @@ export * from './plugins/integrated-grouping/helpers';
 /** @internal */
 export * from './plugins/grouping-panel/utils';
 /** @internal */
+export * from './plugins/appointments/helpers';
+/** @internal */
 export * from './constants';
 /** @internal */
 export * from './utils';

@@ -163,7 +163,7 @@ export default () => {
 
   const loadData = () => {
     const {
-      requestedSkip, take, lastQuery, loading, forceReload,
+      requestedSkip, take, lastQuery, loading, forceReload, totalCount,
     } = state;
     const query = buildQueryString();
     if ((query !== lastQuery || forceReload) && !loading) {
@@ -172,7 +172,7 @@ export default () => {
       }
       const cached = cache.getRows(requestedSkip, take);
       if (cached.length === take) {
-        updateRows(requestedSkip, take);
+        updateRows(requestedSkip, take, totalCount);
       } else {
         dispatch({ type: 'FETCH_INIT' });
         fetch(query)

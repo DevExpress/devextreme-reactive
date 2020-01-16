@@ -1,3 +1,22 @@
+# [2.4.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.3.2...v2.4.0) (2020-01-16)
+
+
+### Bug Fixes
+
+* **react-grid:** specify detail row as a dependency for fixed columns ([#2614](https://github.com/DevExpress/devextreme-reactive/issues/2614)) ([54b782c](https://github.com/DevExpress/devextreme-reactive/commit/54b782cb38d8abb17163d754fc1a81d3e384e155))
+* **react-grid:** split band columns with the same name but different parents ([#2618](https://github.com/DevExpress/devextreme-reactive/issues/2618)) ([deecbab](https://github.com/DevExpress/devextreme-reactive/commit/deecbab1cda03846144e22b856676b0cea82e9e6))
+* **react-grid-demos:** provide total count when rows taken from cache ([#2639](https://github.com/DevExpress/devextreme-reactive/issues/2639)) ([6dd41be](https://github.com/DevExpress/devextreme-reactive/commit/6dd41bedebb49b55b1070c5ef3e387f03916b5e2))
+* **react-scheduler:** fix error caused by view switching when all-day panel is used ([#2638](https://github.com/DevExpress/devextreme-reactive/issues/2638)) ([b858ddf](https://github.com/DevExpress/devextreme-reactive/commit/b858ddf6208abb06ae9b872a142760a5fbc717b6))
+* **react-scheduler:** fix localization messages in Scheduler ([#2628](https://github.com/DevExpress/devextreme-reactive/issues/2628)) ([28584dc](https://github.com/DevExpress/devextreme-reactive/commit/28584dcb0e2b2ac176123cb87e9ca4f78ff4faf4))
+
+
+### Features
+
+* **react-grid:** add scroll to row in virtual table ([#2511](https://github.com/DevExpress/devextreme-reactive/issues/2511)) ([089c1b5](https://github.com/DevExpress/devextreme-reactive/commit/089c1b5fda7c3a696b78793f64b799684e8a16e8))
+* **react-scheduler:** add horizontal grouping by resources ([#2576](https://github.com/DevExpress/devextreme-reactive/issues/2576)) ([d4ad281](https://github.com/DevExpress/devextreme-reactive/commit/d4ad2814fd21d61fe83fd8ef3d9c118c12afa45b))
+
+
+
 # [2.3.2](https://github.com/DevExpress/devextreme-reactive/compare/v2.3.1...v2.3.2) (2019-12-19)
 
 

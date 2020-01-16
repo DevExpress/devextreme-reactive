@@ -33,7 +33,7 @@ describe('Appointments helpers', () => {
         .toBeFalsy();
     });
 
-    it('should return true if getCellRects length is not equal to the first row', () => {
+    it('should return false if getCellRects length is not equal to the first row', () => {
       const allDayElementsMeta = {
         getCellRects: [
           'test1',

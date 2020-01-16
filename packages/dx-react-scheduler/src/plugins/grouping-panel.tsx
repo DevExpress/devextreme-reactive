@@ -49,7 +49,7 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
                   ? HORIZONTAL_VIEW_LEFT_OFFSET
                   : VERTICAL_VIEW_LEFT_OFFSET,
                 }}
-                showHeaderForEveryDate={groupByDate && groupByDate(currentView?.name)}
+                showHeaderForEveryDate={groupByDate?.(currentView?.name)}
               />
             )}
           </TemplateConnector>

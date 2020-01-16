@@ -62,7 +62,7 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
         startViewDate, endViewDate, cellDuration,
         viewCellsData, cellElementsMeta: timeTableElementsMeta,
       },
-      groupByDate && groupByDate(currentView?.name),
+      groupByDate?.(currentView?.name),
     ));
   });
 
@@ -79,7 +79,7 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
         startViewDate, endViewDate,
         viewCellsData, cellElementsMeta: allDayElementsMeta,
       },
-      groupByDate && groupByDate(currentView?.name),
+      groupByDate?.(currentView?.name),
     ));
   });
 

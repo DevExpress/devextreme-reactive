@@ -189,7 +189,7 @@ class DragDropProviderBase extends React.PureComponent<
       allDayIndex, draftAppointments, startViewDate,
       endViewDate, excludedDays, viewCellsData, allDayCellsElementsMeta,
       targetType, cellDurationMinutes, tableCellElementsMeta, grouping, resources, groups,
-      groupByDate && groupByDate(currentView?.name),
+      groupByDate?.(currentView?.name),
     );
 
     this.allDayDraftAppointments = allDayDraftAppointments;

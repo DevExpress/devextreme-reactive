@@ -310,7 +310,6 @@ describe('Appointments', () => {
 
     expect(timeTableAppointmentsLayer.exists())
       .toBeTruthy();
-    expect()
     expect(calculateRectByDateAndGroupIntervals)
       .toHaveBeenCalledWith(
         { growDirection: 'horizontal', multiline: true },

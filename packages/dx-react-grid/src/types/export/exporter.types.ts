@@ -1,17 +1,27 @@
 import { Workbook, Cell, Worksheet } from "exceljs";
-import { Row, Column } from "@devexpress/dx-grid-core"; //TODO: reexport in index
+import { Row, Column, SummaryItem, GroupSummaryItem } from "@devexpress/dx-grid-core"; //TODO: reexport in index
 import { GridProps } from "../grid";
-import { GroupingStateProps } from "../grouping";
-import { SummaryStateProps } from "../summary";
+import { GroupingStateProps, TableGroupRowProps, TableGroupRow } from "../grouping";
+import { SelectionStateProps } from "../selection";
+import { TableProps } from "../tables";
 
 export type ExporterProps = 
   Omit<GridProps, 'rootComponent'> &
   Pick<GroupingStateProps, 'grouping'> &
-  SummaryStateProps
+  Pick<TableGroupRowProps, 'showColumnsWhenGrouped'> &
+  Pick<SelectionStateProps, 'selection'> &
+  Pick<TableProps, 'columnExtensions'>
 & {
+  groupColumnExtensions?: TableGroupRow.ColumnExtension[],
+  totalSummaryItems?: SummaryItem[],
+  groupSummaryItems?: GroupSummaryItem[],
   onSave: (workbook: Workbook) => void;
-  customizeCell: (cell: Cell, row: Row, column: Column) => void;
-  customizeSummaryCell: (cell: Cell, row: Row, column: Column) => void;
-  customizeHeader: (worksheet: Worksheet) => void;
-  customizeFooter: (worksheet: Worksheet) => void;
-}
+  customizeCell?: (cell: Cell, row: Row, column: Column) => void;
+  customizeSummaryCell?: (cell: Cell, row: Row, column: Column) => void;
+  customizeHeader?: (worksheet: Worksheet) => void;
+  customizeFooter?: (worksheet: Worksheet) => void;
+};
+
+export type ExporterState = {
+  isExporting: boolean;
+};

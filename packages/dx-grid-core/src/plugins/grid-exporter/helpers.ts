@@ -124,3 +124,6 @@ export const exportSummaryItems: ExportSummaryItemsFn = (
     exportSummary(s, ranges);
   });
 };
+
+export const createWorkbook = () => new Excel.Workbook();
+export const createWorksheet = (workbook) => workbook.addWorksheet('Main');

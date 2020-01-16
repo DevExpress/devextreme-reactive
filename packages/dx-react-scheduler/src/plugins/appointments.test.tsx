@@ -7,6 +7,7 @@ import { Appointments } from './appointments';
 import {
   calculateRectByDateAndGroupIntervals, getVerticalRectByAppointmentData,
   getHorizontalRectByAppointmentData, getAppointmentStyle,
+  isAllDayElementsMetaActual, isTimeTableElementsMetaActual,
 } from '@devexpress/dx-scheduler-core';
 
 // eslint-disable-next-line react/prop-types
@@ -36,6 +37,8 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   getHorizontalRectByAppointmentData: jest.fn(),
   calculateRectByDateAndGroupIntervals: jest.fn(),
   getAppointmentStyle: jest.fn(),
+  isAllDayElementsMetaActual: jest.fn(),
+  isTimeTableElementsMetaActual: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -75,6 +78,8 @@ describe('Appointments', () => {
       width: 'test width',
       height: 'test height',
     }]);
+    isAllDayElementsMetaActual.mockImplementation(() => true);
+    isTimeTableElementsMetaActual.mockImplementation(() => true);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -266,6 +271,8 @@ describe('Appointments', () => {
 
     expect(timeTableAppointmentsLayer.exists())
       .toBeTruthy();
+    expect(isTimeTableElementsMetaActual)
+      .toHaveBeenCalledWith(defaultDeps.getter.timeTableElementsMeta);
     expect(calculateRectByDateAndGroupIntervals)
       .toHaveBeenCalledWith({
         growDirection: 'vertical', multiline: false,
@@ -342,6 +349,11 @@ describe('Appointments', () => {
 
     expect(allDayAppointmentLayer.exists())
       .toBeTruthy();
+    expect(isAllDayElementsMetaActual)
+      .toHaveBeenCalledWith(
+        defaultDeps.getter.viewCellsData,
+        defaultDeps.getter.allDayAppointments,
+      );
     expect(calculateRectByDateAndGroupIntervals)
       .toHaveBeenCalledWith({
         growDirection: 'horizontal', multiline: false,

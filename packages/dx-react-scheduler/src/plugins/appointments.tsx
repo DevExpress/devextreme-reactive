@@ -7,6 +7,7 @@ import {
   POSITION_START, POSITION_END, VERTICAL_TYPE,
   getVerticalRectByAppointmentData, calculateRectByDateAndGroupIntervals,
   getAppointmentStyle, HORIZONTAL_TYPE, getHorizontalRectByAppointmentData,
+  isAllDayElementsMetaActual, isTimeTableElementsMetaActual,
 } from '@devexpress/dx-scheduler-core';
 
 import { AppointmentsProps } from '../types';
@@ -48,7 +49,7 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
     timeTableAppointments, viewCellsData, timeTableElementsMeta,
     currentView, startViewDate, endViewDate, cellDuration, groupByDate,
   ) => {
-    if (!timeTableElementsMeta.getCellRects) return null;
+    if (!isTimeTableElementsMetaActual(timeTableElementsMeta)) return null;
     let appointmentType = { growDirection: VERTICAL_TYPE, multiline: false };
     let getRects = getVerticalRectByAppointmentData as any;
     if (currentView.type === 'month') {
@@ -69,7 +70,7 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
     allDayAppointments, viewCellsData, allDayElementsMeta,
     startViewDate, endViewDate, groupByDate, currentView,
   ) => {
-    if (!allDayElementsMeta.getCellRects) return null;
+    if (!isAllDayElementsMetaActual(viewCellsData, allDayAppointments)) return null;
     return renderAppointments(calculateRectByDateAndGroupIntervals(
       { growDirection: HORIZONTAL_TYPE,  multiline: false },
       allDayAppointments,

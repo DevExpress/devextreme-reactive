@@ -55,6 +55,8 @@ Field | Type | Description
 startDate | Date | Specifies the cell's start time.
 endDate | Date | Specifies the cell's end time.
 today | boolean | Indicates whether the cell's date is today.
+groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's group(s).
+hasRightBorder? | boolean | Specifies whether the cell has the right border.
 
 ### DayView.LayoutProps
 

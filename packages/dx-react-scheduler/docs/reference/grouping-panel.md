@@ -57,7 +57,7 @@ groups | Array&lt;Array&lt;[Group](#group)&gt;&gt; | Specifies the final represe
 colSpan | number | The layout's length measured in timetable cells.
 cellStyle | object | The CSS styles of a cell on the grouping panel.
 rowComponent | ComponentType&lt;[GroupingPanel.RowProps](#groupingpanelrowprops)&gt; |  A component that renders a row on the grouping panel.
-cellComponent | ComponentType&lt;[GroupingPanel.CellProps](#groupingpanelcellprops)&gt; | | A component that renders a cell in a row on the grouping panel.
+cellComponent | ComponentType&lt;[GroupingPanel.CellProps](#groupingpanelcellprops)&gt; | A component that renders a cell in a row on the grouping panel.
 
 ### GroupingPanel.RowProps
 

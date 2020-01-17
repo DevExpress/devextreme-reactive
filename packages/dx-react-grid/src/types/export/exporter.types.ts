@@ -1,5 +1,5 @@
 import { Workbook, Cell, Worksheet } from "exceljs";
-import { Row, Column, SummaryItem, GroupSummaryItem } from "@devexpress/dx-grid-core"; //TODO: reexport in index
+import { Row, Column, SummaryItem, GroupSummaryItem } from '../index';
 import { GridProps } from "../grid";
 import { GroupingStateProps, TableGroupRowProps, TableGroupRow } from "../grouping";
 import { SelectionStateProps } from "../selection";

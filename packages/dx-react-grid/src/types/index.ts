@@ -10,7 +10,9 @@ export {
 } from '../../../dx-grid-core/src/index';
 
 /** @internal */
-export { GetCellColSpanFn, BandHeaderRow } from '../../../dx-grid-core/src/index';
+export {
+  GetCellColSpanFn, BandHeaderRow, Row,
+} from '../../../dx-grid-core/src/index';
 
 export * from './column-operations';
 export * from './data-type-provider';

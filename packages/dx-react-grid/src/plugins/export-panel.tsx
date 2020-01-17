@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
-  Template, TemplatePlaceholder, Plugin, TemplateConnector,
+  Template, TemplatePlaceholder, Plugin,
 } from '@devexpress/dx-react-core';
 
 const defaultMessages = {
@@ -11,7 +11,7 @@ const defaultMessages = {
 class ExportPanelBase extends React.PureComponent<any> {
   static components = {
     buttonComponent: 'ExportButton',
-  }
+  };
 
   render() {
     const {
@@ -25,26 +25,17 @@ class ExportPanelBase extends React.PureComponent<any> {
         name="ExportPanel"
         dependencies={[
           { name: 'Toolbar' },
-          // { name: 'Exporter' },
         ]}
       >
         <Template name="toolbarContent">
           <TemplatePlaceholder />
-          <TemplateConnector>
-            {(/* _, { initiateExport, performExport } */) => (
-              <Button
-                onClick={() => {
-                  startExport();
-                  // initiateExport();
-                  // window.setTimeout(performExport, 0);
-                }}
-                getMessage={getMessagesFormatter({ ...defaultMessages, ...messages })}
-              />
-            )}
-          </TemplateConnector>
+          <Button
+            onClick={startExport}
+            getMessage={getMessagesFormatter({ ...defaultMessages, ...messages })}
+          />
         </Template>
       </Plugin>
-    )
+    );
   }
 }
 

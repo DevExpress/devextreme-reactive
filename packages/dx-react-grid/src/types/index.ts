@@ -11,7 +11,7 @@ export {
 
 /** @internal */
 export {
-  GetCellColSpanFn, BandHeaderRow, Row,
+  GetCellColSpanFn, BandHeaderRow, Row, CustomizeSummaryCellFn,
 } from '../../../dx-grid-core/src/index';
 
 export * from './column-operations';

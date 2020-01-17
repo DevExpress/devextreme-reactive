@@ -1,5 +1,5 @@
 import { Workbook, Cell, Worksheet } from 'exceljs';
-import { Row, Column, SummaryItem, GroupSummaryItem } from '../index';
+import { Row, Column, SummaryItem, GroupSummaryItem, CustomizeSummaryCellFn } from '../index';
 import { GridProps } from '../grid';
 import { GroupingStateProps, TableGroupRowProps, TableGroupRow } from '../grouping';
 import { SelectionStateProps } from '../selection';
@@ -21,7 +21,7 @@ export type ExporterProps =
   groupSummaryItems?: GroupSummaryItem[],
   onSave: (workbook: Workbook) => void;
   customizeCell?: (cell: Cell, row: Row, column: Column) => void;
-  customizeSummaryCell?: (cell: Cell, row: Row, column: Column) => void;
+  customizeSummaryCell?: CustomizeSummaryCellFn;
   customizeHeader?: (worksheet: Worksheet) => void;
   customizeFooter?: (worksheet: Worksheet) => void;
 };

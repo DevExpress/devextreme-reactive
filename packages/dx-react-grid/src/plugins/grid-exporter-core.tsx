@@ -25,9 +25,9 @@ import { IntegratedSorting } from './integrated-sorting';
 const maxGroupLevelComputed = ({ grouping }: Getters) => maxGroupLevel(grouping);
 const outlineLevelsComputed = ({ grouping }: Getters) => outlineLevels(grouping);
 const rowsToExportComputed = ({
-  rows, selection, getCollapsedRows, getRowId,
+  rows, selection, grouping, getCollapsedRows, getRowId, isGroupRow,
 }: Getters) => rowsToExport(
-  rows, selection, getCollapsedRows, getRowId,
+  rows, selection, grouping, getCollapsedRows, getRowId, isGroupRow,
 );
 const groupTreeComputed = ({
   rows, outlineLevels, grouping, isGroupRow, groupSummaryItems,

@@ -220,7 +220,10 @@ describe('GridExporter', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
-          <GridExporterCore {...defaultProps} selection={selection} />
+          <GridExporterCore
+            {...defaultProps}
+            selection={selection}
+          />
           {pluginDepsToComponents({})}
         </PluginHost>
       ));
@@ -231,8 +234,10 @@ describe('GridExporter', () => {
         .toHaveBeenCalledWith(
           defaultDeps.getter.rows,
           selection,
+          defaultDeps.getter.grouping,
           defaultDeps.getter.getCollapsedRows,
           defaultDeps.getter.getRowId,
+          defaultDeps.getter.isGroupRow,
         );
     });
 

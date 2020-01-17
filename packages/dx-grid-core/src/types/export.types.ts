@@ -5,7 +5,7 @@ import { Grouping } from "./grouping.types";
 import { Worksheet, Cell } from "exceljs";
 import { Column, GetCellValueFn, IsSpecificRowFn, GetCollapsedRowsFn } from "./grid-core.types";
 
-export type FilterSelectedRowsFn = PureComputed<[Row[], GetRowIdFn, RowId[]]>;
+export type FilterSelectedRowsFn = PureComputed<[Row[], RowId[], GetRowIdFn, IsSpecificRowFn]>;
 export type OutlineLevels = { [groupedBy: string]: number };
 export type GroupTree = { [groupKey: string]: Array<string | number> };
 export type BuildGroupTreeFn = PureComputed<
@@ -25,7 +25,10 @@ type ExportSummary = { type: SummaryType, ranges: ExportRanges };
 export type OutlineLevelsFn = PureComputed<[Grouping[]], OutlineLevels>;
 export type CustomizeCellFn = (cell: Cell, row: Row, column: Column) => void;
 export type CustomizeSummaryCellFn = (cell: Cell, column: Column, summary: ExportSummary) => void;
-export type GetRowsToExportFn = PureComputed<[Row[], RowId[], GetCollapsedRowsFn, GetRowIdFn]>;
+export type GetRowsToExportFn = PureComputed<
+  [Row[], RowId[], Grouping[], GetCollapsedRowsFn, GetRowIdFn, IsSpecificRowFn]
+>;
+export type RemoveEmptyGroupsFn = PureComputed<[Row[], Grouping[], IsSpecificRowFn]>;
 export type ExportRowsFn = (
   worksheet: Worksheet, rows: ReadonlyArray<Row>, dataColumns: Column[], columns: TableColumn[],
   isGroupRow: IsSpecificRowFn, outlineLevels: OutlineLevels, rowsOffset: number, 

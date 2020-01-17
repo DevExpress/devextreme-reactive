@@ -1,4 +1,4 @@
-import { groupTree, outlineLevels, rowsToExport, exportSummaryGetter, closeGroupGetter, maxGroupLevel } from "./computeds";
+import { groupTree, outlineLevels, rowsToExport, exportSummaryGetter, closeGroupGetter, maxGroupLevel, removeEmptyGroups } from "./computeds";
 import { ROOT_GROUP } from "./constants";
 
 
@@ -96,12 +96,15 @@ describe('export computeds', () => {
   });
 
   describe('#rowsToExport', () => {
+    const grouping = [{ columnName: 'a' }, { columnName: 'b' }];
+    const isGroupRow = row => !!row.groupedBy;
+
     it('should work with plain rows', () => {
       const rows = [{}, {}, {}];
       const getCollapsedRows = () => null;
       const getRowId = () => null;
 
-      expect(rowsToExport(rows, null, getCollapsedRows, getRowId))
+      expect(rowsToExport(rows, null, grouping, getCollapsedRows, getRowId, isGroupRow))
         .toEqual(rows);
     });
 
@@ -114,7 +117,7 @@ describe('export computeds', () => {
       const getCollapsedRows = ({ collapsedRows }) => collapsedRows;
       const getRowId = () => null;
 
-      expect(rowsToExport(rows, null, getCollapsedRows, getRowId))
+      expect(rowsToExport(rows, null, grouping, getCollapsedRows, getRowId, isGroupRow))
         .toEqual([
           ...rows,
           { a: 3 },
@@ -126,15 +129,23 @@ describe('export computeds', () => {
       const rows = [
         { a: 1 },
         { a: 2 },
+        { groupedBy: 'a', value: 0 },
+        { groupedBy: 'b', value: 1 },
         { collapsedRows: [{ a: 3 }, { a: 4 }] },
+        { groupedBy: 'a', value: 0 },
+        { groupedBy: 'b', value: 1 },
+        { a: 5 },
+        { a: 6 }
       ];
       const getCollapsedRows = ({ collapsedRows }) => collapsedRows;
       const getRowId = ({ a }) => a;
       const selection = [2, 3];
 
-      expect(rowsToExport(rows, selection, getCollapsedRows, getRowId))
+      expect(rowsToExport(rows, selection, grouping, getCollapsedRows, getRowId, isGroupRow))
         .toEqual([
           { a: 2 },
+          { groupedBy: 'a', value: 0 },
+          { groupedBy: 'b', value: 1 },
           { a: 3 },
         ]);
     });
@@ -235,6 +246,51 @@ describe('export computeds', () => {
         .toBe(-1);
       expect(maxGroupLevel([{ columnName: 'a' }, { columnName: 'b' }]))
         .toBe(1);
+    });
+  });
+
+  describe('#removeEmptyGroups', () => {
+    const grouping = [{ columnName: 'a' }, { columnName: 'b' }];
+    const isGroupRow = row => !!row.groupedBy;
+
+    it('should leave data rows as is', () => {
+      const rows = [
+        { a: 1 },
+        { a: 2 },
+      ];
+      expect(removeEmptyGroups(rows, undefined, isGroupRow))
+        .toEqual(rows);
+    });
+
+    it('should leave group row if group has data rows', () => {
+      const rows = [
+        { groupedBy: 'a', value: 1 },
+        { groupedBy: 'b', value: 2 },
+        { a: 1 },
+        { a: 2 },
+      ];
+      expect(removeEmptyGroups(rows, grouping, isGroupRow))
+        .toEqual(rows);
+    });
+
+    it('should remove empty groups', () => {
+      const rows = [
+        { groupedBy: 'a', value: 1 },
+        { groupedBy: 'b', value: 2 },
+        { groupedBy: 'a', value: 3 },
+        { groupedBy: 'b', value: 4 },
+        { a: 1 },
+        { a: 2 },
+        { groupedBy: 'a', value: 5 },
+        { groupedBy: 'b', value: 6 },
+      ];
+      expect(removeEmptyGroups(rows, grouping, isGroupRow))
+        .toEqual([
+          { groupedBy: 'a', value: 3 },
+          { groupedBy: 'b', value: 4 },
+          { a: 1 },
+          { a: 2 },
+        ]);
     });
   });
 });

@@ -1,4 +1,7 @@
-import { OutlineLevelsFn, FilterSelectedRowsFn, GetRowsToExportFn, Row, BuildGroupTreeFn, GetExportSummaryFn, GetCloseGroupFn, Grouping } from "../../types";
+import {
+  OutlineLevelsFn, FilterSelectedRowsFn, GetRowsToExportFn, Row, BuildGroupTreeFn,
+  GetExportSummaryFn, GetCloseGroupFn, Grouping, RemoveEmptyGroupsFn,
+} from "../../types";
 import { PureComputed } from "@devexpress/dx-core";
 import { ROOT_GROUP } from "./constants";
 import { exportSummaryItems } from "./helpers";
@@ -11,14 +14,40 @@ export const outlineLevels: OutlineLevelsFn = (grouping) => (
   }), {})
 );
 
-const filterSelectedRows: FilterSelectedRowsFn = (rows, getRowId, selection) => {
+const filterSelectedRows: FilterSelectedRowsFn = (rows, selection, getRowId, isGroupRow) => {
   const selectionSet = new Set<any>(selection);
-  // TODO: replace groupedBy check with isGroupRow
-  return rows.filter(row => row.groupedBy || selectionSet.has(getRowId(row)));
+  return rows.filter(row => isGroupRow(row) || selectionSet.has(getRowId(row)));
+};
+
+export const removeEmptyGroups: RemoveEmptyGroupsFn = (rows, grouping, isGroupRow) => {
+  if (!grouping) return rows;
+
+  const groupingColumns = grouping.map(({ columnName }) => columnName);
+  const result: any[] = [];
+  let groupChain: any[] = [];
+
+  rows.forEach(row => {
+    if (isGroupRow(row)) {
+      const level = groupingColumns.indexOf(row.groupedBy);
+      if (level === groupChain.length) {
+        groupChain.push(row);
+      } else {
+        groupChain = [row];
+      }
+    } else {
+      if (groupChain.length > 0) {
+        result.push(...groupChain);
+        groupChain = [];
+      }
+      result.push(row);
+    }
+  });
+
+  return result;
 };
 
 export const rowsToExport: GetRowsToExportFn = (
-  rows, selection, getCollapsedRows, getRowId,
+  rows, selection, grouping, getCollapsedRows, getRowId, isGroupRow,
 ) => {
   const expandRows: PureComputed<[Row[]]> = (rows) => (
     rows.reduce((acc, row) => (
@@ -29,7 +58,8 @@ export const rowsToExport: GetRowsToExportFn = (
   const expandedRows = expandRows(rows);
 
   if (!!selection) {
-    return filterSelectedRows(expandedRows, getRowId, selection);
+    const filteredRows = filterSelectedRows(expandedRows, selection, getRowId, isGroupRow);
+    return removeEmptyGroups(filteredRows, grouping, isGroupRow);
   }
   return expandedRows;
 };

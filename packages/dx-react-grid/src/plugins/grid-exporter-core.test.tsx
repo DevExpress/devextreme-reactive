@@ -20,6 +20,10 @@ import { SummaryState } from './summary-state';
 import { IntegratedSummary } from './integrated-summary';
 import { SelectionState } from './selection-state';
 import { defaultSummaryMessages } from '../components/summary/table-summary-content';
+import { FilteringState } from './filtering-state';
+import { IntegratedFiltering } from './integrated-filtering';
+import { IntegratedSorting } from './integrated-sorting';
+import { SortingState } from './sorting-state';
 
 jest.mock('./internal', () => ({
   GridCoreGetters: () => null,
@@ -44,6 +48,11 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   prepareGroupSummaryItems: jest.fn(),
   createWorkbook: jest.fn(),
   createWorksheet: jest.fn(),
+  unwrappedFilteredRows: jest.fn(),
+  filteredCollapsedRowsGetter: jest.fn(),
+  filterExpression: jest.fn(),
+  filteredRows: jest.fn(),
+  sortedRows: jest.fn(),
 }));
 
 const defaultProps = {
@@ -66,7 +75,8 @@ const defaultDeps = {
     isGroupRow: () => null,
   },
   action: {
-    finishExport: () => {},
+    performExport: jest.fn(),
+    finishExport: jest.fn(),
   },
 };
 
@@ -84,82 +94,21 @@ describe('GridExporter', () => {
 
   afterEach(jest.clearAllMocks);
 
-  it('should render only when export initiated', () => {
-    
+  it('should export grid when rendered', () => {
+    mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <GridExporterCore {...defaultProps} />
+      </PluginHost>
+    ));
+
+    expect(defaultDeps.action.performExport)
+      .toHaveBeenCalledTimes(1);
+    expect(defaultDeps.action.finishExport)
+      .toHaveBeenCalledTimes(1);
   });
 
   describe('getters', () => {
-    expect.extend({
-      toBeRendered(plugin, tree) {
-        const name = Object.keys(plugin)[0];
-        const pass = tree.find(plugin[name]).exists();
-
-        return {
-          pass,
-          message: () => `plugin ${name} should be rendered`,
-        };
-      },
-      toHaveProps(plugin, tree, props) {
-        const name = Object.keys(plugin)[0];
-        if (!props) return { pass: true };
-
-        // const actualProps = tree.find(plugin[name]).props();
-        // const pass = Object.keys(props).reduce((acc, propName) => (
-        //   acc && this.equals(props[propName], actualProps[propName])
-        // ), true);
-
-        expect(tree.find(plugin[name]).props())
-          .toMatchObject(props);
-
-        return {
-          pass: !this.isNot,
-          message: () => 'props do not match',
-        };
-      },
-    });
-
-    const assertPluginsRendered = (featureName, { featureProps, plugins }) => {
-      it(`should not render ${featureName} plugins if props aren't provided`, () => {
-        const tree = mount((
-          <PluginHost>
-            {pluginDepsToComponents(defaultDeps)}
-            <GridExporterCore {...defaultProps} />
-          </PluginHost>
-        ));
-
-        startExport(tree);
-
-        plugins.forEach(({ plugin }) => {
-          expect(plugin).not.toBeRendered(tree);
-        });
-      });
-
-      it(`should render ${featureName} plugins if props provided`, () => {
-        const tree = mount((
-          <PluginHost>
-            {pluginDepsToComponents(defaultDeps)}
-            <GridExporterCore {...defaultProps} {...featureProps} />
-          </PluginHost>
-        ));
-
-        startExport(tree);
-
-        plugins.forEach(({ plugin, props }) => {
-          expect(plugin).toBeRendered(tree);
-          expect(plugin).toHaveProps(tree, props);
-        });
-
-        // plugins.forEach(({ plugin, props }) => {
-        //   expect(tree.find(plugin).exists())
-        //     .toBeTruthy();
-
-        //   if (props) {
-        //     expect(tree.find(plugin).props())
-        //       .toMatchObject(props);
-        //   }
-        // })
-      })
-    }
     it('should provide grid basic getters', () => {
       const tree = mount((
         <PluginHost>
@@ -192,118 +141,6 @@ describe('GridExporter', () => {
         });
     });
 
-    describe('grouping', () => {
-      it('should render grouping plugins if grouping is provided', () => {
-        const grouping = [{ columnName: 'a' }];
-        const groupColumnExtensions = [{ columnName: 'a', showWhenGrouped: false }];
-        const tree = mount((
-          <PluginHost>
-            {pluginDepsToComponents(defaultDeps)}
-            <GridExporterCore
-              {...defaultProps}
-              grouping={grouping}
-              groupColumnExtensions={groupColumnExtensions}
-              showColumnsWhenGrouped={true}
-            />
-          </PluginHost>
-        ));
-  
-        expect(tree.find(GroupingState).props())
-          .toMatchObject({
-            grouping,
-          });
-        expect(tree.find(TableColumnsWithGrouping).props())
-          .toMatchObject({
-            columnExtensions: groupColumnExtensions,
-            showColumnsWhenGrouped: true,
-          });
-        expect(tree.find(IntegratedGrouping).exists())
-          .toBeTruthy();
-      });
-      
-      it('should not render grouping plugins if grouping is not provided', () => {
-        const tree = mount((
-          <PluginHost>
-            {pluginDepsToComponents(defaultDeps)}
-            <GridExporterCore {...defaultProps} />
-          </PluginHost>
-        ));
-  
-        expect(tree.find(GroupingState).exists())
-          .toBeFalsy();
-        expect(tree.find(TableColumnsWithGrouping).exists())
-          .toBeFalsy();
-        expect(tree.find(IntegratedGrouping).exists())
-          .toBeFalsy();
-      });
-    });
-
-    describe('summary', () => {
-      it('should not render summary plugins if summary is not provided', () => {
-        const tree = mount((
-          <PluginHost>
-            {pluginDepsToComponents(defaultDeps)}
-            <GridExporterCore {...defaultProps} />
-          </PluginHost>
-        ));
-
-        expect(tree.find(SummaryState).exists())
-          .toBeFalsy();
-        expect(tree.find(IntegratedSummary).exists())
-          .toBeFalsy();
-      });
-
-      it('should render summary plugins if summary items are provided', () => {
-        const totalItems = [{ columnName: 'a', type: 'max' }];
-        const groupItems = [{ columnName: 'b', type: 'min' }];
-        const tree = mount((
-          <PluginHost>
-            {pluginDepsToComponents(defaultDeps)}
-            <GridExporterCore
-              {...defaultProps}
-              totalSummaryItems={totalItems}
-              groupSummaryItems={groupItems}
-            />
-          </PluginHost>
-        ));
-  
-        expect(tree.find(SummaryState).props())
-          .toMatchObject({
-            totalItems,
-            groupItems,
-          });
-        expect(tree.find(IntegratedSummary).exists())
-          .toBeTruthy();
-      });
-    });
-
-    describe('selection', () => {
-      it('should not render SelectionState if selection is not provided', () => {
-        const tree = mount((
-          <PluginHost>
-            {pluginDepsToComponents(defaultDeps)}
-            <GridExporterCore {...defaultProps} />
-          </PluginHost>
-        ));
-
-        expect(tree.find(SelectionState).exists())
-          .toBeFalsy();
-      });
-
-      it('should render SelectionState if selection is provided', () => {
-        const selection = ['1', '2'];
-        const tree = mount((
-          <PluginHost>
-            {pluginDepsToComponents(defaultDeps)}
-            <GridExporterCore {...defaultProps} selection={selection} />
-          </PluginHost>
-        ));
-
-        expect(tree.find(SelectionState).props())
-          .toMatchObject({ selection });
-      });
-    });
-
     it('should provide workbook', () => {
       const tree = mount((
         <PluginHost>
@@ -330,33 +167,6 @@ describe('GridExporter', () => {
       expect(getComputedState(tree).worksheet)
         .toBe('worksheet');
     });
-
-    const assertGetter = (name, result, computed, deps, extraProps = {}) => {
-      it(`should provide ${name}`, () => {
-        const tree = mount((
-          <PluginHost>
-            {pluginDepsToComponents(defaultDeps)}
-            <GridExporterCore {...defaultProps} {...extraProps} />
-            {pluginDepsToComponents({})}
-          </PluginHost>
-        ));
-  
-        expect(getComputedState(tree)[name])
-          .toBe(result);
-
-        if (computed) {
-          expect(computed)
-            .toHaveBeenCalledWith(...deps);
-        }
-      });
-    }
-
-    // assertGetter(
-    //   'maxGroupLevel',
-    //   'maxGroupLevel',
-    //   maxGroupLevel,
-    //   [defaultDeps.getter.grouping],
-    // );
 
     it('should provide maxGroupLevel', () => {
       const tree = mount((
@@ -496,5 +306,191 @@ describe('GridExporter', () => {
         );
     });
 
+  });
+
+  describe('feature plugins', () => {
+    describe('grouping', () => {
+      it('should render grouping plugins if grouping is provided', () => {
+        const grouping = [{ columnName: 'a' }];
+        const groupColumnExtensions = [{ columnName: 'a', showWhenGrouped: false }];
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <GridExporterCore
+              {...defaultProps}
+              grouping={grouping}
+              groupColumnExtensions={groupColumnExtensions}
+              showColumnsWhenGrouped={true}
+            />
+          </PluginHost>
+        ));
+  
+        expect(tree.find(GroupingState).props())
+          .toMatchObject({
+            grouping,
+          });
+        expect(tree.find(TableColumnsWithGrouping).props())
+          .toMatchObject({
+            columnExtensions: groupColumnExtensions,
+            showColumnsWhenGrouped: true,
+          });
+        expect(tree.find(IntegratedGrouping).exists())
+          .toBeTruthy();
+      });
+      
+      it('should not render grouping plugins if grouping is not provided', () => {
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <GridExporterCore {...defaultProps} />
+          </PluginHost>
+        ));
+  
+        expect(tree.find(GroupingState).exists())
+          .toBeFalsy();
+        expect(tree.find(TableColumnsWithGrouping).exists())
+          .toBeFalsy();
+        expect(tree.find(IntegratedGrouping).exists())
+          .toBeFalsy();
+      });
+    });
+
+    describe('summary', () => {
+      it('should not render summary plugins if summary is not provided', () => {
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <GridExporterCore {...defaultProps} />
+          </PluginHost>
+        ));
+
+        expect(tree.find(SummaryState).exists())
+          .toBeFalsy();
+        expect(tree.find(IntegratedSummary).exists())
+          .toBeFalsy();
+      });
+
+      it('should render summary plugins if summary items are provided', () => {
+        const totalItems = [{ columnName: 'a', type: 'max' }];
+        const groupItems = [{ columnName: 'b', type: 'min' }];
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <GridExporterCore
+              {...defaultProps}
+              totalSummaryItems={totalItems}
+              groupSummaryItems={groupItems}
+            />
+          </PluginHost>
+        ));
+  
+        expect(tree.find(SummaryState).props())
+          .toMatchObject({
+            totalItems,
+            groupItems,
+          });
+        expect(tree.find(IntegratedSummary).exists())
+          .toBeTruthy();
+      });
+    });
+
+    describe('selection', () => {
+      it('should not render SelectionState if selection is not provided', () => {
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <GridExporterCore {...defaultProps} />
+          </PluginHost>
+        ));
+
+        expect(tree.find(SelectionState).exists())
+          .toBeFalsy();
+      });
+
+      it('should render SelectionState if selection is provided', () => {
+        const selection = ['1', '2'];
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <GridExporterCore {...defaultProps} selection={selection} />
+          </PluginHost>
+        ));
+
+        expect(tree.find(SelectionState).props())
+          .toMatchObject({ selection });
+      });
+    });
+
+    describe('filtering', () => {
+      it('should render filtering plugins if filters are provided', () => {
+        const filters = [{ columnName: 'a', value: 1 }];
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <GridExporterCore
+              {...defaultProps}
+              filters={filters}
+            />
+          </PluginHost>
+        ));
+  
+        expect(tree.find(FilteringState).props())
+          .toMatchObject({
+            filters,
+          });
+        expect(tree.find(IntegratedFiltering).exists())
+          .toBeTruthy();
+      });
+      
+      it('should not render filtering plugins if filters are not provided', () => {
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <GridExporterCore {...defaultProps} />
+          </PluginHost>
+        ));
+  
+        expect(tree.find(FilteringState).exists())
+          .toBeFalsy();
+        expect(tree.find(IntegratedFiltering).exists())
+          .toBeFalsy();
+      });
+    });
+
+    describe('sorting', () => {
+      it('should render sorting plugins if sorting is provided', () => {
+        const sorting = [{ columnName: 'a', direction: 'asc' }];
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <GridExporterCore
+              {...defaultProps}
+              sorting={sorting}
+            />
+          </PluginHost>
+        ));
+  
+        expect(tree.find(SortingState).props())
+          .toMatchObject({
+            sorting,
+          });
+        expect(tree.find(IntegratedSorting).exists())
+          .toBeTruthy();
+      });
+      
+      it('should not render sorting plugins if sorting is not provided', () => {
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <GridExporterCore {...defaultProps} />
+          </PluginHost>
+        ));
+  
+        expect(tree.find(SortingState).exists())
+          .toBeFalsy();
+        expect(tree.find(IntegratedSorting).exists())
+          .toBeFalsy();
+      });
+    });
   });
 });

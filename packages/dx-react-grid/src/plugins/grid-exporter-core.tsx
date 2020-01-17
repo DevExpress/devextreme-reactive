@@ -6,7 +6,6 @@ import {
   exportHeader, exportRows,
   closeGroupGetter, closeSheet, outlineLevels, rowsToExport, groupTree, exportSummaryGetter, maxGroupLevel, createWorkbook, createWorksheet,
 } from '@devexpress/dx-grid-core';
-import * as Excel from 'exceljs/dist/exceljs.min.js';
 import { IntegratedGrouping } from './integrated-grouping';
 import { GroupingState } from './grouping-state';
 import { SummaryState } from './summary-state';
@@ -18,6 +17,10 @@ import { SelectionState } from './selection-state';
 import {
   TableColumnsWithGrouping, TableColumnsWithDataRowsGetter, GridCoreGetters,
 } from './internal';
+import { FilteringState } from './filtering-state';
+import { IntegratedFiltering } from './integrated-filtering';
+import { SortingState } from './sorting-state';
+import { IntegratedSorting } from './integrated-sorting';
 
 const maxGroupLevelComputed = ({ grouping }: Getters) => maxGroupLevel(grouping);
 const outlineLevelsComputed = ({ grouping }: Getters) => outlineLevels(grouping);
@@ -86,13 +89,9 @@ export class GridExporterCore extends React.PureComponent<ExporterProps> {
   render() {
     const {
       rows: propRows, columns: propColumns, getCellValue, getRowId, columnExtensions,
-      grouping, showColumnsWhenGrouped, groupColumnExtensions, /* filters, sorting, */
+      grouping, showColumnsWhenGrouped, groupColumnExtensions, filters, sorting,
       selection, totalSummaryItems, groupSummaryItems, customizeSummaryCell,
     } = this.props;
-    // const { isExporting } = this.state;
-    // console.log('render', isExporting)
-
-    // if (!isExporting) return null;
 
     const workbook = createWorkbook();
     const worksheet = createWorksheet(workbook);
@@ -100,6 +99,8 @@ export class GridExporterCore extends React.PureComponent<ExporterProps> {
     const summaryExists = totalSummaryItems || groupSummaryItems;
     const useGrouping = !!grouping?.length;
     const useSelection = !!selection;
+    const useFilters = !!filters;
+    const useSorting = !!sorting;
 
     return (
       <Plugin>
@@ -115,6 +116,12 @@ export class GridExporterCore extends React.PureComponent<ExporterProps> {
         <Getter name="isExporting" value />
 
         {/* State */}
+        {useFilters && (
+          <FilteringState filters={filters} />
+        )}
+        {useSorting && (
+          <SortingState sorting={sorting} />
+        )}
         {useGrouping && (
           <GroupingState grouping={grouping} />
         )}
@@ -131,6 +138,12 @@ export class GridExporterCore extends React.PureComponent<ExporterProps> {
             columnExtensions={groupColumnExtensions}
             showColumnsWhenGrouped={showColumnsWhenGrouped}
           />
+        )}
+        {useFilters && (
+          <IntegratedFiltering />
+        )}
+        {useSorting && (
+          <IntegratedSorting />
         )}
         {useGrouping && (
           <IntegratedGrouping />

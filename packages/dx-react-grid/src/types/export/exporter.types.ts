@@ -4,9 +4,13 @@ import { GridProps } from "../grid";
 import { GroupingStateProps, TableGroupRowProps, TableGroupRow } from "../grouping";
 import { SelectionStateProps } from "../selection";
 import { TableProps } from "../tables";
+import { FilteringStateProps } from "../filtering";
+import { SortingStateProps } from "../sorting";
 
 export type ExporterProps = 
   Omit<GridProps, 'rootComponent'> &
+  Pick<FilteringStateProps, 'filters'> &
+  Pick<SortingStateProps, 'sorting'> &
   Pick<GroupingStateProps, 'grouping'> &
   Pick<TableGroupRowProps, 'showColumnsWhenGrouped'> &
   Pick<SelectionStateProps, 'selection'> &

@@ -126,4 +126,4 @@ export const exportSummaryItems: ExportSummaryItemsFn = (
 };
 
 export const createWorkbook = () => new Excel.Workbook();
-export const createWorksheet = (workbook) => workbook.addWorksheet('Main');
+export const createWorksheet = (workbook: Excel.Workbook) => workbook.addWorksheet('Main');

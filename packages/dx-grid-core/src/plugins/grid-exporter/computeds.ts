@@ -13,7 +13,8 @@ export const outlineLevels: OutlineLevelsFn = (grouping) => (
 
 const filterSelectedRows: FilterSelectedRowsFn = (rows, getRowId, selection) => {
   const selectionSet = new Set<any>(selection);
-  return rows.filter(row => selectionSet.has(getRowId(row)));
+  // TODO: replace groupedBy check with isGroupRow
+  return rows.filter(row => row.groupedBy || selectionSet.has(getRowId(row)));
 };
 
 export const rowsToExport: GetRowsToExportFn = (

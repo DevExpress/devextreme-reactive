@@ -26,6 +26,7 @@ export type ExporterProps =
   customizeFooter?: (worksheet: Worksheet) => void;
 };
 
+/** @internal */
 export type ExporterState = {
   isExporting: boolean;
 };

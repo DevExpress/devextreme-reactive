@@ -4,7 +4,10 @@
 
 ```ts
 
+import { Cell } from 'exceljs';
 import * as React from 'react';
+import { Workbook } from 'exceljs';
+import { Worksheet } from 'exceljs';
 
 // @public (undocumented)
 export type CellWidthGetter = () => number;
@@ -246,6 +249,21 @@ export interface EditingStateProps {
   };
 }
 
+// @public (undocumented)
+export type ExporterProps = Omit<GridProps, 'rootComponent'> & Pick<FilteringStateProps, 'filters'> & Pick<SortingStateProps, 'sorting'> & Pick<GroupingStateProps, 'grouping'> & Pick<TableGroupRowProps, 'showColumnsWhenGrouped'> & Pick<SelectionStateProps, 'selection'> & Pick<TableProps, 'columnExtensions'> & {
+  groupColumnExtensions?: TableGroupRow.ColumnExtension[];
+  totalSummaryItems?: SummaryItem[];
+  groupSummaryItems?: GroupSummaryItem[];
+  onSave: (workbook: Workbook) => void;
+  customizeCell?: (cell: Cell, row: Row, column: Column) => void;
+  customizeSummaryCell?: (cell: Cell, row: Row, column: Column) => void;
+  customizeHeader?: (worksheet: Worksheet) => void;
+  customizeFooter?: (worksheet: Worksheet) => void;
+};
+
+// @public (undocumented)
+export const ExportPanel: React.ComponentType<any>;
+
 // @public
 export interface Filter {
     columnName: string;
@@ -305,6 +323,9 @@ export type GridColumnExtension = {
     align?: 'left' | 'right' | 'center';
     wordWrapEnabled?: boolean;
 } & IntegratedFiltering.ColumnExtension;
+
+// @public (undocumented)
+export const GridExporter: React.ComponentType<ExporterProps>;
 
 // @public (undocumented)
 export interface GridProps {

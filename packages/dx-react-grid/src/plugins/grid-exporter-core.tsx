@@ -3,8 +3,8 @@ import {
   Action, Actions, Plugin, Getter, Template, TemplateConnector, Getters,
 } from '@devexpress/dx-react-core';
 import {
-  exportHeader, exportRows,
-  closeGroupGetter, closeSheet, outlineLevels, rowsToExport, groupTree, exportSummaryGetter, maxGroupLevel, createWorkbook, createWorksheet,
+  exportHeader, exportRows, closeGroupGetter, closeSheet, groupOutlineLevels, rowsToExport,
+  buildGroupTree, exportSummaryGetter, maximumGroupLevel, createWorkbook, createWorksheet,
 } from '@devexpress/dx-grid-core';
 import { IntegratedGrouping } from './integrated-grouping';
 import { GroupingState } from './grouping-state';
@@ -22,8 +22,8 @@ import { IntegratedFiltering } from './integrated-filtering';
 import { SortingState } from './sorting-state';
 import { IntegratedSorting } from './integrated-sorting';
 
-const maxGroupLevelComputed = ({ grouping }: Getters) => maxGroupLevel(grouping);
-const outlineLevelsComputed = ({ grouping }: Getters) => outlineLevels(grouping);
+const maxGroupLevelComputed = ({ grouping }: Getters) => maximumGroupLevel(grouping);
+const outlineLevelsComputed = ({ grouping }: Getters) => groupOutlineLevels(grouping);
 const rowsToExportComputed = ({
   rows, selection, grouping, getCollapsedRows, getRowId, isGroupRow,
 }: Getters) => rowsToExport(
@@ -31,7 +31,7 @@ const rowsToExportComputed = ({
 );
 const groupTreeComputed = ({
   rows, outlineLevels, grouping, isGroupRow, groupSummaryItems,
-}: Getters) => groupTree(
+}: Getters) => buildGroupTree(
   rows, outlineLevels, grouping, isGroupRow, groupSummaryItems,
 );
 const exportSummaryComputed = ({
@@ -53,7 +53,7 @@ export class GridExporterCore extends React.PureComponent<ExporterProps> {
     customizeCell: () => {},
   };
 
-  performExport = (_: any, 
+  performExport = (_: any,
     {
     tableColumns, columns: dataColumns, exportSummary, getCloseGroup,
     getCellValue, isGroupRow, rows, worksheet, workbook, maxGroupLevel,
@@ -65,7 +65,7 @@ export class GridExporterCore extends React.PureComponent<ExporterProps> {
     const {
       onSave, customizeCell, customizeHeader, customizeFooter,
     } = this.props;
-    const columns = tableColumns.filter(c => c.type === Table.COLUMN_TYPE)
+    const columns = tableColumns.filter(c => c.type === Table.COLUMN_TYPE);
 
     customizeHeader!(worksheet);
 
@@ -77,7 +77,9 @@ export class GridExporterCore extends React.PureComponent<ExporterProps> {
       getCellValue, getCloseGroup, customizeCell!,
     );
 
-    closeSheet(worksheet, groupTree, maxGroupLevel, dataRowsOffset, totalSummaryItems, exportSummary);
+    closeSheet(
+      worksheet, groupTree, maxGroupLevel, dataRowsOffset, totalSummaryItems, exportSummary,
+    );
 
     customizeFooter!(worksheet);
 

@@ -1,9 +1,9 @@
-import { PureComputed, ReadonlyObject } from "@devexpress/dx-core";
-import { Row, GetRowIdFn, RowId, TableColumn } from "..";
-import { GroupSummaryItem, SummaryType, SummaryItem } from "./summary.types";
-import { Grouping } from "./grouping.types";
-import { Worksheet, Cell } from "exceljs";
-import { Column, GetCellValueFn, IsSpecificRowFn, GetCollapsedRowsFn } from "./grid-core.types";
+import { PureComputed, ReadonlyObject } from '@devexpress/dx-core';
+import { Row, GetRowIdFn, RowId, TableColumn } from '..';
+import { GroupSummaryItem, SummaryType, SummaryItem } from './summary.types';
+import { Grouping } from './grouping.types';
+import { Worksheet, Cell } from 'exceljs';
+import { Column, GetCellValueFn, IsSpecificRowFn, GetCollapsedRowsFn } from './grid-core.types';
 
 export type FilterSelectedRowsFn = PureComputed<[Row[], RowId[], GetRowIdFn, IsSpecificRowFn]>;
 export type OutlineLevels = { [groupedBy: string]: number };
@@ -31,9 +31,9 @@ export type GetRowsToExportFn = PureComputed<
 export type RemoveEmptyGroupsFn = PureComputed<[Row[], Grouping[], IsSpecificRowFn]>;
 export type ExportRowsFn = (
   worksheet: Worksheet, rows: ReadonlyArray<Row>, dataColumns: Column[], columns: TableColumn[],
-  isGroupRow: IsSpecificRowFn, outlineLevels: OutlineLevels, rowsOffset: number, 
+  isGroupRow: IsSpecificRowFn, outlineLevels: OutlineLevels, rowsOffset: number,
   getCellValue: GetCellValueFn, getCloseGroup: (offset: number) => CloseGroupFn,
-  customizeCell: CustomizeCellFn
+  customizeCell: CustomizeCellFn,
 ) => void;
 export type ExportSummaryFn = (
   item: SummaryItem, ranges: ExportRanges,
@@ -43,8 +43,8 @@ export type GetExportSummaryFn = (
   customizeSummaryCell: CustomizeSummaryCellFn, summaryMessages: { [key: string]: string },
 ) => ExportSummaryFn;
 export type GetCloseGroupFn = (
-  sheet: Worksheet, groupTree: ReadonlyObject<GroupTree>, outlineLevels: OutlineLevels, maxLevel: number,
-  groupSummaryItems: GroupSummaryItem[], exportSummary: ExportSummaryFn,
+  sheet: Worksheet, groupTree: ReadonlyObject<GroupTree>, outlineLevels: OutlineLevels,
+  maxLevel: number, groupSummaryItems: GroupSummaryItem[], exportSummary: ExportSummaryFn,
 ) => (rowsOffset: number) => CloseGroupFn;
 export type CloseSheetFn = (
   sheet: Worksheet, groupTree: ReadonlyObject<GroupTree>, maxLevel: number,

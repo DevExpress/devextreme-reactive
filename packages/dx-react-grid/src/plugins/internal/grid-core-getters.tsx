@@ -17,4 +17,4 @@ export const GridCoreGetters: React.FunctionComponent<GridCoreGettersProps> = Re
     <Getter name="columns" value={columns} />
     <Getter name="getCellValue" value={cellValueGetter(getCellValue!, columns)} />
   </Plugin>
-))
+));

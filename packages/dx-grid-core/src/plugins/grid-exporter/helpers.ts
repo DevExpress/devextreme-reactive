@@ -4,7 +4,8 @@ import {
   TableColumn, FindRangesFn, ExportRowsFn,
   CloseSheetFn,
   ExportSummaryItemsFn,
-} from "../../types";
+  RemoveEmptyGroupsFn,
+} from '../../types';
 import { ROOT_GROUP } from './constants';
 
 export const exportHeader = (worksheet: Excel.Worksheet, columns: TableColumn[]) => {
@@ -15,17 +16,17 @@ export const exportHeader = (worksheet: Excel.Worksheet, columns: TableColumn[])
     }));
   worksheet.columns = cols;
 
-  let { lastRow } = worksheet;
+  const { lastRow } = worksheet;
   if (lastRow) {
     worksheet.addRow({});
   }
-  
-  const headerRow = columns.reduce((acc, { column: { name, title } = {}}) => ({
+
+  const headerRow = columns.reduce((acc, { column: { name, title } = {} }) => ({
     ...acc,
     [name!]: title,
   }), {});
   worksheet.addRow(headerRow);
-  
+
   worksheet.views.push({
     state: 'frozen', ySplit: worksheet.lastRow!.number,
   });
@@ -37,9 +38,8 @@ export const findRanges: FindRangesFn = (groupTree, compoundKey, level, maxLevel
       [...acc, ...findRanges(groupTree, groupKey, level + 1, maxLevel, result)]
     ), [] as Array<number[]>);
     return [...result, ...ranges];
-  } else {
-    return [...result, groupTree[compoundKey] as number[]];
   }
+  return [...result, groupTree[compoundKey] as number[]];
 };
 
 export const exportRows: ExportRowsFn = (
@@ -62,10 +62,10 @@ export const exportRows: ExportRowsFn = (
       openGroups = openGroups.slice(0, currentLevel);
       openGroups[currentLevel] = { groupedBy: row.groupedBy, compoundKey: row.compoundKey };
 
-      // add group row 
+      // add group row
       const title = dataColumns.find(({ name }) => name === row.groupedBy)?.title;
       r = { [columns[0].column!.name]: `${title}: ${row.value}` };
-      
+
       worksheet.addRow(r);
       const lastIndex = worksheet.lastRow!.number;
 
@@ -83,7 +83,7 @@ export const exportRows: ExportRowsFn = (
         ...(column ? { [column.name]: getCellValue(row, column.name) } : null),
       }), {});
       worksheet.addRow(r);
-      worksheet.lastRow!.outlineLevel = currentLevel; 
+      worksheet.lastRow!.outlineLevel = currentLevel;
     }
 
     worksheet.lastRow!.eachCell((cell, colNumber) => {
@@ -91,7 +91,7 @@ export const exportRows: ExportRowsFn = (
     });
   });
 
-  openGroups.reverse().forEach(closeGroup)
+  openGroups.reverse().forEach(closeGroup);
 };
 
 export const closeSheet: CloseSheetFn = (
@@ -127,3 +127,30 @@ export const exportSummaryItems: ExportSummaryItemsFn = (
 
 export const createWorkbook = () => new Excel.Workbook();
 export const createWorksheet = (workbook: Excel.Workbook) => workbook.addWorksheet('Main');
+
+export const removeEmptyGroups: RemoveEmptyGroupsFn = (rows, grouping, isGroupRow) => {
+  if (!grouping) return rows;
+
+  const groupingColumns = grouping.map(({ columnName }) => columnName);
+  const result: any[] = [];
+  let groupChain: any[] = [];
+
+  rows.forEach((row) => {
+    if (isGroupRow(row)) {
+      const level = groupingColumns.indexOf(row.groupedBy);
+      if (level === groupChain.length) {
+        groupChain.push(row);
+      } else {
+        groupChain = [row];
+      }
+    } else {
+      if (groupChain.length > 0) {
+        result.push(...groupChain);
+        groupChain = [];
+      }
+      result.push(row);
+    }
+  });
+
+  return result;
+};

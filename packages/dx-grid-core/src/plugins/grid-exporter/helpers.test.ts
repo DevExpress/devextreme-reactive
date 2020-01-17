@@ -1,4 +1,4 @@
-import { findRanges, exportHeader, exportRows, closeSheet, normalizeRanges, } from './helpers';
+import { findRanges, exportHeader, exportRows, closeSheet, normalizeRanges, removeEmptyGroups } from './helpers';
 import { ROOT_GROUP } from './constants';
 
 describe('export helpers', () => {
@@ -52,7 +52,7 @@ describe('export helpers', () => {
 
     it('should return range for flat rows', () => {
       expect(findRanges(
-        { [ROOT_GROUP]: [5, 20] }, ROOT_GROUP, 0, 0, 
+        { [ROOT_GROUP]: [5, 20] }, ROOT_GROUP, 0, 0,
       ))
         .toEqual([[5, 20]]);
     });
@@ -80,14 +80,13 @@ describe('export helpers', () => {
   });
 
   describe('#exportRows', () => {
-    const dataColumns = ['a', 'b', 'c'].map((name) => ({ name, title: name }));
-    const tableColumns = dataColumns.map((column) => ({ column }));
+    const dataColumns = ['a', 'b', 'c'].map(name => ({ name, title: name }));
+    const tableColumns = dataColumns.map(column => ({ column }));
     const getCellValue = (row, name) => row[name];
     const isGroupRow = ({ groupedBy }) => !!groupedBy;
     const cells = [{}, {}, {}];
     let worksheet;
     let cellStub;
-    let rows;
     const closeGroup = jest.fn();
     const getCloseGroup = jest.fn();
     const customizeCell = jest.fn();
@@ -110,7 +109,7 @@ describe('export helpers', () => {
         addRow: jest.fn(),
         mergeCells: jest.fn(),
         lastRow: lastRowStub,
-      }
+      };
     });
     afterEach(jest.clearAllMocks);
 
@@ -126,7 +125,7 @@ describe('export helpers', () => {
         );
       });
 
-      it('should export all rows', () => { 
+      it('should export all rows', () => {
         expect(worksheet.addRow)
           .toHaveBeenCalledTimes(2);
         expect(worksheet.addRow)
@@ -177,7 +176,7 @@ describe('export helpers', () => {
           worksheet, groupRows, dataColumns, tableColumns, isGroupRow, outlineLevels,
           0, getCellValue, getCloseGroup, customizeCell,
         );
-      })
+      });
 
       it('should export group rows', () => {
         expect(worksheet.addRow)
@@ -261,6 +260,51 @@ describe('export helpers', () => {
 
       expect(normalizeRanges(ranges, 5))
         .toEqual([[5, 8], [15, 20]]);
+    });
+  });
+
+  describe('#removeEmptyGroups', () => {
+    const grouping = [{ columnName: 'a' }, { columnName: 'b' }];
+    const isGroupRow = row => !!row.groupedBy;
+
+    it('should leave data rows as is', () => {
+      const rows = [
+        { a: 1 },
+        { a: 2 },
+      ];
+      expect(removeEmptyGroups(rows, undefined, isGroupRow))
+        .toEqual(rows);
+    });
+
+    it('should leave group row if group has data rows', () => {
+      const rows = [
+        { groupedBy: 'a', value: 1 },
+        { groupedBy: 'b', value: 2 },
+        { a: 1 },
+        { a: 2 },
+      ];
+      expect(removeEmptyGroups(rows, grouping, isGroupRow))
+        .toEqual(rows);
+    });
+
+    it('should remove empty groups', () => {
+      const rows = [
+        { groupedBy: 'a', value: 1 },
+        { groupedBy: 'b', value: 2 },
+        { groupedBy: 'a', value: 3 },
+        { groupedBy: 'b', value: 4 },
+        { a: 1 },
+        { a: 2 },
+        { groupedBy: 'a', value: 5 },
+        { groupedBy: 'b', value: 6 },
+      ];
+      expect(removeEmptyGroups(rows, grouping, isGroupRow))
+        .toEqual([
+          { groupedBy: 'a', value: 3 },
+          { groupedBy: 'b', value: 4 },
+          { a: 1 },
+          { a: 2 },
+        ]);
     });
   });
 });

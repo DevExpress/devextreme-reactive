@@ -1,13 +1,12 @@
 import {
   OutlineLevelsFn, FilterSelectedRowsFn, GetRowsToExportFn, Row, BuildGroupTreeFn,
-  GetExportSummaryFn, GetCloseGroupFn, Grouping, RemoveEmptyGroupsFn,
-} from "../../types";
-import { PureComputed } from "@devexpress/dx-core";
-import { ROOT_GROUP } from "./constants";
-import { exportSummaryItems } from "./helpers";
+  GetExportSummaryFn, GetCloseGroupFn, Grouping,
+} from '../../types';
+import { PureComputed } from '@devexpress/dx-core';
+import { ROOT_GROUP } from './constants';
+import { exportSummaryItems, removeEmptyGroups } from './helpers';
 
-
-export const outlineLevels: OutlineLevelsFn = (grouping) => (
+export const groupOutlineLevels: OutlineLevelsFn = grouping => (
   grouping.reduce((acc, { columnName }, index) => ({
     ...acc,
     [columnName]: index,
@@ -19,38 +18,11 @@ const filterSelectedRows: FilterSelectedRowsFn = (rows, selection, getRowId, isG
   return rows.filter(row => isGroupRow(row) || selectionSet.has(getRowId(row)));
 };
 
-export const removeEmptyGroups: RemoveEmptyGroupsFn = (rows, grouping, isGroupRow) => {
-  if (!grouping) return rows;
-
-  const groupingColumns = grouping.map(({ columnName }) => columnName);
-  const result: any[] = [];
-  let groupChain: any[] = [];
-
-  rows.forEach(row => {
-    if (isGroupRow(row)) {
-      const level = groupingColumns.indexOf(row.groupedBy);
-      if (level === groupChain.length) {
-        groupChain.push(row);
-      } else {
-        groupChain = [row];
-      }
-    } else {
-      if (groupChain.length > 0) {
-        result.push(...groupChain);
-        groupChain = [];
-      }
-      result.push(row);
-    }
-  });
-
-  return result;
-};
-
 export const rowsToExport: GetRowsToExportFn = (
   rows, selection, grouping, getCollapsedRows, getRowId, isGroupRow,
 ) => {
-  const expandRows: PureComputed<[Row[]]> = (rows) => (
-    rows.reduce((acc, row) => (
+  const expandRows: PureComputed<[Row[]]> = collapsedRows => (
+    collapsedRows.reduce((acc, row) => (
       [...acc, row, ...(expandRows(getCollapsedRows(row) || []))]
     ), [])
   );
@@ -64,7 +36,7 @@ export const rowsToExport: GetRowsToExportFn = (
   return expandedRows;
 };
 
-export const groupTree: BuildGroupTreeFn = (
+export const buildGroupTree: BuildGroupTreeFn = (
   rows, outlineLevels, grouping, isGroupRow, groupSummaryItems,
 ) => {
   const groupTree = { [ROOT_GROUP]: [] as any[] };
@@ -76,7 +48,7 @@ export const groupTree: BuildGroupTreeFn = (
     return groupTree;
   }
 
-  let parentChain = { '-1': ROOT_GROUP };
+  const parentChain = { '-1': ROOT_GROUP };
   let lastDataIndex = 0;
   let openGroup = '';
   let index = 0;
@@ -155,7 +127,7 @@ export const exportSummaryGetter: GetExportSummaryFn = (
 
 export const closeGroupGetter: GetCloseGroupFn = (
   worksheet, groupTree, outlineLevels, maxGroupLevel, groupSummaryItems, exportSummary,
-) => (rowsOffset) => (group) => {  
+) => rowsOffset => (group) => {
   const { groupedBy, compoundKey } = group;
 
   exportSummaryItems(
@@ -164,6 +136,6 @@ export const closeGroupGetter: GetCloseGroupFn = (
   );
 };
 
-export const maxGroupLevel: PureComputed<[Grouping[]], number> = (
-  grouping,
-) => grouping.length - 1;
+export const maximumGroupLevel: PureComputed<[Grouping[]], number> = grouping => (
+  grouping.length - 1
+);

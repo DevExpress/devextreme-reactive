@@ -4,7 +4,7 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   tableColumnsWithDataRows,
-  checkTableColumnExtensions
+  checkTableColumnExtensions,
 } from '@devexpress/dx-grid-core';
 import { TableColumnsWithDataRowsGetter } from './table-columns-getter';
 

@@ -1,6 +1,8 @@
-import { groupTree, outlineLevels, rowsToExport, exportSummaryGetter, closeGroupGetter, maxGroupLevel, removeEmptyGroups } from "./computeds";
-import { ROOT_GROUP } from "./constants";
-
+import {
+  buildGroupTree, groupOutlineLevels, rowsToExport, exportSummaryGetter,
+  closeGroupGetter, maximumGroupLevel,
+} from './computeds';
+import { ROOT_GROUP } from './constants';
 
 describe('export computeds', () => {
   describe('#groupTree', () => {
@@ -9,7 +11,7 @@ describe('export computeds', () => {
     describe('without grouping', () => {
       it('should work with flat rows', () => {
         const rows = [{}, {}, {}];
-        expect(groupTree(
+        expect(buildGroupTree(
           rows, {}, undefined, isGroupRow, undefined,
         ))
           .toEqual({
@@ -43,12 +45,12 @@ describe('export computeds', () => {
         // summary for a
       ];
       const outlineLevels = {
-        'a': 0,
-        'b': 1,
+        a: 0,
+        b: 1,
       };
 
       it('should work without group summary', () => {
-        expect(groupTree(
+        expect(buildGroupTree(
           rows, outlineLevels, grouping, isGroupRow, undefined,
         ))
           .toEqual({
@@ -63,7 +65,7 @@ describe('export computeds', () => {
       });
 
       it('should work with group summary', () => {
-        expect(groupTree(
+        expect(buildGroupTree(
           rows, outlineLevels, grouping, isGroupRow, [],
         ))
           .toEqual({
@@ -87,7 +89,7 @@ describe('export computeds', () => {
         columnName: 'b',
       }];
 
-      expect(outlineLevels(grouping))
+      expect(groupOutlineLevels(grouping))
         .toEqual({
           a: 0,
           b: 1,
@@ -135,7 +137,7 @@ describe('export computeds', () => {
         { groupedBy: 'a', value: 0 },
         { groupedBy: 'b', value: 1 },
         { a: 5 },
-        { a: 6 }
+        { a: 6 },
       ];
       const getCollapsedRows = ({ collapsedRows }) => collapsedRows;
       const getRowId = ({ a }) => a;
@@ -163,7 +165,7 @@ describe('export computeds', () => {
     const worksheet = {
       getColumn: name => excelColumns[name],
       lastRow: {
-        getCell: jest.fn()
+        getCell: jest.fn(),
       },
     };
     const customizeSummaryCell = jest.fn();
@@ -213,9 +215,9 @@ describe('export computeds', () => {
       '1|2|c': [13, 15],
     };
     const outlineLevels = {
-      'a': 0,
-      'b': 1,
-      'c': 2,
+      a: 0,
+      b: 1,
+      c: 2,
     };
     const groupSummaryItems = [
       { columnName: 'a', type: 'sum' },
@@ -242,55 +244,10 @@ describe('export computeds', () => {
 
   describe('#maxGroupLevel', () => {
     it('should work', () => {
-      expect(maxGroupLevel([]))
+      expect(maximumGroupLevel([]))
         .toBe(-1);
-      expect(maxGroupLevel([{ columnName: 'a' }, { columnName: 'b' }]))
+      expect(maximumGroupLevel([{ columnName: 'a' }, { columnName: 'b' }]))
         .toBe(1);
-    });
-  });
-
-  describe('#removeEmptyGroups', () => {
-    const grouping = [{ columnName: 'a' }, { columnName: 'b' }];
-    const isGroupRow = row => !!row.groupedBy;
-
-    it('should leave data rows as is', () => {
-      const rows = [
-        { a: 1 },
-        { a: 2 },
-      ];
-      expect(removeEmptyGroups(rows, undefined, isGroupRow))
-        .toEqual(rows);
-    });
-
-    it('should leave group row if group has data rows', () => {
-      const rows = [
-        { groupedBy: 'a', value: 1 },
-        { groupedBy: 'b', value: 2 },
-        { a: 1 },
-        { a: 2 },
-      ];
-      expect(removeEmptyGroups(rows, grouping, isGroupRow))
-        .toEqual(rows);
-    });
-
-    it('should remove empty groups', () => {
-      const rows = [
-        { groupedBy: 'a', value: 1 },
-        { groupedBy: 'b', value: 2 },
-        { groupedBy: 'a', value: 3 },
-        { groupedBy: 'b', value: 4 },
-        { a: 1 },
-        { a: 2 },
-        { groupedBy: 'a', value: 5 },
-        { groupedBy: 'b', value: 6 },
-      ];
-      expect(removeEmptyGroups(rows, grouping, isGroupRow))
-        .toEqual([
-          { groupedBy: 'a', value: 3 },
-          { groupedBy: 'b', value: 4 },
-          { a: 1 },
-          { a: 2 },
-        ]);
     });
   });
 });

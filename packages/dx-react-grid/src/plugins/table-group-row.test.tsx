@@ -148,7 +148,7 @@ describe('TableGroupRow', () => {
 
       expect(tree.find(TableColumnsWithGrouping).props())
         .toEqual({
-          columnExtensions: columnExtensions,
+          columnExtensions,
           indentColumnWidth: 100,
           showColumnsWhenGrouped: false,
         });

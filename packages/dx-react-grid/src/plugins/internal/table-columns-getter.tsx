@@ -9,10 +9,10 @@ export const TableColumnsWithDataRowsGetter: React.FunctionComponent<
   { columnExtensions?: Table.ColumnExtension[]; }
 > = React.memo(({ columnExtensions }) => {
   const tableColumnsMemoized = React.useMemo(() => (
-    columnExtensions => ({
+    tableColumnExtensions => ({
       columns,
-    }) => tableColumnsWithDataRows(columns, columnExtensions)
-  ), columnExtensions) 
+    }) => tableColumnsWithDataRows(columns, tableColumnExtensions)
+  ), columnExtensions);
   const tableColumnsComputed = tableColumnsMemoized(columnExtensions!);
   checkTableColumnExtensions(columnExtensions!);
 

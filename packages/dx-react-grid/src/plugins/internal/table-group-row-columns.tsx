@@ -43,4 +43,3 @@ export const TableColumnsWithGrouping: React.FunctionComponent<
 TableColumnsWithGrouping.defaultProps = {
   indentColumnWidth: 0,
 };
-

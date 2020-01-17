@@ -30,7 +30,7 @@ class GridExporterBase extends React.PureComponent<ExporterProps, ExporterState>
       <PluginHost>
         <Plugin name="export">
           <Action name="finishExport" action={this.finishExport} />
-        </Plugin>        
+        </Plugin>
         <GridExporterCore {...this.props} />
       </PluginHost>
     );

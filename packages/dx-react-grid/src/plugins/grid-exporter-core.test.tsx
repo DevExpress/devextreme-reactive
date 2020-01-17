@@ -307,7 +307,7 @@ describe('GridExporter', () => {
           'outlineLevels',
           'maxGroupLevel',
           defaultDeps.getter.groupSummaryItems,
-          'exportSummaryGetter'
+          'exportSummaryGetter',
         );
     });
 
@@ -329,7 +329,7 @@ describe('GridExporter', () => {
             />
           </PluginHost>
         ));
-  
+
         expect(tree.find(GroupingState).props())
           .toMatchObject({
             grouping,
@@ -342,7 +342,7 @@ describe('GridExporter', () => {
         expect(tree.find(IntegratedGrouping).exists())
           .toBeTruthy();
       });
-      
+
       it('should not render grouping plugins if grouping is not provided', () => {
         const tree = mount((
           <PluginHost>
@@ -350,7 +350,7 @@ describe('GridExporter', () => {
             <GridExporterCore {...defaultProps} />
           </PluginHost>
         ));
-  
+
         expect(tree.find(GroupingState).exists())
           .toBeFalsy();
         expect(tree.find(TableColumnsWithGrouping).exists())
@@ -388,7 +388,7 @@ describe('GridExporter', () => {
             />
           </PluginHost>
         ));
-  
+
         expect(tree.find(SummaryState).props())
           .toMatchObject({
             totalItems,
@@ -438,7 +438,7 @@ describe('GridExporter', () => {
             />
           </PluginHost>
         ));
-  
+
         expect(tree.find(FilteringState).props())
           .toMatchObject({
             filters,
@@ -446,7 +446,7 @@ describe('GridExporter', () => {
         expect(tree.find(IntegratedFiltering).exists())
           .toBeTruthy();
       });
-      
+
       it('should not render filtering plugins if filters are not provided', () => {
         const tree = mount((
           <PluginHost>
@@ -454,7 +454,7 @@ describe('GridExporter', () => {
             <GridExporterCore {...defaultProps} />
           </PluginHost>
         ));
-  
+
         expect(tree.find(FilteringState).exists())
           .toBeFalsy();
         expect(tree.find(IntegratedFiltering).exists())
@@ -474,7 +474,7 @@ describe('GridExporter', () => {
             />
           </PluginHost>
         ));
-  
+
         expect(tree.find(SortingState).props())
           .toMatchObject({
             sorting,
@@ -482,7 +482,7 @@ describe('GridExporter', () => {
         expect(tree.find(IntegratedSorting).exists())
           .toBeTruthy();
       });
-      
+
       it('should not render sorting plugins if sorting is not provided', () => {
         const tree = mount((
           <PluginHost>
@@ -490,7 +490,7 @@ describe('GridExporter', () => {
             <GridExporterCore {...defaultProps} />
           </PluginHost>
         ));
-  
+
         expect(tree.find(SortingState).exists())
           .toBeFalsy();
         expect(tree.find(IntegratedSorting).exists())

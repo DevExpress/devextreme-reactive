@@ -18,5 +18,4 @@ export * from './merge-sort.types';
 export * from './paging.types';
 export * from './column-chooser.types';
 export * from './virtual-table-state.types';
-/** @internal */
 export * from './export.types';

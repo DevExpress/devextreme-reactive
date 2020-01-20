@@ -6,12 +6,12 @@ export {
   GroupKey, Grouping, GroupingPanelItem, Filter, ColumnFilterOperations,
   Sorting, TargetColumnGeometry, FilterOperation, ColumnChooserItem,
   TableColumnWidthInfo, TableColumnResizing, RowId, GridViewport, GroupSummaryItem,
-  ColumnInlineSummaries,
+  ColumnInlineSummaries, CustomizeSummaryCellFn, ExportSummary,
 } from '../../../dx-grid-core/src/index';
 
 /** @internal */
 export {
-  GetCellColSpanFn, BandHeaderRow, Row, CustomizeSummaryCellFn,
+  GetCellColSpanFn, BandHeaderRow, Row,
 } from '../../../dx-grid-core/src/index';
 
 export * from './column-operations';

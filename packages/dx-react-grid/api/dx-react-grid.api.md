@@ -111,6 +111,12 @@ export interface CustomGroupingProps {
   grouping?: Grouping[] | null;
 }
 
+// @public (undocumented)
+export type CustomizeCellFn = (cell: Cell, row: Row, column: Column) => void;
+
+// @public (undocumented)
+export type CustomizeSummaryCellFn = (cell: Cell, column: Column, summary: ExportSummary) => void;
+
 // @public
 export const CustomPaging: React.ComponentType<CustomPagingProps>;
 
@@ -256,13 +262,22 @@ export type ExporterProps = Omit<GridProps, 'rootComponent'> & Pick<FilteringSta
   groupSummaryItems?: GroupSummaryItem[];
   onSave: (workbook: Workbook) => void;
   customizeCell?: (cell: Cell, row: Row, column: Column) => void;
-  customizeSummaryCell?: (cell: Cell, row: Row, column: Column) => void;
+  customizeSummaryCell?: CustomizeSummaryCellFn;
   customizeHeader?: (worksheet: Worksheet) => void;
   customizeFooter?: (worksheet: Worksheet) => void;
 };
 
 // @public (undocumented)
 export const ExportPanel: React.ComponentType<any>;
+
+// @public (undocumented)
+export type ExportRanges = readonly number[][];
+
+// @public (undocumented)
+export type ExportSummary = {
+  type: SummaryType;
+  ranges: ExportRanges;
+};
 
 // @public
 export interface Filter {

@@ -1104,12 +1104,6 @@ export namespace TableHeaderRow {
     column: Column;
     draggingEnabled: boolean;
     getCellWidth: (getter: CellWidthGetter) => void;
-    groupingEnabled: boolean;
-    onGroup(): void;
-    onSort: (parameters: {
-      direction?: 'asc' | 'desc' | null;
-      keepOther?: boolean;
-    }) => void;
     onWidthChange: (parameters: {
       shift: number;
     }) => void;
@@ -1118,10 +1112,6 @@ export namespace TableHeaderRow {
     }) => void;
     onWidthDraftCancel(): void;
     resizingEnabled: boolean;
-    showGroupingControls: boolean;
-    showSortingControls: boolean;
-    sortingDirection?: 'asc' | 'desc';
-    sortingEnabled: boolean;
   }
   export interface ContentProps {
     align: string;

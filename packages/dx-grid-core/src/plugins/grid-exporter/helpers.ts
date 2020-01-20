@@ -1,4 +1,4 @@
-import * as Excel from 'exceljs';
+import * as Excel from 'exceljs/dist/exceljs.min.js';
 import { PureComputed } from '@devexpress/dx-core';
 import {
   TableColumn, FindRangesFn, ExportRowsFn,

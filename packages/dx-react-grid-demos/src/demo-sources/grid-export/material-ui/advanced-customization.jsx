@@ -43,7 +43,8 @@ const useGroupStyles = makeStyles({
 });
 
 const GroupRow = (props) => {
-  const classes = useGroupStyles(props.row);
+  const { row } = props;
+  const classes = useGroupStyles(row);
   return <TableGroupRow.Row {...props} className={classes.groupRow} />;
 };
 
@@ -107,9 +108,10 @@ const DateTypeProvider = props => (
 );
 
 // worksheet customization
+/* eslint-disable no-param-reassign */
 const customizeCell = (cell, row, column) => {
   if (row.groupedBy) {
-    cell.fill = { type: 'pattern', pattern:'solid', fgColor: { argb:groupColors[row.groupedBy] } }
+    cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: groupColors[row.groupedBy] } };
     cell.font = { color: { argb: '000000' } };
   }
   if (row.OrderDate < new Date(2014, 2, 3)) {
@@ -118,7 +120,7 @@ const customizeCell = (cell, row, column) => {
   if (row.SaleAmount > 15000) {
     if (column.name === 'SaleAmount') {
       cell.font = { color: { argb: '000000' } };
-      cell.fill = { type: 'pattern', pattern:'solid', fgColor: { argb:'FFBB00' } };
+      cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFBB00' } };
     }
   }
   if (column.name === 'SaleAmount') {
@@ -133,7 +135,9 @@ const customizeSummaryCell = (cell /* col, summary */) => {
 const customizeHeader = (worksheet) => {
   const generalStyles = {
     font: { bold: true },
-    fill: { type: 'pattern', pattern: 'solid', fgColor: { argb: 'D3D3D3' }, bgColor: { argb: 'D3D3D3' } },
+    fill: {
+      type: 'pattern', pattern: 'solid', fgColor: { argb: 'D3D3D3' }, bgColor: { argb: 'D3D3D3' },
+    },
     alignment: { horizontal: 'left' },
   };
   for (let rowIndex = 1; rowIndex < 6; rowIndex += 1) {
@@ -146,8 +150,8 @@ const customizeHeader = (worksheet) => {
   worksheet.getRow(1).getCell(1).font = { bold: true, size: 16 };
   worksheet.getRow(1).getCell(3).numFmt = 'd mmmm yyyy';
   worksheet.getRow(1).getCell(3).font = { bold: true, size: 16 };
-  worksheet.getColumn(1).values = [ 'Sale Amounts:', 'Company Name:', 'Address:', 'Phone:', 'Website:'];
-  worksheet.getColumn(3).values = [ new Date(), 'K&S Music', '1000 Nicllet Mall Minneapolis Minnesota', '(612) 304-6073', 'www.nowebsitemusic.com'];
+  worksheet.getColumn(1).values = ['Sale Amounts:', 'Company Name:', 'Address:', 'Phone:', 'Website:'];
+  worksheet.getColumn(3).values = [new Date(), 'K&S Music', '1000 Nicllet Mall Minneapolis Minnesota', '(612) 304-6073', 'www.nowebsitemusic.com'];
 };
 
 const customizeFooter = (worksheet) => {
@@ -158,12 +162,13 @@ const customizeFooter = (worksheet) => {
     Object.assign(worksheet.getRow(currentRowIndex + rowIndex).getCell(1), { font: { bold: true }, alignment: { horizontal: 'right' } });
   }
   worksheet.getRow(currentRowIndex).getCell(1).value = 'If you have any questions, please contact John Smith.';
-  currentRowIndex++;
+  currentRowIndex += 1;
   worksheet.getRow(currentRowIndex).getCell(1).value = 'Phone: +111-111';
-  currentRowIndex++;
+  currentRowIndex += 1;
   worksheet.getRow(currentRowIndex).getCell(1).value = 'For demonstration purposes only';
   worksheet.getRow(currentRowIndex).getCell(1).font = { italic: true };
 };
+/* eslint-enable no-param-reassign */
 
 const onSave = (workbook) => {
   workbook.xlsx.writeBuffer().then((buffer) => {
@@ -191,7 +196,7 @@ export default () => {
     { columnName: 'SaleAmount', type: 'sum' },
   ]);
   const [grouping, setGrouping] = useState([
-    { columnName: 'Employee' }, { columnName: 'CustomerStoreCity'},
+    { columnName: 'Employee' }, { columnName: 'CustomerStoreCity' },
   ]);
   const [selection, setSelection] = useState([]);
   const exporterRef = useRef(null);

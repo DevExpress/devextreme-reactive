@@ -1,4 +1,6 @@
+/* tslint:disable */
 import * as Excel from 'exceljs/dist/exceljs.min.js';
+/* tslint:enable */
 import { PureComputed } from '@devexpress/dx-core';
 import {
   TableColumn, FindRangesFn, ExportRowsFn,

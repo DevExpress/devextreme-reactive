@@ -104,33 +104,6 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
                     getCellWidth={getter => storeWidthGetters({
                       tableColumn: params.tableColumn , getter, tableColumns,
                     })}
-                    // @deprecated
-                    sortingEnabled={sortingEnabled}
-                    // @deprecated
-                    groupingEnabled={groupingEnabled}
-                    // @deprecated
-                    showSortingControls={showSortingControls!}
-                    // @deprecated
-                    showGroupingControls={showGroupingControls!}
-                    // @deprecated
-                    sortingDirection={showSortingControls && sorting !== undefined
-                      ? getColumnSortingDirection(sorting, columnName)! : undefined}
-                    // @deprecated
-                    onSort={
-                      ({ direction, keepOther }) => changeColumnSorting({
-                        columnName, direction, keepOther,
-                      })}
-                    // @deprecated
-                    onGroup={() => changeColumnGrouping({ columnName })}
-                    // @deprecated
-                    before={(
-                      <TemplatePlaceholder
-                        name="tableHeaderCellBefore"
-                        params={{
-                          column: params.tableColumn.column,
-                        }}
-                      />
-                    )}
                   >
                     <TemplatePlaceholder
                       name="tableHeaderCellBefore"

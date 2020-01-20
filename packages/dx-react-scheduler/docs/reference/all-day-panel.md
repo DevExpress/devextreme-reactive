@@ -54,7 +54,7 @@ Describes properties passed to a component that renders an All Day panel layout.
 
 Field | Type | Description
 ------|------|------------
-cellsData | Array&lt;Array&lt;[AllDayPanel.CellData](#alldaypanelcelldata)&gt;&gt; | Cells' meta data.
+cellsData | Array&lt;[AllDayPanel.CellData](#alldaypanelcelldata)&gt; | Cells' meta data.
 formatDate | [FormatterFn](./scheduler.md#formatterfn) | A function that formats dates according to the locale.
 setCellElementsMeta | (cellElementsMeta: [CellElementsMeta](./scheduler.md#cellelementsmeta)) => void | A function that formats dates according to the locale.
 cellComponent | ComponentType&lt;[AllDayPanel.CellProps](#alldaypanelcellprops)&gt; | A component that renders an All Day panel cell.

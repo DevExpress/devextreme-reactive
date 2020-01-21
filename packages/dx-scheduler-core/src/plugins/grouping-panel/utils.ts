@@ -31,7 +31,7 @@ export const getRowFromGroups: PureComputed<
         colSpan,
         key: getCellKey(groups, index, rowIndex) + i,
         left: cellStyle.left,
-        brightBorderRight: index === currentRowLength - 1,
+        brightRightBorder: index === currentRowLength - 1,
       },
     ], [] as any[])];
   }

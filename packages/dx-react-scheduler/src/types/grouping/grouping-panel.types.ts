@@ -29,9 +29,9 @@ export namespace GroupingPanel {
     /** The cell's offset from the left. */
     left: number;
     /** Indicates whether to draw a bright right border or an ordinary right border. */
-    brightBorderRight?: boolean;
+    brightRightBorder?: boolean;
     /** Indicates whether to draw a bright top border or an ordinary top border. */
-    brightBorderTop?: boolean;
+    brightTopBorder?: boolean;
     /** A React node used to render an additional content to the cell. */
     children?: React.ReactNode;
   }

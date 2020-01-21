@@ -6,5 +6,5 @@ export type GroupingCellData = {
   colSpan: number;
   key: any;
   left: number;
-  brightBorderRight: boolean;
+  brightRightBorder: boolean;
 };

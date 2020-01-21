@@ -789,8 +789,8 @@ export const GroupingPanel: React.ComponentType<GroupingPanelProps>;
 // @public (undocumented)
 export namespace GroupingPanel {
   export interface CellProps {
-    brightBorderRight?: boolean;
-    brightBorderTop?: boolean;
+    brightRightBorder?: boolean;
+    brightTopBorder?: boolean;
     children?: React.ReactNode;
     colSpan: number;
     group: Group;
@@ -822,10 +822,10 @@ export const GroupingState: React.ComponentType<GroupingStateProps>;
 export interface GroupingStateProps {
   defaultExpandedGroups?: Array<GroupKey>;
   expandedGroups?: Array<GroupKey>;
-  groupByDate?: (viewName: string) => boolean;
   grouping?: Array<Grouping>;
   // (undocumented)
   groupOrientation?: (view: string) => GroupOrientation;
+  isGroupByDate?: (viewName: string) => boolean;
   onExpandedGroupsChange?: (expandedGroups: Array<GroupKey>) => void;
 }
 

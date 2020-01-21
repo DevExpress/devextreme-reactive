@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
-import Button from '@material-ui/core/Button';
 import { ExportButton } from './export-button';
 
 describe('ExportButton', () => {

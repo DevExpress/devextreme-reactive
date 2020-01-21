@@ -10,7 +10,7 @@ describe('ExportPanel', () => {
       toolbarContent: {},
     },
     plugins: ['Toolbar'],
-  }
+  };
   const DefaultButton = () => null;
 
   it('should pass the startExport function to the buttonComponent', () => {

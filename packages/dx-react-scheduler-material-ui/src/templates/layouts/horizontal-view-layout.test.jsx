@@ -35,8 +35,10 @@ describe('Horizontal View Layout', () => {
       .toBeTruthy();
     expect(tree.find(`.${classes.timeTable}`).exists())
       .toBeTruthy();
-    expect(tree.find(`.${classes.ordinaryBorderHeader}`).exists())
+    expect(tree.find(`.${classes.ordinaryHeaderBorder}`).exists())
       .toBeTruthy();
+    expect(tree.find(`.${classes.brightHeaderBorder}`).exists())
+      .toBeFalsy();
   });
 
   it('should pass rest props to the root element', () => {
@@ -77,7 +79,7 @@ describe('Horizontal View Layout', () => {
     tree.simulate('scroll', { target: { scrollTop: 5 } });
     tree.update();
 
-    expect(tree.find(`.${classes.brightBorderHeader}`).exists())
+    expect(tree.find(`.${classes.brightHeaderBorder}`).exists())
       .toBeTruthy();
   });
 });

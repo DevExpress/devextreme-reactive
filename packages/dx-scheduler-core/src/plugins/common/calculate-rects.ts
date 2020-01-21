@@ -44,7 +44,7 @@ export const allDayRects: AllDayRects = (
 
 export const verticalTimeTableRects: VerticalRects = (
   appointments, startViewDate, endViewDate, excludedDays, viewCellsData,
-  cellDuration, cellElementsMeta, grouping, resources, groups, groupByDate,
+  cellDuration, cellElementsMeta, grouping, resources, groups, isGroupByDate,
 ) => {
   const intervals = calculateWeekDateIntervals(
     appointments, startViewDate, endViewDate, excludedDays, cellDuration,
@@ -67,7 +67,7 @@ export const verticalTimeTableRects: VerticalRects = (
       cellDuration,
       cellElementsMeta,
     },
-    groupByDate,
+    isGroupByDate,
   );
 };
 

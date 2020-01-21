@@ -28,7 +28,7 @@ describe('IntegratedGrouping', () => {
       resources: 'resources',
       grouping: 'grouping',
       currentView: { name: 'currentView' },
-      groupByDate: () => true,
+      isGroupByDate: () => true,
       excludedDays: 'excludedDays',
     },
   };

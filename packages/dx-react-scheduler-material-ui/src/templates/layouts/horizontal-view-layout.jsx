@@ -24,10 +24,10 @@ const styles = theme => ({
     minWidth: '100%',
     display: 'table',
   },
-  ordinaryBorderHeader: {
+  ordinaryHeaderBorder: {
     borderBottom: getBorder(theme),
   },
-  brightBorderHeader: {
+  brightHeaderBorder: {
     borderBottom: getBrightBorder(theme),
   },
 });
@@ -99,8 +99,8 @@ class HorizontalViewLayoutBase extends React.PureComponent {
             item
             className={classNames({
               [classes.stickyHeader]: true,
-              [classes.ordinaryBorderHeader]: !isTopBorderSet,
-              [classes.brightBorderHeader]: isTopBorderSet,
+              [classes.ordinaryHeaderBorder]: !isTopBorderSet,
+              [classes.brightHeaderBorder]: isTopBorderSet,
             })}
           >
             <DayScale />

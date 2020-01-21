@@ -43,9 +43,9 @@ export const getGroupsFromResources: PureComputed<
 
 export const expandViewCellsDataWithGroups: PureComputed<
   [ViewCell[][], Group[][], ValidResource[], boolean], ViewCell[][]
-> = (viewCellsData, groups, sortedResources, groupByDate) => {
+> = (viewCellsData, groups, sortedResources, isGroupByDate) => {
   if (groups.length === 0) return viewCellsData;
-  if (groupByDate) {
+  if (isGroupByDate) {
     return expandCellsWithGroupedByDateData(viewCellsData, groups, sortedResources);
   }
   return expandCellsWithGroupedByResourcesData(viewCellsData, groups, sortedResources);

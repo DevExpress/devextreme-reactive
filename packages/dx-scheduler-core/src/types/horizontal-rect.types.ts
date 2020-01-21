@@ -7,7 +7,7 @@ export interface HorizontalPayload {
   multiline: boolean;
   viewCellsData: ViewCellData[][];
   cellElementsMeta: CellElementsMeta;
-  groupByDate: boolean;
+  isGroupByDate: boolean;
 }
 
 /** @internal */

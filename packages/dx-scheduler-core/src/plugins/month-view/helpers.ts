@@ -37,7 +37,7 @@ export const sliceAppointmentByWeek: SliceAppointmentByWeekFn = (timeBounds, app
 };
 
 export const getMonthCellIndexByAppointmentData: GetMonthCellIndexByAppointmentDataFn = (
-  viewCellsData, date, appointment, takePrev = false, groupByDate = false,
+  viewCellsData, date, appointment, takePrev = false, isGroupByDate = false,
 ) => {
   const startViewDate = moment(viewCellsData[0][0].startDate);
   const currentDate = moment(date as SchedulerDateTime);
@@ -47,7 +47,7 @@ export const getMonthCellIndexByAppointmentData: GetMonthCellIndexByAppointmentD
   }
   const weekNumber = Math.floor(dayNumber / DAYS_IN_WEEK);
   const viewsNumber = viewCellsData[0].length / DAYS_IN_WEEK;
-  let currentDay = groupByDate
+  let currentDay = isGroupByDate
     ? (dayNumber % DAYS_IN_WEEK) * viewsNumber
     : dayNumber % DAYS_IN_WEEK;
 
@@ -63,7 +63,7 @@ export const getMonthCellIndexByAppointmentData: GetMonthCellIndexByAppointmentD
     if (isCorrectCell) {
       cellIndex = currentDay;
     }
-    currentDay += groupByDate ? 1 : DAYS_IN_WEEK;
+    currentDay += isGroupByDate ? 1 : DAYS_IN_WEEK;
   }
 
   const totalCellIndex = weekNumber * viewCellsData[0].length + cellIndex;

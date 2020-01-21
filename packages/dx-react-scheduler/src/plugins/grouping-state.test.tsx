@@ -67,24 +67,19 @@ describe('GroupingState', () => {
         resourceName: 'a',
       }]);
   });
-  it('should provide "groupByDate" getter', () => {
+  it('should provide "isGroupByDate" getter', () => {
     const tree = mount((
       <PluginHost>
         <GroupingState
-          groupByDate={(viewName) => {
-            if (viewName === 'day') {
-              return false;
-            }
-            return true;
-          }}
+          isGroupByDate={viewName => viewName !== 'day'}
         />
         {pluginDepsToComponents({})}
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).groupByDate('day'))
+    expect(getComputedState(tree).isGroupByDate('day'))
       .toBeFalsy();
-    expect(getComputedState(tree).groupByDate('week'))
+    expect(getComputedState(tree).isGroupByDate('week'))
       .toBeTruthy();
   });
 });

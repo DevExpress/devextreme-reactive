@@ -5,7 +5,7 @@ export interface GroupingStateProps {
   /** Specifies resources to group by. */
   grouping?: Array<Grouping>;
   /** Specifies whether appointments should be grouped by date. */
-  groupByDate?: (viewName: string) => boolean;
+  isGroupByDate?: (viewName: string) => boolean;
   groupOrientation?: (view: string) => GroupOrientation;
   /** Specifies expanded groups. */
   expandedGroups?: Array<GroupKey>;

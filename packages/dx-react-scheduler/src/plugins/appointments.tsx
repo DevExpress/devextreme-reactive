@@ -47,7 +47,7 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
 
   updateTimeTableAppointments = memoize((
     timeTableAppointments, viewCellsData, timeTableElementsMeta,
-    currentView, startViewDate, endViewDate, cellDuration, groupByDate,
+    currentView, startViewDate, endViewDate, cellDuration, isGroupByDate,
   ) => {
     if (!isTimeTableElementsMetaActual(timeTableElementsMeta)) return null;
     let appointmentType = { growDirection: VERTICAL_TYPE, multiline: false };
@@ -62,13 +62,13 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
         startViewDate, endViewDate, cellDuration,
         viewCellsData, cellElementsMeta: timeTableElementsMeta,
       },
-      groupByDate?.(currentView?.name),
+      isGroupByDate?.(currentView?.name),
     ));
   });
 
   updateAllDayAppointments = memoize((
     allDayAppointments, viewCellsData, allDayElementsMeta,
-    startViewDate, endViewDate, groupByDate, currentView,
+    startViewDate, endViewDate, isGroupByDate, currentView,
   ) => {
     if (!isAllDayElementsMetaActual(viewCellsData, allDayAppointments)) return null;
     return renderAppointments(calculateRectByDateAndGroupIntervals(
@@ -79,7 +79,7 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
         startViewDate, endViewDate,
         viewCellsData, cellElementsMeta: allDayElementsMeta,
       },
-      groupByDate?.(currentView?.name),
+      isGroupByDate?.(currentView?.name),
     ));
   });
 
@@ -103,10 +103,10 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
           <TemplateConnector>
             {({
               timeTableAppointments, viewCellsData, timeTableElementsMeta, currentView,
-              startViewDate, endViewDate, cellDuration, groupByDate,
+              startViewDate, endViewDate, cellDuration, isGroupByDate,
             }) => this.updateTimeTableAppointments(
               timeTableAppointments, viewCellsData, timeTableElementsMeta, currentView,
-              startViewDate, endViewDate, cellDuration, groupByDate,
+              startViewDate, endViewDate, cellDuration, isGroupByDate,
             )}
           </TemplateConnector>
         </Template>
@@ -116,10 +116,10 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
           <TemplateConnector>
             {({
               allDayAppointments, viewCellsData, allDayElementsMeta,
-              startViewDate, endViewDate, groupByDate, currentView,
+              startViewDate, endViewDate, isGroupByDate, currentView,
             }) => this.updateAllDayAppointments(
               allDayAppointments, viewCellsData, allDayElementsMeta,
-              startViewDate, endViewDate, groupByDate, currentView,
+              startViewDate, endViewDate, isGroupByDate, currentView,
             )}
           </TemplateConnector>
         </Template>

@@ -120,7 +120,7 @@ class DragDropProviderBase extends React.PureComponent<
     {
       viewCellsData, startViewDate, endViewDate, excludedDays,
       timeTableElementsMeta, allDayElementsMeta, scrollingStrategy,
-      grouping, resources, groups, groupByDate, currentView,
+      grouping, resources, groups, isGroupByDate, currentView,
     },
     { changeAppointment, startEditAppointment },
   ) {
@@ -189,7 +189,7 @@ class DragDropProviderBase extends React.PureComponent<
       allDayIndex, draftAppointments, startViewDate,
       endViewDate, excludedDays, viewCellsData, allDayCellsElementsMeta,
       targetType, cellDurationMinutes, tableCellElementsMeta, grouping, resources, groups,
-      groupByDate?.(currentView?.name),
+      isGroupByDate?.(currentView?.name),
     );
 
     this.allDayDraftAppointments = allDayDraftAppointments;
@@ -236,20 +236,14 @@ class DragDropProviderBase extends React.PureComponent<
             {({
               viewCellsData, startViewDate, endViewDate, excludedDays,
               timeTableElementsMeta, allDayElementsMeta, scrollingStrategy,
-              grouping, resources, groups, currentView, groupByDate,
+              grouping, resources, groups, currentView, isGroupByDate,
             }, {
               changeAppointment, startEditAppointment, finishCommitAppointment,
             }) => {
               const calculateBoundariesByMove = this.calculateNextBoundaries({
-                viewCellsData,
-                startViewDate,
-                endViewDate,
-                excludedDays,
-                timeTableElementsMeta,
-                allDayElementsMeta,
-                scrollingStrategy,
-                grouping, resources, groups,
-                currentView, groupByDate,
+                viewCellsData, startViewDate, endViewDate, excludedDays, timeTableElementsMeta,
+                allDayElementsMeta, scrollingStrategy, grouping, resources, groups,
+                currentView, isGroupByDate,
               }, { changeAppointment, startEditAppointment });
               return (
                 <DragDropProviderCore

@@ -38,7 +38,7 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
       >
         <Template name="groupingPanel">
           <TemplateConnector>
-            {({ groups, viewCellsData, currentView, groupByDate }) => (
+            {({ groups, viewCellsData, currentView, isGroupByDate }) => (
               <HorizontalLayout
                 rowComponent={rowComponent}
                 cellComponent={cellComponent}
@@ -49,7 +49,7 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
                   ? HORIZONTAL_VIEW_LEFT_OFFSET
                   : VERTICAL_VIEW_LEFT_OFFSET,
                 }}
-                showHeaderForEveryDate={groupByDate?.(currentView?.name)}
+                showHeaderForEveryDate={isGroupByDate?.(currentView?.name)}
               />
             )}
           </TemplateConnector>

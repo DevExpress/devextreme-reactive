@@ -15,9 +15,9 @@ const pluginDependencies = [
 ];
 
 const getViewCellsDataComputed = (
-  { viewCellsData, groups, resourcesToGroupBy, groupByDate, currentView }: Getters,
+  { viewCellsData, groups, resourcesToGroupBy, isGroupByDate, currentView }: Getters,
 ) => expandViewCellsDataWithGroups(
-  viewCellsData, groups, resourcesToGroupBy, groupByDate(currentView?.name),
+  viewCellsData, groups, resourcesToGroupBy, isGroupByDate(currentView?.name),
 );
 
 const getGroupsComputed = (
@@ -34,20 +34,20 @@ const getGroupingComputed = (
 
 const getTimeTableAppointmentsComputed = ({
   timeTableAppointments, grouping, resourcesToGroupBy,
-  groups, groupByDate, currentView, excludedDays,
+  groups, isGroupByDate, currentView, excludedDays,
 }: Getters) => timeTableAppointments
   && expandGroups(
     timeTableAppointments, grouping, resourcesToGroupBy, groups,
-    excludedDays, groupByDate(currentView?.name) && currentView?.type === 'month',
+    excludedDays, isGroupByDate(currentView?.name) && currentView?.type === 'month',
   );
 
 const getAllDayAppointmentsComputed = ({
     allDayAppointments, grouping, resourcesToGroupBy,
-    groups, groupByDate, currentView, excludedDays,
+    groups, isGroupByDate, currentView, excludedDays,
   }: Getters) => allDayAppointments &&
   expandGroups(
     allDayAppointments, grouping, resourcesToGroupBy,
-    groups, excludedDays, groupByDate(currentView?.name),
+    groups, excludedDays, isGroupByDate(currentView?.name),
   );
 
 const IntegratedGroupingBase: React.SFC<IntegratedGroupingProps> = React.memo(() => (

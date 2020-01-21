@@ -5,12 +5,12 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import {
   closeGroupGetter,
   rowsToExport,
-  groupTree,
-  outlineLevels,
+  buildGroupTree,
+  groupOutlineLevels,
   exportSummaryGetter,
   createWorkbook,
   createWorksheet,
-  maxGroupLevel,
+  maximumGroupLevel,
 } from '@devexpress/dx-grid-core';
 import { GridExporterCore } from './grid-exporter-core';
 import { GridCoreGetters, TableColumnsWithDataRowsGetter, TableColumnsWithGrouping } from './internal';
@@ -37,9 +37,9 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   expandedGroupRows: jest.fn(),
   groupCollapsedRowsGetter: jest.fn(),
   rowsToExport: jest.fn(),
-  outlineLevels: jest.fn(),
-  groupTree: jest.fn(),
-  maxGroupLevel: jest.fn(),
+  groupOutlineLevels: jest.fn(),
+  buildGroupTree: jest.fn(),
+  maximumGroupLevel: jest.fn(),
   closeGroupGetter: jest.fn(),
   closeSheet: jest.fn(),
   exportHeader: jest.fn(),
@@ -83,9 +83,9 @@ const defaultDeps = {
 describe('GridExporter', () => {
   beforeEach(() => {
     rowsToExport.mockReturnValue('rowsToExport');
-    groupTree.mockReturnValue('groupTree');
-    outlineLevels.mockReturnValue('outlineLevels');
-    maxGroupLevel.mockReturnValue('maxGroupLevel');
+    buildGroupTree.mockReturnValue('buildGroupTree');
+    groupOutlineLevels.mockReturnValue('groupOutlineLevels');
+    maximumGroupLevel.mockReturnValue('maximumGroupLevel');
     exportSummaryGetter.mockReturnValue('exportSummaryGetter');
     createWorkbook.mockReturnValue('workbook');
     createWorksheet.mockReturnValue('worksheet');
@@ -178,14 +178,14 @@ describe('GridExporter', () => {
       ));
 
       expect(getComputedState(tree).maxGroupLevel)
-        .toBe('maxGroupLevel');
-      expect(maxGroupLevel)
+        .toBe('maximumGroupLevel');
+      expect(maximumGroupLevel)
         .toHaveBeenCalledWith(
           defaultDeps.getter.grouping,
         );
     });
 
-    it('should provide outlineLevels', () => {
+    it('should provide groupOutlineLevels', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -195,8 +195,8 @@ describe('GridExporter', () => {
       ));
 
       expect(getComputedState(tree).outlineLevels)
-        .toBe('outlineLevels');
-      expect(outlineLevels)
+        .toBe('groupOutlineLevels');
+      expect(groupOutlineLevels)
         .toHaveBeenCalledWith(
           defaultDeps.getter.grouping,
         );
@@ -252,11 +252,11 @@ describe('GridExporter', () => {
       ));
 
       expect(getComputedState(tree).groupTree)
-        .toBe('groupTree');
-      expect(groupTree)
+        .toBe('buildGroupTree');
+      expect(buildGroupTree)
         .toHaveBeenCalledWith(
           'rowsToExport',
-          'outlineLevels',
+          'groupOutlineLevels',
           defaultDeps.getter.grouping,
           defaultDeps.getter.isGroupRow,
           defaultDeps.getter.groupSummaryItems,
@@ -303,9 +303,9 @@ describe('GridExporter', () => {
       expect(closeGroupGetter)
         .toHaveBeenCalledWith(
           'worksheet',
-          'groupTree',
-          'outlineLevels',
-          'maxGroupLevel',
+          'buildGroupTree',
+          'groupOutlineLevels',
+          'maximumGroupLevel',
           defaultDeps.getter.groupSummaryItems,
           'exportSummaryGetter',
         );

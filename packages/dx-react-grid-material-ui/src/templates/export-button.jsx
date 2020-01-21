@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 
-export const ExportButton = ({ onClick, getMessage }) => (
-  <Button onClick={onClick}>
+export const ExportButton = ({ onClick, getMessage, ...restProps }) => (
+  <Button onClick={onClick} {...restProps}>
     {getMessage('export')}
   </Button>
 );

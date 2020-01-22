@@ -51,11 +51,11 @@ export namespace BaseView {
     startDate?: Date;
     /** Specifies the cell's end time. */
     endDate?: Date;
-    /** Information about the cell's group(s). */
+    /** Information about the cell's grouping. */
     groupingInfo?: Array<Group>;
     /** Specifies whether the cell has the right border. */
     hasRightBorder?: boolean;
-    /** Specifies whether it's the last cell in a group. */
+    /** "true" if this cell is last in its group. */
     endOfGroup?: boolean;
     /** Indicates whether the cell is shaded. */
     isShaded?: boolean;
@@ -126,11 +126,11 @@ export namespace BaseView {
     today?: boolean;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
-    /** Information about the cell's group(s). */
+    /** Information about the cell's grouping. */
     groupingInfo?: Array<Group>;
     /** Specifies whether the cell has the right border. */
     hasRightBorder?: boolean;
-    /** Specifies whether it's the last cell in a group. */
+    /** "true" if this cell is last in its group. */
     endOfGroup?: boolean;
   }
   /** Describes properties passed to a component that renders the appointment layer. */

@@ -34,11 +34,11 @@ export namespace MonthView {
     today?: boolean;
     /** A function that formats dates according to the set locale. */
     formatDate?: FormatterFn;
-    /** Information about the cell's group(s). */
+    /** Information about the cell's grouping. */
     groupingInfo?: Array<Group>;
     /** Specifies whether the cell has the right border. */
     hasRightBorder?: boolean;
-    /** Specifies whether it's the last cell in a group. */
+    /** "true" if this cell is last in its group. */
     endOfGroup?: boolean;
     /** Indicates whether the cell is shaded. */
     isShaded?: boolean;

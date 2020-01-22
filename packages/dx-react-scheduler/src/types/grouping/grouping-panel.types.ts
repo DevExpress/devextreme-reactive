@@ -28,7 +28,7 @@ export namespace GroupingPanel {
     group: Group;
     /** The cell's offset from the left. */
     left: number;
-    /** Indicates whether the cell is the last in a group. */
+    /** "true" if this cell is last in its group. */
     endOfGroup?: boolean;
     /** Indicates whether grouping by date is enabled. */
     groupedByDate?: boolean;

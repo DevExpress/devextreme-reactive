@@ -56,8 +56,8 @@ Field | Type | Description
 startDate | Date | Specifies the cell's start time.
 endDate | Date | Specifies the cell's end time.
 today | boolean | Indicates whether the cell's date is today.
-groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's group(s).
-endOfGroup? | boolean | Specifies whether it's the last cell in a group.
+groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's grouping.
+endOfGroup? | boolean | `true` if this cell is last in its group.
 
 ### WeekView.LayoutProps
 
@@ -100,7 +100,7 @@ cellsData | Array&lt;Array&lt;[WeekView.CellData](#weekviewcelldata)&gt;&gt; | S
 cellComponent | ComponentType&lt;[WeekView.DayScaleCellProps](#weekviewdayscalecellprops)&gt; | A component that renders a day scale cell.
 rowComponent | ComponentType&lt;[WeekView.RowProps](#weekviewrowprops)&gt; | A component that renders a day scale row.
 groupingPanelComponent? | ComponentType&lt;[GroupingPanel.HorizontalLayoutProps](./grouping-panel.md/#groupingpanelhorizontallayoutprops)&gt; | A component that renders the grouping panel.
-groupedByDate? | boolean | Indicates whether grouping by date is enabled.
+groupedByDate? | boolean | Indicates whether grouping by date is enabled. Takes its value from the `groupByDate` property of the [GroupingState](grouping-state.md) plugin.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the set locale.
 
 ### WeekView.DayScaleCellProps
@@ -113,8 +113,8 @@ startDate | Date | Specifies the cell's start time.
 endDate? | Date | Specifies the cell's end time.
 today? | boolean | Indicates whether the cell's date is today.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the set locale.
-groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's group(s).
-endOfGroup? | boolean | Specifies whether it's the last cell in a group.
+groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's grouping.
+endOfGroup? | boolean | `true` if this cell is last in its group.
 
 ### WeekView.DayScaleEmptyCellProps
 
@@ -143,8 +143,8 @@ Field | Type | Description
 ------|------|------------
 startDate? | Date | Specifies the cell's start time.
 endDate? | Date | Specifies the cell's end time.
-groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's group(s).
-endOfGroup? | boolean | Specifies whether it's the last cell in a group.
+groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's grouping.
+endOfGroup? | boolean | `true` if this cell is last in its group.
 isShaded? | boolean | Indicates whether the cell is shaded.
 currentTimeIndicatorPosition? | string | Indicates the distance from the top edge of the containing element (usually, a timetable cell). The distance is measured as a percentage of the element's height.
 currentTimeIndicatorComponent? | ComponentType&lt;[CurrentTimeIndicator.IndicatorProps](#currenttimeindicatorindicatorprops)&gt; | A component that renders the current time indicator.

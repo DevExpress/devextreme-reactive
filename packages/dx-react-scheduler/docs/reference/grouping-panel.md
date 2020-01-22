@@ -77,8 +77,8 @@ Field | Type | Description
 group | [Group](#group) | The group the cell represents.
 colSpan | number | The number of columns the cell spans.
 left | number | The cell's offset from the left.
-endOfGroup? | boolean | Indicates whether the cell is the last in a group.
-groupedByDate? | boolean | Indicates whether grouping by date is enabled.
+endOfGroup? | boolean | `true` if this cell is last in its group.
+groupedByDate? | boolean | Indicates whether grouping by date is enabled. Takes its value from the `groupByDate` property of the [GroupingState](grouping-state.md) plugin.
 children? | ReactNode | A React node used to render additional content to the cell.
 
 ## Plugin Components

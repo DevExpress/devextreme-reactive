@@ -24,9 +24,11 @@ A single appointment can appear in multiple groups if it is assigned to [multipl
 
 .embedded-demo({ "path": "scheduler-grouping/basic", "showThemeSelector": true })
 
-## Grouping by Date
+## Group by Date
 
-The example below shows how to group appointments by date and then by resource. To group by date, use the `GroupingState`'s `groupByDate` property. In the following demo, you can change this order by clicking "Group by Date First" above the Scheduler.
+To group appointments by date, set the `GroupingState`'s `groupByDate` property to `true`.
+
+In the example below, appointments are grouped first by date and then by resource. Click the "Group by Date First" switch to change this order.
 
 .embedded-demo({ "path": "scheduler-grouping/group-by-dates", "showThemeSelector": true })
 

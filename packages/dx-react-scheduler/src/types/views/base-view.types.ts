@@ -53,6 +53,8 @@ export namespace BaseView {
     endDate?: Date;
     /** Information about the cell's group(s). */
     groupingInfo?: Array<Group>;
+    /** Specifies whether the cell has the right border. */
+    hasRightBorder?: boolean;
     /** Specifies whether it's the last cell in a group. */
     endOfGroup?: boolean;
     /** Indicates whether the cell is shaded. */
@@ -127,6 +129,8 @@ export namespace BaseView {
     /** Information about the cell's group(s). */
     groupingInfo?: Array<Group>;
     /** Specifies whether the cell has the right border. */
+    hasRightBorder?: boolean;
+    /** Specifies whether it's the last cell in a group. */
     endOfGroup?: boolean;
   }
   /** Describes properties passed to a component that renders the appointment layer. */

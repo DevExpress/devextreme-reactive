@@ -13,7 +13,7 @@ export type AllDayCell = {
   startDate: SchedulerDateTime;
   endDate: SchedulerDateTime;
   groupingInfo?: Group[];
-  hasRightBorder?: boolean;
+  endOfGroup?: boolean;
 };
 
 // @public
@@ -25,8 +25,8 @@ export namespace AllDayPanel {
   }
   export interface CellData {
     endDate: Date;
+    endOfGroup?: boolean;
     groupingInfo?: Array<Group>;
-    hasRightBorder?: boolean;
     startDate: Date;
   }
   export interface CellProps {
@@ -425,9 +425,9 @@ export namespace BaseView {
     }
     export interface DayScaleCellProps {
         endDate?: Date;
+        endOfGroup?: boolean;
         formatDate: FormatterFn;
         groupingInfo?: Array<Group>;
-        hasRightBorder?: boolean;
         startDate: Date;
         today?: boolean;
     }
@@ -438,8 +438,8 @@ export namespace BaseView {
         cellComponent: React.ComponentType<BaseView.DayScaleCellProps>;
         cellsData: BaseView.CellData[][];
         formatDate: FormatterFn;
+        groupedByDate?: boolean;
         groupingPanelComponent?: React.ComponentType<GroupingPanel.HorizontalLayoutProps>;
-        isGroupingPanelAfterDates?: boolean;
         rowComponent: React.ComponentType<BaseView.RowProps>;
     }
     export interface LayoutProps {
@@ -464,8 +464,8 @@ export namespace BaseView {
         currentTimeIndicatorComponent?: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
         currentTimeIndicatorPosition?: string;
         endDate?: Date;
+        endOfGroup?: boolean;
         groupingInfo?: Array<Group>;
-        hasRightBorder?: boolean;
         isShaded?: boolean;
         startDate?: Date;
     }
@@ -789,11 +789,11 @@ export const GroupingPanel: React.ComponentType<GroupingPanelProps>;
 // @public (undocumented)
 export namespace GroupingPanel {
   export interface CellProps {
-    endOfGroup?: boolean;
-    groupedByDate?: boolean;
     children?: React.ReactNode;
     colSpan: number;
+    endOfGroup?: boolean;
     group: Group;
+    groupedByDate?: boolean;
     left: number;
   }
   export interface HorizontalLayoutProps {
@@ -822,10 +822,10 @@ export const GroupingState: React.ComponentType<GroupingStateProps>;
 export interface GroupingStateProps {
   defaultExpandedGroups?: Array<GroupKey>;
   expandedGroups?: Array<GroupKey>;
+  groupByDate?: (viewName: string) => boolean;
   grouping?: Array<Grouping>;
   // (undocumented)
   groupOrientation?: (view: string) => GroupOrientation;
-  isGroupByDate?: (viewName: string) => boolean;
   onExpandedGroupsChange?: (expandedGroups: Array<GroupKey>) => void;
 }
 
@@ -887,9 +887,9 @@ export namespace MonthView {
   }
   export interface TimeTableCellProps {
     endDate?: Date;
+    endOfGroup?: boolean;
     formatDate?: FormatterFn;
     groupingInfo?: Array<Group>;
-    hasRightBorder?: boolean;
     isShaded?: boolean;
     otherMonth?: boolean;
     startDate: Date;

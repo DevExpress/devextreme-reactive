@@ -103,8 +103,8 @@ export namespace BaseView {
   export interface DayScaleLayoutProps {
     /** Specifies the cells meta data. */
     cellsData: BaseView.CellData[][];
-    /** Specifies whether to show the the grouping panel after the day scale. */
-    isGroupingPanelAfterDates?: boolean;
+    /** Indicates whether grouping by date is enabled. */
+    groupedByDate?: boolean;
     /** A component that renders a day scale cell. */
     cellComponent: React.ComponentType<BaseView.DayScaleCellProps>;
     /** A component that renders a day scale row. */

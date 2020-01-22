@@ -15,8 +15,8 @@ export const getDayScaleCellColSpan: PureComputed<
 
 export const getDayScaleCells: PureComputed<
 [ViewCell[][], boolean], ViewCell[]
-> = (cellsData, isGroupingPanelAfterDates) => {
-  if (!isGroupingPanelAfterDates) {
+> = (cellsData, groupedByDate) => {
+  if (!groupedByDate) {
     return cellsData[0].map(({
       startDate, endDate, today, endOfGroup, groupingInfo,
     }, index) => ({

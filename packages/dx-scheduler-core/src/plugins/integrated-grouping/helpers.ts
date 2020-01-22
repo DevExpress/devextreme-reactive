@@ -22,7 +22,7 @@ export const addGroupInfoToCells: PureComputed<
     currentGroup, groups, sortedResources, viewCell, index,
   ) as ViewCell;
   return cellIndex !== viewCellRow.length - 1
-    ? groupedCell : { ...groupedCell, hasRightBorder: true };
+    ? groupedCell : { ...groupedCell, endOfGroup: true };
 });
 
 export const addGroupInfoToCell: PureComputed<

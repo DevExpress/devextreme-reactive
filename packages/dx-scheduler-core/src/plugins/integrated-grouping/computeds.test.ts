@@ -109,25 +109,25 @@ describe('IntegratedGrouping computeds', () => {
         .toEqual({
           ...viewCellsDataBase[0][0],
           groupingInfo: [{ fieldName: 'resource1', id: 1 }],
-          hasRightBorder: true,
+          endOfGroup: true,
         });
       expect(result[0][1])
         .toEqual({
           ...viewCellsDataBase[0][0],
           groupingInfo: [{ fieldName: 'resource1', id: 2 }],
-          hasRightBorder: true,
+          endOfGroup: true,
         });
       expect(result[1][0])
         .toEqual({
           ...viewCellsDataBase[1][0],
           groupingInfo: [{ fieldName: 'resource1', id: 1 }],
-          hasRightBorder: true,
+          endOfGroup: true,
         });
       expect(result[1][1])
         .toEqual({
           ...viewCellsDataBase[1][0],
           groupingInfo: [{ fieldName: 'resource1', id: 2 }],
-          hasRightBorder: true,
+          endOfGroup: true,
         });
     });
 
@@ -160,7 +160,7 @@ describe('IntegratedGrouping computeds', () => {
             { fieldName: 'resource2', id: 1 },
             { fieldName: 'resource1', id: 1 },
           ],
-          hasRightBorder: true,
+          endOfGroup: true,
         });
       expect(result[0][1])
         .toEqual({
@@ -169,7 +169,7 @@ describe('IntegratedGrouping computeds', () => {
             { fieldName: 'resource2', id: 2 },
             { fieldName: 'resource1', id: 1 },
           ],
-          hasRightBorder: true,
+          endOfGroup: true,
         });
       expect(result[0][2])
         .toEqual({
@@ -178,7 +178,7 @@ describe('IntegratedGrouping computeds', () => {
             { fieldName: 'resource2', id: 1 },
             { fieldName: 'resource1', id: 2 },
           ],
-          hasRightBorder: true,
+          endOfGroup: true,
         });
       expect(result[0][3])
         .toEqual({
@@ -187,7 +187,7 @@ describe('IntegratedGrouping computeds', () => {
             { fieldName: 'resource2', id: 2 },
             { fieldName: 'resource1', id: 2 },
           ],
-          hasRightBorder: true,
+          endOfGroup: true,
         });
     });
 
@@ -218,7 +218,7 @@ describe('IntegratedGrouping computeds', () => {
         .toEqual({
           ...viewCellsData[0][0],
           groupingInfo: [{ fieldName: 'resource1', id: 2 }],
-          hasRightBorder: true,
+          endOfGroup: true,
         });
       expect(result[1][0])
         .toEqual({
@@ -229,7 +229,7 @@ describe('IntegratedGrouping computeds', () => {
         .toEqual({
           ...viewCellsData[1][0],
           groupingInfo: [{ fieldName: 'resource1', id: 2 }],
-          hasRightBorder: true,
+          endOfGroup: true,
         });
     });
   });

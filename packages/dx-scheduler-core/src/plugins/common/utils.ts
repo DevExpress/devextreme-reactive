@@ -18,10 +18,10 @@ export const getDayScaleCells: PureComputed<
 > = (cellsData, isGroupingPanelAfterDates) => {
   if (!isGroupingPanelAfterDates) {
     return cellsData[0].map(({
-      startDate, endDate, today, hasRightBorder, groupingInfo,
+      startDate, endDate, today, endOfGroup, groupingInfo,
     }, index) => ({
       key: index.toString(),
-      startDate, endDate, today, hasRightBorder, groupingInfo,
+      startDate, endDate, today, endOfGroup, groupingInfo,
     }));
   }
   let prevDate: Moment;
@@ -36,7 +36,7 @@ export const getDayScaleCells: PureComputed<
       ...acc, {
         key: index.toString(),
         startDate, endDate, today, colSpan,
-        hasRightBorder: true,
+        endOfGroup: true,
       },
     ];
   }, [] as ViewCell[]);

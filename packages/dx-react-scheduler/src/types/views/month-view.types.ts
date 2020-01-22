@@ -36,8 +36,8 @@ export namespace MonthView {
     formatDate?: FormatterFn;
     /** Information about the cell's group(s). */
     groupingInfo?: Array<Group>;
-    /** Specifies whether the cell has the right border. */
-    hasRightBorder?: boolean;
+    /** Specifies whether it's the last cell in a group. */
+    endOfGroup?: boolean;
     /** Indicates whether the cell is shaded. */
     isShaded?: boolean;
   }

@@ -41,7 +41,7 @@ describe('#getDayScaleCells', () => {
         startDate: new Date(2020, 0, 1, 0, 0),
         endDate: new Date(2020, 0, 1, 1, 0),
         colSpan: 2,
-        hasRightBorder: true,
+        endOfGroup: true,
         key: '0',
         today: undefined,
       });
@@ -50,7 +50,7 @@ describe('#getDayScaleCells', () => {
         startDate: new Date(2020, 0, 2, 0, 0),
         endDate: new Date(2020, 0, 2, 1, 0),
         colSpan: 2,
-        hasRightBorder: true,
+        endOfGroup: true,
         key: '2',
         today: undefined,
       });
@@ -64,7 +64,7 @@ describe('#getDayScaleCells', () => {
       startDate: new Date(2020, 0, 2, 0, 0),
       endDate: new Date(2020, 0, 2, 1, 0),
       groupingInfo: 1,
-      hasRightBorder: true,
+      endOfGroup: true,
     }, {
       startDate: new Date(2020, 0, 1, 0, 0),
       endDate: new Date(2020, 0, 1, 1, 0),
@@ -73,7 +73,7 @@ describe('#getDayScaleCells', () => {
       startDate: new Date(2020, 0, 2, 0, 0),
       endDate: new Date(2020, 0, 2, 1, 0),
       groupingInfo: 2,
-      hasRightBorder: true,
+      endOfGroup: true,
     }]];
     const cells = getDayScaleCells(viewCellsData, false);
 
@@ -83,7 +83,7 @@ describe('#getDayScaleCells', () => {
       .toEqual({
         startDate: new Date(2020, 0, 1, 0, 0),
         endDate: new Date(2020, 0, 1, 1, 0),
-        hasRightBorder: undefined,
+        endOfGroup: undefined,
         key: '0',
         today: undefined,
         groupingInfo: 1,
@@ -92,7 +92,7 @@ describe('#getDayScaleCells', () => {
       .toEqual({
         startDate: new Date(2020, 0, 2, 0, 0),
         endDate: new Date(2020, 0, 2, 1, 0),
-        hasRightBorder: true,
+        endOfGroup: true,
         key: '1',
         today: undefined,
         groupingInfo: 1,
@@ -101,7 +101,7 @@ describe('#getDayScaleCells', () => {
       .toEqual({
         startDate: new Date(2020, 0, 1, 0, 0),
         endDate: new Date(2020, 0, 1, 1, 0),
-        hasRightBorder: undefined,
+        endOfGroup: undefined,
         key: '2',
         today: undefined,
         groupingInfo: 2,
@@ -110,7 +110,7 @@ describe('#getDayScaleCells', () => {
       .toEqual({
         startDate: new Date(2020, 0, 2, 0, 0),
         endDate: new Date(2020, 0, 2, 1, 0),
-        hasRightBorder: true,
+        endOfGroup: true,
         key: '3',
         today: undefined,
         groupingInfo: 2,

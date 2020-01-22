@@ -93,7 +93,7 @@ describe('Vertical view TimeTable', () => {
     });
     it('should render a cell with a bright border', () => {
       const tree = shallow((
-        <Cell hasRightBorder />
+        <Cell endOfGroup />
       ));
 
       expect(tree.is('.rightBorderCell'))

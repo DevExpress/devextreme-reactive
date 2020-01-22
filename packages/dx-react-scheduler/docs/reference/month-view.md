@@ -51,7 +51,7 @@ endDate | Date | Specifies the cell's end time.
 otherMonth | boolean | Indicates whether the cell's date is not in the current month.
 today | boolean | Indicates whether the cell's date is today.
 groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's group(s).
-hasRightBorder? | boolean | Specifies whether the cell has the right border.
+endOfGroup? | boolean | Specifies whether it's the last cell in a group.
 
 ### MonthView.LayoutProps
 
@@ -87,7 +87,7 @@ endDate? | Date | Specifies the cell's end time.
 today? | boolean | Indicates whether the cell's date is today.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the set locale.
 groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's group(s).
-hasRightBorder? | boolean | Specifies whether the cell has the right border.
+endOfGroup? | boolean | Specifies whether it's the last cell in a group.
 
 ### MonthView.TimeTableLayoutProps
 
@@ -113,7 +113,7 @@ today? | boolean | Indicates whether the cell's date is today.
 isShaded? | boolean | Indicates whether the cell is shaded.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the locale.
 groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's group(s).
-hasRightBorder? | boolean | Specifies whether the cell has the right border.
+endOfGroup? | boolean | Specifies whether it's the last cell in a group.
 
 ### MonthView.AppointmentLayerProps
 

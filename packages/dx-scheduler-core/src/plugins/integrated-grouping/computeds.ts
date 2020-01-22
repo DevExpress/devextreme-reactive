@@ -62,7 +62,7 @@ const expandCellsWithGroupedByDateData: ExpandGroupingPanelCellFn = (
     ));
     groupedCells[groupedCells.length - 1] = {
       ...groupedCells[groupedCells.length - 1],
-      hasRightBorder: true,
+      endOfGroup: true,
     };
     return [...acc, ...groupedCells] as ViewCell[];
   }, [] as ViewCell[]),

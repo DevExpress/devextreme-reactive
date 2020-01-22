@@ -123,7 +123,7 @@ export default class Demo extends React.PureComponent {
             />
             <GroupingState
               grouping={grouping}
-              isGroupByDate={groupByDate}
+              groupByDate={groupByDate}
             />
 
             <WeekView

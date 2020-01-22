@@ -300,7 +300,7 @@ describe('Basic View', () => {
             ...defaultDeps,
             getter: {
               ...defaultDeps.getter,
-              isGroupByDate: () => true,
+              groupByDate: () => true,
             },
           })}
           <BasicView

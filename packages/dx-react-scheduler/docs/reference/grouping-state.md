@@ -21,7 +21,7 @@ None
 Name | Type | Default | Description
 -----|------|---------|------------
 grouping? | Array&lt;[Grouping](#grouping)&gt; | | Specifies resources to group by.
-isGroupByDate? | (viewName: string) => boolean | `() => false` | Specifies whether appointments should be grouped by date in a specific view.
+groupByDate? | (viewName: string) => boolean | `() => false` | Specifies whether appointments should be grouped by date in a specific view.
 
 ## Interfaces
 

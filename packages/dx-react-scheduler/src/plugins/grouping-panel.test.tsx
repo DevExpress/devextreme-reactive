@@ -20,7 +20,7 @@ describe('GroupingPanel', () => {
       groups: [],
       viewCellsData: [[{}, {}]],
       currentView: {},
-      isGroupByDate: () => true,
+      groupByDate: () => true,
     },
   };
 

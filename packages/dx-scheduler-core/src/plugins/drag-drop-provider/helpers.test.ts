@@ -543,36 +543,36 @@ describe('DragDropProvider', () => {
         -1, draftAppointments, 'startViewDate',
         'endViewDate', 'excludedDays', 'viewCellsData', allDayCells,
         'vertical', 'cellDurationMinutes', 'timeTableCells',
-        'grouping', 'resources', 'groups', 'isGroupByDate',
+        'grouping', 'resources', 'groups', 'groupByDate',
       );
       expect(verticalTimeTableRects)
         .toBeCalledWith(
           [{}], 'startViewDate', 'endViewDate', 'excludedDays', 'viewCellsData', 'cellDurationMinutes',
-          'timeTableCells', 'grouping', 'resources', 'groups', 'isGroupByDate',
+          'timeTableCells', 'grouping', 'resources', 'groups', 'groupByDate',
         );
 
       calculateDraftAppointments(
         1, draftAppointments, 'startViewDate',
         'endViewDate', 'excludedDays', 'viewCellsData', allDayCells,
         'horizontal', 'cellDurationMinutes', 'timeTableCells',
-        'grouping', 'resources', 'groups', 'isGroupByDate',
+        'grouping', 'resources', 'groups', 'groupByDate',
       );
       expect(allDayRects)
         .toBeCalledWith(
           [{ allDay: true }], 'startViewDate', 'endViewDate', 'excludedDays', 'viewCellsData',
-          allDayCells, 'grouping', 'resources', 'groups', 'isGroupByDate',
+          allDayCells, 'grouping', 'resources', 'groups', 'groupByDate',
         );
 
       calculateDraftAppointments(
         -1, draftAppointments, 'startViewDate',
         'endViewDate', 'excludedDays', 'viewCellsData', allDayCells,
         'horizontal', 'cellDurationMinutes', 'timeTableCells',
-        'grouping', 'resources', 'groups', 'isGroupByDate',
+        'grouping', 'resources', 'groups', 'groupByDate',
       );
       expect(verticalTimeTableRects)
         .toBeCalledWith(
           [{}], 'startViewDate', 'endViewDate', 'excludedDays', 'viewCellsData', 'cellDurationMinutes',
-          'timeTableCells', 'grouping', 'resources', 'groups', 'isGroupByDate',
+          'timeTableCells', 'grouping', 'resources', 'groups', 'groupByDate',
         );
     });
   });

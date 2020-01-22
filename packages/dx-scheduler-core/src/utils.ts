@@ -239,7 +239,7 @@ const horizontalRectCalculator: CustomFunction<
       cellElementsMeta,
       viewCellsData,
     },
-    isGroupByDate,
+    groupByDate,
   },
 ) => {
   const {
@@ -252,7 +252,7 @@ const horizontalRectCalculator: CustomFunction<
       multiline,
       cellElementsMeta,
       viewCellsData,
-      isGroupByDate,
+      groupByDate,
     },
   );
 
@@ -316,7 +316,7 @@ const verticalRectCalculator: CustomFunction<
 };
 
 export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIntervalsFn = (
-  type, intervals, rectByDates, rectByDatesMeta, isGroupByDate,
+  type, intervals, rectByDates, rectByDatesMeta, groupByDate,
 ) => {
   const { growDirection, multiline } = type;
   const isHorizontal = growDirection === HORIZONTAL_TYPE;
@@ -333,7 +333,7 @@ export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIn
 
   return unwrapGroups(adjustAppointments(grouped as any[], isHorizontal))
     .map(appointment => rectCalculator(
-      appointment, { rectByDates, multiline, rectByDatesMeta, isGroupByDate },
+      appointment, { rectByDates, multiline, rectByDatesMeta, groupByDate },
     ));
 };
 

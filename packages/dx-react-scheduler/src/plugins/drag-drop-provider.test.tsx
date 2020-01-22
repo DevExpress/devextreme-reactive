@@ -52,7 +52,7 @@ const defaultDeps = {
       changeVerticalScroll: jest.fn(),
     },
     currentView: { name: 'currentView' },
-    isGroupByDate: () => 'isGroupByDate',
+    groupByDate: () => 'groupByDate',
   },
   action: {
     finishCommitAppointment: jest.fn(),
@@ -481,7 +481,7 @@ describe('DragDropProvider', () => {
           resources: 'resources',
           groups: 'groups',
           currentView: {},
-          isGroupByDate: () => true,
+          groupByDate: () => true,
         },
       };
       const payload = {

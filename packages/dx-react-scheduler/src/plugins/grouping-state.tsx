@@ -10,7 +10,7 @@ import { GroupingStateProps, GroupingStateState } from '../types';
 class GroupingStateBase extends React.PureComponent<GroupingStateProps, GroupingStateState> {
   static defaultProps = {
     defaultExpandedGroups: [],
-    isGroupByDate: () => false,
+    groupByDate: () => false,
   };
   stateHelper: StateHelper;
   toggleGroupExpanded: ActionFn<ToggleGroupPayload>;
@@ -46,12 +46,12 @@ class GroupingStateBase extends React.PureComponent<GroupingStateProps, Grouping
 
   render() {
     const { grouping, expandedGroups } = this.state;
-    const { isGroupByDate } = this.props;
+    const { groupByDate } = this.props;
 
     return (
       <Plugin name="GroupingState">
         <Getter name="grouping" value={grouping} />
-        <Getter name="isGroupByDate" value={isGroupByDate} />
+        <Getter name="groupByDate" value={groupByDate} />
 
         <Getter name="expandedGroups" value={expandedGroups} />
         <Action name="toggleGroupExpanded" action={this.toggleGroupExpanded} />

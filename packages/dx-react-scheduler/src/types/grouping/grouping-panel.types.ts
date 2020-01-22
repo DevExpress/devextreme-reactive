@@ -28,10 +28,10 @@ export namespace GroupingPanel {
     group: Group;
     /** The cell's offset from the left. */
     left: number;
-    /** Indicates whether to draw a bright right border or an ordinary right border. */
-    brightRightBorder?: boolean;
-    /** Indicates whether to draw a bright top border or an ordinary top border. */
-    brightTopBorder?: boolean;
+    /** Indicates whether the cell is the last in a group. */
+    endOfGroup?: boolean;
+    /** Indicates whether grouping by date is enabled. */
+    groupedByDate?: boolean;
     /** A React node used to render an additional content to the cell. */
     children?: React.ReactNode;
   }

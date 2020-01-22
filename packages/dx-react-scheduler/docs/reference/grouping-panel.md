@@ -77,8 +77,8 @@ Field | Type | Description
 group | [Group](#group) | The group the cell represents.
 colSpan | number | The number of columns the cell spans.
 left | number | The cell's offset from the left.
-brightRightBorder? | boolean | Indicates whether to draw a bright right border or an ordinary right border.
-brightTopBorder? | boolean | Indicates whether to draw a bright top border or an ordinary top border.
+endOfGroup? | boolean | Indicates whether the cell is the last in a group.
+groupedByDate? | boolean | Indicates whether grouping by date is enabled.
 children? | ReactNode | A React node used to render additional content to the cell.
 
 ## Plugin Components

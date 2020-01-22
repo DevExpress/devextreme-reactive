@@ -789,8 +789,8 @@ export const GroupingPanel: React.ComponentType<GroupingPanelProps>;
 // @public (undocumented)
 export namespace GroupingPanel {
   export interface CellProps {
-    brightRightBorder?: boolean;
-    brightTopBorder?: boolean;
+    endOfGroup?: boolean;
+    groupedByDate?: boolean;
     children?: React.ReactNode;
     colSpan: number;
     group: Group;

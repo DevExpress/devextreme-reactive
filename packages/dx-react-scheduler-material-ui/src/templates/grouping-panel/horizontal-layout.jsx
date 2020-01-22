@@ -25,20 +25,20 @@ export const HorizontalLayout = ({
               colSpan={cellColSpan}
               key={getCellKey(groups, index, rowIndex)}
               left={cellStyle.left}
-              brightRightBorder
+              endOfGroup
             />
           ))}
           {showHeaderForEveryDate && (
             getRowFromGroups(colSpan, groupRow, cellStyle, groups, rowIndex).map(({
-              group, colSpan: columnSpan, key, brightRightBorder,
+              group, colSpan: columnSpan, key, endOfGroup,
             }) => (
               <Cell
                 group={group}
                 colSpan={columnSpan}
                 key={key}
                 left={cellStyle.left}
-                brightRightBorder={brightRightBorder}
-                brightTopBorder={false}
+                endOfGroup={endOfGroup}
+                groupedByDate={false}
               />
             ))
           )}

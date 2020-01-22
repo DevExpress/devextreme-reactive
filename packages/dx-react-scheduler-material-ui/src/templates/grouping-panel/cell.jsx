@@ -10,11 +10,11 @@ const useStyles = makeStyles(theme => ({
     userSelect: 'none',
     padding: 0,
     borderBottom: 'none',
-    borderTop: ({ brightTopBorder }) => (
-      brightTopBorder ? getBrightBorder(theme) : getBorder(theme)
+    borderTop: ({ groupedByDate }) => (
+      groupedByDate ? getBrightBorder(theme) : getBorder(theme)
     ),
-    borderRight: ({ brightRightBorder }) => (
-      brightRightBorder ? getBrightBorder(theme) : getBorder(theme)
+    borderRight: ({ endOfGroup }) => (
+      endOfGroup ? getBrightBorder(theme) : getBorder(theme)
     ),
     paddingTop: theme.spacing(0.5),
     boxSizing: 'border-box',
@@ -43,12 +43,12 @@ export const Cell = React.memo(({
   group,
   colSpan,
   left,
-  brightRightBorder,
-  brightTopBorder,
+  endOfGroup,
+  groupedByDate,
   children,
   ...restProps
 }) => {
-  const classes = useStyles({ left, brightRightBorder, brightTopBorder });
+  const classes = useStyles({ left, endOfGroup, groupedByDate });
   return (
     <TableCell
       className={classNames(classes.cell, className)}
@@ -68,14 +68,14 @@ Cell.propTypes = {
   group: PropTypes.object.isRequired,
   colSpan: PropTypes.number.isRequired,
   left: PropTypes.number.isRequired,
-  brightRightBorder: PropTypes.bool,
-  brightTopBorder: PropTypes.bool,
+  endOfGroup: PropTypes.bool,
+  groupedByDate: PropTypes.bool,
   children: PropTypes.node,
 };
 
 Cell.defaultProps = {
   className: undefined,
-  brightRightBorder: true,
+  endOfGroup: true,
   children: null,
-  brightTopBorder: true,
+  groupedByDate: true,
 };

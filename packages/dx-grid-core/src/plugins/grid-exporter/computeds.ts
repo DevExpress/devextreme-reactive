@@ -40,12 +40,12 @@ export const buildGroupTree: BuildGroupTreeFn = (
   rows, outlineLevels, grouping, isGroupRow, groupSummaryItems,
 ) => {
   const groupTree = { [ROOT_GROUP]: [] as any[] };
-  
+
   if (!(grouping && grouping.length)) {
     groupTree[ROOT_GROUP] = [0, rows.length - 1];
     return groupTree;
   }
-  
+
   const maxLevel = Object.keys(outlineLevels).length - 1;
   const groupSummaryExists = !!groupSummaryItems;
   const parentChain = { '-1': ROOT_GROUP };

@@ -6,6 +6,7 @@ import { SelectionStateProps } from '../selection';
 import { TableProps } from '../tables';
 import { FilteringStateProps } from '../filtering';
 import { SortingStateProps } from '../sorting';
+import { TableColumnVisibilityProps } from '../column-operations';
 
 export type ExporterProps =
   Omit<GridProps, 'rootComponent'> &
@@ -14,8 +15,10 @@ export type ExporterProps =
   Pick<GroupingStateProps, 'grouping'> &
   Pick<TableGroupRowProps, 'showColumnsWhenGrouped'> &
   Pick<SelectionStateProps, 'selection'> &
-  Pick<TableProps, 'columnExtensions'>
+  Pick<TableProps, 'columnExtensions'> &
+  Pick<TableColumnVisibilityProps, 'hiddenColumnNames'>
 & {
+  columnOrder?: string[],
   groupColumnExtensions?: TableGroupRow.ColumnExtension[],
   totalSummaryItems?: SummaryItem[],
   groupSummaryItems?: GroupSummaryItem[],

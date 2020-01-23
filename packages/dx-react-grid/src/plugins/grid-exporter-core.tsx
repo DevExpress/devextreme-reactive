@@ -21,6 +21,8 @@ import { FilteringState } from './filtering-state';
 import { IntegratedFiltering } from './integrated-filtering';
 import { SortingState } from './sorting-state';
 import { IntegratedSorting } from './integrated-sorting';
+import { VisibleTableColumns } from './internal/visible-table-columns';
+import { OrderedTableColumns } from './internal/ordered-table-columns';
 
 const maxGroupLevelComputed = ({ grouping }: Getters) => maximumGroupLevel(grouping);
 const outlineLevelsComputed = ({ grouping }: Getters) => groupOutlineLevels(grouping);
@@ -91,8 +93,8 @@ export class GridExporterCore extends React.PureComponent<ExporterProps> {
   render() {
     const {
       rows: propRows, columns: propColumns, getCellValue, getRowId, columnExtensions,
-      grouping, showColumnsWhenGrouped, groupColumnExtensions, filters, sorting,
-      selection, totalSummaryItems, groupSummaryItems, customizeSummaryCell,
+      columnOrder, hiddenColumnNames, grouping, showColumnsWhenGrouped, groupColumnExtensions,
+      filters, sorting, selection, totalSummaryItems, groupSummaryItems, customizeSummaryCell,
     } = this.props;
 
     const workbook = createWorkbook();
@@ -103,6 +105,8 @@ export class GridExporterCore extends React.PureComponent<ExporterProps> {
     const useSelection = !!selection;
     const useFilters = !!filters;
     const useSorting = !!sorting;
+    const useColumnOrder = !!columnOrder;
+    const useColumnVisibility = !!hiddenColumnNames;
 
     return (
       <Plugin>
@@ -115,6 +119,12 @@ export class GridExporterCore extends React.PureComponent<ExporterProps> {
         <TableColumnsWithDataRowsGetter
           columnExtensions={columnExtensions}
         />
+        {useColumnVisibility && (
+          <VisibleTableColumns hiddenColumnNames={hiddenColumnNames} />
+        )}
+        {useColumnOrder && (
+          <OrderedTableColumns order={columnOrder} />
+        )}
         <Getter name="isExporting" value />
 
         {/* State */}

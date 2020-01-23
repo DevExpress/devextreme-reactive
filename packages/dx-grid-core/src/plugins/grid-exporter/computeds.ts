@@ -7,10 +7,10 @@ import { ROOT_GROUP } from './constants';
 import { exportSummaryItems, removeEmptyGroups } from './helpers';
 
 export const groupOutlineLevels: OutlineLevelsFn = grouping => (
-  grouping.reduce((acc, { columnName }, index) => ({
+  grouping?.reduce((acc, { columnName }, index) => ({
     ...acc,
     [columnName]: index,
-  }), {})
+  }), {}) || {}
 );
 
 const filterSelectedRows: FilterSelectedRowsFn = (rows, selection, getRowId, isGroupRow) => {
@@ -27,7 +27,7 @@ export const rowsToExport: GetRowsToExportFn = (
     ), [])
   );
 
-  const expandedRows = expandRows(rows);
+  const expandedRows = getCollapsedRows ? expandRows(rows) : rows;
 
   if (!!selection) {
     const filteredRows = filterSelectedRows(expandedRows, selection, getRowId, isGroupRow);
@@ -40,14 +40,14 @@ export const buildGroupTree: BuildGroupTreeFn = (
   rows, outlineLevels, grouping, isGroupRow, groupSummaryItems,
 ) => {
   const groupTree = { [ROOT_GROUP]: [] as any[] };
-  const maxLevel = Object.keys(outlineLevels).length - 1;
-  const groupSummaryExists = !!groupSummaryItems;
-
+  
   if (!(grouping && grouping.length)) {
     groupTree[ROOT_GROUP] = [0, rows.length - 1];
     return groupTree;
   }
-
+  
+  const maxLevel = Object.keys(outlineLevels).length - 1;
+  const groupSummaryExists = !!groupSummaryItems;
   const parentChain = { '-1': ROOT_GROUP };
   let lastDataIndex = 0;
   let openGroup = '';
@@ -137,5 +137,5 @@ export const closeGroupGetter: GetCloseGroupFn = (
 };
 
 export const maximumGroupLevel: PureComputed<[Grouping[]], number> = grouping => (
-  grouping.length - 1
+  (grouping || []).length - 1
 );

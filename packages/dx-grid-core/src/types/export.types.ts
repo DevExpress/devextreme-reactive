@@ -45,7 +45,7 @@ export type RemoveEmptyGroupsFn = PureComputed<[Row[], Grouping[], IsSpecificRow
 /** @internal */
 export type ExportRowsFn = (
   worksheet: Worksheet, rows: ReadonlyArray<Row>, dataColumns: Column[], columns: TableColumn[],
-  isGroupRow: IsSpecificRowFn, outlineLevels: OutlineLevels, rowsOffset: number,
+  isGroupRow: IsSpecificRowFn | undefined, outlineLevels: OutlineLevels, rowsOffset: number,
   getCellValue: GetCellValueFn, getCloseGroup: (offset: number) => CloseGroupFn,
   customizeCell: CustomizeCellFn,
 ) => void;

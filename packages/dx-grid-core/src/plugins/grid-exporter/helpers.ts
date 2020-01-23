@@ -55,7 +55,7 @@ export const exportRows: ExportRowsFn = (
   allRows.forEach((row) => {
     let r;
 
-    if (isGroupRow(row)) {
+    if (isGroupRow && isGroupRow(row)) {
       currentLevel = outlineLevels[row.groupedBy];
 
       // close nested groups first

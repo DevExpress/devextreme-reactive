@@ -164,7 +164,6 @@ export class GridExporterCore extends React.PureComponent<ExporterProps> {
         <Getter name="exportSummary" computed={exportSummaryComputed} />
         <Getter name="getCloseGroup" computed={getCloseGroupComputed} />
 
-        {/* <Action name="finishExport" action={this.finishExport} /> */}
         <Action name="performExport" action={this.performExport} />
         <Template name="root">
           {() => (

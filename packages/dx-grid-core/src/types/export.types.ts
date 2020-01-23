@@ -7,7 +7,9 @@ import { Worksheet, Cell } from 'exceljs';
 import { Column, GetCellValueFn, IsSpecificRowFn, GetCollapsedRowsFn } from './grid-core.types';
 
 /** @internal */
-export type FilterSelectedRowsFn = PureComputed<[Row[], RowId[], GetRowIdFn, IsSpecificRowFn]>;
+export type FilterSelectedRowsFn = PureComputed<
+  [Row[], RowId[], GetRowIdFn, IsSpecificRowFn | undefined]
+>;
 /** @internal */
 export type OutlineLevels = { [groupedBy: string]: number };
 /** @internal */

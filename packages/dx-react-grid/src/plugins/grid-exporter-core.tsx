@@ -37,9 +37,9 @@ const groupTreeComputed = ({
   rows, outlineLevels, grouping, isGroupRow, groupSummaryItems,
 );
 const exportSummaryComputed = ({
-  worksheet, columns, customizeSummaryCell,
+  worksheet, tableColumns, customizeSummaryCell,
 }: Getters) => exportSummaryGetter(
-  worksheet, columns, customizeSummaryCell, defaultSummaryMessages,
+  worksheet, tableColumns, customizeSummaryCell, defaultSummaryMessages,
 );
 const getCloseGroupComputed = ({
   worksheet, groupTree, outlineLevels, maxGroupLevel, groupSummaryItems, exportSummary,

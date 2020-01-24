@@ -59,7 +59,7 @@ export type ExportSummaryFn = (
 
 /** @internal */
 export type GetExportSummaryFn = (
-  sheet: Worksheet, dataColumns: Column[],
+  sheet: Worksheet, tableColumns: TableColumn[],
   customizeSummaryCell: CustomizeSummaryCellFn, summaryMessages: { [key: string]: string },
 ) => ExportSummaryFn;
 

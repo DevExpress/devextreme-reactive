@@ -5,6 +5,7 @@ import {
 import { PureComputed } from '@devexpress/dx-core';
 import { ROOT_GROUP } from './constants';
 import { exportSummaryItems, removeEmptyGroups } from './helpers';
+import { TABLE_DATA_TYPE } from '../table/constants';
 
 export const groupOutlineLevels: OutlineLevelsFn = grouping => (
   grouping?.reduce((acc, { columnName }, index) => ({
@@ -98,10 +99,18 @@ const operations = {
   count: 'COUNTA',
 };
 export const exportSummaryGetter: GetExportSummaryFn = (
-  worksheet, dataColumns, customizeSummaryCell, defaultSummaryMessages,
+  worksheet, tableColumns, customizeSummaryCell, defaultSummaryMessages,
 ) => (
   { columnName, type }, ranges,
 ) => {
+  const { column } = tableColumns.find(({ column, type }) => (
+    type === TABLE_DATA_TYPE && column && column.name === columnName
+  )) || {};
+  // NOTE: column is hidden or the grid grouped by this column
+  if (!column) {
+    return;
+  }
+
   const row = worksheet.lastRow!;
   const letter = worksheet.getColumn(columnName).letter;
   const operation = operations[type] || type.toUpperCase();
@@ -119,7 +128,6 @@ export const exportSummaryGetter: GetExportSummaryFn = (
   };
   cell.numFmt = `"${defaultSummaryMessages[type]}:" 0`;
 
-  const column = dataColumns.find(({ name }) => name === columnName);
   const summary = {
     type,
     ranges,

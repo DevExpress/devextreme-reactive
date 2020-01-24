@@ -3,6 +3,7 @@ import {
   closeGroupGetter, maximumGroupLevel,
 } from './computeds';
 import { ROOT_GROUP } from './constants';
+import { TABLE_GROUP_TYPE, TABLE_DATA_TYPE } from '../..';
 
 describe('export computeds', () => {
   describe('#groupTree', () => {
@@ -154,11 +155,12 @@ describe('export computeds', () => {
   });
 
   describe('#exportSummaryGetter', () => {
-    const columns = [
-      { name: 'a' },
-      { name: 'b' },
+    const tableColumns = [
+      { column: { name: 'a' }, type: TABLE_DATA_TYPE },
+      { column: { name: 'b' }, type: TABLE_DATA_TYPE },
+      { column: { name: 'g' }, type: TABLE_GROUP_TYPE },
     ];
-    const excelColumns = columns.reduce((acc, { name }) => ({
+    const excelColumns = tableColumns.reduce((acc, { column: { name } }) => ({
       ...acc,
       [name]: { letter: name.toUpperCase() },
     }), {});
@@ -179,6 +181,7 @@ describe('export computeds', () => {
       cells = {
         a: {},
         b: {},
+        g: {},
       };
       worksheet.lastRow.getCell.mockImplementation(columnName => cells[columnName]);
     });
@@ -186,7 +189,7 @@ describe('export computeds', () => {
 
     it('should provide function to export summary', () => {
       const exportSummary = exportSummaryGetter(
-        worksheet, columns, customizeSummaryCell, defaultMessages,
+        worksheet, tableColumns, customizeSummaryCell, defaultMessages,
       );
 
       exportSummary({ columnName: 'a', type: 'sum' }, [[2, 10]]);
@@ -199,6 +202,19 @@ describe('export computeds', () => {
             date1904: false,
           },
         });
+    });
+
+    it('should not export summary for invisible columns', () => {
+      const exportSummary = exportSummaryGetter(
+        worksheet, tableColumns, customizeSummaryCell, defaultMessages,
+      );
+
+      exportSummary({ columnName: 'g', type: 'sum' }, [[2, 10]]);
+
+      expect(worksheet.lastRow.getCell)
+        .not.toHaveBeenCalled();
+      expect(cells.g)
+        .toEqual({});
     });
   });
 

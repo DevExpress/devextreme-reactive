@@ -534,7 +534,7 @@ describe('GridExporter', () => {
           .toBeFalsy();
       });
     });
-    
+
     describe('column order', () => {
       it('should render column order plugin if order is provided', () => {
         const columnOrder = ['a', 'b'];

@@ -45,8 +45,9 @@ const CellBase = React.memo(({
   today,
   formatDate,
   endOfGroup,
-  hasRightBorder,
   groupingInfo,
+  // @deprecated
+  hasRightBorder,
   ...restProps
 }) => (
   <TableCell

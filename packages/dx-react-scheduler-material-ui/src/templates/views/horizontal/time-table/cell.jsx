@@ -85,8 +85,9 @@ const CellBase = React.memo(({
   formatDate,
   isShaded,
   endOfGroup,
-  hasRightBorder,
   groupingInfo,
+  // @deprecated
+  hasRightBorder,
   ...restProps
 }) => {
   const isFirstMonthDay = startDate.getDate() === 1;

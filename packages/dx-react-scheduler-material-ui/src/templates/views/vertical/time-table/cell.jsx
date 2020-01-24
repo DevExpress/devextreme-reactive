@@ -71,8 +71,9 @@ export const Cell = ({
   currentTimeIndicatorComponent: CurrentTimeIndicator,
   isShaded,
   endOfGroup,
-  hasRightBorder,
   groupingInfo,
+  // @deprecated
+  hasRightBorder,
   ...restProps
 }) => {
   const classes = useStyles({ shadedHeight: currentTimeIndicatorPosition });

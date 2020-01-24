@@ -39,8 +39,9 @@ const CellBase = ({
   startDate,
   endDate,
   endOfGroup,
-  hasRightBorder,
   groupingInfo,
+  // @deprecated
+  hasRightBorder,
   ...restProps
 }) => (
   <TableCell

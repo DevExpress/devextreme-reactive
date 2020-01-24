@@ -13,7 +13,10 @@ import {
   maximumGroupLevel,
 } from '@devexpress/dx-grid-core';
 import { GridExporterCore } from './grid-exporter-core';
-import { GridCoreGetters, TableColumnsWithDataRowsGetter, TableColumnsWithGrouping } from './internal';
+import {
+  GridCoreGetters, TableColumnsWithDataRowsGetter, TableColumnsWithGrouping,
+  VisibleTableColumns, OrderedTableColumns,
+} from './internal';
 import { GroupingState } from './grouping-state';
 import { IntegratedGrouping } from './integrated-grouping';
 import { SummaryState } from './summary-state';
@@ -29,6 +32,8 @@ jest.mock('./internal', () => ({
   GridCoreGetters: () => null,
   TableColumnsWithGrouping: () => null,
   TableColumnsWithDataRowsGetter: () => null,
+  VisibleTableColumns: () => null,
+  OrderedTableColumns: () => null,
 }));
 
 jest.mock('@devexpress/dx-grid-core', () => ({
@@ -494,6 +499,70 @@ describe('GridExporter', () => {
         expect(tree.find(SortingState).exists())
           .toBeFalsy();
         expect(tree.find(IntegratedSorting).exists())
+          .toBeFalsy();
+      });
+    });
+
+    describe('column visibility', () => {
+      it('should render column visibility plugin if hiddenColumnNames is provided', () => {
+        const hiddenColumnNames = ['a'];
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <GridExporterCore
+              {...defaultProps}
+              hiddenColumnNames={hiddenColumnNames}
+            />
+          </PluginHost>
+        ));
+
+        expect(tree.find(VisibleTableColumns).props())
+          .toMatchObject({
+            hiddenColumnNames,
+          });
+      });
+
+      it('should not render column visibility plugin if hiddenColumnNames not provided', () => {
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <GridExporterCore {...defaultProps} />
+          </PluginHost>
+        ));
+
+        expect(tree.find(VisibleTableColumns).exists())
+          .toBeFalsy();
+      });
+    });
+    
+    describe('column order', () => {
+      it('should render column order plugin if order is provided', () => {
+        const columnOrder = ['a', 'b'];
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <GridExporterCore
+              {...defaultProps}
+              columnOrder={columnOrder}
+            />
+          </PluginHost>
+        ));
+
+        expect(tree.find(OrderedTableColumns).props())
+          .toMatchObject({
+            order: columnOrder,
+          });
+      });
+
+      it('should not render column order plugins if order is not provided', () => {
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <GridExporterCore {...defaultProps} />
+          </PluginHost>
+        ));
+
+        expect(tree.find(OrderedTableColumns).exists())
           .toBeFalsy();
       });
     });

@@ -16,13 +16,12 @@ import { ExporterProps } from '../types';
 import { SelectionState } from './selection-state';
 import {
   TableColumnsWithGrouping, TableColumnsWithDataRowsGetter, GridCoreGetters,
+  VisibleTableColumns, OrderedTableColumns,
 } from './internal';
 import { FilteringState } from './filtering-state';
 import { IntegratedFiltering } from './integrated-filtering';
 import { SortingState } from './sorting-state';
 import { IntegratedSorting } from './integrated-sorting';
-import { VisibleTableColumns } from './internal/visible-table-columns';
-import { OrderedTableColumns } from './internal/ordered-table-columns';
 
 const maxGroupLevelComputed = ({ grouping }: Getters) => maximumGroupLevel(grouping);
 const outlineLevelsComputed = ({ grouping }: Getters) => groupOutlineLevels(grouping);

@@ -4,31 +4,27 @@ import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
-  tableColumnsWithGrouping,
+  orderedColumns,
 } from '@devexpress/dx-grid-core';
-import { TableColumnsWithGrouping } from './table-group-row-columns';
+import { OrderedTableColumns } from './ordered-table-columns';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  tableColumnsWithGrouping: jest.fn(),
+  orderedColumns: jest.fn(),
 }));
 
 const defaultDeps = {
   getter: {
-    columns: [{ name: 'a' }, { name: 'b' }],
     tableColumns: [{ type: 'undefined', id: 1, column: 'column' }],
-    grouping: [{ columnName: 'a' }],
-    draftGrouping: [{ columnName: 'a' }, { columnName: 'b' }],
   },
-  plugins: ['GroupingState', 'Table'],
 };
 
 const defaultProps = {
-  indentColumnWidth: 100,
+  order: ['a', 'b'],
 };
 
-describe('TableColumnsWithGrouping', () => {
+describe('OrderedTableColumns', () => {
   beforeEach(() => {
-    tableColumnsWithGrouping.mockImplementation(() => 'tableColumnsWithGrouping');
+    orderedColumns.mockImplementation(() => 'orderedColumns');
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -38,22 +34,18 @@ describe('TableColumnsWithGrouping', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
-        <TableColumnsWithGrouping
+        <OrderedTableColumns
           {...defaultProps}
         />
       </PluginHost>
     ));
 
     expect(getComputedState(tree).tableColumns)
-      .toBe('tableColumnsWithGrouping');
-    expect(tableColumnsWithGrouping)
+      .toBe('orderedColumns');
+    expect(orderedColumns)
       .toBeCalledWith(
-        defaultDeps.getter.columns,
         defaultDeps.getter.tableColumns,
-        defaultDeps.getter.grouping,
-        defaultDeps.getter.draftGrouping,
-        defaultProps.indentColumnWidth,
-        expect.any(Function),
+        defaultProps.order,
       );
   });
 });

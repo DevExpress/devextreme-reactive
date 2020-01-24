@@ -51,10 +51,12 @@ export namespace BaseView {
     startDate?: Date;
     /** Specifies the cell's end time. */
     endDate?: Date;
-    /** Information about the cell's group(s). */
+    /** Information about the cell's grouping. */
     groupingInfo?: Array<Group>;
-    /** Specifies whether the cell has the right border. */
+    /** \@deprecated Specifies whether the cell has the right border. */
     hasRightBorder?: boolean;
+    /** "true" if this cell is last in its group. */
+    endOfGroup?: boolean;
     /** Indicates whether the cell is shaded. */
     isShaded?: boolean;
     // tslint:disable-next-line: max-line-length
@@ -103,6 +105,8 @@ export namespace BaseView {
   export interface DayScaleLayoutProps {
     /** Specifies the cells meta data. */
     cellsData: BaseView.CellData[][];
+    /** Indicates whether grouping by date is enabled. */
+    groupedByDate?: boolean;
     /** A component that renders a day scale cell. */
     cellComponent: React.ComponentType<BaseView.DayScaleCellProps>;
     /** A component that renders a day scale row. */
@@ -122,10 +126,12 @@ export namespace BaseView {
     today?: boolean;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
-    /** Information about the cell's group(s). */
+    /** Information about the cell's grouping. */
     groupingInfo?: Array<Group>;
-    /** Specifies whether the cell has the right border. */
+    /** \@deprecated Specifies whether the cell has the right border. */
     hasRightBorder?: boolean;
+    /** "true" if this cell is last in its group. */
+    endOfGroup?: boolean;
   }
   /** Describes properties passed to a component that renders the appointment layer. */
   export interface AppointmentLayerProps {

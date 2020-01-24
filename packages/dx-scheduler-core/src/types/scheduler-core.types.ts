@@ -51,10 +51,12 @@ export type AllDayCell = {
   startDate: SchedulerDateTime;
   /** The cell’s end time. */
   endDate: SchedulerDateTime;
-  /** Information about the cell's group(s). */
+  /** Information about the cell's grouping. */
   groupingInfo?: Group[];
-  /** Specifies whether the cell has the right border. */
+  /** \@deprecated Specifies whether the cell has the right border. */
   hasRightBorder?: boolean;
+  /** "true" if this cell is last in its group. */
+  endOfGroup?: boolean;
 };
 
 /** @internal */
@@ -64,7 +66,7 @@ export interface ViewCell {
   otherMonth?: boolean;
   today?: boolean;
   groupingInfo?: Group[];
-  hasRightBorder?: boolean;
+  endOfGroup?: boolean;
 }
 /** @internal */
 export type DayScaleFn = PureComputed<

@@ -4,6 +4,7 @@ import { HorizontalViewLayout } from './horizontal-view-layout';
 import { scrollingStrategy } from '../utils';
 
 jest.mock('../utils', () => ({
+  ...require.requireActual('../utils'),
   scrollingStrategy: jest.fn(),
 }));
 
@@ -30,10 +31,14 @@ describe('Horizontal View Layout', () => {
       .toBeTruthy();
     expect(tree.hasClass(`${classes.container}`))
       .toBeTruthy();
-    expect(tree.find(`${classes.stickyHeader}`))
+    expect(tree.find(`.${classes.stickyHeader}`).exists())
       .toBeTruthy();
-    expect(tree.find(`${classes.timeTable}`))
+    expect(tree.find(`.${classes.timeTable}`).exists())
       .toBeTruthy();
+    expect(tree.find(`.${classes.ordinaryHeaderBorder}`).exists())
+      .toBeTruthy();
+    expect(tree.find(`.${classes.brightHeaderBorder}`).exists())
+      .toBeFalsy();
   });
 
   it('should pass rest props to the root element', () => {
@@ -63,6 +68,18 @@ describe('Horizontal View Layout', () => {
     expect(tree.find(`.${classes.stickyHeader}`).exists())
       .toBeTruthy();
     expect(tree.find(`.${classes.timeTable}`).exists())
+      .toBeTruthy();
+  });
+
+  it('should have bright border after scroll', () => {
+    const tree = shallow((
+      <HorizontalViewLayout {...defaultProps} />
+    ));
+
+    tree.simulate('scroll', { target: { scrollTop: 5 } });
+    tree.update();
+
+    expect(tree.find(`.${classes.brightHeaderBorder}`).exists())
       .toBeTruthy();
   });
 });

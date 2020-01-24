@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { getCellKey } from '@devexpress/dx-scheduler-core';
+import { getCellKey, getRowFromGroups } from '@devexpress/dx-scheduler-core';
 
 export const HorizontalLayout = ({
   rowComponent: Row,
@@ -8,6 +8,7 @@ export const HorizontalLayout = ({
   groups,
   colSpan,
   cellStyle,
+  showHeaderForEveryDate,
   ...restProps
 }) => (
   <>
@@ -18,14 +19,29 @@ export const HorizontalLayout = ({
           key={groups[rowIndex][0].text}
           {...restProps}
         >
-          {groupRow.map((group, index) => (
+          {!showHeaderForEveryDate && groupRow.map((group, index) => (
             <Cell
               group={group}
               colSpan={cellColSpan}
               key={getCellKey(groups, index, rowIndex)}
               left={cellStyle.left}
+              endOfGroup
             />
           ))}
+          {showHeaderForEveryDate && (
+            getRowFromGroups(colSpan, groupRow, cellStyle, groups, rowIndex).map(({
+              group, colSpan: columnSpan, key, endOfGroup,
+            }) => (
+              <Cell
+                group={group}
+                colSpan={columnSpan}
+                key={key}
+                left={cellStyle.left}
+                endOfGroup={endOfGroup}
+                groupedByDate={false}
+              />
+            ))
+          )}
         </Row>
       );
     })}
@@ -38,4 +54,9 @@ HorizontalLayout.propTypes = {
   groups: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
   colSpan: PropTypes.number.isRequired,
   cellStyle: PropTypes.object.isRequired,
+  showHeaderForEveryDate: PropTypes.bool,
+};
+
+HorizontalLayout.defaultProps = {
+  showHeaderForEveryDate: false,
 };

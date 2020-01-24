@@ -15,6 +15,8 @@ export namespace GroupingPanel {
     colSpan: number;
     /** The CSS styles of a cell on the grouping panel. */
     cellStyle: object;
+    /** Specifies whether to show group headings for every date or not. */
+    showHeaderForEveryDate?: boolean;
   }
   /** Describes properties passed to a component that renders a row on the grouping panel. */
   export interface RowProps extends BaseView.RowProps {}
@@ -26,6 +28,10 @@ export namespace GroupingPanel {
     group: Group;
     /** The cell's offset from the left. */
     left: number;
+    /** "true" if this cell is last in its group. */
+    endOfGroup?: boolean;
+    /** Indicates whether grouping by date is enabled. */
+    groupedByDate?: boolean;
     /** A React node used to render an additional content to the cell. */
     children?: React.ReactNode;
   }

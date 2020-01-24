@@ -33,6 +33,14 @@ describe('Vertical View Layout', () => {
       .toBeTruthy();
     expect(tree.hasClass(`${classes.container}`))
       .toBeTruthy();
+    expect(tree.find(`.${classes.ordinaryHeaderBorder}`).exists())
+      .toBeTruthy();
+    expect(tree.find(`.${classes.brightHeaderBorder}`).exists())
+      .toBeFalsy();
+    expect(tree.find(`.${classes.ordinaryLeftPanelBorder}`).exists())
+      .toBeTruthy();
+    expect(tree.find(`.${classes.brightLeftPanelBorder}`).exists())
+      .toBeFalsy();
   });
 
   it('should pass rest props to the root element', () => {
@@ -70,6 +78,22 @@ describe('Vertical View Layout', () => {
     expect(tree.find(`.${classes.leftPanel}`).exists())
       .toBeTruthy();
     expect(tree.find(`.${classes.background}`).exists())
+      .toBeTruthy();
+  });
+
+  it('should have bright border after scroll', () => {
+    const tree = shallow((
+      <VerticalViewLayout {...defaultProps} />
+    ));
+
+    tree.simulate('scroll', { target: { scrollTop: 5 } });
+    tree.update();
+    expect(tree.find(`.${classes.brightHeaderBorder}`).exists())
+      .toBeTruthy();
+
+    tree.simulate('scroll', { target: { scrollLeft: 5 } });
+    tree.update();
+    expect(tree.find(`.${classes.brightLeftPanelBorder}`).exists())
       .toBeTruthy();
   });
 });

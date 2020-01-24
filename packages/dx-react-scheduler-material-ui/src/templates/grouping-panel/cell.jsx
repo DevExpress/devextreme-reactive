@@ -3,17 +3,21 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core/styles';
-import { getBrightBorder } from '../utils';
+import { getBrightBorder, getBorder } from '../utils';
 
 const useStyles = makeStyles(theme => ({
   cell: {
     userSelect: 'none',
     padding: 0,
     borderBottom: 'none',
-    borderTop: getBrightBorder(theme),
+    borderTop: ({ groupedByDate }) => (
+      groupedByDate ? getBrightBorder(theme) : getBorder(theme)
+    ),
+    borderRight: ({ endOfGroup }) => (
+      endOfGroup ? getBrightBorder(theme) : getBorder(theme)
+    ),
     paddingTop: theme.spacing(0.5),
     boxSizing: 'border-box',
-    borderRight: getBrightBorder(theme),
     'tr:first-child &': {
       borderTop: 'none',
     },
@@ -30,6 +34,7 @@ const useStyles = makeStyles(theme => ({
     position: 'sticky',
     display: 'inline-block',
     left: ({ left }) => theme.spacing(left / 8),
+    lineHeight: 1.5,
   },
 }));
 
@@ -38,10 +43,12 @@ export const Cell = React.memo(({
   group,
   colSpan,
   left,
+  endOfGroup,
+  groupedByDate,
   children,
   ...restProps
 }) => {
-  const classes = useStyles({ left });
+  const classes = useStyles({ left, endOfGroup, groupedByDate });
   return (
     <TableCell
       className={classNames(classes.cell, className)}
@@ -61,10 +68,14 @@ Cell.propTypes = {
   group: PropTypes.object.isRequired,
   colSpan: PropTypes.number.isRequired,
   left: PropTypes.number.isRequired,
+  endOfGroup: PropTypes.bool,
+  groupedByDate: PropTypes.bool,
   children: PropTypes.node,
 };
 
 Cell.defaultProps = {
   className: undefined,
+  endOfGroup: true,
   children: null,
+  groupedByDate: true,
 };

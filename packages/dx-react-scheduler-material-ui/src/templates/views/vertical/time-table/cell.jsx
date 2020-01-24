@@ -70,8 +70,10 @@ export const Cell = ({
   currentTimeIndicatorPosition,
   currentTimeIndicatorComponent: CurrentTimeIndicator,
   isShaded,
-  hasRightBorder,
+  endOfGroup,
   groupingInfo,
+  // @deprecated
+  hasRightBorder,
   ...restProps
 }) => {
   const classes = useStyles({ shadedHeight: currentTimeIndicatorPosition });
@@ -83,7 +85,7 @@ export const Cell = ({
       className={classNames({
         [classes.cell]: true,
         [classes.shadedCell]: isShaded && !isNow,
-        [classes.rightBorderCell]: hasRightBorder,
+        [classes.rightBorderCell]: endOfGroup || hasRightBorder,
       }, className)}
       {...restProps}
     >
@@ -108,6 +110,7 @@ Cell.propTypes = {
   currentTimeIndicatorPosition: PropTypes.string,
   currentTimeIndicatorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   isShaded: PropTypes.bool,
+  endOfGroup: PropTypes.bool,
   hasRightBorder: PropTypes.bool,
   groupingInfo: PropTypes.arrayOf(PropTypes.object),
 };
@@ -120,6 +123,7 @@ Cell.defaultProps = {
   currentTimeIndicatorPosition: undefined,
   currentTimeIndicatorComponent: () => null,
   isShaded: false,
+  endOfGroup: false,
   hasRightBorder: false,
   groupingInfo: undefined,
 };

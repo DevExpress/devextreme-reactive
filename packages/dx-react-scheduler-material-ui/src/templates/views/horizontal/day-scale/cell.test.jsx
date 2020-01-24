@@ -48,7 +48,7 @@ describe('Horizontal view DayScale', () => {
     });
     it('should render a cell with a bright border', () => {
       const tree = shallow((
-        <Cell {...defaultProps} hasRightBorder />
+        <Cell {...defaultProps} endOfGroup />
       ));
 
       expect(tree.is(`.${classes.rightBorderCell}`))

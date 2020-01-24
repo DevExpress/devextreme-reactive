@@ -15,12 +15,14 @@ import { expandGroups } from '../integrated-grouping/computeds';
 export const allDayRects: AllDayRects = (
   appointments, startViewDate, endViewDate,
   excludedDays, viewCellsData, cellElementsMeta,
-  grouping, resources, groups,
+  grouping, resources, groups, sliceAppointments,
 ) => {
   const intervals = calculateAllDayDateIntervals(
     appointments, startViewDate, endViewDate, excludedDays,
   );
-  const groupedIntervals = expandGroups(intervals, grouping, resources, groups);
+  const groupedIntervals = expandGroups(
+    intervals, grouping, resources, groups, excludedDays, sliceAppointments,
+  );
 
   return calculateRectByDateAndGroupIntervals(
     {
@@ -36,17 +38,20 @@ export const allDayRects: AllDayRects = (
       cellElementsMeta,
       excludedDays,
     },
+    sliceAppointments,
   );
 };
 
 export const verticalTimeTableRects: VerticalRects = (
-  appointments, startViewDate, endViewDate, excludedDays,
-  viewCellsData, cellDuration, cellElementsMeta, grouping, resources, groups,
+  appointments, startViewDate, endViewDate, excludedDays, viewCellsData,
+  cellDuration, cellElementsMeta, grouping, resources, groups, groupByDate,
 ) => {
   const intervals = calculateWeekDateIntervals(
     appointments, startViewDate, endViewDate, excludedDays, cellDuration,
   );
-  const groupedIntervals = expandGroups(intervals, grouping, resources, groups);
+  const groupedIntervals = expandGroups(
+    intervals, grouping, resources, groups, excludedDays, false,
+  );
 
   return calculateRectByDateAndGroupIntervals(
     {
@@ -62,17 +67,20 @@ export const verticalTimeTableRects: VerticalRects = (
       cellDuration,
       cellElementsMeta,
     },
+    groupByDate,
   );
 };
 
 export const horizontalTimeTableRects: HorizontalRects = (
-  appointments, startViewDate, endViewDate,
-  viewCellsData, cellElementsMeta, grouping, resources, groups,
+  appointments, startViewDate, endViewDate, viewCellsData,
+  cellElementsMeta, grouping, resources, groups, sliceAppointments,
 ) => {
   const intervals = calculateMonthDateIntervals(
     appointments, startViewDate, endViewDate,
   );
-  const groupedIntervals = expandGroups(intervals, grouping, resources, groups);
+  const groupedIntervals = expandGroups(
+    intervals, grouping, resources, groups, [], sliceAppointments,
+  );
 
   return calculateRectByDateAndGroupIntervals(
     {
@@ -87,5 +95,6 @@ export const horizontalTimeTableRects: HorizontalRects = (
       viewCellsData,
       cellElementsMeta,
     },
+    sliceAppointments,
   );
 };

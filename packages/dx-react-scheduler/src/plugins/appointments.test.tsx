@@ -53,6 +53,7 @@ const defaultDeps = {
     startViewDate: '',
     endViewDate: '',
     cellDuration: '',
+    groupByDate: () => 'groupByDate',
   },
   template: {
     timeTableAppointmentLayer: {},
@@ -285,6 +286,7 @@ describe('Appointments', () => {
         viewCellsData: defaultDeps.getter.viewCellsData,
         cellElementsMeta: defaultDeps.getter.timeTableElementsMeta,
       },
+      'groupByDate',
       );
   });
   it('should render "timeTableAppointmentLayer" template when currentView is "month"', () => {
@@ -322,6 +324,7 @@ describe('Appointments', () => {
         viewCellsData: defaultDeps.getter.viewCellsData,
         cellElementsMeta: defaultDeps.getter.timeTableElementsMeta,
       },
+      'groupByDate',
       );
   });
   it('should render "allDayAppointmentLayer" template when currentView is not "month"', () => {
@@ -363,6 +366,7 @@ describe('Appointments', () => {
         viewCellsData: defaultDeps.getter.viewCellsData,
         cellElementsMeta: defaultDeps.getter.timeTableElementsMeta,
       },
+      'groupByDate',
       );
   });
 });

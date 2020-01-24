@@ -32,7 +32,7 @@ export namespace AllDayPanel {
     endDate: Date;
     /** Information about the cell's grouping. */
     groupingInfo?: Array<Group>;
-    /** @deprecated Specifies whether the cell has the right border. */
+    /** \@deprecated Specifies whether the cell has the right border. */
     hasRightBorder?: boolean;
     /** "true" if this cell is last in its group. */
     endOfGroup?: boolean;

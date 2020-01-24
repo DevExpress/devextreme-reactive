@@ -53,7 +53,7 @@ export type AllDayCell = {
   endDate: SchedulerDateTime;
   /** Information about the cell's grouping. */
   groupingInfo?: Group[];
-  /** @deprecated Specifies whether the cell has the right border. */
+  /** \@deprecated Specifies whether the cell has the right border. */
   hasRightBorder?: boolean;
   /** "true" if this cell is last in its group. */
   endOfGroup?: boolean;

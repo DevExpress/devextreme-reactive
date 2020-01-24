@@ -103,8 +103,8 @@ export const exportSummaryGetter: GetExportSummaryFn = (
 ) => (
   { columnName, type }, ranges,
 ) => {
-  const { column } = tableColumns.find(({ column, type }) => (
-    type === TABLE_DATA_TYPE && column && column.name === columnName
+  const { column } = tableColumns.find(({ column: dataColumn, type: columnType }) => (
+    columnType === TABLE_DATA_TYPE && dataColumn && dataColumn.name === columnName
   )) || {};
   // NOTE: column is hidden or the grid grouped by this column
   if (!column) {

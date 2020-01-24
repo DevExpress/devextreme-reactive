@@ -110,7 +110,7 @@ const DateTypeProvider = props => (
 // worksheet customization
 /* eslint-disable no-param-reassign */
 const customizeCell = (cell, row, column) => {
-  if (row.groupedBy) {
+  if (row.groupedBy && groupColors[row.groupedBy]) {
     cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: groupColors[row.groupedBy] } };
     cell.font = { color: { argb: '000000' } };
   }

@@ -143,16 +143,16 @@ export const removeEmptyGroups: RemoveEmptyGroupsFn = (rows, grouping, isGroupRo
       if (level === groupChain.length) {
         groupChain.push(row);
       } else {
-        groupChain = [row];
+        groupChain = [...groupChain.slice(0, level), row];
       }
     } else {
       if (groupChain.length > 0) {
         result.push(...groupChain);
-        groupChain = [];
+        groupChain = Array.from({ length: groupChain.length });
       }
       result.push(row);
     }
   });
 
-  return result;
+  return result.filter(row => !!row);
 };

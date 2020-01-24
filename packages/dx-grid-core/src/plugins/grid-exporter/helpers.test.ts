@@ -297,6 +297,9 @@ describe('export helpers', () => {
         { a: 2 },
         { groupedBy: 'a', value: 5 },
         { groupedBy: 'b', value: 6 },
+        { groupedBy: 'a', value: 7 },
+        { groupedBy: 'b', value: 8 },
+        { a: 3 },
       ];
       expect(removeEmptyGroups(rows, grouping, isGroupRow))
         .toEqual([
@@ -304,6 +307,32 @@ describe('export helpers', () => {
           { groupedBy: 'b', value: 4 },
           { a: 1 },
           { a: 2 },
+          { groupedBy: 'a', value: 7 },
+          { groupedBy: 'b', value: 8 },
+          { a: 3 },
+        ]);
+    });
+
+    it('should remove nested empty groups', () => {
+      const rows = [
+        { groupedBy: 'a', value: 1 },
+        { groupedBy: 'b', value: 2 },
+        { groupedBy: 'b', value: 3 },
+        { groupedBy: 'b', value: 4 },
+        { a: 1 },
+        { a: 2 },
+        { groupedBy: 'b', value: 5 },
+        { groupedBy: 'b', value: 6 },
+        { a: 3 },
+      ];
+      expect(removeEmptyGroups(rows, grouping, isGroupRow))
+        .toEqual([
+          { groupedBy: 'a', value: 1 },
+          { groupedBy: 'b', value: 4 },
+          { a: 1 },
+          { a: 2 },
+          { groupedBy: 'b', value: 6 },
+          { a: 3 },
         ]);
     });
   });

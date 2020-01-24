@@ -7,10 +7,10 @@ import {
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
-  viewCellsData as viewCellsDataCore, calculateWeekDateIntervals,
+  viewCellsData as viewCellsDataCore, calculateWeekDateIntervals, timeScaleCells, ViewCell,
 } from '@devexpress/dx-scheduler-core';
 import { BasicView } from './basic-view';
-import { WeekViewProps } from '../types';
+import { WeekViewProps, BaseView } from '../types';
 
 const DAYS_IN_WEEK = 7;
 const TYPE = 'week';
@@ -126,15 +126,19 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
 
         <Template name="timeScale">
           <TemplateConnector>
-            {({ currentView, viewCellsData, formatDate }) => {
+            {({ currentView, viewCellsData, groupOrientation, groups, formatDate }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
                 <TimeScale
                   labelComponent={TimeScaleLabel}
                   tickCellComponent={timeScaleTickCellComponent}
                   rowComponent={timeScaleTicksRowComponent}
+                  // cellsData={timeScaleCells(
+                  //   viewCellsData, groupOrientation?.(viewName), groups,
+                  // ) as BaseView.CellData[][]}
                   cellsData={viewCellsData}
                   formatDate={formatDate}
+                  groups={groups}
                 />
               );
             }}

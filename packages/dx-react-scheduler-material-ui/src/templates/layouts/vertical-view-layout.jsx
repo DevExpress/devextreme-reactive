@@ -1,11 +1,12 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
 import { scrollingStrategy, getBorder, getBrightBorder } from '../utils';
+import { GROUPING_PANEL_VERTICAL_CELL_WIDTH } from '../constants';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   container: {
     overflowY: 'auto',
     position: 'relative',
@@ -25,15 +26,15 @@ const styles = theme => ({
     zIndex: 1,
     boxSizing: 'border-box',
     float: 'left',
+    width: ({ groupingPanelSize }) => `${theme.spacing(10)
+      + groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH + 1}px`,
   },
   timeTable: {
     position: 'relative',
   },
-  fixedWidth: {
-    width: theme.spacing(10),
-  },
   mainTable: {
-    width: `calc(100% - ${theme.spacing(10)}px)`,
+    width: ({ groupingPanelSize }) => `calc(100% -
+      ${theme.spacing(10) + groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH + 1}px)`,
     float: 'right',
   },
   fullScreenContainer: {
@@ -59,89 +60,87 @@ const styles = theme => ({
   brightHeaderBorder: {
     borderBottom: getBrightBorder(theme),
   },
-});
+  timeScale: {
+    width: theme.spacing(10),
+  },
+  dayScaleEmptyCell: {
+    display: 'flex',
+    alignItems: 'flex-end',
+  },
+}));
 
-class VerticalViewLayoutBase extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export const VerticalViewLayout = React.memo(({
+  timeScaleComponent: TimeScale,
+  dayScaleComponent: DayScale,
+  timeTableComponent: TimeTable,
+  dayScaleEmptyCellComponent: DayScaleEmptyCell,
+  groupingPanelComponent: GroupingPanel,
+  groupingPanelSize,
+  setScrollingStrategy,
+  className,
+  ...restProps
+}) => {
+  const layoutRef = React.useRef(null);
+  const layoutHeaderRef = React.useRef(null);
+  const leftPanelRef = React.useRef(null);
 
-    this.layout = React.createRef();
-    this.layoutHeader = React.createRef();
-    this.timeScale = React.createRef();
+  const [isLeftBorderSet, setIsLeftBorderSet] = React.useState(false);
+  const [isTopBorderSet, setIsTopBorderSet] = React.useState(false);
 
-    this.state = {
-      isLeftBorderSet: false,
-      isTopBorderSet: false,
-    };
-
-    this.setBorders = this.setBorders.bind(this);
-  }
-
-  componentDidMount() {
-    this.setScrollingStrategy();
-  }
-
-  componentDidUpdate() {
-    this.setScrollingStrategy();
-  }
-
-  setScrollingStrategy() {
-    const { setScrollingStrategy } = this.props;
-
+  React.useEffect(() => {
     setScrollingStrategy(scrollingStrategy(
-      this.layout.current, this.layoutHeader.current, this.timeScale.current,
+      layoutRef.current, layoutHeaderRef.current, leftPanelRef.current,
     ));
-  }
+  }, [layoutRef, layoutHeaderRef, leftPanelRef]);
 
-  setBorders(event) {
-    const { isLeftBorderSet, isTopBorderSet } = this.state;
+  const classes = useStyles({ groupingPanelSize });
+
+  const setBorders = React.useCallback((event) => {
     // eslint-disable-next-line no-bitwise
     if ((!!event.target.scrollLeft ^ isLeftBorderSet)) {
-      this.setState({
-        isLeftBorderSet: !isLeftBorderSet,
-      });
+      setIsLeftBorderSet(!isLeftBorderSet);
     }
     // eslint-disable-next-line no-bitwise
     if (!!event.target.scrollTop ^ isTopBorderSet) {
-      this.setState({
-        isTopBorderSet: !isTopBorderSet,
-      });
+      setIsTopBorderSet(!isTopBorderSet);
     }
-  }
+  }, [isLeftBorderSet, isTopBorderSet]);
 
-  render() {
-    const {
-      timeScaleComponent: TimeScale,
-      dayScaleComponent: DayScale,
-      timeTableComponent: TimeTable,
-      dayScaleEmptyCellComponent: DayScaleEmptyCell,
-      setScrollingStrategy,
-      classes,
-      className,
-      ...restProps
-    } = this.props;
-    const { isLeftBorderSet, isTopBorderSet } = this.state;
-
-    return (
-      <Grid
-        ref={this.layout}
-        container
-        className={classNames(classes.container, className)}
-        direction="column"
-        wrap="nowrap"
-        onScroll={this.setBorders}
-        {...restProps}
-      >
-        {/* Fix Safari sticky header https://bugs.webkit.org/show_bug.cgi?id=175029 */}
-        <div>
+  return (
+    <Grid
+      ref={layoutRef}
+      container
+      className={classNames(classes.container, className)}
+      direction="column"
+      wrap="nowrap"
+      onScroll={setBorders}
+      {...restProps}
+    >
+      {/* Fix Safari sticky header https://bugs.webkit.org/show_bug.cgi?id=175029 */}
+      <div>
+        <Grid
+          className={classNames(classes.stickyElement, classes.header, classes.autoWidth)}
+        >
           <Grid
-            className={classNames(classes.stickyElement, classes.header, classes.autoWidth)}
+            ref={layoutHeaderRef}
+            container
+            direction="row"
           >
-            <Grid
-              ref={this.layoutHeader}
-              container
-              direction="row"
+            <div
+              className={classNames({
+                [classes.stickyElement]: true,
+                [classes.leftPanel]: true,
+                [classes.dayScaleEmptyCell]: true,
+                [classes.ordinaryBorderLeftPanel]: !isLeftBorderSet,
+                [classes.brightBorderLeftPanel]: isLeftBorderSet,
+                [classes.ordinaryBorderHeader]: !isTopBorderSet,
+                [classes.brightBorderHeader]: isTopBorderSet,
+              })}
             >
+              <DayScaleEmptyCell />
+            </div>
+
+            <div className={classes.mainTable}>
               <div
                 className={classNames({
                   [classes.fixedWidth]: true,
@@ -168,47 +167,52 @@ class VerticalViewLayoutBase extends React.PureComponent {
                   <DayScale />
                 </div>
               </div>
-            </Grid>
+            </div>
           </Grid>
+        </Grid>
 
-          <Grid className={classes.autoWidth}>
-            <div
-              ref={this.timeScale}
-              className={classNames({
-                [classes.fixedWidth]: true,
-                [classes.stickyElement]: true,
-                [classes.leftPanel]: true,
-                [classes.ordinaryLeftPanelBorder]: !isLeftBorderSet,
-                [classes.brightLeftPanelBorder]: isLeftBorderSet,
-              })}
-            >
+        <Grid className={classes.autoWidth}>
+          <Grid
+            ref={leftPanelRef}
+            container
+            className={classNames({
+              [classes.stickyElement]: true,
+              [classes.leftPanel]: true,
+              [classes.ordinaryBorderLeftPanel]: !isLeftBorderSet,
+              [classes.brightBorderLeftPanel]: isLeftBorderSet,
+            })}
+          >
+            <GroupingPanel />
+            <div className={classes.timeScale}>
               <TimeScale />
             </div>
-            <div className={classNames(classes.mainTable, classes.timeTable)}>
-              <div className={classes.fullScreenContainer}>
-                <TimeTable />
-              </div>
-            </div>
           </Grid>
-        </div>
-      </Grid>
-    );
-  }
-}
+          <div className={classNames(classes.mainTable, classes.timeTable)}>
+            <div className={classes.fullScreenContainer}>
+              <TimeTable />
+            </div>
+          </div>
+        </Grid>
+      </div>
+    </Grid>
+  );
+});
 
-VerticalViewLayoutBase.propTypes = {
+VerticalViewLayout.propTypes = {
   // oneOfType is a workaround because withStyles returns react object
   timeScaleComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dayScaleComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   timeTableComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dayScaleEmptyCellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  groupingPanelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  groupingPanelSize: PropTypes.number,
   setScrollingStrategy: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
+  // classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
-VerticalViewLayoutBase.defaultProps = {
+VerticalViewLayout.defaultProps = {
+  groupingPanelComponent: () => null,
+  groupingPanelSize: 0,
   className: undefined,
 };
-
-export const VerticalViewLayout = withStyles(styles, { name: 'VerticalViewLayout' })(VerticalViewLayoutBase);

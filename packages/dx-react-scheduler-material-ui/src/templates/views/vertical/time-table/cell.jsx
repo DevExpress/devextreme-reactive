@@ -4,6 +4,7 @@ import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { makeStyles } from '@material-ui/core/styles';
+import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import { getBorder, getBrightBorder } from '../../../utils';
 
 const useStyles = makeStyles(theme => ({
@@ -60,6 +61,9 @@ const useStyles = makeStyles(theme => ({
       borderRight: 'none',
     },
   },
+  verticallyGroupedCell: {
+    borderBottom: getBrightBorder(theme),
+  },
 }));
 
 export const Cell = ({
@@ -74,11 +78,11 @@ export const Cell = ({
   groupingInfo,
   // @deprecated
   hasRightBorder,
+  groupOrientation,
   ...restProps
 }) => {
   const classes = useStyles({ shadedHeight: currentTimeIndicatorPosition });
   const isNow = !!currentTimeIndicatorPosition;
-
   return (
     <TableCell
       tabIndex={0}
@@ -86,6 +90,8 @@ export const Cell = ({
         [classes.cell]: true,
         [classes.shadedCell]: isShaded && !isNow,
         [classes.rightBorderCell]: endOfGroup || hasRightBorder,
+        [classes.verticallyGroupedCell]: endOfGroup
+          && groupOrientation === VERTICAL_GROUP_ORIENTATION,
       }, className)}
       {...restProps}
     >
@@ -113,6 +119,7 @@ Cell.propTypes = {
   endOfGroup: PropTypes.bool,
   hasRightBorder: PropTypes.bool,
   groupingInfo: PropTypes.arrayOf(PropTypes.object),
+  groupOrientation: PropTypes.oneOf([HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION]),
 };
 
 Cell.defaultProps = {
@@ -126,4 +133,5 @@ Cell.defaultProps = {
   endOfGroup: false,
   hasRightBorder: false,
   groupingInfo: undefined,
+  groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
 };

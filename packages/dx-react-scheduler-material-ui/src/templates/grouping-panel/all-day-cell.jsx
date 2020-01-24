@@ -3,7 +3,6 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core/styles';
-import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import { getBrightBorder, getBorder } from '../utils';
 
 const useStyles = makeStyles(theme => ({
@@ -13,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(0.5),
     boxSizing: 'border-box',
     borderRight: ({ hasBrightBorder }) => (
-      hasBrightBorder ? getBrightBorder(theme) : getBorder(theme)
+      hasBrightBorder ? getBorder(theme) : getBorder(theme)
     ),
     '&:last-child': {
       borderRight: 'none',
@@ -25,52 +24,39 @@ const useStyles = makeStyles(theme => ({
   text: {
     ...theme.typography.caption,
     padding: theme.spacing(1),
+    paddingTop: 0,
+    paddingBottom: 0,
     color: theme.palette.text.secondary,
-    fontWeight: 'bold',
-    fontSize: '1rem',
-    position: 'sticky',
     display: 'inline-block',
-    left: ({ left }) => theme.spacing(left / 8),
     lineHeight: 1.5,
   },
-  horizontalCell: {
-    borderBottom: 'none',
-    borderTop: getBrightBorder(theme),
-    'tr:first-child &': {
-      borderTop: 'none',
-    },
-  },
   verticalCell: ({ rowSpan }) => ({
-    borderBottom: getBrightBorder(theme),
+    borderBottom: getBorder(theme),
     [`tr:nth-last-child(${rowSpan}) &`]: {
       borderBottom: 'none',
     },
   }),
 }));
 
-export const Cell = React.memo(({
+export const AllDayCell = React.memo(({
   className,
   group,
-  colSpan,
   rowSpan,
-  left,
-  endOfGroup,
-  groupedByDate,
+  hasBrightBorder,
   children,
   height,
   timeTableCellHeight,
-  groupOrientation,
   ...restProps
 }) => {
-  const classes = useStyles({ left, endOfGroup, groupedByDate, height, timeTableCellHeight, rowSpan, });
+  const classes = useStyles({
+    hasBrightBorder, height, timeTableCellHeight, rowSpan,
+  });
   return (
     <TableCell
       className={classNames({
         [classes.cell]: true,
-        [classes.horizontalCell]: groupOrientation === HORIZONTAL_GROUP_ORIENTATION,
-        [classes.verticalCell]: groupOrientation === VERTICAL_GROUP_ORIENTATION,
+        [classes.verticalCell]: true,
       }, className)}
-      colSpan={colSpan}
       rowSpan={rowSpan}
       {...restProps}
     >
@@ -82,27 +68,21 @@ export const Cell = React.memo(({
   );
 });
 
-Cell.propTypes = {
+AllDayCell.propTypes = {
   className: PropTypes.string,
   group: PropTypes.object.isRequired,
-  colSpan: PropTypes.number.isRequired,
   rowSpan: PropTypes.number,
-  left: PropTypes.number.isRequired,
-  endOfGroup: PropTypes.bool,
-  groupedByDate: PropTypes.bool,
   height: PropTypes.number,
   timeTableCellHeight: PropTypes.number,
-  groupOrientation: PropTypes.string,
+  hasBrightBorder: PropTypes.bool,
   children: PropTypes.node,
 };
 
-Cell.defaultProps = {
+AllDayCell.defaultProps = {
   className: undefined,
-  endOfGroup: true,
+  hasBrightBorder: true,
   rowSpan: 1,
   height: undefined,
   timeTableCellHeight: 48,
-  groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
   children: null,
-  groupedByDate: true,
 };

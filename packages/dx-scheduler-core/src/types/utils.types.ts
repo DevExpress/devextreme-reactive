@@ -4,6 +4,7 @@ import { AppointmentModel } from './scheduler-core.types';
 import { Rect } from './horizontal-rect.types';
 import { AppointmentMoment } from './all-day-panel.types';
 import { ValidResourceInstance } from '../types';
+import { GroupOrientation } from './grouping-state.types';
 
 /** @internal */
 export type Interval = [moment.Moment, moment.Moment];
@@ -51,9 +52,10 @@ export type CalculateFirstDateOfWeekFn = PureComputed<
 > ;
 /** @internal */
 export type RectCalculatorBaseFn = PureComputed<
-  [AppointmentUnwrappedGroup, (...args: any) => any, object], any
+  [AppointmentUnwrappedGroup, GroupOrientation, number, (...args: any) => any, object], any
 >;
 /** @internal */
 export type CalculateRectByDateAndGroupIntervalsFn = PureComputed<
-  [any, AppointmentMoment[][], (...args: any) => any, any, boolean], ElementRect[]
+  [any, AppointmentMoment[][], (...args: any) => any, any,
+  GroupOrientation, boolean, number], ElementRect[]
 >;

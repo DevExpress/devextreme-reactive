@@ -4,11 +4,13 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
+import { getGroupingInfoFromGroups } from '@devexpress/dx-scheduler-core';
 import { cellsMeta, getViewCellKey } from '../utils';
 
 const styles = {
   table: {
     tableLayout: 'fixed',
+    borderCollapse: 'separate',
   },
 };
 
@@ -42,6 +44,7 @@ class LayoutBase extends React.PureComponent {
       cellComponent: Cell,
       rowComponent: Row,
       formatDate,
+      groups,
       ...restProps
     } = this.props;
 
@@ -52,20 +55,43 @@ class LayoutBase extends React.PureComponent {
         {...restProps}
       >
         <TableBody>
-          <Row>
-            {cellsData.map(({
-              startDate, endDate, endOfGroup, groupingInfo,
-            }) => (
-              <Cell
-                key={getViewCellKey(startDate, groupingInfo)}
-                startDate={startDate}
-                endDate={endDate}
-                endOfGroup={endOfGroup}
-                hasRightBorder={endOfGroup}
-                groupingInfo={groupingInfo}
-              />
-            ))}
-          </Row>
+          {!groups && (
+            <Row>
+              {cellsData.map(({
+                startDate, endDate, endOfGroup, groupingInfo,
+              }) => (
+                <Cell
+                  key={getViewCellKey(startDate, groupingInfo)}
+                  startDate={startDate}
+                  endDate={endDate}
+                  endOfGroup={endOfGroup}
+                  hasRightBorder={endOfGroup}
+                  groupingInfo={groupingInfo}
+                />
+              ))}
+            </Row>
+          )}
+          {groups && (
+            groups[groups.length - 1].map((group, index) => {
+              const groupingInfo = getGroupingInfoFromGroups(groups, index);
+              return (
+                <Row>
+                  {cellsData.map(({
+                    startDate, endDate, hasRightBorder,
+                  }) => (
+                    <Cell
+                      key={startDate.toString()}
+                      startDate={startDate}
+                      endDate={endDate}
+                      hasRightBorder={hasRightBorder}
+                      hasTopBorder
+                      groupingInfo={groupingInfo}
+                    />
+                  ))}
+                </Row>
+              );
+            })
+          )}
         </TableBody>
       </Table>
     );
@@ -78,10 +104,12 @@ LayoutBase.propTypes = {
   cellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  groups: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)),
   setCellElementsMeta: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
 LayoutBase.defaultProps = {
+  groups: undefined,
   className: undefined,
 };
 

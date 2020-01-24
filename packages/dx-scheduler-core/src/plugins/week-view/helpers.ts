@@ -2,8 +2,9 @@ import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import {
   AppointmentMoment, DayBoundaryPredicateFn,
-  ReduceAppointmentByDayBoundsFn, NormalizeAppointmentDurationFn,
+  ReduceAppointmentByDayBoundsFn, NormalizeAppointmentDurationFn, ViewCell, GroupOrientation, Group,
 } from '../../types';
+import { VERTICAL_GROUP_ORIENTATION } from '../../constants';
 
 export const sliceAppointmentByDay: PureComputed<
   [AppointmentMoment, number], AppointmentMoment[]
@@ -110,4 +111,14 @@ export const normalizeAppointmentDuration: NormalizeAppointmentDurationFn = (
     start: start.clone().endOf('day').add(-minDuration, 'minutes'),
     end: start.clone().endOf('day'),
   };
+};
+
+export const timeScaleCells: PureComputed<
+  [ViewCell[][], GroupOrientation, Group[][] | undefined], ViewCell[][]
+> = (viewCellsData, groupOrientation, groups) => {
+  if (groupOrientation === VERTICAL_GROUP_ORIENTATION) {
+    const timeScaleHeight = viewCellsData.length / groups![groups!.length - 1].length;
+    return viewCellsData.slice(0, timeScaleHeight);
+  }
+  return viewCellsData;
 };

@@ -1,3 +1,5 @@
+import { GroupOrientation } from "./types";
+
 export const VERTICAL_TYPE = 'vertical';
 export const HORIZONTAL_TYPE = 'horizontal';
 
@@ -49,3 +51,6 @@ export const WEEKDAY_INTERVAL = 'weekdayInterval';
 
 export const VERTICAL_VIEW_LEFT_OFFSET = 80;
 export const HORIZONTAL_VIEW_LEFT_OFFSET = 0;
+
+export const VERTICAL_GROUP_ORIENTATION = 'Vertical' as GroupOrientation;
+export const HORIZONTAL_GROUP_ORIENTATION = 'Horizontal' as GroupOrientation;

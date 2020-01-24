@@ -1,6 +1,7 @@
 import { FormatterFn, CellElementsMeta, ScrollingStrategy, Group } from '../index';
 import { CurrentTimeIndicator } from '../current-time-indicator';
 import { GroupingPanel } from '../grouping';
+import { GroupOrientation } from '@devexpress/dx-scheduler-core/src';
 
 // tslint:disable: no-namespace
 export interface CommonViewProps {
@@ -78,6 +79,10 @@ export namespace BaseView {
   export interface TimeScaleLayoutProps {
     /** Specifies the cells meta data. */
     cellsData: BaseView.CellData[][];
+    /** Groups shown in the Scheduler. */
+    groups?: Group[][];
+    /** Scheduler's grouping orientation. */
+    groupOrientation?: GroupOrientation;
     /** A component that renders a time scale cell. */
     labelComponent: React.ComponentType<BaseView.TimeScaleLabelProps>;
     /** @internal */

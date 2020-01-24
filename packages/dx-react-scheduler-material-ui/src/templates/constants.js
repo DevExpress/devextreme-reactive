@@ -19,3 +19,5 @@ export const SMALL_LAYOUT_WIDTH = 700;
 
 export const SMALL_LAYOUT_MEDIA_QUERY = `@media (max-width: ${XS_LAYOUT_WIDTH}px)`;
 export const LAYOUT_MEDIA_QUERY = `@media (max-width: ${SMALL_LAYOUT_WIDTH}px)`;
+
+export const GROUPING_PANEL_VERTICAL_CELL_WIDTH = 100;

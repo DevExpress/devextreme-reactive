@@ -3,7 +3,7 @@ import {
   Action, Plugin, Getter, StateHelper, ActionFn, createStateHelper,
 } from '@devexpress/dx-react-core';
 import {
-  ToggleGroupPayload, toggleExpandedGroups,
+  ToggleGroupPayload, toggleExpandedGroups, VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION,
 } from '@devexpress/dx-scheduler-core';
 import { GroupingStateProps, GroupingStateState } from '../types';
 
@@ -11,6 +11,7 @@ class GroupingStateBase extends React.PureComponent<GroupingStateProps, Grouping
   static defaultProps = {
     defaultExpandedGroups: [],
     groupByDate: () => false,
+    groupOrientation: () => VERTICAL_GROUP_ORIENTATION,
   };
   stateHelper: StateHelper;
   toggleGroupExpanded: ActionFn<ToggleGroupPayload>;
@@ -46,12 +47,13 @@ class GroupingStateBase extends React.PureComponent<GroupingStateProps, Grouping
 
   render() {
     const { grouping, expandedGroups } = this.state;
-    const { groupByDate } = this.props;
+    const { groupByDate, groupOrientation } = this.props;
 
     return (
       <Plugin name="GroupingState">
         <Getter name="grouping" value={grouping} />
         <Getter name="groupByDate" value={groupByDate} />
+        <Getter name="groupOrientation" value={groupOrientation} />
 
         <Getter name="expandedGroups" value={expandedGroups} />
         <Action name="toggleGroupExpanded" action={this.toggleGroupExpanded} />

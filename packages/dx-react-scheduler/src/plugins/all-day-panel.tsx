@@ -8,7 +8,7 @@ import {
   TemplateConnector,
   PluginComponents,
 } from '@devexpress/dx-react-core';
-import { allDayCells, calculateAllDayDateIntervals } from '@devexpress/dx-scheduler-core';
+import { allDayCells, calculateAllDayDateIntervals, VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import moment from 'moment';
 
 import { AllDayPanelProps, AllDayPanelState } from '../types';
@@ -25,6 +25,8 @@ const AllDayAppointmentLayerPlaceholder = () =>
   <TemplatePlaceholder name="allDayAppointmentLayer" />;
 const AllDayPanelPlaceholder = params => <TemplatePlaceholder name="allDayPanel" params={params} />;
 const CellPlaceholder = params => <TemplatePlaceholder name="allDayPanelCell" params={params} />;
+
+const GroupingPanelPlaceholder = () => <TemplatePlaceholder name="allDayGroupingPanel" />;
 
 class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelState> {
   state: AllDayPanelState = {
@@ -88,8 +90,13 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
 
         <Template name="dayScaleEmptyCell">
           <TemplateConnector>
-            {({ currentView }) => {
+            {({ currentView, groupOrientation }) => {
               if (currentView === MONTH) return null;
+              if (groupOrientation?.(currentView.name) === VERTICAL_GROUP_ORIENTATION) {
+                return (
+                  <GroupingPanelPlaceholder />
+                );
+              }
               return (
                 <TitleCell getMessage={getMessage} />
               );
@@ -115,7 +122,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-              currentView, formatDate, viewCellsData,
+              currentView, formatDate, viewCellsData, groups, groupOrientation,
             }) => {
               if (currentView.name === MONTH) return null;
               return (
@@ -126,6 +133,10 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                     cellsData={this.allDayCellsData(viewCellsData)}
                     setCellElementsMeta={this.updateCellElementsMeta}
                     formatDate={formatDate}
+                    groups={
+                      groupOrientation?.(currentView?.name) === VERTICAL_GROUP_ORIENTATION
+                      ? groups : undefined
+                    }
                   />
                   <AppointmentLayer>
                     <AllDayAppointmentLayerPlaceholder />

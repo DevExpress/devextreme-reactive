@@ -1,48 +1,102 @@
 import moment from 'moment';
 import {
   GetCellByAppointmentDataFn, GetVerticalRectByAppointmentDataFn,
-  GetCellRectVerticalFn, SchedulerDateTime, ViewCell,
+  GetCellRectVerticalFn, SchedulerDateTime, ViewCell, AppointmentMoment,
 } from '../../types';
+import { PureComputed } from '@devexpress/dx-core';
+import { VERTICAL_GROUP_ORIENTATION } from '../../constants';
 
 const CELL_GAP_PX = 10;
 const CELL_BOUND_HORIZONTAL_OFFSET_PX = 1;
 const CELL_BOUND_VERTICAL_OFFSET_PX = 4;
 
 export const getVerticalCellIndexByAppointmentData: GetCellByAppointmentDataFn = (
-  appointment, viewCellsData, date, takePrev = false,
+  appointment, viewCellsData, groupOrientation, groupsNumber, date, takePrev = false,
 ) => {
-  const cellIndex =
-    viewCellsData[0].findIndex((timeCell: ViewCell) => {
-      let isCorrectCell = true;
-      if (timeCell.groupingInfo) {
-        isCorrectCell = timeCell.groupingInfo.every(group => (
-          group.id === appointment[group.fieldName]
-        ));
-      }
-      return moment(date as SchedulerDateTime).isSame(timeCell.startDate, 'date') && isCorrectCell;
-    });
+  const columnIndex = groupOrientation === VERTICAL_GROUP_ORIENTATION
+    ? getVerticallyGroupedColumnIndex(viewCellsData, date)
+    : getHorizontallyGroupedColumnIndex(appointment, viewCellsData, date);
+  const rowIndex = groupOrientation === VERTICAL_GROUP_ORIENTATION
+    ? getVerticallyGroupedRowIndex(
+      appointment, viewCellsData, date, columnIndex, takePrev, groupsNumber,
+    ) : getHorizontallyGroupedRowIndex(viewCellsData, date, columnIndex, takePrev);
 
-  const rowIndex = viewCellsData.findIndex(timeCell => moment(date as SchedulerDateTime)
-    .isBetween(
-      timeCell[cellIndex].startDate,
-      timeCell[cellIndex].endDate,
-      'seconds',
-      takePrev ? '(]' : '[)'),
-    );
-  const totalCellIndex = (rowIndex * viewCellsData[0].length) + cellIndex;
+  const totalCellIndex = (rowIndex * viewCellsData[0].length) + columnIndex;
   return {
     index: totalCellIndex,
-    startDate: viewCellsData[rowIndex][cellIndex].startDate,
+    startDate: viewCellsData[rowIndex][columnIndex].startDate,
   };
 };
 
+export const getVerticallyGroupedColumnIndex: PureComputed<
+  [ViewCell[][], SchedulerDateTime], number
+> = (viewCellsData, date) => {
+  return viewCellsData[0].findIndex((timeCell: ViewCell) => {
+    return moment(date as SchedulerDateTime).isSame(timeCell.startDate, 'date');
+  });
+};
+
+export const getHorizontallyGroupedColumnIndex: PureComputed<
+  [AppointmentMoment, ViewCell[][], SchedulerDateTime], number
+> = (appointment, viewCellsData, date) => {
+  return viewCellsData[0].findIndex((timeCell: ViewCell) => {
+    let isCorrectCell = true;
+    if (timeCell.groupingInfo) {
+      isCorrectCell = timeCell.groupingInfo.every(group => (
+        group.id === appointment[group.fieldName]
+      ));
+    }
+    return moment(date as SchedulerDateTime).isSame(timeCell.startDate, 'date') && isCorrectCell;
+  });
+};
+
+export const getVerticallyGroupedRowIndex: PureComputed<
+[AppointmentMoment, ViewCell[][], SchedulerDateTime, number, boolean, number], number
+> = (appointment, viewCellsData, date, columnIndex, takePrev, groupsNumber) => {
+  const timeTableHeight = viewCellsData.length / groupsNumber;
+  let timeTableRowIndex = viewCellsData.findIndex((timeCell) => {
+    return moment(date as SchedulerDateTime)
+      .isBetween(
+        timeCell[columnIndex].startDate,
+        timeCell[columnIndex].endDate,
+        'seconds',
+        takePrev ? '(]' : '[)');
+  });
+  if (!viewCellsData[0][0].groupingInfo) return timeTableRowIndex;
+  let isWrongCell = !viewCellsData[timeTableRowIndex][columnIndex].groupingInfo!.every(group => (
+    group.id === appointment[group.fieldName]
+  ));
+  while (isWrongCell) {
+    timeTableRowIndex += timeTableHeight;
+    isWrongCell = !viewCellsData[timeTableRowIndex][columnIndex].groupingInfo!.every(group => (
+      group.id === appointment[group.fieldName]
+    ));
+  }
+  return timeTableRowIndex;
+};
+
+export const getHorizontallyGroupedRowIndex: PureComputed<
+  [ViewCell[][], SchedulerDateTime, number, boolean], number
+> = (viewCellsData, date, columnIndex, takePrev) => {
+  return viewCellsData.findIndex(timeCell => moment(date as SchedulerDateTime)
+    .isBetween(
+      timeCell[columnIndex].startDate,
+      timeCell[columnIndex].endDate,
+      'seconds',
+      takePrev ? '(]' : '[)'),
+    );
+};
+
 const getCellRect: GetCellRectVerticalFn = (
-  date, appointment, viewCellsData, cellDuration, cellElementsMeta, takePrev,
+  date, appointment, viewCellsData, cellDuration,
+  cellElementsMeta, takePrev, groupOrientation, groupsNumber,
 ) => {
   const {
     index: cellIndex,
     startDate: cellStartDate,
-  } = getVerticalCellIndexByAppointmentData(appointment, viewCellsData, date, takePrev);
+  } = getVerticalCellIndexByAppointmentData(
+    appointment, viewCellsData, groupOrientation, groupsNumber, date, takePrev,
+  );
 
   const {
     top,
@@ -65,6 +119,8 @@ const getCellRect: GetCellRectVerticalFn = (
 
 export const getVerticalRectByAppointmentData: GetVerticalRectByAppointmentDataFn = (
   appointment,
+  groupOrientation,
+  groupsNumber,
   {
     viewCellsData,
     cellDuration,
@@ -72,10 +128,12 @@ export const getVerticalRectByAppointmentData: GetVerticalRectByAppointmentDataF
   },
 ) => {
   const firstCellRect = getCellRect(
-    appointment.start.toDate(), appointment, viewCellsData, cellDuration, cellElementsMeta, false,
+    appointment.start.toDate(), appointment, viewCellsData,
+    cellDuration, cellElementsMeta, false, groupOrientation, groupsNumber,
   );
   const lastCellRect = getCellRect(
-    appointment.end.toDate(), appointment, viewCellsData, cellDuration, cellElementsMeta, true,
+    appointment.end.toDate(), appointment, viewCellsData,
+    cellDuration, cellElementsMeta, true, groupOrientation, groupsNumber,
   );
 
   const top = firstCellRect.top + firstCellRect.topOffset;

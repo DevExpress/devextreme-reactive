@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
+import { getBrightBorder } from '../../../utils';
 
 const styles = theme => ({
   label: {
@@ -16,6 +17,7 @@ const styles = theme => ({
     textAlign: 'right',
     paddingLeft: theme.spacing(0.25),
     paddingRight: theme.spacing(1),
+    // display: 'table-cell',
   },
   text: {
     ...theme.typography.caption,
@@ -26,6 +28,13 @@ const styles = theme => ({
   emptyLabel: {
     height: theme.spacing(3),
   },
+  brightBottomBorder: {
+    borderBottom: getBrightBorder(theme),
+    // '&:last-child': {
+    //   borderBottom: 'none',
+    // },
+    boxSizing: 'border-box',
+  },
 });
 
 const LabelBase = React.memo(({
@@ -33,12 +42,15 @@ const LabelBase = React.memo(({
   className,
   time,
   formatDate,
+  groupingInfo,
+  endOfGroup,
   ...restProps
 }) => (
   <div
     className={classNames({
       [classes.label]: true,
       [classes.emptyLabel]: !time,
+      [classes.brightBottomBorder]: endOfGroup,
     }, className)}
     {...restProps}
   >
@@ -55,6 +67,8 @@ LabelBase.propTypes = {
   formatDate: PropTypes.func,
   time: PropTypes.instanceOf(Date),
   classes: PropTypes.object.isRequired,
+  groupingInfo: PropTypes.arrayOf(PropTypes.object),
+  endOfGroup: PropTypes.bool,
   className: PropTypes.string,
 };
 
@@ -62,6 +76,8 @@ LabelBase.defaultProps = {
   className: undefined,
   time: undefined,
   formatDate: () => undefined,
+  groupingInfo: undefined,
+  endOfGroup: false,
 };
 
 export const Label = withStyles(styles, { name: 'Label' })(LabelBase);

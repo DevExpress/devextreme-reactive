@@ -13,6 +13,7 @@ import {
 const useStyles = makeStyles({
   table: {
     tableLayout: 'fixed',
+    borderCollapse: 'separate',
     minWidth: cellsNumber => getWidthInPixels(cellsNumber, CELL_WIDTH),
     width: '100%',
     [`${LAYOUT_MEDIA_QUERY}`]: {

@@ -1,8 +1,9 @@
 import { PureComputed } from '@devexpress/dx-core';
 import {
   ValidResourceInstance, Group, ViewCell,
-  ValidResource, AppointmentMoment, Grouping,
+  ValidResource, AppointmentMoment, Grouping, GroupOrientation,
 } from '../../types';
+import { HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 
 export const getGroupFromResourceInstance: PureComputed<
   [ValidResourceInstance], Group
@@ -13,22 +14,25 @@ export const getGroupFromResourceInstance: PureComputed<
 });
 
 export const addGroupInfoToCells: PureComputed<
-  [Group, Group[][],
-  ValidResource[], ViewCell[], number], ViewCell[]
-> = (currentGroup, groups, sortedResources, viewCellRow, index) => viewCellRow.map((
+  [Group, Group[][], ValidResource[],
+  ViewCell[], number, boolean, GroupOrientation], ViewCell[]
+> = (
+  currentGroup, groups, sortedResources, viewCellRow, index, endOfGroup, groupOrientation,
+) => viewCellRow.map((
     viewCell: ViewCell, cellIndex: number,
   ) => {
   const groupedCell = addGroupInfoToCell(
-    currentGroup, groups, sortedResources, viewCell, index,
+    currentGroup, groups, sortedResources, viewCell, index, endOfGroup, groupOrientation,
   ) as ViewCell;
-  return cellIndex !== viewCellRow.length - 1
-    ? groupedCell : { ...groupedCell, endOfGroup: true };
+  return cellIndex === viewCellRow.length - 1 && groupOrientation === HORIZONTAL_GROUP_ORIENTATION
+    ? { ...groupedCell, endOfGroup: true }
+    : groupedCell;
 });
 
 export const addGroupInfoToCell: PureComputed<
-  [Group, Group[][],
-  ValidResource[], ViewCell, number], ViewCell
-> = (currentGroup, groups, sortedResources, viewCell, index) => {
+  [Group, Group[][], ValidResource[],
+  ViewCell, number, boolean, GroupOrientation], ViewCell
+> = (currentGroup, groups, sortedResources, viewCell, index, endOfGroup, groupOrientation) => {
   let previousIndex = index;
   const groupingInfo = groups.reduceRight((
     acc: Group[], group: Group[], currentIndex: number,
@@ -41,7 +45,7 @@ export const addGroupInfoToCell: PureComputed<
     previousIndex = currentIndex;
     return [...acc, currentGroupingInstance];
   }, [currentGroup]);
-  return { ...viewCell, groupingInfo };
+  return { ...viewCell, groupingInfo, endOfGroup, groupOrientation };
 };
 
 const getCurrentGroup: PureComputed<
@@ -150,4 +154,20 @@ export const expandGroupedAppointment: PureComputed<
         ),
       ], [] as AppointmentMoment[]);
     }, [appointment] as AppointmentMoment[]);
+};
+
+export const getGroupingInfoFromGroups: PureComputed<
+  [Group[][], number], Group[]
+> = (groups, groupIndex) => {
+  let previousIndex = groupIndex;
+  const groupingInfo = groups.reduceRight((acc, currentGroups, currentIndex) => {
+    if (currentIndex === groups.length - 1) return acc;
+    const previousResourceLength = groups[currentIndex + 1].length / currentGroups.length;
+    const currentGroupingInstance = currentGroups[Math.floor(
+      previousIndex / previousResourceLength,
+    )];
+    previousIndex = currentIndex;
+    return [...acc, currentGroupingInstance];
+  }, [groups[groups.length - 1][groupIndex]]);
+  return groupingInfo;
 };

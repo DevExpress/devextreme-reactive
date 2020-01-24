@@ -4,9 +4,9 @@ import {
   ViewCell, ClientOffset, TimeType, ScrollingStrategy,
   AllDayCell, CalculateAppointmentTimeBoundaries,
   TimeBoundariesByDrag, TimeBoundariesByResize, AppointmentModel,
-  CellElementsMeta, Grouping, ValidResource, Group, SchedulerDateTime,
+  CellElementsMeta, Grouping, ValidResource, Group, SchedulerDateTime, GroupOrientation,
 } from '../../types';
-import { allDayCells as allDayCellsCore } from '../common/computeds';
+import { allDayCellsData as allDayCellsDataCore } from '../all-day-panel/helpers';
 import {
   VERTICAL_TYPE, HORIZONTAL_TYPE, SCROLL_OFFSET, MINUTES,
   SCROLL_SPEED_PX, SECONDS, RESIZE_TOP, RESIZE_BOTTOM, HOURS,
@@ -44,15 +44,15 @@ export const cellIndex: PureComputed<
 });
 
 export const cellData: PureComputed<
-  [number, number, ViewCell[][]], ViewCell | AllDayCell
-> = (timeTableIndex, allDayIndex, viewCellsData) => {
+  [number, number, ViewCell[][], Group[][], GroupOrientation], ViewCell | AllDayCell
+> = (timeTableIndex, allDayIndex, viewCellsData, groups, groupOrientation) => {
   if (allDayIndex !== -1) {
-    const allDayCellsData = allDayCellsCore(viewCellsData);
+    const allDayCellsData = allDayCellsDataCore(viewCellsData, groups, groupOrientation);
     return allDayCellsData[allDayIndex];
   }
-  const firstIndex = Math.floor(timeTableIndex / viewCellsData[0].length);
-  const secondIndex = timeTableIndex % viewCellsData[0].length;
-  return viewCellsData[firstIndex][secondIndex];
+  const rowIndex = Math.floor(timeTableIndex / viewCellsData[0].length);
+  const columnIndex = timeTableIndex % viewCellsData[0].length;
+  return viewCellsData[rowIndex][columnIndex];
 };
 
 export const autoScroll: PureComputed<
@@ -185,7 +185,7 @@ export const calculateDraftAppointments = (
   targetType: string, cellDurationMinutes: number,
   getTableCellElementRects: CellElementsMeta,
   grouping: Grouping[], resources: ValidResource[], groups: Group[][],
-  groupByDate: boolean,
+  groupOrientation: GroupOrientation, groupByDate: boolean,
 ) => {
   if (allDayIndex !== -1 || (targetType === VERTICAL_TYPE
     && getAllDayCellsElementRects.getCellRects.length
@@ -199,7 +199,7 @@ export const calculateDraftAppointments = (
       allDayDraftAppointments: allDayRects(
         allDayDrafts, startViewDate, endViewDate,
         excludedDays, viewCellsData, getAllDayCellsElementRects,
-        grouping, resources, groups, groupByDate,
+        grouping, resources, groups, groupByDate, groupOrientation,
       ),
       timeTableDraftAppointments: [],
     };
@@ -211,7 +211,7 @@ export const calculateDraftAppointments = (
       timeTableDraftAppointments: verticalTimeTableRects(
         draftAppointments, startViewDate, endViewDate,
         excludedDays, viewCellsData, cellDurationMinutes, getTableCellElementRects,
-        grouping, resources, groups, groupByDate,
+        grouping, resources, groups, groupOrientation, groupByDate,
       ),
     };
   }
@@ -220,7 +220,7 @@ export const calculateDraftAppointments = (
     timeTableDraftAppointments: horizontalTimeTableRects(
       draftAppointments, startViewDate, endViewDate,
       viewCellsData, getTableCellElementRects,
-      grouping, resources, groups, groupByDate,
+      grouping, resources, groups, groupOrientation, groupByDate,
     ),
   };
 };

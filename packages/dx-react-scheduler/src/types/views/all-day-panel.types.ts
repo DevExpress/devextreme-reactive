@@ -41,6 +41,8 @@ export namespace AllDayPanel {
   export interface LayoutProps {
     /** Cells’ meta data. */
     cellsData: AllDayPanel.CellData[];
+    /**  */
+    groups?: Group[][];
     /** A component that renders an All Day panel cell. */
     cellComponent: React.ComponentType<AllDayPanel.CellProps>;
     /** A component that renders an All Day panel row. */

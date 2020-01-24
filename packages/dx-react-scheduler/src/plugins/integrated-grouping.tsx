@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Plugin, Getter, Getters } from '@devexpress/dx-react-core';
 import {
   getGroupsFromResources, expandViewCellsDataWithGroups,
-  sortFilteredResources, filterResourcesByGrouping, updateGroupingWithMainResource, expandGroups,
+  sortFilteredResources, filterResourcesByGrouping, updateGroupingWithMainResource, expandGroups, VERTICAL_GROUP_ORIENTATION,
 } from '@devexpress/dx-scheduler-core';
 import { IntegratedGroupingProps } from '../types';
 
@@ -14,10 +14,11 @@ const pluginDependencies = [
   { name: 'WeekView', optional: true },
 ];
 
-const getViewCellsDataComputed = (
-  { viewCellsData, groups, resourcesToGroupBy, groupByDate, currentView }: Getters,
-) => expandViewCellsDataWithGroups(
-  viewCellsData, groups, resourcesToGroupBy, groupByDate(currentView?.name),
+const getViewCellsDataComputed = ({
+  viewCellsData, groups, resourcesToGroupBy, groupByDate, currentView, groupOrientation,
+}: Getters) => expandViewCellsDataWithGroups(
+  viewCellsData, groups, resourcesToGroupBy,
+  groupByDate(currentView.name), groupOrientation(currentView.name),
 );
 
 const getGroupsComputed = (
@@ -50,11 +51,17 @@ const getAllDayAppointmentsComputed = ({
     groups, excludedDays, groupByDate(currentView?.name),
   );
 
+const getGroupByDateComputed = ({
+  currentView, groupByDate, groupOrientation,
+}: Getters) => groupOrientation(currentView?.name) === VERTICAL_GROUP_ORIENTATION
+  ? () => false : groupByDate;
+
 const IntegratedGroupingBase: React.SFC<IntegratedGroupingProps> = React.memo(() => (
   <Plugin
     name="IntegratedGrouping"
     dependencies={pluginDependencies}
   >
+    <Getter name="groupByDate" computed={getGroupByDateComputed} />
     <Getter name="grouping" computed={getGroupingComputed} />
     <Getter name="resourcesToGroupBy" computed={getResourcesToGroupByComputed} />
     <Getter name="groups" computed={getGroupsComputed} />

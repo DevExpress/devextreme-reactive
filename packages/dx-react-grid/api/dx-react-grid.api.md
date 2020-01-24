@@ -256,7 +256,8 @@ export interface EditingStateProps {
 }
 
 // @public (undocumented)
-export type ExporterProps = Omit<GridProps, 'rootComponent'> & Pick<FilteringStateProps, 'filters'> & Pick<SortingStateProps, 'sorting'> & Pick<GroupingStateProps, 'grouping'> & Pick<TableGroupRowProps, 'showColumnsWhenGrouped'> & Pick<SelectionStateProps, 'selection'> & Pick<TableProps, 'columnExtensions'> & {
+export type ExporterProps = Omit<GridProps, 'rootComponent'> & Pick<FilteringStateProps, 'filters'> & Pick<SortingStateProps, 'sorting'> & Pick<GroupingStateProps, 'grouping'> & Pick<TableGroupRowProps, 'showColumnsWhenGrouped'> & Pick<SelectionStateProps, 'selection'> & Pick<TableProps, 'columnExtensions'> & Pick<TableColumnVisibilityProps, 'hiddenColumnNames'> & {
+  columnOrder?: string[];
   groupColumnExtensions?: TableGroupRow.ColumnExtension[];
   totalSummaryItems?: SummaryItem[];
   groupSummaryItems?: GroupSummaryItem[];
@@ -787,7 +788,7 @@ export const TableColumnReordering: React.ComponentType<TableColumnReorderingPro
 export interface TableColumnReorderingProps {
   defaultOrder?: Array<string>;
   onOrderChange?: (nextOrder: Array<string>) => void;
-  order?: Array<string>;
+  order?: ReadonlyArray<string>;
 }
 
 // @public

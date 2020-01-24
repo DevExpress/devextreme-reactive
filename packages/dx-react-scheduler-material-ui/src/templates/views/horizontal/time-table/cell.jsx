@@ -89,9 +89,9 @@ const CellBase = React.memo(({
   isShaded,
   endOfGroup,
   groupingInfo,
+  groupOrientation,
   // @deprecated
   hasRightBorder,
-  groupOrientation,
   ...restProps
 }) => {
   const isFirstMonthDay = startDate.getDate() === 1;
@@ -102,7 +102,8 @@ const CellBase = React.memo(({
       className={classNames({
         [classes.cell]: true,
         [classes.shadedCell]: isShaded,
-        [classes.rightBorderCell]: endOfGroup || hasRightBorder,
+        [classes.rightBorderCell]: (endOfGroup || hasRightBorder)
+          && groupOrientation === HORIZONTAL_GROUP_ORIENTATION,
         [classes.verticallyGroupedCell]: endOfGroup
           && groupOrientation === VERTICAL_GROUP_ORIENTATION,
       }, className)}

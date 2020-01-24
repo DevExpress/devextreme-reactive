@@ -135,11 +135,11 @@ export const allDayCellsFromViewCellsAndGroups: PureComputed<
     return [
       ...acc,
       ...viewCellsData[0].map(({
-        startDate, hasRightBorder,
+        startDate,
       }) => ({
         startDate: moment(startDate).startOf('day').toDate(),
         endDate: moment(startDate).add(1, 'day').startOf('day').toDate(),
-        hasRightBorder, groupingInfo,
+        groupingInfo,
       })),
     ];
   }, [] as AllDayCell[]);

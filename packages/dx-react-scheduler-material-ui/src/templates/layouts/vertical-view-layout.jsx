@@ -131,10 +131,10 @@ export const VerticalViewLayout = React.memo(({
                 [classes.stickyElement]: true,
                 [classes.leftPanel]: true,
                 [classes.dayScaleEmptyCell]: true,
-                [classes.ordinaryBorderLeftPanel]: !isLeftBorderSet,
-                [classes.brightBorderLeftPanel]: isLeftBorderSet,
-                [classes.ordinaryBorderHeader]: !isTopBorderSet,
-                [classes.brightBorderHeader]: isTopBorderSet,
+                [classes.ordinaryLeftPanelBorder]: !isLeftBorderSet,
+                [classes.brightLeftPanelBorder]: isLeftBorderSet,
+                [classes.ordinaryHeaderBorder]: !isTopBorderSet,
+                [classes.brightHeaderBorder]: isTopBorderSet,
               })}
             >
               <DayScaleEmptyCell />
@@ -143,29 +143,13 @@ export const VerticalViewLayout = React.memo(({
             <div className={classes.mainTable}>
               <div
                 className={classNames({
-                  [classes.fixedWidth]: true,
-                  [classes.stickyElement]: true,
-                  [classes.leftPanel]: true,
-                  [classes.ordinaryLeftPanelBorder]: !isLeftBorderSet,
-                  [classes.brightLeftPanelBorder]: isLeftBorderSet,
+                  [classes.fullScreenContainer]: true,
+                  [classes.background]: true,
                   [classes.ordinaryHeaderBorder]: !isTopBorderSet,
                   [classes.brightHeaderBorder]: isTopBorderSet,
                 })}
               >
-                <DayScaleEmptyCell />
-              </div>
-
-              <div className={classes.mainTable}>
-                <div
-                  className={classNames({
-                    [classes.fullScreenContainer]: true,
-                    [classes.background]: true,
-                    [classes.ordinaryHeaderBorder]: !isTopBorderSet,
-                    [classes.brightHeaderBorder]: isTopBorderSet,
-                  })}
-                >
-                  <DayScale />
-                </div>
+                <DayScale />
               </div>
             </div>
           </Grid>
@@ -178,8 +162,8 @@ export const VerticalViewLayout = React.memo(({
             className={classNames({
               [classes.stickyElement]: true,
               [classes.leftPanel]: true,
-              [classes.ordinaryBorderLeftPanel]: !isLeftBorderSet,
-              [classes.brightBorderLeftPanel]: isLeftBorderSet,
+              [classes.ordinaryLeftPanelBorder]: !isLeftBorderSet,
+              [classes.brightLeftPanelBorder]: isLeftBorderSet,
             })}
           >
             <GroupingPanel />

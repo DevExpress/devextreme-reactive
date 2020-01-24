@@ -25,12 +25,6 @@ const useStyles = makeStyles(theme => ({
     minWidth: '100%',
     display: 'table',
   },
-  ordinaryHeaderBorder: {
-    borderBottom: getBorder(theme),
-  },
-  brightHeaderBorder: {
-    borderBottom: getBrightBorder(theme),
-  },
   leftPanel: {
     left: 0,
     zIndex: 1,
@@ -53,6 +47,18 @@ const useStyles = makeStyles(theme => ({
     minWidth: '100%',
     display: 'table',
     position: 'relative',
+  },
+  ordinaryHeaderBorder: {
+    borderBottom: getBorder(theme),
+  },
+  brightHeaderBorder: {
+    borderBottom: getBrightBorder(theme),
+  },
+  ordinaryLeftPanelBorder: {
+    borderRight: getBorder(theme),
+  },
+  brightLeftPanelBorder: {
+    borderRight: getBrightBorder(theme),
   },
 }));
 
@@ -110,10 +116,13 @@ export const HorizontalViewLayout = React.memo(({
           <div className={classNames({
             [classes.stickyElement]: true,
             [classes.leftPanel]: true,
+            [classes.ordinaryHeaderBorder]: !isTopBorderSet,
+            [classes.brightHeaderBorder]: isTopBorderSet,
           })}
-          />
-          <div className={classes.mainTable}>
-            <DayScale />
+          >
+            <div className={classes.mainTable}>
+              <DayScale />
+            </div>
           </div>
         </Grid>
         <Grid
@@ -124,6 +133,8 @@ export const HorizontalViewLayout = React.memo(({
             className={classNames({
               [classes.stickyElement]: true,
               [classes.leftPanel]: true,
+              [classes.ordinaryLeftPanelBorder]: !isLeftBorderSet,
+              [classes.brightLeftPanelBorder]: isLeftBorderSet,
             })}
           >
             <GroupingPanel />

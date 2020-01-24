@@ -40,7 +40,7 @@ TicksLayoutBase.propTypes = {
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   groups: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)),
-  groupOrientation: PropTypes.anyOf([HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION]),
+  groupOrientation: PropTypes.oneOf([HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION]),
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };

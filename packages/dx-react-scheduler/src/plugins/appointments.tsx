@@ -63,8 +63,8 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
         startViewDate, endViewDate, cellDuration,
         viewCellsData, cellElementsMeta: timeTableElementsMeta,
       },
-      groupByDate?.(currentView?.name),
       groupOrientation ? groupOrientation(currentView?.name) : HORIZONTAL_GROUP_ORIENTATION,
+      groupByDate?.(currentView?.name),
       groups ? groups[groups.length - 1].length : 1,
     ));
   });
@@ -82,8 +82,8 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
         startViewDate, endViewDate,
         viewCellsData, cellElementsMeta: allDayElementsMeta,
       },
-      groupByDate?.(currentView?.name),
       groupOrientation ? groupOrientation(currentView?.name) : HORIZONTAL_GROUP_ORIENTATION,
+      groupByDate?.(currentView?.name),
       groups ? groups[groups.length - 1].length : 1,
     ));
   });

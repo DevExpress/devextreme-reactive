@@ -89,7 +89,8 @@ export const Cell = ({
       className={classNames({
         [classes.cell]: true,
         [classes.shadedCell]: isShaded && !isNow,
-        [classes.rightBorderCell]: endOfGroup || hasRightBorder,
+        [classes.rightBorderCell]: (endOfGroup || hasRightBorder)
+          && groupOrientation === HORIZONTAL_GROUP_ORIENTATION,
         [classes.verticallyGroupedCell]: endOfGroup
           && groupOrientation === VERTICAL_GROUP_ORIENTATION,
       }, className)}

@@ -102,7 +102,6 @@ export const HorizontalViewLayout = React.memo(({
     }
   }, [isLeftBorderSet, isTopBorderSet]);
 
-  console.log(DayScaleEmptyCell)
   return (
     <Grid
       ref={layoutRef}

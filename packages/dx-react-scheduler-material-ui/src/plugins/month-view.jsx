@@ -1,6 +1,6 @@
 import { withComponents } from '@devexpress/dx-react-core';
 import { MonthView as MonthViewBase } from '@devexpress/dx-react-scheduler';
-import { HorizontalViewLayout as Layout } from '../templates/layouts/horizontal-view-layout';
+import { VerticalViewLayout as Layout } from '../templates/layouts/vertical-view-layout';
 
 import { Row } from '../templates/views/common/row';
 import { DayScaleEmptyCell } from '../templates/views/common/day-scale-empty-cell';

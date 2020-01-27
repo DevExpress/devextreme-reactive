@@ -26,15 +26,17 @@ const useStyles = makeStyles(theme => ({
     zIndex: 1,
     boxSizing: 'border-box',
     float: 'left',
-    width: ({ groupingPanelSize }) => `${theme.spacing(10)
-      + groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH + 1}px`,
+    width: ({ groupingPanelSize, renderTimeScale }) => (renderTimeScale ? `${theme.spacing(10)
+      + groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH}px`
+      : `${groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH}px`),
   },
   timeTable: {
     position: 'relative',
   },
   mainTable: {
-    width: ({ groupingPanelSize }) => `calc(100% -
-      ${theme.spacing(10) + groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH + 1}px)`,
+    width: ({ groupingPanelSize, renderTimeScale }) => (renderTimeScale ? `calc(100% -
+      ${theme.spacing(10) + groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH}px)`
+      : `calc(100% - ${groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH}px)`),
     float: 'right',
   },
   fullScreenContainer: {
@@ -93,7 +95,8 @@ export const VerticalViewLayout = React.memo(({
     ));
   }, [layoutRef, layoutHeaderRef, leftPanelRef]);
 
-  const classes = useStyles({ groupingPanelSize });
+  const renderTimeScale = !!TimeScale;
+  const classes = useStyles({ groupingPanelSize, renderTimeScale });
 
   const setBorders = React.useCallback((event) => {
     // eslint-disable-next-line no-bitwise
@@ -126,19 +129,21 @@ export const VerticalViewLayout = React.memo(({
             container
             direction="row"
           >
-            <div
-              className={classNames({
-                [classes.stickyElement]: true,
-                [classes.leftPanel]: true,
-                [classes.dayScaleEmptyCell]: true,
-                [classes.ordinaryLeftPanelBorder]: !isLeftBorderSet,
-                [classes.brightLeftPanelBorder]: isLeftBorderSet,
-                [classes.ordinaryHeaderBorder]: !isTopBorderSet,
-                [classes.brightHeaderBorder]: isTopBorderSet,
-              })}
-            >
-              <DayScaleEmptyCell />
-            </div>
+            {(renderTimeScale || !!groupingPanelSize) && (
+              <div
+                className={classNames({
+                  [classes.stickyElement]: true,
+                  [classes.leftPanel]: true,
+                  [classes.dayScaleEmptyCell]: true,
+                  [classes.ordinaryLeftPanelBorder]: !isLeftBorderSet,
+                  [classes.brightLeftPanelBorder]: isLeftBorderSet,
+                  [classes.ordinaryHeaderBorder]: !isTopBorderSet,
+                  [classes.brightHeaderBorder]: isTopBorderSet,
+                })}
+              >
+                <DayScaleEmptyCell />
+              </div>
+            )}
 
             <div className={classes.mainTable}>
               <div
@@ -167,9 +172,11 @@ export const VerticalViewLayout = React.memo(({
             })}
           >
             <GroupingPanel />
-            <div className={classes.timeScale}>
-              <TimeScale />
-            </div>
+            {renderTimeScale && (
+              <div className={classes.timeScale}>
+                <TimeScale />
+              </div>
+            )}
           </Grid>
           <div className={classNames(classes.mainTable, classes.timeTable)}>
             <div className={classes.fullScreenContainer}>
@@ -184,7 +191,7 @@ export const VerticalViewLayout = React.memo(({
 
 VerticalViewLayout.propTypes = {
   // oneOfType is a workaround because withStyles returns react object
-  timeScaleComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  timeScaleComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   dayScaleComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   timeTableComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dayScaleEmptyCellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -197,6 +204,7 @@ VerticalViewLayout.propTypes = {
 
 VerticalViewLayout.defaultProps = {
   groupingPanelComponent: () => null,
+  timeScaleComponent: undefined,
   groupingPanelSize: 0,
   className: undefined,
 };

@@ -11,19 +11,15 @@ const useStyles = makeStyles(theme => ({
     overflowY: 'auto',
     position: 'relative',
   },
-  stickyHeader: {
-    top: 0,
-    zIndex: 1,
+  stickyElement: {
     tableLayout: 'fixed',
     position: 'sticky',
     overflow: 'visible',
     background: theme.palette.background.paper,
-    display: 'table',
   },
-  timeTable: {
-    position: 'relative',
-    minWidth: '100%',
-    display: 'table',
+  header: {
+    top: 0,
+    zIndex: 2,
   },
   leftPanel: {
     left: 0,
@@ -32,21 +28,24 @@ const useStyles = makeStyles(theme => ({
     float: 'left',
     width: ({ groupingPanelSize }) => `${groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH}px`,
   },
+  timeTable: {
+    position: 'relative',
+  },
   mainTable: {
     width: ({ groupingPanelSize }) => `calc(100% -
       ${groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH}px)`,
     float: 'right',
   },
-  stickyElement: {
-    tableLayout: 'fixed',
-    position: 'sticky',
-    overflow: 'visible',
-    background: theme.palette.background.paper,
-  },
   fullScreenContainer: {
     minWidth: '100%',
     display: 'table',
     position: 'relative',
+  },
+  autoWidth: {
+    display: 'table',
+  },
+  background: {
+    background: theme.palette.background.paper,
   },
   ordinaryHeaderBorder: {
     borderBottom: getBorder(theme),
@@ -59,6 +58,10 @@ const useStyles = makeStyles(theme => ({
   },
   brightLeftPanelBorder: {
     borderRight: getBrightBorder(theme),
+  },
+  dayScaleEmptyCell: {
+    display: 'flex',
+    alignItems: 'flex-end',
   },
 }));
 
@@ -110,24 +113,41 @@ export const HorizontalViewLayout = React.memo(({
       {/* Fix Safari sticky header https://bugs.webkit.org/show_bug.cgi?id=175029 */}
       <div>
         <Grid
-          ref={layoutHeaderRef}
-          className={classes.stickyHeader}
+          className={classNames(classes.stickyElement, classes.header, classes.autoWidth)}
         >
-          <div className={classNames({
-            [classes.stickyElement]: true,
-            [classes.leftPanel]: true,
-            [classes.ordinaryHeaderBorder]: !isTopBorderSet,
-            [classes.brightHeaderBorder]: isTopBorderSet,
-          })}
+          <Grid
+            ref={layoutHeaderRef}
+            container
+            direction="row"
           >
+            <div
+              className={classNames({
+                [classes.stickyElement]: true,
+                [classes.leftPanel]: true,
+                [classes.dayScaleEmptyCell]: true,
+                [classes.ordinaryLeftPanelBorder]: !isLeftBorderSet,
+                [classes.brightLeftPanelBorder]: isLeftBorderSet,
+                [classes.ordinaryHeaderBorder]: !isTopBorderSet,
+                [classes.brightHeaderBorder]: isTopBorderSet,
+              })}
+            />
+
             <div className={classes.mainTable}>
-              <DayScale />
+              <div
+                className={classNames({
+                  [classes.fullScreenContainer]: true,
+                  [classes.background]: true,
+                  [classes.ordinaryHeaderBorder]: !isTopBorderSet,
+                  [classes.brightHeaderBorder]: isTopBorderSet,
+                })}
+              >
+                <DayScale />
+              </div>
             </div>
-          </div>
+          </Grid>
         </Grid>
-        <Grid
-          className={classes.timeTable}
-        >
+
+        <Grid className={classes.autoWidth}>
           <div
             ref={leftPanelRef}
             className={classNames({
@@ -139,7 +159,7 @@ export const HorizontalViewLayout = React.memo(({
           >
             <GroupingPanel />
           </div>
-          <div className={classes.mainTable}>
+          <div className={classNames(classes.mainTable, classes.timeTable)}>
             <div className={classes.fullScreenContainer}>
               <TimeTable />
             </div>

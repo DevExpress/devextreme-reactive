@@ -1,0 +1,53 @@
+import React, { useRef, useState, useCallback } from 'react';<%&additionalImports%>
+import { GridExporter } from '@devexpress/dx-react-grid';
+import {
+  Grid,
+  Table,
+  TableHeaderRow,
+  Toolbar,
+  ExportPanel,
+} from '@devexpress/dx-react-grid-<%&themeName%>';
+import saveAs from 'file-saver';
+
+import { orders } from '../../../demo-data/orders';
+
+const onSave = (workbook) => {
+  workbook.xlsx.writeBuffer().then((buffer) => {
+    saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'DataGrid.xlsx');
+  });
+};
+
+export default () => {
+  const [columns] = useState([
+    { name: 'Employee', title: 'Employee' },
+    { name: 'OrderNumber', title: 'Invoice Number' },
+    { name: 'CustomerStoreCity', title: 'City' },
+    { name: 'SaleAmount', title: 'Sale Amount' },
+  ]);
+  const [rows] = useState(orders);
+  const exporterRef = useRef(null);
+
+  const startExport = useCallback(() => {
+    exporterRef.current.exportGrid();
+  }, [exporterRef]);
+
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <Table />
+        <TableHeaderRow />
+        <Toolbar />
+        <ExportPanel startExport={startExport} />
+      </Grid>
+      <GridExporter
+        ref={exporterRef}
+        rows={rows}
+        columns={columns}
+        onSave={onSave}
+      />
+    </<%&wrapperTag%>>
+  );
+};

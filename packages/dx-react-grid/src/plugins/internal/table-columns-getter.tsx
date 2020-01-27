@@ -8,12 +8,10 @@ import { Table } from '../../types';
 export const TableColumnsWithDataRowsGetter: React.FunctionComponent<
   { columnExtensions?: Table.ColumnExtension[]; }
 > = React.memo(({ columnExtensions }) => {
-  const tableColumnsMemoized = React.useMemo(() => (
-    tableColumnExtensions => ({
-      columns,
-    }) => tableColumnsWithDataRows(columns, tableColumnExtensions)
-  ), columnExtensions);
-  const tableColumnsComputed = tableColumnsMemoized(columnExtensions!);
+  const tableColumnsComputed = React.useCallback(
+    ({ columns }) => (
+      tableColumnsWithDataRows(columns, columnExtensions!)
+    ), [columnExtensions]);
   checkTableColumnExtensions(columnExtensions!);
 
   return (

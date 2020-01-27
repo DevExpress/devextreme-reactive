@@ -48,13 +48,6 @@ const GroupRow = (props) => {
   return <TableGroupRow.Row {...props} className={classes.groupRow} />;
 };
 
-const GroupCell = (props) => {
-  const classes = useGroupStyles();
-  return (
-    <TableGroupRow.Cell {...props} className={classes.groupCell} />
-  );
-};
-
 const GroupIndentCell = (props) => {
   const classes = useGroupStyles();
   return (
@@ -229,7 +222,6 @@ export default () => {
         <TableHeaderRow />
         <TableSelection />
         <TableGroupRow
-          cellComponent={GroupCell}
           containerComponent={GroupCellContainer}
           indentCellComponent={GroupIndentCell}
           rowComponent={GroupRow}
@@ -247,7 +239,7 @@ export default () => {
         grouping={grouping}
         totalSummaryItems={totalSummaryItems}
         groupSummaryItems={groupSummaryItems}
-        // selection={selection}
+        selection={selection}
 
         onSave={onSave}
         customizeCell={customizeCell}

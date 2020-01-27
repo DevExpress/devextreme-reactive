@@ -12,9 +12,7 @@ const useStyles = makeStyles(theme => ({
     padding: 0,
     paddingTop: theme.spacing(0.5),
     boxSizing: 'border-box',
-    borderRight: ({ hasBrightBorder }) => (
-      hasBrightBorder ? getBrightBorder(theme) : getBorder(theme)
-    ),
+    borderRight: getBrightBorder(theme),
     '&:last-child': {
       borderRight: 'none',
     },
@@ -46,6 +44,11 @@ const useStyles = makeStyles(theme => ({
       borderBottom: 'none',
     },
   }),
+  groupedByDate: {
+    borderRight: ({ endOfGroup }) => (endOfGroup
+      ? getBrightBorder(theme) : getBorder(theme)),
+    borderTop: getBorder(theme),
+  },
 }));
 
 export const Cell = React.memo(({
@@ -62,13 +65,16 @@ export const Cell = React.memo(({
   groupOrientation,
   ...restProps
 }) => {
-  const classes = useStyles({ left, endOfGroup, groupedByDate, height, timeTableCellHeight, rowSpan, });
+  const classes = useStyles({
+    left, endOfGroup, height, timeTableCellHeight, rowSpan,
+  });
   return (
     <TableCell
       className={classNames({
         [classes.cell]: true,
         [classes.horizontalCell]: groupOrientation === HORIZONTAL_GROUP_ORIENTATION,
         [classes.verticalCell]: groupOrientation === VERTICAL_GROUP_ORIENTATION,
+        [classes.groupedByDate]: groupedByDate && groupOrientation !== VERTICAL_GROUP_ORIENTATION,
       }, className)}
       colSpan={colSpan}
       rowSpan={rowSpan}

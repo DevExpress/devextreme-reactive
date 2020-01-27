@@ -13,6 +13,7 @@ import {
   DragDropProvider,
   AppointmentForm,
   AllDayPanel,
+  MonthView,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import {
   teal, indigo,
@@ -125,6 +126,7 @@ export default class Demo extends React.PureComponent {
             grouping={grouping}
           />
 
+          <MonthView />
           <DayView
             startDayHour={9}
             endDayHour={15}

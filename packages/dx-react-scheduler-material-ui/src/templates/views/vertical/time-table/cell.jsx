@@ -12,8 +12,12 @@ const useStyles = makeStyles(theme => ({
     position: 'relative',
     height: theme.spacing(6),
     padding: 0,
-    borderLeft: getBorder(theme),
     boxSizing: 'border-box',
+    borderRight: getBorder(theme),
+    '&:last-child': {
+      borderRight: 'none',
+      paddingRight: 0,
+    },
     'tr:last-child &': {
       borderBottom: 'none',
     },
@@ -23,12 +27,6 @@ const useStyles = makeStyles(theme => ({
     '&:focus': {
       backgroundColor: fade(theme.palette.primary.main, 0.15),
       outline: 0,
-    },
-    '&:last-child': {
-      paddingRight: 0,
-    },
-    '&:first-child': {
-      borderLeft: 'none',
     },
   },
   shadedCell: {

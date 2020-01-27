@@ -20,7 +20,14 @@ const getLabelsForSingleGroup = (cellsData, groupIndex, groupHeight) => {
   ])), []);
 };
 
-const getLabelsForAllGroups = (cellsData, groupsNumber, singleGroupHeight) => {
+const getLabelsForAllGroups = (cellsData, groupsNumber, singleGroupHeight, groupOrientation) => {
+  if (groupOrientation === HORIZONTAL_GROUP_ORIENTATION) {
+    return [cellsData.map(cellsRow => ({
+      startDate: cellsRow[0].startDate,
+      endDate: cellsRow[0].endDate,
+      key: cellsRow[0].endDate,
+    }))];
+  }
   let labels = [];
   for (let i = 0; i < groupsNumber; i += 1) {
     labels = [
@@ -56,7 +63,7 @@ const LayoutBase = ({
   return (
     <Grid container direction="row" {...restProps}>
       <div className={classes.timeScaleContainer}>
-        {getLabelsForAllGroups(cellsData, groupsNumber, singleGroupHeight).map(
+        {getLabelsForAllGroups(cellsData, groupsNumber, singleGroupHeight, groupOrientation).map(
           (groupedLabels) => {
             const firstDataLabel = groupedLabels[0];
             const lastDataLabel = groupedLabels[groupedLabels.length - 1];

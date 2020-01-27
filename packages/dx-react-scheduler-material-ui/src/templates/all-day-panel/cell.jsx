@@ -10,12 +10,10 @@ const styles = theme => ({
   cell: {
     padding: 0,
     height: theme.spacing(5.75),
-    borderLeft: getBorder(theme),
-    // borderBottom: getBorder(theme),
-    // borderBottom: 'none',
     boxSizing: 'border-box',
-    '&:first-child': {
-      borderLeft: 'none',
+    borderRight: getBorder(theme),
+    '&:last-child': {
+      borderRight: 'none',
     },
     '&:hover': {
       backgroundColor: theme.palette.action.hover,
@@ -30,12 +28,6 @@ const styles = theme => ({
   },
   rightBorderCell: {
     borderRight: getBrightBorder(theme),
-    '&:last-child': {
-      borderRight: 'none',
-    },
-  },
-  topBorderCell: {
-    // borderBottom: getBrightBorder(theme),
   },
 });
 

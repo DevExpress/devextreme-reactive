@@ -14,11 +14,9 @@ const styles = theme => ({
     verticalAlign: 'top',
     padding: 0,
     height: 100,
-    borderLeft: getBorder(theme),
-    '&:first-child': {
-      borderLeft: 'none',
-    },
+    borderRight: getBorder(theme),
     '&:last-child': {
+      borderRight: 'none',
       paddingRight: 0,
     },
     'tr:last-child &': {

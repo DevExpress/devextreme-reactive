@@ -53,6 +53,8 @@ export namespace MonthView {
     dayScaleComponent: React.ComponentType<BaseView.DayScaleLayoutProps>;
     /** A component that renders a time table layout. */
     timeTableComponent: React.ComponentType<BaseView.TimeTableLayoutProps>;
+    /** A component that renders a day scale empty cell. */
+    dayScaleEmptyCellComponent?: React.ComponentType<BaseView.DayScaleEmptyCellProps>;
     /** The scrolling API callback */
     setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
   }
@@ -83,4 +85,6 @@ export interface MonthViewProps extends CommonViewProps {
   dayScaleLayoutComponent: React.ComponentType<MonthView.DayScaleLayoutProps>;
   /** A component that renders a time table layout. */
   timeTableLayoutComponent: React.ComponentType<MonthView.TimeTableLayoutProps>;
+  /** A component that renders a day scale empty cell. */
+  dayScaleEmptyCellComponent?: React.ComponentType<BaseView.DayScaleEmptyCellProps>;
 }

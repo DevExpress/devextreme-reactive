@@ -25,6 +25,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps> {
   static components: PluginComponents = {
     layoutComponent: 'Layout',
     appointmentLayerComponent: 'AppointmentLayer',
+    dayScaleEmptyCellComponent: 'DayScaleEmptyCell',
     dayScaleLayoutComponent: 'DayScaleLayout',
     dayScaleCellComponent: 'DayScaleCell',
     dayScaleRowComponent: 'DayScaleRow',
@@ -37,6 +38,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps> {
   render() {
     const {
       layoutComponent,
+      dayScaleEmptyCellComponent,
       dayScaleLayoutComponent,
       dayScaleCellComponent,
       dayScaleRowComponent,
@@ -60,6 +62,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps> {
           intervalCount={intervalCount}
           displayName={displayName}
           calculateAppointmentsIntervals={calculateAppointmentsIntervalsBaseComputed}
+          dayScaleEmptyCellComponent={dayScaleEmptyCellComponent}
           dayScaleLayoutComponent={dayScaleLayoutComponent}
           dayScaleCellComponent={dayScaleCellComponent}
           dayScaleRowComponent={dayScaleRowComponent}

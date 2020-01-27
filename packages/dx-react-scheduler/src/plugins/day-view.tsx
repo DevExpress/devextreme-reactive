@@ -28,7 +28,6 @@ const calculateAppointmentsIntervalsBaseComputed = cellDuration => ({
 }) => calculateWeekDateIntervals(
   appointments, startViewDate, endViewDate, excludedDays, cellDuration,
 );
-const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
 const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 
 class DayViewBase extends React.PureComponent<VerticalViewProps> {
@@ -95,6 +94,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps> {
           startDayHour={startDayHour}
           endDayHour={endDayHour}
           calculateAppointmentsIntervals={calculateAppointmentsIntervalsBaseComputed}
+          dayScaleEmptyCellComponent={DayScaleEmptyCell}
           dayScaleLayoutComponent={dayScaleLayoutComponent}
           dayScaleCellComponent={dayScaleCellComponent}
           dayScaleRowComponent={dayScaleRowComponent}
@@ -104,21 +104,9 @@ class DayViewBase extends React.PureComponent<VerticalViewProps> {
           appointmentLayerComponent={appointmentLayerComponent}
           layoutComponent={layoutComponent}
           layoutProps={{
-            dayScaleEmptyCellComponent: DayScaleEmptyCellPlaceholder,
             timeScaleComponent: TimeScalePlaceholder,
           }}
         />
-
-        <Template name="dayScaleEmptyCell">
-          <TemplateConnector>
-            {({ currentView }) => {
-              if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              return (
-                <DayScaleEmptyCell />
-              );
-            }}
-          </TemplateConnector>
-        </Template>
 
         <Template name="timeScale">
           <TemplateConnector>

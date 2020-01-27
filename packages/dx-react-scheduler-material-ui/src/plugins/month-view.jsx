@@ -3,6 +3,7 @@ import { MonthView as MonthViewBase } from '@devexpress/dx-react-scheduler';
 import { HorizontalViewLayout as Layout } from '../templates/layouts/horizontal-view-layout';
 
 import { Row } from '../templates/views/common/row';
+import { DayScaleEmptyCell } from '../templates/views/common/day-scale-empty-cell';
 import { Container as AppointmentLayer } from '../templates/appointment/container';
 
 import { Layout as TimeTableLayout } from '../templates/views/horizontal/time-table/layout';
@@ -14,6 +15,7 @@ import { Cell as DayScaleCell } from '../templates/views/horizontal/day-scale/ce
 export const MonthView = withComponents({
   Layout,
   AppointmentLayer,
+  DayScaleEmptyCell,
   DayScaleLayout,
   DayScaleCell,
   DayScaleRow: Row,

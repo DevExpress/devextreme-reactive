@@ -26,6 +26,7 @@ const endViewDateBaseComputed = ({ viewCellsData }) => endViewDateCore(viewCells
 
 const TimeTablePlaceholder = () => <TemplatePlaceholder name="timeTable" />;
 const DayScalePlaceholder = () => <TemplatePlaceholder name="dayScale" />;
+const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
 
 const GroupingPanelPlaceholder = () => <TemplatePlaceholder name="groupingPanel" />;
 
@@ -126,6 +127,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
       timeTableLayoutComponent: TimeTableLayout,
       timeTableRowComponent,
       appointmentLayerComponent: AppointmentLayer,
+      dayScaleEmptyCellComponent: DayScaleEmptyCell,
       layoutProps,
       layoutComponent: Layout,
     } = this.props;
@@ -191,6 +193,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
                     isVerticalGrouping ? GroupingPanelPlaceholder : undefined
                   }
                   groupingPanelSize={isVerticalGrouping ? groups?.length : 0}
+                  dayScaleEmptyCellComponent={DayScaleEmptyCellPlaceholder}
                   {...layoutProps}
                 />
               );
@@ -251,6 +254,19 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
                     <TimeTableAppointmentLayer />
                   </AppointmentLayer>
                 </>
+              );
+            }}
+          </TemplateConnector>
+        </Template>
+
+        <Template name="dayScaleEmptyCell">
+          <TemplateConnector>
+            {({ currentView }) => {
+              if (currentView.name !== viewName || !DayScaleEmptyCell) {
+                return <TemplatePlaceholder />;
+              }
+              return (
+                <DayScaleEmptyCell />
               );
             }}
           </TemplateConnector>

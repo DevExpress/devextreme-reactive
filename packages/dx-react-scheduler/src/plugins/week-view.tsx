@@ -63,7 +63,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
   render() {
     const {
       layoutComponent,
-      dayScaleEmptyCellComponent: DayScaleEmptyCell,
+      dayScaleEmptyCellComponent,
       timeScaleLayoutComponent: TimeScale,
       timeScaleLabelComponent: TimeScaleLabel,
       timeScaleTickCellComponent,
@@ -99,6 +99,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
           endDayHour={endDayHour}
           excludedDays={excludedDays}
           calculateAppointmentsIntervals={calculateAppointmentsIntervalsBaseComputed}
+          dayScaleEmptyCellComponent={dayScaleEmptyCellComponent}
           dayScaleLayoutComponent={dayScaleLayoutComponent}
           dayScaleCellComponent={dayScaleCellComponent}
           dayScaleRowComponent={dayScaleRowComponent}
@@ -109,20 +110,8 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
           layoutComponent={layoutComponent}
           layoutProps={{
             timeScaleComponent: TimeScalePlaceholder,
-            dayScaleEmptyCellComponent: DayScaleEmptyCellPlaceholder,
           }}
         />
-
-        <Template name="dayScaleEmptyCell">
-          <TemplateConnector>
-            {({ currentView }) => {
-              if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              return (
-                <DayScaleEmptyCell />
-              );
-            }}
-          </TemplateConnector>
-        </Template>
 
         <Template name="timeScale">
           <TemplateConnector>

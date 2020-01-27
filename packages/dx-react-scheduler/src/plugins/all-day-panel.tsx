@@ -20,7 +20,7 @@ const pluginDependencies = [
 const defaultMessages = {
   allDay: 'All Day',
 };
-const MONTH = 'Month';
+const MONTH = 'month';
 const AllDayAppointmentLayerPlaceholder = () =>
   <TemplatePlaceholder name="allDayAppointmentLayer" />;
 const AllDayPanelPlaceholder = params => <TemplatePlaceholder name="allDayPanel" params={params} />;
@@ -91,7 +91,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
         <Template name="dayScaleEmptyCell">
           <TemplateConnector>
             {({ currentView, groupOrientation }) => {
-              if (currentView === MONTH) return null;
+              if (currentView.type === MONTH) return <TemplatePlaceholder />;
               if (groupOrientation?.(currentView.name) === VERTICAL_GROUP_ORIENTATION) {
                 return (
                   <GroupingPanelPlaceholder />
@@ -108,7 +108,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           <TemplatePlaceholder />
           <TemplateConnector>
             {({ currentView }) => {
-              if (currentView === MONTH) return null;
+              if (currentView.type === MONTH) return null;
               return (
                 <Container>
                   <AllDayPanelPlaceholder />
@@ -124,7 +124,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
             {({
               currentView, formatDate, viewCellsData, groups, groupOrientation,
             }) => {
-              if (currentView.name === MONTH) return null;
+              if (currentView.type === MONTH) return null;
               return (
                 <>
                   <Layout

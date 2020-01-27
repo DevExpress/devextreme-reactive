@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
+import { DayScaleEmptyCellBase } from '../views/common/day-scale-empty-cell'
 import { scrollingStrategy, getBorder, getBrightBorder } from '../utils';
 import { GROUPING_PANEL_VERTICAL_CELL_WIDTH } from '../constants';
 
@@ -68,6 +69,7 @@ const useStyles = makeStyles(theme => ({
 export const HorizontalViewLayout = React.memo(({
   dayScaleComponent: DayScale,
   timeTableComponent: TimeTable,
+  dayScaleEmptyCellComponent: DayScaleEmptyCell,
   groupingPanelComponent: GroupingPanel,
   groupingPanelSize,
   setScrollingStrategy,
@@ -100,6 +102,7 @@ export const HorizontalViewLayout = React.memo(({
     }
   }, [isLeftBorderSet, isTopBorderSet]);
 
+  console.log(DayScaleEmptyCell)
   return (
     <Grid
       ref={layoutRef}
@@ -130,7 +133,9 @@ export const HorizontalViewLayout = React.memo(({
                 [classes.ordinaryHeaderBorder]: !isTopBorderSet,
                 [classes.brightHeaderBorder]: isTopBorderSet,
               })}
-            />
+            >
+              <DayScaleEmptyCell />
+            </div>
 
             <div className={classes.mainTable}>
               <div
@@ -173,6 +178,7 @@ export const HorizontalViewLayout = React.memo(({
 HorizontalViewLayout.propTypes = {
   dayScaleComponent: PropTypes.func.isRequired,
   timeTableComponent: PropTypes.func.isRequired,
+  dayScaleEmptyCellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   groupingPanelComponent: PropTypes.func,
   groupingPanelSize: PropTypes.number,
   setScrollingStrategy: PropTypes.func.isRequired,
@@ -181,6 +187,7 @@ HorizontalViewLayout.propTypes = {
 
 HorizontalViewLayout.defaultProps = {
   groupingPanelComponent: () => null,
+  dayScaleEmptyCellComponent: DayScaleEmptyCellBase,
   groupingPanelSize: 0,
   className: undefined,
 };

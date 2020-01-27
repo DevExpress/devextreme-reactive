@@ -2,42 +2,30 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
-import { TicksLayout } from './ticks-layout';
 import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
+import { TicksLayout } from './ticks-layout';
 
 const getLabelsForSingleGroup = (cellsData, groupIndex, groupHeight) => {
   const currentGroupIndex = groupIndex * groupHeight;
   const nextGroupIndex = currentGroupIndex + groupHeight;
-  const firstCell = cellsData[currentGroupIndex][0];
 
-  const labels = [
+  return cellsData.slice(currentGroupIndex, nextGroupIndex - 1).reduce((acc, days) => (([
+    ...acc,
     {
-      key: firstCell.startDate,
-      groupingInfo: firstCell.groupingInfo,
+      startDate: days[0].startDate,
+      endDate: days[0].endDate,
+      key: days[0].endDate,
+      groupingInfo: days[0].groupingInfo,
     },
-    ...cellsData.slice(currentGroupIndex, nextGroupIndex - 1).reduce((acc, days) => (([
-      ...acc,
-      {
-        time: days[0].endDate,
-        key: days[0].endDate,
-        groupingInfo: days[0].groupingInfo,
-      },
-    ])), []),
-    {
-      key: cellsData[nextGroupIndex - 1][0].endDate,
-      endOfGroup: true,
-      groupingInfo: firstCell.groupingInfo,
-    },
-  ];
-  return labels;
+  ])), []);
 };
 
-const getLabelsForAllGroups = (cellsData, groupsNumber, groupHeight) => {
+const getLabelsForAllGroups = (cellsData, groupsNumber, singleGroupHeight) => {
   let labels = [];
   for (let i = 0; i < groupsNumber; i += 1) {
     labels = [
       ...labels,
-      ...getLabelsForSingleGroup(cellsData, i, groupHeight),
+      getLabelsForSingleGroup(cellsData, i, singleGroupHeight),
     ];
   }
   return labels;
@@ -47,7 +35,6 @@ const styles = ({ spacing }) => ({
   timeScaleContainer: {
     width: `calc(100% - ${spacing(1)}px)`,
   },
-  // timeScale: {}
   ticks: {
     width: spacing(1),
   },
@@ -59,42 +46,65 @@ const LayoutBase = ({
   tickCellComponent,
   cellsData,
   formatDate,
-  groups,
   groupOrientation,
+  groups,
   classes,
   ...restProps
 }) => {
+  const groupsNumber = groups[groups.length - 1].length;
+  const singleGroupHeight = cellsData.length / groupsNumber;
   return (
     <Grid container direction="row" {...restProps}>
       <div className={classes.timeScaleContainer}>
-        {groups[groups.length - 1].map(() => {
-          return (
-            <>
-              <div className={classes.timeScale}>
-                <Label key={cellsData[0][0].startDate} />
-                {cellsData.map((days, index) => (
+        {getLabelsForAllGroups(cellsData, groupsNumber, singleGroupHeight).map(
+          (groupedLabels) => {
+            const firstDataLabel = groupedLabels[0];
+            const lastDataLabel = groupedLabels[groupedLabels.length - 1];
+            return (
+              <>
+                <Label
+                  key={firstDataLabel.startDate}
+                  groupingInfo={firstDataLabel.groupingInfo}
+                />
+                {groupedLabels.map((label, index) => (
                   index !== cellsData.length - 1 && (
                     <Label
-                      time={days[0].endDate}
+                      time={label.endDate}
                       formatDate={formatDate}
-                      key={days[0].endDate}
-                      groupingInfo={days[0].groupingInfo}
+                      key={label.endDate}
+                      groupingInfo={label.groupingInfo}
                     />
                   )
                 ))}
                 <Label
-                  key={cellsData[cellsData.length - 1][0].endDate}
+                  key={lastDataLabel.endDate}
+                  groupingInfo={lastDataLabel.groupingInfo}
                   endOfGroup
                 />
-              </div>
-            </>
-          );
-        })}
+              </>
+            );
+          }
+        )}
+        {/* <Label key={cellsData[0][0].startDate} />
+        {cellsData.map((days, index) => (
+          index !== cellsData.length - 1 && (
+            <Label
+              time={days[0].endDate}
+              formatDate={formatDate}
+              key={days[0].endDate}
+              groupingInfo={days[0].groupingInfo}
+            />
+          )
+        ))}
+        <Label
+          key={cellsData[cellsData.length - 1][0].endDate}
+          endOfGroup
+        /> */}
       </div>
       <TicksLayout
         rowComponent={rowComponent}
         cellComponent={tickCellComponent}
-        cellsData={[...cellsData, ...cellsData, ...cellsData, ...cellsData]}
+        cellsData={cellsData}
         className={classes.ticks}
       />
     </Grid>

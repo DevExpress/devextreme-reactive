@@ -112,13 +112,3 @@ export const normalizeAppointmentDuration: NormalizeAppointmentDurationFn = (
     end: start.clone().endOf('day'),
   };
 };
-
-export const timeScaleCells: PureComputed<
-  [ViewCell[][], GroupOrientation, Group[][] | undefined], ViewCell[][]
-> = (viewCellsData, groupOrientation, groups) => {
-  if (groupOrientation === VERTICAL_GROUP_ORIENTATION) {
-    const timeScaleHeight = viewCellsData.length / groups![groups!.length - 1].length;
-    return viewCellsData.slice(0, timeScaleHeight);
-  }
-  return viewCellsData;
-};

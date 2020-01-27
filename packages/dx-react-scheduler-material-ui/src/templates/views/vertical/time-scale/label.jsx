@@ -30,9 +30,9 @@ const styles = theme => ({
   },
   brightBottomBorder: {
     borderBottom: getBrightBorder(theme),
-    // '&:last-child': {
-    //   borderBottom: 'none',
-    // },
+    '&:last-child': {
+      borderBottom: 'none',
+    },
     boxSizing: 'border-box',
   },
 });

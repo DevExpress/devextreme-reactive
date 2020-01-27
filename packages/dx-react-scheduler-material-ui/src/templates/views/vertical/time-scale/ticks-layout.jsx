@@ -28,7 +28,12 @@ const TicksLayoutBase = ({
     <TableBody>
       {cellsData.map(days => (
         <Row key={days[0].startDate}>
-          <Cell key={days[0].endDate} />
+          <Cell
+            key={days[0].endDate}
+            startDate={days[0].startDate}
+            endDate={days[0].endDate}
+            endOfGroup={days[0].endOfGroup}
+          />
         </Row>
       ))}
     </TableBody>

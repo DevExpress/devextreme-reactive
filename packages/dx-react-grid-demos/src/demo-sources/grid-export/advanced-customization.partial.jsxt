@@ -1,6 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
-import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState, useRef, useCallback } from 'react';<%&additionalImports%>
 import {
   GroupingState,
   IntegratedGrouping,
@@ -22,7 +20,8 @@ import {
   DragDropProvider,
   Toolbar,
   ExportPanel,
-} from '@devexpress/dx-react-grid-material-ui';
+} from '@devexpress/dx-react-grid-<%themeName%>';
+<%&imports%>
 
 import saveAs from 'file-saver';
 
@@ -33,39 +32,10 @@ const groupColors = {
   CustomerStoreCity: 'C9ECD7',
 };
 
-const useGroupStyles = makeStyles({
-  groupRow: ({ groupedBy }) => ({
-    backgroundColor: `#${groupColors[groupedBy]}`,
-  }),
-  content: {
-    backgroundColor: 'inherit !important',
-  },
-});
-
-const GroupRow = (props) => {
-  const { row } = props;
-  const classes = useGroupStyles(row);
-  return <TableGroupRow.Row {...props} className={classes.groupRow} />;
-};
-
-const GroupIndentCell = (props) => {
-  const classes = useGroupStyles();
-  return (
-    <TableGroupRow.IndentCell {...props} className={classes.content} />
-  );
-};
-
-const GroupCellContainer = (props) => {
-  const classes = useGroupStyles();
-  return (
-    <TableGroupRow.Container {...props} className={classes.content} />
-  );
-};
-
 const getCellStyle = ({ OrderDate, SaleAmount }, column) => {
   const style = {};
   if (OrderDate < new Date(2014, 2, 3)) {
-    style.color = '#AAAAAA !important';
+    style.color = '#AAAAAA';
   }
   if (SaleAmount > 15000) {
     if (column.name === 'OrderNumber') {
@@ -79,16 +49,7 @@ const getCellStyle = ({ OrderDate, SaleAmount }, column) => {
   return style;
 };
 
-const useCellStyles = makeStyles({
-  cell: ({ row, column }) => getCellStyle(row, column),
-});
-
-const Cell = (props) => {
-  const classes = useCellStyles(props);
-  return (
-    <Table.Cell {...props} className={classes.cell} />
-  );
-};
+<%&body%>
 
 const DateFormatter = ({ value }) => (
   <span>
@@ -199,7 +160,7 @@ export default () => {
   }, [exporterRef]);
 
   return (
-    <Paper>
+    <<%&wrapperTag%><%&wrapperAttributes%>>
       <Grid
         rows={rows}
         columns={columns}
@@ -247,6 +208,6 @@ export default () => {
         customizeHeader={customizeHeader}
         customizeFooter={customizeFooter}
       />
-    </Paper>
+    </<%&wrapperTag%>>
   );
 };

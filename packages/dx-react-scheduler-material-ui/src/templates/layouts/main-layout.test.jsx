@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { getClasses, createShallow } from '@material-ui/core/test-utils';
-import { VerticalViewLayout } from './vertical-view-layout';
+import { MainLayout } from './main-layout';
 import { scrollingStrategy } from '../utils';
 
 jest.mock('../utils', () => ({
@@ -19,14 +19,14 @@ describe('Vertical View Layout', () => {
   let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<VerticalViewLayout {...defaultProps} />);
+    classes = getClasses(<MainLayout {...defaultProps} />);
     shallow = createShallow({ dive: true });
     scrollingStrategy.mockImplementation(() => undefined);
   });
 
   it('should pass className to the root element', () => {
     const tree = shallow((
-      <VerticalViewLayout {...defaultProps} className="custom-class" />
+      <MainLayout {...defaultProps} className="custom-class" />
     ));
 
     expect(tree.hasClass('custom-class'))
@@ -45,7 +45,7 @@ describe('Vertical View Layout', () => {
 
   it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <VerticalViewLayout {...defaultProps} data={{ a: 1 }} />
+      <MainLayout {...defaultProps} data={{ a: 1 }} />
     ));
 
     expect(tree.prop('data'))
@@ -55,7 +55,7 @@ describe('Vertical View Layout', () => {
   it('should call the scrollingStrategy function', () => {
     scrollingStrategy.mockClear();
     shallow((
-      <VerticalViewLayout {...defaultProps} />
+      <MainLayout {...defaultProps} />
     ));
 
     expect(scrollingStrategy)
@@ -64,7 +64,7 @@ describe('Vertical View Layout', () => {
 
   it('should render its components correctly', () => {
     const tree = shallow((
-      <VerticalViewLayout {...defaultProps} />
+      <MainLayout {...defaultProps} />
     ));
 
     expect(tree.find(`.${classes.header}`).exists())
@@ -83,7 +83,7 @@ describe('Vertical View Layout', () => {
 
   it('should have bright border after scroll', () => {
     const tree = shallow((
-      <VerticalViewLayout {...defaultProps} />
+      <MainLayout {...defaultProps} />
     ));
 
     tree.simulate('scroll', { target: { scrollTop: 5 } });

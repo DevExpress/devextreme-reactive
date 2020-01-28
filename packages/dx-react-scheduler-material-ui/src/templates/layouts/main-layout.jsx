@@ -3,7 +3,6 @@ import * as PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
-import { DayScaleEmptyCellBase } from '../views/common/day-scale-empty-cell'
 import { scrollingStrategy, getBorder, getBrightBorder } from '../utils';
 import { GROUPING_PANEL_VERTICAL_CELL_WIDTH } from '../constants';
 
@@ -27,14 +26,18 @@ const useStyles = makeStyles(theme => ({
     zIndex: 1,
     boxSizing: 'border-box',
     float: 'left',
-    width: ({ groupingPanelSize }) => `${groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH}px`,
+    width: ({ groupingPanelSize, renderTimeScale }) => (renderTimeScale ? `${theme.spacing(
+      10 + groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH,
+    ) + 1}px`
+      : theme.spacing(groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH)),
   },
   timeTable: {
     position: 'relative',
   },
   mainTable: {
-    width: ({ groupingPanelSize }) => `calc(100% -
-      ${groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH}px)`,
+    width: ({ groupingPanelSize, renderTimeScale }) => (renderTimeScale ? `calc(100% -
+      ${theme.spacing(10 + groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH) + 1}px)`
+      : `calc(100% - ${theme.spacing(groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH)}px)`),
     float: 'right',
   },
   fullScreenContainer: {
@@ -48,36 +51,42 @@ const useStyles = makeStyles(theme => ({
   background: {
     background: theme.palette.background.paper,
   },
-  ordinaryHeaderBorder: {
-    borderBottom: getBorder(theme),
-  },
-  brightHeaderBorder: {
-    borderBottom: getBrightBorder(theme),
-  },
   ordinaryLeftPanelBorder: {
     borderRight: getBorder(theme),
   },
   brightLeftPanelBorder: {
     borderRight: getBrightBorder(theme),
   },
+  ordinaryHeaderBorder: {
+    borderBottom: getBorder(theme),
+  },
+  brightHeaderBorder: {
+    borderBottom: getBrightBorder(theme),
+  },
+  timeScale: {
+    width: theme.spacing(10),
+  },
   dayScaleEmptyCell: {
     display: 'flex',
     alignItems: 'flex-end',
   },
+  fullWidthTable: {
+    width: '100%',
+  },
 }));
 
-export const HorizontalViewLayout = React.memo(({
+export const MainLayout = React.memo(({
+  timeScaleComponent: TimeScale,
   dayScaleComponent: DayScale,
   timeTableComponent: TimeTable,
   dayScaleEmptyCellComponent: DayScaleEmptyCell,
   groupingPanelComponent: GroupingPanel,
   groupingPanelSize,
+  highlightDayScale,
   setScrollingStrategy,
   className,
   ...restProps
 }) => {
-  const classes = useStyles({ groupingPanelSize });
-
   const layoutRef = React.useRef(null);
   const layoutHeaderRef = React.useRef(null);
   const leftPanelRef = React.useRef(null);
@@ -90,6 +99,10 @@ export const HorizontalViewLayout = React.memo(({
       layoutRef.current, layoutHeaderRef.current, leftPanelRef.current,
     ));
   }, [layoutRef, layoutHeaderRef, leftPanelRef]);
+
+  const renderTimeScale = !!TimeScale;
+
+  const classes = useStyles({ groupingPanelSize, renderTimeScale });
 
   const setBorders = React.useCallback((event) => {
     // eslint-disable-next-line no-bitwise
@@ -105,8 +118,8 @@ export const HorizontalViewLayout = React.memo(({
   return (
     <Grid
       ref={layoutRef}
-      className={classNames(classes.container, className)}
       container
+      className={classNames(classes.container, className)}
       direction="column"
       wrap="nowrap"
       onScroll={setBorders}
@@ -122,27 +135,31 @@ export const HorizontalViewLayout = React.memo(({
             container
             direction="row"
           >
-            <div
-              className={classNames({
-                [classes.stickyElement]: true,
-                [classes.leftPanel]: true,
-                [classes.dayScaleEmptyCell]: true,
-                [classes.ordinaryLeftPanelBorder]: !isLeftBorderSet,
-                [classes.brightLeftPanelBorder]: isLeftBorderSet,
-                [classes.ordinaryHeaderBorder]: !isTopBorderSet,
-                [classes.brightHeaderBorder]: isTopBorderSet,
-              })}
-            >
-              <DayScaleEmptyCell />
-            </div>
+            {(renderTimeScale || !!groupingPanelSize) && (
+              <div
+                className={classNames({
+                  [classes.stickyElement]: true,
+                  [classes.leftPanel]: true,
+                  [classes.dayScaleEmptyCell]: true,
+                  [classes.ordinaryLeftPanelBorder]: !isLeftBorderSet,
+                  [classes.brightLeftPanelBorder]: isLeftBorderSet,
+                  [classes.ordinaryHeaderBorder]: !isTopBorderSet && !highlightDayScale,
+                  [classes.brightHeaderBorder]: isTopBorderSet || highlightDayScale,
+                })}
+              >
+                <DayScaleEmptyCell />
+              </div>
+            )}
 
-            <div className={classes.mainTable}>
+            <div
+              className={classes.mainTable}
+            >
               <div
                 className={classNames({
                   [classes.fullScreenContainer]: true,
                   [classes.background]: true,
-                  [classes.ordinaryHeaderBorder]: !isTopBorderSet,
-                  [classes.brightHeaderBorder]: isTopBorderSet,
+                  [classes.ordinaryHeaderBorder]: !isTopBorderSet && !highlightDayScale,
+                  [classes.brightHeaderBorder]: isTopBorderSet || highlightDayScale,
                 })}
               >
                 <DayScale />
@@ -152,8 +169,9 @@ export const HorizontalViewLayout = React.memo(({
         </Grid>
 
         <Grid className={classes.autoWidth}>
-          <div
+          <Grid
             ref={leftPanelRef}
+            container
             className={classNames({
               [classes.stickyElement]: true,
               [classes.leftPanel]: true,
@@ -162,7 +180,12 @@ export const HorizontalViewLayout = React.memo(({
             })}
           >
             <GroupingPanel />
-          </div>
+            {renderTimeScale && (
+              <div className={classes.timeScale}>
+                <TimeScale />
+              </div>
+            )}
+          </Grid>
           <div className={classNames(classes.mainTable, classes.timeTable)}>
             <div className={classes.fullScreenContainer}>
               <TimeTable />
@@ -174,19 +197,23 @@ export const HorizontalViewLayout = React.memo(({
   );
 });
 
-HorizontalViewLayout.propTypes = {
-  dayScaleComponent: PropTypes.func.isRequired,
-  timeTableComponent: PropTypes.func.isRequired,
-  dayScaleEmptyCellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  groupingPanelComponent: PropTypes.func,
+MainLayout.propTypes = {
+  // oneOfType is a workaround because withStyles returns react object
+  timeScaleComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  dayScaleComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  timeTableComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  dayScaleEmptyCellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  groupingPanelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   groupingPanelSize: PropTypes.number,
   setScrollingStrategy: PropTypes.func.isRequired,
+  highlightDayScale: PropTypes.bool,
   className: PropTypes.string,
 };
 
-HorizontalViewLayout.defaultProps = {
+MainLayout.defaultProps = {
   groupingPanelComponent: () => null,
-  dayScaleEmptyCellComponent: DayScaleEmptyCellBase,
+  timeScaleComponent: undefined,
   groupingPanelSize: 0,
+  highlightDayScale: false,
   className: undefined,
 };

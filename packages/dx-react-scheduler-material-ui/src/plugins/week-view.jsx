@@ -1,6 +1,6 @@
 import { withComponents } from '@devexpress/dx-react-core';
 import { WeekView as WeekViewBase } from '@devexpress/dx-react-scheduler';
-import { VerticalViewLayout as Layout } from '../templates/layouts/vertical-view-layout';
+import { MainLayout as Layout } from '../templates/layouts/main-layout';
 
 import { Row } from '../templates/views/common/row';
 import { DayScaleEmptyCell } from '../templates/views/common/day-scale-empty-cell';

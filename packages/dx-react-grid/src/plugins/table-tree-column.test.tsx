@@ -24,7 +24,7 @@ const defaultDeps = {
     tableCell: {
       tableRow: { type: 'undefined', rowId: 1, row: { value: 'value' } },
       tableColumn: { type: 'undefined', rowId: 1, column: { name: 'a' } },
-      style: {},  
+      style: {},
     },
   },
   plugins: ['TreeDataState', 'Table'],

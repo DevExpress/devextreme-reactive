@@ -87,7 +87,24 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           name="allDayAppointments"
           computed={this.allDayAppointmentsComputed}
         />
-
+        <Template name="body">
+          {(params: any) => (
+            <TemplateConnector>
+              {({ groupOrientation, currentView }) => {
+                if (currentView.type === MONTH) return <TemplatePlaceholder />;
+                return (
+                  <TemplatePlaceholder
+                    params={{
+                      ...params,
+                      highlightDayScale: groupOrientation?.(currentView.name)
+                        === VERTICAL_GROUP_ORIENTATION,
+                    }}
+                  />
+                );
+              }}
+            </TemplateConnector>
+          )}
+        </Template>
         <Template name="dayScaleEmptyCell">
           <TemplateConnector>
             {({ currentView, groupOrientation }) => {
@@ -135,7 +152,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                     formatDate={formatDate}
                     groups={
                       groupOrientation?.(currentView?.name) === VERTICAL_GROUP_ORIENTATION
-                      ? groups : undefined
+                        ? groups : undefined
                     }
                   />
                   <AppointmentLayer>

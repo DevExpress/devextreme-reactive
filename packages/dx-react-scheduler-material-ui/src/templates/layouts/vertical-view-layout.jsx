@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     boxSizing: 'border-box',
     float: 'left',
     width: ({ groupingPanelSize, renderTimeScale }) => (renderTimeScale ? `${theme.spacing(10)
-      + groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH}px`
+      + groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH + 1}px`
       : `${groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH}px`),
   },
   timeTable: {
@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   },
   mainTable: {
     width: ({ groupingPanelSize, renderTimeScale }) => (renderTimeScale ? `calc(100% -
-      ${theme.spacing(10) + groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH}px)`
+      ${theme.spacing(10) + groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH + 1}px)`
       : `calc(100% - ${groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH}px)`),
     float: 'right',
   },
@@ -69,6 +69,9 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'flex-end',
   },
+  fullWidthTable: {
+    width: '100%',
+  },
 }));
 
 export const VerticalViewLayout = React.memo(({
@@ -78,6 +81,7 @@ export const VerticalViewLayout = React.memo(({
   dayScaleEmptyCellComponent: DayScaleEmptyCell,
   groupingPanelComponent: GroupingPanel,
   groupingPanelSize,
+  highlightDayScale,
   setScrollingStrategy,
   className,
   ...restProps
@@ -96,6 +100,7 @@ export const VerticalViewLayout = React.memo(({
   }, [layoutRef, layoutHeaderRef, leftPanelRef]);
 
   const renderTimeScale = !!TimeScale;
+
   const classes = useStyles({ groupingPanelSize, renderTimeScale });
 
   const setBorders = React.useCallback((event) => {
@@ -137,21 +142,23 @@ export const VerticalViewLayout = React.memo(({
                   [classes.dayScaleEmptyCell]: true,
                   [classes.ordinaryLeftPanelBorder]: !isLeftBorderSet,
                   [classes.brightLeftPanelBorder]: isLeftBorderSet,
-                  [classes.ordinaryHeaderBorder]: !isTopBorderSet,
-                  [classes.brightHeaderBorder]: isTopBorderSet,
+                  [classes.ordinaryHeaderBorder]: !isTopBorderSet && !highlightDayScale,
+                  [classes.brightHeaderBorder]: isTopBorderSet || highlightDayScale,
                 })}
               >
                 <DayScaleEmptyCell />
               </div>
             )}
 
-            <div className={classes.mainTable}>
+            <div
+              className={classes.mainTable}
+            >
               <div
                 className={classNames({
                   [classes.fullScreenContainer]: true,
                   [classes.background]: true,
-                  [classes.ordinaryHeaderBorder]: !isTopBorderSet,
-                  [classes.brightHeaderBorder]: isTopBorderSet,
+                  [classes.ordinaryHeaderBorder]: !isTopBorderSet && !highlightDayScale,
+                  [classes.brightHeaderBorder]: isTopBorderSet || highlightDayScale,
                 })}
               >
                 <DayScale />
@@ -198,7 +205,7 @@ VerticalViewLayout.propTypes = {
   groupingPanelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   groupingPanelSize: PropTypes.number,
   setScrollingStrategy: PropTypes.func.isRequired,
-  // classes: PropTypes.object.isRequired,
+  highlightDayScale: PropTypes.bool,
   className: PropTypes.string,
 };
 
@@ -206,5 +213,6 @@ VerticalViewLayout.defaultProps = {
   groupingPanelComponent: () => null,
   timeScaleComponent: undefined,
   groupingPanelSize: 0,
+  highlightDayScale: false,
   className: undefined,
 };

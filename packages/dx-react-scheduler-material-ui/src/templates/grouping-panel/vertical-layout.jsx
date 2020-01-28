@@ -6,13 +6,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
 import { VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 
-const useStyles = makeStyles(({ spacing }) => ({
+const useStyles = makeStyles({
   layout: {
-    tableLayout: 'fixed',
     borderCollapse: 'separate',
-    width: ({ width }) => `${spacing(width / 8)}px`,
+    width: 'auto',
+    '&:only-child': {
+      width: '100%',
+    },
   },
-}));
+});
 
 export const VerticalLayout = ({
   rowComponent: Row,

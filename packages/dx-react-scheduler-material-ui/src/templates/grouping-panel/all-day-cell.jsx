@@ -3,7 +3,8 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core/styles';
-import { getBrightBorder, getBorder } from '../utils';
+import { getBorder } from '../utils';
+import { GROUPING_PANEL_VERTICAL_CELL_WIDTH } from '../constants';
 
 const useStyles = makeStyles(theme => ({
   cell: {
@@ -16,10 +17,14 @@ const useStyles = makeStyles(theme => ({
     ),
     '&:last-child': {
       borderRight: 'none',
+      width: '100%',
     },
     height: ({ height, timeTableCellHeight }) => (
       height ? theme.spacing((timeTableCellHeight * height) / 8) : undefined
     ),
+    width: theme.spacing(GROUPING_PANEL_VERTICAL_CELL_WIDTH),
+    minWidth: theme.spacing(GROUPING_PANEL_VERTICAL_CELL_WIDTH),
+    maxWidth: theme.spacing(GROUPING_PANEL_VERTICAL_CELL_WIDTH),
   },
   text: {
     ...theme.typography.caption,
@@ -29,6 +34,14 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary,
     display: 'inline-block',
     lineHeight: 1.5,
+    maxHeight: ({ height, timeTableCellHeight }) => (
+      height ? theme.spacing((timeTableCellHeight * height) / 8 - 2) : undefined
+    ),
+    width: '100%',
+    whiteSpace: 'pre-wrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    boxSizing: 'border-box',
   },
   verticalCell: ({ rowSpan }) => ({
     borderBottom: getBorder(theme),

@@ -26,17 +26,18 @@ const useStyles = makeStyles(theme => ({
     zIndex: 1,
     boxSizing: 'border-box',
     float: 'left',
-    width: ({ groupingPanelSize, renderTimeScale }) => (renderTimeScale ? `${theme.spacing(10)
-      + groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH + 1}px`
-      : `${groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH}px`),
+    width: ({ groupingPanelSize, renderTimeScale }) => (renderTimeScale ? `${theme.spacing(
+      10 + groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH,
+    ) + 1}px`
+      : theme.spacing(groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH)),
   },
   timeTable: {
     position: 'relative',
   },
   mainTable: {
     width: ({ groupingPanelSize, renderTimeScale }) => (renderTimeScale ? `calc(100% -
-      ${theme.spacing(10) + groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH + 1}px)`
-      : `calc(100% - ${groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH}px)`),
+      ${theme.spacing(10 + groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH) + 1}px)`
+      : `calc(100% - ${theme.spacing(groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH)}px)`),
     float: 'right',
   },
   fullScreenContainer: {

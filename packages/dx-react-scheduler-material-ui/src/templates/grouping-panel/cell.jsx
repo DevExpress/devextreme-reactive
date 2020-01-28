@@ -19,6 +19,8 @@ const useStyles = makeStyles(theme => ({
     height: ({ height, timeTableCellHeight }) => (
       height ? theme.spacing((timeTableCellHeight * height) / 8) : undefined
     ),
+    width: '100px',
+    maxWidth: '100px',
   },
   text: {
     ...theme.typography.caption,

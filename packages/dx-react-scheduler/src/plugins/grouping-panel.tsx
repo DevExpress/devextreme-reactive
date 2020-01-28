@@ -7,8 +7,8 @@ import {
 } from '@devexpress/dx-react-core';
 import { GroupingPanelProps } from '../types';
 import {
-  VERTICAL_VIEW_LEFT_OFFSET, HORIZONTAL_VIEW_LEFT_OFFSET, HORIZONTAL_GROUP_ORIENTATION,
-  VERTICAL_GROUP_ORIENTATION, extractLastRowFromGroups, Group,
+  VERTICAL_VIEW_LEFT_OFFSET, HORIZONTAL_VIEW_LEFT_OFFSET,
+  HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION,
 } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
@@ -66,7 +66,6 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
                   groups={groups}
                   rowSpan={viewCellsData.length}
                   timeTableCellHeight={currentView.type === 'month' ? 100 : 48}
-                  width={groups.length * 100}
                 />
               )}
           </TemplateConnector>
@@ -75,24 +74,13 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
           <TemplateConnector>
             {({ groups, currentView, groupOrientation }) =>
               groupOrientation(currentView?.name) === VERTICAL_GROUP_ORIENTATION && (
-                <>
-                  <VerticalLayout
-                    rowComponent={rowComponent}
-                    cellComponent={allDayCellComponent}
-                    groups={groups}
-                    rowSpan={groups[groups.length - 1].length}
-                    timeTableCellHeight={46}
-                    width={groups.length * 100}
-                  />
-                  <VerticalLayout
-                    rowComponent={rowComponent}
-                    cellComponent={allDayCellComponent}
-                    groups={extractLastRowFromGroups(groups) as Group[][]}
-                    rowSpan={groups[groups.length - 1].length}
-                    timeTableCellHeight={46}
-                    width={80}
-                  />
-                </>
+                <VerticalLayout
+                  rowComponent={rowComponent}
+                  cellComponent={allDayCellComponent}
+                  groups={groups}
+                  rowSpan={groups[groups.length - 1].length}
+                  timeTableCellHeight={46}
+                />
               )}
           </TemplateConnector>
         </Template>

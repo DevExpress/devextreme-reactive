@@ -226,46 +226,48 @@ describe('TableTreeColumn', () => {
   });
 
   it('should change "for" property in runtime', () => {
-      class Test extends React.Component {
-        constructor(props) {
-          super(props);
-          this.state = {
-            columnName: props.columnName,
-          }
-        }
-
-        render() {
-          const { columnName } = this.state;
-          isTreeTableCell.mockImplementation(( _, tableColumn ) => tableColumn.column.name === columnName);
-
-          return(
-            <PluginHost>
-            {pluginDepsToComponents(defaultDeps)}
-              <TableTreeColumn
-                {...defaultProps}
-                for={columnName}
-              />
-            </PluginHost>
-          )
-        }
+    class Test extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          columnName: props.columnName,
+        };
       }
-      
-      const tree = mount((
-        <Test
-          columnName={'b'}
-        />
-      ))
 
-      expect(tree.find(defaultProps.cellComponent).exists())
-        .toBeFalsy();
+      render() {
+        const { columnName } = this.state;
+        isTreeTableCell.mockImplementation((_, tableColumn) => (
+          tableColumn.column.name === columnName
+        ));
 
-      tree.setState({
-        columnName: 'a',
-      })
+        return(
+          <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+            <TableTreeColumn
+              {...defaultProps}
+              for={columnName}
+            />
+          </PluginHost>
+        );
+      }
+    }
 
-      expect(tree.find(defaultProps.cellComponent).exists())
-        .toBeTruthy();
-      expect(tree.find(defaultProps.cellComponent).props().column.name)
-        .toEqual('a');
+    const tree = mount((
+      <Test
+        columnName={'b'}
+      />
+    ));
+
+    expect(tree.find(defaultProps.cellComponent).exists())
+      .toBeFalsy();
+
+    tree.setState({
+      columnName: 'a',
+    });
+
+    expect(tree.find(defaultProps.cellComponent).exists())
+      .toBeTruthy();
+    expect(tree.find(defaultProps.cellComponent).props().column.name)
+      .toEqual('a');
   });
 });

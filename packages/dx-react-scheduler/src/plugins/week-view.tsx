@@ -7,13 +7,12 @@ import {
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
-  viewCellsData as viewCellsDataCore, calculateWeekDateIntervals,
+  viewCellsData as viewCellsDataCore, calculateWeekDateIntervals, VIEW_TYPES,
 } from '@devexpress/dx-scheduler-core';
 import { BasicView } from './basic-view';
 import { WeekViewProps } from '../types';
 
 const DAYS_IN_WEEK = 7;
-const TYPE = 'week';
 const viewCellsDataBaseComputed = (
   cellDuration, startDayHour, endDayHour,
 ) => ({ firstDayOfWeek, intervalCount, excludedDays, currentDate }) => {
@@ -90,7 +89,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
       >
         <BasicView
           viewCellsDataComputed={viewCellsDataBaseComputed}
-          type={TYPE}
+          type={VIEW_TYPES.WEEK}
           cellDuration={cellDuration}
           name={viewName}
           intervalCount={intervalCount}

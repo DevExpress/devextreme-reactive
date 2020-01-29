@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     left: theme.spacing(left / 8),
     lineHeight: 1.5,
     maxHeight: height ? theme.spacing(height - 2) : undefined,
-    width: '100%',
+    // width: '100%',
     whiteSpace: 'pre-wrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -53,6 +53,8 @@ const useStyles = makeStyles(theme => ({
     [`tr:nth-last-child(${rowSpan}) &`]: {
       borderBottom: 'none',
     },
+    verticalAlign: 'top',
+    paddingTop: 0,
     width: theme.spacing(GROUPING_PANEL_VERTICAL_CELL_WIDTH),
     minWidth: theme.spacing(GROUPING_PANEL_VERTICAL_CELL_WIDTH),
     maxWidth: theme.spacing(GROUPING_PANEL_VERTICAL_CELL_WIDTH),
@@ -61,6 +63,9 @@ const useStyles = makeStyles(theme => ({
     borderRight: ({ endOfGroup }) => (endOfGroup
       ? getBrightBorder(theme) : getBorder(theme)),
     borderTop: getBorder(theme),
+  },
+  verticalText: {
+    top: ({ topOffset }) => `${topOffset}px`,
   },
 }));
 
@@ -74,14 +79,15 @@ export const Cell = React.memo(({
   groupedByDate,
   children,
   height,
-  timeTableCellHeight,
   groupOrientation,
   textStyle,
+  topOffset,
   ...restProps
 }) => {
-  const cellHeight = (timeTableCellHeight * height) / 8;
+  console.log(topOffset)
+  const cellHeight = height / 8;
   const classes = useStyles({
-    left, endOfGroup, height: cellHeight, rowSpan, textStyle,
+    left, endOfGroup, height: cellHeight, rowSpan, textStyle, topOffset,
   });
   return (
     <TableCell
@@ -95,7 +101,12 @@ export const Cell = React.memo(({
       rowSpan={rowSpan}
       {...restProps}
     >
-      <div className={classes.text}>
+      <div
+        className={classNames({
+          [classes.text]: true,
+          [classes.verticalText]: groupOrientation === VERTICAL_GROUP_ORIENTATION,
+        })}
+      >
         {group.text}
         {children}
       </div>
@@ -112,7 +123,6 @@ Cell.propTypes = {
   endOfGroup: PropTypes.bool,
   groupedByDate: PropTypes.bool,
   height: PropTypes.number,
-  timeTableCellHeight: PropTypes.number,
   groupOrientation: PropTypes.string,
   textStyle: PropTypes.object,
   children: PropTypes.node,
@@ -122,8 +132,7 @@ Cell.defaultProps = {
   className: undefined,
   endOfGroup: true,
   rowSpan: 1,
-  height: undefined,
-  timeTableCellHeight: 48,
+  height: 48,
   groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
   children: null,
   groupedByDate: true,

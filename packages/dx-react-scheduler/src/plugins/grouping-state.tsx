@@ -11,7 +11,7 @@ class GroupingStateBase extends React.PureComponent<GroupingStateProps, Grouping
   static defaultProps = {
     defaultExpandedGroups: [],
     groupByDate: () => false,
-    groupOrientation: () => HORIZONTAL_GROUP_ORIENTATION,
+    groupOrientation: () => VERTICAL_GROUP_ORIENTATION,
   };
   stateHelper: StateHelper;
   toggleGroupExpanded: ActionFn<ToggleGroupPayload>;

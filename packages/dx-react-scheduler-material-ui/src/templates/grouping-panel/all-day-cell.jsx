@@ -17,6 +17,7 @@ const useStyles = makeStyles(theme => ({
     [`tr:nth-last-child(${rowSpan}) &`]: {
       borderBottom: 'none',
     },
+    verticalAlign: 'middle',
   }),
 }));
 
@@ -24,9 +25,7 @@ export const AllDayCell = React.memo(({
   className,
   group,
   rowSpan,
-  hasBrightBorder,
   height,
-  timeTableCellHeight,
   ...restProps
 }) => {
   const classes = useStyles({ rowSpan });
@@ -39,7 +38,6 @@ export const AllDayCell = React.memo(({
       rowSpan={rowSpan}
       left={0}
       height={height}
-      timeTableCellHeight={timeTableCellHeight}
       groupOrientation={VERTICAL_GROUP_ORIENTATION}
       textStyle={{
         fontWeight: 'normal',
@@ -55,14 +53,10 @@ AllDayCell.propTypes = {
   group: PropTypes.object.isRequired,
   rowSpan: PropTypes.number,
   height: PropTypes.number,
-  timeTableCellHeight: PropTypes.number,
-  hasBrightBorder: PropTypes.bool,
 };
 
 AllDayCell.defaultProps = {
   className: undefined,
-  hasBrightBorder: true,
   rowSpan: 1,
   height: undefined,
-  timeTableCellHeight: 48,
 };

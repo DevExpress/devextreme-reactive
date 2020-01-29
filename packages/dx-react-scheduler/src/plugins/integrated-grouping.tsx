@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Plugin, Getter, Getters } from '@devexpress/dx-react-core';
 import {
   getGroupsFromResources, expandViewCellsDataWithGroups,
-  sortFilteredResources, filterResourcesByGrouping, updateGroupingWithMainResource, expandGroups, VERTICAL_GROUP_ORIENTATION,
+  sortFilteredResources, filterResourcesByGrouping, updateGroupingWithMainResource, expandGroups, VERTICAL_GROUP_ORIENTATION, VIEW_TYPES,
 } from '@devexpress/dx-scheduler-core';
 import { IntegratedGroupingProps } from '../types';
 
@@ -39,7 +39,7 @@ const getTimeTableAppointmentsComputed = ({
 }: Getters) => timeTableAppointments
   && expandGroups(
     timeTableAppointments, grouping, resourcesToGroupBy, groups,
-    excludedDays, groupByDate(currentView?.name) && currentView?.type === 'month',
+    excludedDays, groupByDate(currentView?.name) && currentView?.type === VIEW_TYPES.MONTH,
   );
 
 const getAllDayAppointmentsComputed = ({

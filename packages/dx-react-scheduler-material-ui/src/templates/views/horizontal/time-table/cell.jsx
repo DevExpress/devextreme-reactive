@@ -4,16 +4,16 @@ import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
-import { DAY_OPTIONS, DAY_SHORT_MONTH_OPTIONS, HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
+import { DAY_OPTIONS, DAY_SHORT_MONTH_OPTIONS, HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION, VIEW_TYPES } from '@devexpress/dx-scheduler-core';
 import { getBorder, getBrightBorder } from '../../../utils';
-import { SMALL_LAYOUT_MEDIA_QUERY } from '../../../constants';
+import { SMALL_LAYOUT_MEDIA_QUERY, SPACING_CELL_HEIGHT } from '../../../constants';
 
 const styles = theme => ({
   cell: {
     userSelect: 'none',
     verticalAlign: 'top',
     padding: 0,
-    height: 100,
+    height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.MONTH]),
     borderRight: getBorder(theme),
     '&:last-child': {
       borderRight: 'none',

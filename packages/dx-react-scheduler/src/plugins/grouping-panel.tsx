@@ -9,6 +9,7 @@ import { GroupingPanelProps } from '../types';
 import {
   VERTICAL_VIEW_LEFT_OFFSET, HORIZONTAL_VIEW_LEFT_OFFSET,
   HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION,
+  VIEW_TYPES,
 } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
@@ -45,7 +46,7 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
       >
         <Template name="groupingPanel">
           <TemplateConnector>
-            {({ groups, viewCellsData, currentView, groupByDate, groupOrientation }) =>
+            {({ groups, viewCellsData, currentView, groupByDate, groupOrientation, scrollingStrategy }) =>
               groupOrientation(currentView?.name) === HORIZONTAL_GROUP_ORIENTATION ? (
                 <HorizontalLayout
                   rowComponent={rowComponent}
@@ -53,7 +54,7 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
                   groups={groups}
                   colSpan={viewCellsData[0].length}
                   cellStyle={{
-                    left: currentView && currentView.type === 'month'
+                    left: currentView?.type === VIEW_TYPES.MONTH
                       ? HORIZONTAL_VIEW_LEFT_OFFSET
                       : VERTICAL_VIEW_LEFT_OFFSET,
                   }}
@@ -65,7 +66,8 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
                   cellComponent={cellComponent}
                   groups={groups}
                   rowSpan={viewCellsData.length}
-                  timeTableCellHeight={currentView.type === 'month' ? 100 : 48}
+                  viewType={currentView?.type}
+                  topOffset={scrollingStrategy?.fixedTopHeight}
                 />
               )}
           </TemplateConnector>
@@ -79,7 +81,7 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
                   cellComponent={allDayCellComponent}
                   groups={groups}
                   rowSpan={groups[groups.length - 1].length}
-                  timeTableCellHeight={46}
+                  viewType={VIEW_TYPES.ALL_DAY_PANEL}
                 />
               )}
           </TemplateConnector>

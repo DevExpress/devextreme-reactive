@@ -7,12 +7,11 @@ import {
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
-  viewCellsData as viewCellsDataCore, calculateWeekDateIntervals,
+  viewCellsData as viewCellsDataCore, calculateWeekDateIntervals, VIEW_TYPES,
 } from '@devexpress/dx-scheduler-core';
 import { BasicView } from './basic-view';
 import { VerticalViewProps } from '../types';
 
-const TYPE = 'day';
 const viewCellsDataBaseComputed = (
   cellDuration, startDayHour, endDayHour,
 ) => ({ currentDate, intervalCount }) => {
@@ -86,7 +85,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps> {
       >
         <BasicView
           viewCellsDataComputed={viewCellsDataBaseComputed}
-          type={TYPE}
+          type={VIEW_TYPES.DAY}
           cellDuration={cellDuration}
           name={viewName}
           intervalCount={intervalCount}

@@ -5,6 +5,7 @@ import TableBody from '@material-ui/core/TableBody';
 import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
 import { VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
+import { BASIC_CELL_HEIGHT } from '../constants';
 
 const useStyles = makeStyles({
   layout: {
@@ -21,12 +22,15 @@ export const VerticalLayout = ({
   cellComponent: Cell,
   groups,
   rowSpan,
-  timeTableCellHeight,
+  viewType,
   width,
   className,
+  topOffset,
   ...restProps
 }) => {
   const classes = useStyles({ width });
+  const timeTableCellHeight = BASIC_CELL_HEIGHT[viewType];
+
   return (
     <Table className={classNames(classes.layout, className)} {...restProps}>
       <TableBody>
@@ -38,8 +42,9 @@ export const VerticalLayout = ({
               cells.push({
                 group: groups[i][groupIndex / groupSpan],
                 rowSpan: groupSpan,
-                height: (rowSpan * groupSpan) / groups[groups.length - 1].length,
-                hasBrightBorder: true,
+                height: (
+                  rowSpan * groupSpan * timeTableCellHeight
+                ) / groups[groups.length - 1].length,
               });
             }
           }
@@ -48,23 +53,20 @@ export const VerticalLayout = ({
               {cells.map(({
                 group: cellGroup,
                 rowSpan: cellRowSpan,
-                height, hasBrightBorder,
-              }) => {
-                return (
-                  <Cell
-                    group={cellGroup}
-                    rowSpan={cellRowSpan}
-                    height={height}
-                    left={0}
-                    hasBrightBorder={hasBrightBorder}
-                    colSpan={1}
-                    timeTableCellHeight={timeTableCellHeight}
-                    groupOrientation={VERTICAL_GROUP_ORIENTATION}
-                  />
-                );
-              })}
+                height,
+              }) => (
+                <Cell
+                  group={cellGroup}
+                  rowSpan={cellRowSpan}
+                  height={height}
+                  left={0}
+                  colSpan={1}
+                  groupOrientation={VERTICAL_GROUP_ORIENTATION}
+                  topOffset={topOffset}
+                />
+              ))}
             </Row>
-          )
+          );
         })}
       </TableBody>
     </Table>
@@ -76,12 +78,11 @@ VerticalLayout.propTypes = {
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   groups: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
   rowSpan: PropTypes.number.isRequired,
-  timeTableCellHeight: PropTypes.number,
+  viewType: PropTypes.string.isRequired,
   width: PropTypes.number.isRequired,
   className: PropTypes.string,
 };
 
 VerticalLayout.defaultProps = {
-  timeTableCellHeight: 48,
   className: undefined,
 };

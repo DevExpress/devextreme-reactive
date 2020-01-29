@@ -28,8 +28,8 @@ export namespace GroupingPanel {
     groups: Array<Array<Group>>;
     /** Indicates the number of cells in the Scheduler's timetable. */
     rowSpan: number;
-    /** Indicates the height of a timetable cell in pixels. */
-    timeTableCellHeight: number;
+    /** Specifies the view the layout is rendered in. */
+    viewType: string;
   }
   /** Describes properties passed to a component that renders a row on the grouping panel. */
   export interface RowProps extends BaseView.RowProps {}
@@ -56,8 +56,6 @@ export namespace GroupingPanel {
     rowSpan: number;
     /** The group the cell represents. */
     group: Group;
-    /** Indicates whether to draw a bright right border or an ordinary right border. */
-    hasBrightBorder?: boolean;
     /** Specifies the layout's width. */
     width: number;
     /** A React node used to render an additional content to the cell. */

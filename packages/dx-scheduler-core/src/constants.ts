@@ -54,3 +54,10 @@ export const HORIZONTAL_VIEW_LEFT_OFFSET = 0;
 
 export const VERTICAL_GROUP_ORIENTATION = 'Vertical' as GroupOrientation;
 export const HORIZONTAL_GROUP_ORIENTATION = 'Horizontal' as GroupOrientation;
+
+export const VIEW_TYPES = {
+  MONTH: 'month',
+  WEEK: 'week',
+  DAY: 'day',
+  ALL_DAY_PANEL: 'allDayPanel',
+};

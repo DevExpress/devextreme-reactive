@@ -8,7 +8,7 @@ import {
   TemplateConnector,
   PluginComponents,
 } from '@devexpress/dx-react-core';
-import { allDayCells, calculateAllDayDateIntervals, VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
+import { allDayCells, calculateAllDayDateIntervals, VERTICAL_GROUP_ORIENTATION, VIEW_TYPES } from '@devexpress/dx-scheduler-core';
 import moment from 'moment';
 
 import { AllDayPanelProps, AllDayPanelState } from '../types';
@@ -20,7 +20,6 @@ const pluginDependencies = [
 const defaultMessages = {
   allDay: 'All Day',
 };
-const MONTH = 'month';
 const AllDayAppointmentLayerPlaceholder = () =>
   <TemplatePlaceholder name="allDayAppointmentLayer" />;
 const AllDayPanelPlaceholder = params => <TemplatePlaceholder name="allDayPanel" params={params} />;
@@ -91,7 +90,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           {(params: any) => (
             <TemplateConnector>
               {({ groupOrientation, currentView }) => {
-                if (currentView.type === MONTH) return <TemplatePlaceholder />;
+                if (currentView.type === VIEW_TYPES.MONTH) return <TemplatePlaceholder />;
                 return (
                   <TemplatePlaceholder
                     params={{
@@ -108,7 +107,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
         <Template name="dayScaleEmptyCell">
           <TemplateConnector>
             {({ currentView, groupOrientation }) => {
-              if (currentView.type === MONTH) return <TemplatePlaceholder />;
+              if (currentView.type === VIEW_TYPES.MONTH) return <TemplatePlaceholder />;
               if (groupOrientation?.(currentView.name) === VERTICAL_GROUP_ORIENTATION) {
                 return (
                   <GroupingPanelPlaceholder />
@@ -125,7 +124,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           <TemplatePlaceholder />
           <TemplateConnector>
             {({ currentView }) => {
-              if (currentView.type === MONTH) return null;
+              if (currentView.type === VIEW_TYPES.MONTH) return null;
               return (
                 <Container>
                   <AllDayPanelPlaceholder />
@@ -139,9 +138,10 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-              currentView, formatDate, viewCellsData, groups, groupOrientation,
+              currentView, formatDate, viewCellsData, groups, groupOrientation, scrollingStrategy,
             }) => {
-              if (currentView.type === MONTH) return null;
+              if (currentView.type === VIEW_TYPES.MONTH) return null;
+              console.log(scrollingStrategy)
               return (
                 <>
                   <Layout

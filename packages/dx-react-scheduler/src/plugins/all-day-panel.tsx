@@ -138,10 +138,9 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-              currentView, formatDate, viewCellsData, groups, groupOrientation, scrollingStrategy,
+              currentView, formatDate, viewCellsData, groups, groupOrientation,
             }) => {
               if (currentView.type === VIEW_TYPES.MONTH) return null;
-              console.log(scrollingStrategy)
               return (
                 <>
                   <Layout

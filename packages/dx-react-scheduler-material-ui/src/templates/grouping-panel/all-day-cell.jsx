@@ -4,7 +4,7 @@ import classNames from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import { getBorder } from '../utils';
-import { BaseCell } from './base-cell';
+import { Cell as BaseCell } from './cell';
 
 const useStyles = makeStyles(theme => ({
   cell: ({ rowSpan }) => ({

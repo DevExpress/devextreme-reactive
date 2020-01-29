@@ -5,6 +5,7 @@ import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core/styles';
 import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import { getBrightBorder, getBorder } from '../utils';
+import { GROUPING_PANEL_VERTICAL_CELL_WIDTH } from '../constants';
 
 const useStyles = makeStyles(theme => ({
   cell: {
@@ -16,13 +17,13 @@ const useStyles = makeStyles(theme => ({
     '&:last-child': {
       borderRight: 'none',
     },
-    height: ({ height, timeTableCellHeight }) => (
-      height ? theme.spacing((timeTableCellHeight * height) / 8) : undefined
+    height: ({ height }) => (
+      height ? theme.spacing(height) : undefined
     ),
-    width: '100px',
-    maxWidth: '100px',
   },
-  text: {
+  text: ({
+    textStyle, height, left,
+  }) => ({
     ...theme.typography.caption,
     padding: theme.spacing(1),
     color: theme.palette.text.secondary,
@@ -30,9 +31,16 @@ const useStyles = makeStyles(theme => ({
     fontSize: '1rem',
     position: 'sticky',
     display: 'inline-block',
-    left: ({ left }) => theme.spacing(left / 8),
+    left: theme.spacing(left / 8),
     lineHeight: 1.5,
-  },
+    maxHeight: height ? theme.spacing(height - 2) : undefined,
+    width: '100%',
+    whiteSpace: 'pre-wrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    boxSizing: 'border-box',
+    ...textStyle,
+  }),
   horizontalCell: {
     borderBottom: 'none',
     borderTop: getBrightBorder(theme),
@@ -45,6 +53,9 @@ const useStyles = makeStyles(theme => ({
     [`tr:nth-last-child(${rowSpan}) &`]: {
       borderBottom: 'none',
     },
+    width: theme.spacing(GROUPING_PANEL_VERTICAL_CELL_WIDTH),
+    minWidth: theme.spacing(GROUPING_PANEL_VERTICAL_CELL_WIDTH),
+    maxWidth: theme.spacing(GROUPING_PANEL_VERTICAL_CELL_WIDTH),
   }),
   groupedByDate: {
     borderRight: ({ endOfGroup }) => (endOfGroup
@@ -65,10 +76,12 @@ export const Cell = React.memo(({
   height,
   timeTableCellHeight,
   groupOrientation,
+  textStyle,
   ...restProps
 }) => {
+  const cellHeight = (timeTableCellHeight * height) / 8;
   const classes = useStyles({
-    left, endOfGroup, height, timeTableCellHeight, rowSpan,
+    left, endOfGroup, height: cellHeight, rowSpan, textStyle,
   });
   return (
     <TableCell
@@ -101,6 +114,7 @@ Cell.propTypes = {
   height: PropTypes.number,
   timeTableCellHeight: PropTypes.number,
   groupOrientation: PropTypes.string,
+  textStyle: PropTypes.object,
   children: PropTypes.node,
 };
 
@@ -113,4 +127,5 @@ Cell.defaultProps = {
   groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
   children: null,
   groupedByDate: true,
+  textStyle: {},
 };

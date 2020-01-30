@@ -26,18 +26,16 @@ const useStyles = makeStyles(theme => ({
     zIndex: 1,
     boxSizing: 'border-box',
     float: 'left',
-    width: ({ groupingPanelSize, renderTimeScale }) => (renderTimeScale ? `${theme.spacing(
+    width: ({ groupingPanelSize }) => `${theme.spacing(
       10 + groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH,
-    ) + 1}px`
-      : theme.spacing(groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH)),
+    ) + 1}px`,
   },
   timeTable: {
     position: 'relative',
   },
   mainTable: {
-    width: ({ groupingPanelSize, renderTimeScale }) => (renderTimeScale ? `calc(100% -
-      ${theme.spacing(10 + groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH) + 1}px)`
-      : `calc(100% - ${theme.spacing(groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH)}px)`),
+    width: ({ groupingPanelSize }) => `calc(100% -
+      ${theme.spacing(10 + groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH) + 1}px)`,
     float: 'right',
   },
   fullScreenContainer: {
@@ -73,6 +71,15 @@ const useStyles = makeStyles(theme => ({
   fullWidthTable: {
     width: '100%',
   },
+  leftPanelWithoutTimeScale: {
+    width: ({ groupingPanelSize }) => theme.spacing(
+      groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH,
+    ),
+  },
+  mainTableWithoutTimeScale: {
+    width: ({ groupingPanelSize }) => `calc(100% -
+      ${theme.spacing(groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH)}px)`,
+  },
 }));
 
 export const MainLayout = React.memo(({
@@ -102,7 +109,7 @@ export const MainLayout = React.memo(({
 
   const renderTimeScale = !!TimeScale;
 
-  const classes = useStyles({ groupingPanelSize, renderTimeScale });
+  const classes = useStyles({ groupingPanelSize });
 
   const setBorders = React.useCallback((event) => {
     // eslint-disable-next-line no-bitwise
@@ -140,6 +147,7 @@ export const MainLayout = React.memo(({
                 className={classNames({
                   [classes.stickyElement]: true,
                   [classes.leftPanel]: true,
+                  [classes.leftPanelWithoutTimeScale]: !renderTimeScale,
                   [classes.dayScaleEmptyCell]: true,
                   [classes.ordinaryLeftPanelBorder]: !isLeftBorderSet,
                   [classes.brightLeftPanelBorder]: isLeftBorderSet,
@@ -152,7 +160,10 @@ export const MainLayout = React.memo(({
             )}
 
             <div
-              className={classes.mainTable}
+              className={classNames({
+                [classes.mainTable]: true,
+                [classes.mainTableWithoutTimeScale]: !renderTimeScale,
+              })}
             >
               <div
                 className={classNames({
@@ -175,6 +186,7 @@ export const MainLayout = React.memo(({
             className={classNames({
               [classes.stickyElement]: true,
               [classes.leftPanel]: true,
+              [classes.leftPanelWithoutTimeScale]: !renderTimeScale,
               [classes.ordinaryLeftPanelBorder]: !isLeftBorderSet,
               [classes.brightLeftPanelBorder]: isLeftBorderSet,
             })}
@@ -186,7 +198,13 @@ export const MainLayout = React.memo(({
               </div>
             )}
           </Grid>
-          <div className={classNames(classes.mainTable, classes.timeTable)}>
+          <div
+            className={classNames({
+              [classes.mainTable]: true,
+              [classes.timeTable]: true,
+              [classes.mainTableWithoutTimeScale]: !renderTimeScale,
+            })}
+          >
             <div className={classes.fullScreenContainer}>
               <TimeTable />
             </div>

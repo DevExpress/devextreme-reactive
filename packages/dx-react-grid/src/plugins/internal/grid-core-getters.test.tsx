@@ -39,6 +39,20 @@ describe('GridCoreGetters', () => {
       .toBe(defaultProps.rows);
   });
 
+  it('should provide columns', () => {
+    const tree = mount((
+      <PluginHost>
+        <GridCoreGetters
+          {...defaultProps}
+        />
+        {pluginDepsToComponents({})}
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree).columns)
+      .toBe(defaultProps.columns);
+  });
+
   it('should provide getRowId', () => {
     const getRowId = () => '';
 

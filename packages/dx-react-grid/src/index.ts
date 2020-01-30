@@ -52,10 +52,8 @@ export * from './components/table-layout/static-table-layout';
 export * from './components/group-panel-layout';
 
 export * from './plugins/virtual-table/virtual-table';
-// export * from './plugins/internal';
 
 export * from './types/tables/virtual-table.types';
-
 
 export * from './types/utils';
 export * from './utils/row-cache';

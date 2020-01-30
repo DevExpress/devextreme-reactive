@@ -123,6 +123,8 @@
     items:
       - title: Grid
         path: /react/grid/docs/reference/grid
+      - title: GridExporter
+        path: /react/grid/docs/reference/grid-exporter
       - title: FilteringState
         path: /react/grid/docs/reference/filtering-state
       - title: SortingState

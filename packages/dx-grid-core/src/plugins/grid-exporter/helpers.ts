@@ -10,9 +10,14 @@ import {
 } from '../../types';
 import { ROOT_GROUP } from './constants';
 
+const DEFAULT_COLUMN_WIDTH = 150;
+
 export const exportHeader = (worksheet: Excel.Worksheet, columns: TableColumn[]) => {
   const cols = columns
-    .map(({ column, width }) => ({ ...column!, width: (width as number || 150) / 8 }))
+    .map(({ column, width }) => ({
+      ...column!,
+      width: (width as number || DEFAULT_COLUMN_WIDTH) / 8,
+    }))
     .map(({ name, width }) => ({
       key: name, width,
     }));
@@ -53,7 +58,7 @@ export const exportRows: ExportRowsFn = (
   const closeGroup = getCloseGroup(rowsOffset);
 
   allRows.forEach((row) => {
-    let r;
+    let excelRow;
 
     if (isGroupRow && isGroupRow(row)) {
       currentLevel = outlineLevels[row.groupedBy];
@@ -66,9 +71,9 @@ export const exportRows: ExportRowsFn = (
 
       // add group row
       const title = dataColumns.find(({ name }) => name === row.groupedBy)?.title;
-      r = { [columns[0].column!.name]: `${title}: ${row.value}` };
+      excelRow = { [columns[0].column!.name]: `${title}: ${row.value}` };
 
-      worksheet.addRow(r);
+      worksheet.addRow(excelRow);
       const lastIndex = worksheet.lastRow!.number;
 
       // merge into single cell
@@ -80,11 +85,11 @@ export const exportRows: ExportRowsFn = (
       }
       currentLevel += 1;
     } else {
-      r = columns.reduce((acc, { column }) => ({
+      excelRow = columns.reduce((acc, { column }) => ({
         ...acc,
         ...(column ? { [column.name]: getCellValue(row, column.name) } : null),
       }), {});
-      worksheet.addRow(r);
+      worksheet.addRow(excelRow);
       worksheet.lastRow!.outlineLevel = currentLevel;
     }
 

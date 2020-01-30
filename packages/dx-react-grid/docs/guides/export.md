@@ -17,7 +17,7 @@ Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
 1. Import GridExporter
 
-Import the [GridExporter](../reference/grid-exporter.md) component and place it outside the Grid. Specify the `ref` property and ass the `columns` and `rows` properties to the GridExporter.
+Import the [GridExporter](../reference/grid-exporter.md) component and place it outside the Grid. Specify the `ref` property and add the `columns` and `rows` properties to the GridExporter.
 
 ```jsx
 const exporterRef = useRef();

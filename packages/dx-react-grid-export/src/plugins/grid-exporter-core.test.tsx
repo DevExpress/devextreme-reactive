@@ -14,6 +14,7 @@ import {
 } from '@devexpress/dx-grid-core';
 import { GridExporterCore } from './grid-exporter-core';
 
+/* tslint:disable no-submodule-imports */
 import { GroupingState } from '@devexpress/dx-react-grid/src/plugins/grouping-state';
 import { IntegratedGrouping } from '@devexpress/dx-react-grid/src/plugins/integrated-grouping';
 import { SummaryState } from '@devexpress/dx-react-grid/src/plugins/summary-state';
@@ -28,6 +29,7 @@ import {
   GridCoreGetters, TableColumnsWithDataRowsGetter, TableColumnsWithGrouping,
   VisibleTableColumns, OrderedTableColumns,
 } from '@devexpress/dx-react-grid/src/plugins/internal';
+/* tslint:enable no-submodule-imports */
 
 jest.mock('./internal', () => ({
   GridCoreGetters: () => null,

@@ -1,10 +1,11 @@
 import { Workbook, Cell as ExcelCell, Worksheet, Row as ExcelRow } from 'exceljs';
-
+/* tslint:disable no-submodule-imports */
 import {
   SortingStateProps, GroupingStateProps, TableGroupRowProps, SelectionStateProps,
   TableProps, TableColumnVisibilityProps, TableGroupRow, FilteringStateProps,
-  GridProps, SummaryItem, GroupSummaryItem, Column, CustomizeSummaryCellFn
+  GridProps, SummaryItem, GroupSummaryItem, Column, CustomizeSummaryCellFn,
 } from '@devexpress/dx-react-grid/dist/dx-react-grid';
+/* tslint:enable no-submodule-imports */
 
 export type ExporterProps =
   Omit<GridProps, 'rootComponent'> &
@@ -14,7 +15,7 @@ export type ExporterProps =
   Pick<TableGroupRowProps, 'showColumnsWhenGrouped'> &
   Pick<SelectionStateProps, 'selection'> &
   Pick<TableProps, 'columnExtensions'> &
-  Pick<TableColumnVisibilityProps, 'hiddenColumnNames'> & 
+  Pick<TableColumnVisibilityProps, 'hiddenColumnNames'> &
 {
   columnOrder?: string[],
   groupColumnExtensions?: TableGroupRow.ColumnExtension[],

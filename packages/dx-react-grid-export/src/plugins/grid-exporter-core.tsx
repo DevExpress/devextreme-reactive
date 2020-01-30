@@ -1,4 +1,5 @@
 import * as React from 'react';
+/* tslint:disable no-submodule-imports */
 import * as Excel from 'exceljs/dist/exceljs.min.js';
 import {
   Action, Actions, Plugin, Getter, Template, TemplateConnector, Getters,
@@ -17,6 +18,7 @@ import {
 } from '../../../dx-react-grid/src/plugins/internal';
 
 import { defaultSummaryMessages } from '../../../dx-react-grid/src/components/summary/constants';
+/* tslint:enable no-submodule-imports */
 import { ExporterProps } from '../types';
 
 const createWorkbook = () => new Excel.Workbook();

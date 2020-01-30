@@ -1,5 +1,5 @@
 import { PureComputed } from '@devexpress/dx-core';
-import { Group, GroupingCellData } from '../../types';
+import { Group, HorizontalGroupingCellData, VerticalGroupingCellData } from '../../types';
 
 export const getCellKey: PureComputed<
   [Group[][], number, number], string
@@ -17,7 +17,7 @@ export const getCellKey: PureComputed<
 };
 
 export const getRowFromGroups: PureComputed<
-  [number, Group[], any, Group[][], number], GroupingCellData[]
+  [number, Group[], any, Group[][], number], HorizontalGroupingCellData[]
 > = (width, groupRow, cellStyle, groups, rowIndex) => {
   let row = [] as any[];
   const currentRowLength = groupRow.length;
@@ -37,3 +37,21 @@ export const getRowFromGroups: PureComputed<
   }
   return row;
 };
+
+export const getVerticalCellsFromGroups: PureComputed<
+  [Group[][], number, number, number], VerticalGroupingCellData[]
+> = (groups, groupIndex, groupingPanelRowSpan, timeTableCellHeight) => groups.reduce((
+  acc, groupRow,
+) => {
+  const groupSpan = groups[groups.length - 1].length / groupRow.length;
+  return groupIndex % groupSpan !== 0 ? acc : [
+    ...acc,
+    {
+      group: groupRow[groupIndex / groupSpan],
+      rowSpan: groupSpan,
+      height: (
+        groupingPanelRowSpan * groupSpan * timeTableCellHeight
+      ) / groups[groups.length - 1].length,
+    },
+  ];
+}, [] as VerticalGroupingCellData[]);

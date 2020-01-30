@@ -67,7 +67,7 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
                   groups={groups}
                   rowSpan={viewCellsData.length}
                   viewType={currentView?.type}
-                  topOffset={scrollingStrategy?.fixedTopHeight}
+                  cellTextTopOffset={scrollingStrategy?.fixedTopHeight}
                 />
               )}
           </TemplateConnector>

@@ -11,6 +11,7 @@ jest.mock('@material-ui/core/styles', () => ({
     horizontalCell: 'horizontalCell',
     verticalCell: 'verticalCell',
     groupedByDate: 'groupedByDate',
+    verticalCellText: 'verticalCellText',
   })),
 }));
 
@@ -69,6 +70,8 @@ describe('GroupingPanel', () => {
         .toBeFalsy();
       expect(tree.is('.groupedByDate'))
         .toBeFalsy();
+      expect(tree.find('.verticalCellText').exists())
+        .toBeFalsy();
     });
 
     it('should render vertical cell', () => {
@@ -85,6 +88,8 @@ describe('GroupingPanel', () => {
         .toBeTruthy();
       expect(tree.is('.groupedByDate'))
         .toBeFalsy();
+      expect(tree.find('.verticalCellText').exists())
+        .toBeTruthy();
     });
 
     it('should render grouped by date cell', () => {
@@ -98,6 +103,8 @@ describe('GroupingPanel', () => {
         .toBeFalsy();
       expect(tree.is('.groupedByDate'))
         .toBeTruthy();
+      expect(tree.find('.verticalCellText').exists())
+        .toBeFalsy();
     });
 
     it('should pass colSpan and rowSpan to the root element', () => {

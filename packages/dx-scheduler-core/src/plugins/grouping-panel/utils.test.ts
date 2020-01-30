@@ -1,4 +1,4 @@
-import { getCellKey, getRowFromGroups } from './utils';
+import { getCellKey, getRowFromGroups, getVerticalCellsFromGroups } from './utils';
 
 describe('GroupingPanel utils', () => {
   describe('#getCellKey', () => {
@@ -86,6 +86,53 @@ describe('GroupingPanel utils', () => {
           key: '421',
           left: 80,
         }]);
+    });
+  });
+
+  describe('#getVerticalCellsFromGroups', () => {
+    it('should work', () => {
+      const groups = [[
+        { text: '1' },
+        { text: '2' },
+      ], [
+        { text: '3' },
+        { text: '4' },
+        { text: '3' },
+        { text: '4' },
+      ]];
+      let groupIndex = 2;
+      const rowSpan = 40;
+      const cellHeight = 50;
+
+      let result = getVerticalCellsFromGroups(groups, groupIndex, rowSpan, cellHeight);
+
+      expect(result)
+        .toHaveLength(2);
+      expect(result[0])
+        .toEqual({
+          group: { text: '2' },
+          rowSpan: 2,
+          height: 1000,
+        });
+      expect(result[1])
+        .toEqual({
+          group: { text: '3' },
+          rowSpan: 1,
+          height: 500,
+        });
+
+      groupIndex = 3;
+
+      result = getVerticalCellsFromGroups(groups, groupIndex, rowSpan, cellHeight);
+
+      expect(result)
+        .toHaveLength(1);
+      expect(result[0])
+        .toEqual({
+          group: { text: '4' },
+          rowSpan: 1,
+          height: 500,
+        });
     });
   });
 

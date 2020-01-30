@@ -34,7 +34,6 @@ const useStyles = makeStyles(theme => ({
     left: theme.spacing(left / 8),
     lineHeight: 1.5,
     maxHeight: height ? theme.spacing(height - 2) : undefined,
-    // width: '100%',
     whiteSpace: 'pre-wrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -64,8 +63,9 @@ const useStyles = makeStyles(theme => ({
       ? getBrightBorder(theme) : getBorder(theme)),
     borderTop: getBorder(theme),
   },
-  verticalText: {
+  verticalCellText: {
     top: ({ topOffset }) => `${topOffset}px`,
+    width: '100%',
   },
 }));
 
@@ -84,7 +84,6 @@ export const Cell = React.memo(({
   topOffset,
   ...restProps
 }) => {
-  console.log(topOffset)
   const cellHeight = height / 8;
   const classes = useStyles({
     left, endOfGroup, height: cellHeight, rowSpan, textStyle, topOffset,
@@ -104,7 +103,7 @@ export const Cell = React.memo(({
       <div
         className={classNames({
           [classes.text]: true,
-          [classes.verticalText]: groupOrientation === VERTICAL_GROUP_ORIENTATION,
+          [classes.verticalCellText]: groupOrientation === VERTICAL_GROUP_ORIENTATION,
         })}
       >
         {group.text}
@@ -125,6 +124,7 @@ Cell.propTypes = {
   height: PropTypes.number,
   groupOrientation: PropTypes.string,
   textStyle: PropTypes.object,
+  topOffset: PropTypes.number,
   children: PropTypes.node,
 };
 
@@ -137,4 +137,5 @@ Cell.defaultProps = {
   children: null,
   groupedByDate: true,
   textStyle: {},
+  topOffset: undefined,
 };

@@ -55,6 +55,7 @@
     "@babel/preset-react": "^7.7.0",
     "@devexpress/dx-core": "2.4.0",
     "@devexpress/dx-react-core": "2.4.0",
+    "@devexpress/dx-react-grid": "2.4.0",
     "@devexpress/dx-testing": "2.4.0",
     "babel-core": "^7.0.0-bridge.0",
     "core-js": "^3.4.1",

@@ -1,27 +1,26 @@
 import * as React from 'react';
+import * as Excel from 'exceljs/dist/exceljs.min.js';
 import {
   Action, Actions, Plugin, Getter, Template, TemplateConnector, Getters,
 } from '@devexpress/dx-react-core';
 import {
   exportHeader, exportRows, closeGroupGetter, closeSheet, groupOutlineLevels, rowsToExport,
-  buildGroupTree, exportSummaryGetter, maximumGroupLevel, createWorkbook, createWorksheet,
+  buildGroupTree, exportSummaryGetter, maximumGroupLevel,
 } from '@devexpress/dx-grid-core';
-import { IntegratedGrouping } from './integrated-grouping';
-import { GroupingState } from './grouping-state';
-import { SummaryState } from './summary-state';
-import { IntegratedSummary } from './integrated-summary';
-import { Table } from './table';
-import { defaultSummaryMessages } from '../components/summary/table-summary-content';
-import { ExporterProps } from '../types';
-import { SelectionState } from './selection-state';
 import {
-  TableColumnsWithGrouping, TableColumnsWithDataRowsGetter, GridCoreGetters,
-  VisibleTableColumns, OrderedTableColumns,
-} from './internal';
-import { FilteringState } from './filtering-state';
-import { IntegratedFiltering } from './integrated-filtering';
-import { SortingState } from './sorting-state';
-import { IntegratedSorting } from './integrated-sorting';
+  IntegratedGrouping, GroupingState, SummaryState, IntegratedSummary, Table, SelectionState,
+  FilteringState, IntegratedFiltering, SortingState, IntegratedSorting,
+} from '@devexpress/dx-react-grid';
+import {
+  TableColumnsWithGrouping, TableColumnsWithDataRowsGetter,
+  VisibleTableColumns, OrderedTableColumns, GridCoreGetters,
+} from '../../../dx-react-grid/src/plugins/internal';
+
+import { defaultSummaryMessages } from '../../../dx-react-grid/src/components/summary/constants';
+import { ExporterProps } from '../types';
+
+const createWorkbook = () => new Excel.Workbook();
+const createWorksheet = (workbook: Excel.Workbook) => workbook.addWorksheet('Main');
 
 const maxGroupLevelComputed = ({ grouping }: Getters) => maximumGroupLevel(grouping);
 const outlineLevelsComputed = ({ grouping }: Getters) => groupOutlineLevels(grouping);

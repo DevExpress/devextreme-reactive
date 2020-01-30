@@ -2,7 +2,6 @@ import { PureComputed, ReadonlyObject } from '@devexpress/dx-core';
 import { Row, GetRowIdFn, RowId, TableColumn } from '..';
 import { GroupSummaryItem, SummaryType, SummaryItem } from './summary.types';
 import { Grouping } from './grouping.types';
-/** @internal */
 import { Worksheet, Cell } from 'exceljs';
 import { Column, GetCellValueFn, IsSpecificRowFn, GetCollapsedRowsFn } from './grid-core.types';
 

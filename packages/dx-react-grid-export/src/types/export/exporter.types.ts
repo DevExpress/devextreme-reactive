@@ -1,12 +1,10 @@
-import { Workbook, Cell, Worksheet } from 'exceljs';
-import { Row, Column, SummaryItem, GroupSummaryItem, CustomizeSummaryCellFn } from '../index';
-import { GridProps } from '../grid';
-import { GroupingStateProps, TableGroupRowProps, TableGroupRow } from '../grouping';
-import { SelectionStateProps } from '../selection';
-import { TableProps } from '../tables';
-import { FilteringStateProps } from '../filtering';
-import { SortingStateProps } from '../sorting';
-import { TableColumnVisibilityProps } from '../column-operations';
+import { Workbook, Cell as ExcelCell, Worksheet, Row as ExcelRow } from 'exceljs';
+
+import {
+  SortingStateProps, GroupingStateProps, TableGroupRowProps, SelectionStateProps,
+  TableProps, TableColumnVisibilityProps, TableGroupRow, FilteringStateProps,
+  GridProps, SummaryItem, GroupSummaryItem, Column, CustomizeSummaryCellFn
+} from '@devexpress/dx-react-grid/dist/dx-react-grid';
 
 export type ExporterProps =
   Omit<GridProps, 'rootComponent'> &
@@ -16,14 +14,14 @@ export type ExporterProps =
   Pick<TableGroupRowProps, 'showColumnsWhenGrouped'> &
   Pick<SelectionStateProps, 'selection'> &
   Pick<TableProps, 'columnExtensions'> &
-  Pick<TableColumnVisibilityProps, 'hiddenColumnNames'>
-& {
+  Pick<TableColumnVisibilityProps, 'hiddenColumnNames'> & 
+{
   columnOrder?: string[],
   groupColumnExtensions?: TableGroupRow.ColumnExtension[],
   totalSummaryItems?: SummaryItem[],
   groupSummaryItems?: GroupSummaryItem[],
   onSave: (workbook: Workbook) => void;
-  customizeCell?: (cell: Cell, row: Row, column: Column) => void;
+  customizeCell?: (cell: ExcelCell, row: ExcelRow, column: Column) => void;
   customizeSummaryCell?: CustomizeSummaryCellFn;
   customizeHeader?: (worksheet: Worksheet) => void;
   customizeFooter?: (worksheet: Worksheet) => void;

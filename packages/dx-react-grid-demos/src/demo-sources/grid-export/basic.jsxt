@@ -1,5 +1,5 @@
 import React, { useRef, useState, useCallback } from 'react';<%&additionalImports%>
-import { GridExporter } from '@devexpress/dx-react-grid';
+import { GridExporter } from '@devexpress/dx-react-grid-export';
 import {
   Grid,
   Table,

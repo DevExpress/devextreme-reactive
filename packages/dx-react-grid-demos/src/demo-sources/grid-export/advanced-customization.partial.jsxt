@@ -4,11 +4,11 @@ import {
   IntegratedGrouping,
   SummaryState,
   IntegratedSummary,
-  GridExporter,
   SelectionState,
   IntegratedSelection,
   DataTypeProvider,
 } from '@devexpress/dx-react-grid';
+import { GridExporter } from '@devexpress/dx-react-grid-export';
 import {
   Grid,
   Table,

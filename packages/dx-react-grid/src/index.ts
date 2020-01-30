@@ -44,9 +44,7 @@ export * from './plugins/custom-summary';
 export * from './plugins/table-summary-row';
 export * from './plugins/virtual-table/virtual-table-state';
 export * from './plugins/table-inline-cell-editing';
-// export * from './plugins/export';
 export * from './plugins/export-panel';
-export * from './plugins/grid-exporter';
 
 export * from './components/table-layout';
 export * from './components/table-layout/virtual-table-layout';
@@ -54,8 +52,10 @@ export * from './components/table-layout/static-table-layout';
 export * from './components/group-panel-layout';
 
 export * from './plugins/virtual-table/virtual-table';
+// export * from './plugins/internal';
 
 export * from './types/tables/virtual-table.types';
+
 
 export * from './types/utils';
 export * from './utils/row-cache';

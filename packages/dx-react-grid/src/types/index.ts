@@ -6,7 +6,7 @@ export {
   GroupKey, Grouping, GroupingPanelItem, Filter, ColumnFilterOperations,
   Sorting, TargetColumnGeometry, FilterOperation, ColumnChooserItem,
   TableColumnWidthInfo, TableColumnResizing, RowId, GridViewport, GroupSummaryItem,
-  ColumnInlineSummaries, CustomizeSummaryCellFn, ExportSummary,
+  ColumnInlineSummaries,
 } from '../../../dx-grid-core/src/index';
 
 /** @internal */
@@ -31,5 +31,4 @@ export * from './summary';
 export * from './tables';
 export * from './toolbar';
 export * from './tree-data';
-export * from './export';
 export * from './utils';

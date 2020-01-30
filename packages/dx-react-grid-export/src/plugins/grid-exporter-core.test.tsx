@@ -13,20 +13,21 @@ import {
   maximumGroupLevel,
 } from '@devexpress/dx-grid-core';
 import { GridExporterCore } from './grid-exporter-core';
+
+import { GroupingState } from '@devexpress/dx-react-grid/src/plugins/grouping-state';
+import { IntegratedGrouping } from '@devexpress/dx-react-grid/src/plugins/integrated-grouping';
+import { SummaryState } from '@devexpress/dx-react-grid/src/plugins/summary-state';
+import { IntegratedSummary } from '@devexpress/dx-react-grid/src/plugins/integrated-summary';
+import { SelectionState } from '@devexpress/dx-react-grid/src/plugins/selection-state';
+import { defaultSummaryMessages } from '@devexpress/dx-react-grid/src/components/summary/table-summary-content';
+import { FilteringState } from '@devexpress/dx-react-grid/src/plugins/filtering-state';
+import { IntegratedFiltering } from '@devexpress/dx-react-grid/src/plugins/integrated-filtering';
+import { IntegratedSorting } from '@devexpress/dx-react-grid/src/plugins/integrated-sorting';
+import { SortingState } from '@devexpress/dx-react-grid/src/plugins/sorting-state';
 import {
   GridCoreGetters, TableColumnsWithDataRowsGetter, TableColumnsWithGrouping,
   VisibleTableColumns, OrderedTableColumns,
-} from './internal';
-import { GroupingState } from './grouping-state';
-import { IntegratedGrouping } from './integrated-grouping';
-import { SummaryState } from './summary-state';
-import { IntegratedSummary } from './integrated-summary';
-import { SelectionState } from './selection-state';
-import { defaultSummaryMessages } from '../components/summary/table-summary-content';
-import { FilteringState } from './filtering-state';
-import { IntegratedFiltering } from './integrated-filtering';
-import { IntegratedSorting } from './integrated-sorting';
-import { SortingState } from './sorting-state';
+} from '@devexpress/dx-react-grid/src/plugins/internal';
 
 jest.mock('./internal', () => ({
   GridCoreGetters: () => null,

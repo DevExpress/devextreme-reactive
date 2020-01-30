@@ -1,5 +1,5 @@
 /* tslint:disable */
-import * as Excel from 'exceljs/dist/exceljs.min.js';
+import * as Excel from 'exceljs';
 /* tslint:enable */
 import { PureComputed } from '@devexpress/dx-core';
 import {
@@ -126,9 +126,6 @@ export const exportSummaryItems: ExportSummaryItemsFn = (
     exportSummary(s, ranges);
   });
 };
-
-export const createWorkbook = () => new Excel.Workbook();
-export const createWorksheet = (workbook: Excel.Workbook) => workbook.addWorksheet('Main');
 
 export const removeEmptyGroups: RemoveEmptyGroupsFn = (rows, grouping, isGroupRow) => {
   if (!grouping) return rows;

@@ -33,6 +33,7 @@
     "@devexpress/dx-react-chart-material-ui": "2.4.0",
     "@devexpress/dx-react-core": "2.4.0",
     "@devexpress/dx-react-grid": "2.4.0",
+    "@devexpress/dx-react-grid-export": "2.4.0",
     "@devexpress/dx-react-grid-bootstrap3": "2.4.0",
     "@devexpress/dx-react-grid-bootstrap4": "2.4.0",
     "@devexpress/dx-react-grid-material-ui": "2.4.0",

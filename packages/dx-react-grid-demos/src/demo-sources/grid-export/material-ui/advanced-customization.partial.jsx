@@ -37,7 +37,6 @@ const useCellStyles = makeStyles({
 });
 
 const Cell = (props) => {
-  console.log(props)
   const classes = useCellStyles(props);
   return (
     <Table.Cell {...props} className={classes.cell} />

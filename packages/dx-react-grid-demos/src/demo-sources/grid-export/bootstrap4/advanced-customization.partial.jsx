@@ -29,7 +29,6 @@ const GroupCellContainer = ({ style, ...restProps }) => (
 
 const Cell = ({ style, ...restProps }) => {
   const { row, column } = restProps;
-  console.log(getCellStyle(row, column))
   return (
     <Table.Cell
       style={{ ...style, ...getCellStyle(row, column) }}

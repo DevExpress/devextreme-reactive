@@ -71,7 +71,7 @@ const styles = theme => ({
       borderRight: 'none',
     },
   },
-  verticallyGroupedCell: {
+  bottomBorderCell: {
     borderBottom: getBrightBorder(theme),
   },
 });
@@ -102,7 +102,7 @@ const CellBase = React.memo(({
         [classes.shadedCell]: isShaded,
         [classes.rightBorderCell]: (endOfGroup || hasRightBorder)
           && groupOrientation === HORIZONTAL_GROUP_ORIENTATION,
-        [classes.verticallyGroupedCell]: endOfGroup
+        [classes.bottomBorderCell]: endOfGroup
           && groupOrientation === VERTICAL_GROUP_ORIENTATION,
       }, className)}
       {...restProps}

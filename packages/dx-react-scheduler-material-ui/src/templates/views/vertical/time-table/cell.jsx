@@ -60,7 +60,7 @@ const useStyles = makeStyles(theme => ({
       borderRight: 'none',
     },
   },
-  verticallyGroupedCell: {
+  bottomBorderCell: {
     borderBottom: getBrightBorder(theme),
   },
 }));
@@ -75,9 +75,9 @@ export const Cell = ({
   isShaded,
   endOfGroup,
   groupingInfo,
+  groupOrientation,
   // @deprecated
   hasRightBorder,
-  groupOrientation,
   ...restProps
 }) => {
   const classes = useStyles({ shadedHeight: currentTimeIndicatorPosition });
@@ -90,7 +90,7 @@ export const Cell = ({
         [classes.shadedCell]: isShaded && !isNow,
         [classes.rightBorderCell]: (endOfGroup || hasRightBorder)
           && groupOrientation === HORIZONTAL_GROUP_ORIENTATION,
-        [classes.verticallyGroupedCell]: endOfGroup
+        [classes.bottomBorderCell]: endOfGroup
           && groupOrientation === VERTICAL_GROUP_ORIENTATION,
       }, className)}
       {...restProps}

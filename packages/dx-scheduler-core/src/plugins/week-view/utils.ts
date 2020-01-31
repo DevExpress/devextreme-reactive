@@ -1,10 +1,11 @@
 import { PureComputed } from '@devexpress/dx-core';
 import { HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 import { ViewCell, Group, GroupOrientation, TimeScaleLabelData } from '../../types';
+import { getCellKey } from '../grouping-panel/utils';
 
 const getLabelsForSingleGroup: PureComputed<
-  [ViewCell[][], number, number], TimeScaleLabelData[]
-> = (cellsData, groupIndex, groupHeight) => {
+  [Group[][], ViewCell[][], number, number], TimeScaleLabelData[]
+> = (groups, cellsData, groupIndex, groupHeight) => {
   const currentGroupIndex = groupIndex * groupHeight;
   const nextGroupIndex = currentGroupIndex + groupHeight;
 
@@ -15,7 +16,7 @@ const getLabelsForSingleGroup: PureComputed<
     {
       startDate: days[0].startDate,
       endDate: days[0].endDate,
-      key: days[0].endDate,
+      key: days[0].endDate + getCellKey(groups, groupIndex, groups.length - 1),
       groupingInfo: days[0].groupingInfo,
     },
   ])), [] as TimeScaleLabelData[]);
@@ -40,6 +41,8 @@ export const getLabelsForAllGroups: PureComputed<
     acc: TimeScaleLabelData[][], group: Group, groupIndex: number,
   ) => [
     ...acc,
-    getLabelsForSingleGroup(cellsData, groupIndex, singleGroupHeight) as TimeScaleLabelData[],
+    getLabelsForSingleGroup(
+      groups, cellsData, groupIndex, singleGroupHeight,
+    ) as TimeScaleLabelData[],
   ], [] as TimeScaleLabelData[][]);
 };

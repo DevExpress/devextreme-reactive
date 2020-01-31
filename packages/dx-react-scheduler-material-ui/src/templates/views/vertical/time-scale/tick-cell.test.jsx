@@ -28,5 +28,13 @@ describe('Vertical view TimeScale', () => {
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
     });
+    it('should render label with bright borderBottom if it is the last in group', () => {
+      const tree = shallow((
+        <TickCell endOfGroup />
+      ));
+
+      expect(tree.is(`.${classes.brightBottomBorder}`))
+        .toBeTruthy();
+    });
   });
 });

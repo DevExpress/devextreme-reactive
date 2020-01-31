@@ -17,7 +17,6 @@ const styles = theme => ({
     textAlign: 'right',
     paddingLeft: theme.spacing(0.25),
     paddingRight: theme.spacing(1),
-    // display: 'table-cell',
   },
   text: {
     ...theme.typography.caption,

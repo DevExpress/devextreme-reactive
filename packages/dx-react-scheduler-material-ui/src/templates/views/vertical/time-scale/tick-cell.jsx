@@ -15,7 +15,7 @@ const styles = theme => ({
       borderBottom: 'none',
     },
   },
-  lastInGroup: {
+  brightBottomBorder: {
     borderBottom: getBrightBorder(theme),
   },
 });
@@ -31,7 +31,7 @@ const TickCellBase = React.memo(({
   <TableCell
     className={classNames({
       [classes.cell]: true,
-      [classes.lastInGroup]: endOfGroup,
+      [classes.brightBottomBorder]: endOfGroup,
     }, className)}
     {...restProps}
   />

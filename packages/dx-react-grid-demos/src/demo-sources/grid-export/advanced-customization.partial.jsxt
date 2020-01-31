@@ -82,7 +82,7 @@ const customizeCell = (cell, row, column) => {
   }
 };
 
-const customizeSummaryCell = (cell /* col, summary */) => {
+const customizeSummaryCell = (cell) => {
   cell.font = { italic: true };
 };
 

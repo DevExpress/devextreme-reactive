@@ -2,7 +2,7 @@ import React, { useRef, useState, useCallback } from 'react';<%&additionalImport
 import { GridExporter } from '@devexpress/dx-react-grid-export';
 import {
   Grid,
-  Table,
+  VirtualTable,
   TableHeaderRow,
   Toolbar,
   ExportPanel,
@@ -37,7 +37,7 @@ export default () => {
         rows={rows}
         columns={columns}
       >
-        <Table />
+        <VirtualTable />
         <TableHeaderRow />
         <Toolbar />
         <ExportPanel startExport={startExport} />

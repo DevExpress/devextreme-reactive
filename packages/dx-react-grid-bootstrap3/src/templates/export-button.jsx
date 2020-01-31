@@ -7,7 +7,7 @@ export const ExportButton = ({
 }) => (
   <button
     type="button"
-    className={classNames('btn', 'btn-link', className)}
+    className={classNames('btn btn-link', className)}
     onClick={onClick}
     {...restProps}
   >

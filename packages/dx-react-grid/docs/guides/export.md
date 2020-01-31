@@ -15,7 +15,7 @@ Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
 ## Basic Setup
 
-1. Import GridExporter
+#### 1. Import GridExporter
 
 Import the [GridExporter](../reference/grid-exporter.md) component and place it outside the Grid. Specify the `ref` property and add the `columns` and `rows` properties to the GridExporter.
 
@@ -32,11 +32,11 @@ const exporterRef = useRef();
 />
 ```
 
-2. Import ExportPanel
+#### 2. Import ExportPanel
 
 Import the [ExportPanel](../reference/export-panel.md) plugin and add it to your Grid.
 
-3. Initiate export
+#### 3. Initiate export
 
 Call the GridExporter's `exportGrid` method using a ref from the first step. This method can be called in the `ExportPanel`'s `startExport` callback or anywhere else in your code.
 
@@ -44,7 +44,7 @@ Call the GridExporter's `exportGrid` method using a ref from the first step. Thi
 exporterRef.current.exportGrid();
 ```
 
-4. File saving
+#### 4. Save File
 
 The `GridExporter` component provides the `onSave` callback that allows you to handle file saving. The recommended approach is to use the `file-saver` package as shown below.
 

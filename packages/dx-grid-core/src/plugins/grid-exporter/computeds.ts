@@ -1,6 +1,6 @@
 import {
   OutlineLevelsFn, FilterSelectedRowsFn, GetRowsToExportFn, Row, BuildGroupTreeFn,
-  GetExportSummaryFn, GetCloseGroupFn, Grouping,
+  GetExportSummaryFn, GetCloseGroupFn, Grouping, RowId,
 } from '../../types';
 import { PureComputed } from '@devexpress/dx-core';
 import { ROOT_GROUP } from './constants';
@@ -15,7 +15,7 @@ export const groupOutlineLevels: OutlineLevelsFn = grouping => (
 );
 
 const filterSelectedRows: FilterSelectedRowsFn = (rows, selection, getRowId, isGroupRow) => {
-  const selectionSet = new Set<any>(selection);
+  const selectionSet = new Set<RowId>(selection);
   return rows.filter(row => (
     isGroupRow && isGroupRow(row)) || selectionSet.has(getRowId(row)),
   );
@@ -32,11 +32,12 @@ export const rowsToExport: GetRowsToExportFn = (
 
   const expandedRows = getCollapsedRows ? expandRows(rows) : rows;
 
-  if (!!selection) {
-    const filteredRows = filterSelectedRows(expandedRows, selection, getRowId, isGroupRow);
-    return removeEmptyGroups(filteredRows, grouping, isGroupRow);
+  if (!selection) {
+    return expandedRows;
   }
-  return expandedRows;
+
+  const filteredRows = filterSelectedRows(expandedRows, selection, getRowId, isGroupRow);
+  return removeEmptyGroups(filteredRows, grouping, isGroupRow);
 };
 
 export const buildGroupTree: BuildGroupTreeFn = (
@@ -44,7 +45,7 @@ export const buildGroupTree: BuildGroupTreeFn = (
 ) => {
   const groupTree = { [ROOT_GROUP]: [] as any[] };
 
-  if (!(grouping && grouping.length)) {
+  if (!grouping?.length) {
     groupTree[ROOT_GROUP] = [0, rows.length - 1];
     return groupTree;
   }

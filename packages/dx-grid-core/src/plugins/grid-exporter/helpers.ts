@@ -1,6 +1,5 @@
-/* tslint:disable */
+// tslint:disable-next-line: no-submodule-imports
 import * as Excel from 'exceljs';
-/* tslint:enable */
 import { PureComputed } from '@devexpress/dx-core';
 import {
   TableColumn, FindRangesFn, ExportRowsFn,
@@ -8,18 +7,13 @@ import {
   ExportSummaryItemsFn,
   RemoveEmptyGroupsFn,
 } from '../../types';
-import { ROOT_GROUP } from './constants';
-
-const DEFAULT_COLUMN_WIDTH = 150;
+import { ROOT_GROUP, DEFAULT_COLUMN_WIDTH } from './constants';
 
 export const exportHeader = (worksheet: Excel.Worksheet, columns: TableColumn[]) => {
   const cols = columns
     .map(({ column, width }) => ({
-      ...column!,
       width: (width as number || DEFAULT_COLUMN_WIDTH) / 8,
-    }))
-    .map(({ name, width }) => ({
-      key: name, width,
+      key: column?.name,
     }));
   worksheet.columns = cols;
 

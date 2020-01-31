@@ -33,6 +33,7 @@ const knownGlobals = {
   'd3-scale': 'd3Scale',
   'd3-shape': 'd3Shape',
   exceljs: 'ExcelJS',
+  'exceljs/dist/exceljs.min.js': 'ExcelJS',
 };
 
 export const globals = () => {

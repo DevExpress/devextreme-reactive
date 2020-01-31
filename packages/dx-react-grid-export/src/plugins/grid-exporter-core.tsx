@@ -1,6 +1,5 @@
 import * as React from 'react';
-/* tslint:disable no-submodule-imports */
-import * as Excel from 'exceljs/dist/exceljs.min.js';
+
 import {
   Action, Actions, Plugin, Getter, Template, TemplateConnector, Getters,
 } from '@devexpress/dx-react-core';
@@ -12,17 +11,18 @@ import {
   IntegratedGrouping, GroupingState, SummaryState, IntegratedSummary, Table, SelectionState,
   FilteringState, IntegratedFiltering, SortingState, IntegratedSorting,
 } from '@devexpress/dx-react-grid';
+
+/* tslint:disable no-submodule-imports */
 import {
   TableColumnsWithGrouping, TableColumnsWithDataRowsGetter,
   VisibleTableColumns, OrderedTableColumns, GridCoreGetters,
 } from '../../../dx-react-grid/src/plugins/internal';
-
-import { defaultSummaryMessages } from '../../../dx-react-grid/src/components/summary/constants';
+import {
+  defaultSummaryMessages,
+} from '../../../dx-react-grid/src/components/summary/constants';
 /* tslint:enable no-submodule-imports */
+import { createWorkbook, createWorksheet } from './helpers';
 import { ExporterProps } from '../types';
-
-const createWorkbook = () => new Excel.Workbook();
-const createWorksheet = (workbook: Excel.Workbook) => workbook.addWorksheet('Main');
 
 const maxGroupLevelComputed = ({ grouping }: Getters) => maximumGroupLevel(grouping);
 const outlineLevelsComputed = ({ grouping }: Getters) => groupOutlineLevels(grouping);

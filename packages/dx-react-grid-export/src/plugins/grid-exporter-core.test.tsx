@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { pluginDepsToComponents, getComputedState, setupConsole } from '@devexpress/dx-testing';
+import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   closeGroupGetter,
@@ -8,30 +8,36 @@ import {
   buildGroupTree,
   groupOutlineLevels,
   exportSummaryGetter,
-  createWorkbook,
-  createWorksheet,
   maximumGroupLevel,
 } from '@devexpress/dx-grid-core';
-import { GridExporterCore } from './grid-exporter-core';
+import {
+  GridExporterCore,
+} from './grid-exporter-core';
+import {
+  createWorkbook,
+  createWorksheet,
+} from './helpers';
 
 /* tslint:disable no-submodule-imports */
-import { GroupingState } from '@devexpress/dx-react-grid/src/plugins/grouping-state';
-import { IntegratedGrouping } from '@devexpress/dx-react-grid/src/plugins/integrated-grouping';
-import { SummaryState } from '@devexpress/dx-react-grid/src/plugins/summary-state';
-import { IntegratedSummary } from '@devexpress/dx-react-grid/src/plugins/integrated-summary';
-import { SelectionState } from '@devexpress/dx-react-grid/src/plugins/selection-state';
-import { defaultSummaryMessages } from '@devexpress/dx-react-grid/src/components/summary/table-summary-content';
-import { FilteringState } from '@devexpress/dx-react-grid/src/plugins/filtering-state';
-import { IntegratedFiltering } from '@devexpress/dx-react-grid/src/plugins/integrated-filtering';
-import { IntegratedSorting } from '@devexpress/dx-react-grid/src/plugins/integrated-sorting';
-import { SortingState } from '@devexpress/dx-react-grid/src/plugins/sorting-state';
+import {
+  GroupingState,
+  IntegratedGrouping,
+  SummaryState,
+  IntegratedSummary,
+  SelectionState,
+  FilteringState,
+  IntegratedFiltering,
+  IntegratedSorting,
+  SortingState,
+} from '@devexpress/dx-react-grid';
+import { defaultSummaryMessages } from '@devexpress/dx-react-grid/src/components/summary/constants';
 import {
   GridCoreGetters, TableColumnsWithDataRowsGetter, TableColumnsWithGrouping,
   VisibleTableColumns, OrderedTableColumns,
 } from '@devexpress/dx-react-grid/src/plugins/internal';
 /* tslint:enable no-submodule-imports */
 
-jest.mock('./internal', () => ({
+jest.mock('@devexpress/dx-react-grid/src/plugins/internal', () => ({
   GridCoreGetters: () => null,
   TableColumnsWithGrouping: () => null,
   TableColumnsWithDataRowsGetter: () => null,
@@ -54,13 +60,16 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   exportRows: jest.fn(),
   exportSummaryGetter: jest.fn(),
   prepareGroupSummaryItems: jest.fn(),
-  createWorkbook: jest.fn(),
-  createWorksheet: jest.fn(),
   unwrappedFilteredRows: jest.fn(),
   filteredCollapsedRowsGetter: jest.fn(),
   filterExpression: jest.fn(),
   filteredRows: jest.fn(),
   sortedRows: jest.fn(),
+}));
+
+jest.mock('./helpers', () => ({
+  createWorkbook: jest.fn(),
+  createWorksheet: jest.fn(),
 }));
 
 const defaultProps = {

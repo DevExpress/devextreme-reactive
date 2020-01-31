@@ -829,6 +829,7 @@ export interface VirtualTableProps {
   noDataCellComponent?: React.ComponentType<Table_2.NoDataCellProps>;
   noDataRowComponent?: React.ComponentType<Table_2.RowProps>;
   onTopRowChange?: (rowId: number | string) => void;
+  ref?: React.RefObject<typeof VirtualTable>;
   rowComponent?: React.ComponentType<Table_2.DataRowProps>;
   stubCellComponent?: React.ComponentType<Table_2.CellProps>;
   stubHeaderCellComponent?: React.ComponentType<Table_2.CellProps>;

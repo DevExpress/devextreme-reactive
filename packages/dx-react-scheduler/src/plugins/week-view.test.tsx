@@ -8,6 +8,7 @@ import { BasicView } from './basic-view';
 
 // tslint:disable: max-line-length
 jest.mock('@devexpress/dx-scheduler-core', () => ({
+  ...require.requireActual('@devexpress/dx-scheduler-core'),
   viewCellsData: jest.fn(),
   computed: jest.fn(),
   startViewDate: jest.fn(),
@@ -84,11 +85,11 @@ describe('Week View', () => {
           timeTableRowComponent: defaultProps.timeTableRowComponent,
           timeTableCellComponent: defaultProps.timeTableCellComponent,
           appointmentLayerComponent: defaultProps.appointmentLayerComponent,
+          dayScaleEmptyCellComponent: defaultProps.dayScaleEmptyCellComponent,
         });
       expect(tree.find(BasicView).props().layoutProps)
         .toMatchObject({
           timeScaleComponent: expect.any(Function),
-          dayScaleEmptyCellComponent: expect.any(Function),
         });
 
       tree.find(BasicView).props().viewCellsDataComputed(
@@ -126,20 +127,6 @@ describe('Week View', () => {
           cellsData: getComputedState(tree).viewCellsData,
           formatDate: defaultDeps.getter.formatDate,
         });
-    });
-    it('should render dayScaleEmptyCell', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <WeekView
-            {...defaultProps}
-            dayScaleEmptyCellComponent={() => <div className="empty-cell" />}
-          />
-        </PluginHost>
-      ));
-
-      expect(tree.find('.empty-cell').exists())
-        .toBeTruthy();
     });
   });
 });

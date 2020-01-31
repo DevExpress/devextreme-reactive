@@ -9,6 +9,7 @@ import {
   getHorizontalRectByAppointmentData, getAppointmentStyle,
   isAllDayElementsMetaActual, isTimeTableElementsMetaActual,
 } from '@devexpress/dx-scheduler-core';
+import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core/src';
 
 // eslint-disable-next-line react/prop-types
 const Appointment = ({ children }) => <div>{children}</div>;
@@ -286,7 +287,8 @@ describe('Appointments', () => {
         viewCellsData: defaultDeps.getter.viewCellsData,
         cellElementsMeta: defaultDeps.getter.timeTableElementsMeta,
       },
-      'groupByDate',
+      HORIZONTAL_GROUP_ORIENTATION,
+      'groupByDate', 1,
       );
   });
   it('should render "timeTableAppointmentLayer" template when currentView is "month"', () => {
@@ -324,7 +326,8 @@ describe('Appointments', () => {
         viewCellsData: defaultDeps.getter.viewCellsData,
         cellElementsMeta: defaultDeps.getter.timeTableElementsMeta,
       },
-      'groupByDate',
+      HORIZONTAL_GROUP_ORIENTATION,
+      'groupByDate', 1,
       );
   });
   it('should render "allDayAppointmentLayer" template when currentView is not "month"', () => {
@@ -366,7 +369,100 @@ describe('Appointments', () => {
         viewCellsData: defaultDeps.getter.viewCellsData,
         cellElementsMeta: defaultDeps.getter.timeTableElementsMeta,
       },
-      'groupByDate',
+      HORIZONTAL_GROUP_ORIENTATION,
+      'groupByDate', 1,
+      );
+  });
+  it('should render "timeTableAppointmentLayer" when appointments are grouped vertically', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents({
+          ...defaultDeps,
+          getter: {
+            ...defaultDeps.getter,
+            groupOrientation: () => VERTICAL_GROUP_ORIENTATION,
+            groups: [[{ id: 1 }, { id: 2 }]],
+          },
+        })}
+        <Appointments
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    const timeTableAppointmentsLayer = tree.findWhere(
+      node => node.prop('name') === 'timeTableAppointmentLayer',
+    ).at(0);
+
+    expect(timeTableAppointmentsLayer.exists())
+      .toBeTruthy();
+    expect(isTimeTableElementsMetaActual)
+      .toHaveBeenCalledWith(defaultDeps.getter.timeTableElementsMeta);
+    expect(calculateRectByDateAndGroupIntervals)
+      .toHaveBeenCalledWith({
+        growDirection: 'vertical', multiline: false,
+      },
+        defaultDeps.getter.timeTableAppointments,
+        getVerticalRectByAppointmentData,
+      {
+        startViewDate: defaultDeps.getter.startViewDate,
+        endViewDate: defaultDeps.getter.endViewDate,
+        cellDuration: defaultDeps.getter.cellDuration,
+        viewCellsData: defaultDeps.getter.viewCellsData,
+        cellElementsMeta: defaultDeps.getter.timeTableElementsMeta,
+      },
+      VERTICAL_GROUP_ORIENTATION,
+      'groupByDate', 2,
+      );
+  });
+  it('should render "allDayAppointmentLayer" template when currentView is not "month"', () => {
+    const deps = {
+      ...defaultDeps,
+      template: {
+        allDayAppointmentLayer: {},
+      },
+    };
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents({
+          ...deps,
+          getter: {
+            ...deps.getter,
+            groupOrientation: () => VERTICAL_GROUP_ORIENTATION,
+            groups: [[{ id: 1 }, { id: 2 }]],
+          },
+        })}
+        <Appointments
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    const allDayAppointmentLayer = tree.findWhere(
+      node => node.prop('name') === 'allDayAppointmentLayer',
+    ).at(0);
+
+    expect(allDayAppointmentLayer.exists())
+      .toBeTruthy();
+    expect(isAllDayElementsMetaActual)
+      .toHaveBeenCalledWith(
+        defaultDeps.getter.viewCellsData,
+        defaultDeps.getter.allDayAppointments,
+      );
+    expect(calculateRectByDateAndGroupIntervals)
+      .toHaveBeenCalledWith({
+        growDirection: 'horizontal', multiline: false,
+      },
+        defaultDeps.getter.allDayAppointments,
+        getHorizontalRectByAppointmentData,
+      {
+        startViewDate: defaultDeps.getter.startViewDate,
+        endViewDate: defaultDeps.getter.endViewDate,
+        viewCellsData: defaultDeps.getter.viewCellsData,
+        cellElementsMeta: defaultDeps.getter.timeTableElementsMeta,
+      },
+      VERTICAL_GROUP_ORIENTATION,
+      'groupByDate', 2,
       );
   });
 });

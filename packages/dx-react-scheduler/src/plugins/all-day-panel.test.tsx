@@ -10,6 +10,7 @@ import {
 import { AllDayPanel } from './all-day-panel';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
+  ...require.requireActual('@devexpress/dx-scheduler-core'),
   allDayCells: jest.fn(),
   getAppointmentStyle: jest.fn(),
   calculateAllDayDateIntervals: jest.fn(),

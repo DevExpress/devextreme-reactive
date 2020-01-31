@@ -13,6 +13,7 @@ import {
   getAppointmentStyle,
   autoScroll,
   calculateDraftAppointments,
+  HORIZONTAL_GROUP_ORIENTATION,
 } from '@devexpress/dx-scheduler-core';
 import { DragDropProvider } from './drag-drop-provider';
 
@@ -521,6 +522,7 @@ describe('DragDropProvider', () => {
           'vertical', 60,
           deps.getter.timeTableElementsMeta,
           'grouping', 'resources', 'groups', true,
+          HORIZONTAL_GROUP_ORIENTATION,
         );
     });
   });

@@ -355,5 +355,20 @@ describe('Basic View', () => {
       expect(tree.find(customAppointmentLayer).exists())
         .toBeTruthy();
     });
+    it('should render day scale empty cell', () => {
+      const customEmptyCell = () => null;
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <BasicView
+            {...defaultProps}
+            dayScaleEmptyCellComponent={customEmptyCell}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find(customEmptyCell).exists())
+        .toBeTruthy();
+    });
   });
 });

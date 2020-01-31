@@ -1,5 +1,5 @@
 import { PureComputed } from '@devexpress/dx-core';
-import { Group } from '../../types';
+import { Group, GroupingCellData } from '../../types';
 
 export const getCellKey: PureComputed<
   [Group[][], number, number], string
@@ -14,4 +14,26 @@ export const getCellKey: PureComputed<
     }
     return acc.concat(currentKey);
   }, '' as string);
+};
+
+export const getRowFromGroups: PureComputed<
+  [number, Group[], any, Group[][], number], GroupingCellData[]
+> = (width, groupRow, cellStyle, groups, rowIndex) => {
+  let row = [] as any[];
+  const currentRowLength = groupRow.length;
+  const standardWidth = width / groups[groups.length - 1].length;
+  const colSpan = groups[groups.length - 1].length / currentRowLength;
+  for (let i = 0; i < standardWidth; i += 1) {
+    row = [...row, ...groupRow.reduce((acc, group, index) => [
+      ...acc,
+      {
+        group,
+        colSpan,
+        key: getCellKey(groups, index, rowIndex) + i,
+        left: cellStyle.left,
+        endOfGroup: index === currentRowLength - 1,
+      },
+    ], [] as any[])];
+  }
+  return row;
 };

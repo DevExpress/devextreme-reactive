@@ -19,13 +19,14 @@ export const Layout = React.memo(({
     {cellsData.map((days, index) => (
       <Row key={index.toString()}>
         {days.map(({
-          startDate, endDate, hasRightBorder, groupingInfo,
+          startDate, endDate, endOfGroup, groupingInfo,
         }) => (
           <Cell
             key={getViewCellKey(startDate, groupingInfo)}
             startDate={startDate}
             endDate={endDate}
-            hasRightBorder={hasRightBorder}
+            endOfGroup={endOfGroup}
+            hasRightBorder={endOfGroup}
             groupingInfo={groupingInfo}
           />
         ))}

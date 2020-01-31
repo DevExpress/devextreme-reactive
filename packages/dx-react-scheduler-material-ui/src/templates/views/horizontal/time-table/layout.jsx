@@ -21,7 +21,7 @@ export const Layout = React.memo(({
       <Row key={row[0].startDate.toString()}>
         {row.map(({
           startDate, endDate, today,
-          otherMonth, hasRightBorder, groupingInfo,
+          otherMonth, endOfGroup, groupingInfo,
         }) => (
           <Cell
             key={getViewCellKey(startDate, groupingInfo)}
@@ -30,7 +30,8 @@ export const Layout = React.memo(({
             today={today}
             otherMonth={otherMonth}
             formatDate={formatDate}
-            hasRightBorder={hasRightBorder}
+            endOfGroup={endOfGroup}
+            hasRightBorder={endOfGroup}
             groupingInfo={groupingInfo}
           />
         ))}

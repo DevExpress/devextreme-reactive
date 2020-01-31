@@ -30,6 +30,7 @@ const styles = theme => ({
     ...theme.typography.caption,
     margin: 0,
     color: theme.palette.text.secondary,
+    lineHeight: 1.17,
   },
   dayOfMonth: {
     ...theme.typography.h4,
@@ -37,12 +38,14 @@ const styles = theme => ({
       ...theme.typography.h6,
     },
     color: theme.palette.text.secondary,
-    lineHeight: 1.5,
+    lineHeight: 1.2,
+    fontSize: '1.8rem',
+    paddingBottom: theme.spacing(0.625),
   },
   today: {
-    width: '1.5em',
-    height: '1.5em',
-    lineHeight: 1.5,
+    width: '1.2em',
+    height: '1.2em',
+    lineHeight: 1.2,
     textAlign: 'center',
     borderRadius: '50%',
     background: theme.palette.primary.main,
@@ -81,14 +84,16 @@ const CellBase = React.memo(({
   endDate,
   today,
   formatDate,
-  hasRightBorder,
+  endOfGroup,
   groupingInfo,
+  // @deprecated
+  hasRightBorder,
   ...restProps
 }) => (
   <TableCell
     className={classNames({
       [classes.cell]: true,
-      [classes.rightBorderCell]: hasRightBorder,
+      [classes.rightBorderCell]: endOfGroup || hasRightBorder,
     }, className)}
     {...restProps}
   >
@@ -120,6 +125,7 @@ CellBase.propTypes = {
   endDate: PropTypes.instanceOf(Date),
   className: PropTypes.string,
   today: PropTypes.bool,
+  endOfGroup: PropTypes.bool,
   hasRightBorder: PropTypes.bool,
   groupingInfo: PropTypes.arrayOf(PropTypes.object),
 };
@@ -128,6 +134,7 @@ CellBase.defaultProps = {
   className: undefined,
   endDate: undefined,
   today: false,
+  endOfGroup: false,
   hasRightBorder: false,
   groupingInfo: undefined,
 };

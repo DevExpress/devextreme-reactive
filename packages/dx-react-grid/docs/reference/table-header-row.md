@@ -55,19 +55,12 @@ Extends [Table.CellProps](table.md#tablecellprops)
 Field | Type | Description
 ------|------|------------
 column | [Column](grid.md#column) | A column object associated with the header cell.
-showGroupingControls | boolean | **@deprecated** <br/> Specifies whether to display a button that groups data by the column.
-groupingEnabled | boolean | **@deprecated** <br/> Specifies whether grouping by the column is enabled.
-onGroup | () => void | **@deprecated** <br/> An event that invokes grouping by the column.
 resizingEnabled | boolean | Specifies whether the column's resizing is enabled.
 onWidthChange | (parameters: { shift: number }) => void | An event that initiates the column width change. The initial column width increases by the `shift` value or decreases if `shift` is negative.
 onWidthDraft | (parameters: { shift: number }) => void | An event that changes the column width used for preview. The initial column width increases by the `shift` value or decreases if `shift` is less than zero.
 onWidthDraftCancel | () => void | An event that cancels the column width change used for preview.
 draggingEnabled | boolean | Specifies whether drag-and-drop is enabled.
 children | ReactNode | The header cell's children.
-showSortingControls | boolean | **@deprecated** <br/> Specifies whether to render controls that toggle the column's sorting state.
-sortingEnabled | boolean | **@deprecated** <br/> Specifies whether sorting by the column is enabled.
-sortingDirection? | 'asc' &#124; 'desc' | **@deprecated** <br/> Specifies the column's sorting direction.
-onSort | (parameters: { direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean }) => void | **@deprecated** <br/> An event that invokes a sorting direction change. Keeps the current sorting state if `keepOther` is set to true. Cancels sorting by the current column if `direction` is set to null.
 
 ### TableHeaderRow.SortLabelProps
 

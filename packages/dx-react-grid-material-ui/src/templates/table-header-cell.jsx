@@ -129,9 +129,6 @@ class TableHeaderCellBase extends React.PureComponent {
       draggingEnabled, resizingEnabled,
       onWidthChange, onWidthDraft, onWidthDraftCancel, getCellWidth,
       classes, tableRow, className, children,
-      // @deprecated
-      showGroupingControls, onGroup, groupingEnabled,
-      showSortingControls, sortingDirection, sortingEnabled, onSort, before,
       ...restProps
     } = this.props;
 
@@ -187,13 +184,6 @@ TableHeaderCellBase.propTypes = {
   tableRow: PropTypes.object,
   column: PropTypes.object,
   style: PropTypes.object,
-  showSortingControls: PropTypes.bool,
-  sortingEnabled: PropTypes.bool,
-  sortingDirection: PropTypes.oneOf(['asc', 'desc', null]),
-  onSort: PropTypes.func,
-  showGroupingControls: PropTypes.bool,
-  groupingEnabled: PropTypes.bool,
-  onGroup: PropTypes.func,
   draggingEnabled: PropTypes.bool,
   resizingEnabled: PropTypes.bool,
   onWidthChange: PropTypes.func,
@@ -202,7 +192,6 @@ TableHeaderCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   children: PropTypes.node,
-  before: PropTypes.node,
   getCellWidth: PropTypes.func,
 };
 
@@ -211,13 +200,6 @@ TableHeaderCellBase.defaultProps = {
   tableColumn: undefined,
   tableRow: undefined,
   style: null,
-  showSortingControls: false,
-  sortingDirection: undefined,
-  sortingEnabled: false,
-  onSort: undefined,
-  showGroupingControls: false,
-  groupingEnabled: false,
-  onGroup: undefined,
   draggingEnabled: false,
   resizingEnabled: false,
   onWidthChange: undefined,
@@ -225,7 +207,6 @@ TableHeaderCellBase.defaultProps = {
   onWidthDraftCancel: undefined,
   className: undefined,
   children: undefined,
-  before: undefined,
   getCellWidth: () => {},
 };
 

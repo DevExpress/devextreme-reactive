@@ -38,15 +38,17 @@ const CellBase = ({
   children,
   startDate,
   endDate,
-  hasRightBorder,
+  endOfGroup,
   groupingInfo,
+  // @deprecated
+  hasRightBorder,
   ...restProps
 }) => (
   <TableCell
     tabIndex={0}
     className={classNames({
       [classes.cell]: true,
-      [classes.rightBorderCell]: hasRightBorder,
+      [classes.rightBorderCell]: endOfGroup || hasRightBorder,
     }, className)}
     {...restProps}
   >
@@ -61,6 +63,7 @@ CellBase.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   hasRightBorder: PropTypes.bool,
+  endOfGroup: PropTypes.bool,
   groupingInfo: PropTypes.arrayOf(PropTypes.object),
 };
 
@@ -70,6 +73,7 @@ CellBase.defaultProps = {
   endDate: undefined,
   className: undefined,
   hasRightBorder: false,
+  endOfGroup: false,
   groupingInfo: undefined,
 };
 

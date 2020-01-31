@@ -60,3 +60,24 @@ export const sliceAppointmentsByBoundaries: SliceAppointmentsByBoundariesFn = (
   }
   return [{ ...appointment, start: nextStart, end: nextEnd }];
 };
+
+export const sliceAppointmentsByDays: PureComputed<
+  [AppointmentMoment, number[]], AppointmentMoment[]
+> = (appointment, excludedDays = []) => {
+  const startDate = appointment.start;
+  const endDate = appointment.end;
+  let nextStart = startDate.clone();
+  const appointments = [] as AppointmentMoment[];
+
+  while (nextStart.isBefore(endDate)) {
+    if (excludedDays.findIndex(day => day === nextStart.day()) === - 1) {
+      appointments.push({
+        ...appointment,
+        start: nextStart,
+        end: moment(nextStart).endOf('day'),
+      });
+    }
+    nextStart = moment(nextStart).add(1, 'day');
+  }
+  return appointments;
+};

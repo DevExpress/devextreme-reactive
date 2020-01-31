@@ -47,16 +47,16 @@ const styles = theme => ({
   background: {
     background: theme.palette.background.paper,
   },
-  ordinaryBorderLeftPanel: {
+  ordinaryLeftPanelBorder: {
     borderRight: getBorder(theme),
   },
-  brightBorderLeftPanel: {
+  brightLeftPanelBorder: {
     borderRight: getBrightBorder(theme),
   },
-  ordinaryBorderHeader: {
+  ordinaryHeaderBorder: {
     borderBottom: getBorder(theme),
   },
-  brightBorderHeader: {
+  brightHeaderBorder: {
     borderBottom: getBrightBorder(theme),
   },
 });
@@ -147,10 +147,10 @@ class VerticalViewLayoutBase extends React.PureComponent {
                   [classes.fixedWidth]: true,
                   [classes.stickyElement]: true,
                   [classes.leftPanel]: true,
-                  [classes.ordinaryBorderLeftPanel]: !isLeftBorderSet,
-                  [classes.brightBorderLeftPanel]: isLeftBorderSet,
-                  [classes.ordinaryBorderHeader]: !isTopBorderSet,
-                  [classes.brightBorderHeader]: isTopBorderSet,
+                  [classes.ordinaryLeftPanelBorder]: !isLeftBorderSet,
+                  [classes.brightLeftPanelBorder]: isLeftBorderSet,
+                  [classes.ordinaryHeaderBorder]: !isTopBorderSet,
+                  [classes.brightHeaderBorder]: isTopBorderSet,
                 })}
               >
                 <DayScaleEmptyCell />
@@ -161,8 +161,8 @@ class VerticalViewLayoutBase extends React.PureComponent {
                   className={classNames({
                     [classes.fullScreenContainer]: true,
                     [classes.background]: true,
-                    [classes.ordinaryBorderHeader]: !isTopBorderSet,
-                    [classes.brightBorderHeader]: isTopBorderSet,
+                    [classes.ordinaryHeaderBorder]: !isTopBorderSet,
+                    [classes.brightHeaderBorder]: isTopBorderSet,
                   })}
                 >
                   <DayScale />
@@ -178,8 +178,8 @@ class VerticalViewLayoutBase extends React.PureComponent {
                 [classes.fixedWidth]: true,
                 [classes.stickyElement]: true,
                 [classes.leftPanel]: true,
-                [classes.ordinaryBorderLeftPanel]: !isLeftBorderSet,
-                [classes.brightBorderLeftPanel]: isLeftBorderSet,
+                [classes.ordinaryLeftPanelBorder]: !isLeftBorderSet,
+                [classes.brightLeftPanelBorder]: isLeftBorderSet,
               })}
             >
               <TimeScale />

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { getDayScaleCells } from '@devexpress/dx-scheduler-core';
 import { Table } from '../table';
 
 export const Layout = React.memo(({
@@ -8,32 +9,37 @@ export const Layout = React.memo(({
   groupingPanelComponent: GroupingPanel,
   cellsData,
   formatDate,
+  groupedByDate,
   ...restProps
 }) => (
   <Table
     cellsNumber={cellsData[0].length}
     {...restProps}
   >
-    <GroupingPanel />
+    {!groupedByDate && (
+      <GroupingPanel />
+    )}
     <Row>
-      {cellsData[0].map(({
-        startDate,
-        endDate,
-        today,
-        hasRightBorder,
-        groupingInfo,
-      }, index) => (
+      {getDayScaleCells(cellsData, groupedByDate).map(({
+        startDate, endDate, today, key,
+        endOfGroup, groupingInfo, colSpan,
+      }) => (
         <Cell
-          key={index.toString()}
+          key={key}
           startDate={startDate}
           endDate={endDate}
           today={today}
           formatDate={formatDate}
-          hasRightBorder={hasRightBorder}
+          endOfGroup={endOfGroup}
+          hasRightBorder={endOfGroup}
           groupingInfo={groupingInfo}
+          colSpan={colSpan}
         />
       ))}
     </Row>
+    {groupedByDate && (
+      <GroupingPanel />
+    )}
   </Table>
 ));
 
@@ -43,7 +49,9 @@ Layout.propTypes = {
   rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   groupingPanelComponent: PropTypes.func,
   formatDate: PropTypes.func.isRequired,
+  groupedByDate: PropTypes.bool,
 };
 Layout.defaultProps = {
   groupingPanelComponent: () => null,
+  groupedByDate: false,
 };

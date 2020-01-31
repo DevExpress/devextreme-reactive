@@ -1,6 +1,7 @@
 import moment from 'moment';
 import {
-  allDayPredicate, sliceAppointmentsByBoundaries, getAllDayCellIndexByAppointmentData,
+  allDayPredicate, sliceAppointmentsByBoundaries,
+  getAllDayCellIndexByAppointmentData, sliceAppointmentsByDays,
 } from './helpers';
 
 describe('AllDayPanel helpers', () => {
@@ -188,6 +189,62 @@ describe('AllDayPanel helpers', () => {
         .toEqual(0);
       expect(getAllDayCellIndexByAppointmentData(viewCellsData, date, secondTestAppointment, false))
         .toEqual(1);
+    });
+  });
+
+  describe('#sliceAppointmentsByDays', () => {
+    it('should return an array with one appointment if it is one-day long', () => {
+      const appointment = {
+        start: moment(new Date(2020, 0, 1, 0, 0)),
+        end: moment(new Date(2020, 0, 1, 23, 59)),
+      };
+
+      const appointments = sliceAppointmentsByDays(appointment, []);
+      expect(appointments)
+        .toHaveLength(1);
+      expect(appointments[0].start.format())
+        .toEqual(moment(new Date(2020, 0, 1, 0, 0)).format());
+      expect(appointments[0].end.format())
+        .toEqual(moment(new Date(2020, 0, 1, 0, 0)).endOf('day').format());
+    });
+
+    it('should return an array of appointments', () => {
+      const appointment = {
+        start: moment(new Date(2020, 0, 1, 0, 0)),
+        end: moment(new Date(2020, 0, 2, 23, 59)),
+      };
+
+      const appointments = sliceAppointmentsByDays(appointment, []);
+      expect(appointments)
+        .toHaveLength(2);
+      expect(appointments[0].start.format())
+        .toEqual(moment(new Date(2020, 0, 1, 0, 0)).format());
+      expect(appointments[0].end.format())
+        .toEqual(moment(new Date(2020, 0, 1, 0, 0)).endOf('day').format());
+      expect(appointments[1].start.format())
+        .toEqual(moment(new Date(2020, 0, 2, 0, 0)).format());
+      expect(appointments[1].end.format())
+        .toEqual(moment(new Date(2020, 0, 2, 0, 0)).endOf('day').format());
+    });
+
+    it('should work with excluded days', () => {
+      const appointment = {
+        start: moment(new Date(2020, 0, 1, 0, 0)),
+        end: moment(new Date(2020, 0, 3, 23, 59)),
+      };
+      const excludedDys = [4];
+
+      const appointments = sliceAppointmentsByDays(appointment, excludedDys);
+      expect(appointments)
+        .toHaveLength(2);
+      expect(appointments[0].start.format())
+        .toEqual(moment(new Date(2020, 0, 1, 0, 0)).format());
+      expect(appointments[0].end.format())
+        .toEqual(moment(new Date(2020, 0, 1, 0, 0)).endOf('day').format());
+      expect(appointments[1].start.format())
+        .toEqual(moment(new Date(2020, 0, 3, 0, 0)).format());
+      expect(appointments[1].end.format())
+        .toEqual(moment(new Date(2020, 0, 3, 0, 0)).endOf('day').format());
     });
   });
 });

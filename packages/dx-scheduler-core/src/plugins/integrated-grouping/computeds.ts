@@ -1,11 +1,13 @@
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  Grouping, ValidResourceInstance, ViewCell, ValidResource, Group, AppointmentMoment,
+  Grouping, ValidResourceInstance, ViewCell, ValidResource,
+  Group, AppointmentMoment, ExpandGroupingPanelCellFn,
 } from '../../types';
 import {
   getGroupFromResourceInstance, addGroupInfoToCells,
-  groupAppointments, expandGroupedAppointment,
+  groupAppointments, expandGroupedAppointment, addGroupInfoToCell,
 } from './helpers';
+import { sliceAppointmentsByDays } from '../all-day-panel/helpers';
 
 export const filterResourcesByGrouping: PureComputed<
   [Array<ValidResource>, Array<Grouping>], Array<ValidResource>
@@ -40,30 +42,51 @@ export const getGroupsFromResources: PureComputed<
 }, []);
 
 export const expandViewCellsDataWithGroups: PureComputed<
-  [ViewCell[][], Group[][], ValidResource[]], ViewCell[][]
-> = (viewCellsData, groups, sortedResources) => {
+  [ViewCell[][], Group[][], ValidResource[], boolean], ViewCell[][]
+> = (viewCellsData, groups, sortedResources, groupByDate) => {
   if (groups.length === 0) return viewCellsData;
-  return groups[groups.length - 1].reduce((
-    acc: ViewCell[][], group: Group, index: number,
-  ) => {
-    if (index === 0) {
-      return viewCellsData.map((viewCellsRow: ViewCell[]) =>
-        addGroupInfoToCells(
-          group, groups,
-          sortedResources, viewCellsRow, index,
-        ) as ViewCell[],
-      );
-    }
-    return acc.map((item: ViewCell[], id: number) => [
-      ...item,
-      ...addGroupInfoToCells(
-        group,
-        groups, sortedResources,
-        viewCellsData[id], index,
-      ),
-    ]);
-  }, [[]] as ViewCell[][]);
+  if (groupByDate) {
+    return expandCellsWithGroupedByDateData(viewCellsData, groups, sortedResources);
+  }
+  return expandCellsWithGroupedByResourcesData(viewCellsData, groups, sortedResources);
 };
+
+const expandCellsWithGroupedByDateData: ExpandGroupingPanelCellFn = (
+  viewCellsData, groups, sortedResources,
+) => viewCellsData.map(
+  (cellsRow: ViewCell[]) => cellsRow.reduce((acc: ViewCell[], viewCell: ViewCell) => {
+    const groupedCells = groups[groups.length - 1].map((
+      group: Group, index: number,
+    ) => addGroupInfoToCell(
+      group, groups, sortedResources, viewCell, index,
+    ));
+    groupedCells[groupedCells.length - 1] = {
+      ...groupedCells[groupedCells.length - 1],
+      endOfGroup: true,
+    };
+    return [...acc, ...groupedCells] as ViewCell[];
+  }, [] as ViewCell[]),
+);
+
+const expandCellsWithGroupedByResourcesData: ExpandGroupingPanelCellFn = (
+  viewCellsData, groups, sortedResources,
+) => groups[groups.length - 1].reduce((
+  acc: ViewCell[][], group: Group, index: number,
+) => {
+  if (index === 0) {
+    return viewCellsData.map((viewCellsRow: ViewCell[]) =>
+      addGroupInfoToCells(
+        group, groups, sortedResources, viewCellsRow, index,
+      ) as ViewCell[],
+    );
+  }
+  return acc.map((item: ViewCell[], id: number) => [
+    ...item,
+    ...addGroupInfoToCells(
+      group, groups, sortedResources, viewCellsData[id], index,
+    ),
+  ]);
+}, [[]] as ViewCell[][]);
 
 export const updateGroupingWithMainResource: PureComputed<
   [Grouping[] | undefined, ValidResource[]], Grouping[]
@@ -71,12 +94,19 @@ export const updateGroupingWithMainResource: PureComputed<
   || [{ resourceName: resources.find(resource => resource.isMain)!.fieldName }];
 
 export const expandGroups: PureComputed<
-  [AppointmentMoment[][], Grouping[], ValidResource[], Group[][]], AppointmentMoment[][]
-> = (appointments, grouping, resources, groups) => {
-  const expandedAppointments = appointments.map(appointmentGroup => appointmentGroup
+  [AppointmentMoment[][], Grouping[], ValidResource[],
+  Group[][], number[], boolean], AppointmentMoment[][]
+> = (appointments, grouping, resources, groups, excludedDays, sliceByDay = false) => {
+  const slicedAppointments = sliceByDay ?
+    appointments[0].reduce((acc: AppointmentMoment[], appointment: AppointmentMoment) => ([
+      ...acc,
+      ...sliceAppointmentsByDays(appointment, excludedDays),
+    ]), [] as AppointmentMoment[]) : appointments[0];
+
+  const expandedAppointments = (slicedAppointments as AppointmentMoment[])
     .reduce((acc: AppointmentMoment[], appointment: AppointmentMoment) => [
       ...acc,
       ...expandGroupedAppointment(appointment, grouping, resources),
-    ], [] as AppointmentMoment[]));
-  return groupAppointments(expandedAppointments[0], resources, groups);
+    ], [] as AppointmentMoment[]);
+  return groupAppointments(expandedAppointments, resources, groups);
 };

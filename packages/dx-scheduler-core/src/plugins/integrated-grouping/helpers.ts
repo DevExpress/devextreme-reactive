@@ -18,6 +18,17 @@ export const addGroupInfoToCells: PureComputed<
 > = (currentGroup, groups, sortedResources, viewCellRow, index) => viewCellRow.map((
     viewCell: ViewCell, cellIndex: number,
   ) => {
+  const groupedCell = addGroupInfoToCell(
+    currentGroup, groups, sortedResources, viewCell, index,
+  ) as ViewCell;
+  return cellIndex !== viewCellRow.length - 1
+    ? groupedCell : { ...groupedCell, endOfGroup: true };
+});
+
+export const addGroupInfoToCell: PureComputed<
+  [Group, Group[][],
+  ValidResource[], ViewCell, number], ViewCell
+> = (currentGroup, groups, sortedResources, viewCell, index) => {
   let previousIndex = index;
   const groupingInfo = groups.reduceRight((
     acc: Group[], group: Group[], currentIndex: number,
@@ -30,11 +41,8 @@ export const addGroupInfoToCells: PureComputed<
     previousIndex = currentIndex;
     return [...acc, currentGroupingInstance];
   }, [currentGroup]);
-  if (cellIndex !== viewCellRow.length - 1) {
-    return { ...viewCell, groupingInfo };
-  }
-  return { ...viewCell, groupingInfo, hasRightBorder: true };
-});
+  return { ...viewCell, groupingInfo };
+};
 
 const getCurrentGroup: PureComputed<
   [Group[][], ValidResource[], number, Group], Group[]

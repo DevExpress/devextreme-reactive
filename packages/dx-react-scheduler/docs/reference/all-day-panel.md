@@ -45,6 +45,8 @@ Field | Type | Description
 ------|------|------------
 startDate | Date | The cell's start time.
 endDate | Date | The cell's end time.
+groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's grouping.
+endOfGroup? | boolean | `true` if this cell is last in its group.
 
 ### AllDayPanel.LayoutProps
 
@@ -52,7 +54,7 @@ Describes properties passed to a component that renders an All Day panel layout.
 
 Field | Type | Description
 ------|------|------------
-cellsData | Array&lt;Array&lt;[AllDayPanel.CellData](#alldaypanelcelldata)&gt;&gt; | Cells' meta data.
+cellsData | Array&lt;[AllDayPanel.CellData](#alldaypanelcelldata)&gt; | Cells' meta data.
 formatDate | [FormatterFn](./scheduler.md#formatterfn) | A function that formats dates according to the locale.
 setCellElementsMeta | (cellElementsMeta: [CellElementsMeta](./scheduler.md#cellelementsmeta)) => void | A function that formats dates according to the locale.
 cellComponent | ComponentType&lt;[AllDayPanel.CellProps](#alldaypanelcellprops)&gt; | A component that renders an All Day panel cell.
@@ -66,8 +68,8 @@ Field | Type | Description
 ------|------|------------
 startDate | Date | The cell's start time.
 endDate | Date | The cell's end time.
-groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's group(s).
-hasRightBorder? | boolean | Specifies whether the cell has the right border.
+groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's grouping.
+endOfGroup? | boolean | `true` if this cell is last in its group.
 
 ### AllDayPanel.RowProps
 

@@ -7,6 +7,7 @@ export interface HorizontalPayload {
   multiline: boolean;
   viewCellsData: ViewCellData[][];
   cellElementsMeta: CellElementsMeta;
+  groupByDate: boolean;
 }
 
 /** @internal */
@@ -39,7 +40,7 @@ export interface HorizontalCellRect extends Rect {
 /** @internal */
 export type GetCellRectHorizontalFn = PureComputed<
   [SchedulerDateTime, AppointmentMoment, ViewCellData[][],
-  CellElementsMeta, boolean, boolean], CellRect
+  CellElementsMeta, boolean, boolean, boolean], CellRect
 >;
 
 /** @internal */

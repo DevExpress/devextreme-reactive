@@ -1,5 +1,5 @@
 import {
-  getGroupFromResourceInstance, addGroupInfoToCells,
+  getGroupFromResourceInstance, addGroupInfoToCells, addGroupInfoToCell,
   groupAppointments, expandGroupedAppointment, rearrangeResources,
 } from './helpers';
 
@@ -50,8 +50,33 @@ describe('IntegratedGrouping helpers', () => {
           startDate: new Date('2018-06-24 08:30'),
           endDate: new Date('2018-06-24 09:00'),
           groupingInfo: [groups[0][0]],
-          hasRightBorder: true,
+          endOfGroup: true,
         }]);
+    });
+  });
+
+  describe('#addGroupInfoToCell', () => {
+    it('should work', () => {
+      const viewCell = { startDate: new Date('2018-06-24 08:00'), endDate: new Date('2018-06-24 08:30') };
+      const resources = [{
+        fieldName: 'resource1',
+        instances: [
+          { id: 1, text: 'text1', fieldName: 'resource1' },
+          { id: 2, text: 'text2', fieldName: 'resource1' },
+        ],
+      }];
+      const groups = [[
+        { fieldName: 'resource1', id: 1 },
+        { fieldName: 'resource1', id: 2 },
+      ]];
+      expect(addGroupInfoToCell(
+        groups[0][0], groups, resources, viewCell, 0,
+      ))
+        .toEqual({
+          startDate: new Date('2018-06-24 08:00'),
+          endDate: new Date('2018-06-24 08:30'),
+          groupingInfo: [groups[0][0]],
+        });
     });
   });
 

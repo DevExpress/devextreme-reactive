@@ -296,7 +296,13 @@ describe('Basic View', () => {
       const customDayScaleLayout = () => null;
       const tree = mount((
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
+          {pluginDepsToComponents({
+            ...defaultDeps,
+            getter: {
+              ...defaultDeps.getter,
+              groupByDate: () => true,
+            },
+          })}
           <BasicView
             {...defaultProps}
             dayScaleLayoutComponent={customDayScaleLayout}
@@ -310,6 +316,7 @@ describe('Basic View', () => {
           cellComponent: defaultProps.dayScaleCellComponent,
           rowComponent: defaultProps.dayScaleRowComponent,
           cellsData: [[{}, {}], [{}, {}]],
+          groupedByDate: true,
         });
     });
     it('should render time table', () => {

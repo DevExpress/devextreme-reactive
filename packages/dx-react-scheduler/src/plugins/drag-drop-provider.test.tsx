@@ -51,6 +51,8 @@ const defaultDeps = {
       bottomBoundary: 20,
       changeVerticalScroll: jest.fn(),
     },
+    currentView: { name: 'currentView' },
+    groupByDate: () => 'groupByDate',
   },
   action: {
     finishCommitAppointment: jest.fn(),
@@ -464,6 +466,62 @@ describe('DragDropProvider', () => {
         .toBeCalledWith(deps.getter.timeTableElementsMeta.getCellRects, expect.any(Object));
       expect(cellIndex)
         .toBeCalledWith([], expect.any(Object));
+    });
+    it('should call calculateDraftAppointments with proper parameters', () => {
+      const getBoundingClientRect = jest.fn();
+      getBoundingClientRect.mockImplementationOnce(() => ({ height: 20, top: 20, bottom: 40 }));
+      getBoundingClientRect.mockImplementationOnce(() => ({ height: 20, top: 40, bottom: 60 }));
+      const deps = {
+        getter: {
+          timeTableElementsMeta: {
+            parentRect: () => ({ height: 20, top: 20, bottom: 40 }),
+            getCellRects: [{}, () => getBoundingClientRect()],
+          },
+          grouping: 'grouping',
+          resources: 'resources',
+          groups: 'groups',
+          currentView: {},
+          groupByDate: () => true,
+        },
+      };
+      const payload = {
+        id: 1,
+        type: 'vertical',
+        startDate: new Date('2018-06-25 10:00'),
+        endDate: new Date('2018-06-25 11:00'),
+      };
+      cellIndex.mockImplementationOnce(() => 1);
+      cellIndex.mockImplementationOnce(() => -1);
+      cellType.mockImplementationOnce(() => 'vertical');
+      cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 11:00') }));
+      cellData.mockImplementationOnce(() => ({ startDate: new Date('2018-06-25 9:00'), endDate: new Date('2018-06-25 10:00') }));
+
+      const { tree, onEnter } = mountPlugin({}, deps);
+
+      onEnter({ payload, clientOffset: { x: 1, y: 25 } });
+      tree.update();
+
+      expect(calculateDraftAppointments)
+        .toBeCalledWith(
+          -1, [{
+            dataItem: {
+              id: 1,
+              type: 'vertical',
+              startDate: new Date('2018-06-25 10:00'),
+              endDate: new Date('2018-06-25 11:00'),
+            },
+            start: new Date('2018-06-25 10:00'),
+            end: new Date('2018-06-25 11:00'),
+          }],
+          defaultDeps.getter.startViewDate,
+          defaultDeps.getter.endViewDate,
+          defaultDeps.getter.excludedDays,
+          defaultDeps.getter.viewCellsData,
+          defaultDeps.getter.allDayElementsMeta,
+          'vertical', 60,
+          deps.getter.timeTableElementsMeta,
+          'grouping', 'resources', 'groups', true,
+        );
     });
   });
 

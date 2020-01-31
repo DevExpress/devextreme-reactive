@@ -4,11 +4,17 @@ import {
   updateGroupingWithMainResource, expandGroups,
 } from './computeds';
 import { expandGroupedAppointment, groupAppointments } from './helpers';
+import { sliceAppointmentsByDays } from '../all-day-panel/helpers';
 
 jest.mock('./helpers', () => ({
   ...require.requireActual('./helpers'),
   expandGroupedAppointment: jest.fn(),
   groupAppointments: jest.fn(),
+}));
+
+jest.mock('../all-day-panel/helpers', () => ({
+  ...require.requireActual('../all-day-panel/helpers'),
+  sliceAppointmentsByDays: jest.fn(),
 }));
 
 describe('IntegratedGrouping computeds', () => {
@@ -103,25 +109,25 @@ describe('IntegratedGrouping computeds', () => {
         .toEqual({
           ...viewCellsDataBase[0][0],
           groupingInfo: [{ fieldName: 'resource1', id: 1 }],
-          hasRightBorder: true,
+          endOfGroup: true,
         });
       expect(result[0][1])
         .toEqual({
           ...viewCellsDataBase[0][0],
           groupingInfo: [{ fieldName: 'resource1', id: 2 }],
-          hasRightBorder: true,
+          endOfGroup: true,
         });
       expect(result[1][0])
         .toEqual({
           ...viewCellsDataBase[1][0],
           groupingInfo: [{ fieldName: 'resource1', id: 1 }],
-          hasRightBorder: true,
+          endOfGroup: true,
         });
       expect(result[1][1])
         .toEqual({
           ...viewCellsDataBase[1][0],
           groupingInfo: [{ fieldName: 'resource1', id: 2 }],
-          hasRightBorder: true,
+          endOfGroup: true,
         });
     });
 
@@ -154,7 +160,7 @@ describe('IntegratedGrouping computeds', () => {
             { fieldName: 'resource2', id: 1 },
             { fieldName: 'resource1', id: 1 },
           ],
-          hasRightBorder: true,
+          endOfGroup: true,
         });
       expect(result[0][1])
         .toEqual({
@@ -163,7 +169,7 @@ describe('IntegratedGrouping computeds', () => {
             { fieldName: 'resource2', id: 2 },
             { fieldName: 'resource1', id: 1 },
           ],
-          hasRightBorder: true,
+          endOfGroup: true,
         });
       expect(result[0][2])
         .toEqual({
@@ -172,7 +178,7 @@ describe('IntegratedGrouping computeds', () => {
             { fieldName: 'resource2', id: 1 },
             { fieldName: 'resource1', id: 2 },
           ],
-          hasRightBorder: true,
+          endOfGroup: true,
         });
       expect(result[0][3])
         .toEqual({
@@ -181,7 +187,7 @@ describe('IntegratedGrouping computeds', () => {
             { fieldName: 'resource2', id: 2 },
             { fieldName: 'resource1', id: 2 },
           ],
-          hasRightBorder: true,
+          endOfGroup: true,
         });
     });
 
@@ -190,6 +196,41 @@ describe('IntegratedGrouping computeds', () => {
 
       expect(expandViewCellsDataWithGroups(viewCellsDataBase, groups, resourcesBase))
         .toEqual(viewCellsDataBase);
+    });
+
+    it('should work when grouping by dates is used', () => {
+      const groups = [[
+        { fieldName: 'resource1', id: 1 },
+        { fieldName: 'resource1', id: 2 },
+      ]];
+      const viewCellsData = [
+        [{ startDate: new Date('2018-06-24 08:00'), endDate: new Date('2018-06-24 08:30') }],
+        [{ startDate: new Date('2018-06-25 08:00'), endDate: new Date('2018-06-25 08:30') }],
+      ];
+
+      const result = expandViewCellsDataWithGroups(viewCellsData, groups, resourcesBase, true);
+      expect(result[0][0])
+        .toEqual({
+          ...viewCellsData[0][0],
+          groupingInfo: [{ fieldName: 'resource1', id: 1 }],
+        });
+      expect(result[0][1])
+        .toEqual({
+          ...viewCellsData[0][0],
+          groupingInfo: [{ fieldName: 'resource1', id: 2 }],
+          endOfGroup: true,
+        });
+      expect(result[1][0])
+        .toEqual({
+          ...viewCellsData[1][0],
+          groupingInfo: [{ fieldName: 'resource1', id: 1 }],
+        });
+      expect(result[1][1])
+        .toEqual({
+          ...viewCellsData[1][0],
+          groupingInfo: [{ fieldName: 'resource1', id: 2 }],
+          endOfGroup: true,
+        });
     });
   });
 
@@ -214,14 +255,29 @@ describe('IntegratedGrouping computeds', () => {
   describe('#expandGroups', () => {
     beforeEach(() => {
       expandGroupedAppointment.mockImplementation(() => ['expandGroupedAppointment']);
+      sliceAppointmentsByDays.mockImplementation(() => [{}]);
+    });
+    afterEach(() => {
+      jest.resetAllMocks();
     });
     it('should group and expand appointments', () => {
-      expandGroups([[{}]], 'grouping', 'resources', 'groups');
+      expandGroups([[{}]], 'grouping', 'resources', 'groups', [], false);
 
       expect(expandGroupedAppointment)
         .toHaveBeenCalledWith({}, 'grouping', 'resources');
       expect(groupAppointments)
         .toHaveBeenCalledWith(['expandGroupedAppointment'], 'resources', 'groups');
+    });
+
+    it('should slice appointments if sliceByDay is true', () => {
+      expandGroups([[{}]], 'grouping', 'resources', 'groups', [], true);
+
+      expect(expandGroupedAppointment)
+        .toHaveBeenCalledWith({}, 'grouping', 'resources');
+      expect(groupAppointments)
+        .toHaveBeenCalledWith(['expandGroupedAppointment'], 'resources', 'groups');
+      expect(sliceAppointmentsByDays)
+        .toHaveBeenCalledWith({}, []);
     });
   });
 });

@@ -192,8 +192,9 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
 
         <Template name="dayScale">
           <TemplateConnector>
-            {({ currentView, viewCellsData, formatDate }) => {
+            {({ currentView, viewCellsData, formatDate, groupByDate }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
+              const groupByDateEnabled = groupByDate?.(viewName);
               return (
                 <DayScale
                   cellComponent={dayScaleCellComponent}
@@ -201,6 +202,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
                   groupingPanelComponent={GroupingPanelPlaceholder}
                   cellsData={viewCellsData}
                   formatDate={formatDate}
+                  groupedByDate={groupByDateEnabled}
                 />
               );
             }}

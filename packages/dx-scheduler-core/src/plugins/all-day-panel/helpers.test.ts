@@ -1,8 +1,15 @@
 import moment from 'moment';
 import {
   allDayPredicate, sliceAppointmentsByBoundaries,
-  getAllDayCellIndexByAppointmentData, sliceAppointmentsByDays,
+  getAllDayCellIndexByAppointmentData, sliceAppointmentsByDays, allDayCellsData,
 } from './helpers';
+import { HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
+import { allDayCells } from '../common/computeds';
+
+jest.mock('../common/computeds', () => ({
+  ...require.requireActual('../common/computeds'),
+  allDayCells: jest.fn(),
+}));
 
 describe('AllDayPanel helpers', () => {
   describe('#allDayAppointment', () => {
@@ -246,5 +253,18 @@ describe('AllDayPanel helpers', () => {
       expect(appointments[1].end.format())
         .toEqual(moment(new Date(2020, 0, 3, 0, 0)).endOf('day').format());
     });
+  });
+
+  describe('#allDayCellsData', () => {
+    it('should call allDayCells if it is not vertical grouping', () => {
+      allDayCellsData('viewCellsData', undefined, 'groupOrientation');
+      allDayCellsData('viewCellsData', [], HORIZONTAL_GROUP_ORIENTATION);
+
+      expect(allDayCells)
+        .toHaveBeenCalledTimes(2);
+      expect(allDayCells)
+        .toHaveBeenCalledWith('viewCellsData');
+    });
+
   });
 });

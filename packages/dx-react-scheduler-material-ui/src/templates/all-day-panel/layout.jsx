@@ -5,7 +5,7 @@ import TableBody from '@material-ui/core/TableBody';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
 import { getGroupingInfoFromGroups } from '@devexpress/dx-scheduler-core';
-import { cellsMeta, getViewCellKey } from '../utils';
+import { cellsMeta, getViewCellKey, getViewCellKey as getRowKey } from '../utils';
 
 const styles = {
   table: {
@@ -75,7 +75,7 @@ class LayoutBase extends React.PureComponent {
             groups[groups.length - 1].map((group, index) => {
               const groupingInfo = getGroupingInfoFromGroups(groups, index);
               return (
-                <Row>
+                <Row key={getRowKey(cellsData[0].startDate, groupingInfo)}>
                   {cellsData.map(({
                     startDate, endDate, endOfGroup,
                   }) => (

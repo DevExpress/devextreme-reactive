@@ -76,5 +76,18 @@ describe('AllDayPanel', () => {
       expect(defaultProps.setCellElementsMeta)
         .toBeCalledTimes(2);
     });
+    it('should render a row for every group', () => {
+      const groups = [[
+        { id: 1 }, { id: 2 },
+      ]];
+      const tree = mount((
+        <Layout {...defaultProps} groups={groups} />
+      ));
+
+      expect(tree.find(defaultProps.rowComponent))
+        .toHaveLength(2);
+      expect(tree.find(defaultProps.cellComponent))
+        .toHaveLength(4);
+    });
   });
 });

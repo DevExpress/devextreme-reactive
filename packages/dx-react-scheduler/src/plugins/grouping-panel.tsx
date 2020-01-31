@@ -46,7 +46,10 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
       >
         <Template name="groupingPanel">
           <TemplateConnector>
-            {({ groups, viewCellsData, currentView, groupByDate, groupOrientation, scrollingStrategy }) =>
+            {({
+              viewCellsData, currentView, scrollingStrategy,
+              groupByDate, groupOrientation, groups,
+            }) =>
               groupOrientation(currentView?.name) === HORIZONTAL_GROUP_ORIENTATION ? (
                 <HorizontalLayout
                   rowComponent={rowComponent}

@@ -2,7 +2,8 @@ import * as React from 'react';
 import { Plugin, Getter, Getters } from '@devexpress/dx-react-core';
 import {
   getGroupsFromResources, expandViewCellsDataWithGroups,
-  sortFilteredResources, filterResourcesByGrouping, updateGroupingWithMainResource, expandGroups, VERTICAL_GROUP_ORIENTATION, VIEW_TYPES,
+  sortFilteredResources, filterResourcesByGrouping, updateGroupingWithMainResource,
+  expandGroups, VERTICAL_GROUP_ORIENTATION, VIEW_TYPES,
 } from '@devexpress/dx-scheduler-core';
 import { IntegratedGroupingProps } from '../types';
 

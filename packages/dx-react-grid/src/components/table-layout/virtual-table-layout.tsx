@@ -325,6 +325,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
         }}
         onScroll={this.onScroll}
         scrollTop={scrollTop}
+        collapsedGrid={collapsedGrids.headerGrid}
       >
         {
           (!!headerRows.length) && (

@@ -3,20 +3,6 @@ import { mount } from 'enzyme';
 import { GridSizer } from './grid-sizer';
 import { TABLE_STUB_TYPE } from '@devexpress/dx-grid-core';
 
-const VirtualTableLayoutBlock = ({name, collapsedGrid}) => <div />
-
-const VirtualTableMock = ({ onSizeChange, collapsedGrid }) => (
-  <GridSizer 
-    containerComponent={() => <div />}
-    onSizeChange={onSizeChange}
-  >
-    <VirtualTableLayoutBlock 
-      name='body'
-      collapsedGrid={collapsedGrid}
-    />
-  </GridSizer>
-)
-
 describe('GridSizer', () => {
   it('should render original Sizer', () => {
     const containerComponent = 'div';
@@ -33,17 +19,19 @@ describe('GridSizer', () => {
       containerComponent: 'div',
     });
   });
-  
+
   it('should call "onSizeChange" after update if have stub column', () => {
+    const containerComponent = 'div';
     const onSizeChange = jest.fn();
     const tree = mount(
-      <VirtualTableMock
+      <GridSizer
+        containerComponent={containerComponent}
         onSizeChange={onSizeChange}
         collapsedGrid={{
           columns: [{ type: 'a' }],
           rows: [{ type: 'a' }],
         }}
-      />
+      />,
     );
     onSizeChange.mockClear();
 
@@ -51,22 +39,24 @@ describe('GridSizer', () => {
       collapsedGrid: {
         columns: [{ type: TABLE_STUB_TYPE }],
         rows: [{ type: 'a' }],
-      }
+      },
     });
 
     expect(onSizeChange).toBeCalled();
   });
 
   it('should call "onSizeChange" after update if have stub row', () => {
+    const containerComponent = 'div';
     const onSizeChange = jest.fn();
     const tree = mount(
-      <VirtualTableMock
+      <GridSizer
+        containerComponent={containerComponent}
         onSizeChange={onSizeChange}
         collapsedGrid={{
           columns: [{ type: 'a' }],
           rows: [{ type: 'a' }],
         }}
-      />
+      />,
     );
     onSizeChange.mockClear();
 
@@ -74,22 +64,24 @@ describe('GridSizer', () => {
       collapsedGrid: {
         columns: [{ type: 'a' }],
         rows: [{ type: TABLE_STUB_TYPE }],
-      }
+      },
     });
 
     expect(onSizeChange).toBeCalled();
   });
 
   it('should not call "onSizeChange" after update if have not stub column and/or row', () => {
+    const containerComponent = 'div';
     const onSizeChange = jest.fn();
     const tree = mount(
-      <VirtualTableMock
+      <GridSizer
+        containerComponent={containerComponent}
         onSizeChange={onSizeChange}
         collapsedGrid={{
           columns: [{ type: 'a' }],
           rows: [{ type: 'a' }],
         }}
-      />
+      />,
     );
     onSizeChange.mockClear();
 
@@ -97,7 +89,7 @@ describe('GridSizer', () => {
       collapsedGrid: {
         columns: [{ type: 'b' }],
         rows: [{ type: 'c' }],
-      }
+      },
     });
 
     expect(onSizeChange).not.toBeCalled();

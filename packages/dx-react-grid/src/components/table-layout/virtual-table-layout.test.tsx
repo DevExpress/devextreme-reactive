@@ -60,11 +60,12 @@ jest.mock('../../utils/grid-sizer', () => {
   const { Component } = require.requireActual('react');
   return {
     ...require.requireActual('../../utils/grid-sizer'),
+    // tslint:disable-next-line: max-classes-per-file
     GridSizer: class extends Component {
       render() {
         return (
           <Sizer {...this.props} />
-        )
+        );
       }
     },
   };

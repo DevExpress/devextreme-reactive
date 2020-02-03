@@ -6,6 +6,7 @@ import {
 import { DAYS_IN_WEEK } from '../appointment-form/constants';
 import { PureComputed } from '@devexpress/dx-core/src';
 import { HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
+import { checkCellGroupingInfo } from '../common/helpers';
 
 export const sliceAppointmentByWeek: SliceAppointmentByWeekFn = (timeBounds, appointment, step) => {
   const { left, right } = timeBounds;
@@ -51,12 +52,14 @@ export const getMonthCellIndexByAppointmentData: GetMonthCellIndexByAppointmentD
   const dayOfWeek = dayNumber % DAYS_IN_WEEK;
 
   const columnIndex = groupOrientation === HORIZONTAL_GROUP_ORIENTATION
-    ? getMonthHorizontallyGroupedColumnIndex(appointment, viewCellsData, weekNumber, dayOfWeek)
+    ? getMonthHorizontallyGroupedColumnIndex(
+      viewCellsData, appointment, weekNumber, dayOfWeek, numberOfGroups, groupByDate,
+    )
     : dayOfWeek;
   const rowIndex = groupOrientation === HORIZONTAL_GROUP_ORIENTATION
     ? weekNumber
     : getMonthVerticallyGroupedRowIndex(
-      appointment, viewCellsData, weekNumber, dayOfWeek, numberOfGroups,
+      viewCellsData, appointment, weekNumber, dayOfWeek, numberOfGroups,
     );
 
   const totalCellIndex = rowIndex * viewCellsData[0].length + columnIndex;
@@ -64,40 +67,34 @@ export const getMonthCellIndexByAppointmentData: GetMonthCellIndexByAppointmentD
 };
 
 export const getMonthHorizontallyGroupedColumnIndex: PureComputed<
-  [AppointmentMoment, ViewCell[][], number, number], number
-> = (appointment, viewCellsData, weekNumber, dayOfWeek) => {
+  [ViewCell[][], AppointmentMoment, number, number, number, boolean], number
+> = (viewCellsData, appointment, weekNumber, dayOfWeek, numberOfGroups, groupByDate) => {
   let columnIndex = -1;
-  let currentColumnIndex = dayOfWeek;
+  let currentColumnIndex = groupByDate ? dayOfWeek * numberOfGroups : dayOfWeek;
+  const cellsInGroupRow = groupByDate ? 1 : DAYS_IN_WEEK;
+
   while (columnIndex === -1) {
-    let isCorrectCell = true;
-    if (viewCellsData[weekNumber][currentColumnIndex].groupingInfo) {
-      isCorrectCell = viewCellsData[weekNumber][currentColumnIndex].groupingInfo!
-        .every((group: Group) => (
-          group.id === appointment[group.fieldName]
-        ));
-    }
+    const isCorrectCell = checkCellGroupingInfo(
+      viewCellsData[weekNumber][currentColumnIndex], appointment,
+    );
     if (isCorrectCell) {
       columnIndex = currentColumnIndex;
     }
-    currentColumnIndex += DAYS_IN_WEEK;
+    currentColumnIndex += cellsInGroupRow;
   }
   return columnIndex;
 };
 
 export const getMonthVerticallyGroupedRowIndex: PureComputed<
-  [AppointmentMoment, ViewCell[][], number, number, number], number
-> = (appointment, viewCellsData, weekNumber, dayOfWeek, numberOfGroups) => {
+  [ViewCell[][], AppointmentMoment, number, number, number], number
+> = (viewCellsData, appointment, weekNumber, dayOfWeek, numberOfGroups) => {
   const rowsInOneGroup = viewCellsData.length / numberOfGroups;
   let rowIndex = -1;
   let currentRowIndex = weekNumber;
   while (rowIndex === -1) {
-    let isCorrectCell = true;
-    if (viewCellsData[currentRowIndex][dayOfWeek].groupingInfo) {
-      isCorrectCell = viewCellsData[currentRowIndex][dayOfWeek].groupingInfo!
-        .every((group: Group) => (
-          group.id === appointment[group.fieldName]
-        ));
-    }
+    const isCorrectCell = checkCellGroupingInfo(
+      viewCellsData[currentRowIndex][dayOfWeek], appointment,
+    );
     if (isCorrectCell) {
       rowIndex = currentRowIndex;
     }

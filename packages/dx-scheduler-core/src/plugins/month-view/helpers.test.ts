@@ -2,7 +2,10 @@ import moment from 'moment';
 import {
   sliceAppointmentByWeek,
   getMonthCellIndexByAppointmentData,
+  getMonthHorizontallyGroupedColumnIndex,
+  getMonthVerticallyGroupedRowIndex,
 } from './helpers';
+import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '../../constants';
 
 describe('MonthView Helpers', () => {
   describe('#sliceAppointmentByWeek', () => {
@@ -124,7 +127,10 @@ describe('MonthView Helpers', () => {
     });
   });
 
-  describe('#getMonthCellIndexByAppointmentData', () => {
+  describe('#getMonthCellIndexByAppointmentData ', () => {
+    const firstTestAppointment = { test: 1 };
+    const secondTestAppointment = { test: 2 };
+
     const viewCellsDataBase = [
       [
         { startDate: moment('2018-06-24'), endDate: moment('2018-06-25') },
@@ -145,163 +151,289 @@ describe('MonthView Helpers', () => {
         { startDate: moment('2018-07-07'), endDate: moment('2018-07-08') },
       ],
     ];
+    const horizontallyGroupedViewCells = [
+      [{
+        startDate: moment('2018-06-24'),
+        endDate: moment('2018-06-25'),
+        groupingInfo: [{ fieldName: 'test', id: 1 }],
+      }, {
+        startDate: moment('2018-06-25'),
+        endDate: moment('2018-06-26'),
+        groupingInfo: [{ fieldName: 'test', id: 1 }],
+      }, {
+        startDate: moment('2018-06-26'),
+        endDate: moment('2018-06-27'),
+        groupingInfo: [{ fieldName: 'test', id: 1 }],
+      }, {
+        startDate: moment('2018-06-27'),
+        endDate: moment('2018-06-28'),
+        groupingInfo: [{ fieldName: 'test', id: 1 }],
+      }, {
+        startDate: moment('2018-06-28'),
+        endDate: moment('2018-06-29'),
+        groupingInfo: [{ fieldName: 'test', id: 1 }],
+      }, {
+        startDate: moment('2018-06-29'),
+        endDate: moment('2018-06-30'),
+        groupingInfo: [{ fieldName: 'test', id: 1 }],
+      }, {
+        startDate: moment('2018-06-30'),
+        endDate: moment('2018-07-01'),
+        groupingInfo: [{ fieldName: 'test', id: 1 }],
+      }, {
+        startDate: moment('2018-06-24'),
+        endDate: moment('2018-06-25'),
+        groupingInfo: [{ fieldName: 'test', id: 2 }],
+      }, {
+        startDate: moment('2018-06-25'),
+        endDate: moment('2018-06-26'),
+        groupingInfo: [{ fieldName: 'test', id: 2 }],
+      }, {
+        startDate: moment('2018-06-26'),
+        endDate: moment('2018-06-27'),
+        groupingInfo: [{ fieldName: 'test', id: 2 }],
+      }, {
+        startDate: moment('2018-06-27'),
+        endDate: moment('2018-06-28'),
+        groupingInfo: [{ fieldName: 'test', id: 2 }],
+      }, {
+        startDate: moment('2018-06-28'),
+        endDate: moment('2018-06-29'),
+        groupingInfo: [{ fieldName: 'test', id: 2 }],
+      }, {
+        startDate: moment('2018-06-29'),
+        endDate: moment('2018-06-30'),
+        groupingInfo: [{ fieldName: 'test', id: 2 }],
+      }, {
+        startDate: moment('2018-06-30'),
+        endDate: moment('2018-07-01'),
+        groupingInfo: [{ fieldName: 'test', id: 2 }],
+      }],
+    ];
+    const verticallyGroupedViewCells = [
+      [{
+        startDate: moment('2018-06-24'),
+        endDate: moment('2018-06-25'),
+        groupingInfo: [{ fieldName: 'test', id: 1 }],
+      }, {
+        startDate: moment('2018-06-25'),
+        endDate: moment('2018-06-26'),
+        groupingInfo: [{ fieldName: 'test', id: 1 }],
+      }, {
+        startDate: moment('2018-06-26'),
+        endDate: moment('2018-06-27'),
+        groupingInfo: [{ fieldName: 'test', id: 1 }],
+      }, {
+        startDate: moment('2018-06-27'),
+        endDate: moment('2018-06-28'),
+        groupingInfo: [{ fieldName: 'test', id: 1 }],
+      }, {
+        startDate: moment('2018-06-28'),
+        endDate: moment('2018-06-29'),
+        groupingInfo: [{ fieldName: 'test', id: 1 }],
+      }, {
+        startDate: moment('2018-06-29'),
+        endDate: moment('2018-06-30'),
+        groupingInfo: [{ fieldName: 'test', id: 1 }],
+      }, {
+        startDate: moment('2018-06-30'),
+        endDate: moment('2018-07-01'),
+        groupingInfo: [{ fieldName: 'test', id: 1 }],
+      }], [{
+        startDate: moment('2018-06-24'),
+        endDate: moment('2018-06-25'),
+        groupingInfo: [{ fieldName: 'test', id: 2 }],
+      }, {
+        startDate: moment('2018-06-25'),
+        endDate: moment('2018-06-26'),
+        groupingInfo: [{ fieldName: 'test', id: 2 }],
+      }, {
+        startDate: moment('2018-06-26'),
+        endDate: moment('2018-06-27'),
+        groupingInfo: [{ fieldName: 'test', id: 2 }],
+      }, {
+        startDate: moment('2018-06-27'),
+        endDate: moment('2018-06-28'),
+        groupingInfo: [{ fieldName: 'test', id: 2 }],
+      }, {
+        startDate: moment('2018-06-28'),
+        endDate: moment('2018-06-29'),
+        groupingInfo: [{ fieldName: 'test', id: 2 }],
+      }, {
+        startDate: moment('2018-06-29'),
+        endDate: moment('2018-06-30'),
+        groupingInfo: [{ fieldName: 'test', id: 2 }],
+      }, {
+        startDate: moment('2018-06-30'),
+        endDate: moment('2018-07-01'),
+        groupingInfo: [{ fieldName: 'test', id: 2 }],
+      }],
+    ];
+    const groupedByDateViewCells = [
+      [{
+        startDate: moment('2018-06-24'),
+        endDate: moment('2018-06-25'),
+        groupingInfo: [{ fieldName: 'test', id: 1 }],
+      }, {
+        startDate: moment('2018-06-24'),
+        endDate: moment('2018-06-25'),
+        groupingInfo: [{ fieldName: 'test', id: 2 }],
+      }, {
+        startDate: moment('2018-06-25'),
+        endDate: moment('2018-06-26'),
+        groupingInfo: [{ fieldName: 'test', id: 1 }],
+      }, {
+        startDate: moment('2018-06-25'),
+        endDate: moment('2018-06-26'),
+        groupingInfo: [{ fieldName: 'test', id: 2 }],
+      }, {
+        startDate: moment('2018-06-26'),
+        endDate: moment('2018-06-27'),
+        groupingInfo: [{ fieldName: 'test', id: 1 }],
+      }, {
+        startDate: moment('2018-06-26'),
+        endDate: moment('2018-06-27'),
+        groupingInfo: [{ fieldName: 'test', id: 2 }],
+      }, {
+        startDate: moment('2018-06-27'),
+        endDate: moment('2018-06-28'),
+        groupingInfo: [{ fieldName: 'test', id: 1 }],
+      }, {
+        startDate: moment('2018-06-27'),
+        endDate: moment('2018-06-28'),
+        groupingInfo: [{ fieldName: 'test', id: 2 }],
+      }, {
+        startDate: moment('2018-06-28'),
+        endDate: moment('2018-06-29'),
+        groupingInfo: [{ fieldName: 'test', id: 1 }],
+      }, {
+        startDate: moment('2018-06-28'),
+        endDate: moment('2018-06-29'),
+        groupingInfo: [{ fieldName: 'test', id: 2 }],
+      }, {
+        startDate: moment('2018-06-29'),
+        endDate: moment('2018-06-30'),
+        groupingInfo: [{ fieldName: 'test', id: 1 }],
+      }, {
+        startDate: moment('2018-06-29'),
+        endDate: moment('2018-06-30'),
+        groupingInfo: [{ fieldName: 'test', id: 2 }],
+      }, {
+        startDate: moment('2018-06-30'),
+        endDate: moment('2018-07-01'),
+        groupingInfo: [{ fieldName: 'test', id: 1 }],
+      }, {
+        startDate: moment('2018-06-30'),
+        endDate: moment('2018-07-01'),
+        groupingInfo: [{ fieldName: 'test', id: 2 }],
+      }],
+    ];
     it('should return cell index', () => {
       const date = '2018-06-26 07:30';
       const takePrev = false;
-      expect(getMonthCellIndexByAppointmentData(viewCellsDataBase, date, {}, takePrev))
+      expect(getMonthCellIndexByAppointmentData(
+        viewCellsDataBase,
+        HORIZONTAL_GROUP_ORIENTATION, false, 1,
+        date, {}, takePrev))
         .toEqual(2);
     });
 
     it('should return cell index with takePrev property', () => {
       const date = '2018-07-03';
-      expect(getMonthCellIndexByAppointmentData(viewCellsDataBase, date, {}, false))
+      expect(getMonthCellIndexByAppointmentData(
+        viewCellsDataBase,
+        HORIZONTAL_GROUP_ORIENTATION, false, 1,
+        date, {}, false,
+      ))
         .toEqual(9);
-      expect(getMonthCellIndexByAppointmentData(viewCellsDataBase, date, {}, true))
+      expect(getMonthCellIndexByAppointmentData(
+        viewCellsDataBase,
+        HORIZONTAL_GROUP_ORIENTATION, false, 1,
+        date, {}, true,
+      ))
         .toEqual(8);
     });
 
     it('should return cell index depending on grouping info', () => {
-      const viewCellsData = [
-        [{
-          startDate: moment('2018-06-24'),
-          endDate: moment('2018-06-25'),
-          groupingInfo: [{ fieldName: 'test', id: 1 }],
-        }, {
-          startDate: moment('2018-06-25'),
-          endDate: moment('2018-06-26'),
-          groupingInfo: [{ fieldName: 'test', id: 1 }],
-        }, {
-          startDate: moment('2018-06-26'),
-          endDate: moment('2018-06-27'),
-          groupingInfo: [{ fieldName: 'test', id: 1 }],
-        }, {
-          startDate: moment('2018-06-27'),
-          endDate: moment('2018-06-28'),
-          groupingInfo: [{ fieldName: 'test', id: 1 }],
-        }, {
-          startDate: moment('2018-06-28'),
-          endDate: moment('2018-06-29'),
-          groupingInfo: [{ fieldName: 'test', id: 1 }],
-        }, {
-          startDate: moment('2018-06-29'),
-          endDate: moment('2018-06-30'),
-          groupingInfo: [{ fieldName: 'test', id: 1 }],
-        }, {
-          startDate: moment('2018-06-30'),
-          endDate: moment('2018-07-01'),
-          groupingInfo: [{ fieldName: 'test', id: 1 }],
-        }, {
-          startDate: moment('2018-06-24'),
-          endDate: moment('2018-06-25'),
-          groupingInfo: [{ fieldName: 'test', id: 2 }],
-        }, {
-          startDate: moment('2018-06-25'),
-          endDate: moment('2018-06-26'),
-          groupingInfo: [{ fieldName: 'test', id: 2 }],
-        }, {
-          startDate: moment('2018-06-26'),
-          endDate: moment('2018-06-27'),
-          groupingInfo: [{ fieldName: 'test', id: 2 }],
-        }, {
-          startDate: moment('2018-06-27'),
-          endDate: moment('2018-06-28'),
-          groupingInfo: [{ fieldName: 'test', id: 2 }],
-        }, {
-          startDate: moment('2018-06-28'),
-          endDate: moment('2018-06-29'),
-          groupingInfo: [{ fieldName: 'test', id: 2 }],
-        }, {
-          startDate: moment('2018-06-29'),
-          endDate: moment('2018-06-30'),
-          groupingInfo: [{ fieldName: 'test', id: 2 }],
-        }, {
-          startDate: moment('2018-06-30'),
-          endDate: moment('2018-07-01'),
-          groupingInfo: [{ fieldName: 'test', id: 2 }],
-        }],
-      ];
-      const firstTestAppointment = { test: 1 };
-      const secondTestAppointment = { test: 2 };
       expect(getMonthCellIndexByAppointmentData(
-        viewCellsData, '2018-06-27', firstTestAppointment, false,
+        horizontallyGroupedViewCells,
+        HORIZONTAL_GROUP_ORIENTATION, false, 2,
+        '2018-06-27', firstTestAppointment, false,
       ))
         .toEqual(3);
       expect(getMonthCellIndexByAppointmentData(
-        viewCellsData, '2018-06-28', secondTestAppointment, false,
+        horizontallyGroupedViewCells,
+        HORIZONTAL_GROUP_ORIENTATION, false, 2,
+        '2018-06-28', secondTestAppointment, false,
       ))
         .toEqual(11);
     });
 
     it('should return cell index depending on grouping info with dates grouping', () => {
-      const viewCellsData = [
-        [{
-          startDate: moment('2018-06-24'),
-          endDate: moment('2018-06-25'),
-          groupingInfo: [{ fieldName: 'test', id: 1 }],
-        }, {
-          startDate: moment('2018-06-24'),
-          endDate: moment('2018-06-25'),
-          groupingInfo: [{ fieldName: 'test', id: 2 }],
-        }, {
-          startDate: moment('2018-06-25'),
-          endDate: moment('2018-06-26'),
-          groupingInfo: [{ fieldName: 'test', id: 1 }],
-        }, {
-          startDate: moment('2018-06-25'),
-          endDate: moment('2018-06-26'),
-          groupingInfo: [{ fieldName: 'test', id: 2 }],
-        }, {
-          startDate: moment('2018-06-26'),
-          endDate: moment('2018-06-27'),
-          groupingInfo: [{ fieldName: 'test', id: 1 }],
-        }, {
-          startDate: moment('2018-06-26'),
-          endDate: moment('2018-06-27'),
-          groupingInfo: [{ fieldName: 'test', id: 2 }],
-        }, {
-          startDate: moment('2018-06-27'),
-          endDate: moment('2018-06-28'),
-          groupingInfo: [{ fieldName: 'test', id: 1 }],
-        }, {
-          startDate: moment('2018-06-27'),
-          endDate: moment('2018-06-28'),
-          groupingInfo: [{ fieldName: 'test', id: 2 }],
-        }, {
-          startDate: moment('2018-06-28'),
-          endDate: moment('2018-06-29'),
-          groupingInfo: [{ fieldName: 'test', id: 1 }],
-        }, {
-          startDate: moment('2018-06-28'),
-          endDate: moment('2018-06-29'),
-          groupingInfo: [{ fieldName: 'test', id: 2 }],
-        }, {
-          startDate: moment('2018-06-29'),
-          endDate: moment('2018-06-30'),
-          groupingInfo: [{ fieldName: 'test', id: 1 }],
-        }, {
-          startDate: moment('2018-06-29'),
-          endDate: moment('2018-06-30'),
-          groupingInfo: [{ fieldName: 'test', id: 2 }],
-        }, {
-          startDate: moment('2018-06-30'),
-          endDate: moment('2018-07-01'),
-          groupingInfo: [{ fieldName: 'test', id: 1 }],
-        }, {
-          startDate: moment('2018-06-30'),
-          endDate: moment('2018-07-01'),
-          groupingInfo: [{ fieldName: 'test', id: 2 }],
-        }],
-      ];
-      const firstTestAppointment = { test: 1 };
-      const secondTestAppointment = { test: 2 };
       expect(getMonthCellIndexByAppointmentData(
-        viewCellsData, '2018-06-27', firstTestAppointment, false, true,
+        groupedByDateViewCells,
+        HORIZONTAL_GROUP_ORIENTATION, true, 2,
+        '2018-06-27', firstTestAppointment, false,
       ))
         .toEqual(6);
       expect(getMonthCellIndexByAppointmentData(
-        viewCellsData, '2018-06-28', secondTestAppointment, false, true,
+        groupedByDateViewCells,
+        HORIZONTAL_GROUP_ORIENTATION, true, 2,
+        '2018-06-28', secondTestAppointment, false,
       ))
         .toEqual(9);
+    });
+
+    it('should work with vertical grouping', () => {
+      expect(getMonthCellIndexByAppointmentData(
+        verticallyGroupedViewCells,
+        VERTICAL_GROUP_ORIENTATION, false, 2,
+        '2018-06-27', firstTestAppointment, false,
+      ))
+        .toEqual(3);
+      expect(getMonthCellIndexByAppointmentData(
+        verticallyGroupedViewCells,
+        VERTICAL_GROUP_ORIENTATION, false, 2,
+        '2018-06-28', secondTestAppointment, false,
+      ))
+        .toEqual(11);
+    });
+
+    describe('#getMonthHorizontallyGroupedColumnIndex', () => {
+      it('should return column index', () => {
+        expect(getMonthHorizontallyGroupedColumnIndex(
+          horizontallyGroupedViewCells, firstTestAppointment, 0, 3, 2, false,
+        ))
+          .toEqual(3);
+        expect(getMonthHorizontallyGroupedColumnIndex(
+          horizontallyGroupedViewCells, secondTestAppointment, 0, 3, 2, false,
+        ))
+          .toEqual(10);
+      });
+
+      it('should work when appointments are grouped by date', () => {
+        expect(getMonthHorizontallyGroupedColumnIndex(
+          horizontallyGroupedViewCells, firstTestAppointment, 0, 3, 2, true,
+        ))
+          .toEqual(6);
+        expect(getMonthHorizontallyGroupedColumnIndex(
+          horizontallyGroupedViewCells, secondTestAppointment, 0, 3, 2, true,
+        ))
+          .toEqual(7);
+      });
+    });
+
+    describe('#getMonthVerticallyGroupedRowIndex', () => {
+      it('should return row index', () => {
+        expect(getMonthVerticallyGroupedRowIndex(
+          verticallyGroupedViewCells, firstTestAppointment, 0, 3, 2,
+        ))
+          .toEqual(0);
+        expect(getMonthVerticallyGroupedRowIndex(
+          verticallyGroupedViewCells, secondTestAppointment, 0, 3, 2,
+        ))
+          .toEqual(1);
+      });
     });
   });
 });

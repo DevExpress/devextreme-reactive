@@ -199,7 +199,7 @@ export const calculateDraftAppointments = (
       allDayDraftAppointments: allDayRects(
         allDayDrafts, startViewDate, endViewDate,
         excludedDays, viewCellsData, getAllDayCellsElementRects,
-        grouping, resources, groups, groupByDate, groupOrientation,
+        grouping, resources, groups, groupOrientation, groupByDate,
       ),
       timeTableDraftAppointments: [],
     };

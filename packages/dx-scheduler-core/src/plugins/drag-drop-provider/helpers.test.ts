@@ -438,34 +438,38 @@ describe('DragDropProvider', () => {
   describe('#calculateDraftAppointments', () => {
     const allDayIndex = 0;
     const draftAppointments = [{}];
-    const startViewDate = new Date();
-    const endViewDate = new Date();
-    const excludedDays = [];
-    const viewCellsData = [];
+    const startViewDate = 'startViewDate';
+    const endViewDate = 'endViewDate';
+    const excludedDays = 'excludedDays';
+    const viewCellsData = 'viewCellsData';
     const allDayCells = { getParentRect: () => undefined, getCellRects: [] };
     const targetType = 'vertical';
-    const cellDurationMinutes = 0;
-    const timeTableCells = 0;
-    const grouping = [];
-    const resources = [];
-    const groups = [];
+    const cellDurationMinutes = 'cellDurationMinutes';
+    const timeTableCells = 'timeTableCells';
+    const grouping = 'grouping';
+    const resources = 'resources';
+    const groups = 'groups';
+    const groupOrientation = 'groupOrientation';
+    const groupByDate = 'groupByDate';
     it('should return all day array while drag above at AllDayPanel', () => {
       calculateDraftAppointments(
         allDayIndex, draftAppointments, startViewDate,
         endViewDate, excludedDays, viewCellsData, allDayCells,
         'horizontal', cellDurationMinutes, timeTableCells,
-        grouping, resources, groups, [], false,
+        grouping, resources, groups, groupOrientation, groupByDate,
       );
       expect(allDayRects)
         .toBeCalledWith([{ allDay: true }], startViewDate, endViewDate,
-          excludedDays, viewCellsData, allDayCells, grouping, resources, groups, []);
+          excludedDays, viewCellsData, allDayCells, grouping, resources,
+          groups, groupOrientation, groupByDate,
+        );
     });
     it('should format appointment if allDay flag exists', () => {
       expect(calculateDraftAppointments(
         allDayIndex, draftAppointments, startViewDate,
         endViewDate, excludedDays, viewCellsData, allDayCells,
         'horizontal', cellDurationMinutes, timeTableCells,
-        grouping, resources, [], false,
+        grouping, resources, groups, groupOrientation, groupByDate,
       ))
       .toEqual({
         allDayDraftAppointments: [{}],
@@ -489,7 +493,7 @@ describe('DragDropProvider', () => {
         nextAllDayIndex, longDraftAppointment, startViewDate,
         endViewDate, excludedDays, viewCellsData, nextAllDayCells,
         targetType, cellDurationMinutes, timeTableCells,
-        grouping, resources, [], false,
+        grouping, resources, groups, groupOrientation, groupByDate,
       ))
       .toEqual({
         allDayDraftAppointments: [{}],
@@ -500,7 +504,7 @@ describe('DragDropProvider', () => {
         nextAllDayIndex, longDraftAppointment, startViewDate,
         endViewDate, excludedDays, viewCellsData, nextAllDayCells,
         'horizontal', cellDurationMinutes, timeTableCells,
-        grouping, resources, [], false,
+        grouping, resources, groups, groupOrientation, groupByDate,
       ))
       .toEqual({
         allDayDraftAppointments: [],
@@ -518,7 +522,7 @@ describe('DragDropProvider', () => {
         nextAllDayIndex, shortAppointment, startViewDate,
         endViewDate, excludedDays, viewCellsData, nextAllDayCells,
         targetType, cellDurationMinutes, timeTableCells,
-        grouping, resources, [], false,
+        grouping, resources, groups, groupOrientation, groupByDate,
       ))
       .toEqual({
         allDayDraftAppointments: [],
@@ -531,7 +535,7 @@ describe('DragDropProvider', () => {
         nextAllDayIndex, draftAppointments, startViewDate,
         endViewDate, excludedDays, viewCellsData, allDayCells,
         targetType, cellDurationMinutes, timeTableCells,
-        grouping, resources, [], false,
+        grouping, resources, groups, groupOrientation, groupByDate,
       ))
       .toEqual({
         allDayDraftAppointments: [],
@@ -540,39 +544,39 @@ describe('DragDropProvider', () => {
     });
     it('should work with groups', () => {
       calculateDraftAppointments(
-        -1, draftAppointments, 'startViewDate',
-        'endViewDate', 'excludedDays', 'viewCellsData', allDayCells,
-        'vertical', 'cellDurationMinutes', 'timeTableCells',
-        'grouping', 'resources', 'groups', 'groupByDate',
+        -1, draftAppointments, startViewDate,
+        endViewDate, excludedDays, viewCellsData, allDayCells,
+        'vertical', cellDurationMinutes, timeTableCells,
+        grouping, resources, groups, groupOrientation, groupByDate,
       );
       expect(verticalTimeTableRects)
         .toBeCalledWith(
-          [{}], 'startViewDate', 'endViewDate', 'excludedDays', 'viewCellsData', 'cellDurationMinutes',
-          'timeTableCells', 'grouping', 'resources', 'groups', 'groupByDate',
+          [{}], startViewDate, endViewDate, excludedDays, viewCellsData, cellDurationMinutes,
+          timeTableCells, grouping, resources, groups, groupOrientation, groupByDate,
         );
 
       calculateDraftAppointments(
-        1, draftAppointments, 'startViewDate',
-        'endViewDate', 'excludedDays', 'viewCellsData', allDayCells,
-        'horizontal', 'cellDurationMinutes', 'timeTableCells',
-        'grouping', 'resources', 'groups', 'groupByDate',
+        1, draftAppointments, startViewDate,
+        endViewDate, excludedDays, viewCellsData, allDayCells,
+        'horizontal', cellDurationMinutes, timeTableCells,
+        grouping, resources, groups, groupOrientation, groupByDate,
       );
       expect(allDayRects)
         .toBeCalledWith(
-          [{ allDay: true }], 'startViewDate', 'endViewDate', 'excludedDays', 'viewCellsData',
-          allDayCells, 'grouping', 'resources', 'groups', 'groupByDate',
+          [{ allDay: true }], startViewDate, endViewDate, excludedDays, viewCellsData,
+          allDayCells, grouping, resources, groups, groupOrientation, groupByDate,
         );
 
       calculateDraftAppointments(
-        -1, draftAppointments, 'startViewDate',
-        'endViewDate', 'excludedDays', 'viewCellsData', allDayCells,
-        'horizontal', 'cellDurationMinutes', 'timeTableCells',
-        'grouping', 'resources', 'groups', 'groupByDate',
+        -1, draftAppointments, startViewDate,
+        endViewDate, excludedDays, viewCellsData, allDayCells,
+        'horizontal', cellDurationMinutes, timeTableCells,
+        grouping, resources, groups, groupOrientation, groupByDate,
       );
       expect(verticalTimeTableRects)
         .toBeCalledWith(
-          [{}], 'startViewDate', 'endViewDate', 'excludedDays', 'viewCellsData', 'cellDurationMinutes',
-          'timeTableCells', 'grouping', 'resources', 'groups', 'groupByDate',
+          [{}], startViewDate, endViewDate, excludedDays, viewCellsData, cellDurationMinutes,
+          timeTableCells, grouping, resources, groups, groupOrientation, groupByDate,
         );
     });
   });

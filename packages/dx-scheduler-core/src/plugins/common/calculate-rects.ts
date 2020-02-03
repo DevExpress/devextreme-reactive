@@ -15,7 +15,7 @@ import { expandGroups } from '../integrated-grouping/computeds';
 export const allDayRects: AllDayRects = (
   appointments, startViewDate, endViewDate,
   excludedDays, viewCellsData, cellElementsMeta,
-  grouping, resources, groups, sliceAppointments, groupOrientation,
+  grouping, resources, groups, groupOrientation, sliceAppointments,
 ) => {
   const intervals = calculateAllDayDateIntervals(
     appointments, startViewDate, endViewDate, excludedDays,
@@ -38,8 +38,8 @@ export const allDayRects: AllDayRects = (
       cellElementsMeta,
       excludedDays,
     },
-    sliceAppointments,
     groupOrientation,
+    sliceAppointments,
     groups ? groups[groups.length - 1].length : 1,
   );
 };
@@ -69,8 +69,8 @@ export const verticalTimeTableRects: VerticalRects = (
       cellDuration,
       cellElementsMeta,
     },
-    groupByDate,
     groupOrientation,
+    groupByDate,
     groups ? groups[groups.length - 1].length : 1,
   );
 };
@@ -99,8 +99,8 @@ export const horizontalTimeTableRects: HorizontalRects = (
       viewCellsData,
       cellElementsMeta,
     },
-    sliceAppointments,
     groupOrientation,
+    sliceAppointments,
     groups ? groups[groups.length - 1].length : 1,
   );
 };

@@ -7,6 +7,7 @@ import {
   getWeekVerticallyGroupedColumnIndex,
   getWeekHorizontallyGroupedColumnIndex,
   getWeekVerticallyGroupedRowIndex,
+  getWeekHorizontallyGroupedRowIndex,
 } from './helpers';
 
 describe('Week view helpers', () => {
@@ -403,12 +404,34 @@ describe('Week view helpers', () => {
         ))
           .toBe(3);
       });
+
+      it('should work with takePrev', () => {
+        expect(getWeekVerticallyGroupedRowIndex(
+          verticallyGroupedViewCells, firstTestAppointment, '2018-06-25 08:30', 1, false, 2,
+        ))
+          .toBe(1);
+        expect(getWeekVerticallyGroupedRowIndex(
+          verticallyGroupedViewCells, firstTestAppointment, '2018-06-25 08:30', 1, true, 2,
+        ))
+          .toBe(0);
+      });
     });
 
     describe('#getWeekHorizontallyGroupedRowIndex', () => {
       it('should return row index', () => {
-        expect(getWeekVerticallyGroupedRowIndex(
-          horizontallyGroupedViewCells, firstTestAppointment, '2018-06-25 08:10', 1, false,
+        expect(getWeekHorizontallyGroupedRowIndex(
+          horizontallyGroupedViewCells, '2018-06-25 08:40', 1, false,
+        ))
+          .toBe(1);
+      });
+
+      it('should work with takePrev', () => {
+        expect(getWeekHorizontallyGroupedRowIndex(
+          horizontallyGroupedViewCells, '2018-06-25 08:30', 1, false,
+        ))
+          .toBe(1);
+        expect(getWeekHorizontallyGroupedRowIndex(
+          horizontallyGroupedViewCells, '2018-06-25 08:30', 1, true,
         ))
           .toBe(0);
       });

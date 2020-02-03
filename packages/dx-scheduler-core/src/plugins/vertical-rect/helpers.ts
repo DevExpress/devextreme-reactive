@@ -18,10 +18,10 @@ export const getVerticalCellIndexByAppointmentData: GetCellByAppointmentDataFn =
 ) => {
   const columnIndex = groupOrientation === VERTICAL_GROUP_ORIENTATION
     ? getWeekVerticallyGroupedColumnIndex(viewCellsData, date)
-    : getWeekHorizontallyGroupedColumnIndex(appointment, viewCellsData, date);
+    : getWeekHorizontallyGroupedColumnIndex(viewCellsData, appointment, date);
   const rowIndex = groupOrientation === VERTICAL_GROUP_ORIENTATION
     ? getWeekVerticallyGroupedRowIndex(
-      appointment, viewCellsData, date, columnIndex, takePrev, numberOfGroups,
+      viewCellsData, appointment, date, columnIndex, takePrev, numberOfGroups,
     ) : getWeekHorizontallyGroupedRowIndex(viewCellsData, date, columnIndex, takePrev);
 
   const totalCellIndex = (rowIndex * viewCellsData[0].length) + columnIndex;

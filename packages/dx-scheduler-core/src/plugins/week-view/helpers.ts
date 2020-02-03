@@ -130,13 +130,9 @@ export const getWeekVerticallyGroupedRowIndex: PureComputed<
   [ViewCell[][], AppointmentMoment, SchedulerDateTime, number, boolean, number], number
 > = (viewCellsData, appointment, date, columnIndex, takePrev, numberOfGroups) => {
   const timeTableHeight = viewCellsData.length / numberOfGroups;
-  let timeTableRowIndex = viewCellsData.findIndex(timeCell => moment(date as SchedulerDateTime)
-    .isBetween(
-      timeCell[columnIndex].startDate,
-      timeCell[columnIndex].endDate,
-      'seconds',
-      takePrev ? '(]' : '[)',
-    ));
+  let timeTableRowIndex = getWeekHorizontallyGroupedRowIndex(
+    viewCellsData, date, columnIndex, takePrev,
+  );
 
   if (!viewCellsData[0][0].groupingInfo) return timeTableRowIndex;
 

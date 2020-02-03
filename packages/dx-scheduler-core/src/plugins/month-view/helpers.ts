@@ -39,7 +39,7 @@ export const sliceAppointmentByWeek: SliceAppointmentByWeekFn = (timeBounds, app
 };
 
 export const getMonthCellIndexByAppointmentData: GetMonthCellIndexByAppointmentDataFn = (
-  viewCellsData, groupOrientation, groupByDate, groupsNumber, date, appointment, takePrev = false,
+  viewCellsData, groupOrientation, groupByDate, numberOfGroups, date, appointment, takePrev = false,
 ) => {
   const startViewDate = moment(viewCellsData[0][0].startDate);
   const currentDate = moment(date as SchedulerDateTime);
@@ -48,24 +48,22 @@ export const getMonthCellIndexByAppointmentData: GetMonthCellIndexByAppointmentD
     dayNumber -= 1;
   }
   const weekNumber = Math.floor(dayNumber / DAYS_IN_WEEK);
-  // const viewsNumber = viewCellsData[0].length / DAYS_IN_WEEK;
-  // let currentDay = groupByDate
-  //   ? (dayNumber % DAYS_IN_WEEK) * viewsNumber
-  //   : dayNumber % DAYS_IN_WEEK;
   const dayOfWeek = dayNumber % DAYS_IN_WEEK;
 
   const columnIndex = groupOrientation === HORIZONTAL_GROUP_ORIENTATION
-    ? getHorizontallyGroupedColumnIndex(appointment, viewCellsData, weekNumber, dayOfWeek)
+    ? getMonthHorizontallyGroupedColumnIndex(appointment, viewCellsData, weekNumber, dayOfWeek)
     : dayOfWeek;
   const rowIndex = groupOrientation === HORIZONTAL_GROUP_ORIENTATION
     ? weekNumber
-    : getVerticallyGroupedRowIndex(appointment, viewCellsData, weekNumber, dayOfWeek, groupsNumber);
+    : getMonthVerticallyGroupedRowIndex(
+      appointment, viewCellsData, weekNumber, dayOfWeek, numberOfGroups,
+    );
 
   const totalCellIndex = rowIndex * viewCellsData[0].length + columnIndex;
   return totalCellIndex;
 };
 
-export const getHorizontallyGroupedColumnIndex: PureComputed<
+export const getMonthHorizontallyGroupedColumnIndex: PureComputed<
   [AppointmentMoment, ViewCell[][], number, number], number
 > = (appointment, viewCellsData, weekNumber, dayOfWeek) => {
   let columnIndex = -1;
@@ -86,10 +84,10 @@ export const getHorizontallyGroupedColumnIndex: PureComputed<
   return columnIndex;
 };
 
-export const getVerticallyGroupedRowIndex: PureComputed<
+export const getMonthVerticallyGroupedRowIndex: PureComputed<
   [AppointmentMoment, ViewCell[][], number, number, number], number
-> = (appointment, viewCellsData, weekNumber, dayOfWeek, groupsNumber) => {
-  const rowsInOneGroup = viewCellsData.length / groupsNumber;
+> = (appointment, viewCellsData, weekNumber, dayOfWeek, numberOfGroups) => {
+  const rowsInOneGroup = viewCellsData.length / numberOfGroups;
   let rowIndex = -1;
   let currentRowIndex = weekNumber;
   while (rowIndex === -1) {

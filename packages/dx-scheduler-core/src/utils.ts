@@ -225,17 +225,17 @@ export const getAppointmentStyle: PureComputed<
 const rectCalculatorBase: RectCalculatorBaseFn = (
   appointment,
   groupOrientation,
-  groupsNumber,
+  numberOfGroups,
   getRectByAppointment,
   options,
-) => getRectByAppointment(appointment, groupOrientation, groupsNumber, options);
+) => getRectByAppointment(appointment, groupOrientation, numberOfGroups, options);
 
 const horizontalRectCalculator: CustomFunction<
   [AppointmentUnwrappedGroup, GroupOrientation, number, any], ElementRect
 > = (
   appointment,
   groupOrientation,
-  groupsNumber,
+  numberOfGroups,
   {
     rectByDates,
     multiline,
@@ -252,7 +252,7 @@ const horizontalRectCalculator: CustomFunction<
   } = rectCalculatorBase(
     appointment,
     groupOrientation,
-    groupsNumber,
+    numberOfGroups,
     rectByDates,
     {
       multiline,
@@ -280,7 +280,7 @@ const verticalRectCalculator: CustomFunction<
 > = (
   appointment,
   groupOrientation,
-  groupsNumber,
+  numberOfGroups,
   {
     rectByDates,
     multiline,
@@ -298,7 +298,7 @@ const verticalRectCalculator: CustomFunction<
   } = rectCalculatorBase(
     appointment,
     groupOrientation,
-    groupsNumber,
+    numberOfGroups,
     rectByDates,
     {
       multiline,
@@ -326,7 +326,7 @@ const verticalRectCalculator: CustomFunction<
 };
 
 export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIntervalsFn = (
-  type, intervals, rectByDates, rectByDatesMeta, groupOrientation, groupByDate, groupsNumber,
+  type, intervals, rectByDates, rectByDatesMeta, groupOrientation, groupByDate, numberOfGroups,
 ) => {
   const { growDirection, multiline } = type;
   const isHorizontal = growDirection === HORIZONTAL_TYPE;
@@ -343,7 +343,7 @@ export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIn
 
   return unwrapGroups(adjustAppointments(grouped as any[], isHorizontal))
     .map(appointment => rectCalculator(
-      appointment, groupOrientation, groupsNumber,
+      appointment, groupOrientation, numberOfGroups,
       { rectByDates, multiline, rectByDatesMeta, groupByDate },
     ));
 };

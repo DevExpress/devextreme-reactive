@@ -14,15 +14,15 @@ export const allDayPredicate: PureComputed<[AppointmentMoment], boolean> = appoi
 );
 
 export const getAllDayCellIndexByAppointmentData: GetAllDayCellIndexByAppointmentDataFn = (
-  viewCellsData, groupOrientation, groupsNumber, date, appointment, takePrev,
+  viewCellsData, groupOrientation, numberOfGroups, date, appointment, takePrev,
 ) => {
   const currentDate = moment(date as SchedulerDateTime);
 
   const columnIndex = groupOrientation === HORIZONTAL_GROUP_ORIENTATION
-    ? getHorizontallyGroupedColumnIndex(viewCellsData, currentDate, appointment)
-    : getVerticallyGroupedColumnIndex(viewCellsData, currentDate);
+    ? getAllDayHorizontallyGroupedColumnIndex(viewCellsData, currentDate, appointment)
+    : getAllDayVerticallyGroupedColumnIndex(viewCellsData, currentDate);
   const rowIndex = groupOrientation === HORIZONTAL_GROUP_ORIENTATION
-    ? 0 : getVerticallyGroupedRowIndex(viewCellsData, appointment, groupsNumber);
+    ? 0 : getAllDayVerticallyGroupedRowIndex(viewCellsData, appointment, numberOfGroups);
 
   let cellIndex = rowIndex * viewCellsData[0].length + columnIndex;
   if (takePrev && currentDate.format() === currentDate.startOf('day').format()) {
@@ -31,13 +31,13 @@ export const getAllDayCellIndexByAppointmentData: GetAllDayCellIndexByAppointmen
   return cellIndex;
 };
 
-export const getVerticallyGroupedColumnIndex: PureComputed<
+export const getAllDayVerticallyGroupedColumnIndex: PureComputed<
   [ViewCell[][], moment.Moment], number
 > = (viewCellsData, date) => viewCellsData[0].findIndex((timeCell) => {
   return date.isSame(timeCell.startDate, 'date');
 });
 
-export const getHorizontallyGroupedColumnIndex: PureComputed<
+export const getAllDayHorizontallyGroupedColumnIndex: PureComputed<
   [ViewCell[][], moment.Moment, AppointmentMoment], number
 > = (viewCellsData, date, appointment) => viewCellsData[0].findIndex((timeCell) => {
   let isCorrectColumn = true;
@@ -49,9 +49,9 @@ export const getHorizontallyGroupedColumnIndex: PureComputed<
   return date.isSame(timeCell.startDate, 'date') && isCorrectColumn;
 });
 
-export const getVerticallyGroupedRowIndex: PureComputed<
+export const getAllDayVerticallyGroupedRowIndex: PureComputed<
   [ViewCell[][], AppointmentMoment, number], number
-> = (viewCellsData, appointment, groupsNumber) => {
+> = (viewCellsData, appointment, numberOfGroups) => {
   const index = viewCellsData.findIndex((viewCellsDataRow) => {
     let isCorrectRow = true;
     const cellToCheck = viewCellsDataRow[0];
@@ -62,7 +62,7 @@ export const getVerticallyGroupedRowIndex: PureComputed<
     }
     return isCorrectRow;
   });
-  return index * groupsNumber / viewCellsData.length;
+  return index * numberOfGroups / viewCellsData.length;
 };
 
 export const sliceAppointmentsByBoundaries: SliceAppointmentsByBoundariesFn = (

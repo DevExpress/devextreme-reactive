@@ -49,7 +49,7 @@ export const expandViewCellsDataWithGroups: PureComputed<
   if (groupByDate) {
     return expandCellsWithGroupedByDateData(viewCellsData, groups, sortedResources);
   }
-  if (groupOrientation === HORIZONTAL_GROUP_ORIENTATION){
+  if (groupOrientation === HORIZONTAL_GROUP_ORIENTATION) {
     return expandHorizontallyGroupedCells(viewCellsData, groups, sortedResources);
   }
   return expandVerticallyGroupedCells(viewCellsData, groups, sortedResources);
@@ -101,12 +101,12 @@ const expandVerticallyGroupedCells: ExpandGroupingPanelCellFn = (
   acc: ViewCell[][], group: Group, index: number,
 ) => {
   if (index === 0) {
-    return viewCellsData.map((viewCellsRow: ViewCell[], viewRowIndex: number) => {
-      return addGroupInfoToCells(
+    return viewCellsData.map((
+      viewCellsRow: ViewCell[], viewRowIndex: number,
+    ) => addGroupInfoToCells(
         group, groups, sortedResources, viewCellsRow,
         index, viewRowIndex === viewCellsData.length - 1, VERTICAL_GROUP_ORIENTATION,
-      ) as ViewCell[];
-    });
+      ) as ViewCell[]);
   }
   return [
     ...acc,

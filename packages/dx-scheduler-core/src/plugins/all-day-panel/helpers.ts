@@ -7,6 +7,7 @@ import {
 import { HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 import { allDayCells } from '../common/computeds';
 import { getGroupingInfoFromGroups } from '../integrated-grouping/helpers';
+import { checkCellGroupingInfo } from '../common/helpers';
 
 export const allDayPredicate: PureComputed<[AppointmentMoment], boolean> = appointment => (
   appointment.end.diff(appointment.start, 'hours') > 23
@@ -39,29 +40,16 @@ export const getAllDayVerticallyGroupedColumnIndex: PureComputed<
 
 export const getAllDayHorizontallyGroupedColumnIndex: PureComputed<
   [ViewCell[][], moment.Moment, AppointmentMoment], number
-> = (viewCellsData, date, appointment) => viewCellsData[0].findIndex((timeCell) => {
-  let isCorrectColumn = true;
-  if (timeCell.groupingInfo) {
-    isCorrectColumn = timeCell.groupingInfo.every((group: Group) => (
-      group.id === appointment[group.fieldName]
-    ));
-  }
-  return date.isSame(timeCell.startDate, 'date') && isCorrectColumn;
-});
+> = (viewCellsData, date, appointment) => viewCellsData[0].findIndex(timeCell => (
+  date.isSame(timeCell.startDate, 'date') && checkCellGroupingInfo(timeCell, appointment)
+));
 
 export const getAllDayVerticallyGroupedRowIndex: PureComputed<
   [ViewCell[][], AppointmentMoment, number], number
 > = (viewCellsData, appointment, numberOfGroups) => {
-  const index = viewCellsData.findIndex((viewCellsDataRow) => {
-    let isCorrectRow = true;
-    const cellToCheck = viewCellsDataRow[0];
-    if (cellToCheck.groupingInfo) {
-      isCorrectRow = cellToCheck.groupingInfo.every((group: Group) => (
-        group.id === appointment[group.fieldName]
-      ));
-    }
-    return isCorrectRow;
-  });
+  const index = viewCellsData.findIndex(viewCellsDataRow => checkCellGroupingInfo(
+    viewCellsDataRow[0], appointment,
+  ));
   return index * numberOfGroups / viewCellsData.length;
 };
 

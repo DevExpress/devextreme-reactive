@@ -1,4 +1,4 @@
-import { getViewType, isMidnight, viewBoundText } from './helpers';
+import { getViewType, isMidnight, viewBoundText, checkCellGroupingInfo } from './helpers';
 import { VERTICAL_TYPE, HORIZONTAL_TYPE } from '../../constants';
 import { formatDateTimeGetter } from '../scheduler-core/computeds';
 
@@ -101,5 +101,36 @@ describe('viewBoundText', () => {
       expect(text)
         .toBe('6-10 July 2018');
     });
+  });
+});
+
+describe('#checkCellGroupingInfo', () => {
+  it('should return true if appointment\'s and cell\'s groups are equal', () => {
+    const cell = {
+      groupingInfo: [{
+        id: 1, fieldName: 'test',
+      }],
+    };
+    const appointment = { test: 1 };
+    expect(checkCellGroupingInfo(cell, appointment))
+      .toBeTruthy();
+  });
+
+  it('should return false if appointment\'s and cell\'s groups are not equal', () => {
+    const cell = {
+      groupingInfo: [{
+        id: 1, fieldName: 'test',
+      }],
+    };
+    const appointment = { test: 2 };
+    expect(checkCellGroupingInfo(cell, appointment))
+      .toBeFalsy();
+  });
+
+  it('should work without groups', () => {
+    const cell = {};
+    const appointment = {};
+    expect(checkCellGroupingInfo(cell, appointment))
+      .toBeTruthy();
   });
 });

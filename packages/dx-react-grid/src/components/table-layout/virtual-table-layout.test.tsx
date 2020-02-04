@@ -63,8 +63,9 @@ jest.mock('../../utils/grid-sizer', () => {
     // tslint:disable-next-line: max-classes-per-file
     GridSizer: class extends Component {
       render() {
+        const { collapsedGrid, ...restProps } = this.props;
         return (
-          <Sizer {...this.props} />
+          <Sizer {...restProps} />
         );
       }
     },

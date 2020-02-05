@@ -7,12 +7,12 @@ export const getCellKey: PureComputed<
   let currentIndex = index;
   return groups.reduceRight((acc: string, groupRow: Group[], rowIndex: number) => {
     if (rowNumber < rowIndex) return acc;
-    const currentKey = groupRow[currentIndex].text;
+    const currentKey = groupRow[currentIndex].id;
     if (rowIndex > 0) {
       const currentRowLength = groups[rowIndex].length / groups[rowIndex - 1].length;
       currentIndex = Math.floor(currentIndex / currentRowLength);
     }
-    return acc.concat(currentKey);
+    return acc + currentKey;
   }, '' as string);
 };
 

@@ -20,7 +20,7 @@ describe('GridSizer', () => {
     });
   });
 
-  it('should call "onSizeChange" after update columns include the stub', () => {
+  it('should call "onSizeChange" after update if columns include the stub', () => {
     const containerComponent = 'div';
     const onSizeChange = jest.fn();
     const tree = mount(
@@ -45,7 +45,7 @@ describe('GridSizer', () => {
     expect(onSizeChange).toBeCalled();
   });
 
-  it('should call "onSizeChange" after update rows include the stub', () => {
+  it('should call "onSizeChange" after update if rows include the stub', () => {
     const containerComponent = 'div';
     const onSizeChange = jest.fn();
     const tree = mount(
@@ -70,7 +70,8 @@ describe('GridSizer', () => {
     expect(onSizeChange).toBeCalled();
   });
 
-  it('should not call "onSizeChange" after update columns/rows not include the stub', () => {
+  // tslint:disable-next-line: max-line-length
+  it('should not call "onSizeChange" after update if neither columns nor rows include the stub', () => {
     const containerComponent = 'div';
     const onSizeChange = jest.fn();
     const tree = mount(

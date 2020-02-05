@@ -2,6 +2,7 @@ import {
   getGroupFromResourceInstance, addGroupInfoToCells, addGroupInfoToCell,
   groupAppointments, expandGroupedAppointment, rearrangeResources,
 } from './helpers';
+import { HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 
 describe('IntegratedGrouping helpers', () => {
   describe('#getGroupFromResourceInstance', () => {
@@ -39,18 +40,21 @@ describe('IntegratedGrouping helpers', () => {
         { fieldName: 'resource1', id: 2 },
       ]];
       expect(addGroupInfoToCells(
-        groups[0][0], groups, resources, viewCellsDataRow, 0,
+        groups[0][0], groups, resources, viewCellsDataRow, 0, true, HORIZONTAL_GROUP_ORIENTATION,
       ))
         .toEqual([{
           startDate: new Date('2018-06-24 08:00'),
           endDate: new Date('2018-06-24 08:30'),
           groupingInfo: [groups[0][0]],
+          endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         },
         {
           startDate: new Date('2018-06-24 08:30'),
           endDate: new Date('2018-06-24 09:00'),
           groupingInfo: [groups[0][0]],
           endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         }]);
     });
   });

@@ -2,6 +2,7 @@ import moment from 'moment';
 import { getHorizontalRectByAppointmentData } from './helpers';
 import { getAllDayCellIndexByAppointmentData } from '../all-day-panel/helpers';
 import { getMonthCellIndexByAppointmentData } from '../month-view/helpers';
+import { HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 
 jest.mock('../all-day-panel/helpers', () => ({
   getAllDayCellIndexByAppointmentData: jest.fn(),
@@ -95,6 +96,8 @@ describe('Horizontal rect helpers', () => {
         top, left, height, width, parentWidth,
       } = getHorizontalRectByAppointmentData(
         appointment,
+        HORIZONTAL_GROUP_ORIENTATION,
+        1,
         {
           viewCellsData,
           multiline: true,
@@ -121,6 +124,8 @@ describe('Horizontal rect helpers', () => {
         top, left, height, width, parentWidth,
       } = getHorizontalRectByAppointmentData(
         appointment,
+        HORIZONTAL_GROUP_ORIENTATION,
+        1,
         {
           viewCellsData,
           multiline: true,
@@ -144,6 +149,8 @@ describe('Horizontal rect helpers', () => {
 
       getHorizontalRectByAppointmentData(
         appointment,
+        HORIZONTAL_GROUP_ORIENTATION,
+        1,
         {
           viewCellsData,
           multiline: false,
@@ -156,9 +163,15 @@ describe('Horizontal rect helpers', () => {
       expect(getAllDayCellIndexByAppointmentData)
         .toBeCalledTimes(2);
       expect(getAllDayCellIndexByAppointmentData)
-        .toHaveBeenCalledWith(viewCellsData, appointment.start.toDate(), appointment, false);
+        .toHaveBeenCalledWith(
+          viewCellsData, HORIZONTAL_GROUP_ORIENTATION, 1,
+          appointment.start.toDate(), appointment, false,
+        );
       expect(getAllDayCellIndexByAppointmentData)
-        .toHaveBeenCalledWith(viewCellsData, appointment.end.toDate(), appointment, true);
+        .toHaveBeenCalledWith(
+          viewCellsData, HORIZONTAL_GROUP_ORIENTATION, 1,
+          appointment.end.toDate(), appointment, true,
+        );
     });
   });
 });

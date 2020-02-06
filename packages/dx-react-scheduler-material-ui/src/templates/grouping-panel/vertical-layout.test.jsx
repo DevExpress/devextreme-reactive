@@ -37,7 +37,7 @@ describe('GroupingPanel', () => {
   });
   afterEach(jest.resetAllMocks);
 
-  describe('HorizontalLayout', () => {
+  describe('VerticalLayout', () => {
     it('should pass rest props to the root component', () => {
       const tree = shallow((
         <VerticalLayout {...defaultProps} data={{ a: 1 }} />

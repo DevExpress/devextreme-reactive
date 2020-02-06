@@ -63,7 +63,7 @@ describe('Vertical View Layout', () => {
       .toBeTruthy();
     expect(tree.find('.ordinaryHeaderBorder').exists())
       .toBeTruthy();
-    expect(tree.find('s.brightHeaderBorder').exists())
+    expect(tree.find('.brightHeaderBorder').exists())
       .toBeFalsy();
     expect(tree.find('.ordinaryLeftPanelBorder').exists())
       .toBeTruthy();
@@ -122,11 +122,15 @@ describe('Vertical View Layout', () => {
       <MainLayout {...defaultProps} />
     ));
 
+    expect(tree.find('.brightHeaderBorder').exists())
+      .toBeFalsy();
     tree.simulate('scroll', { target: { scrollTop: 5 } });
     tree.update();
     expect(tree.find('.brightHeaderBorder').exists())
       .toBeTruthy();
 
+    expect(tree.find('.brightLeftPanelBorder').exists())
+      .toBeFalsy();
     tree.simulate('scroll', { target: { scrollLeft: 5 } });
     tree.update();
     expect(tree.find('.brightLeftPanelBorder').exists())
@@ -153,5 +157,14 @@ describe('Vertical View Layout', () => {
       .toHaveLength(2);
     expect(tree.find('.leftPanelWithoutTimeScale'))
       .toHaveLength(1);
+  });
+
+  it('should highlight day scale', () => {
+    const tree = mount((
+      <MainLayout {...defaultProps} highlightDayScale />
+    ));
+
+    expect(tree.find('.brightHeaderBorder').exists())
+      .toBeTruthy();
   });
 });

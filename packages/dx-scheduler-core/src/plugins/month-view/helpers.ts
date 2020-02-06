@@ -4,7 +4,7 @@ import {
   SchedulerDateTime, AppointmentMoment, ViewCell,
 } from '../../types';
 import { DAYS_IN_WEEK } from '../appointment-form/constants';
-import { PureComputed } from '@devexpress/dx-core/src';
+import { PureComputed } from '@devexpress/dx-core';
 import { HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 import { checkCellGroupingInfo } from '../common/helpers';
 

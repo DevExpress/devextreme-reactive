@@ -8,8 +8,8 @@ import {
   calculateRectByDateAndGroupIntervals, getVerticalRectByAppointmentData,
   getHorizontalRectByAppointmentData, getAppointmentStyle,
   isAllDayElementsMetaActual, isTimeTableElementsMetaActual,
+  HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION,
 } from '@devexpress/dx-scheduler-core';
-import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core/src';
 
 // eslint-disable-next-line react/prop-types
 const Appointment = ({ children }) => <div>{children}</div>;

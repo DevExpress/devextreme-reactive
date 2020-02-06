@@ -211,6 +211,14 @@ availableOptions? | Array&lt;object&gt; | Specifies available menu options.
 type? | `outlinedSelect` &#124; `filledSelect` | The menu's type.
 readOnly | boolean | Specifies whether the menu is read-only.
 
+> availableOptions object must conform to this shape:  
+> ```
+> availableOptions: {  
+>    id: (string | number),  
+>    text: (string),  
+> }  
+> ```
+
 ### AppointmentForm.ResourceEditorProps
 
 Properties passed to a component that renders a resource editor on the appointment form.

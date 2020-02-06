@@ -5,6 +5,7 @@
 ```ts
 
 import { Color as Color_2 } from '@material-ui/core';
+import { GroupOrientation as GroupOrientation_2 } from '@devexpress/dx-scheduler-core';
 import moment from 'moment';
 import * as React from 'react';
 
@@ -42,6 +43,8 @@ export namespace AllDayPanel {
     cellComponent: React.ComponentType<AllDayPanel.CellProps>;
     cellsData: AllDayPanel.CellData[];
     formatDate: FormatterFn;
+    // (undocumented)
+    groups?: Group[][];
     rowComponent: React.ComponentType<BaseView.RowProps>;
     setCellElementsMeta: (cellElementsMeta: CellElementsMeta) => void;
   }
@@ -460,6 +463,8 @@ export namespace BaseView {
     export interface TimeScaleLayoutProps {
         cellsData: BaseView.CellData[][];
         formatDate: FormatterFn;
+        groupOrientation?: GroupOrientation_2;
+        groups?: Group[][];
         labelComponent: React.ComponentType<BaseView.TimeScaleLabelProps>;
     }
     export interface TimeTableCellProps {
@@ -799,6 +804,13 @@ export namespace GroupingPanel {
     group: Group;
     groupedByDate?: boolean;
     left: number;
+    rowSpan: number;
+  }
+  export interface CellProps {
+    children?: React.ReactNode;
+    group: Group;
+    rowSpan: number;
+    width: number;
   }
   export interface HorizontalLayoutProps {
     cellComponent: React.ComponentType<GroupingPanel.CellProps>;
@@ -810,13 +822,23 @@ export namespace GroupingPanel {
   }
   export interface RowProps extends BaseView.RowProps {
   }
+  export interface VerticalLayoutProps {
+    cellComponent: React.ComponentType<GroupingPanel.CellProps>;
+    cellTextTopOffset?: number;
+    groups: Array<Array<Group>>;
+    rowComponent: React.ComponentType<GroupingPanel.RowProps>;
+    rowSpan: number;
+    viewType: string;
+  }
 }
 
 // @public (undocumented)
 export interface GroupingPanelProps {
+  allDayCellComponent: React.ComponentType<GroupingPanel.CellProps>;
   cellComponent: React.ComponentType<GroupingPanel.CellProps>;
   horizontalLayoutComponent: React.ComponentType<GroupingPanel.HorizontalLayoutProps>;
   rowComponent: React.ComponentType<GroupingPanel.RowProps>;
+  verticalLayoutComponent: React.ComponentType<GroupingPanel.VerticalLayoutProps>;
 }
 
 // @public
@@ -829,7 +851,7 @@ export interface GroupingStateProps {
   groupByDate?: (viewName: string) => boolean;
   grouping?: Array<Grouping>;
   // (undocumented)
-  groupOrientation?: (view: string) => GroupOrientation;
+  groupOrientation?: (view: string) => GroupOrientation_2;
   onExpandedGroupsChange?: (expandedGroups: Array<GroupKey>) => void;
 }
 
@@ -884,6 +906,7 @@ export namespace MonthView {
   }
   export interface LayoutProps {
     dayScaleComponent: React.ComponentType<BaseView.DayScaleLayoutProps>;
+    dayScaleEmptyCellComponent?: React.ComponentType<BaseView.DayScaleEmptyCellProps>;
     setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
     timeTableComponent: React.ComponentType<BaseView.TimeTableLayoutProps>;
   }
@@ -911,6 +934,7 @@ export namespace MonthView {
 
 // @public (undocumented)
 export interface MonthViewProps extends CommonViewProps {
+  dayScaleEmptyCellComponent?: React.ComponentType<BaseView.DayScaleEmptyCellProps>;
   dayScaleLayoutComponent: React.ComponentType<MonthView.DayScaleLayoutProps>;
   layoutComponent: React.ComponentType<MonthView.LayoutProps>;
   timeTableLayoutComponent: React.ComponentType<MonthView.TimeTableLayoutProps>;
@@ -985,6 +1009,8 @@ export type ScrollingStrategy = {
   bottomBoundary: number;
   leftBoundary: number;
   rightBoundary: number;
+  fixedTopHeight?: number;
+  fixedLeftWidth?: number;
   changeVerticalScroll: (value: number) => void;
   changeHorizontalScroll: (value: number) => void;
 };
@@ -1058,6 +1084,7 @@ export type ValidResourceInstance = Required<ResourceInstance> & {
 export namespace VerticalView {
   export interface LayoutProps extends BaseView.LayoutProps {
     dayScaleEmptyCellComponent: React.ComponentType<BaseView.DayScaleEmptyCellProps>;
+    highlightDaScale?: boolean;
     timeScaleComponent: React.ComponentType<BaseView.TimeScaleLayoutProps>;
   }
 }

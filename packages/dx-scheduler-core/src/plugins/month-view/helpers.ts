@@ -1,7 +1,7 @@
 import moment from 'moment';
 import {
   SliceAppointmentByWeekFn, GetMonthCellIndexByAppointmentDataFn,
-  SchedulerDateTime, AppointmentMoment, Group, ViewCell,
+  SchedulerDateTime, AppointmentMoment, ViewCell,
 } from '../../types';
 import { DAYS_IN_WEEK } from '../appointment-form/constants';
 import { PureComputed } from '@devexpress/dx-core/src';

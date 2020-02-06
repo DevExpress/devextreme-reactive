@@ -28,7 +28,6 @@ const calculateAppointmentsIntervalsBaseComputed = cellDuration => ({
 }) => calculateWeekDateIntervals(
   appointments, startViewDate, endViewDate, excludedDays, cellDuration,
 );
-const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
 const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 
 class WeekViewBase extends React.PureComponent<WeekViewProps> {

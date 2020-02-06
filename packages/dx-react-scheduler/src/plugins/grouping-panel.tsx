@@ -57,7 +57,8 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
                   groups={groups}
                   colSpan={viewCellsData[0].length}
                   cellStyle={{
-                    left: currentView?.type === VIEW_TYPES.MONTH
+                    left: scrollingStrategy.fixedLeftWidth ? scrollingStrategy.fixedLeftWidth
+                    : currentView?.type === VIEW_TYPES.MONTH
                       ? HORIZONTAL_VIEW_LEFT_OFFSET
                       : VERTICAL_VIEW_LEFT_OFFSET,
                   }}

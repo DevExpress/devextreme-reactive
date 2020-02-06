@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: '1rem',
     position: 'sticky',
     display: 'inline-block',
-    left: theme.spacing(left / 8),
+    left: `${left}px`,
     lineHeight: 1.5,
     maxHeight: height ? theme.spacing(height - 2) : undefined,
     whiteSpace: 'pre-wrap',

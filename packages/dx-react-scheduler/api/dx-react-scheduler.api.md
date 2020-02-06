@@ -5,7 +5,6 @@
 ```ts
 
 import { Color as Color_2 } from '@material-ui/core';
-import { GroupOrientation as GroupOrientation_2 } from '@devexpress/dx-scheduler-core';
 import moment from 'moment';
 import * as React from 'react';
 
@@ -463,7 +462,7 @@ export namespace BaseView {
     export interface TimeScaleLayoutProps {
         cellsData: BaseView.CellData[][];
         formatDate: FormatterFn;
-        groupOrientation?: GroupOrientation_2;
+        groupOrientation?: GroupOrientation;
         groups?: Group[][];
         labelComponent: React.ComponentType<BaseView.TimeScaleLabelProps>;
     }
@@ -851,7 +850,7 @@ export interface GroupingStateProps {
   groupByDate?: (viewName: string) => boolean;
   grouping?: Array<Grouping>;
   // (undocumented)
-  groupOrientation?: (view: string) => GroupOrientation_2;
+  groupOrientation?: (view: string) => GroupOrientation;
   onExpandedGroupsChange?: (expandedGroups: Array<GroupKey>) => void;
 }
 

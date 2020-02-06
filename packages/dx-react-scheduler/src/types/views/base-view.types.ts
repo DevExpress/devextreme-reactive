@@ -1,7 +1,9 @@
-import { FormatterFn, CellElementsMeta, ScrollingStrategy, Group } from '../index';
+import {
+  FormatterFn, CellElementsMeta, ScrollingStrategy,
+  Group, GroupOrientation,
+} from '../index';
 import { CurrentTimeIndicator } from '../current-time-indicator';
 import { GroupingPanel } from '../grouping';
-import { GroupOrientation } from '@devexpress/dx-scheduler-core';
 
 // tslint:disable: no-namespace
 export interface CommonViewProps {

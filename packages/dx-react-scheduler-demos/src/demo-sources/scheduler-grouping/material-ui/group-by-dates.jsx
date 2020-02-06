@@ -126,7 +126,6 @@ export default class Demo extends React.PureComponent {
               groupByDate={groupByDate}
             />
 
-            <MonthView />
             <WeekView
               startDayHour={8.5}
               endDayHour={17}

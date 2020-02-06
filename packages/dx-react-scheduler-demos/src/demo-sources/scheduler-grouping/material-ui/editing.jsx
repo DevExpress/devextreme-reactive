@@ -14,7 +14,6 @@ import {
   GroupingPanel,
   WeekView,
   AllDayPanel,
-  MonthView,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { data as appointments } from '../../../demo-data/grouping';
 
@@ -78,7 +77,6 @@ export default class Demo extends React.PureComponent {
             grouping={grouping}
           />
 
-          {/* <MonthView /> */}
           <WeekView
             startDayHour={9}
             endDayHour={17}

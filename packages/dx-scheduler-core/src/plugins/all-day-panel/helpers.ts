@@ -107,29 +107,25 @@ export const sliceAppointmentsByDays: PureComputed<
 
 export const allDayCellsData: PureComputed<
   [ViewCell[][], Group[][] | undefined, GroupOrientation], AllDayCell[]
-> = (viewCellsData, groups, groupOrientation) => {
-  return groupOrientation === HORIZONTAL_GROUP_ORIENTATION || !groups
+> = (viewCellsData, groups, groupOrientation) => groupOrientation === HORIZONTAL_GROUP_ORIENTATION
+  || !groups
     ? allDayCells(viewCellsData)
     : allDayCellsFromViewCellsAndGroups(viewCellsData, groups);
-};
 
-export const allDayCellsFromViewCellsAndGroups: PureComputed<
+const allDayCellsFromViewCellsAndGroups: PureComputed<
   [ViewCell[][], Group[][]], AllDayCell[]
-> = (viewCellsData, groups) => {
-  const result = groups[groups.length - 1].reduce((
-    acc: AllDayCell[], group: Group, index: number,
-  ) => {
-    const groupingInfo = getGroupingInfoFromGroups(groups, index) as Group[];
-    return [
-      ...acc,
-      ...viewCellsData[0].map(({
-        startDate,
-      }) => ({
-        startDate: moment(startDate).startOf('day').toDate(),
-        endDate: moment(startDate).add(1, 'day').startOf('day').toDate(),
-        groupingInfo,
-      })),
-    ];
-  }, [] as AllDayCell[]);
-  return result;
-};
+> = (viewCellsData, groups) => groups[groups.length - 1].reduce((
+  acc: AllDayCell[], group: Group, index: number,
+) => {
+  const groupingInfo = getGroupingInfoFromGroups(groups, index) as Group[];
+  return [
+    ...acc,
+    ...viewCellsData[0].map(({
+      startDate,
+    }) => ({
+      startDate: moment(startDate).startOf('day').toDate(),
+      endDate: moment(startDate).add(1, 'day').startOf('day').toDate(),
+      groupingInfo,
+    })),
+  ];
+}, [] as AllDayCell[]);

@@ -5,7 +5,7 @@ import {
   allDayCellsData, getAllDayVerticallyGroupedColumnIndex,
   getAllDayHorizontallyGroupedColumnIndex, getAllDayVerticallyGroupedRowIndex,
 } from './helpers';
-import { HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
+import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '../../constants';
 import { allDayCells } from '../common/computeds';
 
 jest.mock('../common/computeds', () => ({
@@ -331,5 +331,70 @@ describe('AllDayPanel helpers', () => {
         .toHaveBeenCalledWith('viewCellsData');
     });
 
+    it('should work with vertical grouping', () => {
+      const viewCellsData = [
+        [
+          { startDate: new Date('2020-06-24 08:00'), endDate: new Date('2020-06-24 08:30') },
+          { startDate: new Date('2020-06-25 08:00'), endDate: new Date('2020-06-25 08:30') },
+        ],
+      ];
+      const groups = [
+        [{ id: 1 }, { id: 2 }],
+        [{ id: 3 }, { id: 4 }, { id: 3 }, { id: 4 }],
+      ];
+
+      const result = allDayCellsData(viewCellsData, groups, VERTICAL_GROUP_ORIENTATION);
+      expect(result)
+        .toHaveLength(8);
+
+      expect(result[0])
+        .toEqual({
+          startDate: moment('2020-06-24T00:00').toDate(),
+          endDate: moment('2020-06-25T00:00:00').toDate(),
+          groupingInfo: [{ id: 3 }, { id: 1 }],
+        });
+      expect(result[1])
+        .toEqual({
+          startDate: moment('2020-06-25T00:00').toDate(),
+          endDate: moment('2020-06-26T00:00:00').toDate(),
+          groupingInfo: [{ id: 3 }, { id: 1 }],
+        });
+      expect(result[2])
+        .toEqual({
+          startDate: moment('2020-06-24T00:00').toDate(),
+          endDate: moment('2020-06-25T00:00:00').toDate(),
+          groupingInfo: [{ id: 4 }, { id: 1 }],
+        });
+      expect(result[3])
+        .toEqual({
+          startDate: moment('2020-06-25T00:00').toDate(),
+          endDate: moment('2020-06-26T00:00:00').toDate(),
+          groupingInfo: [{ id: 4 }, { id: 1 }],
+        });
+      expect(result[4])
+        .toEqual({
+          startDate: moment('2020-06-24T00:00').toDate(),
+          endDate: moment('2020-06-25T00:00:00').toDate(),
+          groupingInfo: [{ id: 3 }, { id: 2 }],
+        });
+      expect(result[5])
+        .toEqual({
+          startDate: moment('2020-06-25T00:00').toDate(),
+          endDate: moment('2020-06-26T00:00:00').toDate(),
+          groupingInfo: [{ id: 3 }, { id: 2 }],
+        });
+      expect(result[6])
+        .toEqual({
+          startDate: moment('2020-06-24T00:00').toDate(),
+          endDate: moment('2020-06-25T00:00:00').toDate(),
+          groupingInfo: [{ id: 4 }, { id: 2 }],
+        });
+      expect(result[7])
+        .toEqual({
+          startDate: moment('2020-06-25T00:00').toDate(),
+          endDate: moment('2020-06-26T00:00:00').toDate(),
+          groupingInfo: [{ id: 4 }, { id: 2 }],
+        });
+    });
   });
 });

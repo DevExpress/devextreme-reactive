@@ -71,9 +71,19 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
 
   updateAllDayAppointments = memoize((
     allDayAppointments, viewCellsData, allDayElementsMeta, currentView,
-    startViewDate, endViewDate, groups, groupOrientation, groupByDate,
+    startViewDate, endViewDate, groups, getGroupOrientation, groupByDate,
   ) => {
-    if (!isAllDayElementsMetaActual(viewCellsData, allDayAppointments)) return null;
+    const groupOrientation = getGroupOrientation
+      ? getGroupOrientation(currentView?.name)
+      : HORIZONTAL_GROUP_ORIENTATION;
+    const numberOfGroups = groups ? groups[groups.length - 1].length : 1;
+
+    if (!isAllDayElementsMetaActual(
+      viewCellsData, allDayElementsMeta, groupOrientation, numberOfGroups,
+    )) {
+      return null;
+    }
+
     return renderAppointments(calculateRectByDateAndGroupIntervals(
       { growDirection: HORIZONTAL_TYPE,  multiline: false },
       allDayAppointments,
@@ -82,9 +92,9 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
         startViewDate, endViewDate,
         viewCellsData, cellElementsMeta: allDayElementsMeta,
       },
-      groupOrientation ? groupOrientation(currentView?.name) : HORIZONTAL_GROUP_ORIENTATION,
+      groupOrientation,
       groupByDate?.(currentView?.name),
-      groups ? groups[groups.length - 1].length : 1,
+      numberOfGroups,
     ));
   });
 

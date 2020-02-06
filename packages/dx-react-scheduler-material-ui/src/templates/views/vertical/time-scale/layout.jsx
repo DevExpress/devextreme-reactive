@@ -31,11 +31,11 @@ const LayoutBase = ({
   <Grid container direction="row" {...restProps}>
     <div className={classes.timeScaleContainer}>
       {getLabelsForAllGroups(cellsData, groups, groupOrientation).map(
-        (groupedLabels) => {
+        (groupedLabels, groupIndex) => {
           const firstDataLabel = groupedLabels[0];
           const lastDataLabel = groupedLabels[groupedLabels.length - 1];
           return (
-            <>
+            <React.Fragment key={groupIndex.toString()}>
               <Label
                 key={firstDataLabel.startDate}
                 groupingInfo={firstDataLabel.groupingInfo}
@@ -45,7 +45,7 @@ const LayoutBase = ({
                   <Label
                     time={label.endDate}
                     formatDate={formatDate}
-                    key={label.endDate}
+                    key={label.key}
                     groupingInfo={label.groupingInfo}
                   />
                 )
@@ -55,7 +55,7 @@ const LayoutBase = ({
                 groupingInfo={lastDataLabel.groupingInfo}
                 endOfGroup
               />
-            </>
+            </React.Fragment>
           );
         },
       )}

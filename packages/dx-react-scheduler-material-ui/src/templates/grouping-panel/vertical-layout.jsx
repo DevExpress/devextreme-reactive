@@ -34,11 +34,11 @@ const VerticalLayoutBase = ({
     <Table className={classNames(classes.layout, className)} {...restProps}>
       <TableBody>
         {groups[groups.length - 1].map((_, groupIndex) => (
-          <Row>
+          <Row key={groupIndex.toString()}>
             {getVerticalCellsFromGroups(groups, groupIndex, rowSpan, timeTableCellHeight).map(({
               group: cellGroup,
               rowSpan: cellRowSpan,
-              height,
+              height, key,
             }) => (
               <Cell
                 group={cellGroup}
@@ -48,6 +48,7 @@ const VerticalLayoutBase = ({
                 colSpan={1}
                 groupOrientation={VERTICAL_GROUP_ORIENTATION}
                 topOffset={cellTextTopOffset}
+                key={key}
               />
             ))}
           </Row>

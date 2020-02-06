@@ -3,8 +3,8 @@ import { Group, HorizontalGroupingCellData, VerticalGroupingCellData } from '../
 
 export const getCellKey: PureComputed<
   [Group[][], number, number], string
-> = (groups, index, rowNumber) => {
-  let currentIndex = index;
+> = (groups, groupIndex, rowNumber) => {
+  let currentIndex = groupIndex;
   return groups.reduceRight((acc: string, groupRow: Group[], rowIndex: number) => {
     if (rowNumber < rowIndex) return acc;
     const currentKey = groupRow[currentIndex].id;
@@ -41,17 +41,19 @@ export const getRowFromGroups: PureComputed<
 export const getVerticalCellsFromGroups: PureComputed<
   [Group[][], number, number, number], VerticalGroupingCellData[]
 > = (groups, groupIndex, groupingPanelRowSpan, timeTableCellHeight) => groups.reduce((
-  acc, groupRow,
+  acc, groupColumn, columnIndex,
 ) => {
-  const groupSpan = groups[groups.length - 1].length / groupRow.length;
+  const groupSpan = groups[groups.length - 1].length / groupColumn.length;
+  const cellIndex = groupIndex / groupSpan;
   return groupIndex % groupSpan !== 0 ? acc : [
     ...acc,
     {
-      group: groupRow[groupIndex / groupSpan],
+      group: groupColumn[cellIndex],
       rowSpan: groupSpan,
       height: (
         groupingPanelRowSpan * groupSpan * timeTableCellHeight
       ) / groups[groups.length - 1].length,
+      key: getCellKey(groups, cellIndex, columnIndex),
     },
   ];
 }, [] as VerticalGroupingCellData[]);

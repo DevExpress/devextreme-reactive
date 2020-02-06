@@ -113,12 +113,14 @@ describe('GroupingPanel utils', () => {
           group: { text: '2', id: '2' },
           rowSpan: 2,
           height: 1000,
+          key: '2',
         });
       expect(result[1])
         .toEqual({
           group: { text: '3', id: '3' },
           rowSpan: 1,
           height: 500,
+          key: '32',
         });
 
       groupIndex = 3;
@@ -132,6 +134,7 @@ describe('GroupingPanel utils', () => {
           group: { text: '4', id: '4' },
           rowSpan: 1,
           height: 500,
+          key: '42',
         });
     });
   });

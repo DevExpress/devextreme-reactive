@@ -160,7 +160,7 @@ export const getGroupingInfoFromGroups: PureComputed<
   [Group[][], number], Group[]
 > = (groups, groupIndex) => {
   let previousIndex = groupIndex;
-  const groupingInfo = groups.reduceRight((acc, currentGroups, currentIndex) => {
+  return groups.reduceRight((acc, currentGroups, currentIndex) => {
     if (currentIndex === groups.length - 1) return acc;
     const previousResourceLength = groups[currentIndex + 1].length / currentGroups.length;
     const currentGroupingInstance = currentGroups[Math.floor(
@@ -169,5 +169,4 @@ export const getGroupingInfoFromGroups: PureComputed<
     previousIndex = currentIndex;
     return [...acc, currentGroupingInstance];
   }, [groups[groups.length - 1][groupIndex]]);
-  return groupingInfo;
 };

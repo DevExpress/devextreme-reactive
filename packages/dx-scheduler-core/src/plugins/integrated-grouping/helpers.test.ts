@@ -1,6 +1,6 @@
 import {
   getGroupFromResourceInstance, addGroupInfoToCells, addGroupInfoToCell,
-  groupAppointments, expandGroupedAppointment, rearrangeResources,
+  groupAppointments, expandGroupedAppointment, rearrangeResources, getGroupingInfoFromGroups,
 } from './helpers';
 import { HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 
@@ -372,6 +372,24 @@ describe('IntegratedGrouping helpers', () => {
           { id: 1, isMain: true },
           { id: 2, isMain: true },
         ]);
+    });
+  });
+
+  describe('#getGroupingInfoFromGroups', () => {
+    it('should extract groupingInfo from groups based on group index', () => {
+      const groups = [[
+        { id: 1 }, { id: 2 },
+      ], [
+        { id: 3 }, { id: 4 }, { id: 3 }, { id: 4 },
+      ]];
+
+      let result = getGroupingInfoFromGroups(groups, 0);
+      expect(result)
+        .toEqual([{ id: 3 }, { id: 1 }]);
+
+      result = getGroupingInfoFromGroups(groups, 3);
+      expect(result)
+        .toEqual([{ id: 4 }, { id: 2 }]);
     });
   });
 });

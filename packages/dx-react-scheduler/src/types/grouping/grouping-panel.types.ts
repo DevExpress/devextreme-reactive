@@ -1,6 +1,5 @@
-import { Group } from '../index';
+import { Group, GroupOrientation } from '../index';
 import { BaseView } from '../views';
-import { GroupOrientation } from '@devexpress/dx-scheduler-core/src';
 
 /* tslint:disable no-namespace max-line-length no-empty-interface */
 export namespace GroupingPanel {

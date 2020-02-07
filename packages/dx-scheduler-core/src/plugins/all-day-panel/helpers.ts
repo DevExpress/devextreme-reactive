@@ -4,7 +4,7 @@ import {
   AppointmentMoment, GetAllDayCellIndexByAppointmentDataFn,
   SliceAppointmentsByBoundariesFn, SchedulerDateTime, Group, ViewCell, GroupOrientation, AllDayCell,
 } from '../../types';
-import { HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
+import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '../../constants';
 import { allDayCells } from '../common/computeds';
 import { getGroupingInfoFromGroups } from '../integrated-grouping/helpers';
 import { checkCellGroupingInfo } from '../common/helpers';
@@ -107,7 +107,7 @@ export const sliceAppointmentsByDays: PureComputed<
 
 export const allDayCellsData: PureComputed<
   [ViewCell[][], Group[][] | undefined, GroupOrientation], AllDayCell[]
-> = (viewCellsData, groups, groupOrientation) => groupOrientation === HORIZONTAL_GROUP_ORIENTATION
+> = (viewCellsData, groups, groupOrientation) => groupOrientation !== VERTICAL_GROUP_ORIENTATION
   || !groups
     ? allDayCells(viewCellsData)
     : allDayCellsFromViewCellsAndGroups(viewCellsData, groups);

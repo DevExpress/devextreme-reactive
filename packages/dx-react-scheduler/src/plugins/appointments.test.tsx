@@ -355,7 +355,9 @@ describe('Appointments', () => {
     expect(isAllDayElementsMetaActual)
       .toHaveBeenCalledWith(
         defaultDeps.getter.viewCellsData,
-        defaultDeps.getter.allDayAppointments,
+        defaultDeps.getter.allDayElementsMeta,
+        HORIZONTAL_GROUP_ORIENTATION,
+        1,
       );
     expect(calculateRectByDateAndGroupIntervals)
       .toHaveBeenCalledWith({
@@ -415,7 +417,8 @@ describe('Appointments', () => {
       'groupByDate', 2,
       );
   });
-  it('should render "allDayAppointmentLayer" template when currentView is not "month"', () => {
+  // tslint:disable-next-line: max-line-length
+  it('should render "allDayAppointmentLayer" template when currentView is not "month" with vertical grouping', () => {
     const deps = {
       ...defaultDeps,
       template: {
@@ -447,7 +450,9 @@ describe('Appointments', () => {
     expect(isAllDayElementsMetaActual)
       .toHaveBeenCalledWith(
         defaultDeps.getter.viewCellsData,
-        defaultDeps.getter.allDayAppointments,
+        defaultDeps.getter.allDayElementsMeta,
+        VERTICAL_GROUP_ORIENTATION,
+        2,
       );
     expect(calculateRectByDateAndGroupIntervals)
       .toHaveBeenCalledWith({

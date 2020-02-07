@@ -521,8 +521,9 @@ describe('DragDropProvider', () => {
           defaultDeps.getter.allDayElementsMeta,
           'vertical', 60,
           deps.getter.timeTableElementsMeta,
-          'grouping', 'resources', 'groups', true,
+          'grouping', 'resources', 'groups',
           HORIZONTAL_GROUP_ORIENTATION,
+          true,
         );
     });
   });

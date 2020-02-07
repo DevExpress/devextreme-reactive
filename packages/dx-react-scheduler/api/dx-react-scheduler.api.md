@@ -472,6 +472,7 @@ export namespace BaseView {
         endDate?: Date;
         endOfGroup?: boolean;
         groupingInfo?: Array<Group>;
+        groupOrientation?: GroupOrientation;
         hasRightBorder?: boolean;
         isShaded?: boolean;
         startDate?: Date;
@@ -795,20 +796,24 @@ export const GroupingPanel: React.ComponentType<GroupingPanelProps>;
 
 // @public (undocumented)
 export namespace GroupingPanel {
+  export interface AllDayCellProps {
+    children?: React.ReactNode;
+    group: Group;
+    height?: number;
+    rowSpan: number;
+  }
   export interface CellProps {
     children?: React.ReactNode;
     colSpan: number;
     endOfGroup?: boolean;
     group: Group;
     groupedByDate?: boolean;
+    groupOrientation?: GroupOrientation;
+    height?: number;
     left: number;
     rowSpan: number;
-  }
-  export interface CellProps {
-    children?: React.ReactNode;
-    group: Group;
-    rowSpan: number;
-    width: number;
+    textStyle?: object;
+    topOffSet?: number;
   }
   export interface HorizontalLayoutProps {
     cellComponent: React.ComponentType<GroupingPanel.CellProps>;
@@ -821,7 +826,7 @@ export namespace GroupingPanel {
   export interface RowProps extends BaseView.RowProps {
   }
   export interface VerticalLayoutProps {
-    cellComponent: React.ComponentType<GroupingPanel.CellProps>;
+    cellComponent: React.ComponentType<GroupingPanel.CellProps> | React.ComponentType<GroupingPanel.AllDayCellProps>;
     cellTextTopOffset?: number;
     groups: Array<Array<Group>>;
     rowComponent: React.ComponentType<GroupingPanel.RowProps>;
@@ -914,6 +919,7 @@ export namespace MonthView {
     endOfGroup?: boolean;
     formatDate?: FormatterFn;
     groupingInfo?: Array<Group>;
+    groupOrientation?: GroupOrientation;
     hasRightBorder?: boolean;
     isShaded?: boolean;
     otherMonth?: boolean;

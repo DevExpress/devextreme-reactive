@@ -4,7 +4,7 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
-import { VERTICAL_GROUP_ORIENTATION, getVerticalCellsFromGroups } from '@devexpress/dx-scheduler-core';
+import { VERTICAL_GROUP_ORIENTATION, getVerticalRowFromGroups } from '@devexpress/dx-scheduler-core';
 import { BASIC_CELL_HEIGHT } from '../constants';
 
 const styles = {
@@ -35,7 +35,7 @@ const VerticalLayoutBase = ({
       <TableBody>
         {groups[groups.length - 1].map((_, groupIndex) => (
           <Row key={groupIndex.toString()}>
-            {getVerticalCellsFromGroups(groups, groupIndex, rowSpan, timeTableCellHeight).map(({
+            {getVerticalRowFromGroups(groups, groupIndex, rowSpan, timeTableCellHeight).map(({
               group: cellGroup,
               rowSpan: cellRowSpan,
               height, key,

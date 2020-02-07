@@ -38,7 +38,7 @@ export const getRowFromGroups: PureComputed<
   return row;
 };
 
-export const getVerticalCellsFromGroups: PureComputed<
+export const getVerticalRowFromGroups: PureComputed<
   [Group[][], number, number, number], VerticalGroupingCellData[]
 > = (groups, groupIndex, groupingPanelRowSpan, timeTableCellHeight) => groups.reduce((
   acc, groupColumn, columnIndex,

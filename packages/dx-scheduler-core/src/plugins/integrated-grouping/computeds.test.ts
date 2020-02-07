@@ -89,7 +89,7 @@ describe('IntegratedGrouping computeds', () => {
     });
   });
 
-  describe('#expandViewCellsDataWithGroups ', () => {
+  describe('#expandViewCellsDataWithGroups', () => {
     const viewCellsDataBase = [
       [{ startDate: new Date('2018-06-24 08:00'), endDate: new Date('2018-06-24 08:30') }],
       [{ startDate: new Date('2018-06-24 08:30'), endDate: new Date('2018-06-24 09:00') }],

@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import { getVerticalCellsFromGroups, VIEW_TYPES } from '@devexpress/dx-scheduler-core';
+import { getVerticalRowFromGroups, VIEW_TYPES } from '@devexpress/dx-scheduler-core';
 import { VerticalLayout } from './vertical-layout';
 import { BASIC_CELL_HEIGHT } from '../constants';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...require.requireActual('@devexpress/dx-scheduler-core'),
-  getVerticalCellsFromGroups: jest.fn(),
+  getVerticalRowFromGroups: jest.fn(),
 }));
 
 describe('GroupingPanel', () => {
@@ -33,7 +33,7 @@ describe('GroupingPanel', () => {
     classes = getClasses(<VerticalLayout {...defaultProps} />);
   });
   beforeEach(() => {
-    getVerticalCellsFromGroups.mockImplementation(() => [{ rowSpan: 1 }]);
+    getVerticalRowFromGroups.mockImplementation(() => [{ rowSpan: 1 }]);
   });
   afterEach(jest.resetAllMocks);
 
@@ -69,20 +69,20 @@ describe('GroupingPanel', () => {
         .toHaveLength(4);
     });
 
-    it('should call "getVerticalCellsFromGroups"', () => {
+    it('should call "getVerticalRowFromGroups"', () => {
       shallow((
         <VerticalLayout {...defaultProps} groups={groups} showHeaderForEveryDate colSpan={12} />
       ));
 
-      expect(getVerticalCellsFromGroups)
+      expect(getVerticalRowFromGroups)
         .toHaveBeenCalledTimes(4);
-      expect(getVerticalCellsFromGroups)
+      expect(getVerticalRowFromGroups)
         .toHaveBeenCalledWith(groups, 0, defaultProps.rowSpan, BASIC_CELL_HEIGHT[VIEW_TYPES.WEEK]);
-      expect(getVerticalCellsFromGroups)
+      expect(getVerticalRowFromGroups)
         .toHaveBeenCalledWith(groups, 1, defaultProps.rowSpan, BASIC_CELL_HEIGHT[VIEW_TYPES.WEEK]);
-      expect(getVerticalCellsFromGroups)
+      expect(getVerticalRowFromGroups)
         .toHaveBeenCalledWith(groups, 2, defaultProps.rowSpan, BASIC_CELL_HEIGHT[VIEW_TYPES.WEEK]);
-      expect(getVerticalCellsFromGroups)
+      expect(getVerticalRowFromGroups)
         .toHaveBeenCalledWith(groups, 3, defaultProps.rowSpan, BASIC_CELL_HEIGHT[VIEW_TYPES.WEEK]);
     });
   });

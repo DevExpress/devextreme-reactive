@@ -43,6 +43,7 @@ const defaultProps = {
   dayScaleLayoutComponent: () => null,
   dayScaleCellComponent: () => null,
   dayScaleRowComponent: () => null,
+  dayScaleEmptyCellComponent: () => null,
   timeTableLayoutComponent: () => null,
   timeTableRowComponent: () => null,
   timeTableCellComponent: () => null,
@@ -83,6 +84,8 @@ describe('Month View', () => {
           timeTableLayoutComponent: defaultProps.timeTableLayoutComponent,
           timeTableRowComponent: defaultProps.timeTableRowComponent,
           timeTableCellComponent: defaultProps.timeTableCellComponent,
+          dayScaleEmptyCellComponent: defaultProps.dayScaleEmptyCellComponent,
+          appointmentLayerComponent: defaultProps.appointmentLayerComponent,
         });
 
       tree.find(BasicView).props().viewCellsDataComputed(

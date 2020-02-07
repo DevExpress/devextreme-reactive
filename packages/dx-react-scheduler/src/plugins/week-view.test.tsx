@@ -68,7 +68,7 @@ describe('Week View', () => {
       ));
 
       expect(tree.find(BasicView).props())
-        .toMatchObject({
+        .toEqual({
           type: 'week',
           name: 'Week',
           intervalCount: 1,
@@ -86,6 +86,8 @@ describe('Week View', () => {
           timeTableCellComponent: defaultProps.timeTableCellComponent,
           appointmentLayerComponent: defaultProps.appointmentLayerComponent,
           dayScaleEmptyCellComponent: defaultProps.dayScaleEmptyCellComponent,
+          calculateAppointmentsIntervals: expect.any(Function),
+          viewCellsDataComputed: expect.any(Function),
         });
       expect(tree.find(BasicView).props().layoutProps)
         .toMatchObject({

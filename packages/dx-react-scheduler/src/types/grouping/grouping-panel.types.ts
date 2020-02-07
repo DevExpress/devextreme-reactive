@@ -1,5 +1,6 @@
 import { Group } from '../index';
 import { BaseView } from '../views';
+import { GroupOrientation } from '@devexpress/dx-scheduler-core/src';
 
 /* tslint:disable no-namespace max-line-length no-empty-interface */
 export namespace GroupingPanel {
@@ -23,7 +24,7 @@ export namespace GroupingPanel {
     /** A component that renders a row on the grouping panel. */
     rowComponent: React.ComponentType<GroupingPanel.RowProps>;
     /** A component that renders a cell in a row on the grouping panel. */
-    cellComponent: React.ComponentType<GroupingPanel.CellProps>;
+    cellComponent: React.ComponentType<GroupingPanel.CellProps> | React.ComponentType<GroupingPanel.AllDayCellProps>;
     /** Specifies the final representation of Scheduler's groups and the order they will be rendered in. */
     groups: Array<Array<Group>>;
     /** Indicates the number of cells in the Scheduler's timetable. */
@@ -43,23 +44,31 @@ export namespace GroupingPanel {
     rowSpan: number;
     /** The group the cell represents. */
     group: Group;
-    /** The cell's offset from the left. */
-    left: number;
+    /** Scheduler's grouping orientation: either 'Vertical' or 'Horizontal'. */
+    groupOrientation: GroupOrientation;
     /** "true" if this cell is last in its group. */
     endOfGroup?: boolean;
     /** Indicates whether grouping by date is enabled. */
     groupedByDate?: boolean;
+    /** The cell's offset from the left. */
+    left: number;
+    /** The cell's height. */
+    height?: number;
+    /** Specifies the distance between the cell's text and the top edge of the Scheduler. */
+    topOffSet?: number;
+    /** Specifies the CSS properties to apply to the Cell's text. */
+    textStyle?: object;
     /** A React node used to render an additional content to the cell. */
     children?: React.ReactNode;
   }
   /** Describes properties passed to a component that renders a cell in a row on the grouping panel in the AllDay Panel. */
-  export interface CellProps {
+  export interface AllDayCellProps {
     /** The number of rows the cell spans. */
     rowSpan: number;
     /** The group the cell represents. */
     group: Group;
-    /** Specifies the layout's width. */
-    width: number;
+    /** The cell's height. */
+    height?: number;
     /** A React node used to render an additional content to the cell. */
     children?: React.ReactNode;
   }

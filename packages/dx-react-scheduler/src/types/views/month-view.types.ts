@@ -1,6 +1,6 @@
 import {
   ScrollingStrategy, BaseView, CommonViewProps,
-  FormatterFn, CellElementsMeta, GroupingPanel, Group,
+  FormatterFn, CellElementsMeta, GroupingPanel, Group, GroupOrientation,
 } from '../index';
 
 /* tslint:disable no-namespace no-empty-interface */
@@ -36,6 +36,8 @@ export namespace MonthView {
     formatDate?: FormatterFn;
     /** Information about the cell's grouping. */
     groupingInfo?: Array<Group>;
+    /** Scheduler's grouping orientation. */
+    groupOrientation?: GroupOrientation;
     /** \@deprecated Specifies whether the cell has the right border. */
     hasRightBorder?: boolean;
     /** "true" if this cell is last in its group. */

@@ -26,6 +26,7 @@ const TickCellBase = React.memo(({
   startDate,
   endDate,
   endOfGroup,
+  groupingInfo,
   ...restProps
 }) => (
   <TableCell
@@ -42,6 +43,7 @@ TickCellBase.propTypes = {
   startDate: PropTypes.instanceOf(Date),
   endDate: PropTypes.instanceOf(Date),
   endOfGroup: PropTypes.bool,
+  groupingInfo: PropTypes.arrayOf(PropTypes.object),
   className: PropTypes.string,
 };
 
@@ -50,6 +52,7 @@ TickCellBase.defaultProps = {
   startDate: undefined,
   endDate: undefined,
   endOfGroup: false,
+  groupingInfo: undefined,
 };
 
 export const TickCell = withStyles(styles, { name: 'TickCell' })(TickCellBase);

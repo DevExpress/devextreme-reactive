@@ -19,7 +19,6 @@ const TicksLayoutBase = ({
   rowComponent: Row,
   cellsData,
   classes,
-  groups,
   groupOrientation,
   className,
   ...restProps
@@ -32,7 +31,8 @@ const TicksLayoutBase = ({
             key={index.toString()}
             startDate={days[0].startDate}
             endDate={days[0].endDate}
-            endOfGroup={days[0].endOfGroup}
+            endOfGroup={days[0].endOfGroup && groupOrientation === VERTICAL_GROUP_ORIENTATION}
+            groupingInfo={days[0].groupingInfo}
           />
         </Row>
       ))}
@@ -44,14 +44,12 @@ TicksLayoutBase.propTypes = {
   cellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  groups: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)),
   groupOrientation: PropTypes.oneOf([HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION]),
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
 TicksLayoutBase.defaultProps = {
-  groups: [[{}]],
   className: undefined,
   groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
 };

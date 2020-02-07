@@ -65,6 +65,7 @@ const LayoutBase = ({
       cellComponent={tickCellComponent}
       cellsData={cellsData}
       className={classes.ticks}
+      groupOrientation={groupOrientation}
     />
   </Grid>
 );

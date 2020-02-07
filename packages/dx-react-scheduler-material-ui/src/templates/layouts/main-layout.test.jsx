@@ -31,7 +31,7 @@ jest.mock('@material-ui/core/styles', () => ({
   })),
 }));
 
-describe('Vertical View Layout', () => {
+describe('Main Layout', () => {
   const defaultProps = {
     timeScaleComponent: () => null,
     dayScaleComponent: () => null,

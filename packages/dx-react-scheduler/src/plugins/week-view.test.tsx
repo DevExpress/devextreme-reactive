@@ -68,7 +68,7 @@ describe('Week View', () => {
       ));
 
       expect(tree.find(BasicView).props())
-        .toEqual({
+        .toMatchObject({
           type: 'week',
           name: 'Week',
           intervalCount: 1,

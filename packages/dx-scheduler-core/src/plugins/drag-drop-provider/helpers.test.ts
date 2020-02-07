@@ -7,6 +7,7 @@ import {
 import {
   allDayRects, horizontalTimeTableRects, verticalTimeTableRects,
 } from '../common/calculate-rects';
+import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '../../constants';
 
 jest.mock('../common/calculate-rects', () => ({
   ...require.requireActual('../common/calculate-rects'),
@@ -92,12 +93,22 @@ describe('DragDropProvider', () => {
       [{ startDate: new Date('2019-3-1 11:00') }, { startDate: new Date('2019-3-2 11:00') }],
     ];
     it('should work with both indexes', () => {
-      expect(cellData(1, 1, cellsData).startDate)
+      expect(cellData(1, 1, cellsData, undefined, HORIZONTAL_GROUP_ORIENTATION).startDate)
         .toEqual(new Date('2019-3-2 00:00'));
     });
     it('should work with only time table index', () => {
-      expect(cellData(2, -1, cellsData).startDate)
+      expect(cellData(2, -1, cellsData, undefined, HORIZONTAL_GROUP_ORIENTATION).startDate)
         .toEqual(new Date('2019-3-1 11:00'));
+    });
+    it('should work with with vertical grouping', () => {
+      const groups = [[{ id: 1 }, { id: 2 }]];
+
+      expect(cellData(2, 1, cellsData, groups, VERTICAL_GROUP_ORIENTATION))
+        .toEqual({
+          startDate: new Date('2019-3-2 00:00'),
+          endDate: new Date('2019-3-3 00:00'),
+          groupingInfo: [{ id: 1 }],
+        });
     });
   });
 

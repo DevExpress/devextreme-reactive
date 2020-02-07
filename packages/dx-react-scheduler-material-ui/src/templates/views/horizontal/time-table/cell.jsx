@@ -69,13 +69,13 @@ const styles = theme => ({
       outline: 0,
     },
   },
-  rightBorderCell: {
+  brightRightBorder: {
     borderRight: getBrightBorder(theme),
     '&:last-child': {
       borderRight: 'none',
     },
   },
-  bottomBorderCell: {
+  brightBorderBottom: {
     borderBottom: getBrightBorder(theme),
   },
 });
@@ -104,9 +104,9 @@ const CellBase = React.memo(({
       className={classNames({
         [classes.cell]: true,
         [classes.shadedCell]: isShaded,
-        [classes.rightBorderCell]: (endOfGroup || hasRightBorder)
+        [classes.brightRightBorder]: (endOfGroup || hasRightBorder)
           && groupOrientation === HORIZONTAL_GROUP_ORIENTATION,
-        [classes.bottomBorderCell]: endOfGroup
+        [classes.brightBorderBottom]: endOfGroup
           && groupOrientation === VERTICAL_GROUP_ORIENTATION,
       }, className)}
       {...restProps}

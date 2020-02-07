@@ -25,7 +25,7 @@ describe('Vertical view DayScale', () => {
         .toBeTruthy();
       expect(tree.find(`.${classes.dayView}`).exists())
         .toBeTruthy();
-      expect(tree.is(`.${classes.rightBorderCell}`))
+      expect(tree.is(`.${classes.brightRightBorder}`))
         .toBeFalsy();
     });
     it('should pass rest props to the root element', () => {
@@ -67,7 +67,7 @@ describe('Vertical view DayScale', () => {
         <Cell {...defaultProps} endOfGroup />
       ));
 
-      expect(tree.is(`.${classes.rightBorderCell}`))
+      expect(tree.is(`.${classes.brightRightBorder}`))
         .toBeTruthy();
     });
   });

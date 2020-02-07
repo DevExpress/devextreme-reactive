@@ -66,7 +66,7 @@ describe('Horizontal view TimeTable', () => {
         .toHaveLength(0);
       expect(tree.find(`.${classes.text}`))
         .toHaveLength(1);
-      expect(tree.is(`.${classes.rightBorderCell}`))
+      expect(tree.is(`.${classes.brightRightBorder}`))
         .toBeFalsy();
     });
   });
@@ -121,9 +121,9 @@ describe('Horizontal view TimeTable', () => {
       <Cell {...defaultProps} endOfGroup />
     ));
 
-    expect(tree.is(`.${classes.rightBorderCell}`))
+    expect(tree.is(`.${classes.brightRightBorder}`))
       .toBeTruthy();
-    expect(tree.is(`.${classes.bottomBorderCell}`))
+    expect(tree.is(`.${classes.brightBorderBottom}`))
       .toBeFalsy();
   });
   it('should render the last cell in a vertical group', () => {
@@ -135,9 +135,9 @@ describe('Horizontal view TimeTable', () => {
       />
     ));
 
-    expect(tree.is(`.${classes.bottomBorderCell}`))
+    expect(tree.is(`.${classes.brightBorderBottom}`))
       .toBeTruthy();
-    expect(tree.is(`.${classes.rightBorderCell}`))
+    expect(tree.is(`.${classes.brightRightBorder}`))
       .toBeFalsy();
   });
 });

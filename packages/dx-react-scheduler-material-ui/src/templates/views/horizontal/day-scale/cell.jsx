@@ -27,7 +27,7 @@ const styles = theme => ({
     color: theme.palette.text.secondary,
     fontWeight: 'bold',
   },
-  rightBorderCell: {
+  brightRightBorder: {
     borderRight: getBrightBorder(theme),
     '&:last-child': {
       borderRight: 'none',
@@ -51,7 +51,7 @@ const CellBase = React.memo(({
   <TableCell
     className={classNames({
       [classes.cell]: true,
-      [classes.rightBorderCell]: endOfGroup || hasRightBorder,
+      [classes.brightRightBorder]: endOfGroup || hasRightBorder,
     }, className)}
     {...restProps}
   >

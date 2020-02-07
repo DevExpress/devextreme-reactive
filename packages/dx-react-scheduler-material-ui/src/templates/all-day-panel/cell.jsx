@@ -26,7 +26,7 @@ const styles = theme => ({
       borderBottom: 'none',
     },
   },
-  rightBorderCell: {
+  brightRightBorder: {
     borderRight: getBrightBorder(theme),
   },
 });
@@ -47,7 +47,7 @@ const CellBase = ({
     tabIndex={0}
     className={classNames({
       [classes.cell]: true,
-      [classes.rightBorderCell]: endOfGroup || hasRightBorder,
+      [classes.brightRightBorder]: endOfGroup || hasRightBorder,
     }, className)}
     {...restProps}
   >

@@ -69,7 +69,7 @@ const styles = theme => ({
       display: 'inline-block',
     },
   },
-  rightBorderCell: {
+  brightRightBorder: {
     borderRight: getBrightBorder(theme),
     '&:last-child': {
       borderRight: 'none',
@@ -93,7 +93,7 @@ const CellBase = React.memo(({
   <TableCell
     className={classNames({
       [classes.cell]: true,
-      [classes.rightBorderCell]: endOfGroup || hasRightBorder,
+      [classes.brightRightBorder]: endOfGroup || hasRightBorder,
     }, className)}
     {...restProps}
   >

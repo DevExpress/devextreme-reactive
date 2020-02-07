@@ -42,7 +42,6 @@ export namespace AllDayPanel {
     cellComponent: React.ComponentType<AllDayPanel.CellProps>;
     cellsData: AllDayPanel.CellData[];
     formatDate: FormatterFn;
-    // (undocumented)
     groups?: Group[][];
     rowComponent: React.ComponentType<BaseView.RowProps>;
     setCellElementsMeta: (cellElementsMeta: CellElementsMeta) => void;
@@ -845,20 +844,19 @@ export const GroupingState: React.ComponentType<GroupingStateProps>;
 
 // @public (undocumented)
 export interface GroupingStateProps {
-  defaultExpandedGroups?: Array<GroupKey>;
-  expandedGroups?: Array<GroupKey>;
-  groupByDate?: (viewName: string) => boolean;
-  grouping?: Array<Grouping>;
-  // (undocumented)
-  groupOrientation?: (view: string) => GroupOrientation;
-  onExpandedGroupsChange?: (expandedGroups: Array<GroupKey>) => void;
+    defaultExpandedGroups?: Array<GroupKey>;
+    expandedGroups?: Array<GroupKey>;
+    groupByDate?: (viewName: string) => boolean;
+    grouping?: Array<Grouping>;
+    groupOrientation?: (viewName: string) => GroupOrientation;
+    onExpandedGroupsChange?: (expandedGroups: Array<GroupKey>) => void;
 }
 
 // @public
 export type GroupKey = string;
 
 // @public
-export type GroupOrientation = 'Vertical' | 'Horizontal';
+export type GroupOrientation = string;
 
 // @public
 export const IntegratedEditing: React.ComponentType<IntegratedEditingProps>;

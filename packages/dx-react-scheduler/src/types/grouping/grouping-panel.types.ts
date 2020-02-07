@@ -44,7 +44,7 @@ export namespace GroupingPanel {
     /** The group the cell represents. */
     group: Group;
     /** Scheduler's grouping orientation: either 'Vertical' or 'Horizontal'. */
-    groupOrientation: GroupOrientation;
+    groupOrientation?: GroupOrientation;
     /** "true" if this cell is last in its group. */
     endOfGroup?: boolean;
     /** Indicates whether grouping by date is enabled. */

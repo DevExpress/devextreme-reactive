@@ -24,9 +24,9 @@ export const getVerticalCellIndexByAppointmentData: GetCellByAppointmentDataFn =
       viewCellsData, appointment, date, columnIndex, takePrev, numberOfGroups,
     ) : getWeekHorizontallyGroupedRowIndex(viewCellsData, date, columnIndex, takePrev);
 
-  const totalCellIndex = (rowIndex * viewCellsData[0].length) + columnIndex;
+  const cellIndex = (rowIndex * viewCellsData[0].length) + columnIndex;
   return {
-    index: totalCellIndex,
+    index: cellIndex,
     startDate: viewCellsData[rowIndex][columnIndex].startDate,
   };
 };

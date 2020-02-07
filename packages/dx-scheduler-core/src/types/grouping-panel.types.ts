@@ -2,7 +2,7 @@ import { Group } from './integrated-grouping.types';
 
 /** @internal */
 export type HorizontalGroupingCellData = {
-  group: Group[];
+  group: Group;
   colSpan: number;
   key: any;
   left: number;

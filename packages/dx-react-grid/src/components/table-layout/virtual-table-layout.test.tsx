@@ -2,6 +2,7 @@ import * as React from 'react';
 import { findDOMNode } from 'react-dom';
 import { shallow, mount } from 'enzyme';
 import { Sizer } from '@devexpress/dx-react-core';
+import { GridSizer } from '../../utils/grid-sizer';
 import {
   getCollapsedGrids,
   TABLE_FLEX_TYPE,
@@ -51,6 +52,21 @@ jest.mock('@devexpress/dx-react-core', () => {
         // eslint-disable-next-line react/prop-types
         const { children: propsChildren } = this.props;
         return propsChildren;
+      }
+    },
+  };
+});
+jest.mock('../../utils/grid-sizer', () => {
+  const { Component } = require.requireActual('react');
+  return {
+    ...require.requireActual('../../utils/grid-sizer'),
+    // tslint:disable-next-line: max-classes-per-file
+    GridSizer: class extends Component {
+      render() {
+        const { collapsedGrid, ...restProps } = this.props;
+        return (
+          <Sizer {...restProps} />
+        );
       }
     },
   };
@@ -166,7 +182,7 @@ describe('VirtualTableLayout', () => {
       />
     ));
 
-    expect(tree.find(Sizer).dive())
+    expect(tree.find(GridSizer).dive().dive())
       .toMatchSnapshot();
   });
 
@@ -181,7 +197,7 @@ describe('VirtualTableLayout', () => {
       />
     ));
 
-    expect(tree.find(Sizer).prop('scrollTop'))
+    expect(tree.find(GridSizer).prop('scrollTop'))
       .toEqual(scrollTop);
   });
 

@@ -23,18 +23,20 @@ export type RadioGroupDisplayData = {
   dayOfWeek: number;
   radioGroupValue: string;
 };
-/** @internal */
-export type Option = {
+/** Represents a Select Editor's value and its id. */
+export type SelectOption = {
+  /** The option's text value. */
   text: string;
+  /** The option's id. */
   id: number | string;
 };
 /** @internal */
 export type OptionsFormatterFn = PureComputed<
-  [(messageKey: string) => string], Array<Option>
+  [(messageKey: string) => string], Array<SelectOption>
 >;
 /** @internal */
 export type DateFormatterFn = PureComputed<
-  [(date: Date, formatOptions: object) => string], Array<Option>
+  [(date: Date, formatOptions: object) => string], Array<SelectOption>
 >;
 /** @internal */
 export enum RecurrenceFrequency {

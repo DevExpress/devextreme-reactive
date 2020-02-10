@@ -6,7 +6,6 @@ import {
   StartDate,
   EndDate,
   RadioGroupDisplayData,
-  AppointmentModel,
   ValidResource,
 } from '../../types';
 import {

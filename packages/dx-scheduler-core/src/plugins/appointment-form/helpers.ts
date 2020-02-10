@@ -224,7 +224,7 @@ export const getDaysOfWeekDates: PureComputed<[number], Array<Date>> = (firstDay
 };
 
 export const checkMultipleResourceFields: PureComputed<
-  [any, ValidResource[]], AppointmentModel
+  [object, ValidResource[]], object
 > = (resourceFields, resources) => resources.reduce((acc, resource) => {
   if (!resource.allowMultiple) {
     return acc;

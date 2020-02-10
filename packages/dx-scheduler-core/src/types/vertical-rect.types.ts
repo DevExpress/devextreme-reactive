@@ -4,7 +4,6 @@ import {
 } from './scheduler-core.types';
 import { ViewCellData, AppointmentMoment } from './all-day-panel.types';
 import { ParentRect, Coordinates } from './horizontal-rect.types';
-import { GroupOrientation } from './grouping-state.types';
 import { ViewMetaData } from './utils.types';
 
 /** @internal */

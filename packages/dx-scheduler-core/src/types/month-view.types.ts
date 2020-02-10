@@ -2,7 +2,6 @@ import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import { Appointment, SchedulerDateTime, AppointmentId } from './scheduler-core.types';
 import { AppointmentMoment, ViewCellData } from './all-day-panel.types';
-import { GroupOrientation } from './grouping-state.types';
 import { ViewMetaData } from './utils.types';
 
 /** @internal */

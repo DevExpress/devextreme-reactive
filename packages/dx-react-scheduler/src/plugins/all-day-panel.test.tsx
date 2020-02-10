@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
-import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import { PluginHost, TemplatePlaceholder, Template } from '@devexpress/dx-react-core';
 import {
   allDayCells,
   getAppointmentStyle,
@@ -159,6 +159,24 @@ describe('AllDayPanel', () => {
       ));
 
       expect(tree.find(defaultProps.cellComponent).exists())
+        .toBeTruthy();
+    });
+
+    it('should render body template', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <AllDayPanel
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      const templatePlaceholder = tree
+        .find(Template)
+        .filterWhere(node => node.props().name === 'body');
+
+      expect(templatePlaceholder.exists())
         .toBeTruthy();
     });
   });

@@ -90,7 +90,9 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           {(params: any) => (
             <TemplateConnector>
               {({ groupOrientation, currentView }) => {
-                if (currentView.type === VIEW_TYPES.MONTH) return <TemplatePlaceholder />;
+                if (currentView.type === VIEW_TYPES.MONTH) {
+                  return <TemplatePlaceholder params={params} />;
+                }
                 return (
                   <TemplatePlaceholder
                     params={{

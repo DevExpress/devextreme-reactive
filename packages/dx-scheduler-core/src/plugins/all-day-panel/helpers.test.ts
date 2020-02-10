@@ -190,7 +190,10 @@ describe('AllDayPanel helpers', () => {
       const takePrev = false;
       expect(getAllDayCellIndexByAppointmentData(
         viewCellsDataBase,
-        HORIZONTAL_GROUP_ORIENTATION, 1,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          numberOfGroups: 1,
+        },
         date, {}, takePrev,
       ))
         .toEqual(0);
@@ -200,12 +203,18 @@ describe('AllDayPanel helpers', () => {
       const date = '2018-06-25';
       expect(getAllDayCellIndexByAppointmentData(
         viewCellsDataBase,
-        HORIZONTAL_GROUP_ORIENTATION, 1,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          numberOfGroups: 1,
+        },
         date, {}, false))
         .toEqual(1);
       expect(getAllDayCellIndexByAppointmentData(
         viewCellsDataBase,
-        HORIZONTAL_GROUP_ORIENTATION, 1,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          numberOfGroups: 1,
+        },
         date, {}, true,
       ))
         .toEqual(0);
@@ -216,13 +225,19 @@ describe('AllDayPanel helpers', () => {
 
       expect(getAllDayCellIndexByAppointmentData(
         horizontallyGroupedViewCells,
-        HORIZONTAL_GROUP_ORIENTATION, 2,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          numberOfGroups: 2,
+        },
         date, firstTestAppointment, false,
       ))
         .toEqual(0);
       expect(getAllDayCellIndexByAppointmentData(
         horizontallyGroupedViewCells,
-        HORIZONTAL_GROUP_ORIENTATION, 2,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          numberOfGroups: 2,
+        },
         date, secondTestAppointment, false,
       ))
         .toEqual(1);

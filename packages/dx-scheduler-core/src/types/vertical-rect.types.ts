@@ -5,6 +5,7 @@ import {
 import { ViewCellData, AppointmentMoment } from './all-day-panel.types';
 import { ParentRect, Coordinates } from './horizontal-rect.types';
 import { GroupOrientation } from './grouping-state.types';
+import { ViewMetaData } from './utils.types';
 
 /** @internal */
 export type CellByDate = { index: AppointmentId; startDate: SchedulerDateTime };
@@ -29,15 +30,14 @@ export type VerticalPayload = {
 };
 /** @internal */
 export type GetCellByAppointmentDataFn = PureComputed<
-  [AppointmentMoment, ViewCellData[][], GroupOrientation,
-  number, SchedulerDateTime, boolean], CellByDate
+  [AppointmentMoment, ViewCellData[][], ViewMetaData, SchedulerDateTime, boolean], CellByDate
 >;
 /** @internal */
 export type GetCellRectVerticalFn = PureComputed<
   [SchedulerDateTime, AppointmentMoment, ViewCellData[][],
-  number, CellElementsMeta, boolean, GroupOrientation, number], VerticalCellRect
+  number, CellElementsMeta, boolean, ViewMetaData], VerticalCellRect
 >;
 /** @internal */
 export type GetVerticalRectByAppointmentDataFn = PureComputed<
-  [AppointmentMoment, GroupOrientation, number, VerticalPayload], VerticalCellRectByDate
+  [AppointmentMoment, ViewMetaData, VerticalPayload], VerticalCellRectByDate
 >;

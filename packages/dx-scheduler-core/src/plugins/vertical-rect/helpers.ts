@@ -14,8 +14,10 @@ const CELL_BOUND_HORIZONTAL_OFFSET_PX = 1;
 const CELL_BOUND_VERTICAL_OFFSET_PX = 4;
 
 export const getVerticalCellIndexByAppointmentData: GetCellByAppointmentDataFn = (
-  appointment, viewCellsData, groupOrientation, numberOfGroups, date, takePrev = false,
+  appointment, viewCellsData, viewMetaData, date, takePrev = false,
 ) => {
+  const { groupOrientation, numberOfGroups } = viewMetaData;
+
   const columnIndex = groupOrientation === VERTICAL_GROUP_ORIENTATION
     ? getWeekVerticallyGroupedColumnIndex(viewCellsData, date)
     : getWeekHorizontallyGroupedColumnIndex(viewCellsData, appointment, date);
@@ -33,13 +35,13 @@ export const getVerticalCellIndexByAppointmentData: GetCellByAppointmentDataFn =
 
 const getCellRect: GetCellRectVerticalFn = (
   date, appointment, viewCellsData, cellDuration,
-  cellElementsMeta, takePrev, groupOrientation, numberOfGroups,
+  cellElementsMeta, takePrev, viewMetaData,
 ) => {
   const {
     index: cellIndex,
     startDate: cellStartDate,
   } = getVerticalCellIndexByAppointmentData(
-    appointment, viewCellsData, groupOrientation, numberOfGroups, date, takePrev,
+    appointment, viewCellsData, viewMetaData, date, takePrev,
   );
 
   const {
@@ -63,8 +65,7 @@ const getCellRect: GetCellRectVerticalFn = (
 
 export const getVerticalRectByAppointmentData: GetVerticalRectByAppointmentDataFn = (
   appointment,
-  groupOrientation,
-  numberOfGroups,
+  viewMetaData,
   {
     viewCellsData,
     cellDuration,
@@ -73,11 +74,11 @@ export const getVerticalRectByAppointmentData: GetVerticalRectByAppointmentDataF
 ) => {
   const firstCellRect = getCellRect(
     appointment.start.toDate(), appointment, viewCellsData,
-    cellDuration, cellElementsMeta, false, groupOrientation, numberOfGroups,
+    cellDuration, cellElementsMeta, false, viewMetaData,
   );
   const lastCellRect = getCellRect(
     appointment.end.toDate(), appointment, viewCellsData,
-    cellDuration, cellElementsMeta, true, groupOrientation, numberOfGroups,
+    cellDuration, cellElementsMeta, true, viewMetaData,
   );
 
   const top = firstCellRect.top + firstCellRect.topOffset;

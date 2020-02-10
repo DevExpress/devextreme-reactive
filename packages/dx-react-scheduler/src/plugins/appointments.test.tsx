@@ -287,9 +287,11 @@ describe('Appointments', () => {
         viewCellsData: defaultDeps.getter.viewCellsData,
         cellElementsMeta: defaultDeps.getter.timeTableElementsMeta,
       },
-      HORIZONTAL_GROUP_ORIENTATION,
-      'groupByDate', 1,
-      );
+      {
+        groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+        groupedByDate: 'groupByDate',
+        numberOfGroups: 1,
+      });
   });
   it('should render "timeTableAppointmentLayer" template when currentView is "month"', () => {
     const deps = {
@@ -326,9 +328,11 @@ describe('Appointments', () => {
         viewCellsData: defaultDeps.getter.viewCellsData,
         cellElementsMeta: defaultDeps.getter.timeTableElementsMeta,
       },
-      HORIZONTAL_GROUP_ORIENTATION,
-      'groupByDate', 1,
-      );
+      {
+        groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+        groupedByDate: 'groupByDate',
+        numberOfGroups: 1,
+      });
   });
   it('should render "allDayAppointmentLayer" template when currentView is not "month"', () => {
     const deps = {
@@ -371,9 +375,11 @@ describe('Appointments', () => {
         viewCellsData: defaultDeps.getter.viewCellsData,
         cellElementsMeta: defaultDeps.getter.timeTableElementsMeta,
       },
-      HORIZONTAL_GROUP_ORIENTATION,
-      'groupByDate', 1,
-      );
+      {
+        groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+        groupedByDate: 'groupByDate',
+        numberOfGroups: 1,
+      });
   });
   it('should render "timeTableAppointmentLayer" when appointments are grouped vertically', () => {
     const tree = mount((
@@ -413,9 +419,11 @@ describe('Appointments', () => {
         viewCellsData: defaultDeps.getter.viewCellsData,
         cellElementsMeta: defaultDeps.getter.timeTableElementsMeta,
       },
-      VERTICAL_GROUP_ORIENTATION,
-      'groupByDate', 2,
-      );
+      {
+        groupOrientation: VERTICAL_GROUP_ORIENTATION,
+        groupedByDate: 'groupByDate',
+        numberOfGroups: 2,
+      });
   });
   // tslint:disable-next-line: max-line-length
   it('should render "allDayAppointmentLayer" template when currentView is not "month" with vertical grouping', () => {
@@ -466,8 +474,10 @@ describe('Appointments', () => {
         viewCellsData: defaultDeps.getter.viewCellsData,
         cellElementsMeta: defaultDeps.getter.timeTableElementsMeta,
       },
-      VERTICAL_GROUP_ORIENTATION,
-      'groupByDate', 2,
-      );
+      {
+        groupOrientation: VERTICAL_GROUP_ORIENTATION,
+        groupedByDate: 'groupByDate',
+        numberOfGroups: 2,
+      });
   });
 });

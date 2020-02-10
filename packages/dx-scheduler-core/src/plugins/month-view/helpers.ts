@@ -40,8 +40,14 @@ export const sliceAppointmentByWeek: SliceAppointmentByWeekFn = (timeBounds, app
 };
 
 export const getMonthCellIndexByAppointmentData: GetMonthCellIndexByAppointmentDataFn = (
-  viewCellsData, groupOrientation, groupByDate, numberOfGroups, date, appointment, takePrev = false,
+  viewCellsData, viewMetaData, date, appointment, takePrev = false,
 ) => {
+  const {
+    groupOrientation,
+    groupedByDate,
+    numberOfGroups,
+  } = viewMetaData;
+
   const startViewDate = moment(viewCellsData[0][0].startDate);
   const currentDate = moment(date as SchedulerDateTime);
   let dayNumber = currentDate.diff(startViewDate, 'days');
@@ -53,7 +59,7 @@ export const getMonthCellIndexByAppointmentData: GetMonthCellIndexByAppointmentD
 
   const columnIndex = groupOrientation === HORIZONTAL_GROUP_ORIENTATION
     ? getMonthHorizontallyGroupedColumnIndex(
-      viewCellsData, appointment, weekNumber, dayOfWeek, numberOfGroups, groupByDate,
+      viewCellsData, appointment, weekNumber, dayOfWeek, numberOfGroups, groupedByDate,
     )
     : dayOfWeek;
   const rowIndex = groupOrientation === HORIZONTAL_GROUP_ORIENTATION

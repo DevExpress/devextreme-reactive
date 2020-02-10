@@ -3,6 +3,7 @@ import { PureComputed } from '@devexpress/dx-core';
 import { Appointment, SchedulerDateTime, AppointmentId } from './scheduler-core.types';
 import { AppointmentMoment, ViewCellData } from './all-day-panel.types';
 import { GroupOrientation } from './grouping-state.types';
+import { ViewMetaData } from './utils.types';
 
 /** @internal */
 export type TimeBounds = { left: moment.Moment, right: moment.Moment };
@@ -33,6 +34,6 @@ export type SliceAppointmentByWeekFn = PureComputed<
 >;
 /** @internal */
 export type GetMonthCellIndexByAppointmentDataFn = PureComputed<
-  [ViewCellData[][], GroupOrientation, boolean, number,
+  [ViewCellData[][], ViewMetaData,
   SchedulerDateTime, AppointmentMoment, boolean], AppointmentId
 >;

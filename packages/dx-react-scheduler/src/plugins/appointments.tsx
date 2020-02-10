@@ -48,9 +48,14 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
 
   updateTimeTableAppointments = memoize((
     timeTableAppointments, viewCellsData, timeTableElementsMeta, currentView,
-    startViewDate, endViewDate, cellDuration, groups, groupOrientation, groupByDate,
+    startViewDate, endViewDate, cellDuration, groups, getGroupOrientation, groupByDate,
   ) => {
     if (!isTimeTableElementsMetaActual(timeTableElementsMeta)) return null;
+    const groupOrientation = getGroupOrientation
+      ? getGroupOrientation(currentView?.name)
+      : HORIZONTAL_GROUP_ORIENTATION;
+    const numberOfGroups = groups ? groups[groups.length - 1].length : 1;
+
     let appointmentType = { growDirection: VERTICAL_TYPE, multiline: false };
     let getRects = getVerticalRectByAppointmentData as any;
     if (currentView.type === VIEW_TYPES.MONTH) {
@@ -63,9 +68,11 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
         startViewDate, endViewDate, cellDuration,
         viewCellsData, cellElementsMeta: timeTableElementsMeta,
       },
-      groupOrientation ? groupOrientation(currentView?.name) : HORIZONTAL_GROUP_ORIENTATION,
-      groupByDate?.(currentView?.name),
-      groups ? groups[groups.length - 1].length : 1,
+      {
+        groupOrientation,
+        groupedByDate: groupByDate?.(currentView?.name),
+        numberOfGroups,
+      },
     ));
   });
 
@@ -92,9 +99,11 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
         startViewDate, endViewDate,
         viewCellsData, cellElementsMeta: allDayElementsMeta,
       },
-      groupOrientation,
-      groupByDate?.(currentView?.name),
-      numberOfGroups,
+      {
+        groupOrientation,
+        groupedByDate: groupByDate?.(currentView?.name),
+        numberOfGroups,
+      },
     ));
   });
 

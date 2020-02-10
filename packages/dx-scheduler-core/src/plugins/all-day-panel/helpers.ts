@@ -15,9 +15,10 @@ export const allDayPredicate: PureComputed<[AppointmentMoment], boolean> = appoi
 );
 
 export const getAllDayCellIndexByAppointmentData: GetAllDayCellIndexByAppointmentDataFn = (
-  viewCellsData, groupOrientation, numberOfGroups, date, appointment, takePrev,
+  viewCellsData, viewMetaData, date, appointment, takePrev,
 ) => {
   const currentDate = moment(date as SchedulerDateTime);
+  const { groupOrientation, numberOfGroups } = viewMetaData;
 
   const columnIndex = groupOrientation === HORIZONTAL_GROUP_ORIENTATION
     ? getAllDayHorizontallyGroupedColumnIndex(viewCellsData, currentDate, appointment)

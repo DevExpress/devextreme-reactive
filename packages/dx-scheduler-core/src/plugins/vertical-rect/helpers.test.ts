@@ -48,7 +48,10 @@ describe('Vertical rect helpers', () => {
       const date = new Date(2018, 5, 25, 8, 30);
       const { index, startDate } = getVerticalCellIndexByAppointmentData(
         'appointment', viewCellsDataBase,
-        HORIZONTAL_GROUP_ORIENTATION, 'numberOfGroups',
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          numberOfGroups: 'numberOfGroups',
+        },
         date, 'takePrev',
       );
 
@@ -70,7 +73,10 @@ describe('Vertical rect helpers', () => {
       const date = new Date(2018, 5, 25, 8, 30);
       getVerticalCellIndexByAppointmentData(
         'appointment', viewCellsDataBase,
-        VERTICAL_GROUP_ORIENTATION, 'numberOfGroups',
+        {
+          groupOrientation: VERTICAL_GROUP_ORIENTATION,
+          numberOfGroups: 'numberOfGroups',
+        },
         date, 'takePrev',
       );
 
@@ -96,7 +102,10 @@ describe('Vertical rect helpers', () => {
       ];
       expect(getVerticalCellIndexByAppointmentData(
         {}, viewCellsData,
-        HORIZONTAL_GROUP_ORIENTATION, 1,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          numberOfGroups: 1,
+        },
         new Date(2018, 5, 26, 8, 0, 4, 50)).index,
       )
         .toBe(0);
@@ -155,8 +164,10 @@ describe('Vertical rect helpers', () => {
           start,
           end,
         },
-        HORIZONTAL_GROUP_ORIENTATION,
-        3,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          numberOfGroups: 3,
+        },
         {
           cellDuration,
           viewCellsData,

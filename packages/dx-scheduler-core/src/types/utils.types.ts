@@ -38,6 +38,14 @@ export interface ElementRect extends Rect {
   durationType?: 'short' | 'middle' | 'long';
   resources?: Array<ValidResourceInstance>;
 }
+
+/** @internal */
+export interface ViewMetaData {
+  groupOrientation: GroupOrientation;
+  groupedByDate: boolean;
+  numberOfGroups: number;
+}
+
 /** @internal */
 export type ComputedHelperFn = PureComputed<
   [any, string, (...args: any[]) => any, any]
@@ -52,10 +60,10 @@ export type CalculateFirstDateOfWeekFn = PureComputed<
 > ;
 /** @internal */
 export type RectCalculatorBaseFn = PureComputed<
-  [AppointmentUnwrappedGroup, GroupOrientation, number, (...args: any) => any, object], any
+  [AppointmentUnwrappedGroup, ViewMetaData, (...args: any) => any, object], any
 >;
 /** @internal */
 export type CalculateRectByDateAndGroupIntervalsFn = PureComputed<
   [any, AppointmentMoment[][], (...args: any) => any, any,
-  GroupOrientation, boolean, number], ElementRect[]
+  ViewMetaData], ElementRect[]
 >;

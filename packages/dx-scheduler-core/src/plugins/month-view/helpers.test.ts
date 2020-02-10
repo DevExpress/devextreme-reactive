@@ -333,7 +333,11 @@ describe('MonthView Helpers', () => {
       const takePrev = false;
       expect(getMonthCellIndexByAppointmentData(
         viewCellsDataBase,
-        HORIZONTAL_GROUP_ORIENTATION, false, 1,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          groupedByDate: false,
+          numberOfGroups: 1,
+        },
         date, {}, takePrev))
         .toEqual(2);
     });
@@ -342,13 +346,21 @@ describe('MonthView Helpers', () => {
       const date = '2018-07-03';
       expect(getMonthCellIndexByAppointmentData(
         viewCellsDataBase,
-        HORIZONTAL_GROUP_ORIENTATION, false, 1,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          groupedByDate: false,
+          numberOfGroups: 1,
+        },
         date, {}, false,
       ))
         .toEqual(9);
       expect(getMonthCellIndexByAppointmentData(
         viewCellsDataBase,
-        HORIZONTAL_GROUP_ORIENTATION, false, 1,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          groupedByDate: false,
+          numberOfGroups: 1,
+        },
         date, {}, true,
       ))
         .toEqual(8);
@@ -357,13 +369,21 @@ describe('MonthView Helpers', () => {
     it('should return cell index depending on grouping info', () => {
       expect(getMonthCellIndexByAppointmentData(
         horizontallyGroupedViewCells,
-        HORIZONTAL_GROUP_ORIENTATION, false, 2,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          groupedByDate: false,
+          numberOfGroups: 2,
+        },
         '2018-06-27', firstTestAppointment, false,
       ))
         .toEqual(3);
       expect(getMonthCellIndexByAppointmentData(
         horizontallyGroupedViewCells,
-        HORIZONTAL_GROUP_ORIENTATION, false, 2,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          groupedByDate: false,
+          numberOfGroups: 2,
+        },
         '2018-06-28', secondTestAppointment, false,
       ))
         .toEqual(11);
@@ -372,13 +392,21 @@ describe('MonthView Helpers', () => {
     it('should return cell index depending on grouping info with dates grouping', () => {
       expect(getMonthCellIndexByAppointmentData(
         groupedByDateViewCells,
-        HORIZONTAL_GROUP_ORIENTATION, true, 2,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          groupedByDate: true,
+          numberOfGroups: 2,
+        },
         '2018-06-27', firstTestAppointment, false,
       ))
         .toEqual(6);
       expect(getMonthCellIndexByAppointmentData(
         groupedByDateViewCells,
-        HORIZONTAL_GROUP_ORIENTATION, true, 2,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          groupedByDate: true,
+          numberOfGroups: 2,
+        },
         '2018-06-28', secondTestAppointment, false,
       ))
         .toEqual(9);
@@ -387,13 +415,21 @@ describe('MonthView Helpers', () => {
     it('should work with vertical grouping', () => {
       expect(getMonthCellIndexByAppointmentData(
         verticallyGroupedViewCells,
-        VERTICAL_GROUP_ORIENTATION, false, 2,
+        {
+          groupOrientation: VERTICAL_GROUP_ORIENTATION,
+          groupedByDate: false,
+          numberOfGroups: 2,
+        },
         '2018-06-27', firstTestAppointment, false,
       ))
         .toEqual(3);
       expect(getMonthCellIndexByAppointmentData(
         verticallyGroupedViewCells,
-        VERTICAL_GROUP_ORIENTATION, false, 2,
+        {
+          groupOrientation: VERTICAL_GROUP_ORIENTATION,
+          groupedByDate: false,
+          numberOfGroups: 2,
+        },
         '2018-06-28', secondTestAppointment, false,
       ))
         .toEqual(11);

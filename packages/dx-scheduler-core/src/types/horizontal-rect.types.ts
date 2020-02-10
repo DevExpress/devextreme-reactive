@@ -1,14 +1,13 @@
 import { PureComputed } from '@devexpress/dx-core';
 import { SchedulerDateTime, CellElementsMeta } from './scheduler-core.types';
 import { ViewCellData, AppointmentMoment } from './all-day-panel.types';
-import { GroupOrientation } from './grouping-state.types';
+import { ViewMetaData } from './utils.types';
 
 /** @internal */
 export interface HorizontalPayload {
   multiline: boolean;
   viewCellsData: ViewCellData[][];
   cellElementsMeta: CellElementsMeta;
-  groupByDate: boolean;
 }
 
 /** @internal */
@@ -41,11 +40,10 @@ export interface HorizontalCellRect extends Rect {
 /** @internal */
 export type GetCellRectHorizontalFn = PureComputed<
   [SchedulerDateTime, AppointmentMoment, ViewCellData[][],
-  GroupOrientation, boolean, number,
-  CellElementsMeta, boolean, boolean], CellRect
+  ViewMetaData, CellElementsMeta, boolean, boolean], CellRect
 >;
 
 /** @internal */
 export type GetHorizontalRectByAppointmentDataFn = PureComputed<
-  [AppointmentMoment, GroupOrientation, number, HorizontalPayload], HorizontalCellRect
+  [AppointmentMoment, ViewMetaData, HorizontalPayload], HorizontalCellRect
 >;

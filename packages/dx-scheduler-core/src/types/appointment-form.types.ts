@@ -23,9 +23,9 @@ export type RadioGroupDisplayData = {
   dayOfWeek: number;
   radioGroupValue: string;
 };
-/** Represents a Select Editor's value and its id. */
+/** An option in the Select editor. */
 export type SelectOption = {
-  /** The option's text value. */
+  /** The option's text. */
   text: string;
   /** The option's id. */
   id: number | string;

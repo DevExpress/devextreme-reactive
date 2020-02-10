@@ -55,12 +55,12 @@ weeklyRecurrenceSelectorComponent | ComponentType&lt;[AppointmentForm.WeeklyRecu
 
 ### SelectOption
 
-Represents a Select Editor's value and its id.
+An option in the Select editor.
 
 Field | Type | Description
 ------|------|------------
 id | string &#124; number | The option's id.
-text | string | The option's text value.
+text | string | The option's text.
 
 ### AppointmentForm.OverlayProps
 

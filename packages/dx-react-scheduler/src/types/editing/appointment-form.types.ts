@@ -1,4 +1,6 @@
-import { AppointmentModel, FormatterFn, ValidResourceInstance, ValidResource } from '../index';
+import {
+  AppointmentModel, FormatterFn, ValidResourceInstance, ValidResource, SelectOption,
+} from '../index';
 
 /* tslint:disable no-namespace max-line-length */
 export namespace AppointmentForm {
@@ -166,7 +168,7 @@ export namespace AppointmentForm {
     /** Handles value changes. */
     onValueChange: (nextValue: string | number) => void;
     /** Specifies available menu options. */
-    availableOptions?: Array<object>;
+    availableOptions?: Array<SelectOption>;
     /** Specifies whether the menu is read-only. */
     readOnly?: boolean;
     /** The menu's type. */

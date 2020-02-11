@@ -3,7 +3,9 @@ import {
   LONG_MONTH_OPTIONS,
 } from '@devexpress/dx-scheduler-core';
 import { PureComputed } from '@devexpress/dx-core';
-import { Option, OptionsFormatterFn, DateFormatterFn, RecurrenceFrequency } from '../../types';
+import {
+  SelectOption, OptionsFormatterFn, DateFormatterFn, RecurrenceFrequency,
+} from '../../types';
 import {
   MONTHS_DATES, REPEAT_TYPES_ARRAY, WEEK_NUMBER_LABELS, DAYS_IN_WEEK, RRULE_REPEAT_TYPES,
   BASIC_YEALY_COUNT, BASIC_MONTHLY_COUNT, BASIC_WEEKLY_COUNT, BASIC_DAILY_COUNT,
@@ -17,7 +19,7 @@ export const getWeekNumberLabels: OptionsFormatterFn = getMessage =>
   }));
 
 export const getDaysOfWeek: PureComputed<
-  [(date: Date, formatOptions: object) => string, number], Array<Option>
+  [(date: Date, formatOptions: object) => string, number], Array<SelectOption>
 > = (formatDate, firstDayOfWeek) => {
   const daysOfWeekArray = getDaysOfWeekArray(firstDayOfWeek);
   const daysOfWeekDates = getDaysOfWeekDates(firstDayOfWeek);
@@ -36,7 +38,7 @@ export const getMonths: DateFormatterFn = formatDate => MONTHS_DATES.map((month,
 
 export const getMonthsWithOf: PureComputed<
   [(messageKey: string) => string, (date: Date, formatOptions: object) => string],
-    Array<Option>
+    Array<SelectOption>
 > = (getMessage, formatDate) => MONTHS_DATES.map((month, index) => ({
   text: getMonthWithOf(month, getMessage, formatDate),
   id: getMonthId(index),

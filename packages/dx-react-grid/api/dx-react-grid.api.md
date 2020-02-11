@@ -257,6 +257,44 @@ export interface EditingStateProps {
 export const ExportPanel: React.ComponentType<any>;
 
 // @public (undocumented)
+export namespace ExportPanel {
+    // (undocumented)
+    export interface LocalizationMessages {
+        // (undocumented)
+        exportAll?: string;
+        // (undocumented)
+        exportSelected?: string;
+        // (undocumented)
+        showExportMenu?: string;
+    }
+    // (undocumented)
+    export interface MenuItemProps {
+        onClick(): void;
+        text: string;
+    }
+    export interface MenuProps {
+        children: React.ReactNode;
+        onHide(): void;
+        target: React.ReactInstance;
+        visible: boolean;
+    }
+    export interface ToggleButtonProps {
+        buttonRef: (ref: React.ReactInstance) => void;
+        getMessage: (messageKey: string) => string;
+        onToggle(): void;
+    }
+}
+
+// @public (undocumented)
+export interface ExportPanelProps {
+    menuComponent: React.ComponentType<ExportPanel.MenuProps>;
+    menuItemComponent: React.ComponentType<ExportPanel.MenuItemProps>;
+    messages?: ExportPanel.LocalizationMessages;
+    startExport(config?: object): void;
+    toggleButtonComponent: React.ComponentType<ExportPanel.ToggleButtonProps>;
+}
+
+// @public (undocumented)
 export type ExportRanges = readonly number[][];
 
 // @public (undocumented)

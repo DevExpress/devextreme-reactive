@@ -15,7 +15,7 @@ export const ToggleButton = ({
   >
     <IconButton
       onClick={onToggle}
-      buttonRef={buttonRef}
+      ref={buttonRef}
       {...restProps}
     >
       <Save />

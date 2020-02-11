@@ -17,14 +17,14 @@ const onSave = (workbook) => {
   });
 };
 
+const columns = [
+  { name: 'Employee', title: 'Employee' },
+  { name: 'OrderNumber', title: 'Invoice Number' },
+  { name: 'CustomerStoreCity', title: 'City' },
+  { name: 'SaleAmount', title: 'Sale Amount' },
+];
+
 export default () => {
-  const [columns] = useState([
-    { name: 'Employee', title: 'Employee' },
-    { name: 'OrderNumber', title: 'Invoice Number' },
-    { name: 'CustomerStoreCity', title: 'City' },
-    { name: 'SaleAmount', title: 'Sale Amount' },
-  ]);
-  const [rows] = useState(orders);
   const exporterRef = useRef(null);
 
   const startExport = useCallback(() => {
@@ -34,7 +34,7 @@ export default () => {
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>
       <Grid
-        rows={rows}
+        rows={orders}
         columns={columns}
       >
         <VirtualTable />
@@ -44,7 +44,7 @@ export default () => {
       </Grid>
       <GridExporter
         ref={exporterRef}
-        rows={rows}
+        rows={orders}
         columns={columns}
         onSave={onSave}
       />

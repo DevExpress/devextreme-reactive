@@ -2,16 +2,17 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import MenuItemMUI from '@material-ui/core/MenuItem';
 
-export const MenuItem = ({
+export const MenuItem = React.forwardRef(({
   text, onClick, ...restProps
-}) => (
+}, ref) => (
   <MenuItemMUI
     onClick={onClick}
+    ref={ref}
     {...restProps}
   >
     {text}
   </MenuItemMUI>
-);
+));
 
 MenuItem.propTypes = {
   text: PropTypes.string.isRequired,

@@ -36,7 +36,7 @@ columnExtensions? | ReadonlyArray&lt;[Table.ColumnExtension](table.md#tablecolum
 totalSummaryItems? | ReadonlyArray&lt;[SummaryState.SummaryItem](summary-state.md#summaryitem)&gt; | | The total summary items.
 groupSummaryItems? | ReadonlyArray&lt;[SummaryState.GroupSummaryItem](summary-state.md#groupsummaryitem)&gt; | | The group summary items.
 onSave | (workbook: [ExcelJS.Workbook](https://github.com/exceljs/exceljs#set-workbook-properties)) => void | | Handles workbook saving.
-customizeCell? | (cell: Excel.Cell, row: [Table.Row](table.md#row), column: [Table.Column](table.md#column)) => void | | Handles the Excel cells appearance customization.
-customizeSummaryCell? | (cell: [ExcelJS.Cell](https://github.com/exceljs/exceljs#handling-individual-cells), row: [Table.Row](table.md#row), summary: { type: string, ranges: number[][] }) => void | | Handles the Excel summary cells customization.
+customizeCell? | (cell: Excel.Cell, row: any, column: [Grid.Column](grid.md#column)) => void | | Handles the Excel cells appearance customization.
+customizeSummaryCell? | (cell: [ExcelJS.Cell](https://github.com/exceljs/exceljs#handling-individual-cells), row: any, summary: { type: string, ranges: number[][] }) => void | | Handles the Excel summary cells customization.
 customizeHeader? | (worksheet: [ExcelJS.Worksheet](https://github.com/exceljs/exceljs#worksheet-properties)) => void | | Handles the Excel sheet header customization.
 customizeFooter? | (worksheet: [ExcelJS.Worksheet](https://github.com/exceljs/exceljs#worksheet-properties)) => void | | Handles the Excel sheet footer customization.

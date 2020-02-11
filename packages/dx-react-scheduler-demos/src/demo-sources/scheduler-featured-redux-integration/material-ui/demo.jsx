@@ -18,9 +18,22 @@ import {
   Appointments,
   DayView,
   ViewSwitcher,
+  Resources,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 import { appointments } from '../../../demo-data/appointments';
+
+const LOCATIONS = ['Room 1', 'Room 2', 'Room 3'];
+const LOCATIONS_SHORT = [1, 2, 3];
+const resources = [{
+  fieldName: 'location',
+  title: 'Location',
+  instances: [
+    { id: LOCATIONS[0], text: LOCATIONS[0], color: teal },
+    { id: LOCATIONS[1], text: LOCATIONS[1], color: orange },
+    { id: LOCATIONS[2], text: LOCATIONS[2], color: red },
+  ],
+}];
 
 const styles = ({ spacing, palette }) => ({
   flexibleSpace: {
@@ -108,40 +121,7 @@ const styles = ({ spacing, palette }) => ({
   weekEnd: {
     backgroundColor: fade(palette.action.disabledBackground, 0.06),
   },
-  firstRoomAppointment: {
-    backgroundColor: teal[400],
-    '&:hover': {
-      backgroundColor: teal[500],
-    },
-  },
-  secondRoomAppointment: {
-    backgroundColor: orange[400],
-    '&:hover': {
-      backgroundColor: orange[500],
-    },
-  },
-  thirdRoomAppointment: {
-    backgroundColor: red[400],
-    '&:hover': {
-      backgroundColor: red[500],
-    },
-  },
 });
-
-const LOCATIONS = ['Room 1', 'Room 2', 'Room 3'];
-const LOCATIONS_SHORT = [1, 2, 3];
-
-const Appointment = withStyles(styles, { name: 'Appointment' })(({ classes, data, ...restProps }) => (
-  <Appointments.Appointment
-    {...restProps}
-    data={data}
-    className={classNames({
-      [classes.firstRoomAppointment]: data.location === LOCATIONS[0],
-      [classes.secondRoomAppointment]: data.location === LOCATIONS[1],
-      [classes.thirdRoomAppointment]: data.location === LOCATIONS[2],
-    })}
-  />
-));
 
 const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({
   classes, data, formatDate, ...restProps
@@ -266,13 +246,17 @@ const SchedulerContainer = ({
         timeTableCellComponent={TimeTableCell}
         dayScaleCellComponent={DayScaleCell}
       />
+
+      <Appointments
+        appointmentContentComponent={AppointmentContent}
+      />
+      <Resources
+        data={resources}
+      />
+
       <Toolbar flexibleSpaceComponent={FlexibleSpace} />
       <DateNavigator />
       <ViewSwitcher />
-      <Appointments
-        appointmentComponent={Appointment}
-        appointmentContentComponent={AppointmentContent}
-      />
     </Scheduler>
   </Paper>
 );

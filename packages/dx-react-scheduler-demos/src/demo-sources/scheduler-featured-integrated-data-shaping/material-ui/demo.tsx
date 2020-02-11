@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
-  Scheduler, DayView, Appointments, MonthView, Toolbar, DateNavigator, ViewSwitcher, TodayButton,
+  Scheduler, DayView, Appointments, MonthView, Toolbar,
+  DateNavigator, ViewSwitcher, TodayButton, Resources,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { withStyles, Theme, createStyles } from '@material-ui/core';
 import { indigo, blue, teal } from '@material-ui/core/colors';
@@ -124,28 +125,20 @@ const appointments = [
   },
 ];
 
+const resources = [{
+  fieldName: 'location',
+  text: 'Location',
+  instances: [
+    { id: 'Room 1', text: 'Room 1', color: indigo },
+    { id: 'Room 2', text: 'Room 2', color: blue },
+    { id: 'Room 3', text: 'Room 3', color: teal },
+  ],
+}];
+
 const styles = ({ palette }: Theme) => createStyles({
   appointment: {
     borderRadius: 0,
     borderBottom: 0,
-  },
-  firstRoomAppointment: {
-    backgroundColor: indigo[300],
-    '&:hover': {
-      backgroundColor: indigo[400],
-    },
-  },
-  secondRoomAppointment: {
-    backgroundColor: blue[300],
-    '&:hover': {
-      backgroundColor: blue[400],
-    },
-  },
-  thirdRoomAppointment: {
-    backgroundColor: teal[300],
-    '&:hover': {
-      backgroundColor: teal[400],
-    },
   },
   highPriorityAppointment: {
     borderLeft: `4px solid ${teal[500]}`,
@@ -221,9 +214,6 @@ const Appointment = withStyles(styles)(({
   <Appointments.Appointment
     {...restProps}
     className={classNames({
-      [classes.firstRoomAppointment]: data.location === 'Room 1',
-      [classes.secondRoomAppointment]: data.location === 'Room 2',
-      [classes.thirdRoomAppointment]: data.location === 'Room 3',
       [classes.highPriorityAppointment]: data.priority === 1,
       [classes.middlePriorityAppointment]: data.priority === 2,
       [classes.lowPriorityAppointment]: data.priority === 3,
@@ -266,6 +256,7 @@ export default () => (
       <ViewState
         defaultCurrentDate={defaultCurrentDate}
       />
+
       <MonthView
         dayScaleCellComponent={DayScaleCell}
         timeTableCellComponent={TimeTableCell}
@@ -276,10 +267,15 @@ export default () => (
         endDayHour={17}
         intervalCount={3}
       />
+
       <Appointments
         appointmentComponent={Appointment}
         appointmentContentComponent={AppointmentContent}
       />
+      <Resources
+        data={resources}
+      />
+
       <Toolbar />
       <DateNavigator />
       <ViewSwitcher />

@@ -240,6 +240,7 @@ describe('GridExporter', () => {
           <GridExporterCore
             {...defaultProps}
             selection={selection}
+            exportSelected
           />
           {pluginDepsToComponents({})}
         </PluginHost>

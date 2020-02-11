@@ -26,9 +26,12 @@ export type ExporterProps =
   customizeSummaryCell?: CustomizeSummaryCellFn;
   customizeHeader?: (worksheet: Worksheet) => void;
   customizeFooter?: (worksheet: Worksheet) => void;
+  /** @internal */
+  exportSelected: boolean;
 };
 
 /** @internal */
 export type ExporterState = {
   isExporting: boolean;
+  selectedOnly: boolean;
 };

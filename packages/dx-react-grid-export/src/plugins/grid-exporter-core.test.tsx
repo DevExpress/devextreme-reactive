@@ -421,7 +421,20 @@ describe('GridExporter', () => {
         const tree = mount((
           <PluginHost>
             {pluginDepsToComponents(defaultDeps)}
-            <GridExporterCore {...defaultProps} />
+            <GridExporterCore {...defaultProps} exportSelected />
+          </PluginHost>
+        ));
+
+        expect(tree.find(SelectionState).exists())
+          .toBeFalsy();
+      });
+
+      it('should not render SelectionState if exportSelected is false', () => {
+        const selection = ['1', '2'];
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <GridExporterCore {...defaultProps} selection={selection} />
           </PluginHost>
         ));
 
@@ -434,7 +447,11 @@ describe('GridExporter', () => {
         const tree = mount((
           <PluginHost>
             {pluginDepsToComponents(defaultDeps)}
-            <GridExporterCore {...defaultProps} selection={selection} />
+            <GridExporterCore
+              {...defaultProps}
+              selection={selection}
+              exportSelected
+            />
           </PluginHost>
         ));
 

@@ -40,9 +40,12 @@ describe('GridExporter', () => {
       />
     ));
 
-    tree.find(GridExporter).setState({ isExporting: true });
+    tree.find(GridExporter).setState({ isExporting: true, selectedOnly: true });
 
     expect(tree.find(GridExporterCore).props())
-      .toEqual(props);
+      .toEqual({
+        ...props,
+        exportSelected: true,
+      });
   });
 });

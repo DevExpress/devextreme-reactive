@@ -95,6 +95,7 @@ export class GridExporterCore extends React.PureComponent<ExporterProps> {
       rows: propRows, columns: propColumns, getCellValue, getRowId, columnExtensions,
       columnOrder, hiddenColumnNames, grouping, showColumnsWhenGrouped, groupColumnExtensions,
       filters, sorting, selection, totalSummaryItems, groupSummaryItems, customizeSummaryCell,
+      exportSelected,
     } = this.props;
 
     const workbook = createWorkbook();
@@ -102,7 +103,7 @@ export class GridExporterCore extends React.PureComponent<ExporterProps> {
 
     const summaryExists = totalSummaryItems || groupSummaryItems;
     const useGrouping = !!grouping?.length;
-    const useSelection = !!selection;
+    const useSelection = exportSelected && !!selection;
     const useFilters = !!filters;
     const useSorting = !!sorting;
     const useColumnOrder = !!columnOrder;

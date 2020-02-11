@@ -8,21 +8,29 @@ import { ExporterProps, ExporterState } from '../types/export';
 class GridExporterBase extends React.PureComponent<ExporterProps, ExporterState> {
   state = {
     isExporting: false,
+    selectedOnly: false,
   };
 
-  exportGrid = () => {
-    this.setState({ isExporting: true });
+  exportGrid = (options) => {
+    this.setState({
+      isExporting: true,
+      selectedOnly: false,
+      ...options,
+    });
   }
 
   finishExport = () => {
     // NOTE: we can't update state during the render phase
     window.setTimeout(() => {
-      this.setState({ isExporting: false });
+      this.setState({
+        isExporting: false,
+        selectedOnly: false,
+      });
     }, 0);
   }
 
   render() {
-    const { isExporting } = this.state;
+    const { isExporting, selectedOnly } = this.state;
     if (!isExporting) return null;
 
     return (
@@ -30,7 +38,10 @@ class GridExporterBase extends React.PureComponent<ExporterProps, ExporterState>
         <Plugin name="export">
           <Action name="finishExport" action={this.finishExport} />
         </Plugin>
-        <GridExporterCore {...this.props} />
+        <GridExporterCore
+          {...this.props}
+          exportSelected={selectedOnly}
+        />
       </PluginHost>
     );
   }

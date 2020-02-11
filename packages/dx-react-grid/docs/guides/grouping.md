@@ -2,6 +2,10 @@
 
 The Grid component supports grouping data by one or several column values. Use the corresponding plugins or UI (Group Panel and column headers) to manage the grouping state and group data programmatically.
 
+**Browser Support Notes:**
+
+- Currently, virtual table scrolls when a column header is moved to a grouping panel. This behaviour is caused by a bug in the WebKit engine: [Unable to call event.preventDefault in dynamically added event listener](https://bugs.webkit.org/show_bug.cgi?id=184250).
+
 ## Related Plugins
 
 The following plugins implement grouping features:

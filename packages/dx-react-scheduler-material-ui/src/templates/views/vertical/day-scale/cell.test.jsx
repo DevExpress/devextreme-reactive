@@ -50,7 +50,6 @@ describe('Vertical view DayScale', () => {
 
       expect(tree.find(`.${classes.highlightedText}`))
         .toHaveLength(2);
-
     });
     it('should call formatDate function', () => {
       const formatDate = jest.fn();

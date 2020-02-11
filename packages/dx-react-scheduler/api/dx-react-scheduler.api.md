@@ -228,7 +228,7 @@ export namespace AppointmentForm {
     resources: Array<ValidResource>;
   }
   export interface SelectProps {
-    availableOptions?: Array<object>;
+    availableOptions?: Array<SelectOption>;
     onValueChange: (nextValue: string | number) => void;
     readOnly?: boolean;
     type: 'outlinedSelect' | 'filledSelect';
@@ -1016,6 +1016,12 @@ export type ScrollingStrategy = {
   fixedLeftWidth?: number;
   changeVerticalScroll: (value: number) => void;
   changeHorizontalScroll: (value: number) => void;
+};
+
+// @public
+export type SelectOption = {
+  text: string;
+  id: number | string;
 };
 
 // @public (undocumented)

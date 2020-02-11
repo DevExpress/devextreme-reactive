@@ -38,13 +38,18 @@ describe('Vertical view DayScale', () => {
     });
     it('should highlight today cell', () => {
       const tree = shallow((
-        <Cell {...defaultProps} today />
+        <Cell {...defaultProps} today={false} />
       ));
 
-      expect(tree.find(`p.${classes.highlight}`).exists())
-        .toBeTruthy();
-      expect(tree.find(`div.${classes.today}`).exists())
-        .toBeTruthy();
+      expect(tree.find(`.${classes.highlightedText}`).exists())
+        .toBeFalsy();
+
+      tree.setProps({
+        today: true,
+      });
+
+      expect(tree.find(`.${classes.highlightedText}`))
+        .toHaveLength(2);
     });
     it('should call formatDate function', () => {
       const formatDate = jest.fn();

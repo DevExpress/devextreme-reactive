@@ -130,44 +130,46 @@ const onSave = (workbook) => {
   });
 };
 
+const columns = [
+  { name: 'Employee', title: 'Employee' },
+  { name: 'OrderNumber', title: 'Invoice Number' },
+  { name: 'OrderDate', title: 'Order Date' },
+  { name: 'CustomerStoreCity', title: 'City' },
+  { name: 'CustomerStoreState', title: 'State' },
+  { name: 'SaleAmount', title: 'Sale Amount' },
+];
+const dateColumns = ['OrderDate'];
+const groupSummaryItems = [
+  { columnName: 'OrderNumber', type: 'count' },
+  { columnName: 'SaleAmount', type: 'max' },
+];
+const totalSummaryItems = [
+  { columnName: 'OrderNumber', type: 'count' },
+  { columnName: 'SaleAmount', type: 'sum' },
+];
+const defaultExpandedGroups = ['Todd Hoffman', 'Todd Hoffman|Denver'];
+
 export default () => {
-  const [columns] = useState([
-    { name: 'Employee', title: 'Employee' },
-    { name: 'OrderNumber', title: 'Invoice Number' },
-    { name: 'OrderDate', title: 'Order Date' },
-    { name: 'CustomerStoreCity', title: 'City' },
-    { name: 'CustomerStoreState', title: 'State' },
-    { name: 'SaleAmount', title: 'Sale Amount' },
-  ]);
-  const [rows] = useState(orders);
-  const [dateColumns] = useState(['OrderDate']);
-  const [groupSummaryItems] = useState([
-    { columnName: 'OrderNumber', type: 'count' },
-    { columnName: 'SaleAmount', type: 'max' },
-  ]);
-  const [totalSummaryItems] = useState([
-    { columnName: 'OrderNumber', type: 'count' },
-    { columnName: 'SaleAmount', type: 'sum' },
-  ]);
   const [grouping, setGrouping] = useState([
     { columnName: 'Employee' }, { columnName: 'CustomerStoreCity' },
   ]);
-  const [selection, setSelection] = useState([]);
+  const [selection, setSelection] = useState([30, 38]);
   const exporterRef = useRef(null);
 
-  const startExport = useCallback(() => {
-    exporterRef.current.exportGrid();
+  const startExport = useCallback((options) => {
+    exporterRef.current.exportGrid(options);
   }, [exporterRef]);
 
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>
       <Grid
-        rows={rows}
+        rows={orders}
         columns={columns}
       >
         <DragDropProvider />
         <DateTypeProvider for={dateColumns} />
         <GroupingState
+          defaultExpandedGroups={defaultExpandedGroups}
           grouping={grouping}
           onGroupingChange={setGrouping}
         />
@@ -195,7 +197,7 @@ export default () => {
 
       <GridExporter
         ref={exporterRef}
-        rows={rows}
+        rows={orders}
         columns={columns}
         grouping={grouping}
         totalSummaryItems={totalSummaryItems}

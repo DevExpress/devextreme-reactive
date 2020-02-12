@@ -1258,14 +1258,10 @@ export namespace TableSelection {
     onToggle: (select?: boolean) => void;
     someSelected: boolean;
   }
-  // (undocumented)
   export interface RowProps extends Table.RowProps {
-    // (undocumented)
+    highlighted?: boolean;
     onToggle(): void;
-    // (undocumented)
     selectByRowClick?: boolean;
-    // (undocumented)
-    selected?: boolean;
   }
 }
 
@@ -1274,7 +1270,6 @@ export interface TableSelectionProps {
   cellComponent: React.ComponentType<TableSelection.CellProps>;
   headerCellComponent: React.ComponentType<TableSelection.HeaderCellProps>;
   highlightRow?: boolean;
-  // (undocumented)
   rowComponent: React.ComponentType<TableSelection.RowProps>;
   selectByRowClick?: boolean;
   selectionColumnWidth: number;

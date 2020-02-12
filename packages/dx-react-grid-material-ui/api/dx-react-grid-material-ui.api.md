@@ -652,6 +652,11 @@ export namespace TableSelection {
   export type CellProps = TableSelection_2.CellProps;
 }
 
+// @public (undocumented)
+export namespace TableSelection {
+  export type RowProps = TableSelection_2.RowProps;
+}
+
 // @public
 export const TableSelection: React.ComponentType<TableSelectionProps> & {
   COLUMN_TYPE: symbol;
@@ -665,6 +670,7 @@ export interface TableSelectionProps {
   cellComponent?: React.ComponentType<TableSelection_2.CellProps>;
   headerCellComponent?: React.ComponentType<TableSelection_2.HeaderCellProps>;
   highlightRow?: boolean;
+  rowComponent?: React.ComponentType<TableSelection_2.RowProps>;
   selectByRowClick?: boolean;
   selectionColumnWidth?: number;
   showSelectAll?: boolean;

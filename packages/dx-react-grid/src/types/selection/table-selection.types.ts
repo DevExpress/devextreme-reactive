@@ -23,9 +23,13 @@ export namespace TableSelection {
     onToggle(): void;
   }
 
+  /** Describes properties passed to a component that renders a selection row. */
   export interface RowProps extends Table.RowProps {
+    /** Indicates whether a row is highlighted. */
     highlighted?: boolean;
+    /** Indicates if row can be selected by click. */
     selectByRowClick?: boolean;
+    /** An event that initiates row selecting or deselecting. */
     onToggle(): void;
   }
 }

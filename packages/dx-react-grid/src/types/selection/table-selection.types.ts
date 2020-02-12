@@ -24,7 +24,7 @@ export namespace TableSelection {
   }
 
   export interface RowProps extends Table.RowProps {
-    selected?: boolean;
+    highlighted?: boolean;
     selectByRowClick?: boolean;
     onToggle(): void;
   }
@@ -45,7 +45,7 @@ export interface TableSelectionProps {
   headerCellComponent: React.ComponentType<TableSelection.HeaderCellProps>;
   /** The selection column's width. */
   selectionColumnWidth: number;
-
+  /** A component that renders a selection row . */
   rowComponent: React.ComponentType<TableSelection.RowProps>;
 }
 /* tslint:enable no-namespace max-line-length */

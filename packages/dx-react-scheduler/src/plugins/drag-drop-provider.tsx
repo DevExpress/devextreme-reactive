@@ -118,9 +118,9 @@ class DragDropProviderBase extends React.PureComponent<
   calculateBoundaries(
     { payload, clientOffset },
     {
-      viewCellsData, startViewDate, endViewDate, excludedDays,
+      viewCellsData, startViewDate, endViewDate, excludedDays, currentView,
       timeTableElementsMeta, allDayElementsMeta, scrollingStrategy,
-      grouping, resources, groups, groupByDate, currentView, groupOrientation,
+      grouping, resources, groups, groupOrientation: getGroupOrientation, groupByDate,
     },
     { changeAppointment, startEditAppointment },
   ) {
@@ -129,6 +129,9 @@ class DragDropProviderBase extends React.PureComponent<
     }
 
     const tableCellElementsMeta = timeTableElementsMeta;
+    const groupOrientation = getGroupOrientation
+      ? getGroupOrientation(currentView?.name)
+      : HORIZONTAL_GROUP_ORIENTATION;
 
     // AllDayPanel doesn't always exist
     const allDayCellsElementsMeta = allDayElementsMeta && allDayElementsMeta.getCellRects
@@ -191,8 +194,7 @@ class DragDropProviderBase extends React.PureComponent<
       allDayIndex, draftAppointments, startViewDate,
       endViewDate, excludedDays, viewCellsData, allDayCellsElementsMeta,
       targetType, cellDurationMinutes, tableCellElementsMeta, grouping, resources, groups,
-      groupOrientation ? groupOrientation(currentView?.name) : HORIZONTAL_GROUP_ORIENTATION,
-      groupByDate?.(currentView?.name),
+      groupOrientation, groupByDate?.(currentView?.name),
     );
 
     this.allDayDraftAppointments = allDayDraftAppointments;

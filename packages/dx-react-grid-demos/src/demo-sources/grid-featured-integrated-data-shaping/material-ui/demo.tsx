@@ -93,9 +93,12 @@ const CurrencyEditor = withStyles(styles)(
 );
 
 const CurrencyFormatter = withStyles(styles)(
-  ({ value, classes } : CurrencyFormatterProps) =>
-    <i className={classes.currency} style={{ color: getColor(value) }}>${value}</i>
-);
+  ({ value, classes } : CurrencyFormatterProps,
+) => ( 
+  <i className={classes.currency} style={{ color: getColor(value) }}>
+    {value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+  </i>
+));
 
 const CurrencyTypeProvider: React.ComponentType<DataTypeProviderProps> =
   (props: DataTypeProviderProps) => (

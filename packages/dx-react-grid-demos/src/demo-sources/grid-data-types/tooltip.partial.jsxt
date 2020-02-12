@@ -1,0 +1,46 @@
+import * as React from 'react';<%&additionalImports%>
+<%&imports%>
+import {
+  DataTypeProvider,
+} from '@devexpress/dx-react-grid';
+import {
+  Grid,
+  Table,
+  TableHeaderRow,
+} from '@devexpress/dx-react-grid-<%&themeName%>';
+
+import {
+  generateRows,
+  employeeValues,
+} from '../../../demo-data/generator';
+
+<%&body%>
+
+const TooltipDataTypeProvider = props => (
+  <DataTypeProvider
+    for={columns.map(({ name }) => name)}
+    formatterComponent={TooltipFormatter}
+    {...props}
+  />
+)
+
+const rows = generateRows({ length: 8, columnValues: employeeValues });
+const columns = [
+  { name: 'firstName', title: 'First Name' },
+  { name: 'lastName', title: 'Last Name' },
+  { name: 'position', title: 'Position' },
+  { name: 'state', title: 'State' },
+];
+
+export default () => (
+  <<%&wrapperTag%><%&wrapperAttributes%>>
+    <Grid
+      rows={rows}
+      columns={columns}
+    >
+      <TooltipDataTypeProvider />
+      <Table />
+      <TableHeaderRow />
+    </Grid>
+  </<%&wrapperTag%>>
+);

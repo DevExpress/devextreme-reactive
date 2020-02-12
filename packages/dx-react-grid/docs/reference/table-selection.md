@@ -75,7 +75,7 @@ Extends [Table.RowProps](table.md#tablerowprops)
 Field | Type | Description
 ------|------|------------
 selectByRowClick | boolean | Indicates if row can be selected by click.
-highlighted | boolean | Indicates whether a row is highlighted.
+highlighted | boolean | Indicates whether a row is highlighted (enabled `highlightRow` and row is selected).
 onToggle | () => void | An event that initiates row selecting or deselecting.
 
 

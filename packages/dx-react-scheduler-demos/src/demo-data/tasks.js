@@ -436,7 +436,6 @@ export const groupingTasks = [
     startDate: new Date(2018, 3, 30, 11, 0, 0),
     endDate: new Date(2018, 3, 30, 14, 0, 0),
   },
-
 ];
 
 export const priorities = [

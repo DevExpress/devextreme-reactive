@@ -43,7 +43,7 @@ const grouping = [{
 const filterTasks = (items, priorityId) => items.filter(task => (
   !priorityId || task.priorityId === priorityId
 ));
-const findColorByGroupId = id => (priorities.find(item => item.id === id)).color;
+
 const getIconById = (id) => {
   if (id === 1) {
     return LowPriority;
@@ -69,7 +69,6 @@ const styles = theme => ({
     },
   },
 });
-
 // #FOLD_BLOCK
 const usePrioritySelectorItemStyles = makeStyles(({ palette, spacing }) => ({
   bullet: ({ color }) => ({
@@ -95,7 +94,6 @@ const usePrioritySelectorItemStyles = makeStyles(({ palette, spacing }) => ({
     },
   },
 }));
-
 // #FOLD_BLOCK
 const useTooltipContentStyles = makeStyles(theme => ({
   content: {
@@ -150,97 +148,137 @@ const useTooltipContentStyles = makeStyles(theme => ({
     paddingBottom: theme.spacing(1.5),
   },
 }));
-
 // #FOLD_BLOCK
-const useGroupingStyles = (group) => {
-  const color = findColorByGroupId(group.id);
-  return makeStyles(({ spacing }) => ({
-    cell: {
-      backgroundColor: fade(color[400], 0.1),
+const groupingStyles = ({ spacing }) => ({
+  ...priorities.reduce((acc, priority) => ({
+    ...acc,
+    [`cell${priority.text.replace(' ', '')}`]: {
+      backgroundColor: fade(priority.color[400], 0.1),
       '&:hover': {
-        backgroundColor: fade(color[400], 0.15),
+        backgroundColor: fade(priority.color[400], 0.15),
       },
       '&:focus': {
-        backgroundColor: fade(color[400], 0.2),
+        backgroundColor: fade(priority.color[400], 0.2),
       },
     },
-    headerCell: {
-      backgroundColor: fade(color[400], 0.1),
+    [`headerCell${priority.text.replace(' ', '')}`]: {
+      backgroundColor: fade(priority.color[400], 0.1),
       '&:hover': {
-        backgroundColor: fade(color[400], 0.1),
+        backgroundColor: fade(priority.color[400], 0.1),
       },
       '&:focus': {
-        backgroundColor: fade(color[400], 0.1),
+        backgroundColor: fade(priority.color[400], 0.1),
       },
     },
-    icon: {
-      paddingLeft: spacing(1),
-      verticalAlign: 'middle',
-    },
-  }))();
-};
+  }), {}),
+  icon: {
+    paddingLeft: spacing(1),
+    verticalAlign: 'middle',
+  },
+});
 
-const DayViewTimeTableCell = React.memo(({ groupingInfo, ...restProps }) => {
-  const classes = useGroupingStyles(groupingInfo[0]);
+const DayViewTimeTableCell = withStyles(groupingStyles, { name: 'DayViewTimeTableCell' })(({
+  groupingInfo, classes, ...restProps
+}) => {
+  const groupId = groupingInfo[0].id;
   return (
     <DayView.TimeTableCell
-      className={classes.cell}
+      className={classNames({
+        [classes.cellLowPriority]: groupId === 1,
+        [classes.cellMediumPriority]: groupId === 2,
+        [classes.cellHighPriority]: groupId === 3,
+      })}
       groupingInfo={groupingInfo}
       {...restProps}
     />
   );
 });
-
-const DayViewDayScaleCell = React.memo(({ groupingInfo, ...restProps }) => {
-  const classes = useGroupingStyles(groupingInfo[0]);
+// #FOLD_BLOCK
+const DayViewDayScaleCell = withStyles(groupingStyles, { name: 'DayViewDayScaleCell' })(({
+  groupingInfo, classes, ...restProps
+// #FOLD_BLOCK
+}) => {
+  const groupId = groupingInfo[0].id;
   return (
     <DayView.DayScaleCell
-      className={classes.headerCell}
+      className={classNames({
+        [classes.headerCellLowPriority]: groupId === 1,
+        [classes.headerCellMediumPriority]: groupId === 2,
+        [classes.headerCellHighPriority]: groupId === 3,
+      })}
       groupingInfo={groupingInfo}
       {...restProps}
     />
   );
 });
-
-const WeekViewTimeTableCell = React.memo(({ groupingInfo, ...restProps }) => {
-  const classes = useGroupingStyles(groupingInfo[0]);
+// #FOLD_BLOCK
+const WeekViewTimeTableCell = withStyles(groupingStyles, { name: 'WeekViewTimeTableCell' })(({
+  groupingInfo, classes, ...restProps
+// #FOLD_BLOCK
+}) => {
+  const groupId = groupingInfo[0].id;
   return (
-    <DayView.TimeTableCell
-      className={classes.cell}
+    <WeekView.TimeTableCell
+      className={classNames({
+        [classes.cellLowPriority]: groupId === 1,
+        [classes.cellMediumPriority]: groupId === 2,
+        [classes.cellHighPriority]: groupId === 3,
+      })}
       groupingInfo={groupingInfo}
       {...restProps}
     />
   );
 });
-
-const WeekViewDayScaleCell = React.memo(({ groupingInfo, ...restProps }) => {
-  const classes = useGroupingStyles(groupingInfo[0]);
+// #FOLD_BLOCK
+const WeekViewDayScaleCell = withStyles(groupingStyles, { name: 'WeekViewDayScaleCell' })(({
+  groupingInfo, classes, ...restProps
+// #FOLD_BLOCK
+}) => {
+  const groupId = groupingInfo[0].id;
   return (
-    <DayView.DayScaleCell
-      className={classes.headerCell}
+    <WeekView.DayScaleCell
+      className={classNames({
+        [classes.headerCellLowPriority]: groupId === 1,
+        [classes.headerCellMediumPriority]: groupId === 2,
+        [classes.headerCellHighPriority]: groupId === 3,
+      })}
       groupingInfo={groupingInfo}
       {...restProps}
     />
   );
 });
-
-const AllDayCell = React.memo(({ groupingInfo, ...restProps }) => {
-  const classes = useGroupingStyles(groupingInfo[0]);
+// #FOLD_BLOCK
+const AllDayCell = withStyles(groupingStyles, { name: 'AllDayCell' })(({
+  groupingInfo, classes, ...restProps
+// #FOLD_BLOCK
+}) => {
+  const groupId = groupingInfo[0].id;
   return (
     <AllDayPanel.Cell
-      className={classes.cell}
+      className={classNames({
+        [classes.cellLowPriority]: groupId === 1,
+        [classes.cellMediumPriority]: groupId === 2,
+        [classes.cellHighPriority]: groupId === 3,
+      })}
       groupingInfo={groupingInfo}
       {...restProps}
     />
   );
 });
-
-const GroupingPanelCell = React.memo(({ group, ...restProps }) => {
-  const classes = useGroupingStyles(group);
-  const Icon = getIconById(group.id);
+// #FOLD_BLOCK
+const GroupingPanelCell = withStyles(groupingStyles, { name: 'GroupingPanelCell' })(({
+  group, classes, ...restProps
+// #FOLD_BLOCK
+}) => {
+  const groupId = group.id;
+  const Icon = getIconById(groupId);
   return (
     <GroupingPanel.Cell
-      className={classes.headerCell}
+      className={classNames({
+        [classes.headerCellLowPriority]: groupId === 1,
+        [classes.headerCellMediumPriority]: groupId === 2,
+        [classes.headerCellHighPriority]: groupId === 3,
+      })}
       group={group}
       {...restProps}
     >
@@ -251,8 +289,9 @@ const GroupingPanelCell = React.memo(({ group, ...restProps }) => {
   );
 });
 
-// #FOLD_BLOCK
-const PrioritySelectorItem = ({ color, text: resourceTitle }) => {
+const PrioritySelectorItem = ({
+  color, text: resourceTitle,
+}) => {
   const text = resourceTitle || 'All Tasks';
   const shortText = resourceTitle ? text.substring(0, 1) : 'All';
   const classes = usePrioritySelectorItemStyles({ color });
@@ -302,8 +341,11 @@ const FlexibleSpace = withStyles(styles, { name: 'FlexibleSpace' })(({
     <PrioritySelector priority={priority} priorityChange={priorityChange} />
   </Toolbar.FlexibleSpace>
 ));
-
-const TooltipContent = ({ appointmentData, formatDate, appointmentResources }) => {
+// #FOLD_BLOCK
+const TooltipContent = ({
+  appointmentData, formatDate, appointmentResources,
+// #FOLD_BLOCK
+}) => {
   const resource = appointmentResources[0];
   const classes = useTooltipContentStyles({ color: resource.color });
   let icon = <LowPriority className={classes.icon} />;
@@ -425,7 +467,7 @@ export default class Demo extends React.PureComponent {
 
           <WeekView
             startDayHour={9}
-            endDayHour={19}
+            endDayHour={17}
             excludedDays={[0, 6]}
             name="Work Week"
             timeTableCellComponent={WeekViewTimeTableCell}

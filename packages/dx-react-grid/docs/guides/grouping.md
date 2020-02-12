@@ -90,6 +90,6 @@ The following example demonstrates remote grouping with local expanding/collapsi
 
 .embedded-demo({ "path": "grid-grouping/remote-grouping-with-local-expanding", "showThemeSelector": true })
 
-**Browser Support Notes:**
+## Browser Support Notes
 
-- Currently, virtual table scrolls when a column header is moved to a grouping panel. This behaviour is caused by a bug in the WebKit engine: [Unable to call event.preventDefault in dynamically added event listener](https://bugs.webkit.org/show_bug.cgi?id=184250).
+In Safari, the virtual table scrolls while a user is dragging a column header. This behavior is caused by a bug in WebKit: <a href="https://bugs.webkit.org/show_bug.cgi?id=184250" target="_blank">Unable to call event.preventDefault in dynamically added event listener</a>.

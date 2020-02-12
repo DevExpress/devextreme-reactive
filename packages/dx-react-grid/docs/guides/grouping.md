@@ -86,10 +86,10 @@ Use the `CustomGrouping` plugin instead of the `IntegratedGrouping` plugin for r
 
 While waiting for a response from a server, there is a moment when the grouping state does not match the data in the `Grid`'s `rows` property. To avoid issues, temporarily assign the `grouping` and `expandedGroups` state fields' "old" values to the properties with the same names in the `GroupingState` plugin. This means configuration changes are not applied to the `Grid` immediately. Once the grouped data is received from the server, pass it to the `Grid` component's `rows` property and reset the `CustomGrouping` plugin's `grouping` and `expandedGroups` property values (set them to `null`). At this point, the `Grid` simultaneously applies the changes to its grouping configuration and receives the updated data set.
 
-The following example demonstrates remote grouping with local expanding/collapsing, as well as the approach described in the previous paragraph:
+The following example demonstrates remote grouping with local expanding/collapsing, and the approach described in the previous paragraph:
 
 .embedded-demo({ "path": "grid-grouping/remote-grouping-with-local-expanding", "showThemeSelector": true })
 
 ## Browser Support Notes
 
-In Safari, the virtual table scrolls while a user is dragging a column header. This behavior is caused by a bug in WebKit: <a href="https://bugs.webkit.org/show_bug.cgi?id=184250" target="_blank">Unable to call event.preventDefault in dynamically added event listener</a>.
+In Safari, the virtual table is scrolled when a user drags a column header. This is caused by a bug in WebKit: <a href="https://bugs.webkit.org/show_bug.cgi?id=184250" target="_blank">Unable to call event.preventDefault in dynamically added event listener</a>.

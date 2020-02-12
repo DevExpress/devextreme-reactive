@@ -8,7 +8,10 @@ import {
   TemplateConnector,
   PluginComponents,
 } from '@devexpress/dx-react-core';
-import { allDayCells, calculateAllDayDateIntervals, VERTICAL_GROUP_ORIENTATION, VIEW_TYPES, HORIZONTAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
+import {
+  allDayCells, calculateAllDayDateIntervals,
+  VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION, VIEW_TYPES,
+} from '@devexpress/dx-scheduler-core';
 import moment from 'moment';
 
 import { AllDayPanelProps, AllDayPanelState } from '../types';

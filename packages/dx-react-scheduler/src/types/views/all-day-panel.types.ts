@@ -1,5 +1,4 @@
-import { CellElementsMeta, FormatterFn, BaseView, Group } from '../index';
-import { GroupOrientation } from '@devexpress/dx-scheduler-core/src';
+import { CellElementsMeta, FormatterFn, BaseView, Group, GroupOrientation } from '../index';
 
 /* tslint:disable no-namespace max-line-length no-empty-interface */
 /** @internal */

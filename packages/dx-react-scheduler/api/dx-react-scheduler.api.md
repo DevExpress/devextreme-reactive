@@ -42,6 +42,7 @@ export namespace AllDayPanel {
     cellComponent: React.ComponentType<AllDayPanel.CellProps>;
     cellsData: AllDayPanel.CellData[];
     formatDate: FormatterFn;
+    groupOrientation?: GroupOrientation;
     groups?: Group[][];
     rowComponent: React.ComponentType<BaseView.RowProps>;
     setCellElementsMeta: (cellElementsMeta: CellElementsMeta) => void;
@@ -1093,7 +1094,7 @@ export type ValidResourceInstance = Required<ResourceInstance> & {
 export namespace VerticalView {
   export interface LayoutProps extends BaseView.LayoutProps {
     dayScaleEmptyCellComponent: React.ComponentType<BaseView.DayScaleEmptyCellProps>;
-    highlightDaScale?: boolean;
+    highlightDayScale?: boolean;
     timeScaleComponent: React.ComponentType<BaseView.TimeScaleLayoutProps>;
   }
 }

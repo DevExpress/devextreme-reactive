@@ -137,8 +137,7 @@ export const data = [
     startDate: new Date(2018, 4, 17, 11, 0, 0),
     endDate: new Date(2018, 4, 17, 14, 0, 0),
     id: 26,
-  },
-  {
+  }, {
     title: 'Website Re-Design Plan',
     priorityId: 2,
     startDate: new Date(2018, 4, 21, 9, 30),

@@ -407,7 +407,7 @@ export default class Demo extends React.PureComponent {
 
     this.state = {
       currentDate: '2018-04-23',
-      currentViewName: 'Work Week',
+      currentViewName: 'Day',
       data: tasks,
       currentPriority: 0,
       resources: [{
@@ -465,6 +465,13 @@ export default class Demo extends React.PureComponent {
             grouping={grouping}
           />
 
+          <DayView
+            startDayHour={9}
+            endDayHour={19}
+            timeTableCellComponent={DayViewTimeTableCell}
+            dayScaleCellComponent={DayViewDayScaleCell}
+            intervalCount={2}
+          />
           <WeekView
             startDayHour={9}
             endDayHour={17}
@@ -472,12 +479,6 @@ export default class Demo extends React.PureComponent {
             name="Work Week"
             timeTableCellComponent={WeekViewTimeTableCell}
             dayScaleCellComponent={WeekViewDayScaleCell}
-          />
-          <DayView
-            startDayHour={9}
-            endDayHour={19}
-            timeTableCellComponent={DayViewTimeTableCell}
-            dayScaleCellComponent={DayViewDayScaleCell}
           />
           <AllDayPanel
             cellComponent={AllDayCell}

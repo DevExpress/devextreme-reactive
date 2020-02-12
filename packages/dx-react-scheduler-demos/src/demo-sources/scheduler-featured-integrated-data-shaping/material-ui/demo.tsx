@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler, DayView, Appointments, MonthView, Toolbar,
-  DateNavigator, ViewSwitcher, TodayButton, Resources,
+  DateNavigator, ViewSwitcher, TodayButton, Resources, AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { withStyles, Theme, createStyles } from '@material-ui/core';
 import { indigo, blue, teal } from '@material-ui/core/colors';
@@ -127,11 +127,19 @@ const appointments = [
 
 const resources = [{
   fieldName: 'location',
-  text: 'Location',
+  title: 'Location',
   instances: [
     { id: 'Room 1', text: 'Room 1', color: indigo },
     { id: 'Room 2', text: 'Room 2', color: blue },
     { id: 'Room 3', text: 'Room 3', color: teal },
+  ],
+}, {
+  fieldName: 'priority',
+  title: 'Priority',
+  instances: [
+    { id: 1, text: 'High Priority', color: teal },
+    { id: 2, text: 'Medium Priority', color: blue },
+    { id: 3, text: 'Low Priority', color: indigo },
   ],
 }];
 
@@ -276,6 +284,9 @@ export default () => (
         data={resources}
       />
 
+      <AppointmentTooltip
+        showCloseButton
+      />
       <Toolbar />
       <DateNavigator />
       <ViewSwitcher />

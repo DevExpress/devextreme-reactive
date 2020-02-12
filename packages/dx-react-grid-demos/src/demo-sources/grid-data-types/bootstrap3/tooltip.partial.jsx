@@ -1,4 +1,5 @@
 // BLOCK:imports
+import * as React from 'react';
 // BLOCK:imports
 
 // BLOCK:body

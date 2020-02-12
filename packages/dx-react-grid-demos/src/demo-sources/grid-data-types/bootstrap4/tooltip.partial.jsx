@@ -1,5 +1,5 @@
 // BLOCK:imports
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Tooltip } from 'reactstrap';
 // BLOCK:imports
 

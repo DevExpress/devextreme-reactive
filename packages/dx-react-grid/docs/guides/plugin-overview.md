@@ -39,7 +39,7 @@ The data processing plugins' order is also important because they transform data
 
 ## Combining Multiple Plugins
 
-Use a Plugin component to wrap multiple plugins into a single component as demonstrated in the sample below.
+Use the `Plugin` component to wrap multiple plugins into a single component:
 
 ```jsx
 const DataTypeProviders = () => (

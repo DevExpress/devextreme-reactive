@@ -49,7 +49,7 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
     timeTableAppointments, viewCellsData, timeTableElementsMeta,
     currentView, startViewDate, endViewDate, cellDuration, groupByDate,
   ) => {
-    if (!isTimeTableElementsMetaActual(timeTableElementsMeta)) return null;
+    if (!isTimeTableElementsMetaActual(viewCellsData, timeTableElementsMeta)) return null;
     let appointmentType = { growDirection: VERTICAL_TYPE, multiline: false };
     let getRects = getVerticalRectByAppointmentData as any;
     if (currentView.type === 'month') {
@@ -70,7 +70,7 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
     allDayAppointments, viewCellsData, allDayElementsMeta,
     startViewDate, endViewDate, groupByDate, currentView,
   ) => {
-    if (!isAllDayElementsMetaActual(viewCellsData, allDayAppointments)) return null;
+    if (!isAllDayElementsMetaActual(viewCellsData, allDayElementsMeta)) return null;
     return renderAppointments(calculateRectByDateAndGroupIntervals(
       { growDirection: HORIZONTAL_TYPE,  multiline: false },
       allDayAppointments,

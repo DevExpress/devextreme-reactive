@@ -21,7 +21,7 @@ import {
   Resources,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles, fade } from '@material-ui/core/styles';
 import PriorityHigh from '@material-ui/icons/PriorityHigh';
 import LowPriority from '@material-ui/icons/LowPriority';
 import Lens from '@material-ui/icons/Lens';
@@ -34,7 +34,7 @@ import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
 import classNames from 'clsx';
 
-import { tasks, priorities } from '../../../demo-data/tasks';
+import { groupingTasks as tasks, priorities } from '../../../demo-data/tasks';
 
 const grouping = [{
   resourceName: 'priorityId',
@@ -43,6 +43,16 @@ const grouping = [{
 const filterTasks = (items, priorityId) => items.filter(task => (
   !priorityId || task.priorityId === priorityId
 ));
+const findColorByGroupId = id => (priorities.find(item => item.id === id)).color;
+const getIconById = (id) => {
+  if (id === 1) {
+    return LowPriority;
+  }
+  if (id === 2) {
+    return Event;
+  }
+  return PriorityHigh;
+};
 
 // #FOLD_BLOCK
 const styles = theme => ({
@@ -140,6 +150,106 @@ const useTooltipContentStyles = makeStyles(theme => ({
     paddingBottom: theme.spacing(1.5),
   },
 }));
+
+// #FOLD_BLOCK
+const useGroupingStyles = (group) => {
+  const color = findColorByGroupId(group.id);
+  return makeStyles(({ spacing }) => ({
+    cell: {
+      backgroundColor: fade(color[400], 0.1),
+      '&:hover': {
+        backgroundColor: fade(color[400], 0.15),
+      },
+      '&:focus': {
+        backgroundColor: fade(color[400], 0.2),
+      },
+    },
+    headerCell: {
+      backgroundColor: fade(color[400], 0.1),
+      '&:hover': {
+        backgroundColor: fade(color[400], 0.1),
+      },
+      '&:focus': {
+        backgroundColor: fade(color[400], 0.1),
+      },
+    },
+    icon: {
+      paddingLeft: spacing(1),
+      verticalAlign: 'middle',
+    },
+  }))();
+};
+
+const DayViewTimeTableCell = React.memo(({ groupingInfo, ...restProps }) => {
+  const classes = useGroupingStyles(groupingInfo[0]);
+  return (
+    <DayView.TimeTableCell
+      className={classes.cell}
+      groupingInfo={groupingInfo}
+      {...restProps}
+    />
+  );
+});
+
+const DayViewDayScaleCell = React.memo(({ groupingInfo, ...restProps }) => {
+  const classes = useGroupingStyles(groupingInfo[0]);
+  return (
+    <DayView.DayScaleCell
+      className={classes.headerCell}
+      groupingInfo={groupingInfo}
+      {...restProps}
+    />
+  );
+});
+
+const WeekViewTimeTableCell = React.memo(({ groupingInfo, ...restProps }) => {
+  const classes = useGroupingStyles(groupingInfo[0]);
+  return (
+    <DayView.TimeTableCell
+      className={classes.cell}
+      groupingInfo={groupingInfo}
+      {...restProps}
+    />
+  );
+});
+
+const WeekViewDayScaleCell = React.memo(({ groupingInfo, ...restProps }) => {
+  const classes = useGroupingStyles(groupingInfo[0]);
+  return (
+    <DayView.DayScaleCell
+      className={classes.headerCell}
+      groupingInfo={groupingInfo}
+      {...restProps}
+    />
+  );
+});
+
+const AllDayCell = React.memo(({ groupingInfo, ...restProps }) => {
+  const classes = useGroupingStyles(groupingInfo[0]);
+  return (
+    <AllDayPanel.Cell
+      className={classes.cell}
+      groupingInfo={groupingInfo}
+      {...restProps}
+    />
+  );
+});
+
+const GroupingPanelCell = React.memo(({ group, ...restProps }) => {
+  const classes = useGroupingStyles(group);
+  const Icon = getIconById(group.id);
+  return (
+    <GroupingPanel.Cell
+      className={classes.headerCell}
+      group={group}
+      {...restProps}
+    >
+      <Icon
+        className={classes.icon}
+      />
+    </GroupingPanel.Cell>
+  );
+});
 
 // #FOLD_BLOCK
 const PrioritySelectorItem = ({ color, text: resourceTitle }) => {
@@ -318,12 +428,18 @@ export default class Demo extends React.PureComponent {
             endDayHour={19}
             excludedDays={[0, 6]}
             name="Work Week"
+            timeTableCellComponent={WeekViewTimeTableCell}
+            dayScaleCellComponent={WeekViewDayScaleCell}
           />
           <DayView
             startDayHour={9}
             endDayHour={19}
+            timeTableCellComponent={DayViewTimeTableCell}
+            dayScaleCellComponent={DayViewDayScaleCell}
           />
-          <AllDayPanel />
+          <AllDayPanel
+            cellComponent={AllDayCell}
+          />
 
           <Appointments />
           <Resources
@@ -331,7 +447,9 @@ export default class Demo extends React.PureComponent {
           />
           <IntegratedGrouping />
 
-          <GroupingPanel />
+          <GroupingPanel
+            cellComponent={GroupingPanelCell}
+          />
           <Toolbar flexibleSpaceComponent={this.flexibleSpace} />
           <DateNavigator />
           <ViewSwitcher />

@@ -50,7 +50,8 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
     timeTableAppointments, viewCellsData, timeTableElementsMeta, currentView,
     startViewDate, endViewDate, cellDuration, groups, getGroupOrientation, groupByDate,
   ) => {
-    if (!isTimeTableElementsMetaActual(timeTableElementsMeta)) return null;
+    if (!isTimeTableElementsMetaActual(viewCellsData, timeTableElementsMeta)) return null;
+
     const groupOrientation = getGroupOrientation
       ? getGroupOrientation(currentView?.name)
       : HORIZONTAL_GROUP_ORIENTATION;

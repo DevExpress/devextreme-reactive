@@ -5,14 +5,23 @@ import { HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 export const isAllDayElementsMetaActual: PureComputed<
   [ViewCell[][], CellElementsMeta, GroupOrientation, number], boolean
 > = (viewCellsData, allDayElementsMeta, groupOrientation, numberOfGroups) => {
-  if (groupOrientation === HORIZONTAL_GROUP_ORIENTATION) {
-    return allDayElementsMeta.getCellRects?.length === viewCellsData[0].length;
-  }
-
-  const allDayPanelSize = viewCellsData[0].length * numberOfGroups;
-  return allDayElementsMeta.getCellRects?.length === allDayPanelSize;
+  const numberOfRows = groupOrientation === HORIZONTAL_GROUP_ORIENTATION ? 1 : numberOfGroups;
+  return isElementsMetaActual(viewCellsData, allDayElementsMeta, numberOfRows);
 };
 
 export const isTimeTableElementsMetaActual: PureComputed<
-  [CellElementsMeta], boolean
-> = timeTableElementsMeta => !!timeTableElementsMeta.getCellRects;
+  [ViewCell[][], CellElementsMeta], boolean
+> = (viewCellsData, timeTableElementsMeta) => isElementsMetaActual(
+  viewCellsData, timeTableElementsMeta, viewCellsData.length,
+);
+
+const isElementsMetaActual: PureComputed<
+  [ViewCell[][], CellElementsMeta, number], boolean
+> = (viewCellsData, elementsMeta, numberOfRows) => {
+  if (!elementsMeta?.getCellRects) {
+    return false;
+  }
+
+  const tableSize = numberOfRows * viewCellsData[0].length;
+  return tableSize === elementsMeta.getCellRects.length;
+};

@@ -3,11 +3,30 @@ import { VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION } from '../../
 
 describe('Appointments helpers', () => {
   describe('#isTimeTableElementsMetaActual', () => {
-    it('should return true if getCellRects exists', () => {
-      expect(isTimeTableElementsMetaActual({ getCellRects: 'test' }))
-        .toBeTruthy();
-      expect(isTimeTableElementsMetaActual({}))
+    const viewCellsData = [[
+      {}, {}, {},
+    ], [
+      {}, {}, {},
+    ]];
+    it('should return false if getCellRects doesn\'t exist', () => {
+      expect(isTimeTableElementsMetaActual(viewCellsData, {}))
         .toBeFalsy();
+    });
+
+    it('should return false viewCellsData\'s and getCellRects are different', () => {
+      const timeTableElementsMeta = {
+        getCellRects: [{}, {}, {}, {}, {}, {}, {}, {}, {}],
+      };
+      expect(isTimeTableElementsMetaActual(viewCellsData, timeTableElementsMeta))
+        .toBeFalsy();
+    });
+
+    it('should return true viewCellsData\' and getCellRects\' sizes are equal', () => {
+      const timeTableElementsMeta = {
+        getCellRects: [{}, {}, {}, {}, {}, {}],
+      };
+      expect(isTimeTableElementsMetaActual(viewCellsData, timeTableElementsMeta))
+        .toBeTruthy();
     });
   });
 

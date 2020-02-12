@@ -272,7 +272,10 @@ describe('Appointments', () => {
     expect(timeTableAppointmentsLayer.exists())
       .toBeTruthy();
     expect(isTimeTableElementsMetaActual)
-      .toHaveBeenCalledWith(defaultDeps.getter.timeTableElementsMeta);
+      .toHaveBeenCalledWith(
+        defaultDeps.getter.allDayAppointments,
+        defaultDeps.getter.timeTableElementsMeta,
+      );
     expect(calculateRectByDateAndGroupIntervals)
       .toHaveBeenCalledWith({
         growDirection: 'vertical', multiline: false,
@@ -352,7 +355,7 @@ describe('Appointments', () => {
     expect(isAllDayElementsMetaActual)
       .toHaveBeenCalledWith(
         defaultDeps.getter.viewCellsData,
-        defaultDeps.getter.allDayAppointments,
+        defaultDeps.getter.allDayElementsMeta,
       );
     expect(calculateRectByDateAndGroupIntervals)
       .toHaveBeenCalledWith({

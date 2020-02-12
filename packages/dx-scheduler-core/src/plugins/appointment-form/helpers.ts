@@ -6,6 +6,7 @@ import {
   StartDate,
   EndDate,
   RadioGroupDisplayData,
+  ValidResource,
 } from '../../types';
 import {
   DEFAULT_RULE_OBJECT, RRULE_REPEAT_TYPES, REPEAT_TYPES, LAST_WEEK,
@@ -220,3 +221,18 @@ export const getDaysOfWeekDates: PureComputed<[number], Array<Date>> = (firstDay
   const secondPart = DAYS_OF_WEEK_DATES.slice(0, firstDayOfWeek);
   return [...firstPart, ...secondPart];
 };
+
+export const checkMultipleResourceFields: PureComputed<
+  [object, ValidResource[]], object
+> = (resourceFields, resources) => resources.reduce((acc, resource) => {
+  if (!resource.allowMultiple) {
+    return acc;
+  }
+
+  const fieldName = resource.fieldName;
+  const field = resourceFields[fieldName];
+  return {
+    ...acc,
+    [fieldName]: Array.isArray(field) ? field : [field],
+  };
+}, resourceFields);

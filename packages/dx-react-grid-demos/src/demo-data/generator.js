@@ -119,7 +119,7 @@ export const globalSalesValues = {
     'Gemini Stores', 'McCord Builders', 'Building M Inc', 'Global Services',
     'Market Eco', 'Johnson & Assoc', 'Get Solar Inc', 'Supply Warehouse', 'Discovery Systems', 'Mercury Solar'],
   product: ['SolarMax', 'SolarOne', 'EnviroCare', 'EnviroCare Max'],
-  amount: ({ random }) => Math.floor(random() * 10000) + 1000,
+  amount: ({ random }) => (Math.floor((random() * 1000000) + 1000) / 20),
   discount: ({ random }) => Math.round(random() * 0.5 * 1000) / 1000,
   saleDate: ({ random }) => generateDate({
     random,

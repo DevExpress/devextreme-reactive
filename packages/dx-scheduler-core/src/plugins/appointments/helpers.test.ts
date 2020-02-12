@@ -80,15 +80,15 @@ describe('Appointments helpers', () => {
         ],
       };
 
-      let numberOfGroups = 2;
+      let groupCount = 2;
       expect(isAllDayElementsMetaActual(
-        viewCellsData, allDayElementsMeta, VERTICAL_GROUP_ORIENTATION, numberOfGroups,
+        viewCellsData, allDayElementsMeta, VERTICAL_GROUP_ORIENTATION, groupCount,
       ))
         .toBeTruthy();
 
-      numberOfGroups = 3;
+      groupCount = 3;
       expect(isAllDayElementsMetaActual(
-        viewCellsData, allDayElementsMeta, VERTICAL_GROUP_ORIENTATION, numberOfGroups,
+        viewCellsData, allDayElementsMeta, VERTICAL_GROUP_ORIENTATION, groupCount,
       ))
         .toBeFalsy();
     });

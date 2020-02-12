@@ -293,7 +293,7 @@ describe('Appointments', () => {
       {
         groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         groupedByDate: 'groupByDate',
-        numberOfGroups: 1,
+        groupCount: 1,
       });
   });
   it('should render "timeTableAppointmentLayer" template when currentView is "month"', () => {
@@ -334,7 +334,7 @@ describe('Appointments', () => {
       {
         groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         groupedByDate: 'groupByDate',
-        numberOfGroups: 1,
+        groupCount: 1,
       });
   });
   it('should render "allDayAppointmentLayer" template when currentView is not "month"', () => {
@@ -381,7 +381,7 @@ describe('Appointments', () => {
       {
         groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         groupedByDate: 'groupByDate',
-        numberOfGroups: 1,
+        groupCount: 1,
       });
   });
   it('should render "timeTableAppointmentLayer" when appointments are grouped vertically', () => {
@@ -428,7 +428,7 @@ describe('Appointments', () => {
       {
         groupOrientation: VERTICAL_GROUP_ORIENTATION,
         groupedByDate: 'groupByDate',
-        numberOfGroups: 2,
+        groupCount: 2,
       });
   });
   // tslint:disable-next-line: max-line-length
@@ -483,7 +483,7 @@ describe('Appointments', () => {
       {
         groupOrientation: VERTICAL_GROUP_ORIENTATION,
         groupedByDate: 'groupByDate',
-        numberOfGroups: 2,
+        groupCount: 2,
       });
   });
 });

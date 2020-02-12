@@ -16,14 +16,14 @@ const CELL_BOUND_VERTICAL_OFFSET_PX = 4;
 export const getVerticalCellIndexByAppointmentData: GetCellByAppointmentDataFn = (
   appointment, viewCellsData, viewMetaData, date, takePrev = false,
 ) => {
-  const { groupOrientation, numberOfGroups } = viewMetaData;
+  const { groupOrientation, groupCount } = viewMetaData;
 
   const columnIndex = groupOrientation === VERTICAL_GROUP_ORIENTATION
     ? getWeekVerticallyGroupedColumnIndex(viewCellsData, date)
     : getWeekHorizontallyGroupedColumnIndex(viewCellsData, appointment, date);
   const rowIndex = groupOrientation === VERTICAL_GROUP_ORIENTATION
     ? getWeekVerticallyGroupedRowIndex(
-      viewCellsData, appointment, date, columnIndex, takePrev, numberOfGroups,
+      viewCellsData, appointment, date, columnIndex, takePrev, groupCount,
     ) : getWeekHorizontallyGroupedRowIndex(viewCellsData, date, columnIndex, takePrev);
 
   const cellIndex = (rowIndex * viewCellsData[0].length) + columnIndex;

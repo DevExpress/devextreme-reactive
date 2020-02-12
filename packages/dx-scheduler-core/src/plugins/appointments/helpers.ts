@@ -4,8 +4,8 @@ import { HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 
 export const isAllDayElementsMetaActual: PureComputed<
   [ViewCell[][], CellElementsMeta, GroupOrientation, number], boolean
-> = (viewCellsData, allDayElementsMeta, groupOrientation, numberOfGroups) => {
-  const numberOfRows = groupOrientation === HORIZONTAL_GROUP_ORIENTATION ? 1 : numberOfGroups;
+> = (viewCellsData, allDayElementsMeta, groupOrientation, groupCount) => {
+  const numberOfRows = groupOrientation === HORIZONTAL_GROUP_ORIENTATION ? 1 : groupCount;
   return isElementsMetaActual(viewCellsData, allDayElementsMeta, numberOfRows);
 };
 

@@ -18,13 +18,13 @@ export const getAllDayCellIndexByAppointmentData: GetAllDayCellIndexByAppointmen
   viewCellsData, viewMetaData, date, appointment, takePrev,
 ) => {
   const currentDate = moment(date as SchedulerDateTime);
-  const { groupOrientation, numberOfGroups } = viewMetaData;
+  const { groupOrientation, groupCount } = viewMetaData;
 
   const columnIndex = groupOrientation === HORIZONTAL_GROUP_ORIENTATION
     ? getAllDayHorizontallyGroupedColumnIndex(viewCellsData, currentDate, appointment)
     : getAllDayVerticallyGroupedColumnIndex(viewCellsData, currentDate);
   const rowIndex = groupOrientation === HORIZONTAL_GROUP_ORIENTATION
-    ? 0 : getAllDayVerticallyGroupedRowIndex(viewCellsData, appointment, numberOfGroups);
+    ? 0 : getAllDayVerticallyGroupedRowIndex(viewCellsData, appointment, groupCount);
 
   let cellIndex = rowIndex * viewCellsData[0].length + columnIndex;
   if (takePrev && currentDate.format() === currentDate.startOf('day').format()) {
@@ -47,11 +47,11 @@ export const getAllDayHorizontallyGroupedColumnIndex: PureComputed<
 
 export const getAllDayVerticallyGroupedRowIndex: PureComputed<
   [ViewCell[][], AppointmentMoment, number], number
-> = (viewCellsData, appointment, numberOfGroups) => {
+> = (viewCellsData, appointment, groupCount) => {
   const index = viewCellsData.findIndex(viewCellsDataRow => checkCellGroupingInfo(
     viewCellsDataRow[0], appointment,
   ));
-  return index * numberOfGroups / viewCellsData.length;
+  return index * groupCount / viewCellsData.length;
 };
 
 export const sliceAppointmentsByBoundaries: SliceAppointmentsByBoundariesFn = (

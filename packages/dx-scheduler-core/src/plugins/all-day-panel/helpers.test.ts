@@ -192,7 +192,7 @@ describe('AllDayPanel helpers', () => {
         viewCellsDataBase,
         {
           groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
-          numberOfGroups: 1,
+          groupCount: 1,
         },
         date, {}, takePrev,
       ))
@@ -205,7 +205,7 @@ describe('AllDayPanel helpers', () => {
         viewCellsDataBase,
         {
           groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
-          numberOfGroups: 1,
+          groupCount: 1,
         },
         date, {}, false))
         .toEqual(1);
@@ -213,7 +213,7 @@ describe('AllDayPanel helpers', () => {
         viewCellsDataBase,
         {
           groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
-          numberOfGroups: 1,
+          groupCount: 1,
         },
         date, {}, true,
       ))
@@ -227,7 +227,7 @@ describe('AllDayPanel helpers', () => {
         horizontallyGroupedViewCells,
         {
           groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
-          numberOfGroups: 2,
+          groupCount: 2,
         },
         date, firstTestAppointment, false,
       ))
@@ -236,7 +236,7 @@ describe('AllDayPanel helpers', () => {
         horizontallyGroupedViewCells,
         {
           groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
-          numberOfGroups: 2,
+          groupCount: 2,
         },
         date, secondTestAppointment, false,
       ))

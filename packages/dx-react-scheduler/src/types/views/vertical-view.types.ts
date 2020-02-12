@@ -36,6 +36,6 @@ export namespace VerticalView {
     /** A component that renders a day scale empty cell. */
     dayScaleEmptyCellComponent: React.ComponentType<BaseView.DayScaleEmptyCellProps>;
     /** Indicates whether to highlight the DayScale. */
-    highlightDaScale?: boolean;
+    highlightDayScale?: boolean;
   }
 }

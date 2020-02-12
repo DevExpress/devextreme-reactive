@@ -34,8 +34,8 @@ export const getLabelsForAllGroups: PureComputed<
     }))];
   }
 
-  const numberOfGroups = groups[groups.length - 1].length;
-  const singleGroupHeight = cellsData.length / numberOfGroups;
+  const groupCount = groups[groups.length - 1].length;
+  const singleGroupHeight = cellsData.length / groupCount;
 
   return groups[groups.length - 1].reduce((
     acc: TimeScaleLabelData[][], group: Group, groupIndex: number,

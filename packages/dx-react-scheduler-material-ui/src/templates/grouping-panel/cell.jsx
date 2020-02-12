@@ -122,7 +122,7 @@ Cell.propTypes = {
   endOfGroup: PropTypes.bool,
   groupedByDate: PropTypes.bool,
   height: PropTypes.number,
-  groupOrientation: PropTypes.string,
+  groupOrientation: PropTypes.oneOf([HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION]),
   textStyle: PropTypes.object,
   topOffset: PropTypes.number,
   children: PropTypes.node,

@@ -173,8 +173,7 @@ describe('AllDayPanel', () => {
       ));
 
       const templatePlaceholder = tree
-        .find(Template)
-        .filterWhere(node => node.props().name === 'body');
+        .findWhere(node => node.type() === Template && node.props().name === 'body');
 
       expect(templatePlaceholder.exists())
         .toBeTruthy();

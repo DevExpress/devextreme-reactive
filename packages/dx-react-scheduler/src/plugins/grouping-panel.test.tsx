@@ -39,8 +39,7 @@ describe('GroupingPanel', () => {
     ));
 
     const templatePlaceholder = tree
-      .find(Template)
-      .filterWhere(node => node.props().name === 'groupingPanel');
+        .findWhere(node => node.type() === Template && node.props().name === 'groupingPanel');
 
     expect(templatePlaceholder.exists())
       .toBeTruthy();
@@ -75,8 +74,7 @@ describe('GroupingPanel', () => {
     ));
 
     const templatePlaceholder = tree
-      .find(Template)
-      .filterWhere(node => node.props().name === 'groupingPanel');
+        .findWhere(node => node.type() === Template && node.props().name === 'groupingPanel');
 
     expect(templatePlaceholder.exists())
       .toBeTruthy();
@@ -115,8 +113,7 @@ describe('GroupingPanel', () => {
     ));
 
     const templatePlaceholder = tree
-      .find(Template)
-      .filterWhere(node => node.props().name === 'allDayGroupingPanel');
+        .findWhere(node => node.type() === Template && node.props().name === 'allDayGroupingPanel');
 
     expect(templatePlaceholder.exists())
       .toBeTruthy();

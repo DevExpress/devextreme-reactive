@@ -41,7 +41,7 @@ export const allDayRects: AllDayRects = (
     {
       groupOrientation,
       groupedByDate: sliceAppointments,
-      numberOfGroups: groups ? groups[groups.length - 1].length : 1,
+      groupCount: groups ? groups[groups.length - 1].length : 1,
     },
   );
 };
@@ -74,7 +74,7 @@ export const verticalTimeTableRects: VerticalRects = (
     {
       groupOrientation,
       groupedByDate: groupByDate,
-      numberOfGroups: groups ? groups[groups.length - 1].length : 1,
+      groupCount: groups ? groups[groups.length - 1].length : 1,
     },
   );
 };
@@ -106,7 +106,7 @@ export const horizontalTimeTableRects: HorizontalRects = (
     {
       groupOrientation,
       groupedByDate: sliceAppointments,
-      numberOfGroups: groups ? groups[groups.length - 1].length : 1,
+      groupCount: groups ? groups[groups.length - 1].length : 1,
     },
   );
 };

@@ -50,7 +50,7 @@ describe('Vertical rect helpers', () => {
         'appointment', viewCellsDataBase,
         {
           groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
-          numberOfGroups: 'numberOfGroups',
+          groupCount: 'groupCount',
         },
         date, 'takePrev',
       );
@@ -75,7 +75,7 @@ describe('Vertical rect helpers', () => {
         'appointment', viewCellsDataBase,
         {
           groupOrientation: VERTICAL_GROUP_ORIENTATION,
-          numberOfGroups: 'numberOfGroups',
+          groupCount: 'groupCount',
         },
         date, 'takePrev',
       );
@@ -84,7 +84,7 @@ describe('Vertical rect helpers', () => {
         .toHaveBeenCalledWith(viewCellsDataBase, date);
       expect(getWeekVerticallyGroupedRowIndex)
         .toHaveBeenCalledWith(
-          viewCellsDataBase, 'appointment', date, 1, 'takePrev', 'numberOfGroups',
+          viewCellsDataBase, 'appointment', date, 1, 'takePrev', 'groupCount',
         );
       expect(getWeekHorizontallyGroupedColumnIndex)
         .not.toHaveBeenCalled();
@@ -104,7 +104,7 @@ describe('Vertical rect helpers', () => {
         {}, viewCellsData,
         {
           groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
-          numberOfGroups: 1,
+          groupCount: 1,
         },
         new Date(2018, 5, 26, 8, 0, 4, 50)).index,
       )
@@ -166,7 +166,7 @@ describe('Vertical rect helpers', () => {
         },
         {
           groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
-          numberOfGroups: 3,
+          groupCount: 3,
         },
         {
           cellDuration,

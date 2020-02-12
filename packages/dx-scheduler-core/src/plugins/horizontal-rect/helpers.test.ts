@@ -98,7 +98,7 @@ describe('Horizontal rect helpers', () => {
         appointment,
         {
           groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
-          numberOfGroups: 1,
+          groupCount: 1,
         },
         {
           viewCellsData,
@@ -128,7 +128,7 @@ describe('Horizontal rect helpers', () => {
         appointment,
         {
           groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
-          numberOfGroups: 1,
+          groupCount: 1,
         },
         {
           viewCellsData,
@@ -152,7 +152,7 @@ describe('Horizontal rect helpers', () => {
       };
       const viewMetaData = {
         groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
-        numberOfGroups: 1,
+        groupCount: 1,
       };
 
       getHorizontalRectByAppointmentData(

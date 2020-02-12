@@ -45,7 +45,7 @@ export const getMonthCellIndexByAppointmentData: GetMonthCellIndexByAppointmentD
   const {
     groupOrientation,
     groupedByDate,
-    numberOfGroups,
+    groupCount,
   } = viewMetaData;
 
   const startViewDate = moment(viewCellsData[0][0].startDate);
@@ -59,13 +59,13 @@ export const getMonthCellIndexByAppointmentData: GetMonthCellIndexByAppointmentD
 
   const columnIndex = groupOrientation === HORIZONTAL_GROUP_ORIENTATION
     ? getMonthHorizontallyGroupedColumnIndex(
-      viewCellsData, appointment, weekNumber, dayOfWeek, numberOfGroups, groupedByDate,
+      viewCellsData, appointment, weekNumber, dayOfWeek, groupCount, groupedByDate,
     )
     : dayOfWeek;
   const rowIndex = groupOrientation === HORIZONTAL_GROUP_ORIENTATION
     ? weekNumber
     : getMonthVerticallyGroupedRowIndex(
-      viewCellsData, appointment, weekNumber, dayOfWeek, numberOfGroups,
+      viewCellsData, appointment, weekNumber, dayOfWeek, groupCount,
     );
 
   const totalCellIndex = rowIndex * viewCellsData[0].length + columnIndex;
@@ -74,9 +74,9 @@ export const getMonthCellIndexByAppointmentData: GetMonthCellIndexByAppointmentD
 
 export const getMonthHorizontallyGroupedColumnIndex: PureComputed<
   [ViewCell[][], AppointmentMoment, number, number, number, boolean], number
-> = (viewCellsData, appointment, weekNumber, dayOfWeek, numberOfGroups, groupByDate) => {
+> = (viewCellsData, appointment, weekNumber, dayOfWeek, groupCount, groupByDate) => {
   let columnIndex = -1;
-  let currentColumnIndex = groupByDate ? dayOfWeek * numberOfGroups : dayOfWeek;
+  let currentColumnIndex = groupByDate ? dayOfWeek * groupCount : dayOfWeek;
   const cellsInGroupRow = groupByDate ? 1 : DAYS_IN_WEEK;
 
   while (columnIndex === -1) {
@@ -93,8 +93,8 @@ export const getMonthHorizontallyGroupedColumnIndex: PureComputed<
 
 export const getMonthVerticallyGroupedRowIndex: PureComputed<
   [ViewCell[][], AppointmentMoment, number, number, number], number
-> = (viewCellsData, appointment, weekNumber, dayOfWeek, numberOfGroups) => {
-  const rowsInOneGroup = viewCellsData.length / numberOfGroups;
+> = (viewCellsData, appointment, weekNumber, dayOfWeek, groupCount) => {
+  const rowsInOneGroup = viewCellsData.length / groupCount;
   let rowIndex = -1;
   let currentRowIndex = weekNumber;
   while (rowIndex === -1) {

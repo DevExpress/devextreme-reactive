@@ -128,8 +128,8 @@ export const getWeekHorizontallyGroupedColumnIndex: PureComputed<
 
 export const getWeekVerticallyGroupedRowIndex: PureComputed<
   [ViewCell[][], AppointmentMoment, SchedulerDateTime, number, boolean, number], number
-> = (viewCellsData, appointment, date, columnIndex, takePrev, numberOfGroups) => {
-  const timeTableHeight = viewCellsData.length / numberOfGroups;
+> = (viewCellsData, appointment, date, columnIndex, takePrev, groupCount) => {
+  const timeTableHeight = viewCellsData.length / groupCount;
   let timeTableRowIndex = getWeekHorizontallyGroupedRowIndex(
     viewCellsData, date, columnIndex, takePrev,
   );

@@ -336,7 +336,7 @@ describe('MonthView Helpers', () => {
         {
           groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
           groupedByDate: false,
-          numberOfGroups: 1,
+          groupCount: 1,
         },
         date, {}, takePrev))
         .toEqual(2);
@@ -349,7 +349,7 @@ describe('MonthView Helpers', () => {
         {
           groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
           groupedByDate: false,
-          numberOfGroups: 1,
+          groupCount: 1,
         },
         date, {}, false,
       ))
@@ -359,7 +359,7 @@ describe('MonthView Helpers', () => {
         {
           groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
           groupedByDate: false,
-          numberOfGroups: 1,
+          groupCount: 1,
         },
         date, {}, true,
       ))
@@ -372,7 +372,7 @@ describe('MonthView Helpers', () => {
         {
           groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
           groupedByDate: false,
-          numberOfGroups: 2,
+          groupCount: 2,
         },
         '2018-06-27', firstTestAppointment, false,
       ))
@@ -382,7 +382,7 @@ describe('MonthView Helpers', () => {
         {
           groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
           groupedByDate: false,
-          numberOfGroups: 2,
+          groupCount: 2,
         },
         '2018-06-28', secondTestAppointment, false,
       ))
@@ -395,7 +395,7 @@ describe('MonthView Helpers', () => {
         {
           groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
           groupedByDate: true,
-          numberOfGroups: 2,
+          groupCount: 2,
         },
         '2018-06-27', firstTestAppointment, false,
       ))
@@ -405,7 +405,7 @@ describe('MonthView Helpers', () => {
         {
           groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
           groupedByDate: true,
-          numberOfGroups: 2,
+          groupCount: 2,
         },
         '2018-06-28', secondTestAppointment, false,
       ))
@@ -418,7 +418,7 @@ describe('MonthView Helpers', () => {
         {
           groupOrientation: VERTICAL_GROUP_ORIENTATION,
           groupedByDate: false,
-          numberOfGroups: 2,
+          groupCount: 2,
         },
         '2018-06-27', firstTestAppointment, false,
       ))
@@ -428,7 +428,7 @@ describe('MonthView Helpers', () => {
         {
           groupOrientation: VERTICAL_GROUP_ORIENTATION,
           groupedByDate: false,
-          numberOfGroups: 2,
+          groupCount: 2,
         },
         '2018-06-28', secondTestAppointment, false,
       ))

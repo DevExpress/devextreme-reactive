@@ -43,7 +43,7 @@ export interface ElementRect extends Rect {
 export interface ViewMetaData {
   groupOrientation: GroupOrientation;
   groupedByDate: boolean;
-  numberOfGroups: number;
+  groupCount: number;
 }
 
 /** @internal */

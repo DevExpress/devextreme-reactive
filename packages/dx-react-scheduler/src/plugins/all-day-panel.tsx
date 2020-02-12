@@ -8,7 +8,7 @@ import {
   TemplateConnector,
   PluginComponents,
 } from '@devexpress/dx-react-core';
-import { allDayCells, calculateAllDayDateIntervals, VERTICAL_GROUP_ORIENTATION, VIEW_TYPES } from '@devexpress/dx-scheduler-core';
+import { allDayCells, calculateAllDayDateIntervals, VERTICAL_GROUP_ORIENTATION, VIEW_TYPES, HORIZONTAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import moment from 'moment';
 
 import { AllDayPanelProps, AllDayPanelState } from '../types';
@@ -140,9 +140,13 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-              currentView, formatDate, viewCellsData, groups, groupOrientation,
+              currentView, formatDate, viewCellsData,
+              groups, groupOrientation: getGroupOrientation,
             }) => {
               if (currentView.type === VIEW_TYPES.MONTH) return null;
+              const groupOrientation = getGroupOrientation?.(currentView?.name)
+                || HORIZONTAL_GROUP_ORIENTATION;
+
               return (
                 <>
                   <Layout
@@ -152,9 +156,10 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                     setCellElementsMeta={this.updateCellElementsMeta}
                     formatDate={formatDate}
                     groups={
-                      groupOrientation?.(currentView?.name) === VERTICAL_GROUP_ORIENTATION
+                      groupOrientation === VERTICAL_GROUP_ORIENTATION
                         ? groups : undefined
                     }
+                    groupOrientation={groupOrientation}
                   />
                   <AppointmentLayer>
                     <AllDayAppointmentLayerPlaceholder />

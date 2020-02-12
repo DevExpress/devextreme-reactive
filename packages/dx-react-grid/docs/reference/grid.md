@@ -1,6 +1,6 @@
 # Grid Reference
 
-The Grid is a root container component designed to process and display data specified via the `rows` property. You can configure columns using the `columns` property. The Grid's functionality (data visualization and data processing) is implemented in several plugins specified as child components. See the [plugins concept](../guides/plugin-overview.md) for details.
+The Grid is a root container component designed to process and display data specified via the `rows` property. You can configure columns using the `columns` property. The Grid's functionality (data visualization and data processing) is implemented in several plugins specified as child components. See the [plugins concept](../guides/plugin-overview.md) for details. Note that the Grid is a Plugin Host thus it can contain only plugins and plugin primitives.
 
 ## Import
 

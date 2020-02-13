@@ -14,14 +14,13 @@ import {
   AppointmentTooltip,
   AppointmentForm,
   EditRecurrenceMenu,
+  Resources,
+  DragDropProvider,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import Grid from '@material-ui/core/Grid';
 import WbSunny from '@material-ui/icons/WbSunny';
 import FilterDrama from '@material-ui/icons/FilterDrama';
 import Opacity from '@material-ui/icons/Opacity';
 import ColorLens from '@material-ui/icons/ColorLens';
-import Lens from '@material-ui/icons/Lens';
-import AccessTime from '@material-ui/icons/AccessTime';
 import { withStyles } from '@material-ui/core/styles';
 import { owners } from '../../../demo-data/tasks';
 
@@ -61,7 +60,7 @@ const appointments = [
     title: 'Watercolor Landscape',
     startDate: new Date(2018, 6, 6, 13, 0),
     endDate: new Date(2018, 6, 6, 14, 0),
-    rRule: 'FREQ=DAILY;BYDAY=FR;UNTIL=20180816',
+    rRule: 'FREQ=WEEKLY;BYDAY=FR;UNTIL=20180816',
     exDate: '20180713T100000Z,20180727T100000Z',
     ownerId: 2,
   }, {
@@ -69,7 +68,7 @@ const appointments = [
     title: 'Meeting of Instructors',
     startDate: new Date(2018, 5, 28, 12, 0),
     endDate: new Date(2018, 5, 28, 12, 30),
-    rRule: 'FREQ=DAILY;BYDAY=TH;UNTIL=20180727',
+    rRule: 'FREQ=WEEKLY;BYDAY=TH;UNTIL=20180727',
     exDate: '20180705T090000Z,20180719T090000Z',
     ownerId: 5,
   }, {
@@ -77,7 +76,7 @@ const appointments = [
     title: 'Oil Painting for Beginners',
     startDate: new Date(2018, 6, 3, 11, 0),
     endDate: new Date(2018, 6, 3, 12, 0),
-    rRule: 'FREQ=DAILY;BYDAY=TU;UNTIL=20180801',
+    rRule: 'FREQ=WEEKLY;BYDAY=TU;UNTIL=20180801',
     exDate: '20180710T080000Z,20180724T080000Z',
     ownerId: 3,
   }, {
@@ -89,6 +88,12 @@ const appointments = [
   },
 ];
 
+const resources = [{
+  fieldName: 'ownerId',
+  title: 'Owners',
+  instances: owners,
+}];
+
 const getBorder = theme => (`1px solid ${
   theme.palette.type === 'light'
     ? lighten(fade(theme.palette.divider, 1), 0.88)
@@ -99,21 +104,6 @@ const DayScaleCell = props => (
   <MonthView.DayScaleCell {...props} style={{ textAlign: 'center', fontWeight: 'bold' }} />
 );
 
-const getPriorityById = ownerId => owners.find(({ id }) => id === ownerId);
-
-const createClassesByPriorityId = (
-  priorityId, classes,
-  { background = false, color = false },
-// #FOLD_BLOCK
-) => {
-  const ownerData = getPriorityById(priorityId);
-  const result = [];
-  if (background) result.push(classes[`${ownerData.id}PriorityBackground`]);
-  if (color) result.push(classes[`${ownerData.id}PriorityColor`]);
-  return result.join(' ');
-};
-
-// #FOLD_BLOCK
 const styles = theme => ({
   cell: {
     color: '#78909C!important',
@@ -182,7 +172,6 @@ const styles = theme => ({
   apptContent: {
     '&>div>div': {
       whiteSpace: 'normal !important',
-      // max-height: 28px;
       lineHeight: 1.2,
     },
   },
@@ -193,10 +182,6 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
   },
-  ...owners.reduce((acc, { id, color }) => {
-    acc[`${id}PriorityColor`] = { color };
-    return acc;
-  }, {}),
   tooltipContent: {
     padding: theme.spacing(3, 1),
     paddingTop: 0,
@@ -288,12 +273,10 @@ const CellBase = React.memo(({
 
 const TimeTableCell = withStyles(styles, { name: 'Cell' })(CellBase);
 
-const Appointment = withStyles(styles, { name: 'Appointment' })(({ data, classes, ...restProps }) => (
+const Appointment = withStyles(styles, { name: 'Appointment' })(({ classes, ...restProps }) => (
   <Appointments.Appointment
     {...restProps}
     className={classes.appointment}
-    style={{ backgroundColor: owners.find(item => item.id === data.ownerId).color }}
-    data={data}
   />
 ));
 
@@ -309,44 +292,6 @@ const FlexibleSpace = withStyles(styles, { name: 'ToolbarRoot' })(({ classes, ..
     </div>
   </Toolbar.FlexibleSpace>
 ));
-const TooltipContent = withStyles(styles, { name: 'TooltipContent' })(
-  // #FOLD_BLOCK
-  ({ classes, appointmentData, formatDate }) => {
-    const priorityClasses = createClassesByPriorityId(
-      appointmentData.ownerId, classes, { color: true },
-    );
-    return (
-      <div className={classes.tooltipContent}>
-        <Grid container alignItems="center" className={classes.titleContainer}>
-          <Grid item xs={2} className={classNames(classes.textCenter, priorityClasses)}>
-            <Lens className={classes.circle} />
-          </Grid>
-          <Grid item xs={10}>
-            <div>
-              <div className={classNames(classes.title, classes.dateAndTitle)}>
-                {appointmentData.title}
-              </div>
-              <div className={classNames(classes.tooltipText, classes.dateAndTitle)}>
-                {formatDate(appointmentData.startDate, { day: 'numeric', weekday: 'long' })}
-              </div>
-            </div>
-          </Grid>
-        </Grid>
-        <Grid container alignItems="center" className={classes.container}>
-          <Grid item xs={2} className={classes.textCenter}>
-            <AccessTime className={classes.icon} />
-          </Grid>
-          <Grid item xs={10}>
-            <div className={classes.tooltipText}>
-              {`${formatDate(appointmentData.startDate, { hour: 'numeric', minute: 'numeric' })}
-              - ${formatDate(appointmentData.endDate, { hour: 'numeric', minute: 'numeric' })}`}
-            </div>
-          </Grid>
-        </Grid>
-      </div>
-    );
-  },
-);
 
 export default class Demo extends React.PureComponent {
   // #FOLD_BLOCK
@@ -393,9 +338,18 @@ export default class Demo extends React.PureComponent {
           <ViewState
             defaultCurrentDate="2018-07-17"
           />
+
           <MonthView
             timeTableCellComponent={TimeTableCell}
             dayScaleCellComponent={DayScaleCell}
+          />
+
+          <Appointments
+            appointmentComponent={Appointment}
+            appointmentContentComponent={AppointmentContent}
+          />
+          <Resources
+            data={resources}
           />
 
           <Toolbar
@@ -403,21 +357,14 @@ export default class Demo extends React.PureComponent {
           />
           <DateNavigator />
 
-          <Appointments
-            appointmentComponent={Appointment}
-            appointmentContentComponent={AppointmentContent}
-          />
-
           <EditRecurrenceMenu />
           <AppointmentTooltip
             showCloseButton
             showDeleteButton
             showOpenButton
-            contentComponent={TooltipContent}
           />
-          <AppointmentForm
-            readOnly
-          />
+          <AppointmentForm />
+          <DragDropProvider />
         </Scheduler>
       </Paper>
     );

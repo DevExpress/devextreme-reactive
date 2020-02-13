@@ -105,7 +105,7 @@ export const MainLayout = React.memo(({
     setScrollingStrategy(scrollingStrategy(
       layoutRef.current, layoutHeaderRef.current, leftPanelRef.current,
     ));
-  }, [layoutRef, layoutHeaderRef, leftPanelRef]);
+  }, [layoutRef, layoutHeaderRef, leftPanelRef, setScrollingStrategy]);
 
   const renderTimeScale = !!TimeScale;
 

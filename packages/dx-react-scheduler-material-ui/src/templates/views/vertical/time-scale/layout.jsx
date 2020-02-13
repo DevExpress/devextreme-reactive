@@ -98,12 +98,9 @@ Layout.propTypes = {
   formatDate: PropTypes.func.isRequired,
   groups: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)),
   groupOrientation: PropTypes.oneOf([HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION]),
-  classes: PropTypes.object.isRequired,
 };
 
 Layout.defaultProps = {
   groups: [[{}]],
   groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
 };
-
-// export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);

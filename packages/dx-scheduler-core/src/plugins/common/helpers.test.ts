@@ -1,6 +1,11 @@
-import { getViewType, isMidnight, viewBoundText, checkCellGroupingInfo } from './helpers';
+
+import {
+  getViewType, isMidnight, viewBoundText, checkCellGroupingInfo,
+  isDateValid, areDatesSame,
+} from './helpers';
 import { VERTICAL_TYPE, HORIZONTAL_TYPE } from '../../constants';
 import { formatDateTimeGetter } from '../scheduler-core/computeds';
+import {  } from '../../../dist/dx-scheduler-core.umd';
 
 describe('#getViewType', () => {
   it('should work with horizontal type', () => {
@@ -100,6 +105,28 @@ describe('viewBoundText', () => {
       );
       expect(text)
         .toBe('6-10 July 2018');
+    });
+  });
+  describe('#isDateValid', () => {
+    it('should return true for a valid date', () => {
+      expect(isDateValid(new Date()))
+        .toBeTruthy();
+    });
+    it('should return false for an invalid date', () => {
+      expect(isDateValid(new Date('an invalid date')))
+        .toBeFalsy();
+    });
+  });
+  describe('#areDatesSame', () => {
+    it('should compare two dates', () => {
+      expect(areDatesSame(new Date(2020, 10, 3), '2020-11-03'))
+        .toBeTruthy();
+      expect(areDatesSame(new Date(2020, 10, 3), '2020-11-04'))
+        .toBeFalsy();
+    });
+    it('should compare dates not taking into account time', () => {
+      expect(areDatesSame(new Date(2020, 10, 3, 5), '2020-11-03 15:00'))
+        .toBeTruthy();
     });
   });
 });

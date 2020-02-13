@@ -7,7 +7,10 @@ import {
   DAY_LONG_MONTH_LONG_YEAR_OPTIONS, DAY_SHORT_MONTH_SHORT_YEAR_OPTIONS,
   DAY_SHORT_MONTH_LONG_YEAR_OPTIONS, LONG_WEEK_DAY_OPTIONS, EMPTY_OPTIONS, WEEKDAY_INTERVAL,
 } from '../../constants';
-import { ViewBoundTextFn, FormatterFn, ViewCell, AppointmentMoment, Group } from '../../types';
+import {
+  ViewBoundTextFn, FormatterFn, ViewCell,
+  AppointmentMoment, Group, SchedulerDateTime,
+} from '../../types';
 
 const MONTH_TYPE = 'month';
 
@@ -97,3 +100,16 @@ export const checkCellGroupingInfo: PureComputed<
     group.id === appointment[group.fieldName]
   ))
   : true;
+
+export const isDateValid: PureComputed<
+  [Date], boolean
+> = date => moment(date as Date).isValid();
+
+export const convertToMoment: PureComputed<
+  [SchedulerDateTime], moment.Moment
+> = date => moment(date as SchedulerDateTime);
+
+export const areDatesSame: PureComputed<
+  [SchedulerDateTime, SchedulerDateTime], boolean
+> = (firstDate, secondDate) => moment(firstDate as SchedulerDateTime)
+  .isSame(secondDate as SchedulerDateTime, 'date');

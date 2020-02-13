@@ -394,7 +394,7 @@ const TooltipContent = ({
         </Grid>
         <Grid item xs={10}>
           <span className={classNames(classes.text, classes.colorfulContent)}>
-            {`${resource.text} priority`}
+            {resource.text}
           </span>
         </Grid>
       </Grid>

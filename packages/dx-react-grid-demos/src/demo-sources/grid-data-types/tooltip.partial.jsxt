@@ -24,7 +24,7 @@ const columns = [
 
 <%&body%>
 
-const TooltipDataTypeProvider = props => (
+const CellTooltip = props => (
   <DataTypeProvider
     for={columns.map(({ name }) => name)}
     formatterComponent={TooltipFormatter}
@@ -38,7 +38,7 @@ export default () => (
       rows={rows}
       columns={columns}
     >
-      <TooltipDataTypeProvider />
+      <CellTooltip />
       <Table />
       <TableHeaderRow />
     </Grid>

@@ -13,7 +13,6 @@ import { cellsMeta, getViewCellKey, getViewCellKey as getRowKey } from '../utils
 const styles = {
   table: {
     tableLayout: 'fixed',
-    borderCollapse: 'separate',
   },
 };
 

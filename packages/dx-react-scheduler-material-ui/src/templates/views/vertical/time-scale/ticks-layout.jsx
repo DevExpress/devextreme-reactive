@@ -10,7 +10,6 @@ const styles = {
   table: {
     tableLayout: 'fixed',
     boxSizing: 'border-box',
-    borderCollapse: 'separate',
   },
 };
 

@@ -9,7 +9,6 @@ import { BASIC_CELL_HEIGHT } from '../constants';
 
 const styles = {
   layout: {
-    borderCollapse: 'separate',
     width: 'auto',
     '&:only-child': {
       width: '100%',

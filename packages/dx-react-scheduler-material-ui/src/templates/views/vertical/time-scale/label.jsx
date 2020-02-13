@@ -26,13 +26,9 @@ const styles = theme => ({
   },
   emptyLabel: {
     height: theme.spacing(3),
-  },
-  brightBottomBorder: {
-    borderBottom: getBrightBorder(theme),
     '&:last-child': {
-      borderBottom: 'none',
+      height: `${theme.spacing(3) - 1}px`,
     },
-    boxSizing: 'border-box',
   },
 });
 
@@ -49,7 +45,6 @@ const LabelBase = React.memo(({
     className={classNames({
       [classes.label]: true,
       [classes.emptyLabel]: !time,
-      [classes.brightBottomBorder]: endOfGroup,
     }, className)}
     {...restProps}
   >

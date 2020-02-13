@@ -1,11 +1,19 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { createShallow } from '@material-ui/core/test-utils';
 import { VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import { Layout } from './layout';
 import { TicksLayout } from './ticks-layout';
 
+jest.mock('@material-ui/core/styles', () => ({
+  ...require.requireActual('@material-ui/core/styles'),
+  makeStyles: jest.fn(() => () => ({
+    timeScaleContainer: 'timeScaleContainer',
+    ticks: 'ticks',
+    cell: 'cell',
+  })),
+}));
+
 describe('Vertical view TimeScale', () => {
-  let classes;
   let shallow;
   const defaultProps = {
     cellsData: [
@@ -24,8 +32,7 @@ describe('Vertical view TimeScale', () => {
     formatDate: () => undefined,
   };
   beforeAll(() => {
-    classes = getClasses(<Layout {...defaultProps} />);
-    shallow = createShallow({ dive: true });
+    shallow = createShallow();
   });
   describe('Layout', () => {
     it('should pass rest props to the root element', () => {
@@ -41,10 +48,12 @@ describe('Vertical view TimeScale', () => {
         <Layout {...defaultProps} />
       ));
 
-      expect(tree.find(`.${classes.timeScaleContainer}`).exists())
+      expect(tree.find('.timeScaleContainer').exists())
         .toBeTruthy();
-      expect(tree.find(`.${classes.ticks}`).exists())
+      expect(tree.find('.ticks').exists())
         .toBeTruthy();
+      expect(tree.find('.cell'))
+        .toHaveLength(1);
     });
     it('should render array of time labels and TicksLayout', () => {
       const tree = shallow((
@@ -98,6 +107,9 @@ describe('Vertical view TimeScale', () => {
         .toEqual(expect.any(Date));
       expect(labels.at(5).prop('time'))
         .toBeUndefined();
+
+      expect(tree.find('.cell'))
+        .toHaveLength(2);
     });
   });
 });

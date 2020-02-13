@@ -58,13 +58,5 @@ describe('Vertical view TimeScale', () => {
       expect(tree.is(`.${classes.emptyLabel}`))
         .toBeTruthy();
     });
-    it('should render label with bright borderBottom if it is the last in group', () => {
-      const tree = shallow((
-        <Label {...defaultProps} endOfGroup />
-      ));
-
-      expect(tree.is(`.${classes.brightBottomBorder}`))
-        .toBeTruthy();
-    });
   });
 });

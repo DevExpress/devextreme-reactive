@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import moment from 'moment';
+import { navigateByOneMonth } from '@devexpress/dx-scheduler-core';
 import { Table } from './table';
 
 export class Root extends React.PureComponent {
@@ -17,8 +17,8 @@ export class Root extends React.PureComponent {
 
   onNavigate({ back }) {
     const { currentDate: currentDateState } = this.state;
-    const nextDate = moment(currentDateState)[back ? 'subtract' : 'add'](1, 'month');
-    this.setState({ currentDate: nextDate.toDate() });
+    const nextDate = navigateByOneMonth(currentDateState, back);
+    this.setState({ currentDate: nextDate });
   }
 
   onCellClick(nextDate) {

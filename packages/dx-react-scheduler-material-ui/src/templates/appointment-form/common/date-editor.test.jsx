@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import moment from 'moment';
 import { KeyboardDateTimePicker } from '@material-ui/pickers';
+import { convertToMoment } from '@devexpress/dx-scheduler-core';
 import { DateEditor } from './date-editor';
 
 describe('AppointmentForm common', () => {
@@ -47,7 +47,7 @@ describe('AppointmentForm common', () => {
 
       const dateTimePicker = tree.find(KeyboardDateTimePicker);
 
-      dateTimePicker.at(0).simulate('change', moment(new Date()));
+      dateTimePicker.at(0).simulate('change', convertToMoment(new Date()));
       expect(defaultProps.onValueChange)
         .toBeCalled();
     });

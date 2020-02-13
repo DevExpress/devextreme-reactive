@@ -13,7 +13,7 @@ export const data = [
     id: 1,
   }, {
     title: 'Install New Router in Dev Room',
-    priorityId: 1,
+    priorityId: 3,
     startDate: new Date(2018, 4, 7, 13),
     endDate: new Date(2018, 4, 7, 15, 30),
     id: 2,
@@ -31,7 +31,7 @@ export const data = [
     id: 6,
   }, {
     title: 'Approve New Online Marketing Strategy',
-    priorityId: 2,
+    priorityId: 3,
     startDate: new Date(2018, 4, 9, 12, 0),
     endDate: new Date(2018, 4, 9, 14, 0),
     id: 7,
@@ -49,7 +49,7 @@ export const data = [
     id: 9,
   }, {
     title: 'Brochure Design Review',
-    priorityId: 1,
+    priorityId: 3,
     startDate: new Date(2018, 4, 9, 11, 0),
     endDate: new Date(2018, 4, 9, 13, 30),
     id: 10,
@@ -67,7 +67,7 @@ export const data = [
     id: 12,
   }, {
     title: 'Launch New Website',
-    priorityId: 2,
+    priorityId: 3,
     startDate: new Date(2018, 4, 11, 12, 20),
     endDate: new Date(2018, 4, 11, 14, 0),
     id: 13,
@@ -85,7 +85,7 @@ export const data = [
     id: 15,
   }, {
     title: 'Non-Compete Agreements',
-    priorityId: 2,
+    priorityId: 3,
     startDate: new Date(2018, 4, 15, 13, 0, 0),
     endDate: new Date(2018, 4, 15, 15, 45, 0),
     id: 16,
@@ -103,7 +103,7 @@ export const data = [
     id: 18,
   }, {
     title: 'Submit Signed NDA',
-    priorityId: 1,
+    priorityId: 3,
     startDate: new Date(2018, 4, 16, 13, 0, 0),
     endDate: new Date(2018, 4, 16, 15, 0, 0),
     id: 21,
@@ -121,7 +121,7 @@ export const data = [
     id: 23,
   }, {
     title: 'Provide New Health Insurance Docs',
-    priorityId: 2,
+    priorityId: 3,
     startDate: new Date(2018, 4, 18, 12, 0, 0),
     endDate: new Date(2018, 4, 18, 15, 0, 0),
     id: 24,
@@ -139,7 +139,7 @@ export const data = [
     id: 26,
   }, {
     title: 'Website Re-Design Plan',
-    priorityId: 2,
+    priorityId: 3,
     startDate: new Date(2018, 4, 21, 9, 30),
     endDate: new Date(2018, 4, 21, 11, 30),
     id: 27,
@@ -157,7 +157,7 @@ export const data = [
     id: 29,
   }, {
     title: 'Approve Personal Computer Upgrade Plan',
-    priorityId: 2,
+    priorityId: 3,
     startDate: new Date(2018, 4, 22, 10, 0),
     endDate: new Date(2018, 4, 22, 11, 0),
     id: 30,
@@ -175,7 +175,7 @@ export const data = [
     id: 32,
   }, {
     title: 'Install New Database',
-    priorityId: 1,
+    priorityId: 3,
     startDate: new Date(2018, 4, 22, 9),
     endDate: new Date(2018, 4, 22, 12, 15),
     id: 33,
@@ -193,7 +193,7 @@ export const data = [
     id: 35,
   }, {
     title: 'Prepare 2018 Marketing Plan',
-    priorityId: 2,
+    priorityId: 3,
     startDate: new Date(2018, 4, 24, 11, 0),
     endDate: new Date(2018, 4, 24, 13, 30),
     id: 36,
@@ -217,7 +217,7 @@ export const data = [
     id: 39,
   }, {
     title: 'Submit New Website Design',
-    priorityId: 2,
+    priorityId: 3,
     startDate: new Date(2018, 4, 25, 16, 30),
     endDate: new Date(2018, 4, 25, 18, 0),
     id: 40,
@@ -235,7 +235,7 @@ export const data = [
     id: 42,
   }, {
     title: 'Rollout of New Website and Marketing Brochures',
-    priorityId: 1,
+    priorityId: 3,
     startDate: new Date(2018, 4, 28, 13, 0, 0),
     endDate: new Date(2018, 4, 28, 15, 30, 0),
     id: 43,
@@ -253,7 +253,7 @@ export const data = [
     id: 45,
   }, {
     title: 'Update NDA Agreement',
-    priorityId: 1,
+    priorityId: 3,
     startDate: new Date(2018, 4, 29, 11, 0, 0),
     endDate: new Date(2018, 4, 29, 14, 15, 0),
     id: 46,
@@ -271,7 +271,7 @@ export const data = [
     id: 48,
   }, {
     title: 'Submit Signed NDA',
-    priorityId: 1,
+    priorityId: 3,
     startDate: new Date(2018, 4, 30, 13, 0, 0),
     endDate: new Date(2018, 4, 30, 15, 0, 0),
     id: 49,
@@ -289,7 +289,7 @@ export const data = [
     id: 51,
   }, {
     title: 'Provide New Health Insurance Docs',
-    priorityId: 2,
+    priorityId: 3,
     startDate: new Date(2018, 5, 1, 12, 0, 0),
     endDate: new Date(2018, 5, 1, 15, 0, 0),
     id: 52,
@@ -305,6 +305,34 @@ export const data = [
     startDate: new Date(2018, 4, 31, 11, 0, 0),
     endDate: new Date(2018, 4, 31, 14, 0, 0),
     id: 54,
+  }, {
+    title: 'Approve New Online Marketing Strategy',
+    priorityId: 3,
+    startDate: new Date(2018, 4, 28, 12, 0),
+    endDate: new Date(2018, 4, 28, 14, 0),
+    allDay: true,
+    id: 55,
+  }, {
+    title: 'Install New Router in Dev Room',
+    priorityId: 1,
+    startDate: new Date(2018, 4, 29, 13),
+    endDate: new Date(2018, 4, 29, 15, 30),
+    allDay: true,
+    id: 56,
+  }, {
+    title: 'Google AdWords Strategy',
+    priorityId: 1,
+    startDate: new Date(2018, 4, 31, 9, 0, 0),
+    endDate: new Date(2018, 4, 31, 12, 0, 0),
+    allDay: true,
+    id: 57,
+  }, {
+    title: 'Review Changes to Health Insurance Coverage',
+    priorityId: 2,
+    startDate: new Date(2018, 5, 1, 9, 0, 0),
+    endDate: new Date(2018, 5, 1, 13, 0, 0),
+    allDay: true,
+    id: 58,
   },
 ];
 

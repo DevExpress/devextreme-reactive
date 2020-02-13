@@ -34,7 +34,8 @@ import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
 import classNames from 'clsx';
 
-import { groupingTasks as tasks, priorities } from '../../../demo-data/tasks';
+import { priorities } from '../../../demo-data/tasks';
+import { data as tasks } from '../../../demo-data/grouping';
 
 const grouping = [{
   resourceName: 'priorityId',
@@ -406,7 +407,7 @@ export default class Demo extends React.PureComponent {
     super(props);
 
     this.state = {
-      currentDate: '2018-04-23',
+      currentDate: '2018-05-28',
       currentViewName: 'Day',
       data: tasks,
       currentPriority: 0,

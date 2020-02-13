@@ -20,8 +20,9 @@ import {
   Toolbar,
   ViewSwitcher,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import { data as appointments } from '../../../demo-data/grouping';
+import { data } from '../../../demo-data/grouping';
 
+const appointments = data.filter(appointment => appointment.priorityId < 3);
 const isWeekOrMonthView = viewName => viewName === 'Week' || viewName === 'Month';
 
 const priorityData = [

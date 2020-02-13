@@ -15,8 +15,9 @@ import {
   WeekView,
   AllDayPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import { data as appointments } from '../../../demo-data/grouping';
+import { data } from '../../../demo-data/grouping';
 
+const appointments = data.filter(appointment => appointment.priorityId < 3);
 const priorityData = [
   { text: 'Low Priority', id: 1, color: blue },
   { text: 'High Priority', id: 2, color: teal },

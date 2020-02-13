@@ -33,7 +33,7 @@ NOTE: Refer to the plugin's reference for information on its dependencies.
 
 ### Data Processing Plugins
 
-The data processing plugins' order is also important because they transform data in the same order they appear. For example, if the `IntegratedPaging` plugin precedes the `IntegratedSelection`, the 'Select All' checkbox selects only the current page's rows and swapping them around allow selecting rows on all pages. See this rule in action in the following demo:
+The data processing plugins' order is also important because they process data in the same order they appear. For example, if `IntegratedPaging` precedes `IntegratedSelection`, the 'Select All' checkbox selects only the current page's rows and swapping them around allows you to select rows on all pages. See this rule in action in the following demo:
 
 .embedded-demo({ "path": "grid-selection/select-all-by-page", "showThemeSelector": true })
 

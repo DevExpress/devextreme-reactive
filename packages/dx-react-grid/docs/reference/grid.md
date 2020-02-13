@@ -1,10 +1,10 @@
 # Grid Reference
 
-The Grid is a root container component designed to process and display data specified via the `rows` property. You can configure columns using the `columns` property.
+The Grid is a root container component designed to process and display data specified via the `rows` property. You can use the `columns` property to configure columns.
 
 The Grid's functionality (data visualization and data processing) is implemented in several [plugins](../guides/plugin-overview.md) specified as child components.
 
-The Grid is a [PluginHost](../../../dx-react-core/docs/guides/fundamentals.md#pluginhost-component), and as such, it can contain only other plugins and plugin primitives.
+The Grid is a [PluginHost](../../../dx-react-core/docs/guides/fundamentals.md#pluginhost-component) and can contain only other plugins and plugin primitives.
 
 ## Import
 

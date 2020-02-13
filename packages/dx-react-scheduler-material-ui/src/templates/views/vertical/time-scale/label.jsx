@@ -3,14 +3,14 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
-import { getBrightBorder } from '../../../utils';
+import { SPACING_LABEL_HEIGHT } from '../../../constants';
 
 const styles = theme => ({
   label: {
     userSelect: 'none',
     border: 0,
-    height: theme.spacing(6),
-    lineHeight: `${theme.spacing(6)}px`,
+    height: theme.spacing(SPACING_LABEL_HEIGHT),
+    lineHeight: `${theme.spacing(SPACING_LABEL_HEIGHT)}px`,
     padding: 0,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -25,9 +25,9 @@ const styles = theme => ({
     color: theme.palette.text.secondary,
   },
   emptyLabel: {
-    height: theme.spacing(3),
+    height: theme.spacing(SPACING_LABEL_HEIGHT / 2),
     '&:last-child': {
-      height: `${theme.spacing(3) - 1}px`,
+      height: `${theme.spacing(SPACING_LABEL_HEIGHT / 2) - 1}px`,
     },
   },
 });

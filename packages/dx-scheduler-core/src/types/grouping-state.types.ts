@@ -6,7 +6,7 @@ export interface Grouping {
 /** Describes a group that can be nested in another one. */
 export type GroupKey = string;
 /** Describes group orientation (either Vertical or Horizontal) */
-export type GroupOrientation = string;
+export type GroupOrientation = 'Vertical' | 'Horizontal';
 
 /** @internal */
 export type ResourceGroupingState = {

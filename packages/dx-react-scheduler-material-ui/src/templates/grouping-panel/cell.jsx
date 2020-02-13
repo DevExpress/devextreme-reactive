@@ -5,7 +5,7 @@ import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core/styles';
 import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import { getBrightBorder, getBorder } from '../utils';
-import { GROUPING_PANEL_VERTICAL_CELL_WIDTH } from '../constants';
+import { GROUPING_PANEL_VERTICAL_CELL_WIDTH, DEFAULT_SPACING } from '../constants';
 
 const useStyles = makeStyles(theme => ({
   cell: {
@@ -84,7 +84,7 @@ export const Cell = React.memo(({
   topOffset,
   ...restProps
 }) => {
-  const cellHeight = height / 8;
+  const cellHeight = height / DEFAULT_SPACING;
   const classes = useStyles({
     left, endOfGroup, height: cellHeight, rowSpan, textStyle, topOffset,
   });

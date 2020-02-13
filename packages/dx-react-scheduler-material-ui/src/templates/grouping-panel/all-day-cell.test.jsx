@@ -21,7 +21,7 @@ describe('GroupingPanel', () => {
   beforeAll(() => {
     shallow = createShallow();
   });
-  describe('Cell', () => {
+  describe('AllDay Panel Cell', () => {
     it('should pass className to the root element', () => {
       const tree = shallow((
         <AllDayCell {...defaultProps} className="custom-class" />

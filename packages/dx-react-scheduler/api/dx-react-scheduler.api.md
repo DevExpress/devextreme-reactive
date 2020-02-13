@@ -862,7 +862,7 @@ export interface GroupingStateProps {
 export type GroupKey = string;
 
 // @public
-export type GroupOrientation = string;
+export type GroupOrientation = 'Vertical' | 'Horizontal';
 
 // @public
 export const IntegratedEditing: React.ComponentType<IntegratedEditingProps>;

@@ -15,9 +15,8 @@ import {
   WeekView,
   AllDayPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import { data } from '../../../demo-data/grouping';
+import { data as appointments } from '../../../demo-data/grouping';
 
-const appointments = data.filter(appointment => appointment.priorityId < 3);
 const priorityData = [
   { text: 'Low Priority', id: 1, color: blue },
   { text: 'High Priority', id: 2, color: teal },
@@ -27,7 +26,7 @@ export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      data: appointments,
+      data: appointments.filter(appointment => appointment.priorityId < 3),
       resources: [{
         fieldName: 'priorityId',
         title: 'Priority',

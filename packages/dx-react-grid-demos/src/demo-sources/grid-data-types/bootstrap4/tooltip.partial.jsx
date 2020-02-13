@@ -1,28 +1,27 @@
 // BLOCK:imports
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Tooltip } from 'reactstrap';
 // BLOCK:imports
 
 // BLOCK:body
 const TooltipFormatter = ({
-  row: { phone, birthDate, firstName },
-  column: { name: columnName },
+  row: { phone, birthDate },
   value,
 }) => {
   const [tooltipOpen, setTooltipOpen] = useState(false);
+  const spanRef = useRef(null);
   const toggle = () => setTooltipOpen(!tooltipOpen);
-  const id = firstName + columnName;
 
   return (
     <div>
-      <span href="#" id={id}>
+      <span ref={spanRef}>
         {value}
       </span>
       <Tooltip
         placement="top"
         isOpen={tooltipOpen}
         autohide={false}
-        target={`#${id}`}
+        target={spanRef}
         toggle={toggle}
       >
         {`phone: ${phone}`}

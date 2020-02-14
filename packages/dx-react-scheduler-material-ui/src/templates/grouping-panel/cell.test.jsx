@@ -12,6 +12,7 @@ jest.mock('@material-ui/core/styles', () => ({
     verticalCell: 'verticalCell',
     groupedByDate: 'groupedByDate',
     verticalCellText: 'verticalCellText',
+    textContainer: 'textContainer',
   })),
 }));
 
@@ -120,6 +121,15 @@ describe('GroupingPanel', () => {
         .toBe('colSpan');
       expect(tree.prop('rowSpan'))
         .toBe('rowSpan');
+    });
+
+    it('should render text container', () => {
+      const tree = shallow((
+        <Cell {...defaultProps} />
+      ));
+
+      expect(tree.find('.textContainer').exists())
+        .toBeTruthy();
     });
   });
 });

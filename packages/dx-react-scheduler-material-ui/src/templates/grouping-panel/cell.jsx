@@ -67,6 +67,9 @@ const useStyles = makeStyles(theme => ({
     top: ({ topOffset }) => `${topOffset}px`,
     width: '100%',
   },
+  textContainer: {
+    height: '100%',
+  },
 }));
 
 export const Cell = React.memo(({
@@ -100,14 +103,17 @@ export const Cell = React.memo(({
       rowSpan={rowSpan}
       {...restProps}
     >
-      <div
-        className={classNames({
-          [classes.text]: true,
-          [classes.verticalCellText]: groupOrientation === VERTICAL_GROUP_ORIENTATION,
-        })}
-      >
-        {group.text}
-        {children}
+      {/* NOTE: for sticky text in Safari */}
+      <div className={classes.textContainer}>
+        <div
+          className={classNames({
+            [classes.text]: true,
+            [classes.verticalCellText]: groupOrientation === VERTICAL_GROUP_ORIENTATION,
+          })}
+        >
+          {group.text}
+          {children}
+        </div>
       </div>
     </TableCell>
   );

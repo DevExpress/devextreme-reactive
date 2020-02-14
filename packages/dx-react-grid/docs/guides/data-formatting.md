@@ -22,6 +22,6 @@ If the grid supports editing or header row filtering, assign a function renderin
 
 ## Cell Tooltip
 
-Below is an example of using DataTypeProvider to implement a tooltip for table cells.
+Below is an example of using the `DataTypeProvider` to implement a tooltip for table cells:
 
 .embedded-demo({ "path": "grid-data-types/tooltip", "showThemeSelector": true })

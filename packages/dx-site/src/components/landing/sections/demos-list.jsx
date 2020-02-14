@@ -29,7 +29,7 @@ const DemosList = ({ data: { title, icon, featured, technical } }) => (
       ))}
     </div>
 
-    <div className="row">
+    <div className="row mx-0">
       <div className="col-12">
         <h3 className={styles.subTitle}>
           Docs and Examples
@@ -37,7 +37,7 @@ const DemosList = ({ data: { title, icon, featured, technical } }) => (
       </div>
     </div>
 
-    <div className="row my-2">
+    <div className="row my-2 mx-0">
       {allocateToColumns(technical, 4).map(column => (
         <div className="col-6 col-sm-4 col-md-3">
           {column.map(item => (

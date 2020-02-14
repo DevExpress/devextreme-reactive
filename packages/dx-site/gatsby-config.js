@@ -99,6 +99,7 @@ module.exports = {
               maxWidth: 780,
             },
           },
+          'gatsby-plugin-sharp',
           'gatsby-remark-relative-linker',
           {
             resolve: 'gatsby-remark-autolink-headers',

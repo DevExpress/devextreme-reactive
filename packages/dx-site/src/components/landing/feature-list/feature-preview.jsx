@@ -4,8 +4,16 @@ import GatsbyLink from 'gatsby-link';
 
 import styles from './feature-preview.module.scss';
 
-const FeaturePreview = ({ imageLink, guideLink, title, size }) => {
-  const image = <img alt={title} src={imageLink} className={`${styles.image} ${styles[size]}`} />;
+const FeaturePreview = ({
+  imageLink, guideLink, title, size, className,
+}) => {
+  const image = (
+    <img
+      alt={title}
+      src={imageLink}
+      className={`${styles.image} ${styles[size]} ${className}`}
+    />
+  );
   return guideLink ? (
     <GatsbyLink to={guideLink}>
       {image}

@@ -6,8 +6,9 @@ import ShadowContainer from './shadow-container';
 import styles from './featured-demo-preview.module.scss';
 
 export default ({ title, image, path }) => (
-  <ShadowContainer path={path} variant="no-padding">
+  <ShadowContainer path={path} variant="colored" className={styles.container}>
     <FeaturePreview
+      className={styles.image}
       imageLink={image}
       title={title}
       size="dense"

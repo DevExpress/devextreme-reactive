@@ -1,12 +1,14 @@
 .container {
-  background-color: white;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
   color: #0096BD;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   height: 100%;
 
-  &.no-padding {
-    padding: 0,
+  &.colored {
+    padding: 20px;
+    background-color: #2eb9de;
+    color: white;
+    box-shadow: none !important;
   }
 
   &.dense {

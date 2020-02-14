@@ -5,7 +5,6 @@ import {
 } from './helpers';
 import { VERTICAL_TYPE, HORIZONTAL_TYPE } from '../../constants';
 import { formatDateTimeGetter } from '../scheduler-core/computeds';
-import {  } from '../../../dist/dx-scheduler-core.umd';
 
 describe('#getViewType', () => {
   it('should work with horizontal type', () => {

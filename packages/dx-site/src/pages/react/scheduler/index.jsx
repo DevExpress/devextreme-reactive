@@ -17,6 +17,7 @@ import dayViewImage from './images/Day-View.png';
 import weekViewImage from './images/Week-View.png';
 import monthViewImage from './images/Month-View.png';
 import resourcesSupportImage from './images/Resources-Support.png';
+import resourcesGroupingImage from './images/Resource-Grouping.png';
 import timelineViewImage from './images/Timeline-Views.png';
 
 import LandingThingsThatMatter from '../../../components/landing/things-that-matter';
@@ -82,7 +83,7 @@ const comingSoonItems = [
     sectionTitle: 'More Coming Soon',
     title: 'Resource Grouping',
     description: 'Allow end-users to browse multiple schedules simultaneously. Once resources have been generated, the scheduler will display multiple parallel timelines. Resource headers can be customized, and the same event can be assigned to multiple resources.',
-    imageLink: resourcesSupportImage,
+    imageLink: resourcesGroupingImage,
   },
   {
     reversed: true,

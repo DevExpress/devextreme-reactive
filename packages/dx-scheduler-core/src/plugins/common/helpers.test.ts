@@ -1,4 +1,3 @@
-
 import {
   getViewType, isMidnight, viewBoundText, checkCellGroupingInfo,
   isDateValid, areDatesSame,

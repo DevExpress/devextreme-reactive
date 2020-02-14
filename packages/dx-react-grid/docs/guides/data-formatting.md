@@ -19,3 +19,9 @@ Assign a function rendering the formatted value to the `DataTypeProvider` plugin
 If the grid supports editing or header row filtering, assign a function rendering the required editor to the `DataTypeProvider` plugin's `editorComponent` property. In this case, the Grid uses the specified editor to edit all the specified type values.
 
 .embedded-demo({ "path": "grid-data-types/editors", "showThemeSelector": true })
+
+## Cell Tooltip
+
+Below is an example of using the `DataTypeProvider` to implement a tooltip for table cells:
+
+.embedded-demo({ "path": "grid-data-types/tooltip", "showThemeSelector": true })

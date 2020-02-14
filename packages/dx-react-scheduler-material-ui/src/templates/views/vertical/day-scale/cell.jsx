@@ -40,7 +40,6 @@ const styles = theme => ({
     color: theme.palette.text.secondary,
     lineHeight: 1.2,
     fontSize: '1.8rem',
-    paddingBottom: theme.spacing(0.625),
   },
   highlightedText: {
     color: theme.palette.primary.main,

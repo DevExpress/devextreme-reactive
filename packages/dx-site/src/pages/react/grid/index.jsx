@@ -44,101 +44,101 @@ const pageData = [
   {
     sectionTitle: 'Performance at its Best',
     title: '100% Pure React',
-    description: 'We\'ve focused our energy on performance and leveraged the best practice recommendations offered by the React team. Through immutability and pure functions, we can apply memoization and built-in React optimizations to achieve outstanding performance.',
+    description: 'We\'ve focused our energy on performance and leveraged best practice recommendations from the React team. Through immutability and pure functions, we apply ‘memoization’ and built-in React optimizations to achieve outstanding React Grid performance.',
     imageLink: pureReactImage,
     guideLink: '/react/grid/docs/guides/getting-started/',
   },
   {
     title: 'Virtual Scrolling',
-    description: 'Virtual scrolling allows the Grid component to display thousands of records on a single page. It can render only the records that are currently visible to a user and remove them from DOM once the user scrolls them out of visible range.',
+    description: 'Virtual scrolling allows our React Grid component to display thousands of records on a single page. DevExtreme React Grid can render only those records visible to users and remove them from the DOM once the user scrolls past the visible range.',
     imageLink: virtualScrollingImage,
     guideLink: '/react/grid/docs/guides/virtual-scrolling/',
   },
   {
     sectionTitle: 'Shape and Analyze Data as You Need',
     title: 'Milti-Column Sorting',
-    description: 'Allow a user to sort data in the Grid by any number of columns. It is possible to apply and remove soring for a specific column using the command keys on your keyboard. You can also perform sorting operations on the server-side.',
+    description: 'Allow a user to sort data within the Grid against multiple columns. You can apply and remove sort order column using the command keys on your keyboard. You can also execute sort operations on the server-side.',
     imageLink: sortingImage,
     guideLink: '/react/grid/docs/guides/sorting/',
   },
   {
     title: 'Multi-Column Grouping',
-    description: 'Data grouping is a highly effective way to summarize information for end-users. You can enable grouping by one or several columns programmatically or let your end-users do it via mouse, keyboard or touch gestures on mobile devices.',
+    description: 'Data grouping is a highly effective way to summarize/organize information for end-users. You can enable grouping against one or more columns programmatically or allow your end-users to group data via the mouse, keyboard or through touch gestures on mobile devices.',
     imageLink: groupingImage,
     guideLink: '/react/grid/docs/guides/grouping/',
   },
   {
     alternative: true,
     title: 'Summaries & Data Aggregates',
-    description: 'Easily turn your data Grid into an analytics tool enabling built-in data aggregation capabilities implemented as a Summary Row plugin. The Grid can calculate sums, averages, minimums, maximums and custom summary values for both separate groups and the whole data set.',
+    description: 'Easily turn your data Grid into an analytics tool with our built-in data aggregation features. Implemented as a Summary Row plugin, our Grid can calculate sums, averages, minimums, maximums and custom summary values for both separate groups and the entire data set.',
     imageLink: summariesImage,
     guideLink: '/react/grid/docs/guides/summary-row/',
   },
   {
     reversed: true,
     title: 'Multi-Column Filtering',
-    description: 'Intuitive column based search.  With enabled Filter Row plugin, users can filter the contents of the grid by individual column values. Based on the data type associated with a column, you can control the search operators used (Contains, Equals, etc).',
+    description: 'Intuitive column-based search. With our Filter Row plugin, users can filter the contents of the React Grid by individual column values. Based on the data type associated with a column, you can control the search operators used (Contains, Equals, etc).',
     imageLink: filteringImage,
     guideLink: '/react/grid/docs/guides/filtering/',
   },
   {
     alternative: true,
     title: 'Search Panel',
-    description: 'A simple and quick way to find records. The Search Panel plugin removes all complexities associated with data filtering. Once enabled, the Search Panel allows users to enter a search string and initiate a search against all values displayed in the grid.',
+    description: 'A simple and quick way to locate records. The Search Panel plugin removes all complexities associated with data filtering. Once enabled, the Search Panel allows users to enter a search string and initiate a search against all values displayed in the grid.',
     imageLink: searchingImage,
     guideLink: '/react/grid/docs/guides/searching/',
   },
   {
     sectionTitle: 'Manage Complex Data Structures',
     title: 'Tree View Mode',
-    description: 'The Tree View plugin allows you to display hierarchical data sets of any structures within the React Grid. It smoothly integrates with other Grid plugins enabling sorting, paging, filtering and other features of a regular plain data grid.',
+    description: 'The Tree View plugin allows you to display hierarchical data sets within the React Grid. Our Tree View plugin integrates with other Grid plugins.',
     imageLink: treeViewImage,
     guideLink: '/react/grid/docs/guides/tree-data/',
   },
   {
     alternative: true,
     title: 'Detail Row',
-    description: 'A simple and quick way to find records. The Search Panel plugin removes all complexities associated with data filtering. Once enabled, the Search Panel allows users to enter a search string and initiate a search against all values displayed in the grid.',
+    description: 'Extend each Grid data row with a collapsible detail view. This feature allows you to address a variety of business usage scenarios from Master-Detail collection management to in-place record-related data editing and visualization.',
     imageLink: detailRowImage,
     guideLink: '/react/grid/docs/guides/detail-row/',
   },
   {
     sectionTitle: 'Data Editing at Your Full Control',
     title: 'Built-in Edit Action Column',
-    description: 'From a read-only to an editable React Grid in a couple lines of code. The Grid ships with a ready-to-use set of plugins that enable data editing capabilities for your end-users. As a developer, you have full control over data editing process via the plugin API.',
+    description: 'From a read-only to a fully editable React Grid with a couple lines of code. Our React Grid ships with integrated data editing plugins. As a developer, you have full control over the data editing process via its straightforward API.',
     imageLink: actionColumnImage,
     guideLink: '/react/grid/docs/guides/editing/#uncontrolled-mode',
   },
   {
     title: 'Customizable In-place Cell Editors',
-    description: 'The React Grid ships with the Data Type Provider plugin that allows you to show custom in-place cell editors depending on a specific data type. Use what you need in your app - from standard textboxes, to date pickers and everything in between.',
+    description: 'Our React Grid ships with a Data Type Provider plugin that allows you to display custom in-place cell editors (based upon data type). Use what you need in your app - from standard textboxes, to date pickers and everything in between.',
     imageLink: cellEditorsImage,
     guideLink: '/react/grid/docs/guides/data-formatting/#custom-editors',
   },
   {
     reversed: true,
     title: 'Batch Editing',
-    description: 'Batch modifications allow you to apply several record changes at once to improve user experience and data entry efficiency. If you work with remote data, it can also eliminate the unnecessary remote data update requests improving the overall performance.',
+    description: 'Batch modifications allow you to apply multiple record changes simultaneously and to improve data entry efficiency. When working with remote data, batch modifications can also help eliminate unnecessary remote data update requests.',
     imageLink: batchEditingImage,
     guideLink: '/react/grid/docs/guides/editing/',
   },
   {
     alternative: true,
     title: 'Data Selection',
-    description: 'End-users can select data rows via a click/tap on a row or using the built-in selection column with checkboxes. Depending on your business requirements you can enable the \'Select All\' checkbox and configure if it should select only current page or all available records.',
+    description: 'End-users can select data via a row click/tap or by using the grid’s built-in checkbox selection column. You can activate our \'Select All\' checkbox and configure it to select records on the current page or all records linked to the grid.',
     imageLink: selectionImage,
     guideLink: '/react/grid/docs/guides/selection/',
   },
   {
     sectionTitle: 'UI Customization for Your Users and You',
     title: 'Column Resizing/Reordering',
-    description: 'End-users can resize and reorder columns while working with your application. Use the \'controlled state\' mode to expose the current customization state to your application logic for persistence. Save and restore it when a user leaves and returns to your app.',
+    description: 'End-users can resize and reorder columns as needed. Use our \'controlled state\' mode to expose the current customization state to your application logic for persistence. Save and restore it when a user leaves and/or returns to your app.',
     imageLink: columnResizingImage,
     guideLink: '/react/grid/docs/guides/column-resizing/',
   },
   {
     title: 'Column Chooser',
-    description: 'Our React Grid ships with a column chooser UI. It allows your users to show/hide required columns at runtime. You can predefine the set of visible columns and save/restore the customizations made by a end-user to the browser local storage or into a remote database.',
+    description: 'Our React Grid ships with an integrated column chooser UI. With it, users can display/hide desired grid columns at runtime. You can specify the set of visible columns and save/restore customizations made by end-users to the browser’s local storage or into a remote database.',
     imageLink: columnChooserImage,
     guideLink: '/react/grid/docs/guides/column-visibility/',
   },
@@ -150,13 +150,13 @@ const pageData = [
   },
   {
     title: 'Column Bands',
-    description: 'Improve your Grid UI readability via grouping your column headers into bands. Multi-level column groups are supported via a corresponding plugin that we ship with the React Grid.',
+    description: 'Improve usability/readability by grouping your column headers into bands. Multi-level column groups are supported via a corresponding plugin.',
     imageLink: columnBandsImage,
     guideLink: '/react/grid/docs/guides/banded-columns/',
   },
   {
     title: 'Custom UI Rendering',
-    description: 'We know that your requirements may go far behind the built-in React Grid capabilities. That\'s why we made everything possible to simplify UI and behavior customization. Override, modify or extend the built-in functionality according to your business needs.',
+    description: 'We done everything possible to simplify UI and behavior customization. With our React Grid, you can override, modify or extend built-in functionality to fully address business needs.',
     imageLink: customUIRenderingImage,
     guideLink: '/react/grid/demos/featured/data-editing/',
   },
@@ -211,12 +211,12 @@ const IndexPage = () => (
       <LandingImageFeature
         imageLink={bootstrapThemeLink}
         title="Twitter Bootstrap React Grid"
-        description="Use any existing or create your custom bootstrap theme. No need for any additional configuration."
+        description="Use any existing theme or create a custom bootstrap theme as necessary. No need for any additional configuration."
       />
       <LandingImageFeature
         imageLink={materialThemeLink}
         title="Material-UI React Grid"
-        description="We ship additional Material-UI packages that allow you to utilize the familiar approaches and appearance."
+        description="Leverage both the user and developer experience of the Material-UI library."
       />
     </LandingLayout>
 

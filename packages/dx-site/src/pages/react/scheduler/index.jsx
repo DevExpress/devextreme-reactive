@@ -32,26 +32,26 @@ import AlternatedBackground from '../../../components/landing/alternated-backgro
 
 const pageData = [
   {
-    alternative: true,
     sectionTitle: 'Inspired by Google Calendar',
-    title: 'Lightweight & Concise UI',
-    description: 'Our React Scheduler built using the UI/UX best practices proved by millions of Google Calendar users. Create your own scheduling application extending the default UI and behavior according to your specific business requirements.',
-    imageLink: lightweightUIImage,
-    guideLink: '/react/scheduler/demos/featured/data-editing/',
-  },
-  {
     reversed: true,
     title: 'Familiar & Intuitive UX',
-    description: 'Allow your end-users to reuse their existing skills while working with the React Scheduler. They can use intuitive Drag-and-Drop operations to create appointments and change their start/end time and duration by move and resize.',
+    description: 'The look and feel of Google’s Material Design and a Google-inspired UX make our React Scheduler extremely easy to use. End-users can manage events using straightforward drag & drop operations (just as they would with Google Calendar).',
     imageLink: familiarUXImage,
     guideLink: '/react/scheduler/demos/featured/appearance-customization/',
   },
   {
     alternative: true,
     title: 'Recurring Appointments',
-    description: 'Use built-in plugins for handling recurring event chains. You can easily customize all recurrence related functionality and address even the most complex requirements with minimal effort. The iCalendar recurrence rule and exception formats are supported.',
+    description: 'Use built-in recurring appointment dialogs, configuration forms, and our flexible API to manage recurring event chains. Our React Scheduler is built using the iCalendar specification. As such, you can easily extend and customize it as needed.',
     imageLink: recurringAppointmentsImage,
     guideLink: '/react/scheduler/docs/guides/appointments/#recurring-appointments',
+  },
+  {
+    alternative: true,
+    title: 'Resources Support',
+    description: 'Allow end-users to browse multiple schedules (for any entity such as an employee or office location, etc) simultaneously or individually using a resource filter. The same event can be assigned to multiple resources.',
+    imageLink: resourcesSupportImage,
+    guideLink: '/react/scheduler/docs/guides/resources/',
   },
   {
     reversed: true,
@@ -71,7 +71,7 @@ const pageData = [
   {
     reversed: true,
     title: 'Month View',
-    description: 'The Month View displays a snapshot of appointments across an entire month. As you would expect, because of the number of days the Scheduler control displays within an application, the view itself is the least detailed of all available.',
+    description: 'The Month View displays a snapshot of appointments across an entire month.',
     imageLink: monthViewImage,
     guideLink: '/react/scheduler/docs/guides/views/#month-view',
   },
@@ -80,14 +80,14 @@ const comingSoonItems = [
   {
     alternative: true,
     sectionTitle: 'More Coming Soon',
-    title: 'Resources Support',
-    description: 'Allow end-users to browse multiple schedules simultaneously. Once resources have been created, the scheduler will display several parallel timelines. Resource headers can be customized and the same event can be assigned to multiple resources.',
+    title: 'Resource Grouping',
+    description: 'Allow end-users to browse multiple schedules simultaneously. Once resources have been generated, the scheduler will display multiple parallel timelines. Resource headers can be customized, and the same event can be assigned to multiple resources.',
     imageLink: resourcesSupportImage,
   },
   {
     reversed: true,
     title: 'Timeline Views',
-    description: 'Arrange events and appointments across horizontal timelines. When browsing multiple resources, timelines are displayed one under another. On the top of the view, you can display multiple time rulers with different scales.',
+    description: 'Arrange events and appointments across horizontal timelines. When browsing multiple resources, timelines are displayed one under another. You can display multiple time rulers with different scales atop the view.',
     imageLink: timelineViewImage,
   },
 ];
@@ -140,8 +140,8 @@ const IndexPage = () => (
       <LandingTitle text="Native Support for the Material-UI Library" />
       <LandingImageFeature
         imageLink={materialThemeLink}
-        title="Material Design Rendering"
-        description="We ship additional Material-UI packages that allow you to utilize the familiar approaches and appearance."
+        title="Material-UI React Scheduler"
+        description="DevExtreme React Scheduler leverages the look and feel of the highly popular Material-UI library for the best possible developer experience."
       />
     </LandingLayout>
 

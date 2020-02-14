@@ -11,11 +11,7 @@ const Maintainance = () => (
             Maintenance & Customer Support
           </h2>
           <div className={styles.description}>
-            The product is developed on a full-time basis by a dedicated team.
-            {' '}
-            All the issues you face will be consistently addressed once they appear.
-            {' '}
-            Check our support flow on GitHub.
+            We are here to help and to do everything possible to earn your trust. To learn more about our commitment to total customer satisfaction, please check out our support flow on GitHub.
           </div>
         </div>
       </div>

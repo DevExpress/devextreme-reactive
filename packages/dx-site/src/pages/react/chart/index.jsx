@@ -94,23 +94,23 @@ const chartTypes = [
 const pageData = [
   {
     reversed: true,
-    sectionTitle: 'Interactivity at Your Full Control',
+    sectionTitle: 'Interactivity at Your Fingertips',
     title: 'Series/Point Selection',
-    description: 'React Chart supports both programmatic and interactive series/point selection. The selected elements can be automatically highlighted and the associated data is exposed to your application for use. The both single and multiple selection are supported.',
+    description: 'Our React Chart supports both programmatic and interactive series/point selection. Selected elements can be automatically highlighted, and associated data is exposed to your application for use. Both single and multiple selection are available.',
     imageLink: seriesSelectionImage,
     guideLink: '/react/chart/docs/guides/hover-and-selection/#selection',
   },
   {
     alternative: true,
     title: 'Series/Point Hover & Event Tracking',
-    description: 'Hover Tracking allows you to know which series or point is hovered and reflect this information in your application UI. For instance, you can show a point details in a separate or popup form. You can also track and handle other series/point mouse/touch events.',
+    description: 'Deliver dynamic data visualizations with real-time UI updates based upon user interactions within the Chart. Our React Chart API allows you to track the hover state of Chart UI elements such as series and points.',
     imageLink: seriesHoverImage,
     guideLink: '/react/chart/docs/guides/hover-and-selection/#hover-in-uncontrolled-mode',
   },
   {
     reversed: true,
     title: 'Zooming and Scrolling',
-    description: 'End-users can effeciently analyze long point series using the React Chart zooming and scrolling capabilities. We support instant zooming using mouse wheel or zoom gestures and zoom to a square region. Horizontal scrolling/panning is also available.',
+    description: 'End-users can quickly analyze data by zooming/scrolling its contents.  We support instant zoom via the mouse wheel or zoom gestures and zoom to a square region. Horizontal scrolling/panning is also available.',
     imageLink: zoomingScrollingImage,
     guideLink: '/react/chart/docs/guides/zoom-and-pan/',
   },
@@ -118,21 +118,21 @@ const pageData = [
     alternative: true,
     sectionTitle: 'Wide Customization Capabilities',
     title: 'Customize Chart via HTML/CSS',
-    description: 'The React Chart uses a hybrid rendering mechanism that combines HTML and SVG. This means that you can use HTML and CSS to influence layout and appearance of chart building blocks such as title and legend.',
+    description: 'Our React Chart uses a hybrid rendering mechanism that combines HTML and SVG. You can use both HTML and CSS to easily manipulate the layout and appearance of chart building blocks such as title and legend.',
     imageLink: customizeHTMLImage,
     guideLink: '/react/chart/demos/bar/component-customization/',
   },
   {
     reversed: true,
     title: 'Enhance Charts Using D3',
-    description: 'You can use the existing D3 modules to apply different kinds of custom chart behavior or data visualization. Explore our online React Chart demos and learn how we utilize the d3-scale, d3-shape, d3-format and other D3 modules.',
+    description: 'You can use existing D3 modules to apply custom chart behaviors or visualizations. Explore our online React Chart demos and learn how we utilize d3-scale, d3-shape, d3-format and other D3 modules.',
     imageLink: enhanceD3Image,
     guideLink: '/react/chart/demos/area/streamgraph/',
   },
   {
     alternative: true,
     title: 'Customize Chart Rendering',
-    description: 'The React Chart UI plugins allow you to use custom React components to render particular pieces of the React Chart UI in a custom way. All you need is to pass your custom components to the required plugins via their props.',
+    description: 'Our React Chart UI plugins allow you to use custom React components to custom render desired portions of the React Chart’s user interface. To do so, simpley pass your custom components to the required plugins via their props.',
     imageLink: customizeRenderingImage,
     guideLink: '/react/chart/demos/combination/multiple-axes/',
   },
@@ -186,13 +186,13 @@ const IndexPage = () => (
       <LandingTitle text="Native Support for the UI Library of Your Choice" />
       <LandingImageFeature
         imageLink={bootstrapThemeLink}
-        title="Twitter Bootstrap Rendering"
-        description="Use any existing or create your custom bootstrap theme. No need for any additional configuration."
+        title="Twitter Bootstrap React Chart"
+        description="Use any existing theme or create a custom bootstrap theme as necessary. No need for any additional configuration."
       />
       <LandingImageFeature
         imageLink={materialThemeLink}
-        title="Material Design Rendering"
-        description="We ship additional Material-UI packages that allow you to utilize the familiar approaches and appearance."
+        title="Material React Chart"
+        description="Leverage both the user and developer experience of the Material-UI library."
       />
     </LandingLayout>
 

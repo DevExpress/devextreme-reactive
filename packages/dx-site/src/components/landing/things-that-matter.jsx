@@ -6,16 +6,16 @@ import styles from './things-that-matter.module.scss';
 export default () => (
   <div className={`container ${styles.container}`}>
     <div className="row">
-      <LandingTitle text="And Things That Also Matter..." />
+      <LandingTitle text="It Doesn’t Stop There..." />
     </div>
     <div className={`row ${styles.thingsRow}`}>
       <LandingIconFeature
         title="Customization"
-        description="Wide customization and extensibility capabilities. From template React components to custom plugins."
+        description="Comprehensive customization and extensibility options. From template React components to custom plugins."
       />
       <LandingIconFeature
         title="Localization"
-        description="Every textual piece of our React components is customizable. Localize or globalize your react app with ease."
+        description="Localize or globalize your react app with ease. Every text element within our React components is customizable."
       />
       <LandingIconFeature
         title="TypeScript"
@@ -23,7 +23,7 @@ export default () => (
       />
       <LandingIconFeature
         title="Docs & Examples"
-        description="Improve your productivity using our comprehensive and simple docs with live React demos and code examples."
+        description="Improve your productivity using our straightforward documentation and live React demos/code examples."
       />
     </div>
   </div>

@@ -39,6 +39,7 @@ stubCellComponent | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&
 stubHeaderCellComponent | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a stub header cell if the cell value is not provided.
 messages? | [Table.LocalizationMessages](table.md#localization-messages) | | An object that specifies the localization messages.
 onTopRowChange? | (rowId: number &#124; string) => void | | Handles a change of the top row.
+ref? | React.RefObject&lt;typeof VirtualTable&gt; | | A reference to the `VirtualTable` instance
 
 ## Methods
 

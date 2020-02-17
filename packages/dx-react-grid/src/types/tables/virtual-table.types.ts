@@ -59,6 +59,8 @@ export interface VirtualTableProps {
   skeletonCellComponent: React.ComponentType<Table.CellProps>;
   /** Handles top row changes. */
   onTopRowChange: (rowId: number | string | symbol) => void;
+  /** A reference to the VirtualTable instance */
+  ref?: React.RefObject<typeof VirtualTable>;
 }
 
 /** @internal */

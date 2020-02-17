@@ -6,9 +6,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import moment from 'moment';
 import {
-  NUMBER_EDITOR, getRecurrenceOptions, changeRecurrenceOptions, checkIsNaturalNumber,
+  NUMBER_EDITOR, getRecurrenceOptions, changeRecurrenceOptions,
+  checkIsNaturalNumber, isDateValid,
 } from '@devexpress/dx-scheduler-core';
 
 const styles = ({ spacing, typography }) => ({
@@ -58,7 +58,7 @@ const EndRepeatEditorBase = ({
     }), [recurrenceOptions, onFieldChange],
   );
   const changeRecurrenceEndDate = React.useCallback((date) => {
-    if (moment(date).isValid()) {
+    if (isDateValid(date)) {
       onFieldChange({
         rRule: changeRecurrenceOptions({ ...recurrenceOptions, until: date }),
       });

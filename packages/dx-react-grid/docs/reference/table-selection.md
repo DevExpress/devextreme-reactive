@@ -36,7 +36,7 @@ showSelectAll? | boolean | true | Specifies whether to render the Select All che
 showSelectionColumn? | boolean | true | Specifies whether to render the selection column that displays selection checkboxes.
 cellComponent | ComponentType&lt;[TableSelection.CellProps](#tableselectioncellprops)&gt; | | A component that renders a selection cell (a cell containing a selection checkbox).
 headerCellComponent | ComponentType&lt;[TableSelection.HeaderCellProps](#tableselectioncellprops)&gt; | | A component that renders a cell containing the Select All checkbox.
-rowComponent | ComponentType&lt;[TableSelection.RowProps](#tableselectionrowprops)&gt; | | A component that renders a selection row (this component is rendered instead [Table.Row](table.md#tablerowprops) only when enabled `highlightRow` or `selectByRowClick`).
+rowComponent | ComponentType&lt;[TableSelection.RowProps](#tableselectionrowprops)&gt; | | A component that renders a selection row (this component is rendered instead of [Table.Row](table.md#tablerowprops) only when enabled `highlightRow` or `selectByRowClick`).
 selectionColumnWidth | number | | The selection column's width.
 
 ## Interfaces

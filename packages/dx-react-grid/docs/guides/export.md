@@ -1,23 +1,23 @@
 # React Grid - Export
 
-The Grid component supports exporting data in Excel format.
+React Grid users can export grid data to an Excel document.
 
 ## Related Plugins
 
-- [Toolbar](../reference/toolbar.md) - renders the Grid Toolbar
+- [Toolbar](../reference/toolbar.md) - renders the Toolbar
 - [ExportPanel](../reference/export-panel.md) - renders the Export Panel
 
 Note that [plugin order](./plugin-overview.md#plugin-order) is important.
 
 ## Related Components
 
-- [GridExporter](../reference/grid-exporter.md) - performs data export
+- [GridExporter](../reference/grid-exporter.md) - implements data export
 
 ## Basic Setup
 
-#### 1. Import GridExporter
+1. Configure the `GridExporter`
 
-Import the [GridExporter](../reference/grid-exporter.md) component and place it outside the Grid. Specify the `ref` property and add the `columns` and `rows` properties to the GridExporter.
+Import the [GridExporter](../reference/grid-exporter.md) and place it after the Grid component. Specify the `ref`, `columns`, and `rows` properties of the `GridExporter`:
 
 ```jsx
 const exporterRef = useRef();
@@ -32,21 +32,21 @@ const exporterRef = useRef();
 />
 ```
 
-#### 2. Import ExportPanel
+2. Configure the `ExportPanel`
 
-Import the [ExportPanel](../reference/export-panel.md) plugin and add it to your Grid.
+Import the [ExportPanel](../reference/export-panel.md) plugin and add it to the Grid.
 
-#### 3. Initiate export
+3. Initiate export
 
-Call the GridExporter's `exportGrid` method using a ref from the first step. This method can be called in the `ExportPanel`'s `startExport` callback or anywhere else in your code.
+The `GridExporter` provides an `exportGrid` method that initiates export. Use the ref from the first step to call this method. In the following code, we call it in the `startExport` callback of the `ExportPanel` plugin, but it can be called anywhere else in your code.
 
 ```jsx
 exporterRef.current.exportGrid();
 ```
 
-#### 4. Save File
+4. Save the file
 
-The `GridExporter` component provides the `onSave` callback that allows you to handle file saving. The recommended approach is to use the `file-saver` package as shown below.
+To handle file saving, implement the `onSave` callback of the `GridExporter` component. In this callback, save the file to the user's local storage. This can be done in many different ways. For example, you can use the `file-saver` package:
 
 ```jsx
 import saveAs from 'file-saver';
@@ -58,11 +58,11 @@ const onSave = (workbook) => {
 };
 ```
 
-The following example demonstrates a basic export configuration.
+The following demo shows export in action:
 
 .embedded-demo({ "path": "grid-export/basic", "showThemeSelector": true })
 
-## Supported Grid features
+## Supported Grid Features
 
 ### Sorting and Filtering
 

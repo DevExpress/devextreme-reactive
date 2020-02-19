@@ -1,0 +1,78 @@
+import React, { useState } from 'react';<%&additionalImports%>
+import {
+  EditingState,
+} from '@devexpress/dx-react-grid';
+import {
+  Grid,
+  Table,
+  TableHeaderRow,
+  TableEditColumn, TableEditRow,
+} from '@devexpress/dx-react-grid-<%&themeName%>';
+import debounce from 'lodash.debounce';
+
+import { generateRows, employeeValues } from '../../../demo-data/generator';
+
+const EditCell = ({ errors, ...props }) => {
+  const { children } = props;
+  return (
+    <TableEditColumn.Cell {...props}>
+      {React.Children.map(children, child => (
+        child && child.props.id === 'commit'
+          ? React.cloneElement(child, { disabled: errors[props.tableRow.rowId] })
+          : child
+      ))}
+    </TableEditColumn.Cell>
+  );
+};
+
+// maps the rows so that each prop is true if a column is required but the field is empty
+const validate = (rows, columns) => Object.entries(rows).reduce(
+  (acc, [rowId, row]) => ({
+    ...acc,
+    [rowId]: columns.some(column => column.required && row[column.name] === ''),
+  }), {},
+);
+
+const columns = [
+  { name: 'firstName', title: 'First Name', required: true },
+  { name: 'lastName', title: 'Last Name', required: true },
+  { name: 'phone', title: 'Phone' },
+  { name: 'state', title: 'State' },
+];
+
+export default () => {
+  const [rows, setRows] = useState(generateRows({
+    length: 8,
+    columnValues: { id: ({ index }) => index, ...employeeValues },
+  }));
+  const [errors, setErrors] = useState({});
+
+  const commitChanges = ({ changed }) => {
+    const changedRows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+    setRows(changedRows);
+  };
+
+  const onEdited = debounce(edited => setErrors(validate(edited, columns)), 250);
+
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+      >
+        <EditingState
+          onRowChangesChange={onEdited}
+          onCommitChanges={commitChanges}
+        />
+        <Table />
+        <TableHeaderRow />
+        <TableEditColumn
+          showEditCommand
+          showDeleteCommand
+          cellComponent={props => <EditCell {...props} errors={errors} />}
+        />
+        <TableEditRow />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

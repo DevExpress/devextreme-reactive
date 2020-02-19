@@ -71,7 +71,7 @@
     "ts-jest": "^24.1.0",
     "tslint": "^5.20.1",
     "tslint-config-airbnb": "^5.11.2",
-    "typescript": "3.7.4"
+    "typescript": "3.7.5"
   },
   "dependencies": {
     "@devexpress/dx-grid-core": "2.4.0"

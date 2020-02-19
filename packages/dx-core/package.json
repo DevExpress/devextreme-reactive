@@ -50,7 +50,7 @@
     "tslint-config-airbnb": "^5.11.2",
     "tslint-config-prettier": "^1.18.0",
     "tslint-react": "^4.1.0",
-    "typescript": "3.7.4",
+    "typescript": "3.7.5",
     "typescript-tslint-plugin": "^0.5.5"
   }
 }

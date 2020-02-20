@@ -80,6 +80,12 @@ Pass the `grouping` configuration to the GridExporter.
 
 To export only selected rows, pass the `selection` prop to the GridExporter.
 
+Below is an example demonstrating all features described in this section.
+
+.embedded-demo({ "path": "grid-export/supported-grid-features", "showThemeSelector": true })
+
+## Excel Document Customization
+
 ### Appearance customization
 
 To adjust a data cell appearance, specify the `customizeCell` function. Use the `customizeSummaryCell` function to adjust a summary cells appearance.
@@ -88,7 +94,5 @@ To adjust a data cell appearance, specify the `customizeCell` function. Use the 
 
 The sheet's header and footer can be customized in 
 Specify the `customizeHeader` and `customizeFooter` 
-
-Below is an example demonstrating all features described in this section.
 
 .embedded-demo({ "path": "grid-export/advanced-customization", "showThemeSelector": true })

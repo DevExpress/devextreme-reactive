@@ -1,23 +1,15 @@
-import React, { useState, useRef, useCallback } from 'react';<%&additionalImports%>
+import React, { useRef, useCallback } from 'react';<%&additionalImports%>
 import {
-  GroupingState,
-  IntegratedGrouping,
   SummaryState,
   IntegratedSummary,
-  SelectionState,
-  IntegratedSelection,
   DataTypeProvider,
 } from '@devexpress/dx-react-grid';
 import { GridExporter } from '@devexpress/dx-react-grid-export';
 import {
   Grid,
-  Table,
+  VirtualTable,
   TableHeaderRow,
-  TableGroupRow,
-  GroupingPanel,
   TableSummaryRow,
-  TableSelection,
-  DragDropProvider,
   Toolbar,
   ExportPanel,
 } from '@devexpress/dx-react-grid-<%themeName%>';
@@ -26,11 +18,6 @@ import {
 import saveAs from 'file-saver';
 
 import { orders } from '../../../demo-data/orders';
-
-const groupColors = {
-  Employee: 'BEDFE6',
-  CustomerStoreCity: 'C9ECD7',
-};
 
 const getCellStyle = ({ OrderDate, SaleAmount }, column) => {
   const style = {};
@@ -64,10 +51,6 @@ const DateTypeProvider = props => (
 // worksheet customization
 /* eslint-disable no-param-reassign */
 const customizeCell = (cell, row, column) => {
-  if (row.groupedBy && groupColors[row.groupedBy]) {
-    cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: groupColors[row.groupedBy] } };
-    cell.font = { color: { argb: '000000' } };
-  }
   if (row.OrderDate < new Date(2014, 2, 3)) {
     cell.font = { color: { argb: 'AAAAAA' } };
   }
@@ -95,24 +78,24 @@ const customizeHeader = (worksheet) => {
     alignment: { horizontal: 'left' },
   };
   for (let rowIndex = 1; rowIndex < 6; rowIndex += 1) {
-    worksheet.mergeCells(rowIndex, 1, rowIndex, 2);
-    worksheet.mergeCells(rowIndex, 3, rowIndex, 4);
+    worksheet.mergeCells(rowIndex, 1, rowIndex, 3);
+    worksheet.mergeCells(rowIndex, 4, rowIndex, 6);
     Object.assign(worksheet.getRow(rowIndex).getCell(1), generalStyles);
     Object.assign(worksheet.getRow(rowIndex).getCell(3), generalStyles);
   }
   worksheet.getRow(1).height = 20;
   worksheet.getRow(1).getCell(1).font = { bold: true, size: 16 };
-  worksheet.getRow(1).getCell(3).numFmt = 'd mmmm yyyy';
-  worksheet.getRow(1).getCell(3).font = { bold: true, size: 16 };
+  worksheet.getRow(1).getCell(4).numFmt = 'd mmmm yyyy';
+  worksheet.getRow(1).getCell(4).font = { bold: true, size: 16 };
   worksheet.getColumn(1).values = ['Sale Amounts:', 'Company Name:', 'Address:', 'Phone:', 'Website:'];
-  worksheet.getColumn(3).values = [new Date(), 'K&S Music', '1000 Nicllet Mall Minneapolis Minnesota', '(612) 304-6073', 'www.nowebsitemusic.com'];
+  worksheet.getColumn(4).values = [new Date(), 'K&S Music', '1000 Nicllet Mall Minneapolis Minnesota', '(612) 304-6073', 'www.nowebsitemusic.com'];
 };
 
 const customizeFooter = (worksheet) => {
   const { lastRow } = worksheet;
   let currentRowIndex = lastRow.number + 2;
   for (let rowIndex = 0; rowIndex < 3; rowIndex += 1) {
-    worksheet.mergeCells(currentRowIndex + rowIndex, 1, currentRowIndex + rowIndex, 4);
+    worksheet.mergeCells(currentRowIndex + rowIndex, 1, currentRowIndex + rowIndex, 6);
     Object.assign(worksheet.getRow(currentRowIndex + rowIndex).getCell(1), { font: { bold: true }, alignment: { horizontal: 'right' } });
   }
   worksheet.getRow(currentRowIndex).getCell(1).value = 'If you have any questions, please contact John Smith.';
@@ -139,21 +122,12 @@ const columns = [
   { name: 'SaleAmount', title: 'Sale Amount' },
 ];
 const dateColumns = ['OrderDate'];
-const groupSummaryItems = [
-  { columnName: 'OrderNumber', type: 'count' },
-  { columnName: 'SaleAmount', type: 'max' },
-];
 const totalSummaryItems = [
   { columnName: 'OrderNumber', type: 'count' },
   { columnName: 'SaleAmount', type: 'sum' },
 ];
-const defaultExpandedGroups = ['Todd Hoffman', 'Todd Hoffman|Denver'];
 
 export default () => {
-  const [grouping, setGrouping] = useState([
-    { columnName: 'Employee' }, { columnName: 'CustomerStoreCity' },
-  ]);
-  const [selection, setSelection] = useState([30, 38]);
   const exporterRef = useRef(null);
 
   const startExport = useCallback((options) => {
@@ -166,32 +140,15 @@ export default () => {
         rows={orders}
         columns={columns}
       >
-        <DragDropProvider />
         <DateTypeProvider for={dateColumns} />
-        <GroupingState
-          defaultExpandedGroups={defaultExpandedGroups}
-          grouping={grouping}
-          onGroupingChange={setGrouping}
-        />
         <SummaryState
           totalItems={totalSummaryItems}
-          groupItems={groupSummaryItems}
         />
-        <SelectionState selection={selection} onSelectionChange={setSelection} />
-        <IntegratedGrouping />
         <IntegratedSummary />
-        <IntegratedSelection />
-        <Table cellComponent={Cell} />
+        <VirtualTable cellComponent={Cell} />
         <TableHeaderRow />
-        <TableSelection />
-        <TableGroupRow
-          containerComponent={GroupCellContainer}
-          indentCellComponent={GroupIndentCell}
-          rowComponent={GroupRow}
-        />
         <TableSummaryRow />
         <Toolbar />
-        <GroupingPanel />
         <ExportPanel startExport={startExport} />
       </Grid>
 
@@ -199,10 +156,7 @@ export default () => {
         ref={exporterRef}
         rows={orders}
         columns={columns}
-        grouping={grouping}
         totalSummaryItems={totalSummaryItems}
-        groupSummaryItems={groupSummaryItems}
-        selection={selection}
 
         onSave={onSave}
         customizeCell={customizeCell}

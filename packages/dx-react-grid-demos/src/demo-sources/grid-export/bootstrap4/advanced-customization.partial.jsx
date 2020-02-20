@@ -1,36 +1,8 @@
 // BLOCK:body
-const getGroupStyle = ({ groupedBy }) => ({
-  backgroundColor: `#${groupColors[groupedBy]}`,
-});
-
-const GroupRow = ({ style, ...restProps }) => {
-  const { row } = restProps;
-  return (
-    <TableGroupRow.Row
-      style={{ ...style, ...getGroupStyle(row) }}
-      {...restProps}
-    />
-  );
-};
-
-const GroupIndentCell = ({ style, ...restProps }) => (
-  <TableGroupRow.IndentCell
-    style={{ ...style, backgroundColor: 'inherit' }}
-    {...restProps}
-  />
-);
-
-const GroupCellContainer = ({ style, ...restProps }) => (
-  <TableGroupRow.Container
-    style={{ ...style, backgroundColor: 'inherit' }}
-    {...restProps}
-  />
-);
-
 const Cell = ({ style, ...restProps }) => {
   const { row, column } = restProps;
   return (
-    <Table.Cell
+    <VirtualTable.Cell
       style={{ ...style, ...getCellStyle(row, column) }}
       {...restProps}
     />

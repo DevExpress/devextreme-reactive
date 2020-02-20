@@ -53,6 +53,7 @@ export class GridExporterCore extends React.PureComponent<ExporterProps> {
     customizeHeader: () => {},
     customizeFooter: () => {},
     customizeCell: () => {},
+    customizeSummaryCell: () => {},
   };
 
   performExport = (_: any,

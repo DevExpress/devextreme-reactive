@@ -104,6 +104,8 @@ export type ScrollingStrategy = {
   bottomBoundary: number;
   leftBoundary: number;
   rightBoundary: number;
+  fixedTopHeight?: number;
+  fixedLeftWidth?: number;
   changeVerticalScroll: (value: number) => void;
   changeHorizontalScroll: (value: number) => void;
 };

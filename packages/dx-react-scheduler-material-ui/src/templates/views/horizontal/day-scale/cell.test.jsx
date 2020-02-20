@@ -23,7 +23,7 @@ describe('Horizontal view DayScale', () => {
         .toBeTruthy();
       expect(tree.is(`.${classes.cell}`))
         .toBeTruthy();
-      expect(tree.is(`.${classes.rightBorderCell}`))
+      expect(tree.is(`.${classes.brightRightBorder}`))
         .toBeFalsy();
     });
     it('should pass rest props to the root element', () => {
@@ -51,7 +51,7 @@ describe('Horizontal view DayScale', () => {
         <Cell {...defaultProps} endOfGroup />
       ));
 
-      expect(tree.is(`.${classes.rightBorderCell}`))
+      expect(tree.is(`.${classes.brightRightBorder}`))
         .toBeTruthy();
     });
   });

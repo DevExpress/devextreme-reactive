@@ -5,6 +5,7 @@ import {
 } from './computeds';
 import { expandGroupedAppointment, groupAppointments } from './helpers';
 import { sliceAppointmentsByDays } from '../all-day-panel/helpers';
+import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '../../constants';
 
 jest.mock('./helpers', () => ({
   ...require.requireActual('./helpers'),
@@ -104,30 +105,36 @@ describe('IntegratedGrouping computeds', () => {
         { fieldName: 'resource1', id: 2 },
       ]];
 
-      const result = expandViewCellsDataWithGroups(viewCellsDataBase, groups, resourcesBase);
+      const result = expandViewCellsDataWithGroups(
+        viewCellsDataBase, groups, resourcesBase, false, HORIZONTAL_GROUP_ORIENTATION,
+      );
       expect(result[0][0])
         .toEqual({
           ...viewCellsDataBase[0][0],
           groupingInfo: [{ fieldName: 'resource1', id: 1 }],
           endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         });
       expect(result[0][1])
         .toEqual({
           ...viewCellsDataBase[0][0],
           groupingInfo: [{ fieldName: 'resource1', id: 2 }],
           endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         });
       expect(result[1][0])
         .toEqual({
           ...viewCellsDataBase[1][0],
           groupingInfo: [{ fieldName: 'resource1', id: 1 }],
           endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         });
       expect(result[1][1])
         .toEqual({
           ...viewCellsDataBase[1][0],
           groupingInfo: [{ fieldName: 'resource1', id: 2 }],
           endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         });
     });
 
@@ -152,7 +159,9 @@ describe('IntegratedGrouping computeds', () => {
         instances: [{ id: 1 }, { id: 2 }],
       }];
 
-      const result = expandViewCellsDataWithGroups(viewCellsData, groups, resources);
+      const result = expandViewCellsDataWithGroups(
+        viewCellsData, groups, resources, false, HORIZONTAL_GROUP_ORIENTATION,
+      );
       expect(result[0][0])
         .toEqual({
           ...viewCellsData[0][0],
@@ -161,6 +170,7 @@ describe('IntegratedGrouping computeds', () => {
             { fieldName: 'resource1', id: 1 },
           ],
           endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         });
       expect(result[0][1])
         .toEqual({
@@ -170,6 +180,7 @@ describe('IntegratedGrouping computeds', () => {
             { fieldName: 'resource1', id: 1 },
           ],
           endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         });
       expect(result[0][2])
         .toEqual({
@@ -179,6 +190,7 @@ describe('IntegratedGrouping computeds', () => {
             { fieldName: 'resource1', id: 2 },
           ],
           endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         });
       expect(result[0][3])
         .toEqual({
@@ -188,6 +200,7 @@ describe('IntegratedGrouping computeds', () => {
             { fieldName: 'resource1', id: 2 },
           ],
           endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         });
     });
 
@@ -208,28 +221,75 @@ describe('IntegratedGrouping computeds', () => {
         [{ startDate: new Date('2018-06-25 08:00'), endDate: new Date('2018-06-25 08:30') }],
       ];
 
-      const result = expandViewCellsDataWithGroups(viewCellsData, groups, resourcesBase, true);
+      const result = expandViewCellsDataWithGroups(
+        viewCellsData, groups, resourcesBase, true, HORIZONTAL_GROUP_ORIENTATION,
+      );
       expect(result[0][0])
         .toEqual({
           ...viewCellsData[0][0],
           groupingInfo: [{ fieldName: 'resource1', id: 1 }],
+          endOfGroup: false,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         });
       expect(result[0][1])
         .toEqual({
           ...viewCellsData[0][0],
           groupingInfo: [{ fieldName: 'resource1', id: 2 }],
           endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         });
       expect(result[1][0])
         .toEqual({
           ...viewCellsData[1][0],
           groupingInfo: [{ fieldName: 'resource1', id: 1 }],
+          endOfGroup: false,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         });
       expect(result[1][1])
         .toEqual({
           ...viewCellsData[1][0],
           groupingInfo: [{ fieldName: 'resource1', id: 2 }],
           endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+        });
+    });
+
+    it('should work with vertical grouping', () => {
+      const groups = [[
+        { fieldName: 'resource1', id: 1 },
+        { fieldName: 'resource1', id: 2 },
+      ]];
+
+      const result = expandViewCellsDataWithGroups(
+        viewCellsDataBase, groups, resourcesBase, false, VERTICAL_GROUP_ORIENTATION,
+      );
+      expect(result[0][0])
+        .toEqual({
+          ...viewCellsDataBase[0][0],
+          groupingInfo: [{ fieldName: 'resource1', id: 1 }],
+          endOfGroup: false,
+          groupOrientation: VERTICAL_GROUP_ORIENTATION,
+        });
+      expect(result[1][0])
+        .toEqual({
+          ...viewCellsDataBase[1][0],
+          groupingInfo: [{ fieldName: 'resource1', id: 1 }],
+          endOfGroup: true,
+          groupOrientation: VERTICAL_GROUP_ORIENTATION,
+        });
+      expect(result[2][0])
+        .toEqual({
+          ...viewCellsDataBase[0][0],
+          groupingInfo: [{ fieldName: 'resource1', id: 2 }],
+          endOfGroup: false,
+          groupOrientation: VERTICAL_GROUP_ORIENTATION,
+        });
+      expect(result[3][0])
+        .toEqual({
+          ...viewCellsDataBase[1][0],
+          groupingInfo: [{ fieldName: 'resource1', id: 2 }],
+          endOfGroup: true,
+          groupOrientation: VERTICAL_GROUP_ORIENTATION,
         });
     });
   });

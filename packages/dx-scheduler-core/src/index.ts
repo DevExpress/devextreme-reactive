@@ -15,6 +15,8 @@ export * from './plugins/week-view/computeds';
 /** @internal */
 export * from './plugins/week-view/helpers';
 /** @internal */
+export * from './plugins/week-view/utils';
+/** @internal */
 export * from './plugins/view-state/reducers';
 /** @internal */
 export * from './plugins/appointment-tooltip/reducers';

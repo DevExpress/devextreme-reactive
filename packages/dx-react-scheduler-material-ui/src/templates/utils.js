@@ -38,10 +38,12 @@ export const scrollingStrategy = (scrollablePart, fixedPartVertical, fixedPartHo
   return ({
     topBoundary: fixedPartVerticalRect.height + fixedPartVerticalRect.top,
     bottomBoundary: scrollablePart.offsetTop + scrollablePart.clientHeight,
+    fixedTopHeight: fixedPartVerticalRect.height,
     leftBoundary: fixedPartHorizontalRect
       ? fixedPartHorizontalRect.width + fixedPartHorizontalRect.left
       : scrollablePart.offsetLeft,
     rightBoundary: scrollablePart.offsetLeft + scrollablePart.clientWidth,
+    fixedLeftWidth: fixedPartHorizontalRect?.width,
     changeVerticalScroll,
     changeHorizontalScroll,
   });

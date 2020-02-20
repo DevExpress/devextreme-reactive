@@ -7,12 +7,11 @@ import {
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
-  viewCellsData as viewCellsDataCore, calculateWeekDateIntervals,
+  viewCellsData as viewCellsDataCore, calculateWeekDateIntervals, VIEW_TYPES,
 } from '@devexpress/dx-scheduler-core';
 import { BasicView } from './basic-view';
 import { VerticalViewProps } from '../types';
 
-const TYPE = 'day';
 const viewCellsDataBaseComputed = (
   cellDuration, startDayHour, endDayHour,
 ) => ({ currentDate, intervalCount }) => {
@@ -28,7 +27,6 @@ const calculateAppointmentsIntervalsBaseComputed = cellDuration => ({
 }) => calculateWeekDateIntervals(
   appointments, startViewDate, endViewDate, excludedDays, cellDuration,
 );
-const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
 const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 
 class DayViewBase extends React.PureComponent<VerticalViewProps> {
@@ -87,7 +85,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps> {
       >
         <BasicView
           viewCellsDataComputed={viewCellsDataBaseComputed}
-          type={TYPE}
+          type={VIEW_TYPES.DAY}
           cellDuration={cellDuration}
           name={viewName}
           intervalCount={intervalCount}
@@ -95,6 +93,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps> {
           startDayHour={startDayHour}
           endDayHour={endDayHour}
           calculateAppointmentsIntervals={calculateAppointmentsIntervalsBaseComputed}
+          dayScaleEmptyCellComponent={DayScaleEmptyCell}
           dayScaleLayoutComponent={dayScaleLayoutComponent}
           dayScaleCellComponent={dayScaleCellComponent}
           dayScaleRowComponent={dayScaleRowComponent}
@@ -104,26 +103,17 @@ class DayViewBase extends React.PureComponent<VerticalViewProps> {
           appointmentLayerComponent={appointmentLayerComponent}
           layoutComponent={layoutComponent}
           layoutProps={{
-            dayScaleEmptyCellComponent: DayScaleEmptyCellPlaceholder,
             timeScaleComponent: TimeScalePlaceholder,
           }}
         />
 
-        <Template name="dayScaleEmptyCell">
-          <TemplateConnector>
-            {({ currentView }) => {
-              if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              return (
-                <DayScaleEmptyCell />
-              );
-            }}
-          </TemplateConnector>
-        </Template>
-
         <Template name="timeScale">
           <TemplateConnector>
-            {({ currentView, viewCellsData, formatDate }) => {
+            {({
+              currentView, viewCellsData, groups, formatDate, groupOrientation: getGroupOrientation,
+            }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
+              const groupOrientation = getGroupOrientation?.(viewName);
               return (
                 <TimeScale
                   labelComponent={TimeScaleLabel}
@@ -131,6 +121,8 @@ class DayViewBase extends React.PureComponent<VerticalViewProps> {
                   rowComponent={timeScaleTicksRowComponent}
                   cellsData={viewCellsData}
                   formatDate={formatDate}
+                  groups={groups}
+                  groupOrientation={groupOrientation}
                 />
               );
             }}

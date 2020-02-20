@@ -33,7 +33,6 @@ export interface BasicViewProps extends CommonViewProps {
   calculateAppointmentsIntervals: any;
   /** The properties that passed into layout component */
   layoutProps?: {
-    dayScaleEmptyCellComponent: React.ComponentType<BaseView.DayScaleEmptyCellProps>,
     timeScaleComponent: React.ComponentType<BaseView.TimeScaleLayoutProps>,
   };
   layoutComponent: React.ComponentType<any>;
@@ -41,4 +40,6 @@ export interface BasicViewProps extends CommonViewProps {
   dayScaleLayoutComponent: React.ComponentType<BaseView.DayScaleLayoutProps> | React.ComponentType<MonthView.DayScaleLayoutProps>;
   /** A component that renders a time table layout. */
   timeTableLayoutComponent: React.ComponentType<BaseView.TimeTableLayoutProps> | React.ComponentType<MonthView.TimeTableLayoutProps>;
+  /** A component that renders a day scale empty cell. */
+  dayScaleEmptyCellComponent?: React.ComponentType<BaseView.DayScaleEmptyCellProps>;
 }

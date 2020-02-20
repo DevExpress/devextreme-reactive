@@ -1,11 +1,13 @@
 import { PureComputed } from '@devexpress/dx-core';
-import { ViewCell, CellElementsMeta } from '../../types';
+import { ViewCell, CellElementsMeta, GroupOrientation } from '../../types';
+import { HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 
 export const isAllDayElementsMetaActual: PureComputed<
-  [ViewCell[][], CellElementsMeta], boolean
-> = (viewCellsData, allDayElementsMeta) => isElementsMetaActual(
-  viewCellsData, allDayElementsMeta, 1,
-);
+  [ViewCell[][], CellElementsMeta, GroupOrientation, number], boolean
+> = (viewCellsData, allDayElementsMeta, groupOrientation, groupCount) => {
+  const numberOfRows = groupOrientation === HORIZONTAL_GROUP_ORIENTATION ? 1 : groupCount;
+  return isElementsMetaActual(viewCellsData, allDayElementsMeta, numberOfRows);
+};
 
 export const isTimeTableElementsMetaActual: PureComputed<
   [ViewCell[][], CellElementsMeta], boolean

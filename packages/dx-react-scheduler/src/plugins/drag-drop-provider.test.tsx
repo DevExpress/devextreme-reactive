@@ -482,6 +482,7 @@ describe('DragDropProvider', () => {
           groups: 'groups',
           currentView: {},
           groupByDate: () => true,
+          groupOrientation: () => 'groupOrientation',
         },
       };
       const payload = {
@@ -501,6 +502,13 @@ describe('DragDropProvider', () => {
       onEnter({ payload, clientOffset: { x: 1, y: 25 } });
       tree.update();
 
+      expect(cellData)
+        .toBeCalledWith(
+          1, -1,
+          defaultDeps.getter.viewCellsData,
+          'groups',
+          'groupOrientation',
+        );
       expect(calculateDraftAppointments)
         .toBeCalledWith(
           -1, [{
@@ -520,7 +528,9 @@ describe('DragDropProvider', () => {
           defaultDeps.getter.allDayElementsMeta,
           'vertical', 60,
           deps.getter.timeTableElementsMeta,
-          'grouping', 'resources', 'groups', true,
+          'grouping', 'resources', 'groups',
+          'groupOrientation',
+          true,
         );
     });
   });

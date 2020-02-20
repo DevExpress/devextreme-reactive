@@ -32,7 +32,7 @@
     "start-server-and-test": "^1.10.6",
     "testcafe": "^1.6.1",
     "testcafe-reporter-xunit": "^2.1.0",
-    "typescript": "3.7.4"
+    "typescript": "3.7.5"
   },
   "scripts": {
     "postinstall": "check-node-version --quiet --node \">=6.11.1\" --npm \">=5.3.0\" --yarn \">=1.0.0\"",

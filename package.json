@@ -51,7 +51,7 @@
     "lint": "lerna run lint --ignore @devexpress/dx-vue-*",
     "lint:ci": "lerna run lint:ci",
     "test": "lerna run test --ignore @devexpress/dx-vue-* && yarn test:bs4",
-    "test:ci": "yarn update-api && lerna run test --ignore @devexpress/dx-vue-* -- -- --maxWorkers=1 --max-old-space-size=4096 && yarn test:bs4",
+    "test:ci": "yarn update-api:ci && lerna run test --ignore @devexpress/dx-vue-* -- -- --maxWorkers=1 --max-old-space-size=4096 && yarn test:bs4",
     "testcafe:ci": "start-server-and-test start-demo-servers \"3002|3004|3005\" testcafe:ci:start",
     "testcafe:ci:start": "testcafe",
     "testcafe:local": "start-server-and-test start-demo-servers \"3002|3004|3005\" testcafe:local:start",
@@ -61,13 +61,14 @@
     "publish:prepare": "yarn && node ./scripts/prepare-commit.js",
     "publish:npm": "yarn && node ./scripts/publish-npm.js",
     "publish:site": "yarn && node ./scripts/publish-site.js",
-    "update-api": "lerna run update-api",
+    "update-api": "lerna run update-api -- --local",
+    "update-api:ci": "lerna run update-api",
     "start-demo-servers": "yarn build:generator && lerna run --parallel start-demo-server:prod",
     "update-deps": "ncu -u && ./node_modules/.bin/lerna exec \"ncu -u\" --ignore @devexpress/dx-vue-*"
   },
   "husky": {
     "hooks": {
-      "pre-push": "yarn build:ts && yarn update-api"
+      "pre-push": "yarn build:ts && yarn update-api:ci"
     }
   },
   "workspaces": [

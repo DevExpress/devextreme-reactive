@@ -25,7 +25,7 @@ export const validateResources: ValidateResources = (resources, mainResourceName
       title,
       allowMultiple,
       instances: resource.instances.map((resourceItem) => {
-        const color = resourceItem.color || palette[currentPaletteIndex];
+        const color = resourceItem.color || palette[currentPaletteIndex % palette.length];
         if (!resourceItem.color) currentPaletteIndex += 1;
 
         return ({

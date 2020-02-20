@@ -18,6 +18,7 @@ import {
   TOGGLE_APPOINTMENT_FORM_VISIBILITY,
   getAppointmentResources,
   ValidResourceInstance,
+  checkMultipleResourceFields,
 } from '@devexpress/dx-scheduler-core';
 
 import {
@@ -25,18 +26,23 @@ import {
 } from '../types';
 
 const addDoubleClickToCell = (
-  title, startDate, endDate, groupingInfo, allDay, openFormHandler, addAppointment, params,
+  title, startDate, endDate, groupingInfo, resources,
+  allDay, openFormHandler, addAppointment, params,
 ) => {
   const resourceFields = !!groupingInfo
     ? groupingInfo.reduce((acc, currentGroup) => (
       { ...acc, [currentGroup.fieldName]: currentGroup.id }
     ), {}) : {};
+  const validResourceFields = resources
+    ? checkMultipleResourceFields(resourceFields, resources)
+    : resourceFields;
+
   const newAppointmentData = {
     title,
     startDate,
     endDate,
     allDay,
-    ...resourceFields,
+    ...validResourceFields,
   };
 
   return (
@@ -117,8 +123,8 @@ const prepareChanges = (
 };
 
 const isFormFullSize = (
-  isFormVisisble, changedAppointmentRRule, previousAppointmentRRule,
-) => !!changedAppointmentRRule || (!isFormVisisble && !!previousAppointmentRRule);
+  isFormVisible, changedAppointmentRRule, previousAppointmentRRule,
+) => !!changedAppointmentRRule || (!isFormVisible && !!previousAppointmentRRule);
 
 class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, AppointmentFormState> {
   toggleVisibility: (payload?: any) => void;
@@ -534,8 +540,8 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
         <Template name="cell">
           {(params: any) => (
             <TemplateConnector>
-              {(getters, { addAppointment }) => addDoubleClickToCell(
-                undefined, params.startDate, params.endDate, params.groupingInfo,
+              {({ resources }, { addAppointment }) => addDoubleClickToCell(
+                undefined, params.startDate, params.endDate, params.groupingInfo, resources,
                 isAllDayCell(params.startDate, params.endDate),
                 this.openFormHandler, addAppointment, params,
               )}
@@ -546,8 +552,8 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
         <Template name="allDayPanelCell">
           {(params: any) => (
             <TemplateConnector>
-              {(getters, { addAppointment }) => addDoubleClickToCell(
-                undefined, params.startDate, params.endDate, params.groupingInfo,
+              {({ resources }, { addAppointment }) => addDoubleClickToCell(
+                undefined, params.startDate, params.endDate, params.groupingInfo, resources,
                 true, this.openFormHandler, addAppointment, params,
               )}
             </TemplateConnector>

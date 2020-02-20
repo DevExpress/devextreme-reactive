@@ -53,6 +53,15 @@ weeklyRecurrenceSelectorComponent | ComponentType&lt;[AppointmentForm.WeeklyRecu
 
 ## Interfaces
 
+### SelectOption
+
+An option in the Select editor.
+
+Field | Type | Description
+------|------|------------
+id | string &#124; number | The option's id.
+text | string | The option's text.
+
 ### AppointmentForm.OverlayProps
 
 Properties passed to a component that renders the appointment form's overlay.
@@ -207,7 +216,7 @@ Field | Type | Description
 ------|------|------------
 value? | string &#124; number | The selected option.
 onValueChange | (nextValue: string &#124; number) => void | Handles value changes.
-availableOptions? | Array&lt;object&gt; | Specifies available menu options.
+availableOptions? | Array&lt;[SelectOption](#selectoption)&gt; | Specifies available menu options.
 type? | `outlinedSelect` &#124; `filledSelect` | The menu's type.
 readOnly | boolean | Specifies whether the menu is read-only.
 

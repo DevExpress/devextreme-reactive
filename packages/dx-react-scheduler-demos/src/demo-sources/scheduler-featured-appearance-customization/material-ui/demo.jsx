@@ -2,6 +2,8 @@ import * as React from 'react';
 // #FOLD_BLOCK
 import {
   ViewState,
+  GroupingState,
+  IntegratedGrouping,
 } from '@devexpress/dx-react-scheduler';
 // #FOLD_BLOCK
 import {
@@ -15,9 +17,11 @@ import {
   AllDayPanel,
   AppointmentTooltip,
   AppointmentForm,
+  GroupingPanel,
+  Resources,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles, fade } from '@material-ui/core/styles';
 import PriorityHigh from '@material-ui/icons/PriorityHigh';
 import LowPriority from '@material-ui/icons/LowPriority';
 import Lens from '@material-ui/icons/Lens';
@@ -29,44 +33,30 @@ import Select from '@material-ui/core/Select';
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
 import classNames from 'clsx';
-import { lighten } from '@material-ui/core/styles/colorManipulator';
 
-import { tasks, priorities } from '../../../demo-data/tasks';
+import { priorities } from '../../../demo-data/tasks';
+import { data as tasks } from '../../../demo-data/grouping';
+
+const grouping = [{
+  resourceName: 'priorityId',
+}];
 
 const filterTasks = (items, priorityId) => items.filter(task => (
   !priorityId || task.priorityId === priorityId
 ));
-const getPriorityById = priorityId => priorities.find(({ id }) => id === priorityId).title;
-const getShortPriorityById = priorityId => priorities
-  .find(({ id }) => id === priorityId).shortTitle;
 
-const createClassesByPriorityId = (
-  priorityId, classes,
-  { background = false, color = false, hover = false },
-// #FOLD_BLOCK
-) => {
-  const priority = getPriorityById(priorityId);
-  const result = [];
-  if (background) result.push(classes[`${priority}PriorityBackground`]);
-  if (color) result.push(classes[`${priority}PriorityColor`]);
-  if (hover) result.push(classes[`${priority}PriorityHover`]);
-  return result.join(' ');
+const getIconById = (id) => {
+  if (id === 1) {
+    return LowPriority;
+  }
+  if (id === 2) {
+    return Event;
+  }
+  return PriorityHigh;
 };
+
 // #FOLD_BLOCK
 const styles = theme => ({
-  ...priorities.reduce((acc, { title, color, activeColor }) => {
-    acc[`${title}PriorityBackground`] = { background: color, '& button.edit-button': { background: lighten(color, 0.15) } };
-    acc[`${title}PriorityColor`] = { color };
-    acc[`${title}PriorityHover`] = { '&:hover': { background: activeColor } };
-    return acc;
-  }, {}),
-  contentItemValue: {
-    padding: 0,
-  },
-  contentItemIcon: {
-    textAlign: 'center',
-    verticalAlign: 'middle',
-  },
   flexibleSpace: {
     margin: '0 auto 0 0',
   },
@@ -79,16 +69,20 @@ const styles = theme => ({
       marginLeft: theme.spacing(0.5),
     },
   },
+});
+// #FOLD_BLOCK
+const usePrioritySelectorItemStyles = makeStyles(({ palette, spacing }) => ({
+  bullet: ({ color }) => ({
+    backgroundColor: color ? color[400] : palette.divider,
+    borderRadius: '50%',
+    width: spacing(2),
+    height: spacing(2),
+    marginRight: spacing(2),
+    display: 'inline-block',
+  }),
   prioritySelectorItem: {
     display: 'flex',
     alignItems: 'center',
-  },
-  priorityBullet: {
-    borderRadius: '50%',
-    width: theme.spacing(2),
-    height: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    display: 'inline-block',
   },
   priorityText: {
     '@media (max-width: 500px)': {
@@ -100,20 +94,18 @@ const styles = theme => ({
       display: 'none',
     },
   },
-  defaultBullet: {
-    background: theme.palette.divider,
-  },
-  titleNoWrap: {
-    '& div > div > div': {
-      whiteSpace: 'normal',
-    },
-  },
+}));
+// #FOLD_BLOCK
+const useTooltipContentStyles = makeStyles(theme => ({
   content: {
     padding: theme.spacing(3, 1),
     paddingTop: 0,
     backgroundColor: theme.palette.background.paper,
     boxSizing: 'border-box',
     width: '400px',
+  },
+  contentContainer: {
+    paddingBottom: theme.spacing(1.5),
   },
   text: {
     ...theme.typography.body2,
@@ -125,13 +117,19 @@ const styles = theme => ({
     fontWeight: theme.typography.fontWeightBold,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
+    whiteSpace: 'normal',
   },
   icon: {
     verticalAlign: 'middle',
   },
+  contentItemIcon: {
+    textAlign: 'center',
+  },
   grayIcon: {
     color: theme.palette.action.active,
+  },
+  colorfulContent: {
+    color: ({ color }) => color[300],
   },
   lens: {
     width: theme.spacing(4.5),
@@ -150,28 +148,169 @@ const styles = theme => ({
   container: {
     paddingBottom: theme.spacing(1.5),
   },
+}));
+// #FOLD_BLOCK
+const groupingStyles = ({ spacing }) => ({
+  ...priorities.reduce((acc, priority) => ({
+    ...acc,
+    [`cell${priority.text.replace(' ', '')}`]: {
+      backgroundColor: fade(priority.color[400], 0.1),
+      '&:hover': {
+        backgroundColor: fade(priority.color[400], 0.15),
+      },
+      '&:focus': {
+        backgroundColor: fade(priority.color[400], 0.2),
+      },
+    },
+    [`headerCell${priority.text.replace(' ', '')}`]: {
+      backgroundColor: fade(priority.color[400], 0.1),
+      '&:hover': {
+        backgroundColor: fade(priority.color[400], 0.1),
+      },
+      '&:focus': {
+        backgroundColor: fade(priority.color[400], 0.1),
+      },
+    },
+  }), {}),
+  icon: {
+    paddingLeft: spacing(1),
+    verticalAlign: 'middle',
+  },
 });
 
-const PrioritySelectorItem = ({ id, classes }) => {
-  let bulletClass = classes.defaultBullet;
-  let text = 'All Tasks';
-  let shortText = 'All';
-  if (id) {
-    bulletClass = createClassesByPriorityId(id, classes, { background: true });
-    text = getPriorityById(id);
-    shortText = getShortPriorityById(id);
-  }
+const DayViewTimeTableCell = withStyles(groupingStyles, { name: 'DayViewTimeTableCell' })(({
+  groupingInfo, classes, ...restProps
+}) => {
+  const groupId = groupingInfo[0].id;
+  return (
+    <DayView.TimeTableCell
+      className={classNames({
+        [classes.cellLowPriority]: groupId === 1,
+        [classes.cellMediumPriority]: groupId === 2,
+        [classes.cellHighPriority]: groupId === 3,
+      })}
+      groupingInfo={groupingInfo}
+      {...restProps}
+    />
+  );
+});
+// #FOLD_BLOCK
+const DayViewDayScaleCell = withStyles(groupingStyles, { name: 'DayViewDayScaleCell' })(({
+  groupingInfo, classes, ...restProps
+// #FOLD_BLOCK
+}) => {
+  const groupId = groupingInfo[0].id;
+  return (
+    <DayView.DayScaleCell
+      className={classNames({
+        [classes.headerCellLowPriority]: groupId === 1,
+        [classes.headerCellMediumPriority]: groupId === 2,
+        [classes.headerCellHighPriority]: groupId === 3,
+      })}
+      groupingInfo={groupingInfo}
+      {...restProps}
+    />
+  );
+});
+// #FOLD_BLOCK
+const WeekViewTimeTableCell = withStyles(groupingStyles, { name: 'WeekViewTimeTableCell' })(({
+  groupingInfo, classes, ...restProps
+// #FOLD_BLOCK
+}) => {
+  const groupId = groupingInfo[0].id;
+  return (
+    <WeekView.TimeTableCell
+      className={classNames({
+        [classes.cellLowPriority]: groupId === 1,
+        [classes.cellMediumPriority]: groupId === 2,
+        [classes.cellHighPriority]: groupId === 3,
+      })}
+      groupingInfo={groupingInfo}
+      {...restProps}
+    />
+  );
+});
+// #FOLD_BLOCK
+const WeekViewDayScaleCell = withStyles(groupingStyles, { name: 'WeekViewDayScaleCell' })(({
+  groupingInfo, classes, ...restProps
+// #FOLD_BLOCK
+}) => {
+  const groupId = groupingInfo[0].id;
+  return (
+    <WeekView.DayScaleCell
+      className={classNames({
+        [classes.headerCellLowPriority]: groupId === 1,
+        [classes.headerCellMediumPriority]: groupId === 2,
+        [classes.headerCellHighPriority]: groupId === 3,
+      })}
+      groupingInfo={groupingInfo}
+      {...restProps}
+    />
+  );
+});
+// #FOLD_BLOCK
+const AllDayCell = withStyles(groupingStyles, { name: 'AllDayCell' })(({
+  groupingInfo, classes, ...restProps
+// #FOLD_BLOCK
+}) => {
+  const groupId = groupingInfo[0].id;
+  return (
+    <AllDayPanel.Cell
+      className={classNames({
+        [classes.cellLowPriority]: groupId === 1,
+        [classes.cellMediumPriority]: groupId === 2,
+        [classes.cellHighPriority]: groupId === 3,
+      })}
+      groupingInfo={groupingInfo}
+      {...restProps}
+    />
+  );
+});
+// #FOLD_BLOCK
+const GroupingPanelCell = withStyles(groupingStyles, { name: 'GroupingPanelCell' })(({
+  group, classes, ...restProps
+// #FOLD_BLOCK
+}) => {
+  const groupId = group.id;
+  const Icon = getIconById(groupId);
+  return (
+    <GroupingPanel.Cell
+      className={classNames({
+        [classes.headerCellLowPriority]: groupId === 1,
+        [classes.headerCellMediumPriority]: groupId === 2,
+        [classes.headerCellHighPriority]: groupId === 3,
+      })}
+      group={group}
+      {...restProps}
+    >
+      <Icon
+        className={classes.icon}
+      />
+    </GroupingPanel.Cell>
+  );
+});
+
+const PrioritySelectorItem = ({
+  color, text: resourceTitle,
+}) => {
+  const text = resourceTitle || 'All Tasks';
+  const shortText = resourceTitle ? text.substring(0, 1) : 'All';
+  const classes = usePrioritySelectorItemStyles({ color });
+
   return (
     <div className={classes.prioritySelectorItem}>
-      <span className={`${classes.priorityBullet} ${bulletClass}`} />
+      <span className={classes.bullet} />
       <span className={classes.priorityText}>{text}</span>
       <span className={classes.priorityShortText}>{shortText}</span>
     </div>
   );
 };
 
-const PrioritySelector = withStyles(styles, { name: 'PrioritySelector' })(
-  ({ classes, priorityChange, priority }) => (
+const PrioritySelector = withStyles(styles, { name: 'PrioritySelector' })(({
+  classes, priorityChange, priority,
+}) => {
+  const currentPriority = priority > 0 ? priorities[priority - 1] : {};
+  return (
     <FormControl className={classes.prioritySelector}>
       <Select
         disableUnderline
@@ -179,117 +318,104 @@ const PrioritySelector = withStyles(styles, { name: 'PrioritySelector' })(
         onChange={(e) => {
           priorityChange(e.target.value);
         }}
-        renderValue={value => <PrioritySelectorItem id={value} classes={classes} />}
+        renderValue={() => (
+          <PrioritySelectorItem text={currentPriority.text} color={currentPriority.color} />
+        )}
       >
         <MenuItem value={0}>
-          <PrioritySelectorItem id={0} classes={classes} />
+          <PrioritySelectorItem />
         </MenuItem>
-        {priorities.map(({ id }) => (
+        {priorities.map(({ id, color, text }) => (
           <MenuItem value={id} key={id.toString()}>
-            <PrioritySelectorItem id={id} classes={classes} />
+            <PrioritySelectorItem color={color} text={text} />
           </MenuItem>
         ))}
       </Select>
     </FormControl>
-  ),
-);
+  );
+});
 
-const FlexibleSpace = withStyles(styles, { name: 'FlexibleSpace' })(
-  ({
-    classes, priority, priorityChange, ...restProps
-  }) => (
-    <Toolbar.FlexibleSpace {...restProps} className={classes.flexibleSpace}>
-      <PrioritySelector priority={priority} priorityChange={priorityChange} />
-    </Toolbar.FlexibleSpace>
-  ),
-);
-
-const Appointment = withStyles(styles, { name: 'Appointment' })(
-  ({ classes, data, ...restProps }) => {
-    const priorityClasses = createClassesByPriorityId(
-      data.priorityId, classes,
-      { background: true, hover: true },
-    );
-    return (
-      <Appointments.Appointment
-        {...restProps}
-        data={data}
-        className={priorityClasses}
-      />
-    );
-  },
-);
-
-const EditButton = withStyles(styles, { name: 'EditButton' })(
-  ({ classes, id, ...restProps }) => (
-    <AppointmentTooltip.CommandButton
-      {...restProps}
-      {...id === 'open' ? { className: 'edit-button' } : null}
-      id={id}
-    />
-  ),
-);
-
-const TooltipContent = withStyles(styles, { name: 'TooltipContent' })(
-  // #FOLD_BLOCK
-  ({ classes, appointmentData, formatDate }) => {
-    const priority = getPriorityById(appointmentData.priorityId);
-    const priorityClasses = createClassesByPriorityId(
-      appointmentData.priorityId, classes, { color: true },
-    );
-    let icon = <LowPriority className={classes.icon} />;
-    if (appointmentData.priorityId === 2) icon = <Event className={classes.icon} />;
-    else if (appointmentData.priorityId === 3) icon = <PriorityHigh className={classes.icon} />;
-    return (
-      <div className={classes.content}>
-        <Grid container alignItems="center" className={classes.titleContainer}>
-          <Grid item xs={2} className={classNames(classes.textCenter, priorityClasses)}>
-            <Lens className={classes.lens} />
-          </Grid>
-          <Grid item xs={10}>
-            <div>
-              <div className={classNames(classes.title, classes.dateAndTitle)}>
-                {appointmentData.title}
-              </div>
-              <div className={classNames(classes.text, classes.dateAndTitle)}>
-                {formatDate(appointmentData.startDate, { day: 'numeric', weekday: 'long' })}
-              </div>
-            </div>
-          </Grid>
+const FlexibleSpace = withStyles(styles, { name: 'FlexibleSpace' })(({
+  classes, priority, priorityChange, ...restProps
+}) => (
+  <Toolbar.FlexibleSpace {...restProps} className={classes.flexibleSpace}>
+    <PrioritySelector priority={priority} priorityChange={priorityChange} />
+  </Toolbar.FlexibleSpace>
+));
+// #FOLD_BLOCK
+const TooltipContent = ({
+  appointmentData, formatDate, appointmentResources,
+// #FOLD_BLOCK
+}) => {
+  const resource = appointmentResources[0];
+  const classes = useTooltipContentStyles({ color: resource.color });
+  let icon = <LowPriority className={classes.icon} />;
+  if (appointmentData.priorityId === 2) {
+    icon = <Event className={classes.icon} />;
+  }
+  if (appointmentData.priorityId === 3) {
+    icon = <PriorityHigh className={classes.icon} />;
+  }
+  return (
+    <div className={classes.content}>
+      <Grid container alignItems="flex-start" className={classes.titleContainer}>
+        <Grid item xs={2} className={classNames(classes.textCenter)}>
+          <Lens className={classNames(classes.lens, classes.colorfulContent)} />
         </Grid>
-        <Grid container alignItems="center" className={classes.container}>
-          <Grid item xs={2} className={classes.textCenter}>
-            <AccessTime className={classNames(classes.icon, classes.grayIcon)} />
-          </Grid>
-          <Grid item xs={10}>
-            <div className={classes.text}>
-              {`${formatDate(appointmentData.startDate, { hour: 'numeric', minute: 'numeric' })}
+        <Grid item xs={10}>
+          <div>
+            <div className={classNames(classes.title, classes.dateAndTitle)}>
+              {appointmentData.title}
+            </div>
+            <div className={classNames(classes.text, classes.dateAndTitle)}>
+              {formatDate(appointmentData.startDate, { day: 'numeric', weekday: 'long' })}
+            </div>
+          </div>
+        </Grid>
+      </Grid>
+      <Grid container alignItems="center" className={classes.contentContainer}>
+        <Grid item xs={2} className={classes.textCenter}>
+          <AccessTime className={classes.icon} />
+        </Grid>
+        <Grid item xs={10}>
+          <div className={classes.text}>
+            {`${formatDate(appointmentData.startDate, { hour: 'numeric', minute: 'numeric' })}
               - ${formatDate(appointmentData.endDate, { hour: 'numeric', minute: 'numeric' })}`}
-            </div>
-          </Grid>
+          </div>
         </Grid>
-        <Grid container alignItems="center">
-          <Grid className={classNames(classes.contentItemIcon, priorityClasses)} item xs={2}>
-            {icon}
-          </Grid>
-          <Grid className={classes.contentItemValue} item xs={10}>
-            <span className={priorityClasses}>{` ${priority} priority`}</span>
-          </Grid>
+      </Grid>
+      <Grid container alignItems="center" key={`${resource.fieldName}_${resource.id}`}>
+        <Grid
+          className={classNames(classes.contentItemIcon, classes.icon, classes.colorfulContent)}
+          item
+          xs={2}
+        >
+          {icon}
         </Grid>
-      </div>
-    );
-  },
-);
+        <Grid item xs={10}>
+          <span className={classNames(classes.text, classes.colorfulContent)}>
+            {resource.text}
+          </span>
+        </Grid>
+      </Grid>
+    </div>
+  );
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      currentDate: '2018-04-23',
-      currentViewName: 'Work Week',
+      currentDate: '2018-05-28',
+      currentViewName: 'Day',
       data: tasks,
       currentPriority: 0,
+      resources: [{
+        fieldName: 'priorityId',
+        title: 'Priority',
+        instances: priorities,
+      }],
     };
     this.currentViewNameChange = (currentViewName) => {
       this.setState({ currentViewName });
@@ -298,7 +424,13 @@ export default class Demo extends React.PureComponent {
       this.setState({ currentDate });
     };
     this.priorityChange = (value) => {
-      this.setState({ currentPriority: value });
+      const { resources } = this.state;
+      const nextResources = [{
+        ...resources[0],
+        instances: value > 0 ? [priorities[value - 1]] : priorities,
+      }];
+
+      this.setState({ currentPriority: value, resources: nextResources });
     };
     this.flexibleSpace = connectProps(FlexibleSpace, () => {
       const { currentPriority } = this.state;
@@ -315,7 +447,7 @@ export default class Demo extends React.PureComponent {
 
   render() {
     const {
-      data, currentDate, currentViewName, currentPriority,
+      data, currentDate, currentViewName, currentPriority, resources,
     } = this.state;
 
     return (
@@ -330,24 +462,43 @@ export default class Demo extends React.PureComponent {
             onCurrentViewNameChange={this.currentViewNameChange}
             onCurrentDateChange={this.currentDateChange}
           />
-          <WeekView
-            startDayHour={9}
-            endDayHour={19}
-            excludedDays={[0, 6]}
-            name="Work Week"
+          <GroupingState
+            grouping={grouping}
           />
+
           <DayView
             startDayHour={9}
             endDayHour={19}
+            timeTableCellComponent={DayViewTimeTableCell}
+            dayScaleCellComponent={DayViewDayScaleCell}
+            intervalCount={2}
           />
-          <Appointments appointmentComponent={Appointment} />
+          <WeekView
+            startDayHour={9}
+            endDayHour={17}
+            excludedDays={[0, 6]}
+            name="Work Week"
+            timeTableCellComponent={WeekViewTimeTableCell}
+            dayScaleCellComponent={WeekViewDayScaleCell}
+          />
+          <AllDayPanel
+            cellComponent={AllDayCell}
+          />
+
+          <Appointments />
+          <Resources
+            data={resources}
+          />
+          <IntegratedGrouping />
+
+          <GroupingPanel
+            cellComponent={GroupingPanelCell}
+          />
           <Toolbar flexibleSpaceComponent={this.flexibleSpace} />
           <DateNavigator />
           <ViewSwitcher />
-          <AllDayPanel />
           <AppointmentTooltip
             contentComponent={TooltipContent}
-            commandButtonComponent={EditButton}
             showOpenButton
             showCloseButton
           />

@@ -63,6 +63,8 @@ export * from './plugins/common/utils';
 /** @internal */
 export * from './plugins/appointments/helpers';
 /** @internal */
+export * from './plugins/date-navigator/helpers';
+/** @internal */
 export * from './constants';
 /** @internal */
 export * from './utils';

@@ -50,7 +50,9 @@ const legendLabelStyles = () => ({
   },
 });
 
-const currencyFormatter = ({ value }) => `$${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+const currencyFormatter = ({ value }) => (
+  value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+);
 const AxisLabel = ({ text, ...restProps }) => (
   <ValueAxis.Label {...restProps} text={currencyFormatter({ value: text })} />
 );

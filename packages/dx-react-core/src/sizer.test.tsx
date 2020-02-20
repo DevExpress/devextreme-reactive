@@ -83,20 +83,4 @@ describe('Sizer', () => {
     expect(expandNotifier.style.width).toBe('2px');
     expect(expandNotifier.style.height).toBe('2px');
   });
-
-  it('should recalculate size on update', () => {
-    const containerComponent = 'div';
-    const onSizeChange = jest.fn();
-    const tree = mount(
-      <Sizer
-        containerComponent={containerComponent}
-        onSizeChange={onSizeChange}
-      />,
-    );
-    onSizeChange.mockClear();
-
-    tree.setProps({ test: 'tag' }); // force update
-
-    expect(onSizeChange).toBeCalled();
-  });
 });

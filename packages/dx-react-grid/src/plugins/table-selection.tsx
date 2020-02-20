@@ -112,7 +112,7 @@ class TableSelectionBase extends React.PureComponent<TableSelectionProps> {
                   <Row
                     {...params}
                     selectByRowClick={selectByRowClick}
-                    selected={isRowHighlighted(highlightRow!, selection, params.tableRow)}
+                    highlighted={isRowHighlighted(highlightRow!, selection, params.tableRow)}
                     onToggle={() => toggleSelection({ rowIds: [params.tableRow.rowId] })}
                   />
                 )}

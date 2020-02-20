@@ -684,6 +684,11 @@ export namespace TableSelection {
   export type CellProps = TableSelection_2.CellProps;
 }
 
+// @public (undocumented)
+export namespace TableSelection {
+  export type RowProps = TableSelection_2.RowProps;
+}
+
 // @public
 export const TableSelection: React.ComponentType<TableSelectionProps> & {
   COLUMN_TYPE: symbol;
@@ -697,6 +702,7 @@ export interface TableSelectionProps {
   cellComponent?: React.ComponentType<TableSelection_2.CellProps>;
   headerCellComponent?: React.ComponentType<TableSelection_2.HeaderCellProps>;
   highlightRow?: boolean;
+  rowComponent?: React.ComponentType<TableSelection_2.RowProps>;
   selectByRowClick?: boolean;
   selectionColumnWidth?: number;
   showSelectAll?: boolean;
@@ -861,6 +867,7 @@ export interface VirtualTableProps {
   noDataCellComponent?: React.ComponentType<Table_2.NoDataCellProps>;
   noDataRowComponent?: React.ComponentType<Table_2.RowProps>;
   onTopRowChange?: (rowId: number | string) => void;
+  ref?: React.RefObject<typeof VirtualTable>;
   rowComponent?: React.ComponentType<Table_2.DataRowProps>;
   stubCellComponent?: React.ComponentType<Table_2.CellProps>;
   stubHeaderCellComponent?: React.ComponentType<Table_2.CellProps>;

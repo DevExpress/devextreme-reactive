@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1579171459">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1579171459">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1582196304">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1582196304">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <!-- Google Tag Manager -->
@@ -244,6 +244,16 @@
       <td>boolean</td>
       <td>Indicates whether the cell’s date is today.</td>
     </tr>
+    <tr>
+      <td>groupingInfo?</td>
+      <td>Array&lt;<a href="/devextreme-reactive/react/scheduler/docs/reference/grouping-panel/#group">Group</a>&gt;</td>
+      <td>Information about the cell’s grouping.</td>
+    </tr>
+    <tr>
+      <td>endOfGroup?</td>
+      <td>boolean</td>
+      <td><code class="highlighter-rouge">true</code> if this cell is last in its group.</td>
+    </tr>
   </tbody>
 </table>
 
@@ -379,6 +389,11 @@
       <td>A component that renders the grouping panel.</td>
     </tr>
     <tr>
+      <td>groupedByDate?</td>
+      <td>boolean</td>
+      <td>Indicates whether grouping by date is enabled. Takes its value from the <code class="highlighter-rouge">groupByDate</code> property of the <a href="/devextreme-reactive/react/scheduler/docs/reference/grouping-state/">GroupingState</a> plugin.</td>
+    </tr>
+    <tr>
       <td>formatDate</td>
       <td><a href="/devextreme-reactive/react/scheduler/docs/reference/scheduler/#formatterfn">FormatterFn</a></td>
       <td>A function that formats dates according to the set locale.</td>
@@ -422,12 +437,12 @@
     <tr>
       <td>groupingInfo?</td>
       <td>Array&lt;<a href="/devextreme-reactive/react/scheduler/docs/reference/grouping-panel/#group">Group</a>&gt;</td>
-      <td>Information about the cell’s group(s).</td>
+      <td>Information about the cell’s grouping.</td>
     </tr>
     <tr>
-      <td>hasRightBorder?</td>
+      <td>endOfGroup?</td>
       <td>boolean</td>
-      <td>Specifies whether the cell has the right border.</td>
+      <td><code class="highlighter-rouge">true</code> if this cell is last in its group.</td>
     </tr>
   </tbody>
 </table>
@@ -515,12 +530,12 @@
     <tr>
       <td>groupingInfo?</td>
       <td>Array&lt;<a href="/devextreme-reactive/react/scheduler/docs/reference/grouping-panel/#group">Group</a>&gt;</td>
-      <td>Information about the cell’s group(s).</td>
+      <td>Information about the cell’s grouping.</td>
     </tr>
     <tr>
-      <td>hasRightBorder?</td>
+      <td>endOfGroup?</td>
       <td>boolean</td>
-      <td>Specifies whether the cell has the right border.</td>
+      <td><code class="highlighter-rouge">true</code> if this cell is last in its group.</td>
     </tr>
     <tr>
       <td>isShaded?</td>
@@ -663,9 +678,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.4.0">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.4.1">
             Version
-            <span>2.4.0</span>
+            <span>2.4.1</span>
           </a>
         </li>
       </ul>
@@ -1039,7 +1054,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/common/dist/index.js?v=1579171459"></script>
+<script src="/devextreme-reactive/react/common/dist/index.js?v=1582196304"></script>
 
 <script
   type="text/javascript"
@@ -1095,7 +1110,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1579171459"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1582196304"></script>
     <script>
         trackingCookie.notice();
     </script>

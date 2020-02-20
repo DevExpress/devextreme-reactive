@@ -14,8 +14,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/codemirror.min.css" type="text/css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.42.0/addon/fold/foldgutter.min.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" href="/devextreme-reactive/css/syntax.css">
-    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1579171459">
-    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1579171459">
+    <link rel="stylesheet" href="/devextreme-reactive/css/site.css?v=1582196304">
+    <link rel="stylesheet" href="/devextreme-reactive/css/embedded-demos.css?v=1582196304">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
 
     <!-- Google Tag Manager -->
@@ -100,7 +100,19 @@
 
 <p>A single appointment can appear in multiple groups if it is assigned to <a href="/devextreme-reactive/react/scheduler/docs/guides/resources/#single-and-multiple-instance-resources">multiple instances of a resource</a>. For example, an appointment assigned to three instances appears in three groups. The appointment’s color is inherited from a particular resource instance. The <code class="highlighter-rouge">members</code> resource from the following demo illustrates this case:</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/scheduler-grouping/basic&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/scheduler/demos/dist/index.js?v=1579171459&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1579171459&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/scheduler-grouping/basic&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/scheduler/demos/dist/index.js?v=1582196304&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1582196304&quot;}">
+          <div class="loading-shading">
+            <span class="glyphicon glyphicon-refresh loading-icon"></span>
+          </div>
+        </div>
+
+<h2 id="group-by-date">Group by Date</h2>
+
+<p>To group appointments by date, set the <code class="highlighter-rouge">GroupingState</code>’s <code class="highlighter-rouge">groupByDate</code> property to <code class="highlighter-rouge">true</code>.</p>
+
+<p>In the example below, appointments are grouped first by date and then by resource. Click the “Group by Date First” switch to change this order.</p>
+
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/scheduler-grouping/group-by-dates&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/scheduler/demos/dist/index.js?v=1582196304&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1582196304&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -110,7 +122,7 @@
 
 <p>Users can drag-and-drop appointments between groups or use the appointment edit form to assign an appointment to another resource (group). To enable this, configure <a href="/devextreme-reactive/react/scheduler/docs/guides/editing/">editing</a>:</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/scheduler-grouping/editing&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/scheduler/demos/dist/index.js?v=1579171459&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1579171459&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/scheduler-grouping/editing&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/scheduler/demos/dist/index.js?v=1582196304&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1582196304&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -124,7 +136,7 @@
 
 <p>The following example shows how to use the properties mentioned above:</p>
 
-<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/scheduler-grouping/custom&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/scheduler/demos/dist/index.js?v=1579171459&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1579171459&quot;}">
+<div class="embedded-demo" data-options="{&quot;path&quot;:&quot;/demo/scheduler-grouping/custom&quot;,&quot;showThemeSelector&quot;:true,&quot;scriptPath&quot;:&quot;/devextreme-reactive//react/scheduler/demos/dist/index.js?v=1582196304&quot;,&quot;firstPart&quot;:&quot;/devextreme-reactive//react/&quot;,&quot;lastPart&quot;:&quot;/demos/dist/index.js?v=1582196304&quot;}">
           <div class="loading-shading">
             <span class="glyphicon glyphicon-refresh loading-icon"></span>
           </div>
@@ -140,9 +152,9 @@
       </ul>
       <ul class="list-unstyled version">
         <li>
-          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.4.0">
+          <a href="https://github.com/DevExpress/devextreme-reactive/tree/master/CHANGELOG.md#2.4.1">
             Version
-            <span>2.4.0</span>
+            <span>2.4.1</span>
           </a>
         </li>
       </ul>
@@ -516,7 +528,7 @@
   </div>
 </div>
 
-<script src="/devextreme-reactive/react/common/dist/index.js?v=1579171459"></script>
+<script src="/devextreme-reactive/react/common/dist/index.js?v=1582196304"></script>
 
 <script
   type="text/javascript"
@@ -572,7 +584,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"></script>
 
-    <script src="/devextreme-reactive/js/tracking.js?v=1579171459"></script>
+    <script src="/devextreme-reactive/js/tracking.js?v=1582196304"></script>
     <script>
         trackingCookie.notice();
     </script>

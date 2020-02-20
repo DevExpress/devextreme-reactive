@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 
 export const TableSelectRow = ({
-  selected,
+  highlighted,
   children,
   style,
   onToggle,
@@ -13,7 +13,7 @@ export const TableSelectRow = ({
   <tr
     style={style}
     className={classNames({
-      'table-active': selected,
+      'table-active': highlighted,
     }, className)}
     onClick={(e) => {
       if (!selectByRowClick) return;
@@ -30,7 +30,7 @@ TableSelectRow.propTypes = {
   className: PropTypes.string,
   onToggle: PropTypes.func,
   selectByRowClick: PropTypes.bool,
-  selected: PropTypes.bool,
+  highlighted: PropTypes.bool,
   style: PropTypes.object,
 };
 
@@ -39,6 +39,6 @@ TableSelectRow.defaultProps = {
   className: undefined,
   onToggle: () => {},
   selectByRowClick: false,
-  selected: false,
+  highlighted: false,
   style: null,
 };

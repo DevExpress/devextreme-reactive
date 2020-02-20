@@ -17,7 +17,7 @@ const columns = [
 ];
 
 const requiredRule = {
-  isValid: value => value?.length > 0,
+  isValid: value => value?.trim().length > 0,
   errorText: 'This field is required',
 };
 const validationRules = {

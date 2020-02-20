@@ -17,7 +17,7 @@ const EditCell = ({ errors, ...props }) => {
   return (
     <TableEditColumn.Cell {...props}>
       {React.Children.map(children, child => (
-        child && child.props.id === 'commit'
+        child?.props.id === 'commit'
           ? React.cloneElement(child, { disabled: errors[props.tableRow.rowId] })
           : child
       ))}

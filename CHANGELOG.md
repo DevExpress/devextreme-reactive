@@ -1,3 +1,24 @@
+# [2.4.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.4.0...v2.4.1) (2020-02-20)
+
+
+### Bug Fixes
+
+* **react-grid:** add ref to VirtualTable props definition ([#2661](https://github.com/DevExpress/devextreme-reactive/issues/2661)) ([aa0fd1a](https://github.com/DevExpress/devextreme-reactive/commit/aa0fd1a8b0b8cc6dbb3f1dd1b20220775755029b))
+* **react-grid:** allow to change "TableTreeColumn.for" property in runtime ([#2650](https://github.com/DevExpress/devextreme-reactive/issues/2650)) ([bda719e](https://github.com/DevExpress/devextreme-reactive/commit/bda719eb918b1533b1f4c614410de502ccece384))
+* **react-grid:** delete deprecated properties from TableHeaderCell ([#2643](https://github.com/DevExpress/devextreme-reactive/issues/2643)) ([c4d5481](https://github.com/DevExpress/devextreme-reactive/commit/c4d54810743efe7d35b97242757190ed87425b6d))
+* **react-grid:** prevent Sizer's infinite loop ([#2662](https://github.com/DevExpress/devextreme-reactive/issues/2662)) ([ce6b261](https://github.com/DevExpress/devextreme-reactive/commit/ce6b2612590b37b2be8a35ada8c4890f269fe8e6))
+* **react-scheduler:** render all-day appointments and prevent appointments' rendering when timeTableCellElementsMeta is not valid ([#2673](https://github.com/DevExpress/devextreme-reactive/issues/2673)) ([0afd6c3](https://github.com/DevExpress/devextreme-reactive/commit/0afd6c348dcd31c6bd370b86720ea049813f9aac))
+* **react-scheduler:** show multiple resources on cell's double click in the AppointmentForm ([#2670](https://github.com/DevExpress/devextreme-reactive/issues/2670)) ([908c61d](https://github.com/DevExpress/devextreme-reactive/commit/908c61dbb1842504ec76d16d2e4c32b78e95dcdc))
+
+
+### Features
+
+* **react-grid:** publish TableSelection's rowComponent ([#2676](https://github.com/DevExpress/devextreme-reactive/issues/2676)) ([eefb65a](https://github.com/DevExpress/devextreme-reactive/commit/eefb65a8709688736721230e463b059cc23ab64c))
+* **react-scheduler:** add grouping by date ([#2630](https://github.com/DevExpress/devextreme-reactive/issues/2630)) ([9fdbd67](https://github.com/DevExpress/devextreme-reactive/commit/9fdbd678e165bdc27ad61a84980939f0a35bfea0))
+* **react-scheduler-material-ui:** change DayView and WeekView DayScale's today cell appearance ([#2671](https://github.com/DevExpress/devextreme-reactive/issues/2671)) ([35def37](https://github.com/DevExpress/devextreme-reactive/commit/35def378e7a692e9bc20037c3719c28d053093c3))
+
+
+
 # [2.4.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.3.2...v2.4.0) (2020-01-16)
 
 

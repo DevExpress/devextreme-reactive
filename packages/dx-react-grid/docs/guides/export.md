@@ -41,7 +41,11 @@ Import the [ExportPanel](../reference/export-panel.md) plugin and add it to the 
 The `GridExporter` provides an `exportGrid` method that initiates export. Use the ref from the first step to call this method. In the following code, we call it in the `startExport` callback of the `ExportPanel` plugin, but it can be called anywhere else in your code.
 
 ```jsx
-exporterRef.current.exportGrid();
+const startExport = (options) => {
+  exporterRef.current.exportGrid(options);
+};
+...
+<ExportPanel startExport={startExport} />
 ```
 
 4. Save the file

@@ -22,8 +22,8 @@ import { ExportPanel } from '@devexpress/dx-react-grid';
 
 ### Dependencies
 
-- [SelectionState](selection-state.md) [Optional]
 - [Toolbar](toolbar.md)
+- [SelectionState](selection-state.md) [Optional]
 
 ### Properties
 

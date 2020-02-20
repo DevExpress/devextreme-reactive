@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid-export",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "Export component for DevExtreme Reactive Grid",
   "author": {
     "name": "Developer Express Inc.",
@@ -79,10 +79,10 @@
     "exceljs": "^2.0.1"
   },
   "peerDependencies": {
-    "@devexpress/dx-core": "2.4.0",
-    "@devexpress/dx-grid-core": "2.4.0",
-    "@devexpress/dx-react-core": "2.4.0",
-    "@devexpress/dx-react-grid": "2.4.0",
+    "@devexpress/dx-core": "2.4.1",
+    "@devexpress/dx-grid-core": "2.4.1",
+    "@devexpress/dx-react-core": "2.4.1",
+    "@devexpress/dx-react-grid": "2.4.1",
     "react": ">=16.10.2",
     "react-dom": ">=16.10.2"
   }

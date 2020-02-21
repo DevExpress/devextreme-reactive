@@ -28,8 +28,7 @@ const AllDayAppointmentLayerPlaceholder = () =>
 const AllDayPanelPlaceholder = params => <TemplatePlaceholder name="allDayPanel" params={params} />;
 const CellPlaceholder = params => <TemplatePlaceholder name="allDayPanelCell" params={params} />;
 const RowPlaceholder = params => <TemplatePlaceholder name="allDayPanelRow" params={params} />;
-
-const GroupingPanelPlaceholder = () => <TemplatePlaceholder name="allDayGroupingPanel" />;
+const AllDayTitlePlaceholder = params => <TemplatePlaceholder name="allDayTitle" params={params} />
 
 class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelState> {
   state: AllDayPanelState = {
@@ -90,26 +89,11 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           name="allDayAppointments"
           computed={this.allDayAppointmentsComputed}
         />
-        <Template name="body">
-          {(params: any) => (
-            <TemplateConnector>
-              {({ groupOrientation, currentView }) => {
-                if (currentView.type === VIEW_TYPES.MONTH) {
-                  return <TemplatePlaceholder params={{ ...params }} />;
-                }
-                return (
-                  <TemplatePlaceholder
-                    params={{
-                      ...params,
-                      highlightDayScale: groupOrientation?.(currentView.name)
-                        === VERTICAL_GROUP_ORIENTATION,
-                    }}
-                  />
-                );
-              }}
-            </TemplateConnector>
-          )}
-        </Template>
+
+        {/* <Template name="timeTable">
+
+        </Template> */}
+
         <Template name="dayScaleEmptyCell">
           <TemplateConnector>
             {({ currentView, groupOrientation }) => {
@@ -118,9 +102,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                 return <TemplatePlaceholder />;
               }
 
-              return (
-                <TitleCell getMessage={getMessage} />
-              );
+              return <AllDayTitlePlaceholder />;
             }}
           </TemplateConnector>
         </Template>
@@ -177,6 +159,9 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           </TemplateConnector>
         </Template>
 
+        <Template name="allDayTitle">
+          {(params: any) => <TitleCell getMessage={getMessage} {...params}/>}
+        </Template>
         <Template name="allDayPanelRow">
           {(params: any) => <Row {...params} />}
         </Template>

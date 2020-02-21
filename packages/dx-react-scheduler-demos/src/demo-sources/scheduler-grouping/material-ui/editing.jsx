@@ -15,6 +15,7 @@ import {
   WeekView,
   AllDayPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
+import { VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import { data as appointments } from '../../../demo-data/grouping';
 
 const priorityData = [
@@ -75,6 +76,7 @@ export default class Demo extends React.PureComponent {
           />
           <GroupingState
             grouping={grouping}
+            groupOrientation={() => VERTICAL_GROUP_ORIENTATION}
           />
 
           <WeekView

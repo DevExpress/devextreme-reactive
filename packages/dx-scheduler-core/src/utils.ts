@@ -9,6 +9,7 @@ import {
   Rect, ElementRect, RectCalculatorBaseFn,
   CalculateRectByDateAndGroupIntervalsFn, ViewMetaData,
 } from './types';
+import { getGroupsLastRow } from './plugins/integrated-grouping/helpers';
 
 export const computed: ComputedHelperFn = (getters, viewName, baseComputed, defaultValue) => {
   if (getters.currentView.name !== viewName && !!defaultValue) {
@@ -122,7 +123,7 @@ export const findOverlappedAppointments: CustomFunction<
   while (totalIndex < appointments.length) {
     groups.push([]);
     const current = appointments[totalIndex];
-    const currentGroup = groups[groups.length - 1];
+    const currentGroup = getGroupsLastRow(groups);
     let next = appointments[totalIndex + 1];
     let maxBoundary = current.end;
 

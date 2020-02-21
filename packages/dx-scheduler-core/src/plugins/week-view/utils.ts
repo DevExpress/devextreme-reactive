@@ -2,6 +2,7 @@ import { PureComputed } from '@devexpress/dx-core';
 import { HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 import { ViewCell, Group, GroupOrientation, TimeScaleLabelData } from '../../types';
 import { getCellKey } from '../grouping-panel/utils';
+import { getGroupsLastRow } from '../integrated-grouping/helpers';
 
 const getLabelsForSingleGroup: PureComputed<
   [Group[][], ViewCell[][], number, number], TimeScaleLabelData[]
@@ -34,10 +35,10 @@ export const getLabelsForAllGroups: PureComputed<
     }))];
   }
 
-  const groupCount = groups[groups.length - 1].length;
+  const groupCount = getGroupsLastRow(groups).length;
   const singleGroupHeight = cellsData.length / groupCount;
 
-  return groups[groups.length - 1].reduce((
+  return getGroupsLastRow(groups).reduce((
     acc: TimeScaleLabelData[][], group: Group, groupIndex: number,
   ) => [
     ...acc,

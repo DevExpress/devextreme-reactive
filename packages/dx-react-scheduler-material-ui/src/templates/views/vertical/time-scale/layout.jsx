@@ -7,7 +7,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core/styles';
 import {
-  getLabelsForAllGroups, VIEW_TYPES,
+  getLabelsForAllGroups, getGroupsLastRow, VIEW_TYPES,
   HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION,
 } from '@devexpress/dx-scheduler-core';
 import { TicksLayout } from './ticks-layout';
@@ -43,7 +43,7 @@ export const Layout = ({
   groups,
   ...restProps
 }) => {
-  const classes = useStyles({ cellsCount: cellsData.length / groups[groups.length - 1].length });
+  const classes = useStyles({ cellsCount: cellsData.length / getGroupsLastRow(groups).length });
   return (
     <Grid container direction="row" {...restProps}>
       <Table className={classes.timeScaleContainer}>

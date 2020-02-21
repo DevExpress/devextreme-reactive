@@ -1,5 +1,6 @@
 import { PureComputed } from '@devexpress/dx-core';
 import { Group, HorizontalGroupingCellData, VerticalGroupingCellData } from '../../types';
+import { getGroupsLastRow } from '../integrated-grouping/helpers';
 
 export const getCellKey: PureComputed<
   [Group[][], number, number], string
@@ -21,8 +22,8 @@ export const getRowFromGroups: PureComputed<
 > = (width, groupRow, cellStyle, groups, rowIndex) => {
   let row = [] as any[];
   const currentRowLength = groupRow.length;
-  const standardWidth = width / groups[groups.length - 1].length;
-  const colSpan = groups[groups.length - 1].length / currentRowLength;
+  const standardWidth = width / getGroupsLastRow(groups).length;
+  const colSpan = getGroupsLastRow(groups).length / currentRowLength;
   for (let i = 0; i < standardWidth; i += 1) {
     row = [...row, ...groupRow.reduce((acc, group, index) => [
       ...acc,
@@ -43,7 +44,7 @@ export const getVerticalRowFromGroups: PureComputed<
 > = (groups, groupIndex, groupingPanelRowSpan, timeTableCellHeight) => groups.reduce((
   acc, groupColumn, columnIndex,
 ) => {
-  const groupSpan = groups[groups.length - 1].length / groupColumn.length;
+  const groupSpan = getGroupsLastRow(groups).length / groupColumn.length;
   const cellIndex = groupIndex / groupSpan;
   return groupIndex % groupSpan !== 0 ? acc : [
     ...acc,
@@ -52,7 +53,7 @@ export const getVerticalRowFromGroups: PureComputed<
       rowSpan: groupSpan,
       height: (
         groupingPanelRowSpan * groupSpan * timeTableCellHeight
-      ) / groups[groups.length - 1].length,
+      ) / getGroupsLastRow(groups).length,
       key: getCellKey(groups, cellIndex, columnIndex),
     },
   ];

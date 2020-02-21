@@ -7,7 +7,7 @@ import {
 } from '../../types';
 import {
   getGroupFromResourceInstance, addGroupInfoToCells,
-  groupAppointments, expandGroupedAppointment, addGroupInfoToCell,
+  groupAppointments, expandGroupedAppointment, addGroupInfoToCell, getGroupsLastRow,
 } from './helpers';
 import { sliceAppointmentsByDays } from '../all-day-panel/helpers';
 import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '../../constants';
@@ -61,7 +61,7 @@ const expandCellsWithGroupedByDateData: ExpandGroupingPanelCellFn = (
   viewCellsData, groups, sortedResources,
 ) => viewCellsData.map(
   (cellsRow: ViewCell[]) => cellsRow.reduce((acc: ViewCell[], viewCell: ViewCell) => {
-    const groupedCells = groups[groups.length - 1].map((
+    const groupedCells = getGroupsLastRow(groups).map((
       group: Group, index: number,
     ) => addGroupInfoToCell(
       group, groups, sortedResources, viewCell, index,
@@ -77,7 +77,7 @@ const expandCellsWithGroupedByDateData: ExpandGroupingPanelCellFn = (
 
 const expandHorizontallyGroupedCells: ExpandGroupingPanelCellFn = (
   viewCellsData, groups, sortedResources,
-) => groups[groups.length - 1].reduce((
+) => getGroupsLastRow(groups).reduce((
   acc: ViewCell[][], group: Group, index: number,
 ) => {
   if (index === 0) {
@@ -99,7 +99,7 @@ const expandHorizontallyGroupedCells: ExpandGroupingPanelCellFn = (
 
 const expandVerticallyGroupedCells: ExpandGroupingPanelCellFn = (
   viewCellsData, groups, sortedResources,
-) => groups[groups.length - 1].reduce((
+) => getGroupsLastRow(groups).reduce((
   acc: ViewCell[][], group: Group, index: number,
 ) => {
   if (index === 0) {
@@ -214,7 +214,7 @@ const initializeCellElementsData: PureComputed<
   [CellElementsMeta, ViewCell[][], Group[][]], any
 > = (cellElementsMeta, viewCellsData, groups) => {
   const timeTableWidth = viewCellsData[0].length;
-  const groupCount = groups[groups.length - 1].length;
+  const groupCount = getGroupsLastRow(groups).length;
   const groupHeight = viewCellsData.length / groupCount;
   return {
     groupCount,

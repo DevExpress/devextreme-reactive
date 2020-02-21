@@ -11,6 +11,7 @@ import { getHorizontalRectByAppointmentData } from '../horizontal-rect/helpers';
 import { calculateMonthDateIntervals } from '../month-view/computeds';
 import { calculateAllDayDateIntervals } from '../all-day-panel/computeds';
 import { expandGroups } from '../integrated-grouping/computeds';
+import { getGroupsLastRow } from '../integrated-grouping/helpers';
 
 export const allDayRects: AllDayRects = (
   appointments, startViewDate, endViewDate,
@@ -41,7 +42,7 @@ export const allDayRects: AllDayRects = (
     {
       groupOrientation,
       groupedByDate: sliceAppointments,
-      groupCount: groups ? groups[groups.length - 1].length : 1,
+      groupCount: groups ? getGroupsLastRow(groups).length : 1,
     },
   );
 };
@@ -74,7 +75,7 @@ export const verticalTimeTableRects: VerticalRects = (
     {
       groupOrientation,
       groupedByDate: groupByDate,
-      groupCount: groups ? groups[groups.length - 1].length : 1,
+      groupCount: groups ? getGroupsLastRow(groups).length : 1,
     },
   );
 };
@@ -106,7 +107,7 @@ export const horizontalTimeTableRects: HorizontalRects = (
     {
       groupOrientation,
       groupedByDate: sliceAppointments,
-      groupCount: groups ? groups[groups.length - 1].length : 1,
+      groupCount: groups ? getGroupsLastRow(groups).length : 1,
     },
   );
 };

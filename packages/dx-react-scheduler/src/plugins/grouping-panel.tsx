@@ -7,9 +7,7 @@ import {
 } from '@devexpress/dx-react-core';
 import { GroupingPanelProps } from '../types';
 import {
-  VERTICAL_VIEW_LEFT_OFFSET, HORIZONTAL_VIEW_LEFT_OFFSET,
-  HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION,
-  VIEW_TYPES,
+  VERTICAL_VIEW_LEFT_OFFSET, HORIZONTAL_VIEW_LEFT_OFFSET, HORIZONTAL_GROUP_ORIENTATION, VIEW_TYPES,
 } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
@@ -27,7 +25,6 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
     verticalLayoutComponent: 'VerticalLayout',
     rowComponent: 'Row',
     cellComponent: 'Cell',
-    allDayCellComponent: 'AllDayCell',
   };
 
   render() {
@@ -36,7 +33,6 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
       verticalLayoutComponent: VerticalLayout,
       rowComponent,
       cellComponent,
-      allDayCellComponent,
     } = this.props;
 
     return (
@@ -72,20 +68,6 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
                   rowSpan={viewCellsData.length}
                   viewType={currentView?.type}
                   cellTextTopOffset={scrollingStrategy?.fixedTopHeight}
-                />
-              )}
-          </TemplateConnector>
-        </Template>
-        <Template name="allDayGroupingPanel">
-          <TemplateConnector>
-            {({ groups, currentView, groupOrientation }) =>
-              groupOrientation(currentView?.name) === VERTICAL_GROUP_ORIENTATION && (
-                <VerticalLayout
-                  rowComponent={rowComponent}
-                  cellComponent={allDayCellComponent}
-                  groups={groups}
-                  rowSpan={groups[groups.length - 1].length}
-                  viewType={VIEW_TYPES.ALL_DAY_PANEL}
                 />
               )}
           </TemplateConnector>

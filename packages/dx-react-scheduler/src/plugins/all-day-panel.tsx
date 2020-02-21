@@ -27,6 +27,7 @@ const AllDayAppointmentLayerPlaceholder = () =>
   <TemplatePlaceholder name="allDayAppointmentLayer" />;
 const AllDayPanelPlaceholder = params => <TemplatePlaceholder name="allDayPanel" params={params} />;
 const CellPlaceholder = params => <TemplatePlaceholder name="allDayPanelCell" params={params} />;
+const RowPlaceholder = params => <TemplatePlaceholder name="allDayPanelRow" params={params} />;
 
 const GroupingPanelPlaceholder = () => <TemplatePlaceholder name="allDayGroupingPanel" />;
 
@@ -71,7 +72,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
       appointmentLayerComponent: AppointmentLayer,
       layoutComponent: Layout,
       cellComponent: Cell,
-      rowComponent,
+      rowComponent: Row,
       titleCellComponent: TitleCell,
       containerComponent: Container,
       messages,
@@ -112,12 +113,11 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
         <Template name="dayScaleEmptyCell">
           <TemplateConnector>
             {({ currentView, groupOrientation }) => {
-              if (currentView.type === VIEW_TYPES.MONTH) return <TemplatePlaceholder />;
-              if (groupOrientation?.(currentView.name) === VERTICAL_GROUP_ORIENTATION) {
-                return (
-                  <GroupingPanelPlaceholder />
-                );
+              if (currentView.type === VIEW_TYPES.MONTH
+                  || groupOrientation?.(currentView.name) === VERTICAL_GROUP_ORIENTATION) {
+                return <TemplatePlaceholder />;
               }
+
               return (
                 <TitleCell getMessage={getMessage} />
               );
@@ -128,8 +128,12 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
         <Template name="dayScale">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ currentView }) => {
-              if (currentView.type === VIEW_TYPES.MONTH) return null;
+            {({ currentView, groupOrientation }) => {
+              if (currentView.type === VIEW_TYPES.MONTH
+                  || groupOrientation?.(currentView.name) === VERTICAL_GROUP_ORIENTATION) {
+                return null;
+              }
+
               return (
                 <Container>
                   <AllDayPanelPlaceholder />
@@ -154,7 +158,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                 <>
                   <Layout
                     cellComponent={CellPlaceholder}
-                    rowComponent={rowComponent}
+                    rowComponent={RowPlaceholder}
                     cellsData={this.allDayCellsData(viewCellsData)}
                     setCellElementsMeta={this.updateCellElementsMeta}
                     formatDate={formatDate}
@@ -173,6 +177,9 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           </TemplateConnector>
         </Template>
 
+        <Template name="allDayPanelRow">
+          {(params: any) => <Row {...params} />}
+        </Template>
         <Template name="allDayPanelCell">
           {(params: any) => <Cell {...params} />}
         </Template>

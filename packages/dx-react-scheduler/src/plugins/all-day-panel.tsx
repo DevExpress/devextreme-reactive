@@ -47,7 +47,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
     containerComponent: 'Container',
   };
 
-  allDayCellsData = memoize(viewCellsData => allDayCells(viewCellsData));
+  allDayCellsDataComputed = memoize(({ viewCellsData }) => allDayCells(viewCellsData));
 
   updateCellElementsMeta = memoize((cellElementsMeta) => {
     this.setState({ elementsMeta: cellElementsMeta });
@@ -85,14 +85,39 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
         dependencies={pluginDependencies}
       >
         <Getter name="allDayElementsMeta" value={elementsMeta} />
+        <Getter name="allDayCellsData" computed={this.allDayCellsDataComputed} />
         <Getter
           name="allDayAppointments"
           computed={this.allDayAppointmentsComputed}
         />
 
-        {/* <Template name="timeTable">
+        <Template name="timeTable">
+          {(params: any) => (
+            <TemplateConnector>
+              {({ currentView, groupOrientation }) => {
+                if (currentView.type === VIEW_TYPES.MONTH
+                    || groupOrientation?.(currentView.name) !== VERTICAL_GROUP_ORIENTATION) {
+                  return <TemplatePlaceholder params={...params} />;
+                }
 
-        </Template> */}
+                return (
+                  <>
+                    <TemplatePlaceholder
+                      params={{
+                        ...params,
+                        allDayCellComponent: CellPlaceholder,
+                        allDayRowComponent: RowPlaceholder,
+                      }}
+                    />
+                    <AppointmentLayer>
+                      <AllDayAppointmentLayerPlaceholder />
+                    </AppointmentLayer>
+                  </>
+                );
+              }}
+            </TemplateConnector>
+          )}
+        </Template>
 
         <Template name="dayScaleEmptyCell">
           <TemplateConnector>
@@ -102,7 +127,9 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                 return <TemplatePlaceholder />;
               }
 
-              return <AllDayTitlePlaceholder />;
+              return (
+                <AllDayTitlePlaceholder />
+              );
             }}
           </TemplateConnector>
         </Template>
@@ -129,7 +156,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-              currentView, formatDate, viewCellsData,
+              currentView, formatDate, allDayCellsData,
               groups, groupOrientation: getGroupOrientation,
             }) => {
               if (currentView.type === VIEW_TYPES.MONTH) return null;
@@ -141,14 +168,9 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                   <Layout
                     cellComponent={CellPlaceholder}
                     rowComponent={RowPlaceholder}
-                    cellsData={this.allDayCellsData(viewCellsData)}
+                    cellsData={allDayCellsData[0]}
                     setCellElementsMeta={this.updateCellElementsMeta}
                     formatDate={formatDate}
-                    groups={
-                      groupOrientation === VERTICAL_GROUP_ORIENTATION
-                        ? groups : undefined
-                    }
-                    groupOrientation={groupOrientation}
                   />
                   <AppointmentLayer>
                     <AllDayAppointmentLayerPlaceholder />

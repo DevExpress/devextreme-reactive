@@ -21,6 +21,12 @@ const getViewCellsDataComputed = ({
   viewCellsData, groups, resourcesToGroupBy,
   groupByDate(currentView.name), groupOrientation(currentView.name),
 );
+const getAllDayCellsDataComputed = ({
+  allDayCellsData, groups, resourcesToGroupBy, groupByDate, currentView, groupOrientation,
+}: Getters) => expandViewCellsDataWithGroups(
+  allDayCellsData, groups, resourcesToGroupBy,
+  groupByDate(currentView.name), groupOrientation(currentView.name),
+);
 
 const getGroupsComputed = (
   { resourcesToGroupBy }: Getters,
@@ -66,7 +72,10 @@ const IntegratedGroupingBase: React.SFC<IntegratedGroupingProps> = React.memo(()
     <Getter name="grouping" computed={getGroupingComputed} />
     <Getter name="resourcesToGroupBy" computed={getResourcesToGroupByComputed} />
     <Getter name="groups" computed={getGroupsComputed} />
+
     <Getter name="viewCellsData" computed={getViewCellsDataComputed} />
+    <Getter name="allDayCellsData" computed={getAllDayCellsDataComputed} />
+
     <Getter name="timeTableAppointments" computed={getTimeTableAppointmentsComputed} />
     <Getter name="allDayAppointments" computed={getAllDayAppointmentsComputed} />
   </Plugin>

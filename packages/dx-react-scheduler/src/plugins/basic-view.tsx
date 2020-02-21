@@ -238,25 +238,28 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
         </Template>
 
         <Template name="timeTable">
-          <TemplateConnector>
-            {({ formatDate, currentView, viewCellsData }) => {
-              if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              return (
-                <>
-                  <TimeTableLayout
-                    cellsData={viewCellsData}
-                    rowComponent={timeTableRowComponent}
-                    cellComponent={CellPlaceholder}
-                    formatDate={formatDate}
-                    setCellElementsMeta={this.updateCellElementsMeta}
-                  />
-                  <AppointmentLayer>
-                    <TimeTableAppointmentLayer />
-                  </AppointmentLayer>
-                </>
-              );
-            }}
+          {(params: any) => (
+            <TemplateConnector>
+              {({ formatDate, currentView, viewCellsData }) => {
+                if (currentView.name !== viewName) return <TemplatePlaceholder />;
+                return (
+                  <>
+                    <TimeTableLayout
+                      cellsData={viewCellsData}
+                      rowComponent={timeTableRowComponent}
+                      cellComponent={CellPlaceholder}
+                      formatDate={formatDate}
+                      setCellElementsMeta={this.updateCellElementsMeta}
+                      {...params}
+                    />
+                    <AppointmentLayer>
+                      <TimeTableAppointmentLayer />
+                    </AppointmentLayer>
+                  </>
+                );
+              }}
           </TemplateConnector>
+          )}
         </Template>
 
         <Template name="dayScaleEmptyCell">

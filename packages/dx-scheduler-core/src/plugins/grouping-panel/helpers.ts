@@ -9,7 +9,7 @@ export const calculateGroupingPanelHeight: PureComputed<
   }
 
   const timeTableRects = timeTableElementsMeta.getCellRects;
-  const allDayRects = allDayElementsMeta.getCellRects;
+  const allDayRects = allDayElementsMeta?.getCellRects;
 
   const bottom = timeTableRects[timeTableRects.length - 1]().bottom;
   const top = allDayPanelExists ? allDayRects[0]().top : timeTableRects[0]().top;

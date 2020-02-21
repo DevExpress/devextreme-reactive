@@ -154,6 +154,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                     params={{
                       ...params,
                       allDayTitleComponent: AllDayTitlePlaceholder,
+                      showAllDayTitle: true,
                     }}
                   />
                 );

@@ -41,9 +41,11 @@ export const Layout = ({
   formatDate,
   groupOrientation,
   groups,
+  showAllDayTitle,
   ...restProps
 }) => {
-  const classes = useStyles({ cellsCount: cellsData.length / getGroupsLastRow(groups).length });
+  const groupCount = getGroupsLastRow(groups).length;
+  const classes = useStyles({ cellsCount: cellsData.length / groupCount });
   return (
     <Grid container direction="row" {...restProps}>
       <Table className={classes.timeScaleContainer}>
@@ -87,6 +89,8 @@ export const Layout = ({
         cellsData={cellsData}
         className={classes.ticks}
         groupOrientation={groupOrientation}
+        groupCount={groupCount}
+        includeAllDayCell={showAllDayTitle}
       />
     </Grid>
   );
@@ -101,10 +105,12 @@ Layout.propTypes = {
   formatDate: PropTypes.func.isRequired,
   groups: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)),
   groupOrientation: PropTypes.oneOf([HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION]),
+  showAllDayTitle: PropTypes.bool,
 };
 
 Layout.defaultProps = {
   groups: [[{}]],
   groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
   allDayTitleComponent: () => null,
+  showAllDayTitle: false,
 };

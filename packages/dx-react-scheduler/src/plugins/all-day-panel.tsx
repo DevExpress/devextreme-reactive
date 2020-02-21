@@ -63,6 +63,10 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
     );
   });
 
+  allDayPanelExistsComputed = memoize(({
+    currentView,
+  }) => currentView.type !== VIEW_TYPES.MONTH);
+
   getMessageFormatter = memoize((messages, allDayPanelDefaultMessages) =>
     getMessagesFormatter({ ...allDayPanelDefaultMessages, ...messages }));
 
@@ -86,6 +90,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
       >
         <Getter name="allDayElementsMeta" value={elementsMeta} />
         <Getter name="allDayCellsData" computed={this.allDayCellsDataComputed} />
+        <Getter name="allDayPanelExists" computed={this.allDayPanelExistsComputed} />
         <Getter
           name="allDayAppointments"
           computed={this.allDayAppointmentsComputed}

@@ -4,6 +4,7 @@ import {
   getGroupsFromResources, expandViewCellsDataWithGroups,
   sortFilteredResources, filterResourcesByGrouping, updateGroupingWithMainResource,
   expandGroups, VERTICAL_GROUP_ORIENTATION, VIEW_TYPES,
+  updateTimeTableCellElementsMeta, updateAllDayCellElementsMeta,
 } from '@devexpress/dx-scheduler-core';
 import { IntegratedGroupingProps } from '../types';
 
@@ -63,6 +64,20 @@ const getGroupByDateComputed = ({
 }: Getters) => groupOrientation(currentView?.name) === VERTICAL_GROUP_ORIENTATION
   ? () => false : groupByDate;
 
+const getTimeTableElementsMetaComputed = ({
+  timeTableElementsMeta, groupOrientation, groups, allDayPanelExists, viewCellsData, currentView,
+}: Getters) => updateTimeTableCellElementsMeta(
+  timeTableElementsMeta, groupOrientation, groups, allDayPanelExists, viewCellsData, currentView,
+);
+
+const getAllDayElementsMetaComputed = ({
+  allDayElementsMeta, timeTableElementsMeta, groupOrientation, groups,
+  allDayPanelExists, viewCellsData, currentView,
+}: Getters) => updateAllDayCellElementsMeta(
+  allDayElementsMeta, timeTableElementsMeta, groupOrientation, groups,
+  allDayPanelExists, viewCellsData, currentView,
+);
+
 const IntegratedGroupingBase: React.SFC<IntegratedGroupingProps> = React.memo(() => (
   <Plugin
     name="IntegratedGrouping"
@@ -78,6 +93,9 @@ const IntegratedGroupingBase: React.SFC<IntegratedGroupingProps> = React.memo(()
 
     <Getter name="timeTableAppointments" computed={getTimeTableAppointmentsComputed} />
     <Getter name="allDayAppointments" computed={getAllDayAppointmentsComputed} />
+
+    <Getter name="allDayElementsMeta" computed={getAllDayElementsMetaComputed} />
+    <Getter name="timeTableElementsMeta" computed={getTimeTableElementsMetaComputed} />
   </Plugin>
 ));
 

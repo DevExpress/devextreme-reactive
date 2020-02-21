@@ -27,9 +27,11 @@ const VerticalLayoutBase = ({
   classes,
   className,
   cellTextTopOffset,
+  height,
   ...restProps
 }) => {
   const timeTableCellHeight = BASIC_CELL_HEIGHT[viewType];
+  const baseHeight = height / getGroupsLastRow(groups).length;
 
   return (
     <Table className={classNames(classes.layout, className)} {...restProps}>
@@ -39,12 +41,12 @@ const VerticalLayoutBase = ({
             {getVerticalRowFromGroups(groups, groupIndex, rowSpan, timeTableCellHeight).map(({
               group: cellGroup,
               rowSpan: cellRowSpan,
-              height, key,
+              key, height: defaultHeight,
             }) => (
               <Cell
                 group={cellGroup}
                 rowSpan={cellRowSpan}
-                height={height}
+                height={height !== 0 ? baseHeight * cellRowSpan : defaultHeight}
                 left={0}
                 colSpan={1}
                 groupOrientation={VERTICAL_GROUP_ORIENTATION}
@@ -66,6 +68,7 @@ VerticalLayoutBase.propTypes = {
   rowSpan: PropTypes.number.isRequired,
   viewType: PropTypes.string.isRequired,
   cellTextTopOffset: PropTypes.number,
+  height: PropTypes.number.isRequired,
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
 };

@@ -7,7 +7,8 @@ import {
 } from '@devexpress/dx-react-core';
 import { GroupingPanelProps } from '../types';
 import {
-  VERTICAL_VIEW_LEFT_OFFSET, HORIZONTAL_VIEW_LEFT_OFFSET, HORIZONTAL_GROUP_ORIENTATION, VIEW_TYPES,
+  VERTICAL_VIEW_LEFT_OFFSET, HORIZONTAL_VIEW_LEFT_OFFSET,
+  HORIZONTAL_GROUP_ORIENTATION, VIEW_TYPES, calculateGroupingPanelHeight,
 } from '@devexpress/dx-scheduler-core';
 
 const pluginDependencies = [
@@ -45,6 +46,7 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
             {({
               viewCellsData, currentView, scrollingStrategy,
               groupByDate, groupOrientation, groups,
+              timeTableElementsMeta, allDayElementsMeta, allDayPanelExists,
             }) =>
               groupOrientation(currentView?.name) === HORIZONTAL_GROUP_ORIENTATION ? (
                 <HorizontalLayout
@@ -68,6 +70,9 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
                   rowSpan={viewCellsData.length}
                   viewType={currentView?.type}
                   cellTextTopOffset={scrollingStrategy?.fixedTopHeight}
+                  height={calculateGroupingPanelHeight(
+                    timeTableElementsMeta, allDayElementsMeta, allDayPanelExists,
+                  )}
                 />
               )}
           </TemplateConnector>

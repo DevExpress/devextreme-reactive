@@ -10,7 +10,7 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   allDayCells, calculateAllDayDateIntervals,
-  VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION, VIEW_TYPES,
+  VERTICAL_GROUP_ORIENTATION, VIEW_TYPES,
 } from '@devexpress/dx-scheduler-core';
 import moment from 'moment';
 
@@ -163,11 +163,8 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           <TemplateConnector>
             {({
               currentView, formatDate, allDayCellsData,
-              groups, groupOrientation: getGroupOrientation,
             }) => {
               if (currentView.type === VIEW_TYPES.MONTH) return null;
-              const groupOrientation = getGroupOrientation?.(currentView?.name)
-                || HORIZONTAL_GROUP_ORIENTATION;
 
               return (
                 <>

@@ -24,7 +24,7 @@ const getViewCellsDataComputed = ({
 );
 const getAllDayCellsDataComputed = ({
   allDayCellsData, groups, resourcesToGroupBy, groupByDate, currentView, groupOrientation,
-}: Getters) => expandViewCellsDataWithGroups(
+}: Getters) => allDayCellsData && expandViewCellsDataWithGroups(
   allDayCellsData, groups, resourcesToGroupBy,
   groupByDate(currentView.name), groupOrientation(currentView.name),
 );

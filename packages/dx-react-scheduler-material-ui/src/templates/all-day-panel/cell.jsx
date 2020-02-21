@@ -4,12 +4,14 @@ import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+import { VIEW_TYPES } from '@devexpress/dx-scheduler-core';
 import { getBorder, getBrightBorder } from '../utils';
+import { SPACING_CELL_HEIGHT } from '../constants';
 
 const styles = theme => ({
   cell: {
     padding: 0,
-    height: theme.spacing(5.75),
+    height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL]),
     boxSizing: 'border-box',
     borderRight: getBorder(theme),
     '&:last-child': {

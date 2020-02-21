@@ -36,6 +36,7 @@ export const Layout = ({
   labelComponent: Label,
   rowComponent,
   tickCellComponent,
+  allDayTitleComponent: AllDayTitle,
   cellsData,
   formatDate,
   groupOrientation,
@@ -54,6 +55,7 @@ export const Layout = ({
               return (
                 <TableRow key={groupIndex.toString()}>
                   <TableCell className={classes.cell}>
+                    <AllDayTitle fixedHeight />
                     <Label
                       key={firstDataLabel.startDate}
                       groupingInfo={firstDataLabel.groupingInfo}
@@ -94,6 +96,7 @@ Layout.propTypes = {
   cellsData: PropTypes.arrayOf(Array).isRequired,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  allDayTitleComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   tickCellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   formatDate: PropTypes.func.isRequired,
   groups: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)),
@@ -103,4 +106,5 @@ Layout.propTypes = {
 Layout.defaultProps = {
   groups: [[{}]],
   groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+  allDayTitleComponent: () => null,
 };

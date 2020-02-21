@@ -140,6 +140,28 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           </TemplateConnector>
         </Template>
 
+        <Template name="timeScale">
+          {(params: any) => (
+            <TemplateConnector>
+              {({ currentView, groupOrientation }) => {
+                if (currentView.type === VIEW_TYPES.MONTH
+                    || groupOrientation?.(currentView.name) !== VERTICAL_GROUP_ORIENTATION) {
+                  return <TemplatePlaceholder params={...params} />;
+                }
+
+                return (
+                  <TemplatePlaceholder
+                    params={{
+                      ...params,
+                      allDayTitleComponent: AllDayTitlePlaceholder,
+                    }}
+                  />
+                );
+              }}
+            </TemplateConnector>
+          )}
+        </Template>
+
         <Template name="dayScale">
           <TemplatePlaceholder />
           <TemplateConnector>

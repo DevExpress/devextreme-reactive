@@ -112,25 +112,29 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
         />
 
         <Template name="timeScale">
-          <TemplateConnector>
-            {({
-              currentView, viewCellsData, groupOrientation: getGroupOrientation, groups, formatDate,
-            }) => {
-              if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              const groupOrientation = getGroupOrientation?.(viewName);
-              return (
-                <TimeScale
-                  labelComponent={TimeScaleLabel}
-                  tickCellComponent={timeScaleTickCellComponent}
-                  rowComponent={timeScaleTicksRowComponent}
-                  cellsData={viewCellsData}
-                  formatDate={formatDate}
-                  groups={groups}
-                  groupOrientation={groupOrientation}
-                />
-              );
-            }}
-          </TemplateConnector>
+          {(params: any) => (
+            <TemplateConnector>
+              {({
+                currentView, viewCellsData, groups, formatDate,
+                groupOrientation: getGroupOrientation,
+              }) => {
+                if (currentView.name !== viewName) return <TemplatePlaceholder />;
+                const groupOrientation = getGroupOrientation?.(viewName);
+                return (
+                  <TimeScale
+                    labelComponent={TimeScaleLabel}
+                    tickCellComponent={timeScaleTickCellComponent}
+                    rowComponent={timeScaleTicksRowComponent}
+                    cellsData={viewCellsData}
+                    formatDate={formatDate}
+                    groups={groups}
+                    groupOrientation={groupOrientation}
+                    {...params}
+                  />
+                );
+              }}
+            </TemplateConnector>
+          )}
         </Template>
       </Plugin>
     );

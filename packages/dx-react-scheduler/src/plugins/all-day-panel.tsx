@@ -94,7 +94,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
         <Template name="timeTable">
           {(params: any) => (
             <TemplateConnector>
-              {({ currentView, groupOrientation }) => {
+              {({ currentView, groupOrientation, allDayCellsData }) => {
                 if (currentView.type === VIEW_TYPES.MONTH
                     || groupOrientation?.(currentView.name) !== VERTICAL_GROUP_ORIENTATION) {
                   return <TemplatePlaceholder params={...params} />;
@@ -107,6 +107,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                         ...params,
                         allDayCellComponent: CellPlaceholder,
                         allDayRowComponent: RowPlaceholder,
+                        allDayCellsData,
                       }}
                     />
                     <AppointmentLayer>

@@ -4,30 +4,13 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
-import {
-  getGroupingInfoFromGroups,
-  HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION,
-} from '@devexpress/dx-scheduler-core';
-import { cellsMeta, getViewCellKey, getViewCellKey as getRowKey } from '../utils';
+import { cellsMeta, getViewCellKey } from '../utils';
 
 const styles = {
   table: {
     tableLayout: 'fixed',
   },
 };
-
-const renderAllDayCell = (
-  Cell, key, startDate, endDate, endOfGroup, hasRightBorder, groupingInfo,
-) => (
-  <Cell
-    key={key}
-    startDate={startDate}
-    endDate={endDate}
-    endOfGroup={endOfGroup}
-    hasRightBorder={endOfGroup}
-    groupingInfo={groupingInfo}
-  />
-);
 
 class LayoutBase extends React.PureComponent {
   constructor(props) {
@@ -56,7 +39,7 @@ class LayoutBase extends React.PureComponent {
       setCellElementsMeta,
       cellsData,
       classes, className,
-      cellComponent,
+      cellComponent: Cell,
       rowComponent: Row,
       formatDate,
       ...restProps
@@ -72,9 +55,15 @@ class LayoutBase extends React.PureComponent {
           <Row>
             {cellsData.map(({
               startDate, endDate, endOfGroup, groupingInfo,
-            }) => renderAllDayCell(
-              cellComponent, getViewCellKey(startDate, groupingInfo),
-              startDate, endDate, endOfGroup, endOfGroup, groupingInfo,
+            }) => (
+              <Cell
+                key={getViewCellKey(startDate, groupingInfo)}
+                startDate={startDate}
+                endDate={endDate}
+                endOfGroup={endOfGroup}
+                hasRightBorder={endOfGroup}
+                groupingInfo={groupingInfo}
+              />
             ))}
           </Row>
         </TableBody>

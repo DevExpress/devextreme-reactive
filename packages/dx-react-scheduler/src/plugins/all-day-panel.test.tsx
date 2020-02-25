@@ -8,6 +8,7 @@ import {
   calculateAllDayDateIntervals,
 } from '@devexpress/dx-scheduler-core';
 import { AllDayPanel } from './all-day-panel';
+import { VIEW_TYPES, VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...require.requireActual('@devexpress/dx-scheduler-core'),
@@ -19,12 +20,13 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
 const defaultDeps = {
   getter: {
     currentDate: '2018-07-04',
-    currentView: 'week',
+    currentView: { type: VIEW_TYPES.WEEK },
     startViewDate: '2018-07-04',
     endViewDate: '2018-07-06',
     excludedDays: [],
     formatDate: jest.fn(),
     appointments: [],
+    viewCellsData: 'viewCellsData',
   },
   template: {
     body: {},
@@ -32,6 +34,8 @@ const defaultDeps = {
     sidebar: {},
     main: {},
     dayScaleEmptyCell: {},
+    timeTable: {},
+    timeScale: {},
   },
 };
 
@@ -50,7 +54,7 @@ const defaultProps = {
 
 describe('AllDayPanel', () => {
   beforeEach(() => {
-    allDayCells.mockImplementation(() => [[{}]]);
+    allDayCells.mockImplementation(() => 'allDayCells');
     getAppointmentStyle.mockImplementation(() => undefined);
     calculateAllDayDateIntervals.mockImplementation(() => 'allDayAppointments');
   });
@@ -95,6 +99,57 @@ describe('AllDayPanel', () => {
         .toEqual('allDayAppointments');
       expect(calculateAllDayDateIntervals)
         .toHaveBeenCalledWith([], new Date(2018, 6, 4, 0, 0), new Date(2018, 6, 6, 23, 59), []);
+    });
+
+    it('should provide "allDayCellsData" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <AllDayPanel
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).allDayCellsData)
+        .toBe('allDayCells');
+      expect(allDayCells)
+        .toHaveBeenCalledWith('viewCellsData');
+    });
+
+    it('should provide "allDayPanelExists" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <AllDayPanel
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).allDayPanelExists)
+        .toBeTruthy();
+    });
+
+    // tslint:disable-next-line: max-line-length
+    it('should provide "allDayPanelExists" getter, which return false if current view is month', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents({
+            ...defaultDeps,
+            getter: {
+              ...defaultDeps,
+              currentView: { type: VIEW_TYPES.MONTH },
+            },
+          })}
+          <AllDayPanel
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).allDayPanelExists)
+        .toBeFalsy();
     });
   });
 
@@ -162,7 +217,7 @@ describe('AllDayPanel', () => {
         .toBeTruthy();
     });
 
-    it('should render body template', () => {
+    it('should render timeTable template', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -172,10 +227,110 @@ describe('AllDayPanel', () => {
         </PluginHost>
       ));
 
-      const templatePlaceholder = tree
-        .findWhere(node => node.type() === Template && node.props().name === 'body');
+      const timeTableTemplatePlaceholder = tree
+        .find('TemplatePlaceholderBase')
+        .filterWhere(node => node.props().name === 'timeTable').first()
+        .children().find('TemplatePlaceholderBase');
 
-      expect(templatePlaceholder.exists())
+      expect(timeTableTemplatePlaceholder.exists())
+        .toBeTruthy();
+      expect(timeTableTemplatePlaceholder.props().params)
+        .toEqual({});
+    });
+
+    it('should render timeTable template with correct params', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents({
+            ...defaultDeps,
+            getter: {
+              ...defaultDeps.getter,
+              groupOrientation: () => VERTICAL_GROUP_ORIENTATION,
+            },
+          })}
+          <AllDayPanel
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      const timeTableTemplatePlaceholder = tree
+        .find('TemplatePlaceholderBase')
+        .filterWhere(node => node.props().name === 'timeTable').first()
+        .children().find('TemplatePlaceholderBase');
+
+      expect(timeTableTemplatePlaceholder.exists())
+        .toBeTruthy();
+      expect(timeTableTemplatePlaceholder.props().params)
+        .toEqual({
+          allDayCellComponent: expect.any(Function),
+          allDayRowComponent: defaultProps.rowComponent,
+          allDayCellsData: 'allDayCells',
+        });
+    });
+
+    it('should render timeScale template', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <AllDayPanel
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      const timeTableTemplatePlaceholder = tree
+        .find('TemplatePlaceholderBase')
+        .filterWhere(node => node.props().name === 'timeScale').first()
+        .children().find('TemplatePlaceholderBase');
+
+      expect(timeTableTemplatePlaceholder.exists())
+        .toBeTruthy();
+      expect(timeTableTemplatePlaceholder.props().params)
+        .toEqual({});
+    });
+
+    it('should render timeScale template with correct params', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents({
+            ...defaultDeps,
+            getter: {
+              ...defaultDeps.getter,
+              groupOrientation: () => VERTICAL_GROUP_ORIENTATION,
+            },
+          })}
+          <AllDayPanel
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      const timeTableTemplatePlaceholder = tree
+        .find('TemplatePlaceholderBase')
+        .filterWhere(node => node.props().name === 'timeScale').first()
+        .children().find('TemplatePlaceholderBase');
+
+      expect(timeTableTemplatePlaceholder.exists())
+        .toBeTruthy();
+      expect(timeTableTemplatePlaceholder.props().params)
+        .toEqual({
+          allDayTitleComponent: expect.any(Function),
+          showAllDayTitle: true,
+        });
+    });
+
+    it('should render all day title template', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <AllDayPanel
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find(defaultProps.titleCellComponent).exists())
         .toBeTruthy();
     });
   });

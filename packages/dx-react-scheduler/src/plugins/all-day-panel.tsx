@@ -27,8 +27,7 @@ const AllDayAppointmentLayerPlaceholder = () =>
   <TemplatePlaceholder name="allDayAppointmentLayer" />;
 const AllDayPanelPlaceholder = params => <TemplatePlaceholder name="allDayPanel" params={params} />;
 const CellPlaceholder = params => <TemplatePlaceholder name="allDayPanelCell" params={params} />;
-const RowPlaceholder = params => <TemplatePlaceholder name="allDayPanelRow" params={params} />;
-const AllDayTitlePlaceholder = params => <TemplatePlaceholder name="allDayTitle" params={params} />
+const AllDayTitlePlaceholder = params => <TemplatePlaceholder name="allDayTitle" params={params} />;
 
 class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelState> {
   state: AllDayPanelState = {
@@ -75,7 +74,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
       appointmentLayerComponent: AppointmentLayer,
       layoutComponent: Layout,
       cellComponent: Cell,
-      rowComponent: Row,
+      rowComponent,
       titleCellComponent: TitleCell,
       containerComponent: Container,
       messages,
@@ -104,14 +103,13 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                     || groupOrientation?.(currentView.name) !== VERTICAL_GROUP_ORIENTATION) {
                   return <TemplatePlaceholder params={...params} />;
                 }
-
                 return (
                   <>
                     <TemplatePlaceholder
                       params={{
                         ...params,
                         allDayCellComponent: CellPlaceholder,
-                        allDayRowComponent: RowPlaceholder,
+                        allDayRowComponent: rowComponent,
                         allDayCellsData,
                       }}
                     />
@@ -193,7 +191,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                 <>
                   <Layout
                     cellComponent={CellPlaceholder}
-                    rowComponent={RowPlaceholder}
+                    rowComponent={rowComponent}
                     cellsData={allDayCellsData[0]}
                     setCellElementsMeta={this.updateCellElementsMeta}
                     formatDate={formatDate}
@@ -209,9 +207,6 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
 
         <Template name="allDayTitle">
           {(params: any) => <TitleCell getMessage={getMessage} {...params}/>}
-        </Template>
-        <Template name="allDayPanelRow">
-          {(params: any) => <Row {...params} />}
         </Template>
         <Template name="allDayPanelCell">
           {(params: any) => <Cell {...params} />}

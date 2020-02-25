@@ -163,7 +163,7 @@ export const updateTimeTableCellElementsMeta: PureComputed<
 
   while (allDayPanelsLeft > 0) {
     allDayPanelsLeft -= 1;
-    validGetCellRects.splice(groupSize * allDayPanelsLeft, timeTableWidth);
+    validGetCellRects.splice(allDayPanelsLeft * (timeTableWidth + groupSize), timeTableWidth);
   }
 
   return {

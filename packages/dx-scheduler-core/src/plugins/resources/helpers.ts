@@ -1,4 +1,5 @@
-import { GetAppointmentResources, ValidResourceInstance } from '../../types';
+import { GetAppointmentResources, ValidResourceInstance, ValidResource } from '../../types';
+import { PureComputed } from '@devexpress/dx-core';
 
 export const getAppointmentResources: GetAppointmentResources = (
   appointment, resources, plainResources,
@@ -21,25 +22,29 @@ export const getAppointmentResources: GetAppointmentResources = (
     if (resource.allowMultiple) {
       return [
         ...acc,
-        ...(appointmentResourceId as Array<number | string>).reduce((prevResources, itemId) => {
-          const currentResource = plainResources.find(
-            plainItem => resource.fieldName === plainItem.fieldName && plainItem.id === itemId,
-          );
-
-          return currentResource ? [
-            ...prevResources,
-            currentResource!,
-          ] : prevResources;
-        }, [] as Array<ValidResourceInstance>),
+        ...(appointmentResourceId as Array<number | string>)
+        .reduce((prevResources, itemId) => updateAppointmentResources(
+          plainResources, prevResources, resource, itemId,
+        ) as Array<ValidResourceInstance>, [] as Array<ValidResourceInstance>),
       ];
     }
 
-    const resourceInstance = plainResources.find(plainItem =>
-      resource.fieldName === plainItem.fieldName && plainItem.id === appointmentResourceId,
-    );
-    return resourceInstance ? [
-      ...acc,
-      resourceInstance!,
-    ] : acc;
+    return updateAppointmentResources(
+      plainResources, acc, resource, appointmentResourceId,
+    ) as Array<ValidResourceInstance>;
   }, [] as Array<ValidResourceInstance>);
+};
+
+const updateAppointmentResources: PureComputed<
+  [Array<ValidResourceInstance>, Array<ValidResourceInstance>, ValidResource,
+  number | string], Array<ValidResourceInstance>
+> = (plainResources, previousAppointmentResources, resource, resourceId) => {
+  const currentResource = plainResources.find(
+    plainItem => resource.fieldName === plainItem.fieldName && plainItem.id === resourceId,
+  );
+
+  return currentResource ? [
+    ...previousAppointmentResources,
+    currentResource!,
+  ] : previousAppointmentResources;
 };

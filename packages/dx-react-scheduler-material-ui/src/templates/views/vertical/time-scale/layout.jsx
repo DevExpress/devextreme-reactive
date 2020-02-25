@@ -28,7 +28,9 @@ const useStyles = makeStyles(theme => ({
     'tr:last-child &': {
       borderBottom: 'none',
     },
-    height: ({ cellsCount }) => `${theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.WEEK]) * cellsCount}px`,
+    height: ({ height, defaultHeight }) => (
+      height ? `${height}px` : `${theme.spacing(defaultHeight)}px`
+    ),
   },
 }));
 
@@ -42,10 +44,18 @@ export const Layout = ({
   groupOrientation,
   groups,
   showAllDayTitle,
+  height,
   ...restProps
 }) => {
   const groupCount = getGroupsLastRow(groups).length;
-  const classes = useStyles({ cellsCount: cellsData.length / groupCount });
+  const cellsCount = cellsData.length / groupCount;
+  const heightWithoutAllDayTitle = SPACING_CELL_HEIGHT[VIEW_TYPES.WEEK] * cellsCount;
+  const defaultHeight = showAllDayTitle
+    ? heightWithoutAllDayTitle + SPACING_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL]
+    : heightWithoutAllDayTitle;
+
+  const classes = useStyles({ height: height / groupCount, defaultHeight });
+
   return (
     <Grid container direction="row" {...restProps}>
       <Table className={classes.timeScaleContainer}>
@@ -106,6 +116,7 @@ Layout.propTypes = {
   groups: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)),
   groupOrientation: PropTypes.oneOf([HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION]),
   showAllDayTitle: PropTypes.bool,
+  height: PropTypes.number,
 };
 
 Layout.defaultProps = {
@@ -113,4 +124,5 @@ Layout.defaultProps = {
   groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
   allDayTitleComponent: () => null,
   showAllDayTitle: false,
+  height: 0,
 };

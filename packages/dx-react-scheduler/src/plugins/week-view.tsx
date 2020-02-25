@@ -7,7 +7,8 @@ import {
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
-  viewCellsData as viewCellsDataCore, calculateWeekDateIntervals, VIEW_TYPES,
+  viewCellsData as viewCellsDataCore, calculateWeekDateIntervals,
+  VIEW_TYPES, calculateGroupingPanelHeight,
 } from '@devexpress/dx-scheduler-core';
 import { BasicView } from './basic-view';
 import { WeekViewProps } from '../types';
@@ -117,6 +118,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
               {({
                 currentView, viewCellsData, groups, formatDate,
                 groupOrientation: getGroupOrientation,
+                timeTableElementsMeta, allDayElementsMeta, allDayPanelExists,
               }) => {
                 if (currentView.name !== viewName) return <TemplatePlaceholder />;
                 const groupOrientation = getGroupOrientation?.(viewName);
@@ -129,6 +131,10 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
                     formatDate={formatDate}
                     groups={groups}
                     groupOrientation={groupOrientation}
+                    height={calculateGroupingPanelHeight(
+                      timeTableElementsMeta, allDayElementsMeta,
+                      allDayPanelExists, groupOrientation,
+                    )}
                     {...params}
                   />
                 );

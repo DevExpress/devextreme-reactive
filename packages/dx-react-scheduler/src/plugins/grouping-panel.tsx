@@ -45,10 +45,11 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
           <TemplateConnector>
             {({
               viewCellsData, currentView, scrollingStrategy,
-              groupByDate, groupOrientation, groups,
+              groupByDate, groupOrientation: getGroupOrientation, groups,
               timeTableElementsMeta, allDayElementsMeta, allDayPanelExists,
-            }) =>
-              groupOrientation(currentView?.name) === HORIZONTAL_GROUP_ORIENTATION ? (
+            }) => {
+              const groupOrientation = getGroupOrientation(currentView?.name);
+              return groupOrientation === HORIZONTAL_GROUP_ORIENTATION ? (
                 <HorizontalLayout
                   rowComponent={rowComponent}
                   cellComponent={cellComponent}
@@ -71,10 +72,12 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
                   viewType={currentView?.type}
                   cellTextTopOffset={scrollingStrategy?.fixedTopHeight}
                   height={calculateGroupingPanelHeight(
-                    timeTableElementsMeta, allDayElementsMeta, allDayPanelExists,
+                    timeTableElementsMeta, allDayElementsMeta,
+                    allDayPanelExists, groupOrientation,
                   )}
                 />
-              )}
+              );
+            }}
           </TemplateConnector>
         </Template>
       </Plugin>

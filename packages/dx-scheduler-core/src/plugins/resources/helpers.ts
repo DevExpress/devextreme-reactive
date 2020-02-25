@@ -23,28 +23,28 @@ export const getAppointmentResources: GetAppointmentResources = (
       return [
         ...acc,
         ...(appointmentResourceId as Array<number | string>)
-        .reduce((prevResources, itemId) => updateAppointmentResources(
+        .reduce((prevResources, itemId) => addResourceToAppointmentResources(
           plainResources, prevResources, resource, itemId,
         ) as Array<ValidResourceInstance>, [] as Array<ValidResourceInstance>),
       ];
     }
 
-    return updateAppointmentResources(
+    return addResourceToAppointmentResources(
       plainResources, acc, resource, appointmentResourceId,
     ) as Array<ValidResourceInstance>;
   }, [] as Array<ValidResourceInstance>);
 };
 
-const updateAppointmentResources: PureComputed<
+const addResourceToAppointmentResources: PureComputed<
   [Array<ValidResourceInstance>, Array<ValidResourceInstance>, ValidResource,
   number | string], Array<ValidResourceInstance>
-> = (plainResources, previousAppointmentResources, resource, resourceId) => {
+> = (plainResources, appointmentResources, resource, resourceId) => {
   const currentResource = plainResources.find(
     plainItem => resource.fieldName === plainItem.fieldName && plainItem.id === resourceId,
   );
 
   return currentResource ? [
-    ...previousAppointmentResources,
+    ...appointmentResources,
     currentResource!,
-  ] : previousAppointmentResources;
+  ] : appointmentResources;
 };

@@ -92,42 +92,4 @@ describe('GroupingPanel', () => {
         cellTextTopOffset: undefined,
       });
   });
-
-  it('should render all-day grouping panel', () => {
-    const tree = mount((
-      <PluginHost>
-        {pluginDepsToComponents({
-          ...defaultDeps,
-          getter: {
-            ...defaultDeps.getter,
-            groupOrientation: () => VERTICAL_GROUP_ORIENTATION,
-          },
-          template: {
-            allDayGroupingPanel: {},
-          },
-        })}
-        <GroupingPanel
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-
-    const templatePlaceholder = tree
-        .findWhere(node => node.type() === Template && node.props().name === 'allDayGroupingPanel');
-
-    expect(templatePlaceholder.exists())
-      .toBeTruthy();
-
-    const verticalLayoutComponent = tree.find(defaultProps.verticalLayoutComponent);
-    expect(verticalLayoutComponent.exists())
-      .toBeTruthy();
-    expect(verticalLayoutComponent.props())
-      .toMatchObject({
-        rowComponent: defaultProps.rowComponent,
-        cellComponent: defaultProps.allDayCellComponent,
-        rowSpan: 2,
-        groups: defaultDeps.getter.groups,
-        viewType: VIEW_TYPES.ALL_DAY_PANEL,
-      });
-  });
 });

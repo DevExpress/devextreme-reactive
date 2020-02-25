@@ -53,7 +53,7 @@ export const ensureColor = (level, color) => (color[level] || PRIMARY_COLOR[leve
 
 export const getResourceColor = (resources) => {
   if (resources && resources.length) {
-    return resources.find(resource => resource.isMain).color;
+    return resources.find(resourceItem => resourceItem.isMain)?.color;
   } return undefined;
 };
 

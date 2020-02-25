@@ -126,5 +126,30 @@ describe('Resources helpers', () => {
           { id: 1, fieldName: 'locationId', allowMultiple: false },
         ]);
     });
+    it('should return an empty array if resource instances do not contain the id specified in the appointment', () => {
+      const appointment = { ownerId: 'Invalid id' };
+      const resources = [{
+        fieldName: 'ownerId',
+        instances: [{ id: 0, fieldName: 'ownerId', allowMultiple: false }],
+      }];
+      const plainResources = [{ id: 0, fieldName: 'ownerId', allowMultiple: false }];
+
+      expect(getAppointmentResources(appointment, resources, plainResources))
+        .toEqual([]);
+    });
+    it('should return an empty without instances that are not provided in the instances when allowMultiple is true', () => {
+      const appointment = { ownerId: [0, 'Invalid id'] };
+      const resources = [{
+        fieldName: 'ownerId',
+        allowMultiple: true,
+        instances: [{ id: 0, fieldName: 'ownerId', allowMultiple: true }],
+      }];
+      const plainResources = [{ id: 0, fieldName: 'ownerId', allowMultiple: true }];
+
+      expect(getAppointmentResources(appointment, resources, plainResources))
+        .toEqual([
+          { id: 0, fieldName: 'ownerId', allowMultiple: true },
+        ]);
+    });
   });
 });

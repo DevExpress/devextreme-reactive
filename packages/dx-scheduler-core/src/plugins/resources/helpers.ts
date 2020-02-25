@@ -21,17 +21,25 @@ export const getAppointmentResources: GetAppointmentResources = (
     if (resource.allowMultiple) {
       return [
         ...acc,
-        ...(appointmentResourceId as Array<number | string>).map(itemId => plainResources.find(
-          plainItem => resource.fieldName === plainItem.fieldName && plainItem.id === itemId),
-        ),
+        ...(appointmentResourceId as Array<number | string>).reduce((prevResources, itemId) => {
+          const currentResource = plainResources.find(
+            plainItem => resource.fieldName === plainItem.fieldName && plainItem.id === itemId,
+          );
+
+          return currentResource ? [
+            ...prevResources,
+            currentResource!,
+          ] : prevResources;
+        }, [] as Array<ValidResourceInstance>),
       ];
     }
 
-    return [
+    const resourceInstance = plainResources.find(plainItem =>
+      resource.fieldName === plainItem.fieldName && plainItem.id === appointmentResourceId,
+    );
+    return resourceInstance ? [
       ...acc,
-      ...(plainResources as Array<any>).find(plainItem =>
-        resource.fieldName === plainItem.fieldName && plainItem.id === appointmentResourceId,
-      ),
-    ];
+      resourceInstance!,
+    ] : acc;
   }, [] as Array<ValidResourceInstance>);
 };

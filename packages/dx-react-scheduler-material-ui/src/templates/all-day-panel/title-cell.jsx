@@ -62,7 +62,7 @@ TitleCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
-  fixedHeight: PropTypes.boolean,
+  fixedHeight: PropTypes.bool,
 };
 
 TitleCellBase.defaultProps = {

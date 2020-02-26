@@ -7,15 +7,10 @@ import {
   TemplatePlaceholder, Template,
 } from '@devexpress/dx-react-core';
 import {
-  cellIndex,
-  cellData,
-  cellType,
-  getAppointmentStyle,
-  autoScroll,
-  calculateDraftAppointments,
+  cellIndex, cellData, cellType, getAppointmentStyle, autoScroll,
+  calculateDraftAppointments, VERTICAL_GROUP_ORIENTATION,
 } from '@devexpress/dx-scheduler-core';
 import { DragDropProvider } from './drag-drop-provider';
-import { VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core/src';
 
 // tslint:disable: max-line-length
 jest.mock('@devexpress/dx-scheduler-core', () => ({

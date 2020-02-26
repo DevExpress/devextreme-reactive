@@ -52,7 +52,7 @@ export const prepareVerticalViewCellsData: PureComputed<
   [ViewCell[][], AllDayCell[][]], ViewCell[][][]
 > = (cellsData, allDayCellsData) => {
   const groupCount = allDayCellsData ? allDayCellsData.length : 1;
-  const validCellsData = [];
+  const validCellsData = [] as ViewCell[][][];
   const groupHeight = cellsData.length / groupCount;
   for (let i = 0; i < groupCount; i += 1) {
     validCellsData.push(cellsData.slice(i * groupHeight, (i + 1) * groupHeight));

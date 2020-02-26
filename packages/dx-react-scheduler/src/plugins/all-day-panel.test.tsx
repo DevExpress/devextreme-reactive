@@ -1,14 +1,12 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
-import { PluginHost, TemplatePlaceholder, Template } from '@devexpress/dx-react-core';
+import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import {
-  allDayCells,
-  getAppointmentStyle,
-  calculateAllDayDateIntervals,
+  allDayCells, getAppointmentStyle, calculateAllDayDateIntervals,
+  VIEW_TYPES, VERTICAL_GROUP_ORIENTATION,
 } from '@devexpress/dx-scheduler-core';
 import { AllDayPanel } from './all-day-panel';
-import { VIEW_TYPES, VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...require.requireActual('@devexpress/dx-scheduler-core'),

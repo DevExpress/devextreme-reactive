@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { getClasses, createMount } from '@material-ui/core/test-utils';
-import { VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import { Layout } from './layout';
 
 describe('AllDayPanel', () => {

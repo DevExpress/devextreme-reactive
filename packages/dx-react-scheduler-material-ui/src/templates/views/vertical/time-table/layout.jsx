@@ -44,7 +44,7 @@ export const Layout = React.memo(({
     {...restProps}
   >
     {prepareCellsData(cellsData, allDayCellsData).map((group, groupIndex) => (
-      <>
+      <React.Fragment key={groupIndex.toString()}>
         {allDayCellsData && (
           <AllDayRow>
             {allDayCellsData[groupIndex].map(({
@@ -65,7 +65,7 @@ export const Layout = React.memo(({
             ))}
           </Row>
         ))}
-      </>
+      </React.Fragment>
     ))}
   </LayoutBase>
 ));

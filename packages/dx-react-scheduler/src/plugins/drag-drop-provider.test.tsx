@@ -35,6 +35,7 @@ const defaultDeps = {
       [{ startDate: new Date('2018-06-25') }, {}],
       [{}, { startDate: new Date('2018-08-05') }],
     ],
+    allDayCellsData: [[{ startDate: new Date('2018-06-25') }, {}]],
     startViewDate: new Date('2018-06-25'),
     endViewDate: new Date('2018-08-05'),
     excludedDays: [],
@@ -506,8 +507,7 @@ describe('DragDropProvider', () => {
         .toBeCalledWith(
           1, -1,
           defaultDeps.getter.viewCellsData,
-          'groups',
-          'groupOrientation',
+          defaultDeps.getter.allDayCellsData,
         );
       expect(calculateDraftAppointments)
         .toBeCalledWith(

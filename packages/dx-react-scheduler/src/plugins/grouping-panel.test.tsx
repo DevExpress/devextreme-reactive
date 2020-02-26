@@ -2,8 +2,16 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost, Template } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
-import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION, VIEW_TYPES } from '@devexpress/dx-scheduler-core';
+import {
+  HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION,
+  VIEW_TYPES, calculateGroupingPanelHeight,
+} from '@devexpress/dx-scheduler-core';
 import { GroupingPanel } from './grouping-panel';
+
+jest.mock('@devexpress/dx-scheduler-core', () => ({
+  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  calculateGroupingPanelHeight: jest.fn(),
+}));
 
 describe('GroupingPanel', () => {
   const defaultProps = {
@@ -25,8 +33,17 @@ describe('GroupingPanel', () => {
       groupByDate: () => true,
       groupOrientation: () => HORIZONTAL_GROUP_ORIENTATION,
       scrollingStrategy: {},
+      timeTableElementsMeta: 'timeTableElementsMeta',
+      allDayElementsMeta: 'allDayElementsMeta',
+      allDayPanelExists: 'allDayPanelExists',
     },
   };
+  beforeEach(() => {
+    calculateGroupingPanelHeight.mockImplementation(() => 'height');
+  });
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
 
   it('should render horizontal groupingPanel', () => {
     const tree = mount((
@@ -90,6 +107,32 @@ describe('GroupingPanel', () => {
         rowSpan: defaultDeps.getter.viewCellsData.length,
         viewType: VIEW_TYPES.MONTH,
         cellTextTopOffset: undefined,
+        height: 'height',
       });
+  });
+
+  it('should call "calculateGroupingPanelHeight" with proper parameters', () => {
+    mount((
+      <PluginHost>
+        {pluginDepsToComponents({
+          ...defaultDeps,
+          getter: {
+            ...defaultDeps.getter,
+            groupOrientation: () => VERTICAL_GROUP_ORIENTATION,
+          },
+        })}
+        <GroupingPanel
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(calculateGroupingPanelHeight)
+      .toBeCalledWith(
+        defaultDeps.getter.timeTableElementsMeta,
+        defaultDeps.getter.allDayElementsMeta,
+        defaultDeps.getter.allDayPanelExists,
+        VERTICAL_GROUP_ORIENTATION,
+      );
   });
 });

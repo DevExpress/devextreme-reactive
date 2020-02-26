@@ -188,6 +188,26 @@ describe('AllDayPanel', () => {
         .toBeTruthy();
     });
 
+    it('should render appointment layer when vertical grouping is used', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents({
+            ...defaultDeps,
+            getter: {
+              ...defaultDeps.getter,
+              groupOrientation: () => VERTICAL_GROUP_ORIENTATION,
+            },
+          })}
+          <AllDayPanel
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find(defaultProps.appointmentLayerComponent).exists())
+        .toBeTruthy();
+    });
+
     it('should render title cell component', () => {
       const tree = mount((
         <PluginHost>

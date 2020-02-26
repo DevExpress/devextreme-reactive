@@ -6,11 +6,11 @@ import {
   SHORT_MONTH_SHORT_YEAR_OPTIONS, MONTH_YEAR_OPTIONS,
   DAY_LONG_MONTH_LONG_YEAR_OPTIONS, DAY_SHORT_MONTH_SHORT_YEAR_OPTIONS,
   DAY_SHORT_MONTH_LONG_YEAR_OPTIONS, LONG_WEEK_DAY_OPTIONS, EMPTY_OPTIONS,
-  WEEKDAY_INTERVAL, VERTICAL_GROUP_ORIENTATION,
+  WEEKDAY_INTERVAL,
 } from '../../constants';
 import {
   ViewBoundTextFn, FormatterFn, ViewCell,
-  AppointmentMoment, Group, SchedulerDateTime, CellElementsMeta, GroupOrientation,
+  AppointmentMoment, Group, SchedulerDateTime, CellElementsMeta,
 } from '../../types';
 
 const MONTH_TYPE = 'month';

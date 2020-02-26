@@ -2,8 +2,7 @@ import { PureComputed } from '@devexpress/dx-core';
 import {
   Grouping, ValidResourceInstance, ViewCell, ValidResource,
   Group, AppointmentMoment, ExpandGroupingPanelCellFn, GroupOrientation,
-  CellElementsMeta,
-  SchedulerView,
+  CellElementsMeta, SchedulerView,
 } from '../../types';
 import {
   getGroupFromResourceInstance, addGroupInfoToCells,

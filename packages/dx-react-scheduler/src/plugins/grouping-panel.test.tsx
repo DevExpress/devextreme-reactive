@@ -4,13 +4,13 @@ import { PluginHost, Template } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import {
   HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION,
-  VIEW_TYPES, calculateGroupingPanelHeight,
+  VIEW_TYPES, getTimeTableHeight,
 } from '@devexpress/dx-scheduler-core';
 import { GroupingPanel } from './grouping-panel';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...require.requireActual('@devexpress/dx-scheduler-core'),
-  calculateGroupingPanelHeight: jest.fn(),
+  getTimeTableHeight: jest.fn(),
 }));
 
 describe('GroupingPanel', () => {
@@ -39,7 +39,7 @@ describe('GroupingPanel', () => {
     },
   };
   beforeEach(() => {
-    calculateGroupingPanelHeight.mockImplementation(() => 'height');
+    getTimeTableHeight.mockImplementation(() => 'height');
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -111,7 +111,7 @@ describe('GroupingPanel', () => {
       });
   });
 
-  it('should call "calculateGroupingPanelHeight" with proper parameters', () => {
+  it('should call "getTimeTableHeight" with proper parameters', () => {
     mount((
       <PluginHost>
         {pluginDepsToComponents({
@@ -127,7 +127,7 @@ describe('GroupingPanel', () => {
       </PluginHost>
     ));
 
-    expect(calculateGroupingPanelHeight)
+    expect(getTimeTableHeight)
       .toBeCalledWith(
         defaultDeps.getter.timeTableElementsMeta,
         defaultDeps.getter.allDayElementsMeta,

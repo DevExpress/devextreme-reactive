@@ -8,7 +8,7 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   viewCellsData as viewCellsDataCore, calculateWeekDateIntervals,
-  VIEW_TYPES, calculateGroupingPanelHeight,
+  VIEW_TYPES, getTimeTableHeight,
 } from '@devexpress/dx-scheduler-core';
 import { BasicView } from './basic-view';
 import { VerticalViewProps } from '../types';
@@ -127,7 +127,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps> {
                     formatDate={formatDate}
                     groups={groups}
                     groupOrientation={groupOrientation}
-                    height={calculateGroupingPanelHeight(
+                    height={getTimeTableHeight(
                       timeTableElementsMeta, allDayElementsMeta,
                       allDayPanelExists, groupOrientation,
                     )}

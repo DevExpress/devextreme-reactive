@@ -8,7 +8,7 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   viewCellsData as viewCellsDataCore, calculateWeekDateIntervals,
-  VIEW_TYPES, calculateGroupingPanelHeight,
+  VIEW_TYPES, getTimeTableHeight,
 } from '@devexpress/dx-scheduler-core';
 import { BasicView } from './basic-view';
 import { WeekViewProps } from '../types';
@@ -131,7 +131,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
                     formatDate={formatDate}
                     groups={groups}
                     groupOrientation={groupOrientation}
-                    height={calculateGroupingPanelHeight(
+                    height={getTimeTableHeight(
                       timeTableElementsMeta, allDayElementsMeta,
                       allDayPanelExists, groupOrientation,
                     )}

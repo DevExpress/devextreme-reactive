@@ -153,12 +153,7 @@ describe('Week View', () => {
       ));
 
       expect(getTimeTableHeight)
-        .toBeCalledWith(
-          {},
-          'allDayElementsMeta',
-          'allDayPanelExists',
-          'groupOrientation',
-        );
+        .toBeCalledWith({});
     });
   });
 });

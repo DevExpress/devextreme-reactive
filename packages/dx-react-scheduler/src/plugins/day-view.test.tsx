@@ -152,11 +152,6 @@ describe('Day View', () => {
     ));
 
     expect(getTimeTableHeight)
-      .toBeCalledWith(
-        {},
-        'allDayElementsMeta',
-        'allDayPanelExists',
-        'groupOrientation',
-      );
+      .toBeCalledWith({});
   });
 });

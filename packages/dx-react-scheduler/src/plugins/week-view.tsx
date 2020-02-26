@@ -131,10 +131,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
                     formatDate={formatDate}
                     groups={groups}
                     groupOrientation={groupOrientation}
-                    height={getTimeTableHeight(
-                      timeTableElementsMeta, allDayElementsMeta,
-                      allDayPanelExists, groupOrientation,
-                    )}
+                    height={getTimeTableHeight(timeTableElementsMeta)}
                     {...params}
                   />
                 );

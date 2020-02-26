@@ -127,10 +127,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps> {
                     formatDate={formatDate}
                     groups={groups}
                     groupOrientation={groupOrientation}
-                    height={getTimeTableHeight(
-                      timeTableElementsMeta, allDayElementsMeta,
-                      allDayPanelExists, groupOrientation,
-                    )}
+                    height={getTimeTableHeight(timeTableElementsMeta)}
                     {...params}
                   />
                 );

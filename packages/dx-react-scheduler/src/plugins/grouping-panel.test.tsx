@@ -128,11 +128,6 @@ describe('GroupingPanel', () => {
     ));
 
     expect(getTimeTableHeight)
-      .toBeCalledWith(
-        defaultDeps.getter.timeTableElementsMeta,
-        defaultDeps.getter.allDayElementsMeta,
-        defaultDeps.getter.allDayPanelExists,
-        VERTICAL_GROUP_ORIENTATION,
-      );
+      .toBeCalledWith(defaultDeps.getter.timeTableElementsMeta);
   });
 });

@@ -71,10 +71,7 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
                   rowSpan={viewCellsData.length}
                   viewType={currentView?.type}
                   cellTextTopOffset={scrollingStrategy?.fixedTopHeight}
-                  height={getTimeTableHeight(
-                    timeTableElementsMeta, allDayElementsMeta,
-                    allDayPanelExists, groupOrientation,
-                  )}
+                  height={getTimeTableHeight(timeTableElementsMeta)}
                 />
               );
             }}

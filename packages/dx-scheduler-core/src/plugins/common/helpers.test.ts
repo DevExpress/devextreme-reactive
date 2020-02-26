@@ -1,6 +1,6 @@
 import {
   getViewType, isMidnight, viewBoundText, checkCellGroupingInfo,
-  isDateValid, areDatesSame,
+  isDateValid, areDatesSame, getTimeTableHeight,
 } from './helpers';
 import { VERTICAL_TYPE, HORIZONTAL_TYPE } from '../../constants';
 import { formatDateTimeGetter } from '../scheduler-core/computeds';
@@ -157,5 +157,20 @@ describe('#checkCellGroupingInfo', () => {
     const appointment = {};
     expect(checkCellGroupingInfo(cell, appointment))
       .toBeTruthy();
+  });
+});
+
+describe('#getTimeTableHeight', () => {
+  it('should return 0 if timeTableElementsMeta.parentRect is undefined', () => {
+    expect(getTimeTableHeight({}))
+      .toBeUndefined();
+  });
+
+  it('should return timetable\'s height', () => {
+    const timeTableElementsMeta = {
+      parentRect: () => ({ height: 'height' }),
+    };
+    expect(getTimeTableHeight(timeTableElementsMeta))
+      .toBe('height');
   });
 });

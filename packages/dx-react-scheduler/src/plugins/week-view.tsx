@@ -118,7 +118,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
               {({
                 currentView, viewCellsData, groups, formatDate,
                 groupOrientation: getGroupOrientation,
-                timeTableElementsMeta, allDayElementsMeta, allDayPanelExists,
+                timeTableElementsMeta,
               }) => {
                 if (currentView.name !== viewName) return <TemplatePlaceholder />;
                 const groupOrientation = getGroupOrientation?.(viewName);

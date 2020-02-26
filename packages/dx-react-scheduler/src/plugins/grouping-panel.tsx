@@ -46,7 +46,7 @@ class GroupingPanelBase extends React.PureComponent<GroupingPanelProps> {
             {({
               viewCellsData, currentView, scrollingStrategy,
               groupByDate, groupOrientation: getGroupOrientation, groups,
-              timeTableElementsMeta, allDayElementsMeta, allDayPanelExists,
+              timeTableElementsMeta,
             }) => {
               const groupOrientation = getGroupOrientation(currentView?.name);
               return groupOrientation === HORIZONTAL_GROUP_ORIENTATION ? (

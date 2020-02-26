@@ -32,6 +32,8 @@ export namespace GroupingPanel {
     viewType: string;
     /** Specifies cells' text top offset. */
     cellTextTopOffset?: number;
+    /** Specifies layout's height in pixels. */
+    height?: number;
   }
   /** Describes properties passed to a component that renders a row on the grouping panel. */
   export interface RowProps extends BaseView.RowProps {}

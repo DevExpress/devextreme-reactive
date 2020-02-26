@@ -1,4 +1,5 @@
-import { CellElementsMeta, FormatterFn, BaseView, Group, GroupOrientation } from '../index';
+import { CellElementsMeta, FormatterFn, BaseView, Group } from '../index';
+import { GroupOrientation } from '@devexpress/dx-scheduler-core';
 
 /* tslint:disable no-namespace max-line-length no-empty-interface */
 /** @internal */
@@ -56,11 +57,21 @@ export namespace AllDayPanel {
     startDate: Date;
     /** The cell’s end time. */
     endDate: Date;
+    /** Information about the cell's grouping. */
+    groupingInfo?: Array<Group>;
+    /** \@deprecated Specifies whether the cell has the right border. */
+    hasRightBorder?: boolean;
+    /** "true" if this cell is last in its group. */
+    endOfGroup?: boolean;
+    /** Scheduler's grouping orientation: either 'Vertical' or 'Horizontal'. */
+    groupOrientation?: GroupOrientation;
   }
   /** Describes properties passed to a component that renders an All Day panel row. */
   export interface RowProps extends BaseView.RowProps {}
   /** Describes properties passed to a component that renders a title cell. */
   export interface TitleCellProps {
+    /** If provided, its height will be equal to cell's default height. */
+    fixedHeight?: boolean;
     /** Returns a localization message by the message key. */
     getMessage: (messageKey: string) => string;
   }

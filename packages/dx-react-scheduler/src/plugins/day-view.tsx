@@ -114,7 +114,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps> {
               {({
                 currentView, viewCellsData, groups, formatDate,
                 groupOrientation: getGroupOrientation,
-                timeTableElementsMeta, allDayElementsMeta, allDayPanelExists,
+                timeTableElementsMeta,
               }) => {
                 if (currentView.name !== viewName) return <TemplatePlaceholder />;
                 const groupOrientation = getGroupOrientation?.(viewName);

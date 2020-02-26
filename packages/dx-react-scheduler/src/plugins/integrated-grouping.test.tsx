@@ -28,6 +28,7 @@ describe('IntegratedGrouping', () => {
       timeTableAppointments: 'timeTableAppointments',
       allDayAppointments: 'allDayAppointments',
       viewCellsData: 'viewCellsData',
+      allDayCellsData: 'allDayCellsData',
       resources: 'resources',
       grouping: 'grouping',
       currentView: { name: 'currentView' },
@@ -106,6 +107,20 @@ describe('IntegratedGrouping', () => {
     expect(expandViewCellsDataWithGroups)
       .toHaveBeenCalledWith('viewCellsData', 'groups', 'resourcesToGroupBy', true, 'groupOrientation');
     expect(getComputedState(tree).viewCellsData)
+      .toBe('groupedViewCellsData');
+  });
+
+  it('should provide viewCellsData getter', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <IntegratedGrouping />
+      </PluginHost>
+    ));
+
+    expect(expandViewCellsDataWithGroups)
+      .toHaveBeenCalledWith('viewCellsData', 'groups', 'resourcesToGroupBy', true, 'groupOrientation');
+    expect(getComputedState(tree).allDayCellsData)
       .toBe('groupedViewCellsData');
   });
 

@@ -32,7 +32,7 @@ describe('AllDayPanel', () => {
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
     });
-    it('should use "All Day" TitleCell', () => {
+    it('should call getMessage with proper parameters', () => {
       const getMessage = jest.fn();
       shallow((
         <TitleCell getMessage={getMessage} />
@@ -40,6 +40,16 @@ describe('AllDayPanel', () => {
 
       expect(getMessage)
         .toHaveBeenCalledWith('allDay');
+    });
+    it('should render title with fixed height', () => {
+      const tree = shallow((
+        <TitleCell fixedHeight {...defaultProps} />
+      ));
+
+      expect(tree.is(`.${classes.fixedHeight}`))
+        .toBeTruthy();
+      expect(tree.find(`.${classes.fixedHeight}`))
+        .toHaveLength(2);
     });
   });
 });

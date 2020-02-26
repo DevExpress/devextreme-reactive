@@ -29,11 +29,11 @@ const TicksLayoutBase = ({
     <Table {...restProps} className={classNames(classes.table, className)}>
       <TableBody>
         {cellsData.map((days, index) => (
-          <>
+          <React.Fragment key={index.toString()}>
             {index % groupHeight === 0 && includeAllDayCell && (
-              <Row key={index.toString()}>
+              <Row key={(index / groupHeight).toString()}>
                 <Cell
-                  // key={index.toString()}
+                  key={`all-day-tick ${index / groupHeight}`}
                   isAllDay
                   startDate={days[0].startDate}
                   endDate={days[0].endDate}
@@ -51,7 +51,7 @@ const TicksLayoutBase = ({
                 groupingInfo={days[0].groupingInfo}
               />
             </Row>
-          </>
+          </React.Fragment>
         ))}
       </TableBody>
     </Table>

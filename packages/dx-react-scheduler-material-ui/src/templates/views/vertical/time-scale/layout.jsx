@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'clsx';
 import Grid from '@material-ui/core/Grid';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -22,9 +23,12 @@ const useStyles = makeStyles(theme => ({
     width: theme.spacing(1),
   },
   cell: {
-    borderBottom: getBrightBorder(theme),
     boxSizing: 'border-box',
     padding: 0,
+    borderBottom: 'none',
+  },
+  verticalCell: {
+    borderBottom: getBrightBorder(theme),
     'tr:last-child &': {
       borderBottom: 'none',
     },
@@ -66,7 +70,12 @@ export const Layout = ({
               const lastDataLabel = groupedLabels[groupedLabels.length - 1];
               return (
                 <TableRow key={groupIndex.toString()}>
-                  <TableCell className={classes.cell}>
+                  <TableCell
+                    className={classNames({
+                      [classes.cell]: true,
+                      [classes.verticalCell]: groupOrientation === VERTICAL_GROUP_ORIENTATION,
+                    })}
+                  >
                     <AllDayTitle fixedHeight />
                     <Label
                       key={firstDataLabel.startDate}

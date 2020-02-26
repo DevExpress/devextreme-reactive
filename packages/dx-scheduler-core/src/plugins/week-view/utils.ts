@@ -1,6 +1,6 @@
 import { PureComputed } from '@devexpress/dx-core';
 import { HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
-import { ViewCell, Group, GroupOrientation, TimeScaleLabelData } from '../../types';
+import { ViewCell, Group, GroupOrientation, TimeScaleLabelData, AllDayCell } from '../../types';
 import { getCellKey } from '../grouping-panel/utils';
 import { getGroupsLastRow } from '../integrated-grouping/helpers';
 
@@ -46,4 +46,16 @@ export const getLabelsForAllGroups: PureComputed<
       groups, cellsData, groupIndex, singleGroupHeight,
     ) as TimeScaleLabelData[],
   ], [] as TimeScaleLabelData[][]);
+};
+
+export const prepareVerticalViewCellsData: PureComputed<
+  [ViewCell[][], AllDayCell[][]], ViewCell[][][]
+> = (cellsData, allDayCellsData) => {
+  const groupCount = allDayCellsData ? allDayCellsData.length : 1;
+  const validCellsData = [];
+  const groupHeight = cellsData.length / groupCount;
+  for (let i = 0; i < groupCount; i += 1) {
+    validCellsData.push(cellsData.slice(i * groupHeight, (i + 1) * groupHeight));
+  }
+  return validCellsData;
 };

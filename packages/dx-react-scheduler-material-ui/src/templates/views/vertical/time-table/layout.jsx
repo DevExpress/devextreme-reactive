@@ -1,17 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { prepareVerticalViewCellsData } from '@devexpress/dx-scheduler-core';
 import { Layout as LayoutBase } from '../../common/layout';
 import { getViewCellKey } from '../../../utils';
-
-const prepareCellsData = (cellsData, allDayCellsData) => {
-  const groupCount = allDayCellsData ? allDayCellsData.length : 1;
-  const validCellsData = [];
-  const groupHeight = cellsData.length / groupCount;
-  for (let i = 0; i < groupCount; i += 1) {
-    validCellsData.push(cellsData.slice(i * groupHeight, (i + 1) * groupHeight));
-  }
-  return validCellsData;
-};
 
 const renderCell = (
   Cell, startDate, endDate, endOfGroup, groupingInfo, groupOrientation,
@@ -43,7 +34,7 @@ export const Layout = React.memo(({
     cellsNumber={cellsData[0].length}
     {...restProps}
   >
-    {prepareCellsData(cellsData, allDayCellsData).map((group, groupIndex) => (
+    {prepareVerticalViewCellsData(cellsData, allDayCellsData).map((group, groupIndex) => (
       <React.Fragment key={groupIndex.toString()}>
         {allDayCellsData && (
           <AllDayRow>

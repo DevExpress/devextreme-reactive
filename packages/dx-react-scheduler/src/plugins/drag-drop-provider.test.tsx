@@ -15,6 +15,7 @@ import {
   calculateDraftAppointments,
 } from '@devexpress/dx-scheduler-core';
 import { DragDropProvider } from './drag-drop-provider';
+import { VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core/src';
 
 // tslint:disable: max-line-length
 jest.mock('@devexpress/dx-scheduler-core', () => ({
@@ -305,6 +306,61 @@ describe('DragDropProvider', () => {
 
       expect(templatePlaceholder.exists())
         .toBeTruthy();
+    });
+    it('should render all-day appointments inside allDayPanel template', () => {
+      const { tree, onOver } = mountPlugin({}, {});
+
+      onOver({ payload: { id: 1 }, clientOffset: 1 });
+      tree.update();
+
+      const timeTableTemplate = tree
+        .find('TemplatePlaceholderBase')
+        .filterWhere(node => node.props().name === 'timeTable').first()
+        .children().find('TemplatePlaceholderBase');
+      const allDayPanelTemplate = tree
+        .find('TemplatePlaceholderBase')
+        .filterWhere(node => node.props().name === 'allDayPanel').first()
+        .children().find('TemplatePlaceholderBase');
+
+      const timeTableTemplateDraftAppointments = timeTableTemplate
+        .find(defaultProps.draftAppointmentComponent);
+      const allDayPanelTemplateAppointments = allDayPanelTemplate
+        .find(defaultProps.draftAppointmentComponent);
+
+      expect(timeTableTemplateDraftAppointments)
+        .toHaveLength(1);
+      expect(allDayPanelTemplateAppointments)
+        .toHaveLength(1);
+    });
+    it('should render all-day appointments inside timeTable template when vertical grouping is used', () => {
+      const deps = {
+        getter: {
+          groupOrientation: () => VERTICAL_GROUP_ORIENTATION,
+        },
+      };
+      const { tree, onOver } = mountPlugin({}, deps);
+
+      onOver({ payload: { id: 1 }, clientOffset: 1 });
+      tree.update();
+
+      const timeTableTemplate = tree
+        .find('TemplatePlaceholderBase')
+        .filterWhere(node => node.props().name === 'timeTable').first()
+        .children().find('TemplatePlaceholderBase');
+      const allDayPanelTemplate = tree
+        .find('TemplatePlaceholderBase')
+        .filterWhere(node => node.props().name === 'allDayPanel').first()
+        .children().find('TemplatePlaceholderBase');
+
+      const timeTableTemplateDraftAppointments = timeTableTemplate
+        .find(defaultProps.draftAppointmentComponent);
+      const allDayPanelTemplateAppointments = allDayPanelTemplate
+        .find(defaultProps.draftAppointmentComponent);
+
+      expect(timeTableTemplateDraftAppointments)
+        .toHaveLength(2);
+      expect(allDayPanelTemplateAppointments)
+        .toHaveLength(0);
     });
   });
 

@@ -1,6 +1,12 @@
 import * as React from 'react';
 import { createMount, getClasses } from '@material-ui/core/test-utils';
 import { VerticalAppointment } from './vertical-appointment';
+import { addCommaAndSpaceToString } from '../utils';
+
+jest.mock('../utils', () => ({
+  ...require.requireActual('../utils'),
+  addCommaAndSpaceToString: jest.fn(),
+}));
 
 describe('VerticalAppointment', () => {
   const defaultProps = {
@@ -149,6 +155,14 @@ describe('VerticalAppointment', () => {
         .toBeTruthy();
       expect(tree.find(`.${classes.middleContainer}`).exists())
         .toBeFalsy();
+    });
+    it('should call addCommaAndSpaceToString', () => {
+      mount((
+        <VerticalAppointment {...defaultProps} durationType="short" />
+      ));
+
+      expect(addCommaAndSpaceToString)
+        .toBeCalledWith('title');
     });
   });
 });

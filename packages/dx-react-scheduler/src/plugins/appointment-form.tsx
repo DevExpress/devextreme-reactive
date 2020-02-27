@@ -18,17 +18,51 @@ import {
   TOGGLE_APPOINTMENT_FORM_VISIBILITY,
   getAppointmentResources,
   ValidResourceInstance,
+  checkMultipleResourceFields,
 } from '@devexpress/dx-scheduler-core';
 
 import {
   AppointmentFormProps, AppointmentFormState, AppointmentTooltip, Appointments,
 } from '../types';
 
+const addDoubleClickToCell = (
+  title, startDate, endDate, groupingInfo, resources,
+  allDay, openFormHandler, addAppointment, params,
+) => {
+  const resourceFields = !!groupingInfo
+    ? groupingInfo.reduce((acc, currentGroup) => (
+      { ...acc, [currentGroup.fieldName]: currentGroup.id }
+    ), {}) : {};
+  const validResourceFields = resources
+    ? checkMultipleResourceFields(resourceFields, resources)
+    : resourceFields;
+
+  const newAppointmentData = {
+    title,
+    startDate,
+    endDate,
+    allDay,
+    ...validResourceFields,
+  };
+
+  return (
+    <TemplatePlaceholder
+      params={{
+        ...params,
+        onDoubleClick: () => {
+          openFormHandler(newAppointmentData);
+          callActionIfExists(addAppointment,
+            { appointmentData: newAppointmentData });
+        },
+      }}
+    />
+  );
+};
+
 const defaultMessages = {
   allDayLabel: 'All Day',
   titleLabel: 'Title',
   commitCommand: 'Save',
-  cancelCommand: 'Cancel',
   detailsLabel: 'Details',
   moreInformationLabel: 'More Information',
   repeatLabel: 'Repeat',
@@ -89,8 +123,8 @@ const prepareChanges = (
 };
 
 const isFormFullSize = (
-  isFormVisisble, changedAppointmentRRule, previousAppointmentRRule,
-) => !!changedAppointmentRRule || (!isFormVisisble && !!previousAppointmentRRule);
+  isFormVisible, changedAppointmentRRule, previousAppointmentRRule,
+) => !!changedAppointmentRRule || (!isFormVisible && !!previousAppointmentRRule);
 
 class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, AppointmentFormState> {
   toggleVisibility: (payload?: any) => void;
@@ -506,26 +540,22 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
         <Template name="cell">
           {(params: any) => (
             <TemplateConnector>
-              {(getters, { addAppointment }) => {
-                const newAppointmentData = {
-                  title: undefined,
-                  startDate: params.startDate,
-                  endDate: params.endDate,
-                  allDay: isAllDayCell(params.startDate, params.endDate),
-                };
-                return (
-                  <TemplatePlaceholder
-                    params={{
-                      ...params,
-                      onDoubleClick: () => {
-                        this.openFormHandler(newAppointmentData);
-                        callActionIfExists(addAppointment,
-                          { appointmentData: newAppointmentData });
-                      },
-                    }}
-                  />
-                );
-              }}
+              {({ resources }, { addAppointment }) => addDoubleClickToCell(
+                undefined, params.startDate, params.endDate, params.groupingInfo, resources,
+                isAllDayCell(params.startDate, params.endDate),
+                this.openFormHandler, addAppointment, params,
+              )}
+            </TemplateConnector>
+          )}
+        </Template>
+
+        <Template name="allDayPanelCell">
+          {(params: any) => (
+            <TemplateConnector>
+              {({ resources }, { addAppointment }) => addDoubleClickToCell(
+                undefined, params.startDate, params.endDate, params.groupingInfo, resources,
+                true, this.openFormHandler, addAppointment, params,
+              )}
             </TemplateConnector>
           )}
         </Template>

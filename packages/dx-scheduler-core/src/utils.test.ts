@@ -8,7 +8,7 @@ import {
   adjustAppointments,
   unwrapGroups,
   getAppointmentStyle,
-  calculateRectByDateIntervals,
+  calculateRectByDateAndGroupIntervals,
   filterByViewBoundaries,
   getRRuleSetWithExDates,
   formatDateToString,
@@ -111,16 +111,17 @@ describe('Utils', () => {
       expect(sortAppointments(appointments))
         .toEqual(sortedAppointments);
     });
-    it('should sort appointments depend on day', () => {
+    it('should place all-day appointments before ordinary ones if they are on the same day', () => {
       const appointments = [
-        { start: moment('2018-07-01 09:00'), end: moment('2018-07-01 12:00') },
-        { start: moment('2018-07-02 10:00'), end: moment('2018-07-02 11:00') },
-        { start: moment('2018-07-01 10:00'), end: moment('2018-07-02 11:00') },
+        { start: moment('2018-07-02 09:30'), end: moment('2018-07-02 12:00') },
+        { start: moment('2018-07-01 10:00'), end: moment('2018-07-01 13:00') },
+        { start: moment('2018-07-02 10:00'), end: moment('2018-07-02 11:00'), allDay: true },
+        { start: moment('2018-07-02 10:00'), end: moment('2018-07-04 11:00'), allDay: true },
       ];
       const sortedAppointments = [
-        appointments[2], appointments[0], appointments[1],
+        appointments[1], appointments[3], appointments[2], appointments[0],
       ];
-      expect(sortAppointments(appointments, true))
+      expect(sortAppointments(appointments))
         .toEqual(sortedAppointments);
     });
   });
@@ -248,6 +249,12 @@ describe('Utils', () => {
           },
         ]);
     });
+    it('shouldn\'t change appointments but should create new ones and change them instead', () => {
+      const groups = [[{ ...appointmentsBase[0] }]];
+      const result = adjustAppointments(groups, true);
+      expect(result[0].items[0])
+        .not.toBe(groups[0][0]);
+    });
   });
   describe('#unwrapGroups', () => {
     it('should calculate appointment offset and reduce coefficient', () => {
@@ -357,7 +364,7 @@ describe('Utils', () => {
         });
     });
   });
-  describe('#calculateRectByDateIntervals', () => {
+  describe('#calculateRectByDateAndGroupIntervals', () => {
     it('should work with horizontal', () => {
       const rectByDatesMock = jest.fn();
       rectByDatesMock.mockImplementation(() => ({
@@ -369,12 +376,14 @@ describe('Utils', () => {
       }));
       const type = { growDirection: 'horizontal' };
       const rectByDatesMeta = {};
-      const intervals = [
+      const intervals = [[
         { start: moment('2018-09-12 10:00'), end: moment('2018-09-13 10:00'), dataItem: 'a' },
         { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 15:00'), dataItem: 'b' },
-      ];
+      ]];
 
-      const rects = calculateRectByDateIntervals(type, intervals, rectByDatesMock, rectByDatesMeta);
+      const rects = calculateRectByDateAndGroupIntervals(
+        type, intervals, rectByDatesMock, rectByDatesMeta,
+      );
 
       expect(rects)
         .toHaveLength(2);
@@ -408,13 +417,15 @@ describe('Utils', () => {
       }));
       const type = { growDirection: 'vertical' };
       const rectByDatesMeta = { cellDuration: 30 };
-      const intervals = [
+      const intervals = [[
         { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 10:10'), dataItem: 'a' },
         { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 10:30'), dataItem: 'b' },
         { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 10:35'), dataItem: 'c' },
-      ];
+      ]];
 
-      const rects = calculateRectByDateIntervals(type, intervals, rectByDatesMock, rectByDatesMeta);
+      const rects = calculateRectByDateAndGroupIntervals(
+        type, intervals, rectByDatesMock, rectByDatesMeta,
+      );
 
       expect(rects)
         .toHaveLength(3);
@@ -460,12 +471,14 @@ describe('Utils', () => {
       }));
       const type = { growDirection: 'horizontal', multiline: false };
       const rectByDatesMeta = {};
-      const intervals = [
+      const intervals = [[
         { start: moment('2018-09-12 10:00'), end: moment('2018-09-13 10:00'), dataItem: 'a' },
         { start: moment('2018-09-13 11:00'), end: moment('2018-09-14 15:00'), dataItem: 'b' },
-      ];
+      ]];
 
-      const rects = calculateRectByDateIntervals(type, intervals, rectByDatesMock, rectByDatesMeta);
+      const rects = calculateRectByDateAndGroupIntervals(
+        type, intervals, rectByDatesMock, rectByDatesMeta,
+      );
 
       expect(rects)
         .toHaveLength(2);

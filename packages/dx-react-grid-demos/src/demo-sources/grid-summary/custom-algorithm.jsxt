@@ -36,7 +36,9 @@ const messages = {
   median: 'Median',
 };
 
-const CurrencyFormatter = ({ value }) => `$${value}`;
+const CurrencyFormatter = ({ value }) => (
+  value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+);
 
 const CurrencyTypeProvider = props => (
   <DataTypeProvider

@@ -21,7 +21,7 @@ describe('TodayButton', () => {
     },
     template: {
       toolbarContent: {},
-    }
+    },
     plugins: ['Toolbar', 'ViewState'],
   };
 

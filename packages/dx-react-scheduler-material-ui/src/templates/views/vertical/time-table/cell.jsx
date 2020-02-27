@@ -4,14 +4,21 @@ import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { makeStyles } from '@material-ui/core/styles';
-import { getBorder } from '../../../utils';
+import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION, VIEW_TYPES } from '@devexpress/dx-scheduler-core';
+import { getBorder, getBrightBorder } from '../../../utils';
+import { SPACING_CELL_HEIGHT } from '../../../constants';
 
 const useStyles = makeStyles(theme => ({
   cell: {
     position: 'relative',
-    height: theme.spacing(6),
+    height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.WEEK]),
     padding: 0,
-    borderLeft: getBorder(theme),
+    boxSizing: 'border-box',
+    borderRight: getBorder(theme),
+    '&:last-child': {
+      borderRight: 'none',
+      paddingRight: 0,
+    },
     'tr:last-child &': {
       borderBottom: 'none',
     },
@@ -21,9 +28,6 @@ const useStyles = makeStyles(theme => ({
     '&:focus': {
       backgroundColor: fade(theme.palette.primary.main, 0.15),
       outline: 0,
-    },
-    '&:last-child': {
-      paddingRight: 0,
     },
   },
   shadedCell: {
@@ -50,6 +54,15 @@ const useStyles = makeStyles(theme => ({
       opacity: 0,
     },
   },
+  brightRightBorder: {
+    borderRight: getBrightBorder(theme),
+    '&:last-child': {
+      borderRight: 'none',
+    },
+  },
+  brightBorderBottom: {
+    borderBottom: getBrightBorder(theme),
+  },
 }));
 
 export const Cell = ({
@@ -60,17 +73,25 @@ export const Cell = ({
   currentTimeIndicatorPosition,
   currentTimeIndicatorComponent: CurrentTimeIndicator,
   isShaded,
+  endOfGroup,
+  groupingInfo,
+  groupOrientation,
+  // @deprecated
+  hasRightBorder,
   ...restProps
 }) => {
   const classes = useStyles({ shadedHeight: currentTimeIndicatorPosition });
   const isNow = !!currentTimeIndicatorPosition;
-
   return (
     <TableCell
       tabIndex={0}
       className={classNames({
         [classes.cell]: true,
         [classes.shadedCell]: isShaded && !isNow,
+        [classes.brightRightBorder]: (endOfGroup || hasRightBorder)
+          && groupOrientation === HORIZONTAL_GROUP_ORIENTATION,
+        [classes.brightBorderBottom]: endOfGroup
+          && groupOrientation === VERTICAL_GROUP_ORIENTATION,
       }, className)}
       {...restProps}
     >
@@ -95,6 +116,10 @@ Cell.propTypes = {
   currentTimeIndicatorPosition: PropTypes.string,
   currentTimeIndicatorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   isShaded: PropTypes.bool,
+  endOfGroup: PropTypes.bool,
+  hasRightBorder: PropTypes.bool,
+  groupingInfo: PropTypes.arrayOf(PropTypes.object),
+  groupOrientation: PropTypes.oneOf([HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION]),
 };
 
 Cell.defaultProps = {
@@ -105,4 +130,8 @@ Cell.defaultProps = {
   currentTimeIndicatorPosition: undefined,
   currentTimeIndicatorComponent: () => null,
   isShaded: false,
+  endOfGroup: false,
+  hasRightBorder: false,
+  groupingInfo: undefined,
+  groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
 };

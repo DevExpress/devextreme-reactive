@@ -8,9 +8,10 @@ export const TableSummaryItem = ({
   value,
   getMessage,
   className,
+  tagName: Tag,
   ...restProps
 }) => (
-  <div
+  <Tag
     className={classNames('dx-g-bs4-table-summary-item', className)}
     {...restProps}
   >
@@ -21,10 +22,11 @@ export const TableSummaryItem = ({
         {children}
       </React.Fragment>
     }
-  </div>
+  </Tag>
 );
 
 TableSummaryItem.propTypes = {
+  tagName: PropTypes.string,
   value: PropTypes.number,
   type: PropTypes.string.isRequired,
   getMessage: PropTypes.func.isRequired,
@@ -33,6 +35,7 @@ TableSummaryItem.propTypes = {
 };
 
 TableSummaryItem.defaultProps = {
+  tagName: 'div',
   value: null,
   className: undefined,
   children: undefined,

@@ -1,4 +1,5 @@
 import { PureComputed } from '@devexpress/dx-core';
+import { Group } from '../types';
 
 export type SchedulerDateTime = Date | number | string;
 export type AppointmentId = number | string;
@@ -50,6 +51,12 @@ export type AllDayCell = {
   startDate: SchedulerDateTime;
   /** The cell’s end time. */
   endDate: SchedulerDateTime;
+  /** Information about the cell's grouping. */
+  groupingInfo?: Group[];
+  /** \@deprecated Specifies whether the cell has the right border. */
+  hasRightBorder?: boolean;
+  /** "true" if this cell is last in its group. */
+  endOfGroup?: boolean;
 };
 
 /** @internal */
@@ -58,6 +65,8 @@ export interface ViewCell {
   endDate?: Date;
   otherMonth?: boolean;
   today?: boolean;
+  groupingInfo?: Group[];
+  endOfGroup?: boolean;
 }
 /** @internal */
 export type DayScaleFn = PureComputed<
@@ -93,7 +102,12 @@ export interface SchedulerView {
 export type ScrollingStrategy = {
   topBoundary: number;
   bottomBoundary: number;
+  leftBoundary: number;
+  rightBoundary: number;
+  fixedTopHeight?: number;
+  fixedLeftWidth?: number;
   changeVerticalScroll: (value: number) => void;
+  changeHorizontalScroll: (value: number) => void;
 };
 
 export type CellElementsMeta = {

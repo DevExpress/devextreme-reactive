@@ -21,7 +21,7 @@ none
 Name | Type | Default | Description
 -----|------|---------|------------
 totalItems? | Array&lt;[SummaryItem](#summaryitem)&gt; | | The total summary items.
-groupItems? | Array&lt;[SummaryItem](#summaryitem)&gt; | | The group summary items.
+groupItems? | Array&lt;[GroupSummaryItem](#groupsummaryitem)&gt; | | The group summary items.
 treeItems? | Array&lt;[SummaryItem](#summaryitem)&gt; | | The tree summary items.
 
 ## Interfaces
@@ -31,9 +31,20 @@ treeItems? | Array&lt;[SummaryItem](#summaryitem)&gt; | | The tree summary items
 Describes the summary item associated with a column.
 
 Field | Type | Description
-------|------|------------
+------|------|--
 columnName | string | The name of a column associated with the current summary item.
 type | [SummaryType](#summarytype) | A summary type.
+
+### GroupSummaryItem
+
+Describes a group summary item.
+
+Extends [SummaryItem](#summaryitem)
+
+Field | Type | Default | Description
+------|------|---------|-----
+showInGroupFooter? | boolean | true | If `true`, the summary item is rendered in the group footer. Otherwise, it is rendered in the group row.
+alignByColumn? | boolean | false | If `true`, the summary item is rendered in the column for which it is calculated. Otherwise, it is appended to the group caption. Applies only when `showInGroupFooter` is set to `false`.
 
 ### SummaryType
 
@@ -54,5 +65,5 @@ none
 Name | Plugin | Type | Description
 -----|--------|------|------------
 totalSummaryItems | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[SummaryItem](#summaryitem)&gt; | Total summary items.
-groupSummaryItems | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[SummaryItem](#summaryitem)&gt; | Group summary items.
+groupSummaryItems | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[GroupSummaryItem](#groupsummaryitem)&gt; | Group summary items.
 treeSummaryItems | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[SummaryItem](#summaryitem)&gt; | Summary items applied to rows that contain child rows.

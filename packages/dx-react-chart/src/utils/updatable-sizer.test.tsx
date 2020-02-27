@@ -15,7 +15,7 @@ describe('UpdatableSizer', () => {
 
     expect(tree.find('Sizer').props()).toEqual({
       onSizeChange,
-      containerComponent: 'div',
+      containerComponent,
     });
   });
 

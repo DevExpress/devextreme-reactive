@@ -1,3 +1,71 @@
+# [2.4.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.4.0...v2.4.1) (2020-02-20)
+
+
+### Bug Fixes
+
+* **react-grid:** add ref to VirtualTable props definition ([#2661](https://github.com/DevExpress/devextreme-reactive/issues/2661)) ([aa0fd1a](https://github.com/DevExpress/devextreme-reactive/commit/aa0fd1a8b0b8cc6dbb3f1dd1b20220775755029b))
+* **react-grid:** allow to change "TableTreeColumn.for" property in runtime ([#2650](https://github.com/DevExpress/devextreme-reactive/issues/2650)) ([bda719e](https://github.com/DevExpress/devextreme-reactive/commit/bda719eb918b1533b1f4c614410de502ccece384))
+* **react-grid:** delete deprecated properties from TableHeaderCell ([#2643](https://github.com/DevExpress/devextreme-reactive/issues/2643)) ([c4d5481](https://github.com/DevExpress/devextreme-reactive/commit/c4d54810743efe7d35b97242757190ed87425b6d))
+* **react-grid:** prevent Sizer's infinite loop ([#2662](https://github.com/DevExpress/devextreme-reactive/issues/2662)) ([ce6b261](https://github.com/DevExpress/devextreme-reactive/commit/ce6b2612590b37b2be8a35ada8c4890f269fe8e6))
+* **react-scheduler:** render all-day appointments and prevent appointments' rendering when timeTableCellElementsMeta is not valid ([#2673](https://github.com/DevExpress/devextreme-reactive/issues/2673)) ([0afd6c3](https://github.com/DevExpress/devextreme-reactive/commit/0afd6c348dcd31c6bd370b86720ea049813f9aac))
+* **react-scheduler:** show multiple resources on cell's double click in the AppointmentForm ([#2670](https://github.com/DevExpress/devextreme-reactive/issues/2670)) ([908c61d](https://github.com/DevExpress/devextreme-reactive/commit/908c61dbb1842504ec76d16d2e4c32b78e95dcdc))
+
+
+### Features
+
+* **react-grid:** publish TableSelection's rowComponent ([#2676](https://github.com/DevExpress/devextreme-reactive/issues/2676)) ([eefb65a](https://github.com/DevExpress/devextreme-reactive/commit/eefb65a8709688736721230e463b059cc23ab64c))
+* **react-scheduler:** add grouping by date ([#2630](https://github.com/DevExpress/devextreme-reactive/issues/2630)) ([9fdbd67](https://github.com/DevExpress/devextreme-reactive/commit/9fdbd678e165bdc27ad61a84980939f0a35bfea0))
+* **react-scheduler-material-ui:** change DayView and WeekView DayScale's today cell appearance ([#2671](https://github.com/DevExpress/devextreme-reactive/issues/2671)) ([35def37](https://github.com/DevExpress/devextreme-reactive/commit/35def378e7a692e9bc20037c3719c28d053093c3))
+
+
+
+# [2.4.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.3.2...v2.4.0) (2020-01-16)
+
+
+### Bug Fixes
+
+* **react-grid:** specify detail row as a dependency for fixed columns ([#2614](https://github.com/DevExpress/devextreme-reactive/issues/2614)) ([54b782c](https://github.com/DevExpress/devextreme-reactive/commit/54b782cb38d8abb17163d754fc1a81d3e384e155))
+* **react-grid:** split band columns with the same name but different parents ([#2618](https://github.com/DevExpress/devextreme-reactive/issues/2618)) ([deecbab](https://github.com/DevExpress/devextreme-reactive/commit/deecbab1cda03846144e22b856676b0cea82e9e6))
+* **react-grid-demos:** provide total count when rows taken from cache ([#2639](https://github.com/DevExpress/devextreme-reactive/issues/2639)) ([6dd41be](https://github.com/DevExpress/devextreme-reactive/commit/6dd41bedebb49b55b1070c5ef3e387f03916b5e2))
+* **react-scheduler:** fix error caused by view switching when all-day panel is used ([#2638](https://github.com/DevExpress/devextreme-reactive/issues/2638)) ([b858ddf](https://github.com/DevExpress/devextreme-reactive/commit/b858ddf6208abb06ae9b872a142760a5fbc717b6))
+* **react-scheduler:** fix localization messages in Scheduler ([#2628](https://github.com/DevExpress/devextreme-reactive/issues/2628)) ([28584dc](https://github.com/DevExpress/devextreme-reactive/commit/28584dcb0e2b2ac176123cb87e9ca4f78ff4faf4))
+
+
+### Features
+
+* **react-grid:** add scroll to row in virtual table ([#2511](https://github.com/DevExpress/devextreme-reactive/issues/2511)) ([089c1b5](https://github.com/DevExpress/devextreme-reactive/commit/089c1b5fda7c3a696b78793f64b799684e8a16e8))
+* **react-scheduler:** add horizontal grouping by resources ([#2576](https://github.com/DevExpress/devextreme-reactive/issues/2576)) ([d4ad281](https://github.com/DevExpress/devextreme-reactive/commit/d4ad2814fd21d61fe83fd8ef3d9c118c12afa45b))
+
+
+
+# [2.3.2](https://github.com/DevExpress/devextreme-reactive/compare/v2.3.1...v2.3.2) (2019-12-19)
+
+
+### Bug Fixes
+
+* **react-grid:** Adjust readonly property to match Typescript spec ([#2597](https://github.com/DevExpress/devextreme-reactive/issues/2597)) ([abe64f3](https://github.com/DevExpress/devextreme-reactive/commit/abe64f3e9e77330ca062eea5fb254b96fb040abc))
+* **react-grid-demos:** show no data message after scrolling and filtering ([#2591](https://github.com/DevExpress/devextreme-reactive/issues/2591)) ([b8d60f1](https://github.com/DevExpress/devextreme-reactive/commit/b8d60f114ae86e8522fecad794d7378d6e985f18))
+* **react-scheduler-material-ui:** do not show comma in zero-time appointments' title if the title is undefined ([#2596](https://github.com/DevExpress/devextreme-reactive/issues/2596)) ([4be4e92](https://github.com/DevExpress/devextreme-reactive/commit/4be4e921d506254ccf83cf1efbe53c8fbb8e6f51))
+
+
+
+# [2.3.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.3.0...v2.3.1) (2019-12-05)
+
+
+### Bug Fixes
+
+* **react-core:** allow Sizer to update size on cDU ([#2577](https://github.com/DevExpress/devextreme-reactive/issues/2577)) ([183539f](https://github.com/DevExpress/devextreme-reactive/commit/183539fd1ba77d2c38a741a2f03681145a66dbf1))
+* **react-scheduler:** display all-day appointments of the same day correctly ([#2557](https://github.com/DevExpress/devextreme-reactive/issues/2557)) ([b831767](https://github.com/DevExpress/devextreme-reactive/commit/b83176765f6c8849a17adc258d582c76cab55d7d))
+* **react-scheduler:** display horizontal appointments in chronological order ([#2579](https://github.com/DevExpress/devextreme-reactive/issues/2579)) ([0c1071b](https://github.com/DevExpress/devextreme-reactive/commit/0c1071bb364befc524676c7926be9e76dd7018ec))
+* **react-scheduler:** open the AppointmentForm from AllDayPanel ([#2583](https://github.com/DevExpress/devextreme-reactive/issues/2583)) ([8d384e0](https://github.com/DevExpress/devextreme-reactive/commit/8d384e0f717544271c6fc2b0bf1c7bdf4b4a7f89))
+
+
+### Features
+
+* **react-grid:** allow showing group summary in a group row ([#1738](https://github.com/DevExpress/devextreme-reactive/issues/1738)) ([71b14a4](https://github.com/DevExpress/devextreme-reactive/commit/71b14a4a9ba36b55289f1bd7c752c1b8f1b61dc4))
+
+
+
 # [2.3.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.2.1...v2.3.0) (2019-11-22)
 
 

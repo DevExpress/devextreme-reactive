@@ -53,6 +53,15 @@ weeklyRecurrenceSelectorComponent | ComponentType&lt;[AppointmentForm.WeeklyRecu
 
 ## Interfaces
 
+### SelectOption
+
+An option in the Select editor.
+
+Field | Type | Description
+------|------|------------
+id | string &#124; number | The option's id.
+text | string | The option's text.
+
 ### AppointmentForm.OverlayProps
 
 Properties passed to a component that renders the appointment form's overlay.
@@ -126,7 +135,6 @@ readOnly? | boolean | Specifies whether the appointment form is read-only.
 visible | boolean | Specifies whether the layout is visible.
 appointmentData | [AppointmentModel](./scheduler.md#appointmentmodel) | The appointment's data.
 onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | An event that is raised when a field value in the appointment form is changed.
-
 getMessage | (messageKey: string) => string | Uses a localization message's key to retrieve the message.
 locale | string &#124; Array&lt;string&gt; | Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale is used to format date-time values.
 firstDayOfWeek | number | A number between 0 (Sunday) and 6 (Saturday) that specifies the first day of the week.
@@ -192,7 +200,6 @@ firstDayOfWeek | number | A number between 0 (Sunday) and 6 (Saturday) that spec
 locale? | string &#124; Array&lt;string&gt; | Specifies the locale as an IETF BCP 47 language tag or an array of such tags. The locale is used to format date-time values.
 formatDate | [FormatterFn](./scheduler.md#formatterfn) | A function that formats dates based on the locale.
 onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | An event that is raised when a field value in the appointment form is changed.
-
 readOnly? | boolean | Specifies whether the radio group is read-only.
 type? | `endRepeat` &#124; `monthlyRadioGroup` &#124; `yearlyRadioGroup` | The radio group's type.
 getMessage | (messageKey: string) => string | Uses a localization message's key to retrieve the message.
@@ -209,7 +216,7 @@ Field | Type | Description
 ------|------|------------
 value? | string &#124; number | The selected option.
 onValueChange | (nextValue: string &#124; number) => void | Handles value changes.
-availableOptions? | Array&lt;object&gt; | Specifies available menu options.
+availableOptions? | Array&lt;[SelectOption](#selectoption)&gt; | Specifies available menu options.
 type? | `outlinedSelect` &#124; `filledSelect` | The menu's type.
 readOnly | boolean | Specifies whether the menu is read-only.
 
@@ -252,10 +259,9 @@ onValueChange | (nextFieldValue: { [fieldName: string]: any }) => void | Handles
 
 Field | Type | Default | Description
 ------|------|---------|------------
+detailsLabel? | string | `Details` | The "Details" label text.
 allDayLabel? | string | `All Day` | The "All Day" editor's label text.
 titleLabel? | string | `Title` | The "Title" editor's label text.
-startDateLabel? | string | `Start Date` | The "Start Date" editor's label text.
-endDateLabel? | string | `End Date` | The "End Date" editor's label text.
 commitCommand? | string | `Save` | The commit button's text.
 moreInformationLabel? | string | `More Information` | The "More Information" editor’s label text.
 repeatLabel? | string | `Repeat` | The "Repeat" editor’s label text.

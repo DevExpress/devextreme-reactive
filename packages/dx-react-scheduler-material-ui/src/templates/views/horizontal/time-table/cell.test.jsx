@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import { Cell } from './cell';
 
 describe('Horizontal view TimeTable', () => {
@@ -65,6 +66,8 @@ describe('Horizontal view TimeTable', () => {
         .toHaveLength(0);
       expect(tree.find(`.${classes.text}`))
         .toHaveLength(1);
+      expect(tree.is(`.${classes.brightRightBorder}`))
+        .toBeFalsy();
     });
   });
   it('should highlight cells from another month', () => {
@@ -112,5 +115,29 @@ describe('Horizontal view TimeTable', () => {
 
     expect(tree.is(`.${classes.shadedCell}`))
       .toBeTruthy();
+  });
+  it('should render the last cell in a horizontal group', () => {
+    const tree = shallow((
+      <Cell {...defaultProps} endOfGroup />
+    ));
+
+    expect(tree.is(`.${classes.brightRightBorder}`))
+      .toBeTruthy();
+    expect(tree.is(`.${classes.brightBorderBottom}`))
+      .toBeFalsy();
+  });
+  it('should render the last cell in a vertical group', () => {
+    const tree = shallow((
+      <Cell
+        {...defaultProps}
+        endOfGroup
+        groupOrientation={VERTICAL_GROUP_ORIENTATION}
+      />
+    ));
+
+    expect(tree.is(`.${classes.brightBorderBottom}`))
+      .toBeTruthy();
+    expect(tree.is(`.${classes.brightRightBorder}`))
+      .toBeFalsy();
   });
 });

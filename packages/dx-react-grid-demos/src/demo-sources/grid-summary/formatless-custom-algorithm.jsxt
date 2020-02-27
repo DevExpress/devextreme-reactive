@@ -30,7 +30,9 @@ const messages = {
   overpriced: 'Price higher than $6000',
 };
 
-const CurrencyFormatter = ({ value }) => `$${value}`;
+const CurrencyFormatter = ({ value }) => (
+  value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+);
 
 const CurrencyTypeProvider = props => (
   <DataTypeProvider

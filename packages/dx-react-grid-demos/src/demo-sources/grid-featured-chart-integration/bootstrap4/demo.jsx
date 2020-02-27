@@ -23,7 +23,9 @@ import {
 } from '@devexpress/dx-react-grid-bootstrap4';
 import { citiesCount, regionsCount } from '../../../demo-data/chart-data';
 
-const currencyFormatter = ({ value }) => `$${value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+const currencyFormatter = ({ value }) => (
+  value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+);
 const AxisLabel = ({ text, ...restProps }) => (
   <ValueAxis.Label {...restProps} text={currencyFormatter({ value: text })} />
 );

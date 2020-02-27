@@ -1,60 +1,57 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'clsx';
-import TableMUI from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import { withStyles } from '@material-ui/core/styles';
+import { getDayScaleCells } from '@devexpress/dx-scheduler-core';
+import { Table } from '../table';
 
-const styles = {
-  table: {
-    tableLayout: 'fixed',
-  },
-};
-
-const LayoutBase = ({
+export const Layout = React.memo(({
   cellComponent: Cell,
   rowComponent: Row,
+  groupingPanelComponent: GroupingPanel,
   cellsData,
-  className,
-  classes,
   formatDate,
+  groupedByDate,
   ...restProps
 }) => (
-  <TableMUI
-    className={classNames(classes.table, className)}
+  <Table
+    cellsNumber={cellsData[0].length}
     {...restProps}
   >
-    <TableBody>
-      <Row>
-        {cellsData[0].map(({
-          startDate,
-          endDate,
-          today,
-        }, index) => (
-          <Cell
-            key={index.toString()}
-            startDate={startDate}
-            endDate={endDate}
-            today={today}
-            formatDate={formatDate}
-          />
-        ))}
-      </Row>
-    </TableBody>
-  </TableMUI>
-);
+    {!groupedByDate && (
+      <GroupingPanel />
+    )}
+    <Row>
+      {getDayScaleCells(cellsData, groupedByDate).map(({
+        startDate, endDate, today, key,
+        endOfGroup, groupingInfo, colSpan,
+      }) => (
+        <Cell
+          key={key}
+          startDate={startDate}
+          endDate={endDate}
+          today={today}
+          formatDate={formatDate}
+          endOfGroup={endOfGroup}
+          hasRightBorder={endOfGroup}
+          groupingInfo={groupingInfo}
+          colSpan={colSpan}
+        />
+      ))}
+    </Row>
+    {groupedByDate && (
+      <GroupingPanel />
+    )}
+  </Table>
+));
 
-LayoutBase.propTypes = {
-  // oneOfType is a workaround because withStyles returns react object
-  classes: PropTypes.object.isRequired,
+Layout.propTypes = {
   cellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  groupingPanelComponent: PropTypes.func,
   formatDate: PropTypes.func.isRequired,
-  className: PropTypes.string,
+  groupedByDate: PropTypes.bool,
 };
-LayoutBase.defaultProps = {
-  className: undefined,
+Layout.defaultProps = {
+  groupingPanelComponent: () => null,
+  groupedByDate: false,
 };
-
-export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);

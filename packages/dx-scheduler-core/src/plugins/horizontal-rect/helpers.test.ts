@@ -1,13 +1,14 @@
 import moment from 'moment';
-import { getHorizontalRectByDates } from './helpers';
-import { getAllDayCellIndexByDate } from '../all-day-panel/helpers';
-import { getMonthCellIndexByDate } from '../month-view/helpers';
+import { getHorizontalRectByAppointmentData } from './helpers';
+import { getAllDayCellIndexByAppointmentData } from '../all-day-panel/helpers';
+import { getMonthCellIndexByAppointmentData } from '../month-view/helpers';
+import { HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 
 jest.mock('../all-day-panel/helpers', () => ({
-  getAllDayCellIndexByDate: jest.fn(),
+  getAllDayCellIndexByAppointmentData: jest.fn(),
 }));
 jest.mock('../month-view/helpers', () => ({
-  getMonthCellIndexByDate: jest.fn(),
+  getMonthCellIndexByAppointmentData: jest.fn(),
 }));
 
 describe('Horizontal rect helpers', () => {
@@ -67,7 +68,7 @@ describe('Horizontal rect helpers', () => {
       { startDate: moment('2018-08-08'), endDate: moment('2018-08-09') },
     ],
   ];
-  describe('#getHorizontalRectByDates', () => {
+  describe('#getHorizontalRectByAppointmentData', () => {
     const cellElementsMeta = {
       parentRect: () => ({ top: 10, left: 10, width: 250 }),
       getCellRects: [{}, {}, {}, {}, {}, {}, {},
@@ -83,16 +84,22 @@ describe('Horizontal rect helpers', () => {
     });
 
     it('should calculate geometry by dates for single day appointment', () => {
-      getMonthCellIndexByDate
+      getMonthCellIndexByAppointmentData
         .mockImplementationOnce(() => 7)
         .mockImplementationOnce(() => 7);
-      const startDate = new Date('2018-07-05 10:20');
-      const endDate = new Date('2018-07-06 00:00');
+      const appointment = {
+        start: moment(new Date('2018-07-05 10:20')),
+        end: moment(new Date('2018-07-06 00:00')),
+      };
+
       const {
         top, left, height, width, parentWidth,
-      } = getHorizontalRectByDates(
-        startDate,
-        endDate,
+      } = getHorizontalRectByAppointmentData(
+        appointment,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          groupCount: 1,
+        },
         {
           viewCellsData,
           multiline: true,
@@ -107,16 +114,22 @@ describe('Horizontal rect helpers', () => {
       expect(parentWidth).toBe(250);
     });
     it('should calculate geometry by dates for many days appointment', () => {
-      getMonthCellIndexByDate
+      getMonthCellIndexByAppointmentData
         .mockImplementationOnce(() => 7)
         .mockImplementationOnce(() => 9);
-      const startDate = new Date('2018-07-05 00:00');
-      const endDate = new Date('2018-07-08 00:00');
+      const appointment = {
+        start: moment(new Date('2018-07-05 00:00')),
+        end: moment(new Date('2018-07-08 00:00')),
+      };
+
       const {
         top, left, height, width, parentWidth,
-      } = getHorizontalRectByDates(
-        startDate,
-        endDate,
+      } = getHorizontalRectByAppointmentData(
+        appointment,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          groupCount: 1,
+        },
         {
           viewCellsData,
           multiline: true,
@@ -130,15 +143,21 @@ describe('Horizontal rect helpers', () => {
       expect(width).toBe(399);
       expect(parentWidth).toBe(250);
     });
-    it('should correct call with multiline property', () => {
-      getMonthCellIndexByDate.mockImplementation(() => 7);
-      getAllDayCellIndexByDate.mockImplementation(() => 7);
+    it('should call getAllDayCellIndexByAppointmentData with correct parameters', () => {
+      getMonthCellIndexByAppointmentData.mockImplementation(() => 7);
+      getAllDayCellIndexByAppointmentData.mockImplementation(() => 7);
+      const appointment = {
+        start: moment(new Date('2018-07-05 00:00')),
+        end: moment(new Date('2018-07-08 00:00')),
+      };
+      const viewMetaData = {
+        groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+        groupCount: 1,
+      };
 
-      const startDate = new Date('2018-07-05 00:00');
-      const endDate = new Date('2018-07-08 00:00');
-      getHorizontalRectByDates(
-        startDate,
-        endDate,
+      getHorizontalRectByAppointmentData(
+        appointment,
+        viewMetaData,
         {
           viewCellsData,
           multiline: false,
@@ -146,12 +165,22 @@ describe('Horizontal rect helpers', () => {
         },
       );
 
-      expect(getMonthCellIndexByDate)
+      expect(getMonthCellIndexByAppointmentData)
         .not.toBeCalled();
-      expect(getAllDayCellIndexByDate)
+      expect(getAllDayCellIndexByAppointmentData)
         .toBeCalledTimes(2);
-      expect(getAllDayCellIndexByDate)
-        .toHaveBeenCalledWith(viewCellsData, startDate, false);
+      expect(getAllDayCellIndexByAppointmentData)
+        .toHaveBeenCalledWith(
+          viewCellsData,
+          viewMetaData,
+          appointment.start.toDate(), appointment, false,
+        );
+      expect(getAllDayCellIndexByAppointmentData)
+        .toHaveBeenCalledWith(
+          viewCellsData,
+          viewMetaData,
+          appointment.end.toDate(), appointment, true,
+        );
     });
   });
 });

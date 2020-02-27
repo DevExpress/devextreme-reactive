@@ -2,9 +2,12 @@ import { TABLE_DATA_TYPE } from '../table/constants';
 import { TABLE_GROUP_TYPE } from './constants';
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  TableColumn, TableRow, CellColSpanGetter, IsSpecificRowFn,
+  TableColumn, TableRow, IsSpecificRowFn,
   TableColumnsWithDraftGroupingFn,
   TableColumnsWithGroupingFn,
+  GroupCellColSpanGetter,
+  GroupSummaryChainsFn,
+  SummaryItem,
 } from '../../types';
 
 const tableColumnsWithDraftGrouping: TableColumnsWithDraftGroupingFn = (
@@ -64,11 +67,51 @@ export const tableRowsWithGrouping: PureComputed<[TableRow[], IsSpecificRowFn]> 
   };
 });
 
-export const tableGroupCellColSpanGetter: CellColSpanGetter = getTableCellColSpan => (params) => {
+const isRowLevelSummary: PureComputed<[SummaryItem[], string], boolean> = (
+  groupSummaryItems, colName,
+) => (
+  groupSummaryItems.some((item: any) => (
+    !item.showInGroupFooter && item.alignByColumn && item.columnName === colName),
+  )
+);
+
+const groupSummaryChains: GroupSummaryChainsFn = (tableRow, tableColumns, groupSummaryItems) => {
+  let captionStarted = false;
+  return tableColumns
+    .reduce((acc, col) => {
+      const colName = (col.column && col.column.name) as string;
+      const isStartOfGroupCaption = col.type === TABLE_GROUP_TYPE
+        && tableRow.row.groupedBy === colName;
+      const isIndentColumn = col.type === TABLE_GROUP_TYPE
+        && tableRow.row.groupedBy !== colName && !captionStarted;
+
+      if (isStartOfGroupCaption) {
+        captionStarted = true;
+      }
+
+      if (isStartOfGroupCaption || isIndentColumn) {
+        acc.push([colName]);
+      } else if (groupSummaryItems && isRowLevelSummary(groupSummaryItems, colName)) {
+        acc.push([colName]);
+        acc.push([]);
+      } else {
+        acc[acc.length - 1].push(colName);
+      }
+      return acc;
+    }, [[]] as string[][]);
+};
+
+export const tableGroupCellColSpanGetter: GroupCellColSpanGetter = (
+  getTableCellColSpan, groupSummaryItems,
+) => (params) => {
   const { tableRow, tableColumns, tableColumn } = params;
-  if (tableRow.type === TABLE_GROUP_TYPE && tableColumn.type === TABLE_GROUP_TYPE
-    && tableRow.row.groupedBy === tableColumn.column!.name) {
-    return tableColumns.length - tableColumns.indexOf(tableColumn);
+
+  if (tableRow.type === TABLE_GROUP_TYPE) {
+    const chains = groupSummaryChains(tableRow, tableColumns, groupSummaryItems);
+    const chain = chains.find(ch => ch[0] === (tableColumn.column && tableColumn.column.name));
+    if (chain) {
+      return chain.length;
+    }
   }
   return getTableCellColSpan(params);
 };

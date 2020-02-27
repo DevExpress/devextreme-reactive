@@ -5,10 +5,11 @@ import CalendarToday from '@material-ui/icons/CalendarToday';
 import IconButton from '@material-ui/core/IconButton';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
+import { SMALL_LAYOUT_MEDIA_QUERY, LAYOUT_MEDIA_QUERY } from '../constants';
 
 const styles = ({ spacing }) => ({
   textButton: {
-    '@media (max-width: 700px)': {
+    [`${LAYOUT_MEDIA_QUERY}`]: {
       display: 'none',
     },
   },
@@ -16,7 +17,7 @@ const styles = ({ spacing }) => ({
     '@media (min-width: 700px)': {
       display: 'none',
     },
-    '@media (max-width: 500px)': {
+    [`${SMALL_LAYOUT_MEDIA_QUERY}`]: {
       width: spacing(4),
       height: spacing(4),
       padding: 0,

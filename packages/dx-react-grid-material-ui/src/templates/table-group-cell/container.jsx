@@ -7,7 +7,10 @@ import { getStickyCellStyle } from '../utils';
 const styles = theme => ({
   wrapper: {
     ...getStickyCellStyle(theme),
-    display: 'inline-block',
+    float: 'left',
+    maxWidth: '100%',
+    overflowX: 'hidden',
+    textOverflow: 'ellipsis',
   },
 });
 

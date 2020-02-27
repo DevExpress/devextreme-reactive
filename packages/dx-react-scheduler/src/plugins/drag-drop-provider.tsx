@@ -1,5 +1,4 @@
 import * as React from 'react';
-import moment from 'moment';
 import {
   Plugin, Template, TemplatePlaceholder,
   TemplateConnector, DropTarget, DragSource,
@@ -7,20 +6,10 @@ import {
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
-  cellIndex,
-  cellData,
-  cellType,
-  getAppointmentStyle,
-  intervalDuration,
-  autoScroll,
-  calculateAppointmentTimeBoundaries,
-  calculateInsidePart,
-  calculateDraftAppointments,
-  RESIZE_TOP,
-  RESIZE_BOTTOM,
-  POSITION_START,
-  POSITION_END,
-  getAppointmentResources,
+  cellIndex, cellData, cellType, getAppointmentStyle, intervalDuration, autoScroll,
+  calculateAppointmentTimeBoundaries, calculateInsidePart, RESIZE_TOP, RESIZE_BOTTOM,
+  POSITION_START, POSITION_END, getAppointmentResources, calculateAppointmentGroups,
+  appointmentDragged, calculateDraftAppointments, HORIZONTAL_GROUP_ORIENTATION,
 } from '@devexpress/dx-scheduler-core';
 import { DragDropProviderProps, DragDropProviderState } from '../types';
 
@@ -59,10 +48,12 @@ class DragDropProviderBase extends React.PureComponent<
   offsetTimeTop: number | null = null;
   appointmentStartTime: any = null;
   appointmentEndTime: any = null;
+  appointmentGroupingInfo: any = {};
 
   state: DragDropProviderState = {
     startTime: null,
     endTime: null,
+    appointmentGroupingInfo: null,
     payload: null,
     isOutside: false,
   };
@@ -91,6 +82,7 @@ class DragDropProviderBase extends React.PureComponent<
     this.offsetTimeTop = null;
     this.appointmentStartTime = null;
     this.appointmentEndTime = null;
+    this.appointmentGroupingInfo = {};
 
     this.setState({
       payload: null,
@@ -100,16 +92,19 @@ class DragDropProviderBase extends React.PureComponent<
     });
   }
 
-  applyChanges(startTime, endTime, payload, startEditAppointment, changeAppointment) {
+  applyChanges(
+    startTime, endTime, payload, startEditAppointment, changeAppointment, appointmentGroupingInfo,
+  ) {
     startEditAppointment(payload);
     changeAppointment({
       change: {
         startDate: startTime,
         endDate: endTime,
         ...payload.allDay && { allDay: undefined },
+        ...this.appointmentGroupingInfo,
       },
     });
-    this.setState({ startTime, endTime, payload, isOutside: false });
+    this.setState({ startTime, endTime, payload, isOutside: false, appointmentGroupingInfo });
   }
 
   handlePayloadChange({ payload }, { finishCommitAppointment }) {
@@ -123,8 +118,9 @@ class DragDropProviderBase extends React.PureComponent<
   calculateBoundaries(
     { payload, clientOffset },
     {
-      viewCellsData, startViewDate, endViewDate, excludedDays,
+      viewCellsData, startViewDate, endViewDate, excludedDays, currentView,
       timeTableElementsMeta, allDayElementsMeta, scrollingStrategy,
+      grouping, resources, groups, groupOrientation: getGroupOrientation, groupByDate,
     },
     { changeAppointment, startEditAppointment },
   ) {
@@ -133,6 +129,9 @@ class DragDropProviderBase extends React.PureComponent<
     }
 
     const tableCellElementsMeta = timeTableElementsMeta;
+    const groupOrientation = getGroupOrientation
+      ? getGroupOrientation(currentView?.name)
+      : HORIZONTAL_GROUP_ORIENTATION;
 
     // AllDayPanel doesn't always exist
     const allDayCellsElementsMeta = allDayElementsMeta && allDayElementsMeta.getCellRects
@@ -143,7 +142,9 @@ class DragDropProviderBase extends React.PureComponent<
 
     if (allDayIndex === -1 && timeTableIndex === -1) return;
 
-    const targetData = cellData(timeTableIndex, allDayIndex, viewCellsData);
+    const targetData = cellData(
+      timeTableIndex, allDayIndex, viewCellsData, groups, groupOrientation,
+    );
     const targetType = cellType(targetData);
     const insidePart = calculateInsidePart(
       clientOffset.y, tableCellElementsMeta.getCellRects, timeTableIndex,
@@ -157,19 +158,30 @@ class DragDropProviderBase extends React.PureComponent<
       insidePart, this.offsetTimeTop!,
     );
 
+    const appointmentGroups = calculateAppointmentGroups(
+      targetData.groupingInfo, resources, payload,
+    );
+
     this.appointmentStartTime = appointmentStartTime || this.appointmentStartTime;
     this.appointmentEndTime = appointmentEndTime || this.appointmentEndTime;
+    this.appointmentGroupingInfo = appointmentGroups || this.appointmentGroupingInfo;
     this.offsetTimeTop = offsetTimeTop!;
 
-    const { startTime, endTime } = this.state;
-    if (moment(startTime!).isSame(this.appointmentStartTime)
-      && moment(endTime!).isSame(this.appointmentEndTime)) return;
+    const { startTime, endTime, appointmentGroupingInfo } = this.state;
+    if (!appointmentDragged(
+      this.appointmentStartTime, startTime!,
+      this.appointmentEndTime, endTime!,
+      this.appointmentGroupingInfo, appointmentGroupingInfo,
+    )) {
+      return;
+    }
 
     const draftAppointments = [{
       dataItem: {
         ...payload,
         startDate: this.appointmentStartTime,
         endDate: this.appointmentEndTime,
+        ...this.appointmentGroupingInfo,
       },
       start: this.appointmentStartTime,
       end: this.appointmentEndTime,
@@ -181,14 +193,17 @@ class DragDropProviderBase extends React.PureComponent<
     } = calculateDraftAppointments(
       allDayIndex, draftAppointments, startViewDate,
       endViewDate, excludedDays, viewCellsData, allDayCellsElementsMeta,
-      targetType, cellDurationMinutes, tableCellElementsMeta,
+      targetType, cellDurationMinutes, tableCellElementsMeta, grouping, resources, groups,
+      groupOrientation, groupByDate?.(currentView?.name),
     );
+
     this.allDayDraftAppointments = allDayDraftAppointments;
     this.timeTableDraftAppointments = timeTableDraftAppointments;
 
     this.applyChanges(
       this.appointmentStartTime, this.appointmentEndTime,
       payload, startEditAppointment, changeAppointment,
+      this.appointmentGroupingInfo,
     );
   }
 
@@ -226,17 +241,14 @@ class DragDropProviderBase extends React.PureComponent<
             {({
               viewCellsData, startViewDate, endViewDate, excludedDays,
               timeTableElementsMeta, allDayElementsMeta, scrollingStrategy,
+              grouping, resources, groups, currentView, groupByDate, groupOrientation,
             }, {
               changeAppointment, startEditAppointment, finishCommitAppointment,
             }) => {
               const calculateBoundariesByMove = this.calculateNextBoundaries({
-                viewCellsData,
-                startViewDate,
-                endViewDate,
-                excludedDays,
-                timeTableElementsMeta,
-                allDayElementsMeta,
-                scrollingStrategy,
+                viewCellsData, currentView,  startViewDate, endViewDate, excludedDays,
+                timeTableElementsMeta, allDayElementsMeta, scrollingStrategy,
+                resources, grouping, groups, groupByDate, groupOrientation,
               }, { changeAppointment, startEditAppointment });
               return (
                 <DragDropProviderCore
@@ -319,7 +331,7 @@ class DragDropProviderBase extends React.PureComponent<
                 return (
                   <DraftAppointment
                     data={data}
-                    resources={getAppointmentResources(data, resources, plainResources)}
+                    resources={getAppointmentResources(dataItem, resources, plainResources)}
                     durationType={durationType}
                     style={getAppointmentStyle(geometry)}
                     type={type}

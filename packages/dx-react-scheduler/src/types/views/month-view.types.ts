@@ -1,4 +1,7 @@
-import { ScrollingStrategy, BaseView, CommonViewProps, FormatterFn, CellElementsMeta } from '../index';
+import {
+  ScrollingStrategy, BaseView, CommonViewProps,
+  FormatterFn, CellElementsMeta, GroupingPanel, Group, GroupOrientation,
+} from '../index';
 
 /* tslint:disable no-namespace no-empty-interface */
 export namespace MonthView {
@@ -31,6 +34,14 @@ export namespace MonthView {
     today?: boolean;
     /** A function that formats dates according to the set locale. */
     formatDate?: FormatterFn;
+    /** Information about the cell's grouping. */
+    groupingInfo?: Array<Group>;
+    /** Scheduler's grouping orientation. */
+    groupOrientation?: GroupOrientation;
+    /** \@deprecated Specifies whether the cell has the right border. */
+    hasRightBorder?: boolean;
+    /** "true" if this cell is last in its group. */
+    endOfGroup?: boolean;
     /** Indicates whether the cell is shaded. */
     isShaded?: boolean;
   }
@@ -44,6 +55,8 @@ export namespace MonthView {
     dayScaleComponent: React.ComponentType<BaseView.DayScaleLayoutProps>;
     /** A component that renders a time table layout. */
     timeTableComponent: React.ComponentType<BaseView.TimeTableLayoutProps>;
+    /** A component that renders a day scale empty cell. */
+    dayScaleEmptyCellComponent?: React.ComponentType<BaseView.DayScaleEmptyCellProps>;
     /** The scrolling API callback */
     setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
   }
@@ -60,6 +73,8 @@ export namespace MonthView {
     cellComponent: React.ComponentType<BaseView.DayScaleCellProps>;
     /** A component that renders a month scale row. */
     rowComponent: React.ComponentType<BaseView.RowProps>;
+    /** A component that renders the grouping panel. */
+    groupingPanelComponent?: React.ComponentType<GroupingPanel.HorizontalLayoutProps>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
   }
@@ -72,4 +87,6 @@ export interface MonthViewProps extends CommonViewProps {
   dayScaleLayoutComponent: React.ComponentType<MonthView.DayScaleLayoutProps>;
   /** A component that renders a time table layout. */
   timeTableLayoutComponent: React.ComponentType<MonthView.TimeTableLayoutProps>;
+  /** A component that renders a day scale empty cell. */
+  dayScaleEmptyCellComponent?: React.ComponentType<BaseView.DayScaleEmptyCellProps>;
 }

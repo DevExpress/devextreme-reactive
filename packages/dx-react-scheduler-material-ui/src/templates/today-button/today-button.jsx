@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import classNames from 'clsx';
+import { LAYOUT_MEDIA_QUERY } from '../constants';
 
 const styles = ({ spacing }) => ({
   button: {
@@ -11,7 +12,7 @@ const styles = ({ spacing }) => ({
     '&:first-child': {
       marginLeft: 0,
     },
-    '@media (max-width: 700px)': {
+    [`${LAYOUT_MEDIA_QUERY}`]: {
       fontSize: '0.75rem',
     },
   },

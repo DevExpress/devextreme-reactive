@@ -9,7 +9,7 @@ The following plugins implement filtering features:
 - [PagingState](../reference/paging-state.md) - controls the paging state
 - [IntegratedPaging](../reference/integrated-paging.md) - performs built-in data paging
 - [CustomPaging](../reference/custom-paging.md) - allows implementing a custom totalCount calculation logic
-- [PagingPanel](../reference/paging-panel.md) - renders the Paging Panel
+- [PagingPanel](../reference/paging-panel.md) - renders the Paging Panel in the Grid footer
 
 Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 

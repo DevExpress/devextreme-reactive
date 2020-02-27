@@ -1,95 +1,50 @@
+
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'clsx';
-import TableMUI from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import { withStyles } from '@material-ui/core/styles';
-import { cellsMeta } from '../../../utils';
+import { Layout as LayoutBase } from '../../common/layout';
+import { getViewCellKey } from '../../../utils';
 
-const styles = {
-  table: {
-    tableLayout: 'fixed',
-  },
-};
+export const Layout = React.memo(({
+  setCellElementsMeta,
+  cellComponent: Cell,
+  rowComponent: Row,
+  cellsData,
+  formatDate,
+  ...restProps
+}) => (
+  <LayoutBase
+    setCellElementsMeta={setCellElementsMeta}
+    cellsNumber={cellsData[0].length}
+    {...restProps}
+  >
+    {cellsData.map((row, index) => (
+      <Row key={index.toString()}>
+        {row.map(({
+          startDate, endDate, today, otherMonth,
+          groupingInfo, endOfGroup, groupOrientation,
+        }) => (
+          <Cell
+            key={getViewCellKey(startDate, groupingInfo)}
+            startDate={startDate}
+            endDate={endDate}
+            today={today}
+            otherMonth={otherMonth}
+            formatDate={formatDate}
+            endOfGroup={endOfGroup}
+            hasRightBorder={endOfGroup}
+            groupingInfo={groupingInfo}
+            groupOrientation={groupOrientation}
+          />
+        ))}
+      </Row>
+    ))}
+  </LayoutBase>
+));
 
-class LayoutBase extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.table = React.createRef();
-  }
-
-  componentDidMount() {
-    this.setCells();
-  }
-
-  componentDidUpdate() {
-    this.setCells();
-  }
-
-  setCells() {
-    const { setCellElementsMeta } = this.props;
-
-    const tableElement = this.table.current;
-    setCellElementsMeta(cellsMeta(tableElement));
-  }
-
-  render() {
-    const {
-      setCellElementsMeta,
-      cellComponent: Cell,
-      rowComponent: Row,
-      classes,
-      className,
-      cellsData,
-      formatDate,
-      ...restProps
-    } = this.props;
-
-    return (
-      <TableMUI
-        ref={this.table}
-        className={classNames(classes.table, className)}
-        {...restProps}
-      >
-        <TableBody>
-          {cellsData.map(row => (
-            <Row key={row[0].startDate.toString()}>
-              {row.map(({
-                startDate,
-                endDate,
-                today,
-                otherMonth,
-              }) => (
-                <Cell
-                  key={startDate}
-                  startDate={startDate}
-                  endDate={endDate}
-                  today={today}
-                  otherMonth={otherMonth}
-                  formatDate={formatDate}
-                />
-              ))}
-            </Row>
-          ))}
-        </TableBody>
-      </TableMUI>
-    );
-  }
-}
-
-LayoutBase.propTypes = {
-  // oneOfType is a workaround because withStyles returns react object
+Layout.propTypes = {
   cellsData: PropTypes.arrayOf(Array).isRequired,
-  classes: PropTypes.object.isRequired,
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   formatDate: PropTypes.func.isRequired,
   setCellElementsMeta: PropTypes.func.isRequired,
-  className: PropTypes.string,
 };
-LayoutBase.defaultProps = {
-  className: undefined,
-};
-
-export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);

@@ -3,14 +3,14 @@ version: 2
 jobs:
   Build Source:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:13
     working_directory: ~/circleci
     steps:
       - checkout
       - attach_workspace:
           at: ~/circleci
 
-      - run: sudo npm i -g yarn@1.19.1
+      - run: sudo npm i -g yarn@1.21.1 --force
       - run: sudo chmod a+rwx /usr/local/bin/yarn
 
       - run: yarn --no-progress
@@ -23,7 +23,7 @@ jobs:
 
   Site:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:13
     working_directory: ~/circleci
     steps:
       - attach_workspace:
@@ -32,7 +32,7 @@ jobs:
 
   Jest Tests & Linter:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:13
     working_directory: ~/circleci
     steps:
       - attach_workspace:
@@ -42,7 +42,7 @@ jobs:
 
   TestCafe Tests:
     docker:
-      - image: circleci/node:8-browsers
+      - image: circleci/node:13-browsers
     working_directory: ~/circleci
     steps:
       - checkout

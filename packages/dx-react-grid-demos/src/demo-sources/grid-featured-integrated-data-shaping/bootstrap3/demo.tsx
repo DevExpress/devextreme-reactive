@@ -71,7 +71,12 @@ const CurrencyEditor: React.ComponentType<DataTypeProvider.ValueEditorProps> =
 }
 
 const CurrencyFormatter: React.ComponentType<DataTypeProvider.ValueFormatterProps> =
-  ({ value } : DataTypeProvider.ValueFormatterProps) => <i style={{ color: getColor(value) }}>${value}</i>;
+  ({ value } : DataTypeProvider.ValueFormatterProps,
+) => (
+  <i style={{ color: getColor(value) }}>
+    {value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+  </i>
+);
 
 const CurrencyTypeProvider: React.ComponentType<DataTypeProviderProps> =
   (props: DataTypeProviderProps) => (

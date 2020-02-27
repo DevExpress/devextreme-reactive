@@ -1,8 +1,15 @@
 import {
   getRowsVisibleBoundary, getColumnBoundaries,
 } from '../../utils/virtual-table';
-import { GetViewportFn, CheckTableColumnWidths, TableColumn } from '../../types';
+import {
+  GetViewportFn,
+  CheckTableColumnWidths,
+  TableColumn,
+  GetScrollHeightByIndex,
+  GetScrollPosition,
+} from '../../types';
 import { arraysEqual } from './utils';
+import { TOP_POSITION, BOTTOM_POSITION } from './constants';
 
 const VALID_UNITS = ['px', ''];
 /* tslint:disable max-line-length */
@@ -87,4 +94,26 @@ export const checkColumnWidths: CheckTableColumnWidths = (tableColumns) => {
     }
     return acc;
   }, []  as TableColumn[]);
+};
+
+export const calculateScrollHeight: GetScrollHeightByIndex = (rowHeight, index) =>
+  index > -1 ? rowHeight * index : undefined;
+
+export const getScrollTop: GetScrollPosition = (rows, rowsCount, rowId, rowHeight, isDataRemote) => {
+  if (rowId === TOP_POSITION) {
+    return 0;
+  }
+  if (rowId === BOTTOM_POSITION) {
+    return rowsCount * rowHeight;
+  }
+
+  const searchIndexRequired = !isDataRemote && rowId !== undefined;
+  const indexById = searchIndexRequired
+    ? rows.findIndex(row => row.rowId === rowId)
+    : undefined;
+
+  return calculateScrollHeight(
+    rowHeight,
+    indexById!,
+  );
 };

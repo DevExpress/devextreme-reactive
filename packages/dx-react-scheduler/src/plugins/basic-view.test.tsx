@@ -48,7 +48,7 @@ const defaultProps = {
   viewCellsDataComputed: jest.fn(),
   name: 'Day',
   type: 'basic',
-  timeTableRects: jest.fn(),
+  cellDuration: 32,
   layoutComponent: () => null,
   dayScaleLayoutComponent: () => null,
   dayScaleCellComponent: () => null,
@@ -57,6 +57,7 @@ const defaultProps = {
   timeTableRowComponent: () => null,
   timeTableCellComponent: () => null,
   appointmentLayerComponent: () => null,
+  calculateAppointmentsIntervals: jest.fn(),
 };
 
 describe('Basic View', () => {
@@ -64,11 +65,10 @@ describe('Basic View', () => {
     computed.mockImplementation(
       (getters, viewName, baseComputed) => baseComputed(getters, viewName),
     );
+    defaultProps.calculateAppointmentsIntervals.mockImplementation(() => () =>
+      'calculateAppointmentsIntervals');
     defaultProps.viewCellsDataComputed.mockImplementation(
       () => () => [[{}, {}], [{}, {}]],
-    );
-    defaultProps.timeTableRects.mockImplementation(
-      () => [{ data: 1 }],
     );
     viewCellsData.mockImplementation(() => [
       [{}, {}],
@@ -212,10 +212,6 @@ describe('Basic View', () => {
         .props().setCellElementsMeta;
       setCellElementsMeta('elementsMeta');
 
-      const dayViewState = tree.find(BasicView).state();
-      expect(dayViewState.rects)
-        .toEqual([{ data: 1 }]);
-
       tree.update();
 
       expect(getComputedState(tree).timeTableElementsMeta)
@@ -235,8 +231,26 @@ describe('Basic View', () => {
         .toEqual({
           topBoundary: 0,
           bottomBoundary: 0,
+          leftBoundary: 0,
+          rightBoundary: 0,
           changeVerticalScroll: expect.any(Function),
+          changeHorizontalScroll: expect.any(Function),
         });
+    });
+    it('should provide "timeTableAppointments" getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <BasicView
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).timeTableAppointments)
+        .toEqual('calculateAppointmentsIntervals');
+      expect(defaultProps.calculateAppointmentsIntervals)
+        .toHaveBeenCalledWith(defaultProps.cellDuration);
     });
     it('should not override previous view type', () => {
       const prevView = { name: 'Month', type: 'month' };
@@ -282,7 +296,13 @@ describe('Basic View', () => {
       const customDayScaleLayout = () => null;
       const tree = mount((
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
+          {pluginDepsToComponents({
+            ...defaultDeps,
+            getter: {
+              ...defaultDeps.getter,
+              groupByDate: () => true,
+            },
+          })}
           <BasicView
             {...defaultProps}
             dayScaleLayoutComponent={customDayScaleLayout}
@@ -296,6 +316,7 @@ describe('Basic View', () => {
           cellComponent: defaultProps.dayScaleCellComponent,
           rowComponent: defaultProps.dayScaleRowComponent,
           cellsData: [[{}, {}], [{}, {}]],
+          groupedByDate: true,
         });
     });
     it('should render time table', () => {
@@ -332,6 +353,21 @@ describe('Basic View', () => {
       ));
 
       expect(tree.find(customAppointmentLayer).exists())
+        .toBeTruthy();
+    });
+    it('should render day scale empty cell', () => {
+      const customEmptyCell = () => null;
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <BasicView
+            {...defaultProps}
+            dayScaleEmptyCellComponent={customEmptyCell}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find(customEmptyCell).exists())
         .toBeTruthy();
     });
   });

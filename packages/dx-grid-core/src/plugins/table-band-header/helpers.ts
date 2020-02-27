@@ -16,24 +16,29 @@ export const isBandedOrHeaderRow: IsSpecificRowFn = tableRow => isBandedTableRow
 export const isNoDataColumn = (columnType: symbol) => columnType !== TABLE_DATA_TYPE;
 
 export const getColumnMeta: GetColumnBandMetaFn = (
-  columnName, bands, tableRowLevel,
+  columnName, bands, tableRowLevel, key = '',
   level = 0, title = null, result = null,
-) => bands.reduce((acc, column) => {
-  if (column.columnName === columnName) {
-    return { ...acc, title, level };
+) => bands.reduce((acc, band) => {
+  if (band.columnName === columnName) {
+    return { ...acc, title, level, key };
   }
-  if (column.children !== undefined) {
+  if (band.children !== undefined) {
+    const rowLevelPassed = level > tableRowLevel;
+    const bandTitle = rowLevelPassed ? title : band.title;
+    const bandKey = rowLevelPassed ? key : `${key}_${bandTitle}`;
+
     return getColumnMeta(
       columnName,
-      column.children,
+      band.children,
       tableRowLevel,
+      bandKey,
       level + 1,
-      level > tableRowLevel ? title : column.title,
+      bandTitle,
       acc,
     );
   }
   return acc;
-}, result || { level, title });
+}, result || { level, title, key: title });
 
 // TODO: refactor
 export const getBandComponent: GetBandComponentFn = (

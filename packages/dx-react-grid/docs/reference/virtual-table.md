@@ -38,6 +38,14 @@ stubRowComponent | ComponentType&lt;[Table.RowProps](#tablerowprops)&gt; | | A c
 stubCellComponent | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a stub table cell if the cell value is not provided.
 stubHeaderCellComponent | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | | A component that renders a stub header cell if the cell value is not provided.
 messages? | [Table.LocalizationMessages](table.md#localization-messages) | | An object that specifies the localization messages.
+onTopRowChange? | (rowId: number &#124; string) => void | | Handles a change of the top row.
+ref? | React.RefObject&lt;typeof VirtualTable&gt; | | A reference to the `VirtualTable` instance
+
+## Methods
+
+Name | Type | Description
+-----|------|------------
+scrollToRow | (rowId: number &#124; string) => void | Scrolls table to a row with the specified ID.
 
 ## Interfaces
 
@@ -77,6 +85,8 @@ Field | Type | Description
 COLUMN_TYPE | symbol | The data column type's indentifier.
 ROW_TYPE | symbol | The data row type's indentifier.
 NODATA_ROW_TYPE | symbol | The nodata row type's indentifier.
+TOP_POSITION | symbol | The top position of the table. Used in scrolling.
+BOTTOM_POSITION | symbol | The bottom position of the table. Used in scrolling.
 
 ## Plugin Developer Reference
 

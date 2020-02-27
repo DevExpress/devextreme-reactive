@@ -2,10 +2,34 @@ import * as React from 'react';
 import {
   Plugin, Template, TemplatePlaceholder, TemplateConnector, PluginComponents,
 } from '@devexpress/dx-react-core';
-import { createClickHandlers } from '@devexpress/dx-core';
-import { POSITION_START, POSITION_END } from '@devexpress/dx-scheduler-core';
+import { createClickHandlers, memoize } from '@devexpress/dx-core';
+import {
+  POSITION_START, POSITION_END, VERTICAL_TYPE,
+  getVerticalRectByAppointmentData, calculateRectByDateAndGroupIntervals,
+  getAppointmentStyle, HORIZONTAL_TYPE, getHorizontalRectByAppointmentData,
+  isAllDayElementsMetaActual, isTimeTableElementsMetaActual,
+  HORIZONTAL_GROUP_ORIENTATION, VIEW_TYPES,
+} from '@devexpress/dx-scheduler-core';
 
 import { AppointmentsProps } from '../types';
+
+const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment" params={params} />;
+
+const renderAppointments = rects => rects.map(({
+  dataItem, type: rectType, fromPrev, toNext,
+  durationType, resources, ...geometry
+}, index) => (
+  <AppointmentPlaceholder
+    key={index.toString()}
+    type={rectType}
+    data={dataItem}
+    fromPrev={fromPrev}
+    toNext={toNext}
+    durationType={durationType}
+    resources={resources}
+    style={getAppointmentStyle(geometry)}
+  />
+));
 
 const pluginDependencies = [
   { name: 'DayView', optional: true },
@@ -22,6 +46,68 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
     recurringIconComponent: 'RecurringIcon',
   };
 
+  updateTimeTableAppointments = memoize((
+    timeTableAppointments, viewCellsData, timeTableElementsMeta, currentView,
+    startViewDate, endViewDate, cellDuration, groups, getGroupOrientation, groupByDate,
+  ) => {
+    if (!isTimeTableElementsMetaActual(viewCellsData, timeTableElementsMeta)) return null;
+
+    const groupOrientation = getGroupOrientation
+      ? getGroupOrientation(currentView?.name)
+      : HORIZONTAL_GROUP_ORIENTATION;
+    const groupCount = groups ? groups[groups.length - 1].length : 1;
+
+    let appointmentType = { growDirection: VERTICAL_TYPE, multiline: false };
+    let getRects = getVerticalRectByAppointmentData as any;
+    if (currentView.type === VIEW_TYPES.MONTH) {
+      appointmentType = { growDirection: HORIZONTAL_TYPE, multiline: true };
+      getRects = getHorizontalRectByAppointmentData;
+    }
+    return renderAppointments(calculateRectByDateAndGroupIntervals(
+      appointmentType, timeTableAppointments, getRects,
+      {
+        startViewDate, endViewDate, cellDuration,
+        viewCellsData, cellElementsMeta: timeTableElementsMeta,
+      },
+      {
+        groupOrientation,
+        groupedByDate: groupByDate?.(currentView?.name),
+        groupCount,
+      },
+    ));
+  });
+
+  updateAllDayAppointments = memoize((
+    allDayAppointments, viewCellsData, allDayElementsMeta, currentView,
+    startViewDate, endViewDate, groups, getGroupOrientation, groupByDate,
+  ) => {
+    const groupOrientation = getGroupOrientation
+      ? getGroupOrientation(currentView?.name)
+      : HORIZONTAL_GROUP_ORIENTATION;
+    const groupCount = groups ? groups[groups.length - 1].length : 1;
+
+    if (!isAllDayElementsMetaActual(
+      viewCellsData, allDayElementsMeta, groupOrientation, groupCount,
+    )) {
+      return null;
+    }
+
+    return renderAppointments(calculateRectByDateAndGroupIntervals(
+      { growDirection: HORIZONTAL_TYPE,  multiline: false },
+      allDayAppointments,
+      getHorizontalRectByAppointmentData,
+      {
+        startViewDate, endViewDate,
+        viewCellsData, cellElementsMeta: allDayElementsMeta,
+      },
+      {
+        groupOrientation,
+        groupedByDate: groupByDate?.(currentView?.name),
+        groupCount,
+      },
+    ));
+  });
+
   render() {
     const {
       splitIndicatorComponent: SplitIndicator,
@@ -36,6 +122,32 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
         name="Appointments"
         dependencies={pluginDependencies}
       >
+        <Template
+          name="timeTableAppointmentLayer"
+        >
+          <TemplateConnector>
+            {({
+              timeTableAppointments, viewCellsData, timeTableElementsMeta, currentView,
+              startViewDate, endViewDate, cellDuration, groupOrientation,  groups, groupByDate,
+            }) => this.updateTimeTableAppointments(
+              timeTableAppointments, viewCellsData, timeTableElementsMeta, currentView,
+              startViewDate, endViewDate, cellDuration, groups, groupOrientation, groupByDate,
+            )}
+          </TemplateConnector>
+        </Template>
+        <Template
+          name="allDayAppointmentLayer"
+        >
+          <TemplateConnector>
+            {({
+              allDayAppointments, viewCellsData, allDayElementsMeta,
+              startViewDate, endViewDate, groupOrientation, currentView, groups, groupByDate,
+            }) => this.updateAllDayAppointments(
+              allDayAppointments, viewCellsData, allDayElementsMeta, currentView,
+              startViewDate, endViewDate, groups, groupOrientation, groupByDate,
+            )}
+          </TemplateConnector>
+        </Template>
         <Template
           name="appointment"
         >

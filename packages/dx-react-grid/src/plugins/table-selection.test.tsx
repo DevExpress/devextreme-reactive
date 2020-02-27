@@ -180,7 +180,7 @@ describe('Table Selection', () => {
       .toMatchObject({
         ...defaultDeps.template.tableRow,
         selectByRowClick: true,
-        selected: false,
+        highlighted: false,
       });
 
     expect(defaultDeps.action.toggleSelection.mock.calls[0][0])
@@ -207,7 +207,7 @@ describe('Table Selection', () => {
     expect(tree.find(defaultProps.rowComponent).props())
       .toMatchObject({
         ...defaultDeps.template.tableRow,
-        selected: true,
+        highlighted: true,
       });
   });
 

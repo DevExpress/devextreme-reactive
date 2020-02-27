@@ -1,5 +1,9 @@
-import { FormatterFn, CellElementsMeta, ScrollingStrategy } from '../index';
+import {
+  FormatterFn, CellElementsMeta, ScrollingStrategy,
+  Group, GroupOrientation,
+} from '../index';
 import { CurrentTimeIndicator } from '../current-time-indicator';
+import { GroupingPanel } from '../grouping';
 
 // tslint:disable: no-namespace
 export interface CommonViewProps {
@@ -50,6 +54,14 @@ export namespace BaseView {
     startDate?: Date;
     /** Specifies the cell's end time. */
     endDate?: Date;
+    /** Information about the cell's grouping. */
+    groupingInfo?: Array<Group>;
+    /** Scheduler's grouping orientation: either 'Vertical' or 'Horizontal'. */
+    groupOrientation?: GroupOrientation;
+    /** \@deprecated Specifies whether the cell has the right border. */
+    hasRightBorder?: boolean;
+    /** "true" if this cell is last in its group. */
+    endOfGroup?: boolean;
     /** Indicates whether the cell is shaded. */
     isShaded?: boolean;
     // tslint:disable-next-line: max-line-length
@@ -71,6 +83,10 @@ export namespace BaseView {
   export interface TimeScaleLayoutProps {
     /** Specifies the cells meta data. */
     cellsData: BaseView.CellData[][];
+    /** Groups shown in the Scheduler. */
+    groups?: Group[][];
+    /** Scheduler's grouping orientation. */
+    groupOrientation?: GroupOrientation;
     /** A component that renders a time scale cell. */
     labelComponent: React.ComponentType<BaseView.TimeScaleLabelProps>;
     /** @internal */
@@ -98,10 +114,14 @@ export namespace BaseView {
   export interface DayScaleLayoutProps {
     /** Specifies the cells meta data. */
     cellsData: BaseView.CellData[][];
+    /** Indicates whether grouping by date is enabled. */
+    groupedByDate?: boolean;
     /** A component that renders a day scale cell. */
     cellComponent: React.ComponentType<BaseView.DayScaleCellProps>;
     /** A component that renders a day scale row. */
     rowComponent: React.ComponentType<BaseView.RowProps>;
+    /** A component that renders the grouping panel. */
+    groupingPanelComponent?: React.ComponentType<GroupingPanel.HorizontalLayoutProps>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
   }
@@ -115,6 +135,12 @@ export namespace BaseView {
     today?: boolean;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
+    /** Information about the cell's grouping. */
+    groupingInfo?: Array<Group>;
+    /** \@deprecated Specifies whether the cell has the right border. */
+    hasRightBorder?: boolean;
+    /** "true" if this cell is last in its group. */
+    endOfGroup?: boolean;
   }
   /** Describes properties passed to a component that renders the appointment layer. */
   export interface AppointmentLayerProps {

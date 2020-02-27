@@ -16,7 +16,7 @@ import { Daily as DailyLayout } from './layouts/daily';
 import { Weekly as WeeklyLayout } from './layouts/weekly';
 import { Monthly as MonthlyLayout } from './layouts/monthly';
 import { Yearly as YearlyLayout } from './layouts/yearly';
-import { TRANSITIONS_TIME } from '../../constants';
+import { TRANSITIONS_TIME, LAYOUT_MEDIA_QUERY } from '../../constants';
 
 const styles = ({ spacing }) => ({
   root: {
@@ -28,7 +28,7 @@ const styles = ({ spacing }) => ({
     boxSizing: 'border-box',
     maxWidth: 0,
     opacity: 0,
-    '@media (max-width: 700px)': {
+    [`${LAYOUT_MEDIA_QUERY}`]: {
       minWidth: '100%',
       maxHeight: 0,
     },
@@ -40,7 +40,7 @@ const styles = ({ spacing }) => ({
     paddingRight: spacing(4),
     paddingLeft: spacing(1),
     opacity: 1,
-    '@media (max-width: 700px)': {
+    [`${LAYOUT_MEDIA_QUERY}`]: {
       width: '100%',
       maxWidth: '700px',
       paddingRight: spacing(2),

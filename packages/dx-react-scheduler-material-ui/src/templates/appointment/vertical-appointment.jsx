@@ -3,6 +3,8 @@ import * as PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
 import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
+import { SMALL_LAYOUT_MEDIA_QUERY } from '../constants';
+import { addCommaAndSpaceToString } from '../utils';
 
 const styles = ({ palette, spacing }) => ({
   title: {
@@ -32,14 +34,14 @@ const styles = ({ palette, spacing }) => ({
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     display: 'flex',
-    '@media (max-width: 500px)': {
+    [`${SMALL_LAYOUT_MEDIA_QUERY}`]: {
       paddingLeft: spacing(0.5),
       paddingRight: spacing(0.5),
     },
   },
   shortContent: {
     padding: spacing(0.25, 1),
-    '@media (max-width: 500px)': {
+    [`${SMALL_LAYOUT_MEDIA_QUERY}`]: {
       paddingLeft: spacing(0.5),
       paddingRight: spacing(0.5),
     },
@@ -101,9 +103,7 @@ const VerticalAppointmentBase = ({
             {isShortHeight ? (
               <div className={classes.shortContainer}>
                 <div className={classNames(classes.title, classes.shortTitle)}>
-                  {data.title}
-                  ,
-                  &nbsp;
+                  {addCommaAndSpaceToString(data.title)}
                 </div>
                 <div className={classNames(classes.time, classes.shortTime)}>
                   {formatDate(data.startDate, HOUR_MINUTE_OPTIONS)}

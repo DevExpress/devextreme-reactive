@@ -6,7 +6,8 @@ import {
   ComputedHelperFn, ViewPredicateFn,
   CalculateFirstDateOfWeekFn, AppointmentMoment,
   Interval, AppointmentGroup, AppointmentUnwrappedGroup,
-  Rect, ElementRect, RectCalculatorBaseFn, CalculateRectByDateIntervalsFn,
+  Rect, ElementRect, RectCalculatorBaseFn,
+  CalculateRectByDateAndGroupIntervalsFn, ViewMetaData,
 } from './types';
 
 export const computed: ComputedHelperFn = (getters, viewName, baseComputed, defaultValue) => {
@@ -80,19 +81,36 @@ export const viewPredicate: ViewPredicateFn = (
   return isAppointmentInBoundary && !isAppointmentInExcludedDays && considerAllDayAppointment;
 };
 
+const compareByDay: PureComputed<
+  [AppointmentMoment, AppointmentMoment], number
+> = (first, second) => {
+  if (first.start.isBefore(second.start, 'day')) return -1;
+  if (first.start.isAfter(second.start, 'day')) return 1;
+  return 0;
+};
+
+const compareByAllDay: PureComputed<
+  [AppointmentMoment, AppointmentMoment], number
+> = (first, second) => {
+  if (first.allDay && !second.allDay) return -1;
+  if (!first.allDay && second.allDay) return 1;
+  return 0;
+};
+
+const compareByTime: PureComputed<
+  [AppointmentMoment, AppointmentMoment], number
+> = (first, second) => {
+  if (first.start.isBefore(second.start)) return -1;
+  if (first.start.isAfter(second.start)) return 1;
+  if (first.end.isBefore(second.end)) return 1;
+  if (first.end.isAfter(second.end)) return -1;
+  return 0;
+};
+
 export const sortAppointments: PureComputed<
-  [AppointmentMoment[], boolean], AppointmentMoment[]
-> = (appointments, byDay = false) => appointments
-  .slice().sort((a, b) => {
-    const compareValue = byDay ? 'day' : undefined;
-    if (a.start.isBefore(b.start, compareValue)) return -1;
-    if (a.start.isAfter(b.start, compareValue)) return 1;
-    if (a.start.isSame(b.start, compareValue)) {
-      if (a.end.isBefore(b.end)) return 1;
-      if (a.end.isAfter(b.end)) return -1;
-    }
-    return 0;
-  });
+  [AppointmentMoment[]], AppointmentMoment[]
+> = appointments => appointments
+  .slice().sort((a, b) => compareByDay(a, b) || compareByAllDay(a, b) || compareByTime(a, b));
 
 export const findOverlappedAppointments: CustomFunction<
   [AppointmentMoment[], boolean], any[]
@@ -135,7 +153,7 @@ export const adjustAppointments: CustomFunction<
 > = (groups, byDay = false) => groups.map((items) => {
   let offset = 0;
   let reduceValue = 1;
-  const appointments = items.slice();
+  const appointments = items.map((appointment: any) => ({ ...appointment }));
   const groupLength = appointments.length;
   for (let startIndex = 0; startIndex < groupLength; startIndex += 1) {
     const appointment = appointments[startIndex];
@@ -182,14 +200,11 @@ export const calculateFirstDateOfWeek: CalculateFirstDateOfWeekFn = (
 export const unwrapGroups: PureComputed<
   [AppointmentGroup[]], AppointmentUnwrappedGroup[]
 > = groups => groups.reduce((acc, { items, reduceValue }) => {
-  acc.push(...items.map(appointment => ({
-    start: appointment.start,
-    end: appointment.end,
-    dataItem: appointment.dataItem,
-    offset: appointment.offset,
-    reduceValue,
-    fromPrev: moment(appointment.start).diff(appointment.dataItem.startDate, 'minutes') > 1,
-    toNext: moment(appointment.dataItem.endDate).diff(appointment.end, 'minutes') > 1,
+  acc.push(...items.map(({ start, end, dataItem, offset, resources, ...restProps }) => ({
+    start, end, dataItem, offset, reduceValue, resources,
+    fromPrev: moment(start).diff(dataItem.startDate, 'minutes') > 1,
+    toNext: moment(dataItem.endDate).diff(end, 'minutes') > 1,
+    ...restProps,
   })));
   return acc;
 }, [] as AppointmentUnwrappedGroup[]);
@@ -210,14 +225,16 @@ export const getAppointmentStyle: PureComputed<
 
 const rectCalculatorBase: RectCalculatorBaseFn = (
   appointment,
-  getRectByDates,
+  viewMetaData,
+  getRectByAppointment,
   options,
-) => getRectByDates(appointment.start, appointment.end, options);
+) => getRectByAppointment(appointment, viewMetaData, options);
 
 const horizontalRectCalculator: CustomFunction<
-  [AppointmentUnwrappedGroup, any], ElementRect
+  [AppointmentUnwrappedGroup, ViewMetaData, any], ElementRect
 > = (
   appointment,
+  viewMetaData,
   {
     rectByDates,
     multiline,
@@ -232,6 +249,7 @@ const horizontalRectCalculator: CustomFunction<
     width, height, parentWidth,
   } = rectCalculatorBase(
     appointment,
+    viewMetaData,
     rectByDates,
     {
       multiline,
@@ -241,6 +259,7 @@ const horizontalRectCalculator: CustomFunction<
   );
 
   return {
+    resources: appointment.resources,
     top: top + ((height / appointment.reduceValue) * appointment.offset),
     height: height / appointment.reduceValue,
     left: toPercentage(left, parentWidth),
@@ -253,9 +272,10 @@ const horizontalRectCalculator: CustomFunction<
 };
 
 const verticalRectCalculator: CustomFunction<
-  [AppointmentUnwrappedGroup, any], ElementRect
+  [AppointmentUnwrappedGroup, ViewMetaData, any], ElementRect
 > = (
   appointment,
+  viewMetaData,
   {
     rectByDates,
     multiline,
@@ -272,6 +292,7 @@ const verticalRectCalculator: CustomFunction<
     width, height, parentWidth,
   } = rectCalculatorBase(
     appointment,
+    viewMetaData,
     rectByDates,
     {
       multiline,
@@ -285,6 +306,7 @@ const verticalRectCalculator: CustomFunction<
   const widthInPx = width / appointment.reduceValue;
 
   return {
+    resources: appointment.resources,
     top,
     height,
     left: toPercentage(left + (widthInPx * appointment.offset), parentWidth),
@@ -297,21 +319,27 @@ const verticalRectCalculator: CustomFunction<
   };
 };
 
-export const calculateRectByDateIntervals: CalculateRectByDateIntervalsFn = (
-  type, intervals, rectByDates, rectByDatesMeta,
+export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIntervalsFn = (
+  type, intervals, rectByDates, rectByDatesMeta, viewMetaData,
 ) => {
   const { growDirection, multiline } = type;
   const isHorizontal = growDirection === HORIZONTAL_TYPE;
 
-  const sorted = sortAppointments(intervals, multiline);
-  const grouped = findOverlappedAppointments(sorted as AppointmentMoment[], isHorizontal);
+  const sorted = intervals.map(sortAppointments);
+  const grouped = sorted.reduce(((acc, sortedGroup) => [
+    ...acc,
+    ...findOverlappedAppointments(sortedGroup as AppointmentMoment[], isHorizontal),
+  ]), [] as AppointmentMoment[]);
 
   const rectCalculator = isHorizontal
     ? horizontalRectCalculator
     : verticalRectCalculator;
 
-  return unwrapGroups(adjustAppointments(grouped, isHorizontal))
-    .map(appointment => rectCalculator(appointment, { rectByDates, multiline, rectByDatesMeta }));
+  return unwrapGroups(adjustAppointments(grouped as any[], isHorizontal))
+    .map(appointment => rectCalculator(
+      appointment, viewMetaData,
+      { rectByDates, multiline, rectByDatesMeta },
+    ));
 };
 
 const expandRecurrenceAppointment = (

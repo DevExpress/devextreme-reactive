@@ -6,6 +6,8 @@ import {
   GroupSummaryValuesFn,
   TreeSummaryValuesFn,
   RowsSummaryValuesFn,
+  ExpandRowsFn,
+  TableRow,
   GroupLevel,
 } from '../../types';
 
@@ -40,6 +42,30 @@ const rowsSummary: RowsSummaryValuesFn = (
     return acc;
   }, [] as SummaryValue[]);
 
+const expandRows: ExpandRowsFn = (
+  rows, getRowLevelKey, getCollapsedRows, isGroupRow, includeGroupRow = false,
+) => {
+  const shouldIncludeRow = includeGroupRow || !isGroupRow
+    ? () => true
+    : (row: TableRow) => !isGroupRow(row);
+
+  return rows
+    .reduce((acc, row) => {
+      if (getRowLevelKey && getRowLevelKey(row)) {
+        if (shouldIncludeRow(row)) {
+          acc.push(row);
+        }
+        const collapsedRows = getCollapsedRows && getCollapsedRows(row);
+        if (collapsedRows) {
+          acc.push(...collapsedRows);
+        }
+        return acc;
+      }
+      acc.push(row);
+      return acc;
+    }, [] as TableRow[]);
+};
+
 export const totalSummaryValues: TotalSummaryValuesFn = (
   rows,
   summaryItems,
@@ -49,20 +75,7 @@ export const totalSummaryValues: TotalSummaryValuesFn = (
   getCollapsedRows,
   calculator = defaultSummaryCalculator,
 ) => {
-  const plainRows = rows.reduce((acc, row) => {
-    if (getRowLevelKey && getRowLevelKey(row)) {
-      if (!isGroupRow || !isGroupRow(row)) {
-        acc.push(row);
-      }
-      const collapsedRows = getCollapsedRows && getCollapsedRows(row);
-      if (collapsedRows) {
-        acc.push(...collapsedRows);
-      }
-      return acc;
-    }
-    acc.push(row);
-    return acc;
-  }, [] as Row[]);
+  const plainRows = expandRows(rows, getRowLevelKey, getCollapsedRows, isGroupRow);
   return rowsSummary(plainRows, summaryItems, getCellValue, calculator);
 };
 
@@ -80,7 +93,15 @@ export const groupSummaryValues: GroupSummaryValuesFn = (
     levels.findIndex(level => level.levelKey === levelKey)
   );
   const summaries = {};
-  rows.forEach((row) => {
+
+  const anyRowLevelSummaryExist = summaryItems.some(item => (
+    !(item as any).showInGroupFooter
+  ));
+  const expandedRows = anyRowLevelSummaryExist
+    ? expandRows(rows, getRowLevelKey, getCollapsedRows, isGroupRow, true)
+    : rows;
+
+  expandedRows.forEach((row) => {
     const levelKey = getRowLevelKey(row);
     const collapsedRows = getCollapsedRows && getCollapsedRows(row);
     let levelIndex = getLevelIndex(levelKey);

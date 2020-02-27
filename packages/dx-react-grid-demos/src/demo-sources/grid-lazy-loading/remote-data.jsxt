@@ -24,8 +24,7 @@ const getRowId = row => row.Id;
 
 const CurrencyFormatter = ({ value }) => (
   <b style={{ color: 'darkblue' }}>
-$
-    {value}
+    {value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
   </b>
 );
 
@@ -131,7 +130,7 @@ export default () => {
     dispatch({
       type: 'UPDATE_ROWS',
       payload: {
-        skip,
+        skip: Math.min(skip, newTotalCount),
         rows: cache.getRows(skip, count),
         totalCount: newTotalCount < MAX_ROWS ? newTotalCount : MAX_ROWS,
       },
@@ -164,7 +163,7 @@ export default () => {
 
   const loadData = () => {
     const {
-      requestedSkip, take, lastQuery, loading, forceReload,
+      requestedSkip, take, lastQuery, loading, forceReload, totalCount,
     } = state;
     const query = buildQueryString();
     if ((query !== lastQuery || forceReload) && !loading) {
@@ -173,7 +172,7 @@ export default () => {
       }
       const cached = cache.getRows(requestedSkip, take);
       if (cached.length === take) {
-        updateRows(requestedSkip, take);
+        updateRows(requestedSkip, take, totalCount);
       } else {
         dispatch({ type: 'FETCH_INIT' });
         fetch(query)

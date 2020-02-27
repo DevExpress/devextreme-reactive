@@ -68,6 +68,9 @@ const parseFile = (source) => {
   const propertiesBlock = extractBlock(source, '### Properties')
     .filter(isNotNone);
 
+  const methodsBlock = extractBlock(source, '## Methods')
+    .filter(isNotNone);
+
   const argumentsBlock = extractBlock(source, '### Arguments', block => block.indexOf('### Return Value') + 1)
     .filter(isTableRow);
 
@@ -108,6 +111,7 @@ const parseFile = (source) => {
   return {
     description,
     properties: propertiesBlock,
+    methods: methodsBlock,
     argumentsBlock: argumentsBlock,
     returnValueBlock: returnValueBlock,
     interfaces: interfacesBlock,
@@ -196,6 +200,7 @@ const getThemesTypeScript = (data, componentName, packageName) => {
       const baseName = name
         .replace(`${componentName}.`, `${componentName}Base.`)
         .replace('Table.', 'TableBase.')
+        .replace('TableSummaryRow.', 'TableSummaryRowBase.')
         .replace('TableHeaderRow.', 'TableHeaderRowBase.');
       return `${acc}export namespace ${namespace} {\n`
         + `  /** ${description} */\n`
@@ -211,6 +216,7 @@ const getThemesTypeScript = (data, componentName, packageName) => {
         + getFormattedLine(line)
           .replace(`${componentName}.`, `${componentName}Base.`)
           .replace('Table.', 'TableBase.')
+          .replace('TableSummaryRow.', 'TableSummaryRowBase.')
           .replace('TableHeaderRow.', 'TableHeaderRowBase.');
       if (componentName !== 'Grid') {
         result = result.replace(/(\s\s\w+):/g, '$1?:');
@@ -219,6 +225,10 @@ const getThemesTypeScript = (data, componentName, packageName) => {
       }
       return result;
     }, '');
+
+  const methods = data.methods
+    .reduce((acc, line) => acc
+      + getFormattedLine(line, ''), '');
 
   const staticFields = data.staticFields
     .reduce((acc, line) => acc
@@ -230,6 +240,7 @@ const getThemesTypeScript = (data, componentName, packageName) => {
         .replace(/\w+\.(\w+:\s)(.+);/, '$1React.ComponentType<$2>;')
         .replace(`${componentName}.`, `${componentName}Base.`)
         .replace('Table.', 'TableBase.')
+        .replace('TableSummaryRow.', 'TableSummaryRowBase.')
         .replace('TableHeaderRow.', 'TableHeaderRowBase.'), '')
         .replace(/(\w+: React\.ComponentType<.*)>/g, '$1 & { className?: string; style?: React.CSSProperties; [x: string]: any }>');
 
@@ -243,7 +254,8 @@ const getThemesTypeScript = (data, componentName, packageName) => {
     + `/** ${data.description} */\n`
     + `export declare const ${componentName}: React.ComponentType<${componentName}Props>`
     + `${staticFields.length ? ` & {\n${staticFields}}` : ''}`
-    + `${pluginComponents.length ? ` & {\n${pluginComponents}}` : ''};\n`;
+    + `${pluginComponents.length ? ` & {\n${pluginComponents}}` : ''}`
+    + `${methods.length ? ` & {\n${methods}}` : ''};\n`;
 };
 
 const ensureDirectory = (dir) => {
@@ -299,7 +311,7 @@ const generateTypeScriptForPackage = (packageName) => {
         .reduce((acc, line) => {
           const matches = /\[(\w+)(?:\.\w+)?\]\(.*#.*\)/.exec(line);
           if (matches !== null && matches[1] !== componentName
-            && matches[1] !== 'Table' && matches[1] !== 'TableHeaderRow'
+            && matches[1] !== 'Table' && matches[1] !== 'TableHeaderRow' && matches[1] !== 'TableSummaryRow'
             && acc.indexOf(matches[1]) === -1) {
             acc.push(matches[1]);
           }

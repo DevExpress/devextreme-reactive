@@ -40,6 +40,7 @@ class TableTreeColumnBase extends React.PureComponent<TableTreeColumnProps> {
           { name: 'Table' },
           { name: 'TableHeaderRow', optional: true },
         ]}
+        key={forColumnName}
       >
         <Getter name="tableTreeColumnName" value={forColumnName} />
         <Template

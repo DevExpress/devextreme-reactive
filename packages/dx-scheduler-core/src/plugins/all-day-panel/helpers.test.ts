@@ -1,7 +1,17 @@
 import moment from 'moment';
 import {
-  allDayPredicate, sliceAppointmentsByBoundaries, getAllDayCellIndexByDate,
+  allDayPredicate, sliceAppointmentsByBoundaries,
+  getAllDayCellIndexByAppointmentData, sliceAppointmentsByDays,
+  allDayCellsData, getAllDayVerticallyGroupedColumnIndex,
+  getAllDayHorizontallyGroupedColumnIndex, getAllDayVerticallyGroupedRowIndex,
 } from './helpers';
+import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '../../constants';
+import { allDayCells } from '../common/computeds';
+
+jest.mock('../common/computeds', () => ({
+  ...require.requireActual('../common/computeds'),
+  allDayCells: jest.fn(),
+}));
 
 describe('AllDayPanel helpers', () => {
   describe('#allDayAppointment', () => {
@@ -140,8 +150,8 @@ describe('AllDayPanel helpers', () => {
     });
   });
 
-  describe('#getAllDayCellIndexByDate', () => {
-    const viewCellsData = [
+  describe('#getAllDayCellIndexByAppointmentData', () => {
+    const viewCellsDataBase = [
       [
         { startDate: new Date('2018-06-24 08:00'), endDate: new Date('2018-06-24 08:30') },
         { startDate: new Date('2018-06-25 08:00'), endDate: new Date('2018-06-25 08:30') },
@@ -155,19 +165,251 @@ describe('AllDayPanel helpers', () => {
         { startDate: new Date('2018-06-27 08:30'), endDate: new Date('2018-06-27 09:00') },
       ],
     ];
+    const horizontallyGroupedViewCells = [[{
+      startDate: new Date('2018-06-24 08:00'),
+      endDate: new Date('2018-06-24 08:30'),
+      groupingInfo: [{ fieldName: 'test', id: 1 }],
+    }, {
+      startDate: new Date('2018-06-24 08:00'),
+      endDate: new Date('2018-06-24 08:30'),
+      groupingInfo: [{ fieldName: 'test', id: 2 }],
+    }]];
+    const verticallyGroupedViewCells = [[{
+      startDate: new Date('2018-06-24 08:00'),
+      endDate: new Date('2018-06-24 08:30'),
+      groupingInfo: [{ fieldName: 'test', id: 1 }],
+    }], [{
+      startDate: new Date('2018-06-24 08:00'),
+      endDate: new Date('2018-06-24 08:30'),
+      groupingInfo: [{ fieldName: 'test', id: 2 }],
+    }]];
+    const firstTestAppointment = { test: 1 };
+    const secondTestAppointment = { test: 2 };
     it('should return cell index', () => {
       const date = '2018-06-24 07:30';
       const takePrev = false;
-      expect(getAllDayCellIndexByDate(viewCellsData, date, takePrev))
+      expect(getAllDayCellIndexByAppointmentData(
+        viewCellsDataBase,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          groupCount: 1,
+        },
+        date, {}, takePrev,
+      ))
         .toEqual(0);
     });
 
     it('should return cell index with takePrev property', () => {
       const date = '2018-06-25';
-      expect(getAllDayCellIndexByDate(viewCellsData, date, false))
+      expect(getAllDayCellIndexByAppointmentData(
+        viewCellsDataBase,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          groupCount: 1,
+        },
+        date, {}, false))
         .toEqual(1);
-      expect(getAllDayCellIndexByDate(viewCellsData, date, true))
+      expect(getAllDayCellIndexByAppointmentData(
+        viewCellsDataBase,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          groupCount: 1,
+        },
+        date, {}, true,
+      ))
         .toEqual(0);
+    });
+
+    it('should return cell index depending on groupingInfo', () => {
+      const date = '2018-06-24 07:30';
+
+      expect(getAllDayCellIndexByAppointmentData(
+        horizontallyGroupedViewCells,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          groupCount: 2,
+        },
+        date, firstTestAppointment, false,
+      ))
+        .toEqual(0);
+      expect(getAllDayCellIndexByAppointmentData(
+        horizontallyGroupedViewCells,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          groupCount: 2,
+        },
+        date, secondTestAppointment, false,
+      ))
+        .toEqual(1);
+    });
+
+    describe('#getAllDayVerticallyGroupedColumnIndex', () => {
+      it('should return column index', () => {
+        const date = moment('2018-06-25 07:30');
+        expect(getAllDayVerticallyGroupedColumnIndex(viewCellsDataBase, date))
+          .toEqual(1);
+      });
+    });
+
+    describe('#getAllDayHorizontallyGroupedColumnIndex', () => {
+      it('should return column index', () => {
+        const date = moment('2018-06-24 08:20');
+        expect(getAllDayHorizontallyGroupedColumnIndex(
+          horizontallyGroupedViewCells, date, firstTestAppointment,
+        ))
+          .toEqual(0);
+        expect(getAllDayHorizontallyGroupedColumnIndex(
+          horizontallyGroupedViewCells, date, secondTestAppointment,
+        ))
+          .toEqual(1);
+      });
+    });
+
+    describe('#getAllDayVerticallyGroupedRowIndex', () => {
+      it('should return row index', () => {
+        expect(getAllDayVerticallyGroupedRowIndex(
+          verticallyGroupedViewCells, firstTestAppointment, 2,
+        ))
+          .toEqual(0);
+        expect(getAllDayVerticallyGroupedRowIndex(
+          verticallyGroupedViewCells, secondTestAppointment, 2,
+        ))
+          .toEqual(1);
+      });
+    });
+  });
+
+  describe('#sliceAppointmentsByDays', () => {
+    it('should return an array with one appointment if it is one-day long', () => {
+      const appointment = {
+        start: moment(new Date(2020, 0, 1, 0, 0)),
+        end: moment(new Date(2020, 0, 1, 23, 59)),
+      };
+
+      const appointments = sliceAppointmentsByDays(appointment, []);
+      expect(appointments)
+        .toHaveLength(1);
+      expect(appointments[0].start.format())
+        .toEqual(moment(new Date(2020, 0, 1, 0, 0)).format());
+      expect(appointments[0].end.format())
+        .toEqual(moment(new Date(2020, 0, 1, 0, 0)).endOf('day').format());
+    });
+
+    it('should return an array of appointments', () => {
+      const appointment = {
+        start: moment(new Date(2020, 0, 1, 0, 0)),
+        end: moment(new Date(2020, 0, 2, 23, 59)),
+      };
+
+      const appointments = sliceAppointmentsByDays(appointment, []);
+      expect(appointments)
+        .toHaveLength(2);
+      expect(appointments[0].start.format())
+        .toEqual(moment(new Date(2020, 0, 1, 0, 0)).format());
+      expect(appointments[0].end.format())
+        .toEqual(moment(new Date(2020, 0, 1, 0, 0)).endOf('day').format());
+      expect(appointments[1].start.format())
+        .toEqual(moment(new Date(2020, 0, 2, 0, 0)).format());
+      expect(appointments[1].end.format())
+        .toEqual(moment(new Date(2020, 0, 2, 0, 0)).endOf('day').format());
+    });
+
+    it('should work with excluded days', () => {
+      const appointment = {
+        start: moment(new Date(2020, 0, 1, 0, 0)),
+        end: moment(new Date(2020, 0, 3, 23, 59)),
+      };
+      const excludedDys = [4];
+
+      const appointments = sliceAppointmentsByDays(appointment, excludedDys);
+      expect(appointments)
+        .toHaveLength(2);
+      expect(appointments[0].start.format())
+        .toEqual(moment(new Date(2020, 0, 1, 0, 0)).format());
+      expect(appointments[0].end.format())
+        .toEqual(moment(new Date(2020, 0, 1, 0, 0)).endOf('day').format());
+      expect(appointments[1].start.format())
+        .toEqual(moment(new Date(2020, 0, 3, 0, 0)).format());
+      expect(appointments[1].end.format())
+        .toEqual(moment(new Date(2020, 0, 3, 0, 0)).endOf('day').format());
+    });
+  });
+
+  describe('#allDayCellsData', () => {
+    it('should call allDayCells if it is not vertical grouping', () => {
+      allDayCellsData('viewCellsData', undefined, 'groupOrientation');
+      allDayCellsData('viewCellsData', [], HORIZONTAL_GROUP_ORIENTATION);
+
+      expect(allDayCells)
+        .toHaveBeenCalledTimes(2);
+      expect(allDayCells)
+        .toHaveBeenCalledWith('viewCellsData');
+    });
+
+    it('should work with vertical grouping', () => {
+      const viewCellsData = [
+        [
+          { startDate: new Date('2020-06-24 08:00'), endDate: new Date('2020-06-24 08:30') },
+          { startDate: new Date('2020-06-25 08:00'), endDate: new Date('2020-06-25 08:30') },
+        ],
+      ];
+      const groups = [
+        [{ id: 1 }, { id: 2 }],
+        [{ id: 3 }, { id: 4 }, { id: 3 }, { id: 4 }],
+      ];
+
+      const result = allDayCellsData(viewCellsData, groups, VERTICAL_GROUP_ORIENTATION);
+      expect(result)
+        .toHaveLength(8);
+
+      expect(result[0])
+        .toEqual({
+          startDate: moment('2020-06-24T00:00').toDate(),
+          endDate: moment('2020-06-25T00:00:00').toDate(),
+          groupingInfo: [{ id: 3 }, { id: 1 }],
+        });
+      expect(result[1])
+        .toEqual({
+          startDate: moment('2020-06-25T00:00').toDate(),
+          endDate: moment('2020-06-26T00:00:00').toDate(),
+          groupingInfo: [{ id: 3 }, { id: 1 }],
+        });
+      expect(result[2])
+        .toEqual({
+          startDate: moment('2020-06-24T00:00').toDate(),
+          endDate: moment('2020-06-25T00:00:00').toDate(),
+          groupingInfo: [{ id: 4 }, { id: 1 }],
+        });
+      expect(result[3])
+        .toEqual({
+          startDate: moment('2020-06-25T00:00').toDate(),
+          endDate: moment('2020-06-26T00:00:00').toDate(),
+          groupingInfo: [{ id: 4 }, { id: 1 }],
+        });
+      expect(result[4])
+        .toEqual({
+          startDate: moment('2020-06-24T00:00').toDate(),
+          endDate: moment('2020-06-25T00:00:00').toDate(),
+          groupingInfo: [{ id: 3 }, { id: 2 }],
+        });
+      expect(result[5])
+        .toEqual({
+          startDate: moment('2020-06-25T00:00').toDate(),
+          endDate: moment('2020-06-26T00:00:00').toDate(),
+          groupingInfo: [{ id: 3 }, { id: 2 }],
+        });
+      expect(result[6])
+        .toEqual({
+          startDate: moment('2020-06-24T00:00').toDate(),
+          endDate: moment('2020-06-25T00:00:00').toDate(),
+          groupingInfo: [{ id: 4 }, { id: 2 }],
+        });
+      expect(result[7])
+        .toEqual({
+          startDate: moment('2020-06-25T00:00').toDate(),
+          endDate: moment('2020-06-26T00:00:00').toDate(),
+          groupingInfo: [{ id: 4 }, { id: 2 }],
+        });
     });
   });
 });

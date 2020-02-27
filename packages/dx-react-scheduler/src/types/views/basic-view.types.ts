@@ -2,7 +2,6 @@ import {
   ViewCell,
   ScrollingStrategy,
   CellElementsMeta,
-  ElementRect,
   MonthView,
   BaseView,
   CommonViewProps,
@@ -12,7 +11,6 @@ import {
 
 /** @internal */
 export type BasicViewState = {
-  rects: readonly ElementRect[];
   scrollingStrategy: ScrollingStrategy;
   timeTableElementsMeta: CellElementsMeta | {};
 };
@@ -31,11 +29,10 @@ export interface BasicViewProps extends CommonViewProps {
   endDayHour?: number;
   /** Specifies the days of week that should not be displayed on the view. Accepts an array of zero-based day indexes (0 - Sunday). */
   excludedDays?: number[];
-  /** The function that calculate time table appointment rects */
-  timeTableRects: any;
+  /** A function that calculates appointments' time intervals. */
+  calculateAppointmentsIntervals: any;
   /** The properties that passed into layout component */
   layoutProps?: {
-    dayScaleEmptyCellComponent: React.ComponentType<BaseView.DayScaleEmptyCellProps>,
     timeScaleComponent: React.ComponentType<BaseView.TimeScaleLayoutProps>,
   };
   layoutComponent: React.ComponentType<any>;
@@ -43,4 +40,6 @@ export interface BasicViewProps extends CommonViewProps {
   dayScaleLayoutComponent: React.ComponentType<BaseView.DayScaleLayoutProps> | React.ComponentType<MonthView.DayScaleLayoutProps>;
   /** A component that renders a time table layout. */
   timeTableLayoutComponent: React.ComponentType<BaseView.TimeTableLayoutProps> | React.ComponentType<MonthView.TimeTableLayoutProps>;
+  /** A component that renders a day scale empty cell. */
+  dayScaleEmptyCellComponent?: React.ComponentType<BaseView.DayScaleEmptyCellProps>;
 }

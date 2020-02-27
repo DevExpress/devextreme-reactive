@@ -1,4 +1,6 @@
-import { AppointmentModel, FormatterFn, ValidResourceInstance, ValidResource } from '../index';
+import {
+  AppointmentModel, FormatterFn, ValidResourceInstance, ValidResource, SelectOption,
+} from '../index';
 
 /* tslint:disable no-namespace max-line-length */
 export namespace AppointmentForm {
@@ -166,7 +168,7 @@ export namespace AppointmentForm {
     /** Handles value changes. */
     onValueChange: (nextValue: string | number) => void;
     /** Specifies available menu options. */
-    availableOptions?: Array<object>;
+    availableOptions?: Array<SelectOption>;
     /** Specifies whether the menu is read-only. */
     readOnly?: boolean;
     /** The menu's type. */
@@ -245,10 +247,6 @@ export namespace AppointmentForm {
     allDayLabel?: string;
     /** The "Title" editor's label text. */
     titleLabel?: string;
-    /** The "Start Date" editor's label text. */
-    startDateLabel?: string;
-    /** The "End Date" editor's label text. */
-    endDateLabel?: string;
     /** The commit button's text. */
     commitCommand?: string;
     /** The "More Information" editor’s label text. */
@@ -303,6 +301,8 @@ export namespace AppointmentForm {
     ofLabel?: string;
     /** The "Every" label text. */
     everyLabel?: string;
+    /** The "Details" label text. */
+    detailsLabel?: string;
   }
 }
 

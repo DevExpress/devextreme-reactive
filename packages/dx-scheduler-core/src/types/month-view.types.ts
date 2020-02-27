@@ -2,6 +2,7 @@ import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import { Appointment, SchedulerDateTime, AppointmentId } from './scheduler-core.types';
 import { AppointmentMoment, ViewCellData } from './all-day-panel.types';
+import { ViewMetaData } from './utils.types';
 
 /** @internal */
 export type TimeBounds = { left: moment.Moment, right: moment.Moment };
@@ -24,13 +25,14 @@ export type MonthCellsDataComputedFn = PureComputed<
 >;
 /** @internal */
 export type CalculateMonthDateIntervalsFn = PureComputed<
-  [Appointment[], Date, Date], AppointmentMoment[]
+  [Appointment[], Date, Date], AppointmentMoment[][]
 >;
 /** @internal */
 export type SliceAppointmentByWeekFn = PureComputed<
   [TimeBounds, AppointmentMoment, number], AppointmentMoment[]
 >;
 /** @internal */
-export type GetMonthCellIndexByDateFn = PureComputed<
-  [ViewCellData[][], SchedulerDateTime, boolean], AppointmentId
+export type GetMonthCellIndexByAppointmentDataFn = PureComputed<
+  [ViewCellData[][], ViewMetaData,
+  SchedulerDateTime, AppointmentMoment, boolean], AppointmentId
 >;

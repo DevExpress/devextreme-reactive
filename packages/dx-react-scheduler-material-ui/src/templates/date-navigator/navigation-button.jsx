@@ -5,10 +5,11 @@ import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
+import { SMALL_LAYOUT_MEDIA_QUERY } from '../constants';
 
 const styles = ({ spacing }) => ({
   button: {
-    '@media (max-width: 500px)': {
+    [`${SMALL_LAYOUT_MEDIA_QUERY}`]: {
       width: spacing(4),
       height: spacing(4),
       padding: 0,

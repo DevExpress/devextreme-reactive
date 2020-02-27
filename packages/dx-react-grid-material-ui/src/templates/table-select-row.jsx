@@ -18,13 +18,13 @@ const TableSelectRowBase = ({
   onToggle,
   row,
   selectByRowClick,
-  selected,
+  highlighted,
   tableColumn,
   tableRow,
   ...restProps
 }) => (
   <TableRow
-    className={classNames({ [classes.selected]: selected }, className)}
+    className={classNames({ [classes.selected]: highlighted }, className)}
     onClick={(e) => {
       if (!selectByRowClick) return;
       e.stopPropagation();
@@ -43,7 +43,7 @@ TableSelectRowBase.propTypes = {
   onToggle: PropTypes.func,
   row: PropTypes.any,
   selectByRowClick: PropTypes.bool,
-  selected: PropTypes.bool,
+  highlighted: PropTypes.bool,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
 };
@@ -54,7 +54,7 @@ TableSelectRowBase.defaultProps = {
   onToggle: () => {},
   row: undefined,
   selectByRowClick: false,
-  selected: false,
+  highlighted: false,
   tableColumn: undefined,
   tableRow: undefined,
 };

@@ -7,12 +7,12 @@ import {
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
-  viewCellsData as viewCellsDataCore, verticalTimeTableRects } from '@devexpress/dx-scheduler-core';
+  viewCellsData as viewCellsDataCore, calculateWeekDateIntervals, VIEW_TYPES,
+} from '@devexpress/dx-scheduler-core';
 import { BasicView } from './basic-view';
 import { WeekViewProps } from '../types';
 
 const DAYS_IN_WEEK = 7;
-const TYPE = 'week';
 const viewCellsDataBaseComputed = (
   cellDuration, startDayHour, endDayHour,
 ) => ({ firstDayOfWeek, intervalCount, excludedDays, currentDate }) => {
@@ -23,7 +23,11 @@ const viewCellsDataBaseComputed = (
     Date.now(),
   );
 };
-const DayScaleEmptyCellPlaceholder = () => <TemplatePlaceholder name="dayScaleEmptyCell" />;
+const calculateAppointmentsIntervalsBaseComputed = cellDuration => ({
+  appointments, startViewDate, endViewDate, excludedDays,
+}) => calculateWeekDateIntervals(
+  appointments, startViewDate, endViewDate, excludedDays, cellDuration,
+);
 const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 
 class WeekViewBase extends React.PureComponent<WeekViewProps> {
@@ -57,7 +61,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
   render() {
     const {
       layoutComponent,
-      dayScaleEmptyCellComponent: DayScaleEmptyCell,
+      dayScaleEmptyCellComponent,
       timeScaleLayoutComponent: TimeScale,
       timeScaleLabelComponent: TimeScaleLabel,
       timeScaleTickCellComponent,
@@ -84,7 +88,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
       >
         <BasicView
           viewCellsDataComputed={viewCellsDataBaseComputed}
-          type={TYPE}
+          type={VIEW_TYPES.WEEK}
           cellDuration={cellDuration}
           name={viewName}
           intervalCount={intervalCount}
@@ -92,6 +96,8 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
           startDayHour={startDayHour}
           endDayHour={endDayHour}
           excludedDays={excludedDays}
+          calculateAppointmentsIntervals={calculateAppointmentsIntervalsBaseComputed}
+          dayScaleEmptyCellComponent={dayScaleEmptyCellComponent}
           dayScaleLayoutComponent={dayScaleLayoutComponent}
           dayScaleCellComponent={dayScaleCellComponent}
           dayScaleRowComponent={dayScaleRowComponent}
@@ -99,29 +105,19 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
           timeTableLayoutComponent={timeTableLayoutComponent}
           timeTableRowComponent={timeTableRowComponent}
           appointmentLayerComponent={appointmentLayerComponent}
-          timeTableRects={verticalTimeTableRects}
           layoutComponent={layoutComponent}
           layoutProps={{
             timeScaleComponent: TimeScalePlaceholder,
-            dayScaleEmptyCellComponent: DayScaleEmptyCellPlaceholder,
           }}
         />
 
-        <Template name="dayScaleEmptyCell">
-          <TemplateConnector>
-            {({ currentView }) => {
-              if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              return (
-                <DayScaleEmptyCell />
-              );
-            }}
-          </TemplateConnector>
-        </Template>
-
         <Template name="timeScale">
           <TemplateConnector>
-            {({ currentView, viewCellsData, formatDate }) => {
+            {({
+              currentView, viewCellsData, groupOrientation: getGroupOrientation, groups, formatDate,
+            }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
+              const groupOrientation = getGroupOrientation?.(viewName);
               return (
                 <TimeScale
                   labelComponent={TimeScaleLabel}
@@ -129,6 +125,8 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
                   rowComponent={timeScaleTicksRowComponent}
                   cellsData={viewCellsData}
                   formatDate={formatDate}
+                  groups={groups}
+                  groupOrientation={groupOrientation}
                 />
               );
             }}

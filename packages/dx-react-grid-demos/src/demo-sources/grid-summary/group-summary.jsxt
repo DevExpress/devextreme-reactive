@@ -20,7 +20,9 @@ import {
   globalSalesValues,
 } from '../../../demo-data/generator';
 
-const CurrencyFormatter = ({ value }) => `$${value}`;
+const CurrencyFormatter = ({ value }) => (
+  value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+);
 
 const CurrencyTypeProvider = props => (
   <DataTypeProvider
@@ -32,9 +34,9 @@ const CurrencyTypeProvider = props => (
 export default () => {
   const [columns] = useState([
     { name: 'region', title: 'Region' },
-    { name: 'sector', title: 'Sector' },
     { name: 'customer', title: 'Customer' },
     { name: 'product', title: 'Product' },
+    { name: 'units', title: 'Units' },
     { name: 'amount', title: 'Sale Amount' },
   ]);
   const [rows] = useState(generateRows({ columnValues: globalSalesValues, length: 8 }));
@@ -50,6 +52,15 @@ export default () => {
   const [groupSummaryItems] = useState([
     { columnName: 'region', type: 'count' },
     { columnName: 'amount', type: 'sum' },
+    {
+      columnName: 'amount', type: 'sum', showInGroupFooter: false,
+    },
+    {
+      columnName: 'amount', type: 'max', showInGroupFooter: false, alignByColumn: true,
+    },
+    {
+      columnName: 'units', type: 'sum', showInGroupFooter: false, alignByColumn: true,
+    },
   ]);
 
   return (

@@ -3,6 +3,9 @@ import {
   Appointment, ViewCell, AppointmentModel, AllDayCell, CellElementsMeta,
 } from './scheduler-core.types';
 import { ElementRect } from './utils.types';
+import { Grouping, GroupOrientation } from './grouping-state.types';
+import { ValidResource } from './resources.types';
+import { Group } from './integrated-grouping.types';
 
 export type ClientOffset = {
   x: number;
@@ -14,15 +17,18 @@ export type TimeType = 'seconds' | 'minutes' | 'hours';
 
 /** @internal */
 export type AllDayRects = PureComputed<
-  [Appointment[], Date,  Date, number[], ViewCell[][], CellElementsMeta], ElementRect[]
+  [Appointment[], Date,  Date, number[], ViewCell[][], CellElementsMeta,
+  Grouping[], ValidResource[], Group[][],  GroupOrientation, boolean], ElementRect[]
 >;
 /** @internal */
 export type VerticalRects = PureComputed<
-  [Appointment[], Date,  Date, number[], ViewCell[][], number, CellElementsMeta], ElementRect[]
+  [Appointment[], Date,  Date, number[], ViewCell[][], number, CellElementsMeta,
+  Grouping[], ValidResource[], Group[][], GroupOrientation, boolean], ElementRect[]
 >;
 /** @internal */
 export type HorizontalRects = PureComputed<
-  [Appointment[], Date,  Date, ViewCell[][], CellElementsMeta], ElementRect[]
+  [Appointment[], Date,  Date, ViewCell[][], CellElementsMeta,
+  Grouping[], ValidResource[], Group[][], GroupOrientation, boolean], ElementRect[]
 >;
 
 type AppointmentBoundaries = {

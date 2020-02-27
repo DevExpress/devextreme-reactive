@@ -2,9 +2,9 @@ import { PureComputed } from '@devexpress/dx-core';
 import {
   AppointmentId, SchedulerDateTime, CellElementsMeta,
 } from './scheduler-core.types';
-import { ViewCellData } from './all-day-panel.types';
+import { ViewCellData, AppointmentMoment } from './all-day-panel.types';
 import { ParentRect, Coordinates } from './horizontal-rect.types';
-import { EndDate } from './appointment-form.types';
+import { ViewMetaData } from './utils.types';
 
 /** @internal */
 export type CellByDate = { index: AppointmentId; startDate: SchedulerDateTime };
@@ -28,14 +28,15 @@ export type VerticalPayload = {
   cellElementsMeta: CellElementsMeta;
 };
 /** @internal */
-export type GetCellByDateFn = PureComputed<
-  [ViewCellData[][], SchedulerDateTime, boolean], CellByDate
+export type GetCellByAppointmentDataFn = PureComputed<
+  [AppointmentMoment, ViewCellData[][], ViewMetaData, SchedulerDateTime, boolean], CellByDate
 >;
 /** @internal */
 export type GetCellRectVerticalFn = PureComputed<
-  [SchedulerDateTime, ViewCellData[][], number, CellElementsMeta, boolean], VerticalCellRect
+  [SchedulerDateTime, AppointmentMoment, ViewCellData[][],
+  number, CellElementsMeta, boolean, ViewMetaData], VerticalCellRect
 >;
 /** @internal */
-export type GetVerticalRectByDatesFn = PureComputed<
-  [SchedulerDateTime, EndDate, VerticalPayload], VerticalCellRectByDate
+export type GetVerticalRectByAppointmentDataFn = PureComputed<
+  [AppointmentMoment, ViewMetaData, VerticalPayload], VerticalCellRectByDate
 >;

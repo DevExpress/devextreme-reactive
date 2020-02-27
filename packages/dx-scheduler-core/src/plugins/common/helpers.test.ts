@@ -1,4 +1,7 @@
-import { getViewType, isMidnight, viewBoundText } from './helpers';
+import {
+  getViewType, isMidnight, viewBoundText, checkCellGroupingInfo,
+  isDateValid, areDatesSame,
+} from './helpers';
 import { VERTICAL_TYPE, HORIZONTAL_TYPE } from '../../constants';
 import { formatDateTimeGetter } from '../scheduler-core/computeds';
 
@@ -101,5 +104,58 @@ describe('viewBoundText', () => {
       expect(text)
         .toBe('6-10 July 2018');
     });
+  });
+  describe('#isDateValid', () => {
+    it('should return true for a valid date', () => {
+      expect(isDateValid(new Date()))
+        .toBeTruthy();
+    });
+    it('should return false for an invalid date', () => {
+      expect(isDateValid(new Date('an invalid date')))
+        .toBeFalsy();
+    });
+  });
+  describe('#areDatesSame', () => {
+    it('should compare two dates', () => {
+      expect(areDatesSame(new Date(2020, 10, 3), '2020-11-03'))
+        .toBeTruthy();
+      expect(areDatesSame(new Date(2020, 10, 3), '2020-11-04'))
+        .toBeFalsy();
+    });
+    it('should compare dates not taking into account time', () => {
+      expect(areDatesSame(new Date(2020, 10, 3, 5), '2020-11-03 15:00'))
+        .toBeTruthy();
+    });
+  });
+});
+
+describe('#checkCellGroupingInfo', () => {
+  it('should return true if appointment\'s and cell\'s groups are equal', () => {
+    const cell = {
+      groupingInfo: [{
+        id: 1, fieldName: 'test',
+      }],
+    };
+    const appointment = { test: 1 };
+    expect(checkCellGroupingInfo(cell, appointment))
+      .toBeTruthy();
+  });
+
+  it('should return false if appointment\'s and cell\'s groups are not equal', () => {
+    const cell = {
+      groupingInfo: [{
+        id: 1, fieldName: 'test',
+      }],
+    };
+    const appointment = { test: 2 };
+    expect(checkCellGroupingInfo(cell, appointment))
+      .toBeFalsy();
+  });
+
+  it('should work without groups', () => {
+    const cell = {};
+    const appointment = {};
+    expect(checkCellGroupingInfo(cell, appointment))
+      .toBeTruthy();
   });
 });

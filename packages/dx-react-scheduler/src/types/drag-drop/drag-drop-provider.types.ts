@@ -67,4 +67,5 @@ export type DragDropProviderState = {
   endTime: SchedulerDateTime | null,
   payload: any,
   isOutside: boolean,
+  appointmentGroupingInfo: any,
 };

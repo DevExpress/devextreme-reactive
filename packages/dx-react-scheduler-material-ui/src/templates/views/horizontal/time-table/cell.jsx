@@ -4,20 +4,23 @@ import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { withStyles } from '@material-ui/core/styles';
-import { DAY_OPTIONS, DAY_SHORT_MONTH_OPTIONS } from '@devexpress/dx-scheduler-core';
-import { getBorder } from '../../../utils';
+import {
+  DAY_OPTIONS, DAY_SHORT_MONTH_OPTIONS,
+  HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION,
+  VIEW_TYPES,
+} from '@devexpress/dx-scheduler-core';
+import { getBorder, getBrightBorder } from '../../../utils';
+import { SMALL_LAYOUT_MEDIA_QUERY, SPACING_CELL_HEIGHT } from '../../../constants';
 
 const styles = theme => ({
   cell: {
     userSelect: 'none',
     verticalAlign: 'top',
     padding: 0,
-    height: 100,
-    borderLeft: getBorder(theme),
-    '&:first-child': {
-      borderLeft: 'none',
-    },
+    height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.MONTH]),
+    borderRight: getBorder(theme),
     '&:last-child': {
+      borderRight: 'none',
       paddingRight: 0,
     },
     'tr:last-child &': {
@@ -30,12 +33,13 @@ const styles = theme => ({
       backgroundColor: fade(theme.palette.primary.main, 0.15),
       outline: 0,
     },
+    boxSizing: 'border-box',
   },
   text: {
     padding: '1em',
     paddingTop: '0.5em',
     textAlign: 'center',
-    '@media (max-width: 500px)': {
+    [`${SMALL_LAYOUT_MEDIA_QUERY}`]: {
       padding: '0.5em',
     },
   },
@@ -65,6 +69,15 @@ const styles = theme => ({
       outline: 0,
     },
   },
+  brightRightBorder: {
+    borderRight: getBrightBorder(theme),
+    '&:last-child': {
+      borderRight: 'none',
+    },
+  },
+  brightBorderBottom: {
+    borderBottom: getBrightBorder(theme),
+  },
 });
 
 const CellBase = React.memo(({
@@ -76,6 +89,11 @@ const CellBase = React.memo(({
   otherMonth,
   formatDate,
   isShaded,
+  endOfGroup,
+  groupingInfo,
+  groupOrientation,
+  // @deprecated
+  hasRightBorder,
   ...restProps
 }) => {
   const isFirstMonthDay = startDate.getDate() === 1;
@@ -86,6 +104,10 @@ const CellBase = React.memo(({
       className={classNames({
         [classes.cell]: true,
         [classes.shadedCell]: isShaded,
+        [classes.brightRightBorder]: (endOfGroup || hasRightBorder)
+          && groupOrientation === HORIZONTAL_GROUP_ORIENTATION,
+        [classes.brightBorderBottom]: endOfGroup
+          && groupOrientation === VERTICAL_GROUP_ORIENTATION,
       }, className)}
       {...restProps}
     >
@@ -111,6 +133,10 @@ CellBase.propTypes = {
   today: PropTypes.bool,
   otherMonth: PropTypes.bool,
   isShaded: PropTypes.bool,
+  endOfGroup: PropTypes.bool,
+  hasRightBorder: PropTypes.bool,
+  groupingInfo: PropTypes.arrayOf(PropTypes.object),
+  groupOrientation: PropTypes.oneOf([HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION]),
 };
 
 CellBase.defaultProps = {
@@ -119,6 +145,10 @@ CellBase.defaultProps = {
   today: false,
   otherMonth: false,
   isShaded: false,
+  endOfGroup: false,
+  hasRightBorder: false,
+  groupingInfo: undefined,
+  groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

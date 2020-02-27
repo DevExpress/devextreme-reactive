@@ -1,9 +1,8 @@
-import { ElementRect, CellElementsMeta, FormatterFn, BaseView } from '../index';
+import { CellElementsMeta, FormatterFn, BaseView, Group, GroupOrientation } from '../index';
 
 /* tslint:disable no-namespace max-line-length no-empty-interface */
 /** @internal */
 export interface AllDayPanelState {
-  rects: readonly ElementRect[];
   elementsMeta: CellElementsMeta | {};
 }
 
@@ -31,11 +30,21 @@ export namespace AllDayPanel {
     startDate: Date;
     /** The cell’s end time. */
     endDate: Date;
+    /** Information about the cell's grouping. */
+    groupingInfo?: Array<Group>;
+    /** \@deprecated Specifies whether the cell has the right border. */
+    hasRightBorder?: boolean;
+    /** "true" if this cell is last in its group. */
+    endOfGroup?: boolean;
   }
   /** Describes properties passed to a component that renders an All Day panel layout. */
   export interface LayoutProps {
     /** Cells’ meta data. */
     cellsData: AllDayPanel.CellData[];
+    /** Groups shown in the Scheduler. */
+    groups?: Group[][];
+    /** Scheduler's grouping orientation: either 'Vertical' or 'Horizontal'. */
+    groupOrientation?: GroupOrientation;
     /** A component that renders an All Day panel cell. */
     cellComponent: React.ComponentType<AllDayPanel.CellProps>;
     /** A component that renders an All Day panel row. */

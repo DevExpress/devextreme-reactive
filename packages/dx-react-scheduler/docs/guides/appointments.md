@@ -13,13 +13,13 @@ One-time appointments are appointments with specified start and end date and tim
 
 .embedded-demo({ "path": "scheduler-basic/day", "showThemeSelector": true })
 
-## Zero-Time Appointments
+## Zero-Duration Appointments
 
-Zero-time appointments do not have an end time and date. They represent events without duration (reminders, arrival/departure time, and so on).
+Zero-duration appointments do not have an end time and date. They represent events without duration (reminders, arrival/departure time, and so on).
 
-To add a zero-time appointment, specify the `startDate` in the [AppointmentModel](../reference/scheduler.md#appointmentmodel), leave the `endDate` field unspecified, and add the [Appointments](../reference/appointments.md) plugin.
+To add a zero-duration appointment, specify the `startDate` in the [AppointmentModel](../reference/scheduler.md#appointmentmodel), leave the `endDate` field unspecified, and add the [Appointments](../reference/appointments.md) plugin.
 
-.embedded-demo({ "path": "scheduler-basic/zero-time", "showThemeSelector": true })
+.embedded-demo({ "path": "scheduler-basic/zero-duration", "showThemeSelector": true })
 
 ## All-Day Appointments
 

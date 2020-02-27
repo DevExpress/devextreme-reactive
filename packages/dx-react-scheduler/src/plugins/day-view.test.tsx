@@ -4,19 +4,20 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
   computed,
-  verticalTimeTableRects,
   viewCellsData,
+  calculateWeekDateIntervals,
 } from '@devexpress/dx-scheduler-core';
 import { DayView } from './day-view';
 import { BasicView } from './basic-view';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
+  ...require.requireActual('@devexpress/dx-scheduler-core'),
   computed: jest.fn(),
   viewCellsData: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
   availableViews: jest.fn(),
-  verticalTimeTableRects: jest.fn(),
+  calculateWeekDateIntervals:jest.fn(),
 }));
 
 const defaultDeps = {
@@ -88,11 +89,11 @@ describe('Day View', () => {
           timeTableRowComponent: defaultProps.timeTableRowComponent,
           timeTableCellComponent: defaultProps.timeTableCellComponent,
           appointmentLayerComponent: defaultProps.appointmentLayerComponent,
+          dayScaleEmptyCellComponent: defaultProps.dayScaleEmptyCellComponent,
         });
       expect(tree.find(BasicView).props().layoutProps)
         .toMatchObject({
           timeScaleComponent: expect.any(Function),
-          dayScaleEmptyCellComponent: expect.any(Function),
         });
 
       tree.find(BasicView).props().viewCellsDataComputed(
@@ -101,9 +102,11 @@ describe('Day View', () => {
       expect(viewCellsData)
         .toHaveBeenCalledWith(7, undefined, 5, [], 2, 3, 1, 123);
 
-      tree.find(BasicView).props().timeTableRects(1, 2, 3, 4, 5, 6, 7);
-      expect(verticalTimeTableRects)
-        .toHaveBeenCalledWith(1, 2, 3, 4, 5, 6, 7);
+      tree.find(BasicView).props().calculateAppointmentsIntervals(1)({
+        appointments: 2, startViewDate: 3, endViewDate: 4, excludedDays: 5,
+      });
+      expect(calculateWeekDateIntervals)
+        .toHaveBeenCalledWith(2, 3, 4, 5, 1);
     });
   });
 
@@ -128,21 +131,6 @@ describe('Day View', () => {
           cellsData: getComputedState(tree).viewCellsData,
           formatDate: defaultDeps.getter.formatDate,
         });
-    });
-    it('should render day scale empty cell', () => {
-      const customEmptyCell = () => null;
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DayView
-            {...defaultProps}
-            dayScaleEmptyCellComponent={customEmptyCell}
-          />
-        </PluginHost>
-      ));
-
-      expect(tree.find(customEmptyCell).exists())
-        .toBeTruthy();
     });
   });
 });

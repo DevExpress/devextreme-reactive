@@ -439,6 +439,11 @@ export namespace TableGroupRow {
 
 // @public (undocumented)
 export namespace TableGroupRow {
+  export type InlineSummaryItemInfo = TableGroupRow_2.InlineSummaryItemInfo;
+}
+
+// @public (undocumented)
+export namespace TableGroupRow {
   export type CellProps = TableGroupRow_2.CellProps;
 }
 
@@ -462,6 +467,26 @@ export namespace TableGroupRow {
   export type IndentCellProps = TableGroupRow_2.IndentCellProps;
 }
 
+// @public (undocumented)
+export namespace TableGroupRow {
+  export type InlineSummaryProps = TableGroupRow_2.InlineSummaryProps;
+}
+
+// @public (undocumented)
+export namespace TableGroupRow {
+  export type InlineSummaryItemProps = TableGroupRow_2.InlineSummaryItemProps;
+}
+
+// @public (undocumented)
+export namespace TableGroupRow {
+  export type SummaryCellProps = TableGroupRow_2.SummaryCellProps;
+}
+
+// @public (undocumented)
+export namespace TableGroupRow {
+  export type StubCellProps = TableGroupRow_2.StubCellProps;
+}
+
 // @public
 export const TableGroupRow: React.ComponentType<TableGroupRowProps> & {
   COLUMN_TYPE: symbol;
@@ -471,6 +496,10 @@ export const TableGroupRow: React.ComponentType<TableGroupRowProps> & {
   Cell: React.ComponentType<TableGroupRow_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   Content: React.ComponentType<TableGroupRow_2.ContentProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   Icon: React.ComponentType<TableGroupRow_2.IconProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  InlineSummary: React.ComponentType<TableGroupRow_2.InlineSummaryProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  InlineSummaryItem: React.ComponentType<TableGroupRow_2.InlineSummaryItemProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  SummaryCell: React.ComponentType<TableGroupRow_2.SummaryCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  SummaryItem: React.ComponentType<TableSummaryRow_2.ItemProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
 };
 
 // @public (undocumented)
@@ -479,11 +508,18 @@ export interface TableGroupRowProps {
   columnExtensions?: Array<TableGroupRow_2.ColumnExtension>;
   contentCellPadding?: string;
   contentComponent?: React.ComponentType<TableGroupRow_2.ContentProps>;
+  formatlessSummaryTypes?: Array<string>;
   iconComponent?: React.ComponentType<TableGroupRow_2.IconProps>;
   indentCellComponent?: React.ComponentType<TableGroupRow_2.IndentCellProps>;
   indentColumnWidth?: number;
+  inlineSummaryComponent?: React.ComponentType<TableGroupRow_2.InlineSummaryProps>;
+  inlineSummaryItemComponent?: React.ComponentType<TableGroupRow_2.InlineSummaryItemProps>;
+  messages?: TableGroupRow_2.LocalizationMessages;
   rowComponent?: React.ComponentType<TableGroupRow_2.RowProps>;
   showColumnsWhenGrouped?: boolean;
+  stubCellComponent?: React.ComponentType<TableGroupRow_2.StubCellProps>;
+  summaryCellComponent?: React.ComponentType<TableGroupRow_2.SummaryCellProps>;
+  summaryItemComponent?: React.ComponentType<TableSummaryRow_2.ItemProps>;
 }
 
 // @public (undocumented)
@@ -616,6 +652,11 @@ export namespace TableSelection {
   export type CellProps = TableSelection_2.CellProps;
 }
 
+// @public (undocumented)
+export namespace TableSelection {
+  export type RowProps = TableSelection_2.RowProps;
+}
+
 // @public
 export const TableSelection: React.ComponentType<TableSelectionProps> & {
   COLUMN_TYPE: symbol;
@@ -629,6 +670,7 @@ export interface TableSelectionProps {
   cellComponent?: React.ComponentType<TableSelection_2.CellProps>;
   headerCellComponent?: React.ComponentType<TableSelection_2.HeaderCellProps>;
   highlightRow?: boolean;
+  rowComponent?: React.ComponentType<TableSelection_2.RowProps>;
   selectByRowClick?: boolean;
   selectionColumnWidth?: number;
   showSelectAll?: boolean;
@@ -761,6 +803,8 @@ export const VirtualTable: React.ComponentType<VirtualTableProps> & {
   COLUMN_TYPE: symbol;
   ROW_TYPE: symbol;
   NODATA_ROW_TYPE: symbol;
+  TOP_POSITION: symbol;
+  BOTTOM_POSITION: symbol;
 } & {
   Table: React.ComponentType<object & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   TableHead: React.ComponentType<object & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
@@ -773,6 +817,8 @@ export const VirtualTable: React.ComponentType<VirtualTableProps> & {
   StubRow: React.ComponentType<Table_2.RowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   StubCell: React.ComponentType<Table_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   StubHeaderCell: React.ComponentType<Table_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+} & {
+scrollToRow: (rowId: number | string) => void;
 };
 
 // @public (undocumented)
@@ -788,6 +834,8 @@ export interface VirtualTableProps {
   messages?: Table_2.LocalizationMessages;
   noDataCellComponent?: React.ComponentType<Table_2.NoDataCellProps>;
   noDataRowComponent?: React.ComponentType<Table_2.RowProps>;
+  onTopRowChange?: (rowId: number | string) => void;
+  ref?: React.RefObject<typeof VirtualTable>;
   rowComponent?: React.ComponentType<Table_2.DataRowProps>;
   stubCellComponent?: React.ComponentType<Table_2.CellProps>;
   stubHeaderCellComponent?: React.ComponentType<Table_2.CellProps>;

@@ -15,6 +15,8 @@ export * from './plugins/week-view/computeds';
 /** @internal */
 export * from './plugins/week-view/helpers';
 /** @internal */
+export * from './plugins/week-view/utils';
+/** @internal */
 export * from './plugins/view-state/reducers';
 /** @internal */
 export * from './plugins/appointment-tooltip/reducers';
@@ -50,6 +52,20 @@ export * from './plugins/current-time-indicator/helpers';
 export * from './plugins/resources/computeds';
 /** @internal */
 export * from './plugins/resources/helpers';
+/** @internal */
+export * from './plugins/grouping-state/reducers';
+/** @internal */
+export * from './plugins/integrated-grouping/computeds';
+/** @internal */
+export * from './plugins/integrated-grouping/helpers';
+/** @internal */
+export * from './plugins/grouping-panel/utils';
+/** @internal */
+export * from './plugins/common/utils';
+/** @internal */
+export * from './plugins/appointments/helpers';
+/** @internal */
+export * from './plugins/date-navigator/helpers';
 /** @internal */
 export * from './constants';
 /** @internal */

@@ -709,6 +709,10 @@
             "path": "/react/scheduler/docs/guides/resources/"
           },
           {
+            "title": "Grouping",
+            "path": "/react/scheduler/docs/guides/grouping/"
+          },
+          {
             "title": "Current Time Indication",
             "path": "/react/scheduler/docs/guides/current-time-indication/"
           },
@@ -725,6 +729,10 @@
       {
         "title": "API Reference",
         "items": [
+          {
+            "title": "AllDayPanel",
+            "path": "/react/scheduler/docs/reference/all-day-panel/"
+          },
           {
             "title": "Scheduler",
             "path": "/react/scheduler/docs/reference/scheduler/"
@@ -804,6 +812,18 @@
           {
             "title": "CurrentTimeIndicator",
             "path": "/react/scheduler/docs/reference/current-time-indicator/"
+          },
+          {
+            "title": "GroupingState",
+            "path": "/react/scheduler/docs/reference/grouping-state/"
+          },
+          {
+            "title": "IntegratedGrouping",
+            "path": "/react/scheduler/docs/reference/integrated-grouping/"
+          },
+          {
+            "title": "GroupingPanel",
+            "path": "/react/scheduler/docs/reference/grouping-panel/"
           }
         ]
       }

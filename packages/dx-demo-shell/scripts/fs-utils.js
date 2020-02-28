@@ -48,12 +48,10 @@ const stringify = obj => stringifyEntity(obj, 0);
 const writeObjectToFile = (filePath, obj, varName) => {
   overrideFileIfChanged(
     filePath,
-    '/* eslint-disable quote-props */\n'
-    + '/* eslint-disable global-require */\n'
-    + '/* eslint-disable no-template-curly-in-string */\n\n'
+    '/* eslint-disable */\n\n'
     + `module.exports.${varName} = ${stringify(obj)};\n`,
   );
-}
+};
 
 module.exports = {
   overrideFileIfChanged,

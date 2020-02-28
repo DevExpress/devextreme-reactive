@@ -40,20 +40,25 @@ export const getRowFromGroups: PureComputed<
 };
 
 export const getVerticalRowFromGroups: PureComputed<
-  [Group[][], number, number, number], VerticalGroupingCellData[]
-> = (groups, groupIndex, groupingPanelRowSpan, timeTableCellHeight) => groups.reduce((
+  [Group[][], number, number, number, boolean, number], VerticalGroupingCellData[]
+> = (
+  groups, groupIndex, groupingPanelRowSpan,
+  timeTableCellHeight, addAllDayHeight, allDayCellHeight,
+) => groups.reduce((
   acc, groupColumn, columnIndex,
 ) => {
   const groupSpan = getGroupsLastRow(groups).length / groupColumn.length;
   const cellIndex = groupIndex / groupSpan;
+  const baseHeight = (groupingPanelRowSpan * groupSpan * timeTableCellHeight)
+    / getGroupsLastRow(groups).length;
+  const allDayHeight = groupSpan * allDayCellHeight;
+
   return groupIndex % groupSpan !== 0 ? acc : [
     ...acc,
     {
       group: groupColumn[cellIndex],
       rowSpan: groupSpan,
-      height: (
-        groupingPanelRowSpan * groupSpan * timeTableCellHeight
-      ) / getGroupsLastRow(groups).length,
+      height: addAllDayHeight ? baseHeight + allDayHeight : baseHeight,
       key: getCellKey(groups, cellIndex, columnIndex),
     },
   ];

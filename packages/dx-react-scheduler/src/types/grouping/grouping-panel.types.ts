@@ -32,8 +32,8 @@ export namespace GroupingPanel {
     viewType: string;
     /** Specifies cells' text top offset. */
     cellTextTopOffset?: number;
-    /** Specifies layout's height in pixels. */
-    height?: number;
+    /** Specifies whether to align Panel's cells with all-day row. */
+    alignWithAllDayRow?: boolean;
   }
   /** Describes properties passed to a component that renders a row on the grouping panel. */
   export interface RowProps extends BaseView.RowProps {}

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 export const tasks = [{
   "ID": 1,
   "Assigned_Employee_ID": 1,

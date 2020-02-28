@@ -1,190 +1,191 @@
-const Remark = require(`remark`)
-const toString = require(`mdast-util-to-string`)
-const visit = require(`unist-util-visit`)
+// eslint-disable-next-line import/no-extraneous-dependencies
+const Remark = require('remark');
+const toString = require('mdast-util-to-string');
+const visit = require('unist-util-visit');
 
-const plugin = require(`../`)
+const plugin = require('../');
 
-const remark = new Remark().data(`settings`, {
+const remark = new Remark().data('settings', {
   commonmark: true,
   footnotes: true,
   pedantic: true,
-})
+});
 
-describe(`gatsby-remark-autolink-headers`, () => {
-  it(`adds id to a markdown header`, () => {
-    const markdownAST = remark.parse(`# Heading Uno`)
+describe('gatsby-remark-autolink-headers', () => {
+  it('adds id to a markdown header', () => {
+    const markdownAST = remark.parse('# Heading Uno');
 
-    const transformed = plugin({ markdownAST }, {})
+    const transformed = plugin({ markdownAST }, {});
 
-    visit(transformed, `heading`, node => {
-      expect(node.data.id).toBeDefined()
+    visit(transformed, 'heading', (node) => {
+      expect(node.data.id).toBeDefined();
 
-      expect(node).toMatchSnapshot()
-    })
-  })
+      expect(node).toMatchSnapshot();
+    });
+  });
 
-  it(`adds ids to each markdown header`, () => {
+  it('adds ids to each markdown header', () => {
     const markdownAST = remark.parse(`
 # Heading One
 
 ## Heading Two
 
 ### Heading Three
-    `)
+    `);
 
-    const transformed = plugin({ markdownAST }, {})
+    const transformed = plugin({ markdownAST }, {});
 
-    visit(transformed, `heading`, node => {
-      expect(node.data.id).toBeDefined()
-    })
-  })
+    visit(transformed, 'heading', (node) => {
+      expect(node.data.id).toBeDefined();
+    });
+  });
 
-  it(`adds id to a markdown header with custom svg icon`, () => {
-    const markdownAST = remark.parse(`# Heading Uno`)
-    const icon = `<svg width="400" height="110"><rect width="300" height="100" /></svg>`
+  it('adds id to a markdown header with custom svg icon', () => {
+    const markdownAST = remark.parse('# Heading Uno');
+    const icon = '<svg width="400" height="110"><rect width="300" height="100" /></svg>';
 
-    const transformed = plugin({ markdownAST }, { icon })
+    const transformed = plugin({ markdownAST }, { icon });
 
-    visit(transformed, `heading`, node => {
-      expect(node.data.id).toBeDefined()
+    visit(transformed, 'heading', (node) => {
+      expect(node.data.id).toBeDefined();
 
-      expect(node).toMatchSnapshot()
-    })
-  })
+      expect(node).toMatchSnapshot();
+    });
+  });
 
-  it(`adds ids to each markdown header with custom svg icon`, () => {
+  it('adds ids to each markdown header with custom svg icon', () => {
     const markdownAST = remark.parse(`
 # Heading One
 
 ## Heading Two
 
 ### Heading Three
-    `)
-    const icon = `<svg width="400" height="110"><rect width="300" height="100" /></svg>`
+    `);
+    const icon = '<svg width="400" height="110"><rect width="300" height="100" /></svg>';
 
-    const transformed = plugin({ markdownAST }, { icon })
+    const transformed = plugin({ markdownAST }, { icon });
 
-    visit(transformed, `heading`, node => {
-      expect(node.data.id).toBeDefined()
-    })
-  })
+    visit(transformed, 'heading', (node) => {
+      expect(node.data.id).toBeDefined();
+    });
+  });
 
-  it(`adds id to a markdown header with custom class`, () => {
-    const markdownAST = remark.parse(`# Heading Uno`)
-    const className = `custom-class`
+  it('adds id to a markdown header with custom class', () => {
+    const markdownAST = remark.parse('# Heading Uno');
+    const className = 'custom-class';
 
-    const transformed = plugin({ markdownAST }, { className })
+    const transformed = plugin({ markdownAST }, { className });
 
-    visit(transformed, `heading`, node => {
-      expect(node.data.id).toBeDefined()
+    visit(transformed, 'heading', (node) => {
+      expect(node.data.id).toBeDefined();
 
-      expect(node).toMatchSnapshot()
-    })
-  })
+      expect(node).toMatchSnapshot();
+    });
+  });
 
-  it(`adds ids to each markdown header with custom class`, () => {
+  it('adds ids to each markdown header with custom class', () => {
     const markdownAST = remark.parse(`
 # Heading One
 
 ## Heading Two
 
 ### Heading Three
-    `)
-    const className = `custom-class`
+    `);
+    const className = 'custom-class';
 
-    const transformed = plugin({ markdownAST }, { className })
+    const transformed = plugin({ markdownAST }, { className });
 
-    visit(transformed, `heading`, node => {
-      expect(node.data.id).toBeDefined()
-    })
-  })
+    visit(transformed, 'heading', (node) => {
+      expect(node.data.id).toBeDefined();
+    });
+  });
 
-  it(`adds id to a markdown header with no icon`, () => {
-    const markdownAST = remark.parse(`# Heading Uno`)
-    const icon = false
+  it('adds id to a markdown header with no icon', () => {
+    const markdownAST = remark.parse('# Heading Uno');
+    const icon = false;
 
-    const transformed = plugin({ markdownAST }, { icon })
+    const transformed = plugin({ markdownAST }, { icon });
 
-    visit(transformed, `heading`, node => {
-      expect(node.data.id).toBeDefined()
+    visit(transformed, 'heading', (node) => {
+      expect(node.data.id).toBeDefined();
 
-      expect(node).toMatchSnapshot()
-    })
-  })
+      expect(node).toMatchSnapshot();
+    });
+  });
 
-  it(`adds ids to each markdown header with no icon`, () => {
+  it('adds ids to each markdown header with no icon', () => {
     const markdownAST = remark.parse(`
 # Heading One
 
 ## Heading Two
 
 ### Heading Three
-    `)
-    const icon = false
+    `);
+    const icon = false;
 
-    const transformed = plugin({ markdownAST }, { icon })
+    const transformed = plugin({ markdownAST }, { icon });
 
-    visit(transformed, `heading`, node => {
-      expect(node.data.id).toBeDefined()
-    })
-  })
+    visit(transformed, 'heading', (node) => {
+      expect(node.data.id).toBeDefined();
+    });
+  });
 
-  it(`maintain case of markdown header for id`, () => {
+  it('maintain case of markdown header for id', () => {
     const markdownAST = remark.parse(`
 # Heading One
 
 ## Heading Two
 
 ### Heading Three
-    `)
-    const maintainCase = true
+    `);
+    const maintainCase = true;
 
-    const transformed = plugin({ markdownAST }, { maintainCase })
+    const transformed = plugin({ markdownAST }, { maintainCase });
 
-    visit(transformed, `heading`, node => {
-      expect(node.data.id).toBeDefined()
+    visit(transformed, 'heading', (node) => {
+      expect(node.data.id).toBeDefined();
 
-      expect(node).toMatchSnapshot()
-    })
-  })
+      expect(node).toMatchSnapshot();
+    });
+  });
 
-  it(`keeps accents by default`, () => {
+  it('keeps accents by default', () => {
     const markdownAST = remark.parse(`
 # Héading One
 
 ## Héading Two
 
 ### Héading Three
-    `)
-    const removeAccents = false
+    `);
+    const removeAccents = false;
 
-    const transformed = plugin({ markdownAST }, { removeAccents })
+    const transformed = plugin({ markdownAST }, { removeAccents });
 
-    visit(transformed, `heading`, node => {
-      expect(node.data.id).toBeDefined()
-      expect(node.data.id).toEqual(expect.stringMatching(/^héading/))
-    })
-  })
+    visit(transformed, 'heading', (node) => {
+      expect(node.data.id).toBeDefined();
+      expect(node.data.id).toEqual(expect.stringMatching(/^héading/));
+    });
+  });
 
-  it(`remove accents if removeAccents is passed`, () => {
+  it('remove accents if removeAccents is passed', () => {
     const markdownAST = remark.parse(`
 # Héading One
 
 ## Héading Two
 
 ### Héading Three
-    `)
-    const removeAccents = true
+    `);
+    const removeAccents = true;
 
-    const transformed = plugin({ markdownAST }, { removeAccents })
+    const transformed = plugin({ markdownAST }, { removeAccents });
 
-    visit(transformed, `heading`, node => {
-      expect(node.data.id).toBeDefined()
-      expect(node.data.id).toEqual(expect.stringMatching(/^heading/))
-    })
-  })
+    visit(transformed, 'heading', (node) => {
+      expect(node.data.id).toBeDefined();
+      expect(node.data.id).toEqual(expect.stringMatching(/^heading/));
+    });
+  });
 
-  it(`extracts custom id`, () => {
+  it('extracts custom id', () => {
     const markdownAST = remark.parse(`
 # Heading One {#custom_h1}
 
@@ -199,44 +200,44 @@ describe(`gatsby-remark-autolink-headers`, () => {
 # {#id-only}
 
 # {#text-after} custom ID
-    `)
-    const enableCustomId = true
+    `);
+    const enableCustomId = true;
 
-    const transformed = plugin({ markdownAST }, { enableCustomId })
+    const transformed = plugin({ markdownAST }, { enableCustomId });
 
-    const headers = []
-    visit(transformed, `heading`, node => {
-      headers.push({ text: toString(node), id: node.data.id })
-    })
+    const headers = [];
+    visit(transformed, 'heading', (node) => {
+      headers.push({ text: toString(node), id: node.data.id });
+    });
     expect(headers).toEqual([
       {
-        id: `custom_h1`,
-        text: `Heading One`,
+        id: 'custom_h1',
+        text: 'Heading One',
       },
       {
-        id: `custom-heading-two`,
-        text: `Heading Two`,
+        id: 'custom-heading-two',
+        text: 'Heading Two',
       },
       {
-        id: `custom-withbold`,
-        text: `With Bold`,
+        id: 'custom-withbold',
+        text: 'With Bold',
       },
       {
-        id: `invalid-thisisitalic`,
-        text: `Invalid {#thisisitalic}`,
+        id: 'invalid-thisisitalic',
+        text: 'Invalid {#thisisitalic}',
       },
       {
-        id: `no-custom-id`,
-        text: `No custom ID`,
+        id: 'no-custom-id',
+        text: 'No custom ID',
       },
       {
-        id: `id-only`,
-        text: `{#id-only}`,
+        id: 'id-only',
+        text: '{#id-only}',
       },
       {
-        id: `text-after-custom-id`,
-        text: `{#text-after} custom ID`,
+        id: 'text-after-custom-id',
+        text: '{#text-after} custom ID',
       },
-    ])
-  })
-})
+    ]);
+  });
+});

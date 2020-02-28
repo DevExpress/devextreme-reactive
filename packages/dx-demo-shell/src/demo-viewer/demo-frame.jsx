@@ -123,6 +123,9 @@ DemoFrameRenderer.propTypes = {
   demoName: PropTypes.string.isRequired,
   themeName: PropTypes.string.isRequired,
   variantName: PropTypes.string.isRequired,
+  markup: PropTypes.string.isRequired,
+  editableLink: PropTypes.string.isRequired,
+  onEditableLinkChange: PropTypes.func.isRequired,
   perfSamplesCount: PropTypes.number,
 };
 

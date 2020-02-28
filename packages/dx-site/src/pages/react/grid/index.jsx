@@ -8,7 +8,6 @@ import LandingLink from '../../../components/landing/link';
 import LandingProductLinks from '../../../components/landing/product-links';
 import LandingReadyToLearnMore from '../../../components/landing/ready-to-learn-more';
 import LandingChessBoardLayoutList from '../../../components/landing/features-list';
-import imageBoxLink from '../../images/image-box.png';
 import headerLink from './images/header.png';
 import pureReactImage from './images/Pure-React.png';
 import virtualScrollingImage from './images/Virtual-Scrolling.png';
@@ -31,7 +30,6 @@ import customUIRenderingImage from './images/Custom-UI-Rendering.png';
 
 import LandingThingsThatMatter from '../../../components/landing/things-that-matter';
 import ButtonLinksContainer from '../../../components/landing/button-links-container';
-import LandingIconFeature from '../../../components/landing/icon-feature';
 import LandingLayout from '../../../components/landing/layout';
 import LandingTitle from '../../../components/landing/title';
 import LandingImageFeature from '../../../components/landing/image-feature';
@@ -172,7 +170,7 @@ const IndexPage = () => (
         <LandingHeaderAddon
           main="React Grid"
           additional={(
-            <React.Fragment>
+            <>
               for Bootstrap and Material-UI
               <ButtonLinksContainer>
                 <LandingLink
@@ -194,7 +192,7 @@ const IndexPage = () => (
                   Demos
                 </LandingLink>
               </ButtonLinksContainer>
-            </React.Fragment>
+            </>
           )}
         />
       )}
@@ -229,7 +227,7 @@ const IndexPage = () => (
     <LandingMaintainence />
     <LandingReadyToLearnMore
       links={(
-        <React.Fragment>
+        <>
           <LandingLink
             to="/react/grid/docs/guides/getting-started/"
             variant="button"
@@ -249,7 +247,7 @@ const IndexPage = () => (
           >
             Demos
           </LandingLink>
-        </React.Fragment>
+        </>
       )}
     />
   </Layout>

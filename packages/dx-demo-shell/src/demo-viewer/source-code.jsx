@@ -52,9 +52,6 @@ export class SourceCode extends React.PureComponent {
   }
 
   prepareSourceCode() {
-    // const { themeName, sectionName, demoName } = this.props;
-    // const { demoSources } = this.context;
-    // const source = demoSources[sectionName][demoName][themeName].source || '';
     const { source } = this.props;
     const foldBlockStartLines = [];
     const importantLines = [];
@@ -103,9 +100,8 @@ export class SourceCode extends React.PureComponent {
 }
 
 SourceCode.propTypes = {
-  sectionName: PropTypes.string.isRequired,
-  demoName: PropTypes.string.isRequired,
-  themeName: PropTypes.string.isRequired,
+  source: PropTypes.string.isRequired,
+  getEditorInstance: PropTypes.func.isRequired,
 };
 
 SourceCode.contextType = EmbeddedDemoContext;

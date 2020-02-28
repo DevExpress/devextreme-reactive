@@ -3,21 +3,17 @@ import * as PropTypes from 'prop-types';
 
 // eslint-disable-next-line react/prefer-stateless-function
 export default class extends React.Component {
-  static get propTypes() {
-    return {
-      headComponents: PropTypes.node,
-      postBodyComponents: PropTypes.node,
-      body: PropTypes.string,
-    };
-  }
+  static propTypes = {
+    headComponents: PropTypes.node,
+    postBodyComponents: PropTypes.node,
+    body: PropTypes.string,
+  };
 
-  static get defaultProps() {
-    return {
-      headComponents: undefined,
-      postBodyComponents: undefined,
-      body: undefined,
-    };
-  }
+  static defaultProps = {
+    headComponents: undefined,
+    postBodyComponents: undefined,
+    body: undefined,
+  };
 
   render() {
     const { headComponents, postBodyComponents, body } = this.props;

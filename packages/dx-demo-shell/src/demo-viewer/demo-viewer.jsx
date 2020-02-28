@@ -52,7 +52,9 @@ export class DemoViewer extends React.Component {
 
     return (
       <EmbeddedDemoContext.Consumer>
-        {({ showThemeSelector, themeSources, demoSources, themeComponents, demoData }) => (
+        {({
+          showThemeSelector, themeSources, demoSources,
+        }) => (
           <Switch>
             <Route
               path={`${url}/:themeName/:variantName/clean`}

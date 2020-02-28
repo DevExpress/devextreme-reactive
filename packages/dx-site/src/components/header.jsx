@@ -1,5 +1,5 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 /* globals document:true */
-
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import ProductLogo from './logos/product';
@@ -7,6 +7,18 @@ import ProductLogo from './logos/product';
 import styles from './header.module.scss';
 
 class Header extends React.Component {
+  static propTypes = {
+    page: PropTypes.string,
+    links: PropTypes.node,
+    addon: PropTypes.node,
+  };
+
+  static defaultProps = {
+    page: undefined,
+    links: undefined,
+    addon: undefined,
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -38,8 +50,9 @@ class Header extends React.Component {
   render() {
     const { links, addon, page } = this.props;
     const { menuVisibility } = this.state;
+
     return (
-      <header className={`${styles.header} ${styles[page]} `}>
+      <header className={`${styles.header} ${page ? styles[page] : ''} `}>
         <div className={`container ${styles.headerContainer}`}>
           <div className="row align-items-center">
             <div className="col-auto mr-auto">
@@ -86,15 +99,5 @@ class Header extends React.Component {
     );
   }
 }
-
-Header.propTypes = {
-  links: PropTypes.node,
-  addon: PropTypes.node,
-};
-
-Header.defaultProps = {
-  links: undefined,
-  addon: undefined,
-};
 
 export default Header;

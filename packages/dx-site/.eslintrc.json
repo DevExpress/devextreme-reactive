@@ -1,18 +1,10 @@
 {
-    "extends": "airbnb",
+    "extends": "../../.eslintrc.react.json",
     "plugins": [
-        "react",
-        "jsx-a11y",
-        "import",
-        "jest",
-        "filenames"
+        "jest"
     ],
     "rules": {
-        "import/prefer-default-export": "off",
-        "react/forbid-prop-types": "off",
-        "jsx-a11y/href-no-hash": "off",
-        "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.*", "**/*.test-utils.*"]}],
-        "filenames/match-regex": [2, "^[a-z0-9-\\.]+$"]
+      "react/static-property-placement": [2, "static public field"]
     },
     "env": {
       "jest/globals": true

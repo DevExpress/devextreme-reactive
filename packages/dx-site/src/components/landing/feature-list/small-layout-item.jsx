@@ -30,4 +30,11 @@ const SmallLayoutItem = ({
   </LayoutItemContainer>
 );
 
+SmallLayoutItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  imageLink: PropTypes.string.isRequired,
+  guideLink: PropTypes.string.isRequired,
+};
+
 export default SmallLayoutItem;

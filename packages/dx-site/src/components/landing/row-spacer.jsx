@@ -1,5 +1,13 @@
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
-export default ({ topSize, bottomSize }) => (
+const RowSpacer = ({ topSize, bottomSize }) => (
   <div className={`row mt-${topSize} mb-${bottomSize}`} />
 );
+
+RowSpacer.propTypes = {
+  topSize: PropTypes.number.isRequired,
+  bottomSize: PropTypes.number.isRequired,
+};
+
+export default RowSpacer;

@@ -4,7 +4,7 @@ import * as PropTypes from 'prop-types';
 import styles from './product-layout.module.scss';
 
 const ProductLayout = ({ position, children }) => (
-  <React.Fragment>
+  <>
     <div className={`${styles[position]} ${position === 'footer' ? 'd-none d-sm-block' : ''}`}>
       <div className="container">
         <div className="row">
@@ -12,7 +12,7 @@ const ProductLayout = ({ position, children }) => (
         </div>
       </div>
     </div>
-  </React.Fragment>
+  </>
 );
 
 ProductLayout.propTypes = {

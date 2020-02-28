@@ -4,7 +4,7 @@ import GatsbyLink from 'gatsby-link';
 
 import styles from './shadow-container.module.scss';
 
-const DocPreviewContainer = ({ 
+const DocPreviewContainer = ({
   path, children, variant, className,
 }) => (
   <div className={`col-lg-4 col-md-6 col-sm-6 col-12 my-2 ${className}`}>

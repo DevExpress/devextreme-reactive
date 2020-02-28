@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import AlternatedBackground from '../alternated-background';
 
 const FeaturesList = ({
   data,
@@ -18,11 +17,13 @@ const FeaturesList = ({
     return acc;
   }, []);
 
-  return rows.map((rowItems, index) => {
-    const sectionTitle = rowItems[0].sectionTitle;
-    const items = rowItems.map((item, idx) => <LayoutItem {...item} md={12 / columns} key={idx} />);
+  return rows.map((rowItems) => {
+    const { sectionTitle } = rowItems[0];
+    const items = rowItems.map(item => (
+      <LayoutItem {...item} md={12 / columns} key={item.title} />
+    ));
 
-    return <LayoutRow items={items} title={sectionTitle} key={index} />;
+    return <LayoutRow items={items} title={sectionTitle} key={sectionTitle} />;
   });
 };
 

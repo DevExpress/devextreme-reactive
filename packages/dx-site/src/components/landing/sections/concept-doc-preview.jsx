@@ -1,10 +1,10 @@
 import * as React from 'react';
-import GatsbyLink from 'gatsby-link';
+import * as PropTypes from 'prop-types';
 import DocPreviewContainer from './shadow-container';
 
 import styles from './concept-doc-preview.module.scss';
 
-const ConceptDocPreview = ({ 
+const ConceptDocPreview = ({
   path, title, description,
 }) => (
   <DocPreviewContainer path={path} variant="dense">
@@ -16,5 +16,11 @@ const ConceptDocPreview = ({
     </span>
   </DocPreviewContainer>
 );
+
+ConceptDocPreview.propTypes = {
+  path: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+};
 
 export default ConceptDocPreview;

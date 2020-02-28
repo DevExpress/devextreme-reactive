@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Location } from '@reach/router';
 
 import styles from './menu-section.module.scss';
 
@@ -39,7 +38,11 @@ const SectionBase = ({
 
 SectionBase.propTypes = {
   title: PropTypes.string.isRequired,
+  location: PropTypes.object.isRequired,
   items: PropTypes.array.isRequired,
+  subSectionComponent: PropTypes.func.isRequired,
+  itemComponent: PropTypes.func.isRequired,
+  titleComponent: PropTypes.func.isRequired,
   onHeaderClick: PropTypes.func,
   listClassName: PropTypes.string,
   titleClassName: PropTypes.string,

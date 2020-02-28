@@ -87,11 +87,11 @@ const IndexPage = () => (
           <LandingHeaderAddon
             isIndexPage
             main={(
-              <React.Fragment>
+              <>
                 Data-Centric
                 <br />
                 React Components
-              </React.Fragment>
+              </>
             )}
             additional="for Bootstrap and Material-UI"
           />

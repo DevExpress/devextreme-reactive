@@ -1,3 +1,4 @@
+/* eslint-disable filenames/match-regex */
 import * as React from 'react';
 
 const NotFoundPage = () => (

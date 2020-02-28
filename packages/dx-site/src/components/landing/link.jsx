@@ -11,8 +11,7 @@ const Link = ({
     className={`${styles.link} ${type ? styles[type] : ''}
       ${styles[variant]}
       ${fixedWidth ? styles.fixedWidth : ''}
-      ${condensed ? styles.condensed : ''}`
-    }
+      ${condensed ? styles.condensed : ''}`}
     to={to}
     {...title ? { title } : null}
     {...restProps}
@@ -27,12 +26,16 @@ Link.propTypes = {
   to: PropTypes.string.isRequired,
   variant: PropTypes.oneOf(['button', 'plain']),
   title: PropTypes.string,
+  fixedWidth: PropTypes.bool,
+  condensed: PropTypes.bool,
 };
 
 Link.defaultProps = {
   type: undefined,
   title: undefined,
   variant: 'plain',
+  fixedWidth: false,
+  condensed: false,
 };
 
 export default Link;

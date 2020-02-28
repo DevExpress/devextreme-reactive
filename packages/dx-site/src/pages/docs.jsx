@@ -1,6 +1,5 @@
 import * as React from 'react';
 import PageLayout from '../components/layouts/docs-page-layout';
-import Title from '../components/landing/sections/title';
 import ProductDocPreview from '../components/landing/sections/product-doc-preview';
 import ConceptDocPreview from '../components/landing/sections/concept-doc-preview';
 
@@ -18,7 +17,8 @@ const concepts = [
   // {
   //   title: 'State Management',
   //   path: '',
-  //   description: 'Configure DevExtreme Reactive components for controlled and uncontrolled modes.',
+  //   description: 'Configure DevExtreme Reactive components for controlled
+  // and uncontrolled modes.',
   // },
   // {
   //   title: 'Using Redux',
@@ -40,7 +40,7 @@ const concepts = [
     path: '/react/common/docs/guides/performance-optimization/',
     description: 'Apply tips and tricks for higher performance.',
   },
-]
+];
 
 export default () => (
   <PageLayout sectionName="docs">

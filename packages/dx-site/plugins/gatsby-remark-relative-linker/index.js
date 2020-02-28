@@ -1,6 +1,7 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 const visit = require('unist-util-visit');
 
-var splitNameToPath = function(pathPrefix, path) {
+const splitNameToPath = (pathPrefix, path) => {
   // {prefix}dx-react-grid-bs3/... ==> {prefix}{../../}?react/grid/bs3/...
   const dxPartEnd = path.indexOf('/');
   const dxPart = path.slice(0, dxPartEnd).replace(/dx-/, '');
@@ -11,14 +12,13 @@ var splitNameToPath = function(pathPrefix, path) {
 };
 
 module.exports = ({ markdownAST }) => {
-  visit(markdownAST, 'link', node => {
-    if (node.url &&
-      !node.url.startsWith('//') &&
-      !node.url.startsWith('http')
+  visit(markdownAST, 'link', (node) => {
+    if (node.url
+      && !node.url.startsWith('//')
+      && !node.url.startsWith('http')
     ) {
-      node.url = node.url.replace(/((?:(?:\.\.)\/)+)(dx-.+?\.md)/g, function(match, pathPrefix, path) {
-        return splitNameToPath(pathPrefix, path);
-      });
+      // eslint-disable-next-line no-param-reassign
+      node.url = node.url.replace(/((?:(?:\.\.)\/)+)(dx-.+?\.md)/g, (match, pathPrefix, path) => splitNameToPath(pathPrefix, path));
     }
   });
 

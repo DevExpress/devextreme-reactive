@@ -2,25 +2,21 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import { Location } from '@reach/router';
 import Link from 'gatsby-link';
-import Search from './search';
 import RootSection from './root-menu-section';
 
 import styles from './left-menu.module.scss';
 
-const LeftMenu = (props) => {
-  const { collapsible } = props;
-  return (
-    <Location>
-      {({ location }) => (
-        <LeftMenuBase
-          {...props}
-          location={location}
-          sectionComponent={RootSection}
-        />
-      )}
-      </Location>
-  );
-};
+const LeftMenu = props => (
+  <Location>
+    {({ location }) => (
+      <LeftMenuBase
+        {...props}
+        location={location}
+        sectionComponent={RootSection}
+      />
+    )}
+  </Location>
+);
 
 const Item = ({ path, title }) => (
   <li key={path} className={styles.item}>
@@ -32,6 +28,11 @@ const Item = ({ path, title }) => (
     </Link>
   </li>
 );
+
+Item.propTypes = {
+  path: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+};
 
 const SingleItem = props => (
   <ul className={`list-unstyled ${styles.singleItem}`}>
@@ -62,12 +63,14 @@ const LeftMenuBase = ({
   </div>
 );
 
-LeftMenu.propTypes = {
-  // technologyName: PropTypes.string.isRequired,
-  // sectionName: PropTypes.string.isRequired,
+LeftMenuBase.propTypes = {
+  location: PropTypes.object.isRequired,
+  items: PropTypes.array.isRequired,
+  sectionComponent: PropTypes.func.isRequired,
+  menuAddon: PropTypes.node,
 };
 
-LeftMenu.defaultProps = {
+LeftMenuBase.defaultProps = {
   menuAddon: null,
 };
 

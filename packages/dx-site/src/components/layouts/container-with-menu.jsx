@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import LeftMenu from '../docs/left-menu';
-import ContentContainer from './content-container';
 
 import styles from './container-with-menu.module.scss';
 
@@ -23,5 +22,9 @@ const ContainerWithMenu = ({
     </div>
   </div>
 );
+
+ContainerWithMenu.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default ContainerWithMenu;

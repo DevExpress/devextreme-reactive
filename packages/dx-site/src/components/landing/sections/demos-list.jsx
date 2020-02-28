@@ -1,7 +1,5 @@
 import * as React from 'react';
-import GatsbyLink from 'gatsby-link';
-import FeaturePreview from '../feature-list/feature-preview';
-import ShadowContainer from './shadow-container';
+import * as PropTypes from 'prop-types';
 import FeaturedDemoPreview from './featured-demo-preview';
 import Title from './title';
 import ExampleLink from './example-link';
@@ -16,16 +14,20 @@ const allocateToColumns = (items, columns) => {
     }
     acc[acc.length - 1].push(item);
     return acc;
-  }, [[]])
+  }, [[]]);
 };
 
-const DemosList = ({ data: { title, icon, featured, technical } }) => (
+const DemosList = ({
+  data: {
+    title, icon, featured, technical,
+  },
+}) => (
   <div className={`container ${styles.container}`}>
     <Title text={title} iconComponent={icon} />
 
     <div className="row my-4">
-      {featured.map((demo) => (
-        <FeaturedDemoPreview {...demo} />
+      {featured.map(demo => (
+        <FeaturedDemoPreview key={demo.title} {...demo} />
       ))}
     </div>
 
@@ -39,14 +41,23 @@ const DemosList = ({ data: { title, icon, featured, technical } }) => (
 
     <div className="row my-2 mx-0">
       {allocateToColumns(technical, 4).map(column => (
-        <div className="col-6 col-sm-4 col-md-3">
+        <div key={column[0].title} className="col-6 col-sm-4 col-md-3">
           {column.map(item => (
-            <ExampleLink {...item} />
+            <ExampleLink key={item.title} {...item} />
           ))}
         </div>
       ))}
     </div>
   </div>
 );
+
+DemosList.propTypes = {
+  data: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    icon: PropTypes.func.isRequired,
+    featured: PropTypes.array.isRequired,
+    technical: PropTypes.array.isRequired,
+  }).isRequired,
+};
 
 export default DemosList;

@@ -22,14 +22,11 @@ const LayoutRowContent = ({
 );
 
 LayoutRowContent.propTypes = {
-  firstChild: PropTypes.node,
-  secondChild: PropTypes.node,
+  items: PropTypes.array.isRequired,
   title: PropTypes.string,
 };
 
 LayoutRowContent.defaultProps = {
-  firstChild: null,
-  secondChild: null,
   title: undefined,
 };
 

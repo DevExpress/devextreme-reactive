@@ -29,7 +29,6 @@ import customizeRenderingImage from './images/Customize-Chart-Rendering.png';
 
 import LandingThingsThatMatter from '../../../components/landing/things-that-matter';
 import ButtonLinksContainer from '../../../components/landing/button-links-container';
-import LandingIconFeature from '../../../components/landing/icon-feature';
 import LandingLayout from '../../../components/landing/layout';
 import LandingTitle from '../../../components/landing/title';
 import LandingImageFeature from '../../../components/landing/image-feature';
@@ -150,7 +149,7 @@ const IndexPage = () => (
         <LandingHeaderAddon
           main="React Chart"
           additional={(
-            <React.Fragment>
+            <>
               for Bootstrap and Material-UI
               <ButtonLinksContainer>
                 <LandingLink
@@ -172,7 +171,7 @@ const IndexPage = () => (
                   Demos
                 </LandingLink>
               </ButtonLinksContainer>
-            </React.Fragment>
+            </>
           )}
         />
       )}
@@ -205,7 +204,7 @@ const IndexPage = () => (
     <LandingMaintainence />
     <LandingReadyToLearnMore
       links={(
-        <React.Fragment>
+        <>
           <LandingLink
             to="/react/chart/docs/guides/getting-started/"
             variant="button"
@@ -226,7 +225,7 @@ const IndexPage = () => (
           >
             Demos
           </LandingLink>
-        </React.Fragment>
+        </>
       )}
     />
   </Layout>

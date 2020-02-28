@@ -11,17 +11,25 @@ const getNpmTag = () => {
   return versionTag && versionTag !== 'latest' ? `@${versionTag}` : '';
 };
 
-export default class extends React.Component {
-  static get propTypes() {
-    return {
-      data: PropTypes.object.isRequired,
-    };
-  }
+class Page extends React.Component {
+  static propTypes = {
+    data: PropTypes.shape({
+      markdownRemark: PropTypes.shape({
+        fields: PropTypes.shape({
+          technology: PropTypes.string.isRequired,
+          section: PropTypes.string.isRequired,
+        }),
+        html: PropTypes.string.isRequired,
+      }),
+    }).isRequired,
+  };
 
   constructor(props) {
     super(props);
 
-    this.demosScriptLink = withPrefix(`/static/${props.data.markdownRemark.fields.technology.replace('/', '-')}-demos.js`);
+    const { data: { markdownRemark: { fields: { technology } } } } = props;
+
+    this.demosScriptLink = withPrefix(`/static/${technology.replace('/', '-')}-demos.js`);
   }
 
   componentDidMount() {
@@ -44,8 +52,8 @@ export default class extends React.Component {
   }
 
   render() {
-    const { data: { markdownRemark } } = this.props;
-    const content = markdownRemark.html
+    const { data: { markdownRemark: { html, fields: { technology, section } } } } = this.props;
+    const content = html
       .replace(
         /<table>/g,
         '<table class="table table-bordered table-striped">',
@@ -80,7 +88,7 @@ export default class extends React.Component {
         },
       )
       .replace(
-        /\.npm\-tag\(\)/g,
+        /\.npm-tag\(\)/g,
         getNpmTag(),
       );
 
@@ -88,8 +96,8 @@ export default class extends React.Component {
 
     return (
       <PageLayout
-        technologyName={markdownRemark.fields.technology}
-        sectionName={markdownRemark.fields.section}
+        technologyName={technology}
+        sectionName={section}
       >
         <Helmet title={title} />
         {/* eslint-disable-next-line react/no-danger */}
@@ -98,6 +106,8 @@ export default class extends React.Component {
     );
   }
 }
+
+export default Page;
 
 export const query = graphql`
   query($slug: String!) {

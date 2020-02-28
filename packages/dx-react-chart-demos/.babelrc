@@ -5,6 +5,7 @@
     } } ],
     "@babel/preset-react"
   ],
+  "plugins": ["@babel/plugin-transform-runtime"],
   "env": {
     "test": {
       "plugins": ["@babel/plugin-transform-runtime"],

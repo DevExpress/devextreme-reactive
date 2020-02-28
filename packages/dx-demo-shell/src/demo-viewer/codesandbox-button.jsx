@@ -17,8 +17,7 @@ const sandboxConfig = `{
 }`;
 
 export const CodeSandBoxButton = ({
-  code, sandboxHtml, helperFiles, externalDeps, themeName,
-  sectionName, demoName, requireTs,
+  code, sandboxHtml, helperFiles, externalDeps, requireTs,
 }) => {
   const helpers = Object.entries(helperFiles).reduce((acc, [name, content]) => ({
     ...acc,
@@ -71,8 +70,5 @@ CodeSandBoxButton.propTypes = {
   sandboxHtml: PropTypes.string.isRequired,
   helperFiles: PropTypes.array.isRequired,
   externalDeps: PropTypes.array.isRequired,
-  themeName: PropTypes.string.isRequired,
-  sectionName: PropTypes.string.isRequired,
-  demoName: PropTypes.string.isRequired,
   requireTs: PropTypes.bool.isRequired,
 };

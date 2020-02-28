@@ -15,6 +15,7 @@ import ChartMultipleAxesImage from './demo-images/chart/Multiple-Axes.png';
 import ChartRotatedImage from './demo-images/chart/Rotated-Chart.png';
 import ChartSteamgraphImage from './demo-images/chart/Steamgraph.png';
 
+// eslint-disable-next-line no-unused-vars
 import styles from './demos.module.scss';
 
 const gridDemos = {
@@ -24,17 +25,17 @@ const gridDemos = {
     {
       title: 'Integrated Data Shaping',
       path: '/react/grid/demos/featured/integrated-data-shaping/',
-      image: GridDataShapingImage
+      image: GridDataShapingImage,
     },
     {
       title: 'Redux integration',
       path: '/react/grid/demos/featured/redux-integration/',
-      image: GridReduxIntegrationImage
+      image: GridReduxIntegrationImage,
     },
     {
       title: 'Chart integration',
       path: '/react/grid/demos/featured/chart-integration/',
-      image: GridChartIntegrationImage
+      image: GridChartIntegrationImage,
     },
   ],
   technical: [

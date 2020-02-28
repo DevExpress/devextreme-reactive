@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 
 import styles from './product-float-image.module.scss';
 
@@ -15,5 +16,10 @@ const ProductFloatImage = ({ imageLink, isIndexPage }) => (
     </div>
   </div>
 );
+
+ProductFloatImage.propTypes = {
+  imageLink: PropTypes.string.isRequired,
+  isIndexPage: PropTypes.bool.isRequired,
+};
 
 export default ProductFloatImage;

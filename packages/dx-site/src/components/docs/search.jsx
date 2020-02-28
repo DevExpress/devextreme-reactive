@@ -8,7 +8,7 @@ import styles from './search.module.scss';
 const Search = ({ technologyName, sectionName }) => {
   React.useEffect(() => {
     if (sectionName === 'demos') return;
-    const [techno, tool] = technologyName.split('/');
+    const [techno] = technologyName.split('/');
     docsearch({
       apiKey: '4cd7a76d4bc286ae69fe26182a8d4b18',
       indexName: 'devextreme_reactive',
@@ -24,7 +24,7 @@ const Search = ({ technologyName, sectionName }) => {
       className={`${styles.search} form-control`}
       placeholder="Search..."
     />
-  )
+  );
 };
 
 Search.propTypes = {

@@ -8,9 +8,7 @@ import LandingMaintainence from '../../../components/landing/maintainence';
 import LandingLink from '../../../components/landing/link';
 import LandingProductLinks from '../../../components/landing/product-links';
 import LandingReadyToLearnMore from '../../../components/landing/ready-to-learn-more';
-import imageBoxLink from '../../images/image-box.png';
 import headerImage from './images/Scheduler-screenshot.png';
-import lightweightUIImage from './images/Lightweight-Concise-UI.png';
 import familiarUXImage from './images/Familiar-Intuitive-UX.png';
 import recurringAppointmentsImage from './images/Recurring-Appointments.png';
 import dayViewImage from './images/Day-View.png';
@@ -22,12 +20,10 @@ import timelineViewImage from './images/Timeline-Views.png';
 
 import LandingThingsThatMatter from '../../../components/landing/things-that-matter';
 import ButtonLinksContainer from '../../../components/landing/button-links-container';
-import LandingIconFeature from '../../../components/landing/icon-feature';
 import LandingLayout from '../../../components/landing/layout';
 import LandingTitle from '../../../components/landing/title';
 import LandingImageFeature from '../../../components/landing/image-feature';
 import LandingProductFloatImage from '../../../components/landing/product-float-image';
-import bootstrapThemeLink from './images/bootstrap-theme.png';
 import materialThemeLink from './images/material-theme.png';
 import AlternatedBackground from '../../../components/landing/alternated-background';
 
@@ -103,7 +99,7 @@ const IndexPage = () => (
         <LandingHeaderAddon
           main="React Scheduler"
           additional={(
-            <React.Fragment>
+            <>
               for Material-UI
               <ButtonLinksContainer>
                 <LandingLink
@@ -125,7 +121,7 @@ const IndexPage = () => (
                   Demos
                 </LandingLink>
               </ButtonLinksContainer>
-            </React.Fragment>
+            </>
           )}
         />
       )}
@@ -157,7 +153,7 @@ const IndexPage = () => (
     </div>
     <LandingReadyToLearnMore
       links={(
-        <React.Fragment>
+        <>
           <LandingLink
             to="/react/scheduler/docs/guides/getting-started/"
             variant="button"
@@ -177,7 +173,7 @@ const IndexPage = () => (
           >
             Demos
           </LandingLink>
-        </React.Fragment>
+        </>
       )}
     />
   </Layout>

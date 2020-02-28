@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 const FeatureDescriptionBase = ({
-  title, description, guideLink, styles,
+  title, description, guideLink,
   titleComponent: Title,
   descriptionComponent: Description,
 }) => (
@@ -17,15 +17,16 @@ const FeatureDescriptionBase = ({
 );
 
 FeatureDescriptionBase.propTypes = {
+  guideLink: PropTypes.string.isRequired,
+  titleComponent: PropTypes.func.isRequired,
+  descriptionComponent: PropTypes.func.isRequired,
   description: PropTypes.string,
   title: PropTypes.string,
-  styles: PropTypes.object,
 };
 
 FeatureDescriptionBase.defaultProps = {
   description: undefined,
   title: undefined,
-  styles: null,
 };
 
 export default FeatureDescriptionBase;

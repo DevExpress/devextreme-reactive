@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import { EmbeddedDemoContext } from '../context';
 
 const getThemeVariantOptions = (props) => {
@@ -13,6 +14,22 @@ const getThemeVariantOptions = (props) => {
     .find(variant => variant.name === variantName);
 };
 
+const getFileWithDeps = (registry, fileName) => {
+  const files = Object.keys(registry.files).filter(f => f.split('.')[0] === fileName);
+  const deps = files.reduce((acc, f) => ([...acc, ...(registry.deps[f] || [])]), []);
+
+  return [...files, ...deps].reduce((acc, file) => ({
+    ...acc,
+    [file]: registry.files[file],
+  }), {});
+};
+
+const getImportedFiles = (registry, imported) => (
+  imported.reduce((acc, f) => ({
+    ...acc,
+    ...getFileWithDeps(registry, f),
+  }), {}));
+
 export class DemoCodeProvider extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -22,13 +39,71 @@ export class DemoCodeProvider extends React.PureComponent {
     };
   }
 
+  onEditableLinkChange(editableLink) {
+    this.setState({ editableLink });
+  }
+
+  getThemeLinks() {
+    const { editableLink } = this.state;
+    const themeVariantOptions = getThemeVariantOptions(this.props);
+    const links = [
+      ...(themeVariantOptions.links || []),
+      (editableLink ? [editableLink] : []),
+    ];
+    return links.length
+      ? links
+        .filter(l => !!l)
+        .map(link => `<link rel="stylesheet" href="${link}">`)
+        .join('\n')
+      : '';
+  }
+
+  getCode() {
+    return (this.getDemoConfig().source || '')
+      .replace('<>', '<React.Fragment>')
+      .replace('</>', '</React.Fragment>');
+  }
+
+  getDemoConfig() {
+    const { themeName, sectionName, demoName } = this.props;
+    const { demoSources } = this.context;
+    return demoSources[sectionName][demoName][themeName];
+  }
+
+  getHelperFiles() {
+    const { themeName } = this.props;
+    const { themeComponents, demoData } = this.context;
+    const { helperFiles: importedHelpers, productName } = this.getDemoConfig();
+
+    return {
+      ...getImportedFiles(demoData[productName], importedHelpers.demoData),
+      ...getImportedFiles(
+        themeComponents[productName][themeName],
+        importedHelpers.themeComponents,
+      ),
+    };
+  }
+
+  getExternalDependencies() {
+    const { demoData } = this.context;
+    const { helperFiles: { externalDeps }, productName } = this.getDemoConfig();
+    const { depsVersions } = demoData[productName];
+
+    return externalDeps.reduce((acc, dep) => ({
+      ...acc,
+      [dep]: depsVersions[dep],
+    }), {});
+  }
+
   getHtml() {
-    const { themeName, sectionName, demoName, variantName, perfSamplesCount } = this.props;
+    const {
+      themeName, sectionName, demoName, variantName, perfSamplesCount,
+    } = this.props;
     const {
       scriptPath,
     } = this.context;
 
-    let demoScript = scriptPath;
+    const demoScript = scriptPath;
 
     const themeLinks = this.getThemeLinks();
     const frameUrl = `/demo/${sectionName}/${demoName}/${themeName}/${variantName}`;
@@ -60,79 +135,6 @@ export class DemoCodeProvider extends React.PureComponent {
 `;
   }
 
-  getThemeLinks() {
-    const { editableLink } = this.state;
-    const themeVariantOptions = getThemeVariantOptions(this.props);
-    const links = [
-      ...(themeVariantOptions.links || []),
-      (editableLink ? [editableLink] : []),
-    ];
-    return links.length
-      ? links
-        .filter(l => !!l)
-        .map(link => `<link rel="stylesheet" href="${link}">`)
-        .join('\n')
-      : '';
-  }
-
-  getCode() {
-    return (this.getDemoConfig().source || '')
-      .replace('<>', '<React.Fragment>')
-      .replace('</>', '</React.Fragment>');
-  }
-
-  getFileWithDeps(registry, fileName) {
-    const files = Object.keys(registry.files).filter(f => f.split('.')[0] === fileName);
-    const deps = files.reduce((acc, f) => ([...acc, ...(registry.deps[f] || [])]), []);
-
-    return [...files, ...deps].reduce((acc, file) => ({
-      ...acc,
-      [file]: registry.files[file],
-    }), {});
-  }
-
-  getImportedFiles(registry, imported) {
-    return imported.reduce((acc, f) => ({
-      ...acc,
-      ...this.getFileWithDeps(registry, f),
-    }), {});
-  }
-
-  getDemoConfig() {
-    const { themeName, sectionName, demoName } = this.props;
-    const { demoSources } = this.context;
-    return demoSources[sectionName][demoName][themeName];
-  }
-
-  getHelperFiles() {
-    const { themeName } = this.props;
-    const { themeComponents, demoData } = this.context;
-    const { helperFiles: importedHelpers, productName } = this.getDemoConfig();
-
-    return {
-      ...this.getImportedFiles(demoData[productName], importedHelpers.demoData),
-      ...this.getImportedFiles(
-        themeComponents[productName][themeName],
-        importedHelpers.themeComponents,
-      ),
-    };
-  }
-
-  getExternalDependencies() {
-    const { demoData } = this.context;
-    const { helperFiles: { externalDeps }, productName } = this.getDemoConfig();
-    const { depsVersions } = demoData[productName];
-
-    return externalDeps.reduce((acc, dep) => ({
-      ...acc,
-      [dep]: depsVersions[dep],
-    }), {});
-  }
-
-  onEditableLinkChange(editableLink) {
-    this.setState({ editableLink });
-  }
-
   static getDerivedStateFromProps(props, state) {
     let { editableLink } = getThemeVariantOptions(props);
     if (editableLink) {
@@ -155,10 +157,25 @@ export class DemoCodeProvider extends React.PureComponent {
     const { editableLink } = this.state;
 
     return children({
-      html, sandboxHtml, code, helperFiles, externalDeps, requireTs,
-      onEditableLinkChange, editableLink,
+      html,
+      sandboxHtml,
+      code,
+      helperFiles,
+      externalDeps,
+      requireTs,
+      onEditableLinkChange,
+      editableLink,
     });
   }
 }
 
 DemoCodeProvider.contextType = EmbeddedDemoContext;
+
+DemoCodeProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+  themeName: PropTypes.string.isRequired,
+  sectionName: PropTypes.string.isRequired,
+  demoName: PropTypes.string.isRequired,
+  variantName: PropTypes.string.isRequired,
+  perfSamplesCount: PropTypes.number.isRequired,
+};

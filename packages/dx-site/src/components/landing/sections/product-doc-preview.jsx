@@ -1,10 +1,10 @@
 import * as React from 'react';
-import GatsbyLink from 'gatsby-link';
+import * as PropTypes from 'prop-types';
 import DocPreviewContainer from './shadow-container';
 
 import styles from './product-doc-preview.module.scss';
 
-const ProductDocPreview = ({ 
+const ProductDocPreview = ({
   title, path,
   imageComponent: Image,
 }) => (
@@ -17,5 +17,11 @@ const ProductDocPreview = ({
     </div>
   </DocPreviewContainer>
 );
+
+ProductDocPreview.propTypes = {
+  title: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired,
+  imageComponent: PropTypes.func.isRequired,
+};
 
 export default ProductDocPreview;

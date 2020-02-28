@@ -6,7 +6,7 @@ import styles from './small-layout-row.module.scss';
 
 const SmallLayoutRow = props => (
   <div className={styles.smallLayoutRow}>
-    <LayoutRowContent {...props}/>
+    <LayoutRowContent {...props} />
   </div>
 );
 

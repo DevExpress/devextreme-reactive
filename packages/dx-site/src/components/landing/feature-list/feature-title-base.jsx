@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import GatsbyLink from 'gatsby-link';
 import styles from './feature-title-base.module.scss';
 
-export default ({ guideLink, className, ...restProps}) => (
+const FeatureTitleBase = ({ guideLink, className, ...restProps }) => (
   guideLink ? (
     <GatsbyLink
       to={guideLink}
@@ -14,3 +14,14 @@ export default ({ guideLink, className, ...restProps}) => (
     <strong className={className} {...restProps} />
   )
 );
+
+FeatureTitleBase.propTypes = {
+  guideLink: PropTypes.string.isRequired,
+  className: PropTypes.string,
+};
+
+FeatureTitleBase.defaultProps = {
+  className: undefined,
+};
+
+export default FeatureTitleBase;

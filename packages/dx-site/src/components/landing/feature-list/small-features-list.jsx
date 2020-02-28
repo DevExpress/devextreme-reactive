@@ -1,5 +1,4 @@
- import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import * as React from 'react';
 import FeaturesListBase from './features-list-base';
 import LandingSmallLayoutItem from './small-layout-item';
 import SmallLayoutRow from './small-layout-row';

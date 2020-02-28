@@ -18,7 +18,7 @@ const ProductLink = ({
           </div>
         </div>
       </div>
-      <div className={`${styles.divider}`}/>
+      <div className={`${styles.divider}`} />
       <div className={styles.links}>
         {links}
       </div>
@@ -31,6 +31,11 @@ ProductLink.propTypes = {
   icon: PropTypes.elementType.isRequired,
   title: PropTypes.string.isRequired,
   links: PropTypes.node.isRequired,
+  condensed: PropTypes.bool,
+};
+
+ProductLink.defaultProps = {
+  condensed: false,
 };
 
 export default ProductLink;

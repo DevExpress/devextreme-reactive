@@ -3,7 +3,9 @@ import * as PropTypes from 'prop-types';
 
 import styles from './header-addon.module.scss';
 
-const HeaderAddon = ({ main, additional, imageLink, isIndexPage }) => (
+const HeaderAddon = ({
+  main, additional, imageLink, isIndexPage,
+}) => (
   <div className={styles.cropper}>
     <div className="container">
       <div className={`row ${styles.container} ${imageLink !== undefined ? styles.withImage : ''}`}>
@@ -33,10 +35,12 @@ HeaderAddon.propTypes = {
   main: PropTypes.node.isRequired,
   additional: PropTypes.node.isRequired,
   imageLink: PropTypes.string,
+  isIndexPage: PropTypes.bool,
 };
 
 HeaderAddon.defaultProps = {
   imageLink: undefined,
+  isIndexPage: false,
 };
 
 export default HeaderAddon;

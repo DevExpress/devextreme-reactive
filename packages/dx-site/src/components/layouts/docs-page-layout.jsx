@@ -28,8 +28,8 @@ const sortApiItems = (apiItems) => {
   ];
 };
 
-const prepareMenuItems = (siteSection) => ([
-  { title: 'OVERVIEW', path: `/${siteSection}/`},
+const prepareMenuItems = siteSection => ([
+  { title: 'OVERVIEW', path: `/${siteSection}/` },
   ...Object.keys(navigation).reduce((acc, productSlug) => {
     if (navigation[productSlug][siteSection]) {
       acc.push({
@@ -37,9 +37,9 @@ const prepareMenuItems = (siteSection) => ([
         items: navigation[productSlug][siteSection].reduce((items, rawSection) => {
           let section = rawSection;
           if (navigation[productSlug][siteSection].length === 1) {
-            return section['items'];
+            return section.items;
           }
-          if (section['title'] === 'API Reference') {
+          if (section.title === 'API Reference') {
             section = {
               ...rawSection,
               items: sortApiItems(rawSection.items),
@@ -47,10 +47,10 @@ const prepareMenuItems = (siteSection) => ([
           }
           return [...items, section];
         }, []),
-      })
+      });
     }
     return acc;
-  }, [])
+  }, []),
 ]);
 
 

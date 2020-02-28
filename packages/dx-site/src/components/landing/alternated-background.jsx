@@ -13,6 +13,11 @@ const AlternatedBackground = ({
 
 AlternatedBackground.propTypes = {
   children: PropTypes.node.isRequired,
+  style: PropTypes.object,
+};
+
+AlternatedBackground.defaultProps = {
+  style: null,
 };
 
 export default AlternatedBackground;

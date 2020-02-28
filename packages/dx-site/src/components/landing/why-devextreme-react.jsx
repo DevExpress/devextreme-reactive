@@ -1,9 +1,8 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 
 import styles from './why-devextreme-react.module.scss';
 
-const Title = () => (
+export default () => (
   <div className="container">
     <div className="row">
       <div className="col-md-12">
@@ -14,5 +13,3 @@ const Title = () => (
     </div>
   </div>
 );
-
-export default Title;

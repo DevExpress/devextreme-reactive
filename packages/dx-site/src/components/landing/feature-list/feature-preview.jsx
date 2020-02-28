@@ -23,13 +23,17 @@ const FeaturePreview = ({
 
 FeaturePreview.propTypes = {
   imageLink: PropTypes.string.isRequired,
+  guideLink: PropTypes.string,
   title: PropTypes.string,
   size: PropTypes.string,
+  className: PropTypes.string,
 };
 
 FeaturePreview.defaultProps = {
+  guideLink: undefined,
   title: undefined,
   size: 'normal',
+  className: undefined,
 };
 
 export default FeaturePreview;

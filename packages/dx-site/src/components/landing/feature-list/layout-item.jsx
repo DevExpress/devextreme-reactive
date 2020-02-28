@@ -32,4 +32,12 @@ const LayoutItem = ({
   </LayoutItemContainer>
 );
 
+LayoutItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  guideLink: PropTypes.string.isRequired,
+  imageLink: PropTypes.string.isRequired,
+  md: PropTypes.number.isRequired,
+};
+
 export default LayoutItem;

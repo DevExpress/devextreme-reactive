@@ -1,8 +1,15 @@
 import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import styles from './button-links-container.module.scss';
 
-export default ({ children }) => (
+const ButtonLinksContainer = ({ children }) => (
   <span className={styles.links}>
     {children}
   </span>
-)
+);
+
+ButtonLinksContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default ButtonLinksContainer;

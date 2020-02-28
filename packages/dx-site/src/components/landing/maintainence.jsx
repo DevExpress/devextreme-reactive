@@ -11,7 +11,9 @@ const Maintainance = () => (
             Maintenance & Customer Support
           </h2>
           <div className={styles.description}>
-            We are here to help and to do everything possible to earn your trust. To learn more about our commitment to total customer satisfaction, please check out our support flow on GitHub.
+            We are here to help and to do everything possible to earn your trust.
+            To learn more about our commitment to total customer satisfaction,
+            please check out our support flow on GitHub.
           </div>
         </div>
       </div>

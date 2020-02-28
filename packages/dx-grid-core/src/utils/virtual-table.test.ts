@@ -78,17 +78,6 @@ describe('VirtualTableLayout utils', () => {
         { size: 40 },
         { size: 40 },
         { size: 40 },
-      ];
-
-      expect(getVisibleBoundary(items, 600, 120, item => item.size, 20, 30))
-        .toEqual([20, 22]);
-    });
-
-    it('should work when rows are not loaded', () => {
-      const items = [
-        { size: 40 },
-        { size: 40 },
-        { size: 40 },
         { size: 40 },
         { size: 40 },
       ];

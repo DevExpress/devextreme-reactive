@@ -3,15 +3,9 @@ import { mount } from 'enzyme';
 import { PluginHost, Template } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import {
-  HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION,
-  VIEW_TYPES, getTimeTableHeight,
+  HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION, VIEW_TYPES,
 } from '@devexpress/dx-scheduler-core';
 import { GroupingPanel } from './grouping-panel';
-
-jest.mock('@devexpress/dx-scheduler-core', () => ({
-  ...require.requireActual('@devexpress/dx-scheduler-core'),
-  getTimeTableHeight: jest.fn(),
-}));
 
 describe('GroupingPanel', () => {
   const defaultProps = {
@@ -38,12 +32,6 @@ describe('GroupingPanel', () => {
       allDayPanelExists: 'allDayPanelExists',
     },
   };
-  beforeEach(() => {
-    getTimeTableHeight.mockImplementation(() => 'height');
-  });
-  afterEach(() => {
-    jest.resetAllMocks();
-  });
 
   it('should render horizontal groupingPanel', () => {
     const tree = mount((
@@ -107,27 +95,7 @@ describe('GroupingPanel', () => {
         rowSpan: defaultDeps.getter.viewCellsData.length,
         viewType: VIEW_TYPES.MONTH,
         cellTextTopOffset: undefined,
-        height: 'height',
+        alignWithAllDayRow: 'allDayPanelExists',
       });
-  });
-
-  it('should call "getTimeTableHeight" with proper parameters', () => {
-    mount((
-      <PluginHost>
-        {pluginDepsToComponents({
-          ...defaultDeps,
-          getter: {
-            ...defaultDeps.getter,
-            groupOrientation: () => VERTICAL_GROUP_ORIENTATION,
-          },
-        })}
-        <GroupingPanel
-          {...defaultProps}
-        />
-      </PluginHost>
-    ));
-
-    expect(getTimeTableHeight)
-      .toBeCalledWith(defaultDeps.getter.timeTableElementsMeta);
   });
 });

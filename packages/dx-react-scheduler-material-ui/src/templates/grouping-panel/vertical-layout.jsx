@@ -72,7 +72,6 @@ VerticalLayoutBase.propTypes = {
   rowSpan: PropTypes.number.isRequired,
   viewType: PropTypes.string.isRequired,
   cellTextTopOffset: PropTypes.number,
-  height: PropTypes.number.isRequired,
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
 };

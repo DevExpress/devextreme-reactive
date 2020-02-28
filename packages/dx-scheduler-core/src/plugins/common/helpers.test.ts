@@ -161,7 +161,7 @@ describe('#checkCellGroupingInfo', () => {
 });
 
 describe('#getTimeTableHeight', () => {
-  it('should return 0 if timeTableElementsMeta.parentRect is undefined', () => {
+  it('should return undefined if timeTableElementsMeta.parentRect is undefined', () => {
     expect(getTimeTableHeight({}))
       .toBeUndefined();
   });

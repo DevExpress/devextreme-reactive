@@ -110,7 +110,7 @@ describe('IntegratedGrouping', () => {
       .toBe('groupedViewCellsData');
   });
 
-  it('should provide viewCellsData getter', () => {
+  it('should provide allDayCellsData getter', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -119,7 +119,7 @@ describe('IntegratedGrouping', () => {
     ));
 
     expect(expandViewCellsDataWithGroups)
-      .toHaveBeenCalledWith('viewCellsData', 'groups', 'resourcesToGroupBy', true, 'groupOrientation');
+      .toHaveBeenCalledWith('allDayCellsData', 'groups', 'resourcesToGroupBy', true, 'groupOrientation');
     expect(getComputedState(tree).allDayCellsData)
       .toBe('groupedViewCellsData');
   });

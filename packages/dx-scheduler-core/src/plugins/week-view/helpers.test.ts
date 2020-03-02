@@ -4,6 +4,10 @@ import {
   dayBoundaryPredicate,
   reduceAppointmentByDayBounds,
   normalizeAppointmentDuration,
+  getWeekVerticallyGroupedColumnIndex,
+  getWeekHorizontallyGroupedColumnIndex,
+  getWeekVerticallyGroupedRowIndex,
+  getWeekHorizontallyGroupedRowIndex,
 } from './helpers';
 
 describe('Week view helpers', () => {
@@ -261,6 +265,175 @@ describe('Week view helpers', () => {
           .toEqual(moment('2018-07-12T23:44:59').format());
         expect(result.end.format())
           .toEqual(moment('2018-07-12T23:59:59').format());
+      });
+    });
+  });
+
+  describe('#view cell index helpers', () => {
+    const firstTestAppointment = { test: 1 };
+    const secondTestAppointment = { test: 2 };
+
+    const horizontallyGroupedViewCells = [[{
+      startDate: new Date('2018-06-24 08:00'),
+      endDate: new Date('2018-06-24 08:30'),
+      groupingInfo: [{ fieldName: 'test', id: 1 }],
+    }, {
+      startDate: new Date('2018-06-25 08:00'),
+      endDate: new Date('2018-06-25 08:30'),
+      groupingInfo: [{ fieldName: 'test', id: 1 }],
+    }, {
+      startDate: new Date('2018-06-26 08:00'),
+      endDate: new Date('2018-06-26 08:30'),
+      groupingInfo: [{ fieldName: 'test', id: 1 }],
+    }, {
+      startDate: new Date('2018-06-24 08:00'),
+      endDate: new Date('2018-06-24 08:30'),
+      groupingInfo: [{ fieldName: 'test', id: 2 }],
+    }, {
+      startDate: new Date('2018-06-25 08:00'),
+      endDate: new Date('2018-06-25 08:30'),
+      groupingInfo: [{ fieldName: 'test', id: 2 }],
+    }, {
+      startDate: new Date('2018-06-26 08:00'),
+      endDate: new Date('2018-06-26 08:30'),
+      groupingInfo: [{ fieldName: 'test', id: 2 }],
+    }], [{
+      startDate: new Date('2018-06-24 08:30'),
+      endDate: new Date('2018-06-24 09:00'),
+      groupingInfo: [{ fieldName: 'test', id: 1 }],
+    }, {
+      startDate: new Date('2018-06-25 08:30'),
+      endDate: new Date('2018-06-25 09:00'),
+      groupingInfo: [{ fieldName: 'test', id: 1 }],
+    }, {
+      startDate: new Date('2018-06-26 08:30'),
+      endDate: new Date('2018-06-26 09:00'),
+      groupingInfo: [{ fieldName: 'test', id: 1 }],
+    }, {
+      startDate: new Date('2018-06-24 08:30'),
+      endDate: new Date('2018-06-24 09:00'),
+      groupingInfo: [{ fieldName: 'test', id: 2 }],
+    }, {
+      startDate: new Date('2018-06-25 08:30'),
+      endDate: new Date('2018-06-25 09:00'),
+      groupingInfo: [{ fieldName: 'test', id: 2 }],
+    }, {
+      startDate: new Date('2018-06-26 08:30'),
+      endDate: new Date('2018-06-26 09:00'),
+      groupingInfo: [{ fieldName: 'test', id: 2 }],
+    }]];
+
+    const verticallyGroupedViewCells = [[{
+      startDate: new Date('2018-06-24 08:00'),
+      endDate: new Date('2018-06-24 08:30'),
+      groupingInfo: [{ fieldName: 'test', id: 1 }],
+    }, {
+      startDate: new Date('2018-06-25 08:00'),
+      endDate: new Date('2018-06-25 08:30'),
+      groupingInfo: [{ fieldName: 'test', id: 1 }],
+    }, {
+      startDate: new Date('2018-06-26 08:00'),
+      endDate: new Date('2018-06-26 08:30'),
+      groupingInfo: [{ fieldName: 'test', id: 1 }],
+    }], [{
+      startDate: new Date('2018-06-24 08:30'),
+      endDate: new Date('2018-06-24 09:00'),
+      groupingInfo: [{ fieldName: 'test', id: 1 }],
+    }, {
+      startDate: new Date('2018-06-25 08:30'),
+      endDate: new Date('2018-06-25 09:00'),
+      groupingInfo: [{ fieldName: 'test', id: 1 }],
+    }, {
+      startDate: new Date('2018-06-26 08:30'),
+      endDate: new Date('2018-06-26 09:00'),
+      groupingInfo: [{ fieldName: 'test', id: 1 }],
+    }], [{
+      startDate: new Date('2018-06-24 08:00'),
+      endDate: new Date('2018-06-24 08:30'),
+      groupingInfo: [{ fieldName: 'test', id: 2 }],
+    }, {
+      startDate: new Date('2018-06-25 08:00'),
+      endDate: new Date('2018-06-25 08:30'),
+      groupingInfo: [{ fieldName: 'test', id: 2 }],
+    }, {
+      startDate: new Date('2018-06-26 08:00'),
+      endDate: new Date('2018-06-26 08:30'),
+      groupingInfo: [{ fieldName: 'test', id: 2 }],
+    }], [{
+      startDate: new Date('2018-06-24 08:30'),
+      endDate: new Date('2018-06-24 09:00'),
+      groupingInfo: [{ fieldName: 'test', id: 2 }],
+    }, {
+      startDate: new Date('2018-06-25 08:30'),
+      endDate: new Date('2018-06-25 09:00'),
+      groupingInfo: [{ fieldName: 'test', id: 2 }],
+    }, {
+      startDate: new Date('2018-06-26 08:30'),
+      endDate: new Date('2018-06-26 09:00'),
+      groupingInfo: [{ fieldName: 'test', id: 2 }],
+    }]];
+
+    describe('#getWeekVerticallyGroupedColumnIndex', () => {
+      it('should return column index', () => {
+        expect(getWeekVerticallyGroupedColumnIndex(verticallyGroupedViewCells, '2018-06-25 08:10'))
+          .toBe(1);
+      });
+    });
+
+    describe('#getWeekHorizontallyGroupedColumnIndex', () => {
+      it('should return column index', () => {
+        expect(getWeekHorizontallyGroupedColumnIndex(
+          horizontallyGroupedViewCells, firstTestAppointment, '2018-06-25 08:10',
+        ))
+          .toBe(1);
+        expect(getWeekHorizontallyGroupedColumnIndex(
+          horizontallyGroupedViewCells, secondTestAppointment, '2018-06-25 08:10',
+        ))
+          .toBe(4);
+      });
+    });
+
+    describe('#getWeekVerticallyGroupedRowIndex', () => {
+      it('should return row index', () => {
+        expect(getWeekVerticallyGroupedRowIndex(
+          verticallyGroupedViewCells, firstTestAppointment, '2018-06-25 08:40', 1, false, 2,
+        ))
+          .toBe(1);
+        expect(getWeekVerticallyGroupedRowIndex(
+          verticallyGroupedViewCells, secondTestAppointment, '2018-06-25 08:40', 1, false, 2,
+        ))
+          .toBe(3);
+      });
+
+      it('should work with takePrev', () => {
+        expect(getWeekVerticallyGroupedRowIndex(
+          verticallyGroupedViewCells, firstTestAppointment, '2018-06-25 08:30', 1, false, 2,
+        ))
+          .toBe(1);
+        expect(getWeekVerticallyGroupedRowIndex(
+          verticallyGroupedViewCells, firstTestAppointment, '2018-06-25 08:30', 1, true, 2,
+        ))
+          .toBe(0);
+      });
+    });
+
+    describe('#getWeekHorizontallyGroupedRowIndex', () => {
+      it('should return row index', () => {
+        expect(getWeekHorizontallyGroupedRowIndex(
+          horizontallyGroupedViewCells, '2018-06-25 08:40', 1, false,
+        ))
+          .toBe(1);
+      });
+
+      it('should work with takePrev', () => {
+        expect(getWeekHorizontallyGroupedRowIndex(
+          horizontallyGroupedViewCells, '2018-06-25 08:30', 1, false,
+        ))
+          .toBe(1);
+        expect(getWeekHorizontallyGroupedRowIndex(
+          horizontallyGroupedViewCells, '2018-06-25 08:30', 1, true,
+        ))
+          .toBe(0);
       });
     });
   });

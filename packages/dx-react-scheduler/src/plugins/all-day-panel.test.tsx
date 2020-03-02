@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
-import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import { PluginHost, TemplatePlaceholder, Template } from '@devexpress/dx-react-core';
 import {
   allDayCells,
   getAppointmentStyle,
@@ -10,6 +10,7 @@ import {
 import { AllDayPanel } from './all-day-panel';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
+  ...require.requireActual('@devexpress/dx-scheduler-core'),
   allDayCells: jest.fn(),
   getAppointmentStyle: jest.fn(),
   calculateAllDayDateIntervals: jest.fn(),
@@ -158,6 +159,23 @@ describe('AllDayPanel', () => {
       ));
 
       expect(tree.find(defaultProps.cellComponent).exists())
+        .toBeTruthy();
+    });
+
+    it('should render body template', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <AllDayPanel
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      const templatePlaceholder = tree
+        .findWhere(node => node.type() === Template && node.props().name === 'body');
+
+      expect(templatePlaceholder.exists())
         .toBeTruthy();
     });
   });

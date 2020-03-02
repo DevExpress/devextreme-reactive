@@ -1,7 +1,8 @@
 import {
   getGroupFromResourceInstance, addGroupInfoToCells, addGroupInfoToCell,
-  groupAppointments, expandGroupedAppointment, rearrangeResources,
+  groupAppointments, expandGroupedAppointment, rearrangeResources, getGroupingInfoFromGroups,
 } from './helpers';
+import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '../../constants';
 
 describe('IntegratedGrouping helpers', () => {
   describe('#getGroupFromResourceInstance', () => {
@@ -39,18 +40,74 @@ describe('IntegratedGrouping helpers', () => {
         { fieldName: 'resource1', id: 2 },
       ]];
       expect(addGroupInfoToCells(
-        groups[0][0], groups, resources, viewCellsDataRow, 0,
+        groups[0][0], groups, resources, viewCellsDataRow, 0, false, HORIZONTAL_GROUP_ORIENTATION,
       ))
         .toEqual([{
           startDate: new Date('2018-06-24 08:00'),
           endDate: new Date('2018-06-24 08:30'),
           groupingInfo: [groups[0][0]],
+          endOfGroup: false,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         },
         {
           startDate: new Date('2018-06-24 08:30'),
           endDate: new Date('2018-06-24 09:00'),
           groupingInfo: [groups[0][0]],
           endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+        }]);
+    });
+
+    it('should work with vertical grouping', () => {
+      const viewCellsDataRow = [
+        { startDate: new Date('2018-06-24 08:00'), endDate: new Date('2018-06-24 08:30') },
+        { startDate: new Date('2018-06-24 08:30'), endDate: new Date('2018-06-24 09:00') },
+      ];
+      const resources = [{
+        fieldName: 'resource1',
+        instances: [
+          { id: 1, text: 'text1', fieldName: 'resource1' },
+          { id: 2, text: 'text2', fieldName: 'resource1' },
+        ],
+      }];
+      const groups = [[
+        { fieldName: 'resource1', id: 1 },
+        { fieldName: 'resource1', id: 2 },
+      ]];
+
+      expect(addGroupInfoToCells(
+        groups[0][0], groups, resources, viewCellsDataRow, 0, true, VERTICAL_GROUP_ORIENTATION,
+      ))
+        .toEqual([{
+          startDate: new Date('2018-06-24 08:00'),
+          endDate: new Date('2018-06-24 08:30'),
+          groupingInfo: [groups[0][0]],
+          endOfGroup: true,
+          groupOrientation: VERTICAL_GROUP_ORIENTATION,
+        },
+        {
+          startDate: new Date('2018-06-24 08:30'),
+          endDate: new Date('2018-06-24 09:00'),
+          groupingInfo: [groups[0][0]],
+          endOfGroup: true,
+          groupOrientation: VERTICAL_GROUP_ORIENTATION,
+        }]);
+      expect(addGroupInfoToCells(
+        groups[0][1], groups, resources, viewCellsDataRow, 0, false, VERTICAL_GROUP_ORIENTATION,
+      ))
+        .toEqual([{
+          startDate: new Date('2018-06-24 08:00'),
+          endDate: new Date('2018-06-24 08:30'),
+          groupingInfo: [groups[0][1]],
+          endOfGroup: false,
+          groupOrientation: VERTICAL_GROUP_ORIENTATION,
+        },
+        {
+          startDate: new Date('2018-06-24 08:30'),
+          endDate: new Date('2018-06-24 09:00'),
+          groupingInfo: [groups[0][1]],
+          endOfGroup: false,
+          groupOrientation: VERTICAL_GROUP_ORIENTATION,
         }]);
     });
   });
@@ -69,13 +126,26 @@ describe('IntegratedGrouping helpers', () => {
         { fieldName: 'resource1', id: 1 },
         { fieldName: 'resource1', id: 2 },
       ]];
+
       expect(addGroupInfoToCell(
-        groups[0][0], groups, resources, viewCell, 0,
+        groups[0][0], groups, resources, viewCell, 0, true, HORIZONTAL_GROUP_ORIENTATION,
       ))
         .toEqual({
           startDate: new Date('2018-06-24 08:00'),
           endDate: new Date('2018-06-24 08:30'),
           groupingInfo: [groups[0][0]],
+          endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+        });
+      expect(addGroupInfoToCell(
+        groups[0][1], groups, resources, viewCell, 0, false, VERTICAL_GROUP_ORIENTATION,
+      ))
+        .toEqual({
+          startDate: new Date('2018-06-24 08:00'),
+          endDate: new Date('2018-06-24 08:30'),
+          groupingInfo: [groups[0][1]],
+          endOfGroup: false,
+          groupOrientation: VERTICAL_GROUP_ORIENTATION,
         });
     });
   });
@@ -368,6 +438,24 @@ describe('IntegratedGrouping helpers', () => {
           { id: 1, isMain: true },
           { id: 2, isMain: true },
         ]);
+    });
+  });
+
+  describe('#getGroupingInfoFromGroups', () => {
+    it('should extract groupingInfo from groups based on group index', () => {
+      const groups = [[
+        { id: 1 }, { id: 2 },
+      ], [
+        { id: 3 }, { id: 4 }, { id: 3 }, { id: 4 },
+      ]];
+
+      let result = getGroupingInfoFromGroups(groups, 0);
+      expect(result)
+        .toEqual([{ id: 3 }, { id: 1 }]);
+
+      result = getGroupingInfoFromGroups(groups, 3);
+      expect(result)
+        .toEqual([{ id: 4 }, { id: 2 }]);
     });
   });
 });

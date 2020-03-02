@@ -1,7 +1,9 @@
-import { getViewType, isMidnight, viewBoundText, isDateValid } from './helpers';
+import {
+  getViewType, isMidnight, viewBoundText, checkCellGroupingInfo,
+  isDateValid, areDatesSame,
+} from './helpers';
 import { VERTICAL_TYPE, HORIZONTAL_TYPE } from '../../constants';
 import { formatDateTimeGetter } from '../scheduler-core/computeds';
-import { areDatesSame } from '../../../dist/dx-scheduler-core.umd';
 
 describe('#getViewType', () => {
   it('should work with horizontal type', () => {
@@ -124,5 +126,36 @@ describe('viewBoundText', () => {
       expect(areDatesSame(new Date(2020, 10, 3, 5), '2020-11-03 15:00'))
         .toBeTruthy();
     });
+  });
+});
+
+describe('#checkCellGroupingInfo', () => {
+  it('should return true if appointment\'s and cell\'s groups are equal', () => {
+    const cell = {
+      groupingInfo: [{
+        id: 1, fieldName: 'test',
+      }],
+    };
+    const appointment = { test: 1 };
+    expect(checkCellGroupingInfo(cell, appointment))
+      .toBeTruthy();
+  });
+
+  it('should return false if appointment\'s and cell\'s groups are not equal', () => {
+    const cell = {
+      groupingInfo: [{
+        id: 1, fieldName: 'test',
+      }],
+    };
+    const appointment = { test: 2 };
+    expect(checkCellGroupingInfo(cell, appointment))
+      .toBeFalsy();
+  });
+
+  it('should work without groups', () => {
+    const cell = {};
+    const appointment = {};
+    expect(checkCellGroupingInfo(cell, appointment))
+      .toBeTruthy();
   });
 });

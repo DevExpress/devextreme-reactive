@@ -1,4 +1,4 @@
-import { CellElementsMeta, FormatterFn, BaseView, Group } from '../index';
+import { CellElementsMeta, FormatterFn, BaseView, Group, GroupOrientation } from '../index';
 
 /* tslint:disable no-namespace max-line-length no-empty-interface */
 /** @internal */
@@ -41,6 +41,10 @@ export namespace AllDayPanel {
   export interface LayoutProps {
     /** Cells’ meta data. */
     cellsData: AllDayPanel.CellData[];
+    /** Groups shown in the Scheduler. */
+    groups?: Group[][];
+    /** Scheduler's grouping orientation: either 'Vertical' or 'Horizontal'. */
+    groupOrientation?: GroupOrientation;
     /** A component that renders an All Day panel cell. */
     cellComponent: React.ComponentType<AllDayPanel.CellProps>;
     /** A component that renders an All Day panel row. */

@@ -1,48 +1,48 @@
 import moment from 'moment';
 import {
   GetCellByAppointmentDataFn, GetVerticalRectByAppointmentDataFn,
-  GetCellRectVerticalFn, SchedulerDateTime, ViewCell,
+  GetCellRectVerticalFn, SchedulerDateTime,
 } from '../../types';
+import { VERTICAL_GROUP_ORIENTATION } from '../../constants';
+import {
+  getWeekHorizontallyGroupedRowIndex, getWeekVerticallyGroupedRowIndex,
+  getWeekHorizontallyGroupedColumnIndex, getWeekVerticallyGroupedColumnIndex,
+} from '../week-view/helpers';
 
 const CELL_GAP_PX = 10;
 const CELL_BOUND_HORIZONTAL_OFFSET_PX = 1;
 const CELL_BOUND_VERTICAL_OFFSET_PX = 4;
 
 export const getVerticalCellIndexByAppointmentData: GetCellByAppointmentDataFn = (
-  appointment, viewCellsData, date, takePrev = false,
+  appointment, viewCellsData, viewMetaData, date, takePrev = false,
 ) => {
-  const cellIndex =
-    viewCellsData[0].findIndex((timeCell: ViewCell) => {
-      let isCorrectCell = true;
-      if (timeCell.groupingInfo) {
-        isCorrectCell = timeCell.groupingInfo.every(group => (
-          group.id === appointment[group.fieldName]
-        ));
-      }
-      return moment(date as SchedulerDateTime).isSame(timeCell.startDate, 'date') && isCorrectCell;
-    });
+  const { groupOrientation, groupCount } = viewMetaData;
 
-  const rowIndex = viewCellsData.findIndex(timeCell => moment(date as SchedulerDateTime)
-    .isBetween(
-      timeCell[cellIndex].startDate,
-      timeCell[cellIndex].endDate,
-      'seconds',
-      takePrev ? '(]' : '[)'),
-    );
-  const totalCellIndex = (rowIndex * viewCellsData[0].length) + cellIndex;
+  const columnIndex = groupOrientation === VERTICAL_GROUP_ORIENTATION
+    ? getWeekVerticallyGroupedColumnIndex(viewCellsData, date)
+    : getWeekHorizontallyGroupedColumnIndex(viewCellsData, appointment, date);
+  const rowIndex = groupOrientation === VERTICAL_GROUP_ORIENTATION
+    ? getWeekVerticallyGroupedRowIndex(
+      viewCellsData, appointment, date, columnIndex, takePrev, groupCount,
+    ) : getWeekHorizontallyGroupedRowIndex(viewCellsData, date, columnIndex, takePrev);
+
+  const cellIndex = (rowIndex * viewCellsData[0].length) + columnIndex;
   return {
-    index: totalCellIndex,
-    startDate: viewCellsData[rowIndex][cellIndex].startDate,
+    index: cellIndex,
+    startDate: viewCellsData[rowIndex][columnIndex].startDate,
   };
 };
 
 const getCellRect: GetCellRectVerticalFn = (
-  date, appointment, viewCellsData, cellDuration, cellElementsMeta, takePrev,
+  date, appointment, viewCellsData, cellDuration,
+  cellElementsMeta, takePrev, viewMetaData,
 ) => {
   const {
     index: cellIndex,
     startDate: cellStartDate,
-  } = getVerticalCellIndexByAppointmentData(appointment, viewCellsData, date, takePrev);
+  } = getVerticalCellIndexByAppointmentData(
+    appointment, viewCellsData, viewMetaData, date, takePrev,
+  );
 
   const {
     top,
@@ -65,6 +65,7 @@ const getCellRect: GetCellRectVerticalFn = (
 
 export const getVerticalRectByAppointmentData: GetVerticalRectByAppointmentDataFn = (
   appointment,
+  viewMetaData,
   {
     viewCellsData,
     cellDuration,
@@ -72,10 +73,12 @@ export const getVerticalRectByAppointmentData: GetVerticalRectByAppointmentDataF
   },
 ) => {
   const firstCellRect = getCellRect(
-    appointment.start.toDate(), appointment, viewCellsData, cellDuration, cellElementsMeta, false,
+    appointment.start.toDate(), appointment, viewCellsData,
+    cellDuration, cellElementsMeta, false, viewMetaData,
   );
   const lastCellRect = getCellRect(
-    appointment.end.toDate(), appointment, viewCellsData, cellDuration, cellElementsMeta, true,
+    appointment.end.toDate(), appointment, viewCellsData,
+    cellDuration, cellElementsMeta, true, viewMetaData,
   );
 
   const top = firstCellRect.top + firstCellRect.topOffset;

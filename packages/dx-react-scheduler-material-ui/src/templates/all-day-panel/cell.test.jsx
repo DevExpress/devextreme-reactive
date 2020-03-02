@@ -19,7 +19,7 @@ describe('AllDayPanel', () => {
         .toBeTruthy();
       expect(tree.is(`.${classes.cell}`))
         .toBeTruthy();
-      expect(tree.is(`.${classes.rightBorderCell}`))
+      expect(tree.is(`.${classes.brightRightBorder}`))
         .toBeFalsy();
     });
     it('should pass rest props to the root element', () => {
@@ -35,7 +35,7 @@ describe('AllDayPanel', () => {
         <Cell endOfGroup />
       ));
 
-      expect(tree.is(`.${classes.rightBorderCell}`))
+      expect(tree.is(`.${classes.brightRightBorder}`))
         .toBeTruthy();
     });
   });

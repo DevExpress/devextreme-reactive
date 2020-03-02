@@ -10,6 +10,7 @@ import {
 import { IntegratedGrouping } from './integrated-grouping';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
+  ...require.requireActual('@devexpress/dx-scheduler-core'),
   getGroupsFromResources: jest.fn(),
   expandViewCellsDataWithGroups: jest.fn(),
   sortFilteredResources: jest.fn(),
@@ -30,6 +31,7 @@ describe('IntegratedGrouping', () => {
       currentView: { name: 'currentView' },
       groupByDate: () => true,
       excludedDays: 'excludedDays',
+      groupOrientation: () => 'groupOrientation',
     },
   };
   beforeEach(() => {
@@ -40,6 +42,7 @@ describe('IntegratedGrouping', () => {
     updateGroupingWithMainResource.mockImplementation(() => 'groupingComputed');
     expandGroups.mockImplementation(() => 'expandGroups');
   });
+  afterEach(jest.resetAllMocks);
 
   it('should provide grouping getter', () => {
     const tree = mount((
@@ -94,7 +97,7 @@ describe('IntegratedGrouping', () => {
     ));
 
     expect(expandViewCellsDataWithGroups)
-      .toHaveBeenCalledWith('viewCellsData', 'groups', 'resourcesToGroupBy', true);
+      .toHaveBeenCalledWith('viewCellsData', 'groups', 'resourcesToGroupBy', true, 'groupOrientation');
     expect(getComputedState(tree).viewCellsData)
       .toBe('groupedViewCellsData');
   });

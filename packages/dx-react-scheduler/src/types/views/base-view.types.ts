@@ -1,4 +1,7 @@
-import { FormatterFn, CellElementsMeta, ScrollingStrategy, Group } from '../index';
+import {
+  FormatterFn, CellElementsMeta, ScrollingStrategy,
+  Group, GroupOrientation,
+} from '../index';
 import { CurrentTimeIndicator } from '../current-time-indicator';
 import { GroupingPanel } from '../grouping';
 
@@ -53,6 +56,8 @@ export namespace BaseView {
     endDate?: Date;
     /** Information about the cell's grouping. */
     groupingInfo?: Array<Group>;
+    /** Scheduler's grouping orientation: either 'Vertical' or 'Horizontal'. */
+    groupOrientation?: GroupOrientation;
     /** \@deprecated Specifies whether the cell has the right border. */
     hasRightBorder?: boolean;
     /** "true" if this cell is last in its group. */
@@ -78,6 +83,10 @@ export namespace BaseView {
   export interface TimeScaleLayoutProps {
     /** Specifies the cells meta data. */
     cellsData: BaseView.CellData[][];
+    /** Groups shown in the Scheduler. */
+    groups?: Group[][];
+    /** Scheduler's grouping orientation. */
+    groupOrientation?: GroupOrientation;
     /** A component that renders a time scale cell. */
     labelComponent: React.ComponentType<BaseView.TimeScaleLabelProps>;
     /** @internal */

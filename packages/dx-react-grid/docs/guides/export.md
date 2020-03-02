@@ -68,35 +68,24 @@ The following demo shows export in action:
 
 ## Supported Grid Features
 
-### Sorting and Filtering
+Exported data can be transformed in the Excel document as it is in the Grid. For this, pass Grid settings to the following `GridExporter` properties:
 
-Pass the sorting and filtering options to the GridExporter. The rows will be exported in the same order as in the corresponding Grid component.
-
-### Summaries
-
-Pass the `totalSummaryItems` and `groupSummaryItems` to the GridExporter.
-
-### Grouping
-
-Pass the `grouping` configuration to the GridExporter.
-
-### Selection
-
-To export only selected rows, pass the `selection` prop to the GridExporter.
-
-Below is an example demonstrating all features described in this section.
+- `sorting`
+- `filtering`
+- `grouping`
+- `selection`
+- `totalSummaryItems` and `groupSummaryItems`
 
 .embedded-demo({ "path": "grid-export/supported-grid-features", "showThemeSelector": true })
 
 ## Excel Document Customization
 
-### Appearance customization
+### Cell Customization
 
-To adjust a data cell appearance, specify the `customizeCell` function. Use the `customizeSummaryCell` function to adjust a summary cells appearance.
+Use the `customizeCell` and `customizeSummaryCell` functions to change the appearance of data cells or summary cells, respectively.
 
-### Header and Footer
+### Header and Footer Customization
 
-The sheet's header and footer can be customized in 
-Specify the `customizeHeader` and `customizeFooter` 
+Use the `customizeHeader` and `customizeFooter` functions to add a header and a footer.
 
 .embedded-demo({ "path": "grid-export/advanced-customization", "showThemeSelector": true })

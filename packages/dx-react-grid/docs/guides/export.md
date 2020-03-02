@@ -7,7 +7,7 @@ React Grid users can export grid data to an Excel document.
 - [Toolbar](../reference/toolbar.md) - renders the Toolbar
 - [ExportPanel](../reference/export-panel.md) - renders the Export Panel
 
-Note that [plugin order](./plugin-overview.md#plugin-order) is important.
+Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
 ## Related Components
 

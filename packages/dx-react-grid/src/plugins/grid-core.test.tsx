@@ -4,6 +4,7 @@ import { pluginDepsToComponents, getComputedState, setupConsole } from '@devexpr
 import { PluginHost, Template } from '@devexpress/dx-react-core';
 import { rowIdGetter, cellValueGetter } from '@devexpress/dx-grid-core';
 import { GridCore } from './grid-core';
+import { GridCoreGetters } from './internal';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   rowIdGetter: jest.fn(),
@@ -14,6 +15,8 @@ const defaultProps = {
   rows: [{ a: 1 }],
   columns: [{ name: 'a' }],
   rootComponent: () => null,
+  getRowId: () => {},
+  getCellValue: () => {},
 };
 
 describe('Grid', () => {
@@ -65,7 +68,7 @@ describe('Grid', () => {
     expect(root.children().at(2).find('.footer-content').exists()).toBeTruthy();
   });
 
-  it('should provide rows', () => {
+  it('should provide grid core getters', () => {
     const tree = mount((
       <PluginHost>
         <GridCore
@@ -75,45 +78,12 @@ describe('Grid', () => {
       </PluginHost>
     ));
 
-    expect(getComputedState(tree).rows)
-      .toBe(defaultProps.rows);
-  });
-
-  it('should provide getRowId', () => {
-    const getRowId = () => '';
-
-    const tree = mount((
-      <PluginHost>
-        <GridCore
-          {...defaultProps}
-          getRowId={getRowId}
-        />
-        {pluginDepsToComponents({})}
-      </PluginHost>
-    ));
-
-    expect(rowIdGetter)
-      .toBeCalledWith(getRowId, defaultProps.rows);
-    expect(getComputedState(tree).getRowId)
-      .toBe(rowIdGetter());
-  });
-
-  it('should provide getCellValue', () => {
-    const getCellValue = () => {};
-
-    const tree = mount((
-      <PluginHost>
-        <GridCore
-          {...defaultProps}
-          getCellValue={getCellValue}
-        />
-        {pluginDepsToComponents({})}
-      </PluginHost>
-    ));
-
-    expect(cellValueGetter)
-      .toBeCalledWith(getCellValue, defaultProps.columns);
-    expect(getComputedState(tree).getCellValue)
-      .toEqual(cellValueGetter());
+    expect(tree.find(GridCoreGetters).props())
+      .toEqual({
+        columns: defaultProps.columns,
+        rows: defaultProps.rows,
+        getRowId: defaultProps.getRowId,
+        getCellValue: defaultProps.getCellValue,
+      });
   });
 });

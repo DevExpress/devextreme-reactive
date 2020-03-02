@@ -20,7 +20,7 @@ export interface TableContainerProps {
 
 export interface TableColumnReorderingProps {
   /** The column order. */
-  order?: Array<string>;
+  order?: ReadonlyArray<string>;
   /** The initial column order in the uncontrolled mode. */
   defaultOrder?: Array<string>;
   /** Handles changes to the column order. */
@@ -39,3 +39,6 @@ export type TableColumnReorderingState = {
   sourceColumnIndex: number;
   targetColumnIndex: number;
 };
+
+/** @internal */
+export type OrderedTableColumnsProps = Pick<TableColumnReorderingProps, 'order'>;

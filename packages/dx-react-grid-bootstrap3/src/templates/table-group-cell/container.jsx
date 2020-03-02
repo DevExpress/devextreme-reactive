@@ -10,7 +10,6 @@ export const Container = ({
   return (
     <div
       style={{
-        ...style,
         position: stickyPosition,
         [side]: position,
         backgroundColor,
@@ -20,6 +19,7 @@ export const Container = ({
         overflow: 'hidden',
         textOverflow: 'ellipsis',
         maxWidth: '100%',
+        ...style,
       }}
       {...restProps}
     >

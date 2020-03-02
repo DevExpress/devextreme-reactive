@@ -5,29 +5,32 @@ const replace = require('replace-in-file');
 const dts = require('dts-bundle');
 
 
-module.exports = (packageDirectory) => {
-  const pkg = JSON.parse(readFileSync(join(packageDirectory, 'package.json')));
-  const dtsOutFile = join(packageDirectory, pkg.types);
+module.exports = (packageDirectory, skipBundle = false) => {
   const dtsPath = join(packageDirectory, 'dist', 'dts');
-  const indexDts = getIndexDts(packageDirectory, dtsPath);
 
-  replace.sync({
-    files: `${dtsPath}/**/*.ts`,
-    from: 'export {};',
-    to: '',
-  });
+  if (!skipBundle) {
+    const pkg = JSON.parse(readFileSync(join(packageDirectory, 'package.json')));
+    const dtsOutFile = join(packageDirectory, pkg.types);
+    const indexDts = getIndexDts(packageDirectory, dtsPath);
 
-  dts.bundle({
-    name: pkg.name,
-    main: indexDts,
-    out: dtsOutFile,
-    indent: '  ',
-    outputAsModuleFolder: true,
-    headerPath: 'none',
-  });
+    replace.sync({
+      files: `${dtsPath}/**/*.ts`,
+      from: 'export {};',
+      to: '',
+    });
+
+    dts.bundle({
+      name: pkg.name,
+      main: indexDts,
+      out: dtsOutFile,
+      indent: '  ',
+      outputAsModuleFolder: true,
+      headerPath: 'none',
+    });
+  }
 
   rimraf(dtsPath, () => {});
-}
+};
 
 const getIndexDts = (packageDirectory, dtsPath) => {
   let indexDts = join(dtsPath, 'index.d.ts');

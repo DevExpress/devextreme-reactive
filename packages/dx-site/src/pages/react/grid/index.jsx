@@ -10,7 +10,7 @@ import LandingReadyToLearnMore from '../../../components/landing/ready-to-learn-
 import LandingChessBoardLayoutList from '../../../components/landing/features-list';
 import headerLink from './images/header.png';
 import pureReactImage from './images/Pure-React.png';
-import virtualScrollingImage from './images/virtual-scrolling.png';
+import virtualScrollingImage from './images/Virtual-Scrolling.png';
 import sortingImage from './images/Milti-Column-Sorting.png';
 import groupingImage from './images/Multi-Column-Grouping.png';
 import summariesImage from './images/Summaries.png';

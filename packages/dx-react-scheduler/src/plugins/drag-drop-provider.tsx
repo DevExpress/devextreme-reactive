@@ -75,21 +75,23 @@ class DragDropProviderBase extends React.PureComponent<
   static getDerivedStateFromProps(
     props: DragDropProviderProps, state: DragDropProviderState,
   ): DragDropProviderState | null {
-    const isAllowDragUpdated = props.allowDrag === state.allowDrag;
-    const isAllowResizeUpdated = props.allowResize === state.allowResize;
+    const isAllowDragSame = props.allowDrag === state.allowDrag;
+    const isAllowResizeSame = props.allowResize === state.allowResize;
 
-    if (isAllowDragUpdated && isAllowResizeUpdated) {
+    if (isAllowDragSame && isAllowResizeSame) {
       return null;
     }
 
     return {
       ...state,
       appointmentContentTemplateKey:
-        isAllowDragUpdated ? state.appointmentContentTemplateKey : Math.random(),
+        isAllowDragSame ? state.appointmentContentTemplateKey : Math.random(),
       appointmentTopTemplateKey:
-        isAllowResizeUpdated ? state.appointmentTopTemplateKey : Math.random(),
+        isAllowResizeSame ? state.appointmentTopTemplateKey : Math.random(),
       appointmentBottomTemplateKey:
-        isAllowResizeUpdated ? state.appointmentBottomTemplateKey : Math.random(),
+        isAllowResizeSame ? state.appointmentBottomTemplateKey : Math.random(),
+      allowDrag: props.allowDrag,
+      allowResize: props.allowResize,
     };
 
   }

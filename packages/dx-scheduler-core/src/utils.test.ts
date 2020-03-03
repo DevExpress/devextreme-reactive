@@ -126,7 +126,7 @@ describe('Utils', () => {
           moment(start.day(5)).endOf('day'),
         ]]);
     });
-    it('should work correctly with sundays', () => {
+    it('should work with week boundarie', () => {
       const excludedDays = [0, 5, 6];
 
       expect(excludedIntervals(excludedDays, start))

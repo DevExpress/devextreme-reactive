@@ -50,7 +50,7 @@
     "seamless-immutable": "^7.1.4",
     "tslint": "^5.20.1",
     "tslint-config-airbnb": "^5.11.2",
-    "typescript": "3.7.5",
+    "typescript": "3.8.3",
     "typescript-tslint-plugin": "^0.5.5"
   },
   "peerDependencies": {

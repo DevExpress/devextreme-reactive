@@ -17,6 +17,7 @@ const styles = {
     },
   },
 };
+const allDayCellHeight = BASIC_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL];
 
 const VerticalLayoutBase = ({
   rowComponent: Row,
@@ -31,7 +32,6 @@ const VerticalLayoutBase = ({
   ...restProps
 }) => {
   const timeTableCellHeight = BASIC_CELL_HEIGHT[viewType];
-  const allDayCellHeight = BASIC_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL];
 
   return (
     <Table className={classNames(classes.layout, className)} {...restProps}>

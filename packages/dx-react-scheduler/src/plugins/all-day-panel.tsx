@@ -16,6 +16,11 @@ import moment from 'moment';
 
 import { AllDayPanelProps, AllDayPanelState } from '../types';
 
+const renderAllDayPanelInDayScale = (
+  currentView, groupOrientation,
+) => currentView.type === VIEW_TYPES.MONTH
+  || groupOrientation?.(currentView.name) !== VERTICAL_GROUP_ORIENTATION;
+
 const pluginDependencies = [
   { name: 'DayView', optional: true },
   { name: 'WeekView', optional: true },
@@ -99,8 +104,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           {(params: any) => (
             <TemplateConnector>
               {({ currentView, groupOrientation, allDayCellsData }) => {
-                if (currentView.type === VIEW_TYPES.MONTH
-                    || groupOrientation?.(currentView.name) !== VERTICAL_GROUP_ORIENTATION) {
+                if (renderAllDayPanelInDayScale(currentView, groupOrientation)) {
                   return <TemplatePlaceholder params={...params} />;
                 }
                 return (
@@ -126,8 +130,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
         <Template name="dayScaleEmptyCell">
           <TemplateConnector>
             {({ currentView, groupOrientation }) => {
-              if (currentView.type === VIEW_TYPES.MONTH
-                  || groupOrientation?.(currentView.name) === VERTICAL_GROUP_ORIENTATION) {
+              if (renderAllDayPanelInDayScale(currentView, groupOrientation)) {
                 return <TemplatePlaceholder />;
               }
 
@@ -142,8 +145,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           {(params: any) => (
             <TemplateConnector>
               {({ currentView, groupOrientation }) => {
-                if (currentView.type === VIEW_TYPES.MONTH
-                    || groupOrientation?.(currentView.name) !== VERTICAL_GROUP_ORIENTATION) {
+                if (renderAllDayPanelInDayScale(currentView, groupOrientation)) {
                   return <TemplatePlaceholder params={...params} />;
                 }
 

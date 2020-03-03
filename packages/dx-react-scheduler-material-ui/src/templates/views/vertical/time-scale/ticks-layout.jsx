@@ -28,27 +28,27 @@ const TicksLayoutBase = ({
   return (
     <Table {...restProps} className={classNames(classes.table, className)}>
       <TableBody>
-        {cellsData.map((days, index) => (
+        {cellsData.map(([firstDay], index) => (
           <React.Fragment key={index.toString()}>
             {index % groupHeight === 0 && includeAllDayCell && (
               <Row key={(index / groupHeight).toString()}>
                 <Cell
                   key={`all-day-tick ${index / groupHeight}`}
                   isAllDay
-                  startDate={days[0].startDate}
-                  endDate={days[0].endDate}
+                  startDate={firstDay.startDate}
+                  endDate={firstDay.endDate}
                   endOfGroup={false}
-                  groupingInfo={days[0].groupingInfo}
+                  groupingInfo={firstDay.groupingInfo}
                 />
               </Row>
             )}
-            <Row key={(days[0].startDate + index).toString()}>
+            <Row key={(firstDay.startDate + index).toString()}>
               <Cell
                 key={index.toString()}
-                startDate={days[0].startDate}
-                endDate={days[0].endDate}
-                endOfGroup={days[0].endOfGroup && groupOrientation === VERTICAL_GROUP_ORIENTATION}
-                groupingInfo={days[0].groupingInfo}
+                startDate={firstDay.startDate}
+                endDate={firstDay.endDate}
+                endOfGroup={firstDay.endOfGroup && groupOrientation === VERTICAL_GROUP_ORIENTATION}
+                groupingInfo={firstDay.groupingInfo}
               />
             </Row>
           </React.Fragment>

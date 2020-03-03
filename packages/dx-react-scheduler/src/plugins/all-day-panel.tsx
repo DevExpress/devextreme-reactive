@@ -131,11 +131,11 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           <TemplateConnector>
             {({ currentView, groupOrientation }) => {
               if (renderAllDayPanelInDayScale(currentView, groupOrientation)) {
-                return <TemplatePlaceholder />;
+                return <AllDayTitlePlaceholder />;
               }
 
               return (
-                <AllDayTitlePlaceholder />
+                <TemplatePlaceholder />
               );
             }}
           </TemplateConnector>

@@ -38,14 +38,14 @@ const createExcludedInterval: CustomFunction<
   ];
 };
 
-const excludedIntervals: PureComputed<
+export const excludedIntervals: PureComputed<
   [number[], moment.Moment], Interval[]
 > = (excludedDays, start) => excludedDays
   .map(day => (day === 0 ? 7 : day))
   .sort((a, b) => a - b)
   .reduce((acc, day, i, allDays) => {
     if (i && day === allDays[i - 1] + 1) {
-      acc[i - 1][1].day(day);
+      acc[acc.length - 1][1].day(day);
     } else {
       acc.push(createExcludedInterval(day, start));
     }

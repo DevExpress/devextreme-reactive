@@ -18,8 +18,8 @@ const getCollapsedRowsComputed = (
   { getCollapsedRows }: Getters,
 ) => groupCollapsedRowsGetter(getCollapsedRows);
 const expandedGroupedRowsComputed = (
-  { rows, grouping, expandedGroups }: Getters,
-) => expandedGroupRows(rows, grouping, expandedGroups);
+  { rows, grouping, expandedGroups, isExporting }: Getters,
+) => expandedGroupRows(rows, grouping, expandedGroups, isExporting);
 const getRowIdComputed = ({ getRowId, rows }: Getters) => customGroupingRowIdGetter(getRowId, rows);
 
 class CustomGroupingBase extends React.PureComponent<CustomGroupingProps> {

@@ -9,14 +9,13 @@ import {
   TemplatePlaceholder,
   createStateHelper,
   ActionFn,
-  Getters,
 } from '@devexpress/dx-react-core';
 import {
   toggleColumn,
-  visibleTableColumns,
   tableDataColumnsExist,
   getColumnExtensionValueGetter,
 } from '@devexpress/dx-grid-core';
+import { VisibleTableColumns } from './internal/visible-table-columns';
 import { TableColumnVisibilityProps, TableColumnVisibilityState } from '../types';
 
 const pluginDependencies = [
@@ -26,10 +25,6 @@ const pluginDependencies = [
 const defaultMessages = {
   noColumns: 'Nothing to show',
 };
-
-const visibleTableColumnsComputed = (
-  { tableColumns, hiddenColumnNames }: Getters,
-) => visibleTableColumns(tableColumns, hiddenColumnNames);
 
 const columnExtensionValueGetter = (
   columnExtensions, defaultValue,
@@ -92,8 +87,8 @@ class TableColumnVisibilityBase extends React.PureComponent<TableColumnVisibilit
         name="TableColumnVisibility"
         dependencies={pluginDependencies}
       >
-        <Getter name="hiddenColumnNames" value={hiddenColumnNames} />
-        <Getter name="tableColumns" computed={visibleTableColumnsComputed} />
+        <VisibleTableColumns hiddenColumnNames={hiddenColumnNames} />
+
         <Getter
           name="isColumnTogglingEnabled"
           value={columnExtensionValueGetter(columnExtensions, columnTogglingEnabled)}

@@ -23,3 +23,9 @@ export interface GridProps {
   /** A component that renders the grid root layout. */
   rootComponent: React.ComponentType<Grid.RootProps>;
 }
+
+/** @internal */
+export type GridCoreGettersProps = Pick<
+  GridProps,
+  'rows' | 'columns' | 'getRowId' | 'getCellValue'
+>;

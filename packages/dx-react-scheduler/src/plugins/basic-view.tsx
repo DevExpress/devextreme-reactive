@@ -47,7 +47,9 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
     timeTableLayoutKey: 0,
   };
 
-  static getDerivedStateFromProps(props: BasicViewProps, state: BasicViewState): BasicViewState {
+  static getDerivedStateFromProps(
+    props: BasicViewProps, state: BasicViewState,
+  ): BasicViewState | null {
 
     if (props.timeTableCellComponent !== state.previousTimeTableCell) {
       return {
@@ -56,7 +58,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
         timeTableLayoutKey: Math.random(),
       };
     }
-    return state;
+    return null;
   }
 
   scrollingStrategyComputed = memoize((viewName, scrollingStrategy) => getters =>

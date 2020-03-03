@@ -53,7 +53,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
 
   static getDerivedStateFromProps(
     props: AllDayPanelProps, state: AllDayPanelState,
-  ): AllDayPanelState {
+  ): AllDayPanelState | null {
     if (props.cellComponent !== state.previousCell) {
       return {
         ...state,
@@ -61,7 +61,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
         layoutKey: Math.random(),
       };
     }
-    return state;
+    return null;
   }
 
   allDayCellsData = memoize(viewCellsData => allDayCells(viewCellsData));

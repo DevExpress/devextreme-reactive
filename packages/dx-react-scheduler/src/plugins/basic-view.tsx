@@ -41,7 +41,25 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
       changeVerticalScroll: () => undefined,
       changeHorizontalScroll: () => undefined,
     },
+    previousTimeTableCell: null,
+    // The key has to be generated every time the TimeTableCell is updated to rerender TimeTable
+    // and, consequently, update timeTableElementsMeta
+    timeTableLayoutKey: 0,
   };
+
+  static getDerivedStateFromProps(
+    props: BasicViewProps, state: BasicViewState,
+  ): BasicViewState | null {
+
+    if (props.timeTableCellComponent !== state.previousTimeTableCell) {
+      return {
+        ...state,
+        previousTimeTableCell: props.timeTableCellComponent,
+        timeTableLayoutKey: Math.random(),
+      };
+    }
+    return null;
+  }
 
   scrollingStrategyComputed = memoize((viewName, scrollingStrategy) => getters =>
     computed(getters, viewName!, () => scrollingStrategy, getters.scrollingStrategy));
@@ -131,7 +149,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
       layoutProps,
       layoutComponent: Layout,
     } = this.props;
-    const { timeTableElementsMeta, scrollingStrategy } = this.state;
+    const { timeTableElementsMeta, scrollingStrategy, timeTableLayoutKey } = this.state;
     const viewDisplayName = displayName || viewName;
 
     return (
@@ -252,6 +270,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
                     cellComponent={CellPlaceholder}
                     formatDate={formatDate}
                     setCellElementsMeta={this.updateCellElementsMeta}
+                    key={timeTableLayoutKey}
                   />
                   <AppointmentLayer>
                     <TimeTableAppointmentLayer />

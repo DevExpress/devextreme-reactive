@@ -56,6 +56,11 @@ class DragDropProviderBase extends React.PureComponent<
     appointmentGroupingInfo: null,
     payload: null,
     isOutside: false,
+    allowDrag: () => true,
+    allowResize: () => true,
+    appointmentContentTemplateKey: 0,
+    appointmentTopTemplateKey: 0,
+    appointmentBottomTemplateKey: 0,
   };
   static components: PluginComponents = {
     containerComponent: 'Container',
@@ -67,6 +72,29 @@ class DragDropProviderBase extends React.PureComponent<
     allowDrag: () => true,
     allowResize: () => true,
   };
+  static getDerivedStateFromProps(
+    props: DragDropProviderProps, state: DragDropProviderState,
+  ): DragDropProviderState | null {
+    const isAllowDragSame = props.allowDrag === state.allowDrag;
+    const isAllowResizeSame = props.allowResize === state.allowResize;
+
+    if (isAllowDragSame && isAllowResizeSame) {
+      return null;
+    }
+
+    return {
+      ...state,
+      appointmentContentTemplateKey:
+        isAllowDragSame ? state.appointmentContentTemplateKey : Math.random(),
+      appointmentTopTemplateKey:
+        isAllowResizeSame ? state.appointmentTopTemplateKey : Math.random(),
+      appointmentBottomTemplateKey:
+        isAllowResizeSame ? state.appointmentBottomTemplateKey : Math.random(),
+      allowDrag: props.allowDrag,
+      allowResize: props.allowResize,
+    };
+
+  }
 
   onPayloadChange(actions) {
     return args => this.handlePayloadChange(args, actions);
@@ -217,7 +245,10 @@ class DragDropProviderBase extends React.PureComponent<
   }
 
   render() {
-    const { payload } = this.state;
+    const {
+      payload, appointmentContentTemplateKey,
+      appointmentBottomTemplateKey, appointmentTopTemplateKey,
+    } = this.state;
     const {
       containerComponent: Container,
       draftAppointmentComponent: DraftAppointment,
@@ -271,6 +302,7 @@ class DragDropProviderBase extends React.PureComponent<
         <Template
           name="appointmentContent"
           predicate={({ data }: any) => allowDrag!(data)}
+          key={appointmentContentTemplateKey}
         >
           {({ styles, ...params }: any) => (
             <DragSource
@@ -288,6 +320,7 @@ class DragDropProviderBase extends React.PureComponent<
         <Template
           name="appointmentTop"
           predicate={(params: any) => !params.slice && allowResize!(params.data)}
+          key={appointmentTopTemplateKey}
         >
           {({ data, type }: any) => (
             <DragSource
@@ -301,6 +334,7 @@ class DragDropProviderBase extends React.PureComponent<
         <Template
           name="appointmentBottom"
           predicate={(params: any) => !params.slice && allowResize!(params.data)}
+          key={appointmentBottomTemplateKey}
         >
           {({ data, type }: any) => (
             <DragSource

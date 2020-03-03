@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "@devexpress/dx-core": "2.4.1",
+    "@types/exceljs": "^1.3.0",
     "core-js": "^3.4.1",
     "jest": "^24.9.0",
     "rollup": "^1.27.2",

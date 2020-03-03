@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { memoize, getMessagesFormatter, MemoizedComputed } from '@devexpress/dx-core';
+import { getMessagesFormatter } from '@devexpress/dx-core';
 import {
   Getter,
   Template,
@@ -9,7 +9,6 @@ import {
   Getters,
 } from '@devexpress/dx-react-core';
 import {
-  tableColumnsWithDataRows,
   tableRowsWithDataRows,
   tableCellColSpanGetter,
   isNoDataTableRow,
@@ -19,10 +18,9 @@ import {
   isDataTableRow,
   TABLE_DATA_TYPE,
   TABLE_NODATA_TYPE,
-  GridColumnExtension,
-  checkTableColumnExtensions,
 } from '@devexpress/dx-grid-core';
 import { TableProps, Table as TableNS, TableLayoutProps } from '../types';
+import { TableColumnsWithDataRowsGetter } from './internal/table-columns-getter';
 
 const RowPlaceholder = props => <TemplatePlaceholder name="tableRow" params={props} />;
 const CellPlaceholder = props => <TemplatePlaceholder name="tableCell" params={props} />;
@@ -60,18 +58,6 @@ class TableBase extends React.PureComponent<TableProps> {
     stubHeaderCellComponent: 'StubHeaderCell',
   };
 
-  tableColumnsComputed: MemoizedComputed<GridColumnExtension[], typeof tableColumnsWithDataRows>;
-
-  constructor(props) {
-    super(props);
-
-    this.tableColumnsComputed = memoize(
-      (columnExtensions: GridColumnExtension[]) => ({
-        columns,
-      }) => tableColumnsWithDataRows(columns, columnExtensions),
-    );
-  }
-
   render() {
     const {
       layoutComponent: Layout,
@@ -92,8 +78,6 @@ class TableBase extends React.PureComponent<TableProps> {
     } = this.props;
 
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
-    const tableColumnsComputed = this.tableColumnsComputed(columnExtensions!);
-    checkTableColumnExtensions(columnExtensions!);
 
     return (
       <Plugin
@@ -102,7 +86,7 @@ class TableBase extends React.PureComponent<TableProps> {
         <Getter name="tableHeaderRows" value={tableHeaderRows} />
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Getter name="tableFooterRows" value={tableFooterRows} />
-        <Getter name="tableColumns" computed={tableColumnsComputed} />
+        <TableColumnsWithDataRowsGetter columnExtensions={columnExtensions} />
         <Getter name="getTableCellColSpan" value={tableCellColSpanGetter} />
 
         <Template name="body">

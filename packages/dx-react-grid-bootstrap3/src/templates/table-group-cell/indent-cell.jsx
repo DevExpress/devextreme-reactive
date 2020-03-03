@@ -14,12 +14,12 @@ export const IndentCell = ({
   return (
     <td
       style={{
-        ...style,
         [side]: position,
         backgroundColor,
         backgroundClip: 'padding-box',
         position: stickyPosition,
         zIndex: 300,
+        ...style,
       }}
       {...restProps}
     />

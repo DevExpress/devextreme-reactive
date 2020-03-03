@@ -370,5 +370,45 @@ describe('Basic View', () => {
       expect(tree.find(customEmptyCell).exists())
         .toBeTruthy();
     });
+    fit('should update timeTableElementsMeta every time timeTable cell is changed', () => {
+      let updateNumber = 0;
+      const firstTimeTableCell = jest.fn();
+      const timeTableLayout = React.memo(({ setCellElementsMeta }) => {
+        React.useEffect(() => {
+          updateNumber += 1;
+          setCellElementsMeta({ updateNumber });
+        });
+        return null;
+      });
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <BasicView
+            {...defaultProps}
+            timeTableCellComponent={firstTimeTableCell}
+            timeTableLayoutComponent={timeTableLayout}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).timeTableElementsMeta)
+        .toEqual({ updateNumber: 1 });
+
+      // console.log(tree.find(BasicView).state())
+      const secondTimeTableCell = jest.fn();
+      // tree.setProps({
+      //   timeTableCellComponent: secondTimeTableCell,
+      // });
+      // tree.update();
+      const nextState = BasicView.getDerivedStateFromProps(
+        { timeTableCellComponent: secondTimeTableCell },
+        tree.find(BasicView).state()
+      );
+      console.log(nextState)
+      tree.find(BasicView).setState(nextState);
+      console.log(tree.find(BasicView).state())
+      expect(getComputedState(tree).timeTableElementsMeta)
+      .toEqual({ updateNumber: 2 });
+    });
   });
 });

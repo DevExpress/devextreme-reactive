@@ -33,6 +33,8 @@ const GroupingPanelPlaceholder = () => <TemplatePlaceholder name="allDayGrouping
 class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelState> {
   state: AllDayPanelState = {
     elementsMeta: {},
+    previousCell: null,
+    cellUpdateCount: 0,
   };
   static defaultProps: Partial<AllDayPanelProps> = {
     messages: {},
@@ -46,6 +48,19 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
     titleCellComponent: 'TitleCell',
     containerComponent: 'Container',
   };
+
+  static getDerivedStateFromProps(
+    props: AllDayPanelProps, state: AllDayPanelState,
+  ): AllDayPanelState {
+    if (props.cellComponent !== state.previousCell) {
+      return {
+        ...state,
+        previousCell: props.cellComponent,
+        cellUpdateCount: state.cellUpdateCount + 1,
+      };
+    }
+    return state;
+  }
 
   allDayCellsData = memoize(viewCellsData => allDayCells(viewCellsData));
 
@@ -76,7 +91,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
       containerComponent: Container,
       messages,
     } = this.props;
-    const { elementsMeta } = this.state;
+    const { elementsMeta, cellUpdateCount } = this.state;
     const getMessage = this.getMessageFormatter(messages, defaultMessages);
 
     return (
@@ -163,6 +178,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                         ? groups : undefined
                     }
                     groupOrientation={groupOrientation}
+                    key={cellUpdateCount}
                   />
                   <AppointmentLayer>
                     <AllDayAppointmentLayerPlaceholder />

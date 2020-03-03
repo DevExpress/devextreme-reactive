@@ -13,6 +13,8 @@ import {
 export type BasicViewState = {
   scrollingStrategy: ScrollingStrategy;
   timeTableElementsMeta: CellElementsMeta | {};
+  previousTimeTableCell: React.ComponentType<BaseView.TimeTableCellProps> | null;
+  timeTableCellUpdateCount: number;
 };
 
 /** @internal */

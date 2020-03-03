@@ -41,7 +41,20 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
       changeVerticalScroll: () => undefined,
       changeHorizontalScroll: () => undefined,
     },
+    previousTimeTableCell: null,
+    timeTableCellUpdateCount: 0,
   };
+
+  static getDerivedStateFromProps(props: BasicViewProps, state: BasicViewState): BasicViewState {
+    if (props.timeTableCellComponent !== state.previousTimeTableCell) {
+      return {
+        ...state,
+        previousTimeTableCell: props.timeTableCellComponent,
+        timeTableCellUpdateCount: state.timeTableCellUpdateCount + 1,
+      };
+    }
+    return state;
+  }
 
   scrollingStrategyComputed = memoize((viewName, scrollingStrategy) => getters =>
     computed(getters, viewName!, () => scrollingStrategy, getters.scrollingStrategy));
@@ -131,7 +144,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
       layoutProps,
       layoutComponent: Layout,
     } = this.props;
-    const { timeTableElementsMeta, scrollingStrategy } = this.state;
+    const { timeTableElementsMeta, scrollingStrategy, timeTableCellUpdateCount } = this.state;
     const viewDisplayName = displayName || viewName;
 
     return (
@@ -252,6 +265,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
                     cellComponent={CellPlaceholder}
                     formatDate={formatDate}
                     setCellElementsMeta={this.updateCellElementsMeta}
+                    key={timeTableCellUpdateCount}
                   />
                   <AppointmentLayer>
                     <TimeTableAppointmentLayer />

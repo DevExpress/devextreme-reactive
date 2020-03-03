@@ -12,6 +12,7 @@ import {
   filterByViewBoundaries,
   getRRuleSetWithExDates,
   formatDateToString,
+  excludedIntervals,
 } from './utils';
 
 describe('Utils', () => {
@@ -91,6 +92,48 @@ describe('Utils', () => {
 
       expect(filtered)
         .toEqual(appointments.slice(0, 1));
+    });
+  });
+  describe('#excludedIntervals', () => {
+    const firstDayOfWeek = moment('2020-03-03');
+    it('should create an interval of excluded days', () => {
+      const excludedDays = [3];
+
+      expect(excludedIntervals(excludedDays, firstDayOfWeek))
+        .toEqual([[
+          moment(firstDayOfWeek.day(3)),
+          moment(firstDayOfWeek.day(3)).endOf('day'),
+        ]]);
+    });
+    it('should create several intervals of excluded days', () => {
+      const excludedDays = [2, 5];
+
+      expect(excludedIntervals(excludedDays, firstDayOfWeek))
+        .toEqual([[
+          moment(firstDayOfWeek.day(2)),
+          moment(firstDayOfWeek.day(2)).endOf('day'),
+        ], [
+          moment(firstDayOfWeek.day(5)),
+          moment(firstDayOfWeek.day(5)).endOf('day'),
+        ]]);
+    });
+    it('should create an interval for several excluded days in a row', () => {
+      const excludedDays = [2, 3, 4, 5];
+
+      expect(excludedIntervals(excludedDays, firstDayOfWeek))
+        .toEqual([[
+          moment(firstDayOfWeek.day(2)),
+          moment(firstDayOfWeek.day(5)).endOf('day'),
+        ]]);
+    });
+    it('should work correctly with sundays', () => {
+      const excludedDays = [0, 5, 6];
+
+      expect(excludedIntervals(excludedDays, firstDayOfWeek))
+        .toEqual([[
+          moment(firstDayOfWeek.day(5)),
+          moment(firstDayOfWeek.day(7)).endOf('day'),
+        ]]);
     });
   });
   describe('#sortAppointments', () => {

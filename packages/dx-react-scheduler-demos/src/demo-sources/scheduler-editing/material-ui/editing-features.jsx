@@ -3,6 +3,9 @@ import Paper from '@material-ui/core/Paper';
 import FormGroup from '@material-ui/core/FormGroup';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Typography from '@material-ui/core/FormControl';
+import { withStyles } from '@material-ui/core/styles';
+import { fade, lighten } from '@material-ui/core/styles/colorManipulator';
 import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -16,8 +19,18 @@ import {
 
 import { appointments } from '../../../demo-data/appointments';
 
+const styles = theme => ({
+  container: {
+    margin: theme.spacing(2),
+    padding: theme.spacing(2),
+    borderRadius: theme.spacing(1),
+    border: `2px solid ${lighten(fade(theme.palette.divider, 1), 0.8)}`,
+  },
+  text: theme.typography.h6,
+});
+
 const currentDate = '2018-06-27';
-const editingFeaturesList = [
+const editingOptionsList = [
   { id: 'allowAdding', text: 'Allow Adding' },
   { id: 'allowDeleting', text: 'Allow Deleting' },
   { id: 'allowUpdating', text: 'Allow Updating' },
@@ -25,18 +38,45 @@ const editingFeaturesList = [
   { id: 'allowDragging', text: 'Allow Dragging' },
 ];
 
-const Demo = () => {
+const EditingOptionsSelector = withStyles(styles, 'EditingOptionsSelector')(({
+  editingOptions, handleEditingOptionsChange, classes,
+}) => (
+  <div className={classes.container}>
+    <Typography className={classes.text}>
+      Options
+    </Typography>
+    <FormGroup row>
+      {editingOptionsList.map(({ id, text }) => (
+        <FormControlLabel
+          control={(
+            <Checkbox
+              checked={editingOptions[id]}
+              onChange={handleEditingOptionsChange}
+              value={id}
+              color="primary"
+            />
+          )}
+          label={text}
+          key={id}
+          disabled={(id === 'allowDragging' || id === 'allowResizing') && !editingOptions.allowUpdating}
+        />
+      ))}
+    </FormGroup>
+  </div>
+));
+
+export default () => {
   const [data, setData] = React.useState(appointments);
-  const [editingFeatures, setEditingFeatures] = React.useState({
+  const [editingOptions, setEditingOptions] = React.useState({
     allowAdding: true,
     allowDeleting: true,
     allowUpdating: true,
+    allowDragging: true,
     allowResizing: true,
-    allowDragging: false,
   });
   const {
     allowAdding, allowDeleting, allowUpdating, allowResizing, allowDragging,
-  } = editingFeatures;
+  } = editingOptions;
 
   const onCommitChanges = React.useCallback(({ added, changed, deleted }) => {
     if (added) {
@@ -51,23 +91,25 @@ const Demo = () => {
       setData(data.filter(appointment => appointment.id !== deleted));
     }
   });
-  const handleEditingFeaturesChange = React.useCallback(({ target }) => {
+  const handleEditingOptionsChange = React.useCallback(({ target }) => {
     const { value } = target;
-    const { [value]: checked } = editingFeatures;
-    setEditingFeatures({
-      ...editingFeatures,
+    const { [value]: checked } = editingOptions;
+    setEditingOptions({
+      ...editingOptions,
       [value]: !checked,
     });
   });
-  // console.log(editingFeatures)
 
-  const TimeTableCell = React.useCallback(React.memo(({ onDoubleClick, ...restProps }) => {
-    return <WeekView.TimeTableCell {...restProps} onDoubleClick={allowAdding ? onDoubleClick : undefined} />;
-  }), [allowAdding]);
+  const TimeTableCell = React.useCallback(React.memo(({ onDoubleClick, ...restProps }) => (
+    <WeekView.TimeTableCell
+      {...restProps}
+      onDoubleClick={allowAdding ? onDoubleClick : undefined}
+    />
+  )), [allowAdding]);
 
-  const FormCommandLayout = React.useCallback(({ ...restProps }) => {
-    return <AppointmentForm.CommandLayout {...restProps} readOnly={false} />;
-  }, []);
+  const FormCommandLayout = React.useCallback(({ ...restProps }) => (
+    <AppointmentForm.CommandLayout {...restProps} readOnly={false} />
+  ), []);
 
   const CommandButton = React.useCallback(({ id, ...restProps }) => {
     if (id === 'deleteButton') {
@@ -79,40 +121,15 @@ const Demo = () => {
     return <AppointmentForm.CommandButton id={id} {...restProps} />;
   }, [allowDeleting, allowUpdating]);
 
+  const allowDrag = React.useCallback(
+    () => allowDragging && allowUpdating, [allowDragging, allowUpdating],
+  );
+  const allowResize = React.useCallback(
+    () => allowResizing && allowUpdating, [allowResizing, allowUpdating],
+  );
+
   return (
     <>
-      <FormGroup row>
-        <FormControlLabel
-          control={
-            <Checkbox checked={allowAdding} onChange={handleEditingFeaturesChange} value="allowAdding" />
-          }
-          label="Allow Adding"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox checked={allowDeleting} onChange={handleEditingFeaturesChange} value="allowDeleting" />
-          }
-          label="Allow Deleting"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox checked={allowUpdating} onChange={handleEditingFeaturesChange} value="allowUpdating" />
-          }
-          label="Allow Updating"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox checked={allowDragging} onChange={handleEditingFeaturesChange} value="allowDragging" />
-          }
-          label="Allow Dragging"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox checked={allowResizing} onChange={handleEditingFeaturesChange} value="allowResizing" />
-          }
-          label="Allow Resizing"
-        />
-      </FormGroup>
       <Paper>
         <Scheduler
           data={data}
@@ -142,13 +159,15 @@ const Demo = () => {
             readOnly={!allowUpdating}
           />
           <DragDropProvider
-            allowDrag={() => allowDragging && allowUpdating}
-            allowResize={() => allowResizing && allowUpdating}
+            allowDrag={allowDrag}
+            allowResize={allowResize}
           />
         </Scheduler>
       </Paper>
+      <EditingOptionsSelector
+        editingOptions={editingOptions}
+        handleEditingOptionsChange={handleEditingOptionsChange}
+      />
     </>
   );
 };
-
-export default Demo;

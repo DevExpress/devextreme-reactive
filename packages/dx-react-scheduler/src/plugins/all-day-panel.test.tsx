@@ -179,7 +179,7 @@ describe('AllDayPanel', () => {
         .toBeTruthy();
     });
 
-    it('should update timeTableElementsMeta every time timeTable cell is changed', () => {
+    it('should rerender the all-day layout every time the cell component is changed', () => {
       let updateCount = 0;
       const firstCell = jest.fn();
       const layout = React.memo(() => {

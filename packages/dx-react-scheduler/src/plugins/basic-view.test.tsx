@@ -370,7 +370,7 @@ describe('Basic View', () => {
       expect(tree.find(customEmptyCell).exists())
         .toBeTruthy();
     });
-    it('should update timeTableElementsMeta every time timeTable cell is changed', () => {
+    it('should rerender the timeTableLayout every time the timeTable cell is changed', () => {
       let updateCount = 0;
       const firstTimeTableCell = jest.fn();
       const timeTableLayout = React.memo(() => {

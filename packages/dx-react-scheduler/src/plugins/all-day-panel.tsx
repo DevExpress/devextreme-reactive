@@ -34,7 +34,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
   state: AllDayPanelState = {
     elementsMeta: {},
     previousCell: null,
-    // The key has to be generated every time Cell component is updated to rerender the Layout
+    // The key has to be generated every time the Cell component is updated to rerender the Layout
     // and, consequently, update allDayElementsMeta
     layoutKey: 0,
   };

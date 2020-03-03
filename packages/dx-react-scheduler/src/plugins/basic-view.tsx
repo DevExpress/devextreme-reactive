@@ -42,7 +42,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
       changeHorizontalScroll: () => undefined,
     },
     previousTimeTableCell: null,
-    // The key has to be generated every time TimeTableCell is updated to rerender TimeTable
+    // The key has to be generated every time the TimeTableCell is updated to rerender TimeTable
     // and, consequently, update timeTableElementsMeta
     timeTableLayoutKey: 0,
   };

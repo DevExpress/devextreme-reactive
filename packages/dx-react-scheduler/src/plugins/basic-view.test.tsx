@@ -370,45 +370,38 @@ describe('Basic View', () => {
       expect(tree.find(customEmptyCell).exists())
         .toBeTruthy();
     });
-    fit('should update timeTableElementsMeta every time timeTable cell is changed', () => {
-      let updateNumber = 0;
+    it('should update timeTableElementsMeta every time timeTable cell is changed', () => {
+      let updateCount = 0;
       const firstTimeTableCell = jest.fn();
-      const timeTableLayout = React.memo(({ setCellElementsMeta }) => {
+      const timeTableLayout = React.memo(() => {
         React.useEffect(() => {
-          updateNumber += 1;
-          setCellElementsMeta({ updateNumber });
+          updateCount += 1;
         });
         return null;
       });
-      const tree = mount((
+
+      const Test = ({ timeTableCellComponent }) => (
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <BasicView
             {...defaultProps}
-            timeTableCellComponent={firstTimeTableCell}
+            timeTableCellComponent={timeTableCellComponent}
             timeTableLayoutComponent={timeTableLayout}
           />
         </PluginHost>
-      ));
-
-      expect(getComputedState(tree).timeTableElementsMeta)
-        .toEqual({ updateNumber: 1 });
-
-      // console.log(tree.find(BasicView).state())
-      const secondTimeTableCell = jest.fn();
-      // tree.setProps({
-      //   timeTableCellComponent: secondTimeTableCell,
-      // });
-      // tree.update();
-      const nextState = BasicView.getDerivedStateFromProps(
-        { timeTableCellComponent: secondTimeTableCell },
-        tree.find(BasicView).state()
       );
-      console.log(nextState)
-      tree.find(BasicView).setState(nextState);
-      console.log(tree.find(BasicView).state())
-      expect(getComputedState(tree).timeTableElementsMeta)
-      .toEqual({ updateNumber: 2 });
+
+      const tree = mount(<Test timeTableCellComponent={firstTimeTableCell} />);
+      expect(updateCount)
+        .toEqual(1);
+
+      const secondTimeTableCell = jest.fn();
+      tree.setProps({
+        timeTableCellComponent: secondTimeTableCell,
+      });
+
+      expect(updateCount)
+        .toEqual(2);
     });
   });
 });

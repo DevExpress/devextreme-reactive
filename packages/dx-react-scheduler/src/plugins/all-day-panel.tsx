@@ -34,7 +34,9 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
   state: AllDayPanelState = {
     elementsMeta: {},
     previousCell: null,
-    cellUpdateCount: 0,
+    // The key has to be generated every time Cell component is updated to rerender the Layout
+    // and, consequently, update allDayElementsMeta
+    layoutKey: 0,
   };
   static defaultProps: Partial<AllDayPanelProps> = {
     messages: {},
@@ -56,7 +58,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
       return {
         ...state,
         previousCell: props.cellComponent,
-        cellUpdateCount: state.cellUpdateCount + 1,
+        layoutKey: Math.random(),
       };
     }
     return state;
@@ -91,7 +93,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
       containerComponent: Container,
       messages,
     } = this.props;
-    const { elementsMeta, cellUpdateCount } = this.state;
+    const { elementsMeta, layoutKey } = this.state;
     const getMessage = this.getMessageFormatter(messages, defaultMessages);
 
     return (
@@ -178,7 +180,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                         ? groups : undefined
                     }
                     groupOrientation={groupOrientation}
-                    key={cellUpdateCount}
+                    key={layoutKey}
                   />
                   <AppointmentLayer>
                     <AllDayAppointmentLayerPlaceholder />

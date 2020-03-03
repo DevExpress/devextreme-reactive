@@ -178,5 +178,39 @@ describe('AllDayPanel', () => {
       expect(templatePlaceholder.exists())
         .toBeTruthy();
     });
+
+    it('should update timeTableElementsMeta every time timeTable cell is changed', () => {
+      let updateCount = 0;
+      const firstCell = jest.fn();
+      const layout = React.memo(() => {
+        React.useEffect(() => {
+          updateCount += 1;
+        });
+        return null;
+      });
+
+      const Test = ({ cellComponent }) => (
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <AllDayPanel
+            {...defaultProps}
+            cellComponent={cellComponent}
+            layoutComponent={layout}
+          />
+        </PluginHost>
+      );
+
+      const tree = mount(<Test cellComponent={firstCell} />);
+      expect(updateCount)
+        .toEqual(1);
+
+      const secondCell = jest.fn();
+      tree.setProps({
+        cellComponent: secondCell,
+      });
+
+      expect(updateCount)
+        .toEqual(2);
+    });
   });
 });

@@ -5,7 +5,7 @@ import { CellElementsMeta, FormatterFn, BaseView, Group, GroupOrientation } from
 export interface AllDayPanelState {
   elementsMeta: CellElementsMeta | {};
   previousCell: React.ComponentType<AllDayPanel.CellProps> | null;
-  cellUpdateCount: number;
+  layoutKey: number;
 }
 
 export interface AllDayPanelProps {

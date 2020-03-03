@@ -41,3 +41,6 @@ export interface TableColumnVisibilityProps {
 export type TableColumnVisibilityState = {
   hiddenColumnNames: string[],
 };
+
+/** @internal */
+export type VisibleTableColumnsProps = Pick<TableColumnVisibilityProps, 'hiddenColumnNames'>;

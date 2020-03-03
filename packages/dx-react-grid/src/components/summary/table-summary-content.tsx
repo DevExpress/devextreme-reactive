@@ -5,14 +5,7 @@ import {
 } from '@devexpress/dx-grid-core';
 import { TemplatePlaceholder } from '@devexpress/dx-react-core';
 import { TableSummaryContentProps, SummaryItemProps } from '../../types';
-
-export const defaultSummaryMessages = {
-  sum: 'Sum',
-  min: 'Min',
-  max: 'Max',
-  avg: 'Avg',
-  count: 'Count',
-};
+import { defaultSummaryMessages } from './constants';
 
 export const TableSummaryContent: React.SFC<TableSummaryContentProps> = ({
   column, columnSummaries, formatlessSummaryTypes,

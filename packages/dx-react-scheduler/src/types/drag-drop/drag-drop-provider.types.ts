@@ -68,4 +68,9 @@ export type DragDropProviderState = {
   payload: any,
   isOutside: boolean,
   appointmentGroupingInfo: any,
+  allowDrag: (appointmentData: AppointmentModel) => boolean,
+  allowResize: (appointmentData: AppointmentModel) => boolean,
+  appointmentContentTemplateKey: number,
+  appointmentTopTemplateKey: number,
+  appointmentBottomTemplateKey: number,
 };

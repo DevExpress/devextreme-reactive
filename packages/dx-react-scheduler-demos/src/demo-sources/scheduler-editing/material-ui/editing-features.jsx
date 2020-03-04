@@ -4,7 +4,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/FormControl';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -17,7 +17,7 @@ import {
 
 import { appointments } from '../../../demo-data/appointments';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   container: {
     margin: theme.spacing(2),
     padding: theme.spacing(2),
@@ -27,7 +27,7 @@ const styles = theme => ({
     ...theme.typography.caption,
     fontSize: '1rem',
   },
-});
+}));
 
 const currentDate = '2018-06-27';
 const editingOptionsList = [
@@ -38,33 +38,36 @@ const editingOptionsList = [
   { id: 'allowDragging', text: 'Dragging' },
 ];
 
-const EditingOptionsSelector = withStyles(styles, 'EditingOptionsSelector')(({
-  editingOptions, handleEditingOptionsChange, classes,
-}) => (
-  <div className={classes.container}>
-    <Typography className={classes.text}>
-      Enabled Options
-    </Typography>
-    <FormGroup row>
-      {editingOptionsList.map(({ id, text }) => (
-        <FormControlLabel
-          control={(
-            <Checkbox
-              checked={editingOptions[id]}
-              onChange={handleEditingOptionsChange}
-              value={id}
-              color="primary"
-            />
-          )}
-          classes={{ label: classes.formControlLabel }}
-          label={text}
-          key={id}
-          disabled={(id === 'allowDragging' || id === 'allowResizing') && !editingOptions.allowUpdating}
-        />
-      ))}
-    </FormGroup>
-  </div>
-));
+const EditingOptionsSelector = ({
+  options, onOptionsChange,
+}) => {
+  const classes = useStyles();
+  return (
+    <div className={classes.container}>
+      <Typography className={classes.text}>
+        Enabled Options
+      </Typography>
+      <FormGroup row>
+        {editingOptionsList.map(({ id, text }) => (
+          <FormControlLabel
+            control={(
+              <Checkbox
+                checked={options[id]}
+                onChange={onOptionsChange}
+                value={id}
+                color="primary"
+              />
+            )}
+            classes={{ label: classes.formControlLabel }}
+            label={text}
+            key={id}
+            disabled={(id === 'allowDragging' || id === 'allowResizing') && !options.allowUpdating}
+          />
+        ))}
+      </FormGroup>
+    </div>
+  );
+};
 
 export default () => {
   const [data, setData] = React.useState(appointments);
@@ -76,8 +79,6 @@ export default () => {
     allowResizing: true,
   });
   const [addedAppointment, setAddedAppointment] = React.useState({});
-  const [appointmentChanges, setAppointmentChanges] = React.useState({});
-  const [editingAppointmentId, setEditingAppointmentId] = React.useState(undefined);
   const [isAppointmentBeingCreated, setIsAppointmentBeingCreated] = React.useState(false);
 
   const {
@@ -126,17 +127,19 @@ export default () => {
   }, [allowDeleting]);
 
   const allowDrag = React.useCallback(
-    () => allowDragging && allowUpdating, [allowDragging, allowUpdating],
+    () => allowDragging && allowUpdating,
+    [allowDragging, allowUpdating],
   );
   const allowResize = React.useCallback(
-    () => allowResizing && allowUpdating, [allowResizing, allowUpdating],
+    () => allowResizing && allowUpdating,
+    [allowResizing, allowUpdating],
   );
 
   return (
     <>
       <EditingOptionsSelector
-        editingOptions={editingOptions}
-        handleEditingOptionsChange={handleEditingOptionsChange}
+        options={editingOptions}
+        onOptionsChange={handleEditingOptionsChange}
       />
       <Paper>
         <Scheduler
@@ -151,12 +154,6 @@ export default () => {
 
             addedAppointment={addedAppointment}
             onAddedAppointmentChange={onAddedAppointmentChange}
-
-            appointmentChanges={appointmentChanges}
-            onAppointmentChangesChange={setAppointmentChanges}
-
-            editingAppointmentId={editingAppointmentId}
-            onEditingAppointmentIdChange={setEditingAppointmentId}
           />
 
           <IntegratedEditing />

@@ -12,7 +12,6 @@ import {
   Appointments,
   AppointmentForm,
   AppointmentTooltip,
-  ConfirmationDialog,
   DragDropProvider,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
@@ -76,6 +75,11 @@ export default () => {
     allowDragging: true,
     allowResizing: true,
   });
+  const [addedAppointment, setAddedAppointment] = React.useState({});
+  const [appointmentChanges, setAppointmentChanges] = React.useState({});
+  const [editingAppointmentId, setEditingAppointmentId] = React.useState(undefined);
+  const [isAppointmentBeingCreated, setIsAppointmentBeingCreated] = React.useState(false);
+
   const {
     allowAdding, allowDeleting, allowUpdating, allowResizing, allowDragging,
   } = editingOptions;
@@ -92,6 +96,11 @@ export default () => {
     if (deleted !== undefined) {
       setData(data.filter(appointment => appointment.id !== deleted));
     }
+    setIsAppointmentBeingCreated(false);
+  }, [setData, setIsAppointmentBeingCreated]);
+  const onAddedAppointmentChange = React.useCallback((appointment) => {
+    setAddedAppointment(appointment);
+    setIsAppointmentBeingCreated(true);
   });
   const handleEditingOptionsChange = React.useCallback(({ target }) => {
     const { value } = target;
@@ -109,19 +118,21 @@ export default () => {
     />
   )), [allowAdding]);
 
-  const FormCommandLayout = React.useCallback(({ ...restProps }) => (
-    <AppointmentForm.CommandLayout {...restProps} readOnly={false} />
-  ), []);
-
   const CommandButton = React.useCallback(({ id, ...restProps }) => {
     if (id === 'deleteButton') {
       return <AppointmentForm.CommandButton id={id} {...restProps} disabled={!allowDeleting} />;
     }
     if (id === 'saveButton') {
-      return <AppointmentForm.CommandButton id={id} {...restProps} disabled={!allowUpdating} />;
+      return (
+        <AppointmentForm.CommandButton
+          id={id}
+          {...restProps}
+          disabled={isAppointmentBeingCreated ? false : !allowUpdating}
+        />
+      );
     }
     return <AppointmentForm.CommandButton id={id} {...restProps} />;
-  }, [allowDeleting, allowUpdating]);
+  }, [allowDeleting, allowUpdating, isAppointmentBeingCreated]);
 
   const allowDrag = React.useCallback(
     () => allowDragging && allowUpdating, [allowDragging, allowUpdating],
@@ -146,23 +157,33 @@ export default () => {
           />
           <EditingState
             onCommitChanges={onCommitChanges}
+
+            addedAppointment={addedAppointment}
+            onAddedAppointmentChange={onAddedAppointmentChange}
+
+            appointmentChanges={appointmentChanges}
+            onAppointmentChangesChange={setAppointmentChanges}
+
+            editingAppointmentId={editingAppointmentId}
+            onEditingAppointmentIdChange={setEditingAppointmentId}
           />
+
           <IntegratedEditing />
           <WeekView
             startDayHour={9}
             endDayHour={19}
             timeTableCellComponent={TimeTableCell}
           />
-          <ConfirmationDialog />
+
           <Appointments />
+
           <AppointmentTooltip
             showOpenButton
             showDeleteButton={allowDeleting}
           />
           <AppointmentForm
-            commandLayoutComponent={FormCommandLayout}
             commandButtonComponent={CommandButton}
-            readOnly={!allowUpdating}
+            readOnly={isAppointmentBeingCreated ? false : !allowUpdating}
           />
           <DragDropProvider
             allowDrag={allowDrag}

@@ -60,7 +60,7 @@ const pageData = [
   {
     reversed: true,
     alternative: true,
-    title: 'Straightforward Docs with Live Examples',
+    title: 'Easy-to-Follow Documentation and Samples',
     description: 'Each DevExtreme Reactive feature includes a complete API reference, a usage guide with code examples and live demos with code available on GitHub.',
     imageLink: docImage,
   },

@@ -5,7 +5,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/FormControl';
 import { withStyles } from '@material-ui/core/styles';
-import { fade, lighten } from '@material-ui/core/styles/colorManipulator';
 import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,

@@ -8,7 +8,6 @@
 }
 
 .button {
-  // display: inline-block;
   background-color: white;
   padding: 15px 20px;
   color: black;
@@ -53,12 +52,6 @@
 .react {
   background-color: #2eb9de;
 }
-
-// @media (min-width: 500px) {
-  // .button {
-    // width: 220px;
-  // }
-// }
 
 @media  (max-width: 1000px) {
   .button.fixedWidth {

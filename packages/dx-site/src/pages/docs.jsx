@@ -50,7 +50,6 @@ export default () => (
           <h1>Documentation</h1>
         </div>
       </div>
-      {/* <Title text="Documentation" /> */}
 
       <div className="row my-3">
         <ProductDocPreview

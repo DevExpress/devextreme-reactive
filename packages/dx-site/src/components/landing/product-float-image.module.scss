@@ -4,7 +4,6 @@
 }
 
 .absoluteContainer {
-  // position: absolute;
   left: 50%;
   max-width: 50%;
   width: 100%;
@@ -21,7 +20,6 @@
 
 .image {
   position: absolute;
-  // left: 0; 536 > 477
   max-width: 647px;
 }
 
@@ -59,21 +57,4 @@
       top: -390px;
     }
   }
-
-
-
-
-  // top: -420px;
-  // @media (min-width: 1000px) and (max-width: 1280px) {
-  //   top:-500px;
-  // }
-  // @media (max-width: 1000px) {
-  //   top: -600px;
-  // }
-  // @media (max-width: 720px) {
-  //   left: 20px;
-  // }
-  // @media (max-width: 680px) {
-  //   left: 40px;
-  // }
 }

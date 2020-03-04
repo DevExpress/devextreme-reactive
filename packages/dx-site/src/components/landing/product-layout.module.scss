@@ -20,22 +20,3 @@
 .footer {
   padding-bottom: 60px;
 }
-
-@media screen and (max-width: 1000px) {
-  .header {
-    // margin-top: -420px;
-  }
-}
-
-@media (max-width: 800px) {
-  .header {
-    // margin-top: -220px;
-  }
-}
-
-@media screen and (min-width: 1000px) and (max-width: 1280px) {
-  .header {
-    // margin-top: -165px;
-    // margin-bottom: 14px;
-  }
-}

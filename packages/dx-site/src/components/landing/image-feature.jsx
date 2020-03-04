@@ -33,11 +33,6 @@ const ImageFeature = ({
           imageLink={imageLink}
           size="wide"
         />
-        // <img
-        //   className={styles.image}
-        //   alt="title"
-        //   src={imageLink}
-        // />
       )}
     </div>
   </div>

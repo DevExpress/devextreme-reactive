@@ -7,9 +7,6 @@ import VersionLink from '../docs/version-link';
 import LandingProductLinks from '../landing/product-links';
 import ContentContainer from './content-container';
 
-// eslint-disable-next-line no-unused-vars
-import styles from './page-layout.module.scss';
-
 class PageLayout extends React.PureComponent {
   static propTypes = {
     sectionName: PropTypes.string.isRequired,

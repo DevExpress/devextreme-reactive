@@ -98,7 +98,7 @@ export default () => {
       setData(data.filter(appointment => appointment.id !== deleted));
     }
     setIsAppointmentBeingCreated(false);
-  }, [setData, setIsAppointmentBeingCreated]);
+  }, [setData, setIsAppointmentBeingCreated, data]);
   const onAddedAppointmentChange = React.useCallback((appointment) => {
     setAddedAppointment(appointment);
     setIsAppointmentBeingCreated(true);

@@ -184,6 +184,8 @@
       - title: PagingPanel
         path: /react/grid/docs/reference/paging-panel
       - title: GroupingPanel
+        path: /react/grid/docs/reference/export-panel
+      - title: ExportPanel
         path: /react/grid/docs/reference/grouping-panel
       - title: DragDropProvider
         path: /react/grid/docs/reference/drag-drop-provider

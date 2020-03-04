@@ -122,17 +122,8 @@ export default () => {
     if (id === 'deleteButton') {
       return <AppointmentForm.CommandButton id={id} {...restProps} disabled={!allowDeleting} />;
     }
-    if (id === 'saveButton') {
-      return (
-        <AppointmentForm.CommandButton
-          id={id}
-          {...restProps}
-          disabled={isAppointmentBeingCreated ? false : !allowUpdating}
-        />
-      );
-    }
     return <AppointmentForm.CommandButton id={id} {...restProps} />;
-  }, [allowDeleting, allowUpdating, isAppointmentBeingCreated]);
+  }, [allowDeleting]);
 
   const allowDrag = React.useCallback(
     () => allowDragging && allowUpdating, [allowDragging, allowUpdating],

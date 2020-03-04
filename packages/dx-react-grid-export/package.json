@@ -76,7 +76,7 @@
     "typescript": "3.8.3"
   },
   "dependencies": {
-    "exceljs": "^2.0.1"
+    "exceljs": "^3.8.1"
   },
   "peerDependencies": {
     "@devexpress/dx-core": "2.4.1",

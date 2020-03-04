@@ -86,7 +86,26 @@ The following demo shows how to customize the appointment form. A custom `TextEd
 
 ## Add a Confirmation Dialog
 
-
-To enable the confirmation dialog, add the [ConfirmationDialog](../reference/confirmation-dialog.md) plugin. The dialog pops up when a user attempts to delete an appointment or discard edits made to it. If the dialog should not appear in these cases, set the `ignoreDelete` or `ignoreCancel` property to `true`. 
+To enable the confirmation dialog, add the [ConfirmationDialog](../reference/confirmation-dialog.md) plugin. The dialog pops up when a user attempts to delete an appointment or discard edits made to it. If the dialog should not appear in these cases, set the `ignoreDelete` or `ignoreCancel` property to `true`.
 
 .embedded-demo({ "path": "scheduler-editing/delete-confirmation", "showThemeSelector": true })
+
+## Disable one or several editing options
+
+By default, if you add the [EditingState](../reference/editing-state.md), [AppointmentForm](../reference/appointment-form.md), [IntegratedEditing](../reference/integrated-editing.md) or [EditRecurrenceMenu](../reference/integrated-editing.md),  and [DragDropProvider](../reference/drag-drop-provider.md) plugins, all editing options are turned on. But they can be disabled. Below are the steps to disable all of them:
+
+### Disable adding new appointments.
+
+To do that, customize `timeTableCellComponent` of the views used in the Scheduler (for example, `WeekView`'s [TimeTableCell](../reference/week-view.md#weekviewtimetablecellprops)) and `AllDayPanel`'s [cellComponent](../reference/all-day-panel.md#alldaypanelcellprops). Just do not pass `onDoubleClick` prop, and users won't be able to create new appointments.
+
+### Disable deleting appointments.
+
+To do that, pass `disabled={true}` prop to AppointmentForm's [commandButton](../reference/appointment-form.md) with `deleteButton` id and `showDeleteButton={false}` to [AppointmentTooltip](../reference/appointment-tooltip.md) plugin, if it's used.
+
+### Disable updating appointments.
+
+In this case, it's necessary to use [AppointmentForm](../reference/appointment-form.md) in read-only mode. Pass `readOnly={true}` to `AppointmentForm` to disable editing. If you want to let users delete appointments and save new ones, customize AppointmentForm's [commandButton](../reference/appointment-form.md) with `deleteButton` and `saveButton` ids and pass `disabled={false}` property to them. If you use [DragDropProvider](../reference/drag-drop-provider.md), consider turning it off. It may be done with the help of `allowDrag` and `allowResize` properties.
+
+The demo below demonstrates these approaches in action:
+
+.embedded-demo({ "path": "scheduler-editing/editing-features", "showThemeSelector": true })

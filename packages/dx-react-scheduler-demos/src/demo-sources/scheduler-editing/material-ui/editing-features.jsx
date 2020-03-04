@@ -23,19 +23,21 @@ const styles = theme => ({
   container: {
     margin: theme.spacing(2),
     padding: theme.spacing(2),
-    borderRadius: theme.spacing(1),
-    border: `2px solid ${lighten(fade(theme.palette.divider, 1), 0.8)}`,
   },
   text: theme.typography.h6,
+  formControlLabel: {
+    ...theme.typography.caption,
+    fontSize: '1rem',
+  },
 });
 
 const currentDate = '2018-06-27';
 const editingOptionsList = [
-  { id: 'allowAdding', text: 'Allow Adding' },
-  { id: 'allowDeleting', text: 'Allow Deleting' },
-  { id: 'allowUpdating', text: 'Allow Updating' },
-  { id: 'allowResizing', text: 'Allow Resizing' },
-  { id: 'allowDragging', text: 'Allow Dragging' },
+  { id: 'allowAdding', text: 'Adding' },
+  { id: 'allowDeleting', text: 'Deleting' },
+  { id: 'allowUpdating', text: 'Updating' },
+  { id: 'allowResizing', text: 'Resizing' },
+  { id: 'allowDragging', text: 'Dragging' },
 ];
 
 const EditingOptionsSelector = withStyles(styles, 'EditingOptionsSelector')(({
@@ -43,7 +45,7 @@ const EditingOptionsSelector = withStyles(styles, 'EditingOptionsSelector')(({
 }) => (
   <div className={classes.container}>
     <Typography className={classes.text}>
-      Options
+      Enabled Options
     </Typography>
     <FormGroup row>
       {editingOptionsList.map(({ id, text }) => (
@@ -56,6 +58,7 @@ const EditingOptionsSelector = withStyles(styles, 'EditingOptionsSelector')(({
               color="primary"
             />
           )}
+          classes={{ label: classes.formControlLabel }}
           label={text}
           key={id}
           disabled={(id === 'allowDragging' || id === 'allowResizing') && !editingOptions.allowUpdating}
@@ -130,10 +133,14 @@ export default () => {
 
   return (
     <>
+      <EditingOptionsSelector
+        editingOptions={editingOptions}
+        handleEditingOptionsChange={handleEditingOptionsChange}
+      />
       <Paper>
         <Scheduler
           data={data}
-          height={660}
+          height={600}
         >
           <ViewState
             currentDate={currentDate}
@@ -164,10 +171,6 @@ export default () => {
           />
         </Scheduler>
       </Paper>
-      <EditingOptionsSelector
-        editingOptions={editingOptions}
-        handleEditingOptionsChange={handleEditingOptionsChange}
-      />
     </>
   );
 };

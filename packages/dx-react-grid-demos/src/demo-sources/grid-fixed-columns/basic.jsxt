@@ -5,6 +5,7 @@ import {
   TableHeaderRow,
   TableFixedColumns,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
+<%&cssImports%>
 
 import {
   generateRows,

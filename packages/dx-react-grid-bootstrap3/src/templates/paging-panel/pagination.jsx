@@ -78,7 +78,7 @@ export const Pagination = ({
   const from = firstRowOnPage(currentPage, pageSize, totalCount);
   const to = lastRowOnPage(currentPage, pageSize, totalCount);
   return (
-    <>
+    <React.Fragment>
       <PaginationBS3
         style={{
           margin: 0,
@@ -128,7 +128,7 @@ export const Pagination = ({
           {getMessage('info', { from, to, count: totalCount })}
         </span>
       </span>
-    </>
+    </React.Fragment>
   );
 };
 

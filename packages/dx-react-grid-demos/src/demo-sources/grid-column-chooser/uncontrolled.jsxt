@@ -7,6 +7,7 @@ import {
   TableColumnVisibility,
   Toolbar,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
+<%&cssImports%>
 
 import { generateRows } from '../../../demo-data/generator';
 

@@ -12,6 +12,7 @@ import {
   DragDropProvider,
   Toolbar,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
+<%&cssImports%>
 
 import { Loading } from '../../../theme-sources/<%&themeName%>/components/loading';
 

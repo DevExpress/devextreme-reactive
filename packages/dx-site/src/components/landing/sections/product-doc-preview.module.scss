@@ -1,0 +1,21 @@
+svg.image {
+  rect, path, ellipse {
+    fill: #0096BD !important;
+  }
+  margin-right: 0.5rem;
+}
+
+.align-wrapper {
+  text-align: center;
+}
+
+.title {
+  display: inline;
+  font-size: 1.6rem;
+  vertical-align: middle;
+  color: #0096BD;
+
+  &:hover {
+    text-decoration: none;
+  }
+}

@@ -30,7 +30,7 @@ const Point = (props) => {
 };
 
 const LineWithPoint = props => (
-  <>
+  <React.Fragment>
     <LineSeries.Path
       {...props}
       path={line()
@@ -40,7 +40,7 @@ const LineWithPoint = props => (
         .curve(curveStep)}
     />
     <ScatterSeries.Path {...props} pointComponent={Point} />
-  </>
+  </React.Fragment>
 );
 
 const legendStyles = () => ({

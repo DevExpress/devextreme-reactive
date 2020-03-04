@@ -168,7 +168,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                 || HORIZONTAL_GROUP_ORIENTATION;
 
               return (
-                <>
+                <React.Fragment>
                   <Layout
                     cellComponent={CellPlaceholder}
                     rowComponent={rowComponent}
@@ -185,7 +185,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                   <AppointmentLayer>
                     <AllDayAppointmentLayerPlaceholder />
                   </AppointmentLayer>
-                </>
+                </React.Fragment>
               );
             }}
           </TemplateConnector>

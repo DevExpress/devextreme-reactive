@@ -5,6 +5,7 @@ import {
   ArgumentAxis,
   ValueAxis,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
+<%&cssImports%>
 import { scaleBand } from '@devexpress/dx-chart-core';
 import { Animation, ArgumentScale } from '@devexpress/dx-react-chart';
 

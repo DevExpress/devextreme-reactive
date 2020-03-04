@@ -182,10 +182,10 @@ const LocationSelector = withStyles(styles, { name: 'LocationSelector' })(({ onL
         onClick={() => onLocationsChange(handleButtonClick(location, locations))}
         key={location}
       >
-        <>
+        <React.Fragment>
           <span className={classes.shortButtonText}>{LOCATIONS_SHORT[index]}</span>
           <span className={classes.longButtonText}>{location}</span>
-        </>
+        </React.Fragment>
       </Button>
     ))}
   </ButtonGroup>

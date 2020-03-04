@@ -48,7 +48,7 @@ export default class Demo extends React.PureComponent {
     const { data, currentViewName } = this.state;
 
     return (
-      <>
+      <React.Fragment>
         <ExternalViewSwitcher
           currentViewName={currentViewName}
           onChange={this.currentViewNameChange}
@@ -78,7 +78,7 @@ export default class Demo extends React.PureComponent {
             <Appointments />
           </Scheduler>
         </Paper>
-      </>
+      </React.Fragment>
     );
   }
 }

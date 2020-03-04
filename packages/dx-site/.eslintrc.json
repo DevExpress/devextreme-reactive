@@ -1,0 +1,12 @@
+{
+    "extends": "../../.eslintrc.react.json",
+    "plugins": [
+        "jest"
+    ],
+    "rules": {
+      "react/static-property-placement": [2, "static public field"]
+    },
+    "env": {
+      "jest/globals": true
+    }
+}

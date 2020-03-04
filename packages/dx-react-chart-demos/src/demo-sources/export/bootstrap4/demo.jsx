@@ -187,7 +187,7 @@ const Export = () => {
 const BarWithLabel = ({
   value, ...restProps
 }) => (
-  <>
+  <React.Fragment>
     <BarSeries.Point {...restProps} />
     <Chart.Label
       x={restProps.arg}
@@ -198,7 +198,7 @@ const BarWithLabel = ({
     >
       {`${value}%`}
     </Chart.Label>
-  </>
+  </React.Fragment>
 );
 
 const legendRootStyle = {

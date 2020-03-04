@@ -5,6 +5,7 @@ import {
   ValueAxis,
   AreaSeries,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
+<%&cssImports%>
 import { ArgumentScale, Stack } from '@devexpress/dx-react-chart';
 import { scalePoint } from 'd3-scale';
 

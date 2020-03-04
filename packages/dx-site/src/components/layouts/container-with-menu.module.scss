@@ -1,0 +1,10 @@
+@import '../../constants';
+
+.sidebar {
+  padding-left: 10px;
+}
+
+.content {
+  padding-right: $inner-offset;
+  padding-left: 20px;
+}

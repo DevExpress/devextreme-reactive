@@ -1,0 +1,16 @@
+.image {
+  max-width: 100%;
+
+  @media (min-width: 1280px) {
+    &.normal {
+      max-width: 458px;
+    }
+    &.wide {
+      max-width: 572px;
+    }
+    &.dense {
+      max-width: 347px;
+    }
+  }
+}
+

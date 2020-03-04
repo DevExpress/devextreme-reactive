@@ -1,0 +1,96 @@
+@import "../../constants";
+
+.main {
+  line-height: 1.1;
+  font-family: "Segoe UI Light";
+  font-size: 40px;
+  font-weight: 400;
+  color: white;
+  padding-left: 20px;
+}
+
+.additional {
+  font-family: "Segoe UI Bold";
+  font-size: 21px;
+  color: white;
+  line-height: 1.1;
+  margin-top: 10px;
+  padding-right: 30px;
+  padding-left: 20px;
+}
+
+.overviewImage {
+  padding-left: $inner-offset;
+  max-width: 677px;
+}
+
+.block {
+  padding-bottom: 30px;
+
+  @media screen and (min-width: 640px) {
+    padding-bottom: 210px;
+  }
+  @media screen and (min-width: 800px) {
+    padding-top: 40px;
+    padding-bottom: 160px;
+  }
+  @media screen and (min-width: 1000px) {
+    padding-top: 40px;
+    padding-bottom: 150px;
+  }
+  @media screen and (min-width: 1280px) {
+    padding-bottom: 81px;
+  }
+}
+
+.indexBlock {
+  padding-bottom: 700px;
+
+  @media screen and (min-width: 530px) {
+    padding-bottom: 500px;
+  }
+  @media screen and (min-width: 640px) {
+    padding-bottom: 500px;
+  }
+  @media screen and (min-width: 800px) {
+    padding-top: 40px;
+  }
+  @media screen and (min-width: 1000px) {
+    padding-bottom: 220px;
+  }
+  @media screen and (min-width: 1280px) {
+    padding-bottom: 160px;
+  }
+}
+
+.cropper {
+  overflow: hidden;
+}
+
+
+@media screen and (max-width: 800px) {
+  .container.withImage {
+    padding-bottom: 220px;
+  }
+}
+
+@media (min-width: 800px) {
+  .main {
+    font-size: 42px;
+  }
+  .additional {
+    font-size: 25px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .main {
+    font-size: 60px;
+  }
+  .additional {
+    font-size: 34px;
+    margin-top: 10px;
+    margin-bottom: 55px;
+    padding-right: 0;
+  }
+}

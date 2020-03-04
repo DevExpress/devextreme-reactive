@@ -6,6 +6,7 @@ import {
   ScatterSeries,
   Title,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
+<%&cssImports%>
 import { scaleLog } from 'd3-scale';
 import { symbolCircle, symbol } from 'd3-shape';
 import { formatPrefix } from 'd3-format';

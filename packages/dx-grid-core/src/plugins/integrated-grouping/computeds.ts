@@ -66,10 +66,11 @@ export const groupedRows: GroupedRowsFn = (
     }, []);
 };
 
-export const expandedGroupRows: PureComputed<[Row[], Grouping[], GroupKey[]]> = (
+export const expandedGroupRows: PureComputed<[Row[], Grouping[], GroupKey[], boolean]> = (
   rows,
   grouping,
   expandedGroups,
+  isExporting,
 ) => {
   if (!grouping.length) return rows;
 
@@ -93,7 +94,7 @@ export const expandedGroupRows: PureComputed<[Row[], Grouping[], GroupKey[]]> = 
       return acc;
     }
 
-    currentGroupExpanded = expandedGroupsSet.has(row.compoundKey);
+    currentGroupExpanded = expandedGroupsSet.has(row.compoundKey) || isExporting;
     currentGroupLevel = groupLevel;
 
     if (currentGroupExpanded) {

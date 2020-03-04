@@ -55,8 +55,8 @@
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-license": "^0.12.1",
     "rollup-plugin-replace": "^2.2.0",
-    "rollup-plugin-typescript2": "^0.25.3",
-    "typescript": "3.7.5"
+    "rollup-plugin-typescript2": "^0.26.0",
+    "typescript": "3.8.3"
   },
   "peerDependencies": {
     "@devexpress/dx-core": "2.4.1"

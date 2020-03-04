@@ -370,5 +370,38 @@ describe('Basic View', () => {
       expect(tree.find(customEmptyCell).exists())
         .toBeTruthy();
     });
+    it('should rerender the timeTableLayout every time the timeTable cell is changed', () => {
+      let updateCount = 0;
+      const firstTimeTableCell = jest.fn();
+      const timeTableLayout = React.memo(() => {
+        React.useEffect(() => {
+          updateCount += 1;
+        });
+        return null;
+      });
+
+      const Test = ({ timeTableCellComponent }) => (
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <BasicView
+            {...defaultProps}
+            timeTableCellComponent={timeTableCellComponent}
+            timeTableLayoutComponent={timeTableLayout}
+          />
+        </PluginHost>
+      );
+
+      const tree = mount(<Test timeTableCellComponent={firstTimeTableCell} />);
+      expect(updateCount)
+        .toEqual(1);
+
+      const secondTimeTableCell = jest.fn();
+      tree.setProps({
+        timeTableCellComponent: secondTimeTableCell,
+      });
+
+      expect(updateCount)
+        .toEqual(2);
+    });
   });
 });

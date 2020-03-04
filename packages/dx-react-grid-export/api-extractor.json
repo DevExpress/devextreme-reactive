@@ -1,0 +1,6 @@
+{
+  "extends": "../../api-extractor.json",
+  "dtsRollup": {
+    "enabled": true
+  }
+}

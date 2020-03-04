@@ -17,50 +17,50 @@ Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
 1. Configure the `GridExporter`
 
-Import the [GridExporter](../reference/grid-exporter.md) and place it after the Grid component. Specify the `ref`, `columns`, and `rows` properties of the `GridExporter`:
+   Import the [GridExporter](../reference/grid-exporter.md) and place it after the Grid component. Specify the `ref`, `columns`, and `rows` properties of the `GridExporter`:
 
-```jsx
-const exporterRef = useRef();
-...
-<Grid>
-...
-</Grid>
-<GridExporter
-  ref={exporterRef}
-  columns={columns}
-  rows={rows}
-/>
-```
+   ```jsx
+   const exporterRef = useRef();
+   ...
+   <Grid>
+   ...
+   </Grid>
+   <GridExporter
+     ref={exporterRef}
+     columns={columns}
+     rows={rows}
+   />
+   ```
 
 2. Configure the `ExportPanel`
 
-Import the [ExportPanel](../reference/export-panel.md) plugin and add it to the Grid.
+   Import the [ExportPanel](../reference/export-panel.md) plugin and add it to the Grid.
 
 3. Initiate export
 
-The `GridExporter` provides an `exportGrid` method that initiates export. Use the ref from the first step to call this method. In the following code, we call it in the `startExport` callback of the `ExportPanel` plugin, but it can be called anywhere else in your code.
+   The `GridExporter` provides an `exportGrid` method that initiates export. Use the ref from the first step to call this method. In the following code, we call it in the `startExport` callback of the `ExportPanel` plugin, but it can be called anywhere else in your code.
 
-```jsx
-const startExport = (options) => {
-  exporterRef.current.exportGrid(options);
-};
-...
-<ExportPanel startExport={startExport} />
-```
+   ```jsx
+   const startExport = (options) => {
+     exporterRef.current.exportGrid(options);
+   };
+   ...
+   <ExportPanel startExport={startExport} />
+   ```
 
 4. Save the file
 
-To handle file saving, implement the `onSave` callback of the `GridExporter` component. In this callback, save the file to the user's local storage. This can be done in many different ways. For example, you can use the `file-saver` package:
+   To handle file saving, implement the `onSave` callback of the `GridExporter` component. In this callback, save the file to the user's local storage. This can be done in many different ways. For example, you can use the `file-saver` package:
 
-```jsx
-import saveAs from 'file-saver';
-...
-const onSave = (workbook) => {
-  workbook.xlsx.writeBuffer().then((buffer) => {
-    saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'DataGrid.xlsx');
-  });
-};
-```
+   ```jsx
+   import saveAs from 'file-saver';
+   ...
+   const onSave = (workbook) => {
+     workbook.xlsx.writeBuffer().then((buffer) => {
+       saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'DataGrid.xlsx');
+     });
+   };
+   ```
 
 The following demo shows export in action:
 

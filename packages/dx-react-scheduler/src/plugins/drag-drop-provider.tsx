@@ -315,41 +315,26 @@ class DragDropProviderBase extends React.PureComponent<
 
         <Template name="allDayPanel">
           <TemplateConnector>
-            {({ currentView, groupOrientation }) => {
-              if (groupOrientation?.(currentView.name) === VERTICAL_GROUP_ORIENTATION) {
-                return <TemplatePlaceholder />;
-              }
-
-              return (
-                <>
-                  <TemplatePlaceholder />
-                  {renderAppointmentItems(this.allDayDraftAppointments, Container, draftData)}
-                </>
-              );
-            }}
+            {({ currentView, groupOrientation }) => (
+              <>
+                <TemplatePlaceholder />
+                {groupOrientation?.(currentView.name) !== VERTICAL_GROUP_ORIENTATION
+                  && renderAppointmentItems(this.allDayDraftAppointments, Container, draftData)}
+              </>
+            )}
           </TemplateConnector>
         </Template>
 
         <Template name="timeTable">
           <TemplateConnector>
-            {({ currentView, groupOrientation }) => {
-              if (groupOrientation?.(currentView.name) === VERTICAL_GROUP_ORIENTATION) {
-                return (
-                  <>
-                    <TemplatePlaceholder />
-                    {renderAppointmentItems(this.allDayDraftAppointments, Container, draftData)}
-                    {renderAppointmentItems(this.timeTableDraftAppointments, Container, draftData)}
-                  </>
-                );
-              }
-
-              return (
-                <>
-                  <TemplatePlaceholder />
-                  {renderAppointmentItems(this.timeTableDraftAppointments, Container, draftData)}
-                </>
-              );
-            }}
+            {({ currentView, groupOrientation }) => (
+              <>
+                <TemplatePlaceholder />
+                {renderAppointmentItems(this.timeTableDraftAppointments, Container, draftData)}
+                {groupOrientation?.(currentView.name) === VERTICAL_GROUP_ORIENTATION
+                  && renderAppointmentItems(this.timeTableDraftAppointments, Container, draftData)}
+              </>
+            )}
           </TemplateConnector>
         </Template>
 

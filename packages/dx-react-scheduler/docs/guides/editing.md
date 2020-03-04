@@ -100,11 +100,11 @@ If you want to disable all editing options import only [AppointmentForm](../refe
 
 - Disable deleting
 
-  To do that, pass `disabled` property to AppointmentForm's [commandButton](../reference/appointment-form.md) with `deleteButton` ID and use [AppointmentTooltip's](../reference/appointment-tooltip.md) `showDeleteButton` property to  hide its Delete Button.
+  To do that, pass `disabled` property to AppointmentForm's [commandButton](../reference/appointment-form.md/#appointmentformcommandbuttonprops) with `deleteButton` ID and use [AppointmentTooltip's](../reference/appointment-tooltip.md) `showDeleteButton` property to  hide its Delete Button.
 
 - Disable updating
 
-  In this case, it's necessary to use [AppointmentForm](../reference/appointment-form.md) in read-only mode. If you want to let users delete appointments, use AppointmentForm's [commandButton](../reference/appointment-form.md) with `deleteButton` ID and pass `disabled` property to it. If you want to let users create new appointments, do not use read-only mode when a new appointment is being created. If you use [DragDropProvider](../reference/drag-drop-provider.md), consider turning it off. It may be done with the help of `allowDrag` and `allowResize` properties.
+  In this case, it's necessary to use [AppointmentForm](../reference/appointment-form.md) in read-only mode. If you want to let users delete appointments, use AppointmentForm's [commandButton](../reference/appointment-form.md/#appointmentformcommandbuttonprops) with `deleteButton` ID and pass `disabled` property to it. If you want to let users create new appointments, do not use read-only mode when a new appointment is being created. If you use [DragDropProvider](../reference/drag-drop-provider.md), consider turning it off. It may be done with the help of `allowDrag` and `allowResize` properties.
 
 The demo below demonstrates these approaches in action:
 

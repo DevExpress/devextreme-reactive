@@ -104,7 +104,7 @@ To do that, pass `disabled={true}` prop to AppointmentForm's [commandButton](../
 
 ### Disable updating appointments.
 
-In this case, it's necessary to use [AppointmentForm](../reference/appointment-form.md) in read-only mode. Pass `readOnly={true}` to `AppointmentForm` to disable editing. If you want to let users delete appointments and save new ones, customize AppointmentForm's [commandButton](../reference/appointment-form.md) with `deleteButton` and `saveButton` ids and pass `disabled={false}` property to them. If you use [DragDropProvider](../reference/drag-drop-provider.md), consider turning it off. It may be done with the help of `allowDrag` and `allowResize` properties.
+In this case, it's necessary to use [AppointmentForm](../reference/appointment-form.md) in read-only mode. Pass `readOnly={true}` to `AppointmentForm` to disable editing. If you want to let users delete appointments and save new ones, customize AppointmentForm's [commandButton](../reference/appointment-form.md) with `saveButton` id and pass `disabled={false}` property to it. If you use [DragDropProvider](../reference/drag-drop-provider.md), consider turning it off. It may be done with the help of `allowDrag` and `allowResize` properties.
 
 The demo below demonstrates these approaches in action:
 

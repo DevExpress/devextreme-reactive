@@ -190,7 +190,7 @@ const IndexPage = () => (
       />
       <LandingImageFeature
         imageLink={materialThemeLink}
-        title="Material React Chart"
+        title="Material-UI React Chart"
         description="Leverage both the user and developer experience of the Material-UI library."
       />
     </LandingLayout>

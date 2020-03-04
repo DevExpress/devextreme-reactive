@@ -54,7 +54,8 @@ const script = async () => {
       .replace('...v)', `...v${version})`)
   );
 
-  execSync(`"./node_modules/.bin/lerna" version ${version} --exact --force-publish \* --no-git-tag-version --yes`, { stdio: 'ignore' });
+  execSync(`"./node_modules/.bin/lerna" version ${version} --exact --force-publish --no-git-tag-version --yes`, { stdio: 'ignore' });
+  console.log('Updating peer deps...');
   updatePeerDeps();
 
   const { commit } = await prompt({

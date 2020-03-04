@@ -132,6 +132,10 @@
             "path": "/react/grid/docs/guides/summary-row/"
           },
           {
+            "title": "Export",
+            "path": "/react/grid/docs/guides/export/"
+          },
+          {
             "title": "Localization",
             "path": "/react/grid/docs/guides/localization/"
           },
@@ -151,6 +155,10 @@
           {
             "title": "Grid",
             "path": "/react/grid/docs/reference/grid/"
+          },
+          {
+            "title": "GridExporter",
+            "path": "/react/grid/docs/reference/grid-exporter/"
           },
           {
             "title": "FilteringState",
@@ -267,6 +275,10 @@
           {
             "title": "GroupingPanel",
             "path": "/react/grid/docs/reference/grouping-panel/"
+          },
+          {
+            "title": "ExportPanel",
+            "path": "/react/grid/docs/reference/export-panel/"
           },
           {
             "title": "DragDropProvider",

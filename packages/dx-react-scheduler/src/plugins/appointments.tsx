@@ -8,7 +8,7 @@ import {
   getVerticalRectByAppointmentData, calculateRectByDateAndGroupIntervals,
   getAppointmentStyle, HORIZONTAL_TYPE, getHorizontalRectByAppointmentData,
   isAllDayElementsMetaActual, isTimeTableElementsMetaActual,
-  HORIZONTAL_GROUP_ORIENTATION, VIEW_TYPES,
+  HORIZONTAL_GROUP_ORIENTATION, VIEW_TYPES, Rect,
 } from '@devexpress/dx-scheduler-core';
 
 import { AppointmentsProps } from '../types';
@@ -27,7 +27,7 @@ const renderAppointments = rects => rects.map(({
     toNext={toNext}
     durationType={durationType}
     resources={resources}
-    style={getAppointmentStyle(geometry)}
+    style={getAppointmentStyle(geometry as Rect)}
   />
 ));
 

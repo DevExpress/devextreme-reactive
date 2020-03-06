@@ -90,22 +90,30 @@ To enable the confirmation dialog, add the [ConfirmationDialog](../reference/con
 
 .embedded-demo({ "path": "scheduler-editing/delete-confirmation", "showThemeSelector": true })
 
-## Disable one or several editing options
+## Disable Individual Editing Operations
 
-If you want to disable all editing options import only [AppointmentForm](../reference/appointment-form.md) and use it in read-only mode (use its `readOnly` property). If you want to disable some of the editing options, follow the steps below:
+### Read-Only Mode
 
-- Disable adding
+If users should not edit appointments, import only the [AppointmentForm](../reference/appointment-form.md) plugin and enable its `readOnly` property.
 
-  To do that, do not pass `onDoubleClick` property to the `timeTableCellComponent` of the views used in the Scheduler (for example, `WeekView`'s [TimeTableCell](../reference/week-view.md#weekviewtimetablecellprops)) and to the `AllDayPanel`'s [cellComponent](../reference/all-day-panel.md#alldaypanelcellprops).
+### Disable Adding
 
-- Disable deleting
+Since users double-click timetable cells to add appointments, you should remove the double click handler to disable this functionality.
 
-  To do that, pass `disabled` property to AppointmentForm's [commandButton](../reference/appointment-form.md/#appointmentformcommandbuttonprops) with `deleteButton` ID and use [AppointmentTooltip's](../reference/appointment-tooltip.md) `showDeleteButton` property to  hide its Delete Button.
+Set the `onDoubleClick` property to `undefined` for the component that renders timetable cells. It is the [timeTableCellComponent](../reference/week-view.md#weekviewtimetablecellprops) for views and the [cellComponent](../reference/all-day-panel.md#alldaypanelcellprops) for the all-day panel.
 
-- Disable updating
+### Disable Deleting
+
+Users can delete an appointment using the Delete button on the [AppointmentForm](../reference/appointment-form.md) or in the [AppointmentTooltip](../reference/appointment-tooltip.md). Disable this button on the form and hide it from the tooltip if users should not delete appointments.
+
+To disable the Delete button on the `AppointmentForm`, find the [commandButton](../reference/appointment-form.md/#appointmentformcommandbuttonprops) with ID `deleteButton` and set its `disabled` property to `true`.
+
+To hide the Delete button from the `AppointmentTooltip`, disable the `showDeleteButton` property.
+
+### Disable Updating
 
   In this case, it's necessary to use [AppointmentForm](../reference/appointment-form.md) in read-only mode. If you want to let users delete appointments, use AppointmentForm's [commandButton](../reference/appointment-form.md/#appointmentformcommandbuttonprops) with `deleteButton` ID and pass `disabled` property to it. If you want to let users create new appointments, do not use read-only mode when a new appointment is being created. If you use [DragDropProvider](../reference/drag-drop-provider.md), consider turning it off. It may be done with the help of `allowDrag` and `allowResize` properties.
 
-The demo below demonstrates these approaches in action:
+The example below demonstrates the described use-cases:
 
 .embedded-demo({ "path": "scheduler-editing/editing-features", "showThemeSelector": true })

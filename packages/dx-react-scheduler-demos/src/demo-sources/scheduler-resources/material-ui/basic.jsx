@@ -127,7 +127,7 @@ export default class Demo extends React.PureComponent {
     const { data, resources, mainResourceName } = this.state;
 
     return (
-      <>
+      <React.Fragment>
         <ResourceSwitcher
           resources={resources}
           mainResourceName={mainResourceName}
@@ -153,7 +153,7 @@ export default class Demo extends React.PureComponent {
             />
           </Scheduler>
         </Paper>
-      </>
+      </React.Fragment>
     );
   }
 }

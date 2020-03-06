@@ -263,7 +263,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
             {({ formatDate, currentView, viewCellsData }) => {
               if (currentView.name !== viewName) return <TemplatePlaceholder />;
               return (
-                <>
+                <React.Fragment>
                   <TimeTableLayout
                     cellsData={viewCellsData}
                     rowComponent={timeTableRowComponent}
@@ -275,7 +275,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
                   <AppointmentLayer>
                     <TimeTableAppointmentLayer />
                   </AppointmentLayer>
-                </>
+                </React.Fragment>
               );
             }}
           </TemplateConnector>

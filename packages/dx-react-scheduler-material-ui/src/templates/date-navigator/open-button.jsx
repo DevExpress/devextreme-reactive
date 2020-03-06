@@ -28,7 +28,7 @@ const styles = ({ spacing }) => ({
 const OpenButtonBase = React.memo(({
   text, onVisibilityToggle, classes, className, ...restProps
 }) => (
-  <>
+  <React.Fragment>
     <Button
       onClick={onVisibilityToggle}
       className={classNames(classes.textButton, className)}
@@ -43,7 +43,7 @@ const OpenButtonBase = React.memo(({
     >
       <CalendarToday />
     </IconButton>
-  </>
+  </React.Fragment>
 ));
 
 OpenButtonBase.propTypes = {

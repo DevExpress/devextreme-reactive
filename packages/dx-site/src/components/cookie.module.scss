@@ -1,0 +1,38 @@
+.cookie {
+  background-color: rgb(26, 68, 86);
+  padding: 50px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  color: white;
+
+  a {
+    color: white;
+    text-decoration: underline;
+    &:hover {
+      color: lightgrey;
+    }
+  }
+}
+
+.title {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.button {
+  font-family: "Segoe UI";
+  font-size: 16px;
+  background-color: white;
+  padding: 15px 45px;
+  color: black;
+  border-radius: 3px;;
+  border: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
+  cursor: pointer;
+  
+  &:hover {
+    color: #fff;
+    background-color: #007d9e;
+  }
+}

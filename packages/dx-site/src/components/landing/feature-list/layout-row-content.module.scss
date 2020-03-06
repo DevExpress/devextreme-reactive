@@ -1,0 +1,6 @@
+@import '../../../constants';
+@import '../../../typography';
+
+.title {
+  @include title-large(1.5rem);
+}

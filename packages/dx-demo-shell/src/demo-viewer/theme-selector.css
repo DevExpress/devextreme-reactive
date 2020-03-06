@@ -1,20 +1,11 @@
-.template-chooser {
+.theme-selector {
   text-align: right;
   display: block;
   margin-bottom: 10px;
+  margin-left: 400px;
 }
 
-.template-chooser ul.dropdown-menu {
-  right: 0;
-  left: auto;
-}
-
-.template-chooser ul.dropdown-menu a {
+.theme-selector a {
   cursor: pointer;
-}
-
-.template-chooser a.toggle {
-  cursor: pointer;
-  border-bottom: dashed 1px #337ab7;
   text-decoration: none;
 }

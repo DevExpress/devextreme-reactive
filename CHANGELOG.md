@@ -1,3 +1,21 @@
+# [2.5.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.4.1...v2.5.0) (2020-03-04)
+
+
+### Bug Fixes
+
+* **react-scheduler:** make it possible to change allowDrag and allowResize in runtime ([#2715](https://github.com/DevExpress/devextreme-reactive/issues/2715)) ([1e38729](https://github.com/DevExpress/devextreme-reactive/commit/1e387296bd07105476529d737336a9fdba34443f))
+* **react-scheduler:** update elementsMeta on cellComponent change ([#2714](https://github.com/DevExpress/devextreme-reactive/issues/2714)) ([4f814e8](https://github.com/DevExpress/devextreme-reactive/commit/4f814e83950dff8769ed7b125b9f714c5176aa36))
+* **react-scheduler:** use defaults when resource id is not specified in instances but is specified in an appointment ([#2699](https://github.com/DevExpress/devextreme-reactive/issues/2699)) ([3ec51af](https://github.com/DevExpress/devextreme-reactive/commit/3ec51af5e455d68ddbfd6afe55c2e8837bf0b2b5))
+* **scheduler-core:** assign colors to resource instances even when palette's size is less than the number of resource instances ([#2691](https://github.com/DevExpress/devextreme-reactive/issues/2691)) ([2020ad2](https://github.com/DevExpress/devextreme-reactive/commit/2020ad220756974cf1ec02bfca40862981e8d464))
+* **scheduler-core:** filter WeekView appointments correctly when excluded days contain an interval of three or more days in a row ([#2713](https://github.com/DevExpress/devextreme-reactive/issues/2713)) ([c658869](https://github.com/DevExpress/devextreme-reactive/commit/c6588694e049822a2a36ac1d8cb310820cee5c66))
+
+
+### Features
+
+* **react-grid:** allow data export in excel format ([#2631](https://github.com/DevExpress/devextreme-reactive/issues/2631)) ([3030d5d](https://github.com/DevExpress/devextreme-reactive/commit/3030d5d000943495c7006519ef627291e9c11531))
+
+
+
 # [2.4.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.4.0...v2.4.1) (2020-02-20)
 
 

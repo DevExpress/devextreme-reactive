@@ -1,0 +1,60 @@
+.container {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.absoluteContainer {
+  left: 50%;
+  max-width: 50%;
+  width: 100%;
+  margin-left: 20px;
+
+  @media (max-width: 1000px) {
+    margin-left: 60px;
+  }
+}
+
+.relativeWrapper {
+  position: relative;
+}
+
+.image {
+  position: absolute;
+  max-width: 647px;
+}
+
+.image {
+  left: 40px;
+  top: -390px;
+
+  &.indexImage {
+    top: -610px;
+  }
+
+  @media (min-width: 680px) {
+    left: 20px;
+  }
+  @media (min-width: 720px) {
+    left: 0;
+  }
+
+  @media (min-width: 800px) {
+
+  }
+
+  @media (min-width: 1000px) {
+    top: -380px;
+
+    &.indexImage {
+      top: -350px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    top: -390px;
+
+    &.indexImage {
+      top: -390px;
+    }
+  }
+}

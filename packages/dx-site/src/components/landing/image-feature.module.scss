@@ -1,0 +1,30 @@
+@import '../../constants';
+
+.container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-left: $inner-offset;
+  padding-right: $inner-offset;
+}
+
+.image {
+  max-width: 458px;
+}
+
+.title {
+  font-family: "Segoe UI Semibold";
+  font-size: 18px;
+  color: rgba(24, 60, 87, 255);
+  margin-bottom: 10px;
+  line-height: 1;
+}
+
+.description {
+  font-size: 14px;
+  color: rgba(125, 136, 142, 255);
+  margin-bottom: 10px;
+}
+
+.icon {
+  margin-right: 20px;
+}

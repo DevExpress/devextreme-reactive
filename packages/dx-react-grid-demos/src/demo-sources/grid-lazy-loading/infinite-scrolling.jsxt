@@ -13,6 +13,7 @@ import {
   VirtualTable,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
+<%&cssImports%>
 
 const VIRTUAL_PAGE_SIZE = 50;
 const MAX_ROWS = 50000;

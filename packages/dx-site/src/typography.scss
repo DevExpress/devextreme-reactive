@@ -1,0 +1,17 @@
+@mixin title-large($margin-bottom: 30px, $use-left-offset: true, $font-family: "Segoe UI Light") {
+  font-family: $font-family;
+  font-size: 38px;
+  line-height: 42px;
+  color: rgba(24, 60, 87, 255);
+  margin-bottom: 20px;
+
+  @if($use-left-offset) {
+    padding-left: $inner-offset;
+  }
+
+  @media (min-width: 640px) {
+    font-size: 42px;
+    line-height: 1.5;
+    margin-bottom: $margin-bottom;
+  }
+}

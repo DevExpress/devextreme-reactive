@@ -1,0 +1,37 @@
+@import '../constants';
+
+.footer {
+  background-color: #f0f2f4;
+  padding: 20px 0;
+
+  @media (min-width: 640px) {
+    padding: 50px 0;
+  }
+}
+
+.copyright {
+  font-size: 14px;
+  color: rgba(125, 136, 142, 255);
+  padding-left: $inner-offset;
+  padding-right: $inner-offset;
+  a {
+    color: rgba(125, 136, 142, 255);
+    text-decoration: underline;
+  }
+}
+
+.links {
+  margin-bottom: 50px;
+  padding-left: $inner-offset;
+  padding-right: $inner-offset;
+  a {
+    margin: 0 10px;
+    color: rgba(51, 51, 51, 255);
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

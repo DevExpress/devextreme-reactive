@@ -1,0 +1,37 @@
+.container {
+  padding: 20px 0;
+  background-color: rgb(26, 68, 86);
+  font-family: "Segoe UI Light";
+  font-size: 40px;
+  line-height: 1.1;
+  color: rgba(255, 255, 255, 255);
+  text-align: center;
+
+  @media (min-width: 640px) {
+    padding-top: 60px;
+    padding-bottom: 50px;
+    font-size: 42px;
+    line-height: 1.5;
+  }
+}
+
+.title {
+  @media (max-width: 640px) {
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+}
+
+.links {
+  display: inline-block;
+  position: relative;
+}
+
+@media (min-width: 1000px) {
+  .links {
+    top: -6px;
+  }
+  .links > a {
+    display: initial;
+  }
+}

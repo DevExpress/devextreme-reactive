@@ -1,4 +1,5 @@
 {
   "additionalImports": "",
-  "wrapperTag": "div"
+  "wrapperTag": "div",
+  "dependencies": ["react-bootstrap"]
 }

@@ -62,7 +62,7 @@
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-license": "^0.12.1",
-    "rollup-plugin-node-resolve": "^5.2.0",
+    "@rollup/plugin-node-resolve": "^7.1.1",
     "vue": "^2.6.10",
     "vue-server-renderer": "^2.6.10",
     "vue-template-compiler": "^2.6.10"

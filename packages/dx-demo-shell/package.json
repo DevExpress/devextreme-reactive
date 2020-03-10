@@ -45,7 +45,7 @@
     "mustache": "^3.1.0",
     "rollup": "^1.27.2",
     "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-node-resolve": "^5.2.0",
+    "@rollup/plugin-node-resolve": "^7.1.1",
     "rollup-plugin-sass": "^1.2.2"
   },
   "dependencies": {

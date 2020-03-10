@@ -112,7 +112,13 @@ To hide the Delete button from the `AppointmentTooltip`, disable the `showDelete
 
 ### Disable Updating
 
-  In this case, it's necessary to use [AppointmentForm](../reference/appointment-form.md) in read-only mode. If you want to let users delete appointments, use AppointmentForm's [commandButton](../reference/appointment-form.md/#appointmentformcommandbuttonprops) with `deleteButton` ID and pass `disabled` property to it. If you want to let users create new appointments, do not use read-only mode when a new appointment is being created. If you use [DragDropProvider](../reference/drag-drop-provider.md), consider turning it off. It may be done with the help of `allowDrag` and `allowResize` properties.
+Users can use the `AppointmentForm` to update appointments. Switch the `AppointmentForm` to [read-only mode](../reference/appointment-form.md#properties) to disable this functionality. However, users will not be able to add or delete appointments, too, but these features can be enabled individually.
+
+To enable adding, create a flag that indicates whether an appointment is being added and make the `AppointmentForm` read-only depending on this flag.
+
+To enable deleting, find the [commandButton](../reference/appointment-form.md/#appointmentformcommandbuttonprops) with ID `deleteButton` on the `AppointmentForm` and set its `disabled` property to `false`.
+
+Users can also update appointments via drag-and-drop. Remove the [DragDropProvider](../reference/drag-drop-provider.md) (if you use it) to disable this functionality.
 
 The example below demonstrates the described use-cases:
 

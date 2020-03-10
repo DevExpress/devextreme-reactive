@@ -38,9 +38,9 @@
     "lint:fix": "yarn lint -- --fix"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.2",
-    "@babel/plugin-transform-runtime": "^7.6.2",
-    "@babel/preset-env": "^7.7.1",
+    "@babel/core": "^7.8.7",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/preset-env": "^7.8.7",
     "@devexpress/dx-core": "2.5.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.9.0",

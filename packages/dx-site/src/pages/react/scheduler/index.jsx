@@ -51,6 +51,13 @@ const pageData = [
     guideLink: '/react/scheduler/docs/guides/resources/',
   },
   {
+    alternative: true,
+    title: 'Resource Grouping',
+    description: 'Allow end-users to browse multiple schedules simultaneously. Once resources have been generated, the scheduler will display multiple parallel timelines. Resource headers can be customized, and the same event can be assigned to multiple resources.',
+    imageLink: resourcesGroupingImage,
+    guideLink: '/react/scheduler/docs/guides/grouping/',
+  },
+  {
     reversed: true,
     sectionTitle: '3 Customizable Built-in View Types',
     title: 'Day View',
@@ -75,13 +82,7 @@ const pageData = [
 ];
 const comingSoonItems = [
   {
-    alternative: true,
     sectionTitle: 'More Coming Soon',
-    title: 'Resource Grouping',
-    description: 'Allow end-users to browse multiple schedules simultaneously. Once resources have been generated, the scheduler will display multiple parallel timelines. Resource headers can be customized, and the same event can be assigned to multiple resources.',
-    imageLink: resourcesGroupingImage,
-  },
-  {
     reversed: true,
     title: 'Timeline Views',
     description: 'Arrange events and appointments across horizontal timelines. When browsing multiple resources, timelines are displayed one under another. You can display multiple time rulers with different scales atop the view.',
@@ -129,7 +130,7 @@ const IndexPage = () => (
     <LandingProductFloatImage imageLink={headerImage} />
 
     <AlternatedBackground style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
-      <LandingChessBoardLayoutList data={pageData} columns={3} />
+      <LandingChessBoardLayoutList data={pageData} columns={2} />
       <LandingChessBoardLayoutList data={comingSoonItems} />
     </AlternatedBackground>
 

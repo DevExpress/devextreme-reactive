@@ -121,7 +121,8 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           {(params: any) => (
             <TemplateConnector>
               {({ currentView, groupOrientation, allDayCellsData }) => {
-                if (isMonthView(currentView) || !isVerticalGrouping(currentView, groupOrientation)) {
+                if (isMonthView(currentView)
+                  || !isVerticalGrouping(currentView, groupOrientation)) {
                   return <TemplatePlaceholder params={...params} />;
                 }
                 return (
@@ -162,7 +163,8 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           {(params: any) => (
             <TemplateConnector>
               {({ currentView, groupOrientation }) => {
-                if (isMonthView(currentView) || !isVerticalGrouping(currentView, groupOrientation)) {
+                if (isMonthView(currentView)
+                  || !isVerticalGrouping(currentView, groupOrientation)) {
                   return <TemplatePlaceholder params={...params} />;
                 }
 
@@ -213,6 +215,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                     cellsData={allDayCellsData[0]}
                     setCellElementsMeta={this.updateCellElementsMeta}
                     formatDate={formatDate}
+                    key={layoutKey}
                   />
                   <AppointmentLayer>
                     <AllDayAppointmentLayerPlaceholder />

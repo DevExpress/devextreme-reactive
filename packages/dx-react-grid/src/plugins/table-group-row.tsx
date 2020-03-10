@@ -18,6 +18,7 @@ import {
   calculateGroupCellIndent,
   isGroupIndentStubTableCell,
   GroupSummaryItem,
+  TABLE_FLEX_TYPE,
 } from '@devexpress/dx-grid-core';
 import { TableColumnsWithGrouping } from './internal';
 import {
@@ -247,7 +248,7 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
                 // NOTE: ensure that right-aligned summary will fit into a column
                 if (isPreviousCellContainSummary(
                   tableRow, tableColumn, tableColumns, grouping, groupSummaryItems,
-                )) {
+                ) || TABLE_FLEX_TYPE === tableColumn.type) {
                   return <StubCell {...params} onToggle={onToggle} />;
                 }
 

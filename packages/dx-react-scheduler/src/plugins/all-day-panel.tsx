@@ -16,14 +16,10 @@ import moment from 'moment';
 
 import { AllDayPanelProps, AllDayPanelState } from '../types';
 
-const shouldNotRenderInDayScale = (
+const isMonthView = currentView => currentView.type === VIEW_TYPES.MONTH;
+const isVerticalGrouping = (
   currentView, groupOrientation,
-) => currentView.type === VIEW_TYPES.MONTH
-    || groupOrientation?.(currentView.name) === VERTICAL_GROUP_ORIENTATION;
-const shouldNotRenderInTimeTable = (
-  currentView, groupOrientation,
-) => currentView.type === VIEW_TYPES.MONTH
-  || groupOrientation?.(currentView.name) !== VERTICAL_GROUP_ORIENTATION;
+) => groupOrientation?.(currentView.name) === VERTICAL_GROUP_ORIENTATION;
 
 const pluginDependencies = [
   { name: 'DayView', optional: true },
@@ -108,7 +104,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           {(params: any) => (
             <TemplateConnector>
               {({ currentView, groupOrientation, allDayCellsData }) => {
-                if (shouldNotRenderInTimeTable(currentView, groupOrientation)) {
+                if (isMonthView(currentView) || !isVerticalGrouping(currentView, groupOrientation)) {
                   return <TemplatePlaceholder params={...params} />;
                 }
                 return (
@@ -134,7 +130,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
         <Template name="dayScaleEmptyCell">
           <TemplateConnector>
             {({ currentView, groupOrientation }) => {
-              if (shouldNotRenderInDayScale(currentView, groupOrientation)) {
+              if (isMonthView(currentView) || isVerticalGrouping(currentView, groupOrientation)) {
                 return <TemplatePlaceholder />;
               }
 
@@ -149,7 +145,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           {(params: any) => (
             <TemplateConnector>
               {({ currentView, groupOrientation }) => {
-                if (shouldNotRenderInTimeTable(currentView, groupOrientation)) {
+                if (isMonthView(currentView) || !isVerticalGrouping(currentView, groupOrientation)) {
                   return <TemplatePlaceholder params={...params} />;
                 }
 
@@ -171,7 +167,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           <TemplatePlaceholder />
           <TemplateConnector>
             {({ currentView, groupOrientation }) => {
-              if (shouldNotRenderInDayScale(currentView, groupOrientation)) {
+              if (isMonthView(currentView) || isVerticalGrouping(currentView, groupOrientation)) {
                 return null;
               }
 

@@ -15,6 +15,7 @@ import {
   isRowSummaryCell,
   getColumnSummaries,
   calculateGroupCellIndent,
+  TABLE_FLEX_TYPE,
 } from '@devexpress/dx-grid-core';
 import { TableGroupRow, defaultMessages } from './table-group-row';
 import { TableSummaryContent } from '../components/summary/table-summary-content';
@@ -86,6 +87,7 @@ const defaultProps = {
   summaryItemComponent: () => null,
   inlineSummaryComponent: () => null,
   inlineSummaryItemComponent: () => null,
+  stubCellComponent: () => null,
   indentColumnWidth: 100,
   messages: {},
   formatlessSummaryTypes: [],
@@ -573,6 +575,33 @@ describe('TableGroupRow', () => {
           expect.any(Object), // getters
           expect.any(Object), // actions
         );
+    });
+
+    it('should render stub cell on group row and flex column intersection', () => {
+      isRowSummaryCell.mockReturnValue(false);
+      const tableColumn = { type: TABLE_FLEX_TYPE };
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents({
+            ...defaultDeps,
+            template: {
+              ...defaultDeps.template,
+              tableCell: {
+                tableColumn,
+              },
+            },
+          })}
+          <TableGroupRow
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find(defaultProps.stubCellComponent).props())
+        .toEqual({
+          tableColumn,
+          onToggle: expect.any(Function),
+        });
     });
   });
 

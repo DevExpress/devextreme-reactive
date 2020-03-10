@@ -1,0 +1,22 @@
+@import './mixins';
+
+.child {
+  @include feature-item(23px);
+}
+
+.layout-item {
+  padding-top: 12px;
+  padding-bottom: 12px;
+
+  @media (min-width: 640px) {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+}
+
+@media (max-width: 800px) {
+  .image-container {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

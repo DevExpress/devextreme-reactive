@@ -1,0 +1,23 @@
+@import '../../../typography';
+
+.title, .icon {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.title {
+  @include title-large(
+    $margin-bottom: 0,
+    $use-left-offset: false,
+    $font-family: "Segoe UI Bold"
+  );
+  line-height: 1.35;
+}
+
+svg.icon {
+  rect, path, ellipse {
+    fill: #114E5F !important;
+  }
+  margin-right: 0.5rem;
+  height: 62px;
+}

@@ -11,6 +11,7 @@ import {
   Legend,
   Tooltip,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
+<%&cssImports%>
 import {
   ValueScale,
   Stack,
@@ -59,10 +60,10 @@ const AreaPoint = (props) => {
 };
 
 const AreaWithPoints = ({ state, ...props }) => (
-  <>
+  <React.Fragment>
     <AreaSeries.Path {...props} />
     <ScatterSeries.Path {...props} />
-  </>
+  </React.Fragment>
 );
 
 const SplinePoint = props => (
@@ -70,10 +71,10 @@ const SplinePoint = props => (
 );
 
 const SplineWithPoints = props => (
-  <>
+  <React.Fragment>
     <SplineSeries.Path {...props} />
     <ScatterSeries.Path {...props} />
-  </>
+  </React.Fragment>
 );
 
 const series = [

@@ -12,6 +12,7 @@ import {
   filterByViewBoundaries,
   getRRuleSetWithExDates,
   formatDateToString,
+  excludedIntervals,
 } from './utils';
 
 describe('Utils', () => {
@@ -91,6 +92,48 @@ describe('Utils', () => {
 
       expect(filtered)
         .toEqual(appointments.slice(0, 1));
+    });
+  });
+  describe('#excludedIntervals', () => {
+    const start = moment('2020-03-03');
+    it('should create an interval of excluded days', () => {
+      const excludedDays = [3];
+
+      expect(excludedIntervals(excludedDays, start))
+        .toEqual([[
+          moment(start.day(3)),
+          moment(start.day(3)).endOf('day'),
+        ]]);
+    });
+    it('should create several intervals of excluded days', () => {
+      const excludedDays = [2, 5];
+
+      expect(excludedIntervals(excludedDays, start))
+        .toEqual([[
+          moment(start.day(2)),
+          moment(start.day(2)).endOf('day'),
+        ], [
+          moment(start.day(5)),
+          moment(start.day(5)).endOf('day'),
+        ]]);
+    });
+    it('should create an interval for several excluded days in a row', () => {
+      const excludedDays = [2, 3, 4, 5];
+
+      expect(excludedIntervals(excludedDays, start))
+        .toEqual([[
+          moment(start.day(2)),
+          moment(start.day(5)).endOf('day'),
+        ]]);
+    });
+    it('should work with week boundarie', () => {
+      const excludedDays = [0, 5, 6];
+
+      expect(excludedIntervals(excludedDays, start))
+        .toEqual([[
+          moment(start.day(5)),
+          moment(start.day(7)).endOf('day'),
+        ]]);
     });
   });
   describe('#sortAppointments', () => {

@@ -1,0 +1,27 @@
+a.version-link {
+  &:hover {
+    text-decoration-color: rgb(95, 208, 238);
+  }
+  &::after {
+    content: '|';
+    margin-left: 20px;
+    color: rgb(58, 93, 101);
+  }
+  @media (max-width: 680px) {
+    display: block;
+
+    @media (min-width: 640px) {
+      &:first-child {
+        margin-left: 10px;
+      }
+    }
+    &::after {
+      content: '';
+    }
+  }
+}
+
+.version {
+  font-size: 16px;
+  color: rgb(95, 208, 238);
+}

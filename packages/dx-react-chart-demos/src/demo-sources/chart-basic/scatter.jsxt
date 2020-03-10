@@ -3,6 +3,7 @@ import {
   Chart,
   ScatterSeries,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
+<%&cssImports%>
 
 import { dataGenerator } from '../../../demo-data/generator';
 

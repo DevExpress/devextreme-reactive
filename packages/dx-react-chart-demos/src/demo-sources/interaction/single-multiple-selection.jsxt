@@ -5,6 +5,7 @@ import {
   ArgumentAxis,
   ValueAxis,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
+<%&cssImports%>
 
 import { EventTracker, SelectionState } from '@devexpress/dx-react-chart';
 

@@ -5,6 +5,7 @@ import {
   ArgumentAxis,
   ValueAxis,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
+<%&cssImports%>
 import { Animation, EventTracker, HoverState } from '@devexpress/dx-react-chart';
 
 const data = [

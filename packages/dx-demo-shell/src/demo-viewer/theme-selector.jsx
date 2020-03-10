@@ -1,64 +1,40 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { Dropdown, MenuItem } from 'react-bootstrap';
+import {
+  UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem,
+} from 'reactstrap';
 import { EmbeddedDemoContext } from '../context';
-
 import './theme-selector.css';
 
-class Toggle extends React.PureComponent {
-  render() {
-    const { children, onClick } = this.props;
-
-    return (
-      <a
-        className="toggle"
-        href=""
-        onClick={(e) => {
-          e.preventDefault();
-          onClick(e);
-        }}
-      >
-        <span className="caption">
-          {children}
-        </span>
-        <span className="caret" />
-      </a>
-    );
-  }
-}
-
-Toggle.propTypes = {
-  children: PropTypes.node.isRequired,
-  onClick: PropTypes.func,
-};
-
-Toggle.defaultProps = {
-  onClick: () => {},
-};
-
 export const ThemeSelector = ({
-  selectedThemeName, selectedVariantName, availableThemes, onChange,
+  selectedThemeName,
+  selectedVariantName,
+  availableThemes,
+  onChange,
 }) => (
   <EmbeddedDemoContext.Consumer>
     {({ showThemeVariants, themeSources }) => {
       const selectedTheme = themeSources.find(({ name }) => name === selectedThemeName);
       return (
-        <Dropdown
-          id="theme-toggle"
-          className="template-chooser"
-          onSelect={(eventKey) => {
-            const [theme, variant] = eventKey.split('|');
-            if (selectedThemeName !== theme || selectedVariantName !== variant) {
-              onChange(theme, variant);
-            }
-          }}
+        <UncontrolledDropdown
+          className="theme-selector"
         >
-          <Toggle bsRole="toggle">
-            {showThemeVariants
-              ? selectedTheme.variants.find(({ name }) => name === selectedVariantName).title
-              : selectedTheme.title}
-          </Toggle>
-          <Dropdown.Menu>
+          <DropdownToggle
+            tag="span"
+            caret
+          >
+            <a
+              href=""
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+            >
+              {showThemeVariants
+                ? selectedTheme.variants.find(({ name }) => name === selectedVariantName).title
+                : selectedTheme.title}
+            </a>
+          </DropdownToggle>
+          <DropdownMenu right>
             {themeSources.reduce((acc, { name: themeName, title: themeTitle, variants }) => {
               const available = availableThemes.indexOf(themeName) > -1;
               const activeTheme = themeName === selectedThemeName;
@@ -66,33 +42,42 @@ export const ThemeSelector = ({
               if (!available) return acc;
               if (!showThemeVariants) {
                 acc.push(
-                  <MenuItem
+                  <DropdownItem
                     key={themeName}
-                    eventKey={`${themeName}|${variants[0].name}`}
                     active={activeTheme}
+                    onClick={() => {
+                      if (selectedThemeName !== themeName) {
+                        onChange(themeName, variants[0].name);
+                      }
+                    }}
                   >
                     {themeTitle}
-                  </MenuItem>,
+                  </DropdownItem>,
                 );
               } else {
                 acc.push(variants.map(({ name: variantName, title: variantTitle }) => {
                   const activeVariant = variantName === selectedVariantName;
 
                   return (
-                    <MenuItem
+                    <DropdownItem
                       key={`${themeName}|${variantName}`}
-                      eventKey={`${themeName}|${variantName}`}
                       active={activeTheme && activeVariant}
+                      onClick={() => {
+                        if (selectedThemeName !== themeName
+                          || selectedVariantName !== variantName) {
+                          onChange(themeName, variantName);
+                        }
+                      }}
                     >
                       {variantTitle}
-                    </MenuItem>
+                    </DropdownItem>
                   );
                 }));
               }
               return acc;
             }, [])}
-          </Dropdown.Menu>
-        </Dropdown>
+          </DropdownMenu>
+        </UncontrolledDropdown>
       );
     }}
   </EmbeddedDemoContext.Consumer>

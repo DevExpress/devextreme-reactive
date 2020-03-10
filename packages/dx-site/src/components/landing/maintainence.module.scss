@@ -1,0 +1,35 @@
+@import '../../constants';
+@import '../../typography';
+
+.container {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.content {
+  background: url(./images/maintainence-and-support-img.svg) no-repeat 60px 0;
+  padding-left: 270px;
+  padding-bottom: 25px;
+  padding-right: $inner-offset;
+}
+
+.title {
+  font-weight: 400;
+  @include title-large(
+    $margin-bottom: 10px,
+    $use-left-offset: false,
+  );
+}
+
+.description {
+  font-size: 14px;
+  color: rgba(125, 136, 142, 255);
+}
+
+@media screen and (max-width: 800px) {
+  .content {
+    background: none;
+    padding-left: $inner-offset;
+    padding-bottom: 0;
+  }
+}

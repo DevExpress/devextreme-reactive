@@ -4,7 +4,6 @@ import {
   Getter, Template, Plugin, TemplatePlaceholder, TemplateConnector, Getters,
 } from '@devexpress/dx-react-core';
 import {
-  tableColumnsWithGrouping,
   tableRowsWithGrouping,
   tableGroupCellColSpanGetter,
   isGroupTableCell,
@@ -19,9 +18,11 @@ import {
   calculateGroupCellIndent,
   isGroupIndentStubTableCell,
   GroupSummaryItem,
+  TABLE_FLEX_TYPE,
 } from '@devexpress/dx-grid-core';
+import { TableColumnsWithGrouping } from './internal';
 import {
-  TableGroupRowProps, ShowColumnWhenGroupedGetterFn, TableCellProps, TableRowProps,
+  TableGroupRowProps, TableCellProps, TableRowProps,
 } from '../types';
 import { TableSummaryContent } from '../components/summary/table-summary-content';
 import { flattenGroupInlineSummaries } from '../components/summary/group-summaries';
@@ -54,17 +55,6 @@ const tableBodyRowsComputed = (
 const getCellColSpanComputed = (
   { getTableCellColSpan, groupSummaryItems }: Getters,
 ) => tableGroupCellColSpanGetter(getTableCellColSpan, groupSummaryItems);
-
-const showColumnWhenGroupedGetter: ShowColumnWhenGroupedGetterFn = (
-  showColumnsWhenGrouped, columnExtensions = [],
-) => {
-  const map = columnExtensions.reduce((acc, columnExtension) => {
-    acc[columnExtension.columnName] = columnExtension.showWhenGrouped;
-    return acc;
-  }, {});
-
-  return columnName => map[columnName] || showColumnsWhenGrouped;
-};
 
 class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
   static ROW_TYPE = TABLE_GROUP_TYPE;
@@ -110,23 +100,16 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
 
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
 
-    const tableColumnsComputed = ({
-      columns, tableColumns, grouping, draftGrouping,
-    }: Getters) => tableColumnsWithGrouping(
-      columns,
-      tableColumns,
-      grouping,
-      draftGrouping,
-      indentColumnWidth,
-      showColumnWhenGroupedGetter(showColumnsWhenGrouped!, columnExtensions),
-    );
-
     return (
       <Plugin
         name="TableGroupRow"
         dependencies={pluginDependencies}
       >
-        <Getter name="tableColumns" computed={tableColumnsComputed} />
+        <TableColumnsWithGrouping
+          columnExtensions={columnExtensions}
+          showColumnsWhenGrouped={showColumnsWhenGrouped}
+          indentColumnWidth={indentColumnWidth}
+        />
         <Getter name="tableBodyRows" computed={tableBodyRowsComputed} />
         <Getter name="getTableCellColSpan" computed={getCellColSpanComputed} />
 
@@ -265,7 +248,7 @@ class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {
                 // NOTE: ensure that right-aligned summary will fit into a column
                 if (isPreviousCellContainSummary(
                   tableRow, tableColumn, tableColumns, grouping, groupSummaryItems,
-                )) {
+                ) || TABLE_FLEX_TYPE === tableColumn.type) {
                   return <StubCell {...params} onToggle={onToggle} />;
                 }
 

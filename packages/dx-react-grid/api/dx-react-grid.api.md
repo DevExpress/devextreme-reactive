@@ -4,6 +4,7 @@
 
 ```ts
 
+import { Cell } from 'exceljs';
 import * as React from 'react';
 
 // @public (undocumented)
@@ -107,6 +108,12 @@ export interface CustomGroupingProps {
   }>;
   grouping?: Grouping[] | null;
 }
+
+// @public (undocumented)
+export type CustomizeCellFn = (cell: Cell, row: Row, column: Column) => void;
+
+// @public (undocumented)
+export type CustomizeSummaryCellFn = (cell: Cell, column: Column, summary: ExportSummary) => void;
 
 // @public
 export const CustomPaging: React.ComponentType<CustomPagingProps>;
@@ -245,6 +252,56 @@ export interface EditingStateProps {
     [key: string]: any;
   };
 }
+
+// @public (undocumented)
+export const ExportPanel: React.ComponentType<any>;
+
+// @public (undocumented)
+export namespace ExportPanel {
+    // (undocumented)
+    export interface LocalizationMessages {
+        // (undocumented)
+        exportAll?: string;
+        // (undocumented)
+        exportSelected?: string;
+        // (undocumented)
+        showExportMenu?: string;
+    }
+    // (undocumented)
+    export interface MenuItemProps {
+        onClick(): void;
+        text: string;
+    }
+    export interface MenuProps {
+        children: React.ReactNode;
+        onHide(): void;
+        target: React.ReactInstance;
+        visible: boolean;
+    }
+    export interface ToggleButtonProps {
+        buttonRef: (ref: React.ReactInstance) => void;
+        getMessage: (messageKey: string) => string;
+        onToggle(): void;
+    }
+}
+
+// @public (undocumented)
+export interface ExportPanelProps {
+    menuComponent: React.ComponentType<ExportPanel.MenuProps>;
+    menuItemComponent: React.ComponentType<ExportPanel.MenuItemProps>;
+    messages?: ExportPanel.LocalizationMessages;
+    startExport(config?: object): void;
+    toggleButtonComponent: React.ComponentType<ExportPanel.ToggleButtonProps>;
+}
+
+// @public (undocumented)
+export type ExportRanges = readonly number[][];
+
+// @public (undocumented)
+export type ExportSummary = {
+  type: SummaryType;
+  ranges: ExportRanges;
+};
 
 // @public
 export interface Filter {
@@ -751,7 +808,7 @@ export const TableColumnReordering: React.ComponentType<TableColumnReorderingPro
 export interface TableColumnReorderingProps {
   defaultOrder?: Array<string>;
   onOrderChange?: (nextOrder: Array<string>) => void;
-  order?: Array<string>;
+  order?: ReadonlyArray<string>;
 }
 
 // @public

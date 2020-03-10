@@ -351,5 +351,39 @@ describe('AllDayPanel', () => {
       expect(tree.find(defaultProps.titleCellComponent).exists())
         .toBeTruthy();
     });
+
+    it('should rerender the all-day layout every time the cell component is changed', () => {
+      let updateCount = 0;
+      const firstCell = jest.fn();
+      const layout = React.memo(() => {
+        React.useEffect(() => {
+          updateCount += 1;
+        });
+        return null;
+      });
+
+      const Test = ({ cellComponent }) => (
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <AllDayPanel
+            {...defaultProps}
+            cellComponent={cellComponent}
+            layoutComponent={layout}
+          />
+        </PluginHost>
+      );
+
+      const tree = mount(<Test cellComponent={firstCell} />);
+      expect(updateCount)
+        .toEqual(1);
+
+      const secondCell = jest.fn();
+      tree.setProps({
+        cellComponent: secondCell,
+      });
+
+      expect(updateCount)
+        .toEqual(2);
+    });
   });
 });

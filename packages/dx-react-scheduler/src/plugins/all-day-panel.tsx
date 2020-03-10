@@ -37,6 +37,10 @@ const AllDayTitlePlaceholder = params => <TemplatePlaceholder name="allDayTitle"
 class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelState> {
   state: AllDayPanelState = {
     elementsMeta: {},
+    previousCell: null,
+    // The key has to be generated every time the Cell component is updated to rerender the Layout
+    // and, consequently, update allDayElementsMeta
+    layoutKey: 0,
   };
   static defaultProps: Partial<AllDayPanelProps> = {
     messages: {},
@@ -50,6 +54,19 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
     titleCellComponent: 'TitleCell',
     containerComponent: 'Container',
   };
+
+  static getDerivedStateFromProps(
+    props: AllDayPanelProps, state: AllDayPanelState,
+  ): AllDayPanelState | null {
+    if (props.cellComponent !== state.previousCell) {
+      return {
+        ...state,
+        previousCell: props.cellComponent,
+        layoutKey: Math.random(),
+      };
+    }
+    return null;
+  }
 
   allDayCellsDataComputed = memoize(({ viewCellsData }) => allDayCells(viewCellsData));
 
@@ -84,7 +101,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
       containerComponent: Container,
       messages,
     } = this.props;
-    const { elementsMeta } = this.state;
+    const { elementsMeta, layoutKey } = this.state;
     const getMessage = this.getMessageFormatter(messages, defaultMessages);
 
     return (
@@ -189,7 +206,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
               if (currentView.type === VIEW_TYPES.MONTH) return null;
 
               return (
-                <>
+                <React.Fragment>
                   <Layout
                     cellComponent={CellPlaceholder}
                     rowComponent={rowComponent}
@@ -200,7 +217,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
                   <AppointmentLayer>
                     <AllDayAppointmentLayerPlaceholder />
                   </AppointmentLayer>
-                </>
+                </React.Fragment>
               );
             }}
           </TemplateConnector>

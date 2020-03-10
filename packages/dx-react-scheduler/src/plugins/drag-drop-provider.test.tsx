@@ -275,7 +275,7 @@ describe('DragDropProvider', () => {
       };
       const resizeAppointment = () => <div className="custom-class" />;
 
-      const { tree, onOver } = mountPlugin({ allowResize }, deps);
+      const { tree, onOver } = mountPlugin({ allowResize, resizeComponent: resizeAppointment }, deps);
 
       onOver({ payload: { id: 1 }, clientOffset: 1 });
       tree.update();
@@ -284,6 +284,70 @@ describe('DragDropProvider', () => {
         .toBeFalsy();
       expect(allowResize)
         .toBeCalledWith(deps.template.appointmentTop.data);
+    });
+    it('should change Resize render in runtime depending on allowResize prop', () => {
+      const allowResizing = () => true;
+      const deps = {
+        template: {
+          appointmentTop: {
+            data: {
+              appointmentType: 'appt-top',
+              slice: false,
+              data: { a: 1 },
+            },
+          },
+          appointmentBottom: {
+            data: {
+              appointmentType: 'appt-bottom',
+              slice: false,
+              data: { a: 1 },
+            },
+          },
+        },
+      };
+      const Test = ({ allowResize }) => (
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps, deps)}
+          <DragDropProvider
+            {...defaultProps}
+            allowResize={allowResize}
+          />
+        </PluginHost>
+      );
+
+      const tree = mount(<Test allowResize={allowResizing} />);
+
+      expect(tree.find(defaultProps.resizeComponent))
+        .toHaveLength(2);
+
+      const nextAllowResize = () => false;
+      tree.setProps({ allowResize: nextAllowResize });
+
+      expect(tree.find(defaultProps.resizeComponent))
+        .toHaveLength(0);
+    });
+    it('should change DragSource render in runtime depending on allowDrag prop', () => {
+      const allowDragging = () => true;
+      const Test = ({ allowDrag }) => (
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <DragDropProvider
+            {...defaultProps}
+            allowDrag={allowDrag}
+          />
+        </PluginHost>
+      );
+
+      const tree = mount(<Test allowDrag={allowDragging} />);
+
+      expect(tree.find(DragSource).exists())
+        .toBeTruthy();
+
+      const nextAllowDragging = () => false;
+      tree.setProps({ allowDrag: nextAllowDragging });
+
+      expect(tree.find(DragSource).exists())
+        .toBeFalsy();
     });
     it('should render draftAppointment template', () => {
       const deps = {

@@ -6,7 +6,7 @@ React Core provides components for creating a plugin-based component.
 
 A plugin-based component should adhere to the following principles:
 
-### [Inversion of Control](https://en.wikipedia.org/wiki/Inversion_of_control){:target="_blank"}
+### [Inversion of Control](https://en.wikipedia.org/wiki/Inversion_of_control)
 
 A plugin shares its items (Getters, Actions, Templates) within an IoC (Inversion of Control) container and can use the ones other plugins share.
 
@@ -16,13 +16,13 @@ A plugin based component consists of the following child components:
 
 - **Plugin components**. Each plugin is a React component that defines a markup, stores a state and provides state modification actions.
 
-### [State Management](https://en.wikipedia.org/wiki/State_management){:target="_blank"}
+### [State Management](https://en.wikipedia.org/wiki/State_management)
 
 The component provides the means for state storing and mutation.
 
 The plugin based component's state is an aggregation of plugin states which keep data [normalized](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html) and immutable. The state can only be changed through executing an action.
 
-### [Data Piping](https://en.wikipedia.org/wiki/Pipeline_(computing)){:target="_blank"}
+### [Data Piping](https://en.wikipedia.org/wiki/Pipeline_(computing))
 
 The component provides a mechanism for communication between plugins.
 

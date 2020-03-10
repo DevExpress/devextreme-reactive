@@ -10,7 +10,7 @@ jobs:
       - attach_workspace:
           at: ~/circleci
 
-      - run: sudo npm i -g yarn@1.22.4 --force
+      - run: sudo npm i -g yarn@1.22.0 --force
       - run: sudo chmod a+rwx /usr/local/bin/yarn
 
       - run: yarn --no-progress

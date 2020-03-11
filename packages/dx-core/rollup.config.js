@@ -1,6 +1,6 @@
 import license from 'rollup-plugin-license';
 import { default as typescriptRollup } from 'rollup-plugin-typescript2';
-import replace from "rollup-plugin-replace";
+import replace from '@rollup/plugin-replace';
 import typescript from 'typescript';
 import { banner, external, globals } from '../../tools/rollup-utils';
 import pkg from './package.json';
@@ -17,11 +17,11 @@ export default {
   plugins: [
     typescriptRollup({
       typescript,
-      clean: true
+      clean: true,
     }),
     replace({
-      "/** @class */": "/*#__PURE__*/",
-      delimiters: ["", ""],
+      '/** @class */': '/*#__PURE__*/',
+      delimiters: ['', ''],
     }),
     license({
       banner,

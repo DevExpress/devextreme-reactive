@@ -1,639 +1,209 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/landinggrid/2017/01/01/00-composable-grid/</loc>
-<lastmod>2017-01-01T00:00:00+03:00</lastmod>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/landinggridreact/2017/01/01/10-react-theming/</loc>
-<lastmod>2017-01-01T00:00:00+03:00</lastmod>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/landinggridvue/2017/01/01/10-vue-theming/</loc>
-<lastmod>2017-01-01T00:00:00+03:00</lastmod>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/landinggridreact/2017/01/01/20-react-redux/</loc>
-<lastmod>2017-01-01T00:00:00+03:00</lastmod>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/landinggridreact/2017/01/01/30-native-react/</loc>
-<lastmod>2017-01-01T00:00:00+03:00</lastmod>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/landinggridvue/2017/01/01/30-native-vue/</loc>
-<lastmod>2017-01-01T00:00:00+03:00</lastmod>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/landinggridreact/2017/01/01/40-react-features-set/</loc>
-<lastmod>2017-01-01T00:00:00+03:00</lastmod>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/landinggridvue/2017/01/01/40-vue-features-set/</loc>
-<lastmod>2017-01-01T00:00:00+03:00</lastmod>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/landinggrid/2017/01/01/50-feedback/</loc>
-<lastmod>2017-01-01T00:00:00+03:00</lastmod>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/404/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/core/docs/reference/action/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/all-day-panel/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/guides/animation/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/reference/animation/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/demos/featured/appearance-customization/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/appointment-form/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/appointment-tooltip/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/guides/appointment-tooltip/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/guides/appointments/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/appointments/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/reference/area-series/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/reference/argument-axis/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/reference/argument-scale/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/guides/axes/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/banded-columns/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/reference/bar-series/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/demos/featured/chart-integration/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/reference/chart/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/column-chooser/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/column-reordering/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/column-resizing/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/column-visibility/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/bar/component-customization/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/confirmation-dialog/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/core/docs/reference/connect-props/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/create-row-cache/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/guides/current-time-indication/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/current-time-indicator/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/custom-grouping/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/custom-paging/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/custom-plugin-development/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/custom-summary/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/common/docs/guides/custom-theme/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/custom-tree-data/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/data-accessors/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/demos/featured/data-editing/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/demos/featured/data-editing/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/data-formatting/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/data-type-provider/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/guides/date-navigation/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/date-navigator/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/day-view/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/export/demo/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/detail-row/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/pie/doughnut/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/drag-drop-provider/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/drag-drop-provider/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/edit-recurrence-menu/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/editing-state/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/editing-state/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/editing/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/guides/editing/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/reference/event-tracker/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/filtering-state/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/filtering/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/fixed-columns/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/area/fullstacked-area/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/bar/fullstacked-bar/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/core/docs/guides/fundamentals/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/fundamentals/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/guides/fundamentals/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/core/docs/reference/getter/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/guides/getting-started/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/getting-started/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/guides/getting-started/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grid/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/grouping-panel/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grouping-panel/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/grouping-state/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/grouping-state/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/grouping/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/guides/grouping/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/guides/hover-and-selection/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/reference/hover-state/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/demos/featured/integrated-data-shaping/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/demos/featured/integrated-data-shaping/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/integrated-editing/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/integrated-filtering/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/integrated-grouping/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/integrated-grouping/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/integrated-paging/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/integrated-selection/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/integrated-sorting/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/integrated-summary/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/lazy-loading/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/reference/legend/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/guides/legend_title/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/reference/line-series/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/line/line/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/guides/localization/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/localization/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/common/docs/guides/localization/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/line/log-time-axes/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/month-view/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/combination/multiple-axes/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/overview/multiple-axes/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/demos/featured/overview/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/paging-panel/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/paging-state/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/paging/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/guides/palette/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/reference/palette/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/common/docs/guides/performance-optimization/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/reference/pie-series/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/pie/pie/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/core/docs/reference/plugin-host/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/guides/plugin-overview/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/plugin-overview/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/core/docs/reference/plugin/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/core/docs/guides/providing-actions/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/core/docs/guides/providing-values/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/demos/featured/redux-integration/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/demos/featured/redux-integration/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/demos/featured/remote-data/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/demos/featured/remote-data/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/core/docs/guides/rendering-markup/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/resources/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/guides/resources/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/bar/rotated-bar/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/guides/rotated/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/row-detail-state/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/reference/scatter-series/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/point/scatter/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/scheduler/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/search-panel/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/search-state/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/searching/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/reference/selection-state/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/selection-state/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/selection/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/bar/series-interaction/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/guides/series/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/bar/side-by-side-stacked-bar/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/bar/side-by-side/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/area/simple-area/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/bar/simple-bar/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/sorting-state/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/sorting/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/area/spline-area/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/reference/spline-series/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/line/spline/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/reference/stack/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/area/stacked-area/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/bar/stacked-bar/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/guides/stacked-series/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/area/step-area/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/line/step-line-with-gaps/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/line/step-line/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/area/streamgraph/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/summary-row/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/summary-state/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-band-header/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-column-reordering/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-column-resizing/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-column-visibility/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-edit-column/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-edit-row/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-filter-row/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-fixed-columns/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-group-row/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-header-row/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-inline-cell-editing/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-row-detail/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-selection/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-summary-row/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table-tree-column/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/table/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/core/docs/reference/template-connector/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/core/docs/reference/template-placeholder/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/core/docs/reference/template/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/reference/title/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/today-button/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/toolbar/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/toolbar/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/reference/tooltip/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/guides/tooltip/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/tree-data-state/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/demos/featured/tree-data/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/tree-data/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/typescript/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/guides/typescript/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/guides/typescript/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/reference/value-axis/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/reference/value-scale/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/view-state/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/view-switcher/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/guides/view-switching/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/guides/views/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/demos/featured/virtual-scrolling/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/virtual-scrolling/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/virtual-table-state/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/grid/docs/reference/virtual-table/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/reference/week-view/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/guides/zoom-and-pan/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/demos/more_features/zoom-and-pan/</loc>
-</url>
-<url>
-<loc>https://devexpress.github.io/devextreme-reactive/react/chart/docs/reference/zoom-and-pan/</loc>
-</url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/core/docs/reference/action/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/core/docs/reference/plugin/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/core/docs/reference/getter/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/core/docs/reference/connect-props/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/core/docs/reference/template-connector/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/core/docs/reference/template/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/core/docs/guides/providing-values/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/core/docs/reference/template-placeholder/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/core/docs/guides/fundamentals/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/core/docs/guides/providing-actions/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/core/docs/guides/rendering-markup/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/core/docs/reference/plugin-host/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/demos/featured/chart-integration/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/demos/featured/integrated-data-shaping/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/demos/featured/data-editing/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/demos/featured/redux-integration/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/demos/featured/remote-data/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/demos/featured/tree-data/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/demos/featured/virtual-scrolling/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/banded-columns/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/column-reordering/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/column-resizing/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/column-visibility/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/custom-plugin-development/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/data-accessors/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/data-formatting/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/detail-row/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/editing/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/export/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/filtering/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/fixed-columns/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/fundamentals/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/grouping/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/lazy-loading/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/localization/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/paging/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/plugin-overview/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/searching/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/selection/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/sorting/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/summary-row/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/typescript/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/tree-data/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/virtual-scrolling/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/create-row-cache/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/custom-grouping/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/custom-paging/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/custom-summary/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/custom-tree-data/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/data-type-provider/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/drag-drop-provider/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/editing-state/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/export-panel/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/filtering-state/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/grid-exporter/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/grid/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/grouping-panel/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/grouping-state/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/integrated-filtering/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/integrated-grouping/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/integrated-paging/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/integrated-selection/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/integrated-sorting/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/integrated-summary/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/paging-panel/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/paging-state/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/row-detail-state/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/search-panel/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/search-state/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/selection-state/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/sorting-state/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/summary-state/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/table-band-header/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/table-column-reordering/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/table-column-resizing/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/table-column-visibility/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/table-edit-column/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/table-edit-row/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/table-filter-row/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/table-fixed-columns/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/table-group-row/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/table-inline-cell-editing/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/table-row-detail/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/table-header-row/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/table-selection/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/table-summary-row/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/table-tree-column/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/toolbar/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/table/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/column-chooser/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/tree-data-state/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/virtual-table-state/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/reference/virtual-table/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/controlled-and-uncontrolled-modes/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/docs/guides/getting-started/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/point/scatter/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/pie/doughnut/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/pie/pie/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/overview/multiple-axes/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/more_features/zoom-and-pan/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/line/line/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/line/log-time-axes/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/line/spline/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/line/step-line-with-gaps/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/line/step-line/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/export/demo/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/combination/multiple-axes/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/bar/component-customization/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/bar/fullstacked-bar/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/bar/rotated-bar/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/bar/series-interaction/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/bar/side-by-side-stacked-bar/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/bar/side-by-side/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/bar/simple-bar/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/bar/stacked-bar/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/area/fullstacked-area/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/area/simple-area/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/area/spline-area/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/area/stacked-area/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/area/step-area/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/demos/area/streamgraph/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/reference/area-series/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/reference/animation/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/reference/argument-scale/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/reference/argument-axis/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/reference/bar-series/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/reference/chart/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/reference/event-tracker/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/reference/hover-state/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/reference/legend/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/reference/line-series/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/reference/palette/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/reference/pie-series/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/reference/scatter-series/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/reference/selection-state/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/reference/spline-series/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/reference/stack/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/reference/title/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/reference/tooltip/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/reference/value-axis/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/reference/value-scale/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/reference/zoom-and-pan/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/guides/animation/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/guides/axes/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/guides/getting-started/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/guides/hover-and-selection/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/guides/legend_title/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/guides/palette/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/guides/plugin-overview/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/guides/rotated/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/guides/series/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/guides/tooltip/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/guides/typescript/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/guides/stacked-series/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/docs/guides/zoom-and-pan/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/demos/featured/appearance-customization/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/demos/featured/data-editing/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/demos/featured/overview/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/demos/featured/integrated-data-shaping/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/demos/featured/redux-integration/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/demos/featured/remote-data/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/reference/all-day-panel/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/reference/appointment-form/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/reference/appointment-tooltip/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/reference/appointments/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/reference/confirmation-dialog/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/reference/current-time-indicator/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/reference/date-navigator/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/reference/day-view/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/reference/drag-drop-provider/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/reference/edit-recurrence-menu/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/reference/editing-state/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/reference/grouping-panel/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/reference/grouping-state/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/reference/integrated-editing/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/reference/integrated-grouping/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/reference/month-view/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/reference/resources/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/reference/scheduler/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/reference/today-button/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/reference/toolbar/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/reference/view-state/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/reference/view-switcher/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/guides/appointment-tooltip/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/reference/week-view/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/guides/appointments/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/guides/current-time-indication/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/guides/date-navigation/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/guides/editing/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/guides/fundamentals/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/guides/getting-started/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/guides/grouping/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/guides/localization/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/guides/resources/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/guides/typescript/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/guides/views/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/docs/guides/view-switching/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/common/docs/guides/custom-theme/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/common/docs/guides/localization/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/common/docs/guides/performance-optimization/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/demos/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/docs/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/chart/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/grid/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
+<url> <loc>https://devexpress.github.io/devextreme-reactive/devextreme-reactive/react/scheduler/</loc> <changefreq>daily</changefreq> <priority>0.7</priority> </url>
 </urlset>

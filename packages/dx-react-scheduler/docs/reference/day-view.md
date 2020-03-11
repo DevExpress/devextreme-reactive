@@ -77,7 +77,12 @@ Describes properties passed to a component that renders a time scale layout.
 Field | Type | Description
 ------|------|------------
 cellsData | Array&lt;Array&lt;[DayView.CellData](#dayviewcelldata)&gt;&gt; | Specifies the cells meta data.
+groups? | Array&lt;Array&lt;[Group](#group)&gt;&gt; | Specifies the final representation of Scheduler's groups and the order they will be rendered in.
+groupOrientation? | [GroupOrientation](./grouping-state.md#grouporientation) | Scheduler's grouping orientation: either 'Vertical' or 'Horizontal'.
+height? | number | Specifies TimeScale's height in pixels.
+showAllDayTitle? | boolean | If `true`, the 'All Day' title will be displayed.
 labelComponent | ComponentType&lt;[DayView.TimeScaleLabelProps](#dayviewtimescalelabelprops)&gt; | A component that renders a time scale label.
+allDayTitleComponent? | ComponentType&lt;[AllDay.TitleCellProps](./all-day-panel.md#alldaypaneltitlecellprops)&gt; | A component that renders a title cell.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the locale.
 
 ### DayView.TimeScaleLabelProps
@@ -88,6 +93,8 @@ Field | Type | Description
 ------|------|------------
 time? | Date | Specifies the cell's time.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the locale.
+groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's grouping.
+endOfGroup? | boolean | `true` if this cell is last in its group.
 
 ### DayView.DayScaleLayoutProps
 
@@ -130,8 +137,11 @@ Describes properties passed to a component that renders a time table layout.
 Field | Type | Description
 ------|------|------------
 cellsData | Array&lt;Array&lt;[DayView.CellData](#dayviewcelldata)&gt;&gt; | Specifies the cells meta data.
+allDayCellsData? | Array&lt;Array&lt;[AllDayPanel.CellData](./all-day-panel.md#alldaypanelcelldata)&gt;&gt; | All day cells meta data.
 cellComponent | ComponentType&lt;[DayView.TimeTableCellProps](#dayviewtimetablecellprops)&gt; | A component that renders a time table cell.
 rowComponent | ComponentType&lt;[DayView.RowProps](#dayviewrowprops)&gt; | A component that renders a time table row.
+allDayCellComponent? | ComponentType&lt;[AllDay.CellProps](./all-day-panel.md#alldaypanelcellprops)&gt; | A component that renders an All Day panel cell.
+allDayRowComponent? | ComponentType&lt;[AllDay.RowProps](./all-day-panel.md#alldaypanelrowprops)&gt; | A component that renders an All Day panel row.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the set locale.
 
 ### DayView.TimeTableCellProps
@@ -142,6 +152,7 @@ Field | Type | Description
 ------|------|------------
 startDate? | Date | Specifies the cell's start time.
 endDate? | Date | Specifies the cell's end time.
+groupOrientation? | [GroupOrientation](./grouping-state.md#grouporientation) | Scheduler's grouping orientation: either 'Vertical' or 'Horizontal'.
 groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's grouping.
 endOfGroup? | boolean | `true` if this cell is last in its group.
 isShaded? | boolean | Indicates whether the cell is shaded.

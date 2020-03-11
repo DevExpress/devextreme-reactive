@@ -33,6 +33,7 @@ layoutComponent | ComponentType&lt;[MonthView.LayoutProps](#monthviewlayoutprops
 dayScaleLayoutComponent | ComponentType&lt;[MonthView.DayScaleLayoutProps](#monthviewdayscalelayoutprops)&gt; | | A component that renders a day scale layout.
 dayScaleCellComponent | ComponentType&lt;[MonthView.DayScaleCellProps](#monthviewdayscalecellprops)&gt; | | A component that renders a day scale cell.
 dayScaleRowComponent | ComponentType&lt;[MonthView.RowProps](#monthviewrowprops)&gt; | | A component that renders a day scale row.
+dayScaleEmptyCellComponent | ComponentType&lt;[MonthView.DayScaleEmptyCellProps](#monthviewdayscaleemptycellprops)&gt; | | A component that renders a day scale empty cell.
 timeTableLayoutComponent | ComponentType&lt;[MonthView.TimeTableLayoutProps](#monthviewtimetablelayoutprops)&gt; | | A component that renders a time table layout.
 timeTableCellComponent | ComponentType&lt;[MonthView.TimeTableCellProps](#monthviewtimetablecellprops)&gt; | | A component that renders a time table cell.
 timeTableRowComponent | ComponentType&lt;[MonthView.RowProps](#monthviewrowprops)&gt; | | A component that renders a time table row.
@@ -89,6 +90,14 @@ formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats d
 groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's grouping.
 endOfGroup? | boolean | `true` if this cell is last in its group.
 
+### MonthView.DayScaleEmptyCellProps
+
+Describes properties passed to a component that renders a day scale empty cell.
+
+Field | Type | Description
+------|------|------------
+children? | ReactNode | A React node used to render the row content.
+
 ### MonthView.TimeTableLayoutProps
 
 Describes properties passed to a component that renders a time table layout.
@@ -112,6 +121,7 @@ otherMonth? | boolean | Indicates whether the cell's date is not in the current 
 today? | boolean | Indicates whether the cell's date is today.
 isShaded? | boolean | Indicates whether the cell is shaded.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the locale.
+groupOrientation? | [GroupOrientation](./grouping-state.md#grouporientation) | Scheduler's grouping orientation: either 'Vertical' or 'Horizontal'.
 groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's grouping.
 endOfGroup? | boolean | `true` if this cell is last in its group.
 

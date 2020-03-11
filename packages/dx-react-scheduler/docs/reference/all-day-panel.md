@@ -46,6 +46,7 @@ Field | Type | Description
 startDate | Date | The cell's start time.
 endDate | Date | The cell's end time.
 groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's grouping.
+groupOrientation? | [GroupOrientation](./grouping-state.md#grouporientation) | Scheduler's grouping orientation: either 'Vertical' or 'Horizontal'.
 endOfGroup? | boolean | `true` if this cell is last in its group.
 
 ### AllDayPanel.LayoutProps
@@ -69,6 +70,7 @@ Field | Type | Description
 startDate | Date | The cell's start time.
 endDate | Date | The cell's end time.
 groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's grouping.
+groupOrientation? | [GroupOrientation](./grouping-state.md#grouporientation) | Scheduler's grouping orientation: either 'Vertical' or 'Horizontal'.
 endOfGroup? | boolean | `true` if this cell is last in its group.
 
 ### AllDayPanel.RowProps
@@ -85,6 +87,7 @@ Describes properties passed to a component that renders a title cell.
 
 Field | Type | Description
 ------|------|------------
+fixedHeight? | boolean | If provided, its height will be equal to cell's default height.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns a localization message by the message key.
 
 ### AllDayPanel.AppointmentLayerProps

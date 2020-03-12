@@ -604,6 +604,7 @@ export const MonthView: React.ComponentType<MonthViewProps> & {
   Layout: React.ComponentType<MonthView_2.LayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleLayout: React.ComponentType<MonthView_2.DayScaleLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleCell: React.ComponentType<MonthView_2.DayScaleCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  DayScaleEmptyCell: React.ComponentType<DayView.DayScaleEmptyCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   TimeTableLayout: React.ComponentType<MonthView_2.TimeTableLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   TimeTableCell: React.ComponentType<MonthView_2.TimeTableCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   Row: React.ComponentType<MonthView_2.RowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;

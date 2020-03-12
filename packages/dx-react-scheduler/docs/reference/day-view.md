@@ -77,7 +77,7 @@ Describes properties passed to a component that renders a time scale layout.
 Field | Type | Description
 ------|------|------------
 cellsData | Array&lt;Array&lt;[DayView.CellData](#dayviewcelldata)&gt;&gt; | Specifies the cells meta data.
-groups? | Array&lt;Array&lt;[Group](#group)&gt;&gt; | Specifies the final representation of Scheduler's groups and the order they will be rendered in.
+groups? | Array&lt;Array&lt;[Group](./grouping-panel.md#group)&gt;&gt; | Specifies the final representation of Scheduler's groups and the order they will be rendered in.
 groupOrientation? | [GroupOrientation](./grouping-state.md#grouporientation) | Scheduler's grouping orientation: either 'Vertical' or 'Horizontal'.
 height? | number | Specifies TimeScale's height in pixels.
 showAllDayTitle? | boolean | If `true`, the 'All Day' title will be displayed.

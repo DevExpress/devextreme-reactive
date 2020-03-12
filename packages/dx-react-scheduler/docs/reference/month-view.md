@@ -148,6 +148,7 @@ Name | Properties | Description
 MonthView.Layout | [MonthView.LayoutProps](#monthviewlayoutprops) | A component that renders a month view layout.
 MonthView.DayScaleLayout | [MonthView.DayScaleLayoutProps](#monthviewdayscalelayoutprops) | A component that renders a day scale layout.
 MonthView.DayScaleCell | [MonthView.DayScaleCellProps](#monthviewdayscalecellprops) | A component that renders a day scale cell.
+MonthView.DayScaleEmptyCell | [DayView.DayScaleEmptyCellProps](#monthviewdayscaleemptycellprops) | A component that renders a day scale empty cell.
 MonthView.TimeTableLayout | [MonthView.TimeTableLayoutProps](#monthviewtimetablelayoutprops) | A component that renders a time table layout.
 MonthView.TimeTableCell | [MonthView.TimeTableCellProps](#monthviewtimetablecellprops) | A component that renders a time table cell.
 MonthView.Row | [MonthView.RowProps](#monthviewrowprops) | A component that renders a generic row.

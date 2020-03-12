@@ -72,6 +72,7 @@ endDate | Date | The cell's end time.
 groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's grouping.
 groupOrientation? | [GroupOrientation](./grouping-state.md#grouporientation) | Scheduler's grouping orientation: either 'Vertical' or 'Horizontal'.
 endOfGroup? | boolean | `true` if this cell is last in its group.
+onDoubleClick? | (e: object) => void | A function that handles a double click on the cell.
 
 ### AllDayPanel.RowProps
 

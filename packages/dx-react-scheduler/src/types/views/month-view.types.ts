@@ -44,6 +44,8 @@ export namespace MonthView {
     endOfGroup?: boolean;
     /** Indicates whether the cell is shaded. */
     isShaded?: boolean;
+    /** A function that handles a double click on the cell. */
+    onDoubleClick?: (e: any) => void;
   }
   /** Describes properties passed to a component that renders the appointment layer. */
   export interface AppointmentLayerProps extends BaseView.AppointmentLayerProps {}

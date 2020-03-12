@@ -62,6 +62,8 @@ export namespace AllDayPanel {
     startDate: Date;
     /** The cell’s end time. */
     endDate: Date;
+    /** A function that handles a double click on the cell. */
+    onDoubleClick?: (e: any) => void;
   }
   /** Describes properties passed to a component that renders an All Day panel row. */
   export interface RowProps extends BaseView.RowProps {}

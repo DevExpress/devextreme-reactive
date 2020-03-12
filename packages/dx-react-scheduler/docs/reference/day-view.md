@@ -157,6 +157,7 @@ groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information a
 endOfGroup? | boolean | `true` if this cell is last in its group.
 isShaded? | boolean | Indicates whether the cell is shaded.
 currentTimeIndicatorPosition? | string | Indicates the distance from the top edge of the containing element (usually, a timetable cell). The distance is a percentage of the element's height.
+onDoubleClick? | (e: object) => void | A function that handles a double click on the cell.
 currentTimeIndicatorComponent? | ComponentType&lt;[CurrentTimeIndicator.IndicatorProps](#currenttimeindicatorindicatorprops)&gt; | A component that renders the current time indicator.
 children? | ReactNode | A React node used to render the time table cell content.
 

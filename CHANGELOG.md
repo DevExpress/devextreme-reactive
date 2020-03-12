@@ -1,3 +1,13 @@
+# [2.5.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.5.0...v2.5.1) (2020-03-11)
+
+
+### Bug Fixes
+
+* **react-grid:** remove exceljs from ts declaration ([#2734](https://github.com/DevExpress/devextreme-reactive/issues/2734)) ([c40abf3](https://github.com/DevExpress/devextreme-reactive/commit/c40abf3f15c6160bbc2b9bdf713cb69630751b8f))
+* **react-grid:** render stub cell on group row and flex column intersection ([#2726](https://github.com/DevExpress/devextreme-reactive/issues/2726)) ([483e944](https://github.com/DevExpress/devextreme-reactive/commit/483e9449110fe0bec5f0469da573816a494ca062))
+
+
+
 # [2.5.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.4.1...v2.5.0) (2020-03-04)
 
 

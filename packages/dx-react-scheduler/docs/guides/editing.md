@@ -98,7 +98,7 @@ If users should not edit appointments, import only the [AppointmentForm](../refe
 
 ### Disable Adding
 
-Since users double-click timetable cells to add appointments, you should remove the double click handler to disable this functionality.
+Users can double-click timetable cells to add appointments. You should remove the double-click handler to disable this functionality.
 
 Set the `onDoubleClick` property to `undefined` for the component that renders timetable cells. It is the [timeTableCellComponent](../reference/week-view.md#weekviewtimetablecellprops) for views and the [cellComponent](../reference/all-day-panel.md#alldaypanelcellprops) for the all-day panel.
 
@@ -112,7 +112,7 @@ To hide the Delete button from the `AppointmentTooltip`, disable the `showDelete
 
 ### Disable Updating
 
-Users can use the `AppointmentForm` to update appointments. Switch the `AppointmentForm` to [read-only mode](../reference/appointment-form.md#properties) to disable this functionality. However, users will not be able to add or delete appointments, too, but these features can be enabled individually.
+Users can use the `AppointmentForm` to update appointments. Switch the `AppointmentForm` to [read-only mode](../reference/appointment-form.md#properties) to disable this functionality. However, now users cannot add or delete appointments either, but these features can be enabled individually.
 
 To enable adding, create a flag that indicates whether an appointment is being added and make the `AppointmentForm` read-only depending on this flag.
 

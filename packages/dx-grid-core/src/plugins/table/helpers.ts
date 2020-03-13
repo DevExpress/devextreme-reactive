@@ -23,9 +23,9 @@ export const isStubTableCell: IsSpecificRowFn = tableRow => (
   tableRow.type === TABLE_STUB_TYPE
 );
 
-export const checkTableColumnExtensions: CheckColumnExtensionsFn = (columnExntesions) => {
-  if (columnExntesions) {
-    columnExntesions.map((column) => {
+export const checkTableColumnExtensions: CheckColumnExtensionsFn = (columnExtensions) => {
+  if (columnExtensions) {
+    columnExtensions.map((column) => {
       const { width } = column;
       if (typeof width === 'string') {
         if (!isValidValue(width, VALID_UNITS)) {

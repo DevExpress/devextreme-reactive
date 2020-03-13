@@ -26,7 +26,8 @@ const EditCell = ({ errors, ...props }) => {
 };
 
 // Maps the rows to a single object in which each field are is a row IDs
-// and the field's value is true if the cell value is invalid (a column is required but the cell value is empty)
+// and the field's value is true if the cell value is invalid (a column is required
+// but the cell value is empty)
 const validate = (rows, columns) => Object.entries(rows).reduce(
   (acc, [rowId, row]) => ({
     ...acc,

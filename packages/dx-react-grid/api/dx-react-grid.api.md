@@ -246,6 +246,47 @@ export interface EditingStateProps {
   };
 }
 
+// @public (undocumented)
+export const ExportPanel: React.ComponentType<any>;
+
+// @public (undocumented)
+export namespace ExportPanel {
+    // (undocumented)
+    export interface LocalizationMessages {
+        // (undocumented)
+        exportAll?: string;
+        // (undocumented)
+        exportSelected?: string;
+        // (undocumented)
+        showExportMenu?: string;
+    }
+    // (undocumented)
+    export interface MenuItemProps {
+        onClick(): void;
+        text: string;
+    }
+    export interface MenuProps {
+        children: React.ReactNode;
+        onHide(): void;
+        target: React.ReactInstance;
+        visible: boolean;
+    }
+    export interface ToggleButtonProps {
+        buttonRef: (ref: React.ReactInstance) => void;
+        getMessage: (messageKey: string) => string;
+        onToggle(): void;
+    }
+}
+
+// @public (undocumented)
+export interface ExportPanelProps {
+    menuComponent: React.ComponentType<ExportPanel.MenuProps>;
+    menuItemComponent: React.ComponentType<ExportPanel.MenuItemProps>;
+    messages?: ExportPanel.LocalizationMessages;
+    startExport(config?: object): void;
+    toggleButtonComponent: React.ComponentType<ExportPanel.ToggleButtonProps>;
+}
+
 // @public
 export interface Filter {
     columnName: string;
@@ -751,7 +792,7 @@ export const TableColumnReordering: React.ComponentType<TableColumnReorderingPro
 export interface TableColumnReorderingProps {
   defaultOrder?: Array<string>;
   onOrderChange?: (nextOrder: Array<string>) => void;
-  order?: Array<string>;
+  order?: ReadonlyArray<string>;
 }
 
 // @public
@@ -1258,14 +1299,10 @@ export namespace TableSelection {
     onToggle: (select?: boolean) => void;
     someSelected: boolean;
   }
-  // (undocumented)
   export interface RowProps extends Table.RowProps {
-    // (undocumented)
+    highlighted?: boolean;
     onToggle(): void;
-    // (undocumented)
     selectByRowClick?: boolean;
-    // (undocumented)
-    selected?: boolean;
   }
 }
 
@@ -1274,7 +1311,6 @@ export interface TableSelectionProps {
   cellComponent: React.ComponentType<TableSelection.CellProps>;
   headerCellComponent: React.ComponentType<TableSelection.HeaderCellProps>;
   highlightRow?: boolean;
-  // (undocumented)
   rowComponent: React.ComponentType<TableSelection.RowProps>;
   selectByRowClick?: boolean;
   selectionColumnWidth: number;

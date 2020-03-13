@@ -1,0 +1,7 @@
+.layout-row {
+  padding-top: 20px;
+
+  @media (min-width: 640px) {
+    padding-top: 3.5rem;
+  }
+}

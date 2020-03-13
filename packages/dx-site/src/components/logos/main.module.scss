@@ -1,0 +1,18 @@
+.main {
+  color: white;
+  font-size: 24px;
+  &:hover {
+    color: lightgray;
+    text-decoration: none;
+  }
+}
+
+.title {
+  letter-spacing: -0.5px;
+  font-family: "Segoe UI Semibold";
+}
+
+.name {
+  text-transform: uppercase;
+  font-family: "Segoe UI Light";
+}

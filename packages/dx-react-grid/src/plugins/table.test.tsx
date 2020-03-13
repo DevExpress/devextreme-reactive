@@ -99,26 +99,6 @@ describe('Table', () => {
         .toBe('tableRowsWithDataRows');
     });
 
-    it('should extend tableColumns', () => {
-      const columnExtensions = [{ columnName: 'field', width: 100 }];
-
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <Table
-            {...defaultProps}
-            tableComponent={() => null}
-            columnExtensions={columnExtensions}
-          />
-        </PluginHost>
-      ));
-
-      expect(tableColumnsWithDataRows)
-        .toBeCalledWith(defaultDeps.getter.columns, columnExtensions);
-      expect(getComputedState(tree).tableColumns)
-        .toBe('tableColumnsWithDataRows');
-    });
-
     it('should provide getTableCellColSpan', () => {
       const tree = mount((
         <PluginHost>

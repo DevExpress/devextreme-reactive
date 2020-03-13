@@ -7,6 +7,7 @@ import {
   LineSeries,
   Legend,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
+<%&cssImports%>
 import { ValueScale } from '@devexpress/dx-react-chart';
 
 export default class Demo extends React.PureComponent {

@@ -11,6 +11,7 @@ import {
   TableHeaderRow,
   TableTreeColumn,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
+<%&cssImports%>
 
 import {
   generateRows,

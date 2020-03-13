@@ -27,11 +27,11 @@ const TableSummaryItemBase = ({
     {...restProps}
   >
     {
-      <>
+      <React.Fragment>
         {getMessage(type)}
         :&nbsp;&nbsp;
         {children}
-      </>
+      </React.Fragment>
     }
   </div>
 );

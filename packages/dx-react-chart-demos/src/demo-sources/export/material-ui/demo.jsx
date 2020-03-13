@@ -187,7 +187,7 @@ const BarWithLabel = withStyles({
     animation: `${getLabelAnimationName()} 1s`,
   },
 })(({ classes, value, ...restProps }) => (
-  <>
+  <React.Fragment>
     <BarSeries.Point {...restProps} />
     <Chart.Label
       x={restProps.arg}
@@ -198,7 +198,7 @@ const BarWithLabel = withStyles({
     >
       {`${value}%`}
     </Chart.Label>
-  </>
+  </React.Fragment>
 ));
 const LegendRoot = withStyles({
   root: {

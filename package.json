@@ -32,7 +32,7 @@
     "start-server-and-test": "^1.10.6",
     "testcafe": "^1.6.1",
     "testcafe-reporter-xunit": "^2.1.0",
-    "typescript": "3.7.5"
+    "typescript": "3.8.3"
   },
   "scripts": {
     "postinstall": "check-node-version --quiet --node \">=6.11.1\" --npm \">=5.3.0\" --yarn \">=1.0.0\"",
@@ -44,14 +44,14 @@
     "build:react:grid:watch": "concurrently \"yarn build:ts:watch\" \"lerna run --scope @devexpress/dx-core --scope @devexpress/dx-react-core --scope @devexpress/dx-testing --parallel build\" \"lerna run --scope @devexpress/dx-grid-core --scope \"@devexpress/*react-grid*\" --parallel build:watch\"",
     "build:react:chart:watch": "concurrently \"yarn build:ts:watch\" \"lerna run --scope @devexpress/dx-core --scope @devexpress/dx-react-core --scope @devexpress/dx-testing --parallel build\" \"lerna run --scope @devexpress/dx-chart-core --scope \"@devexpress/*react-chart*\" --parallel build:watch\"",
     "build:react:scheduler:watch": "concurrently \"yarn build:ts:watch\" \"lerna run --scope @devexpress/dx-core --scope @devexpress/dx-react-core --scope @devexpress/dx-testing --parallel build\" \"lerna run --scope @devexpress/dx-scheduler-core --scope \"@devexpress/*react-scheduler*\" --parallel build:watch\"",
-    "build:site": "yarn build:site:demos && yarn build:site:docs",
-    "build:site:demos": "yarn build:ts && lerna run build --ignore @devexpress/dx-react-grid-demos --ignore @devexpress/dx-react-chart-demos --ignore @devexpress/dx-react-scheduler-demos --ignore @devexpress/dx-react-common --ignore @devexpress/dx-vue-* && lerna run build:prod --scope @devexpress/dx-react-grid-demos --scope @devexpress/dx-react-chart-demos --scope @devexpress/dx-react-scheduler-demos --scope @devexpress/dx-react-common",
+    "build:site": "yarn run build:site:demos && yarn run build:site:docs && lerna run build:prod --scope @devexpress/dx-site",
+    "build:site:demos": "yarn run build:ts && yarn run build:generator && lerna run build --ignore @devexpress/dx-react-grid-demos --ignore @devexpress/dx-react-chart-demos --ignore @devexpress/dx-react-scheduler-demos --ignore @devexpress/dx-react-common --ignore @devexpress/dx-vue-* && lerna run build:prod --scope @devexpress/dx-react-grid-demos --scope @devexpress/dx-react-chart-demos --scope @devexpress/dx-react-scheduler-demos --scope @devexpress/dx-react-common",
     "build:site:docs": "gulp site",
     "build:site:watch": "npx nodemon --exec \"yarn build:site:docs\" --watch \"packages/dx-react-grid-demos/dist/\" --watch \"packages/dx-react-chart-demos/dist/\" --watch \"packages/dx-react-scheduler-demos/dist/\" --watch \"packages/*/docs/\" --watch \"packages/*/demos/\" --watch \"gulpfile.js\" --ext md,js",
     "lint": "lerna run lint --ignore @devexpress/dx-vue-*",
     "lint:ci": "lerna run lint:ci",
     "test": "lerna run test --ignore @devexpress/dx-vue-* && yarn test:bs4",
-    "test:ci": "yarn update-api && lerna run test --ignore @devexpress/dx-vue-* -- -- --maxWorkers=1 --max-old-space-size=4096 && yarn test:bs4",
+    "test:ci": "yarn update-api:ci && lerna run test --ignore @devexpress/dx-vue-* -- -- --maxWorkers=1 --max-old-space-size=4096 && yarn test:bs4",
     "testcafe:ci": "start-server-and-test start-demo-servers \"3002|3004|3005\" testcafe:ci:start",
     "testcafe:ci:start": "testcafe",
     "testcafe:local": "start-server-and-test start-demo-servers \"3002|3004|3005\" testcafe:local:start",
@@ -61,19 +61,20 @@
     "publish:prepare": "yarn && node ./scripts/prepare-commit.js",
     "publish:npm": "yarn && node ./scripts/publish-npm.js",
     "publish:site": "yarn && node ./scripts/publish-site.js",
-    "update-api": "lerna run update-api",
+    "update-api": "lerna run update-api -- --local",
+    "update-api:ci": "lerna run update-api",
     "start-demo-servers": "yarn build:generator && lerna run --parallel start-demo-server:prod",
     "update-deps": "ncu -u && ./node_modules/.bin/lerna exec \"ncu -u\" --ignore @devexpress/dx-vue-*"
   },
   "husky": {
     "hooks": {
-      "pre-push": "yarn build:ts && yarn update-api"
+      "pre-push": "yarn build:ts && yarn update-api:ci"
     }
   },
   "workspaces": [
     "packages/*"
   ],
   "engines": {
-    "yarn": "1.21.1"
+    "yarn": "1.22.0"
   }
 }

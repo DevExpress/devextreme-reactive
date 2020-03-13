@@ -1,0 +1,12 @@
+.links {
+  display: inline-block;
+  margin-top: 50px;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .links {
+    white-space: nowrap;
+    width: auto;
+  }
+}

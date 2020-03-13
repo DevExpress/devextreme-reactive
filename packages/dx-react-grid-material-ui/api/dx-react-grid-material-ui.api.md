@@ -7,6 +7,7 @@
 import { Column } from '@devexpress/dx-react-grid';
 import { ColumnChooser as ColumnChooser_2 } from '@devexpress/dx-react-grid';
 import { DragDropProvider as DragDropProvider_2 } from '@devexpress/dx-react-grid';
+import { ExportPanel as ExportPanel_2 } from '@devexpress/dx-react-grid';
 import { Grid as Grid_2 } from '@devexpress/dx-react-grid';
 import { GroupingPanel as GroupingPanel_2 } from '@devexpress/dx-react-grid';
 import { PagingPanel as PagingPanel_2 } from '@devexpress/dx-react-grid';
@@ -88,6 +89,37 @@ export const DragDropProvider: React.ComponentType<DragDropProviderProps> & {
 export interface DragDropProviderProps {
   columnComponent?: React.ComponentType<DragDropProvider_2.ColumnProps>;
   containerComponent?: React.ComponentType<DragDropProvider_2.ContainerProps>;
+}
+
+// @public (undocumented)
+export namespace ExportPanel {
+  export type ToggleButtonProps = ExportPanel_2.ToggleButtonProps;
+}
+
+// @public (undocumented)
+export namespace ExportPanel {
+  export type MenuProps = ExportPanel_2.MenuProps;
+}
+
+// @public (undocumented)
+export namespace ExportPanel {
+  export type MenuItemProps = ExportPanel_2.MenuItemProps;
+}
+
+// @public
+export const ExportPanel: React.ComponentType<ExportPanelProps> & {
+  ToggleButton: React.ComponentType<ExportPanel_2.ToggleButtonProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  Menu: React.ComponentType<ExportPanel_2.MenuProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  MenuItem: React.ComponentType<ExportPanel_2.MenuItemProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+};
+
+// @public (undocumented)
+export interface ExportPanelProps {
+  menuComponent?: React.ComponentType<ExportPanel_2.MenuProps>;
+  menuItemComponent?: React.ComponentType<ExportPanel_2.MenuItemProps>;
+  messages?: ExportPanel_2.LocalizationMessages;
+  startExport?: (options: object) => void;
+  toggleButtonComponent?: React.ComponentType<ExportPanel_2.ToggleButtonProps>;
 }
 
 // @public (undocumented)
@@ -652,6 +684,11 @@ export namespace TableSelection {
   export type CellProps = TableSelection_2.CellProps;
 }
 
+// @public (undocumented)
+export namespace TableSelection {
+  export type RowProps = TableSelection_2.RowProps;
+}
+
 // @public
 export const TableSelection: React.ComponentType<TableSelectionProps> & {
   COLUMN_TYPE: symbol;
@@ -665,6 +702,7 @@ export interface TableSelectionProps {
   cellComponent?: React.ComponentType<TableSelection_2.CellProps>;
   headerCellComponent?: React.ComponentType<TableSelection_2.HeaderCellProps>;
   highlightRow?: boolean;
+  rowComponent?: React.ComponentType<TableSelection_2.RowProps>;
   selectByRowClick?: boolean;
   selectionColumnWidth?: number;
   showSelectAll?: boolean;

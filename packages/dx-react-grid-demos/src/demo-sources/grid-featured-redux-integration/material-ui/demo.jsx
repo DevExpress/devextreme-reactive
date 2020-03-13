@@ -222,7 +222,7 @@ const gridInitialState = {
   pageSizes: [5, 10, 15],
   columnOrder: ['prefix', 'firstName', 'lastName', 'birthDate', 'position', 'state'],
   columnWidths: [
-    { columnName: 'prefix', width: 70 },
+    { columnName: 'prefix', width: 80 },
     { columnName: 'firstName', width: 130 },
     { columnName: 'lastName', width: 130 },
     { columnName: 'position', width: 170 },

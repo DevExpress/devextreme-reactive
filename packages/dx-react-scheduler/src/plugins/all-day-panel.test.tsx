@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
-import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-react-core';
+import { PluginHost, TemplatePlaceholder, Template } from '@devexpress/dx-react-core';
 import {
   allDayCells,
   getAppointmentStyle,
@@ -10,6 +10,7 @@ import {
 import { AllDayPanel } from './all-day-panel';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
+  ...require.requireActual('@devexpress/dx-scheduler-core'),
   allDayCells: jest.fn(),
   getAppointmentStyle: jest.fn(),
   calculateAllDayDateIntervals: jest.fn(),
@@ -159,6 +160,57 @@ describe('AllDayPanel', () => {
 
       expect(tree.find(defaultProps.cellComponent).exists())
         .toBeTruthy();
+    });
+
+    it('should render body template', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <AllDayPanel
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      const templatePlaceholder = tree
+        .findWhere(node => node.type() === Template && node.props().name === 'body');
+
+      expect(templatePlaceholder.exists())
+        .toBeTruthy();
+    });
+
+    it('should rerender the all-day layout every time the cell component is changed', () => {
+      let updateCount = 0;
+      const firstCell = jest.fn();
+      const layout = React.memo(() => {
+        React.useEffect(() => {
+          updateCount += 1;
+        });
+        return null;
+      });
+
+      const Test = ({ cellComponent }) => (
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <AllDayPanel
+            {...defaultProps}
+            cellComponent={cellComponent}
+            layoutComponent={layout}
+          />
+        </PluginHost>
+      );
+
+      const tree = mount(<Test cellComponent={firstCell} />);
+      expect(updateCount)
+        .toEqual(1);
+
+      const secondCell = jest.fn();
+      tree.setProps({
+        cellComponent: secondCell,
+      });
+
+      expect(updateCount)
+        .toEqual(2);
     });
   });
 });

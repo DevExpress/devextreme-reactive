@@ -6,7 +6,10 @@ export interface GroupingStateProps {
   grouping?: Array<Grouping>;
   /** Specifies whether appointments should be grouped by date. */
   groupByDate?: (viewName: string) => boolean;
-  groupOrientation?: (view: string) => GroupOrientation;
+  /*** Arranges resource headers vertically (in a column)
+   * or horizontally (in a row) depending on view name.
+  */
+  groupOrientation?: (viewName: string) => GroupOrientation;
   /** Specifies expanded groups. */
   expandedGroups?: Array<GroupKey>;
   /** Specifies initially expanded groups in the uncontrolled mode. */

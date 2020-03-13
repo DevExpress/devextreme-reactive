@@ -1,9 +1,12 @@
 import moment from 'moment';
 import {
   SliceAppointmentByWeekFn, GetMonthCellIndexByAppointmentDataFn,
-  SchedulerDateTime, AppointmentMoment, Group,
+  SchedulerDateTime, AppointmentMoment, ViewCell,
 } from '../../types';
 import { DAYS_IN_WEEK } from '../appointment-form/constants';
+import { PureComputed } from '@devexpress/dx-core';
+import { HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
+import { checkCellGroupingInfo } from '../common/helpers';
 
 export const sliceAppointmentByWeek: SliceAppointmentByWeekFn = (timeBounds, appointment, step) => {
   const { left, right } = timeBounds;
@@ -37,8 +40,14 @@ export const sliceAppointmentByWeek: SliceAppointmentByWeekFn = (timeBounds, app
 };
 
 export const getMonthCellIndexByAppointmentData: GetMonthCellIndexByAppointmentDataFn = (
-  viewCellsData, date, appointment, takePrev = false, groupByDate = false,
+  viewCellsData, viewMetaData, date, appointment, takePrev = false,
 ) => {
+  const {
+    groupOrientation,
+    groupedByDate,
+    groupCount,
+  } = viewMetaData;
+
   const startViewDate = moment(viewCellsData[0][0].startDate);
   const currentDate = moment(date as SchedulerDateTime);
   let dayNumber = currentDate.diff(startViewDate, 'days');
@@ -46,26 +55,56 @@ export const getMonthCellIndexByAppointmentData: GetMonthCellIndexByAppointmentD
     dayNumber -= 1;
   }
   const weekNumber = Math.floor(dayNumber / DAYS_IN_WEEK);
-  const viewsNumber = viewCellsData[0].length / DAYS_IN_WEEK;
-  let currentDay = groupByDate
-    ? (dayNumber % DAYS_IN_WEEK) * viewsNumber
-    : dayNumber % DAYS_IN_WEEK;
+  const dayOfWeek = dayNumber % DAYS_IN_WEEK;
 
-  let cellIndex = -1;
-  while (cellIndex === -1) {
-    let isCorrectCell = true;
-    if (viewCellsData[weekNumber][currentDay].groupingInfo) {
-      isCorrectCell = viewCellsData[weekNumber][currentDay].groupingInfo!
-        .every((group: Group) => (
-          group.id === appointment[group.fieldName]
-        ));
-    }
-    if (isCorrectCell) {
-      cellIndex = currentDay;
-    }
-    currentDay += groupByDate ? 1 : DAYS_IN_WEEK;
-  }
+  const columnIndex = groupOrientation === HORIZONTAL_GROUP_ORIENTATION
+    ? getMonthHorizontallyGroupedColumnIndex(
+      viewCellsData, appointment, weekNumber, dayOfWeek, groupCount, groupedByDate,
+    )
+    : dayOfWeek;
+  const rowIndex = groupOrientation === HORIZONTAL_GROUP_ORIENTATION
+    ? weekNumber
+    : getMonthVerticallyGroupedRowIndex(
+      viewCellsData, appointment, weekNumber, dayOfWeek, groupCount,
+    );
 
-  const totalCellIndex = weekNumber * viewCellsData[0].length + cellIndex;
+  const totalCellIndex = rowIndex * viewCellsData[0].length + columnIndex;
   return totalCellIndex;
+};
+
+export const getMonthHorizontallyGroupedColumnIndex: PureComputed<
+  [ViewCell[][], AppointmentMoment, number, number, number, boolean], number
+> = (viewCellsData, appointment, weekNumber, dayOfWeek, groupCount, groupByDate) => {
+  let columnIndex = -1;
+  let currentColumnIndex = groupByDate ? dayOfWeek * groupCount : dayOfWeek;
+  const cellsInGroupRow = groupByDate ? 1 : DAYS_IN_WEEK;
+
+  while (columnIndex === -1) {
+    const isCorrectCell = checkCellGroupingInfo(
+      viewCellsData[weekNumber][currentColumnIndex], appointment,
+    );
+    if (isCorrectCell) {
+      columnIndex = currentColumnIndex;
+    }
+    currentColumnIndex += cellsInGroupRow;
+  }
+  return columnIndex;
+};
+
+export const getMonthVerticallyGroupedRowIndex: PureComputed<
+  [ViewCell[][], AppointmentMoment, number, number, number], number
+> = (viewCellsData, appointment, weekNumber, dayOfWeek, groupCount) => {
+  const rowsInOneGroup = viewCellsData.length / groupCount;
+  let rowIndex = -1;
+  let currentRowIndex = weekNumber;
+  while (rowIndex === -1) {
+    const isCorrectCell = checkCellGroupingInfo(
+      viewCellsData[currentRowIndex][dayOfWeek], appointment,
+    );
+    if (isCorrectCell) {
+      rowIndex = currentRowIndex;
+    }
+    currentRowIndex += rowsInOneGroup;
+  }
+  return rowIndex;
 };

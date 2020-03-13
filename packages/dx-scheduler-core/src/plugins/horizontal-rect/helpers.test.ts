@@ -2,6 +2,7 @@ import moment from 'moment';
 import { getHorizontalRectByAppointmentData } from './helpers';
 import { getAllDayCellIndexByAppointmentData } from '../all-day-panel/helpers';
 import { getMonthCellIndexByAppointmentData } from '../month-view/helpers';
+import { HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 
 jest.mock('../all-day-panel/helpers', () => ({
   getAllDayCellIndexByAppointmentData: jest.fn(),
@@ -96,6 +97,10 @@ describe('Horizontal rect helpers', () => {
       } = getHorizontalRectByAppointmentData(
         appointment,
         {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          groupCount: 1,
+        },
+        {
           viewCellsData,
           multiline: true,
           cellElementsMeta,
@@ -122,6 +127,10 @@ describe('Horizontal rect helpers', () => {
       } = getHorizontalRectByAppointmentData(
         appointment,
         {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          groupCount: 1,
+        },
+        {
           viewCellsData,
           multiline: true,
           cellElementsMeta,
@@ -134,16 +143,21 @@ describe('Horizontal rect helpers', () => {
       expect(width).toBe(399);
       expect(parentWidth).toBe(250);
     });
-    it('should correct call with multiline property', () => {
+    it('should call getAllDayCellIndexByAppointmentData with correct parameters', () => {
       getMonthCellIndexByAppointmentData.mockImplementation(() => 7);
       getAllDayCellIndexByAppointmentData.mockImplementation(() => 7);
       const appointment = {
         start: moment(new Date('2018-07-05 00:00')),
         end: moment(new Date('2018-07-08 00:00')),
       };
+      const viewMetaData = {
+        groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+        groupCount: 1,
+      };
 
       getHorizontalRectByAppointmentData(
         appointment,
+        viewMetaData,
         {
           viewCellsData,
           multiline: false,
@@ -156,9 +170,17 @@ describe('Horizontal rect helpers', () => {
       expect(getAllDayCellIndexByAppointmentData)
         .toBeCalledTimes(2);
       expect(getAllDayCellIndexByAppointmentData)
-        .toHaveBeenCalledWith(viewCellsData, appointment.start.toDate(), appointment, false);
+        .toHaveBeenCalledWith(
+          viewCellsData,
+          viewMetaData,
+          appointment.start.toDate(), appointment, false,
+        );
       expect(getAllDayCellIndexByAppointmentData)
-        .toHaveBeenCalledWith(viewCellsData, appointment.end.toDate(), appointment, true);
+        .toHaveBeenCalledWith(
+          viewCellsData,
+          viewMetaData,
+          appointment.end.toDate(), appointment, true,
+        );
     });
   });
 });

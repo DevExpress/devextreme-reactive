@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render } from 'react-dom';
+import { render, unmountComponentAtNode } from 'react-dom';
 import * as PropTypes from 'prop-types';
 import {
   HashRouter,
@@ -14,6 +14,7 @@ import { EmbeddedDemoContext } from './context';
 
 const App = ({ router, path, ...restProps }) => {
   const Router = router === 'hash' ? HashRouter : MemoryRouter;
+
   return (
     <EmbeddedDemoContext.Provider value={restProps}>
       <Router
@@ -52,9 +53,11 @@ export const initialize = ({
   demoSources,
   renderDemo,
   unmountDemo,
+  themeComponents,
+  demoData,
 }) => {
-  const embeddedDemoPlaceholders = document.getElementsByClassName('embedded-demo');
-  const embeddedDemoConfigs = [...embeddedDemoPlaceholders]
+  const embeddedDemoPlaceholders = [...document.getElementsByClassName('embedded-demo')];
+  const embeddedDemoConfigs = embeddedDemoPlaceholders
     .map(placeholder => ({
       options: JSON.parse(placeholder.getAttribute('data-options') || '{}'),
       placeholder,
@@ -64,6 +67,8 @@ export const initialize = ({
       render(
         <App
           {...config.options}
+          themeComponents={themeComponents}
+          demoData={demoData}
           themeSources={themeSources}
           demoSources={demoSources}
           renderDemo={renderDemo}
@@ -72,4 +77,9 @@ export const initialize = ({
         config.placeholder,
       );
     });
+
+  window.deinitializeDemos = () => {
+    embeddedDemoPlaceholders
+      .forEach(placeholder => unmountComponentAtNode(placeholder));
+  };
 };

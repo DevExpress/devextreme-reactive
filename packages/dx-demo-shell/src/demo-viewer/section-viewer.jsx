@@ -4,13 +4,14 @@ import { Link, withRouter } from 'react-router-dom';
 
 import { ThemeViewer } from './theme-viewer';
 import { DemoFrame } from './demo-frame';
+import { DemoCodeProvider } from './demo-code-provider';
 import { EmbeddedDemoContext } from '../context';
 
 export const SectionViewerBase = ({
   match: { params: { sectionName } },
 }) => (
   <EmbeddedDemoContext.Consumer>
-    {({ demoSources }) => (
+    {({ demoSources, themeSources }) => (
       <ThemeViewer>
         {({ themeName, variantName }) => (
           Object.keys(demoSources[sectionName])
@@ -21,12 +22,23 @@ export const SectionViewerBase = ({
                     {demoName}
                   </Link>
                 </h4>
-                <DemoFrame
+                <DemoCodeProvider
                   themeName={themeName}
                   variantName={variantName}
                   sectionName={sectionName}
                   demoName={demoName}
-                />
+                  themeSources={themeSources}
+                >
+                  {({ html }) => (
+                    <DemoFrame
+                      themeName={themeName}
+                      variantName={variantName}
+                      sectionName={sectionName}
+                      demoName={demoName}
+                      markup={html}
+                    />
+                  )}
+                </DemoCodeProvider>
               </div>
             ))
         )}

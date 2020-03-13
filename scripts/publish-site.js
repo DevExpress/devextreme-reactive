@@ -1,15 +1,11 @@
 const { join } = require('path');
 const { execSync } = require('child_process');
-const { copySync, removeSync, writeFileSync } = require('fs-extra');
+const { copySync, removeSync, readFileSync, writeFileSync } = require('fs-extra');
 const { prompt } = require('inquirer');
 const { prerelease } = require('semver');
 const ensureRepoUpToDate = require('./ensure-repo-up-to-date');
 const getCurrentBranchName = require('./get-current-branch-name');
 
-const SITE_DIRECTORY = join(process.cwd(), 'site');
-const GENERATED_SITE_DIRECTORY = join(process.cwd(), 'site/_site');
-const GENERATED_CONFIG = '_config.g.yml';
-const GENERATED_CONFIG_PATH = join(SITE_DIRECTORY, GENERATED_CONFIG);
 const SITE_PUBLISHING_DIRECTORY = join(process.cwd(), 'tmp');
 const BRANCH = 'gh-pages';
 const COMMIT_MESSAGE = 'chore: update site';
@@ -34,19 +30,9 @@ const script = async () => {
   const tagPath = tag !== 'latest' ? `/@${tag}` : '';
 
   console.log('Building site content...');
-  execSync('yarn run build', { stdio: 'ignore' });
-  execSync('yarn run build:site', { stdio: 'ignore', env: { ...process.env, VERSION_TAG: tag } });
-
-  console.log('Cleaning generated site...');
-  removeSync(GENERATED_SITE_DIRECTORY);
-
-  console.log('Generating site...');
-  writeFileSync(GENERATED_CONFIG_PATH, `baseurl: "/devextreme-reactive${tagPath}"\nversion: ${version}`);
-  execSync('bundle install', { cwd: SITE_DIRECTORY, stdio: 'ignore' });
-  execSync(
-    `bundle exec jekyll build --config _config.yml,${GENERATED_CONFIG} --source ${SITE_DIRECTORY} --destination ${GENERATED_SITE_DIRECTORY}`,
-    { cwd: SITE_DIRECTORY, stdio: 'ignore' },
-  );
+  const config = String(readFileSync(join(__dirname, '../packages/dx-site/gatsby-config.js')));
+  writeFileSync(join(__dirname, '../packages/dx-site/gatsby-config.js'), config.replace('pathPrefix: \'/devextreme-reactive\'', `pathPrefix: \'/devextreme-reactive${tagPath}\'`));
+  execSync('yarn run build:site', { stdio: 'ignore' });
 
   console.log('Preparing output directory...');
   removeSync(SITE_PUBLISHING_DIRECTORY);
@@ -54,7 +40,7 @@ const script = async () => {
   execSync(`git worktree add -B ${BRANCH} ${SITE_PUBLISHING_DIRECTORY} upstream/${BRANCH}`, { stdio: 'ignore' });
 
   console.log('Copying generated site...');
-  copySync(GENERATED_SITE_DIRECTORY, join(SITE_PUBLISHING_DIRECTORY, tagPath));
+  copySync(join(__dirname, '../packages/dx-site/public/'), join(SITE_PUBLISHING_DIRECTORY, tagPath));
 
   console.log('Copying github stuff...');
   copySync(join(__dirname, 'gh-pages-files'), SITE_PUBLISHING_DIRECTORY);
@@ -65,9 +51,9 @@ const script = async () => {
   execSync(`git push upstream ${BRANCH}`, { cwd: SITE_PUBLISHING_DIRECTORY });
 
   console.log('Cleaning up...');
-  removeSync(GENERATED_CONFIG_PATH);
   removeSync(SITE_PUBLISHING_DIRECTORY);
   execSync('git worktree prune');
+  execSync(`git checkout -- ${join(__dirname, '../packages/dx-site/gatsby-config.js')}`)
 
   console.log();
   console.log('--------------------');

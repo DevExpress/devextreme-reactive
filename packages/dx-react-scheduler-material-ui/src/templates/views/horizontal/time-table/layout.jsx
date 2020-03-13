@@ -17,11 +17,11 @@ export const Layout = React.memo(({
     cellsNumber={cellsData[0].length}
     {...restProps}
   >
-    {cellsData.map(row => (
-      <Row key={row[0].startDate.toString()}>
+    {cellsData.map((row, index) => (
+      <Row key={index.toString()}>
         {row.map(({
-          startDate, endDate, today,
-          otherMonth, endOfGroup, groupingInfo,
+          startDate, endDate, today, otherMonth,
+          groupingInfo, endOfGroup, groupOrientation,
         }) => (
           <Cell
             key={getViewCellKey(startDate, groupingInfo)}
@@ -33,6 +33,7 @@ export const Layout = React.memo(({
             endOfGroup={endOfGroup}
             hasRightBorder={endOfGroup}
             groupingInfo={groupingInfo}
+            groupOrientation={groupOrientation}
           />
         ))}
       </Row>

@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorder } from '../../../utils';
+import { getBorder, getBrightBorder } from '../../../utils';
 
 const styles = theme => ({
   cell: {
@@ -15,6 +15,9 @@ const styles = theme => ({
       borderBottom: 'none',
     },
   },
+  brightBottomBorder: {
+    borderBottom: getBrightBorder(theme),
+  },
 });
 
 const TickCellBase = React.memo(({
@@ -22,10 +25,15 @@ const TickCellBase = React.memo(({
   className,
   startDate,
   endDate,
+  endOfGroup,
+  groupingInfo,
   ...restProps
 }) => (
   <TableCell
-    className={classNames(classes.cell, className)}
+    className={classNames({
+      [classes.cell]: true,
+      [classes.brightBottomBorder]: endOfGroup,
+    }, className)}
     {...restProps}
   />
 ));
@@ -34,6 +42,8 @@ TickCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   startDate: PropTypes.instanceOf(Date),
   endDate: PropTypes.instanceOf(Date),
+  endOfGroup: PropTypes.bool,
+  groupingInfo: PropTypes.arrayOf(PropTypes.object),
   className: PropTypes.string,
 };
 
@@ -41,6 +51,8 @@ TickCellBase.defaultProps = {
   className: undefined,
   startDate: undefined,
   endDate: undefined,
+  endOfGroup: false,
+  groupingInfo: undefined,
 };
 
 export const TickCell = withStyles(styles, { name: 'TickCell' })(TickCellBase);

@@ -1,6 +1,6 @@
 import license from 'rollup-plugin-license';
 import { default as typescriptRollup } from 'rollup-plugin-typescript2';
-import replace from "rollup-plugin-replace";
+import replace from '@rollup/plugin-replace';
 import typescript from 'typescript';
 import {
   banner, external, globals, stubProcess,
@@ -22,8 +22,8 @@ export default {
       useTsconfigDeclarationDir: true,
     }),
     replace({
-      "/** @class */": "/*#__PURE__*/",
-      delimiters: ["", ""],
+      '/** @class */': '/*#__PURE__*/',
+      delimiters: ['', ''],
     }),
     license({
       banner,

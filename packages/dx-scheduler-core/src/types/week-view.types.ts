@@ -1,6 +1,7 @@
 import { PureComputed } from '@devexpress/dx-core';
-import { Appointment } from './scheduler-core.types';
+import { Appointment, SchedulerDateTime } from './scheduler-core.types';
 import { AppointmentMoment } from './all-day-panel.types';
+import { Group } from './integrated-grouping.types';
 
 /** @internal */
 export type CalculateWeekDateIntervalsFn = PureComputed<
@@ -18,3 +19,10 @@ export type ReduceAppointmentByDayBoundsFn = PureComputed<
 export type NormalizeAppointmentDurationFn = PureComputed<
   [Appointment, number], AppointmentMoment
 >;
+/** @internal */
+export type TimeScaleLabelData = {
+  startDate?: SchedulerDateTime;
+  endDate?: SchedulerDateTime;
+  key: any;
+  groupingInfo?: Group[];
+};

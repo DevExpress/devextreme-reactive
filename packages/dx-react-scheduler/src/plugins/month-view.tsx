@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { Plugin, PluginComponents } from '@devexpress/dx-react-core';
-import { monthCellsData, calculateMonthDateIntervals } from '@devexpress/dx-scheduler-core';
+import { monthCellsData, calculateMonthDateIntervals, VIEW_TYPES } from '@devexpress/dx-scheduler-core';
 import { BasicView } from './basic-view';
 import { MonthViewProps } from '../types';
 
-const TYPE = 'month';
 const viewCellsDataBaseComputed = (
   cellDuration, startDayHour, endDayHour,
 ) => ({ currentDate, firstDayOfWeek, intervalCount }) => monthCellsData(
@@ -25,6 +24,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps> {
   static components: PluginComponents = {
     layoutComponent: 'Layout',
     appointmentLayerComponent: 'AppointmentLayer',
+    dayScaleEmptyCellComponent: 'DayScaleEmptyCell',
     dayScaleLayoutComponent: 'DayScaleLayout',
     dayScaleCellComponent: 'DayScaleCell',
     dayScaleRowComponent: 'DayScaleRow',
@@ -37,6 +37,7 @@ class MonthViewBase extends React.PureComponent<MonthViewProps> {
   render() {
     const {
       layoutComponent,
+      dayScaleEmptyCellComponent,
       dayScaleLayoutComponent,
       dayScaleCellComponent,
       dayScaleRowComponent,
@@ -55,11 +56,12 @@ class MonthViewBase extends React.PureComponent<MonthViewProps> {
       >
         <BasicView
           viewCellsDataComputed={viewCellsDataBaseComputed}
-          type={TYPE}
+          type={VIEW_TYPES.MONTH}
           name={viewName}
           intervalCount={intervalCount}
           displayName={displayName}
           calculateAppointmentsIntervals={calculateAppointmentsIntervalsBaseComputed}
+          dayScaleEmptyCellComponent={dayScaleEmptyCellComponent}
           dayScaleLayoutComponent={dayScaleLayoutComponent}
           dayScaleCellComponent={dayScaleCellComponent}
           dayScaleRowComponent={dayScaleRowComponent}

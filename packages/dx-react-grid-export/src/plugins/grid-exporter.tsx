@@ -3,7 +3,7 @@ import {
   Action, Plugin, PluginHost,
 } from '@devexpress/dx-react-core';
 import { GridExporterCore } from './grid-exporter-core';
-import { ExporterProps, ExporterState } from '../types/export';
+import { ExporterProps, ExporterState } from '../types/export/exporter.types';
 
 class GridExporterBase extends React.PureComponent<ExporterProps, ExporterState> {
   state = {

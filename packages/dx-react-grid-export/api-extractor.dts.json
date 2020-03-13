@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/v7/api-extractor.schema.json",
-  "mainEntryPointFilePath": "./dist/dts/dx-react-grid-export/src/index.d.ts",
+  "mainEntryPointFilePath": "./dist/dts/dx-react-grid-export/src/types/index.d.ts",
   "dtsRollup": {
     "enabled": true
   },

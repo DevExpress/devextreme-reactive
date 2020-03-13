@@ -65,10 +65,10 @@ You can prevent editing of a specific column using the [EditingState](../referen
 
 ## Data Validation
 
-Changes can be validated on-the-fly as shown in the example below. The 'Save' button gets disabled if any reqired field is empty.
+Changes can be validated as the user types. You can disable the Save button if any required field is empty.
 
 .embedded-demo({ "path": "grid-editing/validation-on-typing", "showThemeSelector": true })
 
-Another option is to validate data in the `onCommit` function. In this case it is possible to rollback invalid changes by omitting the `setState` call or display the error in a grid as in the demo below.
+Changes can also be validated in the `onCommit` function. In this case, you can omit the `setState` call and rollback the changes if they are invalid.
 
 .embedded-demo({ "path": "grid-editing/validation-on-commit", "showThemeSelector": true })

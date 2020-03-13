@@ -59,7 +59,7 @@ You can handle other keyboard actions. For example, the demo below shows how to 
 
 ## Disable Editing in a Column
 
-You can prevent editing of a specific column using the [EditingState](../reference/editing-state.md) plugin's `columnExtensions` property.
+You can use the [EditingState](../reference/editing-state.md) plugin's `columnExtensions` property to prevent a specific column for being edited.
 
 .embedded-demo({ "path": "grid-editing/disable-column-editing", "showThemeSelector": true })
 

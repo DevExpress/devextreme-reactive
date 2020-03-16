@@ -88,7 +88,7 @@ Describes properties passed to a component that renders a title cell.
 
 Field | Type | Description
 ------|------|------------
-fixedHeight? | boolean | If provided, its height will be equal to cell's default height.
+groupOrientation? | [GroupOrientation](./grouping-state.md#grouporientation) | Scheduler's grouping orientation: either 'Vertical' or 'Horizontal'.
 getMessage | ([messageKey](#localization-messages): string) => string | Returns a localization message by the message key.
 
 ### AllDayPanel.AppointmentLayerProps

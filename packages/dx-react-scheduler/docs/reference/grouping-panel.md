@@ -70,7 +70,6 @@ Field | Type | Description
 groups | Array&lt;Array&lt;[Group](#group)&gt;&gt; | Specifies the final representation of Scheduler's groups and the order they will be rendered in.
 rowSpan | number | Indicates the number of rows in the Scheduler's timetable.
 viewType | string | Specifies the view the layout is rendered in.
-cellTextTopOffset | number | Specifies cells' text top offset.
 rowComponent | ComponentType&lt;[GroupingPanel.RowProps](#groupingpanelrowprops)&gt; |  A component that renders a row on the grouping panel.
 cellComponent | ComponentType&lt;[GroupingPanel.CellProps](#groupingpanelcellprops)&gt; | A component that renders a cell in a row on the grouping panel.
 

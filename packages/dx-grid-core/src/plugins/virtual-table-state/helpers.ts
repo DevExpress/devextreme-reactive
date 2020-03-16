@@ -10,7 +10,7 @@ export const emptyVirtualRows: VirtualRows = {
   rows: [],
 };
 
-export const zeroInterval: Interval = {
+export const ZERO_INTERVAL: Interval = {
   start: 0,
   end: 0,
 };

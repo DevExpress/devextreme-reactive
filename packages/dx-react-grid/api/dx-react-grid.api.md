@@ -1504,7 +1504,7 @@ export interface VirtualTableProps {
     messages?: Table.LocalizationMessages;
     noDataCellComponent: React.ComponentType<Table.NoDataCellProps>;
     noDataRowComponent: React.ComponentType<Table.RowProps>;
-    onTopRowChange: (rowId: number | string | symbol) => void;
+    onTopRowChange: (rowId: number | string | symbol | undefined) => void;
     ref?: React.RefObject<typeof VirtualTable>;
     rowComponent: React.ComponentType<Table.DataRowProps>;
     // (undocumented)

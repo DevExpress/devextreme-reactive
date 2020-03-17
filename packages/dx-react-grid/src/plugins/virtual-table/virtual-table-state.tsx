@@ -58,11 +58,8 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
     const isRangeFinite = isIntervalFinite(requestedRange);
 
     if (forceReload || !isRangeFinite || shouldSendRequest(requestedRange, requestedStartIndex)) {
-      if (isRangeFinite) {
-        this.requestNextPage(requestedRange, actualVirtualRows, actualBounds);
-      } else {
-        this.requestNextPage(ZERO_INTERVAL, actualVirtualRows, actualBounds);
-      }
+      const range = isRangeFinite ? requestedRange : ZERO_INTERVAL;
+      this.requestNextPage(range, actualVirtualRows, actualBounds);
     }
   }
 

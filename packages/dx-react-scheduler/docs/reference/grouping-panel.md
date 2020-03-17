@@ -67,9 +67,9 @@ Describes properties passed to a component that renders the grouping panel verti
 
 Field | Type | Description
 ------|------|------------
-groups | Array&lt;Array&lt;[Group](#group)&gt;&gt; | Specifies the final representation of Scheduler's groups and the order they will be rendered in.
-rowSpan | number | Indicates the number of rows in the Scheduler's timetable.
-viewType | string | Specifies the view the layout is rendered in.
+groups | Array&lt;Array&lt;[Group](#group)&gt;&gt; | Groups in the order in which they should be rendered.
+rowSpan | number | The number of rows in the timetable.
+viewType | string | The view in which the layout is rendered.
 rowComponent | ComponentType&lt;[GroupingPanel.RowProps](#groupingpanelrowprops)&gt; |  A component that renders a row on the grouping panel.
 cellComponent | ComponentType&lt;[GroupingPanel.CellProps](#groupingpanelcellprops)&gt; | A component that renders a cell in a row on the grouping panel.
 
@@ -92,9 +92,9 @@ colSpan | number | The number of columns the cell spans.
 rowSpan? | number | The number of rows the cell spans.
 left | number | The cell's offset from the left.
 height? | number | The cell's height.
-topOffSet? | number | Specifies the distance between the cell's text and the top edge of the Scheduler.
-textStyle? | object | Specifies the CSS properties to apply to the Cell's text.
-groupOrientation? | [GroupOrientation](./grouping-state.md#grouporientation) | Scheduler's grouping orientation: either 'Vertical' or 'Horizontal'.
+topOffSet? | number | The distance between the cell's text and the top edge of the Scheduler.
+textStyle? | object | CSS properties to be applied to the cell's text.
+groupOrientation? | [GroupOrientation](./grouping-state.md#grouporientation) | The orientation of groups: `Vertical` or `Horizontal`.
 endOfGroup? | boolean | `true` if this cell is last in its group.
 groupedByDate? | boolean | Indicates whether grouping by date is enabled. Takes its value from the `groupByDate` property of the [GroupingState](grouping-state.md) plugin.
 children? | ReactNode | A React node used to render additional content to the cell.

@@ -21,7 +21,7 @@ None
 Name | Type | Default | Description
 -----|------|---------|------------
 grouping? | Array&lt;[Grouping](#grouping)&gt; | | Specifies resources to group by.
-groupOrientation? | (viewName: string) => [GroupOrientation](#grouporientation) | `() => 'Horizontal'` | Scheduler's grouping orientation: either 'Vertical' or 'Horizontal'.
+groupOrientation? | (viewName: string) => [GroupOrientation](#grouporientation) | `() => 'Horizontal'` | A function that allows you to specify different group orientations for different views. Should return `"Vertical"` or `"Horizontal"`.
 groupByDate? | (viewName: string) => boolean | `() => false` | Specifies whether appointments should be grouped by date in a specific view.
 
 ## Interfaces
@@ -36,6 +36,6 @@ resourceName | string | The name of the resource by which the appointments are g
 
 ### GroupOrientation
 
-Describes grouping orientation.
+Describes group orientation.
 
 Type: `Vertical` | `Horizontal`

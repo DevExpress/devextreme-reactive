@@ -59,6 +59,16 @@ You can handle other keyboard actions. For example, the demo below shows how to 
 
 ## Disable Editing in a Column
 
-You can prevent editing of a specific column using the [EditingState](../reference/editing-state.md) plugin's `columnExtensions` property.
+You can use the [EditingState](../reference/editing-state.md) plugin's `columnExtensions` property to prevent a specific column for being edited.
 
 .embedded-demo({ "path": "grid-editing/disable-column-editing", "showThemeSelector": true })
+
+## Data Validation
+
+Changes can be validated as the user types. You can disable the Save button if any required field is empty.
+
+.embedded-demo({ "path": "grid-editing/validation-on-typing", "showThemeSelector": true })
+
+Changes can also be validated in the `onCommit` function. In this case, you can omit the `setState` call and rollback the changes if they are invalid.
+
+.embedded-demo({ "path": "grid-editing/validation-on-commit", "showThemeSelector": true })

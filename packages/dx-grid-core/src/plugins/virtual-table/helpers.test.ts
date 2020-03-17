@@ -220,12 +220,11 @@ describe('#checkColumnWidths', () => {
 
   describe('#getTopRowId', () => {
     const rows = [{ rowId: 1 }, { },  { rowId: 2 }, { rowId: 3 }, { rowId: 4 }, { rowId: 5 }];
+    const viewportBase = { rows: [0, 0] };
 
     it('should work', () => {
-      const viewport = { rows: [0, 0] };
-
-      expect(getTopRowId(viewport, rows, false))
-        .toEqual(rows[viewport.rows[0]].rowId);
+      expect(getTopRowId(viewportBase, rows, false))
+        .toEqual(rows[viewportBase.rows[0]].rowId);
     });
 
     it('should work if row does not have rowId', () => {
@@ -236,9 +235,7 @@ describe('#checkColumnWidths', () => {
     });
 
     it('should return undefined when remote data', () => {
-      const viewport = { rows: [0, 0] };
-
-      expect(getTopRowId(viewport, rows, true))
+      expect(getTopRowId(viewportBase, rows, true))
         .toBe(undefined);
     });
 
@@ -250,9 +247,7 @@ describe('#checkColumnWidths', () => {
     });
 
     it('should return undefined when rows not defined', () => {
-      const viewport = { rows: [0, 0] };
-
-      expect(getTopRowId(viewport, undefined, false))
+      expect(getTopRowId(viewportBase, undefined, false))
         .toBe(undefined);
     });
   });

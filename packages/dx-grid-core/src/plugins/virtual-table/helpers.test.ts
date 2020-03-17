@@ -1,4 +1,10 @@
-import { getViewport, checkColumnWidths, calculateScrollHeight, getScrollTop } from './helpers';
+import {
+  getViewport,
+  checkColumnWidths,
+  calculateScrollHeight,
+  getScrollTop,
+  getTopRowId,
+} from './helpers';
 import { TOP_POSITION, BOTTOM_POSITION } from './constants';
 
 const estimatedRowheight = 40;
@@ -209,6 +215,45 @@ describe('#checkColumnWidths', () => {
     it('should return height of scroll if scrolled to BOTTOM_POSITION', () => {
       expect(getScrollTop(rows, rows.length, BOTTOM_POSITION, rowHeight, false))
         .toEqual(rowHeight * rows.length);
+    });
+  });
+
+  describe('#getTopRowId', () => {
+    const rows = [{ rowId: 1 }, { },  { rowId: 2 }, { rowId: 3 }, { rowId: 4 }, { rowId: 5 }];
+
+    it('should work', () => {
+      const viewport = { rows: [0, 0] };
+
+      expect(getTopRowId(viewport, rows, false))
+        .toEqual(rows[viewport.rows[0]].rowId);
+    });
+
+    it('should work if row does not have rowId', () => {
+      const viewport = { rows: [1, 1] };
+
+      expect(getTopRowId(viewport, rows, false))
+        .toEqual(rows[viewport.rows[0]].rowId);
+    });
+
+    it('should return undefined when remote data', () => {
+      const viewport = { rows: [0, 0] };
+
+      expect(getTopRowId(viewport, rows, true))
+        .toBe(undefined);
+    });
+
+    it('should return undefined when viewport or viewport rows not defined', () => {
+      expect(getTopRowId(undefined, rows, false))
+        .toBe(undefined);
+      expect(getTopRowId({ }, rows, false))
+        .toBe(undefined);
+    });
+
+    it('should return undefined when rows not defined', () => {
+      const viewport = { rows: [0, 0] };
+
+      expect(getTopRowId(viewport, undefined, false))
+        .toBe(undefined);
     });
   });
 });

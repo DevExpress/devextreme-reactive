@@ -166,5 +166,9 @@ export type GetScrollHeightByIndex = PureComputed<
 >;
 /** @internal */
 export type GetScrollPosition = PureComputed<
-  [Row[], number, number | string | symbol | undefined, number, number], number | undefined
+  [TableRow[], number, number | string | symbol | undefined, number, number], number | undefined
+>;
+/** @internal */
+export type GetTopRowId = PureComputed<
+  [GridViewport, TableRow[], boolean], string | number | undefined
 >;

@@ -10,6 +10,7 @@ import { FilteringStateProps } from '@devexpress/dx-react-grid/dist/dx-react-gri
 import { GridProps } from '@devexpress/dx-react-grid/dist/dx-react-grid';
 import { GroupingStateProps } from '@devexpress/dx-react-grid/dist/dx-react-grid';
 import { GroupSummaryItem } from '@devexpress/dx-react-grid/dist/dx-react-grid';
+import * as React from 'react';
 import { Row } from 'exceljs';
 import { SelectionStateProps } from '@devexpress/dx-react-grid/dist/dx-react-grid';
 import { SortingStateProps } from '@devexpress/dx-react-grid/dist/dx-react-grid';
@@ -55,6 +56,9 @@ export type ExportSummary = {
 
 // @public (undocumented)
 export type GetCellValueFn = (row: any, columnName: string) => any;
+
+// @public (undocumented)
+export const GridExporter: React.ComponentType<ExporterProps>;
 
 // @public (undocumented)
 export type SummaryType = string;

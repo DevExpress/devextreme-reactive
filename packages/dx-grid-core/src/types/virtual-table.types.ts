@@ -1,7 +1,6 @@
 import { PureComputed } from '@devexpress/dx-core';
 import { Getters } from '@devexpress/dx-react-core';
 import { TableColumn, TableRow, GetCellColSpanFn } from './table.types';
-import { Row } from './grid-core.types';
 
 /** @internal */
 export type GetColumnWidthFn = PureComputed<[TableColumn, number?], number | null>;

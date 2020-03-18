@@ -10,11 +10,6 @@ export const emptyVirtualRows: VirtualRows = {
   rows: [],
 };
 
-export const ZERO_INTERVAL: Interval = {
-  start: 0,
-  end: 0,
-};
-
 const pluckSubarray: PureComputed<[Row[], ...number[]]> = (source, sourceStart, left, right) => (
   source.slice(left - sourceStart, right - sourceStart)
 );
@@ -181,7 +176,3 @@ export const shouldSendRequest: PureComputed<[Interval, number], boolean> = (
   const loadCount = (end - start);
   return newPageIndex !== requestedPageIndex && loadCount > 0;
 };
-
-export const isIntervalFinite: PureComputed<[Interval], boolean> = (
-  { start, end },
-) => isFinite(start) && isFinite(end);

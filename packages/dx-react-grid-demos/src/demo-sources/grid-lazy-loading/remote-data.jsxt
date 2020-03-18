@@ -76,10 +76,10 @@ function reducer(state, { type, payload }) {
       return {
         ...state,
         forceReload: true,
-        skip: 0,
         requestedSkip: 0,
         rows: [],
         filters: payload,
+        loading: false,
       };
     case 'START_LOADING':
       return {
@@ -128,15 +128,11 @@ export default () => {
 
   const cache = useMemo(() => createRowCache(VIRTUAL_PAGE_SIZE), [VIRTUAL_PAGE_SIZE]);
   const updateRows = (skip, count, newTotalCount) => {
-    let newSkip = Math.min(skip, newTotalCount);
-    if (newSkip === newTotalCount) {
-      newSkip = Math.max(0, newSkip - VIRTUAL_PAGE_SIZE);
-    }
     dispatch({
       type: 'UPDATE_ROWS',
       payload: {
-        skip: newSkip,
-        rows: cache.getRows(newSkip, count),
+        skip: Math.min(skip, newTotalCount),
+        rows: cache.getRows(skip, count),
         totalCount: newTotalCount < MAX_ROWS ? newTotalCount : MAX_ROWS,
       },
     });

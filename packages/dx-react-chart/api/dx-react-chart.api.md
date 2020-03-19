@@ -248,7 +248,7 @@ export type ModifyDomainFn = (domain: DomainItems) => DomainItems;
 export type NotifyPointerMoveFn = (target: SeriesRef | null) => void;
 
 // @public (undocumented)
-export type NumberArray = [number, number];
+export type NumberArray = number[];
 
 // @public (undocumented)
 export type OffsetFn = (series: StackData, order: number[]) => void;

@@ -101,8 +101,10 @@ class TableFilterRowBase extends React.PureComponent<TableFilterRowProps, TableF
                 const onFilter = (
                   config: FilterConfig | null,
                 ) => {
-                  isDataRemote && scrollToRow(TOP_POSITION)
-                  changeColumnFilter({ columnName, config })
+                  if (isDataRemote) {
+                    scrollToRow(TOP_POSITION);
+                  }
+                  changeColumnFilter({ columnName, config });
                 };
                 const columnFilterOperations = getColumnFilterOperations(
                   getAvailableFilterOperations, columnName,

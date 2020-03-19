@@ -13,6 +13,7 @@ import {
   getSelectedFilterOperation,
   TABLE_FILTER_TYPE,
   FilterConfig,
+  TOP_POSITION,
 } from '@devexpress/dx-grid-core';
 import { TableFilterRowProps, TableFilterRowState, TableCellProps, TableRowProps } from '../types';
 
@@ -91,15 +92,18 @@ class TableFilterRowBase extends React.PureComponent<TableFilterRowProps, TableF
           {(params: TableCellProps) => (
             <TemplateConnector>
               {(
-                { filters, isColumnFilteringEnabled, getAvailableFilterOperations },
-                { changeColumnFilter }: Actions,
+                { filters, isColumnFilteringEnabled, getAvailableFilterOperations, isDataRemote },
+                { changeColumnFilter, scrollToRow }: Actions,
               ) => {
                 const { filterOperations } = this.state;
                 const { name: columnName } = params.tableColumn.column!;
                 const filter = getColumnFilterConfig(filters, columnName)!;
                 const onFilter = (
                   config: FilterConfig | null,
-                ) => changeColumnFilter({ columnName, config });
+                ) => {
+                  isDataRemote && scrollToRow(TOP_POSITION)
+                  changeColumnFilter({ columnName, config })
+                };
                 const columnFilterOperations = getColumnFilterOperations(
                   getAvailableFilterOperations, columnName,
                 );

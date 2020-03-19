@@ -76,10 +76,10 @@ function reducer(state, { type, payload }) {
       return {
         ...state,
         forceReload: true,
+        skip: 0,
         requestedSkip: 0,
         rows: [],
         filters: payload,
-        loading: false,
       };
     case 'START_LOADING':
       return {

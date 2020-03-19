@@ -30,8 +30,6 @@ Row caching helps reduce the number of data requests. Call the [createRowCache](
 
 If users are allowed to sort or filter rows, clear the row cache each time the sort or filter settings are changed. Filtering also requires the total number of rows to be returned in every response.
 
-*NOTE: Debounce requests on filter change to avoid fetching data on each keystroke.*
-
 In the following demo, the Grid allows you to sort and filter rows. Loaded rows are cached.
 
 .embedded-demo({ "path": "grid-lazy-loading/remote-data", "showThemeSelector": true })

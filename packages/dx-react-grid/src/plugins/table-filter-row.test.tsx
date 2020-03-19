@@ -373,7 +373,7 @@ describe('TableFilterRow', () => {
       .toBe('filterOperation');
   });
 
-  it('should not call scrollToRow if data is not remote', () => {
+  it('should not call scroll up on filter if data is not remote', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -389,7 +389,7 @@ describe('TableFilterRow', () => {
       .not.toHaveBeenCalled();
   });
 
-  it('should call scrollToRow to scroll up if data is remote', () => {
+  it('should scroll up on filter if data is remote', () => {
     const deps = {
       ...defaultDeps,
       getter: {

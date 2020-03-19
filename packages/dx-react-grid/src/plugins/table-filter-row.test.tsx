@@ -10,10 +10,12 @@ import {
   getColumnFilterOperations,
   isFilterValueEmpty,
   getSelectedFilterOperation,
+  TOP_POSITION,
 } from '@devexpress/dx-grid-core';
 import { TableFilterRow } from './table-filter-row';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
+  ...require.requireActual('@devexpress/dx-grid-core'),
   tableHeaderRowsWithFilter: jest.fn(),
   isFilterTableCell: jest.fn(),
   isFilterTableRow: jest.fn(),
@@ -31,6 +33,7 @@ const defaultDeps = {
   },
   action: {
     changeColumnFilter: jest.fn(),
+    scrollToRow: jest.fn(),
   },
   template: {
     tableCell: {
@@ -368,5 +371,46 @@ describe('TableFilterRow', () => {
       );
     expect(filterSelectorValue)
       .toBe('filterOperation');
+  });
+
+  it('should not call scrollToRow if data is not remote', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <TableFilterRow
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+    tree.find(defaultProps.editorComponent)
+      .prop('onChange')('a');
+
+    expect(defaultDeps.action.scrollToRow)
+      .not.toHaveBeenCalled();
+  });
+
+  it('should call scrollToRow to scroll up if data is remote', () => {
+    const deps = {
+      ...defaultDeps,
+      getter: {
+        ...defaultDeps.getter,
+        isDataRemote: true,
+      },
+    };
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(deps)}
+        <TableFilterRow
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+    tree.find(defaultProps.editorComponent)
+      .prop('onChange')('a');
+
+    expect(deps.action.scrollToRow)
+      .toHaveBeenCalledTimes(1);
+    expect(deps.action.scrollToRow.mock.calls[0][0])
+      .toBe(TOP_POSITION);
   });
 });

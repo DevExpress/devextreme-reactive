@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Workbook, Cell as ExcelCell, Worksheet, Row as ExcelRow } from 'exceljs';
 /* tslint:disable no-submodule-imports */
 import {
@@ -47,3 +48,5 @@ export type ExporterState = {
   isExporting: boolean;
   selectedOnly: boolean;
 };
+
+export declare const GridExporter: React.ComponentType<ExporterProps>;

@@ -136,5 +136,63 @@ describe('Vertical view TimeScale', () => {
           endOfGroup: false,
         });
     });
+    it('should render ticks for both timetable and all-day cells', () => {
+      const cellsData = [[{
+        startDate: new Date(2018, 6, 7, 9),
+        endDate: new Date(2018, 6, 7, 10),
+        groupingInfo: 'groupingInfo1',
+      }], [{
+        startDate: new Date(2018, 6, 7, 10),
+        endDate: new Date(2018, 6, 7, 11),
+        groupingInfo: 'groupingInfo1',
+        endOfGroup: true,
+      }], [{
+        startDate: new Date(2018, 6, 7, 9),
+        endDate: new Date(2018, 6, 7, 10),
+        groupingInfo: 'groupingInfo2',
+      }], [{
+        startDate: new Date(2018, 6, 7, 10),
+        endDate: new Date(2018, 6, 7, 11),
+        groupingInfo: 'groupingInfo2',
+        endOfGroup: true,
+      }]];
+
+      const tree = shallow((
+        <TicksLayout
+          {...defaultProps}
+          groupOrientation={VERTICAL_GROUP_ORIENTATION}
+          cellsData={cellsData}
+          includeAllDayCell
+          groupCount={2}
+        />
+      ));
+
+      expect(tree.find(defaultProps.rowComponent))
+        .toHaveLength(6);
+
+      const cells = tree.find(defaultProps.cellComponent);
+      expect(cells)
+        .toHaveLength(6);
+      expect(cells.at(0).props())
+        .toEqual({
+          ...cellsData[0][0],
+          isAllDay: true,
+          endOfGroup: false,
+        });
+      expect(cells.at(1).props())
+        .toEqual(cellsData[0][0]);
+      expect(cells.at(2).props())
+        .toEqual(cellsData[1][0]);
+      expect(cells.at(3).props())
+        .toEqual({
+          ...cellsData[2][0],
+          isAllDay: true,
+          endOfGroup: false,
+        });
+      expect(cells.at(4).props())
+        .toEqual(cellsData[2][0]);
+      expect(cells.at(5).props())
+        .toEqual(cellsData[3][0]);
+    });
   });
 });

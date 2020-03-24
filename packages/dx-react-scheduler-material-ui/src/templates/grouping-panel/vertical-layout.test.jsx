@@ -71,19 +71,40 @@ describe('GroupingPanel', () => {
 
     it('should call "getVerticalRowFromGroups"', () => {
       shallow((
-        <VerticalLayout {...defaultProps} groups={groups} showHeaderForEveryDate colSpan={12} />
+        <VerticalLayout
+          {...defaultProps}
+          groups={groups}
+          colSpan={12}
+          alignWithAllDayRow
+        />
       ));
 
       expect(getVerticalRowFromGroups)
         .toHaveBeenCalledTimes(4);
       expect(getVerticalRowFromGroups)
-        .toHaveBeenCalledWith(groups, 0, defaultProps.rowSpan, BASIC_CELL_HEIGHT[VIEW_TYPES.WEEK]);
+        .toHaveBeenCalledWith(
+          groups, 0, defaultProps.rowSpan,
+          BASIC_CELL_HEIGHT[VIEW_TYPES.WEEK],
+          true, BASIC_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL],
+        );
       expect(getVerticalRowFromGroups)
-        .toHaveBeenCalledWith(groups, 1, defaultProps.rowSpan, BASIC_CELL_HEIGHT[VIEW_TYPES.WEEK]);
+        .toHaveBeenCalledWith(
+          groups, 1, defaultProps.rowSpan,
+          BASIC_CELL_HEIGHT[VIEW_TYPES.WEEK],
+          true, BASIC_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL],
+        );
       expect(getVerticalRowFromGroups)
-        .toHaveBeenCalledWith(groups, 2, defaultProps.rowSpan, BASIC_CELL_HEIGHT[VIEW_TYPES.WEEK]);
+        .toHaveBeenCalledWith(
+          groups, 2, defaultProps.rowSpan,
+          BASIC_CELL_HEIGHT[VIEW_TYPES.WEEK],
+          true, BASIC_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL],
+        );
       expect(getVerticalRowFromGroups)
-        .toHaveBeenCalledWith(groups, 3, defaultProps.rowSpan, BASIC_CELL_HEIGHT[VIEW_TYPES.WEEK]);
+        .toHaveBeenCalledWith(
+          groups, 3, defaultProps.rowSpan,
+          BASIC_CELL_HEIGHT[VIEW_TYPES.WEEK],
+          true, BASIC_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL],
+        );
     });
   });
 });

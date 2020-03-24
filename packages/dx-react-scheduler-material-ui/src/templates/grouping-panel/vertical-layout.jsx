@@ -4,7 +4,9 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
-import { VERTICAL_GROUP_ORIENTATION, getVerticalRowFromGroups } from '@devexpress/dx-scheduler-core';
+import {
+  VERTICAL_GROUP_ORIENTATION, getVerticalRowFromGroups, getGroupsLastRow, VIEW_TYPES,
+} from '@devexpress/dx-scheduler-core';
 import { BASIC_CELL_HEIGHT } from '../constants';
 
 const styles = {
@@ -15,6 +17,7 @@ const styles = {
     },
   },
 };
+const allDayCellHeight = BASIC_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL];
 
 const VerticalLayoutBase = ({
   rowComponent: Row,
@@ -25,6 +28,7 @@ const VerticalLayoutBase = ({
   classes,
   className,
   cellTextTopOffset,
+  alignWithAllDayRow,
   ...restProps
 }) => {
   const timeTableCellHeight = BASIC_CELL_HEIGHT[viewType];
@@ -32,12 +36,15 @@ const VerticalLayoutBase = ({
   return (
     <Table className={classNames(classes.layout, className)} {...restProps}>
       <TableBody>
-        {groups[groups.length - 1].map((_, groupIndex) => (
+        {getGroupsLastRow(groups).map((_, groupIndex) => (
           <Row key={groupIndex.toString()}>
-            {getVerticalRowFromGroups(groups, groupIndex, rowSpan, timeTableCellHeight).map(({
+            {getVerticalRowFromGroups(
+              groups, groupIndex, rowSpan, timeTableCellHeight,
+              alignWithAllDayRow, allDayCellHeight,
+            ).map(({
               group: cellGroup,
               rowSpan: cellRowSpan,
-              height, key,
+              key, height,
             }) => (
               <Cell
                 group={cellGroup}
@@ -60,6 +67,7 @@ const VerticalLayoutBase = ({
 VerticalLayoutBase.propTypes = {
   rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  alignWithAllDayRow: PropTypes.bool,
   groups: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.object)).isRequired,
   rowSpan: PropTypes.number.isRequired,
   viewType: PropTypes.string.isRequired,
@@ -71,6 +79,7 @@ VerticalLayoutBase.propTypes = {
 VerticalLayoutBase.defaultProps = {
   cellTextTopOffset: undefined,
   className: undefined,
+  alignWithAllDayRow: false,
 };
 
 export const VerticalLayout = withStyles(styles, { name: 'VerticalLayout' })(VerticalLayoutBase);

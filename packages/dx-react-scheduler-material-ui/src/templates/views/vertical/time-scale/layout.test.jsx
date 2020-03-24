@@ -10,6 +10,7 @@ jest.mock('@material-ui/core/styles', () => ({
     timeScaleContainer: 'timeScaleContainer',
     ticks: 'ticks',
     cell: 'cell',
+    verticalCell: 'verticalCell',
   })),
 }));
 
@@ -54,6 +55,8 @@ describe('Vertical view TimeScale', () => {
         .toBeTruthy();
       expect(tree.find('.cell'))
         .toHaveLength(1);
+      expect(tree.find('.verticalCell'))
+        .toHaveLength(0);
     });
     it('should render array of time labels and TicksLayout', () => {
       const tree = shallow((
@@ -109,6 +112,59 @@ describe('Vertical view TimeScale', () => {
         .toBeUndefined();
 
       expect(tree.find('.cell'))
+        .toHaveLength(2);
+      expect(tree.find('.verticalCell'))
+        .toHaveLength(2);
+    });
+    it('should render labels and all-day title', () => {
+      const groups = [[
+        { id: 1 }, { id: 2 },
+      ]];
+      const cellsData = [
+        [{ startDate: new Date(2018, 6, 7, 16), endDate: new Date(2018, 6, 7, 18) }],
+        [{ startDate: new Date(2018, 6, 8, 16), endDate: new Date(2018, 6, 8, 18) }],
+        [{ startDate: new Date(2018, 6, 7, 18), endDate: new Date(2018, 6, 7, 20) }],
+        [{ startDate: new Date(2018, 6, 8, 18), endDate: new Date(2018, 6, 7, 20) }],
+      ];
+      const allDayTitle = jest.fn();
+      const tree = shallow((
+        <Layout
+          {...defaultProps}
+          cellsData={cellsData}
+          groupOrientation={VERTICAL_GROUP_ORIENTATION}
+          groups={groups}
+          allDayTitleComponent={allDayTitle}
+          showAllDayTitle
+        />
+      ));
+
+      const labels = tree.find(defaultProps.labelComponent);
+      expect(labels)
+        .toHaveLength(6);
+      expect(labels.at(0).prop('time'))
+        .toBeUndefined();
+      expect(labels.at(1).prop('time'))
+        .toEqual(expect.any(Date));
+      expect(labels.at(2).prop('time'))
+        .toBeUndefined();
+      expect(labels.at(3).prop('time'))
+        .toBeUndefined();
+      expect(labels.at(4).prop('time'))
+        .toEqual(expect.any(Date));
+      expect(labels.at(5).prop('time'))
+        .toBeUndefined();
+
+      const allDayTitles = tree.find(allDayTitle);
+      expect(allDayTitles)
+        .toHaveLength(2);
+      expect(allDayTitles.at(0).prop('fixedHeight'))
+        .toBeTruthy();
+      expect(allDayTitles.at(1).prop('fixedHeight'))
+        .toBeTruthy();
+
+      expect(tree.find('.cell'))
+        .toHaveLength(2);
+      expect(tree.find('.verticalCell'))
         .toHaveLength(2);
     });
   });

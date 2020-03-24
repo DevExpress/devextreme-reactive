@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { getClasses, createMount } from '@material-ui/core/test-utils';
-import { VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import { Layout } from './layout';
 
 describe('AllDayPanel', () => {
@@ -62,7 +61,7 @@ describe('AllDayPanel', () => {
       expect(tree.find(cell))
         .toHaveLength(2);
     });
-    it('should calls setCellElementsMeta', () => {
+    it('should call setCellElementsMeta', () => {
       const tree = mount((
         <Layout
           {...defaultProps}
@@ -76,19 +75,6 @@ describe('AllDayPanel', () => {
 
       expect(defaultProps.setCellElementsMeta)
         .toBeCalledTimes(2);
-    });
-    it('should render a row for every group if vertical grouping is used', () => {
-      const groups = [[
-        { id: 1 }, { id: 2 },
-      ]];
-      const tree = mount((
-        <Layout {...defaultProps} groups={groups} groupOrientation={VERTICAL_GROUP_ORIENTATION} />
-      ));
-
-      expect(tree.find(defaultProps.rowComponent))
-        .toHaveLength(2);
-      expect(tree.find(defaultProps.cellComponent))
-        .toHaveLength(4);
     });
   });
 });

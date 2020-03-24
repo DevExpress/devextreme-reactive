@@ -32,6 +32,7 @@ import { GroupingPanel } from '@devexpress/dx-react-scheduler';
 Name | Type | Default | Description
 -----|------|---------|------------
 horizontalLayoutComponent | ComponentType&lt;[GroupingPanel.HorizontalLayoutProps](#groupingpanelhorizontallayoutprops)&gt; | | A component that renders the grouping panel horizontally.
+verticalLayoutComponent | ComponentType&lt;[GroupingPanel.HorizontalLayoutProps](#groupingpanelhorizontallayoutprops)&gt; | | A component that renders the grouping panel vertically.
 rowComponent | ComponentType&lt;[GroupingPanel.RowProps](#groupingpanelrowprops)&gt; | | A component that renders a row on the grouping panel.
 cellComponent | ComponentType&lt;[GroupingPanel.CellProps](#groupingpanelcellprops)&gt; | | A component that renders a cell in a row on the grouping panel.
 
@@ -60,6 +61,18 @@ showHeaderForEveryDate? | boolean | Specifies whether to show group headings for
 rowComponent | ComponentType&lt;[GroupingPanel.RowProps](#groupingpanelrowprops)&gt; |  A component that renders a row on the grouping panel.
 cellComponent | ComponentType&lt;[GroupingPanel.CellProps](#groupingpanelcellprops)&gt; | A component that renders a cell in a row on the grouping panel.
 
+### GroupingPanel.VerticalLayoutProps
+
+Describes properties passed to a component that renders the grouping panel vertically.
+
+Field | Type | Description
+------|------|------------
+groups | Array&lt;Array&lt;[Group](#group)&gt;&gt; | Groups in the order in which they should be rendered.
+rowSpan | number | The number of rows in the timetable.
+viewType | string | The view in which the layout is rendered.
+rowComponent | ComponentType&lt;[GroupingPanel.RowProps](#groupingpanelrowprops)&gt; |  A component that renders a row on the grouping panel.
+cellComponent | ComponentType&lt;[GroupingPanel.CellProps](#groupingpanelcellprops)&gt; | A component that renders a cell in a row on the grouping panel.
+
 ### GroupingPanel.RowProps
 
 Describes properties passed to a component that renders a row on the grouping panel.
@@ -76,7 +89,12 @@ Field | Type | Description
 ------|------|------------
 group | [Group](#group) | The group the cell represents.
 colSpan | number | The number of columns the cell spans.
+rowSpan? | number | The number of rows the cell spans.
 left | number | The cell's offset from the left.
+height? | number | The cell's height.
+topOffSet? | number | The distance between the cell's text and the top edge of the Scheduler.
+textStyle? | object | CSS properties to be applied to the cell's text.
+groupOrientation? | [GroupOrientation](./grouping-state.md#grouporientation) | The orientation of groups: `Vertical` or `Horizontal`.
 endOfGroup? | boolean | `true` if this cell is last in its group.
 groupedByDate? | boolean | Indicates whether grouping by date is enabled. Takes its value from the `groupByDate` property of the [GroupingState](grouping-state.md) plugin.
 children? | ReactNode | A React node used to render additional content to the cell.
@@ -86,6 +104,7 @@ children? | ReactNode | A React node used to render additional content to the ce
 Name | Properties | Description
 -----|------------|------------
 GroupingPanel.HorizontalLayout | [GroupingPanel.HorizontalLayoutProps](#groupingpanelhorizontallayoutprops) | A component that renders the grouping panel horizontally.
+GroupingPanel.VerticalLayout | [GroupingPanel.VerticalLayoutProps](#groupingpanelverticallayoutprops) | A component that renders the grouping panel vertically.
 GroupingPanel.Row | [GroupingPanel.RowProps](#groupingpanelrowprops) | A component that renders a row on the grouping panel.
 GroupingPanel.Cell | [GroupingPanel.CellProps](#groupingpanelcellprops) | A component that renders a cell in a row on the grouping panel.
 

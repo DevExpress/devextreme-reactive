@@ -24,6 +24,12 @@ A single appointment can appear in multiple groups if it is assigned to [multipl
 
 .embedded-demo({ "path": "scheduler-grouping/basic", "showThemeSelector": true })
 
+## Vertical Group Orientation
+
+Groups are arranged horizontally (one next to another). To arrange them vertically (one _under_ another), set the `GroupingState`'s `groupOrientation` property to `Vertical`. You can use different group orientations for different views, as we do in the following example:
+
+.embedded-demo({ "path": "scheduler-grouping/group-orientation", "showThemeSelector": true })
+
 ## Group by Date
 
 To group appointments by date, set the `GroupingState`'s `groupByDate` property to `true`.

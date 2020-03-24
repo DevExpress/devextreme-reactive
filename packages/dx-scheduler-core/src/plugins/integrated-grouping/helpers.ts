@@ -168,5 +168,9 @@ export const getGroupingInfoFromGroups: PureComputed<
     )];
     previousIndex = currentIndex;
     return [...acc, currentGroupingInstance];
-  }, [groups[groups.length - 1][groupIndex]]);
+  }, [getGroupsLastRow(groups)[groupIndex]]);
 };
+
+export const getGroupsLastRow: PureComputed<
+  [Group[][]], Group[]
+> = groups => groups[groups.length - 1];

@@ -36,5 +36,13 @@ describe('Vertical view TimeScale', () => {
       expect(tree.is(`.${classes.brightBottomBorder}`))
         .toBeTruthy();
     });
+    it('should render all-day tick cell', () => {
+      const tree = shallow((
+        <TickCell isAllDay />
+      ));
+
+      expect(tree.is(`.${classes.allDayCell}`))
+        .toBeTruthy();
+    });
   });
 });

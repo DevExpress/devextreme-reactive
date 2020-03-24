@@ -3,9 +3,8 @@ import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
-  computed,
-  viewCellsData,
-  calculateWeekDateIntervals,
+  computed, viewCellsData,
+  calculateWeekDateIntervals, getTimeTableHeight,
 } from '@devexpress/dx-scheduler-core';
 import { DayView } from './day-view';
 import { BasicView } from './basic-view';
@@ -17,7 +16,8 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
   availableViews: jest.fn(),
-  calculateWeekDateIntervals:jest.fn(),
+  calculateWeekDateIntervals: jest.fn(),
+  getTimeTableHeight: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -132,5 +132,26 @@ describe('Day View', () => {
           formatDate: defaultDeps.getter.formatDate,
         });
     });
+  });
+  it('should call "getTimeTableHeight" with proper parameters', () => {
+    mount((
+      <PluginHost>
+        {pluginDepsToComponents({
+          ...defaultDeps,
+          getter: {
+            ...defaultDeps.getter,
+            allDayElementsMeta: 'allDayElementsMeta',
+            allDayPanelExists: 'allDayPanelExists',
+            groupOrientation: () => 'groupOrientation',
+          },
+        })}
+        <DayView
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    expect(getTimeTableHeight)
+      .toBeCalledWith({});
   });
 });

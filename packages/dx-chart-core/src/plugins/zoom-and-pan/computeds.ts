@@ -104,7 +104,7 @@ export const getViewport = (
   rotated: boolean,
   [argInteraction, valInteraction]: Readonly<[Interaction, Interaction]>, type: Interaction,
   deltas: Readonly<[number, number]> | null,
-  anchors: Readonly<[number, number]> | null,
+  anchors: Readonly<number[]> | null,
   ranges: Readonly<[NumberArray, NumberArray]> | null,
   viewport?: Viewport, onViewportChange?: OnViewportChangeFn,
 ) => {

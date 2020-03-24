@@ -6,7 +6,6 @@ import {
   TimeBoundariesByDrag, TimeBoundariesByResize, AppointmentModel,
   CellElementsMeta, Grouping, ValidResource, Group, SchedulerDateTime, GroupOrientation,
 } from '../../types';
-import { allDayCellsData as allDayCellsDataCore } from '../all-day-panel/helpers';
 import {
   VERTICAL_TYPE, HORIZONTAL_TYPE, SCROLL_OFFSET, MINUTES,
   SCROLL_SPEED_PX, SECONDS, RESIZE_TOP, RESIZE_BOTTOM, HOURS,
@@ -44,15 +43,15 @@ export const cellIndex: PureComputed<
 });
 
 export const cellData: PureComputed<
-  [number, number, ViewCell[][], Group[][], GroupOrientation], ViewCell | AllDayCell
-> = (timeTableIndex, allDayIndex, viewCellsData, groups, groupOrientation) => {
-  if (allDayIndex !== -1) {
-    const allDayCellsData = allDayCellsDataCore(viewCellsData, groups, groupOrientation);
-    return allDayCellsData[allDayIndex];
-  }
-  const rowIndex = Math.floor(timeTableIndex / viewCellsData[0].length);
-  const columnIndex = timeTableIndex % viewCellsData[0].length;
-  return viewCellsData[rowIndex][columnIndex];
+  [number, number, ViewCell[][], ViewCell[][]], ViewCell | AllDayCell
+> = (timeTableIndex, allDayIndex, viewCellsData, allDayCellsData) => {
+  const cellsData = allDayIndex !== -1 ? allDayCellsData : viewCellsData;
+  const currentIndex = allDayIndex !== -1 ? allDayIndex : timeTableIndex;
+  const tableWidth = cellsData[0].length;
+
+  const rowIndex = Math.floor(currentIndex / tableWidth);
+  const columnIndex = currentIndex % tableWidth;
+  return cellsData[rowIndex][columnIndex];
 };
 
 export const autoScroll: PureComputed<

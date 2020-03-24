@@ -1,7 +1,8 @@
 import {
   filterResourcesByGrouping, sortFilteredResources,
   getGroupsFromResources, expandViewCellsDataWithGroups,
-  updateGroupingWithMainResource, expandGroups,
+  updateGroupingWithMainResource, expandGroups, updateTimeTableCellElementsMeta,
+  updateAllDayCellElementsMeta,
 } from './computeds';
 import { expandGroupedAppointment, groupAppointments } from './helpers';
 import { sliceAppointmentsByDays } from '../all-day-panel/helpers';
@@ -338,6 +339,161 @@ describe('IntegratedGrouping computeds', () => {
         .toHaveBeenCalledWith(['expandGroupedAppointment'], 'resources', 'groups');
       expect(sliceAppointmentsByDays)
         .toHaveBeenCalledWith({}, []);
+    });
+  });
+
+  describe('#updateTimeTableCellElementsMeta', () => {
+    it('should not update if getCellRects is undefined', () => {
+      const timeTableCellElementsMeta = {};
+      expect(updateTimeTableCellElementsMeta(
+        timeTableCellElementsMeta, () => VERTICAL_GROUP_ORIENTATION, 'groups', true,
+        'viewCellsData', {},
+      ))
+        .toEqual(timeTableCellElementsMeta);
+    });
+    it('should leave cell elements as they are if groupOrientation is horizontal or all day panel does not exist', () => {
+      const timeTableCellElementsMeta = { getCellRects: 'test' };
+
+      let allDayPanelExists = false;
+      expect(updateTimeTableCellElementsMeta(
+        timeTableCellElementsMeta, () => VERTICAL_GROUP_ORIENTATION, 'groups', allDayPanelExists,
+        'viewCellsData', {},
+      ))
+        .toEqual(timeTableCellElementsMeta);
+
+      allDayPanelExists = true;
+      expect(updateTimeTableCellElementsMeta(
+        timeTableCellElementsMeta, () => HORIZONTAL_GROUP_ORIENTATION, 'groups', allDayPanelExists,
+        'viewCellsData', {},
+      ))
+        .toEqual(timeTableCellElementsMeta);
+    });
+    it('should delete elements belonging to all day cells', () => {
+      const viewCellsData = [
+        [{ groupingInfo: 'First group' }, { groupingInfo: 'First group' }],
+        [{ groupingInfo: 'First group' }, { groupingInfo: 'First group' }],
+        [{ groupingInfo: 'Second group' }, { groupingInfo: 'Second group' }],
+        [{ groupingInfo: 'Second group' }, { groupingInfo: 'Second group' }],
+      ];
+      const timeTableCellElementsMeta = {
+        parentRect: 'Parent rect',
+        getCellRects: [
+          // All-day panel
+          'First cell',
+          'Second cell',
+          // TimeTable
+          'Third cell',
+          'Fourth cell',
+          'Fifth cell',
+          'Sixth cell',
+          // All-day panel
+          'Seventh cell',
+          'Eighth cell',
+          // TimeTable
+          'Ninth cell',
+          'Tenth cell',
+          'Eleventh cell',
+          'Twelfth cell',
+        ],
+      };
+      const groups = [[{}, {}]];
+
+      expect(updateTimeTableCellElementsMeta(
+        timeTableCellElementsMeta, () => VERTICAL_GROUP_ORIENTATION, groups, true,
+        viewCellsData, {},
+      ))
+        .toEqual({
+          parentRect: 'Parent rect',
+          getCellRects: [
+            // TimeTable
+            'Third cell',
+            'Fourth cell',
+            'Fifth cell',
+            'Sixth cell',
+            // TimeTable
+            'Ninth cell',
+            'Tenth cell',
+            'Eleventh cell',
+            'Twelfth cell',
+          ],
+        });
+    });
+  });
+
+  describe('#updateAllDayCellElementsMeta', () => {
+    it('should not update if timeTableCellElementsMeta\'s getCellRects is undefined', () => {
+      const timeTableCellElementsMeta = {};
+      const allDayElementsMeta = { test: 'test' };
+      expect(updateAllDayCellElementsMeta(
+        allDayElementsMeta, timeTableCellElementsMeta, () => VERTICAL_GROUP_ORIENTATION,
+        'groups', true, 'viewCellsData', {},
+      ))
+        .toEqual(allDayElementsMeta);
+    });
+    it('should leave cell elements as they are if groupOrientation is horizontal or all day panel does not exist', () => {
+      const timeTableCellElementsMeta = { getCellRects: 'test' };
+      const allDayElementsMeta = { test: 'test' };
+
+      let allDayPanelExists = false;
+      expect(updateAllDayCellElementsMeta(
+        allDayElementsMeta, timeTableCellElementsMeta, () => VERTICAL_GROUP_ORIENTATION,
+        'groups', allDayPanelExists, 'viewCellsData', {},
+      ))
+        .toEqual(allDayElementsMeta);
+
+      allDayPanelExists = true;
+      expect(updateAllDayCellElementsMeta(
+        allDayElementsMeta, timeTableCellElementsMeta, () => HORIZONTAL_GROUP_ORIENTATION,
+        'groups', allDayPanelExists, 'viewCellsData', {},
+      ))
+        .toEqual(allDayElementsMeta);
+    });
+    it('should delete elements belonging to timetable cells', () => {
+      const viewCellsData = [
+        [{ groupingInfo: 'First group' }, { groupingInfo: 'First group' }],
+        [{ groupingInfo: 'First group' }, { groupingInfo: 'First group' }],
+        [{ groupingInfo: 'Second group' }, { groupingInfo: 'Second group' }],
+        [{ groupingInfo: 'Second group' }, { groupingInfo: 'Second group' }],
+      ];
+      const timeTableCellElementsMeta = {
+        parentRect: 'Parent rect',
+        getCellRects: [
+          // All-day panel
+          'First cell',
+          'Second cell',
+          // TimeTable
+          'Third cell',
+          'Fourth cell',
+          'Fifth cell',
+          'Sixth cell',
+          // All-day panel
+          'Seventh cell',
+          'Eighth cell',
+          // TimeTable
+          'Ninth cell',
+          'Tenth cell',
+          'Eleventh cell',
+          'Twelfth cell',
+        ],
+      };
+      const allDayElementsMeta = {};
+      const groups = [[{}, {}]];
+
+      expect(updateAllDayCellElementsMeta(
+        allDayElementsMeta, timeTableCellElementsMeta, () => VERTICAL_GROUP_ORIENTATION,
+        groups, true, viewCellsData, {},
+      ))
+        .toEqual({
+          parentRect: 'Parent rect',
+          getCellRects: [
+            // All-day panel
+            'First cell',
+            'Second cell',
+            // All-day panel
+            'Seventh cell',
+            'Eighth cell',
+          ],
+        });
     });
   });
 });

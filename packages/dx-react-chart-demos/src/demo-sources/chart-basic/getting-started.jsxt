@@ -10,7 +10,7 @@ import {
 const data = [
   { argument: 1, value: 10 },
   { argument: 2, value: 20 },
-  { argument: 3, value: 30 }
+  { argument: 3, value: 30 },
 ];
 
 export default () => (
@@ -21,7 +21,7 @@ export default () => (
       <ArgumentAxis />
       <ValueAxis />
 
-      <LineSeries valueField="value" argumentField="argument"/>
+      <LineSeries valueField="value" argumentField="argument" />
     </Chart>
   </<%&wrapperTag%>>
 );

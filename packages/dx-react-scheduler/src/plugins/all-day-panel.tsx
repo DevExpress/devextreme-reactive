@@ -86,7 +86,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
 
   allDayPanelExistsComputed = memoize(({
     currentView,
-  }) => currentView.type !== VIEW_TYPES.MONTH);
+  }) => !isMonthView(currentView));
 
   getMessageFormatter = memoize((messages, allDayPanelDefaultMessages) =>
     getMessagesFormatter({ ...allDayPanelDefaultMessages, ...messages }));

@@ -353,7 +353,8 @@ class DragDropProviderBase extends React.PureComponent<
               <>
                 <TemplatePlaceholder />
                 {groupOrientation?.(currentView.name) !== VERTICAL_GROUP_ORIENTATION
-                  && renderAppointmentItems(this.allDayDraftAppointments, Container, draftData)}
+                  ? renderAppointmentItems(this.allDayDraftAppointments, Container, draftData)
+                  : null}
               </>
             )}
           </TemplateConnector>
@@ -366,7 +367,8 @@ class DragDropProviderBase extends React.PureComponent<
                 <TemplatePlaceholder />
                 {renderAppointmentItems(this.timeTableDraftAppointments, Container, draftData)}
                 {groupOrientation?.(currentView.name) === VERTICAL_GROUP_ORIENTATION
-                  && renderAppointmentItems(this.allDayDraftAppointments, Container, draftData)}
+                  ? renderAppointmentItems(this.allDayDraftAppointments, Container, draftData)
+                  : null}
               </>
             )}
           </TemplateConnector>

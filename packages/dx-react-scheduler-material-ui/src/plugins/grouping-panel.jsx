@@ -3,9 +3,8 @@ import { GroupingPanel as GroupingPanelBase } from '@devexpress/dx-react-schedul
 import { HorizontalLayout } from '../templates/grouping-panel/horizontal-layout';
 import { VerticalLayout } from '../templates/grouping-panel/vertical-layout';
 import { Cell } from '../templates/grouping-panel/cell';
-import { AllDayCell } from '../templates/grouping-panel/all-day-cell';
 import { Row } from '../templates/views/common/row';
 
 export const GroupingPanel = withComponents({
-  HorizontalLayout, VerticalLayout, Cell, AllDayCell, Row,
+  HorizontalLayout, VerticalLayout, Cell, Row,
 })(GroupingPanelBase);

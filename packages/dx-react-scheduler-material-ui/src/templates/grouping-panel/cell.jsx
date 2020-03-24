@@ -21,9 +21,7 @@ const useStyles = makeStyles(theme => ({
       height ? theme.spacing(height) : undefined
     ),
   },
-  text: ({
-    textStyle, height, left,
-  }) => ({
+  text: ({ textStyle, left }) => ({
     ...theme.typography.caption,
     padding: theme.spacing(1),
     color: theme.palette.text.secondary,
@@ -33,7 +31,6 @@ const useStyles = makeStyles(theme => ({
     display: 'inline-block',
     left: `${left}px`,
     lineHeight: 1.5,
-    maxHeight: height ? theme.spacing(height - 2) : undefined,
     whiteSpace: 'pre-wrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -47,7 +44,7 @@ const useStyles = makeStyles(theme => ({
       borderTop: 'none',
     },
   },
-  verticalCell: ({ rowSpan }) => ({
+  verticalCell: ({ rowSpan, height }) => ({
     borderBottom: getBrightBorder(theme),
     [`tr:nth-last-child(${rowSpan}) &`]: {
       borderBottom: 'none',
@@ -57,6 +54,7 @@ const useStyles = makeStyles(theme => ({
     width: theme.spacing(GROUPING_PANEL_VERTICAL_CELL_WIDTH),
     minWidth: theme.spacing(GROUPING_PANEL_VERTICAL_CELL_WIDTH),
     maxWidth: theme.spacing(GROUPING_PANEL_VERTICAL_CELL_WIDTH),
+    maxHeight: height ? theme.spacing(height - 2) : undefined,
   }),
   groupedByDate: {
     borderRight: ({ endOfGroup }) => (endOfGroup

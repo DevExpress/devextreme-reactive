@@ -7,7 +7,8 @@ import {
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
-  viewCellsData as viewCellsDataCore, calculateWeekDateIntervals, VIEW_TYPES,
+  viewCellsData as viewCellsDataCore, calculateWeekDateIntervals,
+  VIEW_TYPES, getTimeTableHeight,
 } from '@devexpress/dx-scheduler-core';
 import { BasicView } from './basic-view';
 import { VerticalViewProps } from '../types';
@@ -108,25 +109,31 @@ class DayViewBase extends React.PureComponent<VerticalViewProps> {
         />
 
         <Template name="timeScale">
-          <TemplateConnector>
-            {({
-              currentView, viewCellsData, groups, formatDate, groupOrientation: getGroupOrientation,
-            }) => {
-              if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              const groupOrientation = getGroupOrientation?.(viewName);
-              return (
-                <TimeScale
-                  labelComponent={TimeScaleLabel}
-                  tickCellComponent={timeScaleTickCellComponent}
-                  rowComponent={timeScaleTicksRowComponent}
-                  cellsData={viewCellsData}
-                  formatDate={formatDate}
-                  groups={groups}
-                  groupOrientation={groupOrientation}
-                />
-              );
-            }}
-          </TemplateConnector>
+          {(params: any) => (
+            <TemplateConnector>
+              {({
+                currentView, viewCellsData, groups, formatDate,
+                groupOrientation: getGroupOrientation,
+                timeTableElementsMeta,
+              }) => {
+                if (currentView.name !== viewName) return <TemplatePlaceholder />;
+                const groupOrientation = getGroupOrientation?.(viewName);
+                return (
+                  <TimeScale
+                    labelComponent={TimeScaleLabel}
+                    tickCellComponent={timeScaleTickCellComponent}
+                    rowComponent={timeScaleTicksRowComponent}
+                    cellsData={viewCellsData}
+                    formatDate={formatDate}
+                    groups={groups}
+                    groupOrientation={groupOrientation}
+                    height={getTimeTableHeight(timeTableElementsMeta)}
+                    {...params}
+                  />
+                );
+              }}
+            </TemplateConnector>
+          )}
         </Template>
       </Plugin >
     );

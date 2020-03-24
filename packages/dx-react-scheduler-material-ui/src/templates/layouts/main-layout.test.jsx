@@ -158,13 +158,4 @@ describe('Main Layout', () => {
     expect(tree.find('.leftPanelWithoutTimeScale'))
       .toHaveLength(1);
   });
-
-  it('should highlight day scale', () => {
-    const tree = mount((
-      <MainLayout {...defaultProps} highlightDayScale />
-    ));
-
-    expect(tree.find('.brightHeaderBorder').exists())
-      .toBeTruthy();
-  });
 });

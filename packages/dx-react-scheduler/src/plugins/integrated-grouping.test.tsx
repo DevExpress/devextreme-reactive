@@ -5,7 +5,7 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing
 import {
   getGroupsFromResources, expandViewCellsDataWithGroups,
   sortFilteredResources, filterResourcesByGrouping, updateGroupingWithMainResource,
-  expandGroups,
+  expandGroups, updateAllDayCellElementsMeta, updateTimeTableCellElementsMeta,
 } from '@devexpress/dx-scheduler-core';
 import { IntegratedGrouping } from './integrated-grouping';
 
@@ -17,6 +17,8 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   filterResourcesByGrouping: jest.fn(),
   updateGroupingWithMainResource: jest.fn(),
   expandGroups: jest.fn(),
+  updateTimeTableCellElementsMeta: jest.fn(),
+  updateAllDayCellElementsMeta: jest.fn(),
 }));
 
 describe('IntegratedGrouping', () => {
@@ -26,12 +28,16 @@ describe('IntegratedGrouping', () => {
       timeTableAppointments: 'timeTableAppointments',
       allDayAppointments: 'allDayAppointments',
       viewCellsData: 'viewCellsData',
+      allDayCellsData: 'allDayCellsData',
       resources: 'resources',
       grouping: 'grouping',
       currentView: { name: 'currentView' },
       groupByDate: () => true,
       excludedDays: 'excludedDays',
       groupOrientation: () => 'groupOrientation',
+      allDayElementsMeta: 'allDayElementsMeta',
+      timeTableElementsMeta: 'timeTableElementsMeta',
+      allDayPanelExists: 'allDayPanelExists',
     },
   };
   beforeEach(() => {
@@ -41,6 +47,8 @@ describe('IntegratedGrouping', () => {
     expandViewCellsDataWithGroups.mockImplementation(() => 'groupedViewCellsData');
     updateGroupingWithMainResource.mockImplementation(() => 'groupingComputed');
     expandGroups.mockImplementation(() => 'expandGroups');
+    updateTimeTableCellElementsMeta.mockImplementation(() => 'timeTableElementsMeta updated');
+    updateAllDayCellElementsMeta.mockImplementation(() => 'allDayElementsMeta updated');
   });
   afterEach(jest.resetAllMocks);
 
@@ -102,6 +110,20 @@ describe('IntegratedGrouping', () => {
       .toBe('groupedViewCellsData');
   });
 
+  it('should provide allDayCellsData getter', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <IntegratedGrouping />
+      </PluginHost>
+    ));
+
+    expect(expandViewCellsDataWithGroups)
+      .toHaveBeenCalledWith('allDayCellsData', 'groups', 'resourcesToGroupBy', true, 'groupOrientation');
+    expect(getComputedState(tree).allDayCellsData)
+      .toBe('groupedViewCellsData');
+  });
+
   it('should provide timeTableAppointments getter', () => {
     const tree = mount((
       <PluginHost>
@@ -131,5 +153,43 @@ describe('IntegratedGrouping', () => {
       );
     expect(getComputedState(tree).allDayAppointments)
       .toBe('expandGroups');
+  });
+
+  it('should provide allDayElementsMeta getter', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <IntegratedGrouping />
+      </PluginHost>
+    ));
+
+    expect(updateAllDayCellElementsMeta)
+      .toHaveBeenCalledWith(
+        'allDayElementsMeta', 'timeTableElementsMeta',
+        defaultDeps.getter.groupOrientation,
+        'groups', 'allDayPanelExists', 'groupedViewCellsData',
+        defaultDeps.getter.currentView,
+      );
+    expect(getComputedState(tree).allDayElementsMeta)
+      .toBe('allDayElementsMeta updated');
+  });
+
+  it('should provide timeTableElementsMeta getter', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <IntegratedGrouping />
+      </PluginHost>
+    ));
+
+    expect(updateTimeTableCellElementsMeta)
+      .toHaveBeenCalledWith(
+        'timeTableElementsMeta',
+        defaultDeps.getter.groupOrientation,
+        'groups', 'allDayPanelExists', 'groupedViewCellsData',
+        defaultDeps.getter.currentView,
+      );
+    expect(getComputedState(tree).timeTableElementsMeta)
+      .toBe('timeTableElementsMeta updated');
   });
 });

@@ -1,7 +1,8 @@
 import { PureComputed } from '@devexpress/dx-core';
 import { HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
-import { ViewCell, Group, GroupOrientation, TimeScaleLabelData } from '../../types';
+import { ViewCell, Group, GroupOrientation, TimeScaleLabelData, AllDayCell } from '../../types';
 import { getCellKey } from '../grouping-panel/utils';
+import { getGroupsLastRow } from '../integrated-grouping/helpers';
 
 const getLabelsForSingleGroup: PureComputed<
   [Group[][], ViewCell[][], number, number], TimeScaleLabelData[]
@@ -34,10 +35,10 @@ export const getLabelsForAllGroups: PureComputed<
     }))];
   }
 
-  const groupCount = groups[groups.length - 1].length;
+  const groupCount = getGroupsLastRow(groups).length;
   const singleGroupHeight = cellsData.length / groupCount;
 
-  return groups[groups.length - 1].reduce((
+  return getGroupsLastRow(groups).reduce((
     acc: TimeScaleLabelData[][], group: Group, groupIndex: number,
   ) => [
     ...acc,
@@ -45,4 +46,16 @@ export const getLabelsForAllGroups: PureComputed<
       groups, cellsData, groupIndex, singleGroupHeight,
     ) as TimeScaleLabelData[],
   ], [] as TimeScaleLabelData[][]);
+};
+
+export const prepareVerticalViewCellsData: PureComputed<
+  [ViewCell[][], AllDayCell[][]], ViewCell[][][]
+> = (cellsData, allDayCellsData) => {
+  const groupCount = allDayCellsData?.length || 1;
+  const validCellsData = [] as ViewCell[][][];
+  const groupHeight = cellsData.length / groupCount;
+  for (let i = 0; i < groupCount; i += 1) {
+    validCellsData.push(cellsData.slice(i * groupHeight, (i + 1) * groupHeight));
+  }
+  return validCellsData;
 };

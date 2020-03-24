@@ -102,6 +102,17 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
     requestNextPage({ forceReload: true });
   }
 
+  changeColumnFilterAction = (
+    _: any,
+    __: Getters,
+    { clearRowsCacheAction }: Actions,
+  ) => {
+    this.setState({
+      requestedStartIndex: 0,
+    });
+    clearRowsCacheAction();
+  }
+
   static getDerivedStateFromProps(nextProps, prevState) {
     const {
       availableRowCount = prevState.availableRowCount,
@@ -154,7 +165,7 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
         <Action name="setViewport" action={this.setViewport} />
         <Action name="clearRowCache" action={this.clearRowsCacheAction} />
         <Action name="changeColumnSorting" action={this.clearRowsCacheAction} />
-        <Action name="changeColumnFilter" action={this.clearRowsCacheAction} />
+        <Action name="changeColumnFilter" action={this.changeColumnFilterAction} />
       </Plugin>
     );
   }

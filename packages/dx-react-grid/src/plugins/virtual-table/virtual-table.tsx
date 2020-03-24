@@ -119,6 +119,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
 
           {/* prevents breaking change */}
           <Action name="setViewport" action={this.setViewport} />
+          <Action name="scrollToRow" action={this.scrollToRow} />
           <Getter name="viewport" value={stateViewport} />
           <Getter name="tableColumns" computed={tableColumnsComputed} />
 

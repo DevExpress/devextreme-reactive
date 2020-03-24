@@ -75,6 +75,7 @@ describe('#makeVirtualTable', () => {
     },
     action: {
       setViewport: jest.fn(),
+      scrollToRow: jest.fn(),
     },
     template: {
       tableLayout: {
@@ -135,6 +136,24 @@ describe('#makeVirtualTable', () => {
         .toBeCalledWith(defaultDeps.getter.tableColumns);
       expect(getComputedState(tree).tableColumns)
         .toBe('checkColumnWidths');
+    });
+  });
+
+  describe('scrollToRow', () => {
+    const VirtualTable = makeVirtualTable(TableMock, defaultVirtualTableProps);
+
+    it('should provide scrollToRow action', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <VirtualTable />
+        </PluginHost>
+      ));
+
+      executeComputedAction(tree, actions => actions.scrollToRow());
+
+      expect(defaultDeps.action.scrollToRow)
+        .toHaveBeenCalled();
     });
   });
 

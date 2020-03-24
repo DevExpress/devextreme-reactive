@@ -30,6 +30,9 @@ const defaultDeps = {
     rows: [{ id: 1 }],
     getRowId: row => row.id,
   },
+  action: {
+    clearRowsCacheAction: () => {},
+  },
 };
 
 const defaultProps = {
@@ -207,9 +210,9 @@ describe('VirtualTableState', () => {
         executeComputedAction(tree, actions => actions.changeColumnFilter({}));
         jest.runAllTimers();
 
-        expect(getRows).toHaveBeenCalledTimes(2);
+        expect(getRows).toHaveBeenCalledTimes(1);
         expect(getRows)
-          .toHaveBeenCalledWith(100, 200); // reload visible range
+          .toHaveBeenCalledWith(0, 100); // reload visible range
       });
     });
   });

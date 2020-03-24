@@ -5,8 +5,7 @@
 ```ts
 
 import { Cell } from 'exceljs';
-import { Column } from '@devexpress/dx-react-grid/dist/dx-react-grid';
-import { CustomizeSummaryCellFn } from '@devexpress/dx-react-grid/dist/dx-react-grid';
+import { Column as Column_2 } from '@devexpress/dx-react-grid/dist/dx-react-grid';
 import { FilteringStateProps } from '@devexpress/dx-react-grid/dist/dx-react-grid';
 import { GridProps } from '@devexpress/dx-react-grid/dist/dx-react-grid';
 import { GroupingStateProps } from '@devexpress/dx-react-grid/dist/dx-react-grid';
@@ -23,6 +22,16 @@ import { TableProps } from '@devexpress/dx-react-grid/dist/dx-react-grid';
 import { Workbook } from 'exceljs';
 import { Worksheet } from 'exceljs';
 
+// @public
+export interface Column {
+    getCellValue?: GetCellValueFn;
+    name: string;
+    title?: string;
+}
+
+// @public (undocumented)
+export type CustomizeSummaryCellFn = (cell: Cell, column: Column, summary: ExportSummary) => void;
+
 // @public (undocumented)
 export type ExporterProps = Omit<GridProps, 'rootComponent'> & Pick<FilteringStateProps, 'filters'> & Pick<SortingStateProps, 'sorting'> & Pick<GroupingStateProps, 'grouping'> & Pick<TableGroupRowProps, 'showColumnsWhenGrouped'> & Pick<SelectionStateProps, 'selection'> & Pick<TableProps, 'columnExtensions'> & Pick<TableColumnVisibilityProps, 'hiddenColumnNames'> & {
     columnOrder?: string[];
@@ -30,14 +39,29 @@ export type ExporterProps = Omit<GridProps, 'rootComponent'> & Pick<FilteringSta
     totalSummaryItems?: SummaryItem[];
     groupSummaryItems?: GroupSummaryItem[];
     onSave: (workbook: Workbook) => void;
-    customizeCell?: (cell: Cell, row: Row, column: Column) => void;
+    customizeCell?: (cell: Cell, row: Row, column: Column_2) => void;
     customizeSummaryCell?: CustomizeSummaryCellFn;
     customizeHeader?: (worksheet: Worksheet) => void;
     customizeFooter?: (worksheet: Worksheet) => void;
 };
 
 // @public (undocumented)
+export type ExportRanges = readonly number[][];
+
+// @public (undocumented)
+export type ExportSummary = {
+    type: SummaryType;
+    ranges: ExportRanges;
+};
+
+// @public (undocumented)
+export type GetCellValueFn = (row: any, columnName: string) => any;
+
+// @public (undocumented)
 export const GridExporter: React.ComponentType<ExporterProps>;
+
+// @public (undocumented)
+export type SummaryType = string;
 
 
 // (No @packageDocumentation comment for this package)

@@ -37,6 +37,7 @@ export namespace AllDayPanel {
     groupingInfo?: Array<Group>;
     groupOrientation?: GroupOrientation;
     hasRightBorder?: boolean;
+    onDoubleClick?: (e: any) => void;
     startDate: Date;
   }
   export interface ContainerProps {
@@ -484,6 +485,7 @@ export namespace BaseView {
         groupOrientation?: GroupOrientation;
         hasRightBorder?: boolean;
         isShaded?: boolean;
+        onDoubleClick?: (e: any) => void;
         startDate?: Date;
     }
     export interface TimeTableLayoutProps {
@@ -929,6 +931,7 @@ export namespace MonthView {
     groupOrientation?: GroupOrientation;
     hasRightBorder?: boolean;
     isShaded?: boolean;
+    onDoubleClick?: (e: any) => void;
     otherMonth?: boolean;
     startDate: Date;
     today?: boolean;

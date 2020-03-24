@@ -1,2 +1,2 @@
-export * from './plugins/grid-exporter';
 export * from './types';
+export { GridExporter } from './plugins/grid-exporter';

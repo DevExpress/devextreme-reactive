@@ -4,7 +4,6 @@
 
 ```ts
 
-import { Cell } from 'exceljs';
 import * as React from 'react';
 
 // @public (undocumented)
@@ -108,12 +107,6 @@ export interface CustomGroupingProps {
   }>;
   grouping?: Grouping[] | null;
 }
-
-// @public (undocumented)
-export type CustomizeCellFn = (cell: Cell, row: Row, column: Column) => void;
-
-// @public (undocumented)
-export type CustomizeSummaryCellFn = (cell: Cell, column: Column, summary: ExportSummary) => void;
 
 // @public
 export const CustomPaging: React.ComponentType<CustomPagingProps>;
@@ -293,15 +286,6 @@ export interface ExportPanelProps {
     startExport(config?: object): void;
     toggleButtonComponent: React.ComponentType<ExportPanel.ToggleButtonProps>;
 }
-
-// @public (undocumented)
-export type ExportRanges = readonly number[][];
-
-// @public (undocumented)
-export type ExportSummary = {
-  type: SummaryType;
-  ranges: ExportRanges;
-};
 
 // @public
 export interface Filter {
@@ -1520,7 +1504,7 @@ export interface VirtualTableProps {
     messages?: Table.LocalizationMessages;
     noDataCellComponent: React.ComponentType<Table.NoDataCellProps>;
     noDataRowComponent: React.ComponentType<Table.RowProps>;
-    onTopRowChange: (rowId: number | string | symbol) => void;
+    onTopRowChange: (rowId: number | string | symbol | undefined) => void;
     ref?: React.RefObject<typeof VirtualTable>;
     rowComponent: React.ComponentType<Table.DataRowProps>;
     // (undocumented)

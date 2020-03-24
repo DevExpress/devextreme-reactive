@@ -44,6 +44,8 @@ export const isInlineGroupCaptionSummary: PureComputed<[SummaryItem], boolean> =
   !((summaryItem as GroupSummaryItem).showInGroupFooter ||
   (summaryItem as GroupSummaryItem).alignByColumn)
 );
+export const groupFooterSummaryExists: PureComputed<[GroupSummaryItem[]], boolean> =
+  groupSummaryItems => groupSummaryItems?.some(isFooterSummary);
 
 export const getGroupInlineSummaries: GetGroupInlineSummariesFn = (
   summaryItems, columns, summaryValues,

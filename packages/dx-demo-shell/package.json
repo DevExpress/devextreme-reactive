@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@devexpress/dx-demo-shell",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "DevExtreme Reactive Components Demo Shell",
   "author": {
     "name": "Developer Express Inc.",
@@ -32,6 +32,7 @@
     "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.8.7",
     "@babel/preset-react": "^7.8.3",
+    "@rollup/plugin-node-resolve": "^7.1.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.3",
     "core-js": "^3.4.1",
@@ -45,7 +46,6 @@
     "mustache": "^3.1.0",
     "rollup": "^1.27.2",
     "rollup-plugin-babel": "^4.3.3",
-    "@rollup/plugin-node-resolve": "^7.1.1",
     "rollup-plugin-sass": "^1.2.2"
   },
   "dependencies": {

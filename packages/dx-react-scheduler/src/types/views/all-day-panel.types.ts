@@ -66,6 +66,8 @@ export namespace AllDayPanel {
     endOfGroup?: boolean;
     /** Scheduler's grouping orientation: either 'Vertical' or 'Horizontal'. */
     groupOrientation?: GroupOrientation;
+    /** A function that handles a double click on the cell. */
+    onDoubleClick?: (e: any) => void;
   }
   /** Describes properties passed to a component that renders an All Day panel row. */
   export interface RowProps extends BaseView.RowProps {}

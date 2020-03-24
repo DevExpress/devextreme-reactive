@@ -76,6 +76,8 @@ export namespace BaseView {
      * The distance is measured as a percentage of the element's height.
      * */
     currentTimeIndicatorPosition?: string;
+    /** A function that handles a double click on the cell. */
+    onDoubleClick?: (e: any) => void;
     /** A component that renders the current time indicator. */
     currentTimeIndicatorComponent?: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
     /** A React node used to render the time table cell content. */

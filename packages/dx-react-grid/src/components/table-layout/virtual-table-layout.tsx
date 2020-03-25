@@ -7,9 +7,7 @@ import {
 import { VirtualTableLayoutState, VirtualTableLayoutProps } from '../../types';
 import { findDOMNode } from 'react-dom';
 import { VirtualTableLayoutBlock } from './virtual-table-layout-block';
-
-// NOTE: Original Sizer doesn't work correctly with Material-UI Tabs (#2550)
-import { GridSizer } from '../../utils/grid-sizer';
+import { Sizer } from '@devexpress/dx-react-core';
 
 const AUTO_HEIGHT = 'auto';
 
@@ -317,7 +315,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     };
 
     return (
-      <GridSizer
+      <Sizer
         onSizeChange={this.handleContainerSizeChange}
         containerComponent={Container}
         style={{
@@ -325,7 +323,6 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
         }}
         onScroll={this.onScroll}
         scrollTop={scrollTop}
-        collapsedGrid={collapsedGrids.headerGrid}
       >
         {
           (!!headerRows.length) && (
@@ -358,7 +355,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
             />
           )
         }
-      </GridSizer>
+      </Sizer>
     );
   }
 }

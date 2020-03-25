@@ -2,10 +2,11 @@ import { PureComputed } from '@devexpress/dx-core';
 import {
   Grouping, ValidResourceInstance, ViewCell, ValidResource,
   Group, AppointmentMoment, ExpandGroupingPanelCellFn, GroupOrientation,
+  CellElementsMeta, SchedulerView,
 } from '../../types';
 import {
   getGroupFromResourceInstance, addGroupInfoToCells,
-  groupAppointments, expandGroupedAppointment, addGroupInfoToCell,
+  groupAppointments, expandGroupedAppointment, addGroupInfoToCell, getGroupsLastRow,
 } from './helpers';
 import { sliceAppointmentsByDays } from '../all-day-panel/helpers';
 import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '../../constants';
@@ -59,7 +60,7 @@ const expandCellsWithGroupedByDateData: ExpandGroupingPanelCellFn = (
   viewCellsData, groups, sortedResources,
 ) => viewCellsData.map(
   (cellsRow: ViewCell[]) => cellsRow.reduce((acc: ViewCell[], viewCell: ViewCell) => {
-    const groupedCells = groups[groups.length - 1].map((
+    const groupedCells = getGroupsLastRow(groups).map((
       group: Group, index: number,
     ) => addGroupInfoToCell(
       group, groups, sortedResources, viewCell, index,
@@ -75,7 +76,7 @@ const expandCellsWithGroupedByDateData: ExpandGroupingPanelCellFn = (
 
 const expandHorizontallyGroupedCells: ExpandGroupingPanelCellFn = (
   viewCellsData, groups, sortedResources,
-) => groups[groups.length - 1].reduce((
+) => getGroupsLastRow(groups).reduce((
   acc: ViewCell[][], group: Group, index: number,
 ) => {
   if (index === 0) {
@@ -97,7 +98,7 @@ const expandHorizontallyGroupedCells: ExpandGroupingPanelCellFn = (
 
 const expandVerticallyGroupedCells: ExpandGroupingPanelCellFn = (
   viewCellsData, groups, sortedResources,
-) => groups[groups.length - 1].reduce((
+) => getGroupsLastRow(groups).reduce((
   acc: ViewCell[][], group: Group, index: number,
 ) => {
   if (index === 0) {
@@ -140,4 +141,84 @@ export const expandGroups: PureComputed<
       ...expandGroupedAppointment(appointment, grouping, resources),
     ], [] as AppointmentMoment[]);
   return groupAppointments(expandedAppointments, resources, groups);
+};
+
+export const updateTimeTableCellElementsMeta: PureComputed<
+  [CellElementsMeta, (viewName: string) => GroupOrientation, Group[][],
+  boolean, ViewCell[][], SchedulerView], CellElementsMeta
+> = (
+  timeTableElementsMeta, groupOrientation, groups, allDayPanelExists, viewCellsData, currentView,
+) => {
+  if (checkCellElementsMeta(
+    timeTableElementsMeta, groupOrientation, currentView, allDayPanelExists,
+  )) {
+    return timeTableElementsMeta;
+  }
+
+  const {
+    groupCount, timeTableWidth, groupSize, validGetCellRects,
+  } = initializeCellElementsData(timeTableElementsMeta, viewCellsData, groups);
+  let allDayPanelsLeft = groupCount;
+
+  while (allDayPanelsLeft > 0) {
+    allDayPanelsLeft -= 1;
+    validGetCellRects.splice(allDayPanelsLeft * (timeTableWidth + groupSize), timeTableWidth);
+  }
+
+  return {
+    parentRect: timeTableElementsMeta.parentRect,
+    getCellRects: validGetCellRects,
+  };
+};
+
+export const updateAllDayCellElementsMeta: PureComputed<
+  [CellElementsMeta, CellElementsMeta, (viewName: string) => GroupOrientation, Group[][],
+  boolean, ViewCell[][], SchedulerView], CellElementsMeta
+> = (
+  allDayElementsMeta, timeTableElementsMeta, groupOrientation, groups,
+  allDayPanelExists, viewCellsData, currentView,
+) => {
+  if (checkCellElementsMeta(
+    timeTableElementsMeta, groupOrientation, currentView, allDayPanelExists,
+  )) {
+    return allDayElementsMeta;
+  }
+
+  const {
+    groupCount, timeTableWidth, groupSize, validGetCellRects,
+  } = initializeCellElementsData(timeTableElementsMeta, viewCellsData, groups);
+  let allDayPanelsLeft = groupCount;
+
+  while (allDayPanelsLeft > 0) {
+    allDayPanelsLeft -= 1;
+    validGetCellRects.splice(
+      groupSize * allDayPanelsLeft + timeTableWidth * (allDayPanelsLeft + 1), groupSize,
+    );
+  }
+
+  return {
+    parentRect: timeTableElementsMeta.parentRect,
+    getCellRects: validGetCellRects,
+  };
+};
+
+const checkCellElementsMeta: PureComputed<
+  [CellElementsMeta, (viewName: string) => GroupOrientation, SchedulerView, boolean], boolean
+> = (
+  cellElementsMeta, groupOrientation, currentView, allDayPanelExists,
+) => groupOrientation(currentView.name) === HORIZONTAL_GROUP_ORIENTATION
+  || !allDayPanelExists || !cellElementsMeta.getCellRects;
+
+const initializeCellElementsData: PureComputed<
+  [CellElementsMeta, ViewCell[][], Group[][]], any
+> = (cellElementsMeta, viewCellsData, groups) => {
+  const timeTableWidth = viewCellsData[0].length;
+  const groupCount = getGroupsLastRow(groups).length;
+  const groupHeight = viewCellsData.length / groupCount;
+  return {
+    groupCount,
+    timeTableWidth,
+    groupSize: timeTableWidth * groupHeight,
+    validGetCellRects: cellElementsMeta.getCellRects.slice(),
+  };
 };

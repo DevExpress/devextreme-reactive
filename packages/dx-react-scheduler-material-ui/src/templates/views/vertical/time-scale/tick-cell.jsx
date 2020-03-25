@@ -3,11 +3,13 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
+import { VIEW_TYPES } from '@devexpress/dx-scheduler-core';
 import { getBorder, getBrightBorder } from '../../../utils';
+import { SPACING_CELL_HEIGHT } from '../../../constants';
 
 const styles = theme => ({
   cell: {
-    height: theme.spacing(6),
+    height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.WEEK]),
     padding: 0,
     boxSizing: 'border-box',
     borderBottom: getBorder(theme),
@@ -18,6 +20,9 @@ const styles = theme => ({
   brightBottomBorder: {
     borderBottom: getBrightBorder(theme),
   },
+  allDayCell: {
+    height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL]),
+  },
 });
 
 const TickCellBase = React.memo(({
@@ -27,12 +32,14 @@ const TickCellBase = React.memo(({
   endDate,
   endOfGroup,
   groupingInfo,
+  isAllDay,
   ...restProps
 }) => (
   <TableCell
     className={classNames({
       [classes.cell]: true,
       [classes.brightBottomBorder]: endOfGroup,
+      [classes.allDayCell]: isAllDay,
     }, className)}
     {...restProps}
   />
@@ -44,6 +51,7 @@ TickCellBase.propTypes = {
   endDate: PropTypes.instanceOf(Date),
   endOfGroup: PropTypes.bool,
   groupingInfo: PropTypes.arrayOf(PropTypes.object),
+  isAllDay: PropTypes.bool,
   className: PropTypes.string,
 };
 
@@ -53,6 +61,7 @@ TickCellBase.defaultProps = {
   endDate: undefined,
   endOfGroup: false,
   groupingInfo: undefined,
+  isAllDay: false,
 };
 
 export const TickCell = withStyles(styles, { name: 'TickCell' })(TickCellBase);

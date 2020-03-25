@@ -89,7 +89,6 @@ export const MainLayout = React.memo(({
   dayScaleEmptyCellComponent: DayScaleEmptyCell,
   groupingPanelComponent: GroupingPanel,
   groupingPanelSize,
-  highlightDayScale,
   setScrollingStrategy,
   className,
   ...restProps
@@ -151,8 +150,8 @@ export const MainLayout = React.memo(({
                   [classes.dayScaleEmptyCell]: true,
                   [classes.ordinaryLeftPanelBorder]: !isLeftBorderSet,
                   [classes.brightLeftPanelBorder]: isLeftBorderSet,
-                  [classes.ordinaryHeaderBorder]: !isTopBorderSet && !highlightDayScale,
-                  [classes.brightHeaderBorder]: isTopBorderSet || highlightDayScale,
+                  [classes.ordinaryHeaderBorder]: !isTopBorderSet,
+                  [classes.brightHeaderBorder]: isTopBorderSet,
                 })}
               >
                 <DayScaleEmptyCell />
@@ -169,8 +168,8 @@ export const MainLayout = React.memo(({
                 className={classNames({
                   [classes.fullScreenContainer]: true,
                   [classes.background]: true,
-                  [classes.ordinaryHeaderBorder]: !isTopBorderSet && !highlightDayScale,
-                  [classes.brightHeaderBorder]: isTopBorderSet || highlightDayScale,
+                  [classes.ordinaryHeaderBorder]: !isTopBorderSet,
+                  [classes.brightHeaderBorder]: isTopBorderSet,
                 })}
               >
                 <DayScale />
@@ -224,7 +223,6 @@ MainLayout.propTypes = {
   groupingPanelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
   groupingPanelSize: PropTypes.number,
   setScrollingStrategy: PropTypes.func.isRequired,
-  highlightDayScale: PropTypes.bool,
   className: PropTypes.string,
 };
 
@@ -232,6 +230,5 @@ MainLayout.defaultProps = {
   groupingPanelComponent: () => null,
   timeScaleComponent: undefined,
   groupingPanelSize: 0,
-  highlightDayScale: false,
   className: undefined,
 };

@@ -64,27 +64,7 @@ The Grid renders nothing by default. The root Grid component's nested plugin com
 
 Use the Table plugin to display the data as a simple table:
 
-```jsx
-import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-material-ui';
-// import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-bootstrap4';
-// import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-bootstrap3';
-
-const App = () => (
-  <Grid
-    rows={[
-      { id: 0, product: 'DevExtreme', owner: 'DevExpress' },
-      { id: 1, product: 'DevExtreme Reactive', owner: 'DevExpress' },
-    ]}
-    columns={[
-      { name: 'id', title: 'ID' },
-      { name: 'product', title: 'Product' },
-      { name: 'owner', title: 'Owner' },
-    ]}>
-    <Table />
-    <TableHeaderRow />
-  </Grid>
-);
-```
+.embedded-demo({ "path": "grid-basic/getting-started", "showThemeSelector": true })
 
 ## Try Out the React Grid
 

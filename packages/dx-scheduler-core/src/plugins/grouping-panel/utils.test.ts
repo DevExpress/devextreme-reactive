@@ -90,20 +90,20 @@ describe('GroupingPanel utils', () => {
   });
 
   describe('#getVerticalRowFromGroups', () => {
-    it('should work', () => {
-      const groups = [[
-        { text: '1', id: '1' },
-        { text: '2', id: '2' },
-      ], [
-        { text: '3', id: '3' },
-        { text: '4', id: '4' },
-        { text: '3', id: '3' },
-        { text: '4', id: '4' },
-      ]];
-      let groupIndex = 2;
-      const rowSpan = 40;
-      const cellHeight = 50;
+    const groups = [[
+      { text: '1', id: '1' },
+      { text: '2', id: '2' },
+    ], [
+      { text: '3', id: '3' },
+      { text: '4', id: '4' },
+      { text: '3', id: '3' },
+      { text: '4', id: '4' },
+    ]];
+    const rowSpan = 40;
+    const cellHeight = 50;
 
+    it('should work', () => {
+      let groupIndex = 2;
       let result = getVerticalRowFromGroups(groups, groupIndex, rowSpan, cellHeight);
 
       expect(result)
@@ -134,6 +134,49 @@ describe('GroupingPanel utils', () => {
           group: { text: '4', id: '4' },
           rowSpan: 1,
           height: 500,
+          key: '42',
+        });
+    });
+
+    it('should work when all-day row is present', () => {
+      let groupIndex = 2;
+      const allDayCellHeight = 40;
+      const isAllDayPresent = true;
+
+      let result = getVerticalRowFromGroups(
+        groups, groupIndex, rowSpan, cellHeight, isAllDayPresent, allDayCellHeight,
+      );
+
+      expect(result)
+        .toHaveLength(2);
+      expect(result[0])
+        .toEqual({
+          group: { text: '2', id: '2' },
+          rowSpan: 2,
+          height: 1080,
+          key: '2',
+        });
+      expect(result[1])
+        .toEqual({
+          group: { text: '3', id: '3' },
+          rowSpan: 1,
+          height: 540,
+          key: '32',
+        });
+
+      groupIndex = 3;
+
+      result = getVerticalRowFromGroups(
+        groups, groupIndex, rowSpan, cellHeight, isAllDayPresent, allDayCellHeight,
+      );
+
+      expect(result)
+        .toHaveLength(1);
+      expect(result[0])
+        .toEqual({
+          group: { text: '4', id: '4' },
+          rowSpan: 1,
+          height: 540,
           key: '42',
         });
     });

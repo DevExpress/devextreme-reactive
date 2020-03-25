@@ -8,7 +8,7 @@ import {
   getVerticalRectByAppointmentData, calculateRectByDateAndGroupIntervals,
   getAppointmentStyle, HORIZONTAL_TYPE, getHorizontalRectByAppointmentData,
   isAllDayElementsMetaActual, isTimeTableElementsMetaActual,
-  HORIZONTAL_GROUP_ORIENTATION, VIEW_TYPES, Rect,
+  HORIZONTAL_GROUP_ORIENTATION, VIEW_TYPES, getGroupsLastRow, Rect,
 } from '@devexpress/dx-scheduler-core';
 
 import { AppointmentsProps } from '../types';
@@ -55,7 +55,7 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
     const groupOrientation = getGroupOrientation
       ? getGroupOrientation(currentView?.name)
       : HORIZONTAL_GROUP_ORIENTATION;
-    const groupCount = groups ? groups[groups.length - 1].length : 1;
+    const groupCount = groups ? getGroupsLastRow(groups).length : 1;
 
     let appointmentType = { growDirection: VERTICAL_TYPE, multiline: false };
     let getRects = getVerticalRectByAppointmentData as any;
@@ -84,7 +84,7 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
     const groupOrientation = getGroupOrientation
       ? getGroupOrientation(currentView?.name)
       : HORIZONTAL_GROUP_ORIENTATION;
-    const groupCount = groups ? groups[groups.length - 1].length : 1;
+    const groupCount = groups ? getGroupsLastRow(groups).length : 1;
 
     if (!isAllDayElementsMetaActual(
       viewCellsData, allDayElementsMeta, groupOrientation, groupCount,

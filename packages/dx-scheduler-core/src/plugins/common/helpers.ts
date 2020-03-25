@@ -5,11 +5,12 @@ import {
   DAY_SHORT_MONTH_OPTIONS, SHORT_MONTH_LONG_YEAR_OPTIONS,
   SHORT_MONTH_SHORT_YEAR_OPTIONS, MONTH_YEAR_OPTIONS,
   DAY_LONG_MONTH_LONG_YEAR_OPTIONS, DAY_SHORT_MONTH_SHORT_YEAR_OPTIONS,
-  DAY_SHORT_MONTH_LONG_YEAR_OPTIONS, LONG_WEEK_DAY_OPTIONS, EMPTY_OPTIONS, WEEKDAY_INTERVAL,
+  DAY_SHORT_MONTH_LONG_YEAR_OPTIONS, LONG_WEEK_DAY_OPTIONS, EMPTY_OPTIONS,
+  WEEKDAY_INTERVAL,
 } from '../../constants';
 import {
   ViewBoundTextFn, FormatterFn, ViewCell,
-  AppointmentMoment, Group, SchedulerDateTime,
+  AppointmentMoment, Group, SchedulerDateTime, CellElementsMeta,
 } from '../../types';
 
 const MONTH_TYPE = 'month';
@@ -113,3 +114,7 @@ export const areDatesSame: PureComputed<
   [SchedulerDateTime, SchedulerDateTime], boolean
 > = (firstDate, secondDate) => moment(firstDate as SchedulerDateTime)
   .isSame(secondDate as SchedulerDateTime, 'date');
+
+export const getTimeTableHeight: PureComputed<
+  [CellElementsMeta], number | undefined
+> = timeTableElementsMeta => timeTableElementsMeta.parentRect?.().height;

@@ -2,11 +2,9 @@ import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import {
   AppointmentMoment, GetAllDayCellIndexByAppointmentDataFn,
-  SliceAppointmentsByBoundariesFn, SchedulerDateTime, Group, ViewCell, GroupOrientation, AllDayCell,
+  SliceAppointmentsByBoundariesFn, SchedulerDateTime, ViewCell,
 } from '../../types';
-import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '../../constants';
-import { allDayCells } from '../common/computeds';
-import { getGroupingInfoFromGroups } from '../integrated-grouping/helpers';
+import { HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 import { checkCellGroupingInfo } from '../common/helpers';
 
 export const allDayPredicate: PureComputed<[AppointmentMoment], boolean> = appointment => (
@@ -105,28 +103,3 @@ export const sliceAppointmentsByDays: PureComputed<
   }
   return appointments;
 };
-
-export const allDayCellsData: PureComputed<
-  [ViewCell[][], Group[][] | undefined, GroupOrientation], AllDayCell[]
-> = (viewCellsData, groups, groupOrientation) => groupOrientation !== VERTICAL_GROUP_ORIENTATION
-  || !groups
-    ? allDayCells(viewCellsData)
-    : allDayCellsFromViewCellsAndGroups(viewCellsData, groups);
-
-const allDayCellsFromViewCellsAndGroups: PureComputed<
-  [ViewCell[][], Group[][]], AllDayCell[]
-> = (viewCellsData, groups) => groups[groups.length - 1].reduce((
-  acc: AllDayCell[], group: Group, index: number,
-) => {
-  const groupingInfo = getGroupingInfoFromGroups(groups, index) as Group[];
-  return [
-    ...acc,
-    ...viewCellsData[0].map(({
-      startDate,
-    }) => ({
-      startDate: moment(startDate).startOf('day').toDate(),
-      endDate: moment(startDate).add(1, 'day').startOf('day').toDate(),
-      groupingInfo,
-    })),
-  ];
-}, [] as AllDayCell[]);

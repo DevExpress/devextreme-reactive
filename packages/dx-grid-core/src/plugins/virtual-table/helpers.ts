@@ -122,9 +122,11 @@ export const getScrollTop: GetScrollPosition = (rows, rowsCount, rowId, rowHeigh
 export const getTopRowId: GetTopRowId = (viewport, tableBodyRows, isDataRemote) => {
   const hasViewportRows = viewport && viewport.rows;
   const hasBodyRows = tableBodyRows && tableBodyRows.length;
-  const rowId = hasViewportRows && hasBodyRows && !isDataRemote
-    ? tableBodyRows[viewport.rows[0]].rowId
-    : undefined;
+  if (hasViewportRows && hasBodyRows && !isDataRemote) {
+    const index = viewport.rows[0];
 
-  return rowId;
+    return index < tableBodyRows.length ? tableBodyRows[index].rowId : undefined;
+  }
+
+  return undefined;
 };

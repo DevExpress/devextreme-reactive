@@ -1,4 +1,4 @@
-import { getLabelsForAllGroups } from './utils';
+import { getLabelsForAllGroups, prepareVerticalViewCellsData } from './utils';
 import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '../../constants';
 
 describe('WeekView utils', () => {
@@ -56,6 +56,44 @@ describe('WeekView utils', () => {
           ...cellsData[2][0],
           key: 'endDate32',
         });
+    });
+  });
+
+  describe('#prepareVerticalViewCellsData', () => {
+    const viewCellsData = [
+      [{ startDate: 'first start date' }, { startDate: 'second start date' }],
+      [{ startDate: 'third start date' }, { startDate: 'fourth start date' }],
+      [{ startDate: 'fifth start date' }, { startDate: 'sixth start date' }],
+      [{ startDate: 'seventh start date' }, { startDate: 'eighth start date' }],
+    ];
+    it('should distribute cells between groups depending on allDayCellsData', () => {
+      const allDayCellsData = [
+        [{ startDate: 'first all-day date' }, { startDate: 'second all-day date' }],
+        [{ startDate: 'fifth all-day date' }, { startDate: 'sixth all-day date' }],
+      ];
+      const viewCells = prepareVerticalViewCellsData(viewCellsData, allDayCellsData);
+
+      expect(viewCells)
+        .toEqual([[
+          [{ startDate: 'first start date' }, { startDate: 'second start date' }],
+          [{ startDate: 'third start date' }, { startDate: 'fourth start date' }],
+        ], [
+          [{ startDate: 'fifth start date' }, { startDate: 'sixth start date' }],
+          [{ startDate: 'seventh start date' }, { startDate: 'eighth start date' }],
+        ]]);
+    });
+
+    it('should create one group', () => {
+      const allDayCellsData = undefined;
+      const viewCells = prepareVerticalViewCellsData(viewCellsData, allDayCellsData);
+
+      expect(viewCells)
+        .toEqual([[
+          [{ startDate: 'first start date' }, { startDate: 'second start date' }],
+          [{ startDate: 'third start date' }, { startDate: 'fourth start date' }],
+          [{ startDate: 'fifth start date' }, { startDate: 'sixth start date' }],
+          [{ startDate: 'seventh start date' }, { startDate: 'eighth start date' }],
+        ]]);
     });
   });
 });

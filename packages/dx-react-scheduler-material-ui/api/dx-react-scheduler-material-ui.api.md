@@ -525,6 +525,11 @@ export namespace GroupingPanel {
 
 // @public (undocumented)
 export namespace GroupingPanel {
+  export type VerticalLayoutProps = GroupingPanel_2.VerticalLayoutProps;
+}
+
+// @public (undocumented)
+export namespace GroupingPanel {
   export type RowProps = GroupingPanel_2.RowProps;
 }
 
@@ -536,6 +541,7 @@ export namespace GroupingPanel {
 // @public
 export const GroupingPanel: React.ComponentType<GroupingPanelProps> & {
   HorizontalLayout: React.ComponentType<GroupingPanel_2.HorizontalLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  VerticalLayout: React.ComponentType<GroupingPanel_2.VerticalLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   Row: React.ComponentType<GroupingPanel_2.RowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   Cell: React.ComponentType<GroupingPanel_2.CellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
 };
@@ -545,6 +551,7 @@ export interface GroupingPanelProps {
   cellComponent?: React.ComponentType<GroupingPanel_2.CellProps>;
   horizontalLayoutComponent?: React.ComponentType<GroupingPanel_2.HorizontalLayoutProps>;
   rowComponent?: React.ComponentType<GroupingPanel_2.RowProps>;
+  verticalLayoutComponent?: React.ComponentType<GroupingPanel_2.HorizontalLayoutProps>;
 }
 
 // @public (undocumented)
@@ -565,6 +572,11 @@ export namespace MonthView {
 // @public (undocumented)
 export namespace MonthView {
   export type DayScaleCellProps = MonthView_2.DayScaleCellProps;
+}
+
+// @public (undocumented)
+export namespace MonthView {
+  export type DayScaleEmptyCellProps = MonthView_2.DayScaleEmptyCellProps;
 }
 
 // @public (undocumented)
@@ -592,6 +604,7 @@ export const MonthView: React.ComponentType<MonthViewProps> & {
   Layout: React.ComponentType<MonthView_2.LayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleLayout: React.ComponentType<MonthView_2.DayScaleLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleCell: React.ComponentType<MonthView_2.DayScaleCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  DayScaleEmptyCell: React.ComponentType<DayView.DayScaleEmptyCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   TimeTableLayout: React.ComponentType<MonthView_2.TimeTableLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   TimeTableCell: React.ComponentType<MonthView_2.TimeTableCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   Row: React.ComponentType<MonthView_2.RowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
@@ -602,6 +615,7 @@ export const MonthView: React.ComponentType<MonthViewProps> & {
 export interface MonthViewProps {
   appointmentLayerComponent?: React.ComponentType<MonthView_2.AppointmentLayerProps>;
   dayScaleCellComponent?: React.ComponentType<MonthView_2.DayScaleCellProps>;
+  dayScaleEmptyCellComponent?: React.ComponentType<MonthView_2.DayScaleEmptyCellProps>;
   dayScaleLayoutComponent?: React.ComponentType<MonthView_2.DayScaleLayoutProps>;
   dayScaleRowComponent?: React.ComponentType<MonthView_2.RowProps>;
   displayName?: string;

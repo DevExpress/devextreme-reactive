@@ -197,29 +197,26 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
         />
 
         <Template name="body">
-          {params => (
-            <TemplateConnector>
-              {({ currentView, groupOrientation, groups }) => {
-                if (currentView.name !== viewName) return <TemplatePlaceholder />;
-                const isVerticalGrouping = groupOrientation?.(viewName)
-                  === VERTICAL_GROUP_ORIENTATION;
-                return (
-                  <Layout
-                    dayScaleComponent={DayScalePlaceholder}
-                    timeTableComponent={TimeTablePlaceholder}
-                    setScrollingStrategy={this.setScrollingStrategy}
-                    groupingPanelComponent={
-                      isVerticalGrouping ? GroupingPanelPlaceholder : undefined
-                    }
-                    groupingPanelSize={isVerticalGrouping ? groups?.length : 0}
-                    dayScaleEmptyCellComponent={DayScaleEmptyCellPlaceholder}
-                    {...layoutProps}
-                    {...params}
-                  />
-                );
-              }}
-            </TemplateConnector>
-          )}
+          <TemplateConnector>
+            {({ currentView, groupOrientation, groups }) => {
+              if (currentView.name !== viewName) return <TemplatePlaceholder />;
+              const isVerticalGrouping = groupOrientation?.(viewName)
+                === VERTICAL_GROUP_ORIENTATION;
+              return (
+                <Layout
+                  dayScaleComponent={DayScalePlaceholder}
+                  timeTableComponent={TimeTablePlaceholder}
+                  setScrollingStrategy={this.setScrollingStrategy}
+                  groupingPanelComponent={
+                    isVerticalGrouping ? GroupingPanelPlaceholder : undefined
+                  }
+                  groupingPanelSize={isVerticalGrouping ? groups?.length : 0}
+                  dayScaleEmptyCellComponent={DayScaleEmptyCellPlaceholder}
+                  {...layoutProps}
+                />
+              );
+            }}
+          </TemplateConnector>
         </Template>
 
         <Template name="dayScale">
@@ -259,26 +256,29 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
         </Template>
 
         <Template name="timeTable">
-          <TemplateConnector>
-            {({ formatDate, currentView, viewCellsData }) => {
-              if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              return (
-                <React.Fragment>
-                  <TimeTableLayout
-                    cellsData={viewCellsData}
-                    rowComponent={timeTableRowComponent}
-                    cellComponent={CellPlaceholder}
-                    formatDate={formatDate}
-                    setCellElementsMeta={this.updateCellElementsMeta}
-                    key={timeTableLayoutKey}
-                  />
-                  <AppointmentLayer>
-                    <TimeTableAppointmentLayer />
-                  </AppointmentLayer>
-                </React.Fragment>
-              );
-            }}
+          {(params: any) => (
+            <TemplateConnector>
+              {({ formatDate, currentView, viewCellsData }) => {
+                if (currentView.name !== viewName) return <TemplatePlaceholder />;
+                return (
+                  <>
+                    <TimeTableLayout
+                      cellsData={viewCellsData}
+                      rowComponent={timeTableRowComponent}
+                      cellComponent={CellPlaceholder}
+                      formatDate={formatDate}
+                      setCellElementsMeta={this.updateCellElementsMeta}
+                      key={timeTableLayoutKey}
+                      {...params}
+                    />
+                    <AppointmentLayer>
+                      <TimeTableAppointmentLayer />
+                    </AppointmentLayer>
+                  </>
+                );
+              }}
           </TemplateConnector>
+          )}
         </Template>
 
         <Template name="dayScaleEmptyCell">

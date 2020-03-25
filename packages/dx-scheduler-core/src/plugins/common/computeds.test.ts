@@ -283,7 +283,7 @@ describe('#allDayCells', () => {
 
   it('should work', () => {
     const result = allDayCells(viewCells);
-    expect(result[0])
+    expect(result[0][0])
       .toMatchObject({
         startDate: moment('2018-06-10T00:00').toDate(),
         endDate: moment('2018-06-11T00:00:00').toDate(),

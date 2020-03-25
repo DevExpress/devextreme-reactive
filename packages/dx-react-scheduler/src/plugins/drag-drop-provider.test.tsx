@@ -7,12 +7,8 @@ import {
   TemplatePlaceholder, Template,
 } from '@devexpress/dx-react-core';
 import {
-  cellIndex,
-  cellData,
-  cellType,
-  getAppointmentStyle,
-  autoScroll,
-  calculateDraftAppointments,
+  cellIndex, cellData, cellType, getAppointmentStyle, autoScroll,
+  calculateDraftAppointments, VERTICAL_GROUP_ORIENTATION,
 } from '@devexpress/dx-scheduler-core';
 import { DragDropProvider } from './drag-drop-provider';
 
@@ -35,6 +31,7 @@ const defaultDeps = {
       [{ startDate: new Date('2018-06-25') }, {}],
       [{}, { startDate: new Date('2018-08-05') }],
     ],
+    allDayCellsData: [[{ startDate: new Date('2018-06-25') }, {}]],
     startViewDate: new Date('2018-06-25'),
     endViewDate: new Date('2018-08-05'),
     excludedDays: [],
@@ -369,6 +366,61 @@ describe('DragDropProvider', () => {
       expect(templatePlaceholder.exists())
         .toBeTruthy();
     });
+    it('should render all-day appointments inside allDayPanel template', () => {
+      const { tree, onOver } = mountPlugin({}, {});
+
+      onOver({ payload: { id: 1 }, clientOffset: 1 });
+      tree.update();
+
+      const timeTableTemplate = tree
+        .find('TemplatePlaceholderBase')
+        .filterWhere(node => node.props().name === 'timeTable').first()
+        .children().find('TemplatePlaceholderBase');
+      const allDayPanelTemplate = tree
+        .find('TemplatePlaceholderBase')
+        .filterWhere(node => node.props().name === 'allDayPanel').first()
+        .children().find('TemplatePlaceholderBase');
+
+      const timeTableTemplateDraftAppointments = timeTableTemplate
+        .find(defaultProps.draftAppointmentComponent);
+      const allDayPanelTemplateAppointments = allDayPanelTemplate
+        .find(defaultProps.draftAppointmentComponent);
+
+      expect(timeTableTemplateDraftAppointments)
+        .toHaveLength(1);
+      expect(allDayPanelTemplateAppointments)
+        .toHaveLength(1);
+    });
+    it('should render all-day appointments inside timeTable template when vertical grouping is used', () => {
+      const deps = {
+        getter: {
+          groupOrientation: () => VERTICAL_GROUP_ORIENTATION,
+        },
+      };
+      const { tree, onOver } = mountPlugin({}, deps);
+
+      onOver({ payload: { id: 1 }, clientOffset: 1 });
+      tree.update();
+
+      const timeTableTemplate = tree
+        .find('TemplatePlaceholderBase')
+        .filterWhere(node => node.props().name === 'timeTable').first()
+        .children().find('TemplatePlaceholderBase');
+      const allDayPanelTemplate = tree
+        .find('TemplatePlaceholderBase')
+        .filterWhere(node => node.props().name === 'allDayPanel').first()
+        .children().find('TemplatePlaceholderBase');
+
+      const timeTableTemplateDraftAppointments = timeTableTemplate
+        .find(defaultProps.draftAppointmentComponent);
+      const allDayPanelTemplateAppointments = allDayPanelTemplate
+        .find(defaultProps.draftAppointmentComponent);
+
+      expect(timeTableTemplateDraftAppointments)
+        .toHaveLength(2);
+      expect(allDayPanelTemplateAppointments)
+        .toHaveLength(0);
+    });
   });
 
   describe('Auto Scroll', () => {
@@ -570,8 +622,7 @@ describe('DragDropProvider', () => {
         .toBeCalledWith(
           1, -1,
           defaultDeps.getter.viewCellsData,
-          'groups',
-          'groupOrientation',
+          defaultDeps.getter.allDayCellsData,
         );
       expect(calculateDraftAppointments)
         .toBeCalledWith(

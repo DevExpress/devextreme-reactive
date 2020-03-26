@@ -8,6 +8,5 @@
       "output": "/tmp/testcafe-test-results/res.xml"
     }
   ],
-  "skipJsErrors" : true,
-  "speed": 0.5
+  "skipJsErrors" : true
 }

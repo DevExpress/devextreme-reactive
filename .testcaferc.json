@@ -1,5 +1,5 @@
 {
-  "browsers": ["chrome --disable-features=VizDisplayCompositor"],
+  "browsers": ["chrome:headless --disable-features=VizDisplayCompositor"],
   "src": "./**/*.testcafe.js",
   "reporter": [
     "spec",
@@ -8,5 +8,6 @@
       "output": "/tmp/testcafe-test-results/res.xml"
     }
   ],
-  "skipJsErrors" : true
+  "skipJsErrors" : true,
+  "speed": 0.5
 }

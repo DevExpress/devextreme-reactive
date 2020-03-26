@@ -55,10 +55,9 @@ class DemoFrameRenderer extends React.PureComponent {
   }
 
   render() {
-    const { markup } = this.props;
+    const { markup, editableLink, withoutFrame } = this.props;
     const { frame } = this.context;
     const { frameHeight } = this.state;
-    const { editableLink } = this.props;
 
     return (
       <div>
@@ -86,7 +85,7 @@ class DemoFrameRenderer extends React.PureComponent {
           </form>
         ) : null}
 
-        {frame
+        {frame || withoutFrame
           ? (
             <DemoRenderer {...this.props} />
           )
@@ -127,10 +126,12 @@ DemoFrameRenderer.propTypes = {
   editableLink: PropTypes.string.isRequired,
   onEditableLinkChange: PropTypes.func.isRequired,
   perfSamplesCount: PropTypes.number,
+  withoutFrame: PropTypes.bool,
 };
 
 DemoFrameRenderer.defaultProps = {
   perfSamplesCount: undefined,
+  withoutFrame: false,
 };
 
 DemoFrameRenderer.contextType = EmbeddedDemoContext;

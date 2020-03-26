@@ -5,8 +5,8 @@ fixture `React Grid Demos - Edit Row Controlled`
 
 test('Should correctly process editing in Controlled Mode', async (t) => {
   await t
-    .click('#edit')
-    .click('#cancel')
+    .click('button')
+    .click('button')
     .expect(Selector('input').count)
     .eql(0);
 });

@@ -1,0 +1,25 @@
+import React from 'react';<%&additionalImports%>
+import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-<%&themeName%>';
+<%&cssImports%>
+
+const columns = [
+  { name: 'id', title: 'ID' },
+  { name: 'product', title: 'Product' },
+  { name: 'owner', title: 'Owner' },
+];
+const rows = [
+  { id: 0, product: 'DevExtreme', owner: 'DevExpress' },
+  { id: 1, product: 'DevExtreme Reactive', owner: 'DevExpress' },
+];
+
+export default () => (
+  <<%&wrapperTag%><%&wrapperAttributes%>>
+    <Grid
+      rows={rows}
+      columns={columns}
+    >
+      <Table />
+      <TableHeaderRow />
+    </Grid>
+  </<%&wrapperTag%>>
+);

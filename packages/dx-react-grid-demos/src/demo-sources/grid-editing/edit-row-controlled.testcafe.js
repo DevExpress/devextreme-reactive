@@ -5,6 +5,7 @@ fixture `React Grid Demos - Edit Row Ccontrolled`
 
 test('Should correctly process editing in Controlled Mode', async (t) => {
   await t
+    .wait(5000)
     .click('.dx-g-bs4-table-edit-command-cell#edit')
     .click('.dx-g-bs4-table-edit-command-cell#cancel')
     .expect(Selector('input').count)

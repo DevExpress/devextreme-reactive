@@ -32,9 +32,11 @@ export const createStateHelper: CreateStateHelperFn = (
       }
       if (stateUpdater === lastStateUpdater) {
         if (lastInitialState !== initialState) {
-          lastInitialState = initialState;
-          shouldNotify = true;
           newState = state;
+          if (!shouldNotify) {
+            lastInitialState = initialState;
+            shouldNotify = true;
+          }
         }
         initialState = null;
       }

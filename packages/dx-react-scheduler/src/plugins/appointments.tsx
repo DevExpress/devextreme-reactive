@@ -63,6 +63,7 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
       appointmentType = { growDirection: HORIZONTAL_TYPE, multiline: true };
       getRects = getHorizontalRectByAppointmentData;
     }
+
     return renderAppointments(calculateRectByDateAndGroupIntervals(
       appointmentType, timeTableAppointments, getRects,
       {

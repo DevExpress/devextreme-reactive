@@ -13,8 +13,9 @@ const useStyles = makeStyles(({ palette, typography, spacing }) => ({
     overflow: 'hidden',
     boxSizing: 'border-box',
     // fix no space between appointments bug in Firefox (https://bugzilla.mozilla.org/show_bug.cgi?id=989340)
-    borderRight: '2px solid transparent',
-    borderBottom: '1px solid transparent',
+    // borderRight: '2px solid transparent',
+    // borderBottom: '1px solid transparent',
+    border: `1px solid ${palette.background.paper}`,
     backgroundClip: 'padding-box',
     borderRadius: spacing(0.5),
     backgroundColor: resources => getAppointmentColor(

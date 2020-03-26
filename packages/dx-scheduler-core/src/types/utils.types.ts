@@ -27,6 +27,7 @@ export interface AppointmentUnwrappedGroup extends GroupItem {
   reduceValue: number;
   fromPrev: boolean;
   toNext: boolean;
+  widthMultipliers?: number[];
 }
 
 /** @internal */
@@ -37,6 +38,7 @@ export interface ElementRect extends Rect {
   toNext: boolean;
   durationType?: 'short' | 'middle' | 'long';
   resources?: Array<ValidResourceInstance>;
+  offset?: number;
 }
 
 /** @internal */

@@ -81,31 +81,6 @@ export class DemoViewer extends React.Component {
               )}
             />
             <Route
-              path={`${url}/:themeName/:variantName/without-frame`}
-              render={({ match: { params: { themeName, variantName } } }) => (
-                <div>
-                  <DemoCodeProvider
-                    themeName={themeName}
-                    variantName={variantName}
-                    sectionName={sectionName}
-                    demoName={demoName}
-                    themeSources={themeSources}
-                  >
-                    {({ html }) => (
-                      <DemoFrame
-                        themeName={themeName}
-                        variantName={variantName}
-                        sectionName={sectionName}
-                        demoName={demoName}
-                        markup={html}
-                        withoutFrame
-                      />
-                    )}
-                  </DemoCodeProvider>
-                </div>
-              )}
-            />
-            <Route
               path={url}
               render={() => (
                 <div style={{ paddingTop: '8px' }}>

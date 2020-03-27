@@ -8,5 +8,6 @@
       "output": "/tmp/testcafe-test-results/res.xml"
     }
   ],
-  "skipJsErrors" : true
+  "skipJsErrors" : true,
+  "concurrency": 2
 }

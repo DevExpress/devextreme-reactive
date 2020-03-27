@@ -20743,7 +20743,7 @@ testcafe-reporter-xunit@^2.1.0:
   resolved "https://registry.yarnpkg.com/testcafe-reporter-xunit/-/testcafe-reporter-xunit-2.1.0.tgz#e6d66c572ce15af266706af0fd610b2a841dd443"
   integrity sha1-5tZsVyzhWvJmcGrw/WELKoQd1EM=
 
-testcafe@1.8.3:
+testcafe@^1.6.1:
   version "1.8.3"
   resolved "https://registry.yarnpkg.com/testcafe/-/testcafe-1.8.3.tgz#ec9870be1a55cfac18846a25ab4a91d398cf56c2"
   integrity sha512-9zVQXvb07IpsvtHAbSzOtfwccyk9lx0jEZwJvTaEj7PHLJdyKdvy8tq1lfHw2rRq6BWaeZt41NAg6bT4HNrD4g==

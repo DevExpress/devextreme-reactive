@@ -30,7 +30,7 @@
     "run-sequence": "^2.2.1",
     "semver": "^6.3.0",
     "start-server-and-test": "^1.10.6",
-    "testcafe": "^1.6.1",
+    "testcafe": "1.2.1",
     "testcafe-reporter-xunit": "^2.1.0",
     "typescript": "3.8.3"
   },

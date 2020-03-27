@@ -1,3 +1,25 @@
+# [2.6.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.5.1...v2.6.0) (2020-03-27)
+
+
+### Bug Fixes
+
+* **react-chart:** make ArgumentScale factory type compatible with d3-scale ([#2758](https://github.com/DevExpress/devextreme-reactive/issues/2758)) ([d171f36](https://github.com/DevExpress/devextreme-reactive/commit/d171f368fb76f7a62fe62380c379697dc3f55f40))
+* **react-core:** make StateHelper work correctly when several actions are triggered at once ([#2781](https://github.com/DevExpress/devextreme-reactive/issues/2781)) ([f083519](https://github.com/DevExpress/devextreme-reactive/commit/f0835192bdfe1fc0d9e6d767160b1553f9a7d97f))
+* **react-core:** notify state update outside the state updater ([#2744](https://github.com/DevExpress/devextreme-reactive/issues/2744)) ([8e9d7ec](https://github.com/DevExpress/devextreme-reactive/commit/8e9d7ec49fa2ddbec5456fde3347b9ab4e496e94))
+* **react-grid:** add GridExporter to ts definition ([#2755](https://github.com/DevExpress/devextreme-reactive/issues/2755)) ([a2bafb5](https://github.com/DevExpress/devextreme-reactive/commit/a2bafb533fbd5cafcd21465275805471e3716942))
+* **react-grid:** avoid rendering group summary row if no footer summary exists ([#2742](https://github.com/DevExpress/devextreme-reactive/issues/2742)) ([48a3b45](https://github.com/DevExpress/devextreme-reactive/commit/48a3b4591f9f76c7a90dfe74e08657b99f5ab732))
+* **react-grid:** check viewport position when handle top row id ([#2780](https://github.com/DevExpress/devextreme-reactive/issues/2780)) ([bc57080](https://github.com/DevExpress/devextreme-reactive/commit/bc570803563014c92cdf68690aad04026abf5348))
+* **react-grid:** make 'onTopRowChange' work with detail row ([#2753](https://github.com/DevExpress/devextreme-reactive/issues/2753)) ([cf6bf5c](https://github.com/DevExpress/devextreme-reactive/commit/cf6bf5cba631b790fd742af89b9b04ecf93b7d99))
+* **react-grid:** prevent infinite loop while horizontal scroll ([#2771](https://github.com/DevExpress/devextreme-reactive/issues/2771)) ([cb1d9be](https://github.com/DevExpress/devextreme-reactive/commit/cb1d9be1d52c3c6b87058e82cac1dfa34555846d))
+* **react-grid:** reset viewport position on filter change when data remote ([#2748](https://github.com/DevExpress/devextreme-reactive/issues/2748)) ([ddd8be7](https://github.com/DevExpress/devextreme-reactive/commit/ddd8be72697c5a909f661d3f04f3174880a606ad))
+
+
+### Features
+
+* **react-scheduler:** add Vertical Grouping ([#2740](https://github.com/DevExpress/devextreme-reactive/issues/2740)) ([a7d832a](https://github.com/DevExpress/devextreme-reactive/commit/a7d832a0c3a5504a1192e3b1239d6427ee41025a))
+
+
+
 # [2.5.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.5.0...v2.5.1) (2020-03-11)
 
 

@@ -287,7 +287,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       bodyComponent: Body,
       footerComponent: Footer,
       tableRef,
-      height,
+      height: heightProp,
       headerRows,
       footerRows,
       minColumnWidth,
@@ -313,14 +313,13 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       blockRefsHandler: this.registerBlockRef,
       rowRefsHandler: this.registerRowRef,
     };
+    const height = heightProp === AUTO_HEIGHT ? containerHeight : heightProp;
 
     return (
       <Sizer
         onSizeChange={this.handleContainerSizeChange}
         containerComponent={Container}
-        style={{
-          ...(height === AUTO_HEIGHT ? null : { height }),
-        }}
+        style={{ height }}
         onScroll={this.onScroll}
         scrollTop={scrollTop}
       >

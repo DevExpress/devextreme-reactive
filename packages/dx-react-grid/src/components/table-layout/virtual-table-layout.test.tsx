@@ -253,7 +253,7 @@ describe('VirtualTableLayout', () => {
       ));
 
       expect(tree.find(defaultProps.containerComponent).props().style)
-        .not.toMatchObject({ height: `${defaultProps.height}px` });
+        .toMatchObject({ height: tree.instance().containerHeight });
     });
 
     it('should recalculate viewport on scroll', () => {

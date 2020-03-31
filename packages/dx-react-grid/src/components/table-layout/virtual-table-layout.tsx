@@ -313,14 +313,13 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       blockRefsHandler: this.registerBlockRef,
       rowRefsHandler: this.registerRowRef,
     };
+    const sizerHeight = height === AUTO_HEIGHT ? containerHeight : height;
 
     return (
       <Sizer
         onSizeChange={this.handleContainerSizeChange}
         containerComponent={Container}
-        style={{
-          ...(height === AUTO_HEIGHT ? null : { height }),
-        }}
+        style={{ height: sizerHeight }}
         onScroll={this.onScroll}
         scrollTop={scrollTop}
       >

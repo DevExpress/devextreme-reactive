@@ -4,6 +4,7 @@ import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
+import { IS_EDGE_MEDIA_QUERY } from '../constants';
 
 const styles = theme => ({
   pageSizeSelector: {
@@ -28,7 +29,10 @@ const styles = theme => ({
     top: 2,
   },
   selectMenu: {
-    position: 'absolute !important',
+    // NOTE: fix position for non-chromium Edge
+    [`${IS_EDGE_MEDIA_QUERY}`]: {
+      position: 'absolute !important',
+    },
   },
   '@media (max-width: 768px)': {
     label: {

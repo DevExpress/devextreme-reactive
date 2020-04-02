@@ -8,12 +8,12 @@ const ContainerWithMenu = ({
   children, ...menuProps
 }) => (
   <div className="row">
-    <div className="col-lg-9 col-md-8 order-md-2">
+    <div className="col-lg-9 col-md-8 order-md-2 docs-content">
       <div className={styles.content}>
         {children}
       </div>
     </div>
-    <div className="col-lg-3 col-md-4 order-md-1">
+    <div className="col-lg-3 col-md-4 order-md-1 main-menu">
       <div className={styles.sidebar}>
         <LeftMenu
           {...menuProps}

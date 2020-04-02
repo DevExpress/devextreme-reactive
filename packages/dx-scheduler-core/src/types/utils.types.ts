@@ -28,6 +28,8 @@ export interface AppointmentUnwrappedGroup extends GroupItem {
   fromPrev: boolean;
   toNext: boolean;
   widthMultipliers?: number[];
+  width?: number;
+  left?: number;
 }
 
 /** @internal */
@@ -60,10 +62,6 @@ export type ViewPredicateFn = PureComputed<
 export type CalculateFirstDateOfWeekFn = PureComputed<
   [Date, number, number[]], Date
 > ;
-/** @internal */
-export type RectCalculatorBaseFn = PureComputed<
-  [AppointmentUnwrappedGroup, ViewMetaData, (...args: any) => any, object], any
->;
 /** @internal */
 export type CalculateRectByDateAndGroupIntervalsFn = PureComputed<
   [any, AppointmentMoment[][], (...args: any) => any, any,

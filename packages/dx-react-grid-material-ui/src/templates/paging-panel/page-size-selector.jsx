@@ -29,7 +29,7 @@ const styles = theme => ({
     top: 2,
   },
   selectMenu: {
-    // NOTE: fix position for non-chromium Edge
+    // NOTE: fix position for non-chromium Edge (issues 2234, 2788)
     [`${IS_LEGACY_EDGE_MEDIA_QUERY}`]: {
       position: 'absolute !important',
     },

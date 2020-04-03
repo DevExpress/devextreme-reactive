@@ -151,7 +151,7 @@ const styles = ({ palette }: Theme) => createStyles({
   highPriorityAppointment: {
     borderLeft: `4px solid ${teal[500]}`,
   },
-  middlePriorityAppointment: {
+  mediumPriorityAppointment: {
     borderLeft: `4px solid ${blue[500]}`,
   },
   lowPriorityAppointment: {
@@ -223,7 +223,7 @@ const Appointment = withStyles(styles)(({
     {...restProps}
     className={classNames({
       [classes.highPriorityAppointment]: data.priority === 1,
-      [classes.middlePriorityAppointment]: data.priority === 2,
+      [classes.mediumPriorityAppointment]: data.priority === 2,
       [classes.lowPriorityAppointment]: data.priority === 3,
       [classes.appointment]: true,
     })}
@@ -237,7 +237,7 @@ const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({
   // #FOLD_BLOCK
 }: AppointmentContentProps) =>  {
   let priority = 'low';
-  if (data.priority === 2) priority = 'middle';
+  if (data.priority === 2) priority = 'medium';
   if (data.priority === 3) priority = 'high';
   return (
     <Appointments.AppointmentContent {...restProps} data={data}>

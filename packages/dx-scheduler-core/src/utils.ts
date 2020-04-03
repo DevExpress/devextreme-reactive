@@ -365,11 +365,7 @@ export const calculateAppointmentsMetaData: PureComputed<
     if (items.length === 1) {
       return {
         ...appointmentGroup,
-        items: [{
-          ...items[0],
-          left: 0,
-          width: 1,
-        }],
+        items: [{ ...items[0], left: 0, width: 1 }],
       };
     }
     const appointments = checkRootAppointments(items, cellDuration);
@@ -388,7 +384,6 @@ const checkRootAppointments: PureComputed<
   [any[], number], any[]
 > = (appointmentItems, cellDuration) => {
   const appointments = appointmentItems.slice();
-
   let baseAppointmentId = 0;
   while (baseAppointmentId < appointments.length) {
     const appointment = appointments[baseAppointmentId];
@@ -398,26 +393,47 @@ const checkRootAppointments: PureComputed<
         appointment.width = 1;
         appointment.left = 0;
       } else {
-        // const hasDirectChild = []
+        const hasDirectChild = [
+          intervalsOverlap(
+            appointment.start, moment(appointment.start).add(cellDuration, 'minutes'),
+            appointments[baseAppointmentId + 1].start,
+          ),
+        ];
         const appointmentsMetaData = checkChildAppointment(
-          appointments, [], baseAppointmentId,
-          baseAppointmentId + 1, cellDuration, [], [],
+          appointments, hasDirectChild, baseAppointmentId + 1, cellDuration, [], [],
         );
+        let { widths, leftOffsets } = appointmentsMetaData;
+        const children = [baseAppointmentId + 1];
+        let maxAppointmentTreeDepth = widths.length;
+
         let nextChildIndex = baseAppointmentId + 2;
         while (nextChildIndex < appointments.length
           && appointments[nextChildIndex].offset > 0) {
           if (appointments[nextChildIndex].offset === 1) {
             // TODO
-            checkChildAppointment(
-              appointments, [], baseAppointmentId,
-              nextChildIndex, cellDuration, [], [],
+            const {
+              widths: nextWidths,
+              leftOffsets: nextLeftOffsets,
+            } = checkChildAppointment(
+              appointments, hasDirectChild, nextChildIndex, cellDuration, [], [],
             );
+
+            const nextTreeDepth = nextWidths.length;
+            if (maxAppointmentTreeDepth < nextTreeDepth) {
+              maxAppointmentTreeDepth = nextTreeDepth;
+              widths = nextWidths;
+              leftOffsets = nextLeftOffsets;
+              children.forEach(childId => checkChildAppointment(
+                appointments, hasDirectChild, childId, cellDuration,
+                nextWidths.slice(0, appointmentOffset + 1),
+                nextLeftOffsets.slice(0, appointmentOffset + 1),
+              ));
+            }
+            children.push(nextChildIndex);
           }
           nextChildIndex += 1;
         }
-        const { widths, leftOffsets } = appointmentsMetaData;
 
-        // console.log(widths)
         appointment.width = widths[appointmentOffset];
         appointment.left = leftOffsets[appointmentOffset];
       }
@@ -428,38 +444,38 @@ const checkRootAppointments: PureComputed<
 };
 
 const checkChildAppointment: PureComputed<
-  [any[], boolean[], number, number, number, number[], number[]], any
+  [any[], boolean[], number, number, number[], number[]], any
 > = (
-  appointments, hasDirectChild, currentIndex, childIndex,
+  appointments, hasDirectChild, childIndex,
   cellDuration, baseWidths = [], baseLeftOffsets = [],
 ) => {
-  const currentAppointment = appointments[currentIndex];
   const childAppointment = appointments[childIndex];
   const appointmentOffset = childAppointment.offset;
-  // const isFirstChildDi
-  const nextHasDirectChild = [
-    ...hasDirectChild,
-    intervalsOverlap(
-      currentAppointment.start, moment(currentAppointment.start).add(cellDuration, 'minutes'),
-      childAppointment.start,
-    ),
-  ];
 
   if (childIndex === appointments.length - 1
     || childAppointment.offset >= appointments[childIndex + 1].offset) {
-    nextHasDirectChild.push(nextHasDirectChild[nextHasDirectChild.length - 1]);
+    const finalHasDirectChild = [
+      ...hasDirectChild,
+      hasDirectChild[hasDirectChild.length - 1],
+    ];
     const { widths, leftOffsets } = calculateLeftAndWidth(
-      nextHasDirectChild, baseWidths, baseLeftOffsets,
+      finalHasDirectChild, baseWidths, baseLeftOffsets,
     );
     const appointmentWidth = widths[appointmentOffset];
     childAppointment.width = appointmentWidth;
     childAppointment.left = 1 - appointmentWidth;
-    // debugger;
-    return { widths, hasDirectChild: nextHasDirectChild, leftOffsets };
+    return { widths, hasDirectChild: finalHasDirectChild, leftOffsets };
   }
 
+  const nextHasDirectChild = [
+    ...hasDirectChild,
+    intervalsOverlap(
+      childAppointment.start, moment(childAppointment.start).add(cellDuration, 'minutes'),
+      appointments[childIndex + 1].start,
+    ),
+  ];
   const appointmentsMetaData = checkChildAppointment(
-    appointments, nextHasDirectChild, childIndex, childIndex + 1, cellDuration, [], [],
+    appointments, nextHasDirectChild, childIndex + 1, cellDuration, [], [],
   );
   let { widths, leftOffsets } = appointmentsMetaData;
 
@@ -474,18 +490,16 @@ const checkChildAppointment: PureComputed<
         widths: nextWidths,
         leftOffsets: nextLeftOffsets,
       } = checkChildAppointment(
-        appointments, nextHasDirectChild, childIndex, nextChildIndex, cellDuration, [], [],
+        appointments, nextHasDirectChild, nextChildIndex, cellDuration,
+        widths.slice(0, appointmentOffset + 1), leftOffsets.slice(0, appointmentOffset + 1),
       );
       const nextTreeDepth = nextWidths.length;
-      // console.log(children)
-      // TODO
       if (maxAppointmentTreeDepth < nextTreeDepth) {
         maxAppointmentTreeDepth = nextTreeDepth;
         widths = nextWidths;
         leftOffsets = nextLeftOffsets;
-        console.log(children)
         children.forEach(childId => checkChildAppointment(
-          appointments, nextHasDirectChild, childIndex, childId, cellDuration,
+          appointments, nextHasDirectChild, childId, cellDuration,
           nextWidths.slice(0, appointmentOffset + 1),
           nextLeftOffsets.slice(0, appointmentOffset + 1),
         ));
@@ -510,18 +524,14 @@ export const calculateLeftAndWidth: PureComputed<
       widths.push(hasDirectChild[i] ? 1 / hasDirectChild.length : 1);
       leftOffsets.push(0);
     } else {
-      let previousIndirectIndex = i;
-      while (previousIndirectIndex > 0 && hasDirectChild[previousIndirectIndex - 1]) {
-        previousIndirectIndex -= 1;
-      }
-      const baseWidth = previousIndirectIndex === 0 ? 1
-        : widths[previousIndirectIndex - 1] * 0.95;
-
+      const unoccupiedSpace = hasDirectChild[i - 1]
+        ? 1 - leftOffsets[i - 1] - widths[i - 1]
+        : widths[i - 1] * 0.95;
       const width = hasDirectChild[i - 1]
         ? 1 - leftOffsets[i - 1] - widths[i - 1] : widths[i - 1] * 0.95;
 
       widths.push(hasDirectChild[i]
-        ? baseWidth / (hasDirectChild.length - previousIndirectIndex)
+        ? unoccupiedSpace / (hasDirectChild.length - i)
         : width);
 
       const left = hasDirectChild[i - 1]

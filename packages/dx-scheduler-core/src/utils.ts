@@ -483,7 +483,7 @@ const checkAllChildren: PureComputed<
         widths = nextWidths;
         leftOffsets = nextLeftOffsets;
         indirectChildren.forEach((childIndex) => {
-          const correctedWidths = nextWidths.slice(0, appointmentOffset + 1);
+          const correctedWidths = nextWidths.slice(0, appointmentOffset);
           correctedWidths.push(1 - nextLeftOffsets[appointmentOffset]);
           return checkChildAppointment(
             appointments, nextHasDirectChild, childIndex, cellDuration,

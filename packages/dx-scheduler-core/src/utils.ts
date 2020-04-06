@@ -383,7 +383,7 @@ const checkRootAppointments: PureComputed<
         appointment.left = 0;
       } else {
         checkAllChildren(
-          appointments, baseAppointmentId, [], cellDuration,
+          appointments, baseAppointmentId, [], cellDuration, [], [],
         );
       }
     }
@@ -417,16 +417,14 @@ const checkChildAppointment: PureComputed<
     return { widths, hasDirectChild: finalHasDirectChild, leftOffsets };
   }
 
-  const appointmentsMetaData = checkAllChildren(
-    appointments, childIndex, hasDirectChild, cellDuration,
+  return checkAllChildren(
+    appointments, childIndex, hasDirectChild, cellDuration, baseWidths, baseLeftOffsets,
   );
-
-  return appointmentsMetaData;
 };
 
 const checkAllChildren: PureComputed<
-  [any[], number, boolean[], number], any
-> = (appointments, appointmentIndex, hasDirectChild, cellDuration) => {
+  [any[], number, boolean[], number, number[], number[]], any
+> = (appointments, appointmentIndex, hasDirectChild, cellDuration, baseWidths, baseLeftOffsets) => {
   const appointment = appointments[appointmentIndex];
   const { offset: appointmentOffset } = appointment;
 
@@ -439,7 +437,8 @@ const checkAllChildren: PureComputed<
     appointment.hasDirectChild,
   ];
   let { widths, leftOffsets } = checkChildAppointment(
-    appointments, currentHasDirectChild, appointmentIndex + 1, cellDuration, [], [],
+    appointments, currentHasDirectChild, appointmentIndex + 1,
+    cellDuration, baseWidths, baseLeftOffsets,
   );
 
   const directChildren = [];

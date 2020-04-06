@@ -465,11 +465,11 @@ const checkAllChildren: PureComputed<
         ...hasDirectChild,
         isDirectChild,
       ];
-      const currentWidths = widths.slice(0, appointmentOffset);
-      currentWidths.push(isDirectChild ? (appointment.hasDirectChild
-        ? (1 - leftOffsets[appointmentOffset])
-          / (maxAppointmentTreeDepth - appointmentOffset)
-        : widths[appointmentOffset]) : 1 - leftOffsets[appointmentOffset]);
+      const currentWidths = isDirectChild ? sliceWidthsForDirectChildren(
+        widths, leftOffsets, appointmentOffset, maxAppointmentTreeDepth,
+      ) : sliceWidthsForIndirectChildren(
+        widths, leftOffsets, appointmentOffset,
+      );
       const {
         widths: nextWidths,
         leftOffsets: nextLeftOffsets,
@@ -483,19 +483,18 @@ const checkAllChildren: PureComputed<
         widths = nextWidths;
         leftOffsets = nextLeftOffsets;
         indirectChildren.forEach((childIndex) => {
-          const correctedWidths = nextWidths.slice(0, appointmentOffset);
-          correctedWidths.push(1 - nextLeftOffsets[appointmentOffset]);
-          return checkChildAppointment(
+          const correctedWidths = sliceWidthsForIndirectChildren(
+            nextWidths, nextLeftOffsets, appointmentOffset,
+          );
+          checkChildAppointment(
             appointments, nextHasDirectChild, childIndex, cellDuration,
             correctedWidths, nextLeftOffsets.slice(0, appointmentOffset + 1),
           );
         });
         directChildren.forEach((childIndex) => {
-          const correctedWidths = nextWidths.slice(0, appointmentOffset);
-          correctedWidths.push(appointment.hasDirectChild
-            ? (1 - nextLeftOffsets[appointmentOffset])
-              / (maxAppointmentTreeDepth - appointmentOffset)
-            : nextWidths[appointmentOffset]);
+          const correctedWidths = sliceWidthsForDirectChildren(
+            nextWidths, nextLeftOffsets, appointmentOffset, maxAppointmentTreeDepth,
+          );
           checkChildAppointment(
             appointments, currentHasDirectChild, childIndex, cellDuration,
             correctedWidths, nextLeftOffsets.slice(0, appointmentOffset + 1),
@@ -516,6 +515,25 @@ const checkAllChildren: PureComputed<
     : widths[appointmentOffset];
 
   return appointmentsMetaData;
+};
+
+export const sliceWidthsForIndirectChildren: PureComputed<
+  [number[], number[], number], number[]
+> = (widths, leftOffsets, appointmentOffset) => {
+  return [
+    ...widths.slice(0, appointmentOffset),
+    1 - leftOffsets[appointmentOffset],
+  ];
+};
+
+export const sliceWidthsForDirectChildren: PureComputed<
+  [number[], number[], number, number], number[]
+> = (widths, leftOffsets, appointmentOffset, maxAppointmentTreeDepth) => {
+  return [
+    ...widths.slice(0, appointmentOffset),
+    (1 - leftOffsets[appointmentOffset])
+      / (maxAppointmentTreeDepth - appointmentOffset),
+  ];
 };
 
 export const calculateLeftAndWidth: PureComputed<

@@ -1,0 +1,163 @@
+import React, { useState } from 'react';<%&additionalImports%>
+import {
+  Plugin, Template, TemplateConnector, TemplatePlaceholder, Action,
+} from '@devexpress/dx-react-core';
+import {
+  EditingState, RowDetailState,
+} from '@devexpress/dx-react-grid';
+import {
+  Grid,
+  Table,
+  TableHeaderRow,
+  TableRowDetail,
+} from '@devexpress/dx-react-grid-<%&themeName%>';
+<%&imports%>
+import {
+  generateRows,
+  employeeValues,
+} from '../../../demo-data/generator';
+import faker from 'faker';
+
+const getRowId = row => row.id;
+
+<%&detailContent%>
+
+const DetailEditCell = () => (
+  <Plugin name="detailEdit">
+    <Action
+      name="toggleDetailRowExpanded"
+      action={({ rowId }, { expandedDetailRowIds }, { startEditRows, stopEditRows }) => {
+        const rowIds = [rowId];
+        const isCollapsing = expandedDetailRowIds.indexOf(rowId) > -1;
+        if (isCollapsing) {
+          stopEditRows({ rowIds });
+        } else {
+          startEditRows({ rowIds });
+        }
+      }}
+    />
+    <Template
+      name="tableCell"
+      predicate={({ tableRow }) => tableRow.type === TableRowDetail.ROW_TYPE}
+    >
+      {(params) => (
+        <TemplateConnector>
+          {({
+            tableColumns,
+            editingRowIds,
+            createRowChange,
+            rowChanges,
+          }, {
+            changeRow, commitChangedRows, toggleDetailRowExpanded,
+          }) => {
+            if (tableColumns.indexOf(params.tableColumn) !== 0) {
+              return null;
+            }
+            const rowId = editingRowIds[0];
+            const rowIds = editingRowIds;
+            const row = { ...params.tableRow.row, ...rowChanges[rowId] };
+
+            const processValueChange = ({ target: { name, value }}) => {
+              const changeArgs = {
+                rowId,
+                change: createRowChange(row, value, name)
+              };
+              changeRow(changeArgs);
+            };
+
+            const applyChanges = () => {
+              toggleDetailRowExpanded({ rowId });
+              commitChangedRows({ rowIds });
+            };
+            const cancelChanges = () => {
+              toggleDetailRowExpanded({ rowId });
+            };
+
+            return (
+              <TemplatePlaceholder params={{
+                ...params,
+                row,
+                tableRow: {
+                  ...params.tableRow,
+                  row,
+                },
+                changeRow,
+                processValueChange,
+                applyChanges,
+                cancelChanges,
+              }} />
+            );
+          }}
+        </TemplateConnector>
+      )}
+    </Template>
+  </Plugin>
+)
+
+const DetailCell = ({
+  children, changeRow, editingRowIds, addedRows, processValueChange,
+  applyChanges, cancelChanges,
+  ...restProps
+}) => {
+  console.log(restProps);
+  const { row } = restProps;
+
+  return (
+    <TableRowDetail.Cell {...restProps}>
+      {React.cloneElement(children, {
+        row, changeRow, processValueChange, applyChanges, cancelChanges,
+      })}
+    </TableRowDetail.Cell>
+  );
+};
+
+
+export default () => {
+  const [columns] = useState([
+    { name: 'prefix', title: 'Title' },
+    { name: 'firstName', title: 'First Name' },
+    { name: 'lastName', title: 'Last Name' },
+    { name: 'position', title: 'Position' },
+  ]);
+  const [rows, setRows] = useState(generateRows({
+    columnValues: {
+      ...employeeValues,
+      id: ({ index }) => index,
+      address: () => (faker.fake('{{address.streetAddress}}\n'
+        + '{{address.secondaryAddress}}\n{{address.city}}'
+        + ' {{address.stateAbbr}} {{address.zipCode}}')
+      ),
+    },
+    length: 12,
+  }));
+
+  const commitChanges = ({ changed }) => {
+    const changedRows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+    setRows(changedRows);
+  };
+
+  return (
+    <Paper>
+      <Grid
+        rows={rows}
+        columns={columns}
+        getRowId={getRowId}
+      >
+        <RowDetailState
+          defaultExpandedRowIds={[1]}
+        />
+        <EditingState
+          defaultEditingRowIds={[1]}
+          onCommitChanges={commitChanges}
+        />
+        <Table />
+        <TableHeaderRow />
+        <TableRowDetail
+          contentComponent={DetailContent}
+          cellComponent={DetailCell}
+        />
+        <DetailEditCell />
+      </Grid>
+    </Paper>
+  );
+};

@@ -356,6 +356,126 @@ export const intervalsOverlap: PureComputed<
   return (secondIntervalStart.isSameOrAfter(firstIntervalStart)
     && secondIntervalStart.isBefore(firstIntervalEnd));
 };
+export const createAppointmentForest: PureComputed<
+  [any[], number], any
+> = (appointmentGroups, cellDuration) => appointmentGroups.map((appointmentGroup) => {
+  const { items } = appointmentGroup;
+  let nextItems;
+  let roots;
+  if (items.length === 1) {
+    nextItems = [{ ...items[0], directChildren: [], indirectChildren: [], depth: 0 }];
+    roots = [0];
+  } else {
+    const {
+      appointments, roots: appointmentTreeRoots,
+    } = iterateTreeRoots(items, cellDuration);
+    nextItems = appointments;
+    roots = appointmentTreeRoots;
+  }
+  return {
+    ...appointmentGroup,
+    items: nextItems,
+    roots,
+  };
+});
+
+const iterateTreeRoots: PureComputed<
+  [any[], number], any
+> = (appointmentItems, cellDuration) => {
+  const appointments = appointmentItems.map(props => ({ ...props }));
+  const roots = [];
+  let baseAppointmentId = 0;
+  while (baseAppointmentId < appointments.length) {
+    const appointment = appointments[baseAppointmentId];
+    const { offset: appointmentOffset } = appointment;
+    if (appointmentOffset === 0) {
+      roots.push(baseAppointmentId);
+      if (baseAppointmentId + 1 === appointments.length) {
+        appointment.directChildren = [];
+        appointment.indirectChildren = [];
+      } else {
+        appointment.treeDepth = visitAllChildren(appointments, baseAppointmentId, cellDuration, 0);
+      }
+    }
+    baseAppointmentId += 1;
+  }
+  // console.log(appointments)
+  // console.log(roots)
+  // console.log('///////////////')
+  return { appointments, roots };
+};
+
+const visitChild: PureComputed<
+  [any[], number, number, boolean, number], any
+> = (appointments, childIndex, cellDuration, isDirectChild, treeDepth) => {
+  const appointment = appointments[childIndex];
+  appointment.isDirectChild = isDirectChild;
+  const nextTreeDepth = treeDepth + 1;
+
+  if (childIndex === appointments.length - 1
+    || appointment.offset >= appointments[childIndex + 1].offset) {
+    appointment.directChildren = [];
+    appointment.indirectChildren = [];
+    appointment.treeDepth = 0;
+    return nextTreeDepth;
+  }
+
+  const calculatedTreeDepth = visitAllChildren(
+    appointments, childIndex, cellDuration, nextTreeDepth,
+  );
+  appointment.treeDepth = calculatedTreeDepth - appointment.offset;
+  return calculatedTreeDepth;
+};
+
+const visitAllChildren: PureComputed<
+  [any[], number, number, number], any
+> = (appointments, appointmentIndex, cellDuration, treeDepth) => {
+  const appointment = appointments[appointmentIndex];
+  const { offset: appointmentOffset } = appointment;
+
+  appointment.hasDirectChild = intervalsOverlap(
+    appointment.start, moment(appointment.start).add(cellDuration, 'minutes'),
+    appointments[appointmentIndex + 1].start,
+  );
+  let maxAppointmentTreeDepth = visitChild(
+    appointments, appointmentIndex + 1, cellDuration, appointment.hasDirectChild, treeDepth,
+  );
+
+  const directChildren = [];
+  const indirectChildren = [];
+  if (appointment.hasDirectChild) {
+    directChildren.push(appointmentIndex + 1);
+  } else {
+    indirectChildren.push(appointmentIndex + 1);
+  }
+
+  let nextChildIndex = appointmentIndex + 2;
+  while (nextChildIndex < appointments.length
+    && appointments[nextChildIndex].offset > appointmentOffset) {
+    if (appointments[nextChildIndex].offset === appointmentOffset + 1) {
+      const isDirectChild = intervalsOverlap(
+        appointment.start, moment(appointment.start).add(cellDuration, 'minutes'),
+        appointments[nextChildIndex].start,
+      );
+      const nextTreeDepth = visitChild(
+        appointments, nextChildIndex, cellDuration, isDirectChild, treeDepth,
+      );
+      if (maxAppointmentTreeDepth < nextTreeDepth) {
+        maxAppointmentTreeDepth = nextTreeDepth;
+      }
+      if (isDirectChild) {
+        directChildren.push(nextChildIndex);
+      } else {
+        indirectChildren.push(nextChildIndex);
+      }
+    }
+    nextChildIndex += 1;
+  }
+  appointment.directChildren = directChildren;
+  appointment.indirectChildren = indirectChildren;
+
+  return maxAppointmentTreeDepth;
+};
 
 export const calculateAppointmentsMetaData: PureComputed<
   [any[], number], any[]
@@ -592,6 +712,7 @@ export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIn
   const { cellDuration } = rectByDatesMeta;
 
   const adjusted = adjustAppointments(grouped as any[], isHorizontal, cellDuration);
+  createAppointmentForest(adjusted, cellDuration);
   const adjusted1 = calculateAppointmentsMetaData(adjusted, cellDuration);
 
   const rects =  unwrapGroups(adjusted1)

@@ -39,12 +39,6 @@ The Scheduler requires a view plugin and the `Appointments` plugin to display th
 
 .embedded-demo({ "path": "scheduler-basic/basic-setup", "showThemeSelector": true })
 
-## Try Out the React Scheduler
-
-Follow the link below to try out the React Scheduler:
-
-- [CodeSandbox for Material-UI](https://codesandbox.io/s/0y4zvoxl8v)
-
 ## License
 
 [DevExtreme licensing](https://js.devexpress.com/licensing/).

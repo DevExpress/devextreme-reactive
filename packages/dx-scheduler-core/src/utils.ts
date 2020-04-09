@@ -491,7 +491,12 @@ const checkRootAppointments: PureComputed<
       appointment.left = 0;
       appointment.hasDirectChildList = [];
     } else {
-      checkAllChildren(appointments, rootIndex, [], [], [], MAX_WIDTH);
+      const { left, width } = calculateAppointmentLeftAndWidth(
+        appointment, undefined, MAX_WIDTH,
+      );
+      appointment.left = left;
+      appointment.width = width;
+      checkAllChildren(appointments, rootIndex, MAX_WIDTH);
     }
 
   });
@@ -499,104 +504,42 @@ const checkRootAppointments: PureComputed<
 };
 
 const checkChildAppointment: PureComputed<
-  [any[], boolean[], number, number[], number[], number], any
+  [any[], number, number], any
 > = (
-  appointments, hasDirectChild, childIndex, baseWidths, baseLeftOffsets, maxWidth,
+  appointments, index, maxWidth,
 ) => {
-  const appointment = appointments[childIndex];
-  const appointmentOffset = appointment.offset;
+  const appointment = appointments[index];
+  const parentAppointment = appointment.parent !== undefined
+    ? appointments[appointment.parent] : undefined;
+  const { left, width } = calculateAppointmentLeftAndWidth(
+    appointment, parentAppointment, maxWidth,
+  );
+  appointment.left = left;
+  appointment.width = width;
 
   if (appointment.directChildren.length === 0
     && appointment.indirectChildren.length === 0) {
-    const finalHasDirectChild = [
-      ...hasDirectChild,
-      !!hasDirectChild[hasDirectChild.length - 1],
-    ];
-    const { widths, leftOffsets } = calculateLeftAndWidth(
-      finalHasDirectChild, baseWidths, baseLeftOffsets, maxWidth,
-    );
-    const appointmentWidth = widths[appointmentOffset];
-
-    appointment.width = appointmentWidth;
-    appointment.left = maxWidth - appointmentWidth;
-    appointment.hasDirectChildList = hasDirectChild;
-    return { widths, hasDirectChild: finalHasDirectChild, leftOffsets };
+    return appointment;
   }
 
   return checkAllChildren(
-    appointments, childIndex, hasDirectChild, baseWidths, baseLeftOffsets, maxWidth,
+    appointments, index, maxWidth,
   );
-};
-
-const findChildByTreeDepth: PureComputed<
-  [any[], number[], number[], number], number
-> = (appointments, directChildren, indirectChildren, treeDepth) => {
-  let appointmentIndex = directChildren
-    .find(childIndex => appointments[childIndex].treeDepth === treeDepth);
-  if (appointmentIndex === undefined) {
-    appointmentIndex = indirectChildren
-      .find(childIndex => appointments[childIndex].treeDepth === treeDepth);
-  }
-  return appointmentIndex!;
 };
 
 const checkAllChildren: PureComputed<
-  [any[], number, boolean[], number[], number[], number], any
-> = (appointments, appointmentIndex, hasDirectChild, baseWidths, baseLeftOffsets, maxWidth) => {
+  [any[], number, number], any
+> = (appointments, appointmentIndex, maxWidth) => {
   const appointment = appointments[appointmentIndex];
-  const { offset: appointmentOffset, directChildren, indirectChildren, treeDepth } = appointment;
-  const maxDepthAppointmentIndex = findChildByTreeDepth(
-    appointments, directChildren, indirectChildren, treeDepth - 1,
-  );
-  appointment.hasDirectChildList = hasDirectChild;
-  const {
-    widths, leftOffsets,
-  } = checkChildAppointment(
-    appointments,
-    [...hasDirectChild, appointments[maxDepthAppointmentIndex].isDirectChild],
-    maxDepthAppointmentIndex, baseWidths, baseLeftOffsets, maxWidth,
-  );
-  updateChildren(
-    appointments, directChildren, indirectChildren, widths, leftOffsets,
-    hasDirectChild, appointmentOffset, treeDepth, maxDepthAppointmentIndex, maxWidth,
-  );
-
-  appointment.left = leftOffsets[appointmentOffset];
-  appointment.width = appointment.hasDirectChild
-    ? (1 - appointment.left) / (treeDepth + 1)
-    : widths[appointmentOffset];
-
-  return { widths, leftOffsets };
-};
-
-const updateChildren: PureComputed<
-  [any[], number[], number[], number[], number[], boolean[], number, number, number, number], void
-> = (
-  appointments, directChildren, indirectChildren, widths, leftOffsets,
-  hasDirectChildren, parentOffset, treeDepth, excludeIndex, maxWidth,
-) => {
+  const { directChildren, indirectChildren } = appointment;
   directChildren.forEach((childIndex) => {
-    if (childIndex !== excludeIndex) {
-      const correctedWidths = sliceWidthsForDirectChildren(
-        widths, leftOffsets, parentOffset, treeDepth, maxWidth,
-      );
-      checkChildAppointment(
-        appointments, [...hasDirectChildren, true], childIndex,
-        correctedWidths, leftOffsets.slice(0, parentOffset + 1), maxWidth,
-      );
-    }
+    checkChildAppointment(appointments, childIndex, maxWidth);
   });
   indirectChildren.forEach((childIndex) => {
-    if (childIndex !== excludeIndex) {
-      const correctedWidths = sliceWidthsForIndirectChildren(
-        widths, leftOffsets, parentOffset, maxWidth,
-      );
-      checkChildAppointment(
-        appointments, [...hasDirectChildren, false], childIndex,
-        correctedWidths, leftOffsets.slice(0, parentOffset + 1), maxWidth,
-      );
-    }
+    checkChildAppointment(appointments, childIndex, maxWidth);
   });
+
+  return appointment;
 };
 
 export const sliceWidthsForIndirectChildren: PureComputed<
@@ -618,34 +561,36 @@ export const sliceWidthsForDirectChildren: PureComputed<
   ];
 };
 
-export const calculateLeftAndWidth: PureComputed<
-  [boolean[], number[], number[], number], any
-> = (hasDirectChild, baseWidths, baseLeftOffsets, maxWidth) => {
-  const widths = baseWidths.slice();
-  const leftOffsets = baseLeftOffsets.slice();
-
-  for (let i = baseWidths.length; i < hasDirectChild.length; i += 1) {
-    if (i === 0) {
-      widths.push(hasDirectChild[i] ? maxWidth / hasDirectChild.length : maxWidth);
-      leftOffsets.push(0);
-    } else {
-      const unoccupiedSpace = hasDirectChild[i - 1]
-        ? maxWidth - leftOffsets[i - 1] - widths[i - 1]
-        : widths[i - 1] * INDIRECT_CHILD_WIDTH;
-      const width = hasDirectChild[i - 1]
-        ? maxWidth - leftOffsets[i - 1] - widths[i - 1] : widths[i - 1] * INDIRECT_CHILD_WIDTH;
-
-      widths.push(hasDirectChild[i]
-        ? unoccupiedSpace / (hasDirectChild.length - i)
-        : width);
-
-      const left = hasDirectChild[i - 1]
-        ? leftOffsets[i - 1] + widths[i - 1]
-        : maxWidth - widths[i - 1] * INDIRECT_CHILD_WIDTH;
-      leftOffsets.push(left);
-    }
+export const calculateAppointmentLeftAndWidth: PureComputed<
+  [any, any, number], any
+> = (appointment, parentAppointment, maxWidth) => {
+  const { hasDirectChild, treeDepth, isDirectChild } = appointment;
+  if (!parentAppointment) {
+    return ({
+      width: hasDirectChild ? maxWidth / (treeDepth + 1) : maxWidth,
+      left: 0,
+    });
   }
-  return { widths, leftOffsets };
+
+  const {
+    width: parentWidth,
+    left: parentLeft,
+    hasDirectChild: hasParentDirectChild,
+  } = parentAppointment;
+  const unoccupiedSpace = isDirectChild
+    ? maxWidth - parentLeft - parentWidth : hasParentDirectChild
+      ? (maxWidth - parentLeft) * INDIRECT_CHILD_WIDTH
+      : parentWidth * INDIRECT_CHILD_WIDTH;
+  const left = isDirectChild
+    ? parentLeft + parentWidth : hasParentDirectChild
+      ? parentLeft + (1 - INDIRECT_CHILD_WIDTH) * maxWidth
+      : maxWidth - parentWidth * INDIRECT_CHILD_WIDTH;
+
+  return ({
+    width: hasDirectChild ? unoccupiedSpace / (treeDepth + 1) : unoccupiedSpace,
+    left,
+  });
+
 };
 
 export const groupByOffset: PureComputed<
@@ -677,13 +622,8 @@ export const updateLeftAndWidth: PureComputed<
       items, appointment, groupedByOffset, index,
     );
     if (result !== undefined) {
-      const foundAppointment = appointments[result];
-      const hasDirectChild = [];
-      for (let i = 0; i < foundAppointment.offset; i += 1) {
-        hasDirectChild.push(true);
-      }
       checkChildAppointment(
-        appointments, hasDirectChild, result, [], [], 1,
+        appointments, result, MAX_WIDTH,
       );
     }
   });
@@ -723,12 +663,11 @@ const findPreviousOverlappingAppointment: PureComputed<
 const reduceAppointmentsWidth: PureComputed<
   [any[], number, number], any
 > = (appointments, appointmentIndex, overlappingAppointmentIndex) => {
-  const appointment = appointments[appointmentIndex];
   const overlappingAppointment = appointments[overlappingAppointmentIndex];
   const { treeDepth, offset } = overlappingAppointment;
   const reduceWidth = (offset) / (offset + treeDepth + 1);
   checkChildAppointment(
-    appointments, appointment.hasDirectChildList, appointmentIndex, [], [], reduceWidth,
+    appointments, appointmentIndex, reduceWidth,
   );
 };
 
@@ -753,10 +692,10 @@ export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIn
   const appointmentForest = createAppointmentForest(adjusted, cellDuration);
   console.log(appointmentForest)
   const adjusted1 = calculateAppointmentsMetaData(appointmentForest);
-  const groupedByOffset = groupByOffset(adjusted1);
-  const updated = updateLeftAndWidth(groupedByOffset);
+  // const groupedByOffset = groupByOffset(adjusted1);
+  // const updated = updateLeftAndWidth(groupedByOffset);
 
-  const rects =  unwrapGroups(updated)
+  const rects =  unwrapGroups(adjusted1)
     .map(appointment => rectCalculator(
       appointment, viewMetaData,
       { rectByDates, multiline, rectByDatesMeta },

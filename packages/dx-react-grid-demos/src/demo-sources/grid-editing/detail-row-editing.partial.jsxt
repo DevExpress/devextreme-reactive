@@ -137,7 +137,7 @@ export default () => {
   };
 
   return (
-    <Paper>
+    <<%&wrapperTag%><%&wrapperAttributes%>>
       <Grid
         rows={rows}
         columns={columns}
@@ -155,9 +155,10 @@ export default () => {
         <TableRowDetail
           contentComponent={DetailContent}
           cellComponent={DetailCell}
+          toggleCellComponent={ToggleCell}
         />
         <DetailEditCell />
       </Grid>
-    </Paper>
+    </<%&wrapperTag%>>
   );
 };

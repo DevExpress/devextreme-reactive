@@ -476,11 +476,11 @@ export const calculateAppointmentsMetaData: PureComputed<
     ...appointmentGroup,
     items: items.length === 1
       ? [{ ...items[0], left: 0, width: 1 }]
-      : checkRootAppointments(items, roots),
+      : calculateRootsMetaData(items, roots),
   };
 });
 
-const checkRootAppointments: PureComputed<
+const calculateRootsMetaData: PureComputed<
   [any[], number[]], any[]
 > = (appointmentItems, roots) => {
   const appointments = appointmentItems.slice();
@@ -496,14 +496,14 @@ const checkRootAppointments: PureComputed<
       );
       appointment.left = left;
       appointment.width = width;
-      checkAllChildren(appointments, rootIndex, MAX_WIDTH);
+      calculateChildrenMetaData(appointments, rootIndex, MAX_WIDTH);
     }
 
   });
   return appointments;
 };
 
-const checkChildAppointment: PureComputed<
+const calculateChildMetaData: PureComputed<
   [any[], number, number], any
 > = (
   appointments, index, maxWidth,
@@ -522,21 +522,21 @@ const checkChildAppointment: PureComputed<
     return appointment;
   }
 
-  return checkAllChildren(
+  return calculateChildrenMetaData(
     appointments, index, maxWidth,
   );
 };
 
-const checkAllChildren: PureComputed<
+const calculateChildrenMetaData: PureComputed<
   [any[], number, number], any
 > = (appointments, appointmentIndex, maxWidth) => {
   const appointment = appointments[appointmentIndex];
   const { directChildren, indirectChildren } = appointment;
   directChildren.forEach((childIndex) => {
-    checkChildAppointment(appointments, childIndex, maxWidth);
+    calculateChildMetaData(appointments, childIndex, maxWidth);
   });
   indirectChildren.forEach((childIndex) => {
-    checkChildAppointment(appointments, childIndex, maxWidth);
+    calculateChildMetaData(appointments, childIndex, maxWidth);
   });
 
   return appointment;
@@ -622,13 +622,27 @@ export const updateLeftAndWidth: PureComputed<
       items, appointment, groupedByOffset, index,
     );
     if (result !== undefined) {
-      checkChildAppointment(
+      const overlappingAppointment = appointments[result];
+      const { left, width } = moveAppointmentToRight(overlappingAppointment);
+      overlappingAppointment.left = left;
+      overlappingAppointment.width = width;
+      calculateChildrenMetaData(
         appointments, result, MAX_WIDTH,
       );
     }
   });
   return appointmentGroup;
 });
+
+const moveAppointmentToRight: PureComputed<
+  [any], any
+> = (appointment) => {
+  const { offset, treeDepth, hasDirectChild } = appointment;
+  const reduceValue = (offset + treeDepth + 1);
+  const left = offset / reduceValue;
+  const width = hasDirectChild ? MAX_WIDTH / reduceValue : 1 - left;
+  return { left, width };
+};
 
 const findPreviousOverlappingAppointment: PureComputed<
   [any[], any, number[][], number], number | undefined
@@ -651,7 +665,11 @@ const findPreviousOverlappingAppointment: PureComputed<
         if (intervalIncludes(
           previousAppointment.start, previousAppointment.end, appointment.end,
         )) {
-          reduceAppointmentsWidth(appointments, appointmentIndex, overlappingAppointmentIndex);
+          const { left, width } = reduceAppointmentsWidth(
+            appointments, appointmentIndex, overlappingAppointmentIndex,
+          );
+          appointment.left = left;
+          appointment.width = width;
         }
       }
     }
@@ -666,9 +684,12 @@ const reduceAppointmentsWidth: PureComputed<
   const overlappingAppointment = appointments[overlappingAppointmentIndex];
   const { treeDepth, offset } = overlappingAppointment;
   const reduceWidth = (offset) / (offset + treeDepth + 1);
-  checkChildAppointment(
-    appointments, appointmentIndex, reduceWidth,
+  const appointment = appointments[appointmentIndex];
+  const appointmentParent = appointment.parent ? appointments[appointment.parent] : undefined;
+  return calculateAppointmentLeftAndWidth(
+    appointment, appointmentParent, reduceWidth,
   );
+
 };
 
 export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIntervalsFn = (
@@ -690,12 +711,10 @@ export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIn
 
   const adjusted = adjustAppointments(grouped as any[], isHorizontal, cellDuration);
   const appointmentForest = createAppointmentForest(adjusted, cellDuration);
-  console.log(appointmentForest)
   const adjusted1 = calculateAppointmentsMetaData(appointmentForest);
-  // const groupedByOffset = groupByOffset(adjusted1);
-  // const updated = updateLeftAndWidth(groupedByOffset);
-
-  const rects =  unwrapGroups(adjusted1)
+  const groupedByOffset = groupByOffset(adjusted1);
+  const updated = updateLeftAndWidth(groupedByOffset);
+  const rects =  unwrapGroups(updated)
     .map(appointment => rectCalculator(
       appointment, viewMetaData,
       { rectByDates, multiline, rectByDatesMeta },

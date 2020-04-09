@@ -448,7 +448,7 @@ const visitAllChildren: PureComputed<
       if (maxAppointmentTreeDepth < nextTreeDepth) {
         maxAppointmentTreeDepth = nextTreeDepth;
       }
-      children.push(nextChildIndex);
+      children.push(appointments[nextChildIndex]);
     }
     nextChildIndex += 1;
   }
@@ -488,7 +488,7 @@ const calculateRootsMetaData: PureComputed<
       );
       appointment.left = left;
       appointment.width = width;
-      calculateChildrenMetaData(appointments, rootIndex, MAX_WIDTH);
+      calculateChildrenMetaData(appointments, appointment, MAX_WIDTH);
     }
 
   });
@@ -496,11 +496,10 @@ const calculateRootsMetaData: PureComputed<
 };
 
 const calculateChildMetaData: PureComputed<
-  [any[], number, number], any
+  [any[], any, number], any
 > = (
-  appointments, index, maxWidth,
+  appointments, appointment, maxWidth,
 ) => {
-  const appointment = appointments[index];
   const { left, width } = calculateAppointmentLeftAndWidth(
     appointment, appointment.parent, maxWidth,
   );
@@ -512,17 +511,16 @@ const calculateChildMetaData: PureComputed<
   }
 
   return calculateChildrenMetaData(
-    appointments, index, maxWidth,
+    appointments, appointment, maxWidth,
   );
 };
 
 const calculateChildrenMetaData: PureComputed<
-  [any[], number, number], any
-> = (appointments, appointmentIndex, maxWidth) => {
-  const appointment = appointments[appointmentIndex];
+  [any[], any, number], any
+> = (appointments, appointment, maxWidth) => {
   const { children } = appointment;
-  children.forEach((childIndex) => {
-    calculateChildMetaData(appointments, childIndex, maxWidth);
+  children.forEach((child) => {
+    calculateChildMetaData(appointments, child, maxWidth);
   });
 
   return appointment;
@@ -594,7 +592,7 @@ export const updateLeftAndWidth: PureComputed<
       overlappingAppointment.left = left;
       overlappingAppointment.width = width;
       calculateChildrenMetaData(
-        appointments, result, MAX_WIDTH,
+        appointments, overlappingAppointment, MAX_WIDTH,
       );
     }
   });

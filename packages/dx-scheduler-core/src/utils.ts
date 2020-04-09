@@ -506,8 +506,8 @@ const checkChildAppointment: PureComputed<
   const appointment = appointments[childIndex];
   const appointmentOffset = appointment.offset;
 
-  if (childIndex === appointments.length - 1
-    || appointment.offset >= appointments[childIndex + 1].offset) {
+  if (appointment.directChildren.length === 0
+    && appointment.indirectChildren.length === 0) {
     const finalHasDirectChild = [
       ...hasDirectChild,
       !!hasDirectChild[hasDirectChild.length - 1],

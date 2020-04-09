@@ -1,3 +1,13 @@
+# [2.6.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.6.0...v2.6.1) (2020-04-09)
+
+
+### Bug Fixes
+
+* **react-grid:** make possible put VirtualTable in container with scale ([#2787](https://github.com/DevExpress/devextreme-reactive/issues/2787)) ([8008bac](https://github.com/DevExpress/devextreme-reactive/commit/8008bac36d232e5f7cfff023e4f7493dbaa0051b))
+* **react-grid-material-ui:** apply page size selector position only for Edge ([#2790](https://github.com/DevExpress/devextreme-reactive/issues/2790)) ([762dd57](https://github.com/DevExpress/devextreme-reactive/commit/762dd57b56c5fcec9fa70efd51d940af4c38aa09))
+
+
+
 # [2.6.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.5.1...v2.6.0) (2020-03-27)
 
 

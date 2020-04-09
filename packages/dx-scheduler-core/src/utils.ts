@@ -361,7 +361,7 @@ export const createAppointmentForest: PureComputed<
   let nextItems;
   let roots;
   if (items.length === 1) {
-    nextItems = [{ ...items[0], directChildren: [], indirectChildren: [], depth: 0 }];
+    nextItems = [{ ...items[0], children: [], depth: 0 }];
     roots = [0];
   } else {
     const {
@@ -389,8 +389,7 @@ const iterateTreeRoots: PureComputed<
     if (appointmentOffset === 0) {
       roots.push(baseAppointmentId);
       if (baseAppointmentId + 1 === appointments.length) {
-        appointment.directChildren = [];
-        appointment.indirectChildren = [];
+        appointment.children = [];
       } else {
         appointment.treeDepth = visitAllChildren(appointments, baseAppointmentId, cellDuration, 0);
       }
@@ -411,8 +410,7 @@ const visitChild: PureComputed<
 
   if (index === appointments.length - 1
     || appointment.end.isSameOrBefore(appointments[index + 1].start)) {
-    appointment.directChildren = [];
-    appointment.indirectChildren = [];
+    appointment.children = [];
     appointment.treeDepth = 0;
     return nextTreeDepth;
   }
@@ -433,8 +431,7 @@ const visitAllChildren: PureComputed<
 
   let maxAppointmentTreeDepth = 0;
 
-  const directChildren = [];
-  const indirectChildren = [];
+  const children = [];
 
   let nextChildIndex = appointmentIndex + 1;
   while (nextChildIndex < appointments.length
@@ -451,16 +448,11 @@ const visitAllChildren: PureComputed<
       if (maxAppointmentTreeDepth < nextTreeDepth) {
         maxAppointmentTreeDepth = nextTreeDepth;
       }
-      if (isDirectChild) {
-        directChildren.push(nextChildIndex);
-      } else {
-        indirectChildren.push(nextChildIndex);
-      }
+      children.push(nextChildIndex);
     }
     nextChildIndex += 1;
   }
-  appointment.directChildren = directChildren;
-  appointment.indirectChildren = indirectChildren;
+  appointment.children = children;
 
   return maxAppointmentTreeDepth;
 };
@@ -517,8 +509,7 @@ const calculateChildMetaData: PureComputed<
   appointment.left = left;
   appointment.width = width;
 
-  if (appointment.directChildren.length === 0
-    && appointment.indirectChildren.length === 0) {
+  if (appointment.children.length === 0) {
     return appointment;
   }
 
@@ -531,34 +522,12 @@ const calculateChildrenMetaData: PureComputed<
   [any[], number, number], any
 > = (appointments, appointmentIndex, maxWidth) => {
   const appointment = appointments[appointmentIndex];
-  const { directChildren, indirectChildren } = appointment;
-  directChildren.forEach((childIndex) => {
-    calculateChildMetaData(appointments, childIndex, maxWidth);
-  });
-  indirectChildren.forEach((childIndex) => {
+  const { children } = appointment;
+  children.forEach((childIndex) => {
     calculateChildMetaData(appointments, childIndex, maxWidth);
   });
 
   return appointment;
-};
-
-export const sliceWidthsForIndirectChildren: PureComputed<
-  [number[], number[], number, number], number[]
-> = (widths, leftOffsets, appointmentOffset, maxWidth) => {
-  return [
-    ...widths.slice(0, appointmentOffset),
-    maxWidth - leftOffsets[appointmentOffset],
-  ];
-};
-
-export const sliceWidthsForDirectChildren: PureComputed<
-  [number[], number[], number, number, number], number[]
-> = (widths, leftOffsets, appointmentOffset, maxAppointmentTreeDepth, maxWidth) => {
-  return [
-    ...widths.slice(0, appointmentOffset),
-    (maxWidth - leftOffsets[appointmentOffset])
-      / (maxAppointmentTreeDepth + 1),
-  ];
 };
 
 export const calculateAppointmentLeftAndWidth: PureComputed<

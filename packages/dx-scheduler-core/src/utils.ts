@@ -402,10 +402,10 @@ const iterateTreeRoots: PureComputed<
 
 const visitChild: PureComputed<
   [any[], number, number, number, boolean, number], any
-> = (appointments, index, parentIndex, cellDuration, isDirectChild, treeDepth) => {
+> = (appointments, index, parentAppointment, cellDuration, isDirectChild, treeDepth) => {
   const appointment = appointments[index];
   appointment.isDirectChild = isDirectChild;
-  appointment.parent = parentIndex;
+  appointment.parent = parentAppointment;
   const nextTreeDepth = treeDepth + 1;
 
   if (index === appointments.length - 1
@@ -443,7 +443,7 @@ const visitAllChildren: PureComputed<
       );
       appointment.hasDirectChild = appointment.hasDirectChild || isDirectChild;
       const nextTreeDepth = visitChild(
-        appointments, nextChildIndex, appointmentIndex, cellDuration, isDirectChild, treeDepth,
+        appointments, nextChildIndex, appointment, cellDuration, isDirectChild, treeDepth,
       );
       if (maxAppointmentTreeDepth < nextTreeDepth) {
         maxAppointmentTreeDepth = nextTreeDepth;
@@ -501,10 +501,8 @@ const calculateChildMetaData: PureComputed<
   appointments, index, maxWidth,
 ) => {
   const appointment = appointments[index];
-  const parentAppointment = appointment.parent !== undefined
-    ? appointments[appointment.parent] : undefined;
   const { left, width } = calculateAppointmentLeftAndWidth(
-    appointment, parentAppointment, maxWidth,
+    appointment, appointment.parent, maxWidth,
   );
   appointment.left = left;
   appointment.width = width;
@@ -654,9 +652,8 @@ const reduceAppointmentsWidth: PureComputed<
   const { treeDepth, offset } = overlappingAppointment;
   const reduceWidth = (offset) / (offset + treeDepth + 1);
   const appointment = appointments[appointmentIndex];
-  const appointmentParent = appointment.parent ? appointments[appointment.parent] : undefined;
   return calculateAppointmentLeftAndWidth(
-    appointment, appointmentParent, reduceWidth,
+    appointment, appointment.parent, reduceWidth,
   );
 
 };

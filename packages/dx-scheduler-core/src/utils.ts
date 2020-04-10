@@ -332,8 +332,12 @@ const verticalRectCalculator: CustomFunction<
     },
   );
 
-  const { offset, width: relativeWidth, left: relativeLeft  } = appointment;
-  const widthMultiplier = (relativeWidth! * 5 / 3 + relativeLeft!) <= 1 ? 5 / 3 : 1;
+  const { offset, width: relativeWidth, left: relativeLeft, maxWidth  } = appointment;
+  let widthMultiplier = (relativeWidth! * 5 / 3 + relativeLeft!) <= 1 ? 5 / 3 : 1;
+  if (widthMultiplier !== 5 / 3 && maxWidth) {
+    widthMultiplier = maxWidth / relativeWidth!;
+  }
+
   return {
     resources: appointment.resources,
     top,
@@ -459,6 +463,7 @@ const visitAllChildren: PureComputed<
 
 const MAX_WIDTH = 1;
 const INDIRECT_CHILD_WIDTH = 0.95;
+const OVERLAP_MULTIPLIER = 2 / 3;
 
 export const calculateAppointmentsMetaData: PureComputed<
   [any[]], any[]
@@ -583,17 +588,11 @@ export const updateLeftAndWidth: PureComputed<
   const appointments = items.slice();
 
   appointments.forEach((appointment: any, index: number) => {
-    const result = findPreviousOverlappingAppointment(
+    const overlappingAppointmentIndex = findPreviousOverlappingAppointment(
       items, appointment, groupedByOffset, index,
     );
-    if (result !== undefined) {
-      const overlappingAppointment = appointments[result];
-      const { left, width } = moveAppointmentToRight(overlappingAppointment);
-      overlappingAppointment.left = left;
-      overlappingAppointment.width = width;
-      calculateChildrenMetaData(
-        appointments, overlappingAppointment, MAX_WIDTH,
-      );
+    if (overlappingAppointmentIndex !== undefined) {
+      alignAppointments(appointments, appointment, index, overlappingAppointmentIndex);
     }
   });
   return appointmentGroup;
@@ -609,13 +608,46 @@ const moveAppointmentToRight: PureComputed<
   return { left, width };
 };
 
+const alignAppointments: PureComputed<
+  [any[], any, number, number], any
+> = (appointments, appointment, index, overlappingAppointmentIndex) => {
+  const overlappingAppointment = appointments[overlappingAppointmentIndex];
+  const { left, width } = moveAppointmentToRight(overlappingAppointment);
+  overlappingAppointment.left = left;
+  overlappingAppointment.width = width;
+  calculateChildrenMetaData(
+    appointments, overlappingAppointment, MAX_WIDTH,
+  );
+
+  const firstChild = appointment.children.length ? appointment.children[0] : undefined;
+  if (intervalIncludes(
+    overlappingAppointment.start, overlappingAppointment.end, appointment.end,
+  ) || (firstChild
+    && intervalIncludes(
+      overlappingAppointment.start, overlappingAppointment.end, firstChild.end,
+    ))) {
+    const { left: nextLeft, width: nextWidth } = reduceAppointmentsWidth(
+      appointments, index, overlappingAppointmentIndex,
+    );
+    appointment.left = nextLeft;
+    appointment.width = nextWidth;
+    appointment.maxWidth = calculateMaxWidth(overlappingAppointment);
+  }
+};
+
+const calculateMaxWidth: PureComputed<
+  [any], any
+> = (overlappingAppointment) => {
+  const { left, width } = overlappingAppointment;
+  return left + width * OVERLAP_MULTIPLIER;
+};
+
 const findPreviousOverlappingAppointment: PureComputed<
   [any[], any, number[][], number], number | undefined
 > = (appointments, appointment, groupedByOffset, appointmentIndex) => {
   let { offset: currentOffset } = appointment;
   currentOffset += 1;
-  let overlappingAppointmentIndex;
-  while (currentOffset < groupedByOffset.length && !overlappingAppointmentIndex) {
+  while (currentOffset < groupedByOffset.length) {
     let currentIndex = groupedByOffset[currentOffset].length - 1;
     while (currentIndex >= 0 && groupedByOffset[currentOffset][currentIndex] > appointmentIndex) {
       currentIndex -= 1;
@@ -626,21 +658,12 @@ const findPreviousOverlappingAppointment: PureComputed<
         previousAppointment.start, previousAppointment.end, appointment.start,
       );
       if (appointmentsOverlap) {
-        overlappingAppointmentIndex = groupedByOffset[currentOffset][currentIndex];
-        if (intervalIncludes(
-          previousAppointment.start, previousAppointment.end, appointment.end,
-        )) {
-          const { left, width } = reduceAppointmentsWidth(
-            appointments, appointmentIndex, overlappingAppointmentIndex,
-          );
-          appointment.left = left;
-          appointment.width = width;
-        }
+        return groupedByOffset[currentOffset][currentIndex];
       }
     }
     currentOffset += 1;
   }
-  return overlappingAppointmentIndex;
+  return undefined;
 };
 
 const reduceAppointmentsWidth: PureComputed<

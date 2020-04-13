@@ -8,6 +8,10 @@ import { HORIZONTAL_GROUP_ORIENTATION, HORIZONTAL_TYPE, VERTICAL_TYPE } from '..
 import { toPercentage } from '../../utils';
 import moment from 'moment';
 
+const MAX_WIDTH = 1;
+const INDIRECT_CHILD_WIDTH = 0.95;
+const OVERLAP_MULTIPLIER = 2 / 3;
+
 export const isAllDayElementsMetaActual: PureComputed<
   [ViewCell[][], CellElementsMeta, GroupOrientation, number], boolean
 > = (viewCellsData, allDayElementsMeta, groupOrientation, groupCount) => {
@@ -307,8 +311,10 @@ export const createAppointmentForest: PureComputed<
   let nextItems;
   let roots;
   if (items.length === 1) {
-    nextItems = [{ ...items[0], children: [], depth: 0 }];
-    roots = [0];
+    nextItems = [{
+      ...items[0], children: [], treeDepth: 0, isDirectChild: false, hasDirectChild: false,
+    }];
+    roots = [nextItems[0]];
   } else {
     const {
       appointments, roots: appointmentTreeRoots,
@@ -333,13 +339,16 @@ const iterateTreeRoots: PureComputed<
     const appointment = appointments[baseAppointmentId];
     const { offset: appointmentOffset } = appointment;
     if (appointmentOffset === 0) {
-      roots.push(baseAppointmentId);
+      roots.push(appointment);
       if (baseAppointmentId + 1 === appointments.length) {
         appointment.children = [];
+        appointment.hasDirectChild = false;
+        appointment.treeDepth = 0;
       } else {
         appointment.treeDepth = visitAllChildren(appointments, baseAppointmentId, cellDuration, 0);
       }
       appointment.parent = undefined;
+      appointment.isDirectChild = false;
     }
     baseAppointmentId += 1;
   }
@@ -358,6 +367,7 @@ const visitChild: PureComputed<
     || appointment.end.isSameOrBefore(appointments[index + 1].start)) {
     appointment.children = [];
     appointment.treeDepth = 0;
+    appointment.hasDirectChild = false;
     return nextTreeDepth;
   }
 
@@ -387,7 +397,6 @@ const visitAllChildren: PureComputed<
         appointment.start, moment(appointment.start).add(cellDuration, 'minutes'),
         appointments[nextChildIndex].start,
       );
-      appointment.hasDirectChild = appointment.hasDirectChild || isDirectChild;
       const nextTreeDepth = visitChild(
         appointments, nextChildIndex, appointment, cellDuration, isDirectChild, treeDepth,
       );
@@ -398,14 +407,11 @@ const visitAllChildren: PureComputed<
     }
     nextChildIndex += 1;
   }
+  appointment.hasDirectChild = children.length !== 0 && children[0].isDirectChild;
   appointment.children = children;
 
   return maxAppointmentTreeDepth;
 };
-
-const MAX_WIDTH = 1;
-const INDIRECT_CHILD_WIDTH = 0.95;
-const OVERLAP_MULTIPLIER = 2 / 3;
 
 export const calculateAppointmentsMetaData: PureComputed<
   [any[]], any[]
@@ -420,23 +426,16 @@ export const calculateAppointmentsMetaData: PureComputed<
 });
 
 const calculateRootsMetaData: PureComputed<
-  [any[], number[]], any[]
+  [any[], any[]], any[]
 > = (appointmentItems, roots) => {
   const appointments = appointmentItems.slice();
-  roots.forEach((rootIndex) => {
-    const appointment = appointments[rootIndex];
-    if (rootIndex + 1 === appointments.length) {
-      appointment.width = 1;
-      appointment.left = 0;
-      appointment.hasDirectChildList = [];
-    } else {
-      const { left, width } = calculateAppointmentLeftAndWidth(
-        appointment, undefined, MAX_WIDTH,
-      );
-      appointment.left = left;
-      appointment.width = width;
-      calculateChildrenMetaData(appointments, appointment, MAX_WIDTH);
-    }
+  roots.forEach((appointment) => {
+    const { left, width } = calculateAppointmentLeftAndWidth(
+      appointment, undefined, MAX_WIDTH,
+    );
+    appointment.left = left;
+    appointment.width = width;
+    calculateChildrenMetaData(appointments, appointment, MAX_WIDTH);
 
   });
   return appointments;

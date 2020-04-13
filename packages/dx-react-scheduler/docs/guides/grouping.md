@@ -11,13 +11,13 @@ You can group appointments by [resources](../reference/resources.md) programmati
 
 ## Basic Usage
 
-To group by resources, [configure them](./resources.md) first. Then, add the [GroupingState](../reference/grouping-state.md) and [IntegratedGrouping](../reference/integrated-grouping.md) plugins.
+To group by resources, [configure them](./resources.md) first. Then, add [GroupingState](../reference/grouping-state.md) and [IntegratedGrouping](../reference/integrated-grouping.md) plugins.
 
 `GroupingState` has a `grouping` property that accepts an array of resources to group by. The resource order in this array is important. For example, if the Room resource is first and Attendees second, appointments are grouped in that order. If the `grouping` property is unspecified, appointments are grouped by the [main resource](../reference/resources.md/#properties).
 
 Group names (resource titles) are displayed in a group panel. To show the panel, add the [GroupingPanel](../reference/grouping-panel.md) plugin.
 
-A single appointment can appear in multiple groups if it is assigned to [multiple instances of a resource](./resources.md/#single-and-multiple-instance-resources). For example, an appointment assigned to three instances appears in three groups. A particular resource instance provides the appointment's color. The `members` resource from the following demo illustrates this case:
+A single appointment can appear in multiple groups if it is assigned to [multiple instances of a resource](./resources.md/#single-and-multiple-instance-resources). For example, an appointment assigned to three instances appears in three groups. The appointment's color is inherited from a specific resource instance. The `members` resource from the following demo illustrates this case:
 
 .embedded-demo({ "path": "scheduler-grouping/basic", "showThemeSelector": true })
 

@@ -66,14 +66,6 @@ Use the Table plugin to display the data as a simple table:
 
 .embedded-demo({ "path": "grid-basic/getting-started", "showThemeSelector": true })
 
-## Try Out the React Grid
-
-Follow the links below to try out the React Grid:
-
-- [CodeSandbox for Material-UI](https://codesandbox.io/s/13qvz1qqzl)
-- [CodeSandbox for Bootstrap4](https://codesandbox.io/s/rymyjlonpq)
-- [CodeSandbox for Bootstrap3](https://codesandbox.io/s/7o46mkowx)
-
 ## License
 
 [DevExtreme licensing](https://js.devexpress.com/licensing/).

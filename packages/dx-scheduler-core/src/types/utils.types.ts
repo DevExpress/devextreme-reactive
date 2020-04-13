@@ -30,6 +30,7 @@ export interface AppointmentUnwrappedGroup extends GroupItem {
   widthMultipliers?: number[];
   width?: number;
   left?: number;
+  maxWidth?: number;
 }
 
 /** @internal */

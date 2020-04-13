@@ -11,10 +11,10 @@
   },
   "license": "SEE LICENSE IN README.md",
   "devDependencies": {
-    "@microsoft/api-extractor": "^7.6.1",
-    "check-node-version": "^4.0.1",
-    "concurrently": "^5.0.0",
-    "conventional-changelog-cli": "^2.0.28",
+    "@microsoft/api-extractor": "^7.7.13",
+    "check-node-version": "^4.0.3",
+    "concurrently": "^5.1.0",
+    "conventional-changelog-cli": "^2.0.31",
     "conventional-recommended-bump": "^6.0.5",
     "dts-bundle": "^0.7.3",
     "fs-extra": "^8.1.0",
@@ -23,14 +23,14 @@
     "gulp-intercept": "^0.1.0",
     "gulp-rename": "^1.4.0",
     "husky": "^3.1.0",
-    "inquirer": "^7.0.0",
-    "lerna": "^3.18.5",
-    "replace-in-file": "^4.2.0",
-    "rimraf": "^3.0.0",
+    "inquirer": "^7.1.0",
+    "lerna": "^3.20.2",
+    "replace-in-file": "^4.3.1",
+    "rimraf": "^3.0.2",
     "run-sequence": "^2.2.1",
     "semver": "^6.3.0",
-    "start-server-and-test": "^1.10.6",
-    "testcafe": "^1.6.1",
+    "start-server-and-test": "^1.10.11",
+    "testcafe": "^1.8.4",
     "testcafe-reporter-xunit": "^2.1.0",
     "typescript": "3.8.3"
   },
@@ -75,6 +75,6 @@
     "packages/*"
   ],
   "engines": {
-    "yarn": ">=1.22.0"
+    "yarn": ">=1.22.4"
   }
 }

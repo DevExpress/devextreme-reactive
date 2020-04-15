@@ -105,12 +105,12 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
   changeColumnFilterAction = (
     _: any,
     __: Getters,
-    { clearRowsCacheAction }: Actions,
+    { clearRowCache }: Actions,
   ) => {
     this.setState({
       requestedStartIndex: 0,
     });
-    clearRowsCacheAction();
+    clearRowCache();
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {

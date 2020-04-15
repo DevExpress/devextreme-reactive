@@ -1,3 +1,13 @@
+# [2.6.2](https://github.com/DevExpress/devextreme-reactive/compare/v2.6.1...v2.6.2) (2020-04-15)
+
+
+### Bug Fixes
+
+* **grid-core:** prevent values from being calculated twice in a group summary ([#2825](https://github.com/DevExpress/devextreme-reactive/issues/2825)) ([c704fdf](https://github.com/DevExpress/devextreme-reactive/commit/c704fdfe9a127f33222599921b8585ee4c745ba0))
+* **react-grid:** fix typo in action name ([#2824](https://github.com/DevExpress/devextreme-reactive/issues/2824)) ([b1a4079](https://github.com/DevExpress/devextreme-reactive/commit/b1a40797c06edc3a735e7cee381818ca16d9e420))
+
+
+
 # [2.6.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.6.0...v2.6.1) (2020-04-09)
 
 

@@ -3,7 +3,7 @@ version: 2
 jobs:
   Build Source:
     docker:
-      - image: circleci/node:13
+      - image: circleci/node:13.12
     working_directory: ~/circleci
     steps:
       - checkout
@@ -32,7 +32,7 @@ jobs:
 
   Jest Tests & Linter:
     docker:
-      - image: circleci/node:13
+      - image: circleci/node:13.12
     working_directory: ~/circleci
     steps:
       - attach_workspace:

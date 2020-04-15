@@ -50,7 +50,7 @@ Note that the [plugin order](./plugin-overview.md#plugin-order) is important.
 
 4. Save the file
 
-   To handle file saving, implement the `onSave` callback of the `GridExporter` component. In this callback, save the file to the user's local storage. This can be done in many different ways. For example, you can use the `file-saver` package:
+   To save the file to the user's local storage at runtime, implement the `onSave` callback for the `GridExporter` component. In the following code, the file is saved via the `file-saver` package, but you can use any other similar package.
 
    ```jsx
    import saveAs from 'file-saver';
@@ -68,7 +68,7 @@ The following demo shows export in action:
 
 ## Supported Grid Features
 
-Exported data can be transformed in the Excel document as it is in the Grid. For this, pass Grid settings to the following `GridExporter` properties:
+To apply the Grid's data shaping settings to an exported Excel document, pass the settings to the following `GridExporter` properties:
 
 - `sorting`
 - `filtering`

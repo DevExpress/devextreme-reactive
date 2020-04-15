@@ -271,6 +271,40 @@ describe('IntegratedSummary', () => {
       ))
         .toEqual(result);
     });
+
+    it('should not calculate collapsed rows twice when row level summary is specified', () => {
+      const rows = [
+        { levelKey: 'b', compoundKey: 'b|1', group: true, collapsedRows: [] },
+        { levelKey: 'c', compoundKey: 'b|c|1', group: true, collapsedRows: [] },
+        { a: 1 },
+        { a: 2 },
+        { levelKey: 'c', compoundKey: 'b|c|2', group: true, collapsedRows: [{ a: 3 }, { a: 4 }] },
+        { levelKey: 'b', compoundKey: 'b|2', group: true, collapsedRows: [{ a: 5 }, { a: 6 }] },
+      ];
+      const summaryItems = [
+        { columnName: 'a', type: 'sum', showInGroupFooter: true },
+        { columnName: 'a', type: 'sum', showInGroupFooter: false },
+      ];
+      const result = {
+        'b|1': [10, 10],
+        'b|2': [11, 11],
+        'b|c|1': [3, 3],
+        'b|c|2': [7, 7],
+      };
+      const getRowLevelKey = row => row.levelKey;
+      const isGroupRow = row => row.group;
+      const getCollapsedRows = row => row.collapsedRows;
+
+      expect(groupSummaryValues(
+        rows,
+        summaryItems,
+        getCellValue,
+        getRowLevelKey,
+        isGroupRow,
+        getCollapsedRows,
+      ))
+        .toEqual(result);
+    });
   });
 
   describe('treeSummaryValues', () => {

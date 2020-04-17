@@ -10,9 +10,9 @@ export class ControllerComponent extends React.PureComponent {
   }: Getters) => {
     const isPreviousDataEmpty = this.isPreviousDataEmpty;
     this.isPreviousDataEmpty = !data.length;
-    return getReadiness(layouts, centerDivRef)
-      && ((isPreviousDataEmpty && axesExist) || !axesExist);
+    return getReadiness(layouts, centerDivRef, isPreviousDataEmpty, !!axesExist);
   }
+
   render () {
     return (
     <Plugin name="ControllerComponent">

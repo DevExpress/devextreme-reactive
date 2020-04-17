@@ -56,6 +56,6 @@ The plugin order is important. Series plugins are rendered in the same order as 
 
 .embedded-demo({ "path": "chart-basic/combination-series", "showThemeSelector": true })
 
-Plugin's dependencies should be declared before the plugin. For example, the `Stack` plugin depends on series plugins. If several series should be stacked, declare their plugins before `Stack`. This also applies to plugins that extend the functionality of other plugins. For example, a plugin that extends the `EventTracker`'s functionality should be declared after the `EventTracker`.
+Plugin dependencies should be declared before the plugin. For example, the `Stack` plugin depends on series plugins. If several series should be stacked, declare their plugins before `Stack`. This also applies to plugins that extend the functionality of other plugins. For example, a plugin that extends the `EventTracker`'s functionality should be declared after the `EventTracker`.
 
 NOTE: Refer to the plugin's reference for information on its dependencies.

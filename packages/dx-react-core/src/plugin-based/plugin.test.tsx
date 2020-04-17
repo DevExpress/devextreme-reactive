@@ -65,6 +65,21 @@ describe('Plugin', () => {
       });
   });
 
+  it('should enforce dependencies on mount', () => {
+    mount((
+      <PluginBase
+        name="TestPlugin"
+        dependencies={[]}
+        {...{ [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: () => [] }}
+      >
+        <div />
+      </PluginBase>
+    ));
+
+    expect(pluginHost.ensureDependencies)
+      .toHaveBeenCalledTimes(1);
+  });
+
   it('should enforce dependencies check after optional is changed', () => {
     const pluginContainer = mount((
       <PluginBase
@@ -78,6 +93,10 @@ describe('Plugin', () => {
         <div />
       </PluginBase>
     ));
+
+    expect(pluginHost.ensureDependencies)
+      .toHaveBeenCalledTimes(1);
+
     pluginContainer.setProps({
       dependencies: [{
         name: 'Dep1',
@@ -86,7 +105,7 @@ describe('Plugin', () => {
     });
 
     expect(pluginHost.ensureDependencies)
-      .toHaveBeenCalledTimes(1);
+      .toHaveBeenCalledTimes(2);
   });
 
   it('should not enforce dependencies check if the "dependencies" prop is not changed', () => {
@@ -103,9 +122,13 @@ describe('Plugin', () => {
         <div />
       </PluginBase>
     ));
+
+    expect(pluginHost.ensureDependencies)
+      .toHaveBeenCalledTimes(1);
+
     pluginContainer.setProps({ dependencies });
 
     expect(pluginHost.ensureDependencies)
-      .not.toHaveBeenCalled();
+      .toHaveBeenCalledTimes(1);
   });
 });

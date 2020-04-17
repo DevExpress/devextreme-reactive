@@ -36,7 +36,7 @@ The user can edit appointments as follows:
 
 ## Basic Setup
 
-Add the plugins listed above to the Scheduler and handle the `EditingState` plugin's `onCommitChanges` event to commit edits to the data storage.
+To enable editing, add the `EditingState` and either `IntegratedEditing` or `EditRecurrenceMenu` and handle `EditingState`'s `onCommitChanges` event to commit edits to the data storage. To allow users to edit appointments, add the `AppointmentForm` plugin.
 
 ### Uncontrolled Mode
 

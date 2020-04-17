@@ -1,6 +1,6 @@
 # React Scheduler - Appointments
 
-The Scheduler supports one-time and all-day appointments.
+The Scheduler supports one-time, recurring, zero-duration and all-day appointments.
 
 ## Related Plugins
 

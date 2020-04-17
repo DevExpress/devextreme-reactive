@@ -21,9 +21,9 @@ export const getReadiness = (
   });
   return Math.abs(bbox.width - width) < DIFFERENCE &&
     Math.abs(bbox.height - height) < DIFFERENCE
-    && checkPreviousDataAndAxes(isPreviousDataEmpty, axesExist);
+    && isPreviousDataEmptyOrNoAxes(isPreviousDataEmpty, axesExist);
 };
 
-const checkPreviousDataAndAxes = (
+const isPreviousDataEmptyOrNoAxes = (
   isPreviousDataEmpty: boolean, axesExist: boolean,
-) => (!isPreviousDataEmpty && axesExist) || !axesExist;
+) => !isPreviousDataEmpty || !axesExist;

@@ -2,10 +2,10 @@
 
 React Scheduler supports the following appointment types:
 
-- [One-time appointments]()
-- [Zero-duration appointments]()
-- [All-day appointments]()
-- [Recurring appointments]()
+- [One-time appointments](#one-time-appointments)
+- [Zero-duration appointments](#zero-duration-appointments)
+- [All-day appointments](#all-day-appointments)
+- [Recurring appointments](#recurring-appointments)
 
 ## Related Plugins
 

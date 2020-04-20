@@ -39,7 +39,7 @@ The user can edit appointments as follows:
 To enable editing, follow the steps below:
 
 1. Add the `EditingState` plugin and handle its `onCommitChanges` event to commit edits to the data storage.
-2. Add either `IntegratedEditing` or `EditRecurrenceMenu`.
+2. Add either `IntegratedEditing` or `EditRecurrenceMenu` plugin.
 3. Add the `AppointmentForm` plugin to visualize appointment's data and to allow users to edit it.
 
 ### Uncontrolled Mode

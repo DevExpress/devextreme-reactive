@@ -1,6 +1,6 @@
 # React Scheduler - Appointments
 
-React Scheduler supports the following appointment types:
+The React Scheduler supports the following appointment types:
 
 - [One-time appointments](#one-time-appointments)
 - [Zero-duration appointments](#zero-duration-appointments)

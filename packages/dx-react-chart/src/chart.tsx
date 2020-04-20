@@ -62,8 +62,8 @@ class RawChart extends React.PureComponent<ChartProps> {
         <AxesLayout />
         <ComponentLayout />
         <SpaceFillingRects placeholders={placeholders} />
-        <ControllerComponent />
         {children}
+        <ControllerComponent />
         <ChartCore />
       </PluginHost>
     ));

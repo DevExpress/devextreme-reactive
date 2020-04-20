@@ -7,6 +7,7 @@ import {
   withComponents,
   PluginComponents,
   onSizeChangeFn,
+  Getter,
 } from '@devexpress/dx-react-core';
 import {
   ARGUMENT_DOMAIN, getValueDomainName,
@@ -219,6 +220,7 @@ class RawAxis extends React.PureComponent<RawAxisProps> {
     // Only one of templates is rendered then, the other is discarded.
     return (
       <Plugin name="Axis">
+        <Getter name="axesExist" value />
         {this.renderAxis(position!)}
         {this.renderAxis(rotatedPosition)}
         {this.renderGrid()}

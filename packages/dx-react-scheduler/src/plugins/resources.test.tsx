@@ -24,6 +24,7 @@ const defaultDeps = {
   template: {
     appointment: {},
   },
+  plugins: ['Appointments'],
 };
 
 describe('Resources', () => {
@@ -46,10 +47,10 @@ describe('Resources', () => {
   it('should provide the "resources" getter', () => {
     const tree = mount((
       <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
         <Resources
           data={[]}
         />
-        {pluginDepsToComponents(defaultDeps)}
       </PluginHost>
     ));
 

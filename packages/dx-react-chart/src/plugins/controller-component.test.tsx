@@ -3,10 +3,10 @@ import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { ControllerComponent } from './controller-component';
-import { getReadiness } from '@devexpress/dx-chart-core';
+import { isReadyToRenderSeries } from '@devexpress/dx-chart-core';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
-  getReadiness: jest.fn().mockReturnValue('ready_test'),
+  isReadyToRenderSeries: jest.fn().mockReturnValue('ready_test'),
 }));
 
 class Tree extends React.PureComponent {
@@ -34,16 +34,17 @@ describe('ControllerComponent', () => {
     },
   };
 
-  it('should provide "readyToRenderSeries" getter and call getReadiness with correct props', () => {
+  // tslint:disable-next-line: max-line-length
+  it('should provide "readyToRenderSeries" getter and call isReadyToRenderSeries with correct props', () => {
     const tree = mount((
       <Tree defaultDeps={defaultDeps} data={['test']} />
     ));
 
     expect(getComputedState(tree).readyToRenderSeries)
       .toBe('ready_test');
-    expect(getReadiness)
+    expect(isReadyToRenderSeries)
       .toBeCalledTimes(1);
-    expect(getReadiness)
+    expect(isReadyToRenderSeries)
       .toBeCalledWith('test-layouts', 'test-centerDivRef', true, false);
 
     tree.setProps({
@@ -52,9 +53,9 @@ describe('ControllerComponent', () => {
 
     expect(getComputedState(tree).readyToRenderSeries)
       .toBe('ready_test');
-    expect(getReadiness)
+    expect(isReadyToRenderSeries)
       .toBeCalledTimes(2);
-    expect(getReadiness)
+    expect(isReadyToRenderSeries)
       .toBeCalledWith('test-layouts', 'test-centerDivRef', false, false);
 
     tree.setProps({
@@ -63,9 +64,9 @@ describe('ControllerComponent', () => {
 
     expect(getComputedState(tree).readyToRenderSeries)
       .toBe('ready_test');
-    expect(getReadiness)
+    expect(isReadyToRenderSeries)
       .toBeCalledTimes(3);
-    expect(getReadiness)
+    expect(isReadyToRenderSeries)
       .toBeCalledWith('test-layouts', 'test-centerDivRef', true, false);
   });
 });

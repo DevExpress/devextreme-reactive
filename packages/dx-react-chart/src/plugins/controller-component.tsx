@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Plugin, Getter, Getters } from '@devexpress/dx-react-core';
-import { getReadiness } from '@devexpress/dx-chart-core';
+import { isReadyToRenderSeries } from '@devexpress/dx-chart-core';
 
 export class ControllerComponent extends React.PureComponent {
   isPreviousDataEmpty: boolean = true;
@@ -10,7 +10,7 @@ export class ControllerComponent extends React.PureComponent {
   }: Getters) => {
     const isPreviousDataEmpty = this.isPreviousDataEmpty;
     this.isPreviousDataEmpty = !data.length;
-    return getReadiness(layouts, centerDivRef, isPreviousDataEmpty, !!axesExist);
+    return isReadyToRenderSeries(layouts, centerDivRef, isPreviousDataEmpty, !!axesExist);
   }
 
   render () {

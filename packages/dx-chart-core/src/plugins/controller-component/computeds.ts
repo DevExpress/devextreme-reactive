@@ -1,7 +1,7 @@
 import { DIFFERENCE } from '../../constants';
 
 /** @internal */
-export const getReadiness = (
+export const isReadyToRenderSeries = (
   { pane, ...restLayouts }, { current },
   isPreviousDataEmpty: boolean, axesExist: boolean,
 ) => {

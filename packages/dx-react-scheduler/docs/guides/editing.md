@@ -44,7 +44,7 @@ To enable editing, follow the steps below:
 
 ### Uncontrolled Mode
 
-In uncontrolled mode, specify the initial editing state via the following `EditingState` properties:
+In uncontrolled mode, specify the initial editing state using the following `EditingState` properties:
 
 - `defaultEditingAppointment` - the appointment being edited
 - `defaultAddedAppointment` - the appointment being added

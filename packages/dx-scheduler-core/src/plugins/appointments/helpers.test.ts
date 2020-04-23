@@ -5,6 +5,15 @@ import {
   calculateRectByDateAndGroupIntervals, createAppointmentForest,
 } from './helpers';
 import { VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
+import { calculateAppointmentLeftAndWidth } from '../../../dist/dx-scheduler-core.umd';
+
+const matchFloat = expected => ({
+  $$typeof: Symbol.for('jest.asymmetricMatcher'),
+
+  asymmetricMatch: actual => Math.abs(actual - expected) < 0.01,
+
+  toAsymmetricMatcher: () => `~${expected}`,
+});
 
 describe('Appointments helpers', () => {
   const appointmentsBase = [
@@ -871,6 +880,118 @@ describe('Appointments helpers', () => {
         .toHaveLength(1);
       expect(result[0].roots[0])
         .toBe(firstAppointment);
+    });
+  });
+
+  describe('#calculateAppointmentLeftAndWidth', () => {
+    const MAX_WIDTH = 1;
+    it('should work when there are no parent and no direct children', () => {
+      const appointment = {
+        hasDirectChild: false,
+        parent: undefined,
+      };
+      expect(calculateAppointmentLeftAndWidth(appointment, MAX_WIDTH))
+        .toEqual({ left: 0, width: 1 });
+    });
+
+    it('should work when appointment has no parent but has a direct child', () => {
+      const appointment = {
+        hasDirectChild: true,
+        parent: undefined,
+        treeDepth: 1,
+      };
+      expect(calculateAppointmentLeftAndWidth(appointment, MAX_WIDTH))
+        .toEqual({ left: 0, width: matchFloat(0.5) });
+    });
+
+    it('should work when appointment is a direct child, has a parent and does not have direct children', () => {
+      const appointment = {
+        hasDirectChild: false,
+        isDirectChild: true,
+        treeDepth: 0,
+        parent: {
+          hasDirectChild: true,
+          width: 0.5,
+          left: 0,
+        },
+      };
+      expect(calculateAppointmentLeftAndWidth(appointment, MAX_WIDTH))
+        .toEqual({ left: matchFloat(0.5), width: matchFloat(0.5) });
+    });
+
+    it('should work when appointment is not a direct child, has a parent and does not have direct children', () => {
+      const appointment = {
+        hasDirectChild: false,
+        isDirectChild: false,
+        treeDepth: 0,
+        parent: {
+          hasDirectChild: false,
+          width: 1,
+          left: 0,
+        },
+      };
+      expect(calculateAppointmentLeftAndWidth(appointment, MAX_WIDTH))
+        .toEqual({ left: matchFloat(0.05), width: matchFloat(0.95) });
+    });
+
+    it('should work when appointment is not a direct child, has a parent, which has a direct child, and does not have direct children', () => {
+      const appointment = {
+        hasDirectChild: false,
+        isDirectChild: false,
+        treeDepth: 0,
+        parent: {
+          hasDirectChild: true,
+          width: 0.5,
+          left: 0,
+        },
+      };
+      expect(calculateAppointmentLeftAndWidth(appointment, MAX_WIDTH))
+        .toEqual({ left: matchFloat(0.05), width: matchFloat(0.95) });
+    });
+
+    it('should work when appointment is a direct child, has a parent and has direct children', () => {
+      const appointment = {
+        hasDirectChild: true,
+        isDirectChild: true,
+        treeDepth: 1,
+        parent: {
+          hasDirectChild: true,
+          width: 0.33,
+          left: 0,
+        },
+      };
+      expect(calculateAppointmentLeftAndWidth(appointment, MAX_WIDTH))
+        .toEqual({ left: matchFloat(0.33), width: matchFloat(0.33) });
+    });
+
+    it('should work when appointment is not a direct child, has a parent and does not have direct children', () => {
+      const appointment = {
+        hasDirectChild: true,
+        isDirectChild: false,
+        treeDepth: 1,
+        parent: {
+          hasDirectChild: false,
+          width: 1,
+          left: 0,
+        },
+      };
+      expect(calculateAppointmentLeftAndWidth(appointment, MAX_WIDTH))
+        .toEqual({ left: matchFloat(0.05), width: matchFloat(0.475) });
+    });
+
+    it('should work when appointment is not a direct child, has a parent, which has a direct child, and does not have direct children', () => {
+      const appointment = {
+        hasDirectChild: true,
+        isDirectChild: false,
+        treeDepth: 1,
+        parent: {
+          hasDirectChild: true,
+          width: 0.5,
+          left: 0,
+        },
+      };
+      expect(calculateAppointmentLeftAndWidth(appointment, MAX_WIDTH))
+        .toEqual({ left: matchFloat(0.05), width: matchFloat(0.475) });
     });
   });
 });

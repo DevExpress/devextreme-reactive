@@ -1,7 +1,10 @@
 import { DIFFERENCE } from '../../constants';
 
 /** @internal */
-export const getReadiness = ({ pane, ...restLayouts }, { current }) => {
+export const isReadyToRenderSeries = (
+  { pane, ...restLayouts }, { current },
+  isPreviousDataEmpty: boolean, axesExist: boolean,
+) => {
   if (!pane.width && !pane.height) {
     return false;
   }
@@ -17,5 +20,10 @@ export const getReadiness = ({ pane, ...restLayouts }, { current }) => {
     }
   });
   return Math.abs(bbox.width - width) < DIFFERENCE &&
-  Math.abs(bbox.height - height) < DIFFERENCE;
+    Math.abs(bbox.height - height) < DIFFERENCE
+    && isPreviousDataEmptyOrNoAxes(isPreviousDataEmpty, axesExist);
 };
+
+const isPreviousDataEmptyOrNoAxes = (
+  isPreviousDataEmpty: boolean, axesExist: boolean,
+) => !isPreviousDataEmpty || !axesExist;

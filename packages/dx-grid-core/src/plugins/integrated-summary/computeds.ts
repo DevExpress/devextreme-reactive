@@ -121,7 +121,8 @@ export const groupSummaryValues: GroupSummaryValuesFn = (
       });
       levelIndex = getLevelIndex(levelKey);
     }
-    const isCollapsedNestedGroupRow = collapsedRows && levelIndex > 0;
+    // when row level summary exists, these rows had already been expanded earlier
+    const isCollapsedNestedGroupRow = collapsedRows && levelIndex > 0 && !anyRowLevelSummaryExist;
     const rowsToAppend = !levelKey ? [row] : collapsedRows;
     if (!levelKey || isCollapsedNestedGroupRow) {
       levels.forEach((level) => {

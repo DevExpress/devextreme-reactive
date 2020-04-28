@@ -539,7 +539,7 @@ export const prepareToGroupIntoBlocks: PureComputed<
         )) {
           overlappingSubTreeRoots.push(nextChildIndex);
           nextAppointment.overlappingSubTreeRoot = true;
-          const maxChildDate = markWithBlockIndex(items, nextAppointment, end, nextChildIndex);
+          const maxChildDate = findChildrenMaxEndDate(items, nextAppointment, end, nextChildIndex);
           if (!currentBlockEnd || currentBlockEnd.isBefore(maxChildDate)) {
             currentBlockEnd = maxChildDate;
           }
@@ -547,9 +547,6 @@ export const prepareToGroupIntoBlocks: PureComputed<
         nextChildIndex += 1;
       }
       appointment.overlappingSubTreeRoots = overlappingSubTreeRoots;
-      if (overlappingSubTreeRoots.length !== 0) {
-        markWithBlockIndex(items, appointment, end, index);
-      }
     });
   }
   return appointmentForest;
@@ -575,14 +572,14 @@ const isOverlappingSubTreeRoot: PureComputed<
   );
 };
 
-const markWithBlockIndex: PureComputed<
+const findChildrenMaxEndDate: PureComputed<
   [any[], any, moment.Moment, number], moment.Moment
 > = (appointments, appointment, blockEndDate, blockIndex) => {
   const { children, end } = appointment;
 
   const maxDate = children.reduce((currentMaxDate, childIndex) => {
     const child = appointments[childIndex];
-    const maxChildrenDate = markWithBlockIndex(appointments, child, blockEndDate, blockIndex);
+    const maxChildrenDate = findChildrenMaxEndDate(appointments, child, blockEndDate, blockIndex);
     if (maxChildrenDate.isAfter(currentMaxDate)) {
       return maxChildrenDate;
     }

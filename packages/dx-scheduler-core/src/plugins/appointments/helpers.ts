@@ -530,6 +530,9 @@ export const prepareToGroupIntoBlocks: PureComputed<
         && items[nextChildIndex].offset !== appointmentOffset
         && items[nextChildIndex].start.isBefore(end)) {
         const nextAppointment = items[nextChildIndex];
+        if (nextAppointment.offset < appointmentOffset && nextAppointment.maxOffset === undefined) {
+          nextAppointment.maxOffset = appointmentOffset ;
+        }
         if (isOverlappingSubTreeRoot(
           items, appointment, nextAppointment,
           overlappingSubTreeRoots.length > 0
@@ -556,15 +559,16 @@ const isOverlappingSubTreeRoot: PureComputed<
   [any[], any, any, any | undefined, moment.Moment | undefined], boolean
 > = (appointments, appointment, nextAppointment, previousSubTreeRoot, previousEndDate) => {
   const {
-    offset: nextOffset, start: nextStart, overlappingSubTreeRoot,
-} = nextAppointment;
+    offset: nextOffset, start: nextStart, overlappingSubTreeRoot, maxOffset,
+  } = nextAppointment;
+
   const { offset, parent: parentIndex } = appointment;
   const parent = appointments[parentIndex];
   return (
     nextOffset < offset
       && (
         parent.offset === nextOffset
-        || !overlappingSubTreeRoot
+        || (!overlappingSubTreeRoot && (maxOffset === undefined || maxOffset >= offset))
       )
       && (!previousSubTreeRoot
         || (previousSubTreeRoot.offset >= nextOffset
@@ -955,7 +959,7 @@ export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIn
   const adjusted1 = calculateAppointmentsMetaData(appointmentForest, indirectChildLeftOffset);
   const preparedToGroupIntoBlocks = prepareToGroupIntoBlocks(adjusted1);
   const groupedIntoBlocks = groupAppointmentsIntoBlocks(preparedToGroupIntoBlocks);
-  // debugger;
+  console.log(preparedToGroupIntoBlocks)
   const blocksWithParents = findChildBlocks(groupedIntoBlocks);
   const blocksWithIncluded = findIncludedBlocks(blocksWithParents);
   const adjustedBlocks = adjustByBlocks(adjusted1, blocksWithIncluded, indirectChildLeftOffset);

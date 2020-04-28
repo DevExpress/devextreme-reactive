@@ -513,9 +513,6 @@ export const prepareToGroupIntoBlocks: PureComputed<
   [any[]], any[][]
 > = appointments => appointments.map((appointmentForest) => {
   const { items } = appointmentForest;
-  items.forEach((item) => {
-    item.blockIndexes = [];
-  });
   if (items.length === 1) {
     items[0].overlappingSubTreeRoots = [];
   } else {
@@ -561,33 +558,27 @@ export const prepareToGroupIntoBlocks: PureComputed<
 const isOverlappingSubTreeRoot: PureComputed<
   [any[], any, any, any | undefined, moment.Moment | undefined], boolean
 > = (appointments, appointment, nextAppointment, previousSubTreeRoot, previousEndDate) => {
-  const { offset: nextOffset, start: nextStart, blockIndexes: nextBlockIndexes } = nextAppointment;
-  const { offset, blockIndexes, parent: parentIndex } = appointment;
+  const {
+    offset: nextOffset, start: nextStart, overlappingSubTreeRoot,
+} = nextAppointment;
+  const { offset, parent: parentIndex } = appointment;
   const parent = appointments[parentIndex];
   return (
     nextOffset < offset
-      && (compareBlockIndexes(blockIndexes, nextBlockIndexes)
-        || parent.offset === nextOffset)
+      && (
+        parent.offset === nextOffset
+        || !overlappingSubTreeRoot
+      )
       && (!previousSubTreeRoot
-      || (previousSubTreeRoot.offset >= nextOffset
+        || (previousSubTreeRoot.offset >= nextOffset
         && nextStart.isSameOrAfter(previousEndDate)))
   );
-};
-
-export const compareBlockIndexes: PureComputed<
-  [number[], number[]], boolean
-> = (firstBlockIndexes, secondBlockIndexes) => {
-  return ((secondBlockIndexes.length === 0)
-    || firstBlockIndexes.filter(index => secondBlockIndexes.includes(index)).length !== 0);
 };
 
 const markWithBlockIndex: PureComputed<
   [any[], any, moment.Moment, number], moment.Moment
 > = (appointments, appointment, blockEndDate, blockIndex) => {
-  const { children, blockIndexes, start, end } = appointment;
-  if (start.isBefore(blockEndDate)) {
-    appointment.blockIndexes = [...blockIndexes, blockIndex];
-  }
+  const { children, end } = appointment;
 
   const maxDate = children.reduce((currentMaxDate, childIndex) => {
     const child = appointments[childIndex];
@@ -662,7 +653,6 @@ export const groupAppointmentsIntoBlocks: PureComputed<
       }
       blocks[blockIndex].items.push(index);
       appointment.blockIndex = blockIndex;
-      // appointment.block = blocks[blockIndex];
     }
     return blocks;
   }, [{
@@ -968,7 +958,7 @@ export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIn
   const adjusted1 = calculateAppointmentsMetaData(appointmentForest, indirectChildLeftOffset);
   const preparedToGroupIntoBlocks = prepareToGroupIntoBlocks(adjusted1);
   const groupedIntoBlocks = groupAppointmentsIntoBlocks(preparedToGroupIntoBlocks);
-  debugger;
+  // debugger;
   const blocksWithParents = findChildBlocks(groupedIntoBlocks);
   const blocksWithIncluded = findIncludedBlocks(blocksWithParents);
   const adjustedBlocks = adjustByBlocks(adjusted1, blocksWithIncluded, indirectChildLeftOffset);

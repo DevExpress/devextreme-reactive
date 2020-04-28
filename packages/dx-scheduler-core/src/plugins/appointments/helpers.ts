@@ -671,14 +671,21 @@ export const findChildBlocks: PureComputed<
 > = (groupedIntoBlocks) => {
   return groupedIntoBlocks.map((blocks) => {
     const result = blocks.map((block, index) => {
-      const { start, endForChildren, minOffset } = block;
+      const { start, endForChildren, minOffset, includedInto } = block;
       block.children = [];
       for (let currentIndex = index + 1; currentIndex < blocks.length; currentIndex += 1) {
         const currentBlock = blocks[currentIndex];
-        const { start: currentStart, maxOffset: currentMaxOffset } = currentBlock;
-        // debugger;
+        const {
+          start: currentStart, maxOffset: currentMaxOffset,
+          includedInto: currentIncludedInto,
+        } = currentBlock;
+
         if (intervalIncludes(start, endForChildren, currentStart)
-          && currentMaxOffset + 1 === minOffset) {
+          && currentMaxOffset + 1 === minOffset
+          && (
+            currentIncludedInto === undefined
+            || currentIncludedInto === includedInto
+          )) {
           block.children.push(currentIndex);
           currentBlock.parent = index;
         }
@@ -784,7 +791,6 @@ const updateAppointmentWidth: PureComputed<
 export const adjustByBlocks: PureComputed<
   [any[], any[], number], any[]
 > = (appointmentGroups, groupedIntoBlocks, indirectChildLeftOffset) => {
-  // debugger;
   const updatedBlocks = groupedIntoBlocks.map((blocks, index) => {
     const result = updateBlocksTotalSize(calculateBlocksLeft(
       calculateBlocksTotalSize(blocks), appointmentGroups[index].items,
@@ -999,11 +1005,11 @@ export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIn
   const adjusted1 = calculateAppointmentsMetaData(appointmentForest, indirectChildLeftOffset);
   const preparedToGroupIntoBlocks = prepareToGroupIntoBlocks(adjusted1);
   const groupedIntoBlocks = groupAppointmentsIntoBlocks(preparedToGroupIntoBlocks);
-  const blocksWithParents = findChildBlocks(groupedIntoBlocks);
-  const blocksWithIncluded = findIncludedBlocks(blocksWithParents);
-  console.log(blocksWithIncluded)
-  const depthRecalculated = calculateTreeDepthByBlocks(preparedToGroupIntoBlocks, blocksWithIncluded);
-  const adjustedBlocks = adjustByBlocks(depthRecalculated, blocksWithIncluded, indirectChildLeftOffset);
+  const blocksWithIncluded = findIncludedBlocks(groupedIntoBlocks);
+  const blocksWithParents = findChildBlocks(blocksWithIncluded);
+  console.log(blocksWithParents)
+  const depthRecalculated = calculateTreeDepthByBlocks(preparedToGroupIntoBlocks, blocksWithParents);
+  const adjustedBlocks = adjustByBlocks(depthRecalculated, blocksWithParents, indirectChildLeftOffset);
   console.log(depthRecalculated)
   const rects =  unwrapGroups(depthRecalculated)
     .map(appointment => rectCalculator(

@@ -313,7 +313,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       blockRefsHandler: this.registerBlockRef,
       rowRefsHandler: this.registerRowRef,
     };
-    const sizerHeight = height === AUTO_HEIGHT ? containerHeight : height;
+    const sizerHeight = height === AUTO_HEIGHT ? null : height;
 
     return (
       <Sizer

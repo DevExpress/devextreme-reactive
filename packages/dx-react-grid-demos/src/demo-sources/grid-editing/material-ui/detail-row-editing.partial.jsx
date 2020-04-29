@@ -1,13 +1,14 @@
 // BLOCK:imports
+import classNames from 'clsx';
+import TableCell from '@material-ui/core/TableCell';
+import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import MuiGrid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import FormGroup from '@material-ui/core/FormGroup';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
-import MomentUtils from '@date-io/moment';
+import Edit from '@material-ui/icons/Edit';
+import Cancel from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
 // BLOCK:imports
 
 // BLOCK:detailContent
@@ -41,14 +42,6 @@ const DetailContent = ({ row, ...rest }) => {
             label="Phone"
             value={row.phone}
           />
-          <MuiPickersUtilsProvider utils={MomentUtils}>
-            {/* <KeyboardDatePicker
-              label="Birth Date"
-              margin="normal"
-              value={row.birthDate}
-              format="DD/MM/YYYY"
-              /> */}
-          </MuiPickersUtilsProvider>
         </FormGroup>
       </MuiGrid>
       <MuiGrid item xs={6}>
@@ -75,19 +68,68 @@ const DetailContent = ({ row, ...rest }) => {
         />
         </FormGroup>
       </MuiGrid>
-      <MuiGrid container spacing={3} justify="flex-end">
-        <MuiGrid item xs={1}>
-          <Button onClick={applyChanges} variant="text" color="primary">
-            Save
-          </Button>
-        </MuiGrid>
-        <MuiGrid item xs={1}>
-          <Button onClick={cancelChanges} color="secondary">
-            Cancel
-          </Button>
+      <MuiGrid item xs={12} >
+        <MuiGrid container spacing={3} justify="flex-end">
+          <MuiGrid item >
+            <Button onClick={applyChanges} variant="text" color="primary">
+              Save
+            </Button>
+          </MuiGrid>
+          <MuiGrid item >
+            <Button onClick={cancelChanges} color="secondary">
+              Cancel
+            </Button>
+          </MuiGrid>
         </MuiGrid>
       </MuiGrid>
     </MuiGrid>
   );
 };
+
+const styles = theme => ({
+  toggleCell: {
+    textAlign: 'center',
+    textOverflow: 'initial',
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingLeft: theme.spacing(1),
+  },
+  toggleCellButton: {
+    verticalAlign: 'middle',
+    display: 'inline-block',
+    padding: theme.spacing(1),
+  },
+});
+
+const ToggleCellBase = ({
+  style, expanded, classes, onToggle,
+  tableColumn, tableRow, row,
+  className,
+  ...restProps
+}) => {
+  const handleClick = (e) => {
+    e.stopPropagation();
+    onToggle();
+  };
+  return (
+    <TableCell
+      className={classNames(classes.toggleCell, className)}
+      style={style}
+      {...restProps}
+    >
+      <IconButton
+        className={classes.toggleCellButton}
+        onClick={handleClick}
+      >
+        {
+          expanded
+            ? <Cancel />
+            : <Edit />
+        }
+      </IconButton>
+    </TableCell>
+  );
+};
+
+const ToggleCell = withStyles(styles, { name: 'ToggleCell' })(ToggleCellBase);
 // BLOCK:detailContent

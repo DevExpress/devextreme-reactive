@@ -288,11 +288,10 @@ export const adjustAppointments: CustomFunction<
 export const unwrapGroups: PureComputed<
   [AppointmentGroup[]], AppointmentUnwrappedGroup[]
 > = groups => groups.reduce((acc, { items, reduceValue }) => {
-  acc.push(...items.map(({ start, end, dataItem, offset, resources, ...restProps }) => ({
-    start, end, dataItem, offset, reduceValue, resources,
-    fromPrev: moment(start).diff(dataItem.startDate, 'minutes') > 1,
-    toNext: moment(dataItem.endDate).diff(end, 'minutes') > 1,
-    ...restProps,
+  acc.push(...items.map(({ data }) => ({
+    ...data, reduceValue,
+    fromPrev: moment(data.start).diff(data.dataItem.startDate, 'minutes') > 1,
+    toNext: moment(data.dataItem.endDate).diff(data.end, 'minutes') > 1,
   })));
   return acc;
 }, [] as AppointmentUnwrappedGroup[]);
@@ -310,7 +309,7 @@ export const createAppointmentForest: PureComputed<
   let roots;
   if (items.length === 1) {
     nextItems = [{
-      ...items[0], children: [], treeDepth: 0, isDirectChild: false, hasDirectChild: false,
+      data: items[0], children: [], treeDepth: 0, isDirectChild: false, hasDirectChild: false,
     }];
     roots = [0];
   } else {
@@ -330,78 +329,81 @@ export const createAppointmentForest: PureComputed<
 const iterateTreeRoots: PureComputed<
   [any[], number], any
 > = (appointmentItems, cellDuration) => {
-  const appointments = appointmentItems.map(props => ({ ...props }));
+  const appointmentNodes: any[] = appointmentItems.map(props => ({
+    data: props,
+  }));
   const roots = [];
   let baseAppointmentId = 0;
-  while (baseAppointmentId < appointments.length) {
-    const appointment = appointments[baseAppointmentId];
-    const { offset: appointmentOffset } = appointment;
+  while (baseAppointmentId < appointmentNodes.length) {
+    const appointment = appointmentNodes[baseAppointmentId];
+    const { offset: appointmentOffset } = appointment.data;
     if (appointmentOffset === 0) {
       roots.push(baseAppointmentId);
-      if (baseAppointmentId + 1 === appointments.length) {
+      if (baseAppointmentId + 1 === appointmentNodes.length) {
         appointment.children = [];
         appointment.hasDirectChild = false;
         appointment.treeDepth = 0;
       } else {
-        appointment.treeDepth = visitAllChildren(appointments, baseAppointmentId, cellDuration, 0);
+        appointment.treeDepth = visitAllChildren(
+          appointmentNodes, baseAppointmentId, cellDuration, 0,
+        );
+        console.log(appointment.treeDepth)
       }
       appointment.parent = undefined;
       appointment.isDirectChild = false;
     }
     baseAppointmentId += 1;
   }
-  return { appointments, roots };
+  return { appointments: appointmentNodes, roots };
 };
 
 const visitChild: PureComputed<
   [any[], number, number, number, boolean, number], any
-> = (appointments, index, parentAppointmentIndex, cellDuration, isDirectChild, treeDepth) => {
-  const appointment = appointments[index];
-  appointment.isDirectChild = isDirectChild;
-  appointment.parent = parentAppointmentIndex;
+> = (appointmentNodes, index, parentAppointmentIndex, cellDuration, isDirectChild, treeDepth) => {
+  const appointmentNode = appointmentNodes[index];
+  appointmentNode.isDirectChild = isDirectChild;
+  appointmentNode.parent = parentAppointmentIndex;
   const nextTreeDepth = treeDepth + 1;
+  const { end } = appointmentNode.data;
 
-  if (index === appointments.length - 1
-    || appointment.end.isSameOrBefore(appointments[index + 1].start)) {
-    appointment.children = [];
-    appointment.treeDepth = 0;
-    appointment.hasDirectChild = false;
+  if (index === appointmentNodes.length - 1
+    || end.isSameOrBefore(appointmentNodes[index + 1].data.start)) {
+    appointmentNode.children = [];
+    appointmentNode.treeDepth = 0;
+    appointmentNode.hasDirectChild = false;
     return nextTreeDepth;
   }
 
   const calculatedTreeDepth = visitAllChildren(
-    appointments, index, cellDuration, treeDepth,
+    appointmentNodes, index, cellDuration, treeDepth,
   );
 
-  appointment.treeDepth = calculatedTreeDepth;
+  appointmentNode.treeDepth = calculatedTreeDepth;
   return calculatedTreeDepth + 1;
 };
 
 const visitAllChildren: PureComputed<
   [any[], number, number, number], any
-> = (appointments, appointmentIndex, cellDuration, treeDepth) => {
-  const appointment = appointments[appointmentIndex];
-  const { offset: appointmentOffset, end } = appointment;
-
+> = (appointmentNodes, appointmentIndex, cellDuration, treeDepth) => {
+  const appointment = appointmentNodes[appointmentIndex];
+  const { end, offset: appointmentOffset, start } = appointment.data;
+  const directChildTimeLimit = moment(start).add(cellDuration, 'minutes');
   let maxAppointmentTreeDepth = 0;
-
   const children = [];
 
   let nextChildIndex = appointmentIndex + 1;
-  while (nextChildIndex < appointments.length
-    && appointments[nextChildIndex].offset !== appointmentOffset
-    && appointments[nextChildIndex].start.isBefore(end)) {
-    const nextAppointment = appointments[nextChildIndex];
-    const { offset: nextOffset } = nextAppointment;
+  while (nextChildIndex < appointmentNodes.length
+    && appointmentNodes[nextChildIndex].data.offset !== appointmentOffset
+    && appointmentNodes[nextChildIndex].data.start.isBefore(end)) {
+    const nextAppointment = appointmentNodes[nextChildIndex];
+    const { offset: nextOffset, start: nextStart } = nextAppointment.data;
 
     if (nextOffset === appointmentOffset + 1) {
-      const isDirectChild = intervalIncludes(
-        appointment.start, moment(appointment.start).add(cellDuration, 'minutes'),
-        appointments[nextChildIndex].start,
-      );
+      const isDirectChild = intervalIncludes(start, directChildTimeLimit, nextStart);
       const nextTreeDepth = visitChild(
-        appointments, nextChildIndex, appointmentIndex, cellDuration, isDirectChild, treeDepth,
+        appointmentNodes, nextChildIndex, appointmentIndex, cellDuration, isDirectChild, treeDepth,
       );
+
       if (maxAppointmentTreeDepth < nextTreeDepth) {
         maxAppointmentTreeDepth = nextTreeDepth;
       }
@@ -409,7 +411,7 @@ const visitAllChildren: PureComputed<
     }
     nextChildIndex += 1;
   }
-  appointment.hasDirectChild = children.length !== 0 && appointments[children[0]].isDirectChild;
+  appointment.hasDirectChild = children.length !== 0 && appointmentNodes[children[0]].isDirectChild;
   appointment.children = children;
 
   return maxAppointmentTreeDepth;
@@ -424,27 +426,36 @@ export const findMaxReduceValue: PureComputed<
 
 export const calculateAppointmentsMetaData: PureComputed<
   [any[], number], any[]
-> = (appointmentGroups, indirectChildLeftOffset) => appointmentGroups.map((appointmentGroup) => {
-  const { items, roots } = appointmentGroup;
+> = (appointmentGroups, indirectChildLeftOffset) => appointmentGroups.map((appointmentForest) => {
+  const { items, roots } = appointmentForest;
+  const firstNode = items[0];
   return {
-    ...appointmentGroup,
+    ...appointmentForest,
     items: items.length === 1
-      ? [{ ...items[0], left: 0, width: 1 }]
+      ? [{
+        ...firstNode,
+        data: {
+          ...firstNode.data,
+          left: 0,
+          width: 1,
+        },
+      }]
       : calculateRootsMetaData(items, roots, indirectChildLeftOffset),
   };
 });
 
 const calculateRootsMetaData: PureComputed<
   [any[], any[], number], any[]
-> = (appointmentItems, roots, indirectChildLeftOffset) => {
-  const appointments = appointmentItems.slice();
+> = (appointmentNodes, roots, indirectChildLeftOffset) => {
+  const appointments = appointmentNodes.map(props => ({ ...props }));
+
   roots.forEach((appointmentIndex) => {
     const appointment = appointments[appointmentIndex];
     const { left, width } = calculateAppointmentLeftAndWidth(
       appointments, appointment, MAX_WIDTH, indirectChildLeftOffset,
     );
-    appointment.left = left;
-    appointment.width = width;
+    appointment.data.left = left;
+    appointment.data.width = width;
     calculateChildrenMetaData(appointments, appointment, MAX_WIDTH, indirectChildLeftOffset);
 
   });
@@ -452,55 +463,53 @@ const calculateRootsMetaData: PureComputed<
 };
 
 const calculateChildMetaData: PureComputed<
-  [any[], any, number, number], any
-> = (appointments, appointmentIndex, maxWidth, indirectChildLeftOffset) => {
-  const appointment = appointments[appointmentIndex];
+  [any[], any, number, number], void
+> = (appointmentNodes, appointmentIndex, maxWidth, indirectChildLeftOffset) => {
+  const appointment = appointmentNodes[appointmentIndex];
   const { left, width } = calculateAppointmentLeftAndWidth(
-    appointments, appointment, maxWidth, indirectChildLeftOffset,
+    appointmentNodes, appointment, maxWidth, indirectChildLeftOffset,
   );
-  appointment.left = left;
-  appointment.width = width;
+  appointment.data.left = left;
+  appointment.data.width = width;
 
   if (appointment.children.length === 0) {
     return appointment;
   }
 
-  return calculateChildrenMetaData(
-    appointments, appointment, maxWidth, indirectChildLeftOffset,
+  calculateChildrenMetaData(
+    appointmentNodes, appointment, maxWidth, indirectChildLeftOffset,
   );
 };
 
 const calculateChildrenMetaData: PureComputed<
-  [any[], any, number, number], any
-> = (appointments, appointment, maxWidth, indirectChildLeftOffset) => {
-  appointment.children.forEach((childIndex) => {
-    calculateChildMetaData(appointments, childIndex, maxWidth, indirectChildLeftOffset);
+  [any[], any, number, number], void
+> = (appointmentNodes, appointmentNode, maxWidth, indirectChildLeftOffset) => {
+  appointmentNode.children.forEach((childIndex) => {
+    calculateChildMetaData(appointmentNodes, childIndex, maxWidth, indirectChildLeftOffset);
   });
-
-  return appointment;
 };
 
 export const calculateAppointmentLeftAndWidth: PureComputed<
   [any[], any, number, number], any
-> = (appointments, appointment, maxWidth, indirectChildLeftOffset) => {
+> = (appointmentNodes, appointmentNode, maxRight, indirectChildLeftOffset) => {
   const {
     hasDirectChild, treeDepth, isDirectChild, parent: parentIndex,
-  } = appointment;
+  } = appointmentNode;
   if (parentIndex === undefined) {
     return ({
-      width: hasDirectChild ? maxWidth / (treeDepth + 1) : maxWidth,
+      width: hasDirectChild ? maxRight / (treeDepth + 1) : maxRight,
       left: 0,
     });
   }
 
-  const parentAppointment = appointments[parentIndex];
+  const parent = appointmentNodes[parentIndex];
   const {
     width: parentWidth,
     left: parentLeft,
-  } = parentAppointment;
+  } = parent.data;
   const left = isDirectChild
     ? parentLeft + parentWidth : parentLeft + indirectChildLeftOffset;
-  const unoccupiedSpace = maxWidth - left;
+  const unoccupiedSpace = maxRight - left;
 
   return ({
     width: hasDirectChild ? unoccupiedSpace / (treeDepth + 1) : unoccupiedSpace,
@@ -508,32 +517,35 @@ export const calculateAppointmentLeftAndWidth: PureComputed<
   });
 };
 
+// TODO: needs refactoring
 export const prepareToGroupIntoBlocks: PureComputed<
-  [any[]], any[][]
+  [any[]], any[]
 > = appointments => appointments.map((appointmentForest) => {
-  const { items } = appointmentForest;
-  if (items.length === 1) {
-    items[0].overlappingSubTreeRoots = [];
+  const { items: nodes } = appointmentForest;
+  const appointmentNodes = nodes.map(props => ({ ...props }));
+  if (appointmentNodes.length === 1) {
+    appointmentNodes[0].overlappingSubTreeRoots = [];
   } else {
-    items.forEach((appointment, index) => {
+    appointmentNodes.forEach((appointmentNode, index) => {
       if (index === 0) {
-        appointment.overlappingSubTreeRoots = [];
+        appointmentNode.overlappingSubTreeRoots = [];
         return;
       }
       const overlappingSubTreeRoots = [] as any[];
-      const { offset: appointmentOffset, end } = appointment;
+      const { offset: appointmentOffset, end } = appointmentNode.data;
 
       let nextChildIndex = index + 1;
       let currentBlockEnd;
-      while (nextChildIndex < items.length
-        && items[nextChildIndex].offset !== appointmentOffset
-        && items[nextChildIndex].start.isBefore(end)) {
-        const nextAppointment = items[nextChildIndex];
-        if (nextAppointment.offset < appointmentOffset && nextAppointment.maxOffset === undefined) {
+      while (nextChildIndex < appointmentNodes.length
+        && appointmentNodes[nextChildIndex].data.offset !== appointmentOffset
+        && appointmentNodes[nextChildIndex].data.start.isBefore(end)) {
+        const nextAppointment = appointmentNodes[nextChildIndex];
+        if (nextAppointment.data.offset < appointmentOffset
+          && nextAppointment.maxOffset === undefined) {
           nextAppointment.maxOffset = appointmentOffset ;
         }
         if (isOverlappingSubTreeRoot(
-          items, appointment, nextAppointment,
+          appointmentNodes, appointmentNode, nextAppointment,
           overlappingSubTreeRoots.length > 0
             ? overlappingSubTreeRoots[overlappingSubTreeRoots.length - 1]
             : undefined,
@@ -541,48 +553,58 @@ export const prepareToGroupIntoBlocks: PureComputed<
         )) {
           overlappingSubTreeRoots.push(nextChildIndex);
           nextAppointment.overlappingSubTreeRoot = true;
-          const maxChildDate = findChildrenMaxEndDate(items, nextAppointment, end, nextChildIndex);
+          const maxChildDate = findChildrenMaxEndDate(
+            appointmentNodes, nextAppointment, end, nextChildIndex,
+          );
           if (!currentBlockEnd || currentBlockEnd.isBefore(maxChildDate)) {
             currentBlockEnd = maxChildDate;
           }
         }
         nextChildIndex += 1;
       }
-      appointment.overlappingSubTreeRoots = overlappingSubTreeRoots;
+      appointmentNode.overlappingSubTreeRoots = overlappingSubTreeRoots;
     });
   }
-  return appointmentForest;
+  return {
+    ...appointmentForest,
+    items: appointmentNodes,
+  };
 });
 
 const isOverlappingSubTreeRoot: PureComputed<
   [any[], any, any, any | undefined, moment.Moment | undefined], boolean
-> = (appointments, appointment, nextAppointment, previousSubTreeRoot, previousEndDate) => {
+> = (appointmentNodes, appointmentNode, nextAppointment, previousSubTreeRoot, previousEndDate) => {
   const {
-    offset: nextOffset, start: nextStart, overlappingSubTreeRoot, maxOffset,
+    overlappingSubTreeRoot, maxOffset, data: nexxtData,
   } = nextAppointment;
+  const { offset: nextOffset, start: nextStart } = nexxtData;
 
-  const { offset, parent: parentIndex } = appointment;
-  const parent = appointments[parentIndex];
+  const { data, parent: parentIndex } = appointmentNode;
+  const { offset } = data;
+  const parent = appointmentNodes[parentIndex];
   return (
     nextOffset < offset
       && (
-        parent.offset === nextOffset
+        parent?.data?.offset === nextOffset
         || (!overlappingSubTreeRoot && (maxOffset === undefined || maxOffset >= offset))
       )
       && (!previousSubTreeRoot
-        || (previousSubTreeRoot.offset >= nextOffset
+        || (previousSubTreeRoot.data.offset >= nextOffset
         && nextStart.isSameOrAfter(previousEndDate)))
   );
 };
 
 const findChildrenMaxEndDate: PureComputed<
   [any[], any, moment.Moment, number], moment.Moment
-> = (appointments, appointment, blockEndDate, blockIndex) => {
-  const { children, end } = appointment;
+> = (appointmentNodes, appointmentNode, blockEndDate, blockIndex) => {
+  const { children, data } = appointmentNode;
+  const { end } = data;
 
   const maxDate = children.reduce((currentMaxDate, childIndex) => {
-    const child = appointments[childIndex];
-    const maxChildrenDate = findChildrenMaxEndDate(appointments, child, blockEndDate, blockIndex);
+    const child = appointmentNodes[childIndex];
+    const maxChildrenDate = findChildrenMaxEndDate(
+      appointmentNodes, child, blockEndDate, blockIndex,
+    );
     if (maxChildrenDate.isAfter(currentMaxDate)) {
       return maxChildrenDate;
     }
@@ -593,8 +615,10 @@ const findChildrenMaxEndDate: PureComputed<
 
 const calculateBlockSizeByEndDate: PureComputed<
   [any[], any, moment.Moment], number
-> = (appointments, subTreeRoot, blockEndDate) => {
-  const { start, children } = subTreeRoot;
+> = (appointmentNodes, subTreeRoot, blockEndDate) => {
+  const { children, data } = subTreeRoot;
+  const { start } = data;
+
   if (children.length === 0) {
     if (blockEndDate.isAfter(start)) {
       return 1;
@@ -603,7 +627,7 @@ const calculateBlockSizeByEndDate: PureComputed<
   }
   const maxSize = Math.max(
     ...children.map(childIndex => calculateBlockSizeByEndDate(
-      appointments, appointments[childIndex], blockEndDate),
+      appointmentNodes, appointmentNodes[childIndex], blockEndDate),
     ),
   );
   if (blockEndDate.isAfter(start)) {
@@ -615,15 +639,17 @@ const calculateBlockSizeByEndDate: PureComputed<
   return maxSize + 1;
 };
 
+// TODO: refactor and try to make pure. Rename start to startDate and end to endDate. BlockStart is even better
 export const groupAppointmentsIntoBlocks: PureComputed<
   [any[]], any[][]
 > = appointments => appointments.map((appointmentForest) => {
   const { items, reduceValue } = appointmentForest;
   const result = items.reduce((blocks, appointment, index) => {
     const {
-      offset, start, end, treeDepth,
-      overlappingSubTreeRoots, overlappingSubTreeRoot,
+      treeDepth, data, overlappingSubTreeRoots, overlappingSubTreeRoot,
     } = appointment;
+    const { offset, start, end } = data;
+
     if (overlappingSubTreeRoots.length !== 0) {
       if (!overlappingSubTreeRoot) {
         blocks.push({
@@ -633,10 +659,12 @@ export const groupAppointmentsIntoBlocks: PureComputed<
       }
       overlappingSubTreeRoots.forEach((subTreeRootIndex) => {
         const subTreeRoot = items[subTreeRootIndex];
+        const { data: subTreeRootData } = subTreeRoot;
         blocks.push({
-          start: subTreeRoot.start, end, minOffset: subTreeRoot.offset, maxOffset: offset - 1,
+          start: subTreeRootData.start, end,
+          minOffset: subTreeRootData.offset, maxOffset: offset - 1,
           size: calculateBlockSizeByEndDate(items, subTreeRoot, end), items: [],
-          endForChildren: subTreeRoot.end,
+          endForChildren: subTreeRootData.end,
         });
       });
     }
@@ -723,22 +751,22 @@ export const findIncludedBlocks: PureComputed<
 
 export const updateAppointmentLeftAndWidth: PureComputed<
   [any[], any[],  any, number, number], any
-> = (appointments, blocks,  appointment, maxWidth, indirectChildLeftOffset) => {
+> = (appointmentNodes, blocks,  appointmentNode, maxRight, indirectChildLeftOffset) => {
   const {
-    hasDirectChild, treeDepth, isDirectChild, parent: parentAppointmentIndex, children, blockIndex,
-  } = appointment;
-  const parentAppointment = appointments[parentAppointmentIndex];
-  const firstChild = appointments[children[0]];
+    hasDirectChild, treeDepth, isDirectChild, parent: parentIndex, children, blockIndex,
+  } = appointmentNode;
+  const parent = appointmentNodes[parentIndex];
+  const firstChild = appointmentNodes[children[0]];
   const firstChildBlockIndex = firstChild?.blockIndex;
 
   const hasDirectChildAndInSameBlock = hasDirectChild
     && (firstChildBlockIndex === undefined || (blockIndex === firstChildBlockIndex
       || blocks[firstChildBlockIndex].includedInto === blockIndex
-      || maxWidth === 1));
+      || maxRight === 1));
 
-  if (parentAppointment === undefined) {
+  if (parent === undefined) {
     return ({
-      width: hasDirectChildAndInSameBlock ? maxWidth / (treeDepth + 1) : maxWidth,
+      width: hasDirectChildAndInSameBlock ? maxRight / (treeDepth + 1) : maxRight,
       left: 0,
     });
   }
@@ -746,10 +774,10 @@ export const updateAppointmentLeftAndWidth: PureComputed<
   const {
     width: parentWidth,
     left: parentLeft,
-  } = parentAppointment;
+  } = parent.data;
   const left = isDirectChild
     ? parentLeft + parentWidth : parentLeft + indirectChildLeftOffset;
-  const unoccupiedSpace = maxWidth - left;
+  const unoccupiedSpace = maxRight - left;
 
   return ({
     width: hasDirectChildAndInSameBlock ? unoccupiedSpace / (treeDepth + 1) : unoccupiedSpace,
@@ -759,32 +787,32 @@ export const updateAppointmentLeftAndWidth: PureComputed<
 
 const updateAppointmentWidth: PureComputed<
   [any[], any[], any, number, number, number], any
-> = (appointments, blocks,  appointment, maxWidth, indirectChildLeftOffset, defaultLeft) => {
+> = (appointmentNodes, blocks, appointmentNode, maxRight, indirectChildLeftOffset, defaultLeft) => {
   const {
-    hasDirectChild, treeDepth, parent: parentAppointmentIndex, blockIndex, children, isDirectChild,
-  } = appointment;
+    hasDirectChild, treeDepth, parent: parentIndex, blockIndex, children, isDirectChild,
+  } = appointmentNode;
 
-  const firstChild = appointments[children[0]];
+  const firstChild = appointmentNodes[children[0]];
   const firstChildBlockIndex = firstChild?.blockIndex;
 
   const hasDirectChildAndInSameBlock = hasDirectChild
     && (firstChildBlockIndex === undefined || (blockIndex === firstChildBlockIndex)
       || blocks[firstChildBlockIndex].includedInto === blockIndex
-      || maxWidth === 1);
+      || maxRight === 1);
 
-  if (parentAppointmentIndex === undefined) {
+  if (parentIndex === undefined) {
     return ({
-      width: hasDirectChildAndInSameBlock ? maxWidth / (treeDepth + 1) : maxWidth,
+      width: hasDirectChildAndInSameBlock ? maxRight / (treeDepth + 1) : maxRight,
       left: 0,
     });
   }
 
-  const parent = appointments[parentAppointmentIndex];
-  const { left: parentLeft, width: parentWidth } = parent;
+  const parent = appointmentNodes[parentIndex];
+  const { left: parentLeft, width: parentWidth } = parent.data;
   const calculatedLeft = isDirectChild
     ? parentLeft + parentWidth : parentLeft + indirectChildLeftOffset;
   const left = Math.max(defaultLeft, calculatedLeft);
-  const unoccupiedSpace = maxWidth - left;
+  const unoccupiedSpace = maxRight - left;
 
   return ({
     width: hasDirectChildAndInSameBlock ? unoccupiedSpace / (treeDepth + 1) : unoccupiedSpace,
@@ -829,8 +857,8 @@ const adjustAppointmentsByBlocks: PureComputed<
         const { left, width } = updateAppointmentWidth(
           appointments, blocks, appointment, maxRight * right, indirectChildLeftOffset, defaultLeft,
         );
-        appointment.left = left;
-        appointment.width = width;
+        appointment.data.left = left;
+        appointment.data.width = width;
         if (defaultLeft !== left) {
           children.forEach((childIndex) => {
             const child = blocks[childIndex];
@@ -838,13 +866,14 @@ const adjustAppointmentsByBlocks: PureComputed<
           });
         }
       } else {
+        // Refactor
         const {
           left, width,
         } = updateAppointmentLeftAndWidth(
           appointments, blocks, appointment, maxRight * right, indirectChildLeftOffset,
         );
-        appointment.left = left;
-        appointment.width = width;
+        appointment.data.left = left;
+        appointment.data.width = width;
       }
     });
 
@@ -855,8 +884,8 @@ const adjustAppointmentsByBlocks: PureComputed<
     const {
       left, width,
     } = updateAppointmentLeftAndWidth(appointments, blocks, appointment, 1, indirectChildLeftOffset);
-    appointment.left = left;
-    appointment.width = width;
+    appointment.data.left = left;
+    appointment.data.width = width;
   });
   return result;
 };
@@ -975,7 +1004,9 @@ const calculateSingleBlockLeft: PureComputed<
 > = (blocks, appointments, block) => {
   const { children, items, left } = block;
   if (children.length === 0) {
-    return !!left ? Math.min(left, appointments[items[0]].left) : appointments[items[0]].left;
+    return !!left
+      ? Math.min(left, appointments[items[0]].data.left)
+      : appointments[items[0]].data.left;
   }
   return Math.min(
     ...children.map(childIndex => calculateSingleBlockLeft(
@@ -984,41 +1015,41 @@ const calculateSingleBlockLeft: PureComputed<
   );
 };
 
-export const calculateTreeDepthByBlocks: PureComputed<
-  [any, any[]], any
-> = (appointmentForests, blockGroups) => appointmentForests.map((appointmentForest, index) => {
-  const blocks = blockGroups[index];
-  const { roots, items } = appointmentForest;
-  const appointments = items.slice();
-  roots.forEach((rootIndex) => {
-    const root = appointments[rootIndex];
-    calculateSubTreeDepth(appointments, blocks, root);
-  });
+// export const calculateTreeDepthByBlocks: PureComputed<
+//   [any, any[]], any
+// > = (appointmentForests, blockGroups) => appointmentForests.map((appointmentForest, index) => {
+//   const blocks = blockGroups[index];
+//   const { roots, items } = appointmentForest;
+//   const appointments = items.slice();
+//   roots.forEach((rootIndex) => {
+//     const root = appointments[rootIndex];
+//     calculateSubTreeDepth(appointments, blocks, root);
+//   });
 
-  return {
-    ...appointmentForest,
-    items: appointments,
-  };
-});
+//   return {
+//     ...appointmentForest,
+//     items: appointments,
+//   };
+// });
 
-const calculateSubTreeDepth: PureComputed<
-  [any[], any[], any], number
-> = (appointments, blocks, subTreeRoot) => {
-  const { parent: parentIndex, children, blockIndex } = subTreeRoot;
-  const maxChildrenDepth = children.reduce((acc, childIndex) => {
-    const child = appointments[childIndex];
-    return Math.max(acc, calculateSubTreeDepth(appointments, blocks, child));
-  }, 0);
+// const calculateSubTreeDepth: PureComputed<
+//   [any[], any[], any], number
+// > = (appointments, blocks, subTreeRoot) => {
+//   const { parent: parentIndex, children, blockIndex } = subTreeRoot;
+//   const maxChildrenDepth = children.reduce((acc, childIndex) => {
+//     const child = appointments[childIndex];
+//     return Math.max(acc, calculateSubTreeDepth(appointments, blocks, child));
+//   }, 0);
 
-  subTreeRoot.treeDepth = maxChildrenDepth;
-  const parent = parentIndex !== undefined ? appointments[parentIndex] : undefined;
-  const parentBlockIndex = parent?.blockIndex;
-  const subTreeBlock = blocks[blockIndex];
-  if (blockIndex === parentBlockIndex || subTreeBlock.includedInto === parentBlockIndex || !parent) {
-    return maxChildrenDepth + 1;
-  }
-  return 0;
-};
+//   subTreeRoot.treeDepth = maxChildrenDepth;
+//   const parent = parentIndex !== undefined ? appointments[parentIndex] : undefined;
+//   const parentBlockIndex = parent?.blockIndex;
+//   const subTreeBlock = blocks[blockIndex];
+//   if (blockIndex === parentBlockIndex || subTreeBlock.includedInto === parentBlockIndex || !parent) {
+//     return maxChildrenDepth + 1;
+//   }
+//   return 0;
+// };
 
 export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIntervalsFn = (
   type, intervals, rectByDates, rectByDatesMeta, viewMetaData,
@@ -1048,6 +1079,7 @@ export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIn
   const groupedIntoBlocks = groupAppointmentsIntoBlocks(preparedToGroupIntoBlocks);
   const blocksWithIncluded = findIncludedBlocks(groupedIntoBlocks);
   const blocksWithParents = findChildBlocks(blocksWithIncluded);
+  debugger;
   // console.log(blocksWithParents)
   // const depthRecalculated = calculateTreeDepthByBlocks(preparedToGroupIntoBlocks, blocksWithParents);
   const adjustedBlocks = adjustByBlocks(preparedToGroupIntoBlocks, blocksWithParents, indirectChildLeftOffset);

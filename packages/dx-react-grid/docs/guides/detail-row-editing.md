@@ -5,7 +5,7 @@ This document describes how to implement row editing via Detail Row. Before usin
 ## DetailEditCell plugin
 This plugin is an intermediate layer between EditingState and TableDetailRow. It consists of the following plugin primitives:
 
-### `toggleDetailRowExpanded` Action
+### The `toggleDetailRowExpanded` Action
 The TableDetailRow plugin exports action which is fired when a detail row is collapsed or shown. We use this action to enable editing mode when a detail row is expanded, and cancel editing mode when row is collapsed. This is achieved using the startEditRows and stopEditRows actions. We determine whether the row is collapsed or expanded by analyzing rowId and expandedDetailRowIds action. The code is shown below.
 
 ```jsx
@@ -23,7 +23,7 @@ The TableDetailRow plugin exports action which is fired when a detail row is col
 />
 ```
 
-### `tableCell` Template
+### The `tableCell` Template
 The next step is to pass the following data to the Detail Row component:
   - a function that handles onchange event and processes input changes.
 ```js

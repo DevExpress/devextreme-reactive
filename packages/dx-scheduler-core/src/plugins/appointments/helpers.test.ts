@@ -3,9 +3,9 @@ import {
   isTimeTableElementsMetaActual, isAllDayElementsMetaActual, sortAppointments,
   findOverlappedAppointments, adjustAppointments, unwrapGroups,
   calculateRectByDateAndGroupIntervals, createAppointmentForest,
+  calculateAppointmentLeftAndWidth, isPossibleChild,
 } from './helpers';
 import { VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
-import { calculateAppointmentLeftAndWidth } from '../../../dist/dx-scheduler-core.umd';
 
 const matchFloat = expected => ({
   $$typeof: Symbol.for('jest.asymmetricMatcher'),
@@ -802,6 +802,52 @@ describe('Appointments helpers', () => {
           reduceValue: 2,
           roots: [0],
         }]);
+    });
+  });
+
+  describe('#isPossibleChild', () => {
+    const baseAppointments = [
+      { data: { start: moment('2018-07-02 10:00'), end: moment('2018-07-02 11:00'), offset: 0 } },
+      { data: { start: moment('2018-07-02 10:30'), end: moment('2018-07-02 12:00'), offset: 1 } },
+      { data: { start: moment('2018-07-01 10:30'), end: moment('2018-07-01 13:30'), offset: 2 } },
+    ];
+
+    it('should return true if this appointment or one of the following may be a child', () => {
+      const { end: parentEnd, end: parentOFfset } = baseAppointments[0].data;
+
+      expect(isPossibleChild(baseAppointments, 1, parentEnd, parentOFfset))
+        .toBe(true);
+      expect(isPossibleChild(baseAppointments, 2, parentEnd, parentOFfset))
+        .toBe(true);
+    });
+
+    it('should return false if the appointment with provided index does not exist', () => {
+      const { end: parentEnd, end: parentOFfset } = baseAppointments[0].data;
+
+      expect(isPossibleChild(baseAppointments, 3, parentEnd, parentOFfset))
+        .toBe(false);
+    });
+
+    it('should return false if appointment\'s start is after parent\'s end', () => {
+      const appointments = [
+        ...baseAppointments,
+        { data: { start: moment('2018-07-02 13:00'), end: moment('2018-07-02 14:00'), offset: 3 } },
+      ];
+      const { end: parentEnd, end: parentOFfset } = appointments[1].data;
+
+      expect(isPossibleChild(appointments, 3, parentEnd, parentOFfset))
+        .toBe(false);
+    });
+
+    it('should return false if appointment\'s offset is equal to that of the parent', () => {
+      const appointments = [
+        ...baseAppointments,
+        { data: { start: moment('2018-07-02 11:00'), end: moment('2018-07-02 12:00'), offset: 0 } },
+      ];
+      const { end: parentEnd, end: parentOFfset } = appointments[0].data;
+
+      expect(isPossibleChild(appointments, 3, parentEnd, parentOFfset))
+        .toBe(false);
     });
   });
 

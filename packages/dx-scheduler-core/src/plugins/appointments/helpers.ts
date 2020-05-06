@@ -552,8 +552,7 @@ export const prepareToGroupIntoBlocks: PureComputed<
         ? appointmentNodes[overlappingSubTreeRoots[overlappingSubTreeRoots.length - 1]]
         : undefined;
       if (isOverlappingSubTreeRoot(
-        appointmentNodes, appointmentNode, nextAppointment,
-        previousSubTreeRoot, currentBlockEnd,
+        appointmentNode, nextAppointment, previousSubTreeRoot, currentBlockEnd,
       )) {
         overlappingSubTreeRoots.push(nextChildIndex);
         nextAppointment.overlappingSubTreeRoot = true;
@@ -573,22 +572,18 @@ export const prepareToGroupIntoBlocks: PureComputed<
 });
 
 export const isOverlappingSubTreeRoot: PureComputed<
-  [any[], any, any, any | undefined, moment.Moment | undefined], boolean
-> = (appointmentNodes, appointmentNode, nextAppointment, previousSubTreeRoot, previousEndDate) => {
+  [any, any, any | undefined, moment.Moment | undefined], boolean
+> = (appointmentNode, nextAppointment, previousSubTreeRoot, previousEndDate) => {
   const {
     overlappingSubTreeRoot, maxOffset, data: nextData,
   } = nextAppointment;
   const { offset: nextOffset, start: nextStart } = nextData;
+  const { offset } = appointmentNode.data;
 
-  const { data, parent: parentIndex } = appointmentNode;
-  const { offset } = data;
-  const parent = appointmentNodes[parentIndex];
   return (
     nextOffset < offset
-      && (
-        parent?.data?.offset === nextOffset
-        || (!overlappingSubTreeRoot && (maxOffset === undefined || maxOffset >= offset))
-      )
+      && !overlappingSubTreeRoot
+      && (maxOffset === undefined || maxOffset >= offset)
       && (!previousSubTreeRoot
         || (previousSubTreeRoot.data.offset >= nextOffset
         && nextStart.isSameOrAfter(previousEndDate)))

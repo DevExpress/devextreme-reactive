@@ -4,7 +4,7 @@ import {
   findOverlappedAppointments, adjustAppointments, unwrapGroups,
   calculateRectByDateAndGroupIntervals, createAppointmentForest,
   calculateAppointmentLeftAndWidth, isPossibleChild, findMaxReduceValue,
-  calculateAppointmentsMetaData,
+  calculateAppointmentsMetaData, isOverlappingSubTreeRoot,
   findChildrenMaxEndDate,
 } from './helpers';
 import { VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
@@ -1239,6 +1239,102 @@ describe('Appointments helpers', () => {
 
       expect(findChildrenMaxEndDate(appointments, appointments[0]))
         .toEqual(moment('2020-05-06 16:50'));
+    });
+  });
+
+  describe('#isOverlappingSubTreeRoot', () => {
+    it('should return false if nextAppointment\'s offset is greater then current', () => {
+      const appointment = { data: { offset: 5 } };
+      const nextAppointment = { data: { offset: 6 } };
+
+      expect(isOverlappingSubTreeRoot(appointment, nextAppointment, undefined, undefined))
+        .toBe(false);
+    });
+
+    it('should return false if nextAppointment is already an overlappingSubTreeRoot', () => {
+      const appointment = { data: { offset: 5 } };
+      const nextAppointment = { data: { offset: 3 }, overlappingSubTreeRoot: true };
+
+      expect(isOverlappingSubTreeRoot(appointment, nextAppointment, undefined, undefined))
+        .toBe(false);
+    });
+
+    it('should return false if nextAppointment\'s maxOffset is less than offset', () => {
+      const appointment = { data: { offset: 5 } };
+      const nextAppointment = { data: { offset: 3 }, overlappingSubTreeRoot: false,  maxOffset: 4 };
+
+      expect(isOverlappingSubTreeRoot(appointment, nextAppointment, undefined, undefined))
+        .toBe(false);
+    });
+
+    it('should return false if nextAppointment\'s offset is greater than that of the previous subTreeRoot', () => {
+      const appointment = { data: { offset: 5 } };
+      const nextAppointment = { data: { offset: 3 }, overlappingSubTreeRoot: false };
+      const previousSubTreeRoot = { data: { offset: 2 } };
+
+      expect(isOverlappingSubTreeRoot(appointment, nextAppointment, previousSubTreeRoot, undefined))
+        .toBe(false);
+    });
+
+    it('should return false if nextAppointment\'s start is before than block end', () => {
+      const appointment = { data: { offset: 5 } };
+      const nextAppointment = {
+        data: { offset: 3, start: moment('2020-05-06 16:00') },
+        overlappingSubTreeRoot: false,
+      };
+      const previousSubTreeRoot = { data: { offset: 4 } };
+      const blockEnd = moment('2020-05-06 18:00');
+
+      expect(isOverlappingSubTreeRoot(appointment, nextAppointment, previousSubTreeRoot, blockEnd))
+        .toBe(false);
+    });
+
+    it('should return true if 1) there is no previous sub tree root, '
+    + '2) next offset is less than current offset, 3) next appointment is not overlapping subtree root and '
+    + '4) next appointment\'s maxOffset is undefined', () => {
+      const appointment = { data: { offset: 5 } };
+      const nextAppointment = {
+        data: { offset: 3, start: moment('2020-05-06 16:00') },
+        overlappingSubTreeRoot: false,
+      };
+      const previousSubTreeRoot = undefined;
+      const blockEnd = moment('2020-05-06 18:00');
+
+      expect(isOverlappingSubTreeRoot(appointment, nextAppointment, previousSubTreeRoot, blockEnd))
+        .toBe(true);
+    });
+
+    it('should return true if 1) there is no previous sub tree root, '
+    + '2) next offset is less than current offset, 3) next appointment is not overlapping subtree root and '
+    + '4) next appointment\'s maxOffset is greater than or equal to current offset', () => {
+      const appointment = { data: { offset: 5 } };
+      const nextAppointment = {
+        data: { offset: 3, start: moment('2020-05-06 16:00') },
+        overlappingSubTreeRoot: false,
+        maxOffset: 5,
+      };
+      const previousSubTreeRoot = undefined;
+      const blockEnd = moment('2020-05-06 18:00');
+
+      expect(isOverlappingSubTreeRoot(appointment, nextAppointment, previousSubTreeRoot, blockEnd))
+        .toBe(true);
+    });
+
+    it('should return true if 1) previous subtree root\'s offset is greater than or equal to nextAppointment\'s offset, '
+    + '2) next offset is less than current offset, 3) next appointment is not overlapping subtree root, '
+    + '4) next appointment\'s maxOffset is greater than or equal to current offset and '
+    + '5) block end date is before next appointment\'s start', () => {
+      const appointment = { data: { offset: 5 } };
+      const nextAppointment = {
+        data: { offset: 3, start: moment('2020-05-06 19:00') },
+        overlappingSubTreeRoot: false,
+        maxOffset: 5,
+      };
+      const previousSubTreeRoot = { data: { offset: 4 } };
+      const blockEnd = moment('2020-05-06 18:00');
+
+      expect(isOverlappingSubTreeRoot(appointment, nextAppointment, previousSubTreeRoot, blockEnd))
+        .toBe(true);
     });
   });
 });

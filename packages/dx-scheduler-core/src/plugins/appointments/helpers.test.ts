@@ -515,7 +515,7 @@ describe('Appointments helpers', () => {
   describe('#createAppointmentForest', () => {
     const CELL_DURATION = 30;
     it('should create a single tree if items.length === 1', () => {
-      const appointmentsGroups = [{
+      const appointmentGroups = [{
         reduceValue: 1,
         items: [{
           start: moment('2017-07-20 08:00'),
@@ -526,24 +526,24 @@ describe('Appointments helpers', () => {
       }];
 
       const expectedItems = [{
-        ...appointmentsGroups[0].items[0],
+        data: appointmentGroups[0].items[0],
         children: [],
         treeDepth: 0,
         hasDirectChild: false,
         isDirectChild: false,
       }];
 
-      expect(createAppointmentForest(appointmentsGroups, CELL_DURATION))
+      expect(createAppointmentForest(appointmentGroups, CELL_DURATION))
         .toEqual([{
-          items: [expectedItems[0]],
+          items: expectedItems,
           reduceValue: 1,
-          roots: [expectedItems[0]],
+          roots: [0],
         }]);
     });
 
     it('should create a tree with a direct child (whose start is not later than parent\'s start plus cell duration)', () => {
       const appointmentGroups = [{
-        reduceValue: 1,
+        reduceValue: 2,
         items: [{
           start: moment('2017-07-20 08:00'),
           end: moment('2017-07-20 08:30'),
@@ -557,45 +557,36 @@ describe('Appointments helpers', () => {
         }],
       }];
 
+      const expectedItems = [{
+        data: appointmentGroups[0].items[0],
+        children: [1],
+        treeDepth: 1,
+        hasDirectChild: true,
+        isDirectChild: false,
+      }, {
+        data: appointmentGroups[0].items[1],
+        children: [],
+        treeDepth: 0,
+        hasDirectChild: false,
+        isDirectChild: true,
+        parent: 0,
+      }];
+
       const result = createAppointmentForest(appointmentGroups, CELL_DURATION);
       expect(result[0].items)
         .toHaveLength(2);
 
-      const firstAppointment = result[0].items[0];
-      const secondAppointment = result[0].items[1];
-      expect(firstAppointment)
-        .toEqual({
-          ...appointmentGroups[0].items[0],
-          hasDirectChild: true,
-          isDirectChild: false,
-          parent: undefined,
-          children: [secondAppointment],
-          treeDepth: 1,
-        });
-      expect(firstAppointment.children[0])
-        .toBe(secondAppointment);
-
-      expect(secondAppointment)
-        .toEqual({
-          ...appointmentGroups[0].items[1],
-          hasDirectChild: false,
-          isDirectChild: true,
-          children: [],
-          parent: firstAppointment,
-          treeDepth: 0,
-        });
-      expect(secondAppointment.parent)
-        .toBe(firstAppointment);
-
-      expect(result[0].roots)
-        .toHaveLength(1);
-      expect(result[0].roots[0])
-        .toBe(firstAppointment);
+      expect(result)
+        .toEqual([{
+          items: expectedItems,
+          reduceValue: 2,
+          roots: [0],
+        }]);
     });
 
     it('should create a tree with an indirect child (whose start is later than parent\'s start plus cell duration)', () => {
       const appointmentGroups = [{
-        reduceValue: 1,
+        reduceValue: 2,
         items: [{
           start: moment('2017-07-20 08:00'),
           end: moment('2017-07-20 09:00'),
@@ -609,45 +600,36 @@ describe('Appointments helpers', () => {
         }],
       }];
 
+      const expectedItems = [{
+        data: appointmentGroups[0].items[0],
+        children: [1],
+        treeDepth: 1,
+        hasDirectChild: false,
+        isDirectChild: false,
+      }, {
+        data: appointmentGroups[0].items[1],
+        children: [],
+        treeDepth: 0,
+        hasDirectChild: false,
+        isDirectChild: false,
+        parent: 0,
+      }];
+
       const result = createAppointmentForest(appointmentGroups, CELL_DURATION);
       expect(result[0].items)
         .toHaveLength(2);
 
-      const firstAppointment = result[0].items[0];
-      const secondAppointment = result[0].items[1];
-      expect(firstAppointment)
-        .toEqual({
-          ...appointmentGroups[0].items[0],
-          hasDirectChild: false,
-          isDirectChild: false,
-          parent: undefined,
-          children: [secondAppointment],
-          treeDepth: 1,
-        });
-      expect(firstAppointment.children[0])
-        .toBe(secondAppointment);
-
-      expect(secondAppointment)
-        .toEqual({
-          ...appointmentGroups[0].items[1],
-          hasDirectChild: false,
-          isDirectChild: false,
-          children: [],
-          parent: firstAppointment,
-          treeDepth: 0,
-        });
-      expect(secondAppointment.parent)
-        .toBe(firstAppointment);
-
-      expect(result[0].roots)
-        .toHaveLength(1);
-      expect(result[0].roots[0])
-        .toBe(firstAppointment);
+      expect(result)
+        .toEqual([{
+          items: expectedItems,
+          reduceValue: 2,
+          roots: [0],
+        }]);
     });
 
     it('should create a forest with 2 roots', () => {
       const appointmentGroups = [{
-        reduceValue: 1,
+        reduceValue: 2,
         items: [{
           start: moment('2017-07-20 08:00'),
           end: moment('2017-07-20 09:00'),
@@ -666,61 +648,44 @@ describe('Appointments helpers', () => {
         }],
       }];
 
+      const expectedItems = [{
+        data: appointmentGroups[0].items[0],
+        children: [1],
+        treeDepth: 1,
+        hasDirectChild: false,
+        isDirectChild: false,
+      }, {
+        data: appointmentGroups[0].items[1],
+        children: [],
+        treeDepth: 0,
+        hasDirectChild: false,
+        isDirectChild: false,
+        parent: 0,
+      }, {
+        data: appointmentGroups[0].items[2],
+        children: [],
+        treeDepth: 0,
+        hasDirectChild: false,
+        isDirectChild: false,
+      }];
+
       const result = createAppointmentForest(appointmentGroups, CELL_DURATION);
       expect(result[0].items)
         .toHaveLength(3);
 
-      const firstAppointment = result[0].items[0];
-      const secondAppointment = result[0].items[1];
-      const thirdAppointment = result[0].items[2];
-
-      expect(firstAppointment)
-        .toEqual({
-          ...appointmentGroups[0].items[0],
-          hasDirectChild: false,
-          isDirectChild: false,
-          parent: undefined,
-          children: [secondAppointment],
-          treeDepth: 1,
-        });
-      expect(firstAppointment.children[0])
-        .toBe(secondAppointment);
-
-      expect(secondAppointment)
-        .toEqual({
-          ...appointmentGroups[0].items[1],
-          hasDirectChild: false,
-          isDirectChild: false,
-          children: [],
-          parent: firstAppointment,
-          treeDepth: 0,
-        });
-      expect(secondAppointment.parent)
-        .toBe(firstAppointment);
-
-      expect(thirdAppointment)
-        .toEqual({
-          ...appointmentGroups[0].items[2],
-          hasDirectChild: false,
-          isDirectChild: false,
-          parent: undefined,
-          children: [],
-          treeDepth: 0,
-        });
-
-      expect(result[0].roots)
-        .toHaveLength(2);
-      expect(result[0].roots[0])
-        .toBe(firstAppointment);
-      expect(result[0].roots[1])
-        .toBe(thirdAppointment);
+      expect(result)
+        .toEqual([{
+          items: expectedItems,
+          reduceValue: 2,
+          roots: [0, 2],
+        }]);
     });
 
     it('should create a forest and correctly assign parents and children props '
       + 'when there are appointments with smaller offset between a parent and its child', () => {
       // The last appointment's parent should be the appointment with id = 1
       const appointmentGroups = [{
-        reduceValue: 1,
+        reduceValue: 3,
         items: [{
           start: moment('2017-07-20 08:00'),
           end: moment('2017-07-20 09:00'),
@@ -744,74 +709,49 @@ describe('Appointments helpers', () => {
         }],
       }];
 
+      const expectedItems = [{
+        data: appointmentGroups[0].items[0],
+        children: [1],
+        treeDepth: 2,
+        hasDirectChild: false,
+        isDirectChild: false,
+      }, {
+        data: appointmentGroups[0].items[1],
+        children: [3],
+        treeDepth: 1,
+        hasDirectChild: false,
+        isDirectChild: false,
+        parent: 0,
+      }, {
+        data: appointmentGroups[0].items[2],
+        children: [],
+        treeDepth: 0,
+        hasDirectChild: false,
+        isDirectChild: false,
+      }, {
+        data: appointmentGroups[0].items[3],
+        children: [],
+        treeDepth: 0,
+        hasDirectChild: false,
+        isDirectChild: false,
+        parent: 1,
+      }];
+
       const result = createAppointmentForest(appointmentGroups, CELL_DURATION);
       expect(result[0].items)
         .toHaveLength(4);
 
-      const firstAppointment = result[0].items[0];
-      const secondAppointment = result[0].items[1];
-      const thirdAppointment = result[0].items[2];
-      const fourthAppointment = result[0].items[3];
-
-      expect(firstAppointment)
-        .toEqual({
-          ...appointmentGroups[0].items[0],
-          hasDirectChild: false,
-          isDirectChild: false,
-          parent: undefined,
-          children: [secondAppointment],
-          treeDepth: 2,
-        });
-      expect(firstAppointment.children[0])
-        .toBe(secondAppointment);
-
-      expect(secondAppointment)
-        .toEqual({
-          ...appointmentGroups[0].items[1],
-          hasDirectChild: false,
-          isDirectChild: false,
-          children: [fourthAppointment],
-          parent: firstAppointment,
-          treeDepth: 1,
-        });
-      expect(secondAppointment.parent)
-        .toBe(firstAppointment);
-      expect(secondAppointment.children[0])
-        .toBe(fourthAppointment);
-
-      expect(thirdAppointment)
-        .toEqual({
-          ...appointmentGroups[0].items[2],
-          hasDirectChild: false,
-          isDirectChild: false,
-          parent: undefined,
-          children: [],
-          treeDepth: 0,
-        });
-
-      expect(fourthAppointment)
-        .toEqual({
-          ...appointmentGroups[0].items[3],
-          hasDirectChild: false,
-          isDirectChild: false,
-          children: [],
-          parent: secondAppointment,
-          treeDepth: 0,
-        });
-      expect(fourthAppointment.parent)
-        .toBe(secondAppointment);
-
-      expect(result[0].roots)
-        .toHaveLength(2);
-      expect(result[0].roots[0])
-        .toBe(firstAppointment);
-      expect(result[0].roots[1])
-        .toBe(thirdAppointment);
+      expect(result)
+        .toEqual([{
+          items: expectedItems,
+          reduceValue: 3,
+          roots: [0, 2],
+        }]);
     });
 
     it('should work correctly when there are several children', () => {
       const appointmentGroups = [{
-        reduceValue: 1,
+        reduceValue: 2,
         items: [{
           start: moment('2017-07-20 08:00'),
           end: moment('2017-07-20 12:00'),
@@ -830,56 +770,38 @@ describe('Appointments helpers', () => {
         }],
       }];
 
+      const expectedItems = [{
+        data: appointmentGroups[0].items[0],
+        children: [1, 2],
+        treeDepth: 1,
+        hasDirectChild: true,
+        isDirectChild: false,
+      }, {
+        data: appointmentGroups[0].items[1],
+        children: [],
+        treeDepth: 0,
+        hasDirectChild: false,
+        isDirectChild: true,
+        parent: 0,
+      }, {
+        data: appointmentGroups[0].items[2],
+        children: [],
+        treeDepth: 0,
+        hasDirectChild: false,
+        isDirectChild: false,
+        parent: 0,
+      }];
+
       const result = createAppointmentForest(appointmentGroups, CELL_DURATION);
       expect(result[0].items)
         .toHaveLength(3);
 
-      const firstAppointment = result[0].items[0];
-      const secondAppointment = result[0].items[1];
-      const thirdAppointment = result[0].items[2];
-
-      expect(firstAppointment)
-        .toEqual({
-          ...appointmentGroups[0].items[0],
-          hasDirectChild: true,
-          isDirectChild: false,
-          parent: undefined,
-          children: [secondAppointment, thirdAppointment],
-          treeDepth: 1,
-        });
-      expect(firstAppointment.children[0])
-        .toBe(secondAppointment);
-      expect(firstAppointment.children[1])
-        .toBe(thirdAppointment);
-
-      expect(secondAppointment)
-        .toEqual({
-          ...appointmentGroups[0].items[1],
-          hasDirectChild: false,
-          isDirectChild: true,
-          children: [],
-          parent: firstAppointment,
-          treeDepth: 0,
-        });
-      expect(secondAppointment.parent)
-        .toBe(firstAppointment);
-
-      expect(thirdAppointment)
-        .toEqual({
-          ...appointmentGroups[0].items[2],
-          hasDirectChild: false,
-          isDirectChild: false,
-          children: [],
-          parent: firstAppointment,
-          treeDepth: 0,
-        });
-      expect(thirdAppointment.parent)
-        .toBe(firstAppointment);
-
-      expect(result[0].roots)
-        .toHaveLength(1);
-      expect(result[0].roots[0])
-        .toBe(firstAppointment);
+      expect(result)
+        .toEqual([{
+          items: expectedItems,
+          reduceValue: 2,
+          roots: [0],
+        }]);
     });
   });
 

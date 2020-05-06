@@ -332,27 +332,27 @@ const iterateTreeRoots: PureComputed<
   const appointmentNodes: any[] = appointmentItems.map(props => ({
     data: props,
   }));
-  const roots = [];
-  let baseAppointmentId = 0;
-  while (baseAppointmentId < appointmentNodes.length) {
-    const appointment = appointmentNodes[baseAppointmentId];
+
+  const roots = appointmentNodes.reduce((acc, appointment, appointmentIndex) => {
     const { offset: appointmentOffset } = appointment.data;
+
     if (appointmentOffset === 0) {
-      roots.push(baseAppointmentId);
-      if (baseAppointmentId + 1 === appointmentNodes.length) {
+      if (appointmentIndex + 1 === appointmentNodes.length) {
         appointment.children = [];
         appointment.hasDirectChild = false;
         appointment.treeDepth = 0;
       } else {
         appointment.treeDepth = visitAllChildren(
-          appointmentNodes, baseAppointmentId, cellDuration, 0,
+          appointmentNodes, appointmentIndex, cellDuration, 0,
         );
       }
+
       appointment.parent = undefined;
       appointment.isDirectChild = false;
+      return [...acc, appointmentIndex];
     }
-    baseAppointmentId += 1;
-  }
+    return acc;
+  }, []);
   return { appointments: appointmentNodes, roots };
 };
 
@@ -391,9 +391,7 @@ const visitAllChildren: PureComputed<
   const children = [];
 
   let nextChildIndex = appointmentIndex + 1;
-  while (nextChildIndex < appointmentNodes.length
-    && appointmentNodes[nextChildIndex].data.offset !== appointmentOffset
-    && appointmentNodes[nextChildIndex].data.start.isBefore(end)) {
+  while (isPossibleChild(appointmentNodes, nextChildIndex, end, appointmentOffset)) {
     const nextAppointment = appointmentNodes[nextChildIndex];
     const { offset: nextOffset, start: nextStart } = nextAppointment.data;
 
@@ -414,6 +412,17 @@ const visitAllChildren: PureComputed<
   appointment.children = children;
 
   return maxAppointmentTreeDepth;
+};
+
+export const isPossibleChild: PureComputed<
+  [any[], number, moment.Moment, number], boolean
+> = (appointments, possibleChildIndex, parentEnd, parentOffset) => {
+  const possibleChild = appointments[possibleChildIndex];
+  return (
+    possibleChildIndex < appointments.length
+    && possibleChild.data.offset !== parentOffset
+    && possibleChild.data.start.isBefore(parentEnd)
+  );
 };
 
 export const findMaxReduceValue: PureComputed<

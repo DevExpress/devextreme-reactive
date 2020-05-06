@@ -4,6 +4,7 @@ import {
   findOverlappedAppointments, adjustAppointments, unwrapGroups,
   calculateRectByDateAndGroupIntervals, createAppointmentForest,
   calculateAppointmentLeftAndWidth, isPossibleChild, findMaxReduceValue,
+  calculateAppointmentsMetaData,
 } from './helpers';
 import { VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 
@@ -41,6 +42,8 @@ describe('Appointments helpers', () => {
     [{ ...appointmentsBase[0] }, { ...appointmentsBase[1] }, { ...appointmentsBase[5] }],
     [{ ...appointmentsBase[6] }],
   ];
+  const INDIRECT_CHILD_LEFT_OFFSET = 0.05;
+
   describe('#isTimeTableElementsMetaActual', () => {
     const viewCellsData = [[
       {}, {}, {},
@@ -867,7 +870,7 @@ describe('Appointments helpers', () => {
 
   describe('#calculateAppointmentLeftAndWidth', () => {
     const MAX_RIGHT = 1;
-    const INDIRECT_CHILD_LEFT_OFFSET = 0.05;
+
     it('should work when there are no parent and no direct children', () => {
       const appointment = {
         hasDirectChild: false,
@@ -1048,6 +1051,178 @@ describe('Appointments helpers', () => {
         appointments, appointments[1], MAX_RIGHT, 0.03,
       ))
         .toEqual({ left: matchFloat(0.03), width: matchFloat(0.97) });
+    });
+  });
+
+  describe('#calculateAppointmentsMetaData', () => {
+    it('should work when there is only root', () => {
+      const appointmentForest = [{
+        roots: [0],
+        items: [{
+          data: {},
+          hasDirectChild: false,
+          isDirectChild: false,
+          children: [],
+          treeDepth: 0,
+        }],
+        reduceValue: 1,
+      }];
+
+      expect(calculateAppointmentsMetaData(appointmentForest, INDIRECT_CHILD_LEFT_OFFSET))
+        .toEqual([{
+          ...appointmentForest[0],
+          items: [{
+            ...appointmentForest[0].items[0],
+            data: { left: 0, width: 1 },
+          }],
+        }]);
+    });
+
+    it('should work with children', () => {
+      const appointmentForest = [{
+        roots: [0],
+        items: [{
+          data: {},
+          hasDirectChild: true,
+          isDirectChild: false,
+          children: [1, 2],
+          treeDepth: 2,
+        }, {
+          data: {},
+          hasDirectChild: false,
+          isDirectChild: true,
+          children: [],
+          treeDepth: 0,
+          parent: 0,
+        }, {
+          data: {},
+          hasDirectChild: true,
+          isDirectChild: false,
+          children: [3],
+          treeDepth: 1,
+          parent: 0,
+        }, {
+          data: {},
+          hasDirectChild: false,
+          isDirectChild: true,
+          children: [],
+          treeDepth: 0,
+          parent: 2,
+        }],
+        reduceValue: 3,
+      }];
+
+      expect(calculateAppointmentsMetaData(appointmentForest, INDIRECT_CHILD_LEFT_OFFSET))
+        .toEqual([{
+          ...appointmentForest[0],
+          items: [{
+            ...appointmentForest[0].items[0],
+            data: { left: 0, width: matchFloat(0.33) },
+          }, {
+            ...appointmentForest[0].items[1],
+            data: { left: matchFloat(0.33), width: matchFloat(0.67) },
+          }, {
+            ...appointmentForest[0].items[2],
+            data: { left: matchFloat(0.05), width: matchFloat(0.475) },
+          }, {
+            ...appointmentForest[0].items[3],
+            data: { left: matchFloat(0.525), width: matchFloat(0.475) },
+          }],
+        }]);
+    });
+
+    it('should work with several roots', () => {
+      const appointmentForest = [{
+        roots: [0, 2],
+        items: [{
+          data: {},
+          hasDirectChild: true,
+          isDirectChild: false,
+          children: [1],
+          treeDepth: 1,
+        }, {
+          data: {},
+          hasDirectChild: false,
+          isDirectChild: true,
+          children: [],
+          treeDepth: 0,
+          parent: 0,
+        }, {
+          data: {},
+          hasDirectChild: false,
+          isDirectChild: false,
+          children: [],
+          treeDepth: 0,
+        }],
+        reduceValue: 2,
+      }];
+
+      expect(calculateAppointmentsMetaData(appointmentForest, INDIRECT_CHILD_LEFT_OFFSET))
+        .toEqual([{
+          ...appointmentForest[0],
+          items: [{
+            ...appointmentForest[0].items[0],
+            data: { left: 0, width: matchFloat(0.5) },
+          }, {
+            ...appointmentForest[0].items[1],
+            data: { left: matchFloat(0.5), width: matchFloat(0.5) },
+          }, {
+            ...appointmentForest[0].items[2],
+            data: { left: 0, width: 1 },
+          }],
+        }]);
+    });
+
+    it('should work if all roots have children', () => {
+      const appointmentForest = [{
+        roots: [0, 2],
+        items: [{
+          data: {},
+          hasDirectChild: true,
+          isDirectChild: false,
+          children: [1],
+          treeDepth: 1,
+        }, {
+          data: {},
+          hasDirectChild: false,
+          isDirectChild: true,
+          children: [],
+          treeDepth: 0,
+          parent: 0,
+        }, {
+          data: {},
+          hasDirectChild: false,
+          isDirectChild: false,
+          children: [3],
+          treeDepth: 1,
+        }, {
+          data: {},
+          hasDirectChild: false,
+          isDirectChild: false,
+          children: [],
+          treeDepth: 0,
+          parent: 2,
+        }],
+        reduceValue: 2,
+      }];
+
+      expect(calculateAppointmentsMetaData(appointmentForest, INDIRECT_CHILD_LEFT_OFFSET))
+        .toEqual([{
+          ...appointmentForest[0],
+          items: [{
+            ...appointmentForest[0].items[0],
+            data: { left: 0, width: matchFloat(0.5) },
+          }, {
+            ...appointmentForest[0].items[1],
+            data: { left: matchFloat(0.5), width: matchFloat(0.5) },
+          }, {
+            ...appointmentForest[0].items[2],
+            data: { left: 0, width: 1 },
+          }, {
+            ...appointmentForest[0].items[3],
+            data: { left: matchFloat(0.05), width: matchFloat(0.95) },
+          }],
+        }]);
     });
   });
 });

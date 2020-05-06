@@ -1,6 +1,6 @@
 # React Grid - Detail Row Editing
 
-This document describes how to implement row editing via Detail Row. Before using this guide we recommend you explore the following articles: Core Concepts, Custom Plugin Development.
+This document describes how to implement row editing via Detail Row. Before using this guide we recommend you explore the following articles: [Core Concepts](../../../core/docs/guides/fundamentals.md), [Custom Plugin Development](./custom-plugin-development.md).
 
 ## DetailEditCell plugin
 This plugin is an intermediate layer between EditingState and TableDetailRow. It consists of the following plugin primitives:
@@ -90,3 +90,5 @@ const DetailCell = ({
   );
 };
 ```
+
+.embedded-demo({ "path": "grid-detail-row/detail-row-controlled", "showThemeSelector": true })

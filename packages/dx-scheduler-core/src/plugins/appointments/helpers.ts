@@ -525,61 +525,54 @@ export const calculateAppointmentLeftAndWidth: PureComputed<
   });
 };
 
-// TODO: needs refactoring
 export const prepareToGroupIntoBlocks: PureComputed<
   [any[]], any[]
 > = appointments => appointments.map((appointmentForest) => {
   const { items: nodes } = appointmentForest;
   const appointmentNodes = nodes.map(props => ({ ...props }));
-  if (appointmentNodes.length === 1) {
-    appointmentNodes[0].overlappingSubTreeRoots = [];
-  } else {
-    appointmentNodes.forEach((appointmentNode, index) => {
-      if (index === 0) {
-        appointmentNode.overlappingSubTreeRoots = [];
-        return;
-      }
-      const overlappingSubTreeRoots = [] as any[];
-      const { offset: appointmentOffset, end } = appointmentNode.data;
 
-      let nextChildIndex = index + 1;
-      let currentBlockEnd;
-      while (nextChildIndex < appointmentNodes.length
-        && appointmentNodes[nextChildIndex].data.offset !== appointmentOffset
-        && appointmentNodes[nextChildIndex].data.start.isBefore(end)) {
-        const nextAppointment = appointmentNodes[nextChildIndex];
-        if (nextAppointment.data.offset < appointmentOffset
-          && nextAppointment.maxOffset === undefined) {
-          nextAppointment.maxOffset = appointmentOffset ;
-        }
-        if (isOverlappingSubTreeRoot(
-          appointmentNodes, appointmentNode, nextAppointment,
-          overlappingSubTreeRoots.length > 0
-            ? appointmentNodes[overlappingSubTreeRoots[overlappingSubTreeRoots.length - 1]]
-            : undefined,
-          currentBlockEnd,
-        )) {
-          overlappingSubTreeRoots.push(nextChildIndex);
-          nextAppointment.overlappingSubTreeRoot = true;
-          const maxChildDate = findChildrenMaxEndDate(
-            appointmentNodes, nextAppointment, end, nextChildIndex,
-          );
-          if (!currentBlockEnd || currentBlockEnd.isBefore(maxChildDate)) {
-            currentBlockEnd = maxChildDate;
-          }
-        }
-        nextChildIndex += 1;
+  appointmentNodes.forEach((appointmentNode, index) => {
+    if (index === 0) {
+      appointmentNode.overlappingSubTreeRoots = [];
+      return;
+    }
+    const overlappingSubTreeRoots = [] as any[];
+    const { offset: appointmentOffset, end } = appointmentNode.data;
+
+    let nextChildIndex = index + 1;
+    let currentBlockEnd;
+    while (isPossibleChild(appointmentNodes, nextChildIndex, end, appointmentOffset)) {
+      const nextAppointment = appointmentNodes[nextChildIndex];
+      if (nextAppointment.data.offset < appointmentOffset
+        && nextAppointment.maxOffset === undefined) {
+        nextAppointment.maxOffset = appointmentOffset; // maxBlockOffset ?
       }
-      appointmentNode.overlappingSubTreeRoots = overlappingSubTreeRoots;
-    });
-  }
+
+      const previousSubTreeRoot = overlappingSubTreeRoots.length > 0
+        ? appointmentNodes[overlappingSubTreeRoots[overlappingSubTreeRoots.length - 1]]
+        : undefined;
+      if (isOverlappingSubTreeRoot(
+        appointmentNodes, appointmentNode, nextAppointment,
+        previousSubTreeRoot, currentBlockEnd,
+      )) {
+        overlappingSubTreeRoots.push(nextChildIndex);
+        nextAppointment.overlappingSubTreeRoot = true;
+        const maxChildDate = findChildrenMaxEndDate(appointmentNodes, nextAppointment);
+        if (!currentBlockEnd || currentBlockEnd.isBefore(maxChildDate)) {
+          currentBlockEnd = maxChildDate;
+        }
+      }
+      nextChildIndex += 1;
+    }
+    appointmentNode.overlappingSubTreeRoots = overlappingSubTreeRoots;
+  });
   return {
     ...appointmentForest,
     items: appointmentNodes,
   };
 });
 
-const isOverlappingSubTreeRoot: PureComputed<
+export const isOverlappingSubTreeRoot: PureComputed<
   [any[], any, any, any | undefined, moment.Moment | undefined], boolean
 > = (appointmentNodes, appointmentNode, nextAppointment, previousSubTreeRoot, previousEndDate) => {
   const {
@@ -602,17 +595,15 @@ const isOverlappingSubTreeRoot: PureComputed<
   );
 };
 
-const findChildrenMaxEndDate: PureComputed<
-  [any[], any, moment.Moment, number], moment.Moment
-> = (appointmentNodes, appointmentNode, blockEndDate, blockIndex) => {
+export const findChildrenMaxEndDate: PureComputed<
+  [any[], any], moment.Moment
+> = (appointmentNodes, appointmentNode) => {
   const { children, data } = appointmentNode;
   const { end } = data;
 
   const maxDate = children.reduce((currentMaxDate, childIndex) => {
     const child = appointmentNodes[childIndex];
-    const maxChildrenDate = findChildrenMaxEndDate(
-      appointmentNodes, child, blockEndDate, blockIndex,
-    );
+    const maxChildrenDate = findChildrenMaxEndDate(appointmentNodes, child);
     if (maxChildrenDate.isAfter(currentMaxDate)) {
       return maxChildrenDate;
     }

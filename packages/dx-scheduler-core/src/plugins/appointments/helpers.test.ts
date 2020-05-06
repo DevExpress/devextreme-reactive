@@ -5,6 +5,7 @@ import {
   calculateRectByDateAndGroupIntervals, createAppointmentForest,
   calculateAppointmentLeftAndWidth, isPossibleChild, findMaxReduceValue,
   calculateAppointmentsMetaData,
+  findChildrenMaxEndDate,
 } from './helpers';
 import { VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 
@@ -1223,6 +1224,21 @@ describe('Appointments helpers', () => {
             data: { left: matchFloat(0.05), width: matchFloat(0.95) },
           }],
         }]);
+    });
+  });
+
+  describe('#findChildrenMaxEndDate', () => {
+    it('should return max end date from the chosen appointment and its children', () => {
+      const appointments = [
+        { data: { end: moment('2020-05-06 16:00') }, children: [1] },
+        { data: { end: moment('2020-05-06 16:40') }, children: [2, 3, 4] },
+        { data: { end: moment('2020-05-06 16:20') }, children: [] },
+        { data: { end: moment('2020-05-06 16:50') }, children: [] },
+        { data: { end: moment('2020-05-06 16:30') }, children: [] },
+      ];
+
+      expect(findChildrenMaxEndDate(appointments, appointments[0]))
+        .toEqual(moment('2020-05-06 16:50'));
     });
   });
 });

@@ -347,7 +347,6 @@ const iterateTreeRoots: PureComputed<
         appointment.treeDepth = visitAllChildren(
           appointmentNodes, baseAppointmentId, cellDuration, 0,
         );
-        console.log(appointment.treeDepth)
       }
       appointment.parent = undefined;
       appointment.isDirectChild = false;
@@ -547,7 +546,7 @@ export const prepareToGroupIntoBlocks: PureComputed<
         if (isOverlappingSubTreeRoot(
           appointmentNodes, appointmentNode, nextAppointment,
           overlappingSubTreeRoots.length > 0
-            ? overlappingSubTreeRoots[overlappingSubTreeRoots.length - 1]
+            ? appointmentNodes[overlappingSubTreeRoots[overlappingSubTreeRoots.length - 1]]
             : undefined,
           currentBlockEnd,
         )) {
@@ -575,9 +574,9 @@ const isOverlappingSubTreeRoot: PureComputed<
   [any[], any, any, any | undefined, moment.Moment | undefined], boolean
 > = (appointmentNodes, appointmentNode, nextAppointment, previousSubTreeRoot, previousEndDate) => {
   const {
-    overlappingSubTreeRoot, maxOffset, data: nexxtData,
+    overlappingSubTreeRoot, maxOffset, data: nextData,
   } = nextAppointment;
-  const { offset: nextOffset, start: nextStart } = nexxtData;
+  const { offset: nextOffset, start: nextStart } = nextData;
 
   const { data, parent: parentIndex } = appointmentNode;
   const { offset } = data;
@@ -1079,7 +1078,6 @@ export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIn
   const groupedIntoBlocks = groupAppointmentsIntoBlocks(preparedToGroupIntoBlocks);
   const blocksWithIncluded = findIncludedBlocks(groupedIntoBlocks);
   const blocksWithParents = findChildBlocks(blocksWithIncluded);
-  debugger;
   // console.log(blocksWithParents)
   // const depthRecalculated = calculateTreeDepthByBlocks(preparedToGroupIntoBlocks, blocksWithParents);
   const adjustedBlocks = adjustByBlocks(preparedToGroupIntoBlocks, blocksWithParents, indirectChildLeftOffset);

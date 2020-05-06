@@ -3,7 +3,7 @@ import {
   isTimeTableElementsMetaActual, isAllDayElementsMetaActual, sortAppointments,
   findOverlappedAppointments, adjustAppointments, unwrapGroups,
   calculateRectByDateAndGroupIntervals, createAppointmentForest,
-  calculateAppointmentLeftAndWidth, isPossibleChild,
+  calculateAppointmentLeftAndWidth, isPossibleChild, findMaxReduceValue,
 } from './helpers';
 import { VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 
@@ -851,14 +851,31 @@ describe('Appointments helpers', () => {
     });
   });
 
+  describe('#findMaxReduceValue', () => {
+    it('should work', () => {
+      const appointmentGroups = [
+        { reduceValue: 3 },
+        { reduceValue: 5 },
+        { reduceValue: 2 },
+        { reduceValue: 7 },
+      ];
+
+      expect(findMaxReduceValue(appointmentGroups))
+        .toBe(7);
+    });
+  });
+
   describe('#calculateAppointmentLeftAndWidth', () => {
-    const MAX_WIDTH = 1;
+    const MAX_RIGHT = 1;
+    const INDIRECT_CHILD_LEFT_OFFSET = 0.05;
     it('should work when there are no parent and no direct children', () => {
       const appointment = {
         hasDirectChild: false,
         parent: undefined,
       };
-      expect(calculateAppointmentLeftAndWidth(appointment, MAX_WIDTH))
+      expect(calculateAppointmentLeftAndWidth(
+        [], appointment, MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET,
+      ))
         .toEqual({ left: 0, width: 1 });
     });
 
@@ -868,98 +885,169 @@ describe('Appointments helpers', () => {
         parent: undefined,
         treeDepth: 1,
       };
-      expect(calculateAppointmentLeftAndWidth(appointment, MAX_WIDTH))
+      expect(calculateAppointmentLeftAndWidth(
+        [], appointment, MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET,
+      ))
         .toEqual({ left: 0, width: matchFloat(0.5) });
     });
 
     it('should work when appointment is a direct child, has a parent and does not have direct children', () => {
-      const appointment = {
+      const appointments = [{
+        hasDirectChild: true,
+        isDirectChild: false,
+        treeDepth: 1,
+        data: { left: 0, width: 0.5 },
+      }, {
         hasDirectChild: false,
         isDirectChild: true,
         treeDepth: 0,
-        parent: {
-          hasDirectChild: true,
-          width: 0.5,
-          left: 0,
-        },
-      };
-      expect(calculateAppointmentLeftAndWidth(appointment, MAX_WIDTH))
+        parent: 0,
+      }];
+
+      expect(calculateAppointmentLeftAndWidth(
+        appointments, appointments[1], MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET,
+      ))
         .toEqual({ left: matchFloat(0.5), width: matchFloat(0.5) });
     });
 
     it('should work when appointment is not a direct child, has a parent and does not have direct children', () => {
-      const appointment = {
+      const appointments = [{
+        hasDirectChild: false,
+        isDirectChild: false,
+        treeDepth: 1,
+        data: { left: 0, width: 1 },
+      }, {
         hasDirectChild: false,
         isDirectChild: false,
         treeDepth: 0,
-        parent: {
-          hasDirectChild: false,
-          width: 1,
-          left: 0,
-        },
-      };
-      expect(calculateAppointmentLeftAndWidth(appointment, MAX_WIDTH))
+        parent: 0,
+      }];
+
+      expect(calculateAppointmentLeftAndWidth(
+        appointments, appointments[1], MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET,
+      ))
         .toEqual({ left: matchFloat(0.05), width: matchFloat(0.95) });
     });
 
-    it('should work when appointment is not a direct child, has a parent, which has a direct child, and does not have direct children', () => {
-      const appointment = {
+    it('should work when appointment is not a direct child, has a parent, which has a direct child', () => {
+      const appointments = [{
+        hasDirectChild: true,
+        isDirectChild: false,
+        treeDepth: 1,
+        data: { left: 0, width: 1 },
+      }, {
         hasDirectChild: false,
         isDirectChild: false,
         treeDepth: 0,
-        parent: {
-          hasDirectChild: true,
-          width: 0.5,
-          left: 0,
-        },
-      };
-      expect(calculateAppointmentLeftAndWidth(appointment, MAX_WIDTH))
+        parent: 0,
+      }];
+
+      expect(calculateAppointmentLeftAndWidth(
+        appointments, appointments[1], MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET,
+      ))
         .toEqual({ left: matchFloat(0.05), width: matchFloat(0.95) });
     });
 
     it('should work when appointment is a direct child, has a parent and has direct children', () => {
-      const appointment = {
+      const appointments = [{
+        hasDirectChild: true,
+        isDirectChild: false,
+        treeDepth: 2,
+        data: { left: 0, width: 0.33 },
+      }, {
         hasDirectChild: true,
         isDirectChild: true,
         treeDepth: 1,
-        parent: {
-          hasDirectChild: true,
-          width: 0.33,
-          left: 0,
-        },
-      };
-      expect(calculateAppointmentLeftAndWidth(appointment, MAX_WIDTH))
+        parent: 0,
+      }, {
+        hasDirectChild: false,
+        isDirectChild: true,
+        treeDepth: 0,
+        parent: 1,
+      }];
+
+      expect(calculateAppointmentLeftAndWidth(
+        appointments, appointments[1], MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET,
+      ))
         .toEqual({ left: matchFloat(0.33), width: matchFloat(0.33) });
     });
 
     it('should work when appointment is not a direct child, has a parent and does not have direct children', () => {
-      const appointment = {
+      const appointments = [{
+        hasDirectChild: false,
+        isDirectChild: false,
+        treeDepth: 2,
+        data: { left: 0, width: 1 },
+      }, {
         hasDirectChild: true,
         isDirectChild: false,
         treeDepth: 1,
-        parent: {
-          hasDirectChild: false,
-          width: 1,
-          left: 0,
-        },
-      };
-      expect(calculateAppointmentLeftAndWidth(appointment, MAX_WIDTH))
+        parent: 0,
+      }, {
+        hasDirectChild: false,
+        isDirectChild: true,
+        treeDepth: 0,
+        parent: 1,
+      }];
+
+      expect(calculateAppointmentLeftAndWidth(
+        appointments, appointments[1], MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET,
+      ))
         .toEqual({ left: matchFloat(0.05), width: matchFloat(0.475) });
     });
 
-    it('should work when appointment is not a direct child, has a parent, which has a direct child, and does not have direct children', () => {
-      const appointment = {
+    it('should work when appointment is not a direct child, does not have direct children and has a parent, which has a direct child', () => {
+      const appointments = [{
+        hasDirectChild: true,
+        isDirectChild: false,
+        treeDepth: 2,
+        data: { left: 0, width: 1 },
+      }, {
         hasDirectChild: true,
         isDirectChild: false,
         treeDepth: 1,
-        parent: {
-          hasDirectChild: true,
-          width: 0.5,
-          left: 0,
-        },
-      };
-      expect(calculateAppointmentLeftAndWidth(appointment, MAX_WIDTH))
+        parent: 0,
+      }, {
+        hasDirectChild: false,
+        isDirectChild: true,
+        treeDepth: 0,
+        parent: 1,
+      }];
+
+      expect(calculateAppointmentLeftAndWidth(
+        appointments, appointments[1], MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET,
+      ))
         .toEqual({ left: matchFloat(0.05), width: matchFloat(0.475) });
+    });
+
+    it('should take into account maxRight', () => {
+      const appointment = {
+        hasDirectChild: false,
+        parent: undefined,
+      };
+      expect(calculateAppointmentLeftAndWidth(
+        [], appointment, 0.5, INDIRECT_CHILD_LEFT_OFFSET,
+      ))
+        .toEqual({ left: 0, width: 0.5 });
+    });
+
+    it('should take into account indirectChildLeft', () => {
+      const appointments = [{
+        hasDirectChild: false,
+        isDirectChild: false,
+        treeDepth: 1,
+        data: { left: 0, width: 1 },
+      }, {
+        hasDirectChild: false,
+        isDirectChild: false,
+        treeDepth: 0,
+        parent: 0,
+      }];
+
+      expect(calculateAppointmentLeftAndWidth(
+        appointments, appointments[1], MAX_RIGHT, 0.03,
+      ))
+        .toEqual({ left: matchFloat(0.03), width: matchFloat(0.97) });
     });
   });
 });

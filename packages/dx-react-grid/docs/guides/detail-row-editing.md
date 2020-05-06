@@ -91,4 +91,37 @@ const DetailCell = ({
 };
 ```
 
+## Detail Cell Content Form
+It is a simple edit form. The `processValueChange` function handles changes in it's inputs. It also has 2 buttons to apply and cancel changes.
+```jsx
+const DetailContent = ({ row, ...rest }) => {
+  const {
+    processValueChange,
+    applyChanges,
+    cancelChanges,
+  } = rest;
+  return (
+    ...
+      <TextField
+        margin="normal"
+        name="prefix"
+        label="Title"
+        value={row.prefix}
+        onChange={processValueChange}
+      />
+    ... // other editors
+      <Button onClick={applyChanges} variant="text" color="primary">
+          Save
+      </Button>
+      <Button onClick={cancelChanges} color="secondary">
+        Cancel
+      </Button>
+      ...
+  )
+}
+```
+
+## Toggle Icon
+The last step is to override detail row toggle button icon. It is implemented by overriding a toggleCellComponent with a custom implementation.
+
 .embedded-demo({ "path": "grid-detail-row/detail-row-controlled", "showThemeSelector": true })

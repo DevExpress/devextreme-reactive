@@ -545,7 +545,7 @@ export const prepareToGroupIntoBlocks: PureComputed<
       const nextAppointment = appointmentNodes[nextChildIndex];
       if (nextAppointment.data.offset < appointmentOffset
         && nextAppointment.maxOffset === undefined) {
-        nextAppointment.maxOffset = appointmentOffset; // maxBlockOffset ?
+        nextAppointment.maxOffset = appointmentOffset;
       }
 
       const previousSubTreeRoot = overlappingSubTreeRoots.length > 0

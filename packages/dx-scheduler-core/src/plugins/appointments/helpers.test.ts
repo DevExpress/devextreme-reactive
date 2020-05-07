@@ -5,7 +5,7 @@ import {
   calculateRectByDateAndGroupIntervals, createAppointmentForest,
   calculateAppointmentLeftAndWidth, isPossibleChild, findMaxReduceValue,
   calculateAppointmentsMetaData, isOverlappingSubTreeRoot,
-  findChildrenMaxEndDate,
+  findChildrenMaxEndDate, prepareToGroupIntoBlocks,
 } from './helpers';
 import { VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 
@@ -1335,6 +1335,301 @@ describe('Appointments helpers', () => {
 
       expect(isOverlappingSubTreeRoot(appointment, nextAppointment, previousSubTreeRoot, blockEnd))
         .toBe(true);
+    });
+  });
+
+  describe('#prepareToGroupIntoBlocks', () => {
+    it('should not find overlapping subtree roots', () => {
+      const appointmentForest = [{
+        reduceValue: 2,
+        items: [{
+          data: {
+            start: moment('2017-07-20 08:00'),
+            end: moment('2017-07-20 08:30'),
+            offset: 0,
+          },
+          children: [1],
+        }, {
+          data: {
+            start: moment('2017-07-20 08:00'),
+            end: moment('2017-07-20 08:30'),
+            offset: 1,
+          },
+          children: [],
+          parent: 0,
+        }],
+      }];
+
+      const expectedItems = [{
+        ...appointmentForest[0].items[0],
+        overlappingSubTreeRoots: [],
+      }, {
+        ...appointmentForest[0].items[1],
+        overlappingSubTreeRoots: [],
+      }];
+
+      expect(prepareToGroupIntoBlocks(appointmentForest))
+        .toEqual([{
+          ...appointmentForest[0],
+          items: expectedItems,
+        }]);
+    });
+
+    it('should find one overlapping subtree roots', () => {
+      const appointmentForest = [{
+        reduceValue: 2,
+        items: [
+          {
+            data: {
+              start: moment('2017-07-20 08:00'),
+              end: moment('2017-07-20 08:30'),
+              offset: 0,
+            },
+            children: [1],
+          },
+          {
+            data: {
+              start: moment('2017-07-20 08:00'),
+              end: moment('2017-07-20 11:30'),
+              offset: 1,
+            },
+            children: [],
+            parent: 0,
+          },
+          // should be an overlapping subtree root because it overlaps the second appointment
+          // and its offset is less than second appointment's offset
+          {
+            data: {
+              start: moment('2017-07-20 09:00'),
+              end: moment('2017-07-20 11:00'),
+              offset: 0,
+            },
+            children: [],
+          }],
+      }];
+
+      const expectedItems = [{
+        ...appointmentForest[0].items[0],
+        overlappingSubTreeRoots: [],
+      }, {
+        ...appointmentForest[0].items[1],
+        overlappingSubTreeRoots: [2],
+      }, {
+        ...appointmentForest[0].items[2],
+        overlappingSubTreeRoots: [],
+        overlappingSubTreeRoot: true,
+        maxOffset: 1,
+      }];
+
+      expect(prepareToGroupIntoBlocks(appointmentForest))
+        .toEqual([{
+          ...appointmentForest[0],
+          items: expectedItems,
+        }]);
+    });
+
+    it('should work when there are several overlapping subtree roots', () => {
+      const appointmentForest = [{
+        reduceValue: 3,
+        items: [
+          {
+            data: {
+              start: moment('2017-07-20 08:00'),
+              end: moment('2017-07-20 09:30'),
+              offset: 0,
+            },
+            children: [1],
+          },
+          {
+            data: {
+              start: moment('2017-07-20 08:00'),
+              end: moment('2017-07-20 08:30'),
+              offset: 1,
+            },
+            children: [2],
+            parent: 0,
+          },
+          {
+            data: {
+              start: moment('2017-07-20 08:15'),
+              end: moment('2017-07-20 12:30'),
+              offset: 2,
+            },
+            children: [],
+            parent: 1,
+          },
+          // should be an overlapping subtree root because it overlaps the third appointment
+          // and its offset is less than third appointment's offset
+          {
+            data: {
+              start: moment('2017-07-20 09:00'),
+              end: moment('2017-07-20 11:00'),
+              offset: 1,
+            },
+            children: [],
+            parent: 0,
+          },
+          // should be an overlapping subtree root because it overlaps the fourth appointment
+          // and its offset is less than fourth appointment's offset
+          {
+            data: {
+              start: moment('2017-07-20 10:00'),
+              end: moment('2017-07-20 12:00'),
+              offset: 0,
+            },
+            children: [],
+          },
+        ],
+      }];
+
+      const expectedItems = [{
+        ...appointmentForest[0].items[0],
+        overlappingSubTreeRoots: [],
+      }, {
+        ...appointmentForest[0].items[1],
+        overlappingSubTreeRoots: [],
+      }, {
+        ...appointmentForest[0].items[2],
+        overlappingSubTreeRoots: [3],
+      }, {
+        ...appointmentForest[0].items[3],
+        overlappingSubTreeRoots: [4],
+        overlappingSubTreeRoot: true,
+        maxOffset: 2,
+      }, {
+        ...appointmentForest[0].items[4],
+        overlappingSubTreeRoots: [],
+        overlappingSubTreeRoot: true,
+        maxOffset: 2,
+      }];
+
+      expect(prepareToGroupIntoBlocks(appointmentForest))
+        .toEqual([{
+          ...appointmentForest[0],
+          items: expectedItems,
+        }]);
+    });
+
+    fit('should work with complex cases', () => {
+      const appointmentForest = [{
+        reduceValue: 3,
+        items: [
+          {
+            data: {
+              start: moment('2020-05-07 10:00'),
+              end: moment('2020-05-07 13:30'),
+              offset: 0,
+            },
+            children: [1],
+          },
+          {
+            data: {
+              start: moment('2020-05-07 10:30'),
+              end: moment('2020-05-07 13:30'),
+              offset: 1,
+            },
+            children: [2],
+            parent: 0,
+          },
+          {
+            data: {
+              start: moment('2020-05-07 11:00'),
+              end: moment('2020-05-07 13:30'),
+              offset: 2,
+            },
+            children: [3],
+            parent: 1,
+          },
+          {
+            data: {
+              start: moment('2020-05-07 13:00'),
+              end: moment('2020-05-07 15:30'),
+              offset: 3,
+            },
+            children: [],
+            parent: 2,
+          },
+          // Should be an overlapping subtree root because it overlaps the appointment with index 3
+          // and its offset is less than the other one's
+          {
+            data: {
+              start: moment('2020-05-07 14:00'),
+              end: moment('2020-05-07 15:30'),
+              offset: 0,
+            },
+            children: [5, 7],
+          },
+          {
+            data: {
+              start: moment('2020-05-07 14:30'),
+              end: moment('2020-05-07 15:00'),
+              offset: 1,
+            },
+            children: [6],
+            parent: 4,
+          },
+          // Cannot be an overlapping subtree root because it will be a part of the block
+          // wich root - the appointment with index 4
+          {
+            data: {
+              start: moment('2020-05-07 14:45'),
+              end: moment('2020-05-07 15:15'),
+              offset: 2,
+            },
+            children: [],
+            parent: 5,
+          },
+          // Overlapping subtree root for the previous appointment because overlaps with it
+          // and its offset is less than the previous one
+          {
+            data: {
+              start: moment('2020-05-07 15:00'),
+              end: moment('2020-05-07 15:30'),
+              offset: 1,
+            },
+            children: [],
+            parent: 4,
+          },
+        ],
+      }];
+
+      const expectedItems = [{
+        ...appointmentForest[0].items[0],
+        overlappingSubTreeRoots: [],
+      }, {
+        ...appointmentForest[0].items[1],
+        overlappingSubTreeRoots: [],
+      }, {
+        ...appointmentForest[0].items[2],
+        overlappingSubTreeRoots: [],
+      }, {
+        ...appointmentForest[0].items[3],
+        overlappingSubTreeRoots: [4],
+      }, {
+        ...appointmentForest[0].items[4],
+        overlappingSubTreeRoots: [],
+        overlappingSubTreeRoot: true,
+        maxOffset: 3,
+      }, {
+        ...appointmentForest[0].items[5],
+        overlappingSubTreeRoots: [],
+        maxOffset: 3,
+      }, {
+        ...appointmentForest[0].items[6],
+        overlappingSubTreeRoots: [7],
+        maxOffset: 3,
+      }, {
+        ...appointmentForest[0].items[7],
+        overlappingSubTreeRoots: [],
+        overlappingSubTreeRoot: true,
+        maxOffset: 3,
+      }];
+
+      expect(prepareToGroupIntoBlocks(appointmentForest))
+        .toEqual([{
+          ...appointmentForest[0],
+          items: expectedItems,
+        }]);
     });
   });
 });

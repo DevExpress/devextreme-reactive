@@ -6,7 +6,7 @@ import {
   calculateAppointmentLeftAndWidth, isPossibleChild, findMaxReduceValue,
   calculateAppointmentsMetaData, isOverlappingSubTreeRoot,
   findChildrenMaxEndDate, prepareToGroupIntoBlocks, groupAppointmentsIntoBlocks,
-  findBlockIndexByAppointment, findIncludedBlocks,
+  findBlockIndexByAppointment, findIncludedBlocks, findChildBlocks,
 } from './helpers';
 import { VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 
@@ -2143,6 +2143,120 @@ describe('Appointments helpers', () => {
       }];
 
       expect(findIncludedBlocks(data))
+        .toEqual([{
+          blocks: expectedBlocks,
+        }]);
+    });
+  });
+
+  describe('#findChildBlocks', () => {
+    const blocksBase = [{
+      start: moment('2020-05-07 08:00'),
+      end: moment('2020-05-07 09:00'),
+      minOffset: 0,
+      maxOffset: 5,
+      includedBlocks: [],
+    }, {
+      start: moment('2020-05-07 09:00'),
+      end: moment('2020-05-07 10:00'),
+      endForChildren: moment('2020-05-07 10:00'),
+      minOffset: 4,
+      maxOffset: 5,
+      includedBlocks: [],
+    }, {
+      start: moment('2020-05-07 09:30'),
+      end: moment('2020-05-07 12:00'),
+      endForChildren: moment('2020-05-07 12:00'),
+      minOffset: 1,
+      maxOffset: 3,
+      includedBlocks: [3, 4],
+    }, {
+      start: moment('2020-05-07 10:00'),
+      end: moment('2020-05-07 11:30'),
+      endForChildren: moment('2020-05-07 11:30'),
+      minOffset: 3,
+      maxOffset: 3,
+      ncludedBlocks: [],
+      includedInto: 2,
+    }, {
+      start: moment('2020-05-07 10:30'),
+      end: moment('2020-05-07 11:30'),
+      endForChildren: moment('2020-05-07 11:30'),
+      minOffset: 1,
+      maxOffset: 2,
+      ncludedBlocks: [],
+      includedInto: 2,
+    }];
+
+    it('should not find children in the simples case', () => {
+      const data = [{
+        blocks: [blocksBase[0]],
+      }];
+
+      const expectedBlocks = [{
+        ...blocksBase[0],
+        children: [],
+      }];
+
+      expect(findChildBlocks(data))
+        .toEqual([{
+          blocks: expectedBlocks,
+        }]);
+    });
+
+    it('should find one child without included blocks', () => {
+      const data = [{
+        blocks: [
+          blocksBase[0],
+          blocksBase[1],
+          {
+            ...blocksBase[2],
+            includedBlocks: [],
+          },
+        ],
+      }];
+
+      const expectedBlocks = [{
+        ...blocksBase[0],
+        children: [],
+      }, {
+        ...blocksBase[1],
+        children: [2],
+      }, {
+        ...blocksBase[2],
+        includedBlocks: [],
+        children: [],
+      }];
+
+      expect(findChildBlocks(data))
+        .toEqual([{
+          blocks: expectedBlocks,
+        }]);
+    });
+
+    it('should work with included', () => {
+      const data = [{
+        blocks: blocksBase,
+      }];
+
+      const expectedBlocks = [{
+        ...blocksBase[0],
+        children: [],
+      }, {
+        ...blocksBase[1],
+        children: [2],
+      }, {
+        ...blocksBase[2],
+        children: [],
+      }, {
+        ...blocksBase[3],
+        children: [4],
+      }, {
+        ...blocksBase[4],
+        children: [],
+      }];
+
+      expect(findChildBlocks(data))
         .toEqual([{
           blocks: expectedBlocks,
         }]);

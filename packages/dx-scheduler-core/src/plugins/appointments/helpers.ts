@@ -714,32 +714,39 @@ export const findChildBlocks: PureComputed<
   [any[]], any[]
 > = (groupedIntoBlocks) => {
   return groupedIntoBlocks.map(({ blocks, appointmentForest }) => {
-    const result = blocks.map((block, index) => {
-      const { start, endForChildren, minOffset, includedInto } = block;
+    const nextBlocks = blocks.map(props => ({ ...props }));
+
+    nextBlocks.forEach((block, index) => {
       block.children = [];
       for (let currentIndex = index + 1; currentIndex < blocks.length; currentIndex += 1) {
-        const currentBlock = blocks[currentIndex];
-        const {
-          start: currentStart, maxOffset: currentMaxOffset,
-          includedInto: currentIncludedInto,
-        } = currentBlock;
+        const nextBlock = blocks[currentIndex];
 
-        if (intervalIncludes(start, endForChildren, currentStart)
-          && currentMaxOffset + 1 === minOffset
-          && (
-            currentIncludedInto === undefined
-            || currentIncludedInto === includedInto
-          )) {
+        if (isChildBlock(block, nextBlock)) {
           block.children.push(currentIndex);
-          currentBlock.parent = index;
+          nextBlock.parent = index;
         }
       }
       return block;
     });
     return {
-      appointmentForest, blocks: result,
+      appointmentForest, blocks: nextBlocks,
     };
   });
+};
+
+const isChildBlock: PureComputed<
+  [any, any], boolean
+> = (block, possibleChildBlock) => {
+  const { start, endForChildren, minOffset, includedInto } = block;
+  const {
+    start: childStart, includedInto: childIncludedInto, maxOffset: childMaxOffset,
+  } = possibleChildBlock;
+  return intervalIncludes(start, endForChildren, childStart)
+    && childMaxOffset + 1 === minOffset
+    && (
+      childIncludedInto === undefined
+      || childIncludedInto === includedInto
+    );
 };
 
 export const findIncludedBlocks: PureComputed<
@@ -1049,42 +1056,6 @@ const calculateSingleBlockLeft: PureComputed<
     )),
   );
 };
-
-// export const calculateTreeDepthByBlocks: PureComputed<
-//   [any, any[]], any
-// > = (appointmentForests, blockGroups) => appointmentForests.map((appointmentForest, index) => {
-//   const blocks = blockGroups[index];
-//   const { roots, items } = appointmentForest;
-//   const appointments = items.slice();
-//   roots.forEach((rootIndex) => {
-//     const root = appointments[rootIndex];
-//     calculateSubTreeDepth(appointments, blocks, root);
-//   });
-
-//   return {
-//     ...appointmentForest,
-//     items: appointments,
-//   };
-// });
-
-// const calculateSubTreeDepth: PureComputed<
-//   [any[], any[], any], number
-// > = (appointments, blocks, subTreeRoot) => {
-//   const { parent: parentIndex, children, blockIndex } = subTreeRoot;
-//   const maxChildrenDepth = children.reduce((acc, childIndex) => {
-//     const child = appointments[childIndex];
-//     return Math.max(acc, calculateSubTreeDepth(appointments, blocks, child));
-//   }, 0);
-
-//   subTreeRoot.treeDepth = maxChildrenDepth;
-//   const parent = parentIndex !== undefined ? appointments[parentIndex] : undefined;
-//   const parentBlockIndex = parent?.blockIndex;
-//   const subTreeBlock = blocks[blockIndex];
-//   if (blockIndex === parentBlockIndex || subTreeBlock.includedInto === parentBlockIndex || !parent) {
-//     return maxChildrenDepth + 1;
-//   }
-//   return 0;
-// };
 
 export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIntervalsFn = (
   type, intervals, rectByDates, rectByDatesMeta, viewMetaData,

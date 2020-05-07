@@ -6,6 +6,7 @@ import {
   calculateAppointmentLeftAndWidth, isPossibleChild, findMaxReduceValue,
   calculateAppointmentsMetaData, isOverlappingSubTreeRoot,
   findChildrenMaxEndDate, prepareToGroupIntoBlocks, groupAppointmentsIntoBlocks,
+  findBlockIndexByAppointment,
 } from './helpers';
 import { VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 
@@ -2016,6 +2017,49 @@ describe('Appointments helpers', () => {
           appointmentForest: expectedAppointmentFoerst,
           blocks: expectedBlocks,
         }]);
+    });
+  });
+
+  describe('#findBlockIndexByAppointment', () => {
+    it('should work', () => {
+      const blocks = [{
+        start: moment('2020-05-07 08:00'),
+        end: moment('2020-05-07 09:00'),
+        minOffset: 0,
+        maxOffset: 5,
+      }, {
+        start: moment('2020-05-07 09:00'),
+        end: moment('2020-05-07 12:00'),
+        minOffset: 4,
+        maxOffset: 5,
+      }, {
+        start: moment('2020-05-07 10:00'),
+        end: moment('2020-05-07 12:00'),
+        minOffset: 1,
+        maxOffset: 4,
+      }];
+      const appointments = [{
+        data: { offset: 0, start: moment('2020-05-07 08:00') },
+      }, {
+        data: { offset: 4, start: moment('2020-05-07 09:00') },
+      }, {
+        data: { offset: 5, start: moment('2020-05-07 10:00') },
+      }, {
+        data: { offset: 2, start: moment('2020-05-07 11:00') },
+      }, {
+        data: { offset: 3, start: moment('2020-05-07 13:00') },
+      }];
+
+      expect(findBlockIndexByAppointment(blocks, appointments[0]))
+        .toBe(0);
+      expect(findBlockIndexByAppointment(blocks, appointments[1]))
+        .toBe(1);
+      expect(findBlockIndexByAppointment(blocks, appointments[2]))
+        .toBe(1);
+      expect(findBlockIndexByAppointment(blocks, appointments[3]))
+        .toBe(2);
+      expect(findBlockIndexByAppointment(blocks, appointments[4]))
+        .toBe(0);
     });
   });
 });

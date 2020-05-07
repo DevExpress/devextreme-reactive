@@ -673,11 +673,11 @@ export const groupAppointmentsIntoBlocks: PureComputed<
     };
   }, {
     blocks: [{
-      start: items[0].start,
-      end: items[0].end,
+      start: items[0].data.start,
+      end: items[0].data.end,
       minOffset: 0,
       maxOffset: reduceValue - 1,
-      size: reduceValue - 1,
+      size: reduceValue,
       items: [],
     }],
     appointments: [],

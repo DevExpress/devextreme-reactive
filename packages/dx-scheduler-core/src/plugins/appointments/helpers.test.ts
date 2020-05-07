@@ -5,7 +5,7 @@ import {
   calculateRectByDateAndGroupIntervals, createAppointmentForest,
   calculateAppointmentLeftAndWidth, isPossibleChild, findMaxReduceValue,
   calculateAppointmentsMetaData, isOverlappingSubTreeRoot,
-  findChildrenMaxEndDate, prepareToGroupIntoBlocks,
+  findChildrenMaxEndDate, prepareToGroupIntoBlocks, groupAppointmentsIntoBlocks,
 } from './helpers';
 import { VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 
@@ -516,6 +516,7 @@ describe('Appointments helpers', () => {
         });
     });
   });
+
   describe('#createAppointmentForest', () => {
     const CELL_DURATION = 30;
     it('should create a single tree if items.length === 1', () => {
@@ -1510,7 +1511,7 @@ describe('Appointments helpers', () => {
         }]);
     });
 
-    fit('should work with complex cases', () => {
+    it('should work with complex cases', () => {
       const appointmentForest = [{
         reduceValue: 3,
         items: [
@@ -1629,6 +1630,391 @@ describe('Appointments helpers', () => {
         .toEqual([{
           ...appointmentForest[0],
           items: expectedItems,
+        }]);
+    });
+  });
+
+  describe('#groupAppointmentsIntoBlocks', () => {
+    it('should create one block for simple cases that will contain all of the appointments', () => {
+      const appointmentForests = [{
+        reduceValue: 2,
+        items: [{
+          data: {
+            start: moment('2020-05-07 08:00'),
+            end: moment('2020-05-07 08:30'),
+            offset: 0,
+          },
+          children: [1],
+          overlappingSubTreeRoots: [],
+        }, {
+          data: {
+            start: moment('2020-05-07 08:00'),
+            end: moment('2020-05-07 08:30'),
+            offset: 1,
+          },
+          children: [],
+          parent: 0,
+          overlappingSubTreeRoots: [],
+        }],
+      }];
+
+      const expectedAppointmentFoerst = {
+        ...appointmentForests[0],
+        items: [{
+          ...appointmentForests[0].items[0],
+          blockIndex: 0,
+        }, {
+          ...appointmentForests[0].items[1],
+          blockIndex: 0,
+        }],
+      };
+      const expectedBlocks = [{
+        start: moment('2020-05-07 08:00'),
+        end: moment('2020-05-07 08:30'),
+        minOffset: 0,
+        maxOffset: 1,
+        size: 2,
+        items: [0, 1],
+      }];
+
+      expect(groupAppointmentsIntoBlocks(appointmentForests))
+        .toEqual([{
+          appointmentForest: expectedAppointmentFoerst,
+          blocks: expectedBlocks,
+        }]);
+    });
+
+    it('should create three blocks - one external and two overlapping', () => {
+      const appointmentForests = [{
+        reduceValue: 2,
+        items: [{
+          data: {
+            start: moment('2020-05-07 08:00'),
+            end: moment('2020-05-07 09:00'),
+            offset: 0,
+          },
+          children: [1],
+          overlappingSubTreeRoots: [],
+          treeDepth: 1,
+        }, {
+          data: {
+            start: moment('2020-05-07 08:30'),
+            end: moment('2020-05-07 09:30'),
+            offset: 1,
+          },
+          children: [],
+          parent: 0,
+          overlappingSubTreeRoots: [2],
+          treeDepth: 0,
+        }, {
+          data: {
+            start: moment('2020-05-07 09:00'),
+            end: moment('2020-05-07 10:00'),
+            offset: 0,
+          },
+          children: [],
+          overlappingSubTreeRoots: [],
+          overlappingSubTreeRoot: true,
+          treeDepth: 0,
+        }],
+      }];
+
+      const expectedAppointmentFoerst = {
+        ...appointmentForests[0],
+        items: [{
+          ...appointmentForests[0].items[0],
+          blockIndex: 0,
+        }, {
+          ...appointmentForests[0].items[1],
+          blockIndex: 1,
+        }, {
+          ...appointmentForests[0].items[2],
+          blockIndex: 2,
+        }],
+      };
+      const expectedBlocks = [{
+        start: moment('2020-05-07 08:00'),
+        end: moment('2020-05-07 09:00'),
+        minOffset: 0,
+        maxOffset: 1,
+        size: 2,
+        items: [0],
+      }, {
+        start: moment('2020-05-07 08:30'),
+        end: moment('2020-05-07 09:30'),
+        endForChildren: moment('2020-05-07 09:30'),
+        minOffset: 1,
+        maxOffset: 1,
+        size: 1,
+        items: [1],
+      }, {
+        start: moment('2020-05-07 09:00'),
+        end: moment('2020-05-07 09:30'),
+        endForChildren: moment('2020-05-07 10:00'),
+        minOffset: 0,
+        maxOffset: 0,
+        size: 1,
+        items: [2],
+      }];
+
+      expect(groupAppointmentsIntoBlocks(appointmentForests))
+        .toEqual([{
+          appointmentForest: expectedAppointmentFoerst,
+          blocks: expectedBlocks,
+        }]);
+    });
+
+    it('should work ocrrectly if block root has children', () => {
+      const appointmentForests = [{
+        reduceValue: 3,
+        items: [{
+          data: {
+            start: moment('2020-05-07 08:00'),
+            end: moment('2020-05-07 09:00'),
+            offset: 0,
+          },
+          children: [1],
+          overlappingSubTreeRoots: [],
+          treeDepth: 2,
+        }, {
+          data: {
+            start: moment('2020-05-07 08:30'),
+            end: moment('2020-05-07 09:30'),
+            offset: 1,
+          },
+          children: [],
+          parent: 0,
+          overlappingSubTreeRoots: [3],
+          treeDepth: 1,
+        }, {
+          data: {
+            start: moment('2020-05-07 08:45'),
+            end: moment('2020-05-07 12:30'),
+            offset: 2,
+          },
+          children: [],
+          parent: 0,
+          overlappingSubTreeRoots: [],
+          treeDepth: 0,
+        }, {
+          data: {
+            start: moment('2020-05-07 09:00'),
+            end: moment('2020-05-07 10:00'),
+            offset: 0,
+          },
+          children: [],
+          overlappingSubTreeRoots: [],
+          overlappingSubTreeRoot: true,
+          treeDepth: 0,
+        }],
+      }];
+
+      const expectedAppointmentFoerst = {
+        ...appointmentForests[0],
+        items: [{
+          ...appointmentForests[0].items[0],
+          blockIndex: 0,
+        }, {
+          ...appointmentForests[0].items[1],
+          blockIndex: 1,
+        }, {
+          ...appointmentForests[0].items[2],
+          blockIndex: 1,
+        }, {
+          ...appointmentForests[0].items[3],
+          blockIndex: 2,
+        }],
+      };
+      const expectedBlocks = [{
+        start: moment('2020-05-07 08:00'),
+        end: moment('2020-05-07 09:00'),
+        minOffset: 0,
+        maxOffset: 2,
+        size: 3,
+        items: [0],
+      }, {
+        start: moment('2020-05-07 08:30'),
+        end: moment('2020-05-07 09:30'),
+        endForChildren: moment('2020-05-07 09:30'),
+        minOffset: 1,
+        maxOffset: 2,
+        size: 2,
+        items: [1, 2],
+      }, {
+        start: moment('2020-05-07 09:00'),
+        end: moment('2020-05-07 09:30'),
+        endForChildren: moment('2020-05-07 10:00'),
+        minOffset: 0,
+        maxOffset: 0,
+        size: 1,
+        items: [3],
+      }];
+
+      expect(groupAppointmentsIntoBlocks(appointmentForests))
+        .toEqual([{
+          appointmentForest: expectedAppointmentFoerst,
+          blocks: expectedBlocks,
+        }]);
+    });
+
+    it('should work when several blocks are inside another block', () => {
+      const appointmentForests = [{
+        reduceValue: 4,
+        items: [{
+          data: {
+            start: moment('2020-05-07 08:00'),
+            end: moment('2020-05-07 09:00'),
+            offset: 0,
+          },
+          children: [1],
+          overlappingSubTreeRoots: [],
+          treeDepth: 3,
+        }, {
+          data: {
+            start: moment('2020-05-07 08:30'),
+            end: moment('2020-05-07 09:00'),
+            offset: 1,
+          },
+          children: [2],
+          parent: 0,
+          overlappingSubTreeRoots: [],
+          treeDepth: 2,
+        }, {
+          data: {
+            start: moment('2020-05-07 08:30'),
+            end: moment('2020-05-07 09:00'),
+            offset: 1,
+          },
+          children: [3],
+          parent: 2,
+          overlappingSubTreeRoots: [],
+          treeDepth: 1,
+        }, {
+          data: {
+            start: moment('2020-05-07 09:00'),
+            end: moment('2020-05-07 12:00'),
+            offset: 3,
+          },
+          children: [],
+          parent: 2,
+          overlappingSubTreeRoots: [4],
+          treeDepth: 0,
+        }, {
+          data: {
+            start: moment('2020-05-07 09:00'),
+            end: moment('2020-05-07 12:00'),
+            offset: 0,
+          },
+          children: [5, 7],
+          overlappingSubTreeRoots: [],
+          overlappingSubTreeRoot: true,
+          treeDepth: 2,
+        }, {
+          data: {
+            start: moment('2020-05-07 10:00'),
+            end: moment('2020-05-07 10:30'),
+            offset: 1,
+          },
+          parent: 4,
+          children: [6],
+          overlappingSubTreeRoots: [],
+          treeDepth: 1,
+        }, {
+          data: {
+            start: moment('2020-05-07 10:15'),
+            end: moment('2020-05-07 10:45'),
+            offset: 2,
+          },
+          parent: 5,
+          children: [],
+          overlappingSubTreeRoots: [7],
+          treeDepth: 0,
+        }, {
+          data: {
+            start: moment('2020-05-07 10:30'),
+            end: moment('2020-05-07 11:00'),
+            offset: 1,
+          },
+          children: [],
+          overlappingSubTreeRoots: [],
+          overlappingSubTreeRoot: true,
+          treeDepth: 0,
+        }],
+      }];
+
+      const expectedAppointmentFoerst = {
+        ...appointmentForests[0],
+        items: [{
+          ...appointmentForests[0].items[0],
+          blockIndex: 0,
+        }, {
+          ...appointmentForests[0].items[1],
+          blockIndex: 0,
+        }, {
+          ...appointmentForests[0].items[2],
+          blockIndex: 0,
+        }, {
+          ...appointmentForests[0].items[3],
+          blockIndex: 1,
+        }, {
+          ...appointmentForests[0].items[4],
+          blockIndex: 2,
+        }, {
+          ...appointmentForests[0].items[5],
+          blockIndex: 2,
+        }, {
+          ...appointmentForests[0].items[6],
+          blockIndex: 3,
+        }, {
+          ...appointmentForests[0].items[7],
+          blockIndex: 4,
+        }],
+      };
+      const expectedBlocks = [{
+        start: moment('2020-05-07 08:00'),
+        end: moment('2020-05-07 09:00'),
+        minOffset: 0,
+        maxOffset: 3,
+        size: 4,
+        items: [0, 1, 2],
+      }, {
+        start: moment('2020-05-07 09:00'),
+        end: moment('2020-05-07 12:00'),
+        endForChildren: moment('2020-05-07 12:00'),
+        minOffset: 3,
+        maxOffset: 3,
+        size: 1,
+        items: [3],
+      }, {
+        start: moment('2020-05-07 09:00'),
+        end: moment('2020-05-07 12:00'),
+        endForChildren: moment('2020-05-07 12:00'),
+        minOffset: 0,
+        maxOffset: 2,
+        size: 3,
+        items: [4, 5],
+      }, {
+        start: moment('2020-05-07 10:15'),
+        end: moment('2020-05-07 10:45'),
+        endForChildren: moment('2020-05-07 10:45'),
+        minOffset: 2,
+        maxOffset: 2,
+        size: 1,
+        items: [6],
+      }, {
+        start: moment('2020-05-07 10:30'),
+        end: moment('2020-05-07 10:45'),
+        endForChildren: moment('2020-05-07 11:00'),
+        minOffset: 1,
+        maxOffset: 1,
+        size: 1,
+        items: [7],
+      }];
+
+      expect(groupAppointmentsIntoBlocks(appointmentForests))
+        .toEqual([{
+          appointmentForest: expectedAppointmentFoerst,
+          blocks: expectedBlocks,
         }]);
     });
   });

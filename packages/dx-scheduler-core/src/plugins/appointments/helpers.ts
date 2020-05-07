@@ -746,27 +746,39 @@ export const findIncludedBlocks: PureComputed<
   [any[]], any[]
 > = (groupedIntoBlocks) => {
   return groupedIntoBlocks.map(({ blocks, appointmentForest }) => {
-    const result = blocks.map((block, blockIndex) => {
-      const { start, end, minOffset, maxOffset } = block;
+    const nextBlocks = blocks.map(props => ({ ...props }));
+
+    nextBlocks.forEach((block, blockIndex) => {
       block.includedBlocks = [];
-      for (let currentBlockIndex = blockIndex + 1; currentBlockIndex < blocks.length; currentBlockIndex += 1) {
-        const currentBlock = blocks[currentBlockIndex];
-        const {
-          start: currentStart, end: currentEnd,
-          maxOffset: currentMaxOffset, minOffset: currentMinOffset,
-        } = currentBlock;
-        if (intervalIncludes(start, end, currentStart) && intervalIncludes(start, end, currentEnd)
-          && currentMaxOffset <= maxOffset && currentMinOffset >= minOffset) {
+      for (
+        let currentBlockIndex = blockIndex + 1;
+        currentBlockIndex < nextBlocks.length;
+        currentBlockIndex += 1
+      ) {
+        const currentBlock = nextBlocks[currentBlockIndex];
+        if (isIncludedBlock(block, currentBlock)) {
           block.includedBlocks.push(currentBlockIndex);
           currentBlock.includedInto = blockIndex;
         }
       }
-      return block;
     });
     return {
-      blocks: result, appointmentForest,
+      blocks: nextBlocks, appointmentForest,
     };
   });
+};
+
+const isIncludedBlock: PureComputed<
+  [any, any], boolean
+> = (block, possibleIncludedBlock) => {
+  const { start, end, minOffset, maxOffset } = block;
+  const {
+    start: possibleIncludedStart, end: possibleIncludedEnd,
+    minOffset: possibleMinOffset, maxOffset: possibleMaxOffset,
+  } = possibleIncludedBlock;
+  return intervalIncludes(start, end, possibleIncludedStart)
+    && intervalIncludes(start, end, possibleIncludedEnd)
+    && possibleMaxOffset <= maxOffset && possibleMinOffset >= minOffset;
 };
 
 export const updateAppointmentLeftAndWidth: PureComputed<

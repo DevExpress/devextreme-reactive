@@ -6,7 +6,7 @@ import {
   calculateAppointmentLeftAndWidth, isPossibleChild, findMaxReduceValue,
   calculateAppointmentsMetaData, isOverlappingSubTreeRoot,
   findChildrenMaxEndDate, prepareToGroupIntoBlocks, groupAppointmentsIntoBlocks,
-  findBlockIndexByAppointment,
+  findBlockIndexByAppointment, findIncludedBlocks,
 } from './helpers';
 import { VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 
@@ -2060,6 +2060,92 @@ describe('Appointments helpers', () => {
         .toBe(2);
       expect(findBlockIndexByAppointment(blocks, appointments[4]))
         .toBe(0);
+    });
+  });
+
+  describe('#findIncludedBlocks', () => {
+    const blocksBase = [{
+      start: moment('2020-05-07 08:00'),
+      end: moment('2020-05-07 09:00'),
+      minOffset: 0,
+      maxOffset: 5,
+    }, {
+      start: moment('2020-05-07 09:00'),
+      end: moment('2020-05-07 10:00'),
+      minOffset: 4,
+      maxOffset: 5,
+    }, {
+      start: moment('2020-05-07 09:30'),
+      end: moment('2020-05-07 12:00'),
+      minOffset: 1,
+      maxOffset: 4,
+    }];
+
+    it('should not find included blocks in a simple case', () => {
+      const data = [{
+        blocks: blocksBase,
+      }];
+
+      const expectedBlocks = [{
+        ...blocksBase[0],
+        includedBlocks: [],
+      }, {
+        ...blocksBase[1],
+        includedBlocks: [],
+      }, {
+        ...blocksBase[2],
+        includedBlocks: [],
+      }];
+
+      expect(findIncludedBlocks(data))
+        .toEqual([{
+          blocks: expectedBlocks,
+        }]);
+    });
+
+    it('should find included blocks when one block is inside another', () => {
+      const blocks = [
+        ...blocksBase,
+        {
+          start: moment('2020-05-07 10:00'),
+          end: moment('2020-05-07 11:30'),
+          minOffset: 4,
+          maxOffset: 4,
+        },
+        {
+          start: moment('2020-05-07 10:30'),
+          end: moment('2020-05-07 11:30'),
+          minOffset: 1,
+          maxOffset: 3,
+        },
+      ];
+      const data = [{
+        blocks,
+      }];
+
+      const expectedBlocks = [{
+        ...blocks[0],
+        includedBlocks: [],
+      }, {
+        ...blocks[1],
+        includedBlocks: [],
+      }, {
+        ...blocks[2],
+        includedBlocks: [3, 4],
+      }, {
+        ...blocks[3],
+        includedBlocks: [],
+        includedInto: 2,
+      }, {
+        ...blocks[4],
+        includedBlocks: [],
+        includedInto: 2,
+      }];
+
+      expect(findIncludedBlocks(data))
+        .toEqual([{
+          blocks: expectedBlocks,
+        }]);
     });
   });
 });

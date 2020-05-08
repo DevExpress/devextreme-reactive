@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { createPortal } from 'react-dom';
 import {
   Plugin, Getter, Template, TemplatePlaceholder,
   TemplateConnector,
@@ -53,18 +54,21 @@ class DragDropProviderBase extends React.PureComponent<DragDropProviderProps, Dr
           {payload && (
             <TemplateConnector>
               {({ columns }) => (
-                <Container
-                  clientOffset={clientOffset!}
-                >
-                  {getTargetColumns(payload, columns)
-                    .map(column => (
-                      <Column
-                        key={column.name}
-                        column={column}
-                      />
-                    ))
-                  }
-                </Container>
+                createPortal(
+                  <Container
+                    clientOffset={clientOffset!}
+                  >
+                    {getTargetColumns(payload, columns)
+                      .map(column => (
+                        <Column
+                          key={column.name}
+                          column={column}
+                        />
+                      ))
+                    }
+                  </Container>,
+                  document.body,
+                )
               )}
             </TemplateConnector>
           )}

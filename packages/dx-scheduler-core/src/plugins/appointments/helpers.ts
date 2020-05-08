@@ -800,7 +800,7 @@ const isIncludedBlock: PureComputed<
 export const adjustByBlocks: PureComputed<
   [any[], number], any[]
 > = (groupedIntoBlocks, indirectChildLeftOffset) => {
-  const updatedBlocks = groupedIntoBlocks.map(({ blocks, appointmentForest }, index) => {
+  const updatedBlocks = groupedIntoBlocks.map(({ blocks, appointmentForest }) => {
     const result = updateBlocksTotalSize(calculateBlocksLeft(
       calculateBlocksTotalSize(blocks), appointmentForest.items,
     ));
@@ -814,28 +814,35 @@ export const adjustByBlocks: PureComputed<
       appointmentForest,
     };
   });
-  const adjustedBlocks = updatedBlocks.map(({ blocks, appointmentForest }) => {
-    return adjustAppointmentsByBlocks(appointmentForest.items, blocks, indirectChildLeftOffset);
+  const adjustedByBlocks = updatedBlocks.map(({ blocks, appointmentForest }) => {
+    return {
+      ...appointmentForest,
+      items: adjustAppointmentsByBlocks(appointmentForest.items, blocks, indirectChildLeftOffset),
+    };
   });
-  return adjustedBlocks;
+  return adjustedByBlocks;
 };
 
 const adjustAppointmentsByBlocks: PureComputed<
   [any[], any[], number], any[]
 > = (appointments, blocks, indirectChildLeftOffset) => {
-  const result = blocks.map((block, index) => {
+  const nextAppointments = appointments.map(props => ({ ...props }));
+
+  blocks.forEach((block, index) => {
     if (index === 0) {
       return block;
     }
     const { items, left: blockLeft, right, children } = block;
     const maxRight = calculateIncludedBlockMaxRight(blocks, block);
+    const finalMaxRight = maxRight * right;
+    const defaultLeft = blockLeft * maxRight;
 
     items.forEach((appointmentIndex, index) => {
-      const appointment = appointments[appointmentIndex];
+      const appointment = nextAppointments[appointmentIndex];
       if (index === 0) {
-        const defaultLeft = blockLeft * maxRight;
         const { left, width } = calculateAppointmentLeftAndWidth(
-          appointments, blocks, appointment, maxRight * right, indirectChildLeftOffset, defaultLeft,
+          nextAppointments, blocks, appointment,
+          finalMaxRight, indirectChildLeftOffset, defaultLeft,
         );
         appointment.data.left = left;
         appointment.data.width = width;
@@ -846,30 +853,28 @@ const adjustAppointmentsByBlocks: PureComputed<
           });
         }
       } else {
-        // Refactor
         const {
           left, width,
         } = calculateAppointmentLeftAndWidth(
-          appointments, blocks, appointment, maxRight * right, indirectChildLeftOffset, undefined,
+          nextAppointments, blocks, appointment,
+          finalMaxRight, indirectChildLeftOffset, undefined,
         );
         appointment.data.left = left;
         appointment.data.width = width;
       }
     });
-
-    return block;
   });
   blocks[0].items.forEach((appointmentIndex) => {
-    const appointment = appointments[appointmentIndex];
+    const appointment = nextAppointments[appointmentIndex];
     const {
       left, width,
     } = calculateAppointmentLeftAndWidth(
-      appointments, blocks, appointment, 1, indirectChildLeftOffset, undefined,
+      nextAppointments, blocks, appointment, 1, indirectChildLeftOffset, undefined,
     );
     appointment.data.left = left;
     appointment.data.width = width;
   });
-  return result;
+  return nextAppointments;
 };
 
 const redistributeChildBlocks: PureComputed<
@@ -1027,8 +1032,8 @@ export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIn
   const blocksWithParents = findChildBlocks(blocksWithIncluded);
   // console.log(blocksWithParents)
   // const depthRecalculated = calculateTreeDepthByBlocks(preparedToGroupIntoBlocks, blocksWithParents);
-  const adjustedBlocks = adjustByBlocks(blocksWithParents, indirectChildLeftOffset);
-  const rects =  unwrapGroups(preparedToGroupIntoBlocks)
+  const adjustedByBlocks = adjustByBlocks(blocksWithParents, indirectChildLeftOffset);
+  const rects =  unwrapGroups(adjustedByBlocks)
     .map(appointment => rectCalculator(
       appointment, viewMetaData,
       { rectByDates, multiline, rectByDatesMeta },

@@ -906,14 +906,16 @@ export const calculateIncludedBlockMaxRight: PureComputed<
 
 };
 
-const calculateBlocksTotalSize: PureComputed<
+export const calculateBlocksTotalSize: PureComputed<
   [any[]], any[]
 > = (blocks) => {
-  const result = blocks.map((block, index) => {
+  const result = blocks.map((block) => {
     const totalSize = calculateSingleBlockTotalSize(blocks, block);
-    block.totalSize = totalSize;
-    block.leftOffset = totalSize - block.size;
-    return block;
+    return {
+      ...block,
+      totalSize,
+      leftOffset: totalSize - block.size,
+    };
   });
   return result;
 };
@@ -933,12 +935,11 @@ const calculateSingleBlockTotalSize: PureComputed<
 const updateBlocksTotalSize: PureComputed<
   [any[]], any[]
 > = (blocks) => {
-  blocks.map((block, index) => {
+  blocks.map((block) => {
     const { right, totalSize } = block;
     if (right) {
       return block;
     }
-    // block.left = (1 - totalLeft) * leftOffset / totalSize + totalLeft;
     updateSingleBlockTotalSize(blocks, block, totalSize, 1);
     return block;
   });
@@ -962,13 +963,13 @@ const updateBlocksLeft: PureComputed<
   blocks.map((block) => {
     const { items, left } = block;
     const firstItem = appointments[items[0]];
-    const { parent: firstItemParentIndex, blockIndex } = firstItem;
-    const firstItemParent = appointments[firstItemParentIndex];
-    if (!firstItemParent || blockIndex === firstItemParent.blockIndex) {
+    const { parent: firstItemParentIndex } = firstItem;
+    if (firstItemParentIndex === undefined) {
       return block;
     }
-    const parentBlock = blocks[firstItemParent.blockIndex];
 
+    const firstItemParent = appointments[firstItemParentIndex];
+    const parentBlock = blocks[firstItemParent.blockIndex];
     block.left = parentBlock.parent === undefined ? left : blocks[parentBlock.parent].left;
     return block;
   });
@@ -978,7 +979,7 @@ const updateBlocksLeft: PureComputed<
 const calculateBlocksLeft: PureComputed<
   [any[], any[]], any[]
 > = (blocks, appointments) => {
-  const result = blocks.map((block, index) => {
+  const result = blocks.map((block) => {
     const totalLeft = calculateSingleBlockLeft(blocks, appointments, block);
     block.totalLeft = totalLeft;
     return block;

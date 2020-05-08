@@ -7,6 +7,7 @@ import {
   calculateAppointmentsMetaData, isOverlappingSubTreeRoot,
   findChildrenMaxEndDate, prepareToGroupIntoBlocks, groupAppointmentsIntoBlocks,
   findBlockIndexByAppointment, findIncludedBlocks, findChildBlocks,
+  calculateIncludedBlockMaxRight, calculateBlocksTotalSize,
 } from './helpers';
 import { VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 
@@ -2421,6 +2422,60 @@ describe('Appointments helpers', () => {
       expect(findChildBlocks(data))
         .toEqual([{
           blocks: expectedBlocks,
+        }]);
+    });
+  });
+
+  describe('#calculateIncludedBlockMaxRight', () => {
+    it('should work', () => {
+      const blocks = [{
+        right: 0.5,
+      }, {
+        right: 0.5,
+        includedInto: 0,
+      }, {
+        includedInto: 1,
+        right: 0.5,
+      }];
+
+      expect(calculateIncludedBlockMaxRight(blocks, blocks[2]))
+        .toBe(0.25);
+    });
+  });
+
+  describe('#calculateBlocksTotalSize', () => {
+    it('should work', () => {
+      const blocks = [{
+        size: 3,
+        children: [1, 2],
+      }, {
+        size: 3,
+        children: [],
+      }, {
+        size: 2,
+        children: [3],
+      }, {
+        size: 2,
+        children: [],
+      }];
+
+      expect(calculateBlocksTotalSize(blocks))
+        .toEqual([{
+          ...blocks[0],
+          totalSize: 7,
+          leftOffset: 4,
+        }, {
+          ...blocks[1],
+          totalSize: 3,
+          leftOffset: 0,
+        }, {
+          ...blocks[2],
+          totalSize: 4,
+          leftOffset: 2,
+        }, {
+          ...blocks[3],
+          totalSize: 2,
+          leftOffset: 0,
         }]);
     });
   });

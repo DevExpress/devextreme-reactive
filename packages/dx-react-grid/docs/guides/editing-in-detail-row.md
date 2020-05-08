@@ -1,4 +1,4 @@
-# React Grid - Edit Data in the Detail Row
+# React Grid - Editing in Detail Row
 
 The [detail row](./detail-row.md) is an expandable pane that displays data row details. The detail row does not allow users to edit data out of the box, but you can create a custom plugin to implement this functionality. Before you start, peruse the following help topics:
 

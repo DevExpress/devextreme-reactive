@@ -25,9 +25,14 @@ class DragDropProviderBase extends React.PureComponent<DragDropProviderProps, Dr
     this.state = {
       payload: null,
       clientOffset: null,
+      dragDropRenderElement: null,
     };
 
     this.change = ({ payload, clientOffset }) => this.setState({ payload, clientOffset });
+  }
+
+  componentDidMount() {
+    this.setState({ dragDropRenderElement: document.body });
   }
 
   render() {
@@ -38,6 +43,7 @@ class DragDropProviderBase extends React.PureComponent<DragDropProviderProps, Dr
     const {
       payload,
       clientOffset,
+      dragDropRenderElement,
     } = this.state;
 
     return (
@@ -67,7 +73,7 @@ class DragDropProviderBase extends React.PureComponent<DragDropProviderProps, Dr
                       ))
                     }
                   </Container>,
-                  document.body,
+                  dragDropRenderElement,
                 )
               )}
             </TemplateConnector>

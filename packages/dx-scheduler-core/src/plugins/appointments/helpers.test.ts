@@ -2388,6 +2388,7 @@ describe('Appointments helpers', () => {
       }, {
         ...blocksBase[2],
         includedBlocks: [],
+        parent: 1,
         children: [],
       }];
 
@@ -2410,12 +2411,14 @@ describe('Appointments helpers', () => {
         children: [2],
       }, {
         ...blocksBase[2],
+        parent: 1,
         children: [],
       }, {
         ...blocksBase[3],
         children: [4],
       }, {
         ...blocksBase[4],
+        parent: 3,
         children: [],
       }];
 
@@ -2985,7 +2988,7 @@ describe('Appointments helpers', () => {
         }]);
     });
 
-    fit('should update items in the first block (with index 0)', () => {
+    it('should update items in the first block (with index 0)', () => {
       const groupedIntoBlocks = [{
         blocks: [{
           children: [],

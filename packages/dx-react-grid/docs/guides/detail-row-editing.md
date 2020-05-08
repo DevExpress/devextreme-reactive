@@ -28,7 +28,7 @@ const DetailEditCell = () => (
 
 When a user expands or collapses a detail row, the [`TableDetailRow`](LINK_NEEDED) plugin executes the `toggleDetailRowExpanded` action. Override this action to switch an expanded row to the edit state or switch a collapsed row back to the normal state.
 
-The IDs of expanded rows are included if the `expandedDetailRowIds` array. To find whether a row is expanded or collapsed, check if this array includes the row ID.
+The IDs of expanded rows are included in the `expandedDetailRowIds` array. To find whether a row is expanded or collapsed, check if this array includes the row ID.
 
 ```jsx
 const DetailEditCell = () => (
@@ -53,7 +53,7 @@ const DetailEditCell = () => (
 
 To handle data edits, add the following functions:
 
-- `processValueChange` - handles the `onchange` event and processes user input
+- `processValueChange` - handles the `onChange` event and processes user input
 - `applyChanges` - applies data edits
 - `cancelChanges` - cancels data edits
 

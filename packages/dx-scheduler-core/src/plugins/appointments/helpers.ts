@@ -285,13 +285,25 @@ export const adjustAppointments: CustomFunction<
   return { items: appointments, reduceValue };
 });
 
-export const unwrapGroups: PureComputed<
+export const unwrapAppointmentForest: PureComputed<
   [AppointmentGroup[]], AppointmentUnwrappedGroup[]
 > = groups => groups.reduce((acc, { items, reduceValue }) => {
   acc.push(...items.map(({ data }) => ({
     ...data, reduceValue,
     fromPrev: moment(data.start).diff(data.dataItem.startDate, 'minutes') > 1,
     toNext: moment(data.dataItem.endDate).diff(data.end, 'minutes') > 1,
+  })));
+  return acc;
+}, [] as AppointmentUnwrappedGroup[]);
+
+export const unwrapGroups: PureComputed<
+  [AppointmentGroup[]], AppointmentUnwrappedGroup[]
+> = groups => groups.reduce((acc, { items, reduceValue }) => {
+  acc.push(...items.map(({ start, end, dataItem, offset, resources, ...restProps }) => ({
+    start, end, dataItem, offset, reduceValue, resources,
+    fromPrev: moment(start).diff(dataItem.startDate, 'minutes') > 1,
+    toNext: moment(dataItem.endDate).diff(end, 'minutes') > 1,
+    ...restProps,
   })));
   return acc;
 }, [] as AppointmentUnwrappedGroup[]);
@@ -1018,21 +1030,27 @@ export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIn
     ? horizontalRectCalculator
     : placeAppointmentsNextToEachOther ? oldVerticalRectCalculator : verticalRectCalculator;
 
-  const adjusted = adjustAppointments(grouped as any[], isHorizontal);
-  const appointmentForest = createAppointmentForest(adjusted, cellDuration);
-  const indirectChildLeftOffset = Math.min(
-    1 / findMaxReduceValue(appointmentForest),
-    INDIRECT_CHILD_LEFT_OFFSET,
-  );
-  const adjusted1 = calculateAppointmentsMetaData(appointmentForest, indirectChildLeftOffset);
+  let adjusted = adjustAppointments(grouped as any[], isHorizontal);
+  const isAppointmentForestNeeded = !isHorizontal && !placeAppointmentsNextToEachOther;
 
-  const preparedToGroupIntoBlocks = prepareToGroupIntoBlocks(adjusted1);
-  const groupedIntoBlocks = groupAppointmentsIntoBlocks(preparedToGroupIntoBlocks);
-  const blocksWithIncluded = findIncludedBlocks(groupedIntoBlocks);
-  const blocksWithParents = findChildBlocks(blocksWithIncluded);
-  const adjustedByBlocks = adjustByBlocks(blocksWithParents, indirectChildLeftOffset);
+  if (isAppointmentForestNeeded) {
+    const appointmentForest = createAppointmentForest(adjusted, cellDuration);
+    const indirectChildLeftOffset = Math.min(
+      1 / findMaxReduceValue(appointmentForest),
+      INDIRECT_CHILD_LEFT_OFFSET,
+    );
+    const baseCalculated = calculateAppointmentsMetaData(
+      appointmentForest, indirectChildLeftOffset,
+    );
 
-  const rects =  unwrapGroups(adjustedByBlocks)
+    const preparedToGroupIntoBlocks = prepareToGroupIntoBlocks(baseCalculated);
+    const groupedIntoBlocks = groupAppointmentsIntoBlocks(preparedToGroupIntoBlocks);
+    const blocksWithIncluded = findIncludedBlocks(groupedIntoBlocks);
+    const blocksWithParents = findChildBlocks(blocksWithIncluded);
+    adjusted = adjustByBlocks(blocksWithParents, indirectChildLeftOffset);
+  }
+  const unwrapAppointments = isAppointmentForestNeeded ? unwrapAppointmentForest : unwrapGroups;
+  const rects = unwrapAppointments(adjusted)
     .map(appointment => rectCalculator(
       appointment, viewMetaData,
       { rectByDates, multiline, rectByDatesMeta },

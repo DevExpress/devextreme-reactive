@@ -982,24 +982,24 @@ const updateSingleBlockProportions: PureComputed<
     blocks, blocks[childIndex], totalSize, block.left));
 };
 
-const updateBlocksLeft: PureComputed<
+export const updateBlocksLeft: PureComputed<
   [any[], any[]], any[]
-> = (blocks, appointments) => {
-  blocks.map((block) => {
-    const { items, left } = block;
-    const firstItem = appointments[items[0]];
-    const { parent: firstItemParentIndex } = firstItem;
-    if (firstItemParentIndex === undefined) {
-      return block;
-    }
-
-    const firstItemParent = appointments[firstItemParentIndex];
-    const parentBlock = blocks[firstItemParent.blockIndex];
-    block.left = parentBlock.parent === undefined ? left : blocks[parentBlock.parent].left;
+> = (blocks, appointments) => blocks.map((block) => {
+  const { items, left } = block;
+  const firstItem = appointments[items[0]];
+  const { parent: firstItemParentIndex } = firstItem;
+  if (firstItemParentIndex === undefined) {
     return block;
-  });
-  return blocks;
-};
+  }
+
+  const firstItemParent = appointments[firstItemParentIndex];
+  const parentBlock = blocks[firstItemParent.blockIndex];
+
+  return {
+    ...block,
+    left: parentBlock.parent === undefined ? left : blocks[parentBlock.parent].left,
+  };
+});
 
 export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIntervalsFn = (
   type, intervals, rectByDates, rectByDatesMeta, viewMetaData,

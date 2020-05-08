@@ -8,7 +8,7 @@ import {
   findChildrenMaxEndDate, prepareToGroupIntoBlocks, groupAppointmentsIntoBlocks,
   findBlockIndexByAppointment, findIncludedBlocks, findChildBlocks,
   calculateIncludedBlockMaxRight, calculateBlocksTotalSize, calculateBlocksLeftLimit,
-  updateBlocksProportions,
+  updateBlocksProportions, updateBlocksLeft,
 } from './helpers';
 import { VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 
@@ -2623,5 +2623,45 @@ describe('Appointments helpers', () => {
           totalSize: 7,
         }]);
     });
+
+    describe('#updateBlocksLeft', () => {
+      fit('should work', () => {
+        const blocks = [{
+          children: [],
+          items: [0],
+          left: 0,
+        }, {
+          children: [2],
+          items: [1],
+          left: 0.2,
+        }, {
+          children: [],
+          items: [2],
+          left: 0,
+          parent: 1,
+        }, {
+          children: [],
+          items: [3],
+          left: 0.5,
+        }];
+        const appointments = [
+          { blockIndex: 0 },
+          { blockIndex: 1 },
+          { blockIndex: 2 },
+          { blockIndex: 3, parent: 2 },
+        ];
+
+        expect(updateBlocksLeft(blocks, appointments))
+          .toEqual([{
+            ...blocks[0],
+          }, {
+            ...blocks[1],
+          }, {
+            ...blocks[2],
+          }, {
+            ...blocks[3],
+            left: 0.2,
+          }]);
+      });
   });
 });

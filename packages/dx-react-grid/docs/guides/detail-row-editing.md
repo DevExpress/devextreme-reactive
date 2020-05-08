@@ -1,78 +1,129 @@
-# React Grid - Detail Row Editing
+# React Grid - Edit Data in the Detail Row
 
-This document describes how to implement row editing via Detail Row. Before using this guide we recommend you explore the following articles: [Core Concepts](../../../core/docs/guides/fundamentals.md), [Custom Plugin Development](./custom-plugin-development.md).
+The [detail row](LINK_NEEDED) is an expandable pane that displays data row details. The detail row does not allow users to edit data out of the box, but you can create a custom plugin to implement this functionality. Before you start, peruse the following help topics:
 
-## DetailEditCell plugin
-This plugin is an intermediate layer between EditingState and TableDetailRow. It consists of the following plugin primitives:
+- [Core Concepts](../../../core/docs/guides/fundamentals.md)
+- [Custom Plugin Development](./custom-plugin-development.md)
 
-### The `toggleDetailRowExpanded` Action
-The TableDetailRow plugin exports action which is fired when a detail row is collapsed or shown. We use this action to enable editing mode when a detail row is expanded, and cancel editing mode when row is collapsed. This is achieved using the startEditRows and stopEditRows actions. We determine whether the row is collapsed or expanded by analyzing rowId and expandedDetailRowIds action. The code is shown below.
+The implementation consists of the following steps:
+
+1. [Add a Custom Plugin](LINK_NEEDED)
+1. [Handle the Detail Row Expand and Collapse Events](LINK_NEEDED)
+1. [Handle Data Edits](LINK_NEEDED)
+1. [Add the Edit Form](LINK_NEEDED)
+1. [Replace the Expand Icon](LINK_NEEDED)
+
+## Add a Custom Plugin
+
+For information on custom plugins, refer to the following help topic: [Custom Plugin Development](./custom-plugin-development.md). In the following code, the plugin is called `DetailEditCell`, but you can rename it if required.
 
 ```jsx
-<Action
-  name="toggleDetailRowExpanded"
-  action={({ rowId }, { expandedDetailRowIds }, { startEditRows, stopEditRows }) => {
-    const rowIds = [rowId];
-    const isCollapsing = expandedDetailRowIds.indexOf(rowId) > -1;
-    if (isCollapsing) {
-      stopEditRows({ rowIds });
-    } else {
-      startEditRows({ rowIds });
-    }
-  }}
-/>
+const DetailEditCell = () => (
+  <Plugin name="DetailEditCell">
+  </Plugin>
+)
 ```
 
-### The `tableCell` Template
-The next step is to pass the following data to the Detail Row component:
-  - a function that handles onchange event and processes input changes.
-```js
-const processValueChange = ({ target: { name, value }}) => {
-  const changeArgs = {
-    rowId,
-    change: createRowChange(row, value, name)
-  };
-  changeRow(changeArgs);
-};
-```
+## Handle the Detail Row Expand and Collapse Events
 
-   - actions to apply and cancel changes
-```js
-const applyChanges = () => {
-  toggleDetailRowExpanded({ rowId });
-  commitChangedRows({ rowIds });
-};
-const cancelChanges = () => {
-  toggleDetailRowExpanded({ rowId });
-};
-```
+When a user expands or collapses a detail row, the [`TableDetailRow`](LINK_NEEDED) plugin executes the `toggleDetailRowExpanded` action. Override this action to switch an expanded row to the edit state or switch a collapsed row back to the normal state.
 
-   - a changed row
-```js
-const rowId = editingRowIds[0];
-const row = { ...params.tableRow.row, ...rowChanges[rowId] };
-```
+The IDs of expanded rows are included if the `expandedDetailRowIds` array. To find whether a row is expanded or collapsed, check if this array includes the row ID.
 
-This data is passed via `params` prop to the `TemplatePlaceholder`.
 ```jsx
-return (
-  <TemplatePlaceholder params={{
-    ...params,
-    row,
-    tableRow: {
-      ...params.tableRow,
-      row,
-    },
-    changeRow,
-    processValueChange,
-    applyChanges,
-    cancelChanges,
-  }} />
-);
+const DetailEditCell = () => (
+  <Plugin name="DetailEditCell">
+    <Action
+      name="toggleDetailRowExpanded"
+      action={({ rowId }, { expandedDetailRowIds }, { startEditRows, stopEditRows }) => {
+        const rowIds = [rowId];
+        const isCollapsing = expandedDetailRowIds.indexOf(rowId) > -1;
+        if (isCollapsing) {
+          stopEditRows({ rowIds });
+        } else {
+          startEditRows({ rowIds });
+        }
+      }}
+    />
+  </Plugin>
+)
 ```
 
-## Detail Cell Component
-The props described above are then passed to the cell's content:
+## Handle Data Edits
+
+To handle data edits, add the following functions:
+
+- `processValueChange` - handles the `onchange` event and processes user input
+- `applyChanges` - applies data edits
+- `cancelChanges` - cancels data edits
+
+The detail row and an edit form in it will use these functions later. Implement the functions in the `tableCell` template and pass them as `params` to the [`TemplatePlaceholder`](LINK_NEEDED) along with the row being edited.
+
+```jsx
+const DetailEditCell = () => (
+  <Plugin name="DetailEditCell">
+    {/* ... */}
+    <Template
+      name="tableCell"
+      predicate={({ tableRow }) => tableRow.type === TableRowDetail.ROW_TYPE}
+    >
+      {(params) => (
+        <TemplateConnector>
+          {({
+            tableColumns,
+            editingRowIds,
+            createRowChange,
+            rowChanges,
+          }, {
+            changeRow, commitChangedRows, toggleDetailRowExpanded,
+          }) => {
+            if (tableColumns.indexOf(params.tableColumn) !== 0) {
+              return null;
+            }
+            const rowId = editingRowIds[0];
+            const rowIds = editingRowIds;
+            const row = { ...params.tableRow.row, ...rowChanges[rowId] };
+
+            const processValueChange = ({ target: { name, value }}) => {
+              const changeArgs = {
+                rowId,
+                change: createRowChange(row, value, name)
+              };
+              changeRow(changeArgs);
+            };
+
+            const applyChanges = () => {
+              toggleDetailRowExpanded({ rowId });
+              commitChangedRows({ rowIds });
+            };
+            const cancelChanges = () => {
+              toggleDetailRowExpanded({ rowId });
+            };
+
+            return (
+              <TemplatePlaceholder params={{
+                ...params,
+                row,
+                tableRow: {
+                  ...params.tableRow,
+                  row,
+                },
+                changeRow,
+                processValueChange,
+                applyChanges,
+                cancelChanges,
+              }} />
+            );
+          }}
+        </TemplateConnector>
+      )}
+    </Template>
+  </Plugin>
+)
+```
+
+The functions and the row being edited are then passed on to the child elements of [`TableRowDetail.Cell`](LINK_NEEDED). These elements are edit form elements.
+
 ```jsx
 const DetailCell = ({
   children, changeRow, editingRowIds, addedRows, processValueChange,
@@ -91,8 +142,10 @@ const DetailCell = ({
 };
 ```
 
-## Detail Cell Content Form
-It is a simple edit form. The `processValueChange` function handles changes in it's inputs. It also has 2 buttons to apply and cancel changes.
+## Add the Edit Form
+
+Implement a component that renders an edit form with multiple text fields and Save and Cancel buttons. Each text field should execute the `processValueChange` function when the `onChange` event is raised. The buttons should execute the `applyChanges` and `cancelChanges` functions.
+
 ```jsx
 const DetailContent = ({ row, ...rest }) => {
   const {
@@ -121,7 +174,59 @@ const DetailContent = ({ row, ...rest }) => {
 }
 ```
 
-## Toggle Icon
-The last step is to override detail row toggle button icon. It is implemented by overriding a toggleCellComponent with a custom implementation.
+## Replace the Expand Icon
+
+Replace the Expand icon with a text label: `Edit` for collapsed rows, `Cancel` for expanded rows.
+
+```jsx
+const styles = theme => ({
+  toggleCell: {
+    textAlign: 'center',
+    textOverflow: 'initial',
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingLeft: theme.spacing(1),
+  },
+  toggleCellButton: {
+    verticalAlign: 'middle',
+    display: 'inline-block',
+    padding: theme.spacing(1),
+  },
+});
+
+const ToggleCellBase = ({
+  style, expanded, classes, onToggle,
+  tableColumn, tableRow, row,
+  className,
+  ...restProps
+}) => {
+  const handleClick = (e) => {
+    e.stopPropagation();
+    onToggle();
+  };
+  return (
+    <TableCell
+      className={classNames(classes.toggleCell, className)}
+      style={style}
+      {...restProps}
+    >
+      <IconButton
+        className={classes.toggleCellButton}
+        onClick={handleClick}
+      >
+        {
+          expanded
+            ? <Cancel />
+            : <Edit />
+        }
+      </IconButton>
+    </TableCell>
+  );
+};
+
+const ToggleCell = withStyles(styles, { name: 'ToggleCell' })(ToggleCellBase);
+```
+
+You can view the demo and the full code below:
 
 .embedded-demo({ "path": "grid-detail-row/detail-row-controlled", "showThemeSelector": true })

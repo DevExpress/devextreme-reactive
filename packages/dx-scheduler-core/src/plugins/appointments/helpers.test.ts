@@ -878,9 +878,10 @@ describe('Appointments helpers', () => {
       const appointment = {
         hasDirectChild: false,
         parent: undefined,
+        children: [],
       };
       expect(calculateAppointmentLeftAndWidth(
-        [], appointment, MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET,
+        [], undefined, appointment, MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET, undefined,
       ))
         .toEqual({ left: 0, width: 1 });
     });
@@ -890,9 +891,10 @@ describe('Appointments helpers', () => {
         hasDirectChild: true,
         parent: undefined,
         treeDepth: 1,
+        children: [],
       };
       expect(calculateAppointmentLeftAndWidth(
-        [], appointment, MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET,
+        [], undefined, appointment, MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET, undefined,
       ))
         .toEqual({ left: 0, width: matchFloat(0.5) });
     });
@@ -902,16 +904,18 @@ describe('Appointments helpers', () => {
         hasDirectChild: true,
         isDirectChild: false,
         treeDepth: 1,
+        children: [1],
         data: { left: 0, width: 0.5 },
       }, {
         hasDirectChild: false,
         isDirectChild: true,
         treeDepth: 0,
+        children: [],
         parent: 0,
       }];
 
       expect(calculateAppointmentLeftAndWidth(
-        appointments, appointments[1], MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET,
+        appointments, undefined, appointments[1], MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET, undefined,
       ))
         .toEqual({ left: matchFloat(0.5), width: matchFloat(0.5) });
     });
@@ -921,16 +925,18 @@ describe('Appointments helpers', () => {
         hasDirectChild: false,
         isDirectChild: false,
         treeDepth: 1,
+        children: [1],
         data: { left: 0, width: 1 },
       }, {
         hasDirectChild: false,
         isDirectChild: false,
         treeDepth: 0,
+        children: [],
         parent: 0,
       }];
 
       expect(calculateAppointmentLeftAndWidth(
-        appointments, appointments[1], MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET,
+        appointments, undefined, appointments[1], MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET, undefined,
       ))
         .toEqual({ left: matchFloat(0.05), width: matchFloat(0.95) });
     });
@@ -940,16 +946,18 @@ describe('Appointments helpers', () => {
         hasDirectChild: true,
         isDirectChild: false,
         treeDepth: 1,
+        children: [1],
         data: { left: 0, width: 1 },
       }, {
         hasDirectChild: false,
         isDirectChild: false,
         treeDepth: 0,
+        children: [],
         parent: 0,
       }];
 
       expect(calculateAppointmentLeftAndWidth(
-        appointments, appointments[1], MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET,
+        appointments, undefined, appointments[1], MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET, undefined,
       ))
         .toEqual({ left: matchFloat(0.05), width: matchFloat(0.95) });
     });
@@ -959,21 +967,24 @@ describe('Appointments helpers', () => {
         hasDirectChild: true,
         isDirectChild: false,
         treeDepth: 2,
+        children: [1],
         data: { left: 0, width: 0.33 },
       }, {
         hasDirectChild: true,
         isDirectChild: true,
         treeDepth: 1,
+        children: [2],
         parent: 0,
       }, {
         hasDirectChild: false,
         isDirectChild: true,
         treeDepth: 0,
+        children: [],
         parent: 1,
       }];
 
       expect(calculateAppointmentLeftAndWidth(
-        appointments, appointments[1], MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET,
+        appointments, undefined, appointments[1], MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET, undefined,
       ))
         .toEqual({ left: matchFloat(0.33), width: matchFloat(0.33) });
     });
@@ -983,21 +994,24 @@ describe('Appointments helpers', () => {
         hasDirectChild: false,
         isDirectChild: false,
         treeDepth: 2,
+        children: [1],
         data: { left: 0, width: 1 },
       }, {
         hasDirectChild: true,
         isDirectChild: false,
         treeDepth: 1,
+        children: [2],
         parent: 0,
       }, {
         hasDirectChild: false,
         isDirectChild: true,
         treeDepth: 0,
+        children: [],
         parent: 1,
       }];
 
       expect(calculateAppointmentLeftAndWidth(
-        appointments, appointments[1], MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET,
+        appointments, undefined, appointments[1], MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET, undefined,
       ))
         .toEqual({ left: matchFloat(0.05), width: matchFloat(0.475) });
     });
@@ -1007,21 +1021,24 @@ describe('Appointments helpers', () => {
         hasDirectChild: true,
         isDirectChild: false,
         treeDepth: 2,
+        children: [1],
         data: { left: 0, width: 1 },
       }, {
         hasDirectChild: true,
         isDirectChild: false,
         treeDepth: 1,
+        children: [2],
         parent: 0,
       }, {
         hasDirectChild: false,
         isDirectChild: true,
         treeDepth: 0,
+        children: [],
         parent: 1,
       }];
 
       expect(calculateAppointmentLeftAndWidth(
-        appointments, appointments[1], MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET,
+        appointments, undefined, appointments[1], MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET, undefined,
       ))
         .toEqual({ left: matchFloat(0.05), width: matchFloat(0.475) });
     });
@@ -1030,9 +1047,10 @@ describe('Appointments helpers', () => {
       const appointment = {
         hasDirectChild: false,
         parent: undefined,
+        children: [],
       };
       expect(calculateAppointmentLeftAndWidth(
-        [], appointment, 0.5, INDIRECT_CHILD_LEFT_OFFSET,
+        [], undefined, appointment, 0.5, INDIRECT_CHILD_LEFT_OFFSET, undefined,
       ))
         .toEqual({ left: 0, width: 0.5 });
     });
@@ -1042,18 +1060,162 @@ describe('Appointments helpers', () => {
         hasDirectChild: false,
         isDirectChild: false,
         treeDepth: 1,
+        children: [1],
         data: { left: 0, width: 1 },
       }, {
         hasDirectChild: false,
         isDirectChild: false,
         treeDepth: 0,
+        children: [],
         parent: 0,
       }];
 
       expect(calculateAppointmentLeftAndWidth(
-        appointments, appointments[1], MAX_RIGHT, 0.03,
+        appointments, undefined, appointments[1], MAX_RIGHT, 0.03, undefined,
       ))
         .toEqual({ left: matchFloat(0.03), width: matchFloat(0.97) });
+    });
+
+    it('should take into account defaultLeft', () => {
+      const appointments = [{
+        hasDirectChild: true,
+        isDirectChild: false,
+        treeDepth: 1,
+        children: [1],
+        data: { left: 0, width: 0.5 },
+      }, {
+        hasDirectChild: false,
+        isDirectChild: true,
+        treeDepth: 0,
+        children: [],
+        parent: 0,
+      }];
+      const defaultLeft = 0.95;
+
+      expect(calculateAppointmentLeftAndWidth(
+        appointments, undefined, appointments[1],
+        MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET, defaultLeft,
+      ))
+        .toEqual({ left: matchFloat(0.95), width: matchFloat(0.05) });
+    });
+
+    it('should ignore defaultLeft if it is less than calculated left', () => {
+      const appointments = [{
+        hasDirectChild: true,
+        isDirectChild: false,
+        treeDepth: 1,
+        children: [1],
+        data: { left: 0, width: 0.5 },
+      }, {
+        hasDirectChild: false,
+        isDirectChild: true,
+        treeDepth: 0,
+        children: [],
+        parent: 0,
+      }];
+      const defaultLeft = 0.33;
+
+      expect(calculateAppointmentLeftAndWidth(
+        appointments, undefined, appointments[1],
+        MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET, defaultLeft,
+      ))
+        .toEqual({ left: matchFloat(0.5), width: matchFloat(0.5) });
+    });
+
+    it('should work with block indexes', () => {
+      const appointments = [{
+        hasDirectChild: true,
+        isDirectChild: false,
+        treeDepth: 2,
+        children: [1],
+        data: { left: 0, width: 0.33 },
+      }, {
+        hasDirectChild: true,
+        isDirectChild: true,
+        treeDepth: 1,
+        children: [2],
+        parent: 0,
+        blockIndex: 1,
+      }, {
+        hasDirectChild: false,
+        isDirectChild: true,
+        treeDepth: 0,
+        children: [],
+        parent: 1,
+        blockIndex: 1,
+      }];
+
+      expect(calculateAppointmentLeftAndWidth(
+        appointments, undefined, appointments[1],
+        MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET, undefined,
+      ))
+        .toEqual({ left: matchFloat(0.33), width: matchFloat(0.33) });
+    });
+
+    it('should work with blocks', () => {
+      const appointments = [{
+        hasDirectChild: true,
+        isDirectChild: false,
+        treeDepth: 2,
+        children: [1],
+        data: { left: 0, width: 0.33 },
+      }, {
+        hasDirectChild: true,
+        isDirectChild: true,
+        treeDepth: 1,
+        children: [2],
+        parent: 0,
+        blockIndex: 1,
+      }, {
+        hasDirectChild: false,
+        isDirectChild: true,
+        treeDepth: 0,
+        children: [],
+        parent: 1,
+        blockIndex: 2,
+      }];
+      const blocks = [
+        { includedInto: undefined }, { includedInto: undefined }, { includedInto: undefined },
+      ];
+
+      expect(calculateAppointmentLeftAndWidth(
+        appointments, blocks, appointments[1],
+        MAX_RIGHT, INDIRECT_CHILD_LEFT_OFFSET, undefined,
+      ))
+        .toEqual({ left: matchFloat(0.33), width: matchFloat(0.33) });
+    });
+
+    it('should work with blocks and custom maxRight', () => {
+      const appointments = [{
+        hasDirectChild: true,
+        isDirectChild: false,
+        treeDepth: 2,
+        children: [1],
+        data: { left: 0, width: 0.33 },
+      }, {
+        hasDirectChild: true,
+        isDirectChild: true,
+        treeDepth: 1,
+        children: [2],
+        parent: 0,
+        blockIndex: 1,
+      }, {
+        hasDirectChild: false,
+        isDirectChild: true,
+        treeDepth: 0,
+        children: [],
+        parent: 1,
+        blockIndex: 2,
+      }];
+      const blocks = [
+        { includedInto: undefined }, { includedInto: undefined }, { includedInto: undefined },
+      ];
+
+      expect(calculateAppointmentLeftAndWidth(
+        appointments, blocks, appointments[1],
+        0.9, INDIRECT_CHILD_LEFT_OFFSET, undefined,
+      ))
+        .toEqual({ left: matchFloat(0.33), width: matchFloat(0.57) });
     });
   });
 

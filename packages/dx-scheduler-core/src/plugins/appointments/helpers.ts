@@ -954,7 +954,7 @@ const updateSingleBlockTotalSize: PureComputed<
 const updateBlocksLeft: PureComputed<
   [any[], any[]], any[]
 > = (blocks, appointments) => {
-  blocks.map((block, index) => {
+  blocks.map((block) => {
     const { items, left } = block;
     const firstItem = appointments[items[0]];
     const { parent: firstItemParentIndex, blockIndex } = firstItem;

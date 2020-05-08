@@ -115,8 +115,11 @@ const verticalRectCalculator: CustomFunction<
 
   const { offset, width: relativeWidth, left: relativeLeft  } = appointment;
   const widthMultiplier = (relativeWidth! * 5 / 3 + relativeLeft!) <= 1 ? 5 / 3 : 1;
-  const validWidth = widthMultiplier === 5 / 3
+  let validWidth = widthMultiplier === 5 / 3
     ? widthMultiplier * relativeWidth! : relativeWidth! + 0.02;
+  if (validWidth + relativeLeft! > 1) {
+    validWidth = 1 - relativeLeft!;
+  }
 
   return {
     resources: appointment.resources,

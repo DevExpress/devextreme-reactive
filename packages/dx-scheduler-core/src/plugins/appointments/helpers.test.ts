@@ -407,15 +407,6 @@ describe('Appointments helpers', () => {
         .toHaveLength(2);
       expect(rects[0])
         .toMatchObject({
-          top: 10,
-          height: 25,
-          left: 0,
-          width: 33,
-          dataItem: 'a',
-          type: 'horizontal',
-        });
-      expect(rects[1])
-        .toMatchObject({
           top: 35,
           height: 25,
           left: 0,
@@ -423,6 +414,70 @@ describe('Appointments helpers', () => {
           dataItem: 'b',
           type: 'horizontal',
         });
+      expect(rects[1])
+        .toMatchObject({
+          top: 10,
+          height: 25,
+          left: 0,
+          width: 33,
+          dataItem: 'a',
+          type: 'horizontal',
+        });
+    });
+    it('should work with old vertical', () => {
+      const rectByDatesMock = jest.fn();
+      rectByDatesMock.mockImplementation(() => ({
+        top: 10,
+        left: 0,
+        height: 50,
+        width: 99,
+        parentWidth: 300,
+      }));
+      const type = { growDirection: 'vertical' };
+      const rectByDatesMeta = { cellDuration: 30, placeAppointmentsNextToEachOther: true };
+      const intervals = [[
+        { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 10:10'), dataItem: 'a' },
+        { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 10:30'), dataItem: 'b' },
+        { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 10:35'), dataItem: 'c' },
+      ]];
+
+      const rects = calculateRectByDateAndGroupIntervals(
+        type, intervals, rectByDatesMock, rectByDatesMeta,
+      );
+
+      expect(rects)
+        .toHaveLength(3);
+      expect(rects[0])
+        .toMatchObject({
+          top: 10,
+          height: 50,
+          left: 22,
+          width: 11,
+          dataItem: 'a',
+          type: 'vertical',
+          durationType: 'short',
+        });
+      expect(rects[1])
+        .toMatchObject({
+          top: 10,
+          height: 50,
+          left: 11,
+          width: 11,
+          dataItem: 'b',
+          type: 'vertical',
+          durationType: 'middle',
+        });
+      expect(rects[2])
+        .toMatchObject({
+          top: 10,
+          height: 50,
+          left: 0,
+          width: 11,
+          dataItem: 'c',
+          type: 'vertical',
+          durationType: 'long',
+        });
+
     });
     it('should work with vertical', () => {
       const rectByDatesMock = jest.fn();
@@ -452,7 +507,7 @@ describe('Appointments helpers', () => {
           top: 10,
           height: 50,
           left: 0,
-          width: 11,
+          width: matchFloat(18.33),
           dataItem: 'c',
           type: 'vertical',
           durationType: 'long',
@@ -462,7 +517,7 @@ describe('Appointments helpers', () => {
           top: 10,
           height: 50,
           left: 11,
-          width: 11,
+          width: matchFloat(18.33),
           dataItem: 'b',
           type: 'vertical',
           durationType: 'middle',
@@ -471,11 +526,54 @@ describe('Appointments helpers', () => {
         .toMatchObject({
           top: 10,
           height: 50,
-          left: 22,
-          width: 11,
+          left: matchFloat(22),
+          width: matchFloat(11),
           dataItem: 'a',
           type: 'vertical',
           durationType: 'short',
+        });
+    });
+    it('should work with separated by start date vertical', () => {
+      const rectByDatesMock = jest.fn();
+      rectByDatesMock.mockImplementation(() => ({
+        top: 10,
+        left: 0,
+        height: 50,
+        width: 99,
+        parentWidth: 300,
+      }));
+      const type = { growDirection: 'vertical' };
+      const rectByDatesMeta = { cellDuration: 30 };
+      const intervals = [[
+        { start: moment('2018-09-12 10:00'), end: moment('2018-09-12 15:00'), dataItem: 'a' },
+        { start: moment('2018-09-12 11:00'), end: moment('2018-09-12 12:30'), dataItem: 'b' },
+      ]];
+
+      const rects = calculateRectByDateAndGroupIntervals(
+        type, intervals, rectByDatesMock, rectByDatesMeta,
+      );
+
+      expect(rects)
+        .toHaveLength(2);
+      expect(rects[0])
+        .toMatchObject({
+          top: 10,
+          height: 50,
+          left: 0,
+          width: matchFloat(33),
+          dataItem: 'a',
+          type: 'vertical',
+          durationType: 'long',
+        });
+      expect(rects[1])
+        .toMatchObject({
+          top: 10,
+          height: 50,
+          left: matchFloat(1.65),
+          width: matchFloat(31.35),
+          dataItem: 'b',
+          type: 'vertical',
+          durationType: 'long',
         });
     });
     it('should group 2 all-day appointments if the first ends on the same day as the second starts, but earlier', () => {
@@ -502,20 +600,20 @@ describe('Appointments helpers', () => {
         .toHaveLength(2);
       expect(rects[0])
         .toMatchObject({
-          top: 10,
-          height: 25,
-          left: 0,
-          width: 33,
-          dataItem: 'a',
-          type: 'horizontal',
-        });
-      expect(rects[1])
-        .toMatchObject({
           top: 35,
           height: 25,
           left: 0,
           width: 33,
           dataItem: 'b',
+          type: 'horizontal',
+        });
+      expect(rects[1])
+        .toMatchObject({
+          top: 10,
+          height: 25,
+          left: 0,
+          width: 33,
+          dataItem: 'a',
           type: 'horizontal',
         });
     });
@@ -3068,4 +3166,5 @@ describe('Appointments helpers', () => {
         }]);
     });
   });
+
 });

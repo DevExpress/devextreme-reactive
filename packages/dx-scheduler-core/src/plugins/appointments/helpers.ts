@@ -727,8 +727,8 @@ export const findChildBlocks: PureComputed<
 
     nextBlocks.forEach((block, index) => {
       block.children = [];
-      for (let currentIndex = index + 1; currentIndex < blocks.length; currentIndex += 1) {
-        const nextBlock = blocks[currentIndex];
+      for (let currentIndex = index + 1; currentIndex < nextBlocks.length; currentIndex += 1) {
+        const nextBlock = nextBlocks[currentIndex];
 
         if (isChildBlock(block, nextBlock)) {
           block.children.push(currentIndex);

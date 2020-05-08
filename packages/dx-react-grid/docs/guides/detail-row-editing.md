@@ -53,7 +53,7 @@ const DetailEditCell = () => (
 
 To handle data edits, add the following functions:
 
-- `processValueChange` - handles the `onChange` event and processes user input
+- `processValueChange` - processes user input
 - `applyChanges` - applies data edits
 - `cancelChanges` - cancels data edits
 

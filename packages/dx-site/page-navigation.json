@@ -96,6 +96,10 @@
             "path": "/react/grid/docs/guides/detail-row/"
           },
           {
+            "title": "Editing in Detail Row",
+            "path": "/react/grid/docs/guides/editing-in-detail-row/"
+          },
+          {
             "title": "Column Reordering",
             "path": "/react/grid/docs/guides/column-reordering/"
           },

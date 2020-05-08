@@ -1,17 +1,17 @@
 # React Grid - Edit Data in the Detail Row
 
-The [detail row](LINK_NEEDED) is an expandable pane that displays data row details. The detail row does not allow users to edit data out of the box, but you can create a custom plugin to implement this functionality. Before you start, peruse the following help topics:
+The [detail row](./detail-row.md) is an expandable pane that displays data row details. The detail row does not allow users to edit data out of the box, but you can create a custom plugin to implement this functionality. Before you start, peruse the following help topics:
 
 - [Core Concepts](../../../core/docs/guides/fundamentals.md)
 - [Custom Plugin Development](./custom-plugin-development.md)
 
 The implementation consists of the following steps:
 
-1. [Add a Custom Plugin](LINK_NEEDED)
-1. [Handle the Detail Row Expand and Collapse Events](LINK_NEEDED)
-1. [Handle Data Edits](LINK_NEEDED)
-1. [Add the Edit Form](LINK_NEEDED)
-1. [Replace the Expand Icon](LINK_NEEDED)
+1. [Add a Custom Plugin](#add-a-custom-plugin)
+1. [Handle the Detail Row Expand and Collapse Events](#handle-the-detail-row-expand-and-collapse-events)
+1. [Handle Data Edits](#handle-data-edits)
+1. [Add the Edit Form](#add-the-edit-form)
+1. [Replace the Expand Icon](#replace-the-expand-icon)
 
 ## Add a Custom Plugin
 
@@ -26,7 +26,7 @@ const DetailEditCell = () => (
 
 ## Handle the Detail Row Expand and Collapse Events
 
-When a user expands or collapses a detail row, the [`TableDetailRow`](LINK_NEEDED) plugin executes the `toggleDetailRowExpanded` action. Override this action to switch an expanded row to the edit state or switch a collapsed row back to the normal state.
+When a user expands or collapses a detail row, the [TableRowDetail](../reference/table-row-detail.md) plugin executes the `toggleDetailRowExpanded` action. Override this action to switch an expanded row to the edit state or switch a collapsed row back to the normal state.
 
 The IDs of expanded rows are included in the `expandedDetailRowIds` array. To find whether a row is expanded or collapsed, check if this array includes the row ID.
 
@@ -57,7 +57,7 @@ To handle data edits, add the following functions:
 - `applyChanges` - applies data edits
 - `cancelChanges` - cancels data edits
 
-The detail row and an edit form in it will use these functions later. Implement the functions in the `tableCell` template and pass them as `params` to the [`TemplatePlaceholder`](LINK_NEEDED) along with the row being edited.
+The detail row and an edit form in it will use these functions later. Implement the functions in the `tableCell` template and pass them as `params` to the [TemplatePlaceholder](../../../dx-react-core/docs/reference/template-placeholder.md) along with the row being edited.
 
 ```jsx
 const DetailEditCell = () => (
@@ -122,7 +122,7 @@ const DetailEditCell = () => (
 )
 ```
 
-The functions and the row being edited are then passed on to the child elements of [`TableRowDetail.Cell`](LINK_NEEDED). These elements are edit form elements.
+The functions and the row being edited are then passed on to the child elements of [TableRowDetail.Cell](../reference/table-row-detail.md#tablerowdetailcellprops). These elements are edit form elements.
 
 ```jsx
 const DetailCell = ({
@@ -229,4 +229,4 @@ const ToggleCell = withStyles(styles, { name: 'ToggleCell' })(ToggleCellBase);
 
 You can view the demo and the full code below:
 
-.embedded-demo({ "path": "grid-detail-row/detail-row-controlled", "showThemeSelector": true })
+.embedded-demo({ "path": "grid-editing/detail-row-editing", "showThemeSelector": true })

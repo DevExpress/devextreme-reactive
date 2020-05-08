@@ -801,14 +801,14 @@ export const adjustByBlocks: PureComputed<
   [any[], number], any[]
 > = (groupedIntoBlocks, indirectChildLeftOffset) => {
   const updatedBlocks = groupedIntoBlocks.map(({ blocks, appointmentForest }) => {
-    const result = updateBlocksTotalSize(calculateBlocksLeft(
+    const result = updateBlocksProportions(calculateBlocksLeftLimit(
       calculateBlocksTotalSize(blocks), appointmentForest.items,
     ));
     result.forEach((block) => {
       block.right = undefined;
     });
     return {
-      blocks: updateBlocksTotalSize(calculateBlocksLeft(
+      blocks: updateBlocksProportions(calculateBlocksLeftLimit(
         updateBlocksLeft(result, appointmentForest.items), appointmentForest.items,
       )),
       appointmentForest,
@@ -880,10 +880,10 @@ const adjustAppointmentsByBlocks: PureComputed<
 const redistributeChildBlocks: PureComputed<
   [any[], any, number], void
 > = (blocks, block, right) => {
-  const { leftOffset, size, totalLeft, children } = block;
+  const { leftOffset, size, leftLimit, children } = block;
   block.right = right;
   const width = size + leftOffset;
-  const relativeWidth = right - totalLeft;
+  const relativeWidth = right - leftLimit;
   const left = right - relativeWidth * size / width;
   block.left = left;
   children.forEach((childIndex) => {
@@ -932,28 +932,53 @@ const calculateSingleBlockTotalSize: PureComputed<
   ) + size;
 };
 
-const updateBlocksTotalSize: PureComputed<
-  [any[]], any[]
-> = (blocks) => {
-  blocks.map((block) => {
-    const { right, totalSize } = block;
-    if (right) {
-      return block;
-    }
-    updateSingleBlockTotalSize(blocks, block, totalSize, 1);
+export const calculateBlocksLeftLimit: PureComputed<
+  [any[], any[]], any[]
+> = (blocks, appointments) => {
+  const result = blocks.map((block) => {
+    block.leftLimit = calculateSingleBlockLeftLimit(blocks, appointments, block);
     return block;
   });
-  return blocks;
+  return result;
 };
 
-const updateSingleBlockTotalSize: PureComputed<
+const calculateSingleBlockLeftLimit: PureComputed<
+  [any[], any[], any], number
+> = (blocks, appointments, block) => {
+  const { children, items, left } = block;
+  if (children.length === 0) {
+    return left !== undefined
+      ? Math.min(left, appointments[items[0]].data.left)
+      : appointments[items[0]].data.left;
+  }
+  return Math.min(
+    ...children.map(childIndex => calculateSingleBlockLeftLimit(
+      blocks, appointments, blocks[childIndex],
+    )),
+  );
+};
+
+export const updateBlocksProportions: PureComputed<
+  [any[]], any[]
+> = (blocks) => {
+  const nextBlocks = blocks.map(props => ({ ...props }));
+  nextBlocks.forEach((block) => {
+    const { right, totalSize } = block;
+    if (!right) {
+      updateSingleBlockProportions(nextBlocks, block, totalSize, 1);
+    }
+  });
+  return nextBlocks;
+};
+
+const updateSingleBlockProportions: PureComputed<
   [any[], any, number, number], void
 > = (blocks, block, totalSize, right) => {
-  const { children, totalLeft, leftOffset } = block;
+  const { children, leftLimit, leftOffset } = block;
   block.totalSize = totalSize;
   block.right = right;
-  block.left = (1 - totalLeft) * leftOffset / totalSize + totalLeft;
-  children.map(childIndex => updateSingleBlockTotalSize(
+  block.left = (1 - leftLimit) * leftOffset / totalSize + leftLimit;
+  children.map(childIndex => updateSingleBlockProportions(
     blocks, blocks[childIndex], totalSize, block.left));
 };
 
@@ -974,33 +999,6 @@ const updateBlocksLeft: PureComputed<
     return block;
   });
   return blocks;
-};
-
-const calculateBlocksLeft: PureComputed<
-  [any[], any[]], any[]
-> = (blocks, appointments) => {
-  const result = blocks.map((block) => {
-    const totalLeft = calculateSingleBlockLeft(blocks, appointments, block);
-    block.totalLeft = totalLeft;
-    return block;
-  });
-  return result;
-};
-
-const calculateSingleBlockLeft: PureComputed<
-  [any[], any[], any], number
-> = (blocks, appointments, block) => {
-  const { children, items, left } = block;
-  if (children.length === 0) {
-    return !!left
-      ? Math.min(left, appointments[items[0]].data.left)
-      : appointments[items[0]].data.left;
-  }
-  return Math.min(
-    ...children.map(childIndex => calculateSingleBlockLeft(
-      blocks, appointments, blocks[childIndex],
-    )),
-  );
 };
 
 export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIntervalsFn = (

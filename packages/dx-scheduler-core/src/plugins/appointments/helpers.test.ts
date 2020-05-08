@@ -7,7 +7,7 @@ import {
   calculateAppointmentsMetaData, isOverlappingSubTreeRoot,
   findChildrenMaxEndDate, prepareToGroupIntoBlocks, groupAppointmentsIntoBlocks,
   findBlockIndexByAppointment, findIncludedBlocks, findChildBlocks,
-  calculateIncludedBlockMaxRight, calculateBlocksTotalSize,
+  calculateIncludedBlockMaxRight, calculateBlocksTotalSize, calculateBlocksLeftLimit,
 } from './helpers';
 import { VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 
@@ -2476,6 +2476,97 @@ describe('Appointments helpers', () => {
           ...blocks[3],
           totalSize: 2,
           leftOffset: 0,
+        }]);
+    });
+  });
+
+  describe('#calculateBlocksLeftLimit', () => {
+    const appointments = [
+      { data: { left: 0.6 } },
+      { data: { left: 0.2 } },
+      { data: { left: 0.3 } },
+      { data: { left: 0.1 } },
+    ];
+
+    it('should work', () => {
+      const blocks = [{
+        size: 3,
+        children: [1, 2],
+        totalSize: 7,
+        items: [0],
+      }, {
+        size: 3,
+        children: [],
+        totalSize: 3,
+        items: [1],
+      }, {
+        size: 2,
+        children: [3],
+        totalSize: 4,
+        items: [2],
+      }, {
+        size: 2,
+        children: [],
+        totalSize: 2,
+        items: [3],
+      }];
+
+      expect(calculateBlocksLeftLimit(blocks, appointments))
+        .toEqual([{
+          ...blocks[0],
+          leftLimit: 0.1,
+        }, {
+          ...blocks[1],
+          leftLimit: 0.2,
+        }, {
+          ...blocks[2],
+          leftLimit: 0.1,
+        }, {
+          ...blocks[3],
+          leftLimit: 0.1,
+        }]);
+    });
+
+    it('should work when block lefts are defined', () => {
+      const blocks = [{
+        size: 3,
+        children: [1, 2],
+        totalSize: 7,
+        items: [0],
+        left: 0.5,
+      }, {
+        size: 3,
+        children: [],
+        totalSize: 3,
+        items: [1],
+        left: 0.05,
+      }, {
+        size: 2,
+        children: [3],
+        totalSize: 4,
+        items: [2],
+        left: 0.25,
+      }, {
+        size: 2,
+        children: [],
+        totalSize: 2,
+        items: [3],
+        left: 0,
+      }];
+
+      expect(calculateBlocksLeftLimit(blocks, appointments))
+        .toEqual([{
+          ...blocks[0],
+          leftLimit: 0,
+        }, {
+          ...blocks[1],
+          leftLimit: 0.05,
+        }, {
+          ...blocks[2],
+          leftLimit: 0,
+        }, {
+          ...blocks[3],
+          leftLimit: 0,
         }]);
     });
   });

@@ -1025,13 +1025,13 @@ export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIn
     INDIRECT_CHILD_LEFT_OFFSET,
   );
   const adjusted1 = calculateAppointmentsMetaData(appointmentForest, indirectChildLeftOffset);
+
   const preparedToGroupIntoBlocks = prepareToGroupIntoBlocks(adjusted1);
   const groupedIntoBlocks = groupAppointmentsIntoBlocks(preparedToGroupIntoBlocks);
   const blocksWithIncluded = findIncludedBlocks(groupedIntoBlocks);
   const blocksWithParents = findChildBlocks(blocksWithIncluded);
-  // console.log(blocksWithParents)
-  // const depthRecalculated = calculateTreeDepthByBlocks(preparedToGroupIntoBlocks, blocksWithParents);
   const adjustedByBlocks = adjustByBlocks(blocksWithParents, indirectChildLeftOffset);
+
   const rects =  unwrapGroups(adjustedByBlocks)
     .map(appointment => rectCalculator(
       appointment, viewMetaData,

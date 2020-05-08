@@ -8,7 +8,7 @@ import {
   findChildrenMaxEndDate, prepareToGroupIntoBlocks, groupAppointmentsIntoBlocks,
   findBlockIndexByAppointment, findIncludedBlocks, findChildBlocks,
   calculateIncludedBlockMaxRight, calculateBlocksTotalSize, calculateBlocksLeftLimit,
-  updateBlocksProportions, updateBlocksLeft,
+  updateBlocksProportions, updateBlocksLeft, adjustByBlocks,
 } from './helpers';
 import { VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 
@@ -47,6 +47,7 @@ describe('Appointments helpers', () => {
     [{ ...appointmentsBase[6] }],
   ];
   const INDIRECT_CHILD_LEFT_OFFSET = 0.05;
+  const MAX_RIGHT = 1;
 
   describe('#isTimeTableElementsMetaActual', () => {
     const viewCellsData = [[
@@ -874,8 +875,6 @@ describe('Appointments helpers', () => {
   });
 
   describe('#calculateAppointmentLeftAndWidth', () => {
-    const MAX_RIGHT = 1;
-
     it('should work when there are no parent and no direct children', () => {
       const appointment = {
         hasDirectChild: false,
@@ -2623,45 +2622,447 @@ describe('Appointments helpers', () => {
           totalSize: 7,
         }]);
     });
+  });
 
-    describe('#updateBlocksLeft', () => {
-      fit('should work', () => {
-        const blocks = [{
+  describe('#updateBlocksLeft', () => {
+    it('should work', () => {
+      const blocks = [{
+        children: [],
+        items: [0],
+        left: 0,
+      }, {
+        children: [2],
+        items: [1],
+        left: 0.2,
+      }, {
+        children: [],
+        items: [2],
+        left: 0,
+        parent: 1,
+      }, {
+        children: [],
+        items: [3],
+        left: 0.5,
+      }];
+      const appointments = [
+        { blockIndex: 0 },
+        { blockIndex: 1 },
+        { blockIndex: 2 },
+        { blockIndex: 3, parent: 2 },
+      ];
+
+      expect(updateBlocksLeft(blocks, appointments))
+        .toEqual([{
+          ...blocks[0],
+        }, {
+          ...blocks[1],
+        }, {
+          ...blocks[2],
+        }, {
+          ...blocks[3],
+          left: 0.2,
+        }]);
+    });
+  });
+
+  describe('#adjustByBlocks', () => {
+    it('should work in case with one block', () => {
+      const groupedIntoBlocks = [{
+        blocks: [{
           children: [],
-          items: [0],
-          left: 0,
+          items: [0, 1],
+          size: 2,
+        }],
+        appointmentForest: {
+          items: [{
+            data: { left: 0, width: 0.5 },
+            hasDirectChild: true,
+            isDirectChild: false,
+            children: [1],
+          }, {
+            data: { left: 0.5, width: 0.5 },
+            hasDirectChild: false,
+            isDirectChild: true,
+            children: [],
+            parent: 0,
+          }],
+        },
+      }];
+
+      expect(adjustByBlocks(groupedIntoBlocks, INDIRECT_CHILD_LEFT_OFFSET))
+        .toEqual([groupedIntoBlocks[0].appointmentForest]);
+    });
+
+    it('should work with several blocks', () => {
+      const groupedIntoBlocks = [{
+        blocks: [{
+          children: [],
+          items: [0, 1],
+          size: 3,
+          included: [],
         }, {
           children: [2],
-          items: [1],
-          left: 0.2,
-        }, {
-          children: [],
           items: [2],
-          left: 0,
+          size: 1,
+          included: [],
+        }, {
+          children: [3],
+          items: [3],
+          size: 1,
+          included: [],
           parent: 1,
         }, {
           children: [],
-          items: [3],
-          left: 0.5,
-        }];
-        const appointments = [
-          { blockIndex: 0 },
-          { blockIndex: 1 },
-          { blockIndex: 2 },
-          { blockIndex: 3, parent: 2 },
-        ];
+          items: [4],
+          size: 1,
+          included: [],
+          parent: 2,
+        }],
+        appointmentForest: {
+          items: [{
+            data: { left: 0, width: 1 },
+            hasDirectChild: false,
+            isDirectChild: false,
+            children: [1],
+            blockIndex: 0,
+            treeDepth: 2,
+          }, {
+            data: { left: 0.05, width: 0.95 },
+            hasDirectChild: false,
+            isDirectChild: false,
+            children: [2],
+            parent: 0,
+            blockIndex: 0,
+            treeDepth: 1,
+          }, {
+            data: { left: 0.1, width: 0.9 },
+            hasDirectChild: false,
+            isDirectChild: false,
+            children: [],
+            parent: 1,
+            blockIndex: 1,
+            treeDepth: 0,
+          }, {
+            data: { left: 0.05, width: 0.95 },
+            hasDirectChild: false,
+            isDirectChild: false,
+            children: [],
+            parent: 0,
+            blockIndex: 2,
+            treeDepth: 0,
+          }, {
+            data: { left: 0, width: 1 },
+            hasDirectChild: false,
+            isDirectChild: false,
+            children: [],
+            blockIndex: 3,
+            treeDepth: 0,
+          }],
+        },
+      }];
 
-        expect(updateBlocksLeft(blocks, appointments))
-          .toEqual([{
-            ...blocks[0],
+      expect(adjustByBlocks(groupedIntoBlocks, INDIRECT_CHILD_LEFT_OFFSET))
+        .toEqual([{
+          items: [{
+            ...groupedIntoBlocks[0].appointmentForest.items[0],
           }, {
-            ...blocks[1],
+            ...groupedIntoBlocks[0].appointmentForest.items[1],
           }, {
-            ...blocks[2],
+            ...groupedIntoBlocks[0].appointmentForest.items[2],
+            data: { left: matchFloat(2 / 3), width: matchFloat(1 / 3) },
           }, {
-            ...blocks[3],
-            left: 0.2,
-          }]);
-      });
+            ...groupedIntoBlocks[0].appointmentForest.items[3],
+            data: { left: matchFloat(1 / 3), width: matchFloat(1 / 3) },
+          }, {
+            ...groupedIntoBlocks[0].appointmentForest.items[4],
+            data: { left: 0, width: matchFloat(1 / 3) },
+          }],
+        }]);
+    });
+
+    it('should work with included blocks', () => {
+      const groupedIntoBlocks = [{
+        blocks: [{
+          children: [],
+          items: [0, 1, 2],
+          size: 4,
+          included: [],
+        }, {
+          children: [2],
+          items: [3],
+          size: 1,
+          included: [],
+        }, {
+          children: [],
+          items: [4, 5],
+          size: 3,
+          included: [3, 4],
+          parent: 1,
+        }, {
+          children: [4],
+          items: [6],
+          size: 1,
+          included: [],
+          includedInto: 2,
+        }, {
+          children: [],
+          items: [7],
+          size: 1,
+          included: [],
+          parent: 3,
+          includedInto: 2,
+        }],
+        appointmentForest: {
+          items: [{
+            data: { left: 0, width: 1 },
+            hasDirectChild: false,
+            isDirectChild: false,
+            children: [1],
+            blockIndex: 0,
+            treeDepth: 3,
+          }, {
+            data: { left: 0.05, width: 0.95 },
+            hasDirectChild: false,
+            isDirectChild: false,
+            children: [2],
+            parent: 0,
+            blockIndex: 0,
+            treeDepth: 2,
+          }, {
+            data: { left: 0.1, width: 0.9 },
+            hasDirectChild: false,
+            isDirectChild: false,
+            children: [3],
+            parent: 1,
+            blockIndex: 0,
+            treeDepth: 1,
+          }, {
+            data: { left: 0.15, width: 0.85 },
+            hasDirectChild: false,
+            isDirectChild: false,
+            children: [],
+            parent: 2,
+            blockIndex: 1,
+            treeDepth: 0,
+          }, {
+            data: { left: 0, width: 1 },
+            hasDirectChild: false,
+            isDirectChild: false,
+            children: [5, 7],
+            blockIndex: 2,
+            treeDepth: 2,
+          }, {
+            data: { left: 0.05, width: 0.475 },
+            hasDirectChild: true,
+            isDirectChild: false,
+            children: [6],
+            blockIndex: 2,
+            treeDepth: 1,
+            parent: 4,
+          }, {
+            data: { left: 0.525, width: 0.475 },
+            hasDirectChild: false,
+            isDirectChild: true,
+            children: [],
+            blockIndex: 3,
+            treeDepth: 0,
+            parent: 5,
+          }, {
+            data: { left: 0.05, width: 0.95 },
+            hasDirectChild: false,
+            isDirectChild: false,
+            children: [],
+            blockIndex: 4,
+            treeDepth: 0,
+            parent: 4,
+          }],
+        },
+      }];
+
+      expect(adjustByBlocks(groupedIntoBlocks, INDIRECT_CHILD_LEFT_OFFSET))
+        .toEqual([{
+          items: [{
+            ...groupedIntoBlocks[0].appointmentForest.items[0],
+          }, {
+            ...groupedIntoBlocks[0].appointmentForest.items[1],
+          }, {
+            ...groupedIntoBlocks[0].appointmentForest.items[2],
+          }, {
+            ...groupedIntoBlocks[0].appointmentForest.items[3],
+            data: { left: matchFloat(0.75), width: matchFloat(0.25) },
+          }, {
+            ...groupedIntoBlocks[0].appointmentForest.items[4],
+            data: { left: 0, width: matchFloat(0.75) },
+          }, {
+            ...groupedIntoBlocks[0].appointmentForest.items[5],
+            data: { left: matchFloat(0.05), width: matchFloat(0.35) },
+          }, {
+            ...groupedIntoBlocks[0].appointmentForest.items[6],
+            data: { left: matchFloat(0.4), width: matchFloat(0.35) },
+          }, {
+            ...groupedIntoBlocks[0].appointmentForest.items[7],
+            data: { left: matchFloat(0.05), width: matchFloat(0.35) },
+          }],
+        }]);
+    });
+
+    it('should distribute blocks correctly', () => {
+      const groupedIntoBlocks = [{
+        blocks: [{
+          children: [],
+          items: [0, 1, 2],
+          size: 3,
+          included: [],
+        }, {
+          children: [2],
+          items: [3],
+          size: 1,
+          included: [],
+        }, {
+          children: [],
+          items: [4],
+          size: 1,
+          included: [],
+          parent: 1,
+        }],
+        appointmentForest: {
+          items: [{
+            data: { left: 0, width: 0.25 },
+            hasDirectChild: true,
+            isDirectChild: false,
+            children: [1],
+            blockIndex: 0,
+            treeDepth: 3,
+          }, {
+            data: { left: 0.25, width: 0.25 },
+            hasDirectChild: true,
+            isDirectChild: true,
+            children: [2],
+            parent: 0,
+            blockIndex: 0,
+            treeDepth: 2,
+          }, {
+            data: { left: 0.5, width: 0.25 },
+            hasDirectChild: true,
+            isDirectChild: true,
+            children: [3],
+            parent: 1,
+            blockIndex: 1,
+            treeDepth: 1,
+          }, {
+            data: { left: 0.75, width: 0.25 },
+            hasDirectChild: false,
+            isDirectChild: true,
+            children: [],
+            parent: 2,
+            blockIndex: 2,
+            treeDepth: 0,
+          }, {
+            data: { left: 0, width: 1 },
+            hasDirectChild: false,
+            isDirectChild: false,
+            children: [],
+            blockIndex: 3,
+            treeDepth: 0,
+          }],
+        },
+      }];
+
+      expect(adjustByBlocks(groupedIntoBlocks, INDIRECT_CHILD_LEFT_OFFSET))
+        .toEqual([{
+          items: [{
+            ...groupedIntoBlocks[0].appointmentForest.items[0],
+          }, {
+            ...groupedIntoBlocks[0].appointmentForest.items[1],
+          }, {
+            ...groupedIntoBlocks[0].appointmentForest.items[2],
+          }, {
+            ...groupedIntoBlocks[0].appointmentForest.items[3],
+          }, {
+            ...groupedIntoBlocks[0].appointmentForest.items[4],
+            data: { left: 0, width: matchFloat(0.75) },
+          }],
+        }]);
+    });
+
+    fit('should update items in the first block (with index 0)', () => {
+      const groupedIntoBlocks = [{
+        blocks: [{
+          children: [],
+          items: [0, 4],
+          size: 3,
+          included: [],
+        }, {
+          children: [2],
+          items: [1, 2],
+          size: 2,
+          included: [],
+        }, {
+          children: [],
+          items: [3],
+          size: 1,
+          included: [],
+          parent: 1,
+        }],
+        appointmentForest: {
+          items: [{
+            data: { left: 0, width: 1 / 3 },
+            hasDirectChild: true,
+            isDirectChild: false,
+            children: [1],
+            blockIndex: 0,
+            treeDepth: 2,
+          }, {
+            data: { left: 1 / 3, width: 1 / 3 },
+            hasDirectChild: true,
+            isDirectChild: true,
+            children: [2],
+            parent: 0,
+            blockIndex: 1,
+            treeDepth: 1,
+          }, {
+            data: { left: 2 / 3, width: 1 / 3 },
+            hasDirectChild: false,
+            isDirectChild: true,
+            children: [],
+            parent: 1,
+            blockIndex: 1,
+            treeDepth: 0,
+          }, {
+            data: { left: 0, width: 0.5 },
+            hasDirectChild: true,
+            isDirectChild: false,
+            children: [4],
+            blockIndex: 2,
+            treeDepth: 1,
+          }, {
+            data: { left: 0.5, width: 0.5 },
+            hasDirectChild: false,
+            isDirectChild: true,
+            children: [],
+            blockIndex: 0,
+            treeDepth: 0,
+            parent: 3,
+          }],
+        },
+      }];
+
+      expect(adjustByBlocks(groupedIntoBlocks, INDIRECT_CHILD_LEFT_OFFSET))
+        .toEqual([{
+          items: [{
+            ...groupedIntoBlocks[0].appointmentForest.items[0],
+          }, {
+            ...groupedIntoBlocks[0].appointmentForest.items[1],
+          }, {
+            ...groupedIntoBlocks[0].appointmentForest.items[2],
+          }, {
+            ...groupedIntoBlocks[0].appointmentForest.items[3],
+            data: { left: 0, width: matchFloat(1 / 3) },
+          }, {
+            ...groupedIntoBlocks[0].appointmentForest.items[4],
+            data: { left: matchFloat(1 / 3), width: matchFloat(2 / 3) },
+          }],
+        }]);
+    });
   });
 });

@@ -10,7 +10,7 @@ import {
   calculateIncludedBlockMaxRight, calculateBlocksTotalSize, calculateBlocksLeftLimit,
   updateBlocksProportions, updateBlocksLeft, adjustByBlocks,
 } from './helpers';
-import { VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION } from '../../constants'
+import { VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 
 const matchFloat = expected => ({
   $$typeof: Symbol.for('jest.asymmetricMatcher'),
@@ -1040,6 +1040,7 @@ describe('Appointments helpers', () => {
         .toEqual({ left: matchFloat(0.05), width: matchFloat(0.95) });
     });
 
+    // tslint:disable-next-line: max-line-length
     it('should work when appointment is not a direct child, has a parent, which has a direct child', () => {
       const appointments = [{
         hasDirectChild: true,
@@ -1061,6 +1062,7 @@ describe('Appointments helpers', () => {
         .toEqual({ left: matchFloat(0.05), width: matchFloat(0.95) });
     });
 
+    // tslint:disable-next-line: max-line-length
     it('should work when appointment is a direct child, has a parent and has direct children', () => {
       const appointments = [{
         hasDirectChild: true,

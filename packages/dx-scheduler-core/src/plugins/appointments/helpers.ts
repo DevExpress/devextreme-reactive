@@ -1035,7 +1035,7 @@ const createAndAdjustAppointmentForest: CreateAndAdjustAppointmentForestFn = (
   const blocksWithIncluded = findIncludedBlocks(groupedIntoBlocks);
   const blocksWithParents = findChildBlocks(blocksWithIncluded);
   return adjustByBlocks(blocksWithParents, indirectChildLeftOffset);
-}
+};
 
 export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIntervalsFn = (
   type, intervals, rectByDates, rectByDatesMeta, viewMetaData,

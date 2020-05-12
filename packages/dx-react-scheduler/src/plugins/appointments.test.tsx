@@ -289,6 +289,7 @@ describe('Appointments', () => {
         cellDuration: defaultDeps.getter.cellDuration,
         viewCellsData: defaultDeps.getter.viewCellsData,
         cellElementsMeta: defaultDeps.getter.timeTableElementsMeta,
+        placeAppointmentsNextToEachOther: false,
       },
       {
         groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
@@ -330,6 +331,7 @@ describe('Appointments', () => {
         cellDuration: defaultDeps.getter.cellDuration,
         viewCellsData: defaultDeps.getter.viewCellsData,
         cellElementsMeta: defaultDeps.getter.timeTableElementsMeta,
+        placeAppointmentsNextToEachOther: false,
       },
       {
         groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
@@ -424,6 +426,7 @@ describe('Appointments', () => {
         cellDuration: defaultDeps.getter.cellDuration,
         viewCellsData: defaultDeps.getter.viewCellsData,
         cellElementsMeta: defaultDeps.getter.timeTableElementsMeta,
+        placeAppointmentsNextToEachOther: false,
       },
       {
         groupOrientation: VERTICAL_GROUP_ORIENTATION,

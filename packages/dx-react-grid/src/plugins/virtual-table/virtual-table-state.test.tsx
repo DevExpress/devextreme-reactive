@@ -71,19 +71,96 @@ describe('VirtualTableState', () => {
         .toBe(200);
     });
 
-    it('should provide value from "totalRowCount" property', () => {
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <VirtualTableState
-            {...defaultProps}
-            totalRowCount={2000}
-          />
-        </PluginHost>
-      ));
+    describe('availableRowCount', () => {
+      it('should provide value from "totalRowCount" property', () => {
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <VirtualTableState
+              {...defaultProps}
+              totalRowCount={2000}
+            />
+          </PluginHost>
+        ));
 
-      expect(getComputedState(tree).availableRowCount)
-        .toBe(2000);
+        expect(getComputedState(tree).availableRowCount)
+          .toBe(2000);
+      });
+
+      describe('infinite scrolling', () => {
+        it('should provide value "pageSize * 2" if it is less than "totalRowCount"', () => {
+          const tree = mount((
+            <PluginHost>
+              {pluginDepsToComponents(defaultDeps)}
+              <VirtualTableState
+                {...defaultProps}
+                totalRowCount={2000}
+                infiniteScrolling
+              />
+            </PluginHost>
+          ));
+
+          expect(getComputedState(tree).availableRowCount)
+            .toBe(defaultProps.pageSize * 2);
+        });
+
+        it('should provide value from "totalRowCount" if it is less than "pageSize * 2"', () => {
+          const tree = mount((
+            <PluginHost>
+              {pluginDepsToComponents(defaultDeps)}
+              <VirtualTableState
+                {...defaultProps}
+                totalRowCount={70}
+                infiniteScrolling
+              />
+            </PluginHost>
+          ));
+
+          expect(getComputedState(tree).availableRowCount)
+            .toBe(70);
+        });
+
+        it('should calculate correctly when "totalRowCount" property changes', () => {
+          class Test extends React.Component {
+            render() {
+              return (
+                <PluginHost>
+                  {pluginDepsToComponents(defaultDeps)}
+                  <VirtualTableState
+                    {...this.props}
+                  />
+                </PluginHost>
+              );
+            }
+          }
+
+          const tree = mount((
+            <Test
+              {...defaultProps}
+              totalRowCount={1000}
+              infiniteScrolling
+            />
+          ));
+
+          expect(getComputedState(tree).availableRowCount)
+            .toBe(defaultProps.pageSize * 2);
+
+          tree.setProps({ totalRowCount: 5 });
+          tree.update();
+          expect(getComputedState(tree).availableRowCount)
+            .toBe(5);
+
+          tree.setProps({ totalRowCount: 50 });
+          tree.update();
+          expect(getComputedState(tree).availableRowCount)
+            .toBe(50);
+
+          tree.setProps({ totalRowCount: 500 });
+          tree.update();
+          expect(getComputedState(tree).availableRowCount)
+            .toBe(defaultProps.pageSize * 2);
+        });
+      });
     });
 
     it('should provide cached rows', () => {
@@ -136,7 +213,7 @@ describe('VirtualTableState', () => {
       expect(getComputedState(tree).rows)
         .toBe('plainRows');
       expect(plainRows)
-        .toBeCalledWith('virtualRowsWithCache');
+        .toBeCalledWith('virtualRowsWithCache', defaultProps.totalRowCount);
     });
 
     it('should provide loaded rows start index', () => {
@@ -152,7 +229,7 @@ describe('VirtualTableState', () => {
       expect(getComputedState(tree).loadedRowsStart)
         .toBe('loadedRowsStart');
       expect(plainRows)
-        .toBeCalledWith('virtualRowsWithCache');
+        .toBeCalledWith('virtualRowsWithCache', defaultProps.totalRowCount);
     });
 
     describe('Reload rows', () => {

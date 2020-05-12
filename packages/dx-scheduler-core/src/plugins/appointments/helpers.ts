@@ -979,25 +979,23 @@ const calculateSingleBlockLeftLimit: CalculateSingleBlockLeftLimitFn = (
 };
 
 export const updateBlocksProportions: UpdateBlocksProportionsFn = (blocks) => {
-  const nextBlocks = (blocks as CalculatedBlock[]).map((block) => {
+  const nextBlocks = (blocks as CalculatedBlock[]).map(props => ({ ...props }));
+
+  nextBlocks.forEach((block) => {
     const { parent: parentIndex, leftLimit, leftOffset, totalSize } = block;
     if (parentIndex === undefined) {
-      return {
-        ...block,
-        right: 1,
-        left: (1 - leftLimit) * leftOffset / totalSize + leftLimit,
-      };
+      block.right = 1;
+      block.left = (1 - leftLimit) * leftOffset / totalSize + leftLimit;
+      return;
     }
 
-    const parent = blocks[parentIndex];
+    const parent = nextBlocks[parentIndex];
     const { left: parentLeft, totalSize: parentTotalSize } = parent as CalculatedBlock;
-    return {
-      ...block,
-      totalSize: parentTotalSize,
-      right: parentLeft as number,
-      left: (1 - leftLimit) * leftOffset / parentTotalSize + leftLimit,
-    };
+    block.totalSize = parentTotalSize;
+    block.right = parentLeft as number;
+    block.left = (1 - leftLimit) * leftOffset / parentTotalSize + leftLimit;
   });
+
   return nextBlocks;
 };
 

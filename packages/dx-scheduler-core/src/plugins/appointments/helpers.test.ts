@@ -1,7 +1,7 @@
 import moment from 'moment';
 import {
   isTimeTableElementsMetaActual, isAllDayElementsMetaActual, sortAppointments,
-  findOverlappedAppointments, adjustAppointments, unwrapGroups,
+  findOverlappedAppointments, calculateAppointmentOffsets, unwrapGroups,
   calculateRectByDateAndGroupIntervals, createAppointmentForest,
   calculateAppointmentLeftAndWidth, isPossibleChild, findMaxReduceValue,
   calculateAppointmentsMetaData, isOverlappingSubTreeRoot,
@@ -10,7 +10,7 @@ import {
   calculateIncludedBlockMaxRight, calculateBlocksTotalSize, calculateBlocksLeftLimit,
   updateBlocksProportions, updateBlocksLeft, adjustByBlocks,
 } from './helpers';
-import { VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
+import { VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION } from '../../constants'
 
 const matchFloat = expected => ({
   $$typeof: Symbol.for('jest.asymmetricMatcher'),
@@ -202,9 +202,9 @@ describe('Appointments helpers', () => {
     });
   });
 
-  describe('#adjustAppointments', () => {
+  describe('#calculateAppointmentOffsets', () => {
     it('should calculate appointment offset and reduce coefficient', () => {
-      expect(adjustAppointments(overlappedAppointments))
+      expect(calculateAppointmentOffsets(overlappedAppointments))
         .toEqual([
           {
             items: [
@@ -235,7 +235,7 @@ describe('Appointments helpers', () => {
       const groups = [
         [{ ...appointmentsBase[1] }, { ...appointmentsBase[7] }],
       ];
-      expect(adjustAppointments(groups))
+      expect(calculateAppointmentOffsets(groups))
         .toEqual([
           {
             items: [
@@ -251,7 +251,7 @@ describe('Appointments helpers', () => {
       const groups = [
         [{ ...appointmentsBase[8] }, { ...appointmentsBase[6] }],
       ];
-      expect(adjustAppointments(groups, true))
+      expect(calculateAppointmentOffsets(groups, true))
         .toEqual([
           {
             items: [
@@ -267,7 +267,7 @@ describe('Appointments helpers', () => {
       const groups = [
         [{ ...appointmentsBase[10] }, { ...appointmentsBase[11] }, { ...appointmentsBase[12] }],
       ];
-      expect(adjustAppointments(groups, true))
+      expect(calculateAppointmentOffsets(groups, true))
         .toEqual([
           {
             items: [
@@ -284,7 +284,7 @@ describe('Appointments helpers', () => {
       const groups = [
         [{ ...appointmentsBase[10] }, { ...appointmentsBase[13] }, { ...appointmentsBase[12] }],
       ];
-      expect(adjustAppointments(groups, true))
+      expect(calculateAppointmentOffsets(groups, true))
         .toEqual([
           {
             items: [
@@ -298,7 +298,7 @@ describe('Appointments helpers', () => {
     });
     it('shouldn\'t change appointments but should create new ones and change them instead', () => {
       const groups = [[{ ...appointmentsBase[0] }]];
-      const result = adjustAppointments(groups, true);
+      const result = calculateAppointmentOffsets(groups, true);
       expect(result[0].items[0])
         .not.toBe(groups[0][0]);
     });
@@ -1933,6 +1933,7 @@ describe('Appointments helpers', () => {
       const expectedBlocks = [{
         start: moment('2020-05-07 08:00'),
         end: moment('2020-05-07 08:30'),
+        endForChildren: moment('2020-05-07 08:30'),
         minOffset: 0,
         maxOffset: 1,
         size: 2,
@@ -1997,6 +1998,7 @@ describe('Appointments helpers', () => {
       const expectedBlocks = [{
         start: moment('2020-05-07 08:00'),
         end: moment('2020-05-07 09:00'),
+        endForChildren: moment('2020-05-07 09:00'),
         minOffset: 0,
         maxOffset: 1,
         size: 2,
@@ -2090,6 +2092,7 @@ describe('Appointments helpers', () => {
       const expectedBlocks = [{
         start: moment('2020-05-07 08:00'),
         end: moment('2020-05-07 09:00'),
+        endForChildren: moment('2020-05-07 09:00'),
         minOffset: 0,
         maxOffset: 2,
         size: 3,
@@ -2235,6 +2238,7 @@ describe('Appointments helpers', () => {
       const expectedBlocks = [{
         start: moment('2020-05-07 08:00'),
         end: moment('2020-05-07 09:00'),
+        endForChildren: moment('2020-05-07 09:00'),
         minOffset: 0,
         maxOffset: 3,
         size: 4,
@@ -2686,18 +2690,21 @@ describe('Appointments helpers', () => {
         totalSize: 3,
         leftOffset: 0,
         leftLimit: 0.1,
+        parent: 0,
       }, {
         size: 2,
         children: [3],
         totalSize: 4,
         leftOffset: 2,
         leftLimit: 0,
+        parent: 0,
       }, {
         size: 2,
         children: [],
         totalSize: 2,
         leftOffset: 0,
         leftLimit: 0,
+        parent: 2,
       }];
 
       expect(updateBlocksProportions(blocks))

@@ -4,7 +4,7 @@ import {
   AppointmentUnwrappedGroup, ViewMetaData, ElementRect, AppointmentGroup,
   AppointmentForestRoots, CalculatedTreeNode, TreeNodeWithOverlappingSubTreeRoots,
   TreeNodeInBlock, AppointmentBlock, IncludedBlock, BlockWithChildren, CalculatedBlock,
-  GroupedIntoBlocksForest,
+  GroupedIntoBlocksForest, AppointmentIndex,
 
   VisitRootsFn, CalculateRectByDateAndGroupIntervalsFn, CreateAppointmentForestFn,
   VisitChildFn, VisitAllChildrenFn, IsPossibleChildFn, FindMaxReduceValueFn,
@@ -414,7 +414,7 @@ const visitAllChildren: VisitAllChildrenFn = (
   const { end, offset: appointmentOffset, start } = appointment.data;
   const directChildTimeLimit = moment(start).add(cellDuration, 'minutes');
   let maxAppointmentTreeDepth = 0;
-  const children = [];
+  const children = [] as AppointmentIndex[];
 
   let nextChildIndex = appointmentIndex + 1;
   while (isPossibleChild(appointmentNodes, nextChildIndex, end, appointmentOffset)) {

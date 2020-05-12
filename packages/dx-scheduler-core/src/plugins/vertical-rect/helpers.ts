@@ -91,6 +91,5 @@ export const getVerticalRectByAppointmentData: GetVerticalRectByAppointmentDataF
     left: firstCellRect.left - firstCellRect.parentRect.left + CELL_BOUND_HORIZONTAL_OFFSET_PX,
     parentWidth: firstCellRect.parentRect.width,
     height: placeAppointmentsNextToEachOther ? height - CELL_BOUND_VERTICAL_OFFSET_PX : height,
-    // height,
   };
 };

@@ -25,7 +25,8 @@ interface TreeNodeData extends GroupItem {
   width: number;
 }
 
-type AppointmentIndex = number;
+/** @internal */
+export type AppointmentIndex = number;
 type BlockIndex = number;
 
 interface TreeNodeBase {

@@ -2,7 +2,7 @@ import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import { Appointment, SchedulerDateTime } from './scheduler-core.types';
 import { Group } from './integrated-grouping.types';
-import { ViewMetaData } from './utils.types';
+import { ViewMetaData } from './appointments.types';
 
 export type ViewCellData = {
   startDate: Date;

@@ -4,6 +4,14 @@ import Helmet from 'react-helmet';
 import { StaticQuery, graphql } from 'gatsby';
 import Footer from '../footer';
 import Cookie from '../cookie';
+import favicon from '../images/favicon.ico';
+
+const faviconLink = [{
+  rel: 'icon',
+  type: 'image/png',
+  href: `${favicon}`,
+  sizes: '16x16',
+}];
 
 const Layout = ({ children }) => (
   <StaticQuery
@@ -21,6 +29,7 @@ const Layout = ({ children }) => (
         <Helmet
           titleTemplate={`%s | ${data.site.siteMetadata.title}`}
           defaultTitle={data.site.siteMetadata.title}
+          link={faviconLink}
         />
         {children}
         <Footer />

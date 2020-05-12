@@ -4,6 +4,8 @@
 
 DevExtreme React Scheduler is a component that represents scheduled data and allows a user to manage it. Scheduler can display data on different views: day, week, and month. Support for controlled and uncontrolled state modes allows you to manage Scheduler state manually or using a state management library like Redux. The DevExtreme Scheduler component has a composable and extendable plugin-based architecture. Currently, the Scheduler is provided with Material-UI rendering and theming.
 
+<iframe width="100%" height="476" src="https://www.youtube.com/embed/YPNeFdHvbbU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" style="border: 0;"></iframe>
+
 ## Installation
 
 Install the dx-react-scheduler package and its dependencies using the following command:

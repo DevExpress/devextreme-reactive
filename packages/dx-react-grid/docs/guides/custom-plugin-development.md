@@ -100,7 +100,7 @@ export default [{
 The image below shows the final result. There is a select box at the top right corner. When a user selects a value from it, the grid displays only the filtered rows. When the value is cleared using the `CLEAR` button, the grid displays all rows.
 
 <p align="center">
-  <img class="img-responsive" src="../../../../../img/guides/custom-plugin-development/result.png">
+  <img class="img-responsive" src="../img/result.png">
 </p>
 
 The first step is to render custom markup.
@@ -248,7 +248,7 @@ class App extends Component {
 ```
 If you run the code now, the Grid should look as follows:
 <p align="center">
-  <img class="img-responsive" src="../../../../../img/guides/custom-plugin-development/add-select.png">
+  <img class="img-responsive" src="../img/add-select.png">
 </p>
 
 ## Share Values Between Plugins

@@ -4,6 +4,7 @@ import {
   AppointmentUnwrappedGroup, ViewMetaData, ElementRect, AppointmentGroup,
   AppointmentForestRoots, CalculatedTreeNode, TreeNodeWithOverlappingSubTreeRoots,
   TreeNodeInBlock, AppointmentBlock, IncludedBlock, BlockWithChildren, CalculatedBlock,
+  GroupedIntoBlocksForest,
 
   VisitRootsFn, CalculateRectByDateAndGroupIntervalsFn, CreateAppointmentForestFn,
   VisitChildFn, VisitAllChildrenFn, IsPossibleChildFn, FindMaxReduceValueFn,
@@ -302,16 +303,15 @@ export const calculateAppointmentOffsets: CustomFunction<
   return { items: appointments, reduceValue };
 });
 
-export const unwrapAppointmentForest: PureComputed<
-  [AppointmentGroup[]], AppointmentUnwrappedGroup[]
-> = groups => groups.reduce((acc, { items, reduceValue }) => {
-  acc.push(...items.map(({ data }) => ({
-    ...data, reduceValue,
-    fromPrev: moment(data.start).diff(data.dataItem.startDate, 'minutes') > 1,
-    toNext: moment(data.dataItem.endDate).diff(data.end, 'minutes') > 1,
-  })));
-  return acc;
-}, [] as AppointmentUnwrappedGroup[]);
+const unwrapAppointmentForest: PureComputed<
+  [GroupedIntoBlocksForest[]], AppointmentUnwrappedGroup[]
+> = (appointmentForests) => {
+  const forestUnwrapped = appointmentForests.map(({ items, reduceValue }) => ({
+    reduceValue,
+    items: items.map(({ data }) => ({ ...data })),
+  }));
+  return unwrapGroups(forestUnwrapped);
+};
 
 export const unwrapGroups: PureComputed<
   [AppointmentGroup[]], AppointmentUnwrappedGroup[]
@@ -997,7 +997,7 @@ const updateSingleBlockProportions: UpdateSingleBlockProportionsFn = (
   block.totalSize = totalSize;
   block.right = right;
   block.left = (1 - leftLimit) * leftOffset / totalSize + leftLimit;
-  children.map(childIndex => updateSingleBlockProportions(
+  children.forEach(childIndex => updateSingleBlockProportions(
     blocks, blocks[childIndex], totalSize, block.left));
 };
 

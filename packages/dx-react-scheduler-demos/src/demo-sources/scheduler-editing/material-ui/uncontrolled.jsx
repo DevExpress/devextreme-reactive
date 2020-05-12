@@ -8,7 +8,6 @@ import {
   AppointmentForm,
   AppointmentTooltip,
   ConfirmationDialog,
-  DragDropProvider,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 import { appointments } from '../../../demo-data/appointments';
@@ -60,7 +59,7 @@ export default class Demo extends React.PureComponent {
           <IntegratedEditing />
           <DayView
             startDayHour={9}
-            // endDayHour={21}
+            endDayHour={19}
           />
           <ConfirmationDialog />
           <Appointments />
@@ -69,7 +68,6 @@ export default class Demo extends React.PureComponent {
             showDeleteButton
           />
           <AppointmentForm />
-          <DragDropProvider />
         </Scheduler>
       </Paper>
     );

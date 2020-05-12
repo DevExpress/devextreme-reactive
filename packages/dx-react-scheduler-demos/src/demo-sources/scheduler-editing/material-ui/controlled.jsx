@@ -10,10 +10,6 @@ import {
   EditRecurrenceMenu,
   AllDayPanel,
   ConfirmationDialog,
-  DragDropProvider,
-  Toolbar,
-  ViewSwitcher,
-  DayView,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { appointments } from '../../../demo-data/appointments';
 
@@ -22,7 +18,7 @@ export default class Demo extends React.PureComponent {
     super(props);
     this.state = {
       data: appointments,
-      currentDate: '2018-07-01',
+      currentDate: '2018-06-27',
 
       addedAppointment: {},
       appointmentChanges: {},
@@ -91,30 +87,19 @@ export default class Demo extends React.PureComponent {
             editingAppointmentId={editingAppointmentId}
             onEditingAppointmentIdChange={this.changeEditingAppointmentId}
           />
-
           <WeekView
             startDayHour={9}
             endDayHour={17}
           />
-          <DayView
-            startDayHour={9}
-            endDayHour={17}
-          />
           <AllDayPanel />
-
           <EditRecurrenceMenu />
-          <Appointments />
-
-          <Toolbar />
-          <ViewSwitcher />
-
           <ConfirmationDialog />
+          <Appointments />
           <AppointmentTooltip
             showOpenButton
             showDeleteButton
           />
           <AppointmentForm />
-          <DragDropProvider />
         </Scheduler>
       </Paper>
     );

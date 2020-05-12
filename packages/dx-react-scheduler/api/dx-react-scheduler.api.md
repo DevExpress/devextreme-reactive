@@ -355,6 +355,8 @@ export interface AppointmentsProps {
     appointmentComponent: React.ComponentType<Appointments.AppointmentProps>;
     appointmentContentComponent: React.ComponentType<Appointments.AppointmentContentProps>;
     containerComponent: React.ComponentType<Appointments.ContainerProps>;
+    // (undocumented)
+    placeAppointmentsNextToEachOther?: boolean;
     recurringIconComponent: React.ComponentType<object>;
     splitIndicatorComponent: React.ComponentType<Appointments.SplitIndicatorProps>;
 }

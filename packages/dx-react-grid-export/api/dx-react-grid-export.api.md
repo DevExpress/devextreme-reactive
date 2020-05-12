@@ -60,7 +60,7 @@ export type GetCellValueFn = (row: any, columnName: string) => any;
 
 // @public (undocumented)
 export const GridExporter: React.ComponentType<ExporterProps> & {
-    exportGrid: (options?: any) => void;
+    exportGrid: (options?: object) => void;
 };
 
 // @public (undocumented)

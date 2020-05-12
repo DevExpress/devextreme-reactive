@@ -53,5 +53,5 @@ export type ExporterState = {
 
 export declare const GridExporter: React.ComponentType<ExporterProps> & {
   /** A method that exports data. */
-  exportGrid: (options?: any) => void;
+  exportGrid: (options?: object) => void;
 };

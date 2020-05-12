@@ -45,4 +45,4 @@ customizeFooter? | (worksheet: [ExcelJS.Worksheet](https://github.com/exceljs/ex
 
 Name | Type | Description
 -----|------|------------
-exportGrid | (options?: any) => void | A method that exports data.
+exportGrid | (options?: object) => void | A method that exports data.

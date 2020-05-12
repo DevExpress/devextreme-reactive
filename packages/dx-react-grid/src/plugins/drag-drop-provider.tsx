@@ -18,7 +18,7 @@ class DragDropProviderBase extends React.PureComponent<DragDropProviderProps, Dr
     columnComponent: 'Column',
   };
   change: (object) => void;
-  bodyRef!: HTMLElement
+  bodyRef!: HTMLElement;
 
   constructor(props) {
     super(props);

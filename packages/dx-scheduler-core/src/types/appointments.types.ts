@@ -309,7 +309,7 @@ export type AdjustAppointemntsByBlocksFn = PureComputed<
 
 /** @internal */
 export type RedistributeBlocksFn = PureComputed<
-  [CalculatedBlock[], CalculatedBlock, number], void
+  [CalculatedBlock[], number, number], void
 >;
 
 /** @internal */
@@ -341,11 +341,6 @@ export type CalculateSingleBlockLeftLimitFn = PureComputed<
 /** @internal */
 export type UpdateBlocksProportionsFn = PureComputed<
   [BlockWithLeftLimit[] | CalculatedBlock[]], CalculatedBlock[]
->;
-
-/** @internal */
-export type UpdateSingleBlockProportionsFn = PureComputed<
-  [CalculatedBlock[], CalculatedBlock, number, number], number
 >;
 
 /** @internal */

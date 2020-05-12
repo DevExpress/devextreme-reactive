@@ -16,8 +16,7 @@ import {
   CalculateBlockDimensionsFn, AlignBlocksWithPreviousFn, AdjustAppointemntsByBlocksFn,
   RedistributeBlocksFn, CalculateIncludedBlockMaxRightFn, CalculateBlocksTotalSizeFn,
   CalculateSingleBlockTotalSizeFn, CalculateBlocksLeftLimitFn, CalculateSingleBlockLeftLimitFn,
-  UpdateBlocksProportionsFn, UpdateSingleBlockProportionsFn, UpdateBlocksLeftFn,
-  CreateAndAdjustAppointmentForestFn,
+  UpdateBlocksProportionsFn, UpdateBlocksLeftFn, CreateAndAdjustAppointmentForestFn,
 } from '../../types';
 import { HORIZONTAL_GROUP_ORIENTATION, HORIZONTAL_TYPE, VERTICAL_TYPE } from '../../constants';
 import { toPercentage } from '../../utils';
@@ -853,11 +852,12 @@ const adjustAppointmentsByBlocks: AdjustAppointemntsByBlocksFn = (
   appointments, blocks, indirectChildLeftOffset,
 ) => {
   const nextAppointments = appointments.map(props => ({ ...props }));
+  const nextBlocks = blocks.map(props => ({ ...props }));
 
-  blocks.forEach((block, index) => {
+  nextBlocks.forEach((block, index) => {
     if (index !== 0) {
       const { items, left: blockLeft, right, children } = block;
-      const maxRight = calculateIncludedBlockMaxRight(blocks, block);
+      const maxRight = calculateIncludedBlockMaxRight(nextBlocks, block);
       const finalMaxRight = maxRight * right;
       const defaultLeft = blockLeft! * maxRight;
 
@@ -865,22 +865,21 @@ const adjustAppointmentsByBlocks: AdjustAppointemntsByBlocksFn = (
         const appointment = nextAppointments[appointmentIndex];
         if (itemIndex === 0) {
           const { left, width } = calculateAppointmentLeftAndWidth(
-            nextAppointments, blocks, appointment,
+            nextAppointments, nextBlocks, appointment,
             finalMaxRight, indirectChildLeftOffset, defaultLeft,
           );
           appointment.data.left = left;
           appointment.data.width = width;
           if (defaultLeft !== left) {
             children.forEach((childIndex) => {
-              const child = blocks[childIndex];
-              redistributeChildBlocks(blocks, child, left / maxRight);
+              redistributeChildBlocks(nextBlocks, childIndex, left / maxRight);
             });
           }
         } else {
           const {
             left, width,
           } = calculateAppointmentLeftAndWidth(
-            nextAppointments, blocks, appointment,
+            nextAppointments, nextBlocks, appointment,
             finalMaxRight, indirectChildLeftOffset, undefined,
           );
           appointment.data.left = left;
@@ -902,7 +901,8 @@ const adjustAppointmentsByBlocks: AdjustAppointemntsByBlocksFn = (
   return nextAppointments;
 };
 
-const redistributeChildBlocks: RedistributeBlocksFn = (blocks, block, right) => {
+const redistributeChildBlocks: RedistributeBlocksFn = (blocks, blockIndex, right) => {
+  const block = blocks[blockIndex];
   const { leftOffset, size, leftLimit, children } = block;
   block.right = right;
   const width = size + leftOffset;
@@ -910,8 +910,7 @@ const redistributeChildBlocks: RedistributeBlocksFn = (blocks, block, right) => 
   const left = right - relativeWidth * size / width;
   block.left = left;
   children.forEach((childIndex) => {
-    const child = blocks[childIndex];
-    redistributeChildBlocks(blocks, child, left);
+    redistributeChildBlocks(blocks, childIndex, left);
   });
 };
 
@@ -980,25 +979,26 @@ const calculateSingleBlockLeftLimit: CalculateSingleBlockLeftLimitFn = (
 };
 
 export const updateBlocksProportions: UpdateBlocksProportionsFn = (blocks) => {
-  const nextBlocks = (blocks as CalculatedBlock[]).map(props => ({ ...props }));
-  nextBlocks.forEach((block) => {
-    const { right, totalSize } = block;
-    if (!right) {
-      updateSingleBlockProportions(nextBlocks, block, totalSize, 1);
+  const nextBlocks = (blocks as CalculatedBlock[]).map((block) => {
+    const { parent: parentIndex, leftLimit, leftOffset, totalSize } = block;
+    if (parentIndex === undefined) {
+      return {
+        ...block,
+        right: 1,
+        left: (1 - leftLimit) * leftOffset / totalSize + leftLimit,
+      };
     }
+
+    const parent = blocks[parentIndex];
+    const { left: parentLeft, totalSize: parentTotalSize } = parent as CalculatedBlock;
+    return {
+      ...block,
+      totalSize: parentTotalSize,
+      right: parentLeft as number,
+      left: (1 - leftLimit) * leftOffset / parentTotalSize + leftLimit,
+    };
   });
   return nextBlocks;
-};
-
-const updateSingleBlockProportions: UpdateSingleBlockProportionsFn = (
-  blocks, block, totalSize, right,
-) => {
-  const { children, leftLimit, leftOffset } = block;
-  block.totalSize = totalSize;
-  block.right = right;
-  block.left = (1 - leftLimit) * leftOffset / totalSize + leftLimit;
-  children.forEach(childIndex => updateSingleBlockProportions(
-    blocks, blocks[childIndex], totalSize, block.left));
 };
 
 export const updateBlocksLeft: UpdateBlocksLeftFn = (
@@ -1056,22 +1056,24 @@ export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIn
     ? horizontalRectCalculator
     : placeAppointmentsNextToEachOther ? oldVerticalRectCalculator : verticalRectCalculator;
 
-  let sizesCalculated = calculateAppointmentOffsets(
+  const groupsCalculated = calculateAppointmentOffsets(
     grouped as any[], isHorizontal,
-  ) as any[];
+  );
   const isAppointmentForestNeeded = !isHorizontal && !placeAppointmentsNextToEachOther;
+  let appointmentForest: GroupedIntoBlocksForest[];
 
   if (isAppointmentForestNeeded) {
-    sizesCalculated = createAndAdjustAppointmentForest(
-      sizesCalculated as AppointmentGroup[], cellDuration,
-    ) as any[];
+    appointmentForest = createAndAdjustAppointmentForest(
+      groupsCalculated as AppointmentGroup[], cellDuration,
+    ) as GroupedIntoBlocksForest[];
   }
 
-  const unwrapAppointments = isAppointmentForestNeeded ? unwrapAppointmentForest : unwrapGroups;
-  const rects = unwrapAppointments(sizesCalculated)
-    .map(appointment => rectCalculator(
-      appointment, viewMetaData,
-      { rectByDates, multiline, rectByDatesMeta },
-    ));
+  const unwrappedAppointments = isAppointmentForestNeeded
+    ? unwrapAppointmentForest(appointmentForest!)
+    : unwrapGroups(groupsCalculated);
+  const rects = unwrappedAppointments.map(appointment => rectCalculator(
+    appointment, viewMetaData,
+    { rectByDates, multiline, rectByDatesMeta },
+  ));
   return rects.sort((first, second) => first.offset! >= second.offset! ? 1 : -1);
 };

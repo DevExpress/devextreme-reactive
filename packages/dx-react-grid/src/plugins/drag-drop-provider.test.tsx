@@ -105,8 +105,8 @@ describe('DragDropProvider', () => {
     expect(portal.exists())
       .toBe(true);
 
-    const renderContainer = portal.props().containerInfo;
-    expect(renderContainer instanceof HTMLBodyElement)
+    const targetContainer = portal.props().containerInfo;
+    expect(targetContainer instanceof HTMLBodyElement)
       .toBe(true);
   });
 });

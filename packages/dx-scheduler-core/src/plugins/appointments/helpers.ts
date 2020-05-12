@@ -1,8 +1,22 @@
 import { PureComputed, CustomFunction } from '@devexpress/dx-core';
 import {
-  ViewCell, CellElementsMeta, GroupOrientation,
-  CalculateRectByDateAndGroupIntervalsFn, AppointmentMoment,
+  ViewCell, CellElementsMeta, GroupOrientation, AppointmentMoment,
   AppointmentUnwrappedGroup, ViewMetaData, ElementRect, AppointmentGroup,
+  AppointmentForestRoots, CalculatedTreeNode, TreeNodeWithOverlappingSubTreeRoots,
+  TreeNodeInBlock, AppointmentBlock, IncludedBlock, BlockWithChildren, CalculatedBlock,
+
+  VisitRootsFn, CalculateRectByDateAndGroupIntervalsFn, CreateAppointmentForestFn,
+  VisitChildFn, VisitAllChildrenFn, IsPossibleChildFn, FindMaxReduceValueFn,
+  CalculateAppointmentsMetaDataFn, CalulateRootsMetaDataFn, CalculateChildMetaDataFn,
+  CalculateChildrenMetaDataFn, CalculateAppointmentLeftAndWidthFn, PrepareToGroupIntoBlocksFn,
+  IsOverlappingSubTreeRootFn, FindChildrenMaxEndDateFn, GroupAppointmentsIntoBlocksFn,
+  CalculateBlockSizeBEndDateFn, FindBlockIndexByAppointmentFn, FindIncludedBlocksFn,
+  IsIncludedBlockFn, FindChildBlocksFn, IsChildBlockFn, AdjustByBlocksFn,
+  CalculateBlockDimensionsFn, AlignBlocksWithPreviousFn, AdjustAppointemntsByBlocksFn,
+  RedistributeBlocksFn, CalculateIncludedBlockMaxRightFn, CalculateBlocksTotalSizeFn,
+  CalculateSingleBlockTotalSizeFn, CalculateBlocksLeftLimitFn, CalculateSingleBlockLeftLimitFn,
+  UpdateBlocksProportionsFn, UpdateSingleBlockProportionsFn, UpdateBlocksLeftFn,
+  CreateAndAdjustAppointmentForestFn,
 } from '../../types';
 import { HORIZONTAL_GROUP_ORIENTATION, HORIZONTAL_TYPE, VERTICAL_TYPE } from '../../constants';
 import { toPercentage } from '../../utils';
@@ -259,8 +273,8 @@ const maxBoundaryPredicate: PureComputed<
 > = (maxBoundary, startDate) => ((maxBoundary.isBefore(startDate as Date, 'day'))
   || (isMidnight(maxBoundary) && maxBoundary.isSame(startDate as Date, 'day')));
 
-export const adjustAppointments: CustomFunction<
-  [any[], boolean], any
+export const calculateAppointmentOffsets: CustomFunction<
+  [any[], boolean], AppointmentGroup[]
 > = (groups, byDay = false) => groups.map((items) => {
   let offset = 0;
   let reduceValue = 1;
@@ -316,9 +330,9 @@ export const intervalIncludes: PureComputed<
 > = (intervalStart, intervalEnd, date) => date.isSameOrAfter(intervalStart)
   && date.isBefore(intervalEnd);
 
-export const createAppointmentForest: PureComputed<
-  [any[], number], any
-> = (appointmentGroups, cellDuration) => appointmentGroups.map((appointmentGroup) => {
+export const createAppointmentForest: CreateAppointmentForestFn = (
+  appointmentGroups, cellDuration,
+) => appointmentGroups.map((appointmentGroup) => {
   const { items } = appointmentGroup;
   let nextItems;
   let roots;
@@ -330,7 +344,7 @@ export const createAppointmentForest: PureComputed<
   } else {
     const {
       appointments, roots: appointmentTreeRoots,
-    } = iterateTreeRoots(items, cellDuration);
+    } = visitRoots(items, cellDuration) as AppointmentForestRoots;
     nextItems = appointments;
     roots = appointmentTreeRoots;
   }
@@ -341,9 +355,7 @@ export const createAppointmentForest: PureComputed<
   };
 });
 
-const iterateTreeRoots: PureComputed<
-  [any[], number], any
-> = (appointmentItems, cellDuration) => {
+const visitRoots: VisitRootsFn = (appointmentItems, cellDuration) => {
   const appointmentNodes: any[] = appointmentItems.map(props => ({
     data: props,
   }));
@@ -371,9 +383,9 @@ const iterateTreeRoots: PureComputed<
   return { appointments: appointmentNodes, roots };
 };
 
-const visitChild: PureComputed<
-  [any[], number, number, number, boolean, number], any
-> = (appointmentNodes, index, parentAppointmentIndex, cellDuration, isDirectChild, treeDepth) => {
+const visitChild: VisitChildFn = (
+  appointmentNodes, index, parentAppointmentIndex, cellDuration, isDirectChild, treeDepth,
+) => {
   const appointmentNode = appointmentNodes[index];
   appointmentNode.isDirectChild = isDirectChild;
   appointmentNode.parent = parentAppointmentIndex;
@@ -396,9 +408,9 @@ const visitChild: PureComputed<
   return calculatedTreeDepth + 1;
 };
 
-const visitAllChildren: PureComputed<
-  [any[], number, number, number], any
-> = (appointmentNodes, appointmentIndex, cellDuration, treeDepth) => {
+const visitAllChildren: VisitAllChildrenFn = (
+  appointmentNodes, appointmentIndex, cellDuration, treeDepth,
+) => {
   const appointment = appointmentNodes[appointmentIndex];
   const { end, offset: appointmentOffset, start } = appointment.data;
   const directChildTimeLimit = moment(start).add(cellDuration, 'minutes');
@@ -429,9 +441,9 @@ const visitAllChildren: PureComputed<
   return maxAppointmentTreeDepth;
 };
 
-export const isPossibleChild: PureComputed<
-  [any[], number, moment.Moment, number], boolean
-> = (appointments, possibleChildIndex, parentEnd, parentOffset) => {
+export const isPossibleChild: IsPossibleChildFn = (
+  appointments, possibleChildIndex, parentEnd, parentOffset,
+) => {
   const possibleChild = appointments[possibleChildIndex];
   return (
     possibleChildIndex < appointments.length
@@ -440,16 +452,15 @@ export const isPossibleChild: PureComputed<
   );
 };
 
-export const findMaxReduceValue: PureComputed<
-  [any[]], number
-> = appointmentGroups => appointmentGroups.reduce((maxReduceValue, group) => {
-  const currentReduceValue = group.reduceValue;
-  return maxReduceValue > currentReduceValue ? maxReduceValue : currentReduceValue;
-}, 1);
+export const findMaxReduceValue: FindMaxReduceValueFn =
+  appointmentGroups => appointmentGroups.reduce((maxReduceValue, group) => {
+    const currentReduceValue = group.reduceValue;
+    return maxReduceValue > currentReduceValue ? maxReduceValue : currentReduceValue;
+  }, 1);
 
-export const calculateAppointmentsMetaData: PureComputed<
-  [any[], number], any[]
-> = (appointmentGroups, indirectChildLeftOffset) => appointmentGroups.map((appointmentForest) => {
+export const calculateAppointmentsMetaData: CalculateAppointmentsMetaDataFn = (
+  appointmentGroups, indirectChildLeftOffset,
+) => appointmentGroups.map((appointmentForest) => {
   const { items, roots } = appointmentForest;
   const firstNode = items[0];
   return {
@@ -463,14 +474,14 @@ export const calculateAppointmentsMetaData: PureComputed<
           width: 1,
         },
       }]
-      : calculateRootsMetaData(items, roots, indirectChildLeftOffset),
+      : calculateRootsMetaData(items, roots, indirectChildLeftOffset) as CalculatedTreeNode[],
   };
 });
 
-const calculateRootsMetaData: PureComputed<
-  [any[], any[], number], any[]
-> = (appointmentNodes, roots, indirectChildLeftOffset) => {
-  const appointments = appointmentNodes.map(props => ({ ...props }));
+const calculateRootsMetaData: CalulateRootsMetaDataFn = (
+  appointmentNodes, roots, indirectChildLeftOffset,
+) => {
+  const appointments = appointmentNodes.map(props => ({ ...props })) as CalculatedTreeNode[];
 
   roots.forEach((appointmentIndex) => {
     const appointment = appointments[appointmentIndex];
@@ -485,9 +496,9 @@ const calculateRootsMetaData: PureComputed<
   return appointments;
 };
 
-const calculateChildMetaData: PureComputed<
-  [any[], any, number, number], void
-> = (appointmentNodes, appointmentIndex, maxWidth, indirectChildLeftOffset) => {
+const calculateChildMetaData: CalculateChildMetaDataFn = (
+  appointmentNodes, appointmentIndex, maxWidth, indirectChildLeftOffset,
+) => {
   const appointment = appointmentNodes[appointmentIndex];
   const { left, width } = calculateAppointmentLeftAndWidth(
     appointmentNodes, undefined, appointment, maxWidth, indirectChildLeftOffset, undefined,
@@ -495,32 +506,27 @@ const calculateChildMetaData: PureComputed<
   appointment.data.left = left;
   appointment.data.width = width;
 
-  if (appointment.children.length === 0) {
-    return appointment;
-  }
-
   calculateChildrenMetaData(
     appointmentNodes, appointment, maxWidth, indirectChildLeftOffset,
   );
 };
 
-const calculateChildrenMetaData: PureComputed<
-  [any[], any, number, number], void
-> = (appointmentNodes, appointmentNode, maxWidth, indirectChildLeftOffset) => {
+const calculateChildrenMetaData: CalculateChildrenMetaDataFn = (
+  appointmentNodes, appointmentNode, maxWidth, indirectChildLeftOffset,
+) => {
   appointmentNode.children.forEach((childIndex) => {
     calculateChildMetaData(appointmentNodes, childIndex, maxWidth, indirectChildLeftOffset);
   });
 };
 
-export const calculateAppointmentLeftAndWidth: PureComputed<
-  [any[], any[] | undefined, any, number, number, number | undefined], any
-> = (appointmentNodes, blocks, appointmentNode, maxRight, indirectChildLeftOffset, defaultLeft) => {
+export const calculateAppointmentLeftAndWidth: CalculateAppointmentLeftAndWidthFn = (
+  appointmentNodes, blocks, appointmentNode, maxRight, indirectChildLeftOffset, defaultLeft,
+) => {
   const {
     hasDirectChild, treeDepth, isDirectChild, parent: parentIndex, children, blockIndex,
-  } = appointmentNode;
-  const parent = appointmentNodes[parentIndex];
+  } = appointmentNode as TreeNodeInBlock;
   const firstChild = appointmentNodes[children[0]];
-  const firstChildBlockIndex = firstChild?.blockIndex;
+  const firstChildBlockIndex = (firstChild as TreeNodeInBlock)?.blockIndex;
 
   const hasDirectChildAndInSameBlock = hasDirectChild
     && (firstChildBlockIndex === undefined || (blockIndex === firstChildBlockIndex
@@ -534,6 +540,7 @@ export const calculateAppointmentLeftAndWidth: PureComputed<
     });
   }
 
+  const parent = appointmentNodes[parentIndex];
   const {
     width: parentWidth,
     left: parentLeft,
@@ -549,55 +556,56 @@ export const calculateAppointmentLeftAndWidth: PureComputed<
   });
 };
 
-export const prepareToGroupIntoBlocks: PureComputed<
-  [any[]], any[]
-> = appointments => appointments.map((appointmentForest) => {
-  const { items: nodes } = appointmentForest;
-  const appointmentNodes = nodes.map(props => ({ ...props }));
+export const prepareToGroupIntoBlocks: PrepareToGroupIntoBlocksFn =
+  appointments => appointments.map((appointmentForest) => {
+    const { items: nodes } = appointmentForest;
+    const appointmentNodes = nodes.map(props => ({
+      ...props,
+    })) as TreeNodeWithOverlappingSubTreeRoots[];
 
-  appointmentNodes.forEach((appointmentNode, index) => {
-    if (index === 0) {
-      appointmentNode.overlappingSubTreeRoots = [];
-      return;
-    }
-    const overlappingSubTreeRoots = [] as any[];
-    const { offset: appointmentOffset, end } = appointmentNode.data;
-
-    let nextChildIndex = index + 1;
-    let currentBlockEnd;
-    while (isPossibleChild(appointmentNodes, nextChildIndex, end, appointmentOffset)) {
-      const nextAppointment = appointmentNodes[nextChildIndex];
-      if (nextAppointment.data.offset < appointmentOffset
-        && nextAppointment.maxOffset === undefined) {
-        nextAppointment.maxOffset = appointmentOffset;
+    appointmentNodes.forEach((appointmentNode, index) => {
+      if (index === 0) {
+        appointmentNode.overlappingSubTreeRoots = [];
+        return;
       }
+      const overlappingSubTreeRoots = [] as any[];
+      const { offset: appointmentOffset, end } = appointmentNode.data;
 
-      const previousSubTreeRoot = overlappingSubTreeRoots.length > 0
-        ? appointmentNodes[overlappingSubTreeRoots[overlappingSubTreeRoots.length - 1]]
-        : undefined;
-      if (isOverlappingSubTreeRoot(
-        appointmentNode, nextAppointment, previousSubTreeRoot, currentBlockEnd,
-      )) {
-        overlappingSubTreeRoots.push(nextChildIndex);
-        nextAppointment.overlappingSubTreeRoot = true;
-        const maxChildDate = findChildrenMaxEndDate(appointmentNodes, nextAppointment);
-        if (!currentBlockEnd || currentBlockEnd.isBefore(maxChildDate)) {
-          currentBlockEnd = maxChildDate;
+      let nextChildIndex = index + 1;
+      let currentBlockEnd;
+      while (isPossibleChild(appointmentNodes, nextChildIndex, end, appointmentOffset)) {
+        const nextAppointment = appointmentNodes[nextChildIndex];
+        if (nextAppointment.data.offset < appointmentOffset
+          && nextAppointment.maxOffset === undefined) {
+          nextAppointment.maxOffset = appointmentOffset;
         }
-      }
-      nextChildIndex += 1;
-    }
-    appointmentNode.overlappingSubTreeRoots = overlappingSubTreeRoots;
-  });
-  return {
-    ...appointmentForest,
-    items: appointmentNodes,
-  };
-});
 
-export const isOverlappingSubTreeRoot: PureComputed<
-  [any, any, any | undefined, moment.Moment | undefined], boolean
-> = (appointmentNode, nextAppointment, previousSubTreeRoot, previousEndDate) => {
+        const previousSubTreeRoot = overlappingSubTreeRoots.length > 0
+          ? appointmentNodes[overlappingSubTreeRoots[overlappingSubTreeRoots.length - 1]]
+          : undefined;
+        if (isOverlappingSubTreeRoot(
+          appointmentNode, nextAppointment, previousSubTreeRoot, currentBlockEnd,
+        )) {
+          overlappingSubTreeRoots.push(nextChildIndex);
+          nextAppointment.overlappingSubTreeRoot = true;
+          const maxChildDate = findChildrenMaxEndDate(appointmentNodes, nextAppointment);
+          if (!currentBlockEnd || currentBlockEnd.isBefore(maxChildDate)) {
+            currentBlockEnd = maxChildDate;
+          }
+        }
+        nextChildIndex += 1;
+      }
+      appointmentNode.overlappingSubTreeRoots = overlappingSubTreeRoots;
+    });
+    return {
+      ...appointmentForest,
+      items: appointmentNodes,
+    };
+  });
+
+export const isOverlappingSubTreeRoot: IsOverlappingSubTreeRootFn = (
+  appointmentNode, nextAppointment, previousSubTreeRoot, previousEndDate,
+) => {
   const {
     overlappingSubTreeRoot, maxOffset, data: nextData,
   } = nextAppointment;
@@ -614,9 +622,9 @@ export const isOverlappingSubTreeRoot: PureComputed<
   );
 };
 
-export const findChildrenMaxEndDate: PureComputed<
-  [any[], any], moment.Moment
-> = (appointmentNodes, appointmentNode) => {
+export const findChildrenMaxEndDate: FindChildrenMaxEndDateFn = (
+  appointmentNodes, appointmentNode,
+) => {
   const { children, data } = appointmentNode;
   const { end } = data;
 
@@ -631,9 +639,67 @@ export const findChildrenMaxEndDate: PureComputed<
   return maxDate;
 };
 
-const calculateBlockSizeByEndDate: PureComputed<
-  [any[], any, moment.Moment], number
-> = (appointmentNodes, subTreeRoot, blockEndDate) => {
+export const groupAppointmentsIntoBlocks: GroupAppointmentsIntoBlocksFn =
+  appointmentForests => appointmentForests.map((appointmentForest) => {
+    const { items, reduceValue } = appointmentForest;
+    const { blocks: nextBlocks, appointments } = items.reduce((acc, appointment, index) => {
+      const blocks = acc.blocks.slice();
+      const {
+        treeDepth, data, overlappingSubTreeRoots, overlappingSubTreeRoot,
+      } = appointment;
+      const { offset, start, end } = data;
+
+      if (overlappingSubTreeRoots.length !== 0) {
+        if (!overlappingSubTreeRoot) {
+          blocks.push({
+            start, end, minOffset: offset, maxOffset: offset + treeDepth,
+            size: treeDepth + 1, items: [], endForChildren: end,
+          });
+        }
+        overlappingSubTreeRoots.forEach((subTreeRootIndex) => {
+          const subTreeRoot = items[subTreeRootIndex];
+          const { data: subTreeRootData } = subTreeRoot;
+          blocks.push({
+            start: subTreeRootData.start, end,
+            minOffset: subTreeRootData.offset, maxOffset: offset - 1,
+            size: calculateBlockSizeByEndDate(items, subTreeRoot, end), items: [],
+            endForChildren: subTreeRootData.end,
+          });
+        });
+      }
+
+      const blockIndex = findBlockIndexByAppointment(blocks, appointment);
+      blocks[blockIndex].items.push(index);
+      const appointmentInBlock = { ...appointment, blockIndex };
+
+      return {
+        blocks,
+        appointments: [...acc.appointments, appointmentInBlock],
+      };
+    }, {
+      blocks: [{
+        start: items[0].data.start,
+        end: items[0].data.end,
+        minOffset: 0,
+        maxOffset: reduceValue - 1,
+        size: reduceValue,
+        items: [],
+        endForChildren: items[0].data.end,
+      }] as AppointmentBlock[],
+      appointments: [] as TreeNodeInBlock[],
+    });
+    return {
+      blocks: nextBlocks,
+      appointmentForest: {
+        ...appointmentForest,
+        items: appointments,
+      },
+    };
+  });
+
+const calculateBlockSizeByEndDate: CalculateBlockSizeBEndDateFn = (
+  appointmentNodes, subTreeRoot, blockEndDate,
+) => {
   const { children, data } = subTreeRoot;
   const { start } = data;
 
@@ -657,67 +723,9 @@ const calculateBlockSizeByEndDate: PureComputed<
   return maxSize + 1;
 };
 
-export const groupAppointmentsIntoBlocks: PureComputed<
-  [any[]], any[]
-> = appointmentForests => appointmentForests.map((appointmentForest) => {
-  const { items, reduceValue } = appointmentForest;
-  const { blocks: nextBlocks, appointments } = items.reduce((acc, appointment, index) => {
-    const blocks = acc.blocks.slice();
-    const {
-      treeDepth, data, overlappingSubTreeRoots, overlappingSubTreeRoot,
-    } = appointment;
-    const { offset, start, end } = data;
-
-    if (overlappingSubTreeRoots.length !== 0) {
-      if (!overlappingSubTreeRoot) {
-        blocks.push({
-          start, end, minOffset: offset, maxOffset: offset + treeDepth,
-          size: treeDepth + 1, items: [], endForChildren: end,
-        });
-      }
-      overlappingSubTreeRoots.forEach((subTreeRootIndex) => {
-        const subTreeRoot = items[subTreeRootIndex];
-        const { data: subTreeRootData } = subTreeRoot;
-        blocks.push({
-          start: subTreeRootData.start, end,
-          minOffset: subTreeRootData.offset, maxOffset: offset - 1,
-          size: calculateBlockSizeByEndDate(items, subTreeRoot, end), items: [],
-          endForChildren: subTreeRootData.end,
-        });
-      });
-    }
-
-    const blockIndex = findBlockIndexByAppointment(blocks, appointment);
-    blocks[blockIndex].items.push(index);
-    const appointmentInBlock = { ...appointment, blockIndex };
-
-    return {
-      blocks,
-      appointments: [...acc.appointments, appointmentInBlock],
-    };
-  }, {
-    blocks: [{
-      start: items[0].data.start,
-      end: items[0].data.end,
-      minOffset: 0,
-      maxOffset: reduceValue - 1,
-      size: reduceValue,
-      items: [],
-    }],
-    appointments: [],
-  });
-  return {
-    blocks: nextBlocks,
-    appointmentForest: {
-      ...appointmentForest,
-      items: appointments,
-    },
-  };
-});
-
-export const findBlockIndexByAppointment: PureComputed<
-  [any[], any], number
-> = (blocks, appointment) => {
+export const findBlockIndexByAppointment: FindBlockIndexByAppointmentFn = (
+  blocks, appointment,
+) => {
   const { start, offset } = appointment.data;
 
   let blockIndex = blocks.length - 1;
@@ -734,50 +742,9 @@ export const findBlockIndexByAppointment: PureComputed<
   return blockIndex;
 };
 
-export const findChildBlocks: PureComputed<
-  [any[]], any[]
-> = (groupedIntoBlocks) => {
+export const findIncludedBlocks: FindIncludedBlocksFn = (groupedIntoBlocks) => {
   return groupedIntoBlocks.map(({ blocks, appointmentForest }) => {
-    const nextBlocks = blocks.map(props => ({ ...props }));
-
-    nextBlocks.forEach((block, index) => {
-      block.children = [];
-      for (let currentIndex = index + 1; currentIndex < nextBlocks.length; currentIndex += 1) {
-        const nextBlock = nextBlocks[currentIndex];
-
-        if (isChildBlock(block, nextBlock)) {
-          block.children.push(currentIndex);
-          nextBlock.parent = index;
-        }
-      }
-      return block;
-    });
-    return {
-      appointmentForest, blocks: nextBlocks,
-    };
-  });
-};
-
-const isChildBlock: PureComputed<
-  [any, any], boolean
-> = (block, possibleChildBlock) => {
-  const { start, endForChildren, minOffset, includedInto } = block;
-  const {
-    start: childStart, includedInto: childIncludedInto, maxOffset: childMaxOffset,
-  } = possibleChildBlock;
-  return intervalIncludes(start, endForChildren, childStart)
-    && childMaxOffset + 1 === minOffset
-    && (
-      childIncludedInto === undefined
-      || childIncludedInto === includedInto
-    );
-};
-
-export const findIncludedBlocks: PureComputed<
-  [any[]], any[]
-> = (groupedIntoBlocks) => {
-  return groupedIntoBlocks.map(({ blocks, appointmentForest }) => {
-    const nextBlocks = blocks.map(props => ({ ...props }));
+    const nextBlocks = blocks.map(props => ({ ...props })) as IncludedBlock[];
 
     nextBlocks.forEach((block, blockIndex) => {
       block.includedBlocks = [];
@@ -799,9 +766,7 @@ export const findIncludedBlocks: PureComputed<
   });
 };
 
-const isIncludedBlock: PureComputed<
-  [any, any], boolean
-> = (block, possibleIncludedBlock) => {
+const isIncludedBlock: IsIncludedBlockFn = (block, possibleIncludedBlock) => {
   const { start, end, minOffset, maxOffset } = block;
   const {
     start: possibleIncludedStart, end: possibleIncludedEnd,
@@ -812,72 +777,117 @@ const isIncludedBlock: PureComputed<
     && possibleMaxOffset <= maxOffset && possibleMinOffset >= minOffset;
 };
 
-export const adjustByBlocks: PureComputed<
-  [any[], number], any[]
-> = (groupedIntoBlocks, indirectChildLeftOffset) => {
-  const updatedBlocks = groupedIntoBlocks.map(({ blocks, appointmentForest }) => {
-    const result = updateBlocksProportions(calculateBlocksLeftLimit(
-      calculateBlocksTotalSize(blocks), appointmentForest.items,
-    ));
-    result.forEach((block) => {
-      block.right = undefined;
+export const findChildBlocks: FindChildBlocksFn = (groupedIntoBlocks) => {
+  return groupedIntoBlocks.map(({ blocks, appointmentForest }) => {
+    const nextBlocks = blocks.map(props => ({ ...props })) as BlockWithChildren[];
+
+    nextBlocks.forEach((block, index) => {
+      block.children = [];
+      for (let currentIndex = index + 1; currentIndex < nextBlocks.length; currentIndex += 1) {
+        const nextBlock = nextBlocks[currentIndex];
+
+        if (isChildBlock(block, nextBlock)) {
+          block.children.push(currentIndex);
+          nextBlock.parent = index;
+        }
+      }
+      return block;
     });
     return {
-      blocks: updateBlocksProportions(calculateBlocksLeftLimit(
-        updateBlocksLeft(result, appointmentForest.items), appointmentForest.items,
-      )),
+      appointmentForest, blocks: nextBlocks,
+    };
+  });
+};
+
+const isChildBlock: IsChildBlockFn = (block, possibleChildBlock) => {
+  const { start, endForChildren, minOffset, includedInto } = block;
+  const {
+    start: childStart, includedInto: childIncludedInto, maxOffset: childMaxOffset,
+  } = possibleChildBlock;
+  return intervalIncludes(start, endForChildren, childStart)
+    && childMaxOffset + 1 === minOffset
+    && (
+      childIncludedInto === undefined
+      || childIncludedInto === includedInto
+    );
+};
+
+export const adjustByBlocks: AdjustByBlocksFn = (
+  groupedIntoBlocks, indirectChildLeftOffset,
+) => {
+  const updatedBlocks = groupedIntoBlocks.map(({ blocks, appointmentForest }) => {
+    const dimensionsCalculated = calculateBlocksDimensions(blocks, appointmentForest.items);
+
+    return {
+      blocks: alignBlocksWithPrevious(dimensionsCalculated, appointmentForest.items),
       appointmentForest,
     };
   });
   const adjustedByBlocks = updatedBlocks.map(({ blocks, appointmentForest }) => {
     return {
       ...appointmentForest,
-      items: adjustAppointmentsByBlocks(appointmentForest.items, blocks, indirectChildLeftOffset),
+      items: adjustAppointmentsByBlocks(
+        appointmentForest.items, blocks, indirectChildLeftOffset,
+        ) as TreeNodeInBlock[],
     };
   });
   return adjustedByBlocks;
 };
 
-const adjustAppointmentsByBlocks: PureComputed<
-  [any[], any[], number], any[]
-> = (appointments, blocks, indirectChildLeftOffset) => {
+const calculateBlocksDimensions: CalculateBlockDimensionsFn = (
+  blocks, appointments,
+) => updateBlocksProportions(calculateBlocksLeftLimit(
+  calculateBlocksTotalSize(blocks), appointments,
+));
+
+const alignBlocksWithPrevious: AlignBlocksWithPreviousFn = (blocks, appointments) => {
+  const nextBlocks = blocks.map(({ right, ...restProps }) => ({ ...restProps }));
+
+  const leftLimitCalculated = calculateBlocksLeftLimit(
+    updateBlocksLeft(nextBlocks as CalculatedBlock[], appointments), appointments,
+  );
+  return updateBlocksProportions(leftLimitCalculated);
+};
+
+const adjustAppointmentsByBlocks: AdjustAppointemntsByBlocksFn = (
+  appointments, blocks, indirectChildLeftOffset,
+) => {
   const nextAppointments = appointments.map(props => ({ ...props }));
 
   blocks.forEach((block, index) => {
-    if (index === 0) {
-      return block;
-    }
-    const { items, left: blockLeft, right, children } = block;
-    const maxRight = calculateIncludedBlockMaxRight(blocks, block);
-    const finalMaxRight = maxRight * right;
-    const defaultLeft = blockLeft * maxRight;
+    if (index !== 0) {
+      const { items, left: blockLeft, right, children } = block;
+      const maxRight = calculateIncludedBlockMaxRight(blocks, block);
+      const finalMaxRight = maxRight * right;
+      const defaultLeft = blockLeft! * maxRight;
 
-    items.forEach((appointmentIndex, index) => {
-      const appointment = nextAppointments[appointmentIndex];
-      if (index === 0) {
-        const { left, width } = calculateAppointmentLeftAndWidth(
-          nextAppointments, blocks, appointment,
-          finalMaxRight, indirectChildLeftOffset, defaultLeft,
-        );
-        appointment.data.left = left;
-        appointment.data.width = width;
-        if (defaultLeft !== left) {
-          children.forEach((childIndex) => {
-            const child = blocks[childIndex];
-            redistributeChildBlocks(blocks, child, left / maxRight);
-          });
+      items.forEach((appointmentIndex, itemIndex) => {
+        const appointment = nextAppointments[appointmentIndex];
+        if (itemIndex === 0) {
+          const { left, width } = calculateAppointmentLeftAndWidth(
+            nextAppointments, blocks, appointment,
+            finalMaxRight, indirectChildLeftOffset, defaultLeft,
+          );
+          appointment.data.left = left;
+          appointment.data.width = width;
+          if (defaultLeft !== left) {
+            children.forEach((childIndex) => {
+              const child = blocks[childIndex];
+              redistributeChildBlocks(blocks, child, left / maxRight);
+            });
+          }
+        } else {
+          const {
+            left, width,
+          } = calculateAppointmentLeftAndWidth(
+            nextAppointments, blocks, appointment,
+            finalMaxRight, indirectChildLeftOffset, undefined,
+          );
+          appointment.data.left = left;
+          appointment.data.width = width;
         }
-      } else {
-        const {
-          left, width,
-        } = calculateAppointmentLeftAndWidth(
-          nextAppointments, blocks, appointment,
-          finalMaxRight, indirectChildLeftOffset, undefined,
-        );
-        appointment.data.left = left;
-        appointment.data.width = width;
-      }
-    });
+      });
+    }
   });
   blocks[0].items.forEach((appointmentIndex) => {
     const appointment = nextAppointments[appointmentIndex];
@@ -892,9 +902,7 @@ const adjustAppointmentsByBlocks: PureComputed<
   return nextAppointments;
 };
 
-const redistributeChildBlocks: PureComputed<
-  [any[], any, number], void
-> = (blocks, block, right) => {
+const redistributeChildBlocks: RedistributeBlocksFn = (blocks, block, right) => {
   const { leftOffset, size, leftLimit, children } = block;
   block.right = right;
   const width = size + leftOffset;
@@ -907,9 +915,9 @@ const redistributeChildBlocks: PureComputed<
   });
 };
 
-export const calculateIncludedBlockMaxRight: PureComputed<
-  [any[], any], number
-> = (blocks, includedBlock) => {
+export const calculateIncludedBlockMaxRight: CalculateIncludedBlockMaxRightFn = (
+  blocks, includedBlock,
+) => {
   const { includedInto: includedIntoIndex } = includedBlock;
   if (includedIntoIndex === undefined) {
     return 1;
@@ -921,9 +929,7 @@ export const calculateIncludedBlockMaxRight: PureComputed<
 
 };
 
-export const calculateBlocksTotalSize: PureComputed<
-  [any[]], any[]
-> = (blocks) => {
+export const calculateBlocksTotalSize: CalculateBlocksTotalSizeFn = (blocks) => {
   const result = blocks.map((block) => {
     const totalSize = calculateSingleBlockTotalSize(blocks, block);
     return {
@@ -935,9 +941,9 @@ export const calculateBlocksTotalSize: PureComputed<
   return result;
 };
 
-const calculateSingleBlockTotalSize: PureComputed<
-  [any[], any], number
-> = (blocks, block) => {
+const calculateSingleBlockTotalSize: CalculateSingleBlockTotalSizeFn = (
+  blocks, block,
+) => {
   const { children, size } = block;
   if (children.length === 0) {
     return size;
@@ -947,20 +953,20 @@ const calculateSingleBlockTotalSize: PureComputed<
   ) + size;
 };
 
-export const calculateBlocksLeftLimit: PureComputed<
-  [any[], any[]], any[]
-> = (blocks, appointments) => {
-  const result = blocks.map((block) => {
-    block.leftLimit = calculateSingleBlockLeftLimit(blocks, appointments, block);
-    return block;
-  });
-  return result;
-};
+export const calculateBlocksLeftLimit: CalculateBlocksLeftLimitFn = (
+  blocks, appointments,
+) => (blocks as CalculatedBlock[]).map((block) => {
+  const leftLimit = calculateSingleBlockLeftLimit(blocks, appointments, block);
+  return {
+    ...block,
+    leftLimit,
+  };
+});
 
-const calculateSingleBlockLeftLimit: PureComputed<
-  [any[], any[], any], number
-> = (blocks, appointments, block) => {
-  const { children, items, left } = block;
+const calculateSingleBlockLeftLimit: CalculateSingleBlockLeftLimitFn = (
+  blocks, appointments, block,
+) => {
+  const { children, items, left } = block as CalculatedBlock;
   if (children.length === 0) {
     return left !== undefined
       ? Math.min(left, appointments[items[0]].data.left)
@@ -973,10 +979,8 @@ const calculateSingleBlockLeftLimit: PureComputed<
   );
 };
 
-export const updateBlocksProportions: PureComputed<
-  [any[]], any[]
-> = (blocks) => {
-  const nextBlocks = blocks.map(props => ({ ...props }));
+export const updateBlocksProportions: UpdateBlocksProportionsFn = (blocks) => {
+  const nextBlocks = (blocks as CalculatedBlock[]).map(props => ({ ...props }));
   nextBlocks.forEach((block) => {
     const { right, totalSize } = block;
     if (!right) {
@@ -986,9 +990,9 @@ export const updateBlocksProportions: PureComputed<
   return nextBlocks;
 };
 
-const updateSingleBlockProportions: PureComputed<
-  [any[], any, number, number], void
-> = (blocks, block, totalSize, right) => {
+const updateSingleBlockProportions: UpdateSingleBlockProportionsFn = (
+  blocks, block, totalSize, right,
+) => {
   const { children, leftLimit, leftOffset } = block;
   block.totalSize = totalSize;
   block.right = right;
@@ -997,9 +1001,9 @@ const updateSingleBlockProportions: PureComputed<
     blocks, blocks[childIndex], totalSize, block.left));
 };
 
-export const updateBlocksLeft: PureComputed<
-  [any[], any[]], any[]
-> = (blocks, appointments) => blocks.map((block) => {
+export const updateBlocksLeft: UpdateBlocksLeftFn = (
+  blocks, appointments,
+) => blocks.map((block) => {
   const { items, left } = block;
   const firstItem = appointments[items[0]];
   const { parent: firstItemParentIndex } = firstItem;
@@ -1015,6 +1019,25 @@ export const updateBlocksLeft: PureComputed<
     left: parentBlock.parent === undefined ? left : blocks[parentBlock.parent].left,
   };
 });
+
+const createAndAdjustAppointmentForest: CreateAndAdjustAppointmentForestFn = (
+  appointmentGroups, cellDuration,
+) => {
+  const appointmentForest = createAppointmentForest(appointmentGroups, cellDuration);
+  const indirectChildLeftOffset = Math.min(
+    1 / findMaxReduceValue(appointmentForest),
+    INDIRECT_CHILD_LEFT_OFFSET,
+  );
+  const baseCalculated = calculateAppointmentsMetaData(
+    appointmentForest, indirectChildLeftOffset,
+  );
+
+  const preparedToGroupIntoBlocks = prepareToGroupIntoBlocks(baseCalculated);
+  const groupedIntoBlocks = groupAppointmentsIntoBlocks(preparedToGroupIntoBlocks);
+  const blocksWithIncluded = findIncludedBlocks(groupedIntoBlocks);
+  const blocksWithParents = findChildBlocks(blocksWithIncluded);
+  return adjustByBlocks(blocksWithParents, indirectChildLeftOffset);
+}
 
 export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIntervalsFn = (
   type, intervals, rectByDates, rectByDatesMeta, viewMetaData,
@@ -1033,27 +1056,19 @@ export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIn
     ? horizontalRectCalculator
     : placeAppointmentsNextToEachOther ? oldVerticalRectCalculator : verticalRectCalculator;
 
-  let adjusted = adjustAppointments(grouped as any[], isHorizontal);
+  let sizesCalculated = calculateAppointmentOffsets(
+    grouped as any[], isHorizontal,
+  ) as any[];
   const isAppointmentForestNeeded = !isHorizontal && !placeAppointmentsNextToEachOther;
 
   if (isAppointmentForestNeeded) {
-    const appointmentForest = createAppointmentForest(adjusted, cellDuration);
-    const indirectChildLeftOffset = Math.min(
-      1 / findMaxReduceValue(appointmentForest),
-      INDIRECT_CHILD_LEFT_OFFSET,
-    );
-    const baseCalculated = calculateAppointmentsMetaData(
-      appointmentForest, indirectChildLeftOffset,
-    );
-
-    const preparedToGroupIntoBlocks = prepareToGroupIntoBlocks(baseCalculated);
-    const groupedIntoBlocks = groupAppointmentsIntoBlocks(preparedToGroupIntoBlocks);
-    const blocksWithIncluded = findIncludedBlocks(groupedIntoBlocks);
-    const blocksWithParents = findChildBlocks(blocksWithIncluded);
-    adjusted = adjustByBlocks(blocksWithParents, indirectChildLeftOffset);
+    sizesCalculated = createAndAdjustAppointmentForest(
+      sizesCalculated as AppointmentGroup[], cellDuration,
+    ) as any[];
   }
+
   const unwrapAppointments = isAppointmentForestNeeded ? unwrapAppointmentForest : unwrapGroups;
-  const rects = unwrapAppointments(adjusted)
+  const rects = unwrapAppointments(sizesCalculated)
     .map(appointment => rectCalculator(
       appointment, viewMetaData,
       { rectByDates, multiline, rectByDatesMeta },

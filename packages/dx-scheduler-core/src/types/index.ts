@@ -16,3 +16,4 @@ export * from './resources.types';
 export * from './grouping-state.types';
 export * from './integrated-grouping.types';
 export * from './grouping-panel.types';
+export * from './appointments.types';

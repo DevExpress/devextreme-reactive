@@ -40,3 +40,9 @@ customizeCell? | (cell: Excel.Cell, row: any, column: [Grid.Column](grid.md#colu
 customizeSummaryCell? | (cell: [ExcelJS.Cell](https://github.com/exceljs/exceljs#handling-individual-cells), row: any, summary: { type: string, ranges: number[][] }) => void | | Customizes Excel cells that display summaries.
 customizeHeader? | (worksheet: [ExcelJS.Worksheet](https://github.com/exceljs/exceljs#worksheet-properties)) => void | | Customizes the document's header.
 customizeFooter? | (worksheet: [ExcelJS.Worksheet](https://github.com/exceljs/exceljs#worksheet-properties)) => void | | Customizes the document's footer.
+
+## Methods
+
+Name | Type | Description
+-----|------|------------
+exportGrid | (options?: any) => void | Initiates data export.

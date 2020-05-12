@@ -21,26 +21,28 @@ export type ExporterProps =
   Pick<TableProps, 'columnExtensions'> &
   Pick<TableColumnVisibilityProps, 'hiddenColumnNames'> &
 {
-  /* The column order. */
+  /** The column order. */
   columnOrder?: string[],
-  /* Specifies additional properties for the columns used in grouping. */
+  /** Specifies additional properties for the columns used in grouping. */
   groupColumnExtensions?: TableGroupRow.ColumnExtension[],
-  /* Total summary items. */
+  /** Total summary items. */
   totalSummaryItems?: SummaryItem[],
-  /* Group summary items. */
+  /** Group summary items. */
   groupSummaryItems?: GroupSummaryItem[],
-  /* A function that should save the Excel document. */
+  /** A function that should save the Excel document. */
   onSave: (workbook: Workbook) => void;
-  /* Customizes Excel cells. */
+  /** Customizes Excel cells. */
   customizeCell?: (cell: ExcelCell, row: ExcelRow, column: Column) => void;
-  /* Customizes Excel cells that display summaries. */
+  /** Customizes Excel cells that display summaries. */
   customizeSummaryCell?: CustomizeSummaryCellFn;
-  /* Customizes the document's header. */
+  /** Customizes the document's header. */
   customizeHeader?: (worksheet: Worksheet) => void;
-  /* Customizes the document's footer. */
+  /** Customizes the document's footer. */
   customizeFooter?: (worksheet: Worksheet) => void;
   /** @internal */
   exportSelected: boolean;
+  /** A reference to the GridExporter instance */
+  ref?: React.RefObject<any>;
 };
 
 /** @internal */
@@ -49,4 +51,7 @@ export type ExporterState = {
   selectedOnly: boolean;
 };
 
-export declare const GridExporter: React.ComponentType<ExporterProps>;
+export declare const GridExporter: React.ComponentType<ExporterProps> & {
+  /** Initiates data export. */
+  exportGrid: (options?: any) => void;
+};

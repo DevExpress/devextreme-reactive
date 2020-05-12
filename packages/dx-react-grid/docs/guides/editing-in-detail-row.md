@@ -1,6 +1,6 @@
 # React Grid - Editing in Detail Row
 
-The [detail row](./detail-row.md) is an expandable pane that displays data row details. The detail row does not allow users to edit data out of the box, but you can create a custom plugin to implement this functionality. Before you start, peruse the following help topics:
+The [detail row](./detail-row.md) is an expandable pane that displays data row details. The detail row does not allow users to edit data out of the box, but you can create a custom plugin to implement this functionality. Before you start, review the following help topics:
 
 - [Core Concepts](../../../core/docs/guides/fundamentals.md)
 - [Custom Plugin Development](./custom-plugin-development.md)
@@ -57,7 +57,7 @@ To handle data edits, add the following functions:
 - `applyChanges` - applies data edits
 - `cancelChanges` - cancels data edits
 
-The detail row and an edit form in it will use these functions later. Implement the functions in the `tableCell` template and pass them as `params` to the [TemplatePlaceholder](../../../dx-react-core/docs/reference/template-placeholder.md) along with the row being edited.
+The detail row and the edit form in it will use these functions later. Implement the functions in the `tableCell` template and pass them as `params` to the [TemplatePlaceholder](../../../dx-react-core/docs/reference/template-placeholder.md) along with the row being edited.
 
 ```jsx
 const DetailEditCell = () => (

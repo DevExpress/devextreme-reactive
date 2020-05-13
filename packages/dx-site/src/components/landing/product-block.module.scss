@@ -1,0 +1,111 @@
+@import "../../constants";
+
+.container {
+  padding: 20px;
+  border-radius: 3px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+
+  @media (min-width: 530px) {
+    padding: 30px $inner-offset 25px $inner-offset;
+  }
+}
+
+.icon {
+  margin-right: 10px;
+}
+
+.title {
+  font-family: "Segoe UI Bold";
+  font-size: 28px;
+  color: white;
+  line-height: 1.1;
+  span {
+    display: block;
+  }
+}
+
+.description {
+  font-size: 14px;
+  color: rgba(125, 136, 142, 255);
+}
+
+.react {
+  background-color: #2eb9de;
+}
+
+.links {
+  text-align: center;
+}
+.links > a {
+  display: inline-block;
+}
+
+.divider {
+  min-width: 1px;
+  height: 100%;
+  background-color: #ace8f8;
+}
+
+@media screen and (max-width: 1000px) {
+  .container {
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .container {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+
+@media (min-width: 530px) and (max-width: 1000px) {
+  .container {
+    height: 150px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .titleWrapper,
+  .links {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .titleWrapper {
+    margin-top: -4px;
+    padding-right: 30px;
+  }
+
+  .links {
+    padding-left: 30px;
+  }
+
+  .divider {
+    display: block;
+  }
+}
+
+@media (max-width: 529px) {
+  .titleWrapper {
+    margin-bottom: 20px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .titleWrapper {
+    margin-bottom: 37px;
+  }
+}
+
+@media (max-width: 529px), (min-width: 1000px) {
+  .container {
+    flex-direction: column !important;
+  }
+
+  .divider {
+    display: none;
+  }
+}

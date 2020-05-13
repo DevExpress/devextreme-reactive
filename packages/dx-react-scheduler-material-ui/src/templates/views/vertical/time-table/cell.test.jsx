@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { createShallow } from '@material-ui/core/test-utils';
+import { VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import { Cell } from './cell';
 
 jest.mock('@material-ui/core/styles', () => ({
@@ -8,7 +9,8 @@ jest.mock('@material-ui/core/styles', () => ({
     cell: 'cell',
     shadedCell: 'shadedCell',
     shadedPart: 'shadedPart',
-    rightBorderCell: 'rightBorderCell',
+    brightRightBorder: 'brightRightBorder',
+    brightBorderBottom: 'brightBorderBottom',
   })),
 }));
 
@@ -29,7 +31,7 @@ describe('Vertical view TimeTable', () => {
         .toBeTruthy();
       expect(tree.is('.shadedCell'))
         .toBeFalsy();
-      expect(tree.is('.rightBorderCell'))
+      expect(tree.is('.brightRightBorder'))
         .toBeFalsy();
     });
     it('should pass rest props to the root element', () => {
@@ -91,13 +93,25 @@ describe('Vertical view TimeTable', () => {
       expect(tree.find(currentTimeIndicatorComponent).exists())
         .toBeTruthy();
     });
-    it('should render a cell with a bright border', () => {
+    it('should render the last cell in a horizontal group', () => {
       const tree = shallow((
         <Cell endOfGroup />
       ));
 
-      expect(tree.is('.rightBorderCell'))
+      expect(tree.is('.brightRightBorder'))
         .toBeTruthy();
+      expect(tree.is('.brightBorderBottom'))
+        .toBeFalsy();
+    });
+    it('should render the last cell in a vertical group', () => {
+      const tree = shallow((
+        <Cell endOfGroup groupOrientation={VERTICAL_GROUP_ORIENTATION} />
+      ));
+
+      expect(tree.is('.brightBorderBottom'))
+        .toBeTruthy();
+      expect(tree.is('.brightRightBorder'))
+        .toBeFalsy();
     });
   });
 });

@@ -2,27 +2,22 @@ import * as React from 'react';
 import {
   Plugin, Getter, Template, TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
-import { rowIdGetter, cellValueGetter } from '@devexpress/dx-grid-core';
 import { GridProps } from '../types';
+import { GridCoreGetters } from './internal';
 
-export class GridCore extends React.PureComponent<GridProps> {
+export class GridCore extends React.PureComponent<GridProps, any> {
   render() {
     const {
-      rows,
-      columns,
-      getRowId,
-      getCellValue,
       rootComponent: Root,
+      ...restProps
     } = this.props;
 
     return (
       <Plugin>
         <Getter name="skip" value={0} />
         <Getter name="loadedRowsStart" value={0} />
-        <Getter name="rows" value={rows} />
-        <Getter name="getRowId" value={rowIdGetter(getRowId!, rows)} />
-        <Getter name="columns" value={columns} />
-        <Getter name="getCellValue" value={cellValueGetter(getCellValue!, columns)} />
+        <GridCoreGetters {...restProps} />
+
         <Template name="root">
           <Root>
             <TemplatePlaceholder name="header" />

@@ -102,7 +102,7 @@ export const Pagination = ({
     onCurrentPageChange(nextPage);
   };
   return (
-    <>
+    <React.Fragment>
       <PaginationBS4 className="float-right d-none d-sm-flex" listClassName="m-0">
         <PaginationItem disabled={currentPage === 0}>
           <PaginationLink
@@ -143,7 +143,7 @@ export const Pagination = ({
           {getMessage('info', { from, to, count: totalCount })}
         </span>
       </span>
-    </>
+    </React.Fragment>
   );
 };
 

@@ -4,10 +4,10 @@ import {
   callActionIfExists, isAllDayCell, changeRecurrenceFrequency, getRecurrenceOptions,
   changeRecurrenceOptions, handleStartDateChange, handleToDayOfWeekChange, handleWeekNumberChange,
   getRRuleFrequency, getFrequencyString, handleChangeFrequency, getRadioGroupDisplayData,
-  handleWeekDaysChange, getDaysOfWeekArray, getDaysOfWeekDates,
+  handleWeekDaysChange, getDaysOfWeekArray, getDaysOfWeekDates, checkMultipleResourceFields,
 } from './helpers';
 import {
-  DEFAULT_RULE_OBJECT, REPEAT_TYPES, RRULE_REPEAT_TYPES, DAYS_OF_WEEK_ARRAY,
+  REPEAT_TYPES, RRULE_REPEAT_TYPES, DAYS_OF_WEEK_ARRAY,
   DAYS_OF_WEEK_DATES, SUNDAY_DATE, MONDAY_DATE, TUESDAY_DATE, WEDNESDAY_DATE,
   THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE,
 } from './constants';
@@ -427,6 +427,24 @@ describe('AppointmentForm helpers', () => {
           SATURDAY_DATE, SUNDAY_DATE, MONDAY_DATE, TUESDAY_DATE,
           WEDNESDAY_DATE, THURSDAY_DATE, FRIDAY_DATE,
         ]);
+    });
+  });
+  describe('#prepareChangedAppointment', () => {
+    it('should turn multiple instance resource fields into arrays', () => {
+      const resourceFields = {
+        singleInstanceResource: 'singleInstanceResource',
+        multipleInstanceResource: 'multipleInstanceResource',
+      };
+      const resources = [
+        { fieldName: 'singleInstanceResource', allowMultiple: false },
+        { fieldName: 'multipleInstanceResource', allowMultiple: true },
+      ];
+
+      expect(checkMultipleResourceFields(resourceFields, resources))
+        .toEqual({
+          singleInstanceResource: 'singleInstanceResource',
+          multipleInstanceResource: ['multipleInstanceResource'],
+        });
     });
   });
 });

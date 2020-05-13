@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Sizer } from '@devexpress/dx-react-core';
 import { MemoizedFunction, memoize } from '@devexpress/dx-core';
 import {
   TableColumn, GetColumnWidthFn, getCollapsedGrids,
@@ -8,6 +7,7 @@ import {
 import { VirtualTableLayoutState, VirtualTableLayoutProps } from '../../types';
 import { findDOMNode } from 'react-dom';
 import { VirtualTableLayoutBlock } from './virtual-table-layout-block';
+import { Sizer } from '@devexpress/dx-react-core';
 
 const AUTO_HEIGHT = 'auto';
 
@@ -313,14 +313,13 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       blockRefsHandler: this.registerBlockRef,
       rowRefsHandler: this.registerRowRef,
     };
+    const sizerHeight = height === AUTO_HEIGHT ? null : height;
 
     return (
       <Sizer
         onSizeChange={this.handleContainerSizeChange}
         containerComponent={Container}
-        style={{
-          ...(height === AUTO_HEIGHT ? null : { height }),
-        }}
+        style={{ height: sizerHeight }}
         onScroll={this.onScroll}
         scrollTop={scrollTop}
       >

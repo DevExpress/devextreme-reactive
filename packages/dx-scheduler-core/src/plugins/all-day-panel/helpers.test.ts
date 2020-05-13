@@ -2,7 +2,16 @@ import moment from 'moment';
 import {
   allDayPredicate, sliceAppointmentsByBoundaries,
   getAllDayCellIndexByAppointmentData, sliceAppointmentsByDays,
+  allDayCellsData, getAllDayVerticallyGroupedColumnIndex,
+  getAllDayHorizontallyGroupedColumnIndex, getAllDayVerticallyGroupedRowIndex,
 } from './helpers';
+import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '../../constants';
+import { allDayCells } from '../common/computeds';
+
+jest.mock('../common/computeds', () => ({
+  ...require.requireActual('../common/computeds'),
+  allDayCells: jest.fn(),
+}));
 
 describe('AllDayPanel helpers', () => {
   describe('#allDayAppointment', () => {
@@ -141,7 +150,7 @@ describe('AllDayPanel helpers', () => {
     });
   });
 
-  describe('#getAllDayCellIndexByDate', () => {
+  describe('#getAllDayCellIndexByAppointmentData', () => {
     const viewCellsDataBase = [
       [
         { startDate: new Date('2018-06-24 08:00'), endDate: new Date('2018-06-24 08:30') },
@@ -156,39 +165,117 @@ describe('AllDayPanel helpers', () => {
         { startDate: new Date('2018-06-27 08:30'), endDate: new Date('2018-06-27 09:00') },
       ],
     ];
+    const horizontallyGroupedViewCells = [[{
+      startDate: new Date('2018-06-24 08:00'),
+      endDate: new Date('2018-06-24 08:30'),
+      groupingInfo: [{ fieldName: 'test', id: 1 }],
+    }, {
+      startDate: new Date('2018-06-24 08:00'),
+      endDate: new Date('2018-06-24 08:30'),
+      groupingInfo: [{ fieldName: 'test', id: 2 }],
+    }]];
+    const verticallyGroupedViewCells = [[{
+      startDate: new Date('2018-06-24 08:00'),
+      endDate: new Date('2018-06-24 08:30'),
+      groupingInfo: [{ fieldName: 'test', id: 1 }],
+    }], [{
+      startDate: new Date('2018-06-24 08:00'),
+      endDate: new Date('2018-06-24 08:30'),
+      groupingInfo: [{ fieldName: 'test', id: 2 }],
+    }]];
+    const firstTestAppointment = { test: 1 };
+    const secondTestAppointment = { test: 2 };
     it('should return cell index', () => {
       const date = '2018-06-24 07:30';
       const takePrev = false;
-      expect(getAllDayCellIndexByAppointmentData(viewCellsDataBase, date, {}, takePrev))
+      expect(getAllDayCellIndexByAppointmentData(
+        viewCellsDataBase,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          groupCount: 1,
+        },
+        date, {}, takePrev,
+      ))
         .toEqual(0);
     });
 
     it('should return cell index with takePrev property', () => {
       const date = '2018-06-25';
-      expect(getAllDayCellIndexByAppointmentData(viewCellsDataBase, date, {}, false))
+      expect(getAllDayCellIndexByAppointmentData(
+        viewCellsDataBase,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          groupCount: 1,
+        },
+        date, {}, false))
         .toEqual(1);
-      expect(getAllDayCellIndexByAppointmentData(viewCellsDataBase, date, {}, true))
+      expect(getAllDayCellIndexByAppointmentData(
+        viewCellsDataBase,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          groupCount: 1,
+        },
+        date, {}, true,
+      ))
         .toEqual(0);
     });
 
     it('should return cell index depending on groupingInfo', () => {
-      const viewCellsData = [[{
-        startDate: new Date('2018-06-24 08:00'),
-        endDate: new Date('2018-06-24 08:30'),
-        groupingInfo: [{ fieldName: 'test', id: 1 }],
-      }, {
-        startDate: new Date('2018-06-24 08:00'),
-        endDate: new Date('2018-06-24 08:30'),
-        groupingInfo: [{ fieldName: 'test', id: 2 }],
-      }]];
       const date = '2018-06-24 07:30';
-      const firstTestAppointment = { test: 1 };
-      const secondTestAppointment = { test: 2 };
 
-      expect(getAllDayCellIndexByAppointmentData(viewCellsData, date, firstTestAppointment, false))
+      expect(getAllDayCellIndexByAppointmentData(
+        horizontallyGroupedViewCells,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          groupCount: 2,
+        },
+        date, firstTestAppointment, false,
+      ))
         .toEqual(0);
-      expect(getAllDayCellIndexByAppointmentData(viewCellsData, date, secondTestAppointment, false))
+      expect(getAllDayCellIndexByAppointmentData(
+        horizontallyGroupedViewCells,
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          groupCount: 2,
+        },
+        date, secondTestAppointment, false,
+      ))
         .toEqual(1);
+    });
+
+    describe('#getAllDayVerticallyGroupedColumnIndex', () => {
+      it('should return column index', () => {
+        const date = moment('2018-06-25 07:30');
+        expect(getAllDayVerticallyGroupedColumnIndex(viewCellsDataBase, date))
+          .toEqual(1);
+      });
+    });
+
+    describe('#getAllDayHorizontallyGroupedColumnIndex', () => {
+      it('should return column index', () => {
+        const date = moment('2018-06-24 08:20');
+        expect(getAllDayHorizontallyGroupedColumnIndex(
+          horizontallyGroupedViewCells, date, firstTestAppointment,
+        ))
+          .toEqual(0);
+        expect(getAllDayHorizontallyGroupedColumnIndex(
+          horizontallyGroupedViewCells, date, secondTestAppointment,
+        ))
+          .toEqual(1);
+      });
+    });
+
+    describe('#getAllDayVerticallyGroupedRowIndex', () => {
+      it('should return row index', () => {
+        expect(getAllDayVerticallyGroupedRowIndex(
+          verticallyGroupedViewCells, firstTestAppointment, 2,
+        ))
+          .toEqual(0);
+        expect(getAllDayVerticallyGroupedRowIndex(
+          verticallyGroupedViewCells, secondTestAppointment, 2,
+        ))
+          .toEqual(1);
+      });
     });
   });
 

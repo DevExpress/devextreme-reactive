@@ -36,11 +36,15 @@ The user can edit appointments as follows:
 
 ## Basic Setup
 
-Add the plugins listed above to the Scheduler and handle the `EditingState` plugin's `onCommitChanges` event to commit edits to the data storage.
+To enable editing, follow the steps below:
+
+1. Add the `EditingState` plugin and handle its `onCommitChanges` event to commit edits to the data storage.
+2. Add the `EditRecurrenceMenu` plugin if recurring appointments are allowed. Otherwise, add the `IntegratedEditing` plugin.
+3. Add the `AppointmentForm` plugin so that users can edit appointment data.
 
 ### Uncontrolled Mode
 
-In uncontrolled mode, specify the initial editing state via the following `EditingState` properties:
+In uncontrolled mode, specify the initial editing state using the following `EditingState` properties:
 
 - `defaultEditingAppointment` - the appointment being edited
 - `defaultAddedAppointment` - the appointment being added
@@ -86,7 +90,40 @@ The following demo shows how to customize the appointment form. A custom `TextEd
 
 ## Add a Confirmation Dialog
 
-
-To enable the confirmation dialog, add the [ConfirmationDialog](../reference/confirmation-dialog.md) plugin. The dialog pops up when a user attempts to delete an appointment or discard edits made to it. If the dialog should not appear in these cases, set the `ignoreDelete` or `ignoreCancel` property to `true`. 
+To enable the confirmation dialog, add the [ConfirmationDialog](../reference/confirmation-dialog.md) plugin. The dialog pops up when a user attempts to delete an appointment or discard edits made to it. If the dialog should not appear in these cases, set the `ignoreDelete` or `ignoreCancel` property to `true`.
 
 .embedded-demo({ "path": "scheduler-editing/delete-confirmation", "showThemeSelector": true })
+
+## Disable Individual Editing Operations
+
+### Read-Only Mode
+
+If users should not edit appointments, import only the [AppointmentForm](../reference/appointment-form.md) plugin and enable its `readOnly` property.
+
+### Disable Adding
+
+Users can double-click timetable cells to add appointments. You should remove the double-click handler to disable this functionality.
+
+Set the `onDoubleClick` property to `undefined` for the component that renders timetable cells. It is the [timeTableCellComponent](../reference/week-view.md#weekviewtimetablecellprops) for views and the [cellComponent](../reference/all-day-panel.md#alldaypanelcellprops) for the all-day panel.
+
+### Disable Deleting
+
+Users can delete an appointment using the Delete button on the [AppointmentForm](../reference/appointment-form.md) or in the [AppointmentTooltip](../reference/appointment-tooltip.md). Disable this button on the form and hide it from the tooltip if users should not delete appointments.
+
+To disable the Delete button on the `AppointmentForm`, find the [commandButton](../reference/appointment-form.md/#appointmentformcommandbuttonprops) with ID `deleteButton` and set its `disabled` property to `true`.
+
+To hide the Delete button from the `AppointmentTooltip`, disable the `showDeleteButton` property.
+
+### Disable Updating
+
+Users can use the `AppointmentForm` to update appointments. Switch the `AppointmentForm` to [read-only mode](../reference/appointment-form.md#properties) to disable this functionality. However, now users cannot add or delete appointments either, but these features can be enabled individually.
+
+To enable adding, create a flag that indicates whether an appointment is being added and make the `AppointmentForm` read-only depending on this flag.
+
+To enable deleting, find the [commandButton](../reference/appointment-form.md/#appointmentformcommandbuttonprops) with ID `deleteButton` on the `AppointmentForm` and set its `disabled` property to `false`.
+
+Users can also update appointments via drag-and-drop. Remove the [DragDropProvider](../reference/drag-drop-provider.md) (if you use it) to disable this functionality.
+
+The example below demonstrates the described use-cases:
+
+.embedded-demo({ "path": "scheduler-editing/editing-features", "showThemeSelector": true })

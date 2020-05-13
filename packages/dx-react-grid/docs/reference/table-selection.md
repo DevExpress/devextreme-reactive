@@ -36,6 +36,7 @@ showSelectAll? | boolean | true | Specifies whether to render the Select All che
 showSelectionColumn? | boolean | true | Specifies whether to render the selection column that displays selection checkboxes.
 cellComponent | ComponentType&lt;[TableSelection.CellProps](#tableselectioncellprops)&gt; | | A component that renders a selection cell (a cell containing a selection checkbox).
 headerCellComponent | ComponentType&lt;[TableSelection.HeaderCellProps](#tableselectioncellprops)&gt; | | A component that renders a cell containing the Select All checkbox.
+rowComponent | ComponentType&lt;[TableSelection.RowProps](#tableselectionrowprops)&gt; | | A component that renders a selected row. It is used instead of [Table.Row](table.md#tablerowprops) when `highlightRow` or `selectByRowClick` is enabled.
 selectionColumnWidth | number | | The selection column's width.
 
 ## Interfaces
@@ -64,6 +65,19 @@ Field | Type | Description
 row | any | A row.
 selected | boolean | Indicates whether a row is selected.
 onToggle | () => void | An event that initiates row selecting or deselecting.
+
+### TableSelection.RowProps
+
+Properties passed to the `rowComponent`.
+
+Extends [Table.RowProps](table.md#tablerowprops)
+
+Field | Type | Description
+------|------|------------
+selectByRowClick | boolean | Indicates if users can click the row to select it.
+highlighted | boolean | Indicates whether the row is highlighted. `true` when `highlightRow` is enabled and the row is selected.
+onToggle | () => void | A function that is executed when users select the row or cancel the selection.
+
 
 ## Plugin Components
 

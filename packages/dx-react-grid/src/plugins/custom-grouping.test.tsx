@@ -27,6 +27,7 @@ const defaultDeps = {
     grouping: [{ columnName: 'a' }],
     expandedGroups: ['A', 'B'],
     getRowId: () => { },
+    isExporting: 'isExporting',
   },
   plugins: ['GroupingState'],
 };
@@ -106,6 +107,7 @@ describe('CustomGrouping', () => {
         customGroupedRows(),
         defaultDeps.getter.grouping,
         defaultDeps.getter.expandedGroups,
+        defaultDeps.getter.isExporting,
       );
 
     expect(getComputedState(tree).rows)
@@ -204,6 +206,7 @@ describe('CustomGrouping', () => {
           customGroupedRows(),
           grouping,
           expandedGroups,
+          defaultDeps.getter.isExporting,
         );
 
       expect(getComputedState(tree).rows)

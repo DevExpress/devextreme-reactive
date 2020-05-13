@@ -7,6 +7,7 @@ import {
   TableColumn,
   GetScrollHeightByIndex,
   GetScrollPosition,
+  GetTopRowId,
 } from '../../types';
 import { arraysEqual } from './utils';
 import { TOP_POSITION, BOTTOM_POSITION } from './constants';
@@ -116,4 +117,16 @@ export const getScrollTop: GetScrollPosition = (rows, rowsCount, rowId, rowHeigh
     rowHeight,
     indexById!,
   );
+};
+
+export const getTopRowId: GetTopRowId = (viewport, tableBodyRows, isDataRemote) => {
+  const hasViewportRows = viewport && viewport.rows;
+  const hasBodyRows = tableBodyRows && tableBodyRows.length;
+  if (hasViewportRows && hasBodyRows && !isDataRemote) {
+    const index = viewport.rows[0];
+
+    return index < tableBodyRows.length ? tableBodyRows[index].rowId : undefined;
+  }
+
+  return undefined;
 };

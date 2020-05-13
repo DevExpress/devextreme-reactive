@@ -4,7 +4,7 @@ import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { TableSelectRow } from './table-select-row';
 
 const defaultProps = {
-  selected: false,
+  highlighted: false,
   selectByRowClick: false,
   onToggle: () => {},
 };
@@ -18,7 +18,7 @@ describe('TableSelectRow', () => {
     classes = getClasses(<TableSelectRow {...defaultProps} />);
   });
 
-  it('should have correct selected prop', () => {
+  it('should have correct highlighted prop', () => {
     let tree = shallow((
       <TableSelectRow
         {...defaultProps}
@@ -31,7 +31,7 @@ describe('TableSelectRow', () => {
     tree = shallow((
       <TableSelectRow
         {...defaultProps}
-        selected
+        highlighted
       />
     ));
 

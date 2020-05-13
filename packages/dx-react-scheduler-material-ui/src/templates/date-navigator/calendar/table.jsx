@@ -1,12 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import moment from 'moment';
 import classNames from 'clsx';
 import TableMUI from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableHead from '@material-ui/core/TableHead';
 import { withStyles } from '@material-ui/core/styles';
-import { WEEK_DAY_OPTIONS, DAY_OPTIONS } from '@devexpress/dx-scheduler-core';
+import { WEEK_DAY_OPTIONS, DAY_OPTIONS, areDatesSame } from '@devexpress/dx-scheduler-core';
 
 const styles = {
   table: {
@@ -28,58 +27,55 @@ const TableBase = ({
   onCellClick,
   formatDate,
   ...restProps
-}) => {
-  const comparableSelectedDate = moment(selectedDate);
-  return (
-    <TableMUI
-      className={classNames(classes.table, className)}
-      {...restProps}
-    >
-      <TableHead>
-        <HeaderRow>
-          {headerCells.map((cell) => {
-            const key = formatDate(cell.startDate, WEEK_DAY_OPTIONS);
+}) => (
+  <TableMUI
+    className={classNames(classes.table, className)}
+    {...restProps}
+  >
+    <TableHead>
+      <HeaderRow>
+        {headerCells.map((cell) => {
+          const key = formatDate(cell.startDate, WEEK_DAY_OPTIONS);
+          return (
+            <HeaderCell
+              key={key}
+            >
+              {key}
+            </HeaderCell>
+          );
+        })}
+      </HeaderRow>
+    </TableHead>
+    <TableBody>
+      {cells.map(row => (
+        <Row
+          key={row[0].startDate.toString()}
+        >
+          {row.map(({
+            startDate,
+            otherMonth,
+            today,
+          }) => {
+            const selected = areDatesSame(selectedDate, startDate);
             return (
-              <HeaderCell
-                key={key}
+              <Cell
+                key={startDate.toString()}
+                otherMonth={otherMonth}
+                selected={selected}
+                today={today}
+                onClick={() => {
+                  onCellClick(startDate);
+                }}
               >
-                {key}
-              </HeaderCell>
+                {formatDate(startDate, DAY_OPTIONS)}
+              </Cell>
             );
           })}
-        </HeaderRow>
-      </TableHead>
-      <TableBody>
-        {cells.map(row => (
-          <Row
-            key={row[0].startDate.toString()}
-          >
-            {row.map(({
-              startDate,
-              otherMonth,
-              today,
-            }) => {
-              const selected = comparableSelectedDate.isSame(moment(startDate), 'date');
-              return (
-                <Cell
-                  key={startDate.toString()}
-                  otherMonth={otherMonth}
-                  selected={selected}
-                  today={today}
-                  onClick={() => {
-                    onCellClick(startDate);
-                  }}
-                >
-                  {formatDate(startDate, DAY_OPTIONS)}
-                </Cell>
-              );
-            })}
-          </Row>
-        ))}
-      </TableBody>
-    </TableMUI>
-  );
-};
+        </Row>
+      ))}
+    </TableBody>
+  </TableMUI>
+);
 
 TableBase.propTypes = {
   // oneOfType is a workaround because withStyles returns react object

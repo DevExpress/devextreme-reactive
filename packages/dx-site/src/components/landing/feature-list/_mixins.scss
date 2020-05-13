@@ -1,0 +1,21 @@
+@import '../../../constants.scss';
+
+@mixin feature-title {
+  font-family: "Segoe UI Semibold";
+  font-size: 18px;
+  color: rgba(24, 60, 87, 255);
+}
+
+@mixin feature-description {
+  font-size: 14px;
+  color: rgba(125, 136, 142, 255);
+}
+
+@mixin feature-item($childMargin) {
+  padding-left: $inner-offset;
+  padding-right: $inner-offset;
+
+  &:first-of-type {
+    margin-bottom: $childMargin;
+  }
+}

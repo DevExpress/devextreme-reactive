@@ -16,6 +16,7 @@ import {
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-<%&themeName%>';
+<%&cssImports%>
 <%&imports%>
 import { format } from 'd3-format';
 
@@ -106,7 +107,7 @@ export default class Demo extends React.PureComponent {
   render() {
     const { data: chartData, viewport } = this.state;
     return (
-      <>
+      <React.Fragment>
         <ResetButton onClick={this.resetViewport} />
         <<%&wrapperTag%><%&wrapperAttributes%>>
           <Chart data={chartData}>
@@ -131,7 +132,7 @@ export default class Demo extends React.PureComponent {
             <Animation />
           </Chart>
         </<%&wrapperTag%>>
-      </>
+      </React.Fragment>
     );
   }
 }

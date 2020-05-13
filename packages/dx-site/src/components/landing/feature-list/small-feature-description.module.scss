@@ -1,0 +1,21 @@
+@import './mixins';
+
+.smallTitle {
+  @include feature-title;
+  margin-bottom: 7px;
+
+  &:hover {
+    color: #007d9e;
+    text-decoration: none;
+  }
+}
+
+.smallDescription {
+  @include feature-description;
+}
+
+@media (min-width: 1000px) {
+  .smallTitle {
+    text-align: center;
+  }
+}

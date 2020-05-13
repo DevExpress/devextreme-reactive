@@ -26,6 +26,7 @@ export const HorizontalLayout = ({
               key={getCellKey(groups, index, rowIndex)}
               left={cellStyle.left}
               endOfGroup
+              groupedByDate={false}
             />
           ))}
           {showHeaderForEveryDate && (
@@ -38,7 +39,7 @@ export const HorizontalLayout = ({
                 key={key}
                 left={cellStyle.left}
                 endOfGroup={endOfGroup}
-                groupedByDate={false}
+                groupedByDate
               />
             ))
           )}

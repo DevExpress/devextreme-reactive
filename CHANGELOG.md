@@ -1,3 +1,94 @@
+# [2.6.2](https://github.com/DevExpress/devextreme-reactive/compare/v2.6.1...v2.6.2) (2020-04-15)
+
+
+### Bug Fixes
+
+* **grid-core:** prevent values from being calculated twice in a group summary ([#2825](https://github.com/DevExpress/devextreme-reactive/issues/2825)) ([c704fdf](https://github.com/DevExpress/devextreme-reactive/commit/c704fdfe9a127f33222599921b8585ee4c745ba0))
+* **react-grid:** fix typo in action name ([#2824](https://github.com/DevExpress/devextreme-reactive/issues/2824)) ([b1a4079](https://github.com/DevExpress/devextreme-reactive/commit/b1a40797c06edc3a735e7cee381818ca16d9e420))
+
+
+
+# [2.6.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.6.0...v2.6.1) (2020-04-09)
+
+
+### Bug Fixes
+
+* **react-grid:** make possible put VirtualTable in container with scale ([#2787](https://github.com/DevExpress/devextreme-reactive/issues/2787)) ([8008bac](https://github.com/DevExpress/devextreme-reactive/commit/8008bac36d232e5f7cfff023e4f7493dbaa0051b))
+* **react-grid-material-ui:** apply page size selector position only for Edge ([#2790](https://github.com/DevExpress/devextreme-reactive/issues/2790)) ([762dd57](https://github.com/DevExpress/devextreme-reactive/commit/762dd57b56c5fcec9fa70efd51d940af4c38aa09))
+
+
+
+# [2.6.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.5.1...v2.6.0) (2020-03-27)
+
+
+### Bug Fixes
+
+* **react-chart:** make ArgumentScale factory type compatible with d3-scale ([#2758](https://github.com/DevExpress/devextreme-reactive/issues/2758)) ([d171f36](https://github.com/DevExpress/devextreme-reactive/commit/d171f368fb76f7a62fe62380c379697dc3f55f40))
+* **react-core:** make StateHelper work correctly when several actions are triggered at once ([#2781](https://github.com/DevExpress/devextreme-reactive/issues/2781)) ([f083519](https://github.com/DevExpress/devextreme-reactive/commit/f0835192bdfe1fc0d9e6d767160b1553f9a7d97f))
+* **react-core:** notify state update outside the state updater ([#2744](https://github.com/DevExpress/devextreme-reactive/issues/2744)) ([8e9d7ec](https://github.com/DevExpress/devextreme-reactive/commit/8e9d7ec49fa2ddbec5456fde3347b9ab4e496e94))
+* **react-grid:** add GridExporter to ts definition ([#2755](https://github.com/DevExpress/devextreme-reactive/issues/2755)) ([a2bafb5](https://github.com/DevExpress/devextreme-reactive/commit/a2bafb533fbd5cafcd21465275805471e3716942))
+* **react-grid:** avoid rendering group summary row if no footer summary exists ([#2742](https://github.com/DevExpress/devextreme-reactive/issues/2742)) ([48a3b45](https://github.com/DevExpress/devextreme-reactive/commit/48a3b4591f9f76c7a90dfe74e08657b99f5ab732))
+* **react-grid:** check viewport position when handle top row id ([#2780](https://github.com/DevExpress/devextreme-reactive/issues/2780)) ([bc57080](https://github.com/DevExpress/devextreme-reactive/commit/bc570803563014c92cdf68690aad04026abf5348))
+* **react-grid:** make 'onTopRowChange' work with detail row ([#2753](https://github.com/DevExpress/devextreme-reactive/issues/2753)) ([cf6bf5c](https://github.com/DevExpress/devextreme-reactive/commit/cf6bf5cba631b790fd742af89b9b04ecf93b7d99))
+* **react-grid:** prevent infinite loop while horizontal scroll ([#2771](https://github.com/DevExpress/devextreme-reactive/issues/2771)) ([cb1d9be](https://github.com/DevExpress/devextreme-reactive/commit/cb1d9be1d52c3c6b87058e82cac1dfa34555846d))
+* **react-grid:** reset viewport position on filter change when data remote ([#2748](https://github.com/DevExpress/devextreme-reactive/issues/2748)) ([ddd8be7](https://github.com/DevExpress/devextreme-reactive/commit/ddd8be72697c5a909f661d3f04f3174880a606ad))
+
+
+### Features
+
+* **react-scheduler:** add Vertical Grouping ([#2740](https://github.com/DevExpress/devextreme-reactive/issues/2740)) ([a7d832a](https://github.com/DevExpress/devextreme-reactive/commit/a7d832a0c3a5504a1192e3b1239d6427ee41025a))
+
+
+
+# [2.5.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.5.0...v2.5.1) (2020-03-11)
+
+
+### Bug Fixes
+
+* **react-grid:** remove exceljs from ts declaration ([#2734](https://github.com/DevExpress/devextreme-reactive/issues/2734)) ([c40abf3](https://github.com/DevExpress/devextreme-reactive/commit/c40abf3f15c6160bbc2b9bdf713cb69630751b8f))
+* **react-grid:** render stub cell on group row and flex column intersection ([#2726](https://github.com/DevExpress/devextreme-reactive/issues/2726)) ([483e944](https://github.com/DevExpress/devextreme-reactive/commit/483e9449110fe0bec5f0469da573816a494ca062))
+
+
+
+# [2.5.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.4.1...v2.5.0) (2020-03-04)
+
+
+### Bug Fixes
+
+* **react-scheduler:** make it possible to change allowDrag and allowResize in runtime ([#2715](https://github.com/DevExpress/devextreme-reactive/issues/2715)) ([1e38729](https://github.com/DevExpress/devextreme-reactive/commit/1e387296bd07105476529d737336a9fdba34443f))
+* **react-scheduler:** update elementsMeta on cellComponent change ([#2714](https://github.com/DevExpress/devextreme-reactive/issues/2714)) ([4f814e8](https://github.com/DevExpress/devextreme-reactive/commit/4f814e83950dff8769ed7b125b9f714c5176aa36))
+* **react-scheduler:** use defaults when resource id is not specified in instances but is specified in an appointment ([#2699](https://github.com/DevExpress/devextreme-reactive/issues/2699)) ([3ec51af](https://github.com/DevExpress/devextreme-reactive/commit/3ec51af5e455d68ddbfd6afe55c2e8837bf0b2b5))
+* **scheduler-core:** assign colors to resource instances even when palette's size is less than the number of resource instances ([#2691](https://github.com/DevExpress/devextreme-reactive/issues/2691)) ([2020ad2](https://github.com/DevExpress/devextreme-reactive/commit/2020ad220756974cf1ec02bfca40862981e8d464))
+* **scheduler-core:** filter WeekView appointments correctly when excluded days contain an interval of three or more days in a row ([#2713](https://github.com/DevExpress/devextreme-reactive/issues/2713)) ([c658869](https://github.com/DevExpress/devextreme-reactive/commit/c6588694e049822a2a36ac1d8cb310820cee5c66))
+
+
+### Features
+
+* **react-grid:** allow data export in excel format ([#2631](https://github.com/DevExpress/devextreme-reactive/issues/2631)) ([3030d5d](https://github.com/DevExpress/devextreme-reactive/commit/3030d5d000943495c7006519ef627291e9c11531))
+
+
+
+# [2.4.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.4.0...v2.4.1) (2020-02-20)
+
+
+### Bug Fixes
+
+* **react-grid:** add ref to VirtualTable props definition ([#2661](https://github.com/DevExpress/devextreme-reactive/issues/2661)) ([aa0fd1a](https://github.com/DevExpress/devextreme-reactive/commit/aa0fd1a8b0b8cc6dbb3f1dd1b20220775755029b))
+* **react-grid:** allow to change "TableTreeColumn.for" property in runtime ([#2650](https://github.com/DevExpress/devextreme-reactive/issues/2650)) ([bda719e](https://github.com/DevExpress/devextreme-reactive/commit/bda719eb918b1533b1f4c614410de502ccece384))
+* **react-grid:** delete deprecated properties from TableHeaderCell ([#2643](https://github.com/DevExpress/devextreme-reactive/issues/2643)) ([c4d5481](https://github.com/DevExpress/devextreme-reactive/commit/c4d54810743efe7d35b97242757190ed87425b6d))
+* **react-grid:** prevent Sizer's infinite loop ([#2662](https://github.com/DevExpress/devextreme-reactive/issues/2662)) ([ce6b261](https://github.com/DevExpress/devextreme-reactive/commit/ce6b2612590b37b2be8a35ada8c4890f269fe8e6))
+* **react-scheduler:** render all-day appointments and prevent appointments' rendering when timeTableCellElementsMeta is not valid ([#2673](https://github.com/DevExpress/devextreme-reactive/issues/2673)) ([0afd6c3](https://github.com/DevExpress/devextreme-reactive/commit/0afd6c348dcd31c6bd370b86720ea049813f9aac))
+* **react-scheduler:** show multiple resources on cell's double click in the AppointmentForm ([#2670](https://github.com/DevExpress/devextreme-reactive/issues/2670)) ([908c61d](https://github.com/DevExpress/devextreme-reactive/commit/908c61dbb1842504ec76d16d2e4c32b78e95dcdc))
+
+
+### Features
+
+* **react-grid:** publish TableSelection's rowComponent ([#2676](https://github.com/DevExpress/devextreme-reactive/issues/2676)) ([eefb65a](https://github.com/DevExpress/devextreme-reactive/commit/eefb65a8709688736721230e463b059cc23ab64c))
+* **react-scheduler:** add grouping by date ([#2630](https://github.com/DevExpress/devextreme-reactive/issues/2630)) ([9fdbd67](https://github.com/DevExpress/devextreme-reactive/commit/9fdbd678e165bdc27ad61a84980939f0a35bfea0))
+* **react-scheduler-material-ui:** change DayView and WeekView DayScale's today cell appearance ([#2671](https://github.com/DevExpress/devextreme-reactive/issues/2671)) ([35def37](https://github.com/DevExpress/devextreme-reactive/commit/35def378e7a692e9bc20037c3719c28d053093c3))
+
+
+
 # [2.4.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.3.2...v2.4.0) (2020-01-16)
 
 

@@ -1,6 +1,11 @@
 # React Scheduler - Appointments
 
-The Scheduler supports one-time and all-day appointments.
+Our React Scheduler supports the following appointment types:
+
+- [One-time appointments](#one-time-appointments)
+- [Zero-duration appointments](#zero-duration-appointments)
+- [All-day appointments](#all-day-appointments)
+- [Recurring appointments](#recurring-appointments)
 
 ## Related Plugins
 
@@ -9,7 +14,7 @@ The Scheduler supports one-time and all-day appointments.
 
 ## One-Time Appointments
 
-One-time appointments are appointments with specified start and end date and time. They are shown in the following demo. To display one-time appointments on a view, add the [Appointments](../reference/appointments.md) plugin.
+One-time appointments are those with specified start and end dates and times. They are shown in the following demo. To display one-time appointments on a view, add the [Appointments](../reference/appointments.md) plugin.
 
 .embedded-demo({ "path": "scheduler-basic/day", "showThemeSelector": true })
 

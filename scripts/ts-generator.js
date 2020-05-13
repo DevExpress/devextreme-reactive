@@ -275,7 +275,7 @@ const generateTypeScriptForPackage = (packageName) => {
   let themesIndexContent = '';
   const themesImports = [];
   const themes = readdirSync(ROOT_PATH)
-    .filter(folder => folder.indexOf(`${packageName}-`) !== -1 && folder.indexOf(`demos`) === -1)
+    .filter(folder => folder.indexOf(`${packageName}-`) !== -1 && folder.indexOf(`demos`) === -1 && folder.indexOf(`export`) === -1)
     .map((folder) => {
       const matches = new RegExp(`${packageName}-([\\w-]+)`).exec(folder);
       return matches[1];

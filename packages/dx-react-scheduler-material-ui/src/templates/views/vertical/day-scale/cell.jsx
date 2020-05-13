@@ -40,27 +40,10 @@ const styles = theme => ({
     color: theme.palette.text.secondary,
     lineHeight: 1.2,
     fontSize: '1.8rem',
-    paddingBottom: theme.spacing(0.625),
   },
-  today: {
-    width: '1.2em',
-    height: '1.2em',
-    lineHeight: 1.2,
-    textAlign: 'center',
-    borderRadius: '50%',
-    background: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText,
-    cursor: 'default',
-    paddingBottom: 0,
-    marginRight: 'auto',
-    marginLeft: 'auto',
-    'td:only-child &': {
-      marginRight: 0,
-      marginLeft: 0,
-    },
-  },
-  highlight: {
+  highlightedText: {
     color: theme.palette.primary.main,
+    fontWeight: 'bold',
   },
   dayView: {
     'td:only-child &': {
@@ -69,7 +52,7 @@ const styles = theme => ({
       display: 'inline-block',
     },
   },
-  rightBorderCell: {
+  brightRightBorder: {
     borderRight: getBrightBorder(theme),
     '&:last-child': {
       borderRight: 'none',
@@ -93,7 +76,7 @@ const CellBase = React.memo(({
   <TableCell
     className={classNames({
       [classes.cell]: true,
-      [classes.rightBorderCell]: endOfGroup || hasRightBorder,
+      [classes.brightRightBorder]: endOfGroup || hasRightBorder,
     }, className)}
     {...restProps}
   >
@@ -101,7 +84,7 @@ const CellBase = React.memo(({
       <p
         className={classNames({
           [classes.dayOfWeek]: true,
-          [classes.highlight]: today,
+          [classes.highlightedText]: today,
         })}
       >
         {formatDate(startDate, WEEK_DAY_OPTIONS)}
@@ -109,7 +92,7 @@ const CellBase = React.memo(({
       <div
         className={classNames({
           [classes.dayOfMonth]: true,
-          [classes.today]: today,
+          [classes.highlightedText]: today,
         })}
       >
         {formatDate(startDate, DAY_OPTIONS)}

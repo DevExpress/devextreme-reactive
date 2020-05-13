@@ -38,10 +38,12 @@ export const scrollingStrategy = (scrollablePart, fixedPartVertical, fixedPartHo
   return ({
     topBoundary: fixedPartVerticalRect.height + fixedPartVerticalRect.top,
     bottomBoundary: scrollablePart.offsetTop + scrollablePart.clientHeight,
+    fixedTopHeight: fixedPartVerticalRect.height,
     leftBoundary: fixedPartHorizontalRect
       ? fixedPartHorizontalRect.width + fixedPartHorizontalRect.left
       : scrollablePart.offsetLeft,
     rightBoundary: scrollablePart.offsetLeft + scrollablePart.clientWidth,
+    fixedLeftWidth: fixedPartHorizontalRect?.width,
     changeVerticalScroll,
     changeHorizontalScroll,
   });
@@ -51,7 +53,7 @@ export const ensureColor = (level, color) => (color[level] || PRIMARY_COLOR[leve
 
 export const getResourceColor = (resources) => {
   if (resources && resources.length) {
-    return resources.find(resource => resource.isMain).color;
+    return resources.find(resource => resource.isMain)?.color;
   } return undefined;
 };
 

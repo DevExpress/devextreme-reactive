@@ -3,20 +3,21 @@ import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
-  computed,
-  viewCellsData,
-  calculateWeekDateIntervals,
+  computed, viewCellsData,
+  calculateWeekDateIntervals, getTimeTableHeight,
 } from '@devexpress/dx-scheduler-core';
 import { DayView } from './day-view';
 import { BasicView } from './basic-view';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
+  ...require.requireActual('@devexpress/dx-scheduler-core'),
   computed: jest.fn(),
   viewCellsData: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
   availableViews: jest.fn(),
-  calculateWeekDateIntervals:jest.fn(),
+  calculateWeekDateIntervals: jest.fn(),
+  getTimeTableHeight: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -88,11 +89,11 @@ describe('Day View', () => {
           timeTableRowComponent: defaultProps.timeTableRowComponent,
           timeTableCellComponent: defaultProps.timeTableCellComponent,
           appointmentLayerComponent: defaultProps.appointmentLayerComponent,
+          dayScaleEmptyCellComponent: defaultProps.dayScaleEmptyCellComponent,
         });
       expect(tree.find(BasicView).props().layoutProps)
         .toMatchObject({
           timeScaleComponent: expect.any(Function),
-          dayScaleEmptyCellComponent: expect.any(Function),
         });
 
       tree.find(BasicView).props().viewCellsDataComputed(
@@ -131,20 +132,26 @@ describe('Day View', () => {
           formatDate: defaultDeps.getter.formatDate,
         });
     });
-    it('should render day scale empty cell', () => {
-      const customEmptyCell = () => null;
-      const tree = mount((
-        <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
-          <DayView
-            {...defaultProps}
-            dayScaleEmptyCellComponent={customEmptyCell}
-          />
-        </PluginHost>
-      ));
+  });
+  it('should call "getTimeTableHeight" with proper parameters', () => {
+    mount((
+      <PluginHost>
+        {pluginDepsToComponents({
+          ...defaultDeps,
+          getter: {
+            ...defaultDeps.getter,
+            allDayElementsMeta: 'allDayElementsMeta',
+            allDayPanelExists: 'allDayPanelExists',
+            groupOrientation: () => 'groupOrientation',
+          },
+        })}
+        <DayView
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
 
-      expect(tree.find(customEmptyCell).exists())
-        .toBeTruthy();
-    });
+    expect(getTimeTableHeight)
+      .toBeCalledWith({});
   });
 });

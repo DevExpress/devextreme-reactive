@@ -14,13 +14,16 @@ import {
   TableSummaryRow,
   TableSelection,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
+<%&cssImports%>
 
 import {
   generateRows,
   globalSalesValues,
 } from '../../../demo-data/generator';
 
-const CurrencyFormatter = ({ value }) => `$${value}`;
+const CurrencyFormatter = ({ value }) => (
+  value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+);
 
 const CurrencyTypeProvider = props => (
   <DataTypeProvider

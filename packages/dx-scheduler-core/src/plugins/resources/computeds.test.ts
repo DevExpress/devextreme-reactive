@@ -159,6 +159,55 @@ describe('Resources computeds', () => {
           },
         ]);
     });
+    it('should assign correct colors even when palette length is less than the number of resource instances', () => {
+      const resources = [{
+        fieldName: 'roomId',
+        instances: [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }],
+      }];
+      const smallPalette = ['red', 'blue'];
+      expect(validateResources(resources, 'roomId', smallPalette))
+        .toEqual([
+          {
+            fieldName: 'roomId',
+            allowMultiple: false,
+            isMain: true,
+            title: 'roomId',
+            instances: [{
+              id: 1,
+              color: 'red',
+              allowMultiple: false,
+              isMain: true,
+              text: 'roomId',
+              title: 'roomId',
+              fieldName: 'roomId',
+            }, {
+              id: 2,
+              color: 'blue',
+              allowMultiple: false,
+              isMain: true,
+              text: 'roomId',
+              title: 'roomId',
+              fieldName: 'roomId',
+            }, {
+              id: 3,
+              color: 'red',
+              allowMultiple: false,
+              isMain: true,
+              text: 'roomId',
+              title: 'roomId',
+              fieldName: 'roomId',
+            }, {
+              id: 4,
+              color: 'blue',
+              allowMultiple: false,
+              isMain: true,
+              text: 'roomId',
+              title: 'roomId',
+              fieldName: 'roomId',
+            }],
+          },
+        ]);
+    });
   });
   describe('#convertResourcesToPlain', () => {
     const validResources = [

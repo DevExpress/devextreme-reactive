@@ -4,17 +4,20 @@ import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+import {
+  VIEW_TYPES, HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION,
+} from '@devexpress/dx-scheduler-core';
 import { getBorder, getBrightBorder } from '../utils';
+import { SPACING_CELL_HEIGHT } from '../constants';
 
 const styles = theme => ({
   cell: {
     padding: 0,
-    height: theme.spacing(5.75),
-    borderLeft: getBorder(theme),
-    borderBottom: 'none',
+    height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL]),
     boxSizing: 'border-box',
-    '&:first-child': {
-      borderLeft: 'none',
+    borderRight: getBorder(theme),
+    '&:last-child': {
+      borderRight: 'none',
     },
     '&:hover': {
       backgroundColor: theme.palette.action.hover,
@@ -23,12 +26,12 @@ const styles = theme => ({
       backgroundColor: fade(theme.palette.primary.main, 0.15),
       outline: 0,
     },
-  },
-  rightBorderCell: {
-    borderRight: getBrightBorder(theme),
-    '&:last-child': {
-      borderRight: 'none',
+    'tr:last-child &': {
+      borderBottom: 'none',
     },
+  },
+  brightRightBorder: {
+    borderRight: getBrightBorder(theme),
   },
 });
 
@@ -40,6 +43,7 @@ const CellBase = ({
   endDate,
   endOfGroup,
   groupingInfo,
+  groupOrientation,
   // @deprecated
   hasRightBorder,
   ...restProps
@@ -48,7 +52,8 @@ const CellBase = ({
     tabIndex={0}
     className={classNames({
       [classes.cell]: true,
-      [classes.rightBorderCell]: endOfGroup || hasRightBorder,
+      [classes.brightRightBorder]: groupOrientation === HORIZONTAL_GROUP_ORIENTATION
+        && (endOfGroup || hasRightBorder),
     }, className)}
     {...restProps}
   >
@@ -65,6 +70,7 @@ CellBase.propTypes = {
   hasRightBorder: PropTypes.bool,
   endOfGroup: PropTypes.bool,
   groupingInfo: PropTypes.arrayOf(PropTypes.object),
+  groupOrientation: PropTypes.oneOf([HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION]),
 };
 
 CellBase.defaultProps = {
@@ -75,6 +81,7 @@ CellBase.defaultProps = {
   hasRightBorder: false,
   endOfGroup: false,
   groupingInfo: undefined,
+  groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

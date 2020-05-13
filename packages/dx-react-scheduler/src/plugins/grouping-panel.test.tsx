@@ -2,14 +2,18 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost, Template } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
+import {
+  HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION, VIEW_TYPES,
+} from '@devexpress/dx-scheduler-core';
 import { GroupingPanel } from './grouping-panel';
 
 describe('GroupingPanel', () => {
   const defaultProps = {
-    buttonComponent: () => null,
     horizontalLayoutComponent: () => null,
+    verticalLayoutComponent: () => null,
     rowComponent: () => null,
     cellComponent: () => null,
+    allDayCellComponent: () => null,
   };
   const defaultDeps = {
     template: {
@@ -17,14 +21,19 @@ describe('GroupingPanel', () => {
     },
     plugins: ['GroupingState', 'IntegratedGrouping'],
     getter: {
-      groups: [],
-      viewCellsData: [[{}, {}]],
-      currentView: {},
+      groups: [[{}, {}]],
+      viewCellsData: [[{}, {}], [{}, {}], [{}, {}]],
+      currentView: { type: VIEW_TYPES.MONTH },
       groupByDate: () => true,
+      groupOrientation: () => HORIZONTAL_GROUP_ORIENTATION,
+      scrollingStrategy: {},
+      timeTableElementsMeta: 'timeTableElementsMeta',
+      allDayElementsMeta: 'allDayElementsMeta',
+      allDayPanelExists: 'allDayPanelExists',
     },
   };
 
-  it('should render groupingPanel Template', () => {
+  it('should render horizontal groupingPanel', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
@@ -35,8 +44,7 @@ describe('GroupingPanel', () => {
     ));
 
     const templatePlaceholder = tree
-      .find(Template)
-      .filterWhere(node => node.props().name === 'groupingPanel');
+        .findWhere(node => node.type() === Template && node.props().name === 'groupingPanel');
 
     expect(templatePlaceholder.exists())
       .toBeTruthy();
@@ -51,6 +59,43 @@ describe('GroupingPanel', () => {
         colSpan: defaultDeps.getter.viewCellsData[0].length,
         groups: defaultDeps.getter.groups,
         showHeaderForEveryDate: true,
+      });
+  });
+
+  it('should render vertical grouping panel', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents({
+          ...defaultDeps,
+          getter: {
+            ...defaultDeps.getter,
+            groupOrientation: () => VERTICAL_GROUP_ORIENTATION,
+          },
+        })}
+        <GroupingPanel
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+
+    const templatePlaceholder = tree
+        .findWhere(node => node.type() === Template && node.props().name === 'groupingPanel');
+
+    expect(templatePlaceholder.exists())
+      .toBeTruthy();
+
+    const verticalLayoutComponent = tree.find(defaultProps.verticalLayoutComponent);
+    expect(verticalLayoutComponent.exists())
+      .toBeTruthy();
+    expect(verticalLayoutComponent.props())
+      .toMatchObject({
+        rowComponent: defaultProps.rowComponent,
+        cellComponent: defaultProps.cellComponent,
+        groups: defaultDeps.getter.groups,
+        rowSpan: defaultDeps.getter.viewCellsData.length,
+        viewType: VIEW_TYPES.MONTH,
+        cellTextTopOffset: undefined,
+        alignWithAllDayRow: 'allDayPanelExists',
       });
   });
 });

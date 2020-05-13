@@ -14,6 +14,7 @@ import {
   TableHeaderRow,
   TableFilterRow,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
+<%&cssImports%>
 import { Loading } from '../../../theme-sources/<%&themeName%>/components/loading';
 
 const VIRTUAL_PAGE_SIZE = 100;
@@ -23,8 +24,7 @@ const getRowId = row => row.Id;
 
 const CurrencyFormatter = ({ value }) => (
   <b style={{ color: 'darkblue' }}>
-$
-    {value}
+    {value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
   </b>
 );
 

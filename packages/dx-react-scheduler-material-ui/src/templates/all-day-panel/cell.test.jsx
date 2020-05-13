@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import { Cell } from './cell';
 
 describe('AllDayPanel', () => {
@@ -19,7 +20,7 @@ describe('AllDayPanel', () => {
         .toBeTruthy();
       expect(tree.is(`.${classes.cell}`))
         .toBeTruthy();
-      expect(tree.is(`.${classes.rightBorderCell}`))
+      expect(tree.is(`.${classes.brightRightBorder}`))
         .toBeFalsy();
     });
     it('should pass rest props to the root element', () => {
@@ -35,8 +36,16 @@ describe('AllDayPanel', () => {
         <Cell endOfGroup />
       ));
 
-      expect(tree.is(`.${classes.rightBorderCell}`))
+      expect(tree.is(`.${classes.brightRightBorder}`))
         .toBeTruthy();
+    });
+    it('should not render a cell with a bright border when vertical grouping is used', () => {
+      const tree = shallow((
+        <Cell endOfGroup groupOrientation={VERTICAL_GROUP_ORIENTATION} />
+      ));
+
+      expect(tree.is(`.${classes.brightRightBorder}`))
+        .toBeFalsy();
     });
   });
 });

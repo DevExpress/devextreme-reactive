@@ -27,6 +27,7 @@ const defaultDeps = {
     grouping: [{ columnName: 'a' }],
     expandedGroups: ['A', 'B'],
     getCellValue: () => {},
+    isExporting: 'isExporting',
   },
   plugins: ['GroupingState'],
 };
@@ -117,6 +118,7 @@ describe('IntegratedGrouping', () => {
         groupedRows(),
         defaultDeps.getter.grouping,
         defaultDeps.getter.expandedGroups,
+        defaultDeps.getter.isExporting,
       );
 
     expect(getComputedState(tree).rows)

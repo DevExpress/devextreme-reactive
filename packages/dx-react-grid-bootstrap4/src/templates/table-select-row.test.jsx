@@ -5,7 +5,7 @@ import { TableSelectRow } from './table-select-row';
 
 describe('Table Select Row', () => {
   const defaultProps = {
-    selected: false,
+    highlighted: false,
     selectByRowClick: false,
     onToggle: () => {},
   };
@@ -25,7 +25,7 @@ describe('Table Select Row', () => {
 
     tree = shallow(<TableSelectRow
       {...defaultProps}
-      selected
+      highlighted
     />);
     expect(tree.find('tr').hasClass('table-active')).toBeTruthy();
   });

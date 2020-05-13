@@ -8,6 +8,7 @@ import {
   VirtualTable, TableHeaderRow, TableFilterRow, TableSelection, TableGroupRow,
   GroupingPanel, DragDropProvider, TableColumnReordering, Toolbar, SearchPanel,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
+<%&cssImports%>
 
 import { ProgressBarCell } from '../../../theme-sources/<%&themeName%>/components/progress-bar-cell';
 import { HighlightedCell } from '../../../theme-sources/<%&themeName%>/components/highlighted-cell';

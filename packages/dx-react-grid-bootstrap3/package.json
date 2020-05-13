@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid-bootstrap3",
-  "version": "2.4.0",
+  "version": "2.6.2",
   "description": "Bootstrap 3 templates for DevExtreme React Grid component",
   "author": {
     "name": "Developer Express Inc.",
@@ -44,16 +44,17 @@
     "lint:fix": "yarn lint -- --fix"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.2",
+    "@babel/core": "^7.8.7",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.7.4",
     "@babel/plugin-proposal-optional-chaining": "^7.7.5",
-    "@babel/plugin-transform-runtime": "^7.6.2",
-    "@babel/preset-env": "^7.7.1",
-    "@babel/preset-react": "^7.7.0",
-    "@devexpress/dx-grid-core": "2.4.0",
-    "@devexpress/dx-react-core": "2.4.0",
-    "@devexpress/dx-react-grid": "2.4.0",
-    "@devexpress/dx-testing": "2.4.0",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.8.3",
+    "@devexpress/dx-grid-core": "2.6.2",
+    "@devexpress/dx-react-core": "2.6.2",
+    "@devexpress/dx-react-grid": "2.6.2",
+    "@devexpress/dx-testing": "2.6.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
@@ -70,23 +71,22 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.16.0",
     "jest": "^24.9.0",
-    "react": "^16.12.0",
+    "react": "^16.13.1",
     "react-bootstrap": "=0.33.1",
-    "react-dom": "^16.12.0",
-    "react-test-renderer": "^16.12.0",
+    "react-dom": "^16.13.1",
+    "react-test-renderer": "^16.13.1",
     "rollup": "^1.27.2",
     "rollup-plugin-babel": "^4.3.3",
-    "rollup-plugin-license": "^0.12.1",
-    "rollup-plugin-node-resolve": "^5.2.0"
+    "rollup-plugin-license": "^0.12.1"
   },
   "dependencies": {
     "clsx": "^1.0.4",
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {
-    "@devexpress/dx-grid-core": "2.4.0",
-    "@devexpress/dx-react-core": "2.4.0",
-    "@devexpress/dx-react-grid": "2.4.0",
+    "@devexpress/dx-grid-core": "2.6.2",
+    "@devexpress/dx-react-core": "2.6.2",
+    "@devexpress/dx-react-grid": "2.6.2",
     "react": "^16.10.2",
     "react-bootstrap": "=0.33.0",
     "react-dom": "^16.10.2"

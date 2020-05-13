@@ -33,6 +33,11 @@ export namespace AllDayPanel {
   }
   export interface CellProps {
     endDate: Date;
+    endOfGroup?: boolean;
+    groupingInfo?: Array<Group>;
+    groupOrientation?: GroupOrientation;
+    hasRightBorder?: boolean;
+    onDoubleClick?: (e: any) => void;
     startDate: Date;
   }
   export interface ContainerProps {
@@ -51,6 +56,7 @@ export namespace AllDayPanel {
   export interface RowProps extends BaseView.RowProps {
   }
   export interface TitleCellProps {
+    fixedHeight?: boolean;
     getMessage: (messageKey: string) => string;
   }
 }
@@ -227,7 +233,7 @@ export namespace AppointmentForm {
     resources: Array<ValidResource>;
   }
   export interface SelectProps {
-    availableOptions?: Array<object>;
+    availableOptions?: Array<SelectOption>;
     onValueChange: (nextValue: string | number) => void;
     readOnly?: boolean;
     type: 'outlinedSelect' | 'filledSelect';
@@ -454,13 +460,20 @@ export namespace BaseView {
         children?: React.ReactNode;
     }
     export interface TimeScaleLabelProps {
+        endOfGroup?: boolean;
         formatDate: FormatterFn;
+        groupingInfo?: Array<Group>;
         time?: Date;
     }
     export interface TimeScaleLayoutProps {
+        allDayTitleComponent?: React.ComponentType<AllDayPanel.TitleCellProps>;
         cellsData: BaseView.CellData[][];
         formatDate: FormatterFn;
+        groupOrientation?: GroupOrientation;
+        groups?: Group[][];
+        height?: number;
         labelComponent: React.ComponentType<BaseView.TimeScaleLabelProps>;
+        showAllDayTitle?: boolean;
     }
     export interface TimeTableCellProps {
         children?: React.ReactNode;
@@ -469,11 +482,16 @@ export namespace BaseView {
         endDate?: Date;
         endOfGroup?: boolean;
         groupingInfo?: Array<Group>;
+        groupOrientation?: GroupOrientation;
         hasRightBorder?: boolean;
         isShaded?: boolean;
+        onDoubleClick?: (e: any) => void;
         startDate?: Date;
     }
     export interface TimeTableLayoutProps {
+        allDayCellComponent?: React.ComponentType<AllDayPanel.CellProps>;
+        allDayCellsData?: AllDayPanel.CellData[][];
+        allDayRowComponent?: React.ComponentType<AllDayPanel.RowProps>;
         cellComponent: React.ComponentType<BaseView.TimeTableCellProps>;
         cellsData: BaseView.CellData[][];
         formatDate: FormatterFn;
@@ -798,7 +816,12 @@ export namespace GroupingPanel {
     endOfGroup?: boolean;
     group: Group;
     groupedByDate?: boolean;
+    groupOrientation?: GroupOrientation;
+    height?: number;
     left: number;
+    rowSpan: number;
+    textStyle?: object;
+    topOffSet?: number;
   }
   export interface HorizontalLayoutProps {
     cellComponent: React.ComponentType<GroupingPanel.CellProps>;
@@ -810,13 +833,24 @@ export namespace GroupingPanel {
   }
   export interface RowProps extends BaseView.RowProps {
   }
+  export interface VerticalLayoutProps {
+    alignWithAllDayRow?: boolean;
+    cellComponent: React.ComponentType<GroupingPanel.CellProps>;
+    cellTextTopOffset?: number;
+    groups: Array<Array<Group>>;
+    rowComponent: React.ComponentType<GroupingPanel.RowProps>;
+    rowSpan: number;
+    viewType: string;
+  }
 }
 
 // @public (undocumented)
 export interface GroupingPanelProps {
+  allDayCellComponent: React.ComponentType<GroupingPanel.CellProps>;
   cellComponent: React.ComponentType<GroupingPanel.CellProps>;
   horizontalLayoutComponent: React.ComponentType<GroupingPanel.HorizontalLayoutProps>;
   rowComponent: React.ComponentType<GroupingPanel.RowProps>;
+  verticalLayoutComponent: React.ComponentType<GroupingPanel.VerticalLayoutProps>;
 }
 
 // @public
@@ -824,13 +858,12 @@ export const GroupingState: React.ComponentType<GroupingStateProps>;
 
 // @public (undocumented)
 export interface GroupingStateProps {
-  defaultExpandedGroups?: Array<GroupKey>;
-  expandedGroups?: Array<GroupKey>;
-  groupByDate?: (viewName: string) => boolean;
-  grouping?: Array<Grouping>;
-  // (undocumented)
-  groupOrientation?: (view: string) => GroupOrientation;
-  onExpandedGroupsChange?: (expandedGroups: Array<GroupKey>) => void;
+    defaultExpandedGroups?: Array<GroupKey>;
+    expandedGroups?: Array<GroupKey>;
+    groupByDate?: (viewName: string) => boolean;
+    grouping?: Array<Grouping>;
+    groupOrientation?: (viewName: string) => GroupOrientation;
+    onExpandedGroupsChange?: (expandedGroups: Array<GroupKey>) => void;
 }
 
 // @public
@@ -884,6 +917,7 @@ export namespace MonthView {
   }
   export interface LayoutProps {
     dayScaleComponent: React.ComponentType<BaseView.DayScaleLayoutProps>;
+    dayScaleEmptyCellComponent?: React.ComponentType<BaseView.DayScaleEmptyCellProps>;
     setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
     timeTableComponent: React.ComponentType<BaseView.TimeTableLayoutProps>;
   }
@@ -894,8 +928,10 @@ export namespace MonthView {
     endOfGroup?: boolean;
     formatDate?: FormatterFn;
     groupingInfo?: Array<Group>;
+    groupOrientation?: GroupOrientation;
     hasRightBorder?: boolean;
     isShaded?: boolean;
+    onDoubleClick?: (e: any) => void;
     otherMonth?: boolean;
     startDate: Date;
     today?: boolean;
@@ -911,6 +947,7 @@ export namespace MonthView {
 
 // @public (undocumented)
 export interface MonthViewProps extends CommonViewProps {
+  dayScaleEmptyCellComponent?: React.ComponentType<BaseView.DayScaleEmptyCellProps>;
   dayScaleLayoutComponent: React.ComponentType<MonthView.DayScaleLayoutProps>;
   layoutComponent: React.ComponentType<MonthView.LayoutProps>;
   timeTableLayoutComponent: React.ComponentType<MonthView.TimeTableLayoutProps>;
@@ -985,8 +1022,16 @@ export type ScrollingStrategy = {
   bottomBoundary: number;
   leftBoundary: number;
   rightBoundary: number;
+  fixedTopHeight?: number;
+  fixedLeftWidth?: number;
   changeVerticalScroll: (value: number) => void;
   changeHorizontalScroll: (value: number) => void;
+};
+
+// @public
+export type SelectOption = {
+  text: string;
+  id: number | string;
 };
 
 // @public (undocumented)

@@ -9,6 +9,10 @@ export const virtualRowsWithCache: VirtualRowsWithCacheFn = (skip, rows, cache) 
   return mergeRows(rowsInterval, cacheInterval, rows, cache.rows, skip, cache.skip);
 };
 
-export const plainRows: PlainRowsFn = virtualRows => virtualRows.rows;
+export const plainRows: PlainRowsFn = (virtualRows, availableRowCount) => {
+  return virtualRows.rows.length > availableRowCount
+    ? virtualRows.rows.slice(0, availableRowCount)
+    : virtualRows.rows;
+};
 
 export const loadedRowsStart: LoadedRowsStartFn = virtualRows => virtualRows.skip;

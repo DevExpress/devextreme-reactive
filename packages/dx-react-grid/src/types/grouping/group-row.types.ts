@@ -193,6 +193,11 @@ export interface TableGroupRowProps {
 }
 
 /** @internal */
+export type TableColumnsWithGroupingProps =
+  Partial<Pick<TableGroupRowProps, 'indentColumnWidth'>> &
+  Pick<TableGroupRowProps, 'showColumnsWhenGrouped' | 'columnExtensions'>;
+
+/** @internal */
 export type ShowColumnWhenGroupedGetterFn = PureComputed<
   [boolean, TableGroupRow.ColumnExtension[] | undefined], (name: string) => boolean
 >;

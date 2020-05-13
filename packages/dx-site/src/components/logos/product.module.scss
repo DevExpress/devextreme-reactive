@@ -1,0 +1,39 @@
+@import "../../constants";
+
+.main, .prefix {
+  font-size: 18px;
+  margin-left: 0.5rem;
+}
+
+.main {
+  color: rgb(89, 208, 240);
+}
+
+.prefix {
+  color: white;
+}
+
+.title {
+  color: white;
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 32px;
+}
+
+.name {
+  margin-left: 0.3rem;
+  text-transform: uppercase;
+  color: white;
+  font-family: "Segoe UI Light";
+  font-size: 32px;
+}
+
+.product {
+  font-size: 24px;
+  letter-spacing: -0.5px;
+  font-family: "Segoe UI Bold";
+  line-height: 1.2;
+  padding-left: 22px;
+  &:hover {
+    text-decoration: none;
+  }
+}

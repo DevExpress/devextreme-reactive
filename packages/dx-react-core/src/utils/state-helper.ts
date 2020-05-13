@@ -16,6 +16,9 @@ export const createStateHelper: CreateStateHelperFn = (
   let lastStateUpdater: (state) => void;
   let initialState = null;
   let lastInitialState = null;
+  let newState = null;
+  let shouldNotify = false;
+
   const applyReducer = (reduce, payload?, callback?) => {
     const stateUpdater = (prevState) => {
       if (initialState === null) {
@@ -29,8 +32,11 @@ export const createStateHelper: CreateStateHelperFn = (
       }
       if (stateUpdater === lastStateUpdater) {
         if (lastInitialState !== initialState) {
-          notifyStateChange(state, initialState);
-          lastInitialState = initialState;
+          newState = state;
+          if (!shouldNotify) {
+            lastInitialState = initialState;
+            shouldNotify = true;
+          }
         }
         initialState = null;
       }
@@ -38,7 +44,13 @@ export const createStateHelper: CreateStateHelperFn = (
       return stateChange;
     };
     lastStateUpdater = stateUpdater;
-    component.setState(stateUpdater);
+
+    component.setState(stateUpdater, () => {
+      if (shouldNotify) {
+        notifyStateChange(newState, lastInitialState);
+        shouldNotify = false;
+      }
+    });
   };
   const applyFieldReducer = (field, reduce, payload) => {
     applyReducer(state => ({

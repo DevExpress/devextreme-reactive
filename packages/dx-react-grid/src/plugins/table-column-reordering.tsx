@@ -12,7 +12,6 @@ import {
 import {
   TABLE_DATA_TYPE,
   TABLE_REORDERING_TYPE,
-  orderedColumns,
   changeColumnOrder,
   getTableTargetColumnIndex,
   tableHeaderRowsWithReordering,
@@ -20,6 +19,7 @@ import {
   TargetColumnGeometry,
   TableColumn,
 } from '@devexpress/dx-grid-core';
+import { OrderedTableColumns } from './internal/ordered-table-columns';
 import {
   Table as TableNS, CellDimensionsGetter, TableColumnReorderingProps,
   DragOverArgs, TableColumnReorderingState,
@@ -197,10 +197,6 @@ class TableColumnReorderingRaw extends React.PureComponent<TableColumnReordering
       cellComponent: Cell,
     } = this.props;
 
-    const columnsComputed = (
-      { tableColumns }: Getters,
-    ) => orderedColumns(tableColumns, this.getDraftOrder());
-
     this.cellDimensionGetters = {};
 
     return (
@@ -208,7 +204,8 @@ class TableColumnReorderingRaw extends React.PureComponent<TableColumnReordering
         name="TableColumnReordering"
         dependencies={pluginDependencies}
       >
-        <Getter name="tableColumns" computed={columnsComputed} />
+        <OrderedTableColumns order={this.getDraftOrder()} />
+
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
         <Template name="table">
           {params => (

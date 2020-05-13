@@ -15,10 +15,12 @@ import {
   isRowSummaryCell,
   getColumnSummaries,
   calculateGroupCellIndent,
+  TABLE_FLEX_TYPE,
 } from '@devexpress/dx-grid-core';
 import { TableGroupRow, defaultMessages } from './table-group-row';
 import { TableSummaryContent } from '../components/summary/table-summary-content';
 import { flattenGroupInlineSummaries } from '../components/summary/group-summaries';
+import { TableColumnsWithGrouping } from './internal';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   ...require.requireActual('@devexpress/dx-grid-core'),
@@ -85,6 +87,7 @@ const defaultProps = {
   summaryItemComponent: () => null,
   inlineSummaryComponent: () => null,
   inlineSummaryItemComponent: () => null,
+  stubCellComponent: () => null,
   indentColumnWidth: 100,
   messages: {},
   formatlessSummaryTypes: [],
@@ -133,28 +136,24 @@ describe('TableGroupRow', () => {
         .toBeCalledWith(defaultDeps.getter.tableBodyRows, defaultDeps.getter.isGroupRow);
     });
 
-    it('should extend tableColumns', () => {
+    it('should render TableColumnsWithGrouping', () => {
+      const columnExtensions = [];
       const tree = mount((
-
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableGroupRow
             {...defaultProps}
+            columnExtensions={columnExtensions}
           />
         </PluginHost>
       ));
 
-      expect(getComputedState(tree).tableColumns)
-        .toBe('tableColumnsWithGrouping');
-      expect(tableColumnsWithGrouping)
-        .toBeCalledWith(
-          defaultDeps.getter.columns,
-          defaultDeps.getter.tableColumns,
-          defaultDeps.getter.grouping,
-          defaultDeps.getter.draftGrouping,
-          defaultProps.indentColumnWidth,
-          expect.any(Function),
-        );
+      expect(tree.find(TableColumnsWithGrouping).props())
+        .toEqual({
+          columnExtensions,
+          indentColumnWidth: 100,
+          showColumnsWhenGrouped: false,
+        });
     });
 
     it('should extend getTableCellColSpan', () => {
@@ -576,6 +575,33 @@ describe('TableGroupRow', () => {
           expect.any(Object), // getters
           expect.any(Object), // actions
         );
+    });
+
+    it('should render stub cell on group row and flex column intersection', () => {
+      isRowSummaryCell.mockReturnValue(false);
+      const tableColumn = { type: TABLE_FLEX_TYPE };
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents({
+            ...defaultDeps,
+            template: {
+              ...defaultDeps.template,
+              tableCell: {
+                tableColumn,
+              },
+            },
+          })}
+          <TableGroupRow
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(tree.find(defaultProps.stubCellComponent).props())
+        .toEqual({
+          tableColumn,
+          onToggle: expect.any(Function),
+        });
     });
   });
 

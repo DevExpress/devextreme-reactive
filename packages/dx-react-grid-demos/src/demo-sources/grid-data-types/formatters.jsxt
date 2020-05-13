@@ -5,6 +5,7 @@ import {
   Table,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
+<%&cssImports%>
 
 import {
   generateRows,
@@ -13,8 +14,7 @@ import {
 
 const CurrencyFormatter = ({ value }) => (
   <b style={{ color: 'darkblue' }}>
-$
-    {value}
+    {value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
   </b>
 );
 

@@ -3,7 +3,7 @@ export type DataItems = ReadonlyArray<DataItem>;
 
 export type DomainItems = ReadonlyArray<any>;
 
-export type NumberArray = [number, number];
+export type NumberArray = number[];
 
 // TODO: Find a way to use types from "d3-scale".
 export interface ScaleObject {

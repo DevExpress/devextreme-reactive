@@ -1,4 +1,5 @@
-import { GetAppointmentResources, ValidResourceInstance } from '../../types';
+import { GetAppointmentResources, ValidResourceInstance, ValidResource } from '../../types';
+import { PureComputed } from '@devexpress/dx-core';
 
 export const getAppointmentResources: GetAppointmentResources = (
   appointment, resources, plainResources,
@@ -21,17 +22,29 @@ export const getAppointmentResources: GetAppointmentResources = (
     if (resource.allowMultiple) {
       return [
         ...acc,
-        ...(appointmentResourceId as Array<number | string>).map(itemId => plainResources.find(
-          plainItem => resource.fieldName === plainItem.fieldName && plainItem.id === itemId),
-        ),
+        ...(appointmentResourceId as Array<number | string>)
+        .reduce((prevResources, itemId) => addResourceToAppointmentResources(
+          plainResources, prevResources, resource, itemId,
+        ) as Array<ValidResourceInstance>, [] as Array<ValidResourceInstance>),
       ];
     }
 
-    return [
-      ...acc,
-      ...(plainResources as Array<any>).find(plainItem =>
-        resource.fieldName === plainItem.fieldName && plainItem.id === appointmentResourceId,
-      ),
-    ];
+    return addResourceToAppointmentResources(
+      plainResources, acc, resource, appointmentResourceId,
+    ) as Array<ValidResourceInstance>;
   }, [] as Array<ValidResourceInstance>);
+};
+
+const addResourceToAppointmentResources: PureComputed<
+  [Array<ValidResourceInstance>, Array<ValidResourceInstance>, ValidResource,
+  number | string], Array<ValidResourceInstance>
+> = (plainResources, appointmentResources, resource, resourceId) => {
+  const currentResource = plainResources.find(
+    plainItem => resource.fieldName === plainItem.fieldName && plainItem.id === resourceId,
+  );
+
+  return currentResource ? [
+    ...appointmentResources,
+    currentResource!,
+  ] : appointmentResources;
 };

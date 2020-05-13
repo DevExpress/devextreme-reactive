@@ -7,6 +7,7 @@ import {
 import {
   TableRow, RowLevel, TableRowsWithSummariesFn,
 } from '../../types';
+import { groupFooterSummaryExists } from './helpers';
 
 export const tableRowsWithTotalSummaries: PureComputed<[TableRow[]]> = footerRows => [
   { key: TABLE_TOTAL_SUMMARY_TYPE.toString(), type: TABLE_TOTAL_SUMMARY_TYPE },
@@ -18,10 +19,11 @@ export const tableRowsWithSummaries: TableRowsWithSummariesFn = (
 ) => {
   if (!getRowLevelKey || !(groupSummaryItems || treeSummaryItems)) return tableRows;
 
+  const hasGroupFooterSummary = groupFooterSummaryExists(groupSummaryItems);
   const result: TableRow[] = [];
   const closeLevel = (level: RowLevel) => {
     if (!level.opened) return;
-    if (groupSummaryItems && isGroupRow && isGroupRow(level.row)) {
+    if (hasGroupFooterSummary && isGroupRow && isGroupRow(level.row)) {
       const { compoundKey } = level.row;
       result.push({
         key: `${TABLE_GROUP_SUMMARY_TYPE.toString()}_${compoundKey}`,

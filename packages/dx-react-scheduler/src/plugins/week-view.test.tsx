@@ -2,18 +2,23 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
-import { computed, viewCellsData, calculateWeekDateIntervals } from '@devexpress/dx-scheduler-core';
+import {
+  computed, viewCellsData,
+  calculateWeekDateIntervals, getTimeTableHeight,
+} from '@devexpress/dx-scheduler-core';
 import { WeekView } from './week-view';
 import { BasicView } from './basic-view';
 
 // tslint:disable: max-line-length
 jest.mock('@devexpress/dx-scheduler-core', () => ({
+  ...require.requireActual('@devexpress/dx-scheduler-core'),
   viewCellsData: jest.fn(),
   computed: jest.fn(),
   startViewDate: jest.fn(),
   endViewDate: jest.fn(),
   availableViews: jest.fn(),
-  calculateWeekDateIntervals:jest.fn(),
+  calculateWeekDateIntervals: jest.fn(),
+  getTimeTableHeight: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -84,11 +89,13 @@ describe('Week View', () => {
           timeTableRowComponent: defaultProps.timeTableRowComponent,
           timeTableCellComponent: defaultProps.timeTableCellComponent,
           appointmentLayerComponent: defaultProps.appointmentLayerComponent,
+          dayScaleEmptyCellComponent: defaultProps.dayScaleEmptyCellComponent,
+          calculateAppointmentsIntervals: expect.any(Function),
+          viewCellsDataComputed: expect.any(Function),
         });
       expect(tree.find(BasicView).props().layoutProps)
         .toMatchObject({
           timeScaleComponent: expect.any(Function),
-          dayScaleEmptyCellComponent: expect.any(Function),
         });
 
       tree.find(BasicView).props().viewCellsDataComputed(
@@ -127,19 +134,26 @@ describe('Week View', () => {
           formatDate: defaultDeps.getter.formatDate,
         });
     });
-    it('should render dayScaleEmptyCell', () => {
-      const tree = mount((
+    it('should call "getTimeTableHeight" with proper parameters', () => {
+      mount((
         <PluginHost>
-          {pluginDepsToComponents(defaultDeps)}
+          {pluginDepsToComponents({
+            ...defaultDeps,
+            getter: {
+              ...defaultDeps.getter,
+              allDayElementsMeta: 'allDayElementsMeta',
+              allDayPanelExists: 'allDayPanelExists',
+              groupOrientation: () => 'groupOrientation',
+            },
+          })}
           <WeekView
             {...defaultProps}
-            dayScaleEmptyCellComponent={() => <div className="empty-cell" />}
           />
         </PluginHost>
       ));
 
-      expect(tree.find('.empty-cell').exists())
-        .toBeTruthy();
+      expect(getTimeTableHeight)
+        .toBeCalledWith({});
     });
   });
 });

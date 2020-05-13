@@ -2,8 +2,9 @@ import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import {
   AppointmentMoment, DayBoundaryPredicateFn,
-  ReduceAppointmentByDayBoundsFn, NormalizeAppointmentDurationFn,
+  ReduceAppointmentByDayBoundsFn, NormalizeAppointmentDurationFn, ViewCell, SchedulerDateTime,
 } from '../../types';
+import { checkCellGroupingInfo } from '../common/helpers';
 
 export const sliceAppointmentByDay: PureComputed<
   [AppointmentMoment, number], AppointmentMoment[]
@@ -111,3 +112,49 @@ export const normalizeAppointmentDuration: NormalizeAppointmentDurationFn = (
     end: start.clone().endOf('day'),
   };
 };
+
+export const getWeekVerticallyGroupedColumnIndex: PureComputed<
+  [ViewCell[][], SchedulerDateTime], number
+> = (viewCellsData, date) =>  viewCellsData[0].findIndex((
+  timeCell: ViewCell,
+) => moment(date as SchedulerDateTime).isSame(timeCell.startDate, 'date'));
+
+export const getWeekHorizontallyGroupedColumnIndex: PureComputed<
+  [ViewCell[][], AppointmentMoment, SchedulerDateTime], number
+> = (viewCellsData, appointment, date) => viewCellsData[0].findIndex((timeCell: ViewCell) => {
+  const isCorrectGroup = checkCellGroupingInfo(timeCell, appointment);
+  return moment(date as SchedulerDateTime).isSame(timeCell.startDate, 'date') && isCorrectGroup;
+});
+
+export const getWeekVerticallyGroupedRowIndex: PureComputed<
+  [ViewCell[][], AppointmentMoment, SchedulerDateTime, number, boolean, number], number
+> = (viewCellsData, appointment, date, columnIndex, takePrev, groupCount) => {
+  const timeTableHeight = viewCellsData.length / groupCount;
+  let timeTableRowIndex = getWeekHorizontallyGroupedRowIndex(
+    viewCellsData, date, columnIndex, takePrev,
+  );
+
+  if (!viewCellsData[0][0].groupingInfo) return timeTableRowIndex;
+
+  let isWrongCell = !checkCellGroupingInfo(
+    viewCellsData[timeTableRowIndex][columnIndex], appointment,
+  );
+  while (isWrongCell) {
+    timeTableRowIndex += timeTableHeight;
+    isWrongCell = !checkCellGroupingInfo(
+      viewCellsData[timeTableRowIndex][columnIndex], appointment,
+    );
+  }
+  return timeTableRowIndex;
+};
+
+export const getWeekHorizontallyGroupedRowIndex: PureComputed<
+  [ViewCell[][], SchedulerDateTime, number, boolean], number
+> = (viewCellsData, date, columnIndex, takePrev) => viewCellsData.findIndex(
+  timeCell => moment(date as SchedulerDateTime)
+    .isBetween(
+      timeCell[columnIndex].startDate,
+      timeCell[columnIndex].endDate,
+      'seconds',
+      takePrev ? '(]' : '[)'),
+    );

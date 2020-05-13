@@ -33,6 +33,7 @@ layoutComponent | ComponentType&lt;[MonthView.LayoutProps](#monthviewlayoutprops
 dayScaleLayoutComponent | ComponentType&lt;[MonthView.DayScaleLayoutProps](#monthviewdayscalelayoutprops)&gt; | | A component that renders a day scale layout.
 dayScaleCellComponent | ComponentType&lt;[MonthView.DayScaleCellProps](#monthviewdayscalecellprops)&gt; | | A component that renders a day scale cell.
 dayScaleRowComponent | ComponentType&lt;[MonthView.RowProps](#monthviewrowprops)&gt; | | A component that renders a day scale row.
+dayScaleEmptyCellComponent | ComponentType&lt;[MonthView.DayScaleEmptyCellProps](#monthviewdayscaleemptycellprops)&gt; | | A component that renders an empty cell on the day scale.
 timeTableLayoutComponent | ComponentType&lt;[MonthView.TimeTableLayoutProps](#monthviewtimetablelayoutprops)&gt; | | A component that renders a time table layout.
 timeTableCellComponent | ComponentType&lt;[MonthView.TimeTableCellProps](#monthviewtimetablecellprops)&gt; | | A component that renders a time table cell.
 timeTableRowComponent | ComponentType&lt;[MonthView.RowProps](#monthviewrowprops)&gt; | | A component that renders a time table row.
@@ -89,6 +90,14 @@ formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats d
 groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's grouping.
 endOfGroup? | boolean | `true` if this cell is last in its group.
 
+### MonthView.DayScaleEmptyCellProps
+
+Describes properties passed to a component that renders an empty cell on the day scale.
+
+Field | Type | Description
+------|------|------------
+children? | ReactNode | A React node used to render the cell's content.
+
 ### MonthView.TimeTableLayoutProps
 
 Describes properties passed to a component that renders a time table layout.
@@ -112,8 +121,10 @@ otherMonth? | boolean | Indicates whether the cell's date is not in the current 
 today? | boolean | Indicates whether the cell's date is today.
 isShaded? | boolean | Indicates whether the cell is shaded.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the locale.
+groupOrientation? | [GroupOrientation](./grouping-state.md#grouporientation) | The orientation of groups: `Vertical` or `Horizontal`.
 groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's grouping.
 endOfGroup? | boolean | `true` if this cell is last in its group.
+onDoubleClick? | (e: object) => void | A function that handles a double click on the cell.
 
 ### MonthView.AppointmentLayerProps
 
@@ -138,6 +149,7 @@ Name | Properties | Description
 MonthView.Layout | [MonthView.LayoutProps](#monthviewlayoutprops) | A component that renders a month view layout.
 MonthView.DayScaleLayout | [MonthView.DayScaleLayoutProps](#monthviewdayscalelayoutprops) | A component that renders a day scale layout.
 MonthView.DayScaleCell | [MonthView.DayScaleCellProps](#monthviewdayscalecellprops) | A component that renders a day scale cell.
+MonthView.DayScaleEmptyCell | [DayView.DayScaleEmptyCellProps](#monthviewdayscaleemptycellprops) | A component that renders an empty cell on the day scale.
 MonthView.TimeTableLayout | [MonthView.TimeTableLayoutProps](#monthviewtimetablelayoutprops) | A component that renders a time table layout.
 MonthView.TimeTableCell | [MonthView.TimeTableCellProps](#monthviewtimetablecellprops) | A component that renders a time table cell.
 MonthView.Row | [MonthView.RowProps](#monthviewrowprops) | A component that renders a generic row.

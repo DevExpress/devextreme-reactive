@@ -1,10 +1,12 @@
 import {
   filterResourcesByGrouping, sortFilteredResources,
   getGroupsFromResources, expandViewCellsDataWithGroups,
-  updateGroupingWithMainResource, expandGroups,
+  updateGroupingWithMainResource, expandGroups, updateTimeTableCellElementsMeta,
+  updateAllDayCellElementsMeta,
 } from './computeds';
 import { expandGroupedAppointment, groupAppointments } from './helpers';
 import { sliceAppointmentsByDays } from '../all-day-panel/helpers';
+import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '../../constants';
 
 jest.mock('./helpers', () => ({
   ...require.requireActual('./helpers'),
@@ -104,30 +106,36 @@ describe('IntegratedGrouping computeds', () => {
         { fieldName: 'resource1', id: 2 },
       ]];
 
-      const result = expandViewCellsDataWithGroups(viewCellsDataBase, groups, resourcesBase);
+      const result = expandViewCellsDataWithGroups(
+        viewCellsDataBase, groups, resourcesBase, false, HORIZONTAL_GROUP_ORIENTATION,
+      );
       expect(result[0][0])
         .toEqual({
           ...viewCellsDataBase[0][0],
           groupingInfo: [{ fieldName: 'resource1', id: 1 }],
           endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         });
       expect(result[0][1])
         .toEqual({
           ...viewCellsDataBase[0][0],
           groupingInfo: [{ fieldName: 'resource1', id: 2 }],
           endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         });
       expect(result[1][0])
         .toEqual({
           ...viewCellsDataBase[1][0],
           groupingInfo: [{ fieldName: 'resource1', id: 1 }],
           endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         });
       expect(result[1][1])
         .toEqual({
           ...viewCellsDataBase[1][0],
           groupingInfo: [{ fieldName: 'resource1', id: 2 }],
           endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         });
     });
 
@@ -152,7 +160,9 @@ describe('IntegratedGrouping computeds', () => {
         instances: [{ id: 1 }, { id: 2 }],
       }];
 
-      const result = expandViewCellsDataWithGroups(viewCellsData, groups, resources);
+      const result = expandViewCellsDataWithGroups(
+        viewCellsData, groups, resources, false, HORIZONTAL_GROUP_ORIENTATION,
+      );
       expect(result[0][0])
         .toEqual({
           ...viewCellsData[0][0],
@@ -161,6 +171,7 @@ describe('IntegratedGrouping computeds', () => {
             { fieldName: 'resource1', id: 1 },
           ],
           endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         });
       expect(result[0][1])
         .toEqual({
@@ -170,6 +181,7 @@ describe('IntegratedGrouping computeds', () => {
             { fieldName: 'resource1', id: 1 },
           ],
           endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         });
       expect(result[0][2])
         .toEqual({
@@ -179,6 +191,7 @@ describe('IntegratedGrouping computeds', () => {
             { fieldName: 'resource1', id: 2 },
           ],
           endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         });
       expect(result[0][3])
         .toEqual({
@@ -188,6 +201,7 @@ describe('IntegratedGrouping computeds', () => {
             { fieldName: 'resource1', id: 2 },
           ],
           endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         });
     });
 
@@ -208,28 +222,75 @@ describe('IntegratedGrouping computeds', () => {
         [{ startDate: new Date('2018-06-25 08:00'), endDate: new Date('2018-06-25 08:30') }],
       ];
 
-      const result = expandViewCellsDataWithGroups(viewCellsData, groups, resourcesBase, true);
+      const result = expandViewCellsDataWithGroups(
+        viewCellsData, groups, resourcesBase, true, HORIZONTAL_GROUP_ORIENTATION,
+      );
       expect(result[0][0])
         .toEqual({
           ...viewCellsData[0][0],
           groupingInfo: [{ fieldName: 'resource1', id: 1 }],
+          endOfGroup: false,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         });
       expect(result[0][1])
         .toEqual({
           ...viewCellsData[0][0],
           groupingInfo: [{ fieldName: 'resource1', id: 2 }],
           endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         });
       expect(result[1][0])
         .toEqual({
           ...viewCellsData[1][0],
           groupingInfo: [{ fieldName: 'resource1', id: 1 }],
+          endOfGroup: false,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
         });
       expect(result[1][1])
         .toEqual({
           ...viewCellsData[1][0],
           groupingInfo: [{ fieldName: 'resource1', id: 2 }],
           endOfGroup: true,
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+        });
+    });
+
+    it('should work with vertical grouping', () => {
+      const groups = [[
+        { fieldName: 'resource1', id: 1 },
+        { fieldName: 'resource1', id: 2 },
+      ]];
+
+      const result = expandViewCellsDataWithGroups(
+        viewCellsDataBase, groups, resourcesBase, false, VERTICAL_GROUP_ORIENTATION,
+      );
+      expect(result[0][0])
+        .toEqual({
+          ...viewCellsDataBase[0][0],
+          groupingInfo: [{ fieldName: 'resource1', id: 1 }],
+          endOfGroup: false,
+          groupOrientation: VERTICAL_GROUP_ORIENTATION,
+        });
+      expect(result[1][0])
+        .toEqual({
+          ...viewCellsDataBase[1][0],
+          groupingInfo: [{ fieldName: 'resource1', id: 1 }],
+          endOfGroup: true,
+          groupOrientation: VERTICAL_GROUP_ORIENTATION,
+        });
+      expect(result[2][0])
+        .toEqual({
+          ...viewCellsDataBase[0][0],
+          groupingInfo: [{ fieldName: 'resource1', id: 2 }],
+          endOfGroup: false,
+          groupOrientation: VERTICAL_GROUP_ORIENTATION,
+        });
+      expect(result[3][0])
+        .toEqual({
+          ...viewCellsDataBase[1][0],
+          groupingInfo: [{ fieldName: 'resource1', id: 2 }],
+          endOfGroup: true,
+          groupOrientation: VERTICAL_GROUP_ORIENTATION,
         });
     });
   });
@@ -278,6 +339,161 @@ describe('IntegratedGrouping computeds', () => {
         .toHaveBeenCalledWith(['expandGroupedAppointment'], 'resources', 'groups');
       expect(sliceAppointmentsByDays)
         .toHaveBeenCalledWith({}, []);
+    });
+  });
+
+  describe('#updateTimeTableCellElementsMeta', () => {
+    it('should not update if getCellRects is undefined', () => {
+      const timeTableCellElementsMeta = {};
+      expect(updateTimeTableCellElementsMeta(
+        timeTableCellElementsMeta, () => VERTICAL_GROUP_ORIENTATION, 'groups', true,
+        'viewCellsData', {},
+      ))
+        .toEqual(timeTableCellElementsMeta);
+    });
+    it('should leave cell elements as they are if groupOrientation is horizontal or all day panel does not exist', () => {
+      const timeTableCellElementsMeta = { getCellRects: 'test' };
+
+      let allDayPanelExists = false;
+      expect(updateTimeTableCellElementsMeta(
+        timeTableCellElementsMeta, () => VERTICAL_GROUP_ORIENTATION, 'groups', allDayPanelExists,
+        'viewCellsData', {},
+      ))
+        .toEqual(timeTableCellElementsMeta);
+
+      allDayPanelExists = true;
+      expect(updateTimeTableCellElementsMeta(
+        timeTableCellElementsMeta, () => HORIZONTAL_GROUP_ORIENTATION, 'groups', allDayPanelExists,
+        'viewCellsData', {},
+      ))
+        .toEqual(timeTableCellElementsMeta);
+    });
+    it('should delete elements belonging to all day cells', () => {
+      const viewCellsData = [
+        [{ groupingInfo: 'First group' }, { groupingInfo: 'First group' }],
+        [{ groupingInfo: 'First group' }, { groupingInfo: 'First group' }],
+        [{ groupingInfo: 'Second group' }, { groupingInfo: 'Second group' }],
+        [{ groupingInfo: 'Second group' }, { groupingInfo: 'Second group' }],
+      ];
+      const timeTableCellElementsMeta = {
+        parentRect: 'Parent rect',
+        getCellRects: [
+          // All-day panel
+          'First cell',
+          'Second cell',
+          // TimeTable
+          'Third cell',
+          'Fourth cell',
+          'Fifth cell',
+          'Sixth cell',
+          // All-day panel
+          'Seventh cell',
+          'Eighth cell',
+          // TimeTable
+          'Ninth cell',
+          'Tenth cell',
+          'Eleventh cell',
+          'Twelfth cell',
+        ],
+      };
+      const groups = [[{}, {}]];
+
+      expect(updateTimeTableCellElementsMeta(
+        timeTableCellElementsMeta, () => VERTICAL_GROUP_ORIENTATION, groups, true,
+        viewCellsData, {},
+      ))
+        .toEqual({
+          parentRect: 'Parent rect',
+          getCellRects: [
+            // TimeTable
+            'Third cell',
+            'Fourth cell',
+            'Fifth cell',
+            'Sixth cell',
+            // TimeTable
+            'Ninth cell',
+            'Tenth cell',
+            'Eleventh cell',
+            'Twelfth cell',
+          ],
+        });
+    });
+  });
+
+  describe('#updateAllDayCellElementsMeta', () => {
+    it('should not update if timeTableCellElementsMeta\'s getCellRects is undefined', () => {
+      const timeTableCellElementsMeta = {};
+      const allDayElementsMeta = { test: 'test' };
+      expect(updateAllDayCellElementsMeta(
+        allDayElementsMeta, timeTableCellElementsMeta, () => VERTICAL_GROUP_ORIENTATION,
+        'groups', true, 'viewCellsData', {},
+      ))
+        .toEqual(allDayElementsMeta);
+    });
+    it('should leave cell elements as they are if groupOrientation is horizontal or all day panel does not exist', () => {
+      const timeTableCellElementsMeta = { getCellRects: 'test' };
+      const allDayElementsMeta = { test: 'test' };
+
+      let allDayPanelExists = false;
+      expect(updateAllDayCellElementsMeta(
+        allDayElementsMeta, timeTableCellElementsMeta, () => VERTICAL_GROUP_ORIENTATION,
+        'groups', allDayPanelExists, 'viewCellsData', {},
+      ))
+        .toEqual(allDayElementsMeta);
+
+      allDayPanelExists = true;
+      expect(updateAllDayCellElementsMeta(
+        allDayElementsMeta, timeTableCellElementsMeta, () => HORIZONTAL_GROUP_ORIENTATION,
+        'groups', allDayPanelExists, 'viewCellsData', {},
+      ))
+        .toEqual(allDayElementsMeta);
+    });
+    it('should delete elements belonging to timetable cells', () => {
+      const viewCellsData = [
+        [{ groupingInfo: 'First group' }, { groupingInfo: 'First group' }],
+        [{ groupingInfo: 'First group' }, { groupingInfo: 'First group' }],
+        [{ groupingInfo: 'Second group' }, { groupingInfo: 'Second group' }],
+        [{ groupingInfo: 'Second group' }, { groupingInfo: 'Second group' }],
+      ];
+      const timeTableCellElementsMeta = {
+        parentRect: 'Parent rect',
+        getCellRects: [
+          // All-day panel
+          'First cell',
+          'Second cell',
+          // TimeTable
+          'Third cell',
+          'Fourth cell',
+          'Fifth cell',
+          'Sixth cell',
+          // All-day panel
+          'Seventh cell',
+          'Eighth cell',
+          // TimeTable
+          'Ninth cell',
+          'Tenth cell',
+          'Eleventh cell',
+          'Twelfth cell',
+        ],
+      };
+      const allDayElementsMeta = {};
+      const groups = [[{}, {}]];
+
+      expect(updateAllDayCellElementsMeta(
+        allDayElementsMeta, timeTableCellElementsMeta, () => VERTICAL_GROUP_ORIENTATION,
+        groups, true, viewCellsData, {},
+      ))
+        .toEqual({
+          parentRect: 'Parent rect',
+          getCellRects: [
+            // All-day panel
+            'First cell',
+            'Second cell',
+            // All-day panel
+            'Seventh cell',
+            'Eighth cell',
+          ],
+        });
     });
   });
 });

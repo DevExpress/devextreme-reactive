@@ -106,7 +106,7 @@ export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      data: appointments,
+      data: appointments.filter(appointment => appointment.priorityId < 3),
       resources: [{
         fieldName: 'priorityId',
         title: 'Priority',

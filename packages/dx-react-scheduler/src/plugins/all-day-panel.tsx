@@ -8,10 +8,18 @@ import {
   TemplateConnector,
   PluginComponents,
 } from '@devexpress/dx-react-core';
-import { allDayCells, calculateAllDayDateIntervals } from '@devexpress/dx-scheduler-core';
+import {
+  allDayCells, calculateAllDayDateIntervals,
+  VERTICAL_GROUP_ORIENTATION, VIEW_TYPES,
+} from '@devexpress/dx-scheduler-core';
 import moment from 'moment';
 
 import { AllDayPanelProps, AllDayPanelState } from '../types';
+
+const isMonthView = currentView => currentView.type === VIEW_TYPES.MONTH;
+const isVerticalGrouping = (
+  currentView, groupOrientation,
+) => groupOrientation?.(currentView.name) === VERTICAL_GROUP_ORIENTATION;
 
 const pluginDependencies = [
   { name: 'DayView', optional: true },
@@ -20,15 +28,19 @@ const pluginDependencies = [
 const defaultMessages = {
   allDay: 'All Day',
 };
-const MONTH = 'Month';
 const AllDayAppointmentLayerPlaceholder = () =>
   <TemplatePlaceholder name="allDayAppointmentLayer" />;
 const AllDayPanelPlaceholder = params => <TemplatePlaceholder name="allDayPanel" params={params} />;
 const CellPlaceholder = params => <TemplatePlaceholder name="allDayPanelCell" params={params} />;
+const AllDayTitlePlaceholder = params => <TemplatePlaceholder name="allDayTitle" params={params} />;
 
 class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelState> {
   state: AllDayPanelState = {
     elementsMeta: {},
+    previousCell: null,
+    // The key has to be generated every time the Cell component is updated to rerender the Layout
+    // and, consequently, update allDayElementsMeta
+    layoutKey: 0,
   };
   static defaultProps: Partial<AllDayPanelProps> = {
     messages: {},
@@ -43,7 +55,20 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
     containerComponent: 'Container',
   };
 
-  allDayCellsData = memoize(viewCellsData => allDayCells(viewCellsData));
+  static getDerivedStateFromProps(
+    props: AllDayPanelProps, state: AllDayPanelState,
+  ): AllDayPanelState | null {
+    if (props.cellComponent !== state.previousCell) {
+      return {
+        ...state,
+        previousCell: props.cellComponent,
+        layoutKey: Math.random(),
+      };
+    }
+    return null;
+  }
+
+  allDayCellsDataComputed = memoize(({ viewCellsData }) => allDayCells(viewCellsData));
 
   updateCellElementsMeta = memoize((cellElementsMeta) => {
     this.setState({ elementsMeta: cellElementsMeta });
@@ -59,6 +84,10 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
     );
   });
 
+  allDayPanelExistsComputed = memoize(({
+    currentView,
+  }) => !isMonthView(currentView));
+
   getMessageFormatter = memoize((messages, allDayPanelDefaultMessages) =>
     getMessagesFormatter({ ...allDayPanelDefaultMessages, ...messages }));
 
@@ -72,7 +101,7 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
       containerComponent: Container,
       messages,
     } = this.props;
-    const { elementsMeta } = this.state;
+    const { elementsMeta, layoutKey } = this.state;
     const getMessage = this.getMessageFormatter(messages, defaultMessages);
 
     return (
@@ -81,27 +110,86 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
         dependencies={pluginDependencies}
       >
         <Getter name="allDayElementsMeta" value={elementsMeta} />
+        <Getter name="allDayCellsData" computed={this.allDayCellsDataComputed} />
+        <Getter name="allDayPanelExists" computed={this.allDayPanelExistsComputed} />
         <Getter
           name="allDayAppointments"
           computed={this.allDayAppointmentsComputed}
         />
 
+        <Template name="timeTable">
+          {(params: any) => (
+            <TemplateConnector>
+              {({ currentView, groupOrientation, allDayCellsData }) => {
+                if (isMonthView(currentView)
+                  || !isVerticalGrouping(currentView, groupOrientation)) {
+                  return <TemplatePlaceholder params={...params} />;
+                }
+                return (
+                  <>
+                    <TemplatePlaceholder
+                      params={{
+                        ...params,
+                        allDayCellComponent: CellPlaceholder,
+                        allDayRowComponent: rowComponent,
+                        allDayCellsData,
+                      }}
+                    />
+                    <AppointmentLayer>
+                      <AllDayAppointmentLayerPlaceholder />
+                    </AppointmentLayer>
+                  </>
+                );
+              }}
+            </TemplateConnector>
+          )}
+        </Template>
+
         <Template name="dayScaleEmptyCell">
           <TemplateConnector>
-            {({ currentView }) => {
-              if (currentView === MONTH) return null;
+            {({ currentView, groupOrientation }) => {
+              if (isMonthView(currentView) || isVerticalGrouping(currentView, groupOrientation)) {
+                return <TemplatePlaceholder />;
+              }
+
               return (
-                <TitleCell getMessage={getMessage} />
+                <AllDayTitlePlaceholder />
               );
             }}
           </TemplateConnector>
         </Template>
 
+        <Template name="timeScale">
+          {(params: any) => (
+            <TemplateConnector>
+              {({ currentView, groupOrientation }) => {
+                if (isMonthView(currentView)
+                  || !isVerticalGrouping(currentView, groupOrientation)) {
+                  return <TemplatePlaceholder params={...params} />;
+                }
+
+                return (
+                  <TemplatePlaceholder
+                    params={{
+                      ...params,
+                      allDayTitleComponent: AllDayTitlePlaceholder,
+                      showAllDayTitle: true,
+                    }}
+                  />
+                );
+              }}
+            </TemplateConnector>
+          )}
+        </Template>
+
         <Template name="dayScale">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ currentView }) => {
-              if (currentView === MONTH) return null;
+            {({ currentView, groupOrientation }) => {
+              if (isMonthView(currentView) || isVerticalGrouping(currentView, groupOrientation)) {
+                return null;
+              }
+
               return (
                 <Container>
                   <AllDayPanelPlaceholder />
@@ -115,27 +203,32 @@ class AllDayPanelBase extends React.PureComponent<AllDayPanelProps, AllDayPanelS
           <TemplatePlaceholder />
           <TemplateConnector>
             {({
-              currentView, formatDate, viewCellsData,
+              currentView, formatDate, allDayCellsData,
             }) => {
-              if (currentView.name === MONTH) return null;
+              if (currentView.type === VIEW_TYPES.MONTH) return null;
+
               return (
-                <>
+                <React.Fragment>
                   <Layout
                     cellComponent={CellPlaceholder}
                     rowComponent={rowComponent}
-                    cellsData={this.allDayCellsData(viewCellsData)}
+                    cellsData={allDayCellsData[0]}
                     setCellElementsMeta={this.updateCellElementsMeta}
                     formatDate={formatDate}
+                    key={layoutKey}
                   />
                   <AppointmentLayer>
                     <AllDayAppointmentLayerPlaceholder />
                   </AppointmentLayer>
-                </>
+                </React.Fragment>
               );
             }}
           </TemplateConnector>
         </Template>
 
+        <Template name="allDayTitle">
+          {(params: any) => <TitleCell getMessage={getMessage} {...params}/>}
+        </Template>
         <Template name="allDayPanelCell">
           {(params: any) => <Cell {...params} />}
         </Template>

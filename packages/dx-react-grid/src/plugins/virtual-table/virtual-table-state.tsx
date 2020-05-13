@@ -11,7 +11,9 @@ const virtualRowsComputed = (
   { skip, rows, virtualRowsCache }: Getters,
 ) => virtualRowsWithCache(skip, rows, virtualRowsCache);
 
-const rowsComputed = ({ virtualRows }: Getters) => plainRows(virtualRows);
+const rowsComputed = (
+  { virtualRows, availableRowCount }: Getters,
+) => plainRows(virtualRows, availableRowCount);
 
 const loadedRowsStartComputed = ({ virtualRows }: Getters) => loadedRowsStart(virtualRows);
 
@@ -91,6 +93,22 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
     }, 50);
   }
 
+  requestFirstPage() {
+    const { getRows, pageSize } = this.props;
+
+    if (this.requestTimer !== 0) {
+      clearTimeout(this.requestTimer);
+    }
+    this.requestTimer = window.setTimeout(() => {
+      getRows(0, 2 * pageSize!);
+
+      this.setState({
+        virtualRowsCache: emptyVirtualRows,
+        requestedStartIndex: 0,
+      });
+    }, 50);
+  }
+
   clearRowsCacheAction = (
     _: any,
     __: Getters,
@@ -102,13 +120,23 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
     requestNextPage({ forceReload: true });
   }
 
+  changeColumnFilterAction = () => this.requestFirstPage();
+
   static getDerivedStateFromProps(nextProps, prevState) {
     const {
       availableRowCount = prevState.availableRowCount,
+      totalRowCount,
+      pageSize,
+      infiniteScrolling,
     } = nextProps;
 
     return {
-      availableRowCount,
+      availableRowCount: getAvailableRowCount(
+        infiniteScrolling,
+        pageSize * 2,
+        availableRowCount,
+        totalRowCount,
+      ),
     };
   }
 
@@ -129,10 +157,8 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
   }
 
   render() {
-    const { virtualRowsCache, availableRowCount: stateRowCount } = this.state;
-    const { skip, pageSize, loading, infiniteScrolling, totalRowCount } = this.props;
-
-    const availableRowCount = infiniteScrolling ? stateRowCount : totalRowCount;
+    const { virtualRowsCache, availableRowCount } = this.state;
+    const { skip, pageSize, loading, infiniteScrolling } = this.props;
 
     return (
       <Plugin
@@ -154,7 +180,7 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
         <Action name="setViewport" action={this.setViewport} />
         <Action name="clearRowCache" action={this.clearRowsCacheAction} />
         <Action name="changeColumnSorting" action={this.clearRowsCacheAction} />
-        <Action name="changeColumnFilter" action={this.clearRowsCacheAction} />
+        <Action name="changeColumnFilter" action={this.changeColumnFilterAction} />
       </Plugin>
     );
   }

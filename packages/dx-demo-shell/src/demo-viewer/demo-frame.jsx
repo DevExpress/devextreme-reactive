@@ -3,8 +3,8 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Frame from 'react-frame-component';
 import {
-  FormGroup, ControlLabel, FormControl, InputGroup, Button,
-} from 'react-bootstrap';
+  FormGroup, Label, Input, InputGroup, Button,
+} from 'reactstrap';
 import { DemoRenderer } from './demo-renderer';
 import { EmbeddedDemoContext } from '../context';
 
@@ -13,14 +13,15 @@ class DemoFrameRenderer extends React.PureComponent {
     super(props, context);
 
     this.state = {
-      editableLink: this.getThemeVariantOptions().editableLink,
       frameHeight: 600,
     };
     this.nodeRef = React.createRef();
 
+
     this.onSubmitCustomLink = (e) => {
       e.preventDefault();
-      this.setState({ editableLink: this.customThemeLinkNode.value });
+      const { onEditableLinkChange } = this.props;
+      onEditableLinkChange(this.customThemeLinkNode.value);
     };
   }
 
@@ -40,66 +41,6 @@ class DemoFrameRenderer extends React.PureComponent {
       .find(variant => variant.name === variantName);
   }
 
-  getMarkup() {
-    const {
-      sectionName,
-      demoName,
-      themeName,
-      variantName,
-      perfSamplesCount,
-    } = this.props;
-    const {
-      scriptPath, firstPart, lastPart, demoSources,
-    } = this.context;
-
-    let demoScript = scriptPath;
-    if (firstPart !== undefined) {
-      // eslint-disable-next-line prefer-destructuring
-      const productName = demoSources[sectionName][demoName][themeName].productName;
-      demoScript = `${firstPart}${productName}${lastPart}`;
-    }
-
-    const frameUrl = `/demo/${sectionName}/${demoName}/${themeName}/${variantName}`;
-    const themeLinks = this.getThemeLinks();
-
-    const mode = perfSamplesCount > 0 ? `/perf/${perfSamplesCount}` : '/clean';
-    return `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        ${themeLinks}
-        <style>
-          body { margin: 8px; overflow: hidden; }
-          .panel { margin: 0; }
-        </style>
-      </head>
-      <body>
-        <div id="mountPoint"></div>
-        <div class="embedded-demo" data-options='{ "path": "${frameUrl}${mode}", "frame": true }'>
-          <div style="min-height: 500px;">Loading...</div>
-        </div>
-        <script>
-          if (window.parent !== window) {
-            window.__REACT_DEVTOOLS_GLOBAL_HOOK__ = window.parent.__REACT_DEVTOOLS_GLOBAL_HOOK__;
-          }
-        </script>
-        <script src="${demoScript}"></script>
-      </body>
-      </html>`;
-  }
-
-  getThemeLinks() {
-    const { editableLink } = this.state;
-    const themeVariantOptions = this.getThemeVariantOptions();
-    const links = [
-      ...(themeVariantOptions.links || []),
-      (editableLink ? [editableLink] : []),
-    ];
-    return links.length
-      ? links.map(link => `<link rel="stylesheet" href="${link}">`).join('\n')
-      : '';
-  }
-
   updateFrameHeight() {
     const { frameHeight } = this.state;
     const node = this.nodeRef.current;
@@ -114,8 +55,9 @@ class DemoFrameRenderer extends React.PureComponent {
   }
 
   render() {
+    const { markup, editableLink } = this.props;
     const { frame } = this.context;
-    const { editableLink, frameHeight } = this.state;
+    const { frameHeight } = this.state;
 
     return (
       <div>
@@ -125,20 +67,19 @@ class DemoFrameRenderer extends React.PureComponent {
             onSubmit={this.onSubmitCustomLink}
           >
             <FormGroup controlId="customThemeLink">
-              <ControlLabel>
+              <Label>
                 Custom theme link
-              </ControlLabel>
+              </Label>
               <InputGroup>
-                <FormControl
+                <Input
                   type="text"
-                  inputRef={(node) => { this.customThemeLinkNode = node; }}
+                  id="customLink"
+                  innerRef={(node) => { this.customThemeLinkNode = node; }}
                   defaultValue={editableLink}
                 />
-                <InputGroup.Button>
-                  <Button type="submit">
-                    Apply
-                  </Button>
-                </InputGroup.Button>
+                <Button type="submit">
+                  Apply
+                </Button>
               </InputGroup>
             </FormGroup>
           </form>
@@ -163,7 +104,7 @@ class DemoFrameRenderer extends React.PureComponent {
                   height: `${frameHeight}px`,
                   marginBottom: '20px',
                 }}
-                initialContent={this.getMarkup()}
+                initialContent={markup}
                 mountTarget="#mountPoint"
                 scrolling="no"
               >
@@ -181,6 +122,9 @@ DemoFrameRenderer.propTypes = {
   demoName: PropTypes.string.isRequired,
   themeName: PropTypes.string.isRequired,
   variantName: PropTypes.string.isRequired,
+  markup: PropTypes.string.isRequired,
+  editableLink: PropTypes.string.isRequired,
+  onEditableLinkChange: PropTypes.func.isRequired,
   perfSamplesCount: PropTypes.number,
 };
 

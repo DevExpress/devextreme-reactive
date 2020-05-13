@@ -9,7 +9,7 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   isStubTableCell, checkColumnWidths, getScrollTop,
-  TOP_POSITION, BOTTOM_POSITION,
+  TOP_POSITION, BOTTOM_POSITION, getTopRowId,
 } from '@devexpress/dx-grid-core';
 import {
   VirtualTableProps, VirtualTableLayoutProps,
@@ -85,15 +85,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       this.scrollToRow = nextRowId => this.setState({ nextRowId });
     }
 
-    setViewport = (viewport, { tableBodyRows, isDataRemote }: Getters) => {
-      const { onTopRowChange } = this.props;
-      const hasViewportRows = viewport && viewport.rows;
-      const hasBodyRows = tableBodyRows && tableBodyRows.length;
-      const rowId = hasViewportRows && hasBodyRows && !isDataRemote
-        ? tableBodyRows[viewport.rows[0]].rowId
-        : undefined;
-
-      onTopRowChange(rowId);
+    setViewport = (viewport) => {
       this.setState({ viewport });
     }
 
@@ -127,6 +119,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
 
           {/* prevents breaking change */}
           <Action name="setViewport" action={this.setViewport} />
+          <Action name="scrollToRow" action={this.scrollToRow} />
           <Getter name="viewport" value={stateViewport} />
           <Getter name="tableColumns" computed={tableColumnsComputed} />
 
@@ -137,6 +130,12 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                   { availableRowCount, loadedRowsStart, tableBodyRows, isDataRemote, viewport },
                   { setViewport },
                 ) => {
+
+                  const { onTopRowChange } = this.props;
+                  const rowId = getTopRowId(viewport, tableBodyRows, isDataRemote);
+
+                  onTopRowChange(rowId);
+
                   const totalRowCount = availableRowCount || tableBodyRows.length;
                   const scrollTop = getScrollTop(
                     tableBodyRows,

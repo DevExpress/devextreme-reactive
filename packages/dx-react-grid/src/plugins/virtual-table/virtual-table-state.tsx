@@ -150,10 +150,8 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
   }
 
   render() {
-    const { virtualRowsCache, availableRowCount: stateRowCount } = this.state;
-    const { skip, pageSize, loading, infiniteScrolling, totalRowCount } = this.props;
-
-    const availableRowCount = infiniteScrolling ? stateRowCount : totalRowCount;
+    const { virtualRowsCache, availableRowCount } = this.state;
+    const { skip, pageSize, loading, infiniteScrolling } = this.props;
 
     return (
       <Plugin

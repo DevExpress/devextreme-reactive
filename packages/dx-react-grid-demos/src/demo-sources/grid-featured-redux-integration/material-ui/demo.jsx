@@ -82,7 +82,7 @@ const GridDetailContainerBase = ({ row, classes }) => (
         {row.firstName}
         {' '}
         {row.lastName}
-&apos;s Tasks:
+        &apos;s Tasks:
       </h5>
     </div>
     <Paper>

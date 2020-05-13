@@ -71,7 +71,7 @@ const GridDetailContainer = ({ row }) => (
           {row.firstName}
           {' '}
           {row.lastName}
-&apos;s Tasks:
+          &apos;s Tasks:
         </strong>
       </h5>
     </div>

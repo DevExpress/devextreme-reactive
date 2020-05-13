@@ -16,10 +16,12 @@ scopes:
   - react-grid-bootstrap3
   - react-grid-bootstrap4
   - react-grid-demos
+  - react-grid-export
   - react-grid-material-ui
   - react-scheduler
   - react-scheduler-demos
   - react-scheduler-material-ui
   - scheduler-core
+  - site
   - styles
   - testing

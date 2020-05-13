@@ -11,7 +11,9 @@ const virtualRowsComputed = (
   { skip, rows, virtualRowsCache }: Getters,
 ) => virtualRowsWithCache(skip, rows, virtualRowsCache);
 
-const rowsComputed = ({ virtualRows }: Getters) => plainRows(virtualRows);
+const rowsComputed = (
+  { virtualRows, availableRowCount }: Getters,
+) => plainRows(virtualRows, availableRowCount);
 
 const loadedRowsStartComputed = ({ virtualRows }: Getters) => loadedRowsStart(virtualRows);
 
@@ -123,10 +125,18 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
   static getDerivedStateFromProps(nextProps, prevState) {
     const {
       availableRowCount = prevState.availableRowCount,
+      totalRowCount,
+      pageSize,
+      infiniteScrolling,
     } = nextProps;
 
     return {
-      availableRowCount,
+      availableRowCount: getAvailableRowCount(
+        infiniteScrolling,
+        pageSize * 2,
+        availableRowCount,
+        totalRowCount,
+      ),
     };
   }
 
@@ -147,10 +157,8 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
   }
 
   render() {
-    const { virtualRowsCache, availableRowCount: stateRowCount } = this.state;
-    const { skip, pageSize, loading, infiniteScrolling, totalRowCount } = this.props;
-
-    const availableRowCount = infiniteScrolling ? stateRowCount : totalRowCount;
+    const { virtualRowsCache, availableRowCount } = this.state;
+    const { skip, pageSize, loading, infiniteScrolling } = this.props;
 
     return (
       <Plugin

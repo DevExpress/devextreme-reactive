@@ -18,7 +18,7 @@ export type VirtualRowsWithCacheFn = PureComputed<
 >;
 
 /** @internal */
-export type PlainRowsFn = PureComputed<[VirtualRows], Row[]>;
+export type PlainRowsFn = PureComputed<[VirtualRows, number], Row[]>;
 
 /** @internal */
 export type LoadedRowsStartFn = PureComputed<[VirtualRows], number>;

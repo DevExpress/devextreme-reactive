@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { createPortal } from 'react-dom';
 import {
   Plugin, Getter, Template, TemplatePlaceholder,
   TemplateConnector,
@@ -17,6 +18,7 @@ class DragDropProviderBase extends React.PureComponent<DragDropProviderProps, Dr
     columnComponent: 'Column',
   };
   change: (object) => void;
+  bodyRef!: HTMLElement;
 
   constructor(props) {
     super(props);
@@ -27,6 +29,10 @@ class DragDropProviderBase extends React.PureComponent<DragDropProviderProps, Dr
     };
 
     this.change = ({ payload, clientOffset }) => this.setState({ payload, clientOffset });
+  }
+
+  componentDidMount() {
+    this.bodyRef = document.body;
   }
 
   render() {
@@ -53,18 +59,21 @@ class DragDropProviderBase extends React.PureComponent<DragDropProviderProps, Dr
           {payload && (
             <TemplateConnector>
               {({ columns }) => (
-                <Container
-                  clientOffset={clientOffset!}
-                >
-                  {getTargetColumns(payload, columns)
-                    .map(column => (
-                      <Column
-                        key={column.name}
-                        column={column}
-                      />
-                    ))
-                  }
-                </Container>
+                createPortal(
+                  <Container
+                    clientOffset={clientOffset!}
+                  >
+                    {getTargetColumns(payload, columns)
+                      .map(column => (
+                        <Column
+                          key={column.name}
+                          column={column}
+                        />
+                      ))
+                    }
+                  </Container>,
+                  this.bodyRef,
+                )
               )}
             </TemplateConnector>
           )}

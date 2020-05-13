@@ -3,7 +3,7 @@ const { version } = require('../../lerna.json');
 
 module.exports = {
   siteMetadata: {
-    title: 'DevExterme Reactive',
+    title: 'DevExtreme Reactive',
     version,
   },
   pathPrefix: '/devextreme-reactive',

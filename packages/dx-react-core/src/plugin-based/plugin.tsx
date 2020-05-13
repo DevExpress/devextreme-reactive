@@ -27,6 +27,7 @@ export class PluginBase extends React.PureComponent<PluginProps & PluginContextP
       container: true,
     };
     pluginHost.registerPlugin(this.plugin);
+    pluginHost.ensureDependencies();
   }
 
   componentDidUpdate() {

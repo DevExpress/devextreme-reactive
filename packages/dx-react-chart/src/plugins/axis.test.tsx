@@ -2,7 +2,7 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { getTickCoordinates } from '@devexpress/dx-chart-core';
-import { pluginDepsToComponents } from '@devexpress/dx-testing';
+import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { Axis } from './axis';
 
 jest.mock('@devexpress/dx-chart-core', () => ({
@@ -410,5 +410,12 @@ describe('Axis', () => {
     const tree = mount(<AxisTester showLine={false} />);
 
     expect(tree.find(LineComponent).get(0)).toBeFalsy();
+  });
+
+  it('should provide "axesExist" getter', () => {
+    const tree = mount(<AxisTester />);
+
+    expect(getComputedState(tree).axesExist)
+      .toBeTruthy();
   });
 });

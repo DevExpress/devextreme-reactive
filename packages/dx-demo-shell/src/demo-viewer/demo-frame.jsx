@@ -55,10 +55,9 @@ class DemoFrameRenderer extends React.PureComponent {
   }
 
   render() {
-    const { markup } = this.props;
+    const { markup, editableLink } = this.props;
     const { frame } = this.context;
     const { frameHeight } = this.state;
-    const { editableLink } = this.props;
 
     return (
       <div>

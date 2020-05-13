@@ -24,7 +24,7 @@ const getFileWithDeps = (registry, fileName) => {
   }), {});
 };
 
-const getImportedFiles = (registry, imported) => (
+const getImportedFiles = (registry, imported = []) => (
   imported.reduce((acc, f) => ({
     ...acc,
     ...getFileWithDeps(registry, f),
@@ -67,7 +67,7 @@ export class DemoCodeProvider extends React.PureComponent {
   getDemoConfig() {
     const { themeName, sectionName, demoName } = this.props;
     const { demoSources } = this.context;
-    return demoSources[sectionName][demoName][themeName];
+    return demoSources[sectionName][demoName][themeName] || {};
   }
 
   getHelperFiles() {
@@ -75,19 +75,24 @@ export class DemoCodeProvider extends React.PureComponent {
     const { themeComponents, demoData } = this.context;
     const { helperFiles: importedHelpers, productName } = this.getDemoConfig();
 
-    return {
-      ...getImportedFiles(demoData[productName], importedHelpers.demoData),
-      ...getImportedFiles(
-        themeComponents[productName][themeName],
-        importedHelpers.themeComponents,
-      ),
-    };
+    if (importedHelpers) {
+      return {
+        ...getImportedFiles(demoData[productName], importedHelpers.demoData),
+        ...getImportedFiles(
+          themeComponents[productName][themeName],
+          importedHelpers.themeComponents,
+        ),
+      };
+    }
+
+    return {};
   }
 
   getExternalDependencies() {
     const { demoData } = this.context;
-    const { helperFiles: { externalDeps }, productName } = this.getDemoConfig();
-    const { depsVersions } = demoData[productName];
+    const { helperFiles = {}, productName } = this.getDemoConfig();
+    const { externalDeps = [] } = helperFiles;
+    const { depsVersions } = demoData[productName] || {};
 
     return externalDeps.reduce((acc, dep) => ({
       ...acc,

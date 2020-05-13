@@ -250,5 +250,12 @@ describe('#checkColumnWidths', () => {
       expect(getTopRowId(viewportBase, undefined, false))
         .toBe(undefined);
     });
+
+    it('should return undefined if current row index more than rows count', () => {
+      const viewport = { rows: [10, 10] };
+
+      expect(getTopRowId(viewport, rows, false))
+        .toBe(undefined);
+    });
   });
 });

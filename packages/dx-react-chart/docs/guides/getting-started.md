@@ -54,32 +54,7 @@ React Chart uses the latest web platform standards and does not support older br
 
 The Chart component's functionality is implemented in plugins. To draw a simple chart, use the `ArgumentAxis` and `ValueAxis` plugins and one of the [series](series.md) plugins. The following code shows how to configure a simple line chart:
 
-```jsx
-import { Chart, ArgumentAxis, ValueAxis, LineSeries } from "@devexpress/dx-react-chart-material-ui";
-// import { Chart, ArgumentAxis, ValueAxis, LineSeries } from "@devexpress/dx-react-chart-bootstrap4";
-
-const App = () => (
-  <Chart
-      data={[
-        { argument: 1, value: 10 },
-        { argument: 2, value: 20 },
-        { argument: 3, value: 30 }
-      ]}
-    >
-      <ArgumentAxis />
-      <ValueAxis />
-      <LineSeries valueField="value" argumentField="argument" />
-    </Chart>
-);
-
-```
-
-## Try Out the React Chart
-
-Follow the links below to try out the React Chart:
-
-- [CodeSandbox for Material-UI](https://codesandbox.io/s/vqo8yw5om7)
-- [CodeSandbox for Bootstrap4](https://codesandbox.io/s/5x17l61xyk)
+.embedded-demo({ "path": "chart-basic/getting-started", "showThemeSelector": true })
 
 ## License
 

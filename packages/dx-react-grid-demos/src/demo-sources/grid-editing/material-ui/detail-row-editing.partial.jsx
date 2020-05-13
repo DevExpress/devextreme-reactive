@@ -9,6 +9,16 @@ import FormGroup from '@material-ui/core/FormGroup';
 import Edit from '@material-ui/icons/Edit';
 import Cancel from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
+
 // BLOCK:imports
 
 // BLOCK:detailContent
@@ -24,58 +34,82 @@ const DetailContent = ({ row, ...rest }) => {
         <FormGroup >
           <TextField
             margin="normal"
-            name="prefix"
+            name="Prefix"
             label="Title"
-            value={row.prefix}
+            value={row.Prefix}
             onChange={processValueChange}
           />
           <TextField
             margin="normal"
-            name="lastName"
+            name="LastName"
             label="Last Name"
-            value={row.lastName}
+            value={row.LastName}
             onChange={processValueChange}
           />
-          <TextField
-            margin="normal"
-            id="phone"
-            label="Phone"
-            value={row.phone}
-          />
+          <FormControl margin="normal">
+            <InputLabel id="select-helper-label">State</InputLabel>
+            <Select
+              name="StateID"
+              value={row.StateID}
+              onChange={processValueChange}
+              labelId="select-helper-label"
+            >
+              {states.map(({ ID, Name }) => (
+                <MenuItem key={ID} value={ID}>
+                  {Name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </FormGroup>
       </MuiGrid>
       <MuiGrid item xs={6}>
         <FormGroup>
           <TextField
             margin="normal"
-            id="name"
+            name="FirstName"
             label="First Name"
-            value={row.firstName}
+            value={row.FirstName}
           />
           <TextField
             margin="normal"
-            id="name"
+            name="Position"
             label="Position"
-            value={row.position}
+            value={row.Position}
           />
-          <TextField
-            margin="normal"
-            id="name"
-            label="Address"
-            value={row.address}
-            multiline
-            fullWidth
-        />
+          <MuiPickersUtilsProvider utils={MomentUtils}>
+            <KeyboardDatePicker
+              label="Birth Date"
+              margin="normal"
+              value={row.BirthDate}
+              onChange={(_, value) => processValueChange({
+                target: { name: 'BirthDate', value },
+              })}
+              format="DD/MM/YYYY"
+            />
+          </MuiPickersUtilsProvider>
         </FormGroup>
       </MuiGrid>
-      <MuiGrid item xs={12} >
+      <MuiGrid item xs={12}>
+        <FormGroup>
+          <TextField
+            margin="normal"
+            name="Notes"
+            label="Notes"
+            multiline
+            rowsMax={4}
+            value={row.Notes}
+          />
+        </FormGroup>
+      </MuiGrid>
+      <MuiGrid item xs={12}>
         <MuiGrid container spacing={3} justify="flex-end">
-          <MuiGrid item >
+          <MuiGrid item>
             <Button onClick={applyChanges} variant="text" color="primary">
               Save
             </Button>
           </MuiGrid>
-          <MuiGrid item >
+          <MuiGrid item>
             <Button onClick={cancelChanges} color="secondary">
               Cancel
             </Button>

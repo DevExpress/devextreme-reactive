@@ -26,25 +26,25 @@ const DetailContent = ({ row, ...rest }) => {
       <Row>
         <Col sm={4} className="px-2">
           <FieldGroup
-            name="prefix"
+            name="Prefix"
             label="Title"
-            value={row.prefix || ''}
+            value={row.Prefix}
             onChange={processValueChange}
           />
         </Col>
         <Col sm={4} className="px-2">
           <FieldGroup
-            name="firstName"
+            name="FirstName"
             label="First Name"
-            value={row.firstName || ''}
+            value={row.FirstName}
             onChange={processValueChange}
           />
         </Col>
         <Col sm={4} className="px-2">
           <FieldGroup
-            name="lastName"
+            name="LastName"
             label="Last Name"
-            value={row.lastName || ''}
+            value={row.LastName}
             onChange={processValueChange}
           />
         </Col>
@@ -52,26 +52,46 @@ const DetailContent = ({ row, ...rest }) => {
       <Row>
         <Col sm={4} className="px-2">
           <FieldGroup
-            name="position"
+            name="Position"
             label="Position"
-            value={row.position || ''}
+            value={row.Position}
             onChange={processValueChange}
           />
         </Col>
         <Col sm={4} className="px-2">
-          <FieldGroup
-            name="phone"
-            label="Phone"
-            value={row.phone || ''}
+          <Label>State</Label>
+          <select
+            className="form-control"
+            style={{ width: '100%' }}
+            name="StateID"
+            value={row.StateID}
             onChange={processValueChange}
-          />
+          >
+            {states.map(({ ID, Name }) => (
+              <option key={ID} value={ID}>
+                {Name}
+              </option>
+            ))}
+          </select>
         </Col>
         <Col sm={4} className="px-2">
           <FieldGroup
-            name="address"
-            label="Address"
-            rows={3}
-            value={row.address || ''}
+            type="date"
+            name="BirthDate"
+            label="Birth Date"
+            value={row.BirthDate}
+            onChange={processValueChange}
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <FieldGroup
+            type="textarea"
+            name="Notes"
+            label="Notes"
+            rows={4}
+            value={row.Notes}
             onChange={processValueChange}
           />
         </Col>

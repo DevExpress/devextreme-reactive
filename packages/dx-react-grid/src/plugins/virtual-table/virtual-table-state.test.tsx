@@ -286,7 +286,9 @@ describe('VirtualTableState', () => {
 
         expect(getRows).toHaveBeenCalledTimes(2);
         expect(getRows)
-          .toHaveBeenCalledWith(0, 100); // reload from top
+          .toHaveBeenNthCalledWith(1, 0, 100); // reload from top
+        expect(getRows)
+          .toHaveBeenNthCalledWith(2, 0, 100); // both calls should have same args
       });
     });
   });

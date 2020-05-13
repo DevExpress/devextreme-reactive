@@ -43,6 +43,7 @@ export type ExporterProps = Omit<GridProps, 'rootComponent'> & Pick<FilteringSta
     customizeSummaryCell?: CustomizeSummaryCellFn;
     customizeHeader?: (worksheet: Worksheet) => void;
     customizeFooter?: (worksheet: Worksheet) => void;
+    ref?: React.RefObject<any>;
 };
 
 // @public (undocumented)
@@ -58,7 +59,9 @@ export type ExportSummary = {
 export type GetCellValueFn = (row: any, columnName: string) => any;
 
 // @public (undocumented)
-export const GridExporter: React.ComponentType<ExporterProps>;
+export const GridExporter: React.ComponentType<ExporterProps> & {
+    exportGrid: (options?: object) => void;
+};
 
 // @public (undocumented)
 export type SummaryType = string;

@@ -93,6 +93,22 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
     }, 50);
   }
 
+  requestFirstPage() {
+    const { getRows, pageSize } = this.props;
+
+    if (this.requestTimer !== 0) {
+      clearTimeout(this.requestTimer);
+    }
+    this.requestTimer = window.setTimeout(() => {
+      getRows(0, 2 * pageSize!);
+
+      this.setState({
+        virtualRowsCache: emptyVirtualRows,
+        requestedStartIndex: 0,
+      });
+    }, 50);
+  }
+
   clearRowsCacheAction = (
     _: any,
     __: Getters,
@@ -104,16 +120,7 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
     requestNextPage({ forceReload: true });
   }
 
-  changeColumnFilterAction = (
-    _: any,
-    __: Getters,
-    { clearRowCache }: Actions,
-  ) => {
-    this.setState({
-      requestedStartIndex: 0,
-    });
-    clearRowCache();
-  }
+  changeColumnFilterAction = () => this.requestFirstPage();
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const {

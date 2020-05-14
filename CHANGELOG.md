@@ -1,3 +1,19 @@
+# [2.6.3](https://github.com/DevExpress/devextreme-reactive/compare/v2.6.2...v2.6.3) (2020-05-14)
+
+
+### Bug Fixes
+
+* **react-chart:** animate series after axes finished rerendering ([#2832](https://github.com/DevExpress/devextreme-reactive/issues/2832)) ([def9f0d](https://github.com/DevExpress/devextreme-reactive/commit/def9f0df619104f52f1c875831c4fd20159e1c2f))
+* **react-core:** check dependencies on plugin mount ([#2835](https://github.com/DevExpress/devextreme-reactive/issues/2835)) ([fdeb8ec](https://github.com/DevExpress/devextreme-reactive/commit/fdeb8ecfcc63642f951e4e068087ab7ee1a07ed9))
+* **react-grid:** calculate actual row count in VirtualTableState ([#2888](https://github.com/DevExpress/devextreme-reactive/issues/2888)) ([82cade0](https://github.com/DevExpress/devextreme-reactive/commit/82cade0a16a3540649f035eebe84d1e261516f16))
+* **react-grid:** define `ref` and `exportGrid` types in GridExporter ([#2887](https://github.com/DevExpress/devextreme-reactive/issues/2887)) ([f89fb05](https://github.com/DevExpress/devextreme-reactive/commit/f89fb05f34c493e88c6e6edb3db641a89dd352d1))
+* **react-grid:** prevent collapse VirtualTable with horizontal scrolling ([#2866](https://github.com/DevExpress/devextreme-reactive/issues/2866)) ([377b2a4](https://github.com/DevExpress/devextreme-reactive/commit/377b2a4068dc41d7ad1961cb01fda1606a2321ae))
+* **react-grid:** provide right 'skip' value on filtering ([#2890](https://github.com/DevExpress/devextreme-reactive/issues/2890)) ([46076f7](https://github.com/DevExpress/devextreme-reactive/commit/46076f7e804c98f5a019dd3820843547308c689f))
+* **react-grid:** render drag drop container in body ([#2879](https://github.com/DevExpress/devextreme-reactive/issues/2879)) ([1663707](https://github.com/DevExpress/devextreme-reactive/commit/1663707f06bd5a36cbfd799c73f80b964aecd581))
+* **react-grid-demos:** move the bands data file into the demo-data folder ([#2881](https://github.com/DevExpress/devextreme-reactive/issues/2881)) ([e645811](https://github.com/DevExpress/devextreme-reactive/commit/e645811cf25fd88b13e0479cd31f4284f1643cff))
+
+
+
 # [2.6.2](https://github.com/DevExpress/devextreme-reactive/compare/v2.6.1...v2.6.2) (2020-04-15)
 
 

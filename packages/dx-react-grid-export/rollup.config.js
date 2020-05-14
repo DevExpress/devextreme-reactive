@@ -24,6 +24,7 @@ export default {
         '*.ts+(|x)',
         '**/*.ts+(|x)',
         '../dx-react-grid/src/plugins/internal/*.ts+(|x)',
+        '../dx-react-grid/src/components/summary/constants.ts',
       ],
     }),
     replace({

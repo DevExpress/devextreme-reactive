@@ -490,7 +490,6 @@ const calculateRootsMetaData: CalulateRootsMetaDataFn = (
     appointment.data.left = left;
     appointment.data.width = width;
     calculateChildrenMetaData(appointments, appointment, MAX_WIDTH, indirectChildLeftOffset);
-
   });
   return appointments;
 };
@@ -713,10 +712,8 @@ const calculateBlockSizeByEndDate: CalculateBlockSizeBEndDateFn = (
       appointmentNodes, appointmentNodes[childIndex], blockEndDate),
     ),
   );
-  if (blockEndDate.isAfter(start)) {
-    return maxSize + 1;
-  }
-  if (maxSize === 0) {
+
+  if (blockEndDate.isSameOrBefore(start) && maxSize === 0) {
     return 0;
   }
   return maxSize + 1;

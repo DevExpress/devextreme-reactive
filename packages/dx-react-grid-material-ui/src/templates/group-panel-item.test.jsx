@@ -187,4 +187,76 @@ describe('GroupPanelItem', () => {
     expect(tree.hasClass(classes.button))
       .toBeTruthy();
   });
+
+  describe('sorting label', () => {
+    it('should add class "buttonWithoutIcon" if not show sorting control', () => {
+      const tree = shallow((
+        <GroupPanelItem
+          item={{ column: { name: 'test' } }}
+        />
+      ));
+
+      expect(tree.hasClass(classes.withoutIcon))
+        .toBe(true);
+
+      tree.simulate('mouseenter');
+      expect(tree.hasClass(classes.withoutIcon))
+        .toBe(true);
+
+      tree.simulate('mouseleave');
+      expect(tree.hasClass(classes.withoutIcon))
+        .toBe(true);
+    });
+
+    it('should add class "buttonWithoutIcon" if show sorting control but not sorted or hovered', () => {
+      const tree = shallow((
+        <GroupPanelItem
+          item={{ column: { name: 'test' } }}
+          sortingDirection={null}
+          showSortingControls
+        />
+      ));
+
+      expect(tree.hasClass(classes.withoutIcon))
+        .toBe(true);
+    });
+
+    it('should remove class "buttonWithoutIcon" if sorted', () => {
+      const tree = shallow((
+        <GroupPanelItem
+          item={{ column: { name: 'test' } }}
+          sortingDirection={null}
+          showSortingControls
+        />
+      ));
+
+      expect(tree.hasClass(classes.withoutIcon))
+        .toBe(true);
+
+      tree.setProps({ sortingDirection: 'asc' });
+      expect(tree.hasClass(classes.withoutIcon))
+        .toBe(false);
+    });
+
+    it('should remove class "buttonWithoutIcon" on hover', () => {
+      const tree = shallow((
+        <GroupPanelItem
+          item={{ column: { name: 'test' } }}
+          sortingDirection={null}
+          showSortingControls
+        />
+      ));
+
+      expect(tree.hasClass(classes.withoutIcon))
+        .toBe(true);
+
+      tree.simulate('mouseenter');
+      expect(tree.hasClass(classes.withoutIcon))
+        .toBe(false);
+
+      tree.simulate('mouseleave');
+      expect(tree.hasClass(classes.withoutIcon))
+        .toBe(true);
+    });
+  });
 });

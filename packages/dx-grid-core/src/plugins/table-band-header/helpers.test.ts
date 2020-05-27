@@ -12,6 +12,7 @@ import {
   isBandedOrHeaderRow,
   getColumnMeta,
   getBandComponent,
+  calculateBand,
 } from './helpers';
 import { tableHeaderColumnChainsWithBands } from './computeds';
 import { tableHeaderColumnChainsWithFixed } from '../table-fixed-columns/computeds';
@@ -127,7 +128,7 @@ describe('TableBandHeader Plugin helpers', () => {
         tableRow: {},
       };
 
-      expect(getBandComponent(params, {}, {}, {}, [], columnVisibleBoundaries, levelsVisibility))
+      expect(getBandComponent(params, {}, [], {}, [], columnVisibleBoundaries, levelsVisibility))
         .toEqual({ type: BAND_DUPLICATE_RENDER, payload: null });
     });
 
@@ -216,6 +217,30 @@ describe('TableBandHeader Plugin helpers', () => {
         },
         tableRow: {
           level: 0,
+        },
+      };
+      const chains = computeColumnChains(tableColumns, tableHeaderRows, columnBands);
+
+      expect(
+        getBandComponent(
+          params, tableHeaderRows, tableColumns, columnBands,
+          chains, columnVisibleBoundaries, levelsVisibility,
+      ))
+        .toEqual({
+          type: null,
+          payload: null,
+        });
+    });
+
+    // Should return
+    it('should return a null-typed band component for column without key', () => {
+      const params = {
+        tableColumn: {
+          type: TABLE_DATA_TYPE,
+          column: { name: 'd' },
+        },
+        tableRow: {
+          level: 1,
         },
       };
       const chains = computeColumnChains(tableColumns, tableHeaderRows, columnBands);
@@ -589,6 +614,29 @@ describe('TableBandHeader Plugin helpers', () => {
           assertEmptyCell(3);
         });
       });
+    });
+  });
+
+  describe('#calculateBand', () => {
+    const headerChain = {
+      start: 1,
+      columns: [{}, {}, {}],
+    };
+
+    it('should work', () => {
+      expect(calculateBand([0, 5], headerChain))
+        .toEqual([1, 4]);
+      expect(calculateBand([2, 5], headerChain))
+        .toEqual([2, 4]);
+      expect(calculateBand([2, 2], headerChain))
+        .toEqual([2, 3]);
+      expect(calculateBand([0, 2], headerChain))
+        .toEqual([1, 3]);
+    });
+
+    it('should return chain range if visibleBound is not defined', () => {
+      expect(calculateBand(undefined, headerChain))
+        .toEqual([1, 4]);
     });
   });
 });

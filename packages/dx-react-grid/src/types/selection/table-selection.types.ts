@@ -44,12 +44,12 @@ export interface TableSelectionProps {
   /** Specifies whether to render the selection column that displays selection checkboxes. */
   showSelectionColumn?: boolean;
   /** A component that renders a selection cell . */
-  cellComponent: React.ComponentType<TableSelection.CellProps>;
+  cellComponent?: React.ComponentType<TableSelection.CellProps>;
   /** A component that renders a cell containing the Select All checkbox. */
-  headerCellComponent: React.ComponentType<TableSelection.HeaderCellProps>;
+  headerCellComponent?: React.ComponentType<TableSelection.HeaderCellProps>;
   /** The selection column's width. */
-  selectionColumnWidth: number;
+  selectionColumnWidth?: number;
   /** A component that renders a selection row . */
-  rowComponent: React.ComponentType<TableSelection.RowProps>;
+  rowComponent?: React.ComponentType<TableSelection.RowProps>;
 }
 /* tslint:enable no-namespace max-line-length */

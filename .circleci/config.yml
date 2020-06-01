@@ -48,7 +48,6 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/circleci
-      - run: yarn --no-progress
       - run: yarn testcafe:ci
 
       - store_test_results:

@@ -13,12 +13,16 @@ const styles = theme => ({
     marginRight: theme.spacing(1),
     marginBottom: theme.spacing(1.5),
   },
+  withoutIcon: {
+    paddingRight: '13px',
+    paddingLeft: '13px',
+  },
   draftCell: {
     opacity: 0.3,
   },
 });
 
-const label = (showSortingControls, sortingEnabled, sortingDirection, column) => {
+const label = (showSortingControls, sortingEnabled, sortingDirection, column, hovered) => {
   const title = column.title || column.name;
   return showSortingControls
     ? (
@@ -26,6 +30,7 @@ const label = (showSortingControls, sortingEnabled, sortingDirection, column) =>
         active={!!sortingDirection}
         direction={sortingDirection === null ? undefined : sortingDirection}
         disabled={!sortingEnabled}
+        hideSortIcon={!hovered}
         tabIndex={-1}
       >
         {title}
@@ -42,8 +47,10 @@ const GroupPanelItemBase = ({
   classes, className,
   ...restProps
 }) => {
+  const [hovered, setHovered] = React.useState(false);
   const chipClassNames = classNames({
     [classes.button]: true,
+    [classes.withoutIcon]: !showSortingControls || (!hovered && sortingDirection === null),
     [classes.draftCell]: draft,
   }, className);
   const onClick = (e) => {
@@ -62,13 +69,17 @@ const GroupPanelItemBase = ({
 
   return (
     <Chip
-      label={label(showSortingControls, sortingEnabled, sortingDirection, column)}
+      label={label(showSortingControls, sortingEnabled, sortingDirection, column, hovered)}
       className={chipClassNames}
       {...showGroupingControls
         ? { onDelete: groupingEnabled ? onGroup : null }
         : null}
       {...showSortingControls
-        ? { onClick: sortingEnabled ? onClick : null }
+        ? {
+          onClick: sortingEnabled ? onClick : null,
+          onMouseEnter: () => setHovered(true),
+          onMouseLeave: () => setHovered(false),
+        }
         : null}
       {...restProps}
     />

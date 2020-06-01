@@ -232,7 +232,6 @@ describe('TableBandHeader Plugin helpers', () => {
         });
     });
 
-    // Should return
     it('should return a null-typed band component for column without key', () => {
       const params = {
         tableColumn: {

@@ -6,7 +6,7 @@ import { TABLE_HEADING_TYPE } from '../table-header-row/constants';
 import { TABLE_DATA_TYPE } from '../table/constants';
 import { findChainByColumnIndex } from '../table-header-row/helpers';
 import {
-  IsSpecificRowFn, GetColumnBandMetaFn, GetBandComponentFn,
+  IsSpecificRowFn, GetColumnBandMetaFn, GetBandComponentFn, CalculateBandFn,
 } from '../../types';
 import { TABLE_STUB_TYPE } from '../../utils/virtual-table';
 
@@ -40,7 +40,21 @@ export const getColumnMeta: GetColumnBandMetaFn = (
   return acc;
 }, result || { level, title, key: title });
 
-// TODO: refactor
+export const calculateBand: CalculateBandFn = (visibleBound, headerChain) => {
+  if (visibleBound) {
+    const bandStart = Math.max(visibleBound[0], headerChain.start);
+
+    const bandEnd = Math.min(
+      visibleBound[1] + 1,
+      headerChain.start + headerChain.columns.length,
+    );
+
+    return [bandStart, bandEnd];
+  }
+
+  return [headerChain.start, headerChain.start + headerChain.columns.length];
+};
+
 export const getBandComponent: GetBandComponentFn = (
   { tableColumn: currentTableColumn, tableRow, rowSpan },
   tableHeaderRows, tableColumns, columnBands, tableHeaderColumnChains,
@@ -79,8 +93,11 @@ export const getBandComponent: GetBandComponentFn = (
     beforeBorder = true;
   }
 
+  const isStubColumn = currentTableColumn.type === TABLE_STUB_TYPE;
+  const isColumnVisible = currentColumnIndex >= 0;
+
   if (currentColumnMeta.level === currentRowLevel) {
-    if (currentTableColumn.type === TABLE_STUB_TYPE) {
+    if (isStubColumn) {
       const cellRowSpan = visibleLevelsCount < levelsCount
         ? visibleLevelsCount || 1
         : maxLevel;
@@ -93,33 +110,33 @@ export const getBandComponent: GetBandComponentFn = (
       };
     }
 
-    return {
-      type: BAND_HEADER_CELL,
-      payload: {
-        tableRow: tableHeaderRows.find(row => row.type === TABLE_HEADING_TYPE),
-        rowSpan: maxLevel - currentRowLevel,
-        ...beforeBorder && { beforeBorder },
-      },
-    };
+    if (isColumnVisible) {
+      return {
+        type: BAND_HEADER_CELL,
+        payload: {
+          tableRow: tableHeaderRows.find(row => row.type === TABLE_HEADING_TYPE),
+          rowSpan: maxLevel - currentRowLevel,
+          ...beforeBorder && { beforeBorder },
+        },
+      };
+    }
   }
+
+  if (!isColumnVisible) return { type: null, payload: null };
 
   const currentColumnChain = findChainByColumnIndex(
     tableHeaderColumnChains[currentRowLevel],
     currentColumnIndex,
   );
-
   const columnVisibleBoundary = columnVisibleIntervals.find(([start, end]) => (
     start <= currentColumnIndex && currentColumnIndex <= end
-  ))!;
-  const bandStart = Math.max(columnVisibleBoundary[0], currentColumnChain.start);
+  ));
+
+  const [bandStart, bandEnd] = calculateBand(columnVisibleBoundary, currentColumnChain);
+
   if (bandStart < currentColumnIndex) {
     return { type: null, payload: null };
   }
-
-  const bandEnd = Math.min(
-    columnVisibleBoundary[1] + 1,
-    currentColumnChain.start + currentColumnChain.columns.length,
-  );
 
   return {
     type: BAND_GROUP_CELL,

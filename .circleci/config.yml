@@ -60,6 +60,7 @@ workflows:
       - TestCafe Tests:
           requires:
             - Build Source
+            - Jest Tests & Linter
       - Site:
           requires:
             - Build Source

@@ -47,7 +47,6 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/circleci
-      - run: yarn --no-progress
       - run: yarn testcafe:ci
 
 workflows:
@@ -65,3 +64,4 @@ workflows:
       - Site:
           requires:
             - Build Source
+            - TestCafe Tests

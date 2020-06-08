@@ -1,7 +1,7 @@
 // BLOCK:imports
 import classNames from 'clsx';
 import {
-  Modal, Grid as BsGrid, Row, Col, ControlLabel, FormGroup, FormControl,
+  Grid as BsGrid, Row, Col, ControlLabel, FormGroup, FormControl,
   ButtonToolbar, Button,
 } from 'react-bootstrap';
 // BLOCK:imports
@@ -131,13 +131,17 @@ const ToggleCell = ({
       {...restProps}
     >
       <i
+        role="button"
+        tabIndex={0}
         className={classNames({
           glyphicon: true,
           'glyphicon-remove': expanded,
           'glyphicon-pencil': !expanded,
         })}
         onClick={handleClick}
-      />
+      >
+        {expanded ? 'Remove' : 'Edit'}
+      </i>
     </td>
   );
 };

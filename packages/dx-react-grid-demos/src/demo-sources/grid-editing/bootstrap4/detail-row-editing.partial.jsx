@@ -101,7 +101,8 @@ const DetailContent = ({ row, ...rest }) => {
           <div className="float-right">
             <Button onClick={applyChanges} color="primary">
               Save
-            </Button>{' '}
+            </Button>
+            {' '}
             <Button onClick={cancelChanges}>
               Cancel
             </Button>
@@ -132,13 +133,17 @@ const ToggleCell = ({
       {...restProps}
     >
       <i
+        role="button"
+        tabIndex={0}
         className={classNames({
           oi: true,
           'oi-x': expanded,
           'oi-pencil': !expanded,
         })}
         onClick={handleClick}
-      />
+      >
+        {expanded ? 'Remove' : 'Edit'}
+      </i>
     </td>
   );
 };

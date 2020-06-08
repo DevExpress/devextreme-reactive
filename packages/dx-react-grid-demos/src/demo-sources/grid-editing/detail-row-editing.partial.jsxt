@@ -36,7 +36,7 @@ const DetailEditCell = () => (
       name="tableCell"
       predicate={({ tableRow }) => tableRow.type === TableRowDetail.ROW_TYPE}
     >
-      {(params) => (
+      {params => (
         <TemplateConnector>
           {({
             tableColumns,
@@ -53,10 +53,10 @@ const DetailEditCell = () => (
             const rowIds = editingRowIds;
             const row = { ...params.tableRow.row, ...rowChanges[rowId] };
 
-            const processValueChange = ({ target: { name, value }}) => {
+            const processValueChange = ({ target: { name, value } }) => {
               const changeArgs = {
                 rowId,
-                change: createRowChange(row, value, name)
+                change: createRowChange(row, value, name),
               };
               changeRow(changeArgs);
             };
@@ -81,21 +81,21 @@ const DetailEditCell = () => (
                 processValueChange,
                 applyChanges,
                 cancelChanges,
-              }} />
+              }}
+              />
             );
           }}
         </TemplateConnector>
       )}
     </Template>
   </Plugin>
-)
+);
 
 const DetailCell = ({
   children, changeRow, editingRowIds, addedRows, processValueChange,
   applyChanges, cancelChanges,
   ...restProps
 }) => {
-  console.log(restProps);
   const { row } = restProps;
 
   return (

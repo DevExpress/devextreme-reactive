@@ -31,7 +31,7 @@ const DetailContent = ({ row, ...rest }) => {
   return (
     <MuiGrid container spacing={3}>
       <MuiGrid item xs={6}>
-        <FormGroup >
+        <FormGroup>
           <TextField
             margin="normal"
             name="Prefix"

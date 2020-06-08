@@ -135,15 +135,14 @@ const ToggleCell = ({
       <i
         role="button"
         tabIndex={0}
+        aria-label={expanded ? 'Close' : 'Edit'}
         className={classNames({
           oi: true,
           'oi-x': expanded,
           'oi-pencil': !expanded,
         })}
         onClick={handleClick}
-      >
-        {expanded ? 'Remove' : 'Edit'}
-      </i>
+      />
     </td>
   );
 };

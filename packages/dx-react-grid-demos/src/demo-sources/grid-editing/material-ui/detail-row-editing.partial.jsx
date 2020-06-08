@@ -70,12 +70,14 @@ const DetailContent = ({ row, ...rest }) => {
             name="FirstName"
             label="First Name"
             value={row.FirstName}
+            onChange={processValueChange}
           />
           <TextField
             margin="normal"
             name="Position"
             label="Position"
             value={row.Position}
+            onChange={processValueChange}
           />
           <MuiPickersUtilsProvider utils={MomentUtils}>
             <KeyboardDatePicker
@@ -99,6 +101,7 @@ const DetailContent = ({ row, ...rest }) => {
             multiline
             rowsMax={4}
             value={row.Notes}
+            onChange={processValueChange}
           />
         </FormGroup>
       </MuiGrid>

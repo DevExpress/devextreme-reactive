@@ -7,7 +7,7 @@ export const Content = ({
   <span {...restProps}>
     <strong>
       {column.title || column.name}
-        :
+      :
       {' '}
     </strong>
     {children || String(row.value)}

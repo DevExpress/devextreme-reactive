@@ -7,12 +7,12 @@ import {
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 <%&cssImports%>
-import { countries } from '../countries';
+import { countries } from '../../../demo-data/countries';
 
 const PercentFormatter = ({ value }) => (
   <span>
     {value}
-      %
+    %
   </span>
 );
 

@@ -195,6 +195,30 @@ describe('TableGroupRow Plugin computeds', () => {
         .toBe('original');
     });
 
+    it('should return correct colspan if have few columns with different types', () => {
+      const getCellColSpanGetter = tableGroupCellColSpanGetter(
+        parentGetCellColSpan, [],
+      );
+      const tableDataColumn = { column: { name: 'a' } };
+      const tableGroupColumn = { type: TABLE_GROUP_TYPE, column: { name: 'a' } };
+      const tableRow = { type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } };
+      const tableColumns = [tableGroupColumn, tableDataColumn, {}];
+
+      expect(getCellColSpanGetter({
+        tableColumn: tableDataColumn,
+        tableRow,
+        tableColumns,
+      }))
+      .toBe('original');
+
+      expect(getCellColSpanGetter({
+        tableColumn: tableGroupColumn,
+        tableRow,
+        tableColumns,
+      }))
+      .toBe(3);
+    });
+
     describe('with summary', () => {
       const tableColumns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
         .map(name => ({ column: { name } }));
@@ -216,7 +240,7 @@ describe('TableGroupRow Plugin computeds', () => {
             tableRow,
             tableColumns,
           })))
-          .toEqual([1, 1, 2, 'original', 1, 3, 'original', 'original']);
+          .toEqual(['original', 1, 2, 'original', 1, 3, 'original', 'original']);
       });
     });
   });

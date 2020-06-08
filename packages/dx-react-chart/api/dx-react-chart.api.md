@@ -387,6 +387,9 @@ export type Rect = {
 };
 
 // @public (undocumented)
+export const scaleBand: FactoryFn;
+
+// @public (undocumented)
 export interface ScaleObject {
   // (undocumented)
   (value: any): number;

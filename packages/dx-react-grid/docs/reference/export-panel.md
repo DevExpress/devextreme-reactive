@@ -32,7 +32,7 @@ Name | Type | Default | Description
 toggleButtonComponent | ComponentType&lt;[ExportPanel.ToggleButtonProps](#exportpaneltogglebuttonprops)&gt; | | A component that renders a button that opens the export menu.
 menuComponent | ComponentType&lt;[ExportPanel.MenuProps](#exportpanelmenuprops)&gt; | | A component that renders the export menu.
 menuItemComponent | ComponentType&lt;[ExportPanel.MenuItemProps](#exportpanelmenuitemprops)&gt; | | A component that renders a menu item.
-startExport | (options: object) => void | A function that initiates the export.
+startExport | (options: object) => void | | A function that initiates the export.
 messages? | [ExportPanel.LocalizationMessages](#localization-messages) | | Localization messages.
 
 ## Interfaces

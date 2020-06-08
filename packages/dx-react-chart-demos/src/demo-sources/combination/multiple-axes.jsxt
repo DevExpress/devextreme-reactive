@@ -19,7 +19,6 @@ import {
   EventTracker,
   HoverState,
 } from '@devexpress/dx-react-chart';
-import { HOVERED } from '@devexpress/dx-chart-core';
 import { connectProps } from '@devexpress/dx-react-core';
 import { format } from 'd3-format';
 
@@ -43,7 +42,7 @@ const PriceLabel = makeLabel('$', priceColor);
 const LabelWithThousand = makeLabel('k', consumptionColor);
 
 const patchProps = ({ hoverIndex, ...props }) => ({
-  state: props.index === hoverIndex ? HOVERED : null,
+  state: props.index === hoverIndex ? 'hovered' : null,
   ...props,
 });
 

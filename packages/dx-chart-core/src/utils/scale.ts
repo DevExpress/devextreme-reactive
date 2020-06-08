@@ -10,7 +10,7 @@ import {
 
 /** @internal */
 export const scaleLinear: FactoryFn = d3ScaleLinear as any;
-/** @internal */
+
 export const scaleBand: FactoryFn = () => (
   d3ScaleBand().paddingInner(0.3).paddingOuter(0.15) as any
 );

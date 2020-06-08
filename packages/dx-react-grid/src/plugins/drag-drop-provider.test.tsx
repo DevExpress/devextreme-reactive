@@ -79,4 +79,34 @@ describe('DragDropProvider', () => {
     expect(tree.find('.column').text())
       .toBe('A');
   });
+
+  it('should render container in body using portal', () => {
+    const tree = mount((
+      <PluginHost>
+        <Getter
+          name="columns"
+          value={[{ name: 'a', title: 'A' }, { name: 'b', title: 'B' }]}
+        />
+        <DragDropProvider
+          containerComponent={DefaultContainer}
+          columnComponent={DefaultColumn}
+        />
+      </PluginHost>
+    ));
+
+    const dragDropProvider = tree.find(DragDropProviderCore);
+    dragDropProvider.prop('onChange')({
+      payload: [{ type: 'column', columnName: 'a' }],
+      clientOffset: { x: 10, y: 10 },
+    });
+    tree.update();
+
+    const portal = tree.find('Portal');
+    expect(portal.exists())
+      .toBe(true);
+
+    const targetContainer = portal.props().containerInfo;
+    expect(targetContainer instanceof HTMLBodyElement)
+      .toBe(true);
+  });
 });

@@ -82,7 +82,7 @@ const DetailEditCell = () => (
             if (tableColumns.indexOf(params.tableColumn) !== 0) {
               return null;
             }
-            const rowId = params.tableRow.rowId;
+            const { tableRow: { rowId } } = params;
             const row = { ...params.tableRow.row, ...rowChanges[rowId] };
 
             const processValueChange = ({ target: { name, value }}) => {

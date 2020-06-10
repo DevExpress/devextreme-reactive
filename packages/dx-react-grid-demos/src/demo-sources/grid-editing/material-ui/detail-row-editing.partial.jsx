@@ -84,10 +84,10 @@ const DetailContent = ({ row, ...rest }) => {
               label="Birth Date"
               margin="normal"
               value={row.BirthDate}
-              onChange={(_, value) => processValueChange({
-                target: { name: 'BirthDate', value },
+              onChange={dateIoValue => processValueChange({
+                target: { name: 'BirthDate', value: dateIoValue.toDate() },
               })}
-              format="DD/MM/YYYY"
+              format="MM/DD/YYYY"
             />
           </MuiPickersUtilsProvider>
         </FormGroup>

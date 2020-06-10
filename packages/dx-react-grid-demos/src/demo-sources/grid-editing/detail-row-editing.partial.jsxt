@@ -1,0 +1,152 @@
+import React, { useState } from 'react';<%&additionalImports%>
+import {
+  Plugin, Template, TemplateConnector, TemplatePlaceholder, Action,
+} from '@devexpress/dx-react-core';
+import {
+  EditingState, RowDetailState,
+} from '@devexpress/dx-react-grid';
+import {
+  Grid,
+  Table,
+  TableHeaderRow,
+  TableRowDetail,
+} from '@devexpress/dx-react-grid-<%&themeName%>';
+<%&imports%>
+import { employees, states } from '../employees';
+
+const getRowId = row => row.ID;
+
+<%&detailContent%>
+
+const DetailEditCell = () => (
+  <Plugin name="detailEdit">
+    <Action
+      name="toggleDetailRowExpanded"
+      action={({ rowId }, { expandedDetailRowIds }, { startEditRows, stopEditRows }) => {
+        const rowIds = [rowId];
+        const isCollapsing = expandedDetailRowIds.indexOf(rowId) > -1;
+        if (isCollapsing) {
+          stopEditRows({ rowIds });
+        } else {
+          startEditRows({ rowIds });
+        }
+      }}
+    />
+    <Template
+      name="tableCell"
+      predicate={({ tableRow }) => tableRow.type === TableRowDetail.ROW_TYPE}
+    >
+      {params => (
+        <TemplateConnector>
+          {({
+            tableColumns,
+            createRowChange,
+            rowChanges,
+          }, {
+            changeRow,
+            commitChangedRows,
+            cancelChangedRows,
+            toggleDetailRowExpanded,
+          }) => {
+            if (tableColumns.indexOf(params.tableColumn) !== 0) {
+              return null;
+            }
+            const { tableRow: { rowId } } = params;
+            const row = { ...params.tableRow.row, ...rowChanges[rowId] };
+
+            const processValueChange = ({ target: { name, value } }) => {
+              const changeArgs = {
+                rowId,
+                change: createRowChange(row, value, name),
+              };
+              changeRow(changeArgs);
+            };
+
+            const applyChanges = () => {
+              toggleDetailRowExpanded({ rowId });
+              commitChangedRows({ rowIds: [rowId] });
+            };
+            const cancelChanges = () => {
+              toggleDetailRowExpanded({ rowId });
+              cancelChangedRows({ rowIds: [rowId] });
+            };
+
+            return (
+              <TemplatePlaceholder params={{
+                ...params,
+                row,
+                tableRow: {
+                  ...params.tableRow,
+                  row,
+                },
+                changeRow,
+                processValueChange,
+                applyChanges,
+                cancelChanges,
+              }}
+              />
+            );
+          }}
+        </TemplateConnector>
+      )}
+    </Template>
+  </Plugin>
+);
+
+const DetailCell = ({
+  children, changeRow, editingRowIds, addedRows, processValueChange,
+  applyChanges, cancelChanges,
+  ...restProps
+}) => {
+  const { row } = restProps;
+
+  return (
+    <TableRowDetail.Cell {...restProps}>
+      {React.cloneElement(children, {
+        row, changeRow, processValueChange, applyChanges, cancelChanges,
+      })}
+    </TableRowDetail.Cell>
+  );
+};
+
+
+export default () => {
+  const [columns] = useState([
+    { name: 'Prefix', title: 'Title' },
+    { name: 'FirstName', title: 'First Name' },
+    { name: 'LastName', title: 'Last Name' },
+    { name: 'Position', title: 'Position' },
+  ]);
+  const [rows, setRows] = useState(employees);
+
+  const commitChanges = ({ changed }) => {
+    const changedRows = rows.map(row => (changed[row.ID] ? { ...row, ...changed[row.ID] } : row));
+    setRows(changedRows);
+  };
+
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+        getRowId={getRowId}
+      >
+        <RowDetailState
+          defaultExpandedRowIds={[1]}
+        />
+        <EditingState
+          defaultEditingRowIds={[1]}
+          onCommitChanges={commitChanges}
+        />
+        <Table />
+        <TableHeaderRow />
+        <TableRowDetail
+          contentComponent={DetailContent}
+          cellComponent={DetailCell}
+          toggleCellComponent={ToggleCell}
+        />
+        <DetailEditCell />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

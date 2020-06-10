@@ -70,18 +70,19 @@ const DetailEditCell = () => (
       {(params) => (
         <TemplateConnector>
           {({
-            tableColumns,
-            editingRowIds,
+           tableColumns,
             createRowChange,
             rowChanges,
           }, {
-            changeRow, commitChangedRows, toggleDetailRowExpanded,
+            changeRow,
+            commitChangedRows,
+            cancelChangedRows,
+            toggleDetailRowExpanded,
           }) => {
             if (tableColumns.indexOf(params.tableColumn) !== 0) {
               return null;
             }
-            const rowId = editingRowIds[0];
-            const rowIds = editingRowIds;
+            const rowId = params.tableRow.rowId;
             const row = { ...params.tableRow.row, ...rowChanges[rowId] };
 
             const processValueChange = ({ target: { name, value }}) => {
@@ -94,10 +95,11 @@ const DetailEditCell = () => (
 
             const applyChanges = () => {
               toggleDetailRowExpanded({ rowId });
-              commitChangedRows({ rowIds });
+              commitChangedRows({ rowIds: [rowId] });
             };
             const cancelChanges = () => {
               toggleDetailRowExpanded({ rowId });
+              cancelChangedRows({ rowIds: [rowId] });
             };
 
             return (

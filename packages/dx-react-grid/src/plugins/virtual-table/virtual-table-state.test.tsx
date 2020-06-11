@@ -290,6 +290,50 @@ describe('VirtualTableState', () => {
         expect(getRows)
           .toHaveBeenNthCalledWith(2, 0, 100); // both calls should have same args
       });
+
+      it('should reload rows when search value changed', () => {
+        const getRows = jest.fn();
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <VirtualTableState
+              {...defaultProps}
+              getRows={getRows}
+            />
+          </PluginHost>
+        ));
+
+        executeComputedAction(tree, actions => actions.changeSearchValue({}));
+        jest.runAllTimers();
+
+        expect(getRows).toHaveBeenCalledTimes(2);
+        expect(getRows)
+          .toHaveBeenNthCalledWith(1, 0, 100);
+        expect(getRows)
+          .toHaveBeenNthCalledWith(2, 0, 100);
+      });
+
+      it('should reload rows when grouping changed', () => {
+        const getRows = jest.fn();
+        const tree = mount((
+          <PluginHost>
+            {pluginDepsToComponents(defaultDeps)}
+            <VirtualTableState
+              {...defaultProps}
+              getRows={getRows}
+            />
+          </PluginHost>
+        ));
+
+        executeComputedAction(tree, actions => actions.changeColumnGrouping({}));
+        jest.runAllTimers();
+
+        expect(getRows).toHaveBeenCalledTimes(2);
+        expect(getRows)
+          .toHaveBeenNthCalledWith(1, 0, 100);
+        expect(getRows)
+          .toHaveBeenNthCalledWith(2, 0, 100);
+      });
     });
   });
 

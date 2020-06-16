@@ -7,7 +7,6 @@ import {
 import {
   allDayRects, horizontalTimeTableRects, verticalTimeTableRects,
 } from '../common/calculate-rects';
-import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '../../constants';
 
 jest.mock('../common/calculate-rects', () => ({
   ...require.requireActual('../common/calculate-rects'),
@@ -120,14 +119,14 @@ describe('DragDropProvider', () => {
 
       autoScroll(clientOffset, scrollAPI);
       expect(scrollAPI.changeVerticalScroll)
-        .toBeCalledWith(-30);
+        .toBeCalledWith(-5);
     });
     it('should scroll down', () => {
       const clientOffset = { x: 1, y: 960 };
 
       autoScroll(clientOffset, scrollAPI);
       expect(scrollAPI.changeVerticalScroll)
-        .toBeCalledWith(30);
+        .toBeCalledWith(5);
     });
     it('should not scroll up if cursor is above of top boundary', () => {
       const clientOffset = { x: 1, y: -10 };
@@ -141,14 +140,14 @@ describe('DragDropProvider', () => {
 
       autoScroll(clientOffset, scrollAPI);
       expect(scrollAPI.changeHorizontalScroll)
-        .toBeCalledWith(-30);
+        .toBeCalledWith(-5);
     });
     it('should scroll right', () => {
       const clientOffset = { x: 960, y: 1 };
 
       autoScroll(clientOffset, scrollAPI);
       expect(scrollAPI.changeHorizontalScroll)
-        .toBeCalledWith(30);
+        .toBeCalledWith(5);
     });
     it('should not scroll left if cursor is to the left of the left boundary', () => {
       const clientOffset = { x: -10, y: 1 };

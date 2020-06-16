@@ -120,7 +120,7 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
     requestNextPage({ forceReload: true });
   }
 
-  changeColumnFilterAction = () => this.requestFirstPage();
+  resetVirtualTablePosition = () => this.requestFirstPage();
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const {
@@ -180,7 +180,9 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
         <Action name="setViewport" action={this.setViewport} />
         <Action name="clearRowCache" action={this.clearRowsCacheAction} />
         <Action name="changeColumnSorting" action={this.clearRowsCacheAction} />
-        <Action name="changeColumnFilter" action={this.changeColumnFilterAction} />
+        <Action name="changeColumnFilter" action={this.resetVirtualTablePosition} />
+        <Action name="changeSearchValue" action={this.resetVirtualTablePosition} />
+        <Action name="changeColumnGrouping" action={this.resetVirtualTablePosition} />
       </Plugin>
     );
   }

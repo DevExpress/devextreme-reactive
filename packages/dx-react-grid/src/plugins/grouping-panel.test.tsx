@@ -4,6 +4,7 @@ import { pluginDepsToComponents, setupConsole } from '@devexpress/dx-testing';
 import {
   groupingPanelItems,
   getColumnSortingDirection,
+  TOP_POSITION,
 } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { GroupingPanel } from './grouping-panel';
@@ -26,6 +27,7 @@ const defaultDeps = {
     changeColumnSorting: jest.fn(),
     draftColumnGrouping: jest.fn(),
     cancelColumnGroupingDraft: jest.fn(),
+    scrollToRow: jest.fn(),
   },
   template: {
     toolbarContent: {},
@@ -124,5 +126,46 @@ describe('GroupingPanel', () => {
         sortingDirection: getColumnSortingDirection(),
         onGroup: expect.any(Function),
       });
+  });
+
+  it('should not call scroll up on group if data is not remote', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <GroupingPanel
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+    tree.find(defaultProps.layoutComponent)
+      .prop('onGroup')('a');
+
+    expect(defaultDeps.action.scrollToRow)
+      .not.toHaveBeenCalled();
+  });
+
+  it('should scroll up on group if data is remote', () => {
+    const deps = {
+      ...defaultDeps,
+      getter: {
+        ...defaultDeps.getter,
+        isDataRemote: true,
+      },
+    };
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(deps)}
+        <GroupingPanel
+          {...defaultProps}
+        />
+      </PluginHost>
+    ));
+    tree.find(defaultProps.layoutComponent)
+      .prop('onGroup')('a');
+
+    expect(deps.action.scrollToRow)
+      .toHaveBeenCalledTimes(1);
+    expect(deps.action.scrollToRow.mock.calls[0][0])
+      .toBe(TOP_POSITION);
   });
 });

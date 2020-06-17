@@ -485,6 +485,7 @@ export interface DragDropProviderProps {
   containerComponent?: React.ComponentType<DragDropProvider_2.ContainerProps>;
   draftAppointmentComponent?: React.ComponentType<DragDropProvider_2.DraftAppointmentProps>;
   resizeComponent?: React.ComponentType<DragDropProvider_2.ResizeProps>;
+  scrollSpeed?: number;
   sourceAppointmentComponent?: React.ComponentType<DragDropProvider_2.SourceAppointmentProps>;
 }
 

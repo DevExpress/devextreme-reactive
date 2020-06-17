@@ -49,6 +49,8 @@ export interface DragDropProviderProps {
   allowDrag?: (appointmentData: AppointmentModel) => boolean;
   /** A function that specifies resizable appointments. */
   allowResize?: (appointmentData: AppointmentModel) => boolean;
+  /** Specifies the scroll speed when resizing or dragging an appointment. */
+  scrollSpeed?: number;
   /** A component that renders the appointment being dragged. */
   draftAppointmentComponent: React.ComponentType<DragDropProvider.DraftAppointmentProps>;
   /** A component that renders a copy of the appointment being dragged in its previous location. */

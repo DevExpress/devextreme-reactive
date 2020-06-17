@@ -35,6 +35,7 @@ Name | Type | Default | Description
 -----|------|---------|------------
 allowDrag? | (appointmentData: [AppointmentModel](./scheduler.md#appointmentmodel)) => boolean | () => true | A function that specifies draggable appointments.
 allowResize? | (appointmentData: [AppointmentModel](./scheduler.md#appointmentmodel)) => boolean | () => true | A function that specifies resizable appointments.
+scrollSpeed? | number | 15 | Specifies the scroll speed when resizing or dragging an appointment.
 draftAppointmentComponent | ComponentType&lt;[DragDropProvider.DraftAppointmentProps](#dragdropproviderdraftappointmentprops)&gt; | | A component that renders the appointment being dragged.
 sourceAppointmentComponent | ComponentType&lt;[DragDropProvider.SourceAppointmentProps](#dragdropprovidersourceappointmentprops)&gt; | | A component that renders a copy of the appointment being dragged in its previous location.
 resizeComponent | ComponentType&lt;[DragDropProvider.ResizeProps](#dragdropproviderresizeprops)&gt; | | A component that renders a handle used to resize the appointment.

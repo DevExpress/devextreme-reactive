@@ -10,7 +10,7 @@ import {
   calculateAppointmentTimeBoundaries, calculateInsidePart, RESIZE_TOP, RESIZE_BOTTOM,
   POSITION_START, POSITION_END, getAppointmentResources, calculateAppointmentGroups,
   appointmentDragged, calculateDraftAppointments,
-  HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION,
+  HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION, SCROLL_SPEED_PX,
 } from '@devexpress/dx-scheduler-core';
 import { DragDropProviderProps, DragDropProviderState } from '../types';
 
@@ -72,6 +72,7 @@ class DragDropProviderBase extends React.PureComponent<
   static defaultProps: Partial<DragDropProviderProps> = {
     allowDrag: () => true,
     allowResize: () => true,
+    scrollSpeed: SCROLL_SPEED_PX,
   };
   static getDerivedStateFromProps(
     props: DragDropProviderProps, state: DragDropProviderState,
@@ -101,8 +102,8 @@ class DragDropProviderBase extends React.PureComponent<
     return args => this.handlePayloadChange(args, actions);
   }
 
-  calculateNextBoundaries(getters, actions) {
-    return args => this.calculateBoundaries(args, getters, actions);
+  calculateNextBoundaries(getters, actions, scrollSpeed) {
+    return args => this.calculateBoundaries(args, getters, actions, scrollSpeed);
   }
 
   resetCache() {
@@ -152,9 +153,10 @@ class DragDropProviderBase extends React.PureComponent<
       grouping, resources, groups, groupOrientation: getGroupOrientation, groupByDate,
     },
     { changeAppointment, startEditAppointment },
+    scrollSpeed,
   ) {
     if (clientOffset) {
-      autoScroll(clientOffset, scrollingStrategy);
+      autoScroll(clientOffset, scrollingStrategy, scrollSpeed);
     }
 
     const tableCellElementsMeta = timeTableElementsMeta;
@@ -257,6 +259,7 @@ class DragDropProviderBase extends React.PureComponent<
       resizeComponent: Resize,
       allowDrag,
       allowResize,
+      scrollSpeed,
     } = this.props;
 
     const draftData = {
@@ -282,7 +285,7 @@ class DragDropProviderBase extends React.PureComponent<
                 startViewDate, endViewDate, excludedDays,
                 timeTableElementsMeta, allDayElementsMeta, scrollingStrategy,
                 resources, grouping, groups, groupByDate, groupOrientation,
-              }, { changeAppointment, startEditAppointment });
+              }, { changeAppointment, startEditAppointment }, scrollSpeed);
               return (
                 <DragDropProviderCore
                   onChange={this.onPayloadChange({ finishCommitAppointment })}

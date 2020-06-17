@@ -8,7 +8,7 @@ import {
 } from '../../types';
 import {
   VERTICAL_TYPE, HORIZONTAL_TYPE, SCROLL_OFFSET, MINUTES,
-  SCROLL_SPEED_PX, SECONDS, RESIZE_TOP, RESIZE_BOTTOM, HOURS,
+  SECONDS, RESIZE_TOP, RESIZE_BOTTOM, HOURS,
 } from '../../constants';
 import {
   allDayRects, horizontalTimeTableRects, verticalTimeTableRects,
@@ -55,26 +55,26 @@ export const cellData: PureComputed<
 };
 
 export const autoScroll: PureComputed<
-  [ClientOffset, ScrollingStrategy], void
-> = (clientOffset, scrollingStrategy) => {
+  [ClientOffset, ScrollingStrategy, number], void
+> = (clientOffset, scrollingStrategy, scrollSpeed) => {
   scroll(
-    clientOffset.y, scrollingStrategy.topBoundary,
-    scrollingStrategy.bottomBoundary, scrollingStrategy.changeVerticalScroll,
+    clientOffset.y, scrollingStrategy.topBoundary, scrollingStrategy.bottomBoundary,
+    scrollingStrategy.changeVerticalScroll, scrollSpeed,
   );
   scroll(
-    clientOffset.x, scrollingStrategy.leftBoundary,
-    scrollingStrategy.rightBoundary, scrollingStrategy.changeHorizontalScroll,
+    clientOffset.x, scrollingStrategy.leftBoundary, scrollingStrategy.rightBoundary,
+    scrollingStrategy.changeHorizontalScroll, scrollSpeed,
   );
 };
 
 const scroll: PureComputed<
-  [number, number, number, (value: number) => void], void
-> = (offset, firstBoundary, secondBoundary, changeScroll) => {
+  [number, number, number, (value: number) => void, number], void
+> = (offset, firstBoundary, secondBoundary, changeScroll, scrollSpeed) => {
   if ((offset < firstBoundary + SCROLL_OFFSET) && (offset > firstBoundary)) {
-    changeScroll(-SCROLL_SPEED_PX);
+    changeScroll(-scrollSpeed);
   }
   if (secondBoundary - SCROLL_OFFSET < offset) {
-    changeScroll(+SCROLL_SPEED_PX);
+    changeScroll(+scrollSpeed);
   }
 };
 

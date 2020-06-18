@@ -8,7 +8,7 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   cellIndex, cellData, cellType, getAppointmentStyle, autoScroll,
-  calculateDraftAppointments, VERTICAL_GROUP_ORIENTATION,
+  calculateDraftAppointments, VERTICAL_GROUP_ORIENTATION, SCROLL_SPEED_PX,
 } from '@devexpress/dx-scheduler-core';
 import { DragDropProvider } from './drag-drop-provider';
 
@@ -433,7 +433,21 @@ describe('DragDropProvider', () => {
 
       expect(autoScroll)
         .toBeCalledWith(
-          clientOffset, defaultDeps.getter.scrollingStrategy,
+          clientOffset, defaultDeps.getter.scrollingStrategy, SCROLL_SPEED_PX,
+        );
+    });
+
+    it('should call autoScroll with correct arguments when scrollSpeed is specified by a user', () => {
+      const clientOffset = { x: 1, y: 21 };
+      const scrollSpeed = 23;
+      const { tree, onOver } = mountPlugin({ scrollSpeed });
+
+      onOver({ payload: { id: 1 }, clientOffset });
+      tree.update();
+
+      expect(autoScroll)
+        .toBeCalledWith(
+          clientOffset, defaultDeps.getter.scrollingStrategy, scrollSpeed,
         );
     });
   });

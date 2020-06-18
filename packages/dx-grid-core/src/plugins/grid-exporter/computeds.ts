@@ -26,7 +26,7 @@ export const rowsToExport: GetRowsToExportFn = (
 ) => {
   const expandRows: PureComputed<[Row[]]> = collapsedRows => (
     collapsedRows.reduce((acc, row) => (
-      [...acc, row, ...(expandRows(getCollapsedRows(row) || []))]
+      [...acc, row, ...(expandRows(getCollapsedRows!(row) || []))]
     ), [])
   );
 

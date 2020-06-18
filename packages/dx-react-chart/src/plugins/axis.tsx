@@ -260,5 +260,5 @@ export const ValueAxis: React.ComponentType<RawAxisProps> = withPatchedProps(pro
   showLine: false,
   showLabels: true,
   ...props,
-  scaleName: getValueDomainName(props.scaleName),
+  scaleName: getValueDomainName((props as RawAxisProps).scaleName),
 }))(Axis);

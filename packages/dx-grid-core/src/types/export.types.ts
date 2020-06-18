@@ -38,7 +38,7 @@ export type OutlineLevelsFn = PureComputed<[Grouping[]], OutlineLevels>;
 
 /** @internal */
 export type GetRowsToExportFn = PureComputed<
-  [Row[], RowId[], Grouping[], GetCollapsedRowsFn, GetRowIdFn, IsSpecificRowFn]
+  [Row[], RowId[], Grouping[], GetCollapsedRowsFn | undefined, GetRowIdFn, IsSpecificRowFn]
 >;
 /** @internal */
 export type RemoveEmptyGroupsFn = PureComputed<[Row[], Grouping[], IsSpecificRowFn]>;

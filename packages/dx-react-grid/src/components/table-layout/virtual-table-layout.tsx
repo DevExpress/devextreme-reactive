@@ -51,9 +51,9 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       .reduce((acc, row) => acc + this.getRowHeight(row), 0);
 
     this.state = {
+      ...this.state,
       headerHeight,
       footerHeight,
-      ...this.state,
     };
 
     this.getColumnWidthGetter = memoize(

@@ -25,5 +25,5 @@ export const ArgumentScale: React.ComponentType<ArgumentScaleProps> = withPatche
 
 export const ValueScale: React.ComponentType<ValueScaleProps> = withPatchedProps(props => ({
   ...props,
-  name: getValueDomainName(props.name),
+  name: getValueDomainName((props as ScaleProps).name),
 }))(Scale);

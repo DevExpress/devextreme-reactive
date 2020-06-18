@@ -24,11 +24,9 @@ export type Actions = {
 export type ComputedFn = (getters: Getters, actions: Actions) => void;
 
 // @public
-export const connectProps: (WrappedComponent: React.ComponentType<any>, getAdditionalProps: () => object) => (React.ComponentClass<any, any> & {
+export const connectProps: (WrappedComponent: React.ComponentType<any>, getAdditionalProps: () => object) => React.ComponentType<any> & {
   update(): void;
-}) | (React.FunctionComponent<any> & {
-  update(): void;
-});
+};
 
 // @public (undocumented)
 export const Getter: React.ComponentType<GetterProps>;

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Animation, isScalesChanged } from '@devexpress/dx-chart-core';
-import { GetDelayFn, Scales } from '../types';
+import { GetDelayFn, Scales, AnimatedComponent } from '../types';
 
-export const withAnimation = <T extends any>(
+export const withAnimation = <T extends AnimatedComponent>(
     processAnimation: (start: T, end: T) => (progress: number) => any, getProps: (props: T) => any,
     getStartCoordinates: (scales: Scales, props: T) => any,
     isValuesChanged: (previous: T, current: T) => boolean,

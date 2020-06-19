@@ -7,6 +7,7 @@ import {
 import {
   groupingPanelItems,
   getColumnSortingDirection,
+  TOP_POSITION,
 } from '@devexpress/dx-grid-core';
 import { GroupPanelLayout as Layout } from '../components/group-panel-layout';
 import { GroupingPanelProps } from '../types';
@@ -93,22 +94,30 @@ class GroupingPanelRaw extends React.PureComponent<GroupingPanelProps & typeof d
         <Template name="toolbarContent">
           <TemplateConnector>
             {({
-              columns, grouping, draftGrouping, draggingEnabled, isColumnGroupingEnabled,
+              columns, grouping, draftGrouping,
+              draggingEnabled, isColumnGroupingEnabled, isDataRemote,
             }: Getters, {
-              changeColumnGrouping, draftColumnGrouping, cancelColumnGroupingDraft,
-            }: Actions) => (
-              <LayoutComponent
+              changeColumnGrouping, draftColumnGrouping, cancelColumnGroupingDraft, scrollToRow,
+            }: Actions) => {
+              const onGroup = (config) => {
+                if (isDataRemote) {
+                  scrollToRow(TOP_POSITION);
+                }
+                changeColumnGrouping(config);
+              };
+
+              return <LayoutComponent
                 items={groupingPanelItems(columns, grouping, draftGrouping)}
                 isColumnGroupingEnabled={isColumnGroupingEnabled}
                 draggingEnabled={draggingEnabled}
-                onGroup={changeColumnGrouping}
+                onGroup={onGroup}
                 onGroupDraft={draftColumnGrouping}
                 onGroupDraftCancel={cancelColumnGroupingDraft}
                 itemComponent={ItemPlaceholder}
                 emptyMessageComponent={EmptyMessagePlaceholder}
                 containerComponent={Container}
-              />
-            )}
+              />;
+            }}
           </TemplateConnector>
           <TemplatePlaceholder />
         </Template>

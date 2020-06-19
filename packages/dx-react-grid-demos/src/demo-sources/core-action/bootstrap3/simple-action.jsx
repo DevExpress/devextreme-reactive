@@ -72,7 +72,7 @@ const FilterPanel = () => (
           <div>
             Filter: (
             {JSON.stringify(filter)}
-)
+            )
             {' '}
             <button
               type="button"

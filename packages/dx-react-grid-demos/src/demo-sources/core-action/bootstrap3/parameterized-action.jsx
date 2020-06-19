@@ -74,8 +74,8 @@ const FilterPanel = () => (
         {({ filter }, { changeFilter }) => (
           <div>
             Filter: (
-            {JSON.stringify(filter)}
-)
+            { JSON.stringify(filter) }
+            )
             {' '}
             <button
               type="button"

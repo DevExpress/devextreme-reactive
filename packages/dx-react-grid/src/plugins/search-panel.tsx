@@ -6,6 +6,9 @@ import {
   Plugin,
   TemplateConnector,
 } from '@devexpress/dx-react-core';
+import {
+  TOP_POSITION,
+} from '@devexpress/dx-grid-core';
 import { SearchPanelProps } from '../types';
 
 const pluginDependencies = [
@@ -37,13 +40,20 @@ class SearchPanelBase extends React.PureComponent<SearchPanelProps> {
         <Template name="toolbarContent">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ searchValue }, { changeSearchValue }) => (
-              <Input
+            {({ searchValue, isDataRemote }, { changeSearchValue, scrollToRow }) => {
+              const onValueChange = (value) => {
+                if (isDataRemote) {
+                  scrollToRow(TOP_POSITION);
+                }
+                changeSearchValue(value);
+              };
+
+              return <Input
                 value={searchValue}
-                onValueChange={changeSearchValue}
+                onValueChange={onValueChange}
                 getMessage={getMessage}
-              />
-            )}
+              />;
+            }}
           </TemplateConnector>
         </Template>
       </Plugin>

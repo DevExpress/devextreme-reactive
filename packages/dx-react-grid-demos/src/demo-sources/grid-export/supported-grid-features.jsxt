@@ -58,13 +58,13 @@ const totalSummaryItems = [
   { columnName: 'OrderNumber', type: 'count' },
   { columnName: 'SaleAmount', type: 'sum' },
 ];
-const defaultExpandedGroups = ['Todd Hoffman', 'Todd Hoffman|Denver'];
+const defaultExpandedGroups = ['Todd Hoffman', 'Todd Hoffman|Denver', 'Todd Hoffman|Casper'];
 
 export default () => {
   const [grouping, setGrouping] = useState([
     { columnName: 'Employee' }, { columnName: 'CustomerStoreCity' },
   ]);
-  const [selection, setSelection] = useState([30, 38]);
+  const [selection, setSelection] = useState([14, 30, 38]);
   const exporterRef = useRef(null);
 
   const startExport = useCallback((options) => {

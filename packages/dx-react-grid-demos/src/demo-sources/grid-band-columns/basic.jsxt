@@ -12,7 +12,7 @@ import { countries } from '../../../demo-data/countries';
 const PercentFormatter = ({ value }) => (
   <span>
     {value}
-      %
+    %
   </span>
 );
 

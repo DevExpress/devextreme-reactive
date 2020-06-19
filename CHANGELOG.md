@@ -1,3 +1,40 @@
+# [2.6.4](https://github.com/DevExpress/devextreme-reactive/compare/v2.6.3...v2.6.4) (2020-06-19)
+
+
+### Bug Fixes
+
+* **chart-core:** add TypeScript definitions ([#2910](https://github.com/DevExpress/devextreme-reactive/issues/2910)) ([36d56c8](https://github.com/DevExpress/devextreme-reactive/commit/36d56c86ab4b1cb9e35b32105619965b8264b069)), closes [#2902](https://github.com/DevExpress/devextreme-reactive/issues/2902)
+* **react-core:** prevent errors when mouse drags element outside the window ([#2930](https://github.com/DevExpress/devextreme-reactive/issues/2930)) ([a95b393](https://github.com/DevExpress/devextreme-reactive/commit/a95b3936b4f67dc793d5eaae4e71fb7c2fe8a877))
+* **react-grid:** calculate group row colspan correctly ([#2898](https://github.com/DevExpress/devextreme-reactive/issues/2898)) ([3ddc3de](https://github.com/DevExpress/devextreme-reactive/commit/3ddc3de610c24b59dedd2d95cdfa6e7c987ac002))
+* **react-grid:** correct columns on remove banded column in runtime ([#2916](https://github.com/DevExpress/devextreme-reactive/issues/2916)) ([ff58483](https://github.com/DevExpress/devextreme-reactive/commit/ff58483de2036b6933f20b80996dfc26862ea16a))
+* **react-grid:** reset viewport position on search and group when data remote ([#2934](https://github.com/DevExpress/devextreme-reactive/issues/2934)) ([606e410](https://github.com/DevExpress/devextreme-reactive/commit/606e410b26ec9b3bf1633c2ce05954d3eccef6f6))
+* **react-grid-export:** remove ES6 syntax from bundle ([#2893](https://github.com/DevExpress/devextreme-reactive/issues/2893)) ([bda3cec](https://github.com/DevExpress/devextreme-reactive/commit/bda3cec00bc0b8bd9f1c65b30d602bb3f5693239))
+* **react-grid-material-ui:** center text when label without icon ([#2909](https://github.com/DevExpress/devextreme-reactive/issues/2909)) ([f14e660](https://github.com/DevExpress/devextreme-reactive/commit/f14e66069f201ebbd2c1ea225c4f4736528680ee))
+* **react-grid-material-ui:** Make border for fixed cells nontransparent ([#2927](https://github.com/DevExpress/devextreme-reactive/issues/2927)) ([743fbd7](https://github.com/DevExpress/devextreme-reactive/commit/743fbd76c48b0843355ad855cf22dd9b96bda873))
+
+
+### Features
+
+* **react-scheduler:** add capability to set up auto-scroll speed ([#2939](https://github.com/DevExpress/devextreme-reactive/issues/2939)) ([ed7504e](https://github.com/DevExpress/devextreme-reactive/commit/ed7504e54e7a9b8f99a7fc84bd508afec9b53c50))
+
+
+
+# [2.6.3](https://github.com/DevExpress/devextreme-reactive/compare/v2.6.2...v2.6.3) (2020-05-14)
+
+
+### Bug Fixes
+
+* **react-chart:** animate series after axes finished rerendering ([#2832](https://github.com/DevExpress/devextreme-reactive/issues/2832)) ([def9f0d](https://github.com/DevExpress/devextreme-reactive/commit/def9f0df619104f52f1c875831c4fd20159e1c2f))
+* **react-core:** check dependencies on plugin mount ([#2835](https://github.com/DevExpress/devextreme-reactive/issues/2835)) ([fdeb8ec](https://github.com/DevExpress/devextreme-reactive/commit/fdeb8ecfcc63642f951e4e068087ab7ee1a07ed9))
+* **react-grid:** calculate actual row count in VirtualTableState ([#2888](https://github.com/DevExpress/devextreme-reactive/issues/2888)) ([82cade0](https://github.com/DevExpress/devextreme-reactive/commit/82cade0a16a3540649f035eebe84d1e261516f16))
+* **react-grid:** define `ref` and `exportGrid` types in GridExporter ([#2887](https://github.com/DevExpress/devextreme-reactive/issues/2887)) ([f89fb05](https://github.com/DevExpress/devextreme-reactive/commit/f89fb05f34c493e88c6e6edb3db641a89dd352d1))
+* **react-grid:** prevent collapse VirtualTable with horizontal scrolling ([#2866](https://github.com/DevExpress/devextreme-reactive/issues/2866)) ([377b2a4](https://github.com/DevExpress/devextreme-reactive/commit/377b2a4068dc41d7ad1961cb01fda1606a2321ae))
+* **react-grid:** provide right 'skip' value on filtering ([#2890](https://github.com/DevExpress/devextreme-reactive/issues/2890)) ([46076f7](https://github.com/DevExpress/devextreme-reactive/commit/46076f7e804c98f5a019dd3820843547308c689f))
+* **react-grid:** render drag drop container in body ([#2879](https://github.com/DevExpress/devextreme-reactive/issues/2879)) ([1663707](https://github.com/DevExpress/devextreme-reactive/commit/1663707f06bd5a36cbfd799c73f80b964aecd581))
+* **react-grid-demos:** move the bands data file into the demo-data folder ([#2881](https://github.com/DevExpress/devextreme-reactive/issues/2881)) ([e645811](https://github.com/DevExpress/devextreme-reactive/commit/e645811cf25fd88b13e0479cd31f4284f1643cff))
+
+
+
 # [2.6.2](https://github.com/DevExpress/devextreme-reactive/compare/v2.6.1...v2.6.2) (2020-04-15)
 
 

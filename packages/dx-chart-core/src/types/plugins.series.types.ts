@@ -46,7 +46,7 @@ export interface PathFn {
   context(ctx: any): this;
 }
 
-interface CommonComponentProps {
+export interface CommonComponentProps {
   /** A color */
   color: string;
   /** @internal */
@@ -78,7 +78,7 @@ export interface PathComponentProps extends CommonComponentProps {
 
 export interface PointComponentProps extends CommonComponentProps {
   /** @internal */
-  seriesIndex: number;
+  seriesIndex?: number;
   /** Point index */
   index: number;
   /** Point argument */

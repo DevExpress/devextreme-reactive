@@ -7,7 +7,6 @@ import {
 import {
   allDayRects, horizontalTimeTableRects, verticalTimeTableRects,
 } from '../common/calculate-rects';
-import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '../../constants';
 
 jest.mock('../common/calculate-rects', () => ({
   ...require.requireActual('../common/calculate-rects'),
@@ -115,45 +114,47 @@ describe('DragDropProvider', () => {
       changeVerticalScroll: jest.fn(),
       changeHorizontalScroll: jest.fn(),
     };
+    const scrollSpeed = 25;
+
     it('should scroll up', () => {
       const clientOffset = { x: 1, y: 21 };
 
-      autoScroll(clientOffset, scrollAPI);
+      autoScroll(clientOffset, scrollAPI, scrollSpeed);
       expect(scrollAPI.changeVerticalScroll)
-        .toBeCalledWith(-30);
+        .toBeCalledWith(-scrollSpeed);
     });
     it('should scroll down', () => {
       const clientOffset = { x: 1, y: 960 };
 
-      autoScroll(clientOffset, scrollAPI);
+      autoScroll(clientOffset, scrollAPI, scrollSpeed);
       expect(scrollAPI.changeVerticalScroll)
-        .toBeCalledWith(30);
+        .toBeCalledWith(scrollSpeed);
     });
     it('should not scroll up if cursor is above of top boundary', () => {
       const clientOffset = { x: 1, y: -10 };
 
-      autoScroll(clientOffset, scrollAPI);
+      autoScroll(clientOffset, scrollAPI, scrollSpeed);
       expect(scrollAPI.changeVerticalScroll)
         .not.toBeCalled();
     });
     it('should scroll left', () => {
       const clientOffset = { x: 21, y: 1 };
 
-      autoScroll(clientOffset, scrollAPI);
+      autoScroll(clientOffset, scrollAPI, scrollSpeed);
       expect(scrollAPI.changeHorizontalScroll)
-        .toBeCalledWith(-30);
+        .toBeCalledWith(-scrollSpeed);
     });
     it('should scroll right', () => {
       const clientOffset = { x: 960, y: 1 };
 
-      autoScroll(clientOffset, scrollAPI);
+      autoScroll(clientOffset, scrollAPI, scrollSpeed);
       expect(scrollAPI.changeHorizontalScroll)
-        .toBeCalledWith(30);
+        .toBeCalledWith(scrollSpeed);
     });
     it('should not scroll left if cursor is to the left of the left boundary', () => {
       const clientOffset = { x: -10, y: 1 };
 
-      autoScroll(clientOffset, scrollAPI);
+      autoScroll(clientOffset, scrollAPI, scrollSpeed);
       expect(scrollAPI.changeHorizontalScroll)
         .not.toBeCalled();
     });

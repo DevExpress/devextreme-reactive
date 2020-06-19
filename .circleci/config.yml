@@ -45,14 +45,9 @@ jobs:
       - image: circleci/node:13-browsers
     working_directory: ~/circleci
     steps:
-      - checkout
       - attach_workspace:
           at: ~/circleci
-      - run: yarn --no-progress
       - run: yarn testcafe:ci
-
-      - store_test_results:
-          path: /tmp/testcafe-test-results
 
 workflows:
   version: 2
@@ -65,6 +60,8 @@ workflows:
       - TestCafe Tests:
           requires:
             - Build Source
+            - Jest Tests & Linter
       - Site:
           requires:
             - Build Source
+            - TestCafe Tests

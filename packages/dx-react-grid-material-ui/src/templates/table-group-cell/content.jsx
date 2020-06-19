@@ -18,7 +18,7 @@ const ContentBase = ({
   >
     <strong>
       {column.title || column.name}
-        :
+      :
       {' '}
     </strong>
     {children || String(row.value)}

@@ -23,7 +23,7 @@ export const SectionsViewer = ({
                 <div className="row">
                   <div className="col-md-3 main-menu">
                     <h3>
-                    Demo Sections
+                      Demo Sections
                     </h3>
                     <ul className="list-unstyled">
                       {sections.map(section => (

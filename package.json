@@ -29,10 +29,10 @@
     "rimraf": "^3.0.0",
     "run-sequence": "^2.2.1",
     "semver": "^6.3.0",
-    "start-server-and-test": "^1.10.6",
-    "testcafe": "^1.6.1",
+    "start-server-and-test": "^1.11.0",
+    "testcafe": "^1.8.6",
     "testcafe-reporter-xunit": "^2.1.0",
-    "typescript": "3.8.3"
+    "typescript": "3.9.5"
   },
   "scripts": {
     "postinstall": "check-node-version --quiet --node \">=6.11.1\" --npm \">=5.3.0\" --yarn \">=1.0.0\"",
@@ -53,7 +53,7 @@
     "test": "lerna run test --ignore @devexpress/dx-vue-* && yarn test:bs4",
     "test:ci": "yarn update-api:ci && lerna run test --ignore @devexpress/dx-vue-* -- -- --maxWorkers=1 --max-old-space-size=4096 && yarn test:bs4",
     "testcafe:ci": "start-server-and-test start-demo-servers \"3002|3004|3005\" testcafe:ci:start",
-    "testcafe:ci:start": "testcafe",
+    "testcafe:ci:start": "testcafe -q",
     "testcafe:local": "start-server-and-test start-demo-servers \"3002|3004|3005\" testcafe:local:start",
     "testcafe:local:start": "testcafe chrome ./**/*.testcafe.js --skip-js-errors",
     "test:bs4": "jest packages/dx-react-bootstrap4 --ci --silent --runInBand --bail",

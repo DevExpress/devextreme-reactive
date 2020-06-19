@@ -1,5 +1,5 @@
 import { TableColumn, TableRow } from './table.types';
-import { HeaderColumnChainRows } from './header-row.types';
+import { HeaderColumnChainRows, HeaderColumnChain } from './header-row.types';
 import { VisibleBoundary } from './virtual-table.types';
 
 /** Describes properties of column bands that the TableBandHeader plugin renders. */
@@ -61,3 +61,8 @@ export type GetBandComponentFn = (
   columnVisibleIntervals: VisibleBoundary[],
   bandLevelsVisibility: boolean[],
 ) => { type: string | null; payload: BandComponentPayload | null };
+/** @internal */
+export type CalculateBandFn = (
+  pvisibleBound: VisibleBoundary | undefined ,
+  headerChain: HeaderColumnChain,
+) => number[];

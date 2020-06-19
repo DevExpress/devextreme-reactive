@@ -326,8 +326,8 @@ export const unwrapGroups: PureComputed<
 
 export const intervalIncludes: PureComputed<
   [moment.Moment, moment.Moment, moment.Moment], boolean
-> = (intervalStart, intervalEnd, date) => date.isSameOrAfter(intervalStart)
-  && date.isBefore(intervalEnd);
+> = (intervalStart, intervalEnd, date) => date
+  .isBetween(intervalStart, intervalEnd, undefined, '[)');
 
 export const createAppointmentForest: CreateAppointmentForestFn = (
   appointmentGroups, cellDuration,

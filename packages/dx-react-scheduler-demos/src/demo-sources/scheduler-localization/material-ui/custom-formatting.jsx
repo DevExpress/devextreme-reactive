@@ -16,7 +16,7 @@ const formatDayScaleDate = (date, options) => {
   const { weekday } = options;
   return momentDate.format(weekday ? 'dddd' : 'D');
 };
-const formatTimeScaleDate = date => moment(date).format('HH:mm');
+const formatTimeScaleDate = date => moment(date).format('hh:mm:ss');
 
 const styles = {
   dayScaleCell: {

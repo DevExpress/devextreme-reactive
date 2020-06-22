@@ -16,7 +16,7 @@ const formatDayScaleDate = (date, options) => {
   const { weekday } = options;
   return momentDate.format(weekday ? 'dddd' : 'D');
 };
-const formatTimeScaleDate = date => moment(date).format('hh:mm:ss');
+const formatTimeScaleDate = date => moment(date).format('HH:mm');
 
 const styles = {
   dayScaleCell: {
@@ -34,9 +34,9 @@ const DayScaleCell = withStyles(styles, 'DayScaleCell')((
     className={classes.dayScaleCell}
   />
 ));
-const TimeScaleCell = (
+const TimeScaleLabel = (
   { formatDate, ...restProps },
-) => <WeekView.TimeScaleCell {...restProps} formatDate={formatTimeScaleDate} />;
+) => <WeekView.TimeScaleLabel {...restProps} formatDate={formatTimeScaleDate} />;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -65,7 +65,7 @@ export default class Demo extends React.PureComponent {
             startDayHour={9}
             endDayHour={19}
             dayScaleCellComponent={DayScaleCell}
-            timeScaleCellComponent={TimeScaleCell}
+            timeScaleLabelComponent={TimeScaleLabel}
           />
           <Appointments />
         </Scheduler>

@@ -34,9 +34,9 @@ const DayScaleCell = withStyles(styles, 'DayScaleCell')((
     className={classes.dayScaleCell}
   />
 ));
-const TimeScaleCell = (
+const TimeScaleLabel = (
   { formatDate, ...restProps },
-) => <WeekView.TimeScaleCell {...restProps} formatDate={formatTimeScaleDate} />;
+) => <WeekView.TimeScaleLabel {...restProps} formatDate={formatTimeScaleDate} />;
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -65,7 +65,7 @@ export default class Demo extends React.PureComponent {
             startDayHour={9}
             endDayHour={19}
             dayScaleCellComponent={DayScaleCell}
-            timeScaleCellComponent={TimeScaleCell}
+            timeScaleLabelComponent={TimeScaleLabel}
           />
           <Appointments />
         </Scheduler>

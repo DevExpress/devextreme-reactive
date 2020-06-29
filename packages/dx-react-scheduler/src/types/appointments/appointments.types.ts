@@ -59,6 +59,8 @@ export namespace Appointments {
 }
 
 export interface AppointmentsProps {
+  /** @internal */
+  placeAppointmentsNextToEachOther?: boolean;
   /** A component that renders an appointment. */
   appointmentComponent: React.ComponentType<Appointments.AppointmentProps>;
   /** A component that renders the appointment content. */

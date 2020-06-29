@@ -45,10 +45,14 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
     appointmentContentComponent: 'AppointmentContent',
     recurringIconComponent: 'RecurringIcon',
   };
+  static defaultProps: Partial<AppointmentsProps> = {
+    placeAppointmentsNextToEachOther: false,
+  };
 
   updateTimeTableAppointments = memoize((
     timeTableAppointments, viewCellsData, timeTableElementsMeta, currentView,
     startViewDate, endViewDate, cellDuration, groups, getGroupOrientation, groupByDate,
+    placeAppointmentsNextToEachOther,
   ) => {
     if (!isTimeTableElementsMetaActual(viewCellsData, timeTableElementsMeta)) return null;
 
@@ -63,11 +67,13 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
       appointmentType = { growDirection: HORIZONTAL_TYPE, multiline: true };
       getRects = getHorizontalRectByAppointmentData;
     }
+
     return renderAppointments(calculateRectByDateAndGroupIntervals(
       appointmentType, timeTableAppointments, getRects,
       {
         startViewDate, endViewDate, cellDuration,
         viewCellsData, cellElementsMeta: timeTableElementsMeta,
+        placeAppointmentsNextToEachOther,
       },
       {
         groupOrientation,
@@ -115,6 +121,7 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
       appointmentContentComponent: AppointmentContent,
       containerComponent: Container,
       recurringIconComponent,
+      placeAppointmentsNextToEachOther,
     } = this.props;
 
     return (
@@ -132,6 +139,7 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
             }) => this.updateTimeTableAppointments(
               timeTableAppointments, viewCellsData, timeTableElementsMeta, currentView,
               startViewDate, endViewDate, cellDuration, groups, groupOrientation, groupByDate,
+              placeAppointmentsNextToEachOther,
             )}
           </TemplateConnector>
         </Template>

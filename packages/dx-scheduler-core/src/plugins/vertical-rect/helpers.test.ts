@@ -123,6 +123,30 @@ describe('Vertical rect helpers', () => {
         }),
       ],
     };
+    const viewCellsData = [
+      [
+        { startDate: new Date('2018-06-24 08:00'), endDate: new Date('2018-06-24 08:30') },
+        { startDate: new Date('2018-06-25 08:00'), endDate: new Date('2018-06-25 08:30') },
+        { startDate: new Date('2018-06-26 08:00'), endDate: new Date('2018-06-26 08:30') },
+      ],
+      [
+        { startDate: new Date('2018-06-24 08:30'), endDate: new Date('2018-06-24 09:00') },
+        { startDate: new Date('2018-06-25 08:30'), endDate: new Date('2018-06-25 09:00') },
+        { startDate: new Date('2018-06-26 08:30'), endDate: new Date('2018-06-26 09:00') },
+      ],
+      [
+        { startDate: new Date('2018-06-24 09:00'), endDate: new Date('2018-06-24 09:30') },
+        { startDate: new Date('2018-06-25 09:00'), endDate: new Date('2018-06-25 09:30') },
+        { startDate: new Date('2018-06-26 09:00'), endDate: new Date('2018-06-26 09:30') },
+      ],
+      [
+        { startDate: new Date('2018-06-24 10:00'), endDate: new Date('2018-06-24 10:30') },
+        { startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 10:30') },
+        { startDate: new Date('2018-06-26 10:00'), endDate: new Date('2018-06-26 10:30') },
+      ],
+    ];
+    const cellDuration = 30;
+
     beforeEach(() => {
       getWeekHorizontallyGroupedRowIndex.mockImplementation(() => 1);
       getWeekVerticallyGroupedRowIndex.mockImplementation(() => 1);
@@ -132,29 +156,35 @@ describe('Vertical rect helpers', () => {
     afterEach(jest.resetAllMocks);
 
     it('should calculate geometry by dates', () => {
-      const viewCellsData = [
-        [
-          { startDate: new Date('2018-06-24 08:00'), endDate: new Date('2018-06-24 08:30') },
-          { startDate: new Date('2018-06-25 08:00'), endDate: new Date('2018-06-25 08:30') },
-          { startDate: new Date('2018-06-26 08:00'), endDate: new Date('2018-06-26 08:30') },
-        ],
-        [
-          { startDate: new Date('2018-06-24 08:30'), endDate: new Date('2018-06-24 09:00') },
-          { startDate: new Date('2018-06-25 08:30'), endDate: new Date('2018-06-25 09:00') },
-          { startDate: new Date('2018-06-26 08:30'), endDate: new Date('2018-06-26 09:00') },
-        ],
-        [
-          { startDate: new Date('2018-06-24 09:00'), endDate: new Date('2018-06-24 09:30') },
-          { startDate: new Date('2018-06-25 09:00'), endDate: new Date('2018-06-25 09:30') },
-          { startDate: new Date('2018-06-26 09:00'), endDate: new Date('2018-06-26 09:30') },
-        ],
-        [
-          { startDate: new Date('2018-06-24 10:00'), endDate: new Date('2018-06-24 10:30') },
-          { startDate: new Date('2018-06-25 10:00'), endDate: new Date('2018-06-25 10:30') },
-          { startDate: new Date('2018-06-26 10:00'), endDate: new Date('2018-06-26 10:30') },
-        ],
-      ];
-      const cellDuration = 30;
+      const start = moment(new Date(2018, 5, 25, 8, 45));
+      const end = moment(new Date(2018, 5, 25, 9, 15));
+      const {
+        top, left, height, width, parentWidth,
+      } = getVerticalRectByAppointmentData(
+        {
+          start,
+          end,
+        },
+        {
+          groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
+          groupCount: 3,
+        },
+        {
+          cellDuration,
+          viewCellsData,
+          cellElementsMeta,
+          placeAppointmentsNextToEachOther: true,
+        },
+      );
+
+      expect(top).toBe(51);
+      expect(left).toBe(11);
+      expect(height).toBe(96);
+      expect(width).toBe(89);
+      expect(parentWidth).toBe(250);
+    });
+
+    it('should calculate geometry by dates', () => {
       const start = moment(new Date(2018, 5, 25, 8, 45));
       const end = moment(new Date(2018, 5, 25, 9, 15));
       const {
@@ -177,7 +207,7 @@ describe('Vertical rect helpers', () => {
 
       expect(top).toBe(51);
       expect(left).toBe(11);
-      expect(height).toBe(96);
+      expect(height).toBe(100);
       expect(width).toBe(89);
       expect(parentWidth).toBe(250);
     });

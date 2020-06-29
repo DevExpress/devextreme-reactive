@@ -28,11 +28,9 @@ describe('export helpers', () => {
           ySplit: 'last',
         }]);
       expect(worksheet.addRow)
-        .toHaveBeenCalledTimes(2);
+        .toHaveBeenCalledTimes(1);
       expect(worksheet.addRow)
-        .toHaveBeenNthCalledWith(1, {});
-      expect(worksheet.addRow)
-        .toHaveBeenNthCalledWith(2, {
+        .toHaveBeenNthCalledWith(1, {
           a: 'Column A',
           b: 'Column B',
         });

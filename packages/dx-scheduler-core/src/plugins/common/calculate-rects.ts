@@ -4,7 +4,7 @@ import {
 import {
   VERTICAL_TYPE, HORIZONTAL_TYPE,
 } from '../../constants';
-import { calculateRectByDateAndGroupIntervals } from '../../utils';
+import { calculateRectByDateAndGroupIntervals } from '../appointments/helpers';
 import { calculateWeekDateIntervals } from '../week-view/computeds';
 import { getVerticalRectByAppointmentData } from '../vertical-rect/helpers';
 import { getHorizontalRectByAppointmentData } from '../horizontal-rect/helpers';

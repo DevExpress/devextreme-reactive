@@ -1,7 +1,7 @@
 import { PureComputed } from '@devexpress/dx-core';
 import { SchedulerDateTime, CellElementsMeta } from './scheduler-core.types';
 import { ViewCellData, AppointmentMoment } from './all-day-panel.types';
-import { ViewMetaData } from './utils.types';
+import { ViewMetaData } from './appointments.types';
 
 /** @internal */
 export interface HorizontalPayload {

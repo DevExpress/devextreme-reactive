@@ -2,7 +2,7 @@ import { PureComputed } from '@devexpress/dx-core';
 import {
   Appointment, ViewCell, AppointmentModel, AllDayCell, CellElementsMeta,
 } from './scheduler-core.types';
-import { ElementRect } from './utils.types';
+import { ElementRect } from './appointments.types';
 import { Grouping, GroupOrientation } from './grouping-state.types';
 import { ValidResource } from './resources.types';
 import { Group } from './integrated-grouping.types';

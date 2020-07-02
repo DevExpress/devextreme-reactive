@@ -65,7 +65,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const Cell = ({
+export const Cell = React.memo(({
   className,
   children,
   startDate,
@@ -106,7 +106,7 @@ export const Cell = ({
       {children}
     </TableCell>
   );
-};
+});
 
 Cell.propTypes = {
   startDate: PropTypes.instanceOf(Date),

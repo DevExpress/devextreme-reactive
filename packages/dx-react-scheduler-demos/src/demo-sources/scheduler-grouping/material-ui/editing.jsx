@@ -20,6 +20,10 @@ import { data as appointments } from '../../../demo-data/grouping';
 const priorityData = [
   { text: 'Low Priority', id: 1, color: blue },
   { text: 'High Priority', id: 2, color: teal },
+  // { text: 'High Priority 2', id: 3 },
+  // { text: 'High Priority 4', id: 4 },
+  // { text: 'High Priority 5', id: 5 },
+  // { text: 'High Priority 6', id: 6 },
 ];
 
 export default class Demo extends React.PureComponent {
@@ -38,6 +42,21 @@ export default class Demo extends React.PureComponent {
     };
 
     this.commitChanges = this.commitChanges.bind(this);
+    this.callback = this.callback.bind(this);
+  }
+
+  callback(
+    id,
+    phase,
+    actualDuration,
+    baseDuration,
+    startTime,
+    commitTime,
+    interactions,
+  ) {
+    console.clear();
+    console.log(`Render Time - ${actualDuration}`);
+    console.log(`Time without cache - ${baseDuration}`);
   }
 
   commitChanges({ added, changed, deleted }) {
@@ -63,40 +82,42 @@ export default class Demo extends React.PureComponent {
 
     return (
       <Paper>
-        <Scheduler
-          data={data}
-          height={660}
-        >
-          <ViewState
-            defaultCurrentDate="2018-05-30"
-          />
-          <EditingState
-            onCommitChanges={this.commitChanges}
-          />
-          <GroupingState
-            grouping={grouping}
-          />
+        <React.Profiler id="Scheduler" onRender={this.callback}>
+          <Scheduler
+            data={data}
+            height={660}
+          >
+            <ViewState
+              defaultCurrentDate="2018-05-30"
+            />
+            <EditingState
+              onCommitChanges={this.commitChanges}
+            />
+            <GroupingState
+              grouping={grouping}
+            />
 
-          <WeekView
-            startDayHour={9}
-            endDayHour={17}
-            excludedDays={[0, 6]}
-          />
-          <Appointments />
-          <AllDayPanel />
-          <Resources
-            data={resources}
-            mainResourceName="priorityId"
-          />
+            <WeekView
+              startDayHour={8}
+              endDayHour={16}
+              cellDuration={60}
+            />
+            <Appointments />
+            <AllDayPanel />
+            <Resources
+              data={resources}
+              mainResourceName="priorityId"
+            />
 
-          <IntegratedGrouping />
-          <IntegratedEditing />
-          <AppointmentTooltip />
-          <AppointmentForm />
+            <IntegratedGrouping />
+            <IntegratedEditing />
+            <AppointmentTooltip />
+            <AppointmentForm />
 
-          <GroupingPanel />
-          <DragDropProvider />
-        </Scheduler>
+            <GroupingPanel />
+            <DragDropProvider />
+          </Scheduler>
+        </React.Profiler>
       </Paper>
     );
   }

@@ -21,11 +21,9 @@ initialize({
     const DemoContainer = demoContainer || 'div';
     ReactDOM.render(
       (
-        <React.StrictMode>
-          <DemoContainer>
-            <Demo />
-          </DemoContainer>
-        </React.StrictMode>
+        <DemoContainer>
+          <Demo />
+        </DemoContainer>
       ),
       element,
     );

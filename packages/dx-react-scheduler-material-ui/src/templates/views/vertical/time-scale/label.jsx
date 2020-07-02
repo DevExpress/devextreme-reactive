@@ -4,6 +4,7 @@ import classNames from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
 import { SPACING_LABEL_HEIGHT } from '../../../constants';
+import { deepEqual } from '../day-scale/cell';
 
 const styles = theme => ({
   label: {
@@ -55,7 +56,7 @@ const LabelBase = React.memo(({
     )}
 
   </div>
-));
+), deepEqual);
 
 LabelBase.propTypes = {
   formatDate: PropTypes.func,

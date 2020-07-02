@@ -101,6 +101,7 @@ export default class Demo extends React.PureComponent {
               startDayHour={8}
               endDayHour={16}
               cellDuration={60}
+              excludedDays={[0, 1, 2, 3, 4, 6]}
             />
             <Appointments />
             <AllDayPanel />

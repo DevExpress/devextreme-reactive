@@ -4,6 +4,7 @@ import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 import { WEEK_DAY_OPTIONS, DAY_OPTIONS } from '@devexpress/dx-scheduler-core';
+import equal from 'deep-equal';
 import { getBrightBorder } from '../../../utils';
 import { LAYOUT_MEDIA_QUERY } from '../../../constants';
 
@@ -60,6 +61,46 @@ const styles = theme => ({
   },
 });
 
+export const deepEqual = (objA, objB) => {
+  if (objA === objB) {
+    return true;
+  }
+
+  const keysA = Object.keys(objA);
+  const keysB = Object.keys(objB);
+
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
+
+  // Test for A's keys different from B.
+  const hasOwn = Object.prototype.hasOwnProperty;
+  // tslint:disable-next-line: prefer-for-of
+  for (let i = 0; i < keysA.length; i += 1) {
+    if (!hasOwn.call(objB, keysA[i])) {
+      return false;
+    }
+
+    const valA = objA[keysA[i]];
+    const valB = objB[keysA[i]];
+
+    const a = equal(valA, valB);
+    debugger;
+    if (a === false) {
+      // return false;
+    }
+    // if (valA === valB) {
+    //   continue;
+    // }
+
+    // if (valA !== valB) {
+    //   return false;
+    // }
+  }
+
+  return true;
+};
+
 const CellBase = React.memo(({
   classes,
   className,
@@ -99,7 +140,7 @@ const CellBase = React.memo(({
       </div>
     </div>
   </TableCell>
-));
+), deepEqual);
 
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,

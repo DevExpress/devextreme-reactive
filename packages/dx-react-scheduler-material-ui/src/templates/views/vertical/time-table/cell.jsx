@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION, VIEW_TYPES } from '@devexpress/dx-scheduler-core';
 import { getBorder, getBrightBorder } from '../../../utils';
 import { SPACING_CELL_HEIGHT } from '../../../constants';
+import { deepEqual } from '../day-scale/cell';
 
 const useStyles = makeStyles(theme => ({
   cell: {
@@ -64,6 +65,8 @@ const useStyles = makeStyles(theme => ({
     borderBottom: getBrightBorder(theme),
   },
 }));
+
+// NOTE: we should optimize onDoubleClick
 
 export const Cell = React.memo(({
   className,

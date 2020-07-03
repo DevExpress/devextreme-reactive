@@ -12,65 +12,47 @@ const styles = {
   },
 };
 
-class LayoutBase extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const LayoutBase = React.memo(({
+  setCellElementsMeta,
+  cellsData,
+  classes, className,
+  cellComponent: Cell,
+  rowComponent: Row,
+  formatDate,
+  ...restProps
+}) => {
+  const tableRef = React.useRef(null);
 
-    this.table = React.createRef();
-  }
-
-  componentDidMount() {
-    this.setCells();
-  }
-
-  componentDidUpdate() {
-    this.setCells();
-  }
-
-  setCells() {
-    const { setCellElementsMeta } = this.props;
-
-    const tableElement = this.table.current;
+  React.useEffect(() => {
+    const tableElement = tableRef.current;
     setCellElementsMeta(cellsMeta(tableElement));
-  }
+  }, [setCellElementsMeta, tableRef]);
 
-  render() {
-    const {
-      setCellElementsMeta,
-      cellsData,
-      classes, className,
-      cellComponent: Cell,
-      rowComponent: Row,
-      formatDate,
-      ...restProps
-    } = this.props;
-
-    return (
-      <Table
-        ref={this.table}
-        className={classNames(classes.table, className)}
-        {...restProps}
-      >
-        <TableBody>
-          <Row>
-            {cellsData.map(({
-              startDate, endDate, endOfGroup, groupingInfo,
-            }) => (
-              <Cell
-                key={getViewCellKey(startDate, groupingInfo)}
-                startDate={startDate}
-                endDate={endDate}
-                endOfGroup={endOfGroup}
-                hasRightBorder={endOfGroup}
-                groupingInfo={groupingInfo}
-              />
-            ))}
-          </Row>
-        </TableBody>
-      </Table>
-    );
-  }
-}
+  return (
+    <Table
+      ref={tableRef}
+      className={classNames(classes.table, className)}
+      {...restProps}
+    >
+      <TableBody>
+        <Row>
+          {cellsData.map(({
+            startDate, endDate, endOfGroup, groupingInfo,
+          }) => (
+            <Cell
+              key={getViewCellKey(startDate, groupingInfo)}
+              startDate={startDate}
+              endDate={endDate}
+              endOfGroup={endOfGroup}
+              hasRightBorder={endOfGroup}
+              groupingInfo={groupingInfo}
+            />
+          ))}
+        </Row>
+      </TableBody>
+    </Table>
+  );
+});
 
 LayoutBase.propTypes = {
   classes: PropTypes.object.isRequired,

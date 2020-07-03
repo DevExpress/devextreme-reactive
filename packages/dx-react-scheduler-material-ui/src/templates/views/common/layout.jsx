@@ -3,50 +3,38 @@ import * as PropTypes from 'prop-types';
 import { Table } from './table';
 import { cellsMeta } from '../../utils';
 
-export class Layout extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export const Layout = React.memo(({
+  setCellElementsMeta,
+  cellsNumber,
+  children,
+  className,
+  ...restProps
+}) => {
+  const tableRef = React.useRef(null);
 
-    this.table = React.createRef();
-  }
-
-  componentDidMount() {
-    this.setCells();
-  }
-
-  componentDidUpdate() {
-    this.setCells();
-  }
-
-  setCells() {
-    const { setCellElementsMeta } = this.props;
-
-    const tableElement = this.table.current;
+  React.useEffect(() => {
+    const tableElement = tableRef.current;
     setCellElementsMeta(cellsMeta(tableElement));
-  }
+  }, [setCellElementsMeta, tableRef]);
 
-  render() {
-    const {
-      setCellElementsMeta,
-      cellsNumber,
-      children,
-      ...restProps
-    } = this.props;
-
-    return (
-      <Table
-        ref={this.table}
-        cellsNumber={cellsNumber}
-        {...restProps}
-      >
-        {children}
-      </Table>
-    );
-  }
-}
+  return (
+    <Table
+      ref={tableRef}
+      cellsNumber={cellsNumber}
+      {...restProps}
+    >
+      {children}
+    </Table>
+  );
+});
 
 Layout.propTypes = {
   setCellElementsMeta: PropTypes.func.isRequired,
   cellsNumber: PropTypes.number.isRequired,
   children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+};
+
+Layout.defaultProps = {
+  className: undefined,
 };

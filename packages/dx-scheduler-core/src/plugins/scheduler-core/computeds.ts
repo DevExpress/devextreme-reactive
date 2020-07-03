@@ -4,7 +4,7 @@ import { dateTimeFormatInstance } from './helpers';
 
 export const appointments: PureComputed<
   [AppointmentModel[]], Appointment[]
-> = data => data.map(appointment => ({
+> = data => data.map((appointment, index) => ({
   dataItem: appointment,
   start: appointment.startDate,
   ...appointment.endDate !== undefined ? {
@@ -22,6 +22,7 @@ export const appointments: PureComputed<
   ...appointment.exDate !== undefined && {
     exDate: appointment.exDate,
   },
+  key: appointment.id || index,
 }));
 
 export const formatDateTimeGetter: FormatDateTimeGetterFn = (locale) => {

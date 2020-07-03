@@ -93,6 +93,7 @@ const horizontalRectCalculator: CustomFunction<
     fromPrev: appointment.fromPrev,
     toNext: appointment.toNext,
     type: HORIZONTAL_TYPE,
+    key: appointment.key,
   };
 };
 
@@ -147,6 +148,7 @@ const verticalRectCalculator: CustomFunction<
     durationType: appointmentHeightType(appointment, cellDuration),
     type: VERTICAL_TYPE,
     offset,
+    key: appointment.key,
   };
 };
 
@@ -196,6 +198,7 @@ const oldVerticalRectCalculator: CustomFunction<
     toNext: appointment.toNext,
     durationType: appointmentHeightType(appointment, cellDuration),
     type: VERTICAL_TYPE,
+    key: appointment.key,
   };
 };
 
@@ -315,10 +318,11 @@ const unwrapAppointmentForest: PureComputed<
 export const unwrapGroups: PureComputed<
   [AppointmentGroup[]], AppointmentUnwrappedGroup[]
 > = groups => groups.reduce((acc, { items, reduceValue }) => {
-  acc.push(...items.map(({ start, end, dataItem, offset, resources, ...restProps }) => ({
+  acc.push(...items.map(({ start, end, dataItem, offset, resources, key, ...restProps }) => ({
     start, end, dataItem, offset, reduceValue, resources,
     fromPrev: moment(start).diff(dataItem.startDate, 'minutes') > 1,
     toNext: moment(dataItem.endDate).diff(end, 'minutes') > 1,
+    key,
     ...restProps,
   })));
   return acc;

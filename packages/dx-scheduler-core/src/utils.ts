@@ -135,6 +135,7 @@ const expandRecurrenceAppointment = (
     },
     start: moment(startDate),
     end: moment(startDate).add(appointmentDuration, 'minutes'),
+    key: `${appointment.key}_rec_${index}`,
   }));
 };
 

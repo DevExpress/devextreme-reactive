@@ -7,7 +7,6 @@ export const Layout = React.memo(({
   setCellElementsMeta,
   cellsNumber,
   children,
-  className,
   ...restProps
 }) => {
   const tableRef = React.useRef(null);
@@ -32,9 +31,4 @@ Layout.propTypes = {
   setCellElementsMeta: PropTypes.func.isRequired,
   cellsNumber: PropTypes.number.isRequired,
   children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-};
-
-Layout.defaultProps = {
-  className: undefined,
 };

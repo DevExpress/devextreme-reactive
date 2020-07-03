@@ -25,7 +25,7 @@ const styles = theme => ({
   },
 });
 
-const TickCellBase = React.memo(({
+const TickCellBase = ({
   classes,
   className,
   startDate,
@@ -43,7 +43,7 @@ const TickCellBase = React.memo(({
     }, className)}
     {...restProps}
   />
-));
+);
 
 TickCellBase.propTypes = {
   classes: PropTypes.object.isRequired,

@@ -74,7 +74,7 @@ describe('AllDayPanel', () => {
       tree.setProps({ className: 'a' });
 
       expect(defaultProps.setCellElementsMeta)
-        .toBeCalledTimes(1);
+        .toBeCalledTimes(2);
     });
   });
 });

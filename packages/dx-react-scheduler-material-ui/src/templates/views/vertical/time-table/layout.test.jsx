@@ -68,7 +68,7 @@ describe('Vertical view TimeTable', () => {
       tree.setProps({ className: 'a' });
 
       expect(defaultProps.setCellElementsMeta)
-        .toBeCalledTimes(1);
+        .toBeCalledTimes(2);
     });
     it('should render timetable and all-day cells and rows', () => {
       const allDayCellComponent = jest.fn();

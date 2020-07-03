@@ -14,7 +14,7 @@ export const Layout = React.memo(({
   React.useEffect(() => {
     const tableElement = tableRef.current;
     setCellElementsMeta(cellsMeta(tableElement));
-  }, [setCellElementsMeta, tableRef]);
+  });
 
   return (
     <Table

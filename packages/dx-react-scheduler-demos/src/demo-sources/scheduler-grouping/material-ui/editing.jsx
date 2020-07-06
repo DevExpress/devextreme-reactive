@@ -39,7 +39,6 @@ export default class Demo extends React.PureComponent {
     };
 
     this.commitChanges = this.commitChanges.bind(this);
-    this.callback = this.callback.bind(this);
   }
 
   commitChanges({ added, changed, deleted }) {

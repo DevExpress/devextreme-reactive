@@ -4,7 +4,7 @@ import { RRule, RRuleSet } from 'rrule';
 import {
   ComputedHelperFn, ViewPredicateFn,
   CalculateFirstDateOfWeekFn, AppointmentMoment,
-  Interval, Rect,
+  Interval, Rect, AppointmentKey,
 } from './types';
 
 export const computed: ComputedHelperFn = (getters, viewName, baseComputed, defaultValue) => {
@@ -176,3 +176,7 @@ export const getRRuleSetWithExDates: PureComputed<
 };
 
 export const formatDateToString = (date: Date | string | number) => moment.utc(date).format('YYYY-MM-DDTHH:mm');
+
+export const addDateToKey: PureComputed<
+  [AppointmentKey, moment.Moment], AppointmentKey
+> = (prevKey, momentDate) => `${prevKey}_${momentDate.toDate().toString()}`;

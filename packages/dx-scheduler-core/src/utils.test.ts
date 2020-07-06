@@ -9,6 +9,7 @@ import {
   formatDateToString,
   excludedIntervals,
 } from './utils';
+import { addDateToKey } from '.';
 
 describe('Utils', () => {
   describe('#viewPredicate', () => {
@@ -431,6 +432,14 @@ describe('Utils', () => {
 
       expect(formatDateToString(date))
         .toContain('2019-06-10T12:30');
+    });
+  });
+  describe('#addDateToKey', () => {
+    it('should add date converted to string to the provided key', () => {
+      const date = moment(new Date('2019-04-10 0:00'));
+
+      expect(addDateToKey('test', date))
+        .toBe(`test_${(new Date('2019-04-10 0:00')).toString()}`);
     });
   });
 });

@@ -53,14 +53,13 @@ const CellBase = ({
     className={classNames({
       [classes.cell]: true,
       [classes.brightRightBorder]: groupOrientation === HORIZONTAL_GROUP_ORIENTATION
-        && (endOfGroup || hasRightBorder),
+          && (endOfGroup || hasRightBorder),
     }, className)}
     {...restProps}
   >
     {children}
   </TableCell>
 );
-
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   startDate: PropTypes.instanceOf(Date),

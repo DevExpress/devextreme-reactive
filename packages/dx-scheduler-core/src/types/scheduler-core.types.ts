@@ -5,6 +5,8 @@ export type SchedulerDateTime = Date | number | string;
 export type AppointmentId = number | string;
 /** @internal */
 export type CellElement = React.ReactInstance;
+/** @internal */
+export type AppointmentKey = AppointmentId;
 
 /** Describes an appointment data object. */
 export interface AppointmentModel {
@@ -39,6 +41,8 @@ export interface Appointment {
   exDate?: string;
   /** The all appointment data */
   dataItem: AppointmentModel;
+  /** @internal */
+  key: AppointmentKey;
 }
 
 export interface TimeScale {

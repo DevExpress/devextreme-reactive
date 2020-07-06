@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { PureComputed } from '@devexpress/dx-core';
 import { AppointmentMoment } from './all-day-panel.types';
-import { AppointmentModel } from './scheduler-core.types';
+import { AppointmentModel, AppointmentKey } from './scheduler-core.types';
 import { Rect } from './horizontal-rect.types';
 import { ValidResourceInstance } from '../types';
 import { GroupOrientation } from './grouping-state.types';
@@ -12,6 +12,7 @@ interface GroupItem {
   dataItem: AppointmentModel;
   offset: number;
   resources?: Array<ValidResourceInstance>;
+  key: AppointmentKey;
 }
 
 /** @internal */
@@ -144,6 +145,7 @@ export interface AppointmentUnwrappedGroup extends GroupItem {
   toNext: boolean;
   width?: number;
   left?: number;
+  key: AppointmentKey;
 }
 
 /** @internal */

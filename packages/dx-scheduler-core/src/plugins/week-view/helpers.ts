@@ -5,31 +5,38 @@ import {
   ReduceAppointmentByDayBoundsFn, NormalizeAppointmentDurationFn, ViewCell, SchedulerDateTime,
 } from '../../types';
 import { checkCellGroupingInfo } from '../common/helpers';
+import { addDateToKey } from '../../utils';
 
 export const sliceAppointmentByDay: PureComputed<
   [AppointmentMoment, number], AppointmentMoment[]
 > = (appointment, cellDuration) => {
-  const { start, end, dataItem } = appointment;
+  const { start, end, dataItem, key } = appointment;
   if (start.isSame(end, 'day')) return [appointment];
 
   const minDuration = cellDuration / 2;
   const isShortOnFirstDay = start.clone().endOf('day').diff(start, 'minutes') < minDuration;
   const isShortOnSecondDay = end.clone().diff(end.clone().startOf('day'), 'minutes') < minDuration;
+  const firstAppointmentKey = addDateToKey(key, start);
+  const secondAppointmentKey = addDateToKey(key, end);
 
   return [
     isShortOnFirstDay ? {
       start: start.clone().endOf('day').add(-minDuration, 'minutes'),
       end: start.clone().endOf('day'),
       dataItem,
+      key: firstAppointmentKey,
     } : {
       start, end: start.clone().endOf('day'), dataItem,
+      key: firstAppointmentKey,
     },
     isShortOnSecondDay ? {
       start: end.clone().startOf('day'),
       end: end.clone().startOf('day').add(minDuration, 'minutes'),
       dataItem,
+      key: secondAppointmentKey,
     } : {
       start: end.clone().startOf('day'), end, dataItem,
+      key: secondAppointmentKey,
     },
   ];
 };

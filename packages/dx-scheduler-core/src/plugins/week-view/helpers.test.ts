@@ -9,10 +9,19 @@ import {
   getWeekVerticallyGroupedRowIndex,
   getWeekHorizontallyGroupedRowIndex,
 } from './helpers';
+import { addDateToKey } from '../../utils';
+
+jest.mock('../../utils', () => ({
+  ...require.requireActual('../../utils'),
+  addDateToKey: jest.fn(),
+}));
 
 describe('Week view helpers', () => {
   describe('Rect calculation helper', () => {
     describe('#sliceAppointmentByDay', () => {
+      afterEach(() => {
+        jest.resetAllMocks();
+      });
       it('should slice multi-days appointment', () => {
         const slicedAppointments = sliceAppointmentByDay({
           start: moment('2018-06-27 09:00'),
@@ -98,6 +107,28 @@ describe('Week view helpers', () => {
           .toEqual(moment('2018-06-28T00:00').format());
         expect(slicedAppointments[1].end.format())
           .toEqual(moment('2018-06-28T00:15').format());
+      });
+      it('should call addDateToKey with correct parameters', () => {
+        const start = moment('2018-06-27T23:55');
+        const end = moment('2018-06-28T00:05');
+        const key = 'test';
+        sliceAppointmentByDay({ start, end, key }, 30);
+
+        expect(addDateToKey)
+          .toHaveBeenCalledTimes(2);
+        expect(addDateToKey)
+          .toHaveBeenCalledWith(key, start);
+        expect(addDateToKey)
+          .toHaveBeenCalledWith(key, end);
+      });
+      it('should not call addDateToKey if appointment is not sliced', () => {
+        const start = moment('2018-06-27T21:55');
+        const end = moment('2018-06-27T23:55');
+        const key = 'test';
+        sliceAppointmentByDay({ start, end, key }, 30);
+
+        expect(addDateToKey)
+          .not.toHaveBeenCalled();
       });
     });
 

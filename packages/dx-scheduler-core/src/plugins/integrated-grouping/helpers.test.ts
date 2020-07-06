@@ -349,6 +349,7 @@ describe('IntegratedGrouping helpers', () => {
           test2: 2,
           test3: 3,
         },
+        key: 1,
       };
 
       const result = expandGroupedAppointment(appointment, grouping, resources);
@@ -361,6 +362,7 @@ describe('IntegratedGrouping helpers', () => {
           },
           test1: 1,
           test2: 2,
+          key: '1_1',
         });
       expect(result[1])
         .toEqual({
@@ -371,6 +373,7 @@ describe('IntegratedGrouping helpers', () => {
           },
           test1: 2,
           test2: 2,
+          key: '1_2',
         });
       expect(result[2])
         .toEqual({
@@ -381,6 +384,7 @@ describe('IntegratedGrouping helpers', () => {
           },
           test1: 3,
           test2: 2,
+          key: '1_3',
         });
     });
     it('should return appointment as it is (inside an array) if resources are undefined', () => {

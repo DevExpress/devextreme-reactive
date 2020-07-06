@@ -21,6 +21,7 @@ const priorityData = [
   { text: 'Low Priority', id: 1, color: blue },
   { text: 'High Priority', id: 2, color: teal },
 ];
+const excludedDays = [0, 6];
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -80,7 +81,7 @@ export default class Demo extends React.PureComponent {
           <WeekView
             startDayHour={9}
             endDayHour={17}
-            excludedDays={[0, 6]}
+            excludedDays={excludedDays}
           />
           <Appointments />
           <AllDayPanel />

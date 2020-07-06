@@ -7,11 +7,12 @@ import { DAYS_IN_WEEK } from '../appointment-form/constants';
 import { PureComputed } from '@devexpress/dx-core';
 import { HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 import { checkCellGroupingInfo } from '../common/helpers';
+import { addDateToKey } from '../../utils';
 
 export const sliceAppointmentByWeek: SliceAppointmentByWeekFn = (timeBounds, appointment, step) => {
   const { left, right } = timeBounds;
   const pieces: AppointmentMoment[] = [];
-  const { start, end, ...restFields } = appointment;
+  const { start, end, key, ...restFields } = appointment;
   let apptStart = start;
   let apptEnd = end;
   if (apptStart.isBefore(left)) apptStart = left.clone();
@@ -30,7 +31,12 @@ export const sliceAppointmentByWeek: SliceAppointmentByWeekFn = (timeBounds, app
         pieceTo = apptEnd.clone();
       }
       if (!pieceFrom.isSameOrAfter(pieceTo)) {
-        pieces.push({ start: pieceFrom, end: pieceTo, ...restFields });
+        pieces.push({
+          start: pieceFrom,
+          end: pieceTo,
+          key: addDateToKey(key, pieceFrom),
+          ...restFields,
+        });
         pieceFrom = pieceTo.clone().add(1, 'second');
       }
     }

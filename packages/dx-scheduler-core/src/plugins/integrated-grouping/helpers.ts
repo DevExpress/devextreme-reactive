@@ -1,7 +1,7 @@
 import { PureComputed } from '@devexpress/dx-core';
 import {
-  ValidResourceInstance, Group, ViewCell,
-  ValidResource, AppointmentMoment, Grouping, GroupOrientation,
+  ValidResourceInstance, Group, ViewCell, ValidResource,
+  AppointmentMoment, Grouping, GroupOrientation, AppointmentKey,
 } from '../../types';
 import { HORIZONTAL_GROUP_ORIENTATION } from '../../constants';
 
@@ -150,11 +150,19 @@ export const expandGroupedAppointment: PureComputed<
       return acc.reduce((accumulatedAppointments, currentAppointment) => [
         ...accumulatedAppointments,
         ...currentAppointment.dataItem[resourceField].map(
-          (resourceValue: any) => ({ ...currentAppointment, [resourceField]: resourceValue }),
+          (resourceValue: number | string) => ({
+            ...currentAppointment,
+            [resourceField]: resourceValue,
+            key: generateMultipleResourceKey(currentAppointment.key, resourceValue),
+          }),
         ),
       ], [] as AppointmentMoment[]);
     }, [appointment] as AppointmentMoment[]);
 };
+
+const generateMultipleResourceKey: PureComputed<
+  [AppointmentKey, number | string], AppointmentKey
+> = (previousKey, resourceValue) => `${previousKey}_${resourceValue}`;
 
 export const getGroupingInfoFromGroups: PureComputed<
   [Group[][], number], Group[]

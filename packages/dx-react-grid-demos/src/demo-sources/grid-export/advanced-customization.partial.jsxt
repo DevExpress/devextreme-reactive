@@ -89,6 +89,7 @@ const customizeHeader = (worksheet) => {
   worksheet.getRow(1).getCell(4).font = { bold: true, size: 16 };
   worksheet.getColumn(1).values = ['Sale Amounts:', 'Company Name:', 'Address:', 'Phone:', 'Website:'];
   worksheet.getColumn(4).values = [new Date(), 'K&S Music', '1000 Nicllet Mall Minneapolis Minnesota', '(612) 304-6073', 'www.nowebsitemusic.com'];
+  worksheet.addRow({});
 };
 
 const customizeFooter = (worksheet) => {

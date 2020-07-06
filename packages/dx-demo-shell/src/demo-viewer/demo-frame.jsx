@@ -61,7 +61,57 @@ class DemoFrameRenderer extends React.PureComponent {
 
     return (
       <div>
-        <DemoRenderer {...this.props} />
+        {!frame && !!editableLink ? (
+          <form
+            style={{ marginBottom: '20px' }}
+            onSubmit={this.onSubmitCustomLink}
+          >
+            <FormGroup controlId="customThemeLink">
+              <Label>
+                Custom theme link
+              </Label>
+              <InputGroup>
+                <Input
+                  type="text"
+                  id="customLink"
+                  innerRef={(node) => { this.customThemeLinkNode = node; }}
+                  defaultValue={editableLink}
+                />
+                <Button type="submit">
+                  Apply
+                </Button>
+              </InputGroup>
+            </FormGroup>
+          </form>
+        ) : null}
+
+        {frame
+          ? (
+            <DemoRenderer {...this.props} />
+          )
+          : (
+            <div
+              style={{
+                margin: '-8px',
+              }}
+            >
+              <Frame
+                key={editableLink} // NOTE: re-render frame once theme link has changed
+                style={{
+                  border: 'none',
+                  minWidth: '100%',
+                  width: '100px',
+                  height: `${frameHeight}px`,
+                  marginBottom: '20px',
+                }}
+                initialContent={markup}
+                mountTarget="#mountPoint"
+                scrolling="no"
+              >
+                <div ref={this.nodeRef} />
+              </Frame>
+            </div>
+          )}
       </div>
     );
   }

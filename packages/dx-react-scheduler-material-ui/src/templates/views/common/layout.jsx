@@ -3,47 +3,29 @@ import * as PropTypes from 'prop-types';
 import { Table } from './table';
 import { cellsMeta } from '../../utils';
 
-export class Layout extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export const Layout = React.memo(({
+  setCellElementsMeta,
+  cellsNumber,
+  children,
+  ...restProps
+}) => {
+  const tableRef = React.useRef(null);
 
-    this.table = React.createRef();
-  }
-
-  componentDidMount() {
-    this.setCells();
-  }
-
-  componentDidUpdate() {
-    this.setCells();
-  }
-
-  setCells() {
-    const { setCellElementsMeta } = this.props;
-
-    const tableElement = this.table.current;
+  React.useEffect(() => {
+    const tableElement = tableRef.current;
     setCellElementsMeta(cellsMeta(tableElement));
-  }
+  });
 
-  render() {
-    const {
-      setCellElementsMeta,
-      cellsNumber,
-      children,
-      ...restProps
-    } = this.props;
-
-    return (
-      <Table
-        ref={this.table}
-        cellsNumber={cellsNumber}
-        {...restProps}
-      >
-        {children}
-      </Table>
-    );
-  }
-}
+  return (
+    <Table
+      ref={tableRef}
+      cellsNumber={cellsNumber}
+      {...restProps}
+    >
+      {children}
+    </Table>
+  );
+});
 
 Layout.propTypes = {
   setCellElementsMeta: PropTypes.func.isRequired,

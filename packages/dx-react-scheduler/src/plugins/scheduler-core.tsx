@@ -23,7 +23,7 @@ class SchedulerCoreBase extends React.PureComponent<SchedulerProps> {
         name="SchedulerCore"
       >
         <Getter name="appointments" value={appointments(data)} />
-        <Getter name="formatDate" value={formatDateTimeGetter(locale)} />
+        <Getter name="formatDate" value={this.formatDateTimeGetter(locale)} />
         <Getter name="firstDayOfWeek" value={firstDayOfWeek} />
         <Getter name="locale" value={locale} />
         <Template name="root">

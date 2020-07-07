@@ -25,11 +25,13 @@ describe('SchedulerCore computeds', () => {
           start: '2018-06-27 09:00',
           end: '2018-06-27 10:00',
           dataItem: data[0],
+          key :0,
         },
         {
           start: '2018-06-27 11:00',
           end: '2018-06-27 12:00',
           dataItem: data[1],
+          key: 1,
         },
       ]);
     });
@@ -52,6 +54,7 @@ describe('SchedulerCore computeds', () => {
           end: '2018-06-27 10:00',
           allDay: true,
           dataItem: dataWithAllDay[0],
+          key :0,
         },
       ]);
     });
@@ -65,6 +68,7 @@ describe('SchedulerCore computeds', () => {
           start: '2018-06-27 09:00',
           end: '2018-06-27 09:00',
           dataItem: { startDate: '2018-06-27 09:00', endDate: '2018-06-27 09:00' },
+          key: 0,
         },
       ]);
     });

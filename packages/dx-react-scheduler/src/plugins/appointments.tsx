@@ -17,10 +17,10 @@ const AppointmentPlaceholder = params => <TemplatePlaceholder name="appointment"
 
 const renderAppointments = rects => rects.map(({
   dataItem, type: rectType, fromPrev, toNext,
-  durationType, resources, ...geometry
-}, index) => (
+  durationType, resources, key, ...geometry
+}) => (
   <AppointmentPlaceholder
-    key={index.toString()}
+    key={key}
     type={rectType}
     data={dataItem}
     fromPrev={fromPrev}

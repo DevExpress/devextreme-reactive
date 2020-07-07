@@ -85,7 +85,7 @@ describe('ColumnGeometries utils', () => {
       });
     });
 
-    it.only('should return dimensions based on "right" style value', () => {
+    it('should return dimensions based on "right" style value', () => {
       const getBoundingClientRect = () => ({ left: 300, right: 400, width: 100 });
       const parentNode = {
         nodeName: 'DIV',

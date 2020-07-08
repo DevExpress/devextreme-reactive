@@ -180,6 +180,9 @@ export * from './plugins/summary-state/helpers';
 export { getColumnExtension, getColumnExtensionValueGetter } from './utils/column-extension';
 
 /** @internal */
+export { getCellGeometries } from './utils/column-geometries';
+
+/** @internal */
 export {
   getTableColumnGeometries,
   getTableTargetColumnIndex,

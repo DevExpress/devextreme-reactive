@@ -63,17 +63,21 @@ export type GetCellColSpanFn = PureComputed<
 export type CellColSpanGetter = PureComputed<[GetCellColSpanFn]>;
 
 /** @internal */
-export type ColumnGeometry = { left: number, right: number };
+export type ColumnGeometry = { left: number, right: number, isFixed?: boolean };
 /** @internal */
+// tslint:disable-next-line: max-line-length
 export type TargetColumnGeometry = ColumnGeometry & { top: number, bottom: number };
 /** @internal */
 export type GetTableColumnGeometriesFn = PureComputed<[TableColumn[], number], ColumnGeometry[]>;
 /** @internal */
 // tslint:disable-next-line: max-line-length
-export type GetTableTargetColumnIndexFn = PureComputed<[TargetColumnGeometry[], number, number], number>;
+export type GetTableTargetColumnIndexFn = PureComputed<[TargetColumnGeometry[], number], number>;
 /** @internal */
 // tslint:disable-next-line: max-line-length
 export type GetTargetColumnGeometriesFn = PureComputed<[TargetColumnGeometry[], number], TargetColumnGeometry[]>;
+/** @internal */
+// tslint:disable-next-line: max-line-length
+export type GetNodeGeometriesFn = PureComputed<[HTMLElement], ColumnGeometry>;
 
 /** @internal */
 export type ColumnAnimation = {

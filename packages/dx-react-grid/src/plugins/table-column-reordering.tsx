@@ -125,16 +125,7 @@ class TableColumnReorderingRaw extends React.PureComponent<TableColumnReordering
     this.cacheCellDimensions();
     const cellDimensions = this.cellDimensions;
 
-    const overlappedColumns = cellDimensions
-      .filter(({ left, right }) => left <= x && x <= right);
-
-    if (overlappedColumns.length > 1) return;
-
-    const relativeTargetIndex = getTableTargetColumnIndex(
-      cellDimensions,
-      relativeSourceColumnIndex,
-      x,
-    );
+    const relativeTargetIndex = getTableTargetColumnIndex(cellDimensions, x);
 
     if (relativeTargetIndex === -1) return;
 

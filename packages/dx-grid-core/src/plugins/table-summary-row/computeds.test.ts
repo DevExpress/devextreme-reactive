@@ -19,7 +19,7 @@ describe('TableSummaryRow', () => {
 
   describe('#tableRowsWithSummaries', () => {
     const groupSummaryItems = [{ showInGroupFooter: true }];
-    const treeSummaryItems = [];
+    const treeSummaryItems = [{}];
     const tableRows = [
       { row: { levelKey: 'a', compoundKey: 'a1', group: true } },
       { row: { levelKey: 'a', compoundKey: 'a2', group: true, a: 'a2' } },
@@ -32,6 +32,25 @@ describe('TableSummaryRow', () => {
     const getRowLevelKey = row => row.levelKey;
     const isGroupRow = row => row.group;
     const getRowId = row => row.a;
+
+    /* tslint:disable: max-line-length */
+    it('should not add summary rows if "groupSummaryItems" and "treeSummaryItems" are empty arrays', () => {
+      const result = [
+        { row: { levelKey: 'a', compoundKey: 'a1', group: true } },
+        { row: { levelKey: 'a', compoundKey: 'a2', group: true, a: 'a2' } },
+        { row: { a: 1 } },
+        { row: { a: 2 } },
+        { row: { levelKey: 'a', compoundKey: 'a3', group: true, a: 'a3' } },
+        { row: { levelKey: 'b', a: 3 } },
+        { row: { a: 4 } },
+      ];
+      /* tslint:enable: max-line-length */
+
+      expect(tableRowsWithSummaries(
+        tableRows, [], [], getRowLevelKey, isGroupRow, getRowId,
+      ))
+        .toEqual(result);
+    });
 
     it('should add summary rows in correct places', () => {
       /* tslint:disable: max-line-length */
@@ -55,7 +74,7 @@ describe('TableSummaryRow', () => {
         .toEqual(result);
     });
 
-    it('should not add tree summary row if treeSummaryItems are not specified', () => {
+    it('should not add tree summary row if "treeSummaryItems" is empty array', () => {
       /* tslint:disable: max-line-length */
       const result = [
         { row: { levelKey: 'a', compoundKey: 'a1', group: true } },
@@ -71,12 +90,12 @@ describe('TableSummaryRow', () => {
       /* tslint:enable: max-line-length */
 
       expect(tableRowsWithSummaries(
-        tableRows, groupSummaryItems, undefined, getRowLevelKey, isGroupRow, getRowId,
+        tableRows, groupSummaryItems, [], getRowLevelKey, isGroupRow, getRowId,
       ))
         .toEqual(result);
     });
 
-    it('should not add group summary row if groupSummaryItems are not specified', () => {
+    it('should not add group summary row if "groupSummaryItems" is empty array', () => {
       /* tslint:disable: max-line-length */
       const result = [
         { row: { levelKey: 'a', compoundKey: 'a1', group: true } },
@@ -93,7 +112,7 @@ describe('TableSummaryRow', () => {
       /* tslint:enable: max-line-length */
 
       expect(tableRowsWithSummaries(
-        tableRows, undefined, treeSummaryItems, getRowLevelKey, isGroupRow, getRowId,
+        tableRows, [], treeSummaryItems, getRowLevelKey, isGroupRow, getRowId,
       ))
         .toEqual(result);
     });

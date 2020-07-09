@@ -44,8 +44,10 @@ const tableBodyRowsComputed = ({
   tableBodyRows, groupSummaryItems, treeSummaryItems, getRowLevelKey, isGroupRow, getRowId,
 );
 const tableFooterRowsComputed = ({
-  tableFooterRows,
-}: Getters) => tableRowsWithTotalSummaries(tableFooterRows);
+  tableFooterRows, totalSummaryItems,
+}: Getters) => totalSummaryItems.length
+  ? tableRowsWithTotalSummaries(tableFooterRows)
+  : tableFooterRows;
 
 export class TableSummaryRowBase extends React.PureComponent<TableSummaryRowProps> {
   static TREE_ROW_TYPE = TABLE_TREE_SUMMARY_TYPE;

@@ -232,7 +232,7 @@ describe('TableBandHeader Plugin helpers', () => {
         });
     });
 
-    it('should return a null-typed band component for column without key', () => {
+    it('should return a an empty cell type for column without key', () => {
       const params = {
         tableColumn: {
           type: TABLE_DATA_TYPE,
@@ -250,7 +250,7 @@ describe('TableBandHeader Plugin helpers', () => {
           chains, columnVisibleBoundaries, levelsVisibility,
       ))
         .toEqual({
-          type: null,
+          type: 'bandEmptyCell',
           payload: null,
         });
     });

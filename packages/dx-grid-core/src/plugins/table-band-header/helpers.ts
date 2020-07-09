@@ -122,7 +122,7 @@ export const getBandComponent: GetBandComponentFn = (
     }
   }
 
-  if (!isColumnVisible) return { type: null, payload: null };
+  if (!isColumnVisible) return { type: BAND_EMPTY_CELL, payload: null };
 
   const currentColumnChain = findChainByColumnIndex(
     tableHeaderColumnChains[currentRowLevel],

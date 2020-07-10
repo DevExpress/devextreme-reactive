@@ -152,6 +152,20 @@ describe('TableSummaryRow', () => {
           defaultDeps.getter.tableFooterRows,
         );
     });
+
+    it('should not extend tableFooterRows if "totalSummaryItems" is empty array', () => {
+      const deps = { ...defaultDeps, getter: { ...defaultDeps.getter, totalSummaryItems: [] } };
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(deps)}
+          <TableSummaryRow
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(tableRowsWithTotalSummaries).not.toHaveBeenCalled();
+    });
   });
 
   it('should render total summary row', () => {

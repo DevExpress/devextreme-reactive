@@ -17,9 +17,9 @@ export const tableRowsWithTotalSummaries: PureComputed<[TableRow[]]> = footerRow
 export const tableRowsWithSummaries: TableRowsWithSummariesFn = (
   tableRows, groupSummaryItems, treeSummaryItems, getRowLevelKey, isGroupRow, getRowId,
 ) => {
-  if (!getRowLevelKey || !(groupSummaryItems || treeSummaryItems)) return tableRows;
-
   const hasGroupFooterSummary = groupFooterSummaryExists(groupSummaryItems);
+  if (!getRowLevelKey || !(hasGroupFooterSummary || treeSummaryItems.length)) return tableRows;
+
   const result: TableRow[] = [];
   const closeLevel = (level: RowLevel) => {
     if (!level.opened) return;
@@ -30,7 +30,7 @@ export const tableRowsWithSummaries: TableRowsWithSummariesFn = (
         type: TABLE_GROUP_SUMMARY_TYPE,
         row: level.row,
       });
-    } else if (treeSummaryItems) {
+    } else if (treeSummaryItems.length) {
       const rowId = getRowId(level.row);
       result.push({
         key: `${TABLE_TREE_SUMMARY_TYPE.toString()}_${rowId}`,

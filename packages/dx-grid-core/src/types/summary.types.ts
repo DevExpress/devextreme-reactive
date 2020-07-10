@@ -35,7 +35,7 @@ export type GetColumnSummariesFn = PureComputed<
 
 /** @internal */
 export type TableRowsWithSummariesFn = PureComputed<
-  [TableRow[], SummaryItem[], SummaryItem[], GetRowLevelKeyFn, IsSpecificRowFn, GetRowIdFn]
+  [TableRow[], GroupSummaryItem[], SummaryItem[], GetRowLevelKeyFn, IsSpecificRowFn, GetRowIdFn]
 >;
 
 /** @internal */

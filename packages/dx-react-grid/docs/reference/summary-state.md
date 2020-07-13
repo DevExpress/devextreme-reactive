@@ -20,9 +20,9 @@ none
 
 Name | Type | Default | Description
 -----|------|---------|------------
-totalItems? | Array&lt;[SummaryItem](#summaryitem)&gt; | | The total summary items.
-groupItems? | Array&lt;[GroupSummaryItem](#groupsummaryitem)&gt; | | The group summary items.
-treeItems? | Array&lt;[SummaryItem](#summaryitem)&gt; | | The tree summary items.
+totalItems? | Array&lt;[SummaryItem](#summaryitem)&gt; | [] | The total summary items.
+groupItems? | Array&lt;[GroupSummaryItem](#groupsummaryitem)&gt; | [] | The group summary items.
+treeItems? | Array&lt;[SummaryItem](#summaryitem)&gt; | [] | The tree summary items.
 
 ## Interfaces
 

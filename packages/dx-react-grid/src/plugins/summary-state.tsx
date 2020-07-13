@@ -8,6 +8,12 @@ const groupSummaryItemsComputed = (
 ) => prepareGroupSummaryItems(groupSummaryItems);
 
 class SummaryStateBase extends React.PureComponent<SummaryStateProps> {
+  static defaultProps = {
+    totalItems: [],
+    groupItems: [],
+    treeItems: [],
+  };
+
   render() {
     const { totalItems, groupItems, treeItems } = this.props;
 

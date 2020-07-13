@@ -60,4 +60,21 @@ describe('SummaryState', () => {
     expect(getComputedState(tree).treeSummaryItems)
       .toBe(treeSummaryItems);
   });
+
+  it('should provide empty array as default value for each items', () => {
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <SummaryState />
+      </PluginHost>
+    ));
+
+    expect(getComputedState(tree).treeSummaryItems)
+      .toEqual([]);
+    expect(prepareGroupSummaryItems).toBeCalledWith([]);
+    expect(getComputedState(tree).groupSummaryItems)
+      .toBe('prepareGroupSummaryItems');
+    expect(getComputedState(tree).totalSummaryItems)
+      .toEqual([]);
+  });
 });

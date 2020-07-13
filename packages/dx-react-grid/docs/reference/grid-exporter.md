@@ -7,7 +7,7 @@ A component that exports data to the Excel format.
 Use the following statement to import the component:
 
 ```js
-import { GridExporter } from '@devexpress/dx-react-grid';
+import { GridExporter } from '@devexpress/dx-react-grid-export';
 ```
 
 ## User Reference

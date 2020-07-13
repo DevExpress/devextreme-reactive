@@ -26,6 +26,7 @@ import { TableBandHeader } from '@devexpress/dx-react-grid';
 - [TableHeaderRow](table-header-row.md)
 - [TableEditColumn](table-edit-column.md) [Optional]
 - [TableSelection](table-selection.md) [Optional]
+- [TableColumnVisibility](table-column-visibility.md) [Optional]
 
 ### Properties
 

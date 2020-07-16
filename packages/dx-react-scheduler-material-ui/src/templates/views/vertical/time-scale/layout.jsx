@@ -12,11 +12,11 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { TicksLayout } from './ticks-layout';
 import { getBrightBorder } from '../../../utils';
-import { SPACING_CELL_HEIGHT } from '../../../constants';
+import { SPACING_CELL_HEIGHT, LEFT_PANEL_WIDTH_SPACING } from '../../../constants';
 
 const useStyles = makeStyles(theme => ({
   timeScaleContainer: {
-    width: theme.spacing(9),
+    width: theme.spacing(LEFT_PANEL_WIDTH_SPACING - 1),
   },
   ticks: {
     width: theme.spacing(1),

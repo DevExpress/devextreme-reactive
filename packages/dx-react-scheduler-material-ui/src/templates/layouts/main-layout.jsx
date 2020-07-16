@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
 import { scrollingStrategy, getBorder, getBrightBorder } from '../utils';
+import { GROUPING_PANEL_VERTICAL_CELL_WIDTH, LEFT_PANEL_WIDTH_SPACING, DEFAULT_SPACING } from '../constants';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -37,11 +38,11 @@ const useStyles = makeStyles(theme => ({
   brightHeaderBorder: {
     borderBottom: getBrightBorder(theme),
   },
-  dayScaleEmptyCell: ({ leftPanelWidth }) => ({
+  dayScaleEmptyCell: ({ leftPanelWidth, calculatedLeftPanelWidth }) => ({
     display: 'flex',
     alignItems: 'flex-end',
-    width: leftPanelWidth,
-    minWidth: leftPanelWidth,
+    width: leftPanelWidth || theme.spacing(calculatedLeftPanelWidth) + 1,
+    minWidth: leftPanelWidth || theme.spacing(calculatedLeftPanelWidth) + 1,
   }),
   flexRow: {
     display: 'flex',
@@ -86,8 +87,13 @@ export const MainLayout = React.memo(({
   }, [layoutRef, layoutHeaderRef, leftPanelRef, setScrollingStrategy, setLeftPanelWidth]);
 
   const renderTimeScale = !!TimeScale;
+  const renderLeftPanel = renderTimeScale || !!groupingPanelSize;
 
-  const classes = useStyles({ leftPanelWidth });
+  const calculatedGroupPanelWidth = groupingPanelSize
+    ? groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH : 0;
+  const calculatedLeftPanelWidth = LEFT_PANEL_WIDTH_SPACING + calculatedGroupPanelWidth;
+
+  const classes = useStyles({ leftPanelWidth, calculatedLeftPanelWidth });
 
   const setBorders = React.useCallback((event) => {
     // eslint-disable-next-line no-bitwise
@@ -121,7 +127,7 @@ export const MainLayout = React.memo(({
               [classes.brightHeaderBorder]: isTopBorderSet,
             })}
           >
-            {(renderTimeScale || !!groupingPanelSize) && (
+            {renderLeftPanel && (
               <div
                 className={classNames({
                   [classes.stickyElement]: true,
@@ -143,7 +149,7 @@ export const MainLayout = React.memo(({
 
         <div className={classes.flexRow}>
           <div className={classes.inlineFlex}>
-            {(renderTimeScale || !!groupingPanelSize) && (
+            {renderLeftPanel && (
               <div
                 ref={leftPanelRef}
                 className={classNames({

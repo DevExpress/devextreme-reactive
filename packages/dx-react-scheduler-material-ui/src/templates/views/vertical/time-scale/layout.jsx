@@ -37,8 +37,8 @@ const useStyles = makeStyles(theme => ({
   },
   flexRow: {
     display: 'flex',
-    flexDirection: 'row'
-  }
+    flexDirection: 'row',
+  },
 }));
 
 export const Layout = ({

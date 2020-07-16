@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
 import { scrollingStrategy, getBorder, getBrightBorder } from '../utils';
-import { GROUPING_PANEL_VERTICAL_CELL_WIDTH, LEFT_PANEL_WIDTH_SPACING, DEFAULT_SPACING } from '../constants';
+import { GROUPING_PANEL_VERTICAL_CELL_WIDTH, LEFT_PANEL_WIDTH_SPACING } from '../constants';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme => ({
   },
   background: {
     background: theme.palette.background.paper,
-  }
+  },
 }));
 
 export const MainLayout = React.memo(({
@@ -79,10 +79,11 @@ export const MainLayout = React.memo(({
   const [leftPanelWidth, setLeftPanelWidth] = React.useState(0);
 
   React.useEffect(() => {
-    const leftPanel = leftPanelRef.current
+    const leftPanel = leftPanelRef.current;
     setScrollingStrategy(scrollingStrategy(
       layoutRef.current, layoutHeaderRef.current, leftPanel,
     ));
+    // eslint-disable-next-line no-unused-expressions
     leftPanel && setLeftPanelWidth(leftPanel.getBoundingClientRect().width);
   }, [layoutRef, layoutHeaderRef, leftPanelRef, setScrollingStrategy, setLeftPanelWidth]);
 

@@ -97,7 +97,7 @@ describe('Main Layout', () => {
       .toHaveLength(3);
     expect(tree.find('.flexRow'))
       .toHaveLength(3);
-      expect(tree.find('.inlineFlex'))
+    expect(tree.find('.inlineFlex'))
       .toHaveLength(2);
     expect(tree.find('.leftPanel'))
       .toHaveLength(2);

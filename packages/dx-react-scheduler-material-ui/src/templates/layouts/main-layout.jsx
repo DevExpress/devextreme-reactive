@@ -1,15 +1,14 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
 import { scrollingStrategy, getBorder, getBrightBorder } from '../utils';
-import { GROUPING_PANEL_VERTICAL_CELL_WIDTH } from '../constants';
 
 const useStyles = makeStyles(theme => ({
   container: {
     overflowY: 'auto',
     position: 'relative',
+    tableLayout: 'fixed',
   },
   stickyElement: {
     tableLayout: 'fixed',
@@ -25,29 +24,6 @@ const useStyles = makeStyles(theme => ({
     left: 0,
     zIndex: 1,
     boxSizing: 'border-box',
-    float: 'left',
-    width: ({ groupingPanelSize }) => `${theme.spacing(
-      10 + groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH,
-    ) + 1}px`,
-  },
-  timeTable: {
-    position: 'relative',
-  },
-  mainTable: {
-    width: ({ groupingPanelSize }) => `calc(100% -
-      ${theme.spacing(10 + groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH) + 1}px)`,
-    float: 'right',
-  },
-  fullScreenContainer: {
-    minWidth: '100%',
-    display: 'table',
-    position: 'relative',
-  },
-  autoWidth: {
-    display: 'table',
-  },
-  background: {
-    background: theme.palette.background.paper,
   },
   ordinaryLeftPanelBorder: {
     borderRight: getBorder(theme),
@@ -61,25 +37,25 @@ const useStyles = makeStyles(theme => ({
   brightHeaderBorder: {
     borderBottom: getBrightBorder(theme),
   },
-  timeScale: {
-    width: theme.spacing(10),
-  },
-  dayScaleEmptyCell: {
+  dayScaleEmptyCell: ({ leftPanelWidth }) => ({
     display: 'flex',
     alignItems: 'flex-end',
+    width: leftPanelWidth,
+    minWidth: leftPanelWidth,
+  }),
+  flexRow: {
+    display: 'flex',
+    flexDirection: 'row',
   },
-  fullWidthTable: {
-    width: '100%',
+  relativeContainer: {
+    position: 'relative',
   },
-  leftPanelWithoutTimeScale: {
-    width: ({ groupingPanelSize }) => theme.spacing(
-      groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH,
-    ),
+  inlineFlex: {
+    display: 'inline-flex',
   },
-  mainTableWithoutTimeScale: {
-    width: ({ groupingPanelSize }) => `calc(100% -
-      ${theme.spacing(groupingPanelSize * GROUPING_PANEL_VERTICAL_CELL_WIDTH)}px)`,
-  },
+  background: {
+    background: theme.palette.background.paper,
+  }
 }));
 
 export const MainLayout = React.memo(({
@@ -99,16 +75,19 @@ export const MainLayout = React.memo(({
 
   const [isLeftBorderSet, setIsLeftBorderSet] = React.useState(false);
   const [isTopBorderSet, setIsTopBorderSet] = React.useState(false);
+  const [leftPanelWidth, setLeftPanelWidth] = React.useState(0);
 
   React.useEffect(() => {
+    const leftPanel = leftPanelRef.current
     setScrollingStrategy(scrollingStrategy(
-      layoutRef.current, layoutHeaderRef.current, leftPanelRef.current,
+      layoutRef.current, layoutHeaderRef.current, leftPanel,
     ));
-  }, [layoutRef, layoutHeaderRef, leftPanelRef, setScrollingStrategy]);
+    leftPanel && setLeftPanelWidth(leftPanel.getBoundingClientRect().width);
+  }, [layoutRef, layoutHeaderRef, leftPanelRef, setScrollingStrategy, setLeftPanelWidth]);
 
   const renderTimeScale = !!TimeScale;
 
-  const classes = useStyles({ groupingPanelSize });
+  const classes = useStyles({ leftPanelWidth });
 
   const setBorders = React.useCallback((event) => {
     // eslint-disable-next-line no-bitwise
@@ -122,95 +101,72 @@ export const MainLayout = React.memo(({
   }, [isLeftBorderSet, isTopBorderSet]);
 
   return (
-    <Grid
+    <div
       ref={layoutRef}
-      container
       className={classNames(classes.container, className)}
-      direction="column"
-      wrap="nowrap"
       onScroll={setBorders}
       {...restProps}
     >
       {/* Fix Safari sticky header https://bugs.webkit.org/show_bug.cgi?id=175029 */}
       <div>
-        <Grid
-          className={classNames(classes.stickyElement, classes.header, classes.autoWidth)}
+        <div
+          ref={layoutHeaderRef}
+          className={classNames(classes.stickyElement, classes.header, classes.flexRow)}
         >
-          <Grid
-            ref={layoutHeaderRef}
-            container
-            direction="row"
+          <div
+            className={classNames({
+              [classes.background]: true,
+              [classes.inlineFlex]: true,
+              [classes.ordinaryHeaderBorder]: !isTopBorderSet,
+              [classes.brightHeaderBorder]: isTopBorderSet,
+            })}
           >
             {(renderTimeScale || !!groupingPanelSize) && (
               <div
                 className={classNames({
                   [classes.stickyElement]: true,
                   [classes.leftPanel]: true,
-                  [classes.leftPanelWithoutTimeScale]: !renderTimeScale,
                   [classes.dayScaleEmptyCell]: true,
                   [classes.ordinaryLeftPanelBorder]: !isLeftBorderSet,
                   [classes.brightLeftPanelBorder]: isLeftBorderSet,
-                  [classes.ordinaryHeaderBorder]: !isTopBorderSet,
-                  [classes.brightHeaderBorder]: isTopBorderSet,
                 })}
               >
                 <DayScaleEmptyCell />
               </div>
             )}
 
-            <div
-              className={classNames({
-                [classes.mainTable]: true,
-                [classes.mainTableWithoutTimeScale]: !renderTimeScale,
-              })}
-            >
+            <div>
+              <DayScale />
+            </div>
+          </div>
+        </div>
+
+        <div className={classes.flexRow}>
+          <div className={classes.inlineFlex}>
+            {(renderTimeScale || !!groupingPanelSize) && (
               <div
+                ref={leftPanelRef}
                 className={classNames({
-                  [classes.fullScreenContainer]: true,
-                  [classes.background]: true,
-                  [classes.ordinaryHeaderBorder]: !isTopBorderSet,
-                  [classes.brightHeaderBorder]: isTopBorderSet,
+                  [classes.flexRow]: true,
+                  [classes.stickyElement]: true,
+                  [classes.leftPanel]: true,
+                  [classes.ordinaryLeftPanelBorder]: !isLeftBorderSet,
+                  [classes.brightLeftPanelBorder]: isLeftBorderSet,
                 })}
               >
-                <DayScale />
-              </div>
-            </div>
-          </Grid>
-        </Grid>
-
-        <Grid className={classes.autoWidth}>
-          <Grid
-            ref={leftPanelRef}
-            container
-            className={classNames({
-              [classes.stickyElement]: true,
-              [classes.leftPanel]: true,
-              [classes.leftPanelWithoutTimeScale]: !renderTimeScale,
-              [classes.ordinaryLeftPanelBorder]: !isLeftBorderSet,
-              [classes.brightLeftPanelBorder]: isLeftBorderSet,
-            })}
-          >
-            <GroupingPanel />
-            {renderTimeScale && (
-              <div className={classes.timeScale}>
-                <TimeScale />
+                <GroupingPanel />
+                {renderTimeScale && (
+                  <TimeScale />
+                )}
               </div>
             )}
-          </Grid>
-          <div
-            className={classNames({
-              [classes.mainTable]: true,
-              [classes.timeTable]: true,
-              [classes.mainTableWithoutTimeScale]: !renderTimeScale,
-            })}
-          >
-            <div className={classes.fullScreenContainer}>
+            <div className={classes.relativeContainer}>
               <TimeTable />
             </div>
           </div>
-        </Grid>
+        </div>
       </div>
-    </Grid>
+    </div>
   );
 });
 

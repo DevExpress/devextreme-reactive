@@ -14,10 +14,8 @@ jest.mock('@material-ui/core/styles', () => ({
     stickyElement: 'stickyElement',
     header: 'header',
     leftPanel: 'leftPanel',
-    timeTable: 'timeTable',
-    mainTable: 'mainTable',
-    fullScreenContainer: 'fullScreenContainer',
-    autoWidth: 'autoWidth',
+    flexRow: 'flexRow',
+    inlineFlex: 'inlineFlex',
     background: 'background',
     ordinaryLeftPanelBorder: 'ordinaryLeftPanelBorder',
     brightLeftPanelBorder: 'brightLeftPanelBorder',
@@ -25,9 +23,7 @@ jest.mock('@material-ui/core/styles', () => ({
     brightHeaderBorder: 'brightHeaderBorder',
     timeScale: 'timeScale',
     dayScaleEmptyCell: 'dayScaleEmptyCell',
-    fullWidthTable: 'fullWidthTable',
-    leftPanelWithoutTimeScale: 'leftPanelWithoutTimeScale',
-    mainTableWithoutTimeScale: 'mainTableWithoutTimeScale',
+    relativeContainer: 'relativeContainer',
   })),
 }));
 
@@ -99,21 +95,17 @@ describe('Main Layout', () => {
       .toBeTruthy();
     expect(tree.find('.stickyElement'))
       .toHaveLength(3);
-    expect(tree.find('.autoWidth'))
+    expect(tree.find('.flexRow'))
+      .toHaveLength(3);
+      expect(tree.find('.inlineFlex'))
       .toHaveLength(2);
     expect(tree.find('.leftPanel'))
       .toHaveLength(2);
     expect(tree.find('.dayScaleEmptyCell').exists())
       .toBeTruthy();
-    expect(tree.find('.fullScreenContainer'))
-      .toHaveLength(2);
     expect(tree.find('.background').exists())
       .toBeTruthy();
-    expect(tree.find('.mainTable'))
-      .toHaveLength(2);
-    expect(tree.find('.timeScale').exists())
-      .toBeTruthy();
-    expect(tree.find('.timeTable').exists())
+    expect(tree.find('.relativeContainer').exists())
       .toBeTruthy();
   });
 
@@ -151,11 +143,7 @@ describe('Main Layout', () => {
       <MainLayout {...defaultProps} timeScaleComponent={undefined} />
     ));
 
-    expect(tree.find('.timeScale').exists())
+    expect(tree.find('.leftPanel').exists())
       .toBeFalsy();
-    expect(tree.find('.mainTableWithoutTimeScale'))
-      .toHaveLength(2);
-    expect(tree.find('.leftPanelWithoutTimeScale'))
-      .toHaveLength(1);
   });
 });

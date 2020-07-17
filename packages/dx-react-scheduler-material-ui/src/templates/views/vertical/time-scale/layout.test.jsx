@@ -11,6 +11,7 @@ jest.mock('@material-ui/core/styles', () => ({
     ticks: 'ticks',
     cell: 'cell',
     verticalCell: 'verticalCell',
+    flexRow: 'flexRow',
   })),
 }));
 
@@ -36,6 +37,17 @@ describe('Vertical view TimeScale', () => {
     shallow = createShallow();
   });
   describe('Layout', () => {
+    it('should combine base class with custom', () => {
+      const tree = shallow((
+        <Layout {...defaultProps} className="custom-class" />
+      ));
+
+      expect(tree.hasClass('custom-class'))
+        .toBe(true);
+      expect(tree.hasClass('flexRow'))
+        .toBe(true);
+    });
+
     it('should pass rest props to the root element', () => {
       const tree = shallow((
         <Layout {...defaultProps} data={{ a: 1 }} />

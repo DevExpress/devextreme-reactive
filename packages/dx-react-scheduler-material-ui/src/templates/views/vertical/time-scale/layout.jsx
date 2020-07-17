@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import Grid from '@material-ui/core/Grid';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
@@ -13,11 +12,11 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { TicksLayout } from './ticks-layout';
 import { getBrightBorder } from '../../../utils';
-import { SPACING_CELL_HEIGHT } from '../../../constants';
+import { SPACING_CELL_HEIGHT, LEFT_PANEL_WIDTH_SPACING } from '../../../constants';
 
 const useStyles = makeStyles(theme => ({
   timeScaleContainer: {
-    width: `calc(100% - ${theme.spacing(1)}px)`,
+    width: theme.spacing(LEFT_PANEL_WIDTH_SPACING - 1),
   },
   ticks: {
     width: theme.spacing(1),
@@ -36,6 +35,10 @@ const useStyles = makeStyles(theme => ({
       height ? `${height}px` : `${theme.spacing(defaultHeight)}px`
     ),
   },
+  flexRow: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
 }));
 
 export const Layout = ({
@@ -49,6 +52,7 @@ export const Layout = ({
   groups,
   showAllDayTitle,
   height,
+  className,
   ...restProps
 }) => {
   const groupCount = getGroupsLastRow(groups).length;
@@ -61,7 +65,7 @@ export const Layout = ({
   const classes = useStyles({ height: height / groupCount, defaultHeight });
 
   return (
-    <Grid container direction="row" {...restProps}>
+    <div className={classNames(classes.flexRow, className)} {...restProps}>
       <Table className={classes.timeScaleContainer}>
         <TableBody>
           {getLabelsForAllGroups(cellsData, groups, groupOrientation).map(
@@ -111,7 +115,7 @@ export const Layout = ({
         groupCount={groupCount}
         includeAllDayCell={showAllDayTitle}
       />
-    </Grid>
+    </div>
   );
 };
 
@@ -126,6 +130,7 @@ Layout.propTypes = {
   groupOrientation: PropTypes.oneOf([HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION]),
   showAllDayTitle: PropTypes.bool,
   height: PropTypes.number,
+  className: PropTypes.string,
 };
 
 Layout.defaultProps = {
@@ -134,4 +139,5 @@ Layout.defaultProps = {
   allDayTitleComponent: () => null,
   showAllDayTitle: false,
   height: 0,
+  className: undefined,
 };

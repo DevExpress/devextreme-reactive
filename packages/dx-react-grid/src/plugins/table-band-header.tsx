@@ -67,7 +67,6 @@ class TableBandHeaderBase extends React.PureComponent<TableBandHeaderProps> {
           { name: 'TableHeaderRow' },
           { name: 'TableSelection', optional: true },
           { name: 'TableEditColumn', optional: true },
-          { name: 'TableColumnVisibility', optional: true },
         ]}
       >
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />

@@ -1,3 +1,26 @@
+# [2.7.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.6.4...v2.7.0) (2020-07-17)
+
+
+### Bug Fixes
+
+* **react-grid:** allow to use SummaryState without "*Items" properties ([#2977](https://github.com/DevExpress/devextreme-reactive/issues/2977)) ([4785504](https://github.com/DevExpress/devextreme-reactive/commit/4785504f1dde49fef569f1e864d20b8085130312))
+* **react-grid:** improve fixed columns reordering ([#2973](https://github.com/DevExpress/devextreme-reactive/issues/2973)) ([1816f51](https://github.com/DevExpress/devextreme-reactive/commit/1816f51791dbbffec056d48bc1264b322b9b85a5))
+* **react-grid:** make TableBandHeader work correctly with TableColumnVisibility ([#2979](https://github.com/DevExpress/devextreme-reactive/issues/2979)) ([4186fb9](https://github.com/DevExpress/devextreme-reactive/commit/4186fb9914931ce7910277bf624bd6fac626ad69))
+* **react-scheduler-material-ui:** use flex containers to render main layout ([#2989](https://github.com/DevExpress/devextreme-reactive/issues/2989)) ([ad10be6](https://github.com/DevExpress/devextreme-reactive/commit/ad10be6b360c2972d495428d9a50b7473e52630b))
+
+
+### Features
+
+* **react-grid:** remove blank row between customized header and table ([#2961](https://github.com/DevExpress/devextreme-reactive/issues/2961)) ([1b9ac67](https://github.com/DevExpress/devextreme-reactive/commit/1b9ac67994a6abf50db677473fcadc6e9ff784a5))
+* **react-scheduler:** add Enhanced Rendering for Overlapped Events/Appointments feature ([#2889](https://github.com/DevExpress/devextreme-reactive/issues/2889)) ([e7812cb](https://github.com/DevExpress/devextreme-reactive/commit/e7812cb0b93147dfcdf0efe9a90e64839d885baf))
+
+
+### Performance Improvements
+
+* **react-scheduler:** improve rendering performance ([#2969](https://github.com/DevExpress/devextreme-reactive/issues/2969)) ([1f3d090](https://github.com/DevExpress/devextreme-reactive/commit/1f3d0905362a0a2d36cabb36a68846c60dc81c89)), closes [#2968](https://github.com/DevExpress/devextreme-reactive/issues/2968)
+
+
+
 # [2.6.4](https://github.com/DevExpress/devextreme-reactive/compare/v2.6.3...v2.6.4) (2020-06-19)
 
 

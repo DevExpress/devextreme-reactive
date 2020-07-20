@@ -75,12 +75,13 @@ export class Draggable extends React.Component<DraggableProps> {
     if (!node) return;
     node.removeEventListener('mousedown', this.mouseDownListener);
     node.removeEventListener('touchstart', this.touchStartListener);
-    node.addEventListener('mousedown', this.mouseDownListener, { passive: true });
+    node.addEventListener('mousedown', this.mouseDownListener);
     node.addEventListener('touchstart', this.touchStartListener, { passive: true });
   }
 
   mouseDownListener(e) {
     if (this.touchStrategy.isWaiting() || e[draggingHandled]) return;
+    e.preventDefault();
     this.mouseStrategy.start(e);
     e[draggingHandled] = true;
   }

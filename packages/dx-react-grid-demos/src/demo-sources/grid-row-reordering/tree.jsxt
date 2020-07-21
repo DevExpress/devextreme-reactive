@@ -72,7 +72,7 @@ export default () => {
   const [expandedRowIds, setExpandedRowIds] = useState([0]);
   const [orderedRows, setOrderedRows] = useState([]);
 
-  const onSortEnd = ({ newIndex, oldIndex }) => {
+  const onSortEnd = useCallback(({ newIndex, oldIndex }) => {
     const rowId = orderedRows[oldIndex].id;
 
     const source = orderedRows[oldIndex];
@@ -122,7 +122,7 @@ export default () => {
     }
 
     setData(arrayMove(newData, sourceIndex, targetIndex));
-  };
+  }, [data, orderedRows]);
 
   const SortableBody = useCallback((props) => {
     const TableBody = SortableContainer(Table.TableBody);

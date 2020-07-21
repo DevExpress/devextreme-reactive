@@ -1,0 +1,72 @@
+import React, { useState, useCallback } from 'react';<%&additionalImports%>
+import {
+  Table,
+  TableHeaderRow,
+  Grid,
+} from '@devexpress/dx-react-grid-<%&themeName%>';
+<%&cssImports%>
+
+import {
+  SortableContainer,
+  SortableHandle,
+  SortableElement,
+  arrayMove,
+} from 'react-sortable-hoc';
+
+import { generateRows } from '../../../demo-data/generator';
+
+const DragHandle = SortableHandle(({ style }) => (
+  <span style={{ ...style, cursor: 'move' }}>{'::::'}</span>
+));
+
+const TableCell = ({ value, ...restProps }) => {
+  const width = restProps.column.name === 'drag' ? 50 : 195;
+  return (
+    <Table.Cell {...restProps} style={{ width }}>
+      {restProps.column.name === 'drag' ? <DragHandle /> : <span>{value}</span>}
+    </Table.Cell>
+  );
+};
+
+export default () => {
+  const [columns] = useState([
+    { name: 'drag', title: ' ' },
+    { name: 'name', title: 'Name' },
+    { name: 'gender', title: 'Gender' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows, setRows] = useState(generateRows({ length: 8 }));
+  const [tableColumnExtensions] = useState([{ columnName: 'drag', width: 50 }]);
+
+  const onSortEnd = useCallback(({ oldIndex, newIndex }) => {
+    setRows(arrayMove(rows, oldIndex, newIndex));
+  }, [rows]);
+
+  const SortableBody = useCallback((props) => {
+    const TableBody = SortableContainer(Table.TableBody);
+    return (
+      <TableBody {...props} onSortEnd={onSortEnd} useDragHandle />
+    );
+  }, [onSortEnd]);
+
+  const SortableRow = useCallback((props) => {
+    const { row } = props;
+    const TableRow = SortableElement(Table.Row);
+    return <TableRow {...props} index={rows.indexOf(row)} />;
+  }, [rows]);
+
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid rows={rows} columns={columns}>
+        <Table
+          cellComponent={TableCell}
+          bodyComponent={SortableBody}
+          rowComponent={SortableRow}
+          columnExtensions={tableColumnExtensions}
+        />
+        <TableHeaderRow />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

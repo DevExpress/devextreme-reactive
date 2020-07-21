@@ -1,0 +1,160 @@
+import React, { useState, useCallback } from 'react';<%&additionalImports%>
+import { TreeDataState, CustomTreeData } from '@devexpress/dx-react-grid';
+import { Plugin, Getter } from '@devexpress/dx-react-core';
+import {
+  Grid,
+  Table,
+  TableHeaderRow,
+  TableTreeColumn,
+} from '@devexpress/dx-react-grid-<%&themeName%>';
+<%&cssImports%>
+
+import {
+  SortableContainer,
+  SortableHandle,
+  SortableElement,
+  arrayMove,
+} from 'react-sortable-hoc';
+
+import {
+  generateRows,
+  defaultColumnValues,
+} from '../../../demo-data/generator';
+
+const getRowId = row => row.id;
+
+const DragHandle = SortableHandle(({ style }) => (
+  <span style={{ ...style, cursor: 'move' }}>{'::::'}</span>
+));
+
+const TableCell = ({ value, ...restProps }) => {
+  const width = restProps.column.name === 'drag' ? 50 : 195;
+  return (
+    <Table.Cell {...restProps} style={{ width }}>
+      {restProps.column.name === 'drag' ? <DragHandle /> : <span>{value}</span>}
+    </Table.Cell>
+  );
+};
+
+const getChildRows = (row, rootRows) => {
+  const childRows = rootRows.filter(r => r.parentId === (row ? row.id : null));
+  return childRows.length ? childRows : null;
+};
+
+const handleOrderedRows = handleRows => ({ rows }) => {
+  handleRows(rows);
+  return rows;
+};
+
+const OrderedRowProvider = ({ handleRows }) => (
+  <Plugin dependencies={[{ name: 'CustomTreeData' }]}>
+    <Getter name="rows" computed={handleOrderedRows(handleRows)} />
+  </Plugin>
+);
+
+export default () => {
+  const [columns] = useState([
+    { name: 'drag', title: ' ' },
+    { name: 'name', title: 'Name' },
+    { name: 'gender', title: 'Gender' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [data, setData] = useState(generateRows({
+    columnValues: {
+      id: ({ index }) => index,
+      parentId: ({ index, random }) => (index > 0 ? Math.trunc((random() * index) / 2) : null),
+      ...defaultColumnValues,
+    },
+    length: 20,
+  }));
+  const [tableColumnExtensions] = useState([{ columnName: 'drag', width: 50 }]);
+  const [expandedRowIds, setExpandedRowIds] = useState([0]);
+  const [orderedRows, setOrderedRows] = useState([]);
+
+  const onSortEnd = ({ newIndex, oldIndex }) => {
+    const rowId = orderedRows[oldIndex].id;
+
+    const source = orderedRows[oldIndex];
+    const sourceIndex = data.indexOf(source);
+    const sourceParentId = source.parentId;
+
+    const target = orderedRows[newIndex];
+    const targetIndex = data.indexOf(target);
+    const targetParentId = target.parentId;
+
+    let newData;
+
+    if (oldIndex > 0 && oldIndex === newIndex) {
+      const rowsOnSameLevel = orderedRows.filter((row, index) => row.parentId === source.parentId
+        && row.id !== source.id
+        && index < oldIndex);
+      if (rowsOnSameLevel.length) {
+        const newParentId = rowsOnSameLevel[rowsOnSameLevel.length - 1].id;
+        newData = [
+          ...data.slice(0, sourceIndex),
+          { ...data[sourceIndex], parentId: newParentId },
+          ...data.slice(sourceIndex + 1),
+        ];
+      } else {
+        const newParentId = data.find(row => row.id === source.parentId).parentId;
+        newData = [
+          ...data.slice(0, sourceIndex),
+          { ...data[sourceIndex], parentId: newParentId },
+          ...data.slice(sourceIndex + 1),
+        ];
+      }
+    } else if (targetParentId === rowId) {
+      const childRows = getChildRows(source, orderedRows);
+      newData = data.map((row) => {
+        const isRowChild = childRows.includes(row);
+        if (isRowChild) {
+          return { ...row, parentId: sourceParentId };
+        }
+        return row;
+      });
+    } else {
+      newData = [
+        ...data.slice(0, sourceIndex),
+        { ...data[sourceIndex], parentId: targetParentId },
+        ...data.slice(sourceIndex + 1),
+      ];
+    }
+
+    setData(arrayMove(newData, sourceIndex, targetIndex));
+  };
+
+  const SortableBody = useCallback((props) => {
+    const TableBody = SortableContainer(Table.TableBody);
+    return (
+      <TableBody {...props} onSortEnd={onSortEnd} useDragHandle />
+    );
+  }, [onSortEnd]);
+
+  const SortableRow = useCallback((props) => {
+    const { row } = props;
+    const TableRow = SortableElement(Table.Row);
+    return <TableRow {...props} index={orderedRows.indexOf(row)} />;
+  }, [orderedRows]);
+
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid rows={data} columns={columns} getRowId={getRowId}>
+        <TreeDataState
+          expandedRowIds={expandedRowIds}
+          onExpandedRowIdsChange={setExpandedRowIds}
+        />
+        <CustomTreeData getChildRows={getChildRows} />
+        <OrderedRowProvider handleRows={setOrderedRows} />
+        <Table
+          columnExtensions={tableColumnExtensions}
+          cellComponent={TableCell}
+          bodyComponent={SortableBody}
+          rowComponent={SortableRow}
+        />
+        <TableHeaderRow />
+        <TableTreeColumn for="name" />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

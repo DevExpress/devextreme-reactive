@@ -42,7 +42,7 @@ const getChildRows = (row, rootRows) => {
 };
 
 const handleOrderedRows = handleRows => ({ rows }) => {
-  handleRows(rows);
+  setTimeout(() => handleRows(rows));
   return rows;
 };
 

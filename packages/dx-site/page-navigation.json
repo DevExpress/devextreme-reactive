@@ -148,8 +148,8 @@
             "path": "/react/grid/docs/guides/typescript/"
           },
           {
-            "title": "Third-party libraries",
-            "path": "/react/grid/docs/guides/third-party-libraries/"
+            "title": "Row Reordering",
+            "path": "/react/grid/docs/guides/row-reordering/"
           },
           {
             "title": "Custom Plugin Development",

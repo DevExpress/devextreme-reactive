@@ -11,6 +11,7 @@ Before you start, review the following help topics:
 
 The demos below use the following libraries:
 - [react-sortable-hoc](https://www.npmjs.com/package/react-sortable-hoc) - a set of higher-order components to turn any list into an animated, accessible and touch-friendly sortable list
+- [array-move](https://www.npmjs.com/package/array-move) - move an array item to a different position
 
 ### Simple Row Reordering
 

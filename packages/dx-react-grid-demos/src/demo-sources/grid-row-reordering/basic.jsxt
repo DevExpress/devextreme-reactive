@@ -10,8 +10,8 @@ import {
   SortableContainer,
   SortableHandle,
   SortableElement,
-  arrayMove,
 } from 'react-sortable-hoc';
+import arrayMove from 'array-move';
 
 import { generateRows } from '../../../demo-data/generator';
 

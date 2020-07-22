@@ -43,6 +43,7 @@
     "@material-ui/pickers": "^3.2.10",
     "@types/react": "16.9.35",
     "@types/react-dom": "^16.9.8",
+    "array-move": "^3.0.0",
     "clsx": "^1.1.1",
     "codemirror": "^5.49.2",
     "core-js": "^3.4.1",

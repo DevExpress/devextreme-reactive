@@ -136,6 +136,10 @@
             "path": "/react/grid/docs/guides/summary-row/"
           },
           {
+            "title": "Row Reordering",
+            "path": "/react/grid/docs/guides/row-reordering/"
+          },
+          {
             "title": "Export",
             "path": "/react/grid/docs/guides/export/"
           },
@@ -146,10 +150,6 @@
           {
             "title": "TypeScript Support",
             "path": "/react/grid/docs/guides/typescript/"
-          },
-          {
-            "title": "Row Reordering",
-            "path": "/react/grid/docs/guides/row-reordering/"
           },
           {
             "title": "Custom Plugin Development",

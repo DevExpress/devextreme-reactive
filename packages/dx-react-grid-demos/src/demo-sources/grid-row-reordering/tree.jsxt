@@ -47,7 +47,10 @@ const handleOrderedRows = handleRows => ({ rows }) => {
 };
 
 const OrderedRowProvider = ({ handleRows }) => (
-  <Plugin dependencies={[{ name: 'CustomTreeData' }]}>
+  <Plugin
+    name="OrderedRowProvider"
+    dependencies={[{ name: 'CustomTreeData' }]}
+  >
     <Getter name="rows" computed={handleOrderedRows(handleRows)} />
   </Plugin>
 );

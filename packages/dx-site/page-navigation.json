@@ -148,6 +148,10 @@
             "path": "/react/grid/docs/guides/typescript/"
           },
           {
+            "title": "Third-party libraries",
+            "path": "/react/grid/docs/guides/third-party-libraries/"
+          },
+          {
             "title": "Custom Plugin Development",
             "path": "/react/grid/docs/guides/custom-plugin-development/"
           }

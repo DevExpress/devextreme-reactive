@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-chart-core",
-  "version": "2.6.4",
+  "version": "2.7.0",
   "description": "Core library for the DevExtreme Reactive Chart component",
   "author": {
     "name": "Developer Express Inc.",
@@ -54,7 +54,7 @@
     "ts-jest": "^24.1.0",
     "tslint": "^5.20.1",
     "tslint-config-airbnb": "^5.11.2",
-    "typescript": "3.9.5"
+    "typescript": "3.9.6"
   },
   "dependencies": {
     "d3-array": "^2.4.0",

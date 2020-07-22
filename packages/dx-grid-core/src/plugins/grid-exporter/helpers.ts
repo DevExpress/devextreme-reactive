@@ -17,11 +17,6 @@ export const exportHeader = (worksheet: Excel.Worksheet, columns: TableColumn[])
     }));
   worksheet.columns = cols;
 
-  const { lastRow } = worksheet;
-  if (lastRow) {
-    worksheet.addRow({});
-  }
-
   const headerRow = columns.reduce((acc, { column: { name, title } = {} }) => ({
     ...acc,
     [name!]: title,

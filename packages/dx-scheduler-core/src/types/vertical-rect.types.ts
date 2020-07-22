@@ -4,7 +4,7 @@ import {
 } from './scheduler-core.types';
 import { ViewCellData, AppointmentMoment } from './all-day-panel.types';
 import { ParentRect, Coordinates } from './horizontal-rect.types';
-import { ViewMetaData } from './utils.types';
+import { ViewMetaData } from './appointments.types';
 
 /** @internal */
 export type CellByDate = { index: AppointmentId; startDate: SchedulerDateTime };
@@ -26,6 +26,7 @@ export type VerticalPayload = {
   viewCellsData: ViewCellData[][];
   cellDuration: number;
   cellElementsMeta: CellElementsMeta;
+  placeAppointmentsNextToEachOther?: boolean;
 };
 /** @internal */
 export type GetCellByAppointmentDataFn = PureComputed<

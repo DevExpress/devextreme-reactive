@@ -6,11 +6,20 @@ import {
   getMonthVerticallyGroupedRowIndex,
 } from './helpers';
 import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '../../constants';
+import { addDateToKey } from '../../utils';
+
+jest.mock('../../utils', () => ({
+  ...require.requireActual('../../utils'),
+  addDateToKey: jest.fn(),
+}));
 
 describe('MonthView Helpers', () => {
   describe('#sliceAppointmentByWeek', () => {
     const bounds = { left: moment('2018-06-28'), right: moment('2018-08-09') };
 
+    afterEach(() => {
+      jest.resetAllMocks();
+    });
     it('should not slice appointments if they are short', () => {
       const appointment1 = { start: moment('2018-07-05'), end: moment('2018-07-12'), dataItem: {} };
       const appointment2 = { start: moment('2018-07-05'), end: moment('2018-07-06'), dataItem: {} };
@@ -124,6 +133,24 @@ describe('MonthView Helpers', () => {
       );
       expect(slicedAppointments)
         .toHaveLength(1);
+    });
+
+    it('should call addDateToKey with correct parameters', () => {
+      const start = moment('2018-07-27');
+      const end = moment('2018-08-04');
+      const left = moment('2018-07-23');
+      const right = moment('2018-08-05');
+      const key = 'test';
+      sliceAppointmentByWeek(
+        { left, right }, { start, end, key }, 7,
+      );
+
+      expect(addDateToKey)
+        .toHaveBeenCalledTimes(2);
+      expect(addDateToKey)
+        .toHaveBeenCalledWith(key, start);
+      expect(addDateToKey)
+        .toHaveBeenCalledWith(key, left.clone().add(7, 'days'));
     });
   });
 

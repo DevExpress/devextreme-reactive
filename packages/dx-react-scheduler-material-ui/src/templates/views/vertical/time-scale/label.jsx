@@ -32,7 +32,7 @@ const styles = theme => ({
   },
 });
 
-const LabelBase = React.memo(({
+const LabelBase = ({
   classes,
   className,
   time,
@@ -55,7 +55,7 @@ const LabelBase = React.memo(({
     )}
 
   </div>
-));
+);
 
 LabelBase.propTypes = {
   formatDate: PropTypes.func,

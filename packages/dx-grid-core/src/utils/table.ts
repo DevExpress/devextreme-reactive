@@ -1,5 +1,4 @@
 import { easeOutCubic } from '@devexpress/dx-core';
-import { getTargetColumnGeometries } from './column-geometries';
 import {
   GetTableColumnGeometriesFn, GetTableTargetColumnIndexFn, ColumnAnimation,
   GetColumnAnimationsFn, ColumnGeometry, FilterActiveAnimationsFn, EvalAnimationsFn,
@@ -31,9 +30,23 @@ export const getTableColumnGeometries: GetTableColumnGeometriesFn = (columns, ta
 };
 
 export const getTableTargetColumnIndex: GetTableTargetColumnIndexFn = (
-  columnGeometries, sourceIndex, offset,
-) => getTargetColumnGeometries(columnGeometries, sourceIndex)
-  .findIndex(({ left, right }) => offset > left && offset < right);
+  columnGeometries, offset,
+) => {
+  const indexes = columnGeometries.reduce((acc, { left, right }, index) => {
+    if (offset > left && offset < right) {
+      acc.push(index);
+    }
+    return acc;
+  }, [] as number[]);
+
+  if (indexes.length === 2) {
+    return indexes.find(index => columnGeometries[index].isFixed)!;
+  }
+  if (indexes.length === 1) {
+    return indexes[0];
+  }
+  return -1;
+};
 
 const ANIMATION_DURATION = 200;
 

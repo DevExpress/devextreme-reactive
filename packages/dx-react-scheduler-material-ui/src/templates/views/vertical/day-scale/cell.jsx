@@ -60,7 +60,7 @@ const styles = theme => ({
   },
 });
 
-const CellBase = React.memo(({
+const CellBase = ({
   classes,
   className,
   startDate,
@@ -99,7 +99,7 @@ const CellBase = React.memo(({
       </div>
     </div>
   </TableCell>
-));
+);
 
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,

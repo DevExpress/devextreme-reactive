@@ -1,4 +1,4 @@
-import { getTargetColumnGeometries } from './column-geometries';
+import { getTargetColumnGeometries, getCellGeometries } from './column-geometries';
 
 describe('ColumnGeometries utils', () => {
   describe('#getTargetColumnGeometries', () => {
@@ -53,6 +53,77 @@ describe('ColumnGeometries utils', () => {
             top: 20, right: 300, bottom: 40, left: 200,
           },
         ]);
+    });
+  });
+
+  describe('#getCellGeometries', () => {
+    it('should return dimensions', () => {
+      const getBoundingClientRect = jest.fn(() => ({ left: 0, right: 100, width: 100 }));
+      const node = { getBoundingClientRect, style: {} };
+
+      expect(getCellGeometries(node)).toEqual({
+        left: 0,
+        right: 100,
+      });
+    });
+
+    it('should return dimensions based on "left" style value', () => {
+      const getBoundingClientRect = jest.fn(() => ({ left: 100, right: 200, width: 100 }));
+
+      const firstNode = { getBoundingClientRect, style: { left: '0px' } };
+      expect(getCellGeometries(firstNode)).toEqual({
+        isFixed: true,
+        left: 100,
+        right: 200,
+      });
+
+      const secondNode = { getBoundingClientRect, style: { left: '200px' } };
+      expect(getCellGeometries(secondNode)).toEqual({
+        isFixed: true,
+        left: 200,
+        right: 300,
+      });
+    });
+
+    it('should return dimensions based on "right" style value', () => {
+      const getBoundingClientRect = () => ({ left: 300, right: 400, width: 100 });
+      const parentNode = {
+        nodeName: 'DIV',
+        parentNode: {
+          getBoundingClientRect: () => ({ width: 500 }),
+        },
+      };
+
+      const nodeWithoutParent = {
+        getBoundingClientRect,
+        style: { right: '0px' },
+      };
+      expect(getCellGeometries(nodeWithoutParent)).toEqual({
+        left: 300,
+        right: 400,
+      });
+
+      const firstNode = {
+        getBoundingClientRect,
+        style: { right: '0px' },
+        parentNode,
+      };
+      expect(getCellGeometries(firstNode)).toEqual({
+        isFixed: true,
+        left: 300,
+        right: 400,
+      });
+
+      const secondNode = {
+        getBoundingClientRect,
+        style: { right: '200px' },
+        parentNode,
+      };
+      expect(getCellGeometries(secondNode)).toEqual({
+        isFixed: true,
+        left: 200,
+        right: 300,
+      });
     });
   });
 });

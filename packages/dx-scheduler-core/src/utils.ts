@@ -1,13 +1,10 @@
 import moment from 'moment';
 import { CustomFunction, PureComputed } from '@devexpress/dx-core';
 import { RRule, RRuleSet } from 'rrule';
-import { HORIZONTAL_TYPE, VERTICAL_TYPE } from './constants';
 import {
   ComputedHelperFn, ViewPredicateFn,
   CalculateFirstDateOfWeekFn, AppointmentMoment,
-  Interval, AppointmentGroup, AppointmentUnwrappedGroup,
-  Rect, ElementRect, RectCalculatorBaseFn,
-  CalculateRectByDateAndGroupIntervalsFn, ViewMetaData,
+  Interval, Rect, AppointmentKey,
 } from './types';
 
 export const computed: ComputedHelperFn = (getters, viewName, baseComputed, defaultValue) => {
@@ -15,13 +12,6 @@ export const computed: ComputedHelperFn = (getters, viewName, baseComputed, defa
     return defaultValue;
   }
   return baseComputed(getters, viewName);
-};
-
-const appointmentHeightType = (appointment: AppointmentMoment, cellDuration: number) => {
-  const durationRatio = appointment.end.clone().diff(appointment.start, 'minutes') / cellDuration;
-  if (durationRatio === 1) return 'middle';
-  if (durationRatio > 1) return 'long';
-  return 'short';
 };
 
 export const toPercentage: PureComputed<
@@ -52,13 +42,6 @@ export const excludedIntervals: PureComputed<
     return acc;
   }, [] as Interval[]);
 
-const byDayPredicate: PureComputed<
-  [moment.Moment, moment.Moment], boolean
-> = (boundary, date) => (
-  boundary.isSameOrAfter(date, 'day')
-  && !boundary.isSame(boundary.clone().startOf('day'))
-);
-
 const inInterval = (
   date: moment.Moment, interval: Interval,
 ) => date.isBetween(interval[0], interval[1], undefined, '[]');
@@ -81,102 +64,6 @@ export const viewPredicate: ViewPredicateFn = (
   return isAppointmentInBoundary && !isAppointmentInExcludedDays && considerAllDayAppointment;
 };
 
-const compareByDay: PureComputed<
-  [AppointmentMoment, AppointmentMoment], number
-> = (first, second) => {
-  if (first.start.isBefore(second.start, 'day')) return -1;
-  if (first.start.isAfter(second.start, 'day')) return 1;
-  return 0;
-};
-
-const compareByAllDay: PureComputed<
-  [AppointmentMoment, AppointmentMoment], number
-> = (first, second) => {
-  if (first.allDay && !second.allDay) return -1;
-  if (!first.allDay && second.allDay) return 1;
-  return 0;
-};
-
-const compareByTime: PureComputed<
-  [AppointmentMoment, AppointmentMoment], number
-> = (first, second) => {
-  if (first.start.isBefore(second.start)) return -1;
-  if (first.start.isAfter(second.start)) return 1;
-  if (first.end.isBefore(second.end)) return 1;
-  if (first.end.isAfter(second.end)) return -1;
-  return 0;
-};
-
-export const sortAppointments: PureComputed<
-  [AppointmentMoment[]], AppointmentMoment[]
-> = appointments => appointments
-  .slice().sort((a, b) => compareByDay(a, b) || compareByAllDay(a, b) || compareByTime(a, b));
-
-export const findOverlappedAppointments: CustomFunction<
-  [AppointmentMoment[], boolean], any[]
-> = (sortedAppointments, byDay = false) => {
-  const appointments = sortedAppointments.slice();
-  const groups: AppointmentMoment[][] = [];
-  let totalIndex = 0;
-
-  while (totalIndex < appointments.length) {
-    groups.push([]);
-    const current = appointments[totalIndex];
-    const currentGroup = groups[groups.length - 1];
-    let next = appointments[totalIndex + 1];
-    let maxBoundary = current.end;
-
-    currentGroup.push(current);
-    totalIndex += 1;
-    while (next && (maxBoundary.isAfter(next.start)
-      || (byDay && byDayPredicate(maxBoundary, next.start)))) {
-      currentGroup.push(next);
-      if (maxBoundary.isBefore(next.end)) maxBoundary = next.end;
-      totalIndex += 1;
-      next = appointments[totalIndex];
-    }
-  }
-  return groups;
-};
-
-const isMidnight: PureComputed<
-  [moment.Moment], boolean
-> = date => date.isSame(date.clone().startOf('day'));
-
-const maxBoundaryPredicate: PureComputed<
-  [moment.Moment, Date], boolean
-> = (maxBoundary, startDate) => ((maxBoundary.isBefore(startDate as Date, 'day'))
-  || (isMidnight(maxBoundary) && maxBoundary.isSame(startDate as Date, 'day')));
-
-export const adjustAppointments: CustomFunction<
-  [any[], boolean], any
-> = (groups, byDay = false) => groups.map((items) => {
-  let offset = 0;
-  let reduceValue = 1;
-  const appointments = items.map((appointment: any) => ({ ...appointment }));
-  const groupLength = appointments.length;
-  for (let startIndex = 0; startIndex < groupLength; startIndex += 1) {
-    const appointment = appointments[startIndex];
-    if (appointment.offset === undefined) {
-      let maxBoundary = appointment.end;
-      appointment.offset = offset;
-      for (let index = startIndex + 1; index < groupLength; index += 1) {
-        if (appointments[index].offset === undefined) {
-          if ((!byDay && maxBoundary.isSameOrBefore(appointments[index].start))
-            || (byDay && maxBoundaryPredicate(maxBoundary, appointments[index].start))) {
-            maxBoundary = appointments[index].end;
-            appointments[index].offset = offset;
-          }
-        }
-      }
-
-      offset += 1;
-      if (reduceValue < offset) reduceValue = offset;
-    }
-  }
-  return { items: appointments, reduceValue };
-});
-
 export const calculateFirstDateOfWeek: CalculateFirstDateOfWeekFn = (
   currentDate, firstDayOfWeek, excludedDays = [],
 ) => {
@@ -197,18 +84,6 @@ export const calculateFirstDateOfWeek: CalculateFirstDateOfWeekFn = (
   return firstDateOfWeek.toDate();
 };
 
-export const unwrapGroups: PureComputed<
-  [AppointmentGroup[]], AppointmentUnwrappedGroup[]
-> = groups => groups.reduce((acc, { items, reduceValue }) => {
-  acc.push(...items.map(({ start, end, dataItem, offset, resources, ...restProps }) => ({
-    start, end, dataItem, offset, reduceValue, resources,
-    fromPrev: moment(start).diff(dataItem.startDate, 'minutes') > 1,
-    toNext: moment(dataItem.endDate).diff(end, 'minutes') > 1,
-    ...restProps,
-  })));
-  return acc;
-}, [] as AppointmentUnwrappedGroup[]);
-
 export const getAppointmentStyle: PureComputed<
   [Rect], React.CSSProperties
 > = ({
@@ -222,125 +97,6 @@ export const getAppointmentStyle: PureComputed<
   left: `${left}%`,
   position: 'absolute',
 });
-
-const rectCalculatorBase: RectCalculatorBaseFn = (
-  appointment,
-  viewMetaData,
-  getRectByAppointment,
-  options,
-) => getRectByAppointment(appointment, viewMetaData, options);
-
-const horizontalRectCalculator: CustomFunction<
-  [AppointmentUnwrappedGroup, ViewMetaData, any], ElementRect
-> = (
-  appointment,
-  viewMetaData,
-  {
-    rectByDates,
-    multiline,
-    rectByDatesMeta: {
-      cellElementsMeta,
-      viewCellsData,
-    },
-  },
-) => {
-  const {
-    top, left,
-    width, height, parentWidth,
-  } = rectCalculatorBase(
-    appointment,
-    viewMetaData,
-    rectByDates,
-    {
-      multiline,
-      cellElementsMeta,
-      viewCellsData,
-    },
-  );
-
-  return {
-    resources: appointment.resources,
-    top: top + ((height / appointment.reduceValue) * appointment.offset),
-    height: height / appointment.reduceValue,
-    left: toPercentage(left, parentWidth),
-    width: toPercentage(width, parentWidth),
-    dataItem: appointment.dataItem,
-    fromPrev: appointment.fromPrev,
-    toNext: appointment.toNext,
-    type: HORIZONTAL_TYPE,
-  };
-};
-
-const verticalRectCalculator: CustomFunction<
-  [AppointmentUnwrappedGroup, ViewMetaData, any], ElementRect
-> = (
-  appointment,
-  viewMetaData,
-  {
-    rectByDates,
-    multiline,
-    rectByDatesMeta: {
-      viewCellsData,
-      cellDuration,
-      cellElementsMeta,
-      excludedDays,
-    },
-  },
-) => {
-  const {
-    top, left,
-    width, height, parentWidth,
-  } = rectCalculatorBase(
-    appointment,
-    viewMetaData,
-    rectByDates,
-    {
-      multiline,
-      viewCellsData,
-      cellDuration,
-      excludedDays,
-      cellElementsMeta,
-    },
-  );
-
-  const widthInPx = width / appointment.reduceValue;
-
-  return {
-    resources: appointment.resources,
-    top,
-    height,
-    left: toPercentage(left + (widthInPx * appointment.offset), parentWidth),
-    width: toPercentage(widthInPx, parentWidth),
-    dataItem: appointment.dataItem,
-    fromPrev: appointment.fromPrev,
-    toNext: appointment.toNext,
-    durationType: appointmentHeightType(appointment, cellDuration),
-    type: VERTICAL_TYPE,
-  };
-};
-
-export const calculateRectByDateAndGroupIntervals: CalculateRectByDateAndGroupIntervalsFn = (
-  type, intervals, rectByDates, rectByDatesMeta, viewMetaData,
-) => {
-  const { growDirection, multiline } = type;
-  const isHorizontal = growDirection === HORIZONTAL_TYPE;
-
-  const sorted = intervals.map(sortAppointments);
-  const grouped = sorted.reduce(((acc, sortedGroup) => [
-    ...acc,
-    ...findOverlappedAppointments(sortedGroup as AppointmentMoment[], isHorizontal),
-  ]), [] as AppointmentMoment[]);
-
-  const rectCalculator = isHorizontal
-    ? horizontalRectCalculator
-    : verticalRectCalculator;
-
-  return unwrapGroups(adjustAppointments(grouped as any[], isHorizontal))
-    .map(appointment => rectCalculator(
-      appointment, viewMetaData,
-      { rectByDates, multiline, rectByDatesMeta },
-    ));
-};
 
 const expandRecurrenceAppointment = (
   appointment: AppointmentMoment, leftBound: Date, rightBound: Date,
@@ -379,6 +135,7 @@ const expandRecurrenceAppointment = (
     },
     start: moment(startDate),
     end: moment(startDate).add(appointmentDuration, 'minutes'),
+    key: `${appointment.key}_rec_${index}`,
   }));
 };
 
@@ -419,3 +176,7 @@ export const getRRuleSetWithExDates: PureComputed<
 };
 
 export const formatDateToString = (date: Date | string | number) => moment.utc(date).format('YYYY-MM-DDTHH:mm');
+
+export const addDateToKey: PureComputed<
+  [AppointmentKey, moment.Moment], AppointmentKey
+> = (prevKey, momentDate) => `${prevKey}_${momentDate.toDate().toString()}`;

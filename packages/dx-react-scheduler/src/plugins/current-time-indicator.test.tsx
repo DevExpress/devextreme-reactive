@@ -15,9 +15,12 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   getCurrentTimeIndicatorTop: jest.fn(),
 }));
 
-describe('TodayButton', () => {
+describe('CurrentTimeIndicator', () => {
   const defaultProps = {
     indicatorComponent: () => null,
+    shadePreviousAppointments: undefined,
+    shadePreviousCells: undefined,
+    updateInterval: undefined,
   };
   const defaultDeps = {
     template: {
@@ -33,9 +36,11 @@ describe('TodayButton', () => {
     },
     plugins: ['WeekView', 'DragDropProvider', 'AllDayPanel'],
   };
+
   beforeEach(() => {
     jest.clearAllMocks();
   });
+
   describe('Templates', () => {
     it('should render cell templates', () => {
       isMonthCell.mockImplementation(() => false);
@@ -172,6 +177,40 @@ describe('TodayButton', () => {
         .toBeCalledWith(expect.any(Function), 60000);
     });
 
+    it('should not call the inner setInterval with null updateInterval prop value', () => {
+      const userUpdateInterval = null;
+      mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <CurrentTimeIndicator
+            {...defaultProps}
+            updateInterval={userUpdateInterval}
+          />
+        </PluginHost>
+      ));
+
+      expect(setInterval)
+        .not
+        .toBeCalled();
+    });
+
+    it('should not call the inner setInterval with 0 updateInterval prop value', () => {
+      const userUpdateInterval = 0;
+      mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <CurrentTimeIndicator
+            {...defaultProps}
+            updateInterval={userUpdateInterval}
+          />
+        </PluginHost>
+      ));
+
+      expect(setInterval)
+        .not
+        .toBeCalled();
+    });
+
     it('should use user provided updateInterval prop', () => {
       const userUpdateInterval = 10000;
       mount((
@@ -186,6 +225,24 @@ describe('TodayButton', () => {
 
       expect(setInterval)
         .toBeCalledWith(expect.any(Function), userUpdateInterval);
+    });
+  });
+
+  describe('Unmount', () => {
+    it('should call the inner useEffect unmount handler', () => {
+      const wrapper = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <CurrentTimeIndicator
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      wrapper.unmount();
+
+      expect(clearInterval)
+        .toBeCalledWith(expect.any(Number));
     });
   });
 });

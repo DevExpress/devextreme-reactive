@@ -34,7 +34,7 @@ describe('AppointmentForm recurrence', () => {
     dateEditorComponent: () => null,
     onFieldChange: jest.fn(),
     getMessage: jest.fn(),
-    appointmentData: {},
+    appointmentData: { rRule: 'rrule' },
     formatDate: jest.fn(),
     firstDayOfWeek: 0,
   };
@@ -145,13 +145,13 @@ describe('AppointmentForm recurrence', () => {
         .toHaveBeenCalledWith('endRepeatLabel');
     });
 
-    it('should work even if rule is undefined', () => {
+    it('should render nothing if rRule is not defined', () => {
       const tree = shallow((
         <Layout {...defaultProps} appointmentData={{}} />
       ));
 
-      expect(tree.exists())
-        .toBeTruthy();
+      expect(tree.find(`.${classes.root}`).exists())
+        .toBe(false);
     });
   });
 });

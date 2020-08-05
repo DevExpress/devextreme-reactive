@@ -178,7 +178,7 @@ export namespace AppointmentForm {
   export interface ResourceEditorProps {
     /** The appointment's resource items. */
     appointmentResources: Array<ValidResourceInstance>;
-    /** Specifies resource item for the current editor component. */
+    /** A resource being edited. */
     resource: ValidResource;
     /** Handles value changes. */
     onResourceChange: (nextValue: string | number | Array<string | number>) => void;

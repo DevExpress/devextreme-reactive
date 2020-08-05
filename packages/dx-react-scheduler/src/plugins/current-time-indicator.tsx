@@ -24,14 +24,14 @@ const CurrentTimeIndicatorBase: React.SFC<CurrentTimeIndicatorProps>  & {compone
   indicatorComponent, shadePreviousAppointments, shadePreviousCells, updateInterval,
 }) => {
   const [currentTime, setCurrentTime] = React.useState(Date.now);
-  const [indicatorUpdateTimer, setIndicatorUpdateTimer] = React.useState<any>(undefined);
 
   React.useEffect(() => {
-    clearInterval(indicatorUpdateTimer);
-    setIndicatorUpdateTimer(setInterval(() => {
-      setCurrentTime(Date.now());
-    }, updateInterval));
-    return () => clearInterval(indicatorUpdateTimer);
+    const tick = () => setCurrentTime(Date.now());
+    const intervalId = (updateInterval
+      ? window.setInterval(tick, updateInterval)
+      : undefined
+    );
+    return () => window.clearInterval(intervalId);
   }, [updateInterval]);
 
   return (

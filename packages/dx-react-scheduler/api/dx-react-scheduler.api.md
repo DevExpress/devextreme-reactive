@@ -230,7 +230,7 @@ export namespace AppointmentForm {
     appointmentResources: Array<ValidResourceInstance>;
     onResourceChange: (nextValue: string | number | Array<string | number>) => void;
     readOnly?: boolean;
-    resources: Array<ValidResource>;
+    resource: ValidResource;
   }
   export interface SelectProps {
     availableOptions?: Array<SelectOption>;

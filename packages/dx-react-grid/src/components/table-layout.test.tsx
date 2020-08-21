@@ -45,7 +45,7 @@ describe('TableLayout', () => {
     it('should add flex column if all columns have fixed widths', () => {
       const columns = [
         { key: 'a', column: { name: 'a' }, width: 100 },
-        { key: 'b', column: { name: 'b' }, width: 100 },
+        { key: 'b', column: { name: 'b' }, width: '50' },
       ];
 
       const tree = shallow((
@@ -58,7 +58,7 @@ describe('TableLayout', () => {
 
       expect(tree.find(defaultProps.layoutComponent).props())
         .toMatchObject({
-          minWidth: 200,
+          minWidth: '100px + 50px',
           columns: [
             ...columns,
             { key: 'flex', type: 'flex' },

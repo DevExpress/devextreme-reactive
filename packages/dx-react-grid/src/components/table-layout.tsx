@@ -10,6 +10,7 @@ import {
 } from '@devexpress/dx-grid-core';
 import { shallowEqual } from '@devexpress/dx-core';
 import { TableLayoutCoreProps, TableLayoutCoreState } from '../types';
+import { isNumber } from '../utils/helpers';
 
 class TableLayoutBase extends React.PureComponent<TableLayoutCoreProps, TableLayoutCoreState> {
   animations: ColumnAnimationMap;
@@ -122,14 +123,16 @@ class TableLayoutBase extends React.PureComponent<TableLayoutCoreProps, TableLay
     const columns = this.getColumns();
     const minWidth = columns
       .map(column => column.width || (column.type === TABLE_FLEX_TYPE ? 0 : minColumnWidth))
-      .reduce((acc, width) => (acc as number) + (width as number), 0);
+      .filter(value => value !== 'auto' && value !== 0)
+      .map(value => isNumber(value) ? `${value}px` : value)
+      .join(' + ');
 
     return (
       <Layout
         {...restProps}
         tableRef={this.tableRef}
         columns={columns}
-        minWidth={minWidth as number}
+        minWidth={minWidth}
         minColumnWidth={minColumnWidth}
       />
     );

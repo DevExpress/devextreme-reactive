@@ -43,7 +43,7 @@ export class StaticTableLayout extends React.PureComponent<TableLayoutProps & ty
       <Container>
         <Table
           tableRef={tableRef}
-          style={{ minWidth: `${minWidth}px` }}
+          style={{ minWidth: `calc(${minWidth})` }}
         >
           <ColumnGroup columns={columns} />
           {!!headerRows.length && (

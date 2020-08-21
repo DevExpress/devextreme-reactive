@@ -18,7 +18,7 @@ export type TableLayoutProps =
     bodyRows: TableRow[],
     footerRows: TableRow[],
     columns: TableColumn[],
-    minWidth?: number,
+    minWidth?: string,
     minColumnWidth?: number,
     getCellColSpan?: GetCellColSpanFn,
     tableRef?: React.RefObject<HTMLTableElement>,

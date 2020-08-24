@@ -55,14 +55,14 @@
     "rollup": "^1.27.2",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-license": "^0.12.1",
-    "rollup-plugin-typescript2": "^0.27.1",
-    "typescript": "3.9.6"
+    "rollup-plugin-typescript2": "^0.27.2",
+    "typescript": "3.9.7"
   },
   "peerDependencies": {
     "@devexpress/dx-core": "2.7.0"
   },
   "dependencies": {
     "moment": "^2.24.0",
-    "rrule": "^2.6.2"
+    "rrule": "2.6.4"
   }
 }

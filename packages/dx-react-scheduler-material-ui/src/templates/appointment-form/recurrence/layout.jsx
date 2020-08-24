@@ -118,6 +118,9 @@ const LayoutBase = ({
   firstDayOfWeek,
   ...restProps
 }) => {
+  if (!appointmentData.rRule) {
+    return null;
+  }
   const recurrenceOptions = getRecurrenceOptions(appointmentData.rRule) || {};
   const MainLayoutComponent = getLayoutComponent(recurrenceOptions);
   const frequency = getFrequencyString(recurrenceOptions.freq);

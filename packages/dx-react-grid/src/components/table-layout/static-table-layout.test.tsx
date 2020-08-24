@@ -10,7 +10,7 @@ const defaultProps = {
     { key: 'c', column: { name: 'c' } },
     { key: 'd', column: { name: 'd' } },
   ],
-  minWidth: 400,
+  minWidth: '400px',
   bodyRows: [
     { key: 1, rowId: 1 },
     { key: 2, rowId: 2 },
@@ -100,7 +100,7 @@ describe('StaticTableLayout', () => {
     expect(tree.find(defaultProps.tableComponent).props())
       .toMatchObject(expect.objectContaining({
         style: {
-          minWidth: '400px',
+          minWidth: 'calc(400px)',
         },
       }));
   });

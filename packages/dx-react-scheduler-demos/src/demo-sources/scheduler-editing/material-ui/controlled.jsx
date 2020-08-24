@@ -22,13 +22,13 @@ export default class Demo extends React.PureComponent {
 
       addedAppointment: {},
       appointmentChanges: {},
-      editingAppointmentId: undefined,
+      editingAppointment: undefined,
     };
 
     this.commitChanges = this.commitChanges.bind(this);
     this.changeAddedAppointment = this.changeAddedAppointment.bind(this);
     this.changeAppointmentChanges = this.changeAppointmentChanges.bind(this);
-    this.changeEditingAppointmentId = this.changeEditingAppointmentId.bind(this);
+    this.changeEditingAppointment = this.changeEditingAppointment.bind(this);
   }
 
   changeAddedAppointment(addedAppointment) {
@@ -39,8 +39,8 @@ export default class Demo extends React.PureComponent {
     this.setState({ appointmentChanges });
   }
 
-  changeEditingAppointmentId(editingAppointmentId) {
-    this.setState({ editingAppointmentId });
+  changeEditingAppointment(editingAppointment) {
+    this.setState({ editingAppointment });
   }
 
   commitChanges({ added, changed, deleted }) {
@@ -63,7 +63,7 @@ export default class Demo extends React.PureComponent {
 
   render() {
     const {
-      currentDate, data, addedAppointment, appointmentChanges, editingAppointmentId,
+      currentDate, data, addedAppointment, appointmentChanges, editingAppointment,
     } = this.state;
 
     return (
@@ -84,8 +84,8 @@ export default class Demo extends React.PureComponent {
             appointmentChanges={appointmentChanges}
             onAppointmentChangesChange={this.changeAppointmentChanges}
 
-            editingAppointmentId={editingAppointmentId}
-            onEditingAppointmentIdChange={this.changeEditingAppointmentId}
+            editingAppointment={editingAppointment}
+            onEditingAppointmentChange={this.changeEditingAppointment}
           />
           <WeekView
             startDayHour={9}

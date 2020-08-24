@@ -227,7 +227,7 @@ Properties passed to a component that renders a resource editor on the appointme
 Field | Type | Description
 ------|------|------------
 appointmentResources? | Array&lt;[ValidResourceInstance](./resources.md#validresourceinstance)&gt; | The appointment's resource instances.
-resources? | Array&lt;[Resource](./resources.md#resourceinstance)&gt; | All resources.
+resource? | [ValidResource](./resources.md#validresource) | A resource being edited.
 onResourceChange? | ({ [fieldName: string]: string &#124; number }) => void | A function that is called when the resource is edited.
 readOnly? | boolean | Specifies whether the resource editor is read-only.
 

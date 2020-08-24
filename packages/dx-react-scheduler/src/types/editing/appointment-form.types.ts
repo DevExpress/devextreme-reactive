@@ -178,8 +178,8 @@ export namespace AppointmentForm {
   export interface ResourceEditorProps {
     /** The appointment's resource items. */
     appointmentResources: Array<ValidResourceInstance>;
-    /** The all resources that were defined. */
-    resources: Array<ValidResource>;
+    /** A resource being edited. */
+    resource: ValidResource;
     /** Handles value changes. */
     onResourceChange: (nextValue: string | number | Array<string | number>) => void;
     /** Specifies whether the menu is read-only. */

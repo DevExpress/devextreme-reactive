@@ -1,3 +1,16 @@
+# [2.7.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.7.0...v2.7.1) (2020-08-25)
+
+
+### Bug Fixes
+
+* **react-core:** make scrolling behavior similar in Safari and Chrome while drag columns ([#2999](https://github.com/DevExpress/devextreme-reactive/issues/2999)) ([d85787b](https://github.com/DevExpress/devextreme-reactive/commit/d85787b5d6ce352050e60bc438e7e452deab1ffc)), closes [#2982](https://github.com/DevExpress/devextreme-reactive/issues/2982)
+* **react-grid:** use 'calc' to calculate table min width ([#3049](https://github.com/DevExpress/devextreme-reactive/issues/3049)) ([e1d9b3a](https://github.com/DevExpress/devextreme-reactive/commit/e1d9b3a91f2b0c83fc5d0c5e0cc66c4ac1ec513e))
+* **react-scheduler:** change the implementation of the CurrentTimeIndicator plugin set and clearInterval usage ([2728bcc](https://github.com/DevExpress/devextreme-reactive/commit/2728bcc034eb481a8ff6099f8b3d48198048995c)), closes [#3013](https://github.com/DevExpress/devextreme-reactive/issues/3013)
+* **react-scheduler:** get rid of mui warning in recurrence layout ([#3020](https://github.com/DevExpress/devextreme-reactive/issues/3020)) ([304c367](https://github.com/DevExpress/devextreme-reactive/commit/304c3673a12df9cdb37929e51ca5cfe5e2d647d5)), closes [#3018](https://github.com/DevExpress/devextreme-reactive/issues/3018)
+* **scheduler-core:** update rrule version to 2.6.4 and fix it ([#3053](https://github.com/DevExpress/devextreme-reactive/issues/3053)) ([a16a94d](https://github.com/DevExpress/devextreme-reactive/commit/a16a94db2112cec0617b153fdbd834abc00d4421))
+
+
+
 # [2.7.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.6.4...v2.7.0) (2020-07-17)
 
 

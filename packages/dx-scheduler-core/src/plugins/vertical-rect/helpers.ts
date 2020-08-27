@@ -37,6 +37,12 @@ const getCellRect: GetCellRectVerticalFn = (
   date, appointment, viewCellsData, cellDuration,
   cellElementsMeta, takePrev, viewMetaData,
 ) => {
+  // Adds the date from each individual cell
+  // This is so I can get the date after selecting a cell
+  if((appointment as any).dataItem){
+    (appointment as any).dataItem = JSON.parse(JSON.stringify(appointment.dataItem)) as any;
+    (appointment as any).dataItem.cellRectDate = date;
+  }
   const {
     index: cellIndex,
     startDate: cellStartDate,

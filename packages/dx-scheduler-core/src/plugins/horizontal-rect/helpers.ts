@@ -8,6 +8,12 @@ const CELL_BOUND_OFFSET_PX = 1;
 const getCellRect: GetCellRectHorizontalFn = (
   date, appointment, viewCellsData, viewMetaData, cellElementsMeta, takePrev, multiline,
 ) => {
+  // Adds the date from each individual cell
+  // This is so I can get the date after selecting a cell
+  if((appointment as any).dataItem){
+    (appointment as any).dataItem = JSON.parse(JSON.stringify(appointment.dataItem)) as any;
+    (appointment as any).dataItem.cellRectDate = date;
+  }
   const cellIndex = multiline
     ? getMonthCellIndexByAppointmentData(
       viewCellsData, viewMetaData, date, appointment, takePrev,

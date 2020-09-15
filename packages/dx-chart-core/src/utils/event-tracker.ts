@@ -66,11 +66,13 @@ export const buildEventHandlers = (
   if (pointerMoveHandlers.length) {
     const moveHandler = buildEventHandler(seriesList, pointerMoveHandlers);
     const leaveHandler = buildLeaveEventHandler(pointerMoveHandlers);
-    if ('ontouchstart' in window) {
-      handlers.touchstart = moveHandler;
-    } else {
-      handlers.mousemove = moveHandler;
-      handlers.mouseleave = leaveHandler;
+    if (typeof window !== 'undefined' && window) {
+      if ('ontouchstart' in window) {
+        handlers.touchstart = moveHandler;
+      } else {
+        handlers.mousemove = moveHandler;
+        handlers.mouseleave = leaveHandler;
+      }
     }
   }
   return handlers;

@@ -1,3 +1,4 @@
+import { hasWindow } from '@devexpress/dx-core';
 import { getEventCoords, getOffset } from './common';
 import {
   TrackerTarget, HandlerFnList, SeriesList, HitTesters,
@@ -60,13 +61,13 @@ export const buildEventHandlers = (
   seriesList: SeriesList, { clickHandlers, pointerMoveHandlers }: HandlersObject,
 ) => {
   const handlers: EventHandlers = {};
-  if (clickHandlers.length) {
-    handlers.click = buildEventHandler(seriesList, clickHandlers);
-  }
-  if (pointerMoveHandlers.length) {
-    const moveHandler = buildEventHandler(seriesList, pointerMoveHandlers);
-    const leaveHandler = buildLeaveEventHandler(pointerMoveHandlers);
-    if (typeof window !== 'undefined' && window) {
+  if (hasWindow()) {
+    if (clickHandlers.length) {
+      handlers.click = buildEventHandler(seriesList, clickHandlers);
+    }
+    if (pointerMoveHandlers.length) {
+      const moveHandler = buildEventHandler(seriesList, pointerMoveHandlers);
+      const leaveHandler = buildLeaveEventHandler(pointerMoveHandlers);
       if ('ontouchstart' in window) {
         handlers.touchstart = moveHandler;
       } else {

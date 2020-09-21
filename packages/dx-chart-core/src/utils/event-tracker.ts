@@ -61,19 +61,18 @@ export const buildEventHandlers = (
   seriesList: SeriesList, { clickHandlers, pointerMoveHandlers }: HandlersObject,
 ) => {
   const handlers: EventHandlers = {};
-  if (hasWindow()) {
-    if (clickHandlers.length) {
-      handlers.click = buildEventHandler(seriesList, clickHandlers);
-    }
-    if (pointerMoveHandlers.length) {
-      const moveHandler = buildEventHandler(seriesList, pointerMoveHandlers);
-      const leaveHandler = buildLeaveEventHandler(pointerMoveHandlers);
-      if ('ontouchstart' in window) {
-        handlers.touchstart = moveHandler;
-      } else {
-        handlers.mousemove = moveHandler;
-        handlers.mouseleave = leaveHandler;
-      }
+  if (!hasWindow()) return handlers;
+  if (clickHandlers.length) {
+    handlers.click = buildEventHandler(seriesList, clickHandlers);
+  }
+  if (pointerMoveHandlers.length) {
+    const moveHandler = buildEventHandler(seriesList, pointerMoveHandlers);
+    const leaveHandler = buildLeaveEventHandler(pointerMoveHandlers);
+    if ('ontouchstart' in window) {
+      handlers.touchstart = moveHandler;
+    } else {
+      handlers.mousemove = moveHandler;
+      handlers.mouseleave = leaveHandler;
     }
   }
   return handlers;

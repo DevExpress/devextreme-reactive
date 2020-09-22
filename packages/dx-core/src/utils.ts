@@ -52,3 +52,6 @@ export const createClickHandlers = (click?, dblClick?) => {
 
 /** @internal */
 export const slice = arr => Array.prototype.slice.call(arr); // slice can be renamed to copy as well
+
+/** @internal */
+export const hasWindow = () => typeof window !== 'undefined';

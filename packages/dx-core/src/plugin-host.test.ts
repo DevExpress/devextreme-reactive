@@ -120,26 +120,26 @@ describe('PluginHost', () => {
       host.registerPlugin(plugin2);
       host.registerPlugin(plugin3);
       expect(host.collect('something')).toEqual([2, 3]);
-      expect(host.gettersCache['something']).toEqual([2, 3]);
+      expect(host.gettersCache.something).toEqual([2, 3]);
       // Second call, result must be from the cache
-      expect(host.collect('something')).toBe(host.gettersCache['something']);
+      expect(host.collect('something')).toBe(host.gettersCache.something);
 
       // Index cache must be
-      expect(host.gettersCache['something_i']).toEqual([{ key: 2, index: 1 }, { key: 3, index: 2 }]);
+      expect(host.gettersCache.something_i).toEqual([{ key: 2, index: 1 }, { key: 3, index: 2 }]);
 
       expect(host.collect('something', plugin2)).toEqual([]);
-      expect(host.gettersCache['something0']).toBeUndefined();
-      expect(host.gettersCache['something1']).toEqual([]);
-      expect(host.gettersCache['something2']).toBeUndefined();
+      expect(host.gettersCache.something0).toBeUndefined();
+      expect(host.gettersCache.something1).toEqual([]);
+      expect(host.gettersCache.something2).toBeUndefined();
       // Second call, result must be from the cache
-      expect(host.collect('something', plugin2)).toBe(host.gettersCache['something1']);
+      expect(host.collect('something', plugin2)).toBe(host.gettersCache.something1);
 
       expect(host.collect('something', plugin3)).toEqual([2]);
-      expect(host.gettersCache['something0']).toBeUndefined();
-      expect(host.gettersCache['something1']).toEqual([]);
-      expect(host.gettersCache['something2']).toEqual([2]);
+      expect(host.gettersCache.something0).toBeUndefined();
+      expect(host.gettersCache.something1).toEqual([]);
+      expect(host.gettersCache.something2).toEqual([2]);
       // Second call, result must be from the cache
-      expect(host.collect('something', plugin3)).toBe(host.gettersCache['something2']);
+      expect(host.collect('something', plugin3)).toBe(host.gettersCache.something2);
     });
 
     it('should validate dependencies after a pluginContainer was registered', () => {

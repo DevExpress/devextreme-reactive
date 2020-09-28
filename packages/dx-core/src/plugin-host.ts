@@ -92,9 +92,9 @@ export class PluginHost {
       // Add cache for original plugin indexes
       const indexCache = this.plugins
         .map((plugin, index) => ({ key: plugin[key], index }))
-        .filter((plugin) => !!plugin.key );
-      this.gettersCache[key + '_i'] = indexCache;
-      res = indexCache.map((item) => item.key);
+        .filter(plugin => !!plugin.key);
+      this.gettersCache[`${key}_i`] = indexCache;
+      res = indexCache.map(item => item.key);
       // This condition is to make sure cache is generated only once
       if (!this.gettersCache[key]) {
         this.gettersCache[key] = res;
@@ -109,8 +109,9 @@ export class PluginHost {
     const upToIndexKey = key + upToIndex;
     let upToRes = this.gettersCache[upToIndexKey];
     if (!upToRes) {
-      const indexCache = this.gettersCache[key + '_i'];
-      upToRes = this.gettersCache[key].filter((getter, index) => indexCache[index].index < upToIndex);
+      const indexCache = this.gettersCache[`${key}_i`];
+      upToRes = this.gettersCache[key]
+        .filter((getter, index) => indexCache[index].index < upToIndex);
       // This condition is to make sure cache is generated only once
       if (!this.gettersCache[upToIndexKey]) {
         this.gettersCache[upToIndexKey] = upToRes;

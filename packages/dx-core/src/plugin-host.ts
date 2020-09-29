@@ -95,10 +95,7 @@ export class PluginHost {
         .filter(plugin => !!plugin.key);
       this.gettersCache[`${key}_i`] = indexCache;
       res = indexCache.map(item => item.key);
-      // This condition is to make sure cache is generated only once
-      if (!this.gettersCache[key]) {
-        this.gettersCache[key] = res;
-      }
+      this.gettersCache[key] = res;
     }
 
     if (!upTo) return res;
@@ -108,15 +105,14 @@ export class PluginHost {
     // Try to get a result from upToIndex cache first.
     const upToIndexKey = key + upToIndex;
     let upToRes = this.gettersCache[upToIndexKey];
+
     if (!upToRes) {
       const indexCache = this.gettersCache[`${key}_i`];
       upToRes = this.gettersCache[key]
         .filter((getter, index) => indexCache[index].index < upToIndex);
-      // This condition is to make sure cache is generated only once
-      if (!this.gettersCache[upToIndexKey]) {
-        this.gettersCache[upToIndexKey] = upToRes;
-      }
+      this.gettersCache[upToIndexKey] = upToRes;
     }
+
     return upToRes;
   }
 

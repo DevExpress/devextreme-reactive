@@ -1,8 +1,7 @@
 // BLOCK:imports
-import classNames from 'clsx';
 import {
   Grid as BsGrid, Row, Col, ControlLabel, FormGroup, FormControl,
-  ButtonToolbar, Button, Modal, Container,
+  Button, Modal,
 } from 'react-bootstrap';
 // BLOCK:imports
 

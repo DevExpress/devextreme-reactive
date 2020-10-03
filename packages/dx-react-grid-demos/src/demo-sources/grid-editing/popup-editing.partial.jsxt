@@ -8,7 +8,7 @@ import {
   Table,
   TableHeaderRow,
   TableEditColumn,
-} from '@devexpress/dx-react-grid-material-ui';
+} from '@devexpress/dx-react-grid-<%&themeName%>';
 <%&imports%>
 import {
   generateRows,

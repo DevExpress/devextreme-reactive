@@ -1,3 +1,17 @@
+# [2.7.2](https://github.com/DevExpress/devextreme-reactive/compare/v2.7.1...v2.7.2) (2020-10-01)
+
+
+### Bug Fixes
+
+* **chart-core:** add handler only when window exists ([#3091](https://github.com/DevExpress/devextreme-reactive/issues/3091)) ([c8354b3](https://github.com/DevExpress/devextreme-reactive/commit/c8354b375095ea193b81c308818245aa708c4798))
+
+
+### Performance Improvements
+
+* **core:** improve rendering performance ([#3095](https://github.com/DevExpress/devextreme-reactive/issues/3095)) ([#3101](https://github.com/DevExpress/devextreme-reactive/issues/3101)) ([05686cd](https://github.com/DevExpress/devextreme-reactive/commit/05686cd4c9a2f84a76292fd0aec45af2901aadad))
+
+
+
 # [2.7.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.7.0...v2.7.1) (2020-08-25)
 
 

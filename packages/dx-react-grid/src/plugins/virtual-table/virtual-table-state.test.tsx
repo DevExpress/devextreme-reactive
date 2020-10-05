@@ -1,3 +1,5 @@
+
+// tslint:disable: max-classes-per-file
 import * as React from 'react';
 import {
   getRequestMeta,
@@ -88,6 +90,10 @@ describe('VirtualTableState', () => {
       });
 
       describe('infinite scrolling', () => {
+        beforeEach(() => {
+          jest.useFakeTimers();
+        });
+
         it('should provide value "pageSize * 2" if it is less than "totalRowCount"', () => {
           const tree = mount((
             <PluginHost>
@@ -159,6 +165,95 @@ describe('VirtualTableState', () => {
           tree.update();
           expect(getComputedState(tree).availableRowCount)
             .toBe(defaultProps.pageSize * 2);
+        });
+
+        it('should reset "requestedStartIndex" when "totalRowCount" reduces', () => {
+          const pageSize = 50;
+          shouldSendRequest.mockReturnValue(true);
+
+          const scrollTable = (position) => {
+            getRequestMeta.mockReturnValue({
+              requestedRange: { start: position, end: position + pageSize },
+              actualBounds: { start: position - pageSize, end: position + pageSize * 2 },
+            });
+            executeComputedAction(tree, actions => actions.requestNextPage({}));
+            jest.runAllTimers();
+          };
+
+          class Test extends React.Component {
+            render() {
+              return (
+                <PluginHost>
+                  {pluginDepsToComponents(defaultDeps)}
+                  <VirtualTableState
+                    pageSize={pageSize}
+                    {...this.props}
+                  />
+                </PluginHost>
+              );
+            }
+          }
+
+          const tree = mount((
+            <Test
+              {...defaultProps}
+              totalRowCount={1000}
+              infiniteScrolling
+            />
+          ));
+          const node = tree.find(VirtualTableState);
+
+          expect(node.state())
+            .toEqual({
+              virtualRowsCache: emptyVirtualRows,
+              availableRowCount: 100,
+              requestedStartIndex: 0,
+            });
+
+          scrollTable(100);
+          tree.update();
+          expect(node.state())
+            .toEqual({
+              virtualRowsCache: 'trimRowsToInterval',
+              availableRowCount: 200,
+              requestedStartIndex: 100,
+            });
+
+          tree.setProps({ totalRowCount: 100 });
+          tree.update();
+          expect(node.state())
+            .toEqual({
+              virtualRowsCache: emptyVirtualRows,
+              availableRowCount: 100,
+              requestedStartIndex: 50,
+            });
+
+          tree.setProps({ totalRowCount: 0 });
+          tree.update();
+          expect(node.state())
+            .toEqual({
+              virtualRowsCache: emptyVirtualRows,
+              availableRowCount: 0,
+              requestedStartIndex: 0,
+            });
+
+          tree.setProps({ totalRowCount: 1000 });
+          tree.update();
+          expect(node.state())
+            .toEqual({
+              virtualRowsCache: emptyVirtualRows,
+              availableRowCount: 100,
+              requestedStartIndex: 0,
+            });
+
+          scrollTable(50);
+          tree.update();
+          expect(node.state())
+            .toEqual({
+              virtualRowsCache: 'trimRowsToInterval',
+              availableRowCount: 150,
+              requestedStartIndex: 50,
+            });
         });
       });
     });

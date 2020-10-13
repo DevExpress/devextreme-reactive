@@ -14,16 +14,15 @@ export namespace DataTypeProvider {
 
   /** Describes properties passed to a component that renders the value editor. */
   export interface ValueEditorProps {
-    /** A column object. */
-    column: Column;
-    /** A row. */
-    row?: any;
     /** Specifies the editor value. */
     value: any;
     /** Handles value changes. */
     onValueChange: (newValue: any) => void;
-    /** "true" if users should not be able to edit the value, "false" otherwise. */
-    disabled: boolean;
+	/** Specifies the editor value. */
+    onBlur: any;
+	/** Where the autoFocus was set to enabled */
+	autoFocus: boolean;
+
   }
 }
 

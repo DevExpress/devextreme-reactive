@@ -18,11 +18,10 @@ export namespace DataTypeProvider {
     value: any;
     /** Handles value changes. */
     onValueChange: (newValue: any) => void;
-	/** Specifies the editor value. */
+    /** Specifies the editor value. */
     onBlur: any;
-	/** Where the autoFocus was set to enabled */
-	autoFocus: boolean;
-
+    /** Where the autoFocus was set to enabled */
+    autoFocus: boolean;
   }
 }
 

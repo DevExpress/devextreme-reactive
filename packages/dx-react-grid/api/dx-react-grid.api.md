@@ -144,10 +144,9 @@ export const DataTypeProvider: React.ComponentType<DataTypeProviderProps>;
 // @public (undocumented)
 export namespace DataTypeProvider {
   export interface ValueEditorProps {
-    column: Column;
-    disabled: boolean;
+    autoFocus: boolean;
+    onBlur: any;
     onValueChange: (newValue: any) => void;
-    row?: any;
     value: any;
   }
   export interface ValueFormatterProps {

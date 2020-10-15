@@ -87,5 +87,23 @@ describe('AppointmentForm recurrence RadioGroup', () => {
       expect(tree.prop('disabled'))
         .toBeTruthy();
     });
+
+    it('should pass "readOnlyEditors" property correctly', () => {
+      const tree = mount(
+        <ChangeMonthEditor
+          {...defaultProps}
+          readOnlyEditors
+          readOnly={false}
+        />,
+      );
+
+      const selectComponent = tree.find(defaultProps.selectComponent).at(0);
+      expect(selectComponent.prop('readOnly'))
+        .toBe(true);
+
+      const textEditorComponent = tree.find(defaultProps.textEditorComponent).at(0);
+      expect(textEditorComponent.prop('readOnly'))
+        .toBe(true);
+    });
   });
 });

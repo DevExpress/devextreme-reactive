@@ -12,7 +12,7 @@ import {
   TableRowDetail,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
 <%&imports%>
-import { employees, states } from '../employees';
+import { employees, states } from '../../../demo-data/employees';
 
 const getRowId = row => row.ID;
 

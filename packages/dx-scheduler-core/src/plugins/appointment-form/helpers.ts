@@ -174,11 +174,13 @@ export const handleWeekDaysChange: PureComputed<
 > = (options, currentWeekDay) => {
   const byWeekDay = options.byweekday || [];
   const index = (byWeekDay as Weekday[]).findIndex(({ weekday }) => weekday === currentWeekDay);
-  const isAdded = !(index > -1);
+
+  const isAdded = index === -1;
+
   if (isAdded) {
-    (byWeekDay as number[]).push(currentWeekDay);
+    (byWeekDay as Weekday[]).push(RRULE_DAYS_OF_WEEK[currentWeekDay]);
   } else if (index > -1) {
-    (byWeekDay as number[]).splice(index, 1);
+    (byWeekDay as Weekday[]).splice(index, 1);
   }
   if (byWeekDay === 0) return { ...options, byweekday: undefined };
   return { ...options, byweekday: byWeekDay };

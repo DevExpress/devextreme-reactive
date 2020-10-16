@@ -35,8 +35,8 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     formatDate: jest.fn(),
     getMessage: jest.fn(),
     appointmentData: {
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: new Date(2020, 9, 16, 0, 0),
+      endDate: new Date(2020, 9, 16, 1, 0),
       rRule: 'RRULE:FREQ=YEARLY',
     },
     firstDayOfWeek: 0,
@@ -133,6 +133,18 @@ describe('AppointmentForm recurrence RadioGroup', () => {
       expect(handleToDayOfWeekChange)
         .toHaveBeenCalledWith(
           weekNumber,
+          defaultProps.appointmentData.startDate.getDay(),
+          getRecurrenceOptions(),
+        );
+    });
+
+    it('should change week number correctly', () => {
+      const tree = shallow((<YearlyEditor {...defaultProps} />));
+
+      tree.find(ChangeWeekNumberEditor).at(0).prop('changeWeekNumber')('abc');
+      expect(handleToDayOfWeekChange)
+        .toHaveBeenCalledWith(
+          'abc',
           defaultProps.appointmentData.startDate.getDay(),
           getRecurrenceOptions(),
         );

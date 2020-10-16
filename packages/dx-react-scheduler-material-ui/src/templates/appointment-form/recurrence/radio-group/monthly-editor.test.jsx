@@ -31,8 +31,8 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     onFieldChange: jest.fn(),
     getMessage: jest.fn(),
     appointmentData: {
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: new Date(2020, 9, 16, 0, 0),
+      endDate: new Date(2020, 9, 16, 1, 0),
       rRule: 'RRULE:FREQ=YEARLY',
     },
     formatDate: jest.fn(),
@@ -51,6 +51,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
   });
   afterEach(() => {
     mount.cleanUp();
+    jest.resetAllMocks();
   });
   describe('MonthlyEditor', () => {
     it('should pass rest props to the root element', () => {
@@ -131,6 +132,20 @@ describe('AppointmentForm recurrence RadioGroup', () => {
       expect(handleToDayOfWeekChange)
         .toHaveBeenCalledWith(
           weekNumber,
+          defaultProps.appointmentData.startDate.getDay(),
+          getRecurrenceOptions(),
+        );
+    });
+
+    it('should change week number correctly', () => {
+      const tree = mount((
+        <MonthlyEditor {...defaultProps} />
+      ));
+
+      tree.find(defaultProps.selectComponent).at(0).prop('onValueChange')('abc');
+      expect(handleToDayOfWeekChange)
+        .toHaveBeenCalledWith(
+          'abc',
           defaultProps.appointmentData.startDate.getDay(),
           getRecurrenceOptions(),
         );

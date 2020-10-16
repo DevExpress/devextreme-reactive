@@ -103,13 +103,16 @@ describe('AppointmentForm recurrence RadioGroup', () => {
           },
         });
 
-      changeWeekNumberEditor.at(0).prop('changeDayOfWeek')(3);
+      handleToDayOfWeekChange.mockImplementationOnce(() => 'New rrule');
+      const dayOfWeek = 3;
+
+      changeWeekNumberEditor.at(0).prop('changeDayOfWeek')(dayOfWeek);
+
+      expect(handleToDayOfWeekChange)
+        .toHaveBeenCalledWith(2, dayOfWeek, getRecurrenceOptions());
       expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
-          rRule: {
-            ...getRecurrenceOptions(),
-            byweekday: 2,
-          },
+          rRule: 'New rrule',
         });
     });
 

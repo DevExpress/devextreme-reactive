@@ -31,8 +31,9 @@ const styles = ({ palette, spacing }) => ({
   },
 });
 
-const isCurrentWeekDay = (recurrenceOptions, currentWeekDay) => recurrenceOptions.byweekday
-  && recurrenceOptions.byweekday.findIndex(({ weekday }) => weekday === currentWeekDay) > -1;
+const isCurrentWeekDay = (
+  { byweekday }, currentWeekDay,
+) => byweekday && byweekday.findIndex(({ weekday }) => weekday === currentWeekDay) > -1;
 
 const WeeklyRecurrenceSelectorBase = React.memo(({
   formatDate,

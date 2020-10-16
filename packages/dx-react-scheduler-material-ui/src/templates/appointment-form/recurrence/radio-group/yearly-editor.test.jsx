@@ -3,7 +3,6 @@ import { createShallow } from '@material-ui/core/test-utils';
 import {
   handleStartDateChange,
   handleToDayOfWeekChange,
-  handleWeekNumberChange,
   getRecurrenceOptions,
   changeRecurrenceOptions,
   getDaysOfWeek,
@@ -21,7 +20,6 @@ import { ChangeWeekNumberEditor } from './change-week-number-editor';
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...jest.requireActual('@devexpress/dx-scheduler-core'),
   handleStartDateChange: jest.fn(),
-  handleWeekNumberChange: jest.fn(),
   handleToDayOfWeekChange: jest.fn(),
   getRecurrenceOptions: jest.fn(),
   changeRecurrenceOptions: jest.fn(),
@@ -40,8 +38,8 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     formatDate: jest.fn(),
     getMessage: jest.fn(),
     appointmentData: {
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: new Date(2020, 9, 16, 0, 0),
+      endDate: new Date(2020, 9, 16, 1, 0),
       rRule: 'RRULE:FREQ=YEARLY',
     },
     firstDayOfWeek: 0,
@@ -108,13 +106,16 @@ describe('AppointmentForm recurrence RadioGroup', () => {
           },
         });
 
-      changeWeekNumberEditor.at(0).prop('changeDayOfWeek')(3);
+      handleToDayOfWeekChange.mockImplementationOnce(() => 'New rrule');
+      const dayOfWeek = 3;
+
+      changeWeekNumberEditor.at(0).prop('changeDayOfWeek')(dayOfWeek);
+
+      expect(handleToDayOfWeekChange)
+        .toHaveBeenCalledWith(2, dayOfWeek, getRecurrenceOptions());
       expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
-          rRule: {
-            ...getRecurrenceOptions(),
-            byweekday: 2,
-          },
+          rRule: 'New rrule',
         });
     });
 
@@ -140,12 +141,16 @@ describe('AppointmentForm recurrence RadioGroup', () => {
         );
     });
 
-    it('should call handleWeekNumberChange with correct data', () => {
+    it('should change week number correctly', () => {
       const tree = shallow((<YearlyEditor {...defaultProps} />));
 
       tree.find(ChangeWeekNumberEditor).at(0).prop('changeWeekNumber')('abc');
-      expect(handleWeekNumberChange)
-        .toHaveBeenCalledWith('abc', getRecurrenceOptions());
+      expect(handleToDayOfWeekChange)
+        .toHaveBeenCalledWith(
+          'abc',
+          defaultProps.appointmentData.startDate.getDay(),
+          getRecurrenceOptions(),
+        );
     });
 
     it('should call handleStartDateChange with correct data', () => {

@@ -10,7 +10,7 @@ import { DayView } from './day-view';
 import { BasicView } from './basic-view';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  ...jest.requireActual('@devexpress/dx-scheduler-core'),
   computed: jest.fn(),
   viewCellsData: jest.fn(),
   startViewDate: jest.fn(),

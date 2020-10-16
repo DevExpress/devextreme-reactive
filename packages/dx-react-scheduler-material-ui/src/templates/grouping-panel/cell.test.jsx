@@ -4,7 +4,7 @@ import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '@devex
 import { Cell } from './cell';
 
 jest.mock('@material-ui/core/styles', () => ({
-  ...require.requireActual('@material-ui/core/styles'),
+  ...jest.requireActual('@material-ui/core/styles'),
   makeStyles: jest.fn(() => () => ({
     cell: 'cell',
     text: 'text',

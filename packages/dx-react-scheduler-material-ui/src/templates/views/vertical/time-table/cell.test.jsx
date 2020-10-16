@@ -4,7 +4,7 @@ import { VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import { Cell } from './cell';
 
 jest.mock('@material-ui/core/styles', () => ({
-  ...require.requireActual('@material-ui/core/styles'),
+  ...jest.requireActual('@material-ui/core/styles'),
   makeStyles: jest.fn(() => () => ({
     cell: 'cell',
     shadedCell: 'shadedCell',

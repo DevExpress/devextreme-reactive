@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import { WeeklyRecurrenceSelector } from './weekly-recurrence-selector';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  ...jest.requireActual('@devexpress/dx-scheduler-core'),
   handleStartDateChange: jest.fn(),
   getRecurrenceOptions: jest.fn(),
   changeRecurrenceOptions: jest.fn(),

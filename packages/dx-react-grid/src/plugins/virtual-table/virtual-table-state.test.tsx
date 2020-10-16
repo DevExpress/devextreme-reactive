@@ -15,7 +15,7 @@ import {
 import { VirtualTableState } from './virtual-table-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  ...require.requireActual('@devexpress/dx-grid-core'),
+  ...jest.requireActual('@devexpress/dx-grid-core'),
   virtualRowsWithCache: jest.fn(),
   plainRows: jest.fn(),
   loadedRowsStart: jest.fn(),
@@ -332,7 +332,7 @@ describe('VirtualTableState', () => {
       beforeEach(() => {
         jest.useFakeTimers();
 
-        const actual = require.requireActual('@devexpress/dx-grid-core');
+        const actual = jest.requireActual('@devexpress/dx-grid-core');
         getRequestMeta.mockImplementation((...args) => (
           actual.getRequestMeta(...args)
         ));

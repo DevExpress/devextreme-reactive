@@ -9,13 +9,13 @@ import { sliceAppointmentsByDays } from '../all-day-panel/helpers';
 import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '../../constants';
 
 jest.mock('./helpers', () => ({
-  ...require.requireActual('./helpers'),
+  ...jest.requireActual('./helpers'),
   expandGroupedAppointment: jest.fn(),
   groupAppointments: jest.fn(),
 }));
 
 jest.mock('../all-day-panel/helpers', () => ({
-  ...require.requireActual('../all-day-panel/helpers'),
+  ...jest.requireActual('../all-day-panel/helpers'),
   sliceAppointmentsByDays: jest.fn(),
 }));
 

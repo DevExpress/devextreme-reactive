@@ -4,7 +4,7 @@ import { VerticalAppointment } from './vertical-appointment';
 import { addCommaAndSpaceToString } from '../utils';
 
 jest.mock('../utils', () => ({
-  ...require.requireActual('../utils'),
+  ...jest.requireActual('../utils'),
   addCommaAndSpaceToString: jest.fn(),
 }));
 

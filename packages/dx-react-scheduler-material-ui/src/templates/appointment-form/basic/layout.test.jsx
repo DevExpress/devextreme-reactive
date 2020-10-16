@@ -4,7 +4,7 @@ import { TITLE, TITLE_TEXT_EDITOR, MULTILINE_TEXT_EDITOR } from '@devexpress/dx-
 import { Layout } from './layout';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  ...jest.requireActual('@devexpress/dx-scheduler-core'),
   getRecurrenceOptions: jest.fn(),
   getFrequencyString: jest.fn(),
 }));

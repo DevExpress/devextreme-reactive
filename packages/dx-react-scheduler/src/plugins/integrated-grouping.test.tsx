@@ -10,7 +10,7 @@ import {
 import { IntegratedGrouping } from './integrated-grouping';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  ...jest.requireActual('@devexpress/dx-scheduler-core'),
   getGroupsFromResources: jest.fn(),
   expandViewCellsDataWithGroups: jest.fn(),
   sortFilteredResources: jest.fn(),

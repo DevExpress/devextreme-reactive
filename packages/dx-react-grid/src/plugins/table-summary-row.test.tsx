@@ -17,12 +17,12 @@ import {
 import { TableSummaryRow } from './table-summary-row';
 
 jest.mock('@devexpress/dx-core', () => ({
-  ...require.requireActual('@devexpress/dx-core'),
+  ...jest.requireActual('@devexpress/dx-core'),
   getMessagesFormatter: jest.fn(),
 }));
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  ...require.requireActual('@devexpress/dx-grid-core'),
+  ...jest.requireActual('@devexpress/dx-grid-core'),
   tableRowsWithSummaries: jest.fn(),
   tableRowsWithTotalSummaries: jest.fn(),
   isTotalSummaryTableCell: jest.fn(),

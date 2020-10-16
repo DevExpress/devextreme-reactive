@@ -15,7 +15,7 @@ import {
 import { EditingState } from './editing-state';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  ...jest.requireActual('@devexpress/dx-scheduler-core'),
   startEditAppointment: jest.fn(),
   stopEditAppointment: jest.fn(),
   deleteAppointment: jest.fn(),

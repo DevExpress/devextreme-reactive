@@ -115,62 +115,19 @@ describe('AppointmentForm recurrence', () => {
       ));
 
       const buttons = tree.find(Button);
-      buttons.at(0).simulate('click');
-      expect(onFieldChange)
-        .toHaveBeenLastCalledWith({
-          rRule: {
-            ...getRecurrenceOptions(),
-            byweekday: [RRULE_DAYS_OF_WEEK[6]],
-          },
-        });
-      buttons.at(1).simulate('click', 0);
-      expect(onFieldChange)
-        .toHaveBeenLastCalledWith({
-          rRule: {
-            ...getRecurrenceOptions(),
-            byweekday: [RRULE_DAYS_OF_WEEK[0]],
-          },
-        });
-      buttons.at(2).simulate('click', 0);
-      expect(onFieldChange)
-        .toHaveBeenLastCalledWith({
-          rRule: {
-            ...getRecurrenceOptions(),
-            byweekday: [RRULE_DAYS_OF_WEEK[1]],
-          },
-        });
-      buttons.at(3).simulate('click', 0);
-      expect(onFieldChange)
-        .toHaveBeenLastCalledWith({
-          rRule: {
-            ...getRecurrenceOptions(),
-            byweekday: [RRULE_DAYS_OF_WEEK[2]],
-          },
-        });
-      buttons.at(4).simulate('click', 0);
-      expect(onFieldChange)
-        .toHaveBeenLastCalledWith({
-          rRule: {
-            ...getRecurrenceOptions(),
-            byweekday: [RRULE_DAYS_OF_WEEK[3]],
-          },
-        });
-      buttons.at(5).simulate('click', 0);
-      expect(onFieldChange)
-        .toHaveBeenLastCalledWith({
-          rRule: {
-            ...getRecurrenceOptions(),
-            byweekday: [RRULE_DAYS_OF_WEEK[4]],
-          },
-        });
-      buttons.at(6).simulate('click', 0);
-      expect(onFieldChange)
-        .toHaveBeenLastCalledWith({
-          rRule: {
-            ...getRecurrenceOptions(),
-            byweekday: [RRULE_DAYS_OF_WEEK[5]],
-          },
-        });
+
+      buttons.forEach((button, index) => {
+        const validIndex = index === 0 ? 6 : index - 1;
+
+        button.simulate('click');
+        expect(onFieldChange)
+          .toHaveBeenLastCalledWith({
+            rRule: {
+              ...getRecurrenceOptions(),
+              byweekday: [RRULE_DAYS_OF_WEEK[validIndex]],
+            },
+          });
+      });
     });
 
     it('should call formatDate function with proper parameter', () => {

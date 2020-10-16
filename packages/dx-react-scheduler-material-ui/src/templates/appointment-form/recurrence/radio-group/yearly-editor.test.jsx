@@ -3,7 +3,6 @@ import { createShallow } from '@material-ui/core/test-utils';
 import {
   handleStartDateChange,
   handleToDayOfWeekChange,
-  handleWeekNumberChange,
   getRecurrenceOptions,
   changeRecurrenceOptions,
   getDaysOfWeek,
@@ -18,7 +17,6 @@ import { ChangeWeekNumberEditor } from './change-week-number-editor';
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...require.requireActual('@devexpress/dx-scheduler-core'),
   handleStartDateChange: jest.fn(),
-  handleWeekNumberChange: jest.fn(),
   handleToDayOfWeekChange: jest.fn(),
   getRecurrenceOptions: jest.fn(),
   changeRecurrenceOptions: jest.fn(),
@@ -135,14 +133,6 @@ describe('AppointmentForm recurrence RadioGroup', () => {
           defaultProps.appointmentData.startDate.getDay(),
           getRecurrenceOptions(),
         );
-    });
-
-    it('should call handleWeekNumberChange with correct data', () => {
-      const tree = shallow((<YearlyEditor {...defaultProps} />));
-
-      tree.find(ChangeWeekNumberEditor).at(0).prop('changeWeekNumber')('abc');
-      expect(handleWeekNumberChange)
-        .toHaveBeenCalledWith('abc', getRecurrenceOptions());
     });
 
     it('should call handleStartDateChange with correct data', () => {

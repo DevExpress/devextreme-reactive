@@ -2,7 +2,7 @@
 import { RRule } from 'rrule';
 import {
   callActionIfExists, isAllDayCell, changeRecurrenceFrequency, getRecurrenceOptions,
-  changeRecurrenceOptions, handleStartDateChange, handleToDayOfWeekChange, handleWeekNumberChange,
+  changeRecurrenceOptions, handleStartDateChange, handleToDayOfWeekChange,
   getRRuleFrequency, getFrequencyString, handleChangeFrequency, getRadioGroupDisplayData,
   handleWeekDaysChange, getDaysOfWeekArray, getDaysOfWeekDates, checkMultipleResourceFields,
 } from './helpers';
@@ -173,20 +173,6 @@ describe('AppointmentForm helpers', () => {
         .toMatchObject({
           bymonthday: [-1, -2, -3, -4, -5, -6, -7],
           byweekday: [4],
-        });
-    });
-  });
-
-  describe('#handleWeekNumberChange', () => {
-    const options = {};
-    it('should rule with bymonthday and byweekday depending on props', () => {
-      expect(getRecurrenceOptions(handleWeekNumberChange(2, options)))
-        .toMatchObject({
-          bymonthday: [15, 16, 17, 18, 19, 20, 21],
-        });
-      expect(getRecurrenceOptions(handleWeekNumberChange(4, options)))
-        .toMatchObject({
-          bymonthday: [-1, -2, -3, -4, -5, -6, -7],
         });
     });
   });

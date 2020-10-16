@@ -8,7 +8,6 @@ import Grid from '@material-ui/core/Grid';
 import {
   NUMBER_EDITOR,
   handleToDayOfWeekChange,
-  handleWeekNumberChange,
   getRecurrenceOptions,
   changeRecurrenceOptions,
   handleStartDateChange,
@@ -86,17 +85,15 @@ const MonthlyEditorBase = ({
   );
 
   const changeWeekNumber = React.useCallback(nextWeekNumber => onFieldChange({
-    rRule: handleWeekNumberChange(nextWeekNumber, recurrenceOptions),
-  }), [recurrenceOptions]);
+    rRule: handleToDayOfWeekChange(nextWeekNumber, dayOfWeek, recurrenceOptions),
+  }), [recurrenceOptions, dayOfWeek]);
   const weekNumbers = React.useMemo(
     () => getWeekNumberLabels(getMessage), [getMessage],
   );
 
   const changeDayOfWeek = React.useCallback(nextDayOfWeek => onFieldChange({
-    rRule: changeRecurrenceOptions({
-      ...recurrenceOptions, byweekday: nextDayOfWeek > 0 ? nextDayOfWeek - 1 : 6,
-    }),
-  }), [recurrenceOptions]);
+    rRule: handleToDayOfWeekChange(weekNumber, nextDayOfWeek, recurrenceOptions),
+  }), [recurrenceOptions, weekNumber]);
   const daysOfWeek = React.useMemo(
     () => getDaysOfWeek(formatDate, firstDayOfWeek), [formatDate, firstDayOfWeek],
   );

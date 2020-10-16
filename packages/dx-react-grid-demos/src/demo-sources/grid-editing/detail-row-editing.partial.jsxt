@@ -11,8 +11,10 @@ import {
   TableHeaderRow,
   TableRowDetail,
 } from '@devexpress/dx-react-grid-<%&themeName%>';
+// eslint-disable-next-line
+import moment from 'moment';
 <%&imports%>
-import { employees, states } from '../employees';
+import { employees, states } from '../../../demo-data/employees';
 
 const getRowId = row => row.ID;
 

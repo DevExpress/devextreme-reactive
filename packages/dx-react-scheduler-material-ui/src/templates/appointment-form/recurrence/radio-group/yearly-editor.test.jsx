@@ -9,6 +9,9 @@ import {
   getMonths,
   getWeekNumberLabels,
   getMonthsWithOf,
+  DAYS_OF_WEEK,
+  RRULE_REPEAT_TYPES,
+  MONTHS,
 } from '@devexpress/dx-scheduler-core';
 import { YearlyEditor } from './yealy-editor';
 import { ChangeMonthEditor } from './change-month-editor';
@@ -184,6 +187,73 @@ describe('AppointmentForm recurrence RadioGroup', () => {
 
       expect(getMonthsWithOf)
         .toHaveBeenCalled();
+    });
+
+    describe('ReadOnly property', () => {
+      it('should pass "readOnly" property to children', () => {
+        const tree = shallow((<YearlyEditor {...defaultProps} readOnly />));
+
+        const changeMonthEditor = tree.find(ChangeMonthEditor);
+
+        expect(changeMonthEditor.prop('readOnly'))
+          .toBe(true);
+
+        const changeWeekNumberEditor = tree.find(ChangeWeekNumberEditor);
+        expect(changeWeekNumberEditor.prop('readOnly'))
+          .toBe(true);
+      });
+
+      it('should pass correct "readOnlyEditors" property to children when "readOnly" is false', () => {
+        getRecurrenceOptions.mockImplementationOnce(() => ({
+          freq: RRULE_REPEAT_TYPES.YEARLY,
+          bymonthday: 21,
+          bymonth: MONTHS.AUGUST,
+        }));
+
+        const tree = shallow((<YearlyEditor {...defaultProps} readOnly={false} />));
+
+        const changeMonthEditor = tree.find(ChangeMonthEditor);
+
+        expect(changeMonthEditor.prop('readOnlyEditors'))
+          .toBe(false);
+
+        const changeWeekNumberEditor = tree.find(ChangeWeekNumberEditor);
+        expect(changeWeekNumberEditor.prop('readOnlyEditors'))
+          .toBe(true);
+      });
+
+      it('should pass correct "readOnlyEditors" property to children when "readOnly" is true', () => {
+        const tree = shallow((<YearlyEditor {...defaultProps} readOnly />));
+
+        const changeMonthEditor = tree.find(ChangeMonthEditor);
+
+        expect(changeMonthEditor.prop('readOnlyEditors'))
+          .toBe(true);
+
+        const changeWeekNumberEditor = tree.find(ChangeWeekNumberEditor);
+        expect(changeWeekNumberEditor.prop('readOnlyEditors'))
+          .toBe(true);
+      });
+
+      it('should pass correct "readOnlyEditors" property to children when the second part is selected', () => {
+        getRecurrenceOptions.mockImplementationOnce(() => ({
+          freq: RRULE_REPEAT_TYPES.YEARLY,
+          interval: 1,
+          byweekday: DAYS_OF_WEEK.MONDAY,
+          bymonth: 3,
+        }));
+
+        const tree = shallow((<YearlyEditor {...defaultProps} readOnly={false} />));
+
+        const changeMonthEditor = tree.find(ChangeMonthEditor);
+
+        expect(changeMonthEditor.prop('readOnlyEditors'))
+          .toBe(true);
+
+        const changeWeekNumberEditor = tree.find(ChangeWeekNumberEditor);
+        expect(changeWeekNumberEditor.prop('readOnlyEditors'))
+          .toBe(false);
+      });
     });
   });
 });

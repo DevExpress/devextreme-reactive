@@ -4,11 +4,11 @@ import { MainLayout } from './main-layout';
 import { scrollingStrategy } from '../utils';
 
 jest.mock('../utils', () => ({
-  ...require.requireActual('../utils'),
+  ...jest.requireActual('../utils'),
   scrollingStrategy: jest.fn(),
 }));
 jest.mock('@material-ui/core/styles', () => ({
-  ...require.requireActual('@material-ui/core/styles'),
+  ...jest.requireActual('@material-ui/core/styles'),
   makeStyles: jest.fn(() => () => ({
     container: 'container',
     stickyElement: 'stickyElement',

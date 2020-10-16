@@ -4,7 +4,7 @@ import { getRowFromGroups } from '@devexpress/dx-scheduler-core';
 import { HorizontalLayout } from './horizontal-layout';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  ...jest.requireActual('@devexpress/dx-scheduler-core'),
   getRowFromGroups: jest.fn(),
 }));
 

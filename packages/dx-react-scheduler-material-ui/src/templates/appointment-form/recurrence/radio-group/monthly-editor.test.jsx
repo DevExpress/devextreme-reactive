@@ -13,7 +13,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { MonthlyEditor } from './monthly-editor';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  ...jest.requireActual('@devexpress/dx-scheduler-core'),
   handleStartDateChange: jest.fn(),
   handleWeekNumberChange: jest.fn(),
   handleToDayOfWeekChange: jest.fn(),

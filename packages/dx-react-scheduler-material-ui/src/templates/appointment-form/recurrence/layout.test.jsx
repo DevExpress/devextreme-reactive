@@ -8,7 +8,7 @@ import { Monthly } from './layouts/monthly';
 import { Yearly } from './layouts/yearly';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  ...jest.requireActual('@devexpress/dx-scheduler-core'),
   getRecurrenceOptions: jest.fn(),
 }));
 jest.mock('./layouts/daily', () => ({

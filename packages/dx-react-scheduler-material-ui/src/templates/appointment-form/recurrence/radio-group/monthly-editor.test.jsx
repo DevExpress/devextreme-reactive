@@ -99,13 +99,16 @@ describe('AppointmentForm recurrence RadioGroup', () => {
 
       const selectComponents = tree.find(defaultProps.selectComponent);
 
-      selectComponents.at(1).prop('onValueChange')(2);
+      handleToDayOfWeekChange.mockImplementationOnce(() => 'New rrule');
+      const dayOfWeek = 2;
+
+      selectComponents.at(1).prop('onValueChange')(dayOfWeek);
+
+      expect(handleToDayOfWeekChange)
+        .toHaveBeenCalledWith(2, dayOfWeek, getRecurrenceOptions());
       expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
-          rRule: {
-            ...getRecurrenceOptions(),
-            byweekday: 1,
-          },
+          rRule: 'New rrule',
         });
     });
 

@@ -16,7 +16,7 @@ import {
 import { EditingState } from './editing-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  ...require.requireActual('@devexpress/dx-grid-core'),
+  ...jest.requireActual('@devexpress/dx-grid-core'),
   startEditRows: jest.fn(),
   stopEditRows: jest.fn(),
   startEditCells: jest.fn(),

@@ -10,7 +10,7 @@ import {
 } from '../../types';
 import {
   DEFAULT_RULE_OBJECT, RRULE_REPEAT_TYPES, REPEAT_TYPES, LAST_WEEK,
-  DAYS_OF_WEEK_ARRAY, DAYS_IN_WEEK, DAYS_OF_WEEK_DATES,
+  DAYS_OF_WEEK_ARRAY, DAYS_IN_WEEK, DAYS_OF_WEEK_DATES, RRULE_DAYS_OF_WEEK,
 } from './constants';
 import { getCountDependingOnRecurrenceType } from './utils';
 
@@ -24,7 +24,7 @@ export const isAllDayCell: PureComputed<
   [StartDate, EndDate], boolean
 > = (
   startDate, endDate,
-  ) => moment(endDate as EndDate).diff(moment(startDate as StartDate), 'days') >= 1;
+) => moment(endDate as EndDate).diff(moment(startDate as StartDate), 'days') >= 1;
 
 export const changeRecurrenceFrequency: PureComputed<
   [string, number, Date], string
@@ -75,15 +75,7 @@ export const changeRecurrenceFrequency: PureComputed<
 
 export const getRecurrenceOptions: PureComputed<
   [string | undefined], Partial<Options> | null
-> = (rule) => {
-  if (!rule) return null;
-  const options = RRule.parseString(rule);
-  if (options.byweekday) {
-    const byweekday = (options.byweekday as Weekday[]).map(weekDay => weekDay.weekday);
-    options.byweekday = byweekday;
-  }
-  return options;
-};
+> = rule => !rule ? null : RRule.parseString(rule);
 
 export const changeRecurrenceOptions = (options: Partial<Options>) => {
   return options ? (new RRule({ ...options })).toString() : undefined;
@@ -100,13 +92,18 @@ export const handleStartDateChange = (nextStartDay: number, options: Partial<Opt
 export const handleToDayOfWeekChange = (
   weekNumber: number, dayOfWeek: number, options: Partial<Options>,
 ) => {
-  const nextOptions = setByMonthDay(weekNumber, options);
-  nextOptions.byweekday = dayOfWeek > 0 ? dayOfWeek - 1 : 6;
+  const validDayOfWeek = dayOfWeek > 0 ? dayOfWeek - 1 : 6;
+  const validWeekNumber = weekNumber === 4 ? -1 : weekNumber + 1;
+  const rruleDayOfWeek = RRULE_DAYS_OF_WEEK[validDayOfWeek];
+
+  const nextOptions = {
+    ...options,
+    byweekday: [rruleDayOfWeek.nth(validWeekNumber)],
+    bymonthday: undefined,
+  };
+
   return changeRecurrenceOptions(nextOptions);
 };
-
-export const handleWeekNumberChange = (nextWeekNumber: number, options: Partial<Options>) =>
-  changeRecurrenceOptions(setByMonthDay(nextWeekNumber, options));
 
 export const getRRuleFrequency: PureComputed<
   [string], number
@@ -122,30 +119,11 @@ export const getFrequencyString: PureComputed<
   return REPEAT_TYPES.NEVER;
 };
 
-const setByMonthDay = (nextWeekNumber: number, options: Partial<Options>) => {
-  if (nextWeekNumber < 4) {
-    return {
-      ...options,
-      bymonthday: [
-        nextWeekNumber * 7 + 1,
-        nextWeekNumber * 7 + 2,
-        nextWeekNumber * 7 + 3,
-        nextWeekNumber * 7 + 4,
-        nextWeekNumber * 7 + 5,
-        nextWeekNumber * 7 + 6,
-        nextWeekNumber * 7 + 7,
-      ],
-    };
-  }
-  return { ...options, bymonthday: [-1, -2, -3, -4, -5, -6, -7] };
-};
-
 export const getRadioGroupDisplayData: PureComputed<
-[Partial<Options>, number, number, number, string, string], RadioGroupDisplayData
+  [Partial<Options>, number, number, number, string, string], RadioGroupDisplayData
 > = (
   recurrenceOptions, stateDayOfWeek, stateWeekNumber, stateDayNumber, firstOption, secondOption,
 ) => {
-  let weekNumber = LAST_WEEK;
   if (recurrenceOptions.bymonthday && !Array.isArray(recurrenceOptions.bymonthday)) {
     return {
       dayNumberTextField: (recurrenceOptions.bymonthday as number),
@@ -162,11 +140,11 @@ export const getRadioGroupDisplayData: PureComputed<
       dayNumberTextField: stateDayNumber,
     };
   }
-  const dayOfWeek = recurrenceOptions.byweekday[0] < 6
-    ? recurrenceOptions.byweekday[0] + 1 : 0;
-  if (recurrenceOptions.bymonthday && (recurrenceOptions.bymonthday[0] > 0)) {
-    weekNumber = Math.trunc(recurrenceOptions.bymonthday[0] / 7);
-  }
+  const dayOfWeek = recurrenceOptions.byweekday[0].weekday < 6
+    ? recurrenceOptions.byweekday[0].weekday + 1 : 0;
+  const weekNumber = recurrenceOptions.byweekday[0].n === -1
+    ? LAST_WEEK
+    : recurrenceOptions.byweekday[0].n - 1;
 
   return {
     dayOfWeek,
@@ -193,14 +171,16 @@ export const handleChangeFrequency: PureComputed<
 
 export const handleWeekDaysChange: PureComputed<
 [Partial<Options>, number], void
-> = (options, weekDay) => {
+> = (options, currentWeekDay) => {
   const byWeekDay = options.byweekday || [];
-  const index = (byWeekDay as number[]).indexOf(weekDay);
-  const isAdded = !(index > -1);
+  const index = (byWeekDay as Weekday[]).findIndex(({ weekday }) => weekday === currentWeekDay);
+
+  const isAdded = index === -1;
+
   if (isAdded) {
-    (byWeekDay as number[]).push(weekDay);
+    (byWeekDay as Weekday[]).push(RRULE_DAYS_OF_WEEK[currentWeekDay]);
   } else if (index > -1) {
-    (byWeekDay as number[]).splice(index, 1);
+    (byWeekDay as Weekday[]).splice(index, 1);
   }
   if (byWeekDay === 0) return { ...options, byweekday: undefined };
   return { ...options, byweekday: byWeekDay };

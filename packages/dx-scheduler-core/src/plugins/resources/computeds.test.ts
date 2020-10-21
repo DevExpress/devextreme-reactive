@@ -4,7 +4,7 @@ import {
 import { getAppointmentResources } from './helpers';
 
 jest.mock('./helpers', () => ({
-  ...require.requireActual('./helpers'),
+  ...jest.requireActual('./helpers'),
   getAppointmentResources: jest.fn(),
 }));
 

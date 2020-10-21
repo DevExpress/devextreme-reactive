@@ -11,7 +11,7 @@ import { BasicView } from './basic-view';
 
 // tslint:disable: max-line-length
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  ...jest.requireActual('@devexpress/dx-scheduler-core'),
   viewCellsData: jest.fn(),
   computed: jest.fn(),
   startViewDate: jest.fn(),

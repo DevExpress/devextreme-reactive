@@ -48,6 +48,10 @@ row? | any | A row.
 value | any | Specifies the editor value.
 onValueChange | (newValue: any) => void | Handles value changes.
 disabled | boolean | **true** if users should not be able to edit the value, **false** otherwise.
+autoFocus | boolean | **true** if editor should be focused on render, **false** otherwise.
+onBlur | () => void | Switches editor from editing state on editor lose focus (uses for Inline Cell Editing).
+onFocus | () => void | Apply action on editor get focus (uses for Inline Cell Editing).
+onKeyDown | () => void | Handles key press: Enter to save changes, or Esc to discard the changes and deactivate the cell editor (uses for Inline Cell Editing).
 
 ## Plugin Developer Reference
 

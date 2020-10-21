@@ -274,7 +274,7 @@ describe('VirtualTableState helpers', () => {
         });
 
         // T937684
-        it('should caclulate correct if infinite scrolling and end of calculated interval is not a multiple of the page size', () => {
+        it('should calculate correctly if infinite scrolling is enabled and the end of the calculated interval is not divisible by the page size', () => {
           expect(calculateRequestedRange(
             createVirtualRows(createInterval(0, 100)),
             createInterval(0, 137),

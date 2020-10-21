@@ -26,12 +26,12 @@ export namespace DataTypeProvider {
     disabled: boolean;
     /** "true" if editor should be focused on render, "false" otherwise. */
     autoFocus: boolean;
-    /** Switches editor from editing state on editor lose focus (uses for Inline Cell Editing) */
+    /** Switches the editor from edit state when it loses focus (used for Inline Cell Editing). */
     onBlur: () => void;
-    /** Apply action on editor get focus (uses for Inline Cell Editing) */
+    /** Applies an action when the editor gets focus (used for Inline Cell Editing). */
     onFocus: () => void;
     // tslint:disable-next-line: max-line-length
-    /** Handles key press: Enter to save changes, or Esc to discard the changes and deactivate the cell editor (uses for Inline Cell Editing) */
+    /** Handles key press: Enter saves changes, Esc discards them and switches the editor from edit state (used for Inline Cell Editing). */
     onKeyDown: () => void;
   }
 }

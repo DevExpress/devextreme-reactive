@@ -104,7 +104,7 @@ export const viewCellsData: ViewCellsDataFn = (
     currentDate, firstDayOfWeek!, startDayHour, endDayHour, cellDuration, excludedDays,
   );
   const currentTime = moment(currTime as SchedulerDateTime);
-  const result = times.reduce((cellsAcc, time) => {
+  return times.reduce((cellsAcc, time) => {
     const start = moment(time.start);
     const end = moment(time.end);
     const rowCells = days.reduce((rowAcc, day) => {
@@ -117,8 +117,6 @@ export const viewCellsData: ViewCellsDataFn = (
     cellsAcc.push(rowCells);
     return cellsAcc;
   }, [] as ViewCell[][]);
-
-  return result;
 };
 
 export const allDayCells: PureComputed<

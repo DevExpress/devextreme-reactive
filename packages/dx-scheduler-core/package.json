@@ -29,9 +29,8 @@
     "dist"
   ],
   "scripts": {
-    "test": "yarn test:local && yarn test:pasific",
-    "test:local": "jest",
-    "test:pasific": "TZ=US/Pacific jest",
+    "test": "jest",
+    "test:pacific": "TZ=US/Pacific jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "build": "rollup -c rollup.config.js",

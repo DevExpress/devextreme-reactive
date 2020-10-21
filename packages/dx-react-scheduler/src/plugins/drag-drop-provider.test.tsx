@@ -14,7 +14,7 @@ import { DragDropProvider } from './drag-drop-provider';
 
 // tslint:disable: max-line-length
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  ...jest.requireActual('@devexpress/dx-scheduler-core'),
   calculateDraftAppointments: jest.fn(),
   autoScroll: jest.fn(),
   cellIndex: jest.fn(),

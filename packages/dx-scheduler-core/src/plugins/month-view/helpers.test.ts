@@ -9,7 +9,7 @@ import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '../../
 import { addDateToKey } from '../../utils';
 
 jest.mock('../../utils', () => ({
-  ...require.requireActual('../../utils'),
+  ...jest.requireActual('../../utils'),
   addDateToKey: jest.fn(),
 }));
 

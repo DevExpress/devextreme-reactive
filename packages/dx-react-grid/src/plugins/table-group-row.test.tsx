@@ -23,7 +23,7 @@ import { flattenGroupInlineSummaries } from '../components/summary/group-summari
 import { TableColumnsWithGrouping } from './internal';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  ...require.requireActual('@devexpress/dx-grid-core'),
+  ...jest.requireActual('@devexpress/dx-grid-core'),
   tableColumnsWithGrouping: jest.fn(),
   tableRowsWithGrouping: jest.fn(),
   tableGroupCellColSpanGetter: jest.fn(),
@@ -38,7 +38,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 }));
 
 jest.mock('@devexpress/dx-core', () => ({
-  ...require.requireActual('@devexpress/dx-core'),
+  ...jest.requireActual('@devexpress/dx-core'),
   getMessagesFormatter: jest.fn().mockReturnValue(() => {}),
 }));
 

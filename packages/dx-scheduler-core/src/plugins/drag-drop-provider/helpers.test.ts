@@ -9,7 +9,7 @@ import {
 } from '../common/calculate-rects';
 
 jest.mock('../common/calculate-rects', () => ({
-  ...require.requireActual('../common/calculate-rects'),
+  ...jest.requireActual('../common/calculate-rects'),
   allDayRects: jest.fn(),
   verticalTimeTableRects: jest.fn(),
   horizontalTimeTableRects: jest.fn(),

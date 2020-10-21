@@ -3,13 +3,13 @@ import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import {
   getRecurrenceOptions, SUNDAY_DATE, WEEK_DAY_OPTIONS, MONDAY_DATE,
   TUESDAY_DATE, THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE, WEDNESDAY_DATE,
-  changeRecurrenceOptions,
+  changeRecurrenceOptions, RRULE_DAYS_OF_WEEK,
 } from '@devexpress/dx-scheduler-core';
 import Button from '@material-ui/core/Button';
 import { WeeklyRecurrenceSelector } from './weekly-recurrence-selector';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  ...jest.requireActual('@devexpress/dx-scheduler-core'),
   handleStartDateChange: jest.fn(),
   getRecurrenceOptions: jest.fn(),
   changeRecurrenceOptions: jest.fn(),
@@ -74,7 +74,15 @@ describe('AppointmentForm recurrence', () => {
 
     it('should render selected buttons correctly', () => {
       getRecurrenceOptions.mockImplementation(() => ({
-        byweekday: [0, 1, 2, 3, 4, 5, 6],
+        byweekday: [
+          RRULE_DAYS_OF_WEEK[0],
+          RRULE_DAYS_OF_WEEK[1],
+          RRULE_DAYS_OF_WEEK[2],
+          RRULE_DAYS_OF_WEEK[3],
+          RRULE_DAYS_OF_WEEK[4],
+          RRULE_DAYS_OF_WEEK[5],
+          RRULE_DAYS_OF_WEEK[6],
+        ],
       }));
       const tree = shallow((
         <WeeklyRecurrenceSelector {...defaultProps} />
@@ -107,62 +115,19 @@ describe('AppointmentForm recurrence', () => {
       ));
 
       const buttons = tree.find(Button);
-      buttons.at(0).simulate('click');
-      expect(onFieldChange)
-        .toHaveBeenLastCalledWith({
-          rRule: {
-            ...getRecurrenceOptions(),
-            byweekday: [6],
-          },
-        });
-      buttons.at(1).simulate('click', 0);
-      expect(onFieldChange)
-        .toHaveBeenLastCalledWith({
-          rRule: {
-            ...getRecurrenceOptions(),
-            byweekday: [0],
-          },
-        });
-      buttons.at(2).simulate('click', 0);
-      expect(onFieldChange)
-        .toHaveBeenLastCalledWith({
-          rRule: {
-            ...getRecurrenceOptions(),
-            byweekday: [1],
-          },
-        });
-      buttons.at(3).simulate('click', 0);
-      expect(onFieldChange)
-        .toHaveBeenLastCalledWith({
-          rRule: {
-            ...getRecurrenceOptions(),
-            byweekday: [2],
-          },
-        });
-      buttons.at(4).simulate('click', 0);
-      expect(onFieldChange)
-        .toHaveBeenLastCalledWith({
-          rRule: {
-            ...getRecurrenceOptions(),
-            byweekday: [3],
-          },
-        });
-      buttons.at(5).simulate('click', 0);
-      expect(onFieldChange)
-        .toHaveBeenLastCalledWith({
-          rRule: {
-            ...getRecurrenceOptions(),
-            byweekday: [4],
-          },
-        });
-      buttons.at(6).simulate('click', 0);
-      expect(onFieldChange)
-        .toHaveBeenLastCalledWith({
-          rRule: {
-            ...getRecurrenceOptions(),
-            byweekday: [5],
-          },
-        });
+
+      buttons.forEach((button, index) => {
+        const validIndex = index === 0 ? 6 : index - 1;
+
+        button.simulate('click');
+        expect(onFieldChange)
+          .toHaveBeenLastCalledWith({
+            rRule: {
+              ...getRecurrenceOptions(),
+              byweekday: [RRULE_DAYS_OF_WEEK[validIndex]],
+            },
+          });
+      });
     });
 
     it('should call formatDate function with proper parameter', () => {

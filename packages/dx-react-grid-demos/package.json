@@ -26,6 +26,7 @@
     "lint:fix": "yarn escheck -- --fix && yarn tscheck -- --fix"
   },
   "dependencies": {
+    "moment": "^2.29.1",
     "@date-io/moment": "=1.3.13",
     "@devexpress/dx-chart-core": "2.7.2",
     "@devexpress/dx-demo-shell": "2.7.2",

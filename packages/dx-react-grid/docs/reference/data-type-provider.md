@@ -47,7 +47,11 @@ column | [Column](grid.md#column) | A column object.
 row? | any | A row.
 value | any | Specifies the editor value.
 onValueChange | (newValue: any) => void | Handles value changes.
-disabled | boolean | **true** if users should not be able to edit the value, **false** otherwise.
+disabled | boolean | **true** if users should not be able to edit the value; otherwise, **false**.
+autoFocus | boolean | **true** if the editor should be focused on render; otherwise, **false**.
+onBlur | () => void | Calls the `EditingState` plugin's `commitChanges` handler and switches the editor from edit state when it loses focus (used for Inline Cell Editing).
+onFocus | () => void | Applies an action when the editor gets focus (used for Inline Cell Editing).
+onKeyDown | () => void | Handles key press: Enter saves changes, Esc discards them and switches the editor from edit state (used for Inline Cell Editing).
 
 ## Plugin Developer Reference
 

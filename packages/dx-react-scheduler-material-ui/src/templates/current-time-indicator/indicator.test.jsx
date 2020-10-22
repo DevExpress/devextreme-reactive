@@ -3,7 +3,7 @@ import { createShallow } from '@material-ui/core/test-utils';
 import { Indicator } from './indicator';
 
 jest.mock('@material-ui/core/styles', () => ({
-  ...require.requireActual('@material-ui/core/styles'),
+  ...jest.requireActual('@material-ui/core/styles'),
   makeStyles: jest.fn(() => () => ({
     line: 'line',
     circle: 'circle',

@@ -10,7 +10,7 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import { GroupingState } from './grouping-state';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  ...jest.requireActual('@devexpress/dx-scheduler-core'),
   toggleExpandedGroups: jest.fn(),
 }));
 

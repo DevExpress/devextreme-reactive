@@ -235,7 +235,7 @@ describe('VirtualTableState helpers', () => {
 
     describe('reference index', () => {
       // tslint:disable-next-line: max-line-length
-      it('should caclulate correct if reference index less than the start of a new interval', () => {
+      it('should caclulate correct if reference index more than the start of a calculated interval and less than half of page', () => {
         const loadedInterval = createInterval(100, 400);
         const newInterval = createInterval(200, 500);
         const virtualRows = createVirtualRows(loadedInterval);
@@ -246,7 +246,7 @@ describe('VirtualTableState helpers', () => {
       });
 
       // tslint:disable-next-line: max-line-length
-      it('should caclulate correct if reference index more than the start of a new interval and less than half of page', () => {
+      it('should caclulate correct if reference index less than the start of a calculated interval', () => {
         const loadedInterval = createInterval(100, 400);
         const newInterval = createInterval(200, 500);
         const virtualRows = createVirtualRows(loadedInterval);
@@ -257,7 +257,7 @@ describe('VirtualTableState helpers', () => {
       });
 
       // tslint:disable-next-line: max-line-length
-      describe('reference index more than the start of a new interval and less than half of page', () => {
+      describe('reference index less than the start of a calculated interval and less than half of page', () => {
         const loadedInterval = createInterval(100, 400);
         const newInterval = createInterval(200, 500);
         const virtualRows = createVirtualRows(loadedInterval);
@@ -271,6 +271,17 @@ describe('VirtualTableState helpers', () => {
         it('should caclulate correct if non-infinite scrolling', () => {
           expect(calculateRequestedRange(virtualRows, newInterval, pageSize, referenceIndex, false))
           .toEqual({ start: 400, end: 500 });
+        });
+
+        // T937684
+        it('should calculate correctly if infinite scrolling is enabled and the end of the calculated interval is not divisible by the page size', () => {
+          expect(calculateRequestedRange(
+            createVirtualRows(createInterval(0, 100)),
+            createInterval(0, 137),
+            50,
+            51,
+            true))
+          .toEqual({ start: 50, end: 100 });
         });
       });
     });

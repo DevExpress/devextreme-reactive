@@ -3,7 +3,6 @@ import { createShallow, getClasses, createMount } from '@material-ui/core/test-u
 import {
   handleStartDateChange,
   handleToDayOfWeekChange,
-  handleWeekNumberChange,
   getRecurrenceOptions,
   changeRecurrenceOptions,
   getDaysOfWeek,
@@ -13,9 +12,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { MonthlyEditor } from './monthly-editor';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  ...jest.requireActual('@devexpress/dx-scheduler-core'),
   handleStartDateChange: jest.fn(),
-  handleWeekNumberChange: jest.fn(),
   handleToDayOfWeekChange: jest.fn(),
   getRecurrenceOptions: jest.fn(),
   changeRecurrenceOptions: jest.fn(),
@@ -33,8 +31,8 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     onFieldChange: jest.fn(),
     getMessage: jest.fn(),
     appointmentData: {
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: new Date(2020, 9, 16, 0, 0),
+      endDate: new Date(2020, 9, 16, 1, 0),
       rRule: 'RRULE:FREQ=YEARLY',
     },
     formatDate: jest.fn(),
@@ -53,6 +51,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
   });
   afterEach(() => {
     mount.cleanUp();
+    jest.resetAllMocks();
   });
   describe('MonthlyEditor', () => {
     it('should pass rest props to the root element', () => {
@@ -101,13 +100,16 @@ describe('AppointmentForm recurrence RadioGroup', () => {
 
       const selectComponents = tree.find(defaultProps.selectComponent);
 
-      selectComponents.at(1).prop('onValueChange')(2);
+      handleToDayOfWeekChange.mockImplementationOnce(() => 'New rrule');
+      const dayOfWeek = 2;
+
+      selectComponents.at(1).prop('onValueChange')(dayOfWeek);
+
+      expect(handleToDayOfWeekChange)
+        .toHaveBeenCalledWith(2, dayOfWeek, getRecurrenceOptions());
       expect(defaultProps.onFieldChange)
         .toHaveBeenCalledWith({
-          rRule: {
-            ...getRecurrenceOptions(),
-            byweekday: 1,
-          },
+          rRule: 'New rrule',
         });
     });
 
@@ -135,14 +137,18 @@ describe('AppointmentForm recurrence RadioGroup', () => {
         );
     });
 
-    it('should call handleWeekNumberChange with correct data', () => {
+    it('should change week number correctly', () => {
       const tree = mount((
         <MonthlyEditor {...defaultProps} />
       ));
 
       tree.find(defaultProps.selectComponent).at(0).prop('onValueChange')('abc');
-      expect(handleWeekNumberChange)
-        .toHaveBeenCalledWith('abc', getRecurrenceOptions());
+      expect(handleToDayOfWeekChange)
+        .toHaveBeenCalledWith(
+          'abc',
+          defaultProps.appointmentData.startDate.getDay(),
+          getRecurrenceOptions(),
+        );
     });
 
     it('should call handleStartDateChange with correct data', () => {

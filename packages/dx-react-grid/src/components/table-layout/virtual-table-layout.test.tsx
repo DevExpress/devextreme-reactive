@@ -14,7 +14,7 @@ jest.mock('react-dom', () => ({
   findDOMNode: jest.fn(),
 }));
 jest.mock('@devexpress/dx-grid-core', () => {
-  const actual = require.requireActual('@devexpress/dx-grid-core');
+  const actual = jest.requireActual('@devexpress/dx-grid-core');
   jest.spyOn(actual, 'getCollapsedGrids');
   jest.spyOn(actual, 'getColumnWidthGetter');
   return actual;
@@ -23,9 +23,9 @@ jest.mock('./column-group', () => ({
   ColumnGroup: () => null,
 }));
 jest.mock('@devexpress/dx-react-core', () => {
-  const { Component } = require.requireActual('react');
+  const { Component } = jest.requireActual('react');
   return {
-    ...require.requireActual('@devexpress/dx-react-core'),
+    ...jest.requireActual('@devexpress/dx-react-core'),
     Sizer: class extends Component {
       componentDidMount() {
         // eslint-disable-next-line react/prop-types
@@ -195,7 +195,7 @@ describe('VirtualTableLayout', () => {
 
     getCollapsedGrids
       .mockImplementationOnce((args) => {
-        const result = require.requireActual('@devexpress/dx-grid-core').getCollapsedGrids(args);
+        const result = jest.requireActual('@devexpress/dx-grid-core').getCollapsedGrids(args);
 
         expect(result.bodyGrid.columns.find(col => col.key === 'col_flex').width)
           .toBe(null);
@@ -384,7 +384,7 @@ describe('VirtualTableLayout', () => {
           expect(getRowHeight(rows[1]))
             .toEqual(10);
 
-          return require.requireActual('@devexpress/dx-grid-core').getCollapsedGrids(args);
+          return jest.requireActual('@devexpress/dx-grid-core').getCollapsedGrids(args);
         });
 
       mount((

@@ -26,7 +26,8 @@ export namespace DataTypeProvider {
     disabled: boolean;
     /** "true" if editor should be focused on render, "false" otherwise. */
     autoFocus: boolean;
-    /** Switches the editor from edit state when it loses focus (used for Inline Cell Editing). */
+    // tslint:disable-next-line: max-line-length
+    /** Calls the `EditingState` plugin's `commitChanges` handler and switches the editor from edit state when it loses focus (used for Inline Cell Editing). */
     onBlur: () => void;
     /** Applies an action when the editor gets focus (used for Inline Cell Editing). */
     onFocus: () => void;

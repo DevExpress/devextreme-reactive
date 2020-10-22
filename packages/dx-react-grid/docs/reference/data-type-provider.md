@@ -49,7 +49,7 @@ value | any | Specifies the editor value.
 onValueChange | (newValue: any) => void | Handles value changes.
 disabled | boolean | **true** if users should not be able to edit the value, **false** otherwise.
 autoFocus | boolean | **true** if editor should be focused on render, **false** otherwise.
-onBlur | () => void | Switches the editor from edit state when it loses focus (used for Inline Cell Editing).
+onBlur | () => void | Calls the `EditingState` plugin's `commitChanges` handler and switches the editor from edit state when it loses focus (used for Inline Cell Editing).
 onFocus | () => void | Applies an action when the editor gets focus (used for Inline Cell Editing).
 onKeyDown | () => void | Handles key press: Enter saves changes, Esc discards them and switches the editor from edit state (used for Inline Cell Editing).
 

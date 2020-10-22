@@ -401,7 +401,9 @@ export interface GroupingPanelItem {
 export interface GroupingPanelProps {
     containerComponent: React.ComponentType<GroupingPanel.ContainerProps>;
     emptyMessageComponent: React.ComponentType<GroupingPanel.EmptyMessageProps>;
-    itemComponent: React.ComponentType<GroupingPanel.ItemProps>;
+    itemComponent: React.ComponentType<GroupingPanel.ItemProps & {
+        ref: React.Ref<unknown>;
+    }>;
     messages?: GroupingPanel.LocalizationMessages;
     showGroupingControls?: boolean;
     showSortingControls?: boolean;

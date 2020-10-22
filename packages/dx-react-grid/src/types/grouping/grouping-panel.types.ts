@@ -78,7 +78,7 @@ export interface GroupingPanelProps {
   /** A component that renders a group panel container. */
   containerComponent: React.ComponentType<GroupingPanel.ContainerProps>;
   /** A component that renders a group panel item. */
-  itemComponent: React.ComponentType<GroupingPanel.ItemProps>;
+  itemComponent: React.ComponentType<GroupingPanel.ItemProps & { ref: React.Ref<unknown>}>;
   /** A component that renders an empty group panel message. */
   emptyMessageComponent: React.ComponentType<GroupingPanel.EmptyMessageProps>;
   /** An object that specifies the localization messages. */

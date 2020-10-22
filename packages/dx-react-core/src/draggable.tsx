@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { unstable_batchedUpdates, findDOMNode } from 'react-dom';
+import { unstable_batchedUpdates } from 'react-dom';
 import { TouchStrategy } from './draggable/touch-strategy';
 import { MouseStrategy } from './draggable/mouse-strategy';
 import { getSharedEventEmitter } from './draggable/shared-events';
@@ -17,6 +17,7 @@ type DraggableProps = {
 export class Draggable extends React.Component<DraggableProps> {
   mouseStrategy: MouseStrategy;
   touchStrategy: TouchStrategy;
+  elementRef: React.RefObject<Element>;
 
   constructor(props, context) {
     super(props, context);
@@ -46,6 +47,7 @@ export class Draggable extends React.Component<DraggableProps> {
 
     this.mouseStrategy = new MouseStrategy(delegate);
     this.touchStrategy = new TouchStrategy(delegate);
+    this.elementRef = React.createRef();
 
     this.mouseDownListener = this.mouseDownListener.bind(this);
     this.touchStartListener = this.touchStartListener.bind(this);
@@ -71,7 +73,7 @@ export class Draggable extends React.Component<DraggableProps> {
   }
 
   setupNodeSubscription() {
-    const node = findDOMNode(this) as Element;
+    const node = this.elementRef.current;
     if (!node) return;
     node.removeEventListener('mousedown', this.mouseDownListener);
     node.removeEventListener('touchstart', this.touchStartListener);
@@ -119,6 +121,12 @@ export class Draggable extends React.Component<DraggableProps> {
 
   render() {
     const { children } = this.props;
-    return children;
+    return React.isValidElement(children)
+      ? React.cloneElement(children, { ref: this.elementRef })
+      : React.createElement(
+          'div',
+          { ref: this.elementRef, style: { display: 'contents' } },
+          children,
+        );
   }
 }

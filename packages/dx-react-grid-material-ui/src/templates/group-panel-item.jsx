@@ -39,14 +39,14 @@ const label = (showSortingControls, sortingEnabled, sortingDirection, column, ho
     : title;
 };
 
-const GroupPanelItemBase = ({
+const GroupPanelItemBase = React.forwardRef(({
   item: { column, draft },
   onGroup, showGroupingControls,
   showSortingControls, sortingDirection, onSort,
   sortingEnabled, groupingEnabled,
   classes, className,
   ...restProps
-}) => {
+}, ref) => {
   const [hovered, setHovered] = React.useState(false);
   const chipClassNames = classNames({
     [classes.button]: true,
@@ -69,6 +69,7 @@ const GroupPanelItemBase = ({
 
   return (
     <Chip
+      ref={ref}
       label={label(showSortingControls, sortingEnabled, sortingDirection, column, hovered)}
       className={chipClassNames}
       {...showGroupingControls
@@ -84,7 +85,7 @@ const GroupPanelItemBase = ({
       {...restProps}
     />
   );
-};
+});
 
 GroupPanelItemBase.propTypes = {
   item: PropTypes.shape({

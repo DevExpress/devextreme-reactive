@@ -8,13 +8,13 @@ const SPACE_KEY_CODE = 32;
 
 const isActionKey = keyCode => keyCode === ENTER_KEY_CODE || keyCode === SPACE_KEY_CODE;
 
-export const GroupPanelItem = ({
+export const GroupPanelItem = React.forwardRef(({
   item: { column, draft },
   onGroup, showGroupingControls, groupingEnabled,
   showSortingControls, sortingDirection, onSort, sortingEnabled,
   className, style,
   ...restProps
-}) => {
+}, ref) => {
   const handleSortingChange = (e) => {
     const isActionKeyDown = isActionKey(e.keyCode);
     const isMouseClick = e.keyCode === undefined;
@@ -47,6 +47,7 @@ export const GroupPanelItem = ({
   }));
   return (
     <div
+      ref={ref}
       className={classNames('btn-group', className)}
       style={{
         marginRight: '5px',
@@ -91,7 +92,7 @@ export const GroupPanelItem = ({
       )}
     </div>
   );
-};
+});
 
 GroupPanelItem.propTypes = {
   item: PropTypes.shape({

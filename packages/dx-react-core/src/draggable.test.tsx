@@ -370,4 +370,50 @@ describe('Draggable', () => {
         .toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('children', () => {
+    it('should pass ref to children', () => {
+      const instance = React.createRef() as React.RefObject<Draggable>;
+      const ChildComponent = React.forwardRef(
+        (_, refProp: React.Ref<any>) => <div ref={refProp}>Child Node</div>,
+      );
+
+      tree = mount(
+        <Draggable ref={instance}>
+          <ChildComponent />
+        </Draggable>,
+        { attachTo: rootNode },
+      );
+      const child = tree.find(ChildComponent);
+      const node = child?.getDOMNode();
+
+      expect(child.exists()).toBe(true);
+      expect(instance.current?.elementRef.current).toEqual(node);
+    });
+
+    describe('should wrap into div if children is not ReactElement', () => {
+      ['Child String', 0, null].forEach((children) => {
+        it(`children is "${typeof children}"`, () => {
+          const instance = React.createRef() as React.RefObject<Draggable>;
+
+          tree = mount(
+            <Draggable ref={instance}>
+              {children}
+            </Draggable>,
+            { attachTo: rootNode },
+          );
+          const child = tree.childAt(0);
+          const node = child?.getDOMNode();
+
+          expect(child.exists()).toBe(true);
+          expect(child.type()).toBe('div');
+          expect(child.props()).toEqual({
+            style: { display: 'contents' },
+            children,
+          });
+          expect(instance.current?.elementRef.current).toEqual(node);
+        });
+      });
+    });
+  });
 });

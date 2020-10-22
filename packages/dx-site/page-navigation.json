@@ -92,6 +92,10 @@
             "path": "/react/grid/docs/guides/editing/"
           },
           {
+            "title": "Editing in Popup",
+            "path": "/react/grid/docs/guides/editing-in-popup/"
+          },
+          {
             "title": "Detail Row",
             "path": "/react/grid/docs/guides/detail-row/"
           },

@@ -84,8 +84,8 @@ const DetailContent = ({ row, ...rest }) => {
               label="Birth Date"
               margin="normal"
               value={row.BirthDate}
-              onChange={dateIoValue => processValueChange({
-                target: { name: 'BirthDate', value: dateIoValue.toDate() },
+              onChange={(_, value) => processValueChange({
+                target: { name: 'BirthDate', value: value.toDate() },
               })}
               format="MM/DD/YYYY"
             />

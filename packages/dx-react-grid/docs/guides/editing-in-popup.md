@@ -1,4 +1,4 @@
-# React Grid - Popup Editing
+# React Grid - Editing in Popup
 
 This guide describes how to implement row editing via popup form. Before you start, review the following help topics:
 
@@ -9,15 +9,15 @@ The implementation consists of the following steps:
 
 1. [Add a Custom Plugin](#add-a-custom-plugin)
 1. [Handle Data Edits](#handle-data-edits)
-1. [Add the Edit Form](#add-the-edit-form)
+1. [Add the Popup Edit Form](#add-the-popup-edit-form)
 
 ## Add a Custom Plugin
 
-For information on custom plugins, refer to the following help topic: [Custom Plugin Development](./custom-plugin-development.md). In the following code, the plugin is called `EditPopupPlugin`, but you can rename it if required.
+For information on custom plugins, refer to the following help topic: [Custom Plugin Development](./custom-plugin-development.md). In the following code, the plugin is called `PopupEditing`, but you can rename it if required.
 
 ```jsx
-const EditPopupPlugin = () => (
-  <Plugin name="editPopup">
+const PopupEditing = () => (
+  <Plugin name="PopupEditing">
   </Plugin>
 )
 ```
@@ -26,16 +26,16 @@ const EditPopupPlugin = () => (
 
 To handle data edits, add the following functions:
 
-- `processValueChange` - processes user input
-- `applyChanges` - applies data edits
-- `cancelChanges` - cancels data edits
+- `processValueChange` - processes user input;
+- `applyChanges` - applies data edits;
+- `cancelChanges` - cancels data edits.
 
-The popup form will use these functions later. Implement the functions in the `editPopup` template and pass them to the Popup component along with the row being edited.
+The popup form will use these functions later. Implement the functions in the `popupEditing` template and pass them to the Popup component along with the row being edited.
 
 ```jsx
-const EditPopupPlugin = ({ popupComponent: Popup }) => (
-  <Plugin name="popupEditing">
-    <Template name="editPopup">
+const PopupEditing = ({ popupComponent: Popup }) => (
+  <Plugin name="PopupEditing">
+    <Template name="popupEditing">
       <TemplateConnector>
         {(
           {
@@ -149,3 +149,7 @@ const EditDialog = ({
   </Dialog>
 );
 ```
+
+You can view the demo and the full code below:
+
+.embedded-demo({ "path": "grid-editing/popup-editing", "showThemeSelector": true })

@@ -1,4 +1,5 @@
-import * as Immutable from 'seamless-immutable';
+// tslint:disable-next-line: import-name
+import Immutable from 'seamless-immutable';
 import { GRID_TREE_NODE_TYPE } from './constants';
 import {
   customTreeRowsWithMeta,

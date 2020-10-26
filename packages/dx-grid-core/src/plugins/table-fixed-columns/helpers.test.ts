@@ -1,4 +1,5 @@
-import * as Immutable from 'seamless-immutable';
+// tslint:disable-next-line: import-name
+import Immutable from 'seamless-immutable';
 import { TABLE_DATA_TYPE } from '../table/constants';
 import { FIXED_COLUMN_LEFT_SIDE, FIXED_COLUMN_RIGHT_SIDE, TABLE_FIXED_TYPE } from './constants';
 import { getFixedColumnKeys, isFixedTableRow, calculateFixedColumnProps } from './helpers';

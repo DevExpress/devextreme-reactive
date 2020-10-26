@@ -1,5 +1,6 @@
 import { changeColumnFilter } from './reducers';
-import * as Immutable from 'seamless-immutable';
+// tslint:disable-next-line: import-name
+import Immutable from 'seamless-immutable';
 
 describe('FilteringState reducers', () => {
   describe('#changeColumnFilter', () => {

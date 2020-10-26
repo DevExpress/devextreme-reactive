@@ -48,7 +48,7 @@ const PopupEditing = ({ popupComponent: Popup }) => (
           },
           {
             changeRow, changeAddedRow, commitChangedRows, commitAddedRows,
-            stopEditRows, cancelAddedRows,
+            stopEditRows, cancelAddedRows, cancelChangedRows,
           },
         ) => {
           const isNew = addedRows.length > 0;
@@ -88,6 +88,7 @@ const PopupEditing = ({ popupComponent: Popup }) => (
               cancelAddedRows({ rowIds });
             } else {
               stopEditRows({ rowIds });
+              cancelChangedRows({ rowIds });
             }
           };
 

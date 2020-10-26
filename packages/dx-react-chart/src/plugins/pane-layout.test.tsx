@@ -62,7 +62,7 @@ describe('PaneLayout', () => {
     ));
 
     expect(tree.find('UpdatableSizer').props()).toEqual({
-      containerComponent: expect.any(Function),
+      containerComponent: expect.any(Object),
       onSizeChange: expect.any(Function),
       children: expect.anything(),
     });

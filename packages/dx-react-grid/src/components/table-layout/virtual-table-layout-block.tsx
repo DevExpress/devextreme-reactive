@@ -32,7 +32,7 @@ export class VirtualTableLayoutBlock extends React.PureComponent<VirtualTableLay
         ref={ref => blockRefsHandler(name, ref)}
       >
         <Table
-          tableRef={tableRef}
+          ref={tableRef}
           style={{
             minWidth: `${minWidth}px`,
             ...marginBottom ? { marginBottom: `${marginBottom}px` } : null,

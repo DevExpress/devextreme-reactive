@@ -1,7 +1,6 @@
 /* globals document:true */
 
 import * as React from 'react';
-import { findDOMNode } from 'react-dom';
 import { RefHolder } from './ref-holder';
 import { SizerProps, Size } from './types';
 
@@ -115,7 +114,7 @@ export class Sizer extends React.PureComponent<SizerProps> {
   }
 
   createListeners() {
-    this.rootNode = findDOMNode(this.rootRef.current!) as HTMLElement;
+    this.rootNode = this.rootRef.current!.rootElement as HTMLElement;
 
     this.triggersRoot = document.createElement('div');
     Object.assign(this.triggersRoot.style, styles.triggersRoot);

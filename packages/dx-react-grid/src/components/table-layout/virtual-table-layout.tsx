@@ -15,9 +15,11 @@ const defaultProps = {
   headerRows: [],
   footerRows: [],
   headComponent: () => null,
-  headTableComponent: () => null,
+  headTableComponent: React.forwardRef(() => null),
   footerComponent: () => null,
-  footerTableComponent: () => null,
+  footerTableComponent: React.forwardRef(() => null),
+  tableComponent: React.forwardRef(() => null),
+  containerComponent: React.forwardRef(() => null),
 };
 type PropsType = VirtualTableLayoutProps & typeof defaultProps;
 

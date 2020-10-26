@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`VirtualTableLayout should render correct layout 1`] = `
-<containerComponent
+<ForwardRef
   onScroll={[Function]}
   style={
     Object {
@@ -113,7 +113,12 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
     name="header"
     rowComponent={[Function]}
     rowRefsHandler={[Function]}
-    tableComponent={[Function]}
+    tableComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "render": [Function],
+      }
+    }
     tableRef={
       Object {
         "current": null,
@@ -641,7 +646,12 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
     name="body"
     rowComponent={[Function]}
     rowRefsHandler={[Function]}
-    tableComponent={[Function]}
+    tableComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "render": [Function],
+      }
+    }
     tableRef={
       Object {
         "current": null,
@@ -752,12 +762,17 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
     name="footer"
     rowComponent={[Function]}
     rowRefsHandler={[Function]}
-    tableComponent={[Function]}
+    tableComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "render": [Function],
+      }
+    }
     tableRef={
       Object {
         "current": null,
       }
     }
   />
-</containerComponent>
+</ForwardRef>
 `;

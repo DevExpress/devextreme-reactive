@@ -5,8 +5,8 @@ import { Table as TableComponent } from '../templates/table';
 import { VirtualTableLayout as VirtualLayout } from '../templates/virtual-table-layout';
 import { TableSkeletonCell as SkeletonCell } from '../templates/table-skeleton-cell';
 
-const FixedHeader = props => <TableComponent use="head" {...props} />;
-const FixedFooter = props => <TableComponent use="foot" {...props} />;
+const FixedHeader = React.forwardRef((props, ref) => <TableComponent use="head" ref={ref} {...props} />);
+const FixedFooter = React.forwardRef((props, ref) => <TableComponent use="foot" ref={ref} {...props} />);
 
 export const VirtualTable = makeVirtualTable(Table, {
   VirtualLayout,

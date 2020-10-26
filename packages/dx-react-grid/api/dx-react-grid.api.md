@@ -735,9 +735,9 @@ export namespace Table {
   // (undocumented)
   export interface InnerTableProps {
     // (undocumented)
-    style: React.CSSProperties;
+    ref?: React.RefObject<HTMLTableElement>;
     // (undocumented)
-    tableRef?: React.RefObject<HTMLTableElement>;
+    style: React.CSSProperties;
   }
   // (undocumented)
   export interface LocalizationMessages {

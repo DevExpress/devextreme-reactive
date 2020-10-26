@@ -69,7 +69,7 @@ export namespace Table {
   }
 
   export interface InnerTableProps {
-    tableRef?: React.RefObject<HTMLTableElement>;
+    ref?: React.RefObject<HTMLTableElement>;
     style: React.CSSProperties;
   }
 }

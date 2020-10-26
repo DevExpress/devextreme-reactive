@@ -6,7 +6,9 @@ describe('Sizer', () => {
   const divProto = (document.createElement('div') as HTMLDivElement).constructor.prototype;
   let addEventListener: any;
   let removeEventListener: any;
-  const Container = () => <div className="container" />;
+  const Container = React.forwardRef((props, ref: React.Ref<HTMLDivElement>) => (
+    <div ref={ref} className="container" />
+  ));
 
   beforeAll(() => {
     addEventListener = divProto.addEventListener;

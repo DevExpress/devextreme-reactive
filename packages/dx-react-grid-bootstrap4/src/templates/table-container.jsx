@@ -2,10 +2,11 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 
-export const TableContainer = ({
+export const TableContainer = React.forwardRef(({
   children, className, style, ...restProps
-}) => (
+}, ref) => (
   <div
+    ref={ref}
     className={classNames('table-responsive dx-g-bs4-table-container', className)}
     style={{
       msOverflowStyle: 'auto',
@@ -17,7 +18,7 @@ export const TableContainer = ({
       {children}
     </div>
   </div>
-);
+));
 
 TableContainer.propTypes = {
   children: PropTypes.oneOfType([

@@ -13,10 +13,11 @@ const styles = {
   },
 };
 
-const TableContainerBase = ({
+const TableContainerBase = React.forwardRef(({
   children, classes, className, ...restProps
-}) => (
+}, ref) => (
   <div
+    ref={ref}
     className={classNames(classes.root, className)}
     {...restProps}
   >
@@ -24,7 +25,7 @@ const TableContainerBase = ({
       {children}
     </div>
   </div>
-);
+));
 
 TableContainerBase.propTypes = {
   children: PropTypes.node.isRequired,

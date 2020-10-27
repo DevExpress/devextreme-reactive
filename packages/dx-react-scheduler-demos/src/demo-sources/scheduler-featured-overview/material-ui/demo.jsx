@@ -273,12 +273,14 @@ const CellBase = React.memo(({
 
 const TimeTableCell = withStyles(styles, { name: 'Cell' })(CellBase);
 
-const Appointment = withStyles(styles, { name: 'Appointment' })(({ classes, ...restProps }) => (
+const AppointmentBase = React.forwardRef(({ classes, ...restProps }, ref) => (
   <Appointments.Appointment
     {...restProps}
     className={classes.appointment}
+    ref={ref}
   />
 ));
+const Appointment = withStyles(styles, { name: 'Appointment' })(AppointmentBase);
 
 const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({ classes, ...restProps }) => (
   <Appointments.AppointmentContent {...restProps} className={classes.apptContent} />

@@ -19,8 +19,8 @@
     "@devexpress/dx-react-chart-demos": "2.7.2",
     "@devexpress/dx-react-grid-demos": "2.7.2",
     "@devexpress/dx-react-scheduler-demos": "2.7.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {

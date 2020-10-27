@@ -75,6 +75,10 @@ class VirtualTableLayoutWrapper extends React.Component<any, any> {
   }
 }
 
+const getBoundingClientRect = () => ({
+  height: 50,
+});
+
 const defaultProps = {
   columns: [
     { key: 'a', column: { name: 'a' } },
@@ -114,10 +118,16 @@ const defaultProps = {
   containerComponent: React.forwardRef((props, ref) => <div {...props} />),
   headTableComponent: React.forwardRef((props, ref) => <table {...props} />),
   footerTableComponent: React.forwardRef((props, ref) => <table {...props} />),
-  tableComponent: React.forwardRef((props, ref) => <table {...props} />),
+  tableComponent: React.forwardRef((props, ref) => {
+    (ref as any).current = { getBoundingClientRect };
+    return <table {...props} />;
+  }),
   headComponent: props => <thead {...props} />,
   bodyComponent: props => <tbody {...props} />,
-  rowComponent: () => null,
+  rowComponent: React.forwardRef((_, ref) => {
+    (ref as any)({ getBoundingClientRect });
+    return null;
+  }),
   cellComponent: () => null,
   getCellColSpan: () => 1,
   tableRef: React.createRef<HTMLTableElement>(),
@@ -427,12 +437,6 @@ describe('VirtualTableLayout', () => {
         { key: 11 },
         { key: 12 },
       ];
-
-      findDOMNode.mockImplementation(() => ({
-        getBoundingClientRect: () => ({
-          height: 50,
-        }),
-      }));
 
       const tree = mount((
         <VirtualTableLayout

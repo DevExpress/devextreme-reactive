@@ -22,7 +22,9 @@ import {
 import { TableProps, Table as TableNS, TableLayoutProps } from '../types';
 import { TableColumnsWithDataRowsGetter } from './internal/table-columns-getter';
 
-const RowPlaceholder = props => <TemplatePlaceholder name="tableRow" params={props} />;
+const RowPlaceholder = React.forwardRef((props, ref) => (
+  <TemplatePlaceholder name="tableRow" params={{ ...props, ref }} />
+));
 const CellPlaceholder = props => <TemplatePlaceholder name="tableCell" params={props} />;
 
 const tableHeaderRows = [];

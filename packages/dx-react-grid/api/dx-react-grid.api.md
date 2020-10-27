@@ -730,6 +730,8 @@ export namespace Table {
     value: any;
   }
   export interface DataRowProps extends Table.RowProps {
+    // (undocumented)
+    ref?: React.Ref<React.ReactInstance>;
     row: any;
   }
   // (undocumented)

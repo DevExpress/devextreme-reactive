@@ -277,7 +277,7 @@ describe('Table', () => {
         {pluginDepsToComponents(defaultDeps)}
         <Table
           {...defaultProps}
-          layoutComponent={({ rowComponent }) => rowComponent(tableRowArgs)}
+          layoutComponent={({ rowComponent: Row }) => <Row {...tableRowArgs} />}
         />
       </PluginHost>
     ));
@@ -303,7 +303,7 @@ describe('Table', () => {
         {pluginDepsToComponents(defaultDeps)}
         <Table
           {...defaultProps}
-          layoutComponent={({ rowComponent }) => rowComponent(tableRowArgs)}
+          layoutComponent={({ rowComponent: Row }) => <Row {...tableRowArgs} />}
         />
       </PluginHost>
     ));

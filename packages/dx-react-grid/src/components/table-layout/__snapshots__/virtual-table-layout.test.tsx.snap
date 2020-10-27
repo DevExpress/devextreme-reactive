@@ -111,7 +111,12 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
     minColumnWidth={120}
     minWidth={400}
     name="header"
-    rowComponent={[Function]}
+    rowComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "render": [Function],
+      }
+    }
     rowRefsHandler={[Function]}
     tableComponent={
       Object {
@@ -644,7 +649,12 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
     minColumnWidth={120}
     minWidth={400}
     name="body"
-    rowComponent={[Function]}
+    rowComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "render": [Function],
+      }
+    }
     rowRefsHandler={[Function]}
     tableComponent={
       Object {
@@ -760,7 +770,12 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
     minColumnWidth={120}
     minWidth={400}
     name="footer"
-    rowComponent={[Function]}
+    rowComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "render": [Function],
+      }
+    }
     rowRefsHandler={[Function]}
     tableComponent={
       Object {

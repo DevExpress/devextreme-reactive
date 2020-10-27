@@ -61,6 +61,7 @@ export namespace Table {
     row: any;
     /** @internal */
     style?: object;
+    ref?: React.Ref<React.ReactInstance>;
   }
 
   export interface LocalizationMessages {

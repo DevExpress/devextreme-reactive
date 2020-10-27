@@ -21,4 +21,5 @@ export type RowLayoutProps = RowLayoutCommonProps & {
 export type VirtualRowLayoutProps = VirtualRowLayoutCommonProps & {
   row: any,
   cells: CollapsedCell[],
+  ref?: React.Ref<React.ReactInstance>;
 };

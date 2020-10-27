@@ -136,13 +136,13 @@ const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({
       </div>
       <div className={classes.textContainer}>
         <div className={classes.time}>
-          {formatDate(data.startDate.toString(), { hour: 'numeric', minute: 'numeric' })}
+          {formatDate(data.startDate, { hour: 'numeric', minute: 'numeric' })}
         </div>
         <div className={classes.time}>
           {' - '}
         </div>
         <div className={classes.time}>
-          {formatDate(data.endDate.toString(), { hour: 'numeric', minute: 'numeric' })}
+          {formatDate(data.endDate, { hour: 'numeric', minute: 'numeric' })}
         </div>
       </div>
     </div>

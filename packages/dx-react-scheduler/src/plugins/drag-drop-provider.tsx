@@ -14,6 +14,15 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { DragDropProviderProps, DragDropProviderState } from '../types';
 
+const PlaceholderWithRef = React.forwardRef<any, any>(({ params }, ref) => (
+  <TemplatePlaceholder
+    params={{
+      ...params,
+      appointmentRef: ref,
+    }}
+  />
+));
+
 const renderAppointmentItems = (items, Wrapper, draftData) => (
   items.length > 0 ? (
     <Wrapper>
@@ -316,7 +325,7 @@ class DragDropProviderBase extends React.PureComponent<
               {payload && params.data.id === payload.id ? (
                 <SourceAppointment {...params} />
               ) : (
-                <TemplatePlaceholder params={{ ...params, draggable: true }} />
+                <PlaceholderWithRef params={{ ...params, draggable: true }} />
               )}
             </DragSource>
           )}

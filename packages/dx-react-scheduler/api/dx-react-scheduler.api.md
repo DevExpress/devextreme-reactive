@@ -352,7 +352,9 @@ export namespace Appointments {
 
 // @public (undocumented)
 export interface AppointmentsProps {
-    appointmentComponent: React.ComponentType<Appointments.AppointmentProps>;
+    appointmentComponent: React.ComponentType<Appointments.AppointmentProps & {
+        ref: React.Ref<unknown>;
+    }>;
     appointmentContentComponent: React.ComponentType<Appointments.AppointmentContentProps>;
     containerComponent: React.ComponentType<Appointments.ContainerProps>;
     recurringIconComponent: React.ComponentType<object>;
@@ -716,9 +718,13 @@ export interface DragDropProviderProps {
     allowResize?: (appointmentData: AppointmentModel) => boolean;
     containerComponent: React.ComponentType<DragDropProvider.ContainerProps>;
     draftAppointmentComponent: React.ComponentType<DragDropProvider.DraftAppointmentProps>;
-    resizeComponent: React.ComponentType<DragDropProvider.ResizeProps>;
+    resizeComponent: React.ComponentType<DragDropProvider.ResizeProps & {
+        ref?: React.Ref<unknown>;
+    }>;
     scrollSpeed?: number;
-    sourceAppointmentComponent: React.ComponentType<DragDropProvider.SourceAppointmentProps>;
+    sourceAppointmentComponent: React.ComponentType<DragDropProvider.SourceAppointmentProps & {
+        ref: React.Ref<unknown>;
+    }>;
 }
 
 // @public (undocumented)

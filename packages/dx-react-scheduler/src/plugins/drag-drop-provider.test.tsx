@@ -148,6 +148,12 @@ describe('DragDropProvider', () => {
       expect(tree.find(TemplatePlaceholder).findWhere(element => element.prop('params') && element.prop('params').draggable === true).exists())
         .toBeTruthy();
     });
+    it('should pass a ref to an appointment', () => {
+      const tree = renderPlugin();
+
+      expect(tree.find(TemplatePlaceholder).findWhere(element => element.prop('params') && element.prop('params').appointmentRef).exists())
+        .toBe(true);
+    });
     it('should not wrap appointment into drag source by allowDrag', () => {
       const allowDrag = jest.fn();
       allowDrag.mockImplementation(() => false);

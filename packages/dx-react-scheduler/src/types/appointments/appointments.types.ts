@@ -62,7 +62,9 @@ export interface AppointmentsProps {
   /** @internal */
   placeAppointmentsNextToEachOther?: boolean;
   /** A component that renders an appointment. */
-  appointmentComponent: React.ComponentType<Appointments.AppointmentProps>;
+  appointmentComponent: React.ComponentType<
+    Appointments.AppointmentProps  & { ref?: React.Ref<unknown>}
+  >;
   /** A component that renders the appointment content. */
   appointmentContentComponent: React.ComponentType<Appointments.AppointmentContentProps>;
   /** A component that renders an element which indicates the appointment is divided. */

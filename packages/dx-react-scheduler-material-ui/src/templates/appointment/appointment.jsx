@@ -46,7 +46,7 @@ const useStyles = makeStyles(({ palette, typography, spacing }) => ({
   },
 }));
 
-export const Appointment = ({
+export const Appointment = React.forwardRef(({
   className,
   children,
   data,
@@ -55,7 +55,7 @@ export const Appointment = ({
   isShaded,
   resources,
   ...restProps
-}) => {
+}, ref) => {
   const onClick = handleClick
     ? {
       onClick: ({ target }) => {
@@ -67,6 +67,7 @@ export const Appointment = ({
   const clickable = onClick || restProps.onDoubleClick || draggable;
   return (
     <div
+      ref={ref}
       className={classNames({
         [classes.appointment]: true,
         [classes.clickableAppointment]: clickable,
@@ -78,7 +79,7 @@ export const Appointment = ({
       {children}
     </div>
   );
-};
+});
 
 Appointment.propTypes = {
   children: PropTypes.node.isRequired,

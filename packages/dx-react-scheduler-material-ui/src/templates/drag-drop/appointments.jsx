@@ -60,15 +60,16 @@ DraftAppointment.defaultProps = {
   isShaded: false,
 };
 
-export const SourceAppointment = ({ className, ...restProps }) => {
+export const SourceAppointment = React.forwardRef(({ className, ...restProps }, ref) => {
   const classes = sourceStyles();
   return (
     <AppointmentBase
+      ref={ref}
       className={classNames(classes.appointment, className)}
       {...restProps}
     />
   );
-};
+});
 
 SourceAppointment.propTypes = {
   className: PropTypes.string,
@@ -78,14 +79,15 @@ SourceAppointment.defaultProps = {
   className: undefined,
 };
 
-const AppointmentBase = ({
+const AppointmentBase = React.forwardRef(({
   className, data, formatDate, type, fromPrev,
   toNext, durationType, isShaded, ...restProps
-}) => (
+}, ref) => (
   <Appointment
     className={className}
     type={type}
     isShaded={isShaded}
+    ref={ref}
     {...restProps}
   >
     {fromPrev && <SplitIndicator position={POSITION_START} appointmentType={type} />}
@@ -98,7 +100,7 @@ const AppointmentBase = ({
     />
     {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
   </Appointment>
-);
+));
 
 AppointmentBase.propTypes = {
   data: PropTypes.object.isRequired,

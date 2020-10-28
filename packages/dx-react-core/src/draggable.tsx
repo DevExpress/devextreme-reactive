@@ -4,6 +4,7 @@ import { TouchStrategy } from './draggable/touch-strategy';
 import { MouseStrategy } from './draggable/mouse-strategy';
 import { getSharedEventEmitter } from './draggable/shared-events';
 import { clear } from './draggable/selection-utils';
+import { RefHolder } from './ref-holder';
 
 const draggingHandled = Symbol('draggingHandled');
 
@@ -121,12 +122,6 @@ export class Draggable extends React.Component<DraggableProps> {
 
   render() {
     const { children } = this.props;
-    return React.isValidElement(children)
-      ? React.cloneElement(children, { ref: this.elementRef })
-      : React.createElement(
-          'div',
-          { ref: this.elementRef, style: { display: 'contents' } },
-          children,
-        );
+    return <RefHolder ref={this.elementRef}>{children}</RefHolder>;
   }
 }

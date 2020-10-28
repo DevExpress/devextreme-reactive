@@ -4,6 +4,7 @@ import * as React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 import { Draggable } from './draggable';
 import { clear } from './draggable/selection-utils';
+import { RefHolder } from './ref-holder';
 
 jest.mock('./draggable/selection-utils', () => ({
   clear: jest.fn(),
@@ -391,7 +392,7 @@ describe('Draggable', () => {
       expect(instance.current?.elementRef.current).toEqual(node);
     });
 
-    describe('should wrap into div if children is not ReactElement', () => {
+    describe('should wrap into RefHolder if children is not ReactElement', () => {
       ['Child String', 0, null].forEach((children) => {
         it(`children is "${typeof children}"`, () => {
           const instance = React.createRef() as React.RefObject<Draggable>;
@@ -406,11 +407,8 @@ describe('Draggable', () => {
           const node = child?.getDOMNode();
 
           expect(child.exists()).toBe(true);
-          expect(child.type()).toBe('div');
-          expect(child.props()).toEqual({
-            style: { display: 'contents' },
-            children,
-          });
+          expect(child.type()).toBe(RefHolder);
+          expect(child.props()).toEqual({ children });
           expect(instance.current?.elementRef.current).toEqual(node);
         });
       });

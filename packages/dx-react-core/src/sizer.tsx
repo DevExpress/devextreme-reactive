@@ -54,7 +54,7 @@ export class Sizer extends React.PureComponent<SizerProps> {
     containerComponent: 'div',
   };
 
-  rootRef: React.RefObject<RefHolder>;
+  rootRef: React.RefObject<unknown>;
   // Though there properties cannot be assigned in constructor
   // they will be assigned when component is mount.
   rootNode!: HTMLElement;
@@ -114,7 +114,7 @@ export class Sizer extends React.PureComponent<SizerProps> {
   }
 
   createListeners() {
-    this.rootNode = this.rootRef.current!.rootElement as HTMLElement;
+    this.rootNode = this.rootRef.current as HTMLElement;
 
     this.triggersRoot = document.createElement('div');
     Object.assign(this.triggersRoot.style, styles.triggersRoot);

@@ -25,6 +25,7 @@ export class ItemLayout extends React.PureComponent<GPItemLayoutProps, GP.Groupi
     const {
       item,
       itemComponent: Item,
+      itemRef,
       draggingEnabled,
       onDragStart,
       onDragEnd,
@@ -44,6 +45,7 @@ export class ItemLayout extends React.PureComponent<GPItemLayoutProps, GP.Groupi
           this.setState({ dragging: false });
           onDragEnd();
         }}
+        ref={itemRef}
       >
         {itemElement}
       </DragSource>

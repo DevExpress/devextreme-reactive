@@ -346,7 +346,7 @@ describe('Draggable', () => {
       const onStart1 = jest.fn();
       const onStart2 = jest.fn();
 
-      tree = mount<Draggable, any>(
+      tree = mount<any, any>(
         <Draggable
           onStart={onStart1}
         >
@@ -374,13 +374,13 @@ describe('Draggable', () => {
 
   describe('children', () => {
     it('should pass ref to children', () => {
-      const instance = React.createRef() as React.RefObject<Draggable>;
+      const elementRef = React.createRef<Element>();
       const ChildComponent = React.forwardRef(
         (_, refProp: React.Ref<any>) => <div ref={refProp}>Child Node</div>,
       );
 
       tree = mount(
-        <Draggable ref={instance}>
+        <Draggable ref={elementRef}>
           <ChildComponent />
         </Draggable>,
         { attachTo: rootNode },
@@ -389,16 +389,16 @@ describe('Draggable', () => {
       const node = child?.getDOMNode();
 
       expect(child.exists()).toBe(true);
-      expect(instance.current?.elementRef.current).toEqual(node);
+      expect(elementRef.current).toEqual(node);
     });
 
     describe('should wrap into RefHolder if children is not ReactElement', () => {
       ['Child String', 0, null].forEach((children) => {
         it(`children is "${typeof children}"`, () => {
-          const instance = React.createRef() as React.RefObject<Draggable>;
+          const elementRef = React.createRef<Element>();
 
           tree = mount(
-            <Draggable ref={instance}>
+            <Draggable ref={elementRef}>
               {children}
             </Draggable>,
             { attachTo: rootNode },
@@ -409,7 +409,7 @@ describe('Draggable', () => {
           expect(child.exists()).toBe(true);
           expect(child.type()).toBe(RefHolder);
           expect(child.props()).toEqual({ children });
-          expect(instance.current?.elementRef.current).toEqual(node);
+          expect(elementRef.current).toEqual(node);
         });
       });
     });

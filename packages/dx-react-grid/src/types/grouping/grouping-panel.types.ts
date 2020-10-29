@@ -55,7 +55,8 @@ export namespace GroupingPanel {
   /** @internal */
   export type GroupingItemLayoutProps = {
     item: GroupingPanelItem,
-    itemComponent: React.ComponentType<{ item: GroupingPanelItem }>,
+    itemComponent: React.ComponentType<{ item: GroupingPanelItem, ref?: React.Ref<Element> }>,
+    itemRef: React.Ref<Element>,
     draggingEnabled?: boolean,
     onDragStart?: () => void,
     onDragEnd?: () => void,

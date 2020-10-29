@@ -9,7 +9,7 @@ jest.mock('react-dom', () => ({
   findDOMNode: jest.fn(),
 }));
 jest.mock('@devexpress/dx-react-core', () => ({
-  DragSource: jest.fn(({ children }) => children),
+  DragSource: React.forwardRef(({ children }: { children: React.ReactElement }, ref) => children),
   DropTarget: jest.fn(({ children }) => children),
 }));
 

@@ -71,10 +71,10 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.16.0",
     "jest": "^24.9.0",
-    "react": "^16.13.1",
+    "react": "^16.14.0",
     "react-bootstrap": "=0.33.1",
-    "react-dom": "^16.13.1",
-    "react-test-renderer": "^16.13.1",
+    "react-dom": "^16.14.0",
+    "react-test-renderer": "^16.14.0",
     "rollup": "^1.27.2",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-license": "^0.12.1"

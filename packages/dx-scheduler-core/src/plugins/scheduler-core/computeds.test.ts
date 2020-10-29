@@ -1,8 +1,12 @@
 import { appointments, formatDateTimeGetter } from './computeds';
 import { dateTimeFormatInstance } from './helpers';
+import { convertToMoment } from '../common/helpers';
 
 jest.mock('./helpers', () => ({
   dateTimeFormatInstance: jest.fn(),
+}));
+jest.mock('../common/helpers', () => ({
+  convertToMoment: jest.fn(),
 }));
 
 describe('SchedulerCore computeds', () => {
@@ -75,11 +79,15 @@ describe('SchedulerCore computeds', () => {
   });
 
   describe('#formatDateTimeGetter', () => {
-    const locale = 'en-US';
-    it('should work with same arguments', () => {
+    beforeEach(() => {
+      convertToMoment.mockImplementation(date => ({ toDate: () => new Date(date) }));
       dateTimeFormatInstance.mockImplementation(
         () => new Intl.DateTimeFormat('en-US', { day: 'numeric' }),
       );
+    });
+    const locale = 'en-US';
+
+    it('should work with same arguments', () => {
       const formatterInstance = formatDateTimeGetter(locale);
       const options = { day: 'numeric' };
 
@@ -93,9 +101,6 @@ describe('SchedulerCore computeds', () => {
     });
 
     it('should work with another options', () => {
-      dateTimeFormatInstance.mockImplementation(
-        () => new Intl.DateTimeFormat('en-US', { day: 'numeric' }),
-      );
       const formatterInstance = formatDateTimeGetter(locale);
       const date = new Date('2019-04-19 10:00');
       const options1 = { day: 'numeric' };
@@ -110,9 +115,6 @@ describe('SchedulerCore computeds', () => {
     });
 
     it('should work with strings', () => {
-      dateTimeFormatInstance.mockImplementation(
-        () => new Intl.DateTimeFormat('en-US', { day: 'numeric' }),
-      );
       const formatterInstance = formatDateTimeGetter(locale);
       const date = '2019-04-19 10:00';
       const options1 = { day: 'numeric' };
@@ -124,9 +126,6 @@ describe('SchedulerCore computeds', () => {
     });
 
     it('should work with numbers', () => {
-      dateTimeFormatInstance.mockImplementation(
-        () => new Intl.DateTimeFormat('en-US', { day: 'numeric' }),
-      );
       const formatterInstance = formatDateTimeGetter(locale);
       const date = 100000000;
       const options1 = { day: 'numeric' };
@@ -135,6 +134,21 @@ describe('SchedulerCore computeds', () => {
 
       expect(dateTimeFormatInstance)
         .toHaveBeenCalledTimes(1);
+    });
+
+    // 3145
+    it('should call moment to get the same behaviour in all browsers', () => {
+      const formatterInstance = formatDateTimeGetter(locale);
+
+      const date = 100000000;
+      const options = { day: 'numeric' };
+
+      formatterInstance(date, options);
+
+      expect(convertToMoment)
+        .toHaveBeenCalledTimes(1);
+      expect(convertToMoment)
+        .toHaveBeenCalledWith(date);
     });
   });
 });

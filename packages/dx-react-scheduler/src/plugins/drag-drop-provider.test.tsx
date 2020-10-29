@@ -69,9 +69,9 @@ const defaultDeps = {
 };
 
 const defaultProps = {
-  resizeComponent: () => null,
-  draftAppointmentComponent: () => null,
-  sourceAppointmentComponent: () => null,
+  resizeComponent: React.forwardRef(() => null),
+  draftAppointmentComponent: React.forwardRef(() => null),
+  sourceAppointmentComponent: React.forwardRef(() => null),
   // eslint-disable-next-line react/prop-types, react/jsx-one-expression-per-line
   containerComponent: ({ children }) => <div>{children}</div>,
 };
@@ -151,7 +151,7 @@ describe('DragDropProvider', () => {
     it('should pass a ref to an appointment', () => {
       const tree = renderPlugin();
 
-      expect(tree.find(TemplatePlaceholder).findWhere(element => element.prop('params') && element.prop('params').appointmentRef).exists())
+      expect(tree.find(TemplatePlaceholder).findWhere(element => element.prop('params') && element.prop('params').forwardedRef).exists())
         .toBe(true);
     });
     it('should not wrap appointment into drag source by allowDrag', () => {
@@ -165,7 +165,7 @@ describe('DragDropProvider', () => {
         .toBeCalledWith('appointment data');
     });
     it('should render draft appointment component', () => {
-      const draftAppointment = props => <div {...props} className="custom-class" />;
+      const draftAppointment = (props) => <div {...props} className="custom-class" />;
 
       const { tree, onOver } = mountPlugin({ draftAppointmentComponent: draftAppointment });
 
@@ -188,7 +188,7 @@ describe('DragDropProvider', () => {
           },
         },
       };
-      const sourceAppointment = props => <div {...props} className="custom-class" />;
+      const sourceAppointment = React.forwardRef((props, ref) => <div ref={ref} {...props} className="custom-class" />);
 
       const { tree, onOver } = mountPlugin({ sourceAppointmentComponent: sourceAppointment }, deps);
 
@@ -214,7 +214,7 @@ describe('DragDropProvider', () => {
           },
         },
       };
-      const resizeAppointment = () => <div className="custom-class" />;
+      const resizeAppointment = React.forwardRef((_, ref) => <div className="custom-class" />);
 
       const { tree, onOver } = mountPlugin({ resizeComponent: resizeAppointment }, deps);
 
@@ -248,7 +248,7 @@ describe('DragDropProvider', () => {
           },
         },
       };
-      const resizeAppointment = () => <div className="custom-class" />;
+      const resizeAppointment = React.forwardRef((_, ref) => <div className="custom-class" />;
 
       const { tree, onOver } = mountPlugin({ resizeComponent: resizeAppointment }, deps);
 

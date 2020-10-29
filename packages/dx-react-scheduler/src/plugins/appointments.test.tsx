@@ -175,7 +175,7 @@ describe('Appointments', () => {
     const deps = {
       template: {
         appointment: {
-          appointmentRef: testRef,
+          forwardedRef: testRef,
         },
       },
     };

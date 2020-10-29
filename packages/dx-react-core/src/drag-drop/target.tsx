@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { findDOMNode } from 'react-dom';
+import { RefHolder } from '../ref-holder';
 import { DragDropContext } from './context';
 
 const clamp = (value, min, max) => Math.max(Math.min(value, max), min);
@@ -16,6 +16,7 @@ type DropTargetDefaultProps = Readonly<typeof defaultProps>;
 export class DropTarget extends React.Component<DropTargetDefaultProps> {
   static defaultProps = defaultProps;
   isOver: boolean;
+  elementRef: React.RefObject<Element>;
 
   constructor(props) {
     super(props);
@@ -23,6 +24,8 @@ export class DropTarget extends React.Component<DropTargetDefaultProps> {
     this.isOver = false;
 
     this.handleDrag = this.handleDrag.bind(this);
+
+    this.elementRef = React.createRef();
   }
 
   componentDidMount() {
@@ -46,7 +49,7 @@ export class DropTarget extends React.Component<DropTargetDefaultProps> {
       top,
       right,
       bottom,
-    } = (findDOMNode(this) as Element).getBoundingClientRect();
+    } = this.elementRef.current!.getBoundingClientRect();
     const {
       onDrop, onEnter, onLeave, onOver,
     } = this.props;
@@ -64,7 +67,7 @@ export class DropTarget extends React.Component<DropTargetDefaultProps> {
 
   render() {
     const { children } = this.props;
-    return React.Children.only(children);
+    return <RefHolder ref={this.elementRef}>{React.Children.only(children)}</RefHolder>;
   }
 }
 

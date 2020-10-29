@@ -4,12 +4,11 @@ import * as React from 'react';
 export const RefHolder = React.forwardRef((
   { children }: { children: React.ReactNode },
   ref: React.Ref<unknown>,
-) => {
-  return React.isValidElement(children)
+) => React.isValidElement(children)
     ? React.cloneElement(children, { ref })
     : React.createElement(
         'div',
         { ref, style: { display: 'contents' } },
         children,
-      );
-});
+      ),
+);

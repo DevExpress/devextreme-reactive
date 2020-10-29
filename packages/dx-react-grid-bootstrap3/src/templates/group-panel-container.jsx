@@ -1,8 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-export const GroupPanelContainer = ({ children, style, ...restProps }) => (
+export const GroupPanelContainer = React.forwardRef(({
+  children, style, ...restProps
+}, ref) => (
   <div
+    ref={ref}
     style={{
       width: '100%',
       marginTop: '5px',
@@ -12,7 +15,7 @@ export const GroupPanelContainer = ({ children, style, ...restProps }) => (
   >
     {children}
   </div>
-);
+));
 
 GroupPanelContainer.propTypes = {
   children: PropTypes.node,

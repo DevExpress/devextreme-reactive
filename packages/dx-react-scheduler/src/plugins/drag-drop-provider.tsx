@@ -18,7 +18,7 @@ const PlaceholderWithRef = React.forwardRef<any, any>(({ params }, ref) => (
   <TemplatePlaceholder
     params={{
       ...params,
-      appointmentRef: ref,
+      forwardedRef: ref,
     }}
   />
 ));
@@ -305,7 +305,7 @@ class DragDropProviderBase extends React.PureComponent<
                     onDrop={this.handleDrop({ finishCommitAppointment })}
                     onLeave={this.handleLeave}
                   >
-                    <TemplatePlaceholder />
+                    <PlaceholderWithRef />
                   </DropTarget>
                 </DragDropProviderCore>
               );

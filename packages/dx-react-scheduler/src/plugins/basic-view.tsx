@@ -197,26 +197,29 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
         />
 
         <Template name="body">
-          <TemplateConnector>
-            {({ currentView, groupOrientation, groups }) => {
-              if (currentView.name !== viewName) return <TemplatePlaceholder />;
-              const isVerticalGrouping = groupOrientation?.(viewName)
-                === VERTICAL_GROUP_ORIENTATION;
-              return (
-                <Layout
-                  dayScaleComponent={DayScalePlaceholder}
-                  timeTableComponent={TimeTablePlaceholder}
-                  setScrollingStrategy={this.setScrollingStrategy}
-                  groupingPanelComponent={
-                    isVerticalGrouping ? GroupingPanelPlaceholder : undefined
-                  }
-                  groupingPanelSize={isVerticalGrouping ? groups?.length : 0}
-                  dayScaleEmptyCellComponent={DayScaleEmptyCellPlaceholder}
-                  {...layoutProps}
-                />
-              );
-            }}
-          </TemplateConnector>
+          { ({ forwardedRef }: any) =>
+            <TemplateConnector>
+              {({ currentView, groupOrientation, groups }) => {
+                if (currentView.name !== viewName) return <TemplatePlaceholder />;
+                const isVerticalGrouping = groupOrientation?.(viewName)
+                  === VERTICAL_GROUP_ORIENTATION;
+                return (
+                  <Layout
+                    ref={forwardedRef}
+                    dayScaleComponent={DayScalePlaceholder}
+                    timeTableComponent={TimeTablePlaceholder}
+                    setScrollingStrategy={this.setScrollingStrategy}
+                    groupingPanelComponent={
+                      isVerticalGrouping ? GroupingPanelPlaceholder : undefined
+                    }
+                    groupingPanelSize={isVerticalGrouping ? groups?.length : 0}
+                    dayScaleEmptyCellComponent={DayScaleEmptyCellPlaceholder}
+                    {...layoutProps}
+                  />
+                );
+              }}
+            </TemplateConnector>
+          }
         </Template>
 
         <Template name="dayScale">

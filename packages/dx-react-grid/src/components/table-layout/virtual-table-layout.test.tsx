@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { findDOMNode } from 'react-dom';
 import { shallow, mount } from 'enzyme';
 import { Sizer } from '@devexpress/dx-react-core';
 import {
@@ -10,9 +9,6 @@ import {
 import { setupConsole } from '@devexpress/dx-testing';
 import { VirtualTableLayout } from './virtual-table-layout';
 
-jest.mock('react-dom', () => ({
-  findDOMNode: jest.fn(),
-}));
 jest.mock('@devexpress/dx-grid-core', () => {
   const actual = jest.requireActual('@devexpress/dx-grid-core');
   jest.spyOn(actual, 'getCollapsedGrids');
@@ -137,11 +133,6 @@ describe('VirtualTableLayout', () => {
   let resetConsole;
   beforeEach(() => {
     resetConsole = setupConsole();
-    findDOMNode.mockImplementation(() => ({
-      getBoundingClientRect: () => ({
-        height: defaultProps.estimatedRowHeight,
-      }),
-    }));
   });
 
   afterEach(() => {
@@ -406,17 +397,11 @@ describe('VirtualTableLayout', () => {
       ));
     });
 
-    it('should store row height when rendered', () => {
+    it.only('should store row height when rendered', () => {
       const rows = [
         { key: 1 },
         { key: 2, height: 10 },
       ];
-
-      findDOMNode.mockImplementation(() => ({
-        getBoundingClientRect: () => ({
-          height: 50,
-        }),
-      }));
 
       mount((
         <VirtualTableLayout

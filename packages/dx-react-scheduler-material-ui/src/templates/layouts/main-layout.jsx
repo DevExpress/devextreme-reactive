@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const MainLayout = React.memo(({
+export const MainLayout = React.memo(React.forwardRef(({
   timeScaleComponent: TimeScale,
   dayScaleComponent: DayScale,
   timeTableComponent: TimeTable,
@@ -69,7 +69,7 @@ export const MainLayout = React.memo(({
   setScrollingStrategy,
   className,
   ...restProps
-}) => {
+}, ref) => {
   const layoutRef = React.useRef(null);
   const layoutHeaderRef = React.useRef(null);
   const leftPanelRef = React.useRef(null);
@@ -109,7 +109,15 @@ export const MainLayout = React.memo(({
 
   return (
     <div
-      ref={layoutRef}
+      ref={(node) => {
+        layoutRef.current = node;
+        if (typeof ref === 'function') {
+          ref(node);
+        } else if (ref) {
+          // eslint-disable-next-line no-param-reassign
+          ref.current = node;
+        }
+      }}
       className={classNames(classes.container, className)}
       onScroll={setBorders}
       {...restProps}
@@ -175,7 +183,7 @@ export const MainLayout = React.memo(({
       </div>
     </div>
   );
-});
+}));
 
 MainLayout.propTypes = {
   // oneOfType is a workaround because withStyles returns react object

@@ -12,19 +12,20 @@ const styles = theme => ({
   },
 });
 
-const GroupPanelContainerBase = ({
+const GroupPanelContainerBase = React.forwardRef(({
   classes,
   children,
   className,
   ...restProps
-}) => (
+}, ref) => (
   <div
+    ref={ref}
     className={classNames(classes.panel, className)}
     {...restProps}
   >
     {children}
   </div>
-);
+));
 
 GroupPanelContainerBase.propTypes = {
   classes: PropTypes.object.isRequired,

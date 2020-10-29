@@ -51,7 +51,7 @@
     "jest": "^24.9.0",
     "rollup": "^1.27.2",
     "rollup-plugin-license": "^0.12.1",
-    "rollup-plugin-typescript2": "^0.27.2",
+    "rollup-plugin-typescript2": "^0.27.3",
     "ts-jest": "^24.1.0",
     "tslint": "^5.20.1",
     "tslint-config-airbnb": "^5.11.2",

@@ -45,7 +45,7 @@
     "prettier": "^1.19.1",
     "rollup": "^1.27.2",
     "rollup-plugin-license": "^0.12.1",
-    "rollup-plugin-typescript2": "^0.27.2",
+    "rollup-plugin-typescript2": "^0.27.3",
     "tslint": "^5.20.1",
     "tslint-config-airbnb": "^5.11.2",
     "tslint-config-prettier": "^1.18.0",

@@ -397,7 +397,7 @@ describe('VirtualTableLayout', () => {
       ));
     });
 
-    it.only('should store row height when rendered', () => {
+    it('should store row height when rendered', () => {
       const rows = [
         { key: 1 },
         { key: 2, height: 10 },

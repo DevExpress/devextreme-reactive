@@ -1,6 +1,6 @@
-# React Grid - Editing in Popup
+# React Grid - Editing in a Popup Form
 
-This guide describes how to implement row editing via popup form. Before you start, review the following help topics:
+Users can edit row data in a popup edit form. This guide describes how to implement this functionality. Before you start, review the following help topics:
 
 - [Core Concepts](../../../core/docs/guides/fundamentals.md)
 - [Custom Plugin Development](./custom-plugin-development.md)
@@ -26,11 +26,11 @@ const PopupEditing = () => (
 
 To handle data edits, add the following functions:
 
-- `processValueChange` - processes user input;
-- `applyChanges` - applies data edits;
-- `cancelChanges` - cancels data edits.
+- `processValueChange` - processes user input
+- `applyChanges` - applies data edits
+- `cancelChanges` - cancels data edits
 
-The popup form will use these functions later. Implement the functions in the `popupEditing` template and pass them to the Popup component along with the row being edited.
+Implement the functions in the `popupEditing` template and pass them to the `Popup` component along with the row being edited. Popup form elements will use these functions later.
 
 ```jsx
 const PopupEditing = ({ popupComponent: Popup }) => (
@@ -111,7 +111,7 @@ const PopupEditing = ({ popupComponent: Popup }) => (
 
 ## Add the Popup Edit Form
 
-Implement a component that renders a popup form with multiple text fields and Save and Cancel buttons. Each text field should execute the `processValueChange` function when the `onChange` event is raised. The buttons should execute the `applyChanges` and `cancelChanges` functions.
+Implement the `Popup` component from the previous step. This component renders popup form elements: a title, multiple text fields in a grid, Save and Cancel buttons. When the `onChange` event is raised, each text field executes the `onChange` function passed to the `Popup` (`processValueChange` in the previous step). Similarly, the buttons execute the `Popup`'s `onApplyChanges` and `onCancelChanges` functions (`applyChanges` and `cancelChanges`). All popup form elements are components from the Material-UI framework.
 
 ```jsx
 const EditDialog = ({

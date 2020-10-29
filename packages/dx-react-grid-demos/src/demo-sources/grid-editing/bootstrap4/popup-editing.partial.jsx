@@ -15,7 +15,7 @@ function FieldGroup({ id, label, ...props }) {
   );
 }
 
-const EditDialog = ({
+const Popup = ({
   row,
   onChange,
   onApplyChanges,

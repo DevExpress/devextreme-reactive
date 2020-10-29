@@ -114,7 +114,7 @@ const PopupEditing = ({ popupComponent: Popup }) => (
 Implement the `Popup` component from the previous step. This component renders popup form elements: a title, multiple text fields in a grid, Save and Cancel buttons. When the `onChange` event is raised, each text field executes the `onChange` function passed to the `Popup` (`processValueChange` in the previous step). Similarly, the buttons execute the `Popup`'s `onApplyChanges` and `onCancelChanges` functions (`applyChanges` and `cancelChanges`). All popup form elements are components from the Material-UI framework.
 
 ```jsx
-const EditDialog = ({
+const Popup = ({
   row,
   onChange,
   onApplyChanges,
@@ -134,7 +134,7 @@ const EditDialog = ({
               value={row.firstName || ''}
               onChange={onChange}
             />
-
+            {/* ... */}
           </FormGroup>
         </MuiGrid>
       </MuiGrid>

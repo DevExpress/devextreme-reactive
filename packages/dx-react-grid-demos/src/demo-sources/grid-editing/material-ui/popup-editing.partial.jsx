@@ -15,7 +15,7 @@ import MomentUtils from '@date-io/moment';
 // BLOCK:imports
 
 // BLOCK:dialog
-const EditDialog = ({
+const Popup = ({
   row,
   onChange,
   onApplyChanges,

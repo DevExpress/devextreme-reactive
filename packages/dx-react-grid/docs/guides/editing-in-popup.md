@@ -1,6 +1,6 @@
 # React Grid - Editing in a Popup Form
 
-Users can edit row data in a popup edit form. This guide describes how to implement this functionality. Before you start, review the following help topics:
+This guide describes how to implement a pop-up edit form that allows users to edit row data. Before you start, review the following help topics:
 
 - [Core Concepts](../../../core/docs/guides/fundamentals.md)
 - [Custom Plugin Development](./custom-plugin-development.md)
@@ -13,7 +13,7 @@ The implementation consists of the following steps:
 
 ## Add a Custom Plugin
 
-For information on custom plugins, refer to the following help topic: [Custom Plugin Development](./custom-plugin-development.md). In the following code, the plugin is called `PopupEditing`, but you can rename it if required.
+For information on custom plugins, refer to the following help topic: [Custom Plugin Development](./custom-plugin-development.md). In the following code, the plugin is called `PopupEditing` (you can rename it).
 
 ```jsx
 const PopupEditing = () => (
@@ -30,7 +30,7 @@ To handle data edits, add the following functions:
 - `applyChanges` - applies data edits
 - `cancelChanges` - cancels data edits
 
-Implement the functions in the `popupEditing` template and pass them to the `Popup` component along with the row being edited. Popup form elements will use these functions later.
+Implement the functions in the `popupEditing` template and pass these functions and the row being edited to the `Popup` component. Pop-up form elements use these functions later.
 
 ```jsx
 const PopupEditing = ({ popupComponent: Popup }) => (
@@ -111,7 +111,7 @@ const PopupEditing = ({ popupComponent: Popup }) => (
 
 ## Add the Popup Edit Form
 
-Implement the `Popup` component from the previous step. This component renders popup form elements: a title, multiple text fields in a grid, Save and Cancel buttons. When the `onChange` event is raised, each text field executes the `onChange` function passed to the `Popup` (`processValueChange` in the previous step). Similarly, the buttons execute the `Popup`'s `onApplyChanges` and `onCancelChanges` functions (`applyChanges` and `cancelChanges`). All popup form elements are components from the Material-UI framework.
+Implement the `Popup` component from the previous step. This component renders pop-up form elements: a title, multiple text fields in a grid, and Save and Cancel buttons. When the `onChange` event is raised, each text field executes the `onChange` function passed to the `Popup` (`processValueChange` in the previous step). Similarly, the buttons execute the `Popup`'s `onApplyChanges` and `onCancelChanges` functions (`applyChanges` and `cancelChanges`). All pop-up form elements are components from the Material-UI framework.
 
 ```jsx
 const Popup = ({

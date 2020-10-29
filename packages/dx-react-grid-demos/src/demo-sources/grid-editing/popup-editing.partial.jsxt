@@ -14,7 +14,7 @@ import {
   generateRows,
   employeeValues,
 } from '../../../demo-data/generator';
-
+/* eslint-disable no-shadow */
 <%&dialog%>
 
 const PopupEditing = React.memo(({ popupComponent: Popup }) => (

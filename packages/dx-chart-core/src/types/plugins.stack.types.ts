@@ -15,7 +15,7 @@ export interface Stack {
 
 export type StackData = ReadonlyArray<ReadonlyArray<number>>;
 export type OrderFn = (series: StackData) => number[];
-export type OffsetFn = (series: StackData, order: number[]) => void;
+export type OffsetFn = (series: StackData, order: Iterable<number>) => void;
 
 /** @internal */
 export type StackMap = {

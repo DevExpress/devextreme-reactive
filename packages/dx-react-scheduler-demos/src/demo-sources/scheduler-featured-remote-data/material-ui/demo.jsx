@@ -2,7 +2,6 @@ import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import { withStyles } from '@material-ui/core/styles';
-import moment from 'moment';
 import {
   ViewState,
 } from '@devexpress/dx-react-scheduler';
@@ -19,13 +18,21 @@ import {
   TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
-const URL = 'https://js.devexpress.com/Demos/Mvc/api/SchedulerData/Get';
+const PUBLIC_KEY = 'AIzaSyBnNAISIUKe6xdhq1_rjor2rxoI3UlMY7k';
+const CALENDAR_ID = 'f7jnetm22dsjc3npc2lu3buvu4@group.calendar.google.com';
 
-const makeQueryString = (currentDate, currentViewName) => {
-  const format = 'YYYY-MM-DDTHH:mm:ss';
-  const start = moment(currentDate).startOf(currentViewName.toLowerCase());
-  const end = start.clone().endOf(currentViewName.toLowerCase());
-  return encodeURI(`${URL}?filter=[["EndDate", ">", "${start.format(format)}"],["StartDate", "<", "${end.format(format)}"]]`);
+const getData = (setData, setLoading) => {
+  const dataUrl = ['https://www.googleapis.com/calendar/v3/calendars/', CALENDAR_ID, '/events?key=', PUBLIC_KEY].join('');
+  setLoading(true);
+
+  return fetch(dataUrl)
+    .then(response => response.json())
+    .then((data) => {
+      setTimeout(() => {
+        setData(data.items);
+        setLoading(false);
+      }, 600);
+    });
 };
 
 const styles = {
@@ -51,103 +58,92 @@ const ToolbarWithLoading = withStyles(styles, { name: 'Toolbar' })(
   ),
 );
 
+const usaTime = date => new Date(date).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });
+
 const mapAppointmentData = appointment => ({
-  ...appointment,
-  startDate: appointment.StartDate,
-  endDate: appointment.EndDate,
-  title: appointment.Text,
+  id: appointment.id,
+  startDate: usaTime(appointment.start.dateTime),
+  endDate: usaTime(appointment.end.dateTime),
+  title: appointment.summary,
 });
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const initialState = {
+  data: [],
+  loading: false,
+  currentDate: '2017-05-23',
+  currentViewName: 'Day',
+};
 
-    this.state = {
-      loading: true,
-      currentDate: '2017-05-23',
-      currentViewName: 'Day',
-    };
-    this.loadData = this.loadData.bind(this);
-    this.currentViewNameChange = (currentViewName) => {
-      this.setState({ currentViewName, loading: true });
-    };
-    this.currentDateChange = (currentDate) => {
-      this.setState({ currentDate, loading: true });
-    };
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'setLoading':
+      return { ...state, loading: action.payload };
+    case 'setData':
+      return { ...state, data: action.payload.map(mapAppointmentData) };
+    case 'setCurrentViewName':
+      return { ...state, currentViewName: action.payload };
+    case 'setCurrentDateName':
+      return { ...state, currentDate: action.payload };
+    default:
+      return state;
   }
+};
 
-  componentDidMount() {
-    this.loadData();
-  }
+export default () => {
+  const [state, dispatch] = React.useReducer(reducer, initialState);
+  const {
+    data, loading, currentViewName, currentDate,
+  } = state;
+  const setCurrentViewName = React.useCallback(nextViewName => dispatch({
+    type: 'setCurrentViewName', payload: nextViewName,
+  }), [dispatch]);
+  const setData = React.useCallback(nextData => dispatch({
+    type: 'setData', payload: nextData,
+  }), [dispatch]);
+  const setCurrentDate = React.useCallback(nextDate => dispatch({
+    type: 'setCurrentDateName', payload: nextDate,
+  }), [dispatch]);
+  const setLoading = React.useCallback(nextLoading => dispatch({
+    type: 'setLoading', payload: nextLoading,
+  }), [dispatch]);
 
-  componentDidUpdate() {
-    this.loadData();
-  }
+  React.useEffect(() => {
+    getData(setData, setLoading);
+  }, [setData, currentViewName, currentDate]);
 
-  loadData() {
-    const { currentDate, currentViewName } = this.state;
-    const queryString = makeQueryString(currentDate, currentViewName);
-    if (queryString === this.lastQuery) {
-      this.setState({ loading: false });
-      return;
-    }
-    fetch(queryString)
-      .then(response => response.json())
-      .then(({ data }) => {
-        setTimeout(() => {
-          this.setState({
-            data,
-            loading: false,
-          });
-        }, 600);
-      })
-      .catch(() => this.setState({ loading: false }));
-    this.lastQuery = queryString;
-  }
-
-  render() {
-    const {
-      data, loading,
-      currentDate, currentViewName,
-    } = this.state;
-
-    const formattedData = data
-      ? data.map(mapAppointmentData) : [];
-
-    return (
-      <Paper>
-        <Scheduler
-          data={formattedData}
-          height={660}
-        >
-          <ViewState
-            currentDate={currentDate}
-            currentViewName={currentViewName}
-            onCurrentViewNameChange={this.currentViewNameChange}
-            onCurrentDateChange={this.currentDateChange}
-          />
-          <DayView
-            startDayHour={9}
-            endDayHour={18}
-          />
-          <WeekView
-            startDayHour={9}
-            endDayHour={18}
-          />
-          <Appointments />
-          <Toolbar
-            {...loading ? { rootComponent: ToolbarWithLoading } : null}
-          />
-          <DateNavigator />
-          <TodayButton />
-          <ViewSwitcher />
-          <AppointmentTooltip
-            showOpenButton
-            showCloseButton
-          />
-          <AppointmentForm readOnly />
-        </Scheduler>
-      </Paper>
-    );
-  }
-}
+  return (
+    <Paper>
+      <Scheduler
+        data={data}
+        height={660}
+      >
+        <ViewState
+          currentDate={currentDate}
+          currentViewName={currentViewName}
+          onCurrentViewNameChange={setCurrentViewName}
+          onCurrentDateChange={setCurrentDate}
+        />
+        <DayView
+          startDayHour={7.5}
+          endDayHour={17.5}
+        />
+        <WeekView
+          startDayHour={7.5}
+          endDayHour={17.5}
+        />
+        <Appointments />
+        <Toolbar
+          {...loading ? { rootComponent: ToolbarWithLoading } : null}
+        />
+        <DateNavigator />
+        <TodayButton />
+        <ViewSwitcher />
+        <AppointmentTooltip
+          showOpenButton
+          showCloseButton
+        />
+        <AppointmentForm readOnly />
+      </Scheduler>
+    </Paper>
+  );
+};

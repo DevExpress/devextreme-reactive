@@ -82,7 +82,7 @@ const reducer = (state, action) => {
       return { ...state, data: action.payload.map(mapAppointmentData) };
     case 'setCurrentViewName':
       return { ...state, currentViewName: action.payload };
-    case 'setCurrentDateName':
+    case 'setCurrentDate':
       return { ...state, currentDate: action.payload };
     default:
       return state;
@@ -101,7 +101,7 @@ export default () => {
     type: 'setData', payload: nextData,
   }), [dispatch]);
   const setCurrentDate = React.useCallback(nextDate => dispatch({
-    type: 'setCurrentDateName', payload: nextDate,
+    type: 'setCurrentDate', payload: nextDate,
   }), [dispatch]);
   const setLoading = React.useCallback(nextLoading => dispatch({
     type: 'setLoading', payload: nextLoading,

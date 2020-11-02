@@ -380,7 +380,7 @@ describe('Draggable', () => {
       );
 
       tree = mount(
-        <Draggable ref={elementRef}>
+        <Draggable dragItem={elementRef}>
           <ChildComponent />
         </Draggable>,
         { attachTo: rootNode },
@@ -398,7 +398,7 @@ describe('Draggable', () => {
           const elementRef = React.createRef<Element>();
 
           tree = mount(
-            <Draggable ref={elementRef}>
+            <Draggable dragItem={elementRef}>
               {children}
             </Draggable>,
             { attachTo: rootNode },

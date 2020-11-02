@@ -34,7 +34,7 @@ export const DragSource: React.FC<DragSourceProps> = React.forwardRef(({
         dragDropProvider?.end({ x, y });
         onEnd?.({ clientOffset: { x, y } });
       }}
-      ref={ref}
+      dragItem={ref}
     >
       {children}
     </Draggable>

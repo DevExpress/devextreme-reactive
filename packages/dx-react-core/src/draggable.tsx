@@ -12,109 +12,123 @@ type DraggableProps = {
   onStart?: (args) => void;
   onUpdate?: (args) => void;
   onEnd?: (args) => void;
-  ref?: React.Ref<Element>;
+  dragItem?: React.MutableRefObject<any> | React.RefCallback<any> | null;
 };
 
-const getDelegate = props => ({
-  onStart: ({ x, y }) => {
-    const { onStart } = props;
-    if (!onStart) return;
-    unstable_batchedUpdates(() => {
-      onStart({ x, y });
-    });
-  },
-  onMove: ({ x, y }) => {
-    const { onUpdate } = props;
-    if (!onUpdate) return;
-    unstable_batchedUpdates(() => {
-      onUpdate({ x, y });
-    });
-  },
-  onEnd: ({ x, y }) => {
-    const { onEnd } = props;
-    if (!onEnd) return;
-    unstable_batchedUpdates(() => {
-      onEnd({ x, y });
-    });
-  },
-});
-
 /** @internal */
-export const Draggable: React.FC<DraggableProps> = React.forwardRef((
-  props, ref,
-) => {
-  const [mouseStrategy] = React.useState(new MouseStrategy(getDelegate(props)));
-  const [touchStrategy] = React.useState(new TouchStrategy(getDelegate(props)));
-  const elementRef = React.useRef<Element | null>();
+export class Draggable extends React.PureComponent<DraggableProps> {
+  mouseStrategy: MouseStrategy;
+  touchStrategy: TouchStrategy;
+  elementRef: React.MutableRefObject<Element | null>;
 
-  const mouseDownListener = React.useCallback((e) => {
-    if (touchStrategy.isWaiting() || e[draggingHandled]) return;
+  constructor(props) {
+    super(props);
+    const delegate = {
+      onStart: ({ x, y }) => {
+        const { onStart } = this.props;
+        if (!onStart) return;
+        unstable_batchedUpdates(() => {
+          onStart({ x, y });
+        });
+      },
+      onMove: ({ x, y }) => {
+        const { onUpdate } = this.props;
+        if (!onUpdate) return;
+        unstable_batchedUpdates(() => {
+          onUpdate({ x, y });
+        });
+      },
+      onEnd: ({ x, y }) => {
+        const { onEnd } = this.props;
+        if (!onEnd) return;
+        unstable_batchedUpdates(() => {
+          onEnd({ x, y });
+        });
+      },
+    };
+
+    this.mouseStrategy = new MouseStrategy(delegate);
+    this.touchStrategy = new TouchStrategy(delegate);
+    this.elementRef = React.createRef();
+
+    this.mouseDownListener = this.mouseDownListener.bind(this);
+    this.touchStartListener = this.touchStartListener.bind(this);
+    this.globalListener = this.globalListener.bind(this);
+  }
+
+  componentDidMount() {
+    getSharedEventEmitter().subscribe(this.globalListener);
+    this.setupNodeSubscription();
+  }
+
+  componentDidUpdate() {
+    this.setupNodeSubscription();
+  }
+
+  componentWillUnmount() {
+    getSharedEventEmitter().unsubscribe(this.globalListener);
+  }
+
+  setupNodeSubscription() {
+    const node = this.elementRef.current;
+    if (!node) return;
+    node.removeEventListener('mousedown', this.mouseDownListener);
+    node.removeEventListener('touchstart', this.touchStartListener);
+    node.addEventListener('mousedown', this.mouseDownListener);
+    node.addEventListener('touchstart', this.touchStartListener, { passive: true });
+  }
+
+  mouseDownListener(e) {
+    if (this.touchStrategy.isWaiting() || e[draggingHandled]) return;
     e.preventDefault();
-    mouseStrategy.start(e);
+    this.mouseStrategy.start(e);
     e[draggingHandled] = true;
-  }, []);
+  }
 
-  const touchStartListener = React.useCallback((e) => {
+  touchStartListener(e) {
     if (e[draggingHandled]) return;
-    touchStrategy.start(e);
+    this.touchStrategy.start(e);
     e[draggingHandled] = true;
-  }, []);
+  }
 
-  const globalListener = React.useCallback(([name, e]) => {
+  globalListener([name, e]) {
     switch (name) {
       case 'mousemove':
-        mouseStrategy.move(e);
+        this.mouseStrategy.move(e);
         break;
       case 'mouseup':
-        mouseStrategy.end(e);
+        this.mouseStrategy.end(e);
         break;
       case 'touchmove': {
-        touchStrategy.move(e);
+        this.touchStrategy.move(e);
         break;
       }
       case 'touchend':
       case 'touchcancel': {
-        touchStrategy.end(e);
+        this.touchStrategy.end(e);
         break;
       }
       default:
         break;
     }
-    if (mouseStrategy.isDragging() || touchStrategy.isDragging()) {
+    if (this.mouseStrategy.isDragging() || this.touchStrategy.isDragging()) {
       clear();
     }
-  }, []);
+  }
 
-  const setupNodeSubscription = (() => {
-    const node = elementRef.current;
-    if (!node) return;
-    node.removeEventListener('mousedown', mouseDownListener);
-    node.removeEventListener('touchstart', touchStartListener);
-    node.addEventListener('mousedown', mouseDownListener);
-    node.addEventListener('touchstart', touchStartListener, { passive: true });
-  });
-
-  React.useEffect(() => {
-    getSharedEventEmitter().subscribe(globalListener);
-
-    return () => getSharedEventEmitter().unsubscribe(globalListener);
-  }, []);
-
-  React.useEffect(() => {
-    setupNodeSubscription();
-  });
-
-  const { children } = props;
-  return <RefHolder
-    ref={(node: Element | null) => {
-      elementRef.current = node;
-      if (typeof ref === 'function') {
-        ref(node);
-      } else if (ref) {
-        ref.current = node;
-      }
-    }}
-  >
-    {children}
-  </RefHolder>;
-});
+  render() {
+    const { children, dragItem } = this.props;
+    return <RefHolder
+      ref={(node: Element | null) => {
+        this.elementRef.current = node;
+        if (typeof dragItem === 'function') {
+          dragItem(node);
+        } else if (dragItem) {
+          dragItem.current = node;
+        }
+      }}
+    >
+      {children}
+    </RefHolder>;
+  }
+}

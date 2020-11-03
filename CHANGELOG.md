@@ -1,3 +1,21 @@
+# [2.7.3](https://github.com/DevExpress/devextreme-reactive/compare/v2.7.2...v2.7.3) (2020-11-03)
+
+
+### Bug Fixes
+
+* **react-chart:** get rid of errors while click on chart with `shift` key ([#3132](https://github.com/DevExpress/devextreme-reactive/issues/3132)) ([9d2532e](https://github.com/DevExpress/devextreme-reactive/commit/9d2532e6561f9009c051c746f4ef89de6cc09c42)), closes [#3130](https://github.com/DevExpress/devextreme-reactive/issues/3130)
+* **react-grid:** correct DataTypeProvider.ValueEditorProps types ([#3146](https://github.com/DevExpress/devextreme-reactive/issues/3146)) ([c414927](https://github.com/DevExpress/devextreme-reactive/commit/c414927dffab4e52e021147de0a10e797b0837e1))
+* **react-grid:** correct row interval request with infinite scrolling ([#3139](https://github.com/DevExpress/devextreme-reactive/issues/3139)) ([e72257b](https://github.com/DevExpress/devextreme-reactive/commit/e72257bd8c344619713852c69c277959e39f3e0a))
+* **react-grid:** make infinite scrolling work correctly after "totalRowCount" is reduced and expanded ([#3115](https://github.com/DevExpress/devextreme-reactive/issues/3115)) ([5aa943c](https://github.com/DevExpress/devextreme-reactive/commit/5aa943c08b346a72270928cd04fdd940f5249e8d))
+* **react-grid-demos:** fix detail editing codesandbox demo ([#3133](https://github.com/DevExpress/devextreme-reactive/issues/3133)) ([213e96b](https://github.com/DevExpress/devextreme-reactive/commit/213e96b85086da72fef37b6be65f98f22db5015a)), closes [#3103](https://github.com/DevExpress/devextreme-reactive/issues/3103)
+* **react-scheduler:** make outlook-compatible recurrence rule when selecting monthly and yearly recurrence ([#3134](https://github.com/DevExpress/devextreme-reactive/issues/3134)) ([32ea79b](https://github.com/DevExpress/devextreme-reactive/commit/32ea79bed7abeafab85cb5de3d53b5de68051a65))
+* **react-scheduler-demos:** use GoogleAPI as a data source for remote demo ([#3155](https://github.com/DevExpress/devextreme-reactive/issues/3155)) ([de27416](https://github.com/DevExpress/devextreme-reactive/commit/de27416cc00e038a12315745d243aeb48e438235))
+* **react-scheduler-material-ui:** make it possible to set a yearly recurrence by week number, day of week and month ([#3131](https://github.com/DevExpress/devextreme-reactive/issues/3131)) ([36eb86e](https://github.com/DevExpress/devextreme-reactive/commit/36eb86e6810055f5f5ab6661d92ca2ab2f054c19))
+* **scheduler-core:** display correct appointment time in Safari ([#3151](https://github.com/DevExpress/devextreme-reactive/issues/3151)) ([8bd5619](https://github.com/DevExpress/devextreme-reactive/commit/8bd56191cc6acc506ac46f74ed8bebe99f612dbc))
+* **scheduler-core:** process DST correctly ([#3136](https://github.com/DevExpress/devextreme-reactive/issues/3136)) ([e0e3b99](https://github.com/DevExpress/devextreme-reactive/commit/e0e3b994fe9320e0d661a51fb992ea48b5700eb3))
+
+
+
 # [2.7.2](https://github.com/DevExpress/devextreme-reactive/compare/v2.7.1...v2.7.2) (2020-10-01)
 
 

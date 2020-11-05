@@ -187,10 +187,11 @@ WeekView.TimeScaleLayout | [WeekView.TimeScaleLayoutProps](#weekviewtimescalelay
 WeekView.TimeScaleLabel | [WeekView.TimeScaleLabelProps](#weekviewtimescalelabelprops) | A component that renders a time scale label.
 WeekView.DayScaleLayout | [WeekView.DayScaleLayoutProps](#weekviewdayscalelayoutprops) | A component that renders a day scale layout.
 WeekView.DayScaleCell | [WeekView.DayScaleCellProps](#weekviewdayscalecellprops) | A component that renders a day scale cell.
+WeekView.DayScaleRow | [WeekView.RowProps](#weekviewrowprops) | A component that renders a day scale row.
 WeekView.DayScaleEmptyCell | [WeekView.DayScaleEmptyCellProps](#weekviewdayscaleemptycellprops) | A component that renders a day scale empty cell.
 WeekView.TimeTableLayout | [WeekView.TimeTableLayoutProps](#weekviewtimetablelayoutprops) | A component that renders a time table layout.
 WeekView.TimeTableCell | [WeekView.TimeTableCellProps](#weekviewtimetablecellprops) | A component that renders a time table cell.
-WeekView.Row | [WeekView.RowProps](#weekviewrowprops) | A component that renders a week view's generic row.
+WeekView.TimeTableRow | [WeekView.RowProps](#weekviewrowprops) | A component that renders a time table row.
 WeekView.AppointmentLayer | [WeekView.AppointmentLayerProps](#weekviewappointmentlayerprops) | A component that renders the appointment layer.
 
 Additional properties are added to the component's root element.

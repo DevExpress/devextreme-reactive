@@ -186,10 +186,11 @@ DayView.TimeScaleLayout | [DayView.TimeScaleLayoutProps](#dayviewtimescalelayout
 DayView.TimeScaleLabel | [DayView.TimeScaleLabelProps](#dayviewtimescalelabelprops) | A component that renders a time scale label.
 DayView.DayScaleLayout | [DayView.DayScaleLayoutProps](#dayviewdayscalelayoutprops) | A component that renders a day scale layout.
 DayView.DayScaleCell | [DayView.DayScaleCellProps](#dayviewdayscalecellprops) | A component that renders a day scale cell.
+DayView.DayScaleRow | [DayView.RowProps](#dayviewrowprops) | A component that renders a day scale row.
 DayView.DayScaleEmptyCell | [DayView.DayScaleEmptyCellProps](#dayviewdayscaleemptycellprops) | A component that renders a day scale empty cell.
 DayView.TimeTableLayout | [DayView.TimeTableLayoutProps](#dayviewtimetablelayoutprops) | A component that renders a time table layout.
 DayView.TimeTableCell | [DayView.TimeTableCellProps](#dayviewtimetablecellprops) | A component that renders a time table cell.
-DayView.Row | [DayView.RowProps](#dayviewrowprops) | A component that renders a day view's generic row.
+DayView.TimeTableRow | [DayView.RowProps](#dayviewrowprops) | A component that renders a time table row.
 DayView.AppointmentLayer | [DayView.AppointmentLayerProps](#dayviewappointmentlayerprops) | A component that renders the appointment layer.
 
 Additional properties are added to the component's root element.

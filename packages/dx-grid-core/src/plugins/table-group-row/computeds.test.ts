@@ -171,21 +171,21 @@ describe('TableGroupRow Plugin computeds', () => {
         tableRow: { type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } },
         tableColumns: [{}, tableColumn, {}],
       }))
-        .toBe(2);
+        .toBe(3);
 
       expect(getCellColSpanGetter({
         tableColumn,
         tableRow: { type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } },
         tableColumns: [{}, {}, tableColumn],
       }))
-        .toBe(1);
+        .toBe(3);
 
       expect(getCellColSpanGetter({
         tableColumn,
         tableRow: { type: TABLE_GROUP_TYPE, row: { groupedBy: 'b' } },
         tableColumns: [{}, tableColumn, {}],
       }))
-        .toBe(2);
+        .toBe(3);
 
       expect(getCellColSpanGetter({
         tableColumn,
@@ -193,6 +193,54 @@ describe('TableGroupRow Plugin computeds', () => {
         tableColumns: [{}, tableColumn, {}],
       }))
         .toBe('original');
+    });
+
+    describe('Virtual Table', () => {
+      [0, 1, 2].map((firstVisibleColumn) => {
+        const tableColumn = { type: TABLE_GROUP_TYPE, column: { name: 'a' } };
+        const getCellColSpanGetter = tableGroupCellColSpanGetter(
+          parentGetCellColSpan, [], firstVisibleColumn,
+        );
+        const getExpectedColSpan = (tableColumns) => {
+          const firstGroupColumnIndex = tableColumns
+            .findIndex(col => col.type === TABLE_GROUP_TYPE);
+          return tableColumns.length - Math.min(firstVisibleColumn, firstGroupColumnIndex);
+        };
+
+        // tslint:disable-next-line: max-line-length
+        it(`should return correct colspan if the "firstVisibleColumn" is ${firstVisibleColumn}`, () => {
+          let tableColumns = [tableColumn, {}, {}];
+          expect(getCellColSpanGetter({
+            tableColumn,
+            tableRow: { type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } },
+            tableColumns,
+          }))
+            .toBe(getExpectedColSpan(tableColumns));
+
+          tableColumns = [{}, tableColumn, {}];
+          expect(getCellColSpanGetter({
+            tableColumn,
+            tableRow: { type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } },
+            tableColumns,
+          }))
+            .toBe(getExpectedColSpan(tableColumns));
+
+          tableColumns = [{}, {}, tableColumn];
+          expect(getCellColSpanGetter({
+            tableColumn,
+            tableRow: { type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } },
+            tableColumns,
+          }))
+            .toBe(getExpectedColSpan(tableColumns));
+
+          expect(getCellColSpanGetter({
+            tableColumn,
+            tableRow: { type: Symbol('undefined'), row: {} },
+            tableColumns: [{}, tableColumn, {}],
+          }))
+            .toBe('original');
+        });
+      });
     });
 
     it('should return correct colspan if have few columns with different types', () => {

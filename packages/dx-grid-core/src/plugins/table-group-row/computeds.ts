@@ -80,10 +80,10 @@ const groupSummaryChains: GroupSummaryChainsFn = (
   tableRow,
   tableColumns,
   groupSummaryItems,
-  firstVisibleColumn,
+  firstVisibleColumnIndex,
 ) => {
   let captionStarted = false;
-  return sortAndSpliceColumns(tableColumns, firstVisibleColumn)
+  return sortAndSpliceColumns(tableColumns, firstVisibleColumnIndex)
     .reduce((acc, col) => {
       const colName = (col.column && col.column.name) as string;
       const isStartOfGroupCaption = col.type === TABLE_GROUP_TYPE
@@ -108,7 +108,7 @@ const groupSummaryChains: GroupSummaryChainsFn = (
 };
 
 export const tableGroupCellColSpanGetter: GroupCellColSpanGetter = (
-  getTableCellColSpan, groupSummaryItems, firstVisibleColumn,
+  getTableCellColSpan, groupSummaryItems, firstVisibleColumnIndex,
 ) => (params) => {
   const { tableRow, tableColumns, tableColumn } = params;
 
@@ -117,7 +117,7 @@ export const tableGroupCellColSpanGetter: GroupCellColSpanGetter = (
     const dataColumnGroupedBy =
       tableRow.row.groupedBy === colName && tableColumn.type !== TABLE_GROUP_TYPE;
     const chains = groupSummaryChains(
-      tableRow, tableColumns, groupSummaryItems, firstVisibleColumn,
+      tableRow, tableColumns, groupSummaryItems, firstVisibleColumnIndex,
     );
     const chain = chains.find(ch => !dataColumnGroupedBy && ch[0] === colName);
 

@@ -196,19 +196,19 @@ describe('TableGroupRow Plugin computeds', () => {
     });
 
     describe('Virtual Table', () => {
-      [0, 1, 2].map((firstVisibleColumn) => {
+      [0, 1, 2].map((firstVisibleColumnIndex) => {
         const tableColumn = { type: TABLE_GROUP_TYPE, column: { name: 'a' } };
         const getCellColSpanGetter = tableGroupCellColSpanGetter(
-          parentGetCellColSpan, [], firstVisibleColumn,
+          parentGetCellColSpan, [], firstVisibleColumnIndex,
         );
         const getExpectedColSpan = (tableColumns) => {
           const firstGroupColumnIndex = tableColumns
             .findIndex(col => col.type === TABLE_GROUP_TYPE);
-          return tableColumns.length - Math.min(firstVisibleColumn, firstGroupColumnIndex);
+          return tableColumns.length - Math.min(firstVisibleColumnIndex, firstGroupColumnIndex);
         };
 
         // tslint:disable-next-line: max-line-length
-        it(`should return correct colspan if the "firstVisibleColumn" is ${firstVisibleColumn}`, () => {
+        it(`should return correct ColSpan if the "firstVisibleColumnIndex" is ${firstVisibleColumnIndex}`, () => {
           let tableColumns = [tableColumn, {}, {}];
           expect(getCellColSpanGetter({
             tableColumn,

@@ -143,7 +143,7 @@ describe('TableRowDetail Plugin helpers', () => {
     const groupColumn = { type: TABLE_GROUP_TYPE };
     const otherColumn = { type: Symbol('undefined') };
 
-    it('should work with the Table (firstVisibleColumn is not defined)', () => {
+    it('should work with the Table (firstVisibleColumnIndex is not defined)', () => {
       expect(sortAndSpliceColumns([groupColumn, otherColumn, dataColumn]))
         .toEqual([groupColumn, otherColumn, dataColumn]);
 
@@ -154,8 +154,8 @@ describe('TableRowDetail Plugin helpers', () => {
         .toEqual([groupColumn, otherColumn, otherColumn, dataColumn]);
     });
 
-    it('should work with the Virtual Table (firstVisibleColumn is defined)', () => {
-      describe('one group', () => {
+    describe('should work with the Virtual Table (firstVisibleColumnIndex is defined)', () => {
+      it('should work with one group', () => {
         expect(sortAndSpliceColumns(
           [otherColumn, otherColumn, groupColumn, otherColumn, dataColumn], 0,
         ))
@@ -177,7 +177,7 @@ describe('TableRowDetail Plugin helpers', () => {
           .toEqual([groupColumn, otherColumn, dataColumn]);
       });
 
-      describe('two groups', () => {
+      it('should work with two groups', () => {
         expect(sortAndSpliceColumns(
           [otherColumn, otherColumn, groupColumn, otherColumn, groupColumn, dataColumn], 0,
         ))

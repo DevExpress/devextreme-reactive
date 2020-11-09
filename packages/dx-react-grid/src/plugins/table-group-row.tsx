@@ -55,8 +55,12 @@ const tableBodyRowsComputed = (
 const getCellColSpanComputed = (
   { getTableCellColSpan, groupSummaryItems, viewport }: Getters,
 ) => {
-  const firstVisibleColumn = viewport?.columns[0][0];
-  return tableGroupCellColSpanGetter(getTableCellColSpan, groupSummaryItems, firstVisibleColumn);
+  const firstVisibleColumnIndex = viewport?.columns[0][0];
+  return tableGroupCellColSpanGetter(
+    getTableCellColSpan,
+    groupSummaryItems,
+    firstVisibleColumnIndex,
+  );
 };
 
 class TableGroupRowBase extends React.PureComponent<TableGroupRowProps> {

@@ -89,7 +89,7 @@ export const calculateGroupCellIndent: PureComputed<[TableColumn, Grouping[], nu
 );
 
 export const sortAndSpliceColumns: PureComputed<[TableColumn[], number]> = (
-  tableColumns, firstVisibleColumn,
+  tableColumns, firstVisibleColumnIndex,
 ) => {
   const groupColumns = tableColumns.filter(col => col.type === TABLE_GROUP_TYPE);
   const dataColumns = tableColumns.filter(col => col.type === TABLE_DATA_TYPE);
@@ -97,9 +97,9 @@ export const sortAndSpliceColumns: PureComputed<[TableColumn[], number]> = (
     col => col.type !== TABLE_DATA_TYPE && col.type !== TABLE_GROUP_TYPE,
   );
 
-  if (firstVisibleColumn) {
+  if (firstVisibleColumnIndex) {
     const firstGroupIndex = tableColumns.indexOf(groupColumns[0]);
-    otherColumns.splice(0, Math.min(firstVisibleColumn, firstGroupIndex));
+    otherColumns.splice(0, Math.min(firstVisibleColumnIndex, firstGroupIndex));
   }
 
   return [...groupColumns, ...otherColumns, ...dataColumns];

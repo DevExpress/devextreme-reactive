@@ -9,20 +9,20 @@ export namespace MonthView {
   export interface DayScaleCellProps extends BaseView.DayScaleCellProps {}
   /** Describes properties passed to a component that renders a month scale empty cell. */
   export interface DayScaleEmptyCellProps extends BaseView.DayScaleEmptyCellProps {}
-  /** Describes properties passed to a component that renders a time table layout. */
+  /** Describes properties passed to a component that renders a timetable layout. */
   export interface TimeTableLayoutProps {
     /** Specifies the cells meta data. */
     cellsData: MonthView.CellData[][];
-    /** A component that renders a time table cell. */
+    /** A component that renders a timetable cell. */
     cellComponent: React.ComponentType<MonthView.TimeTableCellProps>;
-    /** A component that renders a time table row. */
+    /** A component that renders a timetable row. */
     rowComponent: React.ComponentType<MonthView.RowProps>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
     /** A setCellElementsMeta callback */
     setCellElementsMeta: (cellElementsMeta: CellElementsMeta) => void;
   }
-  /** Describes properties passed to a component that renders a time table cell. */
+  /** Describes properties passed to a component that renders a timetable cell. */
   export interface TimeTableCellProps {
     /** Specifies the cell's start time. */
     startDate: Date;
@@ -55,7 +55,7 @@ export namespace MonthView {
   export interface LayoutProps {
     /** A component that renders a month scale layout. */
     dayScaleComponent: React.ComponentType<BaseView.DayScaleLayoutProps>;
-    /** A component that renders a time table layout. */
+    /** A component that renders a timetable layout. */
     timeTableComponent: React.ComponentType<BaseView.TimeTableLayoutProps>;
     /** A component that renders a day scale empty cell. */
     dayScaleEmptyCellComponent?: React.ComponentType<BaseView.DayScaleEmptyCellProps>;
@@ -87,7 +87,7 @@ export interface MonthViewProps extends CommonViewProps {
   layoutComponent: React.ComponentType<MonthView.LayoutProps>;
   /** A component that renders a month scale layout. */
   dayScaleLayoutComponent: React.ComponentType<MonthView.DayScaleLayoutProps>;
-  /** A component that renders a time table layout. */
+  /** A component that renders a timetable layout. */
   timeTableLayoutComponent: React.ComponentType<MonthView.TimeTableLayoutProps>;
   /** A component that renders a day scale empty cell. */
   dayScaleEmptyCellComponent?: React.ComponentType<BaseView.DayScaleEmptyCellProps>;

@@ -39,9 +39,9 @@ dayScaleLayoutComponent | ComponentType&lt;[DayView.DayScaleLayoutProps](#dayvie
 dayScaleCellComponent | ComponentType&lt;[DayView.DayScaleCellProps](#dayviewdayscalecellprops)&gt; | | A component that renders a day scale cell.
 dayScaleRowComponent | ComponentType&lt;[DayView.RowProps](#dayviewrowprops)&gt; | | A component that renders a day scale row.
 dayScaleEmptyCellComponent | ComponentType&lt;[DayView.DayScaleEmptyCellProps](#dayviewdayscaleemptycellprops)&gt; | | A component that renders a day scale empty cell.
-timeTableLayoutComponent | ComponentType&lt;[DayView.TimeTableLayoutProps](#dayviewtimetablelayoutprops)&gt; | | A component that renders a time table layout.
-timeTableCellComponent | ComponentType&lt;[DayView.TimeTableCellProps](#dayviewtimetablecellprops)&gt; | | A component that renders a time table cell.
-timeTableRowComponent | ComponentType&lt;[DayView.RowProps](#dayviewrowprops)&gt; | | A component that renders a time table row.
+timeTableLayoutComponent | ComponentType&lt;[DayView.TimeTableLayoutProps](#dayviewtimetablelayoutprops)&gt; | | A component that renders a timetable layout.
+timeTableCellComponent | ComponentType&lt;[DayView.TimeTableCellProps](#dayviewtimetablecellprops)&gt; | | A component that renders a timetable cell.
+timeTableRowComponent | ComponentType&lt;[DayView.RowProps](#dayviewrowprops)&gt; | | A component that renders a timetable row.
 appointmentLayerComponent | ComponentType&lt;[DayView.AppointmentLayerProps](#dayviewappointmentlayerprops)&gt; | | A component that renders the appointment layer.
 
 ## Interfaces
@@ -67,7 +67,7 @@ Field | Type | Description
 setScrollingStrategy | (scrollingStrategy: [ScrollingStrategy](./scheduler.md#scrollingstrategy)) => void | A scrollingStrategy callback.
 timeScaleComponent | ComponentType&lt;[DayView.TimeScaleLayoutProps](#dayviewtimescalelayoutprops)&gt; | A component that renders a time scale layout.
 dayScaleComponent | ComponentType&lt;[DayView.DayScaleLayoutProps](#dayviewdayscalelayoutprops)&gt; | A component that renders a day scale layout.
-timeTableComponent | ComponentType&lt;[DayView.TimeTableLayoutProps](#dayviewtimetablelayoutprops)&gt; | A component that renders a time table layout.
+timeTableComponent | ComponentType&lt;[DayView.TimeTableLayoutProps](#dayviewtimetablelayoutprops)&gt; | A component that renders a timetable layout.
 dayScaleEmptyCellComponent | ComponentType&lt;[DayView.DayScaleEmptyCellProps](#dayviewdayscaleemptycellprops)&gt; | A component that renders a day scale empty cell.
 
 ### DayView.TimeScaleLayoutProps
@@ -132,21 +132,21 @@ children? | ReactNode | A React node used to render the row content.
 
 ### DayView.TimeTableLayoutProps
 
-Describes properties passed to a component that renders a time table layout.
+Describes properties passed to a component that renders a timetable layout.
 
 Field | Type | Description
 ------|------|------------
 cellsData | Array&lt;Array&lt;[DayView.CellData](#dayviewcelldata)&gt;&gt; | Specifies the cells meta data.
 allDayCellsData? | Array&lt;Array&lt;[AllDayPanel.CellData](./all-day-panel.md#alldaypanelcelldata)&gt;&gt; | Information about cells on the All Day Panel.
-cellComponent | ComponentType&lt;[DayView.TimeTableCellProps](#dayviewtimetablecellprops)&gt; | A component that renders a time table cell.
-rowComponent | ComponentType&lt;[DayView.RowProps](#dayviewrowprops)&gt; | A component that renders a time table row.
+cellComponent | ComponentType&lt;[DayView.TimeTableCellProps](#dayviewtimetablecellprops)&gt; | A component that renders a timetable cell.
+rowComponent | ComponentType&lt;[DayView.RowProps](#dayviewrowprops)&gt; | A component that renders a timetable row.
 allDayCellComponent? | ComponentType&lt;[AllDay.CellProps](./all-day-panel.md#alldaypanelcellprops)&gt; | A component that renders a cell on the All Day Panel.
 allDayRowComponent? | ComponentType&lt;[AllDay.RowProps](./all-day-panel.md#alldaypanelrowprops)&gt; | A component that renders a row on the All Day Panel.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the set locale.
 
 ### DayView.TimeTableCellProps
 
-Describes properties passed to a component that renders a time table cell.
+Describes properties passed to a component that renders a timetable cell.
 
 Field | Type | Description
 ------|------|------------
@@ -159,7 +159,7 @@ isShaded? | boolean | Indicates whether the cell is shaded.
 currentTimeIndicatorPosition? | string | Indicates the distance from the top edge of the containing element (usually, a timetable cell). The distance is a percentage of the element's height.
 onDoubleClick? | (e: object) => void | A function that handles a double click on the cell.
 currentTimeIndicatorComponent? | ComponentType&lt;[CurrentTimeIndicator.IndicatorProps](#currenttimeindicatorindicatorprops)&gt; | A component that renders the current time indicator.
-children? | ReactNode | A React node used to render the time table cell content.
+children? | ReactNode | A React node used to render the timetable cell content.
 
 ### DayView.AppointmentLayerProps
 
@@ -188,9 +188,9 @@ DayView.DayScaleLayout | [DayView.DayScaleLayoutProps](#dayviewdayscalelayoutpro
 DayView.DayScaleCell | [DayView.DayScaleCellProps](#dayviewdayscalecellprops) | A component that renders a day scale cell.
 DayView.DayScaleRow | [DayView.RowProps](#dayviewrowprops) | A component that renders a day scale row.
 DayView.DayScaleEmptyCell | [DayView.DayScaleEmptyCellProps](#dayviewdayscaleemptycellprops) | A component that renders a day scale empty cell.
-DayView.TimeTableLayout | [DayView.TimeTableLayoutProps](#dayviewtimetablelayoutprops) | A component that renders a time table layout.
-DayView.TimeTableCell | [DayView.TimeTableCellProps](#dayviewtimetablecellprops) | A component that renders a time table cell.
-DayView.TimeTableRow | [DayView.RowProps](#dayviewrowprops) | A component that renders a time table row.
+DayView.TimeTableLayout | [DayView.TimeTableLayoutProps](#dayviewtimetablelayoutprops) | A component that renders a timetable layout.
+DayView.TimeTableCell | [DayView.TimeTableCellProps](#dayviewtimetablecellprops) | A component that renders a timetable cell.
+DayView.TimeTableRow | [DayView.RowProps](#dayviewrowprops) | A component that renders a timetable row.
 DayView.AppointmentLayer | [DayView.AppointmentLayerProps](#dayviewappointmentlayerprops) | A component that renders the appointment layer.
 
 Additional properties are added to the component's root element.

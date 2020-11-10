@@ -319,7 +319,7 @@ describe('Basic View', () => {
           groupedByDate: true,
         });
     });
-    it('should render time table', () => {
+    it('should render timetable', () => {
       const customTimeTableLayout = () => null;
       const tree = mount((
         <PluginHost>

@@ -40,7 +40,7 @@ export interface BasicViewProps extends CommonViewProps {
   layoutComponent: React.ComponentType<any>;
   /** A component that renders a day scale layout. */
   dayScaleLayoutComponent: React.ComponentType<BaseView.DayScaleLayoutProps> | React.ComponentType<MonthView.DayScaleLayoutProps>;
-  /** A component that renders a time table layout. */
+  /** A component that renders a timetable layout. */
   timeTableLayoutComponent: React.ComponentType<BaseView.TimeTableLayoutProps> | React.ComponentType<MonthView.TimeTableLayoutProps>;
   /** A component that renders a day scale empty cell. */
   dayScaleEmptyCellComponent?: React.ComponentType<BaseView.DayScaleEmptyCellProps>;

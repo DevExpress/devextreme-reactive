@@ -99,7 +99,7 @@ describe('DragDropProvider', () => {
       expect(cellData(1, 3, cellsData, allDayCellsData).startDate)
         .toEqual(new Date('2019-3-4'));
     });
-    it('should work with only time table index', () => {
+    it('should work with only timetable index', () => {
       expect(cellData(2, -1, cellsData, allDayCellsData).startDate)
         .toEqual(new Date('2019-3-1 11:00'));
     });
@@ -535,7 +535,7 @@ describe('DragDropProvider', () => {
         timeTableDraftAppointments: [{}],
       });
     });
-    it('should return time table array', () => {
+    it('should return timetable array', () => {
       const nextAllDayIndex = -1;
       expect(calculateDraftAppointments(
         nextAllDayIndex, draftAppointments, startViewDate,

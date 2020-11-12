@@ -1,69 +1,60 @@
 import { PureComputed } from '@devexpress/dx-core';
 import { GROUP_KEY_SEPARATOR } from '../grouping-state/constants';
 import {
-  GRID_GROUP_TYPE,
   GRID_GROUP_CHECK,
   GRID_GROUP_LEVEL_KEY,
   GRID_GROUP_COLLAPSED_ROWS,
 } from './constants';
 import {
-  Grouping, GroupKey, Row, GetCollapsedRowsFn, IsSpecificRowFn, GroupedRowsFn,
+  Grouping,
+  GroupKey,
+  Row,
+  GetCollapsedRowsFn,
+  IsSpecificRowFn,
+  GroupedRowsFn,
 } from '../../types';
+import { getGroupRows } from './helpers';
 
 export const groupRowChecker: IsSpecificRowFn = row => row[GRID_GROUP_CHECK];
 
 export const groupRowLevelKeyGetter = (row: Row) => (row ? row[GRID_GROUP_LEVEL_KEY] : undefined);
 
-const defaultColumnCriteria = (value: any) => ({
-  value,
-  key: String(value),
-});
-
 export const groupedRows: GroupedRowsFn = (
-  rows, grouping, getCellValue, getColumnCriteria, keyPrefix = '',
+  rows, grouping, getCellValue, getColumnCriteria,
 ) => {
-  if (!grouping.length) return rows;
+  const keyPrefixes = [{ prefix: '', level: 0, items: rows }];
+  let resultRows = [] as Row[];
 
-  const { columnName } = grouping[0];
-  const groupCriteria = (getColumnCriteria && getColumnCriteria(columnName))
-    || defaultColumnCriteria;
+  while (keyPrefixes.length) {
+    const { prefix: keyPrefix, level, items: currentItems } = keyPrefixes.shift()!;
 
-  const groups = new Map();
-  rows.forEach((row) => {
-    const rawValue = getCellValue(row, columnName);
-    const { key, value } = groupCriteria(rawValue, row);
-    const sameKeyItems = groups.get(key);
+    const groupRows = grouping[level]
+      ? getGroupRows(currentItems, grouping, getCellValue, getColumnCriteria, keyPrefix, level)
+          .map(({ items, ...params }: any) => {
+            const { compoundKey } = params;
+            keyPrefixes.push({
+              prefix: `${compoundKey}${GROUP_KEY_SEPARATOR}`,
+              level: level + 1,
+              items,
+            });
+            return params;
+          })
+      : currentItems;
 
-    if (!sameKeyItems) {
-      const groupingValue = value === rawValue ? value : value || key;
-      groups.set(key, [groupingValue, key, [row]]);
+    const index = resultRows
+      .findIndex(row => row.compoundKey === keyPrefix.slice(0, keyPrefix.length - 1));
+    if (index > -1) {
+      resultRows = [
+        ...resultRows.slice(0, index + 1),
+        ...groupRows,
+        ...resultRows.slice(index + 1),
+      ];
     } else {
-      sameKeyItems[2].push(row);
+      resultRows.push(...groupRows);
     }
-  });
+  }
 
-  const groupedBy = grouping[0].columnName;
-  const nestedGrouping = grouping.slice(1);
-  return [...groups.values()]
-    .reduce((acc, [value, key, items]) => {
-      const compoundKey = `${keyPrefix}${key}`;
-      acc.push({
-        groupedBy,
-        compoundKey,
-        key,
-        value,
-        [GRID_GROUP_CHECK]: true,
-        [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE.toString()}_${groupedBy}`,
-      });
-      acc.push(...groupedRows(
-        items,
-        nestedGrouping,
-        getCellValue,
-        getColumnCriteria,
-        `${compoundKey}${GROUP_KEY_SEPARATOR}`,
-      ));
-      return acc;
-    }, []);
+  return resultRows;
 };
 
 export const expandedGroupRows: PureComputed<[Row[], Grouping[], GroupKey[], boolean]> = (

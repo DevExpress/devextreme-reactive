@@ -52,7 +52,12 @@ export type GroupingPanelItemsFn = PureComputed<
 
 /** @internal */
 export type GroupedRowsFn = PureComputed<
-  [Row[], Grouping[], GetCellValueFn, (c: string) => GroupingCriteriaFn, string?]
+  [Row[], Grouping[], GetCellValueFn, (c: string) => GroupingCriteriaFn]
+>;
+
+/** @internal */
+export type GetGroupsFn = PureComputed<
+  [Row[], Grouping[], GetCellValueFn, (c: string) => GroupingCriteriaFn, string, number]
 >;
 
 /** @internal */

@@ -32,7 +32,7 @@ const specifyWidths: SpecifyWidthsFn = (tableColumns, widths, resizingMode, onEr
         if (width === undefined) {
           acc.push(tableColumn);
         } else {
-          acc.push({ ...tableColumn, width: convertWidth(width) });
+          acc.push({ ...tableColumn, width: convertWidth(width), resizingMode });
         }
       } else {
         acc.push(tableColumn);

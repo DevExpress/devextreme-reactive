@@ -81,7 +81,10 @@ class TableLayoutBase extends React.PureComponent<TableLayoutCoreProps, TableLay
     let result = columns;
 
     const isFixedWidth = columns
-      .filter(column => column.width === undefined || column.width === 'auto')
+      .filter(column =>
+        (column.width === undefined || column.width === 'auto')
+        || (column.resizingMode && column.resizingMode !== 'widget')
+      )
       .length === 0;
     if (isFixedWidth) {
       // presumably a flex column added here instead of in a getter in the Table plugin

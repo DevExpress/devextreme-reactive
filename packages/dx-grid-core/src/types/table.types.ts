@@ -34,6 +34,8 @@ export interface TableColumn {
   align?: 'left' | 'right' | 'center';
   /** Specifies the fixed table's column alignment. */
   fixed?: 'left' | 'right';
+  /** Specifies column resize mode. */
+  resizingMode?: string;
 }
 
 export type GridColumnExtension = {

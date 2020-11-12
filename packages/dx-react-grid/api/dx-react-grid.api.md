@@ -785,6 +785,7 @@ export interface TableColumn {
     column?: Column;
     fixed?: 'left' | 'right';
     key: string;
+    resizingMode?: string;
     type: symbol;
     width?: number | string;
 }

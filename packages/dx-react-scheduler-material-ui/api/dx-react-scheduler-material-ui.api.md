@@ -422,10 +422,11 @@ export const DayView: React.ComponentType<DayViewProps> & {
   TimeScaleLabel: React.ComponentType<DayView_2.TimeScaleLabelProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleLayout: React.ComponentType<DayView_2.DayScaleLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleCell: React.ComponentType<DayView_2.DayScaleCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  DayScaleRow: React.ComponentType<DayView_2.RowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleEmptyCell: React.ComponentType<DayView_2.DayScaleEmptyCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   TimeTableLayout: React.ComponentType<DayView_2.TimeTableLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   TimeTableCell: React.ComponentType<DayView_2.TimeTableCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Row: React.ComponentType<DayView_2.RowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  TimeTableRow: React.ComponentType<DayView_2.RowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   AppointmentLayer: React.ComponentType<DayView_2.AppointmentLayerProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
 };
 
@@ -605,10 +606,11 @@ export const MonthView: React.ComponentType<MonthViewProps> & {
   Layout: React.ComponentType<MonthView_2.LayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleLayout: React.ComponentType<MonthView_2.DayScaleLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleCell: React.ComponentType<MonthView_2.DayScaleCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  DayScaleEmptyCell: React.ComponentType<DayView.DayScaleEmptyCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  DayScaleRow: React.ComponentType<MonthView_2.RowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  DayScaleEmptyCell: React.ComponentType<MonthView_2.DayScaleEmptyCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   TimeTableLayout: React.ComponentType<MonthView_2.TimeTableLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   TimeTableCell: React.ComponentType<MonthView_2.TimeTableCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Row: React.ComponentType<MonthView_2.RowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  TimeTableRow: React.ComponentType<MonthView_2.RowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   AppointmentLayer: React.ComponentType<MonthView_2.AppointmentLayerProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
 };
 
@@ -772,10 +774,11 @@ export const WeekView: React.ComponentType<WeekViewProps> & {
   TimeScaleLabel: React.ComponentType<WeekView_2.TimeScaleLabelProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleLayout: React.ComponentType<WeekView_2.DayScaleLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleCell: React.ComponentType<WeekView_2.DayScaleCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  DayScaleRow: React.ComponentType<WeekView_2.RowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   DayScaleEmptyCell: React.ComponentType<WeekView_2.DayScaleEmptyCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   TimeTableLayout: React.ComponentType<WeekView_2.TimeTableLayoutProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   TimeTableCell: React.ComponentType<WeekView_2.TimeTableCellProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Row: React.ComponentType<WeekView_2.RowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+  TimeTableRow: React.ComponentType<WeekView_2.RowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
   AppointmentLayer: React.ComponentType<WeekView_2.AppointmentLayerProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
 };
 

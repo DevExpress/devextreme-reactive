@@ -24,7 +24,7 @@ export interface VerticalViewProps extends CommonViewProps {
   dayScaleLayoutComponent: React.ComponentType<BaseView.DayScaleLayoutProps>;
   /** A component that renders a day scale empty cell. */
   dayScaleEmptyCellComponent: React.ComponentType<BaseView.DayScaleEmptyCellProps>;
-  /** A component that renders a time table layout. */
+  /** A component that renders a timetable layout. */
   timeTableLayoutComponent: React.ComponentType<BaseView.TimeTableLayoutProps>;
 }
 

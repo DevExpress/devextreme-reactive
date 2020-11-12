@@ -74,12 +74,12 @@ export type GetGroupCellTargetIndexFn = PureComputed<
 >;
 /** @internal */
 export type GroupCellColSpanGetter = PureComputed<
-  [GetCellColSpanFn, SummaryItem[]],
+  [GetCellColSpanFn, SummaryItem[], number],
   GetCellColSpanFn
 >;
 
 /** @internal */
 export type GroupSummaryChainsFn = PureComputed<
-  [TableRow, TableColumn[], SummaryItem[]],
+  [TableRow, TableColumn[], SummaryItem[], number],
   string[][]
 >;

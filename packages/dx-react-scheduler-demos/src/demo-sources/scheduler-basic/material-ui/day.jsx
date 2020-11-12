@@ -9,30 +9,17 @@ import {
 
 import appointments from '../../../demo-data/today-appointments';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: appointments,
-    };
-  }
-
-  render() {
-    const { data } = this.state;
-
-    return (
-      <Paper>
-        <Scheduler
-          data={data}
-        >
-          <DayView
-            startDayHour={8}
-            endDayHour={13}
-          />
-          <Appointments />
-          <AppointmentTooltip />
-        </Scheduler>
-      </Paper>
-    );
-  }
-}
+export default () => (
+  <Paper>
+    <Scheduler
+      data={appointments}
+    >
+      <DayView
+        startDayHour={8}
+        endDayHour={13}
+      />
+      <Appointments />
+      <AppointmentTooltip />
+    </Scheduler>
+  </Paper>
+);

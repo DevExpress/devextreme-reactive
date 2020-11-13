@@ -95,7 +95,7 @@ describe('DragDrop', () => {
       const tree = mount((
         <SourceAppointment
           {...defaultProps}
-          ref={testRef}
+          forwardedRef={testRef}
         />
       ));
 

@@ -189,7 +189,7 @@ class AppointmentsBase extends React.PureComponent<AppointmentsProps> {
             ...restParams
           }: any) => (
             <Appointment
-              ref={forwardedRef}
+              forwardedRef={forwardedRef}
               data={data}
               resources={resources}
               {...createClickHandlers(onClick, onDoubleClick)}

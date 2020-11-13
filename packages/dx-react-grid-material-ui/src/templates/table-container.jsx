@@ -13,11 +13,15 @@ const styles = {
   },
 };
 
-const TableContainerBase = React.forwardRef(({
-  children, classes, className, ...restProps
-}, ref) => (
+const TableContainerBase = ({
+  children,
+  classes,
+  className,
+  forwardedRef,
+  ...restProps
+}) => (
   <div
-    ref={ref}
+    ref={forwardedRef}
     className={classNames(classes.root, className)}
     {...restProps}
   >
@@ -25,16 +29,18 @@ const TableContainerBase = React.forwardRef(({
       {children}
     </div>
   </div>
-));
+);
 
 TableContainerBase.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 TableContainerBase.defaultProps = {
   className: undefined,
+  forwardedRef: undefined,
 };
 
 export const TableContainer = withStyles(styles, { name: 'TableContainer' })(TableContainerBase);

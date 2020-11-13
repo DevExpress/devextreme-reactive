@@ -205,7 +205,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
                   === VERTICAL_GROUP_ORIENTATION;
                 return (
                   <Layout
-                    ref={params?.forwardedRef}
+                    forwardedRef={params?.forwardedRef}
                     dayScaleComponent={DayScalePlaceholder}
                     timeTableComponent={TimeTablePlaceholder}
                     setScrollingStrategy={this.setScrollingStrategy}

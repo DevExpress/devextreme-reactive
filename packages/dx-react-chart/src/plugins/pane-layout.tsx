@@ -21,9 +21,9 @@ const SVG_STYLE: React.CSSProperties = {
   position: 'absolute', left: 0, top: 0, overflow: 'visible',
 };
 
-const SizerContainer = React.forwardRef(({ children }, ref: React.Ref<HTMLDivElement>) => (
-  <div ref={ref} style={DIV_STYLE}>{children}</div>
-));
+const SizerContainer = ({ children, forwardedRef }) => (
+  <div ref={forwardedRef} style={DIV_STYLE}>{children}</div>
+);
 
 let numDefs = 0;
 const getUniqueId = () => {

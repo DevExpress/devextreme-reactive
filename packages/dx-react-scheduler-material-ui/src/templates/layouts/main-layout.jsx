@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const MainLayout = React.memo(React.forwardRef(({
+export const MainLayout = React.memo(({
   timeScaleComponent: TimeScale,
   dayScaleComponent: DayScale,
   timeTableComponent: TimeTable,
@@ -68,8 +68,9 @@ export const MainLayout = React.memo(React.forwardRef(({
   groupingPanelSize,
   setScrollingStrategy,
   className,
+  forwardedRef,
   ...restProps
-}, ref) => {
+}) => {
   const layoutRef = React.useRef(null);
   const layoutHeaderRef = React.useRef(null);
   const leftPanelRef = React.useRef(null);
@@ -111,11 +112,11 @@ export const MainLayout = React.memo(React.forwardRef(({
     <div
       ref={(node) => {
         layoutRef.current = node;
-        if (typeof ref === 'function') {
-          ref(node);
-        } else if (ref) {
+        if (typeof forwardedRef === 'function') {
+          forwardedRef(node);
+        } else if (forwardedRef) {
           // eslint-disable-next-line no-param-reassign
-          ref.current = node;
+          forwardedRef.current = node;
         }
       }}
       className={classNames(classes.container, className)}
@@ -183,7 +184,7 @@ export const MainLayout = React.memo(React.forwardRef(({
       </div>
     </div>
   );
-}));
+});
 
 MainLayout.propTypes = {
   // oneOfType is a workaround because withStyles returns react object
@@ -195,6 +196,7 @@ MainLayout.propTypes = {
   groupingPanelSize: PropTypes.number,
   setScrollingStrategy: PropTypes.func.isRequired,
   className: PropTypes.string,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 MainLayout.defaultProps = {
@@ -202,4 +204,5 @@ MainLayout.defaultProps = {
   timeScaleComponent: undefined,
   groupingPanelSize: 0,
   className: undefined,
+  forwardedRef: undefined,
 };

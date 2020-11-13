@@ -73,11 +73,11 @@ const recurrenceAppointments = [{
 const dragDisableIds = new Set([3, 8, 10, 12]);
 
 const allowDrag = ({ id }) => !dragDisableIds.has(id);
-const appointmentComponent = React.forwardRef((props, ref) => {
+const appointmentComponent = (props) => {
   if (allowDrag(props.data)) {
-    return <Appointments.Appointment ref={ref} {...props} />;
-  } return <Appointments.Appointment ref={ref} {...props} style={{ ...props.style, cursor: 'not-allowed' }} />;
-});
+    return <Appointments.Appointment {...props} />;
+  } return <Appointments.Appointment {...props} style={{ ...props.style, cursor: 'not-allowed' }} />;
+};
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

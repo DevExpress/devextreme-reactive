@@ -1,7 +1,6 @@
 /* globals document:true */
 
 import * as React from 'react';
-import { RefHolder } from './ref-holder';
 import { SizerProps, Size } from './types';
 
 const styles = {
@@ -148,14 +147,11 @@ export class Sizer extends React.PureComponent<SizerProps> {
     } = this.props;
 
     return (
-      <RefHolder
-        ref={this.rootRef}
-      >
-        <Container // NOTE: should have `position: relative`
-          style={style ? { ...styles.root, ...style } : styles.root}
-          {...restProps}
-        />
-      </RefHolder>
+      <Container // NOTE: should have `position: relative`
+        forwardedRef={this.rootRef}
+        style={style ? { ...styles.root, ...style } : styles.root}
+        {...restProps}
+      />
     );
   }
 }

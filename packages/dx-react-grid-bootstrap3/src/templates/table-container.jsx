@@ -2,14 +2,15 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 
-export const TableContainer = React.forwardRef(({
+export const TableContainer = ({
   children,
   style,
   className,
+  forwardedRef,
   ...restProps
-}, ref) => (
+}) => (
   <div
-    ref={ref}
+    ref={forwardedRef}
     className={classNames('table-responsive', className)}
     style={{
       flexGrow: 1,
@@ -28,15 +29,17 @@ export const TableContainer = React.forwardRef(({
       {children}
     </div>
   </div>
-));
+);
 
 TableContainer.propTypes = {
   children: PropTypes.node.isRequired,
   style: PropTypes.object,
   className: PropTypes.string,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 TableContainer.defaultProps = {
   className: undefined,
   style: null,
+  forwardedRef: undefined,
 };

@@ -46,15 +46,16 @@ const styles = ({ spacing }) => {
   });
 };
 
-const ResizeBase = React.memo(React.forwardRef(({
+const ResizeBase = React.memo(({
   classes, className,
-  position, appointmentType, ...restProps
-}, ref) => {
+  position, appointmentType,
+  forwardedRef, ...restProps
+}) => {
   const vertical = appointmentType === VERTICAL_TYPE;
   const start = position === POSITION_START;
   return (
     <div
-      ref={ref}
+      ref={forwardedRef}
       className={classNames({
         [classes.resize]: true,
         [classes.verticalStart]: vertical && start,
@@ -65,7 +66,7 @@ const ResizeBase = React.memo(React.forwardRef(({
       {...restProps}
     />
   );
-}));
+});
 
 
 ResizeBase.propTypes = {
@@ -73,10 +74,12 @@ ResizeBase.propTypes = {
   position: PropTypes.oneOf([POSITION_START, POSITION_END]).isRequired,
   appointmentType: PropTypes.oneOf([HORIZONTAL_TYPE, VERTICAL_TYPE]).isRequired,
   className: PropTypes.string,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 ResizeBase.defaultProps = {
   className: undefined,
+  forwardedRef: undefined,
 };
 
 export const Resize = withStyles(styles, { name: 'Resize' })(ResizeBase);

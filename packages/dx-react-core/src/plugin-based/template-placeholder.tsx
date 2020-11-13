@@ -112,3 +112,12 @@ export const TemplatePlaceholder: React.ComponentType<TemplatePlaceholderProps> 
 )(
   withContext(TemplateHostContext, TEMPLATE_HOST_CONTEXT)(TemplatePlaceholderBase),
 );
+
+export const PlaceholderWithRef = React.forwardRef<any, any>(({ params }, ref) => (
+  <TemplatePlaceholder
+    params={{
+      ...params,
+      forwardedRef: ref,
+    }}
+  />
+));

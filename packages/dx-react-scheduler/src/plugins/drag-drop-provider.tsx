@@ -3,7 +3,7 @@ import {
   Plugin, Template, TemplatePlaceholder,
   TemplateConnector, DropTarget, DragSource,
   DragDropProvider as DragDropProviderCore,
-  PluginComponents,
+  PluginComponents, PlaceholderWithRef,
 } from '@devexpress/dx-react-core';
 import {
   cellIndex, cellData, cellType, getAppointmentStyle, intervalDuration, autoScroll,
@@ -13,15 +13,6 @@ import {
   HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION, SCROLL_SPEED_PX,
 } from '@devexpress/dx-scheduler-core';
 import { DragDropProviderProps, DragDropProviderState } from '../types';
-
-const PlaceholderWithRef = React.forwardRef<any, any>(({ params }, ref) => (
-  <TemplatePlaceholder
-    params={{
-      ...params,
-      forwardedRef: ref,
-    }}
-  />
-));
 
 const renderAppointmentItems = (items, Wrapper, draftData) => (
   items.length > 0 ? (

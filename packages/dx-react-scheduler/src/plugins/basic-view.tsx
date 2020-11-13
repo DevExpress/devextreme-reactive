@@ -197,7 +197,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
         />
 
         <Template name="body">
-          { ({ forwardedRef }: any) =>
+          { (params: any) =>
             <TemplateConnector>
               {({ currentView, groupOrientation, groups }) => {
                 if (currentView.name !== viewName) return <TemplatePlaceholder />;
@@ -205,7 +205,7 @@ class BasicViewBase extends React.PureComponent<BasicViewProps, BasicViewState> 
                   === VERTICAL_GROUP_ORIENTATION;
                 return (
                   <Layout
-                    ref={forwardedRef}
+                    ref={params?.forwardedRef}
                     dayScaleComponent={DayScalePlaceholder}
                     timeTableComponent={TimeTablePlaceholder}
                     setScrollingStrategy={this.setScrollingStrategy}

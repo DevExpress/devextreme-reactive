@@ -56,8 +56,20 @@ export type GroupedRowsFn = PureComputed<
 >;
 
 /** @internal */
-export type GetGroupsFn = PureComputed<
-  [Row[], Grouping[], GetCellValueFn, (c: string) => GroupingCriteriaFn, string, number]
+export type GetIntegratedGroupsFn = PureComputed<
+  [Row[], Grouping, string, GetCellValueFn, (c: string) => GroupingCriteriaFn]
+>;
+/** @internal */
+export type GetCustomGroupsFn = PureComputed<
+  [Row[], Grouping, string, GetChildGroupsFn, Row[]]
+>;
+/** @internal */
+export type GroupsGetterFn = PureComputed<
+  [Row[], Grouping, string]
+>;
+/** @internal */
+export type GetGroupRowsFn = PureComputed<
+  [Row[], Grouping[], GroupsGetterFn]
 >;
 
 /** @internal */

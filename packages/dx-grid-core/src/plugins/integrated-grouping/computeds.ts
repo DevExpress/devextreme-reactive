@@ -1,5 +1,4 @@
 import { PureComputed } from '@devexpress/dx-core';
-import { GROUP_KEY_SEPARATOR } from '../grouping-state/constants';
 import {
   GRID_GROUP_CHECK,
   GRID_GROUP_LEVEL_KEY,
@@ -12,8 +11,9 @@ import {
   GetCollapsedRowsFn,
   IsSpecificRowFn,
   GroupedRowsFn,
+  GroupsGetterFn,
 } from '../../types';
-import { getGroupRows } from './helpers';
+import { getGroupRows, getIntegratedGroups } from './helpers';
 
 export const groupRowChecker: IsSpecificRowFn = row => row[GRID_GROUP_CHECK];
 
@@ -22,39 +22,15 @@ export const groupRowLevelKeyGetter = (row: Row) => (row ? row[GRID_GROUP_LEVEL_
 export const groupedRows: GroupedRowsFn = (
   rows, grouping, getCellValue, getColumnCriteria,
 ) => {
-  const keyPrefixes = [{ prefix: '', level: 0, items: rows }];
-  let resultRows = [] as Row[];
-
-  while (keyPrefixes.length) {
-    const { prefix: keyPrefix, level, items: currentItems } = keyPrefixes.shift()!;
-
-    const groupRows = grouping[level]
-      ? getGroupRows(currentItems, grouping, getCellValue, getColumnCriteria, keyPrefix, level)
-          .map(({ items, ...params }: any) => {
-            const { compoundKey } = params;
-            keyPrefixes.push({
-              prefix: `${compoundKey}${GROUP_KEY_SEPARATOR}`,
-              level: level + 1,
-              items,
-            });
-            return params;
-          })
-      : currentItems;
-
-    const index = resultRows
-      .findIndex(row => row.compoundKey === keyPrefix.slice(0, keyPrefix.length - 1));
-    if (index > -1) {
-      resultRows = [
-        ...resultRows.slice(0, index + 1),
-        ...groupRows,
-        ...resultRows.slice(index + 1),
-      ];
-    } else {
-      resultRows.push(...groupRows);
-    }
-  }
-
-  return resultRows;
+  const groupsGetter: GroupsGetterFn = (currentRows, currentGrouping, prefix) =>
+    getIntegratedGroups(
+      currentRows,
+      currentGrouping,
+      prefix,
+      getCellValue,
+      getColumnCriteria,
+    );
+  return getGroupRows(rows, grouping, groupsGetter);
 };
 
 export const expandedGroupRows: PureComputed<[Row[], Grouping[], GroupKey[], boolean]> = (

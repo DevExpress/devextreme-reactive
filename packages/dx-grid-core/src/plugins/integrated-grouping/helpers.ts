@@ -1,4 +1,5 @@
-import { GetGroupsFn } from '../../types';
+import { GetIntegratedGroupsFn, GetGroupRowsFn, Row } from '../../types';
+import { GROUP_KEY_SEPARATOR } from '../grouping-state/constants';
 import { GRID_GROUP_CHECK, GRID_GROUP_LEVEL_KEY, GRID_GROUP_TYPE } from './constants';
 
 const defaultColumnCriteria = (value: any) => ({
@@ -6,15 +7,52 @@ const defaultColumnCriteria = (value: any) => ({
   key: String(value),
 });
 
-export const getGroupRows: GetGroupsFn = (
+export const getGroupRows: GetGroupRowsFn = (
+  rows, grouping, groupsGetter,
+) => {
+  const keyPrefixes = [{ prefix: '', level: 0, rows }];
+  let resultRows = [] as Row[];
+
+  while (keyPrefixes.length) {
+    const { prefix: keyPrefix, level, rows: currentRows } = keyPrefixes.shift()!;
+
+    const groupRows = grouping[level] && currentRows.length
+      ? groupsGetter(currentRows, grouping[level], keyPrefix)
+          .map(({ childRows, ...params }: any) => {
+            const { compoundKey } = params;
+            keyPrefixes.push({
+              prefix: `${compoundKey}${GROUP_KEY_SEPARATOR}`,
+              level: level + 1,
+              rows: childRows || [],
+            });
+            return params;
+          })
+      : currentRows;
+
+    const index = resultRows
+      .findIndex(row => row.compoundKey === keyPrefix.slice(0, keyPrefix.length - 1));
+    if (index > -1) {
+      resultRows = [
+        ...resultRows.slice(0, index + 1),
+        ...groupRows,
+        ...resultRows.slice(index + 1),
+      ];
+    } else {
+      resultRows.push(...groupRows);
+    }
+  }
+
+  return resultRows;
+};
+
+export const getIntegratedGroups: GetIntegratedGroupsFn = (
   rows,
   grouping,
+  keyPrefix,
   getCellValue,
   getColumnCriteria,
-  keyPrefix,
-  level,
 ) => {
-  const { columnName } = grouping[level];
+  const { columnName } = grouping;
   const groupCriteria = (getColumnCriteria && getColumnCriteria(columnName))
         || defaultColumnCriteria;
 
@@ -34,17 +72,13 @@ export const getGroupRows: GetGroupsFn = (
 
   const groupedBy = columnName;
   return [...groups.values()]
-    .reduce((acc, [value, key, items]) => {
-      const compoundKey = `${keyPrefix}${key}`;
-      acc.push({
-        groupedBy,
-        compoundKey,
-        key,
-        value,
-        [GRID_GROUP_CHECK]: true,
-        [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE.toString()}_${groupedBy}`,
-        items,
-      });
-      return acc;
-    }, []);
+    .map(([value, key, childRows]) => ({
+      groupedBy,
+      compoundKey: `${keyPrefix}${key}`,
+      key,
+      value,
+      [GRID_GROUP_CHECK]: true,
+      [GRID_GROUP_LEVEL_KEY]: `${GRID_GROUP_TYPE.toString()}_${groupedBy}`,
+      childRows,
+    }));
 };

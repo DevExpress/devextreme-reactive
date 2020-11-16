@@ -353,7 +353,7 @@ export namespace Appointments {
 // @public (undocumented)
 export interface AppointmentsProps {
     appointmentComponent: React.ComponentType<Appointments.AppointmentProps & {
-        forwardedRef?: React.Ref<unknown>;
+        ref?: React.Ref<unknown>;
     }>;
     appointmentContentComponent: React.ComponentType<Appointments.AppointmentContentProps>;
     containerComponent: React.ComponentType<Appointments.ContainerProps>;

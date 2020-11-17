@@ -400,9 +400,11 @@ export interface GroupingPanelItem {
 // @public (undocumented)
 export interface GroupingPanelProps {
     containerComponent: React.ComponentType<GroupingPanel.ContainerProps>;
-    emptyMessageComponent: React.ComponentType<GroupingPanel.EmptyMessageProps>;
+    emptyMessageComponent: React.ComponentType<GroupingPanel.EmptyMessageProps & {
+        forwardedRef?: React.Ref<Element>;
+    }>;
     itemComponent: React.ComponentType<GroupingPanel.ItemProps & {
-        ref: React.Ref<unknown>;
+        forwardedRef?: React.Ref<Element>;
     }>;
     messages?: GroupingPanel.LocalizationMessages;
     showGroupingControls?: boolean;

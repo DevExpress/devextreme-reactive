@@ -12,30 +12,33 @@ const styles = theme => ({
   },
 });
 
-const GroupPanelContainerBase = React.forwardRef(({
+const GroupPanelContainerBase = ({
   classes,
   children,
   className,
+  forwardedRef,
   ...restProps
-}, ref) => (
+}) => (
   <div
-    ref={ref}
+    ref={forwardedRef}
     className={classNames(classes.panel, className)}
     {...restProps}
   >
     {children}
   </div>
-));
+);
 
 GroupPanelContainerBase.propTypes = {
   classes: PropTypes.object.isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 GroupPanelContainerBase.defaultProps = {
   children: undefined,
   className: undefined,
+  forwardedRef: undefined,
 };
 
 export const GroupPanelContainer = withStyles(styles, { name: 'GroupPanelContainer' })(GroupPanelContainerBase);

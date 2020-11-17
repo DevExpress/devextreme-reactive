@@ -2,17 +2,17 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 
-export const GroupPanelContainer = React.forwardRef(({
-  children, className, ...restProps
-}, ref) => (
+export const GroupPanelContainer = ({
+  children, className, forwardedRef, ...restProps
+}) => (
   <div
-    ref={ref}
+    ref={forwardedRef}
     className={classNames('w-100 mt-1', className)}
     {...restProps}
   >
     {children}
   </div>
-));
+);
 
 GroupPanelContainer.propTypes = {
   children: PropTypes.oneOfType([
@@ -20,9 +20,11 @@ GroupPanelContainer.propTypes = {
     PropTypes.node,
   ]),
   className: PropTypes.string,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 GroupPanelContainer.defaultProps = {
   children: null,
   className: undefined,
+  forwardedRef: undefined,
 };

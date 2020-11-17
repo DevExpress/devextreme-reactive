@@ -104,7 +104,7 @@ GroupPanelItemBase.propTypes = {
   className: PropTypes.string,
   sortingEnabled: PropTypes.bool,
   groupingEnabled: PropTypes.bool,
-  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 GroupPanelItemBase.defaultProps = {
@@ -116,6 +116,7 @@ GroupPanelItemBase.defaultProps = {
   showGroupingControls: false,
   groupingEnabled: false,
   className: undefined,
+  forwardedRef: undefined,
 };
 
 export const GroupPanelItem = withStyles(styles, { name: 'GroupPanelItem' })(GroupPanelItemBase);

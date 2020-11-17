@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-export const GroupPanelContainer = React.forwardRef(({
-  children, style, ...restProps
-}, ref) => (
+export const GroupPanelContainer = ({
+  children, style, forwardedRef, ...restProps
+}) => (
   <div
-    ref={ref}
+    ref={forwardedRef}
     style={{
       width: '100%',
       marginTop: '5px',
@@ -15,14 +15,16 @@ export const GroupPanelContainer = React.forwardRef(({
   >
     {children}
   </div>
-));
+);
 
 GroupPanelContainer.propTypes = {
   children: PropTypes.node,
   style: PropTypes.object,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 GroupPanelContainer.defaultProps = {
   children: undefined,
   style: null,
+  forwardedRef: undefined,
 };

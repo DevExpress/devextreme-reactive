@@ -111,7 +111,7 @@ GroupPanelItem.propTypes = {
   showGroupingControls: PropTypes.bool,
   sortingEnabled: PropTypes.bool,
   style: PropTypes.object,
-  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 GroupPanelItem.defaultProps = {
@@ -124,4 +124,5 @@ GroupPanelItem.defaultProps = {
   sortingEnabled: false,
   groupingEnabled: false,
   style: null,
+  forwardedRef: undefined,
 };

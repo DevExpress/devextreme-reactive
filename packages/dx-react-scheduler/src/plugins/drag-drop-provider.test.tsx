@@ -165,7 +165,7 @@ describe('DragDropProvider', () => {
         .toBeCalledWith('appointment data');
     });
     it('should render draft appointment component', () => {
-      const draftAppointment = (props) => <div {...props} className="custom-class" />;
+      const draftAppointment = props => <div {...props} className="custom-class" />;
 
       const { tree, onOver } = mountPlugin({ draftAppointmentComponent: draftAppointment });
 

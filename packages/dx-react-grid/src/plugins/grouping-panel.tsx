@@ -45,13 +45,16 @@ class GroupingPanelRaw extends React.PureComponent<GroupingPanelProps & typeof d
 
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
 
-    const EmptyMessagePlaceholder = () => (
+    const EmptyMessagePlaceholder = ({ forwardedRef }: { forwardedRef?: React.Ref<Element> }) => (
       <EmptyMessage
         getMessage={getMessage}
+        forwardedRef={forwardedRef}
       />
     );
 
-    const ItemPlaceholder = React.forwardRef(({ item }: { item: GroupingPanelItem }, ref) => {
+    const ItemPlaceholder = ({
+      item, forwardedRef,
+    }: { item: GroupingPanelItem, forwardedRef?: React.Ref<Element> }) => {
       const { name: columnName } = item.column;
 
       return (
@@ -65,7 +68,7 @@ class GroupingPanelRaw extends React.PureComponent<GroupingPanelProps & typeof d
 
             return (
               <Item
-                ref={ref}
+                forwardedRef={forwardedRef}
                 item={item}
                 sortingEnabled={sortingEnabled}
                 groupingEnabled={groupingEnabled}
@@ -82,7 +85,7 @@ class GroupingPanelRaw extends React.PureComponent<GroupingPanelProps & typeof d
           }}
         </TemplateConnector>
       );
-    });
+    };
 
     return (
       <Plugin

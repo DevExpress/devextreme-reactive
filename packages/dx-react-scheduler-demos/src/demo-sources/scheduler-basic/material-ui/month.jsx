@@ -9,31 +9,18 @@ import {
 
 import { appointments } from '../../../demo-data/month-appointments';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const currentDate = '2018-07-17';
 
-    this.state = {
-      data: appointments,
-      currentDate: '2018-07-17',
-    };
-  }
-
-  render() {
-    const { data, currentDate } = this.state;
-
-    return (
-      <Paper>
-        <Scheduler
-          data={data}
-        >
-          <ViewState
-            currentDate={currentDate}
-          />
-          <MonthView />
-          <Appointments />
-        </Scheduler>
-      </Paper>
-    );
-  }
-}
+export default () => (
+  <Paper>
+    <Scheduler
+      data={appointments}
+    >
+      <ViewState
+        currentDate={currentDate}
+      />
+      <MonthView />
+      <Appointments />
+    </Scheduler>
+  </Paper>
+);

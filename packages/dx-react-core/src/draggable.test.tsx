@@ -375,9 +375,7 @@ describe('Draggable', () => {
   describe('children', () => {
     it('should pass ref to children', () => {
       const elementRef = React.createRef<Element>();
-      const ChildComponent = React.forwardRef(
-        (_, refProp: React.Ref<any>) => <div ref={refProp}>Child Node</div>,
-      );
+      const ChildComponent = ({ forwardedRef }: any) => <div ref={forwardedRef}>Child Node</div>;
 
       tree = mount(
         <Draggable dragItem={elementRef}>

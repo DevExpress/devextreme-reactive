@@ -142,7 +142,7 @@ describe('Appointment', () => {
         <Appointment
           {...defaultProps}
           isShaded
-          ref={testRef}
+          forwardedRef={testRef}
         >
           <div />
         </Appointment>

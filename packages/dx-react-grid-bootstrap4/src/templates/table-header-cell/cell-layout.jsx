@@ -8,7 +8,7 @@ export const CellLayout = ({
   style, column, tableColumn,
   draggingEnabled, resizingEnabled, dragging,
   onWidthChange, onWidthDraft, onWidthDraftCancel, getCellWidth,
-  classes, tableRow, className, children, forwardedRef,
+  tableRow, className, children, forwardedRef,
   ...restProps
 }) => {
   const cellRef = React.useRef();
@@ -72,7 +72,6 @@ CellLayout.propTypes = {
   onWidthChange: PropTypes.func,
   onWidthDraft: PropTypes.func,
   onWidthDraftCancel: PropTypes.func,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   children: PropTypes.node,
   getCellWidth: PropTypes.func,

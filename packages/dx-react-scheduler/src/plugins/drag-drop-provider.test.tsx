@@ -214,7 +214,7 @@ describe('DragDropProvider', () => {
           },
         },
       };
-      const resizeAppointment = React.forwardRef((_, ref) => <div className="custom-class" />);
+      const resizeAppointment = (_, ref) => <div className="custom-class" />;
 
       const { tree, onOver } = mountPlugin({ resizeComponent: resizeAppointment }, deps);
 
@@ -226,11 +226,13 @@ describe('DragDropProvider', () => {
         .toEqual({
           appointmentType: 'appt-bottom',
           position: 'end',
+          forwardedRef: expect.anything(),
         });
       expect(resizeComponents.at(1).props())
         .toEqual({
           appointmentType: 'appt-top',
           position: 'start',
+          forwardedRef: expect.anything(),
         });
     });
     it('should wrap resize components into DragSource', () => {

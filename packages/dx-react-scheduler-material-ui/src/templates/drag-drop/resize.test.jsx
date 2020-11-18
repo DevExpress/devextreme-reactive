@@ -64,7 +64,7 @@ describe('DragDrop', () => {
       const tree = mount((
         <Resize
           {...defaultProps}
-          ref={testRef}
+          forwardedRef={testRef}
         >
           <div />
         </Resize>

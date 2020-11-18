@@ -12,7 +12,7 @@ import {
 } from '@devexpress/dx-scheduler-core';
 
 // eslint-disable-next-line react/prop-types
-const Appointment = React.forwardRef(({ children }, ref) => <div ref={ref}>{children}</div>);
+const Appointment = ({ children, forwardedRef }) => <div ref={forwardedRef}>{children}</div>;
 const AppointmentContent = () => null;
 const SplitIndicator = () => null;
 const RecurringIcon = () => null;
@@ -170,7 +170,7 @@ describe('Appointments', () => {
     expect(onClick).toBe('onClick');
     expect(onDoubleClick).toBe('onDoubleClick');
   });
-  it('should pass ref to the appointment', () => {
+  it('should pass forwardedRef to the appointment', () => {
     const testRef = React.createRef();
     const deps = {
       template: {

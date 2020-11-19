@@ -10,6 +10,8 @@ import {
   calculateGroupCellIndent,
 } from './helpers';
 import { TABLE_STUB_TYPE } from '../../utils/virtual-table';
+import { sortAndSpliceColumns } from '../..';
+import { TABLE_DATA_TYPE } from '../table/constants';
 
 describe('TableRowDetail Plugin helpers', () => {
   const key = { key: 'key' };
@@ -133,6 +135,69 @@ describe('TableRowDetail Plugin helpers', () => {
         { ...key, type: TABLE_GROUP_TYPE, column: { name: 'a' } },
       ))
         .toBeTruthy();
+    });
+  });
+
+  describe('#sortAndSpliceColumns', () => {
+    const dataColumn = { type: TABLE_DATA_TYPE };
+    const groupColumn = { type: TABLE_GROUP_TYPE };
+    const otherColumn = { type: Symbol('undefined') };
+
+    it('should work with the Table (firstVisibleColumnIndex is not defined)', () => {
+      expect(sortAndSpliceColumns([groupColumn, otherColumn, dataColumn]))
+        .toEqual([groupColumn, otherColumn, dataColumn]);
+
+      expect(sortAndSpliceColumns([otherColumn, groupColumn, dataColumn]))
+        .toEqual([groupColumn, otherColumn, dataColumn]);
+
+      expect(sortAndSpliceColumns([otherColumn, groupColumn, otherColumn, dataColumn]))
+        .toEqual([groupColumn, otherColumn, otherColumn, dataColumn]);
+    });
+
+    describe('should work with the Virtual Table (firstVisibleColumnIndex is defined)', () => {
+      it('should work with one group', () => {
+        expect(sortAndSpliceColumns(
+          [otherColumn, otherColumn, groupColumn, otherColumn, dataColumn], 0,
+        ))
+          .toEqual([groupColumn, otherColumn, otherColumn, otherColumn, dataColumn]);
+
+        expect(sortAndSpliceColumns(
+          [otherColumn, otherColumn, groupColumn, otherColumn, dataColumn], 1,
+        ))
+          .toEqual([groupColumn, otherColumn, otherColumn, dataColumn]);
+
+        expect(sortAndSpliceColumns(
+          [otherColumn, otherColumn, groupColumn, otherColumn, dataColumn], 2,
+        ))
+          .toEqual([groupColumn, otherColumn, dataColumn]);
+
+        expect(sortAndSpliceColumns(
+          [otherColumn, otherColumn, groupColumn, otherColumn, dataColumn], 3,
+        ))
+          .toEqual([groupColumn, otherColumn, dataColumn]);
+      });
+
+      it('should work with two groups', () => {
+        expect(sortAndSpliceColumns(
+          [otherColumn, otherColumn, groupColumn, otherColumn, groupColumn, dataColumn], 0,
+        ))
+          .toEqual([groupColumn, groupColumn, otherColumn, otherColumn, otherColumn, dataColumn]);
+
+        expect(sortAndSpliceColumns(
+          [otherColumn, otherColumn, groupColumn, otherColumn, groupColumn, dataColumn], 1,
+        ))
+          .toEqual([groupColumn, groupColumn, otherColumn, otherColumn, dataColumn]);
+
+        expect(sortAndSpliceColumns(
+          [otherColumn, otherColumn, groupColumn, otherColumn, groupColumn, dataColumn], 2,
+        ))
+          .toEqual([groupColumn, groupColumn, otherColumn, dataColumn]);
+
+        expect(sortAndSpliceColumns(
+          [otherColumn, otherColumn, groupColumn, otherColumn, groupColumn, dataColumn], 3,
+        ))
+          .toEqual([groupColumn, groupColumn, otherColumn, dataColumn]);
+      });
     });
   });
 

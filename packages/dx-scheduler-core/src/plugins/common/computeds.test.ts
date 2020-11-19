@@ -155,6 +155,54 @@ describe('#timeScale', () => {
     expect(units[2].end.getHours()).toBe(23);
     expect(units[2].end.getMinutes()).toBe(59);
   });
+
+  it('should work correctly if current day contains DST change', () => {
+    const dateWithDSTChange = new Date('2020-11-01T00:00:00');
+    const units = timeScale(dateWithDSTChange, 0, 0, 4, 30);
+
+    expect(units.length).toBe(8);
+
+    expect(units[0].start.getHours()).toBe(0);
+    expect(units[0].start.getMinutes()).toBe(0);
+    expect(units[0].end.getHours()).toBe(0);
+    expect(units[0].end.getMinutes()).toBe(30);
+
+    expect(units[1].start.getHours()).toBe(0);
+    expect(units[1].start.getMinutes()).toBe(30);
+    expect(units[1].end.getHours()).toBe(1);
+    expect(units[1].end.getMinutes()).toBe(0);
+
+    expect(units[2].start.getHours()).toBe(1);
+    expect(units[2].start.getMinutes()).toBe(0);
+    expect(units[2].end.getHours()).toBe(1);
+    expect(units[2].end.getMinutes()).toBe(30);
+
+    expect(units[3].start.getHours()).toBe(1);
+    expect(units[3].start.getMinutes()).toBe(30);
+    expect(units[3].end.getHours()).toBe(2);
+    expect(units[3].end.getMinutes()).toBe(0);
+
+    expect(units[4].start.getHours()).toBe(2);
+    expect(units[4].start.getMinutes()).toBe(0);
+    expect(units[4].end.getHours()).toBe(2);
+    expect(units[4].end.getMinutes()).toBe(30);
+
+    expect(units[5].start.getHours()).toBe(2);
+    expect(units[5].start.getMinutes()).toBe(30);
+    expect(units[5].end.getHours()).toBe(3);
+    expect(units[5].end.getMinutes()).toBe(0);
+
+    expect(units[6].start.getHours()).toBe(3);
+    expect(units[6].start.getMinutes()).toBe(0);
+    expect(units[6].end.getHours()).toBe(3);
+    expect(units[6].end.getMinutes()).toBe(30);
+
+    expect(units[7].start.getHours()).toBe(3);
+    expect(units[7].start.getMinutes()).toBe(30);
+    expect(units[7].end.getHours()).toBe(4);
+    expect(units[7].end.getMinutes()).toBe(0);
+
+  });
 });
 
 describe('#availableViews', () => {

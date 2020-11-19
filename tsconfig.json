@@ -25,6 +25,7 @@
       "@devexpress/*":["packages/*/src"],
       "*": ["node_modules", "packages"]
     },
+    "esModuleInterop": true
   },
   "exclude": [
     "node_modules",

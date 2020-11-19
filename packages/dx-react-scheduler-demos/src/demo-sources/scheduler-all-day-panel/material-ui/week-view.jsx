@@ -10,36 +10,23 @@ import {
 
 import { appointments } from '../../../demo-data/appointments';
 
-export default class Demo extends React.PureComponent {
-  constructor(props) {
-    super(props);
+const currentDate = '2018-06-27';
 
-    this.state = {
-      data: appointments,
-      currentDate: new Date('2018-06-27'),
-    };
-  }
-
-  render() {
-    const { data, currentDate } = this.state;
-
-    return (
-      <Paper>
-        <Scheduler
-          data={data}
-          height={660}
-        >
-          <ViewState
-            defaultCurrentDate={currentDate}
-          />
-          <WeekView
-            startDayHour={9}
-            endDayHour={19}
-          />
-          <Appointments />
-          <AllDayPanel />
-        </Scheduler>
-      </Paper>
-    );
-  }
-}
+export default () => (
+  <Paper>
+    <Scheduler
+      data={appointments}
+      height={660}
+    >
+      <ViewState
+        defaultCurrentDate={currentDate}
+      />
+      <WeekView
+        startDayHour={9}
+        endDayHour={19}
+      />
+      <Appointments />
+      <AllDayPanel />
+    </Scheduler>
+  </Paper>
+);

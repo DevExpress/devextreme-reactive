@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-scheduler-material-ui",
-  "version": "2.7.2",
+  "version": "2.7.3",
   "description": "Material-UI templates for DevExtreme React Scheduler component",
   "author": {
     "name": "Developer Express Inc.",
@@ -49,10 +49,10 @@
     "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.8.3",
-    "@devexpress/dx-react-core": "2.7.2",
-    "@devexpress/dx-react-scheduler": "2.7.2",
-    "@devexpress/dx-scheduler-core": "2.7.2",
-    "@devexpress/dx-testing": "2.7.2",
+    "@devexpress/dx-react-core": "2.7.3",
+    "@devexpress/dx-react-scheduler": "2.7.3",
+    "@devexpress/dx-scheduler-core": "2.7.3",
+    "@devexpress/dx-testing": "2.7.3",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@rollup/plugin-node-resolve": "^7.1.1",
@@ -73,9 +73,9 @@
     "eslint-plugin-react": "^7.16.0",
     "jest": "^24.9.0",
     "jss": "^10.0.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-test-renderer": "^16.13.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "react-test-renderer": "^16.14.0",
     "rollup": "^1.27.2",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-license": "^0.12.1"
@@ -87,9 +87,9 @@
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {
-    "@devexpress/dx-react-core": "2.7.2",
-    "@devexpress/dx-react-scheduler": "2.7.2",
-    "@devexpress/dx-scheduler-core": "2.7.2",
+    "@devexpress/dx-react-core": "2.7.3",
+    "@devexpress/dx-react-scheduler": "2.7.3",
+    "@devexpress/dx-scheduler-core": "2.7.3",
     "@material-ui/core": ">=4.5.0",
     "@material-ui/icons": ">=4.4.3",
     "moment": "^2.24.0",

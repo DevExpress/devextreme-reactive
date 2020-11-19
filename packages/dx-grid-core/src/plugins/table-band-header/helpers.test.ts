@@ -1,4 +1,5 @@
-import * as Immutable from 'seamless-immutable';
+// tslint:disable-next-line: import-name
+import Immutable from 'seamless-immutable';
 import {
   TABLE_BAND_TYPE, BAND_GROUP_CELL, BAND_HEADER_CELL, BAND_EMPTY_CELL, BAND_DUPLICATE_RENDER,
   BAND_FILL_LEVEL_CELL,

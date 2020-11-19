@@ -2,7 +2,8 @@
 
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
-import * as Immutable from 'seamless-immutable';
+// tslint:disable-next-line: import-name
+import Immutable from 'seamless-immutable';
 import {
   getAnimations,
   filterActiveAnimations,

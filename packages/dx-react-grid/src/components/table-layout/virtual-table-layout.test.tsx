@@ -111,19 +111,19 @@ const defaultProps = {
   setViewport: jest.fn(),
   loadedRowsStart: 0,
   totalRowCount: 9,
-  containerComponent: React.forwardRef((props, ref) => <div {...props} />),
-  headTableComponent: React.forwardRef((props, ref) => <table {...props} />),
-  footerTableComponent: React.forwardRef((props, ref) => <table {...props} />),
-  tableComponent: React.forwardRef((props, ref) => {
-    (ref as any).current = { getBoundingClientRect };
+  containerComponent: ({ forwardedRef, ...props }) => <div {...props} />,
+  headTableComponent: ({ forwardedRef, ...props }) => <table {...props} />,
+  footerTableComponent: ({ forwardedRef, ...props }) => <table {...props} />,
+  tableComponent: ({ forwardedRef, ...props }) => {
+    (forwardedRef as any).current = { getBoundingClientRect };
     return <table {...props} />;
-  }),
+  },
   headComponent: props => <thead {...props} />,
   bodyComponent: props => <tbody {...props} />,
-  rowComponent: React.forwardRef((_, ref) => {
-    (ref as any)({ getBoundingClientRect });
+  rowComponent: ({ forwardedRef }) => {
+    (forwardedRef as any)({ getBoundingClientRect });
     return null;
-  }),
+  },
   cellComponent: () => null,
   getCellColSpan: () => 1,
   tableRef: React.createRef<HTMLTableElement>(),

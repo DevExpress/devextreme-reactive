@@ -733,13 +733,13 @@ export namespace Table {
   }
   export interface DataRowProps extends Table.RowProps {
     // (undocumented)
-    ref?: React.Ref<React.ReactInstance>;
+    forwardedRef?: React.Ref<React.ReactInstance>;
     row: any;
   }
   // (undocumented)
   export interface InnerTableProps {
     // (undocumented)
-    ref?: React.RefObject<HTMLTableElement>;
+    forwardedRef?: React.RefObject<HTMLTableElement>;
     // (undocumented)
     style: React.CSSProperties;
   }

@@ -2,27 +2,30 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import TableRowMUI from '@material-ui/core/TableRow';
 
-export const TableRow = React.forwardRef(({
+export const TableRow = ({
   children,
   row, tableRow,
+  forwardedRef,
   ...restProps
-}, ref) => (
+}) => (
   <TableRowMUI
-    ref={ref}
+    ref={forwardedRef}
     {...restProps}
   >
     {children}
   </TableRowMUI>
-));
+);
 
 TableRow.propTypes = {
   children: PropTypes.node,
   row: PropTypes.any,
   tableRow: PropTypes.object,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 TableRow.defaultProps = {
   children: undefined,
   row: undefined,
   tableRow: undefined,
+  forwardedRef: undefined,
 };

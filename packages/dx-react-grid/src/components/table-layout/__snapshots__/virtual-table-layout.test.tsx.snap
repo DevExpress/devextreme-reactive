@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`VirtualTableLayout should render correct layout 1`] = `
-<ForwardRef
+<containerComponent
   onScroll={[Function]}
   style={
     Object {
@@ -111,19 +111,9 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
     minColumnWidth={120}
     minWidth={400}
     name="header"
-    rowComponent={
-      Object {
-        "$$typeof": Symbol(react.forward_ref),
-        "render": [Function],
-      }
-    }
+    rowComponent={[Function]}
     rowRefsHandler={[Function]}
-    tableComponent={
-      Object {
-        "$$typeof": Symbol(react.forward_ref),
-        "render": [Function],
-      }
-    }
+    tableComponent={[Function]}
     tableRef={
       Object {
         "current": null,
@@ -649,19 +639,9 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
     minColumnWidth={120}
     minWidth={400}
     name="body"
-    rowComponent={
-      Object {
-        "$$typeof": Symbol(react.forward_ref),
-        "render": [Function],
-      }
-    }
+    rowComponent={[Function]}
     rowRefsHandler={[Function]}
-    tableComponent={
-      Object {
-        "$$typeof": Symbol(react.forward_ref),
-        "render": [Function],
-      }
-    }
+    tableComponent={[Function]}
     tableRef={
       Object {
         "current": null,
@@ -770,24 +750,14 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
     minColumnWidth={120}
     minWidth={400}
     name="footer"
-    rowComponent={
-      Object {
-        "$$typeof": Symbol(react.forward_ref),
-        "render": [Function],
-      }
-    }
+    rowComponent={[Function]}
     rowRefsHandler={[Function]}
-    tableComponent={
-      Object {
-        "$$typeof": Symbol(react.forward_ref),
-        "render": [Function],
-      }
-    }
+    tableComponent={[Function]}
     tableRef={
       Object {
         "current": null,
       }
     }
   />
-</ForwardRef>
+</containerComponent>
 `;

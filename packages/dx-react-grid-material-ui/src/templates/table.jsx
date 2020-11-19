@@ -28,12 +28,12 @@ const styles = theme => ({
   },
 });
 
-const TableBase = React.forwardRef(({
-  children, classes, className, use,
+const TableBase = ({
+  children, classes, className, use, forwardedRef,
   ...restProps
-}, ref) => (
+}) => (
   <TableMUI
-    ref={ref}
+    ref={forwardedRef}
     className={classNames({
       [classes.table]: true,
       [classes.stickyTable]: !!use,
@@ -44,18 +44,20 @@ const TableBase = React.forwardRef(({
   >
     {children}
   </TableMUI>
-));
+);
 
 TableBase.propTypes = {
   use: PropTypes.oneOf(['head', 'foot']),
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 TableBase.defaultProps = {
   use: undefined,
   className: undefined,
+  forwardedRef: undefined,
 };
 
 export const Table = withStyles(styles, { name: 'Table' })(TableBase);

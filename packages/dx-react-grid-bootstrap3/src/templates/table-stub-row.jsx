@@ -1,24 +1,26 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
-export const TableStubRow = React.forwardRef(({
-  children, tableRow,
+export const TableStubRow = ({
+  children, tableRow, forwardedRef,
   ...restProps
-}, ref) => (
+}) => (
   <tr
-    ref={ref}
+    ref={forwardedRef}
     {...restProps}
   >
     {children}
   </tr>
-));
+);
 
 TableStubRow.propTypes = {
   children: PropTypes.node,
   tableRow: PropTypes.object,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 TableStubRow.defaultProps = {
   children: undefined,
   tableRow: undefined,
+  forwardedRef: undefined,
 };

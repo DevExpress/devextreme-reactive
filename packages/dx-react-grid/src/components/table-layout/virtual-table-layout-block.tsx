@@ -31,7 +31,7 @@ export class VirtualTableLayoutBlock extends React.PureComponent<VirtualTableLay
 
     return (
       <Table
-        ref={tableRef}
+        forwardedRef={tableRef}
         style={{
           minWidth: `${minWidth}px`,
           ...marginBottom ? { marginBottom: `${marginBottom}px` } : null,
@@ -47,7 +47,7 @@ export class VirtualTableLayoutBlock extends React.PureComponent<VirtualTableLay
             return (
               <VirtualRowLayout
                 key={row.key}
-                ref={ref => rowRefsHandler(row, ref)}
+                forwardedRef={ref => rowRefsHandler(row, ref)}
                 row={row}
                 cells={cells}
                 rowComponent={rowComponent}

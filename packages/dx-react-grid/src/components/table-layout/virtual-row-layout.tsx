@@ -18,13 +18,12 @@ const shouldUpdateRow = (prevProps, nextProps) => {
   return propsAreEqual;
 };
 
-export const VirtualRowLayout = React.memo<VirtualRowLayoutProps>(React.forwardRef((
-  { row, cells, rowComponent: Row, cellComponent: Cell },
-  ref,
-) => {
+export const VirtualRowLayout = React.memo<VirtualRowLayoutProps>(({
+  row, cells, rowComponent: Row, cellComponent: Cell, forwardedRef,
+}) => {
   return (
     <Row
-      ref={ref}
+      forwardedRef={forwardedRef}
       tableRow={row}
       style={getRowStyle({ row })}
     >
@@ -40,4 +39,4 @@ export const VirtualRowLayout = React.memo<VirtualRowLayoutProps>(React.forwardR
       })}
     </Row>
   );
-}), shouldUpdateRow);
+}, shouldUpdateRow);

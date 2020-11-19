@@ -4,9 +4,10 @@ import classNames from 'clsx';
 import { StyleContext } from './layout';
 import { getStickyPosition } from '../utils/css-fallback-properties';
 
-export const Table = React.forwardRef(({
-  children, use, style, className, ...restProps
-}, ref) => {
+export const Table = ({
+  children, use, style, className, forwardedRef,
+  ...restProps
+}) => {
   const [stickyPosition, setStickyPosition] = React.useState(getStickyPosition());
   const { backgroundColor } = React.useContext(StyleContext);
 
@@ -20,7 +21,7 @@ export const Table = React.forwardRef(({
 
   return (
     <table
-      ref={ref}
+      ref={forwardedRef}
       className={classNames('table', className)}
       style={{
         tableLayout: 'fixed',
@@ -44,17 +45,19 @@ export const Table = React.forwardRef(({
       {children}
     </table>
   );
-});
+};
 
 Table.propTypes = {
   use: PropTypes.oneOf(['head', 'foot']),
   children: PropTypes.node.isRequired,
   style: PropTypes.object,
   className: PropTypes.string,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 Table.defaultProps = {
   use: undefined,
   style: null,
   className: undefined,
+  forwardedRef: undefined,
 };

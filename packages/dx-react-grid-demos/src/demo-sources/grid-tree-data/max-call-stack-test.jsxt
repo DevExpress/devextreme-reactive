@@ -34,12 +34,8 @@ export default () => {
       parentId: ({ index }) => (index > 0 ? index - 1 : null),
       ...defaultColumnValues,
     },
-    length: 100000,
+    length: 10000,
   }));
-  const [tableColumnExtensions] = useState([
-    { columnName: 'name', width: 300 },
-  ]);
-  const [defaultExpandedRowIds] = useState([0, 1]);
 
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>
@@ -47,15 +43,11 @@ export default () => {
         rows={data}
         columns={columns}
       >
-        <TreeDataState
-          defaultExpandedRowIds={defaultExpandedRowIds}
-        />
+        <TreeDataState />
         <CustomTreeData
           getChildRows={getChildRows}
         />
-        <Table
-          columnExtensions={tableColumnExtensions}
-        />
+        <Table />
         <TableHeaderRow />
         <TableTreeColumn
           for="name"

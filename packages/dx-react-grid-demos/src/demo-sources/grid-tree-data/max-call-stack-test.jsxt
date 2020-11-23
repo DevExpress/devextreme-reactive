@@ -31,7 +31,7 @@ export default () => {
   const [data] = useState(generateRows({
     columnValues: {
       id: ({ index }) => index,
-      parentId: ({ index, random }) => (index > 0 ? index - 1 : null),
+      parentId: ({ index }) => (index > 0 ? index - 1 : null),
       ...defaultColumnValues,
     },
     length: 100000,

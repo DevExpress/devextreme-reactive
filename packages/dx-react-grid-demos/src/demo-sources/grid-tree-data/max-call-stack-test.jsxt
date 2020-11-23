@@ -1,0 +1,66 @@
+import React, { useState } from 'react';<%&additionalImports%>
+import {
+  TreeDataState,
+  CustomTreeData,
+} from '@devexpress/dx-react-grid';
+import {
+  Grid,
+  Table,
+  TableHeaderRow,
+  TableTreeColumn,
+} from '@devexpress/dx-react-grid-<%&themeName%>';
+<%&cssImports%>
+
+import {
+  generateRows,
+  defaultColumnValues,
+} from '../../../demo-data/generator';
+
+const getChildRows = (row, rootRows) => {
+  const childRows = rootRows.filter(r => r.parentId === (row ? row.id : null));
+  return childRows.length ? childRows : null;
+};
+
+export default () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'gender', title: 'Gender' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [data] = useState(generateRows({
+    columnValues: {
+      id: ({ index }) => index,
+      parentId: ({ index, random }) => (index > 0 ? index - 1 : null),
+      ...defaultColumnValues,
+    },
+    length: 100000,
+  }));
+  const [tableColumnExtensions] = useState([
+    { columnName: 'name', width: 300 },
+  ]);
+  const [defaultExpandedRowIds] = useState([0, 1]);
+
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={data}
+        columns={columns}
+      >
+        <TreeDataState
+          defaultExpandedRowIds={defaultExpandedRowIds}
+        />
+        <CustomTreeData
+          getChildRows={getChildRows}
+        />
+        <Table
+          columnExtensions={tableColumnExtensions}
+        />
+        <TableHeaderRow />
+        <TableTreeColumn
+          for="name"
+        />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

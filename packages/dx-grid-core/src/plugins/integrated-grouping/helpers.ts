@@ -11,12 +11,13 @@ export const getGroupRows: GetGroupRowsFn = (
   rows, grouping, groupsGetter,
 ) => {
   const keyPrefixes = [{ prefix: '', level: 0, rows }];
-  let resultRows = [] as Row[];
+  const resultRows = [] as Row[];
+  const compoundKeys = {};
 
   while (keyPrefixes.length) {
-    const { prefix: keyPrefix, level, rows: currentRows } = keyPrefixes.shift()!;
+    const { prefix: keyPrefix, level, rows: currentRows } = keyPrefixes.pop()!;
 
-    const groupRows = grouping[level] && currentRows.length
+    const groupRows: readonly Row[] = grouping[level] && currentRows.length
       ? groupsGetter(currentRows, grouping[level], keyPrefix)
           .map(({ childRows, ...params }: any) => {
             const { compoundKey } = params;
@@ -29,14 +30,16 @@ export const getGroupRows: GetGroupRowsFn = (
           })
       : currentRows;
 
-    const index = resultRows
-      .findIndex(row => row.compoundKey === keyPrefix.slice(0, keyPrefix.length - 1));
-    if (index > -1) {
-      resultRows = [
-        ...resultRows.slice(0, index + 1),
-        ...groupRows,
-        ...resultRows.slice(index + 1),
-      ];
+    const currentCompoundKey = keyPrefix.slice(0, keyPrefix.length - 1);
+    const groupIndex = compoundKeys[currentCompoundKey] ?? -1;
+    groupRows.forEach((row, rowIndex) => {
+      if (row.compoundKey) {
+        compoundKeys[row.compoundKey] = groupIndex + 1 + rowIndex;
+      }
+    });
+
+    if (groupIndex > -1) {
+      resultRows.splice(groupIndex + 1, 0, ...groupRows);
     } else {
       resultRows.push(...groupRows);
     }

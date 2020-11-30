@@ -17,26 +17,24 @@ export const getGroupRows: GetGroupRowsFn = (
   while (keyPrefixes.length) {
     const { prefix: keyPrefix, level, rows: currentRows } = keyPrefixes.pop()!;
 
+    const currentCompoundKey = keyPrefix.slice(0, keyPrefix.length - 1);
+    const groupIndex = compoundKeys[currentCompoundKey] ?? -1;
+
     const groupRows: readonly Row[] = grouping[level] && currentRows.length
       ? groupsGetter(currentRows, grouping[level], keyPrefix)
-          .map(({ childRows, ...params }: any) => {
+          .map(({ childRows, ...params }: any, rowIndex) => {
             const { compoundKey } = params;
+
+            compoundKeys[compoundKey] = groupIndex + rowIndex + 1;
             keyPrefixes.push({
               prefix: `${compoundKey}${GROUP_KEY_SEPARATOR}`,
               level: level + 1,
               rows: childRows || [],
             });
+
             return params;
           })
       : currentRows;
-
-    const currentCompoundKey = keyPrefix.slice(0, keyPrefix.length - 1);
-    const groupIndex = compoundKeys[currentCompoundKey] ?? -1;
-    groupRows.forEach((row, rowIndex) => {
-      if (row.compoundKey) {
-        compoundKeys[row.compoundKey] = groupIndex + 1 + rowIndex;
-      }
-    });
 
     if (groupIndex > -1) {
       resultRows.splice(groupIndex + 1, 0, ...groupRows);

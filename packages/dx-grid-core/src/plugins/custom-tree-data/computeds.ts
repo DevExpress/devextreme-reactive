@@ -2,36 +2,50 @@ import { PureComputed } from '@devexpress/dx-core';
 import { GRID_TREE_NODE_TYPE } from './constants';
 import {
   RowsWithTreeMetaMap, RowsWithCollapsedRowsMetaMap, IsSpecificTreeRowGetter, GetRowIdFn,
-  GetRowLevelKeyFn, GetCollapsedRowsFn, CustomTreeRowsWithMetaComputed, GetCustomTreeRowsFn,
-  UnwrapRowsComputed, GetTreeRowLevelGetter, ExpandedTreeRowsFn,
+  GetRowLevelKeyFn, GetCollapsedRowsFn, CustomTreeRowsWithMetaComputed,
+  UnwrapRowsComputed, GetTreeRowLevelGetter, ExpandedTreeRowsFn, Row,
 } from '../../types';
-
-const customTreeRows: GetCustomTreeRowsFn = (
-  currentRow, getChildRows, rootRows, level = 0,
-) => {
-  const childRows = getChildRows(currentRow, rootRows as any[]);
-
-  if (!childRows) return { rows: [], treeMeta: [], empty: true };
-
-  return childRows
-    .reduce((acc, row) => {
-      const nestedResult = customTreeRows(
-        row,
-        getChildRows,
-        rootRows,
-        level + 1,
-      );
-      acc.rows.push(row, ...nestedResult.rows);
-      acc.treeMeta.push([row, { level, leaf: !!nestedResult.empty }], ...nestedResult.treeMeta);
-
-      return acc;
-    }, { rows: [], treeMeta: [] });
-};
 
 export const customTreeRowsWithMeta: CustomTreeRowsWithMetaComputed = (
   rows, getChildRows,
 ) => {
-  const result = customTreeRows(null, getChildRows, rows);
+  const rowsToProcess = getChildRows(null, rows as Row[])?.map(row => ({ row, level: 0 }));
+  let treeRows = [] as { row: Row, level: number, leaf: boolean }[];
+
+  while (rowsToProcess?.length) {
+    const { row: currentRow, level } = rowsToProcess.shift()!;
+    let rowIndex = treeRows.findIndex(({ row }) => row === currentRow);
+    let nestedRows = getChildRows(currentRow, rows as Row[]);
+    const leaf = !nestedRows;
+
+    if (rowIndex < 0) {
+      treeRows.push({ row: currentRow, level, leaf });
+      rowIndex = treeRows.length - 1;
+    }
+
+    if (nestedRows) {
+      nestedRows = nestedRows.map((childRow: Row) => ({
+        row: childRow,
+        level: level + 1,
+        leaf: !getChildRows(childRow, rows as Row[]),
+      }));
+
+      treeRows = [
+        ...treeRows.slice(0, rowIndex + 1),
+        ...nestedRows,
+        ...treeRows.slice(rowIndex + 1),
+      ];
+
+      rowsToProcess.push(...nestedRows);
+    }
+  }
+
+  const result = treeRows.reduce((acc, { row, level, leaf }) => {
+    acc.rows.push(row);
+    acc.treeMeta.push([row, { level, leaf }]);
+
+    return acc;
+  }, { rows: [] as Row[], treeMeta: [] as any[] });
 
   return {
     rows: result.rows,

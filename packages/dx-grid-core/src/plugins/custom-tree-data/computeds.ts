@@ -9,33 +9,26 @@ import {
 export const customTreeRowsWithMeta: CustomTreeRowsWithMetaComputed = (
   rows, getChildRows,
 ) => {
-  const rowsToProcess = getChildRows(null, rows as Row[])?.map(row => ({ row, level: 0 }));
-  let treeRows = [] as { row: Row, level: number, leaf: boolean }[];
+  const rowsToProcess = [{ row: null, level: -1 }] as Row[];
+  const treeRows = [] as { row: Row, level: number, leaf: boolean }[];
 
   while (rowsToProcess?.length) {
     const { row: currentRow, level } = rowsToProcess.shift()!;
-    let rowIndex = treeRows.findIndex(({ row }) => row === currentRow);
-    let nestedRows = getChildRows(currentRow, rows as Row[]);
-    const leaf = !nestedRows;
-
-    if (rowIndex < 0) {
-      treeRows.push({ row: currentRow, level, leaf });
-      rowIndex = treeRows.length - 1;
-    }
-
-    if (nestedRows) {
-      nestedRows = nestedRows.map((childRow: Row) => ({
+    const rowIndex = treeRows.findIndex(({ row }) => row === currentRow);
+    const nestedRows = getChildRows(currentRow, rows as Row[])?.map(
+      (childRow: Row) => ({
         row: childRow,
         level: level + 1,
         leaf: !getChildRows(childRow, rows as Row[]),
-      }));
+      }),
+    );
 
-      treeRows = [
-        ...treeRows.slice(0, rowIndex + 1),
-        ...nestedRows,
-        ...treeRows.slice(rowIndex + 1),
-      ];
-
+    if (nestedRows) {
+      if (rowIndex > -1) {
+        treeRows.splice(rowIndex + 1, 0, ...nestedRows);
+      } else {
+        treeRows.push(...nestedRows);
+      }
       rowsToProcess.push(...nestedRows);
     }
   }

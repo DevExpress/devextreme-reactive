@@ -3,8 +3,11 @@ import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
-  computed, viewCellsData, timeCellsData,
-  calculateWeekDateIntervals, getTimeTableHeight,
+  computed,
+  viewCellsData,
+  timeCellsData,
+  calculateWeekDateIntervals,
+  getTimeTableHeight,
 } from '@devexpress/dx-scheduler-core';
 import { WeekView } from './week-view';
 import { BasicView } from './basic-view';

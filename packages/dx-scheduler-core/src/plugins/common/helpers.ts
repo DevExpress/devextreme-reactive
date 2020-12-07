@@ -118,3 +118,14 @@ export const areDatesSame: PureComputed<
 export const getTimeTableHeight: PureComputed<
   [CellElementsMeta], number | undefined
 > = timeTableElementsMeta => timeTableElementsMeta.parentRect?.().height;
+
+export const containsDSTChange = (date: SchedulerDateTime) => {
+  const momentDate = moment(date);
+  momentDate.startOf('day');
+  const isStartDST = momentDate.isDST();
+
+  momentDate.endOf('day');
+  const isEndDst = momentDate.isDST();
+
+  return (isStartDST && !isEndDst) || (!isStartDST && isEndDst);
+};

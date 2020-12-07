@@ -1,5 +1,5 @@
 import {
-  getViewType,isMidnight, viewBoundText, checkCellGroupingInfo,
+  getViewType, isMidnight, viewBoundText, checkCellGroupingInfo,
   isDateValid, areDatesSame, getTimeTableHeight, containsDSTChange,
 } from './helpers';
 import { VERTICAL_TYPE, HORIZONTAL_TYPE } from '../../constants';

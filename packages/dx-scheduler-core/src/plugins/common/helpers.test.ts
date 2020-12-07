@@ -1,6 +1,6 @@
 import {
-  getViewType, isMidnight, viewBoundText, checkCellGroupingInfo,
-  isDateValid, areDatesSame, getTimeTableHeight,
+  getViewType,isMidnight, viewBoundText, checkCellGroupingInfo,
+  isDateValid, areDatesSame, getTimeTableHeight, containsDSTChange,
 } from './helpers';
 import { VERTICAL_TYPE, HORIZONTAL_TYPE } from '../../constants';
 import { formatDateTimeGetter } from '../scheduler-core/computeds';
@@ -172,5 +172,21 @@ describe('#getTimeTableHeight', () => {
     };
     expect(getTimeTableHeight(timeTableElementsMeta))
       .toBe('height');
+  });
+});
+
+describe('#containsDSTchange', () => {
+  const pacificTimezoneOffset = 480;
+  const winterDate = new Date(2020, 2, 7);
+  const hasDST = winterDate.getTimezoneOffset() === pacificTimezoneOffset;
+
+  it('should return false when there is no dst change', () => {
+    expect(containsDSTChange(winterDate))
+      .toBe(false);
+  });
+
+  it('should return true when a DST change is present', () => {
+    expect(containsDSTChange(new Date(2020, 2, 8)))
+      .toBe(hasDST);
   });
 });

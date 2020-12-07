@@ -52,7 +52,24 @@ export type GroupingPanelItemsFn = PureComputed<
 
 /** @internal */
 export type GroupedRowsFn = PureComputed<
-  [Row[], Grouping[], GetCellValueFn, (c: string) => GroupingCriteriaFn, string?]
+  [Row[], Grouping[], GetCellValueFn, (c: string) => GroupingCriteriaFn]
+>;
+
+/** @internal */
+export type GetIntegratedGroupsFn = PureComputed<
+  [Row[], Grouping, string, GetCellValueFn, (c: string) => GroupingCriteriaFn]
+>;
+/** @internal */
+export type GetCustomGroupsFn = PureComputed<
+  [Row[], Grouping, string, GetChildGroupsFn, Row[]]
+>;
+/** @internal */
+export type GroupsGetterFn = PureComputed<
+  [Row[], Grouping, string]
+>;
+/** @internal */
+export type GetGroupRowsFn = PureComputed<
+  [Row[], Grouping[], GroupsGetterFn]
 >;
 
 /** @internal */
@@ -74,12 +91,12 @@ export type GetGroupCellTargetIndexFn = PureComputed<
 >;
 /** @internal */
 export type GroupCellColSpanGetter = PureComputed<
-  [GetCellColSpanFn, SummaryItem[]],
+  [GetCellColSpanFn, SummaryItem[], number],
   GetCellColSpanFn
 >;
 
 /** @internal */
 export type GroupSummaryChainsFn = PureComputed<
-  [TableRow, TableColumn[], SummaryItem[]],
+  [TableRow, TableColumn[], SummaryItem[], number],
   string[][]
 >;

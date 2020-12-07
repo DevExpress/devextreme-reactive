@@ -2,6 +2,7 @@ import { PureComputed } from '@devexpress/dx-core';
 import { TABLE_GROUP_TYPE } from './constants';
 import { TableRow, TableColumn, IsSpecificCellFn, Grouping, GroupSummaryItem } from '../../types';
 import { TABLE_STUB_TYPE } from '../../utils/virtual-table';
+import { TABLE_DATA_TYPE } from '../table/constants';
 
 type IsGroupIndentCellFn = PureComputed<[TableRow, TableColumn, Grouping[]], boolean>;
 
@@ -86,3 +87,20 @@ export const calculateGroupCellIndent: PureComputed<[TableColumn, Grouping[], nu
 ) => (
   indentWidth * getGroupIndexByColumn(grouping, tableColumn)
 );
+
+export const sortAndSpliceColumns: PureComputed<[TableColumn[], number]> = (
+  tableColumns, firstVisibleColumnIndex,
+) => {
+  const groupColumns = tableColumns.filter(col => col.type === TABLE_GROUP_TYPE);
+  const dataColumns = tableColumns.filter(col => col.type === TABLE_DATA_TYPE);
+  const otherColumns = tableColumns.filter(
+    col => col.type !== TABLE_DATA_TYPE && col.type !== TABLE_GROUP_TYPE,
+  );
+
+  if (firstVisibleColumnIndex) {
+    const firstGroupIndex = tableColumns.indexOf(groupColumns[0]);
+    otherColumns.splice(0, Math.min(firstVisibleColumnIndex, firstGroupIndex));
+  }
+
+  return [...groupColumns, ...otherColumns, ...dataColumns];
+};

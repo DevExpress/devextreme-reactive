@@ -16,9 +16,9 @@ export namespace DayView {
   export interface DayScaleCellProps extends BaseView.DayScaleCellProps {}
   /** Describes properties passed to a component that renders a day scale empty cell. */
   export interface DayScaleEmptyCellProps extends BaseView.DayScaleEmptyCellProps {}
-  /** Describes properties passed to a component that renders a time table layout. */
+  /** Describes properties passed to a component that renders a timetable layout. */
   export interface TimeTableLayoutProps extends BaseView.TimeTableLayoutProps {}
-  /** Describes properties passed to a component that renders a time table cell. */
+  /** Describes properties passed to a component that renders a timetable cell. */
   export interface TimeTableCellProps extends BaseView.TimeTableCellProps {}
   /** Describes properties passed to a component that renders the appointment layer. */
   export interface AppointmentLayerProps extends BaseView.AppointmentLayerProps {}

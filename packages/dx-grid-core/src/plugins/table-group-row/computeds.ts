@@ -9,6 +9,7 @@ import {
   GroupSummaryChainsFn,
   SummaryItem,
 } from '../../types';
+import { sortAndSpliceColumns } from './helpers';
 
 const tableColumnsWithDraftGrouping: TableColumnsWithDraftGroupingFn = (
   tableColumns, grouping, draftGrouping, showColumnWhenGrouped,
@@ -75,9 +76,14 @@ const isRowLevelSummary: PureComputed<[SummaryItem[], string], boolean> = (
   )
 );
 
-const groupSummaryChains: GroupSummaryChainsFn = (tableRow, tableColumns, groupSummaryItems) => {
+const groupSummaryChains: GroupSummaryChainsFn = (
+  tableRow,
+  tableColumns,
+  groupSummaryItems,
+  firstVisibleColumnIndex,
+) => {
   let captionStarted = false;
-  return tableColumns
+  return sortAndSpliceColumns(tableColumns, firstVisibleColumnIndex)
     .reduce((acc, col) => {
       const colName = (col.column && col.column.name) as string;
       const isStartOfGroupCaption = col.type === TABLE_GROUP_TYPE
@@ -102,7 +108,7 @@ const groupSummaryChains: GroupSummaryChainsFn = (tableRow, tableColumns, groupS
 };
 
 export const tableGroupCellColSpanGetter: GroupCellColSpanGetter = (
-  getTableCellColSpan, groupSummaryItems,
+  getTableCellColSpan, groupSummaryItems, firstVisibleColumnIndex,
 ) => (params) => {
   const { tableRow, tableColumns, tableColumn } = params;
 
@@ -110,7 +116,9 @@ export const tableGroupCellColSpanGetter: GroupCellColSpanGetter = (
     const colName = tableColumn.column?.name;
     const dataColumnGroupedBy =
       tableRow.row.groupedBy === colName && tableColumn.type !== TABLE_GROUP_TYPE;
-    const chains = groupSummaryChains(tableRow, tableColumns, groupSummaryItems);
+    const chains = groupSummaryChains(
+      tableRow, tableColumns, groupSummaryItems, firstVisibleColumnIndex,
+    );
     const chain = chains.find(ch => !dataColumnGroupedBy && ch[0] === colName);
 
     if (chain) {

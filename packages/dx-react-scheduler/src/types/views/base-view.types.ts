@@ -18,9 +18,9 @@ export interface CommonViewProps {
   dayScaleCellComponent: React.ComponentType<BaseView.DayScaleCellProps>;
   /** A component that renders a day scale row.  */
   dayScaleRowComponent: React.ComponentType<BaseView.RowProps>;
-  /** A component that renders a time table cell. */
+  /** A component that renders a timetable cell. */
   timeTableCellComponent: React.ComponentType<BaseView.TimeTableCellProps>;
-  /** A component that renders a time table row. */
+  /** A component that renders a timetable row. */
   timeTableRowComponent: React.ComponentType<BaseView.RowProps>;
   /** A component that renders the appointment layer. */
   appointmentLayerComponent: React.ComponentType<BaseView.AppointmentLayerProps>;
@@ -33,18 +33,18 @@ export namespace BaseView {
     setScrollingStrategy: (scrollingStrategy: ScrollingStrategy) => void;
     /** A component that renders a day scale layout. */
     dayScaleComponent: React.ComponentType<BaseView.DayScaleLayoutProps>;
-    /** A component that renders a time table layout. */
+    /** A component that renders a timetable layout. */
     timeTableComponent: React.ComponentType<BaseView.TimeTableLayoutProps>;
   }
-  /** Describes properties passed to a component that renders a time table layout. */
+  /** Describes properties passed to a component that renders a timetable layout. */
   export interface TimeTableLayoutProps {
     /** Specifies the cells meta data. */
     cellsData: BaseView.CellData[][];
     /** Specifies the all-day cells meta data. */
     allDayCellsData?: AllDayPanel.CellData[][];
-    /** A component that renders a time table cell. */
+    /** A component that renders a timetable cell. */
     cellComponent: React.ComponentType<BaseView.TimeTableCellProps>;
-    /** A component that renders a time table row. */
+    /** A component that renders a timetable row. */
     rowComponent: React.ComponentType<BaseView.RowProps>;
     /** A component that renders an All Day panel cell. */
     allDayCellComponent?: React.ComponentType<AllDayPanel.CellProps>;
@@ -55,7 +55,7 @@ export namespace BaseView {
     /** A setCellElementsMeta callback */
     setCellElementsMeta: (cellElementsMeta: CellElementsMeta) => void;
   }
-  /** Describes properties passed to a component that renders a time table cell. */
+  /** Describes properties passed to a component that renders a timetable cell. */
   export interface TimeTableCellProps {
     /** Specifies the cell's start time. */
     startDate?: Date;
@@ -80,7 +80,7 @@ export namespace BaseView {
     onDoubleClick?: (e: any) => void;
     /** A component that renders the current time indicator. */
     currentTimeIndicatorComponent?: React.ComponentType<CurrentTimeIndicator.IndicatorProps>;
-    /** A React node used to render the time table cell content. */
+    /** A React node used to render the timetable cell content. */
     children?: React.ReactNode;
   }
   /** Describes properties passed to a component that renders a day scale empty cell. */

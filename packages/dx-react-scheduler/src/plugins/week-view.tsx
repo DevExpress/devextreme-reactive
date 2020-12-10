@@ -5,13 +5,19 @@ import {
   TemplateConnector,
   TemplatePlaceholder,
   PluginComponents,
+  Getter,
 } from '@devexpress/dx-react-core';
 import {
-  viewCellsData as viewCellsDataCore, calculateWeekDateIntervals,
-  VIEW_TYPES, getTimeTableHeight,
+  viewCellsData as viewCellsDataCore,
+  calculateWeekDateIntervals,
+  VIEW_TYPES,
+  getTimeTableHeight,
+  timeCellsData as timeCellsDataCore,
+  computed,
 } from '@devexpress/dx-scheduler-core';
 import { BasicView } from './basic-view';
 import { WeekViewProps } from '../types';
+import { memoize } from '@devexpress/dx-core';
 
 const DAYS_IN_WEEK = 7;
 const viewCellsDataBaseComputed = (
@@ -29,6 +35,10 @@ const calculateAppointmentsIntervalsBaseComputed = cellDuration => ({
 }) => calculateWeekDateIntervals(
   appointments, startViewDate, endViewDate, excludedDays, cellDuration,
 );
+const timeCellsDataComputed = (startDayHour, endDayHour) => ({
+  viewCellsData, cellDuration,
+}) => timeCellsDataCore(viewCellsData, startDayHour, endDayHour, cellDuration, Date.now());
+
 const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 
 class WeekViewBase extends React.PureComponent<WeekViewProps> {
@@ -58,6 +68,13 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
     timeTableCellComponent: 'TimeTableCell',
     timeTableRowComponent: 'TimeTableRow',
   };
+
+  timeCellsDataComputed = memoize((viewName, startDayHour, endDayHour) => getters => computed(
+    getters,
+    viewName,
+    timeCellsDataComputed(startDayHour, endDayHour),
+    getters.timeCellsData,
+  ));
 
   render() {
     const {
@@ -112,22 +129,28 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
           }}
         />
 
+        <Getter
+          name="timeCellsData"
+          computed={this.timeCellsDataComputed(viewName, startDayHour, endDayHour)}
+        />
+
         <Template name="timeScale">
           {(params: any) => (
             <TemplateConnector>
               {({
-                currentView, viewCellsData, groups, formatDate,
+                currentView, timeCellsData, groups, formatDate,
                 groupOrientation: getGroupOrientation,
                 timeTableElementsMeta,
               }) => {
                 if (currentView.name !== viewName) return <TemplatePlaceholder />;
                 const groupOrientation = getGroupOrientation?.(viewName);
+
                 return (
                   <TimeScale
                     labelComponent={TimeScaleLabel}
                     tickCellComponent={timeScaleTickCellComponent}
                     rowComponent={timeScaleTicksRowComponent}
-                    cellsData={viewCellsData}
+                    cellsData={timeCellsData}
                     formatDate={formatDate}
                     groups={groups}
                     groupOrientation={groupOrientation}

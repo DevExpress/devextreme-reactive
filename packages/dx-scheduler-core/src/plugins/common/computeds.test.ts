@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { timeCellsData } from '../..';
 import {
   dayScale as dayScaleComputed, availableViews, viewCellsData,
   startViewDate, endViewDate, timeScale, allDayCells,
@@ -340,5 +341,67 @@ describe('#allDayCells', () => {
         ],
         endOfGroup: true,
       });
+  });
+});
+
+describe('#timeCellsData', () => {
+  const startDayHour = 2;
+  const endDayHour = 4;
+  const cellDuration = 30;
+
+  it('should return viewCellsData if there is no DST change', () => {
+    const currentDate = '2020-12-07T00:00:00';
+    const cellsData = [[{
+      startDate: new Date('2020-12-07T00:00:00'),
+      endDate: new Date('2020-12-07T00:00:00'),
+    }]];
+
+    expect(timeCellsData(
+      cellsData, startDayHour, endDayHour, cellDuration, currentDate,
+    )).toBe(cellsData);
+  });
+
+  it('should return correct time data when a DST change is present', () => {
+    const dateWithDSTChange = new Date('2020-03-08T02:00:00');
+    const cellsData = [[{
+      startDate: new Date('2020-03-08T02:00:00'),
+      endDate: new Date('2020-03-08T02:30:00'),
+    }], [{
+      startDate: new Date('2020-03-08T02:30:00'),
+      endDate: new Date('2020-03-08T03:00:00'),
+    }], [{
+      startDate: new Date('2020-03-08T03:00:00'),
+      endDate: new Date('2020-03-08T03:30:00'),
+    }], [{
+      startDate: new Date('2020-03-08T03:30:00'),
+      endDate: new Date('2020-03-08T04:00:00'),
+    }]];
+
+    const timeCells = timeCellsData(
+      cellsData, startDayHour, endDayHour, cellDuration, dateWithDSTChange,
+    );
+
+    expect(timeCells)
+      .toHaveLength(4);
+
+    expect(timeCells[0][0].startDate.getHours()).toBe(2);
+    expect(timeCells[0][0].startDate.getMinutes()).toBe(0);
+    expect(timeCells[0][0].endDate.getHours()).toBe(2);
+    expect(timeCells[0][0].endDate.getMinutes()).toBe(30);
+
+    expect(timeCells[1][0].startDate.getHours()).toBe(2);
+    expect(timeCells[1][0].startDate.getMinutes()).toBe(30);
+    expect(timeCells[1][0].endDate.getHours()).toBe(3);
+    expect(timeCells[1][0].endDate.getMinutes()).toBe(0);
+
+    expect(timeCells[2][0].startDate.getHours()).toBe(3);
+    expect(timeCells[2][0].startDate.getMinutes()).toBe(0);
+    expect(timeCells[2][0].endDate.getHours()).toBe(3);
+    expect(timeCells[2][0].endDate.getMinutes()).toBe(30);
+
+    expect(timeCells[3][0].startDate.getHours()).toBe(3);
+    expect(timeCells[3][0].startDate.getMinutes()).toBe(30);
+    expect(timeCells[3][0].endDate.getHours()).toBe(4);
+    expect(timeCells[3][0].endDate.getMinutes()).toBe(0);
   });
 });

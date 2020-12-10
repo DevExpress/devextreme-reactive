@@ -3,8 +3,11 @@ import { mount } from 'enzyme';
 import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing';
 import { PluginHost } from '@devexpress/dx-react-core';
 import {
-  computed, viewCellsData,
-  calculateWeekDateIntervals, getTimeTableHeight,
+  computed,
+  viewCellsData,
+  timeCellsData,
+  calculateWeekDateIntervals,
+  getTimeTableHeight,
 } from '@devexpress/dx-scheduler-core';
 import { WeekView } from './week-view';
 import { BasicView } from './basic-view';
@@ -19,6 +22,7 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   availableViews: jest.fn(),
   calculateWeekDateIntervals: jest.fn(),
   getTimeTableHeight: jest.fn(),
+  timeCellsData: jest.fn(),
 }));
 
 const defaultDeps = {
@@ -57,6 +61,7 @@ describe('Week View', () => {
   beforeEach(() => {
     computed.mockImplementation((getters, viewName, baseComputed) => baseComputed(getters, viewName));
     global.Date.now = () => 123;
+    timeCellsData.mockImplementation(() => 'timeCellsData');
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -110,6 +115,21 @@ describe('Week View', () => {
       expect(calculateWeekDateIntervals)
         .toHaveBeenCalledWith(2, 3, 4, 5, 1);
     });
+
+    it('should export timeCellsData getter', () => {
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <WeekView {...defaultProps} />
+        </PluginHost>
+      ));
+
+      expect(timeCellsData)
+        .toBeCalledWith(undefined, 0, 24, 30, expect.any(Number));
+
+      expect(getComputedState(tree).timeCellsData)
+        .toBe('timeCellsData');
+    });
   });
 
   describe('Templates', () => {
@@ -130,7 +150,7 @@ describe('Week View', () => {
           rowComponent: expect.any(Function),
           tickCellComponent: expect.any(Function),
           labelComponent: expect.any(Function),
-          cellsData: getComputedState(tree).viewCellsData,
+          cellsData: getComputedState(tree).timeCellsData,
           formatDate: defaultDeps.getter.formatDate,
         });
     });

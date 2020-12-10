@@ -2,7 +2,7 @@ import {
   filterResourcesByGrouping, sortFilteredResources,
   getGroupsFromResources, expandViewCellsDataWithGroups,
   updateGroupingWithMainResource, expandGroups, updateTimeTableCellElementsMeta,
-  updateAllDayCellElementsMeta,
+  updateAllDayCellElementsMeta, updateTimeCellsData,
 } from './computeds';
 import { expandGroupedAppointment, groupAppointments } from './helpers';
 import { sliceAppointmentsByDays } from '../all-day-panel/helpers';
@@ -495,5 +495,107 @@ describe('IntegratedGrouping computeds', () => {
           ],
         });
     });
+  });
+
+  describe('#updateTimeCellsData', () => {
+    const groups = [[
+      { fieldName: 'resource1', id: 1 },
+      { fieldName: 'resource1', id: 2 },
+    ]];
+    const resources = [
+      { fieldName: 'resource1' },
+    ];
+    const pacificTimezoneOffset = 480;
+    const winterDate = new Date(2020, 2, 7);
+    const isPacificTimeZone = winterDate.getTimezoneOffset() === pacificTimezoneOffset;
+
+    it('should return viewCellsData if DST change is not present', () => {
+      const viewCellsData = [[{
+        startDate: new Date(2020, 11, 7),
+        endDate: new Date(2020, 11, 7, 1),
+      }]];
+
+      const timeCells = updateTimeCellsData(
+        viewCellsData,
+        undefined,
+        groups,
+        resources,
+        HORIZONTAL_GROUP_ORIENTATION,
+      );
+      expect(timeCells)
+        .toBe(viewCellsData);
+    });
+
+    if (isPacificTimeZone) {
+      it('should return timeCells if DST change is present and horizontal grouping is used', () => {
+        const viewCellsData = [[{
+          startDate: new Date(2020, 2, 8),
+          endDate: new Date(2020, 2, 8, 1),
+        }]];
+        const previousTimeCells = [[{
+          startDate: new Date(2020, 2, 9),
+          endDate: new Date(2020, 2, 9, 1),
+        }]];
+
+        const timeCells = updateTimeCellsData(
+          viewCellsData,
+          previousTimeCells,
+          groups,
+          resources,
+          HORIZONTAL_GROUP_ORIENTATION,
+        );
+
+        expect(timeCells)
+          .not.toBe(viewCellsData);
+        expect(timeCells)
+          .toBe(previousTimeCells);
+      });
+
+      // tslint:disable-next-line: max-line-length
+      it('should return correct timeCells if DST change is present and vertical grouping is used', () => {
+        const viewCellsData = [[{
+          startDate: new Date(2020, 2, 8),
+          endDate: new Date(2020, 2, 8, 1),
+        }]];
+        const previousTimeCells = [[{
+          startDate: new Date(2020, 2, 9),
+          endDate: new Date(2020, 2, 9, 1),
+        }]];
+
+        const timeCells = updateTimeCellsData(
+          viewCellsData,
+          previousTimeCells,
+          groups,
+          resources,
+          VERTICAL_GROUP_ORIENTATION,
+        );
+
+        expect(timeCells)
+          .not.toBe(viewCellsData);
+        expect(timeCells)
+          .not.toBe(previousTimeCells);
+
+        expect(timeCells)
+          .toEqual([[{
+            startDate: new Date(2020, 2, 9),
+            endDate: new Date(2020, 2, 9, 1),
+            groupingInfo: [{
+              id: 1,
+              fieldName: 'resource1',
+            }],
+            endOfGroup: true,
+            groupOrientation: VERTICAL_GROUP_ORIENTATION,
+          }], [{
+            startDate: new Date(2020, 2, 9),
+            endDate: new Date(2020, 2, 9, 1),
+            groupingInfo: [{
+              id: 2,
+              fieldName: 'resource1',
+            }],
+            endOfGroup: true,
+            groupOrientation: VERTICAL_GROUP_ORIENTATION,
+          }]]);
+      });
+    }
   });
 });

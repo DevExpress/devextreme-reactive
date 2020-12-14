@@ -55,7 +55,9 @@ const defaultProps = {
 
 describe('Week View', () => {
   beforeEach(() => {
-    computed.mockImplementation((getters, viewName, baseComputed) => baseComputed(getters, viewName));
+    computed.mockImplementation(
+      (getters, viewName, baseComputed) => baseComputed(getters, viewName),
+    );
     global.Date.now = () => 123;
     timeCellsData.mockImplementation(() => 'timeCellsData');
   });

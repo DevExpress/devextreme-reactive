@@ -101,4 +101,5 @@ describe('Day View', () => {
     )({ firstDayOfWeek: 4, intervalCount: 5, excludedDays: 6, currentDate: 7 });
     expect(viewCellsData)
       .toHaveBeenCalledWith(7, undefined, 5, [], 2, 3, 1, 123);
+  });
 });

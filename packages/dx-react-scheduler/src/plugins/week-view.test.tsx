@@ -43,7 +43,6 @@ const defaultDeps = {
 const defaultProps = {
   layoutComponent: () => null,
   timeScaleLayoutComponent: () => null,
-  timeScaleRowComponent: () => null,
   timeScaleLabelComponent: () => null,
   timeScaleTickCellComponent: () => null,
   timeScaleTicksRowComponent: () => null,

@@ -64,7 +64,7 @@ describe('Day View', () => {
     jest.resetAllMocks();
   });
 
-  it('should render BasicView', () => {
+  it('should render VerticalView', () => {
     const tree = mount((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}

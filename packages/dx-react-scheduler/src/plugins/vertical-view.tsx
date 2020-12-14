@@ -8,7 +8,6 @@ import {
 } from '@devexpress/dx-react-core';
 import {
   calculateWeekDateIntervals,
-  VIEW_TYPES,
   getTimeTableHeight,
   timeCellsData as timeCellsDataCore,
   computed,
@@ -59,6 +58,7 @@ class VericalViewBase extends React.PureComponent<CommonVerticalViewProps> {
       startDayHour,
       endDayHour,
       viewCellsDataComputed,
+      type,
     } = this.props;
 
     return (
@@ -67,7 +67,7 @@ class VericalViewBase extends React.PureComponent<CommonVerticalViewProps> {
       >
         <BasicView
           viewCellsDataComputed={viewCellsDataComputed}
-          type={VIEW_TYPES.WEEK}
+          type={type}
           cellDuration={cellDuration}
           name={viewName}
           intervalCount={intervalCount}

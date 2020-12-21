@@ -1,23 +1,14 @@
 import * as React from 'react';
 import {
-  Template,
   Plugin,
-  TemplateConnector,
-  TemplatePlaceholder,
   PluginComponents,
-  Getter,
 } from '@devexpress/dx-react-core';
 import {
   viewCellsData as viewCellsDataCore,
-  calculateWeekDateIntervals,
   VIEW_TYPES,
-  getTimeTableHeight,
-  timeCellsData as timeCellsDataCore,
-  computed,
 } from '@devexpress/dx-scheduler-core';
-import { memoize } from '@devexpress/dx-core';
-import { BasicView } from './basic-view';
 import { VerticalViewProps } from '../types';
+import { VerticalView } from './vertical-view';
 
 const viewCellsDataBaseComputed = (
   cellDuration, startDayHour, endDayHour,
@@ -29,16 +20,6 @@ const viewCellsDataBaseComputed = (
     Date.now(),
   );
 };
-const calculateAppointmentsIntervalsBaseComputed = cellDuration => ({
-  appointments, startViewDate, endViewDate, excludedDays,
-}) => calculateWeekDateIntervals(
-  appointments, startViewDate, endViewDate, excludedDays, cellDuration,
-);
-const timeCellsDataComputed = (startDayHour, endDayHour) => ({
-  viewCellsData, cellDuration,
-}) => timeCellsDataCore(viewCellsData, startDayHour, endDayHour, cellDuration, Date.now());
-
-const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 
 class DayViewBase extends React.PureComponent<VerticalViewProps> {
   static defaultProps: Partial<VerticalViewProps> = {
@@ -67,19 +48,12 @@ class DayViewBase extends React.PureComponent<VerticalViewProps> {
     timeTableRowComponent: 'TimeTableRow',
   };
 
-  timeCellsDataComputed = memoize((viewName, startDayHour, endDayHour) => getters => computed(
-    getters,
-    viewName,
-    timeCellsDataComputed(startDayHour, endDayHour),
-    getters.timeCellsData,
-  ));
-
   render() {
     const {
       layoutComponent,
       dayScaleEmptyCellComponent: DayScaleEmptyCell,
-      timeScaleLayoutComponent: TimeScale,
-      timeScaleLabelComponent: TimeScaleLabel,
+      timeScaleLayoutComponent,
+      timeScaleLabelComponent,
       timeScaleTickCellComponent,
       timeScaleTicksRowComponent,
       dayScaleLayoutComponent,
@@ -101,7 +75,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps> {
       <Plugin
         name="DayView"
       >
-        <BasicView
+        <VerticalView
           viewCellsDataComputed={viewCellsDataBaseComputed}
           type={VIEW_TYPES.DAY}
           cellDuration={cellDuration}
@@ -110,7 +84,6 @@ class DayViewBase extends React.PureComponent<VerticalViewProps> {
           displayName={displayName}
           startDayHour={startDayHour}
           endDayHour={endDayHour}
-          calculateAppointmentsIntervals={calculateAppointmentsIntervalsBaseComputed}
           dayScaleEmptyCellComponent={DayScaleEmptyCell}
           dayScaleLayoutComponent={dayScaleLayoutComponent}
           dayScaleCellComponent={dayScaleCellComponent}
@@ -120,44 +93,11 @@ class DayViewBase extends React.PureComponent<VerticalViewProps> {
           timeTableRowComponent={timeTableRowComponent}
           appointmentLayerComponent={appointmentLayerComponent}
           layoutComponent={layoutComponent}
-          layoutProps={{
-            timeScaleComponent: TimeScalePlaceholder,
-          }}
+          timeScaleLayoutComponent={timeScaleLayoutComponent}
+          timeScaleLabelComponent={timeScaleLabelComponent}
+          timeScaleTickCellComponent={timeScaleTickCellComponent}
+          timeScaleTicksRowComponent={timeScaleTicksRowComponent}
         />
-
-        <Getter
-          name="timeCellsData"
-          computed={this.timeCellsDataComputed(viewName, startDayHour, endDayHour)}
-        />
-
-        <Template name="timeScale">
-          {(params: any) => (
-            <TemplateConnector>
-              {({
-                currentView, timeCellsData, groups, formatDate,
-                groupOrientation: getGroupOrientation,
-                timeTableElementsMeta,
-              }) => {
-                if (currentView.name !== viewName) return <TemplatePlaceholder />;
-                const groupOrientation = getGroupOrientation?.(viewName);
-
-                return (
-                  <TimeScale
-                    labelComponent={TimeScaleLabel}
-                    tickCellComponent={timeScaleTickCellComponent}
-                    rowComponent={timeScaleTicksRowComponent}
-                    cellsData={timeCellsData}
-                    formatDate={formatDate}
-                    groups={groups}
-                    groupOrientation={groupOrientation}
-                    height={getTimeTableHeight(timeTableElementsMeta)}
-                    {...params}
-                  />
-                );
-              }}
-            </TemplateConnector>
-          )}
-        </Template>
       </Plugin >
     );
   }

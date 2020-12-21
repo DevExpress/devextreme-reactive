@@ -37,9 +37,6 @@ const defaultDeps = {
 
 const defaultProps = {
   layoutComponent: () => null,
-  timeScaleLayoutComponent: () => null,
-  timeScaleRowComponent: () => null,
-  timeScaleCellComponent: () => null,
   dayScaleLayoutComponent: () => null,
   dayScaleCellComponent: () => null,
   dayScaleRowComponent: () => null,

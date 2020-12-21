@@ -1118,7 +1118,6 @@ export interface VerticalViewProps extends CommonViewProps {
   startDayHour?: number;
   timeScaleLabelComponent: React.ComponentType<BaseView.TimeScaleLabelProps>;
   timeScaleLayoutComponent: React.ComponentType<BaseView.TimeScaleLayoutProps>;
-  timeScaleRowComponent: React.ComponentType<BaseView.RowProps>;
   timeTableLayoutComponent: React.ComponentType<BaseView.TimeTableLayoutProps>;
 }
 

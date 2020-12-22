@@ -62,6 +62,8 @@ export namespace AppointmentTooltip {
   export interface ContentProps {
     /** The appointment’s displayed metadata. */
     appointmentData?: AppointmentModel;
+    /** The appointment's resource items. */
+    appointmentResources: Array<ValidResourceInstance>;
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
     /** A component that renders an icon that indicates a recurring appointment. */

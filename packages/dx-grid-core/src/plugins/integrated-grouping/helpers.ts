@@ -10,6 +10,10 @@ const defaultColumnCriteria = (value: any) => ({
 export const getGroupRows: GetGroupRowsFn = (
   rows, grouping, groupsGetter,
 ) => {
+  if (grouping.length === 0) {
+    return rows;
+  }
+
   const keyPrefixes = [{ prefix: '', level: 0, rows }];
   const resultRows = [] as Row[];
   const compoundKeys = {};
@@ -39,7 +43,7 @@ export const getGroupRows: GetGroupRowsFn = (
     if (groupIndex > -1) {
       resultRows.splice(groupIndex + 1, 0, ...groupRows);
     } else {
-      resultRows.push(...groupRows);
+      groupRows.forEach(row => resultRows.push(row));
     }
   }
 

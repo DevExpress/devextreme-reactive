@@ -43,7 +43,7 @@ export const getGroupRows: GetGroupRowsFn = (
     if (groupIndex > -1) {
       resultRows.splice(groupIndex + 1, 0, ...groupRows);
     } else {
-      groupRows.forEach((row) => resultRows.push(row));
+      groupRows.forEach(row => resultRows.push(row));
     }
   }
 

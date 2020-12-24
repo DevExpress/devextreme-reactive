@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid-export",
-  "version": "2.7.3",
+  "version": "2.7.4",
   "description": "Export component for DevExtreme Reactive Grid",
   "author": {
     "name": "Developer Express Inc.",
@@ -53,10 +53,10 @@
     "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.8.3",
-    "@devexpress/dx-core": "2.7.3",
-    "@devexpress/dx-react-core": "2.7.3",
-    "@devexpress/dx-react-grid": "2.7.3",
-    "@devexpress/dx-testing": "2.7.3",
+    "@devexpress/dx-core": "2.7.4",
+    "@devexpress/dx-react-core": "2.7.4",
+    "@devexpress/dx-react-grid": "2.7.4",
+    "@devexpress/dx-testing": "2.7.4",
     "@rollup/plugin-replace": "^2.3.1",
     "babel-core": "^7.0.0-bridge.0",
     "core-js": "^3.4.1",
@@ -79,10 +79,10 @@
     "exceljs": "^3.8.1"
   },
   "peerDependencies": {
-    "@devexpress/dx-core": "2.7.3",
-    "@devexpress/dx-grid-core": "2.7.3",
-    "@devexpress/dx-react-core": "2.7.3",
-    "@devexpress/dx-react-grid": "2.7.3",
+    "@devexpress/dx-core": "2.7.4",
+    "@devexpress/dx-grid-core": "2.7.4",
+    "@devexpress/dx-react-core": "2.7.4",
+    "@devexpress/dx-react-grid": "2.7.4",
     "react": ">=16.10.2",
     "react-dom": ">=16.10.2"
   }

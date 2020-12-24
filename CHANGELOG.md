@@ -1,3 +1,18 @@
+# [2.7.4](https://github.com/DevExpress/devextreme-reactive/compare/v2.7.3...v2.7.4) (2020-12-24)
+
+
+### Bug Fixes
+
+* **react-grid:** correct colspan calculating for group row when used with certain plugins ([#3170](https://github.com/DevExpress/devextreme-reactive/issues/3170)) ([c73dd9f](https://github.com/DevExpress/devextreme-reactive/commit/c73dd9f9b72626d99a3db8f12357eeb986464590))
+* **react-grid:** fix regression after [#3174](https://github.com/DevExpress/devextreme-reactive/issues/3174) ([#3214](https://github.com/DevExpress/devextreme-reactive/issues/3214)) ([7ccd25c](https://github.com/DevExpress/devextreme-reactive/commit/7ccd25cfad0c7e44cbbdc086914ac0a4167769d2))
+* **react-grid:** format currency in the Data Editing demo ([#3179](https://github.com/DevExpress/devextreme-reactive/issues/3179)) ([e7ce15f](https://github.com/DevExpress/devextreme-reactive/commit/e7ce15fdef3616f46dbd0700f9cd3b67896f50a2))
+* **react-grid:** make grouping work with a high level of nested groups ([#3174](https://github.com/DevExpress/devextreme-reactive/issues/3174)) ([abb2983](https://github.com/DevExpress/devextreme-reactive/commit/abb29832c95fafb670f02a473947246a651a8919))
+* **react-grid:** make inline cell editing works only with data rows ([#3201](https://github.com/DevExpress/devextreme-reactive/issues/3201)) ([087eb69](https://github.com/DevExpress/devextreme-reactive/commit/087eb69a66f4acef145bd84d0cc554c73f9605df))
+* **react-grid:** make tree data work with a high level of row nesting ([#3171](https://github.com/DevExpress/devextreme-reactive/issues/3171)) ([623883d](https://github.com/DevExpress/devextreme-reactive/commit/623883da813b0969d1139d70cbe7a4069e279f9b))
+* **react-scheduler:** display time in Time Scale correctly when a DST change is present ([#3198](https://github.com/DevExpress/devextreme-reactive/issues/3198)) ([d1247fb](https://github.com/DevExpress/devextreme-reactive/commit/d1247fb196a58d08ba44cd88894cccf5997d6f9e))
+
+
+
 # [2.7.3](https://github.com/DevExpress/devextreme-reactive/compare/v2.7.2...v2.7.3) (2020-11-03)
 
 

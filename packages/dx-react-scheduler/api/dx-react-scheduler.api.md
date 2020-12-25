@@ -13,7 +13,6 @@ export type AllDayCell = {
   startDate: SchedulerDateTime;
   endDate: SchedulerDateTime;
   groupingInfo?: Group[];
-  hasRightBorder?: boolean;
   endOfGroup?: boolean;
 };
 
@@ -28,7 +27,6 @@ export namespace AllDayPanel {
     endDate: Date;
     endOfGroup?: boolean;
     groupingInfo?: Array<Group>;
-    hasRightBorder?: boolean;
     startDate: Date;
   }
   export interface CellProps {
@@ -36,7 +34,6 @@ export namespace AllDayPanel {
     endOfGroup?: boolean;
     groupingInfo?: Array<Group>;
     groupOrientation?: GroupOrientation;
-    hasRightBorder?: boolean;
     onDoubleClick?: (e: any) => void;
     startDate: Date;
   }
@@ -436,7 +433,6 @@ export namespace BaseView {
         endOfGroup?: boolean;
         formatDate: FormatterFn;
         groupingInfo?: Array<Group>;
-        hasRightBorder?: boolean;
         startDate: Date;
         today?: boolean;
     }
@@ -483,7 +479,6 @@ export namespace BaseView {
         endOfGroup?: boolean;
         groupingInfo?: Array<Group>;
         groupOrientation?: GroupOrientation;
-        hasRightBorder?: boolean;
         isShaded?: boolean;
         onDoubleClick?: (e: any) => void;
         startDate?: Date;
@@ -930,7 +925,6 @@ export namespace MonthView {
     formatDate?: FormatterFn;
     groupingInfo?: Array<Group>;
     groupOrientation?: GroupOrientation;
-    hasRightBorder?: boolean;
     isShaded?: boolean;
     onDoubleClick?: (e: any) => void;
     otherMonth?: boolean;

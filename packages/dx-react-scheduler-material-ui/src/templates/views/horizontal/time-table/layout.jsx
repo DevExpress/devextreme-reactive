@@ -31,7 +31,6 @@ export const Layout = React.memo(({
             otherMonth={otherMonth}
             formatDate={formatDate}
             endOfGroup={endOfGroup}
-            hasRightBorder={endOfGroup}
             groupingInfo={groupingInfo}
             groupOrientation={groupOrientation}
           />

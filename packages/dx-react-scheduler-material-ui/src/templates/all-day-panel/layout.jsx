@@ -44,7 +44,6 @@ const LayoutBase = React.memo(({
               startDate={startDate}
               endDate={endDate}
               endOfGroup={endOfGroup}
-              hasRightBorder={endOfGroup}
               groupingInfo={groupingInfo}
             />
           ))}

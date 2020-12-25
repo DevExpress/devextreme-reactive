@@ -44,8 +44,6 @@ const CellBase = ({
   endOfGroup,
   groupingInfo,
   groupOrientation,
-  // @deprecated
-  hasRightBorder,
   ...restProps
 }) => (
   <TableCell
@@ -53,7 +51,7 @@ const CellBase = ({
     className={classNames({
       [classes.cell]: true,
       [classes.brightRightBorder]: groupOrientation === HORIZONTAL_GROUP_ORIENTATION
-          && (endOfGroup || hasRightBorder),
+          && endOfGroup,
     }, className)}
     {...restProps}
   >
@@ -66,7 +64,6 @@ CellBase.propTypes = {
   endDate: PropTypes.instanceOf(Date),
   children: PropTypes.node,
   className: PropTypes.string,
-  hasRightBorder: PropTypes.bool,
   endOfGroup: PropTypes.bool,
   groupingInfo: PropTypes.arrayOf(PropTypes.object),
   groupOrientation: PropTypes.oneOf([HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION]),
@@ -77,7 +74,6 @@ CellBase.defaultProps = {
   startDate: undefined,
   endDate: undefined,
   className: undefined,
-  hasRightBorder: false,
   endOfGroup: false,
   groupingInfo: undefined,
   groupOrientation: HORIZONTAL_GROUP_ORIENTATION,

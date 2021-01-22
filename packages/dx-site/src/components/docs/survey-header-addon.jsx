@@ -32,7 +32,7 @@ const SurveyHeaderAddon = () => {
                 Help us make our software better.
               </span>
               <span className={`col-auto ${styles.underline}`}>
-                <a target="_blank" rel="noopener noreferrer" href="https://www.devexpress.com/web/devextreme-survey.xml">
+                <a target="_blank" rel="noopener noreferrer" href="https://www.devexpress.com/web/devextreme-survey.xml" className={styles.link}>
                   Take our 5 minute survey.
                 </a>
               </span>

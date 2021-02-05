@@ -5,6 +5,7 @@ import { StaticQuery, graphql } from 'gatsby';
 import Footer from '../footer';
 import Cookie from '../cookie';
 import favicon from '../images/favicon.ico';
+import SurveyHeaderAddon from '../docs/survey-header-addon';
 
 const faviconLink = [{
   rel: 'icon',
@@ -31,6 +32,7 @@ const Layout = ({ children }) => (
           defaultTitle={data.site.siteMetadata.title}
           link={faviconLink}
         />
+        <SurveyHeaderAddon />
         {children}
         <Footer />
         <Cookie />

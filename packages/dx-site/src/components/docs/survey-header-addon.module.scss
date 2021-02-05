@@ -5,12 +5,14 @@
 }
 
 .underline {
+  padding-right: 20px;
   text-decoration: underline;
   cursor: pointer;
 }
 
 .row {
   justify-content: space-between;
+  margin: 0px;
 }
 
 .link {

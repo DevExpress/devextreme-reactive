@@ -5,7 +5,7 @@ import styles from './survey-header-addon.module.scss';
 const COOKIE_ID = 'dx-cookie-survey';
 
 const SurveyHeaderAddon = () => {
-  const [shown, setShown] = React.useState(document?.cookie.indexOf(COOKIE_ID) === -1);
+  const [shown, setShown] = React.useState(typeof document !== 'undefined' && document.cookie.indexOf(COOKIE_ID) === -1);
 
   const onClick = React.useCallback(() => {
     setShown(false);

@@ -4,7 +4,7 @@ import styles from './survey-header-addon.module.scss';
 
 const COOKIE_ID = 'dx-cookie-survey';
 
-const SurveyHeaderAddon = () => {
+const SurveyHeaderAddon = React.memo(() => {
   const [shown, setShown] = React.useState(typeof document !== 'undefined' && document.cookie.indexOf(COOKIE_ID) === -1);
 
   const onClick = React.useCallback(() => {
@@ -40,6 +40,6 @@ const SurveyHeaderAddon = () => {
       </div>
     );
   } return null;
-};
+});
 
 export default SurveyHeaderAddon;

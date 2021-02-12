@@ -98,7 +98,7 @@ export const sortAndSpliceColumns: PureComputed<[TableColumn[], number]> = (
     col =>
       col.type !== TABLE_DATA_TYPE &&
       col.type !== TABLE_GROUP_TYPE &&
-      col.type !== TABLE_FLEX_TYPE
+      col.type !== TABLE_FLEX_TYPE,
   );
 
   if (firstVisibleColumnIndex) {

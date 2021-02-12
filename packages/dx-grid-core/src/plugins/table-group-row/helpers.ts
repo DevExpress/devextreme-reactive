@@ -2,7 +2,7 @@ import { PureComputed } from '@devexpress/dx-core';
 import { TABLE_GROUP_TYPE } from './constants';
 import { TableRow, TableColumn, IsSpecificCellFn, Grouping, GroupSummaryItem } from '../../types';
 import { TABLE_STUB_TYPE } from '../../utils/virtual-table';
-import { TABLE_DATA_TYPE } from '../table/constants';
+import { TABLE_DATA_TYPE, TABLE_FLEX_TYPE } from '../table/constants';
 
 type IsGroupIndentCellFn = PureComputed<[TableRow, TableColumn, Grouping[]], boolean>;
 
@@ -93,8 +93,12 @@ export const sortAndSpliceColumns: PureComputed<[TableColumn[], number]> = (
 ) => {
   const groupColumns = tableColumns.filter(col => col.type === TABLE_GROUP_TYPE);
   const dataColumns = tableColumns.filter(col => col.type === TABLE_DATA_TYPE);
+  const flexColumns = tableColumns.filter(col => col.type === TABLE_FLEX_TYPE);
   const otherColumns = tableColumns.filter(
-    col => col.type !== TABLE_DATA_TYPE && col.type !== TABLE_GROUP_TYPE,
+    col =>
+      col.type !== TABLE_DATA_TYPE &&
+      col.type !== TABLE_GROUP_TYPE &&
+      col.type !== TABLE_FLEX_TYPE
   );
 
   if (firstVisibleColumnIndex) {
@@ -102,5 +106,5 @@ export const sortAndSpliceColumns: PureComputed<[TableColumn[], number]> = (
     otherColumns.splice(0, Math.min(firstVisibleColumnIndex, firstGroupIndex));
   }
 
-  return [...groupColumns, ...otherColumns, ...dataColumns];
+  return [...groupColumns, ...otherColumns, ...dataColumns, ...flexColumns];
 };

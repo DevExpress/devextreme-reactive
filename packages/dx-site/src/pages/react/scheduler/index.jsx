@@ -16,7 +16,6 @@ import weekViewImage from './images/Week-View.png';
 import monthViewImage from './images/Month-View.png';
 import resourcesSupportImage from './images/Resources-Support.png';
 import resourcesGroupingImage from './images/Resource-Grouping.png';
-import timelineViewImage from './images/Timeline-Views.png';
 
 import LandingThingsThatMatter from '../../../components/landing/things-that-matter';
 import ButtonLinksContainer from '../../../components/landing/button-links-container';

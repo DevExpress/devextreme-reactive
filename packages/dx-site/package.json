@@ -49,7 +49,7 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-helmet": "^5.2.1",
-    "reactstrap": "^8.7.1",
+    "reactstrap": "^8.9.0",
     "remark": "^11.0.2",
     "segoe-fonts": "^1.0.1",
     "unist-util-visit": "^2.0.2"

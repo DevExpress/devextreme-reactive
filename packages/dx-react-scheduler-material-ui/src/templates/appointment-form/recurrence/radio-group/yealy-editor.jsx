@@ -3,7 +3,6 @@ import * as PropTypes from 'prop-types';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import {
   handleToDayOfWeekChange,
-  handleWeekNumberChange,
   getRecurrenceOptions,
   changeRecurrenceOptions,
   handleStartDateChange,
@@ -65,17 +64,15 @@ export const YearlyEditor = ({
   );
 
   const changeWeekNumber = React.useCallback(nextWeekNumber => onFieldChange({
-    rRule: handleWeekNumberChange(nextWeekNumber, recurrenceOptions),
-  }), [recurrenceOptions]);
+    rRule: handleToDayOfWeekChange(nextWeekNumber, dayOfWeek, recurrenceOptions),
+  }), [recurrenceOptions, dayOfWeek]);
   const weekNumbers = React.useMemo(
     () => getWeekNumberLabels(getMessage), [getMessage],
   );
 
   const changeDayOfWeek = React.useCallback(nextDayOfWeek => onFieldChange({
-    rRule: changeRecurrenceOptions({
-      ...recurrenceOptions, byweekday: nextDayOfWeek > 0 ? nextDayOfWeek - 1 : 6,
-    }),
-  }), [recurrenceOptions]);
+    rRule: handleToDayOfWeekChange(weekNumber, nextDayOfWeek, recurrenceOptions),
+  }), [recurrenceOptions, weekNumber]);
   const daysOfWeek = React.useMemo(
     () => getDaysOfWeek(formatDate, firstDayOfWeek), [formatDate, firstDayOfWeek],
   );
@@ -121,7 +118,8 @@ export const YearlyEditor = ({
         labelComponent={Label}
         textEditorComponent={TextEditor}
         selectComponent={Select}
-        readOnly={onDayAndMonthReadOnly}
+        readOnly={readOnly}
+        readOnlyEditors={onDayAndMonthReadOnly}
         month={month}
         changeMonth={changeMonth}
         months={months}
@@ -132,7 +130,8 @@ export const YearlyEditor = ({
         getMessage={getMessage}
         labelComponent={Label}
         selectComponent={Select}
-        readOnly={onDayOfWeekReadOnly}
+        readOnly={readOnly}
+        readOnlyEditors={onDayOfWeekReadOnly}
         month={month}
         changeMonth={changeMonth}
         months={monthsWithOf}

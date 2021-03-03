@@ -5,7 +5,7 @@ import { Yearly } from './yearly';
 import { IntervalEditor } from './interval-editor';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  ...jest.requireActual('@devexpress/dx-scheduler-core'),
   getRecurrenceOptions: jest.fn(),
   changeRecurrenceOptions: jest.fn(),
 }));

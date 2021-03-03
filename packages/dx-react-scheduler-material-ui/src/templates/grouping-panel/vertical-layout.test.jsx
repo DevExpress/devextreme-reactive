@@ -5,7 +5,7 @@ import { VerticalLayout } from './vertical-layout';
 import { BASIC_CELL_HEIGHT } from '../constants';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  ...jest.requireActual('@devexpress/dx-scheduler-core'),
   getVerticalRowFromGroups: jest.fn(),
 }));
 

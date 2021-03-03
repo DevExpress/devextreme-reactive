@@ -5,7 +5,7 @@ import { Layout } from './layout';
 import { TicksLayout } from './ticks-layout';
 
 jest.mock('@material-ui/core/styles', () => ({
-  ...require.requireActual('@material-ui/core/styles'),
+  ...jest.requireActual('@material-ui/core/styles'),
   makeStyles: jest.fn(() => () => ({
     timeScaleContainer: 'timeScaleContainer',
     ticks: 'ticks',

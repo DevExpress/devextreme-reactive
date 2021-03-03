@@ -24,7 +24,7 @@ jest.mock('d3-scale', () => ({
   },
 }));
 
-const realD3 = require.requireActual('d3-scale');
+const realD3 = jest.requireActual('d3-scale');
 
 const matchFloat = (expected: number) => ({
   $$typeof: Symbol.for('jest.asymmetricMatcher'),

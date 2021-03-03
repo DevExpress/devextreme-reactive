@@ -10,7 +10,7 @@ import {
 } from '../week-view/helpers';
 
 jest.mock('../week-view/helpers', () => ({
-  ...require.requireActual('../week-view/helpers'),
+  ...jest.requireActual('../week-view/helpers'),
   getWeekHorizontallyGroupedRowIndex: jest.fn(),
   getWeekVerticallyGroupedRowIndex: jest.fn(),
   getWeekHorizontallyGroupedColumnIndex: jest.fn(),

@@ -251,7 +251,7 @@ export type NotifyPointerMoveFn = (target: SeriesRef | null) => void;
 export type NumberArray = number[];
 
 // @public (undocumented)
-export type OffsetFn = (series: StackData, order: number[]) => void;
+export type OffsetFn = (series: StackData, order: Iterable<number>) => void;
 
 // @public (undocumented)
 export type OnViewportChangeFn = (viewport: Viewport) => void;

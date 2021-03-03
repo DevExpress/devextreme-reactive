@@ -6,7 +6,7 @@ import { setAppointmentMeta, TOGGLE_APPOINTMENT_TOOLTIP_VISIBILITY } from '@deve
 import { AppointmentTooltip } from './appointment-tooltip';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  ...jest.requireActual('@devexpress/dx-scheduler-core'),
   setAppointmentMeta: jest.fn(),
 }));
 

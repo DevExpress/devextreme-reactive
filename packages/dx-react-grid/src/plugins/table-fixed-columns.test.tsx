@@ -16,7 +16,7 @@ import {
 import { TableFixedColumns } from './table-fixed-columns';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  ...require.requireActual('@devexpress/dx-grid-core'),
+  ...jest.requireActual('@devexpress/dx-grid-core'),
   getFixedColumnKeys: jest.fn(),
   tableColumnsWithFixed: jest.fn(),
   tableHeaderRowsWithFixed: jest.fn(),

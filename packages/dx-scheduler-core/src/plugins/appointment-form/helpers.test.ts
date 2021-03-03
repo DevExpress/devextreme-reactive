@@ -2,14 +2,14 @@
 import { RRule } from 'rrule';
 import {
   callActionIfExists, isAllDayCell, changeRecurrenceFrequency, getRecurrenceOptions,
-  changeRecurrenceOptions, handleStartDateChange, handleToDayOfWeekChange, handleWeekNumberChange,
+  changeRecurrenceOptions, handleStartDateChange, handleToDayOfWeekChange,
   getRRuleFrequency, getFrequencyString, handleChangeFrequency, getRadioGroupDisplayData,
   handleWeekDaysChange, getDaysOfWeekArray, getDaysOfWeekDates, checkMultipleResourceFields,
 } from './helpers';
 import {
   REPEAT_TYPES, RRULE_REPEAT_TYPES, DAYS_OF_WEEK_ARRAY,
   DAYS_OF_WEEK_DATES, SUNDAY_DATE, MONDAY_DATE, TUESDAY_DATE, WEDNESDAY_DATE,
-  THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE,
+  THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE, RRULE_DAYS_OF_WEEK,
 } from './constants';
 import { getCountDependingOnRecurrenceType } from './utils';
 
@@ -124,10 +124,18 @@ describe('AppointmentForm helpers', () => {
         .toEqual(null);
     });
 
-    it('should return options object with byweekday represented as an array of numbers', () => {
-      expect(getRecurrenceOptions('RRULE:BYWEEKDAY=SU,MO,WE'))
-        .toMatchObject({ byweekday: [6, 0, 2] });
-    });
+    it(
+      'should return options object with byweekday represented as an array of day-of-week obejcts',
+      () => {
+        expect(getRecurrenceOptions('RRULE:BYWEEKDAY=SU,MO,WE'))
+          .toMatchObject({
+            byweekday: [
+              RRULE_DAYS_OF_WEEK[6],
+              RRULE_DAYS_OF_WEEK[0],
+              RRULE_DAYS_OF_WEEK[2],
+            ],
+          });
+      });
   });
 
   describe('#changeRecurrenceOptions', () => {
@@ -161,33 +169,23 @@ describe('AppointmentForm helpers', () => {
     it('should return rule with bymonthday and byweekday depending on props', () => {
       expect(getRecurrenceOptions(handleToDayOfWeekChange(0, 2, options)))
         .toMatchObject({
-          bymonthday: [1, 2, 3, 4, 5, 6, 7],
-          byweekday: [1],
+          byweekday: [RRULE_DAYS_OF_WEEK[1].nth(1)],
         });
       expect(getRecurrenceOptions(handleToDayOfWeekChange(1, 0, options)))
         .toMatchObject({
-          bymonthday: [8, 9, 10, 11, 12, 13, 14],
-          byweekday: [6],
+          byweekday: [RRULE_DAYS_OF_WEEK[6].nth(2)],
         });
       expect(getRecurrenceOptions(handleToDayOfWeekChange(4, 5, options)))
         .toMatchObject({
-          bymonthday: [-1, -2, -3, -4, -5, -6, -7],
-          byweekday: [4],
+          byweekday: [RRULE_DAYS_OF_WEEK[4].nth(-1)],
         });
     });
-  });
 
-  describe('#handleWeekNumberChange', () => {
-    const options = {};
-    it('should rule with bymonthday and byweekday depending on props', () => {
-      expect(getRecurrenceOptions(handleWeekNumberChange(2, options)))
-        .toMatchObject({
-          bymonthday: [15, 16, 17, 18, 19, 20, 21],
-        });
-      expect(getRecurrenceOptions(handleWeekNumberChange(4, options)))
-        .toMatchObject({
-          bymonthday: [-1, -2, -3, -4, -5, -6, -7],
-        });
+    it('should return rule correct rrule', () => {
+      expect(handleToDayOfWeekChange(0, 2, options))
+        .toBe('RRULE:BYDAY=+1TU');
+      expect(handleToDayOfWeekChange(4, 2, options))
+        .toBe('RRULE:BYDAY=-1TU');
     });
   });
 
@@ -267,9 +265,9 @@ describe('AppointmentForm helpers', () => {
 
     it('should return "Second Option" if byweekday is non-empty array', () => {
       let testOptions = {
-        byweekday: [3],
-        bymonthday: [1, 2, 3, 4, 5, 6, 7],
+        byweekday: [RRULE_DAYS_OF_WEEK[3].nth(1)],
       };
+
       let result = getRadioGroupDisplayData(
         testOptions, 1, 1, 1, 'First Option', 'Second Option',
       );
@@ -282,8 +280,7 @@ describe('AppointmentForm helpers', () => {
         });
 
       testOptions = {
-        byweekday: [6],
-        bymonthday: [-1, -2, -3, -4, -5, -6, -7],
+        byweekday: [RRULE_DAYS_OF_WEEK[6].nth(-1)],
       };
       result = getRadioGroupDisplayData(
         testOptions, 1, 1, 1, 'First Option', 'Second Option',
@@ -299,15 +296,15 @@ describe('AppointmentForm helpers', () => {
   });
   describe('#handleWeekDaysChange', () => {
     it('should add a day of week', () => {
-      const result = handleWeekDaysChange({ byweekday: [1] }, 3);
+      const result = handleWeekDaysChange({ byweekday: [RRULE_DAYS_OF_WEEK[1]] }, 3);
 
       expect(result)
         .toMatchObject({
-          byweekday: [1, 3],
+          byweekday: [RRULE_DAYS_OF_WEEK[1], RRULE_DAYS_OF_WEEK[3]],
         });
     });
     it('should remove a day of week', () => {
-      const result = handleWeekDaysChange({ byweekday: [3] }, 3);
+      const result = handleWeekDaysChange({ byweekday: [RRULE_DAYS_OF_WEEK[3]] }, 3);
 
       expect(result)
         .toMatchObject({
@@ -319,7 +316,7 @@ describe('AppointmentForm helpers', () => {
 
       expect(result)
         .toMatchObject({
-          byweekday: [3],
+          byweekday: [RRULE_DAYS_OF_WEEK[3]],
         });
     });
   });

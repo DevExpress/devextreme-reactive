@@ -87,16 +87,33 @@ export class PluginHost {
       this.validationRequired = false;
     }
 
-    if (!this.gettersCache[key]) {
-      this.gettersCache[key] = this.plugins.map(plugin => plugin[key]).filter(plugin => !!plugin);
+    let res = this.gettersCache[key];
+    if (!res) {
+      // Add cache for original plugin indexes
+      const indexCache = this.plugins
+        .map((plugin, index) => ({ key: plugin[key], index }))
+        .filter(plugin => !!plugin.key);
+      this.gettersCache[`${key}_i`] = indexCache;
+      res = indexCache.map(item => item.key);
+      this.gettersCache[key] = res;
     }
-    if (!upTo) return this.gettersCache[key];
+
+    if (!upTo) return res;
 
     const upToIndex = this.plugins.indexOf(upTo);
-    return this.gettersCache[key].filter((getter) => {
-      const pluginIndex = this.plugins.findIndex(plugin => plugin[key] === getter);
-      return pluginIndex < upToIndex;
-    });
+
+    // Try to get a result from upToIndex cache first.
+    const upToIndexKey = key + upToIndex;
+    let upToRes = this.gettersCache[upToIndexKey];
+
+    if (!upToRes) {
+      const indexCache = this.gettersCache[`${key}_i`];
+      upToRes = this.gettersCache[key]
+        .filter((getter, index) => indexCache[index].index < upToIndex);
+      this.gettersCache[upToIndexKey] = upToRes;
+    }
+
+    return upToRes;
   }
 
   get(key, upTo) {
@@ -104,8 +121,9 @@ export class PluginHost {
 
     if (!plugins.length) return undefined;
 
-    let result = plugins[0]();
-    plugins.slice(1).forEach((plugin) => {
+    let result;
+    // slice creates shallow copy, when do it many times, it costs about 5%
+    plugins.forEach((plugin) => {
       result = plugin(result);
     });
     return result;

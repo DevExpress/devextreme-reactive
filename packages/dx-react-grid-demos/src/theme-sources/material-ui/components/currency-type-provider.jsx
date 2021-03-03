@@ -51,7 +51,8 @@ EditorBase.defaultProps = {
 
 const Editor = withStyles(styles)(EditorBase);
 
-const Formatter = ({ value }) => `$${value}`;
+const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+const Formatter = ({ value }) => currencyFormatter.format(value);
 
 const availableFilterOperations = [
   'equal', 'notEqual',

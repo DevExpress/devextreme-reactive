@@ -14,6 +14,16 @@ export const DAYS_OF_WEEK = {
   SUNDAY: 6,
 };
 
+export const RRULE_DAYS_OF_WEEK = [
+  RRule.MO,
+  RRule.TU,
+  RRule.WE,
+  RRule.TH,
+  RRule.FR,
+  RRule.SA,
+  RRule.SU,
+];
+
 export const DAYS_IN_WEEK = 7;
 
 export const DAYS_OF_WEEK_ARRAY = [

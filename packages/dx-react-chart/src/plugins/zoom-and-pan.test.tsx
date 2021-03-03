@@ -6,7 +6,7 @@ import {
 } from '@devexpress/dx-testing';
 import {
   adjustLayout, attachEvents, detachEvents, setCursorType,
-  isKeyPressed,
+  isKeyPressed, getViewport, getEventCoords,
 } from '@devexpress/dx-chart-core';
 import { ZoomAndPan } from './zoom-and-pan';
 
@@ -20,6 +20,7 @@ jest.mock('@devexpress/dx-chart-core', () => ({
   isKeyPressed: jest.fn(),
   isMultiTouch: jest.fn(),
   setCursorType: jest.fn(),
+  getViewport: jest.fn(),
 }));
 
 const DragBoxComponent = () => null;
@@ -140,7 +141,7 @@ describe('ZoomAndPan', () => {
     expect(setCursorType.mock.calls[1]).toEqual([expect.anything(), 'grabbing']);
   });
 
-  it('shouldn not call "setCursorType" on start handler, "isKeyPressed" return true', () => {
+  it('should not call "setCursorType" on start handler, "isKeyPressed" return true', () => {
     isKeyPressed.mockReturnValue(true);
     const tree = mount((
       <PluginHost>
@@ -152,5 +153,26 @@ describe('ZoomAndPan', () => {
     const { onStart } = tree.find('ZoomPanProvider').props() as any;
     onStart(event);
     expect(setCursorType.mock.calls.length).toBe(1);
+  });
+
+  it('should not calculate a new state if "rectBox" is null while ending of zoom (3130)', () => {
+    // https://github.com/DevExpress/devextreme-reactive/issues/3130
+    isKeyPressed.mockReturnValue(true);
+    getEventCoords.mockReturnValue(100);
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <ZoomAndPan  {...defaultProps} />
+      </PluginHost>
+    ));
+
+    const event = { preventDefault: jest.fn, currentTarget: {} };
+    const { onEnd, onStart } = tree.find('ZoomPanProvider').props() as any;
+
+    onStart(event);
+    tree.update();
+    onEnd();
+
+    expect(getViewport.mock.calls.length).toBe(0);
   });
 });

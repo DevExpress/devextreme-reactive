@@ -3,7 +3,7 @@ import { createShallow } from '@material-ui/core/test-utils';
 import { DraftAppointment, SourceAppointment } from './appointments';
 
 jest.mock('@material-ui/core/styles', () => ({
-  ...require.requireActual('@material-ui/core/styles'),
+  ...jest.requireActual('@material-ui/core/styles'),
   makeStyles: jest.fn(() => () => ({
     appointment: 'appointment',
     shadedAppointment: 'shadedAppointment',

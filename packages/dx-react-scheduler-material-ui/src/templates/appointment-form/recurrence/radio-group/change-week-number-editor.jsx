@@ -46,6 +46,7 @@ const ChangeWeekNumberEditorBase = React.memo(({
   labelComponent: Label,
   selectComponent: Select,
   readOnly,
+  readOnlyEditors,
   className,
   weekNumber,
   weekNumbers,
@@ -81,14 +82,14 @@ const ChangeWeekNumberEditorBase = React.memo(({
             className={classes.select}
             value={weekNumber}
             onValueChange={changeWeekNumber}
-            readOnly={readOnly}
+            readOnly={readOnlyEditors}
             availableOptions={weekNumbers}
           />
           <Select
             className={classes.longSelect}
             value={dayOfWeek}
             onValueChange={changeDayOfWeek}
-            readOnly={readOnly}
+            readOnly={readOnlyEditors}
             availableOptions={daysOfWeek}
           />
         </Grid>
@@ -96,7 +97,7 @@ const ChangeWeekNumberEditorBase = React.memo(({
           className={classes.doubleSelect}
           value={month}
           onValueChange={changeMonth}
-          readOnly={readOnly}
+          readOnly={readOnlyEditors}
           availableOptions={months}
         />
       </div>
@@ -129,12 +130,14 @@ ChangeWeekNumberEditorBase.propTypes = {
     text: PropTypes.string.isRequired,
   })).isRequired,
   className: PropTypes.string,
+  readOnlyEditors: PropTypes.bool,
 };
 
 ChangeWeekNumberEditorBase.defaultProps = {
   getMessage: () => undefined,
   readOnly: false,
   className: undefined,
+  readOnlyEditors: false,
 };
 
 export const ChangeWeekNumberEditor = withStyles(styles)(ChangeWeekNumberEditorBase, { name: 'ChangeWeekNumberEditor' });

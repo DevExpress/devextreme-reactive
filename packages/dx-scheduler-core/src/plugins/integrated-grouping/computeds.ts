@@ -10,6 +10,7 @@ import {
 } from './helpers';
 import { sliceAppointmentsByDays } from '../all-day-panel/helpers';
 import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '../../constants';
+import { containsDSTChange } from '../common/helpers';
 
 export const filterResourcesByGrouping: PureComputed<
   [Array<ValidResource>, Array<Grouping>], Array<ValidResource>
@@ -221,4 +222,19 @@ const initializeCellElementsData: PureComputed<
     groupSize: timeTableWidth * groupHeight,
     validGetCellRects: cellElementsMeta.getCellRects.slice(),
   };
+};
+
+export const updateTimeCellsData: PureComputed<
+  [ViewCell[][], ViewCell[][], Group[][], ValidResource[], GroupOrientation], ViewCell[][]
+> = (viewCellsData, timeCellsData, groups, sortedResources, groupOrientation) => {
+  const { startDate: firstViewDate } = viewCellsData[0][0];
+  if (!containsDSTChange(firstViewDate)) {
+    return viewCellsData;
+  }
+
+  if (groupOrientation !== VERTICAL_GROUP_ORIENTATION) {
+    return timeCellsData;
+  }
+
+  return expandVerticallyGroupedCells(timeCellsData, groups, sortedResources);
 };

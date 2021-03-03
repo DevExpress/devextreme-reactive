@@ -124,19 +124,35 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const {
-      availableRowCount = prevState.availableRowCount,
+      availableRowCount: prevAvailableRowCount = prevState.availableRowCount,
       totalRowCount,
       pageSize,
       infiniteScrolling,
     } = nextProps;
+    const {
+      requestedStartIndex: prevRequestedStartIndex,
+      virtualRowsCache: prevVirtualRowCache,
+    } = prevState;
+
+    const availableRowCount = getAvailableRowCount(
+      infiniteScrolling,
+      pageSize * 2,
+      prevAvailableRowCount,
+      totalRowCount,
+    );
+    const requestedStartIndex = Math.max(
+      Math.min(prevRequestedStartIndex, availableRowCount - pageSize),
+      0,
+    );
+    const virtualRowsCache =
+      prevRequestedStartIndex === requestedStartIndex
+        ? prevVirtualRowCache
+        : emptyVirtualRows;
 
     return {
-      availableRowCount: getAvailableRowCount(
-        infiniteScrolling,
-        pageSize * 2,
-        availableRowCount,
-        totalRowCount,
-      ),
+      availableRowCount,
+      requestedStartIndex,
+      virtualRowsCache,
     };
   }
 

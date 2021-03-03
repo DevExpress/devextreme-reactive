@@ -8,7 +8,7 @@ import {
 } from '@devexpress/dx-scheduler-core';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  ...jest.requireActual('@devexpress/dx-scheduler-core'),
   isMonthCell: jest.fn(),
   isCellShaded: jest.fn(),
   isShadedAppointment: jest.fn(),

@@ -15,7 +15,7 @@ import {
 import { TableFilterRow } from './table-filter-row';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  ...require.requireActual('@devexpress/dx-grid-core'),
+  ...jest.requireActual('@devexpress/dx-grid-core'),
   tableHeaderRowsWithFilter: jest.fn(),
   isFilterTableCell: jest.fn(),
   isFilterTableRow: jest.fn(),

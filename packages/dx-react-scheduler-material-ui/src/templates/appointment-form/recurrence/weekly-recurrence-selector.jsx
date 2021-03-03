@@ -31,8 +31,9 @@ const styles = ({ palette, spacing }) => ({
   },
 });
 
-const isCurrentWeekDay = (recurrenceOptions, weekDay) => recurrenceOptions.byweekday
-  && recurrenceOptions.byweekday.indexOf(weekDay) > -1;
+const isCurrentWeekDay = (
+  { byweekday }, currentWeekDay,
+) => byweekday && byweekday.findIndex(({ weekday }) => weekday === currentWeekDay) > -1;
 
 const WeeklyRecurrenceSelectorBase = React.memo(({
   formatDate,
@@ -47,6 +48,7 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
   const recurrenceOptions = getRecurrenceOptions(rRule);
   const daysOfWeekArray = getDaysOfWeekArray(firstDayOfWeek);
   const daysOfWeekDates = getDaysOfWeekDates(firstDayOfWeek);
+
   return (
     <ButtonGroup
       variant="outlined"

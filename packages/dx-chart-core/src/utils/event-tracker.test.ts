@@ -1,4 +1,9 @@
+import { hasWindow } from '@devexpress/dx-core';
 import { buildEventHandlers } from './event-tracker';
+
+jest.mock('@devexpress/dx-core', () => ({
+  hasWindow: jest.fn(),
+}));
 
 describe('EventTracker', () => {
   describe('#buildEventHandlers', () => {
@@ -49,6 +54,8 @@ describe('EventTracker', () => {
       hitTest2.mockReset();
       hitTest3.mockReset();
     });
+
+    (hasWindow as jest.Mock).mockImplementation(() => true);
 
     it('should create and invoke hit testers', () => {
       const func = call();
@@ -207,6 +214,15 @@ describe('EventTracker', () => {
       } finally {
         delete window.ontouchstart;
       }
+    });
+
+    it('should work with SSR', () => {
+      (hasWindow as jest.Mock).mockImplementation(() => false);
+      const handlers = buildEventHandlers([series1, series2, series3] as any, {
+        clickHandlers: [1] as any, pointerMoveHandlers: [1] as any,
+      });
+
+      expect(handlers).toEqual({});
     });
   });
 });

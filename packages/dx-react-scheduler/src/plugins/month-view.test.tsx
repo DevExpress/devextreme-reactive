@@ -11,7 +11,7 @@ import { MonthView } from './month-view';
 import { BasicView } from './basic-view';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  ...jest.requireActual('@devexpress/dx-scheduler-core'),
   computed: jest.fn(),
   viewCellsData: jest.fn(),
   startViewDate: jest.fn(),
@@ -37,9 +37,6 @@ const defaultDeps = {
 
 const defaultProps = {
   layoutComponent: () => null,
-  timeScaleLayoutComponent: () => null,
-  timeScaleRowComponent: () => null,
-  timeScaleCellComponent: () => null,
   dayScaleLayoutComponent: () => null,
   dayScaleCellComponent: () => null,
   dayScaleRowComponent: () => null,

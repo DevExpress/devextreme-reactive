@@ -47,7 +47,7 @@ const correctRequestedRange: CorrectRangeFn = (calculatedRange, referenceIndex, 
   const { start, end } = calculatedRange;
 
   if (start - referenceIndex > pageSize / 2) {
-    return { start: start - pageSize, end: end - pageSize };
+    return { start: start - pageSize, end: start };
   }
   return { start, end };
 };

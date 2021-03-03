@@ -4,12 +4,12 @@ import { viewBoundText } from '@devexpress/dx-scheduler-core';
 import { Content } from './content';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  ...jest.requireActual('@devexpress/dx-scheduler-core'),
   viewBoundText: jest.fn(),
 }));
 
 jest.mock('@material-ui/core/styles', () => ({
-  ...require.requireActual('@material-ui/core/styles'),
+  ...jest.requireActual('@material-ui/core/styles'),
   makeStyles: jest.fn(() => () => ({
     content: 'content',
     text: 'text',

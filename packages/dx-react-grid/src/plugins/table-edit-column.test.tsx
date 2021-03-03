@@ -23,7 +23,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 }));
 
 jest.mock('@devexpress/dx-core', () => ({
-  ...require.requireActual('@devexpress/dx-core'),
+  ...jest.requireActual('@devexpress/dx-core'),
   getMessagesFormatter: jest.fn(),
 }));
 

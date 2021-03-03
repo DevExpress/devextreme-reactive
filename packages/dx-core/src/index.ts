@@ -10,6 +10,6 @@ export * from './easings';
 /** @internal */
 export { getMessagesFormatter } from './messages-formatter';
 /** @internal */
-export { createClickHandlers, slice } from './utils';
+export { createClickHandlers, slice, hasWindow } from './utils';
 /** @internal */
 export * from './types';

@@ -6,7 +6,10 @@ import {
   SchedulerView,
 } from '../../types';
 import { calculateFirstDateOfWeek } from '../../utils';
-import { isMidnight } from './helpers';
+import {
+  isMidnight,
+  containsDSTChange,
+} from './helpers';
 
 const subtractSecond: PureComputed<
   [Date]
@@ -43,10 +46,17 @@ export const timeScale: TimeScaleFn = (
   const startDateOfView = firstDayOfWeek !== undefined
     ? calculateFirstDateOfWeek(currentDate, firstDayOfWeek, excludedDays)
     : currentDate;
-  const left = moment(startDateOfView as Date)
+
+  const isDSTChange = containsDSTChange(startDateOfView as Date);
+  const validDate = moment(startDateOfView as Date);
+  if (isDSTChange) {
+    validDate.subtract(1, 'day');
+  }
+
+  const left = moment(validDate)
     .startOf('day')
     .add(startDayHour, 'hour');
-  const right = moment(startDateOfView as Date)
+  const right = moment(validDate)
     .startOf('day')
     .add(endDayHour, 'hour');
 
@@ -86,7 +96,6 @@ export const viewCellsData: ViewCellsDataFn = (
     currentDate, firstDayOfWeek!, startDayHour, endDayHour, cellDuration, excludedDays,
   );
   const currentTime = moment(currTime as SchedulerDateTime);
-
   return times.reduce((cellsAcc, time) => {
     const start = moment(time.start);
     const end = moment(time.end);
@@ -100,6 +109,26 @@ export const viewCellsData: ViewCellsDataFn = (
     cellsAcc.push(rowCells);
     return cellsAcc;
   }, [] as ViewCell[][]);
+};
+
+export const timeCellsData: PureComputed<
+  [ViewCell[][], number, number, number, number], ViewCell[][]
+> = (
+  cellsData, startDayHour, endDayHour, cellDuration, currentTime,
+) => {
+  const { startDate: firstViewDate } = cellsData[0][0];
+  if (!containsDSTChange(firstViewDate)) {
+    return cellsData;
+  }
+
+  const nextDay = moment(firstViewDate)
+    .add(1, 'day')
+    .toDate();
+  const validCellsData = viewCellsData(
+    nextDay, undefined, 1, [], startDayHour, endDayHour, cellDuration, currentTime,
+  );
+
+  return validCellsData;
 };
 
 export const allDayCells: PureComputed<

@@ -1,17 +1,14 @@
 import * as React from 'react';
 import {
-  Template,
   Plugin,
-  TemplateConnector,
-  TemplatePlaceholder,
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
-  viewCellsData as viewCellsDataCore, calculateWeekDateIntervals,
-  VIEW_TYPES, getTimeTableHeight,
+  viewCellsData as viewCellsDataCore,
+  VIEW_TYPES,
 } from '@devexpress/dx-scheduler-core';
-import { BasicView } from './basic-view';
 import { WeekViewProps } from '../types';
+import { VerticalView } from './vertical-view';
 
 const DAYS_IN_WEEK = 7;
 const viewCellsDataBaseComputed = (
@@ -24,12 +21,6 @@ const viewCellsDataBaseComputed = (
     Date.now(),
   );
 };
-const calculateAppointmentsIntervalsBaseComputed = cellDuration => ({
-  appointments, startViewDate, endViewDate, excludedDays,
-}) => calculateWeekDateIntervals(
-  appointments, startViewDate, endViewDate, excludedDays, cellDuration,
-);
-const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 
 class WeekViewBase extends React.PureComponent<WeekViewProps> {
   static defaultProps: Partial<WeekViewProps> = {
@@ -63,8 +54,8 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
     const {
       layoutComponent,
       dayScaleEmptyCellComponent,
-      timeScaleLayoutComponent: TimeScale,
-      timeScaleLabelComponent: TimeScaleLabel,
+      timeScaleLayoutComponent,
+      timeScaleLabelComponent,
       timeScaleTickCellComponent,
       timeScaleTicksRowComponent,
       dayScaleLayoutComponent,
@@ -87,7 +78,7 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
       <Plugin
         name="WeekView"
       >
-        <BasicView
+        <VerticalView
           viewCellsDataComputed={viewCellsDataBaseComputed}
           type={VIEW_TYPES.WEEK}
           cellDuration={cellDuration}
@@ -97,7 +88,6 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
           startDayHour={startDayHour}
           endDayHour={endDayHour}
           excludedDays={excludedDays}
-          calculateAppointmentsIntervals={calculateAppointmentsIntervalsBaseComputed}
           dayScaleEmptyCellComponent={dayScaleEmptyCellComponent}
           dayScaleLayoutComponent={dayScaleLayoutComponent}
           dayScaleCellComponent={dayScaleCellComponent}
@@ -107,38 +97,11 @@ class WeekViewBase extends React.PureComponent<WeekViewProps> {
           timeTableRowComponent={timeTableRowComponent}
           appointmentLayerComponent={appointmentLayerComponent}
           layoutComponent={layoutComponent}
-          layoutProps={{
-            timeScaleComponent: TimeScalePlaceholder,
-          }}
+          timeScaleLayoutComponent={timeScaleLayoutComponent}
+          timeScaleLabelComponent={timeScaleLabelComponent}
+          timeScaleTickCellComponent={timeScaleTickCellComponent}
+          timeScaleTicksRowComponent={timeScaleTicksRowComponent}
         />
-
-        <Template name="timeScale">
-          {(params: any) => (
-            <TemplateConnector>
-              {({
-                currentView, viewCellsData, groups, formatDate,
-                groupOrientation: getGroupOrientation,
-                timeTableElementsMeta,
-              }) => {
-                if (currentView.name !== viewName) return <TemplatePlaceholder />;
-                const groupOrientation = getGroupOrientation?.(viewName);
-                return (
-                  <TimeScale
-                    labelComponent={TimeScaleLabel}
-                    tickCellComponent={timeScaleTickCellComponent}
-                    rowComponent={timeScaleTicksRowComponent}
-                    cellsData={viewCellsData}
-                    formatDate={formatDate}
-                    groups={groups}
-                    groupOrientation={groupOrientation}
-                    height={getTimeTableHeight(timeTableElementsMeta)}
-                    {...params}
-                  />
-                );
-              }}
-            </TemplateConnector>
-          )}
-        </Template>
       </Plugin>
     );
   }

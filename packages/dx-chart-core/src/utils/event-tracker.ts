@@ -1,3 +1,4 @@
+import { hasWindow } from '@devexpress/dx-core';
 import { getEventCoords, getOffset } from './common';
 import {
   TrackerTarget, HandlerFnList, SeriesList, HitTesters,
@@ -60,6 +61,7 @@ export const buildEventHandlers = (
   seriesList: SeriesList, { clickHandlers, pointerMoveHandlers }: HandlersObject,
 ) => {
   const handlers: EventHandlers = {};
+  if (!hasWindow()) return handlers;
   if (clickHandlers.length) {
     handlers.click = buildEventHandler(seriesList, clickHandlers);
   }

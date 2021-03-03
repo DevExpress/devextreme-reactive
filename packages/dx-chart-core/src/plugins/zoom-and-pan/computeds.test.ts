@@ -12,7 +12,7 @@ import {
 import { ScalesCache, Viewport } from '../../types';
 
 jest.mock('../../utils/scale', () => ({
-  ...require.requireActual('../../utils/scale'),  // for `rangesEqual`
+  ...jest.requireActual('../../utils/scale'),  // for `rangesEqual`
   getValueDomainName: jest.fn(),
   makeScale: jest.fn(),
   scaleBounds: jest.fn(),

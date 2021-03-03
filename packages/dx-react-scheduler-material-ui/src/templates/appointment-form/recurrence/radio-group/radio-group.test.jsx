@@ -12,7 +12,7 @@ import { MonthlyEditor } from './monthly-editor';
 import { YearlyEditor } from './yealy-editor';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  ...jest.requireActual('@devexpress/dx-scheduler-core'),
   getRecurrenceOptions: jest.fn(),
 }));
 jest.mock('./monthly-editor', () => ({

@@ -22,8 +22,18 @@ export namespace DataTypeProvider {
     value: any;
     /** Handles value changes. */
     onValueChange: (newValue: any) => void;
-    /** "true" if users should not be able to edit the value, "false" otherwise. */
+    /** "true" if users should not be able to edit the value; otherwise, "false". */
     disabled: boolean;
+    /** "true" if the editor should be focused on render; otherwise "false". */
+    autoFocus: boolean;
+    // tslint:disable-next-line: max-line-length
+    /** Calls the `EditingState` plugin's `commitChanges` handler and switches the editor from edit state when it loses focus (used for Inline Cell Editing). */
+    onBlur: () => void;
+    /** Applies an action when the editor gets focus (used for Inline Cell Editing). */
+    onFocus: () => void;
+    // tslint:disable-next-line: max-line-length
+    /** Handles key press: Enter saves changes, Esc discards them and switches the editor from edit state (used for Inline Cell Editing). */
+    onKeyDown: () => void;
   }
 }
 

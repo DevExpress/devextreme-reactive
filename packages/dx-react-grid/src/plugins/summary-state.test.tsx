@@ -6,7 +6,7 @@ import { pluginDepsToComponents, getComputedState } from '@devexpress/dx-testing
 import { SummaryState } from './summary-state';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  ...require.requireActual('@devexpress/dx-grid-core'),
+  ...jest.requireActual('@devexpress/dx-grid-core'),
   prepareGroupSummaryItems: jest.fn(),
 }));
 

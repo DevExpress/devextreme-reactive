@@ -37,6 +37,7 @@ const ChangeMonthEditorBase = React.memo(({
   textEditorComponent: TextEditor,
   selectComponent: Select,
   readOnly,
+  readOnlyEditors,
   month,
   changeMonth,
   months,
@@ -67,12 +68,12 @@ const ChangeMonthEditorBase = React.memo(({
           className={classes.select}
           value={month}
           onValueChange={changeMonth}
-          readOnly={readOnly}
+          readOnly={readOnlyEditors}
           availableOptions={months}
         />
         <TextEditor
           className={classes.textEditor}
-          readOnly={readOnly}
+          readOnly={readOnlyEditors}
           value={dayNumber}
           type={NUMBER_EDITOR}
           onValueChange={changeByMonthDay}
@@ -98,12 +99,14 @@ ChangeMonthEditorBase.propTypes = {
   dayNumber: PropTypes.number.isRequired,
   changeByMonthDay: PropTypes.func.isRequired,
   className: PropTypes.string,
+  readOnlyEditors: PropTypes.bool,
 };
 
 ChangeMonthEditorBase.defaultProps = {
   getMessage: () => undefined,
   readOnly: false,
   className: undefined,
+  readOnlyEditors: false,
 };
 
 export const ChangeMonthEditor = withStyles(styles)(ChangeMonthEditorBase, { name: 'ChangeMonthEditor' });

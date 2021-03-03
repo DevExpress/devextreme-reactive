@@ -1,3 +1,63 @@
+# [2.7.4](https://github.com/DevExpress/devextreme-reactive/compare/v2.7.3...v2.7.4) (2020-12-24)
+
+
+### Bug Fixes
+
+* **react-grid:** correct colspan calculating for group row when used with certain plugins ([#3170](https://github.com/DevExpress/devextreme-reactive/issues/3170)) ([c73dd9f](https://github.com/DevExpress/devextreme-reactive/commit/c73dd9f9b72626d99a3db8f12357eeb986464590))
+* **react-grid:** fix regression after [#3174](https://github.com/DevExpress/devextreme-reactive/issues/3174) ([#3214](https://github.com/DevExpress/devextreme-reactive/issues/3214)) ([7ccd25c](https://github.com/DevExpress/devextreme-reactive/commit/7ccd25cfad0c7e44cbbdc086914ac0a4167769d2))
+* **react-grid:** format currency in the Data Editing demo ([#3179](https://github.com/DevExpress/devextreme-reactive/issues/3179)) ([e7ce15f](https://github.com/DevExpress/devextreme-reactive/commit/e7ce15fdef3616f46dbd0700f9cd3b67896f50a2))
+* **react-grid:** make grouping work with a high level of nested groups ([#3174](https://github.com/DevExpress/devextreme-reactive/issues/3174)) ([abb2983](https://github.com/DevExpress/devextreme-reactive/commit/abb29832c95fafb670f02a473947246a651a8919))
+* **react-grid:** make inline cell editing works only with data rows ([#3201](https://github.com/DevExpress/devextreme-reactive/issues/3201)) ([087eb69](https://github.com/DevExpress/devextreme-reactive/commit/087eb69a66f4acef145bd84d0cc554c73f9605df))
+* **react-grid:** make tree data work with a high level of row nesting ([#3171](https://github.com/DevExpress/devextreme-reactive/issues/3171)) ([623883d](https://github.com/DevExpress/devextreme-reactive/commit/623883da813b0969d1139d70cbe7a4069e279f9b))
+* **react-scheduler:** display time in Time Scale correctly when a DST change is present ([#3198](https://github.com/DevExpress/devextreme-reactive/issues/3198)) ([d1247fb](https://github.com/DevExpress/devextreme-reactive/commit/d1247fb196a58d08ba44cd88894cccf5997d6f9e))
+
+
+
+# [2.7.3](https://github.com/DevExpress/devextreme-reactive/compare/v2.7.2...v2.7.3) (2020-11-03)
+
+
+### Bug Fixes
+
+* **react-chart:** get rid of errors while click on chart with `shift` key ([#3132](https://github.com/DevExpress/devextreme-reactive/issues/3132)) ([9d2532e](https://github.com/DevExpress/devextreme-reactive/commit/9d2532e6561f9009c051c746f4ef89de6cc09c42)), closes [#3130](https://github.com/DevExpress/devextreme-reactive/issues/3130)
+* **react-grid:** correct DataTypeProvider.ValueEditorProps types ([#3146](https://github.com/DevExpress/devextreme-reactive/issues/3146)) ([c414927](https://github.com/DevExpress/devextreme-reactive/commit/c414927dffab4e52e021147de0a10e797b0837e1))
+* **react-grid:** correct row interval request with infinite scrolling ([#3139](https://github.com/DevExpress/devextreme-reactive/issues/3139)) ([e72257b](https://github.com/DevExpress/devextreme-reactive/commit/e72257bd8c344619713852c69c277959e39f3e0a))
+* **react-grid:** make infinite scrolling work correctly after "totalRowCount" is reduced and expanded ([#3115](https://github.com/DevExpress/devextreme-reactive/issues/3115)) ([5aa943c](https://github.com/DevExpress/devextreme-reactive/commit/5aa943c08b346a72270928cd04fdd940f5249e8d))
+* **react-grid-demos:** fix detail editing codesandbox demo ([#3133](https://github.com/DevExpress/devextreme-reactive/issues/3133)) ([213e96b](https://github.com/DevExpress/devextreme-reactive/commit/213e96b85086da72fef37b6be65f98f22db5015a)), closes [#3103](https://github.com/DevExpress/devextreme-reactive/issues/3103)
+* **react-scheduler:** make outlook-compatible recurrence rule when selecting monthly and yearly recurrence ([#3134](https://github.com/DevExpress/devextreme-reactive/issues/3134)) ([32ea79b](https://github.com/DevExpress/devextreme-reactive/commit/32ea79bed7abeafab85cb5de3d53b5de68051a65))
+* **react-scheduler-demos:** use GoogleAPI as a data source for remote demo ([#3155](https://github.com/DevExpress/devextreme-reactive/issues/3155)) ([de27416](https://github.com/DevExpress/devextreme-reactive/commit/de27416cc00e038a12315745d243aeb48e438235))
+* **react-scheduler-material-ui:** make it possible to set a yearly recurrence by week number, day of week and month ([#3131](https://github.com/DevExpress/devextreme-reactive/issues/3131)) ([36eb86e](https://github.com/DevExpress/devextreme-reactive/commit/36eb86e6810055f5f5ab6661d92ca2ab2f054c19))
+* **scheduler-core:** display correct appointment time in Safari ([#3151](https://github.com/DevExpress/devextreme-reactive/issues/3151)) ([8bd5619](https://github.com/DevExpress/devextreme-reactive/commit/8bd56191cc6acc506ac46f74ed8bebe99f612dbc))
+* **scheduler-core:** process DST correctly ([#3136](https://github.com/DevExpress/devextreme-reactive/issues/3136)) ([e0e3b99](https://github.com/DevExpress/devextreme-reactive/commit/e0e3b994fe9320e0d661a51fb992ea48b5700eb3))
+
+
+
+# [2.7.2](https://github.com/DevExpress/devextreme-reactive/compare/v2.7.1...v2.7.2) (2020-10-01)
+
+
+### Bug Fixes
+
+* **chart-core:** add handler only when window exists ([#3091](https://github.com/DevExpress/devextreme-reactive/issues/3091)) ([c8354b3](https://github.com/DevExpress/devextreme-reactive/commit/c8354b375095ea193b81c308818245aa708c4798))
+
+
+### Performance Improvements
+
+* **core:** improve rendering performance ([#3095](https://github.com/DevExpress/devextreme-reactive/issues/3095)) ([#3101](https://github.com/DevExpress/devextreme-reactive/issues/3101)) ([05686cd](https://github.com/DevExpress/devextreme-reactive/commit/05686cd4c9a2f84a76292fd0aec45af2901aadad))
+
+
+
+# [2.7.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.7.0...v2.7.1) (2020-08-25)
+
+
+### Bug Fixes
+
+* **react-core:** make scrolling behavior similar in Safari and Chrome while drag columns ([#2999](https://github.com/DevExpress/devextreme-reactive/issues/2999)) ([d85787b](https://github.com/DevExpress/devextreme-reactive/commit/d85787b5d6ce352050e60bc438e7e452deab1ffc)), closes [#2982](https://github.com/DevExpress/devextreme-reactive/issues/2982)
+* **react-grid:** use 'calc' to calculate table min width ([#3049](https://github.com/DevExpress/devextreme-reactive/issues/3049)) ([e1d9b3a](https://github.com/DevExpress/devextreme-reactive/commit/e1d9b3a91f2b0c83fc5d0c5e0cc66c4ac1ec513e))
+* **react-scheduler:** change the implementation of the CurrentTimeIndicator plugin set and clearInterval usage ([2728bcc](https://github.com/DevExpress/devextreme-reactive/commit/2728bcc034eb481a8ff6099f8b3d48198048995c)), closes [#3013](https://github.com/DevExpress/devextreme-reactive/issues/3013)
+* **react-scheduler:** get rid of mui warning in recurrence layout ([#3020](https://github.com/DevExpress/devextreme-reactive/issues/3020)) ([304c367](https://github.com/DevExpress/devextreme-reactive/commit/304c3673a12df9cdb37929e51ca5cfe5e2d647d5)), closes [#3018](https://github.com/DevExpress/devextreme-reactive/issues/3018)
+* **scheduler-core:** update rrule version to 2.6.4 and fix it ([#3053](https://github.com/DevExpress/devextreme-reactive/issues/3053)) ([a16a94d](https://github.com/DevExpress/devextreme-reactive/commit/a16a94db2112cec0617b153fdbd834abc00d4421))
+
+
+
 # [2.7.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.6.4...v2.7.0) (2020-07-17)
 
 

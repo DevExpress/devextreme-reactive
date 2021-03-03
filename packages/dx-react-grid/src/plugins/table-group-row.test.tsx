@@ -23,7 +23,7 @@ import { flattenGroupInlineSummaries } from '../components/summary/group-summari
 import { TableColumnsWithGrouping } from './internal';
 
 jest.mock('@devexpress/dx-grid-core', () => ({
-  ...require.requireActual('@devexpress/dx-grid-core'),
+  ...jest.requireActual('@devexpress/dx-grid-core'),
   tableColumnsWithGrouping: jest.fn(),
   tableRowsWithGrouping: jest.fn(),
   tableGroupCellColSpanGetter: jest.fn(),
@@ -38,7 +38,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
 }));
 
 jest.mock('@devexpress/dx-core', () => ({
-  ...require.requireActual('@devexpress/dx-core'),
+  ...jest.requireActual('@devexpress/dx-core'),
   getMessagesFormatter: jest.fn().mockReturnValue(() => {}),
 }));
 
@@ -156,7 +156,7 @@ describe('TableGroupRow', () => {
         });
     });
 
-    it('should extend getTableCellColSpan', () => {
+    it('should extend getTableCellColSpan without the Virtual Table', () => {
       const tree = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -172,6 +172,33 @@ describe('TableGroupRow', () => {
         .toBeCalledWith(
           defaultDeps.getter.getTableCellColSpan,
           defaultDeps.getter.groupSummaryItems,
+          undefined,
+        );
+    });
+
+    it('should extend getTableCellColSpan with the Virtual Table', () => {
+      const viewport = { columns: [[0, 1]] };
+      const tree = mount((
+        <PluginHost>
+          {pluginDepsToComponents({
+            ...defaultDeps,
+            getter: {
+              ...defaultDeps.getter, viewport,
+            },
+          })}
+          <TableGroupRow
+            {...defaultProps}
+          />
+        </PluginHost>
+      ));
+
+      expect(getComputedState(tree).getTableCellColSpan)
+        .toBe('tableGroupCellColSpanGetter');
+      expect(tableGroupCellColSpanGetter)
+        .toBeCalledWith(
+          defaultDeps.getter.getTableCellColSpan,
+          defaultDeps.getter.groupSummaryItems,
+          viewport.columns[0][0],
         );
     });
   });

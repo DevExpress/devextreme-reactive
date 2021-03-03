@@ -7,7 +7,7 @@ import { defaultSummaryMessages } from './constants';
 import { TableSummaryRow } from '../../types';
 
 jest.mock('@devexpress/dx-core', () => ({
-  ...require.requireActual('@devexpress/dx-core'),
+  ...jest.requireActual('@devexpress/dx-core'),
   getMessagesFormatter: jest.fn().mockReturnValue(() => {}),
 }));
 

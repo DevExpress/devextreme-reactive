@@ -9,7 +9,7 @@ import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '../../
 import { allDayCells } from '../common/computeds';
 
 jest.mock('../common/computeds', () => ({
-  ...require.requireActual('../common/computeds'),
+  ...jest.requireActual('../common/computeds'),
   allDayCells: jest.fn(),
 }));
 

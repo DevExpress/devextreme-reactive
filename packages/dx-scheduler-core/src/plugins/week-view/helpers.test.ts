@@ -12,7 +12,7 @@ import {
 import { addDateToKey } from '../../utils';
 
 jest.mock('../../utils', () => ({
-  ...require.requireActual('../../utils'),
+  ...jest.requireActual('../../utils'),
   addDateToKey: jest.fn(),
 }));
 

@@ -190,6 +190,8 @@ class ZoomAndPanBase extends React.PureComponent<ZoomAndPanProps, ZoomAndPanStat
         { viewport, rectBox },
         { onViewportChange, interactionWithArguments, interactionWithValues },
       ) => {
+        if (rectBox === null) return {};
+
         this.rectOrigin = null;
         return {
           rectBox: null,

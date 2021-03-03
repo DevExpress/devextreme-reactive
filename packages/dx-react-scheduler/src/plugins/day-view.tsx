@@ -1,17 +1,14 @@
 import * as React from 'react';
 import {
-  Template,
   Plugin,
-  TemplateConnector,
-  TemplatePlaceholder,
   PluginComponents,
 } from '@devexpress/dx-react-core';
 import {
-  viewCellsData as viewCellsDataCore, calculateWeekDateIntervals,
-  VIEW_TYPES, getTimeTableHeight,
+  viewCellsData as viewCellsDataCore,
+  VIEW_TYPES,
 } from '@devexpress/dx-scheduler-core';
-import { BasicView } from './basic-view';
 import { VerticalViewProps } from '../types';
+import { VerticalView } from './vertical-view';
 
 const viewCellsDataBaseComputed = (
   cellDuration, startDayHour, endDayHour,
@@ -23,12 +20,6 @@ const viewCellsDataBaseComputed = (
     Date.now(),
   );
 };
-const calculateAppointmentsIntervalsBaseComputed = cellDuration => ({
-  appointments, startViewDate, endViewDate, excludedDays,
-}) => calculateWeekDateIntervals(
-  appointments, startViewDate, endViewDate, excludedDays, cellDuration,
-);
-const TimeScalePlaceholder = () => <TemplatePlaceholder name="timeScale" />;
 
 class DayViewBase extends React.PureComponent<VerticalViewProps> {
   static defaultProps: Partial<VerticalViewProps> = {
@@ -61,8 +52,8 @@ class DayViewBase extends React.PureComponent<VerticalViewProps> {
     const {
       layoutComponent,
       dayScaleEmptyCellComponent: DayScaleEmptyCell,
-      timeScaleLayoutComponent: TimeScale,
-      timeScaleLabelComponent: TimeScaleLabel,
+      timeScaleLayoutComponent,
+      timeScaleLabelComponent,
       timeScaleTickCellComponent,
       timeScaleTicksRowComponent,
       dayScaleLayoutComponent,
@@ -84,7 +75,7 @@ class DayViewBase extends React.PureComponent<VerticalViewProps> {
       <Plugin
         name="DayView"
       >
-        <BasicView
+        <VerticalView
           viewCellsDataComputed={viewCellsDataBaseComputed}
           type={VIEW_TYPES.DAY}
           cellDuration={cellDuration}
@@ -93,7 +84,6 @@ class DayViewBase extends React.PureComponent<VerticalViewProps> {
           displayName={displayName}
           startDayHour={startDayHour}
           endDayHour={endDayHour}
-          calculateAppointmentsIntervals={calculateAppointmentsIntervalsBaseComputed}
           dayScaleEmptyCellComponent={DayScaleEmptyCell}
           dayScaleLayoutComponent={dayScaleLayoutComponent}
           dayScaleCellComponent={dayScaleCellComponent}
@@ -103,38 +93,11 @@ class DayViewBase extends React.PureComponent<VerticalViewProps> {
           timeTableRowComponent={timeTableRowComponent}
           appointmentLayerComponent={appointmentLayerComponent}
           layoutComponent={layoutComponent}
-          layoutProps={{
-            timeScaleComponent: TimeScalePlaceholder,
-          }}
+          timeScaleLayoutComponent={timeScaleLayoutComponent}
+          timeScaleLabelComponent={timeScaleLabelComponent}
+          timeScaleTickCellComponent={timeScaleTickCellComponent}
+          timeScaleTicksRowComponent={timeScaleTicksRowComponent}
         />
-
-        <Template name="timeScale">
-          {(params: any) => (
-            <TemplateConnector>
-              {({
-                currentView, viewCellsData, groups, formatDate,
-                groupOrientation: getGroupOrientation,
-                timeTableElementsMeta,
-              }) => {
-                if (currentView.name !== viewName) return <TemplatePlaceholder />;
-                const groupOrientation = getGroupOrientation?.(viewName);
-                return (
-                  <TimeScale
-                    labelComponent={TimeScaleLabel}
-                    tickCellComponent={timeScaleTickCellComponent}
-                    rowComponent={timeScaleTicksRowComponent}
-                    cellsData={viewCellsData}
-                    formatDate={formatDate}
-                    groups={groups}
-                    groupOrientation={groupOrientation}
-                    height={getTimeTableHeight(timeTableElementsMeta)}
-                    {...params}
-                  />
-                );
-              }}
-            </TemplateConnector>
-          )}
-        </Template>
       </Plugin >
     );
   }

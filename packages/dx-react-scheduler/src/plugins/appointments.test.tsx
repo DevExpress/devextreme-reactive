@@ -28,12 +28,12 @@ const defaultProps = {
 };
 
 jest.mock('@devexpress/dx-core', () => ({
-  ...require.requireActual('@devexpress/dx-core'),
+  ...jest.requireActual('@devexpress/dx-core'),
   createClickHandlers: jest.fn(),
 }));
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
-  ...require.requireActual('@devexpress/dx-scheduler-core'),
+  ...jest.requireActual('@devexpress/dx-scheduler-core'),
   getVerticalRectByAppointmentData: jest.fn(),
   getHorizontalRectByAppointmentData: jest.fn(),
   calculateRectByDateAndGroupIntervals: jest.fn(),

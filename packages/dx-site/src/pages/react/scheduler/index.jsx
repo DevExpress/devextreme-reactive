@@ -80,15 +80,6 @@ const pageData = [
     guideLink: '/react/scheduler/docs/guides/views/#month-view',
   },
 ];
-const comingSoonItems = [
-  {
-    sectionTitle: 'More Coming Soon',
-    reversed: true,
-    title: 'Timeline Views',
-    description: 'Arrange events and appointments across horizontal timelines. When browsing multiple resources, timelines are displayed one under another. You can display multiple time rulers with different scales atop the view.',
-    imageLink: timelineViewImage,
-  },
-];
 
 const IndexPage = () => (
   <Layout>
@@ -131,7 +122,6 @@ const IndexPage = () => (
 
     <AlternatedBackground style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
       <LandingChessBoardLayoutList data={pageData} columns={2} />
-      <LandingChessBoardLayoutList data={comingSoonItems} />
     </AlternatedBackground>
 
     <LandingLayout style={{ paddingTop: '2em', paddingBottom: '2em' }}>

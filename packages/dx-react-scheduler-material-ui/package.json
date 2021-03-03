@@ -53,7 +53,7 @@
     "@devexpress/dx-react-scheduler": "2.7.4",
     "@devexpress/dx-scheduler-core": "2.7.4",
     "@devexpress/dx-testing": "2.7.4",
-    "@material-ui/core": "^4.11.2",
+    "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@rollup/plugin-node-resolve": "^7.1.1",
     "babel-core": "^7.0.0-bridge.0",

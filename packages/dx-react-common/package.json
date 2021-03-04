@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@devexpress/dx-react-common",
-  "version": "2.7.4",
+  "version": "2.7.5",
   "description": "DevExtreme React Components",
   "author": {
     "name": "Developer Express Inc.",
@@ -15,10 +15,10 @@
     "build:watch": "webpack-dev-server --env"
   },
   "dependencies": {
-    "@devexpress/dx-demo-shell": "2.7.4",
-    "@devexpress/dx-react-chart-demos": "2.7.4",
-    "@devexpress/dx-react-grid-demos": "2.7.4",
-    "@devexpress/dx-react-scheduler-demos": "2.7.4",
+    "@devexpress/dx-demo-shell": "2.7.5",
+    "@devexpress/dx-react-chart-demos": "2.7.5",
+    "@devexpress/dx-react-grid-demos": "2.7.5",
+    "@devexpress/dx-react-scheduler-demos": "2.7.5",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "whatwg-fetch": "^3.0.0"
@@ -29,7 +29,7 @@
     "@babel/polyfill": "^7.8.7",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.8.3",
-    "@devexpress/dx-testing": "2.7.4",
+    "@devexpress/dx-testing": "2.7.5",
     "@types/jest": "^26.0.4",
     "babel-loader": "^8.0.6",
     "concurrently": "^5.0.0",

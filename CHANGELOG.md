@@ -1,3 +1,14 @@
+# [2.7.5](https://github.com/DevExpress/devextreme-reactive/compare/v2.7.4...v2.7.5) (2021-03-04)
+
+
+### Bug Fixes
+
+* **react-grid:** make `onValueChange` property for TableEditCell optional ([#3253](https://github.com/DevExpress/devextreme-reactive/issues/3253)) ([5c1247f](https://github.com/DevExpress/devextreme-reactive/commit/5c1247f406d4e2b32107cba578db24f14182a229))
+* **react-grid:** take into account flex columns for colspan calculating ([#3254](https://github.com/DevExpress/devextreme-reactive/issues/3254)) ([3f35212](https://github.com/DevExpress/devextreme-reactive/commit/3f35212e362c37d95c794bebee5004653a2bc645))
+* **react-scheduler-material-ui:** show group panel in Mozilla Firefox correctly ([#3264](https://github.com/DevExpress/devextreme-reactive/issues/3264)) ([92576d7](https://github.com/DevExpress/devextreme-reactive/commit/92576d7e4baf18e30c8fe8810978ff404899a0eb))
+
+
+
 # [2.7.4](https://github.com/DevExpress/devextreme-reactive/compare/v2.7.3...v2.7.4) (2020-12-24)
 
 

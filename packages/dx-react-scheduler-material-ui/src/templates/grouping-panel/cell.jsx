@@ -89,24 +89,31 @@ export const Cell = React.memo(({
   const classes = useStyles({
     left, endOfGroup, height: cellHeight, rowSpan, textStyle, topOffset,
   });
+  const isHorizontalGrouping = groupOrientation === HORIZONTAL_GROUP_ORIENTATION;
+  const isVerticalGrouping = groupOrientation === VERTICAL_GROUP_ORIENTATION;
+
   return (
     <TableCell
       className={classNames({
         [classes.cell]: true,
-        [classes.horizontalCell]: groupOrientation === HORIZONTAL_GROUP_ORIENTATION,
-        [classes.verticalCell]: groupOrientation === VERTICAL_GROUP_ORIENTATION,
-        [classes.groupedByDate]: groupedByDate && groupOrientation !== VERTICAL_GROUP_ORIENTATION,
+        [classes.horizontalCell]: isHorizontalGrouping,
+        [classes.verticalCell]: isVerticalGrouping,
+        [classes.groupedByDate]: groupedByDate && !isVerticalGrouping,
       }, className)}
       colSpan={colSpan}
       rowSpan={rowSpan}
       {...restProps}
     >
       {/* NOTE: for sticky text in Safari */}
-      <div className={classes.textContainer}>
+      <div
+        className={classNames({
+          [classes.textContainer]: isVerticalGrouping,
+        })}
+      >
         <div
           className={classNames({
             [classes.text]: true,
-            [classes.verticalCellText]: groupOrientation === VERTICAL_GROUP_ORIENTATION,
+            [classes.verticalCellText]: isVerticalGrouping,
           })}
         >
           {group.text}

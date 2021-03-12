@@ -18,7 +18,11 @@ Follow the steps below to run demos locally:
 
   `yarn`
 
-4. Run the demos project
+4. Build the demos project
+
+  `yarn run build`
+
+5. Run the demos project
 
   `yarn run build:watch`
 

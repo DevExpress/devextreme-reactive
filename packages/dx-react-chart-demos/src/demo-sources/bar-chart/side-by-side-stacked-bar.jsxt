@@ -6,8 +6,7 @@ import {
   BarSeries,
   Title,
   Legend,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-chart-<%&themeName%>';<%&cssImports%>
 import { Stack, Animation } from '@devexpress/dx-react-chart';
 
 import { population as data } from '../../../demo-data/data-vizualization';
@@ -22,7 +21,6 @@ const Root = props => (
     }}
   />
 );
-
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

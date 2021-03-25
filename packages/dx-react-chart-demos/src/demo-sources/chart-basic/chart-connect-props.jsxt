@@ -9,8 +9,7 @@ import {
   ArgumentAxis,
   ValueAxis,
   Legend,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-chart-<%&themeName%>';<%&cssImports%>
 import { energyConsumption as data } from '../../../demo-data/data-vizualization';
 
 const rootStyles = {

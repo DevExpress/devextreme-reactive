@@ -6,8 +6,7 @@ import {
   TableHeaderRow,
   TableEditColumn,
   TableInlineCellEditing,
-} from '@devexpress/dx-react-grid-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-grid-<%&themeName%>';<%&cssImports%>
 
 import {
   generateRows,

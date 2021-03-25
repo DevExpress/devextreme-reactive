@@ -110,7 +110,6 @@ export default () => {
         totalSummaryItems={totalSummaryItems}
         groupSummaryItems={groupSummaryItems}
         selection={selection}
-
         onSave={onSave}
       />
     </<%&wrapperTag%>>

@@ -5,8 +5,7 @@ import {
   BarSeries,
   Chart,
   LineSeries,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-chart-<%&themeName%>';<%&cssImports%>
 import { ValueScale } from '@devexpress/dx-react-chart';
 
 interface IDataItem {

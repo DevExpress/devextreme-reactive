@@ -6,11 +6,10 @@ import {
   AreaSeries,
   Title,
   Legend,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-chart-<%&themeName%>';<%&cssImports%>
 import { ArgumentScale, Animation } from '@devexpress/dx-react-chart';
-import { scalePoint } from 'd3-scale';
 <%&imports%>
+import { scalePoint } from 'd3-scale';
 
 const data = [
   { year: '2010', android: 67225, ios: 46598 },

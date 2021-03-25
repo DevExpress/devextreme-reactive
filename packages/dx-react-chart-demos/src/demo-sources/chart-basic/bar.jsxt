@@ -2,8 +2,7 @@ import * as React from 'react';<%&additionalImports%>
 import {
   Chart,
   BarSeries,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-chart-<%&themeName%>';<%&cssImports%>
 
 const data = [
   { year: '1950', population: 2.525 },

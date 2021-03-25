@@ -8,8 +8,7 @@ import {
   Table,
   TableHeaderRow,
   TableGroupRow,
-} from '@devexpress/dx-react-grid-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-grid-<%&themeName%>';<%&cssImports%>
 
 const colNames = [...Array(10000)].map((_, index) => `generated_${index}`);
 const columns = colNames.map(value => ({ name: value, title: value }));

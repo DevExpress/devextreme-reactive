@@ -70,7 +70,6 @@ export default () => {
     setRows(changedRows);
   };
 
-
   const Cell = React.useCallback((props) => {
     const { tableRow: { rowId }, column: { name: columnName } } = props;
     const columnStatus = validationStatus[rowId]?.[columnName];

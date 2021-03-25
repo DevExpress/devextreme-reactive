@@ -5,8 +5,7 @@ import {
   Chart,
   LineSeries,
   SplineSeries,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-chart-<%&themeName%>';<%&cssImports%>
 
 const generateData = (start, end, step) => {
   const data = [];

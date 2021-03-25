@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-chart-bootstrap4",
-  "version": "2.7.4",
+  "version": "2.7.5",
   "description": "Bootstrap 4 templates for DevExtreme React Chart component",
   "author": {
     "name": "Developer Express Inc.",
@@ -52,10 +52,10 @@
     "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.8.3",
-    "@devexpress/dx-chart-core": "2.7.4",
-    "@devexpress/dx-react-chart": "2.7.4",
-    "@devexpress/dx-react-core": "2.7.4",
-    "@devexpress/dx-testing": "2.7.4",
+    "@devexpress/dx-chart-core": "2.7.5",
+    "@devexpress/dx-react-chart": "2.7.5",
+    "@devexpress/dx-react-core": "2.7.5",
+    "@devexpress/dx-testing": "2.7.5",
     "@rollup/plugin-node-resolve": "^7.1.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.3",
@@ -87,9 +87,9 @@
     "react-popper": "^1.3.10"
   },
   "peerDependencies": {
-    "@devexpress/dx-chart-core": "2.7.4",
-    "@devexpress/dx-react-chart": "2.7.4",
-    "@devexpress/dx-react-core": "2.7.4",
+    "@devexpress/dx-chart-core": "2.7.5",
+    "@devexpress/dx-react-chart": "2.7.5",
+    "@devexpress/dx-react-core": "2.7.5",
     "react": ">=16.10.2"
   }
 }

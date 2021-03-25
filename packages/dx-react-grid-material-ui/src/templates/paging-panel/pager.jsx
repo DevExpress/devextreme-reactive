@@ -69,5 +69,4 @@ PagerBase.defaultProps = {
   className: undefined,
 };
 
-
 export const Pager = withStyles(styles, { name: 'Pager' })(PagerBase);

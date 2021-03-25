@@ -11,7 +11,6 @@ import { InlineSummary } from '../templates/table-group-cell/inline-summary';
 import { SummaryCell } from '../templates/table-group-cell/summary-cell';
 import { TableSummaryItem as SummaryItem } from '../templates/table-summary-item';
 
-
 const TableGroupRowWithIndent = props => (
   <TableGroupRowBase indentColumnWidth={33} contentCellPadding="0.75rem" {...props} />
 );

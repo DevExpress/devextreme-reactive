@@ -50,6 +50,7 @@
     "build:site:docs": "gulp site",
     "build:site:watch": "npx nodemon --exec \"yarn build:site:docs\" --watch \"packages/dx-react-grid-demos/dist/\" --watch \"packages/dx-react-chart-demos/dist/\" --watch \"packages/dx-react-scheduler-demos/dist/\" --watch \"packages/*/docs/\" --watch \"packages/*/demos/\" --watch \"gulpfile.js\" --ext md,js",
     "lint": "lerna run lint --ignore @devexpress/dx-vue-*",
+    "lint:fix": "lerna run lint:fix --ignore @devexpress/dx-vue-*",
     "lint:ci": "lerna run lint:ci",
     "test": "lerna run test --ignore @devexpress/dx-vue-* && yarn test:bs4 && yarn test:scheduler:pacific",
     "test:ci": "yarn update-api:ci && lerna run test --ignore @devexpress/dx-vue-* -- -- --maxWorkers=1 --max-old-space-size=4096 && yarn test:bs4 && yarn test:scheduler:pacific",

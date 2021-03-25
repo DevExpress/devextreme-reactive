@@ -179,7 +179,6 @@ const EndRepeatEditorBase = ({
   );
 };
 
-
 EndRepeatEditorBase.propTypes = {
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,

@@ -66,7 +66,6 @@ const ResizeBase = React.memo(({
   );
 });
 
-
 ResizeBase.propTypes = {
   classes: PropTypes.object.isRequired,
   position: PropTypes.oneOf([POSITION_START, POSITION_END]).isRequired,

@@ -67,7 +67,6 @@ export const RadioGroup = ({
   }
 };
 
-
 RadioGroup.propTypes = {
   getMessage: PropTypes.func.isRequired,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,

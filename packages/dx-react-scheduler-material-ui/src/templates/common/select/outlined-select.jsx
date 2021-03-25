@@ -5,7 +5,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { withStyles } from '@material-ui/core/styles';
 
-
 const styles = ({ typography }) => ({
   root: {
     fontSize: typography.fontSize,

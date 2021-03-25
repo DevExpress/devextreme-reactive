@@ -33,5 +33,4 @@ CancelButtonBase.defaultProps = {
   className: undefined,
 };
 
-
 export const CancelButton = withStyles(styles)(CancelButtonBase, { name: 'CancelButton' });

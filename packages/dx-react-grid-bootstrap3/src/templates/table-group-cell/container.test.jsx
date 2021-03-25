@@ -4,7 +4,6 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { Container } from './container';
 import { StyleContext } from '../layout';
 
-
 describe('TableGroupCell', () => {
   describe('Container', () => {
     let resetConsole;

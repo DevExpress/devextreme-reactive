@@ -118,6 +118,13 @@ export default class Demo extends React.PureComponent {
     };
   }
 
+  handleCheckboxChange(stateField) {
+    const { [stateField]: fieldToChange } = this.state;
+    this.setState({
+      [stateField]: !fieldToChange,
+    });
+  }
+
   commitChanges({ added, changed, deleted }) {
     this.setState((state) => {
       let { data } = state;
@@ -133,13 +140,6 @@ export default class Demo extends React.PureComponent {
         data = data.filter(appointment => appointment.id !== deleted);
       }
       return { data };
-    });
-  }
-
-  handleCheckboxChange(stateField) {
-    const { [stateField]: fieldToChange } = this.state;
-    this.setState({
-      [stateField]: !fieldToChange,
     });
   }
 

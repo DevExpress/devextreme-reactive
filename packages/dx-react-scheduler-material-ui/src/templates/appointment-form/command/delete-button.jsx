@@ -33,5 +33,4 @@ DeleteButtonBase.defaultProps = {
   className: undefined,
 };
 
-
 export const DeleteButton = withStyles(styles)(DeleteButtonBase, { name: 'DeleteButton' });

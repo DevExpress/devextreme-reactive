@@ -34,7 +34,6 @@ const legendLabelBase = ({ classes, ...restProps }) => (
 );
 const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
 
-
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);

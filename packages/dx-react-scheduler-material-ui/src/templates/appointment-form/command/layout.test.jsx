@@ -51,7 +51,6 @@ describe('AppointmentForm command', () => {
         <Layout className="custom-class" {...defaultProps} />
       ));
 
-
       const buttons = tree.find(defaultProps.commandButtonComponent);
       expect(buttons).toHaveLength(3);
       expect(buttons.at(0).prop('id'))

@@ -36,7 +36,7 @@
     "typescript": "4.1.3"
   },
   "scripts": {
-    "postinstall": "check-node-version --quiet --node \">=6.11.1\" --npm \">=5.3.0\" --yarn \">=1.0.0\"",
+    "postinstall": "check-node-version --node \">=6.11.1\" --npm \">=5.3.0\" --yarn \">=1.0.0\"",
     "build": "yarn build:ts && lerna run build --ignore @devexpress/dx-vue-*",
     "build:ts": "node ./scripts/ts-generator.js && lerna run dts",
     "build:ts:watch": "nodemon --exec \"yarn build:ts\" --watch \"packages/*/docs/reference/*.md\" --watch \"scripts/ts-generator.js\" --ext md,js",
@@ -50,6 +50,7 @@
     "build:site:docs": "gulp site",
     "build:site:watch": "npx nodemon --exec \"yarn build:site:docs\" --watch \"packages/dx-react-grid-demos/dist/\" --watch \"packages/dx-react-chart-demos/dist/\" --watch \"packages/dx-react-scheduler-demos/dist/\" --watch \"packages/*/docs/\" --watch \"packages/*/demos/\" --watch \"gulpfile.js\" --ext md,js",
     "lint": "lerna run lint --ignore @devexpress/dx-vue-*",
+    "lint:fix": "lerna run lint:fix --ignore @devexpress/dx-vue-*",
     "lint:ci": "lerna run lint:ci",
     "test": "lerna run test --ignore @devexpress/dx-vue-* && yarn test:bs4 && yarn test:scheduler:pacific",
     "test:ci": "yarn update-api:ci && lerna run test --ignore @devexpress/dx-vue-* -- -- --maxWorkers=1 --max-old-space-size=4096 && yarn test:bs4 && yarn test:scheduler:pacific",
@@ -78,5 +79,8 @@
   ],
   "engines": {
     "yarn": ">=1.22.0"
+  },
+  "resolutions": {
+    "@types/react": "16.9.35"
   }
 }

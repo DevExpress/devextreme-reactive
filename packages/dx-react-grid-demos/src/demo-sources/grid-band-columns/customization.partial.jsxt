@@ -5,8 +5,7 @@ import {
   Table,
   TableBandHeader,
   TableHeaderRow,
-} from '@devexpress/dx-react-grid-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-grid-<%&themeName%>';<%&cssImports%>
 <%&imports%>
 import { countries } from '../../../demo-data/countries';
 

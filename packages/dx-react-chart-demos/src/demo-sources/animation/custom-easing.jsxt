@@ -6,8 +6,7 @@ import {
   BarSeries,
   SplineSeries,
   Legend,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-chart-<%&themeName%>';<%&cssImports%>
 import { ValueScale, Animation } from '@devexpress/dx-react-chart';
 import { easeBounceOut } from 'd3-ease';
 

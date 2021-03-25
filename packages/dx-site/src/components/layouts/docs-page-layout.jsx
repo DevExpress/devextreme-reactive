@@ -53,7 +53,6 @@ const prepareMenuItems = siteSection => ([
   }, []),
 ]);
 
-
 const DocsPageLayout = ({ children, sectionName, technologyName }) => (
   <PageLayout sectionName="docs">
     <ContainerWithMenu

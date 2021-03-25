@@ -10,8 +10,7 @@ import {
   Title,
   Legend,
   Tooltip,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-chart-<%&themeName%>';<%&cssImports%>
 import {
   ValueScale,
   Stack,

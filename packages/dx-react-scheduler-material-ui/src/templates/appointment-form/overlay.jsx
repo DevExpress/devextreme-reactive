@@ -90,7 +90,6 @@ const OverlayBase = ({
   );
 };
 
-
 OverlayBase.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,

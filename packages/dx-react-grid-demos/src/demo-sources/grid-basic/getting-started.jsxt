@@ -1,6 +1,5 @@
 import React from 'react';<%&additionalImports%>
-import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-<%&themeName%>';
-<%&cssImports%>
+import { Grid, Table, TableHeaderRow } from '@devexpress/dx-react-grid-<%&themeName%>';<%&cssImports%>
 
 const columns = [
   { name: 'id', title: 'ID' },

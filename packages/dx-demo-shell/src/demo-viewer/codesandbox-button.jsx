@@ -64,7 +64,6 @@ export const CodeSandBoxButton = ({
   );
 };
 
-
 CodeSandBoxButton.propTypes = {
   code: PropTypes.string.isRequired,
   sandboxHtml: PropTypes.string.isRequired,

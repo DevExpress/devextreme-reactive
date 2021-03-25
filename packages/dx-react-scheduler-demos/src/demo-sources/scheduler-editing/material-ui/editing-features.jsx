@@ -151,7 +151,6 @@ export default () => {
           />
           <EditingState
             onCommitChanges={onCommitChanges}
-
             addedAppointment={addedAppointment}
             onAddedAppointmentChange={onAddedAppointmentChange}
           />

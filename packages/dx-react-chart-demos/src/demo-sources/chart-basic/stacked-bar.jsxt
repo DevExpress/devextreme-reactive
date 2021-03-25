@@ -2,8 +2,7 @@ import * as React from 'react';<%&additionalImports%>
 import {
   Chart,
   BarSeries,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-chart-<%&themeName%>';<%&cssImports%>
 import { Stack } from '@devexpress/dx-react-chart';
 
 import { ageStructure } from '../../../demo-data/data-vizualization';

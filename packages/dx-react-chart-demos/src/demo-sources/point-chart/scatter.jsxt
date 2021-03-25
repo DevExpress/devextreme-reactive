@@ -4,12 +4,10 @@ import {
   ScatterSeries,
   ArgumentAxis,
   ValueAxis,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-chart-<%&themeName%>';<%&cssImports%>
 import { Animation } from '@devexpress/dx-react-chart';
 
 import { dataGenerator } from '../../../demo-data/generator';
-
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

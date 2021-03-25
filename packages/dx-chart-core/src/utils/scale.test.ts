@@ -148,17 +148,17 @@ describe('#moveBounds', () => {
     const target1 = realD3.scaleLinear().domain([0, 10]).range([0, 100]);
     const target2 = realD3.scaleLinear().domain([0, 10]).range([100, 0]);
 
-    expect(moveBounds(target1, [3, 4], 10)).toEqual([4, 5]);
-    expect(moveBounds(target2, [3, 4], -10)).toEqual([4, 5]);
+    expect(moveBounds(target1, [3, 4], 10)).toEqual([4, 5].map(matchFloat));
+    expect(moveBounds(target2, [3, 4], -10)).toEqual([4, 5].map(matchFloat));
 
-    expect(moveBounds(target1, [3, 4], -20)).toEqual([1, 2]);
-    expect(moveBounds(target2, [3, 4], 20)).toEqual([1, 2]);
+    expect(moveBounds(target1, [3, 4], -20)).toEqual([1, 2].map(matchFloat));
+    expect(moveBounds(target2, [3, 4], 20)).toEqual([1, 2].map(matchFloat));
 
-    expect(moveBounds(target1, [7, 9], 20)).toEqual([8, 10]);
-    expect(moveBounds(target2, [7, 9], -20)).toEqual([8, 10]);
+    expect(moveBounds(target1, [7, 9], 20)).toEqual([8, 10].map(matchFloat));
+    expect(moveBounds(target2, [7, 9], -20)).toEqual([8, 10].map(matchFloat));
 
-    expect(moveBounds(target1, [1, 4], -20)).toEqual([0, 3]);
-    expect(moveBounds(target2, [1, 4], 20)).toEqual([0, 3]);
+    expect(moveBounds(target1, [1, 4], -20)).toEqual([0, 3].map(matchFloat));
+    expect(moveBounds(target2, [1, 4], 20)).toEqual([0, 3].map(matchFloat));
   });
 
   it('should not move bounds / linear', () => {
@@ -167,16 +167,16 @@ describe('#moveBounds', () => {
     let bounds: any;
 
     bounds = [3, 4];
-    expect(moveBounds(target1, bounds, 0)).toBe(bounds);
-    expect(moveBounds(target2, bounds, 0)).toBe(bounds);
+    expect(moveBounds(target1, bounds, 0)).toEqual(bounds.map(matchFloat));
+    expect(moveBounds(target2, bounds, 0)).toEqual(bounds.map(matchFloat));
 
     bounds = [8, 10];
-    expect(moveBounds(target1, bounds, 10)).toBe(bounds);
-    expect(moveBounds(target2, bounds, -10)).toBe(bounds);
+    expect(moveBounds(target1, bounds, 10)).toEqual(bounds.map(matchFloat));
+    expect(moveBounds(target2, bounds, -10)).toEqual(bounds.map(matchFloat));
 
     bounds = [0, 1];
-    expect(moveBounds(target1, bounds, -10)).toBe(bounds);
-    expect(moveBounds(target2, bounds, 10)).toBe(bounds);
+    expect(moveBounds(target1, bounds, -10)).toEqual(bounds.map(matchFloat));
+    expect(moveBounds(target2, bounds, 10)).toEqual(bounds.map(matchFloat));
   });
 
   it('should move bounds / band', () => {
@@ -224,19 +224,19 @@ describe('#growBounds', () => {
     const target1 = realD3.scaleLinear().domain([0, 10]).range([0, 100]);
     const target2 = realD3.scaleLinear().domain([0, 10]).range([100, 0]);
 
-    expect(growBounds(target1, [2, 6], 10, 40)).toEqual([3, 5]);
-    expect(growBounds(target1, [2, 6], 10, 20)).toEqual([2, 4]);
-    expect(growBounds(target1, [2, 6], 10, 60)).toEqual([4, 6]);
-    expect(growBounds(target2, [2, 6], 10, 60)).toEqual([3, 5]);
-    expect(growBounds(target2, [2, 6], 10, 80)).toEqual([2, 4]);
-    expect(growBounds(target2, [2, 6], 10, 40)).toEqual([4, 6]);
+    expect(growBounds(target1, [2, 6], 10, 40)).toEqual([3, 5].map(matchFloat));
+    expect(growBounds(target1, [2, 6], 10, 20)).toEqual([2, 4].map(matchFloat));
+    expect(growBounds(target1, [2, 6], 10, 60)).toEqual([4, 6].map(matchFloat));
+    expect(growBounds(target2, [2, 6], 10, 60)).toEqual([3, 5].map(matchFloat));
+    expect(growBounds(target2, [2, 6], 10, 80)).toEqual([2, 4].map(matchFloat));
+    expect(growBounds(target2, [2, 6], 10, 40)).toEqual([4, 6].map(matchFloat));
 
-    expect(growBounds(target1, [3, 5], -10, 40)).toEqual([2, 6]);
-    expect(growBounds(target1, [3, 5], -10, 30)).toEqual([3, 7]);
-    expect(growBounds(target1, [3, 5], -10, 50)).toEqual([1, 5]);
-    expect(growBounds(target2, [3, 5], -10, 60)).toEqual([2, 6]);
-    expect(growBounds(target2, [3, 5], -10, 70)).toEqual([3, 7]);
-    expect(growBounds(target2, [3, 5], -10, 50)).toEqual([1, 5]);
+    expect(growBounds(target1, [3, 5], -10, 40)).toEqual([2, 6].map(matchFloat));
+    expect(growBounds(target1, [3, 5], -10, 30)).toEqual([3, 7].map(matchFloat));
+    expect(growBounds(target1, [3, 5], -10, 50)).toEqual([1, 5].map(matchFloat));
+    expect(growBounds(target2, [3, 5], -10, 60)).toEqual([2, 6].map(matchFloat));
+    expect(growBounds(target2, [3, 5], -10, 70)).toEqual([3, 7].map(matchFloat));
+    expect(growBounds(target2, [3, 5], -10, 50)).toEqual([1, 5].map(matchFloat));
 
     expect(growBounds(target1, [4, 5], 40, 45)).toEqual([4.495, 4.505].map(matchFloat));
     expect(growBounds(target2, [4, 5], 40, 55)).toEqual([4.495, 4.505].map(matchFloat));
@@ -246,8 +246,8 @@ describe('#growBounds', () => {
     expect(growBounds(target1, [4, 5], 40, 50)).toEqual([4.99, 5].map(matchFloat));
     expect(growBounds(target2, [4, 5], 40, 50)).toEqual([4.99, 5].map(matchFloat));
 
-    expect(growBounds(target1, [1,  9], -30, 50)).toEqual([0, 10]);
-    expect(growBounds(target2, [1,  9], -30, 50)).toEqual([0, 10]);
+    expect(growBounds(target1, [1,  9], -30, 50)).toEqual([0, 10].map(matchFloat));
+    expect(growBounds(target2, [1,  9], -30, 50)).toEqual([0, 10].map(matchFloat));
   });
 
   it('should not grow bounds / linear', () => {
@@ -256,16 +256,16 @@ describe('#growBounds', () => {
     let bounds: any;
 
     bounds = [2, 6];
-    expect(growBounds(target1, bounds, 0, 40)).toBe(bounds);
-    expect(growBounds(target2, bounds, 0, 60)).toBe(bounds);
+    expect(growBounds(target1, bounds, 0, 40)).toEqual(bounds.map(matchFloat));
+    expect(growBounds(target2, bounds, 0, 60)).toEqual(bounds.map(matchFloat));
 
     bounds = [0, 10];
-    expect(growBounds(target1, bounds, -10, 30)).toBe(bounds);
-    expect(growBounds(target2, bounds, -10, 70)).toBe(bounds);
+    expect(growBounds(target1, bounds, -10, 30)).toEqual(bounds.map(matchFloat));
+    expect(growBounds(target2, bounds, -10, 70)).toEqual(bounds.map(matchFloat));
 
     bounds = [5.005, 5.006];
-    expect(growBounds(target1, bounds, 10, 51)).toBe(bounds);
-    expect(growBounds(target2, bounds, 10, 49)).toBe(bounds);
+    expect(growBounds(target1, bounds, 10, 51)).toEqual(bounds.map(matchFloat));
+    expect(growBounds(target2, bounds, 10, 49)).toEqual(bounds.map(matchFloat));
   });
 
   it('should grow bounds / band', () => {

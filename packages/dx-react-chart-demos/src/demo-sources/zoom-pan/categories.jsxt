@@ -6,8 +6,7 @@ import {
   ArgumentAxis,
   ValueAxis,
   ZoomAndPan,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-chart-<%&themeName%>';<%&cssImports%>
 import { ValueScale } from '@devexpress/dx-react-chart';
 
 const data = [

@@ -5,8 +5,7 @@ import {
   ValueAxis,
   LineSeries,
   Title,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-chart-<%&themeName%>';<%&cssImports%>
 import { ArgumentScale, ValueScale, Animation } from '@devexpress/dx-react-chart';
 import { scaleLog, scaleTime } from 'd3-scale';
 

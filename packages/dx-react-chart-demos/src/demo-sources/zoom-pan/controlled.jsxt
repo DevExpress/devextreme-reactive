@@ -5,8 +5,7 @@ import {
   ValueAxis,
   LineSeries,
   ZoomAndPan,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-chart-<%&themeName%>';<%&cssImports%>
 
 const generateData = (n) => {
   const ret = [];

@@ -11,8 +11,7 @@ import {
   GroupingPanel,
   DragDropProvider,
   Toolbar,
-} from '@devexpress/dx-react-grid-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-grid-<%&themeName%>';<%&cssImports%>
 
 import { generateRows } from '../../../demo-data/generator';
 

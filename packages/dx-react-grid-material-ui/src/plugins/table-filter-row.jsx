@@ -7,7 +7,6 @@ import { FilterSelector } from '../templates/filter-row/filter-selector';
 import { ToggleButton } from '../templates/filter-row/filter-selector/toggle-button';
 import { Icon } from '../templates/filter-row/icon';
 
-
 export const TableFilterRow = withComponents({
   Row, Cell, Editor, FilterSelector, Icon, ToggleButton,
 })(TableFilterRowBase);

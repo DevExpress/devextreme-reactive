@@ -1,5 +1,5 @@
 {
-  "cssImports": "import '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';",
+  "cssImports": "\nimport '@devexpress/dx-react-grid-bootstrap4/dist/dx-react-grid-bootstrap4.css';",
   "wrapperTag": "div",
   "wrapperAttributes": " className=\"card\"",
   "dependencies": ["reactstrap"]

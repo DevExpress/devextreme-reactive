@@ -4,10 +4,12 @@
 
 ```ts
 
-import * as React from 'react';
+import * as React_2 from 'react';
 
 // @public (undocumented)
-export const Animation: React.ComponentType<AnimationProps>;
+const Animation_2: React_2.ComponentType<AnimationProps>;
+
+export { Animation_2 as Animation }
 
 // @public (undocumented)
 export interface AnimationProps {
@@ -16,7 +18,7 @@ export interface AnimationProps {
 }
 
 // @public (undocumented)
-export const AreaSeries: React.ComponentType<AreaSeriesProps>;
+export const AreaSeries: React_2.ComponentType<AreaSeriesProps>;
 
 // @public (undocumented)
 export namespace AreaSeries {
@@ -28,11 +30,11 @@ export namespace AreaSeries {
 
 // @public (undocumented)
 export interface AreaSeriesProps extends SeriesProps {
-  seriesComponent?: React.ComponentType<AreaSeries.SeriesProps>;
+  seriesComponent?: React_2.ComponentType<AreaSeries.SeriesProps>;
 }
 
 // @public (undocumented)
-export const ArgumentAxis: React.ComponentType<RawAxisProps>;
+export const ArgumentAxis: React_2.ComponentType<RawAxisProps>;
 
 // @public (undocumented)
 export namespace ArgumentAxis {
@@ -48,7 +50,7 @@ export namespace ArgumentAxis {
 }
 
 // @public (undocumented)
-export const ArgumentScale: React.ComponentType<ArgumentScaleProps>;
+export const ArgumentScale: React_2.ComponentType<ArgumentScaleProps>;
 
 // @public (undocumented)
 export interface ArgumentScaleProps extends ScaleProps {
@@ -73,14 +75,14 @@ export namespace Axis {
   }
   // (undocumented)
   export interface RootProps {
-    children: React.ReactNode;
+    children: React_2.ReactNode;
     dx: number;
     dy: number;
   }
 }
 
 // @public (undocumented)
-export const BarSeries: React.ComponentType<BarSeriesProps>;
+export const BarSeries: React_2.ComponentType<BarSeriesProps>;
 
 // @public (undocumented)
 export namespace BarSeries {
@@ -93,7 +95,7 @@ export namespace BarSeries {
 // @public (undocumented)
 export interface BarSeriesProps extends SeriesProps {
   barWidth?: number;
-  pointComponent?: React.ComponentType<BarSeries.PointProps>;
+  pointComponent?: React_2.ComponentType<BarSeries.PointProps>;
 }
 
 // @public (undocumented)
@@ -105,7 +107,7 @@ export interface BasicDataProps {
 }
 
 // @public (undocumented)
-export const Chart: React.ComponentType<ChartProps>;
+export const Chart: React_2.ComponentType<ChartProps>;
 
 // @public (undocumented)
 export namespace Chart {
@@ -117,7 +119,7 @@ export namespace Chart {
   }
   // (undocumented)
   export interface RootProps {
-    children: React.ReactNode;
+    children: React_2.ReactNode;
   }
 }
 
@@ -125,7 +127,7 @@ export namespace Chart {
 export interface ChartProps {
   data: DataItems;
   height?: number;
-  rootComponent: React.ComponentType<Chart.RootProps>;
+  rootComponent: React_2.ComponentType<Chart.RootProps>;
   rotated?: boolean;
   width?: number;
 }
@@ -150,7 +152,7 @@ export type DataItems = ReadonlyArray<DataItem>;
 export type DomainItems = ReadonlyArray<any>;
 
 // @public (undocumented)
-export const EventTracker: React.ComponentType<EventTrackerProps>;
+export const EventTracker: React_2.ComponentType<EventTrackerProps>;
 
 // @public (undocumented)
 export interface EventTrackerProps {
@@ -174,7 +176,7 @@ export type HandlerFn = (arg: TargetData) => void;
 export type HandlerFnList = ReadonlyArray<HandlerFn>;
 
 // @public (undocumented)
-export type HitTestFn = (location: Location) => HitTestResult;
+export type HitTestFn = (location: Location_2) => HitTestResult;
 
 // @public (undocumented)
 export type HitTestResult = {
@@ -182,7 +184,7 @@ export type HitTestResult = {
 } | null;
 
 // @public (undocumented)
-export const HoverState: React.ComponentType<HoverStateProps>;
+export const HoverState: React_2.ComponentType<HoverStateProps>;
 
 // @public (undocumented)
 export interface HoverStateProps {
@@ -195,12 +197,12 @@ export interface HoverStateProps {
 export type Interaction = 'none' | 'pan' | 'zoom' | 'both';
 
 // @public (undocumented)
-export const Legend: React.ComponentType<LegendProps>;
+export const Legend: React_2.ComponentType<LegendProps>;
 
 // @public (undocumented)
 export namespace Legend {
   export interface ItemProps {
-    children: React.ReactNode;
+    children: React_2.ReactNode;
   }
   export interface LabelProps {
     text: string | number;
@@ -209,21 +211,21 @@ export namespace Legend {
   export interface MarkerProps {
   }
   export interface RootProps {
-    children: React.ReactNode;
+    children: React_2.ReactNode;
   }
 }
 
 // @public (undocumented)
 export interface LegendProps {
-  itemComponent: React.ComponentType<Legend.ItemProps>;
-  labelComponent: React.ComponentType<Legend.LabelProps>;
-  markerComponent: React.ComponentType<Legend.MarkerProps>;
+  itemComponent: React_2.ComponentType<Legend.ItemProps>;
+  labelComponent: React_2.ComponentType<Legend.LabelProps>;
+  markerComponent: React_2.ComponentType<Legend.MarkerProps>;
   position?: 'left' | 'right' | 'top' | 'bottom';
-  rootComponent: React.ComponentType<Legend.RootProps>;
+  rootComponent: React_2.ComponentType<Legend.RootProps>;
 }
 
 // @public (undocumented)
-export const LineSeries: React.ComponentType<AreaSeriesProps>;
+export const LineSeries: React_2.ComponentType<AreaSeriesProps>;
 
 // @public (undocumented)
 export namespace LineSeries {
@@ -235,11 +237,13 @@ export namespace LineSeries {
 
 // @public (undocumented)
 export interface LineSeriesProps extends SeriesProps {
-  seriesComponent?: React.ComponentType<LineSeries.SeriesProps>;
+  seriesComponent?: React_2.ComponentType<LineSeries.SeriesProps>;
 }
 
 // @public (undocumented)
-export type Location = Readonly<NumberArray>;
+type Location_2 = Readonly<NumberArray>;
+
+export { Location_2 as Location }
 
 // @public (undocumented)
 export type ModifyDomainFn = (domain: DomainItems) => DomainItems;
@@ -260,7 +264,7 @@ export type OnViewportChangeFn = (viewport: Viewport) => void;
 export type OrderFn = (series: StackData) => number[];
 
 // @public (undocumented)
-export const Palette: React.ComponentType<PaletteProps>;
+export const Palette: React_2.ComponentType<PaletteProps>;
 
 // @public (undocumented)
 export interface PaletteProps {
@@ -317,7 +321,7 @@ export interface PathFn {
 export type PathPoints = ReadonlyArray<PointComponentProps>;
 
 // @public (undocumented)
-export const PieSeries: React.ComponentType<PieSeriesProps>;
+export const PieSeries: React_2.ComponentType<PieSeriesProps>;
 
 // @public (undocumented)
 export namespace PieSeries {
@@ -334,7 +338,7 @@ export namespace PieSeries {
 export interface PieSeriesProps extends SeriesProps {
   innerRadius?: number;
   outerRadius?: number;
-  pointComponent?: React.ComponentType<PieSeries.PointProps>;
+  pointComponent?: React_2.ComponentType<PieSeries.PointProps>;
 }
 
 // @public (undocumented)
@@ -362,18 +366,18 @@ export type PointDistance = {
 
 // @public (undocumented)
 export interface RawAxisProps {
-  gridComponent: React.ComponentType<Axis.LineProps>;
+  gridComponent: React_2.ComponentType<Axis.LineProps>;
   indentFromAxis?: number;
-  labelComponent: React.ComponentType<Axis.LabelProps>;
-  lineComponent: React.ComponentType<Axis.LineProps>;
+  labelComponent: React_2.ComponentType<Axis.LabelProps>;
+  lineComponent: React_2.ComponentType<Axis.LineProps>;
   position?: 'left' | 'top' | 'right' | 'bottom';
-  rootComponent: React.ComponentType<Axis.RootProps>;
+  rootComponent: React_2.ComponentType<Axis.RootProps>;
   scaleName?: string;
   showGrid?: boolean;
   showLabels?: boolean;
   showLine?: boolean;
   showTicks?: boolean;
-  tickComponent: React.ComponentType<Axis.LineProps>;
+  tickComponent: React_2.ComponentType<Axis.LineProps>;
   tickFormat?: TickFormatFn;
   tickSize?: number;
 }
@@ -420,7 +424,7 @@ export type ScalesCache = {
 };
 
 // @public (undocumented)
-export const ScatterSeries: React.ComponentType<ScatterSeriesProps>;
+export const ScatterSeries: React_2.ComponentType<ScatterSeriesProps>;
 
 // @public (undocumented)
 export namespace ScatterSeries {
@@ -437,11 +441,11 @@ export namespace ScatterSeries {
 // @public (undocumented)
 export interface ScatterSeriesProps extends SeriesProps {
   point?: ScatterSeries.PointOptions;
-  pointComponent?: React.ComponentType<ScatterSeries.PointProps>;
+  pointComponent?: React_2.ComponentType<ScatterSeries.PointProps>;
 }
 
 // @public (undocumented)
-export const SelectionState: React.ComponentType<SelectionStateProps>;
+export const SelectionState: React_2.ComponentType<SelectionStateProps>;
 
 // @public (undocumented)
 export interface SelectionStateProps {
@@ -464,7 +468,7 @@ export interface SeriesRef {
 }
 
 // @public (undocumented)
-export const SplineSeries: React.ComponentType<AreaSeriesProps>;
+export const SplineSeries: React_2.ComponentType<AreaSeriesProps>;
 
 // @public (undocumented)
 export namespace SplineSeries {
@@ -476,11 +480,11 @@ export namespace SplineSeries {
 
 // @public (undocumented)
 export interface SplineSeriesProps extends SeriesProps {
-  seriesComponent?: React.ComponentType<SplineSeries.SeriesProps>;
+  seriesComponent?: React_2.ComponentType<SplineSeries.SeriesProps>;
 }
 
 // @public (undocumented)
-export const Stack: React.ComponentType<StackProps>;
+export const Stack: React_2.ComponentType<StackProps>;
 
 // @public (undocumented)
 export interface Stack {
@@ -510,7 +514,7 @@ export type StacksOptions = {
 // @public
 export interface TargetData {
   readonly event?: any;
-  readonly location: Location;
+  readonly location: Location_2;
   readonly targets: TargetList;
 }
 
@@ -521,7 +525,7 @@ export type TargetList = ReadonlyArray<SeriesRef>;
 export type TickFormatFn = (scale: ScaleObject, count?: number) => GetFormatFn;
 
 // @public (undocumented)
-export const Title: React.ComponentType<TitleProps>;
+export const Title: React_2.ComponentType<TitleProps>;
 
 // @public (undocumented)
 export namespace Title {
@@ -534,11 +538,11 @@ export namespace Title {
 export interface TitleProps {
   position?: 'top' | 'bottom';
   text: string;
-  textComponent: React.ComponentType<Title.TextProps>;
+  textComponent: React_2.ComponentType<Title.TextProps>;
 }
 
 // @public (undocumented)
-export const Tooltip: React.ComponentType<TooltipProps>;
+export const Tooltip: React_2.ComponentType<TooltipProps>;
 
 // @public (undocumented)
 export namespace Tooltip {
@@ -550,24 +554,24 @@ export namespace Tooltip {
     text: string;
   }
   export interface OverlayProps {
-    arrowComponent: React.ComponentType<Tooltip.ArrowProps>;
-    children: React.ReactNode;
+    arrowComponent: React_2.ComponentType<Tooltip.ArrowProps>;
+    children: React_2.ReactNode;
     rotated: boolean;
     target: TooltipReference;
   }
   export interface SheetProps {
-    children: React.ReactNode;
+    children: React_2.ReactNode;
   }
 }
 
 // @public (undocumented)
 export interface TooltipProps {
-  arrowComponent: React.ComponentType<Tooltip.ArrowProps>;
-  contentComponent: React.ComponentType<Tooltip.ContentProps>;
+  arrowComponent: React_2.ComponentType<Tooltip.ArrowProps>;
+  contentComponent: React_2.ComponentType<Tooltip.ContentProps>;
   defaultTargetItem?: SeriesRef;
   onTargetItemChange?: NotifyPointerMoveFn;
-  overlayComponent: React.ComponentType<Tooltip.OverlayProps>;
-  sheetComponent: React.ComponentType<Tooltip.SheetProps>;
+  overlayComponent: React_2.ComponentType<Tooltip.OverlayProps>;
+  sheetComponent: React_2.ComponentType<Tooltip.SheetProps>;
   targetItem?: SeriesRef;
 }
 
@@ -589,7 +593,7 @@ export interface TransformedPoint extends Point {
 }
 
 // @public (undocumented)
-export const ValueAxis: React.ComponentType<RawAxisProps>;
+export const ValueAxis: React_2.ComponentType<RawAxisProps>;
 
 // @public (undocumented)
 export namespace ValueAxis {
@@ -605,7 +609,7 @@ export namespace ValueAxis {
 }
 
 // @public (undocumented)
-export const ValueScale: React.ComponentType<ValueScaleProps>;
+export const ValueScale: React_2.ComponentType<ValueScaleProps>;
 
 // @public (undocumented)
 export interface ValueScaleProps extends ScaleProps {
@@ -621,7 +625,7 @@ export type Viewport = {
 };
 
 // @public (undocumented)
-export const ZoomAndPan: React.ComponentType<ZoomAndPanProps>;
+export const ZoomAndPan: React_2.ComponentType<ZoomAndPanProps>;
 
 // @public (undocumented)
 export namespace ZoomAndPan {
@@ -634,7 +638,7 @@ export namespace ZoomAndPan {
 // @public (undocumented)
 export interface ZoomAndPanProps {
   defaultViewport?: Viewport;
-  dragBoxComponent: React.ComponentType<ZoomAndPan.DragBoxProps>;
+  dragBoxComponent: React_2.ComponentType<ZoomAndPan.DragBoxProps>;
   interactionWithArguments?: Interaction;
   interactionWithValues?: Interaction;
   onViewportChange?: OnViewportChangeFn;

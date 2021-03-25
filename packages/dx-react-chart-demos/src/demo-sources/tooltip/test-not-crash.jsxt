@@ -9,8 +9,7 @@ import {
   ScatterSeries,
   PieSeries,
   Tooltip,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-chart-<%&themeName%>';<%&cssImports%>
 
 const data = [
   { arg: 'A', val: 2 },

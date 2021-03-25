@@ -26,7 +26,6 @@ describe('FixedCell', () => {
       .toBeTruthy();
   });
 
-
   it('should apply left border if left divider exists', () => {
     const tree = shallow((
       <FixedCell {...defaultProps} showLeftDivider />

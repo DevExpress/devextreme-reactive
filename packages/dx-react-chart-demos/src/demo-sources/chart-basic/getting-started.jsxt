@@ -4,8 +4,7 @@ import {
   ValueAxis,
   Chart,
   LineSeries,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-chart-<%&themeName%>';<%&cssImports%>
 
 const data = [
   { argument: 1, value: 10 },

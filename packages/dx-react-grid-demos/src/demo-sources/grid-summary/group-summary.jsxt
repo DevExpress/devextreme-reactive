@@ -12,8 +12,7 @@ import {
   TableHeaderRow,
   TableGroupRow,
   TableSummaryRow,
-} from '@devexpress/dx-react-grid-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-grid-<%&themeName%>';<%&cssImports%>
 
 import {
   generateRows,

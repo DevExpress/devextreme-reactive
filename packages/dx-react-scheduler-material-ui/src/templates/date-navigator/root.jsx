@@ -9,6 +9,9 @@ const styles = ({ spacing }) => ({
     '&:first-child': {
       marginLeft: 0,
     },
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
 });
 
@@ -36,13 +39,14 @@ const RootBase = ({
         type="back"
         onClick={navigateBack}
       />
-      <NavigationButton
-        type="forward"
-        onClick={navigateForward}
-      />
+      
       <OpenButton
         onVisibilityToggle={onVisibilityToggle}
         text={navigatorText}
+      />
+       <NavigationButton
+        type="forward"
+        onClick={navigateForward}
       />
     </div>
   );

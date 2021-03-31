@@ -1,4 +1,4 @@
-import { Table, Filter, Column, ColumnFilterOperations } from '../index';
+import { Table, Filter, Column, ColumnFilterOperations } from "../index";
 
 /* tslint:disable no-namespace max-line-length */
 export namespace TableFilterRow {
@@ -87,6 +87,8 @@ export namespace TableFilterRow {
     lessThan?: string;
     /** The 'lessThanOrEqual' filter operation name. */
     lessThanOrEqual?: string;
+    /** Additional filter operation names */
+    [key: string]: any;
   }
 }
 
@@ -113,6 +115,6 @@ export interface TableFilterRowProps {
 
 /** @internal */
 export type TableFilterRowState = {
-  filterOperations: ColumnFilterOperations,
+  filterOperations: ColumnFilterOperations;
 };
 /* tslint:enable no-namespace max-line-length */

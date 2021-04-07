@@ -5,7 +5,7 @@ import Header from '../header';
 import VersionLink from '../docs/version-link';
 import LandingProductLinks from '../landing/product-links';
 import ContentContainer from './content-container';
-import SurveyHeaderAddon from '../docs/survey-header-addon';
+// import SurveyHeaderAddon from '../docs/survey-header-addon';
 
 class PageLayout extends React.PureComponent {
   static propTypes = {
@@ -29,7 +29,7 @@ class PageLayout extends React.PureComponent {
               <LandingProductLinks />
             </>
           )}
-          addon={<SurveyHeaderAddon />}
+          // addon={<SurveyHeaderAddon />}
         />
         <ContentContainer>
           {children}

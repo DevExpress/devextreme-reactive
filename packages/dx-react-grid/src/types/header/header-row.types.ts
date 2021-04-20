@@ -21,6 +21,8 @@ export namespace TableHeaderRow {
     draggingEnabled: boolean;
     /** The header cell's children. */
     children: React.ReactNode;
+    tabIndex?: number;
+    setRefKeyboardNavigation?: any;
   }
 
   /** Describes properties used to render a sort label. */

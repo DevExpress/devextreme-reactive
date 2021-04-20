@@ -14,11 +14,19 @@ const styles = theme => ({
     whiteSpace: 'nowrap',
     textAlign: 'center',
     padding: theme.spacing(0, 2, 0, 3),
+    '&:focus-visible': {
+      border: '1px solid blue',
+      outline: "none",
+    },
   },
   cell: {
     whiteSpace: 'nowrap',
     textAlign: 'center',
     padding: theme.spacing(0, 2, 0, 3),
+    '&:focus-visible': {
+      border: '1px solid blue',
+      outline: "none",
+    },
   },
   alignWithRowSpan: {
     verticalAlign: 'bottom',
@@ -60,25 +68,43 @@ CommandButtonBase.defaultProps = {
 
 export const CommandButton = withEditColumnStyles(CommandButtonBase);
 
-const EditCommandHeadingCellBase = ({
-  children,
-  classes,
-  className,
-  tableRow, tableColumn,
-  rowSpan,
-  ...restProps
-}) => (
-  <TableCell
-    className={classNames({
-      [classes.headingCell]: true,
-      [classes.alignWithRowSpan]: rowSpan > 1,
-    }, className)}
-    rowSpan={rowSpan}
-    {...restProps}
-  >
-    {children}
-  </TableCell>
-);
+class EditCommandHeadingCellBase extends React.PureComponent {
+  constructor(props) {
+    super(props)
+
+    this.ref = React.createRef();
+  }
+
+  componentDidMount() {
+    const { setRefKeyboardNavigation, tableColumn, tableRow } = this.props;
+    setRefKeyboardNavigation && setRefKeyboardNavigation(this.ref, tableRow.key, tableColumn.key);
+  }
+
+  render() {
+    const {
+      children,
+      classes,
+      className,
+      tableRow, tableColumn,
+      rowSpan,
+      setRefKeyboardNavigation,
+      ...restProps
+    } = this.props;
+    return (
+      <TableCell
+        className={classNames({
+          [classes.headingCell]: true,
+          [classes.alignWithRowSpan]: rowSpan > 1,
+        }, className)}
+        rowSpan={rowSpan}
+        ref={this.ref}
+        {...restProps}
+      >
+        {children}
+      </TableCell>
+    )
+  }
+}
 
 EditCommandHeadingCellBase.propTypes = {
   children: PropTypes.node,
@@ -99,18 +125,34 @@ EditCommandHeadingCellBase.defaultProps = {
 
 export const EditCommandHeadingCell = withEditColumnStyles(EditCommandHeadingCellBase);
 
-const EditCommandCellBase = ({
-  tableRow, tableColumn, row, children,
-  classes, className,
-  ...restProps
-}) => (
-  <TableCell
-    className={classNames(classes.cell, className)}
-    {...restProps}
-  >
-    {children}
-  </TableCell>
-);
+class EditCommandCellBase extends React.PureComponent {
+  constructor(props) {
+    super(props)
+    this.ref = React.createRef();
+  }
+
+  componentDidMount() {
+    const { setRefKeyboardNavigation, tableColumn, tableRow } = this.props;
+    setRefKeyboardNavigation && setRefKeyboardNavigation(this.ref, tableRow.key, tableColumn.key);
+  }
+
+  render() {
+    const {
+      tableRow, tableColumn, row, children,
+      classes, className, setRefKeyboardNavigation,
+      ...restProps
+    } = this.props;
+    return (
+      <TableCell
+        className={classNames(classes.cell, className)}
+        ref={this.ref}
+        {...restProps}
+      >
+        {children}
+      </TableCell>
+    )
+  }
+}
 
 EditCommandCellBase.propTypes = {
   children: PropTypes.node,

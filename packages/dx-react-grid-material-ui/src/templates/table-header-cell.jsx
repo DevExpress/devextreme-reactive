@@ -31,6 +31,9 @@ const styles = theme => ({
       width: theme.spacing(1),
       right: '1px',
     },
+    '&:focus-visible': {
+      border: '1px solid blue'
+    }
   },
   resizeHandle: {},
   resizeHandleLine: {
@@ -120,7 +123,9 @@ class TableHeaderCellBase extends React.PureComponent {
   }
 
   componentDidMount() {
+    const { setRefKeyboardNavigation, tableColumn, tableRow } = this.props;
     this.getWidthGetter();
+    setRefKeyboardNavigation && setRefKeyboardNavigation(this.cellRef, tableRow.key, tableColumn.key);
   }
 
   render() {
@@ -128,7 +133,7 @@ class TableHeaderCellBase extends React.PureComponent {
       style, column, tableColumn,
       draggingEnabled, resizingEnabled,
       onWidthChange, onWidthDraft, onWidthDraftCancel, getCellWidth,
-      classes, tableRow, className, children,
+      classes, tableRow, className, children, setRefKeyboardNavigation,
       ...restProps
     } = this.props;
 

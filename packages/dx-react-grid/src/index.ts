@@ -45,6 +45,7 @@ export * from './plugins/table-summary-row';
 export * from './plugins/virtual-table/virtual-table-state';
 export * from './plugins/table-inline-cell-editing';
 export * from './plugins/export-panel';
+export * from './plugins/table-keyboard-navigation';
 
 export * from './components/table-layout';
 export * from './components/table-layout/virtual-table-layout';

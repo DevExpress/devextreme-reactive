@@ -16,6 +16,10 @@ const styles = theme => ({
       paddingRight: theme.spacing(3),
       borderRight: 0,
     },
+    '&:focus-visible': {
+      border: '1px solid blue',
+      outline: "none",
+    },
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
@@ -27,20 +31,35 @@ const styles = theme => ({
   },
 });
 
-const CellBase = ({
-  column, value, children, classes, tableRow, tableColumn, row, className, beforeBorder,
-  ...restProps
-}) => (
-  <TableCell
-    className={classNames({
-      [classes.cell]: true,
-      [classes.beforeBorder]: beforeBorder,
-    }, className)}
-    {...restProps}
-  >
-    {children}
-  </TableCell>
-);
+class CellBase extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.ref = React.createRef();
+  }
+
+  componentDidMount() {
+    const { setRefKeyboardNavigation, tableColumn, tableRow } = this.props;
+    setRefKeyboardNavigation && setRefKeyboardNavigation(this.ref, tableRow.key, tableColumn.key);
+  }
+
+  render() {
+    const { column, value, children, classes, tableRow, tableColumn, row, className, beforeBorder, setRefKeyboardNavigation,
+      ...restProps } = this.props;
+    return (
+      <TableCell
+        className={classNames({
+          [classes.cell]: true,
+          [classes.beforeBorder]: beforeBorder,
+        }, className)}
+        {...restProps}
+        ref={this.ref}
+      >
+        {children}
+      </TableCell>
+    )
+  }
+}
 
 CellBase.propTypes = {
   value: PropTypes.any,

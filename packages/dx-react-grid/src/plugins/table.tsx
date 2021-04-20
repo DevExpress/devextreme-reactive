@@ -130,10 +130,10 @@ class TableBase extends React.PureComponent<TableProps> {
           {(params: TableNS.CellProps) => (
             <TemplateConnector>
               {(
-                { tableHeaderRows: headerRows },
+                { tableHeaderRows: headerRows, setRefKeyboardNavigation },
               ) => (isHeaderStubTableCell(params.tableRow, headerRows)
-                ? <StubHeaderCell {...params} />
-                : <StubCell {...params} />
+                ? <StubHeaderCell tabIndex={-1} setRefKeyboardNavigation={setRefKeyboardNavigation} {...params} />
+                : <StubCell tabIndex={-1} setRefKeyboardNavigation={setRefKeyboardNavigation} {...params} />
               )}
             </TemplateConnector>
           )}
@@ -144,9 +144,10 @@ class TableBase extends React.PureComponent<TableProps> {
         >
           {(params: TableNS.CellProps) => (
             <TemplateConnector>
-              {({ getCellValue }) => {
+              {({ getCellValue, setRefKeyboardNavigation }) => {
                 const columnName = params.tableColumn.column!.name;
                 const value = getCellValue(params.tableRow.row, columnName);
+                const tabIndex = -1;
                 return (
                   <TemplatePlaceholder
                     name="valueFormatter"
@@ -162,6 +163,8 @@ class TableBase extends React.PureComponent<TableProps> {
                         row={params.tableRow.row}
                         column={params.tableColumn.column!}
                         value={value}
+                        tabIndex={tabIndex}
+                        setRefKeyboardNavigation={setRefKeyboardNavigation}
                       >
                         {content}
                       </Cell>

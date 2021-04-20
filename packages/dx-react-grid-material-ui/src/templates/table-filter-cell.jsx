@@ -18,21 +18,37 @@ const styles = ({ spacing }) => ({
   },
 });
 
-const TableFilterCellBase = ({
-  filter, getMessage, onFilter,
-  classes, children, className,
-  tableRow, tableColumn, column, filteringEnabled,
-  ...restProps
-}) => (
-  <TableCell
-    className={classNames(classes.cell, className)}
-    {...restProps}
-  >
-    <div className={classes.flexContainer}>
-      {children}
-    </div>
-  </TableCell>
-);
+class TableFilterCellBase extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.ref = React.createRef();
+  }
+
+  componentDidMount() {
+    const { setRefKeyboardNavigation, tableColumn, tableRow } = this.props;
+    setRefKeyboardNavigation && setRefKeyboardNavigation(this.ref, tableRow.key, tableColumn.key);
+  }
+
+  render() {
+    const { filter, getMessage, onFilter,
+      classes, children, className,
+      tableRow, tableColumn, column, filteringEnabled,
+      setRefKeyboardNavigation,
+      ...restProps } = this.props;
+    return (
+      <TableCell
+        className={classNames(classes.cell, className)}
+        ref={this.ref}
+        {...restProps}
+      >
+        <div className={classes.flexContainer}>
+          {children}
+        </div>
+      </TableCell>
+    )
+  }
+}
 
 TableFilterCellBase.propTypes = {
   filter: PropTypes.object,

@@ -8,12 +8,16 @@ export namespace TableEditColumn {
     row: any;
     /** A React node to be placed in the command cell. */
     children?: React.ReactNode;
+    tabIndex?: number;
+    setRefKeyboardNavigation?: any;
   }
 
   /** Describes properties passed to a component that renders a command cell within the header row. */
   export interface HeaderCellProps extends Table.CellProps {
     /** A React node to be placed in the command cell. */
     children?: React.ReactNode;
+    tabIndex?: number;
+    setRefKeyboardNavigation?: any;
   }
 
   /** Describes properties passed to a component that renders command control within a command cell. */

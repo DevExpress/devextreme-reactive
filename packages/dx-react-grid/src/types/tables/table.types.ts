@@ -26,6 +26,8 @@ export namespace Table {
     rowSpan?: number;
     /** @internal */
     style: object;
+    tabIndex?: number;
+    setRefKeyboardNavigation?: any;
   }
 
   /** Describes properties passed to a component that renders a table cell. */
@@ -38,6 +40,8 @@ export namespace Table {
     column: Column;
     /** A React node used to render the cell content. */
     children?: React.ReactNode;
+    tabIndex?: number;
+    setRefKeyboardNavigation?: any;
   }
 
 // tslint:disable-next-line: max-line-length

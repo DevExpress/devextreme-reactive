@@ -10,6 +10,8 @@ export namespace TableBandHeader {
     beforeBorder?: boolean;
     /** @internal */
     tableRow: BandHeaderRow;
+    tabIndex?: number;
+    setRefKeyboardNavigation?: any;
   }
 
   /** Describes properties of column bands that the TableBandHeader plugin renders. */

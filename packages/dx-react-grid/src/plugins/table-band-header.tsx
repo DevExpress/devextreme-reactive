@@ -86,7 +86,9 @@ class TableBandHeaderBase extends React.PureComponent<TableBandHeaderProps> {
                 tableColumns,
                 tableHeaderRows,
                 tableHeaderColumnChains,
-                columnVisibleIntervals: columnIntervals, bandLevelsVisibility: levelsVisibility,
+                columnVisibleIntervals: columnIntervals, 
+                bandLevelsVisibility: levelsVisibility,
+                setRefKeyboardNavigation,
               }) => {
                 const bandComponent = getBandComponent(
                   params,
@@ -104,7 +106,7 @@ class TableBandHeaderBase extends React.PureComponent<TableBandHeaderProps> {
                   case BAND_GROUP_CELL: {
                     const { value, ...payload } = bandComponent.payload!;
                     return (
-                      <Cell {...params} {...payload}>
+                      <Cell {...params} {...payload} tabIndex={-1} setRefKeyboardNavigation={setRefKeyboardNavigation}>
                         {value}
                       </Cell>
                     );

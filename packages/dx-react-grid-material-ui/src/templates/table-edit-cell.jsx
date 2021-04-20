@@ -39,26 +39,38 @@ const styles = theme => ({
   },
 });
 
-const EditCellBase = ({
-  column, value, onValueChange, style, classes, children,
-  row, tableRow, tableColumn, editingEnabled, className,
-  autoFocus, onBlur, onFocus, onKeyDown, ...restProps
-}) => {
-  const inputClasses = classNames({
-    [classes.inputRight]: tableColumn && tableColumn.align === 'right',
-    [classes.inputCenter]: tableColumn && tableColumn.align === 'center',
-  });
-  const patchedChildren = children
-    ? React.cloneElement(children, {
-      autoFocus,
-      onBlur,
-      onFocus,
-      onKeyDown,
-    })
-    : children;
+class EditCellBase extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
-  return (
-    <TableCell
+    this.ref = React.createRef();
+  }
+
+  componentDidMount() {
+    // const { setRefKeyboardNavigation, tableColumn } = this.props;
+    // setRefKeyboardNavigation && setRefKeyboardNavigation(this.ref, 'head_row', tableColumn.key);
+  }
+
+  render() {
+    const { 
+      column, value, onValueChange, style, classes, children,
+      row, tableRow, tableColumn, editingEnabled, className,
+      autoFocus, onBlur, onFocus, onKeyDown, setRefKeyboardNavigation, ...restProps
+    } = this.props;
+    const inputClasses = classNames({
+      [classes.inputRight]: tableColumn && tableColumn.align === 'right',
+      [classes.inputCenter]: tableColumn && tableColumn.align === 'center',
+    });
+    const patchedChildren = children
+      ? React.cloneElement(children, {
+        autoFocus,
+        onBlur,
+        onFocus,
+        onKeyDown,
+      })
+      : children;
+    return (
+      <TableCell
       className={classNames(classes.cell, className)}
       style={style}
       {...restProps}
@@ -81,8 +93,9 @@ const EditCellBase = ({
         />
       )}
     </TableCell>
-  );
-};
+    )
+  }
+}
 
 EditCellBase.propTypes = {
   column: PropTypes.object,

@@ -14,19 +14,34 @@ const styles = theme => ({
   },
 });
 
-const TableStubCellBase = ({
-  classes,
-  className,
-  tableRow,
-  tableColumn,
-  ...restProps
-}) => (
-  <TableCell
-    className={classNames(classes.cell, className)}
-    classes={{ footer: classes.footer }}
-    {...restProps}
-  />
-);
+class TableStubCellBase extends React.PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.ref = React.createRef();
+  }
+
+  componentDidMount() {
+    const { setRefKeyboardNavigation, tableRow, tableColumn } = this.props;
+    setRefKeyboardNavigation && setRefKeyboardNavigation(this.ref, tableRow.key, tableColumn.key);
+  }
+
+  render() {
+    const { classes,
+      className,
+      tableRow,
+      tableColumn, setRefKeyboardNavigation,
+      ...restProps } = this.props;
+    return (
+      <TableCell
+        className={classNames(classes.cell, className)}
+        classes={{ footer: classes.footer }}
+        ref={this.ref}
+        {...restProps}
+      />
+    )
+  }
+}
 
 TableStubCellBase.propTypes = {
   classes: PropTypes.object.isRequired,

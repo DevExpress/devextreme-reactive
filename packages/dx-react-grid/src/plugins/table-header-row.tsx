@@ -70,6 +70,7 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
               {({
                 sorting, tableColumns, draggingEnabled, tableColumnResizingEnabled,
                 isColumnSortingEnabled, isColumnGroupingEnabled, columnResizingMode,
+                setRefKeyboardNavigation,
               }, {
                 changeColumnSorting, changeColumnGrouping,
                 changeTableColumnWidth, draftTableColumnWidth, cancelTableColumnWidthDraft,
@@ -84,7 +85,7 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
                   && isColumnGroupingEnabled(columnName)
                   && atLeastOneDataColumn;
                 const nextColumnName = getNextColumnName(tableColumns, columnName);
-
+                const tabIndex = -1;
                 return (
                   <HeaderCell
                     {...params}
@@ -104,6 +105,8 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
                     getCellWidth={getter => storeWidthGetters({
                       tableColumn: params.tableColumn , getter, tableColumns,
                     })}
+                    tabIndex={tabIndex}
+                    setRefKeyboardNavigation={setRefKeyboardNavigation}
                   >
                     <TemplatePlaceholder
                       name="tableHeaderCellBefore"

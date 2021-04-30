@@ -4,6 +4,7 @@ import {
   Template,
   Plugin,
   TemplatePlaceholder,
+  TemplateConnector,
 } from '@devexpress/dx-react-core';
 import { ToolbarProps } from '../types';
 
@@ -23,9 +24,13 @@ class ToolbarBase extends React.PureComponent<ToolbarProps> {
         name="Toolbar"
       >
         <Template name="header">
-          <Root>
-            <TemplatePlaceholder name="toolbarContent" />
-          </Root>
+          <TemplateConnector>
+            {({ setRefKeyboardNavigation }) => (
+              <Root setRefKeyboardNavigation={setRefKeyboardNavigation}>
+                <TemplatePlaceholder name="toolbarContent" />
+              </Root>
+            )}
+          </TemplateConnector>
           <TemplatePlaceholder />
         </Template>
         <Template name="toolbarContent">

@@ -4,6 +4,7 @@ export namespace Toolbar {
   export interface RootProps {
     /** A React node to be placed in the toolbar. */
     children?: React.ReactNode;
+    setRefKeyboardNavigation: any;
   }
 }
 

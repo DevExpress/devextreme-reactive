@@ -16,41 +16,58 @@ const styles = theme => ({
   },
 });
 
-const PagerBase = ({
-  currentPage,
-  pageSizes,
-  totalPages,
-  pageSize,
-  classes,
-  onCurrentPageChange,
-  onPageSizeChange,
-  totalCount,
-  getMessage,
-  className,
-  ...restProps
-}) => (
-  <div
-    className={classNames(classes.pager, className)}
-    {...restProps}
-  >
-    {!!pageSizes.length && (
-    <PageSizeSelector
-      pageSize={pageSize}
-      onPageSizeChange={onPageSizeChange}
-      pageSizes={pageSizes}
-      getMessage={getMessage}
-    />
-    )}
-    <Pagination
-      totalPages={totalPages}
-      totalCount={totalCount}
-      currentPage={currentPage}
-      onCurrentPageChange={page => onCurrentPageChange(page)}
-      pageSize={pageSize}
-      getMessage={getMessage}
-    />
-  </div>
-);
+class PagerBase extends React.PureComponent {
+  constructor(props) {
+    super(props)
+    this.ref = React.createRef();
+  }
+
+  componentDidMount() {
+    const { setRefKeyboardNavigation } = this.props;
+    setRefKeyboardNavigation && setRefKeyboardNavigation(this.ref, 'paging', 'none')
+  }
+
+  render() {
+    const {
+      currentPage,
+      pageSizes,
+      totalPages,
+      pageSize,
+      classes,
+      onCurrentPageChange,
+      onPageSizeChange,
+      totalCount,
+      getMessage,
+      className,
+      setRefKeyboardNavigation,
+      ...restProps
+    } = this.props;
+    return (
+      <div
+        className={classNames(classes.pager, className)}
+        ref={this.ref}
+        {...restProps}
+      >
+        {!!pageSizes.length && (
+        <PageSizeSelector
+          pageSize={pageSize}
+          onPageSizeChange={onPageSizeChange}
+          pageSizes={pageSizes}
+          getMessage={getMessage}
+        />
+        )}
+        <Pagination
+          totalPages={totalPages}
+          totalCount={totalCount}
+          currentPage={currentPage}
+          onCurrentPageChange={page => onCurrentPageChange(page)}
+          pageSize={pageSize}
+          getMessage={getMessage}
+        />
+      </div>
+    )
+  }
+}
 
 PagerBase.propTypes = {
   currentPage: PropTypes.number.isRequired,

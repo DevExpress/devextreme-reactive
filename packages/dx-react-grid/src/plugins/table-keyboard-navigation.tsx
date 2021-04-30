@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
  Plugin, TemplateConnector, Getter,
 } from '@devexpress/dx-react-core';
-import { TABLE_FILTER_TYPE, TABLE_HEADING_TYPE } from '@devexpress/dx-grid-core';
+import { TABLE_FILTER_TYPE, TABLE_HEADING_TYPE, TABLE_BAND_TYPE } from '@devexpress/dx-grid-core';
 
 const tableParts = ['toolbar', TABLE_HEADING_TYPE.toString(), TABLE_FILTER_TYPE.toString(), 'body', 'footer_row', 'paging'];
 
@@ -11,52 +11,6 @@ const getIndex = (arr, focusedCell, key) => {
     return el.key === focusedCell[key]
   });
 }
-
-// const getFocusedCell = (direction, columns, focusedCurrentElement) => {
-//   let rowKey;
-//   let columnKey;
-//   const columnIndex = getIndex(columns, focusedCurrentElement, 'kolumnKey') 
-//   switch(direction){
-//     case 'Tab':
-//       if(!focusedCurrentElement.rowKey && !focusedCurrentElement.columnKey) {
-//         return {rowKey: 0, columnKey: columns[0].key}
-//       }
-//       if(columnIndex === columns.length - 1) {
-//         rowKey = focusedCurrentElement.rowKey + 1;
-//         columnKey = columns[0].key
-//       } else {
-//         columnKey = columns[columnIndex + 1].key;
-//         rowKey = focusedCurrentElement.rowKey;
-//       }
-//       break;
-//     case 'ArrowUp':
-//       rowKey = focusedCurrentElement.rowKey - 1;
-//       columnKey = columns[columnIndex].key;
-//       break;
-//     case 'ArrowDown':
-//       rowKey = focusedCurrentElement.rowKey + 1;
-//       columnKey = columns[columnIndex].key;
-//       break;
-//     case 'ArrowLeft':
-//       rowKey = focusedCurrentElement.rowKey;
-//       columnKey = columns[columnIndex - 1].key;
-//       break;
-//     case 'ArrowRight':
-//       rowKey = focusedCurrentElement.rowKey;
-//       columnKey = columns[columnIndex + 1].key;
-//       break;
-//   }
-
-//   return {
-//     rowKey,
-//     columnKey
-//   }
-// }
-
-// const focuseCell = (body, columns, focusedCell) => {
-//   const columnIndex = getIndex(columns, focusedCell, 'columnKey');
-//   body.rows[focusedCell.rowKey].childNodes[columnIndex].focus();
-// }
 
 const isEmpty = (cell) => {
   return !cell.rowKey && !cell.columnKey;
@@ -79,7 +33,7 @@ const getNextFocusedElement = (direction, shiftKey, focusedElement, tableColumns
   if(focusedElement.part !== 'body' && (direction === 'ArrowUp' || direction === 'ArrowDown')) {
     return;
   }
-  if(focusedElement.part === 'toolbar' && focusedElement.part === 'paging') {
+  if(focusedElement.part === 'toolbar' || focusedElement.part === 'paging') {
     if(focusedElement.index < elements[focusedElement.part]['none'].length - 1) {
       return {
         rowKey: focusedElement.rowKey,
@@ -97,7 +51,7 @@ const getNextFocusedElement = (direction, shiftKey, focusedElement, tableColumns
       const part = getNextPart(index, elements, tableBodyRows);
       return {
         rowKey: part,
-        columnKey: part === 'body' ? tableColumns[0].key  : 'none',
+        columnKey: (part !== 'toolbar' && part !== 'paging') ? tableColumns[0].key  : 'none',
         index: 0,
         part: part
       }      
@@ -112,7 +66,21 @@ const getNextFocusedElement = (direction, shiftKey, focusedElement, tableColumns
     const rowIndex = getIndex(tableBodyRows, focusedElement, 'rowKey');
     switch(direction) {
       case 'Tab':
-        if(columnIndex === tableColumns.length - 1) {
+        if(columnIndex === tableColumns.length - 1 && rowIndex === tableBodyRows.length - 1) {
+          let index = tableParts.findIndex((p) => {
+            return p === focusedElement.part;
+          });
+          if(index === tableParts.length - 1) {
+            return;
+          }
+          const part = getNextPart(index, elements, tableBodyRows);
+          return {
+            rowKey: part,
+            columnKey: (part !== 'toolbar' && part !== 'paging') ? tableColumns[0].key  : 'none',
+            index: 0,
+            part: part
+          }   
+        } else if(columnIndex === tableColumns.length - 1) {
           nextRowKey = tableBodyRows[rowIndex + 1].key;
           nextColumnKey = tableColumns[0].key
         } else {
@@ -229,11 +197,6 @@ const keyboadrNavigationProvider = (tableColumns, tableBodyRows, focusedElement,
 }
 
 class TableKeyboardNavigationBase extends React.PureComponent<any, any> {
-  properties: { body: any, columns: any[], headerElements: any[] } = {
-    body: undefined,
-    columns: [],
-    headerElements: []
-  }
   elements: any[][] = [];
   tableColumns = [];
   tableBodyRows = [];
@@ -243,11 +206,6 @@ class TableKeyboardNavigationBase extends React.PureComponent<any, any> {
     super(props);
 
     this.state = {
-      focusedCell: {
-        rowKey: undefined,
-        columnKey: undefined
-      },
-      focusedElementIndex: undefined,
       focusedElement: {
         rowKey: undefined,
         columnKey: undefined,
@@ -255,23 +213,32 @@ class TableKeyboardNavigationBase extends React.PureComponent<any, any> {
         part: undefined
       }
     }
-    this.updateFocusState = this.updateFocusState.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleMouseClick = this.handleMouseClick.bind(this);
   }
 
-  setRefInElements(ref, key1, key2) {
+  pushRef(ref, key1, key2) {
     if(!this.elements[key1]) {
       this.elements[key1] = [];
     }
     if(!this.elements[key1][key2]) {
       this.elements[key1][key2] = [];
     }
-    this.elements[key1][key2].push(ref);
-    const innerElements = ref.current.querySelectorAll('[tabIndex]');
+    if(key1 !== 'toolbar' && key1 !== 'paging') { 
+      this.elements[key1][key2].push(ref);
+    }
+    const innerElements = ref.current.querySelectorAll('[tabIndex], input');
     innerElements.forEach(el => {
       this.elements[key1][key2].push(el);
     })
+  }
+
+  setRefInElements(ref, key1, key2) {
+    if(key1.toString().includes(TABLE_BAND_TYPE.toString())) {
+      this.pushRef(ref, TABLE_HEADING_TYPE.toString(), key2);
+    } else {
+      this.pushRef(ref, key1, key2);
+    }
     console.log(this.elements)
   }
 
@@ -287,7 +254,6 @@ class TableKeyboardNavigationBase extends React.PureComponent<any, any> {
 
   handleMouseClick(event) {
     console.log(event)
-    console.log(this.elements)
   }
 
   handleKeyDown(event) {
@@ -297,39 +263,6 @@ class TableKeyboardNavigationBase extends React.PureComponent<any, any> {
     }
     keyboadrNavigationProvider(this.tableColumns, this.tableBodyRows, focusedElement, 
       this.elements, event.key, event.shiftKey, this.updateFocusedElement.bind(this));
-    // if(focusedElementIndex === undefined && !focusedCell.rowKey && !focusedCell.columnKey) {
-    //   if(this.properties.headerElements.length) {
-    //     if(event.key === 'Tab') {
-    //       this.updateFocusState(undefined, 0);
-    //       this.properties.headerElements[0].focus();
-    //     }
-    //   } else {
-    //     const nextFocusedCell = getFocusedCell(event.key, this.properties.columns, focusedCell);
-    //     this.updateFocusState(nextFocusedCell);
-    //     focuseCell(this.properties.body, this.properties.columns, nextFocusedCell);
-    //   }
-    // } else if(focusedElementIndex !== undefined && focusedElementIndex < this.properties.headerElements.length - 1) {
-    //   if(event.key === 'Tab') {
-    //     this.updateFocusState(undefined, focusedElementIndex + 1);
-    //     this.properties.headerElements[focusedElementIndex + 1].focus();
-    //   }
-    // } else {
-    //   const nextFocusedCell = getFocusedCell(event.key, this.properties.columns, focusedCell);
-    //   this.updateFocusState(nextFocusedCell);
-    //   focuseCell(this.properties.body, this.properties.columns, nextFocusedCell);
-    // }
-  }
-
-  updateFocusState(cell?, index?) {
-    if(cell) {
-      this.setState({
-        focusedCell: cell
-      })
-    } else {
-      this.setState({
-        focusedElementIndex: index
-      })
-    }
   }
 
   updateFocusedElement(element) {
@@ -346,19 +279,12 @@ class TableKeyboardNavigationBase extends React.PureComponent<any, any> {
         <Getter name="KeyboardNavigationEnabled" value={true} />
         <Getter name="setRefKeyboardNavigation" value={this.setRefInElements.bind(this)} />
         <TemplateConnector>
-        {({ refTable, tableColumns, tableBodyRows }) => {
-            if(refTable) {
-              console.log(tableBodyRows)
-              const table = refTable.querySelectorAll('table')[0];
-              this.properties.body = table.tBodies[0];
-              this.properties.headerElements = table.tHead.querySelectorAll('[tabIndex]');
-            }
+        {({ tableColumns, tableBodyRows }) => {
             this.tableColumns = tableColumns;
             this.tableBodyRows = tableBodyRows;
             return null;
           }}
           </TemplateConnector>
-        
       </Plugin>
     );
   }

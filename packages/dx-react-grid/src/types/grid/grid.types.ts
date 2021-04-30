@@ -6,7 +6,6 @@ export namespace Grid {
   export interface RootProps {
     /** A React node to be placed in the root layout. */
     children?: React.ReactNode;
-    refObj: any;
   }
 }
 

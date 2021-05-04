@@ -130,10 +130,10 @@ class TableBase extends React.PureComponent<TableProps> {
           {(params: TableNS.CellProps) => (
             <TemplateConnector>
               {(
-                { tableHeaderRows: headerRows, setRefKeyboardNavigation },
+                { tableHeaderRows: headerRows, keyboardNavigationParams },
               ) => (isHeaderStubTableCell(params.tableRow, headerRows)
-                ? <StubHeaderCell tabIndex={-1} setRefKeyboardNavigation={setRefKeyboardNavigation} {...params} />
-                : <StubCell tabIndex={-1} setRefKeyboardNavigation={setRefKeyboardNavigation} {...params} />
+                ? <StubHeaderCell {...keyboardNavigationParams} {...params} />
+                : <StubCell {...keyboardNavigationParams} {...params} />
               )}
             </TemplateConnector>
           )}
@@ -144,10 +144,9 @@ class TableBase extends React.PureComponent<TableProps> {
         >
           {(params: TableNS.CellProps) => (
             <TemplateConnector>
-              {({ getCellValue, setRefKeyboardNavigation }) => {
+              {({ getCellValue, keyboardNavigationParams }) => {
                 const columnName = params.tableColumn.column!.name;
                 const value = getCellValue(params.tableRow.row, columnName);
-                const tabIndex = -1;
                 return (
                   <TemplatePlaceholder
                     name="valueFormatter"
@@ -163,8 +162,7 @@ class TableBase extends React.PureComponent<TableProps> {
                         row={params.tableRow.row}
                         column={params.tableColumn.column!}
                         value={value}
-                        tabIndex={tabIndex}
-                        setRefKeyboardNavigation={setRefKeyboardNavigation}
+                        {...keyboardNavigationParams}
                       >
                         {content}
                       </Cell>

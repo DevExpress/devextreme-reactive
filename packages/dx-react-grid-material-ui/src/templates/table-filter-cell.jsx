@@ -3,6 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
+import { withKeyboardNavigation } from '../utils/with-keyboard-navigation';
 
 const styles = ({ spacing }) => ({
   cell: {
@@ -18,37 +19,23 @@ const styles = ({ spacing }) => ({
   },
 });
 
-class TableFilterCellBase extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.ref = React.createRef();
-  }
-
-  componentDidMount() {
-    const { setRefKeyboardNavigation, tableColumn, tableRow } = this.props;
-    setRefKeyboardNavigation && setRefKeyboardNavigation(this.ref, tableRow.key, tableColumn.key);
-  }
-
-  render() {
-    const { filter, getMessage, onFilter,
-      classes, children, className,
-      tableRow, tableColumn, column, filteringEnabled,
-      setRefKeyboardNavigation,
-      ...restProps } = this.props;
-    return (
-      <TableCell
-        className={classNames(classes.cell, className)}
-        ref={this.ref}
-        {...restProps}
-      >
-        <div className={classes.flexContainer}>
-          {children}
-        </div>
-      </TableCell>
-    )
-  }
-}
+const TableFilterCellBase = ({
+  filter, getMessage, onFilter,
+  classes, children, className,
+  tableRow, tableColumn, column, filteringEnabled, refComponent,
+  setRefForKeyboardNavigation,
+  ...restProps
+}) => (
+  <TableCell
+    className={classNames(classes.cell, className)}
+    ref={refComponent}
+    {...restProps}
+  >
+    <div className={classes.flexContainer}>
+      {children}
+    </div>
+  </TableCell>
+);
 
 TableFilterCellBase.propTypes = {
   filter: PropTypes.object,
@@ -74,4 +61,4 @@ TableFilterCellBase.defaultProps = {
   filteringEnabled: true,
 };
 
-export const TableFilterCell = withStyles(styles, { name: 'TableFilterCell' })(TableFilterCellBase);
+export const TableFilterCell = withKeyboardNavigation()(withStyles(styles, { name: 'TableFilterCell' })(TableFilterCellBase));

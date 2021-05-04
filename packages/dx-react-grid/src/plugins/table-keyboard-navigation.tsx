@@ -155,7 +155,7 @@ const getNextFocusedElement = (direction, shiftKey, focusedElement, tableColumns
   }
 }
 
-const keyboadrNavigationProvider = (tableColumns, tableBodyRows, focusedElement, elements, direction, shiftKey, updateFocusedElement) => {
+const keyboardNavigationProvider = (tableColumns, tableBodyRows, focusedElement, elements, direction, shiftKey, updateFocusedElement) => {
   let nextFocusedElement: {
     rowKey?: any,
     columnKey?: any,
@@ -233,13 +233,12 @@ class TableKeyboardNavigationBase extends React.PureComponent<any, any> {
     })
   }
 
-  setRefInElements(ref, key1, key2) {
+  setRef(ref, key1, key2) {
     if(key1.toString().includes(TABLE_BAND_TYPE.toString())) {
       this.pushRef(ref, TABLE_HEADING_TYPE.toString(), key2);
     } else {
       this.pushRef(ref, key1, key2);
     }
-    console.log(this.elements)
   }
 
   componentDidMount() {
@@ -261,7 +260,7 @@ class TableKeyboardNavigationBase extends React.PureComponent<any, any> {
     if(event.key === 'Tab') {
       event.preventDefault();
     }
-    keyboadrNavigationProvider(this.tableColumns, this.tableBodyRows, focusedElement, 
+    keyboardNavigationProvider(this.tableColumns, this.tableBodyRows, focusedElement, 
       this.elements, event.key, event.shiftKey, this.updateFocusedElement.bind(this));
   }
 
@@ -276,8 +275,10 @@ class TableKeyboardNavigationBase extends React.PureComponent<any, any> {
       <Plugin
         name="TableKeyboardNavigation"
       >
-        <Getter name="KeyboardNavigationEnabled" value={true} />
-        <Getter name="setRefKeyboardNavigation" value={this.setRefInElements.bind(this)} />
+        <Getter name="keyboardNavigationParams" value={{
+          tabIndex: -1,
+          setRefForKeyboardNavigation: this.setRef.bind(this)
+        }} />
         <TemplateConnector>
         {({ tableColumns, tableBodyRows }) => {
             this.tableColumns = tableColumns;

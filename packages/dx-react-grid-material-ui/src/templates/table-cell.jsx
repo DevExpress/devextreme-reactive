@@ -4,6 +4,7 @@ import classNames from 'clsx';
 import TableCellMUI from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 import { getBorder } from './utils';
+import { withKeyboardNavigation } from '../utils/with-keyboard-navigation';
 
 const styles = theme => ({
   cell: {
@@ -14,10 +15,6 @@ const styles = theme => ({
     },
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    '&:focus-visible': {
-      border: '1px solid blue',
-      outline: "none",
-    }
   },
   footer: {
     borderBottom: getBorder(theme),
@@ -33,40 +30,26 @@ const styles = theme => ({
   },
 });
 
-class TableCellBase extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.ref = React.createRef();
-  }
-
-  componentDidMount() {
-    const { setRefKeyboardNavigation, tableRow, tableColumn } = this.props;
-    setRefKeyboardNavigation && setRefKeyboardNavigation(this.ref, tableRow.key, tableColumn.key);
-  }
-
-  render() {
-    const { column, value, children, classes,
-      tableRow, tableColumn, row,
-      className, setRefKeyboardNavigation,
-      ...restProps } = this.props;
-    return (
-      <TableCellMUI
-          className={classNames({
-            [classes.cell]: true,
-            [classes.cellRightAlign]: tableColumn && tableColumn.align === 'right',
-            [classes.cellCenterAlign]: tableColumn && tableColumn.align === 'center',
-            [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
-          }, className)}
-          classes={{ footer: classes.footer }}
-          ref={this.ref}
-          {...restProps}
-        >
-          {children || value}
-      </TableCellMUI>
-    )
-  }
-}
+const TableCellBase = ({
+  column, value, children, classes,
+  tableRow, tableColumn, row,
+  className, refComponent, setRefForKeyboardNavigation,
+  ...restProps
+}) => (
+  <TableCellMUI
+      className={classNames({
+        [classes.cell]: true,
+        [classes.cellRightAlign]: tableColumn && tableColumn.align === 'right',
+        [classes.cellCenterAlign]: tableColumn && tableColumn.align === 'center',
+        [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
+      }, className)}
+      classes={{ footer: classes.footer }}
+      ref={refComponent}
+      {...restProps}
+    >
+      {children || value}
+  </TableCellMUI>
+);
 
 TableCellBase.propTypes = {
   value: PropTypes.any,
@@ -77,7 +60,6 @@ TableCellBase.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   className: PropTypes.string,
-  setRefKeyboardNavigation: PropTypes.func,
 };
 
 TableCellBase.defaultProps = {
@@ -90,4 +72,4 @@ TableCellBase.defaultProps = {
   className: undefined,
 };
 
-export const TableCell = withStyles(styles, { name: 'TableCell' })(TableCellBase);
+export const TableCell = withKeyboardNavigation()(withStyles(styles, { name: 'TableCell' })(TableCellBase));

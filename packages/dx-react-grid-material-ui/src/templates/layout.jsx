@@ -11,11 +11,10 @@ const styles = {
 };
 
 const RootBase = ({
-  children, classes, className, refObj, ...restProps
+  children, classes, className, ...restProps
 }) => (
   <div
     className={classNames(classes.root, className)}
-    ref={refObj}
     {...restProps}
   >
     {children}

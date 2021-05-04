@@ -4,6 +4,7 @@ import classNames from 'clsx';
 import ToolbarMUI from '@material-ui/core/Toolbar';
 import { withStyles } from '@material-ui/core/styles';
 import { getBorder } from '../utils';
+import { withKeyboardNavigation } from '../../utils/with-keyboard-navigation';
 
 const styles = theme => ({
   toolbar: {
@@ -12,33 +13,18 @@ const styles = theme => ({
   },
 });
 
-class ToolbarBase extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.ref = React.createRef();
-  }
-
-  componentDidMount() {
-    const { setRefKeyboardNavigation } = this.props;
-    setRefKeyboardNavigation && setRefKeyboardNavigation(this.ref, 'toolbar', 'none');
-  }
-
-  render() {
-    const {
-      children, classes, className, style, setRefKeyboardNavigation, ...restProps
-    } = this.props;
-    return (
-      <ToolbarMUI
-        style={style}
-        className={classNames(classes.toolbar, className)}
-        ref={this.ref}
-        {...restProps}
-      >
-        {children}
-      </ToolbarMUI>
-    )
-  }
-}
+const ToolbarBase = ({
+  children, classes, className, style, refComponent, setRefForKeyboardNavigation, ...restProps
+}) => (
+  <ToolbarMUI
+    style={style}
+    className={classNames(classes.toolbar, className)}
+    ref={refComponent}
+    {...restProps}
+  >
+    {children}
+  </ToolbarMUI>
+);
 
 ToolbarBase.propTypes = {
   children: PropTypes.node.isRequired,
@@ -52,4 +38,4 @@ ToolbarBase.defaultProps = {
   style: null,
 };
 
-export const Toolbar = withStyles(styles, { name: 'Toolbar' })(ToolbarBase);
+export const Toolbar = withKeyboardNavigation('toolbar', 'none', true)(withStyles(styles, { name: 'Toolbar' })(ToolbarBase));

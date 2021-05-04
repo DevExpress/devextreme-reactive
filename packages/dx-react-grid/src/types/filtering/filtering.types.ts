@@ -14,8 +14,6 @@ export namespace TableFilterRow {
     filteringEnabled: boolean;
     /** Returns the filter editor placeholder text. Available in the "\@devexpress/dx-react-grid-material-ui" package. */
     getMessage: (messageKey: string) => string;
-    tabIndex?: number;
-    setRefKeyboardNavigation?: any;
   }
 
   /** Describes properties passed to a component that renders a filter selector. */

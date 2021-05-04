@@ -6,6 +6,7 @@ import { DragSource } from '@devexpress/dx-react-core';
 
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
+import { withKeyboardNavigation } from '../utils/with-keyboard-navigation';
 
 import { ResizingControl } from './table-header-cell/resizing-control';
 
@@ -31,9 +32,6 @@ const styles = theme => ({
       width: theme.spacing(1),
       right: '1px',
     },
-    '&:focus-visible': {
-      border: '1px solid blue'
-    }
   },
   resizeHandle: {},
   resizeHandleLine: {
@@ -102,10 +100,9 @@ class TableHeaderCellBase extends React.PureComponent {
       dragging: false,
     };
     this.dragRef = React.createRef();
-    this.cellRef = React.createRef();
     this.getWidthGetter = () => {
-      const { getCellWidth } = this.props;
-      const node = this.cellRef.current;
+      const { getCellWidth, refComponent } = this.props;
+      const node = refComponent.current;
       return node && getCellWidth(() => {
         const { width } = node.getBoundingClientRect();
         return width;
@@ -123,9 +120,7 @@ class TableHeaderCellBase extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { setRefKeyboardNavigation, tableColumn, tableRow } = this.props;
     this.getWidthGetter();
-    setRefKeyboardNavigation && setRefKeyboardNavigation(this.cellRef, tableRow.key, tableColumn.key);
   }
 
   render() {
@@ -133,7 +128,7 @@ class TableHeaderCellBase extends React.PureComponent {
       style, column, tableColumn,
       draggingEnabled, resizingEnabled,
       onWidthChange, onWidthDraft, onWidthDraftCancel, getCellWidth,
-      classes, tableRow, className, children, setRefKeyboardNavigation,
+      classes, tableRow, className, children, refComponent, setRefForKeyboardNavigation,
       ...restProps
     } = this.props;
 
@@ -153,7 +148,7 @@ class TableHeaderCellBase extends React.PureComponent {
       <TableCell
         style={style}
         className={tableCellClasses}
-        ref={this.cellRef}
+        ref={refComponent}
         {...restProps}
       >
         <div className={classes.container}>
@@ -215,4 +210,4 @@ TableHeaderCellBase.defaultProps = {
   getCellWidth: () => {},
 };
 
-export const TableHeaderCell = withStyles(styles, { name: 'TableHeaderCell' })(TableHeaderCellBase);
+export const TableHeaderCell = withKeyboardNavigation()(withStyles(styles, { name: 'TableHeaderCell' })(TableHeaderCellBase));

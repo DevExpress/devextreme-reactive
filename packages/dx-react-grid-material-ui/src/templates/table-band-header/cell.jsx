@@ -4,6 +4,7 @@ import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 import { getBorder } from '../utils';
+import { withKeyboardNavigation } from '../../utils/with-keyboard-navigation';
 
 const styles = theme => ({
   cell: {
@@ -16,10 +17,6 @@ const styles = theme => ({
       paddingRight: theme.spacing(3),
       borderRight: 0,
     },
-    '&:focus-visible': {
-      border: '1px solid blue',
-      outline: "none",
-    },
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
@@ -31,35 +28,22 @@ const styles = theme => ({
   },
 });
 
-class CellBase extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.ref = React.createRef();
-  }
-
-  componentDidMount() {
-    const { setRefKeyboardNavigation, tableColumn, tableRow } = this.props;
-    setRefKeyboardNavigation && setRefKeyboardNavigation(this.ref, tableRow.key, tableColumn.key);
-  }
-
-  render() {
-    const { column, value, children, classes, tableRow, tableColumn, row, className, beforeBorder, setRefKeyboardNavigation,
-      ...restProps } = this.props;
-    return (
-      <TableCell
-        className={classNames({
-          [classes.cell]: true,
-          [classes.beforeBorder]: beforeBorder,
-        }, className)}
-        {...restProps}
-        ref={this.ref}
-      >
-        {children}
-      </TableCell>
-    )
-  }
-}
+const CellBase = ({
+  column, value, children, classes, tableRow, tableColumn, row, className, beforeBorder, refComponent,
+  setRefForKeyboardNavigation,
+  ...restProps
+}) => (
+  <TableCell
+    className={classNames({
+      [classes.cell]: true,
+      [classes.beforeBorder]: beforeBorder,
+    }, className)}
+    {...restProps}
+    ref={refComponent}
+  >
+    {children}
+  </TableCell>
+);
 
 CellBase.propTypes = {
   value: PropTypes.any,
@@ -84,4 +68,4 @@ CellBase.defaultProps = {
   beforeBorder: false,
 };
 
-export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);
+export const Cell = withKeyboardNavigation()(withStyles(styles, { name: 'Cell' })(CellBase));

@@ -75,7 +75,7 @@ class TableTreeColumnBase extends React.PureComponent<TableTreeColumnProps> {
             <TemplateConnector>
               {({
                 getCollapsedRows, expandedRowIds, selection, isTreeRowLeaf, getTreeRowLevel,
-                getCellValue, setRefKeyboardNavigation
+                getCellValue, keyboardNavigationParams
               }, {
                 toggleRowExpanded, toggleSelection,
               }) => {
@@ -98,8 +98,7 @@ class TableTreeColumnBase extends React.PureComponent<TableTreeColumnProps> {
                         row={row}
                         column={params.tableColumn.column!}
                         value={value}
-                        tabIndex={-1}
-                        setRefKeyboardNavigation={setRefKeyboardNavigation}
+                        {...keyboardNavigationParams}
                       >
                         <Indent
                           level={getTreeRowLevel(row)}

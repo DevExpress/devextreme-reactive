@@ -4,6 +4,7 @@ import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 import { getBorder } from './utils';
+import { withKeyboardNavigation } from '../utils/with-keyboard-navigation';
 
 const styles = theme => ({
   cell: {
@@ -14,34 +15,22 @@ const styles = theme => ({
   },
 });
 
-class TableStubCellBase extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.ref = React.createRef();
-  }
-
-  componentDidMount() {
-    const { setRefKeyboardNavigation, tableRow, tableColumn } = this.props;
-    setRefKeyboardNavigation && setRefKeyboardNavigation(this.ref, tableRow.key, tableColumn.key);
-  }
-
-  render() {
-    const { classes,
-      className,
-      tableRow,
-      tableColumn, setRefKeyboardNavigation,
-      ...restProps } = this.props;
-    return (
-      <TableCell
-        className={classNames(classes.cell, className)}
-        classes={{ footer: classes.footer }}
-        ref={this.ref}
-        {...restProps}
-      />
-    )
-  }
-}
+const TableStubCellBase = ({
+  classes,
+  className,
+  tableRow,
+  tableColumn,
+  refComponent,
+  setRefForKeyboardNavigation,
+  ...restProps
+}) => (
+  <TableCell
+    className={classNames(classes.cell, className)}
+    classes={{ footer: classes.footer }}
+    ref={refComponent}
+    {...restProps}
+  />
+);
 
 TableStubCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -56,4 +45,4 @@ TableStubCellBase.defaultProps = {
   tableColumn: undefined,
 };
 
-export const TableStubCell = withStyles(styles, { name: 'TableStubCell' })(TableStubCellBase);
+export const TableStubCell = withKeyboardNavigation()(withStyles(styles, { name: 'TableStubCell' })(TableStubCellBase));

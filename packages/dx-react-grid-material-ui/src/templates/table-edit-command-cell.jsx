@@ -4,6 +4,7 @@ import classNames from 'clsx';
 import Button from '@material-ui/core/Button';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
+import { withKeyboardNavigation } from '../utils/with-keyboard-navigation';
 
 const styles = theme => ({
   button: {
@@ -14,19 +15,11 @@ const styles = theme => ({
     whiteSpace: 'nowrap',
     textAlign: 'center',
     padding: theme.spacing(0, 2, 0, 3),
-    '&:focus-visible': {
-      border: '1px solid blue',
-      outline: "none",
-    },
   },
   cell: {
     whiteSpace: 'nowrap',
     textAlign: 'center',
     padding: theme.spacing(0, 2, 0, 3),
-    '&:focus-visible': {
-      border: '1px solid blue',
-      outline: "none",
-    },
   },
   alignWithRowSpan: {
     verticalAlign: 'bottom',
@@ -68,43 +61,28 @@ CommandButtonBase.defaultProps = {
 
 export const CommandButton = withEditColumnStyles(CommandButtonBase);
 
-class EditCommandHeadingCellBase extends React.PureComponent {
-  constructor(props) {
-    super(props)
-
-    this.ref = React.createRef();
-  }
-
-  componentDidMount() {
-    const { setRefKeyboardNavigation, tableColumn, tableRow } = this.props;
-    setRefKeyboardNavigation && setRefKeyboardNavigation(this.ref, tableRow.key, tableColumn.key);
-  }
-
-  render() {
-    const {
-      children,
-      classes,
-      className,
-      tableRow, tableColumn,
-      rowSpan,
-      setRefKeyboardNavigation,
-      ...restProps
-    } = this.props;
-    return (
-      <TableCell
-        className={classNames({
-          [classes.headingCell]: true,
-          [classes.alignWithRowSpan]: rowSpan > 1,
-        }, className)}
-        rowSpan={rowSpan}
-        ref={this.ref}
-        {...restProps}
-      >
-        {children}
-      </TableCell>
-    )
-  }
-}
+const EditCommandHeadingCellBase = ({
+  children,
+  classes,
+  className,
+  tableRow, tableColumn,
+  rowSpan,
+  refComponent,
+  setRefForKeyboardNavigation,
+  ...restProps
+}) => (
+  <TableCell
+    className={classNames({
+      [classes.headingCell]: true,
+      [classes.alignWithRowSpan]: rowSpan > 1,
+    }, className)}
+    rowSpan={rowSpan}
+    ref={refComponent}
+    {...restProps}
+  >
+    {children}
+  </TableCell>
+);
 
 EditCommandHeadingCellBase.propTypes = {
   children: PropTypes.node,
@@ -123,36 +101,22 @@ EditCommandHeadingCellBase.defaultProps = {
   rowSpan: undefined,
 };
 
-export const EditCommandHeadingCell = withEditColumnStyles(EditCommandHeadingCellBase);
+export const EditCommandHeadingCell = withKeyboardNavigation()(withEditColumnStyles(EditCommandHeadingCellBase));
 
-class EditCommandCellBase extends React.PureComponent {
-  constructor(props) {
-    super(props)
-    this.ref = React.createRef();
-  }
-
-  componentDidMount() {
-    const { setRefKeyboardNavigation, tableColumn, tableRow } = this.props;
-    setRefKeyboardNavigation && setRefKeyboardNavigation(this.ref, tableRow.key, tableColumn.key);
-  }
-
-  render() {
-    const {
-      tableRow, tableColumn, row, children,
-      classes, className, setRefKeyboardNavigation,
-      ...restProps
-    } = this.props;
-    return (
-      <TableCell
-        className={classNames(classes.cell, className)}
-        ref={this.ref}
-        {...restProps}
-      >
-        {children}
-      </TableCell>
-    )
-  }
-}
+const EditCommandCellBase = ({
+  tableRow, tableColumn, row, children,
+  classes, className, refComponent,
+  setRefForKeyboardNavigation,
+  ...restProps
+}) => (
+  <TableCell
+    className={classNames(classes.cell, className)}
+    ref={refComponent}
+    {...restProps}
+  >
+    {children}
+  </TableCell>
+);
 
 EditCommandCellBase.propTypes = {
   children: PropTypes.node,
@@ -171,4 +135,4 @@ EditCommandCellBase.defaultProps = {
   row: undefined,
 };
 
-export const EditCommandCell = withEditColumnStyles(EditCommandCellBase);
+export const EditCommandCell = withKeyboardNavigation()(withEditColumnStyles(EditCommandCellBase));

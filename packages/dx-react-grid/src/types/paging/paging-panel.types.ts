@@ -20,7 +20,8 @@ export namespace PagingPanel {
     getMessage: (
       messageKey: string, parameters?: { from: number, to: number, count: number },
     ) => string;
-    setRefKeyboardNavigation: any;
+    /** @internal */
+    setRefForKeyboardNavigation: (ref: any, key1: string, key2: string) => void;
   }
 
   export interface LocalizationMessages {

@@ -73,7 +73,7 @@ class TableEditColumnBase extends React.PureComponent<TableEditColumnProps> {
           {(params: TableCellProps) => (
             <TemplateConnector>
               {(getters, actions) => (
-                <HeaderCell {...params} tabIndex={-1} setRefKeyboardNavigation={getters.setRefKeyboardNavigation}>
+                <HeaderCell {...params} {...getters.keyboardNavigationParams}>
                   {showAddCommand && (
                     <Command
                       id="add"
@@ -99,13 +99,11 @@ class TableEditColumnBase extends React.PureComponent<TableEditColumnProps> {
                 const isNew = isAddedTableRow(params.tableRow);
                 const isEditing = isEdit || isNew;
                 const rowIds = [params.tableRow.rowId];
-                const tabIndex = -1;
                 return (
                   <Cell
                     {...params}
                     row={params.tableRow.row}
-                    tabIndex={tabIndex}
-                    setRefKeyboardNavigation={getters.setRefKeyboardNavigation}
+                    {...getters.keyboardNavigationParams}
                   >
                     {showEditCommand && !isEditing && (
                       <Command

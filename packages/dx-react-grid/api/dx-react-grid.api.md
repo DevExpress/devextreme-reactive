@@ -1225,6 +1225,9 @@ export interface TableInlineCellEditingProps {
 }
 
 // @public (undocumented)
+export const TableKeyboardNavigation: React_2.ComponentType<any>;
+
+// @public (undocumented)
 export interface TableProps {
   bodyComponent: React_2.ComponentType<object>;
   cellComponent: React_2.ComponentType<Table.DataCellProps>;

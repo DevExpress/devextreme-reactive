@@ -4,6 +4,7 @@ import classNames from 'clsx';
 import Input from '@material-ui/core/Input';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
+import { withKeyboardNavigation } from '../utils/with-keyboard-navigation';
 
 const styles = theme => ({
   cell: {
@@ -39,40 +40,28 @@ const styles = theme => ({
   },
 });
 
-class EditCellBase extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.ref = React.createRef();
-  }
-
-  componentDidMount() {
-    // const { setRefKeyboardNavigation, tableColumn } = this.props;
-    // setRefKeyboardNavigation && setRefKeyboardNavigation(this.ref, 'head_row', tableColumn.key);
-  }
-
-  render() {
-    const { 
-      column, value, onValueChange, style, classes, children,
-      row, tableRow, tableColumn, editingEnabled, className,
-      autoFocus, onBlur, onFocus, onKeyDown, setRefKeyboardNavigation, ...restProps
-    } = this.props;
-    const inputClasses = classNames({
-      [classes.inputRight]: tableColumn && tableColumn.align === 'right',
-      [classes.inputCenter]: tableColumn && tableColumn.align === 'center',
-    });
-    const patchedChildren = children
-      ? React.cloneElement(children, {
-        autoFocus,
-        onBlur,
-        onFocus,
-        onKeyDown,
-      })
-      : children;
-    return (
-      <TableCell
+const EditCellBase = ({
+  column, value, onValueChange, style, classes, children,
+  row, tableRow, tableColumn, editingEnabled, className,
+  autoFocus, onBlur, onFocus, onKeyDown, refComponent, setRefForKeyboardNavigation, ...restProps
+}) => {
+  const inputClasses = classNames({
+    [classes.inputRight]: tableColumn && tableColumn.align === 'right',
+    [classes.inputCenter]: tableColumn && tableColumn.align === 'center',
+  });
+  const patchedChildren = children
+    ? React.cloneElement(children, {
+      autoFocus,
+      onBlur,
+      onFocus,
+      onKeyDown,
+    })
+    : children;
+  return (
+    <TableCell
       className={classNames(classes.cell, className)}
       style={style}
+      ref={refComponent}
       {...restProps}
     >
       {patchedChildren || (
@@ -93,9 +82,8 @@ class EditCellBase extends React.PureComponent {
         />
       )}
     </TableCell>
-    )
-  }
-}
+  );
+};
 
 EditCellBase.propTypes = {
   column: PropTypes.object,
@@ -132,4 +120,4 @@ EditCellBase.defaultProps = {
   onKeyDown: () => {},
 };
 
-export const EditCell = withStyles(styles, { name: 'EditCell' })(EditCellBase);
+export const EditCell = withKeyboardNavigation()(withStyles(styles, { name: 'EditCell' })(EditCellBase));

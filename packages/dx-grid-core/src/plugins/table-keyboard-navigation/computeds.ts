@@ -46,6 +46,7 @@ const getElementNextPart: getElementPrevNextPartFn = (focusedElement, elements, 
 }
 
 const getElementPrevPart: getElementPrevNextPartFn = (focusedElement, elements, tableBodyRows, tableColumns) => {
+  const lastBodyRowIndex = tableBodyRows.length - 1;
   let index = tableParts.findIndex((p) => {
     return p === focusedElement.part;
   });
@@ -56,7 +57,7 @@ const getElementPrevPart: getElementPrevNextPartFn = (focusedElement, elements, 
   while (index > 0) {
     index = index - 1;
     const p = tableParts[index];
-    if(p === 'body' && elements[tableBodyRows[tableBodyRows.length - 1].key]) {
+    if(p === 'body' && elements[tableBodyRows[lastBodyRowIndex].key]) {
       part = 'body';
       break;
     }
@@ -68,10 +69,12 @@ const getElementPrevPart: getElementPrevNextPartFn = (focusedElement, elements, 
   if(!part) {
     return;
   }
+  const rowKey = part === 'body' ? tableBodyRows[lastBodyRowIndex].key : part;
+  const columnKey = isTablePart(part) ? tableColumns[tableColumns.length - 1].key  : 'none';
   return {
-    rowKey: part === 'body' ? tableBodyRows[tableBodyRows.length - 1].key : part,
-    columnKey: isTablePart(part) ? tableColumns[0].key  : 'none',
-    index: 0,
+    rowKey,
+    columnKey,
+    index: elements[rowKey][columnKey].length - 1,
     part: part
   }
 }
@@ -100,7 +103,8 @@ const getPrevElement: GetElementFn = (focusedElement, tableBodyRows, tableColumn
       return getElementPrevPart(focusedElement, elements, tableBodyRows, tableColumns);
     } else if(columnIndex === 0) {
       prevRowKey = tableBodyRows[rowIndex - 1].key;
-      prevColumnKey = tableColumns[tableColumns.length - 1].key
+      prevColumnKey = tableColumns[tableColumns.length - 1].key;
+      prevIndex = elements[prevRowKey][prevColumnKey].length - 1;
     } else {
       if(focusedElement.index > 0) {
         prevColumnKey = focusedElement.columnKey;
@@ -109,6 +113,7 @@ const getPrevElement: GetElementFn = (focusedElement, tableBodyRows, tableColumn
       } else {
         prevColumnKey = tableColumns[columnIndex - 1].key;
         prevRowKey = focusedElement.rowKey;
+        prevIndex = elements[prevRowKey][prevColumnKey].length - 1;
       }
     }
 
@@ -126,10 +131,12 @@ const getPrevElement: GetElementFn = (focusedElement, tableBodyRows, tableColumn
     if(columnIndex === 0) {
       return getElementPrevPart(focusedElement, elements, tableBodyRows, tableColumns);  
     }
+    const rowKey = focusedElement.part;
+    const columnKey = tableColumns[columnIndex - 1].key;
     return {
-      rowKey: focusedElement.part,
-      columnKey: tableColumns[columnIndex - 1].key,
-      index: 0,
+      rowKey,
+      columnKey,
+      index: elements[rowKey][columnKey].length - 1,
       part: focusedElement.part
     }
   }
@@ -197,8 +204,8 @@ const getCellFromTop: GetElementFn = (focusedElement, tableBodyRows, tableColumn
   let prevRowKey;
   if(focusedElement.part === 'body') {
     const rowIndex = getIndex(tableBodyRows, focusedElement, 'rowKey');
-    prevRowKey = tableBodyRows[rowIndex - 1].key;
-    if(prevRowKey) {
+    if(rowIndex > 0) {
+      prevRowKey = tableBodyRows[rowIndex - 1].key;
       return {
         rowKey: prevRowKey,
         columnKey: focusedElement.columnKey,
@@ -208,7 +215,7 @@ const getCellFromTop: GetElementFn = (focusedElement, tableBodyRows, tableColumn
     }
   }
   const firstElementPrevPart = getElementPrevPart(focusedElement, elements, tableBodyRows, tableColumns);
-  if(!firstElementPrevPart) {
+  if(!firstElementPrevPart || !isTablePart(firstElementPrevPart.part)) {
     return;
   }
 
@@ -227,8 +234,8 @@ const getCellFromBottom: GetElementFn = (focusedElement, tableBodyRows, tableCol
   let nextRowKey;
   if(focusedElement.part === 'body') {
     const rowIndex = getIndex(tableBodyRows, focusedElement, 'rowKey');
-    nextRowKey = tableBodyRows[rowIndex + 1].key;
-    if(nextRowKey) {
+    if(tableBodyRows[rowIndex + 1]) {
+      nextRowKey = tableBodyRows[rowIndex + 1].key;
       return {
         rowKey: nextRowKey,
         columnKey: focusedElement.columnKey,
@@ -239,7 +246,7 @@ const getCellFromBottom: GetElementFn = (focusedElement, tableBodyRows, tableCol
   }
 
   const firstElementNextPart = getElementNextPart(focusedElement, elements, tableBodyRows, tableColumns)
-  if(!firstElementNextPart) {
+  if(!firstElementNextPart || !isTablePart(firstElementNextPart.part)) {
     return;
   }
 
@@ -256,11 +263,14 @@ const getCellFromLeft = (focusedElement: FocusedElement, tableColumns: TableColu
     return;
   }
   const columnIndex = getIndex(tableColumns, focusedElement, 'columnKey');
+  if(!tableColumns[columnIndex - 1]) {
+    return;
+  }
   const nextColumnKey = tableColumns[columnIndex - 1].key;
 
   return {
     rowKey: focusedElement.rowKey,
-    columnKey: nextColumnKey || focusedElement.columnKey,
+    columnKey: nextColumnKey,
     index: 0,
     part: focusedElement.part,
   }
@@ -271,11 +281,14 @@ const getCellFromRight = (focusedElement: FocusedElement, tableColumns: TableCol
     return;
   }
   const columnIndex = getIndex(tableColumns, focusedElement, 'columnKey');
+  if(!tableColumns[columnIndex + 1]) {
+    return;
+  }
   const nextColumnKey = tableColumns[columnIndex + 1].key;
 
   return {
     rowKey: focusedElement.rowKey,
-    columnKey: nextColumnKey|| focusedElement.columnKey,
+    columnKey: nextColumnKey,
     index: 0,
     part: focusedElement.part,
   }
@@ -315,7 +328,7 @@ export const getNextFocusedElement: GetNextFocusedElementFn = (tableColumns, tab
       }
       return elements[p];
     });
-    if(!part) {
+    if(!part || key !== 'Tab') {
         return;
     }
     return {

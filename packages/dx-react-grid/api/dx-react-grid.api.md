@@ -251,6 +251,9 @@ export interface EditingStateProps {
 }
 
 // @public (undocumented)
+export type Elements = string[][];
+
+// @public (undocumented)
 export const ExportPanel: React_2.ComponentType<any>;
 
 // @public (undocumented)
@@ -328,10 +331,34 @@ export interface FilteringStateProps {
 export type FilterOperation = string;
 
 // @public (undocumented)
+export interface FocusedElement {
+  // (undocumented)
+  columnKey: string;
+  // (undocumented)
+  index: number;
+  // (undocumented)
+  part: string;
+  // (undocumented)
+  rowKey: string;
+}
+
+// @public (undocumented)
 export type GetCellValueFn = (row: any, columnName: string) => any;
 
 // @public (undocumented)
+export type GetElementFn = (focusedElement: FocusedElement, tableBodyRows: TableRow[], tableColumns: TableColumn[], elements: Elements) => FocusedElement | undefined;
+
+// @public (undocumented)
+export type getElementPrevNextPartFn = (focusedElement: FocusedElement, elements: Elements, tableBodyRows: TableRow[], tableColumns: TableColumn[]) => FocusedElement | undefined;
+
+// @public (undocumented)
+export type GetFocusedElementFn = (key: string, shiftKey: boolean, focusedElement: FocusedElement, tableColumns: TableColumn[], tableBodyRows: TableRow[], elements: Elements) => FocusedElement | undefined;
+
+// @public (undocumented)
 export type GetMessageFn = (messageKey: string, params?: object) => string;
+
+// @public (undocumented)
+export type GetNextFocusedElementFn = (tableColumns: TableColumn[], tableBodyRows: TableRow[], focusedElement: FocusedElement, elements: Elements, key: string, shiftKey: boolean) => FocusedElement | undefined;
 
 // @public
 export const Grid: React_2.ComponentType<GridProps>;

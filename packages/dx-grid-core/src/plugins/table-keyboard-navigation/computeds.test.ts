@@ -253,45 +253,7 @@ describe('Focused element in the header', () => {
             part: header,
         };
         const element = getNextFocusedElement(tableColumns, tableBodyRows, focusedElement, elements, 'ArrowLeft', shiftKey);
-        expect(element).toEqual({
-            rowKey: header,
-            columnKey: 'test_column_1',
-            index: 0,
-            part: header
-        });
-    });
-
-    it('should return next cell, arrow right key pressed', () => {
-        const focusedElement = {
-            rowKey: header,
-            columnKey: 'test_column_2',
-            index: 0,
-            part: header,
-        };
-        const element = getNextFocusedElement(tableColumns, tableBodyRows, focusedElement, elements, 'ArrowRight', shiftKey);
-        expect(element).toEqual({
-            rowKey: header,
-            columnKey: 'test_column_3',
-            index: 0,
-            part: header
-        });
-    });
-
-    it('should return cell in the filter, arrow down key pressed', () => {
-        const focusedElement = {
-            rowKey: header,
-            columnKey: 'test_column_2',
-            index: 1,
-            part: header,
-        };
-        const filter = TABLE_FILTER_TYPE.toString();
-        const element = getNextFocusedElement(tableColumns, tableBodyRows, focusedElement, elements, 'ArrowDown', shiftKey);
-        expect(element).toEqual({
-            rowKey: filter,
-            columnKey: 'test_column_2',
-            index: 0,
-            part: filter
-        });
+        expect(element).toEqual(undefined);
     });
 
     it('should not return cell, arrow up key pressed', () => {
@@ -483,7 +445,7 @@ describe('Focused element in the body of table', () => {
         });
     });
 
-    it('should return cell over current cell from filter, arrow up pressed', () => {
+    it('should not return cell from filter over current cell, arrow up pressed', () => {
         const focusedElement = {
             rowKey: 'test_row_1',
             columnKey: 'test_column_2',
@@ -492,12 +454,7 @@ describe('Focused element in the body of table', () => {
         };
         const filter = TABLE_FILTER_TYPE.toString();
         const element = getNextFocusedElement(tableColumns, tableBodyRows, focusedElement, elements, 'ArrowUp', shiftKey);
-        expect(element).toEqual({
-            rowKey: filter,
-            columnKey: 'test_column_2',
-            index: 0,
-            part: filter
-        });
+        expect(element).toEqual(undefined);
     });
 
     it('should not return element under current cell, under is paging, arrow down pressed', () => {

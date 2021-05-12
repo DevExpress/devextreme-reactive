@@ -197,101 +197,30 @@ const getNextElement: GetElementFn = (focusedElement, tableBodyRows, tableColumn
   }
 }
 
-const getCellFromTop: GetElementFn = (focusedElement, tableBodyRows, tableColumns, elements) => {
-  if(!isTablePart(focusedElement.part)) {
+const getCellTopBottom = (direction: number, focusedElement: FocusedElement, tableBodyRows: TableRow[]): FocusedElement | undefined => {
+  if(focusedElement.part !== 'body') {
     return;
   }
-  let prevRowKey;
-  if(focusedElement.part === 'body') {
-    const rowIndex = getIndex(tableBodyRows, focusedElement, 'rowKey');
-    if(rowIndex > 0) {
-      prevRowKey = tableBodyRows[rowIndex - 1].key;
-      return {
-        rowKey: prevRowKey,
-        columnKey: focusedElement.columnKey,
-        index: 0,
-        part: focusedElement.part,
-      }
-    }
-  }
-  const firstElementPrevPart = getElementPrevPart(focusedElement, elements, tableBodyRows, tableColumns);
-  if(!firstElementPrevPart || !isTablePart(firstElementPrevPart.part)) {
-    return;
-  }
-
-  return {
-    rowKey: firstElementPrevPart.rowKey,
+  const rowIndex = getIndex(tableBodyRows, focusedElement, 'rowKey');
+  return tableBodyRows[rowIndex + direction] ? {
+    rowKey: tableBodyRows[rowIndex + direction].key,
     columnKey: focusedElement.columnKey,
     index: 0,
-    part: firstElementPrevPart.part,
-  }
+    part: focusedElement.part,
+  } : undefined;
 }
 
-const getCellFromBottom: GetElementFn = (focusedElement, tableBodyRows, tableColumns, elements) => {
-  if(!isTablePart(focusedElement.part)) {
-    return;
-  }
-  let nextRowKey;
-  if(focusedElement.part === 'body') {
-    const rowIndex = getIndex(tableBodyRows, focusedElement, 'rowKey');
-    if(tableBodyRows[rowIndex + 1]) {
-      nextRowKey = tableBodyRows[rowIndex + 1].key;
-      return {
-        rowKey: nextRowKey,
-        columnKey: focusedElement.columnKey,
-        index: 0,
-        part: focusedElement.part,
-      }
-    }
-  }
-
-  const firstElementNextPart = getElementNextPart(focusedElement, elements, tableBodyRows, tableColumns)
-  if(!firstElementNextPart || !isTablePart(firstElementNextPart.part)) {
-    return;
-  }
-
-  return {
-    rowKey: firstElementNextPart.rowKey,
-    columnKey: focusedElement.columnKey,
-    index: 0,
-    part: firstElementNextPart.part,
-  }
-}
-
-const getCellFromLeft = (focusedElement: FocusedElement, tableColumns: TableColumn[]): FocusedElement | undefined => {
-  if(!isTablePart(focusedElement.part)) {
+const getCellRightLeft = (direction: number, focusedElement: FocusedElement, tableColumns: TableColumn[]): FocusedElement | undefined => {
+  if(focusedElement.part !== 'body') {
     return;
   }
   const columnIndex = getIndex(tableColumns, focusedElement, 'columnKey');
-  if(!tableColumns[columnIndex - 1]) {
-    return;
-  }
-  const nextColumnKey = tableColumns[columnIndex - 1].key;
-
-  return {
+  return tableColumns[columnIndex + direction] ? {
     rowKey: focusedElement.rowKey,
-    columnKey: nextColumnKey,
+    columnKey: tableColumns[columnIndex + direction].key,
     index: 0,
     part: focusedElement.part,
-  }
-}
-
-const getCellFromRight = (focusedElement: FocusedElement, tableColumns: TableColumn[]): FocusedElement | undefined => {
-  if(!isTablePart(focusedElement.part)) {
-    return;
-  }
-  const columnIndex = getIndex(tableColumns, focusedElement, 'columnKey');
-  if(!tableColumns[columnIndex + 1]) {
-    return;
-  }
-  const nextColumnKey = tableColumns[columnIndex + 1].key;
-
-  return {
-    rowKey: focusedElement.rowKey,
-    columnKey: nextColumnKey,
-    index: 0,
-    part: focusedElement.part,
-  }
+  } : undefined;
 }
 
 const getFocusedElement: GetFocusedElementFn = (key, shiftKey, focusedElement, tableColumns, tableBodyRows, elements) => {
@@ -305,16 +234,16 @@ const getFocusedElement: GetFocusedElementFn = (key, shiftKey, focusedElement, t
       }
       break;
     case 'ArrowUp':
-      element = getCellFromTop(focusedElement, tableBodyRows, tableColumns, elements);
+      element = getCellTopBottom(-1, focusedElement, tableBodyRows);
       break;
     case 'ArrowDown':
-      element = getCellFromBottom(focusedElement, tableBodyRows, tableColumns, elements);
+      element = getCellTopBottom(1, focusedElement, tableBodyRows);
       break;
     case 'ArrowLeft':
-      element = getCellFromLeft(focusedElement, tableColumns);
+      element = getCellRightLeft(-1, focusedElement, tableColumns);
       break;
     case 'ArrowRight':
-      element = getCellFromRight(focusedElement, tableColumns);
+      element = getCellRightLeft(1, focusedElement, tableColumns);
       break;
   }
   return element;

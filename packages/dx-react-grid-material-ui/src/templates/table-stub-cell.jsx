@@ -4,7 +4,8 @@ import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 import { getBorder } from './utils';
-import { withKeyboardNavigation } from '../utils/with-keyboard-navigation';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
+import focusedStyle from '../utils/get-focused-style';
 
 const styles = theme => ({
   cell: {
@@ -13,6 +14,7 @@ const styles = theme => ({
   footer: {
     borderBottom: getBorder(theme),
   },
+  focusedCell: focusedStyle,
 });
 
 const TableStubCellBase = ({
@@ -20,14 +22,17 @@ const TableStubCellBase = ({
   className,
   tableRow,
   tableColumn,
-  refComponent,
+  refObject,
   setRefForKeyboardNavigation,
   ...restProps
 }) => (
   <TableCell
-    className={classNames(classes.cell, className)}
+    className={classNames({ 
+      [classes.cell]: true,
+      [classes.focusedCell]: setRefForKeyboardNavigation !== undefined,
+    }, className)}
     classes={{ footer: classes.footer }}
-    ref={refComponent}
+    ref={refObject}
     {...restProps}
   />
 );

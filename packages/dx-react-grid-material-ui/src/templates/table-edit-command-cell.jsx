@@ -4,7 +4,8 @@ import classNames from 'clsx';
 import Button from '@material-ui/core/Button';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { withKeyboardNavigation } from '../utils/with-keyboard-navigation';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
+import focusedStyle from '../utils/get-focused-style';
 
 const styles = theme => ({
   button: {
@@ -25,6 +26,7 @@ const styles = theme => ({
     verticalAlign: 'bottom',
     paddingBottom: theme.spacing(1.25),
   },
+  focusedCell: focusedStyle,
 });
 
 const withEditColumnStyles = withStyles(styles, { name: 'EditColumn' });
@@ -67,7 +69,7 @@ const EditCommandHeadingCellBase = ({
   className,
   tableRow, tableColumn,
   rowSpan,
-  refComponent,
+  refObject,
   setRefForKeyboardNavigation,
   ...restProps
 }) => (
@@ -75,9 +77,10 @@ const EditCommandHeadingCellBase = ({
     className={classNames({
       [classes.headingCell]: true,
       [classes.alignWithRowSpan]: rowSpan > 1,
+      [classes.focusedCell]: setRefForKeyboardNavigation !== undefined,
     }, className)}
     rowSpan={rowSpan}
-    ref={refComponent}
+    ref={refObject}
     {...restProps}
   >
     {children}
@@ -105,13 +108,16 @@ export const EditCommandHeadingCell = withKeyboardNavigation()(withEditColumnSty
 
 const EditCommandCellBase = ({
   tableRow, tableColumn, row, children,
-  classes, className, refComponent,
+  classes, className, refObject,
   setRefForKeyboardNavigation,
   ...restProps
 }) => (
   <TableCell
-    className={classNames(classes.cell, className)}
-    ref={refComponent}
+    className={classNames({
+      [classes.cell]: true, 
+      [classes.focusedCell]: setRefForKeyboardNavigation !== undefined,
+    }, className)}
+    ref={refObject}
     {...restProps}
   >
     {children}

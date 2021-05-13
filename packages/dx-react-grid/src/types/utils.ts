@@ -1,3 +1,5 @@
+import { TableRow, TableColumn } from './index'
+
 /** Describes a row cache */
 export interface RowCache {
   /** Returns `take` number of rows starting with the `skip` row from the cache */
@@ -6,4 +8,10 @@ export interface RowCache {
   setRows(skip: number, rows: ReadonlyArray<any>): void;
   /** Clears the cache */
   invalidate(): void;
+}
+
+export interface NavigatedComponent {
+  setRefForKeyboardNavigation?: Function,
+  tableRow: TableRow,
+  tableColumn: TableColumn,
 }

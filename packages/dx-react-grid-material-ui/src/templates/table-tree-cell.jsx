@@ -3,7 +3,8 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCellMUI from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { withKeyboardNavigation } from '../utils/with-keyboard-navigation';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
+import focusedStyle from '../utils/get-focused-style';
 
 const styles = theme => ({
   cell: {
@@ -26,12 +27,13 @@ const styles = theme => ({
   cellCenterAlign: {
     textAlign: 'center',
   },
+  focusedCell: focusedStyle,
 });
 
 const TableTreeCellBase = ({
   column, value, children, classes,
   tableRow, tableColumn, row,
-  className, refComponent, setRefForKeyboardNavigation,
+  className, refObject, setRefForKeyboardNavigation,
   ...restProps
 }) => (
   <TableCellMUI
@@ -40,8 +42,9 @@ const TableTreeCellBase = ({
       [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
       [classes.cellRightAlign]: tableColumn && tableColumn.align === 'right',
       [classes.cellCenterAlign]: tableColumn && tableColumn.align === 'center',
+      [classes.focusedCell]: setRefForKeyboardNavigation !== undefined,
     }, className)}
-    ref={refComponent}
+    ref={refObject}
     {...restProps}
   >
     <div className={classes.container}>

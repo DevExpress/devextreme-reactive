@@ -3,7 +3,8 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { withKeyboardNavigation } from '../utils/with-keyboard-navigation';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
+import focusedStyle from '../utils/get-focused-style';
 
 const styles = ({ spacing }) => ({
   cell: {
@@ -17,18 +18,22 @@ const styles = ({ spacing }) => ({
     display: 'flex',
     alignItems: 'center',
   },
+  focusedCell: focusedStyle,
 });
 
 const TableFilterCellBase = ({
   filter, getMessage, onFilter,
   classes, children, className,
-  tableRow, tableColumn, column, filteringEnabled, refComponent,
+  tableRow, tableColumn, column, filteringEnabled, refObject,
   setRefForKeyboardNavigation,
   ...restProps
 }) => (
   <TableCell
-    className={classNames(classes.cell, className)}
-    ref={refComponent}
+    className={classNames({
+      [classes.cell]: true,
+      [classes.focusedCell]: setRefForKeyboardNavigation !== undefined,
+    }, className)}
+    ref={refObject}
     {...restProps}
   >
     <div className={classes.flexContainer}>

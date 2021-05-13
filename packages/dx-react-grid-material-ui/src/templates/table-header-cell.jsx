@@ -6,7 +6,8 @@ import { DragSource } from '@devexpress/dx-react-core';
 
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { withKeyboardNavigation } from '../utils/with-keyboard-navigation';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
+import focusedStyle from '../utils/get-focused-style';
 
 import { ResizingControl } from './table-header-cell/resizing-control';
 
@@ -33,6 +34,7 @@ const styles = theme => ({
       right: '1px',
     },
   },
+  focusedCell: focusedStyle,
   resizeHandle: {},
   resizeHandleLine: {
     opacity: 0,
@@ -101,8 +103,8 @@ class TableHeaderCellBase extends React.PureComponent {
     };
     this.dragRef = React.createRef();
     this.getWidthGetter = () => {
-      const { getCellWidth, refComponent } = this.props;
-      const node = refComponent.current;
+      const { getCellWidth, refObject } = this.props;
+      const node = refObject.current;
       return node && getCellWidth(() => {
         const { width } = node.getBoundingClientRect();
         return width;
@@ -128,7 +130,7 @@ class TableHeaderCellBase extends React.PureComponent {
       style, column, tableColumn,
       draggingEnabled, resizingEnabled,
       onWidthChange, onWidthDraft, onWidthDraftCancel, getCellWidth,
-      classes, tableRow, className, children, refComponent, setRefForKeyboardNavigation,
+      classes, tableRow, className, children, refObject, setRefForKeyboardNavigation,
       ...restProps
     } = this.props;
 
@@ -143,12 +145,13 @@ class TableHeaderCellBase extends React.PureComponent {
       [classes.cellDraggable]: draggingEnabled,
       [classes.cellDimmed]: dragging || (tableColumn && tableColumn.draft),
       [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
+      [classes.focusedCell]: setRefForKeyboardNavigation !== undefined,
     }, className);
     const cellLayout = (
       <TableCell
         style={style}
         className={tableCellClasses}
-        ref={refComponent}
+        ref={refObject}
         {...restProps}
       >
         <div className={classes.container}>

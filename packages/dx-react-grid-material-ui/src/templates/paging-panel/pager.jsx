@@ -4,7 +4,7 @@ import classNames from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
 import { PageSizeSelector } from './page-size-selector';
 import { Pagination } from './pagination';
-import { withKeyboardNavigation } from '../../utils/with-keyboard-navigation';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
 const styles = theme => ({
   pager: {
@@ -28,13 +28,13 @@ const PagerBase = ({
   totalCount,
   getMessage,
   className,
-  refComponent,
+  refObject,
   setRefForKeyboardNavigation,
   ...restProps
 }) => (
   <div
     className={classNames(classes.pager, className)}
-    ref={refComponent}
+    ref={refObject}
     {...restProps}
   >
     {!!pageSizes.length && (
@@ -73,4 +73,4 @@ PagerBase.defaultProps = {
   className: undefined,
 };
 
-export const Pager = withKeyboardNavigation('paging', 'none', true)(withStyles(styles, { name: 'Pager' })(PagerBase));
+export const Pager = withKeyboardNavigation('paging', 'none')(withStyles(styles, { name: 'Pager' })(PagerBase));

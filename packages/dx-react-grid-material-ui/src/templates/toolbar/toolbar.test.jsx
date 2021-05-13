@@ -1,6 +1,11 @@
 import * as React from 'react';
 import { getClasses, createShallow } from '@material-ui/core/test-utils';
 import { Toolbar } from './toolbar';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
+
+jest.mock('@devexpress/dx-react-grid', () => ({
+  withKeyboardNavigation: jest.fn().mockReturnValue(x => x),
+}));
 
 describe('Toolbar', () => {
   let classes;
@@ -39,5 +44,15 @@ describe('Toolbar', () => {
 
     expect(tree.prop('data'))
       .toMatchObject({ a: 'a' });
+  });
+
+  it('should call withKeyboardNavigation', () => {
+    shallow((
+      <Toolbar>
+        <div />
+      </Toolbar>
+    ));
+
+    expect(withKeyboardNavigation).toHaveBeenCalledWith('toolbar', 'none');
   });
 });

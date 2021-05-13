@@ -4,7 +4,8 @@ import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 import { getBorder } from '../utils';
-import { withKeyboardNavigation } from '../../utils/with-keyboard-navigation';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
+import focusedStyle from '../../utils/get-focused-style';
 
 const styles = theme => ({
   cell: {
@@ -26,10 +27,11 @@ const styles = theme => ({
   beforeBorder: {
     borderLeft: getBorder(theme),
   },
+  focusedCell: focusedStyle,
 });
 
 const CellBase = ({
-  column, value, children, classes, tableRow, tableColumn, row, className, beforeBorder, refComponent,
+  column, value, children, classes, tableRow, tableColumn, row, className, beforeBorder, refObject,
   setRefForKeyboardNavigation,
   ...restProps
 }) => (
@@ -37,9 +39,10 @@ const CellBase = ({
     className={classNames({
       [classes.cell]: true,
       [classes.beforeBorder]: beforeBorder,
+      [classes.focusedCell]: setRefForKeyboardNavigation !== undefined,
     }, className)}
     {...restProps}
-    ref={refComponent}
+    ref={refObject}
   >
     {children}
   </TableCell>

@@ -4,7 +4,7 @@ import classNames from 'clsx';
 import ToolbarMUI from '@material-ui/core/Toolbar';
 import { withStyles } from '@material-ui/core/styles';
 import { getBorder } from '../utils';
-import { withKeyboardNavigation } from '../../utils/with-keyboard-navigation';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
 const styles = theme => ({
   toolbar: {
@@ -14,12 +14,12 @@ const styles = theme => ({
 });
 
 const ToolbarBase = ({
-  children, classes, className, style, refComponent, setRefForKeyboardNavigation, ...restProps
+  children, classes, className, style, refObject, setRefForKeyboardNavigation, ...restProps
 }) => (
   <ToolbarMUI
     style={style}
     className={classNames(classes.toolbar, className)}
-    ref={refComponent}
+    ref={refObject}
     {...restProps}
   >
     {children}
@@ -38,4 +38,4 @@ ToolbarBase.defaultProps = {
   style: null,
 };
 
-export const Toolbar = withKeyboardNavigation('toolbar', 'none', true)(withStyles(styles, { name: 'Toolbar' })(ToolbarBase));
+export const Toolbar = withKeyboardNavigation('toolbar', 'none')(withStyles(styles, { name: 'Toolbar' })(ToolbarBase));

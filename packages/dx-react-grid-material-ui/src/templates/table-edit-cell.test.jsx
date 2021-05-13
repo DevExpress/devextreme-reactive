@@ -1,19 +1,25 @@
 import * as React from 'react';
 import Input from '@material-ui/core/Input';
 import TableCell from '@material-ui/core/TableCell';
-import { createMount, getClasses } from '@material-ui/core/test-utils';
+import { createMount, getClasses, createShallow } from '@material-ui/core/test-utils';
 import { setupConsole } from '@devexpress/dx-testing';
 import { EditCell } from './table-edit-cell';
+
+jest.mock('@devexpress/dx-react-grid', () => ({
+  withKeyboardNavigation: jest.fn().mockReturnValue(x => x),
+}));
 
 describe('EditCell', () => {
   let resetConsole;
 
+  let shallow;
   let mount;
   let classes;
 
   beforeAll(() => {
     classes = getClasses(<EditCell onValueChange={() => {}} />);
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
+    shallow = createShallow({ dive: true });
   });
 
   beforeEach(() => {
@@ -188,5 +194,13 @@ describe('EditCell', () => {
 
     expect(input.prop('value'))
       .toBe(0);
+  });
+
+  it('should have focus style', () => {
+    let tree = shallow((<EditCell />));
+    expect(tree.is(`.${classes.focusedCell}`)).toBeFalsy();
+
+    tree = shallow((<EditCell setRefForKeyboardNavigation={()=>{}} />));
+    expect(tree.is(`.${classes.focusedCell}`)).toBeTruthy();
   });
 });

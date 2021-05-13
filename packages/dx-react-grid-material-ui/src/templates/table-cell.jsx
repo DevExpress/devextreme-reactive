@@ -4,7 +4,8 @@ import classNames from 'clsx';
 import TableCellMUI from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 import { getBorder } from './utils';
-import { withKeyboardNavigation } from '../utils/with-keyboard-navigation';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
+import focusedStyle from '../utils/get-focused-style';
 
 const styles = theme => ({
   cell: {
@@ -28,23 +29,25 @@ const styles = theme => ({
   cellNoWrap: {
     whiteSpace: 'nowrap',
   },
+  focusedCell: focusedStyle
 });
 
 const TableCellBase = ({
   column, value, children, classes,
   tableRow, tableColumn, row,
-  className, refComponent, setRefForKeyboardNavigation,
+  className, refObject, setRefForKeyboardNavigation,
   ...restProps
 }) => (
   <TableCellMUI
       className={classNames({
         [classes.cell]: true,
+        [classes.focusedCell]: setRefForKeyboardNavigation !== undefined,
         [classes.cellRightAlign]: tableColumn && tableColumn.align === 'right',
         [classes.cellCenterAlign]: tableColumn && tableColumn.align === 'center',
         [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
       }, className)}
       classes={{ footer: classes.footer }}
-      ref={refComponent}
+      ref={refObject}
       {...restProps}
     >
       {children || value}

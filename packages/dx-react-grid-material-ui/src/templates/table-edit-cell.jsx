@@ -4,7 +4,8 @@ import classNames from 'clsx';
 import Input from '@material-ui/core/Input';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { withKeyboardNavigation } from '../utils/with-keyboard-navigation';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
+import focusedStyle from '../utils/get-focused-style';
 
 const styles = theme => ({
   cell: {
@@ -15,6 +16,7 @@ const styles = theme => ({
       paddingLeft: theme.spacing(3),
     },
   },
+  focusedCell: focusedStyle,
   inputRoot: {
     width: '100%',
   },
@@ -43,7 +45,7 @@ const styles = theme => ({
 const EditCellBase = ({
   column, value, onValueChange, style, classes, children,
   row, tableRow, tableColumn, editingEnabled, className,
-  autoFocus, onBlur, onFocus, onKeyDown, refComponent, setRefForKeyboardNavigation, ...restProps
+  autoFocus, onBlur, onFocus, onKeyDown, refObject, setRefForKeyboardNavigation, ...restProps
 }) => {
   const inputClasses = classNames({
     [classes.inputRight]: tableColumn && tableColumn.align === 'right',
@@ -59,9 +61,12 @@ const EditCellBase = ({
     : children;
   return (
     <TableCell
-      className={classNames(classes.cell, className)}
+      className={classNames({
+        [classes.cell]: true,
+        [classes.focusedCell]: setRefForKeyboardNavigation !== undefined,
+      }, className)}
       style={style}
-      ref={refComponent}
+      ref={refObject}
       {...restProps}
     >
       {patchedChildren || (

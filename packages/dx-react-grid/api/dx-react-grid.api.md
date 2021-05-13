@@ -558,6 +558,16 @@ export interface IntegratedSummaryProps {
   calculator?: (type: SummaryType, rows: Array<any>, getValue: (row: any) => any) => any;
 }
 
+// @public (undocumented)
+export interface NavigatedComponent {
+  // (undocumented)
+  setRefForKeyboardNavigation?: Function;
+  // (undocumented)
+  tableColumn: TableColumn;
+  // (undocumented)
+  tableRow: TableRow;
+}
+
 // @public
 export const PagingPanel: React_2.ComponentType<PagingPanelProps>;
 
@@ -1568,6 +1578,9 @@ export interface VirtualTableStateProps {
   // (undocumented)
   totalRowCount: number;
 }
+
+// @public (undocumented)
+export const withKeyboardNavigation: (key1?: string | undefined, key2?: string | undefined) => <T extends NavigatedComponent>(Component: React_2.ComponentType<T>) => React_2.ComponentType<T>;
 
 
 // (No @packageDocumentation comment for this package)

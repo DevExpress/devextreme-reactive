@@ -98,23 +98,21 @@ const getPrevElement: GetElementFn = (focusedElement, tableBodyRows, tableColumn
     let prevRowKey;
     let prevColumnKey;
     let prevIndex = 0;
-
-    if(columnIndex === 0 && rowIndex === 0) {
+    
+    if(focusedElement.index > 0) {
+      prevColumnKey = focusedElement.columnKey;
+      prevRowKey = focusedElement.rowKey;
+      prevIndex = focusedElement.index - 1;
+    } else if(columnIndex === 0 && rowIndex === 0) {
       return getElementPrevPart(focusedElement, elements, tableBodyRows, tableColumns);
     } else if(columnIndex === 0) {
-      prevRowKey = tableBodyRows[rowIndex - 1].key;
-      prevColumnKey = tableColumns[tableColumns.length - 1].key;
-      prevIndex = elements[prevRowKey][prevColumnKey].length - 1;
+        prevRowKey = tableBodyRows[rowIndex - 1].key;
+        prevColumnKey = tableColumns[tableColumns.length - 1].key;
+        prevIndex = elements[prevRowKey][prevColumnKey].length - 1;
     } else {
-      if(focusedElement.index > 0) {
-        prevColumnKey = focusedElement.columnKey;
-        prevRowKey = focusedElement.rowKey;
-        prevIndex = focusedElement.index - 1;
-      } else {
         prevColumnKey = tableColumns[columnIndex - 1].key;
         prevRowKey = focusedElement.rowKey;
         prevIndex = elements[prevRowKey][prevColumnKey].length - 1;
-      }
     }
 
     return {

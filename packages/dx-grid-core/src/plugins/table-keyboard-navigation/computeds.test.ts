@@ -365,6 +365,22 @@ describe('Focused element in the body of table', () => {
         });
     });
 
+    it('should return last cell prev row, tab + shift key pressed', () => {
+        const focusedElement = {
+            rowKey: 'test_row_2',
+            columnKey: 'test_column_1',
+            index: 0,
+            part: 'body',
+        };
+        const element = getNextFocusedElement(tableColumns, tableBodyRows, focusedElement, elements, 'Tab', true);
+        expect(element).toEqual({
+            rowKey: 'test_row_1',
+            columnKey: 'test_column_4',
+            index: 1,
+            part: 'body'
+        });
+    });
+
     it('should return first element from paging, tab pressed', () => {
         const focusedElement = {
             rowKey: 'test_row_3',

@@ -18,7 +18,6 @@ export const withKeyboardNavigation = (key1?: string, key2?: string) =>
     }
 
     render() {
-        debugger
       return <Component refObject={this.ref} {...this.props} />;
     }
   }

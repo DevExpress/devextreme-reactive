@@ -7,7 +7,7 @@ export interface FocusedElement {
     part: string
 }
 
-type Elements = string[][];
+export type Elements = any[][];
 
 export type GetNextFocusedElementFn = (tableColumns: TableColumn[], tableBodyRows: TableRow[], 
     focusedElement: FocusedElement, elements: Elements, key: string, shiftKey: boolean) => FocusedElement | undefined;

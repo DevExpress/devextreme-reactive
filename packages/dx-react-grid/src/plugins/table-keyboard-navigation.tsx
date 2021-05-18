@@ -3,7 +3,7 @@ import {
  Plugin, TemplateConnector, Getter,
 } from '@devexpress/dx-react-core';
 import { TABLE_HEADING_TYPE, TABLE_BAND_TYPE } from '@devexpress/dx-grid-core';
-import { getNextFocusedElement } from '@devexpress/dx-grid-core';
+import { getNextFocusedElement, applyEnterAction, applyEscapeAction } from '@devexpress/dx-grid-core';
 
 class TableKeyboardNavigationBase extends React.PureComponent<any, any> {
   elements: any[][] = [];
@@ -66,11 +66,20 @@ class TableKeyboardNavigationBase extends React.PureComponent<any, any> {
 
   handleKeyDown(event) {
     const { focusedElement } = this.state;
-    if(event.key === 'Tab') {
-      event.preventDefault();
+    let nextFocusedElement;
+
+    if(event.key === "Enter") {
+      if(focusedElement) {
+        nextFocusedElement = applyEnterAction(focusedElement, this.elements);
+      }
+    } else if(event.key === "Escape") {
+      if(focusedElement) {
+        nextFocusedElement = applyEscapeAction(focusedElement, this.elements);
+      }
+    } else {
+      nextFocusedElement = getNextFocusedElement(this.tableColumns, this.tableBodyRows, focusedElement, 
+        this.elements, event.key, event.shiftKey);
     }
-    const nextFocusedElement = getNextFocusedElement(this.tableColumns, this.tableBodyRows, focusedElement, 
-      this.elements, event.key, event.shiftKey);
 
     if(nextFocusedElement) {
       const el = this.elements[nextFocusedElement.rowKey][nextFocusedElement.columnKey][nextFocusedElement.index];
@@ -78,6 +87,9 @@ class TableKeyboardNavigationBase extends React.PureComponent<any, any> {
         el.focus();
       } else {
         el.current.focus();
+      }
+      if(event.key === 'Tab') {
+        event.preventDefault();
       }
       this.updateFocusedElement(nextFocusedElement);
     }

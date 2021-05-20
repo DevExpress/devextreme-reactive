@@ -655,6 +655,24 @@ describe('Focused element in the body of table', () => {
             part: 'body'
         });
     });
+
+    it('should return last element in the toolbar, shift + key pressed', () => {
+        const generatedElements = generateElements(tableColumns, tableBodyRows, 
+            ['paging', 'toolbar']);
+        const focusedElement = {
+            rowKey: 'test_row_1',
+            columnKey: 'test_column_1',
+            index: 0,
+            part: 'body',
+        };
+        const element = getNextFocusedElement(tableColumns, tableBodyRows, generatedElements, 'Tab', true, focusedElement);
+        expect(element).toEqual({
+            rowKey: 'toolbar',
+            columnKey: 'none',
+            index: 2,
+            part: 'toolbar'
+        });
+    });
 });
 
 describe('Focused element in the paging', () => {

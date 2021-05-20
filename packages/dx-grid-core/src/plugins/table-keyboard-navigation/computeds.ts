@@ -57,7 +57,7 @@ const getElementNextPart: getElementPrevNextPartFn = (focusedElement, elements, 
   return {
     rowKey,
     columnKey,
-    index: cell.length > 1 && notSpanInput(cell) && isTablePart(part) ? 1 : 0,
+    index: isTablePart(part) && cell.length > 1 && notSpanInput(cell) ? 1 : 0,
     part: part
   }
 }
@@ -86,13 +86,14 @@ const getElementPrevPart: getElementPrevNextPartFn = (focusedElement, elements, 
   if(!part) {
     return;
   }
+  
   const rowKey = part === 'body' ? tableBodyRows[lastBodyRowIndex].key : part;
   const columnKey = isTablePart(part) ? tableColumns[tableColumns.length - 1].key  : 'none';
   const cell = elements[rowKey][columnKey];
   return {
     rowKey,
     columnKey,
-    index: cell.length > 1 && notSpanInput(cell) ? cell.length - 1 : 0,
+    index: !isTablePart(part) || cell.length > 1 && notSpanInput(cell) ? cell.length - 1 : 0,
     part: part
   }
 }

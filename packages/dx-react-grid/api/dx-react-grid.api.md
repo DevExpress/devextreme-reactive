@@ -251,7 +251,7 @@ export interface EditingStateProps {
 }
 
 // @public (undocumented)
-export type Elements = string[][];
+export type Elements = any[][];
 
 // @public (undocumented)
 export const ExportPanel: React_2.ComponentType<any>;
@@ -331,6 +331,14 @@ export interface FilteringStateProps {
 export type FilterOperation = string;
 
 // @public (undocumented)
+export interface FocusedCell {
+  // (undocumented)
+  columnKey: string;
+  // (undocumented)
+  rowKey: string;
+}
+
+// @public (undocumented)
 export interface FocusedElement {
   // (undocumented)
   columnKey: string;
@@ -358,7 +366,7 @@ export type GetFocusedElementFn = (key: string, shiftKey: boolean, focusedElemen
 export type GetMessageFn = (messageKey: string, params?: object) => string;
 
 // @public (undocumented)
-export type GetNextFocusedElementFn = (tableColumns: TableColumn[], tableBodyRows: TableRow[], focusedElement: FocusedElement, elements: Elements, key: string, shiftKey: boolean) => FocusedElement | undefined;
+export type GetNextFocusedElementFn = (tableColumns: TableColumn[], tableBodyRows: TableRow[], elements: Elements, key: string, shiftKey: boolean, focusedElement?: FocusedElement) => FocusedElement | undefined;
 
 // @public
 export const Grid: React_2.ComponentType<GridProps>;
@@ -556,6 +564,16 @@ export const IntegratedSummary: React_2.ComponentType<IntegratedSummaryProps> & 
 // @public (undocumented)
 export interface IntegratedSummaryProps {
   calculator?: (type: SummaryType, rows: Array<any>, getValue: (row: any) => any) => any;
+}
+
+// @public (undocumented)
+export interface KeyboardNavigationProps {
+  // (undocumented)
+  defaultFocusedCell?: FocusedCell;
+  // (undocumented)
+  focusedCell?: FocusedCell;
+  // (undocumented)
+  onFocusedCellChanged?: (cell: FocusedCell) => void;
 }
 
 // @public (undocumented)

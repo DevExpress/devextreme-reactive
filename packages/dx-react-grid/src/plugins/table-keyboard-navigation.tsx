@@ -57,7 +57,7 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
 
   componentDidUpdate(prevProps, prevState) {
     if(prevState.focusedElement !== this.state.focusedElement) {
-      this.focus(this.state.focusedElement);
+      this.focus(this.state.focusedElement, prevState.focusedElement);
     }
   }
 
@@ -99,11 +99,12 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
     }
   }
 
-  focus(element) {
+  focus(element, prevFocusedElement?) {
     const { onFocusedCellChanged } = this.props;
     if(!element || !this.elements[element.rowKey] || !this.elements[element.rowKey][element.columnKey]) {
       return;
     }
+    
     const el = this.elements[element.rowKey][element.columnKey][element.index];
     if(el) {
       if(el.focus) {
@@ -111,7 +112,8 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
       } else {
         el.current.focus();
       }
-      if(onFocusedCellChanged && element.part !== 'paging' && element.part !== 'toolbar') {
+      if(onFocusedCellChanged && element.part === 'body' && 
+          (prevFocusedElement?.rowKey !== element.rowKey || prevFocusedElement?.columnKey !== element.columnKey)) {
         onFocusedCellChanged({ rowKey: element.rowKey, columnKey: element.columnKey });
       }
     }

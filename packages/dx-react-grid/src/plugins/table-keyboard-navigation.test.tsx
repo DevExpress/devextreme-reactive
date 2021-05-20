@@ -90,6 +90,61 @@ describe('TableKeyboardNavigation', () => {
             expect(focusFn).not.toBeCalled();
         });
 
+        it('should call onFocusedCellChanged', () => {
+            const onFocusedCellChanged = jest.fn();
+            const tree = mount((
+                <PluginHost>
+                    {pluginDepsToComponents(defaultDeps)}
+                    <TableKeyboardNavigation
+                    focusedCell={focusedCell}
+                    onFocusedCellChanged={onFocusedCellChanged}
+                    />
+                </PluginHost>
+            ));
+            getComputedState(tree).keyboardNavigationParams.setRefForKeyboardNavigation(ref, 'rowType', 'columnType');
+
+            expect(onFocusedCellChanged).toBeCalled();
+            expect(onFocusedCellChanged).toBeCalledWith(focusedCell);
+        });
+
+        it('should not call onFocusedCellChanged on second time, on update, focused cell the same', () => {
+            const onFocusedCellChanged = jest.fn();
+            const tree = mount((
+                <PluginHost>
+                    {pluginDepsToComponents(defaultDeps)}
+                    <TableKeyboardNavigation
+                    focusedCell={focusedCell}
+                    onFocusedCellChanged={onFocusedCellChanged}
+                    />
+                </PluginHost>
+            ));
+            getComputedState(tree).keyboardNavigationParams.setRefForKeyboardNavigation(ref, 'rowType', 'columnType');
+            tree.setProps({focusedCell: focusedCell});
+
+            expect(onFocusedCellChanged).toBeCalledTimes(1);
+            expect(onFocusedCellChanged).toBeCalledWith(focusedCell);
+        });
+
+        it('should not call onFocusedCellChanged, focused cell is not the body', () => {
+            const cell = {
+                rowKey: 'rowType',
+                columnKey: 'columnType',
+                part: 'toolbar'
+            };
+            const onFocusedCellChanged = jest.fn();
+            const tree = mount((
+                <PluginHost>
+                    {pluginDepsToComponents(defaultDeps)}
+                    <TableKeyboardNavigation
+                    focusedCell={cell}
+                    onFocusedCellChanged={onFocusedCellChanged}
+                    />
+                </PluginHost>
+            ));
+            getComputedState(tree).keyboardNavigationParams.setRefForKeyboardNavigation(ref, 'rowType', 'columnType');
+
+            expect(onFocusedCellChanged).not.toBeCalled();
+        });
     });
 
     describe('Keyboard navigation in the toolbar and footer', () => {

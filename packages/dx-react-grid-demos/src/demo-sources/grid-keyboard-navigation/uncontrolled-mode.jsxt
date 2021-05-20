@@ -31,6 +31,9 @@ import {
 } from '../../../demo-data/generator';
 
 const getRowId = row => row.id;
+const onFocusedCellChanged = (info) => {
+  console.log(info)
+}
 
 export default () => {
   const [columns] = useState([
@@ -109,7 +112,13 @@ export default () => {
         <PagingPanel />
         <SearchPanel />
         <TableFilterRow />
-        <TableKeyboardNavigation />
+        <TableKeyboardNavigation 
+        defaultFocusedCell={{
+          rowKey:`${Table.ROW_TYPE.toString()}_2`,
+          columnKey: `${Table.COLUMN_TYPE.toString()}_name`
+        }} 
+        onFocusedCellChanged={onFocusedCellChanged}
+        />
       </Grid>
     </<%&wrapperTag%>>
   );

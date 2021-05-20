@@ -1,0 +1,56 @@
+import React, { useState } from 'react';<%&additionalImports%>
+import { 
+    TableKeyboardNavigation,
+} from '@devexpress/dx-react-grid';
+import {
+  Grid,
+  Table,
+} from '@devexpress/dx-react-grid-<%&themeName%>';<%&cssImports%>
+
+import {
+  generateRows,
+  defaultColumnValues,
+} from '../../../demo-data/generator';
+
+const getRowId = row => row.id;
+let focusedRowIndex = 0;
+
+export default () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'gender', title: 'Gender' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows, setRows] = useState(generateRows({
+    columnValues: { id: ({ index }) => index, ...defaultColumnValues },
+    length: 8,
+  }));
+
+  const [focusedCell, setFocusedCell] = useState({
+    rowKey:`${Table.ROW_TYPE.toString()}_${focusedRowIndex}`,
+    columnKey: `${Table.COLUMN_TYPE.toString()}_gender`
+  });
+
+  const click = () => {
+    focusedRowIndex = focusedRowIndex <= 8 ? focusedRowIndex + 1 : 0;
+    setFocusedCell({
+        rowKey:`${Table.ROW_TYPE.toString()}_${focusedRowIndex}`,
+        columnKey: `${Table.COLUMN_TYPE.toString()}_gender`
+    });
+  }
+
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+        getRowId={getRowId}
+      >
+        <Table />
+        <TableKeyboardNavigation focusedCell={focusedCell} />
+      </Grid>
+      <button onClick={click}>Click me</button>
+    </<%&wrapperTag%>>
+  );
+};

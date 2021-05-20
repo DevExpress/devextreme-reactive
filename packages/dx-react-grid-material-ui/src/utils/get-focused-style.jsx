@@ -1,5 +1,5 @@
 export default ({
-    '&:focus-visible': {
+    '&:focus': {
         border: '1px solid blue',
         outline: "none",
     }

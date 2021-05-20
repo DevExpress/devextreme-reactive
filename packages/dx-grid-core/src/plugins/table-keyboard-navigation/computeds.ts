@@ -12,10 +12,6 @@ const getIndex = (arr: TableColumn[] | TableRow [], focusedCell: FocusedElement,
   });
 }
 
-const isEmpty = (cell: FocusedElement): boolean => {
-  return !cell.rowKey && !cell.columnKey;
-}
-
 const isTablePart = (part: string): boolean => {
   return part !== 'toolbar' && part !== 'paging';
 }
@@ -289,8 +285,8 @@ const getFocusedElement: GetFocusedElementFn = (key, shiftKey, focusedElement, t
   return element;
 }
 
-export const getNextFocusedElement: GetNextFocusedElementFn = (tableColumns, tableBodyRows, focusedElement, elements, key, shiftKey) => {
-  if(isEmpty(focusedElement)) {
+export const getNextFocusedElement: GetNextFocusedElementFn = (tableColumns, tableBodyRows, elements, key, shiftKey, focusedElement) => {
+  if(!focusedElement) {
     const part = tableParts.find(p => {
       if(p === 'body') {
         return elements[tableBodyRows[0].key];
@@ -311,7 +307,10 @@ export const getNextFocusedElement: GetNextFocusedElementFn = (tableColumns, tab
   }
 }
 
-export const applyEnterAction = (focusedElement: FocusedElement, elements: Elements): FocusedElement | undefined => {
+export const applyEnterAction = (elements: Elements, focusedElement?: FocusedElement): FocusedElement | undefined => {
+  if(!focusedElement) {
+    return;
+  }
   const cell = elements[focusedElement.rowKey][focusedElement.columnKey];
   
   if(focusedElement.index === 0 && cell.length > 1 && !notSpanInput(cell)) {
@@ -333,7 +332,10 @@ export const applyEnterAction = (focusedElement: FocusedElement, elements: Eleme
   return;
 }
 
-export const applyEscapeAction = (focusedElement: FocusedElement, elements: Elements): FocusedElement | undefined => {
+export const applyEscapeAction = (elements: Elements, focusedElement?: FocusedElement): FocusedElement | undefined => {
+  if(!focusedElement) {
+    return;
+  }
   const cell = elements[focusedElement.rowKey][focusedElement.columnKey];
 
   if(focusedElement.index === 1 && cell.length > 1 && cell[1].tagName === "INPUT") {

@@ -2,31 +2,28 @@ import * as React from 'react';
 import {
  Plugin, TemplateConnector, Getter,
 } from '@devexpress/dx-react-core';
-import { TABLE_HEADING_TYPE, TABLE_BAND_TYPE } from '@devexpress/dx-grid-core';
-import { getNextFocusedElement, applyEnterAction, applyEscapeAction } from '@devexpress/dx-grid-core';
+import { TABLE_HEADING_TYPE, TABLE_BAND_TYPE, 
+  getNextFocusedElement, applyEnterAction, applyEscapeAction } from '@devexpress/dx-grid-core';
+import { KeyboardNavigationProps, KeyboardNavigationState } from '../types';
 
-class TableKeyboardNavigationBase extends React.PureComponent<any, any> {
+class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigationProps, KeyboardNavigationState> {
   elements: any[][] = [];
   tableColumns = [];
   tableBodyRows = [];
 
-
   constructor(props) {
     super(props);
 
+    const focusedCell = props.focusedCell || props.defaultFocusedCell;
+
     this.state = {
-      focusedElement: {
-        rowKey: undefined,
-        columnKey: undefined,
-        index: undefined,
-        part: undefined
-      }
+      focusedElement: focusedCell ? { part: 'body', index: 0, ...focusedCell } : focusedCell
     }
     this.handleKeyDown = this.handleKeyDown.bind(this);
-    // this.handleMouseClick = this.handleMouseClick.bind(this);
   }
 
   pushRef(ref, key1, key2) {
+    const { focusedElement } = this.state;
     if(!this.elements[key1]) {
       this.elements[key1] = [];
     }
@@ -39,7 +36,11 @@ class TableKeyboardNavigationBase extends React.PureComponent<any, any> {
     const innerElements = ref.current.querySelectorAll('[tabIndex], input');
     innerElements.forEach(el => {
       this.elements[key1][key2].push(el);
-    })
+    });
+
+    if(focusedElement && focusedElement.rowKey === key1 && focusedElement.columnKey === key2) {
+      this.focus(this.state.focusedElement);
+    }
   }
 
   setRef(ref, key1, key2) {
@@ -54,51 +55,66 @@ class TableKeyboardNavigationBase extends React.PureComponent<any, any> {
     this.setupNodeSubscription();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState.focusedElement !== this.state.focusedElement) {
+      this.focus(this.state.focusedElement);
+    }
+  }
+
   setupNodeSubscription() {
     document.removeEventListener('keydown', this.handleKeyDown);
     document.addEventListener('keydown', this.handleKeyDown);
-    // document.addEventListener('click', this.handleMouseClick);
   }
 
-  // handleMouseClick(event) {
-  //   console.log(event)
-  // }
+  static getDerivedStateFromProps(props: KeyboardNavigationProps, state: KeyboardNavigationState): KeyboardNavigationState {
+    const focusedCell = props.focusedCell !== undefined ? props.focusedCell : state.focusedElement;
+    return {
+      focusedElement: focusedCell ? {
+        part: 'body',
+        index: 0,
+        ...focusedCell
+      } : focusedCell
+    }
+  }
 
   handleKeyDown(event) {
     const { focusedElement } = this.state;
     let nextFocusedElement;
 
     if(event.key === "Enter") {
-      if(focusedElement) {
-        nextFocusedElement = applyEnterAction(focusedElement, this.elements);
-      }
+      nextFocusedElement = applyEnterAction(this.elements, focusedElement);
     } else if(event.key === "Escape") {
-      if(focusedElement) {
-        nextFocusedElement = applyEscapeAction(focusedElement, this.elements);
-      }
+      nextFocusedElement = applyEscapeAction(this.elements, focusedElement);
     } else {
-      nextFocusedElement = getNextFocusedElement(this.tableColumns, this.tableBodyRows, focusedElement, 
-        this.elements, event.key, event.shiftKey);
+      nextFocusedElement = getNextFocusedElement(this.tableColumns, this.tableBodyRows,
+        this.elements, event.key, event.shiftKey, focusedElement);
     }
+    if(nextFocusedElement) {      
+      if(event.key === 'Tab') {
+        event.preventDefault();
+      }
+      this.setState({
+        focusedElement: nextFocusedElement
+      });
+    }
+  }
 
-    if(nextFocusedElement) {
-      const el = this.elements[nextFocusedElement.rowKey][nextFocusedElement.columnKey][nextFocusedElement.index];
+  focus(element) {
+    const { onFocusedCellChanged } = this.props;
+    if(!element || !this.elements[element.rowKey] || !this.elements[element.rowKey][element.columnKey]) {
+      return;
+    }
+    const el = this.elements[element.rowKey][element.columnKey][element.index];
+    if(el) {
       if(el.focus) {
         el.focus();
       } else {
         el.current.focus();
       }
-      if(event.key === 'Tab') {
-        event.preventDefault();
+      if(onFocusedCellChanged && element.part !== 'paging' && element.part !== 'toolbar') {
+        onFocusedCellChanged({ rowKey: element.rowKey, columnKey: element.columnKey });
       }
-      this.updateFocusedElement(nextFocusedElement);
     }
-  }
-
-  updateFocusedElement(element) {
-    this.setState({
-      focusedElement: element
-    })
   }
   
   render() {

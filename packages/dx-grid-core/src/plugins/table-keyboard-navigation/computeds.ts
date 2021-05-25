@@ -4,7 +4,7 @@ import {
     GetElementFn, getElementPrevNextPartFn, Elements,
 } from '../../types';
 
-const tableParts = ['toolbar', TABLE_HEADING_TYPE.toString(), TABLE_FILTER_TYPE.toString(), 'body', 'paging'];
+  const tableParts = ['toolbar', TABLE_HEADING_TYPE.toString(), TABLE_FILTER_TYPE.toString(), 'body', 'paging'];
 
 const getIndex = (arr: TableColumn[] | TableRow [], focusedCell: FocusedElement, key: string) => {
   return arr.findIndex((el: TableColumn | TableRow) => {
@@ -346,4 +346,20 @@ export const applyEscapeAction = (elements: Elements, focusedElement?: FocusedEl
     }
   }
   return ;
+}
+
+export const getPart = (key: string): string => {
+  if(tableParts.find(t => { return t === key })) {
+    return key;
+  } else {
+    return 'body';
+  }
+}
+
+export const getIndexToFocus = (key1: string, key2: string, elements: Elements): number => {
+  const cell = elements[key1][key2];
+  if(cell.length > 1 && cell[1].tagName === "INPUT") {
+    return 1;
+  }
+  return 0;
 }

@@ -24,6 +24,7 @@ const TableStubCellBase = ({
   tableColumn,
   refObject,
   setRefForKeyboardNavigation,
+  setFocusedElement,
   ...restProps
 }) => (
   <TableCell

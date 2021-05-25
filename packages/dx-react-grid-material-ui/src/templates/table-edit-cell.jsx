@@ -45,7 +45,7 @@ const styles = theme => ({
 const EditCellBase = ({
   column, value, onValueChange, style, classes, children,
   row, tableRow, tableColumn, editingEnabled, className,
-  autoFocus, onBlur, onFocus, onKeyDown, refObject, setRefForKeyboardNavigation, ...restProps
+  autoFocus, onBlur, onFocus, onKeyDown, refObject, setRefForKeyboardNavigation, setFocusedElement, ...restProps
 }) => {
   const inputClasses = classNames({
     [classes.inputRight]: tableColumn && tableColumn.align === 'right',

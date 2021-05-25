@@ -32,7 +32,7 @@ const styles = theme => ({
 
 const CellBase = ({
   column, value, children, classes, tableRow, tableColumn, row, className, beforeBorder, refObject,
-  setRefForKeyboardNavigation,
+  setRefForKeyboardNavigation, setFocusedElement,
   ...restProps
 }) => (
   <TableCell

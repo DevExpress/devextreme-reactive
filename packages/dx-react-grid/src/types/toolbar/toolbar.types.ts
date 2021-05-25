@@ -6,6 +6,8 @@ export namespace Toolbar {
     children?: React.ReactNode;
     /** @internal */
     setRefForKeyboardNavigation: (ref: any, key1: string, key2: string) => void;
+    /** @internal */
+    setFocusedElement: (key1: string, key2: string) => void
   }
 }
 

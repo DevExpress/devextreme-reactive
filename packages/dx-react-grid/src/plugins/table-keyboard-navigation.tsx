@@ -3,7 +3,7 @@ import {
  Plugin, TemplateConnector, Getter,
 } from '@devexpress/dx-react-core';
 import { TABLE_HEADING_TYPE, TABLE_BAND_TYPE, 
-  getNextFocusedElement, applyEnterAction, applyEscapeAction } from '@devexpress/dx-grid-core';
+  getNextFocusedElement, applyEnterAction, applyEscapeAction, getPart, getIndexToFocus } from '@devexpress/dx-grid-core';
 import { KeyboardNavigationProps, KeyboardNavigationState } from '../types';
 
 class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigationProps, KeyboardNavigationState> {
@@ -89,7 +89,7 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
       nextFocusedElement = getNextFocusedElement(this.tableColumns, this.tableBodyRows,
         this.elements, event.key, event.shiftKey, focusedElement);
     }
-    if(nextFocusedElement) {      
+    if(nextFocusedElement) {     
       if(event.key === 'Tab') {
         event.preventDefault();
       }
@@ -97,6 +97,17 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
         focusedElement: nextFocusedElement
       });
     }
+  }
+
+  setFocusedElement(key1, key2) {
+    this.setState({
+      focusedElement: {
+        rowKey: key1,
+        columnKey: key2,
+        index: getIndexToFocus(key1, key2, this.elements),
+        part: getPart(key1)
+      }
+    })
   }
 
   focus(element, prevFocusedElement?) {
@@ -126,7 +137,8 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
       >
         <Getter name="keyboardNavigationParams" value={{
           tabIndex: -1,
-          setRefForKeyboardNavigation: this.setRef.bind(this)
+          setRefForKeyboardNavigation: this.setRef.bind(this),
+          setFocusedElement: this.setFocusedElement.bind(this),
         }} />
         <TemplateConnector>
         {({ tableColumns, tableBodyRows }) => {

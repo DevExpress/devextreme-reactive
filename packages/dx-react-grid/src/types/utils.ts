@@ -14,4 +14,5 @@ export interface NavigatedComponent {
   setRefForKeyboardNavigation?: Function,
   tableRow: TableRow,
   tableColumn: TableColumn,
+  setFocusedElement?: Function, 
 }

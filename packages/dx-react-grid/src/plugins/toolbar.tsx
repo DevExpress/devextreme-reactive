@@ -27,7 +27,10 @@ class ToolbarBase extends React.PureComponent<ToolbarProps> {
           <TemplateConnector>
             {({ keyboardNavigationParams }) => (
               <Root setRefForKeyboardNavigation={keyboardNavigationParams ?
-                 keyboardNavigationParams.setRefForKeyboardNavigation : undefined}>
+                 keyboardNavigationParams.setRefForKeyboardNavigation : undefined}
+                 setFocusedElement={keyboardNavigationParams ?
+                  keyboardNavigationParams.setFocusedElement : undefined}
+              >
                 <TemplatePlaceholder name="toolbarContent" />
               </Root>
             )}

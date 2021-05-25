@@ -6,15 +6,24 @@ export const withKeyboardNavigation = (key1?: string, key2?: string) =>
   class ComponentWithNavigation extends React.PureComponent<T> {
     ref: React.RefObject<T>
     constructor(props) {
-        super(props);
-        this.ref = React.createRef();
+      super(props);
+      this.ref = React.createRef();
+      this.handleClick = this.handleClick.bind(this)
     }
 
     componentDidMount() {
-        const { setRefForKeyboardNavigation, tableRow, tableColumn } = this.props;
-        if(setRefForKeyboardNavigation) {
-            setRefForKeyboardNavigation(this.ref, key1 || tableRow.key, key2 || tableColumn.key);
-        }
+      const { setRefForKeyboardNavigation, tableRow, tableColumn } = this.props;
+      if(setRefForKeyboardNavigation) {
+          setRefForKeyboardNavigation(this.ref, key1 || tableRow.key, key2 || tableColumn.key);
+      }
+      if(this.ref.current) {
+        (this.ref.current as any).addEventListener('click', this.handleClick);
+      }
+    }
+
+    handleClick() {
+      const { tableRow, tableColumn, setFocusedElement } = this.props;
+      setFocusedElement && setFocusedElement(key1 || tableRow.key, key2 || tableColumn.key);
     }
 
     render() {

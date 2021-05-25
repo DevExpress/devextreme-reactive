@@ -30,6 +30,7 @@ const PagerBase = ({
   className,
   refObject,
   setRefForKeyboardNavigation,
+  setFocusedElement,
   ...restProps
 }) => (
   <div

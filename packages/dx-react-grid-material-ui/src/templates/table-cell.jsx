@@ -35,7 +35,7 @@ const styles = theme => ({
 const TableCellBase = ({
   column, value, children, classes,
   tableRow, tableColumn, row,
-  className, refObject, setRefForKeyboardNavigation,
+  className, refObject, setRefForKeyboardNavigation, setFocusedElement,
   ...restProps
 }) => (
   <TableCellMUI

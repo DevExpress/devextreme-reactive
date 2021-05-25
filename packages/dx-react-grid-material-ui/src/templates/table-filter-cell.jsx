@@ -26,6 +26,7 @@ const TableFilterCellBase = ({
   classes, children, className,
   tableRow, tableColumn, column, filteringEnabled, refObject,
   setRefForKeyboardNavigation,
+  setFocusedElement,
   ...restProps
 }) => (
   <TableCell

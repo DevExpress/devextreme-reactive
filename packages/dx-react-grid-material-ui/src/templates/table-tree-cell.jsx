@@ -34,6 +34,7 @@ const TableTreeCellBase = ({
   column, value, children, classes,
   tableRow, tableColumn, row,
   className, refObject, setRefForKeyboardNavigation,
+  setFocusedElement,
   ...restProps
 }) => (
   <TableCellMUI

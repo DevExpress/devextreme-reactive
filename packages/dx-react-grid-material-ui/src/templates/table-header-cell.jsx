@@ -131,6 +131,7 @@ class TableHeaderCellBase extends React.PureComponent {
       draggingEnabled, resizingEnabled,
       onWidthChange, onWidthDraft, onWidthDraftCancel, getCellWidth,
       classes, tableRow, className, children, refObject, setRefForKeyboardNavigation,
+      setFocusedElement,
       ...restProps
     } = this.props;
 

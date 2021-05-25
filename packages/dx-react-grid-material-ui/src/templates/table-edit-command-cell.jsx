@@ -71,6 +71,7 @@ const EditCommandHeadingCellBase = ({
   rowSpan,
   refObject,
   setRefForKeyboardNavigation,
+  setFocusedElement,
   ...restProps
 }) => (
   <TableCell
@@ -110,6 +111,7 @@ const EditCommandCellBase = ({
   tableRow, tableColumn, row, children,
   classes, className, refObject,
   setRefForKeyboardNavigation,
+  setFocusedElement,
   ...restProps
 }) => (
   <TableCell

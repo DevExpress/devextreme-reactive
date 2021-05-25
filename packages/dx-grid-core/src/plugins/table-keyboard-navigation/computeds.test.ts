@@ -1,5 +1,5 @@
 import { TABLE_FILTER_TYPE, TABLE_HEADING_TYPE } from '@devexpress/dx-grid-core';
-import { getNextFocusedElement, applyEnterAction, applyEscapeAction } from './computeds';
+import { getNextFocusedElement, applyEnterAction, applyEscapeAction, getPart, getIndexToFocus } from './computeds';
 
 const generateElements = (tableColumns, tableBodyRows, extraParts, tagName?, click?) => {
     const elements = extraParts.reduce((prev, p) => {
@@ -917,5 +917,22 @@ describe('Excape action', () => {
             ['paging', 'toolbar'], "INPUT");;
         const element = applyEscapeAction(generatedElements)
         expect(element).toEqual(undefined);
+    });
+});
+
+describe('getPart', () => {
+    it('should return correct part', () => {
+        expect(getPart('test')).toBe('body');
+        expect(getPart('paging')).toBe('paging');
+        expect(getPart('toolbar')).toBe('toolbar');
+    });
+});
+
+describe('getIndexToFocus', () => {
+    const generatedElements = generateElements(tableColumns, tableBodyRows, 
+        ['paging', 'toolbar'], "INPUT");
+    it('should return correct index', () => {
+        expect(getIndexToFocus('paging', 'none', generatedElements)).toBe(0);
+        expect(getIndexToFocus('test_row_1', 'test_column_2', generatedElements)).toBe(1);
     });
 });

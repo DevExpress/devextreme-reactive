@@ -55,6 +55,7 @@ class TableEditRowBase extends React.PureComponent<TableEditRowProps> {
                 createRowChange,
                 rowChanges,
                 isColumnEditingEnabled,
+                keyboardNavigationParams,
               }, {
                 changeAddedRow,
                 changeRow,
@@ -100,6 +101,7 @@ class TableEditRowBase extends React.PureComponent<TableEditRowProps> {
                         value={value}
                         editingEnabled={editingEnabled}
                         onValueChange={onValueChange}
+                        {...keyboardNavigationParams}
                       >
                         {content}
                       </EditCell>

@@ -579,6 +579,8 @@ export interface KeyboardNavigationProps {
 // @public (undocumented)
 export interface NavigatedComponent {
   // (undocumented)
+  setFocusedElement?: Function;
+  // (undocumented)
   setRefForKeyboardNavigation?: Function;
   // (undocumented)
   tableColumn: TableColumn;

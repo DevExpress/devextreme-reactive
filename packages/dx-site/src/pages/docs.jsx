@@ -7,7 +7,25 @@ import ReactGridIcon from './images/react-grid.inline.svg';
 import ReactChartIcon from './images/react-chart.inline.svg';
 import ReactSchedulerIcon from './images/react-scheduler.inline.svg';
 
-const concepts = [
+const commonConcepts = [
+  {
+    title: 'Localization',
+    path: '/react/common/docs/guides/localization/',
+    description: 'Translate messages and format numbers and dates in DevExtreme Reactive components.',
+  },
+  {
+    title: 'Custom Themes',
+    path: '/react/common/docs/guides/custom-theme/',
+    description: 'Integrate DevExtreme Reactive components with a third-party UI framework.',
+  },
+  {
+    title: 'Performance',
+    path: '/react/common/docs/guides/performance-optimization/',
+    description: 'Apply tips and tricks for higher performance.',
+  },
+];
+
+const advancedConcepts = [
   {
     title: 'Fundamentals',
     path: '/react/core/docs/guides/fundamentals/',
@@ -25,21 +43,6 @@ const concepts = [
   //   path: '',
   //   description: 'Connect DevExtreme Reactive components to a Redux store',
   // },
-  {
-    title: 'Localization',
-    path: '/react/common/docs/guides/localization/',
-    description: 'Translate messages and format numbers and dates in DevExtreme Reactive components.',
-  },
-  {
-    title: 'Custom Themes',
-    path: '/react/common/docs/guides/custom-theme/',
-    description: 'Integrate DevExtreme Reactive components with a third-party UI framework.',
-  },
-  {
-    title: 'Performance',
-    path: '/react/common/docs/guides/performance-optimization/',
-    description: 'Apply tips and tricks for higher performance.',
-  },
 ];
 
 export default () => (
@@ -75,7 +78,18 @@ export default () => (
         </div>
       </div>
       <div className="row">
-        {concepts.map(concept => (
+        {commonConcepts.map(concept => (
+          <ConceptDocPreview {...concept} key={concept.title} />
+        ))}
+      </div>
+
+      <div className="row my-2">
+        <div className="col-12">
+          <h2>Advanced Concepts</h2>
+        </div>
+      </div>
+      <div className="row">
+        {advancedConcepts.map(concept => (
           <ConceptDocPreview {...concept} key={concept.title} />
         ))}
       </div>

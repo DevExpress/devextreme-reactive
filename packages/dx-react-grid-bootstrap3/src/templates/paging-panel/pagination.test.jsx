@@ -201,4 +201,28 @@ describe('Pagination', () => {
       expect(next.prop('aria-label')).toBe('Next');
     });
   });
+
+  describe('ellipsis', () => {
+    const pages = [1, 2, 3, 4, 5];
+    const pageSize = 8;
+
+    pages.forEach((currentPage) => {
+      it(`should not render ellipsis if elements count equal total count (on ${currentPage} page)`, () => {
+        const pagination = shallow((
+          <Pagination
+            {...defaultProps}
+            totalPages={pages.length}
+            currentPage={currentPage}
+            totalCount={pageSize * pages.length}
+            pageSize={pageSize}
+          />
+        )).find(PaginationBS3);
+
+        const buttons = pagination.find(PaginationBS3.Item);
+        expect(buttons.length).toBe(pages.length + 2);
+
+        expect(pagination.exists(PaginationBS3.Ellipsis)).toBe(false);
+      });
+    });
+  });
 });

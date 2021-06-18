@@ -87,6 +87,8 @@ export namespace TableFilterRow {
     lessThan?: string;
     /** The 'lessThanOrEqual' filter operation name. */
     lessThanOrEqual?: string;
+    /** Additional filter operation names */
+    [key: string]: string | undefined;
   }
 }
 

@@ -115,6 +115,8 @@ greaterThanOrEqual? | string | 'Greater than or equal to'| The 'greaterThanOrEqu
 lessThan? | string | 'Less than' | The 'lessThan' filter operation name.
 lessThanOrEqual? | string | 'Less than or equal to' | The 'lessThanOrEqual' filter operation name.
 
+You can also define custom messages for the `TableFilterRow`. Refer to the following demo for more information: [Custom Filter Operations](../guides/filtering.md#custom-filter-operations).
+
 ## Plugin Components
 
 Name | Properties | Description

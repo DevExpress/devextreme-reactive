@@ -15,5 +15,5 @@ export const getMessagesFormatter: GetMessagesFormatterFn = messages => (key, pa
   if (params) {
     return processPattern(message, params);
   }
-  return message;
+  return message ?? '';
 };

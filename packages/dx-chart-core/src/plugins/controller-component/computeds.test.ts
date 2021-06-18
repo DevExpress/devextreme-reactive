@@ -33,6 +33,16 @@ describe('#isReadyToRenderSeries', () => {
     }, divRef, false, false)).toBe(true);
   });
 
+  it('should return true, #3194', () => {
+    const leftElement = { width: 70, height: 3 };
+    const bottomElement = { width: 3, height: 60 };
+
+    expect(isReadyToRenderSeries({
+      pane: { width: 230, height: 340 },
+      'left-bottom': leftElement, 'bottom-right': bottomElement,
+    }, divRef, false, false)).toBe(true);
+  });
+
   it('should return false if the div size is equal to the size of the elements inside but previous data is empty and axes exist', () => {
     expect(isReadyToRenderSeries({ pane: { width: 300, height: 400 } }, divRef, true, true))
       .toBe(false);

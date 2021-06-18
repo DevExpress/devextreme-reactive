@@ -165,4 +165,30 @@ describe('Pagination', () => {
       expect(next.props().disabled).toBeTruthy();
     });
   });
+
+  describe('ellipsis', () => {
+    const ellipsisText = '...';
+    const pages = [1, 2, 3, 4, 5];
+    const pageSize = 8;
+
+    pages.forEach((currentPage) => {
+      it(`should not render ellipsis if elements count equal total count (on ${currentPage} page)`, () => {
+        const pagination = shallow((
+          <Pagination
+            {...defaultProps}
+            totalPages={pages.length}
+            currentPage={currentPage}
+            totalCount={pageSize * pages.length}
+            pageSize={pageSize}
+          />
+        )).find(PaginationBS4).at(0);
+
+        const buttons = pagination.find(PaginationItem);
+        expect(buttons.length).toBe(pages.length + 2);
+
+        const ellipsis = buttons.findWhere(button => button.text() === ellipsisText);
+        expect(ellipsis.length).toBe(0);
+      });
+    });
+  });
 });

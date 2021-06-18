@@ -958,6 +958,7 @@ export namespace TableFilterRow {
   }
   // (undocumented)
   export interface LocalizationMessages {
+    [key: string]: string | undefined;
     contains?: string;
     endsWith?: string;
     equal?: string;

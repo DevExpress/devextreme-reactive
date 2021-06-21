@@ -8,7 +8,7 @@ export const isReadyToRenderSeries = (
   if (!pane.width && !pane.height) {
     return false;
   }
-  const bbox = current.getBoundingClientRect();
+  const bbox = { width: current.clientWidth, height: current.clientHeight };
   let width = pane.width;
   let height = pane.height;
   Object.entries(restLayouts).forEach((el) => {

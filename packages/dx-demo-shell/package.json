@@ -23,7 +23,7 @@
     "react": "^16.10.2",
     "react-bootstrap": "=0.33.0",
     "react-dom": "^16.10.2",
-    "react-frame-component": "^4.1.3",
+    "react-frame-component": "^5.1.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0"
   },

@@ -1,3 +1,15 @@
+# [2.7.6](https://github.com/DevExpress/devextreme-reactive/compare/v2.7.5...v2.7.6) (2021-06-24)
+
+
+### Bug Fixes
+
+* **react-chart:** fix chart display for zoom factor 90% ([#3354](https://github.com/DevExpress/devextreme-reactive/issues/3354)) ([ba7097e](https://github.com/DevExpress/devextreme-reactive/commit/ba7097e3f57b53528b5fa6e9a1857227193c3724)), closes [#2988](https://github.com/DevExpress/devextreme-reactive/issues/2988), [#3288](https://github.com/DevExpress/devextreme-reactive/issues/3288)
+* **react-chart:** fix series showing if scaleName contains `top` or `bottom` ([#3343](https://github.com/DevExpress/devextreme-reactive/issues/3343)) ([99c4efd](https://github.com/DevExpress/devextreme-reactive/commit/99c4efd4b287cc0bb9a84ea49fe7272cd98e75bd))
+* **react-grid:** make possible to define custom messages for TableFilterRow with TypeScript ([#3298](https://github.com/DevExpress/devextreme-reactive/issues/3298)) ([9b08ce5](https://github.com/DevExpress/devextreme-reactive/commit/9b08ce5f1bd1f61ff8bfd7daa3450b0dcbc67050))
+* **react-grid:** show page button instead of ellipsis if all pagination elements are visible ([#3353](https://github.com/DevExpress/devextreme-reactive/issues/3353)) ([c0ee6fe](https://github.com/DevExpress/devextreme-reactive/commit/c0ee6fea7d9fce6763ea7ff92f41ee207d6ca65f))
+
+
+
 # [2.7.5](https://github.com/DevExpress/devextreme-reactive/compare/v2.7.4...v2.7.5) (2021-03-04)
 
 

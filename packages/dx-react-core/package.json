@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-replace": "^2.3.1",
-    "@types/enzyme": "^3.10.5",
+    "@types/enzyme": "^3.10.8",
     "core-js": "^3.4.1",
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",

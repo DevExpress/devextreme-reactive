@@ -2,8 +2,10 @@ import * as React from 'react';
 import {
  Plugin, TemplateConnector, Getter,
 } from '@devexpress/dx-react-core';
-import { TABLE_HEADING_TYPE, TABLE_BAND_TYPE, 
-  getNextFocusedElement, applyEnterAction, applyEscapeAction, getPart, getIndexToFocus } from '@devexpress/dx-grid-core';
+import { 
+  TABLE_HEADING_TYPE, TABLE_BAND_TYPE, 
+  getNextFocusedElement, applyEnterAction, applyEscapeAction,
+  getPart, getIndexToFocus, isFocusChanged } from '@devexpress/dx-grid-core';
 import { KeyboardNavigationProps, KeyboardNavigationState } from '../types';
 
 class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigationProps, KeyboardNavigationState> {
@@ -81,6 +83,10 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
     const { focusedElement } = this.state;
     let nextFocusedElement;
 
+    if(isFocusChanged(this.elements, document.activeElement, focusedElement)) {
+      return;
+    }
+
     if(event.key === "Enter") {
       nextFocusedElement = applyEnterAction(this.elements, focusedElement);
     } else if(event.key === "Escape") {
@@ -115,7 +121,7 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
     if(!element || !this.elements[element.rowKey] || !this.elements[element.rowKey][element.columnKey]) {
       return;
     }
-    
+
     const el = this.elements[element.rowKey][element.columnKey][element.index];
     if(el) {
       if(el.focus) {

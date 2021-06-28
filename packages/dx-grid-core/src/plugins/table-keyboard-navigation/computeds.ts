@@ -309,11 +309,11 @@ export const getNextFocusedElement: GetNextFocusedElementFn = (tableColumns, tab
 }
 
 export const applyEnterAction = (elements: Elements, focusedElement?: FocusedElement): FocusedElement | undefined => {
-  if(!focusedElement) {
+  if(!focusedElement || !isTablePart(focusedElement.part)) {
     return;
   }
   const cell = elements[focusedElement.rowKey][focusedElement.columnKey];
-  
+
   if(focusedElement.index === 0 && cell.length > 1 && !notSpanInput(cell)) {
     if(cell[1].tagName === 'SPAN') {
       cell[1].click();
@@ -334,7 +334,7 @@ export const applyEnterAction = (elements: Elements, focusedElement?: FocusedEle
 }
 
 export const applyEscapeAction = (elements: Elements, focusedElement?: FocusedElement): FocusedElement | undefined => {
-  if(!focusedElement) {
+  if(!focusedElement || !isTablePart(focusedElement.part)) {
     return;
   }
   const cell = elements[focusedElement.rowKey][focusedElement.columnKey];
@@ -362,4 +362,15 @@ export const getIndexToFocus = (key1: string, key2: string, elements: Elements):
     return 1;
   }
   return 0;
+}
+
+export const isFocusChanged = (elements: Elements, activeElement: any, focusedElement?: FocusedElement) => {
+  if(focusedElement) {
+    const element = elements[focusedElement.rowKey][focusedElement.columnKey][focusedElement.index];
+    if((element.current && element.current !== activeElement) ||
+      (!element.current && element !== activeElement)) {
+      return true;
+    }
+  }
+  return false;
 }

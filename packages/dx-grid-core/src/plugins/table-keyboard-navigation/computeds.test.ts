@@ -1,5 +1,5 @@
 import { TABLE_FILTER_TYPE, TABLE_HEADING_TYPE } from '@devexpress/dx-grid-core';
-import { getNextFocusedElement, applyEnterAction, applyEscapeAction, getPart, getIndexToFocus } from './computeds';
+import { getNextFocusedElement, applyEnterAction, applyEscapeAction, getPart, getIndexToFocus, isFocusChanged } from './computeds';
 
 const generateElements = (tableColumns, tableBodyRows, extraParts, tagName?, click?) => {
     const elements = extraParts.reduce((prev, p) => {
@@ -833,6 +833,19 @@ describe('Enter action', () => {
         const element = applyEnterAction(generatedElements);
         expect(element).toEqual(undefined);
     })
+
+    it('should not return focused element, current focused element in the toolbar', () => {
+        const generatedElements = generateElements(tableColumns, tableBodyRows, 
+            ['paging', 'toolbar'], "INPUT");
+            const focusedElement = {
+                rowKey: 'toolbar',
+                columnKey: 'none',
+                index: 0,
+                part: 'toolbar'
+            };
+            const element = applyEnterAction(generatedElements, focusedElement);
+            expect(element).toEqual(undefined);
+    });
 });
 
 describe('Excape action', () => {
@@ -918,6 +931,19 @@ describe('Excape action', () => {
         const element = applyEscapeAction(generatedElements)
         expect(element).toEqual(undefined);
     });
+
+    it('should not return focused element, in the toolbar', () => {
+        const generatedElements = generateElements(tableColumns, tableBodyRows, 
+        ['paging', 'toolbar'], "INPUT");
+        const focusedElement = {
+            rowKey: 'toolbar',
+            columnKey: 'none',
+            index: 1,
+            part: 'toolbar'
+        };
+        const element = applyEscapeAction(generatedElements, focusedElement)
+        expect(element).toEqual(undefined);
+    });
 });
 
 describe('getPart', () => {
@@ -934,5 +960,25 @@ describe('getIndexToFocus', () => {
     it('should return correct index', () => {
         expect(getIndexToFocus('paging', 'none', generatedElements)).toBe(0);
         expect(getIndexToFocus('test_row_1', 'test_column_2', generatedElements)).toBe(1);
+    });
+});
+
+describe('isFocusChanged', () => {
+    it('should return true, cell is not activeElement', () => {
+        const generatedElements = generateElements(tableColumns, tableBodyRows, 
+            ['paging', 'toolbar'], "INPUT");
+        const focusedElement = {
+            rowKey: 'test_row_2',
+            columnKey: 'test_column_2',
+            index: 0,
+            part: 'body'
+        };
+        expect(isFocusChanged(generatedElements, {}, focusedElement)).toBe(true);
+    });
+
+    it('should return false, focusedElement is undefined', () => {
+        const generatedElements = generateElements(tableColumns, tableBodyRows, 
+            ['paging', 'toolbar'], "INPUT");
+        expect(isFocusChanged(generatedElements, {})).toBe(false);
     });
 });

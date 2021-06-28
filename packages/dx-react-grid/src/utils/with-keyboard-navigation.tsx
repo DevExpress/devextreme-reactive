@@ -8,7 +8,7 @@ export const withKeyboardNavigation = (key1?: string, key2?: string) =>
     constructor(props) {
       super(props);
       this.ref = React.createRef();
-      this.handleClick = this.handleClick.bind(this)
+      this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
@@ -17,7 +17,7 @@ export const withKeyboardNavigation = (key1?: string, key2?: string) =>
           setRefForKeyboardNavigation(this.ref, key1 || tableRow.key, key2 || tableColumn.key);
       }
       if(this.ref.current) {
-        (this.ref.current as any).addEventListener('click', this.handleClick);
+        (this.ref.current as any).addEventListener('mousedown', this.handleClick);
       }
     }
 

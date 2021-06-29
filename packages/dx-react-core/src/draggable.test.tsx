@@ -132,6 +132,26 @@ describe('Draggable', () => {
         .toHaveBeenCalledWith({ x: 40, y: 40 });
     });
 
+    it('should not fire the "onUpdate" callback on mousemove when right button clicked', () => {
+      const onUpdate = jest.fn();
+
+      tree = mount(
+        <Draggable
+          onUpdate={onUpdate}
+        >
+          <div />
+        </Draggable>,
+        { attachTo: rootNode },
+      );
+
+      const draggableNode = tree.find('div').getDOMNode() as HTMLElement;
+      dispatchEvent('mousedown', { clientX: 10, clientY: 10, which: 3 }, draggableNode);
+      dispatchEvent('mousemove', { clientX: 30, clientY: 30 });
+
+      expect(onUpdate)
+        .toHaveBeenCalledTimes(0);
+    });
+
     it('should fire the "onEnd" callback on mouseup', () => {
       const onEnd = jest.fn();
 

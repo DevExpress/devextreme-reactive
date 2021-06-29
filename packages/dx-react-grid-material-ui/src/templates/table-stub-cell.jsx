@@ -23,14 +23,14 @@ const TableStubCellBase = ({
   tableRow,
   tableColumn,
   refObject,
-  setRefForKeyboardNavigation,
+  updateRefForKeyboardNavigation,
   setFocusedElement,
   ...restProps
 }) => (
   <TableCell
     className={classNames({ 
       [classes.cell]: true,
-      [classes.focusedCell]: setRefForKeyboardNavigation !== undefined,
+      [classes.focusedCell]: updateRefForKeyboardNavigation !== undefined,
     }, className)}
     classes={{ footer: classes.footer }}
     ref={refObject}

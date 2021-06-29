@@ -20,21 +20,31 @@ describe('#withKeyboardNavigation', () => {
         });
     });
 
-    it('should call setRefForKeyboardNavigation method', () => {
+    it('should call updateRefForKeyboardNavigation method', () => {
         const BaseComponent = () => null;
         const TestComponent = withKeyboardNavigation()(BaseComponent);
-        const setRefForKeyboardNavigation = jest.fn();
-        mount(<TestComponent {...defaultProps} setRefForKeyboardNavigation={setRefForKeyboardNavigation} />);
+        const updateRefForKeyboardNavigation = jest.fn();
+        mount(<TestComponent {...defaultProps} updateRefForKeyboardNavigation={updateRefForKeyboardNavigation} />);
 
-        expect(setRefForKeyboardNavigation).toBeCalledWith({ current: null }, defaultProps.tableRow.key, defaultProps.tableColumn.key);
+        expect(updateRefForKeyboardNavigation).toBeCalledWith({ current: null }, defaultProps.tableRow.key, defaultProps.tableColumn.key, 'add');
     });
 
-    it('should call setRefForKeyboardNavigation method with specific keys', () => {
+    it('should call updateRefForKeyboardNavigation method with specific keys', () => {
         const BaseComponent = () => null;
         const TestComponent = withKeyboardNavigation('specific_key1', 'specific_key2')(BaseComponent);
-        const setRefForKeyboardNavigation = jest.fn();
-        const tree = mount(<TestComponent {...defaultProps} setRefForKeyboardNavigation={setRefForKeyboardNavigation} />);
+        const updateRefForKeyboardNavigation = jest.fn();
+        mount(<TestComponent {...defaultProps} updateRefForKeyboardNavigation={updateRefForKeyboardNavigation} />);
         
-        expect(setRefForKeyboardNavigation).toBeCalledWith({ current: null }, 'specific_key1', 'specific_key2');
+        expect(updateRefForKeyboardNavigation).toBeCalledWith({ current: null }, 'specific_key1', 'specific_key2', 'add');
+    });
+
+    it('should call updateRefForKeyboardNavigation on unmount', () => {
+        const BaseComponent = () => null;
+        const TestComponent = withKeyboardNavigation()(BaseComponent);
+        const updateRefForKeyboardNavigation = jest.fn();
+        const tree = mount(<TestComponent {...defaultProps} updateRefForKeyboardNavigation={updateRefForKeyboardNavigation} />);
+        tree.unmount();
+
+        expect(updateRefForKeyboardNavigation).toBeCalledWith({ current: null }, defaultProps.tableRow.key, defaultProps.tableColumn.key, 'remove');
     });
 })

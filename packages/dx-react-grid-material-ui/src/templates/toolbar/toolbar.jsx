@@ -14,7 +14,7 @@ const styles = theme => ({
 });
 
 const ToolbarBase = ({
-  children, classes, className, style, refObject, setRefForKeyboardNavigation, setFocusedElement, ...restProps
+  children, classes, className, style, refObject, updateRefForKeyboardNavigation, setFocusedElement, ...restProps
 }) => (
   <ToolbarMUI
     style={style}

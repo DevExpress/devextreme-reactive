@@ -58,7 +58,7 @@ describe('TableCell', () => {
     let tree = shallow((<Cell />));
     expect(tree.is(`.${classes.focusedCell}`)).toBeFalsy();
 
-    tree = shallow((<Cell setRefForKeyboardNavigation={()=>{}} />));
+    tree = shallow((<Cell updateRefForKeyboardNavigation={() => {}} />));
     expect(tree.is(`.${classes.focusedCell}`)).toBeTruthy();
   });
 });

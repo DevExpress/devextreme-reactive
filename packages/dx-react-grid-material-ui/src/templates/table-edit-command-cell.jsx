@@ -70,7 +70,7 @@ const EditCommandHeadingCellBase = ({
   tableRow, tableColumn,
   rowSpan,
   refObject,
-  setRefForKeyboardNavigation,
+  updateRefForKeyboardNavigation,
   setFocusedElement,
   ...restProps
 }) => (
@@ -78,7 +78,7 @@ const EditCommandHeadingCellBase = ({
     className={classNames({
       [classes.headingCell]: true,
       [classes.alignWithRowSpan]: rowSpan > 1,
-      [classes.focusedCell]: setRefForKeyboardNavigation !== undefined,
+      [classes.focusedCell]: updateRefForKeyboardNavigation !== undefined,
     }, className)}
     rowSpan={rowSpan}
     ref={refObject}
@@ -110,14 +110,14 @@ export const EditCommandHeadingCell = withKeyboardNavigation()(withEditColumnSty
 const EditCommandCellBase = ({
   tableRow, tableColumn, row, children,
   classes, className, refObject,
-  setRefForKeyboardNavigation,
+  updateRefForKeyboardNavigation,
   setFocusedElement,
   ...restProps
 }) => (
   <TableCell
     className={classNames({
       [classes.cell]: true, 
-      [classes.focusedCell]: setRefForKeyboardNavigation !== undefined,
+      [classes.focusedCell]: updateRefForKeyboardNavigation !== undefined,
     }, className)}
     ref={refObject}
     {...restProps}

@@ -33,7 +33,7 @@ const styles = theme => ({
 const TableTreeCellBase = ({
   column, value, children, classes,
   tableRow, tableColumn, row,
-  className, refObject, setRefForKeyboardNavigation,
+  className, refObject, updateRefForKeyboardNavigation,
   setFocusedElement,
   ...restProps
 }) => (
@@ -43,7 +43,7 @@ const TableTreeCellBase = ({
       [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
       [classes.cellRightAlign]: tableColumn && tableColumn.align === 'right',
       [classes.cellCenterAlign]: tableColumn && tableColumn.align === 'center',
-      [classes.focusedCell]: setRefForKeyboardNavigation !== undefined,
+      [classes.focusedCell]: updateRefForKeyboardNavigation !== undefined,
     }, className)}
     ref={refObject}
     {...restProps}

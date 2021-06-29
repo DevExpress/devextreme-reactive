@@ -51,8 +51,8 @@ class PagingPanelBase extends React.PureComponent<PagingPanelProps> {
                 getMessage={getMessage}
                 onCurrentPageChange={setCurrentPage}
                 onPageSizeChange={setPageSize}
-                setRefForKeyboardNavigation={keyboardNavigationParams ?
-                   keyboardNavigationParams.setRefForKeyboardNavigation : undefined}
+                updateRefForKeyboardNavigation={keyboardNavigationParams ?
+                   keyboardNavigationParams.updateRefForKeyboardNavigation : undefined}
                 setFocusedElement={keyboardNavigationParams ? 
                   keyboardNavigationParams.setFocusedElement : undefined}
               />

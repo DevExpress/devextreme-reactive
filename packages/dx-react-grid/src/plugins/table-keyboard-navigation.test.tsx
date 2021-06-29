@@ -9,7 +9,8 @@ jest.mock('@devexpress/dx-grid-core', () => ({
     applyEnterAction: jest.fn(),
     applyEscapeAction: jest.fn(),
     TABLE_HEADING_TYPE: 'heading_type',
-    TABLE_BAND_TYPE: 'band_type'
+    TABLE_BAND_TYPE: 'band_type',
+    TABLE_ADDED_TYPE: 'added_type'
 }));
 
 describe('TableKeyboardNavigation', () => {
@@ -45,7 +46,7 @@ describe('TableKeyboardNavigation', () => {
                     />
                 </PluginHost>
             ));
-            getComputedState(tree).keyboardNavigationParams.setRefForKeyboardNavigation(ref, 'rowType', 'columnType');
+            getComputedState(tree).keyboardNavigationParams.updateRefForKeyboardNavigation(ref, 'rowType', 'columnType', 'add');
 
             expect(focusFn).toBeCalled();
         });
@@ -59,7 +60,7 @@ describe('TableKeyboardNavigation', () => {
                     />
                 </PluginHost>
             ));
-            getComputedState(tree).keyboardNavigationParams.setRefForKeyboardNavigation(ref, 'rowType_another', 'columnType_another');
+            getComputedState(tree).keyboardNavigationParams.updateRefForKeyboardNavigation(ref, 'rowType_another', 'columnType_another', 'add');
 
             expect(focusFn).not.toBeCalled();
         });
@@ -73,7 +74,7 @@ describe('TableKeyboardNavigation', () => {
                     />
                 </PluginHost>
             ));
-            getComputedState(tree).keyboardNavigationParams.setRefForKeyboardNavigation(ref, 'rowType', 'columnType');
+            getComputedState(tree).keyboardNavigationParams.updateRefForKeyboardNavigation(ref, 'rowType', 'columnType', 'add');
 
             expect(focusFn).toBeCalled();
         });
@@ -85,7 +86,7 @@ describe('TableKeyboardNavigation', () => {
                     <TableKeyboardNavigation />
                 </PluginHost>
             ));
-            getComputedState(tree).keyboardNavigationParams.setRefForKeyboardNavigation(ref, 'rowType', 'columnType');
+            getComputedState(tree).keyboardNavigationParams.updateRefForKeyboardNavigation(ref, 'rowType', 'columnType', 'add');
 
             expect(focusFn).not.toBeCalled();
         });
@@ -101,7 +102,7 @@ describe('TableKeyboardNavigation', () => {
                     />
                 </PluginHost>
             ));
-            getComputedState(tree).keyboardNavigationParams.setRefForKeyboardNavigation(ref, 'rowType', 'columnType');
+            getComputedState(tree).keyboardNavigationParams.updateRefForKeyboardNavigation(ref, 'rowType', 'columnType', 'add');
 
             expect(onFocusedCellChanged).toBeCalled();
             expect(onFocusedCellChanged).toBeCalledWith(focusedCell);
@@ -118,7 +119,7 @@ describe('TableKeyboardNavigation', () => {
                     />
                 </PluginHost>
             ));
-            getComputedState(tree).keyboardNavigationParams.setRefForKeyboardNavigation(ref, 'rowType', 'columnType');
+            getComputedState(tree).keyboardNavigationParams.updateRefForKeyboardNavigation(ref, 'rowType', 'columnType', 'add');
             tree.setProps({focusedCell: focusedCell});
 
             expect(onFocusedCellChanged).toBeCalledTimes(1);
@@ -141,7 +142,7 @@ describe('TableKeyboardNavigation', () => {
                     />
                 </PluginHost>
             ));
-            getComputedState(tree).keyboardNavigationParams.setRefForKeyboardNavigation(ref, 'rowType', 'columnType');
+            getComputedState(tree).keyboardNavigationParams.updateRefForKeyboardNavigation(ref, 'rowType', 'columnType', 'add');
 
             expect(onFocusedCellChanged).not.toBeCalled();
         });
@@ -181,7 +182,7 @@ describe('TableKeyboardNavigation', () => {
                     />
                 </PluginHost>
             ));
-            getComputedState(tree).keyboardNavigationParams.setRefForKeyboardNavigation(ref, 'toolbar', 'none');
+            getComputedState(tree).keyboardNavigationParams.updateRefForKeyboardNavigation(ref, 'toolbar', 'none', 'add');
 
             expect(focusFn).toBeCalled();
             expect(querySelectorAllFn).toBeCalledWith('[tabIndex], input');
@@ -202,7 +203,7 @@ describe('TableKeyboardNavigation', () => {
                     />
                 </PluginHost>
             ));
-            getComputedState(tree).keyboardNavigationParams.setRefForKeyboardNavigation(ref, 'paging', 'none');
+            getComputedState(tree).keyboardNavigationParams.updateRefForKeyboardNavigation(ref, 'paging', 'none', 'add');
 
             expect(focusFn).toBeCalled();
             expect(querySelectorAllFn).toBeCalledWith('[tabIndex], input');

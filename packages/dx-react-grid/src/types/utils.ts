@@ -11,7 +11,7 @@ export interface RowCache {
 }
 
 export interface NavigatedComponent {
-  setRefForKeyboardNavigation?: Function,
+  updateRefForKeyboardNavigation?: Function,
   tableRow: TableRow,
   tableColumn: TableColumn,
   setFocusedElement?: Function, 

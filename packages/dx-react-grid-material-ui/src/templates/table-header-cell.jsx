@@ -130,7 +130,7 @@ class TableHeaderCellBase extends React.PureComponent {
       style, column, tableColumn,
       draggingEnabled, resizingEnabled,
       onWidthChange, onWidthDraft, onWidthDraftCancel, getCellWidth,
-      classes, tableRow, className, children, refObject, setRefForKeyboardNavigation,
+      classes, tableRow, className, children, refObject, updateRefForKeyboardNavigation,
       setFocusedElement,
       ...restProps
     } = this.props;
@@ -146,7 +146,7 @@ class TableHeaderCellBase extends React.PureComponent {
       [classes.cellDraggable]: draggingEnabled,
       [classes.cellDimmed]: dragging || (tableColumn && tableColumn.draft),
       [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
-      [classes.focusedCell]: setRefForKeyboardNavigation !== undefined,
+      [classes.focusedCell]: updateRefForKeyboardNavigation !== undefined,
     }, className);
     const cellLayout = (
       <TableCell

@@ -12,12 +12,22 @@ export const withKeyboardNavigation = (key1?: string, key2?: string) =>
     }
 
     componentDidMount() {
-      const { setRefForKeyboardNavigation, tableRow, tableColumn } = this.props;
-      if(setRefForKeyboardNavigation) {
-          setRefForKeyboardNavigation(this.ref, key1 || tableRow.key, key2 || tableColumn.key);
+      const { updateRefForKeyboardNavigation, tableRow, tableColumn } = this.props;
+      if(updateRefForKeyboardNavigation) {
+        updateRefForKeyboardNavigation(this.ref, key1 || tableRow.key, key2 || tableColumn.key, 'add');
       }
       if(this.ref.current) {
-        (this.ref.current as any).addEventListener('mousedown', this.handleClick);
+        (this.ref.current as any).addEventListener('mouseup', this.handleClick);
+      }
+    }
+
+    componentWillUnmount() {
+      const { updateRefForKeyboardNavigation, tableRow, tableColumn } = this.props;
+      if(updateRefForKeyboardNavigation) {
+        updateRefForKeyboardNavigation(this.ref, key1 || tableRow.key, key2 || tableColumn.key, 'remove');
+      }
+      if(this.ref.current) {
+        (this.ref.current as any).removeEventListener('mouseup', this.handleClick);
       }
     }
 

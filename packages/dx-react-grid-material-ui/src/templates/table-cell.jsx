@@ -35,13 +35,13 @@ const styles = theme => ({
 const TableCellBase = ({
   column, value, children, classes,
   tableRow, tableColumn, row,
-  className, refObject, setRefForKeyboardNavigation, setFocusedElement,
+  className, refObject, updateRefForKeyboardNavigation, setFocusedElement,
   ...restProps
 }) => (
   <TableCellMUI
       className={classNames({
         [classes.cell]: true,
-        [classes.focusedCell]: setRefForKeyboardNavigation !== undefined,
+        [classes.focusedCell]: updateRefForKeyboardNavigation !== undefined,
         [classes.cellRightAlign]: tableColumn && tableColumn.align === 'right',
         [classes.cellCenterAlign]: tableColumn && tableColumn.align === 'center',
         [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),

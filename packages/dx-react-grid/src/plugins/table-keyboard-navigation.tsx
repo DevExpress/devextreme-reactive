@@ -3,7 +3,7 @@ import {
  Plugin, TemplateConnector, Getter,
 } from '@devexpress/dx-react-core';
 import { 
-  TABLE_HEADING_TYPE, TABLE_BAND_TYPE, 
+  TABLE_HEADING_TYPE, TABLE_BAND_TYPE, TABLE_ADDED_TYPE,
   getNextFocusedElement, applyEnterAction, applyEscapeAction,
   getPart, getIndexToFocus, isFocusChanged } from '@devexpress/dx-grid-core';
 import { KeyboardNavigationProps, KeyboardNavigationState } from '../types';
@@ -40,32 +40,66 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
       this.elements[key1][key2].push(el);
     });
 
-    if(focusedElement && focusedElement.rowKey === key1 && focusedElement.columnKey === key2) {
+    if(focusedElement?.rowKey === key1 && focusedElement?.columnKey === key2) {
       this.focus(this.state.focusedElement);
+    }
+
+    if(key1.toString().includes(TABLE_ADDED_TYPE.toString()) && key2 === (this.tableColumns[0] as any).key) {
+      this.setState({
+        focusedElement: {
+          part: 'body',
+          index: 0,
+          columnKey: key2,
+          rowKey: key1
+        }
+      });
     }
   }
 
-  setRef(ref, key1, key2) {
-    if(key1.toString().includes(TABLE_BAND_TYPE.toString())) {
-      this.pushRef(ref, TABLE_HEADING_TYPE.toString(), key2);
+  removeRef(key1, key2) {
+    const { focusedElement } = this.state;
+
+    if(focusedElement?.rowKey === key1 && focusedElement?.columnKey === key2) {
+      this.setState({
+        focusedElement: undefined
+      })
+    }
+    delete this.elements[key1][key2];
+    if(Object.keys(this.elements[key1]).length === 0) {
+      delete this.elements[key1];
+    }
+  }
+
+  updateRef(ref, key1, key2, action) {
+    if(action === 'add') {
+      if(key1.toString().includes(TABLE_BAND_TYPE.toString())) {
+        this.pushRef(ref, TABLE_HEADING_TYPE.toString(), key2);
+      } else {
+        this.pushRef(ref, key1, key2);
+      }
     } else {
-      this.pushRef(ref, key1, key2);
+      if(key1.toString().includes(TABLE_BAND_TYPE.toString())) {
+        this.removeRef(TABLE_HEADING_TYPE.toString(), key2);
+      } else {
+        this.removeRef(key1, key2);
+      }
     }
   }
 
   componentDidMount() {
-    this.setupNodeSubscription();
+    document.addEventListener('keydown', this.handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyDown);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(prevState.focusedElement !== this.state.focusedElement) {
-      this.focus(this.state.focusedElement, prevState.focusedElement);
+    const { focusedElement } = this.state;
+    
+    if(!focusedElement || JSON.stringify(prevState.focusedElement) !== JSON.stringify(focusedElement)) {
+      this.focus(focusedElement, prevState.focusedElement);
     }
-  }
-
-  setupNodeSubscription() {
-    document.removeEventListener('keydown', this.handleKeyDown);
-    document.addEventListener('keydown', this.handleKeyDown);
   }
 
   static getDerivedStateFromProps(props: KeyboardNavigationProps, state: KeyboardNavigationState): KeyboardNavigationState {
@@ -143,7 +177,7 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
       >
         <Getter name="keyboardNavigationParams" value={{
           tabIndex: -1,
-          setRefForKeyboardNavigation: this.setRef.bind(this),
+          updateRefForKeyboardNavigation: this.updateRef.bind(this),
           setFocusedElement: this.setFocusedElement.bind(this),
         }} />
         <TemplateConnector>

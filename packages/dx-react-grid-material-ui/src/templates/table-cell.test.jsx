@@ -82,7 +82,7 @@ describe('TableCell', () => {
     let tree = shallow(<TableCell />);
     expect(tree.find(TableCellMUI).hasClass(classes.focusedCell)).toBeFalsy();
 
-    tree = shallow(<TableCell setRefForKeyboardNavigation={()=>{}} />);
+    tree = shallow(<TableCell updateRefForKeyboardNavigation={() => {}} />);
     expect(tree.find(TableCellMUI).hasClass(classes.focusedCell)).toBeTruthy();
   });
 });

@@ -25,14 +25,14 @@ const TableFilterCellBase = ({
   filter, getMessage, onFilter,
   classes, children, className,
   tableRow, tableColumn, column, filteringEnabled, refObject,
-  setRefForKeyboardNavigation,
+  updateRefForKeyboardNavigation,
   setFocusedElement,
   ...restProps
 }) => (
   <TableCell
     className={classNames({
       [classes.cell]: true,
-      [classes.focusedCell]: setRefForKeyboardNavigation !== undefined,
+      [classes.focusedCell]: updateRefForKeyboardNavigation !== undefined,
     }, className)}
     ref={refObject}
     {...restProps}

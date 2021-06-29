@@ -5,7 +5,7 @@ const generateElements = (tableColumns, tableBodyRows, extraParts, tagName?, cli
     const elements = extraParts.reduce((prev, p) => {
         prev[p] = [];
         if(p === 'toolbar' || p === 'paging') {
-            prev[p]['none'] = [{}, {}, {}];
+            prev[p]['none'] = [{}, {tagName: tagName}, {}];
         } else {
             if(!tagName) {
                 tableColumns.forEach((c) => {

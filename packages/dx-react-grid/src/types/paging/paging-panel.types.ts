@@ -21,7 +21,7 @@ export namespace PagingPanel {
       messageKey: string, parameters?: { from: number, to: number, count: number },
     ) => string;
     /** @internal */
-    setRefForKeyboardNavigation: (ref: any, key1: string, key2: string) => void;
+    updateRefForKeyboardNavigation: (ref: any, key1: string, key2: string) => void;
     /** @internal */
     setFocusedElement: (key1: string, key2: string) => void;
   }

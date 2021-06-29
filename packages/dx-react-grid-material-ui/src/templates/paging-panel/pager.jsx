@@ -29,7 +29,7 @@ const PagerBase = ({
   getMessage,
   className,
   refObject,
-  setRefForKeyboardNavigation,
+  updateRefForKeyboardNavigation,
   setFocusedElement,
   ...restProps
 }) => (

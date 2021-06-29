@@ -358,7 +358,7 @@ export const getPart = (key: string): string => {
 
 export const getIndexToFocus = (key1: string, key2: string, elements: Elements): number => {
   const cell = elements[key1][key2];
-  if(cell.length > 1 && cell[1].tagName === "INPUT") {
+  if(cell.length > 1 && cell[1].tagName === "INPUT" && isTablePart(key1)) {
     return 1;
   }
   return 0;

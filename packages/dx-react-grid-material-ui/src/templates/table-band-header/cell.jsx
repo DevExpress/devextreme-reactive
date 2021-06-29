@@ -32,14 +32,14 @@ const styles = theme => ({
 
 const CellBase = ({
   column, value, children, classes, tableRow, tableColumn, row, className, beforeBorder, refObject,
-  setRefForKeyboardNavigation, setFocusedElement,
+  updateRefForKeyboardNavigation, setFocusedElement,
   ...restProps
 }) => (
   <TableCell
     className={classNames({
       [classes.cell]: true,
       [classes.beforeBorder]: beforeBorder,
-      [classes.focusedCell]: setRefForKeyboardNavigation !== undefined,
+      [classes.focusedCell]: updateRefForKeyboardNavigation !== undefined,
     }, className)}
     {...restProps}
     ref={refObject}

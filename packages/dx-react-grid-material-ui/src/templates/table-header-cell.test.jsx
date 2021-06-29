@@ -146,7 +146,7 @@ describe('TableHeaderCell', () => {
     let tree = shallow((<TableHeaderCell {...defaultProps} />));
     expect(tree.is(`.${classes.focusedCell}`)).toBeFalsy();
 
-    tree = shallow((<TableHeaderCell {...defaultProps} setRefForKeyboardNavigation={()=>{}} />));
+    tree = shallow((<TableHeaderCell {...defaultProps} updateRefForKeyboardNavigation={()=>{}} />));
     expect(tree.is(`.${classes.focusedCell}`)).toBeTruthy();
   });
 });

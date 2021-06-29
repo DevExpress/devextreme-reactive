@@ -581,11 +581,11 @@ export interface NavigatedComponent {
   // (undocumented)
   setFocusedElement?: Function;
   // (undocumented)
-  setRefForKeyboardNavigation?: Function;
-  // (undocumented)
   tableColumn: TableColumn;
   // (undocumented)
   tableRow: TableRow;
+  // (undocumented)
+  updateRefForKeyboardNavigation?: Function;
 }
 
 // @public

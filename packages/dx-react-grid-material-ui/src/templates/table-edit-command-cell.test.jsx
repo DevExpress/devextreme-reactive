@@ -55,7 +55,7 @@ describe('TableCommandColumn', () => {
       let tree = shallow((<EditCommandHeadingCell />));
       expect(tree.is(`.${classes.focusedCell}`)).toBeFalsy();
   
-      tree = shallow((<EditCommandHeadingCell setRefForKeyboardNavigation={()=>{}} />));
+      tree = shallow((<EditCommandHeadingCell updateRefForKeyboardNavigation={()=>{}} />));
       expect(tree.is(`.${classes.focusedCell}`)).toBeTruthy();
     });
   });
@@ -94,7 +94,7 @@ describe('TableCommandColumn', () => {
       let tree = shallow((<EditCommandCell />));
       expect(tree.is(`.${classes.focusedCell}`)).toBeFalsy();
   
-      tree = shallow((<EditCommandCell setRefForKeyboardNavigation={()=>{}} />));
+      tree = shallow((<EditCommandCell updateRefForKeyboardNavigation={() => {}} />));
       expect(tree.is(`.${classes.focusedCell}`)).toBeTruthy();
     });
   });

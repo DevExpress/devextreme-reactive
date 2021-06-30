@@ -4,7 +4,7 @@ import {
     GetElementFn, getElementPrevNextPartFn, Elements,
 } from '../../types';
 
-  const tableParts = ['toolbar', TABLE_HEADING_TYPE.toString(), TABLE_FILTER_TYPE.toString(), 'body', 'paging'];
+const tableParts = ['toolbar', TABLE_HEADING_TYPE.toString(), TABLE_FILTER_TYPE.toString(), 'body', 'paging'];
 
 const getIndex = (arr: TableColumn[] | TableRow [], focusedCell: FocusedElement, key: string) => {
   return arr.findIndex((el: TableColumn | TableRow) => {
@@ -345,7 +345,7 @@ export const applyEscapeAction = (elements: Elements, focusedElement?: FocusedEl
       index: 0
     }
   }
-  return ;
+  return;
 }
 
 export const getPart = (key: string): string => {
@@ -373,4 +373,23 @@ export const isFocusChanged = (elements: Elements, activeElement: any, focusedEl
     }
   }
   return false;
+}
+
+export const getPrevNextTablePart = (focusedElement: FocusedElement, elements: Elements, direction: number, 
+  tableBodyRows: TableRow[], tableColumns: TableColumn[]): FocusedElement | undefined => {
+  let el;
+  debugger
+  if(direction === -1) {
+    el = getElementPrevPart(focusedElement, elements, tableBodyRows, tableColumns);
+  } else {
+    el = getElementNextPart(focusedElement, elements, tableBodyRows, tableColumns);
+  }
+  if(el) {
+    return {
+      ...el,
+      index: 0,
+      columnKey: isTablePart(el.part) ? tableColumns[0].key  : 'none'
+    }
+  }
+  return;
 }

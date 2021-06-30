@@ -5,7 +5,7 @@ import {
 import { 
   TABLE_HEADING_TYPE, TABLE_BAND_TYPE, TABLE_ADDED_TYPE,
   getNextFocusedElement, applyEnterAction, applyEscapeAction,
-  getPart, getIndexToFocus, isFocusChanged } from '@devexpress/dx-grid-core';
+  getPart, getIndexToFocus, isFocusChanged, getPrevNextTablePart } from '@devexpress/dx-grid-core';
 import { KeyboardNavigationProps, KeyboardNavigationState } from '../types';
 
 class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigationProps, KeyboardNavigationState> {
@@ -120,11 +120,14 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
     if(isFocusChanged(this.elements, document.activeElement, focusedElement)) {
       return;
     }
-
     if(event.key === "Enter") {
       nextFocusedElement = applyEnterAction(this.elements, focusedElement);
     } else if(event.key === "Escape") {
       nextFocusedElement = applyEscapeAction(this.elements, focusedElement);
+    } else if(focusedElement && event.ctrlKey && event.key === 'ArrowUp') {
+      nextFocusedElement = getPrevNextTablePart(focusedElement, this.elements, -1, this.tableBodyRows, this.tableColumns);
+    } else if(focusedElement && event.ctrlKey && event.key === 'ArrowDown') {
+      nextFocusedElement = getPrevNextTablePart(focusedElement, this.elements, 1, this.tableBodyRows, this.tableColumns);
     } else {
       nextFocusedElement = getNextFocusedElement(this.tableColumns, this.tableBodyRows,
         this.elements, event.key, event.shiftKey, focusedElement);

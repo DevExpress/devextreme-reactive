@@ -1,5 +1,5 @@
 import { TABLE_FILTER_TYPE, TABLE_HEADING_TYPE } from '@devexpress/dx-grid-core';
-import { getNextFocusedElement, applyEnterAction, applyEscapeAction, getPart, getIndexToFocus, isFocusChanged } from './computeds';
+import { getNextFocusedElement, applyEnterAction, applyEscapeAction, getPart, getIndexToFocus, isFocusChanged, getPrevNextTablePart } from './computeds';
 
 const generateElements = (tableColumns, tableBodyRows, extraParts, tagName?, click?) => {
     const elements = extraParts.reduce((prev, p) => {
@@ -980,5 +980,82 @@ describe('isFocusChanged', () => {
         const generatedElements = generateElements(tableColumns, tableBodyRows, 
             ['paging', 'toolbar'], "INPUT");
         expect(isFocusChanged(generatedElements, {})).toBe(false);
+    });
+});
+
+describe('getPrevNextTablePart', () => {
+    it('should return paging part', () => {
+        const focusedElement = {
+            rowKey: 'test_row_2',
+            columnKey: 'test_column_2',
+            index: 0,
+            part: 'body'
+        };
+        const generatedElements = generateElements(tableColumns, tableBodyRows, 
+            ['paging', 'toolbar'], "INPUT");
+        expect(getPrevNextTablePart(focusedElement, generatedElements, 1, tableBodyRows, tableColumns)).toEqual({
+            columnKey: 'none',
+            rowKey: 'paging',
+            part: 'paging',
+            index: 0
+        });
+    });
+
+    it('should return toolbar part', () => {
+        const focusedElement = {
+            rowKey: 'test_row_2',
+            columnKey: 'test_column_2',
+            index: 0,
+            part: 'body'
+        };
+        const generatedElements = generateElements(tableColumns, tableBodyRows, 
+            ['paging', 'toolbar'], "INPUT");
+        expect(getPrevNextTablePart(focusedElement, generatedElements, -1, tableBodyRows, tableColumns)).toEqual({
+            columnKey: 'none',
+            rowKey: 'toolbar',
+            part: 'toolbar',
+            index: 0
+        });
+    });
+
+    it('should return body part', () => {
+        const focusedElement = {
+            rowKey: 'toolbar',
+            columnKey: 'none',
+            index: 1,
+            part: 'toolbar'
+        };
+        const generatedElements = generateElements(tableColumns, tableBodyRows, 
+            ['paging', 'toolbar'], "INPUT");
+        expect(getPrevNextTablePart(focusedElement, generatedElements, 1, tableBodyRows, tableColumns)).toEqual({
+            columnKey: 'test_column_1',
+            rowKey: 'test_row_1',
+            part: 'body',
+            index: 0
+        });
+    });
+
+    it('should not return focused element, focused element in the first part', () => {
+        const focusedElement = {
+            rowKey: 'toolbar',
+            columnKey: 'none',
+            index: 1,
+            part: 'toolbar'
+        };
+        const generatedElements = generateElements(tableColumns, tableBodyRows, 
+            ['paging', 'toolbar'], "INPUT");
+        expect(getPrevNextTablePart(focusedElement, generatedElements, -1, tableBodyRows, tableColumns)).toEqual(undefined);
+    });
+
+    it('should not return focused element, focused element in the last part', () => {
+        const focusedElement = {
+            rowKey: 'paging',
+            columnKey: 'none',
+            index: 1,
+            part: 'paging'
+        };
+        const generatedElements = generateElements(tableColumns, tableBodyRows, 
+            ['paging', 'toolbar'], "INPUT");
+        expect(getPrevNextTablePart(focusedElement, generatedElements, 1, tableBodyRows, tableColumns)).toEqual(undefined);
     });
 });

@@ -14,9 +14,14 @@ const styles = {
 };
 
 const TableContainerBase = ({
-  children, classes, className, ...restProps
+  children,
+  classes,
+  className,
+  forwardedRef,
+  ...restProps
 }) => (
   <div
+    ref={forwardedRef}
     className={classNames(classes.root, className)}
     {...restProps}
   >
@@ -30,10 +35,12 @@ TableContainerBase.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 TableContainerBase.defaultProps = {
   className: undefined,
+  forwardedRef: undefined,
 };
 
 export const TableContainer = withStyles(styles, { name: 'TableContainer' })(TableContainerBase);

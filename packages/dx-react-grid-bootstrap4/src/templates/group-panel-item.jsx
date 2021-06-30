@@ -12,7 +12,7 @@ export const GroupPanelItem = ({
   item: { column, draft },
   onGroup, showGroupingControls, showSortingControls,
   sortingDirection, onSort, className, groupingEnabled,
-  sortingEnabled, ...restProps
+  sortingEnabled, forwardedRef, ...restProps
 }) => {
   const handleSortingChange = (e) => {
     const isActionKeyDown = isActionKey(e.keyCode);
@@ -41,6 +41,7 @@ export const GroupPanelItem = ({
   };
   return (
     <div
+      ref={forwardedRef}
       className={classNames({
         'btn-group mb-1 mr-1': true,
         'dx-g-bs4-inactive': draft,
@@ -101,6 +102,7 @@ GroupPanelItem.propTypes = {
   showGroupingControls: PropTypes.bool,
   groupingEnabled: PropTypes.bool,
   sortingEnabled: PropTypes.bool,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 GroupPanelItem.defaultProps = {
@@ -112,4 +114,5 @@ GroupPanelItem.defaultProps = {
   showGroupingControls: false,
   sortingEnabled: false,
   groupingEnabled: false,
+  forwardedRef: undefined,
 };

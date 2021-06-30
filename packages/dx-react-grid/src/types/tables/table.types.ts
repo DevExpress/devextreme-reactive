@@ -61,6 +61,7 @@ export namespace Table {
     row: any;
     /** @internal */
     style?: object;
+    forwardedRef?: React.Ref<React.ReactInstance>;
   }
 
   export interface LocalizationMessages {
@@ -69,7 +70,7 @@ export namespace Table {
   }
 
   export interface InnerTableProps {
-    tableRef?: React.RefObject<HTMLTableElement>;
+    forwardedRef?: React.RefObject<HTMLTableElement>;
     style: React.CSSProperties;
   }
 }

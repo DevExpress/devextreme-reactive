@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
+import { createMount, createShallow } from '@material-ui/core/test-utils';
 import { DraftAppointment, SourceAppointment } from './appointments';
 
 jest.mock('@material-ui/core/styles', () => ({
@@ -59,8 +59,10 @@ describe('DragDrop', () => {
 
   describe('SourceAppointment', () => {
     let shallow;
+    let mount;
     beforeAll(() => {
       shallow = createShallow({ dive: true });
+      mount = createMount();
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
@@ -87,6 +89,18 @@ describe('DragDrop', () => {
 
       expect(tree.prop('isShaded'))
         .toBeTruthy();
+    });
+    it('should pass ref to the dom element', () => {
+      const testRef = React.createRef();
+      const tree = mount((
+        <SourceAppointment
+          {...defaultProps}
+          forwardedRef={testRef}
+        />
+      ));
+
+      expect(testRef.current)
+        .toEqual(tree.getDOMNode());
     });
   });
 });

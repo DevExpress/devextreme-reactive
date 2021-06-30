@@ -1,15 +1,11 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { findDOMNode } from 'react-dom';
 import { setupConsole } from '@devexpress/dx-testing';
 import { DragSource, DropTarget } from '@devexpress/dx-react-core';
 import { GroupPanelLayout } from './group-panel-layout';
 
-jest.mock('react-dom', () => ({
-  findDOMNode: jest.fn(),
-}));
 jest.mock('@devexpress/dx-react-core', () => ({
-  DragSource: jest.fn(({ children }) => children),
+  DragSource: React.forwardRef(({ children }: { children: React.ReactElement }, ref) => children),
   DropTarget: jest.fn(({ children }) => children),
 }));
 
@@ -234,9 +230,6 @@ describe('GroupPanelLayout', () => {
     });
 
     it('should apply grouping and reset grouping change on drag end', () => {
-      findDOMNode.mockImplementation(() => ({
-        getBoundingClientRect: () => ({}),
-      }));
       const column = { name: 'a' };
       const onGroup = jest.fn();
       const onGroupDraftCancel = jest.fn();

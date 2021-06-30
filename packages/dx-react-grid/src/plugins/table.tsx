@@ -22,7 +22,9 @@ import {
 import { TableProps, Table as TableNS, TableLayoutProps } from '../types';
 import { TableColumnsWithDataRowsGetter } from './internal/table-columns-getter';
 
-const RowPlaceholder = props => <TemplatePlaceholder name="tableRow" params={props} />;
+const RowPlaceholder = React.forwardRef((props, ref) => (
+  <TemplatePlaceholder name="tableRow" params={{ ...props, ref }} />
+));
 const CellPlaceholder = props => <TemplatePlaceholder name="tableCell" params={props} />;
 
 const tableHeaderRows = [];
@@ -93,33 +95,36 @@ class TableBase extends React.PureComponent<TableProps> {
           <TemplatePlaceholder name="table" />
         </Template>
         <Template name="table">
-          <TemplateConnector>
-            {({
-              tableHeaderRows: headerRows,
-              tableBodyRows: bodyRows,
-              tableFooterRows: footerRows,
-              tableColumns: columns,
-              getTableCellColSpan,
-            }) => (
-              <TemplatePlaceholder
-                name="tableLayout"
-                params={{
-                  tableComponent,
-                  headComponent,
-                  bodyComponent,
-                  footerComponent,
-                  containerComponent,
-                  headerRows,
-                  bodyRows,
-                  footerRows,
-                  columns,
-                  rowComponent: RowPlaceholder,
-                  cellComponent: CellPlaceholder,
-                  getCellColSpan: getTableCellColSpan,
-                }}
-              />
-            )}
-          </TemplateConnector>
+          {params => (
+            <TemplateConnector>
+              {({
+                tableHeaderRows: headerRows,
+                tableBodyRows: bodyRows,
+                tableFooterRows: footerRows,
+                tableColumns: columns,
+                getTableCellColSpan,
+              }) => (
+                <TemplatePlaceholder
+                  name="tableLayout"
+                  params={{
+                    ...params,
+                    tableComponent,
+                    headComponent,
+                    bodyComponent,
+                    footerComponent,
+                    containerComponent,
+                    headerRows,
+                    bodyRows,
+                    footerRows,
+                    columns,
+                    rowComponent: RowPlaceholder,
+                    cellComponent: CellPlaceholder,
+                    getCellColSpan: getTableCellColSpan,
+                  }}
+                />
+              )}
+            </TemplateConnector>
+          )}
         </Template>
         <Template name="tableLayout">
           {(params: TableLayoutProps) => (

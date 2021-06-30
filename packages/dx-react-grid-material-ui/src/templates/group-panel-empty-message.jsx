@@ -15,9 +15,11 @@ const GroupPanelEmptyMessageBase = ({
   getMessage,
   classes,
   className,
+  forwardedRef,
   ...restProps
 }) => (
   <div
+    ref={forwardedRef}
     className={classNames(classes.groupInfo, className)}
     {...restProps}
   >
@@ -29,10 +31,12 @@ GroupPanelEmptyMessageBase.propTypes = {
   getMessage: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 GroupPanelEmptyMessageBase.defaultProps = {
   className: undefined,
+  forwardedRef: undefined,
 };
 
 export const GroupPanelEmptyMessage = withStyles(styles, { name: 'GroupPanelEmptyMessage' })(GroupPanelEmptyMessageBase);

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { RefHolder } from '@devexpress/dx-react-core';
 import { ColumnGroup } from './column-group';
 import { VirtualTableLayoutBlockProps } from '../../types';
 import { VirtualRowLayout } from './virtual-row-layout';
@@ -12,13 +11,16 @@ export class VirtualTableLayoutBlock extends React.PureComponent<VirtualTableLay
     tableRef: React.createRef(),
   };
 
+  componentDidMount() {
+    const { name, tableRef, blockRefsHandler } = this.props;
+    blockRefsHandler(name, tableRef!.current);
+  }
+
   render() {
     const {
-      name,
       tableRef,
       collapsedGrid,
       minWidth,
-      blockRefsHandler,
       rowRefsHandler,
       tableComponent: Table,
       bodyComponent: Body,
@@ -28,40 +30,33 @@ export class VirtualTableLayoutBlock extends React.PureComponent<VirtualTableLay
     } = this.props;
 
     return (
-      <RefHolder
-        ref={ref => blockRefsHandler(name, ref)}
+      <Table
+        forwardedRef={tableRef}
+        style={{
+          minWidth: `${minWidth}px`,
+          ...marginBottom ? { marginBottom: `${marginBottom}px` } : null,
+        }}
       >
-        <Table
-          tableRef={tableRef}
-          style={{
-            minWidth: `${minWidth}px`,
-            ...marginBottom ? { marginBottom: `${marginBottom}px` } : null,
-          }}
-        >
-          <ColumnGroup
-            columns={collapsedGrid.columns}
-          />
-          <Body>
-            {collapsedGrid.rows.map((visibleRow) => {
-              const { row, cells = [] } = visibleRow;
+        <ColumnGroup
+          columns={collapsedGrid.columns}
+        />
+        <Body>
+          {collapsedGrid.rows.map((visibleRow) => {
+            const { row, cells = [] } = visibleRow;
 
-              return (
-                <RefHolder
-                  key={row.key}
-                  ref={ref => rowRefsHandler(row, ref)}
-                >
-                  <VirtualRowLayout
-                    row={row}
-                    cells={cells}
-                    rowComponent={rowComponent}
-                    cellComponent={cellComponent}
-                  />
-                </RefHolder>
-              );
-            })}
-          </Body>
-        </Table>
-      </RefHolder>
+            return (
+              <VirtualRowLayout
+                key={row.key}
+                forwardedRef={ref => rowRefsHandler(row, ref)}
+                row={row}
+                cells={cells}
+                rowComponent={rowComponent}
+                cellComponent={cellComponent}
+              />
+            );
+          })}
+        </Body>
+      </Table>
     );
   }
 

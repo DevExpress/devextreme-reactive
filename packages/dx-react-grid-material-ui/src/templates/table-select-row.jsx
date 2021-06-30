@@ -21,9 +21,11 @@ const TableSelectRowBase = ({
   highlighted,
   tableColumn,
   tableRow,
+  forwardedRef,
   ...restProps
 }) => (
   <TableRow
+    ref={forwardedRef}
     className={classNames({ [classes.selected]: highlighted }, className)}
     onClick={(e) => {
       if (!selectByRowClick) return;
@@ -46,6 +48,7 @@ TableSelectRowBase.propTypes = {
   highlighted: PropTypes.bool,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 TableSelectRowBase.defaultProps = {
@@ -57,6 +60,7 @@ TableSelectRowBase.defaultProps = {
   highlighted: false,
   tableColumn: undefined,
   tableRow: undefined,
+  forwardedRef: undefined,
 };
 
 export const TableSelectRow = withStyles(styles, { name: 'TableSelectRow' })(TableSelectRowBase);

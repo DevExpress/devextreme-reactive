@@ -2,41 +2,41 @@ import * as React from 'react';
 import { VirtualRowLayoutProps } from '../../types';
 import { getRowStyle } from '../../utils/helpers';
 
-export class VirtualRowLayout extends React.Component<VirtualRowLayoutProps> {
-  shouldComponentUpdate(nextProps) {
-    const { cells: prevCells, row: prevRow } = this.props;
-    const { cells: nextCells, row: nextRow } = nextProps;
+const shouldUpdateRow = (prevProps, nextProps) => {
+  const { cells: prevCells, row: prevRow } = prevProps;
+  const { cells: nextCells, row: nextRow } = nextProps;
 
-    if (prevRow !== nextRow || prevCells.length !== nextCells.length) {
-      return true;
-    }
-
-    const propsAreNotEqual = nextCells.some((nextCell, i) => {
-      const prevCell = prevCells[i];
-      return prevCell.column !== nextCell.column || prevCell.colSpan !== nextCell.colSpan;
-    });
-
-    return propsAreNotEqual;
+  if (prevRow !== nextRow || prevCells.length !== nextCells.length) {
+    return true;
   }
 
-  render() {
-    const { row, cells, rowComponent: Row, cellComponent: Cell } = this.props;
-    return (
-      <Row
-        tableRow={row}
-        style={getRowStyle({ row })}
-      >
-        {cells.map(({ column, colSpan }) => {
-          return (
-            <Cell
-              key={column.key}
-              tableRow={row}
-              tableColumn={column}
-              colSpan={colSpan}
-            />
-          );
-        })}
-      </Row>
-    );
-  }
-}
+  const propsAreEqual = !nextCells.some((nextCell, i) => {
+    const prevCell = prevCells[i];
+    return prevCell.column !== nextCell.column || prevCell.colSpan !== nextCell.colSpan;
+  });
+
+  return propsAreEqual;
+};
+
+export const VirtualRowLayout = React.memo<VirtualRowLayoutProps>(({
+  row, cells, rowComponent: Row, cellComponent: Cell, forwardedRef,
+}) => {
+  return (
+    <Row
+      forwardedRef={forwardedRef}
+      tableRow={row}
+      style={getRowStyle({ row })}
+    >
+      {cells.map(({ column, colSpan }) => {
+        return (
+          <Cell
+            key={column.key}
+            tableRow={row}
+            tableColumn={column}
+            colSpan={colSpan}
+          />
+        );
+      })}
+    </Row>
+  );
+}, shouldUpdateRow);

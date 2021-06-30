@@ -5,6 +5,7 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { DragDropProvider, DragSource } from '@devexpress/dx-react-core';
 import { TableHeaderCell } from './table-header-cell';
 import { ResizingControl } from './table-header-cell/resizing-control';
+import { CellLayout } from './table-header-cell/cell-layout';
 
 const defaultProps = {
   column: { name: 'Test' },
@@ -18,7 +19,7 @@ describe('TableHeaderCell', () => {
   let classes;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting', 'SheetsRegistry'] });
-    classes = getClasses(<TableHeaderCell {...defaultProps} />);
+    classes = getClasses(<CellLayout {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
   beforeEach(() => {
@@ -33,11 +34,11 @@ describe('TableHeaderCell', () => {
 
   it('should consider the `wordWrapEnabled` property', () => {
     let tree = shallow(<TableHeaderCell {...defaultProps} />);
-    expect(tree.prop('className'))
+    expect(tree.dive().prop('className'))
       .toContain(classes.cellNoWrap);
 
     tree = shallow(<TableHeaderCell {...defaultProps} tableColumn={{ wordWrapEnabled: true }} />);
-    expect(tree.prop('className'))
+    expect(tree.dive().prop('className'))
       .not.toContain(classes.contentNoWrap);
   });
 
@@ -47,9 +48,10 @@ describe('TableHeaderCell', () => {
         {...defaultProps}
       />
     ));
+    const cell = tree.dive().find(TableCell);
 
-    expect(tree.find(TableCell).hasClass(classes.cellNoUserSelect)).toBeFalsy();
-    expect(tree.find(TableCell).hasClass(classes.cellDraggable)).toBeFalsy();
+    expect(cell.hasClass(classes.cellNoUserSelect)).toBeFalsy();
+    expect(cell.hasClass(classes.cellDraggable)).toBeFalsy();
   });
 
   it('should have correct styles when dragging is allowed', () => {
@@ -101,13 +103,14 @@ describe('TableHeaderCell', () => {
       />
     ));
 
-    expect(tree.find(ResizingControl).exists())
+    const resizingControl = tree.dive().find(ResizingControl);
+    expect(resizingControl.exists())
       .toBeTruthy();
-    expect(tree.find(ResizingControl).prop('onWidthChange'))
+    expect(resizingControl.prop('onWidthChange'))
       .toBe(onWidthChange);
-    expect(tree.find(ResizingControl).prop('onWidthDraft'))
+    expect(resizingControl.prop('onWidthDraft'))
       .toBe(onWidthDraft);
-    expect(tree.find(ResizingControl).prop('onWidthDraftCancel'))
+    expect(resizingControl.prop('onWidthDraftCancel'))
       .toBe(onWidthDraftCancel);
   });
 
@@ -121,7 +124,7 @@ describe('TableHeaderCell', () => {
 
     expect(tree.is('.custom-class'))
       .toBeTruthy();
-    expect(tree.is(`.${classes.cell}`))
+    expect(tree.dive().is(`.${classes.cell}`))
       .toBeTruthy();
   });
 

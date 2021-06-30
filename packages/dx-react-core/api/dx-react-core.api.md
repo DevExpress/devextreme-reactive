@@ -52,6 +52,11 @@ export interface IDependency {
 }
 
 // @public (undocumented)
+export const PlaceholderWithRef: React_2.ComponentType<TemplatePlaceholderProps & {
+  forwardedRef?: any;
+}>;
+
+// @public (undocumented)
 const Plugin_2: React_2.ComponentType<PluginProps>;
 
 export { Plugin_2 as Plugin }

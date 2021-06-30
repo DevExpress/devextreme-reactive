@@ -9,7 +9,7 @@ describe('Table', () => {
   it('should pass class to the root element', () => {
     const tree = mount((
       <StyleContext.Provider value={{ backgroundColor: 'white' }}>
-        <Table className="custom-class" tableRef={tableRef}>
+        <Table className="custom-class" ref={tableRef}>
           <tbody />
         </Table>
       </StyleContext.Provider>
@@ -22,7 +22,7 @@ describe('Table', () => {
   it('should pass rest props to the root element', () => {
     const tree = mount((
       <StyleContext.Provider value={{ backgroundColor: 'white' }}>
-        <Table data={{ a: 1 }} tableRef={tableRef}>
+        <Table data={{ a: 1 }} ref={tableRef}>
           <tbody />
         </Table>
       </StyleContext.Provider>

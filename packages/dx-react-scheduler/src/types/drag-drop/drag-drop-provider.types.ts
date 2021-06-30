@@ -54,9 +54,9 @@ export interface DragDropProviderProps {
   /** A component that renders the appointment being dragged. */
   draftAppointmentComponent: React.ComponentType<DragDropProvider.DraftAppointmentProps>;
   /** A component that renders a copy of the appointment being dragged in its previous location. */
-  sourceAppointmentComponent: React.ComponentType<DragDropProvider.SourceAppointmentProps>;
+  sourceAppointmentComponent: React.ComponentType<DragDropProvider.SourceAppointmentProps  & { forwardedRef: React.Ref<unknown>}>;
   /** A component that renders a handle used to resize the appointment. */
-  resizeComponent: React.ComponentType<DragDropProvider.ResizeProps>;
+  resizeComponent: React.ComponentType<DragDropProvider.ResizeProps  & { forwardedRef?: React.Ref<unknown>}>;
   /***
    * A component that renders a container for the appointment being dragged.
    * */

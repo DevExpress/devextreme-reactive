@@ -31,6 +31,17 @@ class TableLayoutBase extends React.PureComponent<TableLayoutCoreProps, TableLay
     this.tableRef = React.createRef();
   }
 
+  componentDidMount() {
+    if (this.tableRef.current) {
+      const { forwardedRef } = this.props;
+      if (typeof forwardedRef === 'function') {
+        forwardedRef(this.tableRef.current);
+      } else if (forwardedRef) {
+        forwardedRef.current = this.tableRef.current;
+      }
+    }
+  }
+
   componentDidUpdate(prevProps) {
     const { columns } = this.props;
     const { columns: prevColumns } = prevProps;
@@ -118,6 +129,7 @@ class TableLayoutBase extends React.PureComponent<TableLayoutCoreProps, TableLay
     const {
       layoutComponent: Layout,
       minColumnWidth,
+      forwardedRef,
       ...restProps
     } = this.props;
     const columns = this.getColumns();

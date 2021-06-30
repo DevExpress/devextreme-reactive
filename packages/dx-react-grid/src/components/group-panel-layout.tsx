@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { findDOMNode } from 'react-dom';
 import { DropTarget } from '@devexpress/dx-react-core';
 import { getGroupCellTargetIndex } from '@devexpress/dx-grid-core';
 import { ItemLayout } from './group-panel-layout/item-layout';
@@ -20,7 +19,7 @@ class GroupPanelLayoutBase extends React.PureComponent<GPLayoutProps, GP.Groupin
   handleDragEvent: (...args: any) => void;
   onEnter: (any) => void;
   onOver: (any) => void;
-  itemRefs: ItemLayout[] = [];
+  itemRefs: Element[] = [];
   draggingColumnName: string | null = null;
   onLeave: () => void;
   onDrop: () => void;
@@ -52,7 +51,7 @@ class GroupPanelLayoutBase extends React.PureComponent<GPLayoutProps, GP.Groupin
       const { sourceColumnName, targetItemIndex: prevTargetItemIndex } = this.state;
       // eslint-disable-next-line react/no-find-dom-node
       const itemGeometries = this.itemRefs
-        .map(ref => (findDOMNode(ref) as HTMLElement).getBoundingClientRect());
+        .map(ref => ref.getBoundingClientRect());
       const sourceItemIndex = items.findIndex(({ column }) => column.name === sourceColumnName);
       const targetItemIndex = getGroupCellTargetIndex(
         itemGeometries,
@@ -136,9 +135,9 @@ class GroupPanelLayoutBase extends React.PureComponent<GPLayoutProps, GP.Groupin
           return (
             <ItemLayout
               key={columnName}
-              ref={element => element && this.itemRefs.push(element)}
               item={item}
               itemComponent={Item}
+              itemRef={element => element && this.itemRefs.push(element)}
               draggingEnabled={draggingEnabled && isColumnGroupingEnabled(columnName)}
               onDragStart={() => this.onDragStart(columnName)}
               onDragEnd={this.onDragEnd}

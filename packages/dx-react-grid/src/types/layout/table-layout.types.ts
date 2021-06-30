@@ -22,6 +22,7 @@ export type TableLayoutProps =
     minColumnWidth?: number,
     getCellColSpan?: GetCellColSpanFn,
     tableRef?: React.RefObject<HTMLTableElement>,
+    forwardedRef?: React.MutableRefObject<any> | React.RefCallback<any> | null,
   };
 
 /** @internal */
@@ -70,4 +71,5 @@ export type VirtualTableLayoutBlockProps = Pick<VirtualTableLayoutProps, virtual
   rowRefsHandler: (row: any, ref?: React.ReactInstance | null) => void,
   marginBottom?: number,
   tableComponent: React.ComponentType<any>,
+  tableRef?: React.RefObject<HTMLTableElement>,
 };

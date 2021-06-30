@@ -54,6 +54,7 @@ export const Appointment = ({
   draggable,
   isShaded,
   resources,
+  forwardedRef,
   ...restProps
 }) => {
   const onClick = handleClick
@@ -67,6 +68,7 @@ export const Appointment = ({
   const clickable = onClick || restProps.onDoubleClick || draggable;
   return (
     <div
+      ref={forwardedRef}
       className={classNames({
         [classes.appointment]: true,
         [classes.clickableAppointment]: clickable,
@@ -88,6 +90,7 @@ Appointment.propTypes = {
   onClick: PropTypes.func,
   draggable: PropTypes.bool,
   isShaded: PropTypes.bool,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 Appointment.defaultProps = {
@@ -97,4 +100,5 @@ Appointment.defaultProps = {
   data: {},
   draggable: false,
   isShaded: false,
+  forwardedRef: undefined,
 };

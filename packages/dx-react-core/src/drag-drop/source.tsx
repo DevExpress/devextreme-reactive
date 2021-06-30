@@ -10,40 +10,34 @@ const defaultProps = {
 type DragSourceDefaultProps = Readonly<typeof defaultProps>;
 type DragSourceProps = {
   payload: any;
+  ref?: React.Ref<Element>;
 } & Partial<DragSourceDefaultProps>;
 
 /** @internal */
-export class DragSource extends React.Component<DragSourceProps & DragSourceDefaultProps> {
-  static defaultProps = defaultProps;
+export const DragSource: React.FC<DragSourceProps> = React.forwardRef(({
+  onStart, onUpdate, onEnd, payload, children,
+}, ref) => {
+  const context = React.useContext(DragDropContext);
+  const dragDropProvider = context;
 
-  shouldComponentUpdate(nextProps) {
-    const { children } = this.props;
-    return nextProps.children !== children;
-  }
-
-  render() {
-    const dragDropProvider = this.context;
-    const {
-      onStart, onUpdate, onEnd, payload, children,
-    } = this.props;
-    return (
-      <Draggable
-        onStart={({ x, y }) => {
-          dragDropProvider.start(payload, { x, y });
-          onStart({ clientOffset: { x, y } });
-        }}
-        onUpdate={({ x, y }) => {
-          dragDropProvider.update({ x, y });
-          onUpdate({ clientOffset: { x, y } });
-        }}
-        onEnd={({ x, y }) => {
-          dragDropProvider.end({ x, y });
-          onEnd({ clientOffset: { x, y } });
-        }}
-      >
-        {children}
-      </Draggable>
-    );
-  }
-}
-DragSource.contextType = DragDropContext;
+  return (
+    <Draggable
+      onStart={({ x, y }) => {
+        dragDropProvider?.start(payload, { x, y });
+        onStart?.({ clientOffset: { x, y } });
+      }}
+      onUpdate={({ x, y }) => {
+        dragDropProvider?.update({ x, y });
+        onUpdate?.({ clientOffset: { x, y } });
+      }}
+      onEnd={({ x, y }) => {
+        dragDropProvider?.end({ x, y });
+        onEnd?.({ clientOffset: { x, y } });
+      }}
+      dragItem={ref}
+    >
+      {children}
+    </Draggable>
+  );
+});
+DragSource.defaultProps = defaultProps;

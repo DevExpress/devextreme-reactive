@@ -3,28 +3,30 @@ import { mount } from 'enzyme';
 import { UpdatableSizer } from './updatable-sizer';
 
 describe('UpdatableSizer', () => {
+  const ContainerComponent = ({ forwardedRef }) => (
+    <div ref={forwardedRef} className="container" />
+  );
+
   it('should render original Sizer', () => {
-    const containerComponent = 'div';
     const onSizeChange = () => 0;
     const tree = mount(
       <UpdatableSizer
-        containerComponent={containerComponent}
+        containerComponent={ContainerComponent}
         onSizeChange={onSizeChange}
       />,
     );
 
     expect(tree.find('Sizer').props()).toEqual({
       onSizeChange,
-      containerComponent,
+      containerComponent: ContainerComponent,
     });
   });
 
   it('should recalculate size on update', () => {
-    const containerComponent = 'div';
     const onSizeChange = jest.fn();
     const tree = mount(
       <UpdatableSizer
-        containerComponent={containerComponent}
+        containerComponent={ContainerComponent}
         onSizeChange={onSizeChange}
       />,
     );

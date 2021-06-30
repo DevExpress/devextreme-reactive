@@ -3,7 +3,7 @@ import {
   Plugin, Template, TemplatePlaceholder,
   TemplateConnector, DropTarget, DragSource,
   DragDropProvider as DragDropProviderCore,
-  PluginComponents,
+  PluginComponents, PlaceholderWithRef,
 } from '@devexpress/dx-react-core';
 import {
   cellIndex, cellData, cellType, getAppointmentStyle, intervalDuration, autoScroll,
@@ -296,7 +296,7 @@ class DragDropProviderBase extends React.PureComponent<
                     onDrop={this.handleDrop({ finishCommitAppointment })}
                     onLeave={this.handleLeave}
                   >
-                    <TemplatePlaceholder />
+                    <PlaceholderWithRef />
                   </DropTarget>
                 </DragDropProviderCore>
               );
@@ -316,7 +316,7 @@ class DragDropProviderBase extends React.PureComponent<
               {payload && params.data.id === payload.id ? (
                 <SourceAppointment {...params} />
               ) : (
-                <TemplatePlaceholder params={{ ...params, draggable: true }} />
+                <PlaceholderWithRef params={{ ...params, draggable: true }} />
               )}
             </DragSource>
           )}

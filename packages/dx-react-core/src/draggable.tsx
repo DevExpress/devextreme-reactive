@@ -6,6 +6,7 @@ import { getSharedEventEmitter } from './draggable/shared-events';
 import { clear } from './draggable/selection-utils';
 
 const draggingHandled = Symbol('draggingHandled');
+const RIGHT_MOUSE_BUTTON = 3;
 
 type DraggableProps = {
   onStart?: (args) => void;
@@ -79,8 +80,12 @@ export class Draggable extends React.Component<DraggableProps> {
     node.addEventListener('touchstart', this.touchStartListener, { passive: true });
   }
 
+  isRightButton(mouseButton) {
+    return mouseButton === RIGHT_MOUSE_BUTTON;
+  }
+
   mouseDownListener(e) {
-    if (this.touchStrategy.isWaiting() || e[draggingHandled]) return;
+    if (this.touchStrategy.isWaiting() || e[draggingHandled] || this.isRightButton(e.which)) return;
     e.preventDefault();
     this.mouseStrategy.start(e);
     e[draggingHandled] = true;

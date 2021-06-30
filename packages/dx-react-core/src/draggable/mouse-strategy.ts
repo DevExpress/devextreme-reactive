@@ -4,7 +4,6 @@ import { toggleGestureCover } from './gesture-cover';
 import { clear } from './selection-utils';
 
 const BOUNDARY = 10;
-const RIGHT_MOUSE_BUTTON = 3;
 const clamp = (value, min, max) => Math.max(Math.min(value, max), min);
 const isBoundExceeded = (
   { x: initialX, y: initialY }, { x, y },
@@ -29,9 +28,6 @@ export class MouseStrategy {
   }
 
   start(e) {
-    if (e.which === RIGHT_MOUSE_BUTTON) {
-      return;
-    }
     const { clientX: x, clientY: y } = e;
     this.e = e;
     this.mouseInitialOffset = { x, y };

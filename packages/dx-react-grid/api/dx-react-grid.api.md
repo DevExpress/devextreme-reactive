@@ -404,8 +404,12 @@ export interface GroupingPanelItem {
 // @public (undocumented)
 export interface GroupingPanelProps {
     containerComponent: React_2.ComponentType<GroupingPanel.ContainerProps>;
-    emptyMessageComponent: React_2.ComponentType<GroupingPanel.EmptyMessageProps>;
-    itemComponent: React_2.ComponentType<GroupingPanel.ItemProps>;
+    emptyMessageComponent: React_2.ComponentType<GroupingPanel.EmptyMessageProps & {
+        forwardedRef?: React_2.Ref<Element>;
+    }>;
+    itemComponent: React_2.ComponentType<GroupingPanel.ItemProps & {
+        forwardedRef?: React_2.Ref<Element>;
+    }>;
     messages?: GroupingPanel.LocalizationMessages;
     showGroupingControls?: boolean;
     showSortingControls?: boolean;
@@ -733,15 +737,15 @@ export namespace Table {
   }
   export interface DataRowProps extends Table.RowProps {
     // (undocumented)
-    forwardedRef?: React.Ref<React.ReactInstance>;
+    forwardedRef?: React_2.Ref<React_2.ReactInstance>;
     row: any;
   }
   // (undocumented)
   export interface InnerTableProps {
     // (undocumented)
-    style: React_2.CSSProperties;
+    forwardedRef?: React_2.RefObject<HTMLTableElement>;
     // (undocumented)
-    tableRef?: React_2.RefObject<HTMLTableElement>;
+    style: React_2.CSSProperties;
   }
   // (undocumented)
   export interface LocalizationMessages {

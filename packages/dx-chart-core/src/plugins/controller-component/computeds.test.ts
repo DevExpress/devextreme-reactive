@@ -1,7 +1,7 @@
 import { isReadyToRenderSeries } from './computeds';
 
 describe('#isReadyToRenderSeries', () => {
-  const divRef = { current: { getBoundingClientRect: () => ({ width: 300, height: 400 }) } };
+  const divRef = { current: { clientWidth: 300, clientHeight: 400 } };
   it('should return false, pane size is zero', () => {
     const pane = { width: 0, height: 0 };
     expect(isReadyToRenderSeries({ pane }, { current: {} }, false, false))
@@ -30,6 +30,26 @@ describe('#isReadyToRenderSeries', () => {
     expect(isReadyToRenderSeries({
       pane: { width: 230, height: 340 },
       'left-element': leftElement, 'bottom-element': bottomElement,
+    }, divRef, false, false)).toBe(true);
+  });
+
+  it('should return true, div size <  in 1.1 the size of elements inside', () => {
+    const leftElement = { width: 70, height: 3 };
+    const bottomElement = { width: 3, height: 60 };
+
+    expect(isReadyToRenderSeries({
+      pane: { width: 231, height: 341 },
+      'left-element': leftElement, 'bottom-element': bottomElement,
+    }, divRef, false, false)).toBe(true);
+  });
+
+  it('should return true, #3194', () => {
+    const leftElement = { width: 70, height: 3 };
+    const bottomElement = { width: 3, height: 60 };
+
+    expect(isReadyToRenderSeries({
+      pane: { width: 230, height: 340 },
+      'left-bottom': leftElement, 'bottom-right': bottomElement,
     }, divRef, false, false)).toBe(true);
   });
 

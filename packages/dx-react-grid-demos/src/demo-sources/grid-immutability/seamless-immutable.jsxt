@@ -9,8 +9,7 @@ import {
   Table,
   TableHeaderRow,
   TableSelection,
-} from '@devexpress/dx-react-grid-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-grid-<%&themeName%>';<%&cssImports%>
 
 import { createStore, combineReducers } from 'redux';
 import { connect, Provider } from 'react-redux';

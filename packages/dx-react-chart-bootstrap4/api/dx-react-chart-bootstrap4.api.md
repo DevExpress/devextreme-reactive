@@ -11,7 +11,7 @@ import { Chart as Chart_2 } from '@devexpress/dx-react-chart';
 import { Legend as Legend_2 } from '@devexpress/dx-react-chart';
 import { LineSeries as LineSeries_2 } from '@devexpress/dx-react-chart';
 import { PieSeries as PieSeries_2 } from '@devexpress/dx-react-chart';
-import * as React from 'react';
+import * as React_2 from 'react';
 import { ScaleObject } from '@devexpress/dx-react-chart';
 import { ScatterSeries as ScatterSeries_2 } from '@devexpress/dx-react-chart';
 import { SeriesRef } from '@devexpress/dx-react-chart';
@@ -33,8 +33,8 @@ export namespace AreaSeries {
 }
 
 // @public
-export const AreaSeries: React.ComponentType<AreaSeriesProps> & {
-  Path: React.ComponentType<AreaSeries_2.PathSeriesProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+export const AreaSeries: React_2.ComponentType<AreaSeriesProps> & {
+  Path: React_2.ComponentType<AreaSeries_2.PathSeriesProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
 };
 
 // @public (undocumented)
@@ -43,7 +43,7 @@ export interface AreaSeriesProps {
   color?: string;
   name?: string;
   scaleName?: string;
-  seriesComponent?: React.ComponentType<AreaSeries_2.SeriesProps>;
+  seriesComponent?: React_2.ComponentType<AreaSeries_2.SeriesProps>;
   valueField?: string;
 }
 
@@ -63,27 +63,27 @@ export namespace ArgumentAxis {
 }
 
 // @public
-export const ArgumentAxis: React.ComponentType<ArgumentAxisProps> & {
-  Root: React.ComponentType<ArgumentAxis_2.RootProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Tick: React.ComponentType<ArgumentAxis_2.LineProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Label: React.ComponentType<ArgumentAxis_2.LabelProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Line: React.ComponentType<ArgumentAxis_2.LineProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Grid: React.ComponentType<ArgumentAxis_2.LineProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+export const ArgumentAxis: React_2.ComponentType<ArgumentAxisProps> & {
+  Root: React_2.ComponentType<ArgumentAxis_2.RootProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
+  Tick: React_2.ComponentType<ArgumentAxis_2.LineProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
+  Label: React_2.ComponentType<ArgumentAxis_2.LabelProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
+  Line: React_2.ComponentType<ArgumentAxis_2.LineProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
+  Grid: React_2.ComponentType<ArgumentAxis_2.LineProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
 };
 
 // @public (undocumented)
 export interface ArgumentAxisProps {
-  gridComponent?: React.ComponentType<ArgumentAxis_2.LineProps>;
+  gridComponent?: React_2.ComponentType<ArgumentAxis_2.LineProps>;
   indentFromAxis?: number;
-  labelComponent?: React.ComponentType<ArgumentAxis_2.LabelProps>;
-  lineComponent?: React.ComponentType<ArgumentAxis_2.LineProps>;
+  labelComponent?: React_2.ComponentType<ArgumentAxis_2.LabelProps>;
+  lineComponent?: React_2.ComponentType<ArgumentAxis_2.LineProps>;
   position?: 'bottom' | 'top' | 'left' | 'right';
-  rootComponent?: React.ComponentType<ArgumentAxis_2.RootProps>;
+  rootComponent?: React_2.ComponentType<ArgumentAxis_2.RootProps>;
   showGrid?: boolean;
   showLabels?: boolean;
   showLine?: boolean;
   showTicks?: boolean;
-  tickComponent?: React.ComponentType<ArgumentAxis_2.LineProps>;
+  tickComponent?: React_2.ComponentType<ArgumentAxis_2.LineProps>;
   tickFormat?: (scale: ScaleObject) => (tick: string) => string;
   tickSize?: number;
 }
@@ -94,8 +94,8 @@ export namespace BarSeries {
 }
 
 // @public
-export const BarSeries: React.ComponentType<BarSeriesProps> & {
-  Point: React.ComponentType<BarSeries_2.PointProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+export const BarSeries: React_2.ComponentType<BarSeriesProps> & {
+  Point: React_2.ComponentType<BarSeries_2.PointProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
 };
 
 // @public (undocumented)
@@ -104,7 +104,7 @@ export interface BarSeriesProps {
   barWidth?: number;
   color?: string;
   name?: string;
-  pointComponent?: React.ComponentType<BarSeries_2.PointProps>;
+  pointComponent?: React_2.ComponentType<BarSeries_2.PointProps>;
   scaleName?: string;
   valueField?: string;
 }
@@ -120,15 +120,15 @@ export namespace Chart {
 }
 
 // @public
-export const Chart: React.ComponentType<ChartProps> & {
-  Label: React.ComponentType<Chart_2.LabelProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+export const Chart: React_2.ComponentType<ChartProps> & {
+  Label: React_2.ComponentType<Chart_2.LabelProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
 };
 
 // @public (undocumented)
 export interface ChartProps {
   data?: Array<any>;
   height?: number;
-  rootComponent?: React.ComponentType<Chart_2.RootProps>;
+  rootComponent?: React_2.ComponentType<Chart_2.RootProps>;
   rotated?: boolean;
   width?: number;
 }
@@ -149,20 +149,20 @@ export namespace Legend {
 }
 
 // @public
-export const Legend: React.ComponentType<LegendProps> & {
-  Root: React.ComponentType<Legend_2.RootProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Item: React.ComponentType<Legend_2.ItemProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Marker: React.ComponentType<object & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Label: React.ComponentType<Legend_2.LabelProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+export const Legend: React_2.ComponentType<LegendProps> & {
+  Root: React_2.ComponentType<Legend_2.RootProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
+  Item: React_2.ComponentType<Legend_2.ItemProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
+  Marker: React_2.ComponentType<object & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
+  Label: React_2.ComponentType<Legend_2.LabelProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
 };
 
 // @public (undocumented)
 export interface LegendProps {
-  itemComponent?: React.ComponentType<Legend_2.ItemProps>;
-  labelComponent?: React.ComponentType<Legend_2.LabelProps>;
-  markerComponent?: React.ComponentType<object>;
+  itemComponent?: React_2.ComponentType<Legend_2.ItemProps>;
+  labelComponent?: React_2.ComponentType<Legend_2.LabelProps>;
+  markerComponent?: React_2.ComponentType<object>;
   position?: 'left' | 'right' | 'top' | 'bottom';
-  rootComponent?: React.ComponentType<Legend_2.RootProps>;
+  rootComponent?: React_2.ComponentType<Legend_2.RootProps>;
 }
 
 // @public (undocumented)
@@ -176,8 +176,8 @@ export namespace LineSeries {
 }
 
 // @public
-export const LineSeries: React.ComponentType<LineSeriesProps> & {
-  Path: React.ComponentType<LineSeries_2.PathSeriesProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+export const LineSeries: React_2.ComponentType<LineSeriesProps> & {
+  Path: React_2.ComponentType<LineSeries_2.PathSeriesProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
 };
 
 // @public (undocumented)
@@ -186,7 +186,7 @@ export interface LineSeriesProps {
   color?: string;
   name?: string;
   scaleName?: string;
-  seriesComponent?: React.ComponentType<LineSeries_2.SeriesProps>;
+  seriesComponent?: React_2.ComponentType<LineSeries_2.SeriesProps>;
   valueField?: string;
 }
 
@@ -196,8 +196,8 @@ export namespace PieSeries {
 }
 
 // @public
-export const PieSeries: React.ComponentType<PieSeriesProps> & {
-  Point: React.ComponentType<PieSeries_2.PointProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+export const PieSeries: React_2.ComponentType<PieSeriesProps> & {
+  Point: React_2.ComponentType<PieSeries_2.PointProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
 };
 
 // @public (undocumented)
@@ -206,7 +206,7 @@ export interface PieSeriesProps {
   innerRadius?: number;
   name?: string;
   outerRadius?: number;
-  pointComponent?: React.ComponentType<PieSeries_2.PointProps>;
+  pointComponent?: React_2.ComponentType<PieSeries_2.PointProps>;
   valueField?: string;
 }
 
@@ -221,9 +221,9 @@ export namespace ScatterSeries {
 }
 
 // @public
-export const ScatterSeries: React.ComponentType<ScatterSeriesProps> & {
-  Path: React.ComponentType<ScatterSeries_2.SeriesProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Point: React.ComponentType<ScatterSeries_2.PointProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+export const ScatterSeries: React_2.ComponentType<ScatterSeriesProps> & {
+  Path: React_2.ComponentType<ScatterSeries_2.SeriesProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
+  Point: React_2.ComponentType<ScatterSeries_2.PointProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
 };
 
 // @public (undocumented)
@@ -232,7 +232,7 @@ export interface ScatterSeriesProps {
   color?: string;
   name?: string;
   point?: { size : number };
-  pointComponent?: React.ComponentType<ScatterSeries_2.PointProps>;
+  pointComponent?: React_2.ComponentType<ScatterSeries_2.PointProps>;
   scaleName?: string;
   valueField?: string;
 }
@@ -248,8 +248,8 @@ export namespace SplineSeries {
 }
 
 // @public
-export const SplineSeries: React.ComponentType<SplineSeriesProps> & {
-  Path: React.ComponentType<SplineSeries_2.PathSeriesProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+export const SplineSeries: React_2.ComponentType<SplineSeriesProps> & {
+  Path: React_2.ComponentType<SplineSeries_2.PathSeriesProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
 };
 
 // @public (undocumented)
@@ -258,7 +258,7 @@ export interface SplineSeriesProps {
   color?: string;
   name?: string;
   scaleName?: string;
-  seriesComponent?: React.ComponentType<SplineSeries_2.SeriesProps>;
+  seriesComponent?: React_2.ComponentType<SplineSeries_2.SeriesProps>;
   valueField?: string;
 }
 
@@ -268,15 +268,15 @@ export namespace Title {
 }
 
 // @public
-export const Title: React.ComponentType<TitleProps> & {
-  Text: React.ComponentType<Title_2.TextProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+export const Title: React_2.ComponentType<TitleProps> & {
+  Text: React_2.ComponentType<Title_2.TextProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
 };
 
 // @public (undocumented)
 export interface TitleProps {
   position?: 'top' | 'bottom';
   text?: string;
-  textComponent?: React.ComponentType<Title_2.TextProps>;
+  textComponent?: React_2.ComponentType<Title_2.TextProps>;
 }
 
 // @public (undocumented)
@@ -300,21 +300,21 @@ export namespace Tooltip {
 }
 
 // @public
-export const Tooltip: React.ComponentType<TooltipProps> & {
-  Overlay: React.ComponentType<Tooltip_2.OverlayProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Content: React.ComponentType<Tooltip_2.ContentProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Arrow: React.ComponentType<Tooltip_2.ArrowProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Sheet: React.ComponentType<Tooltip_2.SheetProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+export const Tooltip: React_2.ComponentType<TooltipProps> & {
+  Overlay: React_2.ComponentType<Tooltip_2.OverlayProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
+  Content: React_2.ComponentType<Tooltip_2.ContentProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
+  Arrow: React_2.ComponentType<Tooltip_2.ArrowProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
+  Sheet: React_2.ComponentType<Tooltip_2.SheetProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
 };
 
 // @public (undocumented)
 export interface TooltipProps {
-  arrowComponent?: React.ComponentType<Tooltip_2.ArrowProps>;
-  contentComponent?: React.ComponentType<Tooltip_2.ContentProps>;
+  arrowComponent?: React_2.ComponentType<Tooltip_2.ArrowProps>;
+  contentComponent?: React_2.ComponentType<Tooltip_2.ContentProps>;
   defaultTargetItem?: SeriesRef;
   onTargetItemChange?: (target: SeriesRef) => void;
-  overlayComponent?: React.ComponentType<Tooltip_2.OverlayProps>;
-  sheetComponent?: React.ComponentType<Tooltip_2.SheetProps>;
+  overlayComponent?: React_2.ComponentType<Tooltip_2.OverlayProps>;
+  sheetComponent?: React_2.ComponentType<Tooltip_2.SheetProps>;
   targetItem?: SeriesRef;
 }
 
@@ -334,28 +334,28 @@ export namespace ValueAxis {
 }
 
 // @public
-export const ValueAxis: React.ComponentType<ValueAxisProps> & {
-  Root: React.ComponentType<ValueAxis_2.RootProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Tick: React.ComponentType<ValueAxis_2.LineProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Label: React.ComponentType<ValueAxis_2.LabelProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Line: React.ComponentType<ValueAxis_2.LineProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
-  Grid: React.ComponentType<ValueAxis_2.LineProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+export const ValueAxis: React_2.ComponentType<ValueAxisProps> & {
+  Root: React_2.ComponentType<ValueAxis_2.RootProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
+  Tick: React_2.ComponentType<ValueAxis_2.LineProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
+  Label: React_2.ComponentType<ValueAxis_2.LabelProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
+  Line: React_2.ComponentType<ValueAxis_2.LineProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
+  Grid: React_2.ComponentType<ValueAxis_2.LineProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
 };
 
 // @public (undocumented)
 export interface ValueAxisProps {
-  gridComponent?: React.ComponentType<ValueAxis_2.LineProps>;
+  gridComponent?: React_2.ComponentType<ValueAxis_2.LineProps>;
   indentFromAxis?: number;
-  labelComponent?: React.ComponentType<ValueAxis_2.LabelProps>;
-  lineComponent?: React.ComponentType<ValueAxis_2.LineProps>;
+  labelComponent?: React_2.ComponentType<ValueAxis_2.LabelProps>;
+  lineComponent?: React_2.ComponentType<ValueAxis_2.LineProps>;
   position?: 'bottom' | 'top' | 'left' | 'right';
-  rootComponent?: React.ComponentType<ValueAxis_2.RootProps>;
+  rootComponent?: React_2.ComponentType<ValueAxis_2.RootProps>;
   scaleName?: string;
   showGrid?: boolean;
   showLabels?: boolean;
   showLine?: boolean;
   showTicks?: boolean;
-  tickComponent?: React.ComponentType<ValueAxis_2.LineProps>;
+  tickComponent?: React_2.ComponentType<ValueAxis_2.LineProps>;
   tickFormat?: (scale: ScaleObject) => (tick: string) => string;
   tickSize?: number;
 }
@@ -366,14 +366,14 @@ export namespace ZoomAndPan {
 }
 
 // @public
-export const ZoomAndPan: React.ComponentType<ZoomAndPanProps> & {
-  DragBox: React.ComponentType<ZoomAndPan_2.DragBoxProps & { className?: string; style?: React.CSSProperties; [x: string]: any }>;
+export const ZoomAndPan: React_2.ComponentType<ZoomAndPanProps> & {
+  DragBox: React_2.ComponentType<ZoomAndPan_2.DragBoxProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
 };
 
 // @public (undocumented)
 export interface ZoomAndPanProps {
   defaultViewport?: Viewport;
-  dragBoxComponent?: React.ComponentType<ZoomAndPan_2.DragBoxProps>;
+  dragBoxComponent?: React_2.ComponentType<ZoomAndPan_2.DragBoxProps>;
   interactionWithArguments?: 'none' | 'pan' | 'zoom' | 'both';
   interactionWithValues?: 'none' | 'pan' | 'zoom' | 'both';
   onViewportChange?: (viewport: Viewport) => void;

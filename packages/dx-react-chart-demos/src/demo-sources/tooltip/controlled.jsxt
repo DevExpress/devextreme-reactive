@@ -6,8 +6,7 @@ import {
   ArgumentAxis,
   ValueAxis,
   Tooltip,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-chart-<%&themeName%>';<%&cssImports%>
 import { EventTracker } from '@devexpress/dx-react-chart';
 
 const data = [

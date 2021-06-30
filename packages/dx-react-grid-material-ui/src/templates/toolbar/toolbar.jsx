@@ -36,5 +36,4 @@ ToolbarBase.defaultProps = {
   style: null,
 };
 
-
 export const Toolbar = withStyles(styles, { name: 'Toolbar' })(ToolbarBase);

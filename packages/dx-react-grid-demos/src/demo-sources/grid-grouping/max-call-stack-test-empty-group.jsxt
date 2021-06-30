@@ -1,0 +1,62 @@
+import React, { useState } from 'react';<%&additionalImports%>
+import {
+  FilteringState,
+  GroupingState,
+  IntegratedFiltering,
+  IntegratedGrouping,
+} from '@devexpress/dx-react-grid';
+import {
+  Grid,
+  VirtualTable,
+  TableHeaderRow,
+  TableGroupRow,
+} from '@devexpress/dx-react-grid-<%&themeName%>';<%&cssImports%>
+
+import {
+  generateRows,
+  globalSalesValues,
+} from '../../../demo-data/generator';
+
+const getRowId = row => row.id;
+
+export default () => {
+  const [columns] = useState([
+    { name: 'product', title: 'Product' },
+    { name: 'region', title: 'Region' },
+    { name: 'sector', title: 'Sector' },
+    { name: 'channel', title: 'Channel' },
+    { name: 'amount', title: 'Sale Amount' },
+    { name: 'discount', title: 'Discount' },
+    { name: 'saleDate', title: 'Sale Date' },
+    { name: 'customer', title: 'Customer' },
+    { name: 'units', title: 'Units' },
+  ]);
+  const [rows] = useState(generateRows({
+    columnValues: { id: ({ index }) => index, ...globalSalesValues },
+    length: 200000,
+  }));
+
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+        getRowId={getRowId}
+      >
+        <FilteringState
+          defaultFilters={[]}
+        />
+        <GroupingState
+          defaultGrouping={[]}
+        />
+
+        <IntegratedFiltering />
+        <IntegratedGrouping />
+
+        <VirtualTable />
+        <TableGroupRow />
+        <TableHeaderRow />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

@@ -8,8 +8,7 @@ import {
   Table,
   TableHeaderRow,
   TableGroupRow,
-} from '@devexpress/dx-react-grid-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-grid-<%&themeName%>';<%&cssImports%>
 
 import {
   generateRows,

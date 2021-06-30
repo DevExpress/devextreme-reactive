@@ -2,8 +2,7 @@ import * as React from 'react';<%&additionalImports%>
 import {
   Chart,
   PieSeries,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-chart-<%&themeName%>';<%&cssImports%>
 
 const data = [
   { country: 'Russia', area: 12 },

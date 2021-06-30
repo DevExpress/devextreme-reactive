@@ -8,12 +8,12 @@ export const isReadyToRenderSeries = (
   if (!pane.width && !pane.height) {
     return false;
   }
-
-  const bbox = current.getBoundingClientRect();
+  const bbox = { width: current.clientWidth, height: current.clientHeight };
   let width = pane.width;
   let height = pane.height;
   Object.entries(restLayouts).forEach((el) => {
-    if (el[0].includes('top') || el[0].includes('bottom')) {
+    const orientation = el[0].split('-')[0];
+    if (orientation === 'top' || orientation === 'bottom') {
       height += el[1].height;
     } else {
       width += el[1].width;

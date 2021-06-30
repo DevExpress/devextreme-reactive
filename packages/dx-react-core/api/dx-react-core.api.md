@@ -4,10 +4,10 @@
 
 ```ts
 
-import * as React from 'react';
+import * as React_2 from 'react';
 
 // @public (undocumented)
-export const Action: React.ComponentType<ActionProps>;
+export const Action: React_2.ComponentType<ActionProps>;
 
 // @public (undocumented)
 export interface ActionProps {
@@ -24,12 +24,12 @@ export type Actions = {
 export type ComputedFn = (getters: Getters, actions: Actions) => void;
 
 // @public
-export const connectProps: (WrappedComponent: React.ComponentType<any>, getAdditionalProps: () => object) => React.ComponentType<any> & {
+export const connectProps: (WrappedComponent: React_2.ComponentType<any>, getAdditionalProps: () => object) => React_2.ComponentType<any> & {
   update(): void;
 };
 
 // @public (undocumented)
-export const Getter: React.ComponentType<GetterProps>;
+export const Getter: React_2.ComponentType<GetterProps>;
 
 // @public (undocumented)
 export interface GetterProps {
@@ -52,24 +52,21 @@ export interface IDependency {
 }
 
 // @public (undocumented)
-export const PlaceholderWithRef: React.ComponentType<TemplatePlaceholderProps & {
-  forwardedRef?: any;
-}>;
+const Plugin_2: React_2.ComponentType<PluginProps>;
+
+export { Plugin_2 as Plugin }
 
 // @public (undocumented)
-export const Plugin: React.ComponentType<PluginProps>;
-
-// @public (undocumented)
-export const PluginHost: React.ComponentType<PluginHostProps>;
+export const PluginHost: React_2.ComponentType<PluginHostProps>;
 
 // @public (undocumented)
 export interface PluginHostProps {
-  children: React.ReactNode;
+  children: React_2.ReactNode;
 }
 
 // @public (undocumented)
 export interface PluginProps {
-  children: React.ReactNode;
+  children: React_2.ReactNode;
   // (undocumented)
   dependencies?: IDependency[];
   // (undocumented)
@@ -77,18 +74,18 @@ export interface PluginProps {
 }
 
 // @public
-export const Template: React.ComponentType<TemplateProps>;
+export const Template: React_2.ComponentType<TemplateProps>;
 
 // @public
-export const TemplateConnector: React.ComponentType<TemplateConnectorProps>;
+export const TemplateConnector: React_2.ComponentType<TemplateConnectorProps>;
 
 // @public (undocumented)
 export interface TemplateConnectorProps {
-  children: (getters: Getters, actions: Actions) => React.ReactNode;
+  children: (getters: Getters, actions: Actions) => React_2.ReactNode;
 }
 
 // @public
-export const TemplatePlaceholder: React.ComponentType<TemplatePlaceholderProps>;
+export const TemplatePlaceholder: React_2.ComponentType<TemplatePlaceholderProps>;
 
 // @public (undocumented)
 export interface TemplatePlaceholderProps {
@@ -100,7 +97,7 @@ export interface TemplatePlaceholderProps {
 
 // @public (undocumented)
 export interface TemplateProps {
-    children: React.ReactNode | ((params: object) => React.ReactNode);
+    children: React_2.ReactNode | ((params: object) => React_2.ReactNode);
     name: string;
     predicate?: (params: object) => boolean;
 }

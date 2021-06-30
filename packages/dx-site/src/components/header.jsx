@@ -29,6 +29,13 @@ class Header extends React.Component {
     this.menuRef = React.createRef();
   }
 
+  handleOutsideClick(e) {
+    if (this.menuRef.current.contains(e.target)) {
+      return;
+    }
+    this.toggleMenuVisibility();
+  }
+
   toggleMenuVisibility() {
     const { menuVisibility } = this.state;
     if (!menuVisibility) {
@@ -38,13 +45,6 @@ class Header extends React.Component {
     }
 
     this.setState({ menuVisibility: !menuVisibility });
-  }
-
-  handleOutsideClick(e) {
-    if (this.menuRef.current.contains(e.target)) {
-      return;
-    }
-    this.toggleMenuVisibility();
   }
 
   render() {

@@ -16,7 +16,6 @@ import weekViewImage from './images/Week-View.png';
 import monthViewImage from './images/Month-View.png';
 import resourcesSupportImage from './images/Resources-Support.png';
 import resourcesGroupingImage from './images/Resource-Grouping.png';
-import timelineViewImage from './images/Timeline-Views.png';
 
 import LandingThingsThatMatter from '../../../components/landing/things-that-matter';
 import ButtonLinksContainer from '../../../components/landing/button-links-container';
@@ -80,15 +79,6 @@ const pageData = [
     guideLink: '/react/scheduler/docs/guides/views/#month-view',
   },
 ];
-const comingSoonItems = [
-  {
-    sectionTitle: 'More Coming Soon',
-    reversed: true,
-    title: 'Timeline Views',
-    description: 'Arrange events and appointments across horizontal timelines. When browsing multiple resources, timelines are displayed one under another. You can display multiple time rulers with different scales atop the view.',
-    imageLink: timelineViewImage,
-  },
-];
 
 const IndexPage = () => (
   <Layout>
@@ -131,7 +121,6 @@ const IndexPage = () => (
 
     <AlternatedBackground style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
       <LandingChessBoardLayoutList data={pageData} columns={2} />
-      <LandingChessBoardLayoutList data={comingSoonItems} />
     </AlternatedBackground>
 
     <LandingLayout style={{ paddingTop: '2em', paddingBottom: '2em' }}>

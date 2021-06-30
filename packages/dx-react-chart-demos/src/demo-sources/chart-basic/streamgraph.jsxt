@@ -5,8 +5,7 @@ import {
   AreaSeries,
   Legend,
   Title,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-chart-<%&themeName%>';<%&cssImports%>
 import {
   stackOffsetWiggle,
   stackOrderInsideOut,

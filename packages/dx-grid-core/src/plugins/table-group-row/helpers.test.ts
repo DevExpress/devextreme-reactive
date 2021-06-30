@@ -11,7 +11,7 @@ import {
 } from './helpers';
 import { TABLE_STUB_TYPE } from '../../utils/virtual-table';
 import { sortAndSpliceColumns } from '../..';
-import { TABLE_DATA_TYPE } from '../table/constants';
+import { TABLE_DATA_TYPE, TABLE_FLEX_TYPE } from '../table/constants';
 
 describe('TableRowDetail Plugin helpers', () => {
   const key = { key: 'key' };
@@ -142,39 +142,40 @@ describe('TableRowDetail Plugin helpers', () => {
     const dataColumn = { type: TABLE_DATA_TYPE };
     const groupColumn = { type: TABLE_GROUP_TYPE };
     const otherColumn = { type: Symbol('undefined') };
+    const flexColumn = { type: TABLE_FLEX_TYPE };
 
     it('should work with the Table (firstVisibleColumnIndex is not defined)', () => {
-      expect(sortAndSpliceColumns([groupColumn, otherColumn, dataColumn]))
-        .toEqual([groupColumn, otherColumn, dataColumn]);
+      expect(sortAndSpliceColumns([groupColumn, otherColumn, dataColumn, flexColumn]))
+        .toEqual([groupColumn, otherColumn, dataColumn, flexColumn]);
 
-      expect(sortAndSpliceColumns([otherColumn, groupColumn, dataColumn]))
-        .toEqual([groupColumn, otherColumn, dataColumn]);
+      expect(sortAndSpliceColumns([otherColumn, groupColumn, dataColumn, flexColumn]))
+        .toEqual([groupColumn, otherColumn, dataColumn, flexColumn]);
 
-      expect(sortAndSpliceColumns([otherColumn, groupColumn, otherColumn, dataColumn]))
-        .toEqual([groupColumn, otherColumn, otherColumn, dataColumn]);
+      expect(sortAndSpliceColumns([otherColumn, groupColumn, otherColumn, dataColumn, flexColumn]))
+        .toEqual([groupColumn, otherColumn, otherColumn, dataColumn, flexColumn]);
     });
 
     describe('should work with the Virtual Table (firstVisibleColumnIndex is defined)', () => {
       it('should work with one group', () => {
         expect(sortAndSpliceColumns(
-          [otherColumn, otherColumn, groupColumn, otherColumn, dataColumn], 0,
+          [otherColumn, otherColumn, groupColumn, otherColumn, dataColumn, flexColumn], 0,
         ))
-          .toEqual([groupColumn, otherColumn, otherColumn, otherColumn, dataColumn]);
+          .toEqual([groupColumn, otherColumn, otherColumn, otherColumn, dataColumn, flexColumn]);
 
         expect(sortAndSpliceColumns(
-          [otherColumn, otherColumn, groupColumn, otherColumn, dataColumn], 1,
+          [otherColumn, otherColumn, groupColumn, otherColumn, dataColumn, flexColumn], 1,
         ))
-          .toEqual([groupColumn, otherColumn, otherColumn, dataColumn]);
+          .toEqual([groupColumn, otherColumn, otherColumn, dataColumn, flexColumn]);
 
         expect(sortAndSpliceColumns(
-          [otherColumn, otherColumn, groupColumn, otherColumn, dataColumn], 2,
+          [otherColumn, otherColumn, groupColumn, otherColumn, dataColumn, flexColumn], 2,
         ))
-          .toEqual([groupColumn, otherColumn, dataColumn]);
+          .toEqual([groupColumn, otherColumn, dataColumn, flexColumn]);
 
         expect(sortAndSpliceColumns(
-          [otherColumn, otherColumn, groupColumn, otherColumn, dataColumn], 3,
+          [otherColumn, otherColumn, groupColumn, otherColumn, dataColumn, flexColumn], 3,
         ))
-          .toEqual([groupColumn, otherColumn, dataColumn]);
+          .toEqual([groupColumn, otherColumn, dataColumn, flexColumn]);
       });
 
       it('should work with two groups', () => {

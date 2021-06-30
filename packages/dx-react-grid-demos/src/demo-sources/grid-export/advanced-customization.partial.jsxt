@@ -14,7 +14,6 @@ import {
   ExportPanel,
 } from '@devexpress/dx-react-grid-<%themeName%>';
 <%&imports%>
-
 import saveAs from 'file-saver';
 
 import { orders } from '../../../demo-data/orders';
@@ -158,7 +157,6 @@ export default () => {
         rows={orders}
         columns={columns}
         totalSummaryItems={totalSummaryItems}
-
         onSave={onSave}
         customizeCell={customizeCell}
         customizeSummaryCell={customizeSummaryCell}

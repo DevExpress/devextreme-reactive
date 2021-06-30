@@ -17,7 +17,8 @@ const renderPageButtons = (
   let startPage = 1;
   let endPage = totalPageCount || 1;
 
-  if (maxButtonCount < totalPageCount) {
+  // NOTE: take into account last button and ellipsis (T1004797)
+  if (maxButtonCount < totalPageCount - 2) {
     startPage = calculateStartPage(currentPage + 1, maxButtonCount, totalPageCount);
     endPage = (startPage + maxButtonCount) - 1;
   }

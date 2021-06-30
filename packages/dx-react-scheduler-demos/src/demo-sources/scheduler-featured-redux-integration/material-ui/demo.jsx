@@ -261,7 +261,6 @@ const SchedulerContainer = ({
   </Paper>
 );
 
-
 const schedulerInitialState = {
   data: appointments,
   currentDate: '2018-06-27',

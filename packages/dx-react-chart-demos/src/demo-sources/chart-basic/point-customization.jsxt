@@ -3,8 +3,7 @@ import {
   Chart,
   LineSeries,
   ScatterSeries,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-chart-<%&themeName%>';<%&cssImports%>
 
 import {
   symbol,

@@ -6,7 +6,10 @@ import {
   SchedulerView,
 } from '../../types';
 import { calculateFirstDateOfWeek } from '../../utils';
-import { isMidnight } from './helpers';
+import {
+  isMidnight,
+  containsDSTChange,
+} from './helpers';
 
 const subtractSecond: PureComputed<
   [Date]
@@ -29,17 +32,6 @@ export const dayScale: DayScaleFn = (
     date.add(1, 'days');
   }
   return result;
-};
-
-const containsDSTChange = (date: SchedulerDateTime) => {
-  const momentDate = moment(date);
-  momentDate.startOf('day');
-  const isStartDST = momentDate.isDST();
-
-  momentDate.endOf('day');
-  const isEndDst = momentDate.isDST();
-
-  return (isStartDST && !isEndDst) || (!isStartDST && isEndDst);
 };
 
 export const timeScale: TimeScaleFn = (
@@ -117,6 +109,26 @@ export const viewCellsData: ViewCellsDataFn = (
     cellsAcc.push(rowCells);
     return cellsAcc;
   }, [] as ViewCell[][]);
+};
+
+export const timeCellsData: PureComputed<
+  [ViewCell[][], number, number, number, number], ViewCell[][]
+> = (
+  cellsData, startDayHour, endDayHour, cellDuration, currentTime,
+) => {
+  const { startDate: firstViewDate } = cellsData[0][0];
+  if (!containsDSTChange(firstViewDate)) {
+    return cellsData;
+  }
+
+  const nextDay = moment(firstViewDate)
+    .add(1, 'day')
+    .toDate();
+  const validCellsData = viewCellsData(
+    nextDay, undefined, 1, [], startDayHour, endDayHour, cellDuration, currentTime,
+  );
+
+  return validCellsData;
 };
 
 export const allDayCells: PureComputed<

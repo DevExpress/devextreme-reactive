@@ -17,7 +17,6 @@ class DemoFrameRenderer extends React.PureComponent {
     };
     this.nodeRef = React.createRef();
 
-
     this.onSubmitCustomLink = (e) => {
       e.preventDefault();
       const { onEditableLinkChange } = this.props;

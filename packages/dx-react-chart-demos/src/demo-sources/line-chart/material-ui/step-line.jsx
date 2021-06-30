@@ -24,7 +24,6 @@ const Line = props => (
   />
 );
 
-
 const legendStyles = () => ({
   root: {
     display: 'flex',

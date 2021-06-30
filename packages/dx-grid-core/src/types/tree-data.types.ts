@@ -31,11 +31,6 @@ export type ExpandedTreeRowsComputed = PureComputed<
 >;
 
 /** @internal */
-export type GetCustomTreeRowsFn = PureComputed<
-  [Row, GetTreeChildRowsFn, Row[], number?],
-  RowsWithTreeMeta
->;
-/** @internal */
 export type CustomTreeRowsWithMetaComputed = PureComputed<
   [Row[], GetTreeChildRowsFn], RowsWithTreeMetaMap
 >;

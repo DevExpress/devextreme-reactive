@@ -6,8 +6,7 @@ import {
   LineSeries,
   Legend,
   Title,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-chart-<%&themeName%>';<%&cssImports%>
 
 import NoisySignalIcon from '../../../demo-data/images/noisySignal.svg';
 import OriginalSignalIcon from '../../../demo-data/images/originalSignal.svg';

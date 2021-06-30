@@ -111,7 +111,6 @@ const DetailCell = ({
   );
 };
 
-
 export default () => {
   const [columns] = useState([
     { name: 'Prefix', title: 'Title' },

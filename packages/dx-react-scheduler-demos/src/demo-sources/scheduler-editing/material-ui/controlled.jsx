@@ -77,13 +77,10 @@ export default class Demo extends React.PureComponent {
           />
           <EditingState
             onCommitChanges={this.commitChanges}
-
             addedAppointment={addedAppointment}
             onAddedAppointmentChange={this.changeAddedAppointment}
-
             appointmentChanges={appointmentChanges}
             onAppointmentChangesChange={this.changeAppointmentChanges}
-
             editingAppointment={editingAppointment}
             onEditingAppointmentChange={this.changeEditingAppointment}
           />

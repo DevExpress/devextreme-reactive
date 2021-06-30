@@ -7,9 +7,6 @@ import { EditCell } from './table-edit-cell';
 
 describe('EditCell', () => {
   let resetConsole;
-  const defaultProps = {
-    onValueChange: () => {},
-  };
 
   let mount;
   let classes;
@@ -34,7 +31,6 @@ describe('EditCell', () => {
   it('should render without exceptions', () => {
     const tree = mount((
       <EditCell
-        {...defaultProps}
         value=""
       />
     ));
@@ -63,7 +59,6 @@ describe('EditCell', () => {
   it('should take column align into account', () => {
     const tree = mount((
       <EditCell
-        {...defaultProps}
         value=""
       />
     ));
@@ -77,7 +72,6 @@ describe('EditCell', () => {
   it('should take column align into account if align is "right"', () => {
     const tree = mount((
       <EditCell
-        {...defaultProps}
         value=""
         tableColumn={{ align: 'right' }}
       />
@@ -91,7 +85,6 @@ describe('EditCell', () => {
   it('should take column align into account if align is "center"', () => {
     const tree = mount((
       <EditCell
-        {...defaultProps}
         value=""
         tableColumn={{ align: 'center' }}
       />
@@ -105,7 +98,6 @@ describe('EditCell', () => {
   it('should pass style to the root element', () => {
     const tree = mount((
       <EditCell
-        {...defaultProps}
         value="a"
         style={{
           width: '40px',
@@ -122,9 +114,7 @@ describe('EditCell', () => {
 
   it('should render children if passed', () => {
     const tree = mount((
-      <EditCell
-        {...defaultProps}
-      >
+      <EditCell>
         <span className="test" />
       </EditCell>
     ));
@@ -135,9 +125,7 @@ describe('EditCell', () => {
 
   it('should provide additional props to children', () => {
     const tree = mount((
-      <EditCell
-        {...defaultProps}
-      >
+      <EditCell>
         <span className="test" />
       </EditCell>
     ));
@@ -155,7 +143,6 @@ describe('EditCell', () => {
   it('should pass the className prop to the root element', () => {
     const cell = mount((
       <EditCell
-        {...defaultProps}
         className="custom-class"
       />
     )).find(TableCell);
@@ -169,7 +156,6 @@ describe('EditCell', () => {
   it('should pass rest props to the root element', () => {
     const tree = mount((
       <EditCell
-        {...defaultProps}
         data={{ a: 1 }}
       />
     ));
@@ -181,7 +167,6 @@ describe('EditCell', () => {
   it('should render read-only editor if editing is not allowed', () => {
     const tree = mount((
       <EditCell
-        {...defaultProps}
         editingEnabled={false}
       />
     ));
@@ -196,7 +181,6 @@ describe('EditCell', () => {
   it('should render zero values', () => {
     const tree = mount((
       <EditCell
-        {...defaultProps}
         value={0}
       />
     ));

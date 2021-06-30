@@ -6,3 +6,4 @@ export * from './month-view.types';
 export * from './all-day-panel.types';
 export * from './basic-view.types';
 export * from './base-view.types';
+export * from './common-vertical-view.types';

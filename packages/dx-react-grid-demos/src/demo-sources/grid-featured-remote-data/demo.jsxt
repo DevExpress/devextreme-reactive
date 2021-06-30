@@ -9,8 +9,7 @@ import {
   Table,
   TableHeaderRow,
   PagingPanel,
-} from '@devexpress/dx-react-grid-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-grid-<%&themeName%>';<%&cssImports%>
 
 import { Loading } from '../../../theme-sources/<%&themeName%>/components/loading';
 import { CurrencyTypeProvider } from '../../../theme-sources/<%&themeName%>/components/currency-type-provider';

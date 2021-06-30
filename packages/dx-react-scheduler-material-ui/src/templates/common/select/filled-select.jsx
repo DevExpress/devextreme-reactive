@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 import classNames from 'clsx';
 import TextField from '@material-ui/core/TextField';
 
-
 const styles = ({ typography, spacing }) => ({
   filledSelect: {
     marginTop: spacing(0.375),

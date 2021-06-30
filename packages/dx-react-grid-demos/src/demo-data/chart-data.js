@@ -37,7 +37,6 @@ export const regionsCount = [
   },
 ];
 
-
 export const citiesCount = [
   {
     year: 2013,

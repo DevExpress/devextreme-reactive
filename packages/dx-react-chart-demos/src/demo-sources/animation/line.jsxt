@@ -4,8 +4,7 @@ import {
   LineSeries,
   ArgumentAxis,
   ValueAxis,
-} from '@devexpress/dx-react-chart-<%&themeName%>';
-<%&cssImports%>
+} from '@devexpress/dx-react-chart-<%&themeName%>';<%&cssImports%>
 import { Animation } from '@devexpress/dx-react-chart';
 
 const data = [

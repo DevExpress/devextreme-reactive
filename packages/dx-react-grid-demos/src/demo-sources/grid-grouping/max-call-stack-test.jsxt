@@ -1,0 +1,33 @@
+import React from 'react';<%&additionalImports%>
+import {
+  GroupingState,
+  IntegratedGrouping,
+} from '@devexpress/dx-react-grid';
+import {
+  Grid,
+  Table,
+  TableHeaderRow,
+  TableGroupRow,
+} from '@devexpress/dx-react-grid-<%&themeName%>';<%&cssImports%>
+
+const colNames = [...Array(10000)].map((_, index) => `generated_${index}`);
+const columns = colNames.map(value => ({ name: value, title: value }));
+const rows = [{}];
+const grouping = colNames
+  .slice(0, colNames.length - 1)
+  .map(value => ({ columnName: value }));
+
+export default () => (
+  <<%&wrapperTag%><%&wrapperAttributes%>>
+    <Grid
+      rows={rows}
+      columns={columns}
+    >
+      <GroupingState grouping={grouping} />
+      <IntegratedGrouping />
+      <Table />
+      <TableHeaderRow />
+      <TableGroupRow />
+    </Grid>
+  </<%&wrapperTag%>>
+);

@@ -123,13 +123,28 @@ describe('GroupingPanel', () => {
         .toBe('rowSpan');
     });
 
-    it('should render text container', () => {
+    it('should assign text container class when vertical grouping is used', () => {
       const tree = shallow((
-        <Cell {...defaultProps} />
+        <Cell
+          {...defaultProps}
+          groupOrientation={VERTICAL_GROUP_ORIENTATION}
+        />
       ));
 
       expect(tree.find('.textContainer').exists())
-        .toBeTruthy();
+        .toBe(true);
+    });
+
+    it('should not assign textContainer class if horizontal grouping is used', () => {
+      const tree = shallow((
+        <Cell
+          {...defaultProps}
+          groupOrientation={HORIZONTAL_GROUP_ORIENTATION}
+        />
+      ));
+
+      expect(tree.find('.textContainer').exists())
+        .toBe(false);
     });
   });
 });

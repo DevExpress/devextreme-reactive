@@ -69,14 +69,12 @@ const CellBase = ({
   formatDate,
   endOfGroup,
   groupingInfo,
-  // @deprecated
-  hasRightBorder,
   ...restProps
 }) => (
   <TableCell
     className={classNames({
       [classes.cell]: true,
-      [classes.brightRightBorder]: endOfGroup || hasRightBorder,
+      [classes.brightRightBorder]: endOfGroup,
     }, className)}
     {...restProps}
   >
@@ -109,7 +107,6 @@ CellBase.propTypes = {
   className: PropTypes.string,
   today: PropTypes.bool,
   endOfGroup: PropTypes.bool,
-  hasRightBorder: PropTypes.bool,
   groupingInfo: PropTypes.arrayOf(PropTypes.object),
 };
 
@@ -118,7 +115,6 @@ CellBase.defaultProps = {
   endDate: undefined,
   today: false,
   endOfGroup: false,
-  hasRightBorder: false,
   groupingInfo: undefined,
 };
 

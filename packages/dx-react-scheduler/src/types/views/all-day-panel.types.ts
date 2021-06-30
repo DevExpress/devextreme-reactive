@@ -34,8 +34,6 @@ export namespace AllDayPanel {
     endDate: Date;
     /** Information about the cell's grouping. */
     groupingInfo?: Array<Group>;
-    /** \@deprecated Specifies whether the cell has the right border. */
-    hasRightBorder?: boolean;
     /** "true" if this cell is last in its group. */
     endOfGroup?: boolean;
   }
@@ -60,8 +58,6 @@ export namespace AllDayPanel {
     endDate: Date;
     /** Information about the cell's grouping. */
     groupingInfo?: Array<Group>;
-    /** \@deprecated Specifies whether the cell has the right border. */
-    hasRightBorder?: boolean;
     /** "true" if this cell is last in its group. */
     endOfGroup?: boolean;
     /** Scheduler's grouping orientation: either 'Vertical' or 'Horizontal'. */

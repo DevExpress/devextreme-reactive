@@ -12,7 +12,6 @@ const renderCell = (
     startDate={startDate}
     endDate={endDate}
     endOfGroup={endOfGroup}
-    hasRightBorder={endOfGroup}
     groupingInfo={groupingInfo}
     groupOrientation={groupOrientation}
   />

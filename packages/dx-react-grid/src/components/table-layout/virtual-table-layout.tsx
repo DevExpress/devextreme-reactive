@@ -8,6 +8,7 @@ import { VirtualTableLayoutState, VirtualTableLayoutProps } from '../../types';
 import { findDOMNode } from 'react-dom';
 import { VirtualTableLayoutBlock } from './virtual-table-layout-block';
 import { Sizer } from '@devexpress/dx-react-core';
+import { ColumnGroup } from './column-group';
 
 const AUTO_HEIGHT = 'auto';
 
@@ -15,9 +16,7 @@ const defaultProps = {
   headerRows: [],
   footerRows: [],
   headComponent: () => null,
-  headTableComponent: () => null,
   footerComponent: () => null,
-  footerTableComponent: () => null,
 };
 type PropsType = VirtualTableLayoutProps & typeof defaultProps;
 
@@ -280,8 +279,6 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
   render() {
     const {
       containerComponent: Container,
-      headTableComponent: HeadTable,
-      footerTableComponent: FootTable,
       tableComponent: Table,
       headComponent: Head,
       bodyComponent: Body,
@@ -314,6 +311,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       rowRefsHandler: this.registerRowRef,
     };
     const sizerHeight = height === AUTO_HEIGHT ? null : height;
+    const marginBottom=Math.max(0, containerHeight - headerHeight - bodyHeight - footerHeight);
 
     return (
       <Sizer
@@ -323,37 +321,43 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
         onScroll={this.onScroll}
         scrollTop={scrollTop}
       >
-        {
-          (!!headerRows.length) && (
-            <VirtualTableLayoutBlock
-              {...commonProps}
-              name="header"
-              collapsedGrid={collapsedGrids.headerGrid}
-              tableComponent={HeadTable}
-              bodyComponent={Head}
-            />
-          )
-        }
-        <VirtualTableLayoutBlock
-          {...commonProps}
-          name="body"
-          collapsedGrid={collapsedGrids.bodyGrid}
-          tableComponent={Table}
-          bodyComponent={Body}
+        <Table
           tableRef={tableRef}
-          marginBottom={Math.max(0, containerHeight - headerHeight - bodyHeight - footerHeight)}
-        />
-        {
-          (!!footerRows.length) && (
-            <VirtualTableLayoutBlock
-              {...commonProps}
-              name="footer"
-              collapsedGrid={collapsedGrids.footerGrid}
-              tableComponent={FootTable}
-              bodyComponent={Footer}
-            />
-          )
-        }
+          style={{
+            minWidth: `${minWidth}px`,
+            ...marginBottom ? { marginBottom: `${marginBottom}px` } : null,
+          }}
+        >
+          <ColumnGroup
+            columns={collapsedGrids.bodyGrid.columns as TableColumn[]}
+          />
+          {
+            (!!headerRows.length) && (
+              <VirtualTableLayoutBlock
+                {...commonProps}
+                name="header"
+                collapsedGrid={collapsedGrids.headerGrid}
+                bodyComponent={Head}
+              />
+            )
+          }
+          <VirtualTableLayoutBlock
+            {...commonProps}
+            name="body"
+            collapsedGrid={collapsedGrids.bodyGrid}
+            bodyComponent={Body}
+          />
+          {
+            (!!footerRows.length) && (
+              <VirtualTableLayoutBlock
+                {...commonProps}
+                name="footer"
+                collapsedGrid={collapsedGrids.footerGrid}
+                bodyComponent={Footer}
+              />
+            )
+          }
+        </Table>
       </Sizer>
     );
   }

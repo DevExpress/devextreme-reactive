@@ -9,13 +9,22 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
     }
   }
 >
-  <VirtualTableLayoutBlock
-    blockRefsHandler={[Function]}
-    bodyComponent={[Function]}
-    cellComponent={[Function]}
-    collapsedGrid={
+  <tableComponent
+    style={
       Object {
-        "columns": Array [
+        "marginBottom": "600px",
+        "minWidth": "400px",
+      }
+    }
+    tableRef={
+      Object {
+        "current": null,
+      }
+    }
+  >
+    <ColumnGroup
+      columns={
+        Array [
           Object {
             "column": Object {
               "name": "a",
@@ -51,713 +60,755 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
             "key": "e",
             "width": 160,
           },
-        ],
-        "rows": Array [
-          Object {
-            "cells": Array [
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "a",
-                  },
-                  "key": "a",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "b",
-                  },
-                  "key": "b",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "c",
-                  },
-                  "key": "c",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "d",
-                  },
-                  "key": "d",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "e",
-                  },
-                  "key": "e",
-                },
-              },
-            ],
-            "row": Object {
-              "key": 1,
-            },
-          },
-        ],
+        ]
       }
-    }
-    minColumnWidth={120}
-    minWidth={400}
-    name="header"
-    rowComponent={[Function]}
-    rowRefsHandler={[Function]}
-    tableComponent={[Function]}
-    tableRef={
-      Object {
-        "current": null,
+    />
+    <VirtualTableLayoutBlock
+      blockRefsHandler={[Function]}
+      bodyComponent={[Function]}
+      cellComponent={[Function]}
+      collapsedGrid={
+        Object {
+          "columns": Array [
+            Object {
+              "column": Object {
+                "name": "a",
+              },
+              "key": "a",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "b",
+              },
+              "key": "b",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "c",
+              },
+              "key": "c",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "d",
+              },
+              "key": "d",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "e",
+              },
+              "key": "e",
+              "width": 160,
+            },
+          ],
+          "rows": Array [
+            Object {
+              "cells": Array [
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "a",
+                    },
+                    "key": "a",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "b",
+                    },
+                    "key": "b",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "c",
+                    },
+                    "key": "c",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "d",
+                    },
+                    "key": "d",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "e",
+                    },
+                    "key": "e",
+                  },
+                },
+              ],
+              "row": Object {
+                "key": 1,
+              },
+            },
+          ],
+        }
       }
-    }
-  />
-  <VirtualTableLayoutBlock
-    blockRefsHandler={[Function]}
-    bodyComponent={[Function]}
-    cellComponent={[Function]}
-    collapsedGrid={
-      Object {
-        "columns": Array [
-          Object {
-            "column": Object {
-              "name": "a",
-            },
-            "key": "a",
-            "width": 160,
-          },
-          Object {
-            "column": Object {
-              "name": "b",
-            },
-            "key": "b",
-            "width": 160,
-          },
-          Object {
-            "column": Object {
-              "name": "c",
-            },
-            "key": "c",
-            "width": 160,
-          },
-          Object {
-            "column": Object {
-              "name": "d",
-            },
-            "key": "d",
-            "width": 160,
-          },
-          Object {
-            "column": Object {
-              "name": "e",
-            },
-            "key": "e",
-            "width": 160,
-          },
-        ],
-        "rows": Array [
-          Object {
-            "cells": Array [
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "a",
-                  },
-                  "key": "a",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "b",
-                  },
-                  "key": "b",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "c",
-                  },
-                  "key": "c",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "d",
-                  },
-                  "key": "d",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "e",
-                  },
-                  "key": "e",
-                },
-              },
-            ],
-            "row": Object {
-              "key": 1,
-            },
-          },
-          Object {
-            "cells": Array [
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "a",
-                  },
-                  "key": "a",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "b",
-                  },
-                  "key": "b",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "c",
-                  },
-                  "key": "c",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "d",
-                  },
-                  "key": "d",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "e",
-                  },
-                  "key": "e",
-                },
-              },
-            ],
-            "row": Object {
-              "key": 2,
-            },
-          },
-          Object {
-            "cells": Array [
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "a",
-                  },
-                  "key": "a",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "b",
-                  },
-                  "key": "b",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "c",
-                  },
-                  "key": "c",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "d",
-                  },
-                  "key": "d",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "e",
-                  },
-                  "key": "e",
-                },
-              },
-            ],
-            "row": Object {
-              "key": 3,
-            },
-          },
-          Object {
-            "cells": Array [
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "a",
-                  },
-                  "key": "a",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "b",
-                  },
-                  "key": "b",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "c",
-                  },
-                  "key": "c",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "d",
-                  },
-                  "key": "d",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "e",
-                  },
-                  "key": "e",
-                },
-              },
-            ],
-            "row": Object {
-              "key": 4,
-            },
-          },
-          Object {
-            "cells": Array [
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "a",
-                  },
-                  "key": "a",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "b",
-                  },
-                  "key": "b",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "c",
-                  },
-                  "key": "c",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "d",
-                  },
-                  "key": "d",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "e",
-                  },
-                  "key": "e",
-                },
-              },
-            ],
-            "row": Object {
-              "key": 5,
-            },
-          },
-          Object {
-            "cells": Array [
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "a",
-                  },
-                  "key": "a",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "b",
-                  },
-                  "key": "b",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "c",
-                  },
-                  "key": "c",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "d",
-                  },
-                  "key": "d",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "e",
-                  },
-                  "key": "e",
-                },
-              },
-            ],
-            "row": Object {
-              "key": 6,
-            },
-          },
-          Object {
-            "cells": Array [
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "a",
-                  },
-                  "key": "a",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "b",
-                  },
-                  "key": "b",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "c",
-                  },
-                  "key": "c",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "d",
-                  },
-                  "key": "d",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "e",
-                  },
-                  "key": "e",
-                },
-              },
-            ],
-            "row": Object {
-              "key": 7,
-            },
-          },
-          Object {
-            "cells": Array [
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "a",
-                  },
-                  "key": "a",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "b",
-                  },
-                  "key": "b",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "c",
-                  },
-                  "key": "c",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "d",
-                  },
-                  "key": "d",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "e",
-                  },
-                  "key": "e",
-                },
-              },
-            ],
-            "row": Object {
-              "key": 8,
-            },
-          },
-          Object {
-            "cells": Array [
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "a",
-                  },
-                  "key": "a",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "b",
-                  },
-                  "key": "b",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "c",
-                  },
-                  "key": "c",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "d",
-                  },
-                  "key": "d",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "e",
-                  },
-                  "key": "e",
-                },
-              },
-            ],
-            "row": Object {
-              "key": 9,
-            },
-          },
-        ],
+      minColumnWidth={120}
+      minWidth={400}
+      name="header"
+      rowComponent={[Function]}
+      rowRefsHandler={[Function]}
+      tableRef={
+        Object {
+          "current": null,
+        }
       }
-    }
-    marginBottom={600}
-    minColumnWidth={120}
-    minWidth={400}
-    name="body"
-    rowComponent={[Function]}
-    rowRefsHandler={[Function]}
-    tableComponent={[Function]}
-    tableRef={
-      Object {
-        "current": null,
+    />
+    <VirtualTableLayoutBlock
+      blockRefsHandler={[Function]}
+      bodyComponent={[Function]}
+      cellComponent={[Function]}
+      collapsedGrid={
+        Object {
+          "columns": Array [
+            Object {
+              "column": Object {
+                "name": "a",
+              },
+              "key": "a",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "b",
+              },
+              "key": "b",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "c",
+              },
+              "key": "c",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "d",
+              },
+              "key": "d",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "e",
+              },
+              "key": "e",
+              "width": 160,
+            },
+          ],
+          "rows": Array [
+            Object {
+              "cells": Array [
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "a",
+                    },
+                    "key": "a",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "b",
+                    },
+                    "key": "b",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "c",
+                    },
+                    "key": "c",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "d",
+                    },
+                    "key": "d",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "e",
+                    },
+                    "key": "e",
+                  },
+                },
+              ],
+              "row": Object {
+                "key": 1,
+              },
+            },
+            Object {
+              "cells": Array [
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "a",
+                    },
+                    "key": "a",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "b",
+                    },
+                    "key": "b",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "c",
+                    },
+                    "key": "c",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "d",
+                    },
+                    "key": "d",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "e",
+                    },
+                    "key": "e",
+                  },
+                },
+              ],
+              "row": Object {
+                "key": 2,
+              },
+            },
+            Object {
+              "cells": Array [
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "a",
+                    },
+                    "key": "a",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "b",
+                    },
+                    "key": "b",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "c",
+                    },
+                    "key": "c",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "d",
+                    },
+                    "key": "d",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "e",
+                    },
+                    "key": "e",
+                  },
+                },
+              ],
+              "row": Object {
+                "key": 3,
+              },
+            },
+            Object {
+              "cells": Array [
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "a",
+                    },
+                    "key": "a",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "b",
+                    },
+                    "key": "b",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "c",
+                    },
+                    "key": "c",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "d",
+                    },
+                    "key": "d",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "e",
+                    },
+                    "key": "e",
+                  },
+                },
+              ],
+              "row": Object {
+                "key": 4,
+              },
+            },
+            Object {
+              "cells": Array [
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "a",
+                    },
+                    "key": "a",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "b",
+                    },
+                    "key": "b",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "c",
+                    },
+                    "key": "c",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "d",
+                    },
+                    "key": "d",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "e",
+                    },
+                    "key": "e",
+                  },
+                },
+              ],
+              "row": Object {
+                "key": 5,
+              },
+            },
+            Object {
+              "cells": Array [
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "a",
+                    },
+                    "key": "a",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "b",
+                    },
+                    "key": "b",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "c",
+                    },
+                    "key": "c",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "d",
+                    },
+                    "key": "d",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "e",
+                    },
+                    "key": "e",
+                  },
+                },
+              ],
+              "row": Object {
+                "key": 6,
+              },
+            },
+            Object {
+              "cells": Array [
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "a",
+                    },
+                    "key": "a",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "b",
+                    },
+                    "key": "b",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "c",
+                    },
+                    "key": "c",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "d",
+                    },
+                    "key": "d",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "e",
+                    },
+                    "key": "e",
+                  },
+                },
+              ],
+              "row": Object {
+                "key": 7,
+              },
+            },
+            Object {
+              "cells": Array [
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "a",
+                    },
+                    "key": "a",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "b",
+                    },
+                    "key": "b",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "c",
+                    },
+                    "key": "c",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "d",
+                    },
+                    "key": "d",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "e",
+                    },
+                    "key": "e",
+                  },
+                },
+              ],
+              "row": Object {
+                "key": 8,
+              },
+            },
+            Object {
+              "cells": Array [
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "a",
+                    },
+                    "key": "a",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "b",
+                    },
+                    "key": "b",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "c",
+                    },
+                    "key": "c",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "d",
+                    },
+                    "key": "d",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "e",
+                    },
+                    "key": "e",
+                  },
+                },
+              ],
+              "row": Object {
+                "key": 9,
+              },
+            },
+          ],
+        }
       }
-    }
-  />
-  <VirtualTableLayoutBlock
-    blockRefsHandler={[Function]}
-    bodyComponent={[Function]}
-    cellComponent={[Function]}
-    collapsedGrid={
-      Object {
-        "columns": Array [
-          Object {
-            "column": Object {
-              "name": "a",
-            },
-            "key": "a",
-            "width": 160,
-          },
-          Object {
-            "column": Object {
-              "name": "b",
-            },
-            "key": "b",
-            "width": 160,
-          },
-          Object {
-            "column": Object {
-              "name": "c",
-            },
-            "key": "c",
-            "width": 160,
-          },
-          Object {
-            "column": Object {
-              "name": "d",
-            },
-            "key": "d",
-            "width": 160,
-          },
-          Object {
-            "column": Object {
-              "name": "e",
-            },
-            "key": "e",
-            "width": 160,
-          },
-        ],
-        "rows": Array [
-          Object {
-            "cells": Array [
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "a",
-                  },
-                  "key": "a",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "b",
-                  },
-                  "key": "b",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "c",
-                  },
-                  "key": "c",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "d",
-                  },
-                  "key": "d",
-                },
-              },
-              Object {
-                "colSpan": 1,
-                "column": Object {
-                  "column": Object {
-                    "name": "e",
-                  },
-                  "key": "e",
-                },
-              },
-            ],
-            "row": Object {
-              "key": 1,
-            },
-          },
-        ],
+      minColumnWidth={120}
+      minWidth={400}
+      name="body"
+      rowComponent={[Function]}
+      rowRefsHandler={[Function]}
+      tableRef={
+        Object {
+          "current": null,
+        }
       }
-    }
-    minColumnWidth={120}
-    minWidth={400}
-    name="footer"
-    rowComponent={[Function]}
-    rowRefsHandler={[Function]}
-    tableComponent={[Function]}
-    tableRef={
-      Object {
-        "current": null,
+    />
+    <VirtualTableLayoutBlock
+      blockRefsHandler={[Function]}
+      bodyComponent={[Function]}
+      cellComponent={[Function]}
+      collapsedGrid={
+        Object {
+          "columns": Array [
+            Object {
+              "column": Object {
+                "name": "a",
+              },
+              "key": "a",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "b",
+              },
+              "key": "b",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "c",
+              },
+              "key": "c",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "d",
+              },
+              "key": "d",
+              "width": 160,
+            },
+            Object {
+              "column": Object {
+                "name": "e",
+              },
+              "key": "e",
+              "width": 160,
+            },
+          ],
+          "rows": Array [
+            Object {
+              "cells": Array [
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "a",
+                    },
+                    "key": "a",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "b",
+                    },
+                    "key": "b",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "c",
+                    },
+                    "key": "c",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "d",
+                    },
+                    "key": "d",
+                  },
+                },
+                Object {
+                  "colSpan": 1,
+                  "column": Object {
+                    "column": Object {
+                      "name": "e",
+                    },
+                    "key": "e",
+                  },
+                },
+              ],
+              "row": Object {
+                "key": 1,
+              },
+            },
+          ],
+        }
       }
-    }
-  />
+      minColumnWidth={120}
+      minWidth={400}
+      name="footer"
+      rowComponent={[Function]}
+      rowRefsHandler={[Function]}
+      tableRef={
+        Object {
+          "current": null,
+        }
+      }
+    />
+  </tableComponent>
 </containerComponent>
 `;

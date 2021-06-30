@@ -90,6 +90,6 @@
     "@devexpress/dx-chart-core": "2.7.6",
     "@devexpress/dx-react-chart": "2.7.6",
     "@devexpress/dx-react-core": "2.7.6",
-    "react": ">=16.10.2"
+    "react": ">=17.0.2"
   }
 }

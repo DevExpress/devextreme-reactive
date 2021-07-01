@@ -369,5 +369,28 @@ describe('TableHeaderRow', () => {
       expect(sortLabel.exists())
         .toBeTruthy();
     });
+    it('should pass "isFixed" property to cellComponent', () => {
+      isHeadingTableCell.mockImplementation(() => true);
+
+      const Wrapper = ({ isFixed }) => (
+        <PluginHost>
+          {pluginDepsToComponents(defaultDeps)}
+          <TableHeaderRow
+            {...defaultProps}
+            isFixed={isFixed}
+          />
+        </PluginHost>
+      );
+      const tree = mount(<Wrapper isFixed/>);
+
+      expect(tree.find(defaultProps.cellComponent).props().isFixed)
+        .toBe(true);
+
+      tree.setProps({ isFixed: false });
+      tree.update();
+
+      expect(tree.find(defaultProps.cellComponent).props().isFixed)
+        .toBe(false);
+    });
   });
 });

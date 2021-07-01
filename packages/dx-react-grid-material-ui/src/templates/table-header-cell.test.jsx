@@ -136,4 +136,20 @@ describe('TableHeaderCell', () => {
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
   });
+
+  it('should be fixed by default', () => {
+    const tree = shallow(
+      <TableHeaderCell />,
+    );
+
+    expect(tree.is(`.${classes.cellFixed}`)).toBe(true);
+  });
+
+  it('should be possible to turn off fixed', () => {
+    const tree = shallow(
+      <TableHeaderCell isFixed={false} />,
+    );
+
+    expect(tree.is(`.${classes.cellFixed}`)).toBe(false);
+  });
 });

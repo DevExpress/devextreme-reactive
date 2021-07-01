@@ -5,6 +5,7 @@ import { setupConsole } from '@devexpress/dx-testing';
 
 import { TableHeaderCell } from './table-header-cell';
 import { ResizingControl } from './table-header-cell/resizing-control';
+import { BodyColorContext } from './layout';
 
 describe('TableHeaderCell', () => {
   let resetConsole;
@@ -29,29 +30,33 @@ describe('TableHeaderCell', () => {
   it('should have correct classes when dragging is allowed', () => {
     const getCellWidth = () => {};
     const tree = mount((
-      <DragDropProvider>
-        <TableHeaderCell
-          column={{ name: 'a' }}
-          draggingEnabled
-          getCellWidth={getCellWidth}
-        />
-      </DragDropProvider>
+      <BodyColorContext.Provider value={{}}>
+        <DragDropProvider>
+          <TableHeaderCell
+            column={{ name: 'a' }}
+            draggingEnabled
+            getCellWidth={getCellWidth}
+          />
+        </DragDropProvider>
+      </BodyColorContext.Provider>
     ));
 
-    expect(tree.find('th').is('.dx-g-bs4-user-select-none.dx-g-bs4-cursor-pointer.position-relative'))
+    expect(tree.find('th').is('.dx-g-bs4-user-select-none.dx-g-bs4-cursor-pointer.dx-g-bs4-fixed-header-cell'))
       .toBeTruthy();
   });
 
   it('should have correct classes when dragging', () => {
     const getCellWidth = () => {};
     const tree = mount((
-      <DragDropProvider>
-        <TableHeaderCell
-          column={{ name: 'a' }}
-          draggingEnabled
-          getCellWidth={getCellWidth}
-        />
-      </DragDropProvider>
+      <BodyColorContext.Provider value={{}}>
+        <DragDropProvider>
+          <TableHeaderCell
+            column={{ name: 'a' }}
+            draggingEnabled
+            getCellWidth={getCellWidth}
+          />
+        </DragDropProvider>
+      </BodyColorContext.Provider>
     ));
 
     expect(tree.find('th').is('.dx-g-bs4-inactive'))
@@ -103,7 +108,7 @@ describe('TableHeaderCell', () => {
       />
     ));
 
-    expect(tree.find('th').is('.position-relative.dx-g-bs4-header-cell.custom-class'))
+    expect(tree.find('th').is('.dx-g-bs4-header-cell.dx-g-bs4-fixed-header-cell.custom-class'))
       .toBeTruthy();
   });
 
@@ -123,5 +128,33 @@ describe('TableHeaderCell', () => {
     tree = shallow(<TableHeaderCell tableColumn={{ wordWrapEnabled: true }} />);
     expect(tree.is('.text-nowrap'))
       .toBeFalsy();
+  });
+
+  it('should be fixed by default', () => {
+    const contextValue = '#ffffff';
+    const tree = mount(
+      <BodyColorContext.Provider value={contextValue}>
+        <TableHeaderCell />
+      </BodyColorContext.Provider>,
+    );
+    const cell = tree.find('th');
+
+    expect(cell.is('.position-relative')).toBe(false);
+    expect(cell.is('.dx-g-bs4-fixed-header-cell')).toBe(true);
+    expect(cell.props().style).toHaveProperty('backgroundColor', contextValue);
+  });
+
+  it('should be possible to turn off fixed', () => {
+    const contextValue = '#ffffff';
+    const tree = mount(
+      <BodyColorContext.Provider value={contextValue}>
+        <TableHeaderCell isFixed={false} />
+      </BodyColorContext.Provider>,
+    );
+    const cell = tree.find('th');
+
+    expect(cell.is('.position-relative')).toBe(true);
+    expect(cell.is('.dx-g-bs4-fixed-header-cell')).toBe(false);
+    expect(cell.props().style).not.toHaveProperty('backgroundColor');
   });
 });

@@ -12,7 +12,7 @@ export class VirtualTableLayoutBlock extends React.PureComponent<VirtualTableLay
   };
 
   render() {
-    const { 
+    const {
       name,
       collapsedGrid,
       blockRefsHandler,

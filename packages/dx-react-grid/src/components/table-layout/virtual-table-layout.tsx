@@ -311,7 +311,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       rowRefsHandler: this.registerRowRef,
     };
     const sizerHeight = height === AUTO_HEIGHT ? null : height;
-    const marginBottom=Math.max(0, containerHeight - headerHeight - bodyHeight - footerHeight);
+    const marginBottom = Math.max(0, containerHeight - headerHeight - bodyHeight - footerHeight);
 
     return (
       <Sizer

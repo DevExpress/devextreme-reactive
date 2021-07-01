@@ -89,6 +89,11 @@ const styles = theme => ({
   cellNoWrap: {
     whiteSpace: 'nowrap',
   },
+  cellFixed: {
+    position: 'sticky',
+    top: 0,
+    background: theme.palette.background.paper,
+  },
 });
 
 class TableHeaderCellBase extends React.PureComponent {
@@ -128,7 +133,7 @@ class TableHeaderCellBase extends React.PureComponent {
       style, column, tableColumn,
       draggingEnabled, resizingEnabled,
       onWidthChange, onWidthDraft, onWidthDraftCancel, getCellWidth,
-      classes, tableRow, className, children,
+      classes, tableRow, className, children, isFixed,
       ...restProps
     } = this.props;
 
@@ -143,6 +148,7 @@ class TableHeaderCellBase extends React.PureComponent {
       [classes.cellDraggable]: draggingEnabled,
       [classes.cellDimmed]: dragging || (tableColumn && tableColumn.draft),
       [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
+      [classes.cellFixed]: isFixed,
     }, className);
     const cellLayout = (
       <TableCell
@@ -193,6 +199,7 @@ TableHeaderCellBase.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
   getCellWidth: PropTypes.func,
+  isFixed: PropTypes.bool,
 };
 
 TableHeaderCellBase.defaultProps = {
@@ -208,6 +215,7 @@ TableHeaderCellBase.defaultProps = {
   className: undefined,
   children: undefined,
   getCellWidth: () => {},
+  isFixed: true,
 };
 
 export const TableHeaderCell = withStyles(styles, { name: 'TableHeaderCell' })(TableHeaderCellBase);

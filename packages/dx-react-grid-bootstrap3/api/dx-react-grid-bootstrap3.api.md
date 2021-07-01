@@ -591,6 +591,7 @@ export interface TableHeaderRowProps {
   cellComponent?: React_2.ComponentType<TableHeaderRow_2.CellProps>;
   contentComponent?: React_2.ComponentType<TableHeaderRow_2.ContentProps>;
   groupButtonComponent?: React_2.ComponentType<TableHeaderRow_2.GroupButtonProps>;
+  isFixed?: boolean;
   messages?: TableHeaderRow_2.LocalizationMessages;
   rowComponent?: React_2.ComponentType<Table_2.RowProps>;
   showGroupingControls?: boolean;

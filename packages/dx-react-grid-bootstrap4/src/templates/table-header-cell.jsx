@@ -5,6 +5,7 @@ import classNames from 'clsx';
 import { DragSource } from '@devexpress/dx-react-core';
 
 import { ResizingControl } from './table-header-cell/resizing-control';
+import { BodyColorContext } from './layout';
 
 export class TableHeaderCell extends React.PureComponent {
   constructor(props) {
@@ -43,15 +44,18 @@ export class TableHeaderCell extends React.PureComponent {
       className, column, tableColumn,
       draggingEnabled, onWidthDraftCancel,
       resizingEnabled, onWidthChange, onWidthDraft, getCellWidth,
-      tableRow, children,
+      tableRow, children, isFixed, style,
       ...restProps
     } = this.props;
     const { dragging } = this.state;
+    const backgroundColor = this.context;
 
     const cellLayout = (
       <th
         className={classNames({
-          'position-relative dx-g-bs4-header-cell': true,
+          'dx-g-bs4-header-cell': true,
+          'dx-g-bs4-fixed-header-cell': isFixed,
+          'position-relative': !isFixed,
           'dx-g-bs4-user-select-none': draggingEnabled,
           'dx-g-bs4-cursor-pointer': draggingEnabled,
           'dx-g-bs4-inactive': dragging || (tableColumn && tableColumn.draft),
@@ -59,6 +63,10 @@ export class TableHeaderCell extends React.PureComponent {
         }, className)}
         scope="col"
         ref={this.cellRef}
+        style={{
+          ...(isFixed && { backgroundColor }),
+          ...style,
+        }}
         {...restProps}
       >
         <div
@@ -89,6 +97,8 @@ export class TableHeaderCell extends React.PureComponent {
   }
 }
 
+TableHeaderCell.contextType = BodyColorContext;
+
 TableHeaderCell.propTypes = {
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
@@ -96,6 +106,7 @@ TableHeaderCell.propTypes = {
   className: PropTypes.string,
   draggingEnabled: PropTypes.bool,
   resizingEnabled: PropTypes.bool,
+  style: PropTypes.object,
   onWidthChange: PropTypes.func,
   onWidthDraft: PropTypes.func,
   onWidthDraftCancel: PropTypes.func,
@@ -104,6 +115,7 @@ TableHeaderCell.propTypes = {
     PropTypes.node,
   ]),
   getCellWidth: PropTypes.func,
+  isFixed: PropTypes.bool,
 };
 
 TableHeaderCell.defaultProps = {
@@ -113,9 +125,11 @@ TableHeaderCell.defaultProps = {
   className: undefined,
   draggingEnabled: false,
   resizingEnabled: false,
+  style: null,
   onWidthChange: undefined,
   onWidthDraft: undefined,
   onWidthDraftCancel: undefined,
   children: undefined,
   getCellWidth: () => {},
+  isFixed: true,
 };

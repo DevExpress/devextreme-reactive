@@ -4,6 +4,7 @@ import * as PropTypes from 'prop-types';
 import { DragSource } from '@devexpress/dx-react-core';
 
 import { ResizingControl } from './table-header-cell/resizing-control';
+import { StyleContext } from './layout';
 
 export class TableHeaderCell extends React.PureComponent {
   constructor(props) {
@@ -42,15 +43,15 @@ export class TableHeaderCell extends React.PureComponent {
       style, column, tableColumn,
       draggingEnabled, resizingEnabled,
       onWidthChange, onWidthDraft, onWidthDraftCancel, getCellWidth,
-      tableRow, children,
+      tableRow, children, isFixed,
       ...restProps
     } = this.props;
     const { dragging } = this.state;
+    const { backgroundColor, stickyPosition } = this.context;
 
     const cellLayout = (
       <th
         style={{
-          position: 'relative',
           ...(draggingEnabled ? {
             userSelect: 'none',
             MozUserSelect: 'none',
@@ -59,6 +60,12 @@ export class TableHeaderCell extends React.PureComponent {
           whiteSpace: !(tableColumn && tableColumn.wordWrapEnabled) ? 'nowrap' : 'normal',
           ...(draggingEnabled ? { cursor: 'pointer' } : null),
           ...(dragging || (tableColumn && tableColumn.draft) ? { opacity: 0.3 } : null),
+          ...(isFixed && {
+            position: stickyPosition,
+            top: 0,
+            backgroundColor,
+          }),
+          ...(!isFixed && { position: 'relative' }),
           ...style,
         }}
         ref={this.cellRef}
@@ -96,6 +103,8 @@ export class TableHeaderCell extends React.PureComponent {
   }
 }
 
+TableHeaderCell.contextType = StyleContext;
+
 TableHeaderCell.propTypes = {
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
@@ -111,6 +120,7 @@ TableHeaderCell.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
+  isFixed: PropTypes.bool,
 };
 
 TableHeaderCell.defaultProps = {
@@ -125,4 +135,5 @@ TableHeaderCell.defaultProps = {
   onWidthDraftCancel: undefined,
   children: undefined,
   getCellWidth: () => {},
+  isFixed: true,
 };

@@ -162,10 +162,14 @@ button.dx-g-bs4-table-edit-command-cell {
       opacity: 1;
     }
   }
- }
- .dx-g-bs4-resizing-control-wrapper-active {
+}
+.dx-g-bs4-fixed-header-cell {
+  position: sticky;
+  top: 0;
+}
+.dx-g-bs4-resizing-control-wrapper-active {
   opacity: 1;
- }
+}
 .dx-g-bs4-resize-control-line {
   opacity: 1;
   position: absolute;

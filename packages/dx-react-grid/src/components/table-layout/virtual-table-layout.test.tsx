@@ -112,7 +112,6 @@ const defaultProps = {
   loadedRowsStart: 0,
   totalRowCount: 9,
   containerComponent: props => <div {...props} />,
-  headTableComponent: ({ tableRef, ...props }) => <table {...props} />,
   tableComponent: ({ tableRef, ...props }) => <table {...props} />,
   headComponent: props => <thead {...props} />,
   bodyComponent: props => <tbody {...props} />,

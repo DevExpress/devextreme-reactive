@@ -5,6 +5,7 @@ import { setupConsole } from '@devexpress/dx-testing';
 
 import { TableHeaderCell } from './table-header-cell';
 import { ResizingControl } from './table-header-cell/resizing-control';
+import { StyleContext } from './layout';
 
 describe('TableHeaderCell', () => {
   let resetConsole;
@@ -36,13 +37,15 @@ describe('TableHeaderCell', () => {
   it('should have correct styles when dragging is allowed', () => {
     const getCellWidth = () => {};
     const tree = mount((
-      <DragDropProvider>
-        <TableHeaderCell
-          column={{ name: 'a' }}
-          draggingEnabled
-          getCellWidth={getCellWidth}
-        />
-      </DragDropProvider>
+      <StyleContext.Provider value={{}}>
+        <DragDropProvider>
+          <TableHeaderCell
+            column={{ name: 'a' }}
+            draggingEnabled
+            getCellWidth={getCellWidth}
+          />
+        </DragDropProvider>
+      </StyleContext.Provider>
     ));
 
     expect(tree.find('th').prop('style'))
@@ -57,13 +60,15 @@ describe('TableHeaderCell', () => {
   it('should have correct styles when dragging', () => {
     const getCellWidth = () => {};
     const tree = mount((
-      <DragDropProvider>
-        <TableHeaderCell
-          column={{ name: 'a' }}
-          draggingEnabled
-          getCellWidth={getCellWidth}
-        />
-      </DragDropProvider>
+      <StyleContext.Provider value={{}}>
+        <DragDropProvider>
+          <TableHeaderCell
+            column={{ name: 'a' }}
+            draggingEnabled
+            getCellWidth={getCellWidth}
+          />
+        </DragDropProvider>
+      </StyleContext.Provider>
     ));
 
     expect(tree.find('th').prop('style'))
@@ -133,5 +138,33 @@ describe('TableHeaderCell', () => {
 
     expect(tree.is('.custom-class'))
       .toBeTruthy();
+  });
+
+  it('should be fixed by default', () => {
+    const contextValue = { stickyPosition: 'sticky', backgroundColor: '#ffffff' };
+    const tree = mount(
+      <StyleContext.Provider value={contextValue}>
+        <TableHeaderCell />
+      </StyleContext.Provider>,
+    );
+    const cell = tree.find('th');
+
+    expect(cell.props().style).toHaveProperty('position', contextValue.stickyPosition);
+    expect(cell.props().style).toHaveProperty('backgroundColor', contextValue.backgroundColor);
+    expect(cell.props().style).toHaveProperty('top', 0);
+  });
+
+  it('should be possible to turn off fixed', () => {
+    const contextValue = { stickyPosition: 'sticky', backgroundColor: '#ffffff' };
+    const tree = mount(
+      <StyleContext.Provider value={contextValue}>
+        <TableHeaderCell isFixed={false} />
+      </StyleContext.Provider>,
+    );
+    const cell = tree.find('th');
+
+    expect(cell.props().style).toHaveProperty('position', 'relative');
+    expect(cell.props().style).not.toHaveProperty('backgroundColor');
+    expect(cell.props().style).not.toHaveProperty('top');
   });
 });

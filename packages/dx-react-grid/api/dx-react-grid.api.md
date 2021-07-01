@@ -1150,6 +1150,7 @@ export namespace TableHeaderRow {
     column: Column;
     draggingEnabled: boolean;
     getCellWidth: (getter: CellWidthGetter) => void;
+    isFixed?: boolean;
     onWidthChange: (parameters: {
       shift: number;
     }) => void;
@@ -1191,6 +1192,7 @@ export interface TableHeaderRowProps {
   cellComponent: React_2.ComponentType<TableHeaderRow.CellProps>;
   contentComponent: React_2.ComponentType<TableHeaderRow.ContentProps>;
   groupButtonComponent: React_2.ComponentType<TableHeaderRow.GroupButtonProps>;
+  isFixed?: boolean;
   messages?: TableHeaderRow.LocalizationMessages;
   rowComponent: React_2.ComponentType<Table.RowProps>;
   showGroupingControls?: boolean;

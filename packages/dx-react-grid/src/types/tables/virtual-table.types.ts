@@ -51,10 +51,6 @@ export interface VirtualTableProps {
   stubHeaderCellComponent: React.ComponentType<Table.CellProps>;
   /** An object that specifies the localization messages. */
   messages?: Table.LocalizationMessages;
-  /** @internal */
-  headTableComponent: React.ComponentType<object>;
-  /** @internal */
-  footerTableComponent: React.ComponentType<object>;
   // TODO
   skeletonCellComponent: React.ComponentType<Table.CellProps>;
   /** Handles top row changes. */

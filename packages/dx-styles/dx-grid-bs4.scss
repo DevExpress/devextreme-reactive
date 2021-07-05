@@ -259,3 +259,9 @@ button.dx-g-bs4-table-edit-command-cell {
   vertical-align: middle;
   cursor: pointer;
 }
+.dx-g-bs4-focus-cell {
+  &:focus {
+    border: 1px solid blue;
+    outline: none
+  }
+}

@@ -1,6 +1,11 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 import { Cell } from './cell';
+
+jest.mock('@devexpress/dx-react-grid', () => ({
+  withKeyboardNavigation: jest.fn().mockReturnValue(x => x),
+}));
 
 describe('TableCell', () => {
   it('should render children if passed', () => {
@@ -37,6 +42,23 @@ describe('TableCell', () => {
     ));
 
     expect(tree.is('.border-left.dx-g-bs4-banded-cell.text-nowrap.dx-g-bs4-table-cell.border-right'))
+      .toBeTruthy();
+  });
+
+  it('should call withKeyboardNavigation', () => {
+    shallow((
+      <Cell />
+    ));
+
+    expect(withKeyboardNavigation).toBeCalledWith();
+  });
+
+  it('should apply class for keyboard navigation', () => {
+    const tree = shallow((
+      <Cell updateRefForKeyboardNavigation={() => {}} />
+    ));
+
+    expect(tree.is('.dx-g-bs4-banded-cell.dx-g-bs4-table-cell.text-nowrap.border-right.dx-g-bs4-focus-cell'))
       .toBeTruthy();
   });
 });

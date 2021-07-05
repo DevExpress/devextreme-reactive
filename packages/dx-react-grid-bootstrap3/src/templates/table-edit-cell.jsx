@@ -1,10 +1,12 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
-export const EditCell = ({
+const EditCellBase = ({
   column, value, onValueChange, style, children,
   row, tableRow, tableColumn, editingEnabled,
-  autoFocus, onBlur, onFocus, onKeyDown, ...restProps
+  autoFocus, onBlur, onFocus, onKeyDown,
+  refObject, updateRefForKeyboardNavigation, setFocusedElement, ...restProps
 }) => {
   const patchedChildren = children
     ? React.cloneElement(children, {
@@ -17,6 +19,7 @@ export const EditCell = ({
 
   return (
     <td
+      ref={refObject}
       style={{
         verticalAlign: 'middle',
         padding: '1px',
@@ -46,7 +49,7 @@ export const EditCell = ({
   );
 };
 
-EditCell.propTypes = {
+EditCellBase.propTypes = {
   column: PropTypes.object,
   row: PropTypes.any,
   tableColumn: PropTypes.object,
@@ -60,9 +63,12 @@ EditCell.propTypes = {
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
   onKeyDown: PropTypes.func,
+  refObject: PropTypes.object,
+  updateRefForKeyboardNavigation: PropTypes.func,
+  setFocusedElement: PropTypes.func,
 };
 
-EditCell.defaultProps = {
+EditCellBase.defaultProps = {
   column: undefined,
   row: undefined,
   tableColumn: undefined,
@@ -76,4 +82,9 @@ EditCell.defaultProps = {
   onBlur: () => {},
   onFocus: () => {},
   onKeyDown: () => {},
+  refObject: undefined,
+  updateRefForKeyboardNavigation: undefined,
+  setFocusedElement: undefined,
 };
+
+export const EditCell = withKeyboardNavigation()(EditCellBase);

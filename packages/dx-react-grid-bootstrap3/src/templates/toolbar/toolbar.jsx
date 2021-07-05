@@ -1,15 +1,18 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
-export const Toolbar = ({
+const ToolbarBase = ({
   children,
   className,
   style,
+  refObject, updateRefForKeyboardNavigation, setFocusedElement,
   ...restProps
 }) => (
   <div
     className={classNames('panel-heading', className)}
+    ref={refObject}
     style={{
       display: 'flex',
       alignItems: 'center',
@@ -25,13 +28,21 @@ export const Toolbar = ({
   </div>
 );
 
-Toolbar.propTypes = {
+ToolbarBase.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   style: PropTypes.object,
+  refObject: PropTypes.object,
+  updateRefForKeyboardNavigation: PropTypes.func,
+  setFocusedElement: PropTypes.func,
 };
 
-Toolbar.defaultProps = {
+ToolbarBase.defaultProps = {
   className: undefined,
   style: null,
+  refObject: undefined,
+  updateRefForKeyboardNavigation: undefined,
+  setFocusedElement: undefined,
 };
+
+export const Toolbar = withKeyboardNavigation('toolbar', 'none')(ToolbarBase);

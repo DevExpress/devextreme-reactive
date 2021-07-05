@@ -1,10 +1,13 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
-export const TableTreeCell = ({
+const TableTreeCellBase = ({
   column, children, tableRow,
-  tableColumn, row, ...restProps
+  tableColumn, row,
+  refObject, updateRefForKeyboardNavigation, setFocusedElement,
+  ...restProps
 }) => (
   <td
     {...restProps}
@@ -15,27 +18,37 @@ export const TableTreeCell = ({
         'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
         'text-right': tableColumn && tableColumn.align === 'right',
         'text-center': tableColumn && tableColumn.align === 'center',
+        'dx-g-bs4-focus-cell': !!updateRefForKeyboardNavigation,
       })}
+      ref={refObject}
     >
       {children}
     </div>
   </td>
 );
 
-TableTreeCell.propTypes = {
+TableTreeCellBase.propTypes = {
   column: PropTypes.object,
   row: PropTypes.any,
   children: PropTypes.node,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   style: PropTypes.object,
+  refObject: PropTypes.object,
+  updateRefForKeyboardNavigation: PropTypes.func,
+  setFocusedElement: PropTypes.func,
 };
 
-TableTreeCell.defaultProps = {
+TableTreeCellBase.defaultProps = {
   column: undefined,
   row: undefined,
   children: undefined,
   tableRow: undefined,
   tableColumn: undefined,
   style: null,
+  refObject: undefined,
+  updateRefForKeyboardNavigation: undefined,
+  setFocusedElement: undefined,
 };
+
+export const TableTreeCell = withKeyboardNavigation()(TableTreeCellBase);

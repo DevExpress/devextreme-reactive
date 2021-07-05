@@ -3,8 +3,8 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCellMUI from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorder } from './utils';
 import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
+import { getBorder } from './utils';
 import focusedStyle from '../utils/get-focused-style';
 
 const styles = theme => ({
@@ -29,7 +29,7 @@ const styles = theme => ({
   cellNoWrap: {
     whiteSpace: 'nowrap',
   },
-  focusedCell: focusedStyle
+  focusedCell: focusedStyle,
 });
 
 const TableCellBase = ({
@@ -39,18 +39,18 @@ const TableCellBase = ({
   ...restProps
 }) => (
   <TableCellMUI
-      className={classNames({
-        [classes.cell]: true,
-        [classes.focusedCell]: updateRefForKeyboardNavigation !== undefined,
-        [classes.cellRightAlign]: tableColumn && tableColumn.align === 'right',
-        [classes.cellCenterAlign]: tableColumn && tableColumn.align === 'center',
-        [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
-      }, className)}
-      classes={{ footer: classes.footer }}
-      ref={refObject}
-      {...restProps}
-    >
-      {children || value}
+    className={classNames({
+      [classes.cell]: true,
+      [classes.focusedCell]: updateRefForKeyboardNavigation !== undefined,
+      [classes.cellRightAlign]: tableColumn && tableColumn.align === 'right',
+      [classes.cellCenterAlign]: tableColumn && tableColumn.align === 'center',
+      [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
+    }, className)}
+    classes={{ footer: classes.footer }}
+    ref={refObject}
+    {...restProps}
+  >
+    {children || value}
   </TableCellMUI>
 );
 
@@ -63,6 +63,9 @@ TableCellBase.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   className: PropTypes.string,
+  refObject: PropTypes.object,
+  updateRefForKeyboardNavigation: PropTypes.func,
+  setFocusedElement: PropTypes.func,
 };
 
 TableCellBase.defaultProps = {
@@ -73,6 +76,9 @@ TableCellBase.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   className: undefined,
+  refObject: undefined,
+  updateRefForKeyboardNavigation: undefined,
+  setFocusedElement: undefined,
 };
 
 export const TableCell = withKeyboardNavigation()(withStyles(styles, { name: 'TableCell' })(TableCellBase));

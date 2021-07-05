@@ -5,7 +5,7 @@ import {
 import { 
   TABLE_HEADING_TYPE, TABLE_BAND_TYPE, TABLE_ADDED_TYPE,
   getNextFocusedElement, applyEnterAction, applyEscapeAction,
-  getPart, getIndexToFocus, isFocusChanged, getPrevNextTablePart } from '@devexpress/dx-grid-core';
+  getPart, getIndexToFocus, getPrevNextTablePart } from '@devexpress/dx-grid-core';
 import { KeyboardNavigationProps, KeyboardNavigationState } from '../types';
 
 class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigationProps, KeyboardNavigationState> {
@@ -35,7 +35,7 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
     if(key1 !== 'toolbar' && key1 !== 'paging') { 
       this.elements[key1][key2].push(ref);
     }
-    const innerElements = ref.current.querySelectorAll('[tabIndex], input');
+    const innerElements = ref.current.querySelectorAll('[tabIndex], input, button, a');
     innerElements.forEach(el => {
       this.elements[key1][key2].push(el);
     });
@@ -84,6 +84,7 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
         this.removeRef(key1, key2);
       }
     }
+    console.log(this.elements)
   }
 
   componentDidMount() {
@@ -117,9 +118,6 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
     const { focusedElement } = this.state;
     let nextFocusedElement;
 
-    if(isFocusChanged(this.elements, document.activeElement, focusedElement)) {
-      return;
-    }
     if(event.key === "Enter") {
       nextFocusedElement = applyEnterAction(this.elements, focusedElement);
     } else if(event.key === "Escape") {

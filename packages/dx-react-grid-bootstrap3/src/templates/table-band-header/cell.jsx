@@ -1,18 +1,21 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 import { StyleContext } from '../layout';
 
-export class Cell extends React.PureComponent {
+class CellBase extends React.PureComponent {
   render() {
     const {
       style, column, value, children,
       tableRow, tableColumn, row, beforeBorder,
+      refObject, updateRefForKeyboardNavigation, setFocusedElement,
       ...restProps
     } = this.props;
     const { borderColor } = this.context;
 
     return (
       <th
+        ref={refObject}
         style={{
           whiteSpace: 'nowrap',
           overflow: 'hidden',
@@ -31,9 +34,9 @@ export class Cell extends React.PureComponent {
   }
 }
 
-Cell.contextType = StyleContext;
+CellBase.contextType = StyleContext;
 
-Cell.propTypes = {
+CellBase.propTypes = {
   style: PropTypes.object,
   value: PropTypes.any,
   column: PropTypes.object,
@@ -42,9 +45,12 @@ Cell.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   beforeBorder: PropTypes.bool,
+  refObject: PropTypes.object,
+  updateRefForKeyboardNavigation: PropTypes.func,
+  setFocusedElement: PropTypes.func,
 };
 
-Cell.defaultProps = {
+CellBase.defaultProps = {
   style: null,
   value: undefined,
   column: undefined,
@@ -53,4 +59,9 @@ Cell.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   beforeBorder: false,
+  refObject: undefined,
+  updateRefForKeyboardNavigation: undefined,
+  setFocusedElement: undefined,
 };
+
+export const Cell = withKeyboardNavigation()(CellBase);

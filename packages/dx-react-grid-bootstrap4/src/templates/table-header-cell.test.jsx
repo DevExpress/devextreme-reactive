@@ -2,9 +2,18 @@ import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 import { DragDropProvider, DragSource } from '@devexpress/dx-react-core';
 import { setupConsole } from '@devexpress/dx-testing';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
 import { TableHeaderCell } from './table-header-cell';
 import { ResizingControl } from './table-header-cell/resizing-control';
+
+jest.mock('@devexpress/dx-react-grid', () => ({
+  withKeyboardNavigation: jest.fn().mockReturnValue(x => x),
+}));
+
+const defaultProps = {
+  refObject: { current: {} },
+};
 
 describe('TableHeaderCell', () => {
   let resetConsole;
@@ -18,6 +27,7 @@ describe('TableHeaderCell', () => {
   it('should have correct classes when user interaction disallowed', () => {
     const tree = shallow((
       <TableHeaderCell
+        {...defaultProps}
         column={{}}
       />
     ));
@@ -31,6 +41,7 @@ describe('TableHeaderCell', () => {
     const tree = mount((
       <DragDropProvider>
         <TableHeaderCell
+          {...defaultProps}
           column={{ name: 'a' }}
           draggingEnabled
           getCellWidth={getCellWidth}
@@ -47,6 +58,7 @@ describe('TableHeaderCell', () => {
     const tree = mount((
       <DragDropProvider>
         <TableHeaderCell
+          {...defaultProps}
           column={{ name: 'a' }}
           draggingEnabled
           getCellWidth={getCellWidth}
@@ -77,6 +89,7 @@ describe('TableHeaderCell', () => {
 
     const tree = shallow((
       <TableHeaderCell
+        {...defaultProps}
         column={{}}
         resizingEnabled
         onWidthChange={onWidthChange}
@@ -98,6 +111,7 @@ describe('TableHeaderCell', () => {
   it('should pass custom class to the root element', () => {
     const tree = shallow((
       <TableHeaderCell
+        {...defaultProps}
         column={{ title: 'a' }}
         className="custom-class"
       />
@@ -109,19 +123,36 @@ describe('TableHeaderCell', () => {
 
   it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <TableHeaderCell column={{ title: 'a' }} data={{ a: 1 }} />
+      <TableHeaderCell column={{ title: 'a' }} data={{ a: 1 }} {...defaultProps} />
     ));
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
   });
 
   it('should consider the `wordWrapEnabled` property', () => {
-    let tree = shallow(<TableHeaderCell />);
+    let tree = shallow(<TableHeaderCell {...defaultProps} />);
     expect(tree.is('.text-nowrap'))
       .toBeTruthy();
 
-    tree = shallow(<TableHeaderCell tableColumn={{ wordWrapEnabled: true }} />);
+    tree = shallow(<TableHeaderCell {...defaultProps} tableColumn={{ wordWrapEnabled: true }} />);
     expect(tree.is('.text-nowrap'))
       .toBeFalsy();
+  });
+
+  it('should call withKeyboardNavigation', () => {
+    shallow((
+      <TableHeaderCell {...defaultProps} />
+    ));
+
+    expect(withKeyboardNavigation).toBeCalledWith();
+  });
+
+  it('should apply class for keyboard navigation', () => {
+    const tree = shallow((
+      <TableHeaderCell {...defaultProps} updateRefForKeyboardNavigation={() => {}} />
+    ));
+
+    expect(tree.is('.position-relative.dx-g-bs4-header-cell.dx-g-bs4-focus-cell'))
+      .toBeTruthy();
   });
 });

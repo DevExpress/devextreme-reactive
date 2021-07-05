@@ -95,6 +95,9 @@ EditCommandHeadingCellBase.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   rowSpan: PropTypes.number,
+  refObject: PropTypes.object,
+  updateRefForKeyboardNavigation: PropTypes.func,
+  setFocusedElement: PropTypes.func,
 };
 
 EditCommandHeadingCellBase.defaultProps = {
@@ -103,6 +106,9 @@ EditCommandHeadingCellBase.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   rowSpan: undefined,
+  refObject: undefined,
+  updateRefForKeyboardNavigation: undefined,
+  setFocusedElement: undefined,
 };
 
 export const EditCommandHeadingCell = withKeyboardNavigation()(withEditColumnStyles(EditCommandHeadingCellBase));
@@ -116,7 +122,7 @@ const EditCommandCellBase = ({
 }) => (
   <TableCell
     className={classNames({
-      [classes.cell]: true, 
+      [classes.cell]: true,
       [classes.focusedCell]: updateRefForKeyboardNavigation !== undefined,
     }, className)}
     ref={refObject}
@@ -133,6 +139,9 @@ EditCommandCellBase.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   row: PropTypes.any,
+  refObject: PropTypes.object,
+  updateRefForKeyboardNavigation: PropTypes.func,
+  setFocusedElement: PropTypes.func,
 };
 
 EditCommandCellBase.defaultProps = {
@@ -141,6 +150,9 @@ EditCommandCellBase.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   row: undefined,
+  refObject: undefined,
+  updateRefForKeyboardNavigation: undefined,
+  setFocusedElement: undefined,
 };
 
 export const EditCommandCell = withKeyboardNavigation()(withEditColumnStyles(EditCommandCellBase));

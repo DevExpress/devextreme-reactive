@@ -1,10 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 import { PageSizeSelector } from './page-size-selector';
 import { Pagination } from './pagination';
 
-export const Pager = ({
+const PagerBase = ({
   currentPage,
   onCurrentPageChange,
   totalPages,
@@ -15,10 +16,12 @@ export const Pager = ({
   getMessage,
   className,
   style,
+  refObject, updateRefForKeyboardNavigation, setFocusedElement,
   ...restProps
 }) => (
   <div
     className={classNames('clearfix panel-footer', className)}
+    ref={refObject}
     style={{
       flex: 'none',
       ...style,
@@ -44,7 +47,7 @@ export const Pager = ({
   </div>
 );
 
-Pager.propTypes = {
+PagerBase.propTypes = {
   currentPage: PropTypes.number.isRequired,
   onCurrentPageChange: PropTypes.func.isRequired,
   totalPages: PropTypes.number.isRequired,
@@ -55,9 +58,17 @@ Pager.propTypes = {
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
   style: PropTypes.object,
+  refObject: PropTypes.object,
+  updateRefForKeyboardNavigation: PropTypes.func,
+  setFocusedElement: PropTypes.func,
 };
 
-Pager.defaultProps = {
+PagerBase.defaultProps = {
   className: undefined,
   style: null,
+  refObject: undefined,
+  updateRefForKeyboardNavigation: undefined,
+  setFocusedElement: undefined,
 };
+
+export const Pager = withKeyboardNavigation('paging', 'none')(PagerBase);

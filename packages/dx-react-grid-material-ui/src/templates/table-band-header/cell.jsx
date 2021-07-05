@@ -3,8 +3,8 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorder } from '../utils';
 import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
+import { getBorder } from '../utils';
 import focusedStyle from '../../utils/get-focused-style';
 
 const styles = theme => ({
@@ -58,6 +58,9 @@ CellBase.propTypes = {
   tableColumn: PropTypes.object,
   className: PropTypes.string,
   beforeBorder: PropTypes.bool,
+  refObject: PropTypes.object,
+  updateRefForKeyboardNavigation: PropTypes.func,
+  setFocusedElement: PropTypes.func,
 };
 
 CellBase.defaultProps = {
@@ -69,6 +72,9 @@ CellBase.defaultProps = {
   tableColumn: undefined,
   className: undefined,
   beforeBorder: false,
+  refObject: undefined,
+  updateRefForKeyboardNavigation: undefined,
+  setFocusedElement: undefined,
 };
 
 export const Cell = withKeyboardNavigation()(withStyles(styles, { name: 'Cell' })(CellBase));

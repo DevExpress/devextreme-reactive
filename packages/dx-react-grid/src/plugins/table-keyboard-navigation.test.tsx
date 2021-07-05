@@ -185,7 +185,7 @@ describe('TableKeyboardNavigation', () => {
             getComputedState(tree).keyboardNavigationParams.updateRefForKeyboardNavigation(ref, 'toolbar', 'none', 'add');
 
             expect(focusFn).toBeCalled();
-            expect(querySelectorAllFn).toBeCalledWith('[tabIndex], input');
+            expect(querySelectorAllFn).toBeCalledWith('[tabIndex], input, button, a');
         });
 
         it('should focused first element in the paging', () => {
@@ -206,7 +206,7 @@ describe('TableKeyboardNavigation', () => {
             getComputedState(tree).keyboardNavigationParams.updateRefForKeyboardNavigation(ref, 'paging', 'none', 'add');
 
             expect(focusFn).toBeCalled();
-            expect(querySelectorAllFn).toBeCalledWith('[tabIndex], input');
+            expect(querySelectorAllFn).toBeCalledWith('[tabIndex], input, button, a');
         });
     });
 });

@@ -45,7 +45,8 @@ const styles = theme => ({
 const EditCellBase = ({
   column, value, onValueChange, style, classes, children,
   row, tableRow, tableColumn, editingEnabled, className,
-  autoFocus, onBlur, onFocus, onKeyDown, refObject, updateRefForKeyboardNavigation, setFocusedElement, ...restProps
+  autoFocus, onBlur, onFocus, onKeyDown, refObject,
+  updateRefForKeyboardNavigation, setFocusedElement, ...restProps
 }) => {
   const inputClasses = classNames({
     [classes.inputRight]: tableColumn && tableColumn.align === 'right',
@@ -106,6 +107,9 @@ EditCellBase.propTypes = {
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
   onKeyDown: PropTypes.func,
+  refObject: PropTypes.object,
+  updateRefForKeyboardNavigation: PropTypes.func,
+  setFocusedElement: PropTypes.func,
 };
 
 EditCellBase.defaultProps = {
@@ -123,6 +127,9 @@ EditCellBase.defaultProps = {
   onBlur: () => {},
   onFocus: () => {},
   onKeyDown: () => {},
+  refObject: undefined,
+  updateRefForKeyboardNavigation: undefined,
+  setFocusedElement: undefined,
 };
 
 export const EditCell = withKeyboardNavigation()(withStyles(styles, { name: 'EditCell' })(EditCellBase));

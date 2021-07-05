@@ -197,6 +197,9 @@ TableHeaderCellBase.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
   getCellWidth: PropTypes.func,
+  refObject: PropTypes.object,
+  updateRefForKeyboardNavigation: PropTypes.func,
+  setFocusedElement: PropTypes.func,
 };
 
 TableHeaderCellBase.defaultProps = {
@@ -212,6 +215,9 @@ TableHeaderCellBase.defaultProps = {
   className: undefined,
   children: undefined,
   getCellWidth: () => {},
+  refObject: undefined,
+  updateRefForKeyboardNavigation: undefined,
+  setFocusedElement: undefined,
 };
 
 export const TableHeaderCell = withKeyboardNavigation()(withStyles(styles, { name: 'TableHeaderCell' })(TableHeaderCellBase));

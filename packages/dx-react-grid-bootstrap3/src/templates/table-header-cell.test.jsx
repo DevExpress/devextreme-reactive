@@ -2,9 +2,18 @@ import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 import { DragDropProvider, DragSource } from '@devexpress/dx-react-core';
 import { setupConsole } from '@devexpress/dx-testing';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
 import { TableHeaderCell } from './table-header-cell';
 import { ResizingControl } from './table-header-cell/resizing-control';
+
+jest.mock('@devexpress/dx-react-grid', () => ({
+  withKeyboardNavigation: jest.fn().mockReturnValue(x => x),
+}));
+
+const defaultProps = {
+  refObject: { current: {} },
+};
 
 describe('TableHeaderCell', () => {
   let resetConsole;
@@ -18,6 +27,7 @@ describe('TableHeaderCell', () => {
   it('should have correct styles when user interaction disallowed', () => {
     const tree = shallow((
       <TableHeaderCell
+        {...defaultProps}
         column={{}}
       />
     ));
@@ -38,6 +48,7 @@ describe('TableHeaderCell', () => {
     const tree = mount((
       <DragDropProvider>
         <TableHeaderCell
+          {...defaultProps}
           column={{ name: 'a' }}
           draggingEnabled
           getCellWidth={getCellWidth}
@@ -59,6 +70,7 @@ describe('TableHeaderCell', () => {
     const tree = mount((
       <DragDropProvider>
         <TableHeaderCell
+          {...defaultProps}
           column={{ name: 'a' }}
           draggingEnabled
           getCellWidth={getCellWidth}
@@ -95,6 +107,7 @@ describe('TableHeaderCell', () => {
 
     const tree = shallow((
       <TableHeaderCell
+        {...defaultProps}
         column={{}}
         resizingEnabled
         onWidthChange={onWidthChange}
@@ -114,11 +127,11 @@ describe('TableHeaderCell', () => {
   });
 
   it('should consider the `wordWrapEnabled` property', () => {
-    let tree = shallow(<TableHeaderCell />);
+    let tree = shallow(<TableHeaderCell {...defaultProps} />);
     expect(tree.prop('style').whiteSpace)
       .toBe('nowrap');
 
-    tree = shallow(<TableHeaderCell tableColumn={{ wordWrapEnabled: true }} />);
+    tree = shallow(<TableHeaderCell {...defaultProps} tableColumn={{ wordWrapEnabled: true }} />);
     expect(tree.prop('style').whiteSpace)
       .toBe('normal');
   });
@@ -126,6 +139,7 @@ describe('TableHeaderCell', () => {
   it('should pass rest props to the root element', () => {
     const tree = shallow((
       <TableHeaderCell
+        {...defaultProps}
         column={{ title: 'a' }}
         className="custom-class"
       />
@@ -133,5 +147,13 @@ describe('TableHeaderCell', () => {
 
     expect(tree.is('.custom-class'))
       .toBeTruthy();
+  });
+
+  it('should call withKeyboardNavigation', () => {
+    shallow((
+      <TableHeaderCell {...defaultProps} />
+    ));
+
+    expect(withKeyboardNavigation).toBeCalledWith();
   });
 });

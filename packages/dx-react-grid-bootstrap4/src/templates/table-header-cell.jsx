@@ -1,12 +1,13 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
 import { DragSource } from '@devexpress/dx-react-core';
 
 import { ResizingControl } from './table-header-cell/resizing-control';
 
-export class TableHeaderCell extends React.PureComponent {
+class TableHeaderCellBase extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -14,10 +15,9 @@ export class TableHeaderCell extends React.PureComponent {
       dragging: false,
     };
     this.dragRef = React.createRef();
-    this.cellRef = React.createRef();
     this.getWidthGetter = () => {
-      const { getCellWidth } = this.props;
-      const node = this.cellRef.current;
+      const { getCellWidth, refObject } = this.props;
+      const node = refObject.current;
       return node && getCellWidth(() => {
         const { width } = node.getBoundingClientRect();
         return width;
@@ -44,6 +44,7 @@ export class TableHeaderCell extends React.PureComponent {
       draggingEnabled, onWidthDraftCancel,
       resizingEnabled, onWidthChange, onWidthDraft, getCellWidth,
       tableRow, children,
+      refObject, updateRefForKeyboardNavigation, setFocusedElement,
       ...restProps
     } = this.props;
     const { dragging } = this.state;
@@ -56,9 +57,10 @@ export class TableHeaderCell extends React.PureComponent {
           'dx-g-bs4-cursor-pointer': draggingEnabled,
           'dx-g-bs4-inactive': dragging || (tableColumn && tableColumn.draft),
           'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
+          'dx-g-bs4-focus-cell': !!updateRefForKeyboardNavigation,
         }, className)}
         scope="col"
-        ref={this.cellRef}
+        ref={refObject}
         {...restProps}
       >
         <div
@@ -89,7 +91,7 @@ export class TableHeaderCell extends React.PureComponent {
   }
 }
 
-TableHeaderCell.propTypes = {
+TableHeaderCellBase.propTypes = {
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
   column: PropTypes.object,
@@ -104,9 +106,12 @@ TableHeaderCell.propTypes = {
     PropTypes.node,
   ]),
   getCellWidth: PropTypes.func,
+  refObject: PropTypes.object,
+  updateRefForKeyboardNavigation: PropTypes.func,
+  setFocusedElement: PropTypes.func,
 };
 
-TableHeaderCell.defaultProps = {
+TableHeaderCellBase.defaultProps = {
   column: undefined,
   tableColumn: undefined,
   tableRow: undefined,
@@ -118,4 +123,9 @@ TableHeaderCell.defaultProps = {
   onWidthDraftCancel: undefined,
   children: undefined,
   getCellWidth: () => {},
+  refObject: undefined,
+  updateRefForKeyboardNavigation: undefined,
+  setFocusedElement: undefined,
 };
+
+export const TableHeaderCell = withKeyboardNavigation()(TableHeaderCellBase);

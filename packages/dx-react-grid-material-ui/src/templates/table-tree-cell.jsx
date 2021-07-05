@@ -63,6 +63,9 @@ TableTreeCellBase.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   className: PropTypes.string,
+  refObject: PropTypes.object,
+  updateRefForKeyboardNavigation: PropTypes.func,
+  setFocusedElement: PropTypes.func,
 };
 
 TableTreeCellBase.defaultProps = {
@@ -73,6 +76,9 @@ TableTreeCellBase.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   className: undefined,
+  refObject: undefined,
+  updateRefForKeyboardNavigation: undefined,
+  setFocusedElement: undefined,
 };
 
 export const TableTreeCell = withKeyboardNavigation()(withStyles(styles)(TableTreeCellBase));

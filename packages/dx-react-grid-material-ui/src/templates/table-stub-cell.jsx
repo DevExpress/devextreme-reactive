@@ -3,8 +3,8 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { getBorder } from './utils';
 import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
+import { getBorder } from './utils';
 import focusedStyle from '../utils/get-focused-style';
 
 const styles = theme => ({
@@ -28,7 +28,7 @@ const TableStubCellBase = ({
   ...restProps
 }) => (
   <TableCell
-    className={classNames({ 
+    className={classNames({
       [classes.cell]: true,
       [classes.focusedCell]: updateRefForKeyboardNavigation !== undefined,
     }, className)}
@@ -43,12 +43,18 @@ TableStubCellBase.propTypes = {
   className: PropTypes.string,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
+  refObject: PropTypes.object,
+  updateRefForKeyboardNavigation: PropTypes.func,
+  setFocusedElement: PropTypes.func,
 };
 
 TableStubCellBase.defaultProps = {
   className: undefined,
   tableRow: undefined,
   tableColumn: undefined,
+  refObject: undefined,
+  updateRefForKeyboardNavigation: undefined,
+  setFocusedElement: undefined,
 };
 
 export const TableStubCell = withKeyboardNavigation()(withStyles(styles, { name: 'TableStubCell' })(TableStubCellBase));

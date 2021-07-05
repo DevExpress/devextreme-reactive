@@ -54,6 +54,9 @@ TableFilterCellBase.propTypes = {
   tableColumn: PropTypes.object,
   column: PropTypes.object,
   filteringEnabled: PropTypes.bool,
+  refObject: PropTypes.object,
+  updateRefForKeyboardNavigation: PropTypes.func,
+  setFocusedElement: PropTypes.func,
 };
 
 TableFilterCellBase.defaultProps = {
@@ -65,6 +68,9 @@ TableFilterCellBase.defaultProps = {
   tableColumn: undefined,
   column: undefined,
   filteringEnabled: true,
+  refObject: undefined,
+  updateRefForKeyboardNavigation: undefined,
+  setFocusedElement: undefined,
 };
 
 export const TableFilterCell = withKeyboardNavigation()(withStyles(styles, { name: 'TableFilterCell' })(TableFilterCellBase));

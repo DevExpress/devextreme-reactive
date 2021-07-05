@@ -1,19 +1,29 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'clsx';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
-export const TableFilterCell = ({
+const TableFilterCellBase = ({
   filter, onFilter, children,
   column, tableRow, tableColumn, getMessage,
-  filteringEnabled, ...restProps
+  filteringEnabled,
+  refObject, updateRefForKeyboardNavigation, setFocusedElement,
+  ...restProps
 }) => (
-  <th {...restProps}>
+  <th
+    className={classNames({
+      'dx-g-bs4-focus-cell': !!updateRefForKeyboardNavigation,
+    })}
+    ref={refObject}
+    {...restProps}
+  >
     <div className="input-group">
       {children}
     </div>
   </th>
 );
 
-TableFilterCell.propTypes = {
+TableFilterCellBase.propTypes = {
   filter: PropTypes.object,
   onFilter: PropTypes.func,
   children: PropTypes.oneOfType([
@@ -25,9 +35,12 @@ TableFilterCell.propTypes = {
   tableColumn: PropTypes.object,
   getMessage: PropTypes.func,
   filteringEnabled: PropTypes.bool,
+  refObject: PropTypes.object,
+  updateRefForKeyboardNavigation: PropTypes.func,
+  setFocusedElement: PropTypes.func,
 };
 
-TableFilterCell.defaultProps = {
+TableFilterCellBase.defaultProps = {
   filter: null,
   onFilter: () => {},
   children: undefined,
@@ -36,4 +49,9 @@ TableFilterCell.defaultProps = {
   tableColumn: undefined,
   getMessage: undefined,
   filteringEnabled: true,
+  refObject: undefined,
+  updateRefForKeyboardNavigation: undefined,
+  setFocusedElement: undefined,
 };
+
+export const TableFilterCell = withKeyboardNavigation()(TableFilterCellBase);

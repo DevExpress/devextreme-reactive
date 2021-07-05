@@ -1,6 +1,11 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 import { TableStubCell } from './table-stub-cell';
+
+jest.mock('@devexpress/dx-react-grid', () => ({
+  withKeyboardNavigation: jest.fn().mockReturnValue(x => x),
+}));
 
 describe('TableStubCell', () => {
   it('should pass custom class to the root element', () => {
@@ -19,5 +24,13 @@ describe('TableStubCell', () => {
 
     expect(tree.prop('data'))
       .toEqual({ a: 1 });
+  });
+
+  it('should call withKeyboardNavigation', () => {
+    shallow((
+      <TableStubCell />
+    ));
+
+    expect(withKeyboardNavigation).toBeCalledWith();
   });
 });

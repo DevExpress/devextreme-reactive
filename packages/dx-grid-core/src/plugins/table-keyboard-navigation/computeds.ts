@@ -364,21 +364,9 @@ export const getIndexToFocus = (key1: string, key2: string, elements: Elements):
   return 0;
 }
 
-export const isFocusChanged = (elements: Elements, activeElement: any, focusedElement?: FocusedElement) => {
-  if(focusedElement) {
-    const element = elements[focusedElement.rowKey][focusedElement.columnKey][focusedElement.index];
-    if((element.current && element.current !== activeElement) ||
-      (!element.current && element !== activeElement)) {
-      return true;
-    }
-  }
-  return false;
-}
-
 export const getPrevNextTablePart = (focusedElement: FocusedElement, elements: Elements, direction: number, 
   tableBodyRows: TableRow[], tableColumns: TableColumn[]): FocusedElement | undefined => {
   let el;
-  debugger
   if(direction === -1) {
     el = getElementPrevPart(focusedElement, elements, tableBodyRows, tableColumns);
   } else {

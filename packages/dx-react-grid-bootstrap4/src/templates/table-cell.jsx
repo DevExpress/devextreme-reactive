@@ -1,10 +1,12 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
-export const TableCell = ({
+const TableCellBase = ({
   column, value, children,
   tableRow, tableColumn, row,
+  refObject, updateRefForKeyboardNavigation, setFocusedElement,
   className, ...restProps
 }) => (
   <td
@@ -13,14 +15,16 @@ export const TableCell = ({
       'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
       'text-right': tableColumn && tableColumn.align === 'right',
       'text-center': tableColumn && tableColumn.align === 'center',
+      'dx-g-bs4-focus-cell': !!updateRefForKeyboardNavigation,
     }, className)}
+    ref={refObject}
     {...restProps}
   >
     {children || value}
   </td>
 );
 
-TableCell.propTypes = {
+TableCellBase.propTypes = {
   value: PropTypes.any,
   column: PropTypes.object,
   row: PropTypes.any,
@@ -31,9 +35,12 @@ TableCell.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   className: PropTypes.string,
+  refObject: PropTypes.object,
+  updateRefForKeyboardNavigation: PropTypes.func,
+  setFocusedElement: PropTypes.func,
 };
 
-TableCell.defaultProps = {
+TableCellBase.defaultProps = {
   value: undefined,
   column: undefined,
   row: undefined,
@@ -41,4 +48,9 @@ TableCell.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   className: undefined,
+  refObject: undefined,
+  updateRefForKeyboardNavigation: undefined,
+  setFocusedElement: undefined,
 };
+
+export const TableCell = withKeyboardNavigation()(TableCellBase);

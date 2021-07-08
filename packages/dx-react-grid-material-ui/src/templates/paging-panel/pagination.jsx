@@ -51,11 +51,12 @@ const styles = theme => ({
 });
 
 const PageButton = ({
-  text, isActive, isDisabled, classes, onClick,
+  text, isActive, isDisabled, classes, activeButtonClass, onClick,
 }) => {
   const buttonClasses = classNames({
     [classes.button]: true,
     [classes.activeButton]: isActive,
+    [activeButtonClass]: isActive,
   });
 
   return (
@@ -75,13 +76,15 @@ PageButton.propTypes = {
   isActive: PropTypes.bool,
   isDisabled: PropTypes.bool,
   classes: PropTypes.object.isRequired,
+  activeButtonClass: PropTypes.string,
   onClick: PropTypes.func,
 };
 
 PageButton.defaultProps = {
-  onClick: () => {},
+  onClick: () => { },
   isDisabled: false,
   isActive: false,
+  activeButtonClass: '',
 };
 
 const ellipsisSymbol = '\u2026';
@@ -91,12 +94,12 @@ const renderPageButtons = (
   totalPageCount,
   classes,
   onCurrentPageChange,
+  activeButtonClass,
 ) => {
   const pageButtons = [];
   const maxButtonCount = 3;
   let startPage = 1;
   let endPage = totalPageCount || 1;
-
   // NOTE: take into account last button and ellipsis (T1004797)
   if (maxButtonCount < totalPageCount - 2) {
     startPage = calculateStartPage(currentPage + 1, maxButtonCount, totalPageCount);
@@ -108,6 +111,7 @@ const renderPageButtons = (
         key={1}
         text={String(1)}
         classes={classes}
+        activeButtonClass={activeButtonClass}
         onClick={() => onCurrentPageChange(0)}
       />
     ));
@@ -118,6 +122,7 @@ const renderPageButtons = (
           key="ellipsisStart"
           text={ellipsisSymbol}
           classes={classes}
+          activeButtonClass={activeButtonClass}
           isDisabled
         />
       ));
@@ -131,6 +136,7 @@ const renderPageButtons = (
         text={String(page)}
         isActive={page === currentPage + 1}
         classes={classes}
+        activeButtonClass={activeButtonClass}
         onClick={() => onCurrentPageChange(page - 1)}
         isDisabled={startPage === endPage}
       />
@@ -144,6 +150,7 @@ const renderPageButtons = (
           key="ellipsisEnd"
           text={ellipsisSymbol}
           classes={classes}
+          activeButtonClass={activeButtonClass}
           isDisabled
         />
       ));
@@ -154,6 +161,7 @@ const renderPageButtons = (
         key={totalPageCount}
         text={String(totalPageCount)}
         classes={classes}
+        activeButtonClass={activeButtonClass}
         onClick={() => onCurrentPageChange(totalPageCount - 1)}
       />
     ));
@@ -170,6 +178,7 @@ const PaginationBase = ({
   onCurrentPageChange,
   getMessage,
   classes,
+  activeButtonClass,
 }) => {
   const from = firstRowOnPage(currentPage, pageSize, totalCount);
   const to = lastRowOnPage(currentPage, pageSize, totalCount);
@@ -187,7 +196,7 @@ const PaginationBase = ({
       >
         <ChevronLeft />
       </IconButton>
-      {renderPageButtons(currentPage, totalPages, classes, onCurrentPageChange)}
+      {renderPageButtons(currentPage, totalPages, classes, onCurrentPageChange, activeButtonClass)}
       <IconButton
         className={classNames(classes.arrowButton, classes.next)}
         disabled={currentPage === totalPages - 1 || totalCount === 0}
@@ -204,10 +213,15 @@ PaginationBase.propTypes = {
   totalPages: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,
   onCurrentPageChange: PropTypes.func.isRequired,
+  activeButtonClass: PropTypes.string,
   classes: PropTypes.object.isRequired,
   totalCount: PropTypes.number.isRequired,
   pageSize: PropTypes.number.isRequired,
   getMessage: PropTypes.func.isRequired,
+};
+
+PaginationBase.defaultProps = {
+  activeButtonClass: '',
 };
 
 export const Pagination = withStyles(styles, { name: 'Pagination' })(PaginationBase);

@@ -5,6 +5,7 @@ import { PageSizeSelector } from './page-size-selector';
 import { Pagination } from './pagination';
 
 export const Pager = ({
+  activeButtonClass,
   currentPage,
   onCurrentPageChange,
   totalPages,
@@ -26,12 +27,12 @@ export const Pager = ({
     {...restProps}
   >
     {!!pageSizes.length && (
-    <PageSizeSelector
-      pageSize={pageSize}
-      onPageSizeChange={onPageSizeChange}
-      pageSizes={pageSizes}
-      getMessage={getMessage}
-    />
+      <PageSizeSelector
+        pageSize={pageSize}
+        onPageSizeChange={onPageSizeChange}
+        pageSizes={pageSizes}
+        getMessage={getMessage}
+      />
     )}
     <Pagination
       totalPages={totalPages}
@@ -40,6 +41,7 @@ export const Pager = ({
       onCurrentPageChange={page => onCurrentPageChange(page)}
       pageSize={pageSize}
       getMessage={getMessage}
+      activeButtonClass={activeButtonClass}
     />
   </div>
 );
@@ -51,6 +53,7 @@ Pager.propTypes = {
   pageSize: PropTypes.number.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
   pageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+  activeButtonClass: PropTypes.string,
   totalCount: PropTypes.number.isRequired,
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
@@ -58,6 +61,7 @@ Pager.propTypes = {
 };
 
 Pager.defaultProps = {
+  activeButtonClass: '',
   className: undefined,
   style: null,
 };

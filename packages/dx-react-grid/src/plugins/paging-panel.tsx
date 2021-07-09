@@ -18,6 +18,7 @@ const defaultMessages = {
 
 class PagingPanelBase extends React.PureComponent<PagingPanelProps> {
   static defaultProps = {
+    activeButtonClass: '',
     pageSizes: [],
     messages: {},
   };
@@ -27,6 +28,7 @@ class PagingPanelBase extends React.PureComponent<PagingPanelProps> {
 
   render() {
     const {
+      activeButtonClass,
       containerComponent: Pager,
       pageSizes,
       messages,
@@ -43,6 +45,7 @@ class PagingPanelBase extends React.PureComponent<PagingPanelProps> {
           <TemplateConnector>
             {({ currentPage, pageSize, totalCount }, { setCurrentPage, setPageSize }) => (
               <Pager
+                activeButtonClass={activeButtonClass}
                 currentPage={currentPage}
                 pageSize={pageSize}
                 totalCount={totalCount}

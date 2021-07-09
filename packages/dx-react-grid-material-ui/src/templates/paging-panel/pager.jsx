@@ -17,6 +17,7 @@ const styles = theme => ({
 });
 
 const PagerBase = ({
+  activeButtonClass,
   currentPage,
   pageSizes,
   totalPages,
@@ -34,12 +35,12 @@ const PagerBase = ({
     {...restProps}
   >
     {!!pageSizes.length && (
-    <PageSizeSelector
-      pageSize={pageSize}
-      onPageSizeChange={onPageSizeChange}
-      pageSizes={pageSizes}
-      getMessage={getMessage}
-    />
+      <PageSizeSelector
+        pageSize={pageSize}
+        onPageSizeChange={onPageSizeChange}
+        pageSizes={pageSizes}
+        getMessage={getMessage}
+      />
     )}
     <Pagination
       totalPages={totalPages}
@@ -48,6 +49,7 @@ const PagerBase = ({
       onCurrentPageChange={page => onCurrentPageChange(page)}
       pageSize={pageSize}
       getMessage={getMessage}
+      activeButtonClass={activeButtonClass}
     />
   </div>
 );
@@ -58,6 +60,7 @@ PagerBase.propTypes = {
   pageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
   pageSize: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired,
+  activeButtonClass: PropTypes.string,
   onCurrentPageChange: PropTypes.func.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
   totalCount: PropTypes.number.isRequired,
@@ -66,6 +69,7 @@ PagerBase.propTypes = {
 };
 
 PagerBase.defaultProps = {
+  activeButtonClass: '',
   className: undefined,
 };
 

@@ -12,6 +12,8 @@ export namespace PagingPanel {
     pageSize: number;
     /** Specifies the total row count. */
     totalCount: number;
+    /** Specifies if there is a user-provided class for buttons in an active state. */
+    activeButtonClass?: string;
     /** Handles the page size changes. */
     onPageSizeChange: (size: number) => void;
     /** Specifies the page sizes that a user can select. */
@@ -40,4 +42,6 @@ export interface PagingPanelProps {
   pageSizes?: Array<number>;
   /** An object that specifies the localization messages. */
   messages?: PagingPanel.LocalizationMessages;
+  /** A user-provided class for buttons in an active state. */
+  activeButtonClass?: string;
 }

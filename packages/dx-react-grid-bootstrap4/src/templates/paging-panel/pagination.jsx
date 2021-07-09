@@ -11,6 +11,7 @@ const renderPageButtons = (
   currentPage,
   totalPageCount,
   currentPageChange,
+  activeButtonClass,
 ) => {
   const pageButtons = [];
   const maxButtonCount = 3;
@@ -24,7 +25,7 @@ const renderPageButtons = (
   }
   if (startPage > 1) {
     pageButtons.push((
-      <PaginationItem key={1}>
+      <PaginationItem key={1} activeButtonClass={activeButtonClass}>
         <PaginationLink
           href="#"
           onClick={e => currentPageChange(e, 0)}
@@ -50,6 +51,7 @@ const renderPageButtons = (
       <PaginationItem
         key={page}
         active={page === currentPage + 1}
+        activeButtonClass={activeButtonClass}
         disabled={startPage === endPage}
       >
         <PaginationLink
@@ -74,7 +76,7 @@ const renderPageButtons = (
     }
 
     pageButtons.push((
-      <PaginationItem key={totalPageCount}>
+      <PaginationItem key={totalPageCount} activeButtonClass={activeButtonClass}>
         <PaginationLink
           href="#"
           onClick={e => currentPageChange(e, totalPageCount - 1)}
@@ -95,6 +97,7 @@ export const Pagination = ({
   totalCount,
   pageSize,
   getMessage,
+  activeButtonClass,
 }) => {
   const from = firstRowOnPage(currentPage, pageSize, totalCount);
   const to = lastRowOnPage(currentPage, pageSize, totalCount);
@@ -112,7 +115,7 @@ export const Pagination = ({
             onClick={e => currentPageChange(e, currentPage - 1)}
           />
         </PaginationItem>
-        {renderPageButtons(currentPage, totalPages, currentPageChange)}
+        {renderPageButtons(currentPage, totalPages, currentPageChange, activeButtonClass)}
         <PaginationItem disabled={currentPage === totalPages - 1 || totalCount === 0}>
           <PaginationLink
             next
@@ -152,7 +155,12 @@ Pagination.propTypes = {
   totalPages: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,
   onCurrentPageChange: PropTypes.func.isRequired,
+  activeButtonClass: PropTypes.string,
   totalCount: PropTypes.number.isRequired,
   pageSize: PropTypes.number.isRequired,
   getMessage: PropTypes.func.isRequired,
+};
+
+Pagination.defaultProps = {
+  activeButtonClass: '',
 };

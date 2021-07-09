@@ -13,13 +13,13 @@ describe('Pagination item', () => {
     it('should append "active" if this prop is set', () => {
       const tree = shallow(<PaginationItem active />);
 
-      expect(tree.prop('className')).toBe('page-item active');
+      expect(tree.prop('className')).toContain('active');
     });
 
     it('should append "disabled" if this prop is set', () => {
       const tree = shallow(<PaginationItem disabled />);
 
-      expect(tree.prop('className')).toBe('page-item disabled');
+      expect(tree.prop('className')).toContain('disabled');
     });
   });
 

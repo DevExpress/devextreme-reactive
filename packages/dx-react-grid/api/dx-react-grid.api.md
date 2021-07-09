@@ -537,6 +537,7 @@ export const PagingPanel: React_2.ComponentType<PagingPanelProps>;
 // @public (undocumented)
 export namespace PagingPanel {
     export interface ContainerProps {
+        activeButtonClass?: string;
         currentPage: number;
         getMessage: (messageKey: string, parameters?: {
             from: number;
@@ -564,6 +565,7 @@ export namespace PagingPanel {
 
 // @public (undocumented)
 export interface PagingPanelProps {
+    activeButtonClass?: string;
     containerComponent: React_2.ComponentType<PagingPanel.ContainerProps>;
     messages?: PagingPanel.LocalizationMessages;
     pageSizes?: Array<number>;

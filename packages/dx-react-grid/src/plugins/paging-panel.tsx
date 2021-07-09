@@ -8,22 +8,22 @@ import { pageCount } from '@devexpress/dx-grid-core';
 import { PagingPanelProps } from '../types';
 
 const pluginDependencies = [
-  { name: 'PagingState' }
+  { name: 'PagingState' },
 ];
 
 const defaultMessages = {
   showAll: 'All',
-  info: ({ from, to, count }) => `${from}${from < to ? `-${to}` : ''} of ${count}`
+  info: ({ from, to, count }) => `${from}${from < to ? `-${to}` : ''} of ${count}`,
 };
 
 class PagingPanelBase extends React.PureComponent<PagingPanelProps> {
   static defaultProps = {
     activeButtonClass: '',
     pageSizes: [],
-    messages: {}
+    messages: {},
   };
   static components = {
-    containerComponent: 'Container'
+    containerComponent: 'Container',
   };
 
   render() {

@@ -29,7 +29,13 @@ describe('TableKeyboardNavigation', () => {
         const defaultDeps = {
             getter: {
                 tableColumns: [],
-                tableBodyRows: []
+                tableBodyRows: [],
+                rootRef: { 
+                    current: {
+                        removeEventListener: jest.fn(),
+                        addEventListener: jest.fn()
+                    }
+                }
             }
         };
         const focusedCell = {
@@ -145,68 +151,6 @@ describe('TableKeyboardNavigation', () => {
             getComputedState(tree).keyboardNavigationParams.updateRefForKeyboardNavigation(ref, 'rowType', 'columnType', 'add');
 
             expect(onFocusedCellChanged).not.toBeCalled();
-        });
-    });
-
-    describe('Keyboard navigation in the toolbar and footer', () => {
-        let focusFn;
-        let querySelectorAllFn;
-        let ref;
-        beforeEach(() => {
-            focusFn = jest.fn();
-            querySelectorAllFn = jest.fn().mockReturnValue([{ focus: focusFn }]);
-            ref = {current: { querySelectorAll: querySelectorAllFn }};
-        });
-        afterEach(() => {
-            jest.resetAllMocks();
-        });
-        const defaultDeps = {
-            getter: {
-                tableColumns: [],
-                tableBodyRows: []
-            }
-        };
-
-        it('should focused first element in the toolbar', () => {
-            const focusedCell = {
-                rowKey: 'toolbar',
-                columnKey: 'none',
-                part: 'toolbar',
-                index: 0
-            };
-            const tree = mount((
-                <PluginHost>
-                    {pluginDepsToComponents(defaultDeps)}
-                    <TableKeyboardNavigation
-                    focusedCell={focusedCell}
-                    />
-                </PluginHost>
-            ));
-            getComputedState(tree).keyboardNavigationParams.updateRefForKeyboardNavigation(ref, 'toolbar', 'none', 'add');
-
-            expect(focusFn).toBeCalled();
-            expect(querySelectorAllFn).toBeCalledWith('[tabIndex], input, button, a');
-        });
-
-        it('should focused first element in the paging', () => {
-            const focusedCell = {
-                rowKey: 'paging',
-                columnKey: 'none',
-                part: 'paging',
-                index: 0
-            };
-            const tree = mount((
-                <PluginHost>
-                    {pluginDepsToComponents(defaultDeps)}
-                    <TableKeyboardNavigation
-                    focusedCell={focusedCell}
-                    />
-                </PluginHost>
-            ));
-            getComputedState(tree).keyboardNavigationParams.updateRefForKeyboardNavigation(ref, 'paging', 'none', 'add');
-
-            expect(focusFn).toBeCalled();
-            expect(querySelectorAllFn).toBeCalledWith('[tabIndex], input, button, a');
         });
     });
 });

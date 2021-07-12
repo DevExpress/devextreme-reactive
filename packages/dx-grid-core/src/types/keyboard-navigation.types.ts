@@ -3,14 +3,14 @@ import { TableColumn, TableRow } from '../types';
 export interface FocusedElement {
     rowKey: string,
     columnKey: string,
-    index: number,
+    index?: number,
     part: string
 }
 
 export type Elements = any[][];
 
 export type GetNextFocusedElementFn = (tableColumns: TableColumn[], tableBodyRows: TableRow[], 
-    elements: Elements, key: string, shiftKey: boolean, focusedElement?: FocusedElement) => FocusedElement | undefined;
+    elements: Elements, event: any, focusedElement?: FocusedElement) => FocusedElement | undefined;
 
 export type GetFocusedElementFn = (key: string, shiftKey: boolean, focusedElement: FocusedElement, 
     tableColumns: TableColumn[], tableBodyRows: TableRow[], elements: Elements) => FocusedElement | undefined;

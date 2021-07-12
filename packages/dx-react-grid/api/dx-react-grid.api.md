@@ -366,7 +366,7 @@ export type GetFocusedElementFn = (key: string, shiftKey: boolean, focusedElemen
 export type GetMessageFn = (messageKey: string, params?: object) => string;
 
 // @public (undocumented)
-export type GetNextFocusedElementFn = (tableColumns: TableColumn[], tableBodyRows: TableRow[], elements: Elements, key: string, shiftKey: boolean, focusedElement?: FocusedElement) => FocusedElement | undefined;
+export type GetNextFocusedElementFn = (tableColumns: TableColumn[], tableBodyRows: TableRow[], elements: Elements, event: any, focusedElement?: FocusedElement) => FocusedElement | undefined;
 
 // @public
 export const Grid: React_2.ComponentType<GridProps>;

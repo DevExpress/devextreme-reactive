@@ -1,10 +1,14 @@
-import { TABLE_FILTER_TYPE, TABLE_HEADING_TYPE } from '@devexpress/dx-grid-core';
+import { TABLE_FILTER_TYPE, TABLE_HEADING_TYPE, TABLE_DATA_TYPE } from '@devexpress/dx-grid-core';
 import { 
-    GetNextFocusedElementFn, GetFocusedElementFn, FocusedElement, TableColumn, TableRow,
+    GetNextFocusedElementFn, FocusedElement, TableColumn, TableRow,
     GetElementFn, getElementPrevNextPartFn, Elements,
 } from '../../types';
 
-const tableParts = ['toolbar', TABLE_HEADING_TYPE.toString(), TABLE_FILTER_TYPE.toString(), 'body', 'paging'];
+const HEADING_TYPE = TABLE_HEADING_TYPE.toString();
+const FILTER_TYPE = TABLE_FILTER_TYPE.toString();
+const DATA_TYPE = TABLE_DATA_TYPE.toString();
+
+const tableParts = [HEADING_TYPE, FILTER_TYPE, DATA_TYPE];
 
 const getIndex = (arr: TableColumn[] | TableRow [], focusedCell: FocusedElement, key: string) => {
   return arr.findIndex((el: TableColumn | TableRow) => {
@@ -12,25 +16,22 @@ const getIndex = (arr: TableColumn[] | TableRow [], focusedCell: FocusedElement,
   });
 }
 
-const isTablePart = (part: string): boolean => {
-  return part !== 'toolbar' && part !== 'paging';
+const isSpanInput = (innerElements: any[]): boolean => {
+  return innerElements[0].tagName === "SPAN" || innerElements[0].tagName === "INPUT" && innerElements[0].type === "text";
 }
 
-const notSpanInput = (cell: any[]): boolean => {
-  return cell[1].tagName !== "SPAN" && cell[1].tagName !== "INPUT";
-}
-
-const hasInsideElements = (focusedElement: FocusedElement, cell: any[]) => {
-  if(focusedElement.index < cell.length - 1) {
-    if(cell.length === 2 && focusedElement.index === 0) {
-      return notSpanInput(cell);
+const hasInsideElements = (innerElements: any[], focusedElementIndex?: number): boolean => {
+  if((innerElements.length && focusedElementIndex === undefined) || 
+  (focusedElementIndex !== undefined && focusedElementIndex < innerElements.length - 1)) {
+    if(innerElements.length === 1 && focusedElementIndex === undefined) {
+      return !isSpanInput(innerElements);
     }
     return true;
   }
   return false;
 }
 
-const getElementNextPart: getElementPrevNextPartFn = (focusedElement, elements, tableBodyRows, tableColumns) => {
+const getCellNextPart: getElementPrevNextPartFn = (focusedElement, elements, tableBodyRows, tableColumns) => {
   const index = tableParts.findIndex((p) => {
     return p === focusedElement.part;
   });
@@ -39,7 +40,7 @@ const getElementNextPart: getElementPrevNextPartFn = (focusedElement, elements, 
   }
   const part = tableParts.find((p, i) => {
     if(i > index) {
-      if(p === 'body') {
+      if(p === DATA_TYPE) {
         return elements[tableBodyRows[0].key];
       }
       return elements[p];
@@ -51,18 +52,17 @@ const getElementNextPart: getElementPrevNextPartFn = (focusedElement, elements, 
     return;
   }
 
-  const rowKey = part === 'body' ? tableBodyRows[0].key : part;
-  const columnKey = isTablePart(part) ? tableColumns[0].key  : 'none';
-  const cell = elements[rowKey][columnKey];
+  const rowKey = part === DATA_TYPE ? tableBodyRows[0].key : part;
+  const columnKey = tableColumns[0].key;
   return {
     rowKey,
     columnKey,
-    index: isTablePart(part) && cell.length > 1 && notSpanInput(cell) ? 1 : 0,
+    index: !cellEmptyOrHasSpanAndInput(elements, rowKey, columnKey) ? 0 : undefined,
     part: part
   }
 }
 
-const getElementPrevPart: getElementPrevNextPartFn = (focusedElement, elements, tableBodyRows, tableColumns) => {
+const getCellPrevPart: getElementPrevNextPartFn = (focusedElement, elements, tableBodyRows, tableColumns) => {
   const lastBodyRowIndex = tableBodyRows.length - 1;
   let index = tableParts.findIndex((p) => {
     return p === focusedElement.part;
@@ -74,8 +74,8 @@ const getElementPrevPart: getElementPrevNextPartFn = (focusedElement, elements, 
   while (index > 0) {
     index = index - 1;
     const p = tableParts[index];
-    if(p === 'body' && elements[tableBodyRows[lastBodyRowIndex].key]) {
-      part = 'body';
+    if(p === DATA_TYPE && elements[tableBodyRows[lastBodyRowIndex].key]) {
+      part = DATA_TYPE;
       break;
     }
     if(elements[p]) {
@@ -87,64 +87,48 @@ const getElementPrevPart: getElementPrevNextPartFn = (focusedElement, elements, 
     return;
   }
   
-  const rowKey = part === 'body' ? tableBodyRows[lastBodyRowIndex].key : part;
-  const columnKey = isTablePart(part) ? tableColumns[tableColumns.length - 1].key  : 'none';
-  const cell = elements[rowKey][columnKey];
+  const rowKey = part === DATA_TYPE ? tableBodyRows[lastBodyRowIndex].key : part;
+  const columnKey = tableColumns[tableColumns.length - 1].key;
+  const innerElements = getInnerElements(elements, rowKey, columnKey);
   return {
     rowKey,
     columnKey,
-    index: !isTablePart(part) || cell.length > 1 && notSpanInput(cell) ? cell.length - 1 : 0,
+    index: !cellEmptyOrHasSpanAndInput(elements, rowKey, columnKey) ? innerElements.length - 1 : undefined,
     part: part
   }
 }
 
-const selectElementInCell = (focusedElement: FocusedElement, cell: any[]): boolean => {
-  if(focusedElement.index > 0) {
-    if(focusedElement.index === 1) {
-      return false;
-    }
-    return true;
-  }
-  return false;
-};
-
 const getPrevElement: GetElementFn = (focusedElement, tableBodyRows, tableColumns, elements) => {
-  const currentCell = elements[focusedElement.rowKey][focusedElement.columnKey];
-  if(!isTablePart(focusedElement.part)) {
-    if(focusedElement.index > 0) {
-      return { ...focusedElement, index: focusedElement.index - 1 };
-    } else {
-      return getElementPrevPart(focusedElement, elements, tableBodyRows, tableColumns);
-    }
-  }
-
   const columnIndex = getIndex(tableColumns, focusedElement, 'columnKey');
-  const rowIndex = getIndex(tableBodyRows, focusedElement, 'rowKey');
-  if(focusedElement.part === 'body') {
+  if(focusedElement.part === DATA_TYPE) {
+    const rowIndex = getIndex(tableBodyRows, focusedElement, 'rowKey');
     let prevRowKey;
     let prevColumnKey;
     let prevIndex;
+    let innerElements;
     
-    if(selectElementInCell(focusedElement, currentCell)) {
+    if(focusedElement.index !== undefined && focusedElement.index > 0) {
       prevColumnKey = focusedElement.columnKey;
       prevRowKey = focusedElement.rowKey;
       prevIndex = focusedElement.index - 1;
     } else if(columnIndex === 0 && rowIndex === 0) {
-      return getElementPrevPart(focusedElement, elements, tableBodyRows, tableColumns);
+      return getCellPrevPart(focusedElement, elements, tableBodyRows, tableColumns);
     } else if(columnIndex === 0) {
         prevRowKey = tableBodyRows[rowIndex - 1].key;
         prevColumnKey = tableColumns[tableColumns.length - 1].key;
-        prevIndex = elements[prevRowKey][prevColumnKey].length - 1;
+        innerElements = getInnerElements(elements, prevRowKey, prevColumnKey);
+        prevIndex = innerElements.length ? innerElements.length - 1 : undefined; 
     } else {
         prevColumnKey = tableColumns[columnIndex - 1].key;
         prevRowKey = focusedElement.rowKey;
-        prevIndex = elements[prevRowKey][prevColumnKey].length - 1;
+        innerElements = getInnerElements(elements, prevRowKey, prevColumnKey);
+        prevIndex = innerElements.length ? innerElements.length - 1 : undefined;
     }
 
     if(prevIndex === 1) {
-      const cell = elements[prevRowKey][prevColumnKey];
-      if(cell.length === 2 && !notSpanInput(cell)) {
-        prevIndex = 0;
+      innerElements = getInnerElements(elements, prevRowKey, prevColumnKey);
+      if(innerElements.length === 1 && isSpanInput(innerElements)) {
+        prevIndex = undefined;
       }
     }
 
@@ -156,47 +140,39 @@ const getPrevElement: GetElementFn = (focusedElement, tableBodyRows, tableColumn
     }
   }
 
-  if(selectElementInCell(focusedElement, currentCell)) {
+  if(focusedElement.index !== undefined && focusedElement.index > 0) {
     return { ...focusedElement, index: focusedElement.index - 1 };
   } else {
     if(columnIndex === 0) {
-      return getElementPrevPart(focusedElement, elements, tableBodyRows, tableColumns);  
+      return getCellPrevPart(focusedElement, elements, tableBodyRows, tableColumns);  
     }
     const rowKey = focusedElement.part;
     const columnKey = tableColumns[columnIndex - 1].key;
-    const cell = elements[rowKey][columnKey];
+    const innerElements = getInnerElements(elements, rowKey, columnKey);
     return {
       rowKey,
       columnKey,
-      index: cell.length > 1 && notSpanInput(cell) ? cell.length - 1 : 0,
+      index: !cellEmptyOrHasSpanAndInput(elements, rowKey, columnKey) ? innerElements.length - 1 : undefined,
       part: focusedElement.part
     }
   }
 }
 
 const getNextElement: GetElementFn = (focusedElement, tableBodyRows, tableColumns, elements) => {
-  const currentCell = elements[focusedElement.rowKey][focusedElement.columnKey];
-  if(!isTablePart(focusedElement.part)) {
-    if(focusedElement.index < elements[focusedElement.part]['none'].length - 1) {
-      return { ...focusedElement, index: focusedElement.index + 1 };
-    } else {
-      return getElementNextPart(focusedElement, elements, tableBodyRows, tableColumns);
-    }
-  }
-
+  const innerElements = getInnerElements(elements, focusedElement.rowKey, focusedElement.columnKey);
   const columnIndex = getIndex(tableColumns, focusedElement, 'columnKey');
   const rowIndex = getIndex(tableBodyRows, focusedElement, 'rowKey');
-  if(focusedElement.part === 'body') {
+  if(focusedElement.part === DATA_TYPE) {
     let nextRowKey;
     let nextColumnKey;
-    let nextIndex = 0;
+    let nextIndex;
 
-    if(hasInsideElements(focusedElement, currentCell)) {
+    if(hasInsideElements(innerElements, focusedElement.index)) {
       nextColumnKey = focusedElement.columnKey;
       nextRowKey = focusedElement.rowKey;
-      nextIndex = focusedElement.index + 1;
+      nextIndex = focusedElement.index === undefined ? 0 : focusedElement.index + 1;
     } else if(columnIndex === tableColumns.length - 1 && rowIndex === tableBodyRows.length - 1) {
-      return getElementNextPart(focusedElement, elements, tableBodyRows, tableColumns);
+      return getCellNextPart(focusedElement, elements, tableBodyRows, tableColumns);
     } else if(columnIndex === tableColumns.length - 1) {
       nextRowKey = tableBodyRows[rowIndex + 1].key;
       nextColumnKey = tableColumns[0].key
@@ -204,11 +180,8 @@ const getNextElement: GetElementFn = (focusedElement, tableBodyRows, tableColumn
       nextColumnKey = tableColumns[columnIndex + 1].key;
       nextRowKey = focusedElement.rowKey;
     }
-    if(nextIndex === 0) {
-      const cell = elements[nextRowKey][nextColumnKey];
-      if(cell.length > 1 && notSpanInput(cell)) {
-        nextIndex = 1;
-      }
+    if(nextIndex === undefined && !cellEmptyOrHasSpanAndInput(elements, nextRowKey, nextColumnKey)) {
+      nextIndex = 0;
     }
 
     return {
@@ -219,114 +192,250 @@ const getNextElement: GetElementFn = (focusedElement, tableBodyRows, tableColumn
     }
   }
 
-  if(hasInsideElements(focusedElement, currentCell)) {
-    return { ...focusedElement, index: focusedElement.index + 1 };
+  if(hasInsideElements(innerElements, focusedElement.index)) {
+    return { ...focusedElement, index: focusedElement.index === undefined ? 0 : focusedElement.index + 1 };
   } else {
     if(columnIndex === tableColumns.length - 1) {
-      return getElementNextPart(focusedElement, elements, tableBodyRows, tableColumns);  
+      return getCellNextPart(focusedElement, elements, tableBodyRows, tableColumns);  
     }
     return {
       rowKey: focusedElement.part,
       columnKey: tableColumns[columnIndex + 1].key,
-      index: 0,
       part: focusedElement.part
     }
   }
 }
 
-const getCellTopBottom = (direction: number, focusedElement: FocusedElement, tableBodyRows: TableRow[]): FocusedElement | undefined => {
-  if(focusedElement.part !== 'body') {
+const hasCellInput = (elements: Elements, key1: string, key2: string): boolean => {
+  const innerElements = getInnerElements(elements, key1, key2);
+  return innerElements.length ? innerElements[0].tagName === "INPUT" : false;
+}
+
+const cellEmptyOrHasSpanAndInput = (elements: Elements, key1: string, key2: string) => {
+  const innerElements = getInnerElements(elements, key1, key2)
+  if(innerElements.length) {
+    return isSpanInput(innerElements);
+  }
+  return true;
+}
+
+export const getCellTopBottom = (direction: number, focusedElement: FocusedElement, tableBodyRows: TableRow[]): FocusedElement | undefined => {
+  if(focusedElement.part !== DATA_TYPE) {
     return;
   }
   const rowIndex = getIndex(tableBodyRows, focusedElement, 'rowKey');
   return tableBodyRows[rowIndex + direction] ? {
     rowKey: tableBodyRows[rowIndex + direction].key,
     columnKey: focusedElement.columnKey,
-    index: 0,
     part: focusedElement.part,
   } : undefined;
 }
 
 const getCellRightLeft = (direction: number, focusedElement: FocusedElement, tableColumns: TableColumn[]): FocusedElement | undefined => {
-  if(focusedElement.part !== 'body') {
+  if(focusedElement.part !== DATA_TYPE) {
     return;
   }
   const columnIndex = getIndex(tableColumns, focusedElement, 'columnKey');
   return tableColumns[columnIndex + direction] ? {
     rowKey: focusedElement.rowKey,
     columnKey: tableColumns[columnIndex + direction].key,
-    index: 0,
     part: focusedElement.part,
   } : undefined;
 }
 
-const getFocusedElement: GetFocusedElementFn = (key, shiftKey, focusedElement, tableColumns, tableBodyRows, elements) => {
-  let element;
-  switch(key) {
-    case 'Tab':
-      if(shiftKey) {
-        element = getPrevElement(focusedElement, tableBodyRows, tableColumns, elements);
-      } else {
-        element = getNextElement(focusedElement, tableBodyRows, tableColumns, elements);
-      }
-      break;
-    case 'ArrowUp':
-      element = getCellTopBottom(-1, focusedElement, tableBodyRows);
-      break;
-    case 'ArrowDown':
-      element = getCellTopBottom(1, focusedElement, tableBodyRows);
-      break;
-    case 'ArrowLeft':
-      element = getCellRightLeft(-1, focusedElement, tableColumns);
-      break;
-    case 'ArrowRight':
-      element = getCellRightLeft(1, focusedElement, tableColumns);
-      break;
-  }
-  return element;
+export const getInnerElements = (elements: Elements, key1: string, key2: string): any[] => {
+  return Array.from(elements[key1][key2][0].current.querySelectorAll('[tabIndex], input, button, a')).filter((el: any) => {
+    return !el.hasAttribute('disabled') && el.getAttribute('tabindex') !== "-1";
+  });
 }
 
-export const getNextFocusedElement: GetNextFocusedElementFn = (tableColumns, tableBodyRows, elements, key, shiftKey, focusedElement) => {
-  if(!focusedElement) {
-    const part = tableParts.find(p => {
-      if(p === 'body') {
-        return elements[tableBodyRows[0].key];
-      }
-      return elements[p];
-    });
-    if(!part || key !== 'Tab') {
-        return;
+const getFirstCell = (elements: Elements, tableBodyRows: TableRow[], tableColumns: TableColumn[]): FocusedElement | undefined => {
+  const part = tableParts.find(p => {
+    if(p === DATA_TYPE) {
+      return elements[tableBodyRows[0].key];
     }
+    return elements[p];
+  });
+  if(!part) {
+    return;
+  }
+  const rowKey = part === DATA_TYPE ? tableBodyRows[0].key : part;
+  const columnKey = tableColumns[0].key;
+
+  return {
+    rowKey,
+    columnKey,
+    index: !cellEmptyOrHasSpanAndInput(elements, rowKey, columnKey) ? 0 : undefined,
+    part
+  }
+}
+
+const getLastCell = (elements: Elements, tableBodyRows: TableRow[], tableColumns: TableColumn[]): FocusedElement | undefined => {
+  let index = tableParts.length;
+  let part;
+  while (index > 0) {
+    index = index - 1;
+    const p = tableParts[index];
+    if(p === DATA_TYPE && elements[tableBodyRows[0].key]) {
+      part = DATA_TYPE;
+      break;
+    }
+    if(elements[p]) {
+      part = p;
+      break;
+    }
+  }
+  if(!part) {
+    return;
+  }
+
+  const rowKey = part === DATA_TYPE ? tableBodyRows[tableBodyRows.length - 1].key : part;
+  const columnKey = tableColumns[tableColumns.length - 1].key;
+
+  return {
+    rowKey,
+    columnKey,
+    index: !cellEmptyOrHasSpanAndInput(elements, rowKey, columnKey) ? 0 : undefined,
+    part,
+  }
+}
+
+const getFirstCellInLastPart = (elements: Elements, tableBodyRows: TableRow[], tableColumns: TableColumn[]): FocusedElement | undefined => {
+  const lastElement = getLastCell(elements, tableBodyRows, tableColumns);
+  if(lastElement) {
     return {
-        rowKey: part === 'body' ? tableBodyRows[0].key : part,
-        columnKey: isTablePart(part) ? tableColumns[0].key  : 'none',
-        index: 0,
-        part
+      columnKey: tableColumns[0].key,
+      rowKey: lastElement.part === DATA_TYPE ? tableBodyRows[0].key : lastElement.part,
+      index: lastElement.index,
+      part: lastElement.part
+    }
+  }
+  return undefined;
+}
+
+export const getNextFocusedCell: GetNextFocusedElementFn = (tableColumns, tableBodyRows, elements, event, focusedElement) => {
+  if(!focusedElement) {
+    const { toolbarElements, pagingElements } = getToolbarPagingElements(elements);
+    const hasFocus = (elements: any[]) => {
+      return elements.some((el: any) => {
+        return document.activeElement === el;
+      });
+    }
+    if(event.ctrlKey) {
+      if(toolbarElements && event.key === 'ArrowDown' && hasFocus(toolbarElements)) {
+        return getFirstCell(elements, tableBodyRows, tableColumns)
+      } else if(pagingElements && event.key === 'ArrowUp' && hasFocus(pagingElements)) {
+        return getFirstCellInLastPart(elements, tableBodyRows, tableColumns)
+      }
+      return;
+    } else {
+      if(toolbarElements && event.target === toolbarElements[toolbarElements.length - 1] && !event.shiftKey) {
+        return getFirstCell(elements, tableBodyRows, tableColumns);
+      } else if(pagingElements && event.target === pagingElements[0] && event.shiftKey) {
+        return getLastCell(elements, tableBodyRows, tableColumns);
+      } else if(!pagingElements && !toolbarElements) {
+        const part = tableParts.find(p => {
+          if(p === DATA_TYPE) {
+            return elements[tableBodyRows[0].key];
+          }
+          return elements[p];
+        });
+        if(!part) {
+            return;
+        }
+        return {
+            rowKey: part === DATA_TYPE ? tableBodyRows[0].key : part,
+            columnKey: tableColumns[0].key,
+            part
+        }
+      }
+      return;
     }
   } else {
-    return getFocusedElement(key, shiftKey, focusedElement, tableColumns, tableBodyRows, elements);
+    let cell;
+    switch(event.key) {
+      case 'Enter':
+        cell = applyEnterAction(elements, focusedElement);
+      break;
+      case 'Escape':
+        cell = applyEscapeAction(elements, focusedElement);
+      break;
+      case 'Tab':
+        if(event.shiftKey) {
+          cell = getPrevElement(focusedElement, tableBodyRows, tableColumns, elements);
+        } else {
+          cell = getNextElement(focusedElement, tableBodyRows, tableColumns, elements);
+        }
+        break;
+      case 'ArrowUp':
+        if(event.ctrlKey) {
+          cell = getCellPrevPart(focusedElement, elements, tableBodyRows, tableColumns);
+          if(cell) {
+            cell = {
+              part: cell.part,
+              rowKey: cell.rowKey,
+              index: undefined,
+              columnKey: tableColumns[0].key
+            }
+          }
+          if(!cell && elements['toolbar']) {
+            getInnerElements(elements, 'toolbar', 'none')[0].focus();
+          }
+        } else {
+          cell = getCellTopBottom(-1, focusedElement, tableBodyRows);
+        }
+        break;
+      case 'ArrowDown':
+        if(event.ctrlKey) {
+          cell = getCellNextPart(focusedElement, elements, tableBodyRows, tableColumns);
+          if(cell) {
+            cell = {
+              part: cell.part,
+              rowKey: cell.rowKey,
+              index: undefined,
+              columnKey: tableColumns[0].key
+            }
+          }
+          if(!cell && elements['paging']) {
+            getInnerElements(elements, 'paging', 'none')[0].focus();
+          }
+        } else {
+          cell = getCellTopBottom(1, focusedElement, tableBodyRows);
+        }
+        break;
+      case 'ArrowLeft':
+        cell = getCellRightLeft(-1, focusedElement, tableColumns);
+        break;
+      case 'ArrowRight':
+        cell = getCellRightLeft(1, focusedElement, tableColumns);
+        break;
+    }
+    return cell;
   }
 }
 
 export const applyEnterAction = (elements: Elements, focusedElement?: FocusedElement): FocusedElement | undefined => {
-  if(!focusedElement || !isTablePart(focusedElement.part)) {
+  if(!focusedElement) {
     return;
   }
-  const cell = elements[focusedElement.rowKey][focusedElement.columnKey];
+  const innerElements = getInnerElements(elements, focusedElement.rowKey, focusedElement.columnKey)
 
-  if(focusedElement.index === 0 && cell.length > 1 && !notSpanInput(cell)) {
-    if(cell[1].tagName === 'SPAN') {
-      cell[1].click();
+  if(focusedElement.index === undefined && innerElements.length && isSpanInput(innerElements)) {
+    if(innerElements[0].tagName === 'SPAN') {
+      innerElements[0].click();
     }
     return {
-      ...focusedElement,
-      index: 1
+      part: focusedElement.part,
+      columnKey: focusedElement.columnKey,
+      rowKey: focusedElement.rowKey,
+      index: 0
     }
   }
-  if(focusedElement.index === 1 && cell.length > 1 && cell[1].tagName === "INPUT") {
+  if(focusedElement.index === 0 && hasCellInput(elements, focusedElement.rowKey, focusedElement.columnKey)) {
     return {
-      ...focusedElement,
-      index: 0
+      part: focusedElement.part,
+      columnKey: focusedElement.columnKey,
+      rowKey: focusedElement.rowKey,
     }
   }
 
@@ -334,15 +443,15 @@ export const applyEnterAction = (elements: Elements, focusedElement?: FocusedEle
 }
 
 export const applyEscapeAction = (elements: Elements, focusedElement?: FocusedElement): FocusedElement | undefined => {
-  if(!focusedElement || !isTablePart(focusedElement.part)) {
+  if(!focusedElement) {
     return;
   }
-  const cell = elements[focusedElement.rowKey][focusedElement.columnKey];
 
-  if(focusedElement.index === 1 && cell.length > 1 && cell[1].tagName === "INPUT") {
+  if(focusedElement.index === 0 && hasCellInput(elements, focusedElement.rowKey, focusedElement.columnKey)) {
     return {
-      ...focusedElement,
-      index: 0
+      part: focusedElement.part,
+      columnKey: focusedElement.columnKey,
+      rowKey: focusedElement.rowKey,
     }
   }
   return;
@@ -351,33 +460,35 @@ export const applyEscapeAction = (elements: Elements, focusedElement?: FocusedEl
 export const getPart = (key: string): string => {
   if(tableParts.find(t => { return t === key })) {
     return key;
-  } else {
-    return 'body';
   }
+  return DATA_TYPE;
 }
 
-export const getIndexToFocus = (key1: string, key2: string, elements: Elements): number => {
-  const cell = elements[key1][key2];
-  if(cell.length > 1 && cell[1].tagName === "INPUT" && isTablePart(key1)) {
-    return 1;
-  }
-  return 0;
-}
-
-export const getPrevNextTablePart = (focusedElement: FocusedElement, elements: Elements, direction: number, 
-  tableBodyRows: TableRow[], tableColumns: TableColumn[]): FocusedElement | undefined => {
-  let el;
-  if(direction === -1) {
-    el = getElementPrevPart(focusedElement, elements, tableBodyRows, tableColumns);
-  } else {
-    el = getElementNextPart(focusedElement, elements, tableBodyRows, tableColumns);
-  }
-  if(el) {
-    return {
-      ...el,
-      index: 0,
-      columnKey: isTablePart(el.part) ? tableColumns[0].key  : 'none'
-    }
+export const getIndexToFocus = (key1: string, key2: string, elements: Elements): number | undefined => {
+  if(hasCellInput(elements, key1, key2)) {
+    return 0;
   }
   return;
+}
+
+export const processEvents = (node: any, process: string, handler: Function): void => {
+  node.querySelectorAll('table').forEach((n: any) => {
+    n[process]('keydown', handler);
+  });
+}
+
+export const getToolbarPagingElements = (elements: Elements) => {
+  return {
+    toolbarElements: elements['toolbar'] && getInnerElements(elements, 'toolbar', 'none'),
+    pagingElements: elements['paging'] && getInnerElements(elements, 'paging', 'none').filter((el: any) => {
+      return !el.hasAttribute('disabled') && el.getAttribute('tabindex') !== "-1";
+    })
+  }
+}
+
+export const handleOnFocusedCallChanged = (onFocusedCellChanged: Function, focusedElement: FocusedElement, prevFocusedElement: FocusedElement): void => {
+    if(focusedElement.part === DATA_TYPE && 
+        (prevFocusedElement?.rowKey !== focusedElement.rowKey || prevFocusedElement?.columnKey !== focusedElement.columnKey)) {
+      onFocusedCellChanged({ rowKey: focusedElement.rowKey, columnKey: focusedElement.columnKey });
+    }
 }

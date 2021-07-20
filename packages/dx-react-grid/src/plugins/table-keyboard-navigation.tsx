@@ -5,9 +5,10 @@ import {
 import { 
   TABLE_ADDED_TYPE, TABLE_DATA_TYPE,
   getNextFocusedCell,  getPart, getIndexToFocus,
-  processEvents, handleOnFocusedCallChanged, getCellTopBottom, getInnerElements
+  processEvents, handleOnFocusedCallChanged, getCellTopBottom, getInnerElements,
+  filterHeaderRows,
 } from '@devexpress/dx-grid-core';
-import { KeyboardNavigationProps, KeyboardNavigationState } from '../types';
+import { KeyboardNavigationProps, KeyboardNavigationState, TableRow } from '../types';
 
 const DATA_TYPE = TABLE_DATA_TYPE.toString();
 class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigationProps, KeyboardNavigationState> {
@@ -16,6 +17,7 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
   tableBodyRows = [];
   handleKeyDownProcessed = false;
   rootRef = {} as any;
+  tableHeaderRows: TableRow[] = [];
 
   constructor(props) {
     super(props);
@@ -120,7 +122,7 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
       this.handleKeyDownProcessed = false;
       return;
     }
-    focusedCell = getNextFocusedCell(this.tableColumns, this.tableBodyRows, this.elements, event, focusedElement);
+    focusedCell = getNextFocusedCell(this.tableColumns, this.tableBodyRows, this.tableHeaderRows, this.elements, event, focusedElement);
     
     if(focusedCell && event.ctrlKey && (event.key === 'ArrowDown' || event.key === 'ArrowUp')) {
       event.preventDefault();
@@ -141,7 +143,7 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
   handleKeyDownOnTable(event) {
     const { focusedElement } = this.state;
     
-    const nextFocusedElement = getNextFocusedCell(this.tableColumns, this.tableBodyRows,
+    const nextFocusedElement = getNextFocusedCell(this.tableColumns, this.tableBodyRows, this.tableHeaderRows,
       this.elements, event, focusedElement);
     
     if(nextFocusedElement) {     
@@ -209,9 +211,10 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
           setFocusedElement: this.setFocusedElement.bind(this),
         }} />
         <TemplateConnector>
-        {({ tableColumns, tableBodyRows, rootRef }) => {
+        {({ tableColumns, tableBodyRows, rootRef, tableHeaderRows }) => {
             this.tableColumns = tableColumns;
             this.tableBodyRows = tableBodyRows;
+            this.tableHeaderRows = filterHeaderRows(tableHeaderRows);
             this.rootRef = rootRef;
             if(rootRef.current) {
               rootRef.current.removeEventListener('keydown', this.handleKeyDownOnWidget);

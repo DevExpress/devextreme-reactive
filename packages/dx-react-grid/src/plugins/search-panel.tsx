@@ -27,6 +27,7 @@ class SearchPanelBase extends React.PureComponent<SearchPanelProps> {
   static components = {
     inputComponent: 'Input',
   };
+  ref: React.RefObject<HTMLElement> = React.createRef();
 
   render() {
     const { inputComponent: Input, messages } = this.props;
@@ -40,16 +41,18 @@ class SearchPanelBase extends React.PureComponent<SearchPanelProps> {
         <Template name="toolbarContent">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ searchValue, isDataRemote }, { changeSearchValue, scrollToRow }) => {
+            {({ searchValue, isDataRemote }, { changeSearchValue, scrollToRow, setSearchPanelRef }) => {
               const onValueChange = (value) => {
                 if (isDataRemote) {
                   scrollToRow(TOP_POSITION);
                 }
                 changeSearchValue(value);
               };
+              setSearchPanelRef(this.ref);
 
               return <Input
                 value={searchValue}
+                refObject={this.ref}
                 onValueChange={onValueChange}
                 getMessage={getMessage}
               />;

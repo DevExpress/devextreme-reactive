@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
- Plugin, TemplateConnector, Getter,
+ Plugin, TemplateConnector, Getter, Action,
 } from '@devexpress/dx-react-core';
 import { 
   TABLE_ADDED_TYPE, TABLE_DATA_TYPE,
@@ -18,6 +18,7 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
   handleKeyDownProcessed = false;
   rootRef = {} as any;
   tableHeaderRows: TableRow[] = [];
+  searchPanelRef: any;
 
   constructor(props) {
     super(props);
@@ -79,6 +80,10 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
     }
   }
 
+  setSearchPanelRef(ref) {
+    this.searchPanelRef = ref;
+  }
+
   removeRef(key1, key2) {
     const { focusedElement } = this.state;
 
@@ -117,12 +122,21 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
   handleKeyDownOnWidget(event) {
     const { focusedElement } = this.state;
     let focusedCell;
+
+    if(event.key === 'f' && event.ctrlKey) {
+      event.preventDefault();
+      this.searchPanelRef && this.searchPanelRef.current.click();
+      this.updateStateAndEvents(undefined, 'removeEventListener');
+      return;
+    }
     
     if(this.handleKeyDownProcessed) {
       this.handleKeyDownProcessed = false;
       return;
     }
+    
     focusedCell = getNextFocusedCell(this.tableColumns, this.tableBodyRows, this.tableHeaderRows, this.elements, event, focusedElement);
+    
     
     if(focusedCell && event.ctrlKey && (event.key === 'ArrowDown' || event.key === 'ArrowUp')) {
       event.preventDefault();
@@ -210,6 +224,7 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
           updateRefForKeyboardNavigation: this.updateRef.bind(this),
           setFocusedElement: this.setFocusedElement.bind(this),
         }} />
+        <Action name="setSearchPanelRef" action={this.setSearchPanelRef.bind(this)} />
         <TemplateConnector>
         {({ tableColumns, tableBodyRows, rootRef, tableHeaderRows }) => {
             this.tableColumns = tableColumns;

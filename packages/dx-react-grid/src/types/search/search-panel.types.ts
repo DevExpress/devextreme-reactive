@@ -8,6 +8,8 @@ export namespace SearchPanel {
     onValueChange: (value: string) => void;
     /** Returns a specified localization message. */
     getMessage: (messageKey: string) => string;
+    /** @internal */
+    refObject: React.RefObject<HTMLElement>;
   }
 
   export interface LocalizationMessages {

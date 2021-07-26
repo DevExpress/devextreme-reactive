@@ -48,7 +48,7 @@ class SearchPanelBase extends React.PureComponent<SearchPanelProps> {
                 }
                 changeSearchValue(value);
               };
-              setSearchPanelRef(this.ref);
+              setSearchPanelRef && setSearchPanelRef(this.ref);
 
               return <Input
                 value={searchValue}

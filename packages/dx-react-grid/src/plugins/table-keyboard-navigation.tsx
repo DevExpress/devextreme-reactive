@@ -10,7 +10,6 @@ import {
 } from '@devexpress/dx-grid-core';
 import { KeyboardNavigationProps, KeyboardNavigationState, TableRow } from '../types';
 
-const DATA_TYPE = TABLE_DATA_TYPE.toString();
 class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigationProps, KeyboardNavigationState> {
   elements: any[][] = [];
   tableColumns = [];
@@ -26,7 +25,7 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
     const focusedCell = props.focusedCell || props.defaultFocusedCell;
 
     this.state = {
-      focusedElement: focusedCell ? { part: DATA_TYPE, ...focusedCell } : focusedCell
+      focusedElement: focusedCell ? { part: TABLE_DATA_TYPE.toString(), ...focusedCell } : focusedCell
     }
     this.handleKeyDownOnWidget = this.handleKeyDownOnWidget.bind(this);
     this.handleKeyDownOnTable = this.handleKeyDownOnTable.bind(this);
@@ -36,7 +35,7 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
     const focusedCell = props.focusedCell !== undefined ? props.focusedCell : state.focusedElement;
     return {
       focusedElement: focusedCell ? {
-        part: DATA_TYPE,
+        part: TABLE_DATA_TYPE.toString(),
         ...focusedCell
       } : focusedCell
     }
@@ -72,7 +71,7 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
     if(key1.toString().includes(TABLE_ADDED_TYPE.toString()) && key2 === (this.tableColumns[0] as any).key) {
       this.setState({
         focusedElement: {
-          part: DATA_TYPE,
+          part: TABLE_DATA_TYPE.toString(),
           columnKey: key2,
           rowKey: key1
         }

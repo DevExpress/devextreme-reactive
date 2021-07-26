@@ -58,7 +58,7 @@ const getCellNextPart: getElementPrevNextPartFn = (focusedElement, elements, tab
   return {
     rowKey,
     columnKey,
-    index: !cellEmptyOrHasSpanAndInput(elements, rowKey, columnKey) ? 0 : undefined,
+    index: cellEmptyOrHasSpanAndInput(elements, rowKey, columnKey) ? undefined : 0,
     part: part
   }
 }
@@ -94,7 +94,7 @@ const getCellPrevPart: getElementPrevNextPartFn = (focusedElement, elements, tab
   return {
     rowKey,
     columnKey,
-    index: !cellEmptyOrHasSpanAndInput(elements, rowKey, columnKey) ? innerElements.length - 1 : undefined,
+    index: cellEmptyOrHasSpanAndInput(elements, rowKey, columnKey) ? undefined : innerElements.length - 1,
     part: part
   }
 }
@@ -121,11 +121,9 @@ const getPrevCellFromBody = (columnIndex: number, rowIndex: number, tableColumns
       prevIndex = innerElements.length ? innerElements.length - 1 : undefined;
   }
 
-  if(prevIndex === 1) {
-    innerElements = getInnerElements(elements, prevRowKey, prevColumnKey);
-    if(innerElements.length === 1 && isSpanInput(innerElements)) {
-      prevIndex = undefined;
-    }
+  innerElements = getInnerElements(elements, prevRowKey, prevColumnKey);
+  if(innerElements.length === 1 && isSpanInput(innerElements)) {
+    prevIndex = undefined;
   }
 
   return {
@@ -136,7 +134,7 @@ const getPrevCellFromBody = (columnIndex: number, rowIndex: number, tableColumns
   }
 }
 
-const getPrevCellFromHeading = (tableHeaderRows: TableRow[], tableBodyRows: TableRow[], tableColumns: TableColumn[], columnIndex: number, 
+const getPrevCellFromHeading = (tableHeaderRows: TableRow[], tableColumns: TableColumn[], columnIndex: number, 
   focusedElement: FocusedElement, elements: Elements) => {
   const headIndex = getIndex(tableHeaderRows, focusedElement, 'rowKey');
   let prevRowKey;
@@ -182,12 +180,13 @@ const getPrevElement: GetElementFn = (focusedElement, tableBodyRows, tableColumn
   }
 
   if(focusedElement.part === HEADING_TYPE) {
-    const cell = getPrevCellFromHeading(tableHeaderRows, tableBodyRows, tableColumns, columnIndex, 
+    const cell = getPrevCellFromHeading(tableHeaderRows, tableColumns, columnIndex, 
       focusedElement, elements);
       if(cell && !cellEmptyOrHasSpanAndInput(elements, cell.rowKey, cell.columnKey)) {
+        const innerElements = getInnerElements(elements, cell.rowKey, cell.columnKey);
         return {
           ...cell,
-          index: 0
+          index: innerElements.length - 1
         }
       }
       return cell;
@@ -202,14 +201,13 @@ const getPrevElement: GetElementFn = (focusedElement, tableBodyRows, tableColumn
   return {
     rowKey,
     columnKey,
-    index: !cellEmptyOrHasSpanAndInput(elements, rowKey, columnKey) ? innerElements.length - 1 : undefined,
+    index: cellEmptyOrHasSpanAndInput(elements, rowKey, columnKey) ? undefined : innerElements.length - 1,
     part: focusedElement.part
   }
 }
 
 const getNextCellFromBody = (columnIndex: number, rowIndex: number, tableColumns: TableColumn[], 
   tableBodyRows: TableRow[], focusedElement: FocusedElement, elements: Elements) => {
-  let nextIndex;
   let nextRowKey = focusedElement.rowKey;
   let nextColumnKey;
 
@@ -221,14 +219,11 @@ const getNextCellFromBody = (columnIndex: number, rowIndex: number, tableColumns
   } else {
     nextColumnKey = tableColumns[columnIndex + 1].key
   }
-  if(!cellEmptyOrHasSpanAndInput(elements, nextRowKey, nextColumnKey)) {
-    nextIndex = 0;
-  }
 
   return {
     rowKey: nextRowKey,
     columnKey: nextColumnKey,
-    index: nextIndex,
+    index: cellEmptyOrHasSpanAndInput(elements, nextRowKey, nextColumnKey) ? undefined : 0,
     part: focusedElement.part,
   }
 }
@@ -266,6 +261,7 @@ const getNextCellFromHeading = (tableHeaderRows: TableRow[], tableBodyRows: Tabl
   return {
     rowKey: nextRowKey,
     columnKey: nextColumnKey,
+    index: cellEmptyOrHasSpanAndInput(elements, nextRowKey, nextColumnKey) ? undefined : 0,
     part: focusedElement.part
   }
 }
@@ -313,18 +309,6 @@ const cellEmptyOrHasSpanAndInput = (elements: Elements, key1: string, key2: stri
   return true;
 }
 
-export const getCellTopBottom = (direction: number, focusedElement: FocusedElement, tableBodyRows: TableRow[]): FocusedElement | undefined => {
-  if(focusedElement.part !== DATA_TYPE) {
-    return;
-  }
-  const rowIndex = getIndex(tableBodyRows, focusedElement, 'rowKey');
-  return tableBodyRows[rowIndex + direction] ? {
-    rowKey: tableBodyRows[rowIndex + direction].key,
-    columnKey: focusedElement.columnKey,
-    part: focusedElement.part,
-  } : undefined;
-}
-
 const getCellRightLeft = (direction: number, focusedElement: FocusedElement, tableColumns: TableColumn[]): FocusedElement | undefined => {
   if(focusedElement.part !== DATA_TYPE) {
     return;
@@ -335,12 +319,6 @@ const getCellRightLeft = (direction: number, focusedElement: FocusedElement, tab
     columnKey: tableColumns[columnIndex + direction].key,
     part: focusedElement.part,
   } : undefined;
-}
-
-export const getInnerElements = (elements: Elements, key1: string, key2: string): any[] => {
-  return Array.from(elements[key1][key2][0].current.querySelectorAll('[tabIndex], input, button, a')).filter((el: any) => {
-    return !el.hasAttribute('disabled') && el.getAttribute('tabindex') !== "-1";
-  });
 }
 
 const getFirstCell = (elements: Elements, tableBodyRows: TableRow[], tableColumns: TableColumn[]): FocusedElement | undefined => {
@@ -359,7 +337,7 @@ const getFirstCell = (elements: Elements, tableBodyRows: TableRow[], tableColumn
   return {
     rowKey,
     columnKey,
-    index: !cellEmptyOrHasSpanAndInput(elements, rowKey, columnKey) ? 0 : undefined,
+    index: cellEmptyOrHasSpanAndInput(elements, rowKey, columnKey) ? undefined : 0,
     part
   }
 }
@@ -389,8 +367,17 @@ const getLastCell = (elements: Elements, tableBodyRows: TableRow[], tableColumns
   return {
     rowKey,
     columnKey,
-    index: !cellEmptyOrHasSpanAndInput(elements, rowKey, columnKey) ? 0 : undefined,
+    index: cellEmptyOrHasSpanAndInput(elements, rowKey, columnKey) ? undefined : 0,
     part,
+  }
+}
+
+const getToolbarPagingElements = (elements: Elements) => {
+  return {
+    toolbarElements: elements['toolbar'] && getInnerElements(elements, 'toolbar', 'none'),
+    pagingElements: elements['paging'] && getInnerElements(elements, 'paging', 'none').filter((el: any) => {
+      return !el.hasAttribute('disabled') && el.getAttribute('tabindex') !== "-1";
+    })
   }
 }
 
@@ -407,108 +394,7 @@ const getFirstCellInLastPart = (elements: Elements, tableBodyRows: TableRow[], t
   return undefined;
 }
 
-export const getNextFocusedCell: GetNextFocusedElementFn = (tableColumns, tableBodyRows, tableHeaderRows, elements, event, focusedElement) => {
-  if(!focusedElement) {
-    const { toolbarElements, pagingElements } = getToolbarPagingElements(elements);
-    const hasFocus = (elements: any[]) => {
-      return elements.some((el: any) => {
-        return document.activeElement === el;
-      });
-    }
-    if(event.ctrlKey) {
-      if(toolbarElements && event.key === 'ArrowDown' && hasFocus(toolbarElements)) {
-        return getFirstCell(elements, tableBodyRows, tableColumns)
-      } else if(pagingElements && event.key === 'ArrowUp' && hasFocus(pagingElements)) {
-        return getFirstCellInLastPart(elements, tableBodyRows, tableColumns)
-      }
-      return;
-    } else {
-      if(toolbarElements && event.target === toolbarElements[toolbarElements.length - 1] && !event.shiftKey) {
-        return getFirstCell(elements, tableBodyRows, tableColumns);
-      } else if(pagingElements && event.target === pagingElements[0] && event.shiftKey) {
-        return getLastCell(elements, tableBodyRows, tableColumns);
-      } else if(!pagingElements && !toolbarElements) {
-        const part = tableParts.find(p => {
-          if(p === DATA_TYPE) {
-            return elements[tableBodyRows[0].key];
-          }
-          return elements[p];
-        });
-        if(!part) {
-            return;
-        }
-        return {
-            rowKey: part === DATA_TYPE ? tableBodyRows[0].key : part,
-            columnKey: tableColumns[0].key,
-            part
-        }
-      }
-      return;
-    }
-  } else {
-    let cell;
-    switch(event.key) {
-      case 'Enter':
-        cell = applyEnterAction(elements, focusedElement);
-      break;
-      case 'Escape':
-        cell = applyEscapeAction(elements, focusedElement);
-      break;
-      case 'Tab':
-        if(event.shiftKey) {
-          cell = getPrevElement(focusedElement, tableBodyRows, tableColumns, tableHeaderRows, elements);
-        } else {
-          cell = getNextElement(focusedElement, tableBodyRows, tableColumns, tableHeaderRows, elements);
-        }
-        break;
-      case 'ArrowUp':
-        if(event.ctrlKey) {
-          cell = getCellPrevPart(focusedElement, elements, tableBodyRows, tableColumns);
-          if(cell) {
-            cell = {
-              part: cell.part,
-              rowKey: cell.rowKey,
-              index: undefined,
-              columnKey: tableColumns[0].key
-            }
-          }
-          if(!cell && elements['toolbar']) {
-            getInnerElements(elements, 'toolbar', 'none')[0].focus();
-          }
-        } else {
-          cell = getCellTopBottom(-1, focusedElement, tableBodyRows);
-        }
-        break;
-      case 'ArrowDown':
-        if(event.ctrlKey) {
-          cell = getCellNextPart(focusedElement, elements, tableBodyRows, tableColumns);
-          if(cell) {
-            cell = {
-              part: cell.part,
-              rowKey: cell.rowKey,
-              index: undefined,
-              columnKey: tableColumns[0].key
-            }
-          }
-          if(!cell && elements['paging']) {
-            getInnerElements(elements, 'paging', 'none')[0].focus();
-          }
-        } else {
-          cell = getCellTopBottom(1, focusedElement, tableBodyRows);
-        }
-        break;
-      case 'ArrowLeft':
-        cell = getCellRightLeft(-1, focusedElement, tableColumns);
-        break;
-      case 'ArrowRight':
-        cell = getCellRightLeft(1, focusedElement, tableColumns);
-        break;
-    }
-    return cell;
-  }
-}
-
-export const applyEnterAction = (elements: Elements, focusedElement?: FocusedElement): FocusedElement | undefined => {
+const applyEnterAction = (elements: Elements, focusedElement?: FocusedElement): FocusedElement | undefined => {
   if(!focusedElement) {
     return;
   }
@@ -536,7 +422,7 @@ export const applyEnterAction = (elements: Elements, focusedElement?: FocusedEle
   return;
 }
 
-export const applyEscapeAction = (elements: Elements, focusedElement?: FocusedElement): FocusedElement | undefined => {
+const applyEscapeAction = (elements: Elements, focusedElement?: FocusedElement): FocusedElement | undefined => {
   if(!focusedElement) {
     return;
   }
@@ -549,6 +435,121 @@ export const applyEscapeAction = (elements: Elements, focusedElement?: FocusedEl
     }
   }
   return;
+}
+
+export const getInnerElements = (elements: Elements, key1: string, key2: string): any[] => {
+  return Array.from(elements[key1][key2][0].current.querySelectorAll('[tabIndex], input, button, a')).filter((el: any) => {
+    return !el.hasAttribute('disabled') && el.getAttribute('tabindex') !== "-1";
+  });
+}
+
+export const getCellTopBottom = (direction: number, focusedElement: FocusedElement, tableBodyRows: TableRow[]): FocusedElement | undefined => {
+  if(focusedElement.part !== DATA_TYPE) {
+    return;
+  }
+  const rowIndex = getIndex(tableBodyRows, focusedElement, 'rowKey');
+  return tableBodyRows[rowIndex + direction] ? {
+    rowKey: tableBodyRows[rowIndex + direction].key,
+    columnKey: focusedElement.columnKey,
+    part: focusedElement.part,
+  } : undefined;
+}
+
+export const getNextFocusedCell: GetNextFocusedElementFn = (tableColumns, tableBodyRows, tableHeaderRows, elements, event, focusedElement) => {
+  if(!focusedElement) {
+    const { toolbarElements, pagingElements } = getToolbarPagingElements(elements);
+    const hasFocus = (elements: any[]) => {
+      return elements.some((el: any) => {
+        return event.target === el;
+      });
+    }
+    if(event.ctrlKey) {
+      if(toolbarElements && event.key === 'ArrowDown' && hasFocus(toolbarElements)) {
+        return getFirstCell(elements, tableBodyRows, tableColumns)
+      } else if(pagingElements && event.key === 'ArrowUp' && hasFocus(pagingElements)) {
+        return getFirstCellInLastPart(elements, tableBodyRows, tableColumns)
+      }
+    } else if(event.key === 'Tab') {
+      if(toolbarElements && event.target === toolbarElements[toolbarElements.length - 1] && !event.shiftKey) {
+        return getFirstCell(elements, tableBodyRows, tableColumns);
+      } else if(pagingElements && event.target === pagingElements[0] && event.shiftKey) {
+        return getLastCell(elements, tableBodyRows, tableColumns);
+      } else if(!pagingElements && !toolbarElements) {
+        const part = tableParts.find(p => {
+          if(p === DATA_TYPE) {
+            return elements[tableBodyRows[0].key];
+          }
+          return elements[p];
+        });
+        if(!part) {
+            return;
+        }
+        return {
+            rowKey: part === DATA_TYPE ? tableBodyRows[0].key : part,
+            columnKey: tableColumns[0].key,
+            part
+        }
+      }
+    }
+  } else {
+    let cell;
+    switch(event.key) {
+      case 'Enter':
+        cell = applyEnterAction(elements, focusedElement);
+      break;
+      case 'Escape':
+        cell = applyEscapeAction(elements, focusedElement);
+      break;
+      case 'Tab':
+        if(event.shiftKey) {
+          cell = getPrevElement(focusedElement, tableBodyRows, tableColumns, tableHeaderRows, elements);
+        } else {
+          cell = getNextElement(focusedElement, tableBodyRows, tableColumns, tableHeaderRows, elements);
+        }
+        break;
+      case 'ArrowUp':
+        if(event.ctrlKey) {
+          cell = getCellPrevPart(focusedElement, elements, tableBodyRows, tableColumns);
+          if(cell) {
+            cell = {
+              part: cell.part,
+              rowKey: cell.rowKey,
+              columnKey: tableColumns[0].key
+            }
+          }
+          if(!cell && elements['toolbar']) {
+            getInnerElements(elements, 'toolbar', 'none')[0].focus();
+          }
+        } else {
+          cell = getCellTopBottom(-1, focusedElement, tableBodyRows);
+        }
+        break;
+      case 'ArrowDown':
+        if(event.ctrlKey) {
+          cell = getCellNextPart(focusedElement, elements, tableBodyRows, tableColumns);
+          if(cell) {
+            cell = {
+              part: cell.part,
+              rowKey: cell.rowKey,
+              columnKey: tableColumns[0].key
+            }
+          }
+          if(!cell && elements['paging']) {
+            getInnerElements(elements, 'paging', 'none')[0].focus();
+          }
+        } else {
+          cell = getCellTopBottom(1, focusedElement, tableBodyRows);
+        }
+        break;
+      case 'ArrowLeft':
+        cell = getCellRightLeft(-1, focusedElement, tableColumns);
+        break;
+      case 'ArrowRight':
+        cell = getCellRightLeft(1, focusedElement, tableColumns);
+        break;
+    }
+    return cell;
+  }
 }
 
 export const getPart = (key: string): string => {
@@ -572,15 +573,6 @@ export const processEvents = (node: any, process: string, handler: Function): vo
   node.querySelectorAll('table').forEach((n: any) => {
     n[process]('keydown', handler);
   });
-}
-
-export const getToolbarPagingElements = (elements: Elements) => {
-  return {
-    toolbarElements: elements['toolbar'] && getInnerElements(elements, 'toolbar', 'none'),
-    pagingElements: elements['paging'] && getInnerElements(elements, 'paging', 'none').filter((el: any) => {
-      return !el.hasAttribute('disabled') && el.getAttribute('tabindex') !== "-1";
-    })
-  }
 }
 
 export const handleOnFocusedCallChanged = (onFocusedCellChanged: Function, focusedElement: FocusedElement, prevFocusedElement: FocusedElement): void => {

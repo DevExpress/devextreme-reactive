@@ -343,7 +343,7 @@ export interface FocusedElement {
   // (undocumented)
   columnKey: string;
   // (undocumented)
-  index: number;
+  index?: number;
   // (undocumented)
   part: string;
   // (undocumented)
@@ -354,19 +354,19 @@ export interface FocusedElement {
 export type GetCellValueFn = (row: any, columnName: string) => any;
 
 // @public (undocumented)
-export type GetElementFn = (focusedElement: FocusedElement, tableBodyRows: TableRow[], tableColumns: TableColumn[], elements: Elements) => FocusedElement | undefined;
+export type GetElementFn = (focusedElement: FocusedElement, tableBodyRows: TableRow[], tableColumns: TableColumn[], tableHeaderRows: TableRow[], elements: Elements) => FocusedElement | void;
 
 // @public (undocumented)
-export type getElementPrevNextPartFn = (focusedElement: FocusedElement, elements: Elements, tableBodyRows: TableRow[], tableColumns: TableColumn[]) => FocusedElement | undefined;
+export type getElementPrevNextPartFn = (focusedElement: FocusedElement, elements: Elements, tableBodyRows: TableRow[], tableColumns: TableColumn[]) => FocusedElement | void;
 
 // @public (undocumented)
-export type GetFocusedElementFn = (key: string, shiftKey: boolean, focusedElement: FocusedElement, tableColumns: TableColumn[], tableBodyRows: TableRow[], elements: Elements) => FocusedElement | undefined;
+export type GetFocusedElementFn = (key: string, shiftKey: boolean, focusedElement: FocusedElement, tableColumns: TableColumn[], tableBodyRows: TableRow[], elements: Elements) => FocusedElement | void;
 
 // @public (undocumented)
 export type GetMessageFn = (messageKey: string, params?: object) => string;
 
 // @public (undocumented)
-export type GetNextFocusedElementFn = (tableColumns: TableColumn[], tableBodyRows: TableRow[], elements: Elements, event: any, focusedElement?: FocusedElement) => FocusedElement | undefined;
+export type GetNextFocusedElementFn = (tableColumns: TableColumn[], tableBodyRows: TableRow[], tableHeaderRows: TableRow[], elements: Elements, event: any, focusedElement?: FocusedElement) => FocusedElement | void;
 
 // @public
 export const Grid: React_2.ComponentType<GridProps>;
@@ -1282,7 +1282,7 @@ export interface TableInlineCellEditingProps {
 }
 
 // @public (undocumented)
-export const TableKeyboardNavigation: React_2.ComponentType<any>;
+export const TableKeyboardNavigation: React_2.ComponentType<KeyboardNavigationProps>;
 
 // @public (undocumented)
 export interface TableProps {

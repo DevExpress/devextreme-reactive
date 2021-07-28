@@ -1,4 +1,4 @@
-import { TableColumn, TableRow, } from '../types';
+import { TableColumn, TableRow, RowId} from '../types';
 
 export interface FocusedElement {
     rowKey: string,
@@ -9,7 +9,7 @@ export interface FocusedElement {
 
 export type Elements = any[][];
 
-export type GetNextFocusedElementFn = (tableColumns: TableColumn[], tableBodyRows: TableRow[], tableHeaderRows: TableRow[],
+export type GetNextFocusedElementFn = (tableColumns: TableColumn[], tableBodyRows: TableRow[], tableHeaderRows: TableRow[], expandedRowIds: RowId[],
     elements: Elements, event: any, focusedElement?: FocusedElement) => FocusedElement | void;
 
 export type GetFocusedElementFn = (key: string, shiftKey: boolean, focusedElement: FocusedElement, 
@@ -18,5 +18,7 @@ export type GetFocusedElementFn = (key: string, shiftKey: boolean, focusedElemen
 export type GetElementFn = (focusedElement: FocusedElement, tableBodyRows: TableRow[], 
     tableColumns: TableColumn[], tableHeaderRows: TableRow[], elements: Elements) => FocusedElement | void;
 
-export type getElementPrevNextPartFn = (focusedElement: FocusedElement, elements: Elements, 
+export type GetElementPrevNextPartFn = (focusedElement: FocusedElement, elements: Elements, 
     tableBodyRows: TableRow[], tableColumns: TableColumn[]) => FocusedElement | void;
+
+export type GetInnerElementsFn = (elements: Elements, key1: string, key2: string, query?:string) => any[];

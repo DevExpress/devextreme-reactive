@@ -1,7 +1,7 @@
 import { TABLE_FILTER_TYPE, TABLE_HEADING_TYPE, TABLE_DATA_TYPE, TABLE_BAND_TYPE } from '@devexpress/dx-grid-core';
 import { 
     GetNextFocusedElementFn, FocusedElement, TableColumn, TableRow,
-    GetElementFn, getElementPrevNextPartFn, Elements,
+    GetElementFn, GetElementPrevNextPartFn, Elements, RowId, GetInnerElementsFn,
 } from '../../types';
 
 const HEADING_TYPE = TABLE_HEADING_TYPE.toString();
@@ -21,9 +21,13 @@ const isSpanInput = (innerElements: any[]): boolean => {
   return innerElements[0].tagName === "SPAN" || innerElements[0].tagName === "INPUT" && innerElements[0].type === "text";
 }
 
+const isDefined = (value: any): value is boolean => {
+  return value !== undefined;
+}
+
 const hasInsideElements = (innerElements: any[], focusedElementIndex?: number): boolean => {
   if((innerElements.length && focusedElementIndex === undefined) || 
-  (focusedElementIndex !== undefined && focusedElementIndex < innerElements.length - 1)) {
+  (isDefined(focusedElementIndex) && focusedElementIndex < innerElements.length - 1)) {
     if(innerElements.length === 1 && focusedElementIndex === undefined) {
       return !isSpanInput(innerElements);
     }
@@ -32,7 +36,7 @@ const hasInsideElements = (innerElements: any[], focusedElementIndex?: number): 
   return false;
 }
 
-const getCellNextPart: getElementPrevNextPartFn = (focusedElement, elements, tableBodyRows, tableColumns) => {
+const getCellNextPart: GetElementPrevNextPartFn = (focusedElement, elements, tableBodyRows, tableColumns) => {
   const index = tableParts.findIndex((p) => {
     return p === focusedElement.part;
   });
@@ -63,7 +67,7 @@ const getCellNextPart: getElementPrevNextPartFn = (focusedElement, elements, tab
   }
 }
 
-const getCellPrevPart: getElementPrevNextPartFn = (focusedElement, elements, tableBodyRows, tableColumns) => {
+const getCellPrevPart: GetElementPrevNextPartFn = (focusedElement, elements, tableBodyRows, tableColumns) => {
   const lastBodyRowIndex = tableBodyRows.length - 1;
   let index = tableParts.findIndex((p) => {
     return p === focusedElement.part;
@@ -170,7 +174,7 @@ const getPrevElement: GetElementFn = (focusedElement, tableBodyRows, tableColumn
   const columnIndex = getIndex(tableColumns, focusedElement, 'columnKey');
   const rowIndex = getIndex(tableBodyRows, focusedElement, 'rowKey');
   
-  if(focusedElement.index !== undefined && focusedElement.index > 0) {
+  if(isDefined(focusedElement.index) && focusedElement.index > 0) {
     return { ...focusedElement, index: focusedElement.index - 1 };
   }
 
@@ -272,7 +276,7 @@ const getNextElement: GetElementFn = (focusedElement, tableBodyRows, tableColumn
   const rowIndex = getIndex(tableBodyRows, focusedElement, 'rowKey');
 
   if(hasInsideElements(innerElements, focusedElement.index)) {
-    return { ...focusedElement, index: focusedElement.index === undefined ? 0 : focusedElement.index + 1 };
+    return { ...focusedElement, index: !isDefined(focusedElement.index) ? 0 : focusedElement.index + 1 };
   }
 
   if(focusedElement.part === DATA_TYPE) {
@@ -400,7 +404,7 @@ const applyEnterAction = (elements: Elements, focusedElement?: FocusedElement): 
   }
   const innerElements = getInnerElements(elements, focusedElement.rowKey, focusedElement.columnKey)
 
-  if(focusedElement.index === undefined && innerElements.length && isSpanInput(innerElements)) {
+  if(!isDefined(focusedElement.index) && innerElements.length && isSpanInput(innerElements)) {
     if(innerElements[0].tagName === 'SPAN') {
       innerElements[0].click();
     }
@@ -437,8 +441,31 @@ const applyEscapeAction = (elements: Elements, focusedElement?: FocusedElement):
   return;
 }
 
-export const getInnerElements = (elements: Elements, key1: string, key2: string): any[] => {
-  return Array.from(elements[key1][key2][0].current.querySelectorAll('[tabIndex], input, button, a')).filter((el: any) => {
+const actionOnCheckbox = (elements: Elements, focusedElement?: FocusedElement) => {
+  if(!focusedElement || isDefined(focusedElement.index)) {
+    return;
+  }
+  
+  const el = getInnerElements(elements, focusedElement.rowKey, focusedElement.columnKey, 'input').filter((el: any) => {
+    return el.type === "checkbox";
+  });
+  el[0] && el[0].click();
+}
+
+const actionOnTreeMode = (elements: Elements, expandedRowIds: RowId[], direction: number, focusedElement: FocusedElement) => {
+  if(!focusedElement || isDefined(focusedElement.index) || !expandedRowIds) {
+    return;
+  }
+  const el = getInnerElements(elements, focusedElement.rowKey, focusedElement.columnKey, 'button, i');
+  const array = focusedElement.rowKey.split('_');
+  const index = Number(array[array.length - 1]);
+  if(direction > 0 && expandedRowIds.indexOf(index) === -1 || direction < 0 && expandedRowIds.indexOf(index) > -1) {
+    el[0] && el[0].click();
+  }
+}
+
+export const getInnerElements: GetInnerElementsFn = (elements, key1, key2, query = '[tabIndex], input, button, a') => {
+  return Array.from(elements[key1][key2][0].current.querySelectorAll(query)).filter((el: any) => {
     return !el.hasAttribute('disabled') && el.getAttribute('tabindex') !== "-1";
   });
 }
@@ -455,7 +482,7 @@ export const getCellTopBottom = (direction: number, focusedElement: FocusedEleme
   } : undefined;
 }
 
-export const getNextFocusedCell: GetNextFocusedElementFn = (tableColumns, tableBodyRows, tableHeaderRows, elements, event, focusedElement) => {
+export const getNextFocusedCell: GetNextFocusedElementFn = (tableColumns, tableBodyRows, tableHeaderRows, expandedRowIds, elements, event, focusedElement) => {
   if(!focusedElement) {
     const { toolbarElements, pagingElements } = getToolbarPagingElements(elements);
     const hasFocus = (elements: any[]) => {
@@ -500,6 +527,9 @@ export const getNextFocusedCell: GetNextFocusedElementFn = (tableColumns, tableB
       case 'Escape':
         cell = applyEscapeAction(elements, focusedElement);
       break;
+      case ' ':
+        actionOnCheckbox(elements, focusedElement);
+      break;
       case 'Tab':
         if(event.shiftKey) {
           cell = getPrevElement(focusedElement, tableBodyRows, tableColumns, tableHeaderRows, elements);
@@ -542,10 +572,18 @@ export const getNextFocusedCell: GetNextFocusedElementFn = (tableColumns, tableB
         }
         break;
       case 'ArrowLeft':
-        cell = getCellRightLeft(-1, focusedElement, tableColumns);
+        if(event.ctrlKey) {
+          actionOnTreeMode(elements, expandedRowIds, -1, focusedElement);
+        } else {
+          cell = getCellRightLeft(-1, focusedElement, tableColumns);
+        }
         break;
       case 'ArrowRight':
-        cell = getCellRightLeft(1, focusedElement, tableColumns);
+        if(event.ctrlKey) {
+          actionOnTreeMode(elements, expandedRowIds, 1, focusedElement);
+        } else {
+          cell = getCellRightLeft(1, focusedElement, tableColumns);
+        }
         break;
     }
     return cell;

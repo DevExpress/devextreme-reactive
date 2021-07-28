@@ -357,16 +357,19 @@ export type GetCellValueFn = (row: any, columnName: string) => any;
 export type GetElementFn = (focusedElement: FocusedElement, tableBodyRows: TableRow[], tableColumns: TableColumn[], tableHeaderRows: TableRow[], elements: Elements) => FocusedElement | void;
 
 // @public (undocumented)
-export type getElementPrevNextPartFn = (focusedElement: FocusedElement, elements: Elements, tableBodyRows: TableRow[], tableColumns: TableColumn[]) => FocusedElement | void;
+export type GetElementPrevNextPartFn = (focusedElement: FocusedElement, elements: Elements, tableBodyRows: TableRow[], tableColumns: TableColumn[]) => FocusedElement | void;
 
 // @public (undocumented)
 export type GetFocusedElementFn = (key: string, shiftKey: boolean, focusedElement: FocusedElement, tableColumns: TableColumn[], tableBodyRows: TableRow[], elements: Elements) => FocusedElement | void;
 
 // @public (undocumented)
+export type GetInnerElementsFn = (elements: Elements, key1: string, key2: string, query?: string) => any[];
+
+// @public (undocumented)
 export type GetMessageFn = (messageKey: string, params?: object) => string;
 
 // @public (undocumented)
-export type GetNextFocusedElementFn = (tableColumns: TableColumn[], tableBodyRows: TableRow[], tableHeaderRows: TableRow[], elements: Elements, event: any, focusedElement?: FocusedElement) => FocusedElement | void;
+export type GetNextFocusedElementFn = (tableColumns: TableColumn[], tableBodyRows: TableRow[], tableHeaderRows: TableRow[], expandedRowIds: RowId[], elements: Elements, event: any, focusedElement?: FocusedElement) => FocusedElement | void;
 
 // @public
 export const Grid: React_2.ComponentType<GridProps>;

@@ -18,6 +18,7 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
   rootRef = {} as any;
   tableHeaderRows: TableRow[] = [];
   searchPanelRef: any;
+  expandedRowIds = [];
 
   constructor(props) {
     super(props);
@@ -129,13 +130,12 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
       return;
     }
     
-    if(this.handleKeyDownProcessed) {
+    if(this.handleKeyDownProcessed || event.key === ' ' || event.key === 'ArrowLeft' && event.ctrlKey || event.key === 'ArrowRight' && event.ctrlKey) {
       this.handleKeyDownProcessed = false;
       return;
     }
     
-    focusedCell = getNextFocusedCell(this.tableColumns, this.tableBodyRows, this.tableHeaderRows, this.elements, event, focusedElement);
-    
+    focusedCell = getNextFocusedCell(this.tableColumns, this.tableBodyRows, this.tableHeaderRows, this.expandedRowIds, this.elements, event, focusedElement);
     
     if(focusedCell && event.ctrlKey && (event.key === 'ArrowDown' || event.key === 'ArrowUp')) {
       event.preventDefault();
@@ -156,7 +156,7 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
   handleKeyDownOnTable(event) {
     const { focusedElement } = this.state;
     
-    const nextFocusedElement = getNextFocusedCell(this.tableColumns, this.tableBodyRows, this.tableHeaderRows,
+    const nextFocusedElement = getNextFocusedCell(this.tableColumns, this.tableBodyRows, this.tableHeaderRows, this.expandedRowIds,
       this.elements, event, focusedElement);
     
     if(nextFocusedElement) {     
@@ -225,10 +225,11 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
         }} />
         <Action name="setSearchPanelRef" action={this.setSearchPanelRef.bind(this)} />
         <TemplateConnector>
-        {({ tableColumns, tableBodyRows, rootRef, tableHeaderRows }) => {
+        {({ tableColumns, tableBodyRows, rootRef, tableHeaderRows, expandedRowIds }) => {
             this.tableColumns = tableColumns;
             this.tableBodyRows = tableBodyRows;
             this.tableHeaderRows = filterHeaderRows(tableHeaderRows);
+            this.expandedRowIds = expandedRowIds;
             this.rootRef = rootRef;
             if(rootRef.current) {
               rootRef.current.removeEventListener('keydown', this.handleKeyDownOnWidget);

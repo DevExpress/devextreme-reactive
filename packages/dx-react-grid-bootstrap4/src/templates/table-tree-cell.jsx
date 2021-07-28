@@ -10,6 +10,10 @@ const TableTreeCellBase = ({
   ...restProps
 }) => (
   <td
+    className={classNames({
+      'dx-g-bs4-focus-cell': !!updateRefForKeyboardNavigation,
+    })}
+    ref={refObject}
     {...restProps}
   >
     <div
@@ -18,9 +22,7 @@ const TableTreeCellBase = ({
         'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
         'text-right': tableColumn && tableColumn.align === 'right',
         'text-center': tableColumn && tableColumn.align === 'center',
-        'dx-g-bs4-focus-cell': !!updateRefForKeyboardNavigation,
       })}
-      ref={refObject}
     >
       {children}
     </div>

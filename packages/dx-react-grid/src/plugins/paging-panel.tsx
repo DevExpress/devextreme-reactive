@@ -41,7 +41,10 @@ class PagingPanelBase extends React.PureComponent<PagingPanelProps> {
         <Template name="footer">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ currentPage, pageSize, totalCount, keyboardNavigationParams }, { setCurrentPage, setPageSize }) => (
+            {({ currentPage, pageSize, totalCount },
+            {
+              setCurrentPage, setPageSize, updateRefForKeyboardNavigation, setFocusedElement,
+            }) => (
               <Pager
                 currentPage={currentPage}
                 pageSize={pageSize}
@@ -51,10 +54,8 @@ class PagingPanelBase extends React.PureComponent<PagingPanelProps> {
                 getMessage={getMessage}
                 onCurrentPageChange={setCurrentPage}
                 onPageSizeChange={setPageSize}
-                updateRefForKeyboardNavigation={keyboardNavigationParams ?
-                   keyboardNavigationParams.updateRefForKeyboardNavigation : undefined}
-                setFocusedElement={keyboardNavigationParams ? 
-                  keyboardNavigationParams.setFocusedElement : undefined}
+                updateRefForKeyboardNavigation={updateRefForKeyboardNavigation}
+                setFocusedElement={setFocusedElement}
               />
             )}
           </TemplateConnector>

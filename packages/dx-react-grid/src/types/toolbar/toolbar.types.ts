@@ -7,7 +7,7 @@ export namespace Toolbar {
     /** @internal */
     updateRefForKeyboardNavigation: (ref: any, key1: string, key2: string) => void;
     /** @internal */
-    setFocusedElement: (key1: string, key2: string) => void
+    setFocusedElement: (key1: string, key2: string) => void;
   }
 }
 

@@ -41,14 +41,17 @@ class SearchPanelBase extends React.PureComponent<SearchPanelProps> {
         <Template name="toolbarContent">
           <TemplatePlaceholder />
           <TemplateConnector>
-            {({ searchValue, isDataRemote }, { changeSearchValue, scrollToRow, setSearchPanelRef }) => {
+            {({ searchValue, isDataRemote },
+            { changeSearchValue, scrollToRow, setSearchPanelRef }) => {
               const onValueChange = (value) => {
                 if (isDataRemote) {
                   scrollToRow(TOP_POSITION);
                 }
                 changeSearchValue(value);
               };
-              setSearchPanelRef && setSearchPanelRef(this.ref);
+              if (setSearchPanelRef) {
+                setSearchPanelRef(this.ref);
+              }
 
               return <Input
                 value={searchValue}

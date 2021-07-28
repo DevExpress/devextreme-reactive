@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { getClasses, createShallow } from '@material-ui/core/test-utils';
-import { Toolbar } from './toolbar';
 import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
+import { Toolbar } from './toolbar';
 
 jest.mock('@devexpress/dx-react-grid', () => ({
   withKeyboardNavigation: jest.fn().mockReturnValue(x => x),

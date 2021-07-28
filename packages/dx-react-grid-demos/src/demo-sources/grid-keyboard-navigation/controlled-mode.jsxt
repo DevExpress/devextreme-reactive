@@ -22,7 +22,7 @@ export default () => {
     { name: 'city', title: 'City' },
     { name: 'car', title: 'Car' },
   ]);
-  const [rows, setRows] = useState(generateRows({
+  const [rows] = useState(generateRows({
     columnValues: { id: ({ index }) => index, ...defaultColumnValues },
     length: 8,
   }));
@@ -50,7 +50,7 @@ export default () => {
         <Table />
         <TableKeyboardNavigation focusedCell={focusedCell} />
       </Grid>
-      <button onClick={click}>Click me</button>
+      <button type="button" onClick={click}>Click me</button>
     </<%&wrapperTag%>>
   );
 };

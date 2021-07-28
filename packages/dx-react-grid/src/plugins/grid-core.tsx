@@ -11,15 +11,15 @@ export class GridCore extends React.PureComponent<GridProps, any> {
     super(props);
 
     this.state = {
-      ref: {}
-    }
+      ref: {},
+    };
     this.rootRef = React.createRef();
   }
 
   componentDidMount() {
     this.setState({
-      ref: this.rootRef
-    })
+      ref: this.rootRef,
+    });
   }
 
   render() {

@@ -111,6 +111,7 @@ EditCommandHeadingCellBase.defaultProps = {
   setFocusedElement: undefined,
 };
 
+// eslint-disable-next-line max-len
 export const EditCommandHeadingCell = withKeyboardNavigation()(withEditColumnStyles(EditCommandHeadingCellBase));
 
 const EditCommandCellBase = ({

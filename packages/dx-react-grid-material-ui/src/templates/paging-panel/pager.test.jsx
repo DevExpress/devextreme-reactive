@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 import { Pager } from './pager';
 import { Pagination } from './pagination';
 import { PageSizeSelector } from './page-size-selector';
-import { withKeyboardNavigation } from '@devexpress/dx-react-grid'; 
 
 jest.mock('@devexpress/dx-react-grid', () => ({
   withKeyboardNavigation: jest.fn().mockReturnValue(x => x),

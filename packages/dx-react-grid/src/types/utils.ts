@@ -1,4 +1,4 @@
-import { TableRow, TableColumn } from './index'
+import { TableRow, TableColumn } from './index';
 
 /** Describes a row cache */
 export interface RowCache {
@@ -11,8 +11,10 @@ export interface RowCache {
 }
 
 export interface NavigatedComponent {
-  updateRefForKeyboardNavigation?: Function,
-  tableRow: TableRow,
-  tableColumn: TableColumn,
-  setFocusedElement?: Function, 
+  tableRow: TableRow;
+  tableColumn: TableColumn;
+  /** @internal */
+  setFocusedElement?: ({ key1, key2 }: { key1: string, key2: string }) => {};
+  updateRefForKeyboardNavigation?: ({ ref, key1, key2, action }:
+    { ref: any, key1: string, key2: string, action: string }) => {};
 }

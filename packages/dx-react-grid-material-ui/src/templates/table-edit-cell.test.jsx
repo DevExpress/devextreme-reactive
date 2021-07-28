@@ -200,7 +200,7 @@ describe('EditCell', () => {
     let tree = shallow((<EditCell />));
     expect(tree.is(`.${classes.focusedCell}`)).toBeFalsy();
 
-    tree = shallow((<EditCell updateRefForKeyboardNavigation={()=>{}} />));
+    tree = shallow((<EditCell updateRefForKeyboardNavigation={() => {}} />));
     expect(tree.is(`.${classes.focusedCell}`)).toBeTruthy();
   });
 });

@@ -251,7 +251,9 @@ export interface EditingStateProps {
 }
 
 // @public (undocumented)
-export type Elements = any[][];
+export type Elements = {
+  [key: string]: any[];
+};
 
 // @public (undocumented)
 export const ExportPanel: React_2.ComponentType<any>;
@@ -582,13 +584,11 @@ export interface KeyboardNavigationProps {
 // @public (undocumented)
 export interface NavigatedComponent {
   // (undocumented)
-  setFocusedElement?: Function;
-  // (undocumented)
   tableColumn: TableColumn;
   // (undocumented)
   tableRow: TableRow;
   // (undocumented)
-  updateRefForKeyboardNavigation?: Function;
+  updateRefForKeyboardNavigation?: (ref: any, key1: string, key2: string, action: string) => {};
 }
 
 // @public

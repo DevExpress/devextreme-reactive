@@ -54,7 +54,10 @@ describe('TableFilterCell', () => {
     let tree = shallow((<TableFilterCell {...defaultProps} />));
     expect(tree.is(`.${classes.focusedCell}`)).toBeFalsy();
 
-    tree = shallow((<TableFilterCell {...defaultProps} updateRefForKeyboardNavigation={()=>{}} />));
+    tree = shallow((<TableFilterCell
+      {...defaultProps}
+      updateRefForKeyboardNavigation={() => {}}
+    />));
     expect(tree.is(`.${classes.focusedCell}`)).toBeTruthy();
   });
 });

@@ -75,6 +75,8 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
                 changeColumnSorting, changeColumnGrouping,
                 changeTableColumnWidth, draftTableColumnWidth, cancelTableColumnWidthDraft,
                 storeWidthGetters = () => {},
+                setFocusedElement,
+                updateRefForKeyboardNavigation,
               }) => {
                 const { name: columnName, title: columnTitle } = params.tableColumn.column!;
                 const atLeastOneDataColumn = tableColumns
@@ -104,6 +106,8 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
                     getCellWidth={getter => storeWidthGetters({
                       tableColumn: params.tableColumn , getter, tableColumns,
                     })}
+                    setFocusedElement={setFocusedElement}
+                    updateRefForKeyboardNavigation={updateRefForKeyboardNavigation}
                     {...keyboardNavigationParams}
                   >
                     <TemplatePlaceholder

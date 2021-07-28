@@ -31,8 +31,7 @@ import {
 } from '../../../demo-data/generator';
 
 const getRowId = row => row.id;
-const onFocusedCellChanged = (info) => {
-  console.log(info)
+const onFocusedCellChanged = () => {
 }
 
 export default () => {

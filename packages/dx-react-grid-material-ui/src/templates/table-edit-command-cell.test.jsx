@@ -54,8 +54,8 @@ describe('TableCommandColumn', () => {
     it('should have focus style', () => {
       let tree = shallow((<EditCommandHeadingCell />));
       expect(tree.is(`.${classes.focusedCell}`)).toBeFalsy();
-  
-      tree = shallow((<EditCommandHeadingCell updateRefForKeyboardNavigation={()=>{}} />));
+
+      tree = shallow((<EditCommandHeadingCell updateRefForKeyboardNavigation={() => {}} />));
       expect(tree.is(`.${classes.focusedCell}`)).toBeTruthy();
     });
   });
@@ -93,7 +93,7 @@ describe('TableCommandColumn', () => {
     it('should have focus style', () => {
       let tree = shallow((<EditCommandCell />));
       expect(tree.is(`.${classes.focusedCell}`)).toBeFalsy();
-  
+
       tree = shallow((<EditCommandCell updateRefForKeyboardNavigation={() => {}} />));
       expect(tree.is(`.${classes.focusedCell}`)).toBeTruthy();
     });

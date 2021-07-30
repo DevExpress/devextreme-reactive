@@ -2,20 +2,14 @@ import React from 'react';
 import * as PropTypes from 'prop-types';
 import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
-class FocusCellBase extends React.PureComponent {
-  render() {
-    const {
-      component: CellPlaceholder,
-      ...restProps
-    } = this.props;
-
-    return (
-      <CellPlaceholder
-        {...restProps}
-      />
-    );
-  }
-}
+const FocusCellBase = ({
+  component: CellPlaceholder,
+  ...restProps
+}) => (
+  <CellPlaceholder
+    {...restProps}
+  />
+);
 
 FocusCellBase.propTypes = {
   component: PropTypes.func.isRequired,

@@ -691,3 +691,10 @@ export const filterHeaderRows = (tableHeaderRows: TableRow[]) => {
   return tableHeaderRows.filter(row =>
     row.key.includes(BAND_TYPE) || row.key.includes(HEADING_TYPE));
 };
+
+export const isRowFocused = (tableRow: TableRow, focusedRowKey?: string): boolean => {
+  if (focusedRowKey) {
+    return tableRow.key === focusedRowKey;
+  }
+  return false;
+};

@@ -1,6 +1,6 @@
 import { TABLE_FILTER_TYPE, TABLE_HEADING_TYPE, TABLE_DATA_TYPE, TABLE_BAND_TYPE } from '@devexpress/dx-grid-core';
 import {
-    getNextFocusedCell, getInnerElements, getCellTopBottom,
+    getNextFocusedCell, getInnerElements, getCellTopBottom, isRowFocused,
     getPart, getIndexToFocus, processEvents, handleOnFocusedCallChanged, filterHeaderRows,
 } from './computeds';
 
@@ -1534,5 +1534,13 @@ describe('filterHeaderRows', () => {
         key: TABLE_HEADING_TYPE.toString(),
       },
     ]);
+  });
+});
+
+describe('isRowFocused', () => {
+  it('should return correct boolean value', () => {
+    expect(isRowFocused({ key: 'test_row_1' } as any, 'test_row_1')).toBeTruthy();
+    expect(isRowFocused({ key: 'test_row_1' } as any)).toBeFalsy();
+    expect(isRowFocused({ key: 'test_row_1' } as any, 'test_row_2')).toBeFalsy();
   });
 });

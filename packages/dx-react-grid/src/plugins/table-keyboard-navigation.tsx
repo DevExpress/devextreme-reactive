@@ -6,16 +6,20 @@ import {
   TABLE_ADDED_TYPE, TABLE_DATA_TYPE,
   getNextFocusedCell,  getPart, getIndexToFocus,
   processEvents, handleOnFocusedCallChanged, getCellTopBottom, getInnerElements,
-  filterHeaderRows, Elements,
+  filterHeaderRows, Elements, isDataTableRow, isRowFocused,
 } from '@devexpress/dx-grid-core';
-import { KeyboardNavigationProps, KeyboardNavigationState, TableRow } from '../types';
+import {
+  KeyboardNavigationProps, KeyboardNavigationState, TableRow, TableCellProps, TableRowProps,
+} from '../types';
 
-const CellPlaceholder = props => <TemplatePlaceholder params={props} />;
+const CellPlaceholder = (props: TableCellProps) => <TemplatePlaceholder params={props} />;
+const RowPlaceholder = (props: TableRowProps) => <TemplatePlaceholder params={props} />;
 
 class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigationProps,
 KeyboardNavigationState> {
   static components = {
     cellComponent: 'Cell',
+    rowComponent: 'Row',
   };
   elements: Elements = {};
   tableColumns = [];
@@ -241,6 +245,8 @@ KeyboardNavigationState> {
   render() {
     const {
       cellComponent: Cell,
+      rowComponent: Row,
+      focusedRowEnabled,
     } = this.props;
     return (
       <Plugin
@@ -252,7 +258,7 @@ KeyboardNavigationState> {
         <Template
           name="tableCell"
         >
-          {(params: any) => (
+          {(params: TableCellProps) => (
             <TemplateConnector>
               {(getters,
               { updateRefForKeyboardNavigation, setFocusedElement }) => {
@@ -269,6 +275,24 @@ KeyboardNavigationState> {
             </TemplateConnector>
           )}
         </Template>
+        {(focusedRowEnabled) && (
+          <Template
+            name="tableRow"
+            predicate={({ tableRow }: any) => !!isDataTableRow(tableRow)}
+          >
+            {(params: TableRowProps) => (
+              <TemplateConnector>
+                {() => (
+                  <Row
+                    {...params}
+                    component={RowPlaceholder}
+                    focused={isRowFocused(params.tableRow, this.state.focusedElement?.rowKey)}
+                  />
+                )}
+              </TemplateConnector>
+            )}
+          </Template>
+        )}
         <TemplateConnector>
         {({ tableColumns, tableBodyRows, rootRef, tableHeaderRows, expandedRowIds }) => {
           this.tableColumns = tableColumns;

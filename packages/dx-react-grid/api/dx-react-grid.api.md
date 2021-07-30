@@ -572,19 +572,34 @@ export interface IntegratedSummaryProps {
 }
 
 // @public (undocumented)
-export interface KeyboardNavigationComponent extends Table.CellProps {
+export namespace KeyboardNavigation {
+  export interface CellProps extends Table.CellProps {
+    component: React_2.ComponentType<Table.CellProps>;
+  }
+  // (undocumented)
+  export interface RowProps extends Table.RowProps {
+    component: React_2.ComponentType<Table.RowProps>;
+  }
+}
+
+// @public (undocumented)
+export interface KeyboardNavigationComponent extends KeyboardNavigation.CellProps {
 }
 
 // @public (undocumented)
 export interface KeyboardNavigationProps {
   // (undocumented)
-  cellComponent: React_2.ComponentType<Table.DataCellProps>;
+  cellComponent: React_2.ComponentType<KeyboardNavigation.CellProps>;
   // (undocumented)
   defaultFocusedCell?: FocusedCell;
   // (undocumented)
   focusedCell?: FocusedCell;
   // (undocumented)
+  focusedRowEnabled?: boolean;
+  // (undocumented)
   onFocusedCellChanged?: (cell: FocusedCell) => void;
+  // (undocumented)
+  rowComponent: React_2.ComponentType<KeyboardNavigation.RowProps>;
 }
 
 // @public

@@ -112,6 +112,7 @@ export default () => {
         <SearchPanel />
         <TableFilterRow />
         <TableKeyboardNavigation 
+        focusedRowEnabled={true}
         defaultFocusedCell={{
           rowKey:`${Table.ROW_TYPE.toString()}_2`,
           columnKey: `${Table.COLUMN_TYPE.toString()}_name`

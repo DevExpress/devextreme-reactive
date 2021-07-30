@@ -1,11 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
-const TableFilterCellBase = ({
+export const TableFilterCell = ({
   style, filter, onFilter, children,
   column, tableRow, tableColumn, getMessage, filteringEnabled,
-  refObject, updateRefForKeyboardNavigation, setFocusedElement,
+  refObject,
   ...restProps
 }) => (
   <th
@@ -25,7 +24,7 @@ const TableFilterCellBase = ({
   </th>
 );
 
-TableFilterCellBase.propTypes = {
+TableFilterCell.propTypes = {
   style: PropTypes.object,
   filter: PropTypes.object,
   onFilter: PropTypes.func,
@@ -36,11 +35,9 @@ TableFilterCellBase.propTypes = {
   getMessage: PropTypes.func,
   filteringEnabled: PropTypes.bool,
   refObject: PropTypes.object,
-  updateRefForKeyboardNavigation: PropTypes.func,
-  setFocusedElement: PropTypes.func,
 };
 
-TableFilterCellBase.defaultProps = {
+TableFilterCell.defaultProps = {
   style: null,
   filter: null,
   onFilter: () => {},
@@ -51,8 +48,4 @@ TableFilterCellBase.defaultProps = {
   getMessage: undefined,
   filteringEnabled: true,
   refObject: undefined,
-  updateRefForKeyboardNavigation: undefined,
-  setFocusedElement: undefined,
 };
-
-export const TableFilterCell = withKeyboardNavigation()(TableFilterCellBase);

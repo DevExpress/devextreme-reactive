@@ -130,23 +130,13 @@ class TableBase extends React.PureComponent<TableProps> {
           {(params: TableNS.CellProps) => (
             <TemplateConnector>
               {(
-                { tableHeaderRows: headerRows, keyboardNavigationParams },
-                {
-                  setFocusedElement,
-                  updateRefForKeyboardNavigation,
-                },
+                { tableHeaderRows: headerRows },
               ) => (isHeaderStubTableCell(params.tableRow, headerRows)
                 ? <StubHeaderCell
-                  {...keyboardNavigationParams}
                   {...params}
-                  setFocusedElement={setFocusedElement}
-                  updateRefForKeyboardNavigation={updateRefForKeyboardNavigation}
                 />
                 : <StubCell
-                  {...keyboardNavigationParams}
                   {...params}
-                  setFocusedElement={setFocusedElement}
-                  updateRefForKeyboardNavigation={updateRefForKeyboardNavigation}
                 />
               )}
             </TemplateConnector>
@@ -158,10 +148,7 @@ class TableBase extends React.PureComponent<TableProps> {
         >
           {(params: TableNS.CellProps) => (
             <TemplateConnector>
-              {({ getCellValue, keyboardNavigationParams }, {
-                setFocusedElement,
-                updateRefForKeyboardNavigation,
-              }) => {
+              {({ getCellValue }) => {
                 const columnName = params.tableColumn.column!.name;
                 const value = getCellValue(params.tableRow.row, columnName);
                 return (
@@ -179,9 +166,6 @@ class TableBase extends React.PureComponent<TableProps> {
                         row={params.tableRow.row}
                         column={params.tableColumn.column!}
                         value={value}
-                        setFocusedElement={setFocusedElement}
-                        updateRefForKeyboardNavigation={updateRefForKeyboardNavigation}
-                        {...keyboardNavigationParams}
                       >
                         {content}
                       </Cell>

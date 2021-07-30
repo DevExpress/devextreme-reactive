@@ -6,10 +6,6 @@ import { DragDropProvider, DragSource } from '@devexpress/dx-react-core';
 import { TableHeaderCell } from './table-header-cell';
 import { ResizingControl } from './table-header-cell/resizing-control';
 
-jest.mock('@devexpress/dx-react-grid', () => ({
-  withKeyboardNavigation: jest.fn().mockReturnValue(x => x),
-}));
-
 const defaultProps = {
   column: { name: 'Test' },
   getCellWidth: () => {},
@@ -140,16 +136,5 @@ describe('TableHeaderCell', () => {
 
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
-  });
-
-  it('should have focus style', () => {
-    let tree = shallow((<TableHeaderCell {...defaultProps} />));
-    expect(tree.is(`.${classes.focusedCell}`)).toBeFalsy();
-
-    tree = shallow((<TableHeaderCell
-      {...defaultProps}
-      updateRefForKeyboardNavigation={() => {}}
-    />));
-    expect(tree.is(`.${classes.focusedCell}`)).toBeTruthy();
   });
 });

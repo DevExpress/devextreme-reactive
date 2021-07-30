@@ -1,11 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 import { TableCell } from './table-cell';
-
-jest.mock('@devexpress/dx-react-grid', () => ({
-  withKeyboardNavigation: jest.fn().mockReturnValue(x => x),
-}));
 
 describe('TableCell', () => {
   it('should have correct text alignment', () => {
@@ -67,22 +62,5 @@ describe('TableCell', () => {
     ));
     expect(tree.find('td').prop('data'))
       .toMatchObject({ a: 1 });
-  });
-
-  it('should call withKeyboardNavigation', () => {
-    shallow((
-      <TableCell />
-    ));
-
-    expect(withKeyboardNavigation).toBeCalledWith();
-  });
-
-  it('should apply class for keyboard navigation', () => {
-    const tree = shallow((
-      <TableCell updateRefForKeyboardNavigation={() => {}} />
-    ));
-
-    expect(tree.is('.dx-g-bs4-table-cell.text-nowrap.dx-g-bs4-focus-cell'))
-      .toBeTruthy();
   });
 });

@@ -1,11 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 import { EditCommandHeadingCell, EditCommandCell, CommandButton } from './table-edit-command-cell';
-
-jest.mock('@devexpress/dx-react-grid', () => ({
-  withKeyboardNavigation: jest.fn().mockReturnValue(x => x),
-}));
 
 describe('EditCommandCells', () => {
   describe('EditCommandCell', () => {
@@ -25,23 +20,6 @@ describe('EditCommandCells', () => {
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
     });
-
-    it('should call withKeyboardNavigation', () => {
-      shallow((
-        <EditCommandCell />
-      ));
-
-      expect(withKeyboardNavigation).toBeCalledWith();
-    });
-
-    it('should apply class for keyboard navigation', () => {
-      const tree = shallow((
-        <EditCommandCell updateRefForKeyboardNavigation={() => {}} />
-      ));
-
-      expect(tree.is('.text-center.p-0.text-nowrap.dx-g-bs4-focus-cell'))
-        .toBeTruthy();
-    });
   });
 
   describe('EditCommandHeadingCell', () => {
@@ -60,23 +38,6 @@ describe('EditCommandCells', () => {
       ));
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
-    });
-
-    it('should call withKeyboardNavigation', () => {
-      shallow((
-        <EditCommandHeadingCell />
-      ));
-
-      expect(withKeyboardNavigation).toBeCalledWith();
-    });
-
-    it('should apply class for keyboard navigation', () => {
-      const tree = shallow((
-        <EditCommandHeadingCell updateRefForKeyboardNavigation={() => {}} />
-      ));
-
-      expect(tree.is('.text-center.p-0.text-nowrap.dx-g-bs4-focus-cell'))
-        .toBeTruthy();
     });
   });
 

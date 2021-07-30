@@ -14,8 +14,7 @@ const styles = theme => ({
 });
 
 const ToolbarBase = ({
-  children, classes, className, style, refObject,
-  updateRefForKeyboardNavigation, setFocusedElement, ...restProps
+  children, classes, className, style, refObject, ...restProps
 }) => (
   <ToolbarMUI
     style={style}
@@ -33,16 +32,12 @@ ToolbarBase.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   refObject: PropTypes.object,
-  updateRefForKeyboardNavigation: PropTypes.func,
-  setFocusedElement: PropTypes.func,
 };
 
 ToolbarBase.defaultProps = {
   className: undefined,
   style: null,
   refObject: undefined,
-  updateRefForKeyboardNavigation: undefined,
-  setFocusedElement: undefined,
 };
 
 export const Toolbar = withKeyboardNavigation('toolbar', 'none')(withStyles(styles, { name: 'Toolbar' })(ToolbarBase));

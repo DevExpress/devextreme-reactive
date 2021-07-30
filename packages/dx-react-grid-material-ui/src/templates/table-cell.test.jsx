@@ -3,10 +3,6 @@ import TableCellMUI from '@material-ui/core/TableCell';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { TableCell } from './table-cell';
 
-jest.mock('@devexpress/dx-react-grid', () => ({
-  withKeyboardNavigation: jest.fn().mockReturnValue(x => x),
-}));
-
 describe('TableCell', () => {
   let classes;
   let shallow;
@@ -76,13 +72,5 @@ describe('TableCell', () => {
 
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
-  });
-
-  it('should have focus style', () => {
-    let tree = shallow(<TableCell />);
-    expect(tree.find(TableCellMUI).hasClass(classes.focusedCell)).toBeFalsy();
-
-    tree = shallow(<TableCell updateRefForKeyboardNavigation={() => {}} />);
-    expect(tree.find(TableCellMUI).hasClass(classes.focusedCell)).toBeTruthy();
   });
 });

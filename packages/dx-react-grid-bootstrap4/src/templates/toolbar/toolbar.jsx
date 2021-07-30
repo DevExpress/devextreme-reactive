@@ -7,7 +7,7 @@ export const ToolbarBase = ({
   children,
   className,
   style,
-  refObject, updateRefForKeyboardNavigation, setFocusedElement,
+  refObject,
   ...restProps
 }) => (
   <div
@@ -28,16 +28,12 @@ ToolbarBase.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   refObject: PropTypes.object,
-  updateRefForKeyboardNavigation: PropTypes.func,
-  setFocusedElement: PropTypes.func,
 };
 
 ToolbarBase.defaultProps = {
   className: undefined,
   style: null,
   refObject: undefined,
-  updateRefForKeyboardNavigation: undefined,
-  setFocusedElement: undefined,
 };
 
 export const Toolbar = withKeyboardNavigation('toolbar', 'none')(ToolbarBase);

@@ -1,11 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 import { EditCell } from './table-edit-cell';
-
-jest.mock('@devexpress/dx-react-grid', () => ({
-  withKeyboardNavigation: jest.fn().mockReturnValue(x => x),
-}));
 
 describe('EditCell', () => {
   it('should pass style to the root element', () => {
@@ -84,13 +79,5 @@ describe('EditCell', () => {
 
     expect(tree.find('input').prop('value'))
       .toBe(0);
-  });
-
-  it('should call withKeyboardNavigation', () => {
-    shallow((
-      <EditCell />
-    ));
-
-    expect(withKeyboardNavigation).toBeCalledWith();
   });
 });

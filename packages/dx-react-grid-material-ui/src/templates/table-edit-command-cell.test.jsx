@@ -6,10 +6,6 @@ import {
   EditCommandCell,
 } from './table-edit-command-cell';
 
-jest.mock('@devexpress/dx-react-grid', () => ({
-  withKeyboardNavigation: jest.fn().mockReturnValue(x => x),
-}));
-
 describe('TableCommandColumn', () => {
   describe('EditCommandHeadingCell', () => {
     let shallow;
@@ -50,14 +46,6 @@ describe('TableCommandColumn', () => {
       expect(tree.is(`.${classes.alignWithRowSpan}.${classes.headingCell}`))
         .toBeTruthy();
     });
-
-    it('should have focus style', () => {
-      let tree = shallow((<EditCommandHeadingCell />));
-      expect(tree.is(`.${classes.focusedCell}`)).toBeFalsy();
-
-      tree = shallow((<EditCommandHeadingCell updateRefForKeyboardNavigation={() => {}} />));
-      expect(tree.is(`.${classes.focusedCell}`)).toBeTruthy();
-    });
   });
 
   describe('EditCommandCell', () => {
@@ -88,14 +76,6 @@ describe('TableCommandColumn', () => {
 
       expect(tree.props().data)
         .toMatchObject({ a: 1 });
-    });
-
-    it('should have focus style', () => {
-      let tree = shallow((<EditCommandCell />));
-      expect(tree.is(`.${classes.focusedCell}`)).toBeFalsy();
-
-      tree = shallow((<EditCommandCell updateRefForKeyboardNavigation={() => {}} />));
-      expect(tree.is(`.${classes.focusedCell}`)).toBeTruthy();
     });
   });
 

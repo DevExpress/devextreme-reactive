@@ -1,19 +1,17 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
-const CellBase = ({
+export const Cell = ({
   column, children, beforeBorder,
   tableRow, tableColumn, row,
-  refObject, updateRefForKeyboardNavigation, setFocusedElement,
+  refObject,
   className, ...restProps
 }) => (
   <th
     className={classNames({
       'dx-g-bs4-banded-cell dx-g-bs4-table-cell text-nowrap border-right': true,
       'border-left': beforeBorder,
-      'dx-g-bs4-focus-cell': !!updateRefForKeyboardNavigation,
     }, className)}
     ref={refObject}
     {...restProps}
@@ -22,7 +20,7 @@ const CellBase = ({
   </th>
 );
 
-CellBase.propTypes = {
+Cell.propTypes = {
   column: PropTypes.object,
   row: PropTypes.any,
   children: PropTypes.oneOfType([
@@ -34,11 +32,9 @@ CellBase.propTypes = {
   className: PropTypes.string,
   beforeBorder: PropTypes.bool,
   refObject: PropTypes.object,
-  updateRefForKeyboardNavigation: PropTypes.func,
-  setFocusedElement: PropTypes.func,
 };
 
-CellBase.defaultProps = {
+Cell.defaultProps = {
   column: undefined,
   row: undefined,
   children: undefined,
@@ -47,8 +43,4 @@ CellBase.defaultProps = {
   className: undefined,
   beforeBorder: false,
   refObject: undefined,
-  updateRefForKeyboardNavigation: undefined,
-  setFocusedElement: undefined,
 };
-
-export const Cell = withKeyboardNavigation()(CellBase);

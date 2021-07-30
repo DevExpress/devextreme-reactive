@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
 export const CommandButton = ({
   onExecute,
@@ -32,11 +31,11 @@ CommandButton.defaultProps = {
   className: undefined,
 };
 
-const EditCommandHeadingCellBase = ({
+export const EditCommandHeadingCell = ({
   children,
   style,
   tableColumn, tableRow,
-  refObject, updateRefForKeyboardNavigation, setFocusedElement,
+  refObject,
   ...restProps
 }) => (
   <th
@@ -53,32 +52,26 @@ const EditCommandHeadingCellBase = ({
   </th>
 );
 
-EditCommandHeadingCellBase.propTypes = {
+EditCommandHeadingCell.propTypes = {
   children: PropTypes.node,
   style: PropTypes.object,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
   refObject: PropTypes.object,
-  updateRefForKeyboardNavigation: PropTypes.func,
-  setFocusedElement: PropTypes.func,
 };
 
-EditCommandHeadingCellBase.defaultProps = {
+EditCommandHeadingCell.defaultProps = {
   children: undefined,
   style: null,
   tableColumn: undefined,
   tableRow: undefined,
   refObject: undefined,
-  updateRefForKeyboardNavigation: undefined,
-  setFocusedElement: undefined,
 };
 
-export const EditCommandHeadingCell = withKeyboardNavigation()(EditCommandHeadingCellBase);
-
-const EditCommandCellBase = ({
+export const EditCommandCell = ({
   tableColumn, tableRow, row,
   children, style,
-  refObject, updateRefForKeyboardNavigation, setFocusedElement,
+  refObject,
   ...restProps
 }) => (
   <td
@@ -95,26 +88,20 @@ const EditCommandCellBase = ({
   </td>
 );
 
-EditCommandCellBase.propTypes = {
+EditCommandCell.propTypes = {
   children: PropTypes.node,
   style: PropTypes.object,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
   row: PropTypes.any,
   refObject: PropTypes.object,
-  updateRefForKeyboardNavigation: PropTypes.func,
-  setFocusedElement: PropTypes.func,
 };
 
-EditCommandCellBase.defaultProps = {
+EditCommandCell.defaultProps = {
   children: undefined,
   style: null,
   tableColumn: undefined,
   tableRow: undefined,
   row: undefined,
   refObject: undefined,
-  updateRefForKeyboardNavigation: undefined,
-  setFocusedElement: undefined,
 };
-
-export const EditCommandCell = withKeyboardNavigation()(EditCommandCellBase);

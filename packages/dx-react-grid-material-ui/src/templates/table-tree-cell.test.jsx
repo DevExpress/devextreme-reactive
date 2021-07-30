@@ -2,10 +2,6 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { TableTreeCell } from './table-tree-cell';
 
-jest.mock('@devexpress/dx-react-grid', () => ({
-  withKeyboardNavigation: jest.fn().mockReturnValue(x => x),
-}));
-
 describe('TableTreeCell', () => {
   let classes;
   let shallow;
@@ -78,13 +74,5 @@ describe('TableTreeCell', () => {
 
     expect(tree.is(`.${classes.cellCenterAlign}`))
       .toBeTruthy();
-  });
-
-  it('should have focus style', () => {
-    let tree = shallow((<TableTreeCell />));
-    expect(tree.is(`.${classes.focusedCell}`)).toBeFalsy();
-
-    tree = shallow((<TableTreeCell updateRefForKeyboardNavigation={() => {}} />));
-    expect(tree.is(`.${classes.focusedCell}`)).toBeTruthy();
   });
 });

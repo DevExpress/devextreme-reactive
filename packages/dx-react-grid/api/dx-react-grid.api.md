@@ -572,23 +572,19 @@ export interface IntegratedSummaryProps {
 }
 
 // @public (undocumented)
+export interface KeyboardNavigationComponent extends Table.CellProps {
+}
+
+// @public (undocumented)
 export interface KeyboardNavigationProps {
+  // (undocumented)
+  cellComponent: React_2.ComponentType<Table.DataCellProps>;
   // (undocumented)
   defaultFocusedCell?: FocusedCell;
   // (undocumented)
   focusedCell?: FocusedCell;
   // (undocumented)
   onFocusedCellChanged?: (cell: FocusedCell) => void;
-}
-
-// @public (undocumented)
-export interface NavigatedComponent {
-  // (undocumented)
-  tableColumn: TableColumn;
-  // (undocumented)
-  tableRow: TableRow;
-  // (undocumented)
-  updateRefForKeyboardNavigation?: (ref: any, key1: string, key2: string, action: string) => {};
 }
 
 // @public
@@ -1603,7 +1599,7 @@ export interface VirtualTableStateProps {
 }
 
 // @public (undocumented)
-export const withKeyboardNavigation: (key1?: string | undefined, key2?: string | undefined) => <T extends NavigatedComponent>(Component: React_2.ComponentType<T>) => React_2.ComponentType<T>;
+export const withKeyboardNavigation: <T extends KeyboardNavigationComponent>(key1?: string | undefined, key2?: string | undefined) => (Component: React_2.ComponentType<Table.CellProps>) => React_2.ComponentType<T>;
 
 
 // (No @packageDocumentation comment for this package)

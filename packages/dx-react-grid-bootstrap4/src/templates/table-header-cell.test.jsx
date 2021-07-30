@@ -2,14 +2,9 @@ import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 import { DragDropProvider, DragSource } from '@devexpress/dx-react-core';
 import { setupConsole } from '@devexpress/dx-testing';
-import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
 import { TableHeaderCell } from './table-header-cell';
 import { ResizingControl } from './table-header-cell/resizing-control';
-
-jest.mock('@devexpress/dx-react-grid', () => ({
-  withKeyboardNavigation: jest.fn().mockReturnValue(x => x),
-}));
 
 const defaultProps = {
   refObject: { current: {} },
@@ -137,22 +132,5 @@ describe('TableHeaderCell', () => {
     tree = shallow(<TableHeaderCell {...defaultProps} tableColumn={{ wordWrapEnabled: true }} />);
     expect(tree.is('.text-nowrap'))
       .toBeFalsy();
-  });
-
-  it('should call withKeyboardNavigation', () => {
-    shallow((
-      <TableHeaderCell {...defaultProps} />
-    ));
-
-    expect(withKeyboardNavigation).toBeCalledWith();
-  });
-
-  it('should apply class for keyboard navigation', () => {
-    const tree = shallow((
-      <TableHeaderCell {...defaultProps} updateRefForKeyboardNavigation={() => {}} />
-    ));
-
-    expect(tree.is('.position-relative.dx-g-bs4-header-cell.dx-g-bs4-focus-cell'))
-      .toBeTruthy();
   });
 });

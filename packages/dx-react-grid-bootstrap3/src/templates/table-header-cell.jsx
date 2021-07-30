@@ -1,12 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
 import { DragSource } from '@devexpress/dx-react-core';
 
 import { ResizingControl } from './table-header-cell/resizing-control';
 
-class TableHeaderCellBase extends React.PureComponent {
+export class TableHeaderCell extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -14,9 +13,10 @@ class TableHeaderCellBase extends React.PureComponent {
       dragging: false,
     };
     this.dragRef = React.createRef();
+    this.cellRef = React.createRef();
     this.getWidthGetter = () => {
       const { getCellWidth, refObject } = this.props;
-      const node = refObject.current;
+      const node = (refObject || this.cellRef).current;
       return node && getCellWidth(() => {
         const { width } = node.getBoundingClientRect();
         return width;
@@ -43,7 +43,7 @@ class TableHeaderCellBase extends React.PureComponent {
       draggingEnabled, resizingEnabled,
       onWidthChange, onWidthDraft, onWidthDraftCancel, getCellWidth,
       tableRow, children,
-      refObject, updateRefForKeyboardNavigation, setFocusedElement,
+      refObject,
       ...restProps
     } = this.props;
     const { dragging } = this.state;
@@ -62,7 +62,7 @@ class TableHeaderCellBase extends React.PureComponent {
           ...(dragging || (tableColumn && tableColumn.draft) ? { opacity: 0.3 } : null),
           ...style,
         }}
-        ref={refObject}
+        ref={refObject || this.cellRef}
         {...restProps}
       >
         <div
@@ -97,7 +97,7 @@ class TableHeaderCellBase extends React.PureComponent {
   }
 }
 
-TableHeaderCellBase.propTypes = {
+TableHeaderCell.propTypes = {
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
   column: PropTypes.object,
@@ -113,11 +113,9 @@ TableHeaderCellBase.propTypes = {
     PropTypes.node,
   ]),
   refObject: PropTypes.object,
-  updateRefForKeyboardNavigation: PropTypes.func,
-  setFocusedElement: PropTypes.func,
 };
 
-TableHeaderCellBase.defaultProps = {
+TableHeaderCell.defaultProps = {
   column: undefined,
   tableColumn: undefined,
   tableRow: undefined,
@@ -130,8 +128,4 @@ TableHeaderCellBase.defaultProps = {
   children: undefined,
   getCellWidth: () => {},
   refObject: undefined,
-  updateRefForKeyboardNavigation: undefined,
-  setFocusedElement: undefined,
 };
-
-export const TableHeaderCell = withKeyboardNavigation()(TableHeaderCellBase);

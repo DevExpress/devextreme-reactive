@@ -55,12 +55,9 @@ class TableEditRowBase extends React.PureComponent<TableEditRowProps> {
                 createRowChange,
                 rowChanges,
                 isColumnEditingEnabled,
-                keyboardNavigationParams,
               }, {
                 changeAddedRow,
                 changeRow,
-                setFocusedElement,
-                updateRefForKeyboardNavigation,
               }) => {
                 const { rowId, row } = params.tableRow;
                 const { column } = params.tableColumn;
@@ -103,9 +100,6 @@ class TableEditRowBase extends React.PureComponent<TableEditRowProps> {
                         value={value}
                         editingEnabled={editingEnabled}
                         onValueChange={onValueChange}
-                        updateRefForKeyboardNavigation={updateRefForKeyboardNavigation}
-                        setFocusedElement={setFocusedElement}
-                        {...keyboardNavigationParams}
                       >
                         {content}
                       </EditCell>

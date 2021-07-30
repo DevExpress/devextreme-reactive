@@ -7,7 +7,6 @@ import {
     FilteringState,
     SortingState,
     IntegratedSorting,
-    TableKeyboardNavigation,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
@@ -23,6 +22,7 @@ import {
   Toolbar,
   SearchPanel,
   TableFilterRow,
+  TableKeyboardNavigation
 } from '@devexpress/dx-react-grid-<%&themeName%>';<%&cssImports%>
 
 import {

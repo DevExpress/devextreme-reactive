@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
- Plugin, TemplateConnector, Getter, Action,
+ Plugin, TemplateConnector, Action, Template, TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
 import {
   TABLE_ADDED_TYPE, TABLE_DATA_TYPE,
@@ -10,8 +10,13 @@ import {
 } from '@devexpress/dx-grid-core';
 import { KeyboardNavigationProps, KeyboardNavigationState, TableRow } from '../types';
 
+const CellPlaceholder = props => <TemplatePlaceholder params={props} />;
+
 class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigationProps,
 KeyboardNavigationState> {
+  static components = {
+    cellComponent: 'Cell',
+  };
   elements: Elements = {};
   tableColumns = [];
   tableBodyRows = [];
@@ -184,6 +189,9 @@ KeyboardNavigationState> {
       this.handleKeyDownProcessed = true;
     } else if (event.key === 'Tab' || event.ctrlKey && event.key === 'ArrowDown' ||
     event.ctrlKey && event.key === 'ArrowUp') {
+      if (event.key === 'Tab') {
+        this.handleKeyDownProcessed = true;
+      }
       this.setState({
         focusedElement: undefined,
       });
@@ -231,15 +239,36 @@ KeyboardNavigationState> {
   }
 
   render() {
+    const {
+      cellComponent: Cell,
+    } = this.props;
     return (
       <Plugin
         name="TableKeyboardNavigation"
       >
-        <Getter name="keyboardNavigationParams" value={{ tabIndex: -1 }} />
         <Action name="setSearchPanelRef" action={this.setSearchPanelRef} />
         <Action name="updateRefForKeyboardNavigation" action={this.updateRef} />
         <Action name="setFocusedElement" action={this.setFocusedElement} />
-
+        <Template
+          name="tableCell"
+        >
+          {(params: any) => (
+            <TemplateConnector>
+              {(getters,
+              { updateRefForKeyboardNavigation, setFocusedElement }) => {
+                return (
+                  <Cell
+                    {...params}
+                    component={CellPlaceholder}
+                    tabIndex={-1}
+                    updateRefForKeyboardNavigation={updateRefForKeyboardNavigation}
+                    setFocusedElement={setFocusedElement}
+                  />
+                );
+              }}
+            </TemplateConnector>
+          )}
+        </Template>
         <TemplateConnector>
         {({ tableColumns, tableBodyRows, rootRef, tableHeaderRows, expandedRowIds }) => {
           this.tableColumns = tableColumns;

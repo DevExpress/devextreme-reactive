@@ -1,13 +1,8 @@
 import * as React from 'react';
 import { shallow, mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
-import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 import { Cell } from './cell';
 import { StyleContext } from '../layout';
-
-jest.mock('@devexpress/dx-react-grid', () => ({
-  withKeyboardNavigation: jest.fn().mockReturnValue(x => x),
-}));
 
 describe('TableCell', () => {
   let resetConsole;
@@ -62,13 +57,5 @@ describe('TableCell', () => {
       .toBe('1px solid red');
     expect(tree.find('.custom-class').last().prop('style').borderLeft)
       .toBe('1px solid red');
-  });
-
-  it('should call withKeyboardNavigation', () => {
-    shallow((
-      <Cell />
-    ));
-
-    expect(withKeyboardNavigation).toBeCalledWith();
   });
 });

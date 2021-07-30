@@ -3,13 +3,13 @@ import {
   SelectionState,
   TreeDataState,
   CustomTreeData,
-  TableKeyboardNavigation,
 } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table,
   TableHeaderRow,
   TableTreeColumn,
+  TableKeyboardNavigation
 } from '@devexpress/dx-react-grid-<%&themeName%>';<%&cssImports%>
 
 import {

@@ -4,8 +4,6 @@ import classNames from 'clsx';
 import Button from '@material-ui/core/Button';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
-import focusedStyle from '../utils/get-focused-style';
 
 const styles = theme => ({
   button: {
@@ -26,7 +24,6 @@ const styles = theme => ({
     verticalAlign: 'bottom',
     paddingBottom: theme.spacing(1.25),
   },
-  focusedCell: focusedStyle,
 });
 
 const withEditColumnStyles = withStyles(styles, { name: 'EditColumn' });
@@ -70,15 +67,12 @@ const EditCommandHeadingCellBase = ({
   tableRow, tableColumn,
   rowSpan,
   refObject,
-  updateRefForKeyboardNavigation,
-  setFocusedElement,
   ...restProps
 }) => (
   <TableCell
     className={classNames({
       [classes.headingCell]: true,
       [classes.alignWithRowSpan]: rowSpan > 1,
-      [classes.focusedCell]: updateRefForKeyboardNavigation !== undefined,
     }, className)}
     rowSpan={rowSpan}
     ref={refObject}
@@ -96,8 +90,6 @@ EditCommandHeadingCellBase.propTypes = {
   tableColumn: PropTypes.object,
   rowSpan: PropTypes.number,
   refObject: PropTypes.object,
-  updateRefForKeyboardNavigation: PropTypes.func,
-  setFocusedElement: PropTypes.func,
 };
 
 EditCommandHeadingCellBase.defaultProps = {
@@ -107,24 +99,19 @@ EditCommandHeadingCellBase.defaultProps = {
   tableColumn: undefined,
   rowSpan: undefined,
   refObject: undefined,
-  updateRefForKeyboardNavigation: undefined,
-  setFocusedElement: undefined,
 };
 
 // eslint-disable-next-line max-len
-export const EditCommandHeadingCell = withKeyboardNavigation()(withEditColumnStyles(EditCommandHeadingCellBase));
+export const EditCommandHeadingCell = withEditColumnStyles(EditCommandHeadingCellBase);
 
 const EditCommandCellBase = ({
   tableRow, tableColumn, row, children,
   classes, className, refObject,
-  updateRefForKeyboardNavigation,
-  setFocusedElement,
   ...restProps
 }) => (
   <TableCell
     className={classNames({
       [classes.cell]: true,
-      [classes.focusedCell]: updateRefForKeyboardNavigation !== undefined,
     }, className)}
     ref={refObject}
     {...restProps}
@@ -141,8 +128,6 @@ EditCommandCellBase.propTypes = {
   tableColumn: PropTypes.object,
   row: PropTypes.any,
   refObject: PropTypes.object,
-  updateRefForKeyboardNavigation: PropTypes.func,
-  setFocusedElement: PropTypes.func,
 };
 
 EditCommandCellBase.defaultProps = {
@@ -152,8 +137,6 @@ EditCommandCellBase.defaultProps = {
   tableColumn: undefined,
   row: undefined,
   refObject: undefined,
-  updateRefForKeyboardNavigation: undefined,
-  setFocusedElement: undefined,
 };
 
-export const EditCommandCell = withKeyboardNavigation()(withEditColumnStyles(EditCommandCellBase));
+export const EditCommandCell = withEditColumnStyles(EditCommandCellBase);

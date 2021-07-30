@@ -1,10 +1,8 @@
 import React, { useState } from 'react';<%&additionalImports%>
-import { 
-    TableKeyboardNavigation,
-} from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table,
+  TableKeyboardNavigation,
 } from '@devexpress/dx-react-grid-<%&themeName%>';<%&cssImports%>
 
 import {

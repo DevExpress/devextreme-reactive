@@ -1,18 +1,14 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
-const TableTreeCellBase = ({
+export const TableTreeCell = ({
   column, children, tableRow,
   tableColumn, row,
-  refObject, updateRefForKeyboardNavigation, setFocusedElement,
+  refObject,
   ...restProps
 }) => (
   <td
-    className={classNames({
-      'dx-g-bs4-focus-cell': !!updateRefForKeyboardNavigation,
-    })}
     ref={refObject}
     {...restProps}
   >
@@ -29,7 +25,7 @@ const TableTreeCellBase = ({
   </td>
 );
 
-TableTreeCellBase.propTypes = {
+TableTreeCell.propTypes = {
   column: PropTypes.object,
   row: PropTypes.any,
   children: PropTypes.node,
@@ -37,11 +33,9 @@ TableTreeCellBase.propTypes = {
   tableColumn: PropTypes.object,
   style: PropTypes.object,
   refObject: PropTypes.object,
-  updateRefForKeyboardNavigation: PropTypes.func,
-  setFocusedElement: PropTypes.func,
 };
 
-TableTreeCellBase.defaultProps = {
+TableTreeCell.defaultProps = {
   column: undefined,
   row: undefined,
   children: undefined,
@@ -49,8 +43,4 @@ TableTreeCellBase.defaultProps = {
   tableColumn: undefined,
   style: null,
   refObject: undefined,
-  updateRefForKeyboardNavigation: undefined,
-  setFocusedElement: undefined,
 };
-
-export const TableTreeCell = withKeyboardNavigation()(TableTreeCellBase);

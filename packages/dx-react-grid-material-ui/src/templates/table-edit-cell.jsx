@@ -4,8 +4,6 @@ import classNames from 'clsx';
 import Input from '@material-ui/core/Input';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
-import focusedStyle from '../utils/get-focused-style';
 
 const styles = theme => ({
   cell: {
@@ -16,7 +14,6 @@ const styles = theme => ({
       paddingLeft: theme.spacing(3),
     },
   },
-  focusedCell: focusedStyle,
   inputRoot: {
     width: '100%',
   },
@@ -45,8 +42,7 @@ const styles = theme => ({
 const EditCellBase = ({
   column, value, onValueChange, style, classes, children,
   row, tableRow, tableColumn, editingEnabled, className,
-  autoFocus, onBlur, onFocus, onKeyDown, refObject,
-  updateRefForKeyboardNavigation, setFocusedElement, ...restProps
+  autoFocus, onBlur, onFocus, onKeyDown, refObject, ...restProps
 }) => {
   const inputClasses = classNames({
     [classes.inputRight]: tableColumn && tableColumn.align === 'right',
@@ -64,7 +60,6 @@ const EditCellBase = ({
     <TableCell
       className={classNames({
         [classes.cell]: true,
-        [classes.focusedCell]: updateRefForKeyboardNavigation !== undefined,
       }, className)}
       style={style}
       ref={refObject}
@@ -108,8 +103,6 @@ EditCellBase.propTypes = {
   onFocus: PropTypes.func,
   onKeyDown: PropTypes.func,
   refObject: PropTypes.object,
-  updateRefForKeyboardNavigation: PropTypes.func,
-  setFocusedElement: PropTypes.func,
 };
 
 EditCellBase.defaultProps = {
@@ -128,8 +121,6 @@ EditCellBase.defaultProps = {
   onFocus: () => {},
   onKeyDown: () => {},
   refObject: undefined,
-  updateRefForKeyboardNavigation: undefined,
-  setFocusedElement: undefined,
 };
 
-export const EditCell = withKeyboardNavigation()(withStyles(styles, { name: 'EditCell' })(EditCellBase));
+export const EditCell = withStyles(styles, { name: 'EditCell' })(EditCellBase);

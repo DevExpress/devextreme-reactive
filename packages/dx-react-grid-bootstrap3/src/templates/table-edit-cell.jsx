@@ -1,12 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
-const EditCellBase = ({
+export const EditCell = ({
   column, value, onValueChange, style, children,
   row, tableRow, tableColumn, editingEnabled,
   autoFocus, onBlur, onFocus, onKeyDown,
-  refObject, updateRefForKeyboardNavigation, setFocusedElement, ...restProps
+  refObject, ...restProps
 }) => {
   const patchedChildren = children
     ? React.cloneElement(children, {
@@ -49,7 +48,7 @@ const EditCellBase = ({
   );
 };
 
-EditCellBase.propTypes = {
+EditCell.propTypes = {
   column: PropTypes.object,
   row: PropTypes.any,
   tableColumn: PropTypes.object,
@@ -64,11 +63,9 @@ EditCellBase.propTypes = {
   onFocus: PropTypes.func,
   onKeyDown: PropTypes.func,
   refObject: PropTypes.object,
-  updateRefForKeyboardNavigation: PropTypes.func,
-  setFocusedElement: PropTypes.func,
 };
 
-EditCellBase.defaultProps = {
+EditCell.defaultProps = {
   column: undefined,
   row: undefined,
   tableColumn: undefined,
@@ -83,8 +80,4 @@ EditCellBase.defaultProps = {
   onFocus: () => {},
   onKeyDown: () => {},
   refObject: undefined,
-  updateRefForKeyboardNavigation: undefined,
-  setFocusedElement: undefined,
 };
-
-export const EditCell = withKeyboardNavigation()(EditCellBase);

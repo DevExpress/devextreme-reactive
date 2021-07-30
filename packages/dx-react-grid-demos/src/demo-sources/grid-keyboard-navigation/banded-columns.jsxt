@@ -1,10 +1,11 @@
 import React, { useState } from 'react';<%&additionalImports%>
-import { DataTypeProvider, TableKeyboardNavigation } from '@devexpress/dx-react-grid';
+import { DataTypeProvider } from '@devexpress/dx-react-grid';
 import {
   Grid,
   Table,
   TableBandHeader,
   TableHeaderRow,
+  TableKeyboardNavigation,
 } from '@devexpress/dx-react-grid-<%&themeName%>';<%&cssImports%>
 import { countries } from '../../../demo-data/countries';
 

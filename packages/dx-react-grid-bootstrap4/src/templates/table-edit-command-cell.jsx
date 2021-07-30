@@ -1,7 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
 export const CommandButton = ({
   onExecute, text,
@@ -31,18 +30,15 @@ CommandButton.defaultProps = {
   className: undefined,
 };
 
-const EditCommandHeadingCellBase = ({
+export const EditCommandHeadingCell = ({
   children, className,
   tableColumn, tableRow,
   refObject,
-  updateRefForKeyboardNavigation,
-  setFocusedElement,
   ...restProps
 }) => (
   <th
     className={classNames({
       'text-center p-0 text-nowrap': true,
-      'dx-g-bs4-focus-cell': !!updateRefForKeyboardNavigation,
     }, className)}
     ref={refObject}
     {...restProps}
@@ -51,7 +47,7 @@ const EditCommandHeadingCellBase = ({
   </th>
 );
 
-EditCommandHeadingCellBase.propTypes = {
+EditCommandHeadingCell.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
@@ -60,34 +56,25 @@ EditCommandHeadingCellBase.propTypes = {
   tableRow: PropTypes.object,
   className: PropTypes.string,
   refObject: PropTypes.object,
-  updateRefForKeyboardNavigation: PropTypes.func,
-  setFocusedElement: PropTypes.func,
 };
 
-EditCommandHeadingCellBase.defaultProps = {
+EditCommandHeadingCell.defaultProps = {
   children: undefined,
   tableColumn: undefined,
   tableRow: undefined,
   className: undefined,
   refObject: undefined,
-  updateRefForKeyboardNavigation: undefined,
-  setFocusedElement: undefined,
 };
 
-export const EditCommandHeadingCell = withKeyboardNavigation()(EditCommandHeadingCellBase);
-
-const EditCommandCellBase = ({
+export const EditCommandCell = ({
   tableColumn, tableRow, row,
   children, className,
   refObject,
-  updateRefForKeyboardNavigation,
-  setFocusedElement,
   ...restProps
 }) => (
   <td
     className={classNames({
       'text-center p-0 text-nowrap': true,
-      'dx-g-bs4-focus-cell': !!updateRefForKeyboardNavigation,
     }, className)}
     ref={refObject}
     {...restProps}
@@ -96,7 +83,7 @@ const EditCommandCellBase = ({
   </td>
 );
 
-EditCommandCellBase.propTypes = {
+EditCommandCell.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
@@ -106,19 +93,13 @@ EditCommandCellBase.propTypes = {
   row: PropTypes.any,
   className: PropTypes.string,
   refObject: PropTypes.object,
-  updateRefForKeyboardNavigation: PropTypes.func,
-  setFocusedElement: PropTypes.func,
 };
 
-EditCommandCellBase.defaultProps = {
+EditCommandCell.defaultProps = {
   children: undefined,
   tableColumn: undefined,
   tableRow: undefined,
   row: undefined,
   className: undefined,
   refObject: undefined,
-  updateRefForKeyboardNavigation: undefined,
-  setFocusedElement: undefined,
 };
-
-export const EditCommandCell = withKeyboardNavigation()(EditCommandCellBase);

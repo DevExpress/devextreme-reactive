@@ -1,11 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
-const TableCellBase = ({
+export const TableCell = ({
   style, column, value, children,
   tableRow, tableColumn, row,
-  refObject, updateRefForKeyboardNavigation, setFocusedElement,
+  refObject,
   ...restProps
 }) => (
   <td
@@ -23,7 +22,7 @@ const TableCellBase = ({
   </td>
 );
 
-TableCellBase.propTypes = {
+TableCell.propTypes = {
   style: PropTypes.object,
   value: PropTypes.any,
   column: PropTypes.object,
@@ -32,11 +31,9 @@ TableCellBase.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   refObject: PropTypes.object,
-  updateRefForKeyboardNavigation: PropTypes.func,
-  setFocusedElement: PropTypes.func,
 };
 
-TableCellBase.defaultProps = {
+TableCell.defaultProps = {
   style: null,
   value: undefined,
   column: undefined,
@@ -45,8 +42,4 @@ TableCellBase.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   refObject: undefined,
-  updateRefForKeyboardNavigation: undefined,
-  setFocusedElement: undefined,
 };
-
-export const TableCell = withKeyboardNavigation()(TableCellBase);

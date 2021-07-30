@@ -94,13 +94,11 @@ class TableFilterRowBase extends React.PureComponent<TableFilterRowProps, TableF
               {(
                 {
                   filters, isColumnFilteringEnabled, getAvailableFilterOperations,
-                  isDataRemote, keyboardNavigationParams,
+                  isDataRemote,
                 },
                 {
                   changeColumnFilter,
                   scrollToRow,
-                  setFocusedElement,
-                  updateRefForKeyboardNavigation,
                 }: Actions,
               ) => {
                 const { filterOperations } = this.state;
@@ -148,9 +146,6 @@ class TableFilterRowBase extends React.PureComponent<TableFilterRowProps, TableF
                     {content => (
                       <FilterCell
                         {...params}
-                        {...keyboardNavigationParams}
-                        setFocusedElement={setFocusedElement}
-                        updateRefForKeyboardNavigation={updateRefForKeyboardNavigation}
                         getMessage={getMessage}
                         column={params.tableColumn.column!}
                         filter={filter}

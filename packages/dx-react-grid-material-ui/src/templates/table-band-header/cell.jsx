@@ -3,9 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 import { getBorder } from '../utils';
-import focusedStyle from '../../utils/get-focused-style';
 
 const styles = theme => ({
   cell: {
@@ -27,19 +25,16 @@ const styles = theme => ({
   beforeBorder: {
     borderLeft: getBorder(theme),
   },
-  focusedCell: focusedStyle,
 });
 
 const CellBase = ({
   column, value, children, classes, tableRow, tableColumn, row, className, beforeBorder, refObject,
-  updateRefForKeyboardNavigation, setFocusedElement,
   ...restProps
 }) => (
   <TableCell
     className={classNames({
       [classes.cell]: true,
       [classes.beforeBorder]: beforeBorder,
-      [classes.focusedCell]: updateRefForKeyboardNavigation !== undefined,
     }, className)}
     {...restProps}
     ref={refObject}
@@ -59,8 +54,6 @@ CellBase.propTypes = {
   className: PropTypes.string,
   beforeBorder: PropTypes.bool,
   refObject: PropTypes.object,
-  updateRefForKeyboardNavigation: PropTypes.func,
-  setFocusedElement: PropTypes.func,
 };
 
 CellBase.defaultProps = {
@@ -73,8 +66,6 @@ CellBase.defaultProps = {
   className: undefined,
   beforeBorder: false,
   refObject: undefined,
-  updateRefForKeyboardNavigation: undefined,
-  setFocusedElement: undefined,
 };
 
-export const Cell = withKeyboardNavigation()(withStyles(styles, { name: 'Cell' })(CellBase));
+export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

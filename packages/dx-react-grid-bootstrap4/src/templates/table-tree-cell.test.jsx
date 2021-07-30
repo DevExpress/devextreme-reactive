@@ -1,11 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 import { TableTreeCell } from './table-tree-cell';
-
-jest.mock('@devexpress/dx-react-grid', () => ({
-  withKeyboardNavigation: jest.fn().mockReturnValue(x => x),
-}));
 
 describe('TableTreeCell', () => {
   it('should render children if passed', () => {
@@ -53,13 +48,5 @@ describe('TableTreeCell', () => {
     ));
     expect(tree.find('.d-flex.flex-direction-row.align-items-center.text-center').exists())
       .toBeTruthy();
-  });
-
-  it('should call withKeyboardNavigation', () => {
-    shallow((
-      <TableTreeCell />
-    ));
-
-    expect(withKeyboardNavigation).toBeCalledWith();
   });
 });

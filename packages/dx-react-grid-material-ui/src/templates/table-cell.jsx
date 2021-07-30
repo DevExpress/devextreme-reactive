@@ -3,9 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCellMUI from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 import { getBorder } from './utils';
-import focusedStyle from '../utils/get-focused-style';
 
 const styles = theme => ({
   cell: {
@@ -29,19 +27,17 @@ const styles = theme => ({
   cellNoWrap: {
     whiteSpace: 'nowrap',
   },
-  focusedCell: focusedStyle,
 });
 
 const TableCellBase = ({
   column, value, children, classes,
   tableRow, tableColumn, row,
-  className, refObject, updateRefForKeyboardNavigation, setFocusedElement,
+  className, refObject,
   ...restProps
 }) => (
   <TableCellMUI
     className={classNames({
       [classes.cell]: true,
-      [classes.focusedCell]: updateRefForKeyboardNavigation !== undefined,
       [classes.cellRightAlign]: tableColumn && tableColumn.align === 'right',
       [classes.cellCenterAlign]: tableColumn && tableColumn.align === 'center',
       [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
@@ -64,8 +60,6 @@ TableCellBase.propTypes = {
   tableColumn: PropTypes.object,
   className: PropTypes.string,
   refObject: PropTypes.object,
-  updateRefForKeyboardNavigation: PropTypes.func,
-  setFocusedElement: PropTypes.func,
 };
 
 TableCellBase.defaultProps = {
@@ -77,8 +71,6 @@ TableCellBase.defaultProps = {
   tableColumn: undefined,
   className: undefined,
   refObject: undefined,
-  updateRefForKeyboardNavigation: undefined,
-  setFocusedElement: undefined,
 };
 
-export const TableCell = withKeyboardNavigation()(withStyles(styles, { name: 'TableCell' })(TableCellBase));
+export const TableCell = withStyles(styles, { name: 'TableCell' })(TableCellBase);

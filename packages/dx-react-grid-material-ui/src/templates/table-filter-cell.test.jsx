@@ -2,10 +2,6 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { TableFilterCell } from './table-filter-cell';
 
-jest.mock('@devexpress/dx-react-grid', () => ({
-  withKeyboardNavigation: jest.fn().mockReturnValue(x => x),
-}));
-
 const defaultProps = {
   getMessage: key => key,
   iconComponent: () => null,
@@ -48,16 +44,5 @@ describe('TableFilterCell', () => {
 
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
-  });
-
-  it('should have focus style', () => {
-    let tree = shallow((<TableFilterCell {...defaultProps} />));
-    expect(tree.is(`.${classes.focusedCell}`)).toBeFalsy();
-
-    tree = shallow((<TableFilterCell
-      {...defaultProps}
-      updateRefForKeyboardNavigation={() => {}}
-    />));
-    expect(tree.is(`.${classes.focusedCell}`)).toBeTruthy();
   });
 });

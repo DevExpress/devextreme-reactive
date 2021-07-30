@@ -3,8 +3,6 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCellMUI from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
-import focusedStyle from '../utils/get-focused-style';
 
 const styles = theme => ({
   cell: {
@@ -27,14 +25,12 @@ const styles = theme => ({
   cellCenterAlign: {
     textAlign: 'center',
   },
-  focusedCell: focusedStyle,
 });
 
 const TableTreeCellBase = ({
   column, value, children, classes,
   tableRow, tableColumn, row,
-  className, refObject, updateRefForKeyboardNavigation,
-  setFocusedElement,
+  className, refObject,
   ...restProps
 }) => (
   <TableCellMUI
@@ -43,7 +39,6 @@ const TableTreeCellBase = ({
       [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
       [classes.cellRightAlign]: tableColumn && tableColumn.align === 'right',
       [classes.cellCenterAlign]: tableColumn && tableColumn.align === 'center',
-      [classes.focusedCell]: updateRefForKeyboardNavigation !== undefined,
     }, className)}
     ref={refObject}
     {...restProps}
@@ -64,8 +59,6 @@ TableTreeCellBase.propTypes = {
   tableColumn: PropTypes.object,
   className: PropTypes.string,
   refObject: PropTypes.object,
-  updateRefForKeyboardNavigation: PropTypes.func,
-  setFocusedElement: PropTypes.func,
 };
 
 TableTreeCellBase.defaultProps = {
@@ -77,8 +70,6 @@ TableTreeCellBase.defaultProps = {
   tableColumn: undefined,
   className: undefined,
   refObject: undefined,
-  updateRefForKeyboardNavigation: undefined,
-  setFocusedElement: undefined,
 };
 
-export const TableTreeCell = withKeyboardNavigation()(withStyles(styles)(TableTreeCellBase));
+export const TableTreeCell = withStyles(styles)(TableTreeCellBase);

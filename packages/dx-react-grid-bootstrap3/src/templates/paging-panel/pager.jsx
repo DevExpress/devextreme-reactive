@@ -16,7 +16,7 @@ const PagerBase = ({
   getMessage,
   className,
   style,
-  refObject, updateRefForKeyboardNavigation, setFocusedElement,
+  refObject,
   ...restProps
 }) => (
   <div
@@ -59,16 +59,12 @@ PagerBase.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   refObject: PropTypes.object,
-  updateRefForKeyboardNavigation: PropTypes.func,
-  setFocusedElement: PropTypes.func,
 };
 
 PagerBase.defaultProps = {
   className: undefined,
   style: null,
   refObject: undefined,
-  updateRefForKeyboardNavigation: undefined,
-  setFocusedElement: undefined,
 };
 
 export const Pager = withKeyboardNavigation('paging', 'none')(PagerBase);

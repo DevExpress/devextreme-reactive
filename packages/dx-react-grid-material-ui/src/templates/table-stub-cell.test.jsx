@@ -2,10 +2,6 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
 import { TableStubCell } from './table-stub-cell';
 
-jest.mock('@devexpress/dx-react-grid', () => ({
-  withKeyboardNavigation: jest.fn().mockReturnValue(x => x),
-}));
-
 describe('TableStubCell', () => {
   let shallow;
   let classes;
@@ -33,13 +29,5 @@ describe('TableStubCell', () => {
 
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
-  });
-
-  it('should have focus style', () => {
-    let tree = shallow((<TableStubCell />));
-    expect(tree.is(`.${classes.focusedCell}`)).toBeFalsy();
-
-    tree = shallow((<TableStubCell updateRefForKeyboardNavigation={() => {}} />));
-    expect(tree.is(`.${classes.focusedCell}`)).toBeTruthy();
   });
 });

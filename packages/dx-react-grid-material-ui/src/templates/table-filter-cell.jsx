@@ -3,8 +3,6 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
-import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
-import focusedStyle from '../utils/get-focused-style';
 
 const styles = ({ spacing }) => ({
   cell: {
@@ -18,21 +16,17 @@ const styles = ({ spacing }) => ({
     display: 'flex',
     alignItems: 'center',
   },
-  focusedCell: focusedStyle,
 });
 
 const TableFilterCellBase = ({
   filter, getMessage, onFilter,
   classes, children, className,
   tableRow, tableColumn, column, filteringEnabled, refObject,
-  updateRefForKeyboardNavigation,
-  setFocusedElement,
   ...restProps
 }) => (
   <TableCell
     className={classNames({
       [classes.cell]: true,
-      [classes.focusedCell]: updateRefForKeyboardNavigation !== undefined,
     }, className)}
     ref={refObject}
     {...restProps}
@@ -55,8 +49,6 @@ TableFilterCellBase.propTypes = {
   column: PropTypes.object,
   filteringEnabled: PropTypes.bool,
   refObject: PropTypes.object,
-  updateRefForKeyboardNavigation: PropTypes.func,
-  setFocusedElement: PropTypes.func,
 };
 
 TableFilterCellBase.defaultProps = {
@@ -69,8 +61,6 @@ TableFilterCellBase.defaultProps = {
   column: undefined,
   filteringEnabled: true,
   refObject: undefined,
-  updateRefForKeyboardNavigation: undefined,
-  setFocusedElement: undefined,
 };
 
-export const TableFilterCell = withKeyboardNavigation()(withStyles(styles, { name: 'TableFilterCell' })(TableFilterCellBase));
+export const TableFilterCell = withStyles(styles, { name: 'TableFilterCell' })(TableFilterCellBase);

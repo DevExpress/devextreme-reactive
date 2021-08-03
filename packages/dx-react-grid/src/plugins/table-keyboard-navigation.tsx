@@ -9,7 +9,8 @@ import {
   filterHeaderRows, Elements, isDataTableRow, isRowFocused, getClosestCell,
 } from '@devexpress/dx-grid-core';
 import {
-  KeyboardNavigationProps, KeyboardNavigationCoreProps, KeyboardNavigationCoreState, TableCellProps, TableRowProps,
+  KeyboardNavigationProps, KeyboardNavigationCoreProps, KeyboardNavigationCoreState,
+  TableCellProps, TableRowProps,
 } from '../types';
 
 const CellPlaceholder = (props: TableCellProps) => <TemplatePlaceholder params={props} />;
@@ -115,7 +116,7 @@ KeyboardNavigationCoreState> {
     if (event.key === 'f' && event.ctrlKey) {
       event.preventDefault();
       this.searchPanelRef?.current?.click();
-      if(focusedElement) {
+      if (focusedElement) {
         this.setState({
           focusedElement: undefined,
         });
@@ -123,7 +124,7 @@ KeyboardNavigationCoreState> {
       return;
     }
 
-    if(focusedElement && !isCellExist(this.elements, focusedElement) && event.key === 'Tab') {
+    if (focusedElement && !isCellExist(this.elements, focusedElement) && event.key === 'Tab') {
       focusedCell = getClosestCell(tableBodyRows, focusedElement, this.elements);
       event.preventDefault();
       this.setState({
@@ -132,10 +133,10 @@ KeyboardNavigationCoreState> {
       return;
     }
 
-    if(focusedElement || isTabArrowUpDown(event)) {
+    if (focusedElement || isTabArrowUpDown(event)) {
       focusedCell = getNextFocusedCell(tableColumns, tableBodyRows,
         tableHeaderRows, expandedRowIds, this.elements, event, focusedElement);
-  
+
       if (focusedCell) {
         event.preventDefault();
         this.setState({
@@ -192,7 +193,7 @@ KeyboardNavigationCoreState> {
           <TemplatePlaceholder
             params={{
               updateRefForKeyboardNavigation: this.updateRef,
-              setFocusedElement: this.setFocusedElement
+              setFocusedElement: this.setFocusedElement,
             }}
           />
         </Template>
@@ -200,7 +201,7 @@ KeyboardNavigationCoreState> {
           <TemplatePlaceholder
             params={{
               updateRefForKeyboardNavigation: this.updateRef,
-              setFocusedElement: this.setFocusedElement
+              setFocusedElement: this.setFocusedElement,
             }}
           />
         </Template>
@@ -223,6 +224,7 @@ KeyboardNavigationCoreState> {
   }
 }
 
+// tslint:disable-next-line:max-classes-per-file
 class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigationProps> {
   static components = {
     cellComponent: 'Cell',
@@ -242,14 +244,12 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
               expandedRowIds={expandedRowIds}
               {...this.props}
             />
-          ) : null
+          ) : null;
         }}
         </TemplateConnector>
       </Plugin>
-    )
+    );
   }
 }
- 
-// eslint-disable-next-line max-len
+// tslint:disable-next-line: max-line-length
 export const TableKeyboardNavigation: React.ComponentType<KeyboardNavigationProps> = TableKeyboardNavigationBase;
-

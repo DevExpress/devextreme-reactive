@@ -6,18 +6,18 @@ import {
 } from './computeds';
 
 const generateElements = (
-    columns, bodyRows, extraParts, innerElementsCount = 2, 
-    { tagName = undefined, type = undefined, action = undefined, focusAction = undefined } = {}
+    columns, bodyRows, extraParts, innerElementsCount = 2,
+    extraProps?,
 ) => {
   const innerElements = [];
   for (let i = 0; i < innerElementsCount; i += 1) {
     innerElements.push({
       hasAttribute: jest.fn().mockReturnValue(false),
       getAttribute: jest.fn().mockReturnValue('1'),
-      tagName,
-      type,
-      click: action,
-      focus: focusAction,
+      tagName: extraProps?.tagName,
+      type: extraProps?.type,
+      click: extraProps?.action,
+      focus: extraProps?.focusAction,
     });
   }
   const refElement = { current: { querySelectorAll: jest.fn().mockReturnValue(innerElements) } };
@@ -421,18 +421,23 @@ describe('Focused element in the header with banded columns, key = Tab', () => {
   const key = 'Tab';
   const tableHeaderRows = [{ key: `${band}_0` }, { key: `${band}_1` }, { key: header }] as any;
   const expandedRowIds = [];
-  const elements = generateElements(tableColumns, tableBodyRows, [filter, header]);
+  const elements = generateElements(tableColumns, tableBodyRows, [filter]);
   elements[`${band}_0`] = {};
+  elements[`${band}_0`].test_column_1 = [refElement];
   elements[`${band}_0`].test_column_2 = [refElement];
+  elements[`${band}_0`].test_column_4 = [refElement];
   elements[`${band}_1`] = {};
+  elements[`${band}_1`].test_column_2 = [refElement];
+  elements[`${band}_1`].test_column_3 = [refElement];
   elements[`${band}_1`].test_column_4 = [refElement];
+  elements[`${header}`] = {};
+  elements[`${header}`].test_column_4 = [refElement];
 
-  it('should return band cell', () => {
+  it('should return next cell for band_0', () => {
     const focusedElement = {
-      rowKey: header,
+      rowKey: `${band}_0`,
       columnKey: 'test_column_1',
       part: header,
-      index: 1,
     };
 
     const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
@@ -444,40 +449,39 @@ describe('Focused element in the header with banded columns, key = Tab', () => {
     });
   });
 
-  it('should return header cell after band', () => {
+  it('should return cell from band_1', () => {
     const focusedElement = {
       rowKey: `${band}_0`,
-      columnKey: 'test_column_2',
+      columnKey: 'test_column_4',
       part: header,
     };
 
     const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key }, focusedElement);
     expect(element).toEqual({
-      rowKey: header,
+      rowKey: `${band}_1`,
       columnKey: 'test_column_2',
       part: header,
     });
   });
 
-  it('should return header after filter, shift key pressed', () => {
+  it('should return cell from header', () => {
     const focusedElement = {
-      rowKey: 'test_row_1',
-      columnKey: 'test_column_1',
-      part: filter,
+      rowKey: `${band}_1`,
+      columnKey: 'test_column_4',
+      part: header,
     };
 
     const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
-        expandedRowIds, elements, { key, shiftKey: true }, focusedElement);
+        expandedRowIds, elements, { key }, focusedElement);
     expect(element).toEqual({
       rowKey: header,
       columnKey: 'test_column_4',
       part: header,
-      index: 1,
     });
   });
 
-  it('should return band, shift key pressed', () => {
+  it('should return cell from band_1, shift key pressed', () => {
     const focusedElement = {
       rowKey: header,
       columnKey: 'test_column_4',
@@ -489,6 +493,22 @@ describe('Focused element in the header with banded columns, key = Tab', () => {
     expect(element).toEqual({
       rowKey: `${band}_1`,
       columnKey: 'test_column_4',
+      part: header,
+    });
+  });
+
+  it('should return cell for band_0, shift key pressed', () => {
+    const focusedElement = {
+      rowKey: `${band}_0`,
+      columnKey: 'test_column_4',
+      part: header,
+    };
+
+    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+        expandedRowIds, elements, { key, shiftKey: true }, focusedElement);
+    expect(element).toEqual({
+      rowKey: `${band}_0`,
+      columnKey: 'test_column_2',
       part: header,
     });
   });
@@ -980,7 +1000,7 @@ describe('Enter action', () => {
   const tableHeaderRows = [{ key: TABLE_HEADING_TYPE.toString() }] as any;
   const expandedRowIds = [];
   it('should return focused element from cell on action on cell, input type text', () => {
-    const generatedElements = generateElements(tableColumns, tableBodyRows, [], 1, 
+    const generatedElements = generateElements(tableColumns, tableBodyRows, [], 1,
       { tagName: 'INPUT', type: 'text' });
     const focusedElement = {
       rowKey: 'test_row_2',
@@ -1402,7 +1422,6 @@ describe('getIndexToFocus', () => {
   });
 });
 
-
 describe('filterHeaderRows', () => {
   it('should return headers with band and header type', () => {
     const headerRows = [{
@@ -1433,14 +1452,14 @@ describe('isRowFocused', () => {
 describe('isCellExist', () => {
   const generatedElements = generateElements(tableColumns, tableBodyRows, []);
   it('should return existing of the cell', () => {
-    expect(isCellExist(generatedElements, { 
-      columnKey: 'test_column_30', rowKey: 'test_row_15' 
+    expect(isCellExist(generatedElements, {
+      columnKey: 'test_column_30', rowKey: 'test_row_15',
     } as any)).toEqual(false);
     expect(isCellExist(generatedElements, {
-      columnKey: 'test_column_2', rowKey: 'test_row_2' 
+      columnKey: 'test_column_2', rowKey: 'test_row_2',
     } as any)).toEqual(true);
-    expect(isCellExist(generatedElements, { 
-      columnKey: 'test_column_2', rowKey: 'test_row_15' 
+    expect(isCellExist(generatedElements, {
+      columnKey: 'test_column_2', rowKey: 'test_row_15',
     } as any)).toEqual(false);
   });
 });
@@ -1449,7 +1468,7 @@ describe('getClosestCell', () => {
   const generatedElements = generateElements(tableColumns, tableBodyRows, []);
   it('should return closest cell', () => {
     expect(getClosestCell(tableBodyRows, { columnKey: 'test_column_2', part: 'part', rowKey: 'test_row_2' }, generatedElements)).toEqual({
-      columnKey: "test_column_2",
+      columnKey: 'test_column_2',
       index: 0,
       part: 'part',
       rowKey: 'test_row_3',
@@ -1458,7 +1477,7 @@ describe('getClosestCell', () => {
 
   it('should return last cell', () => {
     expect(getClosestCell(tableBodyRows, { columnKey: 'test_column_2', part: 'part', rowKey: 'test_row_3' }, generatedElements)).toEqual({
-      columnKey: "test_column_2",
+      columnKey: 'test_column_2',
       index: 0,
       part: 'part',
       rowKey: 'test_row_3',
@@ -1492,16 +1511,17 @@ describe('focus', () => {
   });
 
   it('should call focus, inner element', () => {
-    const focus = jest.fn();
-    const generatedElements = generateElements(tableColumns, tableBodyRows, [], undefined, { focusAction: focus });
+    const focusAction = jest.fn();
+    const generatedElements = generateElements(tableColumns, tableBodyRows, [],
+      undefined, { focusAction });
     const focusedElement = {
       rowKey: 'test_row_2',
       columnKey: 'test_column_2',
       part: body,
-      index: 0
+      index: 0,
     };
     focus(generatedElements, focusedElement);
-    expect(focus).toBeCalled();
+    expect(focusAction).toBeCalled();
   });
 
   it('should call focus for ref element', () => {

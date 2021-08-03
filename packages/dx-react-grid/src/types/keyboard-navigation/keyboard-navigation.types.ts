@@ -1,4 +1,7 @@
-import { FocusedElement, Table, TableColumn, TableRow, RowId, FocusedCell, OnFocusedCellChangedFn } from '../index';
+import {
+  FocusedElement, Table, TableColumn, TableRow, RowId,
+  FocusedCell, OnFocusedCellChangedFn,
+} from '../index';
 
 /* tslint:disable no-namespace max-line-length */
 export namespace KeyboardNavigation {
@@ -25,7 +28,6 @@ export namespace KeyboardNavigation {
   }
 }
 
-
 export interface KeyboardNavigationProps {
   defaultFocusedCell?: FocusedCell;
   focusedCell?: FocusedCell;
@@ -40,7 +42,7 @@ export interface KeyboardNavigationCoreProps extends KeyboardNavigationProps {
   tableBodyRows: TableRow[];
   tableHeaderRows: TableRow[];
   expandedRowIds: RowId[];
-  rootRef: React.RefObject<HTMLTableElement>; 
+  rootRef: React.RefObject<HTMLTableElement>;
 }
 
 /** @internal */

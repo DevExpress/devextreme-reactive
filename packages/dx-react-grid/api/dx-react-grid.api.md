@@ -573,8 +573,11 @@ export interface IntegratedSummaryProps {
 
 // @public (undocumented)
 export namespace KeyboardNavigation {
-  export interface CellProps extends Table.CellProps {
+  export interface CellProps extends Table.CellProps, Required<ExtraProps> {
     component: React_2.ComponentType<Table.CellProps>;
+  }
+  // (undocumented)
+  export interface ExtraProps {
   }
   // (undocumented)
   export interface RowProps extends Table.RowProps {
@@ -584,6 +587,20 @@ export namespace KeyboardNavigation {
 
 // @public (undocumented)
 export interface KeyboardNavigationComponent extends KeyboardNavigation.CellProps {
+}
+
+// @public (undocumented)
+export interface KeyboardNavigationCoreProps extends KeyboardNavigationProps {
+  // (undocumented)
+  expandedRowIds: RowId[];
+  // (undocumented)
+  rootRef: React_2.RefObject<HTMLTableElement>;
+  // (undocumented)
+  tableBodyRows: TableRow[];
+  // (undocumented)
+  tableColumns: TableColumn[];
+  // (undocumented)
+  tableHeaderRows: TableRow[];
 }
 
 // @public (undocumented)
@@ -597,10 +614,13 @@ export interface KeyboardNavigationProps {
   // (undocumented)
   focusedRowEnabled?: boolean;
   // (undocumented)
-  onFocusedCellChanged?: (cell: FocusedCell) => void;
+  onFocusedCellChanged?: OnFocusedCellChangedFn;
   // (undocumented)
   rowComponent: React_2.ComponentType<KeyboardNavigation.RowProps>;
 }
+
+// @public (undocumented)
+export type OnFocusedCellChangedFn = (cell: FocusedCell) => void;
 
 // @public
 export const PagingPanel: React_2.ComponentType<PagingPanelProps>;

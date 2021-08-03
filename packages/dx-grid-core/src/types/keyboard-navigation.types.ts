@@ -32,8 +32,8 @@ export type GetInnerElementsFn = (
 ) => any[];
 
 export interface FocusedCell {
-    columnKey: string;
-    rowKey: string;
+  columnKey: string;
+  rowKey: string;
 }
 
 export type OnFocusedCellChangedFn = (cell: FocusedCell) => void;

@@ -5,7 +5,7 @@ import {
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import { pageCount } from '@devexpress/dx-grid-core';
-import { PagingPanelProps } from '../types';
+import { PagingPanelProps, KeyboardNavigation } from '../types';
 
 const pluginDependencies = [
   { name: 'PagingState' },
@@ -39,26 +39,27 @@ class PagingPanelBase extends React.PureComponent<PagingPanelProps> {
         dependencies={pluginDependencies}
       >
         <Template name="footer">
-          <TemplatePlaceholder />
-          <TemplateConnector>
-            {({ currentPage, pageSize, totalCount },
-            {
-              setCurrentPage, setPageSize, updateRefForKeyboardNavigation, setFocusedElement,
-            }) => (
-              <Pager
-                currentPage={currentPage}
-                pageSize={pageSize}
-                totalCount={totalCount}
-                totalPages={pageCount(totalCount, pageSize)}
-                pageSizes={pageSizes!}
-                getMessage={getMessage}
-                onCurrentPageChange={setCurrentPage}
-                onPageSizeChange={setPageSize}
-                updateRefForKeyboardNavigation={updateRefForKeyboardNavigation}
-                setFocusedElement={setFocusedElement}
-              />
-            )}
-          </TemplateConnector>
+          {(params: KeyboardNavigation.ExtraProps) => (
+            <React.Fragment>
+              <TemplatePlaceholder />
+              <TemplateConnector>
+              {({ currentPage, pageSize, totalCount },
+                { setCurrentPage, setPageSize }) => (
+                <Pager
+                  {...params}
+                  currentPage={currentPage}
+                  pageSize={pageSize}
+                  totalCount={totalCount}
+                  totalPages={pageCount(totalCount, pageSize)}
+                  pageSizes={pageSizes!}
+                  getMessage={getMessage}
+                  onCurrentPageChange={setCurrentPage}
+                  onPageSizeChange={setPageSize}
+                />
+              )}
+              </TemplateConnector>
+            </React.Fragment>
+          )}
         </Template>
       </Plugin>
     );

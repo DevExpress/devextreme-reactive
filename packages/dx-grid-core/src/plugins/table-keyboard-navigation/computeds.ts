@@ -4,6 +4,7 @@ import {
 import {
     GetNextFocusedElementFn, FocusedElement, TableColumn, TableRow,
     GetElementFn, GetElementPrevNextPartFn, Elements, RowId, GetInnerElementsFn,
+    OnFocusedCellChangedFn,
 } from '../../types';
 
 const HEADING_TYPE = TABLE_HEADING_TYPE.toString();
@@ -502,8 +503,7 @@ const actionOnTreeMode = (
   const el = getInnerElements(
     elements, focusedElement.rowKey, focusedElement.columnKey, 'button, i',
   );
-  const array = focusedElement.rowKey.split('_');
-  const index = Number(array[array.length - 1]);
+  const index = getIndexFromKey(focusedElement.rowKey);
   if (direction > 0 && expandedRowIds.indexOf(index) === -1 ||
   direction < 0 && expandedRowIds.indexOf(index) > -1) {
     if (el[0]) {
@@ -520,8 +520,8 @@ export const getInnerElements: GetInnerElementsFn = (
   });
 };
 
-export const getCellTopBottom = (
-  direction: number, focusedElement: FocusedElement, tableBodyRows: TableRow[],
+const getCellTopBottom = (
+  direction: number, focusedElement: FocusedElement, tableBodyRows: TableRow[]
 ): FocusedElement | void => {
   if (focusedElement.part !== DATA_TYPE) {
     return;
@@ -533,6 +533,26 @@ export const getCellTopBottom = (
     part: focusedElement.part,
   } : undefined;
 };
+
+const getIndexFromKey = (key: string) => {
+  const array = key.split('_');
+  return Number(array[array.length - 1]);
+}
+
+export const getClosestCell = (tableBodyRows: TableRow[], focusedElement: FocusedElement, elements: Elements) => {
+  const currentIndex = getIndexFromKey(focusedElement.rowKey);
+  const bodyRow = tableBodyRows.find(row => {
+    return getIndexFromKey(row.key) > currentIndex;
+  });
+  const rowKey = bodyRow ? bodyRow.key : tableBodyRows[tableBodyRows.length - 1].key;
+  const columnKey = focusedElement.columnKey;
+  return {
+    rowKey,
+    columnKey,
+    part: focusedElement.part,
+    index: cellEmptyOrHasSpanAndInput(elements, rowKey, columnKey) ? undefined : 0,
+  };
+}
 
 export const getNextFocusedCell: GetNextFocusedElementFn = (
   tableColumns, tableBodyRows, tableHeaderRows, expandedRowIds, elements, event, focusedElement,
@@ -669,24 +689,6 @@ export const getIndexToFocus = (
   return;
 };
 
-export const processEvents = (node: any, process: string, handler: (event: any) => void): void => {
-  node.querySelectorAll('table').forEach((n: any) => {
-    n[process]('keydown', handler);
-  });
-};
-
-export const handleOnFocusedCallChanged = (
-  onFocusedCellChanged: ({ rowKey, columnKey }: {rowKey: string, columnKey: string}) => void,
-  focusedElement: FocusedElement,
-  prevFocusedElement: FocusedElement,
-): void => {
-  if (focusedElement.part === DATA_TYPE &&
-      (prevFocusedElement?.rowKey !== focusedElement.rowKey ||
-        prevFocusedElement?.columnKey !== focusedElement.columnKey)) {
-    onFocusedCellChanged({ rowKey: focusedElement.rowKey, columnKey: focusedElement.columnKey });
-  }
-};
-
 export const filterHeaderRows = (tableHeaderRows: TableRow[]) => {
   return tableHeaderRows.filter(row =>
     row.key.includes(BAND_TYPE) || row.key.includes(HEADING_TYPE));
@@ -697,4 +699,35 @@ export const isRowFocused = (tableRow: TableRow, focusedRowKey?: string): boolea
     return tableRow.key === focusedRowKey;
   }
   return false;
+};
+
+export const isCellExist = (elements: Elements, focusedElement: FocusedElement): boolean => {
+  return !!(elements[focusedElement.rowKey] && elements[focusedElement.rowKey][focusedElement.columnKey]);
+}
+
+export const isTabArrowUpDown = (event: any): boolean => {
+  return event.key === 'Tab' || event.ctrlKey && (event.key === 'ArrowDown' || event.key === 'ArrowUp')
+}
+
+export const focus = (elements: Elements, focusedElement?: FocusedElement, 
+  prevFocusedElement?: FocusedElement, onFocusedCellChanged?: OnFocusedCellChangedFn) => {
+  if (!focusedElement || !elements[focusedElement.rowKey] ||
+    !elements[focusedElement.rowKey][focusedElement.columnKey]) {
+    return;
+  }
+  const el = focusedElement.index === undefined ? elements[focusedElement.rowKey][focusedElement.columnKey][0] :
+  getInnerElements(elements, focusedElement.rowKey, focusedElement.columnKey)[focusedElement.index];
+  
+  if (el) {
+    if (el.focus) {
+      el.focus();
+    } else {
+      el.current.focus();
+    }
+      if (onFocusedCellChanged && focusedElement.part === DATA_TYPE &&
+        (prevFocusedElement?.rowKey !== focusedElement.rowKey ||
+          prevFocusedElement?.columnKey !== focusedElement.columnKey)) {
+      onFocusedCellChanged({ rowKey: focusedElement.rowKey, columnKey: focusedElement.columnKey });
+    }
+  }
 };

@@ -4,9 +4,8 @@ import {
   Template,
   Plugin,
   TemplatePlaceholder,
-  TemplateConnector,
 } from '@devexpress/dx-react-core';
-import { ToolbarProps } from '../types';
+import { ToolbarProps, KeyboardNavigation } from '../types';
 
 class ToolbarBase extends React.PureComponent<ToolbarProps> {
   static components = {
@@ -24,20 +23,14 @@ class ToolbarBase extends React.PureComponent<ToolbarProps> {
         name="Toolbar"
       >
         <Template name="header">
-          <TemplateConnector>
-            {(getters, {
-              setFocusedElement,
-              updateRefForKeyboardNavigation,
-            }) => (
-              <Root
-                updateRefForKeyboardNavigation={updateRefForKeyboardNavigation}
-                setFocusedElement={setFocusedElement}
-              >
-                <TemplatePlaceholder name="toolbarContent" />
-              </Root>
-            )}
-          </TemplateConnector>
-          <TemplatePlaceholder />
+        {(params: KeyboardNavigation.ExtraProps) => (
+          <React.Fragment>
+            <Root {...params}>
+              <TemplatePlaceholder name="toolbarContent" />
+            </Root>
+            <TemplatePlaceholder />
+          </React.Fragment>
+        )}
         </Template>
         <Template name="toolbarContent">
           <FlexibleSpaceComponent />

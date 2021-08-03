@@ -1,11 +1,13 @@
 import { TABLE_FILTER_TYPE, TABLE_HEADING_TYPE, TABLE_DATA_TYPE, TABLE_BAND_TYPE } from '@devexpress/dx-grid-core';
 import {
-    getNextFocusedCell, getInnerElements, getCellTopBottom, isRowFocused,
-    getPart, getIndexToFocus, processEvents, handleOnFocusedCallChanged, filterHeaderRows,
+    getNextFocusedCell, getInnerElements, isRowFocused, isCellExist,
+    getPart, getIndexToFocus, filterHeaderRows,
+    getClosestCell, isTabArrowUpDown, focus,
 } from './computeds';
 
 const generateElements = (
-    columns, bodyRows, extraParts, innerElementsCount = 2, tagName?, type?, action?,
+    columns, bodyRows, extraParts, innerElementsCount = 2, 
+    { tagName = undefined, type = undefined, action = undefined, focusAction = undefined } = {}
 ) => {
   const innerElements = [];
   for (let i = 0; i < innerElementsCount; i += 1) {
@@ -15,6 +17,7 @@ const generateElements = (
       tagName,
       type,
       click: action,
+      focus: focusAction,
     });
   }
   const refElement = { current: { querySelectorAll: jest.fn().mockReturnValue(innerElements) } };
@@ -321,7 +324,7 @@ describe('Focused element in the header, key = Tab', () => {
 
   it('should return cell from filter, tab key pressed, cell with input - text', () => {
     const generatedElements = generateElements(tableColumns, tableBodyRows, [filter, header],
-        2, 'INPUT', 'text');
+        2, { tagName: 'INPUT', type: 'text' });
     const focusedElement = {
       rowKey: header,
       columnKey: 'test_column_4',
@@ -339,7 +342,7 @@ describe('Focused element in the header, key = Tab', () => {
 
   it('should return cell from filter, tab key pressed, cell with input - checkbox', () => {
     const generatedElements = generateElements(tableColumns, tableBodyRows, [filter, header],
-        2, 'INPUT', 'checkbox');
+        2, { tagName: 'INPUT', type: 'checkbox' });
     const focusedElement = {
       rowKey: header,
       columnKey: 'test_column_4',
@@ -358,7 +361,7 @@ describe('Focused element in the header, key = Tab', () => {
 
   it('should return cell from filter, tab key pressed, cell contain span component', () => {
     const generatedElements = generateElements(tableColumns, tableBodyRows, [filter, header],
-        2, 'SPAN');
+        2, { tagName: 'SPAN' });
     const focusedElement = {
       rowKey: header,
       columnKey: 'test_column_4',
@@ -376,7 +379,7 @@ describe('Focused element in the header, key = Tab', () => {
 
   it('should return next cell, tab key pressed, cell containes input component', () => {
     const generatedElements = generateElements(tableColumns, tableBodyRows, [header],
-        2, 'INPUT', 'text');
+        2, { tagName: 'INPUT', type: 'text' });
     const focusedElement = {
       rowKey: header,
       columnKey: 'test_column_2',
@@ -394,7 +397,7 @@ describe('Focused element in the header, key = Tab', () => {
 
   it('should return prev cell, tab + shift key pressed, cell containes input component', () => {
     const generatedElements = generateElements(tableColumns, tableBodyRows, [header],
-        2, 'INPUT', 'text');
+        2, { tagName: 'INPUT', type: 'text' });
     const focusedElement = {
       rowKey: header,
       columnKey: 'test_column_2',
@@ -734,7 +737,7 @@ describe('Focused element in the body of table', () => {
 
   it('should return last cell from header, tab shift key pressed, cell with input - text', () => {
     const generatedElements = generateElements(tableColumns, tableBodyRows, [header],
-        1, 'INPUT', 'text');
+        1, { tagName: 'INPUT', type: 'text' });
     const focusedElement = {
       rowKey: 'test_row_1',
       columnKey: 'test_column_1',
@@ -751,7 +754,7 @@ describe('Focused element in the body of table', () => {
 
   it('should return next cell, tab key pressed, cell with input - text', () => {
     const generatedElements = generateElements(tableColumns, tableBodyRows, [],
-        1, 'INPUT', 'text');
+        1, { tagName: 'INPUT', type: 'text' });
     const focusedElement = {
       rowKey: 'test_row_1',
       columnKey: 'test_column_1',
@@ -769,7 +772,7 @@ describe('Focused element in the body of table', () => {
 
   it('should return prev cell, tab + shift key pressed, cell with input - text', () => {
     const generatedElements = generateElements(tableColumns, tableBodyRows, [],
-        1, 'INPUT', 'text');
+        1, { tagName: 'INPUT', type: 'text' });
     const focusedElement = {
       rowKey: 'test_row_1',
       columnKey: 'test_column_3',
@@ -977,7 +980,8 @@ describe('Enter action', () => {
   const tableHeaderRows = [{ key: TABLE_HEADING_TYPE.toString() }] as any;
   const expandedRowIds = [];
   it('should return focused element from cell on action on cell, input type text', () => {
-    const generatedElements = generateElements(tableColumns, tableBodyRows, [], 1, 'INPUT', 'text');
+    const generatedElements = generateElements(tableColumns, tableBodyRows, [], 1, 
+      { tagName: 'INPUT', type: 'text' });
     const focusedElement = {
       rowKey: 'test_row_2',
       columnKey: 'test_column_2',
@@ -995,7 +999,7 @@ describe('Enter action', () => {
 
   it('should not return focused element from cell on action on cell, input type checkbox', () => {
     const generatedElements = generateElements(tableColumns, tableBodyRows, [], 1,
-        'INPUT', 'checkbox');
+      { tagName: 'INPUT', type: 'checkbox' });
     const focusedElement = {
       rowKey: 'test_row_2',
       columnKey: 'test_column_2',
@@ -1008,7 +1012,7 @@ describe('Enter action', () => {
 
   it('should return cell on enter action on its input', () => {
     const generatedElements = generateElements(tableColumns, tableBodyRows, [], 1,
-        'INPUT', 'text');
+      { tagName: 'INPUT', type: 'text' });
     const focusedElement = {
       rowKey: 'test_row_2',
       columnKey: 'test_column_2',
@@ -1027,7 +1031,7 @@ describe('Enter action', () => {
   it('should return span from cell on action on cell', () => {
     const click = jest.fn();
     const generatedElements = generateElements(tableColumns, tableBodyRows, [], 1,
-        'SPAN', '', click);
+      { tagName: 'SPAN', type: '', action: click });
     const focusedElement = {
       rowKey: 'test_row_2',
       columnKey: 'test_column_2',
@@ -1047,7 +1051,7 @@ describe('Enter action', () => {
   it('should not return focused element on action on span', () => {
     const click = jest.fn();
     const generatedElements = generateElements(tableColumns, tableBodyRows, [], 1,
-        'SPAN', '', click);
+      { tagName: 'SPAN', type: '', action: click });
     const focusedElement = {
       rowKey: 'test_row_2',
       columnKey: 'test_column_2',
@@ -1088,7 +1092,7 @@ describe('Enter action', () => {
 
   it('should not return focused element, current focused element is undefined', () => {
     const generatedElements = generateElements(tableColumns, tableBodyRows, [],
-        1, 'INPUT', 'text');
+        1, { tagName: 'INPUT', type: 'text' });
     const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Enter' });
     expect(element).toEqual(undefined);
@@ -1100,7 +1104,7 @@ describe('Excape action', () => {
   const expandedRowIds = [];
   it('should return cell on escape action on input', () => {
     const generatedElements = generateElements(tableColumns, tableBodyRows, [],
-        1, 'INPUT', 'text');
+        1, { tagName: 'INPUT', type: 'text' });
     const focusedElement = {
       rowKey: 'test_row_2',
       columnKey: 'test_column_2',
@@ -1118,7 +1122,7 @@ describe('Excape action', () => {
 
   it('should not return focused element on escape action on cell', () => {
     const generatedElements = generateElements(tableColumns, tableBodyRows, [],
-        1, 'INPUT', 'text');
+        1, { tagName: 'INPUT', type: 'text' });
     const focusedElement = {
       rowKey: 'test_row_2',
       columnKey: 'test_column_2',
@@ -1131,7 +1135,7 @@ describe('Excape action', () => {
 
   it('should not return focused element on escape action on span', () => {
     const generatedElements = generateElements(tableColumns, tableBodyRows, [],
-        1, 'SPAN');
+        1, { tagName: 'SPAN' });
     const focusedElement = {
       rowKey: 'test_row_2',
       columnKey: 'test_column_2',
@@ -1171,7 +1175,7 @@ describe('Excape action', () => {
 
   it('should not return focused element, focusedElement is undefined', () => {
     const generatedElements = generateElements(tableColumns, tableBodyRows, [],
-        1, 'INPUT', 'text');
+        1, { tagName: 'INPUT', type: 'text' });
     const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Escape' });
     expect(element).toEqual(undefined);
@@ -1184,7 +1188,7 @@ describe('Space action on checkbox', () => {
   it('should call ection', () => {
     const click = jest.fn();
     const generatedElements = generateElements(tableColumns, tableBodyRows, [],
-        1, 'INPUT', 'checkbox', click);
+        1, { tagName: 'INPUT', type: 'checkbox', action: click });
     const focusedElement = {
       rowKey: 'test_row_2',
       columnKey: 'test_column_2',
@@ -1201,7 +1205,7 @@ describe('Space action on checkbox', () => {
   it('should not call ection, no focused element', () => {
     const click = jest.fn();
     const generatedElements = generateElements(tableColumns, tableBodyRows, [],
-        1, 'INPUT', 'checkbox', click);
+        1, { tagName: 'INPUT', type: 'checkbox', action: click });
 
     const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: ' ' });
@@ -1212,7 +1216,7 @@ describe('Space action on checkbox', () => {
   it('should not call action, focused inner element', () => {
     const click = jest.fn();
     const generatedElements = generateElements(tableColumns, tableBodyRows, [],
-        1, 'INPUT', 'checkbox', click);
+        1, { tagName: 'INPUT', type: 'checkbox', action: click });
     const focusedElement = {
       rowKey: 'test_row_2',
       columnKey: 'test_column_2',
@@ -1228,7 +1232,7 @@ describe('Space action on checkbox', () => {
   it('should not call action, input type is button', () => {
     const click = jest.fn();
     const generatedElements = generateElements(tableColumns, tableBodyRows, [],
-        1, 'INPUT', 'button', click);
+        1, { tagName: 'INPUT', type: 'button', action: click });
     const focusedElement = {
       rowKey: 'test_row_2',
       columnKey: 'test_column_2',
@@ -1245,7 +1249,7 @@ describe('collapse/expand row in tree mode', () => {
   it('should expand row', () => {
     const click = jest.fn();
     const generatedElements = generateElements(tableColumns, tableBodyRows, [],
-        1, undefined, undefined, click);
+        1, { action: click });
     const focusedElement = {
       rowKey: 'test_row_2',
       columnKey: 'test_column_2',
@@ -1262,7 +1266,7 @@ describe('collapse/expand row in tree mode', () => {
   it('should not expand row, row expanded already', () => {
     const click = jest.fn();
     const generatedElements = generateElements(tableColumns, tableBodyRows, [],
-        1, undefined, undefined, click);
+        1, { action: click });
     const focusedElement = {
       rowKey: 'test_row_2',
       columnKey: 'test_column_2',
@@ -1277,7 +1281,7 @@ describe('collapse/expand row in tree mode', () => {
   it('should collapse row', () => {
     const click = jest.fn();
     const generatedElements = generateElements(tableColumns, tableBodyRows, [],
-        1, undefined, undefined, click);
+        1, { action: click });
     const focusedElement = {
       rowKey: 'test_row_2',
       columnKey: 'test_column_2',
@@ -1292,7 +1296,7 @@ describe('collapse/expand row in tree mode', () => {
   it('should not collapse row, raw collapsed already', () => {
     const click = jest.fn();
     const generatedElements = generateElements(tableColumns, tableBodyRows, [],
-        1, undefined, undefined, click);
+        1, { action: click });
     const focusedElement = {
       rowKey: 'test_row_2',
       columnKey: 'test_column_2',
@@ -1307,7 +1311,7 @@ describe('collapse/expand row in tree mode', () => {
   it('should not expand row, no focused element', () => {
     const click = jest.fn();
     const generatedElements = generateElements(tableColumns, tableBodyRows,
-        [], 1, undefined, undefined, click);
+        [], 1, { action: click });
     const element = getNextFocusedCell(tableColumns, tableBodyRows, [], [],
         generatedElements, { key: 'ArrowRight', ctrlKey: true });
     expect(element).toEqual(undefined);
@@ -1323,7 +1327,7 @@ describe('collapse/expand row in tree mode', () => {
       index: 0,
     };
     const generatedElements = generateElements(tableColumns, tableBodyRows, [],
-        1, undefined, undefined, click);
+        1, { action: click });
     const element = getNextFocusedCell(tableColumns, tableBodyRows, [], [],
         generatedElements, { key: 'ArrowRight', ctrlKey: true }, focusedElement);
     expect(element).toEqual(undefined);
@@ -1338,7 +1342,7 @@ describe('collapse/expand row in tree mode', () => {
       part: body,
     };
     const generatedElements = generateElements(tableColumns, tableBodyRows, [],
-        1, undefined, undefined, click);
+        1, { action: click });
     const element = getNextFocusedCell(tableColumns, tableBodyRows, [], undefined,
         generatedElements, { key: 'ArrowRight', ctrlKey: true }, focusedElement);
     expect(element).toEqual(undefined);
@@ -1376,61 +1380,6 @@ describe('getInnerElements', () => {
   });
 });
 
-describe('getCellTopBottom', () => {
-  it('should return top cell', () => {
-    const focusedElement = {
-      part: body,
-      columnKey: 'test_column_2',
-      rowKey: 'test_row_2',
-    };
-    expect(getCellTopBottom(-1, focusedElement, tableBodyRows)).toEqual({
-      part: body,
-      columnKey: 'test_column_2',
-      rowKey: 'test_row_1',
-    });
-  });
-
-  it('should return bottom cell', () => {
-    const focusedElement = {
-      part: body,
-      columnKey: 'test_column_2',
-      rowKey: 'test_row_2',
-    };
-    expect(getCellTopBottom(1, focusedElement, tableBodyRows)).toEqual({
-      part: body,
-      columnKey: 'test_column_2',
-      rowKey: 'test_row_3',
-    });
-  });
-
-  it('should not return cell, not table body', () => {
-    const focusedElement = {
-      part: 'other_par',
-      columnKey: 'test_column_2',
-      rowKey: 'test_row_2',
-    };
-    expect(getCellTopBottom(1, focusedElement, tableBodyRows)).toEqual(undefined);
-  });
-
-  it('should not return cell, no bottom cells', () => {
-    const focusedElement = {
-      part: body,
-      columnKey: 'test_column_2',
-      rowKey: 'test_row_3',
-    };
-    expect(getCellTopBottom(1, focusedElement, tableBodyRows)).toEqual(undefined);
-  });
-
-  it('should not return cell, no top cells', () => {
-    const focusedElement = {
-      part: body,
-      columnKey: 'test_column_2',
-      rowKey: 'test_row_1',
-    };
-    expect(getCellTopBottom(-1, focusedElement, tableBodyRows)).toEqual(undefined);
-  });
-});
-
 describe('getPart', () => {
   it('should return correct part', () => {
     const head = TABLE_HEADING_TYPE.toString();
@@ -1443,7 +1392,7 @@ describe('getPart', () => {
 
 describe('getIndexToFocus', () => {
   it('should return index = 0', () => {
-    const generatedElements = generateElements(tableColumns, tableBodyRows, [], 1, 'INPUT');
+    const generatedElements = generateElements(tableColumns, tableBodyRows, [], 1, { tagName: 'INPUT' });
     expect(getIndexToFocus('test_row_1', 'test_column_2', generatedElements)).toBe(0);
   });
 
@@ -1453,70 +1402,6 @@ describe('getIndexToFocus', () => {
   });
 });
 
-describe('processEvents', () => {
-  it('should process events', () => {
-    const addEventListener = jest.fn();
-    const node = {
-      querySelectorAll: jest.fn().mockReturnValue([{ addEventListener }]),
-    };
-    const action = () => {};
-    processEvents(node, 'addEventListener', action);
-
-    expect(addEventListener).toBeCalledWith('keydown', action);
-  });
-});
-
-describe('handleOnFocusedCallChanged', () => {
-  it('should call onFocusedCellChanged method', () => {
-    const onFocusedCellChanged = jest.fn();
-    const focusedElement = {
-      columnKey: 'column_key',
-      rowKey: 'row_key',
-      part: body,
-    };
-    const prevFocusedElement = {
-      columnKey: 'prev_column_key',
-      rowKey: 'row_key',
-      part: body,
-    };
-    handleOnFocusedCallChanged(onFocusedCellChanged, focusedElement, prevFocusedElement);
-
-    expect(onFocusedCellChanged).toBeCalledWith({ rowKey: 'row_key', columnKey: 'column_key' });
-  });
-
-  it('should not call onFocusedCellChanged method, focused cell is not changed', () => {
-    const onFocusedCellChanged = jest.fn();
-    const focusedElement = {
-      columnKey: 'column_key',
-      rowKey: 'row_key',
-      part: body,
-    };
-    const prevFocusedElement = {
-      columnKey: 'column_key',
-      rowKey: 'row_key',
-      part: body,
-    };
-    handleOnFocusedCallChanged(onFocusedCellChanged, focusedElement, prevFocusedElement);
-
-    expect(onFocusedCellChanged).not.toBeCalled();
-  });
-
-  it('should not call onFocusedCellChanged method, focused cell is not in body', () => {
-    const onFocusedCellChanged = jest.fn();
-    const focusedElement = {
-      columnKey: 'column_key',
-      rowKey: 'next_row_key',
-      part: 'head',
-    };
-    const prevFocusedElement = {
-      columnKey: 'column_key',
-      rowKey: 'row_key',
-      part: 'head',
-    };
-    handleOnFocusedCallChanged(onFocusedCellChanged, focusedElement, prevFocusedElement);
-    expect(onFocusedCellChanged).not.toBeCalled();
-  });
-});
 
 describe('filterHeaderRows', () => {
   it('should return headers with band and header type', () => {
@@ -1542,5 +1427,155 @@ describe('isRowFocused', () => {
     expect(isRowFocused({ key: 'test_row_1' } as any, 'test_row_1')).toBeTruthy();
     expect(isRowFocused({ key: 'test_row_1' } as any)).toBeFalsy();
     expect(isRowFocused({ key: 'test_row_1' } as any, 'test_row_2')).toBeFalsy();
+  });
+});
+
+describe('isCellExist', () => {
+  const generatedElements = generateElements(tableColumns, tableBodyRows, []);
+  it('should return existing of the cell', () => {
+    expect(isCellExist(generatedElements, { 
+      columnKey: 'test_column_30', rowKey: 'test_row_15' 
+    } as any)).toEqual(false);
+    expect(isCellExist(generatedElements, {
+      columnKey: 'test_column_2', rowKey: 'test_row_2' 
+    } as any)).toEqual(true);
+    expect(isCellExist(generatedElements, { 
+      columnKey: 'test_column_2', rowKey: 'test_row_15' 
+    } as any)).toEqual(false);
+  });
+});
+
+describe('getClosestCell', () => {
+  const generatedElements = generateElements(tableColumns, tableBodyRows, []);
+  it('should return closest cell', () => {
+    expect(getClosestCell(tableBodyRows, { columnKey: 'test_column_2', part: 'part', rowKey: 'test_row_2' }, generatedElements)).toEqual({
+      columnKey: "test_column_2",
+      index: 0,
+      part: 'part',
+      rowKey: 'test_row_3',
+    });
+  });
+
+  it('should return last cell', () => {
+    expect(getClosestCell(tableBodyRows, { columnKey: 'test_column_2', part: 'part', rowKey: 'test_row_3' }, generatedElements)).toEqual({
+      columnKey: "test_column_2",
+      index: 0,
+      part: 'part',
+      rowKey: 'test_row_3',
+    });
+  });
+});
+
+describe('isTabArrowUpDown', () => {
+  it('should return correct value', () => {
+    expect(isTabArrowUpDown({ key: 'Tab' })).toBeTruthy();
+    expect(isTabArrowUpDown({ key: 'ArrowDown', ctrlKey: true })).toBeTruthy();
+    expect(isTabArrowUpDown({ key: 'ArrowUp', ctrlKey: true })).toBeTruthy();
+    expect(isTabArrowUpDown({ key: 'ArrowDown' })).toBeFalsy();
+    expect(isTabArrowUpDown({ key: 'ArrowUp' })).toBeFalsy();
+    expect(isTabArrowUpDown({ key: 'Enter' })).toBeFalsy();
+  });
+});
+
+describe('focus', () => {
+  it('should call focus', () => {
+    const generatedElements = generateElements(tableColumns, tableBodyRows, []);
+    const focusedElement = {
+      rowKey: 'test_row_2',
+      columnKey: 'test_column_2',
+      part: body,
+    };
+    const element = generatedElements[focusedElement.rowKey][focusedElement.columnKey][0];
+    element.focus = jest.fn();
+    focus(generatedElements, focusedElement);
+    expect(element.focus).toBeCalled();
+  });
+
+  it('should call focus, inner element', () => {
+    const focus = jest.fn();
+    const generatedElements = generateElements(tableColumns, tableBodyRows, [], undefined, { focusAction: focus });
+    const focusedElement = {
+      rowKey: 'test_row_2',
+      columnKey: 'test_column_2',
+      part: body,
+      index: 0
+    };
+    focus(generatedElements, focusedElement);
+    expect(focus).toBeCalled();
+  });
+
+  it('should call focus for ref element', () => {
+    const generatedElements = generateElements(tableColumns, tableBodyRows, []);
+    const focusedElement = {
+      rowKey: 'test_row_2',
+      columnKey: 'test_column_2',
+      part: body,
+    };
+    const element = generatedElements[focusedElement.rowKey][focusedElement.columnKey][0];
+    element.current = { focus: jest.fn() };
+    focus(generatedElements, focusedElement);
+    expect(element.current.focus).toBeCalled();
+  });
+
+  it('should not focus, no focusedElement', () => {
+    const generatedElements = generateElements(tableColumns, tableBodyRows, []);
+    focus(generatedElements);
+    expect.anything();
+  });
+
+  it('should not focus, no such focusedElement in elements', () => {
+    const generatedElements = generateElements(tableColumns, tableBodyRows, []);
+    const focusedElement = {
+      rowKey: 'test_row_20',
+      columnKey: 'test_column_2',
+      part: body,
+    };
+    focus(generatedElements, focusedElement);
+    expect.anything();
+  });
+
+  it('should call onFocusedCellChanged', () => {
+    const generatedElements = generateElements(tableColumns, tableBodyRows, []);
+    const focusedElement = {
+      rowKey: 'test_row_2',
+      columnKey: 'test_column_2',
+      part: body,
+    };
+    const element = generatedElements[focusedElement.rowKey][focusedElement.columnKey][0];
+    element.focus = jest.fn();
+    const onFocusedCellChanged = jest.fn();
+    focus(generatedElements, focusedElement, undefined, onFocusedCellChanged);
+    expect(onFocusedCellChanged).toBeCalledWith({
+      columnKey: 'test_column_2',
+      rowKey: 'test_row_2',
+    });
+  });
+
+  it('should not call onFocusedCellChanged, prev focusedElement the same', () => {
+    const generatedElements = generateElements(tableColumns, tableBodyRows, []);
+    const focusedElement = {
+      rowKey: 'test_row_2',
+      columnKey: 'test_column_2',
+      part: body,
+    };
+    const element = generatedElements[focusedElement.rowKey][focusedElement.columnKey][0];
+    element.focus = jest.fn();
+    const onFocusedCellChanged = jest.fn();
+    focus(generatedElements, focusedElement, focusedElement, onFocusedCellChanged);
+    expect(onFocusedCellChanged).not.toBeCalled();
+  });
+
+  it('should not call onFocusedCellChanged, part is not data type', () => {
+    const generatedElements = generateElements(tableColumns, tableBodyRows, []);
+    const focusedElement = {
+      rowKey: 'test_row_2',
+      columnKey: 'test_column_2',
+      part: 'part',
+    };
+    const element = generatedElements[focusedElement.rowKey][focusedElement.columnKey][0];
+    element.focus = jest.fn();
+    const onFocusedCellChanged = jest.fn();
+    focus(generatedElements, focusedElement, focusedElement, onFocusedCellChanged);
+    expect(onFocusedCellChanged).not.toBeCalled();
   });
 });

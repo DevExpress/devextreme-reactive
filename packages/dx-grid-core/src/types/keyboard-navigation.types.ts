@@ -30,3 +30,10 @@ export type GetElementPrevNextPartFn = (focusedElement: FocusedElement, elements
 export type GetInnerElementsFn = (
     elements: Elements, key1: string, key2: string, query?: string,
 ) => any[];
+
+export interface FocusedCell {
+    columnKey: string;
+    rowKey: string;
+}
+
+export type OnFocusedCellChangedFn = (cell: FocusedCell) => void;

@@ -4,11 +4,6 @@ export namespace Toolbar {
   export interface RootProps {
     /** A React node to be placed in the toolbar. */
     children?: React.ReactNode;
-    /** @internal */
-    updateRefForKeyboardNavigation?: ({ ref, key1, key2, action }:
-      { ref: any, key1: string, key2: string, action: string }) => void;
-    /** @internal */
-    setFocusedElement?: ({ key1, key2 }: { key1: string, key2: string }) => void;
   }
 }
 

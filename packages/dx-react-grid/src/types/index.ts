@@ -6,7 +6,7 @@ export {
   GroupKey, Grouping, GroupingPanelItem, Filter, ColumnFilterOperations,
   Sorting, TargetColumnGeometry, FilterOperation, ColumnChooserItem,
   TableColumnWidthInfo, TableColumnResizing, RowId, GridViewport, GroupSummaryItem,
-  ColumnInlineSummaries, FocusedElement, OnFocusedCellChangedFn, FocusedCell,
+  ColumnInlineSummaries, FocusedElement, OnFocusedCellChangedFn, FocusedCell, ScrollToColumnFn,
 } from '../../../dx-grid-core/src/index';
 
 /** @internal */

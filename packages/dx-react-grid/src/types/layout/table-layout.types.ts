@@ -47,6 +47,7 @@ export interface VirtualTableLayoutProps extends TableLayoutProps {
   setViewport: any;
   viewport: any;
   scrollTop?: number;
+  nextColumnId?: symbol;
 }
 /** @internal */
 export type VirtualTableLayoutState = {

@@ -1,4 +1,7 @@
-import { TABLE_FILTER_TYPE, TABLE_HEADING_TYPE, TABLE_DATA_TYPE, TABLE_BAND_TYPE } from '@devexpress/dx-grid-core';
+import {
+  TABLE_FILTER_TYPE, TABLE_HEADING_TYPE, TABLE_DATA_TYPE, TABLE_BAND_TYPE,
+  RIGHT_POSITION, LEFT_POSITION,
+} from '@devexpress/dx-grid-core';
 import {
     getNextFocusedCell, getInnerElements, isRowFocused, isCellExist,
     getPart, getIndexToFocus, filterHeaderRows,
@@ -827,6 +830,7 @@ describe('Navigation on parts by arrows Up and Down + Ctrl', () => {
   const tableHeaderRows = [{ key: header }] as any;
   const expandedRowIds = [];
   const generatedElements = generateElements(tableColumns, tableBodyRows, [filter, header]);
+
   it('should return filter cell, arrow up', () => {
     const focusedElement = {
       rowKey: 'test_row_2',
@@ -993,6 +997,183 @@ describe('Navigation on parts by arrows Up and Down + Ctrl', () => {
     const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'ArrowUp', ctrlKey: true });
     expect(element).toEqual(undefined);
+  });
+});
+
+describe('Navigation on virtual table', () => {
+  const header = TABLE_HEADING_TYPE.toString();
+  const filter = TABLE_FILTER_TYPE.toString();
+  const tableHeaderRows = [{ key: header }] as any;
+  const expandedRowIds = [];
+  const columns = [
+    { key: 'test_column_10' },
+    { key: 'test_column_11' },
+    { key: 'test_column_12' },
+    { key: 'test_column_13' },
+  ] as any;
+  const generatedElements = generateElements(columns, tableBodyRows, [filter, header], 1);
+
+  it('should return first filter cell, arrow up + CTRL', () => {
+    const focusedElement = {
+      rowKey: 'test_row_2',
+      columnKey: 'test_column_12',
+      index: 0,
+      part: body,
+    };
+    const scrollToColumn = jest.fn();
+    const element = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
+      tableHeaderRows, expandedRowIds, generatedElements,
+      { key: 'ArrowUp', ctrlKey: true }, focusedElement, scrollToColumn);
+    expect(element).toEqual({
+      rowKey: filter,
+      columnKey: 'test_column_1',
+      part: filter,
+    });
+    expect(scrollToColumn).toBeCalledWith(LEFT_POSITION);
+  });
+
+  it('should return filter cell, arrow down + CTRL', () => {
+    const focusedElement = {
+      rowKey: header,
+      columnKey: 'test_column_12',
+      index: 0,
+      part: header,
+    };
+    const scrollToColumn = jest.fn();
+    const element = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
+      tableHeaderRows, expandedRowIds, generatedElements,
+      { key: 'ArrowDown', ctrlKey: true }, focusedElement, scrollToColumn);
+    expect(element).toEqual({
+      rowKey: filter,
+      columnKey: 'test_column_1',
+      part: filter,
+    });
+    expect(scrollToColumn).toBeCalledWith(LEFT_POSITION);
+  });
+
+  it('should return next row from body, Tab pressed', () => {
+    const focusedElement = {
+      rowKey: 'test_row_2',
+      columnKey: 'test_column_13',
+      index: 0,
+      part: body,
+    };
+    const scrollToColumn = jest.fn();
+    const element = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
+      tableHeaderRows, expandedRowIds, generatedElements,
+      { key: 'Tab' }, focusedElement, scrollToColumn);
+    expect(element).toEqual({
+      rowKey: 'test_row_3',
+      columnKey: 'test_column_1',
+      part: body,
+    });
+    expect(scrollToColumn).toBeCalledWith(LEFT_POSITION);
+  });
+
+  it('should return filter cell after header, Tab pressed', () => {
+    const focusedElement = {
+      rowKey: header,
+      columnKey: 'test_column_13',
+      index: 0,
+      part: header,
+    };
+    const scrollToColumn = jest.fn();
+    const element = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
+      tableHeaderRows, expandedRowIds, generatedElements,
+      { key: 'Tab' }, focusedElement, scrollToColumn);
+    expect(element).toEqual({
+      rowKey: filter,
+      columnKey: 'test_column_1',
+      part: filter,
+    });
+    expect(scrollToColumn).toBeCalledWith(LEFT_POSITION);
+  });
+
+  it('should return body cell after filter, Tab pressed', () => {
+    const focusedElement = {
+      rowKey: filter,
+      columnKey: 'test_column_13',
+      index: 0,
+      part: filter,
+    };
+    const scrollToColumn = jest.fn();
+    const element = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
+      tableHeaderRows, expandedRowIds, generatedElements,
+      { key: 'Tab' }, focusedElement, scrollToColumn);
+    expect(element).toEqual({
+      rowKey: 'test_row_1',
+      columnKey: 'test_column_1',
+      part: body,
+    });
+    expect(scrollToColumn).toBeCalledWith(LEFT_POSITION);
+  });
+});
+
+describe('Navigation on virtual table, Tab + shift pressed', () => {
+  const header = TABLE_HEADING_TYPE.toString();
+  const filter = TABLE_FILTER_TYPE.toString();
+  const tableHeaderRows = [{ key: header }] as any;
+  const expandedRowIds = [];
+  const columns = [
+    { key: 'test_column_10' },
+    { key: 'test_column_11' },
+    { key: 'test_column_12' },
+    { key: 'test_column_13' },
+  ] as any;
+  const generatedElements = generateElements(tableColumns, tableBodyRows, [filter, header], 1);
+
+  it('should return prev row from body', () => {
+    const focusedElement = {
+      rowKey: 'test_row_2',
+      columnKey: 'test_column_1',
+      part: body,
+    };
+    const scrollToColumn = jest.fn();
+    const element = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
+      tableHeaderRows, expandedRowIds, generatedElements,
+      { key: 'Tab', shiftKey: true }, focusedElement, scrollToColumn);
+    expect(element).toEqual({
+      rowKey: 'test_row_1',
+      columnKey: 'test_column_13',
+      part: body,
+    });
+    expect(scrollToColumn).toBeCalledWith(RIGHT_POSITION);
+  });
+
+  it('should return filter last cell', () => {
+    const focusedElement = {
+      rowKey: 'test_row_1',
+      columnKey: 'test_column_1',
+      part: body,
+    };
+    const scrollToColumn = jest.fn();
+    const element = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
+      tableHeaderRows, expandedRowIds, generatedElements,
+      { key: 'Tab', shiftKey: true }, focusedElement, scrollToColumn);
+    expect(element).toEqual({
+      rowKey: filter,
+      columnKey: 'test_column_13',
+      part: filter,
+    });
+    expect(scrollToColumn).toBeCalledWith(RIGHT_POSITION);
+  });
+
+  it('should return header last cell', () => {
+    const focusedElement = {
+      rowKey: filter,
+      columnKey: 'test_column_1',
+      part: filter,
+    };
+    const scrollToColumn = jest.fn();
+    const element = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
+      tableHeaderRows, expandedRowIds, generatedElements,
+      { key: 'Tab', shiftKey: true }, focusedElement, scrollToColumn);
+    expect(element).toEqual({
+      rowKey: header,
+      columnKey: 'test_column_13',
+      part: header,
+    });
+    expect(scrollToColumn).toBeCalledWith(RIGHT_POSITION);
   });
 });
 
@@ -1265,7 +1446,7 @@ describe('Space action on checkbox', () => {
   });
 });
 
-describe('collapse/expand row in tree mode', () => {
+describe('Collapse/expand row in tree mode', () => {
   it('should expand row', () => {
     const click = jest.fn();
     const generatedElements = generateElements(tableColumns, tableBodyRows, [],
@@ -1370,7 +1551,7 @@ describe('collapse/expand row in tree mode', () => {
   });
 });
 
-describe('getInnerElements', () => {
+describe('#getInnerElements', () => {
   it('should return inner elements', () => {
     const key1 = 'test_key_1';
     const key2 = 'test_key_2';
@@ -1400,7 +1581,7 @@ describe('getInnerElements', () => {
   });
 });
 
-describe('getPart', () => {
+describe('#getPart', () => {
   it('should return correct part', () => {
     const head = TABLE_HEADING_TYPE.toString();
     const band = `${TABLE_BAND_TYPE.toString()}_test`;
@@ -1410,7 +1591,7 @@ describe('getPart', () => {
   });
 });
 
-describe('getIndexToFocus', () => {
+describe('#getIndexToFocus', () => {
   it('should return index = 0', () => {
     const generatedElements = generateElements(tableColumns, tableBodyRows, [], 1, { tagName: 'INPUT' });
     expect(getIndexToFocus('test_row_1', 'test_column_2', generatedElements)).toBe(0);
@@ -1422,7 +1603,7 @@ describe('getIndexToFocus', () => {
   });
 });
 
-describe('filterHeaderRows', () => {
+describe('#filterHeaderRows', () => {
   it('should return headers with band and header type', () => {
     const headerRows = [{
       key: `${TABLE_BAND_TYPE.toString()}_test`,
@@ -1441,7 +1622,7 @@ describe('filterHeaderRows', () => {
   });
 });
 
-describe('isRowFocused', () => {
+describe('#isRowFocused', () => {
   it('should return correct boolean value', () => {
     expect(isRowFocused({ key: 'test_row_1' } as any, 'test_row_1')).toBeTruthy();
     expect(isRowFocused({ key: 'test_row_1' } as any)).toBeFalsy();
@@ -1449,7 +1630,7 @@ describe('isRowFocused', () => {
   });
 });
 
-describe('isCellExist', () => {
+describe('#isCellExist', () => {
   const generatedElements = generateElements(tableColumns, tableBodyRows, []);
   it('should return existing of the cell', () => {
     expect(isCellExist(generatedElements, {
@@ -1464,7 +1645,7 @@ describe('isCellExist', () => {
   });
 });
 
-describe('getClosestCell', () => {
+describe('#getClosestCell', () => {
   const generatedElements = generateElements(tableColumns, tableBodyRows, []);
   it('should return closest cell', () => {
     expect(getClosestCell(tableBodyRows, { columnKey: 'test_column_2', part: 'part', rowKey: 'test_row_2' }, generatedElements)).toEqual({
@@ -1485,7 +1666,7 @@ describe('getClosestCell', () => {
   });
 });
 
-describe('isTabArrowUpDown', () => {
+describe('#isTabArrowUpDown', () => {
   it('should return correct value', () => {
     expect(isTabArrowUpDown({ key: 'Tab' })).toBeTruthy();
     expect(isTabArrowUpDown({ key: 'ArrowDown', ctrlKey: true })).toBeTruthy();
@@ -1496,7 +1677,7 @@ describe('isTabArrowUpDown', () => {
   });
 });
 
-describe('focus', () => {
+describe('#focus', () => {
   it('should call focus', () => {
     const generatedElements = generateElements(tableColumns, tableBodyRows, []);
     const focusedElement = {

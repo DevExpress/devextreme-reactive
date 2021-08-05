@@ -111,7 +111,9 @@ KeyboardNavigationCoreState> {
   handleKeyDownOnWidget(event) {
     let focusedCell;
     const { focusedElement } = this.state;
-    const { tableColumns, tableBodyRows, tableHeaderRows, expandedRowIds } = this.props;
+    const {
+      tableColumns, tableBodyRows, tableHeaderRows, expandedRowIds, scrollToColumn,
+    } = this.props;
 
     if (event.key === 'f' && event.ctrlKey) {
       event.preventDefault();
@@ -135,7 +137,7 @@ KeyboardNavigationCoreState> {
 
     if (focusedElement || isTabArrowUpDown(event)) {
       focusedCell = getNextFocusedCell(tableColumns, tableBodyRows,
-        tableHeaderRows, expandedRowIds, this.elements, event, focusedElement);
+        tableHeaderRows, expandedRowIds, this.elements, event, focusedElement, scrollToColumn);
 
       if (focusedCell) {
         event.preventDefault();
@@ -183,7 +185,7 @@ KeyboardNavigationCoreState> {
             <Cell
               {...params}
               component={CellPlaceholder}
-              tabIndex={-1}
+              tabIndex={0}
               updateRefForKeyboardNavigation={this.updateRef}
               setFocusedElement={this.setFocusedElement}
             />
@@ -234,7 +236,10 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
     return (
       <Plugin name="TableKeyboardNavigation">
         <TemplateConnector>
-        {({ tableColumns, tableBodyRows, rootRef, tableHeaderRows, expandedRowIds }) => {
+        {(
+          { tableColumns, tableBodyRows, rootRef, tableHeaderRows, expandedRowIds },
+          { scrollToColumn },
+        ) => {
           return rootRef.current ? (
             <TableKeyboardNavigationCore
               tableColumns={tableColumns}
@@ -242,6 +247,7 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
               rootRef={rootRef}
               tableHeaderRows={filterHeaderRows(tableHeaderRows)}
               expandedRowIds={expandedRowIds}
+              scrollToColumn={scrollToColumn}
               {...this.props}
             />
           ) : null;

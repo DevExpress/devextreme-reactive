@@ -67,7 +67,7 @@ describe('TableKeyboardNavigation', () => {
       component: expect.any(Function),
       setFocusedElement: expect.any(Function),
       updateRefForKeyboardNavigation: expect.any(Function),
-      tabIndex: -1,
+      tabIndex: 0,
       tableColumn: {
         type: 'undefined', column: 'column',
       },

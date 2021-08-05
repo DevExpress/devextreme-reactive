@@ -68,6 +68,7 @@ export type VirtualTablePluginState = {
   viewport: GridViewport;
   /** Id and index of row, which be scrolled into view */
   nextRowId?: number | string | symbol;
+  nextColumnId?: symbol;
 };
 
 // tslint:disable-next-line:max-line-length

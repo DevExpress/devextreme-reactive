@@ -1,6 +1,6 @@
 import {
   FocusedElement, Table, TableColumn, TableRow, RowId,
-  FocusedCell, OnFocusedCellChangedFn,
+  FocusedCell, OnFocusedCellChangedFn, ScrollToColumnFn,
 } from '../index';
 
 /* tslint:disable no-namespace max-line-length */
@@ -43,6 +43,7 @@ export interface KeyboardNavigationCoreProps extends KeyboardNavigationProps {
   tableHeaderRows: TableRow[];
   expandedRowIds: RowId[];
   rootRef: React.RefObject<HTMLTableElement>;
+  scrollToColumn: ScrollToColumnFn;
 }
 
 /** @internal */

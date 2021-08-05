@@ -81,9 +81,12 @@ export class Sizer extends React.PureComponent<SizerProps> {
     // We can scroll the VirtualTable manually only by changing
     // containter's (rootNode) scrollTop property.
     // Viewport changes its own properties automatically.
-    const { scrollTop } = this.props;
+    const { scrollTop, scrollLeft } = this.props;
     if (scrollTop! > -1) {
       this.rootNode.scrollTop = scrollTop!;
+    }
+    if (scrollLeft! > -1) {
+      this.rootNode.scrollLeft = scrollLeft!;
     }
   }
 
@@ -145,6 +148,7 @@ export class Sizer extends React.PureComponent<SizerProps> {
       containerComponent: Container,
       style,
       scrollTop,
+      scrollLeft,
       ...restProps
     } = this.props;
 

@@ -8,10 +8,12 @@ export interface FocusedElement {
 }
 
 export type Elements = {[key: string]: any[]};
+export type ScrollToColumnFn = (value: symbol) => void;
 
 export type GetNextFocusedElementFn = (
     tableColumns: TableColumn[], tableBodyRows: TableRow[], tableHeaderRows: TableRow[],
     expandedRowIds: RowId[], elements: Elements, event: any, focusedElement?: FocusedElement,
+    scrollToColumn?: ScrollToColumnFn,
 ) => FocusedElement | void;
 
 export type GetFocusedElementFn = (
@@ -22,10 +24,12 @@ export type GetFocusedElementFn = (
 export type GetElementFn = (
     focusedElement: FocusedElement, tableBodyRows: TableRow[],
     tableColumns: TableColumn[], tableHeaderRows: TableRow[], elements: Elements,
+    scrollToColumn?: ScrollToColumnFn,
 ) => FocusedElement | void;
 
 export type GetElementPrevNextPartFn = (focusedElement: FocusedElement, elements: Elements,
-    tableBodyRows: TableRow[], tableColumns: TableColumn[]) => FocusedElement | void;
+    tableBodyRows: TableRow[], tableColumns: TableColumn[], scrollToColumn?: ScrollToColumnFn,
+) => FocusedElement | void;
 
 export type GetInnerElementsFn = (
     elements: Elements, key1: string, key2: string, query?: string,

@@ -171,3 +171,7 @@ export type GetScrollPosition = PureComputed<
 export type GetTopRowId = PureComputed<
   [GridViewport, TableRow[], boolean], string | number | undefined
 >;
+/** @internal */
+export type GetScrollLeft = PureComputed<
+  [number, number, symbol?], number | undefined
+>;

@@ -1,3 +1,4 @@
+import { ReadonlyObject, PureComputed } from '@devexpress/dx-core';
 import {
   TABLE_FILTER_TYPE, TABLE_HEADING_TYPE, TABLE_DATA_TYPE, TABLE_BAND_TYPE,
   RIGHT_POSITION, LEFT_POSITION,
@@ -5,7 +6,9 @@ import {
 import {
     GetNextFocusedElementFn, FocusedElement, TableColumn, TableRow,
     GetElementFn, GetElementPrevNextPartFn, Elements, RowId, GetInnerElementsFn,
-    OnFocusedCellChangedFn, ScrollToColumnFn,
+    OnFocusedCellChangedFn, ScrollToColumnFn, GetNextPrevPartFn,
+    GetNextPrevCellFromBodyFn, GetPrevCellFromHeadingFn, GetNextCellFromHeadinFn,
+    GetCellNextPrevPartFn,
 } from '../../types';
 
 const HEADING_TYPE = TABLE_HEADING_TYPE.toString();
@@ -15,13 +18,13 @@ const BAND_TYPE = TABLE_BAND_TYPE.toString();
 
 const tableParts = [HEADING_TYPE, FILTER_TYPE, DATA_TYPE];
 
-const getIndex = (arr: TableColumn[] | TableRow [], key: string) => {
+const getIndex: PureComputed<[TableColumn[] | TableRow [], string], number> = (arr, key) => {
   return arr.findIndex((el: TableColumn | TableRow) => {
     return el.key === key;
   });
 };
 
-const isSpanInput = (innerElements: any[]): boolean => {
+const isSpanInput: PureComputed<[any[]], boolean> = (innerElements) => {
   return innerElements[0].tagName === 'SPAN' ||
   innerElements[0].tagName === 'INPUT' && innerElements[0].type === 'text';
 };
@@ -30,7 +33,9 @@ const isDefined = (value: any): value is boolean => {
   return value !== undefined;
 };
 
-const hasInsideElements = (innerElements: any[], focusedElementIndex?: number): boolean => {
+const hasInsideElements: PureComputed<[any[], number?], boolean> = (
+  innerElements, focusedElementIndex,
+) => {
   if ((innerElements.length && focusedElementIndex === undefined) ||
   (isDefined(focusedElementIndex) && focusedElementIndex < innerElements.length - 1)) {
     if (innerElements.length === 1 && focusedElementIndex === undefined) {
@@ -41,8 +46,10 @@ const hasInsideElements = (innerElements: any[], focusedElementIndex?: number): 
   return false;
 };
 
-const getIndexInnerElement = (
-  elements: Elements, rowKey: string, columnKey: string, direction: number,
+const getIndexInnerElement: PureComputed<[
+  Elements, string, string, number,
+], number | undefined> = (
+  elements, rowKey, columnKey, direction,
 ) => {
   const innerElements = getInnerElements(elements, rowKey, columnKey);
   const index = direction > 0 ? 0 : innerElements.length - 1;
@@ -51,13 +58,14 @@ const getIndexInnerElement = (
 };
 
 const shouldBeScrolled = (
-  elements: Elements, key1: string, key2: string, scrollToColumn?: ScrollToColumnFn,
+  elements: ReadonlyObject<Elements>, key1: string, key2: string,
+  scrollToColumn?: ScrollToColumnFn,
 ): scrollToColumn is ScrollToColumnFn => {
   return !!(scrollToColumn && !elements[key1][key2]);
 };
 
-const getNextPart = (
-  focusedElement: FocusedElement, elements: Elements, tableBodyRows: TableRow[],
+const getNextPart: GetNextPrevPartFn = (
+  focusedElement, elements, tableBodyRows,
 ) => {
   const index = tableParts.findIndex((p) => {
     return p === focusedElement.part;
@@ -104,8 +112,8 @@ const getCellNextPart: GetElementPrevNextPartFn = (
   };
 };
 
-const getPrevPart = (
-  focusedElement: FocusedElement, elements: Elements, tableBodyRows: TableRow[],
+const getPrevPart: GetNextPrevPartFn = (
+  focusedElement, elements, tableBodyRows,
 ) => {
   let index = tableParts.findIndex((p) => {
     return p === focusedElement.part;
@@ -155,9 +163,10 @@ const getCellPrevPart: GetElementPrevNextPartFn = (
   };
 };
 
-const getPrevCellFromBody = (columnIndex: number, rowIndex: number, tableColumns: TableColumn[],
-  tableBodyRows: TableRow[], focusedElement: FocusedElement, elements: Elements,
-  scrollToColumn?: ScrollToColumnFn) => {
+const getPrevCellFromBody: GetNextPrevCellFromBodyFn = (
+  columnIndex, rowIndex, tableColumns, tableBodyRows, focusedElement, elements,
+  scrollToColumn,
+) => {
   let prevRowKey;
   let prevColumnKey;
   let prevIndex;
@@ -196,9 +205,9 @@ const getPrevCellFromBody = (columnIndex: number, rowIndex: number, tableColumns
   };
 };
 
-const getPrevCellFromHeading = (
-  tableHeaderRows: TableRow[], tableColumns: TableColumn[], columnIndex: number,
-  focusedElement: FocusedElement, elements: Elements,
+const getPrevCellFromHeading: GetPrevCellFromHeadingFn = (
+  tableHeaderRows, tableColumns, columnIndex,
+  focusedElement, elements,
 ) => {
   let prevColumnKey;
   let prevRowKey;
@@ -285,9 +294,10 @@ const getPrevElement: GetElementFn = (
   };
 };
 
-const getNextCellFromBody = (columnIndex: number, rowIndex: number, tableColumns: TableColumn[],
-  tableBodyRows: TableRow[], focusedElement: FocusedElement, elements: Elements,
-  scrollToColumn?: ScrollToColumnFn) => {
+const getNextCellFromBody: GetNextPrevCellFromBodyFn = (
+  columnIndex, rowIndex, tableColumns,
+  tableBodyRows, focusedElement, elements, scrollToColumn,
+) => {
   let nextRowKey = focusedElement.rowKey;
   let nextColumnKey;
 
@@ -317,10 +327,10 @@ const getNextCellFromBody = (columnIndex: number, rowIndex: number, tableColumns
   };
 };
 
-const getNextCellFromHeading = (
-  tableHeaderRows: TableRow[], tableBodyRows: TableRow[], tableColumns: TableColumn[],
-  columnIndex: number, focusedElement: FocusedElement, elements: Elements,
-  scrollToColumn?: ScrollToColumnFn,
+const getNextCellFromHeading: GetNextCellFromHeadinFn = (
+  tableHeaderRows, tableBodyRows, tableColumns,
+  columnIndex, focusedElement, elements,
+  scrollToColumn,
 ) => {
   const headIndex = getIndex(tableHeaderRows, focusedElement.rowKey);
   let nextRowKey;
@@ -401,12 +411,14 @@ const getNextElement: GetElementFn = (
   };
 };
 
-const hasCellInput = (elements: Elements, key1: string, key2: string): boolean => {
+const hasCellInput: PureComputed<[Elements, string, string], boolean> = (elements, key1, key2) => {
   const innerElements = getInnerElements(elements, key1, key2);
   return innerElements.length ? innerElements[0].tagName === 'INPUT' : false;
 };
 
-const cellEmptyOrHasSpanAndInput = (elements: Elements, key1: string, key2: string) => {
+const cellEmptyOrHasSpanAndInput: PureComputed<[
+  Elements, string, string
+], boolean> = (elements, key1, key2) => {
   const innerElements = getInnerElements(elements, key1, key2);
   if (innerElements.length) {
     return isSpanInput(innerElements);
@@ -414,9 +426,10 @@ const cellEmptyOrHasSpanAndInput = (elements: Elements, key1: string, key2: stri
   return true;
 };
 
-const getCellRightLeft = (
-  direction: number, focusedElement: FocusedElement, tableColumns: TableColumn[],
-): FocusedElement | void => {
+const getCellRightLeft: PureComputed<[number, FocusedElement, TableColumn[]],
+FocusedElement | void> = (
+  direction, focusedElement, tableColumns,
+) => {
   if (focusedElement.part !== DATA_TYPE) {
     return;
   }
@@ -428,9 +441,9 @@ const getCellRightLeft = (
   } : undefined;
 };
 
-const getFirstCell = (
-  elements: Elements, tableBodyRows: TableRow[], tableColumns: TableColumn[],
-): FocusedElement | void => {
+const getFirstCell: PureComputed<[Elements, TableRow[], TableColumn[]], FocusedElement | void> = (
+  elements, tableBodyRows, tableColumns,
+) => {
   const part = tableParts.find((p) => {
     if (p === DATA_TYPE) {
       return elements[tableBodyRows[0].key];
@@ -451,9 +464,9 @@ const getFirstCell = (
   };
 };
 
-const getLastCell = (
-  elements: Elements, tableBodyRows: TableRow[], tableColumns: TableColumn[],
-): FocusedElement | void => {
+const getLastCell: PureComputed<[Elements, TableRow[], TableColumn[]], FocusedElement | void> = (
+  elements, tableBodyRows, tableColumns,
+) => {
   let index = tableParts.length;
   let part;
   while (index > 0) {
@@ -483,7 +496,7 @@ const getLastCell = (
   };
 };
 
-const getToolbarPagingElements = (elements: Elements) => {
+const getToolbarPagingElements: PureComputed<[Elements]> = (elements) => {
   return {
     toolbarElements: elements.toolbar && getInnerElements(elements, 'toolbar', 'none'),
     pagingElements: elements.paging && getInnerElements(elements, 'paging', 'none')
@@ -493,9 +506,10 @@ const getToolbarPagingElements = (elements: Elements) => {
   };
 };
 
-const getFirstCellInLastPart = (
-  elements: Elements, tableBodyRows: TableRow[], tableColumns: TableColumn[],
-): FocusedElement | void => {
+const getFirstCellInLastPart: PureComputed<[Elements, TableRow[], TableColumn[]],
+FocusedElement | void> = (
+  elements, tableBodyRows, tableColumns,
+) => {
   const lastElement = getLastCell(elements, tableBodyRows, tableColumns);
   if (lastElement) {
     return {
@@ -508,9 +522,9 @@ const getFirstCellInLastPart = (
   return undefined;
 };
 
-const applyEnterAction = (
-  elements: Elements, focusedElement?: FocusedElement,
-): FocusedElement | void => {
+const applyEnterAction: PureComputed<[Elements, FocusedElement?], FocusedElement | void> = (
+  elements, focusedElement,
+) => {
   if (!focusedElement) {
     return;
   }
@@ -539,9 +553,9 @@ const applyEnterAction = (
   return;
 };
 
-const applyEscapeAction = (
-  elements: Elements, focusedElement?: FocusedElement,
-): FocusedElement | void => {
+const applyEscapeAction: PureComputed<[Elements, FocusedElement?], FocusedElement | void> = (
+  elements, focusedElement,
+) => {
   if (!focusedElement) {
     return;
   }
@@ -557,7 +571,9 @@ const applyEscapeAction = (
   return;
 };
 
-const actionOnCheckbox = (elements: Elements, focusedElement?: FocusedElement) => {
+const actionOnCheckbox: PureComputed<[Elements, FocusedElement?], void> = (
+  elements, focusedElement,
+) => {
   if (!focusedElement || isDefined(focusedElement.index)) {
     return;
   }
@@ -571,8 +587,8 @@ const actionOnCheckbox = (elements: Elements, focusedElement?: FocusedElement) =
   }
 };
 
-const actionOnTreeMode = (
-  elements: Elements, expandedRowIds: RowId[], direction: number, focusedElement: FocusedElement,
+const actionOnTreeMode: PureComputed<[Elements, RowId[], number, FocusedElement], void> = (
+  elements, expandedRowIds, direction, focusedElement,
 ) => {
   if (!focusedElement || isDefined(focusedElement.index) || !expandedRowIds) {
     return;
@@ -597,9 +613,10 @@ export const getInnerElements: GetInnerElementsFn = (
   });
 };
 
-const getCellTopBottom = (
-  direction: number, focusedElement: FocusedElement, tableBodyRows: TableRow[],
-): FocusedElement | void => {
+const getCellTopBottom: PureComputed<[number, FocusedElement, TableRow[]],
+FocusedElement | void> = (
+  direction, focusedElement, tableBodyRows,
+) => {
   if (focusedElement.part !== DATA_TYPE) {
     return;
   }
@@ -616,9 +633,9 @@ const getIndexFromKey = (key: string) => {
   return Number(array[array.length - 1]);
 };
 
-const getCellNextPrevPart = (focusedElement: FocusedElement, elements: Elements,
-  tableBodyRows: TableRow[], tableColumns: TableColumn[], direction: number,
-  scrollToColumn?: ScrollToColumnFn) => {
+const getCellNextPrevPart: GetCellNextPrevPartFn = (focusedElement, elements,
+  tableBodyRows, tableColumns, direction,
+  scrollToColumn) => {
   const part = direction > 0 ? getNextPart(focusedElement, elements, tableBodyRows) :
   getPrevPart(focusedElement, elements, tableBodyRows);
   let cell;
@@ -665,7 +682,7 @@ export const getNextFocusedCell: GetNextFocusedElementFn = (
 ) => {
   if (!focusedElement) {
     const { toolbarElements, pagingElements } = getToolbarPagingElements(elements);
-    const hasFocus = (innerElements: any[]) => {
+    const hasFocus = (innerElements: readonly any[]) => {
       return innerElements.some((el: any) => {
         return event.target === el;
       });
@@ -768,9 +785,9 @@ export const getPart = (key: string): string => {
   return DATA_TYPE;
 };
 
-export const getIndexToFocus = (
-  key1: string, key2: string, elements: Elements,
-): number | undefined => {
+export const getIndexToFocus: PureComputed<[string, string, Elements], number | undefined> = (
+  key1, key2, elements,
+) => {
   if (hasCellInput(elements, key1, key2)) {
     return 0;
   }
@@ -782,14 +799,18 @@ export const filterHeaderRows = (tableHeaderRows: TableRow[]) => {
     row.key.includes(BAND_TYPE) || row.key.includes(HEADING_TYPE));
 };
 
-export const isRowFocused = (tableRow: TableRow, focusedRowKey?: string): boolean => {
+export const isRowFocused: PureComputed<[TableRow, string?], boolean> = (
+  tableRow, focusedRowKey,
+) => {
   if (focusedRowKey) {
     return tableRow.key === focusedRowKey;
   }
   return false;
 };
 
-export const isCellExist = (elements: Elements, focusedElement: FocusedElement): boolean => {
+export const isCellExist: PureComputed<[Elements, FocusedElement], boolean> = (
+  elements, focusedElement,
+) => {
   return !!(elements[focusedElement.rowKey] &&
     elements[focusedElement.rowKey][focusedElement.columnKey]);
 };
@@ -798,26 +819,30 @@ export const isTabArrowUpDown = (event: any): boolean => {
   return event.key === 'Tab' || event.ctrlKey && (event.key === 'ArrowDown' || event.key === 'ArrowUp');
 };
 
-export const focus = (elements: Elements, focusedElement?: FocusedElement,
-  prevFocusedElement?: FocusedElement, onFocusedCellChanged?: OnFocusedCellChangedFn) => {
-  if (!focusedElement || !elements[focusedElement.rowKey] ||
+export const focus: PureComputed<[Elements, FocusedElement?,
+  FocusedElement?, OnFocusedCellChangedFn?], void> = (
+    elements, focusedElement, prevFocusedElement, onFocusedCellChanged,
+) => {
+    if (!focusedElement || !elements[focusedElement.rowKey] ||
     !elements[focusedElement.rowKey][focusedElement.columnKey]) {
-    return;
-  }
-  const el = focusedElement.index === undefined ?
+      return;
+    }
+    const el = focusedElement.index === undefined ?
   elements[focusedElement.rowKey][focusedElement.columnKey][0] :
   getInnerElements(elements, focusedElement.rowKey, focusedElement.columnKey)[focusedElement.index];
 
-  if (el) {
-    if (el.focus) {
-      el.focus();
-    } else {
-      el.current.focus();
+    if (el) {
+      if (el.focus) {
+        el.focus();
+      } else {
+        el.current.focus();
+      }
+      if (onFocusedCellChanged && focusedElement.part === DATA_TYPE &&
+          (prevFocusedElement?.rowKey !== focusedElement.rowKey ||
+            prevFocusedElement?.columnKey !== focusedElement.columnKey)) {
+        onFocusedCellChanged({
+          rowKey: focusedElement.rowKey, columnKey: focusedElement.columnKey,
+        });
+      }
     }
-    if (onFocusedCellChanged && focusedElement.part === DATA_TYPE &&
-        (prevFocusedElement?.rowKey !== focusedElement.rowKey ||
-          prevFocusedElement?.columnKey !== focusedElement.columnKey)) {
-      onFocusedCellChanged({ rowKey: focusedElement.rowKey, columnKey: focusedElement.columnKey });
-    }
-  }
-};
+  };

@@ -1,3 +1,4 @@
+import { PureComputed } from '@devexpress/dx-core';
 import { TableColumn, TableRow, RowId } from '../types';
 
 export interface FocusedElement {
@@ -10,30 +11,44 @@ export interface FocusedElement {
 export type Elements = {[key: string]: any[]};
 export type ScrollToColumnFn = (value: symbol) => void;
 
-export type GetNextFocusedElementFn = (
-    tableColumns: TableColumn[], tableBodyRows: TableRow[], tableHeaderRows: TableRow[],
-    expandedRowIds: RowId[], elements: Elements, event: any, focusedElement?: FocusedElement,
-    scrollToColumn?: ScrollToColumnFn,
-) => FocusedElement | void;
+export type GetNextFocusedElementFn = PureComputed<[
+    TableColumn[], TableRow[], TableRow[], RowId[], Elements, any,
+    FocusedElement?, ScrollToColumnFn?], FocusedElement | void>;
 
-export type GetFocusedElementFn = (
-    key: string, shiftKey: boolean, focusedElement: FocusedElement,
-    tableColumns: TableColumn[], tableBodyRows: TableRow[], elements: Elements,
-) => FocusedElement | void;
+export type GetFocusedElementFn = PureComputed<[
+    string, boolean, FocusedElement, TableColumn[], TableRow[], Elements,
+ ], FocusedElement | void>;
 
-export type GetElementFn = (
-    focusedElement: FocusedElement, tableBodyRows: TableRow[],
-    tableColumns: TableColumn[], tableHeaderRows: TableRow[], elements: Elements,
-    scrollToColumn?: ScrollToColumnFn,
-) => FocusedElement | void;
+export type GetElementFn = PureComputed<[
+    FocusedElement, TableRow[], TableColumn[], TableRow[], Elements,
+    ScrollToColumnFn?], FocusedElement | void>;
 
-export type GetElementPrevNextPartFn = (focusedElement: FocusedElement, elements: Elements,
-    tableBodyRows: TableRow[], tableColumns: TableColumn[], scrollToColumn?: ScrollToColumnFn,
-) => FocusedElement | void;
+export type GetElementPrevNextPartFn = PureComputed<[FocusedElement, Elements,
+    TableRow[], TableColumn[], ScrollToColumnFn?,
+], FocusedElement | void>;
 
-export type GetInnerElementsFn = (
-    elements: Elements, key1: string, key2: string, query?: string,
-) => any[];
+export type GetInnerElementsFn = PureComputed<[
+    Elements, string, string, string?,
+ ], any[]>;
+
+export type GetNextPrevPartFn = PureComputed<[FocusedElement, Elements, TableRow[]],
+string | undefined>;
+
+export type GetNextPrevCellFromBodyFn = PureComputed<[
+  number, number, TableColumn[], TableRow[], FocusedElement, Elements,
+  ScrollToColumnFn?], FocusedElement | void>;
+
+export type GetPrevCellFromHeadingFn = PureComputed<[
+  TableRow[], TableColumn[], number, FocusedElement, Elements,
+], FocusedElement | void>;
+
+export type GetNextCellFromHeadinFn = PureComputed<[
+  TableRow[], TableRow[], TableColumn[], number, FocusedElement, Elements,
+  ScrollToColumnFn?], FocusedElement | void>;
+
+export type GetCellNextPrevPartFn = PureComputed<[
+  FocusedElement, Elements, TableRow[], TableColumn[], number,
+  ScrollToColumnFn?], FocusedElement | void>;
 
 export interface FocusedCell {
   columnKey: string;

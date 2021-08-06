@@ -26,7 +26,7 @@ const styles = theme => ({
 const TableDetailToggleCellBase = ({
   style, expanded, classes, onToggle,
   tableColumn, tableRow, row,
-  className,
+  className, refObject,
   ...restProps
 }) => {
   const handleClick = (e) => {
@@ -37,6 +37,7 @@ const TableDetailToggleCellBase = ({
     <TableCell
       className={classNames(classes.toggleCell, className)}
       style={style}
+      ref={refObject}
       {...restProps}
     >
       <IconButton
@@ -62,6 +63,7 @@ TableDetailToggleCellBase.propTypes = {
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
   row: PropTypes.any,
+  refObject: PropTypes.object,
 };
 
 TableDetailToggleCellBase.defaultProps = {
@@ -72,6 +74,7 @@ TableDetailToggleCellBase.defaultProps = {
   tableColumn: undefined,
   tableRow: undefined,
   row: undefined,
+  refObject: undefined,
 };
 
 export const TableDetailToggleCell = withStyles(styles, { name: 'TableDetailToggleCell' })(TableDetailToggleCellBase);

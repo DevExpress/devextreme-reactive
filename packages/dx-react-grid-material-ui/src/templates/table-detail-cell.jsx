@@ -12,13 +12,14 @@ const styles = theme => ({
 
 const TableDetailCellBase = ({
   colSpan, style, children, classes,
-  className,
+  className, refObject,
   tableColumn, tableRow, row,
   ...restProps
 }) => (
   <TableCell
     style={style}
     colSpan={colSpan}
+    ref={refObject}
     className={classNames(classes.active, className)}
     {...restProps}
   >
@@ -35,6 +36,7 @@ TableDetailCellBase.propTypes = {
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
   row: PropTypes.any,
+  refObject: PropTypes.object,
 };
 
 TableDetailCellBase.defaultProps = {
@@ -45,6 +47,7 @@ TableDetailCellBase.defaultProps = {
   tableRow: undefined,
   row: undefined,
   children: undefined,
+  refObject: undefined,
 };
 
 export const TableDetailCell = withStyles(styles, { name: 'TableDetailCell' })(TableDetailCellBase);

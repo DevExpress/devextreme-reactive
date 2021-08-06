@@ -7,10 +7,12 @@ import { ExpandButton } from './parts/expand-button';
 export const TableDetailToggleCell = ({
   expanded, onToggle,
   tableColumn, tableRow, row, className,
+  refObject,
   ...restProps
 }) => (
   <td
     className={classNames('text-center align-middle', className)}
+    ref={refObject}
     {...restProps}
   >
     <ExpandButton
@@ -27,6 +29,7 @@ TableDetailToggleCell.propTypes = {
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
   row: PropTypes.any,
+  refObject: PropTypes.object,
 };
 
 TableDetailToggleCell.defaultProps = {
@@ -36,4 +39,5 @@ TableDetailToggleCell.defaultProps = {
   tableColumn: undefined,
   tableRow: undefined,
   row: undefined,
+  refObject: undefined,
 };

@@ -4,20 +4,32 @@ import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
 const FocusCellBase = ({
   component: CellPlaceholder,
+  focused,
+  style,
   ...restProps
-}) => (
-  <CellPlaceholder
-    {...restProps}
-  />
-);
+}) => {
+  const borderStyle = '1px solid #337ab7';
+  return (
+    <CellPlaceholder
+      {...restProps}
+      style={focused ? {
+        border: borderStyle,
+        outline: 'none',
+        ...style,
+      } : { ...style }}
+    />
+  );
+};
 
 FocusCellBase.propTypes = {
   component: PropTypes.func.isRequired,
-  className: PropTypes.string,
+  focused: PropTypes.bool,
+  style: PropTypes.object,
 };
 
 FocusCellBase.defaultProps = {
-  className: undefined,
+  focused: undefined,
+  style: undefined,
 };
 
 export const FocusCell = withKeyboardNavigation()(FocusCellBase);

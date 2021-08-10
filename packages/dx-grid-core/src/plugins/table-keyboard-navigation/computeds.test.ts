@@ -6,6 +6,7 @@ import {
     getNextFocusedCell, getInnerElements, isRowFocused, isCellExist,
     getPart, getIndexToFocus, filterHeaderRows,
     getClosestCell, isTabArrowUpDown, focus,
+    isCellFocused,
 } from './computeds';
 
 const generateElements = (
@@ -1778,5 +1779,38 @@ describe('#focus', () => {
     const onFocusedCellChanged = jest.fn();
     focus(generatedElements, focusedElement, focusedElement, onFocusedCellChanged);
     expect(onFocusedCellChanged).not.toBeCalled();
+  });
+});
+
+describe('#isCellFocused', () => {
+  it('should return false, no focusedElement', () => {
+    expect(isCellFocused(
+      { key: 'test_row' } as any,
+      { key: 'test_column' } as any))
+      .toBeFalsy();
+  });
+
+  it('should return false, focused element in the cell', () => {
+    expect(isCellFocused(
+      { key: 'test_row' } as any,
+      { key: 'test_column' } as any,
+      { index: 0 } as any))
+      .toBeFalsy();
+  });
+
+  it('should return true row and column keys are equal', () => {
+    expect(isCellFocused(
+      { key: 'test_row' } as any,
+      { key: 'test_column' } as any,
+      { rowKey: 'test_row', columnKey: 'test_column' } as any))
+      .toBeTruthy();
+  });
+
+  it('should return false, column key is not equal', () => {
+    expect(isCellFocused(
+      { key: 'test_row' } as any,
+      { key: 'test_column' } as any,
+      { rowKey: 'test_row', columnKey: 'test_column_ 1' } as any))
+      .toBeFalsy();
   });
 });

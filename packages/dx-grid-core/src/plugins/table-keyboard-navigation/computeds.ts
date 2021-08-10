@@ -819,30 +819,37 @@ export const isTabArrowUpDown = (event: any): boolean => {
   return event.key === 'Tab' || event.ctrlKey && (event.key === 'ArrowDown' || event.key === 'ArrowUp');
 };
 
-export const focus: PureComputed<[Elements, FocusedElement?,
-  FocusedElement?, OnFocusedCellChangedFn?], void> = (
-    elements, focusedElement, prevFocusedElement, onFocusedCellChanged,
+export const focus: PureComputed<
+  [Elements, FocusedElement?,
+  FocusedElement?, OnFocusedCellChangedFn?], void
+> = (
+  elements, focusedElement, prevFocusedElement, onFocusedCellChanged,
 ) => {
-    if (!focusedElement || !elements[focusedElement.rowKey] ||
-    !elements[focusedElement.rowKey][focusedElement.columnKey]) {
-      return;
-    }
-    const el = focusedElement.index === undefined ?
+  if (!focusedElement || !elements[focusedElement.rowKey] ||
+      !elements[focusedElement.rowKey][focusedElement.columnKey]) {
+    return;
+  }
+  const el = focusedElement.index === undefined ?
   elements[focusedElement.rowKey][focusedElement.columnKey][0] :
   getInnerElements(elements, focusedElement.rowKey, focusedElement.columnKey)[focusedElement.index];
 
-    if (el) {
-      if (el.focus) {
-        el.focus();
-      } else {
-        el.current.focus();
-      }
-      if (onFocusedCellChanged && focusedElement.part === DATA_TYPE &&
-          (prevFocusedElement?.rowKey !== focusedElement.rowKey ||
-            prevFocusedElement?.columnKey !== focusedElement.columnKey)) {
-        onFocusedCellChanged({
-          rowKey: focusedElement.rowKey, columnKey: focusedElement.columnKey,
-        });
-      }
+  if (el) {
+    el.focus ? el.focus() : el.current.focus();
+    if (onFocusedCellChanged && focusedElement.part === DATA_TYPE &&
+        (prevFocusedElement?.rowKey !== focusedElement.rowKey ||
+          prevFocusedElement?.columnKey !== focusedElement.columnKey)) {
+      onFocusedCellChanged({
+        rowKey: focusedElement.rowKey, columnKey: focusedElement.columnKey,
+      });
     }
-  };
+  }
+};
+
+export const isCellFocused: PureComputed<[
+  TableRow, TableColumn, FocusedElement?
+], boolean> = (row, column, focusedElement) => {
+  if (!focusedElement || isDefined(focusedElement.index)) {
+    return false;
+  }
+  return focusedElement.rowKey === row.key && focusedElement.columnKey === column.key;
+};

@@ -13,6 +13,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   isRowFocused: jest.fn(),
   focus: jest.fn(),
   TABLE_DATA_TYPE: 'data_type',
+  isCellFocused: jest.fn().mockReturnValue(true),
 }));
 
 const defaultDeps = {
@@ -74,6 +75,7 @@ describe('TableKeyboardNavigation', () => {
       tableRow: {
         type: 'undefined', rowId: 1, row: 'row',
       },
+      focused: true,
       style: {},
     });
   });

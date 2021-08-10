@@ -14,7 +14,7 @@ export class FocusRow extends React.PureComponent {
     return (
       <RowPlaceholder
         className={classNames({
-          'table-active': !!focused,
+          'bg-light': !!focused,
         }, className)}
         {...restProps}
       />

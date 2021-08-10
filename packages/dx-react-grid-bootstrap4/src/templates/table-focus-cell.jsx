@@ -8,12 +8,14 @@ class FocusCellBase extends React.PureComponent {
     const {
       className,
       component: CellPlaceholder,
+      focused,
       ...restProps
     } = this.props;
 
     return (
       <CellPlaceholder
         className={classNames({
+          'border border-primary': !!focused,
           'dx-g-bs4-focus-cell': true,
         }, className)}
         {...restProps}
@@ -25,10 +27,12 @@ class FocusCellBase extends React.PureComponent {
 FocusCellBase.propTypes = {
   className: PropTypes.string,
   component: PropTypes.func.isRequired,
+  focused: PropTypes.bool,
 };
 
 FocusCellBase.defaultProps = {
   className: undefined,
+  focused: undefined,
 };
 
 export const FocusCell = withKeyboardNavigation()(FocusCellBase);

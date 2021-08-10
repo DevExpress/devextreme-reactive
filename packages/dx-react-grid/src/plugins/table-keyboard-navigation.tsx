@@ -7,6 +7,7 @@ import {
   getNextFocusedCell,  getPart, getIndexToFocus,
   isCellExist, focus, isTabArrowUpDown,
   filterHeaderRows, Elements, isDataTableRow, isRowFocused, getClosestCell,
+  isCellFocused,
 } from '@devexpress/dx-grid-core';
 import {
   KeyboardNavigationProps, KeyboardNavigationCoreProps, KeyboardNavigationCoreState,
@@ -175,6 +176,7 @@ KeyboardNavigationCoreState> {
       rowComponent: Row,
       focusedRowEnabled,
     } = this.props;
+    const { focusedElement } = this.state;
     return (
       <Plugin
         name="TableKeyboardNavigationCore"
@@ -188,6 +190,7 @@ KeyboardNavigationCoreState> {
               tabIndex={0}
               updateRefForKeyboardNavigation={this.updateRef}
               setFocusedElement={this.setFocusedElement}
+              focused={isCellFocused(params.tableRow, params.tableColumn, focusedElement)}
             />
           )}
         </Template>
@@ -216,7 +219,7 @@ KeyboardNavigationCoreState> {
               <Row
                 {...params}
                 component={RowPlaceholder}
-                focused={isRowFocused(params.tableRow, this.state.focusedElement?.rowKey)}
+                focused={isRowFocused(params.tableRow, focusedElement?.rowKey)}
               />
             )}
           </Template>

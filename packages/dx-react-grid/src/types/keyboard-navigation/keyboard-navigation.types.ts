@@ -11,6 +11,8 @@ export namespace KeyboardNavigation {
     component: React.ComponentType<Table.CellProps>;
     /** @internal */
     tabIndex: number;
+    /** @internal */
+    focused: boolean;
   }
   export interface RowProps extends Table.RowProps {
     /** A component that should be rendered as a focused cell. */

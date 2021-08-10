@@ -21,6 +21,6 @@ describe('FocusRow', () => {
       <FocusRow {...defaultProps} focused />
     ));
 
-    expect(tree.find(defaultProps.component).props()).toEqual({ className: 'table-active' });
+    expect(tree.find(defaultProps.component).props()).toEqual({ className: 'bg-light' });
   });
 });

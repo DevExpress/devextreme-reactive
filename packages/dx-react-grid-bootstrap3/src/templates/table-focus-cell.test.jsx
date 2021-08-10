@@ -27,4 +27,15 @@ describe('FocusCell', () => {
 
     expect(withKeyboardNavigation).toBeCalled();
   });
+
+  it('should apply styles if focues = true', () => {
+    const tree = mount((
+      <FocusCell {...defaultProps} focused />
+    ));
+
+    expect(tree.find(defaultProps.component).props().style).toEqual({
+      border: '1px solid #337ab7',
+      outline: 'none',
+    });
+  });
 });

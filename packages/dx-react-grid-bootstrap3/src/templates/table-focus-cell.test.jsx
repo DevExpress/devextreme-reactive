@@ -28,6 +28,16 @@ describe('FocusCell', () => {
     expect(withKeyboardNavigation).toBeCalled();
   });
 
+  it('should apply default styles', () => {
+    const tree = mount((
+      <FocusCell {...defaultProps} />
+    ));
+
+    expect(tree.find(defaultProps.component).props().style).toEqual({
+      outline: 'none',
+    });
+  });
+
   it('should apply styles if focues = true', () => {
     const tree = mount((
       <FocusCell {...defaultProps} focused />

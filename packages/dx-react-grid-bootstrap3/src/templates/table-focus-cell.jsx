@@ -12,11 +12,11 @@ const FocusCellBase = ({
   return (
     <CellPlaceholder
       {...restProps}
-      style={focused ? {
-        border: borderStyle,
+      style={{
+        border: focused ? borderStyle : undefined,
         outline: 'none',
         ...style,
-      } : { ...style }}
+      }}
     />
   );
 };

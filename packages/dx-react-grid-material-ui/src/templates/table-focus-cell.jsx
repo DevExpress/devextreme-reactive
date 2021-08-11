@@ -7,6 +7,8 @@ import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 const styles = theme => ({
   focusedCell: {
     border: `1px solid ${theme.palette.primary.light}`,
+  },
+  simpleCell: {
     outline: 'none',
   },
 });
@@ -25,6 +27,7 @@ class FocusCellBase extends React.PureComponent {
       <CellPlaceholder
         className={classNames({
           [classes.focusedCell]: !!focused,
+          [classes.simpleCell]: true,
         }, className)}
         {...restProps}
       />

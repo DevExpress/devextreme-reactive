@@ -35,12 +35,24 @@ describe('FocusCell', () => {
     expect(withKeyboardNavigation).toBeCalled();
   });
 
+  it('should apply default className', () => {
+    const tree = shallow((
+      <FocusCell {...defaultProps} />
+    ));
+
+    expect(tree.is(`.${classes.simpleCell}`))
+      .toBeTruthy();
+  });
+
   it('should apply classNames if focused = true', () => {
     const tree = shallow((
       <FocusCell {...defaultProps} focused />
     ));
 
     expect(tree.is(`.${classes.focusedCell}`))
+      .toBeTruthy();
+
+    expect(tree.is(`.${classes.simpleCell}`))
       .toBeTruthy();
   });
 });

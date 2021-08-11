@@ -658,12 +658,14 @@ const getCellNextPrevPart: GetCellNextPrevPartFn = (focusedElement, elements,
   return cell;
 };
 
-export const getClosestCell = (
-  tableBodyRows: TableRow[], focusedElement: FocusedElement, elements: Elements,
+export const getClosestCell: PureComputed<
+  [TableRow[], FocusedElement, Elements], FocusedElement
+> = (
+  tableBodyRows, focusedElement, elements,
 ) => {
   const currentIndex = getIndexFromKey(focusedElement.rowKey);
   const bodyRow = tableBodyRows.find((row) => {
-    return getIndexFromKey(row.key) > currentIndex;
+    return getIndexFromKey(row.key) >= currentIndex;
   });
   const rowKey = bodyRow ? bodyRow.key : tableBodyRows[tableBodyRows.length - 1].key;
   const columnKey = focusedElement.columnKey;

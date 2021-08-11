@@ -6,7 +6,7 @@ import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
 const styles = theme => ({
   focusedCell: {
-    border: `1px solid ${theme.palette.primary.light}`,
+    border: `1px solid ${theme.palette.primary.light}!important`,
   },
   simpleCell: {
     outline: 'none',

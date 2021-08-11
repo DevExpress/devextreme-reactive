@@ -1653,7 +1653,7 @@ describe('#getClosestCell', () => {
       columnKey: 'test_column_2',
       index: 0,
       part: 'part',
-      rowKey: 'test_row_3',
+      rowKey: 'test_row_2',
     });
   });
 

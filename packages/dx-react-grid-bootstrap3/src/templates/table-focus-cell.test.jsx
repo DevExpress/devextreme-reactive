@@ -38,13 +38,16 @@ describe('FocusCell', () => {
     });
   });
 
-  it('should apply styles if focues = true', () => {
+  it('should apply styles if focus = true', () => {
     const tree = mount((
       <FocusCell {...defaultProps} focused />
     ));
 
     expect(tree.find(defaultProps.component).props().style).toEqual({
-      border: '1px solid #337ab7',
+      borderBottom: '1px solid #337ab7',
+      borderLeft: '1px solid #337ab7',
+      borderRight: '1px solid #337ab7',
+      borderTop: '1px solid #337ab7',
       outline: 'none',
     });
   });

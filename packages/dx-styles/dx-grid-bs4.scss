@@ -187,14 +187,14 @@ button.dx-g-bs4-table-edit-command-cell {
 }
 .dx-g-bs4-banded-header-cell {
   &:last-child {
-    border-right: 0!important;
+    border-right-width: 0px!important;
   }
 }
 .dx-g-bs4-banded-cell {
   &:last-child {
-    border-right: none!important;
+    border-right-width: 0px!important;
   }
-  border-bottom: none!important;
+  border-bottom-width: 0px!important;
 }
 .dx-g-bs4-filter-selector-item {
   font-size: initial;
@@ -259,6 +259,10 @@ button.dx-g-bs4-table-edit-command-cell {
   vertical-align: middle;
   cursor: pointer;
 }
-.dx-g-bs4-focus-cell {
+.dx-g-bs4-simple-cell {
   outline: none;
+}
+.dx-g-bs-focus-cell {
+  border-right-width: 1px!important;
+  border-bottom-width: 1px!important;
 }

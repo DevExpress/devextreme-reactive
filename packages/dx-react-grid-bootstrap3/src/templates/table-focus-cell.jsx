@@ -9,12 +9,18 @@ const FocusCellBase = ({
   ...restProps
 }) => {
   const borderStyle = '1px solid #337ab7';
+  const border = {
+    borderTop: borderStyle,
+    borderLeft: borderStyle,
+    borderRight: borderStyle,
+    borderBottom: borderStyle,
+  };
   return (
     <CellPlaceholder
       {...restProps}
       style={{
-        border: focused ? borderStyle : undefined,
         outline: 'none',
+        ...focused ? border : null,
         ...style,
       }}
     />

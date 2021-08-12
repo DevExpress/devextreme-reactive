@@ -137,17 +137,26 @@ const getPrevPart: GetNextPrevPartFn = (
   return part;
 };
 
-const correctColumnKey: PureComputed<
-  [Elements, TableColumn[], string], string
-> = (elements, tableColumns, rowKey) => {
-  let columnKey = tableColumns[tableColumns.length - 1].key;
-  for(let i = tableColumns.length - 1; i >= 0; i -= 1) {
-    columnKey = tableColumns[i].key;
-    if(elements[rowKey][columnKey]) {
-      break;
+const getClosestColumnKey: PureComputed<
+  [Elements, TableColumn[], string, string, number, number], string
+> = (elements, tableColumns, rowKey, columnKey, indexColumnKey, direction) => {
+  let key = columnKey;
+  if(direction < 0) {
+    for(let i = indexColumnKey; i >= 0; i -= 1) {
+      key = tableColumns[i].key;
+      if(elements[rowKey][key]) {
+        break;
+      }
+    }
+  } else {
+    for(let i = indexColumnKey; i <= tableColumns.length - 1; i += 1) {
+      key = tableColumns[i].key;
+      if(elements[rowKey][key]) {
+        break;
+      }
     }
   }
-  return columnKey;
+  return key;
 }
 
 const getCellPrevPart: GetElementPrevNextPartFn = (
@@ -159,7 +168,8 @@ const getCellPrevPart: GetElementPrevNextPartFn = (
   }
 
   const rowKey = part === DATA_TYPE ? tableBodyRows[tableBodyRows.length - 1].key : part;
-  let columnKey = tableColumns[tableColumns.length - 1].key;
+  const columnKeyIndex = tableColumns.length - 1;
+  let columnKey = tableColumns[columnKeyIndex].key;
   if (shouldBeScrolled(elements, rowKey, columnKey, scrollToColumn)) {
     scrollToColumn(RIGHT_POSITION);
     return {
@@ -168,7 +178,7 @@ const getCellPrevPart: GetElementPrevNextPartFn = (
       part,
     };
   }
-  columnKey = correctColumnKey(elements, tableColumns, rowKey);
+  columnKey = getClosestColumnKey(elements, tableColumns, rowKey, columnKey, columnKeyIndex, -1);
   return {
     rowKey,
     columnKey,
@@ -718,21 +728,15 @@ export const getNextFocusedCell: GetNextFocusedElementFn = (
       if (pagingElements && event.target === pagingElements[0] && event.shiftKey) {
         return getLastCell(elements, tableBodyRows, tableColumns);
       }
-      if (!pagingElements && !toolbarElements) {
-        const part = tableParts.find((p) => {
-          if (p === DATA_TYPE) {
-            return elements[tableBodyRows[0].key];
-          }
-          return elements[p];
-        });
-        if (!part) {
-          return;
-        }
-        return {
-          rowKey: part === DATA_TYPE ? tableBodyRows[0].key : part,
-          columnKey: tableColumns[0].key,
-          part,
-        };
+      const firstCell = getFirstCell(elements, tableBodyRows, tableColumns);
+      const lastCell = getLastCell(elements, tableBodyRows, tableColumns);
+      if (firstCell && !event.shiftKey && 
+        event.target === elements[firstCell.rowKey][firstCell.columnKey][0].current) {
+        return firstCell;
+      }
+      if(lastCell && event.shiftKey && 
+        event.target === elements[lastCell.rowKey][lastCell.columnKey][0].current) {
+        return lastCell;
       }
     }
   } else {

@@ -60,27 +60,49 @@ describe('No focused element, key = Tab', () => {
   const filter = TABLE_FILTER_TYPE.toString();
   const tableHeaderRows = [{ key: header }] as any;
   const expandedRowIds = [];
+
   it('should return cell from header', () => {
     const elements = generateElements(tableColumns, tableBodyRows, [filter, header]);
 
     const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
-        expandedRowIds, elements, { key });
+      expandedRowIds, elements, { key, target: elements[header]['test_column_1'][0].current });
     expect(element).toEqual({
       rowKey: header,
       columnKey: 'test_column_1',
       part: header,
+      index: 0,
     });
   });
 
   it('should return cell from body', () => {
     const elements = generateElements(tableColumns, tableBodyRows, []);
 
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
-        expandedRowIds, elements, { key });
+    const element = getNextFocusedCell(
+      tableColumns, tableBodyRows, tableHeaderRows,
+      expandedRowIds, elements, 
+      { key, target: elements['test_row_1']['test_column_1'][0].current }
+    );
     expect(element).toEqual({
       rowKey: 'test_row_1',
       columnKey: 'test_column_1',
       part: body,
+      index: 0,
+    });
+  });
+
+  it('should return last cell from body', () => {
+    const elements = generateElements(tableColumns, tableBodyRows, []);
+
+    const element = getNextFocusedCell(
+      tableColumns, tableBodyRows, tableHeaderRows,
+      expandedRowIds, elements, 
+      { key, shiftKey: true, target: elements['test_row_3']['test_column_4'][0].current }
+    );
+    expect(element).toEqual({
+      rowKey: 'test_row_3',
+      columnKey: 'test_column_4',
+      part: body,
+      index: 0,
     });
   });
 

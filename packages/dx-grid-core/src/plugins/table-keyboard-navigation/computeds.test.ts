@@ -65,7 +65,7 @@ describe('No focused element, key = Tab', () => {
     const elements = generateElements(tableColumns, tableBodyRows, [filter, header]);
 
     const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
-      expandedRowIds, elements, { key, target: elements[header]['test_column_1'][0].current });
+      expandedRowIds, elements, { key, target: elements[header].test_column_1[0].current });
     expect(element).toEqual({
       rowKey: header,
       columnKey: 'test_column_1',
@@ -79,8 +79,8 @@ describe('No focused element, key = Tab', () => {
 
     const element = getNextFocusedCell(
       tableColumns, tableBodyRows, tableHeaderRows,
-      expandedRowIds, elements, 
-      { key, target: elements['test_row_1']['test_column_1'][0].current }
+      expandedRowIds, elements,
+      { key, target: elements.test_row_1.test_column_1[0].current },
     );
     expect(element).toEqual({
       rowKey: 'test_row_1',
@@ -95,8 +95,8 @@ describe('No focused element, key = Tab', () => {
 
     const element = getNextFocusedCell(
       tableColumns, tableBodyRows, tableHeaderRows,
-      expandedRowIds, elements, 
-      { key, shiftKey: true, target: elements['test_row_3']['test_column_4'][0].current }
+      expandedRowIds, elements,
+      { key, shiftKey: true, target: elements.test_row_3.test_column_4[0].current },
     );
     expect(element).toEqual({
       rowKey: 'test_row_3',

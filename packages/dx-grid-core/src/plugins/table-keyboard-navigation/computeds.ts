@@ -141,23 +141,23 @@ const getClosestColumnKey: PureComputed<
   [Elements, TableColumn[], string, string, number, number], string
 > = (elements, tableColumns, rowKey, columnKey, indexColumnKey, direction) => {
   let key = columnKey;
-  if(direction < 0) {
-    for(let i = indexColumnKey; i >= 0; i -= 1) {
+  if (direction < 0) {
+    for (let i = indexColumnKey; i >= 0; i -= 1) {
       key = tableColumns[i].key;
-      if(elements[rowKey][key]) {
+      if (elements[rowKey][key]) {
         break;
       }
     }
   } else {
-    for(let i = indexColumnKey; i <= tableColumns.length - 1; i += 1) {
+    for (let i = indexColumnKey; i <= tableColumns.length - 1; i += 1) {
       key = tableColumns[i].key;
-      if(elements[rowKey][key]) {
+      if (elements[rowKey][key]) {
         break;
       }
     }
   }
   return key;
-}
+};
 
 const getCellPrevPart: GetElementPrevNextPartFn = (
   focusedElement, elements, tableBodyRows, tableColumns, scrollToColumn,
@@ -730,11 +730,11 @@ export const getNextFocusedCell: GetNextFocusedElementFn = (
       }
       const firstCell = getFirstCell(elements, tableBodyRows, tableColumns);
       const lastCell = getLastCell(elements, tableBodyRows, tableColumns);
-      if (firstCell && !event.shiftKey && 
+      if (firstCell && !event.shiftKey &&
         event.target === elements[firstCell.rowKey][firstCell.columnKey][0].current) {
         return firstCell;
       }
-      if(lastCell && event.shiftKey && 
+      if (lastCell && event.shiftKey &&
         event.target === elements[lastCell.rowKey][lastCell.columnKey][0].current) {
         return lastCell;
       }

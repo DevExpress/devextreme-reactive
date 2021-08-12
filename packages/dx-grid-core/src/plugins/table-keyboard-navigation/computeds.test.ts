@@ -518,6 +518,39 @@ describe('Focused element in the header with banded columns, key = Tab', () => {
   });
 });
 
+describe('Focus element in the header with banded columns from body', () => {
+  const refElement = { current: { querySelectorAll: jest.fn().mockReturnValue([]) } };
+  const header = TABLE_HEADING_TYPE.toString();
+  const band = TABLE_BAND_TYPE.toString();
+  const key = 'Tab';
+  const tableHeaderRows = [{ key: `${band}_0` }, { key: header }] as any;
+  const expandedRowIds = [];
+  const elements = generateElements(tableColumns, tableBodyRows, []);
+  elements[`${band}_0`] = {};
+  elements[`${band}_0`].test_column_1 = [refElement];
+  elements[`${band}_0`].test_column_2 = [refElement];
+  elements[`${band}_0`].test_column_4 = [refElement];
+  elements[`${header}`] = {};
+  elements[`${header}`].test_column_2 = [refElement];
+  elements[`${header}`].test_column_3 = [refElement];
+
+  it('should return correct cell from head', () => {
+    const focusedElement = {
+      rowKey: 'test_row_1',
+      columnKey: 'test_column_1',
+      part: body,
+    };
+
+    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+        expandedRowIds, elements, { key, shiftKey: true }, focusedElement);
+    expect(element).toEqual({
+      rowKey: header,
+      columnKey: 'test_column_3',
+      part: header,
+    });
+  });
+});
+
 describe('Focused element in the body of table', () => {
   const header = TABLE_HEADING_TYPE.toString();
   const filter = TABLE_FILTER_TYPE.toString();

@@ -137,6 +137,19 @@ const getPrevPart: GetNextPrevPartFn = (
   return part;
 };
 
+const correctColumnKey: PureComputed<
+  [Elements, TableColumn[], string], string
+> = (elements, tableColumns, rowKey) => {
+  let columnKey = tableColumns[tableColumns.length - 1].key;
+  for(let i = tableColumns.length - 1; i >= 0; i -= 1) {
+    columnKey = tableColumns[i].key;
+    if(elements[rowKey][columnKey]) {
+      break;
+    }
+  }
+  return columnKey;
+}
+
 const getCellPrevPart: GetElementPrevNextPartFn = (
   focusedElement, elements, tableBodyRows, tableColumns, scrollToColumn,
 ) => {
@@ -146,7 +159,7 @@ const getCellPrevPart: GetElementPrevNextPartFn = (
   }
 
   const rowKey = part === DATA_TYPE ? tableBodyRows[tableBodyRows.length - 1].key : part;
-  const columnKey = tableColumns[tableColumns.length - 1].key;
+  let columnKey = tableColumns[tableColumns.length - 1].key;
   if (shouldBeScrolled(elements, rowKey, columnKey, scrollToColumn)) {
     scrollToColumn(RIGHT_POSITION);
     return {
@@ -155,6 +168,7 @@ const getCellPrevPart: GetElementPrevNextPartFn = (
       part,
     };
   }
+  columnKey = correctColumnKey(elements, tableColumns, rowKey);
   return {
     rowKey,
     columnKey,

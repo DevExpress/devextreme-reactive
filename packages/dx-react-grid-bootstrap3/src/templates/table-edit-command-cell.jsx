@@ -11,6 +11,9 @@ export const CommandButton = ({
   <button
     type="button"
     className={classNames('btn', 'btn-link', className)}
+    style={{
+      outline: 'none',
+    }}
     onClick={(e) => {
       e.stopPropagation();
       onExecute();

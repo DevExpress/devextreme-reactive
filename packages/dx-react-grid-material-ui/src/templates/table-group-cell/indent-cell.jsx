@@ -18,10 +18,12 @@ const IndentCellBase = ({
   row, column,
   style, className, classes,
   position, side,
+  refObject,
   ...restProps
 }) => (
   <TableCell
     className={classNames(classes.indentCell, className)}
+    ref={refObject}
     style={{ ...style, [side]: position }}
     {...restProps}
   />
@@ -37,6 +39,7 @@ IndentCellBase.propTypes = {
   className: PropTypes.string,
   side: PropTypes.string,
   position: PropTypes.number,
+  refObject: PropTypes.object,
 };
 
 IndentCellBase.defaultProps = {
@@ -48,6 +51,7 @@ IndentCellBase.defaultProps = {
   className: undefined,
   side: 'left',
   position: undefined,
+  refObject: undefined,
 };
 
 export const IndentCell = withStyles(styles)(IndentCellBase);

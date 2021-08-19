@@ -1,7 +1,7 @@
 import { ReadonlyObject, PureComputed } from '@devexpress/dx-core';
 import {
   TABLE_FILTER_TYPE, TABLE_HEADING_TYPE, TABLE_DATA_TYPE, TABLE_BAND_TYPE,
-  RIGHT_POSITION, LEFT_POSITION,
+  RIGHT_POSITION, LEFT_POSITION, TABLE_TOTAL_SUMMARY_TYPE,
 } from '@devexpress/dx-grid-core';
 import {
     GetNextFocusedElementFn, FocusedElement, TableColumn, TableRow,
@@ -15,8 +15,9 @@ const HEADING_TYPE = TABLE_HEADING_TYPE.toString();
 const FILTER_TYPE = TABLE_FILTER_TYPE.toString();
 const DATA_TYPE = TABLE_DATA_TYPE.toString();
 const BAND_TYPE = TABLE_BAND_TYPE.toString();
+const TOTAL_SUMMARY_TYPE = TABLE_TOTAL_SUMMARY_TYPE.toString();
 
-const tableParts = [HEADING_TYPE, FILTER_TYPE, DATA_TYPE];
+const tableParts = [HEADING_TYPE, FILTER_TYPE, DATA_TYPE, TOTAL_SUMMARY_TYPE];
 
 const getIndex: PureComputed<[TableColumn[] | TableRow [], string], number> = (arr, key) => {
   return arr.findIndex((el: TableColumn | TableRow) => {
@@ -682,7 +683,7 @@ const getCellNextPrevPart: GetCellNextPrevPartFn = (focusedElement, elements,
   return cell;
 };
 
-export const getClosestCell: PureComputed<
+export const getClosestCellByRow: PureComputed<
   [TableRow[], FocusedElement, Elements], FocusedElement
 > = (
   tableBodyRows, focusedElement, elements,

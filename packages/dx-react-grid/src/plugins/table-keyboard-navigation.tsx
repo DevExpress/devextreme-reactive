@@ -6,7 +6,7 @@ import {
   TABLE_ADDED_TYPE, TABLE_DATA_TYPE,
   getNextFocusedCell,  getPart, getIndexToFocus,
   isCellExist, focus, isTabArrowUpDown,
-  filterHeaderRows, Elements, isDataTableRow, isRowFocused, getClosestCell,
+  filterHeaderRows, Elements, isDataTableRow, isRowFocused, getClosestCellByRow,
   isCellFocused,
 } from '@devexpress/dx-grid-core';
 import {
@@ -128,7 +128,7 @@ KeyboardNavigationCoreState> {
     }
 
     if (focusedElement && !isCellExist(this.elements, focusedElement) && event.key === 'Tab') {
-      focusedCell = getClosestCell(tableBodyRows, focusedElement, this.elements);
+      focusedCell = getClosestCellByRow(tableBodyRows, focusedElement, this.elements);
       event.preventDefault();
       this.setState({
         focusedElement: focusedCell,

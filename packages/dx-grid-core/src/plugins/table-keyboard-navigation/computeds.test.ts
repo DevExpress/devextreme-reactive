@@ -5,7 +5,7 @@ import {
 import {
     getNextFocusedCell, getInnerElements, isRowFocused, isCellExist,
     getPart, getIndexToFocus, filterHeaderRows,
-    getClosestCell, isTabArrowUpDown, focus,
+    getClosestCellByRow, isTabArrowUpDown, focus,
     isCellFocused,
 } from './computeds';
 
@@ -1701,10 +1701,10 @@ describe('#isCellExist', () => {
   });
 });
 
-describe('#getClosestCell', () => {
+describe('#getClosestCellByRow', () => {
   const generatedElements = generateElements(tableColumns, tableBodyRows, []);
   it('should return closest cell', () => {
-    expect(getClosestCell(tableBodyRows, { columnKey: 'test_column_2', part: 'part', rowKey: 'test_row_2' }, generatedElements)).toEqual({
+    expect(getClosestCellByRow(tableBodyRows, { columnKey: 'test_column_2', part: 'part', rowKey: 'test_row_2' }, generatedElements)).toEqual({
       columnKey: 'test_column_2',
       index: 0,
       part: 'part',
@@ -1713,7 +1713,7 @@ describe('#getClosestCell', () => {
   });
 
   it('should return last cell', () => {
-    expect(getClosestCell(tableBodyRows, { columnKey: 'test_column_2', part: 'part', rowKey: 'test_row_3' }, generatedElements)).toEqual({
+    expect(getClosestCellByRow(tableBodyRows, { columnKey: 'test_column_2', part: 'part', rowKey: 'test_row_3' }, generatedElements)).toEqual({
       columnKey: 'test_column_2',
       index: 0,
       part: 'part',

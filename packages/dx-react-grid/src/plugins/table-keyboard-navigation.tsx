@@ -153,7 +153,7 @@ KeyboardNavigationCoreState> {
     }
   }
 
-  setFocusedElement({ key1, key2 }) {
+  setFocusedElement({ key1, key2, event }) {
     if (key1 === 'paging' || key1 === 'toolbar') {
       this.setState({
         focusedElement: undefined,
@@ -163,7 +163,7 @@ KeyboardNavigationCoreState> {
         focusedElement: {
           rowKey: key1,
           columnKey: key2,
-          index: getIndexToFocus(key1, key2, this.elements),
+          index: getIndexToFocus(key1, key2, this.elements, event),
           part: getPart(key1),
         },
       });

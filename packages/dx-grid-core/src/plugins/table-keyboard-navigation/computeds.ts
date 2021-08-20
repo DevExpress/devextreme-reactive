@@ -1,7 +1,8 @@
 import { ReadonlyObject, PureComputed } from '@devexpress/dx-core';
 import {
   TABLE_FILTER_TYPE, TABLE_HEADING_TYPE, TABLE_DATA_TYPE, TABLE_BAND_TYPE,
-  RIGHT_POSITION, LEFT_POSITION, TABLE_TOTAL_SUMMARY_TYPE,
+  RIGHT_POSITION, LEFT_POSITION, TABLE_TOTAL_SUMMARY_TYPE, TABLE_STUB_TYPE,
+  TABLE_GROUP_TYPE,
 } from '@devexpress/dx-grid-core';
 import {
     GetNextFocusedElementFn, FocusedElement, TableColumn, TableRow,
@@ -16,6 +17,8 @@ const FILTER_TYPE = TABLE_FILTER_TYPE.toString();
 const DATA_TYPE = TABLE_DATA_TYPE.toString();
 const BAND_TYPE = TABLE_BAND_TYPE.toString();
 const TOTAL_SUMMARY_TYPE = TABLE_TOTAL_SUMMARY_TYPE.toString();
+const STUB_TYPE = TABLE_STUB_TYPE.toString();
+const GROUP_TYPE = TABLE_GROUP_TYPE.toString();
 
 const tableParts = [HEADING_TYPE, FILTER_TYPE, DATA_TYPE, TOTAL_SUMMARY_TYPE];
 
@@ -58,11 +61,36 @@ const getIndexInnerElement: PureComputed<[
   return cellEmptyOrHasSpanAndInput(elements, rowKey, columnKey) ? undefined : index;
 };
 
+const getNextPrevClosestColumnKey: PureComputed<
+  [TableColumn[], number, string, Elements, number], string | undefined
+> = (tableColumns, columnIndex, rowKey, elements, direction) => {
+  let columnKey;
+  if (direction > 0) {
+    for (let i = columnIndex; i <= tableColumns.length - 1; i += 1) {
+      if (elements[rowKey][tableColumns[i].key]) {
+        columnKey = tableColumns[i].key;
+        break;
+      }
+    }
+  } else {
+    for (let i = columnIndex; i >= 0; i -= 1) {
+      if (elements[rowKey][tableColumns[i].key]) {
+        columnKey = tableColumns[i].key;
+        break;
+      }
+    }
+  }
+  return columnKey;
+};
+
 const shouldBeScrolled = (
   elements: ReadonlyObject<Elements>, key1: string, key2: string,
   scrollToColumn?: ScrollToColumnFn,
 ): scrollToColumn is ScrollToColumnFn => {
-  return !!(scrollToColumn && !elements[key1][key2]);
+  const isColumnHasStubType = Object.keys(elements[key1]).some((column) => {
+    return column.includes(STUB_TYPE);
+  });
+  return !!(scrollToColumn && !elements[key1][key2] && isColumnHasStubType);
 };
 
 const getNextPart: GetNextPrevPartFn = (
@@ -192,18 +220,21 @@ const getPrevCellFromBody: GetNextPrevCellFromBodyFn = (
   columnIndex, rowIndex, tableColumns, tableBodyRows, focusedElement, elements,
   scrollToColumn,
 ) => {
-  let prevRowKey;
+  let prevRowKey = focusedElement.rowKey;
   let prevColumnKey;
-  let prevIndex;
-  let innerElements;
-
   if (columnIndex === 0 && rowIndex === 0) {
     return getCellPrevPart(focusedElement, elements, tableBodyRows, tableColumns, scrollToColumn);
   }
   if (columnIndex === 0) {
     prevRowKey = tableBodyRows[rowIndex - 1].key;
-    prevColumnKey = tableColumns[tableColumns.length - 1].key;
-    if (shouldBeScrolled(elements, prevRowKey, prevColumnKey, scrollToColumn)) {
+    if (prevRowKey.includes(GROUP_TYPE)) {
+      prevColumnKey = getNextPrevClosestColumnKey(
+        tableColumns, tableColumns.length - 1, prevRowKey, elements, -1,
+      );
+    } else {
+      prevColumnKey = tableColumns[tableColumns.length - 1].key;
+    }
+    if (prevColumnKey && shouldBeScrolled(elements, prevRowKey, prevColumnKey, scrollToColumn)) {
       scrollToColumn(RIGHT_POSITION);
       return {
         rowKey: prevRowKey,
@@ -212,22 +243,17 @@ const getPrevCellFromBody: GetNextPrevCellFromBodyFn = (
       };
     }
   } else {
-    prevColumnKey = tableColumns[columnIndex - 1].key;
-    prevRowKey = focusedElement.rowKey;
+    prevColumnKey = getNextPrevClosestColumnKey(
+      tableColumns, columnIndex - 1, prevRowKey, elements, -1,
+    );
   }
 
-  innerElements = getInnerElements(elements, prevRowKey, prevColumnKey);
-  prevIndex = innerElements.length ? innerElements.length - 1 : undefined;
-  if (innerElements.length === 1 && isSpanInput(innerElements)) {
-    prevIndex = undefined;
-  }
-
-  return {
+  return prevColumnKey ? {
     rowKey: prevRowKey,
     columnKey: prevColumnKey,
-    index: prevIndex,
+    index: getIndexInnerElement(elements, prevRowKey, prevColumnKey, -1),
     part: focusedElement.part,
-  };
+  } : undefined;
 };
 
 const getPrevCellFromHeading: GetPrevCellFromHeadingFn = (
@@ -341,7 +367,18 @@ const getNextCellFromBody: GetNextPrevCellFromBodyFn = (
       };
     }
   } else {
-    nextColumnKey = tableColumns[columnIndex + 1].key;
+    nextColumnKey = getNextPrevClosestColumnKey(
+      tableColumns, columnIndex + 1, nextRowKey, elements, 1,
+    );
+    if (!nextColumnKey) {
+      if (rowIndex === tableBodyRows.length - 1) {
+        return getCellNextPart(
+          focusedElement, elements, tableBodyRows, tableColumns, scrollToColumn,
+        );
+      }
+      nextRowKey = tableBodyRows[rowIndex + 1].key;
+      nextColumnKey = tableColumns[0].key;
+    }
   }
 
   return {
@@ -451,19 +488,27 @@ const cellEmptyOrHasSpanAndInput: PureComputed<[
   return true;
 };
 
-const getCellRightLeft: PureComputed<[number, FocusedElement, TableColumn[]],
+const getCellRightLeft: PureComputed<[number, FocusedElement, TableColumn[], Elements],
 FocusedElement | void> = (
-  direction, focusedElement, tableColumns,
+  direction, focusedElement, tableColumns, elements,
 ) => {
   if (focusedElement.part !== DATA_TYPE) {
     return;
   }
   const columnIndex = getIndex(tableColumns, focusedElement.columnKey);
-  return tableColumns[columnIndex + direction] ? {
-    rowKey: focusedElement.rowKey,
-    columnKey: tableColumns[columnIndex + direction].key,
-    part: focusedElement.part,
-  } : undefined;
+  if (tableColumns[columnIndex + direction]) {
+    const columnKey = getNextPrevClosestColumnKey(
+      tableColumns, columnIndex + direction, focusedElement.rowKey, elements, direction,
+    );
+    if (columnKey) {
+      return {
+        rowKey: focusedElement.rowKey,
+        columnKey,
+        part: focusedElement.part,
+      };
+    }
+  }
+  return;
 };
 
 const getFirstCell: PureComputed<[Elements, TableRow[], TableColumn[]], FocusedElement | void> = (
@@ -511,14 +556,16 @@ const getLastCell: PureComputed<[Elements, TableRow[], TableColumn[]], FocusedEl
   }
 
   const rowKey = part === DATA_TYPE ? tableBodyRows[tableBodyRows.length - 1].key : part;
-  const columnKey = tableColumns[tableColumns.length - 1].key;
+  const columnKey = getNextPrevClosestColumnKey(
+    tableColumns, tableColumns.length - 1, rowKey, elements, -1,
+  );
 
-  return {
+  return columnKey ? {
     rowKey,
     columnKey,
     index: getIndexInnerElement(elements, rowKey, columnKey, 1),
     part,
-  };
+  } : undefined;
 };
 
 const getToolbarPagingElements: PureComputed<[Elements]> = (elements) => {
@@ -638,19 +685,28 @@ export const getInnerElements: GetInnerElementsFn = (
   });
 };
 
-const getCellTopBottom: PureComputed<[number, FocusedElement, TableRow[]],
+const getCellTopBottom: PureComputed<[number, FocusedElement, TableRow[], TableColumn[], Elements],
 FocusedElement | void> = (
-  direction, focusedElement, tableBodyRows,
+  direction, focusedElement, tableBodyRows, tableColumns, elements,
 ) => {
   if (focusedElement.part !== DATA_TYPE) {
     return;
   }
+  const columnIndex = getIndex(tableColumns, focusedElement.columnKey);
   const rowIndex = getIndex(tableBodyRows, focusedElement.rowKey);
-  return tableBodyRows[rowIndex + direction] ? {
-    rowKey: tableBodyRows[rowIndex + direction].key,
-    columnKey: focusedElement.columnKey,
-    part: focusedElement.part,
-  } : undefined;
+  if (tableBodyRows[rowIndex + direction]) {
+    const columnKey = getNextPrevClosestColumnKey(
+      tableColumns, columnIndex, tableBodyRows[rowIndex + direction].key, elements, -1,
+    );
+    if (columnKey) {
+      return {
+        rowKey: tableBodyRows[rowIndex + direction].key,
+        columnKey,
+        part: focusedElement.part,
+      };
+    }
+  }
+  return;
 };
 
 const getIndexFromKey = (key: string) => {
@@ -766,7 +822,7 @@ export const getNextFocusedCell: GetNextFocusedElementFn = (
           cell = getCellNextPrevPart(focusedElement, elements, tableBodyRows,
             tableColumns, -1, scrollToColumn);
         } else {
-          cell = getCellTopBottom(-1, focusedElement, tableBodyRows);
+          cell = getCellTopBottom(-1, focusedElement, tableBodyRows, tableColumns, elements);
         }
         break;
       case 'ArrowDown':
@@ -774,21 +830,21 @@ export const getNextFocusedCell: GetNextFocusedElementFn = (
           cell = getCellNextPrevPart(focusedElement, elements, tableBodyRows,
             tableColumns, 1, scrollToColumn);
         } else {
-          cell = getCellTopBottom(1, focusedElement, tableBodyRows);
+          cell = getCellTopBottom(1, focusedElement, tableBodyRows, tableColumns, elements);
         }
         break;
       case 'ArrowLeft':
         if (event.ctrlKey) {
           actionOnTreeMode(elements, expandedRowIds, -1, focusedElement);
         } else {
-          cell = getCellRightLeft(-1, focusedElement, tableColumns);
+          cell = getCellRightLeft(-1, focusedElement, tableColumns, elements);
         }
         break;
       case 'ArrowRight':
         if (event.ctrlKey) {
           actionOnTreeMode(elements, expandedRowIds, 1, focusedElement);
         } else {
-          cell = getCellRightLeft(1, focusedElement, tableColumns);
+          cell = getCellRightLeft(1, focusedElement, tableColumns, elements);
         }
         break;
     }
@@ -806,13 +862,14 @@ export const getPart = (key: string): string => {
   return DATA_TYPE;
 };
 
-export const getIndexToFocus: PureComputed<[string, string, Elements], number | undefined> = (
-  key1, key2, elements,
+export const getIndexToFocus: PureComputed<[string, string, Elements, any], number | undefined> = (
+  key1, key2, elements, event,
 ) => {
-  if (hasCellInput(elements, key1, key2)) {
-    return 0;
-  }
-  return;
+  const innerElements = getInnerElements(elements, key1, key2);
+  const index = innerElements.findIndex((el) => {
+    return event.target === el;
+  });
+  return index !== -1 ? index : undefined;
 };
 
 export const filterHeaderRows = (tableHeaderRows: TableRow[]) => {

@@ -26,7 +26,7 @@ export namespace KeyboardNavigation {
     updateRefForKeyboardNavigation?: ({ ref, key1, key2, action }:
       { ref: any, key1: string, key2: string, action: string }) => void;
     /** @internal */
-    setFocusedElement?: ({ key1, key2 }: { key1: string, key2: string }) => void;
+    setFocusedElement?: ({ key1, key2, event }: { key1: string, key2: string, event: any }) => void;
   }
 }
 

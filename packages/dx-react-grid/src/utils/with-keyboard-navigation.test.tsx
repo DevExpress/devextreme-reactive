@@ -123,10 +123,10 @@ describe('#withKeyboardNavigation', () => {
     const tree = mount(<TestComponent
       {...defaultProps as any}
     />);
-    (tree.instance() as any).handleClick();
+    (tree.instance() as any).handleClick({});
 
     expect(defaultProps.setFocusedElement).toBeCalledWith({
-      key1: 'table-row', key2: 'table-column',
+      key1: 'table-row', key2: 'table-column', event: {},
     });
   });
 
@@ -137,9 +137,9 @@ describe('#withKeyboardNavigation', () => {
     const tree = mount(<TestComponent
       {...defaultProps as any}
     />);
-    (tree.instance() as any).handleClick();
+    (tree.instance() as any).handleClick({});
     expect(defaultProps.setFocusedElement).toBeCalledWith({
-      key1: 'specific_key1', key2: 'specific_key2',
+      key1: 'specific_key1', key2: 'specific_key2', event: {},
     });
   });
 });

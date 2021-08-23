@@ -141,20 +141,16 @@ const getCellNextPart: GetElementPrevNextPartFn = (
   };
 };
 
-const getPrevPart: GetNextPrevPartFn = (
-  focusedElement, elements, tableBodyRows,
-) => {
-  let index = tableParts.findIndex((p) => {
-    return p === focusedElement.part;
-  });
+const getLastPart: PureComputed<
+  [Elements, TableRow[], number?], string | undefined
+> = (elements, tableBodyRows, partIndex) => {
+  let index = partIndex || tableParts.length;
   let part;
-  if (index === 0) {
-    return;
-  }
+
   while (index > 0) {
     index = index - 1;
     const p = tableParts[index];
-    if (p === DATA_TYPE && elements[tableBodyRows[tableBodyRows.length - 1].key]) {
+    if (p === DATA_TYPE && elements[tableBodyRows[0].key]) {
       part = DATA_TYPE;
       break;
     }
@@ -163,7 +159,20 @@ const getPrevPart: GetNextPrevPartFn = (
       break;
     }
   }
+
   return part;
+};
+
+const getPrevPart: GetNextPrevPartFn = (
+  focusedElement, elements, tableBodyRows,
+) => {
+  const index = tableParts.findIndex((p) => {
+    return p === focusedElement.part;
+  });
+  if (index === 0) {
+    return;
+  }
+  return getLastPart(elements, tableBodyRows, index);
 };
 
 const getClosestColumnKey: PureComputed<
@@ -511,8 +520,10 @@ FocusedElement | void> = (
   return;
 };
 
-const getFirstCell: PureComputed<[Elements, TableRow[], TableColumn[]], FocusedElement | void> = (
-  elements, tableBodyRows, tableColumns,
+const getFirstCell: PureComputed<
+  [Elements, TableRow[], TableColumn[], ScrollToColumnFn?], FocusedElement | void
+> = (
+  elements, tableBodyRows, tableColumns, scrollToColumn,
 ) => {
   const part = tableParts.find((p) => {
     if (p === DATA_TYPE) {
@@ -525,6 +536,14 @@ const getFirstCell: PureComputed<[Elements, TableRow[], TableColumn[]], FocusedE
   }
   const rowKey = part === DATA_TYPE ? tableBodyRows[0].key : part;
   const columnKey = tableColumns[0].key;
+  if (shouldBeScrolled(elements, rowKey, columnKey, scrollToColumn)) {
+    scrollToColumn(LEFT_POSITION);
+    return {
+      rowKey,
+      columnKey,
+      part,
+    };
+  }
 
   return {
     rowKey,
@@ -537,20 +556,7 @@ const getFirstCell: PureComputed<[Elements, TableRow[], TableColumn[]], FocusedE
 const getLastCell: PureComputed<[Elements, TableRow[], TableColumn[]], FocusedElement | void> = (
   elements, tableBodyRows, tableColumns,
 ) => {
-  let index = tableParts.length;
-  let part;
-  while (index > 0) {
-    index = index - 1;
-    const p = tableParts[index];
-    if (p === DATA_TYPE && elements[tableBodyRows[0].key]) {
-      part = DATA_TYPE;
-      break;
-    }
-    if (elements[p]) {
-      part = p;
-      break;
-    }
-  }
+  const part = getLastPart(elements, tableBodyRows);
   if (!part) {
     return;
   }
@@ -578,17 +584,27 @@ const getToolbarPagingElements: PureComputed<[Elements]> = (elements) => {
   };
 };
 
-const getFirstCellInLastPart: PureComputed<[Elements, TableRow[], TableColumn[]],
+const getFirstCellInLastPart: PureComputed<[Elements, TableRow[], TableColumn[], ScrollToColumnFn?],
 FocusedElement | void> = (
-  elements, tableBodyRows, tableColumns,
+  elements, tableBodyRows, tableColumns, scrollToColumn,
 ) => {
-  const lastElement = getLastCell(elements, tableBodyRows, tableColumns);
-  if (lastElement) {
+  const lastPart = getLastPart(elements, tableBodyRows);
+  if (lastPart) {
+    const columnKey = tableColumns[0].key;
+    const rowKey = lastPart === DATA_TYPE ? tableBodyRows[0].key : lastPart;
+    if (shouldBeScrolled(elements, rowKey, columnKey, scrollToColumn)) {
+      scrollToColumn(LEFT_POSITION);
+      return {
+        rowKey,
+        columnKey,
+        part: lastPart,
+      };
+    }
     return {
-      columnKey: tableColumns[0].key,
-      rowKey: lastElement.part === DATA_TYPE ? tableBodyRows[0].key : lastElement.part,
-      index: lastElement.index,
-      part: lastElement.part,
+      columnKey,
+      rowKey,
+      index: getIndexInnerElement(elements, rowKey, columnKey, 1),
+      part: lastPart,
     };
   }
   return undefined;
@@ -772,28 +788,33 @@ export const getNextFocusedCell: GetNextFocusedElementFn = (
     };
     if (event.ctrlKey) {
       if (toolbarElements && event.key === 'ArrowDown' && hasFocus(toolbarElements)) {
-        return getFirstCell(elements, tableBodyRows, tableColumns);
+        return getFirstCell(elements, tableBodyRows, tableColumns, scrollToColumn);
       }
       if (pagingElements && event.key === 'ArrowUp' && hasFocus(pagingElements)) {
-        return getFirstCellInLastPart(elements, tableBodyRows, tableColumns);
+        return getFirstCellInLastPart(elements, tableBodyRows, tableColumns, scrollToColumn);
       }
     } else if (event.key === 'Tab') {
       if (toolbarElements && event.target === toolbarElements[toolbarElements.length - 1] &&
          !event.shiftKey) {
-        return getFirstCell(elements, tableBodyRows, tableColumns);
+        return getFirstCell(elements, tableBodyRows, tableColumns, scrollToColumn);
       }
       if (pagingElements && event.target === pagingElements[0] && event.shiftKey) {
+        if (scrollToColumn) {
+          return getFirstCellInLastPart(elements, tableBodyRows, tableColumns, scrollToColumn);
+        }
         return getLastCell(elements, tableBodyRows, tableColumns);
       }
-      const firstCell = getFirstCell(elements, tableBodyRows, tableColumns);
-      const lastCell = getLastCell(elements, tableBodyRows, tableColumns);
-      if (firstCell && !event.shiftKey &&
-        event.target === elements[firstCell.rowKey][firstCell.columnKey][0].current) {
-        return firstCell;
-      }
-      if (lastCell && event.shiftKey &&
-        event.target === elements[lastCell.rowKey][lastCell.columnKey][0].current) {
-        return lastCell;
+      if (!event.shiftKey) {
+        const firstCell = getFirstCell(elements, tableBodyRows, tableColumns);
+        if (firstCell &&
+          event.target === elements[firstCell.rowKey][firstCell.columnKey][0].current) {
+          return firstCell;
+        }
+      } else {
+        const lastCell = getLastCell(elements, tableBodyRows, tableColumns);
+        if (lastCell && event.target === elements[lastCell.rowKey][lastCell.columnKey][0].current) {
+          return lastCell;
+        }
       }
     }
   } else {

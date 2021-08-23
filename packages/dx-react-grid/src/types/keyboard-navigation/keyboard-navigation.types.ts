@@ -31,11 +31,17 @@ export namespace KeyboardNavigation {
 }
 
 export interface KeyboardNavigationProps {
+  /** Specifies initially focused cell in the uncontrolled mode. */
   defaultFocusedCell?: FocusedCell;
+  /** Specifies focused cell. */
   focusedCell?: FocusedCell;
+  /** Handles focused cell changes. */
   onFocusedCellChanged?: OnFocusedCellChangedFn;
+  /** A component that renders the cell element. */
   cellComponent: React.ComponentType<KeyboardNavigation.CellProps>;
+  /** A component that renders the row element. */
   rowComponent: React.ComponentType<KeyboardNavigation.RowProps>;
+  /** Applies a focused style to the row that contains the focused cell. */
   focusedRowEnabled?: boolean;
 }
 

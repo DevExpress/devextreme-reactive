@@ -1184,6 +1184,57 @@ describe('Navigation on virtual table', () => {
     expect(scrollToColumn).toBeCalledWith(LEFT_POSITION);
   });
 
+  it('should return cell from header, focused element in toolbar, arrow down', () => {
+    const innerElements = [];
+    innerElements.push({
+      hasAttribute: jest.fn().mockReturnValue(false),
+      getAttribute: jest.fn().mockReturnValue('1'),
+      focus: jest.fn(),
+    });
+    const refElement = { current: { querySelectorAll: jest.fn().mockReturnValue(innerElements) } };
+    generatedElements.toolbar = [];
+    generatedElements.toolbar.none = [refElement];
+
+    const scrollToColumn = jest.fn();
+    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+        expandedRowIds, generatedElements,
+        { key: 'ArrowDown', ctrlKey: true, target: innerElements[0] },
+        undefined, scrollToColumn,
+    );
+    expect(element).toEqual({
+      rowKey: header,
+      columnKey: 'test_column_1',
+      part: header,
+    });
+    expect(scrollToColumn).toBeCalledWith(LEFT_POSITION);
+  });
+
+  it('should return cell from body, focused element in paging, arrow up', () => {
+    const innerElements = [];
+    innerElements.push({
+      hasAttribute: jest.fn().mockReturnValue(false),
+      getAttribute: jest.fn().mockReturnValue('1'),
+      focus: jest.fn(),
+    });
+    const refElement = { current: { querySelectorAll: jest.fn().mockReturnValue(innerElements) } };
+    generatedElements.paging = [];
+    generatedElements.paging.none = [refElement];
+
+    const scrollToColumn = jest.fn();
+    const element = getNextFocusedCell(
+        tableColumns, tableBodyRows, tableHeaderRows,
+        expandedRowIds, generatedElements,
+        { key: 'ArrowUp', ctrlKey: true, target: innerElements[0] },
+        undefined, scrollToColumn,
+    );
+    expect(element).toEqual({
+      rowKey: 'test_row_1',
+      columnKey: 'test_column_1',
+      part: body,
+    });
+    expect(scrollToColumn).toBeCalledWith(LEFT_POSITION);
+  });
+
   it('should return next row from body, Tab pressed', () => {
     const focusedElement = {
       rowKey: 'test_row_2',
@@ -1233,6 +1284,58 @@ describe('Navigation on virtual table', () => {
     const element = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
       tableHeaderRows, expandedRowIds, generatedElements,
       { key: 'Tab' }, focusedElement, scrollToColumn);
+    expect(element).toEqual({
+      rowKey: 'test_row_1',
+      columnKey: 'test_column_1',
+      part: body,
+    });
+    expect(scrollToColumn).toBeCalledWith(LEFT_POSITION);
+  });
+
+  it('should return cell from header, focused element is last in the toolbar', () => {
+    const innerElements = [{
+      hasAttribute: jest.fn().mockReturnValue(false),
+      getAttribute: jest.fn().mockReturnValue('1'),
+    }, {
+      hasAttribute: jest.fn().mockReturnValue(false),
+      getAttribute: jest.fn().mockReturnValue('1'),
+    }];
+    const refElement = {
+      current: { querySelectorAll: jest.fn().mockReturnValue(innerElements) },
+    };
+    generatedElements.toolbar = [];
+    generatedElements.toolbar.none = [refElement];
+
+    const scrollToColumn = jest.fn();
+    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+        expandedRowIds, generatedElements, { key: 'Tab', target: innerElements[1] },
+        undefined, scrollToColumn);
+    expect(element).toEqual({
+      rowKey: header,
+      columnKey: 'test_column_1',
+      part: header,
+    });
+    expect(scrollToColumn).toBeCalledWith(LEFT_POSITION);
+  });
+
+  it('should return first cell from body, focused element - first in the paging', () => {
+    const innerElements = [{
+      hasAttribute: jest.fn().mockReturnValue(false),
+      getAttribute: jest.fn().mockReturnValue('1'),
+    }, {
+      hasAttribute: jest.fn().mockReturnValue(false),
+      getAttribute: jest.fn().mockReturnValue('1'),
+    }];
+    const refElement = { current: { querySelectorAll: jest.fn().mockReturnValue(innerElements) } };
+    generatedElements.paging = [];
+    generatedElements.paging.none = [refElement];
+
+    const scrollToColumn = jest.fn();
+    const element = getNextFocusedCell(
+        tableColumns, tableBodyRows, tableHeaderRows,
+        expandedRowIds, generatedElements, { key: 'Tab', shiftKey: true, target: innerElements[0] },
+        undefined, scrollToColumn);
+
     expect(element).toEqual({
       rowKey: 'test_row_1',
       columnKey: 'test_column_1',

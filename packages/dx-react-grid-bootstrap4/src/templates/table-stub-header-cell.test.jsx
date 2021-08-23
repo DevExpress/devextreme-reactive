@@ -7,6 +7,7 @@ describe('TableStubHeaderCell', () => {
     const tree = shallow((
       <TableStubHeaderCell className="custom-class" />
     ));
+
     expect(tree.is('.p-0.custom-class'))
       .toBeTruthy();
   });

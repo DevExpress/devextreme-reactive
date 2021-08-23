@@ -92,14 +92,8 @@ class TableFilterRowBase extends React.PureComponent<TableFilterRowProps, TableF
           {(params: TableCellProps) => (
             <TemplateConnector>
               {(
-                {
-                  filters, isColumnFilteringEnabled, getAvailableFilterOperations,
-                  isDataRemote,
-                },
-                {
-                  changeColumnFilter,
-                  scrollToRow,
-                }: Actions,
+                { filters, isColumnFilteringEnabled, getAvailableFilterOperations, isDataRemote },
+                { changeColumnFilter, scrollToRow }: Actions,
               ) => {
                 const { filterOperations } = this.state;
                 const { name: columnName } = params.tableColumn.column!;

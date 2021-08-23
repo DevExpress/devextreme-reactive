@@ -132,12 +132,8 @@ class TableBase extends React.PureComponent<TableProps> {
               {(
                 { tableHeaderRows: headerRows },
               ) => (isHeaderStubTableCell(params.tableRow, headerRows)
-                ? <StubHeaderCell
-                  {...params}
-                />
-                : <StubCell
-                  {...params}
-                />
+                ? <StubHeaderCell {...params} />
+                : <StubCell {...params} />
               )}
             </TemplateConnector>
           )}

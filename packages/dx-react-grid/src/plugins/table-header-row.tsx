@@ -84,6 +84,7 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
                   && isColumnGroupingEnabled(columnName)
                   && atLeastOneDataColumn;
                 const nextColumnName = getNextColumnName(tableColumns, columnName);
+
                 return (
                   <HeaderCell
                     {...params}

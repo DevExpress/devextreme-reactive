@@ -6,10 +6,6 @@ import { setupConsole } from '@devexpress/dx-testing';
 import { TableHeaderCell } from './table-header-cell';
 import { ResizingControl } from './table-header-cell/resizing-control';
 
-const defaultProps = {
-  refObject: { current: {} },
-};
-
 describe('TableHeaderCell', () => {
   let resetConsole;
   beforeAll(() => {
@@ -22,7 +18,6 @@ describe('TableHeaderCell', () => {
   it('should have correct classes when user interaction disallowed', () => {
     const tree = shallow((
       <TableHeaderCell
-        {...defaultProps}
         column={{}}
       />
     ));
@@ -36,7 +31,6 @@ describe('TableHeaderCell', () => {
     const tree = mount((
       <DragDropProvider>
         <TableHeaderCell
-          {...defaultProps}
           column={{ name: 'a' }}
           draggingEnabled
           getCellWidth={getCellWidth}
@@ -53,7 +47,6 @@ describe('TableHeaderCell', () => {
     const tree = mount((
       <DragDropProvider>
         <TableHeaderCell
-          {...defaultProps}
           column={{ name: 'a' }}
           draggingEnabled
           getCellWidth={getCellWidth}
@@ -84,7 +77,6 @@ describe('TableHeaderCell', () => {
 
     const tree = shallow((
       <TableHeaderCell
-        {...defaultProps}
         column={{}}
         resizingEnabled
         onWidthChange={onWidthChange}
@@ -106,7 +98,6 @@ describe('TableHeaderCell', () => {
   it('should pass custom class to the root element', () => {
     const tree = shallow((
       <TableHeaderCell
-        {...defaultProps}
         column={{ title: 'a' }}
         className="custom-class"
       />
@@ -118,18 +109,18 @@ describe('TableHeaderCell', () => {
 
   it('should pass rest props to the root element', () => {
     const tree = shallow((
-      <TableHeaderCell column={{ title: 'a' }} data={{ a: 1 }} {...defaultProps} />
+      <TableHeaderCell column={{ title: 'a' }} data={{ a: 1 }} />
     ));
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
   });
 
   it('should consider the `wordWrapEnabled` property', () => {
-    let tree = shallow(<TableHeaderCell {...defaultProps} />);
+    let tree = shallow(<TableHeaderCell />);
     expect(tree.is('.text-nowrap'))
       .toBeTruthy();
 
-    tree = shallow(<TableHeaderCell {...defaultProps} tableColumn={{ wordWrapEnabled: true }} />);
+    tree = shallow(<TableHeaderCell tableColumn={{ wordWrapEnabled: true }} />);
     expect(tree.is('.text-nowrap'))
       .toBeFalsy();
   });

@@ -2,12 +2,9 @@ import * as React from 'react';
 import { mount, shallow } from 'enzyme';
 import { DragDropProvider, DragSource } from '@devexpress/dx-react-core';
 import { setupConsole } from '@devexpress/dx-testing';
+
 import { TableHeaderCell } from './table-header-cell';
 import { ResizingControl } from './table-header-cell/resizing-control';
-
-const defaultProps = {
-  refObject: { current: {} },
-};
 
 describe('TableHeaderCell', () => {
   let resetConsole;
@@ -21,7 +18,6 @@ describe('TableHeaderCell', () => {
   it('should have correct styles when user interaction disallowed', () => {
     const tree = shallow((
       <TableHeaderCell
-        {...defaultProps}
         column={{}}
       />
     ));
@@ -42,7 +38,6 @@ describe('TableHeaderCell', () => {
     const tree = mount((
       <DragDropProvider>
         <TableHeaderCell
-          {...defaultProps}
           column={{ name: 'a' }}
           draggingEnabled
           getCellWidth={getCellWidth}
@@ -64,7 +59,6 @@ describe('TableHeaderCell', () => {
     const tree = mount((
       <DragDropProvider>
         <TableHeaderCell
-          {...defaultProps}
           column={{ name: 'a' }}
           draggingEnabled
           getCellWidth={getCellWidth}
@@ -101,7 +95,6 @@ describe('TableHeaderCell', () => {
 
     const tree = shallow((
       <TableHeaderCell
-        {...defaultProps}
         column={{}}
         resizingEnabled
         onWidthChange={onWidthChange}
@@ -121,11 +114,11 @@ describe('TableHeaderCell', () => {
   });
 
   it('should consider the `wordWrapEnabled` property', () => {
-    let tree = shallow(<TableHeaderCell {...defaultProps} />);
+    let tree = shallow(<TableHeaderCell />);
     expect(tree.prop('style').whiteSpace)
       .toBe('nowrap');
 
-    tree = shallow(<TableHeaderCell {...defaultProps} tableColumn={{ wordWrapEnabled: true }} />);
+    tree = shallow(<TableHeaderCell tableColumn={{ wordWrapEnabled: true }} />);
     expect(tree.prop('style').whiteSpace)
       .toBe('normal');
   });
@@ -133,7 +126,6 @@ describe('TableHeaderCell', () => {
   it('should pass rest props to the root element', () => {
     const tree = shallow((
       <TableHeaderCell
-        {...defaultProps}
         column={{ title: 'a' }}
         className="custom-class"
       />

@@ -9,7 +9,6 @@ import { ResizingControl } from './table-header-cell/resizing-control';
 const defaultProps = {
   column: { name: 'Test' },
   getCellWidth: () => {},
-  refObject: { current: {} },
 };
 
 describe('TableHeaderCell', () => {

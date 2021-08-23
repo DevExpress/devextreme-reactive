@@ -73,9 +73,7 @@ class TableEditColumnBase extends React.PureComponent<TableEditColumnProps> {
           {(params: TableCellProps) => (
             <TemplateConnector>
               {(getters, actions) => (
-                <HeaderCell
-                  {...params}
-                >
+                <HeaderCell {...params}>
                   {showAddCommand && (
                     <Command
                       id="add"

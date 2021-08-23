@@ -686,17 +686,11 @@ export interface KeyboardNavigationCoreProps extends KeyboardNavigationProps {
 
 // @public (undocumented)
 export interface KeyboardNavigationProps {
-  // (undocumented)
   cellComponent: React_2.ComponentType<KeyboardNavigation.CellProps>;
-  // (undocumented)
   defaultFocusedCell?: FocusedCell;
-  // (undocumented)
   focusedCell?: FocusedCell;
-  // (undocumented)
   focusedRowEnabled?: boolean;
-  // (undocumented)
   onFocusedCellChanged?: OnFocusedCellChangedFn;
-  // (undocumented)
   rowComponent: React_2.ComponentType<KeyboardNavigation.RowProps>;
 }
 

@@ -952,3 +952,13 @@ export const isCellFocused: PureComputed<[
   }
   return focusedElement.rowKey === row.key && focusedElement.columnKey === column.key;
 };
+
+export const getFocusing = (tableBodyRows: TableRow[], focusedElement?: FocusedElement) => {
+  if (!focusedElement) {
+    return [];
+  }
+  const focusedRow = tableBodyRows.find((row) => {
+    return row.key === focusedElement.rowKey;
+  });
+  return focusedRow ? [focusedRow.rowId] : [];
+};

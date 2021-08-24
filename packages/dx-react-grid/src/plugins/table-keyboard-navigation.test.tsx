@@ -3,7 +3,7 @@ import { mount } from 'enzyme';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
 import { PluginHost, Template } from '@devexpress/dx-react-core';
 import {
-    filterHeaderRows, isDataTableRow, isRowFocused, focus,
+    filterHeaderRows, isDataTableRow, isRowFocused,
 } from '@devexpress/dx-grid-core';
 import { TableKeyboardNavigation } from './table-keyboard-navigation';
 
@@ -14,6 +14,7 @@ jest.mock('@devexpress/dx-grid-core', () => ({
   focus: jest.fn(),
   TABLE_DATA_TYPE: 'data_type',
   isCellFocused: jest.fn().mockReturnValue(true),
+  getFocusing: jest.fn(),
 }));
 
 const defaultDeps = {

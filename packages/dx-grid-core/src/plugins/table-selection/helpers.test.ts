@@ -4,6 +4,7 @@ import { TABLE_HEADING_TYPE } from '../table-header-row/constants';
 import {
   isSelectAllTableCell,
   isSelectTableCell,
+  isRowHighlighted,
 } from './helpers';
 
 describe('TableSelection Plugin helpers', () => {
@@ -25,6 +26,17 @@ describe('TableSelection Plugin helpers', () => {
         .toBeFalsy();
       expect(isSelectTableCell({ type: 'undefined' }, { type: TABLE_SELECT_TYPE }))
         .toBeFalsy();
+    });
+  });
+
+  describe('#isRowHighlighted', () => {
+    it('should work', () => {
+      expect(isRowHighlighted(true, [1], { rowId: 1 }, [2])).toBeTruthy();
+      expect(isRowHighlighted(true, [1], { rowId: 2 }, [2])).toBeTruthy();
+      expect(isRowHighlighted(false, [1], { rowId: 2 }, [2])).toBeFalsy();
+      expect(isRowHighlighted(true, undefined, { rowId: 2 }, [2])).toBeTruthy();
+      expect(isRowHighlighted(true, [2], { rowId: 2 }, undefined)).toBeTruthy();
+      expect(isRowHighlighted(true, undefined, { rowId: 2 }, undefined)).toBeFalsy();
     });
   });
 });

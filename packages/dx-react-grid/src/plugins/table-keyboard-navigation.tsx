@@ -1,13 +1,13 @@
 import * as React from 'react';
 import {
- Plugin, TemplateConnector, Action, Template, TemplatePlaceholder,
+ Plugin, TemplateConnector, Action, Template, TemplatePlaceholder, Getter,
 } from '@devexpress/dx-react-core';
 import {
   TABLE_ADDED_TYPE, TABLE_DATA_TYPE,
   getNextFocusedCell,  getPart, getIndexToFocus,
   isCellExist, focus, isTabArrowUpDown,
   filterHeaderRows, Elements, isDataTableRow, isRowFocused, getClosestCellByRow,
-  isCellFocused,
+  isCellFocused, getFocusing,
 } from '@devexpress/dx-grid-core';
 import {
   KeyboardNavigationProps, KeyboardNavigationCoreProps, KeyboardNavigationCoreState,
@@ -175,13 +175,21 @@ KeyboardNavigationCoreState> {
       cellComponent: Cell,
       rowComponent: Row,
       focusedRowEnabled,
+      tableBodyRows,
     } = this.props;
     const { focusedElement } = this.state;
+    const getFocusedGetter = () => getFocusing(tableBodyRows, focusedElement);
     return (
       <Plugin
         name="TableKeyboardNavigationCore"
       >
         <Action name="setSearchPanelRef" action={this.setSearchPanelRef} />
+        {focusedRowEnabled &&
+          <Getter name="highlightSelectedRow" value />
+        }
+        {focusedRowEnabled &&
+          <Getter name="focused" computed={getFocusedGetter} />
+        }
         <Template name="tableCell">
           {(params: TableCellProps) => (
             <Cell

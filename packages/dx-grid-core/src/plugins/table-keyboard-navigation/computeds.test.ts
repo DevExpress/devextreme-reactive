@@ -7,7 +7,7 @@ import {
     getNextFocusedCell, getInnerElements, isRowFocused, isCellExist,
     getPart, getIndexToFocus, filterHeaderRows,
     getClosestCellByRow, isTabArrowUpDown, focus,
-    isCellFocused,
+    isCellFocused, getFocusing,
 } from './computeds';
 
 const generateElements = (
@@ -2366,5 +2366,18 @@ describe('#isCellFocused', () => {
       { key: 'test_column' } as any,
       { rowKey: 'test_row', columnKey: 'test_column_ 1' } as any))
       .toBeFalsy();
+  });
+});
+
+describe('#getFocusing', () => {
+  const tableBodyRows = [
+    { key: 'test_row_1', rowId: 1 },
+    { key: 'test_row_2', rowId: 2 },
+    { key: 'test_row_3', rowId: 3 },
+  ] as any;
+  it('should return correct id', () => {
+    expect(getFocusing(tableBodyRows, { rowKey: 'test_row_2' } as any)).toEqual([2]);
+    expect(getFocusing(tableBodyRows)).toEqual([]);
+    expect(getFocusing(tableBodyRows, { rowKey: 'header' } as any)).toEqual([]);
   });
 });

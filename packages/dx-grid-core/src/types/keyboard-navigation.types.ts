@@ -32,7 +32,7 @@ export type GetInnerElementsFn = PureComputed<[
  ], any[]>;
 
 export type GetNextPrevPartFn = PureComputed<[FocusedElement, Elements, TableRow[]],
-string | undefined>;
+string | void>;
 
 export type GetNextPrevCellFromBodyFn = PureComputed<[
   number, number, TableColumn[], TableRow[], FocusedElement, Elements,

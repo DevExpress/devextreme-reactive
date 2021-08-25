@@ -93,7 +93,9 @@ const shouldBeScrolled = (
   return !!(scrollToColumn && !elements[key1][key2] && isColumnHasStubType);
 };
 
-const convertPart: PureComputed<[string, Elements, TableRow[]], string | void> = (part, elements, tableBodyRows) => {
+const convertPart: PureComputed<
+  [string, Elements, TableRow[]], string | void
+> = (part, elements, tableBodyRows) => {
   if (part === DATA_TYPE && elements[tableBodyRows[0].key]) {
     return DATA_TYPE;
   }
@@ -112,7 +114,7 @@ const getLastPart: PureComputed<
   while (index > 0) {
     index = index - 1;
     part = convertPart(tableParts[index], elements, tableBodyRows);
-    if(part) {
+    if (part) {
       break;
     }
   }
@@ -120,9 +122,12 @@ const getLastPart: PureComputed<
   return part;
 };
 
-const getRowKey: PureComputed<[string, string]> = (part, key) => {
+const getRowKey: PureComputed<[string, string, string?]> = (part, key, headerRowKey) => {
+  if (headerRowKey && part === HEADING_TYPE) {
+    return headerRowKey;
+  }
   return part === DATA_TYPE ? key : part;
-}
+};
 
 const getPrevPart: GetNextPrevPartFn = (
   focusedElement, elements, tableBodyRows,
@@ -199,7 +204,8 @@ const getCellPrevPart: GetElementPrevNextPartFn = (
       part,
     };
   }
-  const nextColumnKey = getNextPrevClosestColumnKey(tableColumns, columnKeyIndex, rowKey, elements, -1);
+  const nextColumnKey = getNextPrevClosestColumnKey(tableColumns, columnKeyIndex,
+    rowKey, elements, -1);
   return nextColumnKey ? {
     rowKey,
     columnKey: nextColumnKey,
@@ -381,7 +387,7 @@ const getNextCellFromHeading: GetNextCellFromHeadinFn = (
   const headIndex = getIndex(tableHeaderRows, focusedElement.rowKey);
   let nextRowKey;
   let nextColumnKey = getNextPrevClosestColumnKey(
-    tableColumns, columnIndex + 1, focusedElement.rowKey, elements, 1
+    tableColumns, columnIndex + 1, focusedElement.rowKey, elements, 1,
   );
   if (nextColumnKey) {
     return {
@@ -493,9 +499,10 @@ FocusedElement | void> = (
 };
 
 const getFirstCell: PureComputed<
-  [Elements, TableRow[], TableColumn[], ScrollToColumnFn?, boolean?], FocusedElement | void
+  [Elements, TableRow[], TableColumn[], TableRow[], ScrollToColumnFn?, boolean?],
+  FocusedElement | void
 > = (
-  elements, tableBodyRows, tableColumns, scrollToColumn, withInnerElements
+  elements, tableBodyRows, tableColumns, tableHeaderRows, scrollToColumn, withInnerElements,
 ) => {
   const part = tableParts.find((p) => {
     return convertPart(p, elements, tableBodyRows);
@@ -503,7 +510,7 @@ const getFirstCell: PureComputed<
   if (!part) {
     return;
   }
-  const rowKey = getRowKey(part, tableBodyRows[0].key);
+  const rowKey = getRowKey(part, tableBodyRows[0].key, tableHeaderRows[0].key);
   const columnKey = tableColumns[0].key;
   if (shouldBeScrolled(elements, rowKey, columnKey, scrollToColumn)) {
     scrollToColumn(LEFT_POSITION);
@@ -757,32 +764,39 @@ export const getNextFocusedCell: GetNextFocusedElementFn = (
       });
     };
     if (event.ctrlKey) {
-      if (event.key === 'ArrowDown' && (toolbarElements && hasFocus(toolbarElements) || !toolbarElements)) {
-        return getFirstCell(elements, tableBodyRows, tableColumns, scrollToColumn);
+      if (event.key === 'ArrowDown' &&
+      (toolbarElements && hasFocus(toolbarElements) || !toolbarElements)) {
+        return getFirstCell(elements, tableBodyRows, tableColumns,
+          tableHeaderRows, scrollToColumn);
       }
-      if (event.key === 'ArrowUp' && (pagingElements && hasFocus(pagingElements) || !pagingElements)) {
+      if (event.key === 'ArrowUp' &&
+      (pagingElements && hasFocus(pagingElements) || !pagingElements)) {
         return getFirstCellInLastPart(elements, tableBodyRows, tableColumns, scrollToColumn);
       }
     } else if (event.key === 'Tab') {
       if (toolbarElements && event.target === toolbarElements[toolbarElements.length - 1] &&
          !event.shiftKey) {
-        return getFirstCell(elements, tableBodyRows, tableColumns, scrollToColumn, true);
+        return getFirstCell(elements, tableBodyRows, tableColumns,
+          tableHeaderRows, scrollToColumn, true);
       }
       if (pagingElements && event.target === pagingElements[0] && event.shiftKey) {
         if (scrollToColumn) {
-          return getFirstCellInLastPart(elements, tableBodyRows, tableColumns, scrollToColumn, true);
+          return getFirstCellInLastPart(elements, tableBodyRows,
+            tableColumns, scrollToColumn, true);
         }
         return getLastCell(elements, tableBodyRows, tableColumns);
       }
       if (!event.shiftKey) {
-        const firstCell = getFirstCell(elements, tableBodyRows, tableColumns, undefined, true);
+        const firstCell = getFirstCell(elements, tableBodyRows, tableColumns,
+          tableHeaderRows, undefined, true);
         if (firstCell &&
           event.target === elements[firstCell.rowKey][firstCell.columnKey][0].current) {
           return firstCell;
         }
       } else {
         const lastCell = getLastCell(elements, tableBodyRows, tableColumns);
-        if (lastCell && event.target === elements[lastCell.rowKey][lastCell.columnKey][0].current) {
+        if (lastCell &&
+          event.target === elements[lastCell.rowKey][lastCell.columnKey][0].current) {
           return lastCell;
         }
       }

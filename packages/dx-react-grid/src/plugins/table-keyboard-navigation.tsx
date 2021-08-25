@@ -3,7 +3,7 @@ import {
  Plugin, TemplateConnector, Action, Template, TemplatePlaceholder, Getter,
 } from '@devexpress/dx-react-core';
 import {
-  TABLE_ADDED_TYPE, TABLE_DATA_TYPE,
+  TABLE_ADDED_TYPE, TABLE_DATA_TYPE, TABLE_FLEX_TYPE,
   getNextFocusedCell,  getPart, getIndexToFocus,
   isCellExist, focus, isTabArrowUpDown,
   filterHeaderRows, Elements, isDataTableRow, isRowFocused, getClosestCellByRow,
@@ -117,7 +117,7 @@ KeyboardNavigationCoreState> {
     } = this.props;
 
     if (event.key === 'f' && event.ctrlKey) {
-      if(this.searchPanelRef) {
+      if (this.searchPanelRef) {
         event.preventDefault();
         this.searchPanelRef.current?.click();
       }
@@ -141,7 +141,7 @@ KeyboardNavigationCoreState> {
     if (focusedElement || isTabArrowUpDown(event)) {
       focusedCell = getNextFocusedCell(tableColumns, tableBodyRows,
         tableHeaderRows, expandedRowIds, this.elements, event, focusedElement, scrollToColumn);
-        
+
       if (focusedCell) {
         event.preventDefault();
         this.setState({
@@ -159,6 +159,16 @@ KeyboardNavigationCoreState> {
     if (key1 === 'paging' || key1 === 'toolbar') {
       this.setState({
         focusedElement: undefined,
+      });
+    } else if (key2.includes(TABLE_FLEX_TYPE.toString())) {
+      const columnKey = this.props.tableColumns[0].key;
+      this.setState({
+        focusedElement: {
+          rowKey: key1,
+          columnKey,
+          index: -1,
+          part: getPart(key1),
+        },
       });
     } else {
       this.setState({

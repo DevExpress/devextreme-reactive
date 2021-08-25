@@ -567,6 +567,16 @@ describe('Focused element in the header with banded columns, key = Tab', () => {
       part: header,
     });
   });
+
+  it('should return cell from band_0, no focused cell', () => {
+    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+      expandedRowIds, elements, { key, target: elements[`${band}_0`].test_column_1[0].current });
+    expect(element).toEqual({
+      rowKey: `${band}_0`,
+      columnKey: 'test_column_1',
+      part: header,
+    });
+  });
 });
 
 describe('Focus element in the header with banded columns, navigation from body', () => {

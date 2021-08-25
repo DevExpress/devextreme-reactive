@@ -441,7 +441,7 @@ export type GetNextPrevCellFromBodyFn = PureComputed<[
 ], FocusedElement | void>;
 
 // @public (undocumented)
-export type GetNextPrevPartFn = PureComputed<[FocusedElement, Elements, TableRow[]], string | undefined>;
+export type GetNextPrevPartFn = PureComputed<[FocusedElement, Elements, TableRow[]], string | void>;
 
 // @public (undocumented)
 export type GetPrevCellFromHeadingFn = PureComputed<[

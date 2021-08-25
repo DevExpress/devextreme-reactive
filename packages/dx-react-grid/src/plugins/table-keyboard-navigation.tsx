@@ -117,8 +117,10 @@ KeyboardNavigationCoreState> {
     } = this.props;
 
     if (event.key === 'f' && event.ctrlKey) {
-      event.preventDefault();
-      this.searchPanelRef?.current?.click();
+      if(this.searchPanelRef) {
+        event.preventDefault();
+        this.searchPanelRef.current?.click();
+      }
       if (focusedElement) {
         this.setState({
           focusedElement: undefined,
@@ -139,7 +141,7 @@ KeyboardNavigationCoreState> {
     if (focusedElement || isTabArrowUpDown(event)) {
       focusedCell = getNextFocusedCell(tableColumns, tableBodyRows,
         tableHeaderRows, expandedRowIds, this.elements, event, focusedElement, scrollToColumn);
-
+        
       if (focusedCell) {
         event.preventDefault();
         this.setState({

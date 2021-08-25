@@ -1048,7 +1048,6 @@ describe('Navigation on parts by arrows Up and Down + Ctrl', () => {
       rowKey: header,
       columnKey: 'test_column_1',
       part: header,
-      index: 0,
     });
   });
 
@@ -1072,7 +1071,6 @@ describe('Navigation on parts by arrows Up and Down + Ctrl', () => {
       rowKey: 'test_row_1',
       columnKey: 'test_column_1',
       part: body,
-      index: 0,
     });
   });
 

@@ -493,9 +493,9 @@ FocusedElement | void> = (
 };
 
 const getFirstCell: PureComputed<
-  [Elements, TableRow[], TableColumn[], ScrollToColumnFn?], FocusedElement | void
+  [Elements, TableRow[], TableColumn[], ScrollToColumnFn?, boolean?], FocusedElement | void
 > = (
-  elements, tableBodyRows, tableColumns, scrollToColumn,
+  elements, tableBodyRows, tableColumns, scrollToColumn, withInnerElements
 ) => {
   const part = tableParts.find((p) => {
     return convertPart(p, elements, tableBodyRows);
@@ -517,7 +517,7 @@ const getFirstCell: PureComputed<
   return {
     rowKey,
     columnKey,
-    index: getIndexInnerElement(elements, rowKey, columnKey, 1),
+    index: withInnerElements ? getIndexInnerElement(elements, rowKey, columnKey, 1) : undefined,
     part,
   };
 };
@@ -553,9 +553,10 @@ const getToolbarPagingElements: PureComputed<[Elements]> = (elements) => {
   };
 };
 
-const getFirstCellInLastPart: PureComputed<[Elements, TableRow[], TableColumn[], ScrollToColumnFn?],
-FocusedElement | void> = (
-  elements, tableBodyRows, tableColumns, scrollToColumn,
+const getFirstCellInLastPart: PureComputed<[
+  Elements, TableRow[], TableColumn[], ScrollToColumnFn?, boolean?
+], FocusedElement | void> = (
+  elements, tableBodyRows, tableColumns, scrollToColumn, withInnerElements,
 ) => {
   const lastPart = getLastPart(elements, tableBodyRows);
   if (lastPart) {
@@ -572,7 +573,7 @@ FocusedElement | void> = (
     return {
       columnKey,
       rowKey,
-      index: getIndexInnerElement(elements, rowKey, columnKey, 1),
+      index: withInnerElements ? getIndexInnerElement(elements, rowKey, columnKey, 1) : undefined,
       part: lastPart,
     };
   }
@@ -756,25 +757,25 @@ export const getNextFocusedCell: GetNextFocusedElementFn = (
       });
     };
     if (event.ctrlKey) {
-      if (toolbarElements && event.key === 'ArrowDown' && hasFocus(toolbarElements)) {
+      if (event.key === 'ArrowDown' && (toolbarElements && hasFocus(toolbarElements) || !toolbarElements)) {
         return getFirstCell(elements, tableBodyRows, tableColumns, scrollToColumn);
       }
-      if (pagingElements && event.key === 'ArrowUp' && hasFocus(pagingElements)) {
+      if (event.key === 'ArrowUp' && (pagingElements && hasFocus(pagingElements) || !pagingElements)) {
         return getFirstCellInLastPart(elements, tableBodyRows, tableColumns, scrollToColumn);
       }
     } else if (event.key === 'Tab') {
       if (toolbarElements && event.target === toolbarElements[toolbarElements.length - 1] &&
          !event.shiftKey) {
-        return getFirstCell(elements, tableBodyRows, tableColumns, scrollToColumn);
+        return getFirstCell(elements, tableBodyRows, tableColumns, scrollToColumn, true);
       }
       if (pagingElements && event.target === pagingElements[0] && event.shiftKey) {
         if (scrollToColumn) {
-          return getFirstCellInLastPart(elements, tableBodyRows, tableColumns, scrollToColumn);
+          return getFirstCellInLastPart(elements, tableBodyRows, tableColumns, scrollToColumn, true);
         }
         return getLastCell(elements, tableBodyRows, tableColumns);
       }
       if (!event.shiftKey) {
-        const firstCell = getFirstCell(elements, tableBodyRows, tableColumns);
+        const firstCell = getFirstCell(elements, tableBodyRows, tableColumns, undefined, true);
         if (firstCell &&
           event.target === elements[firstCell.rowKey][firstCell.columnKey][0].current) {
           return firstCell;

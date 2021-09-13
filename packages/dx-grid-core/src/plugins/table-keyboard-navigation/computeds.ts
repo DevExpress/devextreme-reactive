@@ -8,7 +8,7 @@ import {
     GetNextFocusedElementFn, FocusedElement, TableColumn, TableRow,
     GetElementFn, GetElementPrevNextPartFn, Elements, RowId, GetInnerElementsFn,
     OnFocusedCellChangedFn, ScrollToColumnFn, GetNextPrevPartFn,
-    GetNextPrevCellFromBodyFn, GetPrevCellFromHeadingFn, GetNextCellFromHeadinFn,
+    GetNextPrevCellFromBodyFn, GetPrevCellFromHeadingFn, GetNextCellFromHeadingFn,
     GetCellNextPrevPartFn,
 } from '../../types';
 
@@ -379,7 +379,7 @@ const getNextCellFromBody: GetNextPrevCellFromBodyFn = (
   };
 };
 
-const getNextCellFromHeading: GetNextCellFromHeadinFn = (
+const getNextCellFromHeading: GetNextCellFromHeadingFn = (
   tableHeaderRows, tableBodyRows, tableColumns,
   columnIndex, focusedElement, elements,
   scrollToColumn,

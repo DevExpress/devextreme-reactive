@@ -42,7 +42,7 @@ export type GetPrevCellFromHeadingFn = PureComputed<[
   TableRow[], TableColumn[], number, FocusedElement, Elements,
 ], FocusedElement | void>;
 
-export type GetNextCellFromHeadinFn = PureComputed<[
+export type GetNextCellFromHeadingFn = PureComputed<[
   TableRow[], TableRow[], TableColumn[], number, FocusedElement, Elements,
   ScrollToColumnFn?], FocusedElement | void>;
 

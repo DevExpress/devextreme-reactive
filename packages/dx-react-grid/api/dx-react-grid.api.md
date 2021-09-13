@@ -407,7 +407,7 @@ export type GetInnerElementsFn = PureComputed<[
 export type GetMessageFn = (messageKey: string, params?: object) => string;
 
 // @public (undocumented)
-export type GetNextCellFromHeadinFn = PureComputed<[
+export type GetNextCellFromHeadingFn = PureComputed<[
   TableRow[],
   TableRow[],
   TableColumn[],

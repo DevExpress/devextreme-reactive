@@ -651,51 +651,11 @@ export interface IntegratedSummaryProps {
 }
 
 // @public (undocumented)
-export namespace KeyboardNavigation {
-  export interface CellProps extends Table.CellProps, Required<ExtraProps> {
-    component: React_2.ComponentType<Table.CellProps>;
-  }
-  // (undocumented)
-  export interface ExtraProps {
-  }
-  // (undocumented)
-  export interface RowProps extends Table.RowProps {
-    component: React_2.ComponentType<Table.RowProps>;
-  }
+export interface KeyboardNavigationComponent extends TableKeyboardNavigation.CellProps {
 }
 
 // @public (undocumented)
-export interface KeyboardNavigationComponent extends KeyboardNavigation.CellProps {
-}
-
-// @public (undocumented)
-export interface KeyboardNavigationCoreProps extends KeyboardNavigationProps {
-  // (undocumented)
-  expandedRowIds: RowId[];
-  // (undocumented)
-  rootRef: React_2.RefObject<HTMLTableElement>;
-  // (undocumented)
-  scrollToColumn: ScrollToColumnFn;
-  // (undocumented)
-  tableBodyRows: TableRow[];
-  // (undocumented)
-  tableColumns: TableColumn[];
-  // (undocumented)
-  tableHeaderRows: TableRow[];
-}
-
-// @public (undocumented)
-export interface KeyboardNavigationProps {
-  cellComponent: React_2.ComponentType<KeyboardNavigation.CellProps>;
-  defaultFocusedCell?: FocusedCell;
-  focusedCell?: FocusedCell;
-  focusedRowEnabled?: boolean;
-  onFocusedCellChanged?: OnFocusedCellChangedFn;
-  rowComponent: React_2.ComponentType<KeyboardNavigation.RowProps>;
-}
-
-// @public (undocumented)
-export type OnFocusedCellChangedFn = (cell: FocusedCell) => void;
+export type OnFocusedCellChangeFn = (cell: FocusedCell) => void;
 
 // @public
 export const PagingPanel: React_2.ComponentType<PagingPanelProps>;
@@ -1394,7 +1354,31 @@ export interface TableInlineCellEditingProps {
 }
 
 // @public (undocumented)
-export const TableKeyboardNavigation: React_2.ComponentType<KeyboardNavigationProps>;
+export const TableKeyboardNavigation: React_2.ComponentType<TableKeyboardNavigationProps>;
+
+// @public (undocumented)
+export namespace TableKeyboardNavigation {
+  export interface CellProps extends Table.CellProps, Required<ExtraProps> {
+    component: React_2.ComponentType<Table.CellProps>;
+  }
+  // (undocumented)
+  export interface ExtraProps {
+  }
+  // (undocumented)
+  export interface RowProps extends Table.RowProps {
+    component: React_2.ComponentType<Table.RowProps>;
+  }
+}
+
+// @public (undocumented)
+export interface TableKeyboardNavigationProps {
+  cellComponent: React_2.ComponentType<TableKeyboardNavigation.CellProps>;
+  defaultFocusedCell?: FocusedCell;
+  focusedCell?: FocusedCell;
+  focusedRowEnabled?: boolean;
+  onFocusedCellChange?: OnFocusedCellChangeFn;
+  rowComponent: React_2.ComponentType<TableKeyboardNavigation.RowProps>;
+}
 
 // @public (undocumented)
 export interface TableProps {

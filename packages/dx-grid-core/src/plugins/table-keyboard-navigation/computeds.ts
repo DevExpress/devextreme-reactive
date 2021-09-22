@@ -702,6 +702,10 @@ FocusedElement | void> = (
   return;
 };
 
+const isCtrlMetaKey = (event: any) => {
+  return event.ctrlKey || event.metaKey;
+};
+
 const getIndexFromKey = (key: string) => {
   const array = key.split('_');
   return Number(array[array.length - 1]);
@@ -763,7 +767,7 @@ export const getNextFocusedCell: GetNextFocusedElementFn = (
         return event.target === el;
       });
     };
-    if (event.ctrlKey) {
+    if (isCtrlMetaKey(event)) {
       if (event.key === 'ArrowDown' &&
       (toolbarElements && hasFocus(toolbarElements) || !toolbarElements)) {
         return getFirstCell(elements, tableBodyRows, tableColumns,
@@ -823,7 +827,7 @@ export const getNextFocusedCell: GetNextFocusedElementFn = (
         }
         break;
       case 'ArrowUp':
-        if (event.ctrlKey) {
+        if (isCtrlMetaKey(event)) {
           cell = getCellNextPrevPart(focusedElement, elements, tableBodyRows,
             tableColumns, -1, scrollToColumn);
         } else {
@@ -831,7 +835,7 @@ export const getNextFocusedCell: GetNextFocusedElementFn = (
         }
         break;
       case 'ArrowDown':
-        if (event.ctrlKey) {
+        if (isCtrlMetaKey(event)) {
           cell = getCellNextPrevPart(focusedElement, elements, tableBodyRows,
             tableColumns, 1, scrollToColumn);
         } else {
@@ -839,14 +843,14 @@ export const getNextFocusedCell: GetNextFocusedElementFn = (
         }
         break;
       case 'ArrowLeft':
-        if (event.ctrlKey) {
+        if (isCtrlMetaKey(event)) {
           actionOnTreeMode(elements, expandedRowIds, -1, focusedElement);
         } else {
           cell = getCellRightLeft(-1, focusedElement, tableColumns, elements);
         }
         break;
       case 'ArrowRight':
-        if (event.ctrlKey) {
+        if (isCtrlMetaKey(event)) {
           actionOnTreeMode(elements, expandedRowIds, 1, focusedElement);
         } else {
           cell = getCellRightLeft(1, focusedElement, tableColumns, elements);
@@ -899,7 +903,7 @@ export const isCellExist: PureComputed<[Elements, FocusedElement], boolean> = (
 };
 
 export const isTabArrowUpDown = (event: any): boolean => {
-  return event.key === 'Tab' || event.ctrlKey && (event.key === 'ArrowDown' || event.key === 'ArrowUp');
+  return event.key === 'Tab' || isCtrlMetaKey(event) && (event.key === 'ArrowDown' || event.key === 'ArrowUp');
 };
 
 export const focus: PureComputed<

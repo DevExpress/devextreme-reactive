@@ -117,7 +117,7 @@ TableKeyboardNavigationCoreState> {
       tableColumns, tableBodyRows, tableHeaderRows, expandedRowIds, scrollToColumn,
     } = this.props;
 
-    if (event.key === 'f' && event.ctrlKey) {
+    if (event.key === 'f' && (event.ctrlKey || event.metaKey)) {
       if (this.searchPanelRef) {
         event.preventDefault();
         this.searchPanelRef.current?.click();
@@ -248,7 +248,7 @@ class TableKeyboardNavigationBase extends React.PureComponent<TableKeyboardNavig
       <Plugin
         name="TableKeyboardNavigation"
         dependencies={[
-          { name: 'Table' }
+          { name: 'Table' },
         ]}
       >
         <TemplateConnector>
@@ -273,11 +273,6 @@ class TableKeyboardNavigationBase extends React.PureComponent<TableKeyboardNavig
     );
   }
 }
-
-TableKeyboardNavigationBase.components = {
-  cellComponent: 'Cell',
-  rowComponent: 'Row',
-};
 
 // tslint:disable-next-line: max-line-length
 export const TableKeyboardNavigation: React.ComponentType<TableKeyboardNavigationProps> = TableKeyboardNavigationBase;

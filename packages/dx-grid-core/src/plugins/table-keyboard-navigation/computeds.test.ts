@@ -2298,7 +2298,7 @@ describe('#focus', () => {
     expect.anything();
   });
 
-  it('should call onFocusedCellChanged', () => {
+  it('should call onFocusedCellChange', () => {
     const generatedElements = generateElements(tableColumns, tableBodyRows, []);
     const focusedElement = {
       rowKey: 'test_row_2',
@@ -2307,15 +2307,15 @@ describe('#focus', () => {
     };
     const element = generatedElements[focusedElement.rowKey][focusedElement.columnKey][0];
     element.focus = jest.fn();
-    const onFocusedCellChanged = jest.fn();
-    focus(generatedElements, focusedElement, undefined, onFocusedCellChanged);
-    expect(onFocusedCellChanged).toBeCalledWith({
+    const onFocusedCellChange = jest.fn();
+    focus(generatedElements, focusedElement, undefined, onFocusedCellChange);
+    expect(onFocusedCellChange).toBeCalledWith({
       columnKey: 'test_column_2',
       rowKey: 'test_row_2',
     });
   });
 
-  it('should not call onFocusedCellChanged, prev focusedElement the same', () => {
+  it('should not call onFocusedCellChange, prev focusedElement the same', () => {
     const generatedElements = generateElements(tableColumns, tableBodyRows, []);
     const focusedElement = {
       rowKey: 'test_row_2',
@@ -2324,23 +2324,9 @@ describe('#focus', () => {
     };
     const element = generatedElements[focusedElement.rowKey][focusedElement.columnKey][0];
     element.focus = jest.fn();
-    const onFocusedCellChanged = jest.fn();
-    focus(generatedElements, focusedElement, focusedElement, onFocusedCellChanged);
-    expect(onFocusedCellChanged).not.toBeCalled();
-  });
-
-  it('should not call onFocusedCellChanged, part is not data type', () => {
-    const generatedElements = generateElements(tableColumns, tableBodyRows, []);
-    const focusedElement = {
-      rowKey: 'test_row_2',
-      columnKey: 'test_column_2',
-      part: 'part',
-    };
-    const element = generatedElements[focusedElement.rowKey][focusedElement.columnKey][0];
-    element.focus = jest.fn();
-    const onFocusedCellChanged = jest.fn();
-    focus(generatedElements, focusedElement, focusedElement, onFocusedCellChanged);
-    expect(onFocusedCellChanged).not.toBeCalled();
+    const onFocusedCellChange = jest.fn();
+    focus(generatedElements, focusedElement, focusedElement, onFocusedCellChange);
+    expect(onFocusedCellChange).not.toBeCalled();
   });
 });
 

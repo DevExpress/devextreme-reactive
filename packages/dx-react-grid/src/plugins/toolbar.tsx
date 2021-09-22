@@ -5,7 +5,7 @@ import {
   Plugin,
   TemplatePlaceholder,
 } from '@devexpress/dx-react-core';
-import { ToolbarProps, KeyboardNavigation } from '../types';
+import { ToolbarProps, TableKeyboardNavigation } from '../types';
 
 class ToolbarBase extends React.PureComponent<ToolbarProps> {
   static components = {
@@ -23,7 +23,7 @@ class ToolbarBase extends React.PureComponent<ToolbarProps> {
         name="Toolbar"
       >
         <Template name="header">
-        {(params: KeyboardNavigation.ExtraProps) => (
+        {(params: TableKeyboardNavigation.ExtraProps) => (
           <React.Fragment>
             <Root {...params}>
               <TemplatePlaceholder name="toolbarContent" />

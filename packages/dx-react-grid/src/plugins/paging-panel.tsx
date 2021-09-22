@@ -5,7 +5,7 @@ import {
   TemplateConnector,
 } from '@devexpress/dx-react-core';
 import { pageCount } from '@devexpress/dx-grid-core';
-import { PagingPanelProps, KeyboardNavigation } from '../types';
+import { PagingPanelProps, TableKeyboardNavigation } from '../types';
 
 const pluginDependencies = [
   { name: 'PagingState' },
@@ -39,7 +39,7 @@ class PagingPanelBase extends React.PureComponent<PagingPanelProps> {
         dependencies={pluginDependencies}
       >
         <Template name="footer">
-          {(params: KeyboardNavigation.ExtraProps) => (
+          {(params: TableKeyboardNavigation.ExtraProps) => (
             <React.Fragment>
               <TemplatePlaceholder />
               <TemplateConnector>

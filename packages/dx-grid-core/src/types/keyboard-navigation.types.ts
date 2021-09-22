@@ -55,4 +55,4 @@ export interface FocusedCell {
   rowKey: string;
 }
 
-export type OnFocusedCellChangedFn = (cell: FocusedCell) => void;
+export type OnFocusedCellChangeFn = (cell: FocusedCell) => void;

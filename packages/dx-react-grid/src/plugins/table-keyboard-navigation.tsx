@@ -10,15 +10,15 @@ import {
   isCellFocused, getFocusing,
 } from '@devexpress/dx-grid-core';
 import {
-  KeyboardNavigationProps, KeyboardNavigationCoreProps, KeyboardNavigationCoreState,
+  TableKeyboardNavigationProps, TableKeyboardNavigationCoreProps, TableKeyboardNavigationCoreState,
   TableCellProps, TableRowProps,
 } from '../types';
 
 const CellPlaceholder = (props: TableCellProps) => <TemplatePlaceholder params={props} />;
 const RowPlaceholder = (props: TableRowProps) => <TemplatePlaceholder params={props} />;
 
-class TableKeyboardNavigationCore extends React.PureComponent<KeyboardNavigationCoreProps,
-KeyboardNavigationCoreState> {
+class TableKeyboardNavigationCore extends React.PureComponent<TableKeyboardNavigationCoreProps,
+TableKeyboardNavigationCoreState> {
   elements: Elements = {};
   searchPanelRef: React.RefObject<HTMLElement> | undefined;
 
@@ -38,14 +38,14 @@ KeyboardNavigationCoreState> {
   }
 
   static getDerivedStateFromProps(
-    props: KeyboardNavigationCoreProps, state: KeyboardNavigationCoreState,
-  ): KeyboardNavigationCoreState {
+    props: TableKeyboardNavigationCoreProps, state: TableKeyboardNavigationCoreState,
+  ): TableKeyboardNavigationCoreState {
     const focusedCell = props.focusedCell !== undefined ? props.focusedCell : state.focusedElement;
     return {
       focusedElement: focusedCell ? {
         part: TABLE_DATA_TYPE.toString(),
         ...focusedCell,
-      } : focusedCell,
+      } : undefined,
     };
   }
 
@@ -55,11 +55,6 @@ KeyboardNavigationCoreState> {
 
   componentWillUnmount() {
     this.props.rootRef.current!.removeEventListener('keydown', this.handleKeyDownOnWidget);
-  }
-
-  componentDidUpdate(_, prevState) {
-    const { focusedElement } = this.state;
-    focus(this.elements, focusedElement, prevState.focusedElement, this.props.onFocusedCellChanged);
   }
 
   pushRef(ref, key1, key2) {
@@ -75,18 +70,16 @@ KeyboardNavigationCoreState> {
     this.elements[key1][key2].push(ref);
 
     if (focusedElement?.rowKey === key1 && focusedElement?.columnKey === key2) {
-      focus(this.elements, focusedElement, undefined, this.props.onFocusedCellChanged);
+      focus(this.elements, focusedElement, undefined, this.props.onFocusedCellChange);
     }
 
     if (key1.toString().includes(TABLE_ADDED_TYPE.toString()) &&
     key2 === tableColumns[0].key) {
-      this.setState({
-        focusedElement: {
-          part: TABLE_DATA_TYPE.toString(),
-          columnKey: key2,
-          rowKey: key1,
-        },
-      });
+      this.changeFocusedElement({
+        part: TABLE_DATA_TYPE.toString(),
+        columnKey: key2,
+        rowKey: key1,
+      }, focusedElement);
     }
   }
 
@@ -109,6 +102,14 @@ KeyboardNavigationCoreState> {
     }
   }
 
+  changeFocusedElement(focusedCell, prevFocusedCell) {
+    const { onFocusedCellChange } = this.props;
+    this.setState({
+      focusedElement: focusedCell,
+    });
+    focus(this.elements, focusedCell, prevFocusedCell, onFocusedCellChange);
+  }
+
   handleKeyDownOnWidget(event) {
     let focusedCell;
     const { focusedElement } = this.state;
@@ -122,9 +123,7 @@ KeyboardNavigationCoreState> {
         this.searchPanelRef.current?.click();
       }
       if (focusedElement) {
-        this.setState({
-          focusedElement: undefined,
-        });
+        this.changeFocusedElement(undefined, focusedElement);
       }
       return;
     }
@@ -132,9 +131,7 @@ KeyboardNavigationCoreState> {
     if (focusedElement && !isCellExist(this.elements, focusedElement) && event.key === 'Tab') {
       focusedCell = getClosestCellByRow(tableBodyRows, focusedElement, this.elements);
       event.preventDefault();
-      this.setState({
-        focusedElement: focusedCell,
-      });
+      this.changeFocusedElement(focusedCell, focusedElement);
       return;
     }
 
@@ -144,41 +141,32 @@ KeyboardNavigationCoreState> {
 
       if (focusedCell) {
         event.preventDefault();
-        this.setState({
-          focusedElement: focusedCell,
-        });
+        this.changeFocusedElement(focusedCell, focusedElement);
       } else if (isTabArrowUpDown(event) && focusedElement) {
-        this.setState({
-          focusedElement: undefined,
-        });
+        this.changeFocusedElement(undefined, focusedElement);
       }
     }
   }
 
   setFocusedElement({ key1, key2, event }) {
+    const { focusedElement } = this.state;
     if (key1 === 'paging' || key1 === 'toolbar') {
-      this.setState({
-        focusedElement: undefined,
-      });
+      this.changeFocusedElement(undefined, focusedElement);
     } else if (key2.includes(TABLE_FLEX_TYPE.toString())) {
       const columnKey = this.props.tableColumns[0].key;
-      this.setState({
-        focusedElement: {
-          rowKey: key1,
-          columnKey,
-          index: -1,
-          part: getPart(key1),
-        },
-      });
+      this.changeFocusedElement({
+        rowKey: key1,
+        columnKey,
+        index: -1,
+        part: getPart(key1),
+      }, focusedElement);
     } else {
-      this.setState({
-        focusedElement: {
-          rowKey: key1,
-          columnKey: key2,
-          index: getIndexToFocus(key1, key2, this.elements, event),
-          part: getPart(key1),
-        },
-      });
+      this.changeFocusedElement({
+        rowKey: key1,
+        columnKey: key2,
+        index: getIndexToFocus(key1, key2, this.elements, event),
+        part: getPart(key1),
+      }, focusedElement);
     }
   }
 
@@ -250,14 +238,19 @@ KeyboardNavigationCoreState> {
 }
 
 // tslint:disable-next-line:max-classes-per-file
-class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigationProps> {
+class TableKeyboardNavigationBase extends React.PureComponent<TableKeyboardNavigationProps> {
   static components = {
     cellComponent: 'Cell',
     rowComponent: 'Row',
   };
   render() {
     return (
-      <Plugin name="TableKeyboardNavigation">
+      <Plugin
+        name="TableKeyboardNavigation"
+        dependencies={[
+          { name: 'Table' }
+        ]}
+      >
         <TemplateConnector>
         {(
           { tableColumns, tableBodyRows, rootRef, tableHeaderRows, expandedRowIds },
@@ -280,5 +273,11 @@ class TableKeyboardNavigationBase extends React.PureComponent<KeyboardNavigation
     );
   }
 }
+
+TableKeyboardNavigationBase.components = {
+  cellComponent: 'Cell',
+  rowComponent: 'Row',
+};
+
 // tslint:disable-next-line: max-line-length
-export const TableKeyboardNavigation: React.ComponentType<KeyboardNavigationProps> = TableKeyboardNavigationBase;
+export const TableKeyboardNavigation: React.ComponentType<TableKeyboardNavigationProps> = TableKeyboardNavigationBase;

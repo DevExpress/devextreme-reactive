@@ -7,7 +7,7 @@ import {
 import {
     GetNextFocusedElementFn, FocusedElement, TableColumn, TableRow,
     GetElementFn, GetElementPrevNextPartFn, Elements, RowId, GetInnerElementsFn,
-    OnFocusedCellChangedFn, ScrollToColumnFn, GetNextPrevPartFn,
+    OnFocusedCellChangeFn, ScrollToColumnFn, GetNextPrevPartFn,
     GetNextPrevCellFromBodyFn, GetPrevCellFromHeadingFn, GetNextCellFromHeadingFn,
     GetCellNextPrevPartFn,
 } from '../../types';
@@ -904,9 +904,9 @@ export const isTabArrowUpDown = (event: any): boolean => {
 
 export const focus: PureComputed<
   [Elements, FocusedElement?,
-  FocusedElement?, OnFocusedCellChangedFn?], void
+  FocusedElement?, OnFocusedCellChangeFn?], void
 > = (
-  elements, focusedElement, prevFocusedElement, onFocusedCellChanged,
+  elements, focusedElement, prevFocusedElement, onFocusedCellChange,
 ) => {
   if (!focusedElement || !elements[focusedElement.rowKey] ||
       !elements[focusedElement.rowKey][focusedElement.columnKey]) {
@@ -918,10 +918,10 @@ export const focus: PureComputed<
 
   if (el) {
     el.focus ? el.focus() : el.current.focus();
-    if (onFocusedCellChanged && focusedElement.part === DATA_TYPE &&
+    if (onFocusedCellChange &&
         (prevFocusedElement?.rowKey !== focusedElement.rowKey ||
           prevFocusedElement?.columnKey !== focusedElement.columnKey)) {
-      onFocusedCellChanged({
+      onFocusedCellChange({
         rowKey: focusedElement.rowKey, columnKey: focusedElement.columnKey,
       });
     }

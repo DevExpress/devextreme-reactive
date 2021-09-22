@@ -1,10 +1,10 @@
 import {
   FocusedElement, Table, TableColumn, TableRow, RowId,
-  FocusedCell, OnFocusedCellChangedFn, ScrollToColumnFn,
+  FocusedCell, OnFocusedCellChangeFn, ScrollToColumnFn,
 } from '../index';
 
 /* tslint:disable no-namespace max-line-length */
-export namespace KeyboardNavigation {
+export namespace TableKeyboardNavigation {
   /** Describes properties passed to a component that renders a keyboard navigation. */
   export interface CellProps extends Table.CellProps, Required<ExtraProps> {
     /** A component that should be rendered as a focused cell. */
@@ -30,22 +30,23 @@ export namespace KeyboardNavigation {
   }
 }
 
-export interface KeyboardNavigationProps {
+export interface TableKeyboardNavigationProps {
   /** Specifies initially focused cell in the uncontrolled mode. */
   defaultFocusedCell?: FocusedCell;
   /** Specifies focused cell. */
   focusedCell?: FocusedCell;
   /** Handles focused cell changes. */
-  onFocusedCellChanged?: OnFocusedCellChangedFn;
+  onFocusedCellChange?: OnFocusedCellChangeFn;
   /** A component that renders the cell element. */
-  cellComponent: React.ComponentType<KeyboardNavigation.CellProps>;
+  cellComponent: React.ComponentType<TableKeyboardNavigation.CellProps>;
   /** A component that renders the row element. */
-  rowComponent: React.ComponentType<KeyboardNavigation.RowProps>;
+  rowComponent: React.ComponentType<TableKeyboardNavigation.RowProps>;
   /** Applies a focused style to the row that contains the focused cell. */
   focusedRowEnabled?: boolean;
 }
 
-export interface KeyboardNavigationCoreProps extends KeyboardNavigationProps {
+/** @internal */
+export interface TableKeyboardNavigationCoreProps extends TableKeyboardNavigationProps {
   tableColumns: TableColumn[];
   tableBodyRows: TableRow[];
   tableHeaderRows: TableRow[];
@@ -55,10 +56,10 @@ export interface KeyboardNavigationCoreProps extends KeyboardNavigationProps {
 }
 
 /** @internal */
-export type KeyboardNavigationCoreState = {
+export type TableKeyboardNavigationCoreState = {
   focusedElement?: FocusedElement;
 };
 
 // tslint:disable-next-line: no-empty-interface
-export interface KeyboardNavigationComponent extends KeyboardNavigation.CellProps {
+export interface KeyboardNavigationComponent extends TableKeyboardNavigation.CellProps {
 }

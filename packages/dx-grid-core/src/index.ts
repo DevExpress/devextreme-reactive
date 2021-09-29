@@ -176,6 +176,8 @@ export * from './plugins/table-summary-row/constants';
 /** @internal */
 export * from './plugins/summary-state/helpers';
 /** @internal */
+export * from './plugins/table-keyboard-navigation/helpers';
+/** @internal */
 export * from './plugins/table-keyboard-navigation/computeds';
 
 /** @internal */

@@ -1,6 +1,7 @@
 import { PureComputed } from '@devexpress/dx-core';
 import { Getters } from '@devexpress/dx-react-core';
 import { TableColumn, TableRow, GetCellColSpanFn } from './table.types';
+import { RIGHT_POSITION, LEFT_POSITION } from '../plugins/virtual-table/constants';
 
 /** @internal */
 export type GetColumnWidthFn = PureComputed<[TableColumn, number?], number | null>;
@@ -173,5 +174,5 @@ export type GetTopRowId = PureComputed<
 >;
 /** @internal */
 export type GetScrollLeft = PureComputed<
-  [number, number, symbol?], number | undefined
+  [number, number, typeof LEFT_POSITION | typeof RIGHT_POSITION | undefined], number | undefined
 >;

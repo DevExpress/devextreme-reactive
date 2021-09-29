@@ -12,6 +12,7 @@ export {
 /** @internal */
 export {
   GetCellColSpanFn, BandHeaderRow, Row,
+  LEFT_POSITION, RIGHT_POSITION,
 } from '../../../dx-grid-core/src/index';
 
 export * from './column-operations';

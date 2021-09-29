@@ -87,10 +87,12 @@ const shouldBeScrolled = (
   elements: ReadonlyObject<Elements>, key1: string, key2: string,
   scrollToColumn?: ScrollToColumnFn,
 ): scrollToColumn is ScrollToColumnFn => {
-  const isColumnHasStubType = Object.keys(elements[key1]).some((column) => {
-    return column.includes(STUB_TYPE);
-  });
-  return !!(scrollToColumn && !elements[key1][key2] && isColumnHasStubType);
+  if(scrollToColumn && !elements[key1][key2]) {
+    return Object.keys(elements[key1]).some((column) => {
+      return column.includes(STUB_TYPE);
+    });
+  }
+  return false;
 };
 
 const convertPart: PureComputed<
@@ -111,13 +113,10 @@ const getLastPart: PureComputed<
   let index = partIndex || tableParts.length;
   let part;
 
-  while (index > 0) {
+  do {
     index = index - 1;
     part = convertPart(tableParts[index], elements, tableBodyRows);
-    if (part) {
-      break;
-    }
-  }
+  } while(index > 0 && !part)
 
   return part;
 };

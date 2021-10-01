@@ -1,29 +1,28 @@
 import * as React from 'react';
-import { unstable_batchedUpdates, findDOMNode } from 'react-dom';
+import { unstable_batchedUpdates } from 'react-dom';
 import { TouchStrategy } from './draggable/touch-strategy';
 import { MouseStrategy } from './draggable/mouse-strategy';
 import { getSharedEventEmitter } from './draggable/shared-events';
 import { clear } from './draggable/selection-utils';
+import { RefHolder } from './ref-holder';
 
 const draggingHandled = Symbol('draggingHandled');
-const RIGHT_MOUSE_BUTTON = 3;
-const isRightButton = (mouseButton) => {
-  return mouseButton === RIGHT_MOUSE_BUTTON;
-};
 
 type DraggableProps = {
   onStart?: (args) => void;
   onUpdate?: (args) => void;
   onEnd?: (args) => void;
+  dragItem?: React.MutableRefObject<any> | React.RefCallback<any> | null;
 };
 
 /** @internal */
-export class Draggable extends React.Component<DraggableProps> {
+export class Draggable extends React.PureComponent<DraggableProps> {
   mouseStrategy: MouseStrategy;
   touchStrategy: TouchStrategy;
+  elementRef: React.MutableRefObject<Element | null>;
 
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     const delegate = {
       onStart: ({ x, y }) => {
         const { onStart } = this.props;
@@ -50,6 +49,7 @@ export class Draggable extends React.Component<DraggableProps> {
 
     this.mouseStrategy = new MouseStrategy(delegate);
     this.touchStrategy = new TouchStrategy(delegate);
+    this.elementRef = React.createRef();
 
     this.mouseDownListener = this.mouseDownListener.bind(this);
     this.touchStartListener = this.touchStartListener.bind(this);
@@ -61,11 +61,6 @@ export class Draggable extends React.Component<DraggableProps> {
     this.setupNodeSubscription();
   }
 
-  shouldComponentUpdate(nextProps) {
-    const { children } = this.props;
-    return nextProps.children !== children;
-  }
-
   componentDidUpdate() {
     this.setupNodeSubscription();
   }
@@ -75,7 +70,7 @@ export class Draggable extends React.Component<DraggableProps> {
   }
 
   setupNodeSubscription() {
-    const node = findDOMNode(this) as Element;
+    const node = this.elementRef.current;
     if (!node) return;
     node.removeEventListener('mousedown', this.mouseDownListener);
     node.removeEventListener('touchstart', this.touchStartListener);
@@ -84,7 +79,7 @@ export class Draggable extends React.Component<DraggableProps> {
   }
 
   mouseDownListener(e) {
-    if (this.touchStrategy.isWaiting() || e[draggingHandled] || isRightButton(e.which)) return;
+    if (this.touchStrategy.isWaiting() || e[draggingHandled]) return;
     e.preventDefault();
     this.mouseStrategy.start(e);
     e[draggingHandled] = true;
@@ -122,7 +117,18 @@ export class Draggable extends React.Component<DraggableProps> {
   }
 
   render() {
-    const { children } = this.props;
-    return children;
+    const { children, dragItem } = this.props;
+    return <RefHolder
+      ref={(node: Element | null) => {
+        this.elementRef.current = node;
+        if (typeof dragItem === 'function') {
+          dragItem(node);
+        } else if (dragItem) {
+          dragItem.current = node;
+        }
+      }}
+    >
+      {children}
+    </RefHolder>;
   }
 }

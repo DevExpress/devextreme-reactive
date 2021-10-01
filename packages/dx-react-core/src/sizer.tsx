@@ -1,8 +1,6 @@
 /* globals document:true */
 
 import * as React from 'react';
-import { findDOMNode } from 'react-dom';
-import { RefHolder } from './ref-holder';
 import { SizerProps, Size } from './types';
 
 const styles = {
@@ -55,7 +53,7 @@ export class Sizer extends React.PureComponent<SizerProps> {
     containerComponent: 'div',
   };
 
-  rootRef: React.RefObject<RefHolder>;
+  rootRef: React.RefObject<unknown>;
   // Though there properties cannot be assigned in constructor
   // they will be assigned when component is mount.
   rootNode!: HTMLElement;
@@ -118,7 +116,7 @@ export class Sizer extends React.PureComponent<SizerProps> {
   }
 
   createListeners() {
-    this.rootNode = findDOMNode(this.rootRef.current!) as HTMLElement;
+    this.rootNode = this.rootRef.current as HTMLElement;
 
     this.triggersRoot = document.createElement('div');
     Object.assign(this.triggersRoot.style, styles.triggersRoot);
@@ -153,14 +151,11 @@ export class Sizer extends React.PureComponent<SizerProps> {
     } = this.props;
 
     return (
-      <RefHolder
-        ref={this.rootRef}
-      >
-        <Container // NOTE: should have `position: relative`
-          style={style ? { ...styles.root, ...style } : styles.root}
-          {...restProps}
-        />
-      </RefHolder>
+      <Container // NOTE: should have `position: relative`
+        forwardedRef={this.rootRef}
+        style={style ? { ...styles.root, ...style } : styles.root}
+        {...restProps}
+      />
     );
   }
 }

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { findDOMNode } from 'react-dom';
 import { shallow, mount } from 'enzyme';
 import { Sizer } from '@devexpress/dx-react-core';
 import {
@@ -11,9 +10,6 @@ import {
 import { setupConsole } from '@devexpress/dx-testing';
 import { VirtualTableLayout } from './virtual-table-layout';
 
-jest.mock('react-dom', () => ({
-  findDOMNode: jest.fn(),
-}));
 jest.mock('@devexpress/dx-grid-core', () => {
   const actual = jest.requireActual('@devexpress/dx-grid-core');
   jest.spyOn(actual, 'getCollapsedGrids');
@@ -78,6 +74,10 @@ class VirtualTableLayoutWrapper extends React.Component<any, any> {
   }
 }
 
+const getBoundingClientRect = () => ({
+  height: 50,
+});
+
 const defaultProps = {
   columns: [
     { key: 'a', column: { name: 'a' } },
@@ -114,12 +114,19 @@ const defaultProps = {
   setViewport: jest.fn(),
   loadedRowsStart: 0,
   totalRowCount: 9,
-  containerComponent: props => <div {...props} />,
-  headTableComponent: ({ tableRef, ...props }) => <table {...props} />,
-  tableComponent: ({ tableRef, ...props }) => <table {...props} />,
+  containerComponent: ({ forwardedRef, ...props }) => <div {...props} />,
+  headTableComponent: ({ forwardedRef, ...props }) => <table {...props} />,
+  footerTableComponent: ({ forwardedRef, ...props }) => <table {...props} />,
+  tableComponent: ({ forwardedRef, ...props }) => {
+    (forwardedRef as any).current = { getBoundingClientRect };
+    return <table {...props} />;
+  },
   headComponent: props => <thead {...props} />,
   bodyComponent: props => <tbody {...props} />,
-  rowComponent: () => null,
+  rowComponent: ({ forwardedRef }) => {
+    (forwardedRef as any)({ getBoundingClientRect });
+    return null;
+  },
   cellComponent: () => null,
   getCellColSpan: () => 1,
   tableRef: React.createRef<HTMLTableElement>(),
@@ -129,11 +136,6 @@ describe('VirtualTableLayout', () => {
   let resetConsole;
   beforeEach(() => {
     resetConsole = setupConsole();
-    findDOMNode.mockImplementation(() => ({
-      getBoundingClientRect: () => ({
-        height: defaultProps.estimatedRowHeight,
-      }),
-    }));
   });
 
   afterEach(() => {
@@ -422,12 +424,6 @@ describe('VirtualTableLayout', () => {
         { key: 2, height: 10 },
       ];
 
-      findDOMNode.mockImplementation(() => ({
-        getBoundingClientRect: () => ({
-          height: 50,
-        }),
-      }));
-
       mount((
         <VirtualTableLayout
           {...defaultProps}
@@ -447,12 +443,6 @@ describe('VirtualTableLayout', () => {
         { key: 11 },
         { key: 12 },
       ];
-
-      findDOMNode.mockImplementation(() => ({
-        getBoundingClientRect: () => ({
-          height: 50,
-        }),
-      }));
 
       const tree = mount((
         <VirtualTableLayout

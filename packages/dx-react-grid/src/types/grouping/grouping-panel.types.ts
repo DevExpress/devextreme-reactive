@@ -41,24 +41,33 @@ export namespace GroupingPanel {
 
   /** @internal */
   export type LayoutProps = {
-    items: ReadonlyArray<GroupingPanelItem>,
-    isColumnGroupingEnabled?: (colName: string) => boolean,
-    draggingEnabled?: boolean,
-    onGroup?: (payload?: any) => void,
-    onGroupDraft?: (payload?: any) => void,
-    onGroupDraftCancel?: (payload?: any) => void,
-    itemComponent: React.ComponentType<{ item: GroupingPanelItem }>,
-    emptyMessageComponent: React.ComponentType,
-    containerComponent: React.ComponentType,
+    items: ReadonlyArray<GroupingPanelItem>;
+    isColumnGroupingEnabled?: (colName: string) => boolean;
+    draggingEnabled?: boolean;
+    onGroup?: (payload?: any) => void;
+    onGroupDraft?: (payload?: any) => void;
+    onGroupDraftCancel?: (payload?: any) => void;
+    itemComponent: React.ComponentType<{
+      item: GroupingPanelItem;
+      forwardedRef?: React.Ref<Element>;
+    }>;
+    emptyMessageComponent: React.ComponentType<{
+      forwardedRef?: React.Ref<Element>;
+    }>;
+    containerComponent: React.ComponentType;
   };
 
   /** @internal */
   export type GroupingItemLayoutProps = {
-    item: GroupingPanelItem,
-    itemComponent: React.ComponentType<{ item: GroupingPanelItem }>,
-    draggingEnabled?: boolean,
-    onDragStart?: () => void,
-    onDragEnd?: () => void,
+    item: GroupingPanelItem;
+    itemComponent: React.ComponentType<{
+      item: GroupingPanelItem;
+      forwardedRef?: React.Ref<Element>;
+    }>;
+    itemRef: React.Ref<Element>;
+    draggingEnabled?: boolean;
+    onDragStart?: () => void;
+    onDragEnd?: () => void;
   };
 
   /** @internal */
@@ -78,9 +87,13 @@ export interface GroupingPanelProps {
   /** A component that renders a group panel container. */
   containerComponent: React.ComponentType<GroupingPanel.ContainerProps>;
   /** A component that renders a group panel item. */
-  itemComponent: React.ComponentType<GroupingPanel.ItemProps>;
+  itemComponent: React.ComponentType<
+    GroupingPanel.ItemProps & { forwardedRef?: React.Ref<Element> }
+  >;
   /** A component that renders an empty group panel message. */
-  emptyMessageComponent: React.ComponentType<GroupingPanel.EmptyMessageProps>;
+  emptyMessageComponent: React.ComponentType<
+    GroupingPanel.EmptyMessageProps & { forwardedRef?: React.Ref<Element> }
+  >;
   /** An object that specifies the localization messages. */
   messages?: GroupingPanel.LocalizationMessages;
   /** @internal */

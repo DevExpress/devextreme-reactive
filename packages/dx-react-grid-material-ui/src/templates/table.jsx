@@ -3,7 +3,6 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableMUI from '@material-ui/core/Table';
 import { withStyles } from '@material-ui/core/styles';
-import { RefType } from '@devexpress/dx-react-core';
 import { getBorder } from './utils';
 
 const styles = theme => ({
@@ -30,11 +29,11 @@ const styles = theme => ({
 });
 
 const TableBase = ({
-  children, classes, className, use, tableRef,
+  children, classes, className, use, forwardedRef,
   ...restProps
 }) => (
   <TableMUI
-    ref={tableRef}
+    ref={forwardedRef}
     className={classNames({
       [classes.table]: true,
       [classes.stickyTable]: !!use,
@@ -52,12 +51,13 @@ TableBase.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
-  tableRef: RefType.isRequired,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 TableBase.defaultProps = {
   use: undefined,
   className: undefined,
+  forwardedRef: undefined,
 };
 
 export const Table = withStyles(styles, { name: 'Table' })(TableBase);

@@ -71,7 +71,7 @@ describe('No focused element, key = Tab', () => {
   it('should return cell from header', () => {
     const elements = generateElements(tableColumns, tableBodyRows, [filter, header]);
 
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
       expandedRowIds, elements, { key, target: elements[header].test_column_1[0].current });
     expect(element).toEqual({
       rowKey: header,
@@ -84,7 +84,7 @@ describe('No focused element, key = Tab', () => {
   it('should return cell from body', () => {
     const elements = generateElements(tableColumns, tableBodyRows, []);
 
-    const element = getNextFocusedCell(
+    const { element } = getNextFocusedCell(
       tableColumns, tableBodyRows, tableHeaderRows,
       expandedRowIds, elements,
       { key, target: elements.test_row_1.test_column_1[0].current },
@@ -100,7 +100,7 @@ describe('No focused element, key = Tab', () => {
   it('should return last cell from body', () => {
     const elements = generateElements(tableColumns, tableBodyRows, []);
 
-    const element = getNextFocusedCell(
+    const { element } = getNextFocusedCell(
       tableColumns, tableBodyRows, tableHeaderRows,
       expandedRowIds, elements,
       { key, shiftKey: true, target: elements.test_row_3.test_column_4[0].current },
@@ -114,14 +114,14 @@ describe('No focused element, key = Tab', () => {
   });
 
   it('should not be errors if there is no elements', () => {
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, {}, { key });
     expect(element).toBe(undefined);
   });
 
   it('should not return element if key pressed is not tab', () => {
     const elements = generateElements(tableColumns, tableBodyRows, [filter, header]);
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key: 'Enter' });
     expect(element).toBe(undefined);
   });
@@ -141,7 +141,7 @@ describe('No focused element, key = Tab', () => {
     generatedElements.toolbar = [];
     generatedElements.toolbar.none = [refElement];
 
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Tab', target: innerElements[1] });
     expect(element).toEqual({
       rowKey: header,
@@ -164,7 +164,7 @@ describe('No focused element, key = Tab', () => {
     generatedElements.toolbar = [];
     generatedElements.toolbar.none = [refElement];
 
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Tab', target: innerElements[0] });
     expect(element).toEqual(undefined);
   });
@@ -182,7 +182,7 @@ describe('No focused element, key = Tab', () => {
     generatedElements.paging = [];
     generatedElements.paging.none = [refElement];
 
-    const element = getNextFocusedCell(
+    const { element } = getNextFocusedCell(
         tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Tab', shiftKey: true, target: innerElements[0],
         });
@@ -207,7 +207,7 @@ describe('No focused element, key = Tab', () => {
     generatedElements.paging = [];
     generatedElements.paging.none = [refElement];
 
-    const element = getNextFocusedCell(
+    const { element } = getNextFocusedCell(
         tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, {
           key: 'Tab', shiftKey: true, target: innerElements[1],
@@ -241,7 +241,7 @@ describe('Focused element in the header, key = Tab', () => {
       columnKey: 'test_column_2',
       part: header,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key }, focusedElement);
     expect(element).toEqual({
       rowKey: header,
@@ -258,7 +258,7 @@ describe('Focused element in the header, key = Tab', () => {
       index: 1,
       part: header,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key, shiftKey: true }, focusedElement);
     expect(element).toEqual({
       rowKey: header,
@@ -275,7 +275,7 @@ describe('Focused element in the header, key = Tab', () => {
       index: 1,
       part: header,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key }, focusedElement);
     expect(element).toEqual({
       rowKey: header,
@@ -291,7 +291,7 @@ describe('Focused element in the header, key = Tab', () => {
       columnKey: 'test_column_2',
       part: header,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key, shiftKey: true }, focusedElement);
     expect(element).toEqual({
       rowKey: header,
@@ -308,7 +308,7 @@ describe('Focused element in the header, key = Tab', () => {
       index: 1,
       part: header,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key }, focusedElement);
     expect(element).toEqual({
       rowKey: filter,
@@ -325,7 +325,7 @@ describe('Focused element in the header, key = Tab', () => {
       index: 0,
       part: header,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key, shiftKey: true }, focusedElement);
     expect(element).toEqual(undefined);
   });
@@ -337,7 +337,7 @@ describe('Focused element in the header, key = Tab', () => {
       index: 0,
       part: header,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key: 'ArrowLeft' }, focusedElement);
     expect(element).toEqual(undefined);
   });
@@ -349,7 +349,7 @@ describe('Focused element in the header, key = Tab', () => {
       index: 1,
       part: header,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key: 'ArrowUp' }, focusedElement);
     expect(element).toBe(undefined);
   });
@@ -361,7 +361,7 @@ describe('Focused element in the header, key = Tab', () => {
       index: 1,
       part: header,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key: 'SomeKey' }, focusedElement);
     expect(element).toBe(undefined);
   });
@@ -375,7 +375,7 @@ describe('Focused element in the header, key = Tab', () => {
       index: 1,
       part: header,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key }, focusedElement);
     expect(element).toEqual({
       rowKey: filter,
@@ -393,7 +393,7 @@ describe('Focused element in the header, key = Tab', () => {
       index: 1,
       part: header,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key }, focusedElement);
     expect(element).toEqual({
       rowKey: filter,
@@ -412,7 +412,7 @@ describe('Focused element in the header, key = Tab', () => {
       index: 1,
       part: header,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key }, focusedElement);
     expect(element).toEqual({
       rowKey: filter,
@@ -430,7 +430,7 @@ describe('Focused element in the header, key = Tab', () => {
       index: 1,
       part: header,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key }, focusedElement);
     expect(element).toEqual({
       rowKey: header,
@@ -447,7 +447,7 @@ describe('Focused element in the header, key = Tab', () => {
       columnKey: 'test_column_2',
       part: header,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key, shiftKey: true }, focusedElement);
     expect(element).toEqual({
       rowKey: header,
@@ -495,7 +495,7 @@ describe('Focused element in the header with banded columns, key = Tab', () => {
       part: header,
     };
 
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key }, focusedElement);
     expect(element).toEqual({
       rowKey: `${band}_0`,
@@ -511,7 +511,7 @@ describe('Focused element in the header with banded columns, key = Tab', () => {
       part: header,
     };
 
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key }, focusedElement);
     expect(element).toEqual({
       rowKey: `${band}_1`,
@@ -527,7 +527,7 @@ describe('Focused element in the header with banded columns, key = Tab', () => {
       part: header,
     };
 
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key }, focusedElement);
     expect(element).toEqual({
       rowKey: header,
@@ -543,7 +543,7 @@ describe('Focused element in the header with banded columns, key = Tab', () => {
       part: header,
     };
 
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key, shiftKey: true }, focusedElement);
     expect(element).toEqual({
       rowKey: `${band}_1`,
@@ -559,7 +559,7 @@ describe('Focused element in the header with banded columns, key = Tab', () => {
       part: header,
     };
 
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key, shiftKey: true }, focusedElement);
     expect(element).toEqual({
       rowKey: `${band}_0`,
@@ -569,7 +569,7 @@ describe('Focused element in the header with banded columns, key = Tab', () => {
   });
 
   it('should return cell from band_0, no focused cell', () => {
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
       expandedRowIds, elements, { key, target: elements[`${band}_0`].test_column_1[0].current });
     expect(element).toEqual({
       rowKey: `${band}_0`,
@@ -614,7 +614,7 @@ describe('Focus element in the header with banded columns, navigation from body'
       part: body,
     };
 
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key, shiftKey: true }, focusedElement);
     expect(element).toEqual({
       rowKey: header,
@@ -650,7 +650,7 @@ describe('Focused element in the body of table', () => {
       index: 0,
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key: 'Tab' }, focusedElement);
     expect(element).toEqual({
       rowKey: 'test_row_2',
@@ -666,7 +666,7 @@ describe('Focused element in the body of table', () => {
       columnKey: 'test_column_2',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key: 'Tab', shiftKey: true }, focusedElement);
     expect(element).toEqual({
       rowKey: 'test_row_2',
@@ -683,7 +683,7 @@ describe('Focused element in the body of table', () => {
       index: 1,
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key: 'Tab' }, focusedElement);
     expect(element).toEqual({
       rowKey: 'test_row_2',
@@ -699,7 +699,7 @@ describe('Focused element in the body of table', () => {
       columnKey: 'test_column_2',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key: 'Tab', shiftKey: true }, focusedElement);
     expect(element).toEqual({
       rowKey: 'test_row_2',
@@ -715,7 +715,7 @@ describe('Focused element in the body of table', () => {
       columnKey: 'test_column_1',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key: 'Tab', shiftKey: true }, focusedElement);
     expect(element).toEqual({
       rowKey: filter,
@@ -731,7 +731,7 @@ describe('Focused element in the body of table', () => {
       columnKey: 'test_column_1',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key: 'Tab', shiftKey: true }, focusedElement);
     expect(element).toEqual({
       rowKey: 'test_row_1',
@@ -748,7 +748,7 @@ describe('Focused element in the body of table', () => {
       index: 0,
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key: 'Tab' }, focusedElement);
     expect(element).toEqual({
       rowKey: 'test_row_2',
@@ -765,7 +765,7 @@ describe('Focused element in the body of table', () => {
       index: 1,
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key: 'Tab' }, focusedElement);
     expect(element).toEqual(undefined);
   });
@@ -777,7 +777,7 @@ describe('Focused element in the body of table', () => {
       index: 0,
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key: 'ArrowRight' }, focusedElement);
     expect(element).toEqual({
       rowKey: 'test_row_2',
@@ -793,7 +793,7 @@ describe('Focused element in the body of table', () => {
       index: 0,
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key: 'ArrowLeft' }, focusedElement);
     expect(element).toEqual({
       rowKey: 'test_row_2',
@@ -809,7 +809,7 @@ describe('Focused element in the body of table', () => {
       index: 0,
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key: 'ArrowUp' }, focusedElement);
     expect(element).toEqual({
       rowKey: 'test_row_1',
@@ -824,7 +824,7 @@ describe('Focused element in the body of table', () => {
       columnKey: 'test_column_2',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key: 'ArrowDown' }, focusedElement);
     expect(element).toEqual({
       rowKey: 'test_row_3',
@@ -839,7 +839,7 @@ describe('Focused element in the body of table', () => {
       columnKey: 'test_column_2',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key: 'ArrowUp' }, focusedElement);
     expect(element).toEqual(undefined);
   });
@@ -850,7 +850,7 @@ describe('Focused element in the body of table', () => {
       columnKey: 'test_column_2',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key: 'ArrowDown' }, focusedElement);
     expect(element).toBe(undefined);
   });
@@ -861,7 +861,7 @@ describe('Focused element in the body of table', () => {
       columnKey: 'test_column_4',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key: 'ArrowRight' }, focusedElement);
     expect(element).toBe(undefined);
   });
@@ -872,7 +872,7 @@ describe('Focused element in the body of table', () => {
       columnKey: 'test_column_1',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, elements, { key: 'ArrowLeft' }, focusedElement);
     expect(element).toBe(undefined);
   });
@@ -885,7 +885,7 @@ describe('Focused element in the body of table', () => {
       columnKey: 'test_column_1',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Tab', shiftKey: true }, focusedElement);
     expect(element).toEqual({
       rowKey: header,
@@ -903,7 +903,7 @@ describe('Focused element in the body of table', () => {
       index: 0,
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Tab' }, focusedElement);
     expect(element).toEqual({
       rowKey: 'test_row_1',
@@ -920,7 +920,7 @@ describe('Focused element in the body of table', () => {
       columnKey: 'test_column_3',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Tab', shiftKey: true }, focusedElement);
     expect(element).toEqual({
       rowKey: 'test_row_1',
@@ -937,7 +937,7 @@ describe('Focused element in the body of table', () => {
       index: 0,
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Tab', shiftKey: true }, focusedElement);
     expect(element).toEqual(undefined);
   });
@@ -969,7 +969,7 @@ describe('Navigation on parts by arrows Up and Down + Ctrl', () => {
       index: 0,
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'ArrowUp', ctrlKey: true }, focusedElement);
     expect(element).toEqual({
       rowKey: filter,
@@ -984,7 +984,7 @@ describe('Navigation on parts by arrows Up and Down + Ctrl', () => {
       columnKey: 'test_column_2',
       part: filter,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'ArrowDown', ctrlKey: true }, focusedElement);
     expect(element).toEqual({
       rowKey: 'test_row_1',
@@ -1010,7 +1010,7 @@ describe('Navigation on parts by arrows Up and Down + Ctrl', () => {
       columnKey: 'test_column_2',
       part: header,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'ArrowUp', ctrlKey: true }, focusedElement);
     expect(element).toEqual(undefined);
     expect(innerElements[0].focus).toBeCalled();
@@ -1033,7 +1033,7 @@ describe('Navigation on parts by arrows Up and Down + Ctrl', () => {
       columnKey: 'test_column_2',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'ArrowDown', ctrlKey: true }, focusedElement);
     expect(element).toEqual(undefined);
     expect(innerElements[0].focus).toBeCalled();
@@ -1050,7 +1050,7 @@ describe('Navigation on parts by arrows Up and Down + Ctrl', () => {
     generatedElements.toolbar = [];
     generatedElements.toolbar.none = [refElement];
 
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements,
         { key: 'ArrowDown', ctrlKey: true, target: innerElements[0] },
     );
@@ -1072,7 +1072,7 @@ describe('Navigation on parts by arrows Up and Down + Ctrl', () => {
     generatedElements.paging = [];
     generatedElements.paging.none = [refElement];
 
-    const element = getNextFocusedCell(
+    const { element } = getNextFocusedCell(
         tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements,
         { key: 'ArrowUp', ctrlKey: true, target: innerElements[0] },
@@ -1095,13 +1095,13 @@ describe('Navigation on parts by arrows Up and Down + Ctrl', () => {
     generatedElements.toolbar = [];
     generatedElements.toolbar.none = [refElement];
 
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'ArrowDown', ctrlKey: true });
     expect(element).toEqual(undefined);
   });
 
   it('should not return cell, no toolbar, arrow down', () => {
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'ArrowDown', ctrlKey: true });
     expect(element).toEqual(undefined);
   });
@@ -1117,13 +1117,13 @@ describe('Navigation on parts by arrows Up and Down + Ctrl', () => {
     generatedElements.paging = [];
     generatedElements.paging.none = [refElement];
 
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'ArrowUp', ctrlKey: true });
     expect(element).toEqual(undefined);
   });
 
   it('should not return cell, no paging, arrow up', () => {
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'ArrowUp', ctrlKey: true });
     expect(element).toEqual(undefined);
   });
@@ -1162,7 +1162,7 @@ describe('Navigation on virtual table', () => {
       part: body,
     };
     const scrollToColumn = jest.fn();
-    const element = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
+    const { element, scrolling } = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
       tableHeaderRows, expandedRowIds, generatedElements,
       { key: 'ArrowUp', ctrlKey: true }, focusedElement, scrollToColumn);
     expect(element).toEqual({
@@ -1170,7 +1170,7 @@ describe('Navigation on virtual table', () => {
       columnKey: 'test_column_1',
       part: filter,
     });
-    expect(scrollToColumn).toBeCalledWith(LEFT_POSITION);
+    expect(scrolling).toBe('left');
   });
 
   it('should return filter cell, arrow down + CTRL', () => {
@@ -1181,7 +1181,7 @@ describe('Navigation on virtual table', () => {
       part: header,
     };
     const scrollToColumn = jest.fn();
-    const element = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
+    const { element, scrolling } = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
       tableHeaderRows, expandedRowIds, generatedElements,
       { key: 'ArrowDown', ctrlKey: true }, focusedElement, scrollToColumn);
     expect(element).toEqual({
@@ -1189,7 +1189,7 @@ describe('Navigation on virtual table', () => {
       columnKey: 'test_column_1',
       part: filter,
     });
-    expect(scrollToColumn).toBeCalledWith(LEFT_POSITION);
+    expect(scrolling).toBe('left');
   });
 
   it('should return cell from header, focused element in toolbar, arrow down', () => {
@@ -1204,7 +1204,7 @@ describe('Navigation on virtual table', () => {
     generatedElements.toolbar.none = [refElement];
 
     const scrollToColumn = jest.fn();
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element, scrolling } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements,
         { key: 'ArrowDown', ctrlKey: true, target: innerElements[0] },
         undefined, scrollToColumn,
@@ -1214,7 +1214,7 @@ describe('Navigation on virtual table', () => {
       columnKey: 'test_column_1',
       part: header,
     });
-    expect(scrollToColumn).toBeCalledWith(LEFT_POSITION);
+    expect(scrolling).toBe('left');
   });
 
   it('should return cell from body, focused element in paging, arrow up', () => {
@@ -1229,7 +1229,7 @@ describe('Navigation on virtual table', () => {
     generatedElements.paging.none = [refElement];
 
     const scrollToColumn = jest.fn();
-    const element = getNextFocusedCell(
+    const { element, scrolling } = getNextFocusedCell(
         tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements,
         { key: 'ArrowUp', ctrlKey: true, target: innerElements[0] },
@@ -1240,7 +1240,7 @@ describe('Navigation on virtual table', () => {
       columnKey: 'test_column_1',
       part: body,
     });
-    expect(scrollToColumn).toBeCalledWith(LEFT_POSITION);
+    expect(scrolling).toBe('left');
   });
 
   it('should return next row from body, Tab pressed', () => {
@@ -1251,7 +1251,7 @@ describe('Navigation on virtual table', () => {
       part: body,
     };
     const scrollToColumn = jest.fn();
-    const element = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
+    const { element, scrolling } = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
       tableHeaderRows, expandedRowIds, generatedElements,
       { key: 'Tab' }, focusedElement, scrollToColumn);
     expect(element).toEqual({
@@ -1259,7 +1259,7 @@ describe('Navigation on virtual table', () => {
       columnKey: 'test_column_1',
       part: body,
     });
-    expect(scrollToColumn).toBeCalledWith(LEFT_POSITION);
+    expect(scrolling).toBe('left');
   });
 
   it('should return filter cell after header, Tab pressed', () => {
@@ -1270,7 +1270,7 @@ describe('Navigation on virtual table', () => {
       part: header,
     };
     const scrollToColumn = jest.fn();
-    const element = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
+    const { element, scrolling } = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
       tableHeaderRows, expandedRowIds, generatedElements,
       { key: 'Tab' }, focusedElement, scrollToColumn);
     expect(element).toEqual({
@@ -1278,7 +1278,7 @@ describe('Navigation on virtual table', () => {
       columnKey: 'test_column_1',
       part: filter,
     });
-    expect(scrollToColumn).toBeCalledWith(LEFT_POSITION);
+    expect(scrolling).toBe('left');
   });
 
   it('should return body cell after filter, Tab pressed', () => {
@@ -1289,7 +1289,7 @@ describe('Navigation on virtual table', () => {
       part: filter,
     };
     const scrollToColumn = jest.fn();
-    const element = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
+    const { element, scrolling } = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
       tableHeaderRows, expandedRowIds, generatedElements,
       { key: 'Tab' }, focusedElement, scrollToColumn);
     expect(element).toEqual({
@@ -1297,7 +1297,7 @@ describe('Navigation on virtual table', () => {
       columnKey: 'test_column_1',
       part: body,
     });
-    expect(scrollToColumn).toBeCalledWith(LEFT_POSITION);
+    expect(scrolling).toBe('left');
   });
 
   it('should return cell from header, focused element is last in the toolbar', () => {
@@ -1315,7 +1315,7 @@ describe('Navigation on virtual table', () => {
     generatedElements.toolbar.none = [refElement];
 
     const scrollToColumn = jest.fn();
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element, scrolling } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Tab', target: innerElements[1] },
         undefined, scrollToColumn);
     expect(element).toEqual({
@@ -1323,7 +1323,7 @@ describe('Navigation on virtual table', () => {
       columnKey: 'test_column_1',
       part: header,
     });
-    expect(scrollToColumn).toBeCalledWith(LEFT_POSITION);
+    expect(scrolling).toBe('left');
   });
 
   it('should return first cell from body, focused element - first in the paging', () => {
@@ -1339,7 +1339,7 @@ describe('Navigation on virtual table', () => {
     generatedElements.paging.none = [refElement];
 
     const scrollToColumn = jest.fn();
-    const element = getNextFocusedCell(
+    const { element, scrolling } = getNextFocusedCell(
         tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Tab', shiftKey: true, target: innerElements[0] },
         undefined, scrollToColumn);
@@ -1349,7 +1349,7 @@ describe('Navigation on virtual table', () => {
       columnKey: 'test_column_1',
       part: body,
     });
-    expect(scrollToColumn).toBeCalledWith(LEFT_POSITION);
+    expect(scrolling).toBe('left');
   });
 });
 
@@ -1386,7 +1386,7 @@ describe('Navigation on virtual table, Tab + shift pressed', () => {
       part: body,
     };
     const scrollToColumn = jest.fn();
-    const element = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
+    const { element, scrolling } = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
       tableHeaderRows, expandedRowIds, generatedElements,
       { key: 'Tab', shiftKey: true }, focusedElement, scrollToColumn);
     expect(element).toEqual({
@@ -1394,7 +1394,7 @@ describe('Navigation on virtual table, Tab + shift pressed', () => {
       columnKey: 'test_column_13',
       part: body,
     });
-    expect(scrollToColumn).toBeCalledWith(RIGHT_POSITION);
+    expect(scrolling).toBe('right');
   });
 
   it('should return filter last cell', () => {
@@ -1404,7 +1404,7 @@ describe('Navigation on virtual table, Tab + shift pressed', () => {
       part: body,
     };
     const scrollToColumn = jest.fn();
-    const element = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
+    const { element, scrolling } = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
       tableHeaderRows, expandedRowIds, generatedElements,
       { key: 'Tab', shiftKey: true }, focusedElement, scrollToColumn);
     expect(element).toEqual({
@@ -1412,7 +1412,7 @@ describe('Navigation on virtual table, Tab + shift pressed', () => {
       columnKey: 'test_column_13',
       part: filter,
     });
-    expect(scrollToColumn).toBeCalledWith(RIGHT_POSITION);
+    expect(scrolling).toBe('right');
   });
 
   it('should return header last cell', () => {
@@ -1422,7 +1422,7 @@ describe('Navigation on virtual table, Tab + shift pressed', () => {
       part: filter,
     };
     const scrollToColumn = jest.fn();
-    const element = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
+    const { element, scrolling } = getNextFocusedCell(tableColumns.concat(columns), tableBodyRows,
       tableHeaderRows, expandedRowIds, generatedElements,
       { key: 'Tab', shiftKey: true }, focusedElement, scrollToColumn);
     expect(element).toEqual({
@@ -1430,7 +1430,7 @@ describe('Navigation on virtual table, Tab + shift pressed', () => {
       columnKey: 'test_column_13',
       part: header,
     });
-    expect(scrollToColumn).toBeCalledWith(RIGHT_POSITION);
+    expect(scrolling).toBe('right');
   });
 });
 
@@ -1465,7 +1465,7 @@ describe('Navigation on group rows', () => {
       columnKey: 'test_column_1',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows,
       [], [], generatedElements, { key: 'Tab' }, focusedElement);
     expect(element).toEqual({
       rowKey: `${GROUP_TYPE}_2`,
@@ -1480,7 +1480,7 @@ describe('Navigation on group rows', () => {
       columnKey: 'test_column_3',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows,
       [], [], generatedElements, { key: 'Tab', shiftKey: true }, focusedElement);
     expect(element).toEqual({
       rowKey: `${GROUP_TYPE}_2`,
@@ -1495,7 +1495,7 @@ describe('Navigation on group rows', () => {
       columnKey: 'test_column_3',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows,
       [], [], generatedElements, { key: 'Tab' }, focusedElement);
     expect(element).toEqual({
       rowKey:`${GROUP_TYPE}_2`,
@@ -1510,7 +1510,7 @@ describe('Navigation on group rows', () => {
       columnKey: 'test_column_1',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows,
       [], [], generatedElements, { key: 'Tab', shiftKey: true }, focusedElement);
     expect(element).toEqual({
       rowKey: `${GROUP_TYPE}_1`,
@@ -1525,7 +1525,7 @@ describe('Navigation on group rows', () => {
       columnKey: 'test_column_3',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows,
       [], [], generatedElements, { key: 'ArrowLeft' }, focusedElement);
     expect(element).toEqual({
       rowKey: `${GROUP_TYPE}_2`,
@@ -1540,7 +1540,7 @@ describe('Navigation on group rows', () => {
       columnKey: 'test_column_1',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows,
       [], [], generatedElements, { key: 'ArrowLeft' }, focusedElement);
     expect(element).toEqual(undefined);
   });
@@ -1551,7 +1551,7 @@ describe('Navigation on group rows', () => {
       columnKey: 'test_column_1',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows,
       [], [], generatedElements, { key: 'ArrowRight' }, focusedElement);
     expect(element).toEqual({
       rowKey: `${GROUP_TYPE}_2`,
@@ -1566,7 +1566,7 @@ describe('Navigation on group rows', () => {
       columnKey: 'test_column_3',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows,
       [], [], generatedElements, { key: 'ArrowRight' }, focusedElement);
     expect(element).toEqual(undefined);
   });
@@ -1577,7 +1577,7 @@ describe('Navigation on group rows', () => {
       columnKey: 'test_column_2',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows,
       [], [], generatedElements, { key: 'ArrowUp' }, focusedElement);
     expect(element).toEqual({
       rowKey: `${GROUP_TYPE}_2`,
@@ -1592,7 +1592,7 @@ describe('Navigation on group rows', () => {
       columnKey: 'test_column_2',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows,
       [], [], generatedElements, { key: 'ArrowDown' }, focusedElement);
     expect(element).toEqual({
       rowKey: `${GROUP_TYPE}_4`,
@@ -1612,7 +1612,7 @@ describe('Navigation on group rows', () => {
     generatedElements.paging = [];
     generatedElements.paging.none = [{ current: { querySelectorAll: jest.fn()
       .mockReturnValue(innerElements) } }];
-    const element = getNextFocusedCell(tableColumns, tableBodyRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows,
       [], [], generatedElements, { key: 'Tab', shiftKey: true, target: innerElements[0] });
 
     expect(element).toEqual({
@@ -1629,7 +1629,7 @@ describe('Navigation on group rows', () => {
       columnKey: 'test_column_3',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows,
       [], [], elements, { key: 'Tab' }, focusedElement);
     expect(element).toEqual({
       rowKey: summary,
@@ -1663,7 +1663,7 @@ describe('Enter action', () => {
       columnKey: 'test_column_2',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Enter' }, focusedElement);
     expect(element).toEqual({
       rowKey: 'test_row_2',
@@ -1681,7 +1681,7 @@ describe('Enter action', () => {
       columnKey: 'test_column_2',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Enter' }, focusedElement);
     expect(element).toEqual(undefined);
   });
@@ -1695,7 +1695,7 @@ describe('Enter action', () => {
       index: 0,
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Enter' }, focusedElement);
     expect(element).toEqual({
       rowKey: 'test_row_2',
@@ -1713,7 +1713,7 @@ describe('Enter action', () => {
       columnKey: 'test_column_2',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Enter' }, focusedElement);
     expect(element).toEqual({
       rowKey: 'test_row_2',
@@ -1734,7 +1734,7 @@ describe('Enter action', () => {
       index: 0,
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Enter' }, focusedElement);
     expect(element).toBe(undefined);
     expect(click).not.toBeCalled();
@@ -1748,7 +1748,7 @@ describe('Enter action', () => {
       index: 1,
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Enter' }, focusedElement);
     expect(element).toBe(undefined);
   });
@@ -1761,7 +1761,7 @@ describe('Enter action', () => {
       columnKey: 'test_column_2',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Enter' }, focusedElement);
     expect(element).toBe(undefined);
   });
@@ -1769,7 +1769,7 @@ describe('Enter action', () => {
   it('should not return focused element, current focused element is undefined', () => {
     const generatedElements = generateElements(tableColumns, tableBodyRows, [],
         1, { tagName: 'INPUT', type: 'text' });
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Enter' });
     expect(element).toEqual(undefined);
   });
@@ -1800,7 +1800,7 @@ describe('Excape action', () => {
       index: 0,
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Escape' }, focusedElement);
     expect(element).toEqual({
       rowKey: 'test_row_2',
@@ -1817,7 +1817,7 @@ describe('Excape action', () => {
       columnKey: 'test_column_2',
       part: 'body',
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Escape' }, focusedElement);
     expect(element).toBe(undefined);
   });
@@ -1831,7 +1831,7 @@ describe('Excape action', () => {
       index: 0,
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Escape' }, focusedElement);
     expect(element).toBe(undefined);
   });
@@ -1844,7 +1844,7 @@ describe('Excape action', () => {
       index: 0,
       part: 'body',
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Escape' }, focusedElement);
     expect(element).toBe(undefined);
   });
@@ -1857,7 +1857,7 @@ describe('Excape action', () => {
       columnKey: 'test_column_2',
       part: 'body',
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Escape' }, focusedElement);
     expect(element).toBe(undefined);
   });
@@ -1865,7 +1865,7 @@ describe('Excape action', () => {
   it('should not return focused element, focusedElement is undefined', () => {
     const generatedElements = generateElements(tableColumns, tableBodyRows, [],
         1, { tagName: 'INPUT', type: 'text' });
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: 'Escape' });
     expect(element).toEqual(undefined);
   });
@@ -1896,7 +1896,7 @@ describe('Space action on checkbox', () => {
       columnKey: 'test_column_2',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: ' ' }, focusedElement);
     expect(element).toEqual(undefined);
     expect(click).toBeCalled();
@@ -1909,7 +1909,7 @@ describe('Space action on checkbox', () => {
     const generatedElements = generateElements(tableColumns, tableBodyRows, [],
         1, { tagName: 'INPUT', type: 'checkbox', action: click });
 
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: ' ' });
     expect(element).toEqual(undefined);
     expect(click).not.toBeCalled();
@@ -1925,7 +1925,7 @@ describe('Space action on checkbox', () => {
       index: 1,
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: ' ' }, focusedElement);
     expect(element).toEqual(undefined);
     expect(click).not.toBeCalled();
@@ -1940,7 +1940,7 @@ describe('Space action on checkbox', () => {
       columnKey: 'test_column_2',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, tableHeaderRows,
         expandedRowIds, generatedElements, { key: ' ' }, focusedElement);
     expect(element).toEqual(undefined);
     expect(click).not.toBeCalled();
@@ -1970,7 +1970,7 @@ describe('Collapse/expand row in tree mode', () => {
       columnKey: 'test_column_2',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, [], [],
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, [], [],
         generatedElements, { key: 'ArrowRight', ctrlKey: true }, focusedElement);
     expect(element).toEqual(undefined);
     expect(click).toBeCalled();
@@ -1987,7 +1987,7 @@ describe('Collapse/expand row in tree mode', () => {
       columnKey: 'test_column_2',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, [], [2],
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, [], [2],
         generatedElements, { key: 'ArrowRight', ctrlKey: true }, focusedElement);
     expect(element).toEqual(undefined);
     expect(click).not.toBeCalled();
@@ -2002,7 +2002,7 @@ describe('Collapse/expand row in tree mode', () => {
       columnKey: 'test_column_2',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, [], [2],
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, [], [2],
         generatedElements, { key: 'ArrowLeft', ctrlKey: true }, focusedElement);
     expect(element).toEqual(undefined);
     expect(click).toBeCalled();
@@ -2017,7 +2017,7 @@ describe('Collapse/expand row in tree mode', () => {
       columnKey: 'test_column_2',
       part: body,
     };
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, [], [],
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, [], [],
         generatedElements, { key: 'ArrowLeft', ctrlKey: true }, focusedElement);
     expect(element).toEqual(undefined);
     expect(click).not.toBeCalled();
@@ -2027,7 +2027,7 @@ describe('Collapse/expand row in tree mode', () => {
     const click = jest.fn();
     const generatedElements = generateElements(tableColumns, tableBodyRows,
         [], 1, { action: click });
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, [], [],
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, [], [],
         generatedElements, { key: 'ArrowRight', ctrlKey: true });
     expect(element).toEqual(undefined);
     expect(click).not.toBeCalled();
@@ -2043,7 +2043,7 @@ describe('Collapse/expand row in tree mode', () => {
     };
     const generatedElements = generateElements(tableColumns, tableBodyRows, [],
         1, { action: click });
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, [], [],
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, [], [],
         generatedElements, { key: 'ArrowRight', ctrlKey: true }, focusedElement);
     expect(element).toEqual(undefined);
     expect(click).not.toBeCalled();
@@ -2058,7 +2058,7 @@ describe('Collapse/expand row in tree mode', () => {
     };
     const generatedElements = generateElements(tableColumns, tableBodyRows, [],
         1, { action: click });
-    const element = getNextFocusedCell(tableColumns, tableBodyRows, [], undefined,
+    const { element } = getNextFocusedCell(tableColumns, tableBodyRows, [], undefined,
         generatedElements, { key: 'ArrowRight', ctrlKey: true }, focusedElement);
     expect(element).toEqual(undefined);
     expect(click).not.toBeCalled();

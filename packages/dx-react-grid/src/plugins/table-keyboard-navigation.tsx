@@ -7,7 +7,7 @@ import {
   getNextFocusedCell,  getPart, getIndexToFocus,
   isCellExist, focus, isTabArrowUpDown,
   filterHeaderRows, Elements, isDataTableRow, isRowFocused, getClosestCellByRow,
-  isCellFocused, getFocusing,
+  isCellFocused, getFocusing, RIGHT_POSITION, LEFT_POSITION,
 } from '@devexpress/dx-grid-core';
 import {
   TableKeyboardNavigationProps, TableKeyboardNavigationCoreProps, TableKeyboardNavigationCoreState,
@@ -111,7 +111,6 @@ TableKeyboardNavigationCoreState> {
   }
 
   handleKeyDownOnWidget(event) {
-    let focusedCell;
     const { focusedElement } = this.state;
     const {
       tableColumns, tableBodyRows, tableHeaderRows, expandedRowIds, scrollToColumn,
@@ -129,19 +128,22 @@ TableKeyboardNavigationCoreState> {
     }
 
     if (focusedElement && !isCellExist(this.elements, focusedElement) && event.key === 'Tab') {
-      focusedCell = getClosestCellByRow(tableBodyRows, focusedElement, this.elements);
+      const focusedCell = getClosestCellByRow(tableBodyRows, focusedElement, this.elements);
       event.preventDefault();
       this.changeFocusedElement(focusedCell, focusedElement);
       return;
     }
 
     if (focusedElement || isTabArrowUpDown(event)) {
-      focusedCell = getNextFocusedCell(tableColumns, tableBodyRows,
+      const { element, scrolling } = getNextFocusedCell(tableColumns, tableBodyRows,
         tableHeaderRows, expandedRowIds, this.elements, event, focusedElement, scrollToColumn);
 
-      if (focusedCell) {
+      if (element) {
+        if (scrolling) {
+          scrollToColumn(scrolling === 'left' ? LEFT_POSITION : RIGHT_POSITION);
+        }
         event.preventDefault();
-        this.changeFocusedElement(focusedCell, focusedElement);
+        this.changeFocusedElement(element, focusedElement);
       } else if (isTabArrowUpDown(event) && focusedElement) {
         this.changeFocusedElement(undefined, focusedElement);
       }

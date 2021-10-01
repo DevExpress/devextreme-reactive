@@ -354,6 +354,12 @@ export interface FocusedElement {
 }
 
 // @public (undocumented)
+export type FocusedElementWScrolling = {
+  element?: FocusedElement;
+  scrolling?: 'left' | 'right';
+};
+
+// @public (undocumented)
 export type GetCellNextPrevPartFn = PureComputed<[
   FocusedElement,
   Elements,
@@ -361,7 +367,7 @@ export type GetCellNextPrevPartFn = PureComputed<[
   TableColumn[],
   number,
   ScrollToColumnFn?
-], FocusedElement | void>;
+], FocusedElementWScrolling>;
 
 // @public (undocumented)
 export type GetCellValueFn = (row: any, columnName: string) => any;
@@ -374,7 +380,7 @@ export type GetElementFn = PureComputed<[
   TableRow[],
   Elements,
   ScrollToColumnFn?
-], FocusedElement | void>;
+], FocusedElementWScrolling>;
 
 // @public (undocumented)
 export type GetElementPrevNextPartFn = PureComputed<[
@@ -383,7 +389,7 @@ export type GetElementPrevNextPartFn = PureComputed<[
   TableRow[],
   TableColumn[],
   ScrollToColumnFn?
-], FocusedElement | void>;
+], FocusedElementWScrolling>;
 
 // @public (undocumented)
 export type GetFocusedElementFn = PureComputed<[
@@ -415,7 +421,7 @@ export type GetNextCellFromHeadingFn = PureComputed<[
   FocusedElement,
   Elements,
   ScrollToColumnFn?
-], FocusedElement | void>;
+], FocusedElementWScrolling>;
 
 // @public (undocumented)
 export type GetNextFocusedElementFn = PureComputed<[
@@ -427,7 +433,7 @@ export type GetNextFocusedElementFn = PureComputed<[
   any,
   FocusedElement?,
   ScrollToColumnFn?
-], FocusedElement | void>;
+], FocusedElementWScrolling>;
 
 // @public (undocumented)
 export type GetNextPrevCellFromBodyFn = PureComputed<[
@@ -438,7 +444,7 @@ export type GetNextPrevCellFromBodyFn = PureComputed<[
   FocusedElement,
   Elements,
   ScrollToColumnFn?
-], FocusedElement | void>;
+], FocusedElementWScrolling>;
 
 // @public (undocumented)
 export type GetNextPrevPartFn = PureComputed<[FocusedElement, Elements, TableRow[]], string | void>;
@@ -450,7 +456,7 @@ export type GetPrevCellFromHeadingFn = PureComputed<[
   number,
   FocusedElement,
   Elements
-], FocusedElement | void>;
+], FocusedElementWScrolling>;
 
 // @public
 export const Grid: React_2.ComponentType<GridProps>;

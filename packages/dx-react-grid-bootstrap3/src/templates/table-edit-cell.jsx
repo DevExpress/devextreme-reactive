@@ -4,7 +4,8 @@ import * as PropTypes from 'prop-types';
 export const EditCell = ({
   column, value, onValueChange, style, children,
   row, tableRow, tableColumn, editingEnabled,
-  autoFocus, onBlur, onFocus, onKeyDown, ...restProps
+  autoFocus, onBlur, onFocus, onKeyDown,
+  refObject, ...restProps
 }) => {
   const patchedChildren = children
     ? React.cloneElement(children, {
@@ -17,6 +18,7 @@ export const EditCell = ({
 
   return (
     <td
+      ref={refObject}
       style={{
         verticalAlign: 'middle',
         padding: '1px',
@@ -60,6 +62,7 @@ EditCell.propTypes = {
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
   onKeyDown: PropTypes.func,
+  refObject: PropTypes.object,
 };
 
 EditCell.defaultProps = {
@@ -76,4 +79,5 @@ EditCell.defaultProps = {
   onBlur: () => {},
   onFocus: () => {},
   onKeyDown: () => {},
+  refObject: undefined,
 };

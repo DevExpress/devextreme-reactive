@@ -6,6 +6,7 @@ import {
   getCollapsedGrids,
   TABLE_FLEX_TYPE,
   emptyViewport,
+  getScrollLeft,
 } from '@devexpress/dx-grid-core';
 import { setupConsole } from '@devexpress/dx-testing';
 import { VirtualTableLayout } from './virtual-table-layout';
@@ -17,6 +18,7 @@ jest.mock('@devexpress/dx-grid-core', () => {
   const actual = jest.requireActual('@devexpress/dx-grid-core');
   jest.spyOn(actual, 'getCollapsedGrids');
   jest.spyOn(actual, 'getColumnWidthGetter');
+  jest.spyOn(actual, 'getScrollLeft');
   return actual;
 });
 jest.mock('./column-group', () => ({
@@ -38,6 +40,7 @@ jest.mock('@devexpress/dx-react-core', () => {
           containerComponent: Container,
           onSizeChange,
           scrollTop,
+          scrollLeft,
           ...restProps
         } = this.props;
         return (
@@ -183,6 +186,24 @@ describe('VirtualTableLayout', () => {
 
     expect(tree.find(Sizer).prop('scrollTop'))
       .toEqual(scrollTop);
+  });
+
+  it('should provide scrollLeft property', () => {
+    const nextColumnId = Symbol('left');
+    getScrollLeft.mockImplementation(() => 50);
+    const tree = shallow(
+      <VirtualTableLayout
+        {...defaultProps}
+        headerRows={defaultProps.bodyRows.slice(0, 1)}
+        footerRows={defaultProps.bodyRows.slice(0, 1)}
+        nextColumnId={nextColumnId}
+      />,
+    );
+
+    expect(tree.find(Sizer).prop('scrollLeft'))
+      .toEqual(50);
+
+    expect(getScrollLeft).toBeCalledWith(5, 120, nextColumnId);
   });
 
   it('should not render width for a flex column', () => {

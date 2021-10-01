@@ -1,5 +1,6 @@
 import {
   TableRow, TableColumn, ColumnAnimationStyleMap, GetCellColSpanFn, TableProps,
+  LEFT_POSITION, RIGHT_POSITION,
 } from '../index';
 
 type tableLayoutComponents = 'containerComponent' | 'tableComponent'
@@ -47,6 +48,7 @@ export interface VirtualTableLayoutProps extends TableLayoutProps {
   setViewport: any;
   viewport: any;
   scrollTop?: number;
+  nextColumnId?: typeof LEFT_POSITION | typeof RIGHT_POSITION | undefined;
 }
 /** @internal */
 export type VirtualTableLayoutState = {

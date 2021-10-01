@@ -2,7 +2,7 @@ import * as React from 'react';
 import { MemoizedFunction, memoize } from '@devexpress/dx-core';
 import {
   TableColumn, GetColumnWidthFn, getCollapsedGrids,
-  getColumnWidthGetter, TABLE_STUB_TYPE, getViewport, GridViewport,
+  getColumnWidthGetter, TABLE_STUB_TYPE, getViewport, GridViewport, getScrollLeft,
 } from '@devexpress/dx-grid-core';
 import { VirtualTableLayoutState, VirtualTableLayoutProps } from '../../types';
 import { findDOMNode } from 'react-dom';
@@ -296,6 +296,8 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       rowComponent,
       viewport,
       scrollTop,
+      columns,
+      nextColumnId,
     } = this.props;
     const {
       headerHeight,
@@ -303,6 +305,8 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       footerHeight,
     } = this.state;
     const { containerHeight } = this;
+
+    const scrollLeft = getScrollLeft(columns.length, minColumnWidth!, nextColumnId);
 
     const collapsedGrids = this.getCollapsedGrids(viewport);
     const commonProps = {
@@ -322,6 +326,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
         style={{ height: sizerHeight }}
         onScroll={this.onScroll}
         scrollTop={scrollTop}
+        scrollLeft={scrollLeft}
       >
         {
           (!!headerRows.length) && (

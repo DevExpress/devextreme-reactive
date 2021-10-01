@@ -5,10 +5,17 @@ import {
   Tooltip,
 } from 'react-bootstrap';
 
-export const ProgressBarCell = ({ value, style }) => {
+export const ProgressBarCell = ({
+  value, style, tabIndex, refObject, className,
+}) => {
   const percent = value * 100;
   return (
-    <td style={{ position: 'relative', ...style }}>
+    <td
+      style={{ position: 'relative', ...style }}
+      tabIndex={tabIndex}
+      ref={refObject}
+      className={className}
+    >
       <div
         className="progress"
         style={{
@@ -49,7 +56,13 @@ export const ProgressBarCell = ({ value, style }) => {
 ProgressBarCell.propTypes = {
   value: PropTypes.number.isRequired,
   style: PropTypes.object,
+  tabIndex: PropTypes.number,
+  refObject: PropTypes.object,
+  className: PropTypes.string,
 };
 ProgressBarCell.defaultProps = {
   style: {},
+  tabIndex: undefined,
+  refObject: undefined,
+  className: undefined,
 };

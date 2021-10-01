@@ -14,3 +14,5 @@ export const emptyViewport: GridViewport = {
 
 export const TOP_POSITION = Symbol('top');
 export const BOTTOM_POSITION = Symbol('bottom');
+export const LEFT_POSITION = Symbol('left');
+export const RIGHT_POSITION = Symbol('right');

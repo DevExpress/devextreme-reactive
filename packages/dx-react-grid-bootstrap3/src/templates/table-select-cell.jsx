@@ -8,15 +8,16 @@ export const TableSelectCell = ({
   selected,
   onToggle,
   row, tableRow, tableColumn,
+  refObject,
   ...restProps
 }) => (
-
   <td
     style={{
       verticalAlign: 'middle',
       textAlign: 'center',
       ...style,
     }}
+    ref={refObject}
     {...restProps}
   >
     <SelectionControl
@@ -33,6 +34,7 @@ TableSelectCell.propTypes = {
   row: PropTypes.any,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
+  refObject: PropTypes.object,
 };
 
 TableSelectCell.defaultProps = {
@@ -42,4 +44,5 @@ TableSelectCell.defaultProps = {
   row: undefined,
   tableRow: undefined,
   tableColumn: undefined,
+  refObject: undefined,
 };

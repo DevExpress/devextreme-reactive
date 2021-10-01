@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import classNames from 'clsx';
 import TableCell from '@material-ui/core/TableCell';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -25,9 +26,14 @@ const styles = theme => ({
 
 const HighlightedCellBase = ({
   tableColumn, value, classes, children, style,
+  tabIndex, refObject, className,
 }) => (
   <TableCell
-    className={classes.highlightedCell}
+    className={classNames({
+      [classes.highlightedCell]: true,
+    }, className)}
+    tabIndex={tabIndex}
+    ref={refObject}
     style={{
       color: getColor(value),
       textAlign: tableColumn.align,
@@ -44,11 +50,17 @@ HighlightedCellBase.propTypes = {
   style: PropTypes.object,
   tableColumn: PropTypes.object,
   children: PropTypes.node,
+  tabIndex: PropTypes.number,
+  refObject: PropTypes.object,
+  className: PropTypes.string,
 };
 HighlightedCellBase.defaultProps = {
   style: {},
   tableColumn: {},
   children: undefined,
+  tabIndex: undefined,
+  refObject: undefined,
+  className: undefined,
 };
 
 export const HighlightedCell = withStyles(styles, { name: 'HighlightedCell' })(HighlightedCellBase);

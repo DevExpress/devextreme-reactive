@@ -11,6 +11,9 @@ export const CommandButton = ({
   <button
     type="button"
     className={classNames('btn', 'btn-link', className)}
+    style={{
+      outline: 'none',
+    }}
     onClick={(e) => {
       e.stopPropagation();
       onExecute();
@@ -35,9 +38,11 @@ export const EditCommandHeadingCell = ({
   children,
   style,
   tableColumn, tableRow,
+  refObject,
   ...restProps
 }) => (
   <th
+    ref={refObject}
     style={{
       whiteSpace: 'nowrap',
       textAlign: 'center',
@@ -55,6 +60,7 @@ EditCommandHeadingCell.propTypes = {
   style: PropTypes.object,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
+  refObject: PropTypes.object,
 };
 
 EditCommandHeadingCell.defaultProps = {
@@ -62,14 +68,17 @@ EditCommandHeadingCell.defaultProps = {
   style: null,
   tableColumn: undefined,
   tableRow: undefined,
+  refObject: undefined,
 };
 
 export const EditCommandCell = ({
   tableColumn, tableRow, row,
   children, style,
+  refObject,
   ...restProps
 }) => (
   <td
+    ref={refObject}
     style={{
       whiteSpace: 'nowrap',
       textAlign: 'center',
@@ -88,6 +97,7 @@ EditCommandCell.propTypes = {
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
   row: PropTypes.any,
+  refObject: PropTypes.object,
 };
 
 EditCommandCell.defaultProps = {
@@ -96,4 +106,5 @@ EditCommandCell.defaultProps = {
   tableColumn: undefined,
   tableRow: undefined,
   row: undefined,
+  refObject: undefined,
 };

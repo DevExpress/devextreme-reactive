@@ -24,7 +24,7 @@ describe('Layout', () => {
   describe('Root', () => {
     it('should pass className to the root element', () => {
       const tree = mount((
-        <Root className="custom-class" />
+        <Root className="custom-class" rootRef={{}} />
       ));
 
       expect(tree.find('.panel.panel-default.custom-class').exists())
@@ -33,7 +33,7 @@ describe('Layout', () => {
 
     it('should pass rest props to the root element', () => {
       const tree = mount((
-        <Root data={{ a: 1 }} />
+        <Root data={{ a: 1 }} rootRef={{}} />
       ));
 
       expect(tree.props().data)
@@ -64,7 +64,7 @@ describe('Layout', () => {
 
       it('should provide correct values', () => {
         const tree = mount((
-          <Root>
+          <Root rootRef={{}}>
             <TestWrapper />
           </Root>
         ));
@@ -83,7 +83,7 @@ describe('Layout', () => {
         });
 
         mount((
-          <Root>
+          <Root rootRef={{}}>
             <TestWrapper />
           </Root>
         ));

@@ -16,8 +16,12 @@ const getColor = (amount) => {
 
 export const HighlightedCell = ({
   tableColumn, value, children, style,
+  tabIndex, refObject, className,
 }) => (
   <td
+    tabIndex={tabIndex}
+    ref={refObject}
+    className={className}
     style={{
       backgroundColor: getColor(value),
       textAlign: tableColumn.align,
@@ -33,9 +37,15 @@ HighlightedCell.propTypes = {
   tableColumn: PropTypes.object,
   style: PropTypes.object,
   children: PropTypes.node,
+  tabIndex: PropTypes.number,
+  refObject: PropTypes.object,
+  className: PropTypes.string,
 };
 HighlightedCell.defaultProps = {
   style: {},
   tableColumn: {},
   children: undefined,
+  tabIndex: undefined,
+  refObject: undefined,
+  className: undefined,
 };

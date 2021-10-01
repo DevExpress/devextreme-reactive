@@ -4,9 +4,12 @@ import classNames from 'clsx';
 
 export const TableTreeCell = ({
   column, children, tableRow,
-  tableColumn, row, ...restProps
+  tableColumn, row,
+  refObject,
+  ...restProps
 }) => (
   <td
+    ref={refObject}
     {...restProps}
   >
     <div
@@ -29,6 +32,7 @@ TableTreeCell.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   style: PropTypes.object,
+  refObject: PropTypes.object,
 };
 
 TableTreeCell.defaultProps = {
@@ -38,4 +42,5 @@ TableTreeCell.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   style: null,
+  refObject: undefined,
 };

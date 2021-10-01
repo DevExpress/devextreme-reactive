@@ -4,6 +4,7 @@
 
 ```ts
 
+import { PureComputed } from '@devexpress/dx-core';
 import * as React_2 from 'react';
 
 // @public (undocumented)
@@ -251,6 +252,11 @@ export interface EditingStateProps {
 }
 
 // @public (undocumented)
+export type Elements = {
+  [key: string]: any[];
+};
+
+// @public (undocumented)
 export const ExportPanel: React_2.ComponentType<any>;
 
 // @public (undocumented)
@@ -328,10 +334,129 @@ export interface FilteringStateProps {
 export type FilterOperation = string;
 
 // @public (undocumented)
+export interface FocusedCell {
+  // (undocumented)
+  columnKey: string;
+  // (undocumented)
+  rowKey: string;
+}
+
+// @public (undocumented)
+export interface FocusedElement {
+  // (undocumented)
+  columnKey: string;
+  // (undocumented)
+  index?: number;
+  // (undocumented)
+  part: string;
+  // (undocumented)
+  rowKey: string;
+}
+
+// @public (undocumented)
+export type FocusedElementWScrolling = {
+  element?: FocusedElement;
+  scrolling?: 'left' | 'right';
+};
+
+// @public (undocumented)
+export type GetCellNextPrevPartFn = PureComputed<[
+  FocusedElement,
+  Elements,
+  TableRow[],
+  TableColumn[],
+  number,
+  ScrollToColumnFn?
+], FocusedElementWScrolling>;
+
+// @public (undocumented)
 export type GetCellValueFn = (row: any, columnName: string) => any;
 
 // @public (undocumented)
+export type GetElementFn = PureComputed<[
+  FocusedElement,
+  TableRow[],
+  TableColumn[],
+  TableRow[],
+  Elements,
+  ScrollToColumnFn?
+], FocusedElementWScrolling>;
+
+// @public (undocumented)
+export type GetElementPrevNextPartFn = PureComputed<[
+  FocusedElement,
+  Elements,
+  TableRow[],
+  TableColumn[],
+  ScrollToColumnFn?
+], FocusedElementWScrolling>;
+
+// @public (undocumented)
+export type GetFocusedElementFn = PureComputed<[
+  string,
+  boolean,
+  FocusedElement,
+  TableColumn[],
+  TableRow[],
+  Elements
+], FocusedElement | void>;
+
+// @public (undocumented)
+export type GetInnerElementsFn = PureComputed<[
+  Elements,
+  string,
+  string,
+  string?
+], any[]>;
+
+// @public (undocumented)
 export type GetMessageFn = (messageKey: string, params?: object) => string;
+
+// @public (undocumented)
+export type GetNextCellFromHeadingFn = PureComputed<[
+  TableRow[],
+  TableRow[],
+  TableColumn[],
+  number,
+  FocusedElement,
+  Elements,
+  ScrollToColumnFn?
+], FocusedElementWScrolling>;
+
+// @public (undocumented)
+export type GetNextFocusedElementFn = PureComputed<[
+  TableColumn[],
+  TableRow[],
+  TableRow[],
+  RowId[],
+  Elements,
+  any,
+  FocusedElement?,
+  ScrollToColumnFn?
+], FocusedElementWScrolling>;
+
+// @public (undocumented)
+export type GetNextPrevCellFromBodyFn = PureComputed<[
+  number,
+  number,
+  TableColumn[],
+  TableRow[],
+  FocusedElement,
+  Elements,
+  ScrollToColumnFn?
+], FocusedElementWScrolling>;
+
+// @public (undocumented)
+export type GetNextPrevPartFn = PureComputed<[FocusedElement, Elements, TableRow[]], string | void>;
+
+// @public (undocumented)
+export type GetPrevCellFromHeadingFn = PureComputed<[
+  TableRow[],
+  TableColumn[],
+  number,
+  FocusedElement,
+  Elements
+], FocusedElementWScrolling>;
 
 // @public
 export const Grid: React_2.ComponentType<GridProps>;
@@ -531,6 +656,13 @@ export interface IntegratedSummaryProps {
   calculator?: (type: SummaryType, rows: Array<any>, getValue: (row: any) => any) => any;
 }
 
+// @public (undocumented)
+export interface KeyboardNavigationComponent extends TableKeyboardNavigation.CellProps {
+}
+
+// @public (undocumented)
+export type OnFocusedCellChangeFn = (cell: FocusedCell) => void;
+
 // @public
 export const PagingPanel: React_2.ComponentType<PagingPanelProps>;
 
@@ -610,6 +742,9 @@ export interface RowDetailStateProps {
 
 // @public (undocumented)
 export type RowId = number | string;
+
+// @public (undocumented)
+export type ScrollToColumnFn = (value: symbol) => void;
 
 // @public
 export const SearchPanel: React_2.ComponentType<SearchPanelProps>;
@@ -1225,6 +1360,33 @@ export interface TableInlineCellEditingProps {
 }
 
 // @public (undocumented)
+export const TableKeyboardNavigation: React_2.ComponentType<TableKeyboardNavigationProps>;
+
+// @public (undocumented)
+export namespace TableKeyboardNavigation {
+  export interface CellProps extends Table.CellProps, Required<ExtraProps> {
+    component: React_2.ComponentType<Table.CellProps>;
+  }
+  // (undocumented)
+  export interface ExtraProps {
+  }
+  // (undocumented)
+  export interface RowProps extends Table.RowProps {
+    component: React_2.ComponentType<Table.RowProps>;
+  }
+}
+
+// @public (undocumented)
+export interface TableKeyboardNavigationProps {
+  cellComponent: React_2.ComponentType<TableKeyboardNavigation.CellProps>;
+  defaultFocusedCell?: FocusedCell;
+  focusedCell?: FocusedCell;
+  focusedRowEnabled?: boolean;
+  onFocusedCellChange?: OnFocusedCellChangeFn;
+  rowComponent: React_2.ComponentType<TableKeyboardNavigation.RowProps>;
+}
+
+// @public (undocumented)
 export interface TableProps {
   bodyComponent: React_2.ComponentType<object>;
   cellComponent: React_2.ComponentType<Table.DataCellProps>;
@@ -1538,6 +1700,9 @@ export interface VirtualTableStateProps {
   // (undocumented)
   totalRowCount: number;
 }
+
+// @public (undocumented)
+export const withKeyboardNavigation: <T extends KeyboardNavigationComponent>(key1?: string | undefined, key2?: string | undefined) => (Component: React_2.ComponentType<Table.CellProps>) => React_2.ComponentType<T>;
 
 
 // (No @packageDocumentation comment for this package)

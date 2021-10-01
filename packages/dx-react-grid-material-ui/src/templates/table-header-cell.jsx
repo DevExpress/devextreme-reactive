@@ -101,8 +101,8 @@ class TableHeaderCellBase extends React.PureComponent {
     this.dragRef = React.createRef();
     this.cellRef = React.createRef();
     this.getWidthGetter = () => {
-      const { getCellWidth } = this.props;
-      const node = this.cellRef.current;
+      const { getCellWidth, refObject } = this.props;
+      const node = (refObject || this.cellRef).current;
       return node && getCellWidth(() => {
         const { width } = node.getBoundingClientRect();
         return width;
@@ -128,7 +128,7 @@ class TableHeaderCellBase extends React.PureComponent {
       style, column, tableColumn,
       draggingEnabled, resizingEnabled,
       onWidthChange, onWidthDraft, onWidthDraftCancel, getCellWidth,
-      classes, tableRow, className, children,
+      classes, tableRow, className, children, refObject,
       ...restProps
     } = this.props;
 
@@ -148,7 +148,7 @@ class TableHeaderCellBase extends React.PureComponent {
       <TableCell
         style={style}
         className={tableCellClasses}
-        ref={this.cellRef}
+        ref={refObject || this.cellRef}
         {...restProps}
       >
         <div className={classes.container}>
@@ -193,6 +193,7 @@ TableHeaderCellBase.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
   getCellWidth: PropTypes.func,
+  refObject: PropTypes.object,
 };
 
 TableHeaderCellBase.defaultProps = {
@@ -208,6 +209,7 @@ TableHeaderCellBase.defaultProps = {
   className: undefined,
   children: undefined,
   getCellWidth: () => {},
+  refObject: undefined,
 };
 
 export const TableHeaderCell = withStyles(styles, { name: 'TableHeaderCell' })(TableHeaderCellBase);

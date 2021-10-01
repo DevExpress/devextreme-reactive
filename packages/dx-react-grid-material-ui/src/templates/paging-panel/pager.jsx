@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import { withStyles } from '@material-ui/core/styles';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 import { PageSizeSelector } from './page-size-selector';
 import { Pagination } from './pagination';
 
@@ -27,10 +28,12 @@ const PagerBase = ({
   totalCount,
   getMessage,
   className,
+  refObject,
   ...restProps
 }) => (
   <div
     className={classNames(classes.pager, className)}
+    ref={refObject}
     {...restProps}
   >
     {!!pageSizes.length && (
@@ -63,10 +66,12 @@ PagerBase.propTypes = {
   totalCount: PropTypes.number.isRequired,
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
+  refObject: PropTypes.object,
 };
 
 PagerBase.defaultProps = {
   className: undefined,
+  refObject: undefined,
 };
 
-export const Pager = withStyles(styles, { name: 'Pager' })(PagerBase);
+export const Pager = withKeyboardNavigation('paging', 'none')(withStyles(styles, { name: 'Pager' })(PagerBase));

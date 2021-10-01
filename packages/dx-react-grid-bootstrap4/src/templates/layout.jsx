@@ -28,11 +28,14 @@ export class Root extends React.PureComponent {
   }
 
   render() {
-    const { children, className, ...restProps } = this.props;
+    const {
+      children, className, rootRef, ...restProps
+    } = this.props;
     const { backgroundColor } = this.state;
     return (
       <div
         className={classNames('d-flex flex-column', className)}
+        ref={rootRef}
         {...restProps}
       >
         <BodyColorContext.Provider value={backgroundColor}>
@@ -49,9 +52,11 @@ Root.propTypes = {
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]),
+  rootRef: PropTypes.object,
 };
 
 Root.defaultProps = {
   className: undefined,
   children: undefined,
+  rootRef: undefined,
 };

@@ -5,9 +5,11 @@ export const TableStubCell = ({
   style,
   tableRow,
   tableColumn,
+  refObject,
   ...restProps
 }) => (
   <td
+    ref={refObject}
     style={{
       padding: 0,
       ...style,
@@ -20,10 +22,12 @@ TableStubCell.propTypes = {
   style: PropTypes.object,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
+  refObject: PropTypes.object,
 };
 
 TableStubCell.defaultProps = {
   style: null,
   tableRow: undefined,
   tableColumn: undefined,
+  refObject: undefined,
 };

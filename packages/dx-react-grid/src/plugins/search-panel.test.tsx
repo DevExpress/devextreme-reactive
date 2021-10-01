@@ -15,6 +15,7 @@ const defaultDeps = {
   action: {
     changeSearchValue: () => {},
     scrollToRow: jest.fn(),
+    setSearchPanelRef: jest.fn(),
   },
   template: {
     toolbarContent: {},

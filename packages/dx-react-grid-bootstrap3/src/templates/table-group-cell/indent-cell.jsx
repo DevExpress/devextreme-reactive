@@ -7,12 +7,14 @@ export const IndentCell = ({
   tableColumn,
   row, column,
   style, position, side,
+  refObject,
   ...restProps
 }) => {
   const { backgroundColor, stickyPosition } = useContext(StyleContext);
 
   return (
     <td
+      ref={refObject}
       style={{
         [side]: position,
         backgroundColor,
@@ -34,6 +36,7 @@ IndentCell.propTypes = {
   style: PropTypes.object,
   side: PropTypes.string,
   position: PropTypes.number,
+  refObject: PropTypes.object,
 };
 
 IndentCell.defaultProps = {
@@ -44,4 +47,5 @@ IndentCell.defaultProps = {
   style: null,
   side: 'left',
   position: undefined,
+  refObject: undefined,
 };

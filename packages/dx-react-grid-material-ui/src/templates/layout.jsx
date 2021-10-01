@@ -11,10 +11,11 @@ const styles = {
 };
 
 const RootBase = ({
-  children, classes, className, ...restProps
+  children, classes, className, rootRef, ...restProps
 }) => (
   <div
     className={classNames(classes.root, className)}
+    ref={rootRef}
     {...restProps}
   >
     {children}
@@ -25,10 +26,12 @@ RootBase.propTypes = {
   children: PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
+  rootRef: PropTypes.object,
 };
 
 RootBase.defaultProps = {
   className: undefined,
+  rootRef: undefined,
 };
 
 export const Root = withStyles(styles)(RootBase);

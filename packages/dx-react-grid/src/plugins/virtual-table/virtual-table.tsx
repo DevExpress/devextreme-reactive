@@ -62,6 +62,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
 
     layoutRenderComponent: React.ComponentType<VirtualTableLayoutProps> & { update(): void; };
     scrollToRow: (prop: number | string | symbol) => void;
+    scrollToColumn: (prop: symbol) => void;
 
     constructor(props) {
       super(props);
@@ -69,6 +70,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       this.state = {
         viewport: emptyViewport,
         nextRowId: undefined,
+        nextColumnId: undefined,
       };
 
       this.layoutRenderComponent = connectProps(VirtualLayout, () => {
@@ -83,6 +85,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         };
       });
       this.scrollToRow = nextRowId => this.setState({ nextRowId });
+      this.scrollToColumn = nextColumnId => this.setState({ nextColumnId });
     }
 
     setViewport = (viewport) => {
@@ -111,6 +114,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       const {
         viewport: stateViewport,
         nextRowId: nextId,
+        nextColumnId,
       } = this.state;
 
       return (
@@ -120,6 +124,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
           {/* prevents breaking change */}
           <Action name="setViewport" action={this.setViewport} />
           <Action name="scrollToRow" action={this.scrollToRow} />
+          <Action name="scrollToColumn" action={this.scrollToColumn} />
           <Getter name="viewport" value={stateViewport} />
           <Getter name="tableColumns" computed={tableColumnsComputed} />
 
@@ -157,6 +162,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
                         setViewport,
                         viewport,
                         scrollTop,
+                        nextColumnId,
                       }}
                     />
                   );

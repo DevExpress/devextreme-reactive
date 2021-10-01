@@ -4,9 +4,11 @@ import * as PropTypes from 'prop-types';
 export const TableFilterCell = ({
   style, filter, onFilter, children,
   column, tableRow, tableColumn, getMessage, filteringEnabled,
+  refObject,
   ...restProps
 }) => (
   <th
+    ref={refObject}
     style={{
       fontWeight: 'normal',
       ...style,
@@ -32,6 +34,7 @@ TableFilterCell.propTypes = {
   tableColumn: PropTypes.object,
   getMessage: PropTypes.func,
   filteringEnabled: PropTypes.bool,
+  refObject: PropTypes.object,
 };
 
 TableFilterCell.defaultProps = {
@@ -44,4 +47,5 @@ TableFilterCell.defaultProps = {
   tableColumn: undefined,
   getMessage: undefined,
   filteringEnabled: true,
+  refObject: undefined,
 };

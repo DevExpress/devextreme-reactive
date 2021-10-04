@@ -26,6 +26,7 @@ export namespace Legend {
     color?: string;
     /** @internal */
     name?: string;
+    [key: string]: unknown;
   }
 }
 export interface LegendProps {

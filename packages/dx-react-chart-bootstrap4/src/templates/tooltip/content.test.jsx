@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { create } from 'react-test-renderer';
 import { Content } from './content';
 
 describe('Content', () => {
@@ -8,12 +8,12 @@ describe('Content', () => {
   };
 
   it('should render content', () => {
-    const tree = shallow((
+    const tree = create((
       <Content
         {...defaultProps}
       />
     ));
 
-    expect(tree.find('span').text()).toBe('text-content');
+    expect(tree.root.findByType('span').props.children).toBe('text-content');
   });
 });

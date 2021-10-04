@@ -70,8 +70,8 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
   }
 
   componentDidUpdate(prevProps) {
-    setTimeout(this.storeRowHeights);
-    setTimeout(this.storeBlockHeights);
+    setTimeout(this.storeRowHeights.bind(this));
+    setTimeout(this.storeBlockHeights.bind(this));
 
     const { bodyRows, columns } = this.props;
 

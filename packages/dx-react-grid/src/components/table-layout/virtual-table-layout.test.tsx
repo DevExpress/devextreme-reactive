@@ -44,14 +44,6 @@ jest.mock('@devexpress/dx-react-core', () => {
         );
       }
     },
-    // tslint:disable-next-line: max-classes-per-file
-    RefHolder: class extends Component {
-      render() {
-        // eslint-disable-next-line react/prop-types
-        const { children: propsChildren } = this.props;
-        return propsChildren;
-      }
-    },
   };
 });
 

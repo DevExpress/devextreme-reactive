@@ -7,15 +7,13 @@ const shouldUpdateRow = (prevProps, nextProps) => {
   const { cells: nextCells, row: nextRow } = nextProps;
 
   if (prevRow !== nextRow || prevCells.length !== nextCells.length) {
-    return true;
+    return false;
   }
 
-  const propsAreEqual = !nextCells.some((nextCell, i) => {
+  return !nextCells.some((nextCell, i) => {
     const prevCell = prevCells[i];
     return prevCell.column !== nextCell.column || prevCell.colSpan !== nextCell.colSpan;
   });
-
-  return propsAreEqual;
 };
 
 export const VirtualRowLayout = React.memo<VirtualRowLayoutProps>(({

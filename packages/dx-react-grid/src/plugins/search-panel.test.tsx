@@ -47,9 +47,7 @@ describe('SearchPanel', () => {
         />
       </PluginHost>
     ));
-    tree.root.findByProps(defaultProps.inputComponent)
-      .prop('onValueChange')('a');
-
+    tree.root.findByType(defaultProps.inputComponent).props.onValueChange('a');
     expect(defaultDeps.action.scrollToRow)
       .not.toHaveBeenCalled();
   });
@@ -70,8 +68,7 @@ describe('SearchPanel', () => {
         />
       </PluginHost>
     ));
-    tree.root.findByType(defaultProps.inputComponent)
-      .props('onValueChange')('a');
+    tree.root.findByType(defaultProps.inputComponent).props.onValueChange('a');
 
     expect(deps.action.scrollToRow)
       .toHaveBeenCalledTimes(1);

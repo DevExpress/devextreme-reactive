@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { create } from 'react-test-renderer';
 import { pluginDepsToComponents, setupConsole } from '@devexpress/dx-testing';
-import { PluginHost, TemplatePlaceholderBase } from '@devexpress/dx-react-core';
+import { PluginHost } from '@devexpress/dx-react-core';
 import { isTreeTableCell } from '@devexpress/dx-grid-core';
 import { TableTreeColumn } from './table-tree-column';
-import { TemplatePlaceholderBase } from '@devexpress/dx-react-core/src/plugin-based/template-placeholder'
 jest.mock('@devexpress/dx-grid-core', () => ({
   isTreeTableCell: jest.fn(),
 }));
@@ -213,8 +212,7 @@ describe('TableTreeColumn', () => {
       </PluginHost>
     ));
 
-    const valueFormatterTemplatePlaceholder = tree.root.findByType(TemplatePlaceholderBase)
-      .findByProps({'name': 'valueFormatter'});
+    const valueFormatterTemplatePlaceholder = tree.root.findByProps({'name': 'valueFormatter'});
 
     expect(valueFormatterTemplatePlaceholder.props.params)
       .toMatchObject({
@@ -257,14 +255,11 @@ describe('TableTreeColumn', () => {
       />
     ));
 
-    expect(tree.root.findByType(defaultProps.cellComponent)).toBeNull();
+    expect(tree.root.findAllByType(defaultProps.cellComponent).length).toEqual(0);
 
-    tree.update(<Test
-      columnName={'a'}
-    />)
+    tree.update(<Test columnName={'a'} />)
 
-    expect(tree.root.findByType(defaultProps.cellComponent)).not.toBeNull();
-    expect(tree.root.findByType(defaultProps.cellComponent).props.column.name)
-      .toEqual('a');
+    expect(tree.root.findAllByProps(defaultProps.cellComponent).length).not.toBeNull();
+    expect(tree.root.findByProps({columnName:'a'})).not.toBeNull();
   });
 });

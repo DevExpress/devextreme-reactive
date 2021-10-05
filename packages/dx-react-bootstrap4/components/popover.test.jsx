@@ -1,9 +1,16 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* globals document:true */
 import * as React from 'react';
-import { shallow, mount } from 'enzyme';
+import * as mockReactDOM from 'react-dom';
+
 import { Popper } from 'react-popper';
 import { Popover } from './popover';
+import { create } from 'react-test-renderer';
+
+jest.mock('react-dom', () => ({
+  ...mockReactDOM,
+  createPortal: jest.fn(element => element),
+}));
 
 describe('BS4 Popover', () => {
   const Content = () => (<div className="content" />);
@@ -25,81 +32,78 @@ describe('BS4 Popover', () => {
 
   describe('rendering', () => {
     it('should render nothing if is not isOpen', () => {
-      const tree = mount((
+      const tree = create(
         <Popover target={target} isOpen={false}>
           <Content />
         </Popover>
-      ), { attachTo: container });
+      );
 
-      expect(tree.children()).toHaveLength(0);
+      expect(tree.root.children).toHaveLength(0);
     });
 
     it('should render Popper if isOpen', () => {
-      const tree = mount((
+      const tree = create(
         <Popover target={target} isOpen>
           <Content />
         </Popover>
-      ), { attachTo: container });
+      );
 
-      expect(tree.children()).toHaveLength(1);
-      expect(tree.find(Popper).exists()).toBeTruthy();
+      expect(tree.root.children).toHaveLength(1);
+      expect(tree.root.find(Popper)).not.toBeNull();
     });
 
     it('should render correct elements', () => {
-      const tree = mount((
+      const tree = create((
         <Popover target={target} placement="bottom" isOpen>
           <Content />
         </Popover>
-      ), { attachTo: container });
-
-      expect(tree.find('.popover.show.bs-popover-undefined').exists()).toBeTruthy();
-      expect(tree.find('.popover').children()).toHaveLength(2);
-      expect(tree.find('.arrow').exists()).toBeTruthy();
-      expect(tree.find('.popover > .popover-inner').exists()).toBeTruthy();
-      expect(tree.find('.popover-inner').childAt(0).is(Content)).toBeTruthy();
+      ), container);
+      expect(tree.root.findByProps({className:'popover show bs-popover-undefined'})).not.toBeNull();
+      expect(tree.root.findByProps({className:'popover show bs-popover-undefined'}).children).toHaveLength(2);
+      expect(tree.root.findAllByProps({className:'.arrow'})).not.toBeNull();
+      expect(tree.root.findByProps({className:'popover-inner'}).parent.props.className).toBe('popover show bs-popover-undefined');
+      expect(tree.root.findByProps({className:'popover-inner'}).find(Content)).not.toBeNull();
     });
 
     it('should render custom arrow component', () => {
       const ArrowComponent = () => null;
-      const tree = mount((
+      const tree = create((
         <Popover target={target} placement="bottom" isOpen arrowComponent={ArrowComponent}>
           <Content />
         </Popover>
-      ), { attachTo: container });
-      expect(tree.find(ArrowComponent).exists()).toBeTruthy();
+      ), container);
+      expect(tree.root.findByType(ArrowComponent)).toBeTruthy();
     });
 
     it('should render outside a container if container is body', () => {
-      mount((
+      create((
         <Popover target={target} renderInBody isOpen>
           <Content />
         </Popover>
-      ), { attachTo: container });
-
-      expect(document.querySelector('body > .popover')).toBeTruthy();
-      expect(container.querySelector('.popover')).toBeFalsy();
+      ), container);
+      expect(container.querySelector('.popover')).toBeNull();
+      expect(document.querySelector('body').getElementsByClassName('popover')).not.toBeNull();
     });
 
     it('should render inside a container if container is not body', () => {
-      mount((
+      create((
         <Popover target={target} renderInBody={false} isOpen>
           <Content />
         </Popover>
-      ), { attachTo: container });
+      ), container);
 
-      expect(document.querySelector('body > .popover')).toBeFalsy();
-      expect(container.querySelector('.popover')).toBeTruthy();
+      expect(document.querySelector('body').getElementsByClassName('popover')).not.toBeNull();
+      expect(container.getElementsByClassName('popover')).toBeTruthy();
     });
 
     it('should pass a target to the Popper', () => {
-      const tree = mount((
+      const tree = create((
         <Popover target={target} isOpen>
           <Content />
         </Popover>
-      ), { attachTo: container });
+    ), container);
 
-      const popper = tree.find(Popper);
-      expect(popper.prop('referenceElement')).toBe(target);
+      expect(tree.root.findByType(Popper).props).toBe('target');
     });
   });
 
@@ -120,87 +124,83 @@ describe('BS4 Popover', () => {
       removeEventListener.mockReset();
     });
 
-    let clickHandler;
-    let popoverTree;
-    const mountPopover = () => {
-      popoverTree = shallow((
-        <Popover target={target} isOpen toggle={() => {}}>
+    const popoverComponent = (props = {}) => {
+      return(
+        <Popover target={target} isOpen toggle={() => {}} {...props}>
           <Content />
         </Popover>
-      ));
+      );
+    }
 
-      clickHandler = popoverTree.instance().handleClick;
+    const renderPopover = () => {
+      const tree = create(popoverComponent());
+
+      const clickHandler = () => tree.getInstance().handleClick;
+      return {tree, clickHandler};
     };
-
+  
     it('should handle a click event if popover is isOpen and toggle is defined', () => {
-      mountPopover();
+      const { clickHandler } = renderPopover();
 
       expect(addEventListener.mock.calls).toEqual([
-        ['click', clickHandler, true],
-        ['touchstart', clickHandler, true],
+        ['click', clickHandler(), true],
+        ['touchstart', clickHandler(), true],
       ]);
     });
 
     it('should detach handlers if popover becomes invisible', () => {
-      mountPopover();
-
-      popoverTree.setProps({
-        isOpen: false,
-      });
+      const { tree, clickHandler } = renderPopover();
+      tree.update(popoverComponent({isOpen: false}))
 
       expect(removeEventListener.mock.calls).toEqual([
-        ['click', clickHandler, true],
-        ['touchstart', clickHandler, true],
+        ['click', clickHandler(), true],
+        ['touchstart', clickHandler(), true],
       ]);
     });
 
     it('should detach handlers if toggle is not defined', () => {
-      mountPopover();
+      const { tree, clickHandler } = renderPopover();
 
-      popoverTree.setProps({
-        toggle: null,
-      });
+      tree.update(popoverComponent({toggle: null}))
+
 
       expect(removeEventListener.mock.calls).toEqual([
-        ['click', clickHandler, true],
-        ['touchstart', clickHandler, true],
+        ['click', clickHandler(), true],
+        ['touchstart', clickHandler(), true],
       ]);
     });
 
     it('should detach handlers on unmount', () => {
-      mountPopover();
+      const { tree, clickHandler } = renderPopover();
 
-      popoverTree.unmount();
+      tree.unmount();
 
       expect(removeEventListener.mock.calls).toEqual([
-        ['click', clickHandler, true],
-        ['touchstart', clickHandler, true],
+        ['click', clickHandler(), true],
+        ['touchstart', clickHandler(), true],
       ]);
     });
 
     it('should add event listeners only once', () => {
-      mountPopover();
-
-      popoverTree.setProps({
-        children: <div />,
-      });
+      const { tree, clickHandler } = renderPopover();
+      tree.update(popoverComponent({children: <div />}))
 
       expect(addEventListener.mock.calls).toEqual([
-        ['click', clickHandler, true],
-        ['touchstart', clickHandler, true],
+        ['click', clickHandler(), true],
+        ['touchstart', clickHandler(), true],
       ]);
     });
 
     it('should remove event listerners only once', () => {
-      mountPopover();
+      const { tree, clickHandler } = renderPopover();
+      tree.update(popoverComponent({ isOpen: false }));
 
-      popoverTree.setProps({ isOpen: false });
-      popoverTree.unmount();
+      tree.unmount();
 
       expect(removeEventListener).toBeCalledTimes(2);
       expect(removeEventListener.mock.calls).toEqual([
-        ['click', clickHandler, true],
-        ['touchstart', clickHandler, true],
+        ['click', clickHandler(), true],
+        ['touchstart', clickHandler(), true],
       ]);
     });
   });
@@ -208,12 +208,12 @@ describe('BS4 Popover', () => {
   describe('#handleClick', () => {
     it('should call toggle() when clicked outside popover', () => {
       const toggle = jest.fn();
-      const tree = mount((
+      const tree = create(
         <Popover target={target} toggle={toggle} isOpen>
           <Content />
         </Popover>
-      ), { attachTo: container });
-      const instance = tree.instance();
+      );
+      const instance = tree.getInstance();
 
       instance.handleClick({ target: document.body });
 
@@ -224,13 +224,13 @@ describe('BS4 Popover', () => {
       const toggle = jest.fn();
       let innerTarget;
       const setInnerRef = (node) => { innerTarget = node; };
-      const tree = mount((
+      const tree = create((
         <Popover target={target} toggle={toggle} isOpen>
           <div ref={setInnerRef} />
         </Popover>
       ), { attachTo: container });
 
-      const instance = tree.instance();
+      const instance = tree.getInstance();
       instance.handleClick({ target: innerTarget });
 
       expect(toggle).not.toHaveBeenCalled();
@@ -238,13 +238,13 @@ describe('BS4 Popover', () => {
 
     it('should not call toggle() when a target is clicked', () => {
       const toggle = jest.fn();
-      const tree = mount((
+      const tree = create((
         <Popover target={target} toggle={toggle} isOpen>
           <Content />
         </Popover>
       ), { attachTo: container });
 
-      const instance = tree.instance();
+      const instance = tree.getInstance();
       instance.handleClick({ target });
 
       expect(toggle).not.toHaveBeenCalled();

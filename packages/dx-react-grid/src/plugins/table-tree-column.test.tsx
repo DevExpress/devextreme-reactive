@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { create } from 'react-test-renderer';
 import { pluginDepsToComponents, setupConsole } from '@devexpress/dx-testing';
-import { PluginHost } from '@devexpress/dx-react-core';
+import { PluginHost, TemplatePlaceholderBase } from '@devexpress/dx-react-core';
 import { isTreeTableCell } from '@devexpress/dx-grid-core';
 import { TableTreeColumn } from './table-tree-column';
-
+import { TemplatePlaceholderBase } from '@devexpress/dx-react-core/src/plugin-based/template-placeholder'
 jest.mock('@devexpress/dx-grid-core', () => ({
   isTreeTableCell: jest.fn(),
 }));
@@ -60,7 +60,7 @@ describe('TableTreeColumn', () => {
     it('should render tree cell on data column and data row intersection', () => {
       isTreeTableCell.mockImplementation(() => true);
 
-      const tree = mount((
+      const tree = create((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
           <TableTreeColumn
@@ -75,7 +75,7 @@ describe('TableTreeColumn', () => {
           defaultDeps.template.tableCell.tableColumn,
           defaultProps.for,
         );
-      expect(tree.find(defaultProps.cellComponent).props())
+      expect(tree.root.findByType(defaultProps.cellComponent).props)
         .toMatchObject({
           ...defaultDeps.template.tableCell,
           row: defaultDeps.template.tableCell.tableRow.row,
@@ -99,7 +99,7 @@ describe('TableTreeColumn', () => {
         },
       };
 
-      const tree = mount((
+      const tree = create((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableTreeColumn
@@ -107,7 +107,7 @@ describe('TableTreeColumn', () => {
           />
         </PluginHost>
       ));
-      expect(tree.find(defaultProps.indentComponent).props())
+      expect(tree.root.findByType(defaultProps.indentComponent).props)
         .toMatchObject({
           level: 2,
         });
@@ -132,7 +132,7 @@ describe('TableTreeColumn', () => {
       };
       jest.spyOn(deps.getter.expandedRowIds, 'indexOf').mockReturnValue(1);
 
-      const tree = mount((
+      const tree = create((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableTreeColumn
@@ -140,7 +140,7 @@ describe('TableTreeColumn', () => {
           />
         </PluginHost>
       ));
-      expect(tree.find(defaultProps.expandButtonComponent).props())
+      expect(tree.root.findByType(defaultProps.expandButtonComponent).props)
         .toMatchObject({
           visible: true,
           expanded: true,
@@ -151,7 +151,7 @@ describe('TableTreeColumn', () => {
       expect(deps.getter.isTreeRowLeaf)
         .toBeCalledWith(deps.template.tableCell.tableRow.row);
 
-      tree.find(defaultProps.expandButtonComponent).props().onToggle();
+      tree.root.findByType(defaultProps.expandButtonComponent).props.onToggle();
       expect(defaultDeps.action.toggleRowExpanded.mock.calls[0][0])
         .toEqual({ rowId: 'rowId' });
     });
@@ -177,7 +177,7 @@ describe('TableTreeColumn', () => {
       };
       jest.spyOn(deps.getter.selection, 'indexOf').mockReturnValue(1);
 
-      const tree = mount((
+      const tree = create((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps, deps)}
           <TableTreeColumn
@@ -186,7 +186,7 @@ describe('TableTreeColumn', () => {
           />
         </PluginHost>
       ));
-      expect(tree.find(defaultProps.checkboxComponent).props())
+      expect(tree.root.findByType(defaultProps.checkboxComponent).props)
         .toMatchObject({
           disabled: false,
           checked: true,
@@ -195,7 +195,7 @@ describe('TableTreeColumn', () => {
       expect(deps.getter.selection.indexOf)
         .toBeCalledWith('rowId');
 
-      tree.find(defaultProps.checkboxComponent).props().onChange();
+      tree.root.findByType(defaultProps.checkboxComponent).props.onChange();
       expect(deps.action.toggleSelection.mock.calls[0][0])
         .toEqual({ rowIds: ['rowId'] });
     });
@@ -204,7 +204,7 @@ describe('TableTreeColumn', () => {
   it('can render custom formatted data in cell', () => {
     isTreeTableCell.mockImplementation(() => true);
 
-    const tree = mount((
+    const tree = create((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <TableTreeColumn
@@ -213,11 +213,10 @@ describe('TableTreeColumn', () => {
       </PluginHost>
     ));
 
-    const valueFormatterTemplatePlaceholder = tree
-      .find('TemplatePlaceholderBase')
-      .findWhere(node => node.prop('name') === 'valueFormatter').last();
+    const valueFormatterTemplatePlaceholder = tree.root.findByType(TemplatePlaceholderBase)
+      .findByProps({'name': 'valueFormatter'});
 
-    expect(valueFormatterTemplatePlaceholder.prop('params'))
+    expect(valueFormatterTemplatePlaceholder.props.params)
       .toMatchObject({
         column: defaultDeps.template.tableCell.tableColumn.column,
         row: defaultDeps.template.tableCell.tableRow.row,
@@ -225,12 +224,12 @@ describe('TableTreeColumn', () => {
       });
   });
 
-  it('should change "for" property in runtime', () => {
+  it('should change "for" propserty in runtime', () => {
     class Test extends React.Component {
-      constructor(props) {
-        super(props);
+      constructor(propss) {
+        super(propss);
         this.state = {
-          columnName: props.columnName,
+          columnName: propss.columnName,
         };
       }
 
@@ -252,22 +251,20 @@ describe('TableTreeColumn', () => {
       }
     }
 
-    const tree = mount((
+    const tree = create((
       <Test
         columnName={'b'}
       />
     ));
 
-    expect(tree.find(defaultProps.cellComponent).exists())
-      .toBeFalsy();
+    expect(tree.root.findByType(defaultProps.cellComponent)).toBeNull();
 
-    tree.setState({
-      columnName: 'a',
-    });
+    tree.update(<Test
+      columnName={'a'}
+    />)
 
-    expect(tree.find(defaultProps.cellComponent).exists())
-      .toBeTruthy();
-    expect(tree.find(defaultProps.cellComponent).props().column.name)
+    expect(tree.root.findByType(defaultProps.cellComponent)).not.toBeNull();
+    expect(tree.root.findByType(defaultProps.cellComponent).props.column.name)
       .toEqual('a');
   });
 });

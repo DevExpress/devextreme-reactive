@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { create } from 'react-test-renderer';
 import { PluginHost, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import { Toolbar } from './toolbar';
 
 describe('Toolbar', () => {
   it('should render Toolbar', () => {
     const Root = () => null;
-    const tree = mount((
+    const tree = create((
       <PluginHost>
         <Toolbar
           rootComponent={Root}
@@ -16,13 +16,12 @@ describe('Toolbar', () => {
       </PluginHost>
     ));
 
-    expect(tree.find(Root).exists())
-      .toBeTruthy();
+    expect(tree.root.findByType(Root)).not.toBeNull();
   });
 
   it('should render flexible space', () => {
     const FlexibleSpaceComponent = () => null;
-    const tree = mount((
+    const tree = create((
       <PluginHost>
         <Toolbar
           rootComponent={() => null}
@@ -32,7 +31,6 @@ describe('Toolbar', () => {
       </PluginHost>
     ));
 
-    expect(tree.find(FlexibleSpaceComponent).exists())
-      .toBeTruthy();
+    expect(tree.root.findByType(FlexibleSpaceComponent)).not.toBeNull();
   });
 });

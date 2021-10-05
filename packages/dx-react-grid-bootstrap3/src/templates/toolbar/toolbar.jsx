@@ -7,12 +7,12 @@ const ToolbarBase = ({
   children,
   className,
   style,
-  refObject,
+  forwardedRef,
   ...restProps
 }) => (
   <div
     className={classNames('panel-heading', className)}
-    ref={refObject}
+    ref={forwardedRef}
     style={{
       display: 'flex',
       alignItems: 'center',
@@ -32,13 +32,13 @@ ToolbarBase.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   style: PropTypes.object,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 ToolbarBase.defaultProps = {
   className: undefined,
   style: null,
-  refObject: undefined,
+  forwardedRef: undefined,
 };
 
 export const Toolbar = withKeyboardNavigation('toolbar', 'none')(ToolbarBase);

@@ -6,14 +6,14 @@ import {
 } from 'react-bootstrap';
 
 export const ProgressBarCell = ({
-  value, style, tabIndex, refObject, className,
+  value, style, tabIndex, forwardedRef, className,
 }) => {
   const percent = value * 100;
   return (
     <td
       style={{ position: 'relative', ...style }}
       tabIndex={tabIndex}
-      ref={refObject}
+      ref={forwardedRef}
       className={className}
     >
       <div
@@ -57,12 +57,12 @@ ProgressBarCell.propTypes = {
   value: PropTypes.number.isRequired,
   style: PropTypes.object,
   tabIndex: PropTypes.number,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
   className: PropTypes.string,
 };
 ProgressBarCell.defaultProps = {
   style: {},
   tabIndex: undefined,
-  refObject: undefined,
+  forwardedRef: undefined,
   className: undefined,
 };

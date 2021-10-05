@@ -16,12 +16,12 @@ const PagerBase = ({
   getMessage,
   className,
   style,
-  refObject,
+  forwardedRef,
   ...restProps
 }) => (
   <div
     className={classNames('clearfix panel-footer', className)}
-    ref={refObject}
+    ref={forwardedRef}
     style={{
       flex: 'none',
       ...style,
@@ -58,13 +58,13 @@ PagerBase.propTypes = {
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
   style: PropTypes.object,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 PagerBase.defaultProps = {
   className: undefined,
   style: null,
-  refObject: undefined,
+  forwardedRef: undefined,
 };
 
 export const Pager = withKeyboardNavigation('paging', 'none')(PagerBase);

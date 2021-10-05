@@ -8,7 +8,7 @@ export const withKeyboardNavigation =
     ref: React.RefObject<T>;
     constructor(props) {
       super(props);
-      this.ref = React.createRef();
+      this.ref = props.forwardedRef || React.createRef();
       this.handleClick = this.handleClick.bind(this);
     }
 
@@ -45,7 +45,7 @@ export const withKeyboardNavigation =
 
     render() {
       const { setFocusedElement, updateRefForKeyboardNavigation, ...restProps } = this.props;
-      return <Component refObject={this.ref} {...restProps} />;
+      return <Component forwardedRef={this.ref} {...restProps} />;
     }
   }
   return ComponentWithNavigation;

@@ -29,7 +29,7 @@ const CellBase = ({
   onToggle,
   classes, children,
   className, tableRow,
-  refObject,
+  forwardedRef,
   tableColumn, side, position,
   ...restProps
 }) => {
@@ -43,7 +43,7 @@ const CellBase = ({
         [classes.cell]: true,
         [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
       }, className)}
-      ref={refObject}
+      ref={forwardedRef}
       onClick={handleClick}
       {...restProps}
     >
@@ -93,7 +93,7 @@ CellBase.propTypes = {
   inlineSummaries: PropTypes.array,
   side: PropTypes.string,
   position: PropTypes.string,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 CellBase.defaultProps = {
@@ -110,7 +110,7 @@ CellBase.defaultProps = {
   tableColumn: undefined,
   side: 'left',
   position: '',
-  refObject: undefined,
+  forwardedRef: undefined,
 };
 
 export const Cell = withStyles(styles, { name: 'TableGroupCell' })(CellBase);

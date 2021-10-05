@@ -54,7 +54,6 @@ TableHeaderCell.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
   getCellWidth: PropTypes.func,
-  refObject: PropTypes.object,
 };
 
 TableHeaderCell.defaultProps = {
@@ -70,5 +69,4 @@ TableHeaderCell.defaultProps = {
   className: undefined,
   children: undefined,
   getCellWidth: () => {},
-  refObject: undefined,
 };

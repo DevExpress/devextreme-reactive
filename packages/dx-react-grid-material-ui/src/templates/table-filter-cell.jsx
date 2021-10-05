@@ -21,14 +21,14 @@ const styles = ({ spacing }) => ({
 const TableFilterCellBase = ({
   filter, getMessage, onFilter,
   classes, children, className,
-  tableRow, tableColumn, column, filteringEnabled, refObject,
+  tableRow, tableColumn, column, filteringEnabled, forwardedRef,
   ...restProps
 }) => (
   <TableCell
     className={classNames({
       [classes.cell]: true,
     }, className)}
-    ref={refObject}
+    ref={forwardedRef}
     {...restProps}
   >
     <div className={classes.flexContainer}>
@@ -48,7 +48,7 @@ TableFilterCellBase.propTypes = {
   tableColumn: PropTypes.object,
   column: PropTypes.object,
   filteringEnabled: PropTypes.bool,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 TableFilterCellBase.defaultProps = {
@@ -60,7 +60,7 @@ TableFilterCellBase.defaultProps = {
   tableColumn: undefined,
   column: undefined,
   filteringEnabled: true,
-  refObject: undefined,
+  forwardedRef: undefined,
 };
 
 export const TableFilterCell = withStyles(styles, { name: 'TableFilterCell' })(TableFilterCellBase);

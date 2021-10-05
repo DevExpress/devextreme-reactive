@@ -8,12 +8,12 @@ export const SearchPanelInput = ({
   getMessage,
   style,
   className,
-  refObject,
+  inputRef,
   ...restProps
 }) => (
   <input
     type="text"
-    ref={refObject}
+    ref={inputRef}
     className={classNames('form-control', className)}
     onChange={e => onValueChange(e.target.value)}
     value={value}
@@ -29,12 +29,12 @@ SearchPanelInput.propTypes = {
   style: PropTypes.object,
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
-  refObject: PropTypes.any,
+  inputRef: PropTypes.object,
 };
 
 SearchPanelInput.defaultProps = {
   value: null,
   style: null,
   className: undefined,
-  refObject: undefined,
+  inputRef: undefined,
 };

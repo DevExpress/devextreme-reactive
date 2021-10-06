@@ -212,7 +212,7 @@ describe('TableTreeColumn', () => {
       </PluginHost>
     ));
 
-    const valueFormatterTemplatePlaceholder = tree.root.findByProps({'name': 'valueFormatter'});
+    const valueFormatterTemplatePlaceholder = tree.root.findByProps({ name: 'valueFormatter' });
 
     expect(valueFormatterTemplatePlaceholder.props.params)
       .toMatchObject({
@@ -257,9 +257,9 @@ describe('TableTreeColumn', () => {
 
     expect(tree.root.findAllByType(defaultProps.cellComponent).length).toEqual(0);
 
-    tree.update(<Test columnName={'a'} />)
+    tree.update(<Test columnName={'a'} />);
 
     expect(tree.root.findAllByProps(defaultProps.cellComponent).length).not.toBeNull();
-    expect(tree.root.findByProps({columnName:'a'})).not.toBeNull();
+    expect(tree.root.findByProps({ columnName:'a' })).not.toBeNull();
   });
 });

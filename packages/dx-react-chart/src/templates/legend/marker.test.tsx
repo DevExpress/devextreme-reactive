@@ -7,7 +7,7 @@ describe('Marker', () => {
   it('should render span', () => {
     const ref = React.createRef() as React.RefObject<Marker>;
     const tree = create(<Marker color="color" ref={ref}/>);
-    expect(tree.root.findByProps({fill: "color"}).type)
+    expect(tree.root.findByProps({ fill: 'color' }).type)
       .toEqual('svg');
   });
 

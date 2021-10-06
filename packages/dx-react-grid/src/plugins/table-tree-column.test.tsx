@@ -224,10 +224,10 @@ describe('TableTreeColumn', () => {
 
   it('should change "for" propserty in runtime', () => {
     class Test extends React.Component {
-      constructor(propss) {
-        super(propss);
+      constructor(props) {
+        super(props);
         this.state = {
-          columnName: propss.columnName,
+          columnName: props.columnName,
         };
       }
 

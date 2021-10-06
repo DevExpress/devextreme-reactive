@@ -8,7 +8,7 @@ export const withKeyboardNavigation =
     ref: React.RefObject<T>;
     constructor(props) {
       super(props);
-      this.ref = props.forwardedRef || React.createRef();
+      this.ref = React.createRef();
       this.handleClick = this.handleClick.bind(this);
     }
 

@@ -5,7 +5,6 @@ import { getLegendItems } from '@devexpress/dx-chart-core';
 import { Legend } from './legend';
 import { create } from 'react-test-renderer';
 
-
 jest.mock('@devexpress/dx-chart-core', () => ({
   getLegendItems: jest.fn().mockReturnValue([
     { color: 'color 1', text: 'series 1' },

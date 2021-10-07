@@ -18,9 +18,10 @@ import { populationPyramid as data } from '../../../demo-data/data-vizualization
 
 <%&body%>
 
-const Label = ({ text, ...props }) => (
-  <ValueAxis.Label {...props} text={`${Math.abs(text)}%`} />
-);
+const Label = ({ text, ...props }) => {
+  const labelText = text[0] === '−' ? text.substring(1) : text;
+  return <ValueAxis.Label {...props} text={`${labelText}%`} />;
+};
 const modifyDomain = ([start, end]) => {
   const threshold = Math.ceil(Math.max(Math.abs(start), Math.abs(end)));
   return [-threshold, threshold];

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import Paper from '@mui/material/Paper';
 import {
   Chart,
   BarSeries,
@@ -14,12 +14,12 @@ import { scaleBand } from '@devexpress/dx-chart-core';
 import {
   ArgumentScale, Stack, Animation, EventTracker, HoverState, SelectionState,
 } from '@devexpress/dx-react-chart';
-import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
+import Button from '@mui/material/Button';
+import withStyles from '@mui/styles/withStyles';
 import {
   NavigateBefore, NavigateNext,
-} from '@material-ui/icons/';
-import Typography from '@material-ui/core/Typography';
+} from '@mui/icons-material/';
+import Typography from '@mui/material/Typography';
 
 import { annualVehiclesSales as data } from '../../../demo-data/data-vizualization';
 

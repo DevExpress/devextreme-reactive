@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import Paper from '@mui/material/Paper';
 import {
   Chart,
   ArgumentAxis,
@@ -9,9 +9,9 @@ import {
 } from '@devexpress/dx-react-chart-material-ui';
 import { scaleTime } from 'd3-scale';
 import { ArgumentScale } from '@devexpress/dx-react-chart';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 const generateData = (n) => {
   const ret = [];

@@ -1,7 +1,11 @@
 import * as React from 'react';
-import { createMount } from '@material-ui/core/test-utils';
-import Typography from '@material-ui/core/Typography';
+import { createMount } from '@devexpress/dx-testing';
+import { createTheme } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 import { Content } from './content';
+
+const mockDefaultTheme = createTheme();
+jest.mock('@mui/private-theming/useTheme', () => () => mockDefaultTheme);
 
 describe('Content', () => {
   const defaultProps = {

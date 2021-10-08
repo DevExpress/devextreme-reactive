@@ -1,7 +1,11 @@
 import * as React from 'react';
-import Popper from '@material-ui/core/Popper';
-import { createMount, getClasses } from '@material-ui/core/test-utils';
+import Popper from '@mui/material/Popper';
+import { createMount, getClasses } from '@devexpress/dx-testing';
+import { createTheme } from '@mui/material/styles';
 import { Overlay } from './overlay';
+
+const mockDefaultTheme = createTheme();
+jest.mock('@mui/private-theming/useTheme', () => () => mockDefaultTheme);
 
 describe('Overlay', () => {
   const ArrowComponent = () => null;

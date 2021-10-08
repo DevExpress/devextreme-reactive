@@ -1,7 +1,12 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import List from '@material-ui/core/List';
+import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createTheme } from '@mui/material/styles';
+import List from '@mui/material/List';
 import { Root } from './root';
+
+const mockDefaultTheme = createTheme();
+
+jest.mock('@mui/private-theming/useTheme', () => () => mockDefaultTheme);
 
 describe('Root', () => {
   const shallow = createShallow({ dive: true });

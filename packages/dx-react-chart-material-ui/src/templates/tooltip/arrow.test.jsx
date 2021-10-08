@@ -1,6 +1,10 @@
 import * as React from 'react';
-import { createMount, getClasses } from '@material-ui/core/test-utils';
+import { createMount, getClasses } from '@devexpress/dx-testing';
+import { createTheme } from '@mui/material/styles';
 import { Arrow } from './arrow';
+
+const mockDefaultTheme = createTheme();
+jest.mock('@mui/private-theming/useTheme', () => () => mockDefaultTheme);
 
 describe('Arrow', () => {
   const defaultProps = {

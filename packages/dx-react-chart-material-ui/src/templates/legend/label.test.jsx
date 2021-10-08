@@ -1,7 +1,12 @@
 import * as React from 'react';
-import { createMount, getClasses } from '@material-ui/core/test-utils';
-import ListItemText from '@material-ui/core/ListItemText';
+import { createTheme } from '@mui/material/styles';
+import { createMount, getClasses } from '@devexpress/dx-testing';
+import ListItemText from '@mui/material/ListItemText';
 import { Label } from './label';
+
+const mockDefaultTheme = createTheme();
+
+jest.mock('@mui/private-theming/useTheme', () => () => mockDefaultTheme);
 
 const defaultProps = { text: 'a' };
 

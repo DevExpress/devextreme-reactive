@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Popper from '@material-ui/core/Popper';
+import withStyles from '@mui/styles/withStyles';
+import Popper from '@mui/material/Popper';
 import { RIGHT, TOP } from '@devexpress/dx-chart-core';
 import classNames from 'clsx';
 import * as PropTypes from 'prop-types';

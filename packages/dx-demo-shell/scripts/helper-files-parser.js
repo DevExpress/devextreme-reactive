@@ -16,12 +16,13 @@ const retrieveImportFiles = (imports, regex) => imports
   .filter(r => !!r)
   .map(r => r[1]);
 
-const knownDeepImports = ['@material-ui/core', '@material-ui/icons', '@material-ui/styles'];
+// const knownDeepImports = ['@mui/material', '@mui/icons-material', '@material-ui/styles'];
+const knownDeepImports = ['@mui/material', '@mui/icons-material', '@mui/styles'];
 const dependencies = {
-  '"@material-ui/core"': ['"@material-ui/icons"'],
+  '"@mui/material"': ['"@mui/icons-material"'],
   '"@devexpress/dx-react-chart-material-ui"': [
     '"@devexpress/dx-react-chart"',
-    '"@material-ui/icons"',
+    '"@mui/icons-material"',
   ],
   '"@devexpress/dx-react-chart-bootstrap4"': ['"@devexpress/dx-react-chart"'],
   '"@devexpress/dx-react-chart"': ['"@devexpress/dx-react-core"'],
@@ -32,12 +33,12 @@ const dependencies = {
   '"@devexpress/dx-react-grid-bootstrap4"': ['"@devexpress/dx-react-grid"'],
   '"@devexpress/dx-react-grid-material-ui"': [
     '"@devexpress/dx-react-grid"',
-    '"@material-ui/icons"',
+    '"@mui/icons-material"',
   ],
   '"@devexpress/dx-react-grid"': ['"@devexpress/dx-react-core"'],
   '"@devexpress/dx-react-scheduler-material-ui"': [
     '"@devexpress/dx-react-scheduler"',
-    '"@material-ui/icons"',
+    '"@mui/icons-material"',
   ],
   '"@devexpress/dx-react-scheduler"': ['"@devexpress/dx-react-core"'],
 };

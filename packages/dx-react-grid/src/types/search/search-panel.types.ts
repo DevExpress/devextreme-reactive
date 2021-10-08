@@ -9,7 +9,7 @@ export namespace SearchPanel {
     /** Returns a specified localization message. */
     getMessage: (messageKey: string) => string;
     /** @internal */
-    refObject: React.RefObject<HTMLElement>;
+    inputRef: React.RefObject<HTMLElement>;
   }
 
   export interface LocalizationMessages {

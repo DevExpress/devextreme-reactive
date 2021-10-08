@@ -5,7 +5,7 @@ export const Cell = ({
   row, column,
   tableRow, tableColumn,
   onToggle, children, style,
-  refObject,
+  forwardedRef,
   ...restProps
 }) => {
   const handleClick = () => onToggle();
@@ -18,7 +18,7 @@ export const Cell = ({
         whiteSpace: (tableColumn && tableColumn.wordWrapEnabled) ? 'normal' : 'nowrap',
         ...style,
       }}
-      ref={refObject}
+      ref={forwardedRef}
       onClick={handleClick}
       {...restProps}
     >
@@ -39,7 +39,7 @@ Cell.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   style: PropTypes.object,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 Cell.defaultProps = {
@@ -51,5 +51,5 @@ Cell.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   style: null,
-  refObject: undefined,
+  forwardedRef: undefined,
 };

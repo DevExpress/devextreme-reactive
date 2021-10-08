@@ -1,7 +1,6 @@
 /* globals window:true */
 
 import * as React from 'react';
-import { findDOMNode } from 'react-dom';
 import { shallow, mount } from 'enzyme';
 // tslint:disable-next-line: import-name
 import Immutable from 'seamless-immutable';
@@ -13,18 +12,17 @@ import {
 import { setupConsole } from '@devexpress/dx-testing';
 import { TableLayout } from './table-layout';
 
-jest.mock('react-dom', () => ({
-  findDOMNode: jest.fn(() => ({
-    scrollWidth: 300,
-    offsetWidth: 200,
-  })),
-}));
 jest.mock('@devexpress/dx-grid-core', () => ({
   TABLE_FLEX_TYPE: 'flex',
   getAnimations: jest.fn(),
   filterActiveAnimations: jest.fn(),
   evalAnimations: jest.fn(),
   getTableColumnGeometries: jest.fn(() => []),
+}));
+
+const getDOMNode = jest.fn(() => ({
+  scrollWidth: 300,
+  offsetWidth: 200,
 }));
 
 const defaultProps = {
@@ -82,7 +80,7 @@ describe('TableLayout', () => {
 
     const layoutComponent = ({ tableRef }) => {
       // eslint-disable-next-line no-param-reassign, react/no-find-dom-node
-      tableRef.current = findDOMNode();
+      tableRef.current = getDOMNode();
       return null;
     };
     const columns = [
@@ -192,7 +190,7 @@ describe('TableLayout', () => {
             {...animationDefaultProps}
           />
         ));
-        findDOMNode
+        getDOMNode
           .mockReturnValueOnce(tableDimensions)
           .mockReturnValueOnce({ ...tableDimensions, scrollWidth: 400 })
           .mockReturnValue(tableDimensions);
@@ -215,7 +213,7 @@ describe('TableLayout', () => {
             {...animationDefaultProps}
           />
         ));
-        findDOMNode
+        getDOMNode
           .mockReturnValueOnce(tableDimensions)
           .mockReturnValueOnce({ scrollWidth: 400, offsetWidth: 300 })
           .mockReturnValue(tableDimensions);
@@ -237,7 +235,7 @@ describe('TableLayout', () => {
             {...animationDefaultProps}
           />
         ));
-        findDOMNode
+        getDOMNode
           .mockReturnValueOnce(tableDimensions)
           .mockReturnValueOnce({ scrollWidth: 400, offsetWidth: 200 })
           .mockReturnValue(tableDimensions);
@@ -259,7 +257,7 @@ describe('TableLayout', () => {
             {...animationDefaultProps}
           />
         ));
-        findDOMNode
+        getDOMNode
           .mockReturnValueOnce(tableDimensions)
           .mockReturnValueOnce({ scrollWidth: 400, offsetWidth: 200 })
           .mockReturnValue(tableDimensions);

@@ -5,10 +5,11 @@ import classNames from 'clsx';
 export const TableSelectRow = ({
   highlighted, selectByRowClick, onToggle,
   children, className,
-  row, tableRow, tableColumn,
+  row, tableRow, tableColumn, forwardedRef,
   ...restProps
 }) => (
   <tr
+    ref={forwardedRef}
     className={classNames(highlighted ? 'active' : '', className)}
     onClick={(e) => {
       if (!selectByRowClick) return;
@@ -30,6 +31,7 @@ TableSelectRow.propTypes = {
   row: PropTypes.any,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 TableSelectRow.defaultProps = {
@@ -41,4 +43,5 @@ TableSelectRow.defaultProps = {
   row: undefined,
   tableColumn: undefined,
   tableRow: undefined,
+  forwardedRef: undefined,
 };

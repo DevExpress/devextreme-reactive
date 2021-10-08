@@ -68,6 +68,7 @@ export const MainLayout = React.memo(({
   groupingPanelSize,
   setScrollingStrategy,
   className,
+  forwardedRef,
   ...restProps
 }) => {
   const layoutRef = React.useRef(null);
@@ -109,7 +110,15 @@ export const MainLayout = React.memo(({
 
   return (
     <div
-      ref={layoutRef}
+      ref={(node) => {
+        layoutRef.current = node;
+        if (typeof forwardedRef === 'function') {
+          forwardedRef(node);
+        } else if (forwardedRef) {
+          // eslint-disable-next-line no-param-reassign
+          forwardedRef.current = node;
+        }
+      }}
       className={classNames(classes.container, className)}
       onScroll={setBorders}
       {...restProps}
@@ -187,6 +196,7 @@ MainLayout.propTypes = {
   groupingPanelSize: PropTypes.number,
   setScrollingStrategy: PropTypes.func.isRequired,
   className: PropTypes.string,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 MainLayout.defaultProps = {
@@ -194,4 +204,5 @@ MainLayout.defaultProps = {
   timeScaleComponent: undefined,
   groupingPanelSize: 0,
   className: undefined,
+  forwardedRef: undefined,
 };

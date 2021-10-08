@@ -33,14 +33,14 @@ CommandButton.defaultProps = {
 export const EditCommandHeadingCell = ({
   children, className,
   tableColumn, tableRow,
-  refObject,
+  forwardedRef,
   ...restProps
 }) => (
   <th
     className={classNames({
       'text-center p-0 text-nowrap': true,
     }, className)}
-    ref={refObject}
+    ref={forwardedRef}
     {...restProps}
   >
     {children}
@@ -55,7 +55,7 @@ EditCommandHeadingCell.propTypes = {
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
   className: PropTypes.string,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 EditCommandHeadingCell.defaultProps = {
@@ -63,20 +63,20 @@ EditCommandHeadingCell.defaultProps = {
   tableColumn: undefined,
   tableRow: undefined,
   className: undefined,
-  refObject: undefined,
+  forwardedRef: undefined,
 };
 
 export const EditCommandCell = ({
   tableColumn, tableRow, row,
   children, className,
-  refObject,
+  forwardedRef,
   ...restProps
 }) => (
   <td
     className={classNames({
       'text-center p-0 text-nowrap': true,
     }, className)}
-    ref={refObject}
+    ref={forwardedRef}
     {...restProps}
   >
     {children}
@@ -92,7 +92,7 @@ EditCommandCell.propTypes = {
   tableRow: PropTypes.object,
   row: PropTypes.any,
   className: PropTypes.string,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 EditCommandCell.defaultProps = {
@@ -101,5 +101,5 @@ EditCommandCell.defaultProps = {
   tableRow: undefined,
   row: undefined,
   className: undefined,
-  refObject: undefined,
+  forwardedRef: undefined,
 };

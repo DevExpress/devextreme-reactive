@@ -38,11 +38,11 @@ export const EditCommandHeadingCell = ({
   children,
   style,
   tableColumn, tableRow,
-  refObject,
+  forwardedRef,
   ...restProps
 }) => (
   <th
-    ref={refObject}
+    ref={forwardedRef}
     style={{
       whiteSpace: 'nowrap',
       textAlign: 'center',
@@ -60,7 +60,7 @@ EditCommandHeadingCell.propTypes = {
   style: PropTypes.object,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 EditCommandHeadingCell.defaultProps = {
@@ -68,17 +68,17 @@ EditCommandHeadingCell.defaultProps = {
   style: null,
   tableColumn: undefined,
   tableRow: undefined,
-  refObject: undefined,
+  forwardedRef: undefined,
 };
 
 export const EditCommandCell = ({
   tableColumn, tableRow, row,
   children, style,
-  refObject,
+  forwardedRef,
   ...restProps
 }) => (
   <td
-    ref={refObject}
+    ref={forwardedRef}
     style={{
       whiteSpace: 'nowrap',
       textAlign: 'center',
@@ -97,7 +97,7 @@ EditCommandCell.propTypes = {
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
   row: PropTypes.any,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 EditCommandCell.defaultProps = {
@@ -106,5 +106,5 @@ EditCommandCell.defaultProps = {
   tableColumn: undefined,
   tableRow: undefined,
   row: undefined,
-  refObject: undefined,
+  forwardedRef: undefined,
 };

@@ -55,7 +55,7 @@ class SearchPanelBase extends React.PureComponent<SearchPanelProps> {
 
               return <Input
                 value={searchValue}
-                refObject={this.ref}
+                inputRef={this.ref}
                 onValueChange={onValueChange}
                 getMessage={getMessage}
               />;

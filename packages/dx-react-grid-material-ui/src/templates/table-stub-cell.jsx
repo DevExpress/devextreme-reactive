@@ -19,15 +19,13 @@ const TableStubCellBase = ({
   className,
   tableRow,
   tableColumn,
-  refObject,
+  forwardedRef,
   ...restProps
 }) => (
   <TableCell
-    className={classNames({
-      [classes.cell]: true,
-    }, className)}
+    ref={forwardedRef}
+    className={classNames(classes.cell, className)}
     classes={{ footer: classes.footer }}
-    ref={refObject}
     {...restProps}
   />
 );
@@ -37,14 +35,14 @@ TableStubCellBase.propTypes = {
   className: PropTypes.string,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 TableStubCellBase.defaultProps = {
   className: undefined,
   tableRow: undefined,
   tableColumn: undefined,
-  refObject: undefined,
+  forwardedRef: undefined,
 };
 
 export const TableStubCell = withStyles(styles, { name: 'TableStubCell' })(TableStubCellBase);

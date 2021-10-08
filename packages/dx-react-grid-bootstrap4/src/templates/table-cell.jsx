@@ -5,7 +5,7 @@ import classNames from 'clsx';
 export const TableCell = ({
   column, value, children,
   tableRow, tableColumn, row,
-  refObject,
+  forwardedRef,
   className, ...restProps
 }) => (
   <td
@@ -15,7 +15,7 @@ export const TableCell = ({
       'text-right': tableColumn && tableColumn.align === 'right',
       'text-center': tableColumn && tableColumn.align === 'center',
     }, className)}
-    ref={refObject}
+    ref={forwardedRef}
     {...restProps}
   >
     {children || value}
@@ -33,7 +33,7 @@ TableCell.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   className: PropTypes.string,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 TableCell.defaultProps = {
@@ -44,5 +44,5 @@ TableCell.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   className: undefined,
-  refObject: undefined,
+  forwardedRef: undefined,
 };

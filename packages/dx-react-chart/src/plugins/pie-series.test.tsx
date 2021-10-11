@@ -64,14 +64,14 @@ describe('Pie series', () => {
       </PluginHost>
     ));
 
-    expect(tree.root.findByType(SeriesComponent).props).toMatchObject({
-      pointComponent: PointComponent,
+    expect(tree.root.findByType(SeriesComponent).props).toEqual({
       index: 1,
+      pane: { height: 2, width: 1 },
+      path: undefined,
+      pointComponent: PointComponent,
+      scales: { argScale: 'arg-scale', valScale: 'val-scale' },
       color: 'color',
       coordinates: coords,
-      path: undefined,
-      scales: { argScale: 'arg-scale', valScale: 'val-scale' },
-      pane: { width: 1, height: 2 },
     });
   });
 });

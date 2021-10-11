@@ -6,6 +6,7 @@ import * as mockReactDOM from 'react-dom';
 import { Popper } from 'react-popper';
 import { Popover } from './popover';
 import { create } from 'react-test-renderer';
+import ReactTestUtils from 'react-dom/test-utils'; 
 
 jest.mock('react-dom', () => ({
   ...mockReactDOM,
@@ -102,8 +103,8 @@ describe('BS4 Popover', () => {
           <Content />
         </Popover>
     ), container);
-
-      expect(tree.root.findByType(Popper).props).toBe('target');
+    const popper = tree.root.findByType(Popper);
+      expect(popper.props.target.outerHTML).toBe('<div></div>');
     });
   });
 
@@ -135,7 +136,7 @@ describe('BS4 Popover', () => {
     const renderPopover = () => {
       const tree = create(popoverComponent());
 
-      const clickHandler = () => tree.getInstance().handleClick;
+      const clickHandler = tree.getInstance().handleClick;
       return {tree, clickHandler};
     };
   
@@ -143,8 +144,8 @@ describe('BS4 Popover', () => {
       const { clickHandler } = renderPopover();
 
       expect(addEventListener.mock.calls).toEqual([
-        ['click', clickHandler(), true],
-        ['touchstart', clickHandler(), true],
+        ['click', clickHandler, true],
+        ['touchstart', clickHandler, true],
       ]);
     });
 
@@ -153,8 +154,8 @@ describe('BS4 Popover', () => {
       tree.update(popoverComponent({isOpen: false}))
 
       expect(removeEventListener.mock.calls).toEqual([
-        ['click', clickHandler(), true],
-        ['touchstart', clickHandler(), true],
+        ['click', clickHandler, true],
+        ['touchstart', clickHandler, true],
       ]);
     });
 
@@ -165,8 +166,8 @@ describe('BS4 Popover', () => {
 
 
       expect(removeEventListener.mock.calls).toEqual([
-        ['click', clickHandler(), true],
-        ['touchstart', clickHandler(), true],
+        ['click', clickHandler, true],
+        ['touchstart', clickHandler, true],
       ]);
     });
 
@@ -176,8 +177,8 @@ describe('BS4 Popover', () => {
       tree.unmount();
 
       expect(removeEventListener.mock.calls).toEqual([
-        ['click', clickHandler(), true],
-        ['touchstart', clickHandler(), true],
+        ['click', clickHandler, true],
+        ['touchstart', clickHandler, true],
       ]);
     });
 
@@ -186,8 +187,8 @@ describe('BS4 Popover', () => {
       tree.update(popoverComponent({children: <div />}))
 
       expect(addEventListener.mock.calls).toEqual([
-        ['click', clickHandler(), true],
-        ['touchstart', clickHandler(), true],
+        ['click', clickHandler, true],
+        ['touchstart', clickHandler, true],
       ]);
     });
 
@@ -199,23 +200,25 @@ describe('BS4 Popover', () => {
 
       expect(removeEventListener).toBeCalledTimes(2);
       expect(removeEventListener.mock.calls).toEqual([
-        ['click', clickHandler(), true],
-        ['touchstart', clickHandler(), true],
+        ['click', clickHandler, true],
+        ['touchstart', clickHandler, true],
       ]);
     });
   });
 
   describe('#handleClick', () => {
-    it('should call toggle() when clicked outside popover', () => {
+    it.only('should call toggle() when clicked outside popover', () => {
       const toggle = jest.fn();
-      const tree = create(
+      const tree = create((
         <Popover target={target} toggle={toggle} isOpen>
           <Content />
         </Popover>
-      );
-      const instance = tree.getInstance();
-
-      instance.handleClick({ target: document.body });
+      ), container);
+      const node = tree.root.findByType(Popover)
+      tree.update(<Popover target={document.body}>
+        <Content />
+      </Popover>);
+     ReactTestUtils.Simulate.click(node);
 
       expect(toggle).toHaveBeenCalled();
     });

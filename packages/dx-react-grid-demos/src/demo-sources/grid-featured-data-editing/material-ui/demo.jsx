@@ -9,19 +9,19 @@ import {
   PagingPanel, DragDropProvider, TableColumnReordering,
   TableFixedColumns, TableSummaryRow,
 } from '@devexpress/dx-react-grid-material-ui';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Input from '@material-ui/core/Input';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import TableCell from '@material-ui/core/TableCell';
+import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import Input from '@mui/material/Input';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import TableCell from '@mui/material/TableCell';
 
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import SaveIcon from '@material-ui/icons/Save';
-import CancelIcon from '@material-ui/icons/Cancel';
-import { withStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Cancel';
+import withStyles from '@mui/styles/withStyles';
 
 import { ProgressBarCell } from '../../../theme-sources/material-ui/components/progress-bar-cell';
 import { HighlightedCell } from '../../../theme-sources/material-ui/components/highlighted-cell';
@@ -61,7 +61,7 @@ const AddButton = ({ onExecute }) => (
 );
 
 const EditButton = ({ onExecute }) => (
-  <IconButton onClick={onExecute} title="Edit row">
+  <IconButton onClick={onExecute} title="Edit row" size="large">
     <EditIcon />
   </IconButton>
 );
@@ -75,19 +75,19 @@ const DeleteButton = ({ onExecute }) => (
       }
     }}
     title="Delete row"
-  >
+    size="large">
     <DeleteIcon />
   </IconButton>
 );
 
 const CommitButton = ({ onExecute }) => (
-  <IconButton onClick={onExecute} title="Save changes">
+  <IconButton onClick={onExecute} title="Save changes" size="large">
     <SaveIcon />
   </IconButton>
 );
 
 const CancelButton = ({ onExecute }) => (
-  <IconButton color="secondary" onClick={onExecute} title="Cancel changes">
+  <IconButton color="secondary" onClick={onExecute} title="Cancel changes" size="large">
     <CancelIcon />
   </IconButton>
 );

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
+import { createShallow } from '@mui/material/test-utils';
 import { getRowFromGroups } from '@devexpress/dx-scheduler-core';
 import { HorizontalLayout } from './horizontal-layout';
 

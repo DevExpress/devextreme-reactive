@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
 const styles = theme => ({

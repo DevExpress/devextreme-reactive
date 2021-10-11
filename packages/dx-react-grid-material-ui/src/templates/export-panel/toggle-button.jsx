@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import Save from '@material-ui/icons/Save';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import Save from '@mui/icons-material/Save';
 
 export const ToggleButton = ({
   onToggle, getMessage, buttonRef,
@@ -13,11 +13,7 @@ export const ToggleButton = ({
     placement="bottom"
     enterDelay={300}
   >
-    <IconButton
-      onClick={onToggle}
-      ref={buttonRef}
-      {...restProps}
-    >
+    <IconButton onClick={onToggle} ref={buttonRef} {...restProps} size="large">
       <Save />
     </IconButton>
   </Tooltip>

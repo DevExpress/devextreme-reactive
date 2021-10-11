@@ -1,7 +1,7 @@
-import { darken, fade, lighten } from '@material-ui/core/styles/colorManipulator';
+import { darken, alpha, lighten } from '@mui/material/styles';
 
 export default theme => (
-  theme.palette.type === 'light'
-    ? lighten(fade(theme.palette.action.selected, 1), 0.96)
-    : darken(fade(theme.palette.action.selected, 1), 0.68)
+  theme.palette.mode === 'light'
+    ? lighten(alpha(theme.palette.action.selected, 1), 0.96)
+    : darken(alpha(theme.palette.action.selected, 1), 0.68)
 );

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { createMount, getClasses } from '@material-ui/core/test-utils';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
+import { createMount, getClasses } from '@mui/material/test-utils';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import { setupConsole } from '@devexpress/dx-testing';
 import { Pagination } from './pagination';
 

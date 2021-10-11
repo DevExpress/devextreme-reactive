@@ -1,32 +1,34 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { blue } from '@material-ui/core/colors';
+import { ThemeProvider, StyledEngineProvider, createTheme, adaptV4Theme } from '@mui/material/styles';
+import { blue } from '@mui/material/colors';
 
-const lightTheme = createMuiTheme({
+const lightTheme = createTheme(adaptV4Theme({
   palette: {
-    type: 'light',
+    mode: 'light',
     primary: blue,
   },
   typography: {
     useNextVariants: true,
   },
-});
+}));
 
-const darkTheme = createMuiTheme({
+const darkTheme = createTheme(adaptV4Theme({
   palette: {
-    type: 'dark',
+    mode: 'dark',
     primary: blue,
   },
   typography: {
     useNextVariants: true,
   },
-});
+}));
 
 const DemoContainer = ({ theme, children }) => (
-  <MuiThemeProvider theme={theme}>
-    {children}
-  </MuiThemeProvider>
+  <StyledEngineProvider injectFirst>
+    <ThemeProvider theme={theme}>
+      {children}
+    </ThemeProvider>
+  </StyledEngineProvider>
 );
 
 DemoContainer.propTypes = {

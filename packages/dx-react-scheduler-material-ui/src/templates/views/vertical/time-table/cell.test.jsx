@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
+import { createShallow } from '@mui/material/test-utils';
 import { VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import { Cell } from './cell';
 
-jest.mock('@material-ui/core/styles', () => ({
-  ...jest.requireActual('@material-ui/core/styles'),
+jest.mock('@mui/material/styles', () => ({
+  ...jest.requireActual('@mui/material/styles'),
   makeStyles: jest.fn(() => () => ({
     cell: 'cell',
     shadedCell: 'shadedCell',

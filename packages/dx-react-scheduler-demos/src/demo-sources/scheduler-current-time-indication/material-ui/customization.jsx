@@ -5,10 +5,10 @@ import {
   WeekView,
   CurrentTimeIndicator,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
-import teal from '@material-ui/core/colors/teal';
-import { fade } from '@material-ui/core/styles/colorManipulator';
+import Paper from '@mui/material/Paper';
+import makeStyles from '@mui/styles/makeStyles';
+import teal from '@mui/material/colors/teal';
+import { alpha } from '@mui/material/styles';
 import classNames from 'clsx';
 
 import appointments from '../../../demo-data/today-appointments';
@@ -35,24 +35,24 @@ const useStyles = makeStyles(theme => ({
     top: ({ top }) => top,
   },
   shadedCell: {
-    backgroundColor: fade(theme.palette.primary.main, 0.08),
+    backgroundColor: alpha(theme.palette.primary.main, 0.08),
     '&:hover': {
-      backgroundColor: fade(theme.palette.primary.main, 0.12),
+      backgroundColor: alpha(theme.palette.primary.main, 0.12),
     },
     '&:focus': {
-      backgroundColor: fade(theme.palette.primary.main, 0.20),
+      backgroundColor: alpha(theme.palette.primary.main, 0.20),
       outline: 0,
     },
   },
   shadedPart: {
-    backgroundColor: fade(theme.palette.primary.main, 0.08),
+    backgroundColor: alpha(theme.palette.primary.main, 0.08),
     position: 'absolute',
     height: ({ shadedHeight }) => shadedHeight,
     width: '100%',
     left: 0,
     top: 0,
     'td:focus &': {
-      backgroundColor: fade(theme.palette.primary.main, 0.12),
+      backgroundColor: alpha(theme.palette.primary.main, 0.12),
     },
   },
   appointment: {

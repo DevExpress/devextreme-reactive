@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
-import EditIcon from '@material-ui/icons/Edit';
-import CloseIcon from '@material-ui/icons/Close';
-import DeleteIcon from '@material-ui/icons/Delete';
-import IconButton from '@material-ui/core/IconButton';
+import { createShallow } from '@mui/material/test-utils';
+import EditIcon from '@mui/icons-material/Edit';
+import CloseIcon from '@mui/icons-material/Close';
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
 import { OPEN_COMMAND_BUTTON, CLOSE_COMMAND_BUTTON, DELETE_COMMAND_BUTTON } from '@devexpress/dx-scheduler-core';
 import { CommandButton } from './command-button';
 

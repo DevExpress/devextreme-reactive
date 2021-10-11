@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Paper from '@material-ui/core/Paper';
+import Paper from '@mui/material/Paper';
 import {
   RowDetailState,
   DataTypeProvider,
@@ -22,7 +22,7 @@ import {
   Grid, Table, TableBandHeader, TableHeaderRow,
   TableRowDetail,
 } from '@devexpress/dx-react-grid-material-ui';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 import { citiesCount, regionsCount } from '../../../demo-data/chart-data';
 
 const detailContainerStyles = theme => ({

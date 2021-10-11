@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
-import { teal, orange, red } from '@material-ui/core/colors';
-import { fade } from '@material-ui/core/styles/colorManipulator';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Button from '@mui/material/Button';
+import { alpha } from '@mui/material/styles';
+import withStyles from '@mui/styles/withStyles';
+import { teal, orange, red } from '@mui/material/colors';
 import classNames from 'clsx';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
@@ -110,16 +110,16 @@ const styles = ({ spacing, palette }) => ({
     width: '100%',
   },
   weekendCell: {
-    backgroundColor: fade(palette.action.disabledBackground, 0.04),
+    backgroundColor: alpha(palette.action.disabledBackground, 0.04),
     '&:hover': {
-      backgroundColor: fade(palette.action.disabledBackground, 0.04),
+      backgroundColor: alpha(palette.action.disabledBackground, 0.04),
     },
     '&:focus': {
-      backgroundColor: fade(palette.action.disabledBackground, 0.04),
+      backgroundColor: alpha(palette.action.disabledBackground, 0.04),
     },
   },
   weekEnd: {
-    backgroundColor: fade(palette.action.disabledBackground, 0.06),
+    backgroundColor: alpha(palette.action.disabledBackground, 0.06),
   },
 });
 

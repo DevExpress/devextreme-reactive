@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import { withStyles } from '@material-ui/core/styles';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import withStyles from '@mui/styles/withStyles';
 
 const styles = ({ typography }) => ({
   root: {

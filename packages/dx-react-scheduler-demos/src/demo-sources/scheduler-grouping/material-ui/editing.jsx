@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
-import { blue, teal } from '@material-ui/core/colors';
+import Paper from '@mui/material/Paper';
+import { blue, teal } from '@mui/material/colors';
 import {
   ViewState, EditingState, GroupingState, IntegratedGrouping, IntegratedEditing,
 } from '@devexpress/dx-react-scheduler';

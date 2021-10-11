@@ -1,7 +1,10 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
-import Input from '@material-ui/core/Input';
-import { createStyles, withStyles, WithStyles, Theme } from '@material-ui/core/styles';
+import Paper from '@mui/material/Paper';
+import Input from '@mui/material/Input';
+import { Theme } from '@mui/material/styles';
+import { WithStyles } from '@mui/styles';
+import createStyles from '@mui/styles/createStyles';
+import withStyles from '@mui/styles/withStyles';
 import {
   Column,
   FilteringState, GroupingState,

@@ -1,8 +1,8 @@
 import { withComponents } from '@devexpress/dx-react-core';
 import { Table as TableBase } from '@devexpress/dx-react-grid';
-import TableBody from '@material-ui/core/TableBody';
-import TableHead from '@material-ui/core/TableHead';
-import TableFooter from '@material-ui/core/TableFooter';
+import TableBody from '@mui/material/TableBody';
+import TableHead from '@mui/material/TableHead';
+import TableFooter from '@mui/material/TableFooter';
 import { Table as TableComponent } from '../templates/table';
 import { TableRow as Row } from '../templates/table-row';
 import { TableLayout as Layout } from '../templates/table-layout';

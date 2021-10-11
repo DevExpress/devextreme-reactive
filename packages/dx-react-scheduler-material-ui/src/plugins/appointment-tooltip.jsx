@@ -1,4 +1,4 @@
-import Repeat from '@material-ui/icons/Repeat';
+import Repeat from '@mui/icons-material/Repeat';
 import { withComponents } from '@devexpress/dx-react-core';
 import { AppointmentTooltip as AppointmentTooltipBase } from '@devexpress/dx-react-scheduler';
 import { Layout } from '../templates/appointment-tooltip/layout';

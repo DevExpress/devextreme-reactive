@@ -1,6 +1,6 @@
 import {
   pink, purple, teal, amber, deepOrange,
-} from '@material-ui/core/colors';
+} from '@mui/material/colors';
 
 export const appointments = [
   {

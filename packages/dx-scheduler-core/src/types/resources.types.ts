@@ -1,4 +1,4 @@
-import { Color as MUIColor } from '@material-ui/core';
+import red from '@mui/material/colors/red';
 import { PureComputed } from '@devexpress/dx-core';
 import { Appointment } from './../index';
 import { AppointmentMoment } from './all-day-panel.types';
@@ -38,6 +38,7 @@ export type Palette = Array<string | Color>;
  * See [these examples](https://material-ui.com/customization/color/#examples)
  * for information on how to use it.
  */
+type MUIColor = Record<keyof typeof red, string>;
 export interface Color extends MUIColor {}
 
 /** An object that provides information about a resource instance. */

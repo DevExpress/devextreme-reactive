@@ -1,16 +1,16 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import Paper from '@mui/material/Paper';
 import {
   Scheduler,
   WeekView,
   Appointments,
   AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import IconButton from '@material-ui/core/IconButton';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import Grid from '@material-ui/core/Grid';
-import Room from '@material-ui/icons/Room';
-import { withStyles } from '@material-ui/core/styles';
+import IconButton from '@mui/material/IconButton';
+import MoreIcon from '@mui/icons-material/MoreVert';
+import Grid from '@mui/material/Grid';
+import Room from '@mui/icons-material/Room';
+import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 
 import appointments from '../../../demo-data/today-appointments';
@@ -58,7 +58,7 @@ const Header = withStyles(style, { name: 'Header' })(({
       /* eslint-disable-next-line no-alert */
       onClick={() => alert(JSON.stringify(appointmentData))}
       className={classes.commandButton}
-    >
+      size="large">
       <MoreIcon />
     </IconButton>
   </AppointmentTooltip.Header>

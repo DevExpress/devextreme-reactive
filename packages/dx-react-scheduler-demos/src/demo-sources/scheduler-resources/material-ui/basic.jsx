@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import Paper from '@mui/material/Paper';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -8,9 +8,9 @@ import {
   Appointments,
   AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import { withStyles } from '@material-ui/core/styles';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import withStyles from '@mui/styles/withStyles';
 
 const appointments = [{
   title: 'Website Re-Design Plan',

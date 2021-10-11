@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 
-import ChevronRight from '@material-ui/icons/ChevronRight';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import IconButton from '@material-ui/core/IconButton';
+import ChevronRight from '@mui/icons-material/ChevronRight';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import IconButton from '@mui/material/IconButton';
 
 const styles = theme => ({
   button: {
@@ -38,7 +38,7 @@ const TableTreeExpandButtonBase = ({
     }}
     tabIndex={visible ? 0 : -1}
     {...restProps}
-  >
+    size="large">
     {expanded
       ? <ExpandMore />
       : <ChevronRight />}

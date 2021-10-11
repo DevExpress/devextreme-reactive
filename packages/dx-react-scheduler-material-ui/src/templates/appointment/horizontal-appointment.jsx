@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 
 const styles = ({ palette, spacing }) => ({
@@ -23,7 +23,7 @@ const styles = ({ palette, spacing }) => ({
     width: '100%',
   },
   recurringContainer: {
-    width: `calc(100% - ${spacing(2)}px)`,
+    width: `calc(100% - ${spacing(2)})`,
   },
   imageContainer: {
     width: spacing(2),

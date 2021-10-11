@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
+import Paper from '@mui/material/Paper';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
 import { ViewState } from '@devexpress/dx-react-scheduler';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 import {
   Scheduler,
   WeekView,

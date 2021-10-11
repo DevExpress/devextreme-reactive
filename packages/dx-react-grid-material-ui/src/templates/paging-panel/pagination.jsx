@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/core/styles';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import ChevronRight from '@material-ui/icons/ChevronRight';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import withStyles from '@mui/styles/withStyles';
+import ChevronLeft from '@mui/icons-material/ChevronLeft';
+import ChevronRight from '@mui/icons-material/ChevronRight';
 import { firstRowOnPage, lastRowOnPage, calculateStartPage } from '@devexpress/dx-grid-core';
 
 const styles = theme => ({
@@ -184,7 +184,7 @@ const PaginationBase = ({
         disabled={currentPage === 0}
         onClick={() => (currentPage > 0) && onCurrentPageChange(currentPage - 1)}
         aria-label="Previous"
-      >
+        size="large">
         <ChevronLeft />
       </IconButton>
       {renderPageButtons(currentPage, totalPages, classes, onCurrentPageChange)}
@@ -193,7 +193,7 @@ const PaginationBase = ({
         disabled={currentPage === totalPages - 1 || totalCount === 0}
         onClick={() => currentPage < totalPages - 1 && onCurrentPageChange(currentPage + 1)}
         aria-label="Next"
-      >
+        size="large">
         <ChevronRight />
       </IconButton>
     </div>

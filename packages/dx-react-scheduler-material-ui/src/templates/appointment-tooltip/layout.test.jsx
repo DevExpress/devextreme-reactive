@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow, getClasses, createMount } from '@material-ui/core/test-utils';
-import Popover from '@material-ui/core/Popover';
+import { createShallow, getClasses, createMount } from '@mui/material/test-utils';
+import Popover from '@mui/material/Popover';
 import { Layout } from './layout';
 
 describe('Appointment Tooltip', () => {

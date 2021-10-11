@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { createShallow, getClasses } from '@mui/material/test-utils';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { DeleteButton } from './delete-button';
 
 describe('AppointmentForm command', () => {

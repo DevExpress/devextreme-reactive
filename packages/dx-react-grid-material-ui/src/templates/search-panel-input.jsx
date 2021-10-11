@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import Search from '@material-ui/icons/Search';
+import withStyles from '@mui/styles/withStyles';
+import Input from '@mui/material/Input';
+import InputAdornment from '@mui/material/InputAdornment';
+import Search from '@mui/icons-material/Search';
 
 const styles = theme => ({
   root: {

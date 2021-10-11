@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
 import { SPACING_LABEL_HEIGHT } from '../../../constants';
 
@@ -10,7 +10,7 @@ const styles = theme => ({
     userSelect: 'none',
     border: 0,
     height: theme.spacing(SPACING_LABEL_HEIGHT),
-    lineHeight: `${theme.spacing(SPACING_LABEL_HEIGHT)}px`,
+    lineHeight: theme.spacing(SPACING_LABEL_HEIGHT),
     padding: 0,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -27,7 +27,7 @@ const styles = theme => ({
   emptyLabel: {
     height: theme.spacing(SPACING_LABEL_HEIGHT / 2),
     '&:last-child': {
-      height: `${theme.spacing(SPACING_LABEL_HEIGHT / 2) - 1}px`,
+      height: `calc(${theme.spacing(SPACING_LABEL_HEIGHT / 2)} - 1px)`,
     },
   },
 });

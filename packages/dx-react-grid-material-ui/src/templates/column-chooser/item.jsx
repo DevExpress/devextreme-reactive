@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
-import { withStyles } from '@material-ui/core/styles';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import Checkbox from '@mui/material/Checkbox';
+import withStyles from '@mui/styles/withStyles';
 
 const styles = theme => ({
   checkbox: {

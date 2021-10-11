@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { getClasses, createMount } from '@material-ui/core/test-utils';
+import { getClasses, createMount } from '@mui/material/test-utils';
 import { Layout } from './layout';
 
 describe('AllDayPanel', () => {

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import ChevronRight from '@material-ui/icons/ChevronRight';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import IconButton from '@material-ui/core/IconButton';
+import ChevronRight from '@mui/icons-material/ChevronRight';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import IconButton from '@mui/material/IconButton';
 import classNames from 'clsx';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 
 const styles = theme => ({
   groupButton: {
@@ -24,7 +24,7 @@ const IconBase = React.memo(({
   <IconButton
     className={classNames(classes.groupButton, className)}
     {...restProps}
-  >
+    size="large">
     {
       expanded
         ? <ExpandMore />

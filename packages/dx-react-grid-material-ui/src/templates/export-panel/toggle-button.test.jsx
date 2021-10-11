@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
 import { ToggleButton } from './toggle-button';
 
 const defaultProps = {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import Input from '@material-ui/core/Input';
-import { withStyles } from '@material-ui/core/styles';
+import Input from '@mui/material/Input';
+import withStyles from '@mui/styles/withStyles';
 
 const styles = theme => ({
   input: {

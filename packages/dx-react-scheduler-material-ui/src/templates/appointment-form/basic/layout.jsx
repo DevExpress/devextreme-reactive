@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 import {
   TITLE_TEXT_EDITOR,
   MULTILINE_TEXT_EDITOR,

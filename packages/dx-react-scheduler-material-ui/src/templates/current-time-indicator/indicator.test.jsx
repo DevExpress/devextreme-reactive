@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
+import { createShallow } from '@mui/material/test-utils';
 import { Indicator } from './indicator';
 
-jest.mock('@material-ui/core/styles', () => ({
-  ...jest.requireActual('@material-ui/core/styles'),
+jest.mock('@mui/material/styles', () => ({
+  ...jest.requireActual('@mui/material/styles'),
   makeStyles: jest.fn(() => () => ({
     line: 'line',
     circle: 'circle',

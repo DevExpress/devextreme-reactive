@@ -1,8 +1,8 @@
 // BLOCK:imports
-import { withStyles } from '@material-ui/core/styles';
-import Equalizer from '@material-ui/icons/Equalizer';
-import People from '@material-ui/icons/People';
-import PieChart from '@material-ui/icons/PieChart';
+import withStyles from '@mui/styles/withStyles';
+import Equalizer from '@mui/icons-material/Equalizer';
+import People from '@mui/icons-material/People';
+import PieChart from '@mui/icons-material/PieChart';
 // BLOCK:imports
 
 // BLOCK:body

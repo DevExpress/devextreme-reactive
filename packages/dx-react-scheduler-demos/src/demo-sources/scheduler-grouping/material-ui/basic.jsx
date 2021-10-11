@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import Paper from '@mui/material/Paper';
 import {
   ViewState, GroupingState, IntegratedGrouping, IntegratedEditing, EditingState,
 } from '@devexpress/dx-react-scheduler';
@@ -15,7 +15,7 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 import {
   teal, indigo,
-} from '@material-ui/core/colors';
+} from '@mui/material/colors';
 
 const appointments = [{
   id: 0,

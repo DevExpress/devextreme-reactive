@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import { makeStyles } from '@material-ui/core/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import makeStyles from '@mui/styles/makeStyles';
 import {
   getLabelsForAllGroups, getGroupsLastRow, VIEW_TYPES,
   HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION,
@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
       borderBottom: 'none',
     },
     height: ({ height, defaultHeight }) => (
-      height ? `${height}px` : `${theme.spacing(defaultHeight)}px`
+      height ? `${height}px` : theme.spacing(defaultHeight)
     ),
   },
   flexRow: {

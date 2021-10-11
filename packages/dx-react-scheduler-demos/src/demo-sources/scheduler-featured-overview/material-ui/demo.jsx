@@ -1,8 +1,7 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
-import TableCell from '@material-ui/core/TableCell';
-import { darken, fade, lighten } from '@material-ui/core/styles/colorManipulator';
-import Typography from '@material-ui/core/Typography';
+import Paper from '@mui/material/Paper';
+import TableCell from '@mui/material/TableCell';
+import Typography from '@mui/material/Typography';
 import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
 import classNames from 'clsx';
 import {
@@ -17,11 +16,12 @@ import {
   Resources,
   DragDropProvider,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import WbSunny from '@material-ui/icons/WbSunny';
-import FilterDrama from '@material-ui/icons/FilterDrama';
-import Opacity from '@material-ui/icons/Opacity';
-import ColorLens from '@material-ui/icons/ColorLens';
-import { withStyles } from '@material-ui/core/styles';
+import WbSunny from '@mui/icons-material/WbSunny';
+import FilterDrama from '@mui/icons-material/FilterDrama';
+import Opacity from '@mui/icons-material/Opacity';
+import ColorLens from '@mui/icons-material/ColorLens';
+import { darken, alpha, lighten } from '@mui/material/styles';
+import withStyles from '@mui/styles/withStyles';
 import { owners } from '../../../demo-data/tasks';
 
 const appointments = [
@@ -95,9 +95,9 @@ const resources = [{
 }];
 
 const getBorder = theme => (`1px solid ${
-  theme.palette.type === 'light'
-    ? lighten(fade(theme.palette.divider, 1), 0.88)
-    : darken(fade(theme.palette.divider, 1), 0.68)
+  theme.palette.mode === 'light'
+    ? lighten(alpha(theme.palette.divider, 1), 0.88)
+    : darken(alpha(theme.palette.divider, 1), 0.68)
 }`);
 
 const DayScaleCell = props => (
@@ -126,7 +126,7 @@ const styles = theme => ({
       backgroundColor: 'white',
     },
     '&:focus': {
-      backgroundColor: fade(theme.palette.primary.main, 0.15),
+      backgroundColor: alpha(theme.palette.primary.main, 0.15),
       outline: 0,
     },
   },

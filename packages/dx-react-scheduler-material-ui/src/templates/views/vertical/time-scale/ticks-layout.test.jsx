@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { createShallow, getClasses } from '@mui/material/test-utils';
 import { VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import { TicksLayout } from './ticks-layout';
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import Select from '@material-ui/core/Select';
-import Menu from '@material-ui/core/Menu';
-import { createMount, getClasses } from '@material-ui/core/test-utils';
+import Select from '@mui/material/Select';
+import Menu from '@mui/material/Menu';
+import { createMount, getClasses } from '@mui/material/test-utils';
 import { PageSizeSelector } from './page-size-selector';
 
 describe('PageSizeSelector', () => {

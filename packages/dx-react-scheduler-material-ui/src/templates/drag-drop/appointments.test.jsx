@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { createMount, createShallow } from '@material-ui/core/test-utils';
+import { createMount, createShallow } from '@mui/material/test-utils';
 import { DraftAppointment, SourceAppointment } from './appointments';
 
-jest.mock('@material-ui/core/styles', () => ({
-  ...jest.requireActual('@material-ui/core/styles'),
+jest.mock('@mui/material/styles', () => ({
+  ...jest.requireActual('@mui/material/styles'),
   makeStyles: jest.fn(() => () => ({
     appointment: 'appointment',
     shadedAppointment: 'shadedAppointment',

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createMount, createShallow } from '@material-ui/core/test-utils';
-import Checkbox from '@material-ui/core/Checkbox';
+import { createMount, createShallow } from '@mui/material/test-utils';
+import Checkbox from '@mui/material/Checkbox';
 import { BooleanEditor } from './boolean-editor';
 
 describe('AppointmentForm common', () => {

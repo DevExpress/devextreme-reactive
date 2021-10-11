@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import ChevronRight from '@material-ui/icons/ChevronRight';
+import { createShallow, getClasses } from '@mui/material/test-utils';
+import ChevronLeft from '@mui/icons-material/ChevronLeft';
+import ChevronRight from '@mui/icons-material/ChevronRight';
 import { NavigationButton } from './navigation-button';
 
 describe('DateNavigator', () => {

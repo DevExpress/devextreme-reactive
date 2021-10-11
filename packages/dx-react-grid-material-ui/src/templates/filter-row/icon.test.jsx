@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
-import SearchIcon from '@material-ui/icons/Search';
+import { createShallow } from '@mui/material/test-utils';
+import SearchIcon from '@mui/icons-material/Search';
 import { Icon } from './icon';
 
 describe('Icon', () => {

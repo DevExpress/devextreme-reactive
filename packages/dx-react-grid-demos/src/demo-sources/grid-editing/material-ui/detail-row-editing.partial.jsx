@@ -1,23 +1,21 @@
 // BLOCK:imports
 import classNames from 'clsx';
-import TableCell from '@material-ui/core/TableCell';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import MuiGrid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import FormGroup from '@material-ui/core/FormGroup';
-import Edit from '@material-ui/icons/Edit';
-import Cancel from '@material-ui/icons/Close';
-import IconButton from '@material-ui/core/IconButton';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
-import MomentUtils from '@date-io/moment';
+import TableCell from '@mui/material/TableCell';
+import withStyles from '@mui/styles/withStyles';
+import Button from '@mui/material/Button';
+import MuiGrid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import FormGroup from '@mui/material/FormGroup';
+import Edit from '@mui/icons-material/Edit';
+import Cancel from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import DatePicker from '@mui/lab/DatePicker';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AdapterMoment from '@mui/lab/AdapterMoment';
 
 // BLOCK:imports
 
@@ -79,17 +77,16 @@ const DetailContent = ({ row, ...rest }) => {
             value={row.Position}
             onChange={processValueChange}
           />
-          <MuiPickersUtilsProvider utils={MomentUtils}>
-            <KeyboardDatePicker
-              label="Birth Date"
-              margin="normal"
+          <LocalizationProvider dateAdapter={AdapterMoment}>
+            <DatePicker
+              renderInput={props => <TextField {...props} margin="normal" label="Birth Date" />}
               value={row.BirthDate}
-              onChange={(_, value) => processValueChange({
+              onChange={(value) => processValueChange({
                 target: { name: 'BirthDate', value: value.toDate() },
               })}
-              format="MM/DD/YYYY"
+              inputFormat="MM/DD/YYYY"
             />
-          </MuiPickersUtilsProvider>
+          </LocalizationProvider>
         </FormGroup>
       </MuiGrid>
       <MuiGrid item xs={12}>
@@ -99,7 +96,7 @@ const DetailContent = ({ row, ...rest }) => {
             name="Notes"
             label="Notes"
             multiline
-            rowsMax={4}
+            maxRows={4}
             value={row.Notes}
             onChange={processValueChange}
           />
@@ -154,10 +151,7 @@ const ToggleCellBase = ({
       style={style}
       {...restProps}
     >
-      <IconButton
-        className={classes.toggleCellButton}
-        onClick={handleClick}
-      >
+      <IconButton className={classes.toggleCellButton} onClick={handleClick} size="large">
         {
           expanded
             ? <Cancel />

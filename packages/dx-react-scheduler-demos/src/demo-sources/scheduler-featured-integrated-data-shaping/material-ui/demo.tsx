@@ -4,11 +4,13 @@ import {
   Scheduler, DayView, Appointments, MonthView, Toolbar,
   DateNavigator, ViewSwitcher, TodayButton, Resources, AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import { withStyles, Theme, createStyles } from '@material-ui/core';
-import { indigo, blue, teal } from '@material-ui/core/colors';
-import Paper from '@material-ui/core/Paper';
-import { fade } from '@material-ui/core/styles/colorManipulator';
-import { WithStyles } from '@material-ui/styles';
+import { Theme } from '@mui/material';
+import withStyles from '@mui/styles/withStyles';
+import createStyles from '@mui/styles/createStyles';
+import { indigo, blue, teal } from '@mui/material/colors';
+import Paper from '@mui/material/Paper';
+import { alpha } from '@mui/material/styles';
+import { WithStyles } from '@mui/styles';
 import classNames from 'clsx';
 
 const appointments = [
@@ -158,16 +160,16 @@ const styles = ({ palette }: Theme) => createStyles({
     borderLeft: `4px solid ${indigo[500]}`,
   },
   weekEndCell: {
-    backgroundColor: fade(palette.action.disabledBackground, 0.04),
+    backgroundColor: alpha(palette.action.disabledBackground, 0.04),
     '&:hover': {
-      backgroundColor: fade(palette.action.disabledBackground, 0.04),
+      backgroundColor: alpha(palette.action.disabledBackground, 0.04),
     },
     '&:focus': {
-      backgroundColor: fade(palette.action.disabledBackground, 0.04),
+      backgroundColor: alpha(palette.action.disabledBackground, 0.04),
     },
   },
   weekEndDayScaleCell: {
-    backgroundColor: fade(palette.action.disabledBackground, 0.06),
+    backgroundColor: alpha(palette.action.disabledBackground, 0.06),
   },
   text: {
     overflow: 'hidden',

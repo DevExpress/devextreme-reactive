@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import { Draggable } from '@devexpress/dx-react-core';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 
 const styles = theme => ({
   resizeHandle: {
@@ -26,10 +26,10 @@ const styles = theme => ({
     transition: 'all linear 100ms',
   },
   resizeHandleFirstLine: {
-    left: `${theme.spacing(1) - 1}px`,
+    left: `calc(${theme.spacing(1)} - 1px)`,
   },
   resizeHandleSecondLine: {
-    left: `${theme.spacing(1) + 1}px`,
+    left: `calc(${theme.spacing(1)} + 1px)`,
   },
   resizeHandleLineActive: {
     left: theme.spacing(1),

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import TableRow from '@material-ui/core/TableRow';
+import TableRow from '@mui/material/TableRow';
 
 export const Row = ({
   children,

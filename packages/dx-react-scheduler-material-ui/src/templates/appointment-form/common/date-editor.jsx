@@ -1,12 +1,11 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import MomentUtils from '@date-io/moment';
-import { withStyles } from '@material-ui/core/styles';
+import AdapterMoment from '@mui/lab/AdapterMoment';
+import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
-import {
-  KeyboardDateTimePicker,
-  MuiPickersUtilsProvider,
-} from '@material-ui/pickers';
+import TextField from '@mui/material/TextField';
+import DateTimePicker from '@mui/lab/DateTimePicker';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 const styles = ({ spacing }) => ({
   dateEditor: {
@@ -30,20 +29,17 @@ const DateEditorBase = React.memo(({
   const dateFormat = excludeTime ? 'DD/MM/YYYY' : 'DD/MM/YYYY hh:mm A';
 
   return (
-    <MuiPickersUtilsProvider utils={MomentUtils} locale={locale}>
-      <KeyboardDateTimePicker
-        variant="inline"
-        disabled={readOnly}
+    <LocalizationProvider dateAdapter={AdapterMoment}>
+      <DateTimePicker
         className={classNames(classes.dateEditor, className)}
-        margin="normal"
+        disabled={readOnly}
+        renderInput={props => <TextField margin="normal" variant="filled" {...props} />}
         value={value}
         onChange={memoizedChangeHandler}
-        format={dateFormat}
-        inputVariant="filled"
-        hiddenLabel
+        inputFormat={dateFormat}
         {...restProps}
       />
-    </MuiPickersUtilsProvider>
+    </LocalizationProvider>
   );
 });
 

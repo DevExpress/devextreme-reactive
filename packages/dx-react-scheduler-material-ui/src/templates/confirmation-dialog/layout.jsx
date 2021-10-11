@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import { withStyles } from '@material-ui/core/styles';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+import withStyles from '@mui/styles/withStyles';
 import { SMALL_LAYOUT_MEDIA_QUERY } from '../constants';
 
 const styles = ({ typography }) => ({
@@ -29,7 +29,7 @@ const LayoutBase = React.memo(({
   <div
     {...restProps}
   >
-    <DialogTitle className={classes.title} disableTypography>
+    <DialogTitle className={classes.title}>
       {getMessage(isDeleting ? 'confirmDeleteMessage' : 'confirmCancelMessage')}
     </DialogTitle>
     <DialogActions>

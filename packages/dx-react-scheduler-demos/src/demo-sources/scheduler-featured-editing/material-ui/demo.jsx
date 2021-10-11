@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 /* eslint-disable react/no-unused-state */
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import Paper from '@mui/material/Paper';
 import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -17,24 +17,25 @@ import {
   AllDayPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
-import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import MomentUtils from '@date-io/moment';
-import { withStyles } from '@material-ui/core/styles';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/Button';
-import Fab from '@material-ui/core/Fab';
-import IconButton from '@material-ui/core/IconButton';
-import AddIcon from '@material-ui/icons/Add';
-import TextField from '@material-ui/core/TextField';
-import LocationOn from '@material-ui/icons/LocationOn';
-import Notes from '@material-ui/icons/Notes';
-import Close from '@material-ui/icons/Close';
-import CalendarToday from '@material-ui/icons/CalendarToday';
-import Create from '@material-ui/icons/Create';
+import DateTimePicker from '@mui/lab/DateTimePicker';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AdapterMoment from '@mui/lab/AdapterMoment';
+import withStyles from '@mui/styles/withStyles';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+import Fab from '@mui/material/Fab';
+import IconButton from '@mui/material/IconButton';
+import AddIcon from '@mui/icons-material/Add';
+import TextField from '@mui/material/TextField';
+import LocationOn from '@mui/icons-material/LocationOn';
+import Notes from '@mui/icons-material/Notes';
+import Close from '@mui/icons-material/Close';
+import CalendarToday from '@mui/icons-material/CalendarToday';
+import Create from '@mui/icons-material/Create';
 
 import { appointments } from '../../../demo-data/appointments';
 
@@ -121,9 +122,9 @@ class AppointmentFormContainerBasic extends React.PureComponent {
       ...this.getAppointmentData(),
       ...this.getAppointmentChanges(),
     };
-    if (type === 'deleted') {
+    if(type === 'deleted') {
       commitChanges({ [type]: appointment.id });
-    } else if (type === 'changed') {
+    } else if(type === 'changed') {
       commitChanges({ [type]: { [appointment.id]: appointment } });
     } else {
       commitChanges({ [type]: appointment });
@@ -166,18 +167,21 @@ class AppointmentFormContainerBasic extends React.PureComponent {
     });
 
     const pickerEditorProps = field => ({
+      textFieldProps: {
+        variant: 'outlined',
+      },
       className: classes.picker,
       // keyboard: true,
-      ampm: false,
       value: displayAppointmentData[field],
       onChange: date => this.changeAppointment({
         field: [field], changes: date ? date.toDate() : new Date(displayAppointmentData[field]),
       }),
-      inputVariant: 'outlined',
-      format: 'DD/MM/YYYY HH:mm',
+      ampm: false,
+      inputFormat: 'DD/MM/YYYY HH:mm',
       onError: () => null,
     });
-
+    const startDatePickerProps = pickerEditorProps('startDate');
+    const endDatePickerProps = pickerEditorProps('endDate');
     const cancelChanges = () => {
       this.setState({
         appointmentChanges: {},
@@ -195,10 +199,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
       >
         <div>
           <div className={classes.header}>
-            <IconButton
-              className={classes.closeButton}
-              onClick={cancelChanges}
-            >
+            <IconButton className={classes.closeButton} onClick={cancelChanges} size="large">
               <Close color="action" />
             </IconButton>
           </div>
@@ -211,16 +212,16 @@ class AppointmentFormContainerBasic extends React.PureComponent {
             </div>
             <div className={classes.wrapper}>
               <CalendarToday className={classes.icon} color="action" />
-              <MuiPickersUtilsProvider utils={MomentUtils}>
-                <KeyboardDateTimePicker
-                  label="Start Date"
-                  {...pickerEditorProps('startDate')}
+              <LocalizationProvider dateAdapter={AdapterMoment}>
+                <DateTimePicker
+                  renderInput={props => <TextField label="Start Date" {...startDatePickerProps.textFieldProps} {...props} />}
+                  {...startDatePickerProps}
                 />
-                <KeyboardDateTimePicker
-                  label="End Date"
-                  {...pickerEditorProps('endDate')}
+                <DateTimePicker
+                  renderInput={props => <TextField label="End Date" {...endDatePickerProps.textFieldProps} {...props} />}
+                  {...endDatePickerProps}
                 />
-              </MuiPickersUtilsProvider>
+              </LocalizationProvider>
             </div>
             <div className={classes.wrapper}>
               <LocationOn className={classes.icon} color="action" />
@@ -318,7 +319,7 @@ class Demo extends React.PureComponent {
         .filter(appointment => editingAppointment && appointment.id === editingAppointment.id)[0]
         || addedAppointment;
       const cancelAppointment = () => {
-        if (isNewAppointment) {
+        if(isNewAppointment) {
           this.setState({
             editingAppointment: previousAppointment,
             isNewAppointment: false,
@@ -348,7 +349,7 @@ class Demo extends React.PureComponent {
   onAddedAppointmentChange(addedAppointment) {
     this.setState({ addedAppointment });
     const { editingAppointment } = this.state;
-    if (editingAppointment !== undefined) {
+    if(editingAppointment !== undefined) {
       this.setState({
         previousAppointment: editingAppointment,
       });
@@ -385,15 +386,15 @@ class Demo extends React.PureComponent {
   commitChanges({ added, changed, deleted }) {
     this.setState((state) => {
       let { data } = state;
-      if (added) {
+      if(added) {
         const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
         data = [...data, { id: startingAddedId, ...added }];
       }
-      if (changed) {
+      if(changed) {
         data = data.map(appointment => (
           changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
       }
-      if (deleted !== undefined) {
+      if(deleted !== undefined) {
         this.setDeletedAppointmentId(deleted);
         this.toggleConfirmationVisible();
       }

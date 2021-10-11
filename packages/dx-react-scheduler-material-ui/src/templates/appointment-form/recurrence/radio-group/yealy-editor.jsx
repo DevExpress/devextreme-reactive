@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as PropTypes from 'prop-types';
-import RadioGroup from '@material-ui/core/RadioGroup';
+import RadioGroup from '@mui/material/RadioGroup';
 import {
   handleToDayOfWeekChange,
   getRecurrenceOptions,

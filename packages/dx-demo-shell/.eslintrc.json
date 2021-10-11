@@ -5,6 +5,6 @@
     },
     "rules": {
         "filenames/match-regex": [2, "^[a-z-\\.]+$"],
-        "no-restricted-imports": ["error", "@material-ui/core", "@material-ui/icons"]
+        "no-restricted-imports": ["error", "@mui/material", "@mui/icons-material"]
     }
 }

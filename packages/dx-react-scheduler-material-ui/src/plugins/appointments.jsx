@@ -1,4 +1,4 @@
-import Repeat from '@material-ui/icons/Repeat';
+import Repeat from '@mui/icons-material/Repeat';
 import { withComponents } from '@devexpress/dx-react-core';
 import { Appointments as AppointmentsBase } from '@devexpress/dx-react-scheduler';
 import { AppointmentContent } from '../templates/appointment/appointment-content';

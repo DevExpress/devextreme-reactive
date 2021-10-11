@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import Chip from '@material-ui/core/Chip';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
+import makeStyles from '@mui/styles/makeStyles';
+import Chip from '@mui/material/Chip';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import classNames from 'clsx';
 import { getAppointmentColor } from '../../utils';
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import * as PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import withStyles from '@mui/styles/withStyles';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import classNames from 'clsx';
-import Radio from '@material-ui/core/Radio';
-import Grid from '@material-ui/core/Grid';
+import Radio from '@mui/material/Radio';
+import Grid from '@mui/material/Grid';
 
 const styles = ({ spacing }) => ({
   label: {
@@ -71,7 +71,7 @@ const ChangeWeekNumberEditorBase = React.memo(({
         <Grid
           container
           direction="row"
-          justify="flex-start"
+          justifyContent="flex-start"
           alignItems="center"
         >
           <Label

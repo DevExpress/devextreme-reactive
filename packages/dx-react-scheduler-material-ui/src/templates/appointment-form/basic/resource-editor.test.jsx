@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
-import MenuItem from '@material-ui/core/MenuItem';
+import { createShallow } from '@mui/material/test-utils';
+import MenuItem from '@mui/material/MenuItem';
 import { ResourceEditor } from './resource-editor';
 
 /* eslint-disable object-curly-newline */

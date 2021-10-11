@@ -1,12 +1,12 @@
 // BLOCK:imports
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import Typography from '@material-ui/core/Typography';
-import GridMUI from '@material-ui/core/Grid';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { withStyles } from '@material-ui/core/styles';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import Typography from '@mui/material/Typography';
+import GridMUI from '@mui/material/Grid';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import withStyles from '@mui/styles/withStyles';
 // BLOCK:imports
 
 // BLOCK:body

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses, createMount } from '@material-ui/core/test-utils';
+import { createShallow, getClasses, createMount } from '@mui/material/test-utils';
 import { ChangeMonthEditor } from './change-month-editor';
 
 describe('AppointmentForm recurrence RadioGroup', () => {

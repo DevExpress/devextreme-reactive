@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createMount, getClasses } from '@material-ui/core/test-utils';
+import { createMount, getClasses } from '@mui/material/test-utils';
 import { HorizontalAppointment } from './horizontal-appointment';
 
 describe('HorizontalAppointment', () => {

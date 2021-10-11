@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import Paper from '@material-ui/core/Paper';
-import IconButton from '@material-ui/core/IconButton';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Paper from '@mui/material/Paper';
+import IconButton from '@mui/material/IconButton';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import {
   Grid,
   Table,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 import {
   generateRows,
   globalSalesValues,
@@ -32,7 +32,7 @@ const TableHeaderContentBase = ({
         className={classes.button}
         // eslint-disable-next-line no-alert
         onClick={() => alert('Custom action')}
-      >
+        size="large">
         <VisibilityOff />
       </IconButton>
     ) : null}

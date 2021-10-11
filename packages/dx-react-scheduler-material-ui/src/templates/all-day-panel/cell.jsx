@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import TableCell from '@material-ui/core/TableCell';
-import { withStyles } from '@material-ui/core/styles';
-import { fade } from '@material-ui/core/styles/colorManipulator';
+import TableCell from '@mui/material/TableCell';
+import { alpha } from '@mui/material/styles';
+import withStyles from '@mui/styles/withStyles';
 import {
   VIEW_TYPES, HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION,
 } from '@devexpress/dx-scheduler-core';
@@ -23,7 +23,7 @@ const styles = theme => ({
       backgroundColor: theme.palette.action.hover,
     },
     '&:focus': {
-      backgroundColor: fade(theme.palette.primary.main, 0.15),
+      backgroundColor: alpha(theme.palette.primary.main, 0.15),
       outline: 0,
     },
     'tr:last-child &': {

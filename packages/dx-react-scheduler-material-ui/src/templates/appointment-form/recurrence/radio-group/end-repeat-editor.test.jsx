@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { createShallow, getClasses, createMount } from '@material-ui/core/test-utils';
+import { createShallow, getClasses, createMount } from '@mui/material/test-utils';
 import { getRecurrenceOptions, changeRecurrenceOptions } from '@devexpress/dx-scheduler-core';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import { EndRepeatEditor } from './end-repeat-editor';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({

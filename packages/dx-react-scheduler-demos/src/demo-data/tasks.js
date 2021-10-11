@@ -1,4 +1,4 @@
-import { green, deepOrange, lightBlue } from '@material-ui/core/colors';
+import { green, deepOrange, lightBlue } from '@mui/material/colors';
 
 export const tasks = [
   {

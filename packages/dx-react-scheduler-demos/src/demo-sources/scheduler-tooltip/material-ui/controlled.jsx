@@ -5,10 +5,10 @@ import {
   Scheduler,
   WeekView,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import Paper from '@material-ui/core/Paper';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
-import { withStyles } from '@material-ui/core/styles';
+import Paper from '@mui/material/Paper';
+import IconButton from '@mui/material/IconButton';
+import InfoIcon from '@mui/icons-material/Info';
+import withStyles from '@mui/styles/withStyles';
 import appointments from '../../../demo-data/today-appointments';
 
 const styles = theme => ({
@@ -43,7 +43,7 @@ const AppointmentBase = ({
           toggleVisibility();
           onAppointmentMetaChange({ target: target.parentElement.parentElement, data });
         }}
-      >
+        size="large">
         <InfoIcon fontSize="small" />
       </IconButton>
       {children}

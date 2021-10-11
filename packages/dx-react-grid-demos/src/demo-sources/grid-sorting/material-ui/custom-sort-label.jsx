@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Paper from '@material-ui/core/Paper';
+import Paper from '@mui/material/Paper';
 import {
   SortingState,
   IntegratedSorting,
@@ -10,9 +10,9 @@ import {
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
 
-import Button from '@material-ui/core/Button';
-import ArrowDownward from '@material-ui/icons/ArrowDownward';
-import ArrowUpward from '@material-ui/icons/ArrowUpward';
+import Button from '@mui/material/Button';
+import ArrowDownward from '@mui/icons-material/ArrowDownward';
+import ArrowUpward from '@mui/icons-material/ArrowUpward';
 
 import { generateRows } from '../../../demo-data/generator';
 

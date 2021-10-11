@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import TableCell from '@material-ui/core/TableCell';
-import { fade } from '@material-ui/core/styles/colorManipulator';
-import { withStyles } from '@material-ui/core/styles';
+import TableCell from '@mui/material/TableCell';
+import { alpha } from '@mui/material/styles';
+import withStyles from '@mui/styles/withStyles';
 import {
   DAY_OPTIONS, DAY_SHORT_MONTH_OPTIONS,
   HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION,
@@ -30,7 +30,7 @@ const styles = theme => ({
       backgroundColor: theme.palette.action.hover,
     },
     '&:focus': {
-      backgroundColor: fade(theme.palette.primary.main, 0.15),
+      backgroundColor: alpha(theme.palette.primary.main, 0.15),
       outline: 0,
     },
     boxSizing: 'border-box',
@@ -60,12 +60,12 @@ const styles = theme => ({
     color: theme.palette.text.disabled,
   },
   shadedCell: {
-    backgroundColor: fade(theme.palette.action.disabledBackground, 0.04),
+    backgroundColor: alpha(theme.palette.action.disabledBackground, 0.04),
     '&:hover': {
       backgroundColor: theme.palette.action.selected,
     },
     '&:focus': {
-      backgroundColor: fade(theme.palette.primary.main, 0.15),
+      backgroundColor: alpha(theme.palette.primary.main, 0.15),
       outline: 0,
     },
   },

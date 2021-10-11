@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import withStyles from '@mui/styles/withStyles';
+import Grid from '@mui/material/Grid';
 import classNames from 'clsx';
 import {
   SAVE_BUTTON,

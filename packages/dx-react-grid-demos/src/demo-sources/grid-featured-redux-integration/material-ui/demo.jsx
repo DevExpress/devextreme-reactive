@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import Paper from '@mui/material/Paper';
 import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import {
@@ -11,7 +11,7 @@ import {
   TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
   GroupingPanel, PagingPanel, DragDropProvider, TableColumnReordering, TableColumnResizing, Toolbar,
 } from '@devexpress/dx-react-grid-material-ui';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 
 import {
   generateRows,

@@ -6,6 +6,7 @@
     "lib": ["es6", "dom"],
     "moduleResolution": "node",
     "jsx": "react",
+    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,

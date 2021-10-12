@@ -26,14 +26,14 @@ const styles = theme => ({
 
 const HighlightedCellBase = ({
   tableColumn, value, classes, children, style,
-  tabIndex, refObject, className,
+  tabIndex, forwardedRef, className,
 }) => (
   <TableCell
     className={classNames({
       [classes.highlightedCell]: true,
     }, className)}
     tabIndex={tabIndex}
-    ref={refObject}
+    ref={forwardedRef}
     style={{
       color: getColor(value),
       textAlign: tableColumn.align,
@@ -51,7 +51,7 @@ HighlightedCellBase.propTypes = {
   tableColumn: PropTypes.object,
   children: PropTypes.node,
   tabIndex: PropTypes.number,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
   className: PropTypes.string,
 };
 HighlightedCellBase.defaultProps = {
@@ -59,7 +59,7 @@ HighlightedCellBase.defaultProps = {
   tableColumn: {},
   children: undefined,
   tabIndex: undefined,
-  refObject: undefined,
+  forwardedRef: undefined,
   className: undefined,
 };
 

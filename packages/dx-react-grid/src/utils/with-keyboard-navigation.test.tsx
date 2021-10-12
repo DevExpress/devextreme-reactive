@@ -21,7 +21,7 @@ describe('#withKeyboardNavigation', () => {
     expect(tree.find(BaseComponent).props()).toEqual({
       tableRow: defaultProps.tableRow,
       tableColumn: defaultProps.tableColumn,
-      refObject: { current: null },
+      forwardedRef: { current: null },
     });
   });
 

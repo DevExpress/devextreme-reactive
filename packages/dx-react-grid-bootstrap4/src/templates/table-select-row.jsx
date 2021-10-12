@@ -9,8 +9,12 @@ export const TableSelectRow = ({
   onToggle,
   selectByRowClick,
   className,
+  tableRow,
+  forwardedRef,
+  ...restProps
 }) => (
   <tr
+    ref={forwardedRef}
     style={style}
     className={classNames({
       'table-active': highlighted,
@@ -20,6 +24,7 @@ export const TableSelectRow = ({
       e.stopPropagation();
       onToggle();
     }}
+    {...restProps}
   >
     {children}
   </tr>
@@ -32,6 +37,8 @@ TableSelectRow.propTypes = {
   selectByRowClick: PropTypes.bool,
   highlighted: PropTypes.bool,
   style: PropTypes.object,
+  tableRow: PropTypes.object,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 TableSelectRow.defaultProps = {
@@ -41,4 +48,6 @@ TableSelectRow.defaultProps = {
   selectByRowClick: false,
   highlighted: false,
   style: null,
+  tableRow: undefined,
+  forwardedRef: undefined,
 };

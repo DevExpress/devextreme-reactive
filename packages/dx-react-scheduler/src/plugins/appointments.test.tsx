@@ -12,7 +12,7 @@ import {
 } from '@devexpress/dx-scheduler-core';
 
 // eslint-disable-next-line react/prop-types
-const Appointment = ({ children }) => <div>{children}</div>;
+const Appointment = ({ children, forwardedRef }) => <div ref={forwardedRef}>{children}</div>;
 const AppointmentContent = () => null;
 const SplitIndicator = () => null;
 const RecurringIcon = () => null;
@@ -169,6 +169,30 @@ describe('Appointments', () => {
 
     expect(onClick).toBe('onClick');
     expect(onDoubleClick).toBe('onDoubleClick');
+  });
+  it('should pass forwardedRef to the appointment', () => {
+    const testRef = React.createRef();
+    const deps = {
+      template: {
+        appointment: {
+          forwardedRef: testRef,
+        },
+      },
+    };
+    const tree = mount((
+      <PluginHost>
+        {pluginDepsToComponents(defaultDeps)}
+        <Appointments
+          {...defaultProps}
+        />
+        {pluginDepsToComponents(deps)}
+      </PluginHost>
+    ));
+
+    const appointment = tree.find(Appointment).at(0);
+
+    expect(testRef.current)
+      .toEqual(appointment.getDOMNode());
   });
   it('should render appointmentTop template', () => {
     const tree = mount((

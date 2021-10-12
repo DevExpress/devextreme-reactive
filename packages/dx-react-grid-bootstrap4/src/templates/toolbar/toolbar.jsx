@@ -7,12 +7,12 @@ export const ToolbarBase = ({
   children,
   className,
   style,
-  refObject,
+  forwardedRef,
   ...restProps
 }) => (
   <div
     className={classNames('card-header py-2 d-flex position-relative dx-g-bs4-toolbar', className)}
-    ref={refObject}
+    ref={forwardedRef}
     style={style}
     {...restProps}
   >
@@ -27,13 +27,13 @@ ToolbarBase.propTypes = {
   ]).isRequired,
   className: PropTypes.string,
   style: PropTypes.object,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 ToolbarBase.defaultProps = {
   className: undefined,
   style: null,
-  refObject: undefined,
+  forwardedRef: undefined,
 };
 
 export const Toolbar = withKeyboardNavigation('toolbar', 'none')(ToolbarBase);

@@ -22,7 +22,7 @@ describe('TableHeaderCell', () => {
       />
     ));
 
-    expect(tree.find('th').is('.dx-g-bs4-user-select-none.dx-g-bs4-cursor-pointer'))
+    expect(tree.dive().find('th').is('.dx-g-bs4-user-select-none.dx-g-bs4-cursor-pointer'))
       .toBeFalsy();
   });
 
@@ -85,13 +85,14 @@ describe('TableHeaderCell', () => {
       />
     ));
 
-    expect(tree.find(ResizingControl).exists())
+    const resizingControl = tree.dive().find(ResizingControl);
+    expect(resizingControl.exists())
       .toBeTruthy();
-    expect(tree.find(ResizingControl).prop('onWidthChange'))
+    expect(resizingControl.prop('onWidthChange'))
       .toBe(onWidthChange);
-    expect(tree.find(ResizingControl).prop('onWidthDraft'))
+    expect(resizingControl.prop('onWidthDraft'))
       .toBe(onWidthDraft);
-    expect(tree.find(ResizingControl).prop('onWidthDraftCancel'))
+    expect(resizingControl.prop('onWidthDraftCancel'))
       .toBe(onWidthDraftCancel);
   });
 
@@ -103,7 +104,7 @@ describe('TableHeaderCell', () => {
       />
     ));
 
-    expect(tree.find('th').is('.position-relative.dx-g-bs4-header-cell.custom-class'))
+    expect(tree.dive().find('th').is('.position-relative.dx-g-bs4-header-cell.custom-class'))
       .toBeTruthy();
   });
 
@@ -117,11 +118,11 @@ describe('TableHeaderCell', () => {
 
   it('should consider the `wordWrapEnabled` property', () => {
     let tree = shallow(<TableHeaderCell />);
-    expect(tree.is('.text-nowrap'))
+    expect(tree.dive().is('.text-nowrap'))
       .toBeTruthy();
 
     tree = shallow(<TableHeaderCell tableColumn={{ wordWrapEnabled: true }} />);
-    expect(tree.is('.text-nowrap'))
+    expect(tree.dive().is('.text-nowrap'))
       .toBeFalsy();
   });
 });

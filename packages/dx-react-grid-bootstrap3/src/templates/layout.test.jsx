@@ -5,9 +5,6 @@ import { mount } from 'enzyme';
 import { Root, StyleContext } from './layout';
 import { getStickyPosition } from '../utils/css-fallback-properties';
 
-jest.mock('react-dom', () => ({
-  findDOMNode: jest.fn(() => null),
-}));
 jest.mock('../utils/css-fallback-properties', () => ({
   getStickyPosition: jest.fn(),
 }));

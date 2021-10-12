@@ -6,7 +6,7 @@ export const EditCell = ({
   column, value, onValueChange, className, children,
   row, tableRow, tableColumn, editingEnabled,
   autoFocus, onBlur, onFocus, onKeyDown,
-  refObject, ...restProps
+  forwardedRef, ...restProps
 }) => {
   const patchedChildren = children
     ? React.cloneElement(children, {
@@ -22,7 +22,7 @@ export const EditCell = ({
       className={classNames({
         'align-middle dx-g-bs4-table-edit-cell': true,
       }, className)}
-      ref={refObject}
+      ref={forwardedRef}
       {...restProps}
     >
       {patchedChildren || (
@@ -60,7 +60,7 @@ EditCell.propTypes = {
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
   onKeyDown: PropTypes.func,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 EditCell.defaultProps = {
   column: undefined,
@@ -76,5 +76,5 @@ EditCell.defaultProps = {
   onBlur: () => {},
   onFocus: () => {},
   onKeyDown: () => {},
-  refObject: undefined,
+  forwardedRef: undefined,
 };

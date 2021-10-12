@@ -28,12 +28,12 @@ const PagerBase = ({
   totalCount,
   getMessage,
   className,
-  refObject,
+  forwardedRef,
   ...restProps
 }) => (
   <div
     className={classNames(classes.pager, className)}
-    ref={refObject}
+    ref={forwardedRef}
     {...restProps}
   >
     {!!pageSizes.length && (
@@ -66,12 +66,12 @@ PagerBase.propTypes = {
   totalCount: PropTypes.number.isRequired,
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 PagerBase.defaultProps = {
   className: undefined,
-  refObject: undefined,
+  forwardedRef: undefined,
 };
 
 export const Pager = withKeyboardNavigation('paging', 'none')(withStyles(styles, { name: 'Pager' })(PagerBase));

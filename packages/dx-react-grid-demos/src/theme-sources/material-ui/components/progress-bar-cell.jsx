@@ -17,7 +17,7 @@ const styles = theme => ({
 });
 
 const ProgressBarCellBase = ({
-  value, classes, style, tabIndex, refObject, className,
+  value, classes, style, tabIndex, forwardedRef, className,
 }) => {
   const percent = value * 100;
   return (
@@ -26,7 +26,7 @@ const ProgressBarCellBase = ({
         [classes.progressBarCell]: true,
       }, className)}
       tabIndex={tabIndex}
-      ref={refObject}
+      ref={forwardedRef}
       style={style}
     >
       <div
@@ -43,13 +43,13 @@ ProgressBarCellBase.propTypes = {
   classes: PropTypes.object.isRequired,
   style: PropTypes.object,
   tabIndex: PropTypes.number,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
   className: PropTypes.string,
 };
 ProgressBarCellBase.defaultProps = {
   style: {},
   tabIndex: undefined,
-  refObject: undefined,
+  forwardedRef: undefined,
   className: undefined,
 };
 

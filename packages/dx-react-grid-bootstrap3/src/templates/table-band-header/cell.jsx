@@ -7,14 +7,14 @@ export class Cell extends React.PureComponent {
     const {
       style, column, value, children,
       tableRow, tableColumn, row, beforeBorder,
-      refObject,
+      forwardedRef,
       ...restProps
     } = this.props;
     const { borderColor } = this.context;
 
     return (
       <th
-        ref={refObject}
+        ref={forwardedRef}
         style={{
           whiteSpace: 'nowrap',
           overflow: 'hidden',
@@ -44,7 +44,7 @@ Cell.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   beforeBorder: PropTypes.bool,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 Cell.defaultProps = {
@@ -56,5 +56,5 @@ Cell.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   beforeBorder: false,
-  refObject: undefined,
+  forwardedRef: undefined,
 };

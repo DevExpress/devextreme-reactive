@@ -30,7 +30,7 @@ const styles = theme => ({
 const TableTreeCellBase = ({
   column, value, children, classes,
   tableRow, tableColumn, row,
-  className, refObject,
+  className, forwardedRef,
   ...restProps
 }) => (
   <TableCellMUI
@@ -40,7 +40,7 @@ const TableTreeCellBase = ({
       [classes.cellRightAlign]: tableColumn && tableColumn.align === 'right',
       [classes.cellCenterAlign]: tableColumn && tableColumn.align === 'center',
     }, className)}
-    ref={refObject}
+    ref={forwardedRef}
     {...restProps}
   >
     <div className={classes.container}>
@@ -58,7 +58,7 @@ TableTreeCellBase.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   className: PropTypes.string,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 TableTreeCellBase.defaultProps = {
@@ -69,7 +69,7 @@ TableTreeCellBase.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   className: undefined,
-  refObject: undefined,
+  forwardedRef: undefined,
 };
 
 export const TableTreeCell = withStyles(styles)(TableTreeCellBase);

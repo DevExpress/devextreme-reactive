@@ -5,11 +5,11 @@ import classNames from 'clsx';
 export const TableTreeCell = ({
   column, children, tableRow,
   tableColumn, row,
-  refObject,
+  forwardedRef,
   ...restProps
 }) => (
   <td
-    ref={refObject}
+    ref={forwardedRef}
     {...restProps}
   >
     <div
@@ -32,7 +32,7 @@ TableTreeCell.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   style: PropTypes.object,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 TableTreeCell.defaultProps = {
@@ -42,5 +42,5 @@ TableTreeCell.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   style: null,
-  refObject: undefined,
+  forwardedRef: undefined,
 };

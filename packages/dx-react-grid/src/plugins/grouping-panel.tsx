@@ -8,6 +8,7 @@ import {
   groupingPanelItems,
   getColumnSortingDirection,
   TOP_POSITION,
+  GroupingPanelItem,
 } from '@devexpress/dx-grid-core';
 import { GroupPanelLayout as Layout } from '../components/group-panel-layout';
 import { GroupingPanelProps } from '../types';
@@ -44,13 +45,16 @@ class GroupingPanelRaw extends React.PureComponent<GroupingPanelProps & typeof d
 
     const getMessage = getMessagesFormatter({ ...defaultMessages, ...messages });
 
-    const EmptyMessagePlaceholder = () => (
+    const EmptyMessagePlaceholder = ({ forwardedRef }: { forwardedRef?: React.Ref<Element> }) => (
       <EmptyMessage
         getMessage={getMessage}
+        forwardedRef={forwardedRef}
       />
     );
 
-    const ItemPlaceholder = ({ item }) => {
+    const ItemPlaceholder = ({
+      item, forwardedRef,
+    }: { item: GroupingPanelItem, forwardedRef?: React.Ref<Element> }) => {
       const { name: columnName } = item.column;
 
       return (
@@ -64,6 +68,7 @@ class GroupingPanelRaw extends React.PureComponent<GroupingPanelProps & typeof d
 
             return (
               <Item
+                forwardedRef={forwardedRef}
                 item={item}
                 sortingEnabled={sortingEnabled}
                 groupingEnabled={groupingEnabled}

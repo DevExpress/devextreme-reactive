@@ -5,7 +5,7 @@ import classNames from 'clsx';
 export const Cell = ({
   column, children, beforeBorder,
   tableRow, tableColumn, row,
-  refObject,
+  forwardedRef,
   className, ...restProps
 }) => (
   <th
@@ -13,7 +13,7 @@ export const Cell = ({
       'dx-g-bs4-banded-cell dx-g-bs4-table-cell text-nowrap border-right': true,
       'border-left': beforeBorder,
     }, className)}
-    ref={refObject}
+    ref={forwardedRef}
     {...restProps}
   >
     {children}
@@ -31,7 +31,7 @@ Cell.propTypes = {
   tableColumn: PropTypes.object,
   className: PropTypes.string,
   beforeBorder: PropTypes.bool,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 Cell.defaultProps = {
@@ -42,5 +42,5 @@ Cell.defaultProps = {
   tableColumn: undefined,
   className: undefined,
   beforeBorder: false,
-  refObject: undefined,
+  forwardedRef: undefined,
 };

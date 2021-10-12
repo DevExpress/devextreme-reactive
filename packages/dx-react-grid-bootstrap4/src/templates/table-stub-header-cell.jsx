@@ -6,14 +6,14 @@ export const TableStubHeaderCell = ({
   className,
   tableRow,
   tableColumn,
-  refObject,
+  forwardedRef,
   ...restProps
 }) => (
   <th
     className={classNames({
       'p-0': true,
     }, className)}
-    ref={refObject}
+    ref={forwardedRef}
     {...restProps}
   />
 );
@@ -22,12 +22,12 @@ TableStubHeaderCell.propTypes = {
   className: PropTypes.string,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 TableStubHeaderCell.defaultProps = {
   className: undefined,
   tableRow: undefined,
   tableColumn: undefined,
-  refObject: undefined,
+  forwardedRef: undefined,
 };

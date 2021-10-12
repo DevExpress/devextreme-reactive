@@ -3,13 +3,13 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 export const ProgressBarCell = ({
-  value, style, tabIndex, refObject, className,
+  value, style, tabIndex, forwardedRef, className,
 }) => {
   const percent = value * 100;
   return (
     <td
       tabIndex={tabIndex}
-      ref={refObject}
+      ref={forwardedRef}
       className={className}
       style={{ position: 'relative', ...style, verticalAlign: 'inherit' }}
     >
@@ -39,12 +39,12 @@ ProgressBarCell.propTypes = {
   value: PropTypes.number.isRequired,
   style: PropTypes.object,
   tabIndex: PropTypes.number,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
   className: PropTypes.string,
 };
 ProgressBarCell.defaultProps = {
   style: {},
   tabIndex: undefined,
-  refObject: undefined,
+  forwardedRef: undefined,
   className: undefined,
 };

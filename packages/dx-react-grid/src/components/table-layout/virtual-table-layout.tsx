@@ -5,7 +5,6 @@ import {
   getColumnWidthGetter, TABLE_STUB_TYPE, getViewport, GridViewport, getScrollLeft,
 } from '@devexpress/dx-grid-core';
 import { VirtualTableLayoutState, VirtualTableLayoutProps } from '../../types';
-import { findDOMNode } from 'react-dom';
 import { VirtualTableLayoutBlock } from './virtual-table-layout-block';
 import { Sizer } from '@devexpress/dx-react-core';
 
@@ -15,9 +14,11 @@ const defaultProps = {
   headerRows: [],
   footerRows: [],
   headComponent: () => null,
-  headTableComponent: () => null,
+  headTableComponent: React.forwardRef(() => null),
   footerComponent: () => null,
-  footerTableComponent: () => null,
+  footerTableComponent: React.forwardRef(() => null),
+  tableComponent: React.forwardRef(() => null),
+  containerComponent: React.forwardRef(() => null),
 };
 type PropsType = VirtualTableLayoutProps & typeof defaultProps;
 
@@ -26,8 +27,8 @@ type PropsType = VirtualTableLayoutProps & typeof defaultProps;
 export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTableLayoutState> {
   static defaultProps = defaultProps;
   getColumnWidthGetter: MemoizedFunction<[TableColumn[], number, number], GetColumnWidthFn>;
-  rowRefs = new Map();
-  blockRefs = new Map();
+  rowRefs = new Map<any, HTMLElement>();
+  blockRefs = new Map<string, HTMLElement>();
   viewportTop = 0;
   containerHeight = 600;
   containerWidth = 800;
@@ -69,8 +70,8 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
   }
 
   componentDidUpdate(prevProps) {
-    this.storeRowHeights();
-    this.storeBlockHeights();
+    setTimeout(this.storeRowHeights.bind(this));
+    setTimeout(this.storeBlockHeights.bind(this));
 
     const { bodyRows, columns } = this.props;
 
@@ -132,7 +133,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
 
   storeRowHeights() {
     const rowsWithChangedHeights = Array.from(this.rowRefs.entries())
-      .map(([row, ref]) => [row, findDOMNode(ref)])
+      .map(([row, ref]) => [row, ref])
       .filter(([, node]) => !!node)
       .map(([row, node]) => [row, node.getBoundingClientRect().height])
       .filter(([row]) => row.type !== TABLE_STUB_TYPE)
@@ -150,10 +151,8 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
   }
 
   storeBlockHeights() {
-    const getBlockHeight = blockName => (this.blockRefs.get(blockName)
-      ? (findDOMNode(this.blockRefs.get(blockName)) as HTMLElement).getBoundingClientRect().height
-      : 0
-    );
+    const getBlockHeight = blockName =>
+      this.blockRefs.get(blockName)?.getBoundingClientRect().height ?? 0;
     const headerHeight = getBlockHeight('header');
     const bodyHeight = getBlockHeight('body');
     const footerHeight = getBlockHeight('footer');

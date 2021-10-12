@@ -4,11 +4,11 @@ import * as PropTypes from 'prop-types';
 export const TableCell = ({
   style, column, value, children,
   tableRow, tableColumn, row,
-  refObject,
+  forwardedRef,
   ...restProps
 }) => (
   <td
-    ref={refObject}
+    ref={forwardedRef}
     style={{
       whiteSpace: (tableColumn && tableColumn.wordWrapEnabled) ? 'normal' : 'nowrap',
       overflow: 'hidden',
@@ -30,7 +30,7 @@ TableCell.propTypes = {
   children: PropTypes.node,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 TableCell.defaultProps = {
@@ -41,5 +41,5 @@ TableCell.defaultProps = {
   children: undefined,
   tableRow: undefined,
   tableColumn: undefined,
-  refObject: undefined,
+  forwardedRef: undefined,
 };

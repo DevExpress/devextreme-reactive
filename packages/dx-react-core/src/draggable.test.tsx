@@ -4,6 +4,7 @@ import * as React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 import { Draggable } from './draggable';
 import { clear } from './draggable/selection-utils';
+import { RefHolder } from './ref-holder';
 
 jest.mock('./draggable/selection-utils', () => ({
   clear: jest.fn(),
@@ -130,26 +131,6 @@ describe('Draggable', () => {
         .toHaveBeenCalledWith({ x: 30, y: 30 });
       expect(onUpdate)
         .toHaveBeenCalledWith({ x: 40, y: 40 });
-    });
-
-    it('should not fire the "onUpdate" callback on mousemove when right button clicked', () => {
-      const onUpdate = jest.fn();
-
-      tree = mount(
-        <Draggable
-          onUpdate={onUpdate}
-        >
-          <div />
-        </Draggable>,
-        { attachTo: rootNode },
-      );
-
-      const draggableNode = tree.find('div').getDOMNode() as HTMLElement;
-      dispatchEvent('mousedown', { clientX: 10, clientY: 10, which: 3 }, draggableNode);
-      dispatchEvent('mousemove', { clientX: 30, clientY: 30 });
-
-      expect(onUpdate)
-        .toHaveBeenCalledTimes(0);
     });
 
     it('should fire the "onEnd" callback on mouseup', () => {
@@ -365,7 +346,7 @@ describe('Draggable', () => {
       const onStart1 = jest.fn();
       const onStart2 = jest.fn();
 
-      tree = mount<Draggable, any>(
+      tree = mount<any, any>(
         <Draggable
           onStart={onStart1}
         >
@@ -388,6 +369,47 @@ describe('Draggable', () => {
         .toHaveBeenCalledTimes(0);
       expect(onStart2)
         .toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('children', () => {
+    it('should pass ref to children', () => {
+      const elementRef = React.createRef<Element>();
+      const ChildComponent = ({ forwardedRef }: any) => <div ref={forwardedRef}>Child Node</div>;
+
+      tree = mount(
+        <Draggable dragItem={elementRef}>
+          <ChildComponent />
+        </Draggable>,
+        { attachTo: rootNode },
+      );
+      const child = tree.find(ChildComponent);
+      const node = child?.getDOMNode();
+
+      expect(child.exists()).toBe(true);
+      expect(elementRef.current).toEqual(node);
+    });
+
+    describe('should wrap into RefHolder if children is not ReactElement', () => {
+      ['Child String', 0, null].forEach((children) => {
+        it(`children is "${typeof children}"`, () => {
+          const elementRef = React.createRef<Element>();
+
+          tree = mount(
+            <Draggable dragItem={elementRef}>
+              {children}
+            </Draggable>,
+            { attachTo: rootNode },
+          );
+          const child = tree.childAt(0);
+          const node = child?.getDOMNode();
+
+          expect(child.exists()).toBe(true);
+          expect(child.type()).toBe(RefHolder);
+          expect(child.props()).toEqual({ children });
+          expect(elementRef.current).toEqual(node);
+        });
+      });
     });
   });
 });

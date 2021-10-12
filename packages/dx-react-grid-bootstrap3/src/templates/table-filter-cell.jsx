@@ -4,11 +4,11 @@ import * as PropTypes from 'prop-types';
 export const TableFilterCell = ({
   style, filter, onFilter, children,
   column, tableRow, tableColumn, getMessage, filteringEnabled,
-  refObject,
+  forwardedRef,
   ...restProps
 }) => (
   <th
-    ref={refObject}
+    ref={forwardedRef}
     style={{
       fontWeight: 'normal',
       ...style,
@@ -34,7 +34,7 @@ TableFilterCell.propTypes = {
   tableColumn: PropTypes.object,
   getMessage: PropTypes.func,
   filteringEnabled: PropTypes.bool,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 TableFilterCell.defaultProps = {
@@ -47,5 +47,5 @@ TableFilterCell.defaultProps = {
   tableColumn: undefined,
   getMessage: undefined,
   filteringEnabled: true,
-  refObject: undefined,
+  forwardedRef: undefined,
 };

@@ -45,7 +45,7 @@ export const withKeyboardNavigation =
 
     render() {
       const { setFocusedElement, updateRefForKeyboardNavigation, ...restProps } = this.props;
-      return <Component refObject={this.ref} {...restProps} />;
+      return <Component forwardedRef={this.ref} {...restProps} />;
     }
   }
   return ComponentWithNavigation;

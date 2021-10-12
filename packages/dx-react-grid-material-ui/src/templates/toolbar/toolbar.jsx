@@ -14,12 +14,12 @@ const styles = theme => ({
 });
 
 const ToolbarBase = ({
-  children, classes, className, style, refObject, ...restProps
+  children, classes, className, style, forwardedRef, ...restProps
 }) => (
   <ToolbarMUI
     style={style}
     className={classNames(classes.toolbar, className)}
-    ref={refObject}
+    ref={forwardedRef}
     {...restProps}
   >
     {children}
@@ -31,13 +31,13 @@ ToolbarBase.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   style: PropTypes.object,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 ToolbarBase.defaultProps = {
   className: undefined,
   style: null,
-  refObject: undefined,
+  forwardedRef: undefined,
 };
 
 export const Toolbar = withKeyboardNavigation('toolbar', 'none')(withStyles(styles, { name: 'Toolbar' })(ToolbarBase));

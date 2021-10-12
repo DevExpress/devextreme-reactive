@@ -5,11 +5,11 @@ export const TableFilterCell = ({
   filter, onFilter, children,
   column, tableRow, tableColumn, getMessage,
   filteringEnabled,
-  refObject,
+  forwardedRef,
   ...restProps
 }) => (
   <th
-    ref={refObject}
+    ref={forwardedRef}
     {...restProps}
   >
     <div className="input-group">
@@ -30,7 +30,7 @@ TableFilterCell.propTypes = {
   tableColumn: PropTypes.object,
   getMessage: PropTypes.func,
   filteringEnabled: PropTypes.bool,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 TableFilterCell.defaultProps = {
@@ -42,5 +42,5 @@ TableFilterCell.defaultProps = {
   tableColumn: undefined,
   getMessage: undefined,
   filteringEnabled: true,
-  refObject: undefined,
+  forwardedRef: undefined,
 };

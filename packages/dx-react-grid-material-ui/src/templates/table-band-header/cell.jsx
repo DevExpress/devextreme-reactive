@@ -28,8 +28,8 @@ const styles = theme => ({
 });
 
 const CellBase = ({
-  column, value, children, classes, tableRow, tableColumn, row, className, beforeBorder, refObject,
-  ...restProps
+  column, value, children, classes, tableRow, tableColumn, row, className, beforeBorder,
+  forwardedRef, ...restProps
 }) => (
   <TableCell
     className={classNames({
@@ -37,7 +37,7 @@ const CellBase = ({
       [classes.beforeBorder]: beforeBorder,
     }, className)}
     {...restProps}
-    ref={refObject}
+    ref={forwardedRef}
   >
     {children}
   </TableCell>
@@ -53,7 +53,7 @@ CellBase.propTypes = {
   tableColumn: PropTypes.object,
   className: PropTypes.string,
   beforeBorder: PropTypes.bool,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 CellBase.defaultProps = {
@@ -65,7 +65,7 @@ CellBase.defaultProps = {
   tableColumn: undefined,
   className: undefined,
   beforeBorder: false,
-  refObject: undefined,
+  forwardedRef: undefined,
 };
 
 export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

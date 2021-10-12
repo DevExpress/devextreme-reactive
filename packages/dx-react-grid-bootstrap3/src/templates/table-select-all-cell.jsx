@@ -6,7 +6,7 @@ import { SelectionControl } from './parts/selection-control';
 export const TableSelectAllCell = ({
   style, allSelected, someSelected, disabled, onToggle,
   tableColumn, tableRow, rowSpan,
-  refObject,
+  forwardedRef,
   ...restProps
 }) => (
   <th
@@ -16,7 +16,7 @@ export const TableSelectAllCell = ({
       ...(rowSpan ? { verticalAlign: 'bottom' } : { verticalAlign: 'middle' }),
       ...style,
     }}
-    ref={refObject}
+    ref={forwardedRef}
     rowSpan={rowSpan}
     {...restProps}
   >
@@ -38,7 +38,7 @@ TableSelectAllCell.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   rowSpan: PropTypes.number,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 TableSelectAllCell.defaultProps = {
@@ -50,5 +50,5 @@ TableSelectAllCell.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   rowSpan: undefined,
-  refObject: undefined,
+  forwardedRef: undefined,
 };

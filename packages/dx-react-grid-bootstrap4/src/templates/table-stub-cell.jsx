@@ -6,14 +6,12 @@ export const TableStubCell = ({
   className,
   tableRow,
   tableColumn,
-  refObject,
+  forwardedRef,
   ...restProps
 }) => (
   <td
-    className={classNames({
-      'p-0': true,
-    }, className)}
-    ref={refObject}
+    ref={forwardedRef}
+    className={classNames('p-0', className)}
     {...restProps}
   />
 );
@@ -22,12 +20,12 @@ TableStubCell.propTypes = {
   className: PropTypes.string,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 TableStubCell.defaultProps = {
   className: undefined,
   tableRow: undefined,
   tableColumn: undefined,
-  refObject: undefined,
+  forwardedRef: undefined,
 };

@@ -27,7 +27,7 @@ const styles = theme => ({
 const TableSelectAllCellBase = ({
   allSelected, someSelected, disabled, onToggle, classes,
   className, tableRow, tableColumn, rowSpan,
-  refObject,
+  forwardedRef,
   ...restProps
 }) => {
   const cellClasses = classNames({
@@ -41,7 +41,7 @@ const TableSelectAllCellBase = ({
       padding="checkbox"
       className={cellClasses}
       rowSpan={rowSpan}
-      ref={refObject}
+      ref={forwardedRef}
       {...restProps}
     >
       <Checkbox
@@ -70,7 +70,7 @@ TableSelectAllCellBase.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   rowSpan: PropTypes.number,
-  refObject: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 TableSelectAllCellBase.defaultProps = {
@@ -82,7 +82,7 @@ TableSelectAllCellBase.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   rowSpan: undefined,
-  refObject: undefined,
+  forwardedRef: undefined,
 };
 
 export const TableSelectAllCell = withStyles(styles, { name: 'TableSelectAllCell' })(TableSelectAllCellBase);

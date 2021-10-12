@@ -4,7 +4,6 @@
 
 ```ts
 
-import { Color as Color_2 } from '@material-ui/core';
 import { default as moment_2 } from 'moment';
 import * as React_2 from 'react';
 
@@ -541,7 +540,35 @@ export type ClientOffset = {
 };
 
 // @public
-export interface Color extends Color_2 {
+export interface Color {
+    // (undocumented)
+    100: string;
+    // (undocumented)
+    200: string;
+    // (undocumented)
+    300: string;
+    // (undocumented)
+    400: string;
+    // (undocumented)
+    50: string;
+    // (undocumented)
+    500: string;
+    // (undocumented)
+    600: string;
+    // (undocumented)
+    700: string;
+    // (undocumented)
+    800: string;
+    // (undocumented)
+    900: string;
+    // (undocumented)
+    A100: string;
+    // (undocumented)
+    A200: string;
+    // (undocumented)
+    A400: string;
+    // (undocumented)
+    A700: string;
 }
 
 // @public (undocumented)

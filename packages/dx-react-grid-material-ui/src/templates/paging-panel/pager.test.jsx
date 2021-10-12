@@ -1,8 +1,13 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 import { Pager } from './pager';
 import { Pagination } from './pagination';
 import { PageSizeSelector } from './page-size-selector';
+
+jest.mock('@devexpress/dx-react-grid', () => ({
+  withKeyboardNavigation: jest.fn().mockReturnValue(x => x),
+}));
 
 const defaultProps = {
   currentPage: 1,
@@ -87,5 +92,13 @@ describe('Pager', () => {
       expect(tree.hasClass('custom-class'))
         .toBeTruthy();
     });
+  });
+
+  it('should call withKeyboardNavigation', () => {
+    shallow((
+      <Pager {...defaultProps} />
+    ));
+
+    expect(withKeyboardNavigation).toHaveBeenCalledWith('paging', 'none');
   });
 });

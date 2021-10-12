@@ -66,6 +66,7 @@ const EditCommandHeadingCellBase = ({
   className,
   tableRow, tableColumn,
   rowSpan,
+  forwardedRef,
   ...restProps
 }) => (
   <TableCell
@@ -74,6 +75,7 @@ const EditCommandHeadingCellBase = ({
       [classes.alignWithRowSpan]: rowSpan > 1,
     }, className)}
     rowSpan={rowSpan}
+    ref={forwardedRef}
     {...restProps}
   >
     {children}
@@ -87,6 +89,7 @@ EditCommandHeadingCellBase.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   rowSpan: PropTypes.number,
+  forwardedRef: PropTypes.object,
 };
 
 EditCommandHeadingCellBase.defaultProps = {
@@ -95,17 +98,22 @@ EditCommandHeadingCellBase.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   rowSpan: undefined,
+  forwardedRef: undefined,
 };
 
+// eslint-disable-next-line max-len
 export const EditCommandHeadingCell = withEditColumnStyles(EditCommandHeadingCellBase);
 
 const EditCommandCellBase = ({
   tableRow, tableColumn, row, children,
-  classes, className,
+  classes, className, forwardedRef,
   ...restProps
 }) => (
   <TableCell
-    className={classNames(classes.cell, className)}
+    className={classNames({
+      [classes.cell]: true,
+    }, className)}
+    ref={forwardedRef}
     {...restProps}
   >
     {children}
@@ -119,6 +127,7 @@ EditCommandCellBase.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   row: PropTypes.any,
+  forwardedRef: PropTypes.object,
 };
 
 EditCommandCellBase.defaultProps = {
@@ -127,6 +136,7 @@ EditCommandCellBase.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   row: undefined,
+  forwardedRef: undefined,
 };
 
 export const EditCommandCell = withEditColumnStyles(EditCommandCellBase);

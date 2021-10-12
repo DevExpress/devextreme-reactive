@@ -5,10 +5,12 @@ import * as PropTypes from 'prop-types';
 export const TableDetailCell = ({
   colSpan, children, className,
   tableColumn, tableRow, row,
+  forwardedRef,
   ...restProps
 }) => (
   <td
     colSpan={colSpan}
+    ref={forwardedRef}
     className={classNames('table-active', className)}
     {...restProps}
   >
@@ -27,6 +29,7 @@ TableDetailCell.propTypes = {
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
   row: PropTypes.any,
+  forwardedRef: PropTypes.object,
 };
 
 TableDetailCell.defaultProps = {
@@ -37,4 +40,5 @@ TableDetailCell.defaultProps = {
   tableRow: undefined,
   row: undefined,
   children: undefined,
+  forwardedRef: undefined,
 };

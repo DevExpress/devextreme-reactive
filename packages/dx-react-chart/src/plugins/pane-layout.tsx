@@ -21,8 +21,8 @@ const SVG_STYLE: React.CSSProperties = {
   position: 'absolute', left: 0, top: 0, overflow: 'visible',
 };
 
-const SizerContainer: React.SFC = ({ children }) => (
-  <div style={DIV_STYLE}>{children}</div>
+const SizerContainer = ({ children, forwardedRef }) => (
+  <div ref={forwardedRef} style={DIV_STYLE}>{children}</div>
 );
 
 let numDefs = 0;

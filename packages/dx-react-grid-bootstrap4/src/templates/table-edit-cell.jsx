@@ -5,7 +5,8 @@ import classNames from 'clsx';
 export const EditCell = ({
   column, value, onValueChange, className, children,
   row, tableRow, tableColumn, editingEnabled,
-  autoFocus, onBlur, onFocus, onKeyDown, ...restProps
+  autoFocus, onBlur, onFocus, onKeyDown,
+  forwardedRef, ...restProps
 }) => {
   const patchedChildren = children
     ? React.cloneElement(children, {
@@ -18,7 +19,10 @@ export const EditCell = ({
 
   return (
     <td
-      className={classNames('align-middle dx-g-bs4-table-edit-cell', className)}
+      className={classNames({
+        'align-middle dx-g-bs4-table-edit-cell': true,
+      }, className)}
+      ref={forwardedRef}
       {...restProps}
     >
       {patchedChildren || (
@@ -56,6 +60,7 @@ EditCell.propTypes = {
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
   onKeyDown: PropTypes.func,
+  forwardedRef: PropTypes.object,
 };
 EditCell.defaultProps = {
   column: undefined,
@@ -71,4 +76,5 @@ EditCell.defaultProps = {
   onBlur: () => {},
   onFocus: () => {},
   onKeyDown: () => {},
+  forwardedRef: undefined,
 };

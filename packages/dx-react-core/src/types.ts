@@ -33,6 +33,7 @@ export type SizerProps = {
   containerComponent?: any;
   style?: object;
   scrollTop?: number;
+  scrollLeft?: number;
 };
 
 export type Getters = { readonly [getterName: string]: any };

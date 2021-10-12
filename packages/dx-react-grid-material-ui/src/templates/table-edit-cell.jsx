@@ -42,7 +42,7 @@ const styles = theme => ({
 const EditCellBase = ({
   column, value, onValueChange, style, classes, children,
   row, tableRow, tableColumn, editingEnabled, className,
-  autoFocus, onBlur, onFocus, onKeyDown, ...restProps
+  autoFocus, onBlur, onFocus, onKeyDown, forwardedRef, ...restProps
 }) => {
   const inputClasses = classNames({
     [classes.inputRight]: tableColumn && tableColumn.align === 'right',
@@ -56,11 +56,13 @@ const EditCellBase = ({
       onKeyDown,
     })
     : children;
-
   return (
     <TableCell
-      className={classNames(classes.cell, className)}
+      className={classNames({
+        [classes.cell]: true,
+      }, className)}
       style={style}
+      ref={forwardedRef}
       {...restProps}
     >
       {patchedChildren || (
@@ -100,6 +102,7 @@ EditCellBase.propTypes = {
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
   onKeyDown: PropTypes.func,
+  forwardedRef: PropTypes.object,
 };
 
 EditCellBase.defaultProps = {
@@ -117,6 +120,7 @@ EditCellBase.defaultProps = {
   onBlur: () => {},
   onFocus: () => {},
   onKeyDown: () => {},
+  forwardedRef: undefined,
 };
 
 export const EditCell = withStyles(styles, { name: 'EditCell' })(EditCellBase);

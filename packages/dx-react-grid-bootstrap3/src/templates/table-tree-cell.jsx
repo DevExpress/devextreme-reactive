@@ -5,9 +5,11 @@ export const TableTreeCell = ({
   column, value, children,
   tableRow, tableColumn, row,
   style,
+  forwardedRef,
   ...restProps
 }) => (
   <td
+    ref={forwardedRef}
     style={{
       textAlign: (tableColumn && tableColumn.align) || 'left',
       whiteSpace: (tableColumn && tableColumn.wordWrapEnabled) ? 'normal' : 'nowrap',
@@ -35,6 +37,7 @@ TableTreeCell.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   style: PropTypes.object,
+  forwardedRef: PropTypes.object,
 };
 
 TableTreeCell.defaultProps = {
@@ -45,4 +48,5 @@ TableTreeCell.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   style: null,
+  forwardedRef: undefined,
 };

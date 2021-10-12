@@ -3,7 +3,7 @@ import {
   Getter,
   Plugin,
   Template,
-  TemplatePlaceholder,
+  PlaceholderWithRef,
   TemplateConnector,
   DropTarget,
   withComponents,
@@ -209,7 +209,7 @@ class TableColumnReorderingRaw extends React.PureComponent<TableColumnReordering
                   onDrop={this.onDrop}
                   draggingEnabled={draggingEnabled}
                 >
-                  <TemplatePlaceholder />
+                  <PlaceholderWithRef />
                 </Container>
               )}
             </TemplateConnector>

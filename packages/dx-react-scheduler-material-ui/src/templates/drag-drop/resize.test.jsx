@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { createMount, createShallow, getClasses } from '@material-ui/core/test-utils';
 import { Resize } from './resize';
 
 describe('DragDrop', () => {
@@ -9,10 +9,12 @@ describe('DragDrop', () => {
   };
   describe('Resize', () => {
     let shallow;
+    let mount;
     let classes;
     beforeAll(() => {
       classes = getClasses(<Resize {...defaultProps} />);
       shallow = createShallow({ dive: true });
+      mount = createMount();
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
@@ -55,6 +57,21 @@ describe('DragDrop', () => {
 
       expect(tree.is(`.${classes.verticalEnd}`))
         .toBeTruthy();
+    });
+
+    it('should pass ref to the dom element', () => {
+      const testRef = React.createRef();
+      const tree = mount((
+        <Resize
+          {...defaultProps}
+          forwardedRef={testRef}
+        >
+          <div />
+        </Resize>
+      ));
+
+      expect(testRef.current)
+        .toEqual(tree.getDOMNode());
     });
   });
 });

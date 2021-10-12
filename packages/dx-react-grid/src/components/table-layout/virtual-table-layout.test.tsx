@@ -1,22 +1,20 @@
 import * as React from 'react';
-import { findDOMNode } from 'react-dom';
 import { shallow, mount } from 'enzyme';
 import { Sizer } from '@devexpress/dx-react-core';
 import {
   getCollapsedGrids,
   TABLE_FLEX_TYPE,
   emptyViewport,
+  getScrollLeft,
 } from '@devexpress/dx-grid-core';
 import { setupConsole } from '@devexpress/dx-testing';
 import { VirtualTableLayout } from './virtual-table-layout';
 
-jest.mock('react-dom', () => ({
-  findDOMNode: jest.fn(),
-}));
 jest.mock('@devexpress/dx-grid-core', () => {
   const actual = jest.requireActual('@devexpress/dx-grid-core');
   jest.spyOn(actual, 'getCollapsedGrids');
   jest.spyOn(actual, 'getColumnWidthGetter');
+  jest.spyOn(actual, 'getScrollLeft');
   return actual;
 });
 jest.mock('./column-group', () => ({
@@ -38,19 +36,12 @@ jest.mock('@devexpress/dx-react-core', () => {
           containerComponent: Container,
           onSizeChange,
           scrollTop,
+          scrollLeft,
           ...restProps
         } = this.props;
         return (
           <Container {...restProps} />
         );
-      }
-    },
-    // tslint:disable-next-line: max-classes-per-file
-    RefHolder: class extends Component {
-      render() {
-        // eslint-disable-next-line react/prop-types
-        const { children: propsChildren } = this.props;
-        return propsChildren;
       }
     },
   };
@@ -74,6 +65,10 @@ class VirtualTableLayoutWrapper extends React.Component<any, any> {
     );
   }
 }
+
+const getBoundingClientRect = () => ({
+  height: 50,
+});
 
 const defaultProps = {
   columns: [
@@ -111,12 +106,19 @@ const defaultProps = {
   setViewport: jest.fn(),
   loadedRowsStart: 0,
   totalRowCount: 9,
-  containerComponent: props => <div {...props} />,
-  headTableComponent: ({ tableRef, ...props }) => <table {...props} />,
-  tableComponent: ({ tableRef, ...props }) => <table {...props} />,
+  containerComponent: ({ forwardedRef, ...props }) => <div {...props} />,
+  headTableComponent: ({ forwardedRef, ...props }) => <table {...props} />,
+  footerTableComponent: ({ forwardedRef, ...props }) => <table {...props} />,
+  tableComponent: ({ forwardedRef, ...props }) => {
+    (forwardedRef as any).current = { getBoundingClientRect };
+    return <table {...props} />;
+  },
   headComponent: props => <thead {...props} />,
   bodyComponent: props => <tbody {...props} />,
-  rowComponent: () => null,
+  rowComponent: ({ forwardedRef }) => {
+    (forwardedRef as any)({ getBoundingClientRect });
+    return null;
+  },
   cellComponent: () => null,
   getCellColSpan: () => 1,
   tableRef: React.createRef<HTMLTableElement>(),
@@ -126,11 +128,6 @@ describe('VirtualTableLayout', () => {
   let resetConsole;
   beforeEach(() => {
     resetConsole = setupConsole();
-    findDOMNode.mockImplementation(() => ({
-      getBoundingClientRect: () => ({
-        height: defaultProps.estimatedRowHeight,
-      }),
-    }));
   });
 
   afterEach(() => {
@@ -183,6 +180,24 @@ describe('VirtualTableLayout', () => {
 
     expect(tree.find(Sizer).prop('scrollTop'))
       .toEqual(scrollTop);
+  });
+
+  it('should provide scrollLeft property', () => {
+    const nextColumnId = Symbol('left');
+    getScrollLeft.mockImplementation(() => 50);
+    const tree = shallow(
+      <VirtualTableLayout
+        {...defaultProps}
+        headerRows={defaultProps.bodyRows.slice(0, 1)}
+        footerRows={defaultProps.bodyRows.slice(0, 1)}
+        nextColumnId={nextColumnId}
+      />,
+    );
+
+    expect(tree.find(Sizer).prop('scrollLeft'))
+      .toEqual(50);
+
+    expect(getScrollLeft).toBeCalledWith(5, 120, nextColumnId);
   });
 
   it('should not render width for a flex column', () => {
@@ -401,12 +416,6 @@ describe('VirtualTableLayout', () => {
         { key: 2, height: 10 },
       ];
 
-      findDOMNode.mockImplementation(() => ({
-        getBoundingClientRect: () => ({
-          height: 50,
-        }),
-      }));
-
       mount((
         <VirtualTableLayout
           {...defaultProps}
@@ -426,12 +435,6 @@ describe('VirtualTableLayout', () => {
         { key: 11 },
         { key: 12 },
       ];
-
-      findDOMNode.mockImplementation(() => ({
-        getBoundingClientRect: () => ({
-          height: 50,
-        }),
-      }));
 
       const tree = mount((
         <VirtualTableLayout

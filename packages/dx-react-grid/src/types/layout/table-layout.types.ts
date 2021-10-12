@@ -1,5 +1,6 @@
 import {
   TableRow, TableColumn, ColumnAnimationStyleMap, GetCellColSpanFn, TableProps,
+  LEFT_POSITION, RIGHT_POSITION,
 } from '../index';
 
 type tableLayoutComponents = 'containerComponent' | 'tableComponent'
@@ -22,6 +23,7 @@ export type TableLayoutProps =
     minColumnWidth?: number,
     getCellColSpan?: GetCellColSpanFn,
     tableRef?: React.RefObject<HTMLTableElement>,
+    forwardedRef?: React.MutableRefObject<any> | React.RefCallback<any> | null,
   };
 
 /** @internal */
@@ -47,6 +49,7 @@ export interface VirtualTableLayoutProps extends TableLayoutProps {
   setViewport: any;
   viewport: any;
   scrollTop?: number;
+  nextColumnId?: typeof LEFT_POSITION | typeof RIGHT_POSITION | undefined;
 }
 /** @internal */
 export type VirtualTableLayoutState = {
@@ -70,4 +73,5 @@ export type VirtualTableLayoutBlockProps = Pick<VirtualTableLayoutProps, virtual
   rowRefsHandler: (row: any, ref?: React.ReactInstance | null) => void,
   marginBottom?: number,
   tableComponent: React.ComponentType<any>,
+  tableRef?: React.RefObject<HTMLTableElement>,
 };

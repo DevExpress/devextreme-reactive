@@ -47,11 +47,11 @@
     "@types/enzyme": "^3.10.8",
     "core-js": "^3.4.1",
     "enzyme": "3.10.0",
-    "enzyme-adapter-react-16": "^1.15.1",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "jest": "^24.9.0",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0",
-    "react-test-renderer": "^16.14.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-test-renderer": "^17.0.2",
     "rollup": "^1.27.2",
     "rollup-plugin-license": "^0.12.1",
     "rollup-plugin-typescript2": "^0.30.0",
@@ -65,7 +65,7 @@
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {
-    "react": ">=16.10.2",
-    "react-dom": ">=16.10.2"
+    "react": ">=17.0.2",
+    "react-dom": ">=17.0.2"
   }
 }

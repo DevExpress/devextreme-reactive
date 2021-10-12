@@ -21,15 +21,16 @@ describe('TableHeaderCell', () => {
         column={{}}
       />
     ));
+    const cell = tree.dive().find('th');
 
-    expect(tree.find('th').prop('style'))
+    expect(cell.prop('style'))
       .not.toMatchObject({
         userSelect: 'none',
         MozUserSelect: 'none',
         WebkitUserSelect: 'none',
       });
 
-    expect(tree.find('th').prop('style').cursor)
+    expect(cell.prop('style').cursor)
       .toBeUndefined();
   });
 
@@ -103,23 +104,24 @@ describe('TableHeaderCell', () => {
       />
     ));
 
-    expect(tree.find(ResizingControl).exists())
+    const resizingControl = tree.dive().find(ResizingControl);
+    expect(resizingControl.exists())
       .toBeTruthy();
-    expect(tree.find(ResizingControl).prop('onWidthChange'))
+    expect(resizingControl.prop('onWidthChange'))
       .toBe(onWidthChange);
-    expect(tree.find(ResizingControl).prop('onWidthDraft'))
+    expect(resizingControl.prop('onWidthDraft'))
       .toBe(onWidthDraft);
-    expect(tree.find(ResizingControl).prop('onWidthDraftCancel'))
+    expect(resizingControl.prop('onWidthDraftCancel'))
       .toBe(onWidthDraftCancel);
   });
 
   it('should consider the `wordWrapEnabled` property', () => {
     let tree = shallow(<TableHeaderCell />);
-    expect(tree.prop('style').whiteSpace)
+    expect(tree.dive().prop('style').whiteSpace)
       .toBe('nowrap');
 
     tree = shallow(<TableHeaderCell tableColumn={{ wordWrapEnabled: true }} />);
-    expect(tree.prop('style').whiteSpace)
+    expect(tree.dive().prop('style').whiteSpace)
       .toBe('normal');
   });
 

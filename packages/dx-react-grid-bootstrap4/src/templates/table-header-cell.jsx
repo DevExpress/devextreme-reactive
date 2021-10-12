@@ -1,10 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'clsx';
 
 import { DragSource } from '@devexpress/dx-react-core';
 
-import { ResizingControl } from './table-header-cell/resizing-control';
+import { CellLayout } from './table-header-cell/cell-layout';
 
 export class TableHeaderCell extends React.PureComponent {
   constructor(props) {
@@ -14,15 +13,6 @@ export class TableHeaderCell extends React.PureComponent {
       dragging: false,
     };
     this.dragRef = React.createRef();
-    this.cellRef = React.createRef();
-    this.getWidthGetter = () => {
-      const { getCellWidth } = this.props;
-      const node = this.cellRef.current;
-      return node && getCellWidth(() => {
-        const { width } = node.getBoundingClientRect();
-        return width;
-      });
-    };
 
     this.onDragStart = () => {
       this.setState({ dragging: true });
@@ -34,47 +24,9 @@ export class TableHeaderCell extends React.PureComponent {
     };
   }
 
-  componentDidMount() {
-    this.getWidthGetter();
-  }
-
   render() {
-    const {
-      className, column, tableColumn,
-      draggingEnabled, onWidthDraftCancel,
-      resizingEnabled, onWidthChange, onWidthDraft, getCellWidth,
-      tableRow, children,
-      ...restProps
-    } = this.props;
+    const { column, draggingEnabled } = this.props;
     const { dragging } = this.state;
-
-    const cellLayout = (
-      <th
-        className={classNames({
-          'position-relative dx-g-bs4-header-cell': true,
-          'dx-g-bs4-user-select-none': draggingEnabled,
-          'dx-g-bs4-cursor-pointer': draggingEnabled,
-          'dx-g-bs4-inactive': dragging || (tableColumn && tableColumn.draft),
-          'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
-        }, className)}
-        scope="col"
-        ref={this.cellRef}
-        {...restProps}
-      >
-        <div
-          className="d-flex flex-direction-row align-items-center"
-        >
-          {children}
-        </div>
-        {resizingEnabled && (
-          <ResizingControl
-            onWidthChange={onWidthChange}
-            onWidthDraft={onWidthDraft}
-            onWidthDraftCancel={onWidthDraftCancel}
-          />
-        )}
-      </th>
-    );
 
     return draggingEnabled ? (
       <DragSource
@@ -83,9 +35,9 @@ export class TableHeaderCell extends React.PureComponent {
         onStart={this.onDragStart}
         onEnd={this.onDragEnd}
       >
-        {cellLayout}
+        <CellLayout {...this.props} dragging={dragging} />
       </DragSource>
-    ) : cellLayout;
+    ) : <CellLayout {...this.props} dragging={dragging} />;
   }
 }
 

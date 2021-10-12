@@ -11,8 +11,9 @@ export const isSelectAllTableCell: IsSpecificCellFn = (
   tableRow, tableColumn,
 ) => tableColumn.type === TABLE_SELECT_TYPE && tableRow.type === TABLE_HEADING_TYPE;
 
-export const isRowHighlighted: PureComputed<[boolean, any[], TableRow], boolean> = (
-  highlightRow, selection, tableRow,
-) => (
-  highlightRow && selection && selection.includes(tableRow.rowId)
-);
+export const isRowHighlighted: PureComputed<[boolean, any[], TableRow, any[]?], boolean> = (
+  highlightRow, selection, tableRow, focused,
+) => {
+  const highlightion = selection ? selection.concat(focused || []) : focused;
+  return !!(highlightRow && highlightion && highlightion.includes(tableRow.rowId));
+};

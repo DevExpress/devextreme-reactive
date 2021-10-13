@@ -6,7 +6,7 @@ import * as mockReactDOM from 'react-dom';
 import { Popper } from 'react-popper';
 import { Popover } from './popover';
 import { create } from 'react-test-renderer';
-import ReactTestUtils from 'react-dom/test-utils'; 
+import { mount } from 'enzyme';
 
 jest.mock('react-dom', () => ({
   ...mockReactDOM,
@@ -207,34 +207,29 @@ describe('BS4 Popover', () => {
   });
 
   describe('#handleClick', () => {
-    it('should call toggle() when clicked outside popover', () => {
-      const toggle = jest.fn();
-      const tree = create((
+    it('should not call toggle() when clicked inside popover', () => {  
+    const toggle = jest.fn();
+      const tree = mount((
         <Popover target={target} toggle={toggle} isOpen>
           <Content />
         </Popover>
-      ), container);
-      const node = tree.root.findByType(Popover)
-
-      ReactTestUtils.Simulate.click(node);
-      tree.update(<Popover target={document.body}>
-        <Content />
-      </Popover>);
-
-      // expect(toggle).toHaveBeenCalled();
+      ),{ attachTo: container });
+      const instance = tree.instance();
+      instance.handleClick({ target: document.body });
+      expect(toggle).toHaveBeenCalled();
     });
 
     it('should not call toggle() when clicked inside popover', () => {
       const toggle = jest.fn();
       let innerTarget;
       const setInnerRef = (node) => { innerTarget = node; };
-      const tree = create((
+      const tree = mount((
         <Popover target={target} toggle={toggle} isOpen>
           <div ref={setInnerRef} />
         </Popover>
       ), { attachTo: container });
 
-      const instance = tree.getInstance();
+      const instance = tree.instance();
       instance.handleClick({ target: innerTarget });
 
       expect(toggle).not.toHaveBeenCalled();
@@ -242,13 +237,13 @@ describe('BS4 Popover', () => {
 
     it('should not call toggle() when a target is clicked', () => {
       const toggle = jest.fn();
-      const tree = create((
+      const tree = mount((
         <Popover target={target} toggle={toggle} isOpen>
           <Content />
         </Popover>
       ), { attachTo: container });
 
-      const instance = tree.getInstance();
+      const instance = tree.instance();
       instance.handleClick({ target });
 
       expect(toggle).not.toHaveBeenCalled();

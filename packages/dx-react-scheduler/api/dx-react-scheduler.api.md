@@ -5,7 +5,7 @@
 ```ts
 
 import { Color as Color_2 } from '@material-ui/core';
-import { default } from 'moment';
+import { default as moment_2 } from 'moment';
 import * as React_2 from 'react';
 
 // @public
@@ -309,11 +309,11 @@ export interface AppointmentMoment {
   // (undocumented)
   allDay?: boolean;
   // (undocumented)
-  end: default.Moment;
+  end: moment_2.Moment;
   // (undocumented)
   id?: number | string;
   // (undocumented)
-  start: default.Moment;
+  start: moment_2.Moment;
   // (undocumented)
   title?: string;
 }

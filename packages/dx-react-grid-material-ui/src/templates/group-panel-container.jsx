@@ -16,9 +16,11 @@ const GroupPanelContainerBase = ({
   classes,
   children,
   className,
+  forwardedRef,
   ...restProps
 }) => (
   <div
+    ref={forwardedRef}
     className={classNames(classes.panel, className)}
     {...restProps}
   >
@@ -30,11 +32,13 @@ GroupPanelContainerBase.propTypes = {
   classes: PropTypes.object.isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 GroupPanelContainerBase.defaultProps = {
   children: undefined,
   className: undefined,
+  forwardedRef: undefined,
 };
 
 export const GroupPanelContainer = withStyles(styles, { name: 'GroupPanelContainer' })(GroupPanelContainerBase);

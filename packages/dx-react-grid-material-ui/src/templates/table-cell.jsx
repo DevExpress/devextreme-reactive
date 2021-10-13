@@ -32,7 +32,7 @@ const styles = theme => ({
 const TableCellBase = ({
   column, value, children, classes,
   tableRow, tableColumn, row,
-  className,
+  className, forwardedRef,
   ...restProps
 }) => (
   <TableCellMUI
@@ -43,6 +43,7 @@ const TableCellBase = ({
       [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
     }, className)}
     classes={{ footer: classes.footer }}
+    ref={forwardedRef}
     {...restProps}
   >
     {children || value}
@@ -58,6 +59,7 @@ TableCellBase.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   className: PropTypes.string,
+  forwardedRef: PropTypes.object,
 };
 
 TableCellBase.defaultProps = {
@@ -68,6 +70,7 @@ TableCellBase.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   className: undefined,
+  forwardedRef: undefined,
 };
 
 export const TableCell = withStyles(styles, { name: 'TableCell' })(TableCellBase);

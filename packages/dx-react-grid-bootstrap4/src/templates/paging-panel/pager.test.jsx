@@ -1,7 +1,12 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
+import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 import { Pager } from './pager';
 import { Pagination } from './pagination';
+
+jest.mock('@devexpress/dx-react-grid', () => ({
+  withKeyboardNavigation: jest.fn().mockReturnValue(x => x),
+}));
 
 const defaultProps = {
   totalPages: 10,
@@ -73,5 +78,13 @@ describe('Pager', () => {
 
     expect(tree.is('.clearfix.card-footer.custom-class'))
       .toBeTruthy();
+  });
+
+  it('should call withKeyboardNavigation', () => {
+    shallow((
+      <Pager {...defaultProps} />
+    ));
+
+    expect(withKeyboardNavigation).toBeCalledWith('paging', 'none');
   });
 });

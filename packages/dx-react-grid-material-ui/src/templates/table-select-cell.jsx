@@ -22,11 +22,13 @@ const styles = theme => ({
 export const TableSelectCellBase = ({
   style, selected, onToggle, classes,
   className, row, tableRow, tableColumn,
+  forwardedRef,
   ...restProps
 }) => (
   <TableCell
     padding="checkbox"
     style={style}
+    ref={forwardedRef}
     className={classNames(classes.cell, className)}
     {...restProps}
   >
@@ -50,6 +52,7 @@ TableSelectCellBase.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   className: PropTypes.string,
+  forwardedRef: PropTypes.object,
 };
 
 TableSelectCellBase.defaultProps = {
@@ -60,6 +63,7 @@ TableSelectCellBase.defaultProps = {
   tableRow: undefined,
   tableColumn: undefined,
   className: undefined,
+  forwardedRef: undefined,
 };
 
 export const TableSelectCell = withStyles(styles, { name: 'TableSelectCell' })(TableSelectCellBase);

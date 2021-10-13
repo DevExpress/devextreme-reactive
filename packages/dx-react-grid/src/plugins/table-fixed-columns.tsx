@@ -104,8 +104,11 @@ class TableFixedColumnsBase extends React.PureComponent<TableFixedColumnsProps, 
         >
           {(params: TableCellProps) => (
             <TemplateConnector>
-              {({ tableColumns, tableHeaderColumnChains, selection, highlightSelectedRow }) => {
-                const selected = isRowHighlighted(highlightSelectedRow, selection, params.tableRow);
+              {({
+                tableColumns, tableHeaderColumnChains, selection, focused, highlightSelectedRow,
+              }) => {
+                const selected = isRowHighlighted(highlightSelectedRow, selection,
+                  params.tableRow, focused);
                 const { tableColumnDimensions } = this.state;
                 const fixedColumnProps = calculateFixedColumnProps(
                   params,

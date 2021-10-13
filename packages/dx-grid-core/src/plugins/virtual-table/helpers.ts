@@ -8,9 +8,10 @@ import {
   GetScrollHeightByIndex,
   GetScrollPosition,
   GetTopRowId,
+  GetScrollLeft,
 } from '../../types';
 import { arraysEqual } from './utils';
-import { TOP_POSITION, BOTTOM_POSITION } from './constants';
+import { TOP_POSITION, BOTTOM_POSITION, LEFT_POSITION } from './constants';
 
 const VALID_UNITS = ['px', ''];
 /* tslint:disable max-line-length */
@@ -117,6 +118,16 @@ export const getScrollTop: GetScrollPosition = (rows, rowsCount, rowId, rowHeigh
     rowHeight,
     indexById!,
   );
+};
+
+export const getScrollLeft: GetScrollLeft = (columnCount, columnWidth, columnId) => {
+  if (!columnId) {
+    return;
+  }
+  if (columnId === LEFT_POSITION) {
+    return 0;
+  }
+  return columnCount * columnWidth;
 };
 
 export const getTopRowId: GetTopRowId = (viewport, tableBodyRows, isDataRemote) => {

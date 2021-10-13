@@ -14,9 +14,10 @@ const styles = theme => ({
 });
 
 const SearchPanelInputBase = ({
-  onValueChange, value, getMessage, ...restProps
+  onValueChange, value, getMessage, inputRef, ...restProps
 }) => (
   <Input
+    ref={inputRef}
     onChange={e => onValueChange(e.target.value)}
     value={value}
     type="text"
@@ -34,9 +35,11 @@ SearchPanelInputBase.propTypes = {
   onValueChange: PropTypes.func.isRequired,
   value: PropTypes.string,
   getMessage: PropTypes.func.isRequired,
+  inputRef: PropTypes.object,
 };
 SearchPanelInputBase.defaultProps = {
   value: '',
+  inputRef: undefined,
 };
 
 export const SearchPanelInput = withStyles(styles)(SearchPanelInputBase);

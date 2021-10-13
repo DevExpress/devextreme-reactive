@@ -13,6 +13,7 @@ export const Cell = ({
   getMessage,
   containerComponent: Container,
   side, position,
+  forwardedRef,
   ...restProps
 }) => {
   const handleClick = () => onToggle();
@@ -24,6 +25,7 @@ export const Cell = ({
         'dx-g-bs4-group-cell': true,
         'text-nowrap': !(tableColumn && tableColumn.wordWrapEnabled),
       }, className)}
+      ref={forwardedRef}
       onClick={handleClick}
       {...restProps}
     >
@@ -75,6 +77,7 @@ Cell.propTypes = {
   tableColumn: PropTypes.object,
   side: PropTypes.string,
   position: PropTypes.string,
+  forwardedRef: PropTypes.object,
 };
 
 Cell.defaultProps = {
@@ -90,4 +93,5 @@ Cell.defaultProps = {
   tableColumn: undefined,
   side: 'left',
   position: '',
+  forwardedRef: undefined,
 };

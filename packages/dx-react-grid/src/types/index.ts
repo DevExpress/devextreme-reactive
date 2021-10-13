@@ -6,12 +6,13 @@ export {
   GroupKey, Grouping, GroupingPanelItem, Filter, ColumnFilterOperations,
   Sorting, TargetColumnGeometry, FilterOperation, ColumnChooserItem,
   TableColumnWidthInfo, TableColumnResizing, RowId, GridViewport, GroupSummaryItem,
-  ColumnInlineSummaries,
+  ColumnInlineSummaries, FocusedElement, OnFocusedCellChangeFn, FocusedCell, ScrollToColumnFn,
 } from '../../../dx-grid-core/src/index';
 
 /** @internal */
 export {
   GetCellColSpanFn, BandHeaderRow, Row,
+  LEFT_POSITION, RIGHT_POSITION,
 } from '../../../dx-grid-core/src/index';
 
 export * from './column-operations';
@@ -32,4 +33,5 @@ export * from './tables';
 export * from './toolbar';
 export * from './tree-data';
 export * from './export-panel';
+export * from './keyboard-navigation';
 export * from './utils';

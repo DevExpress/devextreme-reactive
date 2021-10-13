@@ -296,6 +296,7 @@ describe('TableFixedColumns', () => {
       const deps = {
         getter: {
           selection: 'selection',
+          focused: 'focused',
           highlightSelectedRow: 'highlightSelectedRow',
         },
         template: {
@@ -318,7 +319,7 @@ describe('TableFixedColumns', () => {
 
       expect(isRowHighlighted)
         .toBeCalledWith(
-          'highlightSelectedRow', 'selection', deps.template.tableCell.tableRow,
+          'highlightSelectedRow', 'selection', deps.template.tableCell.tableRow, 'focused',
         );
       expect(tree.find(defaultProps.cellComponent).props())
         .toMatchObject({

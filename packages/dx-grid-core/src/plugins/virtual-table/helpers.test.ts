@@ -4,8 +4,9 @@ import {
   calculateScrollHeight,
   getScrollTop,
   getTopRowId,
+  getScrollLeft,
 } from './helpers';
-import { TOP_POSITION, BOTTOM_POSITION } from './constants';
+import { TOP_POSITION, BOTTOM_POSITION, LEFT_POSITION, RIGHT_POSITION } from './constants';
 
 const estimatedRowheight = 40;
 const createItems = length => (
@@ -257,5 +258,19 @@ describe('#checkColumnWidths', () => {
       expect(getTopRowId(viewport, rows, false))
         .toBe(undefined);
     });
+  });
+});
+
+describe('#getScrollLeft', () => {
+  it('should return undefined if columnId is not defined', () => {
+    expect(getScrollLeft(3, 10)).toBe(undefined);
+  });
+
+  it('should return scroll left = 0, columnId is LEFT_POSITION', () => {
+    expect(getScrollLeft(3, 10, LEFT_POSITION)).toBe(0);
+  });
+
+  it('should return scroll left, columnId is RIGHT_POSITION', () => {
+    expect(getScrollLeft(3, 10, RIGHT_POSITION)).toBe(30);
   });
 });

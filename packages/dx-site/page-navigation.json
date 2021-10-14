@@ -154,6 +154,10 @@
           {
             "title": "Custom Plugin Development",
             "path": "/react/grid/docs/guides/custom-plugin-development/"
+          },
+          {
+            "title": "Keyboard Navigation",
+            "path": "/react/grid/docs/guides/keyboard-navigation/"
           }
         ]
       },
@@ -355,6 +359,10 @@
           {
             "title": "TableInlineCellEditing",
             "path": "/react/grid/docs/reference/table-inline-cell-editing/"
+          },
+          {
+            "title": "TableKeyboardNavigation",
+            "path": "/react/grid/docs/reference/table-keyboard-navigation/"
           }
         ]
       }

@@ -81,7 +81,7 @@ const DetailContent = ({ row, ...rest }) => {
             <DatePicker
               renderInput={props => <TextField {...props} margin="normal" label="Birth Date" />}
               value={row.BirthDate}
-              onChange={(value) => processValueChange({
+              onChange={value => processValueChange({
                 target: { name: 'BirthDate', value: value.toDate() },
               })}
               inputFormat="MM/DD/YYYY"

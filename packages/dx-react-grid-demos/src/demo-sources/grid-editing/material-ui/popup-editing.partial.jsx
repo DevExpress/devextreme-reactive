@@ -62,7 +62,7 @@ const Popup = ({
               <DatePicker
                 renderInput={props => <TextField margin="normal" label="Birth Date" {...props} />}
                 value={row.BirthDate}
-                onChange={(value) => onChange({
+                onChange={value => onChange({
                   target: { name: 'BirthDate', value },
                 })}
                 inputFormat="DD/MM/YYYY"

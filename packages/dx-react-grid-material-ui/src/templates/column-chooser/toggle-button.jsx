@@ -14,7 +14,13 @@ export const ToggleButton = ({
     placement="bottom"
     enterDelay={300}
   >
-    <IconButton onClick={onToggle} buttonRef={buttonRef} {...restProps} size="large">
+    <IconButton
+      onClick={onToggle}
+      // buttonRef={buttonRef}
+      ref={buttonRef}
+      {...restProps}
+      size="large"
+    >
       <VisibilityOff />
     </IconButton>
   </Tooltip>

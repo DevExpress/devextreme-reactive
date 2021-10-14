@@ -67,7 +67,7 @@ const ModeSelectorBase = (props) => {
         input={(
           <OutlinedInput
             classes={{ input: classes.input }}
-            labelWidth={0}
+            // labelWidth={0}
             margin="dense"
           />
         )}

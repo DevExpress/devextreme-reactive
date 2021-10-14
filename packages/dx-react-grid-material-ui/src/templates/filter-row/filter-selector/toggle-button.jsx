@@ -6,7 +6,8 @@ export const ToggleButton = ({
   buttonRef, onToggle, disabled, children, ...restProps
 }) => (
   <IconButton
-    buttonRef={buttonRef}
+    // buttonRef={buttonRef}
+    ref={buttonRef}
     onClick={onToggle}
     disabled={disabled}
     {...restProps}

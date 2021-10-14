@@ -19,12 +19,10 @@ const styles = (theme) => {
   };
 };
 
-const popperModifiers = arrowRef => ({
-  flip: { enabled: false },
-  arrow: {
-    element: arrowRef,
-  },
-});
+const popperModifiers = arrowRef => ([
+  { name: 'flip', options: { enabled: false } },
+  { name: 'arrow', options: { element: arrowRef } },
+]);
 
 const OverlayBase = ({
   classes, className, children, target, rotated, arrowComponent: ArrowComponent, ...restProps

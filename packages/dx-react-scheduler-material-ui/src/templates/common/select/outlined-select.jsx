@@ -45,7 +45,7 @@ const OutlinedSelectBase = React.memo(({
       input={(
         <OutlinedInput
           classes={inputClasses || { input: classes.input, root: classes.inputRoot }}
-          labelWidth={0}
+          // labelWidth={0}
         />
       )}
       {...restProps}

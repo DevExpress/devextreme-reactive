@@ -209,6 +209,8 @@ export namespace Legend {
   }
   // (undocumented)
   export interface MarkerProps {
+    // (undocumented)
+    [key: string]: unknown;
   }
   export interface RootProps {
     children: React_2.ReactNode;

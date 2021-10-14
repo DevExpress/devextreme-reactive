@@ -1,20 +1,19 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { create } from 'react-test-renderer';
 import { Marker } from './marker';
 
 describe('Marker', () => {
-  it('should render span', () => {
-    const tree = shallow(<Marker color="color" />);
 
-    expect(tree.type())
+  it('should render span', () => {
+    const ref = React.createRef() as React.RefObject<Marker>;
+    const tree = create(<Marker color="color" ref={ref}/>);
+    expect(tree.root.findByProps({ fill: 'color' }).type)
       .toEqual('svg');
-    expect(tree.find('svg').props().fill)
-      .toEqual('color');
   });
 
   it('should pass the rest property to the root element', () => {
-    const tree = shallow(<Marker customProperty />);
-    const { customProperty } = tree.find('svg').props() as any;
+    const tree = create(<Marker customProperty />);
+    const { customProperty } = tree.root.findByType('svg').props as any;
 
     expect(customProperty)
       .toBeTruthy();

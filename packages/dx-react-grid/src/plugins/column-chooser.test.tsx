@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { create } from 'react-test-renderer';
 import { columnChooserItems } from '@devexpress/dx-grid-core';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
@@ -59,7 +59,7 @@ describe('ColumnChooser', () => {
   });
 
   it('should pass correct parameters to the ContainerComponent', () => {
-    const tree = mount((
+    const tree = create((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
 
@@ -69,14 +69,14 @@ describe('ColumnChooser', () => {
       </PluginHost>
     ));
 
-    expect(tree.find(ContainerComponent).props())
+    expect(tree.root.findByType(ContainerComponent).props)
       .toEqual({
         children: expect.any(Array),
       });
   });
 
   it('should pass correct parameters to the ItemComponent', () => {
-    const tree = mount((
+    const tree = create((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <ColumnChooser
@@ -85,7 +85,7 @@ describe('ColumnChooser', () => {
       </PluginHost>
     ));
 
-    expect(tree.find(ItemComponent).props())
+    expect(tree.root.findByType(ItemComponent).props)
       .toEqual({
         disabled: false,
         item: {
@@ -97,7 +97,7 @@ describe('ColumnChooser', () => {
   });
 
   it('should pass correct parameters to the ItemComponent if toggling is not allowed', () => {
-    const tree = mount((
+    const tree = create((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps, {
           getter: {
@@ -110,7 +110,7 @@ describe('ColumnChooser', () => {
       </PluginHost>
     ));
 
-    expect(tree.find(ItemComponent).props())
+    expect(tree.root.findByType(ItemComponent).props)
       .toMatchObject({
         disabled: true,
         item: {
@@ -122,7 +122,7 @@ describe('ColumnChooser', () => {
   });
 
   it('should render OverlayComponent', () => {
-    const tree = mount((
+    const tree = create((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <ColumnChooser
@@ -132,12 +132,11 @@ describe('ColumnChooser', () => {
       </PluginHost>
     ));
 
-    expect(tree.find(OverlayComponent).exists())
-      .toBeTruthy();
+    expect(tree.root.findByType(OverlayComponent)).not.toBeNull();
   });
 
   it('should calculate items via the "columnChooserItems" computed', () => {
-    mount((
+    create((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
         <ColumnChooser

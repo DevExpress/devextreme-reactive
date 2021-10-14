@@ -11,6 +11,7 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
+    "skipLibCheck": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true
   },

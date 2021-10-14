@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { create } from 'react-test-renderer';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { findSeriesByName } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
@@ -51,7 +51,7 @@ describe('Scatter series', () => {
   };
 
   it('should render points', () => {
-    const tree = mount((
+    const tree = create((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
 
@@ -60,14 +60,14 @@ describe('Scatter series', () => {
         />
       </PluginHost>));
 
-    expect(tree.find(SeriesComponent).props()).toEqual({
-      pointComponent: PointComponent,
+    expect(tree.root.findByType(SeriesComponent).props).toEqual({
       index: 1,
+      pane: { width: 10, height: 20 },
+      path: undefined,
+      pointComponent: PointComponent,
+      scales: { argScale: 'arg-scale', valScale: 'val-scale' },
       color: 'color',
       coordinates: coords,
-      path: undefined,
-      scales: { argScale: 'arg-scale', valScale: 'val-scale' },
-      pane: { width: 10, height: 20 },
     });
   });
 });

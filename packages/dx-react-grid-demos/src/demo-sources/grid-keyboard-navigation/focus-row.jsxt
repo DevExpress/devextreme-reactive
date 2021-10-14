@@ -1,0 +1,41 @@
+import React, { useState } from 'react';<%&additionalImports%>
+import {
+  Grid,
+  Table,
+  TableKeyboardNavigation,
+  TableHeaderRow,
+} from '@devexpress/dx-react-grid-<%&themeName%>';<%&cssImports%>
+
+import {
+  generateRows,
+  defaultColumnValues,
+} from '../../../demo-data/generator';
+
+const getRowId = row => row.id;
+
+export default () => {
+  const [columns] = useState([
+    { name: 'name', title: 'Name' },
+    { name: 'gender', title: 'Gender' },
+    { name: 'city', title: 'City' },
+    { name: 'car', title: 'Car' },
+  ]);
+  const [rows] = useState(generateRows({
+    columnValues: { id: ({ index }) => index, ...defaultColumnValues },
+    length: 8,
+  }));
+
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+        getRowId={getRowId}
+      >
+        <Table />
+        <TableHeaderRow />
+        <TableKeyboardNavigation focusedRowEnabled />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

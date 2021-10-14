@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { create } from 'react-test-renderer';
 import { Arrow } from './arrow';
 
 describe('Arrow', () => {
   it('should render content', () => {
-    const tree = shallow((
+    const tree = create((
       <Arrow />
     ));
 
-    expect(tree.find('div').exists()).toBeTruthy();
+    expect(tree.root.findByType('div')).not.toBeNull();
   });
 });

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { create } from 'react-test-renderer';
 import { withComponents } from './with-components';
 
 describe('withComponents', () => {
@@ -18,9 +18,9 @@ describe('withComponents', () => {
     })(Tester);
     const otherProps = { prop1: 1, prop2: 2 };
 
-    const tree = mount(<BoundTester {...otherProps} />);
+    const tree = create(<BoundTester {...otherProps} />);
 
-    expect(tree.find(Tester).props()).toEqual({
+    expect(tree.root.findByType(Tester).props).toEqual({
       component1: TestComponent1,
       component2: TestComponent2,
       ...otherProps,
@@ -35,9 +35,9 @@ describe('withComponents', () => {
     })(Tester);
     const otherProps = { prop1: 1, prop2: 2 };
 
-    const tree = mount(<BoundTester {...otherProps} />);
+    const tree = create(<BoundTester {...otherProps} />);
 
-    expect(tree.find(Tester).props()).toEqual({
+    expect(tree.root.findByType(Tester).props).toEqual({
       component2: TestComponent2,
       ...otherProps,
     });
@@ -54,9 +54,9 @@ describe('withComponents', () => {
       Component1: TestComponent3,
     })(BoundTester1);
 
-    const tree = mount(<BoundTester2 />);
+    const tree = create(<BoundTester2 />);
 
-    expect(tree.find(Tester).props()).toEqual({
+    expect(tree.root.findByType(Tester).props).toEqual({
       component1: TestComponent3,
       component2: TestComponent2,
     });

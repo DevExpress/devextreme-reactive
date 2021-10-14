@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { create } from 'react-test-renderer';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { findSeriesByName } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
@@ -55,7 +55,7 @@ describe('Bar series', () => {
   };
 
   it('should render bars', () => {
-    const tree = mount((
+    const tree = create((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
 
@@ -63,9 +63,9 @@ describe('Bar series', () => {
           {...defaultProps as any}
         />
       </PluginHost>
-    ));
+    )).root;
 
-    expect(tree.find(SeriesComponent).props()).toEqual({
+    expect(tree.findByType(SeriesComponent).props).toEqual({
       pointComponent: PointComponent,
       index: 1,
       color: 'color',

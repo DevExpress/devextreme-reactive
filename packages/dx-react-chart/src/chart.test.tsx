@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { create } from 'react-test-renderer';
 import { setupConsole } from '@devexpress/dx-testing';
 import { Chart } from './chart';
 import { BasicData } from './plugins/basic-data';
@@ -30,7 +30,7 @@ describe('Chart', () => {
   };
 
   it('should render root children', () => {
-    const tree = mount((
+    const tree = create((
       <Chart
         {...defaultProps}
       >
@@ -40,30 +40,28 @@ describe('Chart', () => {
       </Chart>
     ));
 
-    expect(tree.find(TestChildren))
+    expect(tree.root.findAllByType(TestChildren))
       .toHaveLength(3);
   });
 
   it('should render basic content', () => {
-    const tree = mount(<Chart {...defaultProps} />);
+    const tree = create(<Chart {...defaultProps} />);
 
-    expect(tree.find(BasicData).props()).toEqual({
+    expect(tree.root.findByType(BasicData).props).toEqual({
       data: 'test-data',
       rotated: 'test-rotated',
     });
-    expect(tree.find(ChartCore).props()).toEqual({});
+    expect(tree.root.findByType(ChartCore).props).toEqual({});
   });
 
   it('should render layout manager', () => {
-    const tree = mount(<Chart {...defaultProps} />);
+    const tree = create(<Chart {...defaultProps} />);
 
-    expect(tree.find(LayoutManager).exists())
-      .toBeTruthy();
+    expect(tree.root.findByType(LayoutManager)).not.toBeNull();
   });
 
   it('should add controller component', () => {
-    const tree = mount(<Chart {...defaultProps} />);
-    expect(tree.find(ControllerComponent).exists())
-      .toBeTruthy();
+    const tree = create(<Chart {...defaultProps} />);
+    expect(tree.root.findByType(ControllerComponent)).not.toBeNull();
   });
 });

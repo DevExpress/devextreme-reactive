@@ -11,7 +11,7 @@ describe('Title', () => {
   let shallow;
   let classes;
   beforeAll(() => {
-    shallow = createShallow({ untilSelector: 'TitleBase' });
+    shallow = createShallow();
     classes = getClasses(<Title {...defaultProps} />);
   });
   afterAll(() => {
@@ -24,7 +24,8 @@ describe('Title', () => {
         {...defaultProps}
         className="customClass"
       />
-    ));
+    ))
+      .shallow();
 
     expect(tree.is(`.${classes.title}`))
       .toBeTruthy();

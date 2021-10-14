@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createMount } from '@mui/material/test-utils';
+import { createMount } from '@devexpress/dx-testing';
 import {
   END_REPEAT_RADIO_GROUP,
   MONTHLY_RADIO_GROUP,

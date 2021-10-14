@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, createMount } from '@mui/material/test-utils';
+import { createShallow, createMount } from '@devexpress/dx-testing';
 import { MainLayout } from './main-layout';
 import { scrollingStrategy } from '../utils';
 
@@ -7,24 +7,22 @@ jest.mock('../utils', () => ({
   ...jest.requireActual('../utils'),
   scrollingStrategy: jest.fn(),
 }));
-jest.mock('@mui/material/styles', () => ({
-  ...jest.requireActual('@mui/material/styles'),
-  makeStyles: jest.fn(() => () => ({
-    container: 'container',
-    stickyElement: 'stickyElement',
-    header: 'header',
-    leftPanel: 'leftPanel',
-    flexRow: 'flexRow',
-    inlineFlex: 'inlineFlex',
-    background: 'background',
-    ordinaryLeftPanelBorder: 'ordinaryLeftPanelBorder',
-    brightLeftPanelBorder: 'brightLeftPanelBorder',
-    ordinaryHeaderBorder: 'ordinaryHeaderBorder',
-    brightHeaderBorder: 'brightHeaderBorder',
-    timeScale: 'timeScale',
-    dayScaleEmptyCell: 'dayScaleEmptyCell',
-    relativeContainer: 'relativeContainer',
-  })),
+
+jest.mock('@mui/styles/makeStyles', () => () => () => ({
+  container: 'container',
+  stickyElement: 'stickyElement',
+  header: 'header',
+  leftPanel: 'leftPanel',
+  flexRow: 'flexRow',
+  inlineFlex: 'inlineFlex',
+  background: 'background',
+  ordinaryLeftPanelBorder: 'ordinaryLeftPanelBorder',
+  brightLeftPanelBorder: 'brightLeftPanelBorder',
+  ordinaryHeaderBorder: 'ordinaryHeaderBorder',
+  brightHeaderBorder: 'brightHeaderBorder',
+  timeScale: 'timeScale',
+  dayScaleEmptyCell: 'dayScaleEmptyCell',
+  relativeContainer: 'relativeContainer',
 }));
 
 describe('Main Layout', () => {

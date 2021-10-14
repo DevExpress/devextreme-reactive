@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@mui/material/test-utils';
+import { createShallow, getClasses } from '@devexpress/dx-testing';
 import { getRecurrenceOptions, changeRecurrenceOptions } from '@devexpress/dx-scheduler-core';
 import { Weekly } from './weekly';
 import { IntervalEditor } from './interval-editor';

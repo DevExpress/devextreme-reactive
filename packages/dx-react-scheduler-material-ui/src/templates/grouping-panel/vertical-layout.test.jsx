@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@mui/material/test-utils';
+import { createShallow, getClasses } from '@devexpress/dx-testing';
 import { getVerticalRowFromGroups, VIEW_TYPES } from '@devexpress/dx-scheduler-core';
 import { VerticalLayout } from './vertical-layout';
 import { BASIC_CELL_HEIGHT } from '../constants';

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Chip from '@mui/material/Chip';
 import TableSortLabel from '@mui/material/TableSortLabel';
-import { createMount, createShallow, getClasses } from '@mui/material/test-utils';
+import { createMount, createShallow, getClasses } from '@devexpress/dx-testing';
 import { GroupPanelItem } from './group-panel-item';
 
 const ENTER_KEY_CODE = 13;

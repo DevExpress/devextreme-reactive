@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses, createMount } from '@mui/material/test-utils';
+import { createShallow, getClasses, createMount } from '@devexpress/dx-testing';
 import { getRecurrenceOptions, changeRecurrenceOptions } from '@devexpress/dx-scheduler-core';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { EndRepeatEditor } from './end-repeat-editor';
@@ -16,7 +16,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     labelComponent: () => null,
     dateEditorComponent: () => null,
     onFieldChange: jest.fn(),
-    getMessage: jest.fn(),
+    getMessage: jest.fn().mockReturnValue('message'),
     appointmentData: {
       startDate: new Date(2019, 1, 1, 0, 0),
       endDate: new Date(2019, 1, 1, 0, 30),

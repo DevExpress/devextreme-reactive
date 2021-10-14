@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { createShallow } from '@mui/material/test-utils';
+import { createShallow  } from '@devexpress/dx-testing';
+import { shallow as enzymeShallow} from 'enzyme';
 import MenuItem from '@mui/material/MenuItem';
 import { ResourceEditor } from './resource-editor';
 
@@ -19,7 +20,7 @@ describe('AppointmentForm resource editor', () => {
     },
   };
   beforeAll(() => {
-    shallow = createShallow({ dive: true });
+    shallow = createShallow();
   });
 
   describe('ResourceEditor', () => {
@@ -53,7 +54,9 @@ describe('AppointmentForm resource editor', () => {
       const tree = shallow((
         <ResourceEditor {...defaultProps} />
       ));
-
+      const tree1 = enzymeShallow(<ResourceEditor {...defaultProps} />);
+      expect(tree1.find(MenuItem))
+        .toHaveLength(2);
       expect(tree.find(MenuItem))
         .toHaveLength(2);
     });

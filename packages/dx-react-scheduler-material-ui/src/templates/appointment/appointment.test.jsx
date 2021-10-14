@@ -1,14 +1,11 @@
 import * as React from 'react';
-import { createMount, createShallow } from '@mui/material/test-utils';
+import { createMount, createShallow } from '@devexpress/dx-testing';
 import { Appointment } from './appointment';
 
-jest.mock('@mui/material/styles', () => ({
-  ...jest.requireActual('@mui/material/styles'),
-  makeStyles: jest.fn(() => () => ({
-    appointment: 'appointment',
-    clickableAppointment: 'clickableAppointment',
-    shadedAppointment: 'shadedAppointment',
-  })),
+jest.mock('@mui/styles/makeStyles', () => () => () => ({
+  appointment: 'appointment',
+  clickableAppointment: 'clickableAppointment',
+  shadedAppointment: 'shadedAppointment',
 }));
 
 describe('Appointment', () => {

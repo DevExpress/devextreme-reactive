@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@mui/material/test-utils';
+import { createShallow, getClasses } from '@devexpress/dx-testing';
 import {
   getRecurrenceOptions, SUNDAY_DATE, WEEK_DAY_OPTIONS, MONDAY_DATE,
   TUESDAY_DATE, THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE, WEDNESDAY_DATE,

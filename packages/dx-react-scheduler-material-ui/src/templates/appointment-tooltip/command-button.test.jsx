@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow } from '@mui/material/test-utils';
+import { createShallow } from '@devexpress/dx-testing';
 import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';

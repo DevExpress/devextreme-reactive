@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, createMount } from '@mui/material/test-utils';
+import { createShallow, createMount } from '@devexpress/dx-testing';
 import { Root } from './root';
 
 describe('DateNavigator', () => {

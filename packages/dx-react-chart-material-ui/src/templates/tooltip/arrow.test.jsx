@@ -1,10 +1,6 @@
 import * as React from 'react';
 import { createMount, getClasses } from '@devexpress/dx-testing';
-import { createTheme } from '@mui/material/styles';
 import { Arrow } from './arrow';
-
-const mockDefaultTheme = createTheme();
-jest.mock('@mui/private-theming/useTheme', () => () => mockDefaultTheme);
 
 describe('Arrow', () => {
   const defaultProps = {
@@ -13,7 +9,6 @@ describe('Arrow', () => {
   };
   let mount;
   const classes = getClasses(<Arrow {...defaultProps} />);
-
   beforeEach(() => {
     mount = createMount();
   });

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@mui/material/test-utils';
+import { createShallow, getClasses } from '@devexpress/dx-testing';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import { OpenButton } from './open-button';

@@ -1,19 +1,16 @@
 import * as React from 'react';
-import { createShallow } from '@mui/material/test-utils';
+import { createShallow } from '@devexpress/dx-testing';
 import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import { Cell } from './cell';
 
-jest.mock('@mui/material/styles', () => ({
-  ...jest.requireActual('@mui/material/styles'),
-  makeStyles: jest.fn(() => () => ({
-    cell: 'cell',
-    text: 'text',
-    horizontalCell: 'horizontalCell',
-    verticalCell: 'verticalCell',
-    groupedByDate: 'groupedByDate',
-    verticalCellText: 'verticalCellText',
-    textContainer: 'textContainer',
-  })),
+jest.mock('@mui/styles/makeStyles', () => () => () => ({
+  cell: 'cell',
+  text: 'text',
+  horizontalCell: 'horizontalCell',
+  verticalCell: 'verticalCell',
+  groupedByDate: 'groupedByDate',
+  verticalCellText: 'verticalCellText',
+  textContainer: 'textContainer',
 }));
 
 describe('GroupingPanel', () => {

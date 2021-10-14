@@ -1,11 +1,7 @@
 import * as React from 'react';
 import { createMount, getClasses } from '@devexpress/dx-testing';
-import { createTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { Text } from './text';
-
-const mockDefaultTheme = createTheme();
-jest.mock('@mui/private-theming/useTheme', () => () => mockDefaultTheme);
 
 describe('Text', () => {
   const defaultProps = {

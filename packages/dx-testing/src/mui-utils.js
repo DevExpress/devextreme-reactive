@@ -2,8 +2,30 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { shallow, mount } from 'enzyme';
 
-export function createShallow() {
-  return Component => shallow(Component).dive();
+function shallowRecursively(wrapper, selector) {
+  if (wrapper.isEmptyRender() || typeof wrapper.getElement().type === 'string') {
+    throw new Error(`Cannot shallow render to the requred component: ${selector}`);
+  }
+
+  const nextWrapper = wrapper.shallow();
+
+  if (selector && wrapper.is(selector)) {
+    return nextWrapper;
+  }
+
+  return shallowRecursively(nextWrapper, selector);
+}
+export function createShallow({ dive, untilSelector } = { dive: false }) {
+  return (Component) => {
+    const wrapper = shallow(Component);
+    if (untilSelector) {
+      return shallowRecursively(wrapper, untilSelector);
+    }
+    if (dive) {
+      return wrapper.dive();
+    }
+    return wrapper;
+  };
 }
 
 export function getClasses(element) {

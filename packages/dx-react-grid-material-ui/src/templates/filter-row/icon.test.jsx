@@ -1,16 +1,12 @@
 import * as React from 'react';
-import { createShallow } from '@mui/material/test-utils';
+import { shallow } from 'enzyme';
 import SearchIcon from '@mui/icons-material/Search';
 import { Icon } from './icon';
 
 describe('Icon', () => {
-  let shallow;
-  beforeAll(() => {
-    shallow = createShallow();
-  });
-
   it('should render default icon if unknown type is specified', () => {
     const tree = shallow(<Icon />);
+
     expect(tree.find(SearchIcon).exists())
       .toBeTruthy();
   });

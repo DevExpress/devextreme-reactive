@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@mui/material/test-utils';
+import { createShallow, getClasses } from '@devexpress/dx-testing';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import { convertToMoment } from '@devexpress/dx-scheduler-core';
 import { DateEditor } from './date-editor';
@@ -71,7 +71,7 @@ describe('AppointmentForm common', () => {
         />
       ));
 
-      expect(tree.find(DateTimePicker).at(0).prop('format'))
+      expect(tree.find(DateTimePicker).at(0).prop('inputFormat'))
         .toBe('DD/MM/YYYY hh:mm A');
     });
   });

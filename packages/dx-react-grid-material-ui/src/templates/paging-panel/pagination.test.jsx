@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createMount, getClasses } from '@mui/material/test-utils';
+import { createMount, getClasses } from '@devexpress/dx-testing';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import { setupConsole } from '@devexpress/dx-testing';

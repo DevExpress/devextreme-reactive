@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, createMount } from '@mui/material/test-utils';
+import { createShallow, createMount } from '@devexpress/dx-testing';
 import { OUTLINED_SELECT } from '@devexpress/dx-scheduler-core';
 import { Select } from './select';
 import { FilledSelect } from './filled-select';

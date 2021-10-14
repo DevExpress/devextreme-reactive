@@ -1,13 +1,10 @@
 import * as React from 'react';
-import { createMount, createShallow } from '@mui/material/test-utils';
+import { createMount, createShallow } from '@devexpress/dx-testing';
 import { DraftAppointment, SourceAppointment } from './appointments';
 
-jest.mock('@mui/material/styles', () => ({
-  ...jest.requireActual('@mui/material/styles'),
-  makeStyles: jest.fn(() => () => ({
-    appointment: 'appointment',
-    shadedAppointment: 'shadedAppointment',
-  })),
+jest.mock('@mui/styles/makeStyles', () => () => () => ({
+  appointment: 'appointment',
+  shadedAppointment: 'shadedAppointment',
 }));
 
 describe('DragDrop', () => {

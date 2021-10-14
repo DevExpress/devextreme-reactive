@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@mui/material/test-utils';
+import { createShallow, getClasses } from '@devexpress/dx-testing';
 import Menu from '@mui/material/Menu';
 import { FilterSelector } from './filter-selector';
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@mui/material/test-utils';
+import { createShallow, getClasses } from '@devexpress/dx-testing';
 import CloseIcon from '@mui/icons-material/Close';
 import { CancelButton } from './cancel-button';
 

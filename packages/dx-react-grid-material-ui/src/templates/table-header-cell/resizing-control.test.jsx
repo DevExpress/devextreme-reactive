@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@mui/material/test-utils';
+import { createShallow, getClasses } from '@devexpress/dx-testing';
 import { setupConsole } from '@devexpress/dx-testing';
 import { Draggable } from '@devexpress/dx-react-core';
 import { ResizingControl } from './resizing-control';

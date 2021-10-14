@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { getClasses, createShallow } from '@mui/material/test-utils';
+import { getClasses, createShallow } from '@devexpress/dx-testing';
 import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 import { Toolbar } from './toolbar';
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@mui/material/test-utils';
+import { createShallow, getClasses } from '@devexpress/dx-testing';
 import { Title } from './title';
 
 const defaultProps = {
@@ -11,7 +11,7 @@ describe('Title', () => {
   let shallow;
   let classes;
   beforeAll(() => {
-    shallow = createShallow({ untilSelector: 'TitleBase' });
+    shallow = createShallow( { untilSelector: 'TitleBase' });
     classes = getClasses(<Title {...defaultProps} />);
   });
   afterAll(() => {

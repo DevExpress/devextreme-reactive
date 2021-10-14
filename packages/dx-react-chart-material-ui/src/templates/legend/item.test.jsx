@@ -1,14 +1,10 @@
 import * as React from 'react';
 import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { createTheme } from '@mui/material/styles';
 import ListItem from '@mui/material/ListItem';
 import { Item } from './item';
 
-const mockDefaultTheme = createTheme();
-jest.mock('@mui/private-theming/useTheme', () => () => mockDefaultTheme);
-
 describe('Root', () => {
-  const shallow = createShallow();
+  const shallow = createShallow({ dive: true });
   const classes = getClasses(<Item>children</Item>);
   it('should render List item', () => {
     const tree = shallow((

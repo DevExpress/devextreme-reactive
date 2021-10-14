@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow } from '@mui/material/test-utils';
+import { createShallow } from '@devexpress/dx-testing';
 import { Root } from './layout';
 
 describe('Root layout', () => {

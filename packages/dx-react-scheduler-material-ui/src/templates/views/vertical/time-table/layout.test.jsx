@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createMount, createShallow } from '@mui/material/test-utils';
+import { createMount, createShallow } from '@devexpress/dx-testing';
 import { Layout } from './layout';
 
 describe('Vertical view TimeTable', () => {

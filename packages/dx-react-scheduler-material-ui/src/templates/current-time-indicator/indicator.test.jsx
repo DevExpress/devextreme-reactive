@@ -1,14 +1,11 @@
 import * as React from 'react';
-import { createShallow } from '@mui/material/test-utils';
+import { createShallow } from '@devexpress/dx-testing';
 import { Indicator } from './indicator';
 
-jest.mock('@mui/material/styles', () => ({
-  ...jest.requireActual('@mui/material/styles'),
-  makeStyles: jest.fn(() => () => ({
-    line: 'line',
-    circle: 'circle',
-    nowIndicator: 'nowIndicator',
-  })),
+jest.mock('@mui/styles/makeStyles', () => () => () => ({
+  line: 'line',
+  circle: 'circle',
+  nowIndicator: 'nowIndicator',
 }));
 
 describe('CurrentTimeIndicator', () => {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createMount, createShallow, getClasses } from '@mui/material/test-utils';
+import { createMount, createShallow, getClasses } from '@devexpress/dx-testing';
 import TableCell from '@mui/material/TableCell';
 import { setupConsole } from '@devexpress/dx-testing';
 import { Cell as TableGroupCell } from './cell';

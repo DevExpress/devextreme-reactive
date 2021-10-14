@@ -1,17 +1,14 @@
 import * as React from 'react';
-import { createShallow } from '@mui/material/test-utils';
+import { createShallow } from '@devexpress/dx-testing';
 import { VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import { Cell } from './cell';
 
-jest.mock('@mui/material/styles', () => ({
-  ...jest.requireActual('@mui/material/styles'),
-  makeStyles: jest.fn(() => () => ({
-    cell: 'cell',
-    shadedCell: 'shadedCell',
-    shadedPart: 'shadedPart',
-    brightRightBorder: 'brightRightBorder',
-    brightBorderBottom: 'brightBorderBottom',
-  })),
+jest.mock('@mui/styles/makeStyles', () => () => () => ({
+  cell: 'cell',
+  shadedCell: 'shadedCell',
+  shadedPart: 'shadedPart',
+  brightRightBorder: 'brightRightBorder',
+  brightBorderBottom: 'brightBorderBottom',
 }));
 
 describe('Vertical view TimeTable', () => {

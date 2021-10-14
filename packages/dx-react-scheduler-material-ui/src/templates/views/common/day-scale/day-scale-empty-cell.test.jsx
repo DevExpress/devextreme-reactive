@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@mui/material/test-utils';
+import { createShallow, getClasses } from '@devexpress/dx-testing';
 import { DayScaleEmptyCell } from './day-scale-empty-cell';
 
 describe('Vertical view DayScaleEmptyCell', () => {

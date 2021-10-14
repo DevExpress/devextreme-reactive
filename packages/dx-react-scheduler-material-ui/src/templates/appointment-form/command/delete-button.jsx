@@ -18,7 +18,8 @@ const DeleteButtonBase = React.memo(({
     className={classNames(classes.button, className)}
     onClick={onExecute}
     {...restProps}
-    size="large">
+    size="large"
+  >
     <DeleteIcon />
   </IconButton>
 ));

@@ -43,7 +43,8 @@ const AppointmentBase = ({
           toggleVisibility();
           onAppointmentMetaChange({ target: target.parentElement.parentElement, data });
         }}
-        size="large">
+        size="large"
+      >
         <InfoIcon fontSize="small" />
       </IconButton>
       {children}

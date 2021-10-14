@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow  } from '@devexpress/dx-testing';
-import { shallow as enzymeShallow} from 'enzyme';
+import { createShallow } from '@devexpress/dx-testing';
+import { shallow as enzymeShallow } from 'enzyme';
 import MenuItem from '@mui/material/MenuItem';
 import { ResourceEditor } from './resource-editor';
 

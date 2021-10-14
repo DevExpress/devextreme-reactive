@@ -25,15 +25,13 @@ const darkTheme = createTheme(adaptV4Theme({
   },
 }));
 
-const DemoContainer = ({ theme, children }) => {
-  return (
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        {children}
-      </ThemeProvider>
-    </StyledEngineProvider>
-  );
-};
+const DemoContainer = ({ theme, children }) => (
+  <StyledEngineProvider injectFirst>
+    <ThemeProvider theme={theme}>
+      {children}
+    </ThemeProvider>
+  </StyledEngineProvider>
+);
 
 DemoContainer.propTypes = {
   theme: PropTypes.any.isRequired,

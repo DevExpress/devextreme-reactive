@@ -24,7 +24,8 @@ const IconBase = React.memo(({
   <IconButton
     className={classNames(classes.groupButton, className)}
     {...restProps}
-    size="large">
+    size="large"
+  >
     {
       expanded
         ? <ExpandMore />

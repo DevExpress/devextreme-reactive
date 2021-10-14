@@ -18,7 +18,8 @@ const CancelButtonBase = React.memo(({
     className={classNames(classes.button, className)}
     onClick={onExecute}
     {...restProps}
-    size="large">
+    size="large"
+  >
     <CloseIcon />
   </IconButton>
 ));

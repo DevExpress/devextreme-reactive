@@ -38,7 +38,8 @@ const TableTreeExpandButtonBase = ({
     }}
     tabIndex={visible ? 0 : -1}
     {...restProps}
-    size="large">
+    size="large"
+  >
     {expanded
       ? <ExpandMore />
       : <ChevronRight />}

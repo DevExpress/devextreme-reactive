@@ -40,7 +40,8 @@ const OpenButtonBase = React.memo(({
       onClick={onVisibilityToggle}
       className={classNames(classes.iconButton, className)}
       {...restProps}
-      size="large">
+      size="large"
+    >
       <CalendarToday />
     </IconButton>
   </React.Fragment>

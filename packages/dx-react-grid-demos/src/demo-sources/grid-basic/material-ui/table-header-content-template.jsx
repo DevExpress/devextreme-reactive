@@ -32,7 +32,8 @@ const TableHeaderContentBase = ({
         className={classes.button}
         // eslint-disable-next-line no-alert
         onClick={() => alert('Custom action')}
-        size="large">
+        size="large"
+      >
         <VisibilityOff />
       </IconButton>
     ) : null}

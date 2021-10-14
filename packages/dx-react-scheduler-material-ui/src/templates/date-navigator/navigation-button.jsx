@@ -28,7 +28,8 @@ const NavigationButtonBase = React.memo(({
     onClick={onClick}
     className={classNames(classes.button, className)}
     {...restProps}
-    size="large">
+    size="large"
+  >
     {type === 'back' ? <ChevronLeft /> : <ChevronRight />}
   </IconButton>
 ));

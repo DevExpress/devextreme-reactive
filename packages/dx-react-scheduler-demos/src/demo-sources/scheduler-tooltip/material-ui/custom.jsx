@@ -58,7 +58,8 @@ const Header = withStyles(style, { name: 'Header' })(({
       /* eslint-disable-next-line no-alert */
       onClick={() => alert(JSON.stringify(appointmentData))}
       className={classes.commandButton}
-      size="large">
+      size="large"
+    >
       <MoreIcon />
     </IconButton>
   </AppointmentTooltip.Header>

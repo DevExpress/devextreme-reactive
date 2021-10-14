@@ -158,7 +158,8 @@ const ExportBase = (props) => {
           id={iconButton}
           onClick={handleClick}
           className={classes.button}
-          size="large">
+          size="large"
+        >
           <MoreVertIcon />
         </IconButton>
         <Menu

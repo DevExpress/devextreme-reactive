@@ -11,7 +11,7 @@ describe('Title', () => {
   let shallow;
   let classes;
   beforeAll(() => {
-    shallow = createShallow( { untilSelector: 'TitleBase' });
+    shallow = createShallow({ untilSelector: 'TitleBase' });
     classes = getClasses(<Title {...defaultProps} />);
   });
   afterAll(() => {

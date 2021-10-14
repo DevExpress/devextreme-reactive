@@ -75,7 +75,8 @@ const DeleteButton = ({ onExecute }) => (
       }
     }}
     title="Delete row"
-    size="large">
+    size="large"
+  >
     <DeleteIcon />
   </IconButton>
 );

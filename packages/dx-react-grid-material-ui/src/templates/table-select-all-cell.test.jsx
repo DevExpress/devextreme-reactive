@@ -1,6 +1,8 @@
 import * as React from 'react';
 import Checkbox from '@mui/material/Checkbox';
-import { createMount, createShallow, getClasses, setupConsole } from '@devexpress/dx-testing';
+import {
+  createMount, createShallow, getClasses, setupConsole,
+} from '@devexpress/dx-testing';
 import { TableSelectAllCell } from './table-select-all-cell';
 
 describe('TableSelectAllCell', () => {

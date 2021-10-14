@@ -37,7 +37,7 @@ export type Palette = Array<string | Color>;
  * See [these examples](https://material-ui.com/customization/color/#examples)
  * for information on how to use it.
  */
- export interface Color {
+export interface Color {
   50: string;
   100: string;
   200: string;
@@ -53,7 +53,6 @@ export type Palette = Array<string | Color>;
   A400: string;
   A700: string;
 }
-
 
 /** An object that provides information about a resource instance. */
 export type ValidResourceInstance = Required<ResourceInstance> & {

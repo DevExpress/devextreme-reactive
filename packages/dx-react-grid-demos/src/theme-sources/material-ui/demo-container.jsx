@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { ThemeProvider, StyledEngineProvider, createTheme, adaptV4Theme } from '@mui/material/styles';
+import {
+  ThemeProvider, StyledEngineProvider, createTheme, adaptV4Theme,
+} from '@mui/material/styles';
 import { blue } from '@mui/material/colors';
 
 const lightTheme = createTheme(adaptV4Theme({

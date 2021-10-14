@@ -10,7 +10,8 @@ export const ToggleButton = ({
     onClick={onToggle}
     disabled={disabled}
     {...restProps}
-    size="large">
+    size="large"
+  >
     {children}
   </IconButton>
 );

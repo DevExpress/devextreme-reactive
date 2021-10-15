@@ -44,21 +44,20 @@ const DetailContent = ({ row, ...rest }) => {
             value={row.LastName}
             onChange={processValueChange}
           />
-          <FormControl margin="normal">
-            <InputLabel id="select-helper-label">State</InputLabel>
-            <Select
-              name="StateID"
-              value={row.StateID}
-              onChange={processValueChange}
-              labelId="select-helper-label"
-            >
-              {states.map(({ ID, Name }) => (
-                <MenuItem key={ID} value={ID}>
-                  {Name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <TextField
+            margin="normal"
+            label="State"
+            select
+            name="StateID"
+            value={row.StateID}
+            onChange={processValueChange}
+          >
+            {states.map(({ ID, Name }) => (
+              <MenuItem key={ID} value={ID}>
+                {Name}
+              </MenuItem>
+            ))}
+          </TextField>
         </FormGroup>
       </MuiGrid>
       <MuiGrid item xs={6}>
@@ -103,7 +102,7 @@ const DetailContent = ({ row, ...rest }) => {
         </FormGroup>
       </MuiGrid>
       <MuiGrid item xs={12}>
-        <MuiGrid container spacing={3} justify="flex-end">
+        <MuiGrid container spacing={3} justifyContent="flex-end">
           <MuiGrid item>
             <Button onClick={applyChanges} variant="text" color="primary">
               Save

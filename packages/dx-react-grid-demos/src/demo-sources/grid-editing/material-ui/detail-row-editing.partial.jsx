@@ -78,7 +78,8 @@ const DetailContent = ({ row, ...rest }) => {
           />
           <LocalizationProvider dateAdapter={AdapterMoment}>
             <DatePicker
-              renderInput={props => <TextField {...props} margin="normal" label="Birth Date" />}
+              renderInput={props => <TextField margin="normal" {...props} />}
+              label="Birth Date"
               value={row.BirthDate}
               onChange={value => processValueChange({
                 target: { name: 'BirthDate', value: value.toDate() },

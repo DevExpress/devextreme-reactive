@@ -60,7 +60,8 @@ const Popup = ({
             />
             <LocalizationProvider dateAdapter={AdapterMoment}>
               <DatePicker
-                renderInput={props => <TextField margin="normal" label="Birth Date" {...props} />}
+                renderInput={props => <TextField margin="normal" {...props} />}
+                label="Birth Date"
                 value={row.BirthDate}
                 onChange={value => onChange({
                   target: { name: 'BirthDate', value },

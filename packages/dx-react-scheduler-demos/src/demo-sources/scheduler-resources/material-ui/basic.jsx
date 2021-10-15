@@ -70,6 +70,7 @@ const ResourceSwitcher = withStyles(styles, { name: 'ResourceSwitcher' })(
         Main resource name:
       </div>
       <Select
+        variant="standard"
         value={mainResourceName}
         onChange={e => onChange(e.target.value)}
       >

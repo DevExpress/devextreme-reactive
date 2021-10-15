@@ -275,8 +275,8 @@ const AppointmentFormContainer = withStyles(containerStyles, { name: 'Appointmen
 const styles = theme => ({
   addButton: {
     position: 'absolute',
-    bottom: theme.spacing(1) * 3,
-    right: theme.spacing(1) * 4,
+    bottom: theme.spacing(3),
+    right: theme.spacing(4),
   },
 });
 

@@ -49,6 +49,7 @@ const LocaleSwitcher = withStyles(styles, { name: 'LocaleSwitcher' })(
       </div>
       <TextField
         select
+        variant="standard"
         value={currentLocale}
         onChange={onLocaleChange}
       >

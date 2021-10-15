@@ -151,6 +151,7 @@ const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({
 
 const Filter = withStyles(styles, { name: 'TextField' })(({ onCurrentFilterChange, currentFilter, classes }) => (
   <TextField
+    size="small"
     placeholder="Filter"
     className={classes.textField}
     value={currentFilter}

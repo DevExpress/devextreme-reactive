@@ -12,7 +12,7 @@ const styles = theme => ({
     WebkitUserSelect: 'none',
     width: theme.spacing(2),
     top: 0,
-    right: -theme.spacing(1),
+    right: theme.spacing(-1),
     height: '100%',
     cursor: 'col-resize',
     zIndex: 100,

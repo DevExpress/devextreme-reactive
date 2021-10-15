@@ -315,7 +315,7 @@ const PrioritySelector = withStyles(styles, { name: 'PrioritySelector' })(({
   return (
     <FormControl className={classes.prioritySelector}>
       <Select
-        inputProps={{ disableUnderline: true }}
+        // inputProps={{ disableUnderline: true }}
         // disableUnderline
         value={priority}
         onChange={(e) => {

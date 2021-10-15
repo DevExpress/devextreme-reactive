@@ -69,7 +69,7 @@ const PageSizeSelectorBase = ({
         input={(
           <Input
             // disableUnderline
-            inputProps={{ disableUnderline: true }}
+            // inputProps={{ disableUnderline: true }}
             classes={{ root: classes.inputRoot }}
           />
         )}

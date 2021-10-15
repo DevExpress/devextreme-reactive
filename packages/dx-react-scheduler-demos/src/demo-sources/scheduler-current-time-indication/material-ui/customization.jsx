@@ -7,7 +7,7 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 import Paper from '@mui/material/Paper';
 import makeStyles from '@mui/styles/makeStyles';
-import teal from '@mui/material/colors/teal';
+import { teal } from '@mui/material/colors';
 import { alpha } from '@mui/material/styles';
 import classNames from 'clsx';
 

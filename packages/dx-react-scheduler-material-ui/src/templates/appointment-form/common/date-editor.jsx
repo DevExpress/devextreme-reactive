@@ -31,9 +31,8 @@ const DateEditorBase = React.memo(({
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <DateTimePicker
-        className={classNames(classes.dateEditor, className)}
         disabled={readOnly}
-        renderInput={props => <TextField margin="normal" variant="filled" {...props} />}
+        renderInput={props => <TextField className={classNames(classes.dateEditor, className)} margin="normal" variant="filled" {...props} />}
         value={value}
         onChange={memoizedChangeHandler}
         inputFormat={dateFormat}

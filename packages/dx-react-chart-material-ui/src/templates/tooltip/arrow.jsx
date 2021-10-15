@@ -5,10 +5,11 @@ import * as PropTypes from 'prop-types';
 
 const styles = (theme) => {
   const arrowSize = theme.spacing(1.2);
+  const arrowWidth = theme.spacing(2.4);
   return {
     'arrow-top': {
-      width: `${arrowSize * 2}px`,
-      height: `${arrowSize}px`,
+      width: arrowWidth,
+      height: arrowSize,
       position: 'absolute',
       top: '100%',
       overflow: 'hidden',
@@ -16,8 +17,8 @@ const styles = (theme) => {
       '&::after': {
         content: '""',
         position: 'absolute',
-        width: `${arrowSize}px`,
-        height: `${arrowSize}px`,
+        width: arrowSize,
+        height: arrowSize,
         background: theme.palette.background.paper,
         transform: 'translateX(-50%) translateY(-50%) rotate(45deg)',
         left: '50%',
@@ -25,18 +26,18 @@ const styles = (theme) => {
       },
     },
     'arrow-right': {
-      width: `${arrowSize}px`,
-      height: `${arrowSize * 2}px`,
+      width: arrowSize,
+      height: arrowWidth,
       position: 'absolute',
-      top: '50%',
-      transform: 'translateX(-100%)',
+      top: '25%!important',
+      transform: 'translateX(-100%)!important',
       overflow: 'hidden',
 
       '&::after': {
         content: '""',
         position: 'absolute',
-        width: `${arrowSize}px`,
-        height: `${arrowSize}px`,
+        width: arrowSize,
+        height: arrowSize,
         background: theme.palette.background.paper,
         transform: 'translateX(-50%) translateY(-50%) rotate(45deg)',
         top: '50%',
@@ -49,9 +50,7 @@ const styles = (theme) => {
 
 const BaseArrow = React.forwardRef(({
   classes, className, placement, ...restProps
-}, ref) => (
-  <div className={classNames(classes[`arrow-${placement}`], className)} ref={ref} {...restProps} />
-));
+}, ref) => <div className={classNames(classes[`arrow-${placement}`], className)} ref={ref} {...restProps} />);
 
 BaseArrow.propTypes = {
   placement: PropTypes.string.isRequired,

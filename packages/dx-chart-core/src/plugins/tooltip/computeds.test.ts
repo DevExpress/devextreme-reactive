@@ -65,8 +65,8 @@ describe('#createReference', () => {
       top: 149,
       right: 178,
       bottom: 151,
-      width: 0,
-      height: 0,
+      width: 4,
+      height: 2,
     });
   });
 });

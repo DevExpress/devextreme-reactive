@@ -5,23 +5,16 @@ import { RIGHT, TOP } from '@devexpress/dx-chart-core';
 import classNames from 'clsx';
 import * as PropTypes from 'prop-types';
 
-const styles = (theme) => {
-  const arrowSize = theme.spacing(1.2);
-  return {
-    'popper-top': {
-      zIndex: 1,
-      marginBottom: `${arrowSize}px`,
-    },
-    'popper-right': {
-      zIndex: 1,
-      marginLeft: `${arrowSize}px`,
-    },
-  };
-};
+const styles = () => ({
+  popper: {
+    zIndex: 1,
+  },
+});
 
 const popperModifiers = arrowRef => ([
-  { name: 'flip', options: { enabled: false } },
-  { name: 'arrow', options: { element: arrowRef } },
+  { name: 'flip', enabled: false },
+  { name: 'arrow', enabled: true, options: { element: arrowRef } },
+  { name: 'offset', options: { offset: [0, 9] } },
 ]);
 
 const OverlayBase = ({
@@ -35,7 +28,7 @@ const OverlayBase = ({
       open
       anchorEl={target}
       placement={placement}
-      className={classNames(classes[`popper-${placement}`], className)}
+      className={classNames(classes.popper, className)}
       modifiers={popperModifiers(arrowRef)}
       {...restProps}
     >

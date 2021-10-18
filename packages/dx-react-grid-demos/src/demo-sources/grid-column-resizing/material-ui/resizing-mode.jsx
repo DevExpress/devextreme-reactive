@@ -26,13 +26,13 @@ const styles = () => ({
   input: {
     paddingLeft: '8px',
     fontSize: '14px',
-    width: '78px',
+    width: '88px',
   },
   label: {
     fontSize: '14px',
   },
   container: {
-    maxWidth: '17em',
+    maxWidth: '19em',
   },
   button: {
     fontSize: '14px',
@@ -67,7 +67,6 @@ const ModeSelectorBase = (props) => {
         input={(
           <OutlinedInput
             classes={{ input: classes.input }}
-            // labelWidth={0}
             margin="dense"
           />
         )}

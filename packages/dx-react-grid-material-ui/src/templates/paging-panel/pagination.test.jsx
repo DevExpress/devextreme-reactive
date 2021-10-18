@@ -49,6 +49,21 @@ describe('Pagination', () => {
       />
     ));
 
+    it('should has correct classes', () => {
+      const tree = mountPagination({
+        totalPages: 10,
+        currentPage: 0,
+        totalCount: 10,
+        pageSize: 5,
+      });
+      const buttons = tree.find(Button);
+
+      buttons.forEach((b, index) => {
+        expect(buttons.at(index).hasClass(classes.button)).toBeTruthy();
+        expect(buttons.at(index).hasClass(classes.text)).toBeTruthy();
+      });
+    });
+
     it('can select the first item', () => {
       const tree = mountPagination({
         totalPages: 10,

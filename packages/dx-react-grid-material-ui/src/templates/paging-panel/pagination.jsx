@@ -23,6 +23,9 @@ const styles = theme => ({
     fontWeight: 'bold',
     cursor: 'default',
   },
+  text: {
+    color: 'rgba(0, 0, 0, 0.87)',
+  },
   arrowButton: {
     display: 'inline-block',
     transform: theme.direction === 'rtl' ? 'rotate(180deg)' : null,
@@ -56,6 +59,7 @@ const PageButton = ({
   const buttonClasses = classNames({
     [classes.button]: true,
     [classes.activeButton]: isActive,
+    [classes.text]: true,
   });
 
   return (

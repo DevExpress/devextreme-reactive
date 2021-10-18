@@ -102,13 +102,13 @@ const DetailContent = ({ row, ...rest }) => {
       <MuiGrid item xs={12}>
         <MuiGrid container spacing={3} justifyContent="flex-end">
           <MuiGrid item>
-            <Button onClick={applyChanges} variant="text" color="primary">
-              Save
+            <Button onClick={cancelChanges} color="secondary">
+              Cancel
             </Button>
           </MuiGrid>
           <MuiGrid item>
-            <Button onClick={cancelChanges} color="secondary">
-              Cancel
+            <Button onClick={applyChanges} variant="text" color="primary">
+              Save
             </Button>
           </MuiGrid>
         </MuiGrid>

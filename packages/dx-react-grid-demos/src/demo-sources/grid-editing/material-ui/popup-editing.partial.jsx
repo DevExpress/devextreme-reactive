@@ -81,7 +81,7 @@ const Popup = ({
       </MuiGrid>
     </DialogContent>
     <DialogActions>
-      <Button onClick={onCancelChanges} color="primary">
+      <Button onClick={onCancelChanges} color="secondary">
         Cancel
       </Button>
       <Button onClick={onApplyChanges} color="primary">

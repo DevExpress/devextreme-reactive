@@ -24,21 +24,12 @@ import Typography from '@mui/material/Typography';
 import { annualVehiclesSales as data } from '../../../demo-data/data-vizualization';
 
 const styles = theme => ({
-  primaryButton: {
+  navigateButton: {
     margin: theme.spacing(1),
-    width: '120px',
   },
-  secondaryButton: {
+  button: {
     margin: theme.spacing(1),
     width: '170px',
-  },
-  leftIcon: {
-    marginRight: theme.spacing(1),
-    marginBottom: '1px',
-  },
-  rightIcon: {
-    marginLeft: theme.spacing(1),
-    marginBottom: '1px',
   },
   text: {
     display: 'flex',
@@ -127,16 +118,14 @@ const AuxiliarySelection = ({
 }) => (
   <div>
     <div className={classes.group}>
-      <AuxiliaryButton onClick={turnPrev} className={classes.primaryButton} color="primary">
-        <NavigateBefore className={classes.leftIcon} />
-        Previous
+      <AuxiliaryButton onClick={turnPrev} className={classes.navigateButton}>
+        <NavigateBefore />
       </AuxiliaryButton>
-      <AuxiliaryButton onClick={clear} className={classes.secondaryButton}>
+      <AuxiliaryButton onClick={clear} className={classes.button}>
         Clear Selection
       </AuxiliaryButton>
-      <AuxiliaryButton onClick={turnNext} className={classes.primaryButton} color="primary">
-        Next
-        <NavigateNext className={classes.rightIcon} />
+      <AuxiliaryButton onClick={turnNext} className={classes.navigateButton}>
+        <NavigateNext />
       </AuxiliaryButton>
     </div>
     <div className={classes.text}>
@@ -150,7 +139,7 @@ const AuxiliaryHover = ({
   classes, target, enabled, toggle,
 }) => (
   <div className={classes.hoverGroup}>
-    <AuxiliaryButton onClick={toggle} className={classes.secondaryButton}>
+    <AuxiliaryButton onClick={toggle} className={classes.button}>
       {enabled ? 'Disable tooltip' : 'Enable tooltip'}
     </AuxiliaryButton>
     <div className={classes.text}>

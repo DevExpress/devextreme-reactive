@@ -67,11 +67,10 @@ const auxiliaryRootStyle = {
 };
 const hoverGroupStyle = { width: '300px' };
 const textStyle = { fontSize: '14px' };
-const primaryButtonsStyle = { width: '120px' };
-const secondaryButtonsStyle = { width: '170px' };
+const buttonsStyle = { width: '170px' };
 const iconStyle = { top: '3px' };
 
-const AuxiliaryName = props => <span className="font-weight-light mx-1" style={textStyle} {...props} />;
+const AuxiliaryName = props => <span className="font-weight-light mx-2" style={textStyle} {...props} />;
 const AuxiliaryData = props => <span {...props} />;
 const AuxiliaryButton = ({ className, ...restProps }) => <button type="button" className={classNames('m-2', className)} {...restProps} />;
 const AuxiliaryIcon = ({ className, ...restProps }) => <span className={classNames('mx-2', className)} style={iconStyle} {...restProps} />;
@@ -81,15 +80,13 @@ const AuxiliarySelection = ({
 }) => (
   <div>
     <div>
-      <AuxiliaryButton onClick={turnPrev} className="btn btn-outline-primary" style={primaryButtonsStyle}>
+      <AuxiliaryButton onClick={turnPrev} className="btn btn-outline-primary">
         <AuxiliaryIcon className="oi oi-caret-left" />
-        Previous
       </AuxiliaryButton>
-      <AuxiliaryButton onClick={clear} className="btn btn-outline-secondary" style={secondaryButtonsStyle}>
+      <AuxiliaryButton onClick={clear} className="btn btn-outline-primary" style={buttonsStyle}>
         Clear Selection
       </AuxiliaryButton>
-      <AuxiliaryButton onClick={turnNext} className="btn btn-outline-primary" style={primaryButtonsStyle}>
-        Next
+      <AuxiliaryButton onClick={turnNext} className="btn btn-outline-primary">
         <AuxiliaryIcon className="oi oi-caret-right" />
       </AuxiliaryButton>
     </div>
@@ -101,7 +98,7 @@ const AuxiliarySelection = ({
 const AuxiliaryHover = ({ target, enabled, toggle }) => (
   <div style={hoverGroupStyle}>
     <div>
-      <AuxiliaryButton onClick={toggle} className="btn btn-outline-secondary" style={secondaryButtonsStyle}>
+      <AuxiliaryButton onClick={toggle} className="btn btn-outline-primary" style={buttonsStyle}>
         {enabled ? 'Disable tooltip' : 'Enable tooltip'}
       </AuxiliaryButton>
     </div>

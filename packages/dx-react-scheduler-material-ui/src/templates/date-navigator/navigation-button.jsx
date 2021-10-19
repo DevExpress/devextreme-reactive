@@ -26,6 +26,7 @@ const NavigationButtonBase = React.memo(({
 }) => (
   <IconButton
     onClick={onClick}
+    color="primary"
     className={classNames(classes.button, className)}
     {...restProps}
     size="large"

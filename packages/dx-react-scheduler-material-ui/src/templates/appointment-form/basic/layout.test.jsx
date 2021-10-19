@@ -66,15 +66,15 @@ describe('AppointmentForm basic', () => {
 
       const labelComponents = tree.find(defaultProps.labelComponent);
       expect(labelComponents)
-        .toHaveLength(3);
+        .toHaveLength(2);
       expect(labelComponents.at(0).prop('type'))
         .toEqual(TITLE);
       expect(labelComponents.at(1).is(`.${classes.dividerLabel}`))
         .toBeTruthy();
-      expect(labelComponents.at(2).prop('type'))
-        .toEqual(TITLE);
-      expect(labelComponents.at(2).is(`.${classes.labelWithMargins}`))
-        .toBeTruthy();
+      // expect(labelComponents.at(2).prop('type'))
+      //   .toEqual(TITLE);
+      // expect(labelComponents.at(2).is(`.${classes.labelWithMargins}`))
+      //   .toBeTruthy();
 
       const textEditors = tree.find(defaultProps.textEditorComponent);
       expect(textEditors)
@@ -112,8 +112,6 @@ describe('AppointmentForm basic', () => {
         .toBeCalledWith('detailsLabel');
       expect(defaultProps.getMessage)
         .toBeCalledWith('titleLabel');
-      expect(defaultProps.getMessage)
-        .toBeCalledWith('moreInformationLabel');
       expect(defaultProps.getMessage)
         .toBeCalledWith('notesLabel');
       expect(defaultProps.getMessage)

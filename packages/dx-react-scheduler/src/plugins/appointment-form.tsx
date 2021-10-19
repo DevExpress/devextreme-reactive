@@ -64,7 +64,6 @@ const defaultMessages = {
   titleLabel: 'Title',
   commitCommand: 'Save',
   detailsLabel: 'Details',
-  moreInformationLabel: 'More Information',
   repeatLabel: 'Repeat',
   notesLabel: 'Notes',
   never: 'Never',

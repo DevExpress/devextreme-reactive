@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import makeStyles from '@mui/styles/makeStyles';
 import Chip from '@mui/material/Chip';
-import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import classNames from 'clsx';
 import { getAppointmentColor } from '../../utils';
@@ -63,57 +63,63 @@ export const ResourceEditor = React.memo(({
   };
 
   return (
-    <Select
+    <TextField
+      select
       disabled={readOnly}
       variant="outlined"
+      margin="normal"
       value={values}
-      multiple={resource.allowMultiple}
+      SelectProps={{
+        multiple: resource.allowMultiple,
+        renderValue: (selected = []) => (
+          resource.allowMultiple ? (
+            <div className={classes.chips}>
+              {selected.map((value) => {
+                const resourceItem = getResourceInstance(resource.instances, value);
+                return (
+                  <Chip
+                    key={value}
+                    label={resourceItem.text}
+                    className={classes.chip}
+                    style={{ backgroundColor: getAppointmentColor(300, resourceItem.color) }}
+                  />
+                );
+              })}
+            </div>
+          ) : (
+            <div className={classes.itemContainer}>
+              <div className={classes.circleContainer}>
+                <div
+                  className={classes.resourceCircle}
+                  style={{
+                    backgroundColor: getAppointmentColor(
+                      400, getResourceInstance(resource.instances, selected[0]).color,
+                    ),
+                  }}
+                />
+              </div>
+              {getResourceInstance(resource.instances, selected[0]).text}
+            </div>
+          )
+        ),
+      }}
       onChange={event => onChange(event.target.value)}
       className={classNames(classes.selectBox, className)}
       classes={{ select: classes.select }}
-      renderValue={selected => (
-        resource.allowMultiple ? (
-          <div className={classes.chips}>
-            {selected.map((value) => {
-              const resourceItem = getResourceInstance(resource.instances, value);
-              return (
-                <Chip
-                  key={value}
-                  label={resourceItem.text}
-                  className={classes.chip}
-                  style={{ backgroundColor: getAppointmentColor(300, resourceItem.color) }}
-                />
-              );
-            })}
-          </div>
-        ) : (
-          <div className={classes.itemContainer}>
-            <div className={classes.circleContainer}>
-              <div
-                className={classes.resourceCircle}
-                style={{
-                  backgroundColor: getAppointmentColor(
-                    400, getResourceInstance(resource.instances, selected[0]).color,
-                  ),
-                }}
-              />
-            </div>
-            {getResourceInstance(resource.instances, selected[0]).text}
-          </div>
-        )
-      )}
       {...restProps}
     >
-      {resource.instances.map(resourceItem => (
-        <MenuItem key={resourceItem.id} value={resourceItem.id}>
-          <div
-            className={classes.resourceCircle}
-            style={{ backgroundColor: getAppointmentColor(400, resourceItem.color) }}
-          />
-          {resourceItem.text}
-        </MenuItem>
-      ))}
-    </Select>
+      {
+        resource.instances.map(resourceItem => (
+          <MenuItem key={resourceItem.id} value={resourceItem.id}>
+            <div
+              className={classes.resourceCircle}
+              style={{ backgroundColor: getAppointmentColor(400, resourceItem.color) }}
+            />
+            {resourceItem.text}
+          </MenuItem>
+        ))
+      }
+    </TextField>
   );
 });
 

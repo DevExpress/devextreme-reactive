@@ -75,7 +75,7 @@ describe('AppointmentForm common', () => {
       ));
 
       expect(tree.prop('variant'))
-        .toBe('filled');
+        .toBeUndefined();
       expect(tree.prop('multiline'))
         .toBeFalsy();
       expect(tree.prop('type'))
@@ -88,7 +88,7 @@ describe('AppointmentForm common', () => {
       ));
 
       expect(tree.prop('variant'))
-        .toBe('filled');
+        .toBeUndefined();
       expect(tree.prop('multiline'))
         .toBeFalsy();
       expect(tree.prop('type'))
@@ -112,7 +112,7 @@ describe('AppointmentForm common', () => {
       ));
 
       expect(tree.prop('variant'))
-        .toBe('filled');
+        .toBeUndefined();
       expect(tree.prop('multiline'))
         .toBeFalsy();
       expect(tree.prop('type'))

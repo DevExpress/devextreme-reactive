@@ -56,16 +56,18 @@ describe('AppointmentForm recurrence RadioGroup', () => {
 
       const labels = tree.find(defaultProps.labelComponent);
       expect(labels)
-        .toHaveLength(2);
+        .toHaveLength(3);
       expect(labels.at(0).is(`.${classes.label}`))
         .toBeTruthy();
-      expect(labels.at(1).is(`.${classes.label}`))
+      expect(labels.at(1).is(`.${classes.occurenceLabel}`))
+        .toBeTruthy();
+      expect(labels.at(2).is(`.${classes.label}`))
         .toBeTruthy();
 
       const textEditor = tree.find(defaultProps.textEditorComponent);
       expect(textEditor)
         .toHaveLength(1);
-      expect(textEditor.at(0).is(`.${classes.textEditor}`))
+      expect(textEditor.at(0).is(`.${classes.occurenceTextEditor}`))
         .toBeTruthy();
 
       const dateEditorComponent = tree.find(defaultProps.dateEditorComponent);

@@ -263,7 +263,6 @@ detailsLabel? | string | `Details` | The "Details" label text.
 allDayLabel? | string | `All Day` | The "All Day" editor's label text.
 titleLabel? | string | `Title` | The "Title" editor's label text.
 commitCommand? | string | `Save` | The commit button's text.
-moreInformationLabel? | string | `More Information` | The "More Information" editor’s label text.
 repeatLabel? | string | `Repeat` | The "Repeat" editor’s label text.
 notesLabel? | string | `Notes` | The "Notes" editor’s label text.
 never? | string | `Never` | The "Never" label text.

@@ -36,7 +36,6 @@ const FilledSelectBase = React.memo(({
       value={value}
       onChange={handleChange}
       margin="normal"
-      variant="filled"
       hiddenLabel
       disabled={readOnly}
       {...restProps}

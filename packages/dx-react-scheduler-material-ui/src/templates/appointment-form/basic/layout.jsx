@@ -43,12 +43,9 @@ const styles = ({ spacing, typography }) => ({
       width: '560px',
     },
   },
-  labelWithMargins: {
+  notesEditor: {
     marginBottom: spacing(0.5),
     marginTop: spacing(0.5),
-  },
-  notesEditor: {
-    marginTop: spacing(0),
   },
   dateEditor: {
     width: '45%',
@@ -186,11 +183,6 @@ const LayoutBase = ({
           onValueChange={changeFrequency}
         />
       </Grid>
-      <Label
-        text={getMessage('moreInformationLabel')}
-        type={TITLE}
-        className={classes.labelWithMargins}
-      />
       <TextEditor
         placeholder={getMessage('notesLabel')}
         readOnly={readOnly}
@@ -201,12 +193,8 @@ const LayoutBase = ({
       />
       {resources.map(resource => (
         <React.Fragment key={resource.fieldName}>
-          <Label
-            text={resource.title}
-            type={TITLE}
-            className={classes.labelWithMargins}
-          />
           <ResourceEditor
+            label={resource.title}
             readOnly={readOnly}
             resource={resource}
             appointmentResources={appointmentResources}

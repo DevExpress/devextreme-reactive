@@ -12,8 +12,13 @@ import {
 } from '@devexpress/dx-scheduler-core';
 
 const styles = ({ spacing, typography }) => ({
-  textEditor: {
-    width: 'calc(100% - 4.5em)',
+  occurenceTextEditor: {
+    width: 'calc((100% - 5.5em) * 3 / 7)',
+    maxWidth: '8em',
+  },
+  occurenceLabel: {
+    marginLeft: '1em',
+    width: 'calc((100% - 5.5em) * 4 / 7)',
   },
   label: {
     width: '4.5em',
@@ -58,23 +63,19 @@ const EndRepeatEditorBase = ({
     }), [recurrenceOptions, onFieldChange],
   );
   const changeRecurrenceEndDate = React.useCallback((date) => {
-    if (isDateValid(date)) {
+    if(isDateValid(date)) {
       onFieldChange({
         rRule: changeRecurrenceOptions({ ...recurrenceOptions, until: date }),
       });
     }
   }, [recurrenceOptions, onFieldChange]);
 
-  const countEditorProps = React.useMemo(() => ({
-    endAdornment: <InputAdornment position="end">{getMessage('occurrencesLabel')}</InputAdornment>,
-  }), []);
-
   const recurrenceCount = recurrenceOptions.count || count;
   const recurrenceEndDate = recurrenceOptions.until || endDate;
   let value;
-  if (recurrenceOptions.count) {
+  if(recurrenceOptions.count) {
     value = 'endAfter';
-  } else if (recurrenceOptions.until) {
+  } else if(recurrenceOptions.until) {
     value = 'endBy';
   } else {
     value = 'never';
@@ -82,7 +83,7 @@ const EndRepeatEditorBase = ({
 
   const onRadioGroupValueChange = (event) => {
     let change;
-    switch (event.target.value) {
+    switch(event.target.value) {
       case 'endAfter':
         setEndDate(recurrenceOptions.until || endDate);
         change = { count, until: undefined };
@@ -137,11 +138,14 @@ const EndRepeatEditorBase = ({
             />
             <TextEditor
               readOnly={readOnly || value !== 'endAfter'}
-              className={classes.textEditor}
+              className={classes.occurenceTextEditor}
               value={recurrenceCount}
               type={NUMBER_EDITOR}
               onValueChange={changeRecurrenceCount}
-              InputProps={countEditorProps}
+            />
+            <Label
+              className={classes.occurenceLabel}
+              text={getMessage('occurrencesLabel')}
             />
           </Grid>
         )}

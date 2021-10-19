@@ -37,7 +37,7 @@ const TextEditorBase = React.memo(({
     <TextField
       className={classNames(classes.editor, className)}
       value={value}
-      variant={notesTextEditor ? 'outlined' : 'filled'}
+      variant={notesTextEditor ? 'outlined' : undefined}
       disabled={readOnly}
       onChange={({ target }) => onValueChange(target.value)}
       InputProps={{

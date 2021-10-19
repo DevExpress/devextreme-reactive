@@ -7,15 +7,13 @@ import withStyles from '@mui/styles/withStyles';
 
 const styles = ({ typography }) => ({
   root: {
-    fontSize: typography.fontSize,
+    fontSize: typography.fontSize + 2,
   },
   input: {
     fontWeight: 'bold',
     textTransform: 'uppercase',
-    fontSize: typography.fontSize,
   },
   menuItem: {
-    fontSize: typography.fontSize,
     textTransform: 'uppercase',
   },
   inputRoot: {
@@ -45,7 +43,6 @@ const OutlinedSelectBase = React.memo(({
       input={(
         <OutlinedInput
           classes={inputClasses || { input: classes.input, root: classes.inputRoot }}
-          // labelWidth={0}
         />
       )}
       {...restProps}

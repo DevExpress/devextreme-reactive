@@ -14,6 +14,7 @@ const styles = theme => ({
   titleLabel: {
     fontWeight: theme.typography.fontWeightBold,
     fontSize: theme.typography.fontSize + 5,
+    paddingBottom: theme.spacing(1),
   },
 });
 

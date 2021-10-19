@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { shallow as enzymeShallow } from 'enzyme';
+import { createShallow } from '@devexpress/dx-testing';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import { convertToMoment } from '@devexpress/dx-scheduler-core';
 import { DateEditor } from './date-editor';
@@ -29,14 +30,11 @@ describe('AppointmentForm common', () => {
     });
 
     it('should pass classNme to the DateTimePicker element', () => {
-      const classes = getClasses(<DateEditor {...defaultProps} />);
-      const tree = shallow((
+      const tree = enzymeShallow((
         <DateEditor {...defaultProps} className="custom-class" />
       ));
-
-      const dateTimePicker = tree.find(DateTimePicker);
-
-      expect(dateTimePicker.at(0).is(`.${classes.dateEditor}.custom-class`))
+      const textField = enzymeShallow(tree.shallow().childAt(0).props().renderInput({}));
+      expect(textField.at(0).is('.custom-class'))
         .toBeTruthy();
     });
 

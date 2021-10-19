@@ -1,17 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import AdapterMoment from '@mui/lab/AdapterMoment';
-import withStyles from '@mui/styles/withStyles';
-import classNames from 'clsx';
 import TextField from '@mui/material/TextField';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-
-const styles = ({ spacing }) => ({
-  dateEditor: {
-    paddingBottom: spacing(1.5),
-  },
-});
 
 const DateEditorBase = React.memo(({
   classes,
@@ -32,7 +24,7 @@ const DateEditorBase = React.memo(({
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <DateTimePicker
         disabled={readOnly}
-        renderInput={props => <TextField className={classNames(classes.dateEditor, className)} margin="normal" variant="filled" {...props} />}
+        renderInput={props => <TextField className={className} margin="normal" {...props} />}
         value={value}
         onChange={memoizedChangeHandler}
         inputFormat={dateFormat}
@@ -64,4 +56,4 @@ DateEditorBase.defaultProps = {
   excludeTime: false,
 };
 
-export const DateEditor = withStyles(styles)(DateEditorBase, { name: 'DateEditor' });
+export const DateEditor = DateEditorBase;

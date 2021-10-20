@@ -1,6 +1,6 @@
 # TableKeyboardNavigation Plugin Reference
 
-A plugin that visualizes table focused cell.
+A plugin that visualizes a focused table cell.
 
 ## Import
 
@@ -28,43 +28,43 @@ import { TableKeyboardNavigation } from '@devexpress/dx-react-grid';
 
 Name | Type | Default | Description
 -----|------|---------|------------
-defaultFocusedCell | { rowKey: string, columnKey: string } | | Object with unique keys of a row and column that defines cell should be initially focused in uncontrolled mode.
-focusedCell | { rowKey: string, columnKey: string } | | Object with unique keys of a row and column that defines cell should be focused.
-onFocusedCellChange | (focusedCell: { rowKey: string, columnKey: string }) => void | | Handles when the cell gets focus.
-cellComponent | ComponentType&lt;[TableKeyboardNavigation.CellProps](#tablekeyboardnavigationcellprops)&gt; | | A component renders focused cell.
-rowComponent | ComponentType&lt;[TableKeyboardNavigation.RowProps](#tablekeyboardnavigationrowprops)&gt; | | Acomponent renders row that contains the focused cell.
-focusedRowEnabled | boolean | false | Specifies whether row should be focused when the cell in this row focused.
+defaultFocusedCell | { rowKey: string, columnKey: string } | | Defines a cell that should be initially focused in uncontrolled mode.
+focusedCell | { rowKey: string, columnKey: string } | | Defines a cell that should be focused.
+onFocusedCellChange | (focusedCell: { rowKey: string, columnKey: string }) => void | | A function that is executed when a cell gets focus.
+cellComponent | ComponentType&lt;[TableKeyboardNavigation.CellProps](#tablekeyboardnavigationcellprops)&gt; | | A component that renders the focused cell.
+rowComponent | ComponentType&lt;[TableKeyboardNavigation.RowProps](#tablekeyboardnavigationrowprops)&gt; | | A component that renders the row that contains the focused cell.
+focusedRowEnabled | boolean | false | Specifies whether a row should be focused when one of its cells is focused.
 
 ## Interfaces
 
 ### TableKeyboardNavigation.CellProps
 
-Describes properties passed to a component that renders a focused cell.
+Properties passed to the `cellComponent`.
 
 Extends [Table.CellProps](table.md#tablecellprops)
 
 Field | Type | Description
 ------|------|------------
 focused | boolean | Indicates whether the cell is focused.
-component | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | A component that should be rendered as a focused cell.
+component | ComponentType&lt;[Table.CellProps](table.md#tablecellprops)&gt; | A component that renders the focused cell.
 
 ### TableKeyboardNavigation.RowProps
 
-Describes properties passed to a component that renders a row that containes focused cell.
+Properties passed to the `rowComponent`
 
 Extends [Table.RowProps](table.md#tablerowprops)
 
 Field | Type | Description
 ------|------|------------
-focused | boolean | Indicates whether the row containes focused cell. `true` when `focusedRowEnabled` is enabled and the cell in this row is focused.
-component | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | A component that should be rendered as a focused row.
+focused | boolean | `true` if `focusedRowEnabled` is enabled and the row contains a focused cell.
+component | ComponentType&lt;[Table.RowProps](table.md#tablerowprops)&gt; | A component that renders the row.
 
 ## Plugin Components
 
 Name | Properties | Description
 -----|------------|------------
-TableKeyboardNavigation.Cell | [TableKeyboardNavigation.CellProps](#tablekeyboardnavigationcellprops) | A component that renders a focused cell
-TableKeyboardNavigation.Row | [TableKeyboardNavigation.RowProps](#tablekeyboardnavigationrowprops) | A component that renders a focused row.
+TableKeyboardNavigation.Cell | [TableKeyboardNavigation.CellProps](#tablekeyboardnavigationcellprops) | A component that renders the focused cell.
+TableKeyboardNavigation.Row | [TableKeyboardNavigation.RowProps](#tablekeyboardnavigationrowprops) | A component that renders the focused row.
 
 Additional properties are added to the component's root element.
 

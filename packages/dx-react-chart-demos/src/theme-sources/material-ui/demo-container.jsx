@@ -1,29 +1,23 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import {
-  ThemeProvider, StyledEngineProvider, createTheme, adaptV4Theme,
+  ThemeProvider, StyledEngineProvider, createTheme,
 } from '@mui/material/styles';
 import { blue } from '@mui/material/colors';
 
-const lightTheme = createTheme(adaptV4Theme({
+const lightTheme = createTheme({
   palette: {
     mode: 'light',
     primary: blue,
   },
-  typography: {
-    useNextVariants: true,
-  },
-}));
+});
 
-const darkTheme = createTheme(adaptV4Theme({
+const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: blue,
   },
-  typography: {
-    useNextVariants: true,
-  },
-}));
+});
 
 const DemoContainer = ({ theme, children }) => (
   <StyledEngineProvider injectFirst>

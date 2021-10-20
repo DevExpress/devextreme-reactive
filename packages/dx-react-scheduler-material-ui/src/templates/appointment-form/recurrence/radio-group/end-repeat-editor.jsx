@@ -5,7 +5,6 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import Grid from '@mui/material/Grid';
-import InputAdornment from '@mui/material/InputAdornment';
 import {
   NUMBER_EDITOR, getRecurrenceOptions, changeRecurrenceOptions,
   checkIsNaturalNumber, isDateValid,
@@ -63,7 +62,7 @@ const EndRepeatEditorBase = ({
     }), [recurrenceOptions, onFieldChange],
   );
   const changeRecurrenceEndDate = React.useCallback((date) => {
-    if(isDateValid(date)) {
+    if (isDateValid(date)) {
       onFieldChange({
         rRule: changeRecurrenceOptions({ ...recurrenceOptions, until: date }),
       });
@@ -73,9 +72,9 @@ const EndRepeatEditorBase = ({
   const recurrenceCount = recurrenceOptions.count || count;
   const recurrenceEndDate = recurrenceOptions.until || endDate;
   let value;
-  if(recurrenceOptions.count) {
+  if (recurrenceOptions.count) {
     value = 'endAfter';
-  } else if(recurrenceOptions.until) {
+  } else if (recurrenceOptions.until) {
     value = 'endBy';
   } else {
     value = 'never';
@@ -83,7 +82,7 @@ const EndRepeatEditorBase = ({
 
   const onRadioGroupValueChange = (event) => {
     let change;
-    switch(event.target.value) {
+    switch (event.target.value) {
       case 'endAfter':
         setEndDate(recurrenceOptions.until || endDate);
         change = { count, until: undefined };

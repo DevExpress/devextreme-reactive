@@ -122,9 +122,9 @@ class AppointmentFormContainerBasic extends React.PureComponent {
       ...this.getAppointmentData(),
       ...this.getAppointmentChanges(),
     };
-    if(type === 'deleted') {
+    if (type === 'deleted') {
       commitChanges({ [type]: appointment.id });
-    } else if(type === 'changed') {
+    } else if (type === 'changed') {
       commitChanges({ [type]: { [appointment.id]: appointment } });
     } else {
       commitChanges({ [type]: appointment });
@@ -317,7 +317,7 @@ class Demo extends React.PureComponent {
         .filter(appointment => editingAppointment && appointment.id === editingAppointment.id)[0]
         || addedAppointment;
       const cancelAppointment = () => {
-        if(isNewAppointment) {
+        if (isNewAppointment) {
           this.setState({
             editingAppointment: previousAppointment,
             isNewAppointment: false,
@@ -347,7 +347,7 @@ class Demo extends React.PureComponent {
   onAddedAppointmentChange(addedAppointment) {
     this.setState({ addedAppointment });
     const { editingAppointment } = this.state;
-    if(editingAppointment !== undefined) {
+    if (editingAppointment !== undefined) {
       this.setState({
         previousAppointment: editingAppointment,
       });
@@ -384,15 +384,15 @@ class Demo extends React.PureComponent {
   commitChanges({ added, changed, deleted }) {
     this.setState((state) => {
       let { data } = state;
-      if(added) {
+      if (added) {
         const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
         data = [...data, { id: startingAddedId, ...added }];
       }
-      if(changed) {
+      if (changed) {
         data = data.map(appointment => (
           changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
       }
-      if(deleted !== undefined) {
+      if (deleted !== undefined) {
         this.setDeletedAppointmentId(deleted);
         this.toggleConfirmationVisible();
       }

@@ -1,0 +1,30 @@
+import React, { useState } from 'react';<%&additionalImports%>
+import {
+  Grid,
+  VirtualTable,
+  TableHeaderRow,
+  TableKeyboardNavigation,
+} from '@devexpress/dx-react-grid-<%&themeName%>';<%&cssImports%>
+
+const getRowId = row => row.id;
+
+export default () => {
+  const [columns] = useState(Array.from({ length: 10000 })
+    .map((item, index) => ({ name: `${index}`, title: `Column ${index}`, getCellValue: row => `[${row.id};${index}]` })));
+  const [rows] = useState(Array.from({ length: 10000 })
+    .map((item, index) => ({ id: index })));
+
+  return (
+    <<%&wrapperTag%><%&wrapperAttributes%>>
+      <Grid
+        rows={rows}
+        columns={columns}
+        getRowId={getRowId}
+      >
+        <VirtualTable />
+        <TableHeaderRow />
+        <TableKeyboardNavigation />
+      </Grid>
+    </<%&wrapperTag%>>
+  );
+};

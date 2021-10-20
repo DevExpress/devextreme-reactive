@@ -25,6 +25,7 @@ import { TableFixedColumns as TableFixedColumns_2 } from '@devexpress/dx-react-g
 import { TableGroupRow as TableGroupRow_2 } from '@devexpress/dx-react-grid';
 import { TableHeaderRow as TableHeaderRow_2 } from '@devexpress/dx-react-grid';
 import { TableInlineCellEditing as TableInlineCellEditing_2 } from '@devexpress/dx-react-grid';
+import { TableKeyboardNavigation as TableKeyboardNavigation_2 } from '@devexpress/dx-react-grid';
 import { TableRowDetail as TableRowDetail_2 } from '@devexpress/dx-react-grid';
 import { TableSelection as TableSelection_2 } from '@devexpress/dx-react-grid';
 import { TableSummaryRow as TableSummaryRow_2 } from '@devexpress/dx-react-grid';
@@ -614,6 +615,32 @@ export interface TableInlineCellEditingProps {
   cellComponent?: React_2.ComponentType<TableInlineCellEditing_2.CellProps>;
   selectTextOnEditStart?: boolean;
   startEditAction?: 'click' | 'doubleClick';
+}
+
+// @public (undocumented)
+export namespace TableKeyboardNavigation {
+  export type CellProps = TableKeyboardNavigation_2.CellProps;
+}
+
+// @public (undocumented)
+export namespace TableKeyboardNavigation {
+  export type RowProps = TableKeyboardNavigation_2.RowProps;
+}
+
+// @public
+export const TableKeyboardNavigation: React_2.ComponentType<TableKeyboardNavigationProps> & {
+  Cell: React_2.ComponentType<TableKeyboardNavigation_2.CellProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
+  Row: React_2.ComponentType<TableKeyboardNavigation_2.RowProps & { className?: string; style?: React_2.CSSProperties; [x: string]: any }>;
+};
+
+// @public (undocumented)
+export interface TableKeyboardNavigationProps {
+  cellComponent?: React_2.ComponentType<TableKeyboardNavigation_2.CellProps>;
+  defaultFocusedCell?: { rowKey: string, columnKey: string };
+  focusedCell?: { rowKey: string, columnKey: string };
+  focusedRowEnabled?: boolean;
+  onFocusedCellChange?: (focusedCell: { rowKey: string, columnKey: string }) => void;
+  rowComponent?: React_2.ComponentType<TableKeyboardNavigation_2.RowProps>;
 }
 
 // @public (undocumented)

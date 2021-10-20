@@ -1,6 +1,13 @@
 import * as React from 'react';
-import { shallow } from 'enzyme';
+import { create } from 'react-test-renderer';
+import * as mockReactDOM from 'react-dom';
 import { Overlay } from './overlay';
+import { Popover } from '../../../../dx-react-bootstrap4/components';
+
+jest.mock('react-dom', () => ({
+  ...mockReactDOM,
+  createPortal: jest.fn(element => element),
+}));
 
 describe('Overlay', () => {
   const defaultProps = {
@@ -9,15 +16,13 @@ describe('Overlay', () => {
   };
 
   it('should render Popover', () => {
-    const tree = shallow((
-      <Overlay
-        {...defaultProps}
-      >
+    const tree = create((
+      <Overlay {...defaultProps}>
         <div className="content" />
       </Overlay>
     ));
 
-    expect(tree.find('Popover').props()).toMatchObject({
+    expect(tree.root.findByType(Popover).props).toMatchObject({
       placement: 'top',
       isOpen: true,
       target: 'test-target',
@@ -25,11 +30,11 @@ describe('Overlay', () => {
         flip: { enabled: false },
       },
     });
-    expect(tree.find('.content')).toBeTruthy();
+    expect(tree.root.findByProps({ className: 'content' })).toBeTruthy();
   });
 
   it('should render Popover, rotated is true', () => {
-    const tree = shallow((
+    const tree = create((
       <Overlay
         {...defaultProps}
         rotated
@@ -37,7 +42,7 @@ describe('Overlay', () => {
         <div className="content" />
       </Overlay>
     ));
-    expect(tree.find('Popover').props()).toMatchObject({
+    expect(tree.root.findByType(Popover).props).toMatchObject({
       placement: 'right',
       isOpen: true,
       target: 'test-target',

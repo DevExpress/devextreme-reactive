@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { mount } from 'enzyme';
+import { create } from 'react-test-renderer';
 import { PluginHost } from '@devexpress/dx-react-core';
 import { findSeriesByName } from '@devexpress/dx-chart-core';
 import { pluginDepsToComponents } from '@devexpress/dx-testing';
@@ -52,7 +52,7 @@ describe('Area series', () => {
   };
 
   it('should render path', () => {
-    const tree = mount((
+    const tree = create((
       <PluginHost>
         {pluginDepsToComponents(defaultDeps)}
 
@@ -62,7 +62,7 @@ describe('Area series', () => {
       </PluginHost>
     ));
 
-    expect(tree.find(SeriesComponent).props()).toEqual({
+    expect(tree.root.findByType(SeriesComponent).props).toEqual({
       pointComponent: undefined,
       index: 1,
       coordinates: coords,

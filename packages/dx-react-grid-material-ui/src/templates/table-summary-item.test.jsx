@@ -2,8 +2,6 @@ import * as React from 'react';
 import { createShallow, getClasses } from '@devexpress/dx-testing';
 import { TableSummaryItem } from './table-summary-item';
 
-// jest.mock("@mui/private-theming/useTheme");
-
 describe('TableSummaryItem', () => {
   const defaultProps = {
     getMessage: () => 'message',

@@ -71,10 +71,6 @@ describe('AppointmentForm basic', () => {
         .toEqual(TITLE);
       expect(labelComponents.at(1).is(`.${classes.dividerLabel}`))
         .toBeTruthy();
-      // expect(labelComponents.at(2).prop('type'))
-      //   .toEqual(TITLE);
-      // expect(labelComponents.at(2).is(`.${classes.labelWithMargins}`))
-      //   .toBeTruthy();
 
       const textEditors = tree.find(defaultProps.textEditorComponent);
       expect(textEditors)

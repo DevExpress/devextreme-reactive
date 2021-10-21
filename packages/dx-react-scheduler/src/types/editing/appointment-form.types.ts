@@ -249,6 +249,8 @@ export namespace AppointmentForm {
     titleLabel?: string;
     /** The commit button's text. */
     commitCommand?: string;
+    /** The "More Information" editor’s label text. */
+    moreInformationLabel?: string;
     /** The "Repeat" editor’s label text. */
     repeatLabel?: string;
     /** The "Notes" editor’s label text. */

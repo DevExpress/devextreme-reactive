@@ -164,6 +164,7 @@ export namespace AppointmentForm {
     lastLabel?: string;
     monthly?: string;
     monthsLabel?: string;
+    moreInformationLabel?: string;
     never?: string;
     notesLabel?: string;
     occurrencesLabel?: string;

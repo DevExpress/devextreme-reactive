@@ -43,6 +43,9 @@ const styles = ({ spacing, typography }) => ({
       width: '560px',
     },
   },
+  labelWithMargins: {
+    marginTop: spacing(2),
+  },
   notesEditor: {
     marginBottom: spacing(0.5),
     marginTop: spacing(0.5),
@@ -183,6 +186,11 @@ const LayoutBase = ({
           onValueChange={changeFrequency}
         />
       </Grid>
+      <Label
+        text={getMessage('moreInformationLabel')}
+        type={TITLE}
+        className={classes.labelWithMargins}
+      />
       <TextEditor
         placeholder={getMessage('notesLabel')}
         readOnly={readOnly}

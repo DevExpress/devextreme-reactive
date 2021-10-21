@@ -1,4 +1,5 @@
 {
-  "additionalImports": "\nimport Paper from '@material-ui/core/Paper';",
-  "wrapperTag": "Paper"
+  "additionalImports": "\nimport Paper from '@mui/material/Paper';",
+  "wrapperTag": "Paper",
+  "dependencies": ["@mui/material", "@mui/icons-material"]
 }

@@ -31,13 +31,17 @@ export const createReference = (
     // *popper.js* subscribes "html -> getBoundingClientRect -> (left, top)" from
     // "reference -> getBoundingClientRect" - so here it is added.
     const htmlRect = rootRef.current!.ownerDocument!.documentElement.getBoundingClientRect();
+    const left = rect[0] + offset[0] + htmlRect.left;
+    const right = rect[2] + offset[0] + htmlRect.left;
+    const top = rect[1] + offset[1] + htmlRect.top;
+    const bottom = rect[3] + offset[1] + htmlRect.top;
     return {
-      left: rect[0] + offset[0] + htmlRect.left,
-      top: rect[1] + offset[1] + htmlRect.top,
-      right: rect[2] + offset[0] + htmlRect.left,
-      bottom: rect[3] + offset[1] + htmlRect.top,
-      width: 0,
-      height: 0,
+      left,
+      top,
+      right,
+      bottom,
+      width: right - left,
+      height: bottom - top,
     };
   },
 });

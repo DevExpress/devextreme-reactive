@@ -4,10 +4,10 @@ import { FilteringState, IntegratedFiltering, DataTypeProvider } from '@devexpre
 import {
   Grid, Table, TableHeaderRow, TableFilterRow,
 } from '@devexpress/dx-react-grid-material-ui';
-import Paper from '@material-ui/core/Paper';
-import Input from '@material-ui/core/Input';
-import { withStyles } from '@material-ui/core/styles';
-import DateRange from '@material-ui/icons/DateRange';
+import Paper from '@mui/material/Paper';
+import Input from '@mui/material/Input';
+import withStyles from '@mui/styles/withStyles';
+import DateRange from '@mui/icons-material/DateRange';
 
 import { generateRows, globalSalesValues } from '../../../demo-data/generator';
 

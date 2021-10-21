@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import MenuItem from '@material-ui/core/MenuItem';
-import { withStyles } from '@material-ui/core/styles';
+import MenuItem from '@mui/material/MenuItem';
+import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
-import TextField from '@material-ui/core/TextField';
+import TextField from '@mui/material/TextField';
 
 const styles = ({ typography, spacing }) => ({
   filledSelect: {
@@ -36,7 +36,6 @@ const FilledSelectBase = React.memo(({
       value={value}
       onChange={handleChange}
       margin="normal"
-      variant="filled"
       hiddenLabel
       disabled={readOnly}
       {...restProps}

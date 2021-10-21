@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import Repeat from '@material-ui/icons/Repeat';
+import Repeat from '@mui/icons-material/Repeat';
 import { POSITION_START, POSITION_END } from '@devexpress/dx-scheduler-core';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import { AppointmentContent } from '../appointment/appointment-content';
 import { Appointment } from '../appointment/appointment';
 import { SplitIndicator } from '../appointment/split-indicator';

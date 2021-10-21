@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { createShallow, getClasses } from '@devexpress/dx-testing';
 import { VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import { Cell } from './cell';
 

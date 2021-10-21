@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createMount } from '@material-ui/core/test-utils';
+import { createMount } from '@devexpress/dx-testing';
 import { Root } from './root';
 import { Table } from './table';
 

@@ -1,9 +1,9 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
-import { green, lightBlue } from '@material-ui/core/colors';
-import { withStyles } from '@material-ui/core/styles';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Paper from '@mui/material/Paper';
+import { green, lightBlue } from '@mui/material/colors';
+import withStyles from '@mui/styles/withStyles';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import {
   ViewState, EditingState, GroupingState, IntegratedGrouping, IntegratedEditing,
 } from '@devexpress/dx-react-scheduler';

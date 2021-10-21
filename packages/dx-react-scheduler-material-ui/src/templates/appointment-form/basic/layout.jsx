@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 import {
   TITLE_TEXT_EDITOR,
   MULTILINE_TEXT_EDITOR,
@@ -44,11 +44,11 @@ const styles = ({ spacing, typography }) => ({
     },
   },
   labelWithMargins: {
-    marginBottom: spacing(0.5),
-    marginTop: spacing(0.5),
+    marginTop: spacing(2),
   },
   notesEditor: {
-    marginTop: spacing(0),
+    marginBottom: spacing(0.5),
+    marginTop: spacing(0.5),
   },
   dateEditor: {
     width: '45%',
@@ -201,12 +201,8 @@ const LayoutBase = ({
       />
       {resources.map(resource => (
         <React.Fragment key={resource.fieldName}>
-          <Label
-            text={resource.title}
-            type={TITLE}
-            className={classes.labelWithMargins}
-          />
           <ResourceEditor
+            label={resource.title}
             readOnly={readOnly}
             resource={resource}
             appointmentResources={appointmentResources}

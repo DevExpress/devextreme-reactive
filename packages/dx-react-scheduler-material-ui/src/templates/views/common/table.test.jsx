@@ -1,12 +1,9 @@
 import * as React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
+import { createShallow } from '@devexpress/dx-testing';
 import { Table } from './table';
 
-jest.mock('@material-ui/core/styles', () => ({
-  ...jest.requireActual('@material-ui/core/styles'),
-  makeStyles: jest.fn(() => () => ({
-    table: 'table',
-  })),
+jest.mock('@mui/styles/makeStyles', () => () => () => ({
+  table: 'table',
 }));
 
 describe('Common view DayScale', () => {

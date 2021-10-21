@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import TableRow from '@material-ui/core/TableRow';
-import { withStyles } from '@material-ui/core/styles';
+import TableRow from '@mui/material/TableRow';
+import withStyles from '@mui/styles/withStyles';
 import getSelectionColor from '../utils/get-selection-color';
 
 const styles = theme => ({

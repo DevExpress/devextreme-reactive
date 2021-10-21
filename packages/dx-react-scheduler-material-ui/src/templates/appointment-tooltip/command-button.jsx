@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
-import CloseIcon from '@material-ui/icons/Close';
-import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@mui/material/IconButton';
+import EditIcon from '@mui/icons-material/Edit';
+import CloseIcon from '@mui/icons-material/Close';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { OPEN_COMMAND_BUTTON, CLOSE_COMMAND_BUTTON, DELETE_COMMAND_BUTTON } from '@devexpress/dx-scheduler-core';
 
 const getIcon = (id) => {
@@ -19,10 +19,7 @@ const getIcon = (id) => {
 export const CommandButton = ({
   id, onExecute, ...restProps
 }) => (
-  <IconButton
-    onClick={onExecute}
-    {...restProps}
-  >
+  <IconButton onClick={onExecute} {...restProps} size="large">
     {getIcon(id)}
   </IconButton>
 );

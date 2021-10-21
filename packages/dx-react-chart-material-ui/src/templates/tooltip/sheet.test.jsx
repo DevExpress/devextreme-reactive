@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createMount, getClasses } from '@material-ui/core/test-utils';
-import Paper from '@material-ui/core/Paper';
+import { createMount, getClasses } from '@devexpress/dx-testing';
+import Paper from '@mui/material/Paper';
 import { Sheet } from './sheet';
 
 describe('Sheet', () => {

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createMount } from '@material-ui/core/test-utils';
-import Typography from '@material-ui/core/Typography';
+import { createMount } from '@devexpress/dx-testing';
+import Typography from '@mui/material/Typography';
 import { Content } from './content';
 
 describe('Content', () => {

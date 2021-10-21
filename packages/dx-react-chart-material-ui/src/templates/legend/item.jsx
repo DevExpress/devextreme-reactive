@@ -1,4 +1,4 @@
-import ListItem from '@material-ui/core/ListItem';
+import ListItem from '@mui/material/ListItem';
 import { withClassName } from '../utils';
 
 const styles = theme => ({

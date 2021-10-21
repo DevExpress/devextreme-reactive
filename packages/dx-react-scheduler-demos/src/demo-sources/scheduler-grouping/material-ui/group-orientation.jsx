@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import Paper from '@mui/material/Paper';
 import {
   ViewState, EditingState, GroupingState, IntegratedGrouping, IntegratedEditing,
 } from '@devexpress/dx-react-scheduler';
@@ -15,7 +15,7 @@ import {
   ViewSwitcher,
   DragDropProvider,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import { blue, orange } from '@material-ui/core/colors';
+import { blue, orange } from '@mui/material/colors';
 
 import { data as appointments } from '../../../demo-data/grouping';
 

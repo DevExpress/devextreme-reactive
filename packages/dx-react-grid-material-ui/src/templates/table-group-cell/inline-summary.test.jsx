@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createMount, getClasses } from '@material-ui/core/test-utils';
-import { setupConsole } from '@devexpress/dx-testing';
+import { createMount, getClasses, setupConsole } from '@devexpress/dx-testing';
+
 import { InlineSummary } from './inline-summary';
 
 describe('InlineSummary component', () => {

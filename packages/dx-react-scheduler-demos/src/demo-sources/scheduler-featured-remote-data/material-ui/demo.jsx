@@ -1,7 +1,7 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import { withStyles } from '@material-ui/core/styles';
+import Paper from '@mui/material/Paper';
+import LinearProgress from '@mui/material/LinearProgress';
+import withStyles from '@mui/styles/withStyles';
 import {
   ViewState,
 } from '@devexpress/dx-react-scheduler';

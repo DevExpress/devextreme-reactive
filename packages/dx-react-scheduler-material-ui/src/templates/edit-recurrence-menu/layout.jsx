@@ -1,12 +1,12 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { withStyles } from '@material-ui/core/styles';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import withStyles from '@mui/styles/withStyles';
 import { SMALL_LAYOUT_MEDIA_QUERY } from '../constants';
 
 const styles = ({ typography }) => ({
@@ -49,7 +49,7 @@ const LayoutBase = React.memo(({
     <div
       {...restProps}
     >
-      <DialogTitle className={classes.title} disableTypography>
+      <DialogTitle className={classes.title}>
         {getMessage(isDeleting ? 'menuDeletingTitle' : 'menuEditingTitle')}
       </DialogTitle>
       <DialogContent>

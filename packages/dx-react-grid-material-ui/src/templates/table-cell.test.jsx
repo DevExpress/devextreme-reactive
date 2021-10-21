@@ -1,6 +1,6 @@
 import * as React from 'react';
-import TableCellMUI from '@material-ui/core/TableCell';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import TableCellMUI from '@mui/material/TableCell';
+import { createShallow, getClasses } from '@devexpress/dx-testing';
 import { TableCell } from './table-cell';
 
 describe('TableCell', () => {

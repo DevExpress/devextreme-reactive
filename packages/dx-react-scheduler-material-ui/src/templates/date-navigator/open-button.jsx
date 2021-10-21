@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
-import CalendarToday from '@material-ui/icons/CalendarToday';
-import IconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/core/styles';
+import Button from '@mui/material/Button';
+import CalendarToday from '@mui/icons-material/CalendarToday';
+import IconButton from '@mui/material/IconButton';
+import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 import { SMALL_LAYOUT_MEDIA_QUERY, LAYOUT_MEDIA_QUERY } from '../constants';
 
@@ -40,6 +40,7 @@ const OpenButtonBase = React.memo(({
       onClick={onVisibilityToggle}
       className={classNames(classes.iconButton, className)}
       {...restProps}
+      size="large"
     >
       <CalendarToday />
     </IconButton>

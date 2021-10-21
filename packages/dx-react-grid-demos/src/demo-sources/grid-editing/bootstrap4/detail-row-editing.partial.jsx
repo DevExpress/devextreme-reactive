@@ -99,12 +99,12 @@ const DetailContent = ({ row, ...rest }) => {
       <Row>
         <Col>
           <div className="float-right">
-            <Button onClick={applyChanges} color="primary">
-              Save
-            </Button>
-            {' '}
             <Button onClick={cancelChanges}>
               Cancel
+            </Button>
+            {' '}
+            <Button onClick={applyChanges} color="primary">
+              Save
             </Button>
           </div>
         </Col>

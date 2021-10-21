@@ -1,9 +1,10 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
-import { green, orange } from '@material-ui/core/colors';
-import { makeStyles, fade } from '@material-ui/core/styles';
-import LowPriority from '@material-ui/icons/LowPriority';
-import PriorityHigh from '@material-ui/icons/PriorityHigh';
+import Paper from '@mui/material/Paper';
+import { green, orange } from '@mui/material/colors';
+import { alpha } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
+import LowPriority from '@mui/icons-material/LowPriority';
+import PriorityHigh from '@mui/icons-material/PriorityHigh';
 import {
   ViewState, GroupingState, IntegratedGrouping,
 } from '@devexpress/dx-react-scheduler';
@@ -29,21 +30,21 @@ const useGroupingStyles = (group) => {
   const color = findColorByGroupId(group.id);
   return makeStyles(({ spacing }) => ({
     cell: {
-      backgroundColor: fade(color[400], 0.1),
+      backgroundColor: alpha(color[400], 0.1),
       '&:hover': {
-        backgroundColor: fade(color[400], 0.15),
+        backgroundColor: alpha(color[400], 0.15),
       },
       '&:focus': {
-        backgroundColor: fade(color[400], 0.2),
+        backgroundColor: alpha(color[400], 0.2),
       },
     },
     headerCell: {
-      backgroundColor: fade(color[400], 0.1),
+      backgroundColor: alpha(color[400], 0.1),
       '&:hover': {
-        backgroundColor: fade(color[400], 0.1),
+        backgroundColor: alpha(color[400], 0.1),
       },
       '&:focus': {
-        backgroundColor: fade(color[400], 0.1),
+        backgroundColor: alpha(color[400], 0.1),
       },
     },
     icon: {

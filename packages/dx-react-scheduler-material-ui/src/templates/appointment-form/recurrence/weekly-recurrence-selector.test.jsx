@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { createShallow, getClasses } from '@devexpress/dx-testing';
 import {
   getRecurrenceOptions, SUNDAY_DATE, WEEK_DAY_OPTIONS, MONDAY_DATE,
   TUESDAY_DATE, THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE, WEDNESDAY_DATE,
   changeRecurrenceOptions, RRULE_DAYS_OF_WEEK,
 } from '@devexpress/dx-scheduler-core';
-import Button from '@material-ui/core/Button';
+import Button from '@mui/material/Button';
 import { WeeklyRecurrenceSelector } from './weekly-recurrence-selector';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import Dialog from '@material-ui/core/Dialog';
+import { createShallow, getClasses } from '@devexpress/dx-testing';
+import Dialog from '@mui/material/Dialog';
 import { Overlay } from './overlay';
 
 describe('Common Dialog', () => {

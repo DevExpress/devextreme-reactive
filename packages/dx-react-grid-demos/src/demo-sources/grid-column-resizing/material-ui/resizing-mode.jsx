@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import Paper from '@material-ui/core/Paper';
-import { withStyles } from '@material-ui/core/styles';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import Typography from '@material-ui/core/Typography';
-import GridMUI from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
+import Paper from '@mui/material/Paper';
+import withStyles from '@mui/styles/withStyles';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import Typography from '@mui/material/Typography';
+import GridMUI from '@mui/material/Grid';
+import Button from '@mui/material/Button';
 import {
   Grid,
   Table,
@@ -26,13 +26,13 @@ const styles = () => ({
   input: {
     paddingLeft: '8px',
     fontSize: '14px',
-    width: '78px',
+    width: '88px',
   },
   label: {
     fontSize: '14px',
   },
   container: {
-    maxWidth: '17em',
+    maxWidth: '19em',
   },
   button: {
     fontSize: '14px',
@@ -67,7 +67,6 @@ const ModeSelectorBase = (props) => {
         input={(
           <OutlinedInput
             classes={{ input: classes.input }}
-            labelWidth={0}
             margin="dense"
           />
         )}

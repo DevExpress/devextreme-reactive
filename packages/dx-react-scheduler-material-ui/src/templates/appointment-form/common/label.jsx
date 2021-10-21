@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
+import Typography from '@mui/material/Typography';
+import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 import { TITLE, ORDINARY_LABEL } from '@devexpress/dx-scheduler-core';
 
@@ -14,6 +14,7 @@ const styles = theme => ({
   titleLabel: {
     fontWeight: theme.typography.fontWeightBold,
     fontSize: theme.typography.fontSize + 5,
+    paddingBottom: theme.spacing(1),
   },
 });
 

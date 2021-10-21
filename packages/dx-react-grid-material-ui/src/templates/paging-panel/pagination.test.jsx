@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { createMount, getClasses } from '@material-ui/core/test-utils';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import { setupConsole } from '@devexpress/dx-testing';
+import { createMount, getClasses, setupConsole } from '@devexpress/dx-testing';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+
 import { Pagination } from './pagination';
 
 describe('Pagination', () => {
@@ -48,6 +48,21 @@ describe('Pagination', () => {
         onCurrentPageChange={onCurrentPageChange}
       />
     ));
+
+    it('should has correct classes', () => {
+      const tree = mountPagination({
+        totalPages: 10,
+        currentPage: 0,
+        totalCount: 10,
+        pageSize: 5,
+      });
+      const buttons = tree.find(Button);
+
+      buttons.forEach((b, index) => {
+        expect(buttons.at(index).hasClass(classes.button)).toBeTruthy();
+        expect(buttons.at(index).hasClass(classes.text)).toBeTruthy();
+      });
+    });
 
     it('can select the first item', () => {
       const tree = mountPagination({

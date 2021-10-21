@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import TableCell from '@material-ui/core/TableCell';
-import { withStyles } from '@material-ui/core/styles';
+import TableCell from '@mui/material/TableCell';
+import withStyles from '@mui/styles/withStyles';
 import { WEEK_DAY_OPTIONS, DAY_OPTIONS } from '@devexpress/dx-scheduler-core';
 import { getBrightBorder } from '../../../utils';
 import { LAYOUT_MEDIA_QUERY } from '../../../constants';

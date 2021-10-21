@@ -21,17 +21,19 @@ import {
   Resources,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
-import { withStyles, makeStyles, fade } from '@material-ui/core/styles';
-import PriorityHigh from '@material-ui/icons/PriorityHigh';
-import LowPriority from '@material-ui/icons/LowPriority';
-import Lens from '@material-ui/icons/Lens';
-import Event from '@material-ui/icons/Event';
-import AccessTime from '@material-ui/icons/AccessTime';
-import Paper from '@material-ui/core/Paper';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import Grid from '@material-ui/core/Grid';
-import FormControl from '@material-ui/core/FormControl';
+import { alpha } from '@mui/material/styles';
+import withStyles from '@mui/styles/withStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import PriorityHigh from '@mui/icons-material/PriorityHigh';
+import LowPriority from '@mui/icons-material/LowPriority';
+import Lens from '@mui/icons-material/Lens';
+import Event from '@mui/icons-material/Event';
+import AccessTime from '@mui/icons-material/AccessTime';
+import Paper from '@mui/material/Paper';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import Grid from '@mui/material/Grid';
+import FormControl from '@mui/material/FormControl';
 import classNames from 'clsx';
 
 import { priorities } from '../../../demo-data/tasks';
@@ -154,21 +156,21 @@ const groupingStyles = ({ spacing }) => ({
   ...priorities.reduce((acc, priority) => ({
     ...acc,
     [`cell${priority.text.replace(' ', '')}`]: {
-      backgroundColor: fade(priority.color[400], 0.1),
+      backgroundColor: alpha(priority.color[400], 0.1),
       '&:hover': {
-        backgroundColor: fade(priority.color[400], 0.15),
+        backgroundColor: alpha(priority.color[400], 0.15),
       },
       '&:focus': {
-        backgroundColor: fade(priority.color[400], 0.2),
+        backgroundColor: alpha(priority.color[400], 0.2),
       },
     },
     [`headerCell${priority.text.replace(' ', '')}`]: {
-      backgroundColor: fade(priority.color[400], 0.1),
+      backgroundColor: alpha(priority.color[400], 0.1),
       '&:hover': {
-        backgroundColor: fade(priority.color[400], 0.1),
+        backgroundColor: alpha(priority.color[400], 0.1),
       },
       '&:focus': {
-        backgroundColor: fade(priority.color[400], 0.1),
+        backgroundColor: alpha(priority.color[400], 0.1),
       },
     },
   }), {}),
@@ -311,7 +313,7 @@ const PrioritySelector = withStyles(styles, { name: 'PrioritySelector' })(({
 }) => {
   const currentPriority = priority > 0 ? priorities[priority - 1] : {};
   return (
-    <FormControl className={classes.prioritySelector}>
+    <FormControl className={classes.prioritySelector} variant="standard">
       <Select
         disableUnderline
         value={priority}

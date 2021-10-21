@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
+import { createShallow, getClasses } from '@devexpress/dx-testing';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import { OpenButton } from './open-button';
 
 describe('DateNavigator', () => {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createMount, createShallow, getClasses } from '@material-ui/core/test-utils';
+import { createMount, createShallow, getClasses } from '@devexpress/dx-testing';
 import { Resize } from './resize';
 
 describe('DragDrop', () => {

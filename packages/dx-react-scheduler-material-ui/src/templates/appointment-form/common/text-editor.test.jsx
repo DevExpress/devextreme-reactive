@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses, createMount } from '@material-ui/core/test-utils';
+import { createShallow, getClasses, createMount } from '@devexpress/dx-testing';
 import {
   NUMBER_EDITOR,
   TITLE_TEXT_EDITOR,
@@ -75,7 +75,7 @@ describe('AppointmentForm common', () => {
       ));
 
       expect(tree.prop('variant'))
-        .toBe('filled');
+        .toBeUndefined();
       expect(tree.prop('multiline'))
         .toBeFalsy();
       expect(tree.prop('type'))
@@ -88,7 +88,7 @@ describe('AppointmentForm common', () => {
       ));
 
       expect(tree.prop('variant'))
-        .toBe('filled');
+        .toBeUndefined();
       expect(tree.prop('multiline'))
         .toBeFalsy();
       expect(tree.prop('type'))
@@ -112,7 +112,7 @@ describe('AppointmentForm common', () => {
       ));
 
       expect(tree.prop('variant'))
-        .toBe('filled');
+        .toBeUndefined();
       expect(tree.prop('multiline'))
         .toBeFalsy();
       expect(tree.prop('type'))

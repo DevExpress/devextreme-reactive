@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
+import withStyles from '@mui/styles/withStyles';
+import IconButton from '@mui/material/IconButton';
 import classNames from 'clsx';
-import CloseIcon from '@material-ui/icons/Close';
+import CloseIcon from '@mui/icons-material/Close';
 
 const styles = () => ({
   button: {
@@ -18,6 +18,7 @@ const CancelButtonBase = React.memo(({
     className={classNames(classes.button, className)}
     onClick={onExecute}
     {...restProps}
+    size="large"
   >
     <CloseIcon />
   </IconButton>

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles';
+import TextField from '@mui/material/TextField';
+import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 import {
   TITLE_TEXT_EDITOR,
@@ -37,7 +37,7 @@ const TextEditorBase = React.memo(({
     <TextField
       className={classNames(classes.editor, className)}
       value={value}
-      variant={notesTextEditor ? 'outlined' : 'filled'}
+      variant={notesTextEditor ? 'outlined' : undefined}
       disabled={readOnly}
       onChange={({ target }) => onValueChange(target.value)}
       InputProps={{

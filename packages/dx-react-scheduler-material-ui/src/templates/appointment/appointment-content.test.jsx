@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { createShallow } from '@material-ui/core/test-utils';
+import { createShallow } from '@devexpress/dx-testing';
 import { AppointmentContent } from './appointment-content';
 import { HorizontalAppointment } from './horizontal-appointment';
 import { VerticalAppointment } from './vertical-appointment';

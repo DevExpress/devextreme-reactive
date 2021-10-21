@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import ToolbarMUI from '@material-ui/core/Toolbar';
-import { withStyles } from '@material-ui/core/styles';
+import ToolbarMUI from '@mui/material/Toolbar';
+import withStyles from '@mui/styles/withStyles';
 import { getBorder } from '../utils';
 
 const styles = theme => ({

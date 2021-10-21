@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import Paper from '@mui/material/Paper';
 import moment from 'moment';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
@@ -7,7 +7,7 @@ import {
   WeekView,
   Appointments,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 
 import { appointments } from '../../../demo-data/appointments';
 

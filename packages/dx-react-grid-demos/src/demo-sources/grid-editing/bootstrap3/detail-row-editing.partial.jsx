@@ -99,11 +99,11 @@ const DetailContent = ({
     <Row>
       <Col className="pull-right">
         <ButtonToolbar>
-          <Button onClick={applyChanges} bsStyle="primary">
-            Save
-          </Button>
           <Button onClick={cancelChanges}>
             Cancel
+          </Button>
+          <Button onClick={applyChanges} bsStyle="primary">
+            Save
           </Button>
         </ButtonToolbar>
       </Col>

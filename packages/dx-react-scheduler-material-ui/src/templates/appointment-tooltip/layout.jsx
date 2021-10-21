@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import Popover from '@material-ui/core/Popover';
-import { withStyles } from '@material-ui/core/styles';
+import Popover from '@mui/material/Popover';
+import withStyles from '@mui/styles/withStyles';
 import { SMALL_LAYOUT_MEDIA_QUERY } from '../constants';
 
 const verticalTopHorizontalCenterOptions = { vertical: 'top', horizontal: 'center' };

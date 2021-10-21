@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 import * as PropTypes from 'prop-types';
 import { AUTO_HEIGHT } from '@devexpress/dx-scheduler-core';
 import { ContainerBase } from './common/container';

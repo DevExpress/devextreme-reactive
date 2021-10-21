@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
-import MenuItem from '@material-ui/core/MenuItem';
+import { createShallow } from '@devexpress/dx-testing';
+import MenuItem from '@mui/material/MenuItem';
 import { OutlinedSelect } from './outlined-select';
 
 describe('AppointmentForm common select', () => {

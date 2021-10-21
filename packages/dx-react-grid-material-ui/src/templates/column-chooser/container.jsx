@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import List from '@material-ui/core/List';
+import List from '@mui/material/List';
 
 export const Container = ({ children, ...restProps }) => (
   <List

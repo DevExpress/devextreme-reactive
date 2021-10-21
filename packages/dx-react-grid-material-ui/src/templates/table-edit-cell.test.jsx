@@ -1,8 +1,7 @@
 import * as React from 'react';
-import Input from '@material-ui/core/Input';
-import TableCell from '@material-ui/core/TableCell';
-import { createMount, getClasses } from '@material-ui/core/test-utils';
-import { setupConsole } from '@devexpress/dx-testing';
+import Input from '@mui/material/Input';
+import TableCell from '@mui/material/TableCell';
+import { createMount, getClasses, setupConsole } from '@devexpress/dx-testing';
 import { EditCell } from './table-edit-cell';
 
 describe('EditCell', () => {

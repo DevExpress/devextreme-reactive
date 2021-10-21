@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import IconButton from '@material-ui/core/IconButton';
-import ChevronLeft from '@material-ui/icons/ChevronLeft';
-import ChevronRight from '@material-ui/icons/ChevronRight';
-import { withStyles } from '@material-ui/core/styles';
+import IconButton from '@mui/material/IconButton';
+import ChevronLeft from '@mui/icons-material/ChevronLeft';
+import ChevronRight from '@mui/icons-material/ChevronRight';
+import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 import { SMALL_LAYOUT_MEDIA_QUERY } from '../constants';
 
@@ -26,8 +26,10 @@ const NavigationButtonBase = React.memo(({
 }) => (
   <IconButton
     onClick={onClick}
+    color="primary"
     className={classNames(classes.button, className)}
     {...restProps}
+    size="large"
   >
     {type === 'back' ? <ChevronLeft /> : <ChevronRight />}
   </IconButton>

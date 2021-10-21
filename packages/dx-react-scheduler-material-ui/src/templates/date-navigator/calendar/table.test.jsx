@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, createMount, getClasses } from '@material-ui/core/test-utils';
+import { createShallow, createMount, getClasses } from '@devexpress/dx-testing';
 import { Table } from './table';
 
 describe('Calendar', () => {

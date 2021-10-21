@@ -8,14 +8,14 @@ import {
   CurrentTimeIndicator,
   EditRecurrenceMenu,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import Paper from '@material-ui/core/Paper';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import { withStyles } from '@material-ui/core/styles';
+import Paper from '@mui/material/Paper';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import InputAdornment from '@mui/material/InputAdornment';
+import withStyles from '@mui/styles/withStyles';
 
 import appointments from '../../../demo-data/today-appointments';
 
@@ -82,7 +82,7 @@ const UpdateIntervalBox = withStyles(styles, { name: 'UpdateIntervalSetter' })((
   updateInterval, onValueChange, classes,
   // #FOLD_BLOCK
 }) => (
-  <Grid item container xs={6} alignItems="center" justify="flex-end">
+  <Grid item container xs={6} alignItems="center" justifyContent="flex-end">
     <Typography>
       Update every:
     </Typography>

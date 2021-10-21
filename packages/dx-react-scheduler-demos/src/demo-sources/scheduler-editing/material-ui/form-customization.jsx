@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import Paper from '@mui/material/Paper';
 import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -11,10 +11,6 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 import { appointments } from '../../../demo-data/appointments';
-
-const messages = {
-  moreInformationLabel: '',
-};
 
 const TextEditor = (props) => {
   // eslint-disable-next-line react/destructuring-assignment
@@ -104,7 +100,6 @@ export default class Demo extends React.PureComponent {
           <AppointmentForm
             basicLayoutComponent={BasicLayout}
             textEditorComponent={TextEditor}
-            messages={messages}
           />
         </Scheduler>
       </Paper>

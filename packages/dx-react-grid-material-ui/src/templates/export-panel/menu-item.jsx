@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import MenuItemMUI from '@material-ui/core/MenuItem';
+import MenuItemMUI from '@mui/material/MenuItem';
 
 export const MenuItem = React.forwardRef(({
   text, onClick, ...restProps

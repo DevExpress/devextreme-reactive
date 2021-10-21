@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 /* eslint-disable react/no-unused-state */
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
+import Paper from '@mui/material/Paper';
 import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -17,24 +17,25 @@ import {
   AllDayPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
-import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import MomentUtils from '@date-io/moment';
-import { withStyles } from '@material-ui/core/styles';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/Button';
-import Fab from '@material-ui/core/Fab';
-import IconButton from '@material-ui/core/IconButton';
-import AddIcon from '@material-ui/icons/Add';
-import TextField from '@material-ui/core/TextField';
-import LocationOn from '@material-ui/icons/LocationOn';
-import Notes from '@material-ui/icons/Notes';
-import Close from '@material-ui/icons/Close';
-import CalendarToday from '@material-ui/icons/CalendarToday';
-import Create from '@material-ui/icons/Create';
+import DateTimePicker from '@mui/lab/DateTimePicker';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AdapterMoment from '@mui/lab/AdapterMoment';
+import withStyles from '@mui/styles/withStyles';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+import Fab from '@mui/material/Fab';
+import IconButton from '@mui/material/IconButton';
+import AddIcon from '@mui/icons-material/Add';
+import TextField from '@mui/material/TextField';
+import LocationOn from '@mui/icons-material/LocationOn';
+import Notes from '@mui/icons-material/Notes';
+import Close from '@mui/icons-material/Close';
+import CalendarToday from '@mui/icons-material/CalendarToday';
+import Create from '@mui/icons-material/Create';
 
 import { appointments } from '../../../demo-data/appointments';
 
@@ -166,18 +167,17 @@ class AppointmentFormContainerBasic extends React.PureComponent {
     });
 
     const pickerEditorProps = field => ({
-      className: classes.picker,
       // keyboard: true,
-      ampm: false,
       value: displayAppointmentData[field],
       onChange: date => this.changeAppointment({
         field: [field], changes: date ? date.toDate() : new Date(displayAppointmentData[field]),
       }),
-      inputVariant: 'outlined',
-      format: 'DD/MM/YYYY HH:mm',
+      ampm: false,
+      inputFormat: 'DD/MM/YYYY HH:mm',
       onError: () => null,
     });
-
+    const startDatePickerProps = pickerEditorProps('startDate');
+    const endDatePickerProps = pickerEditorProps('endDate');
     const cancelChanges = () => {
       this.setState({
         appointmentChanges: {},
@@ -195,10 +195,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
       >
         <div>
           <div className={classes.header}>
-            <IconButton
-              className={classes.closeButton}
-              onClick={cancelChanges}
-            >
+            <IconButton className={classes.closeButton} onClick={cancelChanges} size="large">
               <Close color="action" />
             </IconButton>
           </div>
@@ -211,16 +208,18 @@ class AppointmentFormContainerBasic extends React.PureComponent {
             </div>
             <div className={classes.wrapper}>
               <CalendarToday className={classes.icon} color="action" />
-              <MuiPickersUtilsProvider utils={MomentUtils}>
-                <KeyboardDateTimePicker
+              <LocalizationProvider dateAdapter={AdapterMoment}>
+                <DateTimePicker
                   label="Start Date"
-                  {...pickerEditorProps('startDate')}
+                  renderInput={props => <TextField className={classes.picker} {...props} />}
+                  {...startDatePickerProps}
                 />
-                <KeyboardDateTimePicker
+                <DateTimePicker
                   label="End Date"
-                  {...pickerEditorProps('endDate')}
+                  renderInput={props => <TextField className={classes.picker} {...props} />}
+                  {...endDatePickerProps}
                 />
-              </MuiPickersUtilsProvider>
+              </LocalizationProvider>
             </div>
             <div className={classes.wrapper}>
               <LocationOn className={classes.icon} color="action" />
@@ -274,8 +273,8 @@ const AppointmentFormContainer = withStyles(containerStyles, { name: 'Appointmen
 const styles = theme => ({
   addButton: {
     position: 'absolute',
-    bottom: theme.spacing(1) * 3,
-    right: theme.spacing(1) * 4,
+    bottom: theme.spacing(3),
+    right: theme.spacing(4),
   },
 });
 

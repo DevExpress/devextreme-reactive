@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Popper from '@material-ui/core/Popper';
-import { createMount, getClasses } from '@material-ui/core/test-utils';
+import Popper from '@mui/material/Popper';
+import { createMount, getClasses } from '@devexpress/dx-testing';
 import { Overlay } from './overlay';
 
 describe('Overlay', () => {
@@ -35,7 +35,7 @@ describe('Overlay', () => {
       open: true,
       anchorEl: defaultProps.target,
       placement: 'top',
-      className: classes['popper-top'],
+      className: classes.popper,
     });
     expect(tree.find(ArrowComponent).props()).toMatchObject({
       placement: 'top',
@@ -54,7 +54,7 @@ describe('Overlay', () => {
     ));
 
     expect(tree.find(Popper).is('.custom-class')).toBeTruthy();
-    expect(tree.find(Popper).is(`.${classes['popper-top']}`)).toBeTruthy();
+    expect(tree.find(Popper).is(`.${classes.popper}`)).toBeTruthy();
   });
 
   it('should pass rest props to the root element', () => {
@@ -84,7 +84,7 @@ describe('Overlay', () => {
       open: true,
       anchorEl: defaultProps.target,
       placement: 'right',
-      className: classes['popper-right'],
+      className: classes.popper,
     });
     expect(tree.find(ArrowComponent).props()).toMatchObject({
       placement: 'right',

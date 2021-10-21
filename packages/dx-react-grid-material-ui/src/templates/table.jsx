@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import TableMUI from '@material-ui/core/Table';
-import { withStyles } from '@material-ui/core/styles';
+import TableMUI from '@mui/material/Table';
+import withStyles from '@mui/styles/withStyles';
 import { getBorder } from './utils';
 
 const styles = theme => ({

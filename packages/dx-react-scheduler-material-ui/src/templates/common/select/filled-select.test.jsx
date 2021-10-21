@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import MenuItem from '@material-ui/core/MenuItem';
+import { createShallow, getClasses } from '@devexpress/dx-testing';
+import MenuItem from '@mui/material/MenuItem';
 import { FilledSelect } from './filled-select';
 
 describe('AppointmentForm common select', () => {

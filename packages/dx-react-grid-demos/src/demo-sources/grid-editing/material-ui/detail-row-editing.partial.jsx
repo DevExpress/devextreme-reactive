@@ -1,23 +1,18 @@
 // BLOCK:imports
 import classNames from 'clsx';
-import TableCell from '@material-ui/core/TableCell';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import MuiGrid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import FormGroup from '@material-ui/core/FormGroup';
-import Edit from '@material-ui/icons/Edit';
-import Cancel from '@material-ui/icons/Close';
-import IconButton from '@material-ui/core/IconButton';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
-import MomentUtils from '@date-io/moment';
+import TableCell from '@mui/material/TableCell';
+import withStyles from '@mui/styles/withStyles';
+import Button from '@mui/material/Button';
+import MuiGrid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import FormGroup from '@mui/material/FormGroup';
+import Edit from '@mui/icons-material/Edit';
+import Cancel from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import MenuItem from '@mui/material/MenuItem';
+import DatePicker from '@mui/lab/DatePicker';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AdapterMoment from '@mui/lab/AdapterMoment';
 
 // BLOCK:imports
 
@@ -46,21 +41,20 @@ const DetailContent = ({ row, ...rest }) => {
             value={row.LastName}
             onChange={processValueChange}
           />
-          <FormControl margin="normal">
-            <InputLabel id="select-helper-label">State</InputLabel>
-            <Select
-              name="StateID"
-              value={row.StateID}
-              onChange={processValueChange}
-              labelId="select-helper-label"
-            >
-              {states.map(({ ID, Name }) => (
-                <MenuItem key={ID} value={ID}>
-                  {Name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <TextField
+            margin="normal"
+            label="State"
+            select
+            name="StateID"
+            value={row.StateID}
+            onChange={processValueChange}
+          >
+            {states.map(({ ID, Name }) => (
+              <MenuItem key={ID} value={ID}>
+                {Name}
+              </MenuItem>
+            ))}
+          </TextField>
         </FormGroup>
       </MuiGrid>
       <MuiGrid item xs={6}>
@@ -79,17 +73,17 @@ const DetailContent = ({ row, ...rest }) => {
             value={row.Position}
             onChange={processValueChange}
           />
-          <MuiPickersUtilsProvider utils={MomentUtils}>
-            <KeyboardDatePicker
+          <LocalizationProvider dateAdapter={AdapterMoment}>
+            <DatePicker
+              renderInput={props => <TextField margin="normal" {...props} />}
               label="Birth Date"
-              margin="normal"
               value={row.BirthDate}
-              onChange={(_, value) => processValueChange({
+              onChange={value => processValueChange({
                 target: { name: 'BirthDate', value: value.toDate() },
               })}
-              format="MM/DD/YYYY"
+              inputFormat="MM/DD/YYYY"
             />
-          </MuiPickersUtilsProvider>
+          </LocalizationProvider>
         </FormGroup>
       </MuiGrid>
       <MuiGrid item xs={12}>
@@ -99,22 +93,22 @@ const DetailContent = ({ row, ...rest }) => {
             name="Notes"
             label="Notes"
             multiline
-            rowsMax={4}
+            maxRows={4}
             value={row.Notes}
             onChange={processValueChange}
           />
         </FormGroup>
       </MuiGrid>
       <MuiGrid item xs={12}>
-        <MuiGrid container spacing={3} justify="flex-end">
-          <MuiGrid item>
-            <Button onClick={applyChanges} variant="text" color="primary">
-              Save
-            </Button>
-          </MuiGrid>
+        <MuiGrid container spacing={3} justifyContent="flex-end">
           <MuiGrid item>
             <Button onClick={cancelChanges} color="secondary">
               Cancel
+            </Button>
+          </MuiGrid>
+          <MuiGrid item>
+            <Button onClick={applyChanges} variant="text" color="primary">
+              Save
             </Button>
           </MuiGrid>
         </MuiGrid>
@@ -154,10 +148,7 @@ const ToggleCellBase = ({
       style={style}
       {...restProps}
     >
-      <IconButton
-        className={classes.toggleCellButton}
-        onClick={handleClick}
-      >
+      <IconButton className={classes.toggleCellButton} onClick={handleClick} size="large">
         {
           expanded
             ? <Cancel />

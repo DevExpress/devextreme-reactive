@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { createShallow, getClasses, createMount } from '@material-ui/core/test-utils';
+import { createShallow, getClasses, createMount } from '@devexpress/dx-testing';
 import { getRecurrenceOptions, changeRecurrenceOptions } from '@devexpress/dx-scheduler-core';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import { EndRepeatEditor } from './end-repeat-editor';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
@@ -16,7 +16,7 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     labelComponent: () => null,
     dateEditorComponent: () => null,
     onFieldChange: jest.fn(),
-    getMessage: jest.fn(),
+    getMessage: jest.fn().mockReturnValue('message'),
     appointmentData: {
       startDate: new Date(2019, 1, 1, 0, 0),
       endDate: new Date(2019, 1, 1, 0, 30),
@@ -56,16 +56,18 @@ describe('AppointmentForm recurrence RadioGroup', () => {
 
       const labels = tree.find(defaultProps.labelComponent);
       expect(labels)
-        .toHaveLength(2);
+        .toHaveLength(3);
       expect(labels.at(0).is(`.${classes.label}`))
         .toBeTruthy();
-      expect(labels.at(1).is(`.${classes.label}`))
+      expect(labels.at(1).is(`.${classes.occurenceLabel}`))
+        .toBeTruthy();
+      expect(labels.at(2).is(`.${classes.label}`))
         .toBeTruthy();
 
       const textEditor = tree.find(defaultProps.textEditorComponent);
       expect(textEditor)
         .toHaveLength(1);
-      expect(textEditor.at(0).is(`.${classes.textEditor}`))
+      expect(textEditor.at(0).is(`.${classes.occurenceTextEditor}`))
         .toBeTruthy();
 
       const dateEditorComponent = tree.find(defaultProps.dateEditorComponent);

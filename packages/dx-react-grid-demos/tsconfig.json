@@ -6,10 +6,12 @@
     "lib": ["es6", "dom"],
     "moduleResolution": "node",
     "jsx": "react",
+    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
+    "skipLibCheck": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true
   },

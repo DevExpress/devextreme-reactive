@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
+import { createShallow } from '@devexpress/dx-testing';
 import { Button } from './button';
 
 describe('Common Dialog', () => {
@@ -8,7 +8,7 @@ describe('Common Dialog', () => {
     onClick: jest.fn(),
   };
   beforeAll(() => {
-    shallow = createShallow({ dive: true });
+    shallow = createShallow();
   });
 
   describe('Button', () => {

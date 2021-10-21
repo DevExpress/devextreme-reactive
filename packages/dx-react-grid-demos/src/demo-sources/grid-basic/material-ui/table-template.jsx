@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import Paper from '@material-ui/core/Paper';
+import Paper from '@mui/material/Paper';
 import {
   Grid,
   Table,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
-import { fade } from '@material-ui/core/styles/colorManipulator';
-import { withStyles } from '@material-ui/core/styles';
+import { alpha } from '@mui/material/styles';
+import withStyles from '@mui/styles/withStyles';
 import {
   generateRows,
   globalSalesValues,
@@ -15,7 +15,7 @@ import {
 const styles = theme => ({
   tableStriped: {
     '& tbody tr:nth-of-type(odd)': {
-      backgroundColor: fade(theme.palette.primary.main, 0.15),
+      backgroundColor: alpha(theme.palette.primary.main, 0.15),
     },
   },
 });

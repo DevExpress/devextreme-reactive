@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createMount, getClasses } from '@material-ui/core/test-utils';
-import ListItemText from '@material-ui/core/ListItemText';
+import { createMount, getClasses } from '@devexpress/dx-testing';
+import ListItemText from '@mui/material/ListItemText';
 import { Label } from './label';
 
 const defaultProps = { text: 'a' };

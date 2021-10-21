@@ -1,9 +1,9 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import Input from '@material-ui/core/Input';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import { withStyles } from '@material-ui/core/styles';
+import Input from '@mui/material/Input';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import withStyles from '@mui/styles/withStyles';
 import { IS_LEGACY_EDGE_MEDIA_QUERY } from '../constants';
 
 const styles = theme => ({

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import Toolbar from '@material-ui/core/Toolbar';
-import { withStyles } from '@material-ui/core/styles';
+import Toolbar from '@mui/material/Toolbar';
+import withStyles from '@mui/styles/withStyles';
 
 const styles = theme => ({
   emptyMessage: {

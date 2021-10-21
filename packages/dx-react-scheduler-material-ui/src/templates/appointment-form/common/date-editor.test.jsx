@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import { KeyboardDateTimePicker } from '@material-ui/pickers';
+import { shallow as enzymeShallow } from 'enzyme';
+import { createShallow } from '@devexpress/dx-testing';
+import DateTimePicker from '@mui/lab/DateTimePicker';
 import { convertToMoment } from '@devexpress/dx-scheduler-core';
 import { DateEditor } from './date-editor';
 
@@ -20,7 +21,7 @@ describe('AppointmentForm common', () => {
         <DateEditor {...defaultProps} data={{ a: 1 }} />
       ));
 
-      const datePicker = tree.find(KeyboardDateTimePicker);
+      const datePicker = tree.find(DateTimePicker);
 
       expect(datePicker)
         .toHaveLength(1);
@@ -29,14 +30,11 @@ describe('AppointmentForm common', () => {
     });
 
     it('should pass classNme to the DateTimePicker element', () => {
-      const classes = getClasses(<DateEditor {...defaultProps} />);
-      const tree = shallow((
+      const tree = enzymeShallow((
         <DateEditor {...defaultProps} className="custom-class" />
       ));
-
-      const dateTimePicker = tree.find(KeyboardDateTimePicker);
-
-      expect(dateTimePicker.at(0).is(`.${classes.dateEditor}.custom-class`))
+      const textField = enzymeShallow(tree.shallow().childAt(0).props().renderInput({}));
+      expect(textField.at(0).is('.custom-class'))
         .toBeTruthy();
     });
 
@@ -45,7 +43,7 @@ describe('AppointmentForm common', () => {
         <DateEditor {...defaultProps} />
       ));
 
-      const dateTimePicker = tree.find(KeyboardDateTimePicker);
+      const dateTimePicker = tree.find(DateTimePicker);
 
       dateTimePicker.at(0).simulate('change', convertToMoment(new Date()));
       expect(defaultProps.onValueChange)
@@ -60,7 +58,7 @@ describe('AppointmentForm common', () => {
         />
       ));
 
-      expect(tree.find(KeyboardDateTimePicker).at(0).prop('disabled'))
+      expect(tree.find(DateTimePicker).at(0).prop('disabled'))
         .toBeTruthy();
     });
 
@@ -71,7 +69,7 @@ describe('AppointmentForm common', () => {
         />
       ));
 
-      expect(tree.find(KeyboardDateTimePicker).at(0).prop('format'))
+      expect(tree.find(DateTimePicker).at(0).prop('inputFormat'))
         .toBe('DD/MM/YYYY hh:mm A');
     });
   });

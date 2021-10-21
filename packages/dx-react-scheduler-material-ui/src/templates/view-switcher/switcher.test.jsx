@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
+import { createShallow } from '@devexpress/dx-testing';
 import { Switcher } from './switcher';
 
 describe('ViewSwitcher', () => {

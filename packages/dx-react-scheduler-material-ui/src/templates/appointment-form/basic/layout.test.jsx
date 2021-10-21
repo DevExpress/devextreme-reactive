@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { createShallow, getClasses } from '@devexpress/dx-testing';
 import { TITLE, TITLE_TEXT_EDITOR, MULTILINE_TEXT_EDITOR } from '@devexpress/dx-scheduler-core';
 import { Layout } from './layout';
 
@@ -112,8 +112,6 @@ describe('AppointmentForm basic', () => {
         .toBeCalledWith('detailsLabel');
       expect(defaultProps.getMessage)
         .toBeCalledWith('titleLabel');
-      expect(defaultProps.getMessage)
-        .toBeCalledWith('moreInformationLabel');
       expect(defaultProps.getMessage)
         .toBeCalledWith('notesLabel');
       expect(defaultProps.getMessage)

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 import { getRecurrenceOptions, changeRecurrenceOptions, checkIsNaturalNumber } from '@devexpress/dx-scheduler-core';
 import { IntervalEditor } from './interval-editor';
 

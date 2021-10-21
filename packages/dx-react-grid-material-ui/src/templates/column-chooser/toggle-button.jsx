@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 export const ToggleButton = ({
   onToggle, getMessage,
@@ -16,8 +16,9 @@ export const ToggleButton = ({
   >
     <IconButton
       onClick={onToggle}
-      buttonRef={buttonRef}
+      ref={buttonRef}
       {...restProps}
+      size="large"
     >
       <VisibilityOff />
     </IconButton>

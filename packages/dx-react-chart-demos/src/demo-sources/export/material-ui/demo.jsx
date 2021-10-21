@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Paper from '@material-ui/core/Paper';
+import Paper from '@mui/material/Paper';
 import {
   ArgumentAxis,
   ValueAxis,
@@ -11,14 +11,14 @@ import {
 import { Plugin, Template, TemplatePlaceholder } from '@devexpress/dx-react-core';
 import domtoimage from 'dom-to-image';
 import JsPDF from 'jspdf';
-import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { scaleBand } from '@devexpress/dx-chart-core';
 import { ArgumentScale, Stack, Animation } from '@devexpress/dx-react-chart';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import withStyles from '@mui/styles/withStyles';
+import Typography from '@mui/material/Typography';
 
 import { gaming as data } from '../../../demo-data/data-vizualization';
 
@@ -158,6 +158,7 @@ const ExportBase = (props) => {
           id={iconButton}
           onClick={handleClick}
           className={classes.button}
+          size="large"
         >
           <MoreVertIcon />
         </IconButton>

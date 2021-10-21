@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses, createMount } from '@material-ui/core/test-utils';
+import { createShallow, getClasses, createMount } from '@devexpress/dx-testing';
 import {
   handleStartDateChange,
   handleToDayOfWeekChange,
@@ -8,7 +8,7 @@ import {
   getDaysOfWeek,
   getWeekNumberLabels,
 } from '@devexpress/dx-scheduler-core';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import { MonthlyEditor } from './monthly-editor';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({

@@ -1,15 +1,16 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import IconButton from '@material-ui/core/IconButton';
+import IconButton from '@mui/material/IconButton';
 
 export const ToggleButton = ({
   buttonRef, onToggle, disabled, children, ...restProps
 }) => (
   <IconButton
-    buttonRef={buttonRef}
+    ref={buttonRef}
     onClick={onToggle}
     disabled={disabled}
     {...restProps}
+    size="large"
   >
     {children}
   </IconButton>

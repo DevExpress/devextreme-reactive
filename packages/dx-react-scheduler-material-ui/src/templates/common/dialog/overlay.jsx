@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import Dialog from '@material-ui/core/Dialog';
-import { withStyles } from '@material-ui/core/styles';
+import Dialog from '@mui/material/Dialog';
+import withStyles from '@mui/styles/withStyles';
 
 const styles = {
   modal: {

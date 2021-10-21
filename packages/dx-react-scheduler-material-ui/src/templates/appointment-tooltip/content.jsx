@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import AccessTime from '@material-ui/icons/AccessTime';
-import Lens from '@material-ui/icons/Lens';
+import makeStyles from '@mui/styles/makeStyles';
+import Grid from '@mui/material/Grid';
+import AccessTime from '@mui/icons-material/AccessTime';
+import Lens from '@mui/icons-material/Lens';
 import { HOUR_MINUTE_OPTIONS, WEEKDAY_INTERVAL, viewBoundText } from '@devexpress/dx-scheduler-core';
 import { getAppointmentColor, getResourceColor } from '../utils';
 

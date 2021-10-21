@@ -1,17 +1,15 @@
 // BLOCK:imports
-import TextField from '@material-ui/core/TextField';
-import FormGroup from '@material-ui/core/FormGroup';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import MuiGrid from '@material-ui/core/Grid';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
-import MomentUtils from '@date-io/moment';
+import TextField from '@mui/material/TextField';
+import FormGroup from '@mui/material/FormGroup';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import MuiGrid from '@mui/material/Grid';
+import DatePicker from '@mui/lab/DatePicker';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AdapterMoment from '@mui/lab/AdapterMoment';
 // BLOCK:imports
 
 // BLOCK:dialog
@@ -60,17 +58,17 @@ const Popup = ({
               value={row.lastName || ''}
               onChange={onChange}
             />
-            <MuiPickersUtilsProvider utils={MomentUtils}>
-              <KeyboardDatePicker
+            <LocalizationProvider dateAdapter={AdapterMoment}>
+              <DatePicker
+                renderInput={props => <TextField margin="normal" {...props} />}
                 label="Birth Date"
-                margin="normal"
-                value={row.birthDate}
-                onChange={(_, value) => onChange({
-                  target: { name: 'birthDate', value },
+                value={row.BirthDate}
+                onChange={value => onChange({
+                  target: { name: 'BirthDate', value },
                 })}
-                format="DD/MM/YYYY"
+                inputFormat="DD/MM/YYYY"
               />
-            </MuiPickersUtilsProvider>
+            </LocalizationProvider>
             <TextField
               margin="normal"
               name="phone"
@@ -83,7 +81,7 @@ const Popup = ({
       </MuiGrid>
     </DialogContent>
     <DialogActions>
-      <Button onClick={onCancelChanges} color="primary">
+      <Button onClick={onCancelChanges} color="secondary">
         Cancel
       </Button>
       <Button onClick={onApplyChanges} color="primary">

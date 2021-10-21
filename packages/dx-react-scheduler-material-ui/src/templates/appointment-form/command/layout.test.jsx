@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
+import { createShallow, getClasses } from '@devexpress/dx-testing';
 import { CANCEL_BUTTON, DELETE_BUTTON, SAVE_BUTTON } from '@devexpress/dx-scheduler-core';
 import { Layout } from './layout';
 

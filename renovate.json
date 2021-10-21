@@ -17,7 +17,7 @@
     {
       "packagePatterns": [ "*" ],
       "excludePackagePatterns": [
-        "^@material-ui",
+        "^@mui",
         "^@types",
         "^react",
         "typescript"
@@ -25,7 +25,7 @@
       "groupName": "deps"
     },
     {
-      "packagePatterns": [ "^@material-ui" ],
+      "packagePatterns": [ "^@mui" ],
       "groupName": "Material-UI",
       "depTypeList": [
         "dependencies",

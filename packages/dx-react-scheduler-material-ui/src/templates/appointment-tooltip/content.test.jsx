@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
+import { createShallow } from '@devexpress/dx-testing';
 import { viewBoundText } from '@devexpress/dx-scheduler-core';
 import { Content } from './content';
 
@@ -8,23 +8,20 @@ jest.mock('@devexpress/dx-scheduler-core', () => ({
   viewBoundText: jest.fn(),
 }));
 
-jest.mock('@material-ui/core/styles', () => ({
-  ...jest.requireActual('@material-ui/core/styles'),
-  makeStyles: jest.fn(() => () => ({
-    content: 'content',
-    text: 'text',
-    title: 'title',
-    icon: 'icon',
-    lens: 'lens',
-    lensMini: 'lensMini',
-    textCenter: 'textCenter',
-    dateAndTitle: 'dateAndTitle',
-    titleContainer: 'titleContainer',
-    contentContainer: 'contentContainer',
-    resourceContainer: 'resourceContainer',
-    recurringIcon: 'recurringIcon',
-    relativeContainer: 'relativeContainer',
-  })),
+jest.mock('@mui/styles/makeStyles', () => () => () => ({
+  content: 'content',
+  text: 'text',
+  title: 'title',
+  icon: 'icon',
+  lens: 'lens',
+  lensMini: 'lensMini',
+  textCenter: 'textCenter',
+  dateAndTitle: 'dateAndTitle',
+  titleContainer: 'titleContainer',
+  contentContainer: 'contentContainer',
+  resourceContainer: 'resourceContainer',
+  recurringIcon: 'recurringIcon',
+  relativeContainer: 'relativeContainer',
 }));
 
 describe('Appointment Tooltip', () => {

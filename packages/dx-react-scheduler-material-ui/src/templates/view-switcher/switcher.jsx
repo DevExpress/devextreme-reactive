@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 import { OutlinedSelect } from '../common/select/outlined-select';
 import { LAYOUT_MEDIA_QUERY } from '../constants';
 

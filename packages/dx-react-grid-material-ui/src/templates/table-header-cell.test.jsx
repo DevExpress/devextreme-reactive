@@ -1,7 +1,9 @@
 import * as React from 'react';
-import TableCell from '@material-ui/core/TableCell';
-import { createMount, createShallow, getClasses } from '@material-ui/core/test-utils';
-import { setupConsole } from '@devexpress/dx-testing';
+import TableCell from '@mui/material/TableCell';
+import {
+  createMount, createShallow, getClasses, setupConsole,
+} from '@devexpress/dx-testing';
+
 import { DragDropProvider, DragSource } from '@devexpress/dx-react-core';
 import { TableHeaderCell } from './table-header-cell';
 import { ResizingControl } from './table-header-cell/resizing-control';

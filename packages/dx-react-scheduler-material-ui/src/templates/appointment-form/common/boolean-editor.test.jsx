@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { createMount, createShallow } from '@material-ui/core/test-utils';
-import Checkbox from '@material-ui/core/Checkbox';
+import { createMount, createShallow } from '@devexpress/dx-testing';
+import Checkbox from '@mui/material/Checkbox';
 import { BooleanEditor } from './boolean-editor';
 
 describe('AppointmentForm common', () => {
   let mount;
   let shallow;
   const defaultProps = {
+    label: 'label',
     onValueChange: jest.fn(),
   };
   beforeAll(() => {
@@ -40,6 +41,7 @@ describe('AppointmentForm common', () => {
       const valueChangeMock = jest.fn();
       const { onChange } = mount((
         <BooleanEditor
+          label="label"
           onValueChange={valueChangeMock}
         />
       )).find(Checkbox).props();

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import TableMUI from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableHead from '@material-ui/core/TableHead';
-import { withStyles } from '@material-ui/core/styles';
+import TableMUI from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableHead from '@mui/material/TableHead';
+import withStyles from '@mui/styles/withStyles';
 import { WEEK_DAY_OPTIONS, DAY_OPTIONS, areDatesSame } from '@devexpress/dx-scheduler-core';
 
 const styles = {

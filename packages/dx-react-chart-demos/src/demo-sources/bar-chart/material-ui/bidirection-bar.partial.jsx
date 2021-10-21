@@ -1,5 +1,5 @@
 // BLOCK:imports
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@mui/styles/withStyles';
 // BLOCK:imports
 
 // BLOCK:body

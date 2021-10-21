@@ -1,18 +1,15 @@
 import * as React from 'react';
-import { createShallow } from '@material-ui/core/test-utils';
+import { createShallow } from '@devexpress/dx-testing';
 import { VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import { Layout } from './layout';
 import { TicksLayout } from './ticks-layout';
 
-jest.mock('@material-ui/core/styles', () => ({
-  ...jest.requireActual('@material-ui/core/styles'),
-  makeStyles: jest.fn(() => () => ({
-    timeScaleContainer: 'timeScaleContainer',
-    ticks: 'ticks',
-    cell: 'cell',
-    verticalCell: 'verticalCell',
-    flexRow: 'flexRow',
-  })),
+jest.mock('@mui/styles/makeStyles', () => () => () => ({
+  timeScaleContainer: 'timeScaleContainer',
+  ticks: 'ticks',
+  cell: 'cell',
+  verticalCell: 'verticalCell',
+  flexRow: 'flexRow',
 }));
 
 describe('Vertical view TimeScale', () => {

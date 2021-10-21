@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@material-ui/core/test-utils';
-import Menu from '@material-ui/core/Menu';
+import { createShallow, getClasses } from '@devexpress/dx-testing';
+import Menu from '@mui/material/Menu';
 import { FilterSelector } from './filter-selector';
 
 const defaultProps = {

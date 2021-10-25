@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
-import { withClassName } from '../utils';
+import { withClassName, classes } from '../utils';
 
-const styles = theme => ({
-  root: {
+const styles = ({ theme }) => ({
+  [`&.${classes.root}`]: {
     padding: theme.spacing(0.5, 1),
   },
 });

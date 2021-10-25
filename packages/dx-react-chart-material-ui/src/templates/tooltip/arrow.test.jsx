@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createMount, getClasses } from '@devexpress/dx-testing';
-import { Arrow } from './arrow';
+import { createMount } from '@devexpress/dx-testing';
+import { Arrow, classes } from './arrow';
 
 describe('Arrow', () => {
   const defaultProps = {
@@ -8,7 +8,6 @@ describe('Arrow', () => {
     placement: 'top',
   };
   let mount;
-  const classes = getClasses(<Arrow {...defaultProps} />);
   beforeEach(() => {
     mount = createMount();
   });
@@ -23,9 +22,8 @@ describe('Arrow', () => {
         {...defaultProps}
       />
     ));
-    expect(tree.find('div').props()).toMatchObject({
-      className: `${classes['arrow-top']} custom-className`,
-    });
+    expect(tree.find('div').is(`.${classes['arrow-top']}`)).toBeTruthy();
+    expect(tree.find('div').is('.custom-className')).toBeTruthy();
   });
 
   it('should render Arrow, placement right', () => {
@@ -35,8 +33,7 @@ describe('Arrow', () => {
         placement="right"
       />
     ));
-    expect(tree.find('div').props()).toMatchObject({
-      className: `${classes['arrow-right']} custom-className`,
-    });
+    expect(tree.find('div').is(`.${classes['arrow-right']}`)).toBeTruthy();
+    expect(tree.find('div').is('.custom-className')).toBeTruthy();
   });
 });

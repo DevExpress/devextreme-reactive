@@ -1,24 +1,29 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
 
-const styles = {
-  emptyCell: {
+const PREFIX = 'DayScaleEmptyCell';
+
+export const classes = {
+  emptyCell: `${PREFIX}-emptyCell`,
+};
+
+const Root = styled('div')({
+  [`&.${classes.emptyCell}`]: {
     height: '100%',
     width: '100%',
   },
-};
+});
 
 export const DayScaleEmptyCellBase = ({
-  classes,
   className,
   children,
   ...restProps
 }) => (
-  <div {...restProps} className={classNames(classes.emptyCell, className)}>
+  <Root {...restProps} className={classNames(classes.emptyCell, className)}>
     {children}
-  </div>
+  </Root>
 );
 
 DayScaleEmptyCellBase.propTypes = {
@@ -32,4 +37,4 @@ DayScaleEmptyCellBase.defaultProps = {
   children: undefined,
 };
 
-export const DayScaleEmptyCell = withStyles(styles, { name: 'DayScaleEmptyCell' })(DayScaleEmptyCellBase);
+export const DayScaleEmptyCell = (DayScaleEmptyCellBase);

@@ -1,21 +1,27 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 import { cellsMeta, getViewCellKey } from '../utils';
 
-const styles = {
-  table: {
+const PREFIX = 'Layout';
+
+export const classes = {
+  table: `${PREFIX}-table`,
+};
+
+const StyledTable = styled(Table)({
+  [`&.${classes.table}`]: {
     tableLayout: 'fixed',
   },
-};
+});
 
 const LayoutBase = React.memo(({
   setCellElementsMeta,
   cellsData,
-  classes, className,
+  className,
   cellComponent: Cell,
   rowComponent: Row,
   formatDate,
@@ -29,7 +35,7 @@ const LayoutBase = React.memo(({
   });
 
   return (
-    <Table
+    <StyledTable
       ref={tableRef}
       className={classNames(classes.table, className)}
       {...restProps}
@@ -50,7 +56,7 @@ const LayoutBase = React.memo(({
           ))}
         </Row>
       </TableBody>
-    </Table>
+    </StyledTable>
   );
 });
 
@@ -67,4 +73,4 @@ LayoutBase.defaultProps = {
   className: undefined,
 };
 
-export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);
+export const Layout = (LayoutBase);

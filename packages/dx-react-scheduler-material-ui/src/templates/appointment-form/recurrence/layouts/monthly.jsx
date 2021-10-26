@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import {
   MONTHLY_RADIO_GROUP,
   getRecurrenceOptions,
@@ -9,17 +9,22 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { IntervalEditor } from './interval-editor';
 
-const styles = theme => ({
-  container: {
+const PREFIX = 'Monthly';
+
+export const classes = {
+  container: `${PREFIX}-container`,
+};
+
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.container}`]: {
     marginBottom: theme.spacing(1),
   },
-});
+}));
 
 const MonthlyBase = ({
   radioGroupComponent: RadioGroup,
   textEditorComponent,
   labelComponent,
-  classes,
   getMessage,
   readOnly,
   onFieldChange,
@@ -39,7 +44,7 @@ const MonthlyBase = ({
     }), [recurrenceOptions, onFieldChange],
   );
   return (
-    <div {...restProps}>
+    <Root {...restProps}>
       <IntervalEditor
         className={classes.container}
         repeatEveryLabel={getMessage('repeatEveryLabel')}
@@ -64,7 +69,7 @@ const MonthlyBase = ({
         dateEditorComponent={() => null}
         firstDayOfWeek={firstDayOfWeek}
       />
-    </div>
+    </Root>
   );
 };
 
@@ -98,4 +103,4 @@ MonthlyBase.defaultProps = {
   readOnly: false,
 };
 
-export const Monthly = withStyles(styles)(MonthlyBase, { name: 'Monthly' });
+export const Monthly = (MonthlyBase);

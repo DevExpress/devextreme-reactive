@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { Navigator } from './navigator';
+import { createShallow } from '@devexpress/dx-testing';
+import { Navigator, classes } from './navigator';
 
 describe('Calendar', () => {
-  let classes;
   let shallow;
   const Text = () => null;
   const NavigationButton = () => null;
@@ -14,7 +13,6 @@ describe('Calendar', () => {
     formatDate: jest.fn(),
   };
   beforeAll(() => {
-    classes = getClasses(<Navigator {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
   describe('Navigator', () => {

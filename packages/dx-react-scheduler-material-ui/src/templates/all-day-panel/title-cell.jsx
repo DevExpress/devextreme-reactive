@@ -1,13 +1,26 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import Typography from '@mui/material/Typography';
-import withStyles from '@mui/styles/withStyles';
 import { VIEW_TYPES } from '@devexpress/dx-scheduler-core';
 import { SPACING_CELL_HEIGHT } from '../constants';
 
-const styles = theme => ({
-  container: {
+const PREFIX = 'TitleCell';
+
+export const classes = {
+  container: `${PREFIX}-container`,
+  content: `${PREFIX}-content`,
+  title: `${PREFIX}-title`,
+  fixedHeight: `${PREFIX}-fixedHeight`,
+};
+
+const Root = styled('div')((
+  {
+    theme,
+  },
+) => ({
+  [`&.${classes.container}`]: {
     userSelect: 'none',
     height: '100%',
     display: 'flex',
@@ -15,7 +28,8 @@ const styles = theme => ({
     justifyContent: 'flex-end',
     position: 'relative',
   },
-  content: {
+
+  [`& .${classes.content}`]: {
     width: theme.spacing(10),
     boxSizing: 'border-box',
     height: theme.spacing(5.75),
@@ -24,21 +38,23 @@ const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
-  title: {
+
+  [`& .${classes.title}`]: {
     paddingRight: theme.spacing(2),
     ...theme.typography.caption,
     color: theme.palette.text.secondary,
   },
-  fixedHeight: {
+
+  [`&.${classes.fixedHeight}`]: {
     height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL]),
     width: '100%',
   },
-});
+}));
 
 export const TitleCellBase = React.memo(({
-  classes, getMessage, className, fixedHeight, ...restProps
+  getMessage, className, fixedHeight, ...restProps
 }) => (
-  <div
+  <Root
     className={classNames({
       [classes.container]: true,
       [classes.fixedHeight]: fixedHeight,
@@ -55,7 +71,7 @@ export const TitleCellBase = React.memo(({
         {getMessage('allDay')}
       </Typography>
     </div>
-  </div>
+  </Root>
 ));
 
 TitleCellBase.propTypes = {
@@ -70,4 +86,4 @@ TitleCellBase.defaultProps = {
   fixedHeight: false,
 };
 
-export const TitleCell = withStyles(styles, { name: 'TitleCell' })(TitleCellBase);
+export const TitleCell = (TitleCellBase);

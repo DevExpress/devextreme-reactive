@@ -1,11 +1,21 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import makeStyles from '@mui/styles/makeStyles';
 import { getAppointmentColor, getResourceColor } from '../utils';
 
-const useStyles = makeStyles(({ palette, typography, spacing }) => ({
-  appointment: {
+const PREFIX = 'Appointment';
+
+const classes = {
+  appointment: `${PREFIX}-appointment`,
+  clickableAppointment: `${PREFIX}-clickableAppointment`,
+  shadedAppointment: `${PREFIX}-shadedAppointment`,
+};
+
+const Root = styled('div')(({
+  theme: { palette, typography, spacing },
+}) => ({
+  [`&.${classes.appointment}`]: {
     userSelect: 'none',
     position: 'absolute',
     height: '100%',
@@ -31,10 +41,12 @@ const useStyles = makeStyles(({ palette, typography, spacing }) => ({
       outline: 0,
     },
   },
-  clickableAppointment: {
+
+  [`&.${classes.clickableAppointment}`]: {
     cursor: 'pointer',
   },
-  shadedAppointment: {
+
+  [`&.${classes.shadedAppointment}`]: {
     backgroundColor: resources => getAppointmentColor(
       200, getResourceColor(resources), palette.primary,
     ),
@@ -64,10 +76,10 @@ export const Appointment = ({
       },
     }
     : null;
-  const classes = useStyles(resources);
+
   const clickable = onClick || restProps.onDoubleClick || draggable;
   return (
-    <div
+    <Root
       ref={forwardedRef}
       className={classNames({
         [classes.appointment]: true,
@@ -78,7 +90,7 @@ export const Appointment = ({
       {...restProps}
     >
       {children}
-    </div>
+    </Root>
   );
 };
 

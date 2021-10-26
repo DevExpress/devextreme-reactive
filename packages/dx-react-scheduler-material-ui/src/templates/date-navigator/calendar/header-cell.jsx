@@ -1,11 +1,17 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import TableCell from '@mui/material/TableCell';
-import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 
-const styles = {
-  cell: {
+const PREFIX = 'HeaderCell';
+
+export const classes = {
+  cell: `${PREFIX}-cell`,
+};
+
+const StyledTableCell = styled(TableCell)({
+  [`&.${classes.cell}`]: {
     userSelect: 'none',
     border: 'none',
     padding: 0,
@@ -15,22 +21,21 @@ const styles = {
       padding: 0,
     },
   },
-};
+});
 
 const HeaderCellBase = ({
-  classes,
   children,
   className,
   ...restProps
 }) => (
-  <TableCell
+  <StyledTableCell
     className={classNames({
       [classes.cell]: true,
     }, className)}
     {...restProps}
   >
     {children}
-  </TableCell>
+  </StyledTableCell>
 );
 
 HeaderCellBase.propTypes = {
@@ -44,4 +49,4 @@ HeaderCellBase.defaultProps = {
   className: undefined,
 };
 
-export const HeaderCell = withStyles(styles, { name: 'HeaderCell' })(HeaderCellBase);
+export const HeaderCell = (HeaderCellBase);

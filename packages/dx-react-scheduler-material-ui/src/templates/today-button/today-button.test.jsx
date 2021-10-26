@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { TodayButton } from './today-button';
+import { createShallow } from '@devexpress/dx-testing';
+import { TodayButton, classes } from './today-button';
 
 describe('TodayButton', () => {
   let shallow;
@@ -42,7 +42,6 @@ describe('TodayButton', () => {
     });
 
     it('should pass className to the root element', () => {
-      const classes = getClasses(<TodayButton />);
       const tree = shallow((
         <TodayButton {...defaultProps} className="custom-class" />
       ));

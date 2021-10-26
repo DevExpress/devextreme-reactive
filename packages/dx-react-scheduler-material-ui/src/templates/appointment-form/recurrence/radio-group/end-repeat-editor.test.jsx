@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { createShallow, getClasses, createMount } from '@devexpress/dx-testing';
+import { createShallow, createMount } from '@devexpress/dx-testing';
 import { getRecurrenceOptions, changeRecurrenceOptions } from '@devexpress/dx-scheduler-core';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { EndRepeatEditor } from './end-repeat-editor';
+import { EndRepeatEditor, classes } from './end-repeat-editor';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...jest.requireActual('@devexpress/dx-scheduler-core'),
@@ -24,11 +24,9 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     },
     locale: 'en-US',
   };
-  let classes;
   let shallow;
   let mount;
   beforeAll(() => {
-    classes = getClasses(<EndRepeatEditor {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
   beforeEach(() => {

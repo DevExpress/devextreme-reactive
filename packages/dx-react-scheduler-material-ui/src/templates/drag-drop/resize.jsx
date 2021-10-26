@@ -1,11 +1,21 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 import {
   VERTICAL_TYPE, HORIZONTAL_TYPE,
   POSITION_START, POSITION_END,
 } from '@devexpress/dx-scheduler-core';
+
+const PREFIX = 'Resize';
+
+export const classes = {
+  resize: `${PREFIX}-resize`,
+  verticalStart: `${PREFIX}-verticalStart`,
+  verticalEnd: `${PREFIX}-verticalEnd`,
+  horizontalStart: `${PREFIX}-horizontalStart`,
+  horizontalEnd: `${PREFIX}-horizontalEnd`,
+};
 
 const verticalStyles = spacing => ({
   width: '100%',
@@ -19,35 +29,8 @@ const horizontalStyles = spacing => ({
   cursor: 'ew-resize',
 });
 
-const styles = ({ spacing }) => {
-  const vertical = verticalStyles(spacing);
-  const horizontal = horizontalStyles(spacing);
-  return ({
-    resize: {
-      position: 'absolute',
-      zIndex: 100,
-    },
-    verticalStart: {
-      ...vertical,
-      top: 0,
-    },
-    verticalEnd: {
-      ...vertical,
-      bottom: 0,
-    },
-    horizontalStart: {
-      ...horizontal,
-      left: 0,
-    },
-    horizontalEnd: {
-      ...horizontal,
-      right: 0,
-    },
-  });
-};
-
 const ResizeBase = React.memo(({
-  classes, className,
+  className,
   position, appointmentType,
   forwardedRef, ...restProps
 }) => {
@@ -81,4 +64,33 @@ ResizeBase.defaultProps = {
   forwardedRef: undefined,
 };
 
-export const Resize = withStyles(styles, { name: 'Resize' })(ResizeBase);
+const Root = styled(ResizeBase)(({
+  theme: { spacing },
+}) => {
+  const vertical = verticalStyles(spacing);
+  const horizontal = horizontalStyles(spacing);
+  return {
+    [`& .${classes.resize}`]: {
+      position: 'absolute',
+      zIndex: 100,
+    },
+    [`& .${classes.verticalStart}`]: {
+      ...vertical,
+      top: 0,
+    },
+    [`& .${classes.verticalEnd}`]: {
+      ...vertical,
+      bottom: 0,
+    },
+    [`& .${classes.horizontalStart}`]: {
+      ...horizontal,
+      left: 0,
+    },
+    [`& .${classes.horizontalEnd}`]: {
+      ...horizontal,
+      right: 0,
+    },
+  };
+});
+
+export const Resize = (Root);

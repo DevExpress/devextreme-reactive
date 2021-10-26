@@ -1,25 +1,31 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import ToolbarMUI from '@mui/material/Toolbar';
-import withStyles from '@mui/styles/withStyles';
 import { getBorder } from '../utils';
 
-const styles = theme => ({
-  toolbar: {
+const PREFIX = 'Toolbar';
+
+export const classes = {
+  toolbar: `${PREFIX}-toolbar`,
+};
+
+const StyledToolbarMUI = styled(ToolbarMUI)(({ theme }) => ({
+  [`&.${classes.toolbar}`]: {
     borderBottom: getBorder(theme),
   },
-});
+}));
 
 const ToolbarBase = ({
-  children, classes, className, ...restProps
+  children, className, ...restProps
 }) => (
-  <ToolbarMUI
+  <StyledToolbarMUI
     className={classNames(classes.toolbar, className)}
     {...restProps}
   >
     {children}
-  </ToolbarMUI>
+  </StyledToolbarMUI>
 );
 
 ToolbarBase.propTypes = {
@@ -32,4 +38,4 @@ ToolbarBase.defaultProps = {
   className: undefined,
 };
 
-export const Toolbar = withStyles(styles, { name: 'Toolbar' })(ToolbarBase);
+export const Toolbar = (ToolbarBase);

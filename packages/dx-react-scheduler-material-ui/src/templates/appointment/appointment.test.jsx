@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createMount, createShallow } from '@devexpress/dx-testing';
 import { Appointment } from './appointment';
 
-jest.mock('@mui/styles/makeStyles', () => () => () => ({
+jest.mock('@mui/material/styles', () => () => () => ({
   appointment: 'appointment',
   clickableAppointment: 'clickableAppointment',
   shadedAppointment: 'shadedAppointment',

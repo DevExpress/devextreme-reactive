@@ -1,16 +1,14 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { Label } from './label';
+import { createShallow } from '@devexpress/dx-testing';
+import { Label, classes } from './label';
 
 describe('Vertical view TimeScale', () => {
   const defaultProps = {
     time: new Date(2018, 6, 7, 16, 20),
     formatDate: () => undefined,
   };
-  let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Label {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
   describe('Label', () => {

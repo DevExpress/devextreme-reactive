@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createShallow } from '@devexpress/dx-testing';
 import Dialog from '@mui/material/Dialog';
-import { Overlay } from './overlay';
+import { Overlay, classes } from './overlay';
 
 describe('Common Dialog', () => {
   let shallow;
-  let classes;
   const defaultProps = {
     onHide: jest.fn(),
     target: React.createRef(),
@@ -14,7 +13,6 @@ describe('Common Dialog', () => {
   };
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<Overlay {...defaultProps}><div /></Overlay>);
   });
   beforeEach(() => {
     jest.resetAllMocks();
@@ -52,7 +50,7 @@ describe('Common Dialog', () => {
         .toMatchObject({
           open: defaultProps.visible,
           onClose: defaultProps.onHide,
-          className: `${classes.modal} ${classes.root} custom-class`,
+          className: `${classes.modal} ${classes.root} custom-class css-bhqktm`,
           BackdropProps: { className: classes.modal },
           container: null,
           onBackdropClick: defaultProps.onHide,

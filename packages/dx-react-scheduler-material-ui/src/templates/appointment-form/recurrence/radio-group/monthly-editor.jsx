@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
@@ -16,45 +16,68 @@ import {
   getDaysOfWeek,
 } from '@devexpress/dx-scheduler-core';
 
-const styles = ({ spacing }) => ({
-  textEditor: {
+const PREFIX = 'MonthlyEditor';
+
+export const classes = {
+  textEditor: `${PREFIX}-textEditor`,
+  input: `${PREFIX}-input`,
+  select: `${PREFIX}-select`,
+  longSelect: `${PREFIX}-longSelect`,
+  label: `${PREFIX}-label`,
+  longLabel: `${PREFIX}-longLabel`,
+  grid: `${PREFIX}-grid`,
+  formControl: `${PREFIX}-formControl`,
+  controlLabel: `${PREFIX}-controlLabel`,
+};
+
+const StyledRadioGroup = styled(RadioGroup)(({
+  theme: { spacing },
+}) => ({
+  [`& .${classes.textEditor}`]: {
     width: 'calc((100% - 5.5em) * 3 / 7)',
     maxWidth: '12em',
     marginRight: '1em',
   },
-  input: {
+
+  [`& .${classes.input}`]: {
     paddingBottom: spacing(2.75),
   },
-  select: {
+
+  [`& .${classes.select}`]: {
     width: 'calc((100% - 5.5em) * 3 / 7)',
     maxWidth: '8em',
   },
-  longSelect: {
+
+  [`& .${classes.longSelect}`]: {
     width: 'calc((100% - 5.5em) * 4 / 7)',
     minWidth: 'calc(100% - 13.5em)',
     marginLeft: '1em',
   },
-  label: {
+
+  [`& .${classes.label}`]: {
     width: '4.5em',
   },
-  longLabel: {
+
+  [`& .${classes.longLabel}`]: {
     width: 'calc((100% - 5.5em) * 4 / 7)',
     minWidth: 'calc(100% - 14em)',
   },
-  grid: {
+
+  [`& .${classes.grid}`]: {
     marginTop: spacing(1),
     marginBottom: spacing(1),
   },
-  formControl: {
+
+  [`& .${classes.formControl}`]: {
     marginRight: 0,
   },
-  controlLabel: {
+
+  [`& .${classes.controlLabel}`]: {
     width: '100%',
   },
-});
+}));
 
 const MonthlyEditorBase = ({
-  classes,
   getMessage,
   labelComponent: Label,
   textEditorComponent: TextEditor,
@@ -128,7 +151,7 @@ const MonthlyEditorBase = ({
   };
 
   return (
-    <RadioGroup
+    <StyledRadioGroup
       onChange={onRadioGroupValueChange}
       value={value}
       {...restProps}
@@ -199,7 +222,7 @@ const MonthlyEditorBase = ({
           </Grid>
         )}
       />
-    </RadioGroup>
+    </StyledRadioGroup>
   );
 };
 
@@ -230,4 +253,4 @@ MonthlyEditorBase.defaultProps = {
   readOnly: false,
 };
 
-export const MonthlyEditor = withStyles(styles)(MonthlyEditorBase, { name: 'MonthlyEditor' });
+export const MonthlyEditor = (MonthlyEditorBase);

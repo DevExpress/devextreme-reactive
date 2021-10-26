@@ -1,17 +1,28 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
 
-const styles = ({ spacing, palette }) => ({
-  head: {
+const PREFIX = 'Header';
+
+export const classes = {
+  head: `${PREFIX}-head`,
+  line: `${PREFIX}-line`,
+  flexContainer: `${PREFIX}-flexContainer`,
+};
+
+const Root = styled('div')(({
+  theme: { spacing, palette },
+}) => ({
+  [`&.${classes.head}`]: {
     position: 'relative',
     paddingLeft: spacing(1),
     paddingRight: spacing(0.5),
     paddingTop: spacing(0.25),
     minHeight: spacing(1.5),
   },
-  line: {
+
+  [`& .${classes.line}`]: {
     backgroundColor: palette.action.disabledBackground,
     height: spacing(3.5),
     marginLeft: spacing(1),
@@ -19,13 +30,14 @@ const styles = ({ spacing, palette }) => ({
     marginTop: spacing(1.25),
     width: '1px',
   },
-  flexContainer: {
+
+  [`&.${classes.flexContainer}`]: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'flex-start',
   },
-});
+}));
 
 const HeaderBase = ({
   appointmentData,
@@ -37,7 +49,6 @@ const HeaderBase = ({
   onOpenButtonClick,
   onDeleteButtonClick,
   onHide,
-  classes,
   className,
   children,
   ...restProps
@@ -47,7 +58,7 @@ const HeaderBase = ({
     onOpenButtonClick();
   };
   return (
-    <div
+    <Root
       className={classNames(classes.head, classes.flexContainer, className)}
       {...restProps}
     >
@@ -63,7 +74,7 @@ const HeaderBase = ({
           <CommandButton id={commandButtonIds.close} onExecute={onHide} />
         </div>
       )}
-    </div>
+    </Root>
   );
 };
 
@@ -91,4 +102,4 @@ HeaderBase.defaultProps = {
   onHide: () => undefined,
 };
 
-export const Header = withStyles(styles, { name: 'Header' })(HeaderBase);
+export const Header = (HeaderBase);

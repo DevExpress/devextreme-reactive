@@ -1,26 +1,32 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
 
-const styles = {
-  container: {
+const PREFIX = 'OverlayContainer';
+
+export const classes = {
+  container: `${PREFIX}-container`,
+};
+
+const Root = styled('div')({
+  [`&.${classes.container}`]: {
     position: 'absolute',
     width: '100%',
     height: '100%',
   },
-};
+});
 
 export const OverlayContainerBase = React.forwardRef(({
-  children, classes, className, ...restProps
+  children, className, ...restProps
 }, ref) => (
-  <div
+  <Root
     ref={ref}
     className={classNames(classes.container, className)}
     {...restProps}
   >
     {children}
-  </div>
+  </Root>
 ));
 
 OverlayContainerBase.propTypes = {
@@ -34,4 +40,4 @@ OverlayContainerBase.defaultProps = {
   className: undefined,
 };
 
-export const OverlayContainer = withStyles(styles, { name: 'OverlayContainer' })(OverlayContainerBase);
+export const OverlayContainer = (OverlayContainerBase);

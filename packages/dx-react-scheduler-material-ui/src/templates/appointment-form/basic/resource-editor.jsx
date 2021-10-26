@@ -1,46 +1,66 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import makeStyles from '@mui/styles/makeStyles';
 import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import classNames from 'clsx';
 import { getAppointmentColor } from '../../utils';
 
-const getResourceInstance = (resourceInstances, id) => resourceInstances
-  .find(item => item.id === id);
+const PREFIX = 'ResourceEditor';
 
-const useStyles = makeStyles(({ spacing }) => ({
-  select: {
+const classes = {
+  select: `${PREFIX}-select`,
+  selectBox: `${PREFIX}-selectBox`,
+  chips: `${PREFIX}-chips`,
+  chip: `${PREFIX}-chip`,
+  resourceCircle: `${PREFIX}-resourceCircle`,
+  itemContainer: `${PREFIX}-itemContainer`,
+  circleContainer: `${PREFIX}-circleContainer`,
+};
+
+const StyledTextField = styled(TextField)(({
+  theme: { spacing },
+}) => ({
+  [`& .${classes.select}`]: {
     padding: spacing(1),
   },
-  selectBox: {
+
+  [`&.${classes.selectBox}`]: {
     minHeight: spacing(6.5),
     width: '100%',
   },
-  chips: {
+
+  [`& .${classes.chips}`]: {
     display: 'flex',
     flexWrap: 'wrap',
   },
-  chip: {
+
+  [`& .${classes.chip}`]: {
     color: 'white',
     margin: 2,
   },
-  resourceCircle: {
+
+  [`& .${classes.resourceCircle}`]: {
     height: spacing(2),
     width: spacing(2),
     borderRadius: '50%',
     marginRight: spacing(1),
   },
-  itemContainer: {
+
+  [`& .${classes.itemContainer}`]: {
     display: 'flex',
     padding: spacing(0.75),
   },
-  circleContainer: {
+
+  [`& .${classes.circleContainer}`]: {
     display: 'flex',
     alignItems: 'center',
   },
 }));
+
+const getResourceInstance = (resourceInstances, id) => resourceInstances
+  .find(item => item.id === id);
 
 export const ResourceEditor = React.memo(({
   readOnly,
@@ -50,8 +70,6 @@ export const ResourceEditor = React.memo(({
   className,
   ...restProps
 }) => {
-  const classes = useStyles();
-
   const values = appointmentResources.reduce((acc, resourceItem) => (
     resourceItem.fieldName === resource.fieldName
       ? [...acc, resourceItem.id]
@@ -63,7 +81,7 @@ export const ResourceEditor = React.memo(({
   };
 
   return (
-    <TextField
+    <StyledTextField
       select
       disabled={readOnly}
       variant="outlined"
@@ -119,7 +137,7 @@ export const ResourceEditor = React.memo(({
           </MenuItem>
         ))
       }
-    </TextField>
+    </StyledTextField>
   );
 });
 

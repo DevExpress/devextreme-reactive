@@ -1,33 +1,57 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
 import { SMALL_LAYOUT_MEDIA_QUERY } from '../constants';
 import { addCommaAndSpaceToString } from '../utils';
 
-const styles = ({ palette, spacing }) => ({
-  title: {
+const PREFIX = 'VerticalAppointment';
+
+export const classes = {
+  title: `${PREFIX}-title`,
+  textContainer: `${PREFIX}-textContainer`,
+  middleContainer: `${PREFIX}-middleContainer`,
+  time: `${PREFIX}-time`,
+  content: `${PREFIX}-content`,
+  shortContent: `${PREFIX}-shortContent`,
+  shortContainer: `${PREFIX}-shortContainer`,
+  shortTime: `${PREFIX}-shortTime`,
+  shortTitle: `${PREFIX}-shortTitle`,
+  container: `${PREFIX}-container`,
+  recurringContainer: `${PREFIX}-recurringContainer`,
+  imageContainer: `${PREFIX}-imageContainer`,
+  image: `${PREFIX}-image`,
+};
+
+const Root = styled('div')(({
+  theme: { palette, spacing },
+}) => ({
+  [`& .${classes.title}`]: {
     fontWeight: 'bold',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
-  textContainer: {
+
+  [`& .${classes.textContainer}`]: {
     lineHeight: 1,
     whiteSpace: 'pre-wrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
-  middleContainer: {
+
+  [`& .${classes.middleContainer}`]: {
     lineHeight: '0.9!important',
   },
-  time: {
+
+  [`& .${classes.time}`]: {
     display: 'inline-block',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
-  content: {
+
+  [`&.${classes.content}`]: {
     color: palette.common.white,
     padding: spacing(0.5, 1),
     overflow: 'hidden',
@@ -39,41 +63,48 @@ const styles = ({ palette, spacing }) => ({
       paddingRight: spacing(0.5),
     },
   },
-  shortContent: {
+
+  [`&.${classes.shortContent}`]: {
     padding: spacing(0.25, 1),
     [`${SMALL_LAYOUT_MEDIA_QUERY}`]: {
       paddingLeft: spacing(0.5),
       paddingRight: spacing(0.5),
     },
   },
-  shortContainer: {
+
+  [`& .${classes.shortContainer}`]: {
     display: 'flex',
   },
-  shortTime: {
+
+  [`& .${classes.shortTime}`]: {
     textOverflow: 'initial',
     flexShrink: 0,
   },
-  shortTitle: {
+
+  [`& .${classes.shortTitle}`]: {
     flexShrink: 3,
   },
-  container: {
+
+  [`& .${classes.container}`]: {
     width: '100%',
   },
-  recurringContainer: {
+
+  [`& .${classes.recurringContainer}`]: {
     width: `calc(100% - ${spacing(2)})`,
   },
-  imageContainer: {
+
+  [`& .${classes.imageContainer}`]: {
     width: spacing(2),
     height: spacing(2),
   },
-  image: {
+
+  [`& .${classes.image}`]: {
     width: '100%',
     height: '100%',
   },
-});
+}));
 
 const VerticalAppointmentBase = ({
-  classes,
   data,
   children,
   className,
@@ -86,7 +117,7 @@ const VerticalAppointmentBase = ({
   const isShortHeight = durationType === 'short';
   const isMiddleHeight = durationType === 'middle';
   return (
-    <div
+    <Root
       className={classNames({
         [classes.content]: true,
         [classes.shortContent]: isShortHeight || isMiddleHeight,
@@ -142,7 +173,7 @@ const VerticalAppointmentBase = ({
           ) : undefined}
         </React.Fragment>
       )}
-    </div>
+    </Root>
   );
 };
 
@@ -162,4 +193,4 @@ VerticalAppointmentBase.defaultProps = {
   className: undefined,
 };
 
-export const VerticalAppointment = withStyles(styles, { name: 'VerticalAppointment' })(VerticalAppointmentBase);
+export const VerticalAppointment = (VerticalAppointmentBase);

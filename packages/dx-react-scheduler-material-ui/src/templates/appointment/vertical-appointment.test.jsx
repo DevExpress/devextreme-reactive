@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createMount, getClasses } from '@devexpress/dx-testing';
-import { VerticalAppointment } from './vertical-appointment';
+import { createMount } from '@devexpress/dx-testing';
+import { VerticalAppointment, classes } from './vertical-appointment';
 import { addCommaAndSpaceToString } from '../utils';
 
 jest.mock('../utils', () => ({
@@ -20,11 +20,8 @@ describe('VerticalAppointment', () => {
     durationType: 'long',
   };
 
-  let classes;
   let mount;
-  beforeAll(() => {
-    classes = getClasses(<VerticalAppointment {...defaultProps} />);
-  });
+
   beforeEach(() => {
     mount = createMount({ dive: true });
   });

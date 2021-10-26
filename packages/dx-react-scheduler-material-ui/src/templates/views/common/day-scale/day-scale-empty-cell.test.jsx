@@ -1,12 +1,10 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { DayScaleEmptyCell } from './day-scale-empty-cell';
+import { createShallow } from '@devexpress/dx-testing';
+import { DayScaleEmptyCell, classes } from './day-scale-empty-cell';
 
 describe('Vertical view DayScaleEmptyCell', () => {
-  let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<DayScaleEmptyCell />);
     shallow = createShallow({ dive: true });
   });
   describe('Cell', () => {

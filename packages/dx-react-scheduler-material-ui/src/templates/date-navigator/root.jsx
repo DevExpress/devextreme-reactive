@@ -1,16 +1,24 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 
-const styles = ({ spacing }) => ({
-  root: {
+const PREFIX = 'Root';
+
+const classes = {
+  root: `${PREFIX}-root`,
+};
+
+const StyledRoot = styled('div')(({
+  theme: { spacing },
+}) => ({
+  [`&.${classes.root}`]: {
     marginLeft: spacing(0.5),
     '&:first-child': {
       marginLeft: 0,
     },
   },
-});
+}));
 
 const RootBase = ({
   navigationButtonComponent: NavigationButton,
@@ -20,14 +28,13 @@ const RootBase = ({
   onVisibilityToggle,
   onNavigate,
   className,
-  classes,
   ...restProps
 }) => {
   const navigateBack = React.useCallback(() => onNavigate('back'), [onNavigate]);
   const navigateForward = React.useCallback(() => onNavigate('forward'), [onNavigate]);
 
   return (
-    <div
+    <StyledRoot
       className={classNames(classes.root, className)}
       ref={rootRef}
       {...restProps}
@@ -44,7 +51,7 @@ const RootBase = ({
         onVisibilityToggle={onVisibilityToggle}
         text={navigatorText}
       />
-    </div>
+    </StyledRoot>
   );
 };
 
@@ -65,4 +72,4 @@ RootBase.defaultProps = {
   className: undefined,
 };
 
-export const Root = withStyles(styles)(RootBase, { name: 'Root' });
+export const Root = (RootBase);

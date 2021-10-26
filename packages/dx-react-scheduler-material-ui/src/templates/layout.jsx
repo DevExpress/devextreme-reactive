@@ -1,11 +1,17 @@
 import * as React from 'react';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import { AUTO_HEIGHT } from '@devexpress/dx-scheduler-core';
 import { ContainerBase } from './common/container';
 
-const styles = {
-  container: {
+const PREFIX = 'Root';
+
+const classes = {
+  container: `${PREFIX}-container`,
+};
+
+const StyledContainerBase = styled(ContainerBase)({
+  [`& .${classes.container}`]: {
     WebkitOverflowScrolling: 'touch',
     // NOTE: fix sticky positioning in Safari
     width: '100%',
@@ -14,7 +20,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
   },
-};
+});
 
 export const LayoutBase = ({
   height, style, ...restProps
@@ -22,7 +28,7 @@ export const LayoutBase = ({
   const containerStyle = height === AUTO_HEIGHT ? { height: '100%' } : { height: `${height}px` };
 
   return (
-    <ContainerBase
+    <StyledContainerBase
       style={{ ...containerStyle, ...style }}
       {...restProps}
     />
@@ -38,4 +44,4 @@ LayoutBase.defaultProps = {
   style: null,
 };
 
-export const Root = withStyles(styles, { name: 'Root' })(LayoutBase);
+export const Root = (LayoutBase);

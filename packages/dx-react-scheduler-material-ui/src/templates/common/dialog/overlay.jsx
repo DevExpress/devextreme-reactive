@@ -1,25 +1,33 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import Dialog from '@mui/material/Dialog';
-import withStyles from '@mui/styles/withStyles';
 
-const styles = {
-  modal: {
-    position: 'absolute!important',
-  },
-  paper: {
-    zIndex: '1302!important',
-  },
-  root: {
-    zIndex: '1301!important',
-  },
+const PREFIX = 'Overlay';
+
+export const classes = {
+  modal: `${PREFIX}-modal`,
+  paper: `${PREFIX}-paper`,
+  root: `${PREFIX}-root`,
 };
 
+const StyledDialog = styled(Dialog)({
+  [`&.${classes.modal}`]: {
+    position: 'absolute!important',
+  },
+  [`& .${classes.paper}`]: {
+    zIndex: '1302!important',
+  },
+  [`&.${classes.root}`]: {
+    zIndex: '1301!important',
+  },
+});
+
 const OverlayBase = ({
-  children, visible, onHide, target, classes, className, ...restProps
+  children, visible, onHide, target, className, ...restProps
 }) => (
-  <Dialog
+  <StyledDialog
     open={visible}
     onClose={onHide}
     className={classNames(classes.modal, classes.root, className)}
@@ -30,7 +38,7 @@ const OverlayBase = ({
     {...restProps}
   >
     {children}
-  </Dialog>
+  </StyledDialog>
 );
 
 OverlayBase.propTypes = {
@@ -47,4 +55,4 @@ OverlayBase.defaultProps = {
   visible: false,
 };
 
-export const Overlay = withStyles(styles, { name: 'Overlay' })(OverlayBase);
+export const Overlay = (OverlayBase);

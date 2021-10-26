@@ -1,27 +1,32 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 
-const styles = {
-  flexibleSpace: {
+const PREFIX = 'FlexibleSpace';
+
+export const classes = {
+  flexibleSpace: `${PREFIX}-flexibleSpace`,
+};
+
+const Root = styled('div')({
+  [`&.${classes.flexibleSpace}`]: {
     flex: '0 0 0',
     marginLeft: 'auto',
   },
-};
+});
 
 export const FlexibleSpaceBase = ({
   children,
-  classes,
   className,
   ...restProps
 }) => (
-  <div
+  <Root
     className={classNames(classes.flexibleSpace, className)}
     {...restProps}
   >
     {children}
-  </div>
+  </Root>
 );
 
 FlexibleSpaceBase.propTypes = {
@@ -35,4 +40,4 @@ FlexibleSpaceBase.defaultProps = {
   className: undefined,
 };
 
-export const FlexibleSpace = withStyles(styles, { name: 'FlexibleSpace' })(FlexibleSpaceBase);
+export const FlexibleSpace = (FlexibleSpaceBase);

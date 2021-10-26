@@ -1,13 +1,25 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@mui/material/TableCell';
-import withStyles from '@mui/styles/withStyles';
 import { WEEK_DAY_OPTIONS } from '@devexpress/dx-scheduler-core';
 import { getBorder, getBrightBorder } from '../../../utils';
 
-const styles = theme => ({
-  cell: {
+const PREFIX = 'Cell';
+
+export const classes = {
+  cell: `${PREFIX}-cell`,
+  dayOfWeek: `${PREFIX}-dayOfWeek`,
+  brightRightBorder: `${PREFIX}-brightRightBorder`,
+};
+
+const StyledTableCell = styled(TableCell)((
+  {
+    theme,
+  },
+) => ({
+  [`&.${classes.cell}`]: {
     userSelect: 'none',
     padding: 0,
     borderBottom: 'none',
@@ -19,7 +31,8 @@ const styles = theme => ({
     textAlign: 'center',
     boxSizing: 'border-box',
   },
-  dayOfWeek: {
+
+  [`& .${classes.dayOfWeek}`]: {
     ...theme.typography.caption,
     margin: 0,
     padding: theme.spacing(1),
@@ -27,16 +40,16 @@ const styles = theme => ({
     color: theme.palette.text.secondary,
     fontWeight: 'bold',
   },
-  brightRightBorder: {
+
+  [`&.${classes.brightRightBorder}`]: {
     borderRight: getBrightBorder(theme),
     '&:last-child': {
       borderRight: 'none',
     },
   },
-});
+}));
 
 const CellBase = ({
-  classes,
   className,
   startDate,
   endDate,
@@ -48,7 +61,7 @@ const CellBase = ({
   hasRightBorder,
   ...restProps
 }) => (
-  <TableCell
+  <StyledTableCell
     className={classNames({
       [classes.cell]: true,
       [classes.brightRightBorder]: endOfGroup || hasRightBorder,
@@ -58,7 +71,7 @@ const CellBase = ({
     <div className={classes.dayOfWeek}>
       {formatDate(startDate, WEEK_DAY_OPTIONS)}
     </div>
-  </TableCell>
+  </StyledTableCell>
 );
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -81,4 +94,4 @@ CellBase.defaultProps = {
   groupingInfo: undefined,
 };
 
-export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);
+export const Cell = (CellBase);

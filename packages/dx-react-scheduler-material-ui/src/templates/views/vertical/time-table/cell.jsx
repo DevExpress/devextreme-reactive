@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@mui/material/TableCell';
@@ -8,8 +9,22 @@ import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION, VIEW_TYPES } 
 import { getBorder, getBrightBorder } from '../../../utils';
 import { SPACING_CELL_HEIGHT } from '../../../constants';
 
-const useStyles = makeStyles(theme => ({
-  cell: {
+const PREFIX = 'Cell';
+
+const classes = {
+  cell: `${PREFIX}-cell`,
+  shadedCell: `${PREFIX}-shadedCell`,
+  shadedPart: `${PREFIX}-shadedPart`,
+  brightRightBorder: `${PREFIX}-brightRightBorder`,
+  brightBorderBottom: `${PREFIX}-brightBorderBottom`
+};
+
+const StyledTableCell = styled(TableCell)((
+  {
+    theme
+  }
+) => ({
+  [`&.${classes.cell}`]: {
     position: 'relative',
     height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.WEEK]),
     padding: 0,
@@ -30,7 +45,8 @@ const useStyles = makeStyles(theme => ({
       outline: 0,
     },
   },
-  shadedCell: {
+
+  [`&.${classes.shadedCell}`]: {
     backgroundColor: alpha(theme.palette.action.disabledBackground, 0.04),
     '&:hover': {
       backgroundColor: theme.palette.action.selected,
@@ -40,7 +56,8 @@ const useStyles = makeStyles(theme => ({
       outline: 0,
     },
   },
-  shadedPart: {
+
+  [`& .${classes.shadedPart}`]: {
     backgroundColor: alpha(theme.palette.action.disabledBackground, 0.04),
     position: 'absolute',
     height: ({ shadedHeight }) => shadedHeight,
@@ -54,15 +71,17 @@ const useStyles = makeStyles(theme => ({
       opacity: 0,
     },
   },
-  brightRightBorder: {
+
+  [`&.${classes.brightRightBorder}`]: {
     borderRight: getBrightBorder(theme),
     '&:last-child': {
       borderRight: 'none',
     },
   },
-  brightBorderBottom: {
+
+  [`&.${classes.brightBorderBottom}`]: {
     borderBottom: getBrightBorder(theme),
-  },
+  }
 }));
 
 export const Cell = ({
@@ -80,10 +99,10 @@ export const Cell = ({
   hasRightBorder,
   ...restProps
 }) => {
-  const classes = useStyles({ shadedHeight: currentTimeIndicatorPosition });
+
   const isNow = !!currentTimeIndicatorPosition;
   return (
-    <TableCell
+    <StyledTableCell
       tabIndex={0}
       className={classNames({
         [classes.cell]: true,
@@ -104,7 +123,7 @@ export const Cell = ({
         />
       )}
       {children}
-    </TableCell>
+    </StyledTableCell>
   );
 };
 

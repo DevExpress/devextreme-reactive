@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
@@ -10,37 +10,58 @@ import {
   checkIsNaturalNumber, isDateValid,
 } from '@devexpress/dx-scheduler-core';
 
-const styles = ({ spacing, typography }) => ({
-  occurenceTextEditor: {
+const PREFIX = 'EndRepeatEditor';
+
+export const classes = {
+  occurenceTextEditor: `${PREFIX}-occurenceTextEditor`,
+  occurenceLabel: `${PREFIX}-occurenceLabel`,
+  label: `${PREFIX}-label`,
+  input: `${PREFIX}-input`,
+  radioLabel: `${PREFIX}-radioLabel`,
+  dateEditor: `${PREFIX}-dateEditor`,
+  formControl: `${PREFIX}-formControl`,
+  controlLabel: `${PREFIX}-controlLabel`,
+};
+
+const StyledRadioGroup = styled(RadioGroup)(({
+  theme: { spacing, typography },
+}) => ({
+  [`& .${classes.occurenceTextEditor}`]: {
     width: 'calc((100% - 5.5em) * 3 / 7)',
     maxWidth: '8em',
   },
-  occurenceLabel: {
+
+  [`& .${classes.occurenceLabel}`]: {
     marginLeft: '1em',
     width: 'calc((100% - 5.5em) * 4 / 7)',
   },
-  label: {
+
+  [`& .${classes.label}`]: {
     width: '4.5em',
   },
-  input: {
+
+  [`& .${classes.input}`]: {
     paddingBottom: spacing(2.75),
   },
-  radioLabel: {
+
+  [`& .${classes.radioLabel}`]: {
     fontSize: typography.fontSize + 1,
   },
-  dateEditor: {
+
+  [`& .${classes.dateEditor}`]: {
     width: 'calc(100% - 4.5em)',
   },
-  formControl: {
+
+  [`& .${classes.formControl}`]: {
     marginRight: 0,
   },
-  controlLabel: {
+
+  [`& .${classes.controlLabel}`]: {
     width: '100%',
   },
-});
+}));
 
 const EndRepeatEditorBase = ({
-  classes,
   getMessage,
   labelComponent: Label,
   textEditorComponent: TextEditor,
@@ -106,7 +127,7 @@ const EndRepeatEditorBase = ({
     });
   };
   return (
-    <RadioGroup
+    <StyledRadioGroup
       onChange={onRadioGroupValueChange}
       value={value}
       {...restProps}
@@ -178,7 +199,7 @@ const EndRepeatEditorBase = ({
           </Grid>
         )}
       />
-    </RadioGroup>
+    </StyledRadioGroup>
   );
 };
 
@@ -208,4 +229,4 @@ EndRepeatEditorBase.defaultProps = {
   readOnly: false,
 };
 
-export const EndRepeatEditor = withStyles(styles)(EndRepeatEditorBase, { name: 'EndRepeatEditor' });
+export const EndRepeatEditor = (EndRepeatEditorBase);

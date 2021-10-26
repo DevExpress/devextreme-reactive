@@ -1,17 +1,23 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableMUI from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import makeStyles from '@mui/styles/makeStyles';
 import { getWidthInPixels } from '../../utils';
 import {
   CELL_WIDTH, SMALL_CELL_WIDTH,
   XS_CELL_WIDTH, SMALL_LAYOUT_MEDIA_QUERY, LAYOUT_MEDIA_QUERY,
 } from '../../constants';
 
-const useStyles = makeStyles({
-  table: {
+const PREFIX = 'Table';
+
+const classes = {
+  table: `${PREFIX}-table`,
+};
+
+const StyledTableMUI = styled(TableMUI)({
+  [`&.${classes.table}`]: {
     tableLayout: 'fixed',
     minWidth: cellsNumber => getWidthInPixels(cellsNumber, CELL_WIDTH),
     width: '100%',
@@ -35,21 +41,17 @@ export const Table = React.forwardRef(({
   cellsNumber,
   children,
   ...restProps
-}, ref) => {
-  const classes = useStyles(cellsNumber);
-
-  return (
-    <TableMUI
-      ref={ref}
-      className={classNames(classes.table, className)}
-      {...restProps}
-    >
-      <TableBody>
-        {children}
-      </TableBody>
-    </TableMUI>
-  );
-});
+}, ref) => (
+  <StyledTableMUI
+    ref={ref}
+    className={classNames(classes.table, className)}
+    {...restProps}
+  >
+    <TableBody>
+      {children}
+    </TableBody>
+  </StyledTableMUI>
+));
 
 Table.propTypes = {
   cellsNumber: PropTypes.number.isRequired,

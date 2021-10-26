@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createMount, getClasses } from '@devexpress/dx-testing';
-import { HorizontalAppointment } from './horizontal-appointment';
+import { createMount } from '@devexpress/dx-testing';
+import { HorizontalAppointment, classes } from './horizontal-appointment';
 
 describe('HorizontalAppointment', () => {
   const defaultProps = {
@@ -10,11 +10,8 @@ describe('HorizontalAppointment', () => {
     recurringIconComponent: () => <div />,
   };
 
-  let classes;
   let mount;
-  beforeAll(() => {
-    classes = getClasses(<HorizontalAppointment {...defaultProps} />);
-  });
+
   beforeEach(() => {
     mount = createMount();
   });

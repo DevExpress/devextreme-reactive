@@ -1,8 +1,8 @@
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 import {
   getRecurrenceOptions, WEEK_DAY_OPTIONS, handleWeekDaysChange, changeRecurrenceOptions,
@@ -10,8 +10,18 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { ensureColor } from '../../utils';
 
-const styles = ({ palette, spacing }) => ({
-  selectedButton: {
+const PREFIX = 'WeeklyRecurrenceSelector';
+
+export const classes = {
+  selectedButton: `${PREFIX}-selectedButton`,
+  button: `${PREFIX}-button`,
+  buttonGroup: `${PREFIX}-buttonGroup`,
+};
+
+const StyledButtonGroup = styled(ButtonGroup)(({
+  theme: { palette, spacing },
+}) => ({
+  [`& .${classes.selectedButton}`]: {
     backgroundColor: ensureColor(400, palette.primary),
     '&:hover': {
       backgroundColor: ensureColor(500, palette.primary),
@@ -23,13 +33,15 @@ const styles = ({ palette, spacing }) => ({
     },
     color: ensureColor(50, palette.primary),
   },
-  button: {
+
+  [`& .${classes.button}`]: {
     minWidth: spacing(3),
   },
-  buttonGroup: {
+
+  [`&.${classes.buttonGroup}`]: {
     marginBottom: spacing(2),
   },
-});
+}));
 
 const isCurrentWeekDay = (
   { byweekday }, currentWeekDay,
@@ -39,7 +51,6 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
   formatDate,
   rRule,
   readOnly,
-  classes,
   className,
   onValueChange,
   firstDayOfWeek,
@@ -50,7 +61,7 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
   const daysOfWeekDates = getDaysOfWeekDates(firstDayOfWeek);
 
   return (
-    <ButtonGroup
+    <StyledButtonGroup
       variant="outlined"
       size="small"
       disabled={readOnly}
@@ -78,7 +89,7 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
           </Button>
         ))
       }
-    </ButtonGroup>
+    </StyledButtonGroup>
   );
 });
 
@@ -98,4 +109,4 @@ WeeklyRecurrenceSelectorBase.defaultProps = {
   className: undefined,
 };
 
-export const WeeklyRecurrenceSelector = withStyles(styles)(WeeklyRecurrenceSelectorBase, { name: 'WeeklyRecurrenceSelector' });
+export const WeeklyRecurrenceSelector = (WeeklyRecurrenceSelectorBase);

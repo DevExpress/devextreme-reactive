@@ -1,16 +1,14 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createShallow } from '@devexpress/dx-testing';
 
-import { TitleCell } from './title-cell';
+import { TitleCell, classes } from './title-cell';
 
 describe('AllDayPanel', () => {
-  let classes;
   let shallow;
   const defaultProps = {
     getMessage: key => key,
   };
   beforeAll(() => {
-    classes = getClasses(<TitleCell {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
   describe('TitleCell', () => {

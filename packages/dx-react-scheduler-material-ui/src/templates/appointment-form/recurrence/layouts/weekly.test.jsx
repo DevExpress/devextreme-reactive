@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createShallow } from '@devexpress/dx-testing';
 import { getRecurrenceOptions, changeRecurrenceOptions } from '@devexpress/dx-scheduler-core';
-import { Weekly } from './weekly';
+import { Weekly, classes } from './weekly';
 import { IntervalEditor } from './interval-editor';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
@@ -23,10 +23,8 @@ describe('AppointmentForm recurrence layout', () => {
     appointmentData: {},
     firstDayOfWeek: 0,
   };
-  let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Weekly {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
   beforeEach(() => {

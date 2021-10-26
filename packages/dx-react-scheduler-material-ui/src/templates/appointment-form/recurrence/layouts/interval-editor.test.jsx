@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { IntervalEditor } from './interval-editor';
+import { createShallow } from '@devexpress/dx-testing';
+import { IntervalEditor, classes } from './interval-editor';
 
 describe('AppointmentForm recurrence layout', () => {
   const defaultProps = {
@@ -12,10 +12,8 @@ describe('AppointmentForm recurrence layout', () => {
     interval: 1,
     changeRecurrenceInterval: jest.fn(),
   };
-  let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<IntervalEditor {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
   describe('IntervalEditor', () => {

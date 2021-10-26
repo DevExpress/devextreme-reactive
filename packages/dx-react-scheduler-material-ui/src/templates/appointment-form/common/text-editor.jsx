@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
-import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 import {
   TITLE_TEXT_EDITOR,
@@ -10,19 +10,30 @@ import {
   NUMBER_EDITOR,
 } from '@devexpress/dx-scheduler-core';
 
-const styles = theme => ({
-  editor: {
+const PREFIX = 'TextEditor';
+
+export const classes = {
+  editor: `${PREFIX}-editor`,
+  title: `${PREFIX}-title`,
+};
+
+const Root = styled(TextField)((
+  {
+    theme,
+  },
+) => ({
+  [`& .${classes.editor}`]: {
     width: '100%',
     marginTop: theme.spacing(0.375),
     marginBottom: theme.spacing(0.125),
   },
-  title: {
+
+  [`& .${classes.title}`]: {
     ...theme.typography.h6,
   },
-});
+}));
 
 const TextEditorBase = React.memo(({
-  classes,
   value,
   placeholder,
   className,
@@ -34,7 +45,7 @@ const TextEditorBase = React.memo(({
   const textFieldType = type === NUMBER_EDITOR ? 'number' : 'text';
   const notesTextEditor = type === MULTILINE_TEXT_EDITOR;
   return (
-    <TextField
+    <Root
       className={classNames(classes.editor, className)}
       value={value}
       variant={notesTextEditor ? 'outlined' : undefined}
@@ -75,4 +86,4 @@ TextEditorBase.defaultProps = {
   type: ORDINARY_TEXT_EDITOR,
 };
 
-export const TextEditor = withStyles(styles)(TextEditorBase, { name: 'TextEditor' });
+export const TextEditor = (TextEditorBase);

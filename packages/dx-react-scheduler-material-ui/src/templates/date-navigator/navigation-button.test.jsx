@@ -1,15 +1,13 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createShallow } from '@devexpress/dx-testing';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import ChevronRight from '@mui/icons-material/ChevronRight';
-import { NavigationButton } from './navigation-button';
+import { NavigationButton, classes } from './navigation-button';
 
 describe('DateNavigator', () => {
   let shallow;
-  let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<NavigationButton />);
   });
   describe('NavigationButton', () => {
     it('should pass rest props to the root element', () => {

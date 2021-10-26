@@ -1,23 +1,28 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 
-const styles = {
-  table: {
+const PREFIX = 'TicksLayout';
+
+export const classes = {
+  table: `${PREFIX}-table`,
+};
+
+const StyledTable = styled(Table)({
+  [`&.${classes.table}`]: {
     tableLayout: 'fixed',
     boxSizing: 'border-box',
   },
-};
+});
 
 const TicksLayoutBase = ({
   cellComponent: Cell,
   rowComponent: Row,
   cellsData,
-  classes,
   groupOrientation,
   className,
   groupCount,
@@ -26,7 +31,7 @@ const TicksLayoutBase = ({
 }) => {
   const groupHeight = cellsData.length / groupCount;
   return (
-    <Table {...restProps} className={classNames(classes.table, className)}>
+    <StyledTable {...restProps} className={classNames(classes.table, className)}>
       <TableBody>
         {cellsData.map(([firstDay], index) => (
           <React.Fragment key={index.toString()}>
@@ -54,7 +59,7 @@ const TicksLayoutBase = ({
           </React.Fragment>
         ))}
       </TableBody>
-    </Table>
+    </StyledTable>
   );
 };
 
@@ -76,4 +81,4 @@ TicksLayoutBase.defaultProps = {
   includeAllDayCell: false,
 };
 
-export const TicksLayout = withStyles(styles, { name: 'TicksLayout' })(TicksLayoutBase);
+export const TicksLayout = (TicksLayoutBase);

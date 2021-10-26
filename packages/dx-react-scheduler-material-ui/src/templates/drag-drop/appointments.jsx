@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import Repeat from '@mui/icons-material/Repeat';
@@ -9,8 +10,15 @@ import { Appointment } from '../appointment/appointment';
 import { SplitIndicator } from '../appointment/split-indicator';
 import { getAppointmentColor, getResourceColor } from '../utils';
 
-const draftStyles = makeStyles(theme => ({
-  appointment: {
+const PREFIX = 'DraftAppointment';
+
+const classes = {
+  appointment: `${PREFIX}-appointment`,
+  shadedAppointment: `${PREFIX}-shadedAppointment`,
+};
+
+const StyledAppointment = styled(Appointment)(({ theme }) => ({
+  [`& .${classes.appointment}`]: {
     boxShadow: theme.shadows[3],
     cursor: 'move',
     overflow: 'hidden',
@@ -19,7 +27,26 @@ const draftStyles = makeStyles(theme => ({
     ),
     border: 0,
   },
-  shadedAppointment: {
+
+  [`& .${classes.shadedAppointment}`]: {
+    backgroundColor: resources => getAppointmentColor(
+      400, getResourceColor(resources), theme.palette.primary,
+    ),
+  },
+}));
+
+const draftStyles = makeStyles(({ theme }) => ({
+  [`& .${classes.appointment}`]: {
+    boxShadow: theme.shadows[3],
+    cursor: 'move',
+    overflow: 'hidden',
+    backgroundColor: resources => getAppointmentColor(
+      600, getResourceColor(resources), theme.palette.primary,
+    ),
+    border: 0,
+  },
+
+  [`& .${classes.shadedAppointment}`]: {
     backgroundColor: resources => getAppointmentColor(
       400, getResourceColor(resources), theme.palette.primary,
     ),
@@ -35,12 +62,12 @@ const sourceStyles = makeStyles({
 export const DraftAppointment = ({
   className, resources, isShaded, ...restProps
 }) => {
-  const classes = draftStyles(resources);
+  const styles = draftStyles(resources);
   return (
     <AppointmentBase
       className={classNames({
-        [classes.appointment]: true,
-        [classes.shadedAppointment]: isShaded,
+        [styles.appointment]: true,
+        [styles.shadedAppointment]: isShaded,
       }, className)}
       resources={resources}
       {...restProps}
@@ -61,10 +88,10 @@ DraftAppointment.defaultProps = {
 };
 
 export const SourceAppointment = ({ className, ...restProps }) => {
-  const classes = sourceStyles();
+  const styles = sourceStyles();
   return (
     <AppointmentBase
-      className={classNames(classes.appointment, className)}
+      className={classNames(styles.appointment, className)}
       {...restProps}
     />
   );
@@ -82,7 +109,7 @@ const AppointmentBase = ({
   className, data, formatDate, type, fromPrev,
   toNext, durationType, isShaded, ...restProps
 }) => (
-  <Appointment
+  <StyledAppointment
     className={className}
     type={type}
     isShaded={isShaded}
@@ -97,7 +124,7 @@ const AppointmentBase = ({
       durationType={durationType}
     />
     {toNext && <SplitIndicator position={POSITION_END} appointmentType={type} />}
-  </Appointment>
+  </StyledAppointment>
 );
 
 AppointmentBase.propTypes = {

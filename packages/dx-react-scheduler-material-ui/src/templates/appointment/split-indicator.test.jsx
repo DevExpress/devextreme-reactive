@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { SplitIndicator } from './split-indicator';
+import { createShallow } from '@devexpress/dx-testing';
+import { SplitIndicator, classes } from './split-indicator';
 
 describe('Appointment', () => {
   const defaultProps = {
@@ -9,9 +9,7 @@ describe('Appointment', () => {
   };
   describe('SplitIndicator', () => {
     let shallow;
-    let classes;
     beforeAll(() => {
-      classes = getClasses(<SplitIndicator {...defaultProps} />);
       shallow = createShallow({ dive: true });
     });
     it('should pass rest props to the root element', () => {

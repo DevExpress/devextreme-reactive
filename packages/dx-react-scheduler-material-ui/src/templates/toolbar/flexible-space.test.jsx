@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { getClasses, createShallow } from '@devexpress/dx-testing';
-import { FlexibleSpace } from './flexible-space';
+import { createShallow } from '@devexpress/dx-testing';
+import { FlexibleSpace, classes } from './flexible-space';
 
 describe('FlexibleSpace', () => {
-  let classes;
   let shallow;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<FlexibleSpace />);
   });
   it('should pass custom class to the root element', () => {
     const tree = shallow((

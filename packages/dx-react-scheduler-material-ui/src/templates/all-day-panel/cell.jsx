@@ -1,17 +1,27 @@
 import * as React from 'react';
+import { styled, alpha } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@mui/material/TableCell';
-import { alpha } from '@mui/material/styles';
-import withStyles from '@mui/styles/withStyles';
 import {
   VIEW_TYPES, HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION,
 } from '@devexpress/dx-scheduler-core';
 import { getBorder, getBrightBorder } from '../utils';
 import { SPACING_CELL_HEIGHT } from '../constants';
 
-const styles = theme => ({
-  cell: {
+const PREFIX = 'Cell';
+
+export const classes = {
+  cell: `${PREFIX}-cell`,
+  brightRightBorder: `${PREFIX}-brightRightBorder`,
+};
+
+const StyledTableCell = styled(TableCell)((
+  {
+    theme,
+  },
+) => ({
+  [`&.${classes.cell}`]: {
     padding: 0,
     height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL]),
     boxSizing: 'border-box',
@@ -30,13 +40,13 @@ const styles = theme => ({
       borderBottom: 'none',
     },
   },
-  brightRightBorder: {
+
+  [`&.${classes.brightRightBorder}`]: {
     borderRight: getBrightBorder(theme),
   },
-});
+}));
 
 const CellBase = ({
-  classes,
   className,
   children,
   startDate,
@@ -48,7 +58,7 @@ const CellBase = ({
   hasRightBorder,
   ...restProps
 }) => (
-  <TableCell
+  <StyledTableCell
     tabIndex={0}
     className={classNames({
       [classes.cell]: true,
@@ -58,7 +68,7 @@ const CellBase = ({
     {...restProps}
   >
     {children}
-  </TableCell>
+  </StyledTableCell>
 );
 CellBase.propTypes = {
   classes: PropTypes.object.isRequired,
@@ -83,4 +93,4 @@ CellBase.defaultProps = {
   groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
 };
 
-export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);
+export const Cell = (CellBase);

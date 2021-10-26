@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow, createMount, getClasses } from '@devexpress/dx-testing';
-import { Table } from './table';
+import { createShallow, createMount } from '@devexpress/dx-testing';
+import { Table, classes } from './table';
 
 describe('Calendar', () => {
   const defaultProps = {
@@ -22,11 +22,9 @@ describe('Calendar', () => {
     cells: [],
     formatDate: key => key,
   };
-  let classes;
   let shallow;
   let mount;
   beforeAll(() => {
-    classes = getClasses(<Table {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
   beforeEach(() => {

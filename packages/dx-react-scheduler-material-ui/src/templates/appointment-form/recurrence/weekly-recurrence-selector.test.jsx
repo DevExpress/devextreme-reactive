@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createShallow } from '@devexpress/dx-testing';
 import {
   getRecurrenceOptions, SUNDAY_DATE, WEEK_DAY_OPTIONS, MONDAY_DATE,
   TUESDAY_DATE, THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE, WEDNESDAY_DATE,
   changeRecurrenceOptions, RRULE_DAYS_OF_WEEK,
 } from '@devexpress/dx-scheduler-core';
 import Button from '@mui/material/Button';
-import { WeeklyRecurrenceSelector } from './weekly-recurrence-selector';
+import { WeeklyRecurrenceSelector, classes } from './weekly-recurrence-selector';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...jest.requireActual('@devexpress/dx-scheduler-core'),
@@ -22,14 +22,12 @@ describe('AppointmentForm recurrence', () => {
     firstDayOfWeek: 0,
   };
   let shallow;
-  let classes;
   beforeEach(() => {
     getRecurrenceOptions.mockImplementation(() => ({}));
     changeRecurrenceOptions.mockImplementation(testValue => testValue);
   });
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<WeeklyRecurrenceSelector {...defaultProps} />);
   });
   describe('WeeklyRecurrenceSelector', () => {
     it('should pass className to the root element', () => {

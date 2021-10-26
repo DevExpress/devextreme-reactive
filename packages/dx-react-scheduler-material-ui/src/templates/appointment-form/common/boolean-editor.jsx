@@ -1,27 +1,32 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import withStyles from '@mui/styles/withStyles';
 
-const styles = {
-  label: {
+const PREFIX = 'BooleanEditor';
+
+const classes = {
+  label: `${PREFIX}-label`,
+};
+
+const Root = styled(FormControlLabel)({
+  [`& .${classes.label}`]: {
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
     userSelect: 'none',
   },
-};
+});
 
 const BooleanEditorBase = React.memo(({
   label,
   value,
   readOnly,
   onValueChange,
-  classes,
   ...restProps
 }) => (
-  <FormControlLabel
+  <Root
     classes={{ label: classes.label }}
     control={(
       <Checkbox
@@ -50,4 +55,4 @@ BooleanEditorBase.defaultProps = {
   value: false,
 };
 
-export const BooleanEditor = withStyles(styles)(BooleanEditorBase, { name: 'BooleanEditor' });
+export const BooleanEditor = (BooleanEditorBase);

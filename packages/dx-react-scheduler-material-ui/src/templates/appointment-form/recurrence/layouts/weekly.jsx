@@ -1,20 +1,25 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import { getRecurrenceOptions, changeRecurrenceOptions, checkIsNaturalNumber } from '@devexpress/dx-scheduler-core';
 import { IntervalEditor } from './interval-editor';
 
-const styles = theme => ({
-  container: {
+const PREFIX = 'Weekly';
+
+export const classes = {
+  container: `${PREFIX}-container`,
+};
+
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.container}`]: {
     marginBottom: theme.spacing(2),
   },
-});
+}));
 
 const WeeklyBase = ({
   radioGroupComponent,
   textEditorComponent,
   labelComponent,
-  classes,
   getMessage,
   readOnly,
   onFieldChange,
@@ -34,7 +39,7 @@ const WeeklyBase = ({
     }), [recurrenceOptions, onFieldChange],
   );
   return (
-    <div
+    <Root
       {...restProps}
     >
       <IntervalEditor
@@ -55,7 +60,7 @@ const WeeklyBase = ({
         formatDate={formatDate}
         firstDayOfWeek={firstDayOfWeek}
       />
-    </div>
+    </Root>
   );
 };
 
@@ -89,4 +94,4 @@ WeeklyBase.defaultProps = {
   readOnly: false,
 };
 
-export const Weekly = withStyles(styles)(WeeklyBase, { name: 'Weekly' });
+export const Weekly = (WeeklyBase);

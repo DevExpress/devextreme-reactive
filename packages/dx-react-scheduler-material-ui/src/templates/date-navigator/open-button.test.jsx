@@ -1,18 +1,16 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createShallow } from '@devexpress/dx-testing';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import { OpenButton } from './open-button';
+import { OpenButton, classes } from './open-button';
 
 describe('DateNavigator', () => {
   const defaultProps = {
     onVisibilityToggle: jest.fn(),
   };
   let shallow;
-  let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<OpenButton />);
   });
   describe('OpenButton', () => {
     it('should pass rest props to buttons', () => {

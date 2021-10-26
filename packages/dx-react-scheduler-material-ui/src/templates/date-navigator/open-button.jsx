@@ -1,19 +1,30 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import CalendarToday from '@mui/icons-material/CalendarToday';
 import IconButton from '@mui/material/IconButton';
-import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 import { SMALL_LAYOUT_MEDIA_QUERY, LAYOUT_MEDIA_QUERY } from '../constants';
 
-const styles = ({ spacing }) => ({
-  textButton: {
+const PREFIX = 'OpenButton';
+
+export const classes = {
+  textButton: `${PREFIX}-textButton`,
+  iconButton: `${PREFIX}-iconButton`,
+};
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')(({
+  theme: { spacing },
+}) => ({
+  [`& .${classes.textButton}`]: {
     [`${LAYOUT_MEDIA_QUERY}`]: {
       display: 'none',
     },
   },
-  iconButton: {
+
+  [`& .${classes.iconButton}`]: {
     '@media (min-width: 700px)': {
       display: 'none',
     },
@@ -23,12 +34,12 @@ const styles = ({ spacing }) => ({
       padding: 0,
     },
   },
-});
+}));
 
 const OpenButtonBase = React.memo(({
-  text, onVisibilityToggle, classes, className, ...restProps
+  text, onVisibilityToggle, className, ...restProps
 }) => (
-  <React.Fragment>
+  <Root>
     <Button
       onClick={onVisibilityToggle}
       className={classNames(classes.textButton, className)}
@@ -44,7 +55,7 @@ const OpenButtonBase = React.memo(({
     >
       <CalendarToday />
     </IconButton>
-  </React.Fragment>
+  </Root>
 ));
 
 OpenButtonBase.propTypes = {
@@ -59,4 +70,4 @@ OpenButtonBase.defaultProps = {
   className: undefined,
 };
 
-export const OpenButton = withStyles(styles, { name: 'OpenButton' })(OpenButtonBase);
+export const OpenButton = (OpenButtonBase);

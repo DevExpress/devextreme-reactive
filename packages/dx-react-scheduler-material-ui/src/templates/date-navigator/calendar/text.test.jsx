@@ -1,18 +1,16 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { Text } from './text';
+import { createShallow } from '@devexpress/dx-testing';
+import { Text, classes } from './text';
 
 jest.mock('moment', () => () => ({ format: () => 'July 2018' }));
 
 describe('Calendar', () => {
-  let classes;
   let shallow;
   const defaultProps = {
     currentDate: '2018-07-12',
     formatDate: () => '',
   };
   beforeAll(() => {
-    classes = getClasses(<Text {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
   afterAll(() => {

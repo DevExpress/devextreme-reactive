@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import {
   YEARLY_RADIO_GROUP,
   getRecurrenceOptions,
@@ -9,17 +9,22 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { IntervalEditor } from './interval-editor';
 
-const styles = theme => ({
-  radioGroup: {
+const PREFIX = 'Yearly';
+
+export const classes = {
+  radioGroup: `${PREFIX}-radioGroup`,
+};
+
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.radioGroup}`]: {
     marginTop: theme.spacing(1),
   },
-});
+}));
 
 const YearlyBase = ({
   radioGroupComponent: RadioGroup,
   textEditorComponent,
   labelComponent,
-  classes,
   getMessage,
   readOnly,
   onFieldChange,
@@ -39,7 +44,7 @@ const YearlyBase = ({
     }), [recurrenceOptions, onFieldChange],
   );
   return (
-    <div {...restProps}>
+    <Root {...restProps}>
       <IntervalEditor
         repeatEveryLabel={getMessage('repeatEveryLabel')}
         repeatIntervalLabel={getMessage('yearsLabel')}
@@ -64,7 +69,7 @@ const YearlyBase = ({
         dateEditorComponent={() => null}
         firstDayOfWeek={firstDayOfWeek}
       />
-    </div>
+    </Root>
   );
 };
 
@@ -98,4 +103,4 @@ YearlyBase.defaultProps = {
   readOnly: false,
 };
 
-export const Yearly = withStyles(styles)(YearlyBase, { name: 'Yearly' });
+export const Yearly = (YearlyBase);

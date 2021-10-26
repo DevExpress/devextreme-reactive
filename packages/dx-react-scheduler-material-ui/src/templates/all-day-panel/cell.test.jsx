@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createShallow } from '@devexpress/dx-testing';
 import { VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
-import { Cell } from './cell';
+import { Cell, classes } from './cell';
 
 describe('AllDayPanel', () => {
-  let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Cell />);
     shallow = createShallow({ dive: true });
   });
   describe('Cell', () => {

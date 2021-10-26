@@ -1,11 +1,21 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
 import {
   VERTICAL_TYPE, HORIZONTAL_TYPE,
   POSITION_START, POSITION_END,
 } from '@devexpress/dx-scheduler-core';
+
+const PREFIX = 'AppointmentsContainer';
+
+export const classes = {
+  slice: `${PREFIX}-slice`,
+  verticalStart: `${PREFIX}-verticalStart`,
+  verticalEnd: `${PREFIX}-verticalEnd`,
+  horizontalStart: `${PREFIX}-horizontalStart`,
+  horizontalEnd: `${PREFIX}-horizontalEnd`,
+};
 
 const verticalStyles = {
   width: '100%',
@@ -18,40 +28,40 @@ const horizontalStyles = {
   height: '100%',
 };
 
-const styles = {
-  slice: {
+const Root = styled('div')({
+  [`& .${classes.slice}`]: {
     position: 'absolute',
     zIndex: 50,
   },
-  verticalStart: {
+  [`& .${classes.verticalStart}`]: {
     ...verticalStyles,
     top: '-10px',
     boxShadow: '0 10px 15px rgba(0,0,0,0.2)',
   },
-  verticalEnd: {
+  [`& .${classes.verticalEnd}`]: {
     ...verticalStyles,
     bottom: '-10px',
     boxShadow: '0 -10px 15px rgba(0,0,0,0.2)',
   },
-  horizontalStart: {
+  [`& .${classes.horizontalStart}`]: {
     ...horizontalStyles,
     left: '-10px',
     boxShadow: '10px 0 15px rgba(0,0,0,0.2)',
   },
-  horizontalEnd: {
+  [`& .${classes.horizontalEnd}`]: {
     ...horizontalStyles,
     right: '-10px',
     boxShadow: '-10px 0 15px rgba(0,0,0,0.2)',
   },
-};
+});
 
 const SplitIndicatorBase = React.memo(({
-  position, appointmentType, classes, className, ...restProps
+  position, appointmentType, className, ...restProps
 }) => {
   const vertical = appointmentType === VERTICAL_TYPE;
   const start = position === POSITION_START;
   return (
-    <div
+    <Root
       className={classNames({
         [classes.slice]: true,
         [classes.verticalStart]: vertical && start,
@@ -75,4 +85,4 @@ SplitIndicatorBase.defaultProps = {
   className: undefined,
 };
 
-export const SplitIndicator = withStyles(styles, { name: 'AppointmentsContainer' })(SplitIndicatorBase);
+export const SplitIndicator = (SplitIndicatorBase);

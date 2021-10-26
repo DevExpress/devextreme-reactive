@@ -1,18 +1,23 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import Toolbar from '@mui/material/Toolbar';
 import classNames from 'clsx';
 
-const styles = {
-  navigator: {
+const PREFIX = 'Navigator';
+
+export const classes = {
+  navigator: `${PREFIX}-navigator`,
+};
+
+const StyledToolbar = styled(Toolbar)({
+  [`&.${classes.navigator}`]: {
     paddingLeft: 0,
     paddingRight: 0,
   },
-};
+});
 
 const NavigatorBase = ({
-  classes,
   className,
   currentDate,
   textComponent: Text,
@@ -21,7 +26,7 @@ const NavigatorBase = ({
   formatDate,
   ...restProps
 }) => (
-  <Toolbar
+  <StyledToolbar
     className={classNames(classes.navigator, className)}
     {...restProps}
   >
@@ -34,7 +39,7 @@ const NavigatorBase = ({
       type="forward"
       onClick={() => { onNavigate({ back: false }); }}
     />
-  </Toolbar>
+  </StyledToolbar>
 );
 
 NavigatorBase.propTypes = {
@@ -57,4 +62,4 @@ NavigatorBase.defaultProps = {
   onNavigate: () => {},
 };
 
-export const Navigator = withStyles(styles, { name: 'Navigator' })(NavigatorBase);
+export const Navigator = (NavigatorBase);

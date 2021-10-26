@@ -1,12 +1,20 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
 import { HOUR_MINUTE_OPTIONS } from '@devexpress/dx-scheduler-core';
 import { SPACING_LABEL_HEIGHT } from '../../../constants';
 
-const styles = theme => ({
-  label: {
+const PREFIX = 'Label';
+
+export const classes = {
+  label: `${PREFIX}-label`,
+  text: `${PREFIX}-text`,
+  emptyLabel: `${PREFIX}-emptyLabel`,
+};
+
+const Root = styled('div')(({ theme }) => ({
+  [`&.${classes.label}`]: {
     userSelect: 'none',
     border: 0,
     height: theme.spacing(SPACING_LABEL_HEIGHT),
@@ -18,22 +26,23 @@ const styles = theme => ({
     paddingLeft: theme.spacing(0.25),
     paddingRight: theme.spacing(1),
   },
-  text: {
+
+  [`& .${classes.text}`]: {
     ...theme.typography.caption,
     fontSize: '0.7rem',
     whiteSpace: 'nowrap',
     color: theme.palette.text.secondary,
   },
-  emptyLabel: {
+
+  [`&.${classes.emptyLabel}`]: {
     height: theme.spacing(SPACING_LABEL_HEIGHT / 2),
     '&:last-child': {
       height: `calc(${theme.spacing(SPACING_LABEL_HEIGHT / 2)} - 1px)`,
     },
   },
-});
+}));
 
 const LabelBase = ({
-  classes,
   className,
   time,
   formatDate,
@@ -41,7 +50,7 @@ const LabelBase = ({
   endOfGroup,
   ...restProps
 }) => (
-  <div
+  <Root
     className={classNames({
       [classes.label]: true,
       [classes.emptyLabel]: !time,
@@ -54,7 +63,7 @@ const LabelBase = ({
       </span>
     )}
 
-  </div>
+  </Root>
 );
 
 LabelBase.propTypes = {
@@ -74,4 +83,4 @@ LabelBase.defaultProps = {
   endOfGroup: false,
 };
 
-export const Label = withStyles(styles, { name: 'Label' })(LabelBase);
+export const Label = (LabelBase);

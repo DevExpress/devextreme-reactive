@@ -8,5 +8,4 @@ const styles = ({ theme }) => ({
   },
 });
 
-
 export const Grid = withClassName(styles)(Axis.Grid);

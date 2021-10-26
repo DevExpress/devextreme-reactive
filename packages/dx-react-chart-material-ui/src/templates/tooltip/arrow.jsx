@@ -36,8 +36,8 @@ const Root = styled('div')(({ theme }) => {
       width: arrowSize,
       height: arrowWidth,
       position: 'absolute',
-      top: '25%!important',
-      transform: 'translateX(-100%)!important',
+      top: '25%',
+      transform: 'translateX(-100%)',
       overflow: 'hidden',
 
       '&::after': {

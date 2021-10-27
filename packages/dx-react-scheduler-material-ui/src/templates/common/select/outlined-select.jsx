@@ -1,32 +1,45 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import withStyles from '@mui/styles/withStyles';
 
-const styles = ({ typography }) => ({
-  root: {
+const PREFIX = 'OutlinedSelect';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  input: `${PREFIX}-input`,
+  menuItem: `${PREFIX}-menuItem`,
+  inputRoot: `${PREFIX}-inputRoot`,
+};
+
+const StyledSelect = styled(Select)(({
+  theme: { typography },
+}) => ({
+  [`& .${classes.root}`]: {
     fontSize: typography.fontSize + 2,
   },
-  input: {
+
+  [`& .${classes.input}`]: {
     fontWeight: 'bold',
     textTransform: 'uppercase',
   },
-  menuItem: {
+
+  [`& .${classes.menuItem}`]: {
     textTransform: 'uppercase',
   },
-  inputRoot: {
+
+  [`& .${classes.inputRoot}`]: {
     width: '100%',
   },
-});
+}));
 
 const OutlinedSelectBase = React.memo(({
   value,
   availableOptions,
   onValueChange,
   readOnly,
-  classes,
   inputClasses,
   ...restProps
 }) => {
@@ -35,7 +48,7 @@ const OutlinedSelectBase = React.memo(({
   };
 
   return (
-    <Select
+    <StyledSelect
       disabled={readOnly}
       classes={{ root: classes.root }}
       value={value}
@@ -56,7 +69,7 @@ const OutlinedSelectBase = React.memo(({
           {option.text}
         </MenuItem>
       ))}
-    </Select>
+    </StyledSelect>
   );
 });
 
@@ -79,4 +92,4 @@ OutlinedSelectBase.defaultProps = {
   inputClasses: null,
 };
 
-export const OutlinedSelect = withStyles(styles)(OutlinedSelectBase, { name: 'OutlinedSelect' });
+export const OutlinedSelect = (OutlinedSelectBase);

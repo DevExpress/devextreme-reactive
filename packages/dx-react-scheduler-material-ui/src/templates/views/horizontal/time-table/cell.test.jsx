@@ -1,17 +1,15 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createShallow } from '@devexpress/dx-testing';
 import { VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
-import { Cell } from './cell';
+import { Cell, classes } from './cell';
 
 describe('Horizontal view TimeTable', () => {
   const defaultProps = {
     startDate: new Date(2018, 6, 7, 16),
     formatDate: jest.fn(),
   };
-  let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Cell {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
   beforeEach(() => {

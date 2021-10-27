@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 import Grid from '@mui/material/Grid';
 import {
@@ -12,8 +12,24 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { TRANSITIONS_TIME, LAYOUT_MEDIA_QUERY } from '../../constants';
 
-const styles = ({ spacing, typography }) => ({
-  root: {
+const PREFIX = 'Layout';
+
+export const classes = {
+  root: `${PREFIX}-root`,
+  fullSize: `${PREFIX}-fullSize`,
+  halfSize: `${PREFIX}-halfSize`,
+  labelWithMargins: `${PREFIX}-labelWithMargins`,
+  notesEditor: `${PREFIX}-notesEditor`,
+  dateEditor: `${PREFIX}-dateEditor`,
+  dividerLabel: `${PREFIX}-dividerLabel`,
+  booleanEditors: `${PREFIX}-booleanEditors`,
+  media: `${PREFIX}-@media (max-width: 570px)`,
+};
+
+const Root = styled('div')(({
+  theme: { spacing, typography },
+}) => ({
+  [`&.${classes.root}`]: {
     width: '650px',
     paddingTop: spacing(3),
     paddingBottom: spacing(3),
@@ -29,10 +45,12 @@ const styles = ({ spacing, typography }) => ({
       paddingBottom: 0,
     },
   },
-  fullSize: {
+
+  [`&.${classes.fullSize}`]: {
     paddingBottom: spacing(3),
   },
-  halfSize: {
+
+  [`&.${classes.halfSize}`]: {
     '@media (min-width: 700px) and (max-width: 850px)': {
       width: '400px',
     },
@@ -43,30 +61,36 @@ const styles = ({ spacing, typography }) => ({
       width: '560px',
     },
   },
-  labelWithMargins: {
+
+  [`& .${classes.labelWithMargins}`]: {
     marginTop: spacing(2),
   },
-  notesEditor: {
+
+  [`& .${classes.notesEditor}`]: {
     marginBottom: spacing(0.5),
     marginTop: spacing(0.5),
   },
-  dateEditor: {
+
+  [`& .${classes.dateEditor}`]: {
     width: '45%',
     paddingTop: '0px!important',
     marginTop: spacing(2),
     paddingBottom: '0px!important',
     marginBottom: 0,
   },
-  dividerLabel: {
+
+  [`& .${classes.dividerLabel}`]: {
     ...typography.body2,
     width: '10%',
     textAlign: 'center',
     paddingTop: spacing(2),
   },
-  booleanEditors: {
+
+  [`& .${classes.booleanEditors}`]: {
     marginTop: spacing(0.875),
   },
-  '@media (max-width: 570px)': {
+
+  [`& .${classes.media}`]: {
     dateEditors: {
       flexDirection: 'column',
     },
@@ -87,12 +111,11 @@ const styles = ({ spacing, typography }) => ({
       display: 'none',
     },
   },
-});
+}));
 
 const LayoutBase = ({
   children,
   locale,
-  classes,
   className,
   getMessage,
   readOnly,
@@ -124,7 +147,7 @@ const LayoutBase = ({
   ), [rRule, startDate, onFieldChange]);
 
   return (
-    <div
+    <Root
       className={classNames({
         [classes.root]: true,
         [classes.fullSize]: fullSize,
@@ -212,7 +235,7 @@ const LayoutBase = ({
       ))}
 
       {children}
-    </div>
+    </Root>
   );
 };
 
@@ -253,4 +276,4 @@ LayoutBase.defaultProps = {
   children: null,
 };
 
-export const Layout = withStyles(styles)(LayoutBase, { name: 'BasicLayout' });
+export const Layout = (LayoutBase);

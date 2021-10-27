@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createShallow } from '@devexpress/dx-testing';
 import { getRecurrenceOptions } from '@devexpress/dx-scheduler-core';
-import { Layout } from './layout';
+import { Layout, classes } from './layout';
 import { Daily } from './layouts/daily';
 import { Weekly } from './layouts/weekly';
 import { Monthly } from './layouts/monthly';
@@ -39,10 +39,8 @@ describe('AppointmentForm recurrence', () => {
     firstDayOfWeek: 0,
   };
   let shallow;
-  let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<Layout {...defaultProps} />);
   });
   beforeEach(() => {
     getRecurrenceOptions.mockImplementation(() => ({ freq: 3 }));

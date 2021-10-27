@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import {
   END_REPEAT_RADIO_GROUP,
   TITLE,
@@ -18,8 +18,23 @@ import { Monthly as MonthlyLayout } from './layouts/monthly';
 import { Yearly as YearlyLayout } from './layouts/yearly';
 import { TRANSITIONS_TIME, LAYOUT_MEDIA_QUERY } from '../../constants';
 
-const styles = ({ spacing }) => ({
-  root: {
+const PREFIX = 'Layout';
+
+export const classes = {
+  root: `${PREFIX}-root`,
+  visible: `${PREFIX}-visible`,
+  invisible: `${PREFIX}-invisible`,
+  label: `${PREFIX}-label`,
+  repeatLabel: `${PREFIX}-repeatLabel`,
+  radioGroup: `${PREFIX}-radioGroup`,
+  endRepeatLabel: `${PREFIX}-endRepeatLabel`,
+  select: `${PREFIX}-select`,
+};
+
+const Root = styled('div')(({
+  theme: { spacing },
+}) => ({
+  [`&.${classes.root}`]: {
     padding: 0,
     paddingTop: spacing(3),
     overflow: 'hidden',
@@ -33,7 +48,8 @@ const styles = ({ spacing }) => ({
       maxHeight: 0,
     },
   },
-  visible: {
+
+  [`&.${classes.visible}`]: {
     maxWidth: '500px',
     width: '500px',
     padding: spacing(3),
@@ -57,28 +73,34 @@ const styles = ({ spacing }) => ({
       width: '440px',
     },
   },
-  invisible: {
+
+  [`&.${classes.invisible}`]: {
     maxHeight: 0,
     '@media (min-width: 700px)': {
       maxHeight: '500px',
     },
   },
-  label: {
+
+  [`& .${classes.label}`]: {
     width: '8em',
   },
-  repeatLabel: {
+
+  [`& .${classes.repeatLabel}`]: {
     marginBottom: spacing(0.375),
   },
-  radioGroup: {
+
+  [`& .${classes.radioGroup}`]: {
     marginTop: spacing(0.5),
   },
-  endRepeatLabel: {
+
+  [`& .${classes.endRepeatLabel}`]: {
     marginTop: spacing(2),
   },
-  select: {
+
+  [`& .${classes.select}`]: {
     height: '3.8em',
   },
-});
+}));
 
 const getLayoutComponent = (recurrenceOptions) => {
   if (recurrenceOptions) {
@@ -106,7 +128,6 @@ const LayoutBase = ({
   selectComponent: Select,
   weeklyRecurrenceSelectorComponent,
   children,
-  classes,
   className,
   getMessage,
   readOnly,
@@ -133,7 +154,7 @@ const LayoutBase = ({
     () => getAvailableRecurrenceOptions(getMessage), [getMessage],
   );
   return (
-    <div
+    <Root
       className={classNames({
         [classes.root]: true,
         [classes.visible]: visible,
@@ -188,7 +209,7 @@ const LayoutBase = ({
         firstDayOfWeek={firstDayOfWeek}
       />
       {children}
-    </div>
+    </Root>
   );
 };
 
@@ -230,4 +251,4 @@ LayoutBase.defaultProps = {
   children: null,
 };
 
-export const Layout = withStyles(styles)(LayoutBase, { name: 'RecurrenceLayout' });
+export const Layout = (LayoutBase);

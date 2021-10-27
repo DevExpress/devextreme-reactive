@@ -1,6 +1,7 @@
 /* eslint-disable max-classes-per-file */
 /* eslint-disable react/no-unused-state */
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
 import {
@@ -20,7 +21,6 @@ import { connectProps } from '@devexpress/dx-react-core';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterMoment from '@mui/lab/AdapterMoment';
-import withStyles from '@mui/styles/withStyles';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -39,51 +39,75 @@ import Create from '@mui/icons-material/Create';
 
 import { appointments } from '../../../demo-data/appointments';
 
-const containerStyles = theme => ({
-  container: {
+const PREFIX = 'AppointmentFormContainer';
+
+const classes = {
+  container: `${PREFIX}-container`,
+  content: `${PREFIX}-content`,
+  header: `${PREFIX}-header`,
+  closeButton: `${PREFIX}-closeButton`,
+  buttonGroup: `${PREFIX}-buttonGroup`,
+  button: `${PREFIX}-button`,
+  picker: `${PREFIX}-picker`,
+  wrapper: `${PREFIX}-wrapper`,
+  icon: `${PREFIX}-icon`,
+  textField: `${PREFIX}-textField`,
+};
+
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  [`& .${classes.container}`]: {
     width: theme.spacing(68),
     padding: 0,
     paddingBottom: theme.spacing(2),
   },
-  content: {
+
+  [`& .${classes.content}`]: {
     padding: theme.spacing(2),
     paddingTop: 0,
   },
-  header: {
+
+  [`& .${classes.header}`]: {
     overflow: 'hidden',
     paddingTop: theme.spacing(0.5),
   },
-  closeButton: {
+
+  [`& .${classes.closeButton}`]: {
     float: 'right',
   },
-  buttonGroup: {
+
+  [`& .${classes.buttonGroup}`]: {
     display: 'flex',
     justifyContent: 'flex-end',
     padding: theme.spacing(0, 2),
   },
-  button: {
+
+  [`& .${classes.button}`]: {
     marginLeft: theme.spacing(2),
   },
-  picker: {
+
+  [`& .${classes.picker}`]: {
     marginRight: theme.spacing(2),
     '&:last-child': {
       marginRight: 0,
     },
     width: '50%',
   },
-  wrapper: {
+
+  [`& .${classes.wrapper}`]: {
     display: 'flex',
     justifyContent: 'space-between',
     padding: theme.spacing(1, 0),
   },
-  icon: {
+
+  [`& .${classes.icon}`]: {
     margin: theme.spacing(2, 0),
     marginRight: theme.spacing(2),
   },
-  textField: {
+
+  [`& .${classes.textField}`]: {
     width: '100%',
   },
-});
+}));
 
 class AppointmentFormContainerBasic extends React.PureComponent {
   constructor(props) {
@@ -136,7 +160,6 @@ class AppointmentFormContainerBasic extends React.PureComponent {
 
   render() {
     const {
-      classes,
       visible,
       visibleChange,
       appointmentData,
@@ -268,15 +291,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
   }
 }
 
-const AppointmentFormContainer = withStyles(containerStyles, { name: 'AppointmentFormContainer' })(AppointmentFormContainerBasic);
-
-const styles = theme => ({
-  addButton: {
-    position: 'absolute',
-    bottom: theme.spacing(3),
-    right: theme.spacing(4),
-  },
-});
+const AppointmentFormContainer = (AppointmentFormContainerBasic);
 
 /* eslint-disable-next-line react/no-multi-comp */
 class Demo extends React.PureComponent {
@@ -409,10 +424,9 @@ class Demo extends React.PureComponent {
       startDayHour,
       endDayHour,
     } = this.state;
-    const { classes } = this.props;
 
     return (
-      <Paper>
+      <StyledPaper>
         <Scheduler
           data={data}
           height={660}
@@ -484,9 +498,9 @@ class Demo extends React.PureComponent {
         >
           <AddIcon />
         </Fab>
-      </Paper>
+      </StyledPaper>
     );
   }
 }
 
-export default withStyles(styles, { name: 'EditingDemo' })(Demo);
+export default (Demo);

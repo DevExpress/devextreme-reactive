@@ -1,12 +1,11 @@
 import * as React from 'react';
+import { styled, alpha } from '@mui/material/styles';
 import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
-import { alpha } from '@mui/material/styles';
-import withStyles from '@mui/styles/withStyles';
 import { teal, orange, red } from '@mui/material/colors';
 import classNames from 'clsx';
 import { ViewState } from '@devexpress/dx-react-scheduler';
@@ -23,6 +22,128 @@ import {
 
 import { appointments } from '../../../demo-data/appointments';
 
+const PREFIX = 'AppointmentContent';
+
+const classes = {
+  flexibleSpace: `${PREFIX}-flexibleSpace`,
+  textField: `${PREFIX}-textField`,
+  locationSelector: `${PREFIX}-locationSelector`,
+  button: `${PREFIX}-button`,
+  selectedButton: `${PREFIX}-selectedButton`,
+  longButtonText: `${PREFIX}-longButtonText`,
+  shortButtonText: `${PREFIX}-shortButtonText`,
+  title: `${PREFIX}-title`,
+  textContainer: `${PREFIX}-textContainer`,
+  time: `${PREFIX}-time`,
+  text: `${PREFIX}-text`,
+  container: `${PREFIX}-container`,
+  weekendCell: `${PREFIX}-weekendCell`,
+  weekEnd: `${PREFIX}-weekEnd`,
+};
+
+const StyledProvider = styled(Provider)(({
+  theme: { spacing, palette },
+}) => ({
+  [`& .${classes.flexibleSpace}`]: {
+    margin: '0 auto 0 0',
+    display: 'flex',
+    alignItems: 'center',
+  },
+
+  [`& .${classes.textField}`]: {
+    width: '75px',
+    marginLeft: spacing(1),
+    marginTop: 0,
+    marginBottom: 0,
+    height: spacing(4.875),
+  },
+
+  [`& .${classes.locationSelector}`]: {
+    marginLeft: spacing(1),
+    height: spacing(4.875),
+  },
+
+  [`& .${classes.button}`]: {
+    paddingLeft: spacing(1),
+    paddingRight: spacing(1),
+    width: spacing(10),
+    '@media (max-width: 800px)': {
+      width: spacing(2),
+      fontSize: '0.75rem',
+    },
+  },
+
+  [`& .${classes.selectedButton}`]: {
+    background: palette.primary[400],
+    color: palette.primary[50],
+    '&:hover': {
+      backgroundColor: palette.primary[500],
+    },
+    border: `1px solid ${palette.primary[400]}!important`,
+    borderLeft: `1px solid ${palette.primary[50]}!important`,
+    '&:first-child': {
+      borderLeft: `1px solid ${palette.primary[50]}!important`,
+    },
+  },
+
+  [`& .${classes.longButtonText}`]: {
+    '@media (max-width: 800px)': {
+      display: 'none',
+    },
+  },
+
+  [`& .${classes.shortButtonText}`]: {
+    '@media (min-width: 800px)': {
+      display: 'none',
+    },
+  },
+
+  [`& .${classes.title}`]: {
+    fontWeight: 'bold',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+
+  [`& .${classes.textContainer}`]: {
+    lineHeight: 1,
+    whiteSpace: 'pre-wrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    width: '100%',
+  },
+
+  [`& .${classes.time}`]: {
+    display: 'inline-block',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+
+  [`& .${classes.text}`]: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+
+  [`& .${classes.container}`]: {
+    width: '100%',
+  },
+
+  [`& .${classes.weekendCell}`]: {
+    backgroundColor: alpha(palette.action.disabledBackground, 0.04),
+    '&:hover': {
+      backgroundColor: alpha(palette.action.disabledBackground, 0.04),
+    },
+    '&:focus': {
+      backgroundColor: alpha(palette.action.disabledBackground, 0.04),
+    },
+  },
+
+  [`& .${classes.weekEnd}`]: {
+    backgroundColor: alpha(palette.action.disabledBackground, 0.06),
+  },
+}));
+
 const LOCATIONS = ['Room 1', 'Room 2', 'Room 3'];
 const LOCATIONS_SHORT = [1, 2, 3];
 const resources = [{
@@ -35,96 +156,8 @@ const resources = [{
   ],
 }];
 
-const styles = ({ spacing, palette }) => ({
-  flexibleSpace: {
-    margin: '0 auto 0 0',
-    display: 'flex',
-    alignItems: 'center',
-  },
-  textField: {
-    width: '75px',
-    marginLeft: spacing(1),
-    marginTop: 0,
-    marginBottom: 0,
-    height: spacing(4.875),
-  },
-  locationSelector: {
-    marginLeft: spacing(1),
-    height: spacing(4.875),
-  },
-  button: {
-    paddingLeft: spacing(1),
-    paddingRight: spacing(1),
-    width: spacing(10),
-    '@media (max-width: 800px)': {
-      width: spacing(2),
-      fontSize: '0.75rem',
-    },
-  },
-  selectedButton: {
-    background: palette.primary[400],
-    color: palette.primary[50],
-    '&:hover': {
-      backgroundColor: palette.primary[500],
-    },
-    border: `1px solid ${palette.primary[400]}!important`,
-    borderLeft: `1px solid ${palette.primary[50]}!important`,
-    '&:first-child': {
-      borderLeft: `1px solid ${palette.primary[50]}!important`,
-    },
-  },
-  longButtonText: {
-    '@media (max-width: 800px)': {
-      display: 'none',
-    },
-  },
-  shortButtonText: {
-    '@media (min-width: 800px)': {
-      display: 'none',
-    },
-  },
-  title: {
-    fontWeight: 'bold',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-  },
-  textContainer: {
-    lineHeight: 1,
-    whiteSpace: 'pre-wrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    width: '100%',
-  },
-  time: {
-    display: 'inline-block',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-  text: {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-  },
-  container: {
-    width: '100%',
-  },
-  weekendCell: {
-    backgroundColor: alpha(palette.action.disabledBackground, 0.04),
-    '&:hover': {
-      backgroundColor: alpha(palette.action.disabledBackground, 0.04),
-    },
-    '&:focus': {
-      backgroundColor: alpha(palette.action.disabledBackground, 0.04),
-    },
-  },
-  weekEnd: {
-    backgroundColor: alpha(palette.action.disabledBackground, 0.06),
-  },
-});
-
-const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({
-  classes, data, formatDate, ...restProps
+const AppointmentContent = (({
+  data, formatDate, ...restProps
 }) => (
   <Appointments.AppointmentContent {...restProps} formatDate={formatDate} data={data}>
     <div className={classes.container}>
@@ -149,7 +182,7 @@ const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({
   </Appointments.AppointmentContent>
 ));
 
-const Filter = withStyles(styles, { name: 'TextField' })(({ onCurrentFilterChange, currentFilter, classes }) => (
+const Filter = (({ onCurrentFilterChange, currentFilter }) => (
   <TextField
     size="small"
     placeholder="Filter"
@@ -171,11 +204,11 @@ const handleButtonClick = (locationName, locations) => {
   return nextLocations;
 };
 
-const getButtonClass = (locations, classes, location) => (
+const getButtonClass = (locations, location) => (
   locations.indexOf(location) > -1 && classes.selectedButton
 );
 
-const LocationSelector = withStyles(styles, { name: 'LocationSelector' })(({ onLocationsChange, locations, classes }) => (
+const LocationSelector = (({ onLocationsChange, locations }) => (
   <ButtonGroup className={classes.locationSelector}>
     {LOCATIONS.map((location, index) => (
       <Button
@@ -192,27 +225,27 @@ const LocationSelector = withStyles(styles, { name: 'LocationSelector' })(({ onL
   </ButtonGroup>
 ));
 
-const FlexibleSpace = withStyles(styles, { name: 'FlexibleSpace' })(
-  ({ classes, ...restProps }) => (
+const FlexibleSpace = (
+  ({ ...restProps }) => (
     <Toolbar.FlexibleSpace {...restProps} className={classes.flexibleSpace}>
       <ReduxFilterContainer />
       <ReduxLocationSelector />
     </Toolbar.FlexibleSpace>
-  ),
+  )
 );
 
 const isRestTime = date => (
   date.getDay() === 0 || date.getDay() === 6 || date.getHours() < 9 || date.getHours() >= 18
 );
 
-const TimeTableCell = withStyles(styles, { name: 'TimeTableCell' })(({ classes, ...restProps }) => {
+const TimeTableCell = (({ ...restProps }) => {
   const { startDate } = restProps;
   if (isRestTime(startDate)) {
     return <WeekView.TimeTableCell {...restProps} className={classes.weekendCell} />;
   } return <WeekView.TimeTableCell {...restProps} />;
 });
 
-const DayScaleCell = withStyles(styles, { name: 'DayScaleCell' })(({ classes, ...restProps }) => {
+const DayScaleCell = (({ ...restProps }) => {
   const { startDate } = restProps;
   if (startDate.getDay() === 0 || startDate.getDay() === 6) {
     return <WeekView.DayScaleCell {...restProps} className={classes.weekEnd} />;
@@ -320,7 +353,7 @@ const store = createStore(
 );
 
 export default () => (
-  <Provider store={store}>
+  <StyledProvider store={store}>
     <ReduxSchedulerContainer />
-  </Provider>
+  </StyledProvider>
 );

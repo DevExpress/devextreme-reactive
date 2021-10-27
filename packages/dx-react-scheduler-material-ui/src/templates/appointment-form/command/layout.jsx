@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import Grid from '@mui/material/Grid';
 import classNames from 'clsx';
 import {
@@ -10,8 +10,20 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { TRANSITIONS_TIME, LAYOUT_MEDIA_QUERY } from '../../constants';
 
-const styles = ({ spacing, palette }) => ({
-  root: {
+const PREFIX = 'Layout';
+
+export const classes = {
+  root: `${PREFIX}-root`,
+  basic: `${PREFIX}-basic`,
+  fullSize: `${PREFIX}-fullSize`,
+  media: `${PREFIX}-${LAYOUT_MEDIA_QUERY}`,
+  line: `${PREFIX}-line`,
+};
+
+const StyledGrid = styled(Grid)(({
+  theme: { spacing, palette },
+}) => ({
+  [`&.${classes.root}`]: {
     display: 'flex',
     justifyContent: 'flex-end',
     paddingTop: spacing(2),
@@ -20,10 +32,12 @@ const styles = ({ spacing, palette }) => ({
     transition: `all ${TRANSITIONS_TIME}ms cubic-bezier(0, 0, 0.2, 1)`,
     backgroundColor: palette.background.paper,
   },
-  basic: {
+
+  [`&.${classes.basic}`]: {
     width: '650px',
   },
-  fullSize: {
+
+  [`&.${classes.fullSize}`]: {
     width: '1150px',
     '@media (min-width: 700px) and (max-width: 850px)': {
       width: '700px',
@@ -35,7 +49,8 @@ const styles = ({ spacing, palette }) => ({
       width: '1000px',
     },
   },
-  [`${LAYOUT_MEDIA_QUERY}`]: {
+
+  [`& .${classes.media}`]: {
     basic: {
       maxWidth: '700px',
       width: '100%',
@@ -48,12 +63,13 @@ const styles = ({ spacing, palette }) => ({
       width: '100%',
     },
   },
-  line: {
+
+  [`& .${classes.line}`]: {
     backgroundColor: palette.action.disabledBackground,
     height: spacing(4.5),
     width: '1px',
   },
-});
+}));
 
 const LayoutBase = ({
   commandButtonComponent: CommandButton,
@@ -62,7 +78,6 @@ const LayoutBase = ({
   onDeleteButtonClick,
   getMessage,
   children,
-  classes,
   className,
   fullSize,
   readOnly,
@@ -70,7 +85,7 @@ const LayoutBase = ({
   hideDeleteButton,
   ...restProps
 }) => (
-  <Grid
+  <StyledGrid
     className={classNames({
       [classes.root]: true,
       [classes.basic]: !fullSize,
@@ -106,7 +121,7 @@ const LayoutBase = ({
       </React.Fragment>
     )}
     {children}
-  </Grid>
+  </StyledGrid>
 );
 
 LayoutBase.propTypes = {
@@ -133,4 +148,4 @@ LayoutBase.defaultProps = {
   hideDeleteButton: false,
 };
 
-export const Layout = withStyles(styles)(LayoutBase, { name: 'Layout' });
+export const Layout = (LayoutBase);

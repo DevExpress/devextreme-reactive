@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import LinearProgress from '@mui/material/LinearProgress';
-import withStyles from '@mui/styles/withStyles';
 import {
   ViewState,
 } from '@devexpress/dx-react-scheduler';
@@ -17,6 +17,25 @@ import {
   AppointmentTooltip,
   TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
+
+const PREFIX = 'Toolbar';
+
+const classes = {
+  toolbarRoot: `${PREFIX}-toolbarRoot`,
+  progress: `${PREFIX}-progress`
+};
+
+const StyledPaper = styled(Paper)({
+  [`& .${classes.toolbarRoot}`]: {
+    position: 'relative',
+  },
+  [`& .${classes.progress}`]: {
+    position: 'absolute',
+    width: '100%',
+    bottom: 0,
+    left: 0,
+  },
+});
 
 const PUBLIC_KEY = 'AIzaSyBnNAISIUKe6xdhq1_rjor2rxoI3UlMY7k';
 const CALENDAR_ID = 'f7jnetm22dsjc3npc2lu3buvu4@group.calendar.google.com';
@@ -35,20 +54,8 @@ const getData = (setData, setLoading) => {
     });
 };
 
-const styles = {
-  toolbarRoot: {
-    position: 'relative',
-  },
-  progress: {
-    position: 'absolute',
-    width: '100%',
-    bottom: 0,
-    left: 0,
-  },
-};
-
-const ToolbarWithLoading = withStyles(styles, { name: 'Toolbar' })(
-  ({ children, classes, ...restProps }) => (
+const ToolbarWithLoading = (
+  ({ children, ...restProps }) => (
     <div className={classes.toolbarRoot}>
       <Toolbar.Root {...restProps}>
         {children}
@@ -112,7 +119,7 @@ export default () => {
   }, [setData, currentViewName, currentDate]);
 
   return (
-    <Paper>
+    <StyledPaper>
       <Scheduler
         data={data}
         height={660}
@@ -144,6 +151,6 @@ export default () => {
         />
         <AppointmentForm readOnly />
       </Scheduler>
-    </Paper>
+    </StyledPaper>
   );
 };

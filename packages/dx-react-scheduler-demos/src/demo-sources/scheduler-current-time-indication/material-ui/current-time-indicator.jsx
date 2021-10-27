@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import { EditingState } from '@devexpress/dx-react-scheduler';
 import {
   Appointments,
@@ -15,23 +16,31 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import InputAdornment from '@mui/material/InputAdornment';
-import withStyles from '@mui/styles/withStyles';
 
 import appointments from '../../../demo-data/today-appointments';
 
-// #FOLD_BLOCK
-const styles = ({ spacing }) => ({
-  checkBoxContainer: {
+const PREFIX = 'CheckBoxContainer';
+
+const classes = {
+  checkBoxContainer: `${PREFIX}-checkBoxContainer`,
+  textField: `${PREFIX}-textField`,
+};
+
+const Root = styled('div')(({
+  theme: { spacing },
+}) => ({
+  [`& .${classes.checkBoxContainer}`]: {
     paddingTop: spacing(1),
     paddingBottom: spacing(1),
     paddingLeft: spacing(4),
   },
-  textField: {
+
+  [`& .${classes.textField}`]: {
     marginRight: spacing(4),
     marginLeft: spacing(1),
     width: '120px',
   },
-});
+}));
 
 // #FOLD_BLOCK
 const ShadeCellsCheckBox = ({ shadePreviousCells, handleChange }) => (
@@ -61,8 +70,8 @@ const ShadePreviousAppointmentsCheckBox = ({ shadePreviousAppointments, handleCh
   />
 );
 // #FOLD_BLOCK
-const CheckBoxContainer = withStyles(styles, { name: 'CheckBoxContainer' })(({
-  shadePreviousCells, shadePreviousAppointments, handleCheckboxChange, classes,
+const CheckBoxContainer = (({
+  shadePreviousCells, shadePreviousAppointments, handleCheckboxChange,
   // #FOLD_BLOCK
 }) => (
   <Grid item container direction="column" className={classes.checkBoxContainer} xs={6}>
@@ -78,8 +87,8 @@ const CheckBoxContainer = withStyles(styles, { name: 'CheckBoxContainer' })(({
 ));
 
 // #FOLD_BLOCK
-const UpdateIntervalBox = withStyles(styles, { name: 'UpdateIntervalSetter' })(({
-  updateInterval, onValueChange, classes,
+const UpdateIntervalBox = (({
+  updateInterval, onValueChange,
   // #FOLD_BLOCK
 }) => (
   <Grid item container xs={6} alignItems="center" justifyContent="flex-end">
@@ -152,7 +161,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <React.Fragment>
+      <Root>
         <Grid container>
           <CheckBoxContainer
             shadePreviousCells={shadePreviousCells}
@@ -189,7 +198,7 @@ export default class Demo extends React.PureComponent {
             />
           </Scheduler>
         </Paper>
-      </React.Fragment>
+      </Root>
     );
   }
 }

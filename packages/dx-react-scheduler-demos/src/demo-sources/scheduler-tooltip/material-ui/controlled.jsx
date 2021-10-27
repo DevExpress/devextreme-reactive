@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import {
   Appointments,
   AppointmentTooltip,
@@ -8,27 +9,33 @@ import {
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
-import withStyles from '@mui/styles/withStyles';
 import appointments from '../../../demo-data/today-appointments';
 
-const styles = theme => ({
-  button: {
+const PREFIX = 'Appointment';
+
+const classes = {
+  button: `${PREFIX}-button`,
+  text: `${PREFIX}-text`,
+};
+
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  [`& .${classes.button}`]: {
     color: theme.palette.background.default,
     padding: 0,
   },
-  text: {
+
+  [`& .${classes.text}`]: {
     paddingTop: theme.spacing(1),
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
-});
+}));
 
 const AppointmentBase = ({
   children,
   data,
   onClick,
-  classes,
   toggleVisibility,
   onAppointmentMetaChange,
   ...restProps
@@ -52,7 +59,7 @@ const AppointmentBase = ({
   </Appointments.Appointment>
 );
 
-const Appointment = withStyles(styles, { name: 'Appointment' })(AppointmentBase);
+const Appointment = (AppointmentBase);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -94,7 +101,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <Paper>
+      <StyledPaper>
         <Scheduler
           data={data}
           height={660}
@@ -116,7 +123,7 @@ export default class Demo extends React.PureComponent {
             onAppointmentMetaChange={this.onAppointmentMetaChange}
           />
         </Scheduler>
-      </Paper>
+      </StyledPaper>
     );
   }
 }

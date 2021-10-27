@@ -1,8 +1,14 @@
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import { ContainerBase } from '../common/container';
 
-const styles = {
-  container: {
+const PREFIX = 'Container';
+
+const classes = {
+  container: `${PREFIX}-container`,
+};
+
+const Root = styled(ContainerBase)(() => ({
+  [`& .${classes.container}`]: {
     position: 'absolute',
     left: 0,
     top: 0,
@@ -10,6 +16,6 @@ const styles = {
     width: '100%',
     cursor: 'move',
   },
-};
+}));
 
-export const Container = withStyles(styles, { name: 'DragDropContainer' })(ContainerBase);
+export const Container = (Root);

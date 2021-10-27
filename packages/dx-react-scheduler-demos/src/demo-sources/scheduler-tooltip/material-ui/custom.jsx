@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import {
   Scheduler,
@@ -10,44 +11,63 @@ import IconButton from '@mui/material/IconButton';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Grid from '@mui/material/Grid';
 import Room from '@mui/icons-material/Room';
-import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 
 import appointments from '../../../demo-data/today-appointments';
 
-const style = ({ palette }) => ({
-  icon: {
+const PREFIX = 'Header';
+
+const classes = {
+  icon: `${PREFIX}-icon`,
+  textCenter: `${PREFIX}-textCenter`,
+  firstRoom: `${PREFIX}-firstRoom`,
+  secondRoom: `${PREFIX}-secondRoom`,
+  thirdRoom: `${PREFIX}-thirdRoom`,
+  header: `${PREFIX}-header`,
+  commandButton: `${PREFIX}-commandButton`,
+};
+
+const StyledPaper = styled(Paper)(({
+  theme: { palette },
+}) => ({
+  [`& .${classes.icon}`]: {
     color: palette.action.active,
   },
-  textCenter: {
+
+  [`& .${classes.textCenter}`]: {
     textAlign: 'center',
   },
-  firstRoom: {
+
+  [`& .${classes.firstRoom}`]: {
     background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/Lobby-4.jpg)',
   },
-  secondRoom: {
+
+  [`& .${classes.secondRoom}`]: {
     background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-4.jpg)',
   },
-  thirdRoom: {
+
+  [`& .${classes.thirdRoom}`]: {
     background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-0.jpg)',
   },
-  header: {
+
+  [`& .${classes.header}`]: {
     height: '260px',
     backgroundSize: 'cover',
   },
-  commandButton: {
+
+  [`& .${classes.commandButton}`]: {
     backgroundColor: 'rgba(255,255,255,0.65)',
   },
-});
+}));
 
-const getClassByLocation = (classes, location) => {
+const getClassByLocation = (location) => {
   if (location === 'Room 1') return classes.firstRoom;
   if (location === 'Room 2') return classes.secondRoom;
   return classes.thirdRoom;
 };
 
-const Header = withStyles(style, { name: 'Header' })(({
-  children, appointmentData, classes, ...restProps
+const Header = (({
+  children, appointmentData, ...restProps
 }) => (
   <AppointmentTooltip.Header
     {...restProps}
@@ -65,8 +85,8 @@ const Header = withStyles(style, { name: 'Header' })(({
   </AppointmentTooltip.Header>
 ));
 
-const Content = withStyles(style, { name: 'Content' })(({
-  children, appointmentData, classes, ...restProps
+const Content = (({
+  children, appointmentData, ...restProps
 }) => (
   <AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
     <Grid container alignItems="center">
@@ -80,8 +100,8 @@ const Content = withStyles(style, { name: 'Content' })(({
   </AppointmentTooltip.Content>
 ));
 
-const CommandButton = withStyles(style, { name: 'CommandButton' })(({
-  classes, ...restProps
+const CommandButton = (({
+  ...restProps
 }) => (
   <AppointmentTooltip.CommandButton {...restProps} className={classes.commandButton} />
 ));
@@ -98,7 +118,7 @@ export default class Demo extends React.PureComponent {
     const { data } = this.state;
 
     return (
-      <Paper>
+      <StyledPaper>
         <Scheduler
           data={data}
           height={660}
@@ -117,7 +137,7 @@ export default class Demo extends React.PureComponent {
             showCloseButton
           />
         </Scheduler>
-      </Paper>
+      </StyledPaper>
     );
   }
 }

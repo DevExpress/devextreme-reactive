@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
@@ -10,7 +11,26 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import withStyles from '@mui/styles/withStyles';
+
+const PREFIX = 'ResourceSwitcher';
+
+const classes = {
+  container: `${PREFIX}-container`,
+  text: `${PREFIX}-text`,
+};
+
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.container}`]: {
+    display: 'flex',
+    marginBottom: theme.spacing(2),
+    justifyContent: 'flex-end',
+  },
+
+  [`& .${classes.text}`]: {
+    ...theme.typography.h6,
+    marginRight: theme.spacing(2),
+  },
+}));
 
 const appointments = [{
   title: 'Website Re-Design Plan',
@@ -49,21 +69,9 @@ const appointments = [{
   location: 'Room 5',
 }];
 
-const styles = theme => ({
-  container: {
-    display: 'flex',
-    marginBottom: theme.spacing(2),
-    justifyContent: 'flex-end',
-  },
-  text: {
-    ...theme.typography.h6,
-    marginRight: theme.spacing(2),
-  },
-});
-
-const ResourceSwitcher = withStyles(styles, { name: 'ResourceSwitcher' })(
+const ResourceSwitcher = (
   ({
-    mainResourceName, onChange, classes, resources,
+    mainResourceName, onChange, resources,
   }) => (
     <div className={classes.container}>
       <div className={classes.text}>
@@ -81,7 +89,7 @@ const ResourceSwitcher = withStyles(styles, { name: 'ResourceSwitcher' })(
         ))}
       </Select>
     </div>
-  ),
+  )
 );
 
 export default class Demo extends React.PureComponent {
@@ -128,7 +136,7 @@ export default class Demo extends React.PureComponent {
     const { data, resources, mainResourceName } = this.state;
 
     return (
-      <React.Fragment>
+      <Root>
         <ResourceSwitcher
           resources={resources}
           mainResourceName={mainResourceName}
@@ -154,7 +162,7 @@ export default class Demo extends React.PureComponent {
             />
           </Scheduler>
         </Paper>
-      </React.Fragment>
+      </Root>
     );
   }
 }

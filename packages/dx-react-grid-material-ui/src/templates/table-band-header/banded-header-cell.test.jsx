@@ -1,15 +1,13 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { BandedHeaderCell } from './banded-header-cell';
+import { createShallow } from '@devexpress/dx-testing';
+import { BandedHeaderCell, classes } from './banded-header-cell';
 
 describe('BandedHeaderCell', () => {
   let shallow;
-  let classes;
   const defaultProps = {
     component: () => <div />,
   };
   beforeAll(() => {
-    classes = getClasses(<BandedHeaderCell {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
   it('should render children and passed className', () => {

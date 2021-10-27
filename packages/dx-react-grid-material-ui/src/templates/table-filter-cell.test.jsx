@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { TableFilterCell } from './table-filter-cell';
+import { createShallow } from '@devexpress/dx-testing';
+import { TableFilterCell, classes } from './table-filter-cell';
 
 const defaultProps = {
   getMessage: key => key,
@@ -9,10 +9,8 @@ const defaultProps = {
 
 describe('TableFilterCell', () => {
   let shallow;
-  let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<TableFilterCell {...defaultProps} />);
   });
 
   it('should render children if passed', () => {

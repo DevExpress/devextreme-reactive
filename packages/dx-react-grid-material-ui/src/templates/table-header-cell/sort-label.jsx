@@ -2,35 +2,43 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Tooltip from '@mui/material/Tooltip';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import classNames from 'clsx';
 
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
 
-const styles = () => ({
-  root: {
+const PREFIX = 'ResizingControl';
+export const classes = {
+  root: `${PREFIX}-root`,
+  tooltipRoot: `${PREFIX}-tooltipRoot`,
+  sortLabelRoot: `${PREFIX}-sortLabelRoot`,
+  sortLabelRight: `${PREFIX}-sortLabelRight`,
+  sortLabelActive: `${PREFIX}-sortLabelActive`,
+};
+const StyledDiv = styled('div')(() => ({
+  [`&.${classes.root}`]: {
     width: '100%',
     userSelect: 'none',
     MozUserSelect: 'none',
     WebkitUserSelect: 'none',
   },
-  tooltipRoot: {
+  [`& .${classes.sortLabelRoot}`]: {
+    maxWidth: '100%',
+  },
+  [`& .${classes.sortLabelRight}`]: {
+    flexDirection: 'row-reverse',
+  },
+  [`& .${classes.sortLabelActive}`]: {
+    color: 'inherit',
+  },
+  [`& .${classes.tooltipRoot}`]: {
     display: 'block',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
-  sortLabelRoot: {
-    maxWidth: '100%',
-  },
-  sortLabelRight: {
-    flexDirection: 'row-reverse',
-  },
-  sortLabelActive: {
-    color: 'inherit',
-  },
-});
+}));
 
 const onClick = (e, onSort) => {
   const isActionKeyDown = e.keyCode === ENTER_KEY_CODE || e.keyCode === SPACE_KEY_CODE;
@@ -46,11 +54,11 @@ const onClick = (e, onSort) => {
   onSort({ direction, keepOther });
 };
 
-const SortLabelBase = ({
+export const SortLabel = ({
   column, align, direction, children, onSort,
-  classes, getMessage, disabled, className, ...restProps
+  getMessage, disabled, className, ...restProps
 }) => (
-  <div
+  <StyledDiv
     className={classNames(classes.root, className)}
     {...restProps}
   >
@@ -78,22 +86,21 @@ const SortLabelBase = ({
         {children}
       </TableSortLabel>
     </Tooltip>
-  </div>
+  </StyledDiv>
 );
 
-SortLabelBase.propTypes = {
+SortLabel.propTypes = {
   column: PropTypes.object,
   align: PropTypes.string,
   direction: PropTypes.oneOf(['asc', 'desc', null]),
   children: PropTypes.node,
-  classes: PropTypes.object.isRequired,
   onSort: PropTypes.func.isRequired,
   getMessage: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
   className: PropTypes.string,
 };
 
-SortLabelBase.defaultProps = {
+SortLabel.defaultProps = {
   column: undefined,
   direction: undefined,
   disabled: false,
@@ -101,5 +108,3 @@ SortLabelBase.defaultProps = {
   className: null,
   children: undefined,
 };
-
-export const SortLabel = withStyles(styles, { name: 'SortLabel' })(SortLabelBase);

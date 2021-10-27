@@ -4,24 +4,27 @@ import ChevronRight from '@mui/icons-material/ChevronRight';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import IconButton from '@mui/material/IconButton';
 import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
-const styles = theme => ({
-  groupButton: {
+const PREFIX = 'Icon';
+export const classes = {
+  groupButton: `${PREFIX}-groupButton`,
+};
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  [`&.${classes.groupButton}`]: {
     verticalAlign: 'middle',
     display: 'inline-block',
     padding: theme.spacing(1),
     marginRight: theme.spacing(1),
   },
-});
+}));
 
-const IconBase = React.memo(({
+export const Icon = React.memo(({
   expanded,
-  classes,
   className,
   ...restProps
 }) => (
-  <IconButton
+  <StyledIconButton
     className={classNames(classes.groupButton, className)}
     {...restProps}
     size="large"
@@ -31,17 +34,14 @@ const IconBase = React.memo(({
         ? <ExpandMore />
         : <ChevronRight />
     }
-  </IconButton>
+  </StyledIconButton>
 ));
 
-IconBase.propTypes = {
+Icon.propTypes = {
   expanded: PropTypes.bool.isRequired,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
-IconBase.defaultProps = {
+Icon.defaultProps = {
   className: undefined,
 };
-
-export const Icon = withStyles(styles)(IconBase);

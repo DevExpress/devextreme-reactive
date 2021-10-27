@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { TableSkeletonCell } from './table-skeleton-cell';
+import { createShallow } from '@devexpress/dx-testing';
+import { TableSkeletonCell, classes } from './table-skeleton-cell';
 
 describe('TableSkeletonCell', () => {
   let shallow;
-  let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<TableSkeletonCell />);
   });
 
   it('should pass the className prop to the root element', () => {

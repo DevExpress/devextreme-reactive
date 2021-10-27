@@ -1,19 +1,13 @@
 import * as React from 'react';
-import { createShallow, getClasses, setupConsole } from '@devexpress/dx-testing';
-import { TableContainer } from './table-container';
+import { createShallow, setupConsole } from '@devexpress/dx-testing';
+import { TableContainer, classes } from './table-container';
 
 describe('TableContainer', () => {
   let resetConsole;
   let shallow;
-  let classes;
   beforeAll(() => {
     resetConsole = setupConsole();
-    shallow = createShallow({ untilSelector: 'TableContainerBase' });
-    classes = getClasses(
-      <TableContainer>
-        <span />
-      </TableContainer>,
-    );
+    shallow = createShallow({ dive: true });
   });
   afterAll(() => {
     resetConsole();

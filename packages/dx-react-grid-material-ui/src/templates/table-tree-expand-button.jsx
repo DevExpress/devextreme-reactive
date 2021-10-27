@@ -1,32 +1,38 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
 import ChevronRight from '@mui/icons-material/ChevronRight';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import IconButton from '@mui/material/IconButton';
 
-const styles = theme => ({
-  button: {
+const PREFIX = 'TableTreeExpandButton';
+export const classes = {
+  button: `${PREFIX}-button`,
+  hidden: `${PREFIX}-hidden`,
+};
+
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  [`&.${classes.button}`]: {
     marginTop: '-1px',
     marginBottom: '-1px',
     marginLeft: -theme.spacing(1),
     marginRight: theme.spacing(2),
     padding: theme.spacing(1),
   },
-  hidden: {
+  [`&.${classes.hidden}`]: {
     cursor: 'default',
     opacity: 0,
   },
-});
+}));
 
-const TableTreeExpandButtonBase = ({
-  visible, expanded, classes, onToggle,
+export const TableTreeExpandButton = ({
+  visible, expanded, onToggle,
   className,
   ...restProps
 }) => (
-  <IconButton
+  <StyledIconButton
     className={classNames({
       [classes.button]: true,
       [classes.hidden]: !visible,
@@ -43,22 +49,19 @@ const TableTreeExpandButtonBase = ({
     {expanded
       ? <ExpandMore />
       : <ChevronRight />}
-  </IconButton>
+  </StyledIconButton>
 );
 
-TableTreeExpandButtonBase.propTypes = {
+TableTreeExpandButton.propTypes = {
   visible: PropTypes.bool,
   expanded: PropTypes.bool,
   onToggle: PropTypes.func,
   className: PropTypes.string,
-  classes: PropTypes.object.isRequired,
 };
 
-TableTreeExpandButtonBase.defaultProps = {
+TableTreeExpandButton.defaultProps = {
   visible: false,
   expanded: false,
   onToggle: () => {},
   className: undefined,
 };
-
-export const TableTreeExpandButton = withStyles(styles)(TableTreeExpandButtonBase);

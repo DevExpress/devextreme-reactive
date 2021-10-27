@@ -1,15 +1,13 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { IndentCell } from './indent-cell';
+import { createShallow } from '@devexpress/dx-testing';
+import { IndentCell, classes } from './indent-cell';
 
 describe('TableGroupCell', () => {
   describe('IndentCell', () => {
     let shallow;
-    let classes;
 
     beforeAll(() => {
       shallow = createShallow({ dive: true });
-      classes = getClasses(<IndentCell />);
     });
 
     it('should have correct classes', () => {

@@ -3,61 +3,66 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 
 import TableCell from '@mui/material/TableCell';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
 import { ResizingControl } from './resizing-control';
 
-const styles = theme => ({
-  plainTitle: {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    lineHeight: theme.spacing(3),
-  },
-  cell: {
+const PREFIX = 'CellLayout';
+export const classes = {
+  cell: `${PREFIX}-cell`,
+  cellRight: `${PREFIX}-cellRight`,
+  cellCenter: `${PREFIX}-cellCenter`,
+  cellNoWrap: `${PREFIX}-cellNoWrap`,
+  cellNoUserSelect: `${PREFIX}-cellNoUserSelect`,
+  cellDraggable: `${PREFIX}-cellDraggable`,
+  cellDimmed: `${PREFIX}-cellDimmed`,
+  container: `${PREFIX}-container`,
+  resizeHandle: `${PREFIX}-resizeHandle`,
+  resizeHandleLine: `${PREFIX}-resizeHandleLine`,
+};
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${classes.cell}`]: {
     outline: 'none',
     position: 'relative',
     overflow: 'visible',
     paddingRight: theme.spacing(1),
     paddingLeft: theme.spacing(1),
-    '&:first-child': {
+    '&:first-of-type': {
       paddingLeft: theme.spacing(3),
     },
-    '&:hover $resizeHandleLine': {
-      opacity: 1,
-    },
-    '&:nth-last-child(2) $resizeHandle': {
-      width: theme.spacing(1),
-      right: '1px',
-    },
-  },
-  resizeHandle: {},
-  resizeHandleLine: {
-    opacity: 0,
-  },
-  '@media (pointer: fine)': {
-    resizeHandleLine: {
-      opacity: 0,
-    },
-    resizeHandleActive: {
-      '& $resizeHandleLine': {
+    '&:hover': {
+      [`& .${classes.resizeHandleLine}`]: {
         opacity: 1,
       },
     },
-    resizeHandle: {
-      '&:hover $resizeHandleLine': {
-        opacity: 1,
+    '&:nth-last-of-type(2)': {
+      [`& .${classes.resizeHandle}`]: {
+        width: theme.spacing(1),
+        right: '1px',
       },
     },
   },
-  cellNoUserSelect: {
+  [`&.${classes.cellRight}`]: {
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+    textAlign: 'right',
+  },
+  [`&.${classes.cellCenter}`]: {
+    textAlign: 'center',
+  },
+  [`&.${classes.cellNoWrap}`]: {
+    whiteSpace: 'nowrap',
+  },
+  [`&.${classes.cellNoUserSelect}`]: {
     userSelect: 'none',
     MozUserSelect: 'none',
     WebkitUserSelect: 'none',
   },
-  cellDraggable: {
+  [`&.${classes.cellDraggable}`]: {
     cursor: 'pointer',
   },
-  cellDimmed: {
+  [`&.${classes.cellDimmed}`]: {
     '&:after': {
       content: '""',
       position: 'absolute',
@@ -71,29 +76,34 @@ const styles = theme => ({
       zIndex: 400,
     },
   },
-  cellRight: {
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-    textAlign: 'right',
-  },
-  cellCenter: {
-    textAlign: 'center',
-  },
-  container: {
+  [`& .${classes.container}`]: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
   },
-  cellNoWrap: {
-    whiteSpace: 'nowrap',
+  [`& .${classes.resizeHandle}`]: {},
+  [`& .${classes.resizeHandleLine}`]: {
+    opacity: 0,
   },
-});
+  '@media (pointer: fine)': {
+    [`& .${classes.resizeHandleLine}`]: {
+      opacity: 0,
+    },
+    [`& .${classes.resizeHandle}`]: {
+      '&:hover': {
+        [`& .${classes.resizeHandleLine}`]: {
+          opacity: 1,
+        },
+      },
+    },
+  },
+}));
 
-const CellLayoutBase = ({
+export const CellLayout = ({
   style, column, tableColumn,
   draggingEnabled, resizingEnabled, dragging,
   onWidthChange, onWidthDraft, onWidthDraftCancel, getCellWidth,
-  classes, tableRow, className, children, forwardedRef,
+  tableRow, className, children, forwardedRef,
   ...restProps
 }) => {
   const cellRef = React.useRef();
@@ -111,7 +121,7 @@ const CellLayoutBase = ({
 
   const align = (tableColumn && tableColumn.align) || 'left';
   return (
-    <TableCell
+    <StyledTableCell
       style={style}
       className={classNames({
         [classes.cell]: true,
@@ -145,11 +155,11 @@ const CellLayoutBase = ({
           resizeHandleOpacityClass={classes.resizeHandleLine}
         />
       )}
-    </TableCell>
+    </StyledTableCell>
   );
 };
 
-CellLayoutBase.propTypes = {
+CellLayout.propTypes = {
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
   column: PropTypes.object,
@@ -160,14 +170,13 @@ CellLayoutBase.propTypes = {
   onWidthChange: PropTypes.func,
   onWidthDraft: PropTypes.func,
   onWidthDraftCancel: PropTypes.func,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   children: PropTypes.node,
   getCellWidth: PropTypes.func,
   forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
-CellLayoutBase.defaultProps = {
+CellLayout.defaultProps = {
   column: undefined,
   tableColumn: undefined,
   tableRow: undefined,
@@ -183,5 +192,3 @@ CellLayoutBase.defaultProps = {
   getCellWidth: () => {},
   forwardedRef: undefined,
 };
-
-export const CellLayout = withStyles(styles, { name: 'CellLayout' })(CellLayoutBase);

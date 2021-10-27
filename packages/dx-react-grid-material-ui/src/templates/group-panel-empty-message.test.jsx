@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { GroupPanelEmptyMessage } from './group-panel-empty-message';
+import { createShallow } from '@devexpress/dx-testing';
+import { GroupPanelEmptyMessage, classes } from './group-panel-empty-message';
 
 describe('GroupPanelEmptyMessage', () => {
   let shallow;
-  let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<GroupPanelEmptyMessage getMessage={() => {}} />);
   });
 
   it('should pass rest props to the root element', () => {

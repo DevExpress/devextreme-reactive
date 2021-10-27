@@ -1,38 +1,38 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
-const styles = () => ({
-  content: {
+const PREFIX = 'TableTreeContent';
+export const classes = {
+  content: `${PREFIX}-content`,
+};
+
+const StyledDiv = styled('div')(() => ({
+  [`&.${classes.content}`]: {
     width: '100%',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
-});
+}));
 
-const TableTreeContentBase = ({
-  children, classes, className, ...restProps
+export const TableTreeContent = ({
+  children, className, ...restProps
 }) => (
-  <div
-    className={classNames({
-      [classes.content]: true,
-    }, className)}
+  <StyledDiv
+    className={classNames([classes.content], className)}
     {...restProps}
   >
     {children}
-  </div>
+  </StyledDiv>
 );
 
-TableTreeContentBase.propTypes = {
-  classes: PropTypes.object.isRequired,
+TableTreeContent.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
 };
 
-TableTreeContentBase.defaultProps = {
+TableTreeContent.defaultProps = {
   children: undefined,
   className: undefined,
 };
-
-export const TableTreeContent = withStyles(styles)(TableTreeContentBase);

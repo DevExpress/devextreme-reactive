@@ -2,22 +2,27 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@mui/material/TableCell';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
-const styles = theme => ({
-  cell: {
+const PREFIX = 'TableGroupCell';
+export const classes = {
+  cell: `${PREFIX}-cell`,
+  cellNoWrap: `${PREFIX}-cellNoWrap`,
+};
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${classes.cell}`]: {
     cursor: 'pointer',
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1),
     paddingTop: theme.spacing(0.5),
     paddingBottom: theme.spacing(0.5),
   },
-  cellNoWrap: {
+  [`&.${classes.cellNoWrap}`]: {
     whiteSpace: 'nowrap',
   },
-});
+}));
 
-const CellBase = ({
+export const Cell = ({
   contentComponent: Content,
   iconComponent: Icon,
   containerComponent: Container,
@@ -27,7 +32,7 @@ const CellBase = ({
   style, colSpan, row,
   column, expanded,
   onToggle,
-  classes, children,
+  children,
   className, tableRow,
   forwardedRef,
   tableColumn, side, position,
@@ -36,7 +41,7 @@ const CellBase = ({
   const handleClick = () => onToggle();
 
   return (
-    <TableCell
+    <StyledTableCell
       colSpan={colSpan}
       style={style}
       className={classNames({
@@ -67,11 +72,11 @@ const CellBase = ({
           ) : null
         }
       </Container>
-    </TableCell>
+    </StyledTableCell>
   );
 };
 
-CellBase.propTypes = {
+Cell.propTypes = {
   // oneOfType is a workaround because withStyles returns react object
   contentComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   iconComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -84,7 +89,6 @@ CellBase.propTypes = {
   column: PropTypes.object,
   expanded: PropTypes.bool,
   onToggle: PropTypes.func,
-  classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
@@ -96,7 +100,7 @@ CellBase.propTypes = {
   forwardedRef: PropTypes.object,
 };
 
-CellBase.defaultProps = {
+Cell.defaultProps = {
   style: null,
   colSpan: 1,
   row: {},
@@ -112,5 +116,3 @@ CellBase.defaultProps = {
   position: '',
   forwardedRef: undefined,
 };
-
-export const Cell = withStyles(styles, { name: 'TableGroupCell' })(CellBase);

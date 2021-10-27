@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { GroupPanelContainer } from './group-panel-container';
+import { createShallow } from '@devexpress/dx-testing';
+import { GroupPanelContainer, classes } from './group-panel-container';
 
 describe('GroupPanelContainer', () => {
   let shallow;
-  let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<GroupPanelContainer />);
   });
 
   it('should pass rest props to the root element', () => {

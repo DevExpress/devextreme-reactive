@@ -1,29 +1,31 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import { TableRow } from './table-row';
 
-const styles = () => ({
-  row: {
+const PREFIX = 'TableInvisibleRow';
+export const classes = {
+  row: `${PREFIX}-row`,
+};
+
+const StyledTableRow = styled(TableRow)(() => ({
+  [`&.${classes.row}`]: {
     visibility: 'hidden',
   },
-});
+}));
 
-const TableInvisibleRowBase = ({ className, classes, ...restParams }) => (
-  <TableRow
+export const TableInvisibleRow = ({ className, ...restParams }) => (
+  <StyledTableRow
     className={classNames(classes.row, className)}
     {...restParams}
   />
 );
 
-TableInvisibleRowBase.propTypes = {
+TableInvisibleRow.propTypes = {
   className: PropTypes.string,
-  classes: PropTypes.object.isRequired,
 };
 
-TableInvisibleRowBase.defaultProps = {
+TableInvisibleRow.defaultProps = {
   className: undefined,
 };
-
-export const TableInvisibleRow = withStyles(styles, { name: 'TableInvisibleRow' })(TableInvisibleRowBase);

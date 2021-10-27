@@ -1,20 +1,17 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
 import TableCell from '@mui/material/TableCell';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
-const styles = {
-  emptyCell: {
+const PREFIX = 'InvisibleCell';
+export const classes = {
+  emptyCell: `${PREFIX}-emptyCell`,
+};
+const StyledTableCell = styled(TableCell)(() => ({
+  [`&.${classes.emptyCell}`]: {
     display: 'none',
   },
-};
+}));
 
-const InvisibleCellBase = ({ classes }) => (
-  <TableCell className={classes.emptyCell} />
+export const InvisibleCell = () => (
+  <StyledTableCell className={classes.emptyCell} />
 );
-
-InvisibleCellBase.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export const InvisibleCell = withStyles(styles, { name: 'InvisibleCell' })(InvisibleCellBase);

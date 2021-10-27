@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createShallow } from '@devexpress/dx-testing';
 import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
-import { FocusCell } from './table-focus-cell';
+import { FocusCell, classes } from './table-focus-cell';
 
 jest.mock('@devexpress/dx-react-grid', () => ({
   withKeyboardNavigation: jest.fn().mockReturnValue(x => x),
@@ -13,11 +13,9 @@ const defaultProps = {
 
 describe('FocusCell', () => {
   let shallow;
-  let classes;
 
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<FocusCell {...defaultProps} />);
   });
   it('should be rendered', () => {
     const tree = shallow((

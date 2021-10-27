@@ -1,37 +1,39 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
-const styles = {
-  root: {
+const PREFIX = 'Layout';
+export const classes = {
+  root: `${PREFIX}-root`,
+};
+
+const StyledDiv = styled('div')(() => ({
+  [`&.${classes.root}`]: {
     display: 'flex',
     flexDirection: 'column',
   },
-};
+}));
 
-const RootBase = ({
-  children, classes, className, rootRef, ...restProps
+export const Root = ({
+  children, className, rootRef, ...restProps
 }) => (
-  <div
+  <StyledDiv
     className={classNames(classes.root, className)}
     ref={rootRef}
     {...restProps}
   >
     {children}
-  </div>
+  </StyledDiv>
 );
 
-RootBase.propTypes = {
+Root.propTypes = {
   children: PropTypes.node.isRequired,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   rootRef: PropTypes.object,
 };
 
-RootBase.defaultProps = {
+Root.defaultProps = {
   className: undefined,
   rootRef: undefined,
 };
-
-export const Root = withStyles(styles)(RootBase);

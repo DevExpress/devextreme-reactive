@@ -1,7 +1,7 @@
 import * as React from 'react';
 import TableRowMUI from '@mui/material/TableRow';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { TableSelectRow } from './table-select-row';
+import { createShallow } from '@devexpress/dx-testing';
+import { TableSelectRow, classes } from './table-select-row';
 
 const defaultProps = {
   highlighted: false,
@@ -11,11 +11,9 @@ const defaultProps = {
 
 describe('TableSelectRow', () => {
   let shallow;
-  let classes;
 
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<TableSelectRow {...defaultProps} />);
   });
 
   it('should have correct highlighted prop', () => {

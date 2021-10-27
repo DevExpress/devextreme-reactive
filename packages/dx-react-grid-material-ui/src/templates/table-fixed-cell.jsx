@@ -1,27 +1,32 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import { getStickyCellStyle, getBorder } from './utils';
 
-const styles = theme => ({
-  dividerRight: {
+const PREFIX = 'TableFixedCell';
+export const classes = {
+  dividerRight: `${PREFIX}-dividerRight`,
+  dividerLeft: `${PREFIX}-dividerLeft`,
+  fixedCell: `${PREFIX}-fixedCell`,
+  selected: `${PREFIX}-selected`,
+};
+const styles = ({ theme }) => ({
+  [`&.${classes.dividerRight}`]: {
     borderRight: getBorder(theme),
   },
-  dividerLeft: {
+  [`&.${classes.dividerLeft}`]: {
     borderLeft: getBorder(theme),
   },
-  fixedCell: getStickyCellStyle(theme),
-  selected: {
+  [`&.${classes.fixedCell}`]: getStickyCellStyle(theme),
+  [`&.${classes.selected}`]: {
     backgroundColor: 'inherit',
   },
 });
-
-class FixedCellBase extends React.PureComponent {
+export class FixedCell extends React.PureComponent {
   render() {
     const {
       className,
-      classes,
       component: CellPlaceholder,
       position,
       selected,
@@ -32,8 +37,10 @@ class FixedCellBase extends React.PureComponent {
       ...restProps
     } = this.props;
 
+    const StyledCellPlaceholder = styled(CellPlaceholder)(styles);
+
     return (
-      <CellPlaceholder
+      <StyledCellPlaceholder
         className={classNames({
           [classes.dividerLeft]: showLeftDivider,
           [classes.dividerRight]: showRightDivider,
@@ -50,9 +57,8 @@ class FixedCellBase extends React.PureComponent {
   }
 }
 
-FixedCellBase.propTypes = {
+FixedCell.propTypes = {
   component: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   position: PropTypes.number,
   selected: PropTypes.bool,
@@ -62,7 +68,7 @@ FixedCellBase.propTypes = {
   style: PropTypes.object,
 };
 
-FixedCellBase.defaultProps = {
+FixedCell.defaultProps = {
   className: undefined,
   position: undefined,
   selected: false,
@@ -70,5 +76,3 @@ FixedCellBase.defaultProps = {
   showRightDivider: false,
   style: null,
 };
-
-export const FixedCell = withStyles(styles, { name: 'TableFixedCell' })(FixedCellBase);

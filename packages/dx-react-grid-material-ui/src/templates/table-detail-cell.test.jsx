@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { TableDetailCell } from './table-detail-cell';
+import { createShallow } from '@devexpress/dx-testing';
+import { TableDetailCell, classes } from './table-detail-cell';
 
 describe('TableDetailCell', () => {
   let shallow;
-  let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<TableDetailCell template={() => (<div />)} />);
   });
 
   it('should pass the className prop to the root element', () => {

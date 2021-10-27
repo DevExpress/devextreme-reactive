@@ -1,11 +1,17 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import { getBorder } from '../utils';
 
-const styles = theme => ({
-  headerCellBorder: {
+const PREFIX = 'BandedHeaderCell';
+export const classes = {
+  headerCellBorder: `${PREFIX}-headerCellBorder`,
+  beforeBorder: `${PREFIX}-beforeBorder`,
+};
+
+const styles = ({ theme }) => ({
+  [`&.${classes.headerCellBorder}`]: {
     borderRight: getBorder(theme),
     borderTop: 'none',
     '&:last-child': {
@@ -14,33 +20,33 @@ const styles = theme => ({
     verticalAlign: 'bottom',
     paddingBottom: theme.spacing(2),
   },
-  beforeBorder: {
+  [`&.${classes.beforeBorder}`]: {
     borderLeft: getBorder(theme),
   },
 });
 
-export const BandedHeaderCellBase = ({
-  component: HeaderCellComponent, className, classes, beforeBorder, ...restProps
-}) => (
-  <HeaderCellComponent
-    className={classNames({
-      [classes.headerCellBorder]: true,
-      [classes.beforeBorder]: beforeBorder,
-    }, className)}
-    {...restProps}
-  />
-);
+export const BandedHeaderCell = ({
+  component: HeaderCellComponent, className, beforeBorder, ...restProps
+}) => {
+  const StyledHeaderCellComponent = styled(HeaderCellComponent)(styles);
+  return (
+    <StyledHeaderCellComponent
+      className={classNames({
+        [classes.headerCellBorder]: true,
+        [classes.beforeBorder]: beforeBorder,
+      }, className)}
+      {...restProps}
+    />
+  );
+};
 
-BandedHeaderCellBase.propTypes = {
+BandedHeaderCell.propTypes = {
   component: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   beforeBorder: PropTypes.bool,
 };
 
-BandedHeaderCellBase.defaultProps = {
+BandedHeaderCell.defaultProps = {
   className: undefined,
   beforeBorder: false,
 };
-
-export const BandedHeaderCell = withStyles(styles, { name: 'BandedHeaderCell' })(BandedHeaderCellBase);

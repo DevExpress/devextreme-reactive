@@ -1,29 +1,31 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
-const styles = theme => ({
-  item: {
+const PREFIX = 'TableSummaryItem';
+export const classes = {
+  item: `${PREFIX}-item`,
+};
+
+const StyledDiv = styled('div')(({ theme }) => ({
+  [`&.${classes.item}`]: {
     fontWeight: theme.typography.fontWeightBold,
     color: theme.palette.text.primary,
     fontSize: theme.typography.pxToRem(13),
   },
-});
+}));
 
-const TableSummaryItemBase = ({
+export const TableSummaryItem = ({
   children,
   type,
   value,
   getMessage,
-  classes,
   className,
   ...restProps
 }) => (
-  <div
-    className={classNames({
-      [classes.item]: true,
-    }, className)}
+  <StyledDiv
+    className={classNames([classes.item], className)}
     {...restProps}
   >
     {
@@ -33,22 +35,19 @@ const TableSummaryItemBase = ({
         {children}
       </React.Fragment>
     }
-  </div>
+  </StyledDiv>
 );
 
-TableSummaryItemBase.propTypes = {
+TableSummaryItem.propTypes = {
   value: PropTypes.number,
   type: PropTypes.string.isRequired,
   getMessage: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
 };
 
-TableSummaryItemBase.defaultProps = {
+TableSummaryItem.defaultProps = {
   value: null,
   children: undefined,
   className: undefined,
 };
-
-export const TableSummaryItem = withStyles(styles)(TableSummaryItemBase);

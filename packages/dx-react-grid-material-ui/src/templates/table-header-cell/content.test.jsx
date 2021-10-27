@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { Content } from './content';
+import { createShallow } from '@devexpress/dx-testing';
+import { Content, classes } from './content';
 
 const defaultProps = {
   classes: {},
@@ -9,10 +9,8 @@ const defaultProps = {
 
 describe('Content', () => {
   let shallow;
-  let classes;
   beforeAll(() => {
-    shallow = createShallow({ untilSelector: 'ContentBase' });
-    classes = getClasses(<Content {...defaultProps} />);
+    shallow = createShallow();
   });
   afterAll(() => {
     shallow.cleanUp();

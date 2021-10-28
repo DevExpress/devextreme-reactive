@@ -40,7 +40,7 @@ describe('AppointmentForm recurrence', () => {
   };
   let shallow;
   beforeAll(() => {
-    shallow = createShallow({ dive: true });
+    shallow = createShallow();
   });
   beforeEach(() => {
     getRecurrenceOptions.mockImplementation(() => ({ freq: 3 }));

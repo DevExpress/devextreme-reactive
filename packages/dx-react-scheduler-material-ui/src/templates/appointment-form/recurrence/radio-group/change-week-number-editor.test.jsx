@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow, getClasses, createMount } from '@devexpress/dx-testing';
-import { ChangeWeekNumberEditor } from './change-week-number-editor';
+import { createShallow, createMount } from '@devexpress/dx-testing';
+import { ChangeWeekNumberEditor, classes } from './change-week-number-editor';
 
 describe('AppointmentForm recurrence RadioGroup', () => {
   const defaultProps = {
@@ -17,12 +17,10 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     changeDayOfWeek: jest.fn(),
     getMessage: jest.fn(),
   };
-  let classes;
   let shallow;
   let mount;
   beforeAll(() => {
-    classes = getClasses(<ChangeWeekNumberEditor {...defaultProps} />);
-    shallow = createShallow({ dive: true });
+    shallow = createShallow();
   });
   beforeEach(() => {
     mount = createMount();

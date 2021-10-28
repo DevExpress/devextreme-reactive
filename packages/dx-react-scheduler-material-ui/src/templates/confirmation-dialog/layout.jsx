@@ -1,20 +1,30 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
-import withStyles from '@mui/styles/withStyles';
 import { SMALL_LAYOUT_MEDIA_QUERY } from '../constants';
 
-const styles = ({ typography }) => ({
-  title: {
+const PREFIX = 'Layout';
+
+export const classes = {
+  title: `${PREFIX}-title`,
+  media: `${PREFIX} - ${SMALL_LAYOUT_MEDIA_QUERY}`,
+};
+
+const Root = styled('div')(({
+  theme: { typography },
+}) => ({
+  [`& .${classes.title}`]: {
     ...typography.h6,
   },
-  [`${SMALL_LAYOUT_MEDIA_QUERY}`]: {
+
+  [`& .${classes.media}`]: {
     title: {
       fontSize: '1.1rem',
     },
   },
-});
+}));
 
 const LayoutBase = React.memo(({
   buttonComponent: Button,
@@ -23,10 +33,9 @@ const LayoutBase = React.memo(({
   getMessage,
   isDeleting,
   appointmentData,
-  classes,
   ...restProps
 }) => (
-  <div
+  <Root
     {...restProps}
   >
     <DialogTitle className={classes.title}>
@@ -40,7 +49,7 @@ const LayoutBase = React.memo(({
         color="primary"
       />
     </DialogActions>
-  </div>
+  </Root>
 ));
 
 LayoutBase.propTypes = {
@@ -69,4 +78,4 @@ LayoutBase.defaultProps = {
   appointmentData: { startDate: new Date(), endDate: new Date() },
 };
 
-export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);
+export const Layout = (LayoutBase);

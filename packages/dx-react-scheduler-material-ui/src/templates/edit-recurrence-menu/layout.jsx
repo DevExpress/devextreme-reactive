@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -6,15 +7,26 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import withStyles from '@mui/styles/withStyles';
 import { SMALL_LAYOUT_MEDIA_QUERY } from '../constants';
 
-const styles = ({ typography }) => ({
-  title: typography.h6,
-  content: {
+const PREFIX = 'Layout';
+
+export const classes = {
+  title: `${PREFIX}-title`,
+  content: `${PREFIX}-content`,
+  media: `${PREFIX}-${SMALL_LAYOUT_MEDIA_QUERY}`,
+};
+
+const Root = styled('div')(({
+  theme: { typography },
+}) => ({
+  [`& .${classes.title}`]: typography.h6,
+
+  [`& .${classes.content}`]: {
     fontSize: '1rem',
   },
-  [`${SMALL_LAYOUT_MEDIA_QUERY}`]: {
+
+  [`& .${classes.media}`]: {
     title: {
       fontSize: '1.1rem',
     },
@@ -22,7 +34,7 @@ const styles = ({ typography }) => ({
       fontSize: '0.9rem',
     },
   },
-});
+}));
 
 const LayoutBase = React.memo(({
   buttonComponent: Button,
@@ -31,7 +43,6 @@ const LayoutBase = React.memo(({
   availableOperations,
   getMessage,
   isDeleting,
-  classes,
   ...restProps
 }) => {
   const [currentValue, setCurrentValue] = React.useState(availableOperations[0].value);
@@ -46,7 +57,7 @@ const LayoutBase = React.memo(({
   };
 
   return (
-    <div
+    <Root
       {...restProps}
     >
       <DialogTitle className={classes.title}>
@@ -72,7 +83,7 @@ const LayoutBase = React.memo(({
         <Button onClick={handleClose} title={getMessage('cancelButton')} />
         <Button onClick={onCommitButtonClick} title={getMessage('commitButton')} color="primary" />
       </DialogActions>
-    </div>
+    </Root>
   );
 });
 
@@ -93,4 +104,4 @@ LayoutBase.defaultProps = {
   isDeleting: false,
 };
 
-export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);
+export const Layout = (LayoutBase);

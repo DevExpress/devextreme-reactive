@@ -1,37 +1,52 @@
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import classNames from 'clsx';
 import Radio from '@mui/material/Radio';
 import Grid from '@mui/material/Grid';
 import { NUMBER_EDITOR } from '@devexpress/dx-scheduler-core';
 
-const styles = ({ spacing }) => ({
-  textEditor: {
+const PREFIX = 'ChangeMonthEditor';
+
+export const classes = {
+  textEditor: `${PREFIX}-textEditor`,
+  label: `${PREFIX}-label`,
+  select: `${PREFIX}-select`,
+  formControl: `${PREFIX}-formControl`,
+  controlLabel: `${PREFIX}-controlLabel`,
+};
+
+const StyledGrid = styled(Grid)(({
+  theme: { spacing },
+}) => ({
+  [`& .${classes.textEditor}`]: {
     width: 'calc((100% - 5.5em) * 4 / 7)',
     minWidth: 'calc(100% - 13.5em)',
     marginLeft: '1em',
   },
-  label: {
+
+  [`& .${classes.label}`]: {
     width: '4.5em',
   },
-  select: {
+
+  [`& .${classes.select}`]: {
     width: 'calc((100% - 5.5em) * 3 / 7)',
     maxWidth: '8em',
   },
-  formControl: {
+
+  [`& .${classes.formControl}`]: {
     marginRight: 0,
     marginTop: spacing(1),
     marginBottom: spacing(1),
   },
-  controlLabel: {
+
+  [`& .${classes.controlLabel}`]: {
     width: '100%',
   },
-});
+}));
 
 const ChangeMonthEditorBase = React.memo(({
-  classes,
   getMessage,
   labelComponent: Label,
   textEditorComponent: TextEditor,
@@ -54,7 +69,7 @@ const ChangeMonthEditorBase = React.memo(({
     disabled={readOnly}
     {...restProps}
     label={(
-      <Grid
+      <StyledGrid
         container
         direction="row"
         justifyContent="flex-start"
@@ -78,7 +93,7 @@ const ChangeMonthEditorBase = React.memo(({
           type={NUMBER_EDITOR}
           onValueChange={changeByMonthDay}
         />
-      </Grid>
+      </StyledGrid>
     )}
   />
 ));
@@ -109,4 +124,4 @@ ChangeMonthEditorBase.defaultProps = {
   readOnlyEditors: false,
 };
 
-export const ChangeMonthEditor = withStyles(styles)(ChangeMonthEditorBase, { name: 'ChangeMonthEditor' });
+export const ChangeMonthEditor = (ChangeMonthEditorBase);

@@ -1,27 +1,36 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import MenuItem from '@mui/material/MenuItem';
-import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 import TextField from '@mui/material/TextField';
 
-const styles = ({ typography, spacing }) => ({
-  filledSelect: {
+const PREFIX = 'FilledSelect';
+
+export const classes = {
+  filledSelect: `${PREFIX}-filledSelect`,
+  menuItem: `${PREFIX}-menuItem`,
+};
+
+const StyledTextField = styled(TextField)(({
+  theme: { typography, spacing },
+}) => ({
+  [`&.${classes.filledSelect}`]: {
     marginTop: spacing(0.375),
     marginBottom: spacing(0.125),
   },
-  menuItem: {
+
+  [`& .${classes.menuItem}`]: {
     fontSize: typography.fontSize,
     textTransform: 'uppercase',
   },
-});
+}));
 
 const FilledSelectBase = React.memo(({
   value,
   availableOptions,
   onValueChange,
   readOnly,
-  classes,
   className,
   ...restProps
 }) => {
@@ -30,7 +39,7 @@ const FilledSelectBase = React.memo(({
   };
 
   return (
-    <TextField
+    <StyledTextField
       select
       className={classNames(classes.filledSelect, className)}
       value={value}
@@ -49,7 +58,7 @@ const FilledSelectBase = React.memo(({
           {option.text}
         </MenuItem>
       ))}
-    </TextField>
+    </StyledTextField>
   );
 });
 
@@ -72,4 +81,4 @@ FilledSelectBase.defaultProps = {
   className: undefined,
 };
 
-export const FilledSelect = withStyles(styles)(FilledSelectBase, { name: 'FilledSelect' });
+export const FilledSelect = (FilledSelectBase);

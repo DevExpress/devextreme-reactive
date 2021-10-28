@@ -1,17 +1,15 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { Cell } from './cell';
+import { createShallow } from '@devexpress/dx-testing';
+import { Cell, classes } from './cell';
 
 describe('Vertical view DayScale', () => {
   const defaultProps = {
     startDate: new Date(2018, 6, 7, 16, 20),
     formatDate: () => undefined,
   };
-  let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Cell {...defaultProps} />);
-    shallow = createShallow({ dive: true });
+    shallow = createShallow();
   });
   describe('Cell', () => {
     it('should pass className to the root element', () => {

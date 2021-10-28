@@ -13,7 +13,7 @@ describe('AppointmentForm common select', () => {
   let shallow;
   let mount;
   beforeAll(() => {
-    shallow = createShallow({ dive: true });
+    shallow = createShallow();
   });
   beforeEach(() => {
     mount = createMount();

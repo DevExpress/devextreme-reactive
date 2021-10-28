@@ -1,47 +1,68 @@
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import classNames from 'clsx';
 import Radio from '@mui/material/Radio';
 import Grid from '@mui/material/Grid';
 
-const styles = ({ spacing }) => ({
-  label: {
+const PREFIX = 'ChangeWeekNumberEditor';
+
+export const classes = {
+  label: `${PREFIX}-label`,
+  select: `${PREFIX}-select`,
+  longSelect: `${PREFIX}-longSelect`,
+  formControlLabel: `${PREFIX}-formControlLabel`,
+  formControl: `${PREFIX}-formControl`,
+  doubleSelect: `${PREFIX}-doubleSelect`,
+  radioButton: `${PREFIX}-radioButton`,
+  controlLabel: `${PREFIX}-controlLabel`,
+};
+
+const Root = styled('div')(({
+  theme: { spacing },
+}) => ({
+  [`& .${classes.label}`]: {
     width: '4.5em',
   },
-  select: {
+
+  [`& .${classes.select}`]: {
     width: 'calc((100% - 5.5em) * 3 / 7)',
     maxWidth: '8em',
   },
-  longSelect: {
+
+  [`& .${classes.longSelect}`]: {
     width: 'calc((100% - 5.5em) * 4 / 7)',
     minWidth: 'calc(100% - 13.5em)',
     marginLeft: '1em',
   },
-  formControlLabel: {
+
+  [`& .${classes.formControlLabel}`]: {
     alignItems: 'flex-start',
   },
-  formControl: {
+
+  [`& .${classes.formControl}`]: {
     marginRight: 0,
     marginTop: spacing(1),
     marginBottom: spacing(1),
   },
-  doubleSelect: {
+
+  [`& .${classes.doubleSelect}`]: {
     marginLeft: '4.5em',
     width: 'calc(100% - 4.5em)',
     marginTop: spacing(1),
   },
-  radioButton: {
+
+  [`& .${classes.radioButton}`]: {
     marginTop: spacing(0.75),
   },
-  controlLabel: {
+
+  [`& .${classes.controlLabel}`]: {
     width: '100%',
   },
-});
+}));
 
 const ChangeWeekNumberEditorBase = React.memo(({
-  classes,
   getMessage,
   labelComponent: Label,
   selectComponent: Select,
@@ -67,7 +88,7 @@ const ChangeWeekNumberEditorBase = React.memo(({
     disabled={readOnly}
     {...restProps}
     label={(
-      <div>
+      <Root>
         <Grid
           container
           direction="row"
@@ -100,7 +121,7 @@ const ChangeWeekNumberEditorBase = React.memo(({
           readOnly={readOnlyEditors}
           availableOptions={months}
         />
-      </div>
+      </Root>
     )}
   />
 ));
@@ -140,4 +161,4 @@ ChangeWeekNumberEditorBase.defaultProps = {
   readOnlyEditors: false,
 };
 
-export const ChangeWeekNumberEditor = withStyles(styles)(ChangeWeekNumberEditorBase, { name: 'ChangeWeekNumberEditor' });
+export const ChangeWeekNumberEditor = (ChangeWeekNumberEditorBase);

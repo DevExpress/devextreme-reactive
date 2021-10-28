@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { Layout } from './layout';
+import { createShallow } from '@devexpress/dx-testing';
+import { Layout, classes } from './layout';
 
 describe('ConfirmationDialog', () => {
   let shallow;
-  let classes;
   const defaultProps = {
     handleCancel: jest.fn(),
     handleConfirm: jest.fn(),
@@ -13,8 +12,7 @@ describe('ConfirmationDialog', () => {
     buttonComponent: ({ children }) => <div>{children}</div>,
   };
   beforeAll(() => {
-    shallow = createShallow({ dive: true });
-    classes = getClasses(<Layout {...defaultProps} />);
+    shallow = createShallow();
   });
   beforeEach(() => {
     jest.resetAllMocks();

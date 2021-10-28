@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow, getClasses, createMount } from '@devexpress/dx-testing';
-import { ChangeMonthEditor } from './change-month-editor';
+import { createShallow, createMount } from '@devexpress/dx-testing';
+import { ChangeMonthEditor, classes } from './change-month-editor';
 
 describe('AppointmentForm recurrence RadioGroup', () => {
   const defaultProps = {
@@ -14,12 +14,10 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     changeByMonthDay: jest.fn(),
     getMessage: jest.fn(),
   };
-  let classes;
   let shallow;
   let mount;
   beforeAll(() => {
-    classes = getClasses(<ChangeMonthEditor {...defaultProps} />);
-    shallow = createShallow({ dive: true });
+    shallow = createShallow();
   });
   beforeEach(() => {
     mount = createMount();

@@ -2,8 +2,10 @@ import * as React from 'react';
 import { shallow as enzymeShallow } from 'enzyme';
 import { createShallow } from '@devexpress/dx-testing';
 import DateTimePicker from '@mui/lab/DateTimePicker';
-import { convertToMoment } from '@devexpress/dx-scheduler-core';
+import * as coreUtils from '@devexpress/dx-scheduler-core';
 import { DateEditor } from './date-editor';
+
+const getMomentInstanceWithLocale = jest.spyOn(coreUtils, 'getMomentInstanceWithLocale');
 
 describe('AppointmentForm common', () => {
   const defaultProps = {
@@ -12,7 +14,7 @@ describe('AppointmentForm common', () => {
   };
   let shallow;
   beforeAll(() => {
-    shallow = createShallow({ dive: true });
+    shallow = createShallow();
   });
 
   describe('DateEditor', () => {
@@ -45,7 +47,7 @@ describe('AppointmentForm common', () => {
 
       const dateTimePicker = tree.find(DateTimePicker);
 
-      dateTimePicker.at(0).simulate('change', convertToMoment(new Date()));
+      dateTimePicker.at(0).simulate('change', coreUtils.convertToMoment(new Date()));
       expect(defaultProps.onValueChange)
         .toBeCalled();
     });
@@ -71,6 +73,23 @@ describe('AppointmentForm common', () => {
 
       expect(tree.find(DateTimePicker).at(0).prop('inputFormat'))
         .toBe('DD/MM/YYYY hh:mm A');
+    });
+
+    it('should pass correct props to Localization Adapter', () => {
+      const tree = shallow((
+        <DateEditor
+          {...defaultProps}
+          locale="ru-RU"
+        />
+      ));
+
+      expect(getMomentInstanceWithLocale)
+        .toHaveBeenCalledWith('ru-RU');
+      expect(tree.props())
+        .toMatchObject({
+          locale: 'ru-RU',
+          dateLibInstance: expect.anything(),
+        });
     });
   });
 });

@@ -4,6 +4,7 @@ import AdapterMoment from '@mui/lab/AdapterMoment';
 import TextField from '@mui/material/TextField';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import { getMomentInstanceWithLocale } from '@devexpress/dx-scheduler-core';
 
 const DateEditorBase = React.memo(({
   classes,
@@ -21,7 +22,11 @@ const DateEditorBase = React.memo(({
   const dateFormat = excludeTime ? 'DD/MM/YYYY' : 'DD/MM/YYYY hh:mm A';
 
   return (
-    <LocalizationProvider dateAdapter={AdapterMoment}>
+    <LocalizationProvider
+      dateAdapter={AdapterMoment}
+      locale={locale}
+      dateLibInstance={getMomentInstanceWithLocale(locale)}
+    >
       <DateTimePicker
         disabled={readOnly}
         renderInput={props => <TextField className={className} margin="normal" {...props} />}

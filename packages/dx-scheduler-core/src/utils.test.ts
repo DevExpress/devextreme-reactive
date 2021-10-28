@@ -10,6 +10,7 @@ import {
   excludedIntervals,
 } from './utils';
 import { addDateToKey } from '.';
+import { getMomentInstanceWithLocale } from '../dist/dx-scheduler-core.umd';
 
 const PACIFIC_TIMEZONE_OFFSET = 480;
 
@@ -445,6 +446,14 @@ describe('Utils', () => {
 
       expect(addDateToKey('test', date))
         .toBe(`test_${(new Date('2019-04-10 0:00')).toString()}`);
+    });
+  });
+  describe('#getMomentInstanceWithLocale', () => {
+    it('should return moment with specified locale', () => {
+      const momentWithLocale = getMomentInstanceWithLocale('ru-RU');
+
+      expect(momentWithLocale.locale())
+        .toBe('ru');
     });
   });
 });

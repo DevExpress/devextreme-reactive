@@ -180,3 +180,9 @@ export const formatDateToString = (date: Date | string | number) => moment.utc(d
 export const addDateToKey: PureComputed<
   [AppointmentKey, moment.Moment], AppointmentKey
 > = (prevKey, momentDate) => `${prevKey}_${momentDate.toDate().toString()}`;
+
+export const getMomentInstanceWithLocale = (locale: string) => {
+  moment.locale(locale);
+
+  return moment;
+}

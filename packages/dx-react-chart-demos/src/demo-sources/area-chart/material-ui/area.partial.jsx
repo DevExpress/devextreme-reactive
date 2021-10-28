@@ -1,45 +1,30 @@
 // BLOCK:imports
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 // BLOCK:imports
 
 // BLOCK:body
-const chartRootStyles = {
-  chart: {
-    paddingRight: '20px',
-  },
-};
-const legendStyles = {
-  root: {
-    display: 'flex',
-    margin: 'auto',
-    flexDirection: 'row',
-  },
-};
-const legendLabelStyles = theme => ({
-  label: {
-    paddingTop: theme.spacing(1),
-  },
-});
-const legendItemStyles = {
-  item: {
-    flexDirection: 'column',
-  },
+const PREFIX = 'Demo';
+
+const classes = {
+  chart: `${PREFIX}-chart`,
 };
 
-const ChartRootBase = ({ classes, ...restProps }) => (
-  <Chart.Root {...restProps} className={classes.chart} />
+const StyledChartRoot = styled(Chart.Root)(() => ({
+  [`&.${classes.chart}`]: {
+    paddingRight: '20px',
+  },
+}));
+
+const ChartRoot = props => (
+  <StyledChartRoot {...props} className={classes.chart} />
 );
-const LegendRootBase = ({ classes, ...restProps }) => (
-  <Legend.Root {...restProps} className={classes.root} />
+const LegendRoot = props => (
+  <Legend.Root {...props} sx={{ display: 'flex', margin: 'auto', flexDirection: 'row' }} />
 );
-const LegendLabelBase = ({ classes, ...restProps }) => (
-  <Legend.Label {...restProps} className={classes.label} />
+const LegendLabel = props => (
+  <Legend.Label {...props} sx={{ pt: 1 }} />
 );
-const LegendItemBase = ({ classes, ...restProps }) => (
-  <Legend.Item {...restProps} className={classes.item} />
+const LegendItem = props => (
+  <Legend.Item {...props} sx={{ flexDirection: 'column' }} />
 );
-const ChartRoot = withStyles(chartRootStyles, { name: 'ChartRoot' })(ChartRootBase);
-const LegendRoot = withStyles(legendStyles, { name: 'LegendRoot' })(LegendRootBase);
-const LegendLabel = withStyles(legendLabelStyles, { name: 'LegendLabel' })(LegendLabelBase);
-const LegendItem = withStyles(legendItemStyles, { name: 'LegendItem' })(LegendItemBase);
 // BLOCK:body

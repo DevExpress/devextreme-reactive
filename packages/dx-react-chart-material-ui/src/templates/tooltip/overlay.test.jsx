@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Popper from '@mui/material/Popper';
-import { createMount, getClasses } from '@devexpress/dx-testing';
-import { Overlay } from './overlay';
+import { createMount } from '@devexpress/dx-testing';
+import { Overlay, classes } from './overlay';
 
 describe('Overlay', () => {
   const ArrowComponent = () => null;
@@ -12,7 +12,6 @@ describe('Overlay', () => {
     arrowComponent: ArrowComponent,
   };
   let mount;
-  const classes = getClasses(<Overlay {...defaultProps}>Test</Overlay>);
 
   beforeEach(() => {
     mount = createMount();
@@ -35,8 +34,8 @@ describe('Overlay', () => {
       open: true,
       anchorEl: defaultProps.target,
       placement: 'top',
-      className: classes.popper,
     });
+    expect(tree.find(Popper).is(`.${classes.popper}`)).toBeTruthy();
     expect(tree.find(ArrowComponent).props()).toMatchObject({
       placement: 'top',
     });
@@ -84,8 +83,8 @@ describe('Overlay', () => {
       open: true,
       anchorEl: defaultProps.target,
       placement: 'right',
-      className: classes.popper,
     });
+    expect(tree.find(Popper).is(`.${classes.popper}`)).toBeTruthy();
     expect(tree.find(ArrowComponent).props()).toMatchObject({
       placement: 'right',
     });

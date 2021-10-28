@@ -1,8 +1,8 @@
 import { Axis } from '@devexpress/dx-react-chart';
-import { withClassName } from '../utils';
+import { withClassName, classes } from '../utils';
 
 const styles = () => ({
-  root: {
+  [`&.${classes.root}`]: {
     shapeRendering: 'crispEdges',
   },
 });

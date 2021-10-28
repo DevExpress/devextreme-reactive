@@ -1,8 +1,8 @@
 import List from '@mui/material/List';
-import { withClassName } from '../utils';
+import { withClassName, classes } from '../utils';
 
 const styles = () => ({
-  root: {
+  [`&.${classes.root}`]: {
     paddingTop: 16,
     paddingBottom: 16,
   },

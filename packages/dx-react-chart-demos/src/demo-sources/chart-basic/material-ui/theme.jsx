@@ -4,10 +4,10 @@ import {
   Chart,
   PieSeries,
 } from '@devexpress/dx-react-chart-material-ui';
-import withStyles from '@mui/styles/withStyles';
 import Typography from '@mui/material/Typography';
 import NativeSelect from '@mui/material/NativeSelect';
 import FormControl from '@mui/material/FormControl';
+import { styled } from '@mui/material/styles';
 import {
   schemeCategory10,
   schemeAccent,
@@ -34,33 +34,45 @@ const schemeCollection = [
   schemeSet3,
 ];
 
-const demoStyles = theme => ({
-  typography: {
-    marginTop: 0,
-    marginBottom: theme.spacing(1),
-  },
-  div: {
+const PREFIX = 'Demo';
+
+const classes = {
+  typography: `${PREFIX}-typography`,
+  div: `${PREFIX}-div`,
+  item: `${PREFIX}-item`,
+  schemeConteiner: `${PREFIX}-schemeConteiner`,
+};
+
+const StyledDiv = styled('div')(({ theme }) => ({
+  [`&.${classes.div}`]: {
     width: '200px',
     marginLeft: '50px',
     paddingBottom: '30px',
   },
-  item: {
+  [`&.${classes.item}`]: {
     width: '40px',
     height: '40px',
   },
-  schemeConteiner: {
+  [`&.${classes.schemeConteiner}`]: {
     display: 'flex',
     justifyContent: 'center',
     marginTop: theme.spacing(1),
   },
-});
+}));
+
+const StyledTypography = styled(Typography)(({ theme }) => ({
+  [`&.${classes.typography}`]: {
+    marginTop: 0,
+    marginBottom: theme.spacing(1),
+  },
+}));
 
 const data = [];
 for (let i = 0; i < 15; i += 1) {
   data.push({ category: `item${i}`, val: 1 });
 }
 
-class Demo extends React.PureComponent {
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -78,7 +90,6 @@ class Demo extends React.PureComponent {
 
   render() {
     const { data: chartData, scheme } = this.state;
-    const { classes } = this.props;
 
     return (
       <Paper>
@@ -91,17 +102,17 @@ class Demo extends React.PureComponent {
             argumentField="category"
           />
         </Chart>
-        <div className={classes.schemeConteiner}>
+        <StyledDiv className={classes.schemeConteiner}>
           {scheme.map(color => (
-            <div
+            <StyledDiv
               key={color}
               className={classes.item}
               style={{ backgroundColor: color }}
             />
           ))}
-        </div>
-        <div className={classes.div}>
-          <Typography component="h5" variant="h5" className={classes.typography}>Scheme</Typography>
+        </StyledDiv>
+        <StyledDiv className={classes.div}>
+          <StyledTypography component="h5" variant="h5" className={classes.typography}>Scheme</StyledTypography>
           <FormControl>
             <NativeSelect onChange={this.changeScheme} defaultValue={0}>
               <option value={0}>schemeCategory10</option>
@@ -115,10 +126,8 @@ class Demo extends React.PureComponent {
               <option value={8}>schemeSet3</option>
             </NativeSelect>
           </FormControl>
-        </div>
+        </StyledDiv>
       </Paper>
     );
   }
 }
-
-export default withStyles(demoStyles, { name: 'Demo' })(Demo);

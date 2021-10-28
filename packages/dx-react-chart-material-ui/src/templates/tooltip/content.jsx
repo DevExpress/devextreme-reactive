@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
-import { withClassName } from '../utils';
+import { withClassName, classes } from '../utils';
 
-const styles = theme => ({
-  root: {
+const styles = ({ theme }) => ({
+  [`&.${classes.root}`]: {
     fontSize: 14,
     padding: theme.spacing(0.5),
   },

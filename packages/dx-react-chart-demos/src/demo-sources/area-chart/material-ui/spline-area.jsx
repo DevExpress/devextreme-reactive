@@ -8,7 +8,7 @@ import {
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-material-ui';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import { ArgumentScale, Animation } from '@devexpress/dx-react-chart';
 import {
   curveCatmullRom,
@@ -30,31 +30,22 @@ const data = [
   { month: 'Nov', appStore: 120, googlePlay: 35 },
   { month: 'Dec', appStore: 160, googlePlay: 45 },
 ];
-const legendStyles = () => ({
-  root: {
-    display: 'flex',
-    margin: 'auto',
-    flexDirection: 'row',
-  },
-});
-const legendRootBase = ({ classes, ...restProps }) => (
-  <Legend.Root {...restProps} className={classes.root} />
+const PREFIX = 'Demo';
+
+const classes = {
+  chart: `${PREFIX}-chart`,
+};
+const Root = props => (
+  <Legend.Root {...props} sx={{ display: 'flex', margin: 'auto', flexDirection: 'row' }} />
 );
-const Root = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
-const legendLabelStyles = () => ({
-  label: {
-    whiteSpace: 'nowrap',
-  },
-});
-const legendLabelBase = ({ classes, ...restProps }) => (
-  <Legend.Label className={classes.label} {...restProps} />
+const Label = props => (
+  <Legend.Label {...props} sx={{ whiteSpace: 'nowrap' }} />
 );
-const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
-const demoStyles = () => ({
-  chart: {
+const StyledChart = styled(Chart)(() => ({
+  [`&.${classes.chart}`]: {
     paddingRight: '20px',
   },
-});
+}));
 
 const Area = props => (
   <AreaSeries.Path
@@ -67,7 +58,7 @@ const Area = props => (
   />
 );
 
-class Demo extends React.PureComponent {
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -78,10 +69,9 @@ class Demo extends React.PureComponent {
 
   render() {
     const { data: chartData } = this.state;
-    const { classes } = this.props;
     return (
       <Paper>
-        <Chart
+        <StyledChart
           data={chartData}
           className={classes.chart}
         >
@@ -104,10 +94,8 @@ class Demo extends React.PureComponent {
           <Animation />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
           <Title text="iOS App Store vs Google Play Revenue in 2012" />
-        </Chart>
+        </StyledChart>
       </Paper>
     );
   }
 }
-
-export default withStyles(demoStyles, { name: 'Demo' })(Demo);

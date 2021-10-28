@@ -8,31 +8,16 @@ import {
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-material-ui';
-import withStyles from '@mui/styles/withStyles';
 import { Stack, Animation } from '@devexpress/dx-react-chart';
 
 import { olimpicMedals as data } from '../../../demo-data/data-vizualization';
 
-const legendStyles = () => ({
-  root: {
-    display: 'flex',
-    margin: 'auto',
-    flexDirection: 'row',
-  },
-});
-const legendRootBase = ({ classes, ...restProps }) => (
-  <Legend.Root {...restProps} className={classes.root} />
+const Root = props => (
+  <Legend.Root {...props} sx={{ display: 'flex', margin: 'auto', flexDirection: 'row' }} />
 );
-const Root = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
-const legendLabelStyles = () => ({
-  label: {
-    whiteSpace: 'nowrap',
-  },
-});
-const legendLabelBase = ({ classes, ...restProps }) => (
-  <Legend.Label className={classes.label} {...restProps} />
+const Label = props => (
+  <Legend.Label {...props} sx={{ whiteSpace: 'nowrap' }} />
 );
-const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { createMount, getClasses } from '@devexpress/dx-testing';
+import { createMount } from '@devexpress/dx-testing';
 import ListItemText from '@mui/material/ListItemText';
+import { classes } from '../utils';
 import { Label } from './label';
 
 const defaultProps = { text: 'a' };
 
 describe('Label', () => {
   let mount;
-  const classes = getClasses(<Label {...defaultProps} />);
 
   beforeEach(() => {
     mount = createMount();

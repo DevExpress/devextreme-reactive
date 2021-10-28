@@ -7,42 +7,42 @@ import {
   BarSeries,
   Legend,
 } from '@devexpress/dx-react-chart-material-ui';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
 import { Stack } from '@devexpress/dx-react-chart';
 
 import { ageStructure } from '../../../demo-data/data-vizualization';
 
-const styles = theme => ({
-  title: {
+const PREFIX = 'Demo';
+
+const classes = {
+  title: `${PREFIX}-title`,
+};
+
+const StyledH2 = styled('h2')(({ theme }) => ({
+  [`&.${classes.title}`]: {
     marginLeft: theme.spacing(2),
     marginBottom: 0,
     marginRight: theme.spacing(2),
   },
-  item: {
-    flexDirection: 'row-reverse',
-  },
-  label: {
-    textAlign: 'right',
-  },
-});
+}));
 
-const RootWithTitle = withStyles(styles)(({ classes, ...restProps }) => (
+const RootWithTitle = props => (
   <div>
-    <h2 className={classes.title}>
+    <StyledH2 className={classes.title}>
       <span role="img" aria-label="family">👪 Population</span>
-    </h2>
-    <Legend.Root {...restProps} />
+    </StyledH2>
+    <Legend.Root {...props} />
   </div>
-));
+);
 
-const Item = withStyles(styles)(({ classes, ...restProps }) => (
-  <Legend.Item {...restProps} className={classes.item} />
-));
+const Item = props => (
+  <Legend.Item {...props} sx={{ flexDirection: 'row-reverse' }} />
+);
 
-const Label = withStyles(styles)(({ classes, ...restProps }) => (
-  <Legend.Label {...restProps} className={classes.label} />
-));
+const Label = props => (
+  <Legend.Label {...props} sx={{ textAlign: 'right' }} />
+);
 
 const stacks = [
   { series: ['👶 Young', '🧑 Adult', '🧓 Old'] },

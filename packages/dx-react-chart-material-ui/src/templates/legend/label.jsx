@@ -1,9 +1,9 @@
 import * as React from 'react';
 import ListItemText from '@mui/material/ListItemText';
-import { withClassName } from '../utils';
+import { withClassName, classes } from '../utils';
 
 const styles = () => ({
-  root: {
+  [`&.${classes.root}`]: {
     fontSize: 14,
     paddingLeft: 8,
     paddingRight: 8,

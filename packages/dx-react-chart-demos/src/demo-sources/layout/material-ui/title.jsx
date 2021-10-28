@@ -8,21 +8,26 @@ import {
   Legend,
   Title,
 } from '@devexpress/dx-react-chart-material-ui';
-import withStyles from '@mui/styles/withStyles';
-
+import { styled } from '@mui/material/styles';
 import { Stack } from '@devexpress/dx-react-chart';
 
 import { ageStructure } from '../../../demo-data/data-vizualization';
 
-const styles = {
-  titleText: {
-    textAlign: 'left',
-  },
+const PREFIX = 'Demo';
+
+const classes = {
+  titleText: `${PREFIX}-titleText`,
 };
 
-const TextComponent = withStyles(styles)(({ classes, ...restProps }) => (
-  <Title.Text {...restProps} className={classes.titleText} />
-));
+const StyledText = styled(Title.Text)(() => ({
+  [`&.${classes.titleText}`]: {
+    textAlign: 'left',
+  },
+}));
+
+const TextComponent = props => (
+  <StyledText {...props} className={classes.titleText} />
+);
 
 const stacks = [
   { series: ['👶 Young', '🧑 Adult', '🧓 Old'] },

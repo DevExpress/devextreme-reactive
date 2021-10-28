@@ -185,4 +185,4 @@ export const getMomentInstanceWithLocale = (locale: string) => {
   moment.locale(locale);
 
   return moment;
-}
+};

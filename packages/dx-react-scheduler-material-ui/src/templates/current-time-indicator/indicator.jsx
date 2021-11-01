@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material";
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 
@@ -34,14 +34,12 @@ const StyledDiv = styled('div')(({ theme, topValue }) => ({
   },
 }));
 
-export const Indicator = (props) => {
-  return (
-    <StyledDiv {...props}>
-      <div className={classNames(classes.nowIndicator, classes.circle)} />
-      <div className={classNames(classes.nowIndicator, classes.line)} />
-    </StyledDiv>
-  );
-};
+export const Indicator = props => (
+  <StyledDiv {...props}>
+    <div className={classNames(classes.nowIndicator, classes.circle)} />
+    <div className={classNames(classes.nowIndicator, classes.line)} />
+  </StyledDiv>
+);
 
 Indicator.propTypes = {
   top: PropTypes.string,

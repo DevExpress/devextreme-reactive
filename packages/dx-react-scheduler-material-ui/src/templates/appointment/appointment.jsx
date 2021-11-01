@@ -6,7 +6,7 @@ import { getAppointmentColor, getResourceColor } from '../utils';
 
 const PREFIX = 'Appointment';
 
-const classes = {
+export const classes = {
   appointment: `${PREFIX}-appointment`,
   clickableAppointment: `${PREFIX}-clickableAppointment`,
   shadedAppointment: `${PREFIX}-shadedAppointment`,

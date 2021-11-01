@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { createMount, createShallow } from '@devexpress/dx-testing';
-import { Appointment } from './appointment';
+import { Appointment, classes } from './appointment';
 
-jest.mock('@mui/material/styles', () => () => () => ({
+jest.mock('@mui/material/styles/styled', () => () => () => ({
   appointment: 'appointment',
   clickableAppointment: 'clickableAppointment',
   shadedAppointment: 'shadedAppointment',
@@ -29,7 +29,7 @@ describe('Appointment', () => {
 
       expect(tree.is('.custom-class'))
         .toBeTruthy();
-      expect(tree.is('.appointment'))
+      expect(tree.is(`.${classes.appointment}`))
         .toBeTruthy();
       expect(tree.is('.clickableAppointment'))
         .toBeFalsy();
@@ -87,7 +87,7 @@ describe('Appointment', () => {
         </Appointment>
       ));
 
-      expect(tree.is('.clickableAppointment'))
+      expect(tree.is(`.${classes.clickableAppointment}`))
         .toBeTruthy();
     });
 
@@ -101,7 +101,7 @@ describe('Appointment', () => {
         </Appointment>
       ));
 
-      expect(tree.is('.clickableAppointment'))
+      expect(tree.is(`.${classes.clickableAppointment}`))
         .toBeTruthy();
     });
 
@@ -115,7 +115,7 @@ describe('Appointment', () => {
         </Appointment>
       ));
 
-      expect(tree.is('.clickableAppointment'))
+      expect(tree.is(`.${classes.clickableAppointment}`))
         .toBeTruthy();
     });
 
@@ -129,7 +129,7 @@ describe('Appointment', () => {
         </Appointment>
       ));
 
-      expect(tree.is('.shadedAppointment'))
+      expect(tree.is(`.${classes.shadedAppointment}`))
         .toBeTruthy();
     });
 

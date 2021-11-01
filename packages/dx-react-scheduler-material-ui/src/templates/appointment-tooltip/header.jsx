@@ -11,7 +11,7 @@ export const classes = {
   flexContainer: `${PREFIX}-flexContainer`,
 };
 
-const Root = styled('div')(({
+const StyledDiv = styled('div')(({
   theme: { spacing, palette },
 }) => ({
   [`&.${classes.head}`]: {
@@ -58,7 +58,7 @@ const HeaderBase = ({
     onOpenButtonClick();
   };
   return (
-    <Root
+    <StyledDiv
       className={classNames(classes.head, classes.flexContainer, className)}
       {...restProps}
     >
@@ -74,7 +74,7 @@ const HeaderBase = ({
           <CommandButton id={commandButtonIds.close} onExecute={onHide} />
         </div>
       )}
-    </Root>
+    </StyledDiv>
   );
 };
 

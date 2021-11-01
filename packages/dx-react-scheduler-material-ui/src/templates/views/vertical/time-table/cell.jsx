@@ -1,29 +1,23 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { styled, alpha } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@mui/material/TableCell';
-import { alpha } from '@mui/material/styles';
-import makeStyles from '@mui/styles/makeStyles';
 import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION, VIEW_TYPES } from '@devexpress/dx-scheduler-core';
 import { getBorder, getBrightBorder } from '../../../utils';
 import { SPACING_CELL_HEIGHT } from '../../../constants';
 
 const PREFIX = 'Cell';
 
-const classes = {
+export const classes = {
   cell: `${PREFIX}-cell`,
   shadedCell: `${PREFIX}-shadedCell`,
   shadedPart: `${PREFIX}-shadedPart`,
   brightRightBorder: `${PREFIX}-brightRightBorder`,
-  brightBorderBottom: `${PREFIX}-brightBorderBottom`
+  brightBorderBottom: `${PREFIX}-brightBorderBottom`,
 };
 
-const StyledTableCell = styled(TableCell)((
-  {
-    theme
-  }
-) => ({
+const StyledTableCell = styled(TableCell)(({ theme, shadedHeight }) => ({
   [`&.${classes.cell}`]: {
     position: 'relative',
     height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.WEEK]),
@@ -45,7 +39,6 @@ const StyledTableCell = styled(TableCell)((
       outline: 0,
     },
   },
-
   [`&.${classes.shadedCell}`]: {
     backgroundColor: alpha(theme.palette.action.disabledBackground, 0.04),
     '&:hover': {
@@ -56,11 +49,10 @@ const StyledTableCell = styled(TableCell)((
       outline: 0,
     },
   },
-
   [`& .${classes.shadedPart}`]: {
     backgroundColor: alpha(theme.palette.action.disabledBackground, 0.04),
     position: 'absolute',
-    height: ({ shadedHeight }) => shadedHeight,
+    height: shadedHeight,
     width: '100%',
     left: 0,
     top: 0,
@@ -71,17 +63,15 @@ const StyledTableCell = styled(TableCell)((
       opacity: 0,
     },
   },
-
   [`&.${classes.brightRightBorder}`]: {
     borderRight: getBrightBorder(theme),
     '&:last-child': {
       borderRight: 'none',
     },
   },
-
   [`&.${classes.brightBorderBottom}`]: {
     borderBottom: getBrightBorder(theme),
-  }
+  },
 }));
 
 export const Cell = ({
@@ -99,10 +89,10 @@ export const Cell = ({
   hasRightBorder,
   ...restProps
 }) => {
-
   const isNow = !!currentTimeIndicatorPosition;
   return (
     <StyledTableCell
+      shadedHeight={currentTimeIndicatorPosition}
       tabIndex={0}
       className={classNames({
         [classes.cell]: true,

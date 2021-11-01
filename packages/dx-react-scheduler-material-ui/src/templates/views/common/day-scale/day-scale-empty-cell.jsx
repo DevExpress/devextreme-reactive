@@ -9,7 +9,7 @@ export const classes = {
   emptyCell: `${PREFIX}-emptyCell`,
 };
 
-const Root = styled('div')({
+const StyledDiv = styled('div')({
   [`&.${classes.emptyCell}`]: {
     height: '100%',
     width: '100%',
@@ -21,9 +21,9 @@ export const DayScaleEmptyCellBase = ({
   children,
   ...restProps
 }) => (
-  <Root {...restProps} className={classNames(classes.emptyCell, className)}>
+  <StyledDiv {...restProps} className={classNames(classes.emptyCell, className)}>
     {children}
-  </Root>
+  </StyledDiv>
 );
 
 DayScaleEmptyCellBase.propTypes = {

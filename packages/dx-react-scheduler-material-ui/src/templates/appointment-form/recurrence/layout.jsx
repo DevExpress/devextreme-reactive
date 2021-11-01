@@ -31,7 +31,7 @@ export const classes = {
   select: `${PREFIX}-select`,
 };
 
-const Root = styled('div')(({
+const StyledDiv = styled('div')(({
   theme: { spacing },
 }) => ({
   [`&.${classes.root}`]: {
@@ -154,7 +154,7 @@ const LayoutBase = ({
     () => getAvailableRecurrenceOptions(getMessage), [getMessage],
   );
   return (
-    <Root
+    <StyledDiv
       className={classNames({
         [classes.root]: true,
         [classes.visible]: visible,
@@ -209,7 +209,7 @@ const LayoutBase = ({
         firstDayOfWeek={firstDayOfWeek}
       />
       {children}
-    </Root>
+    </StyledDiv>
   );
 };
 

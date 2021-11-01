@@ -10,7 +10,7 @@ const classes = {
   label: `${PREFIX}-label`,
 };
 
-const Root = styled(FormControlLabel)({
+const StyledFormControlLabel = styled(FormControlLabel)({
   [`& .${classes.label}`]: {
     overflow: 'hidden',
     whiteSpace: 'nowrap',
@@ -26,7 +26,7 @@ const BooleanEditorBase = React.memo(({
   onValueChange,
   ...restProps
 }) => (
-  <Root
+  <StyledFormControlLabel
     classes={{ label: classes.label }}
     control={(
       <Checkbox

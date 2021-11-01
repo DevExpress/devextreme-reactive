@@ -10,7 +10,7 @@ export const classes = {
   container: `${PREFIX}-container`,
 };
 
-const Root = styled('div')(({ theme }) => ({
+const StyledDiv = styled('div')(({ theme }) => ({
   [`& .${classes.container}`]: {
     marginBottom: theme.spacing(2),
   },
@@ -39,7 +39,7 @@ const WeeklyBase = ({
     }), [recurrenceOptions, onFieldChange],
   );
   return (
-    <Root
+    <StyledDiv
       {...restProps}
     >
       <IntervalEditor
@@ -60,7 +60,7 @@ const WeeklyBase = ({
         formatDate={formatDate}
         firstDayOfWeek={firstDayOfWeek}
       />
-    </Root>
+    </StyledDiv>
   );
 };
 

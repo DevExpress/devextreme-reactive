@@ -19,7 +19,7 @@ export const classes = {
   controlLabel: `${PREFIX}-controlLabel`,
 };
 
-const Root = styled('div')(({
+const StyledDiv = styled('div')(({
   theme: { spacing },
 }) => ({
   [`& .${classes.label}`]: {
@@ -88,7 +88,7 @@ const ChangeWeekNumberEditorBase = React.memo(({
     disabled={readOnly}
     {...restProps}
     label={(
-      <Root>
+      <StyledDiv>
         <Grid
           container
           direction="row"
@@ -121,7 +121,7 @@ const ChangeWeekNumberEditorBase = React.memo(({
           readOnly={readOnlyEditors}
           availableOptions={months}
         />
-      </Root>
+      </StyledDiv>
     )}
   />
 ));

@@ -7,7 +7,7 @@ const classes = {
   container: `${PREFIX}-container`,
 };
 
-const Root = styled(ContainerBase)(() => ({
+const StyledContainerBase = styled(ContainerBase)(() => ({
   [`& .${classes.container}`]: {
     position: 'absolute',
     left: 0,
@@ -18,4 +18,4 @@ const Root = styled(ContainerBase)(() => ({
   },
 }));
 
-export const Container = (Root);
+export const Container = (StyledContainerBase);

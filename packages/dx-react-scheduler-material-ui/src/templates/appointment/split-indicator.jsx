@@ -28,7 +28,7 @@ const horizontalStyles = {
   height: '100%',
 };
 
-const Root = styled('div')({
+const StyledDiv = styled('div')({
   [`& .${classes.slice}`]: {
     position: 'absolute',
     zIndex: 50,
@@ -61,7 +61,7 @@ const SplitIndicatorBase = React.memo(({
   const vertical = appointmentType === VERTICAL_TYPE;
   const start = position === POSITION_START;
   return (
-    <Root
+    <StyledDiv
       className={classNames({
         [classes.slice]: true,
         [classes.verticalStart]: vertical && start,

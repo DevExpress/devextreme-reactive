@@ -64,7 +64,7 @@ ResizeBase.defaultProps = {
   forwardedRef: undefined,
 };
 
-const Root = styled(ResizeBase)(({
+const StyledResizeBaze = styled(ResizeBase)(({
   theme: { spacing },
 }) => {
   const vertical = verticalStyles(spacing);
@@ -93,4 +93,4 @@ const Root = styled(ResizeBase)(({
   };
 });
 
-export const Resize = (Root);
+export const Resize = (StyledResizeBaze);

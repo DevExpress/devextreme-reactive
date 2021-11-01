@@ -15,7 +15,7 @@ export const classes = {
   radioGroup: `${PREFIX}-radioGroup`,
 };
 
-const Root = styled('div')(({ theme }) => ({
+const StyledDiv = styled('div')(({ theme }) => ({
   [`& .${classes.radioGroup}`]: {
     marginTop: theme.spacing(1),
   },
@@ -44,7 +44,7 @@ const YearlyBase = ({
     }), [recurrenceOptions, onFieldChange],
   );
   return (
-    <Root {...restProps}>
+    <StyledDiv {...restProps}>
       <IntervalEditor
         repeatEveryLabel={getMessage('repeatEveryLabel')}
         repeatIntervalLabel={getMessage('yearsLabel')}
@@ -69,7 +69,7 @@ const YearlyBase = ({
         dateEditorComponent={() => null}
         firstDayOfWeek={firstDayOfWeek}
       />
-    </Root>
+    </StyledDiv>
   );
 };
 

@@ -15,7 +15,7 @@ export const classes = {
   fixedHeight: `${PREFIX}-fixedHeight`,
 };
 
-const Root = styled('div')((
+const StyledDiv = styled('div')((
   {
     theme,
   },
@@ -54,7 +54,7 @@ const Root = styled('div')((
 export const TitleCellBase = React.memo(({
   getMessage, className, fixedHeight, ...restProps
 }) => (
-  <Root
+  <StyledDiv
     className={classNames({
       [classes.container]: true,
       [classes.fixedHeight]: fixedHeight,
@@ -71,7 +71,7 @@ export const TitleCellBase = React.memo(({
         {getMessage('allDay')}
       </Typography>
     </div>
-  </Root>
+  </StyledDiv>
 ));
 
 TitleCellBase.propTypes = {

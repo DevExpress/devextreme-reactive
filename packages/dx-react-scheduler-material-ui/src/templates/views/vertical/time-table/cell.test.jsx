@@ -1,15 +1,7 @@
 import * as React from 'react';
 import { createShallow } from '@devexpress/dx-testing';
 import { VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
-import { Cell } from './cell';
-
-jest.mock('@mui/styles/makeStyles', () => () => () => ({
-  cell: 'cell',
-  shadedCell: 'shadedCell',
-  shadedPart: 'shadedPart',
-  brightRightBorder: 'brightRightBorder',
-  brightBorderBottom: 'brightBorderBottom',
-}));
+import { Cell, classes } from './cell';
 
 describe('Vertical view TimeTable', () => {
   let shallow;
@@ -24,11 +16,11 @@ describe('Vertical view TimeTable', () => {
 
       expect(tree.is('.custom-class'))
         .toBeTruthy();
-      expect(tree.is('.cell'))
+      expect(tree.is(`.${classes.cell}`))
         .toBeTruthy();
-      expect(tree.is('.shadedCell'))
+      expect(tree.is(`.${classes.shadedCell}`))
         .toBeFalsy();
-      expect(tree.is('.brightRightBorder'))
+      expect(tree.is(`.${classes.brightRightBorder}`))
         .toBeFalsy();
     });
     it('should pass rest props to the root element', () => {
@@ -52,7 +44,7 @@ describe('Vertical view TimeTable', () => {
         <Cell isShaded />
       ));
 
-      expect(tree.is('.shadedCell'))
+      expect(tree.is(`.${classes.shadedCell}`))
         .toBeTruthy();
     });
     it('should contain a shaded part if isShaded is true', () => {
@@ -68,9 +60,9 @@ describe('Vertical view TimeTable', () => {
         />
       ));
 
-      expect(tree.find('.shadedPart').exists())
+      expect(tree.find(`.${classes.shadedPart}`).exists())
         .toBeTruthy();
-      expect(tree.is('.shadedCell'))
+      expect(tree.is(`.${classes.shadedCell}`))
         .toBeFalsy();
     });
     it('should contain currentTimeIndicator', () => {
@@ -95,9 +87,9 @@ describe('Vertical view TimeTable', () => {
         <Cell endOfGroup />
       ));
 
-      expect(tree.is('.brightRightBorder'))
+      expect(tree.is(`.${classes.brightRightBorder}`))
         .toBeTruthy();
-      expect(tree.is('.brightBorderBottom'))
+      expect(tree.is(`.${classes.brightBorderBottom}`))
         .toBeFalsy();
     });
     it('should render the last cell in a vertical group', () => {
@@ -105,9 +97,9 @@ describe('Vertical view TimeTable', () => {
         <Cell endOfGroup groupOrientation={VERTICAL_GROUP_ORIENTATION} />
       ));
 
-      expect(tree.is('.brightBorderBottom'))
+      expect(tree.is(`.${classes.brightBorderBottom}`))
         .toBeTruthy();
-      expect(tree.is('.brightRightBorder'))
+      expect(tree.is(`.${classes.brightRightBorder}`))
         .toBeFalsy();
     });
   });

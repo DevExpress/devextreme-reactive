@@ -9,7 +9,7 @@ export const classes = {
   flexibleSpace: `${PREFIX}-flexibleSpace`,
 };
 
-const Root = styled('div')({
+const StyledDiv = styled('div')({
   [`&.${classes.flexibleSpace}`]: {
     flex: '0 0 0',
     marginLeft: 'auto',
@@ -21,12 +21,12 @@ export const FlexibleSpaceBase = ({
   className,
   ...restProps
 }) => (
-  <Root
+  <StyledDiv
     className={classNames(classes.flexibleSpace, className)}
     {...restProps}
   >
     {children}
-  </Root>
+  </StyledDiv>
 );
 
 FlexibleSpaceBase.propTypes = {

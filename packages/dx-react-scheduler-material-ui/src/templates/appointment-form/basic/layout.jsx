@@ -26,7 +26,7 @@ export const classes = {
   media: `${PREFIX}-@media (max-width: 570px)`,
 };
 
-const Root = styled('div')(({
+const StyledDiv = styled('div')(({
   theme: { spacing, typography },
 }) => ({
   [`&.${classes.root}`]: {
@@ -147,7 +147,7 @@ const LayoutBase = ({
   ), [rRule, startDate, onFieldChange]);
 
   return (
-    <Root
+    <StyledDiv
       className={classNames({
         [classes.root]: true,
         [classes.fullSize]: fullSize,
@@ -235,7 +235,7 @@ const LayoutBase = ({
       ))}
 
       {children}
-    </Root>
+    </StyledDiv>
   );
 };
 

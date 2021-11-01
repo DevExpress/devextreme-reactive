@@ -17,7 +17,7 @@ export const classes = {
   title: `${PREFIX}-title`,
 };
 
-const Root = styled(TextField)((
+const StyledTextField = styled(TextField)((
   {
     theme,
   },
@@ -45,7 +45,7 @@ const TextEditorBase = React.memo(({
   const textFieldType = type === NUMBER_EDITOR ? 'number' : 'text';
   const notesTextEditor = type === MULTILINE_TEXT_EDITOR;
   return (
-    <Root
+    <StyledTextField
       className={classNames(classes.editor, className)}
       value={value}
       variant={notesTextEditor ? 'outlined' : undefined}

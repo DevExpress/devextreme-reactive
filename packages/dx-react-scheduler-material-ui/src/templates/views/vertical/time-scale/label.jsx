@@ -13,7 +13,7 @@ export const classes = {
   emptyLabel: `${PREFIX}-emptyLabel`,
 };
 
-const Root = styled('div')(({ theme }) => ({
+const StyledDiv = styled('div')(({ theme }) => ({
   [`&.${classes.label}`]: {
     userSelect: 'none',
     border: 0,
@@ -50,7 +50,7 @@ const LabelBase = ({
   endOfGroup,
   ...restProps
 }) => (
-  <Root
+  <StyledDiv
     className={classNames({
       [classes.label]: true,
       [classes.emptyLabel]: !time,
@@ -63,7 +63,7 @@ const LabelBase = ({
       </span>
     )}
 
-  </Root>
+  </StyledDiv>
 );
 
 LabelBase.propTypes = {

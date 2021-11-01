@@ -12,7 +12,7 @@ export const classes = {
   stickyContainer: `${PREFIX}-stickyContainer`,
 };
 
-const Root = styled('div')({
+const StyledDiv = styled('div')({
   [`&.${classes.root}`]: {
     height: '100%',
     margin: '0 auto',
@@ -41,7 +41,7 @@ const LayoutBase = ({
   className,
   ...restProps
 }) => (
-  <Root
+  <StyledDiv
     className={classNames(classes.root, className)}
     {...restProps}
   >
@@ -53,7 +53,7 @@ const LayoutBase = ({
       <RecurrenceLayout />
     </div>
     {children}
-  </Root>
+  </StyledDiv>
 );
 
 LayoutBase.propTypes = {

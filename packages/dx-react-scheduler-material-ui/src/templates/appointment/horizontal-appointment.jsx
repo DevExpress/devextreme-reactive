@@ -14,7 +14,7 @@ export const classes = {
   image: `${PREFIX}-image`,
 };
 
-const Root = styled('div')(({
+const StyledDiv = styled('div')(({
   theme: { palette, spacing },
 }) => ({
   [`& .${classes.title}`]: {
@@ -64,7 +64,7 @@ const HorizontalAppointmentBase = ({
 }) => {
   const repeat = !!data.rRule;
   return (
-    <Root className={classNames(classes.content, className)} {...restProps}>
+    <StyledDiv className={classNames(classes.content, className)} {...restProps}>
       {children || (
         <React.Fragment>
           <div className={repeat ? classes.recurringContainer : classes.container}>
@@ -80,7 +80,7 @@ const HorizontalAppointmentBase = ({
           ) : undefined}
         </React.Fragment>
       )}
-    </Root>
+    </StyledDiv>
   );
 };
 

@@ -24,7 +24,7 @@ export const classes = {
   image: `${PREFIX}-image`,
 };
 
-const Root = styled('div')(({
+const StyledDiv = styled('div')(({
   theme: { palette, spacing },
 }) => ({
   [`& .${classes.title}`]: {
@@ -117,7 +117,7 @@ const VerticalAppointmentBase = ({
   const isShortHeight = durationType === 'short';
   const isMiddleHeight = durationType === 'middle';
   return (
-    <Root
+    <StyledDiv
       className={classNames({
         [classes.content]: true,
         [classes.shortContent]: isShortHeight || isMiddleHeight,
@@ -173,7 +173,7 @@ const VerticalAppointmentBase = ({
           ) : undefined}
         </React.Fragment>
       )}
-    </Root>
+    </StyledDiv>
   );
 };
 

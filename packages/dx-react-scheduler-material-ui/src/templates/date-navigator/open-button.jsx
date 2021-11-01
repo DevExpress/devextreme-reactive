@@ -15,7 +15,7 @@ export const classes = {
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')(({
+const StyledDiv = styled('div')(({
   theme: { spacing },
 }) => ({
   [`& .${classes.textButton}`]: {
@@ -39,7 +39,7 @@ const Root = styled('div')(({
 const OpenButtonBase = React.memo(({
   text, onVisibilityToggle, className, ...restProps
 }) => (
-  <Root>
+  <StyledDiv>
     <Button
       onClick={onVisibilityToggle}
       className={classNames(classes.textButton, className)}
@@ -55,7 +55,7 @@ const OpenButtonBase = React.memo(({
     >
       <CalendarToday />
     </IconButton>
-  </Root>
+  </StyledDiv>
 ));
 
 OpenButtonBase.propTypes = {

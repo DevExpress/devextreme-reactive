@@ -7,7 +7,7 @@ export const classes = {
   container: `${PREFIX}-container`,
 };
 
-const Root = styled(ContainerBase)(() => ({
+const StyledContainerBase = styled(ContainerBase)(() => ({
   [`& .${classes.container}`]: {
     position: 'relative',
     display: 'table',
@@ -15,4 +15,4 @@ const Root = styled(ContainerBase)(() => ({
   },
 }));
 
-export const Container = (Root);
+export const Container = (StyledContainerBase);

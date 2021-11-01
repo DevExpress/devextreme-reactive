@@ -1,39 +1,45 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import makeStyles from '@mui/styles/makeStyles';
 import classNames from 'clsx';
 
-const useStyles = makeStyles(theme => ({
-  line: {
+const PREFIX = 'Indicator';
+
+export const classes = {
+  line: `${PREFIX}-line`,
+  circle: `${PREFIX}-circle`,
+  nowIndicator: `${PREFIX}-nowIndicator`,
+};
+
+const StyledDiv = styled('div')(({ theme, top }) => ({
+  [`& .${classes.line}`]: {
     height: '2px',
     width: '100%',
     transform: 'translate(0, -1px)',
   },
-  circle: {
+
+  [`& .${classes.circle}`]: {
     width: theme.spacing(1.5),
     height: theme.spacing(1.5),
     borderRadius: '50%',
     transform: 'translate(-50%, -50%)',
   },
-  nowIndicator: {
+
+  [`& .${classes.nowIndicator}`]: {
     position: 'absolute',
     left: 0,
-    top: ({ top }) => top,
+    top: top,
     background: theme.palette.secondary.main,
     zIndex: 1,
   },
 }));
 
-export const Indicator = ({
-  top, ...restProps
-}) => {
-  const classes = useStyles({ top });
-
+export const Indicator = (props) => {
   return (
-    <div {...restProps}>
+    <StyledDiv {...props}>
       <div className={classNames(classes.nowIndicator, classes.circle)} />
       <div className={classNames(classes.nowIndicator, classes.line)} />
-    </div>
+    </StyledDiv>
   );
 };
 

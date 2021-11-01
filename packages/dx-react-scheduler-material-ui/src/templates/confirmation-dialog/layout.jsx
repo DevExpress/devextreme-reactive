@@ -12,7 +12,7 @@ export const classes = {
   media: `${PREFIX} - ${SMALL_LAYOUT_MEDIA_QUERY}`,
 };
 
-const Root = styled('div')(({
+const StyledDiv = styled('div')(({
   theme: { typography },
 }) => ({
   [`& .${classes.title}`]: {
@@ -35,7 +35,7 @@ const LayoutBase = React.memo(({
   appointmentData,
   ...restProps
 }) => (
-  <Root
+  <StyledDiv
     {...restProps}
   >
     <DialogTitle className={classes.title}>
@@ -49,7 +49,7 @@ const LayoutBase = React.memo(({
         color="primary"
       />
     </DialogActions>
-  </Root>
+  </StyledDiv>
 ));
 
 LayoutBase.propTypes = {

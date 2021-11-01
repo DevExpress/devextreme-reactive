@@ -15,7 +15,7 @@ export const classes = {
   container: `${PREFIX}-container`,
 };
 
-const Root = styled('div')(({ theme }) => ({
+const StyledDiv = styled('div')(({ theme }) => ({
   [`& .${classes.container}`]: {
     marginBottom: theme.spacing(1),
   },
@@ -44,7 +44,7 @@ const MonthlyBase = ({
     }), [recurrenceOptions, onFieldChange],
   );
   return (
-    <Root {...restProps}>
+    <StyledDiv {...restProps}>
       <IntervalEditor
         className={classes.container}
         repeatEveryLabel={getMessage('repeatEveryLabel')}
@@ -69,7 +69,7 @@ const MonthlyBase = ({
         dateEditorComponent={() => null}
         firstDayOfWeek={firstDayOfWeek}
       />
-    </Root>
+    </StyledDiv>
   );
 };
 

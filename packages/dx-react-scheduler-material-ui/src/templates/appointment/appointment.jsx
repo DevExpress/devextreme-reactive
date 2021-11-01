@@ -12,7 +12,7 @@ const classes = {
   shadedAppointment: `${PREFIX}-shadedAppointment`,
 };
 
-const Root = styled('div')(({
+const StyledDiv = styled('div')(({
   theme: { palette, typography, spacing },
 }) => ({
   [`&.${classes.appointment}`]: {
@@ -79,7 +79,7 @@ export const Appointment = ({
 
   const clickable = onClick || restProps.onDoubleClick || draggable;
   return (
-    <Root
+    <StyledDiv
       ref={forwardedRef}
       className={classNames({
         [classes.appointment]: true,
@@ -90,7 +90,7 @@ export const Appointment = ({
       {...restProps}
     >
       {children}
-    </Root>
+    </StyledDiv>
   );
 };
 

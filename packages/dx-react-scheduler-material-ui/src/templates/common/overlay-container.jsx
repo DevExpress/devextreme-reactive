@@ -9,7 +9,7 @@ export const classes = {
   container: `${PREFIX}-container`,
 };
 
-const Root = styled('div')({
+const StyledDiv = styled('div')({
   [`&.${classes.container}`]: {
     position: 'absolute',
     width: '100%',
@@ -20,13 +20,13 @@ const Root = styled('div')({
 export const OverlayContainerBase = React.forwardRef(({
   children, className, ...restProps
 }, ref) => (
-  <Root
+  <StyledDiv
     ref={ref}
     className={classNames(classes.container, className)}
     {...restProps}
   >
     {children}
-  </Root>
+  </StyledDiv>
 ));
 
 OverlayContainerBase.propTypes = {

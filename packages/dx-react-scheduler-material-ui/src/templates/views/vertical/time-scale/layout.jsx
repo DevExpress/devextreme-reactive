@@ -1,11 +1,11 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
-import makeStyles from '@mui/styles/makeStyles';
 import {
   getLabelsForAllGroups, getGroupsLastRow, VIEW_TYPES,
   HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION,
@@ -14,28 +14,40 @@ import { TicksLayout } from './ticks-layout';
 import { getBrightBorder } from '../../../utils';
 import { SPACING_CELL_HEIGHT, LEFT_PANEL_WIDTH_SPACING } from '../../../constants';
 
-const useStyles = makeStyles(theme => ({
-  timeScaleContainer: {
+const PREFIX = 'Layout';
+
+export const classes = {
+  timeScaleContainer: `${PREFIX}-timeScaleContainer`,
+  ticks: `${PREFIX}-ticks`,
+  cell: `${PREFIX}-cell`,
+  verticalCell: `${PREFIX}-verticalCell`,
+  flexRow: `${PREFIX}-flexRow`,
+};
+
+const StyledDiv = styled('div')(({ theme, height, defaultHeight }) => ({
+  [`& .${classes.timeScaleContainer}`]: {
     width: theme.spacing(LEFT_PANEL_WIDTH_SPACING - 1),
   },
-  ticks: {
+
+  [`& .${classes.ticks}`]: {
     width: theme.spacing(1),
   },
-  cell: {
+
+  [`& .${classes.cell}`]: {
     boxSizing: 'border-box',
     padding: 0,
     borderBottom: 'none',
   },
-  verticalCell: {
+
+  [`& .${classes.verticalCell}`]: {
     borderBottom: getBrightBorder(theme),
     'tr:last-child &': {
       borderBottom: 'none',
     },
-    height: ({ height, defaultHeight }) => (
-      height ? `${height}px` : theme.spacing(defaultHeight)
-    ),
+    height: height ? `${height}px` : theme.spacing(defaultHeight),
   },
-  flexRow: {
+
+  [`&.${classes.flexRow}`]: {
     display: 'flex',
     flexDirection: 'row',
   },
@@ -62,10 +74,12 @@ export const Layout = ({
     ? heightWithoutAllDayTitle + SPACING_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL]
     : heightWithoutAllDayTitle;
 
-  const classes = useStyles({ height: height / groupCount, defaultHeight });
-
   return (
-    <div className={classNames(classes.flexRow, className)} {...restProps}>
+    <StyledDiv
+      sx={{ height: { height: height / groupCount, defaultHeight } }}
+      className={classNames(classes.flexRow, className)}
+      {...restProps}
+    >
       <Table className={classes.timeScaleContainer}>
         <TableBody>
           {getLabelsForAllGroups(cellsData, groups, groupOrientation).map(
@@ -115,7 +129,7 @@ export const Layout = ({
         groupCount={groupCount}
         includeAllDayCell={showAllDayTitle}
       />
-    </div>
+    </StyledDiv>
   );
 };
 

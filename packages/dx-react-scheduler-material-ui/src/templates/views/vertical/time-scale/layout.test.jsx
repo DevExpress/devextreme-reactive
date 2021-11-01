@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createShallow } from '@devexpress/dx-testing';
 import { VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
-import { Layout } from './layout';
+import { Layout, classes } from './layout';
 import { TicksLayout } from './ticks-layout';
 
 jest.mock('@mui/styles/makeStyles', () => () => () => ({
@@ -41,7 +41,7 @@ describe('Vertical view TimeScale', () => {
 
       expect(tree.hasClass('custom-class'))
         .toBe(true);
-      expect(tree.hasClass('flexRow'))
+      expect(tree.hasClass(classes.flexRow))
         .toBe(true);
     });
 
@@ -58,13 +58,13 @@ describe('Vertical view TimeScale', () => {
         <Layout {...defaultProps} />
       ));
 
-      expect(tree.find('.timeScaleContainer').exists())
+      expect(tree.find(`.${classes.timeScaleContainer}`).exists())
         .toBeTruthy();
-      expect(tree.find('.ticks').exists())
+      expect(tree.find(`.${classes.ticks}`).exists())
         .toBeTruthy();
-      expect(tree.find('.cell'))
+      expect(tree.find(`.${classes.cell}`))
         .toHaveLength(1);
-      expect(tree.find('.verticalCell'))
+      expect(tree.find(`.${classes.verticalCell}`))
         .toHaveLength(0);
     });
     it('should render array of time labels and TicksLayout', () => {
@@ -120,9 +120,9 @@ describe('Vertical view TimeScale', () => {
       expect(labels.at(5).prop('time'))
         .toBeUndefined();
 
-      expect(tree.find('.cell'))
+      expect(tree.find(`.${classes.cell}`))
         .toHaveLength(2);
-      expect(tree.find('.verticalCell'))
+      expect(tree.find(`.${classes.verticalCell}`))
         .toHaveLength(2);
     });
     it('should render labels and all-day title', () => {
@@ -171,9 +171,9 @@ describe('Vertical view TimeScale', () => {
       expect(allDayTitles.at(1).prop('fixedHeight'))
         .toBeTruthy();
 
-      expect(tree.find('.cell'))
+      expect(tree.find(`.${classes.cell}`))
         .toHaveLength(2);
-      expect(tree.find('.verticalCell'))
+      expect(tree.find(`.${classes.verticalCell}`))
         .toHaveLength(2);
     });
   });

@@ -22,7 +22,7 @@ const PREFIX = 'Toolbar';
 
 const classes = {
   toolbarRoot: `${PREFIX}-toolbarRoot`,
-  progress: `${PREFIX}-progress`
+  progress: `${PREFIX}-progress`,
 };
 
 const StyledPaper = styled(Paper)({
@@ -62,7 +62,7 @@ const ToolbarWithLoading = (
       </Toolbar.Root>
       <LinearProgress className={classes.progress} />
     </div>
-  ),
+  )
 );
 
 const usaTime = date => new Date(date).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });

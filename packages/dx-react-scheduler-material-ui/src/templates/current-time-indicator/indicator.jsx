@@ -11,7 +11,7 @@ export const classes = {
   nowIndicator: `${PREFIX}-nowIndicator`,
 };
 
-const StyledDiv = styled('div')(({ theme, top }) => ({
+const StyledDiv = styled('div')(({ theme, topValue }) => ({
   [`& .${classes.line}`]: {
     height: '2px',
     width: '100%',
@@ -28,7 +28,7 @@ const StyledDiv = styled('div')(({ theme, top }) => ({
   [`& .${classes.nowIndicator}`]: {
     position: 'absolute',
     left: 0,
-    top: top,
+    top: topValue,
     background: theme.palette.secondary.main,
     zIndex: 1,
   },

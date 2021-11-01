@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { createMount, getClasses } from '@devexpress/dx-testing';
+import { createMount } from '@devexpress/dx-testing';
 import Paper from '@mui/material/Paper';
+import { classes } from '../utils';
 import { Sheet } from './sheet';
 
 describe('Sheet', () => {
   let mount;
-  const classes = getClasses(<Sheet />);
 
   beforeEach(() => {
     mount = createMount();
@@ -19,8 +19,6 @@ describe('Sheet', () => {
     const tree = mount((
       <Sheet />
     ));
-    expect(tree.find(Paper).props()).toMatchObject({
-      className: `${classes.root}`,
-    });
+    expect(tree.find(Paper).is(`.${classes.root}`)).toBeTruthy();
   });
 });

@@ -3,13 +3,13 @@
 
 ### Bug Fixes
 
-* **react-core:** Do not treat right mouse click as the start of dragging (T1005625) ([#3358](https://github.com/DevExpress/devextreme-reactive/issues/3358)) ([f3bfe6a](https://github.com/DevExpress/devextreme-reactive/commit/f3bfe6a786718cdb2d6737cb59d0fb114423a0cc))
+* **react-core:** do not treat right mouse click as the start of dragging (T1005625) ([#3358](https://github.com/DevExpress/devextreme-reactive/issues/3358)) ([f3bfe6a](https://github.com/DevExpress/devextreme-reactive/commit/f3bfe6a786718cdb2d6737cb59d0fb114423a0cc))
 * **react-core:** pass refs to components to get rid of findDOMNode ([#3404](https://github.com/DevExpress/devextreme-reactive/issues/3404)) ([11b9a0d](https://github.com/DevExpress/devextreme-reactive/commit/11b9a0d86aedfb3a6c09bf40daf031664f3a20a7))
 
 
 ### Features
 
-* **react-core:** Migrate to MUI v5 ([#3414](https://github.com/DevExpress/devextreme-reactive/issues/3414)) ([0fdf80f](https://github.com/DevExpress/devextreme-reactive/commit/0fdf80f9cb3d8e2bc77bc004690571351a47fffd))
+* **react-core:** migrate to MUI v5 ([#3414](https://github.com/DevExpress/devextreme-reactive/issues/3414)) ([0fdf80f](https://github.com/DevExpress/devextreme-reactive/commit/0fdf80f9cb3d8e2bc77bc004690571351a47fffd))
 * **react-grid:** keyboard navigation ([#3386](https://github.com/DevExpress/devextreme-reactive/issues/3386)) ([4bae36f](https://github.com/DevExpress/devextreme-reactive/commit/4bae36f4298b9531f1a88055407c6d6fdf2af9f1))
 
 

@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { createMount, getClasses } from '@devexpress/dx-testing';
+import { createMount } from '@devexpress/dx-testing';
 import Typography from '@mui/material/Typography';
+import { classes } from '../utils';
 import { Text } from './text';
 
 describe('Text', () => {
@@ -8,7 +9,6 @@ describe('Text', () => {
     text: 'chart',
   };
   let mount;
-  const classes = getClasses(<Text {...defaultProps} />);
 
   beforeEach(() => {
     mount = createMount();

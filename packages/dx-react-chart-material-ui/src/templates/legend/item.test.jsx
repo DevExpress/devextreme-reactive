@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createShallow } from '@devexpress/dx-testing';
 import ListItem from '@mui/material/ListItem';
+import { classes } from '../utils';
 import { Item } from './item';
 
 describe('Root', () => {
   const shallow = createShallow({ dive: true });
-  const classes = getClasses(<Item>children</Item>);
   it('should render List item', () => {
     const tree = shallow((
       <Item>

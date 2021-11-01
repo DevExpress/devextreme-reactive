@@ -1,13 +1,20 @@
 import * as React from 'react';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import classNames from 'clsx';
 import * as PropTypes from 'prop-types';
 
-const styles = (theme) => {
+const PREFIX = 'Arrow';
+
+export const classes = {
+  'arrow-top': `${PREFIX}-arrow-top`,
+  'arrow-right': `${PREFIX}-arrow-right`,
+};
+
+const Root = styled('div')(({ theme }) => {
   const arrowSize = theme.spacing(1.2);
   const arrowWidth = theme.spacing(2.4);
   return {
-    'arrow-top': {
+    [`&.${classes['arrow-top']}`]: {
       width: arrowWidth,
       height: arrowSize,
       position: 'absolute',
@@ -25,12 +32,12 @@ const styles = (theme) => {
         boxShadow: theme.shadows[2],
       },
     },
-    'arrow-right': {
+    [`&.${classes['arrow-right']}`]: {
       width: arrowSize,
       height: arrowWidth,
       position: 'absolute',
-      top: '25%!important',
-      transform: 'translateX(-100%)!important',
+      top: '25%',
+      transform: 'translateX(-100%)',
       overflow: 'hidden',
 
       '&::after': {
@@ -46,20 +53,17 @@ const styles = (theme) => {
       },
     },
   };
-};
+});
 
-const BaseArrow = React.forwardRef(({
-  classes, className, placement, ...restProps
-}, ref) => <div className={classNames(classes[`arrow-${placement}`], className)} ref={ref} {...restProps} />);
+export const Arrow = React.forwardRef(({
+  className, placement, ...restProps
+}, ref) => <Root className={classNames(classes[`arrow-${placement}`], className)} ref={ref} {...restProps} />);
 
-BaseArrow.propTypes = {
+Arrow.propTypes = {
   placement: PropTypes.string.isRequired,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
-BaseArrow.defaultProps = {
+Arrow.defaultProps = {
   className: undefined,
 };
-
-export const Arrow = withStyles(styles)(BaseArrow);

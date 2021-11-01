@@ -8,31 +8,33 @@ import {
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-material-ui';
-import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import { Stack, Animation } from '@devexpress/dx-react-chart';
 import { carbonEmmision as data } from '../../../demo-data/data-vizualization';
 
-const setStyle = (style) => {
-  const wrap = withStyles({ root: style });
-  return Target => wrap(({ classes, className, ...restProps }) => (
-    <Target className={classNames(classes.root, className)} {...restProps} />
-  ));
+const PREFIX = 'Demo';
+
+const classes = {
+  chart: `${PREFIX}-chart`,
 };
 
-const LegendRoot = setStyle({
-  display: 'flex',
-  margin: 'auto',
-  flexDirection: 'row',
-})(Legend.Root);
+const LegendRoot = props => (
+  <Legend.Root {...props} sx={{ display: 'flex', margin: 'auto', flexDirection: 'row' }} />
+);
 
-const LegendLabel = setStyle({
-  whiteSpace: 'nowrap',
-})(Legend.Label);
+const LegendLabel = props => (
+  <Legend.Label {...props} sx={{ whiteSpace: 'nowrap' }} />
+);
 
-const ChartRoot = setStyle({
-  paddingRight: '20px',
-})(Chart.Root);
+const ChartRootBase = styled(Chart.Root)(() => ({
+  [`&.${classes.chart}`]: {
+    paddingRight: '20px',
+  },
+}));
+
+const ChartRoot = props => (
+  <ChartRootBase className={classes.chart} {...props} />
+);
 
 const format = () => tick => tick;
 const stacks = [{

@@ -1,15 +1,21 @@
 import * as React from 'react';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import Popper from '@mui/material/Popper';
 import { RIGHT, TOP } from '@devexpress/dx-chart-core';
 import classNames from 'clsx';
 import * as PropTypes from 'prop-types';
 
-const styles = () => ({
-  popper: {
+const PREFIX = 'Overlay';
+
+export const classes = {
+  popper: `${PREFIX}-popper`,
+};
+
+const StyledPopper = styled(Popper)(() => ({
+  [`&.${classes.popper}`]: {
     zIndex: 1,
   },
-});
+}));
 
 const popperModifiers = arrowRef => ([
   { name: 'flip', enabled: false },
@@ -17,14 +23,14 @@ const popperModifiers = arrowRef => ([
   { name: 'offset', options: { offset: [0, 9] } },
 ]);
 
-const OverlayBase = ({
-  classes, className, children, target, rotated, arrowComponent: ArrowComponent, ...restProps
+export const Overlay = ({
+  className, children, target, rotated, arrowComponent: ArrowComponent, ...restProps
 }) => {
   const [arrowRef, setArrowRef] = React.useState(null);
   const placement = rotated ? RIGHT : TOP;
 
   return (
-    <Popper
+    <StyledPopper
       open
       anchorEl={target}
       placement={placement}
@@ -34,21 +40,18 @@ const OverlayBase = ({
     >
       {children}
       <ArrowComponent placement={placement} ref={setArrowRef} />
-    </Popper>
+    </StyledPopper>
   );
 };
 
-OverlayBase.propTypes = {
+Overlay.propTypes = {
   className: PropTypes.string,
-  classes: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
   target: PropTypes.any.isRequired,
   rotated: PropTypes.bool.isRequired,
   arrowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 };
 
-OverlayBase.defaultProps = {
+Overlay.defaultProps = {
   className: undefined,
 };
-
-export const Overlay = withStyles(styles)(OverlayBase);

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
-import { withClassName } from '../utils';
+import { withClassName, classes } from '../utils';
 
 const styles = () => ({
-  root: {
+  [`&.${classes.root}`]: {
     textAlign: 'center',
     width: '100%',
     marginBottom: '20px',

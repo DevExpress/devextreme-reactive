@@ -13,7 +13,7 @@ describe('Sizer', () => {
   beforeAll(() => {
     addEventListener = divProto.addEventListener;
     removeEventListener = divProto.removeEventListener;
-    divProto.addEventListener = jest.fn().mockImplementation();
+    divProto.addEventListener = jest.fn();
     divProto.removeEventListener = jest.fn();
   });
 
@@ -27,7 +27,7 @@ describe('Sizer', () => {
     divProto.removeEventListener.mockClear();
   });
 
-  it.skip('should add listeners on mount', () => {
+  it('should add listeners on mount', () => {
     const tree = mount(
       <Sizer
         onSizeChange={() => void 0}
@@ -36,14 +36,17 @@ describe('Sizer', () => {
     );
 
     const root = tree.find('.container').getDOMNode();
-    expect(divProto.addEventListener.mock.calls).toEqual([
-      ['scroll', expect.any(Function)],
-      ['scroll', expect.any(Function)],
-    ]);
-    expect(divProto.addEventListener.mock.instances).toEqual([
-      root.firstChild!.childNodes[0],
-      root.firstChild!.childNodes[1],
-    ]);
+
+    const callsLength = divProto.addEventListener.mock.calls.length;
+    expect(divProto.addEventListener.mock.calls[callsLength - 2])
+    .toEqual(['scroll', expect.any(Function)]);
+    expect(divProto.addEventListener.mock.calls[callsLength - 1])
+    .toEqual(['scroll', expect.any(Function)]);
+
+    expect(divProto.addEventListener.mock.instances[callsLength - 2])
+    .toEqual(root.firstChild!.childNodes[0]);
+    expect(divProto.addEventListener.mock.instances[callsLength - 1])
+    .toEqual(root.firstChild!.childNodes[1]);
   });
 
   it('should remove listeners on unmount', () => {

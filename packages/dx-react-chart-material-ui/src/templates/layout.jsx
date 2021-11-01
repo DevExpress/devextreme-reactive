@@ -1,10 +1,10 @@
 import { Chart } from '@devexpress/dx-react-chart';
-import { withClassName } from './utils';
+import { withClassName, classes } from './utils';
 
-const styles = (theme) => {
+const styles = ({ theme }) => {
   const { fontFamily, fontSize, fontWeightLight } = theme.typography;
   return ({
-    root: {
+    [`&.${classes.root}`]: {
       fontFamily,
       fontSize,
       fontWeight: fontWeightLight,

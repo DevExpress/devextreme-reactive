@@ -1,8 +1,8 @@
 import ListItem from '@mui/material/ListItem';
-import { withClassName } from '../utils';
+import { withClassName, classes } from '../utils';
 
-const styles = theme => ({
-  root: {
+const styles = ({ theme }) => ({
+  [`&.${classes.root}`]: {
     alignItems: 'center',
     paddingTop: theme.spacing(0.5),
     paddingBottom: theme.spacing(0.5),

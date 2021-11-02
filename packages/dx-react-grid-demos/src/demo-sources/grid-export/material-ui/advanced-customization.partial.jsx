@@ -11,7 +11,7 @@ const StyledVirtualTableCell = styled(VirtualTable.Cell)(({ row, column }) => ({
   [`&.${classes.cell}`]: getCellStyle(row, column),
 }));
 
-const Cell = (props) => (
+const Cell = props => (
   <StyledVirtualTableCell {...props} className={classes.cell} />
 );
 // BLOCK:body

@@ -38,5 +38,4 @@ const HeaderCell = ({ classes, className, ...restProps }) => (
     sx={{ color: 'secondary.light' }}
   />
 );
-
 // BLOCK:body

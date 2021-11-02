@@ -8,51 +8,28 @@ import {
   Title,
   Legend,
 } from '@devexpress/dx-react-chart-material-ui';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import { Animation } from '@devexpress/dx-react-chart';
 
 import { confidence as data } from '../../../demo-data/data-vizualization';
 
-const format = () => tick => tick;
-const legendStyles = () => ({
-  root: {
-    display: 'flex',
-    margin: 'auto',
-    flexDirection: 'row',
-  },
-});
-const legendLabelStyles = theme => ({
-  label: {
-    paddingTop: theme.spacing(1),
-    whiteSpace: 'nowrap',
-  },
-});
-const legendItemStyles = () => ({
-  item: {
-    flexDirection: 'column',
-  },
-});
+const PREFIX = 'Demo';
 
-const legendRootBase = ({ classes, ...restProps }) => (
-  <Legend.Root {...restProps} className={classes.root} />
+const classes = {
+  chart: `${PREFIX}-chart`,
+};
+
+const format = () => tick => tick;
+
+const Root = props => (
+  <Legend.Root {...props} sx={{ display: 'flex', margin: 'auto', flexDirection: 'row' }} />
 );
-const legendLabelBase = ({ classes, ...restProps }) => (
-  <Legend.Label className={classes.label} {...restProps} />
+const Label = props => (
+  <Legend.Label sx={{ pt: 1, whiteSpace: 'nowrap' }} {...props} />
 );
-const legendItemBase = ({ classes, ...restProps }) => (
-  <Legend.Item className={classes.item} {...restProps} />
+const Item = props => (
+  <Legend.Item sx={{ flexDirection: 'column' }} {...props} />
 );
-const Root = withStyles(legendStyles, { name: 'LegendRoot' })(legendRootBase);
-const Label = withStyles(legendLabelStyles, { name: 'LegendLabel' })(legendLabelBase);
-const Item = withStyles(legendItemStyles, { name: 'LegendItem' })(legendItemBase);
-const demoStyles = () => ({
-  chart: {
-    paddingRight: '20px',
-  },
-  title: {
-    whiteSpace: 'pre',
-  },
-});
 
 const ValueLabel = (props) => {
   const { text } = props;
@@ -64,16 +41,17 @@ const ValueLabel = (props) => {
   );
 };
 
-const titleStyles = {
-  title: {
-    whiteSpace: 'pre',
-  },
-};
-const TitleText = withStyles(titleStyles)(({ classes, ...props }) => (
-  <Title.Text {...props} className={classes.title} />
-));
+const TitleText = props => (
+  <Title.Text {...props} sx={{ whiteSpace: 'pre' }} />
+);
 
-class Demo extends React.PureComponent {
+const StyledChart = styled(Chart)(() => ({
+  [`&.${classes.chart}`]: {
+    paddingRight: '20px',
+  },
+}));
+
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -84,11 +62,10 @@ class Demo extends React.PureComponent {
 
   render() {
     const { data: chartData } = this.state;
-    const { classes } = this.props;
 
     return (
       <Paper>
-        <Chart
+        <StyledChart
           data={chartData}
           className={classes.chart}
         >
@@ -119,10 +96,8 @@ class Demo extends React.PureComponent {
             textComponent={TitleText}
           />
           <Animation />
-        </Chart>
+        </StyledChart>
       </Paper>
     );
   }
 }
-
-export default withStyles(demoStyles, { name: 'Demo' })(Demo);

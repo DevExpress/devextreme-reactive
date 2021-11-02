@@ -1,6 +1,7 @@
 import { withPatchedProps } from '@devexpress/dx-react-chart';
-import { darken, alpha, lighten } from '@mui/material/styles';
-import withStyles from '@mui/styles/withStyles';
+import {
+  darken, alpha, lighten, styled,
+} from '@mui/material/styles';
 import classNames from 'clsx';
 
 export const getBorderColor = theme => (
@@ -9,11 +10,17 @@ export const getBorderColor = theme => (
     : darken(alpha(theme.palette.divider, 1), 0.68)
 );
 
+const PREFIX = 'Target';
+
+export const classes = {
+  root: `${PREFIX}-root`,
+};
+
 export const withClassName = (...args) => {
-  const setClassName = ({ className, classes, ...restProps }) => ({
+  const setClassName = ({ className, ...restProps }) => ({
     className: classNames(classes.root, className),
     ...restProps,
   });
   // TODO: First candidate to `compose` util?
-  return Target => withStyles(...args)(withPatchedProps(setClassName)(Target));
+  return Target => styled(withPatchedProps(setClassName)(Target))(...args);
 };

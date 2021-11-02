@@ -17,7 +17,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { scaleBand } from '@devexpress/dx-chart-core';
 import { ArgumentScale, Stack, Animation } from '@devexpress/dx-react-chart';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 import { gaming as data } from '../../../demo-data/data-vizualization';
@@ -92,13 +92,6 @@ const options = [
   { key: 'PDF', action: exportToPdf, text: 'Save as PDF' },
 ];
 
-const styles = {
-  button: {
-    width: '50px',
-    height: '50px',
-  },
-};
-
 const ITEM_HEIGHT = 48;
 const paperProps = {
   style: {
@@ -132,7 +125,7 @@ const getLabelAnimationName = () => {
   return name;
 };
 
-const ExportBase = (props) => {
+const Export = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -149,7 +142,6 @@ const ExportBase = (props) => {
   };
 
   const open = Boolean(anchorEl);
-  const { classes } = props;
   return (
     <Plugin name="Export">
       <Template name="top">
@@ -157,7 +149,10 @@ const ExportBase = (props) => {
         <IconButton
           id={iconButton}
           onClick={handleClick}
-          className={classes.button}
+          sx={{
+            width: 50,
+            height: 50,
+          }}
           size="large"
         >
           <MoreVertIcon />
@@ -179,18 +174,25 @@ const ExportBase = (props) => {
   );
 };
 
-const Export = withStyles(styles)(ExportBase);
+const PREFIX = 'Export';
 
-const BarWithLabel = withStyles({
-  label: {
+const classes = {
+  label: `${PREFIX}-label`,
+  title: `${PREFIX}-title`,
+};
+
+const StyledChartLabel = styled(Chart.Label)(() => ({
+  [`&.${classes.label}`]: {
     fill: '#ffffff',
     fontSize: '10px',
     animation: `${getLabelAnimationName()} 1s`,
   },
-})(({ classes, value, ...restProps }) => (
+}));
+
+const BarWithLabel = ({ value, ...restProps }) => (
   <React.Fragment>
     <BarSeries.Point {...restProps} />
-    <Chart.Label
+    <StyledChartLabel
       x={restProps.arg}
       y={(restProps.val + restProps.startVal) / 2}
       dominantBaseline="middle"
@@ -198,35 +200,38 @@ const BarWithLabel = withStyles({
       className={classes.label}
     >
       {`${value}%`}
-    </Chart.Label>
+    </StyledChartLabel>
   </React.Fragment>
-));
-const LegendRoot = withStyles({
-  root: {
-    display: 'flex',
-    margin: 'auto',
-    flexDirection: 'row',
-  },
-})(({ classes, ...restProps }) => (
-  <Legend.Root {...restProps} className={classes.root} />
-));
+);
+const LegendRoot = props => (
+  <Legend.Root
+    {...props}
+    sx={{
+      display: 'flex',
+      margin: 'auto',
+      flexDirection: 'row',
+    }}
+  />
+);
 
-const LegendItemRoot = withStyles({
-  item: {
-    flexDirection: 'column',
-    marginLeft: '-2px',
-    marginRight: '-2px',
-  },
-})(({ classes, ...restProps }) => (
-  <Legend.Item {...restProps} className={classes.item} />
-));
-const LegendLabelRoot = withStyles({
-  label: {
-    whiteSpace: 'nowrap',
-  },
-})(({ classes, ...restProps }) => (
-  <Legend.Label {...restProps} className={classes.label} />
-));
+const LegendItemRoot = props => (
+  <Legend.Item
+    {...props}
+    sx={{
+      flexDirection: 'column',
+      marginLeft: '-2px',
+      marginRight: '-2px',
+    }}
+  />
+);
+const LegendLabelRoot = props => (
+  <Legend.Label
+    {...props}
+    sx={{
+      whiteSpace: 'nowrap',
+    }}
+  />
+);
 const Marker = (props) => {
   const { className, color } = props;
   return (
@@ -235,24 +240,24 @@ const Marker = (props) => {
     </svg>
   );
 };
-const TitleText = withStyles({
-  title: {
+const StyledTitleDiv = styled('div')(() => ({
+  [`&.${classes.title}`]: {
     textAlign: 'center',
     width: '100%',
     marginBottom: '10px',
   },
-})((props) => {
-  const { text, classes } = props;
+}));
+const TitleText = ({ text }) => {
   const [mainText, subText] = text.split('\n');
   return (
-    <div className={classes.title}>
+    <StyledTitleDiv className={classes.title}>
       <Typography component="h3" variant="h5">
         {mainText}
       </Typography>
       <Typography variant="subtitle1">{subText}</Typography>
-    </div>
+    </StyledTitleDiv>
   );
-});
+};
 export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);

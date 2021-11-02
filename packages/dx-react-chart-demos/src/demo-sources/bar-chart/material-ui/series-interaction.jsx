@@ -15,7 +15,7 @@ import {
   ArgumentScale, Stack, Animation, EventTracker, HoverState, SelectionState,
 } from '@devexpress/dx-react-chart';
 import Button from '@mui/material/Button';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import {
   NavigateBefore, NavigateNext,
 } from '@mui/icons-material/';
@@ -23,31 +23,28 @@ import Typography from '@mui/material/Typography';
 
 import { annualVehiclesSales as data } from '../../../demo-data/data-vizualization';
 
-const styles = theme => ({
-  navigateButton: {
-    margin: theme.spacing(1),
-  },
-  button: {
-    margin: theme.spacing(1),
-    width: '170px',
-  },
-  text: {
+const PREFIX = 'Demo';
+
+const classes = {
+  group: `${PREFIX}-group`,
+  hoverGroup: `${PREFIX}-hoverGroup`,
+  text: `${PREFIX}-text`,
+};
+
+const StyledDiv = styled('div')(() => ({
+  [`&.${classes.text}`]: {
     display: 'flex',
     flexDirection: 'row',
   },
-  group: {
+  [`&.${classes.group}`]: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
   },
-  hoverGroup: {
+  [`&.${classes.hoverGroup}`]: {
     width: '300px',
   },
-  name: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
-});
+}));
 
 const tooltipContentTitleStyle = {
   fontWeight: 'bold',
@@ -78,26 +75,16 @@ const TooltipContent = (props) => {
     </div>
   );
 };
-const Root = withStyles({
-  root: {
-    display: 'flex',
-    margin: 'auto',
-    flexDirection: 'row',
-  },
-})(({ classes, ...restProps }) => (
-  <Legend.Root {...restProps} className={classes.root} />
-));
-const Label = withStyles({
-  label: {
-    whiteSpace: 'nowrap',
-  },
-})(({ classes, ...restProps }) => (
-  <Legend.Label className={classes.label} {...restProps} />
-));
+const Root = props => (
+  <Legend.Root {...props} sx={{ display: 'flex', margin: 'auto', flexDirection: 'row' }} />
+);
+const Label = props => (
+  <Legend.Label sx={{ whiteSpace: 'nowrap' }} {...props} />
+);
 
-const TitleText = withStyles({ title: { marginBottom: '30px' } })(({ classes, ...restProps }) => (
-  <Title.Text {...restProps} className={classes.title} />
-));
+const TitleText = props => (
+  <Title.Text {...props} sx={{ marginBottom: '30px' }} />
+);
 
 const formatInfo = (target) => {
   if (!target) {
@@ -114,39 +101,39 @@ const AuxiliaryButton = props => (
 );
 
 const AuxiliarySelection = ({
-  classes, target, turnNext, turnPrev, clear,
+  target, turnNext, turnPrev, clear,
 }) => (
   <div>
-    <div className={classes.group}>
-      <AuxiliaryButton onClick={turnPrev} className={classes.navigateButton}>
+    <StyledDiv className={classes.group}>
+      <AuxiliaryButton onClick={turnPrev} sx={{ margin: 1 }}>
         <NavigateBefore />
       </AuxiliaryButton>
-      <AuxiliaryButton onClick={clear} className={classes.button}>
+      <AuxiliaryButton onClick={clear} sx={{ margin: 1, width: '170px' }}>
         Clear Selection
       </AuxiliaryButton>
-      <AuxiliaryButton onClick={turnNext} className={classes.navigateButton}>
+      <AuxiliaryButton onClick={turnNext} sx={{ margin: 1 }}>
         <NavigateNext />
       </AuxiliaryButton>
-    </div>
-    <div className={classes.text}>
-      <Typography color="textSecondary" variant="body2" className={classes.name}>Selected:</Typography>
+    </StyledDiv>
+    <StyledDiv className={classes.text}>
+      <Typography color="textSecondary" variant="body2" sx={{ ml: 1, mr: 1 }}>Selected:</Typography>
       <Typography>{formatInfo(target)}</Typography>
-    </div>
+    </StyledDiv>
   </div>
 );
 
 const AuxiliaryHover = ({
-  classes, target, enabled, toggle,
+  target, enabled, toggle,
 }) => (
-  <div className={classes.hoverGroup}>
-    <AuxiliaryButton onClick={toggle} className={classes.button}>
+  <StyledDiv className={classes.hoverGroup}>
+    <AuxiliaryButton onClick={toggle} sx={{ margin: 1, width: '170px' }}>
       {enabled ? 'Disable tooltip' : 'Enable tooltip'}
     </AuxiliaryButton>
-    <div className={classes.text}>
-      <Typography color="textSecondary" variant="body2" className={classes.name}>Hovered:</Typography>
+    <StyledDiv className={classes.text}>
+      <Typography color="textSecondary" variant="body2" sx={{ ml: 1, mr: 1 }}>Hovered:</Typography>
       <Typography>{formatInfo(target)}</Typography>
-    </div>
-  </div>
+    </StyledDiv>
+  </StyledDiv>
 );
 
 const encodeTarget = ({ series, point }) => (2 * point + Number(series === 'China'));
@@ -156,7 +143,7 @@ const compareTargets = (
   { series, point }, { series: targetSeries, point: targetPoint },
 ) => series === targetSeries && point === targetPoint;
 
-class Demo extends React.PureComponent {
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -206,7 +193,6 @@ class Demo extends React.PureComponent {
     const {
       hover, selection, tooltipTarget, tooltipEnabled,
     } = this.state;
-    const { classes } = this.props;
 
     return (
       <Paper>
@@ -244,24 +230,20 @@ class Demo extends React.PureComponent {
           <SelectionState selection={selection} />
           <Animation />
         </Chart>
-        <div className={classes.group}>
+        <StyledDiv className={classes.group}>
           <AuxiliaryHover
-            classes={classes}
             target={hover}
             enabled={tooltipEnabled}
             toggle={this.toggleTooltip}
           />
           <AuxiliarySelection
-            classes={classes}
             target={selection[0]}
             clear={this.clearSelection}
             turnPrev={this.turnPrevSelection}
             turnNext={this.turnNextSelection}
           />
-        </div>
+        </StyledDiv>
       </Paper>
     );
   }
 }
-
-export default withStyles(styles)(Demo);

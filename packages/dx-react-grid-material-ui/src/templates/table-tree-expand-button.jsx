@@ -44,7 +44,6 @@ export const TableTreeExpandButton = ({
     }}
     tabIndex={visible ? 0 : -1}
     {...restProps}
-    size="large"
   >
     {expanded
       ? <ExpandMore />

@@ -15,7 +15,7 @@ import {
 
 const PREFIX = 'Demo';
 const classes = {
-  cebuttonll: `${PREFIX}-button`,
+  button: `${PREFIX}-button`,
 };
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
   [`&.${classes.button}`]: {

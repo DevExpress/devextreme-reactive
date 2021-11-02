@@ -22,11 +22,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     paddingBottom: 0,
     paddingLeft: theme.spacing(1),
   },
-  [`& .${classes.toggleCellButton}`]: {
-    verticalAlign: 'middle',
-    display: 'inline-block',
-    padding: theme.spacing(1),
-  },
 }));
 
 export const TableDetailToggleCell = ({
@@ -46,7 +41,7 @@ export const TableDetailToggleCell = ({
       ref={forwardedRef}
       {...restProps}
     >
-      <IconButton className={classes.toggleCellButton} onClick={handleClick} size="large">
+      <IconButton onClick={handleClick}>
         {
           expanded
             ? <ExpandLess />

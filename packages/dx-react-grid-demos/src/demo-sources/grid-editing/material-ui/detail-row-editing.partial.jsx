@@ -139,13 +139,7 @@ const ToggleCell = ({
       {...restProps}
     >
       <IconButton
-        sx={{
-          verticalAlign: 'middle',
-          display: 'inline-block',
-          padding: 1,
-        }}
         onClick={handleClick}
-        size="large"
       >
         {
           expanded

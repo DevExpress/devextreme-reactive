@@ -21,16 +21,7 @@ describe('Common', () => {
       expect(tree.find(`.${defaultProps.classes.container}`))
         .toBeTruthy();
     });
-    it('should pass rest props to the root element', () => {
-      const tree = shallow((
-        <ContainerBase {...defaultProps} data={{ a: 1 }}>
-          <div />
-        </ContainerBase>
-      ));
 
-      expect(tree.find(`.${defaultProps.classes.container}`).props().data)
-        .toMatchObject({ a: 1 });
-    });
     it('should render children inside', () => {
       const tree = shallow((
         <ContainerBase {...defaultProps} data={{ a: 1 }}>

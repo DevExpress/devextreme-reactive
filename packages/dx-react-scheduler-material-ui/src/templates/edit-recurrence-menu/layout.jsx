@@ -17,9 +17,7 @@ export const classes = {
   media: `${PREFIX}-${SMALL_LAYOUT_MEDIA_QUERY}`,
 };
 
-const StyledDiv = styled('div')(({
-  theme: { typography },
-}) => ({
+const StyledDiv = styled('div')(({ theme: { typography } }) => ({
   [`& .${classes.title}`]: typography.h6,
 
   [`& .${classes.content}`]: {

@@ -11,9 +11,7 @@ const classes = {
   inputRoot: `${PREFIX}-inputRoot`,
 };
 
-const StyledOutlinedSelect = styled(OutlinedSelect)(({
-  theme: { spacing },
-}) => ({
+const StyledOutlinedSelect = styled(OutlinedSelect)(({ theme: { spacing } }) => ({
   [`& .${classes.input}`]: {
     padding: spacing(1.25, 1.75),
     paddingRight: spacing(4),

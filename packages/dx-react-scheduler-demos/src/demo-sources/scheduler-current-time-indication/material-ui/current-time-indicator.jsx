@@ -26,7 +26,7 @@ const classes = {
   textField: `${PREFIX}-textField`,
 };
 
-const Root = styled('div')(({
+const StyledDiv = styled('div')(({
   theme: { spacing },
 }) => ({
   [`& .${classes.checkBoxContainer}`]: {
@@ -161,7 +161,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <Root>
+      <StyledDiv>
         <Grid container>
           <CheckBoxContainer
             shadePreviousCells={shadePreviousCells}
@@ -198,7 +198,7 @@ export default class Demo extends React.PureComponent {
             />
           </Scheduler>
         </Paper>
-      </Root>
+      </StyledDiv>
     );
   }
 }

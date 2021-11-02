@@ -15,9 +15,7 @@ export const classes = {
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const StyledDiv = styled('div')(({
-  theme: { spacing },
-}) => ({
+const StyledDiv = styled('div')(({ theme: { spacing } }) => ({
   [`& .${classes.textButton}`]: {
     [`${LAYOUT_MEDIA_QUERY}`]: {
       display: 'none',

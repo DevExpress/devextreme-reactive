@@ -19,9 +19,7 @@ export const classes = {
   controlLabel: `${PREFIX}-controlLabel`,
 };
 
-const StyledDiv = styled('div')(({
-  theme: { spacing },
-}) => ({
+const StyledDiv = styled('div')(({ theme: { spacing } }) => ({
   [`& .${classes.label}`]: {
     width: '4.5em',
   },

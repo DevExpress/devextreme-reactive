@@ -60,7 +60,7 @@ const useGroupingStyles = (group) => {
       paddingLeft: theme.spacing(1),
       verticalAlign: 'middle',
     },
-  }));
+  }))();
 };
 
 const TimeTableCell = React.memo(({ groupingInfo, ...restProps }) => {

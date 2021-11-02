@@ -18,9 +18,7 @@ export const classes = {
   buttonGroup: `${PREFIX}-buttonGroup`,
 };
 
-const StyledButtonGroup = styled(ButtonGroup)(({
-  theme: { palette, spacing },
-}) => ({
+const StyledButtonGroup = styled(ButtonGroup)(({ theme: { palette, spacing } }) => ({
   [`& .${classes.selectedButton}`]: {
     backgroundColor: ensureColor(400, palette.primary),
     '&:hover': {

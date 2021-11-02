@@ -22,11 +22,7 @@ const classes = {
   text: `${PREFIX}-text`,
 };
 
-const Root = styled('div')((
-  {
-    theme,
-  },
-) => ({
+const StyledDiv = styled('div')(({ theme }) => ({
   [`&.${classes.container}`]: {
     display: 'flex',
     marginBottom: theme.spacing(2),
@@ -55,7 +51,7 @@ const getAllDayMessages = locale => allDayLocalizationMessages[locale];
 
 const LocaleSwitcher = (
   ({ onLocaleChange, currentLocale }) => (
-    <Root className={classes.container}>
+    <StyledDiv className={classes.container}>
       <div className={classes.text}>
         Locale:
       </div>
@@ -69,7 +65,7 @@ const LocaleSwitcher = (
         <MenuItem value="de-GR">Deutsch (German)</MenuItem>
         <MenuItem value="en-US">English (United States)</MenuItem>
       </TextField>
-    </Root>
+    </StyledDiv>
   )
 );
 

@@ -19,7 +19,7 @@ const classes = {
   text: `${PREFIX}-text`,
 };
 
-const Root = styled('div')(({ theme }) => ({
+const StyledDiv = styled('div')(({ theme }) => ({
   [`& .${classes.container}`]: {
     display: 'flex',
     marginBottom: theme.spacing(2),
@@ -136,7 +136,7 @@ export default class Demo extends React.PureComponent {
     const { data, resources, mainResourceName } = this.state;
 
     return (
-      <Root>
+      <StyledDiv>
         <ResourceSwitcher
           resources={resources}
           mainResourceName={mainResourceName}
@@ -162,7 +162,7 @@ export default class Demo extends React.PureComponent {
             />
           </Scheduler>
         </Paper>
-      </Root>
+      </StyledDiv>
     );
   }
 }

@@ -14,9 +14,7 @@ export const classes = {
   image: `${PREFIX}-image`,
 };
 
-const StyledDiv = styled('div')(({
-  theme: { palette, spacing },
-}) => ({
+const StyledDiv = styled('div')(({ theme: { palette, spacing } }) => ({
   [`& .${classes.title}`]: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',

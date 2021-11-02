@@ -14,11 +14,7 @@ export const classes = {
   brightRightBorder: `${PREFIX}-brightRightBorder`,
 };
 
-const StyledTableCell = styled(TableCell)((
-  {
-    theme,
-  },
-) => ({
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${classes.cell}`]: {
     userSelect: 'none',
     padding: 0,

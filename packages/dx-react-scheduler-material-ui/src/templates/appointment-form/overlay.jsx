@@ -16,9 +16,7 @@ export const classes = {
   transition: `${PREFIX}-transition`,
 };
 
-const StyledDrawer = styled(Drawer)(({
-  theme: { spacing },
-}) => ({
+const StyledDrawer = styled(Drawer)(({ theme: { spacing } }) => ({
   [`&.${classes.root}`]: {
     overflow: 'hidden',
     paddingTop: spacing(2),

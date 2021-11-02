@@ -17,9 +17,7 @@ export const classes = {
   controlLabel: `${PREFIX}-controlLabel`,
 };
 
-const StyledGrid = styled(Grid)(({
-  theme: { spacing },
-}) => ({
+const StyledGrid = styled(Grid)(({ theme: { spacing } }) => ({
   [`& .${classes.textEditor}`]: {
     width: 'calc((100% - 5.5em) * 4 / 7)',
     minWidth: 'calc(100% - 13.5em)',

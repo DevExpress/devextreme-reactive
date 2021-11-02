@@ -29,8 +29,7 @@ const classes = {
   text: `${PREFIX}-text`,
 };
 
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')(({
+const StyledDiv = styled('div')(({
   theme: { spacing, palette, typography },
 }) => ({
   [`& .${classes.formControlLabel}`]: {
@@ -53,20 +52,16 @@ const priorityData = [
   { text: 'High Priority', id: 2, color: green },
 ];
 
-const GroupOrderSwitcher = (
-  ({
-    isGroupByDate, onChange,
-  }) => (
-    <FormControlLabel
-      control={
-        <Checkbox checked={isGroupByDate} onChange={onChange} color="primary" />
-      }
-      label="Group by Date First"
-      className={classes.formControlLabel}
-      classes={{ label: classes.text }}
-    />
-  )
-);
+const GroupOrderSwitcher = (({ isGroupByDate, onChange }) => (
+  <FormControlLabel
+    control={
+      <Checkbox checked={isGroupByDate} onChange={onChange} color="primary" />
+    }
+    label="Group by Date First"
+    className={classes.formControlLabel}
+    classes={{ label: classes.text }}
+  />
+));
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -120,7 +115,7 @@ export default class Demo extends React.PureComponent {
 
     return (
       (
-        <Root>
+        <StyledDiv>
           <GroupOrderSwitcher isGroupByDate={isGroupByDate} onChange={this.onGroupOrderChange} />
           <Paper>
             <Scheduler
@@ -162,7 +157,7 @@ export default class Demo extends React.PureComponent {
               <DragDropProvider />
             </Scheduler>
           </Paper>
-        </Root>
+        </StyledDiv>
       )
     );
   }

@@ -13,9 +13,7 @@ export const classes = {
   button: `${PREFIX}-button`,
 };
 
-const StyledIconButton = styled(IconButton)(({
-  theme: { spacing },
-}) => ({
+const StyledIconButton = styled(IconButton)(({ theme: { spacing } }) => ({
   [`&.${classes.button}`]: {
     [`${SMALL_LAYOUT_MEDIA_QUERY}`]: {
       width: spacing(4),

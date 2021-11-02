@@ -14,9 +14,7 @@ const classes = {
   inputRoot: `${PREFIX}-inputRoot`,
 };
 
-const StyledSelect = styled(Select)(({
-  theme: { typography },
-}) => ({
+const StyledSelect = styled(Select)(({ theme: { typography } }) => ({
   [`& .${classes.root}`]: {
     fontSize: typography.fontSize + 2,
   },

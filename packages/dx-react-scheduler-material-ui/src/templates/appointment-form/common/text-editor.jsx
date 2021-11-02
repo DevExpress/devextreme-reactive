@@ -17,11 +17,7 @@ export const classes = {
   title: `${PREFIX}-title`,
 };
 
-const StyledTextField = styled(TextField)((
-  {
-    theme,
-  },
-) => ({
+const StyledTextField = styled(TextField)(({ theme }) => ({
   [`& .${classes.editor}`]: {
     width: '100%',
     marginTop: theme.spacing(0.375),

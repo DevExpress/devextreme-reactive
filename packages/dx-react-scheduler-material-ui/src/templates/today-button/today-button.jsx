@@ -11,9 +11,7 @@ export const classes = {
   button: `${PREFIX}-button`,
 };
 
-const StyledButton = styled(Button)(({
-  theme: { spacing },
-}) => ({
+const StyledButton = styled(Button)(({ theme: { spacing } }) => ({
   [`&.${classes.button}`]: {
     padding: spacing(0.8, 2),
     marginLeft: spacing(0.5),

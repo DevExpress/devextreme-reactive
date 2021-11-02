@@ -9,7 +9,7 @@ const classes = {
   root: `${PREFIX}-root`,
 };
 
-const StyledRoot = styled('div')(({
+const StyledDiv = styled('div')(({
   theme: { spacing },
 }) => ({
   [`&.${classes.root}`]: {
@@ -34,7 +34,7 @@ const RootBase = ({
   const navigateForward = React.useCallback(() => onNavigate('forward'), [onNavigate]);
 
   return (
-    <StyledRoot
+    <StyledDiv
       className={classNames(classes.root, className)}
       ref={rootRef}
       {...restProps}
@@ -51,7 +51,7 @@ const RootBase = ({
         onVisibilityToggle={onVisibilityToggle}
         text={navigatorText}
       />
-    </StyledRoot>
+    </StyledDiv>
   );
 };
 

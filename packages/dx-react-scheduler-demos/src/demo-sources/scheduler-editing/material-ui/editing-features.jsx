@@ -25,7 +25,7 @@ const classes = {
   formControlLabel: `${PREFIX}-formControlLabel`,
 };
 
-const Root = styled('div')(({ theme }) => ({
+const StyledDiv = styled('div')(({ theme }) => ({
   [`& .${classes.container}`]: {
     margin: theme.spacing(2),
     padding: theme.spacing(2),
@@ -144,7 +144,7 @@ export default () => {
 
   return (
     (
-      <Root>
+      <StyledDiv>
         <EditingOptionsSelector
           options={editingOptions}
           onOptionsChange={handleEditingOptionsChange}
@@ -186,7 +186,7 @@ export default () => {
             />
           </Scheduler>
         </Paper>
-      </Root>
+      </StyledDiv>
     )
   );
 };

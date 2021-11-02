@@ -19,11 +19,7 @@ const classes = {
   weekend: `${PREFIX}-weekend`,
 };
 
-const StyledPaper = styled(Paper)((
-  {
-    theme,
-  },
-) => ({
+const StyledPaper = styled(Paper)(({ theme }) => ({
   [`& .${classes.todayCell}`]: {
     backgroundColor: alpha(theme.palette.primary.main, 0.1),
     '&:hover': {

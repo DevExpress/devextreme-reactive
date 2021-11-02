@@ -15,11 +15,7 @@ export const classes = {
   fixedHeight: `${PREFIX}-fixedHeight`,
 };
 
-const StyledDiv = styled('div')((
-  {
-    theme,
-  },
-) => ({
+const StyledDiv = styled('div')(({ theme }) => ({
   [`&.${classes.container}`]: {
     userSelect: 'none',
     height: '100%',

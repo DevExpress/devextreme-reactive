@@ -30,9 +30,7 @@ export const classes = {
   controlLabel: `${PREFIX}-controlLabel`,
 };
 
-const StyledRadioGroup = styled(RadioGroup)(({
-  theme: { spacing },
-}) => ({
+const StyledRadioGroup = styled(RadioGroup)(({ theme: { spacing } }) => ({
   [`& .${classes.textEditor}`]: {
     width: 'calc((100% - 5.5em) * 3 / 7)',
     maxWidth: '12em',

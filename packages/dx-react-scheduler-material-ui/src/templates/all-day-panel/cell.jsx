@@ -16,11 +16,7 @@ export const classes = {
   brightRightBorder: `${PREFIX}-brightRightBorder`,
 };
 
-const StyledTableCell = styled(TableCell)((
-  {
-    theme,
-  },
-) => ({
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${classes.cell}`]: {
     padding: 0,
     height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL]),

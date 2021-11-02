@@ -23,9 +23,7 @@ export const classes = {
   controlLabel: `${PREFIX}-controlLabel`,
 };
 
-const StyledRadioGroup = styled(RadioGroup)(({
-  theme: { spacing, typography },
-}) => ({
+const StyledRadioGroup = styled(RadioGroup)(({ theme: { spacing, typography } }) => ({
   [`& .${classes.occurenceTextEditor}`]: {
     width: 'calc((100% - 5.5em) * 3 / 7)',
     maxWidth: '8em',

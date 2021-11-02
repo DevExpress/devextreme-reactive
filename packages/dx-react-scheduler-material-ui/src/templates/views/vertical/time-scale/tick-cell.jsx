@@ -15,11 +15,7 @@ export const classes = {
   allDayCell: `${PREFIX}-allDayCell`,
 };
 
-const StyledTableCell = styled(TableCell)((
-  {
-    theme,
-  },
-) => ({
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`& .${classes.cell}`]: {
     height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.WEEK]),
     padding: 0,

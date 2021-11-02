@@ -13,9 +13,7 @@ export const classes = {
   today: `${PREFIX}-today`,
 };
 
-const StyledTableCell = styled(TableCell)(({
-  theme: { palette, spacing },
-}) => ({
+const StyledTableCell = styled(TableCell)(({ theme: { palette, spacing } }) => ({
   [`&.${classes.cell}`]: {
     userSelect: 'none',
     border: 'none',

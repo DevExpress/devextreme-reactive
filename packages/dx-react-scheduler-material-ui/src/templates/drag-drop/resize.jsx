@@ -64,9 +64,7 @@ ResizeBase.defaultProps = {
   forwardedRef: undefined,
 };
 
-const StyledResizeBaze = styled(ResizeBase)(({
-  theme: { spacing },
-}) => {
+const StyledResizeBaze = styled(ResizeBase)(({ theme: { spacing } }) => {
   const vertical = verticalStyles(spacing);
   const horizontal = horizontalStyles(spacing);
   return {

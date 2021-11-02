@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Paper from '@mui/material/Paper';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -22,34 +22,44 @@ import {
 
 import { generateRows } from '../../../demo-data/generator';
 
-const styles = () => ({
-  input: {
+const PREFIX = 'Demo';
+const classes = {
+  input: `${PREFIX}-input`,
+  label: `${PREFIX}-label`,
+  container: `${PREFIX}-container`,
+  button: `${PREFIX}-button`,
+  selector: `${PREFIX}-selector`,
+};
+const StyledGridMUI = styled(GridMUI)(() => ({
+  [`&.${classes.container}`]: {
+    maxWidth: '19em',
+  },
+  [`& .${classes.input}`]: {
     paddingLeft: '8px',
     fontSize: '14px',
     width: '88px',
   },
-  label: {
+  [`& .${classes.label}`]: {
     fontSize: '14px',
   },
-  container: {
-    maxWidth: '19em',
+  [`& .${classes.selector}`]: {
+    height: '32px',
   },
-  button: {
+}));
+const StyledButton = styled(Button)(() => ({
+  [`&.${classes.button}`]: {
     fontSize: '14px',
     paddingLeft: '8px',
     paddingRight: '8px',
     height: '32px',
   },
-  selector: {
-    height: '32px',
-  },
-});
+}));
 
 // #FOLD_BLOCK
-const ModeSelectorBase = (props) => {
-  const { defaultValue, changeMode, classes } = props;
+const ModeSelector = (props) => {
+  const { defaultValue, changeMode } = props;
   return (
-    <GridMUI
+    <StyledGridMUI
       container
       alignItems="center"
       className={classes.container}
@@ -74,26 +84,24 @@ const ModeSelectorBase = (props) => {
         <MenuItem value="widget">Widget</MenuItem>
         <MenuItem value="nextColumn">NextColumn</MenuItem>
       </Select>
-    </GridMUI>
+    </StyledGridMUI>
   );
 };
-const ModeSelector = withStyles(styles, { name: 'ModeSelector' })(ModeSelectorBase);
 
 // #FOLD_BLOCK
-const ResetWidthButtonBase = (props) => {
-  const { resetWidths, classes } = props;
+const ResetWidthButton = (props) => {
+  const { resetWidths } = props;
   return (
-    <Button
+    <StyledButton
       onClick={resetWidths}
       variant="outlined"
       size="medium"
       className={classes.button}
     >
       Reset widths to default
-    </Button>
+    </StyledButton>
   );
 };
-const ResetWidthButton = withStyles(styles, { name: 'ResetWidthButton' })(ResetWidthButtonBase);
 
 const ResizingPanel = props => (
   <Plugin name="ResizingPanel">

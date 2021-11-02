@@ -6,31 +6,43 @@ import Typography from '@mui/material/Typography';
 import GridMUI from '@mui/material/Grid';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 // BLOCK:imports
 
 // BLOCK:body
-const styles = () => ({
-  input: {
+const PREFIX = 'Demo';
+const classes = {
+  input: `${PREFIX}-input`,
+  label: `${PREFIX}-label`,
+  container: `${PREFIX}-container`,
+  selector: `${PREFIX}-selector`,
+};
+const StyledGridMUI = styled(GridMUI)(() => ({
+  [`&.${classes.container}`]: {
+    maxWidth: '18em',
+  },
+  [`& .${classes.input}`]: {
     fontSize: '14px',
     width: '90px',
   },
-  label: {
+  [`& .${classes.label}`]: {
     fontSize: '14px',
   },
-  container: {
-    maxWidth: '18em',
-  },
-  selector: {
+  [`& .${classes.selector}`]: {
     height: '32px',
   },
-});
+}));
+const StyledFormControlLabel = styled(FormControlLabel)(() => ({
+  [`&.${classes.label}`]: {
+    fontSize: '14px',
+  },
+}));
 
 // #FOLD_BLOCK
-const StartEditActionSelectorBase = (props) => {
-  const { defaultAction, changeAction, classes } = props;
+const StartEditActionSelector = (props) => {
+  const { defaultAction, changeAction } = props;
   return (
-    <GridMUI
+    <StyledGridMUI
       container
       alignItems="center"
       className={classes.container}
@@ -55,16 +67,15 @@ const StartEditActionSelectorBase = (props) => {
         <MenuItem value="click">Click</MenuItem>
         <MenuItem value="doubleClick">Double Click</MenuItem>
       </Select>
-    </GridMUI>
+    </StyledGridMUI>
   );
 };
-const StartEditActionSelector = withStyles(styles, { name: 'StartEditActionSelector' })(StartEditActionSelectorBase);
 
 // #FOLD_BLOCK
-const SelectTextCheckerBase = (props) => {
-  const { isSelectText, changeSelectText, classes } = props;
+const SelectTextChecker = (props) => {
+  const { isSelectText, changeSelectText } = props;
   return (
-    <FormControlLabel
+    <StyledFormControlLabel
       control={(
         <Checkbox
           checked={isSelectText}
@@ -77,7 +88,6 @@ const SelectTextCheckerBase = (props) => {
     />
   );
 };
-const SelectTextChecker = withStyles(styles, { name: 'SelectTextChecker' })(SelectTextCheckerBase);
 
 const EditPropsPanel = props => (
   <Plugin name="EditPropsPanel">

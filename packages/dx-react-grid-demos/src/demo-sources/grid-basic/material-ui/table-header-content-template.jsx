@@ -7,20 +7,24 @@ import {
   Table,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import {
   generateRows,
   globalSalesValues,
 } from '../../../demo-data/generator';
 
-const styles = theme => ({
-  button: {
+const PREFIX = 'Demo';
+const classes = {
+  cebuttonll: `${PREFIX}-button`,
+};
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  [`&.${classes.button}`]: {
     margin: theme.spacing(0, 1),
   },
-});
+}));
 
-const TableHeaderContentBase = ({
-  column, children, classes, ...restProps
+const TableHeaderContent = ({
+  column, children, ...restProps
 }) => (
   <TableHeaderRow.Content
     column={column}
@@ -28,19 +32,17 @@ const TableHeaderContentBase = ({
   >
     {children}
     {column.name === 'region' ? (
-      <IconButton
+      <StyledIconButton
         className={classes.button}
         // eslint-disable-next-line no-alert
         onClick={() => alert('Custom action')}
         size="large"
       >
         <VisibilityOff />
-      </IconButton>
+      </StyledIconButton>
     ) : null}
   </TableHeaderRow.Content>
 );
-
-export const TableHeaderContent = withStyles(styles, { name: 'TableHeaderContent' })(TableHeaderContentBase);
 
 export default () => {
   const [columns] = useState([

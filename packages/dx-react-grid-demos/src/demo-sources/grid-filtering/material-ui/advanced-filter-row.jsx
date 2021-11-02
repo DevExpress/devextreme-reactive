@@ -6,7 +6,7 @@ import {
 } from '@devexpress/dx-react-grid-material-ui';
 import Paper from '@mui/material/Paper';
 import Input from '@mui/material/Input';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import DateRange from '@mui/icons-material/DateRange';
 
 import { generateRows, globalSalesValues } from '../../../demo-data/generator';
@@ -16,18 +16,23 @@ const FilterIcon = ({ type, ...restProps }) => {
   return <TableFilterRow.Icon type={type} {...restProps} />;
 };
 
-const styles = theme => ({
-  root: {
+const PREFIX = 'Demo';
+const classes = {
+  root: `${PREFIX}-root`,
+  numericInput: `${PREFIX}-numericInput`,
+};
+const StyledInput = styled(Input)(({ theme }) => ({
+  [`&.${classes.root}`]: {
     margin: theme.spacing(1),
   },
-  numericInput: {
+  [`&.${classes.numericInput}`]: {
     fontSize: '14px',
     textAlign: 'right',
     width: '100%',
   },
-});
+}));
 
-const CurrencyEditorBase = ({ value, onValueChange, classes }) => {
+const CurrencyEditor = ({ value, onValueChange }) => {
   const handleChange = (event) => {
     const { value: targetValue } = event.target;
     if (targetValue.trim() === '') {
@@ -37,7 +42,7 @@ const CurrencyEditorBase = ({ value, onValueChange, classes }) => {
     onValueChange(parseInt(targetValue, 10));
   };
   return (
-    <Input
+    <StyledInput
       type="number"
       classes={{
         input: classes.numericInput,
@@ -54,17 +59,14 @@ const CurrencyEditorBase = ({ value, onValueChange, classes }) => {
   );
 };
 
-CurrencyEditorBase.propTypes = {
+CurrencyEditor.propTypes = {
   value: PropTypes.number,
   onValueChange: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
 };
 
-CurrencyEditorBase.defaultProps = {
+CurrencyEditor.defaultProps = {
   value: undefined,
 };
-
-const CurrencyEditor = withStyles(styles)(CurrencyEditorBase);
 
 export default () => {
   const [columns] = useState([

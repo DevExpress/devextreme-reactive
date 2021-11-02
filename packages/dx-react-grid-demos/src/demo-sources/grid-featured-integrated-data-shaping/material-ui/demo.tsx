@@ -1,10 +1,7 @@
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
 import Input from '@mui/material/Input';
-import { Theme } from '@mui/material/styles';
-import { WithStyles } from '@mui/styles';
-import createStyles from '@mui/styles/createStyles';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import {
   Column,
   FilteringState, GroupingState,
@@ -22,8 +19,8 @@ import {
   globalSalesValues,
 } from '../../../demo-data/generator';
 
-type CurrencyFormatterProps = DataTypeProvider.ValueFormatterProps & WithStyles<typeof styles>;
-type CurrencyEditorProps = DataTypeProvider.ValueEditorProps & WithStyles<typeof styles>;
+type CurrencyFormatterProps = DataTypeProvider.ValueFormatterProps;
+type CurrencyEditorProps = DataTypeProvider.ValueEditorProps;
 
 interface ISale {
   product: string,
@@ -41,18 +38,24 @@ const availableFilterOperations: string[] = [
   'lessThan', 'lessThanOrEqual',
 ];
 
-const styles = ({ typography }: Theme) => createStyles({
-  currency: {
-    fontWeight: typography.fontWeightMedium,
-  },
-  numericInput: {
+const PREFIX = 'Demo';
+const classes = {
+  currency: `${PREFIX}-currency`,
+  numericInput: `${PREFIX}-numericInput`,
+};
+const StyledInput = styled(Input)(() => ({
+  [`& .${classes.numericInput}`]: {
     fontSize: '14px',
     width: '100%',
   },
-});
+}));
+const StyledI = styled('i')(({ theme }) => ({
+  [`& .${classes.currency}`]: {
+    fontWeight: theme.typography.fontWeightMedium,
+  },
+}));
 
-const getInputValue = (value?: string) : string =>
-  (value === undefined ? '' : value);
+const getInputValue = (value?: string) : string => (value === undefined ? '' : value);
 
 const getColor = (amount: number) : string => {
   if (amount < 3000) {
@@ -67,50 +70,47 @@ const getColor = (amount: number) : string => {
   return '#009688';
 };
 
-const CurrencyEditor = withStyles(styles)(
-  ({ onValueChange, classes, value } : CurrencyEditorProps) => {
-    const handleChange = (event) => {
-      const { value: targetValue } = event.target;
-      if (targetValue.trim() === '') {
-        onValueChange(undefined);
-        return;
-      }
-      onValueChange(parseInt(targetValue, 10));
-    };
-    return (
-      <Input
-        type="number"
-        classes={{
-          input: classes.numericInput,
-        }}
-        fullWidth={true}
-        value={getInputValue(value)}
-        inputProps={{
-          min: 0,
-          placeholder: 'Filter...',
-        }}
-        onChange={handleChange}
-      />
-    );
-  }
+const CurrencyEditor = ({ onValueChange, value } : CurrencyEditorProps) => {
+  const handleChange = (event) => {
+    const { value: targetValue } = event.target;
+    if (targetValue.trim() === '') {
+      onValueChange(undefined);
+      return;
+    }
+    onValueChange(parseInt(targetValue, 10));
+  };
+  return (
+    <StyledInput
+      type="number"
+      classes={{
+        input: classes.numericInput,
+      }}
+      fullWidth={true}
+      value={getInputValue(value)}
+      inputProps={{
+        min: 0,
+        placeholder: 'Filter...',
+      }}
+      onChange={handleChange}
+    />
+  );
+};
+
+const CurrencyFormatter = ({ value } : CurrencyFormatterProps) => (
+  <StyledI className={classes.currency} style={{ color: getColor(value) }}>
+    {value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+  </StyledI>
 );
 
-const CurrencyFormatter = withStyles(styles)(
-  ({ value, classes } : CurrencyFormatterProps,
-) => ( 
-  <i className={classes.currency} style={{ color: getColor(value) }}>
-    {value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
-  </i>
-));
-
-const CurrencyTypeProvider: React.ComponentType<DataTypeProviderProps> =
-  (props: DataTypeProviderProps) => (
-    <DataTypeProvider
-      formatterComponent={CurrencyFormatter}
-      editorComponent={CurrencyEditor}
-      availableFilterOperations={availableFilterOperations}
-      {...props}
-    />
+const CurrencyTypeProvider: React.ComponentType<DataTypeProviderProps> = (
+  props: DataTypeProviderProps,
+) => (
+  <DataTypeProvider
+    formatterComponent={CurrencyFormatter}
+    editorComponent={CurrencyEditor}
+    availableFilterOperations={availableFilterOperations}
+    {...props}
+  />
 );
 
 export default () => {

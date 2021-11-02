@@ -1,16 +1,17 @@
 // BLOCK:imports
-import makeStyles from '@mui/styles/makeStyles';
+import { styled } from '@mui/material/styles';
 // BLOCK:imports
 
 // BLOCK:body
-const useCellStyles = makeStyles({
-  cell: ({ row, column }) => getCellStyle(row, column),
-});
-
-const Cell = (props) => {
-  const classes = useCellStyles(props);
-  return (
-    <VirtualTable.Cell {...props} className={classes.cell} />
-  );
+const PREFIX = 'Demo';
+const classes = {
+  cell: `${PREFIX}-cell`,
 };
+const StyledVirtualTableCell = styled(VirtualTable.Cell)(({ row, column }) => ({
+  [`&.${classes.cell}`]: getCellStyle(row, column),
+}));
+
+const Cell = (props) => (
+  <StyledVirtualTableCell {...props} className={classes.cell} />
+);
 // BLOCK:body

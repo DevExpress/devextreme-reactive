@@ -1,35 +1,33 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'clsx';
+import { styled } from '@mui/material/styles';
 import TableCell from '@mui/material/TableCell';
-import withStyles from '@mui/styles/withStyles';
 
-const styles = theme => ({
-  progressBarCell: {
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-  },
-  progressBar: {
+const PREFIX = 'Demo';
+const classes = {
+  progressBar: `${PREFIX}-progressBar`,
+};
+const StyledDiv = styled('div')(({ theme }) => ({
+  [`&.${classes.progressBar}`]: {
     backgroundColor: theme.palette.primary.light,
     float: 'left',
     height: theme.spacing(1),
   },
-});
+}));
 
-const ProgressBarCellBase = ({
-  value, classes, style, tabIndex, forwardedRef, className,
+export const ProgressBarCell = ({
+  value, style, tabIndex, forwardedRef, className,
 }) => {
   const percent = value * 100;
   return (
     <TableCell
-      className={classNames({
-        [classes.progressBarCell]: true,
-      }, className)}
+      className={className}
+      sx={{ pl: 1, pr: 1 }}
       tabIndex={tabIndex}
       ref={forwardedRef}
       style={style}
     >
-      <div
+      <StyledDiv
         className={classes.progressBar}
         style={{ width: `${percent}%` }}
         title={`${percent.toFixed(1)}%`}
@@ -38,19 +36,16 @@ const ProgressBarCellBase = ({
   );
 };
 
-ProgressBarCellBase.propTypes = {
+ProgressBarCell.propTypes = {
   value: PropTypes.number.isRequired,
-  classes: PropTypes.object.isRequired,
   style: PropTypes.object,
   tabIndex: PropTypes.number,
   forwardedRef: PropTypes.object,
   className: PropTypes.string,
 };
-ProgressBarCellBase.defaultProps = {
+ProgressBarCell.defaultProps = {
   style: {},
   tabIndex: undefined,
   forwardedRef: undefined,
   className: undefined,
 };
-
-export const ProgressBarCell = withStyles(styles, { name: 'ProgressBarCell' })(ProgressBarCellBase);

@@ -3,9 +3,9 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 
 export const ContainerBase = ({
-  children, classes, className, ...restProps
+  children, className, ...restProps
 }) => (
-  <div className={classNames(classes.container, className)} {...restProps}>
+  <div className={classNames(className)} {...restProps}>
     {children}
   </div>
 );

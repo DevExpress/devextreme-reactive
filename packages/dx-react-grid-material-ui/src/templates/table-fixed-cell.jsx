@@ -23,7 +23,7 @@ const styles = ({ theme }) => ({
     backgroundColor: 'inherit',
   },
 });
-export class FixedCell extends React.PureComponent {
+class FixedCellBase extends React.PureComponent {
   render() {
     const {
       className,
@@ -37,10 +37,8 @@ export class FixedCell extends React.PureComponent {
       ...restProps
     } = this.props;
 
-    const StyledCellPlaceholder = styled(CellPlaceholder)(styles);
-
     return (
-      <StyledCellPlaceholder
+      <CellPlaceholder
         className={classNames({
           [classes.dividerLeft]: showLeftDivider,
           [classes.dividerRight]: showRightDivider,
@@ -57,7 +55,7 @@ export class FixedCell extends React.PureComponent {
   }
 }
 
-FixedCell.propTypes = {
+FixedCellBase.propTypes = {
   component: PropTypes.func.isRequired,
   className: PropTypes.string,
   position: PropTypes.number,
@@ -68,7 +66,7 @@ FixedCell.propTypes = {
   style: PropTypes.object,
 };
 
-FixedCell.defaultProps = {
+FixedCellBase.defaultProps = {
   className: undefined,
   position: undefined,
   selected: false,
@@ -76,3 +74,5 @@ FixedCell.defaultProps = {
   showRightDivider: false,
   style: null,
 };
+
+export const FixedCell = styled(FixedCellBase)(styles);

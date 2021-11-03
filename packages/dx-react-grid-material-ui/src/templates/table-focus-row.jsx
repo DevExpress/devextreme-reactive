@@ -14,8 +14,7 @@ const styles = ({ theme }) => ({
     backgroundColor: getSelectionColor(theme),
   },
 });
-
-export class FocusRow extends React.PureComponent {
+class FocusRowBase extends React.PureComponent {
   render() {
     const {
       className,
@@ -24,10 +23,8 @@ export class FocusRow extends React.PureComponent {
       ...restProps
     } = this.props;
 
-    const StyledRowPlaceholder = styled(RowPlaceholder)(styles);
-
     return (
-      <StyledRowPlaceholder
+      <RowPlaceholder
         className={classNames({
           [classes.focusedRow]: !!focused,
         }, className)}
@@ -37,13 +34,15 @@ export class FocusRow extends React.PureComponent {
   }
 }
 
-FocusRow.propTypes = {
+FocusRowBase.propTypes = {
   component: PropTypes.func.isRequired,
   className: PropTypes.string,
   focused: PropTypes.bool,
 };
 
-FocusRow.defaultProps = {
+FocusRowBase.defaultProps = {
   className: undefined,
   focused: undefined,
 };
+
+export const FocusRow = styled(FocusRowBase)(styles);

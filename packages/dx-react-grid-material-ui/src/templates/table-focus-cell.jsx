@@ -27,10 +27,8 @@ class FocusCellBase extends React.PureComponent {
       ...restProps
     } = this.props;
 
-    const StyledCellPlaceholder = styled(CellPlaceholder)(styles);
-
     return (
-      <StyledCellPlaceholder
+      <CellPlaceholder
         className={classNames({
           [classes.focusedCell]: !!focused,
           [classes.simpleCell]: true,
@@ -52,4 +50,4 @@ FocusCellBase.defaultProps = {
   focused: undefined,
 };
 
-export const FocusCell = withKeyboardNavigation()(FocusCellBase);
+export const FocusCell = withKeyboardNavigation()(styled(FocusCellBase)(styles));

@@ -25,28 +25,27 @@ const styles = ({ theme }) => ({
   },
 });
 
-export const BandedHeaderCell = ({
+const BandedHeaderCellBase = ({
   component: HeaderCellComponent, className, beforeBorder, ...restProps
-}) => {
-  const StyledHeaderCellComponent = styled(HeaderCellComponent)(styles);
-  return (
-    <StyledHeaderCellComponent
-      className={classNames({
-        [classes.headerCellBorder]: true,
-        [classes.beforeBorder]: beforeBorder,
-      }, className)}
-      {...restProps}
-    />
-  );
-};
+}) => (
+  <HeaderCellComponent
+    className={classNames({
+      [classes.headerCellBorder]: true,
+      [classes.beforeBorder]: beforeBorder,
+    }, className)}
+    {...restProps}
+  />
+);
 
-BandedHeaderCell.propTypes = {
+BandedHeaderCellBase.propTypes = {
   component: PropTypes.func.isRequired,
   className: PropTypes.string,
   beforeBorder: PropTypes.bool,
 };
 
-BandedHeaderCell.defaultProps = {
+BandedHeaderCellBase.defaultProps = {
   className: undefined,
   beforeBorder: false,
 };
+
+export const BandedHeaderCell = styled(BandedHeaderCellBase)(styles);

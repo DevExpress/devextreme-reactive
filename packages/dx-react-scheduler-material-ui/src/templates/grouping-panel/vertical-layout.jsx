@@ -79,7 +79,6 @@ VerticalLayoutBase.propTypes = {
   viewType: PropTypes.string.isRequired,
   cellTextTopOffset: PropTypes.number,
   className: PropTypes.string,
-  classes: PropTypes.object.isRequired,
 };
 
 VerticalLayoutBase.defaultProps = {

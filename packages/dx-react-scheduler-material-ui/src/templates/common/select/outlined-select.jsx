@@ -73,7 +73,6 @@ const OutlinedSelectBase = React.memo(({
 
 OutlinedSelectBase.propTypes = {
   onValueChange: PropTypes.func,
-  classes: PropTypes.object.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   availableOptions: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

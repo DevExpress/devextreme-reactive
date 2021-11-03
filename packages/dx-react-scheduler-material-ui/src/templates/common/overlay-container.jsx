@@ -30,7 +30,6 @@ export const OverlayContainerBase = React.forwardRef(({
 ));
 
 OverlayContainerBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
 };

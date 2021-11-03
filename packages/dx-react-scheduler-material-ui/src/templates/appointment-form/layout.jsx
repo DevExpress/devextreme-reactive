@@ -62,7 +62,6 @@ LayoutBase.propTypes = {
   recurrenceLayoutComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
-  classes: PropTypes.object.isRequired,
   isRecurrence: PropTypes.bool,
 };
 

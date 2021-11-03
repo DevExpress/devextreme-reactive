@@ -42,7 +42,6 @@ const SaveButtonBase = React.memo(({
 ));
 
 SaveButtonBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   getMessage: PropTypes.func.isRequired,
   onExecute: PropTypes.func.isRequired,

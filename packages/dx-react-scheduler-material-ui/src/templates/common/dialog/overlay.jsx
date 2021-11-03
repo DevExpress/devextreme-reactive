@@ -43,7 +43,6 @@ const OverlayBase = ({
 
 OverlayBase.propTypes = {
   children: PropTypes.node.isRequired,
-  classes: PropTypes.object.isRequired,
   onHide: PropTypes.func.isRequired,
   target: PropTypes.object.isRequired,
   visible: PropTypes.bool,

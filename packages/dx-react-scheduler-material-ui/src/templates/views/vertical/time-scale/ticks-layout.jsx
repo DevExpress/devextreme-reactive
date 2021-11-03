@@ -70,7 +70,6 @@ TicksLayoutBase.propTypes = {
   groupOrientation: PropTypes.oneOf([HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION]),
   groupCount: PropTypes.number,
   includeAllDayCell: PropTypes.bool,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 

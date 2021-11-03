@@ -126,7 +126,6 @@ const LayoutBase = ({
 
 LayoutBase.propTypes = {
   commandButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  classes: PropTypes.object.isRequired,
   onCommitButtonClick: PropTypes.func.isRequired,
   onCancelButtonClick: PropTypes.func.isRequired,
   onDeleteButtonClick: PropTypes.func.isRequired,

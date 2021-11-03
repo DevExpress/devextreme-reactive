@@ -78,7 +78,6 @@ CellBase.propTypes = {
   otherMonth: PropTypes.bool,
   selected: PropTypes.bool,
   today: PropTypes.bool,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 

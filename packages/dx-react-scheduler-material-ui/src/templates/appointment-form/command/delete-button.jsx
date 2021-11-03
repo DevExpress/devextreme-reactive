@@ -33,7 +33,6 @@ const DeleteButtonBase = React.memo(({
 ));
 
 DeleteButtonBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   onExecute: PropTypes.func.isRequired,
 };

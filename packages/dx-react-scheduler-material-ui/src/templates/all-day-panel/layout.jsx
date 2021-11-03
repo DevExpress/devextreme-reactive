@@ -61,7 +61,6 @@ const LayoutBase = React.memo(({
 });
 
 LayoutBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   formatDate: PropTypes.func.isRequired,
   cellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,

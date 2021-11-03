@@ -71,7 +71,6 @@ export const TitleCellBase = React.memo(({
 ));
 
 TitleCellBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
   fixedHeight: PropTypes.bool,

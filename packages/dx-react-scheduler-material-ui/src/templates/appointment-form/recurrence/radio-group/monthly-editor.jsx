@@ -225,7 +225,6 @@ const MonthlyEditorBase = ({
 };
 
 MonthlyEditorBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func,
   onFieldChange: PropTypes.func,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,

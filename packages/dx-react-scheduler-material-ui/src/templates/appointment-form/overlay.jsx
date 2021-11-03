@@ -107,7 +107,6 @@ const OverlayBase = ({
 
 OverlayBase.propTypes = {
   children: PropTypes.node.isRequired,
-  classes: PropTypes.object.isRequired,
   fullSize: PropTypes.bool.isRequired,
   onHide: PropTypes.func.isRequired,
   visible: PropTypes.bool,

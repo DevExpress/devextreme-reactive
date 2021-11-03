@@ -74,7 +74,6 @@ const IntervalEditorBase = ({
 );
 
 IntervalEditorBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   repeatEveryLabel: PropTypes.string.isRequired,
   repeatIntervalLabel: PropTypes.string.isRequired,

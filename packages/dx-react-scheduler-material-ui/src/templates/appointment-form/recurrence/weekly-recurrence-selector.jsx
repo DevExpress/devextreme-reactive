@@ -26,7 +26,7 @@ const StyledButtonGroup = styled(ButtonGroup)(({ theme: { palette, spacing } }) 
     },
     border: `1px solid ${ensureColor(400, palette.primary)}!important`,
     borderLeft: `1px solid ${ensureColor(50, palette.primary)}!important`,
-    '&:first-child': {
+    '&:first-of-type': {
       borderLeft: `1px solid ${ensureColor(400, palette.primary)}!important`,
     },
     color: ensureColor(50, palette.primary),
@@ -93,7 +93,6 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
 
 WeeklyRecurrenceSelectorBase.propTypes = {
   formatDate: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   rRule: PropTypes.string.isRequired,
   onValueChange: PropTypes.func,
   readOnly: PropTypes.bool,

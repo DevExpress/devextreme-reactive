@@ -64,7 +64,6 @@ const FilledSelectBase = React.memo(({
 
 FilledSelectBase.propTypes = {
   onValueChange: PropTypes.func,
-  classes: PropTypes.object.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   availableOptions: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

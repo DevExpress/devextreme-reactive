@@ -79,7 +79,6 @@ const HeaderBase = ({
 };
 
 HeaderBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   appointmentData: PropTypes.object,
   children: PropTypes.node,
   className: PropTypes.string,

@@ -117,7 +117,6 @@ const CellBase = ({
 );
 
 CellBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   formatDate: PropTypes.func.isRequired,
   startDate: PropTypes.instanceOf(Date).isRequired,
   endDate: PropTypes.instanceOf(Date),

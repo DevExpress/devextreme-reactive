@@ -6,7 +6,6 @@ import DateTimePicker from '@mui/lab/DateTimePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 const DateEditorBase = React.memo(({
-  classes,
   onValueChange,
   value,
   readOnly,
@@ -35,7 +34,6 @@ const DateEditorBase = React.memo(({
 });
 
 DateEditorBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,

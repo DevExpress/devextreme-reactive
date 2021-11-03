@@ -100,7 +100,7 @@ const StyledDiv = styled('div')(({
     },
     dateEditor: {
       width: '100%',
-      '&:first-child': {
+      '&:first-of-type': {
         marginBottom: 0,
       },
       '&:last-child': {
@@ -249,7 +249,6 @@ LayoutBase.propTypes = {
   locale: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]).isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
-  classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   onFieldChange: PropTypes.func,
   appointmentData: PropTypes.shape({

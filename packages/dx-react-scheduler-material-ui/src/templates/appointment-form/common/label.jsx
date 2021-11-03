@@ -44,7 +44,6 @@ const LabelBase = React.memo(({
 ));
 
 LabelBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   text: PropTypes.string,
   className: PropTypes.string,
   type: PropTypes.string,

@@ -23,7 +23,7 @@ const StyledOutlinedSelect = styled(OutlinedSelect)(({ theme: { spacing } }) => 
 
   [`& .${classes.inputRoot}`]: {
     marginLeft: spacing(0.5),
-    '&:first-child': {
+    '&:first-of-type': {
       marginLeft: 0,
     },
   },
@@ -53,7 +53,6 @@ const SwitcherBase = React.memo(({
 
 SwitcherBase.propTypes = {
   onChange: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   currentView: PropTypes.shape({
     name: PropTypes.string.isRequired,
     displayName: PropTypes.string.isRequired,

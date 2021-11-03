@@ -65,7 +65,6 @@ LayoutBase.propTypes = {
     additionalInformation: PropTypes.string,
     allDay: PropTypes.bool,
   }),
-  classes: PropTypes.object.isRequired,
 };
 
 LayoutBase.defaultProps = {

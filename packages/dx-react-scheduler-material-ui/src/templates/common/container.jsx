@@ -11,7 +11,6 @@ export const ContainerBase = ({
 );
 
 ContainerBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
 };

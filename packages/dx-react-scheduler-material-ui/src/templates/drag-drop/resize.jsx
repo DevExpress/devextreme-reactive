@@ -52,7 +52,6 @@ const ResizeBase = React.memo(({
 });
 
 ResizeBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   position: PropTypes.oneOf([POSITION_START, POSITION_END]).isRequired,
   appointmentType: PropTypes.oneOf([HORIZONTAL_TYPE, VERTICAL_TYPE]).isRequired,
   className: PropTypes.string,

@@ -27,7 +27,6 @@ export const DayScaleEmptyCellBase = ({
 );
 
 DayScaleEmptyCellBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   children: PropTypes.node,
 };

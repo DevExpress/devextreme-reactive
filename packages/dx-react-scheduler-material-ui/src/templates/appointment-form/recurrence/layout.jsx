@@ -226,7 +226,6 @@ LayoutBase.propTypes = {
   onFieldChange: PropTypes.func,
   children: PropTypes.node,
   className: PropTypes.string,
-  classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   appointmentData: PropTypes.shape({

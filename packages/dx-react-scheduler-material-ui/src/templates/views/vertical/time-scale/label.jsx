@@ -69,7 +69,6 @@ const LabelBase = ({
 LabelBase.propTypes = {
   formatDate: PropTypes.func,
   time: PropTypes.instanceOf(Date),
-  classes: PropTypes.object.isRequired,
   groupingInfo: PropTypes.arrayOf(PropTypes.object),
   endOfGroup: PropTypes.bool,
   className: PropTypes.string,

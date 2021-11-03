@@ -43,7 +43,6 @@ const NavigationButtonBase = React.memo(({
 NavigationButtonBase.propTypes = {
   type: PropTypes.oneOf(['forward', 'back']).isRequired,
   onClick: PropTypes.func,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 

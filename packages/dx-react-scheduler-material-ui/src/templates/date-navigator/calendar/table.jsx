@@ -89,7 +89,6 @@ TableBase.propTypes = {
   headerRowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   headerCellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   cells: PropTypes.array.isRequired,
-  classes: PropTypes.object.isRequired,
   selectedDate: PropTypes.oneOfType([
     PropTypes.instanceOf(Date),
     PropTypes.string,

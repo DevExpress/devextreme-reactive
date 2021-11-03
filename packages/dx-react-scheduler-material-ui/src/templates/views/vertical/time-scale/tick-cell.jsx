@@ -55,7 +55,6 @@ const TickCellBase = ({
 );
 
 TickCellBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   startDate: PropTypes.instanceOf(Date),
   endDate: PropTypes.instanceOf(Date),
   endOfGroup: PropTypes.bool,

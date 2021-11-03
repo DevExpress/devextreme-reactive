@@ -206,7 +206,6 @@ EndRepeatEditorBase.propTypes = {
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dateEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   locale: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]).isRequired,
-  classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func,
   onFieldChange: PropTypes.func,
   appointmentData: PropTypes.shape({

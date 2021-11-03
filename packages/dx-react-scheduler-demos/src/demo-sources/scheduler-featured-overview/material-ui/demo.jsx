@@ -72,7 +72,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
     padding: 0,
     height: 100,
     borderLeft: getBorder(theme),
-    '&:first-child': {
+    '&:first-of-type': {
       borderLeft: 'none',
     },
     '&:last-child': {

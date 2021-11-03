@@ -97,7 +97,6 @@ const ChangeMonthEditorBase = React.memo(({
 ));
 
 ChangeMonthEditorBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,

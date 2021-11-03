@@ -125,7 +125,6 @@ const ChangeWeekNumberEditorBase = React.memo(({
 ));
 
 ChangeWeekNumberEditorBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,

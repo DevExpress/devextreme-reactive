@@ -81,7 +81,7 @@ const StyledProvider = styled(Provider)(({
     },
     border: `1px solid ${palette.primary[400]}!important`,
     borderLeft: `1px solid ${palette.primary[50]}!important`,
-    '&:first-child': {
+    '&:first-of-type': {
       borderLeft: `1px solid ${palette.primary[50]}!important`,
     },
   },

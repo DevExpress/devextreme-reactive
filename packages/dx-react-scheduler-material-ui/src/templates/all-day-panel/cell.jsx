@@ -67,7 +67,6 @@ const CellBase = ({
   </StyledTableCell>
 );
 CellBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   startDate: PropTypes.instanceOf(Date),
   endDate: PropTypes.instanceOf(Date),
   children: PropTypes.node,

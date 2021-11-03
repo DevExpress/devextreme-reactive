@@ -15,7 +15,7 @@ const StyledButton = styled(Button)(({ theme: { spacing } }) => ({
   [`&.${classes.button}`]: {
     padding: spacing(0.8, 2),
     marginLeft: spacing(0.5),
-    '&:first-child': {
+    '&:first-of-type': {
       marginLeft: 0,
     },
     [`${LAYOUT_MEDIA_QUERY}`]: {
@@ -44,7 +44,6 @@ const TodayButtonBase = ({
 
 TodayButtonBase.propTypes = {
   setCurrentDate: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   getMessage: PropTypes.func.isRequired,
 };

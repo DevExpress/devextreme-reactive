@@ -60,7 +60,6 @@ OpenButtonBase.propTypes = {
   onVisibilityToggle: PropTypes.func.isRequired,
   text: PropTypes.string,
   className: PropTypes.string,
-  classes: PropTypes.object.isRequired,
 };
 
 OpenButtonBase.defaultProps = {

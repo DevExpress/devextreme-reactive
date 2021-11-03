@@ -82,7 +82,6 @@ WeeklyBase.propTypes = {
     allDay: PropTypes.bool,
   }).isRequired,
   onFieldChange: PropTypes.func,
-  classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   formatDate: PropTypes.func.isRequired,

@@ -31,7 +31,6 @@ const CancelButtonBase = React.memo(({
 ));
 
 CancelButtonBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   onExecute: PropTypes.func.isRequired,
 };

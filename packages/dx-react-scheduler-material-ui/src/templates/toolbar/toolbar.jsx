@@ -30,7 +30,6 @@ const ToolbarBase = ({
 
 ToolbarBase.propTypes = {
   children: PropTypes.node.isRequired,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 

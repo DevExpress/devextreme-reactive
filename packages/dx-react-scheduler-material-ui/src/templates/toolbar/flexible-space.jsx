@@ -30,7 +30,6 @@ export const FlexibleSpaceBase = ({
 );
 
 FlexibleSpaceBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
 };

@@ -40,7 +40,6 @@ const HeaderCellBase = ({
 
 HeaderCellBase.propTypes = {
   children: PropTypes.node,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 

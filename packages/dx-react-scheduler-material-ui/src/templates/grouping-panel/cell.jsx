@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
   horizontalCell: {
     borderBottom: 'none',
     borderTop: getBrightBorder(theme),
-    'tr:first-child &': {
+    'tr:first-of-type &': {
       borderTop: 'none',
     },
   },

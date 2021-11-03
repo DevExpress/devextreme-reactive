@@ -46,7 +46,6 @@ BooleanEditorBase.propTypes = {
   readOnly: PropTypes.bool,
   value: PropTypes.bool,
   onValueChange: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
 };
 
 BooleanEditorBase.defaultProps = {

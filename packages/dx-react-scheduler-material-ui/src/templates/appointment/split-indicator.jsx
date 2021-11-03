@@ -75,7 +75,6 @@ const SplitIndicatorBase = React.memo(({
 });
 
 SplitIndicatorBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   appointmentType: PropTypes.oneOf([VERTICAL_TYPE, HORIZONTAL_TYPE]).isRequired,
   position: PropTypes.oneOf([POSITION_START, POSITION_END]).isRequired,
   className: PropTypes.string,

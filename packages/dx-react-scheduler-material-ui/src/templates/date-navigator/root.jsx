@@ -14,7 +14,7 @@ const StyledDiv = styled('div')(({
 }) => ({
   [`&.${classes.root}`]: {
     marginLeft: spacing(0.5),
-    '&:first-child': {
+    '&:first-of-type': {
       marginLeft: 0,
     },
   },
@@ -63,7 +63,6 @@ RootBase.propTypes = {
   onNavigate: PropTypes.func.isRequired,
   rootRef: PropTypes.func.isRequired,
   navigatorText: PropTypes.string,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 

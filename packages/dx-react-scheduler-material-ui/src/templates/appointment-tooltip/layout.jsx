@@ -84,7 +84,6 @@ LayoutBase.propTypes = {
   showCloseButton: PropTypes.bool.isRequired,
   showDeleteButton: PropTypes.bool.isRequired,
   commandButtonIds: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired,
   formatDate: PropTypes.func.isRequired,
   onOpenButtonClick: PropTypes.func,
   onDeleteButtonClick: PropTypes.func,

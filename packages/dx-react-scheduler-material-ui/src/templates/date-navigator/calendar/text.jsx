@@ -37,7 +37,6 @@ const TextBase = ({
 );
 
 TextBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   currentDate: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,

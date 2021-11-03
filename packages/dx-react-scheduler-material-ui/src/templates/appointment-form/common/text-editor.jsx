@@ -64,7 +64,6 @@ const TextEditorBase = React.memo(({
 });
 
 TextEditorBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   placeholder: PropTypes.string,
   className: PropTypes.string,

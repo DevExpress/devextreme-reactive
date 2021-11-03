@@ -1,20 +1,11 @@
 import * as React from 'react';
 import Select from '@mui/material/Select';
 import Menu from '@mui/material/Menu';
-import { createMount, getClasses } from '@devexpress/dx-testing';
-import { PageSizeSelector } from './page-size-selector';
+import { createMount } from '@devexpress/dx-testing';
+import { PageSizeSelector, classes } from './page-size-selector';
 
 describe('PageSizeSelector', () => {
   let mount;
-  let classes;
-  beforeAll(() => {
-    classes = getClasses(<PageSizeSelector
-      pageSize={0}
-      pageSizes={[]}
-      getMessage={() => {}}
-      onPageSizeChange={() => {}}
-    />);
-  });
   beforeEach(() => {
     mount = createMount();
   });
@@ -69,7 +60,7 @@ describe('PageSizeSelector', () => {
         pageSize: 0,
         pageSizes: [5, 10, 15],
       });
-      const label = pageSizeSelector.find(`.${classes.label}`);
+      const label = pageSizeSelector.find('span').first();
 
       expect(label.text()).toBe('rowsPerPage');
     });

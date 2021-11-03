@@ -1,8 +1,6 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import classNames from 'clsx';
 import TableCell from '@mui/material/TableCell';
-import withStyles from '@mui/styles/withStyles';
 
 const getColor = (amount) => {
   if (amount < 3000) {
@@ -17,21 +15,13 @@ const getColor = (amount) => {
   return '#009688';
 };
 
-const styles = theme => ({
-  highlightedCell: {
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-  },
-});
-
-const HighlightedCellBase = ({
-  tableColumn, value, classes, children, style,
+export const HighlightedCell = ({
+  tableColumn, value, children, style,
   tabIndex, forwardedRef, className,
 }) => (
   <TableCell
-    className={classNames({
-      [classes.highlightedCell]: true,
-    }, className)}
+    className={className}
+    sx={{ pl: 1, pr: 1 }}
     tabIndex={tabIndex}
     ref={forwardedRef}
     style={{
@@ -44,9 +34,8 @@ const HighlightedCellBase = ({
   </TableCell>
 );
 
-HighlightedCellBase.propTypes = {
+HighlightedCell.propTypes = {
   value: PropTypes.number.isRequired,
-  classes: PropTypes.object.isRequired,
   style: PropTypes.object,
   tableColumn: PropTypes.object,
   children: PropTypes.node,
@@ -54,7 +43,7 @@ HighlightedCellBase.propTypes = {
   forwardedRef: PropTypes.object,
   className: PropTypes.string,
 };
-HighlightedCellBase.defaultProps = {
+HighlightedCell.defaultProps = {
   style: {},
   tableColumn: {},
   children: undefined,
@@ -62,5 +51,3 @@ HighlightedCellBase.defaultProps = {
   forwardedRef: undefined,
   className: undefined,
 };
-
-export const HighlightedCell = withStyles(styles, { name: 'HighlightedCell' })(HighlightedCellBase);

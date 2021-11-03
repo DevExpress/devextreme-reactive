@@ -1,15 +1,13 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { Container } from './container';
+import { createShallow } from '@devexpress/dx-testing';
+import { Container, classes } from './container';
 
 describe('TableGroupCell', () => {
   describe('Container', () => {
     let shallow;
-    let classes;
 
     beforeAll(() => {
       shallow = createShallow({ dive: true });
-      classes = getClasses(<Container />);
     });
 
     it('should have correct classes', () => {

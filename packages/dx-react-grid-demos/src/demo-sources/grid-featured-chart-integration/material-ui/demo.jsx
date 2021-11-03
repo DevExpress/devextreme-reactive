@@ -22,33 +22,27 @@ import {
   Grid, Table, TableBandHeader, TableHeaderRow,
   TableRowDetail,
 } from '@devexpress/dx-react-grid-material-ui';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import { citiesCount, regionsCount } from '../../../demo-data/chart-data';
 
-const detailContainerStyles = theme => ({
-  detailContainer: {
+const PREFIX = 'Demo';
+const classes = {
+  detailContainer: `${PREFIX}-detailContainer`,
+  title: `${PREFIX}-title`,
+  paper: `${PREFIX}-paper`,
+};
+const StyledDiv = styled('div')(({ theme }) => ({
+  [`&.${classes.detailContainer}`]: {
     marginBottom: theme.spacing(3),
   },
-  title: {
+  [`& .${classes.title}`]: {
     color: theme.palette.text.primary,
     fontSize: theme.typography.fontSize,
   },
-  paper: {
+  [`& .${classes.paper}`]: {
     paddingTop: theme.spacing(3.5),
   },
-});
-const legendStyles = () => ({
-  root: {
-    display: 'flex',
-    margin: 'auto',
-    flexDirection: 'row',
-  },
-});
-const legendLabelStyles = () => ({
-  label: {
-    whiteSpace: 'nowrap',
-  },
-});
+}));
 
 const currencyFormatter = ({ value }) => (
   value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
@@ -64,18 +58,20 @@ const CurrencyTypeProvider = props => (
   />
 );
 
-const LegendRootBase = ({ classes, ...restProps }) => (
+const LegendRoot = props => (
   <Legend.Root
-    {...restProps}
-    className={classes.root}
+    {...props}
+    sx={{
+      display: 'flex',
+      margin: 'auto',
+      flexDirection: 'row',
+    }}
   />
 );
-const LegendRoot = withStyles(legendStyles, { name: 'LegendRoot' })(LegendRootBase);
 
-const LegendLabelBase = ({ classes, ...restProps }) => (
-  <Legend.Label className={classes.label} {...restProps} />
+const LegendLabel = props => (
+  <Legend.Label {...props} sx={{ whiteSpace: 'nowrap' }} />
 );
-const LegendLabel = withStyles(legendLabelStyles, { name: 'LegendLabel' })(LegendLabelBase);
 
 const barSeriesForCity = regionCities => Object
   .keys(regionCities[0])
@@ -93,7 +89,7 @@ const barSeriesForCity = regionCities => Object
     return acc;
   }, []);
 
-const gridDetailContainerBase = data => ({ row, classes }) => {
+const gridDetailContainerBase = data => ({ row }) => {
   const regionCities = data.reduce((acc, item) => {
     const currentCities = item.cities.reduce((current, itemCity) => {
       let currentObj = {};
@@ -106,7 +102,7 @@ const gridDetailContainerBase = data => ({ row, classes }) => {
   }, []);
 
   return (
-    <div className={classes.detailContainer}>
+    <StyledDiv className={classes.detailContainer}>
       <h5 className={classes.title}>
         {`Economics of ${row.region}`}
       </h5>
@@ -133,10 +129,10 @@ const gridDetailContainerBase = data => ({ row, classes }) => {
           />
         </Chart>
       </Paper>
-    </div>
+    </StyledDiv>
   );
 };
-const gridDetailContainer = data => withStyles(detailContainerStyles, { name: 'ChartContainer' })(gridDetailContainerBase(data));
+const gridDetailContainer = data => gridDetailContainerBase(data);
 
 export default () => {
   const [columns] = useState([

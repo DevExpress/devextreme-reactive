@@ -1,19 +1,17 @@
 import * as React from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import {
-  createMount, createShallow, getClasses, setupConsole,
+  createMount, createShallow, setupConsole,
 } from '@devexpress/dx-testing';
-import { TableSelectAllCell } from './table-select-all-cell';
+import { TableSelectAllCell, classes } from './table-select-all-cell';
 
 describe('TableSelectAllCell', () => {
   let resetConsole;
   let mount;
   let shallow;
-  let classes;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
     shallow = createShallow({ dive: true });
-    classes = getClasses(<TableSelectAllCell />);
   });
   beforeEach(() => {
     mount = createMount();
@@ -26,7 +24,7 @@ describe('TableSelectAllCell', () => {
   });
 
   it('should render indeterminate state checkbox if the `someSelected` property is true', () => {
-    const tree = shallow((
+    const tree = mount((
       <TableSelectAllCell
         column={{
           name: 'Test',

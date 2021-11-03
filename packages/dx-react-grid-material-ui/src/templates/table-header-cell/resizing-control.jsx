@@ -2,10 +2,18 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import { Draggable } from '@devexpress/dx-react-core';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
-const styles = theme => ({
-  resizeHandle: {
+const PREFIX = 'ResizingControl';
+export const classes = {
+  resizeHandle: `${PREFIX}-resizeHandle`,
+  resizeHandleLine: `${PREFIX}-resizeHandleLine`,
+  resizeHandleFirstLine: `${PREFIX}-resizeHandleFirstLine`,
+  resizeHandleSecondLine: `${PREFIX}-resizeHandleSecondLine`,
+  resizeHandleLineActive: `${PREFIX}-resizeHandleLineActive`,
+};
+const StyledDiv = styled('div')(({ theme }) => ({
+  [`&.${classes.resizeHandle}`]: {
     position: 'absolute',
     userSelect: 'none',
     MozUserSelect: 'none',
@@ -17,7 +25,7 @@ const styles = theme => ({
     cursor: 'col-resize',
     zIndex: 100,
   },
-  resizeHandleLine: {
+  [`&.${classes.resizeHandleLine}`]: {
     position: 'absolute',
     backgroundColor: theme.palette.primary.light,
     height: '50%',
@@ -25,26 +33,41 @@ const styles = theme => ({
     top: '25%',
     transition: 'all linear 100ms',
   },
-  resizeHandleFirstLine: {
+  [`&.${classes.resizeHandleFirstLine}`]: {
     left: `calc(${theme.spacing(1)} - 1px)`,
   },
-  resizeHandleSecondLine: {
+  [`&.${classes.resizeHandleSecondLine}`]: {
     left: `calc(${theme.spacing(1)} + 1px)`,
   },
-  resizeHandleLineActive: {
+  [`&.${classes.resizeHandleLineActive}`]: {
     left: theme.spacing(1),
+    opacity: 1,
+    backgroundColor: theme.palette.primary.light,
+    height: 'calc(100% - 4px)',
+    top: '2px',
   },
-  resizeHandleActive: {
-    '& $resizeHandleLine': {
-      opacity: '1',
-      backgroundColor: theme.palette.primary.light,
-      height: 'calc(100% - 4px)',
-      top: '2px',
-    },
-  },
-});
+}));
 
-export class ResizingControlBase extends React.PureComponent {
+const ResizeHandle = ({ children, forwardedRef, ...restProps }) => (
+  <StyledDiv
+    ref={forwardedRef}
+    {...restProps}
+  >
+    {children}
+  </StyledDiv>
+);
+
+ResizeHandle.propTypes = {
+  children: PropTypes.node,
+  forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+};
+
+ResizeHandle.defaultProps = {
+  children: undefined,
+  forwardedRef: undefined,
+};
+
+export class ResizingControl extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -69,7 +92,7 @@ export class ResizingControlBase extends React.PureComponent {
   }
 
   render() {
-    const { classes, resizeHandleOpacityClass, resizeLastHandleClass } = this.props;
+    const { resizeHandleOpacityClass, resizeLastHandleClass } = this.props;
     const { resizing } = this.state;
 
     return (
@@ -78,14 +101,13 @@ export class ResizingControlBase extends React.PureComponent {
         onUpdate={this.onResizeUpdate}
         onEnd={this.onResizeEnd}
       >
-        <div
+        <ResizeHandle
           className={classNames({
             [classes.resizeHandle]: true,
             [resizeLastHandleClass]: true,
-            [classes.resizeHandleActive]: resizing,
           })}
         >
-          <div
+          <StyledDiv
             className={classNames({
               [resizeHandleOpacityClass]: true,
               [classes.resizeHandleLine]: true,
@@ -93,7 +115,7 @@ export class ResizingControlBase extends React.PureComponent {
               [classes.resizeHandleLineActive]: resizing,
             })}
           />
-          <div
+          <StyledDiv
             className={classNames({
               [resizeHandleOpacityClass]: true,
               [classes.resizeHandleLine]: true,
@@ -101,19 +123,16 @@ export class ResizingControlBase extends React.PureComponent {
               [classes.resizeHandleLineActive]: resizing,
             })}
           />
-        </div>
+        </ResizeHandle>
       </Draggable>
     );
   }
 }
 
-ResizingControlBase.propTypes = {
+ResizingControl.propTypes = {
   onWidthChange: PropTypes.func.isRequired,
   onWidthDraft: PropTypes.func.isRequired,
   onWidthDraftCancel: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   resizeLastHandleClass: PropTypes.string.isRequired,
   resizeHandleOpacityClass: PropTypes.string.isRequired,
 };
-
-export const ResizingControl = withStyles(styles, { name: 'ResizingControl' })(ResizingControlBase);

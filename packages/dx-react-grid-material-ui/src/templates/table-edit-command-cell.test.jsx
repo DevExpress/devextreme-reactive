@@ -1,20 +1,17 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createShallow } from '@devexpress/dx-testing';
 import {
   CommandButton,
   EditCommandHeadingCell,
   EditCommandCell,
+  classes,
 } from './table-edit-command-cell';
 
 describe('TableCommandColumn', () => {
   describe('EditCommandHeadingCell', () => {
     let shallow;
-    let classes;
     beforeAll(() => {
       shallow = createShallow({ dive: true });
-      classes = getClasses((
-        <EditCommandHeadingCell />
-      ));
     });
 
     it('should pass className to the root element', () => {
@@ -50,12 +47,8 @@ describe('TableCommandColumn', () => {
 
   describe('EditCommandCell', () => {
     let shallow;
-    let classes;
     beforeAll(() => {
       shallow = createShallow({ dive: true });
-      classes = getClasses((
-        <EditCommandCell />
-      ));
     });
 
     it('should pass className to the root element', () => {
@@ -81,15 +74,8 @@ describe('TableCommandColumn', () => {
 
   describe('CommandButton', () => {
     let shallow;
-    let classes;
     beforeAll(() => {
       shallow = createShallow({ dive: true });
-      classes = getClasses((
-        <CommandButton
-          onExecute={() => {}}
-          text=""
-        />
-      ));
     });
 
     it('should pass the className prop to the root element', () => {

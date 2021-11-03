@@ -5,29 +5,30 @@ import {
   Table,
   TableHeaderRow,
 } from '@devexpress/dx-react-grid-material-ui';
-import { alpha } from '@mui/material/styles';
-import withStyles from '@mui/styles/withStyles';
+import { alpha, styled } from '@mui/material/styles';
 import {
   generateRows,
   globalSalesValues,
 } from '../../../demo-data/generator';
 
-const styles = theme => ({
-  tableStriped: {
+const PREFIX = 'Demo';
+const classes = {
+  tableStriped: `${PREFIX}-tableStriped`,
+};
+const StyledTable = styled(Table.Table)(({ theme }) => ({
+  [`&.${classes.tableStriped}`]: {
     '& tbody tr:nth-of-type(odd)': {
       backgroundColor: alpha(theme.palette.primary.main, 0.15),
     },
   },
-});
+}));
 
-const TableComponentBase = ({ classes, ...restProps }) => (
-  <Table.Table
-    {...restProps}
+const TableComponent = props => (
+  <StyledTable
+    {...props}
     className={classes.tableStriped}
   />
 );
-
-export const TableComponent = withStyles(styles, { name: 'TableComponent' })(TableComponentBase);
 
 export default () => {
   const [columns] = useState([

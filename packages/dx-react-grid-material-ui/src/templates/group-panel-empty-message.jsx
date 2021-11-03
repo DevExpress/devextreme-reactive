@@ -1,42 +1,43 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
-const styles = theme => ({
-  groupInfo: {
+const PREFIX = 'GroupPanelEmptyMessage';
+export const classes = {
+  groupInfo: `${PREFIX}-groupInfo`,
+};
+
+const StyledDiv = styled('div')(({ theme }) => ({
+  [`&.${classes.groupInfo}`]: {
     color: theme.typography.caption.color,
     fontFamily: theme.typography.fontFamily,
     fontSize: theme.typography.fontSize,
   },
-});
+}));
 
-const GroupPanelEmptyMessageBase = ({
+export const GroupPanelEmptyMessage = ({
   getMessage,
-  classes,
   className,
   forwardedRef,
   ...restProps
 }) => (
-  <div
+  <StyledDiv
     ref={forwardedRef}
     className={classNames(classes.groupInfo, className)}
     {...restProps}
   >
     {getMessage('groupByColumn')}
-  </div>
+  </StyledDiv>
 );
 
-GroupPanelEmptyMessageBase.propTypes = {
+GroupPanelEmptyMessage.propTypes = {
   getMessage: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
-GroupPanelEmptyMessageBase.defaultProps = {
+GroupPanelEmptyMessage.defaultProps = {
   className: undefined,
   forwardedRef: undefined,
 };
-
-export const GroupPanelEmptyMessage = withStyles(styles, { name: 'GroupPanelEmptyMessage' })(GroupPanelEmptyMessageBase);

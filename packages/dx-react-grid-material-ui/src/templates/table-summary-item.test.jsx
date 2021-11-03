@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { TableSummaryItem } from './table-summary-item';
+import { createShallow } from '@devexpress/dx-testing';
+import { TableSummaryItem, classes } from './table-summary-item';
 
 describe('TableSummaryItem', () => {
   const defaultProps = {
@@ -9,10 +9,8 @@ describe('TableSummaryItem', () => {
     type: 'summaryType',
   };
 
-  let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<TableSummaryItem {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
 

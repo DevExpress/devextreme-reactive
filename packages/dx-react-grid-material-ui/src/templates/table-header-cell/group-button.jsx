@@ -2,24 +2,29 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import List from '@mui/icons-material/List';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
-const styles = theme => ({
-  root: {
+const PREFIX = 'GroupButton';
+export const classes = {
+  root: `${PREFIX}-root`,
+  disabled: `${PREFIX}-disabled`,
+};
+const StyledDiv = styled('div')(({ theme }) => ({
+  [`&.${classes.root}`]: {
     paddingLeft: 0,
     height: theme.spacing(3),
     cursor: 'pointer',
   },
-  disabled: {
+  [`&.${classes.disabled}`]: {
     cursor: 'default',
     opacity: 0.3,
   },
-});
+}));
 
-const GroupButtonBase = ({
-  disabled, onGroup, classes, className, ...restProps
+export const GroupButton = ({
+  disabled, onGroup, className, ...restProps
 }) => (
-  <div
+  <StyledDiv
     onClick={(e) => {
       if (disabled) return;
       e.stopPropagation();
@@ -32,19 +37,16 @@ const GroupButtonBase = ({
     {...restProps}
   >
     <List />
-  </div>
+  </StyledDiv>
 );
 
-GroupButtonBase.propTypes = {
+GroupButton.propTypes = {
   onGroup: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   disabled: PropTypes.bool,
   className: PropTypes.string,
 };
 
-GroupButtonBase.defaultProps = {
+GroupButton.defaultProps = {
   disabled: false,
   className: undefined,
 };
-
-export const GroupButton = withStyles(styles, { name: 'GroupButton' })(GroupButtonBase);

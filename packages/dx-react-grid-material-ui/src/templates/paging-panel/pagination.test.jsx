@@ -1,24 +1,15 @@
 import * as React from 'react';
-import { createMount, getClasses, setupConsole } from '@devexpress/dx-testing';
+import { createMount, setupConsole } from '@devexpress/dx-testing';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 
-import { Pagination } from './pagination';
+import { Pagination, classes } from './pagination';
 
 describe('Pagination', () => {
   let resetConsole;
   let mount;
-  let classes;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['SheetsRegistry'] });
-    classes = getClasses(<Pagination
-      totalPages={1}
-      currentPage={0}
-      totalCount={10}
-      pageSize={10}
-      getMessage={() => {}}
-      onCurrentPageChange={() => {}}
-    />);
   });
   beforeEach(() => {
     mount = createMount();
@@ -140,8 +131,7 @@ describe('Pagination', () => {
 
       expect(getMessage)
         .toBeCalledWith('info', { from: 11, to: 20, count: 96 });
-      expect(tree.find('div > span').text())
-        .toBe('info');
+      expect(tree.find('span').first().text()).toBe('info');
     });
 
     it('can render pagination arrows', () => {

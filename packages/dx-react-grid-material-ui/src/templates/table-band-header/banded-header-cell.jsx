@@ -1,11 +1,17 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import { getBorder } from '../utils';
 
-const styles = theme => ({
-  headerCellBorder: {
+const PREFIX = 'BandedHeaderCell';
+export const classes = {
+  headerCellBorder: `${PREFIX}-headerCellBorder`,
+  beforeBorder: `${PREFIX}-beforeBorder`,
+};
+
+const styles = ({ theme }) => ({
+  [`&.${classes.headerCellBorder}`]: {
     borderRight: getBorder(theme),
     borderTop: 'none',
     '&:last-child': {
@@ -14,13 +20,13 @@ const styles = theme => ({
     verticalAlign: 'bottom',
     paddingBottom: theme.spacing(2),
   },
-  beforeBorder: {
+  [`&.${classes.beforeBorder}`]: {
     borderLeft: getBorder(theme),
   },
 });
 
-export const BandedHeaderCellBase = ({
-  component: HeaderCellComponent, className, classes, beforeBorder, ...restProps
+const BandedHeaderCellBase = ({
+  component: HeaderCellComponent, className, beforeBorder, ...restProps
 }) => (
   <HeaderCellComponent
     className={classNames({
@@ -33,7 +39,6 @@ export const BandedHeaderCellBase = ({
 
 BandedHeaderCellBase.propTypes = {
   component: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   beforeBorder: PropTypes.bool,
 };
@@ -43,4 +48,4 @@ BandedHeaderCellBase.defaultProps = {
   beforeBorder: false,
 };
 
-export const BandedHeaderCell = withStyles(styles, { name: 'BandedHeaderCell' })(BandedHeaderCellBase);
+export const BandedHeaderCell = styled(BandedHeaderCellBase)(styles);

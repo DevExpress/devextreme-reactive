@@ -2,21 +2,26 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@mui/material/TableCell';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
-const styles = theme => ({
-  active: {
+const PREFIX = 'TableDetailCell';
+export const classes = {
+  active: `${PREFIX}-active`,
+};
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${classes.active}`]: {
     backgroundColor: theme.palette.background.default,
   },
-});
+}));
 
-const TableDetailCellBase = ({
-  colSpan, style, children, classes,
+export const TableDetailCell = ({
+  colSpan, style, children,
   className, forwardedRef,
   tableColumn, tableRow, row,
   ...restProps
 }) => (
-  <TableCell
+  <StyledTableCell
     style={style}
     colSpan={colSpan}
     ref={forwardedRef}
@@ -24,14 +29,13 @@ const TableDetailCellBase = ({
     {...restProps}
   >
     {children}
-  </TableCell>
+  </StyledTableCell>
 );
 
-TableDetailCellBase.propTypes = {
+TableDetailCell.propTypes = {
   style: PropTypes.object,
   colSpan: PropTypes.number,
   children: PropTypes.node,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
@@ -39,7 +43,7 @@ TableDetailCellBase.propTypes = {
   forwardedRef: PropTypes.object,
 };
 
-TableDetailCellBase.defaultProps = {
+TableDetailCell.defaultProps = {
   style: null,
   colSpan: 1,
   className: undefined,
@@ -49,5 +53,3 @@ TableDetailCellBase.defaultProps = {
   children: undefined,
   forwardedRef: undefined,
 };
-
-export const TableDetailCell = withStyles(styles, { name: 'TableDetailCell' })(TableDetailCellBase);

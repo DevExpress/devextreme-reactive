@@ -1,29 +1,31 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
-const styles = theme => ({
-  indent: {
+const PREFIX = 'TableTreeIndent';
+export const classes = {
+  indent: `${PREFIX}-indent`,
+};
+
+const StyledSpan = styled('span')(({ theme }) => ({
+  [`&.${classes.indent}`]: {
     marginLeft: theme.spacing(3),
   },
-});
+}));
 
-export const TableTreeIndentBase = React.memo(({ level, classes }) => Array.from({ length: level })
+export const TableTreeIndent = React.memo(({ level }) => Array.from({ length: level })
   .map((value, currentLevel) => (
-    <span
+    <StyledSpan
         // eslint-disable-next-line react/no-array-index-key
       key={currentLevel}
       className={classes.indent}
     />
   )));
 
-TableTreeIndentBase.propTypes = {
+TableTreeIndent.propTypes = {
   level: PropTypes.number,
-  classes: PropTypes.object.isRequired,
 };
 
-TableTreeIndentBase.defaultProps = {
+TableTreeIndent.defaultProps = {
   level: 0,
 };
-
-export const TableTreeIndent = withStyles(styles)(TableTreeIndentBase);

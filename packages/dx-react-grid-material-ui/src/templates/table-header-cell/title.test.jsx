@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { Title } from './title';
+import { createShallow } from '@devexpress/dx-testing';
+import { Title, classes } from './title';
 
 const defaultProps = {
   classes: {},
@@ -9,10 +9,8 @@ const defaultProps = {
 
 describe('Title', () => {
   let shallow;
-  let classes;
   beforeAll(() => {
     shallow = createShallow();
-    classes = getClasses(<Title {...defaultProps} />);
   });
   afterAll(() => {
     shallow.cleanUp();

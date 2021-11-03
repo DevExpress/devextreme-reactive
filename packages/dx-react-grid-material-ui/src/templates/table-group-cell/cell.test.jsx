@@ -1,16 +1,15 @@
 import * as React from 'react';
 import {
-  createMount, createShallow, getClasses, setupConsole,
+  createMount, createShallow, setupConsole,
 } from '@devexpress/dx-testing';
 import TableCell from '@mui/material/TableCell';
 
-import { Cell as TableGroupCell } from './cell';
+import { Cell as TableGroupCell, classes } from './cell';
 
 describe('TableGroupCell', () => {
   let resetConsole;
   let mount;
   let shallow;
-  let classes;
   const defaultProps = {
     contentComponent: () => null,
     iconComponent: () => null,
@@ -29,7 +28,6 @@ describe('TableGroupCell', () => {
   };
 
   beforeAll(() => {
-    classes = getClasses(<TableGroupCell {...defaultProps} />);
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
     shallow = createShallow({ dive: true });
   });

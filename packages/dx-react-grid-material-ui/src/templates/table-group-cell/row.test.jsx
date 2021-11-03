@@ -1,13 +1,11 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { Row } from './row';
+import { createShallow } from '@devexpress/dx-testing';
+import { Row, classes } from './row';
 
 describe('TableGroupRow', () => {
   let shallow;
-  let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<Row />);
   });
 
   it('should pass rest props to the root element', () => {

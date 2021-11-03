@@ -2,36 +2,42 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@mui/material/TableCell';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
-const styles = theme => ({
-  cell: {
+const PREFIX = 'TableNoDataCell';
+export const classes = {
+  cell: `${PREFIX}-cell`,
+  textContainer: `${PREFIX}-textContainer`,
+  text: `${PREFIX}-text`,
+};
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${classes.cell}`]: {
     padding: theme.spacing(6, 0),
     position: 'static !important',
   },
-  textContainer: {
-    display: 'inline-block',
-    position: 'sticky',
-    left: '50%',
-  },
-  text: {
+  [`& .${classes.text}`]: {
     transform: 'translateX(-50%)',
     msTransform: 'translateX(-50%)',
     display: 'inline-block',
   },
-});
+  [`& .${classes.textContainer}`]: {
+    display: 'inline-block',
+    position: 'sticky',
+    left: '50%',
+  },
+}));
 
-export const TableNoDataCellBase = ({
+export const TableNoDataCell = ({
   style,
   colSpan,
   getMessage,
-  classes,
   className,
   tableRow,
   tableColumn,
   ...restProps
 }) => (
-  <TableCell
+  <StyledTableCell
     style={style}
     className={classNames(classes.cell, className)}
     colSpan={colSpan}
@@ -42,25 +48,22 @@ export const TableNoDataCellBase = ({
         {getMessage('noData')}
       </big>
     </div>
-  </TableCell>
+  </StyledTableCell>
 );
 
-TableNoDataCellBase.propTypes = {
+TableNoDataCell.propTypes = {
   style: PropTypes.object,
   colSpan: PropTypes.number,
   getMessage: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
 };
 
-TableNoDataCellBase.defaultProps = {
+TableNoDataCell.defaultProps = {
   style: null,
   colSpan: 1,
   className: undefined,
   tableRow: undefined,
   tableColumn: undefined,
 };
-
-export const TableNoDataCell = withStyles(styles, { name: 'TableNoDataCell' })(TableNoDataCellBase);

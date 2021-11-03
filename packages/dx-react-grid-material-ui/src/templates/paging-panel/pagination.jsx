@@ -3,58 +3,71 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import ChevronRight from '@mui/icons-material/ChevronRight';
 import { firstRowOnPage, lastRowOnPage, calculateStartPage } from '@devexpress/dx-grid-core';
 
-const styles = theme => ({
-  pagination: {
-    margin: 0,
-  },
-  rowsLabel: {
-    ...theme.typography.caption,
-    paddingRight: theme.spacing(5),
-  },
-  button: {
+const PREFIX = 'Pagination';
+export const classes = {
+  button: `${PREFIX}-button`,
+  activeButton: `${PREFIX}-activeButton`,
+  text: `${PREFIX}-text`,
+  pagination: `${PREFIX}-pagination`,
+  rowsLabel: `${PREFIX}-rowsLabel`,
+};
+const StyledButton = styled(Button)(({ theme }) => ({
+  [`&.${classes.button}`]: {
     minWidth: theme.spacing(2),
   },
-  activeButton: {
+  [`&.${classes.activeButton}`]: {
     fontWeight: 'bold',
     cursor: 'default',
   },
-  text: {
+  [`&.${classes.text}`]: {
     color: 'rgba(0, 0, 0, 0.87)',
   },
-  arrowButton: {
+  '@media(max-width: 768px)': {
+    [`&.${classes.button}`]: {
+      display: 'none',
+    },
+  },
+}));
+
+const StyledDiv = styled('div')(({ theme }) => ({
+  [`&.${classes.pagination}`]: {
+    margin: 0,
+  },
+  [`& .${classes.rowsLabel}`]: {
+    ...theme.typography.caption,
+    paddingRight: theme.spacing(5),
+  },
+  [`& .${classes.arrowButton}`]: {
     display: 'inline-block',
     transform: theme.direction === 'rtl' ? 'rotate(180deg)' : null,
     msTransform: theme.direction === 'rtl' ? 'rotate(180deg)' : null,
   },
-  prev: {
+  [`& .${classes.prev}`]: {
     marginRight: 0,
   },
-  next: {
+  [`& .${classes.next}`]: {
     marginLeft: 0,
   },
   '@media(max-width: 768px)': {
-    button: {
-      display: 'none',
-    },
-    prev: {
-      marginRight: theme.spacing(1),
-    },
-    next: {
-      marginLeft: theme.spacing(1),
-    },
-    rowsLabel: {
+    [`& .${classes.rowsLabel}`]: {
       paddingRight: theme.spacing(2),
     },
+    [`& .${classes.prev}`]: {
+      marginRight: theme.spacing(1),
+    },
+    [`& .${classes.next}`]: {
+      marginLeft: theme.spacing(1),
+    },
   },
-});
+}));
 
 const PageButton = ({
-  text, isActive, isDisabled, classes, onClick,
+  text, isActive, isDisabled, onClick,
 }) => {
   const buttonClasses = classNames({
     [classes.button]: true,
@@ -63,14 +76,14 @@ const PageButton = ({
   });
 
   return (
-    <Button
+    <StyledButton
       className={buttonClasses}
       disabled={isDisabled}
       onClick={onClick}
       {...isActive ? { tabIndex: -1 } : null}
     >
       {text}
-    </Button>
+    </StyledButton>
   );
 };
 
@@ -78,7 +91,6 @@ PageButton.propTypes = {
   text: PropTypes.string.isRequired,
   isActive: PropTypes.bool,
   isDisabled: PropTypes.bool,
-  classes: PropTypes.object.isRequired,
   onClick: PropTypes.func,
 };
 
@@ -90,10 +102,9 @@ PageButton.defaultProps = {
 
 const ellipsisSymbol = '\u2026';
 
-const renderPageButtons = (
+const RenderPageButtons = (
   currentPage,
   totalPageCount,
-  classes,
   onCurrentPageChange,
 ) => {
   const pageButtons = [];
@@ -111,7 +122,6 @@ const renderPageButtons = (
       <PageButton
         key={1}
         text={String(1)}
-        classes={classes}
         onClick={() => onCurrentPageChange(0)}
       />
     ));
@@ -121,7 +131,6 @@ const renderPageButtons = (
         <PageButton
           key="ellipsisStart"
           text={ellipsisSymbol}
-          classes={classes}
           isDisabled
         />
       ));
@@ -166,20 +175,19 @@ const renderPageButtons = (
   return pageButtons;
 };
 
-const PaginationBase = ({
+export const Pagination = ({
   totalPages,
   totalCount,
   pageSize,
   currentPage,
   onCurrentPageChange,
   getMessage,
-  classes,
 }) => {
   const from = firstRowOnPage(currentPage, pageSize, totalCount);
   const to = lastRowOnPage(currentPage, pageSize, totalCount);
 
   return (
-    <div className={classes.pagination}>
+    <StyledDiv className={classes.pagination}>
       <span className={classes.rowsLabel}>
         {getMessage('info', { from, to, count: totalCount })}
       </span>
@@ -192,7 +200,7 @@ const PaginationBase = ({
       >
         <ChevronLeft />
       </IconButton>
-      {renderPageButtons(currentPage, totalPages, classes, onCurrentPageChange)}
+      {RenderPageButtons(currentPage, totalPages, onCurrentPageChange)}
       <IconButton
         className={classNames(classes.arrowButton, classes.next)}
         disabled={currentPage === totalPages - 1 || totalCount === 0}
@@ -202,18 +210,15 @@ const PaginationBase = ({
       >
         <ChevronRight />
       </IconButton>
-    </div>
+    </StyledDiv>
   );
 };
 
-PaginationBase.propTypes = {
+Pagination.propTypes = {
   totalPages: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,
   onCurrentPageChange: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   totalCount: PropTypes.number.isRequired,
   pageSize: PropTypes.number.isRequired,
   getMessage: PropTypes.func.isRequired,
 };
-
-export const Pagination = withStyles(styles, { name: 'Pagination' })(PaginationBase);

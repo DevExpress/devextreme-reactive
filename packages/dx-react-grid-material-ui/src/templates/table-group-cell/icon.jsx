@@ -3,28 +3,15 @@ import * as PropTypes from 'prop-types';
 import ChevronRight from '@mui/icons-material/ChevronRight';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import IconButton from '@mui/material/IconButton';
-import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
 
-const styles = theme => ({
-  groupButton: {
-    verticalAlign: 'middle',
-    display: 'inline-block',
-    padding: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
-});
-
-const IconBase = React.memo(({
+export const Icon = React.memo(({
   expanded,
-  classes,
   className,
   ...restProps
 }) => (
   <IconButton
-    className={classNames(classes.groupButton, className)}
+    className={className}
     {...restProps}
-    size="large"
   >
     {
       expanded
@@ -34,14 +21,11 @@ const IconBase = React.memo(({
   </IconButton>
 ));
 
-IconBase.propTypes = {
+Icon.propTypes = {
   expanded: PropTypes.bool.isRequired,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
-IconBase.defaultProps = {
+Icon.defaultProps = {
   className: undefined,
 };
-
-export const Icon = withStyles(styles)(IconBase);

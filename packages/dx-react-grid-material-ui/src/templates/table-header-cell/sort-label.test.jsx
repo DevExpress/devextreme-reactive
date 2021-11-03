@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { createShallow, createMount, getClasses } from '@devexpress/dx-testing';
+import { createShallow, createMount } from '@devexpress/dx-testing';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Tooltip from '@mui/material/Tooltip';
-import { SortLabel } from './sort-label';
+import { SortLabel, classes } from './sort-label';
 
 const defaultProps = {
   title: 'a',
@@ -18,12 +18,8 @@ const e = {
 describe('SortLabel', () => {
   let shallow;
   let mount;
-  let classes;
   beforeAll(() => {
-    shallow = createShallow({ untilSelector: 'SortLabelBase' });
-    classes = getClasses((
-      <SortLabel {...defaultProps} />
-    ));
+    shallow = createShallow({ dive: true });
   });
   beforeEach(() => {
     mount = createMount();
@@ -33,7 +29,7 @@ describe('SortLabel', () => {
   });
 
   it('should render tooltip', () => {
-    const tree = shallow((
+    const tree = mount((
       <SortLabel
         {...defaultProps}
       />
@@ -70,7 +66,7 @@ describe('SortLabel', () => {
   });
 
   it('should process nullable direction', () => {
-    const tree = shallow((
+    const tree = mount((
       <SortLabel
         {...defaultProps}
         direction={null}
@@ -149,7 +145,7 @@ describe('SortLabel', () => {
 
     it('should cancel sorting by using the Ctrl key', () => {
       const onSort = jest.fn();
-      const tree = shallow((
+      const tree = mount((
         <SortLabel
           {...defaultProps}
           onSort={onSort}
@@ -163,7 +159,7 @@ describe('SortLabel', () => {
     });
 
     it('should add correct class if align is right', () => {
-      const tree = shallow((
+      const tree = mount((
         <SortLabel
           {...defaultProps}
           align="right"

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createShallow } from '@devexpress/dx-testing';
 import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
-import { Pager } from './pager';
+import { Pager, classes } from './pager';
 import { Pagination } from './pagination';
 import { PageSizeSelector } from './page-size-selector';
 
@@ -22,11 +22,9 @@ const defaultProps = {
 
 describe('Pager', () => {
   let shallow;
-  let classes;
 
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<Pager {...defaultProps} />);
   });
 
   describe('#render', () => {

@@ -2,29 +2,29 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import Chip from '@mui/material/Chip';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
-const styles = theme => ({
-  container: {
+const PREFIX = 'DragDrop';
+export const classes = {
+  container: `${PREFIX}-container`,
+  column: `${PREFIX}-column`,
+};
+
+const StyledDiv = styled('div')(() => ({
+  [`&.${classes.container}`]: {
     position: 'fixed',
     zIndex: 1000,
     left: 0,
     top: 0,
     display: 'inline-block',
   },
-  column: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    float: 'right',
-    cursor: 'move',
-  },
-});
+}));
 
-const ContainerBase = ({
-  clientOffset, classes, style, className, children,
+export const Container = ({
+  clientOffset, style, className, children,
   ...restProps
 }) => (
-  <div
+  <StyledDiv
     className={classNames(classes.container, className)}
     style={{
       transform: `translate(calc(${clientOffset.x}px - 50%), calc(${clientOffset.y}px - 50%))`,
@@ -34,49 +34,51 @@ const ContainerBase = ({
     {...restProps}
   >
     {children}
-  </div>
+  </StyledDiv>
 );
 
-ContainerBase.propTypes = {
+Container.propTypes = {
   clientOffset: PropTypes.shape({
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired,
   }).isRequired,
   children: PropTypes.node,
-  classes: PropTypes.object.isRequired,
   style: PropTypes.object,
   className: PropTypes.string,
 };
 
-ContainerBase.defaultProps = {
+Container.defaultProps = {
   style: null,
   className: undefined,
   children: undefined,
 };
 
-export const Container = withStyles(styles, { name: 'DragDrop' })(ContainerBase);
+const StyledChip = styled(Chip)(({ theme }) => ({
+  [`&.${classes.column}`]: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    float: 'right',
+    cursor: 'move',
+  },
+}));
 
-const ColumnBase = React.memo(({
+export const Column = React.memo(({
   column,
-  classes,
   className,
   ...restProps
 }) => (
-  <Chip
+  <StyledChip
     className={classNames(classes.column, className)}
     label={column.title}
     {...restProps}
   />
 ));
 
-ColumnBase.propTypes = {
+Column.propTypes = {
   column: PropTypes.object.isRequired,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
-ColumnBase.defaultProps = {
+Column.defaultProps = {
   className: undefined,
 };
-
-export const Column = withStyles(styles, { name: 'DragDrop' })(ColumnBase);

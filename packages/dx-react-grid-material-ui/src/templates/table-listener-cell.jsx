@@ -2,36 +2,37 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import { Sizer } from '@devexpress/dx-react-core';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import { TableStubCell } from './table-stub-cell';
 
-const styles = () => ({
-  cell: {
+const PREFIX = 'TableListenerCell';
+export const classes = {
+  cell: `${PREFIX}-cell`,
+};
+
+const StyledTableStubCell = styled(TableStubCell)(() => ({
+  [`&.${classes.cell}`]: {
     border: 0,
   },
-});
+}));
 
-const TableBorderlessStubCellBase = ({
+const TableBorderlessStubCell = ({
   className,
-  classes,
   ...restProps
 }) => (
-  <TableStubCell
+  <StyledTableStubCell
     className={classNames(classes.cell, className)}
     {...restProps}
   />
 );
 
-TableBorderlessStubCellBase.propTypes = {
-  classes: PropTypes.object.isRequired,
+TableBorderlessStubCell.propTypes = {
   className: PropTypes.string,
 };
 
-TableBorderlessStubCellBase.defaultProps = {
+TableBorderlessStubCell.defaultProps = {
   className: undefined,
 };
-
-const TableBorderlessStubCell = withStyles(styles, { name: 'TableBorderlessStubCell' })(TableBorderlessStubCellBase);
 
 export const TableListenerCell = ({ listen, onSizeChange, ...restProps }) => (listen ? (
   <Sizer

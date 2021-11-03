@@ -1,13 +1,18 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 import { PageSizeSelector } from './page-size-selector';
 import { Pagination } from './pagination';
 
-const styles = theme => ({
-  pager: {
+const PREFIX = 'Pager';
+export const classes = {
+  pager: `${PREFIX}-pager`,
+};
+
+const StyledDiv = styled('div')(({ theme }) => ({
+  [`&.${classes.pager}`]: {
     overflow: 'hidden',
     padding: theme.spacing(1.5),
     display: 'flex',
@@ -15,14 +20,13 @@ const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
-});
+}));
 
 const PagerBase = ({
   currentPage,
   pageSizes,
   totalPages,
   pageSize,
-  classes,
   onCurrentPageChange,
   onPageSizeChange,
   totalCount,
@@ -31,7 +35,7 @@ const PagerBase = ({
   forwardedRef,
   ...restProps
 }) => (
-  <div
+  <StyledDiv
     className={classNames(classes.pager, className)}
     ref={forwardedRef}
     {...restProps}
@@ -52,7 +56,7 @@ const PagerBase = ({
       pageSize={pageSize}
       getMessage={getMessage}
     />
-  </div>
+  </StyledDiv>
 );
 
 PagerBase.propTypes = {
@@ -60,7 +64,6 @@ PagerBase.propTypes = {
   totalPages: PropTypes.number.isRequired,
   pageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
   pageSize: PropTypes.number.isRequired,
-  classes: PropTypes.object.isRequired,
   onCurrentPageChange: PropTypes.func.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
   totalCount: PropTypes.number.isRequired,
@@ -74,4 +77,4 @@ PagerBase.defaultProps = {
   forwardedRef: undefined,
 };
 
-export const Pager = withKeyboardNavigation('paging', 'none')(withStyles(styles, { name: 'Pager' })(PagerBase));
+export const Pager = withKeyboardNavigation('paging', 'none')(PagerBase);

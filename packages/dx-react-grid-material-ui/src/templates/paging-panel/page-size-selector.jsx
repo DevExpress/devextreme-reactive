@@ -3,57 +3,60 @@ import * as PropTypes from 'prop-types';
 import Input from '@mui/material/Input';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import { IS_LEGACY_EDGE_MEDIA_QUERY } from '../constants';
 
-const styles = theme => ({
-  pageSizeSelector: {
+const PREFIX = 'PageSizeSelector';
+export const classes = {
+  pageSizeSelector: `${PREFIX}-pageSizeSelector`,
+  label: `${PREFIX}-label`,
+  selectIcon: `${PREFIX}-selectIcon`,
+  selectMenu: `${PREFIX}-selectMenu`,
+  inputRoot: `${PREFIX}-inputRoot`,
+};
+const StyledDiv = styled('div')(({ theme }) => ({
+  [`&.${classes.pageSizeSelector}`]: {
     ...theme.typography.caption,
     paddingRight: theme.spacing(5),
     // NOTE: fixes vertical alignment in FF
     display: 'flex',
     alignItems: 'center',
   },
-  label: {
+  [`& .${classes.label}`]: {
     paddingRight: theme.spacing(3),
   },
-  pageSizeTitle: {
-    width: 'auto',
-    marginRight: theme.spacing(2),
-  },
-  inputRoot: {
-    fontSize: theme.spacing(1.75),
-    textAlign: 'right',
-  },
-  selectIcon: {
+  [`& .${classes.selectIcon}`]: {
     top: 2,
   },
-  selectMenu: {
+  [`& .${classes.selectMenu}`]: {
     // NOTE: fix position for non-chromium Edge (issues 2234, 2788)
     [`${IS_LEGACY_EDGE_MEDIA_QUERY}`]: {
       position: 'absolute !important',
     },
   },
+  [`& .${classes.inputRoot}`]: {
+    fontSize: theme.spacing(1.75),
+    textAlign: 'right',
+  },
   '@media (max-width: 768px)': {
-    label: {
-      display: 'none',
-    },
-    pageSizeSelector: {
+    [`&.${classes.pageSizeSelector}`]: {
       paddingRight: theme.spacing(2),
     },
+    [`& .${classes.label}`]: {
+      display: 'none',
+    },
   },
-});
+}));
 
-const PageSizeSelectorBase = ({
+export const PageSizeSelector = ({
   pageSize,
   onPageSizeChange,
   pageSizes,
   getMessage,
-  classes,
 }) => {
   const showAll = getMessage('showAll');
   return (
-    <div className={classes.pageSizeSelector}>
+    <StyledDiv className={classes.pageSizeSelector}>
       <span className={classes.label}>
         {getMessage('rowsPerPage')}
       </span>
@@ -79,16 +82,13 @@ const PageSizeSelectorBase = ({
           </MenuItem>
         ))}
       </Select>
-    </div>
+    </StyledDiv>
   );
 };
 
-PageSizeSelectorBase.propTypes = {
+PageSizeSelector.propTypes = {
   pageSize: PropTypes.number.isRequired,
   onPageSizeChange: PropTypes.func.isRequired,
   pageSizes: PropTypes.arrayOf(PropTypes.number).isRequired,
-  classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
 };
-
-export const PageSizeSelector = withStyles(styles, { name: 'PageSizeSelector' })(PageSizeSelectorBase);

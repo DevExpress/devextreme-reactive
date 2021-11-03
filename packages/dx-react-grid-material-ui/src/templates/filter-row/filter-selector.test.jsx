@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createMount } from '@devexpress/dx-testing';
 import Menu from '@mui/material/Menu';
-import { FilterSelector } from './filter-selector';
+import { FilterSelector, classes } from './filter-selector';
 
 const defaultProps = {
   toggleButtonComponent: () => null,
@@ -10,21 +10,19 @@ const defaultProps = {
 };
 
 describe('FilterSelector', () => {
-  let shallow;
-  let classes;
+  let mount;
   beforeAll(() => {
-    shallow = createShallow({ dive: true });
-    classes = getClasses(<FilterSelector {...defaultProps} />);
+    mount = createMount();
   });
   it('should not render anything if no values are available', () => {
-    const tree = shallow(<FilterSelector {...defaultProps} />);
+    const tree = mount(<FilterSelector {...defaultProps} />);
 
     expect(tree.children())
       .toHaveLength(0);
   });
 
   it('should render the disabled toggle button if only one value is available', () => {
-    const tree = shallow((
+    const tree = mount((
       <FilterSelector
         {...defaultProps}
         availableValues={['one']}
@@ -36,7 +34,7 @@ describe('FilterSelector', () => {
   });
 
   it('should render the disabled toggle button if the "disabled" prop is true', () => {
-    const tree = shallow((
+    const tree = mount((
       <FilterSelector
         {...defaultProps}
         availableValues={['one', 'two']}
@@ -49,7 +47,7 @@ describe('FilterSelector', () => {
   });
 
   it('should have correct classes', () => {
-    const tree = shallow((
+    const tree = mount((
       <FilterSelector
         {...defaultProps}
         availableValues={['one', 'two']}

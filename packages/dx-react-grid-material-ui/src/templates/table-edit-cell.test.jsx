@@ -1,17 +1,15 @@
 import * as React from 'react';
 import Input from '@mui/material/Input';
 import TableCell from '@mui/material/TableCell';
-import { createMount, getClasses, setupConsole } from '@devexpress/dx-testing';
-import { EditCell } from './table-edit-cell';
+import { createMount, setupConsole } from '@devexpress/dx-testing';
+import { EditCell, classes } from './table-edit-cell';
 
 describe('EditCell', () => {
   let resetConsole;
 
   let mount;
-  let classes;
 
   beforeAll(() => {
-    classes = getClasses(<EditCell onValueChange={() => {}} />);
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
   });
 

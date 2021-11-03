@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { FocusRow } from './table-focus-row';
+import { createShallow } from '@devexpress/dx-testing';
+import { FocusRow, classes } from './table-focus-row';
 
 const defaultProps = {
   component: () => <span />,
@@ -8,11 +8,9 @@ const defaultProps = {
 
 describe('FocusRow', () => {
   let shallow;
-  let classes;
 
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<FocusRow {...defaultProps} />);
   });
   it('should be rendered', () => {
     const tree = shallow((

@@ -1,35 +1,36 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import { TableRow } from '../table-row';
 
-const styles = () => ({
-  row: {
+const PREFIX = 'Row';
+export const classes = {
+  row: `${PREFIX}-row`,
+};
+const StyledTableRow = styled(TableRow)(() => ({
+  [`&.${classes.row}`]: {
     cursor: 'pointer',
   },
-});
+}));
 
-const RowBase = ({
-  children, classes, className, ...restProps
+export const Row = ({
+  children, className, ...restProps
 }) => (
-  <TableRow
+  <StyledTableRow
     {...restProps}
     className={classNames(classes.row, className)}
   >
     {children}
-  </TableRow>
+  </StyledTableRow>
 );
 
-RowBase.propTypes = {
+Row.propTypes = {
   children: PropTypes.node,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
-RowBase.defaultProps = {
+Row.defaultProps = {
   children: null,
   className: undefined,
 };
-
-export const Row = withStyles(styles)(RowBase);

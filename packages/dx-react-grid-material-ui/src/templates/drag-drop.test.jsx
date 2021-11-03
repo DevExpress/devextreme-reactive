@@ -1,18 +1,12 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { Container, Column } from './drag-drop';
+import { createShallow } from '@devexpress/dx-testing';
+import { Container, Column, classes } from './drag-drop';
 
 describe('DragDrop', () => {
   describe('Container', () => {
     let shallow;
-    let classes;
     beforeAll(() => {
       shallow = createShallow({ dive: true });
-      classes = getClasses((
-        <Container
-          clientOffset={{ x: 10, y: 20 }}
-        />
-      ));
     });
 
     it('should have correct styles', () => {
@@ -71,16 +65,8 @@ describe('DragDrop', () => {
 
   describe('Column', () => {
     let shallow;
-    let classes;
     beforeAll(() => {
       shallow = createShallow({ dive: true });
-      classes = getClasses((
-        <Column
-          column={{
-            title: 'Test',
-          }}
-        />
-      ));
     });
 
     it('should pass the className prop to the root element', () => {

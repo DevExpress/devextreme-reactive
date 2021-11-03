@@ -1,7 +1,5 @@
 // BLOCK:imports
-import classNames from 'clsx';
 import TableCell from '@mui/material/TableCell';
-import withStyles from '@mui/styles/withStyles';
 import Button from '@mui/material/Button';
 import MuiGrid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
@@ -117,22 +115,7 @@ const DetailContent = ({ row, ...rest }) => {
   );
 };
 
-const styles = theme => ({
-  toggleCell: {
-    textAlign: 'center',
-    textOverflow: 'initial',
-    paddingTop: 0,
-    paddingBottom: 0,
-    paddingLeft: theme.spacing(1),
-  },
-  toggleCellButton: {
-    verticalAlign: 'middle',
-    display: 'inline-block',
-    padding: theme.spacing(1),
-  },
-});
-
-const ToggleCellBase = ({
+const ToggleCell = ({
   style, expanded, classes, onToggle,
   tableColumn, tableRow, row,
   className,
@@ -144,11 +127,20 @@ const ToggleCellBase = ({
   };
   return (
     <TableCell
-      className={classNames(classes.toggleCell, className)}
+      className={className}
+      sx={{
+        textAlign: 'center',
+        textOverflow: 'initial',
+        paddingTop: 0,
+        paddingBottom: 0,
+        pl: 1,
+      }}
       style={style}
       {...restProps}
     >
-      <IconButton className={classes.toggleCellButton} onClick={handleClick} size="large">
+      <IconButton
+        onClick={handleClick}
+      >
         {
           expanded
             ? <Cancel />
@@ -158,6 +150,4 @@ const ToggleCellBase = ({
     </TableCell>
   );
 };
-
-const ToggleCell = withStyles(styles, { name: 'ToggleCell' })(ToggleCellBase);
 // BLOCK:detailContent

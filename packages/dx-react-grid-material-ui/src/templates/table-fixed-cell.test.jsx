@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { FixedCell } from './table-fixed-cell';
+import { createShallow } from '@devexpress/dx-testing';
+import { FixedCell, classes } from './table-fixed-cell';
 
 const defaultProps = {
   column: { name: 'Test' },
@@ -10,11 +10,9 @@ const defaultProps = {
 
 describe('FixedCell', () => {
   let shallow;
-  let classes;
 
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<FixedCell {...defaultProps} />);
   });
 
   it('should apply selected styles for selected cell', () => {

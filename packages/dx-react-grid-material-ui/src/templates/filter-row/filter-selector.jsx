@@ -4,21 +4,25 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
-const styles = ({ spacing }) => ({
-  icon: {
-    marginRight: spacing(1),
-  },
-  iconItem: {
-    minWidth: spacing(2),
-  },
-  selectMenu: {
+const PREFIX = 'FilterSelector';
+export const classes = {
+  icon: `${PREFIX}-icon`,
+  iconItem: `${PREFIX}-iconItem`,
+  selectMenu: `${PREFIX}-selectMenu`,
+};
+
+const StyledMenu = styled(Menu)(({ theme }) => ({
+  [`&.${classes.selectMenu}`]: {
     position: 'absolute !important',
   },
-});
+  [`& .${classes.iconItem}`]: {
+    minWidth: theme.spacing(2),
+  },
+}));
 
-class FilterSelectorBase extends React.PureComponent {
+export class FilterSelector extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -45,9 +49,15 @@ class FilterSelectorBase extends React.PureComponent {
   render() {
     const {
       value, availableValues, disabled, getMessage,
-      iconComponent: Icon, toggleButtonComponent: ToggleButton, classes,
+      iconComponent: Icon, toggleButtonComponent: ToggleButton,
     } = this.props;
     const { opened } = this.state;
+
+    const StyledIcon = styled(Icon)(({ theme }) => ({
+      [`&.${classes.icon}`]: {
+        marginRight: theme.spacing(1),
+      },
+    }));
     return availableValues.length ? (
       <React.Fragment>
         <ToggleButton
@@ -57,7 +67,7 @@ class FilterSelectorBase extends React.PureComponent {
         >
           <Icon type={value} />
         </ToggleButton>
-        <Menu
+        <StyledMenu
           anchorEl={this.buttonRef}
           open={opened}
           onClose={this.handleMenuClose}
@@ -73,7 +83,7 @@ class FilterSelectorBase extends React.PureComponent {
               <ListItemIcon
                 className={classes.iconItem}
               >
-                <Icon
+                <StyledIcon
                   type={valueItem}
                   className={classes.icon}
                   fontSize="small"
@@ -84,13 +94,13 @@ class FilterSelectorBase extends React.PureComponent {
               </ListItemText>
             </MenuItem>
           ))}
-        </Menu>
+        </StyledMenu>
       </React.Fragment>
     ) : null;
   }
 }
 
-FilterSelectorBase.propTypes = {
+FilterSelector.propTypes = {
   value: PropTypes.string,
   availableValues: PropTypes.arrayOf(PropTypes.string),
   onChange: PropTypes.func,
@@ -100,14 +110,11 @@ FilterSelectorBase.propTypes = {
   // oneOfType is a workaround because withStyles returns react object
   toggleButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   getMessage: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
 };
 
-FilterSelectorBase.defaultProps = {
+FilterSelector.defaultProps = {
   value: undefined,
   availableValues: [],
   onChange: () => {},
   disabled: false,
 };
-
-export const FilterSelector = withStyles(styles, { name: 'FilterSelector' })(FilterSelectorBase);

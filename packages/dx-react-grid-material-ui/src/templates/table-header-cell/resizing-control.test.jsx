@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { createShallow, getClasses, setupConsole } from '@devexpress/dx-testing';
+import { createShallow, setupConsole } from '@devexpress/dx-testing';
 
 import { Draggable } from '@devexpress/dx-react-core';
-import { ResizingControl } from './resizing-control';
+import { ResizingControl, classes } from './resizing-control';
 
 const defaultProps = {
   onWidthChange: () => {},
@@ -15,11 +15,9 @@ const defaultProps = {
 describe('ResizingControl', () => {
   let resetConsole;
   let shallow;
-  let classes;
   beforeAll(() => {
     resetConsole = setupConsole();
-    shallow = createShallow({ untilSelector: 'ResizingControlBase' });
-    classes = getClasses(<ResizingControl {...defaultProps} />);
+    shallow = createShallow();
   });
   afterAll(() => {
     resetConsole();
@@ -29,15 +27,17 @@ describe('ResizingControl', () => {
   it('should have correct styles while resizing', () => {
     const tree = shallow(<ResizingControl {...defaultProps} />);
 
-    expect(tree.find(`.${classes.resizeHandle}`).exists()).toBeTruthy();
+    expect(tree.find(`.${classes.resizeHandleLine}`).exists()).toBeTruthy();
 
     tree.find(Draggable).prop('onStart')({ x: 0, y: 0 });
     tree.update();
-    expect(tree.find(`.${classes.resizeHandle}`).hasClass(classes.resizeHandleActive)).toBeTruthy();
+    expect(tree.find(`.${classes.resizeHandleLine}`).at(0).hasClass(classes.resizeHandleLineActive)).toBeTruthy();
+    expect(tree.find(`.${classes.resizeHandleLine}`).at(1).hasClass(classes.resizeHandleLineActive)).toBeTruthy();
 
     tree.find(Draggable).prop('onEnd')({ x: 0, y: 0 });
     tree.update();
-    expect(tree.find(`.${classes.resizeHandle}`).hasClass(classes.resizeHandleActive)).toBeFalsy();
+    expect(tree.find(`.${classes.resizeHandleLine}`).at(0).hasClass(classes.resizeHandleLineActive)).toBeFalsy();
+    expect(tree.find(`.${classes.resizeHandleLine}`).at(1).hasClass(classes.resizeHandleLineActive)).toBeFalsy();
   });
 
   it('should trigger onWidthChange with correct change on resize end', () => {

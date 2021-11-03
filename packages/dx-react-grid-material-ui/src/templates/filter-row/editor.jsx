@@ -1,23 +1,29 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Input from '@mui/material/Input';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
-const styles = theme => ({
-  input: {
+const PREFIX = 'Editor';
+export const classes = {
+  input: `${PREFIX}-input`,
+  root: `${PREFIX}-root`,
+};
+
+const StyledInput = styled(Input)(({ theme }) => ({
+  [`&.${classes.input}`]: {
     width: '100%',
     fontSize: '14px',
   },
-  root: {
+  [`&.${classes.root}`]: {
     margin: theme.spacing(1),
   },
-});
+}));
 
-const EditorBase = ({
-  value, disabled, getMessage, onChange, classes,
+export const Editor = ({
+  value, disabled, getMessage, onChange,
   ...restProps
 }) => (
-  <Input
+  <StyledInput
     classes={{
       input: classes.input,
       root: classes.root,
@@ -31,18 +37,15 @@ const EditorBase = ({
   />
 );
 
-EditorBase.propTypes = {
-  classes: PropTypes.object.isRequired,
+Editor.propTypes = {
   value: PropTypes.any,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
   getMessage: PropTypes.func.isRequired,
 };
 
-EditorBase.defaultProps = {
+Editor.defaultProps = {
   value: '',
   disabled: false,
   onChange: () => {},
 };
-
-export const Editor = withStyles(styles, { name: 'Editor' })(EditorBase);

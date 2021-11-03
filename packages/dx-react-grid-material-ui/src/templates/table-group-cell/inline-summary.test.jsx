@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { createMount, getClasses, setupConsole } from '@devexpress/dx-testing';
+import { createMount, setupConsole } from '@devexpress/dx-testing';
 
-import { InlineSummary } from './inline-summary';
+import { InlineSummary, classes } from './inline-summary';
 
 describe('InlineSummary component', () => {
-  let classes;
   let mount;
   const defaultProps = {
     inlineSummaries: [],
@@ -18,7 +17,6 @@ describe('InlineSummary component', () => {
 
   let resetConsole;
   beforeAll(() => {
-    classes = getClasses(<InlineSummary {...defaultProps} />);
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
   });
 

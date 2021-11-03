@@ -1,13 +1,11 @@
 import * as React from 'react';
 import TableCellMUI from '@mui/material/TableCell';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { TableCell } from './table-cell';
+import { createShallow } from '@devexpress/dx-testing';
+import { TableCell, classes } from './table-cell';
 
 describe('TableCell', () => {
-  let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<TableCell />);
     shallow = createShallow({ dive: true });
   });
 

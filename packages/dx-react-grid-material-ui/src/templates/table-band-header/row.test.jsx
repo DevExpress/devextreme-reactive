@@ -1,12 +1,10 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { Row } from './row';
+import { createShallow } from '@devexpress/dx-testing';
+import { Row, classes } from './row';
 
 describe('TableCell', () => {
-  let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Row />);
     shallow = createShallow({ dive: true });
   });
 

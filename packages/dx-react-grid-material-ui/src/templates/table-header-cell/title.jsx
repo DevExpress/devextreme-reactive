@@ -1,38 +1,39 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import classNames from 'clsx';
 
-const styles = {
-  title: {
+const PREFIX = 'Title';
+export const classes = {
+  title: `${PREFIX}-title`,
+};
+const StyledSpan = styled('span')(() => ({
+  [`&.${classes.title}`]: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
-};
+}));
 
-const TitelBase = ({
-  children, classes, className, ...restProps
+export const Title = ({
+  children, className, ...restProps
 }) => (
-  <span
+  <StyledSpan
     className={classNames(classes.title, className)}
     {...restProps}
   >
     {children}
-  </span>
+  </StyledSpan>
 );
 
-TitelBase.propTypes = {
+Title.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
-TitelBase.defaultProps = {
+Title.defaultProps = {
   className: null,
   children: undefined,
 };
-
-export const Title = withStyles(styles, { name: 'Title' })(TitelBase);

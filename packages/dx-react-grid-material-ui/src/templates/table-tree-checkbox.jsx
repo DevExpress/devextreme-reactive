@@ -2,22 +2,27 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import CheckboxMUI from '@mui/material/Checkbox';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
-const styles = theme => ({
-  checkbox: {
+const PREFIX = 'TableTreeCheckbox';
+export const classes = {
+  checkbox: `${PREFIX}-checkbox`,
+};
+
+const StyledCheckboxMUI = styled(CheckboxMUI)(({ theme }) => ({
+  [`&.${classes.checkbox}`]: {
     marginTop: '-1px',
     marginBottom: '-1px',
     marginRight: theme.spacing(2),
     marginLeft: -theme.spacing(2),
     padding: theme.spacing(1),
   },
-});
+}));
 
-export const TableTreeCheckboxBase = ({
-  disabled, checked, indeterminate, onChange, classes, className, ...restProps
+export const TableTreeCheckbox = ({
+  disabled, checked, indeterminate, onChange, className, ...restProps
 }) => (
-  <CheckboxMUI
+  <StyledCheckboxMUI
     className={classNames(classes.checkbox, className)}
     checked={checked}
     indeterminate={indeterminate}
@@ -31,21 +36,18 @@ export const TableTreeCheckboxBase = ({
   />
 );
 
-TableTreeCheckboxBase.propTypes = {
+TableTreeCheckbox.propTypes = {
   disabled: PropTypes.bool,
   checked: PropTypes.bool,
   indeterminate: PropTypes.bool,
   onChange: PropTypes.func,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
-TableTreeCheckboxBase.defaultProps = {
+TableTreeCheckbox.defaultProps = {
   disabled: false,
   checked: false,
   indeterminate: false,
   onChange: () => {},
   className: undefined,
 };
-
-export const TableTreeCheckbox = withStyles(styles)(TableTreeCheckboxBase);

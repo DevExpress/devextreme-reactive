@@ -1,21 +1,25 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import Input from '@mui/material/Input';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import { DataTypeProvider } from '@devexpress/dx-react-grid';
 
-const styles = {
-  numericInput: {
+const PREFIX = 'Demo';
+const classes = {
+  numericInput: `${PREFIX}-numericInput`,
+};
+const StyledInput = styled(Input)(() => ({
+  [`&.${classes.numericInput}`]: {
     textAlign: 'right',
     width: '100%',
   },
-};
+}));
 
 const getInputValue = value => (value === undefined ? '' : (value * 100).toFixed(1));
 
 const Formatter = ({ value }) => `${getInputValue(value)}%`;
 
-const EditorBase = ({ value, onValueChange, classes }) => {
+const Editor = ({ value, onValueChange }) => {
   const handleChange = (event) => {
     const { value: targetValue } = event.target;
     if (targetValue === '') {
@@ -25,7 +29,7 @@ const EditorBase = ({ value, onValueChange, classes }) => {
     onValueChange(Math.min(Math.max(parseFloat(targetValue / 100), 0), 1));
   };
   return (
-    <Input
+    <StyledInput
       type="number"
       classes={{
         input: classes.numericInput,
@@ -43,17 +47,14 @@ const EditorBase = ({ value, onValueChange, classes }) => {
   );
 };
 
-EditorBase.propTypes = {
+Editor.propTypes = {
   value: PropTypes.number,
   onValueChange: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
 };
 
-EditorBase.defaultProps = {
+Editor.defaultProps = {
   value: undefined,
 };
-
-const Editor = withStyles(styles)(EditorBase);
 
 const availableFilterOperations = [
   'equal', 'notEqual',

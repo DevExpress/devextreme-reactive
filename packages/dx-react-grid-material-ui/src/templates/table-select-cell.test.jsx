@@ -1,19 +1,17 @@
 import * as React from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import {
-  createMount, createShallow, getClasses, setupConsole,
+  createMount, createShallow, setupConsole,
 } from '@devexpress/dx-testing';
-import { TableSelectCell } from './table-select-cell';
+import { TableSelectCell, classes } from './table-select-cell';
 
 describe('TableSelectCell', () => {
   let mount;
   let shallow;
-  let classes;
   beforeAll(() => {
     setupConsole({ ignore: ['validateDOMNesting'] });
     mount = createMount();
-    shallow = createShallow({ dive: true });
-    classes = getClasses(<TableSelectCell />);
+    shallow = createShallow();
   });
 
   it('should fire the `onToggle` event on cell click if selection is available', () => {

@@ -2,15 +2,23 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableMUI from '@mui/material/Table';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import { getBorder } from './utils';
 
-const styles = theme => ({
-  table: {
+const PREFIX = 'Table';
+export const classes = {
+  table: `${PREFIX}-table`,
+  stickyTable: `${PREFIX}-stickyTable`,
+  headTable: `${PREFIX}-headTable`,
+  footTable: `${PREFIX}-footTable`,
+};
+
+const StyledTableMUI = styled(TableMUI)(({ theme }) => ({
+  [`&.${classes.table}`]: {
     tableLayout: 'fixed',
     borderCollapse: 'separate',
   },
-  stickyTable: {
+  [`&.${classes.stickyTable}`]: {
     position: 'sticky',
     zIndex: 500,
     overflow: 'visible',
@@ -19,20 +27,20 @@ const styles = theme => ({
       position: '-webkit-sticky',
     },
   },
-  headTable: {
+  [`&.${classes.headTable}`]: {
     top: 0,
   },
-  footTable: {
+  [`&.${classes.footTable}`]: {
     borderTop: getBorder(theme),
     bottom: 0,
   },
-});
+}));
 
-const TableBase = ({
-  children, classes, className, use, forwardedRef,
+export const Table = ({
+  children, className, use, forwardedRef,
   ...restProps
 }) => (
-  <TableMUI
+  <StyledTableMUI
     ref={forwardedRef}
     className={classNames({
       [classes.table]: true,
@@ -43,21 +51,18 @@ const TableBase = ({
     {...restProps}
   >
     {children}
-  </TableMUI>
+  </StyledTableMUI>
 );
 
-TableBase.propTypes = {
+Table.propTypes = {
   use: PropTypes.oneOf(['head', 'foot']),
   children: PropTypes.node.isRequired,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
-TableBase.defaultProps = {
+Table.defaultProps = {
   use: undefined,
   className: undefined,
   forwardedRef: undefined,
 };
-
-export const Table = withStyles(styles, { name: 'Table' })(TableBase);

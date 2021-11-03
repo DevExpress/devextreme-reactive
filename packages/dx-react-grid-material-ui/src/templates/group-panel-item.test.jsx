@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Chip from '@mui/material/Chip';
 import TableSortLabel from '@mui/material/TableSortLabel';
-import { createMount, createShallow, getClasses } from '@devexpress/dx-testing';
-import { GroupPanelItem } from './group-panel-item';
+import { createMount, createShallow } from '@devexpress/dx-testing';
+import { GroupPanelItem, classes } from './group-panel-item';
 
 const ENTER_KEY_CODE = 13;
 const SPACE_KEY_CODE = 32;
@@ -10,10 +10,8 @@ const SPACE_KEY_CODE = 32;
 describe('GroupPanelItem', () => {
   let mount;
   let shallow;
-  let classes;
   beforeAll(() => {
-    shallow = createShallow({ dive: true });
-    classes = getClasses(<GroupPanelItem item={{ column: {} }} />);
+    shallow = createShallow();
   });
   beforeEach(() => {
     mount = createMount();

@@ -21,7 +21,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Cancel';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
 import { ProgressBarCell } from '../../../theme-sources/material-ui/components/progress-bar-cell';
 import { HighlightedCell } from '../../../theme-sources/material-ui/components/highlighted-cell';
@@ -33,20 +33,27 @@ import {
   globalSalesValues,
 } from '../../../demo-data/generator';
 
-const styles = theme => ({
-  lookupEditCell: {
+const PREFIX = 'Demo';
+const classes = {
+  lookupEditCell: `${PREFIX}-lookupEditCell`,
+  dialog: `${PREFIX}-dialog`,
+  inputRoot: `${PREFIX}-inputRoot`,
+  selectMenu: `${PREFIX}-selectMenu`,
+};
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${classes.lookupEditCell}`]: {
     padding: theme.spacing(1),
   },
-  dialog: {
+  [`& .${classes.dialog}`]: {
     width: 'calc(100% - 16px)',
   },
-  inputRoot: {
+  [`& .${classes.inputRoot}`]: {
     width: '100%',
   },
-  selectMenu: {
+  [`& .${classes.selectMenu}`]: {
     position: 'absolute !important',
   },
-});
+}));
 
 const AddButton = ({ onExecute }) => (
   <div style={{ textAlign: 'center' }}>
@@ -116,10 +123,10 @@ const availableValues = {
   customer: globalSalesValues.customer,
 };
 
-const LookupEditCellBase = ({
-  availableColumnValues, value, onValueChange, classes,
+const LookupEditCell = ({
+  availableColumnValues, value, onValueChange,
 }) => (
-  <TableCell
+  <StyledTableCell
     className={classes.lookupEditCell}
   >
     <Select
@@ -140,9 +147,8 @@ const LookupEditCellBase = ({
         </MenuItem>
       ))}
     </Select>
-  </TableCell>
+  </StyledTableCell>
 );
-export const LookupEditCell = withStyles(styles, { name: 'ControlledModeDemo' })(LookupEditCellBase);
 
 const Cell = (props) => {
   const { column } = props;

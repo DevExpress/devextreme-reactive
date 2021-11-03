@@ -1,20 +1,23 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createShallow, createMount } from '@devexpress/dx-testing';
 import IconButton from '@mui/material/IconButton';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import ExpandLess from '@mui/icons-material/ExpandLess';
-import { TableDetailToggleCell } from './table-detail-toggle-cell';
+import { TableDetailToggleCell, classes } from './table-detail-toggle-cell';
 
 describe('TableDetailToggleCell', () => {
   let shallow;
-  let classes;
+  let mount;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<TableDetailToggleCell />);
+    mount = createMount();
+  });
+  afterAll(() => {
+    mount.cleanUp();
   });
 
   it('should render IconButton', () => {
-    const tree = shallow((
+    const tree = mount((
       <TableDetailToggleCell />
     ));
 
@@ -27,7 +30,7 @@ describe('TableDetailToggleCell', () => {
     const mockEvent = {
       stopPropagation: jest.fn(),
     };
-    const tree = shallow((
+    const tree = mount((
       <TableDetailToggleCell
         onToggle={onToggle}
       />

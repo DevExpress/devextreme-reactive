@@ -2,38 +2,47 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCellMUI from '@mui/material/TableCell';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
-const styles = theme => ({
-  cell: {
+const PREFIX = 'TableTreeCell';
+export const classes = {
+  cell: `${PREFIX}-cell`,
+  container: `${PREFIX}-container`,
+  cellNoWrap: `${PREFIX}-cellNoWrap`,
+  cellRightAlign: `${PREFIX}-cellRightAlign`,
+  cellCenterAlign: `${PREFIX}-cellCenterAlign`,
+};
+
+const StyledTableCellMUI = styled(TableCellMUI)(({ theme }) => ({
+  [`&.${classes.cell}`]: {
     padding: theme.spacing(0.5, 1),
-    '&:first-child': {
+    '&:first-of-type': {
       paddingLeft: theme.spacing(3),
     },
   },
-  container: {
+  [`&.${classes.cellNoWrap}`]: {
+    whiteSpace: 'nowrap',
+  },
+  [`&.${classes.cellRightAlign}`]: {
+    textAlign: 'right',
+  },
+  [`&.${classes.cellCenterAlign}`]: {
+    textAlign: 'center',
+  },
+  [`& .${classes.container}`]: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
   },
-  cellNoWrap: {
-    whiteSpace: 'nowrap',
-  },
-  cellRightAlign: {
-    textAlign: 'right',
-  },
-  cellCenterAlign: {
-    textAlign: 'center',
-  },
-});
+}));
 
-const TableTreeCellBase = ({
-  column, value, children, classes,
+export const TableTreeCell = ({
+  column, value, children,
   tableRow, tableColumn, row,
   className, forwardedRef,
   ...restProps
 }) => (
-  <TableCellMUI
+  <StyledTableCellMUI
     className={classNames({
       [classes.cell]: true,
       [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
@@ -46,14 +55,13 @@ const TableTreeCellBase = ({
     <div className={classes.container}>
       {children}
     </div>
-  </TableCellMUI>
+  </StyledTableCellMUI>
 );
 
-TableTreeCellBase.propTypes = {
+TableTreeCell.propTypes = {
   value: PropTypes.any,
   column: PropTypes.object,
   row: PropTypes.any,
-  classes: PropTypes.object.isRequired,
   children: PropTypes.node,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
@@ -61,7 +69,7 @@ TableTreeCellBase.propTypes = {
   forwardedRef: PropTypes.object,
 };
 
-TableTreeCellBase.defaultProps = {
+TableTreeCell.defaultProps = {
   value: undefined,
   column: undefined,
   row: undefined,
@@ -71,5 +79,3 @@ TableTreeCellBase.defaultProps = {
   className: undefined,
   forwardedRef: undefined,
 };
-
-export const TableTreeCell = withStyles(styles)(TableTreeCellBase);

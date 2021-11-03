@@ -2,18 +2,22 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableRow from '@mui/material/TableRow';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import getSelectionColor from '../utils/get-selection-color';
 
-const styles = theme => ({
-  selected: {
+const PREFIX = 'TableSelectRow';
+export const classes = {
+  selected: `${PREFIX}-selected`,
+};
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  [`&.${classes.selected}`]: {
     backgroundColor: getSelectionColor(theme),
   },
-});
+}));
 
-const TableSelectRowBase = ({
+export const TableSelectRow = ({
   children,
-  classes,
   className,
   onToggle,
   row,
@@ -24,7 +28,7 @@ const TableSelectRowBase = ({
   forwardedRef,
   ...restProps
 }) => (
-  <TableRow
+  <StyledTableRow
     ref={forwardedRef}
     className={classNames({ [classes.selected]: highlighted }, className)}
     onClick={(e) => {
@@ -35,13 +39,12 @@ const TableSelectRowBase = ({
     {...restProps}
   >
     {children}
-  </TableRow>
+  </StyledTableRow>
 );
 
-TableSelectRowBase.propTypes = {
+TableSelectRow.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  classes: PropTypes.object.isRequired,
   onToggle: PropTypes.func,
   row: PropTypes.any,
   selectByRowClick: PropTypes.bool,
@@ -51,7 +54,7 @@ TableSelectRowBase.propTypes = {
   forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
-TableSelectRowBase.defaultProps = {
+TableSelectRow.defaultProps = {
   children: undefined,
   className: undefined,
   onToggle: () => {},
@@ -62,5 +65,3 @@ TableSelectRowBase.defaultProps = {
   tableRow: undefined,
   forwardedRef: undefined,
 };
-
-export const TableSelectRow = withStyles(styles, { name: 'TableSelectRow' })(TableSelectRowBase);

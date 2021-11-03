@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Input from '@mui/material/Input';
 import TableCell from '@mui/material/TableCell';
-import withStyles from '@mui/styles/withStyles';
 import {
   FilteringState,
   IntegratedFiltering,
@@ -19,21 +18,10 @@ import {
   globalSalesValues,
 } from '../../../demo-data/generator';
 
-const styles = theme => ({
-  cell: {
-    width: '100%',
-    padding: theme.spacing(1),
-  },
-  input: {
-    fontSize: '14px',
-    width: '100%',
-  },
-});
-
-const UnitsFilterCellBase = ({ filter, onFilter, classes }) => (
-  <TableCell className={classes.cell}>
+const UnitsFilterCell = ({ filter, onFilter }) => (
+  <TableCell sx={{ width: '100%', p: 1 }}>
     <Input
-      className={classes.input}
+      sx={{ fontSize: '14px', width: '100%' }}
       type="number"
       value={filter ? filter.value : ''}
       onChange={e => onFilter(e.target.value ? { value: e.target.value } : null)}
@@ -46,7 +34,6 @@ const UnitsFilterCellBase = ({ filter, onFilter, classes }) => (
     />
   </TableCell>
 );
-const UnitsFilterCell = withStyles(styles, { name: 'UnitsFilterCell' })(UnitsFilterCellBase);
 
 const FilterCell = (props) => {
   const { column } = props;

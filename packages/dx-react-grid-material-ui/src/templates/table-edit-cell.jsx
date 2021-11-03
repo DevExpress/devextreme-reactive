@@ -3,21 +3,33 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import Input from '@mui/material/Input';
 import TableCell from '@mui/material/TableCell';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
-const styles = theme => ({
-  cell: {
+const PREFIX = 'TableEditCell';
+export const classes = {
+  cell: `${PREFIX}-cell`,
+  inputRoot: `${PREFIX}-inputRoot`,
+  disabledInput: `${PREFIX}-disabledInput`,
+  inputRight: `${PREFIX}-inputRight`,
+  inputCenter: `${PREFIX}-inputCenter`,
+};
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${classes.cell}`]: {
     padding: theme.spacing(1),
     // NOTE: without the TableEditColumn first EditCell changes size
     // (because first TableCell and EditCell have different paddings)
-    '&:first-child': {
+    '&:first-of-type': {
       paddingLeft: theme.spacing(3),
     },
   },
-  inputRoot: {
+}));
+
+const StyledInput = styled(Input)(({ theme }) => ({
+  [`&.${classes.inputRoot}`]: {
     width: '100%',
   },
-  disabledInput: {
+  [`&.${classes.disabledInput}`]: {
     color: theme.palette.action.disabled,
     '&:before': {
       borderBottom: '1px dotted',
@@ -31,16 +43,16 @@ const styles = theme => ({
       borderBottom: '0px',
     },
   },
-  inputRight: {
+  [`&.${classes.inputRight}`]: {
     textAlign: 'right',
   },
-  inputCenter: {
+  [`&.${classes.inputCenter}`]: {
     textAlign: 'center',
   },
-});
+}));
 
-const EditCellBase = ({
-  column, value, onValueChange, style, classes, children,
+export const EditCell = ({
+  column, value, onValueChange, style, children,
   row, tableRow, tableColumn, editingEnabled, className,
   autoFocus, onBlur, onFocus, onKeyDown, forwardedRef, ...restProps
 }) => {
@@ -57,16 +69,14 @@ const EditCellBase = ({
     })
     : children;
   return (
-    <TableCell
-      className={classNames({
-        [classes.cell]: true,
-      }, className)}
+    <StyledTableCell
+      className={classNames(classes.cell, className)}
       style={style}
       ref={forwardedRef}
       {...restProps}
     >
       {patchedChildren || (
-        <Input
+        <StyledInput
           className={classNames({
             [classes.inputRoot]: true,
             [classes.disabledInput]: !editingEnabled,
@@ -82,11 +92,11 @@ const EditCellBase = ({
           onKeyDown={onKeyDown}
         />
       )}
-    </TableCell>
+    </StyledTableCell>
   );
 };
 
-EditCellBase.propTypes = {
+EditCell.propTypes = {
   column: PropTypes.object,
   row: PropTypes.any,
   tableRow: PropTypes.object,
@@ -94,7 +104,6 @@ EditCellBase.propTypes = {
   value: PropTypes.any,
   onValueChange: PropTypes.func,
   style: PropTypes.object,
-  classes: PropTypes.object.isRequired,
   editingEnabled: PropTypes.bool,
   children: PropTypes.node,
   className: PropTypes.string,
@@ -105,7 +114,7 @@ EditCellBase.propTypes = {
   forwardedRef: PropTypes.object,
 };
 
-EditCellBase.defaultProps = {
+EditCell.defaultProps = {
   column: undefined,
   row: undefined,
   tableRow: undefined,
@@ -122,5 +131,3 @@ EditCellBase.defaultProps = {
   onKeyDown: () => {},
   forwardedRef: undefined,
 };
-
-export const EditCell = withStyles(styles, { name: 'EditCell' })(EditCellBase);

@@ -1,20 +1,14 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { Table } from './table';
+import { createShallow } from '@devexpress/dx-testing';
+import { Table, classes } from './table';
 
 describe('Table', () => {
   const defaultProps = {
     ref: React.createRef(),
   };
   let shallow;
-  let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(
-      <Table {...defaultProps}>
-        <tbody />
-      </Table>,
-    );
   });
 
   it('should pass the className prop to the root element', () => {

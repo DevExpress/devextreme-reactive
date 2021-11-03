@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { GroupButton } from './group-button';
+import { createShallow } from '@devexpress/dx-testing';
+import { GroupButton, classes } from './group-button';
 
 const defaultProps = {
   onGroup: jest.fn(),
@@ -8,10 +8,8 @@ const defaultProps = {
 
 describe('GroupButton', () => {
   let shallow;
-  let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<GroupButton {...defaultProps} />);
   });
 
   it('should have correct css class if disabled is true', () => {

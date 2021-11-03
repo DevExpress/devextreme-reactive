@@ -1,18 +1,22 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
-const styles = () => ({
-  columnTitle: {
+const PREFIX = 'Content';
+export const classes = {
+  columnTitle: `${PREFIX}-columnTitle`,
+};
+const StyledSpan = styled('span')(() => ({
+  [`&.${classes.columnTitle}`]: {
     verticalAlign: 'middle',
   },
-});
+}));
 
-const ContentBase = ({
-  column, row, classes, className, children, ...restProps
+export const Content = ({
+  column, row, className, children, ...restProps
 }) => (
-  <span
+  <StyledSpan
     className={classNames(classes.columnTitle, className)}
     {...restProps}
   >
@@ -22,22 +26,19 @@ const ContentBase = ({
       {' '}
     </strong>
     {children || String(row.value)}
-  </span>
+  </StyledSpan>
 );
 
-ContentBase.propTypes = {
+Content.propTypes = {
   row: PropTypes.any,
   column: PropTypes.object,
   children: PropTypes.node,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
-ContentBase.defaultProps = {
+Content.defaultProps = {
   row: {},
   column: {},
   children: undefined,
   className: undefined,
 };
-
-export const Content = withStyles(styles)(ContentBase);

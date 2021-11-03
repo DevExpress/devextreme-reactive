@@ -11,7 +11,7 @@ import {
   TableFilterRow, TableSelection, TableGroupRow, TableRowDetail,
   GroupingPanel, PagingPanel, DragDropProvider, TableColumnReordering, TableColumnResizing, Toolbar,
 } from '@devexpress/dx-react-grid-material-ui';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
 import {
   generateRows,
@@ -63,20 +63,25 @@ const columnBands = [
   },
 ];
 
-const styles = theme => ({
-  detailContainer: {
+const PREFIX = 'Demo';
+const classes = {
+  detailContainer: `${PREFIX}-detailContainer`,
+  title: `${PREFIX}-title`,
+};
+const StyledDiv = styled('div')(({ theme }) => ({
+  [`&.${classes.detailContainer}`]: {
     margin: '20px',
   },
-  title: {
+  [`& .${classes.title}`]: {
     color: theme.palette.text.primary,
     fontSize: theme.typography.fontSize,
   },
-});
+}));
 
 export const GRID_STATE_CHANGE_ACTION = 'GRID_STATE_CHANGE';
 
-const GridDetailContainerBase = ({ row, classes }) => (
-  <div className={classes.detailContainer}>
+const GridDetailContainer = ({ row }) => (
+  <StyledDiv className={classes.detailContainer}>
     <div>
       <h5 className={classes.title}>
         {row.firstName}
@@ -96,10 +101,8 @@ const GridDetailContainerBase = ({ row, classes }) => (
         <TableHeaderRow />
       </Grid>
     </Paper>
-  </div>
+  </StyledDiv>
 );
-
-const GridDetailContainer = withStyles(styles, { name: 'ReduxIntegrationDemo' })(GridDetailContainerBase);
 
 const ReduxGridDetailContainer = connect(state => state)(GridDetailContainer);
 

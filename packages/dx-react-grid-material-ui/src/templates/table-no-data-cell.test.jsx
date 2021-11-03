@@ -1,17 +1,22 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { TableNoDataCell } from './table-no-data-cell';
+import { createShallow, createMount } from '@devexpress/dx-testing';
+import { TableNoDataCell, classes } from './table-no-data-cell';
 
 describe('TableNoDataCell', () => {
   let shallow;
-  let classes;
+  let mount;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<TableNoDataCell getMessage={key => key} />);
+  });
+  beforeEach(() => {
+    mount = createMount();
+  });
+  afterEach(() => {
+    mount.cleanUp();
   });
 
   it('should use "noData" text if defined', () => {
-    const tree = shallow((
+    const tree = mount((
       <TableNoDataCell getMessage={key => key} />
     ));
 
@@ -56,7 +61,7 @@ describe('TableNoDataCell', () => {
   });
 
   it('should align text to the center', () => {
-    const tree = shallow((
+    const tree = mount((
       <TableNoDataCell
         getMessage={key => key}
       />

@@ -1,23 +1,27 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
-const styles = theme => ({
-  focusedCell: {
+const PREFIX = 'TableFocusCell';
+export const classes = {
+  focusedCell: `${PREFIX}-focusedCell`,
+  simpleCell: `${PREFIX}-simpleCell`,
+};
+
+const styles = ({ theme }) => ({
+  [`&.${classes.focusedCell}`]: {
     border: `1px solid ${theme.palette.primary.light}!important`,
   },
-  simpleCell: {
+  [`&.${classes.simpleCell}`]: {
     outline: 'none',
   },
 });
-
 class FocusCellBase extends React.PureComponent {
   render() {
     const {
       className,
-      classes,
       focused,
       component: CellPlaceholder,
       ...restProps
@@ -37,7 +41,6 @@ class FocusCellBase extends React.PureComponent {
 
 FocusCellBase.propTypes = {
   component: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   focused: PropTypes.bool,
 };
@@ -47,4 +50,4 @@ FocusCellBase.defaultProps = {
   focused: undefined,
 };
 
-export const FocusCell = withKeyboardNavigation()(withStyles(styles, { name: 'TableFocusCell' })(FocusCellBase));
+export const FocusCell = withKeyboardNavigation()(styled(FocusCellBase)(styles));

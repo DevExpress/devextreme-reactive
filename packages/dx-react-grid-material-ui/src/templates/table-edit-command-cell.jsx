@@ -3,39 +3,47 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import Button from '@mui/material/Button';
 import TableCell from '@mui/material/TableCell';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
-const styles = theme => ({
-  button: {
+const PREFIX = 'TableEditCommandCell';
+export const classes = {
+  button: `${PREFIX}-button`,
+  headingCell: `${PREFIX}-headingCell`,
+  cell: `${PREFIX}-cell`,
+  alignWithRowSpan: `${PREFIX}-alignWithRowSpan`,
+};
+
+const StyledButton = styled(Button)(({ theme }) => ({
+  [`&.${classes.button}`]: {
     padding: theme.spacing(1),
     minWidth: 40,
   },
-  headingCell: {
+}));
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${classes.headingCell}`]: {
     whiteSpace: 'nowrap',
     textAlign: 'center',
     padding: theme.spacing(0, 2, 0, 3),
   },
-  cell: {
+  [`&.${classes.cell}`]: {
     whiteSpace: 'nowrap',
     textAlign: 'center',
     padding: theme.spacing(0, 2, 0, 3),
   },
-  alignWithRowSpan: {
+  [`&.${classes.alignWithRowSpan}`]: {
     verticalAlign: 'bottom',
     paddingBottom: theme.spacing(1.25),
   },
-});
+}));
 
-const withEditColumnStyles = withStyles(styles, { name: 'EditColumn' });
-
-const CommandButtonBase = ({
+export const CommandButton = ({
   onExecute,
   text,
-  classes,
   className,
   ...restProps
 }) => (
-  <Button
+  <StyledButton
     color="primary"
     className={classNames(classes.button, className)}
     onClick={(e) => {
@@ -45,31 +53,27 @@ const CommandButtonBase = ({
     {...restProps}
   >
     {text}
-  </Button>
+  </StyledButton>
 );
-CommandButtonBase.propTypes = {
+CommandButton.propTypes = {
   onExecute: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
-CommandButtonBase.defaultProps = {
+CommandButton.defaultProps = {
   className: undefined,
 };
 
-export const CommandButton = withEditColumnStyles(CommandButtonBase);
-
-const EditCommandHeadingCellBase = ({
+export const EditCommandHeadingCell = ({
   children,
-  classes,
   className,
   tableRow, tableColumn,
   rowSpan,
   forwardedRef,
   ...restProps
 }) => (
-  <TableCell
+  <StyledTableCell
     className={classNames({
       [classes.headingCell]: true,
       [classes.alignWithRowSpan]: rowSpan > 1,
@@ -79,12 +83,11 @@ const EditCommandHeadingCellBase = ({
     {...restProps}
   >
     {children}
-  </TableCell>
+  </StyledTableCell>
 );
 
-EditCommandHeadingCellBase.propTypes = {
+EditCommandHeadingCell.propTypes = {
   children: PropTypes.node,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
@@ -92,7 +95,7 @@ EditCommandHeadingCellBase.propTypes = {
   forwardedRef: PropTypes.object,
 };
 
-EditCommandHeadingCellBase.defaultProps = {
+EditCommandHeadingCell.defaultProps = {
   children: undefined,
   className: undefined,
   tableRow: undefined,
@@ -101,28 +104,22 @@ EditCommandHeadingCellBase.defaultProps = {
   forwardedRef: undefined,
 };
 
-// eslint-disable-next-line max-len
-export const EditCommandHeadingCell = withEditColumnStyles(EditCommandHeadingCellBase);
-
-const EditCommandCellBase = ({
+export const EditCommandCell = ({
   tableRow, tableColumn, row, children,
-  classes, className, forwardedRef,
+  className, forwardedRef,
   ...restProps
 }) => (
-  <TableCell
-    className={classNames({
-      [classes.cell]: true,
-    }, className)}
+  <StyledTableCell
+    className={classNames(classes.cell, className)}
     ref={forwardedRef}
     {...restProps}
   >
     {children}
-  </TableCell>
+  </StyledTableCell>
 );
 
-EditCommandCellBase.propTypes = {
+EditCommandCell.propTypes = {
   children: PropTypes.node,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
@@ -130,7 +127,7 @@ EditCommandCellBase.propTypes = {
   forwardedRef: PropTypes.object,
 };
 
-EditCommandCellBase.defaultProps = {
+EditCommandCell.defaultProps = {
   children: undefined,
   className: undefined,
   tableRow: undefined,
@@ -138,5 +135,3 @@ EditCommandCellBase.defaultProps = {
   row: undefined,
   forwardedRef: undefined,
 };
-
-export const EditCommandCell = withEditColumnStyles(EditCommandCellBase);

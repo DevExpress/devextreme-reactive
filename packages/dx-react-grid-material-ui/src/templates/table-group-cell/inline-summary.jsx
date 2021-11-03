@@ -1,21 +1,25 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
-const styles = theme => ({
-  inlineSummary: {
+const PREFIX = 'InlineSummary';
+export const classes = {
+  inlineSummary: `${PREFIX}-inlineSummary`,
+};
+const StyledSpan = styled('span')(({ theme }) => ({
+  [`&.${classes.inlineSummary}`]: {
     marginLeft: theme.spacing(1),
     verticalAlign: 'middle',
   },
-});
+}));
 
-const InlineSummaryBase = ({
+export const InlineSummary = ({
   inlineSummaries, getMessage,
   inlineSummaryItemComponent: InlineSummaryItem,
-  classes, className, ...restProps
+  className, ...restProps
 }) => (
-  <span className={classNames(classes.inlineSummary, className)} {...restProps}>
+  <StyledSpan className={classNames(classes.inlineSummary, className)} {...restProps}>
     {'('}
     {inlineSummaries.map(s => (
       <InlineSummaryItem
@@ -27,20 +31,17 @@ const InlineSummaryBase = ({
       .reduce((acc, summary) => acc.concat(summary, ', '), [])
       .slice(0, -1)}
     {')'}
-  </span>
+  </StyledSpan>
 );
 
-InlineSummaryBase.propTypes = {
-  classes: PropTypes.object.isRequired,
+InlineSummary.propTypes = {
   className: PropTypes.string,
   getMessage: PropTypes.func.isRequired,
   inlineSummaries: PropTypes.array,
   inlineSummaryItemComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 };
 
-InlineSummaryBase.defaultProps = {
+InlineSummary.defaultProps = {
   className: undefined,
   inlineSummaries: [],
 };
-
-export const InlineSummary = withStyles(styles)(InlineSummaryBase);

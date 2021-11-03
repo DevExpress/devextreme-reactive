@@ -1,26 +1,30 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 
-const styles = {
-  root: {
+const PREFIX = 'TableContainer';
+export const classes = {
+  root: `${PREFIX}-root`,
+};
+
+const StyledDiv = styled('div')(() => ({
+  [`&.${classes.root}`]: {
     flexGrow: 1,
     overflow: 'auto',
     WebkitOverflowScrolling: 'touch',
     // NOTE: fix sticky positioning in Safari
     width: '100%',
   },
-};
+}));
 
-const TableContainerBase = ({
+export const TableContainer = ({
   children,
-  classes,
   className,
   forwardedRef,
   ...restProps
 }) => (
-  <div
+  <StyledDiv
     ref={forwardedRef}
     className={classNames(classes.root, className)}
     {...restProps}
@@ -28,19 +32,16 @@ const TableContainerBase = ({
     <div>
       {children}
     </div>
-  </div>
+  </StyledDiv>
 );
 
-TableContainerBase.propTypes = {
+TableContainer.propTypes = {
   children: PropTypes.node.isRequired,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
-TableContainerBase.defaultProps = {
+TableContainer.defaultProps = {
   className: undefined,
   forwardedRef: undefined,
 };
-
-export const TableContainer = withStyles(styles, { name: 'TableContainer' })(TableContainerBase);

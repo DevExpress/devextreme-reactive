@@ -1,12 +1,10 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { TableTreeContent } from './table-tree-content';
+import { createShallow } from '@devexpress/dx-testing';
+import { TableTreeContent, classes } from './table-tree-content';
 
 describe('TableTreeContent', () => {
-  let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<TableTreeContent />);
     shallow = createShallow({ dive: true });
   });
 

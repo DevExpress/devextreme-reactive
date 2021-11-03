@@ -1,13 +1,13 @@
 import * as React from 'react';
 import TableCell from '@mui/material/TableCell';
 import {
-  createMount, createShallow, getClasses, setupConsole,
+  createMount, createShallow, setupConsole,
 } from '@devexpress/dx-testing';
 
 import { DragDropProvider, DragSource } from '@devexpress/dx-react-core';
 import { TableHeaderCell } from './table-header-cell';
 import { ResizingControl } from './table-header-cell/resizing-control';
-import { CellLayout } from './table-header-cell/cell-layout';
+import { classes } from './table-header-cell/cell-layout';
 
 const defaultProps = {
   column: { name: 'Test' },
@@ -18,10 +18,8 @@ describe('TableHeaderCell', () => {
   let resetConsole;
   let mount;
   let shallow;
-  let classes;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting', 'SheetsRegistry'] });
-    classes = getClasses(<CellLayout {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
   beforeEach(() => {
@@ -95,7 +93,7 @@ describe('TableHeaderCell', () => {
     const onWidthChange = () => {};
     const onWidthDraft = () => {};
     const onWidthDraftCancel = () => {};
-    const tree = shallow((
+    const tree = mount((
       <TableHeaderCell
         {...defaultProps}
         resizingEnabled
@@ -104,8 +102,7 @@ describe('TableHeaderCell', () => {
         onWidthDraftCancel={onWidthDraftCancel}
       />
     ));
-
-    const resizingControl = tree.dive().find(ResizingControl);
+    const resizingControl = tree.find(ResizingControl);
     expect(resizingControl.exists())
       .toBeTruthy();
     expect(resizingControl.prop('onWidthChange'))

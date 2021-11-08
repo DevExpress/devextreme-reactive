@@ -121,31 +121,32 @@ const StyledPrioritySelectorItem = styled('div')(({ theme: { palette, spacing },
   },
 }));
 
-const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(({
-  theme: { palette, spacing }, color }) => ({
-  [`& .${classes.bullet}`]: {
-    backgroundColor: color ? color[400] : palette.divider,
-    borderRadius: '50%',
-    width: spacing(2),
-    height: spacing(2),
-    marginRight: spacing(2),
-    display: 'inline-block',
-  },
-  [`& .${classes.prioritySelectorItem}`]: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  [`& .${classes.priorityText}`]: {
-    '@media (max-width: 500px)': {
-      display: 'none',
+const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(
+  ({ theme: { palette, spacing }, color }) => ({
+    [`& .${classes.bullet}`]: {
+      backgroundColor: color ? color[400] : palette.divider,
+      borderRadius: '50%',
+      width: spacing(2),
+      height: spacing(2),
+      marginRight: spacing(2),
+      display: 'inline-block',
     },
-  },
-  [`& .${classes.priorityShortText}`]: {
-    '@media (min-width: 500px)': {
-      display: 'none',
+    [`& .${classes.prioritySelectorItem}`]: {
+      display: 'flex',
+      alignItems: 'center',
     },
-  },
-}));
+    [`& .${classes.priorityText}`]: {
+      '@media (max-width: 500px)': {
+        display: 'none',
+      },
+    },
+    [`& .${classes.priorityShortText}`]: {
+      '@media (min-width: 500px)': {
+        display: 'none',
+      },
+    },
+  }),
+);
 // #FOLD_BLOCK
 const StyledTooltipContent = styled('div')(({ theme: { spacing, typography, palette }, color }) => ({
   [`& .${classes.content}`]: {

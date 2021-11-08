@@ -14,9 +14,7 @@ export const classes = {
   textEditor: `${PREFIX}-textEditor`,
 };
 
-const StyledGrid = styled(Grid)(({
-  theme: { spacing },
-}) => ({
+const StyledGrid = styled(Grid)(({ theme: { spacing } }) => ({
   [`&.${classes.grid}`]: {
     marginTop: spacing(1.75),
   },

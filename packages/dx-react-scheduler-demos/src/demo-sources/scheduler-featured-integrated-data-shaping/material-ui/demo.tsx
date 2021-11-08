@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { styled, alpha } from '@mui/material/styles';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler, DayView, Appointments, MonthView, Toolbar,
@@ -7,7 +7,6 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { indigo, blue, teal } from '@mui/material/colors';
 import Paper from '@mui/material/Paper';
-import { alpha } from '@mui/material/styles';
 import classNames from 'clsx';
 
 const PREFIX = 'demo';

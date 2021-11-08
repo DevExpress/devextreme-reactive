@@ -26,9 +26,7 @@ const classes = {
   textField: `${PREFIX}-textField`,
 };
 
-const StyledDiv = styled('div')(({
-  theme: { spacing },
-}) => ({
+const StyledDiv = styled('div')(({ theme: { spacing } }) => ({
   [`& .${classes.checkBoxContainer}`]: {
     paddingTop: spacing(1),
     paddingBottom: spacing(1),

@@ -11,9 +11,7 @@ export const classes = {
   button: `${PREFIX}-button`,
 };
 
-const StyledIconButton = styled(IconButton)(({
-  theme: { spacing },
-}) => ({
+const StyledIconButton = styled(IconButton)(({ theme: { spacing } }) => ({
   [`&.${classes.button}`]: {
     marginRight: spacing(0.5),
   },

@@ -31,9 +31,7 @@ export const classes = {
   select: `${PREFIX}-select`,
 };
 
-const StyledDiv = styled('div')(({
-  theme: { spacing },
-}) => ({
+const StyledDiv = styled('div')(({ theme: { spacing } }) => ({
   [`&.${classes.root}`]: {
     padding: 0,
     paddingTop: spacing(3),

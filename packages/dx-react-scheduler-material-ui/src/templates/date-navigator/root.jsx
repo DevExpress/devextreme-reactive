@@ -9,9 +9,7 @@ const classes = {
   root: `${PREFIX}-root`,
 };
 
-const StyledDiv = styled('div')(({
-  theme: { spacing },
-}) => ({
+const StyledDiv = styled('div')(({ theme: { spacing } }) => ({
   [`&.${classes.root}`]: {
     marginLeft: spacing(0.5),
     '&:first-of-type': {

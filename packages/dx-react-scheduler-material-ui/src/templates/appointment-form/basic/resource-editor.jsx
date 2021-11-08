@@ -19,9 +19,7 @@ const classes = {
   circleContainer: `${PREFIX}-circleContainer`,
 };
 
-const StyledTextField = styled(TextField)(({
-  theme: { spacing },
-}) => ({
+const StyledTextField = styled(TextField)(({ theme: { spacing } }) => ({
   [`& .${classes.select}`]: {
     padding: spacing(1),
   },

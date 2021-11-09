@@ -1,11 +1,5 @@
 import { styled } from '@mui/material/styles';
-import { ContainerBase } from '../common/container';
-
-const PREFIX = 'Container';
-
-export const classes = {
-  container: `${PREFIX}-container`,
-};
+import { ContainerBase, classes } from '../common/container';
 
 const styledContainerBase = styled(ContainerBase)({
   [`&.${classes.container}`]: {

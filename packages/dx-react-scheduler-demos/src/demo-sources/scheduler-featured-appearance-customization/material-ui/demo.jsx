@@ -84,8 +84,8 @@ const StyledToolbarFlexibleSpace = styled(Toolbar.FlexibleSpace)(({ theme: { spa
   [`& .${classes.flexibleSpace}`]: {
     margin: '0 auto 0 0',
   },
+  marginLeft: spacing(2),
   [`& .${classes.prioritySelector}`]: {
-    marginLeft: spacing(2),
     minWidth: 140,
     '@media (max-width: 500px)': {
       minWidth: 0,
@@ -287,6 +287,62 @@ const StyledWeekViewDayScaleCell = (WeekView.DayScaleCell)(({ theme: { spacing }
   },
 }));
 
+const StyledAllDayPanelCell = (AllDayPanel.Cell)(({ theme: { spacing } }) => ({
+  ...priorities.reduce((acc, priority) => ({
+    ...acc,
+    [`cell${priority.text.replace(' ', '')}`]: {
+      backgroundColor: alpha(priority.color[400], 0.1),
+      '&:hover': {
+        backgroundColor: alpha(priority.color[400], 0.15),
+      },
+      '&:focus': {
+        backgroundColor: alpha(priority.color[400], 0.2),
+      },
+    },
+    [`headerCell${priority.text.replace(' ', '')}`]: {
+      backgroundColor: alpha(priority.color[400], 0.1),
+      '&:hover': {
+        backgroundColor: alpha(priority.color[400], 0.1),
+      },
+      '&:focus': {
+        backgroundColor: alpha(priority.color[400], 0.1),
+      },
+    },
+  }), {}),
+  icon: {
+    paddingLeft: spacing(1),
+    verticalAlign: 'middle',
+  },
+}));
+
+const StyledGroupingPanelCell = (GroupingPanel.Cell)(({ theme: { spacing } }) => ({
+  ...priorities.reduce((acc, priority) => ({
+    ...acc,
+    [`cell${priority.text.replace(' ', '')}`]: {
+      backgroundColor: alpha(priority.color[400], 0.1),
+      '&:hover': {
+        backgroundColor: alpha(priority.color[400], 0.15),
+      },
+      '&:focus': {
+        backgroundColor: alpha(priority.color[400], 0.2),
+      },
+    },
+    [`headerCell${priority.text.replace(' ', '')}`]: {
+      backgroundColor: alpha(priority.color[400], 0.1),
+      '&:hover': {
+        backgroundColor: alpha(priority.color[400], 0.1),
+      },
+      '&:focus': {
+        backgroundColor: alpha(priority.color[400], 0.1),
+      },
+    },
+  }), {}),
+  icon: {
+    paddingLeft: spacing(1),
+    verticalAlign: 'middle',
+  },
+}));
+
 const DayViewTimeTableCell = ({
   groupingInfo, ...restProps
 }) => {
@@ -364,7 +420,7 @@ const AllDayCell = ({
 }) => {
   const groupId = groupingInfo[0].id;
   return (
-    <AllDayPanel.Cell
+    <StyledAllDayPanelCell
       className={classNames({
         [classes.cellLowPriority]: groupId === 1,
         [classes.cellMediumPriority]: groupId === 2,
@@ -383,7 +439,7 @@ const GroupingPanelCell = ({
   const groupId = group.id;
   const Icon = getIconById(groupId);
   return (
-    <GroupingPanel.Cell
+    <StyledGroupingPanelCell
       className={classNames({
         [classes.headerCellLowPriority]: groupId === 1,
         [classes.headerCellMediumPriority]: groupId === 2,
@@ -395,7 +451,7 @@ const GroupingPanelCell = ({
       <Icon
         className={classes.icon}
       />
-    </GroupingPanel.Cell>
+    </StyledGroupingPanelCell>
   );
 };
 

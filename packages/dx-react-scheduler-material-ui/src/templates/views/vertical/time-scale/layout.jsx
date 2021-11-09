@@ -73,10 +73,12 @@ export const Layout = ({
   const defaultHeight = showAllDayTitle
     ? heightWithoutAllDayTitle + SPACING_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL]
     : heightWithoutAllDayTitle;
+  const calculatedHeight = height / groupCount;
 
   return (
     <StyledDiv
-      sx={{ height: { height: height / groupCount, defaultHeight } }}
+      height={calculatedHeight}
+      defaultHeight={defaultHeight}
       className={classNames(classes.flexRow, className)}
       {...restProps}
     >

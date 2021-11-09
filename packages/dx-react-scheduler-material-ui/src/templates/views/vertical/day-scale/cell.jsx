@@ -76,7 +76,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-const CellBase = ({
+export const Cell = ({
   className,
   startDate,
   endDate,
@@ -116,7 +116,7 @@ const CellBase = ({
   </StyledTableCell>
 );
 
-CellBase.propTypes = {
+Cell.propTypes = {
   formatDate: PropTypes.func.isRequired,
   startDate: PropTypes.instanceOf(Date).isRequired,
   endDate: PropTypes.instanceOf(Date),
@@ -127,7 +127,7 @@ CellBase.propTypes = {
   groupingInfo: PropTypes.arrayOf(PropTypes.object),
 };
 
-CellBase.defaultProps = {
+Cell.defaultProps = {
   className: undefined,
   endDate: undefined,
   today: false,
@@ -135,5 +135,3 @@ CellBase.defaultProps = {
   hasRightBorder: false,
   groupingInfo: undefined,
 };
-
-export const Cell = (CellBase);

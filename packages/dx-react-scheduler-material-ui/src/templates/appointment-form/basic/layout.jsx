@@ -23,7 +23,7 @@ export const classes = {
   dateEditor: `${PREFIX}-dateEditor`,
   dividerLabel: `${PREFIX}-dividerLabel`,
   booleanEditors: `${PREFIX}-booleanEditors`,
-  media: `${PREFIX}-@media (max-width: 570px)`,
+  dateEditors: `${PREFIX}-dateEditors`,
 };
 
 const StyledDiv = styled('div')(({
@@ -90,15 +90,15 @@ const StyledDiv = styled('div')(({
     marginTop: spacing(0.875),
   },
 
-  [`& .${classes.media}`]: {
-    dateEditors: {
+  '@media (max-width: 570px)': {
+    [`& .${classes.dateEditors}`]: {
       flexDirection: 'column',
     },
-    booleanEditors: {
+    [`& .${classes.booleanEditors}`]: {
       flexDirection: 'column',
       marginTop: spacing(1.875),
     },
-    dateEditor: {
+    [`& .${classes.dateEditor}`]: {
       width: '100%',
       '&:first-of-type': {
         marginBottom: 0,
@@ -107,7 +107,7 @@ const StyledDiv = styled('div')(({
         marginTop: spacing(2),
       },
     },
-    dividerLabel: {
+    [`& .${classes.dividerLabel}`]: {
       display: 'none',
     },
   },

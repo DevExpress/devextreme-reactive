@@ -25,7 +25,7 @@ describe('AppointmentForm basic', () => {
   };
   let shallow;
   beforeAll(() => {
-    shallow = createShallow({ dive: true });
+    shallow = createShallow();
   });
   describe('Layout', () => {
     it('should pass rest props to the root element', () => {
@@ -95,8 +95,8 @@ describe('AppointmentForm basic', () => {
       expect(dateEditors.at(1).is(`.${classes.dateEditor}`))
         .toBeTruthy();
 
-      // expect(tree.find(`.${classes.dateEditors}`))
-      //   .toHaveLength(1);
+      expect(tree.find(`.${classes.dateEditors}`))
+        .toHaveLength(1);
       expect(tree.find(`.${classes.booleanEditors}`))
         .toHaveLength(1);
     });

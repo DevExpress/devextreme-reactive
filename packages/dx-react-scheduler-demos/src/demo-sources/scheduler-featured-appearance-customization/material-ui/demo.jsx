@@ -79,6 +79,41 @@ const classes = {
   priorityShortText: `${PREFIX}-priorityShortText`,
 };
 
+const stylesByPriority = priorities.reduce((acc, priority) => ({
+  ...acc,
+  [`cell${priority.text.replace(' ', '')}`]: {
+    backgroundColor: alpha(priority.color[400], 0.1),
+    '&:hover': {
+      backgroundColor: alpha(priority.color[400], 0.15),
+    },
+    '&:focus': {
+      backgroundColor: alpha(priority.color[400], 0.2),
+    },
+  },
+  [`headerCell${priority.text.replace(' ', '')}`]: {
+    backgroundColor: alpha(priority.color[400], 0.1),
+    '&:hover': {
+      backgroundColor: alpha(priority.color[400], 0.1),
+    },
+    '&:focus': {
+      backgroundColor: alpha(priority.color[400], 0.1),
+    },
+  },
+}), {});
+
+const groupingStyles = ({ theme }) => ({
+  [`&.${classes.cellLowPriority}`]: stylesByPriority.cellLowPriority,
+  [`&.${classes.cellMediumPriority}`]: stylesByPriority.cellMediumPriority,
+  [`&.${classes.cellHighPriority}`]: stylesByPriority.cellHighPriority,
+  [`&.${classes.headerCellLowPriority}`]: stylesByPriority.headerCellLowPriority,
+  [`&.${classes.headerCellMediumPriority}`]: stylesByPriority.headerCellMediumPriority,
+  [`&.${classes.headerCellHighPriority}`]: stylesByPriority.headerCellHighPriority,
+  [`& .${classes.icon}`]: {
+    paddingLeft: theme.spacing(1),
+    verticalAlign: 'middle',
+  },
+});
+
 // #FOLD_BLOCK
 const StyledToolbarFlexibleSpace = styled(Toolbar.FlexibleSpace)(({ theme: { spacing } }) => ({
   [`& .${classes.flexibleSpace}`]: {
@@ -231,117 +266,13 @@ const StyledDayViewTimeTableCell = (DayView.TimeTableCell)(({ theme: { spacing }
   },
 }));
 
-const StyledDayViewDayScaleCell = (DayView.DayScaleCell)(({ theme: { spacing } }) => ({
-  ...priorities.reduce((acc, priority) => ({
-    ...acc,
-    [`cell${priority.text.replace(' ', '')}`]: {
-      backgroundColor: alpha(priority.color[400], 0.1),
-      '&:hover': {
-        backgroundColor: alpha(priority.color[400], 0.15),
-      },
-      '&:focus': {
-        backgroundColor: alpha(priority.color[400], 0.2),
-      },
-    },
-    [`headerCell${priority.text.replace(' ', '')}`]: {
-      backgroundColor: alpha(priority.color[400], 0.1),
-      '&:hover': {
-        backgroundColor: alpha(priority.color[400], 0.1),
-      },
-      '&:focus': {
-        backgroundColor: alpha(priority.color[400], 0.1),
-      },
-    },
-  }), {}),
-  icon: {
-    paddingLeft: spacing(1),
-    verticalAlign: 'middle',
-  },
-}));
+const StyledDayViewDayScaleCell = styled(DayView.DayScaleCell)(groupingStyles);
 
-const StyledWeekViewDayScaleCell = (WeekView.DayScaleCell)(({ theme: { spacing } }) => ({
-  ...priorities.reduce((acc, priority) => ({
-    ...acc,
-    [`cell${priority.text.replace(' ', '')}`]: {
-      backgroundColor: alpha(priority.color[400], 0.1),
-      '&:hover': {
-        backgroundColor: alpha(priority.color[400], 0.15),
-      },
-      '&:focus': {
-        backgroundColor: alpha(priority.color[400], 0.2),
-      },
-    },
-    [`headerCell${priority.text.replace(' ', '')}`]: {
-      backgroundColor: alpha(priority.color[400], 0.1),
-      '&:hover': {
-        backgroundColor: alpha(priority.color[400], 0.1),
-      },
-      '&:focus': {
-        backgroundColor: alpha(priority.color[400], 0.1),
-      },
-    },
-  }), {}),
-  icon: {
-    paddingLeft: spacing(1),
-    verticalAlign: 'middle',
-  },
-}));
+const StyledWeekViewDayScaleCell = styled(WeekView.DayScaleCell)(groupingStyles);
 
-const StyledAllDayPanelCell = (AllDayPanel.Cell)(({ theme: { spacing } }) => ({
-  ...priorities.reduce((acc, priority) => ({
-    ...acc,
-    [`cell${priority.text.replace(' ', '')}`]: {
-      backgroundColor: alpha(priority.color[400], 0.1),
-      '&:hover': {
-        backgroundColor: alpha(priority.color[400], 0.15),
-      },
-      '&:focus': {
-        backgroundColor: alpha(priority.color[400], 0.2),
-      },
-    },
-    [`headerCell${priority.text.replace(' ', '')}`]: {
-      backgroundColor: alpha(priority.color[400], 0.1),
-      '&:hover': {
-        backgroundColor: alpha(priority.color[400], 0.1),
-      },
-      '&:focus': {
-        backgroundColor: alpha(priority.color[400], 0.1),
-      },
-    },
-  }), {}),
-  icon: {
-    paddingLeft: spacing(1),
-    verticalAlign: 'middle',
-  },
-}));
+const StyledAllDayPanelCell = styled(AllDayPanel.Cell)(groupingStyles);
 
-const StyledGroupingPanelCell = (GroupingPanel.Cell)(({ theme: { spacing } }) => ({
-  ...priorities.reduce((acc, priority) => ({
-    ...acc,
-    [`cell${priority.text.replace(' ', '')}`]: {
-      backgroundColor: alpha(priority.color[400], 0.1),
-      '&:hover': {
-        backgroundColor: alpha(priority.color[400], 0.15),
-      },
-      '&:focus': {
-        backgroundColor: alpha(priority.color[400], 0.2),
-      },
-    },
-    [`headerCell${priority.text.replace(' ', '')}`]: {
-      backgroundColor: alpha(priority.color[400], 0.1),
-      '&:hover': {
-        backgroundColor: alpha(priority.color[400], 0.1),
-      },
-      '&:focus': {
-        backgroundColor: alpha(priority.color[400], 0.1),
-      },
-    },
-  }), {}),
-  icon: {
-    paddingLeft: spacing(1),
-    verticalAlign: 'middle',
-  },
-}));
+const StyledGroupingPanelCell = styled(GroupingPanel.Cell)(groupingStyles);
 
 const DayViewTimeTableCell = ({
   groupingInfo, ...restProps

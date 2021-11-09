@@ -33,10 +33,10 @@ const classes = {
   icon: `${PREFIX}-icon`,
 };
 
-const useGroupingStyles = (group) => {
+const useGroupingStyles = (Component, group) => {
   const color = findColorByGroupId(group.id);
-  return styled('div')(({ theme }) => ({
-    [`& .${classes.cell}`]: {
+  return styled(Component)(({ theme }) => ({
+    [`&.${classes.cell}`]: {
       backgroundColor: alpha(color[400], 0.1),
       '&:hover': {
         backgroundColor: alpha(color[400], 0.15),
@@ -46,7 +46,7 @@ const useGroupingStyles = (group) => {
       },
     },
 
-    [`& .${classes.headerCell}`]: {
+    [`&.${classes.headerCell}`]: {
       backgroundColor: alpha(color[400], 0.1),
       '&:hover': {
         backgroundColor: alpha(color[400], 0.1),
@@ -60,14 +60,14 @@ const useGroupingStyles = (group) => {
       paddingLeft: theme.spacing(1),
       verticalAlign: 'middle',
     },
-  }))();
+  }));
 };
 
 const TimeTableCell = React.memo(({ groupingInfo, ...restProps }) => {
-  const styles = useGroupingStyles(groupingInfo[0]);
+  const StyledComponent = useGroupingStyles(DayView.TimeTableCell, groupingInfo[0]);
   return (
-    <DayView.TimeTableCell
-      className={styles.cell}
+    <StyledComponent
+      className={classes.cell}
       groupingInfo={groupingInfo}
       {...restProps}
     />
@@ -75,10 +75,10 @@ const TimeTableCell = React.memo(({ groupingInfo, ...restProps }) => {
 });
 
 const DayScaleCell = React.memo(({ groupingInfo, ...restProps }) => {
-  const styles = useGroupingStyles(groupingInfo[0]);
+  const StyledComponent = useGroupingStyles(DayView.DayScaleCell, groupingInfo[0]);
   return (
-    <DayView.DayScaleCell
-      className={styles.headerCell}
+    <StyledComponent
+      className={classes.headerCell}
       groupingInfo={groupingInfo}
       {...restProps}
     />
@@ -86,10 +86,10 @@ const DayScaleCell = React.memo(({ groupingInfo, ...restProps }) => {
 });
 
 const AllDayCell = React.memo(({ groupingInfo, ...restProps }) => {
-  const styles = useGroupingStyles(groupingInfo[0]);
+  const StyledComponent = useGroupingStyles(AllDayPanel.Cell, groupingInfo[0]);
   return (
-    <AllDayPanel.Cell
-      className={styles.cell}
+    <StyledComponent
+      className={classes.cell}
       groupingInfo={groupingInfo}
       {...restProps}
     />
@@ -97,18 +97,18 @@ const AllDayCell = React.memo(({ groupingInfo, ...restProps }) => {
 });
 
 const GroupingPanelCell = React.memo(({ group, ...restProps }) => {
-  const styles = useGroupingStyles(group);
+  const StyledComponent = useGroupingStyles(GroupingPanel.Cell, group);
   const Icon = getIconById(group.id);
   return (
-    <GroupingPanel.Cell
-      className={styles.headerCell}
+    <StyledComponent
+      className={classes.headerCell}
       group={group}
       {...restProps}
     >
       <Icon
-        className={styles.icon}
+        className={classes.icon}
       />
-    </GroupingPanel.Cell>
+    </StyledComponent>
   );
 });
 

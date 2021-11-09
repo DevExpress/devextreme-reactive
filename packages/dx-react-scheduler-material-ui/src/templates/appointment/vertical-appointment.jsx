@@ -180,7 +180,6 @@ const VerticalAppointmentBase = ({
 VerticalAppointmentBase.propTypes = {
   // oneOfType is a workaround because withStyles returns react object
   recurringIconComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   formatDate: PropTypes.func.isRequired,
   durationType: PropTypes.string.isRequired,

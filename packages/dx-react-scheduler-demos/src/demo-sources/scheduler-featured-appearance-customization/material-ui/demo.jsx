@@ -77,6 +77,12 @@ const classes = {
   prioritySelectorItem: `${PREFIX}-prioritySelectorItem`,
   priorityText: `${PREFIX}-priorityText`,
   priorityShortText: `${PREFIX}-priorityShortText`,
+  cellLowPriority: `${PREFIX}-cellLowPriority`,
+  cellMediumPriority: `${PREFIX}-cellMediumPriority`,
+  cellHighPriority: `${PREFIX}-cellHighPriority`,
+  headerCellLowPriority: `${PREFIX}-headerCellLowPriority`,
+  headerCellMediumPriority: `${PREFIX}-headerCellMediumPriority`,
+  headerCellHighPriority: `${PREFIX}-headerCellHighPriority`,
 };
 
 const stylesByPriority = priorities.reduce((acc, priority) => ({
@@ -238,34 +244,6 @@ const StyledTooltipContent = styled('div')(({ theme: { spacing, typography, pale
 }));
 
 // #FOLD_BLOCK
-const StyledDayViewTimeTableCell = (DayView.TimeTableCell)(({ theme: { spacing } }) => ({
-  ...priorities.reduce((acc, priority) => ({
-    ...acc,
-    [`cell${priority.text.replace(' ', '')}`]: {
-      backgroundColor: alpha(priority.color[400], 0.1),
-      '&:hover': {
-        backgroundColor: alpha(priority.color[400], 0.15),
-      },
-      '&:focus': {
-        backgroundColor: alpha(priority.color[400], 0.2),
-      },
-    },
-    [`headerCell${priority.text.replace(' ', '')}`]: {
-      backgroundColor: alpha(priority.color[400], 0.1),
-      '&:hover': {
-        backgroundColor: alpha(priority.color[400], 0.1),
-      },
-      '&:focus': {
-        backgroundColor: alpha(priority.color[400], 0.1),
-      },
-    },
-  }), {}),
-  icon: {
-    paddingLeft: spacing(1),
-    verticalAlign: 'middle',
-  },
-}));
-
 const StyledDayViewDayScaleCell = styled(DayView.DayScaleCell)(groupingStyles);
 
 const StyledWeekViewDayScaleCell = styled(WeekView.DayScaleCell)(groupingStyles);
@@ -273,6 +251,8 @@ const StyledWeekViewDayScaleCell = styled(WeekView.DayScaleCell)(groupingStyles)
 const StyledAllDayPanelCell = styled(AllDayPanel.Cell)(groupingStyles);
 
 const StyledGroupingPanelCell = styled(GroupingPanel.Cell)(groupingStyles);
+
+const StyledDayViewTimeTableCell = styled(DayView.TimeTableCell)(groupingStyles);
 
 const DayViewTimeTableCell = ({
   groupingInfo, ...restProps

@@ -17,7 +17,9 @@ export const classes = {
   brightBorderBottom: `${PREFIX}-brightBorderBottom`,
 };
 
-const StyledTableCell = styled(TableCell)(({ theme, shadedHeight }) => ({
+const StyledTableCell = styled(TableCell, {
+  shouldForwardProp: prop => prop !== 'shadedHeight',
+})(({ theme, shadedHeight }) => ({
   [`&.${classes.cell}`]: {
     position: 'relative',
     height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.WEEK]),

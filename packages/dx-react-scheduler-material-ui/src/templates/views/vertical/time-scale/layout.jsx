@@ -24,7 +24,9 @@ export const classes = {
   flexRow: `${PREFIX}-flexRow`,
 };
 
-const StyledDiv = styled('div')(({ theme, height, defaultHeight }) => ({
+const StyledDiv = styled('div', {
+  shouldForwardProp: prop => prop !== 'height' && prop !== 'defaultHeight',
+})(({ theme, height, defaultHeight }) => ({
   [`& .${classes.timeScaleContainer}`]: {
     width: theme.spacing(LEFT_PANEL_WIDTH_SPACING - 1),
   },

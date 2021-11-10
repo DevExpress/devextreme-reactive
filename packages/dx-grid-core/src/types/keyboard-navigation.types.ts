@@ -15,9 +15,15 @@ export type FocusedElementWScrolling = {
 
 export type Elements = {[key: string]: any[]};
 export type ScrollToColumnFn = (value: symbol) => void;
+export type InlineEditing = {
+  stopEditCells?: (arg: any) => void,
+  commitChangedRows?: (arg: any) => void,
+  cancelChangedRows?: (arg: any) => void,
+  startEditCells?: (arg: any) => void,
+};
 
 export type GetNextFocusedElementFn = PureComputed<[
-    TableColumn[], TableRow[], TableRow[], RowId[], Elements, any,
+    TableColumn[], TableRow[], TableRow[], RowId[], Elements, any, InlineEditing,
     FocusedElement?, ScrollToColumnFn?], FocusedElementWScrolling>;
 
 export type GetFocusedElementFn = PureComputed<[

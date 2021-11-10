@@ -113,7 +113,7 @@ TableKeyboardNavigationCoreState> {
   handleKeyDownOnWidget(event) {
     const { focusedElement } = this.state;
     const {
-      tableColumns, tableBodyRows, tableHeaderRows, expandedRowIds, scrollToColumn,
+      tableColumns, tableBodyRows, tableHeaderRows, expandedRowIds, scrollToColumn, inlineEditing,
     } = this.props;
 
     if (event.key === 'f' && (event.ctrlKey || event.metaKey)) {
@@ -136,7 +136,8 @@ TableKeyboardNavigationCoreState> {
 
     if (focusedElement || isTabArrowUpDown(event)) {
       const { element, scrolling } = getNextFocusedCell(tableColumns, tableBodyRows,
-        tableHeaderRows, expandedRowIds, this.elements, event, focusedElement, scrollToColumn);
+        tableHeaderRows, expandedRowIds, this.elements, event, inlineEditing,
+        focusedElement, scrollToColumn);
 
       if (element) {
         if (scrolling) {
@@ -152,6 +153,7 @@ TableKeyboardNavigationCoreState> {
 
   setFocusedElement({ key1, key2, event }) {
     const { focusedElement } = this.state;
+    const { inlineEditing } = this.props;
     if (key1 === 'paging' || key1 === 'toolbar') {
       this.changeFocusedElement(undefined, focusedElement);
     } else if (key2.includes(TABLE_FLEX_TYPE.toString())) {
@@ -163,11 +165,12 @@ TableKeyboardNavigationCoreState> {
         part: getPart(key1),
       }, focusedElement);
     } else {
+      const part = getPart(key1);
       this.changeFocusedElement({
         rowKey: key1,
         columnKey: key2,
-        index: getIndexToFocus(key1, key2, this.elements, event),
-        part: getPart(key1),
+        index: getIndexToFocus(key1, key2, this.elements, event, inlineEditing, part),
+        part,
       }, focusedElement);
     }
   }
@@ -256,7 +259,7 @@ class TableKeyboardNavigationBase extends React.PureComponent<TableKeyboardNavig
         <TemplateConnector>
         {(
           { tableColumns, tableBodyRows, rootRef, tableHeaderRows, expandedRowIds },
-          { scrollToColumn },
+          { scrollToColumn, stopEditCells, commitChangedRows, cancelChangedRows, startEditCells },
         ) => {
           return rootRef.current ? (
             <TableKeyboardNavigationCore
@@ -266,6 +269,12 @@ class TableKeyboardNavigationBase extends React.PureComponent<TableKeyboardNavig
               tableHeaderRows={filterHeaderRows(tableHeaderRows)}
               expandedRowIds={expandedRowIds}
               scrollToColumn={scrollToColumn}
+              inlineEditing={{
+                stopEditCells,
+                commitChangedRows,
+                cancelChangedRows,
+                startEditCells,
+              }}
               {...this.props}
             />
           ) : null;

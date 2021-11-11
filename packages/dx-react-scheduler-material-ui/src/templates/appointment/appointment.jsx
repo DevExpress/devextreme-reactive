@@ -13,7 +13,7 @@ export const classes = {
 };
 
 const StyledDiv = styled('div')(({
-  theme: { palette, typography, spacing },
+  theme: { palette, typography, spacing }, resources,
 }) => ({
   [`&.${classes.appointment}`]: {
     userSelect: 'none',
@@ -25,17 +25,17 @@ const StyledDiv = styled('div')(({
     border: `1px solid ${palette.background.paper}`,
     backgroundClip: 'padding-box',
     borderRadius: spacing(0.5),
-    backgroundColor: resources => getAppointmentColor(
+    backgroundColor: getAppointmentColor(
       300, getResourceColor(resources), palette.primary,
     ),
     ...typography.caption,
     '&:hover': {
-      backgroundColor: resources => getAppointmentColor(
+      backgroundColor: getAppointmentColor(
         400, getResourceColor(resources), palette.primary,
       ),
     },
     '&:focus': {
-      backgroundColor: resources => getAppointmentColor(
+      backgroundColor: getAppointmentColor(
         100, getResourceColor(resources), palette.primary,
       ),
       outline: 0,
@@ -47,11 +47,11 @@ const StyledDiv = styled('div')(({
   },
 
   [`&.${classes.shadedAppointment}`]: {
-    backgroundColor: resources => getAppointmentColor(
+    backgroundColor: getAppointmentColor(
       200, getResourceColor(resources), palette.primary,
     ),
     '&:hover': {
-      backgroundColor: resources => getAppointmentColor(
+      backgroundColor: getAppointmentColor(
         300, getResourceColor(resources), palette.primary,
       ),
     },
@@ -80,6 +80,7 @@ export const Appointment = ({
   const clickable = onClick || restProps.onDoubleClick || draggable;
   return (
     <StyledDiv
+    resources={resources}
       ref={forwardedRef}
       className={classNames({
         [classes.appointment]: true,

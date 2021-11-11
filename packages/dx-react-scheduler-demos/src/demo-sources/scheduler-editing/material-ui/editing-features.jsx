@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Typography from '@mui/material/FormControl';
+import makeStyles from '@mui/styles/makeStyles';
 import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -17,23 +17,13 @@ import {
 
 import { appointments } from '../../../demo-data/appointments';
 
-const PREFIX = 'editing-features';
-
-const classes = {
-  container: `${PREFIX}-container`,
-  text: `${PREFIX}-text`,
-  formControlLabel: `${PREFIX}-formControlLabel`,
-};
-
-const StyledDiv = styled('div')(({ theme }) => ({
-  [`& .${classes.container}`]: {
+const useStyles = makeStyles(theme => ({
+  container: {
     margin: theme.spacing(2),
     padding: theme.spacing(2),
   },
-
-  [`& .${classes.text}`]: theme.typography.h6,
-
-  [`& .${classes.formControlLabel}`]: {
+  text: theme.typography.h6,
+  formControlLabel: {
     ...theme.typography.caption,
     fontSize: '1rem',
   },
@@ -50,31 +40,34 @@ const editingOptionsList = [
 
 const EditingOptionsSelector = ({
   options, onOptionsChange,
-}) => (
-  <div className={classes.container}>
-    <Typography className={classes.text}>
-      Enabled Options
-    </Typography>
-    <FormGroup row>
-      {editingOptionsList.map(({ id, text }) => (
-        <FormControlLabel
-          control={(
-            <Checkbox
-              checked={options[id]}
-              onChange={onOptionsChange}
-              value={id}
-              color="primary"
-            />
+}) => {
+  const classes = useStyles();
+  return (
+    <div className={classes.container}>
+      <Typography className={classes.text}>
+        Enabled Options
+      </Typography>
+      <FormGroup row>
+        {editingOptionsList.map(({ id, text }) => (
+          <FormControlLabel
+            control={(
+              <Checkbox
+                checked={options[id]}
+                onChange={onOptionsChange}
+                value={id}
+                color="primary"
+              />
             )}
-          classes={{ label: classes.formControlLabel }}
-          label={text}
-          key={id}
-          disabled={(id === 'allowDragging' || id === 'allowResizing') && !options.allowUpdating}
-        />
-      ))}
-    </FormGroup>
-  </div>
-);
+            classes={{ label: classes.formControlLabel }}
+            label={text}
+            key={id}
+            disabled={(id === 'allowDragging' || id === 'allowResizing') && !options.allowUpdating}
+          />
+        ))}
+      </FormGroup>
+    </div>
+  );
+};
 
 export default () => {
   const [data, setData] = React.useState(appointments);
@@ -143,50 +136,48 @@ export default () => {
   );
 
   return (
-    (
-      <StyledDiv>
-        <EditingOptionsSelector
-          options={editingOptions}
-          onOptionsChange={handleEditingOptionsChange}
-        />
-        <Paper>
-          <Scheduler
-            data={data}
-            height={600}
-          >
-            <ViewState
-              currentDate={currentDate}
-            />
-            <EditingState
-              onCommitChanges={onCommitChanges}
-              addedAppointment={addedAppointment}
-              onAddedAppointmentChange={onAddedAppointmentChange}
-            />
+    <>
+      <EditingOptionsSelector
+        options={editingOptions}
+        onOptionsChange={handleEditingOptionsChange}
+      />
+      <Paper>
+        <Scheduler
+          data={data}
+          height={600}
+        >
+          <ViewState
+            currentDate={currentDate}
+          />
+          <EditingState
+            onCommitChanges={onCommitChanges}
+            addedAppointment={addedAppointment}
+            onAddedAppointmentChange={onAddedAppointmentChange}
+          />
 
-            <IntegratedEditing />
-            <WeekView
-              startDayHour={9}
-              endDayHour={19}
-              timeTableCellComponent={TimeTableCell}
-            />
+          <IntegratedEditing />
+          <WeekView
+            startDayHour={9}
+            endDayHour={19}
+            timeTableCellComponent={TimeTableCell}
+          />
 
-            <Appointments />
+          <Appointments />
 
-            <AppointmentTooltip
-              showOpenButton
-              showDeleteButton={allowDeleting}
-            />
-            <AppointmentForm
-              commandButtonComponent={CommandButton}
-              readOnly={isAppointmentBeingCreated ? false : !allowUpdating}
-            />
-            <DragDropProvider
-              allowDrag={allowDrag}
-              allowResize={allowResize}
-            />
-          </Scheduler>
-        </Paper>
-      </StyledDiv>
-    )
+          <AppointmentTooltip
+            showOpenButton
+            showDeleteButton={allowDeleting}
+          />
+          <AppointmentForm
+            commandButtonComponent={CommandButton}
+            readOnly={isAppointmentBeingCreated ? false : !allowUpdating}
+          />
+          <DragDropProvider
+            allowDrag={allowDrag}
+            allowResize={allowResize}
+          />
+        </Scheduler>
+      </Paper>
+    </>
   );
 };

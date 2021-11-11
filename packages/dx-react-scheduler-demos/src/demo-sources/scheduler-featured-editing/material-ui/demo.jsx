@@ -52,9 +52,10 @@ const classes = {
   wrapper: `${PREFIX}-wrapper`,
   icon: `${PREFIX}-icon`,
   textField: `${PREFIX}-textField`,
+  addButton: `${PREFIX}-addButton`,
 };
 
-const StyledPaper = styled(Paper)(({ theme }) => ({
+const StyledAppointmentFormOverlay = styled(AppointmentForm.Overlay)(({ theme }) => ({
   [`& .${classes.container}`]: {
     width: theme.spacing(68),
     padding: 0,
@@ -106,6 +107,14 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 
   [`& .${classes.textField}`]: {
     width: '100%',
+  },
+}));
+
+const StyledFab = styled(Fab)(({ theme }) => ({
+  [`& .${classes.addButton}`]: {
+    position: 'absolute',
+    bottom: theme.spacing(3),
+    right: theme.spacing(4),
   },
 }));
 
@@ -210,7 +219,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
     };
 
     return (
-      <AppointmentForm.Overlay
+      <StyledAppointmentFormOverlay
         visible={visible}
         target={target}
         fullSize
@@ -286,7 +295,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
             </Button>
           </div>
         </div>
-      </AppointmentForm.Overlay>
+      </StyledAppointmentFormOverlay>
     );
   }
 }
@@ -426,7 +435,7 @@ class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <StyledPaper>
+      <Paper>
         <Scheduler
           data={data}
           height={660}
@@ -484,7 +493,7 @@ class Demo extends React.PureComponent {
           </DialogActions>
         </Dialog>
 
-        <Fab
+        <StyledFab
           color="secondary"
           className={classes.addButton}
           onClick={() => {
@@ -497,8 +506,8 @@ class Demo extends React.PureComponent {
           }}
         >
           <AddIcon />
-        </Fab>
-      </StyledPaper>
+        </StyledFab>
+      </Paper>
     );
   }
 }

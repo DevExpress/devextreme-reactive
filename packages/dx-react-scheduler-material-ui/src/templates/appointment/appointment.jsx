@@ -80,7 +80,7 @@ export const Appointment = ({
   const clickable = onClick || restProps.onDoubleClick || draggable;
   return (
     <StyledDiv
-    resources={resources}
+      resources={resources}
       ref={forwardedRef}
       className={classNames({
         [classes.appointment]: true,

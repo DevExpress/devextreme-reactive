@@ -19,7 +19,7 @@ const classes = {
   weekend: `${PREFIX}-weekend`,
 };
 
-const StyledPaper = styled(Paper)(({ theme }) => ({
+const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(({ theme }) => ({
   [`& .${classes.todayCell}`]: {
     backgroundColor: alpha(theme.palette.primary.main, 0.1),
     '&:hover': {
@@ -39,6 +39,9 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
       backgroundColor: alpha(theme.palette.action.disabledBackground, 0.04),
     },
   },
+}));
+
+const StyledWeekViewDayScaleCell = styled(WeekView.DayScaleCell)(({ theme }) => ({
 
   [`& .${classes.today}`]: {
     backgroundColor: alpha(theme.palette.primary.main, 0.16),
@@ -54,24 +57,24 @@ const TimeTableCell = (props) => {
   const date = new Date(startDate);
 
   if (date.getDate() === new Date().getDate()) {
-    return <WeekView.TimeTableCell {...props} className={classes.todayCell} />;
+    return <StyledWeekViewTimeTableCell {...props} className={classes.todayCell} />;
   } if (date.getDay() === 0 || date.getDay() === 6) {
-    return <WeekView.TimeTableCell {...props} className={classes.weekendCell} />;
-  } return <WeekView.TimeTableCell {...props} />;
+    return <StyledWeekViewTimeTableCell {...props} className={classes.weekendCell} />;
+  } return <StyledWeekViewTimeTableCell {...props} />;
 };
 
 const DayScaleCell = (props) => {
   const { startDate, today } = props;
 
   if (today) {
-    return <WeekView.DayScaleCell {...props} className={classes.today} />;
+    return <StyledWeekViewDayScaleCell {...props} className={classes.today} />;
   } if (startDate.getDay() === 0 || startDate.getDay() === 6) {
-    return <WeekView.DayScaleCell {...props} className={classes.weekend} />;
-  } return <WeekView.DayScaleCell {...props} />;
+    return <StyledWeekViewDayScaleCell {...props} className={classes.weekend} />;
+  } return <StyledWeekViewDayScaleCell {...props} />;
 };
 
 export default () => (
-  <StyledPaper>
+  <Paper>
     <Scheduler
       data={appointments}
       height={660}
@@ -85,5 +88,5 @@ export default () => (
       />
       <Appointments />
     </Scheduler>
-  </StyledPaper>
+  </Paper>
 );

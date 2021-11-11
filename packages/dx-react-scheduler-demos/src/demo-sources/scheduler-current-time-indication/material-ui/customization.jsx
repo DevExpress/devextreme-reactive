@@ -24,7 +24,7 @@ const classes = {
   shadedAppointment: `${PREFIX}-shadedAppointment`,
 };
 
-const StyledPaper = styled(Paper)(({ theme }) => ({
+const StyledDiv = styled('div')(({ theme }) => ({
   [`& .${classes.line}`]: {
     height: '2px',
     borderTop: `2px ${theme.palette.primary.main} dotted`,
@@ -46,6 +46,9 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
     left: 0,
     top: ({ top }) => top,
   },
+}));
+
+const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(({ theme }) => ({
 
   [`& .${classes.shadedCell}`]: {
     backgroundColor: alpha(theme.palette.primary.main, 0.08),
@@ -69,7 +72,9 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
       backgroundColor: alpha(theme.palette.primary.main, 0.12),
     },
   },
+}));
 
+const StyledAppointmentsAppointment = styled(Appointments.Appointment)(() => ({
   [`& .${classes.appointment}`]: {
     backgroundColor: teal[300],
     '&:hover': {
@@ -90,10 +95,10 @@ const TimeIndicator = ({
   top, ...restProps
   // #FOLD_BLOCK
 }) => (
-  <div {...restProps}>
+  <StyledDiv {...restProps}>
     <div className={classNames(classes.nowIndicator, classes.circle)} />
     <div className={classNames(classes.nowIndicator, classes.line)} />
-  </div>
+  </StyledDiv>
 );
 
 // #FOLD_BLOCK
@@ -103,7 +108,7 @@ const TimeTableCell = ({
 }) => {
   const isNow = !!currentTimeIndicatorPosition;
   return (
-    <WeekView.TimeTableCell
+    <StyledWeekViewTimeTableCell
       isShaded={isShaded && !isNow}
       currentTimeIndicatorPosition={currentTimeIndicatorPosition}
       className={classNames({
@@ -114,7 +119,7 @@ const TimeTableCell = ({
       {isNow && isShaded && (
         <div className={classes.shadedPart} />
       )}
-    </WeekView.TimeTableCell>
+    </StyledWeekViewTimeTableCell>
   );
 };
 
@@ -123,7 +128,7 @@ const Appointment = ({
   isShaded, ...restProps
   // #FOLD_BLOCK
 }) => (
-  <Appointments.Appointment
+  <StyledAppointmentsAppointment
     className={classNames({
       [classes.appointment]: true,
       [classes.shadedAppointment]: isShaded,
@@ -144,7 +149,7 @@ export default class Demo extends React.PureComponent {
     const { data } = this.state;
 
     return (
-      <StyledPaper>
+      <Paper>
         <Scheduler
           data={data}
           height={660}
@@ -163,7 +168,7 @@ export default class Demo extends React.PureComponent {
             shadePreviousAppointments
           />
         </Scheduler>
-      </StyledPaper>
+      </Paper>
     );
   }
 }

@@ -41,63 +41,7 @@ const classes = {
   weekEnd: `${PREFIX}-weekEnd`,
 };
 
-const StyledProvider = styled(Provider)(({
-  theme: { spacing, palette },
-}) => ({
-  [`& .${classes.flexibleSpace}`]: {
-    margin: '0 auto 0 0',
-    display: 'flex',
-    alignItems: 'center',
-  },
-
-  [`& .${classes.textField}`]: {
-    width: '75px',
-    marginLeft: spacing(1),
-    marginTop: 0,
-    marginBottom: 0,
-    height: spacing(4.875),
-  },
-
-  [`& .${classes.locationSelector}`]: {
-    marginLeft: spacing(1),
-    height: spacing(4.875),
-  },
-
-  [`& .${classes.button}`]: {
-    paddingLeft: spacing(1),
-    paddingRight: spacing(1),
-    width: spacing(10),
-    '@media (max-width: 800px)': {
-      width: spacing(2),
-      fontSize: '0.75rem',
-    },
-  },
-
-  [`& .${classes.selectedButton}`]: {
-    background: palette.primary[400],
-    color: palette.primary[50],
-    '&:hover': {
-      backgroundColor: palette.primary[500],
-    },
-    border: `1px solid ${palette.primary[400]}!important`,
-    borderLeft: `1px solid ${palette.primary[50]}!important`,
-    '&:first-of-type': {
-      borderLeft: `1px solid ${palette.primary[50]}!important`,
-    },
-  },
-
-  [`& .${classes.longButtonText}`]: {
-    '@media (max-width: 800px)': {
-      display: 'none',
-    },
-  },
-
-  [`& .${classes.shortButtonText}`]: {
-    '@media (min-width: 800px)': {
-      display: 'none',
-    },
-  },
-
+const StyledAppointmentsAppointmentContent = styled(Appointments.AppointmentContent)(() => ({
   [`& .${classes.title}`]: {
     fontWeight: 'bold',
     overflow: 'hidden',
@@ -128,7 +72,81 @@ const StyledProvider = styled(Provider)(({
   [`& .${classes.container}`]: {
     width: '100%',
   },
+}));
 
+const StyledTextField = styled(TextField)(({
+  theme: { spacing },
+}) => ({
+  [`& .${classes.textField}`]: {
+    width: '75px',
+    marginLeft: spacing(1),
+    marginTop: 0,
+    marginBottom: 0,
+    height: spacing(4.875),
+  },
+}));
+
+const StyledButtonGroup = styled(ButtonGroup)(({
+  theme: { spacing },
+}) => ({
+  [`& .${classes.locationSelector}`]: {
+    marginLeft: spacing(1),
+    height: spacing(4.875),
+  },
+}));
+
+const StyledReactFragment = styled(React.Fragment)(() => ({
+  [`& .${classes.longButtonText}`]: {
+    '@media (max-width: 800px)': {
+      display: 'none',
+    },
+  },
+
+  [`& .${classes.shortButtonText}`]: {
+    '@media (min-width: 800px)': {
+      display: 'none',
+    },
+  },
+}));
+
+const StyledButton = styled(Button)(({
+  theme: { spacing, palette },
+}) => ({
+  [`& .${classes.button}`]: {
+    paddingLeft: spacing(1),
+    paddingRight: spacing(1),
+    width: spacing(10),
+    '@media (max-width: 800px)': {
+      width: spacing(2),
+      fontSize: '0.75rem',
+    },
+  },
+
+  [`& .${classes.selectedButton}`]: {
+    background: palette.primary[400],
+    color: palette.primary[50],
+    '&:hover': {
+      backgroundColor: palette.primary[500],
+    },
+    border: `1px solid ${palette.primary[400]}!important`,
+    borderLeft: `1px solid ${palette.primary[50]}!important`,
+    '&:first-of-type': {
+      borderLeft: `1px solid ${palette.primary[50]}!important`,
+    },
+  },
+}));
+
+const StyledToolbarFlexibleSpace = styled(Toolbar.FlexibleSpace)(() => ({
+  [`& .${classes.flexibleSpace}`]: {
+    margin: '0 auto 0 0',
+    display: 'flex',
+    alignItems: 'center',
+  },
+}));
+
+const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(({
+  theme: { palette },
+}) => ({
   [`& .${classes.weekendCell}`]: {
     backgroundColor: alpha(palette.action.disabledBackground, 0.04),
     '&:hover': {
@@ -138,12 +156,15 @@ const StyledProvider = styled(Provider)(({
       backgroundColor: alpha(palette.action.disabledBackground, 0.04),
     },
   },
+}));
 
+const StyledWeekViewDayScaleCell = styled(WeekView.TimeTableCell)(({
+  theme: { palette },
+}) => ({
   [`& .${classes.weekEnd}`]: {
     backgroundColor: alpha(palette.action.disabledBackground, 0.06),
   },
 }));
-
 const LOCATIONS = ['Room 1', 'Room 2', 'Room 3'];
 const LOCATIONS_SHORT = [1, 2, 3];
 const resources = [{
@@ -159,7 +180,7 @@ const resources = [{
 const AppointmentContent = (({
   data, formatDate, ...restProps
 }) => (
-  <Appointments.AppointmentContent {...restProps} formatDate={formatDate} data={data}>
+  <StyledAppointmentsAppointmentContent {...restProps} formatDate={formatDate} data={data}>
     <div className={classes.container}>
       <div className={classes.title}>
         {data.title}
@@ -179,11 +200,11 @@ const AppointmentContent = (({
         </div>
       </div>
     </div>
-  </Appointments.AppointmentContent>
+  </StyledAppointmentsAppointmentContent>
 ));
 
 const Filter = (({ onCurrentFilterChange, currentFilter }) => (
-  <TextField
+  <StyledTextField
     size="small"
     placeholder="Filter"
     className={classes.textField}
@@ -209,28 +230,28 @@ const getButtonClass = (locations, location) => (
 );
 
 const LocationSelector = (({ onLocationsChange, locations }) => (
-  <ButtonGroup className={classes.locationSelector}>
+  <StyledButtonGroup className={classes.locationSelector}>
     {LOCATIONS.map((location, index) => (
-      <Button
+      <StyledButton
         className={classNames(classes.button, getButtonClass(locations, classes, location))}
         onClick={() => onLocationsChange(handleButtonClick(location, locations))}
         key={location}
       >
-        <React.Fragment>
+        <StyledReactFragment>
           <span className={classes.shortButtonText}>{LOCATIONS_SHORT[index]}</span>
           <span className={classes.longButtonText}>{location}</span>
-        </React.Fragment>
-      </Button>
+        </StyledReactFragment>
+      </StyledButton>
     ))}
-  </ButtonGroup>
+  </StyledButtonGroup>
 ));
 
 const FlexibleSpace = (
   ({ ...restProps }) => (
-    <Toolbar.FlexibleSpace {...restProps} className={classes.flexibleSpace}>
+    <StyledToolbarFlexibleSpace {...restProps} className={classes.flexibleSpace}>
       <ReduxFilterContainer />
       <ReduxLocationSelector />
-    </Toolbar.FlexibleSpace>
+    </StyledToolbarFlexibleSpace>
   )
 );
 
@@ -241,15 +262,15 @@ const isRestTime = date => (
 const TimeTableCell = (({ ...restProps }) => {
   const { startDate } = restProps;
   if (isRestTime(startDate)) {
-    return <WeekView.TimeTableCell {...restProps} className={classes.weekendCell} />;
-  } return <WeekView.TimeTableCell {...restProps} />;
+    return <StyledWeekViewTimeTableCell {...restProps} className={classes.weekendCell} />;
+  } return <StyledWeekViewTimeTableCell {...restProps} />;
 });
 
 const DayScaleCell = (({ ...restProps }) => {
   const { startDate } = restProps;
   if (startDate.getDay() === 0 || startDate.getDay() === 6) {
-    return <WeekView.DayScaleCell {...restProps} className={classes.weekEnd} />;
-  } return <WeekView.DayScaleCell {...restProps} />;
+    return <StyledWeekViewDayScaleCell {...restProps} className={classes.weekEnd} />;
+  } return <StyledWeekViewDayScaleCell {...restProps} />;
 });
 
 const SCHEDULER_STATE_CHANGE_ACTION = 'SCHEDULER_STATE_CHANGE';
@@ -353,7 +374,7 @@ const store = createStore(
 );
 
 export default () => (
-  <StyledProvider store={store}>
+  <Provider store={store}>
     <ReduxSchedulerContainer />
-  </StyledProvider>
+  </Provider>
 );

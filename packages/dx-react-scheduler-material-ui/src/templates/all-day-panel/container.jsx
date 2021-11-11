@@ -1,7 +1,6 @@
 import { styled } from '@mui/material/styles';
 import { ContainerBase, classes } from '../common/container';
 
-
 const StyledContainerBase = styled(ContainerBase)(() => ({
   [`& .${classes.container}`]: {
     position: 'relative',

@@ -641,7 +641,7 @@ const applyEnterAction: PureComputed<[
   const rowIndex = getIndex(tableBodyRows, focusedElement.rowKey);
 
   if (focusedElement.part === DATA_TYPE && commitChangedRows) {
-    if (focusedElement.index === 0 && hasCellInput(innerElements)) {
+    if (focusedElement.index === 0) {
       commitChangedRows({ rowIds: [tableBodyRows[rowIndex].rowId] });
       stopEditCells!({
         editingCells: [{

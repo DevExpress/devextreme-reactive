@@ -42,7 +42,7 @@ IndentCell.propTypes = {
   className: PropTypes.string,
   side: PropTypes.string,
   position: PropTypes.number,
-  forwardedRef: PropTypes.object,
+  forwardedRef: PropTypes.func,
 };
 
 IndentCell.defaultProps = {

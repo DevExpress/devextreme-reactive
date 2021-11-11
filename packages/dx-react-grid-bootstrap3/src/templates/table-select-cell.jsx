@@ -34,7 +34,7 @@ TableSelectCell.propTypes = {
   row: PropTypes.any,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
-  forwardedRef: PropTypes.object,
+  forwardedRef: PropTypes.func,
 };
 
 TableSelectCell.defaultProps = {

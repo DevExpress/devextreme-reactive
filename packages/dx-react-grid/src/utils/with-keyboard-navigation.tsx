@@ -8,8 +8,15 @@ export const withKeyboardNavigation =
     ref: React.RefObject<T>;
     constructor(props) {
       super(props);
-      this.ref = React.createRef();
+      this.ref = { current: null };
       this.handleClick = this.handleClick.bind(this);
+      this.setForwardedRef = this.setForwardedRef.bind(this);
+    }
+
+    setForwardedRef(node) {
+      (this.ref.current as any)?.removeEventListener('mouseup', this.handleClick);
+      (this.ref.current as any) = node;
+      (this.ref.current as any)?.addEventListener('mouseup', this.handleClick);
     }
 
     componentDidMount() {
@@ -21,7 +28,6 @@ export const withKeyboardNavigation =
           key2: key2 || tableColumn.key,
           action: 'add',
         });
-        (this.ref.current as any).addEventListener('mouseup', this.handleClick);
       }
     }
 
@@ -45,7 +51,7 @@ export const withKeyboardNavigation =
 
     render() {
       const { setFocusedElement, updateRefForKeyboardNavigation, ...restProps } = this.props;
-      return <Component forwardedRef={this.ref} {...restProps} />;
+      return <Component forwardedRef={this.setForwardedRef} {...restProps} />;
     }
   }
   return ComponentWithNavigation;

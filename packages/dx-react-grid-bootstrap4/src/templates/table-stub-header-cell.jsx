@@ -22,7 +22,7 @@ TableStubHeaderCell.propTypes = {
   className: PropTypes.string,
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
-  forwardedRef: PropTypes.object,
+  forwardedRef: PropTypes.func,
 };
 
 TableStubHeaderCell.defaultProps = {

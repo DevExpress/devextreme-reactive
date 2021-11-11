@@ -21,7 +21,7 @@ describe('#withKeyboardNavigation', () => {
     expect(tree.find(BaseComponent).props()).toEqual({
       tableRow: defaultProps.tableRow,
       tableColumn: defaultProps.tableColumn,
-      forwardedRef: { current: null },
+      forwardedRef: expect.any(Function),
     });
   });
 
@@ -29,33 +29,29 @@ describe('#withKeyboardNavigation', () => {
     const BaseComponent = () => null;
     const TestComponent = withKeyboardNavigation()(BaseComponent);
     const ref = {
-      current: {
-        addEventListener: jest.fn(), removeEventListener: jest.fn(),
-      },
+      addEventListener: jest.fn(), removeEventListener: jest.fn(),
     };
 
     const tree = mount(<TestComponent
       {...defaultProps as any}
     />);
-    (tree.instance() as any).ref = ref;
+    (tree.instance() as any).setForwardedRef(ref);
     tree.instance().componentDidMount();
 
     expect(defaultProps.updateRefForKeyboardNavigation).toBeCalledWith({
-      ref,
+      ref: { current: ref },
       key1: defaultProps.tableRow.key,
       key2: defaultProps.tableColumn.key,
       action: 'add',
     });
-    expect(ref.current.addEventListener).toBeCalledWith('mouseup', expect.any(Function));
+    expect(ref.addEventListener).toBeCalledWith('mouseup', expect.any(Function));
   });
 
   it('should not rise errors, updateRefForKeyboardNavigation is not defined', () => {
     const BaseComponent = () => null;
     const TestComponent = withKeyboardNavigation()(BaseComponent);
     const ref = {
-      current: {
-        addEventListener: jest.fn(), removeEventListener: jest.fn(),
-      },
+      addEventListener: jest.fn(), removeEventListener: jest.fn(),
     };
     const props = {
       tableRow: { key: 'table-row' } as any,
@@ -65,7 +61,7 @@ describe('#withKeyboardNavigation', () => {
     const tree = mount(<TestComponent
       {...props as any}
     />);
-    (tree.instance() as any).ref = ref;
+    (tree.instance() as any).setForwardedRef(ref);
     tree.instance().componentDidMount();
 
     expect(tree.find(BaseComponent)).toBeTruthy();
@@ -75,18 +71,16 @@ describe('#withKeyboardNavigation', () => {
     const BaseComponent = () => null;
     const TestComponent = withKeyboardNavigation('specific_key1', 'specific_key2')(BaseComponent);
     const ref = {
-      current: {
-        addEventListener: jest.fn(), removeEventListener: jest.fn(),
-      },
+      addEventListener: jest.fn(), removeEventListener: jest.fn(),
     };
     const tree = mount(<TestComponent
       {...defaultProps as any}
     />);
-    (tree.instance() as any).ref = ref;
+    (tree.instance() as any).setForwardedRef(ref);
     tree.instance().componentDidMount();
 
     expect(defaultProps.updateRefForKeyboardNavigation).toBeCalledWith({
-      ref,
+      ref: { current: ref },
       key1: 'specific_key1',
       key2: 'specific_key2',
       action: 'add',
@@ -97,23 +91,37 @@ describe('#withKeyboardNavigation', () => {
     const BaseComponent = () => null;
     const TestComponent = withKeyboardNavigation()(BaseComponent);
     const ref = {
-      current: {
-        addEventListener: jest.fn(), removeEventListener: jest.fn(),
-      },
+      addEventListener: jest.fn(), removeEventListener: jest.fn(),
     };
     const tree = mount(<TestComponent
       {...defaultProps as any}
     />);
-    (tree.instance() as any).ref = ref;
+    (tree.instance() as any).setForwardedRef(ref);
     tree.unmount();
 
     expect(defaultProps.updateRefForKeyboardNavigation).toBeCalledWith({
-      ref,
+      ref: { current: ref },
       key1: defaultProps.tableRow.key,
       key2: defaultProps.tableColumn.key,
       action: 'remove',
     });
-    expect(ref.current.removeEventListener).toBeCalledWith('mouseup', expect.any(Function));
+    expect(ref.removeEventListener).toBeCalledWith('mouseup', expect.any(Function));
+  });
+
+  it('should remove and add new event listener after update ref', () => {
+    const BaseComponent = () => null;
+    const TestComponent = withKeyboardNavigation()(BaseComponent);
+    const ref = {
+      addEventListener: jest.fn(), removeEventListener: jest.fn(),
+    };
+    const tree = mount(<TestComponent
+      {...defaultProps as any}
+    />);
+    (tree.instance() as any).setForwardedRef(ref);
+    (tree.instance() as any).setForwardedRef(ref);
+
+    expect(ref.removeEventListener).toBeCalledTimes(1);
+    expect(ref.addEventListener).toBeCalledTimes(2);
   });
 
   it('should call setFocusedElement on click', () => {

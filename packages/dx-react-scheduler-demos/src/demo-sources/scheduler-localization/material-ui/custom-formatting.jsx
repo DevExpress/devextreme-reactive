@@ -17,7 +17,7 @@ const classes = {
   dayScaleCell: `${PREFIX}-dayScaleCell`,
 };
 
-const StyledPaper = styled(Paper)({
+const StyledWeekViewDayScaleCell = styled(WeekView.DayScaleCell)({
   [`& .${classes.dayScaleCell}`]: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -34,7 +34,7 @@ const formatTimeScaleDate = date => moment(date).format('hh:mm:ss');
 const DayScaleCell = ((
   { formatDate, ...restProps },
 ) => (
-  <WeekView.DayScaleCell
+  <StyledWeekViewDayScaleCell
     {...restProps}
     formatDate={formatDayScaleDate}
     className={classes.dayScaleCell}
@@ -58,7 +58,7 @@ export default class Demo extends React.PureComponent {
     const { data, currentDate, locale } = this.state;
 
     return (
-      <StyledPaper>
+      <Paper>
         <Scheduler
           data={data}
           locale={locale}
@@ -75,7 +75,7 @@ export default class Demo extends React.PureComponent {
           />
           <Appointments />
         </Scheduler>
-      </StyledPaper>
+      </Paper>
     );
   }
 }

@@ -29,7 +29,7 @@ const classes = {
   text: `${PREFIX}-text`,
 };
 
-const StyledDiv = styled('div')(({
+const StyledFormControlLabel = styled(FormControlLabel)(({
   theme: { spacing, palette, typography },
 }) => ({
   [`& .${classes.formControlLabel}`]: {
@@ -53,7 +53,7 @@ const priorityData = [
 ];
 
 const GroupOrderSwitcher = (({ isGroupByDate, onChange }) => (
-  <FormControlLabel
+  <StyledFormControlLabel
     control={
       <Checkbox checked={isGroupByDate} onChange={onChange} color="primary" />
     }
@@ -115,7 +115,7 @@ export default class Demo extends React.PureComponent {
 
     return (
       (
-        <StyledDiv>
+        <div>
           <GroupOrderSwitcher isGroupByDate={isGroupByDate} onChange={this.onGroupOrderChange} />
           <Paper>
             <Scheduler
@@ -157,7 +157,7 @@ export default class Demo extends React.PureComponent {
               <DragDropProvider />
             </Scheduler>
           </Paper>
-        </StyledDiv>
+        </div>
       )
     );
   }

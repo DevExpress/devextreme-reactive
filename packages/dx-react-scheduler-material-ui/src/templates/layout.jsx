@@ -2,13 +2,7 @@ import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import { AUTO_HEIGHT } from '@devexpress/dx-scheduler-core';
-import { ContainerBase } from './common/container';
-
-const PREFIX = 'Root';
-
-const classes = {
-  container: `${PREFIX}-container`,
-};
+import { ContainerBase, classes } from './common/container';
 
 const StyledContainerBase = styled(ContainerBase)({
   [`& .${classes.container}`]: {

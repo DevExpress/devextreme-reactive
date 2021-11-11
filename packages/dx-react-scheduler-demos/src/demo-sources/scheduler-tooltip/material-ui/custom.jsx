@@ -27,17 +27,7 @@ const classes = {
   commandButton: `${PREFIX}-commandButton`,
 };
 
-const StyledPaper = styled(Paper)(({
-  theme: { palette },
-}) => ({
-  [`& .${classes.icon}`]: {
-    color: palette.action.active,
-  },
-
-  [`& .${classes.textCenter}`]: {
-    textAlign: 'center',
-  },
-
+const StyledAppointmentTooltipHeader = styled(AppointmentTooltip.Header)(() => ({
   [`& .${classes.firstRoom}`]: {
     background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/Lobby-4.jpg)',
   },
@@ -55,9 +45,6 @@ const StyledPaper = styled(Paper)(({
     backgroundSize: 'cover',
   },
 
-  [`& .${classes.commandButton}`]: {
-    backgroundColor: 'rgba(255,255,255,0.65)',
-  },
 }));
 
 const getClassByLocation = (location) => {
@@ -69,7 +56,7 @@ const getClassByLocation = (location) => {
 const Header = (({
   children, appointmentData, ...restProps
 }) => (
-  <AppointmentTooltip.Header
+  <StyledAppointmentTooltipHeader
     {...restProps}
     className={classNames(getClassByLocation(classes, appointmentData.location), classes.header)}
     appointmentData={appointmentData}
@@ -82,17 +69,37 @@ const Header = (({
     >
       <MoreIcon />
     </IconButton>
-  </AppointmentTooltip.Header>
+  </StyledAppointmentTooltipHeader>
 ));
+
+const StyledGrid = styled(Grid)(() => ({
+  [`& .${classes.textCenter}`]: {
+    textAlign: 'center',
+  },
+}));
+
+const StyledRoom = styled(Room)(({
+  theme: { palette },
+}) => ({
+  [`& .${classes.icon}`]: {
+    color: palette.action.active,
+  },
+}));
+
+const StyledAppointmentTooltipCommandButton = (AppointmentTooltip.CommandButton)(() => ({
+  [`& .${classes.commandButton}`]: {
+    backgroundColor: 'rgba(255,255,255,0.65)',
+  },
+}));
 
 const Content = (({
   children, appointmentData, ...restProps
 }) => (
   <AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
     <Grid container alignItems="center">
-      <Grid item xs={2} className={classes.textCenter}>
-        <Room className={classes.icon} />
-      </Grid>
+      <StyledGrid item xs={2} className={classes.textCenter}>
+        <StyledRoom className={classes.icon} />
+      </StyledGrid>
       <Grid item xs={10}>
         <span>{appointmentData.location}</span>
       </Grid>
@@ -103,7 +110,7 @@ const Content = (({
 const CommandButton = (({
   ...restProps
 }) => (
-  <AppointmentTooltip.CommandButton {...restProps} className={classes.commandButton} />
+  <StyledAppointmentTooltipCommandButton {...restProps} className={classes.commandButton} />
 ));
 
 export default class Demo extends React.PureComponent {
@@ -118,7 +125,7 @@ export default class Demo extends React.PureComponent {
     const { data } = this.state;
 
     return (
-      <StyledPaper>
+      <Paper>
         <Scheduler
           data={data}
           height={660}
@@ -137,7 +144,7 @@ export default class Demo extends React.PureComponent {
             showCloseButton
           />
         </Scheduler>
-      </StyledPaper>
+      </Paper>
     );
   }
 }

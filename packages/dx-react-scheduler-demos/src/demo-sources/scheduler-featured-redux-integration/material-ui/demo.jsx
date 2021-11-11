@@ -95,7 +95,7 @@ const StyledButtonGroup = styled(ButtonGroup)(({
   },
 }));
 
-const StyledReactFragment = styled(React.Fragment)(() => ({
+const StyledDiv = styled('div')(() => ({
   [`& .${classes.longButtonText}`]: {
     '@media (max-width: 800px)': {
       display: 'none',
@@ -237,10 +237,10 @@ const LocationSelector = (({ onLocationsChange, locations }) => (
         onClick={() => onLocationsChange(handleButtonClick(location, locations))}
         key={location}
       >
-        <StyledReactFragment>
+        <StyledDiv>
           <span className={classes.shortButtonText}>{LOCATIONS_SHORT[index]}</span>
           <span className={classes.longButtonText}>{location}</span>
-        </StyledReactFragment>
+        </StyledDiv>
       </StyledButton>
     ))}
   </StyledButtonGroup>

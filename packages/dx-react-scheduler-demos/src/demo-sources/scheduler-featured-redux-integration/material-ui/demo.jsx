@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
 import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
+import { styled, alpha } from '@mui/material/styles';
 import { teal, orange, red } from '@mui/material/colors';
 import classNames from 'clsx';
 import { ViewState } from '@devexpress/dx-react-scheduler';
@@ -22,8 +22,20 @@ import {
 
 import { appointments } from '../../../demo-data/appointments';
 
-const PREFIX = 'AppointmentContent';
+const LOCATIONS = ['Room 1', 'Room 2', 'Room 3'];
+const LOCATIONS_SHORT = [1, 2, 3];
+const resources = [{
+  fieldName: 'location',
+  title: 'Location',
+  instances: [
+    { id: LOCATIONS[0], text: LOCATIONS[0], color: teal },
+    { id: LOCATIONS[1], text: LOCATIONS[1], color: orange },
+    { id: LOCATIONS[2], text: LOCATIONS[2], color: red },
+  ],
+}];
 
+const PREFIX = 'AppointmentContent';
+// #FOLD_BLOCK
 const classes = {
   flexibleSpace: `${PREFIX}-flexibleSpace`,
   textField: `${PREFIX}-textField`,
@@ -40,7 +52,7 @@ const classes = {
   weekendCell: `${PREFIX}-weekendCell`,
   weekEnd: `${PREFIX}-weekEnd`,
 };
-
+// #FOLD_BLOCK
 const StyledAppointmentsAppointmentContent = styled(Appointments.AppointmentContent)(() => ({
   [`& .${classes.title}`]: {
     fontWeight: 'bold',
@@ -73,7 +85,7 @@ const StyledAppointmentsAppointmentContent = styled(Appointments.AppointmentCont
     width: '100%',
   },
 }));
-
+// #FOLD_BLOCK
 const StyledTextField = styled(TextField)(({
   theme: { spacing },
 }) => ({
@@ -85,17 +97,15 @@ const StyledTextField = styled(TextField)(({
     height: spacing(4.875),
   },
 }));
-
+// #FOLD_BLOCK
 const StyledButtonGroup = styled(ButtonGroup)(({
-  theme: { spacing },
+  theme: { spacing, palette },
 }) => ({
   [`& .${classes.locationSelector}`]: {
     marginLeft: spacing(1),
     height: spacing(4.875),
   },
-}));
 
-const StyledDiv = styled('div')(() => ({
   [`& .${classes.longButtonText}`]: {
     '@media (max-width: 800px)': {
       display: 'none',
@@ -107,11 +117,7 @@ const StyledDiv = styled('div')(() => ({
       display: 'none',
     },
   },
-}));
 
-const StyledButton = styled(Button)(({
-  theme: { spacing, palette },
-}) => ({
   [`& .${classes.button}`]: {
     paddingLeft: spacing(1),
     paddingRight: spacing(1),
@@ -135,7 +141,7 @@ const StyledButton = styled(Button)(({
     },
   },
 }));
-
+// #FOLD_BLOCK
 const StyledToolbarFlexibleSpace = styled(Toolbar.FlexibleSpace)(() => ({
   [`& .${classes.flexibleSpace}`]: {
     margin: '0 auto 0 0',
@@ -143,7 +149,7 @@ const StyledToolbarFlexibleSpace = styled(Toolbar.FlexibleSpace)(() => ({
     alignItems: 'center',
   },
 }));
-
+// #FOLD_BLOCK
 const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(({
   theme: { palette },
 }) => ({
@@ -157,7 +163,7 @@ const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(({
     },
   },
 }));
-
+// #FOLD_BLOCK
 const StyledWeekViewDayScaleCell = styled(WeekView.TimeTableCell)(({
   theme: { palette },
 }) => ({
@@ -165,19 +171,8 @@ const StyledWeekViewDayScaleCell = styled(WeekView.TimeTableCell)(({
     backgroundColor: alpha(palette.action.disabledBackground, 0.06),
   },
 }));
-const LOCATIONS = ['Room 1', 'Room 2', 'Room 3'];
-const LOCATIONS_SHORT = [1, 2, 3];
-const resources = [{
-  fieldName: 'location',
-  title: 'Location',
-  instances: [
-    { id: LOCATIONS[0], text: LOCATIONS[0], color: teal },
-    { id: LOCATIONS[1], text: LOCATIONS[1], color: orange },
-    { id: LOCATIONS[2], text: LOCATIONS[2], color: red },
-  ],
-}];
 
-const AppointmentContent = (({
+const AppointmentContent = ({
   data, formatDate, ...restProps
 }) => (
   <StyledAppointmentsAppointmentContent {...restProps} formatDate={formatDate} data={data}>
@@ -201,9 +196,9 @@ const AppointmentContent = (({
       </div>
     </div>
   </StyledAppointmentsAppointmentContent>
-));
+);
 
-const Filter = (({ onCurrentFilterChange, currentFilter }) => (
+const Filter = ({ onCurrentFilterChange, currentFilter }) => (
   <StyledTextField
     size="small"
     placeholder="Filter"
@@ -214,7 +209,7 @@ const Filter = (({ onCurrentFilterChange, currentFilter }) => (
     hiddenLabel
     margin="dense"
   />
-));
+);
 
 const handleButtonClick = (locationName, locations) => {
   if (locations.indexOf(locationName) > -1) {
@@ -229,30 +224,28 @@ const getButtonClass = (locations, location) => (
   locations.indexOf(location) > -1 && classes.selectedButton
 );
 
-const LocationSelector = (({ onLocationsChange, locations }) => (
+const LocationSelector = ({ onLocationsChange, locations }) => (
   <StyledButtonGroup className={classes.locationSelector}>
     {LOCATIONS.map((location, index) => (
-      <StyledButton
-        className={classNames(classes.button, getButtonClass(locations, classes, location))}
+      <Button
+        className={classNames(classes.button, classes.selectedButton, getButtonClass(locations, classes, location))}
         onClick={() => onLocationsChange(handleButtonClick(location, locations))}
         key={location}
       >
-        <StyledDiv>
+        <React.Fragment>
           <span className={classes.shortButtonText}>{LOCATIONS_SHORT[index]}</span>
           <span className={classes.longButtonText}>{location}</span>
-        </StyledDiv>
-      </StyledButton>
+        </React.Fragment>
+      </Button>
     ))}
   </StyledButtonGroup>
-));
+);
 
-const FlexibleSpace = (
-  ({ ...restProps }) => (
-    <StyledToolbarFlexibleSpace {...restProps} className={classes.flexibleSpace}>
-      <ReduxFilterContainer />
-      <ReduxLocationSelector />
-    </StyledToolbarFlexibleSpace>
-  )
+const FlexibleSpace = ({ props }) => (
+  <StyledToolbarFlexibleSpace {...props} className={classes.flexibleSpace}>
+    <ReduxFilterContainer />
+    <ReduxLocationSelector />
+  </StyledToolbarFlexibleSpace>
 );
 
 const isRestTime = date => (

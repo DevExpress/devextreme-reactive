@@ -58,7 +58,7 @@ PagerBase.propTypes = {
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
   style: PropTypes.object,
-  forwardedRef: PropTypes.object,
+  forwardedRef: PropTypes.func,
 };
 
 PagerBase.defaultProps = {

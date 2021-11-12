@@ -97,7 +97,7 @@ Cell.propTypes = {
   inlineSummaries: PropTypes.array,
   side: PropTypes.string,
   position: PropTypes.string,
-  forwardedRef: PropTypes.object,
+  forwardedRef: PropTypes.func,
 };
 
 Cell.defaultProps = {

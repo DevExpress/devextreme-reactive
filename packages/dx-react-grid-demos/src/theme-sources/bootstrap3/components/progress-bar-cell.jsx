@@ -57,7 +57,7 @@ ProgressBarCell.propTypes = {
   value: PropTypes.number.isRequired,
   style: PropTypes.object,
   tabIndex: PropTypes.number,
-  forwardedRef: PropTypes.object,
+  forwardedRef: PropTypes.func,
   className: PropTypes.string,
 };
 ProgressBarCell.defaultProps = {

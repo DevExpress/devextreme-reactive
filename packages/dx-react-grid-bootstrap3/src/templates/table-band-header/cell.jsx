@@ -44,7 +44,7 @@ Cell.propTypes = {
   tableRow: PropTypes.object,
   tableColumn: PropTypes.object,
   beforeBorder: PropTypes.bool,
-  forwardedRef: PropTypes.object,
+  forwardedRef: PropTypes.func,
 };
 
 Cell.defaultProps = {

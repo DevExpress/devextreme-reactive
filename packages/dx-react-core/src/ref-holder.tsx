@@ -9,7 +9,7 @@ export const RefHolder = React.forwardRef((
     typeof children.type === 'string'
       ? React.cloneElement(children, { ref })
       : React.cloneElement(children, { forwardedRef: children.props?.forwardedRef ? (node) => {
-        children.props.forwardedRef.current = node;
+        children.props.forwardedRef(node);
         if (typeof ref === 'function') {
           ref(node);
         } else if (ref) {

@@ -32,7 +32,7 @@ ToolbarBase.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   style: PropTypes.object,
-  forwardedRef: PropTypes.object,
+  forwardedRef: PropTypes.func,
 };
 
 ToolbarBase.defaultProps = {

@@ -431,6 +431,7 @@ export type GetNextFocusedElementFn = PureComputed<[
   RowId[],
   Elements,
   any,
+  InlineEditing,
   FocusedElement?,
   ScrollToColumnFn?
 ], FocusedElementWScrolling>;
@@ -579,6 +580,14 @@ export interface GroupSummaryItem extends SummaryItem {
   // (undocumented)
   showInGroupFooter?: boolean;
 }
+
+// @public (undocumented)
+export type InlineEditing = {
+  stopEditCells?: (arg: any) => void;
+  commitChangedRows?: (arg: any) => void;
+  cancelChangedRows?: (arg: any) => void;
+  startEditCells?: (arg: any) => void;
+};
 
 // @public (undocumented)
 export const InlineSummaryItem: React_2.SFC<TableGroupRow.InlineSummaryItemProps>;

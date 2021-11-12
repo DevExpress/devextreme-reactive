@@ -60,7 +60,7 @@ EditCommandHeadingCell.propTypes = {
   style: PropTypes.object,
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
-  forwardedRef: PropTypes.object,
+  forwardedRef: PropTypes.func,
 };
 
 EditCommandHeadingCell.defaultProps = {
@@ -97,7 +97,7 @@ EditCommandCell.propTypes = {
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
   row: PropTypes.any,
-  forwardedRef: PropTypes.object,
+  forwardedRef: PropTypes.func,
 };
 
 EditCommandCell.defaultProps = {

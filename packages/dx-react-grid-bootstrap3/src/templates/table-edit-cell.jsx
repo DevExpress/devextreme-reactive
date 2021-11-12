@@ -62,7 +62,7 @@ EditCell.propTypes = {
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
   onKeyDown: PropTypes.func,
-  forwardedRef: PropTypes.object,
+  forwardedRef: PropTypes.func,
 };
 
 EditCell.defaultProps = {

@@ -16,13 +16,15 @@ const retrieveImportFiles = (imports, regex) => imports
   .filter(r => !!r)
   .map(r => r[1]);
 
-// const knownDeepImports = ['@mui/material', '@mui/icons-material', '@material-ui/styles'];
 const knownDeepImports = ['@mui/material', '@mui/icons-material', '@mui/styles'];
 const dependencies = {
   '"@mui/material"': ['"@mui/icons-material"'],
   '"@devexpress/dx-react-chart-material-ui"': [
     '"@devexpress/dx-react-chart"',
     '"@mui/icons-material"',
+    '"@emotion/react"',
+    '"@emotion/styled"',
+    '"@mui/styles"',
   ],
   '"@devexpress/dx-react-chart-bootstrap4"': ['"@devexpress/dx-react-chart"'],
   '"@devexpress/dx-react-chart"': ['"@devexpress/dx-react-core"'],
@@ -34,11 +36,18 @@ const dependencies = {
   '"@devexpress/dx-react-grid-material-ui"': [
     '"@devexpress/dx-react-grid"',
     '"@mui/icons-material"',
+    '"@emotion/react"',
+    '"@emotion/styled"',
+    '"@mui/styles"',
   ],
   '"@devexpress/dx-react-grid"': ['"@devexpress/dx-react-core"'],
   '"@devexpress/dx-react-scheduler-material-ui"': [
     '"@devexpress/dx-react-scheduler"',
     '"@mui/icons-material"',
+    '"@emotion/react"',
+    '"@emotion/styled"',
+    '"@mui/styles"',
+    '"@mui/lab"',
   ],
   '"@devexpress/dx-react-scheduler"': ['"@devexpress/dx-react-core"'],
 };

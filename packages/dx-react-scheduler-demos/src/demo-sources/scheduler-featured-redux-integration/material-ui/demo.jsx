@@ -61,7 +61,7 @@ const StyledAppointmentsAppointmentContent = styled(Appointments.AppointmentCont
     whiteSpace: 'nowrap',
   },
 
-  [`& .${classes.textContainer}`]: {
+  [`&.${classes.textContainer}`]: {
     lineHeight: 1,
     whiteSpace: 'pre-wrap',
     overflow: 'hidden',
@@ -143,7 +143,7 @@ const StyledButtonGroup = styled(ButtonGroup)(({
 }));
 // #FOLD_BLOCK
 const StyledToolbarFlexibleSpace = styled(Toolbar.FlexibleSpace)(() => ({
-  [`& .${classes.flexibleSpace}`]: {
+  [`&.${classes.flexibleSpace}`]: {
     margin: '0 auto 0 0',
     display: 'flex',
     alignItems: 'center',
@@ -153,7 +153,7 @@ const StyledToolbarFlexibleSpace = styled(Toolbar.FlexibleSpace)(() => ({
 const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(({
   theme: { palette },
 }) => ({
-  [`& .${classes.weekendCell}`]: {
+  [`&.${classes.weekendCell}`]: {
     backgroundColor: alpha(palette.action.disabledBackground, 0.04),
     '&:hover': {
       backgroundColor: alpha(palette.action.disabledBackground, 0.04),
@@ -164,10 +164,10 @@ const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(({
   },
 }));
 // #FOLD_BLOCK
-const StyledWeekViewDayScaleCell = styled(WeekView.TimeTableCell)(({
+const StyledWeekViewDayScaleCell = styled(WeekView.DayScaleCell)(({
   theme: { palette },
 }) => ({
-  [`& .${classes.weekEnd}`]: {
+  [`&.${classes.weekEnd}`]: {
     backgroundColor: alpha(palette.action.disabledBackground, 0.06),
   },
 }));
@@ -228,7 +228,12 @@ const LocationSelector = ({ onLocationsChange, locations }) => (
   <StyledButtonGroup className={classes.locationSelector}>
     {LOCATIONS.map((location, index) => (
       <Button
-        className={classNames(classes.button, classes.selectedButton, getButtonClass(locations, classes, location))}
+        className={
+          classNames(
+            classes.button,
+            classes.selectedButton,
+            getButtonClass(locations, classes, location))
+        }
         onClick={() => onLocationsChange(handleButtonClick(location, locations))}
         key={location}
       >

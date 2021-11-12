@@ -9,7 +9,7 @@ import {
     GetElementFn, GetElementPrevNextPartFn, Elements, RowId, GetInnerElementsFn,
     OnFocusedCellChangeFn, ScrollToColumnFn, GetNextPrevPartFn,
     GetNextPrevCellFromBodyFn, GetPrevCellFromHeadingFn, GetNextCellFromHeadingFn,
-    GetCellNextPrevPartFn, FocusedElementWScrolling,
+    GetCellNextPrevPartFn, FocusedElementWScrolling, InlineEditing,
 } from '../../types';
 
 const HEADING_TYPE = TABLE_HEADING_TYPE.toString();
@@ -491,8 +491,7 @@ const getNextElement: GetElementFn = (
   };
 };
 
-const hasCellInput: PureComputed<[Elements, string, string], boolean> = (elements, key1, key2) => {
-  const innerElements = getInnerElements(elements, key1, key2);
+const hasCellInput: PureComputed<[any], boolean> = (innerElements) => {
   return innerElements.length ? innerElements[0].tagName === 'INPUT' : false;
 };
 
@@ -628,14 +627,48 @@ const getFirstCellInLastPart: PureComputed<[
   return {};
 };
 
-const applyEnterAction: PureComputed<[Elements, FocusedElement?], FocusedElement | undefined> = (
-  elements, focusedElement,
+const applyEnterAction: PureComputed<[
+  Elements, InlineEditing, TableColumn[], TableRow[], FocusedElement?
+], FocusedElement | undefined> = (
+  elements, { commitChangedRows, stopEditCells, startEditCells },
+  tableColumns, tableBodyRows, focusedElement,
 ) => {
   if (!focusedElement) {
     return;
   }
   const innerElements = getInnerElements(elements, focusedElement.rowKey, focusedElement.columnKey);
+  const columnIndex = getIndex(tableColumns, focusedElement.columnKey);
+  const rowIndex = getIndex(tableBodyRows, focusedElement.rowKey);
 
+  if (focusedElement.part === DATA_TYPE && commitChangedRows) {
+    if (focusedElement.index === 0) {
+      commitChangedRows({ rowIds: [tableBodyRows[rowIndex].rowId] });
+      stopEditCells!({
+        editingCells: [{
+          rowId: tableBodyRows[rowIndex].rowId,
+          columnName: tableColumns[columnIndex].column!.name,
+        }],
+      });
+      return {
+        part: focusedElement.part,
+        columnKey: focusedElement.columnKey,
+        rowKey: focusedElement.rowKey,
+      };
+    }
+    startEditCells!({
+      editingCells: [{
+        rowId: tableBodyRows[rowIndex].rowId,
+        columnName: tableColumns[columnIndex].column!.name,
+      }],
+    });
+    return {
+      part: focusedElement.part,
+      columnKey: focusedElement.columnKey,
+      rowKey: focusedElement.rowKey,
+      index: 0,
+    };
+
+  }
   if (!isDefined(focusedElement.index) && innerElements.length && isSpanInput(innerElements)) {
     if (innerElements[0].tagName === 'SPAN') {
       innerElements[0].click();
@@ -647,8 +680,8 @@ const applyEnterAction: PureComputed<[Elements, FocusedElement?], FocusedElement
       index: 0,
     };
   }
-  if (focusedElement.index === 0 &&
-    hasCellInput(elements, focusedElement.rowKey, focusedElement.columnKey)) {
+
+  if (focusedElement.index === 0 && hasCellInput(innerElements)) {
     return {
       part: focusedElement.part,
       columnKey: focusedElement.columnKey,
@@ -659,15 +692,30 @@ const applyEnterAction: PureComputed<[Elements, FocusedElement?], FocusedElement
   return;
 };
 
-const applyEscapeAction: PureComputed<[Elements, FocusedElement?], FocusedElement | undefined> = (
-  elements, focusedElement,
+const applyEscapeAction: PureComputed<[
+  Elements, InlineEditing, TableColumn[], TableRow[], FocusedElement?
+], FocusedElement | undefined> = (
+  elements, { cancelChangedRows, stopEditCells }, tableColumns, tableBodyRows, focusedElement,
 ) => {
   if (!focusedElement) {
     return;
   }
+  const innerElements = getInnerElements(elements, focusedElement.rowKey, focusedElement.columnKey);
+  const columnIndex = getIndex(tableColumns, focusedElement.columnKey);
+  const rowIndex = getIndex(tableBodyRows, focusedElement.rowKey);
 
-  if (focusedElement.index === 0 &&
-    hasCellInput(elements, focusedElement.rowKey, focusedElement.columnKey)) {
+  if (focusedElement.index === 0 && hasCellInput(innerElements)) {
+    if (focusedElement.part === DATA_TYPE && cancelChangedRows) {
+      cancelChangedRows({
+        rowIds: [tableBodyRows[rowIndex].rowId],
+      });
+      stopEditCells!({
+        editingCells: [{
+          rowId: tableBodyRows[rowIndex].rowId,
+          columnName: tableColumns[columnIndex].column!.name,
+        }],
+      });
+    }
     return {
       part: focusedElement.part,
       columnKey: focusedElement.columnKey,
@@ -805,7 +853,7 @@ export const getClosestCellByRow: PureComputed<
 
 export const getNextFocusedCell: GetNextFocusedElementFn = (
   tableColumns, tableBodyRows, tableHeaderRows,
-  expandedRowIds, elements, event, focusedElement,
+  expandedRowIds, elements, event, inlineEditing, focusedElement,
   scrollToColumn,
 ) => {
   if (!focusedElement) {
@@ -852,10 +900,16 @@ export const getNextFocusedCell: GetNextFocusedElementFn = (
   let cell;
   switch (event.key) {
     case 'Enter':
-      cell = { element: applyEnterAction(elements, focusedElement) };
+      cell = {
+        element: applyEnterAction(elements, inlineEditing, tableColumns,
+          tableBodyRows, focusedElement),
+      };
       break;
     case 'Escape':
-      cell = { element: applyEscapeAction(elements, focusedElement) };
+      cell = {
+        element: applyEscapeAction(elements, inlineEditing, tableColumns,
+          tableBodyRows, focusedElement),
+      };
       break;
     case ' ':
       actionOnCheckbox(elements, focusedElement);
@@ -923,9 +977,14 @@ export const getPart = (key: string): string => {
   return DATA_TYPE;
 };
 
-export const getIndexToFocus: PureComputed<[string, string, Elements, any], number | undefined> = (
-  key1, key2, elements, event,
+export const getIndexToFocus: PureComputed<[
+  string, string, Elements, any, InlineEditing, string,
+], number | undefined> = (
+  key1, key2, elements, event, { startEditCells }, part,
 ) => {
+  if (startEditCells && part === DATA_TYPE) {
+    return 0;
+  }
   const innerElements = getInnerElements(elements, key1, key2);
   const index = innerElements.findIndex((el) => {
     return event.target === el;

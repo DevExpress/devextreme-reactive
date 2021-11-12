@@ -27,7 +27,7 @@ ToolbarBase.propTypes = {
   ]).isRequired,
   className: PropTypes.string,
   style: PropTypes.object,
-  forwardedRef: PropTypes.object,
+  forwardedRef: PropTypes.func,
 };
 
 ToolbarBase.defaultProps = {

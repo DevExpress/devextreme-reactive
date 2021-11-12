@@ -38,7 +38,7 @@ HighlightedCell.propTypes = {
   style: PropTypes.object,
   children: PropTypes.node,
   tabIndex: PropTypes.number,
-  forwardedRef: PropTypes.object,
+  forwardedRef: PropTypes.func,
   className: PropTypes.string,
 };
 HighlightedCell.defaultProps = {

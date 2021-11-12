@@ -7,6 +7,7 @@ export {
   Sorting, TargetColumnGeometry, FilterOperation, ColumnChooserItem,
   TableColumnWidthInfo, TableColumnResizing, RowId, GridViewport, GroupSummaryItem,
   ColumnInlineSummaries, FocusedElement, OnFocusedCellChangeFn, FocusedCell, ScrollToColumnFn,
+  InlineEditing,
 } from '../../../dx-grid-core/src/index';
 
 /** @internal */

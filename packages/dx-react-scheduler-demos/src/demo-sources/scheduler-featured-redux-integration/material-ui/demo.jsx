@@ -232,7 +232,7 @@ const LocationSelector = ({ onLocationsChange, locations }) => (
           classNames(
             classes.button,
             classes.selectedButton,
-            getButtonClass(locations, classes, location)
+            getButtonClass(locations, classes, location),
           )
         }
         onClick={() => onLocationsChange(handleButtonClick(location, locations))}

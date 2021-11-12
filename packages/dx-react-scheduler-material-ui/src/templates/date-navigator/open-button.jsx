@@ -24,7 +24,7 @@ const StyledButton = styled(Button)(() => ({
 }));
 
 const StyledIconButton = styled(IconButton)(({ theme: { spacing } }) => ({
-  [`&.${classes.iconButton}`]: {
+  [`& .${classes.iconButton}`]: {
     '@media (min-width: 700px)': {
       display: 'none',
     },

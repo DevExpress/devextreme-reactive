@@ -25,7 +25,7 @@ const priorityData = [
 const findColorByGroupId = id => (priorityData.find(item => item.id === id)).color;
 const getIconById = id => (id === 1 ? LowPriority : PriorityHigh);
 
-const PREFIX = 'custom';
+const PREFIX = 'Demo';
 
 const classes = {
   cell: `${PREFIX}-cell`,
@@ -45,7 +45,6 @@ const useGroupingStyles = (Component, group) => {
         backgroundColor: alpha(color[400], 0.2),
       },
     },
-
     [`&.${classes.headerCell}`]: {
       backgroundColor: alpha(color[400], 0.1),
       '&:hover': {
@@ -55,7 +54,6 @@ const useGroupingStyles = (Component, group) => {
         backgroundColor: alpha(color[400], 0.1),
       },
     },
-
     [`& .${classes.icon}`]: {
       paddingLeft: theme.spacing(1),
       verticalAlign: 'middle',

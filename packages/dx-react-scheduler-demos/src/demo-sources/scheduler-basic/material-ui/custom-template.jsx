@@ -10,7 +10,7 @@ import {
 
 import appointments from '../../../demo-data/today-appointments';
 
-const PREFIX = 'custom-template';
+const PREFIX = 'Demo';
 
 const classes = {
   todayCell: `${PREFIX}-todayCell`,
@@ -29,7 +29,6 @@ const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(({ theme }) =
       backgroundColor: alpha(theme.palette.primary.main, 0.16),
     },
   },
-
   [`& .${classes.weekendCell}`]: {
     backgroundColor: alpha(theme.palette.action.disabledBackground, 0.04),
     '&:hover': {
@@ -42,11 +41,9 @@ const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(({ theme }) =
 }));
 
 const StyledWeekViewDayScaleCell = styled(WeekView.DayScaleCell)(({ theme }) => ({
-
   [`& .${classes.today}`]: {
     backgroundColor: alpha(theme.palette.primary.main, 0.16),
   },
-
   [`& .${classes.weekend}`]: {
     backgroundColor: alpha(theme.palette.action.disabledBackground, 0.06),
   },

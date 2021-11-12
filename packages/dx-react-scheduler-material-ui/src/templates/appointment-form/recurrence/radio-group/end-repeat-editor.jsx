@@ -28,32 +28,25 @@ const StyledRadioGroup = styled(RadioGroup)(({ theme: { spacing, typography } })
     width: 'calc((100% - 5.5em) * 3 / 7)',
     maxWidth: '8em',
   },
-
   [`& .${classes.occurenceLabel}`]: {
     marginLeft: '1em',
     width: 'calc((100% - 5.5em) * 4 / 7)',
   },
-
   [`& .${classes.label}`]: {
     width: '4.5em',
   },
-
   [`& .${classes.input}`]: {
     paddingBottom: spacing(2.75),
   },
-
   [`& .${classes.radioLabel}`]: {
     fontSize: typography.fontSize + 1,
   },
-
   [`& .${classes.dateEditor}`]: {
     width: 'calc(100% - 4.5em)',
   },
-
   [`& .${classes.formControl}`]: {
     marginRight: 0,
   },
-
   [`& .${classes.controlLabel}`]: {
     width: '100%',
   },

@@ -36,40 +36,32 @@ const StyledRadioGroup = styled(RadioGroup)(({ theme: { spacing } }) => ({
     maxWidth: '12em',
     marginRight: '1em',
   },
-
   [`& .${classes.input}`]: {
     paddingBottom: spacing(2.75),
   },
-
   [`& .${classes.select}`]: {
     width: 'calc((100% - 5.5em) * 3 / 7)',
     maxWidth: '8em',
   },
-
   [`& .${classes.longSelect}`]: {
     width: 'calc((100% - 5.5em) * 4 / 7)',
     minWidth: 'calc(100% - 13.5em)',
     marginLeft: '1em',
   },
-
   [`& .${classes.label}`]: {
     width: '4.5em',
   },
-
   [`& .${classes.longLabel}`]: {
     width: 'calc((100% - 5.5em) * 4 / 7)',
     minWidth: 'calc(100% - 14em)',
   },
-
   [`& .${classes.grid}`]: {
     marginTop: spacing(1),
     marginBottom: spacing(1),
   },
-
   [`& .${classes.formControl}`]: {
     marginRight: 0,
   },
-
   [`& .${classes.controlLabel}`]: {
     width: '100%',
   },

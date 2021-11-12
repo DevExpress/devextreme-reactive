@@ -33,24 +33,20 @@ const StyledDiv = styled('div')(({
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
-
   [`& .${classes.textContainer}`]: {
     lineHeight: 1,
     whiteSpace: 'pre-wrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
-
   [`& .${classes.middleContainer}`]: {
     lineHeight: '0.9!important',
   },
-
   [`& .${classes.time}`]: {
     display: 'inline-block',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
-
   [`&.${classes.content}`]: {
     color: palette.common.white,
     padding: spacing(0.5, 1),
@@ -63,7 +59,6 @@ const StyledDiv = styled('div')(({
       paddingRight: spacing(0.5),
     },
   },
-
   [`&.${classes.shortContent}`]: {
     padding: spacing(0.25, 1),
     [`${SMALL_LAYOUT_MEDIA_QUERY}`]: {
@@ -71,33 +66,26 @@ const StyledDiv = styled('div')(({
       paddingRight: spacing(0.5),
     },
   },
-
   [`& .${classes.shortContainer}`]: {
     display: 'flex',
   },
-
   [`& .${classes.shortTime}`]: {
     textOverflow: 'initial',
     flexShrink: 0,
   },
-
   [`& .${classes.shortTitle}`]: {
     flexShrink: 3,
   },
-
   [`& .${classes.container}`]: {
     width: '100%',
   },
-
   [`& .${classes.recurringContainer}`]: {
     width: `calc(100% - ${spacing(2)})`,
   },
-
   [`& .${classes.imageContainer}`]: {
     width: spacing(2),
     height: spacing(2),
   },
-
   [`& .${classes.image}`]: {
     width: '100%',
     height: '100%',

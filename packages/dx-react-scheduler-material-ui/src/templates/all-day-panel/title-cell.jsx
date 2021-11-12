@@ -24,7 +24,6 @@ const StyledDiv = styled('div')(({ theme }) => ({
     justifyContent: 'flex-end',
     position: 'relative',
   },
-
   [`& .${classes.content}`]: {
     width: theme.spacing(10),
     boxSizing: 'border-box',
@@ -34,13 +33,11 @@ const StyledDiv = styled('div')(({ theme }) => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
-
   [`& .${classes.title}`]: {
     paddingRight: theme.spacing(2),
     ...theme.typography.caption,
     color: theme.palette.text.secondary,
   },
-
   [`&.${classes.fixedHeight}`]: {
     height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL]),
     width: '100%',

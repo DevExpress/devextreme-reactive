@@ -30,17 +30,14 @@ const StyledDiv = styled('div', {
   [`& .${classes.timeScaleContainer}`]: {
     width: theme.spacing(LEFT_PANEL_WIDTH_SPACING - 1),
   },
-
   [`& .${classes.ticks}`]: {
     width: theme.spacing(1),
   },
-
   [`& .${classes.cell}`]: {
     boxSizing: 'border-box',
     padding: 0,
     borderBottom: 'none',
   },
-
   [`& .${classes.verticalCell}`]: {
     borderBottom: getBrightBorder(theme),
     'tr:last-child &': {
@@ -48,7 +45,6 @@ const StyledDiv = styled('div', {
     },
     height: height ? `${height}px` : theme.spacing(defaultHeight),
   },
-
   [`&.${classes.flexRow}`]: {
     display: 'flex',
     flexDirection: 'row',

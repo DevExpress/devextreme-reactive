@@ -27,7 +27,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     textAlign: 'center',
     boxSizing: 'border-box',
   },
-
   [`& .${classes.dayOfWeek}`]: {
     ...theme.typography.caption,
     margin: 0,
@@ -36,7 +35,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     color: theme.palette.text.secondary,
     fontWeight: 'bold',
   },
-
   [`&.${classes.brightRightBorder}`]: {
     borderRight: getBrightBorder(theme),
     '&:last-child': {

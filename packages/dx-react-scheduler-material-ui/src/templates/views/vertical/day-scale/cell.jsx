@@ -37,14 +37,12 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
     paddingTop: theme.spacing(0.5),
   },
-
   [`& .${classes.dayOfWeek}`]: {
     ...theme.typography.caption,
     margin: 0,
     color: theme.palette.text.secondary,
     lineHeight: 1.17,
   },
-
   [`& .${classes.dayOfMonth}`]: {
     ...theme.typography.h4,
     [`${LAYOUT_MEDIA_QUERY}`]: {
@@ -54,12 +52,10 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     lineHeight: 1.2,
     fontSize: '1.8rem',
   },
-
   [`& .${classes.highlightedText}`]: {
     color: theme.palette.primary.main,
     fontWeight: 'bold',
   },
-
   [`& .${classes.dayView}`]: {
     'td:only-child &': {
       textAlign: 'center',
@@ -67,7 +63,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
       display: 'inline-block',
     },
   },
-
   [`&.${classes.brightRightBorder}`]: {
     borderRight: getBrightBorder(theme),
     '&:last-child': {

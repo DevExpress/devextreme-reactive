@@ -18,7 +18,6 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
   },
-
   [`&.${classes.titleLabel}`]: {
     fontWeight: theme.typography.fontWeightBold,
     fontSize: theme.typography.fontSize + 5,

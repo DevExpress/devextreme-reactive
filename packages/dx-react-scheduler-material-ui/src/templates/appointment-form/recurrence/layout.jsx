@@ -46,7 +46,6 @@ const StyledDiv = styled('div')(({ theme: { spacing } }) => ({
       maxHeight: 0,
     },
   },
-
   [`&.${classes.visible}`]: {
     maxWidth: '500px',
     width: '500px',
@@ -71,30 +70,24 @@ const StyledDiv = styled('div')(({ theme: { spacing } }) => ({
       width: '440px',
     },
   },
-
   [`&.${classes.invisible}`]: {
     maxHeight: 0,
     '@media (min-width: 700px)': {
       maxHeight: '500px',
     },
   },
-
   [`& .${classes.label}`]: {
     width: '8em',
   },
-
   [`& .${classes.repeatLabel}`]: {
     marginBottom: spacing(0.375),
   },
-
   [`& .${classes.radioGroup}`]: {
     marginTop: spacing(0.5),
   },
-
   [`& .${classes.endRepeatLabel}`]: {
     marginTop: spacing(2),
   },
-
   [`& .${classes.select}`]: {
     height: '3.8em',
   },

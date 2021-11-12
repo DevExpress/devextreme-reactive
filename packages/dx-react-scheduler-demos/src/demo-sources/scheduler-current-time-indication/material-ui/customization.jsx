@@ -12,7 +12,7 @@ import classNames from 'clsx';
 
 import appointments from '../../../demo-data/today-appointments';
 
-const PREFIX = 'customization';
+const PREFIX = 'Demo';
 
 const classes = {
   line: `${PREFIX}-line`,
@@ -31,7 +31,6 @@ const StyledDiv = styled('div')(({ theme }) => ({
     width: '100%',
     transform: 'translate(0, -1px)',
   },
-
   [`& .${classes.circle}`]: {
     width: theme.spacing(1.5),
     height: theme.spacing(1.5),
@@ -39,7 +38,6 @@ const StyledDiv = styled('div')(({ theme }) => ({
     transform: 'translate(-50%, -50%)',
     background: theme.palette.primary.main,
   },
-
   [`& .${classes.nowIndicator}`]: {
     position: 'absolute',
     zIndex: 1,

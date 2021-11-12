@@ -27,7 +27,6 @@ const StyledAppointment = styled(Appointment)(({ theme }) => ({
     ),
     border: 0,
   },
-
   [`& .${classes.shadedAppointment}`]: {
     backgroundColor: resources => getAppointmentColor(
       400, getResourceColor(resources), theme.palette.primary,
@@ -45,7 +44,6 @@ const draftStyles = makeStyles(({ theme }) => ({
     ),
     border: 0,
   },
-
   [`& .${classes.shadedAppointment}`]: {
     backgroundColor: resources => getAppointmentColor(
       400, getResourceColor(resources), theme.palette.primary,

@@ -19,7 +19,6 @@ const StyledTextField = styled(TextField)(({
     marginTop: spacing(0.375),
     marginBottom: spacing(0.125),
   },
-
   [`& .${classes.menuItem}`]: {
     fontSize: typography.fontSize,
     textTransform: 'uppercase',

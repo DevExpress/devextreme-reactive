@@ -19,11 +19,9 @@ export const classes = {
 
 const StyledDiv = styled('div')(({ theme: { typography } }) => ({
   [`& .${classes.title}`]: typography.h6,
-
   [`& .${classes.content}`]: {
     fontSize: '1rem',
   },
-
   [`& .${classes.media}`]: {
     title: {
       fontSize: '1.1rem',

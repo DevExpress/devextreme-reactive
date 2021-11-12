@@ -47,7 +47,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
     boxSizing: 'border-box',
   },
-
   [`& .${classes.text}`]: {
     padding: '1em',
     paddingTop: '0.5em',
@@ -56,7 +55,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
       padding: '0.5em',
     },
   },
-
   [`& .${classes.today}`]: {
     marginTop: '0.33em',
     width: '1.72em',
@@ -70,11 +68,9 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     marginRight: 'auto',
     marginLeft: 'auto',
   },
-
   [`& .${classes.otherMonth}`]: {
     color: theme.palette.text.disabled,
   },
-
   [`&.${classes.shadedCell}`]: {
     backgroundColor: alpha(theme.palette.action.disabledBackground, 0.04),
     '&:hover': {
@@ -85,14 +81,12 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
       outline: 0,
     },
   },
-
   [`&.${classes.brightRightBorder}`]: {
     borderRight: getBrightBorder(theme),
     '&:last-child': {
       borderRight: 'none',
     },
   },
-
   [`&.${classes.brightBorderBottom}`]: {
     borderBottom: getBrightBorder(theme),
   },

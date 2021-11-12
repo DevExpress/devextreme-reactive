@@ -23,7 +23,6 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
     marginTop: theme.spacing(0.375),
     marginBottom: theme.spacing(0.125),
   },
-
   [`& .${classes.title}`]: {
     ...theme.typography.h6,
   },

@@ -11,7 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 import appointments from '../../../demo-data/today-appointments';
 
-const PREFIX = 'Appointment';
+const PREFIX = 'Demo';
 
 const classes = {
   button: `${PREFIX}-button`,
@@ -23,7 +23,6 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
     color: theme.palette.background.default,
     padding: 0,
   },
-
   [`& .${classes.text}`]: {
     paddingTop: theme.spacing(1),
     overflow: 'hidden',

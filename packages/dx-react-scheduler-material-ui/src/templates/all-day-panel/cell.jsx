@@ -36,7 +36,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
       borderBottom: 'none',
     },
   },
-
   [`&.${classes.brightRightBorder}`]: {
     borderRight: getBrightBorder(theme),
   },

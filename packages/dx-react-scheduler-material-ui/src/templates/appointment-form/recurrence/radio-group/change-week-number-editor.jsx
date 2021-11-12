@@ -23,38 +23,31 @@ const StyledDiv = styled('div')(({ theme: { spacing } }) => ({
   [`& .${classes.label}`]: {
     width: '4.5em',
   },
-
   [`& .${classes.select}`]: {
     width: 'calc((100% - 5.5em) * 3 / 7)',
     maxWidth: '8em',
   },
-
   [`& .${classes.longSelect}`]: {
     width: 'calc((100% - 5.5em) * 4 / 7)',
     minWidth: 'calc(100% - 13.5em)',
     marginLeft: '1em',
   },
-
   [`& .${classes.formControlLabel}`]: {
     alignItems: 'flex-start',
   },
-
   [`& .${classes.formControl}`]: {
     marginRight: 0,
     marginTop: spacing(1),
     marginBottom: spacing(1),
   },
-
   [`& .${classes.doubleSelect}`]: {
     marginLeft: '4.5em',
     width: 'calc(100% - 4.5em)',
     marginTop: spacing(1),
   },
-
   [`& .${classes.radioButton}`]: {
     marginTop: spacing(0.75),
   },
-
   [`& .${classes.controlLabel}`]: {
     width: '100%',
   },

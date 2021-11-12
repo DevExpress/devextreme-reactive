@@ -32,11 +32,9 @@ const StyledGrid = styled(Grid)(({
     transition: `all ${TRANSITIONS_TIME}ms cubic-bezier(0, 0, 0.2, 1)`,
     backgroundColor: palette.background.paper,
   },
-
   [`&.${classes.basic}`]: {
     width: '650px',
   },
-
   [`&.${classes.fullSize}`]: {
     width: '1150px',
     '@media (min-width: 700px) and (max-width: 850px)': {
@@ -49,7 +47,6 @@ const StyledGrid = styled(Grid)(({
       width: '1000px',
     },
   },
-
   [`& .${classes.media}`]: {
     basic: {
       maxWidth: '700px',
@@ -63,7 +60,6 @@ const StyledGrid = styled(Grid)(({
       width: '100%',
     },
   },
-
   [`& .${classes.line}`]: {
     backgroundColor: palette.action.disabledBackground,
     height: spacing(4.5),

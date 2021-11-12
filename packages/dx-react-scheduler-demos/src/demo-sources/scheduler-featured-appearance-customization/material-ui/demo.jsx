@@ -55,7 +55,7 @@ const getIconById = (id) => {
   return PriorityHigh;
 };
 
-const PREFIX = 'demo';
+const PREFIX = 'Demo';
 // #FOLD_BLOCK
 const classes = {
   flexibleSpace: `${PREFIX}-flexibleSpace`,

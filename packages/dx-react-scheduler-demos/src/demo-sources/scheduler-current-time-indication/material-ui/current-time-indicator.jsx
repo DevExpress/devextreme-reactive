@@ -19,20 +19,19 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import appointments from '../../../demo-data/today-appointments';
 
-const PREFIX = 'CheckBoxContainer';
+const PREFIX = 'Demo';
 
 const classes = {
   checkBoxContainer: `${PREFIX}-checkBoxContainer`,
   textField: `${PREFIX}-textField`,
 };
 
-const StyledDiv = styled('div')(({ theme: { spacing } }) => ({
+const StyledGrid = styled(Grid)(({ theme: { spacing } }) => ({
   [`& .${classes.checkBoxContainer}`]: {
     paddingTop: spacing(1),
     paddingBottom: spacing(1),
     paddingLeft: spacing(4),
   },
-
   [`& .${classes.textField}`]: {
     marginRight: spacing(4),
     marginLeft: spacing(1),
@@ -72,7 +71,7 @@ const CheckBoxContainer = (({
   shadePreviousCells, shadePreviousAppointments, handleCheckboxChange,
   // #FOLD_BLOCK
 }) => (
-  <Grid item container direction="column" className={classes.checkBoxContainer} xs={6}>
+  <StyledGrid item container direction="column" className={classes.checkBoxContainer} xs={6}>
     <ShadeCellsCheckBox
       shadePreviousCells={shadePreviousCells}
       handleChange={handleCheckboxChange}
@@ -81,7 +80,7 @@ const CheckBoxContainer = (({
       shadePreviousAppointments={shadePreviousAppointments}
       handleChange={handleCheckboxChange}
     />
-  </Grid>
+  </StyledGrid>
 ));
 
 // #FOLD_BLOCK
@@ -89,7 +88,7 @@ const UpdateIntervalBox = (({
   updateInterval, onValueChange,
   // #FOLD_BLOCK
 }) => (
-  <Grid item container xs={6} alignItems="center" justifyContent="flex-end">
+  <StyledGrid item container xs={6} alignItems="center" justifyContent="flex-end">
     <Typography>
       Update every:
     </Typography>
@@ -103,7 +102,7 @@ const UpdateIntervalBox = (({
         endAdornment: <InputAdornment position="end">s</InputAdornment>,
       }}
     />
-  </Grid>
+  </StyledGrid>
 ));
 
 export default class Demo extends React.PureComponent {
@@ -159,7 +158,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <StyledDiv>
+      <React.Fragment>
         <Grid container>
           <CheckBoxContainer
             shadePreviousCells={shadePreviousCells}
@@ -196,7 +195,7 @@ export default class Demo extends React.PureComponent {
             />
           </Scheduler>
         </Paper>
-      </StyledDiv>
+      </React.Fragment>
     );
   }
 }

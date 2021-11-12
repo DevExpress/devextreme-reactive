@@ -21,7 +21,6 @@ const StyledDiv = styled('div')(({
     paddingTop: spacing(0.25),
     minHeight: spacing(1.5),
   },
-
   [`& .${classes.line}`]: {
     backgroundColor: palette.action.disabledBackground,
     height: spacing(3.5),
@@ -30,7 +29,6 @@ const StyledDiv = styled('div')(({
     marginTop: spacing(1.25),
     width: '1px',
   },
-
   [`&.${classes.flexContainer}`]: {
     display: 'flex',
     flexDirection: 'row',

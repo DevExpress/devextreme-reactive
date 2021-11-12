@@ -31,11 +31,9 @@ const StyledButtonGroup = styled(ButtonGroup)(({ theme: { palette, spacing } }) 
     },
     color: ensureColor(50, palette.primary),
   },
-
   [`& .${classes.button}`]: {
     minWidth: spacing(3),
   },
-
   [`&.${classes.buttonGroup}`]: {
     marginBottom: spacing(2),
   },

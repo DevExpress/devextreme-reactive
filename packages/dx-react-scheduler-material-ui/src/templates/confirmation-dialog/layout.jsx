@@ -16,7 +16,6 @@ const StyledDiv = styled('div')(({ theme: { typography } }) => ({
   [`& .${classes.title}`]: {
     ...typography.h6,
   },
-
   [`& .${classes.media}`]: {
     title: {
       fontSize: '1.1rem',

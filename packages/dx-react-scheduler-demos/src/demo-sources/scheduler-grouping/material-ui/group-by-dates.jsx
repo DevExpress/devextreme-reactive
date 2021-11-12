@@ -22,7 +22,7 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { data as appointments } from '../../../demo-data/grouping';
 
-const PREFIX = 'ResourceSwitcher';
+const PREFIX = 'Demo';
 
 const classes = {
   formControlLabel: `${PREFIX}-formControlLabel`,
@@ -36,7 +36,6 @@ const StyledFormControlLabel = styled(FormControlLabel)(({
     padding: spacing(2),
     paddingLeft: spacing(10),
   },
-
   [`& .${classes.text}`]: {
     ...typography.caption,
     color: palette.text.secondary,

@@ -41,11 +41,9 @@ const StyledDiv = styled('div')(({
       outline: 0,
     },
   },
-
   [`&.${classes.clickableAppointment}`]: {
     cursor: 'pointer',
   },
-
   [`&.${classes.shadedAppointment}`]: {
     backgroundColor: getAppointmentColor(
       200, getResourceColor(resources), palette.primary,

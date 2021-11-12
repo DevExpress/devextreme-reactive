@@ -17,14 +17,12 @@ const StyledDiv = styled('div')(({ theme, topValue }) => ({
     width: '100%',
     transform: 'translate(0, -1px)',
   },
-
   [`& .${classes.circle}`]: {
     width: theme.spacing(1.5),
     height: theme.spacing(1.5),
     borderRadius: '50%',
     transform: 'translate(-50%, -50%)',
   },
-
   [`& .${classes.nowIndicator}`]: {
     position: 'absolute',
     left: 0,

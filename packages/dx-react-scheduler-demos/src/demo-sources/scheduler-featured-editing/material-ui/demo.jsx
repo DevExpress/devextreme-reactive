@@ -39,7 +39,7 @@ import Create from '@mui/icons-material/Create';
 
 import { appointments } from '../../../demo-data/appointments';
 
-const PREFIX = 'AppointmentFormContainer';
+const PREFIX = 'Demo';
 
 const classes = {
   container: `${PREFIX}-container`,
@@ -61,31 +61,25 @@ const StyledAppointmentFormOverlay = styled(AppointmentForm.Overlay)(({ theme })
     padding: 0,
     paddingBottom: theme.spacing(2),
   },
-
   [`& .${classes.content}`]: {
     padding: theme.spacing(2),
     paddingTop: 0,
   },
-
   [`& .${classes.header}`]: {
     overflow: 'hidden',
     paddingTop: theme.spacing(0.5),
   },
-
   [`& .${classes.closeButton}`]: {
     float: 'right',
   },
-
   [`& .${classes.buttonGroup}`]: {
     display: 'flex',
     justifyContent: 'flex-end',
     padding: theme.spacing(0, 2),
   },
-
   [`& .${classes.button}`]: {
     marginLeft: theme.spacing(2),
   },
-
   [`& .${classes.picker}`]: {
     marginRight: theme.spacing(2),
     '&:last-child': {
@@ -93,18 +87,15 @@ const StyledAppointmentFormOverlay = styled(AppointmentForm.Overlay)(({ theme })
     },
     width: '50%',
   },
-
   [`& .${classes.wrapper}`]: {
     display: 'flex',
     justifyContent: 'space-between',
     padding: theme.spacing(1, 0),
   },
-
   [`& .${classes.icon}`]: {
     margin: theme.spacing(2, 0),
     marginRight: theme.spacing(2),
   },
-
   [`& .${classes.textField}`]: {
     width: '100%',
   },

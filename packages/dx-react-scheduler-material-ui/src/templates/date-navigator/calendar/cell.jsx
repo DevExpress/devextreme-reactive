@@ -26,11 +26,9 @@ const StyledTableCell = styled(TableCell)(({ theme: { palette, spacing } }) => (
       padding: 0,
     },
   },
-
   [`&.${classes.otherMonth}`]: {
     color: palette.text.disabled,
   },
-
   [`& .${classes.selected}`]: {
     background: palette.primary.main,
     color: palette.primary.contrastText,
@@ -40,7 +38,6 @@ const StyledTableCell = styled(TableCell)(({ theme: { palette, spacing } }) => (
     borderRadius: '50%',
     cursor: 'default',
   },
-
   [`& .${classes.today}`]: {
     color: palette.primary.main,
     fontWeight: 'bold',

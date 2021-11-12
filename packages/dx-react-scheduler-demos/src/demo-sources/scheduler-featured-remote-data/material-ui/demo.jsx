@@ -18,7 +18,7 @@ import {
   TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
-const PREFIX = 'Toolbar';
+const PREFIX = 'Demo';
 
 const classes = {
   toolbarRoot: `${PREFIX}-toolbarRoot`,

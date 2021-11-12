@@ -26,14 +26,12 @@ const StyledDiv = styled('div')(({ theme }) => ({
     paddingLeft: theme.spacing(0.25),
     paddingRight: theme.spacing(1),
   },
-
   [`& .${classes.text}`]: {
     ...theme.typography.caption,
     fontSize: '0.7rem',
     whiteSpace: 'nowrap',
     color: theme.palette.text.secondary,
   },
-
   [`&.${classes.emptyLabel}`]: {
     height: theme.spacing(SPACING_LABEL_HEIGHT / 2),
     '&:last-child': {

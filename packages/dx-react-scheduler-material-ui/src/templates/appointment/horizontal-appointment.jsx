@@ -20,7 +20,6 @@ const StyledDiv = styled('div')(({ theme: { palette, spacing } }) => ({
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
-
   [`&.${classes.content}`]: {
     color: palette.common.white,
     padding: spacing(0.5),
@@ -31,20 +30,16 @@ const StyledDiv = styled('div')(({ theme: { palette, spacing } }) => ({
     whiteSpace: 'nowrap',
     display: 'flex',
   },
-
   [`& .${classes.container}`]: {
     width: '100%',
   },
-
   [`& .${classes.recurringContainer}`]: {
     width: `calc(100% - ${spacing(2)})`,
   },
-
   [`& .${classes.imageContainer}`]: {
     width: spacing(2),
     height: spacing(2),
   },
-
   [`& .${classes.image}`]: {
     width: '100%',
     height: '100%',

@@ -25,7 +25,7 @@ import Opacity from '@mui/icons-material/Opacity';
 import ColorLens from '@mui/icons-material/ColorLens';
 import { owners } from '../../../demo-data/tasks';
 
-const PREFIX = 'Cell';
+const PREFIX = 'Demo';
 
 const classes = {
   cell: `${PREFIX}-cell`,
@@ -89,7 +89,6 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
       outline: 0,
     },
   },
-
   [`& .${classes.content}`]: {
     display: 'flex',
     justifyContent: 'center',
@@ -98,63 +97,50 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
     position: 'absolute',
     alignItems: 'center',
   },
-
   [`& .${classes.text}`]: {
     padding: '0.5em',
     textAlign: 'center',
   },
-
   [`& .${classes.sun}`]: {
     color: '#FFEE58',
   },
-
   [`& .${classes.cloud}`]: {
     color: '#90A4AE',
   },
-
   [`& .${classes.rain}`]: {
     color: '#4FC3F7',
   },
-
   [`& .${classes.sunBack}`]: {
     backgroundColor: '#FFFDE7',
   },
-
   [`& .${classes.cloudBack}`]: {
     backgroundColor: '#ECEFF1',
   },
-
   [`& .${classes.rainBack}`]: {
     backgroundColor: '#E1F5FE',
   },
-
   [`& .${classes.opacity}`]: {
     opacity: '0.5',
   },
-
   [`& .${classes.appointment}`]: {
     borderRadius: '10px',
     '&:hover': {
       opacity: 0.6,
     },
   },
-
   [`& .${classes.apptContent}`]: {
     '&>div>div': {
       whiteSpace: 'normal !important',
       lineHeight: 1.2,
     },
   },
-
   [`& .${classes.flexibleSpace}`]: {
     flex: 'none',
   },
-
   [`& .${classes.flexContainer}`]: {
     display: 'flex',
     alignItems: 'center',
   },
-
   [`& .${classes.tooltipContent}`]: {
     padding: theme.spacing(3, 1),
     paddingTop: 0,
@@ -162,12 +148,10 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
     boxSizing: 'border-box',
     width: '400px',
   },
-
   [`& .${classes.tooltipText}`]: {
     ...theme.typography.body2,
     display: 'inline-block',
   },
-
   [`& .${classes.title}`]: {
     ...theme.typography.h6,
     color: theme.palette.text.secondary,
@@ -176,30 +160,24 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
-
   [`& .${classes.icon}`]: {
     color: theme.palette.action.active,
     verticalAlign: 'middle',
   },
-
   [`& .${classes.circle}`]: {
     width: theme.spacing(4.5),
     height: theme.spacing(4.5),
     verticalAlign: 'super',
   },
-
   [`& .${classes.textCenter}`]: {
     textAlign: 'center',
   },
-
   [`& .${classes.dateAndTitle}`]: {
     lineHeight: 1.1,
   },
-
   [`& .${classes.titleContainer}`]: {
     paddingBottom: theme.spacing(2),
   },
-
   [`& .${classes.container}`]: {
     paddingBottom: theme.spacing(1.5),
   },

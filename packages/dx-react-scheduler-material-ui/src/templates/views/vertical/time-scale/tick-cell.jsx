@@ -25,11 +25,9 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
       borderBottom: 'none',
     },
   },
-
   [`& .${classes.brightBottomBorder}`]: {
     borderBottom: getBrightBorder(theme),
   },
-
   [`& .${classes.allDayCell}`]: {
     height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL]),
   },

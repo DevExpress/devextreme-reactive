@@ -20,7 +20,6 @@ const StyledOutlinedSelect = styled(OutlinedSelect)(({ theme: { spacing } }) => 
       fontSize: '0.75rem',
     },
   },
-
   [`& .${classes.inputRoot}`]: {
     marginLeft: spacing(0.5),
     '&:first-of-type': {

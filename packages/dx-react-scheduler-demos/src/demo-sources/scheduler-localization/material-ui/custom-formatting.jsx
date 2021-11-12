@@ -11,7 +11,7 @@ import {
 
 import { appointments } from '../../../demo-data/appointments';
 
-const PREFIX = 'custom-formatting';
+const PREFIX = 'Demo';
 
 const classes = {
   dayScaleCell: `${PREFIX}-dayScaleCell`,

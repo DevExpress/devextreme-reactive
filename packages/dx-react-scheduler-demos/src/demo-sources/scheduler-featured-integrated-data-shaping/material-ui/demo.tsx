@@ -9,7 +9,7 @@ import { indigo, blue, teal } from '@mui/material/colors';
 import Paper from '@mui/material/Paper';
 import classNames from 'clsx';
 
-const PREFIX = 'demo';
+const PREFIX = 'Demo';
 
 const classes = {
   appointment: `${PREFIX}-appointment`,
@@ -28,19 +28,15 @@ const StyledPaper = styled(Paper)(({ theme: { palette } }) => ({
     borderRadius: 0,
     borderBottom: 0,
   },
-
   [`& .${classes.highPriorityAppointment}`]: {
     borderLeft: `4px solid ${teal[500]}`,
   },
-
   [`& .${classes.mediumPriorityAppointment}`]: {
     borderLeft: `4px solid ${blue[500]}`,
   },
-
   [`& .${classes.lowPriorityAppointment}`]: {
     borderLeft: `4px solid ${indigo[500]}`,
   },
-
   [`& .${classes.weekEndCell}`]: {
     backgroundColor: alpha(palette.action.disabledBackground, 0.04),
     '&:hover': {
@@ -50,21 +46,17 @@ const StyledPaper = styled(Paper)(({ theme: { palette } }) => ({
       backgroundColor: alpha(palette.action.disabledBackground, 0.04),
     },
   },
-
   [`& .${classes.weekEndDayScaleCell}`]: {
     backgroundColor: alpha(palette.action.disabledBackground, 0.06),
   },
-
   [`& .${classes.text}`]: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
-
   [`& .${classes.content}`]: {
     opacity: 0.7,
   },
-
   [`& .${classes.container}`]: {
     width: '100%',
     lineHeight: 1.2,

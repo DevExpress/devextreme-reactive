@@ -15,7 +15,7 @@ import classNames from 'clsx';
 
 import appointments from '../../../demo-data/today-appointments';
 
-const PREFIX = 'Header';
+const PREFIX = 'Demo';
 
 const classes = {
   icon: `${PREFIX}-icon`,
@@ -31,15 +31,12 @@ const StyledAppointmentTooltipHeader = styled(AppointmentTooltip.Header)(() => (
   [`& .${classes.firstRoom}`]: {
     background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/Lobby-4.jpg)',
   },
-
   [`& .${classes.secondRoom}`]: {
     background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-4.jpg)',
   },
-
   [`& .${classes.thirdRoom}`]: {
     background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-0.jpg)',
   },
-
   [`& .${classes.header}`]: {
     height: '260px',
     backgroundSize: 'cover',

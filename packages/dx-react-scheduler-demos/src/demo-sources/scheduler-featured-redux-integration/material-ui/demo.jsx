@@ -34,7 +34,7 @@ const resources = [{
   ],
 }];
 
-const PREFIX = 'AppointmentContent';
+const PREFIX = 'Demo';
 // #FOLD_BLOCK
 const classes = {
   flexibleSpace: `${PREFIX}-flexibleSpace`,
@@ -60,7 +60,6 @@ const StyledAppointmentsAppointmentContent = styled(Appointments.AppointmentCont
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
-
   [`&.${classes.textContainer}`]: {
     lineHeight: 1,
     whiteSpace: 'pre-wrap',
@@ -68,19 +67,16 @@ const StyledAppointmentsAppointmentContent = styled(Appointments.AppointmentCont
     textOverflow: 'ellipsis',
     width: '100%',
   },
-
   [`& .${classes.time}`]: {
     display: 'inline-block',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
-
   [`& .${classes.text}`]: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
-
   [`& .${classes.container}`]: {
     width: '100%',
   },

@@ -12,7 +12,7 @@ import {
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
-const PREFIX = 'ResourceSwitcher';
+const PREFIX = 'Demo';
 
 const classes = {
   container: `${PREFIX}-container`,
@@ -25,7 +25,6 @@ const StyledDiv = styled('div')(({ theme }) => ({
     marginBottom: theme.spacing(2),
     justifyContent: 'flex-end',
   },
-
   [`& .${classes.text}`]: {
     ...theme.typography.h6,
     marginRight: theme.spacing(2),

@@ -36,11 +36,9 @@ const StyledDiv = styled('div')(({
     boxSizing: 'border-box',
     ...typography.body2,
   },
-
   [`& .${classes.text}`]: {
     display: 'inline-block',
   },
-
   [`& .${classes.title}`]: {
     ...typography.h6,
     color: palette.text.secondary,
@@ -48,12 +46,10 @@ const StyledDiv = styled('div')(({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
-
   [`& .${classes.icon}`]: {
     verticalAlign: 'middle',
     color: palette.action.active,
   },
-
   [`& .${classes.lens}`]: {
     color: resources => getAppointmentColor(300, getResourceColor(resources), palette.primary),
     width: spacing(4.5),
@@ -63,33 +59,26 @@ const StyledDiv = styled('div')(({
     left: '50%',
     transform: 'translate(-50%,0)',
   },
-
   [`& .${classes.lensMini}`]: {
     width: spacing(2.5),
     height: spacing(2.5),
   },
-
   [`& .${classes.textCenter}`]: {
     textAlign: 'center',
     height: spacing(2.5),
   },
-
   [`& .${classes.dateAndTitle}`]: {
     lineHeight: 1.4,
   },
-
   [`& .${classes.titleContainer}`]: {
     paddingBottom: spacing(2),
   },
-
   [`& .${classes.contentContainer}`]: {
     paddingBottom: spacing(1.5),
   },
-
   [`& .${classes.resourceContainer}`]: {
     paddingBottom: spacing(0.25),
   },
-
   [`& .${classes.recurringIcon}`]: {
     position: 'absolute',
     paddingTop: spacing(0.875),
@@ -99,7 +88,6 @@ const StyledDiv = styled('div')(({
     width: spacing(2.625),
     height: spacing(2.625),
   },
-
   [`& .${classes.relativeContainer}`]: {
     position: 'relative',
     width: '100%',

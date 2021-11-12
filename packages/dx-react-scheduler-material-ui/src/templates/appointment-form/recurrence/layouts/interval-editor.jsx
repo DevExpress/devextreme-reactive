@@ -18,16 +18,13 @@ const StyledGrid = styled(Grid)(({ theme: { spacing } }) => ({
   [`&.${classes.grid}`]: {
     marginTop: spacing(1.75),
   },
-
   [`& .${classes.label}`]: {
     width: '6.5em',
   },
-
   [`& .${classes.labelWithMargin}`]: {
     marginLeft: '1em',
     width: 'calc((100% - 7.5em) * 4 / 7)',
   },
-
   [`& .${classes.textEditor}`]: {
     width: 'calc((100% - 7.5em) * 3 / 7)',
     maxWidth: '8em',

@@ -23,22 +23,18 @@ const StyledGrid = styled(Grid)(({ theme: { spacing } }) => ({
     minWidth: 'calc(100% - 13.5em)',
     marginLeft: '1em',
   },
-
   [`& .${classes.label}`]: {
     width: '4.5em',
   },
-
   [`& .${classes.select}`]: {
     width: 'calc((100% - 5.5em) * 3 / 7)',
     maxWidth: '8em',
   },
-
   [`& .${classes.formControl}`]: {
     marginRight: 0,
     marginTop: spacing(1),
     marginBottom: spacing(1),
   },
-
   [`& .${classes.controlLabel}`]: {
     width: '100%',
   },

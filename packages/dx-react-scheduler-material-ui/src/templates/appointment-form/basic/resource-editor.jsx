@@ -23,34 +23,28 @@ const StyledTextField = styled(TextField)(({ theme: { spacing } }) => ({
   [`& .${classes.select}`]: {
     padding: spacing(1),
   },
-
   [`&.${classes.selectBox}`]: {
     minHeight: spacing(6.5),
     width: '100%',
   },
-
   [`& .${classes.chips}`]: {
     display: 'flex',
     flexWrap: 'wrap',
   },
-
   [`& .${classes.chip}`]: {
     color: 'white',
     margin: 2,
   },
-
   [`& .${classes.resourceCircle}`]: {
     height: spacing(2),
     width: spacing(2),
     borderRadius: '50%',
     marginRight: spacing(1),
   },
-
   [`& .${classes.itemContainer}`]: {
     display: 'flex',
     padding: spacing(0.75),
   },
-
   [`& .${classes.circleContainer}`]: {
     display: 'flex',
     alignItems: 'center',

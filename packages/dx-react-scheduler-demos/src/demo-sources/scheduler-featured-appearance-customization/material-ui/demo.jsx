@@ -56,7 +56,7 @@ const getIconById = (id) => {
 };
 
 const PREFIX = 'demo';
-
+// #FOLD_BLOCK
 const classes = {
   flexibleSpace: `${PREFIX}-flexibleSpace`,
   prioritySelector: `${PREFIX}-prioritySelector`,
@@ -84,7 +84,7 @@ const classes = {
   headerCellMediumPriority: `${PREFIX}-headerCellMediumPriority`,
   headerCellHighPriority: `${PREFIX}-headerCellHighPriority`,
 };
-
+// #FOLD_BLOCK
 const stylesByPriority = priorities.reduce((acc, priority) => ({
   ...acc,
   [`cell${priority.text.replace(' ', '')}`]: {
@@ -106,7 +106,7 @@ const stylesByPriority = priorities.reduce((acc, priority) => ({
     },
   },
 }), {});
-
+// #FOLD_BLOCK
 const groupingStyles = ({ theme }) => ({
   [`&.${classes.cellLowPriority}`]: stylesByPriority.cellLowPriority,
   [`&.${classes.cellMediumPriority}`]: stylesByPriority.cellMediumPriority,
@@ -161,7 +161,7 @@ const StyledPrioritySelectorItem = styled('div')(({ theme: { palette, spacing },
     },
   },
 }));
-
+// #FOLD_BLOCK
 const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(
   ({ theme: { palette, spacing }, color }) => ({
     [`& .${classes.bullet}`]: {

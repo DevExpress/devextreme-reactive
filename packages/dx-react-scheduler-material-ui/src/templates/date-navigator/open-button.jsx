@@ -15,14 +15,16 @@ export const classes = {
 };
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const StyledDiv = styled('div')(({ theme: { spacing } }) => ({
-  [`& .${classes.textButton}`]: {
+const StyledButton = styled(Button)(() => ({
+  [`&.${classes.textButton}`]: {
     [`${LAYOUT_MEDIA_QUERY}`]: {
       display: 'none',
     },
   },
+}));
 
-  [`& .${classes.iconButton}`]: {
+const StyledIconButton = styled(IconButton)(({ theme: { spacing } }) => ({
+  [`&.${classes.iconButton}`]: {
     '@media (min-width: 700px)': {
       display: 'none',
     },
@@ -37,23 +39,23 @@ const StyledDiv = styled('div')(({ theme: { spacing } }) => ({
 const OpenButtonBase = React.memo(({
   text, onVisibilityToggle, className, ...restProps
 }) => (
-  <StyledDiv>
-    <Button
+  <React.Fragment>
+    <StyledButton
       onClick={onVisibilityToggle}
       className={classNames(classes.textButton, className)}
       {...restProps}
     >
       {text}
-    </Button>
-    <IconButton
+    </StyledButton>
+    <StyledIconButton
       onClick={onVisibilityToggle}
       className={classNames(classes.iconButton, className)}
       {...restProps}
       size="large"
     >
       <CalendarToday />
-    </IconButton>
-  </StyledDiv>
+    </StyledIconButton>
+  </React.Fragment>
 ));
 
 OpenButtonBase.propTypes = {

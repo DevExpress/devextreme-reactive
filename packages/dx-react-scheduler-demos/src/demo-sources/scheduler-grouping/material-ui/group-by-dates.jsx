@@ -32,7 +32,7 @@ const classes = {
 const StyledFormControlLabel = styled(FormControlLabel)(({
   theme: { spacing, palette, typography },
 }) => ({
-  [`& .${classes.formControlLabel}`]: {
+  [`&.${classes.formControlLabel}`]: {
     padding: spacing(2),
     paddingLeft: spacing(10),
   },

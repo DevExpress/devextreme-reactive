@@ -54,7 +54,7 @@ const useGroupingStyles = (Component, group) => {
         backgroundColor: alpha(color[400], 0.1),
       },
     },
-    [`& .${classes.icon}`]: {
+    [`&.${classes.icon}`]: {
       paddingLeft: theme.spacing(1),
       verticalAlign: 'middle',
     },

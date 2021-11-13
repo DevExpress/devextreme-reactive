@@ -18,8 +18,8 @@ const classes = {
   text: `${PREFIX}-text`,
 };
 
-const StyledPaper = styled(Paper)(({ theme }) => ({
-  [`& .${classes.button}`]: {
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  [`&.${classes.button}`]: {
     color: theme.palette.background.default,
     padding: 0,
   },
@@ -43,7 +43,7 @@ const AppointmentBase = ({
     {...restProps}
   >
     <React.Fragment>
-      <IconButton
+      <StyledIconButton
         className={classes.button}
         onClick={({ target }) => {
           toggleVisibility();
@@ -52,7 +52,7 @@ const AppointmentBase = ({
         size="large"
       >
         <InfoIcon fontSize="small" />
-      </IconButton>
+      </StyledIconButton>
       {children}
     </React.Fragment>
   </Appointments.Appointment>
@@ -100,7 +100,7 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <StyledPaper>
+      <Paper>
         <Scheduler
           data={data}
           height={660}
@@ -122,7 +122,7 @@ export default class Demo extends React.PureComponent {
             onAppointmentMetaChange={this.onAppointmentMetaChange}
           />
         </Scheduler>
-      </StyledPaper>
+      </Paper>
     );
   }
 }

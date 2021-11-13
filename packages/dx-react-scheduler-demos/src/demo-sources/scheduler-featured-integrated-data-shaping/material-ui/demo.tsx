@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import * as React from 'react';import { styled, alpha } from '@mui/material/styles';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler, DayView, Appointments, MonthView, Toolbar,
@@ -23,7 +22,25 @@ const classes = {
   container: `${PREFIX}-container`
 };
 
-const StyledPaper = styled(Paper)(({ theme: { palette } }) => ({
+const StyledMonthViewDayScaleCell = styled(MonthView.DayScaleCell)(({ theme: { palette } }) => ({
+  [`& .${classes.weekEndDayScaleCell}`]: {
+    backgroundColor: alpha(palette.action.disabledBackground, 0.06),
+  },
+}));
+
+const StyledMonthViewTimeTableCell = styled(MonthView.TimeTableCell)(({ theme: { palette } }) => ({
+  [`& .${classes.weekEndCell}`]: {
+    backgroundColor: alpha(palette.action.disabledBackground, 0.04),
+    '&:hover': {
+      backgroundColor: alpha(palette.action.disabledBackground, 0.04),
+    },
+    '&:focus': {
+      backgroundColor: alpha(palette.action.disabledBackground, 0.04),
+    },
+  },
+}));
+
+const StyledAppointmentsAppointment = styled(Appointments.Appointment)(() => ({
   [`& .${classes.appointment}`]: {
     borderRadius: 0,
     borderBottom: 0,
@@ -37,18 +54,9 @@ const StyledPaper = styled(Paper)(({ theme: { palette } }) => ({
   [`& .${classes.lowPriorityAppointment}`]: {
     borderLeft: `4px solid ${indigo[500]}`,
   },
-  [`& .${classes.weekEndCell}`]: {
-    backgroundColor: alpha(palette.action.disabledBackground, 0.04),
-    '&:hover': {
-      backgroundColor: alpha(palette.action.disabledBackground, 0.04),
-    },
-    '&:focus': {
-      backgroundColor: alpha(palette.action.disabledBackground, 0.04),
-    },
-  },
-  [`& .${classes.weekEndDayScaleCell}`]: {
-    backgroundColor: alpha(palette.action.disabledBackground, 0.06),
-  },
+}));
+
+const StyledAppointmentsAppointmentContent = styled(Appointments.AppointmentContent)(({ theme: { palette } }) => ({
   [`& .${classes.text}`]: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -202,7 +210,7 @@ const defaultCurrentDate = new Date(2018, 6, 2, 11, 15);
 const DayScaleCell = (({
   startDate, ...restProps
 }: MonthView.DayScaleCellProps) => (
-  <MonthView.DayScaleCell
+  <StyledMonthViewDayScaleCell
     className={classNames({
       [classes.weekEndDayScaleCell]: isWeekEnd(startDate),
     })}
@@ -214,7 +222,7 @@ const DayScaleCell = (({
 const TimeTableCell = ((
   { startDate,  ...restProps }: MonthView.TimeTableCellProps,
 ) => (
-  <MonthView.TimeTableCell
+  <StyledMonthViewTimeTableCell
     className={classNames({
       [classes.weekEndCell]: isWeekEnd(startDate!),
     })}
@@ -224,7 +232,7 @@ const TimeTableCell = ((
 ));
 
 const Appointment = (({ data, ...restProps }: Appointments.AppointmentProps) => (
-  <Appointments.Appointment
+  <StyledAppointmentsAppointment
     {...restProps}
     className={classNames({
       [classes.highPriorityAppointment]: data.priority === 1,
@@ -245,7 +253,7 @@ const AppointmentContent = (({
   if (data.priority === 2) priority = 'medium';
   if (data.priority === 3) priority = 'high';
   return (
-    <Appointments.AppointmentContent {...restProps} data={data}>
+    <StyledAppointmentsAppointmentContent {...restProps} data={data}>
       <div className={classes.container}>
         <div className={classes.text}>
           {data.title}
@@ -257,12 +265,12 @@ const AppointmentContent = (({
           {`Location: ${data.location}`}
         </div>
       </div>
-    </Appointments.AppointmentContent>
+    </StyledAppointmentsAppointmentContent>
   );
 });
 
 export default () => (
-  <StyledPaper>
+  <Paper>
     <Scheduler
       data={appointments}
     >
@@ -297,5 +305,5 @@ export default () => (
       <ViewSwitcher />
       <TodayButton />
     </Scheduler>
-  </StyledPaper>
+  </Paper>
 );

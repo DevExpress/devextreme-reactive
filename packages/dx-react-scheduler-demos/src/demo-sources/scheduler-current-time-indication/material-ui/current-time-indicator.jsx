@@ -25,20 +25,22 @@ const classes = {
   checkBoxContainer: `${PREFIX}-checkBoxContainer`,
   textField: `${PREFIX}-textField`,
 };
-
+// #FOLD_BLOCK
 const StyledGrid = styled(Grid)(({ theme: { spacing } }) => ({
-  [`& .${classes.checkBoxContainer}`]: {
+  [`&.${classes.checkBoxContainer}`]: {
     paddingTop: spacing(1),
     paddingBottom: spacing(1),
     paddingLeft: spacing(4),
   },
-  [`& .${classes.textField}`]: {
+}));
+// #FOLD_BLOCK
+const StyledTextField = styled(TextField)(({ theme: { spacing } }) => ({
+  [`&.${classes.textField}`]: {
     marginRight: spacing(4),
     marginLeft: spacing(1),
     width: '120px',
   },
 }));
-
 // #FOLD_BLOCK
 const ShadeCellsCheckBox = ({ shadePreviousCells, handleChange }) => (
   <FormControlLabel
@@ -88,11 +90,11 @@ const UpdateIntervalBox = (({
   updateInterval, onValueChange,
   // #FOLD_BLOCK
 }) => (
-  <StyledGrid item container xs={6} alignItems="center" justifyContent="flex-end">
+  <Grid item container xs={6} alignItems="center" justifyContent="flex-end">
     <Typography>
       Update every:
     </Typography>
-    <TextField
+    <StyledTextField
       className={classes.textField}
       variant="outlined"
       onChange={event => onValueChange(event.target.value)}
@@ -102,7 +104,7 @@ const UpdateIntervalBox = (({
         endAdornment: <InputAdornment position="end">s</InputAdornment>,
       }}
     />
-  </StyledGrid>
+  </Grid>
 ));
 
 export default class Demo extends React.PureComponent {

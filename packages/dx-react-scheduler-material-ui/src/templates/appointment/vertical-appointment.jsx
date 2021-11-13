@@ -76,7 +76,7 @@ const StyledDiv = styled('div')(({
   [`& .${classes.shortTitle}`]: {
     flexShrink: 3,
   },
-  [`& .${classes.container}`]: {
+  [`&.${classes.container}`]: {
     width: '100%',
   },
   [`& .${classes.recurringContainer}`]: {

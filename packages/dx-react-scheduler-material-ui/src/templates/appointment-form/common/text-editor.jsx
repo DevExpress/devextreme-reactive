@@ -18,7 +18,7 @@ export const classes = {
 };
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
-  [`& .${classes.editor}`]: {
+  [`&.${classes.editor}`]: {
     width: '100%',
     marginTop: theme.spacing(0.375),
     marginBottom: theme.spacing(0.125),

@@ -5,7 +5,7 @@ import { AUTO_HEIGHT } from '@devexpress/dx-scheduler-core';
 import { ContainerBase, classes } from './common/container';
 
 const StyledContainerBase = styled(ContainerBase)({
-  [`& .${classes.container}`]: {
+  [`&.${classes.container}`]: {
     WebkitOverflowScrolling: 'touch',
     // NOTE: fix sticky positioning in Safari
     width: '100%',

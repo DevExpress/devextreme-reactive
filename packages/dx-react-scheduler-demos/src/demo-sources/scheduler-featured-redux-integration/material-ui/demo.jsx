@@ -101,19 +101,16 @@ const StyledButtonGroup = styled(ButtonGroup)(({
     marginLeft: spacing(1),
     height: spacing(4.875),
   },
-
   [`& .${classes.longButtonText}`]: {
     '@media (max-width: 800px)': {
       display: 'none',
     },
   },
-
   [`& .${classes.shortButtonText}`]: {
     '@media (min-width: 800px)': {
       display: 'none',
     },
   },
-
   [`& .${classes.button}`]: {
     paddingLeft: spacing(1),
     paddingRight: spacing(1),
@@ -123,7 +120,6 @@ const StyledButtonGroup = styled(ButtonGroup)(({
       fontSize: '0.75rem',
     },
   },
-
   [`& .${classes.selectedButton}`]: {
     background: palette.primary[400],
     color: palette.primary[50],

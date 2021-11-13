@@ -12,7 +12,7 @@ export const classes = {
 };
 
 const StyledTypography = styled(Typography)({
-  [`&.${classes.text}`]: {
+  [`& .${classes.text}`]: {
     userSelect: 'none',
     flex: 1,
     textAlign: 'center',

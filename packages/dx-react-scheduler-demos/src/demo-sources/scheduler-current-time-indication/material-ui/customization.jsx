@@ -13,7 +13,7 @@ import classNames from 'clsx';
 import appointments from '../../../demo-data/today-appointments';
 
 const PREFIX = 'Demo';
-
+// #FOLD_BLOCK
 const classes = {
   line: `${PREFIX}-line`,
   circle: `${PREFIX}-circle`,
@@ -23,7 +23,7 @@ const classes = {
   appointment: `${PREFIX}-appointment`,
   shadedAppointment: `${PREFIX}-shadedAppointment`,
 };
-
+// #FOLD_BLOCK
 const StyledDiv = styled('div')(({ theme }) => ({
   [`& .${classes.line}`]: {
     height: '2px',
@@ -45,9 +45,8 @@ const StyledDiv = styled('div')(({ theme }) => ({
     top: ({ top }) => top,
   },
 }));
-
+// #FOLD_BLOCK
 const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(({ theme }) => ({
-
   [`& .${classes.shadedCell}`]: {
     backgroundColor: alpha(theme.palette.primary.main, 0.08),
     '&:hover': {
@@ -58,7 +57,6 @@ const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(({ theme }) =
       outline: 0,
     },
   },
-
   [`& .${classes.shadedPart}`]: {
     backgroundColor: alpha(theme.palette.primary.main, 0.08),
     position: 'absolute',
@@ -79,7 +77,6 @@ const StyledAppointmentsAppointment = styled(Appointments.Appointment)(() => ({
       backgroundColor: teal[400],
     },
   },
-
   [`& .${classes.shadedAppointment}`]: {
     backgroundColor: teal[200],
     '&:hover': {

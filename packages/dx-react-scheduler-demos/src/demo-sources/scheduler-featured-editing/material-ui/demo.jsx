@@ -40,7 +40,7 @@ import Create from '@mui/icons-material/Create';
 import { appointments } from '../../../demo-data/appointments';
 
 const PREFIX = 'Demo';
-
+// #FOLD_BLOCK
 const classes = {
   container: `${PREFIX}-container`,
   content: `${PREFIX}-content`,
@@ -54,14 +54,14 @@ const classes = {
   textField: `${PREFIX}-textField`,
   addButton: `${PREFIX}-addButton`,
 };
-
+// #FOLD_BLOCK
 const StyledAppointmentFormOverlay = styled(AppointmentForm.Overlay)(({ theme }) => ({
   [`& .${classes.container}`]: {
     width: theme.spacing(68),
     padding: 0,
     paddingBottom: theme.spacing(2),
   },
-  [`& .${classes.content}`]: {
+  [`&.${classes.content}`]: {
     padding: theme.spacing(2),
     paddingTop: 0,
   },
@@ -69,7 +69,7 @@ const StyledAppointmentFormOverlay = styled(AppointmentForm.Overlay)(({ theme })
     overflow: 'hidden',
     paddingTop: theme.spacing(0.5),
   },
-  [`& .${classes.closeButton}`]: {
+  [`&.${classes.closeButton}`]: {
     float: 'right',
   },
   [`& .${classes.buttonGroup}`]: {
@@ -77,17 +77,17 @@ const StyledAppointmentFormOverlay = styled(AppointmentForm.Overlay)(({ theme })
     justifyContent: 'flex-end',
     padding: theme.spacing(0, 2),
   },
-  [`& .${classes.button}`]: {
+  [`&.${classes.button}`]: {
     marginLeft: theme.spacing(2),
   },
-  [`& .${classes.picker}`]: {
+  [`&.${classes.picker}`]: {
     marginRight: theme.spacing(2),
     '&:last-child': {
       marginRight: 0,
     },
     width: '50%',
   },
-  [`& .${classes.wrapper}`]: {
+  [`&.${classes.wrapper}`]: {
     display: 'flex',
     justifyContent: 'space-between',
     padding: theme.spacing(1, 0),
@@ -96,13 +96,13 @@ const StyledAppointmentFormOverlay = styled(AppointmentForm.Overlay)(({ theme })
     margin: theme.spacing(2, 0),
     marginRight: theme.spacing(2),
   },
-  [`& .${classes.textField}`]: {
+  [`&.${classes.textField}`]: {
     width: '100%',
   },
 }));
-
+// #FOLD_BLOCK
 const StyledFab = styled(Fab)(({ theme }) => ({
-  [`& .${classes.addButton}`]: {
+  [`&.${classes.addButton}`]: {
     position: 'absolute',
     bottom: theme.spacing(3),
     right: theme.spacing(4),

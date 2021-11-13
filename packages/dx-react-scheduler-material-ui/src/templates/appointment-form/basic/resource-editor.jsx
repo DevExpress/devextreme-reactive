@@ -41,11 +41,11 @@ const StyledTextField = styled(TextField)(({ theme: { spacing } }) => ({
     borderRadius: '50%',
     marginRight: spacing(1),
   },
-  [`& .${classes.itemContainer}`]: {
+  [`&.${classes.itemContainer}`]: {
     display: 'flex',
     padding: spacing(0.75),
   },
-  [`& .${classes.circleContainer}`]: {
+  [`&.${classes.circleContainer}`]: {
     display: 'flex',
     alignItems: 'center',
   },

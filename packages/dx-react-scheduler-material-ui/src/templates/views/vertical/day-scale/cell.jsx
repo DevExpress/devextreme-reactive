@@ -43,7 +43,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     color: theme.palette.text.secondary,
     lineHeight: 1.17,
   },
-  [`& .${classes.dayOfMonth}`]: {
+  [`&.${classes.dayOfMonth}`]: {
     ...theme.typography.h4,
     [`${LAYOUT_MEDIA_QUERY}`]: {
       ...theme.typography.h6,

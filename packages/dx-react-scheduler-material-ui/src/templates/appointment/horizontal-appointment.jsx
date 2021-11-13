@@ -30,7 +30,7 @@ const StyledDiv = styled('div')(({ theme: { palette, spacing } }) => ({
     whiteSpace: 'nowrap',
     display: 'flex',
   },
-  [`& .${classes.container}`]: {
+  [`&.${classes.container}`]: {
     width: '100%',
   },
   [`& .${classes.recurringContainer}`]: {

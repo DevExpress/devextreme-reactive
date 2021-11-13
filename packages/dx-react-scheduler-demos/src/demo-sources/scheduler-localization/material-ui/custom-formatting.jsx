@@ -18,7 +18,7 @@ const classes = {
 };
 
 const StyledWeekViewDayScaleCell = styled(WeekView.DayScaleCell)({
-  [`& .${classes.dayScaleCell}`]: {
+  [`&.${classes.dayScaleCell}`]: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },

@@ -32,10 +32,10 @@ const StyledGrid = styled(Grid)(({
     transition: `all ${TRANSITIONS_TIME}ms cubic-bezier(0, 0, 0.2, 1)`,
     backgroundColor: palette.background.paper,
   },
-  [`&.${classes.basic}`]: {
+  [`& .${classes.basic}`]: {
     width: '650px',
   },
-  [`&.${classes.fullSize}`]: {
+  [`& .${classes.fullSize}`]: {
     width: '1150px',
     '@media (min-width: 700px) and (max-width: 850px)': {
       width: '700px',

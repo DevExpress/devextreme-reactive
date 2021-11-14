@@ -21,7 +21,7 @@ const StyledDiv = styled('div')(({
     paddingTop: spacing(0.25),
     minHeight: spacing(1.5),
   },
-  [`& .${classes.line}`]: {
+  [`&.${classes.line}`]: {
     backgroundColor: palette.action.disabledBackground,
     height: spacing(3.5),
     marginLeft: spacing(1),

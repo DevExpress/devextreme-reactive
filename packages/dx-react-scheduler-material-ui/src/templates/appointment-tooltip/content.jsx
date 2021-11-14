@@ -27,7 +27,7 @@ export const classes = {
 };
 
 const StyledDiv = styled('div')(({
-  theme: { spacing, palette, typography },
+  theme: { spacing, palette, typography }, resources,
 }) => ({
   [`&.${classes.content}`]: {
     padding: spacing(1.5, 1),
@@ -46,12 +46,12 @@ const StyledDiv = styled('div')(({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
-  [`& .${classes.icon}`]: {
+  [`&.${classes.icon}`]: {
     verticalAlign: 'middle',
     color: palette.action.active,
   },
   [`& .${classes.lens}`]: {
-    color: resources => getAppointmentColor(300, getResourceColor(resources), palette.primary),
+    color: getAppointmentColor(300, getResourceColor(resources), palette.primary),
     width: spacing(4.5),
     height: spacing(4.5),
     verticalAlign: 'super',

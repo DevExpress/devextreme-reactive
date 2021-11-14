@@ -43,7 +43,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     color: theme.palette.text.secondary,
     lineHeight: 1.17,
   },
-  [`&.${classes.dayOfMonth}`]: {
+  [`& .${classes.dayOfMonth}`]: {
     ...theme.typography.h4,
     [`${LAYOUT_MEDIA_QUERY}`]: {
       ...theme.typography.h6,
@@ -56,7 +56,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     color: theme.palette.primary.main,
     fontWeight: 'bold',
   },
-  [`& .${classes.dayView}`]: {
+  [`&.${classes.dayView}`]: {
     'td:only-child &': {
       textAlign: 'center',
       width: 'auto',

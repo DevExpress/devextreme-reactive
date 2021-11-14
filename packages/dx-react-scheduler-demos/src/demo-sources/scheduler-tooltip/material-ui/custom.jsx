@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import {
   Scheduler,
@@ -11,6 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Grid from '@mui/material/Grid';
 import Room from '@mui/icons-material/Room';
+import { styled } from '@mui/material/styles';
 import classNames from 'clsx';
 
 import appointments from '../../../demo-data/today-appointments';
@@ -28,20 +28,55 @@ const classes = {
 };
 
 const StyledAppointmentTooltipHeader = styled(AppointmentTooltip.Header)(() => ({
-  [`& .${classes.firstRoom}`]: {
+  [`&.${classes.firstRoom}`]: {
     background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/Lobby-4.jpg)',
   },
-  [`& .${classes.secondRoom}`]: {
+  [`&.${classes.secondRoom}`]: {
     background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-4.jpg)',
   },
-  [`& .${classes.thirdRoom}`]: {
+  [`&.${classes.thirdRoom}`]: {
     background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-0.jpg)',
   },
-  [`& .${classes.header}`]: {
+  [`&.${classes.header}`]: {
     height: '260px',
     backgroundSize: 'cover',
   },
+}));
 
+const StyledIconButton = styled(IconButton)(() => ({
+  [`&.${classes.commandButton}`]: {
+    backgroundColor: 'rgba(255,255,255,0.65)',
+  },
+}));
+
+const StyledGrid = styled(Grid)(() => ({
+  [`&.${classes.textCenter}`]: {
+    textAlign: 'center',
+  },
+}));
+
+const StyledRoom = styled(Room)(({ theme: { palette } }) => ({
+  [`&.${classes.icon}`]: {
+    color: palette.action.active,
+  },
+}));
+
+const StyledAppointmentTooltipCommandButton = styled(AppointmentTooltip.CommandButton)(() => ({
+  [`&.${classes.commandButton}`]: {
+    backgroundColor: 'rgba(255,255,255,0.65)',
+  },
+}));
+
+const StyledGridItem = styled(Grid)(() => ({
+  [`&.${classes.firstRoom}`]: {
+    background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/Lobby-4.jpg)',
+  },
+  [`&.${classes.secondRoom}`]: {
+    background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-4.jpg)',
+  },
+  [`&.${classes.thirdRoom}`]: {
+    background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-0.jpg)',
+  },
 }));
 
 const getClassByLocation = (location) => {
@@ -58,36 +93,16 @@ const Header = (({
     className={classNames(getClassByLocation(classes, appointmentData.location), classes.header)}
     appointmentData={appointmentData}
   >
-    <IconButton
+    <StyledIconButton
       /* eslint-disable-next-line no-alert */
       onClick={() => alert(JSON.stringify(appointmentData))}
       className={classes.commandButton}
       size="large"
     >
       <MoreIcon />
-    </IconButton>
+    </StyledIconButton>
   </StyledAppointmentTooltipHeader>
 ));
-
-const StyledGrid = styled(Grid)(() => ({
-  [`& .${classes.textCenter}`]: {
-    textAlign: 'center',
-  },
-}));
-
-const StyledRoom = styled(Room)(({
-  theme: { palette },
-}) => ({
-  [`& .${classes.icon}`]: {
-    color: palette.action.active,
-  },
-}));
-
-const StyledAppointmentTooltipCommandButton = (AppointmentTooltip.CommandButton)(() => ({
-  [`& .${classes.commandButton}`]: {
-    backgroundColor: 'rgba(255,255,255,0.65)',
-  },
-}));
 
 const Content = (({
   children, appointmentData, ...restProps
@@ -97,9 +112,9 @@ const Content = (({
       <StyledGrid item xs={2} className={classes.textCenter}>
         <StyledRoom className={classes.icon} />
       </StyledGrid>
-      <Grid item xs={10}>
+      <StyledGridItem item xs={10}>
         <span>{appointmentData.location}</span>
-      </Grid>
+      </StyledGridItem>
     </Grid>
   </AppointmentTooltip.Content>
 ));

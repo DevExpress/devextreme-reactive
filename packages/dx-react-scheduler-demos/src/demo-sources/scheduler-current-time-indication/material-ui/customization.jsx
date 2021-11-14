@@ -71,13 +71,13 @@ const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(({ theme }) =
 }));
 
 const StyledAppointmentsAppointment = styled(Appointments.Appointment)(() => ({
-  [`& .${classes.appointment}`]: {
+  [`&.${classes.appointment}`]: {
     backgroundColor: teal[300],
     '&:hover': {
       backgroundColor: teal[400],
     },
   },
-  [`& .${classes.shadedAppointment}`]: {
+  [`&.${classes.shadedAppointment}`]: {
     backgroundColor: teal[200],
     '&:hover': {
       backgroundColor: teal[300],

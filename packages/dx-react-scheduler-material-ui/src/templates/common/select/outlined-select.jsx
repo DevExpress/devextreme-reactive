@@ -18,14 +18,14 @@ const StyledSelect = styled(Select)(({ theme: { typography } }) => ({
   [`&.${classes.root}`]: {
     fontSize: typography.fontSize + 2,
   },
-  [`&.${classes.input}`]: {
+  [`& .${classes.input}`]: {
     fontWeight: 'bold',
     textTransform: 'uppercase',
   },
-  [`&.${classes.menuItem}`]: {
+  [`& .${classes.menuItem}`]: {
     textTransform: 'uppercase',
   },
-  [`&.${classes.inputRoot}`]: {
+  [`& .${classes.inputRoot}`]: {
     width: '100%',
   },
 }));

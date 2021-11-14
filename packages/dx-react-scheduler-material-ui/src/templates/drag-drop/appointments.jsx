@@ -75,18 +75,16 @@ const StyledDraftAppointmentBase = styled(AppointmentBase)(({ theme, resources }
 
 export const DraftAppointment = ({
   className, resources, isShaded, ...restProps
-}) => {
-  return (
-    <StyledDraftAppointmentBase
-      className={classNames({
-        [classes.appointment]: true,
-        [classes.shadedAppointment]: isShaded,
-      }, className)}
-      resources={resources}
-      {...restProps}
-    />
-  );
-};
+}) => (
+  <StyledDraftAppointmentBase
+    className={classNames({
+      [classes.appointment]: true,
+      [classes.shadedAppointment]: isShaded,
+    }, className)}
+    resources={resources}
+    {...restProps}
+  />
+);
 
 DraftAppointment.propTypes = {
   resources: PropTypes.array,
@@ -106,14 +104,12 @@ const StyledSourceAppointmentBase = styled(AppointmentBase)(() => ({
   },
 }));
 
-export const SourceAppointment = ({ className, ...restProps }) => {
-  return (
-    <StyledSourceAppointmentBase
-      className={classNames(classes.appointment, className)}
-      {...restProps}
-    />
-  );
-};
+export const SourceAppointment = ({ className, ...restProps }) => (
+  <StyledSourceAppointmentBase
+    className={classNames(classes.appointment, className)}
+    {...restProps}
+  />
+);
 
 SourceAppointment.propTypes = {
   className: PropTypes.string,

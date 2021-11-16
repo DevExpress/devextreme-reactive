@@ -21,7 +21,8 @@ export const classes = {
 };
 
 const StyledTableCell = styled(TableCell, {
-  shouldForwardProp: prop => prop !== 'endOfGroup' && prop !== 'textStyle' && prop !== 'topOffset' })(({
+  shouldForwardProp: prop => prop !== 'endOfGroup' && prop !== 'textStyle' && prop !== 'topOffset',
+})(({
   theme, left, endOfGroup, height, rowSpan, textStyle, topOffset,
 }) => ({
   [`&.${classes.cell}`]: {

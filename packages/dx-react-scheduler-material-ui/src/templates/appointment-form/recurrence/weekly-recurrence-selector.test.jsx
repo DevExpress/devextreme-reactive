@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow } from '@devexpress/dx-testing';
+import { createShallow, createMount } from '@devexpress/dx-testing';
 import {
   getRecurrenceOptions, SUNDAY_DATE, WEEK_DAY_OPTIONS, MONDAY_DATE,
   TUESDAY_DATE, THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE, WEDNESDAY_DATE,
@@ -21,12 +21,14 @@ describe('AppointmentForm recurrence', () => {
     formatDate: jest.fn(),
     firstDayOfWeek: 0,
   };
+  let mount;
   let shallow;
   beforeEach(() => {
     getRecurrenceOptions.mockImplementation(() => ({}));
     changeRecurrenceOptions.mockImplementation(testValue => testValue);
   });
   beforeAll(() => {
+    mount = createMount();
     shallow = createShallow({ dive: true });
   });
   describe('WeeklyRecurrenceSelector', () => {
@@ -49,7 +51,7 @@ describe('AppointmentForm recurrence', () => {
     });
 
     it('should render buttons correctly', () => {
-      const tree = shallow((
+      const tree = mount((
         <WeeklyRecurrenceSelector {...defaultProps} />
       ));
 
@@ -82,7 +84,7 @@ describe('AppointmentForm recurrence', () => {
           RRULE_DAYS_OF_WEEK[6],
         ],
       }));
-      const tree = shallow((
+      const tree = mount((
         <WeeklyRecurrenceSelector {...defaultProps} />
       ));
 

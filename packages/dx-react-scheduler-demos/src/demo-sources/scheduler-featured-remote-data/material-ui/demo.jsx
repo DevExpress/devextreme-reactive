@@ -25,17 +25,20 @@ const classes = {
   progress: `${PREFIX}-progress`,
 };
 
-const StyledPaper = styled(Paper)({
-  [`& .${classes.toolbarRoot}`]: {
+const StyledDiv = styled('div')({
+  [`&.${classes.toolbarRoot}`]: {
     position: 'relative',
   },
-  [`& .${classes.progress}`]: {
+});
+
+const StyledLinearProgress = styled(LinearProgress)(() => ({
+  [`&.${classes.progress}`]: {
     position: 'absolute',
     width: '100%',
     bottom: 0,
     left: 0,
   },
-});
+}));
 
 const PUBLIC_KEY = 'AIzaSyBnNAISIUKe6xdhq1_rjor2rxoI3UlMY7k';
 const CALENDAR_ID = 'f7jnetm22dsjc3npc2lu3buvu4@group.calendar.google.com';
@@ -56,12 +59,12 @@ const getData = (setData, setLoading) => {
 
 const ToolbarWithLoading = (
   ({ children, ...restProps }) => (
-    <div className={classes.toolbarRoot}>
+    <StyledDiv className={classes.toolbarRoot}>
       <Toolbar.Root {...restProps}>
         {children}
       </Toolbar.Root>
-      <LinearProgress className={classes.progress} />
-    </div>
+      <StyledLinearProgress className={classes.progress} />
+    </StyledDiv>
   )
 );
 
@@ -119,7 +122,7 @@ export default () => {
   }, [setData, currentViewName, currentDate]);
 
   return (
-    <StyledPaper>
+    <Paper>
       <Scheduler
         data={data}
         height={660}
@@ -151,6 +154,6 @@ export default () => {
         />
         <AppointmentForm readOnly />
       </Scheduler>
-    </StyledPaper>
+    </Paper>
   );
 };

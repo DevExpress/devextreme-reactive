@@ -29,26 +29,26 @@ const horizontalStyles = {
 };
 
 const StyledDiv = styled('div')({
-  [`& .${classes.slice}`]: {
+  [`&.${classes.slice}`]: {
     position: 'absolute',
     zIndex: 50,
   },
-  [`& .${classes.verticalStart}`]: {
+  [`&.${classes.verticalStart}`]: {
     ...verticalStyles,
     top: '-10px',
     boxShadow: '0 10px 15px rgba(0,0,0,0.2)',
   },
-  [`& .${classes.verticalEnd}`]: {
+  [`&.${classes.verticalEnd}`]: {
     ...verticalStyles,
     bottom: '-10px',
     boxShadow: '0 -10px 15px rgba(0,0,0,0.2)',
   },
-  [`& .${classes.horizontalStart}`]: {
+  [`&.${classes.horizontalStart}`]: {
     ...horizontalStyles,
     left: '-10px',
     boxShadow: '10px 0 15px rgba(0,0,0,0.2)',
   },
-  [`& .${classes.horizontalEnd}`]: {
+  [`&.${classes.horizontalEnd}`]: {
     ...horizontalStyles,
     right: '-10px',
     boxShadow: '-10px 0 15px rgba(0,0,0,0.2)',

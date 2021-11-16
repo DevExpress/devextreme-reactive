@@ -57,7 +57,7 @@ AppointmentBase.defaultProps = {
 };
 
 const StyledDraftAppointmentBase = styled(AppointmentBase)(({ theme, resources }) => ({
-  [`& .${classes.appointment}`]: {
+  [`&.${classes.appointment}`]: {
     boxShadow: theme.shadows[3],
     cursor: 'move',
     overflow: 'hidden',
@@ -66,7 +66,7 @@ const StyledDraftAppointmentBase = styled(AppointmentBase)(({ theme, resources }
     ),
     border: 0,
   },
-  [`& .${classes.shadedAppointment}`]: {
+  [`&.${classes.shadedAppointment}`]: {
     backgroundColor: getAppointmentColor(
       400, getResourceColor(resources), theme.palette.primary,
     ),

@@ -16,7 +16,7 @@ export const classes = {
 };
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`& .${classes.cell}`]: {
+  [`&.${classes.cell}`]: {
     height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.WEEK]),
     padding: 0,
     boxSizing: 'border-box',
@@ -25,10 +25,10 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
       borderBottom: 'none',
     },
   },
-  [`& .${classes.brightBottomBorder}`]: {
+  [`&.${classes.brightBottomBorder}`]: {
     borderBottom: getBrightBorder(theme),
   },
-  [`& .${classes.allDayCell}`]: {
+  [`&.${classes.allDayCell}`]: {
     height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL]),
   },
 }));

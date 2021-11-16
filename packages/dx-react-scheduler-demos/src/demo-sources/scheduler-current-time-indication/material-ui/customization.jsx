@@ -47,7 +47,7 @@ const StyledDiv = styled('div')(({ theme }) => ({
 }));
 // #FOLD_BLOCK
 const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(({ theme }) => ({
-  [`& .${classes.shadedCell}`]: {
+  [`&.${classes.shadedCell}`]: {
     backgroundColor: alpha(theme.palette.primary.main, 0.08),
     '&:hover': {
       backgroundColor: alpha(theme.palette.primary.main, 0.12),

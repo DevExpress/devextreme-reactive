@@ -14,7 +14,7 @@ describe('AppointmentForm recurrence layout', () => {
   };
   let shallow;
   beforeAll(() => {
-    shallow = createShallow({ dive: true });
+    shallow = createShallow();
   });
   describe('IntervalEditor', () => {
     it('should pass rest props to the root element', () => {

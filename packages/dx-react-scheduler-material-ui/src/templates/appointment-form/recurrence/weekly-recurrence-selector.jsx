@@ -18,8 +18,14 @@ export const classes = {
   buttonGroup: `${PREFIX}-buttonGroup`,
 };
 
-const StyledButtonGroup = styled(ButtonGroup)(({ theme: { palette, spacing } }) => ({
-  [`& .${classes.selectedButton}`]: {
+const StyledButtonGroup = styled(ButtonGroup)(({ theme: { spacing } }) => ({
+  [`&.${classes.buttonGroup}`]: {
+    marginBottom: spacing(2),
+  },
+}));
+
+const StyledButton = styled(Button)(({ theme: { palette, spacing } }) => ({
+  [`&.${classes.selectedButton}`]: {
     backgroundColor: ensureColor(400, palette.primary),
     '&:hover': {
       backgroundColor: ensureColor(500, palette.primary),
@@ -31,11 +37,8 @@ const StyledButtonGroup = styled(ButtonGroup)(({ theme: { palette, spacing } }) 
     },
     color: ensureColor(50, palette.primary),
   },
-  [`& .${classes.button}`]: {
+  [`&.${classes.button}`]: {
     minWidth: spacing(3),
-  },
-  [`&.${classes.buttonGroup}`]: {
-    marginBottom: spacing(2),
   },
 }));
 
@@ -67,7 +70,7 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
     >
       {
         daysOfWeekArray.map((dayOfWeek, index) => (
-          <Button
+          <StyledButton
             className={classNames({
               [classes.button]: true,
               [classes.selectedButton]: isCurrentWeekDay(recurrenceOptions, dayOfWeek),
@@ -82,7 +85,7 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
             })}
           >
             {formatDate(daysOfWeekDates[index], WEEK_DAY_OPTIONS)}
-          </Button>
+          </StyledButton>
         ))
       }
     </StyledButtonGroup>

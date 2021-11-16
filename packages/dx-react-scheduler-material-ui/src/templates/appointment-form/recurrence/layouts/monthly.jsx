@@ -16,7 +16,7 @@ export const classes = {
 };
 
 const StyledDiv = styled('div')(({ theme }) => ({
-  [`& .${classes.container}`]: {
+  [`&.${classes.container}`]: {
     marginBottom: theme.spacing(1),
   },
 }));

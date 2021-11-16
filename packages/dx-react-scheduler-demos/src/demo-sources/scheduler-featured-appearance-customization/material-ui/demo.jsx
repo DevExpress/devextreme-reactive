@@ -121,13 +121,16 @@ const groupingStyles = ({ theme }) => ({
 });
 
 // #FOLD_BLOCK
-const StyledToolbarFlexibleSpace = styled(Toolbar.FlexibleSpace)(({ theme: { spacing } }) => ({
-  [`& .${classes.flexibleSpace}`]: {
+const StyledToolbarFlexibleSpace = styled(Toolbar.FlexibleSpace)(() => ({
+  [`&.${classes.flexibleSpace}`]: {
     margin: '0 auto 0 0',
   },
-  marginLeft: spacing(2),
-  [`& .${classes.prioritySelector}`]: {
+}));
+
+const StyledFormControl = styled(FormControl)(({ theme: { spacing } }) => ({
+  [`&.${classes.prioritySelector}`]: {
     minWidth: 140,
+    marginLeft: spacing(2),
     '@media (max-width: 500px)': {
       minWidth: 0,
       fontSize: '0.75rem',
@@ -146,7 +149,7 @@ const StyledPrioritySelectorItem = styled('div')(({ theme: { palette, spacing },
     marginRight: spacing(2),
     display: 'inline-block',
   },
-  [`& .${classes.prioritySelectorItem}`]: {
+  [`&.${classes.prioritySelectorItem}`]: {
     display: 'flex',
     alignItems: 'center',
   },
@@ -162,35 +165,10 @@ const StyledPrioritySelectorItem = styled('div')(({ theme: { palette, spacing },
   },
 }));
 // #FOLD_BLOCK
-const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(
-  ({ theme: { palette, spacing }, color }) => ({
-    [`& .${classes.bullet}`]: {
-      backgroundColor: color ? color[400] : palette.divider,
-      borderRadius: '50%',
-      width: spacing(2),
-      height: spacing(2),
-      marginRight: spacing(2),
-      display: 'inline-block',
-    },
-    [`& .${classes.prioritySelectorItem}`]: {
-      display: 'flex',
-      alignItems: 'center',
-    },
-    [`& .${classes.priorityText}`]: {
-      '@media (max-width: 500px)': {
-        display: 'none',
-      },
-    },
-    [`& .${classes.priorityShortText}`]: {
-      '@media (min-width: 500px)': {
-        display: 'none',
-      },
-    },
-  }),
-);
+const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(groupingStyles);
 // #FOLD_BLOCK
 const StyledTooltipContent = styled('div')(({ theme: { spacing, typography, palette }, color }) => ({
-  [`& .${classes.content}`]: {
+  [`&.${classes.content}`]: {
     padding: spacing(3, 1),
     paddingTop: 0,
     backgroundColor: palette.background.paper,
@@ -386,7 +364,7 @@ const PrioritySelector = ({
 }) => {
   const currentPriority = priority > 0 ? priorities[priority - 1] : {};
   return (
-    <FormControl className={classes.prioritySelector} variant="standard">
+    <StyledFormControl className={classes.prioritySelector} variant="standard">
       <Select
         disableUnderline
         value={priority}
@@ -406,7 +384,7 @@ const PrioritySelector = ({
           </MenuItem>
         ))}
       </Select>
-    </FormControl>
+    </StyledFormControl>
   );
 };
 

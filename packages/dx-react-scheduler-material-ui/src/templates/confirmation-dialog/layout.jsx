@@ -12,7 +12,7 @@ export const classes = {
   media: `${PREFIX} - ${SMALL_LAYOUT_MEDIA_QUERY}`,
 };
 
-const StyledDiv = styled('div')(({ theme: { typography } }) => ({
+const StyledDialogTitle = styled(DialogTitle)(({ theme: { typography } }) => ({
   [`& .${classes.title}`]: {
     ...typography.h6,
   },
@@ -32,12 +32,12 @@ const LayoutBase = React.memo(({
   appointmentData,
   ...restProps
 }) => (
-  <StyledDiv
+  <div
     {...restProps}
   >
-    <DialogTitle className={classes.title}>
+    <StyledDialogTitle className={classes.title}>
       {getMessage(isDeleting ? 'confirmDeleteMessage' : 'confirmCancelMessage')}
-    </DialogTitle>
+    </StyledDialogTitle>
     <DialogActions>
       <Button onClick={handleCancel} title={getMessage('cancelButton')} />
       <Button
@@ -46,7 +46,7 @@ const LayoutBase = React.memo(({
         color="primary"
       />
     </DialogActions>
-  </StyledDiv>
+  </div>
 ));
 
 LayoutBase.propTypes = {

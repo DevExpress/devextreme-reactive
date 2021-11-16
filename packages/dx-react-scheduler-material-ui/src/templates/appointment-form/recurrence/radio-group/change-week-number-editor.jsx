@@ -53,6 +53,17 @@ const StyledDiv = styled('div')(({ theme: { spacing } }) => ({
   },
 }));
 
+const StyledFormControlLabel = styled(FormControlLabel)(({ theme: { spacing } }) => ({
+  [`&.${classes.formControlLabel}`]: {
+    alignItems: 'flex-start',
+  },
+  [`&.${classes.formControl}`]: {
+    marginRight: 0,
+    marginTop: spacing(1),
+    marginBottom: spacing(1),
+  },
+}));
+
 const ChangeWeekNumberEditorBase = React.memo(({
   getMessage,
   labelComponent: Label,
@@ -71,7 +82,7 @@ const ChangeWeekNumberEditorBase = React.memo(({
   changeDayOfWeek,
   ...restProps
 }) => (
-  <FormControlLabel
+  <StyledFormControlLabel
     value="onDayOfWeek"
     className={classNames(classes.formControlLabel, classes.formControl, className)}
     classes={{ label: classes.controlLabel }}

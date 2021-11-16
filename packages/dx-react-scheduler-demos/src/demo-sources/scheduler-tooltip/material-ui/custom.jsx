@@ -67,18 +67,6 @@ const StyledAppointmentTooltipCommandButton = styled(AppointmentTooltip.CommandB
   },
 }));
 
-const StyledGridItem = styled(Grid)(() => ({
-  [`&.${classes.firstRoom}`]: {
-    background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/Lobby-4.jpg)',
-  },
-  [`&.${classes.secondRoom}`]: {
-    background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-4.jpg)',
-  },
-  [`&.${classes.thirdRoom}`]: {
-    background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-0.jpg)',
-  },
-}));
-
 const getClassByLocation = (location) => {
   if (location === 'Room 1') return classes.firstRoom;
   if (location === 'Room 2') return classes.secondRoom;
@@ -112,9 +100,9 @@ const Content = (({
       <StyledGrid item xs={2} className={classes.textCenter}>
         <StyledRoom className={classes.icon} />
       </StyledGrid>
-      <StyledGridItem item xs={10}>
+      <Grid item xs={10}>
         <span>{appointmentData.location}</span>
-      </StyledGridItem>
+      </Grid>
     </Grid>
   </AppointmentTooltip.Content>
 ));

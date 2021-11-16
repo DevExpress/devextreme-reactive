@@ -59,7 +59,7 @@ const StyledDiv = styled('div')(({
       width: '560px',
     },
   },
-  [`&.${classes.labelWithMargins}`]: {
+  [`& .${classes.labelWithMargins}`]: {
     marginTop: spacing(2),
   },
   [`& .${classes.notesEditor}`]: {
@@ -83,14 +83,14 @@ const StyledDiv = styled('div')(({
     marginTop: spacing(0.875),
   },
   '@media (max-width: 570px)': {
-    [`&.${classes.dateEditors}`]: {
+    [`& .${classes.dateEditors}`]: {
       flexDirection: 'column',
     },
-    [`&.${classes.booleanEditors}`]: {
+    [`& .${classes.booleanEditors}`]: {
       flexDirection: 'column',
       marginTop: spacing(1.875),
     },
-    [`&.${classes.dateEditor}`]: {
+    [`& .${classes.dateEditor}`]: {
       width: '100%',
       '&:first-of-type': {
         marginBottom: 0,
@@ -99,7 +99,7 @@ const StyledDiv = styled('div')(({
         marginTop: spacing(2),
       },
     },
-    [`&.${classes.dividerLabel}`]: {
+    [`& .${classes.dividerLabel}`]: {
       display: 'none',
     },
   },

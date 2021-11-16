@@ -11,8 +11,8 @@ export const classes = {
   flexContainer: `${PREFIX}-flexContainer`,
 };
 
-const StyledDiv = styled('div')(({
-  theme: { spacing, palette },
+const StyledDivHead = styled('div')(({
+  theme: { spacing },
 }) => ({
   [`&.${classes.head}`]: {
     position: 'relative',
@@ -21,7 +21,18 @@ const StyledDiv = styled('div')(({
     paddingTop: spacing(0.25),
     minHeight: spacing(1.5),
   },
-  [`&.${classes.line}`]: {
+  [`&.${classes.flexContainer}`]: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-start',
+  },
+}));
+
+const StyledDiv = styled('div')(({
+  theme: { spacing, palette },
+}) => ({
+  [`& .${classes.line}`]: {
     backgroundColor: palette.action.disabledBackground,
     height: spacing(3.5),
     marginLeft: spacing(1),
@@ -56,7 +67,7 @@ const HeaderBase = ({
     onOpenButtonClick();
   };
   return (
-    <StyledDiv
+    <StyledDivHead
       className={classNames(classes.head, classes.flexContainer, className)}
       {...restProps}
     >
@@ -67,12 +78,12 @@ const HeaderBase = ({
         && <CommandButton id={commandButtonIds.delete} onExecute={onDeleteButtonClick} />}
       {children}
       {showCloseButton && (
-        <div className={classes.flexContainer}>
+        <StyledDiv className={classes.flexContainer}>
           <div className={classes.line} />
           <CommandButton id={commandButtonIds.close} onExecute={onHide} />
-        </div>
+        </StyledDiv>
       )}
-    </StyledDiv>
+    </StyledDivHead>
   );
 };
 

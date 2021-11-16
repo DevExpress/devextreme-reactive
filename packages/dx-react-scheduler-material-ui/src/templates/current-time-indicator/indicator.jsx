@@ -11,19 +11,29 @@ export const classes = {
   nowIndicator: `${PREFIX}-nowIndicator`,
 };
 
-const StyledDiv = styled('div')(({ theme, topValue }) => ({
-  [`& .${classes.line}`]: {
-    height: '2px',
-    width: '100%',
-    transform: 'translate(0, -1px)',
-  },
-  [`& .${classes.circle}`]: {
+const StyledDivCircle = styled('div')(({ theme, topValue }) => ({
+  [`&.${classes.circle}`]: {
     width: theme.spacing(1.5),
     height: theme.spacing(1.5),
     borderRadius: '50%',
     transform: 'translate(-50%, -50%)',
   },
-  [`& .${classes.nowIndicator}`]: {
+  [`&.${classes.nowIndicator}`]: {
+    position: 'absolute',
+    left: 0,
+    top: topValue,
+    background: theme.palette.secondary.main,
+    zIndex: 1,
+  },
+}));
+
+const StyledDivLine = styled('div')(({ theme, topValue }) => ({
+  [`&.${classes.line}`]: {
+    height: '2px',
+    width: '100%',
+    transform: 'translate(0, -1px)',
+  },
+  [`&.${classes.nowIndicator}`]: {
     position: 'absolute',
     left: 0,
     top: topValue,
@@ -33,10 +43,10 @@ const StyledDiv = styled('div')(({ theme, topValue }) => ({
 }));
 
 export const Indicator = props => (
-  <StyledDiv {...props}>
-    <div className={classNames(classes.nowIndicator, classes.circle)} />
-    <div className={classNames(classes.nowIndicator, classes.line)} />
-  </StyledDiv>
+  <div {...props}>
+    <StyledDivCircle className={classNames(classes.nowIndicator, classes.circle)} />
+    <StyledDivLine className={classNames(classes.nowIndicator, classes.line)} />
+  </div>
 );
 
 Indicator.propTypes = {

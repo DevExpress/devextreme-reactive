@@ -25,7 +25,7 @@ describe('AppointmentForm recurrence layout', () => {
   };
   let shallow;
   beforeAll(() => {
-    shallow = createShallow({ dive: true });
+    shallow = createShallow();
   });
   beforeEach(() => {
     getRecurrenceOptions.mockImplementation(() => ({}));

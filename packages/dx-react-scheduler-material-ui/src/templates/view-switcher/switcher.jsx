@@ -12,7 +12,7 @@ const classes = {
 };
 
 const StyledOutlinedSelect = styled(OutlinedSelect)(({ theme: { spacing } }) => ({
-  [`& .${classes.input}`]: {
+  [`&.${classes.input}`]: {
     padding: spacing(1.25, 1.75),
     paddingRight: spacing(4),
     textTransform: 'uppercase',
@@ -20,7 +20,7 @@ const StyledOutlinedSelect = styled(OutlinedSelect)(({ theme: { spacing } }) => 
       fontSize: '0.75rem',
     },
   },
-  [`& .${classes.inputRoot}`]: {
+  [`&.${classes.inputRoot}`]: {
     marginLeft: spacing(0.5),
     '&:first-of-type': {
       marginLeft: 0,

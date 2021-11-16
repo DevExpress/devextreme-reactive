@@ -23,13 +23,13 @@ const classes = {
 };
 
 const StyledMonthViewDayScaleCell = styled(MonthView.DayScaleCell)(({ theme: { palette } }) => ({
-  [`& .${classes.weekEndDayScaleCell}`]: {
+  [`&.${classes.weekEndDayScaleCell}`]: {
     backgroundColor: alpha(palette.action.disabledBackground, 0.06),
   },
 }));
 
 const StyledMonthViewTimeTableCell = styled(MonthView.TimeTableCell)(({ theme: { palette } }) => ({
-  [`& .${classes.weekEndCell}`]: {
+  [`&.${classes.weekEndCell}`]: {
     backgroundColor: alpha(palette.action.disabledBackground, 0.04),
     '&:hover': {
       backgroundColor: alpha(palette.action.disabledBackground, 0.04),
@@ -41,17 +41,17 @@ const StyledMonthViewTimeTableCell = styled(MonthView.TimeTableCell)(({ theme: {
 }));
 
 const StyledAppointmentsAppointment = styled(Appointments.Appointment)(() => ({
-  [`& .${classes.appointment}`]: {
+  [`&.${classes.appointment}`]: {
     borderRadius: 0,
     borderBottom: 0,
   },
-  [`& .${classes.highPriorityAppointment}`]: {
+  [`&.${classes.highPriorityAppointment}`]: {
     borderLeft: `4px solid ${teal[500]}`,
   },
-  [`& .${classes.mediumPriorityAppointment}`]: {
+  [`&.${classes.mediumPriorityAppointment}`]: {
     borderLeft: `4px solid ${blue[500]}`,
   },
-  [`& .${classes.lowPriorityAppointment}`]: {
+  [`&.${classes.lowPriorityAppointment}`]: {
     borderLeft: `4px solid ${indigo[500]}`,
   },
 }));

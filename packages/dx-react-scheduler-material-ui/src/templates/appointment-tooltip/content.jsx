@@ -46,7 +46,7 @@ const StyledDiv = styled('div')(({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
-  [`&.${classes.icon}`]: {
+  [`& .${classes.icon}`]: {
     verticalAlign: 'middle',
     color: palette.action.active,
   },

@@ -10,7 +10,7 @@ export const classes = {
 };
 
 const StyledDiv = styled('div')({
-  [`& .${classes.emptyCell}`]: {
+  [`&.${classes.emptyCell}`]: {
     height: '100%',
     width: '100%',
   },

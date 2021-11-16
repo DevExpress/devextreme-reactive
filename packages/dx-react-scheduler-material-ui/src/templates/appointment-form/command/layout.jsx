@@ -16,13 +16,10 @@ export const classes = {
   root: `${PREFIX}-root`,
   basic: `${PREFIX}-basic`,
   fullSize: `${PREFIX}-fullSize`,
-  media: `${PREFIX}-${LAYOUT_MEDIA_QUERY}`,
   line: `${PREFIX}-line`,
 };
 
-const StyledGrid = styled(Grid)(({
-  theme: { spacing, palette },
-}) => ({
+const StyledGrid = styled(Grid)(({ theme: { spacing, palette } }) => ({
   [`&.${classes.root}`]: {
     display: 'flex',
     justifyContent: 'flex-end',
@@ -32,10 +29,10 @@ const StyledGrid = styled(Grid)(({
     transition: `all ${TRANSITIONS_TIME}ms cubic-bezier(0, 0, 0.2, 1)`,
     backgroundColor: palette.background.paper,
   },
-  [`& .${classes.basic}`]: {
+  [`&.${classes.basic}`]: {
     width: '650px',
   },
-  [`& .${classes.fullSize}`]: {
+  [`&.${classes.fullSize}`]: {
     width: '1150px',
     '@media (min-width: 700px) and (max-width: 850px)': {
       width: '700px',
@@ -47,12 +44,12 @@ const StyledGrid = styled(Grid)(({
       width: '1000px',
     },
   },
-  [`& .${classes.media}`]: {
-    basic: {
+  [`${LAYOUT_MEDIA_QUERY}`]: {
+    [`&.${classes.basic}`]: {
       maxWidth: '700px',
       width: '100%',
     },
-    root: {
+    [`&.${classes.root}`]: {
       paddingRight: spacing(2),
       paddingLeft: 0,
       paddingTop: spacing(1),
@@ -60,10 +57,15 @@ const StyledGrid = styled(Grid)(({
       width: '100%',
     },
   },
-  [`& .${classes.line}`]: {
-    backgroundColor: palette.action.disabledBackground,
-    height: spacing(4.5),
-    width: '1px',
+}));
+
+const StyledDiv = styled('div')(({ theme: { palette, spacing } }) => ({
+  [`${LAYOUT_MEDIA_QUERY}`]: {
+    [`&.${classes.line}`]: {
+      backgroundColor: palette.action.disabledBackground,
+      height: spacing(4.5),
+      width: '1px',
+    },
   },
 }));
 
@@ -105,7 +107,7 @@ const LayoutBase = ({
               getMessage={getMessage}
               id={DELETE_BUTTON}
             />
-            <div className={classes.line} />
+            <StyledDiv className={classes.line} />
           </React.Fragment>
         )}
         <CommandButton

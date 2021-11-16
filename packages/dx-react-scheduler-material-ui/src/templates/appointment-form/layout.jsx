@@ -18,7 +18,7 @@ const StyledDiv = styled('div')({
     margin: '0 auto',
     overflowY: 'auto',
   },
-  [`&.${classes.container}`]: {
+  [`& .${classes.container}`]: {
     display: 'flex',
     [`${LAYOUT_MEDIA_QUERY}`]: {
       flexDirection: 'column',

@@ -79,7 +79,7 @@ const StyledDiv = styled('div')(({
   [`& .${classes.container}`]: {
     width: '100%',
   },
-  [`&.${classes.recurringContainer}`]: {
+  [`& .${classes.recurringContainer}`]: {
     width: `calc(100% - ${spacing(2)})`,
   },
   [`& .${classes.imageContainer}`]: {

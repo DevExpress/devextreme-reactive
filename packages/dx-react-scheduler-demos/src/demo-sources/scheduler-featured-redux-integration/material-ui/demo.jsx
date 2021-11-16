@@ -60,7 +60,7 @@ const StyledAppointmentsAppointmentContent = styled(Appointments.AppointmentCont
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
-  [`&.${classes.textContainer}`]: {
+  [`& .${classes.textContainer}`]: {
     lineHeight: 1,
     whiteSpace: 'pre-wrap',
     overflow: 'hidden',
@@ -85,7 +85,7 @@ const StyledAppointmentsAppointmentContent = styled(Appointments.AppointmentCont
 const StyledTextField = styled(TextField)(({
   theme: { spacing },
 }) => ({
-  [`& .${classes.textField}`]: {
+  [`&.${classes.textField}`]: {
     width: '75px',
     marginLeft: spacing(1),
     marginTop: 0,
@@ -97,7 +97,7 @@ const StyledTextField = styled(TextField)(({
 const StyledButtonGroup = styled(ButtonGroup)(({
   theme: { spacing, palette },
 }) => ({
-  [`& .${classes.locationSelector}`]: {
+  [`&.${classes.locationSelector}`]: {
     marginLeft: spacing(1),
     height: spacing(4.875),
   },

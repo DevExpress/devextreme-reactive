@@ -20,7 +20,7 @@ const classes = {
 };
 
 const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(({ theme }) => ({
-  [`& .${classes.todayCell}`]: {
+  [`&.${classes.todayCell}`]: {
     backgroundColor: alpha(theme.palette.primary.main, 0.1),
     '&:hover': {
       backgroundColor: alpha(theme.palette.primary.main, 0.14),
@@ -29,7 +29,7 @@ const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(({ theme }) =
       backgroundColor: alpha(theme.palette.primary.main, 0.16),
     },
   },
-  [`& .${classes.weekendCell}`]: {
+  [`&.${classes.weekendCell}`]: {
     backgroundColor: alpha(theme.palette.action.disabledBackground, 0.04),
     '&:hover': {
       backgroundColor: alpha(theme.palette.action.disabledBackground, 0.04),
@@ -41,10 +41,10 @@ const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(({ theme }) =
 }));
 
 const StyledWeekViewDayScaleCell = styled(WeekView.DayScaleCell)(({ theme }) => ({
-  [`& .${classes.today}`]: {
+  [`&.${classes.today}`]: {
     backgroundColor: alpha(theme.palette.primary.main, 0.16),
   },
-  [`& .${classes.weekend}`]: {
+  [`&.${classes.weekend}`]: {
     backgroundColor: alpha(theme.palette.action.disabledBackground, 0.06),
   },
 }));

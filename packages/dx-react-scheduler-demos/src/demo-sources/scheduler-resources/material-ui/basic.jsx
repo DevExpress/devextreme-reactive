@@ -20,7 +20,7 @@ const classes = {
 };
 
 const StyledDiv = styled('div')(({ theme }) => ({
-  [`& .${classes.container}`]: {
+  [`&.${classes.container}`]: {
     display: 'flex',
     marginBottom: theme.spacing(2),
     justifyContent: 'flex-end',
@@ -72,7 +72,7 @@ const ResourceSwitcher = (
   ({
     mainResourceName, onChange, resources,
   }) => (
-    <div className={classes.container}>
+    <StyledDiv className={classes.container}>
       <div className={classes.text}>
         Main resource name:
       </div>
@@ -87,7 +87,7 @@ const ResourceSwitcher = (
           </MenuItem>
         ))}
       </Select>
-    </div>
+    </StyledDiv>
   )
 );
 
@@ -135,7 +135,7 @@ export default class Demo extends React.PureComponent {
     const { data, resources, mainResourceName } = this.state;
 
     return (
-      <StyledDiv>
+      <div>
         <ResourceSwitcher
           resources={resources}
           mainResourceName={mainResourceName}
@@ -161,7 +161,7 @@ export default class Demo extends React.PureComponent {
             />
           </Scheduler>
         </Paper>
-      </StyledDiv>
+      </div>
     );
   }
 }

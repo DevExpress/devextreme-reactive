@@ -23,12 +23,12 @@ import {
 import { data as appointments } from '../../../demo-data/grouping';
 
 const PREFIX = 'Demo';
-
+// #FOLD_BLOCK
 const classes = {
   formControlLabel: `${PREFIX}-formControlLabel`,
   text: `${PREFIX}-text`,
 };
-
+// #FOLD_BLOCK
 const StyledFormControlLabel = styled(FormControlLabel)(({
   theme: { spacing, palette, typography },
 }) => ({
@@ -36,7 +36,7 @@ const StyledFormControlLabel = styled(FormControlLabel)(({
     padding: spacing(2),
     paddingLeft: spacing(10),
   },
-  [`& .${classes.text}`]: {
+  [`&.${classes.text}`]: {
     ...typography.caption,
     color: palette.text.secondary,
     fontWeight: 'bold',

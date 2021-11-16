@@ -18,7 +18,7 @@ const StyledButton = styled(Button)(({
     padding: spacing(0.5, 3.5),
     marginLeft: spacing(3),
     height: spacing(4.5),
-    '&:first-child': {
+    '&:first-of-type': {
       marginLeft: 0,
     },
     backgroundColor: ensureColor(300, palette.primary),

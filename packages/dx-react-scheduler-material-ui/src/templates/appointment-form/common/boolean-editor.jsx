@@ -11,7 +11,7 @@ const classes = {
 };
 
 const StyledFormControlLabel = styled(FormControlLabel)({
-  [`& .${classes.label}`]: {
+  [`&.${classes.label}`]: {
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',

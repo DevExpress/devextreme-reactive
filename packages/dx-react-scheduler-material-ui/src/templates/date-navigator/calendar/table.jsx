@@ -20,7 +20,7 @@ const StyledTableMUI = styled(TableMUI)({
   },
 });
 
-const TableBase = ({
+export const Table = ({
   rowComponent: Row,
   cellComponent: Cell,
   headerRowComponent: HeaderRow,
@@ -82,7 +82,7 @@ const TableBase = ({
   </StyledTableMUI>
 );
 
-TableBase.propTypes = {
+Table.propTypes = {
   // oneOfType is a workaround because withStyles returns react object
   rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -100,11 +100,9 @@ TableBase.propTypes = {
   onCellClick: PropTypes.func,
 };
 
-TableBase.defaultProps = {
+Table.defaultProps = {
   className: undefined,
   headerCells: [],
   onCellClick: () => {},
   selectedDate: undefined,
 };
-
-export const Table = (TableBase);

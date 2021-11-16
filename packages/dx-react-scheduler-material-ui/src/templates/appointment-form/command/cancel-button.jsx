@@ -17,7 +17,7 @@ const StyledIconButton = styled(IconButton)(() => ({
   },
 }));
 
-const CancelButtonBase = React.memo(({
+export const CancelButton = React.memo(({
   onExecute, className, ...restProps
 }) => (
   <StyledIconButton
@@ -30,13 +30,11 @@ const CancelButtonBase = React.memo(({
   </StyledIconButton>
 ));
 
-CancelButtonBase.propTypes = {
+CancelButton.propTypes = {
   className: PropTypes.string,
   onExecute: PropTypes.func.isRequired,
 };
 
-CancelButtonBase.defaultProps = {
+CancelButton.defaultProps = {
   className: undefined,
 };
-
-export const CancelButton = (CancelButtonBase);

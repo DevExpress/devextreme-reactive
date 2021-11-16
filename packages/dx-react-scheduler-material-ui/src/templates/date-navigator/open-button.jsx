@@ -14,7 +14,6 @@ export const classes = {
   iconButton: `${PREFIX}-iconButton`,
 };
 
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const StyledButton = styled(Button)(() => ({
   [`&.${classes.textButton}`]: {
     [`${LAYOUT_MEDIA_QUERY}`]: {
@@ -36,7 +35,7 @@ const StyledIconButton = styled(IconButton)(({ theme: { spacing } }) => ({
   },
 }));
 
-const OpenButtonBase = React.memo(({
+export const OpenButton = React.memo(({
   text, onVisibilityToggle, className, ...restProps
 }) => (
   <React.Fragment>
@@ -58,15 +57,13 @@ const OpenButtonBase = React.memo(({
   </React.Fragment>
 ));
 
-OpenButtonBase.propTypes = {
+OpenButton.propTypes = {
   onVisibilityToggle: PropTypes.func.isRequired,
   text: PropTypes.string,
   className: PropTypes.string,
 };
 
-OpenButtonBase.defaultProps = {
+OpenButton.defaultProps = {
   text: '',
   className: undefined,
 };
-
-export const OpenButton = (OpenButtonBase);

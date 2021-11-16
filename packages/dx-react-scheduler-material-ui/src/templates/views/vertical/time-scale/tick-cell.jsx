@@ -33,7 +33,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-const TickCellBase = ({
+export const TickCell = ({
   className,
   startDate,
   endDate,
@@ -52,7 +52,7 @@ const TickCellBase = ({
   />
 );
 
-TickCellBase.propTypes = {
+TickCell.propTypes = {
   startDate: PropTypes.instanceOf(Date),
   endDate: PropTypes.instanceOf(Date),
   endOfGroup: PropTypes.bool,
@@ -61,7 +61,7 @@ TickCellBase.propTypes = {
   className: PropTypes.string,
 };
 
-TickCellBase.defaultProps = {
+TickCell.defaultProps = {
   className: undefined,
   startDate: undefined,
   endDate: undefined,
@@ -69,5 +69,3 @@ TickCellBase.defaultProps = {
   groupingInfo: undefined,
   isAllDay: false,
 };
-
-export const TickCell = (TickCellBase);

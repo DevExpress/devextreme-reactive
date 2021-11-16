@@ -67,7 +67,7 @@ const StyledRadioGroup = styled(RadioGroup)(({ theme: { spacing } }) => ({
   },
 }));
 
-const MonthlyEditorBase = ({
+export const MonthlyEditor = ({
   getMessage,
   labelComponent: Label,
   textEditorComponent: TextEditor,
@@ -216,7 +216,7 @@ const MonthlyEditorBase = ({
   );
 };
 
-MonthlyEditorBase.propTypes = {
+MonthlyEditor.propTypes = {
   getMessage: PropTypes.func,
   onFieldChange: PropTypes.func,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -236,10 +236,8 @@ MonthlyEditorBase.propTypes = {
   firstDayOfWeek: PropTypes.number.isRequired,
 };
 
-MonthlyEditorBase.defaultProps = {
+MonthlyEditor.defaultProps = {
   getMessage: () => undefined,
   onFieldChange: () => undefined,
   readOnly: false,
 };
-
-export const MonthlyEditor = (MonthlyEditorBase);

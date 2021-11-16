@@ -16,7 +16,7 @@ const StyledDiv = styled('div')({
   },
 });
 
-export const DayScaleEmptyCellBase = ({
+export const DayScaleEmptyCell = ({
   className,
   children,
   ...restProps
@@ -26,14 +26,12 @@ export const DayScaleEmptyCellBase = ({
   </StyledDiv>
 );
 
-DayScaleEmptyCellBase.propTypes = {
+DayScaleEmptyCell.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
 };
 
-DayScaleEmptyCellBase.defaultProps = {
+DayScaleEmptyCell.defaultProps = {
   className: undefined,
   children: undefined,
 };
-
-export const DayScaleEmptyCell = (DayScaleEmptyCellBase);

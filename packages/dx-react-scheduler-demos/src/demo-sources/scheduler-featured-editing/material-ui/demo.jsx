@@ -42,7 +42,6 @@ import { appointments } from '../../../demo-data/appointments';
 const PREFIX = 'Demo';
 // #FOLD_BLOCK
 const classes = {
-  container: `${PREFIX}-container`,
   content: `${PREFIX}-content`,
   header: `${PREFIX}-header`,
   closeButton: `${PREFIX}-closeButton`,
@@ -54,6 +53,13 @@ const classes = {
   textField: `${PREFIX}-textField`,
   addButton: `${PREFIX}-addButton`,
 };
+// #FOLD_BLOCK
+const groupingStyles = (({ theme }) => ({
+  [`&.${classes.icon}`]: {
+    margin: theme.spacing(2, 0),
+    marginRight: theme.spacing(2),
+  },
+}));
 // #FOLD_BLOCK
 const StyledDivHeader = styled('div')(({ theme }) => ({
   [`&.${classes.header}`]: {
@@ -70,11 +76,6 @@ const StyledTextField = styled(TextField)(() => ({
 }));
 // #FOLD_BLOCK
 const StyledDivContent = styled('div')(({ theme }) => ({
-  [`& .${classes.container}`]: {
-    width: theme.spacing(68),
-    padding: 0,
-    paddingBottom: theme.spacing(2),
-  },
   [`&.${classes.content}`]: {
     padding: theme.spacing(2),
     paddingTop: 0,
@@ -87,12 +88,7 @@ const StyledIconButton = styled(IconButton)(() => ({
   },
 }));
 // #FOLD_BLOCK
-const StyledCalendarToday = styled(CalendarToday)(({ theme }) => ({
-  [`&.${classes.icon}`]: {
-    margin: theme.spacing(2, 0),
-    marginRight: theme.spacing(2),
-  },
-}));
+const StyledCalendarToday = styled(CalendarToday)(groupingStyles);
 // #FOLD_BLOCK
 const StyledDateTimePicker = styled(DateTimePicker)(({ theme }) => ({
   [`& .${classes.picker}`]: {
@@ -104,12 +100,7 @@ const StyledDateTimePicker = styled(DateTimePicker)(({ theme }) => ({
   },
 }));
 // #FOLD_BLOCK
-const StyledLocationOn = styled(LocationOn)(({ theme }) => ({
-  [`&.${classes.icon}`]: {
-    margin: theme.spacing(2, 0),
-    marginRight: theme.spacing(2),
-  },
-}));
+const StyledLocationOn = styled(LocationOn)(groupingStyles);
 // #FOLD_BLOCK
 const StyledDiv = styled('div')(({ theme }) => ({
   [`&.${classes.wrapper}`]: {
@@ -127,12 +118,7 @@ const StyledDivButtonGroup = styled('div')(({ theme }) => ({
   },
 }));
 // #FOLD_BLOCK
-const StyledCreate = styled(Create)(({ theme }) => ({
-  [`&.${classes.icon}`]: {
-    margin: theme.spacing(2, 0),
-    marginRight: theme.spacing(2),
-  },
-}));
+const StyledCreate = styled(Create)(groupingStyles);
 // #FOLD_BLOCK
 const StyledFab = styled(Fab)(({ theme }) => ({
   [`&.${classes.addButton}`]: {
@@ -330,10 +316,8 @@ class AppointmentFormContainerBasic extends React.PureComponent {
   }
 }
 
-const AppointmentFormContainer = (AppointmentFormContainerBasic);
-
 /* eslint-disable-next-line react/no-multi-comp */
-class Demo extends React.PureComponent {
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -357,7 +341,7 @@ class Demo extends React.PureComponent {
     this.commitChanges = this.commitChanges.bind(this);
     this.onEditingAppointmentChange = this.onEditingAppointmentChange.bind(this);
     this.onAddedAppointmentChange = this.onAddedAppointmentChange.bind(this);
-    this.appointmentForm = connectProps(AppointmentFormContainer, () => {
+    this.appointmentForm = connectProps(AppointmentFormContainerBasic, () => {
       const {
         editingFormVisible,
         editingAppointment,
@@ -541,5 +525,3 @@ class Demo extends React.PureComponent {
     );
   }
 }
-
-export default (Demo);

@@ -56,7 +56,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     color: theme.palette.primary.main,
     fontWeight: 'bold',
   },
-  [`&.${classes.dayView}`]: {
+  [`& .${classes.dayView}`]: {
     'td:only-child &': {
       textAlign: 'center',
       width: 'auto',

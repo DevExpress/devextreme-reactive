@@ -17,7 +17,7 @@ const StyledIconButton = styled(IconButton)(({ theme: { spacing } }) => ({
   },
 }));
 
-const DeleteButtonBase = React.memo(({
+export const DeleteButton = React.memo(({
   onExecute, className, ...restProps
 }) => (
   <StyledIconButton
@@ -30,13 +30,11 @@ const DeleteButtonBase = React.memo(({
   </StyledIconButton>
 ));
 
-DeleteButtonBase.propTypes = {
+DeleteButton.propTypes = {
   className: PropTypes.string,
   onExecute: PropTypes.func.isRequired,
 };
 
-DeleteButtonBase.defaultProps = {
+DeleteButton.defaultProps = {
   className: undefined,
 };
-
-export const DeleteButton = (DeleteButtonBase);

@@ -23,7 +23,7 @@ const StyledIconButton = styled(IconButton)(({ theme: { spacing } }) => ({
   },
 }));
 
-const NavigationButtonBase = React.memo(({
+export const NavigationButton = React.memo(({
   type,
   onClick,
   className,
@@ -40,15 +40,13 @@ const NavigationButtonBase = React.memo(({
   </StyledIconButton>
 ));
 
-NavigationButtonBase.propTypes = {
+NavigationButton.propTypes = {
   type: PropTypes.oneOf(['forward', 'back']).isRequired,
   onClick: PropTypes.func,
   className: PropTypes.string,
 };
 
-NavigationButtonBase.defaultProps = {
+NavigationButton.defaultProps = {
   onClick: () => {},
   className: undefined,
 };
-
-export const NavigationButton = (NavigationButtonBase);

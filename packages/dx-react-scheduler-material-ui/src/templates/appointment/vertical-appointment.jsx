@@ -92,7 +92,7 @@ const StyledDiv = styled('div')(({
   },
 }));
 
-const VerticalAppointmentBase = ({
+export const VerticalAppointment = ({
   data,
   children,
   className,
@@ -165,7 +165,7 @@ const VerticalAppointmentBase = ({
   );
 };
 
-VerticalAppointmentBase.propTypes = {
+VerticalAppointment.propTypes = {
   // oneOfType is a workaround because withStyles returns react object
   recurringIconComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   data: PropTypes.object.isRequired,
@@ -175,9 +175,7 @@ VerticalAppointmentBase.propTypes = {
   className: PropTypes.string,
 };
 
-VerticalAppointmentBase.defaultProps = {
+VerticalAppointment.defaultProps = {
   children: undefined,
   className: undefined,
 };
-
-export const VerticalAppointment = (VerticalAppointmentBase);

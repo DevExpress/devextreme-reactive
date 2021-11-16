@@ -45,10 +45,10 @@ const StyledDiv = styled('div')(({
       paddingBottom: 0,
     },
   },
-  [`& .${classes.fullSize}`]: {
+  [`&.${classes.fullSize}`]: {
     paddingBottom: spacing(3),
   },
-  [`& .${classes.halfSize}`]: {
+  [`&.${classes.halfSize}`]: {
     '@media (min-width: 700px) and (max-width: 850px)': {
       width: '400px',
     },
@@ -105,7 +105,7 @@ const StyledDiv = styled('div')(({
   },
 }));
 
-const LayoutBase = ({
+export const Layout = ({
   children,
   locale,
   className,
@@ -231,7 +231,7 @@ const LayoutBase = ({
   );
 };
 
-LayoutBase.propTypes = {
+Layout.propTypes = {
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dateEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -258,7 +258,7 @@ LayoutBase.propTypes = {
   fullSize: PropTypes.bool.isRequired,
 };
 
-LayoutBase.defaultProps = {
+Layout.defaultProps = {
   onFieldChange: () => undefined,
   resources: [],
   appointmentResources: [],
@@ -266,5 +266,3 @@ LayoutBase.defaultProps = {
   readOnly: false,
   children: null,
 };
-
-export const Layout = (LayoutBase);

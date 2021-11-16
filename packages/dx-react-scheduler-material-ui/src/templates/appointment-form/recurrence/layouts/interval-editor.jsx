@@ -31,7 +31,7 @@ const StyledGrid = styled(Grid)(({ theme: { spacing } }) => ({
   },
 }));
 
-const IntervalEditorBase = ({
+export const IntervalEditor = ({
   className,
   labelComponent: Label,
   textEditorComponent: TextEditor,
@@ -68,7 +68,7 @@ const IntervalEditorBase = ({
   </StyledGrid>
 );
 
-IntervalEditorBase.propTypes = {
+IntervalEditor.propTypes = {
   className: PropTypes.string,
   repeatEveryLabel: PropTypes.string.isRequired,
   repeatIntervalLabel: PropTypes.string.isRequired,
@@ -79,9 +79,7 @@ IntervalEditorBase.propTypes = {
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 };
 
-IntervalEditorBase.defaultProps = {
+IntervalEditor.defaultProps = {
   className: undefined,
   interval: 1,
 };
-
-export const IntervalEditor = (IntervalEditorBase);

@@ -13,17 +13,17 @@ export const classes = {
 };
 
 const StyledDialogTitle = styled(DialogTitle)(({ theme: { typography } }) => ({
-  [`& .${classes.title}`]: {
+  [`&.${classes.title}`]: {
     ...typography.h6,
   },
-  [`& .${classes.media}`]: {
-    title: {
+  [`${SMALL_LAYOUT_MEDIA_QUERY}`]: {
+    [`&.${classes.title}`]: {
       fontSize: '1.1rem',
     },
   },
 }));
 
-const LayoutBase = React.memo(({
+export const Layout = React.memo(({
   buttonComponent: Button,
   handleCancel,
   handleConfirm,
@@ -49,7 +49,7 @@ const LayoutBase = React.memo(({
   </div>
 ));
 
-LayoutBase.propTypes = {
+Layout.propTypes = {
   buttonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   handleCancel: PropTypes.func,
   handleConfirm: PropTypes.func,
@@ -66,12 +66,10 @@ LayoutBase.propTypes = {
   }),
 };
 
-LayoutBase.defaultProps = {
+Layout.defaultProps = {
   handleCancel: () => undefined,
   handleConfirm: () => undefined,
   getMessage: () => undefined,
   isDeleting: false,
   appointmentData: { startDate: new Date(), endDate: new Date() },
 };
-
-export const Layout = (LayoutBase);

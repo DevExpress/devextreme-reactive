@@ -69,7 +69,7 @@ const StyledDiv = styled('div')(({ theme: { palette, spacing } }) => ({
   },
 }));
 
-const LayoutBase = ({
+export const Layout = ({
   commandButtonComponent: CommandButton,
   onCommitButtonClick,
   onCancelButtonClick,
@@ -122,7 +122,7 @@ const LayoutBase = ({
   </StyledGrid>
 );
 
-LayoutBase.propTypes = {
+Layout.propTypes = {
   commandButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   onCommitButtonClick: PropTypes.func.isRequired,
   onCancelButtonClick: PropTypes.func.isRequired,
@@ -136,7 +136,7 @@ LayoutBase.propTypes = {
   hideDeleteButton: PropTypes.bool,
 };
 
-LayoutBase.defaultProps = {
+Layout.defaultProps = {
   className: undefined,
   children: undefined,
   fullSize: false,
@@ -144,5 +144,3 @@ LayoutBase.defaultProps = {
   disableSaveButton: false,
   hideDeleteButton: false,
 };
-
-export const Layout = (LayoutBase);

@@ -32,24 +32,10 @@ const StyledDiv = styled('div')(({ theme: { spacing } }) => ({
     minWidth: 'calc(100% - 13.5em)',
     marginLeft: '1em',
   },
-  [`& .${classes.formControlLabel}`]: {
-    alignItems: 'flex-start',
-  },
-  [`& .${classes.formControl}`]: {
-    marginRight: 0,
-    marginTop: spacing(1),
-    marginBottom: spacing(1),
-  },
   [`& .${classes.doubleSelect}`]: {
     marginLeft: '4.5em',
     width: 'calc(100% - 4.5em)',
     marginTop: spacing(1),
-  },
-  [`& .${classes.radioButton}`]: {
-    marginTop: spacing(0.75),
-  },
-  [`& .${classes.controlLabel}`]: {
-    width: '100%',
   },
 }));
 
@@ -62,9 +48,18 @@ const StyledFormControlLabel = styled(FormControlLabel)(({ theme: { spacing } })
     marginTop: spacing(1),
     marginBottom: spacing(1),
   },
+  [`&.${classes.controlLabel}`]: {
+    width: '100%',
+  },
 }));
 
-const ChangeWeekNumberEditorBase = React.memo(({
+const StyledRadio = styled(Radio)(({ theme: { spacing } }) => ({
+  [`&.${classes.radioButton}`]: {
+    marginTop: spacing(0.75),
+  },
+}));
+
+export const ChangeWeekNumberEditor = React.memo(({
   getMessage,
   labelComponent: Label,
   selectComponent: Select,
@@ -86,7 +81,7 @@ const ChangeWeekNumberEditorBase = React.memo(({
     value="onDayOfWeek"
     className={classNames(classes.formControlLabel, classes.formControl, className)}
     classes={{ label: classes.controlLabel }}
-    control={<Radio color="primary" className={classes.radioButton} />}
+    control={<StyledRadio color="primary" className={classes.radioButton} />}
     disabled={readOnly}
     {...restProps}
     label={(
@@ -128,7 +123,7 @@ const ChangeWeekNumberEditorBase = React.memo(({
   />
 ));
 
-ChangeWeekNumberEditorBase.propTypes = {
+ChangeWeekNumberEditor.propTypes = {
   getMessage: PropTypes.func,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -155,11 +150,9 @@ ChangeWeekNumberEditorBase.propTypes = {
   readOnlyEditors: PropTypes.bool,
 };
 
-ChangeWeekNumberEditorBase.defaultProps = {
+ChangeWeekNumberEditor.defaultProps = {
   getMessage: () => undefined,
   readOnly: false,
   className: undefined,
   readOnlyEditors: false,
 };
-
-export const ChangeWeekNumberEditor = (ChangeWeekNumberEditorBase);

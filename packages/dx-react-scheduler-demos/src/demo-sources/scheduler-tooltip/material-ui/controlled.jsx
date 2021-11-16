@@ -15,7 +15,6 @@ const PREFIX = 'Demo';
 
 const classes = {
   button: `${PREFIX}-button`,
-  text: `${PREFIX}-text`,
 };
 
 const StyledIconButton = styled(IconButton)(({ theme }) => ({
@@ -23,15 +22,9 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
     color: theme.palette.background.default,
     padding: 0,
   },
-  [`& .${classes.text}`]: {
-    paddingTop: theme.spacing(1),
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-  },
 }));
 
-const AppointmentBase = ({
+const Appointment = ({
   children,
   data,
   onClick,
@@ -57,8 +50,6 @@ const AppointmentBase = ({
     </React.Fragment>
   </Appointments.Appointment>
 );
-
-const Appointment = (AppointmentBase);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

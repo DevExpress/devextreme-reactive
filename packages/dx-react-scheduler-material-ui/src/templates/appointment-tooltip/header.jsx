@@ -48,7 +48,7 @@ const StyledDiv = styled('div')(({
   },
 }));
 
-const HeaderBase = ({
+export const Header = ({
   appointmentData,
   commandButtonComponent: CommandButton,
   showOpenButton,
@@ -87,7 +87,7 @@ const HeaderBase = ({
   );
 };
 
-HeaderBase.propTypes = {
+Header.propTypes = {
   appointmentData: PropTypes.object,
   children: PropTypes.node,
   className: PropTypes.string,
@@ -101,7 +101,7 @@ HeaderBase.propTypes = {
   onHide: PropTypes.func,
 };
 
-HeaderBase.defaultProps = {
+Header.defaultProps = {
   appointmentData: undefined,
   className: undefined,
   children: undefined,
@@ -109,5 +109,3 @@ HeaderBase.defaultProps = {
   onDeleteButtonClick: () => undefined,
   onHide: () => undefined,
 };
-
-export const Header = (HeaderBase);

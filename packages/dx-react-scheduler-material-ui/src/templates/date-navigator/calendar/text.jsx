@@ -19,7 +19,7 @@ const StyledTypography = styled(Typography)({
   },
 });
 
-const TextBase = ({
+export const Text = ({
   className,
   currentDate,
   formatDate,
@@ -36,7 +36,7 @@ const TextBase = ({
   </StyledTypography>
 );
 
-TextBase.propTypes = {
+Text.propTypes = {
   currentDate: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
@@ -46,8 +46,6 @@ TextBase.propTypes = {
   className: PropTypes.string,
 };
 
-TextBase.defaultProps = {
+Text.defaultProps = {
   className: undefined,
 };
-
-export const Text = (TextBase);

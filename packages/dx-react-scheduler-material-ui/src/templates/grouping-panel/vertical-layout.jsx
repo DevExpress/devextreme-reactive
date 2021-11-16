@@ -26,7 +26,7 @@ const StyledTable = styled(Table)({
 
 const allDayCellHeight = BASIC_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL];
 
-const VerticalLayoutBase = ({
+export const VerticalLayout = ({
   rowComponent: Row,
   cellComponent: Cell,
   groups,
@@ -70,7 +70,7 @@ const VerticalLayoutBase = ({
   );
 };
 
-VerticalLayoutBase.propTypes = {
+VerticalLayout.propTypes = {
   rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   alignWithAllDayRow: PropTypes.bool,
@@ -81,10 +81,8 @@ VerticalLayoutBase.propTypes = {
   className: PropTypes.string,
 };
 
-VerticalLayoutBase.defaultProps = {
+VerticalLayout.defaultProps = {
   cellTextTopOffset: undefined,
   className: undefined,
   alignWithAllDayRow: false,
 };
-
-export const VerticalLayout = (VerticalLayoutBase);

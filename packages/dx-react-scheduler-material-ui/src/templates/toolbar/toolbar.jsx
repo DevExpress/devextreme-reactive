@@ -17,7 +17,7 @@ const StyledToolbarMUI = styled(ToolbarMUI)(({ theme }) => ({
   },
 }));
 
-const ToolbarBase = ({
+export const Toolbar = ({
   children, className, ...restProps
 }) => (
   <StyledToolbarMUI
@@ -28,13 +28,11 @@ const ToolbarBase = ({
   </StyledToolbarMUI>
 );
 
-ToolbarBase.propTypes = {
+Toolbar.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
 };
 
-ToolbarBase.defaultProps = {
+Toolbar.defaultProps = {
   className: undefined,
 };
-
-export const Toolbar = (ToolbarBase);

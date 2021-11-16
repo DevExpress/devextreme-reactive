@@ -28,7 +28,7 @@ const StyledOutlinedSelect = styled(OutlinedSelect)(({ theme: { spacing } }) => 
   },
 }));
 
-const SwitcherBase = React.memo(({
+export const Switcher = React.memo(({
   currentView,
   availableViews,
   onChange,
@@ -50,7 +50,7 @@ const SwitcherBase = React.memo(({
   );
 });
 
-SwitcherBase.propTypes = {
+Switcher.propTypes = {
   onChange: PropTypes.func.isRequired,
   currentView: PropTypes.shape({
     name: PropTypes.string.isRequired,
@@ -62,8 +62,6 @@ SwitcherBase.propTypes = {
   })),
 };
 
-SwitcherBase.defaultProps = {
+Switcher.defaultProps = {
   availableViews: [],
 };
-
-export const Switcher = (SwitcherBase);

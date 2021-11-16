@@ -1,7 +1,7 @@
 import { styled } from '@mui/material/styles';
 import { ContainerBase, classes } from '../common/container';
 
-const styledContainerBase = styled(ContainerBase)({
+export const Container = styled(ContainerBase)({
   [`&.${classes.container}`]: {
     position: 'absolute',
     width: '100%',
@@ -9,5 +9,3 @@ const styledContainerBase = styled(ContainerBase)({
     left: 0,
   },
 });
-
-export const Container = (styledContainerBase);

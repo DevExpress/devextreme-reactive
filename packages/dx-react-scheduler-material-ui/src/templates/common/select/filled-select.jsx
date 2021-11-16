@@ -25,7 +25,7 @@ const StyledTextField = styled(TextField)(({
   },
 }));
 
-const FilledSelectBase = React.memo(({
+export const FilledSelect = React.memo(({
   value,
   availableOptions,
   onValueChange,
@@ -61,7 +61,7 @@ const FilledSelectBase = React.memo(({
   );
 });
 
-FilledSelectBase.propTypes = {
+FilledSelect.propTypes = {
   onValueChange: PropTypes.func,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   availableOptions: PropTypes.arrayOf(PropTypes.shape({
@@ -72,11 +72,9 @@ FilledSelectBase.propTypes = {
   className: PropTypes.string,
 };
 
-FilledSelectBase.defaultProps = {
+FilledSelect.defaultProps = {
   readOnly: false,
   onValueChange: () => undefined,
   availableOptions: [],
   className: undefined,
 };
-
-export const FilledSelect = (FilledSelectBase);

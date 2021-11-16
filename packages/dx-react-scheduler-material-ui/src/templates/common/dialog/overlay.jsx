@@ -24,7 +24,7 @@ const StyledDialog = styled(Dialog)({
   },
 });
 
-const OverlayBase = ({
+export const Overlay = ({
   children, visible, onHide, target, className, ...restProps
 }) => (
   <StyledDialog
@@ -41,7 +41,7 @@ const OverlayBase = ({
   </StyledDialog>
 );
 
-OverlayBase.propTypes = {
+Overlay.propTypes = {
   children: PropTypes.node.isRequired,
   onHide: PropTypes.func.isRequired,
   target: PropTypes.object.isRequired,
@@ -49,9 +49,7 @@ OverlayBase.propTypes = {
   className: PropTypes.string,
 };
 
-OverlayBase.defaultProps = {
+Overlay.defaultProps = {
   className: undefined,
   visible: false,
 };
-
-export const Overlay = (OverlayBase);

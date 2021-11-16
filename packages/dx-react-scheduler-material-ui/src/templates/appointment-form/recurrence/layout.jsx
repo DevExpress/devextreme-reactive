@@ -111,7 +111,7 @@ const getLayoutComponent = (recurrenceOptions) => {
   return () => null;
 };
 
-const LayoutBase = ({
+export const Layout = ({
   radioGroupComponent: RadioGroup,
   textEditorComponent,
   labelComponent: Label,
@@ -204,7 +204,7 @@ const LayoutBase = ({
   );
 };
 
-LayoutBase.propTypes = {
+Layout.propTypes = {
   locale: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   radioGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -233,12 +233,10 @@ LayoutBase.propTypes = {
   firstDayOfWeek: PropTypes.number.isRequired,
 };
 
-LayoutBase.defaultProps = {
+Layout.defaultProps = {
   locale: 'en-US',
   onFieldChange: () => undefined,
   className: undefined,
   readOnly: false,
   children: null,
 };
-
-export const Layout = (LayoutBase);

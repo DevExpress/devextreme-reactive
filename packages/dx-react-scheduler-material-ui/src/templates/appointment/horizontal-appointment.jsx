@@ -46,7 +46,7 @@ const StyledDiv = styled('div')(({ theme: { palette, spacing } }) => ({
   },
 }));
 
-const HorizontalAppointmentBase = ({
+export const HorizontalAppointment = ({
   data,
   children,
   className,
@@ -77,7 +77,7 @@ const HorizontalAppointmentBase = ({
   );
 };
 
-HorizontalAppointmentBase.propTypes = {
+HorizontalAppointment.propTypes = {
   // oneOfType is a workaround because withStyles returns react object
   recurringIconComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   data: PropTypes.object.isRequired,
@@ -87,11 +87,9 @@ HorizontalAppointmentBase.propTypes = {
   formatDate: PropTypes.func,
 };
 
-HorizontalAppointmentBase.defaultProps = {
+HorizontalAppointment.defaultProps = {
   formatDate: () => '',
   children: undefined,
   className: undefined,
   durationType: undefined,
 };
-
-export const HorizontalAppointment = (HorizontalAppointmentBase);

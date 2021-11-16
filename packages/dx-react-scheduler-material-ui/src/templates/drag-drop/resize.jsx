@@ -29,7 +29,7 @@ const horizontalStyles = spacing => ({
   cursor: 'ew-resize',
 });
 
-const ResizeBase = React.memo(({
+export const Resize = React.memo(({
   className,
   position, appointmentType,
   forwardedRef, ...restProps
@@ -51,19 +51,19 @@ const ResizeBase = React.memo(({
   );
 });
 
-ResizeBase.propTypes = {
+Resize.propTypes = {
   position: PropTypes.oneOf([POSITION_START, POSITION_END]).isRequired,
   appointmentType: PropTypes.oneOf([HORIZONTAL_TYPE, VERTICAL_TYPE]).isRequired,
   className: PropTypes.string,
   forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
-ResizeBase.defaultProps = {
+Resize.defaultProps = {
   className: undefined,
   forwardedRef: undefined,
 };
 
-const StyledResizeBaze = styled(ResizeBase)(({ theme: { spacing } }) => {
+export const StyledResizeBaze = styled(Resize)(({ theme: { spacing } }) => {
   const vertical = verticalStyles(spacing);
   const horizontal = horizontalStyles(spacing);
   return {
@@ -89,5 +89,3 @@ const StyledResizeBaze = styled(ResizeBase)(({ theme: { spacing } }) => {
     },
   };
 });
-
-export const Resize = (StyledResizeBaze);

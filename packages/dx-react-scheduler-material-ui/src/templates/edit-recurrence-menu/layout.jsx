@@ -22,17 +22,17 @@ const StyledDiv = styled('div')(({ theme: { typography } }) => ({
   [`& .${classes.content}`]: {
     fontSize: '1rem',
   },
-  [`& .${classes.media}`]: {
-    title: {
+  [`${SMALL_LAYOUT_MEDIA_QUERY}`]: {
+    [`& .${classes.title}`]: {
       fontSize: '1.1rem',
     },
-    content: {
+    [`& .${classes.content}`]: {
       fontSize: '0.9rem',
     },
   },
 }));
 
-const LayoutBase = React.memo(({
+export const Layout = React.memo(({
   buttonComponent: Button,
   handleClose,
   commit,
@@ -83,7 +83,7 @@ const LayoutBase = React.memo(({
   );
 });
 
-LayoutBase.propTypes = {
+Layout.propTypes = {
   buttonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   availableOperations: PropTypes.array.isRequired,
   handleClose: PropTypes.func,
@@ -92,11 +92,9 @@ LayoutBase.propTypes = {
   isDeleting: PropTypes.bool,
 };
 
-LayoutBase.defaultProps = {
+Layout.defaultProps = {
   handleClose: () => undefined,
   commit: () => undefined,
   getMessage: () => undefined,
   isDeleting: false,
 };
-
-export const Layout = (LayoutBase);

@@ -16,7 +16,7 @@ export const classes = {
   shadedAppointment: `${PREFIX}-shadedAppointment`,
 };
 
-const AppointmentBase = ({
+export const AppointmentBase = ({
   className, data, formatDate, type, fromPrev,
   toNext, durationType, isShaded, ...restProps
 }) => (
@@ -99,7 +99,7 @@ DraftAppointment.defaultProps = {
 };
 
 const StyledSourceAppointmentBase = styled(AppointmentBase)(() => ({
-  [`& .${classes.appointment}`]: {
+  [`&.${classes.appointment}`]: {
     opacity: 0.5,
   },
 }));

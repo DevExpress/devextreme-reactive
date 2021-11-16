@@ -22,7 +22,7 @@ const StyledPopover = styled(Popover)({
 
 const verticalTopHorizontalCenterOptions = { vertical: 'top', horizontal: 'center' };
 
-const LayoutBase = ({
+export const Layout = ({
   headerComponent: Header,
   contentComponent: Content,
   commandButtonComponent,
@@ -74,7 +74,7 @@ const LayoutBase = ({
   );
 };
 
-LayoutBase.propTypes = {
+Layout.propTypes = {
   // oneOfType is a workaround because withStyles returns react object
   commandButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   headerComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -98,7 +98,7 @@ LayoutBase.propTypes = {
   visible: PropTypes.bool,
   onHide: PropTypes.func,
 };
-LayoutBase.defaultProps = {
+Layout.defaultProps = {
   onOpenButtonClick: () => undefined,
   onDeleteButtonClick: () => undefined,
   onHide: () => undefined,
@@ -106,5 +106,3 @@ LayoutBase.defaultProps = {
   appointmentResources: [],
   visible: false,
 };
-
-export const Layout = (LayoutBase);

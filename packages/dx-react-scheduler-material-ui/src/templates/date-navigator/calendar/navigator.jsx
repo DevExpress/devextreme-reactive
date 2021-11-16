@@ -17,7 +17,7 @@ const StyledToolbar = styled(Toolbar)({
   },
 });
 
-const NavigatorBase = ({
+export const Navigator = ({
   className,
   currentDate,
   textComponent: Text,
@@ -42,7 +42,7 @@ const NavigatorBase = ({
   </StyledToolbar>
 );
 
-NavigatorBase.propTypes = {
+Navigator.propTypes = {
   // oneOfType is a workaround because withStyles returns react object
   textComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   navigationButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -56,9 +56,7 @@ NavigatorBase.propTypes = {
   onNavigate: PropTypes.func,
 };
 
-NavigatorBase.defaultProps = {
+Navigator.defaultProps = {
   className: undefined,
   onNavigate: () => {},
 };
-
-export const Navigator = (NavigatorBase);

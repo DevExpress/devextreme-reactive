@@ -19,7 +19,7 @@ const StyledTable = styled(Table)({
   },
 });
 
-const TicksLayoutBase = ({
+export const TicksLayout = ({
   cellComponent: Cell,
   rowComponent: Row,
   cellsData,
@@ -63,7 +63,7 @@ const TicksLayoutBase = ({
   );
 };
 
-TicksLayoutBase.propTypes = {
+TicksLayout.propTypes = {
   cellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -73,11 +73,9 @@ TicksLayoutBase.propTypes = {
   className: PropTypes.string,
 };
 
-TicksLayoutBase.defaultProps = {
+TicksLayout.defaultProps = {
   className: undefined,
   groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
   groupCount: 1,
   includeAllDayCell: false,
 };
-
-export const TicksLayout = (TicksLayoutBase);

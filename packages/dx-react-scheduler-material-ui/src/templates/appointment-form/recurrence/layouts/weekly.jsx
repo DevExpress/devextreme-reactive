@@ -16,7 +16,7 @@ const StyledDiv = styled('div')(({ theme }) => ({
   },
 }));
 
-const WeeklyBase = ({
+export const Weekly = ({
   radioGroupComponent,
   textEditorComponent,
   labelComponent,
@@ -64,7 +64,7 @@ const WeeklyBase = ({
   );
 };
 
-WeeklyBase.propTypes = {
+Weekly.propTypes = {
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   radioGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -88,9 +88,7 @@ WeeklyBase.propTypes = {
   firstDayOfWeek: PropTypes.number.isRequired,
 };
 
-WeeklyBase.defaultProps = {
+Weekly.defaultProps = {
   onFieldChange: () => undefined,
   readOnly: false,
 };
-
-export const Weekly = (WeeklyBase);

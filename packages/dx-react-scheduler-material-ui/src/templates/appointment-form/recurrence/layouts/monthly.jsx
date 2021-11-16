@@ -21,7 +21,7 @@ const StyledDiv = styled('div')(({ theme }) => ({
   },
 }));
 
-const MonthlyBase = ({
+export const Monthly = ({
   radioGroupComponent: RadioGroup,
   textEditorComponent,
   labelComponent,
@@ -73,7 +73,7 @@ const MonthlyBase = ({
   );
 };
 
-MonthlyBase.propTypes = {
+Monthly.propTypes = {
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   radioGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -97,9 +97,7 @@ MonthlyBase.propTypes = {
   firstDayOfWeek: PropTypes.number.isRequired,
 };
 
-MonthlyBase.defaultProps = {
+Monthly.defaultProps = {
   onFieldChange: () => undefined,
   readOnly: false,
 };
-
-export const Monthly = (MonthlyBase);

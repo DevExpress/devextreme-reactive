@@ -28,7 +28,7 @@ const StyledFormControlLabel = styled(FormControlLabel)(({ theme: { spacing } })
   },
 }));
 
-const ChangeMonthEditorBase = React.memo(({
+export const ChangeMonthEditor = React.memo(({
   getMessage,
   labelComponent: Label,
   textEditorComponent: TextEditor,
@@ -103,7 +103,7 @@ const ChangeMonthEditorBase = React.memo(({
   );
 });
 
-ChangeMonthEditorBase.propTypes = {
+ChangeMonthEditor.propTypes = {
   getMessage: PropTypes.func,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -121,11 +121,9 @@ ChangeMonthEditorBase.propTypes = {
   readOnlyEditors: PropTypes.bool,
 };
 
-ChangeMonthEditorBase.defaultProps = {
+ChangeMonthEditor.defaultProps = {
   getMessage: () => undefined,
   readOnly: false,
   className: undefined,
   readOnlyEditors: false,
 };
-
-export const ChangeMonthEditor = (ChangeMonthEditorBase);

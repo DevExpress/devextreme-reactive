@@ -21,7 +21,7 @@ const StyledDiv = styled('div')(({ theme }) => ({
   },
 }));
 
-const YearlyBase = ({
+export const Yearly = ({
   radioGroupComponent: RadioGroup,
   textEditorComponent,
   labelComponent,
@@ -73,7 +73,7 @@ const YearlyBase = ({
   );
 };
 
-YearlyBase.propTypes = {
+Yearly.propTypes = {
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   radioGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -97,9 +97,7 @@ YearlyBase.propTypes = {
   firstDayOfWeek: PropTypes.number.isRequired,
 };
 
-YearlyBase.defaultProps = {
+Yearly.defaultProps = {
   onFieldChange: () => undefined,
   readOnly: false,
 };
-
-export const Yearly = (YearlyBase);

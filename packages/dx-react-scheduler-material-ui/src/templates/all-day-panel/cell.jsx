@@ -41,7 +41,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-const CellBase = ({
+export const Cell = ({
   className,
   children,
   startDate,
@@ -65,7 +65,7 @@ const CellBase = ({
     {children}
   </StyledTableCell>
 );
-CellBase.propTypes = {
+Cell.propTypes = {
   startDate: PropTypes.instanceOf(Date),
   endDate: PropTypes.instanceOf(Date),
   children: PropTypes.node,
@@ -76,7 +76,7 @@ CellBase.propTypes = {
   groupOrientation: PropTypes.oneOf([HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION]),
 };
 
-CellBase.defaultProps = {
+Cell.defaultProps = {
   children: null,
   startDate: undefined,
   endDate: undefined,
@@ -86,5 +86,3 @@ CellBase.defaultProps = {
   groupingInfo: undefined,
   groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
 };
-
-export const Cell = (CellBase);

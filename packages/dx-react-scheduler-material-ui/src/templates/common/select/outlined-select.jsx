@@ -18,11 +18,11 @@ const StyledSelect = styled(Select)(({ theme: { typography } }) => ({
   [`&.${classes.root}`]: {
     fontSize: typography.fontSize + 2,
   },
+}));
+
+const StyledOutlinedInput = styled(OutlinedInput)(() => ({
   [`& .${classes.input}`]: {
     fontWeight: 'bold',
-    textTransform: 'uppercase',
-  },
-  [`& .${classes.menuItem}`]: {
     textTransform: 'uppercase',
   },
   [`& .${classes.inputRoot}`]: {
@@ -30,7 +30,7 @@ const StyledSelect = styled(Select)(({ theme: { typography } }) => ({
   },
 }));
 
-const OutlinedSelectBase = React.memo(({
+export const OutlinedSelect = React.memo(({
   value,
   availableOptions,
   onValueChange,
@@ -49,7 +49,7 @@ const OutlinedSelectBase = React.memo(({
       value={value}
       onChange={handleChange}
       input={(
-        <OutlinedInput
+        <StyledOutlinedInput
           classes={inputClasses || { input: classes.input, root: classes.inputRoot }}
         />
       )}
@@ -68,7 +68,7 @@ const OutlinedSelectBase = React.memo(({
   );
 });
 
-OutlinedSelectBase.propTypes = {
+OutlinedSelect.propTypes = {
   onValueChange: PropTypes.func,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   availableOptions: PropTypes.arrayOf(PropTypes.shape({
@@ -79,11 +79,9 @@ OutlinedSelectBase.propTypes = {
   inputClasses: PropTypes.object,
 };
 
-OutlinedSelectBase.defaultProps = {
+OutlinedSelect.defaultProps = {
   readOnly: false,
   onValueChange: () => undefined,
   availableOptions: [],
   inputClasses: null,
 };
-
-export const OutlinedSelect = (OutlinedSelectBase);

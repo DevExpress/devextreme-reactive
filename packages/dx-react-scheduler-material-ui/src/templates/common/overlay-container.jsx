@@ -17,7 +17,7 @@ const StyledDiv = styled('div')({
   },
 });
 
-export const OverlayContainerBase = React.forwardRef(({
+export const OverlayContainer = React.forwardRef(({
   children, className, ...restProps
 }, ref) => (
   <StyledDiv
@@ -29,14 +29,12 @@ export const OverlayContainerBase = React.forwardRef(({
   </StyledDiv>
 ));
 
-OverlayContainerBase.propTypes = {
+OverlayContainer.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
 };
 
-OverlayContainerBase.defaultProps = {
+OverlayContainer.defaultProps = {
   children: null,
   className: undefined,
 };
-
-export const OverlayContainer = (OverlayContainerBase);

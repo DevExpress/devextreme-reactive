@@ -18,7 +18,7 @@ const StyledTable = styled(Table)({
   },
 });
 
-const LayoutBase = React.memo(({
+export const Layout = React.memo(({
   setCellElementsMeta,
   cellsData,
   className,
@@ -60,7 +60,7 @@ const LayoutBase = React.memo(({
   );
 });
 
-LayoutBase.propTypes = {
+Layout.propTypes = {
   formatDate: PropTypes.func.isRequired,
   cellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -68,8 +68,6 @@ LayoutBase.propTypes = {
   setCellElementsMeta: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
-LayoutBase.defaultProps = {
+Layout.defaultProps = {
   className: undefined,
 };
-
-export const Layout = (LayoutBase);

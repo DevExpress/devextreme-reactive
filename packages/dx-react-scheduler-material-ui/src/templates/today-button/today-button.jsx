@@ -24,7 +24,7 @@ const StyledButton = styled(Button)(({ theme: { spacing } }) => ({
   },
 }));
 
-const TodayButtonBase = ({
+export const TodayButton = ({
   setCurrentDate, getMessage, className, ...restProps
 }) => {
   const handleClick = () => {
@@ -42,14 +42,12 @@ const TodayButtonBase = ({
   );
 };
 
-TodayButtonBase.propTypes = {
+TodayButton.propTypes = {
   setCurrentDate: PropTypes.func.isRequired,
   className: PropTypes.string,
   getMessage: PropTypes.func.isRequired,
 };
 
-TodayButtonBase.defaultProps = {
+TodayButton.defaultProps = {
   className: undefined,
 };
-
-export const TodayButton = (TodayButtonBase);

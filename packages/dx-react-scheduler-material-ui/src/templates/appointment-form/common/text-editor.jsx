@@ -28,7 +28,7 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   },
 }));
 
-const TextEditorBase = React.memo(({
+export const TextEditor = React.memo(({
   value,
   placeholder,
   className,
@@ -62,7 +62,7 @@ const TextEditorBase = React.memo(({
   );
 });
 
-TextEditorBase.propTypes = {
+TextEditor.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   placeholder: PropTypes.string,
   className: PropTypes.string,
@@ -71,7 +71,7 @@ TextEditorBase.propTypes = {
   type: PropTypes.string,
 };
 
-TextEditorBase.defaultProps = {
+TextEditor.defaultProps = {
   value: '',
   placeholder: undefined,
   className: undefined,
@@ -79,5 +79,3 @@ TextEditorBase.defaultProps = {
   onValueChange: () => undefined,
   type: ORDINARY_TEXT_EDITOR,
 };
-
-export const TextEditor = (TextEditorBase);

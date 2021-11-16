@@ -57,7 +57,7 @@ const StyledDrawer = styled(Drawer)(({ theme: { spacing } }) => ({
   },
 }));
 
-const OverlayBase = ({
+export const Overlay = ({
   children,
   visible,
   className,
@@ -100,7 +100,7 @@ const OverlayBase = ({
   );
 };
 
-OverlayBase.propTypes = {
+Overlay.propTypes = {
   children: PropTypes.node.isRequired,
   fullSize: PropTypes.bool.isRequired,
   onHide: PropTypes.func.isRequired,
@@ -109,10 +109,8 @@ OverlayBase.propTypes = {
   target: PropTypes.object,
 };
 
-OverlayBase.defaultProps = {
+Overlay.defaultProps = {
   className: undefined,
   visible: false,
   target: null,
 };
-
-export const Overlay = (OverlayBase);

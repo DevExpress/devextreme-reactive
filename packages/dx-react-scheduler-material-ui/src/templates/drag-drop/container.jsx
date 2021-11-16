@@ -1,7 +1,7 @@
 import { styled } from '@mui/material/styles';
 import { ContainerBase, classes } from '../common/container';
 
-const StyledContainerBase = styled(ContainerBase)(() => ({
+export const Container = styled(ContainerBase)(() => ({
   [`&.${classes.container}`]: {
     position: 'absolute',
     left: 0,
@@ -11,5 +11,3 @@ const StyledContainerBase = styled(ContainerBase)(() => ({
     cursor: 'move',
   },
 }));
-
-export const Container = (StyledContainerBase);

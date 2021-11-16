@@ -46,7 +46,7 @@ const isCurrentWeekDay = (
   { byweekday }, currentWeekDay,
 ) => byweekday && byweekday.findIndex(({ weekday }) => weekday === currentWeekDay) > -1;
 
-const WeeklyRecurrenceSelectorBase = React.memo(({
+export const WeeklyRecurrenceSelector = React.memo(({
   formatDate,
   rRule,
   readOnly,
@@ -92,7 +92,7 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
   );
 });
 
-WeeklyRecurrenceSelectorBase.propTypes = {
+WeeklyRecurrenceSelector.propTypes = {
   formatDate: PropTypes.func.isRequired,
   rRule: PropTypes.string.isRequired,
   onValueChange: PropTypes.func,
@@ -101,10 +101,8 @@ WeeklyRecurrenceSelectorBase.propTypes = {
   firstDayOfWeek: PropTypes.number.isRequired,
 };
 
-WeeklyRecurrenceSelectorBase.defaultProps = {
+WeeklyRecurrenceSelector.defaultProps = {
   onValueChange: () => undefined,
   readOnly: false,
   className: undefined,
 };
-
-export const WeeklyRecurrenceSelector = (WeeklyRecurrenceSelectorBase);

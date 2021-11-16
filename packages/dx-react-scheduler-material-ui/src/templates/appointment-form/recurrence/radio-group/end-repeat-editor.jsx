@@ -52,7 +52,7 @@ const StyledRadioGroup = styled(RadioGroup)(({ theme: { spacing, typography } })
   },
 }));
 
-const EndRepeatEditorBase = ({
+export const EndRepeatEditor = ({
   getMessage,
   labelComponent: Label,
   textEditorComponent: TextEditor,
@@ -194,7 +194,7 @@ const EndRepeatEditorBase = ({
   );
 };
 
-EndRepeatEditorBase.propTypes = {
+EndRepeatEditor.propTypes = {
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dateEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -213,10 +213,8 @@ EndRepeatEditorBase.propTypes = {
   readOnly: PropTypes.bool,
 };
 
-EndRepeatEditorBase.defaultProps = {
+EndRepeatEditor.defaultProps = {
   onFieldChange: () => undefined,
   getMessage: () => undefined,
   readOnly: false,
 };
-
-export const EndRepeatEditor = (EndRepeatEditorBase);

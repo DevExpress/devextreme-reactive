@@ -11,7 +11,7 @@ describe('DragDrop', () => {
     let shallow;
     let mount;
     beforeAll(() => {
-      shallow = createShallow({ dive: true });
+      shallow = createShallow();
       mount = createMount();
     });
     it('should pass rest props to the root element', () => {

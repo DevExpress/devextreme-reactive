@@ -44,7 +44,7 @@ const StyledTableCell = styled(TableCell)(({ theme: { palette, spacing } }) => (
   },
 }));
 
-const CellBase = ({
+export const Cell = ({
   otherMonth,
   selected,
   today,
@@ -70,7 +70,7 @@ const CellBase = ({
   </StyledTableCell>
 );
 
-CellBase.propTypes = {
+Cell.propTypes = {
   children: PropTypes.node,
   otherMonth: PropTypes.bool,
   selected: PropTypes.bool,
@@ -78,12 +78,10 @@ CellBase.propTypes = {
   className: PropTypes.string,
 };
 
-CellBase.defaultProps = {
+Cell.defaultProps = {
   children: undefined,
   otherMonth: false,
   selected: false,
   today: false,
   className: undefined,
 };
-
-export const Cell = (CellBase);

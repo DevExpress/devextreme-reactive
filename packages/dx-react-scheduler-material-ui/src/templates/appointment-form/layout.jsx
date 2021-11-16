@@ -32,7 +32,7 @@ const StyledDiv = styled('div')({
   },
 });
 
-const LayoutBase = ({
+export const Layout = ({
   basicLayoutComponent: BasicLayout,
   commandLayoutComponent: CommandLayout,
   recurrenceLayoutComponent: RecurrenceLayout,
@@ -56,7 +56,7 @@ const LayoutBase = ({
   </StyledDiv>
 );
 
-LayoutBase.propTypes = {
+Layout.propTypes = {
   basicLayoutComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   commandLayoutComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   recurrenceLayoutComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -65,10 +65,8 @@ LayoutBase.propTypes = {
   isRecurrence: PropTypes.bool,
 };
 
-LayoutBase.defaultProps = {
+Layout.defaultProps = {
   className: undefined,
   isRecurrence: false,
   children: null,
 };
-
-export const Layout = (LayoutBase);

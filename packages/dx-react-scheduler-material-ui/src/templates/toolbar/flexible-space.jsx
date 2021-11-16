@@ -16,7 +16,7 @@ const StyledDiv = styled('div')({
   },
 });
 
-export const FlexibleSpaceBase = ({
+export const FlexibleSpace = ({
   children,
   className,
   ...restProps
@@ -29,14 +29,12 @@ export const FlexibleSpaceBase = ({
   </StyledDiv>
 );
 
-FlexibleSpaceBase.propTypes = {
+FlexibleSpace.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
 };
 
-FlexibleSpaceBase.defaultProps = {
+FlexibleSpace.defaultProps = {
   children: null,
   className: undefined,
 };
-
-export const FlexibleSpace = (FlexibleSpaceBase);

@@ -11,7 +11,7 @@ export const classes = {
   button: `${PREFIX}-button`,
 };
 
-const StyledButton = styled(Button)(({
+export const StyledButton = styled(Button)(({
   theme: { spacing, palette },
 }) => ({
   [`&.${classes.button}`]: {
@@ -29,7 +29,7 @@ const StyledButton = styled(Button)(({
   },
 }));
 
-const SaveButtonBase = React.memo(({
+export const SaveButton = React.memo(({
   getMessage, className, onExecute, ...restProps
 }) => (
   <StyledButton
@@ -41,14 +41,12 @@ const SaveButtonBase = React.memo(({
   </StyledButton>
 ));
 
-SaveButtonBase.propTypes = {
+SaveButton.propTypes = {
   className: PropTypes.string,
   getMessage: PropTypes.func.isRequired,
   onExecute: PropTypes.func.isRequired,
 };
 
-SaveButtonBase.defaultProps = {
+SaveButton.defaultProps = {
   className: undefined,
 };
-
-export const SaveButton = (SaveButtonBase);

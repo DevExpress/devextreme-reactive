@@ -40,7 +40,7 @@ const StyledDiv = styled('div')(({ theme }) => ({
   },
 }));
 
-const LabelBase = ({
+export const Label = ({
   className,
   time,
   formatDate,
@@ -64,7 +64,7 @@ const LabelBase = ({
   </StyledDiv>
 );
 
-LabelBase.propTypes = {
+Label.propTypes = {
   formatDate: PropTypes.func,
   time: PropTypes.instanceOf(Date),
   groupingInfo: PropTypes.arrayOf(PropTypes.object),
@@ -72,12 +72,10 @@ LabelBase.propTypes = {
   className: PropTypes.string,
 };
 
-LabelBase.defaultProps = {
+Label.defaultProps = {
   className: undefined,
   time: undefined,
   formatDate: () => undefined,
   groupingInfo: undefined,
   endOfGroup: false,
 };
-
-export const Label = (LabelBase);

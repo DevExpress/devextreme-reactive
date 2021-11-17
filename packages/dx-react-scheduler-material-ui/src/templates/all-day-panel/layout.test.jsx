@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { getClasses, createMount } from '@devexpress/dx-testing';
-import { Layout } from './layout';
+import { createMount } from '@devexpress/dx-testing';
+import { Layout, classes } from './layout';
 
 describe('AllDayPanel', () => {
-  let classes;
   let mount;
   const defaultProps = {
     setCellElementsMeta: jest.fn(),
@@ -13,13 +12,7 @@ describe('AllDayPanel', () => {
     /* eslint-disable-next-line */
     rowComponent: ({ children }) => <tr>{children}</tr>,
   };
-  beforeAll(() => {
-    classes = getClasses(
-      <Layout {...defaultProps}>
-        <div />
-      </Layout>,
-    );
-  });
+
   beforeEach(() => {
     mount = createMount();
   });

@@ -1,18 +1,23 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import Toolbar from '@mui/material/Toolbar';
 import classNames from 'clsx';
 
-const styles = {
-  navigator: {
+const PREFIX = 'Navigator';
+
+export const classes = {
+  navigator: `${PREFIX}-navigator`,
+};
+
+const StyledToolbar = styled(Toolbar)({
+  [`&.${classes.navigator}`]: {
     paddingLeft: 0,
     paddingRight: 0,
   },
-};
+});
 
-const NavigatorBase = ({
-  classes,
+export const Navigator = ({
   className,
   currentDate,
   textComponent: Text,
@@ -21,7 +26,7 @@ const NavigatorBase = ({
   formatDate,
   ...restProps
 }) => (
-  <Toolbar
+  <StyledToolbar
     className={classNames(classes.navigator, className)}
     {...restProps}
   >
@@ -34,12 +39,11 @@ const NavigatorBase = ({
       type="forward"
       onClick={() => { onNavigate({ back: false }); }}
     />
-  </Toolbar>
+  </StyledToolbar>
 );
 
-NavigatorBase.propTypes = {
+Navigator.propTypes = {
   // oneOfType is a workaround because withStyles returns react object
-  classes: PropTypes.object.isRequired,
   textComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   navigationButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   currentDate: PropTypes.oneOfType([
@@ -52,9 +56,7 @@ NavigatorBase.propTypes = {
   onNavigate: PropTypes.func,
 };
 
-NavigatorBase.defaultProps = {
+Navigator.defaultProps = {
   className: undefined,
   onNavigate: () => {},
 };
-
-export const Navigator = withStyles(styles, { name: 'Navigator' })(NavigatorBase);

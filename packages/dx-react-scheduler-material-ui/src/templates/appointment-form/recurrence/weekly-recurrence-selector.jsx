@@ -1,8 +1,8 @@
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 import {
   getRecurrenceOptions, WEEK_DAY_OPTIONS, handleWeekDaysChange, changeRecurrenceOptions,
@@ -10,36 +10,46 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { ensureColor } from '../../utils';
 
-const styles = ({ palette, spacing }) => ({
-  selectedButton: {
+const PREFIX = 'WeeklyRecurrenceSelector';
+
+export const classes = {
+  selectedButton: `${PREFIX}-selectedButton`,
+  button: `${PREFIX}-button`,
+  buttonGroup: `${PREFIX}-buttonGroup`,
+};
+
+const StyledButtonGroup = styled(ButtonGroup)(({ theme: { spacing } }) => ({
+  [`&.${classes.buttonGroup}`]: {
+    marginBottom: spacing(2),
+  },
+}));
+
+const StyledButton = styled(Button)(({ theme: { palette, spacing } }) => ({
+  [`&.${classes.selectedButton}`]: {
     backgroundColor: ensureColor(400, palette.primary),
     '&:hover': {
       backgroundColor: ensureColor(500, palette.primary),
     },
     border: `1px solid ${ensureColor(400, palette.primary)}!important`,
     borderLeft: `1px solid ${ensureColor(50, palette.primary)}!important`,
-    '&:first-child': {
+    '&:first-of-type': {
       borderLeft: `1px solid ${ensureColor(400, palette.primary)}!important`,
     },
     color: ensureColor(50, palette.primary),
   },
-  button: {
+  [`&.${classes.button}`]: {
     minWidth: spacing(3),
   },
-  buttonGroup: {
-    marginBottom: spacing(2),
-  },
-});
+}));
 
 const isCurrentWeekDay = (
   { byweekday }, currentWeekDay,
 ) => byweekday && byweekday.findIndex(({ weekday }) => weekday === currentWeekDay) > -1;
 
-const WeeklyRecurrenceSelectorBase = React.memo(({
+export const WeeklyRecurrenceSelector = React.memo(({
   formatDate,
   rRule,
   readOnly,
-  classes,
   className,
   onValueChange,
   firstDayOfWeek,
@@ -50,7 +60,7 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
   const daysOfWeekDates = getDaysOfWeekDates(firstDayOfWeek);
 
   return (
-    <ButtonGroup
+    <StyledButtonGroup
       variant="outlined"
       size="small"
       disabled={readOnly}
@@ -60,7 +70,7 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
     >
       {
         daysOfWeekArray.map((dayOfWeek, index) => (
-          <Button
+          <StyledButton
             className={classNames({
               [classes.button]: true,
               [classes.selectedButton]: isCurrentWeekDay(recurrenceOptions, dayOfWeek),
@@ -75,16 +85,15 @@ const WeeklyRecurrenceSelectorBase = React.memo(({
             })}
           >
             {formatDate(daysOfWeekDates[index], WEEK_DAY_OPTIONS)}
-          </Button>
+          </StyledButton>
         ))
       }
-    </ButtonGroup>
+    </StyledButtonGroup>
   );
 });
 
-WeeklyRecurrenceSelectorBase.propTypes = {
+WeeklyRecurrenceSelector.propTypes = {
   formatDate: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   rRule: PropTypes.string.isRequired,
   onValueChange: PropTypes.func,
   readOnly: PropTypes.bool,
@@ -92,10 +101,8 @@ WeeklyRecurrenceSelectorBase.propTypes = {
   firstDayOfWeek: PropTypes.number.isRequired,
 };
 
-WeeklyRecurrenceSelectorBase.defaultProps = {
+WeeklyRecurrenceSelector.defaultProps = {
   onValueChange: () => undefined,
   readOnly: false,
   className: undefined,
 };
-
-export const WeeklyRecurrenceSelector = withStyles(styles)(WeeklyRecurrenceSelectorBase, { name: 'WeeklyRecurrenceSelector' });

@@ -1,4 +1,7 @@
 import * as React from 'react';
+import {
+  styled, darken, alpha, lighten,
+} from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import TableCell from '@mui/material/TableCell';
 import Typography from '@mui/material/Typography';
@@ -20,9 +23,153 @@ import WbSunny from '@mui/icons-material/WbSunny';
 import FilterDrama from '@mui/icons-material/FilterDrama';
 import Opacity from '@mui/icons-material/Opacity';
 import ColorLens from '@mui/icons-material/ColorLens';
-import { darken, alpha, lighten } from '@mui/material/styles';
-import withStyles from '@mui/styles/withStyles';
 import { owners } from '../../../demo-data/tasks';
+
+const PREFIX = 'Demo';
+
+const classes = {
+  cell: `${PREFIX}-cell`,
+  content: `${PREFIX}-content`,
+  text: `${PREFIX}-text`,
+  sun: `${PREFIX}-sun`,
+  cloud: `${PREFIX}-cloud`,
+  rain: `${PREFIX}-rain`,
+  sunBack: `${PREFIX}-sunBack`,
+  cloudBack: `${PREFIX}-cloudBack`,
+  rainBack: `${PREFIX}-rainBack`,
+  opacity: `${PREFIX}-opacity`,
+  appointment: `${PREFIX}-appointment`,
+  apptContent: `${PREFIX}-apptContent`,
+  flexibleSpace: `${PREFIX}-flexibleSpace`,
+  flexContainer: `${PREFIX}-flexContainer`,
+  tooltipContent: `${PREFIX}-tooltipContent`,
+  tooltipText: `${PREFIX}-tooltipText`,
+  title: `${PREFIX}-title`,
+  icon: `${PREFIX}-icon`,
+  circle: `${PREFIX}-circle`,
+  textCenter: `${PREFIX}-textCenter`,
+  dateAndTitle: `${PREFIX}-dateAndTitle`,
+  titleContainer: `${PREFIX}-titleContainer`,
+  container: `${PREFIX}-container`,
+};
+
+const getBorder = theme => (`1px solid ${
+  theme.palette.mode === 'light'
+    ? lighten(alpha(theme.palette.divider, 1), 0.88)
+    : darken(alpha(theme.palette.divider, 1), 0.68)
+}`);
+
+const DayScaleCell = props => (
+  <MonthView.DayScaleCell {...props} style={{ textAlign: 'center', fontWeight: 'bold' }} />
+);
+
+// #FOLD_BLOCK
+const StyledOpacity = styled(Opacity)(() => ({
+  [`&.${classes.rain}`]: {
+    color: '#4FC3F7',
+  },
+}));
+// #FOLD_BLOCK
+const StyledWbSunny = styled(WbSunny)(() => ({
+  [`&.${classes.sun}`]: {
+    color: '#FFEE58',
+  },
+}));
+// #FOLD_BLOCK
+const StyledFilterDrama = styled(FilterDrama)(() => ({
+  [`&.${classes.cloud}`]: {
+    color: '#90A4AE',
+  },
+}));
+
+// #FOLD_BLOCK
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${classes.cell}`]: {
+    color: '#78909C!important',
+    position: 'relative',
+    userSelect: 'none',
+    verticalAlign: 'top',
+    padding: 0,
+    height: 100,
+    borderLeft: getBorder(theme),
+    '&:first-of-type': {
+      borderLeft: 'none',
+    },
+    '&:last-child': {
+      paddingRight: 0,
+    },
+    'tr:last-child &': {
+      borderBottom: 'none',
+    },
+    '&:hover': {
+      backgroundColor: 'white',
+    },
+    '&:focus': {
+      backgroundColor: alpha(theme.palette.primary.main, 0.15),
+      outline: 0,
+    },
+  },
+  [`&.${classes.sunBack}`]: {
+    backgroundColor: '#FFFDE7',
+  },
+  [`&.${classes.cloudBack}`]: {
+    backgroundColor: '#ECEFF1',
+  },
+  [`&.${classes.rainBack}`]: {
+    backgroundColor: '#E1F5FE',
+  },
+  [`&.${classes.opacity}`]: {
+    opacity: '0.5',
+  },
+}));
+// #FOLD_BLOCK
+const StyledDivText = styled('div')(() => ({
+  [`&.${classes.text}`]: {
+    padding: '0.5em',
+    textAlign: 'center',
+  },
+}));
+// #FOLD_BLOCK
+const StyledDivContent = styled('div')(() => ({
+  [`&.${classes.content}`]: {
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    alignItems: 'center',
+  },
+}));
+
+// #FOLD_BLOCK
+const StyledAppointmentsAppointment = styled(Appointments.Appointment)(() => ({
+  [`&.${classes.appointment}`]: {
+    borderRadius: '10px',
+    '&:hover': {
+      opacity: 0.6,
+    },
+  },
+}));
+
+// #FOLD_BLOCK
+const StyledToolbarFlexibleSpace = styled(Toolbar.FlexibleSpace)(() => ({
+  [`&.${classes.flexibleSpace}`]: {
+    flex: 'none',
+  },
+  [`& .${classes.flexContainer}`]: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+}));
+// #FOLD_BLOCK
+const StyledAppointmentsAppointmentContent = styled(Appointments.AppointmentContent)(() => ({
+  [`&.${classes.apptContent}`]: {
+    '&>div>div': {
+      whiteSpace: 'normal !important',
+      lineHeight: 1.2,
+    },
+  },
+}));
 
 const appointments = [
   {
@@ -94,144 +241,14 @@ const resources = [{
   instances: owners,
 }];
 
-const getBorder = theme => (`1px solid ${
-  theme.palette.mode === 'light'
-    ? lighten(alpha(theme.palette.divider, 1), 0.88)
-    : darken(alpha(theme.palette.divider, 1), 0.68)
-}`);
-
-const DayScaleCell = props => (
-  <MonthView.DayScaleCell {...props} style={{ textAlign: 'center', fontWeight: 'bold' }} />
-);
-
-const styles = theme => ({
-  cell: {
-    color: '#78909C!important',
-    position: 'relative',
-    userSelect: 'none',
-    verticalAlign: 'top',
-    padding: 0,
-    height: 100,
-    borderLeft: getBorder(theme),
-    '&:first-child': {
-      borderLeft: 'none',
-    },
-    '&:last-child': {
-      paddingRight: 0,
-    },
-    'tr:last-child &': {
-      borderBottom: 'none',
-    },
-    '&:hover': {
-      backgroundColor: 'white',
-    },
-    '&:focus': {
-      backgroundColor: alpha(theme.palette.primary.main, 0.15),
-      outline: 0,
-    },
-  },
-  content: {
-    display: 'flex',
-    justifyContent: 'center',
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    alignItems: 'center',
-  },
-  text: {
-    padding: '0.5em',
-    textAlign: 'center',
-  },
-  sun: {
-    color: '#FFEE58',
-  },
-  cloud: {
-    color: '#90A4AE',
-  },
-  rain: {
-    color: '#4FC3F7',
-  },
-  sunBack: {
-    backgroundColor: '#FFFDE7',
-  },
-  cloudBack: {
-    backgroundColor: '#ECEFF1',
-  },
-  rainBack: {
-    backgroundColor: '#E1F5FE',
-  },
-  opacity: {
-    opacity: '0.5',
-  },
-  appointment: {
-    borderRadius: '10px',
-    '&:hover': {
-      opacity: 0.6,
-    },
-  },
-  apptContent: {
-    '&>div>div': {
-      whiteSpace: 'normal !important',
-      lineHeight: 1.2,
-    },
-  },
-  flexibleSpace: {
-    flex: 'none',
-  },
-  flexContainer: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  tooltipContent: {
-    padding: theme.spacing(3, 1),
-    paddingTop: 0,
-    backgroundColor: theme.palette.background.paper,
-    boxSizing: 'border-box',
-    width: '400px',
-  },
-  tooltipText: {
-    ...theme.typography.body2,
-    display: 'inline-block',
-  },
-  title: {
-    ...theme.typography.h6,
-    color: theme.palette.text.secondary,
-    fontWeight: theme.typography.fontWeightBold,
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-  },
-  icon: {
-    color: theme.palette.action.active,
-    verticalAlign: 'middle',
-  },
-  circle: {
-    width: theme.spacing(4.5),
-    height: theme.spacing(4.5),
-    verticalAlign: 'super',
-  },
-  textCenter: {
-    textAlign: 'center',
-  },
-  dateAndTitle: {
-    lineHeight: 1.1,
-  },
-  titleContainer: {
-    paddingBottom: theme.spacing(2),
-  },
-  container: {
-    paddingBottom: theme.spacing(1.5),
-  },
-});
-
-const WeatherIcon = ({ classes, id }) => {
+const WeatherIcon = ({ id }) => {
   switch (id) {
     case 0:
-      return <Opacity className={classes.rain} fontSize="large" />;
+      return <StyledOpacity className={classes.rain} fontSize="large" />;
     case 1:
-      return <WbSunny className={classes.sun} fontSize="large" />;
+      return <StyledWbSunny className={classes.sun} fontSize="large" />;
     case 2:
-      return <FilterDrama className={classes.cloud} fontSize="large" />;
+      return <StyledFilterDrama className={classes.cloud} fontSize="large" />;
     default:
       return null;
   }
@@ -239,7 +256,6 @@ const WeatherIcon = ({ classes, id }) => {
 
 // #FOLD_BLOCK
 const CellBase = React.memo(({
-  classes,
   startDate,
   formatDate,
   otherMonth,
@@ -251,7 +267,7 @@ const CellBase = React.memo(({
     ? { day: 'numeric', month: 'long' }
     : { day: 'numeric' };
   return (
-    <TableCell
+    <StyledTableCell
       tabIndex={0}
       className={classNames({
         [classes.cell]: true,
@@ -261,36 +277,36 @@ const CellBase = React.memo(({
         [classes.opacity]: otherMonth,
       })}
     >
-      <div className={classes.content}>
+      <StyledDivContent className={classes.content}>
         <WeatherIcon classes={classes} id={iconId} />
-      </div>
-      <div className={classes.text}>
+      </StyledDivContent>
+      <StyledDivText className={classes.text}>
         {formatDate(startDate, formatOptions)}
-      </div>
-    </TableCell>
+      </StyledDivText>
+    </StyledTableCell>
   );
 });
 
-const TimeTableCell = withStyles(styles, { name: 'Cell' })(CellBase);
+const TimeTableCell = (CellBase);
 
-const Appointment = withStyles(styles, { name: 'Appointment' })(({ classes, ...restProps }) => (
-  <Appointments.Appointment
+const Appointment = (({ ...restProps }) => (
+  <StyledAppointmentsAppointment
     {...restProps}
     className={classes.appointment}
   />
 ));
 
-const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({ classes, ...restProps }) => (
-  <Appointments.AppointmentContent {...restProps} className={classes.apptContent} />
+const AppointmentContent = (({ ...restProps }) => (
+  <StyledAppointmentsAppointmentContent {...restProps} className={classes.apptContent} />
 ));
 
-const FlexibleSpace = withStyles(styles, { name: 'ToolbarRoot' })(({ classes, ...restProps }) => (
-  <Toolbar.FlexibleSpace {...restProps} className={classes.flexibleSpace}>
+const FlexibleSpace = (({ ...restProps }) => (
+  <StyledToolbarFlexibleSpace {...restProps} className={classes.flexibleSpace}>
     <div className={classes.flexContainer}>
       <ColorLens fontSize="large" htmlColor="#FF7043" />
       <Typography variant="h5" style={{ marginLeft: '10px' }}>Art School</Typography>
     </div>
-  </Toolbar.FlexibleSpace>
+  </StyledToolbarFlexibleSpace>
 ));
 
 export default class Demo extends React.PureComponent {
@@ -343,7 +359,6 @@ export default class Demo extends React.PureComponent {
             timeTableCellComponent={TimeTableCell}
             dayScaleCellComponent={DayScaleCell}
           />
-
           <Appointments
             appointmentComponent={Appointment}
             appointmentContentComponent={AppointmentContent}
@@ -351,12 +366,10 @@ export default class Demo extends React.PureComponent {
           <Resources
             data={resources}
           />
-
           <Toolbar
             flexibleSpaceComponent={FlexibleSpace}
           />
           <DateNavigator />
-
           <EditRecurrenceMenu />
           <AppointmentTooltip
             showCloseButton

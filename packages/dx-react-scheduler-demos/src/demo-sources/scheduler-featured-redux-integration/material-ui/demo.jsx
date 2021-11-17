@@ -5,8 +5,7 @@ import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
-import { alpha } from '@mui/material/styles';
-import withStyles from '@mui/styles/withStyles';
+import { styled, alpha } from '@mui/material/styles';
 import { teal, orange, red } from '@mui/material/colors';
 import classNames from 'clsx';
 import { ViewState } from '@devexpress/dx-react-scheduler';
@@ -35,24 +34,84 @@ const resources = [{
   ],
 }];
 
-const styles = ({ spacing, palette }) => ({
-  flexibleSpace: {
-    margin: '0 auto 0 0',
-    display: 'flex',
-    alignItems: 'center',
+const PREFIX = 'Demo';
+// #FOLD_BLOCK
+const classes = {
+  flexibleSpace: `${PREFIX}-flexibleSpace`,
+  textField: `${PREFIX}-textField`,
+  locationSelector: `${PREFIX}-locationSelector`,
+  button: `${PREFIX}-button`,
+  selectedButton: `${PREFIX}-selectedButton`,
+  longButtonText: `${PREFIX}-longButtonText`,
+  shortButtonText: `${PREFIX}-shortButtonText`,
+  title: `${PREFIX}-title`,
+  textContainer: `${PREFIX}-textContainer`,
+  time: `${PREFIX}-time`,
+  text: `${PREFIX}-text`,
+  container: `${PREFIX}-container`,
+  weekendCell: `${PREFIX}-weekendCell`,
+  weekEnd: `${PREFIX}-weekEnd`,
+};
+// #FOLD_BLOCK
+const StyledAppointmentsAppointmentContent = styled(Appointments.AppointmentContent)(() => ({
+  [`& .${classes.title}`]: {
+    fontWeight: 'bold',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
-  textField: {
+  [`& .${classes.textContainer}`]: {
+    lineHeight: 1,
+    whiteSpace: 'pre-wrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    width: '100%',
+  },
+  [`& .${classes.time}`]: {
+    display: 'inline-block',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+  [`& .${classes.text}`]: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+  [`& .${classes.container}`]: {
+    width: '100%',
+  },
+}));
+// #FOLD_BLOCK
+const StyledTextField = styled(TextField)(({
+  theme: { spacing },
+}) => ({
+  [`&.${classes.textField}`]: {
     width: '75px',
     marginLeft: spacing(1),
     marginTop: 0,
     marginBottom: 0,
     height: spacing(4.875),
   },
-  locationSelector: {
+}));
+// #FOLD_BLOCK
+const StyledButtonGroup = styled(ButtonGroup)(({
+  theme: { spacing, palette },
+}) => ({
+  [`&.${classes.locationSelector}`]: {
     marginLeft: spacing(1),
     height: spacing(4.875),
   },
-  button: {
+  [`& .${classes.longButtonText}`]: {
+    '@media (max-width: 800px)': {
+      display: 'none',
+    },
+  },
+  [`& .${classes.shortButtonText}`]: {
+    '@media (min-width: 800px)': {
+      display: 'none',
+    },
+  },
+  [`& .${classes.button}`]: {
     paddingLeft: spacing(1),
     paddingRight: spacing(1),
     width: spacing(10),
@@ -61,7 +120,7 @@ const styles = ({ spacing, palette }) => ({
       fontSize: '0.75rem',
     },
   },
-  selectedButton: {
+  [`& .${classes.selectedButton}`]: {
     background: palette.primary[400],
     color: palette.primary[50],
     '&:hover': {
@@ -69,47 +128,24 @@ const styles = ({ spacing, palette }) => ({
     },
     border: `1px solid ${palette.primary[400]}!important`,
     borderLeft: `1px solid ${palette.primary[50]}!important`,
-    '&:first-child': {
+    '&:first-of-type': {
       borderLeft: `1px solid ${palette.primary[50]}!important`,
     },
   },
-  longButtonText: {
-    '@media (max-width: 800px)': {
-      display: 'none',
-    },
+}));
+// #FOLD_BLOCK
+const StyledToolbarFlexibleSpace = styled(Toolbar.FlexibleSpace)(() => ({
+  [`&.${classes.flexibleSpace}`]: {
+    margin: '0 auto 0 0',
+    display: 'flex',
+    alignItems: 'center',
   },
-  shortButtonText: {
-    '@media (min-width: 800px)': {
-      display: 'none',
-    },
-  },
-  title: {
-    fontWeight: 'bold',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-  },
-  textContainer: {
-    lineHeight: 1,
-    whiteSpace: 'pre-wrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    width: '100%',
-  },
-  time: {
-    display: 'inline-block',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-  text: {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-  },
-  container: {
-    width: '100%',
-  },
-  weekendCell: {
+}));
+// #FOLD_BLOCK
+const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(({
+  theme: { palette },
+}) => ({
+  [`&.${classes.weekendCell}`]: {
     backgroundColor: alpha(palette.action.disabledBackground, 0.04),
     '&:hover': {
       backgroundColor: alpha(palette.action.disabledBackground, 0.04),
@@ -118,15 +154,20 @@ const styles = ({ spacing, palette }) => ({
       backgroundColor: alpha(palette.action.disabledBackground, 0.04),
     },
   },
-  weekEnd: {
+}));
+// #FOLD_BLOCK
+const StyledWeekViewDayScaleCell = styled(WeekView.DayScaleCell)(({
+  theme: { palette },
+}) => ({
+  [`&.${classes.weekEnd}`]: {
     backgroundColor: alpha(palette.action.disabledBackground, 0.06),
   },
-});
+}));
 
-const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({
-  classes, data, formatDate, ...restProps
+const AppointmentContent = ({
+  data, formatDate, ...restProps
 }) => (
-  <Appointments.AppointmentContent {...restProps} formatDate={formatDate} data={data}>
+  <StyledAppointmentsAppointmentContent {...restProps} formatDate={formatDate} data={data}>
     <div className={classes.container}>
       <div className={classes.title}>
         {data.title}
@@ -146,11 +187,11 @@ const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({
         </div>
       </div>
     </div>
-  </Appointments.AppointmentContent>
-));
+  </StyledAppointmentsAppointmentContent>
+);
 
-const Filter = withStyles(styles, { name: 'TextField' })(({ onCurrentFilterChange, currentFilter, classes }) => (
-  <TextField
+const Filter = ({ onCurrentFilterChange, currentFilter }) => (
+  <StyledTextField
     size="small"
     placeholder="Filter"
     className={classes.textField}
@@ -160,7 +201,7 @@ const Filter = withStyles(styles, { name: 'TextField' })(({ onCurrentFilterChang
     hiddenLabel
     margin="dense"
   />
-));
+);
 
 const handleButtonClick = (locationName, locations) => {
   if (locations.indexOf(locationName) > -1) {
@@ -171,15 +212,21 @@ const handleButtonClick = (locationName, locations) => {
   return nextLocations;
 };
 
-const getButtonClass = (locations, classes, location) => (
+const getButtonClass = (locations, location) => (
   locations.indexOf(location) > -1 && classes.selectedButton
 );
 
-const LocationSelector = withStyles(styles, { name: 'LocationSelector' })(({ onLocationsChange, locations, classes }) => (
-  <ButtonGroup className={classes.locationSelector}>
+const LocationSelector = ({ onLocationsChange, locations }) => (
+  <StyledButtonGroup className={classes.locationSelector}>
     {LOCATIONS.map((location, index) => (
       <Button
-        className={classNames(classes.button, getButtonClass(locations, classes, location))}
+        className={
+          classNames(
+            classes.button,
+            classes.selectedButton,
+            getButtonClass(locations, classes, location),
+          )
+        }
         onClick={() => onLocationsChange(handleButtonClick(location, locations))}
         key={location}
       >
@@ -189,34 +236,32 @@ const LocationSelector = withStyles(styles, { name: 'LocationSelector' })(({ onL
         </React.Fragment>
       </Button>
     ))}
-  </ButtonGroup>
-));
+  </StyledButtonGroup>
+);
 
-const FlexibleSpace = withStyles(styles, { name: 'FlexibleSpace' })(
-  ({ classes, ...restProps }) => (
-    <Toolbar.FlexibleSpace {...restProps} className={classes.flexibleSpace}>
-      <ReduxFilterContainer />
-      <ReduxLocationSelector />
-    </Toolbar.FlexibleSpace>
-  ),
+const FlexibleSpace = ({ props }) => (
+  <StyledToolbarFlexibleSpace {...props} className={classes.flexibleSpace}>
+    <ReduxFilterContainer />
+    <ReduxLocationSelector />
+  </StyledToolbarFlexibleSpace>
 );
 
 const isRestTime = date => (
   date.getDay() === 0 || date.getDay() === 6 || date.getHours() < 9 || date.getHours() >= 18
 );
 
-const TimeTableCell = withStyles(styles, { name: 'TimeTableCell' })(({ classes, ...restProps }) => {
+const TimeTableCell = (({ ...restProps }) => {
   const { startDate } = restProps;
   if (isRestTime(startDate)) {
-    return <WeekView.TimeTableCell {...restProps} className={classes.weekendCell} />;
-  } return <WeekView.TimeTableCell {...restProps} />;
+    return <StyledWeekViewTimeTableCell {...restProps} className={classes.weekendCell} />;
+  } return <StyledWeekViewTimeTableCell {...restProps} />;
 });
 
-const DayScaleCell = withStyles(styles, { name: 'DayScaleCell' })(({ classes, ...restProps }) => {
+const DayScaleCell = (({ ...restProps }) => {
   const { startDate } = restProps;
   if (startDate.getDay() === 0 || startDate.getDay() === 6) {
-    return <WeekView.DayScaleCell {...restProps} className={classes.weekEnd} />;
-  } return <WeekView.DayScaleCell {...restProps} />;
+    return <StyledWeekViewDayScaleCell {...restProps} className={classes.weekEnd} />;
+  } return <StyledWeekViewDayScaleCell {...restProps} />;
 });
 
 const SCHEDULER_STATE_CHANGE_ACTION = 'SCHEDULER_STATE_CHANGE';

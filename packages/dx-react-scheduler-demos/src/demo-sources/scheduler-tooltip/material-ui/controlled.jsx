@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import {
   Appointments,
   AppointmentTooltip,
@@ -8,27 +9,25 @@ import {
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
-import withStyles from '@mui/styles/withStyles';
 import appointments from '../../../demo-data/today-appointments';
 
-const styles = theme => ({
-  button: {
+const PREFIX = 'Demo';
+
+const classes = {
+  button: `${PREFIX}-button`,
+};
+
+const StyledIconButton = styled(IconButton)(({ theme }) => ({
+  [`&.${classes.button}`]: {
     color: theme.palette.background.default,
     padding: 0,
   },
-  text: {
-    paddingTop: theme.spacing(1),
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-  },
-});
+}));
 
-const AppointmentBase = ({
+const Appointment = ({
   children,
   data,
   onClick,
-  classes,
   toggleVisibility,
   onAppointmentMetaChange,
   ...restProps
@@ -37,7 +36,7 @@ const AppointmentBase = ({
     {...restProps}
   >
     <React.Fragment>
-      <IconButton
+      <StyledIconButton
         className={classes.button}
         onClick={({ target }) => {
           toggleVisibility();
@@ -46,13 +45,11 @@ const AppointmentBase = ({
         size="large"
       >
         <InfoIcon fontSize="small" />
-      </IconButton>
+      </StyledIconButton>
       {children}
     </React.Fragment>
   </Appointments.Appointment>
 );
-
-const Appointment = withStyles(styles, { name: 'Appointment' })(AppointmentBase);
 
 export default class Demo extends React.PureComponent {
   constructor(props) {

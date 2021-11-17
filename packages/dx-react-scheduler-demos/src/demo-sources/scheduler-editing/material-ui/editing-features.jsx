@@ -4,7 +4,7 @@ import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Typography from '@mui/material/FormControl';
-import makeStyles from '@mui/styles/makeStyles';
+import { styled } from '@mui/material/styles';
 import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler,
@@ -17,13 +17,21 @@ import {
 
 import { appointments } from '../../../demo-data/appointments';
 
-const useStyles = makeStyles(theme => ({
-  container: {
+const PREFIX = 'Demo';
+// #FOLD_BLOCK
+export const classes = {
+  container: `${PREFIX}-container`,
+  text: `${PREFIX}-text`,
+  formControlLabel: `${PREFIX}-formControlLabel`,
+};
+// #FOLD_BLOCK
+const StyledDiv = styled('div')(({ theme }) => ({
+  [`&.${classes.container}`]: {
     margin: theme.spacing(2),
     padding: theme.spacing(2),
   },
-  text: theme.typography.h6,
-  formControlLabel: {
+  [`& .${classes.text}`]: theme.typography.h6,
+  [`& .${classes.formControlLabel}`]: {
     ...theme.typography.caption,
     fontSize: '1rem',
   },
@@ -40,34 +48,31 @@ const editingOptionsList = [
 
 const EditingOptionsSelector = ({
   options, onOptionsChange,
-}) => {
-  const classes = useStyles();
-  return (
-    <div className={classes.container}>
-      <Typography className={classes.text}>
-        Enabled Options
-      </Typography>
-      <FormGroup row>
-        {editingOptionsList.map(({ id, text }) => (
-          <FormControlLabel
-            control={(
-              <Checkbox
-                checked={options[id]}
-                onChange={onOptionsChange}
-                value={id}
-                color="primary"
-              />
-            )}
-            classes={{ label: classes.formControlLabel }}
-            label={text}
-            key={id}
-            disabled={(id === 'allowDragging' || id === 'allowResizing') && !options.allowUpdating}
-          />
-        ))}
-      </FormGroup>
-    </div>
-  );
-};
+}) => (
+  <StyledDiv className={classes.container}>
+    <Typography className={classes.text}>
+      Enabled Options
+    </Typography>
+    <FormGroup row>
+      {editingOptionsList.map(({ id, text }) => (
+        <FormControlLabel
+          control={(
+            <Checkbox
+              checked={options[id]}
+              onChange={onOptionsChange}
+              value={id}
+              color="primary"
+            />
+          )}
+          classes={{ label: classes.formControlLabel }}
+          label={text}
+          key={id}
+          disabled={(id === 'allowDragging' || id === 'allowResizing') && !options.allowUpdating}
+        />
+      ))}
+    </FormGroup>
+  </StyledDiv>
+);
 
 export default () => {
   const [data, setData] = React.useState(appointments);

@@ -1,12 +1,10 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { HeaderCell } from './header-cell';
+import { createShallow } from '@devexpress/dx-testing';
+import { HeaderCell, classes } from './header-cell';
 
 describe('Calendar', () => {
-  let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<HeaderCell />);
     shallow = createShallow({ dive: true });
   });
   describe('Header Cell', () => {

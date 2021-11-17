@@ -1,16 +1,24 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import Button from '@mui/material/Button';
 import classNames from 'clsx';
 import { ensureColor } from '../../utils';
 
-const styles = ({ spacing, palette }) => ({
-  button: {
+const PREFIX = 'SaveButton';
+
+export const classes = {
+  button: `${PREFIX}-button`,
+};
+
+export const StyledButton = styled(Button)(({
+  theme: { spacing, palette },
+}) => ({
+  [`&.${classes.button}`]: {
     padding: spacing(0.5, 3.5),
     marginLeft: spacing(3),
     height: spacing(4.5),
-    '&:first-child': {
+    '&:first-of-type': {
       marginLeft: 0,
     },
     backgroundColor: ensureColor(300, palette.primary),
@@ -19,29 +27,26 @@ const styles = ({ spacing, palette }) => ({
       backgroundColor: ensureColor(400, palette.primary),
     },
   },
-});
+}));
 
-const SaveButtonBase = React.memo(({
-  classes, getMessage, className, onExecute, ...restProps
+export const SaveButton = React.memo(({
+  getMessage, className, onExecute, ...restProps
 }) => (
-  <Button
+  <StyledButton
     className={classNames(classes.button, className)}
     onClick={onExecute}
     {...restProps}
   >
     {getMessage('commitCommand')}
-  </Button>
+  </StyledButton>
 ));
 
-SaveButtonBase.propTypes = {
-  classes: PropTypes.object.isRequired,
+SaveButton.propTypes = {
   className: PropTypes.string,
   getMessage: PropTypes.func.isRequired,
   onExecute: PropTypes.func.isRequired,
 };
 
-SaveButtonBase.defaultProps = {
+SaveButton.defaultProps = {
   className: undefined,
 };
-
-export const SaveButton = withStyles(styles)(SaveButtonBase, { name: 'SaveButton' });

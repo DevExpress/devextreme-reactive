@@ -1,19 +1,29 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import CalendarToday from '@mui/icons-material/CalendarToday';
 import IconButton from '@mui/material/IconButton';
-import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 import { SMALL_LAYOUT_MEDIA_QUERY, LAYOUT_MEDIA_QUERY } from '../constants';
 
-const styles = ({ spacing }) => ({
-  textButton: {
+const PREFIX = 'OpenButton';
+
+export const classes = {
+  textButton: `${PREFIX}-textButton`,
+  iconButton: `${PREFIX}-iconButton`,
+};
+
+const StyledButton = styled(Button)(() => ({
+  [`&.${classes.textButton}`]: {
     [`${LAYOUT_MEDIA_QUERY}`]: {
       display: 'none',
     },
   },
-  iconButton: {
+}));
+
+const StyledIconButton = styled(IconButton)(({ theme: { spacing } }) => ({
+  [`&.${classes.iconButton}`]: {
     '@media (min-width: 700px)': {
       display: 'none',
     },
@@ -23,40 +33,37 @@ const styles = ({ spacing }) => ({
       padding: 0,
     },
   },
-});
+}));
 
-const OpenButtonBase = React.memo(({
-  text, onVisibilityToggle, classes, className, ...restProps
+export const OpenButton = React.memo(({
+  text, onVisibilityToggle, className, ...restProps
 }) => (
   <React.Fragment>
-    <Button
+    <StyledButton
       onClick={onVisibilityToggle}
       className={classNames(classes.textButton, className)}
       {...restProps}
     >
       {text}
-    </Button>
-    <IconButton
+    </StyledButton>
+    <StyledIconButton
       onClick={onVisibilityToggle}
       className={classNames(classes.iconButton, className)}
       {...restProps}
       size="large"
     >
       <CalendarToday />
-    </IconButton>
+    </StyledIconButton>
   </React.Fragment>
 ));
 
-OpenButtonBase.propTypes = {
+OpenButton.propTypes = {
   onVisibilityToggle: PropTypes.func.isRequired,
   text: PropTypes.string,
   className: PropTypes.string,
-  classes: PropTypes.object.isRequired,
 };
 
-OpenButtonBase.defaultProps = {
+OpenButton.defaultProps = {
   text: '',
   className: undefined,
 };
-
-export const OpenButton = withStyles(styles, { name: 'OpenButton' })(OpenButtonBase);

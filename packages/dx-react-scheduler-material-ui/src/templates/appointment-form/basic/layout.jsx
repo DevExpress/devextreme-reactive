@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 import Grid from '@mui/material/Grid';
 import {
@@ -12,8 +12,24 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { TRANSITIONS_TIME, LAYOUT_MEDIA_QUERY } from '../../constants';
 
-const styles = ({ spacing, typography }) => ({
-  root: {
+const PREFIX = 'Layout';
+
+export const classes = {
+  root: `${PREFIX}-root`,
+  fullSize: `${PREFIX}-fullSize`,
+  halfSize: `${PREFIX}-halfSize`,
+  labelWithMargins: `${PREFIX}-labelWithMargins`,
+  notesEditor: `${PREFIX}-notesEditor`,
+  dateEditor: `${PREFIX}-dateEditor`,
+  dividerLabel: `${PREFIX}-dividerLabel`,
+  booleanEditors: `${PREFIX}-booleanEditors`,
+  dateEditors: `${PREFIX}-dateEditors`,
+};
+
+const StyledDiv = styled('div')(({
+  theme: { spacing, typography },
+}) => ({
+  [`&.${classes.root}`]: {
     width: '650px',
     paddingTop: spacing(3),
     paddingBottom: spacing(3),
@@ -29,10 +45,10 @@ const styles = ({ spacing, typography }) => ({
       paddingBottom: 0,
     },
   },
-  fullSize: {
+  [`&.${classes.fullSize}`]: {
     paddingBottom: spacing(3),
   },
-  halfSize: {
+  [`&.${classes.halfSize}`]: {
     '@media (min-width: 700px) and (max-width: 850px)': {
       width: '400px',
     },
@@ -43,56 +59,55 @@ const styles = ({ spacing, typography }) => ({
       width: '560px',
     },
   },
-  labelWithMargins: {
+  [`& .${classes.labelWithMargins}`]: {
     marginTop: spacing(2),
   },
-  notesEditor: {
+  [`& .${classes.notesEditor}`]: {
     marginBottom: spacing(0.5),
     marginTop: spacing(0.5),
   },
-  dateEditor: {
+  [`& .${classes.dateEditor}`]: {
     width: '45%',
     paddingTop: '0px!important',
     marginTop: spacing(2),
     paddingBottom: '0px!important',
     marginBottom: 0,
   },
-  dividerLabel: {
+  [`& .${classes.dividerLabel}`]: {
     ...typography.body2,
     width: '10%',
     textAlign: 'center',
     paddingTop: spacing(2),
   },
-  booleanEditors: {
+  [`& .${classes.booleanEditors}`]: {
     marginTop: spacing(0.875),
   },
   '@media (max-width: 570px)': {
-    dateEditors: {
+    [`& .${classes.dateEditors}`]: {
       flexDirection: 'column',
     },
-    booleanEditors: {
+    [`& .${classes.booleanEditors}`]: {
       flexDirection: 'column',
       marginTop: spacing(1.875),
     },
-    dateEditor: {
+    [`& .${classes.dateEditor}`]: {
       width: '100%',
-      '&:first-child': {
+      '&:first-of-type': {
         marginBottom: 0,
       },
       '&:last-child': {
         marginTop: spacing(2),
       },
     },
-    dividerLabel: {
+    [`& .${classes.dividerLabel}`]: {
       display: 'none',
     },
   },
-});
+}));
 
-const LayoutBase = ({
+export const Layout = ({
   children,
   locale,
-  classes,
   className,
   getMessage,
   readOnly,
@@ -124,7 +139,7 @@ const LayoutBase = ({
   ), [rRule, startDate, onFieldChange]);
 
   return (
-    <div
+    <StyledDiv
       className={classNames({
         [classes.root]: true,
         [classes.fullSize]: fullSize,
@@ -212,11 +227,11 @@ const LayoutBase = ({
       ))}
 
       {children}
-    </div>
+    </StyledDiv>
   );
 };
 
-LayoutBase.propTypes = {
+Layout.propTypes = {
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   dateEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -226,7 +241,6 @@ LayoutBase.propTypes = {
   locale: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]).isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
-  classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   onFieldChange: PropTypes.func,
   appointmentData: PropTypes.shape({
@@ -244,7 +258,7 @@ LayoutBase.propTypes = {
   fullSize: PropTypes.bool.isRequired,
 };
 
-LayoutBase.defaultProps = {
+Layout.defaultProps = {
   onFieldChange: () => undefined,
   resources: [],
   appointmentResources: [],
@@ -252,5 +266,3 @@ LayoutBase.defaultProps = {
   readOnly: false,
   children: null,
 };
-
-export const Layout = withStyles(styles)(LayoutBase, { name: 'BasicLayout' });

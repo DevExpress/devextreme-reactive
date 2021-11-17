@@ -1,11 +1,21 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import makeStyles from '@mui/styles/makeStyles';
 import { getAppointmentColor, getResourceColor } from '../utils';
 
-const useStyles = makeStyles(({ palette, typography, spacing }) => ({
-  appointment: {
+const PREFIX = 'Appointment';
+
+export const classes = {
+  appointment: `${PREFIX}-appointment`,
+  clickableAppointment: `${PREFIX}-clickableAppointment`,
+  shadedAppointment: `${PREFIX}-shadedAppointment`,
+};
+
+const StyledDiv = styled('div')(({
+  theme: { palette, typography, spacing }, resources,
+}) => ({
+  [`&.${classes.appointment}`]: {
     userSelect: 'none',
     position: 'absolute',
     height: '100%',
@@ -15,31 +25,31 @@ const useStyles = makeStyles(({ palette, typography, spacing }) => ({
     border: `1px solid ${palette.background.paper}`,
     backgroundClip: 'padding-box',
     borderRadius: spacing(0.5),
-    backgroundColor: resources => getAppointmentColor(
+    backgroundColor: getAppointmentColor(
       300, getResourceColor(resources), palette.primary,
     ),
     ...typography.caption,
     '&:hover': {
-      backgroundColor: resources => getAppointmentColor(
+      backgroundColor: getAppointmentColor(
         400, getResourceColor(resources), palette.primary,
       ),
     },
     '&:focus': {
-      backgroundColor: resources => getAppointmentColor(
+      backgroundColor: getAppointmentColor(
         100, getResourceColor(resources), palette.primary,
       ),
       outline: 0,
     },
   },
-  clickableAppointment: {
+  [`&.${classes.clickableAppointment}`]: {
     cursor: 'pointer',
   },
-  shadedAppointment: {
-    backgroundColor: resources => getAppointmentColor(
+  [`&.${classes.shadedAppointment}`]: {
+    backgroundColor: getAppointmentColor(
       200, getResourceColor(resources), palette.primary,
     ),
     '&:hover': {
-      backgroundColor: resources => getAppointmentColor(
+      backgroundColor: getAppointmentColor(
         300, getResourceColor(resources), palette.primary,
       ),
     },
@@ -64,10 +74,11 @@ export const Appointment = ({
       },
     }
     : null;
-  const classes = useStyles(resources);
+
   const clickable = onClick || restProps.onDoubleClick || draggable;
   return (
-    <div
+    <StyledDiv
+      resources={resources}
       ref={forwardedRef}
       className={classNames({
         [classes.appointment]: true,
@@ -78,7 +89,7 @@ export const Appointment = ({
       {...restProps}
     >
       {children}
-    </div>
+    </StyledDiv>
   );
 };
 

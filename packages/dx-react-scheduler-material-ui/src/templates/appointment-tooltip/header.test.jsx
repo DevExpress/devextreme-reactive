@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { Header } from './header';
+import { createShallow } from '@devexpress/dx-testing';
+import { Header, classes } from './header';
 
 describe('Appointment Tooltip', () => {
-  let classes;
   let shallow;
   const defaultProps = {
     commandButtonComponent: () => null,
@@ -22,7 +21,6 @@ describe('Appointment Tooltip', () => {
     },
   };
   beforeAll(() => {
-    classes = getClasses(<Header />);
     shallow = createShallow({ dive: true });
   });
   describe('Header', () => {

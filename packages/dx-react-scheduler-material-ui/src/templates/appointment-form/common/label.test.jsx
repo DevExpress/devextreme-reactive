@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createShallow } from '@devexpress/dx-testing';
 import { TITLE } from '@devexpress/dx-scheduler-core';
-import { Label } from './label';
+import { Label, classes } from './label';
 
 describe('AppointmentForm common', () => {
   let shallow;
@@ -19,7 +19,6 @@ describe('AppointmentForm common', () => {
     });
 
     it('should pass className to the root element', () => {
-      const classes = getClasses(<Label />);
       const tree = shallow((
         <Label className="custom-class" />
       ));
@@ -29,7 +28,6 @@ describe('AppointmentForm common', () => {
     });
 
     it('should pass className to the root element', () => {
-      const classes = getClasses(<Label type={TITLE} />);
       const tree = shallow((
         <Label type={TITLE} />
       ));

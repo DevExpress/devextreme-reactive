@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createShallow } from '@devexpress/dx-testing';
 import { getVerticalRowFromGroups, VIEW_TYPES } from '@devexpress/dx-scheduler-core';
-import { VerticalLayout } from './vertical-layout';
+import { VerticalLayout, classes } from './vertical-layout';
 import { BASIC_CELL_HEIGHT } from '../constants';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
@@ -27,10 +27,8 @@ describe('GroupingPanel', () => {
     { text: '4' },
   ]];
   let shallow;
-  let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<VerticalLayout {...defaultProps} />);
   });
   beforeEach(() => {
     getVerticalRowFromGroups.mockImplementation(() => [{ rowSpan: 1 }]);

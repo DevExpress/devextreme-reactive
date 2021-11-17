@@ -1,47 +1,65 @@
 import React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import classNames from 'clsx';
 import Radio from '@mui/material/Radio';
 import Grid from '@mui/material/Grid';
 
-const styles = ({ spacing }) => ({
-  label: {
+const PREFIX = 'ChangeWeekNumberEditor';
+
+export const classes = {
+  label: `${PREFIX}-label`,
+  select: `${PREFIX}-select`,
+  longSelect: `${PREFIX}-longSelect`,
+  formControlLabel: `${PREFIX}-formControlLabel`,
+  formControl: `${PREFIX}-formControl`,
+  doubleSelect: `${PREFIX}-doubleSelect`,
+  radioButton: `${PREFIX}-radioButton`,
+  controlLabel: `${PREFIX}-controlLabel`,
+};
+
+const StyledDiv = styled('div')(({ theme: { spacing } }) => ({
+  [`& .${classes.label}`]: {
     width: '4.5em',
   },
-  select: {
+  [`& .${classes.select}`]: {
     width: 'calc((100% - 5.5em) * 3 / 7)',
     maxWidth: '8em',
   },
-  longSelect: {
+  [`& .${classes.longSelect}`]: {
     width: 'calc((100% - 5.5em) * 4 / 7)',
     minWidth: 'calc(100% - 13.5em)',
     marginLeft: '1em',
   },
-  formControlLabel: {
-    alignItems: 'flex-start',
-  },
-  formControl: {
-    marginRight: 0,
-    marginTop: spacing(1),
-    marginBottom: spacing(1),
-  },
-  doubleSelect: {
+  [`& .${classes.doubleSelect}`]: {
     marginLeft: '4.5em',
     width: 'calc(100% - 4.5em)',
     marginTop: spacing(1),
   },
-  radioButton: {
-    marginTop: spacing(0.75),
+}));
+
+const StyledFormControlLabel = styled(FormControlLabel)(({ theme: { spacing } }) => ({
+  [`&.${classes.formControlLabel}`]: {
+    alignItems: 'flex-start',
   },
-  controlLabel: {
+  [`&.${classes.formControl}`]: {
+    marginRight: 0,
+    marginTop: spacing(1),
+    marginBottom: spacing(1),
+  },
+  [`&.${classes.controlLabel}`]: {
     width: '100%',
   },
-});
+}));
 
-const ChangeWeekNumberEditorBase = React.memo(({
-  classes,
+const StyledRadio = styled(Radio)(({ theme: { spacing } }) => ({
+  [`&.${classes.radioButton}`]: {
+    marginTop: spacing(0.75),
+  },
+}));
+
+export const ChangeWeekNumberEditor = React.memo(({
   getMessage,
   labelComponent: Label,
   selectComponent: Select,
@@ -59,15 +77,15 @@ const ChangeWeekNumberEditorBase = React.memo(({
   changeDayOfWeek,
   ...restProps
 }) => (
-  <FormControlLabel
+  <StyledFormControlLabel
     value="onDayOfWeek"
     className={classNames(classes.formControlLabel, classes.formControl, className)}
     classes={{ label: classes.controlLabel }}
-    control={<Radio color="primary" className={classes.radioButton} />}
+    control={<StyledRadio color="primary" className={classes.radioButton} />}
     disabled={readOnly}
     {...restProps}
     label={(
-      <div>
+      <StyledDiv>
         <Grid
           container
           direction="row"
@@ -100,13 +118,12 @@ const ChangeWeekNumberEditorBase = React.memo(({
           readOnly={readOnlyEditors}
           availableOptions={months}
         />
-      </div>
+      </StyledDiv>
     )}
   />
 ));
 
-ChangeWeekNumberEditorBase.propTypes = {
-  classes: PropTypes.object.isRequired,
+ChangeWeekNumberEditor.propTypes = {
   getMessage: PropTypes.func,
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   selectComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -133,11 +150,9 @@ ChangeWeekNumberEditorBase.propTypes = {
   readOnlyEditors: PropTypes.bool,
 };
 
-ChangeWeekNumberEditorBase.defaultProps = {
+ChangeWeekNumberEditor.defaultProps = {
   getMessage: () => undefined,
   readOnly: false,
   className: undefined,
   readOnlyEditors: false,
 };
-
-export const ChangeWeekNumberEditor = withStyles(styles)(ChangeWeekNumberEditorBase, { name: 'ChangeWeekNumberEditor' });

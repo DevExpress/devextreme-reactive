@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { createShallow } from '@devexpress/dx-testing';
-import { Indicator } from './indicator';
+import { Indicator, classes } from './indicator';
 
-jest.mock('@mui/styles/makeStyles', () => () => () => ({
+jest.mock('@mui/material/styles/styled', () => () => () => ({
   line: 'line',
   circle: 'circle',
   nowIndicator: 'nowIndicator',
@@ -29,11 +29,11 @@ describe('CurrentTimeIndicator', () => {
         <Indicator />
       ));
 
-      expect(tree.find('.line'))
+      expect(tree.find(`.${classes.line}`))
         .toHaveLength(1);
-      expect(tree.find('.circle'))
+      expect(tree.find(`.${classes.circle}`))
         .toHaveLength(1);
-      expect(tree.find('.nowIndicator'))
+      expect(tree.find(`.${classes.nowIndicator}`))
         .toHaveLength(2);
     });
   });

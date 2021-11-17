@@ -1,37 +1,57 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import makeStyles from '@mui/styles/makeStyles';
 import Grid from '@mui/material/Grid';
 import AccessTime from '@mui/icons-material/AccessTime';
 import Lens from '@mui/icons-material/Lens';
 import { HOUR_MINUTE_OPTIONS, WEEKDAY_INTERVAL, viewBoundText } from '@devexpress/dx-scheduler-core';
 import { getAppointmentColor, getResourceColor } from '../utils';
 
-const useStyles = makeStyles(({ spacing, palette, typography }) => ({
-  content: {
+const PREFIX = 'Content';
+
+export const classes = {
+  content: `${PREFIX}-content`,
+  text: `${PREFIX}-text`,
+  title: `${PREFIX}-title`,
+  icon: `${PREFIX}-icon`,
+  lens: `${PREFIX}-lens`,
+  lensMini: `${PREFIX}-lensMini`,
+  textCenter: `${PREFIX}-textCenter`,
+  dateAndTitle: `${PREFIX}-dateAndTitle`,
+  titleContainer: `${PREFIX}-titleContainer`,
+  contentContainer: `${PREFIX}-contentContainer`,
+  resourceContainer: `${PREFIX}-resourceContainer`,
+  recurringIcon: `${PREFIX}-recurringIcon`,
+  relativeContainer: `${PREFIX}-relativeContainer`,
+};
+
+const StyledDiv = styled('div')(({
+  theme: { spacing, palette, typography }, resources,
+}) => ({
+  [`&.${classes.content}`]: {
     padding: spacing(1.5, 1),
     paddingTop: spacing(1),
     backgroundColor: palette.background.paper,
     boxSizing: 'border-box',
     ...typography.body2,
   },
-  text: {
+  [`& .${classes.text}`]: {
     display: 'inline-block',
   },
-  title: {
+  [`& .${classes.title}`]: {
     ...typography.h6,
     color: palette.text.secondary,
     fontWeight: typography.fontWeightBold,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
-  icon: {
+  [`& .${classes.icon}`]: {
     verticalAlign: 'middle',
     color: palette.action.active,
   },
-  lens: {
-    color: resources => getAppointmentColor(300, getResourceColor(resources), palette.primary),
+  [`& .${classes.lens}`]: {
+    color: getAppointmentColor(300, getResourceColor(resources), palette.primary),
     width: spacing(4.5),
     height: spacing(4.5),
     verticalAlign: 'super',
@@ -39,27 +59,27 @@ const useStyles = makeStyles(({ spacing, palette, typography }) => ({
     left: '50%',
     transform: 'translate(-50%,0)',
   },
-  lensMini: {
+  [`& .${classes.lensMini}`]: {
     width: spacing(2.5),
     height: spacing(2.5),
   },
-  textCenter: {
+  [`& .${classes.textCenter}`]: {
     textAlign: 'center',
     height: spacing(2.5),
   },
-  dateAndTitle: {
+  [`& .${classes.dateAndTitle}`]: {
     lineHeight: 1.4,
   },
-  titleContainer: {
+  [`& .${classes.titleContainer}`]: {
     paddingBottom: spacing(2),
   },
-  contentContainer: {
+  [`& .${classes.contentContainer}`]: {
     paddingBottom: spacing(1.5),
   },
-  resourceContainer: {
+  [`& .${classes.resourceContainer}`]: {
     paddingBottom: spacing(0.25),
   },
-  recurringIcon: {
+  [`& .${classes.recurringIcon}`]: {
     position: 'absolute',
     paddingTop: spacing(0.875),
     left: '50%',
@@ -68,7 +88,7 @@ const useStyles = makeStyles(({ spacing, palette, typography }) => ({
     width: spacing(2.625),
     height: spacing(2.625),
   },
-  relativeContainer: {
+  [`& .${classes.relativeContainer}`]: {
     position: 'relative',
     width: '100%',
     height: '100%',
@@ -84,13 +104,13 @@ export const Content = ({
   recurringIconComponent: RecurringIcon,
   ...restProps
 }) => {
-  const classes = useStyles(appointmentResources);
   const weekDays = viewBoundText(
     appointmentData.startDate, appointmentData.endDate, WEEKDAY_INTERVAL,
     appointmentData.startDate, 1, formatDate,
   );
   return (
-    <div
+    <StyledDiv
+      {... appointmentResources}
       className={classNames(classes.content, className)}
       {...restProps}
     >
@@ -143,7 +163,7 @@ export const Content = ({
         </Grid>
       ))}
       {children}
-    </div>
+    </StyledDiv>
   );
 };
 

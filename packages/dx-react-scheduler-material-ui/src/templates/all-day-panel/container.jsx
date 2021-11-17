@@ -1,12 +1,10 @@
-import withStyles from '@mui/styles/withStyles';
-import { ContainerBase } from '../common/container';
+import { styled } from '@mui/material/styles';
+import { ContainerBase, classes } from '../common/container';
 
-const styles = {
-  container: {
+export const Container = styled(ContainerBase)(() => ({
+  [`&.${classes.container}`]: {
     position: 'relative',
     display: 'table',
     minWidth: '100%',
   },
-};
-
-export const Container = withStyles(styles, { name: 'AllDayContainer' })(ContainerBase);
+}));

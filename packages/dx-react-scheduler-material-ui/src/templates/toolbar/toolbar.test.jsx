@@ -1,17 +1,11 @@
 import * as React from 'react';
-import { getClasses, createShallow } from '@devexpress/dx-testing';
-import { Toolbar } from './toolbar';
+import { createShallow } from '@devexpress/dx-testing';
+import { Toolbar, classes } from './toolbar';
 
 describe('Toolbar', () => {
-  let classes;
   let shallow;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(
-      <Toolbar>
-        <div />
-      </Toolbar>,
-    );
   });
   it('should pass custom class to the root element', () => {
     const tree = shallow((

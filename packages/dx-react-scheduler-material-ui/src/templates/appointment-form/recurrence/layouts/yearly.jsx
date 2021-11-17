@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import {
   YEARLY_RADIO_GROUP,
   getRecurrenceOptions,
@@ -9,17 +9,22 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { IntervalEditor } from './interval-editor';
 
-const styles = theme => ({
-  radioGroup: {
+const PREFIX = 'Yearly';
+
+export const classes = {
+  radioGroup: `${PREFIX}-radioGroup`,
+};
+
+const StyledDiv = styled('div')(({ theme }) => ({
+  [`& .${classes.radioGroup}`]: {
     marginTop: theme.spacing(1),
   },
-});
+}));
 
-const YearlyBase = ({
+export const Yearly = ({
   radioGroupComponent: RadioGroup,
   textEditorComponent,
   labelComponent,
-  classes,
   getMessage,
   readOnly,
   onFieldChange,
@@ -39,7 +44,7 @@ const YearlyBase = ({
     }), [recurrenceOptions, onFieldChange],
   );
   return (
-    <div {...restProps}>
+    <StyledDiv {...restProps}>
       <IntervalEditor
         repeatEveryLabel={getMessage('repeatEveryLabel')}
         repeatIntervalLabel={getMessage('yearsLabel')}
@@ -64,11 +69,11 @@ const YearlyBase = ({
         dateEditorComponent={() => null}
         firstDayOfWeek={firstDayOfWeek}
       />
-    </div>
+    </StyledDiv>
   );
 };
 
-YearlyBase.propTypes = {
+Yearly.propTypes = {
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   radioGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -86,16 +91,13 @@ YearlyBase.propTypes = {
     allDay: PropTypes.bool,
   }).isRequired,
   onFieldChange: PropTypes.func,
-  classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   formatDate: PropTypes.func.isRequired,
   firstDayOfWeek: PropTypes.number.isRequired,
 };
 
-YearlyBase.defaultProps = {
+Yearly.defaultProps = {
   onFieldChange: () => undefined,
   readOnly: false,
 };
-
-export const Yearly = withStyles(styles)(YearlyBase, { name: 'Yearly' });

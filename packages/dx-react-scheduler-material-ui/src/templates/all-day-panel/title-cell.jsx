@@ -1,13 +1,22 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import Typography from '@mui/material/Typography';
-import withStyles from '@mui/styles/withStyles';
 import { VIEW_TYPES } from '@devexpress/dx-scheduler-core';
 import { SPACING_CELL_HEIGHT } from '../constants';
 
-const styles = theme => ({
-  container: {
+const PREFIX = 'TitleCell';
+
+export const classes = {
+  container: `${PREFIX}-container`,
+  content: `${PREFIX}-content`,
+  title: `${PREFIX}-title`,
+  fixedHeight: `${PREFIX}-fixedHeight`,
+};
+
+const StyledDivContainer = styled('div')(({ theme }) => ({
+  [`&.${classes.container}`]: {
     userSelect: 'none',
     height: '100%',
     display: 'flex',
@@ -15,7 +24,14 @@ const styles = theme => ({
     justifyContent: 'flex-end',
     position: 'relative',
   },
-  content: {
+  [`&.${classes.fixedHeight}`]: {
+    height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL]),
+    width: '100%',
+  },
+}));
+
+const StyledDivContent = styled('div')(({ theme }) => ({
+  [`&.${classes.content}`]: {
     width: theme.spacing(10),
     boxSizing: 'border-box',
     height: theme.spacing(5.75),
@@ -24,50 +40,50 @@ const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
-  title: {
+  [`&.${classes.fixedHeight}`]: {
+    height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL]),
+    width: '100%',
+  },
+}));
+
+const StyledTypography = styled(Typography)(({ theme }) => ({
+  [`&.${classes.title}`]: {
     paddingRight: theme.spacing(2),
     ...theme.typography.caption,
     color: theme.palette.text.secondary,
   },
-  fixedHeight: {
-    height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL]),
-    width: '100%',
-  },
-});
+}));
 
-export const TitleCellBase = React.memo(({
-  classes, getMessage, className, fixedHeight, ...restProps
+export const TitleCell = React.memo(({
+  getMessage, className, fixedHeight, ...restProps
 }) => (
-  <div
+  <StyledDivContainer
     className={classNames({
       [classes.container]: true,
       [classes.fixedHeight]: fixedHeight,
     }, className)}
     {...restProps}
   >
-    <div
+    <StyledDivContent
       className={classNames({
         [classes.content]: true,
         [classes.fixedHeight]: fixedHeight,
       }, className)}
     >
-      <Typography className={classes.title} variant="body1">
+      <StyledTypography className={classes.title} variant="body1">
         {getMessage('allDay')}
-      </Typography>
-    </div>
-  </div>
+      </StyledTypography>
+    </StyledDivContent>
+  </StyledDivContainer>
 ));
 
-TitleCellBase.propTypes = {
-  classes: PropTypes.object.isRequired,
+TitleCell.propTypes = {
   getMessage: PropTypes.func.isRequired,
   className: PropTypes.string,
   fixedHeight: PropTypes.bool,
 };
 
-TitleCellBase.defaultProps = {
+TitleCell.defaultProps = {
   className: undefined,
   fixedHeight: false,
 };
-
-export const TitleCell = withStyles(styles, { name: 'TitleCell' })(TitleCellBase);

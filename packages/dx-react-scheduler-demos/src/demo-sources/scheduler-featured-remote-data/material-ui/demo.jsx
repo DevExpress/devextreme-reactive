@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import LinearProgress from '@mui/material/LinearProgress';
-import withStyles from '@mui/styles/withStyles';
 import {
   ViewState,
 } from '@devexpress/dx-react-scheduler';
@@ -17,6 +17,28 @@ import {
   AppointmentTooltip,
   TodayButton,
 } from '@devexpress/dx-react-scheduler-material-ui';
+
+const PREFIX = 'Demo';
+
+const classes = {
+  toolbarRoot: `${PREFIX}-toolbarRoot`,
+  progress: `${PREFIX}-progress`,
+};
+
+const StyledDiv = styled('div')({
+  [`&.${classes.toolbarRoot}`]: {
+    position: 'relative',
+  },
+});
+
+const StyledLinearProgress = styled(LinearProgress)(() => ({
+  [`&.${classes.progress}`]: {
+    position: 'absolute',
+    width: '100%',
+    bottom: 0,
+    left: 0,
+  },
+}));
 
 const PUBLIC_KEY = 'AIzaSyBnNAISIUKe6xdhq1_rjor2rxoI3UlMY7k';
 const CALENDAR_ID = 'f7jnetm22dsjc3npc2lu3buvu4@group.calendar.google.com';
@@ -35,27 +57,15 @@ const getData = (setData, setLoading) => {
     });
 };
 
-const styles = {
-  toolbarRoot: {
-    position: 'relative',
-  },
-  progress: {
-    position: 'absolute',
-    width: '100%',
-    bottom: 0,
-    left: 0,
-  },
-};
-
-const ToolbarWithLoading = withStyles(styles, { name: 'Toolbar' })(
-  ({ children, classes, ...restProps }) => (
-    <div className={classes.toolbarRoot}>
+const ToolbarWithLoading = (
+  ({ children, ...restProps }) => (
+    <StyledDiv className={classes.toolbarRoot}>
       <Toolbar.Root {...restProps}>
         {children}
       </Toolbar.Root>
-      <LinearProgress className={classes.progress} />
-    </div>
-  ),
+      <StyledLinearProgress className={classes.progress} />
+    </StyledDiv>
+  )
 );
 
 const usaTime = date => new Date(date).toLocaleString('en-US', { timeZone: 'America/Los_Angeles' });

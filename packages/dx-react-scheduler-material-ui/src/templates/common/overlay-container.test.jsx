@@ -1,15 +1,13 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { OverlayContainer } from './overlay-container';
+import { createShallow } from '@devexpress/dx-testing';
+import { OverlayContainer, classes } from './overlay-container';
 
 describe('Common', () => {
   const defaultProps = {
     ref: React.createRef(),
   };
-  let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<OverlayContainer {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
   describe('OverlayContainer', () => {

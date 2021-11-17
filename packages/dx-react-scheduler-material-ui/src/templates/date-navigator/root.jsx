@@ -1,16 +1,22 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 
-const styles = ({ spacing }) => ({
-  root: {
+const PREFIX = 'Root';
+
+const classes = {
+  root: `${PREFIX}-root`,
+};
+
+const StyledDiv = styled('div')(({ theme: { spacing } }) => ({
+  [`&.${classes.root}`]: {
     marginLeft: spacing(0.5),
-    '&:first-child': {
+    '&:first-of-type': {
       marginLeft: 0,
     },
   },
-});
+}));
 
 const RootBase = ({
   navigationButtonComponent: NavigationButton,
@@ -20,14 +26,13 @@ const RootBase = ({
   onVisibilityToggle,
   onNavigate,
   className,
-  classes,
   ...restProps
 }) => {
   const navigateBack = React.useCallback(() => onNavigate('back'), [onNavigate]);
   const navigateForward = React.useCallback(() => onNavigate('forward'), [onNavigate]);
 
   return (
-    <div
+    <StyledDiv
       className={classNames(classes.root, className)}
       ref={rootRef}
       {...restProps}
@@ -44,7 +49,7 @@ const RootBase = ({
         onVisibilityToggle={onVisibilityToggle}
         text={navigatorText}
       />
-    </div>
+    </StyledDiv>
   );
 };
 
@@ -56,7 +61,6 @@ RootBase.propTypes = {
   onNavigate: PropTypes.func.isRequired,
   rootRef: PropTypes.func.isRequired,
   navigatorText: PropTypes.string,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
@@ -65,4 +69,4 @@ RootBase.defaultProps = {
   className: undefined,
 };
 
-export const Root = withStyles(styles)(RootBase, { name: 'Root' });
+export const Root = (RootBase);

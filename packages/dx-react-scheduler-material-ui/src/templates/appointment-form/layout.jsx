@@ -1,40 +1,47 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
 import { LAYOUT_MEDIA_QUERY } from '../constants';
 
-const styles = {
-  root: {
+const PREFIX = 'Layout';
+
+export const classes = {
+  root: `${PREFIX}-root`,
+  container: `${PREFIX}-container`,
+  stickyContainer: `${PREFIX}-stickyContainer`,
+};
+
+const StyledDiv = styled('div')({
+  [`&.${classes.root}`]: {
     height: '100%',
     margin: '0 auto',
     overflowY: 'auto',
   },
-  container: {
+  [`& .${classes.container}`]: {
     display: 'flex',
     [`${LAYOUT_MEDIA_QUERY}`]: {
       flexDirection: 'column',
     },
   },
-  stickyContainer: {
+  [`& .${classes.stickyContainer}`]: {
     display: 'flex',
     position: 'sticky',
     top: 0,
     zIndex: 1,
   },
-};
+});
 
-const LayoutBase = ({
+export const Layout = ({
   basicLayoutComponent: BasicLayout,
   commandLayoutComponent: CommandLayout,
   recurrenceLayoutComponent: RecurrenceLayout,
   isRecurrence,
   children,
-  classes,
   className,
   ...restProps
 }) => (
-  <div
+  <StyledDiv
     className={classNames(classes.root, className)}
     {...restProps}
   >
@@ -46,23 +53,20 @@ const LayoutBase = ({
       <RecurrenceLayout />
     </div>
     {children}
-  </div>
+  </StyledDiv>
 );
 
-LayoutBase.propTypes = {
+Layout.propTypes = {
   basicLayoutComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   commandLayoutComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   recurrenceLayoutComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   children: PropTypes.node,
   className: PropTypes.string,
-  classes: PropTypes.object.isRequired,
   isRecurrence: PropTypes.bool,
 };
 
-LayoutBase.defaultProps = {
+Layout.defaultProps = {
   className: undefined,
   isRecurrence: false,
   children: null,
 };
-
-export const Layout = withStyles(styles)(LayoutBase, { name: 'Layout' });

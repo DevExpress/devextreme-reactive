@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { Overlay } from './overlay';
+import { createShallow } from '@devexpress/dx-testing';
+import { Overlay, classes } from './overlay';
 
 describe('AppointmentForm', () => {
   const defaultProps = {
@@ -13,10 +13,8 @@ describe('AppointmentForm', () => {
     onHide: jest.fn(),
     target: React.createRef(),
   };
-  let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Overlay><div /></Overlay>);
     shallow = createShallow({ dive: true });
   });
   beforeEach(() => {

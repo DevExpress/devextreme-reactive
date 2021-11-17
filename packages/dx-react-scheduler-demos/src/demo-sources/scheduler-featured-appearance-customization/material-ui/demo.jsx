@@ -21,9 +21,7 @@ import {
   Resources,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { connectProps } from '@devexpress/dx-react-core';
-import { alpha } from '@mui/material/styles';
-import withStyles from '@mui/styles/withStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { styled, alpha } from '@mui/material/styles';
 import PriorityHigh from '@mui/icons-material/PriorityHigh';
 import LowPriority from '@mui/icons-material/LowPriority';
 import Lens from '@mui/icons-material/Lens';
@@ -57,135 +55,189 @@ const getIconById = (id) => {
   return PriorityHigh;
 };
 
+const PREFIX = 'Demo';
 // #FOLD_BLOCK
-const styles = theme => ({
-  flexibleSpace: {
+const classes = {
+  flexibleSpace: `${PREFIX}-flexibleSpace`,
+  prioritySelector: `${PREFIX}-prioritySelector`,
+  content: `${PREFIX}-content`,
+  contentContainer: `${PREFIX}-contentContainer`,
+  text: `${PREFIX}-text`,
+  title: `${PREFIX}-title`,
+  icon: `${PREFIX}-icon`,
+  contentItemIcon: `${PREFIX}-contentItemIcon`,
+  grayIcon: `${PREFIX}-grayIcon`,
+  colorfulContent: `${PREFIX}-colorfulContent`,
+  lens: `${PREFIX}-lens`,
+  textCenter: `${PREFIX}-textCenter`,
+  dateAndTitle: `${PREFIX}-dateAndTitle`,
+  titleContainer: `${PREFIX}-titleContainer`,
+  container: `${PREFIX}-container`,
+  bullet: `${PREFIX}-bullet`,
+  prioritySelectorItem: `${PREFIX}-prioritySelectorItem`,
+  priorityText: `${PREFIX}-priorityText`,
+  priorityShortText: `${PREFIX}-priorityShortText`,
+  cellLowPriority: `${PREFIX}-cellLowPriority`,
+  cellMediumPriority: `${PREFIX}-cellMediumPriority`,
+  cellHighPriority: `${PREFIX}-cellHighPriority`,
+  headerCellLowPriority: `${PREFIX}-headerCellLowPriority`,
+  headerCellMediumPriority: `${PREFIX}-headerCellMediumPriority`,
+  headerCellHighPriority: `${PREFIX}-headerCellHighPriority`,
+};
+// #FOLD_BLOCK
+const stylesByPriority = priorities.reduce((acc, priority) => ({
+  ...acc,
+  [`cell${priority.text.replace(' ', '')}`]: {
+    backgroundColor: alpha(priority.color[400], 0.1),
+    '&:hover': {
+      backgroundColor: alpha(priority.color[400], 0.15),
+    },
+    '&:focus': {
+      backgroundColor: alpha(priority.color[400], 0.2),
+    },
+  },
+  [`headerCell${priority.text.replace(' ', '')}`]: {
+    backgroundColor: alpha(priority.color[400], 0.1),
+    '&:hover': {
+      backgroundColor: alpha(priority.color[400], 0.1),
+    },
+    '&:focus': {
+      backgroundColor: alpha(priority.color[400], 0.1),
+    },
+  },
+}), {});
+// #FOLD_BLOCK
+const groupingStyles = ({ theme }) => ({
+  [`&.${classes.cellLowPriority}`]: stylesByPriority.cellLowPriority,
+  [`&.${classes.cellMediumPriority}`]: stylesByPriority.cellMediumPriority,
+  [`&.${classes.cellHighPriority}`]: stylesByPriority.cellHighPriority,
+  [`&.${classes.headerCellLowPriority}`]: stylesByPriority.headerCellLowPriority,
+  [`&.${classes.headerCellMediumPriority}`]: stylesByPriority.headerCellMediumPriority,
+  [`&.${classes.headerCellHighPriority}`]: stylesByPriority.headerCellHighPriority,
+  [`& .${classes.icon}`]: {
+    paddingLeft: theme.spacing(1),
+    verticalAlign: 'middle',
+  },
+});
+
+// #FOLD_BLOCK
+const StyledToolbarFlexibleSpace = styled(Toolbar.FlexibleSpace)(() => ({
+  [`&.${classes.flexibleSpace}`]: {
     margin: '0 auto 0 0',
   },
-  prioritySelector: {
-    marginLeft: theme.spacing(2),
+}));
+
+const StyledFormControl = styled(FormControl)(({ theme: { spacing } }) => ({
+  [`&.${classes.prioritySelector}`]: {
     minWidth: 140,
+    marginLeft: spacing(2),
     '@media (max-width: 500px)': {
       minWidth: 0,
       fontSize: '0.75rem',
-      marginLeft: theme.spacing(0.5),
+      marginLeft: spacing(0.5),
     },
   },
-});
+}));
+
 // #FOLD_BLOCK
-const usePrioritySelectorItemStyles = makeStyles(({ palette, spacing }) => ({
-  bullet: ({ color }) => ({
+const StyledPrioritySelectorItem = styled('div')(({ theme: { palette, spacing }, color }) => ({
+  [`& .${classes.bullet}`]: {
     backgroundColor: color ? color[400] : palette.divider,
     borderRadius: '50%',
     width: spacing(2),
     height: spacing(2),
     marginRight: spacing(2),
     display: 'inline-block',
-  }),
-  prioritySelectorItem: {
+  },
+  [`&.${classes.prioritySelectorItem}`]: {
     display: 'flex',
     alignItems: 'center',
   },
-  priorityText: {
+  [`& .${classes.priorityText}`]: {
     '@media (max-width: 500px)': {
       display: 'none',
     },
   },
-  priorityShortText: {
+  [`& .${classes.priorityShortText}`]: {
     '@media (min-width: 500px)': {
       display: 'none',
     },
   },
 }));
 // #FOLD_BLOCK
-const useTooltipContentStyles = makeStyles(theme => ({
-  content: {
-    padding: theme.spacing(3, 1),
+const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(groupingStyles);
+// #FOLD_BLOCK
+const StyledTooltipContent = styled('div')(({ theme: { spacing, typography, palette }, color }) => ({
+  [`&.${classes.content}`]: {
+    padding: spacing(3, 1),
     paddingTop: 0,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: palette.background.paper,
     boxSizing: 'border-box',
     width: '400px',
   },
-  contentContainer: {
-    paddingBottom: theme.spacing(1.5),
+  [`& .${classes.contentContainer}`]: {
+    paddingBottom: spacing(1.5),
   },
-  text: {
-    ...theme.typography.body2,
+  [`& .${classes.text}`]: {
+    ...typography.body2,
     display: 'inline-block',
   },
-  title: {
-    ...theme.typography.h6,
-    color: theme.palette.text.secondary,
-    fontWeight: theme.typography.fontWeightBold,
+  [`& .${classes.title}`]: {
+    ...typography.h6,
+    color: palette.text.secondary,
+    fontWeight: typography.fontWeightBold,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'normal',
   },
-  icon: {
+  [`& .${classes.icon}`]: {
     verticalAlign: 'middle',
   },
-  contentItemIcon: {
+  [`& .${classes.contentItemIcon}`]: {
     textAlign: 'center',
   },
-  grayIcon: {
-    color: theme.palette.action.active,
+  [`& .${classes.grayIcon}`]: {
+    color: palette.action.active,
   },
-  colorfulContent: {
-    color: ({ color }) => color[300],
+  [`& .${classes.colorfulContent}`]: {
+    color: color[300],
   },
-  lens: {
-    width: theme.spacing(4.5),
-    height: theme.spacing(4.5),
+  [`& .${classes.lens}`]: {
+    width: spacing(4.5),
+    height: spacing(4.5),
     verticalAlign: 'super',
   },
-  textCenter: {
+  [`& .${classes.textCenter}`]: {
     textAlign: 'center',
   },
-  dateAndTitle: {
+  [`& .${classes.dateAndTitle}`]: {
     lineHeight: 1.1,
   },
-  titleContainer: {
-    paddingBottom: theme.spacing(2),
+  [`& .${classes.titleContainer}`]: {
+    paddingBottom: spacing(2),
   },
-  container: {
-    paddingBottom: theme.spacing(1.5),
+  [`& .${classes.container}`]: {
+    paddingBottom: spacing(1.5),
   },
 }));
-// #FOLD_BLOCK
-const groupingStyles = ({ spacing }) => ({
-  ...priorities.reduce((acc, priority) => ({
-    ...acc,
-    [`cell${priority.text.replace(' ', '')}`]: {
-      backgroundColor: alpha(priority.color[400], 0.1),
-      '&:hover': {
-        backgroundColor: alpha(priority.color[400], 0.15),
-      },
-      '&:focus': {
-        backgroundColor: alpha(priority.color[400], 0.2),
-      },
-    },
-    [`headerCell${priority.text.replace(' ', '')}`]: {
-      backgroundColor: alpha(priority.color[400], 0.1),
-      '&:hover': {
-        backgroundColor: alpha(priority.color[400], 0.1),
-      },
-      '&:focus': {
-        backgroundColor: alpha(priority.color[400], 0.1),
-      },
-    },
-  }), {}),
-  icon: {
-    paddingLeft: spacing(1),
-    verticalAlign: 'middle',
-  },
-});
 
-const DayViewTimeTableCell = withStyles(groupingStyles, { name: 'DayViewTimeTableCell' })(({
-  groupingInfo, classes, ...restProps
+// #FOLD_BLOCK
+const StyledDayViewDayScaleCell = styled(DayView.DayScaleCell)(groupingStyles);
+
+const StyledWeekViewDayScaleCell = styled(WeekView.DayScaleCell)(groupingStyles);
+
+const StyledAllDayPanelCell = styled(AllDayPanel.Cell)(groupingStyles);
+
+const StyledGroupingPanelCell = styled(GroupingPanel.Cell)(groupingStyles);
+
+const StyledDayViewTimeTableCell = styled(DayView.TimeTableCell)(groupingStyles);
+
+const DayViewTimeTableCell = ({
+  groupingInfo, ...restProps
 }) => {
   const groupId = groupingInfo[0].id;
   return (
-    <DayView.TimeTableCell
+    <StyledDayViewTimeTableCell
       className={classNames({
         [classes.cellLowPriority]: groupId === 1,
         [classes.cellMediumPriority]: groupId === 2,
@@ -195,15 +247,15 @@ const DayViewTimeTableCell = withStyles(groupingStyles, { name: 'DayViewTimeTabl
       {...restProps}
     />
   );
-});
+};
 // #FOLD_BLOCK
-const DayViewDayScaleCell = withStyles(groupingStyles, { name: 'DayViewDayScaleCell' })(({
-  groupingInfo, classes, ...restProps
+const DayViewDayScaleCell = ({
+  groupingInfo, ...restProps
 // #FOLD_BLOCK
 }) => {
   const groupId = groupingInfo[0].id;
   return (
-    <DayView.DayScaleCell
+    <StyledDayViewDayScaleCell
       className={classNames({
         [classes.headerCellLowPriority]: groupId === 1,
         [classes.headerCellMediumPriority]: groupId === 2,
@@ -213,15 +265,15 @@ const DayViewDayScaleCell = withStyles(groupingStyles, { name: 'DayViewDayScaleC
       {...restProps}
     />
   );
-});
+};
 // #FOLD_BLOCK
-const WeekViewTimeTableCell = withStyles(groupingStyles, { name: 'WeekViewTimeTableCell' })(({
-  groupingInfo, classes, ...restProps
+const WeekViewTimeTableCell = ({
+  groupingInfo, ...restProps
 // #FOLD_BLOCK
 }) => {
   const groupId = groupingInfo[0].id;
   return (
-    <WeekView.TimeTableCell
+    <StyledWeekViewTimeTableCell
       className={classNames({
         [classes.cellLowPriority]: groupId === 1,
         [classes.cellMediumPriority]: groupId === 2,
@@ -231,15 +283,15 @@ const WeekViewTimeTableCell = withStyles(groupingStyles, { name: 'WeekViewTimeTa
       {...restProps}
     />
   );
-});
+};
 // #FOLD_BLOCK
-const WeekViewDayScaleCell = withStyles(groupingStyles, { name: 'WeekViewDayScaleCell' })(({
-  groupingInfo, classes, ...restProps
+const WeekViewDayScaleCell = ({
+  groupingInfo, ...restProps
 // #FOLD_BLOCK
 }) => {
   const groupId = groupingInfo[0].id;
   return (
-    <WeekView.DayScaleCell
+    <StyledWeekViewDayScaleCell
       className={classNames({
         [classes.headerCellLowPriority]: groupId === 1,
         [classes.headerCellMediumPriority]: groupId === 2,
@@ -249,15 +301,15 @@ const WeekViewDayScaleCell = withStyles(groupingStyles, { name: 'WeekViewDayScal
       {...restProps}
     />
   );
-});
+};
 // #FOLD_BLOCK
-const AllDayCell = withStyles(groupingStyles, { name: 'AllDayCell' })(({
-  groupingInfo, classes, ...restProps
+const AllDayCell = ({
+  groupingInfo, ...restProps
 // #FOLD_BLOCK
 }) => {
   const groupId = groupingInfo[0].id;
   return (
-    <AllDayPanel.Cell
+    <StyledAllDayPanelCell
       className={classNames({
         [classes.cellLowPriority]: groupId === 1,
         [classes.cellMediumPriority]: groupId === 2,
@@ -267,16 +319,16 @@ const AllDayCell = withStyles(groupingStyles, { name: 'AllDayCell' })(({
       {...restProps}
     />
   );
-});
+};
 // #FOLD_BLOCK
-const GroupingPanelCell = withStyles(groupingStyles, { name: 'GroupingPanelCell' })(({
-  group, classes, ...restProps
+const GroupingPanelCell = ({
+  group, ...restProps
 // #FOLD_BLOCK
 }) => {
   const groupId = group.id;
   const Icon = getIconById(groupId);
   return (
-    <GroupingPanel.Cell
+    <StyledGroupingPanelCell
       className={classNames({
         [classes.headerCellLowPriority]: groupId === 1,
         [classes.headerCellMediumPriority]: groupId === 2,
@@ -288,32 +340,31 @@ const GroupingPanelCell = withStyles(groupingStyles, { name: 'GroupingPanelCell'
       <Icon
         className={classes.icon}
       />
-    </GroupingPanel.Cell>
+    </StyledGroupingPanelCell>
   );
-});
+};
 
 const PrioritySelectorItem = ({
   color, text: resourceTitle,
 }) => {
   const text = resourceTitle || 'All Tasks';
   const shortText = resourceTitle ? text.substring(0, 1) : 'All';
-  const classes = usePrioritySelectorItemStyles({ color });
 
   return (
-    <div className={classes.prioritySelectorItem}>
+    <StyledPrioritySelectorItem className={classes.prioritySelectorItem} color={color}>
       <span className={classes.bullet} />
       <span className={classes.priorityText}>{text}</span>
       <span className={classes.priorityShortText}>{shortText}</span>
-    </div>
+    </StyledPrioritySelectorItem>
   );
 };
 
-const PrioritySelector = withStyles(styles, { name: 'PrioritySelector' })(({
-  classes, priorityChange, priority,
+const PrioritySelector = ({
+  priorityChange, priority,
 }) => {
   const currentPriority = priority > 0 ? priorities[priority - 1] : {};
   return (
-    <FormControl className={classes.prioritySelector} variant="standard">
+    <StyledFormControl className={classes.prioritySelector} variant="standard">
       <Select
         disableUnderline
         value={priority}
@@ -333,16 +384,16 @@ const PrioritySelector = withStyles(styles, { name: 'PrioritySelector' })(({
           </MenuItem>
         ))}
       </Select>
-    </FormControl>
+    </StyledFormControl>
   );
-});
+};
 
-const FlexibleSpace = withStyles(styles, { name: 'FlexibleSpace' })(({
-  classes, priority, priorityChange, ...restProps
+const FlexibleSpace = (({
+  priority, priorityChange, ...restProps
 }) => (
-  <Toolbar.FlexibleSpace {...restProps} className={classes.flexibleSpace}>
+  <StyledToolbarFlexibleSpace {...restProps} className={classes.flexibleSpace}>
     <PrioritySelector priority={priority} priorityChange={priorityChange} />
-  </Toolbar.FlexibleSpace>
+  </StyledToolbarFlexibleSpace>
 ));
 // #FOLD_BLOCK
 const TooltipContent = ({
@@ -350,7 +401,6 @@ const TooltipContent = ({
 // #FOLD_BLOCK
 }) => {
   const resource = appointmentResources[0];
-  const classes = useTooltipContentStyles({ color: resource.color });
   let icon = <LowPriority className={classes.icon} />;
   if (appointmentData.priorityId === 2) {
     icon = <Event className={classes.icon} />;
@@ -359,7 +409,7 @@ const TooltipContent = ({
     icon = <PriorityHigh className={classes.icon} />;
   }
   return (
-    <div className={classes.content}>
+    <StyledTooltipContent className={classes.content} color={resource.color}>
       <Grid container alignItems="flex-start" className={classes.titleContainer}>
         <Grid item xs={2} className={classNames(classes.textCenter)}>
           <Lens className={classNames(classes.lens, classes.colorfulContent)} />
@@ -400,7 +450,7 @@ const TooltipContent = ({
           </span>
         </Grid>
       </Grid>
-    </div>
+    </StyledTooltipContent>
   );
 };
 

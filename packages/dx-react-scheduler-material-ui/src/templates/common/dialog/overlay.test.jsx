@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createShallow, createMount } from '@devexpress/dx-testing';
 import Dialog from '@mui/material/Dialog';
-import { Overlay } from './overlay';
+import { Overlay, classes } from './overlay';
 
 describe('Common Dialog', () => {
   let shallow;
-  let classes;
+  let mount;
   const defaultProps = {
     onHide: jest.fn(),
     target: React.createRef(),
@@ -14,7 +14,7 @@ describe('Common Dialog', () => {
   };
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<Overlay {...defaultProps}><div /></Overlay>);
+    mount = createMount();
   });
   beforeEach(() => {
     jest.resetAllMocks();
@@ -42,17 +42,20 @@ describe('Common Dialog', () => {
         .toBeTruthy();
     });
     it('should pass expected properties into Dialog', () => {
-      const tree = shallow((
+      const tree = mount((
         <Overlay {...defaultProps}>
           <div />
         </Overlay>
       ));
 
+      expect(tree.find(Dialog).is('.custom-class')).toBeTruthy();
+      expect(tree.find(Dialog).is(`.${classes.root}`)).toBeTruthy();
+      expect(tree.find(Dialog).is(`.${classes.modal}`)).toBeTruthy();
+
       expect(tree.find(Dialog).props())
         .toMatchObject({
           open: defaultProps.visible,
           onClose: defaultProps.onHide,
-          className: `${classes.modal} ${classes.root} custom-class`,
           BackdropProps: { className: classes.modal },
           container: null,
           onBackdropClick: defaultProps.onHide,

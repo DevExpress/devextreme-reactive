@@ -1,6 +1,7 @@
 /* eslint-disable max-classes-per-file */
 /* eslint-disable react/no-unused-state */
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
 import {
@@ -20,7 +21,6 @@ import { connectProps } from '@devexpress/dx-react-core';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterMoment from '@mui/lab/AdapterMoment';
-import withStyles from '@mui/styles/withStyles';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -39,51 +39,100 @@ import Create from '@mui/icons-material/Create';
 
 import { appointments } from '../../../demo-data/appointments';
 
-const containerStyles = theme => ({
-  container: {
-    width: theme.spacing(68),
-    padding: 0,
-    paddingBottom: theme.spacing(2),
+const PREFIX = 'Demo';
+// #FOLD_BLOCK
+const classes = {
+  content: `${PREFIX}-content`,
+  header: `${PREFIX}-header`,
+  closeButton: `${PREFIX}-closeButton`,
+  buttonGroup: `${PREFIX}-buttonGroup`,
+  button: `${PREFIX}-button`,
+  picker: `${PREFIX}-picker`,
+  wrapper: `${PREFIX}-wrapper`,
+  icon: `${PREFIX}-icon`,
+  textField: `${PREFIX}-textField`,
+  addButton: `${PREFIX}-addButton`,
+};
+// #FOLD_BLOCK
+const groupingStyles = (({ theme }) => ({
+  [`&.${classes.icon}`]: {
+    margin: theme.spacing(2, 0),
+    marginRight: theme.spacing(2),
   },
-  content: {
-    padding: theme.spacing(2),
-    paddingTop: 0,
-  },
-  header: {
+}));
+// #FOLD_BLOCK
+const StyledDivHeader = styled('div')(({ theme }) => ({
+  [`&.${classes.header}`]: {
     overflow: 'hidden',
     paddingTop: theme.spacing(0.5),
   },
-  closeButton: {
+
+}));
+// #FOLD_BLOCK
+const StyledTextField = styled(TextField)(() => ({
+  [`&.${classes.textField}`]: {
+    width: '100%',
+  },
+}));
+// #FOLD_BLOCK
+const StyledDivContent = styled('div')(({ theme }) => ({
+  [`&.${classes.content}`]: {
+    padding: theme.spacing(2),
+    paddingTop: 0,
+  },
+}));
+// #FOLD_BLOCK
+const StyledIconButton = styled(IconButton)(() => ({
+  [`&.${classes.closeButton}`]: {
     float: 'right',
   },
-  buttonGroup: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    padding: theme.spacing(0, 2),
-  },
-  button: {
-    marginLeft: theme.spacing(2),
-  },
-  picker: {
+}));
+// #FOLD_BLOCK
+const StyledCalendarToday = styled(CalendarToday)(groupingStyles);
+// #FOLD_BLOCK
+const StyledDateTimePicker = styled(DateTimePicker)(({ theme }) => ({
+  [`& .${classes.picker}`]: {
     marginRight: theme.spacing(2),
     '&:last-child': {
       marginRight: 0,
     },
     width: '50%',
   },
-  wrapper: {
+}));
+// #FOLD_BLOCK
+const StyledLocationOn = styled(LocationOn)(groupingStyles);
+// #FOLD_BLOCK
+const StyledDiv = styled('div')(({ theme }) => ({
+  [`&.${classes.wrapper}`]: {
     display: 'flex',
     justifyContent: 'space-between',
     padding: theme.spacing(1, 0),
   },
-  icon: {
-    margin: theme.spacing(2, 0),
-    marginRight: theme.spacing(2),
+}));
+// #FOLD_BLOCK
+const StyledDivButtonGroup = styled('div')(({ theme }) => ({
+  [`&.${classes.buttonGroup}`]: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(0, 2),
   },
-  textField: {
-    width: '100%',
+}));
+// #FOLD_BLOCK
+const StyledCreate = styled(Create)(groupingStyles);
+// #FOLD_BLOCK
+const StyledFab = styled(Fab)(({ theme }) => ({
+  [`&.${classes.addButton}`]: {
+    position: 'absolute',
+    bottom: theme.spacing(3),
+    right: theme.spacing(4),
   },
-});
+}));
+// #FOLD_BLOCK
+const StyledButton = styled(Button)(({ theme }) => ({
+  [`&.${classes.button}`]: {
+    marginLeft: theme.spacing(2),
+  },
+}));
 
 class AppointmentFormContainerBasic extends React.PureComponent {
   constructor(props) {
@@ -136,7 +185,6 @@ class AppointmentFormContainerBasic extends React.PureComponent {
 
   render() {
     const {
-      classes,
       visible,
       visibleChange,
       appointmentData,
@@ -194,51 +242,51 @@ class AppointmentFormContainerBasic extends React.PureComponent {
         onHide={onHide}
       >
         <div>
-          <div className={classes.header}>
-            <IconButton className={classes.closeButton} onClick={cancelChanges} size="large">
+          <StyledDivHeader className={classes.header}>
+            <StyledIconButton className={classes.closeButton} onClick={cancelChanges} size="large">
               <Close color="action" />
-            </IconButton>
-          </div>
-          <div className={classes.content}>
-            <div className={classes.wrapper}>
-              <Create className={classes.icon} color="action" />
-              <TextField
+            </StyledIconButton>
+          </StyledDivHeader>
+          <StyledDivContent className={classes.content}>
+            <StyledDiv className={classes.wrapper}>
+              <StyledCreate className={classes.icon} color="action" />
+              <StyledTextField
                 {...textEditorProps('title')}
               />
-            </div>
-            <div className={classes.wrapper}>
-              <CalendarToday className={classes.icon} color="action" />
+            </StyledDiv>
+            <StyledDiv className={classes.wrapper}>
+              <StyledCalendarToday className={classes.icon} color="action" />
               <LocalizationProvider dateAdapter={AdapterMoment}>
-                <DateTimePicker
+                <StyledDateTimePicker
                   label="Start Date"
                   renderInput={props => <TextField className={classes.picker} {...props} />}
                   {...startDatePickerProps}
                 />
-                <DateTimePicker
+                <StyledDateTimePicker
                   label="End Date"
                   renderInput={props => <TextField className={classes.picker} {...props} />}
                   {...endDatePickerProps}
                 />
               </LocalizationProvider>
-            </div>
-            <div className={classes.wrapper}>
-              <LocationOn className={classes.icon} color="action" />
-              <TextField
+            </StyledDiv>
+            <StyledDiv className={classes.wrapper}>
+              <StyledLocationOn className={classes.icon} color="action" />
+              <StyledTextField
                 {...textEditorProps('location')}
               />
-            </div>
-            <div className={classes.wrapper}>
+            </StyledDiv>
+            <StyledDiv className={classes.wrapper}>
               <Notes className={classes.icon} color="action" />
-              <TextField
+              <StyledTextField
                 {...textEditorProps('notes')}
                 multiline
                 rows="6"
               />
-            </div>
-          </div>
-          <div className={classes.buttonGroup}>
+            </StyledDiv>
+          </StyledDivContent>
+          <StyledDivButtonGroup className={classes.buttonGroup}>
             {!isNewAppointment && (
-              <Button
+              <StyledButton
                 variant="outlined"
                 color="secondary"
                 className={classes.button}
@@ -248,9 +296,9 @@ class AppointmentFormContainerBasic extends React.PureComponent {
                 }}
               >
                 Delete
-              </Button>
+              </StyledButton>
             )}
-            <Button
+            <StyledButton
               variant="outlined"
               color="primary"
               className={classes.button}
@@ -260,26 +308,16 @@ class AppointmentFormContainerBasic extends React.PureComponent {
               }}
             >
               {isNewAppointment ? 'Create' : 'Save'}
-            </Button>
-          </div>
+            </StyledButton>
+          </StyledDivButtonGroup>
         </div>
       </AppointmentForm.Overlay>
     );
   }
 }
 
-const AppointmentFormContainer = withStyles(containerStyles, { name: 'AppointmentFormContainer' })(AppointmentFormContainerBasic);
-
-const styles = theme => ({
-  addButton: {
-    position: 'absolute',
-    bottom: theme.spacing(3),
-    right: theme.spacing(4),
-  },
-});
-
 /* eslint-disable-next-line react/no-multi-comp */
-class Demo extends React.PureComponent {
+export default class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -303,7 +341,7 @@ class Demo extends React.PureComponent {
     this.commitChanges = this.commitChanges.bind(this);
     this.onEditingAppointmentChange = this.onEditingAppointmentChange.bind(this);
     this.onAddedAppointmentChange = this.onAddedAppointmentChange.bind(this);
-    this.appointmentForm = connectProps(AppointmentFormContainer, () => {
+    this.appointmentForm = connectProps(AppointmentFormContainerBasic, () => {
       const {
         editingFormVisible,
         editingAppointment,
@@ -409,7 +447,6 @@ class Demo extends React.PureComponent {
       startDayHour,
       endDayHour,
     } = this.state;
-    const { classes } = this.props;
 
     return (
       <Paper>
@@ -470,7 +507,7 @@ class Demo extends React.PureComponent {
           </DialogActions>
         </Dialog>
 
-        <Fab
+        <StyledFab
           color="secondary"
           className={classes.addButton}
           onClick={() => {
@@ -483,10 +520,8 @@ class Demo extends React.PureComponent {
           }}
         >
           <AddIcon />
-        </Fab>
+        </StyledFab>
       </Paper>
     );
   }
 }
-
-export default withStyles(styles, { name: 'EditingDemo' })(Demo);

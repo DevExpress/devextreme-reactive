@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { createShallow, getClasses, createMount } from '@devexpress/dx-testing';
+import { createShallow, createMount } from '@devexpress/dx-testing';
 import Popover from '@mui/material/Popover';
-import { Layout } from './layout';
+import { Layout, classes } from './layout';
 
 describe('Appointment Tooltip', () => {
   let shallow;
-  let classes;
   let mount;
   const defaultProps = {
     headerComponent: () => null,
@@ -30,7 +29,6 @@ describe('Appointment Tooltip', () => {
     formatDate: jest.fn(),
   };
   beforeAll(() => {
-    classes = getClasses(<Layout {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
   beforeEach(() => {

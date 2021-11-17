@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { createShallow, getClasses, createMount } from '@devexpress/dx-testing';
+import { createShallow, createMount } from '@devexpress/dx-testing';
 import {
   NUMBER_EDITOR,
   TITLE_TEXT_EDITOR,
   MULTILINE_TEXT_EDITOR,
 } from '@devexpress/dx-scheduler-core';
-import { TextEditor } from './text-editor';
+import { TextEditor, classes } from './text-editor';
 
 describe('AppointmentForm common', () => {
   const defaultProps = {
@@ -13,10 +13,8 @@ describe('AppointmentForm common', () => {
   };
   let shallow;
   let mount;
-  let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<TextEditor {...defaultProps} />);
   });
   beforeEach(() => {
     mount = createMount();

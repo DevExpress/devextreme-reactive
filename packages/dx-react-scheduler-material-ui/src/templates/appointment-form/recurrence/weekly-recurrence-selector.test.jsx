@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createShallow, createMount } from '@devexpress/dx-testing';
 import {
   getRecurrenceOptions, SUNDAY_DATE, WEEK_DAY_OPTIONS, MONDAY_DATE,
   TUESDAY_DATE, THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE, WEDNESDAY_DATE,
   changeRecurrenceOptions, RRULE_DAYS_OF_WEEK,
 } from '@devexpress/dx-scheduler-core';
 import Button from '@mui/material/Button';
-import { WeeklyRecurrenceSelector } from './weekly-recurrence-selector';
+import { WeeklyRecurrenceSelector, classes } from './weekly-recurrence-selector';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...jest.requireActual('@devexpress/dx-scheduler-core'),
@@ -21,15 +21,15 @@ describe('AppointmentForm recurrence', () => {
     formatDate: jest.fn(),
     firstDayOfWeek: 0,
   };
+  let mount;
   let shallow;
-  let classes;
   beforeEach(() => {
     getRecurrenceOptions.mockImplementation(() => ({}));
     changeRecurrenceOptions.mockImplementation(testValue => testValue);
   });
   beforeAll(() => {
+    mount = createMount();
     shallow = createShallow({ dive: true });
-    classes = getClasses(<WeeklyRecurrenceSelector {...defaultProps} />);
   });
   describe('WeeklyRecurrenceSelector', () => {
     it('should pass className to the root element', () => {
@@ -51,7 +51,7 @@ describe('AppointmentForm recurrence', () => {
     });
 
     it('should render buttons correctly', () => {
-      const tree = shallow((
+      const tree = mount((
         <WeeklyRecurrenceSelector {...defaultProps} />
       ));
 
@@ -84,7 +84,7 @@ describe('AppointmentForm recurrence', () => {
           RRULE_DAYS_OF_WEEK[6],
         ],
       }));
-      const tree = shallow((
+      const tree = mount((
         <WeeklyRecurrenceSelector {...defaultProps} />
       ));
 

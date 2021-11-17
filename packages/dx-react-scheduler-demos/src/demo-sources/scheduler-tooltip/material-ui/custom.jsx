@@ -10,69 +10,96 @@ import IconButton from '@mui/material/IconButton';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Grid from '@mui/material/Grid';
 import Room from '@mui/icons-material/Room';
-import withStyles from '@mui/styles/withStyles';
+import { styled } from '@mui/material/styles';
 import classNames from 'clsx';
 
 import appointments from '../../../demo-data/today-appointments';
 
-const style = ({ palette }) => ({
-  icon: {
-    color: palette.action.active,
-  },
-  textCenter: {
-    textAlign: 'center',
-  },
-  firstRoom: {
+const PREFIX = 'Demo';
+
+const classes = {
+  icon: `${PREFIX}-icon`,
+  textCenter: `${PREFIX}-textCenter`,
+  firstRoom: `${PREFIX}-firstRoom`,
+  secondRoom: `${PREFIX}-secondRoom`,
+  thirdRoom: `${PREFIX}-thirdRoom`,
+  header: `${PREFIX}-header`,
+  commandButton: `${PREFIX}-commandButton`,
+};
+
+const StyledAppointmentTooltipHeader = styled(AppointmentTooltip.Header)(() => ({
+  [`&.${classes.firstRoom}`]: {
     background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/Lobby-4.jpg)',
   },
-  secondRoom: {
+  [`&.${classes.secondRoom}`]: {
     background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-4.jpg)',
   },
-  thirdRoom: {
+  [`&.${classes.thirdRoom}`]: {
     background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-0.jpg)',
   },
-  header: {
+  [`&.${classes.header}`]: {
     height: '260px',
     backgroundSize: 'cover',
   },
-  commandButton: {
+}));
+
+const StyledIconButton = styled(IconButton)(() => ({
+  [`&.${classes.commandButton}`]: {
     backgroundColor: 'rgba(255,255,255,0.65)',
   },
-});
+}));
 
-const getClassByLocation = (classes, location) => {
+const StyledGrid = styled(Grid)(() => ({
+  [`&.${classes.textCenter}`]: {
+    textAlign: 'center',
+  },
+}));
+
+const StyledRoom = styled(Room)(({ theme: { palette } }) => ({
+  [`&.${classes.icon}`]: {
+    color: palette.action.active,
+  },
+}));
+
+const StyledAppointmentTooltipCommandButton = styled(AppointmentTooltip.CommandButton)(() => ({
+  [`&.${classes.commandButton}`]: {
+    backgroundColor: 'rgba(255,255,255,0.65)',
+  },
+}));
+
+const getClassByLocation = (location) => {
   if (location === 'Room 1') return classes.firstRoom;
   if (location === 'Room 2') return classes.secondRoom;
   return classes.thirdRoom;
 };
 
-const Header = withStyles(style, { name: 'Header' })(({
-  children, appointmentData, classes, ...restProps
+const Header = (({
+  children, appointmentData, ...restProps
 }) => (
-  <AppointmentTooltip.Header
+  <StyledAppointmentTooltipHeader
     {...restProps}
     className={classNames(getClassByLocation(classes, appointmentData.location), classes.header)}
     appointmentData={appointmentData}
   >
-    <IconButton
+    <StyledIconButton
       /* eslint-disable-next-line no-alert */
       onClick={() => alert(JSON.stringify(appointmentData))}
       className={classes.commandButton}
       size="large"
     >
       <MoreIcon />
-    </IconButton>
-  </AppointmentTooltip.Header>
+    </StyledIconButton>
+  </StyledAppointmentTooltipHeader>
 ));
 
-const Content = withStyles(style, { name: 'Content' })(({
-  children, appointmentData, classes, ...restProps
+const Content = (({
+  children, appointmentData, ...restProps
 }) => (
   <AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
     <Grid container alignItems="center">
-      <Grid item xs={2} className={classes.textCenter}>
-        <Room className={classes.icon} />
-      </Grid>
+      <StyledGrid item xs={2} className={classes.textCenter}>
+        <StyledRoom className={classes.icon} />
+      </StyledGrid>
       <Grid item xs={10}>
         <span>{appointmentData.location}</span>
       </Grid>
@@ -80,10 +107,10 @@ const Content = withStyles(style, { name: 'Content' })(({
   </AppointmentTooltip.Content>
 ));
 
-const CommandButton = withStyles(style, { name: 'CommandButton' })(({
-  classes, ...restProps
+const CommandButton = (({
+  ...restProps
 }) => (
-  <AppointmentTooltip.CommandButton {...restProps} className={classes.commandButton} />
+  <StyledAppointmentTooltipCommandButton {...restProps} className={classes.commandButton} />
 ));
 
 export default class Demo extends React.PureComponent {

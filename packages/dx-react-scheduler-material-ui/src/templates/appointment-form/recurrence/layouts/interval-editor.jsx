@@ -1,29 +1,37 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import Grid from '@mui/material/Grid';
 import classNames from 'clsx';
 import { NUMBER_EDITOR } from '@devexpress/dx-scheduler-core';
 
-const styles = ({ spacing }) => ({
-  grid: {
+const PREFIX = 'IntervalEditor';
+
+export const classes = {
+  grid: `${PREFIX}-grid`,
+  label: `${PREFIX}-label`,
+  labelWithMargin: `${PREFIX}-labelWithMargin`,
+  textEditor: `${PREFIX}-textEditor`,
+};
+
+const StyledGrid = styled(Grid)(({ theme: { spacing } }) => ({
+  [`&.${classes.grid}`]: {
     marginTop: spacing(1.75),
   },
-  label: {
+  [`& .${classes.label}`]: {
     width: '6.5em',
   },
-  labelWithMargin: {
+  [`& .${classes.labelWithMargin}`]: {
     marginLeft: '1em',
     width: 'calc((100% - 7.5em) * 4 / 7)',
   },
-  textEditor: {
+  [`& .${classes.textEditor}`]: {
     width: 'calc((100% - 7.5em) * 3 / 7)',
     maxWidth: '8em',
   },
-});
+}));
 
-const IntervalEditorBase = ({
-  classes,
+export const IntervalEditor = ({
   className,
   labelComponent: Label,
   textEditorComponent: TextEditor,
@@ -34,7 +42,7 @@ const IntervalEditorBase = ({
   changeRecurrenceInterval,
   ...restProps
 }) => (
-  <Grid
+  <StyledGrid
     container
     direction="row"
     justifyContent="flex-start"
@@ -57,11 +65,10 @@ const IntervalEditorBase = ({
       text={repeatIntervalLabel}
       className={classes.labelWithMargin}
     />
-  </Grid>
+  </StyledGrid>
 );
 
-IntervalEditorBase.propTypes = {
-  classes: PropTypes.object.isRequired,
+IntervalEditor.propTypes = {
   className: PropTypes.string,
   repeatEveryLabel: PropTypes.string.isRequired,
   repeatIntervalLabel: PropTypes.string.isRequired,
@@ -72,9 +79,7 @@ IntervalEditorBase.propTypes = {
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
 };
 
-IntervalEditorBase.defaultProps = {
+IntervalEditor.defaultProps = {
   className: undefined,
   interval: 1,
 };
-
-export const IntervalEditor = withStyles(styles)(IntervalEditorBase, { name: 'IntervalEditor' });

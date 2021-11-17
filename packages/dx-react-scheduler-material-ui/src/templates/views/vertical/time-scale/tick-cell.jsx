@@ -1,14 +1,22 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@mui/material/TableCell';
-import withStyles from '@mui/styles/withStyles';
 import { VIEW_TYPES } from '@devexpress/dx-scheduler-core';
 import { getBorder, getBrightBorder } from '../../../utils';
 import { SPACING_CELL_HEIGHT } from '../../../constants';
 
-const styles = theme => ({
-  cell: {
+const PREFIX = 'TickCell';
+
+export const classes = {
+  cell: `${PREFIX}-cell`,
+  brightBottomBorder: `${PREFIX}-brightBottomBorder`,
+  allDayCell: `${PREFIX}-allDayCell`,
+};
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${classes.cell}`]: {
     height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.WEEK]),
     padding: 0,
     boxSizing: 'border-box',
@@ -17,16 +25,15 @@ const styles = theme => ({
       borderBottom: 'none',
     },
   },
-  brightBottomBorder: {
+  [`&.${classes.brightBottomBorder}`]: {
     borderBottom: getBrightBorder(theme),
   },
-  allDayCell: {
+  [`&.${classes.allDayCell}`]: {
     height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL]),
   },
-});
+}));
 
-const TickCellBase = ({
-  classes,
+export const TickCell = ({
   className,
   startDate,
   endDate,
@@ -35,7 +42,7 @@ const TickCellBase = ({
   isAllDay,
   ...restProps
 }) => (
-  <TableCell
+  <StyledTableCell
     className={classNames({
       [classes.cell]: true,
       [classes.brightBottomBorder]: endOfGroup,
@@ -45,8 +52,7 @@ const TickCellBase = ({
   />
 );
 
-TickCellBase.propTypes = {
-  classes: PropTypes.object.isRequired,
+TickCell.propTypes = {
   startDate: PropTypes.instanceOf(Date),
   endDate: PropTypes.instanceOf(Date),
   endOfGroup: PropTypes.bool,
@@ -55,7 +61,7 @@ TickCellBase.propTypes = {
   className: PropTypes.string,
 };
 
-TickCellBase.defaultProps = {
+TickCell.defaultProps = {
   className: undefined,
   startDate: undefined,
   endDate: undefined,
@@ -63,5 +69,3 @@ TickCellBase.defaultProps = {
   groupingInfo: undefined,
   isAllDay: false,
 };
-
-export const TickCell = withStyles(styles, { name: 'TickCell' })(TickCellBase);

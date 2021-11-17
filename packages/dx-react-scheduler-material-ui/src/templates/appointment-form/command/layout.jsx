@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import Grid from '@mui/material/Grid';
 import classNames from 'clsx';
 import {
@@ -10,8 +10,17 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { TRANSITIONS_TIME, LAYOUT_MEDIA_QUERY } from '../../constants';
 
-const styles = ({ spacing, palette }) => ({
-  root: {
+const PREFIX = 'Layout';
+
+export const classes = {
+  root: `${PREFIX}-root`,
+  basic: `${PREFIX}-basic`,
+  fullSize: `${PREFIX}-fullSize`,
+  line: `${PREFIX}-line`,
+};
+
+const StyledGrid = styled(Grid)(({ theme: { spacing, palette } }) => ({
+  [`&.${classes.root}`]: {
     display: 'flex',
     justifyContent: 'flex-end',
     paddingTop: spacing(2),
@@ -20,10 +29,10 @@ const styles = ({ spacing, palette }) => ({
     transition: `all ${TRANSITIONS_TIME}ms cubic-bezier(0, 0, 0.2, 1)`,
     backgroundColor: palette.background.paper,
   },
-  basic: {
+  [`&.${classes.basic}`]: {
     width: '650px',
   },
-  fullSize: {
+  [`&.${classes.fullSize}`]: {
     width: '1150px',
     '@media (min-width: 700px) and (max-width: 850px)': {
       width: '700px',
@@ -36,11 +45,11 @@ const styles = ({ spacing, palette }) => ({
     },
   },
   [`${LAYOUT_MEDIA_QUERY}`]: {
-    basic: {
+    [`&.${classes.basic}`]: {
       maxWidth: '700px',
       width: '100%',
     },
-    root: {
+    [`&.${classes.root}`]: {
       paddingRight: spacing(2),
       paddingLeft: 0,
       paddingTop: spacing(1),
@@ -48,21 +57,25 @@ const styles = ({ spacing, palette }) => ({
       width: '100%',
     },
   },
-  line: {
-    backgroundColor: palette.action.disabledBackground,
-    height: spacing(4.5),
-    width: '1px',
-  },
-});
+}));
 
-const LayoutBase = ({
+const StyledDiv = styled('div')(({ theme: { palette, spacing } }) => ({
+  [`${LAYOUT_MEDIA_QUERY}`]: {
+    [`&.${classes.line}`]: {
+      backgroundColor: palette.action.disabledBackground,
+      height: spacing(4.5),
+      width: '1px',
+    },
+  },
+}));
+
+export const Layout = ({
   commandButtonComponent: CommandButton,
   onCommitButtonClick,
   onCancelButtonClick,
   onDeleteButtonClick,
   getMessage,
   children,
-  classes,
   className,
   fullSize,
   readOnly,
@@ -70,7 +83,7 @@ const LayoutBase = ({
   hideDeleteButton,
   ...restProps
 }) => (
-  <Grid
+  <StyledGrid
     className={classNames({
       [classes.root]: true,
       [classes.basic]: !fullSize,
@@ -94,7 +107,7 @@ const LayoutBase = ({
               getMessage={getMessage}
               id={DELETE_BUTTON}
             />
-            <div className={classes.line} />
+            <StyledDiv className={classes.line} />
           </React.Fragment>
         )}
         <CommandButton
@@ -106,12 +119,11 @@ const LayoutBase = ({
       </React.Fragment>
     )}
     {children}
-  </Grid>
+  </StyledGrid>
 );
 
-LayoutBase.propTypes = {
+Layout.propTypes = {
   commandButtonComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  classes: PropTypes.object.isRequired,
   onCommitButtonClick: PropTypes.func.isRequired,
   onCancelButtonClick: PropTypes.func.isRequired,
   onDeleteButtonClick: PropTypes.func.isRequired,
@@ -124,7 +136,7 @@ LayoutBase.propTypes = {
   hideDeleteButton: PropTypes.bool,
 };
 
-LayoutBase.defaultProps = {
+Layout.defaultProps = {
   className: undefined,
   children: undefined,
   fullSize: false,
@@ -132,5 +144,3 @@ LayoutBase.defaultProps = {
   disableSaveButton: false,
   hideDeleteButton: false,
 };
-
-export const Layout = withStyles(styles)(LayoutBase, { name: 'Layout' });

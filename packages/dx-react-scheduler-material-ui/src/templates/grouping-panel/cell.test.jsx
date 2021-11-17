@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createShallow } from '@devexpress/dx-testing';
 import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
-import { Cell } from './cell';
+import { Cell, classes } from './cell';
 
 jest.mock('@mui/styles/makeStyles', () => () => () => ({
   cell: 'cell',
@@ -31,7 +31,7 @@ describe('GroupingPanel', () => {
 
       expect(tree.is('.custom-class'))
         .toBeTruthy();
-      expect(tree.is('.cell'))
+      expect(tree.is(`.${classes.cell}`))
         .toBeTruthy();
     });
 
@@ -62,7 +62,7 @@ describe('GroupingPanel', () => {
         />
       ));
 
-      expect(tree.is('.horizontalCell'))
+      expect(tree.is(`.${classes.horizontalCell}`))
         .toBeTruthy();
       expect(tree.is('.verticalCell'))
         .toBeFalsy();
@@ -82,11 +82,11 @@ describe('GroupingPanel', () => {
 
       expect(tree.is('.horizontalCell'))
         .toBeFalsy();
-      expect(tree.is('.verticalCell'))
+      expect(tree.is(`.${classes.verticalCell}`))
         .toBeTruthy();
       expect(tree.is('.groupedByDate'))
         .toBeFalsy();
-      expect(tree.find('.verticalCellText').exists())
+      expect(tree.find(`.${classes.verticalCellText}`).exists())
         .toBeTruthy();
     });
 
@@ -95,11 +95,11 @@ describe('GroupingPanel', () => {
         <Cell {...defaultProps} groupedByDate />
       ));
 
-      expect(tree.is('.horizontalCell'))
+      expect(tree.is(`.${classes.horizontalCell}`))
         .toBeTruthy();
       expect(tree.is('.verticalCell'))
         .toBeFalsy();
-      expect(tree.is('.groupedByDate'))
+      expect(tree.is(`.${classes.groupedByDate}`))
         .toBeTruthy();
       expect(tree.find('.verticalCellText').exists())
         .toBeFalsy();
@@ -128,7 +128,7 @@ describe('GroupingPanel', () => {
         />
       ));
 
-      expect(tree.find('.textContainer').exists())
+      expect(tree.find(`.${classes.textContainer}`).exists())
         .toBe(true);
     });
 

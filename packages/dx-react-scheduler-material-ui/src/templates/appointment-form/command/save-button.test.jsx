@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { SaveButton } from './save-button';
+import { createShallow } from '@devexpress/dx-testing';
+import { SaveButton, classes } from './save-button';
 
 describe('AppointmentForm command', () => {
   const defaultProps = {
@@ -8,10 +8,8 @@ describe('AppointmentForm command', () => {
     getMessage: jest.fn(),
   };
   let shallow;
-  let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<SaveButton />);
   });
   describe('SaveButton', () => {
     it('should pass className to the root element', () => {

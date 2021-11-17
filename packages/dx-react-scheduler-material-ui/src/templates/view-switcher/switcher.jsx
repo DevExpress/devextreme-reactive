@@ -1,11 +1,18 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import { OutlinedSelect } from '../common/select/outlined-select';
 import { LAYOUT_MEDIA_QUERY } from '../constants';
 
-const styles = ({ spacing }) => ({
-  input: {
+const PREFIX = 'Switcher';
+
+const classes = {
+  input: `${PREFIX}-input`,
+  inputRoot: `${PREFIX}-inputRoot`,
+};
+
+const StyledOutlinedSelect = styled(OutlinedSelect)(({ theme: { spacing } }) => ({
+  [`&.${classes.input}`]: {
     padding: spacing(1.25, 1.75),
     paddingRight: spacing(4),
     textTransform: 'uppercase',
@@ -13,18 +20,18 @@ const styles = ({ spacing }) => ({
       fontSize: '0.75rem',
     },
   },
-  inputRoot: {
+  [`&.${classes.inputRoot}`]: {
     marginLeft: spacing(0.5),
-    '&:first-child': {
+    '&:first-of-type': {
       marginLeft: 0,
     },
   },
-});
+}));
 
-const SwitcherBase = React.memo(({
+export const Switcher = React.memo(({
   currentView,
   availableViews,
-  onChange, classes,
+  onChange,
   ...restProps
 }) => {
   const availableOptions = availableViews.map(({ name, displayName }) => ({
@@ -33,7 +40,7 @@ const SwitcherBase = React.memo(({
   }));
 
   return (
-    <OutlinedSelect
+    <StyledOutlinedSelect
       value={currentView.name}
       availableOptions={availableOptions}
       onValueChange={onChange}
@@ -43,9 +50,8 @@ const SwitcherBase = React.memo(({
   );
 });
 
-SwitcherBase.propTypes = {
+Switcher.propTypes = {
   onChange: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   currentView: PropTypes.shape({
     name: PropTypes.string.isRequired,
     displayName: PropTypes.string.isRequired,
@@ -56,8 +62,6 @@ SwitcherBase.propTypes = {
   })),
 };
 
-SwitcherBase.defaultProps = {
+Switcher.defaultProps = {
   availableViews: [],
 };
-
-export const Switcher = withStyles(styles)(SwitcherBase, { name: 'Switcher' });

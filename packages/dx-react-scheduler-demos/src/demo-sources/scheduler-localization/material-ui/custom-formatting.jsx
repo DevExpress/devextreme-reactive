@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import moment from 'moment';
 import { ViewState } from '@devexpress/dx-react-scheduler';
@@ -7,9 +8,21 @@ import {
   WeekView,
   Appointments,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import withStyles from '@mui/styles/withStyles';
 
 import { appointments } from '../../../demo-data/appointments';
+
+const PREFIX = 'Demo';
+
+const classes = {
+  dayScaleCell: `${PREFIX}-dayScaleCell`,
+};
+
+const StyledWeekViewDayScaleCell = styled(WeekView.DayScaleCell)({
+  [`&.${classes.dayScaleCell}`]: {
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+});
 
 const formatDayScaleDate = (date, options) => {
   const momentDate = moment(date);
@@ -18,17 +31,10 @@ const formatDayScaleDate = (date, options) => {
 };
 const formatTimeScaleDate = date => moment(date).format('hh:mm:ss');
 
-const styles = {
-  dayScaleCell: {
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-};
-
-const DayScaleCell = withStyles(styles, 'DayScaleCell')((
-  { formatDate, classes, ...restProps },
+const DayScaleCell = ((
+  { formatDate, ...restProps },
 ) => (
-  <WeekView.DayScaleCell
+  <StyledWeekViewDayScaleCell
     {...restProps}
     formatDate={formatDayScaleDate}
     className={classes.dayScaleCell}

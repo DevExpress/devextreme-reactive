@@ -1,32 +1,40 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import withStyles from '@mui/styles/withStyles';
 
-const styles = ({ typography }) => ({
-  root: {
+const PREFIX = 'OutlinedSelect';
+
+const classes = {
+  root: `${PREFIX}-root`,
+  input: `${PREFIX}-input`,
+  menuItem: `${PREFIX}-menuItem`,
+  inputRoot: `${PREFIX}-inputRoot`,
+};
+
+const StyledSelect = styled(Select)(({ theme: { typography } }) => ({
+  [`&.${classes.root}`]: {
     fontSize: typography.fontSize + 2,
   },
-  input: {
+}));
+
+const StyledOutlinedInput = styled(OutlinedInput)(() => ({
+  [`&.${classes.input}`]: {
     fontWeight: 'bold',
     textTransform: 'uppercase',
   },
-  menuItem: {
-    textTransform: 'uppercase',
-  },
-  inputRoot: {
+  [`&.${classes.inputRoot}`]: {
     width: '100%',
   },
-});
+}));
 
-const OutlinedSelectBase = React.memo(({
+export const OutlinedSelect = React.memo(({
   value,
   availableOptions,
   onValueChange,
   readOnly,
-  classes,
   inputClasses,
   ...restProps
 }) => {
@@ -35,13 +43,13 @@ const OutlinedSelectBase = React.memo(({
   };
 
   return (
-    <Select
+    <StyledSelect
       disabled={readOnly}
       classes={{ root: classes.root }}
       value={value}
       onChange={handleChange}
       input={(
-        <OutlinedInput
+        <StyledOutlinedInput
           classes={inputClasses || { input: classes.input, root: classes.inputRoot }}
         />
       )}
@@ -56,13 +64,12 @@ const OutlinedSelectBase = React.memo(({
           {option.text}
         </MenuItem>
       ))}
-    </Select>
+    </StyledSelect>
   );
 });
 
-OutlinedSelectBase.propTypes = {
+OutlinedSelect.propTypes = {
   onValueChange: PropTypes.func,
-  classes: PropTypes.object.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   availableOptions: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -72,11 +79,9 @@ OutlinedSelectBase.propTypes = {
   inputClasses: PropTypes.object,
 };
 
-OutlinedSelectBase.defaultProps = {
+OutlinedSelect.defaultProps = {
   readOnly: false,
   onValueChange: () => undefined,
   availableOptions: [],
   inputClasses: null,
 };
-
-export const OutlinedSelect = withStyles(styles)(OutlinedSelectBase, { name: 'OutlinedSelect' });

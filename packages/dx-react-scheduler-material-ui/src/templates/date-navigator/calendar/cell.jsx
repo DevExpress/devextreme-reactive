@@ -1,11 +1,20 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import TableCell from '@mui/material/TableCell';
-import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 
-const styles = ({ palette, spacing }) => ({
-  cell: {
+const PREFIX = 'Cell';
+
+export const classes = {
+  cell: `${PREFIX}-cell`,
+  otherMonth: `${PREFIX}-otherMonth`,
+  selected: `${PREFIX}-selected`,
+  today: `${PREFIX}-today`,
+};
+
+const StyledTableCell = styled(TableCell)(({ theme: { palette, spacing } }) => ({
+  [`&.${classes.cell}`]: {
     userSelect: 'none',
     border: 'none',
     cursor: 'pointer',
@@ -17,10 +26,10 @@ const styles = ({ palette, spacing }) => ({
       padding: 0,
     },
   },
-  otherMonth: {
+  [`&.${classes.otherMonth}`]: {
     color: palette.text.disabled,
   },
-  selected: {
+  [`& .${classes.selected}`]: {
     background: palette.primary.main,
     color: palette.primary.contrastText,
     display: 'inline-block',
@@ -29,22 +38,21 @@ const styles = ({ palette, spacing }) => ({
     borderRadius: '50%',
     cursor: 'default',
   },
-  today: {
+  [`& .${classes.today}`]: {
     color: palette.primary.main,
     fontWeight: 'bold',
   },
-});
+}));
 
-const CellBase = ({
+export const Cell = ({
   otherMonth,
   selected,
   today,
-  classes,
   children,
   className,
   ...restProps
 }) => (
-  <TableCell
+  <StyledTableCell
     className={classNames({
       [classes.cell]: true,
       [classes.otherMonth]: otherMonth,
@@ -59,24 +67,21 @@ const CellBase = ({
     >
       {children}
     </span>
-  </TableCell>
+  </StyledTableCell>
 );
 
-CellBase.propTypes = {
+Cell.propTypes = {
   children: PropTypes.node,
   otherMonth: PropTypes.bool,
   selected: PropTypes.bool,
   today: PropTypes.bool,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 
-CellBase.defaultProps = {
+Cell.defaultProps = {
   children: undefined,
   otherMonth: false,
   selected: false,
   today: false,
   className: undefined,
 };
-
-export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

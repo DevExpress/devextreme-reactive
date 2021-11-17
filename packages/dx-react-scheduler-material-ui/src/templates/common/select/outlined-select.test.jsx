@@ -1,21 +1,23 @@
 import * as React from 'react';
-import { createShallow } from '@devexpress/dx-testing';
+import { createMount, createShallow } from '@devexpress/dx-testing';
 import MenuItem from '@mui/material/MenuItem';
 import { OutlinedSelect } from './outlined-select';
 
 describe('AppointmentForm common select', () => {
+  let mount;
   let shallow;
   const defaultProps = {
     onValueChange: jest.fn(),
     value: '1',
   };
   beforeAll(() => {
-    shallow = createShallow({ dive: true });
+    shallow = createShallow();
+    mount = createMount();
   });
 
   describe('OutlinedSelect', () => {
     it('should pass rest props to the root element', () => {
-      const tree = shallow((
+      const tree = mount((
         <OutlinedSelect {...defaultProps} data={{ a: 1 }} />
       ));
 

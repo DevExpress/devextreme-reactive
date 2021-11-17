@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createShallow } from '@devexpress/dx-testing';
 import { CANCEL_BUTTON, DELETE_BUTTON, SAVE_BUTTON } from '@devexpress/dx-scheduler-core';
-import { Layout } from './layout';
+import { Layout, classes } from './layout';
 
 describe('AppointmentForm command', () => {
   const defaultProps = {
@@ -12,10 +12,9 @@ describe('AppointmentForm command', () => {
     onDeleteButtonClick: jest.fn(),
     showSaveButton: true,
   };
-  let classes;
+
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Layout />);
     shallow = createShallow({ dive: true });
   });
   describe('Layout', () => {

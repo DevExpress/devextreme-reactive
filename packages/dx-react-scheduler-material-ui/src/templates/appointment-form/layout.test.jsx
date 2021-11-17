@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { Layout } from './layout';
+import { createShallow } from '@devexpress/dx-testing';
+import { Layout, classes } from './layout';
 
 describe('AppointmentForm', () => {
   const defaultProps = {
@@ -9,10 +9,8 @@ describe('AppointmentForm', () => {
     commandLayoutComponent: () => null,
     recurrenceLayoutComponent: () => null,
   };
-  let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<Layout><div /></Layout>);
     shallow = createShallow({ dive: true });
   });
   describe('Layout', () => {

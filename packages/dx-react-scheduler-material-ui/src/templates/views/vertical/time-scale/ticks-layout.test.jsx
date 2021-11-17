@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createShallow } from '@devexpress/dx-testing';
 import { VERTICAL_GROUP_ORIENTATION, HORIZONTAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
-import { TicksLayout } from './ticks-layout';
+import { TicksLayout, classes } from './ticks-layout';
 
 describe('Vertical view TimeScale', () => {
   let shallow;
-  let classes;
   const defaultProps = {
     cellsData: [
       [
@@ -23,7 +22,6 @@ describe('Vertical view TimeScale', () => {
   };
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<TicksLayout {...defaultProps} />);
   });
   describe('TicksLayout', () => {
     it('should pass className to the root element', () => {

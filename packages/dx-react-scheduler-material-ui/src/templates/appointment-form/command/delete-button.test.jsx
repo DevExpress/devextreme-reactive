@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createShallow } from '@devexpress/dx-testing';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { DeleteButton } from './delete-button';
+import { DeleteButton, classes } from './delete-button';
 
 describe('AppointmentForm command', () => {
   const defaultProps = {
@@ -9,10 +9,8 @@ describe('AppointmentForm command', () => {
     id: 'id',
   };
   let shallow;
-  let classes;
   beforeAll(() => {
     shallow = createShallow({ dive: true });
-    classes = getClasses(<DeleteButton />);
   });
   describe('DeleteButton', () => {
     it('should pass className to the root element', () => {

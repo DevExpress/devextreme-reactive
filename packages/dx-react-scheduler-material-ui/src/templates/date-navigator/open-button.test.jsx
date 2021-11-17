@@ -1,22 +1,20 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createMount } from '@devexpress/dx-testing';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import { OpenButton } from './open-button';
+import { OpenButton, classes } from './open-button';
 
 describe('DateNavigator', () => {
   const defaultProps = {
     onVisibilityToggle: jest.fn(),
   };
-  let shallow;
-  let classes;
+  let mount;
   beforeAll(() => {
-    shallow = createShallow({ dive: true });
-    classes = getClasses(<OpenButton />);
+    mount = createMount();
   });
   describe('OpenButton', () => {
     it('should pass rest props to buttons', () => {
-      const tree = shallow((
+      const tree = mount((
         <OpenButton {...defaultProps} data={{ a: 1 }} />
       ));
 
@@ -26,7 +24,7 @@ describe('DateNavigator', () => {
         .toMatchObject({ a: 1 });
     });
     it('should pass className to buttons', () => {
-      const tree = shallow((
+      const tree = mount((
         <OpenButton {...defaultProps} className="custom-class" />
       ));
 
@@ -43,7 +41,7 @@ describe('DateNavigator', () => {
         .toBeTruthy();
     });
     it('should handle onClink event', () => {
-      const tree = shallow((
+      const tree = mount((
         <OpenButton {...defaultProps} />
       ));
 

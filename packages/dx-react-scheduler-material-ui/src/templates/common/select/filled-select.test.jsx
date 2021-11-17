@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
+import { createShallow } from '@devexpress/dx-testing';
 import MenuItem from '@mui/material/MenuItem';
-import { FilledSelect } from './filled-select';
+import { FilledSelect, classes } from './filled-select';
 
 describe('AppointmentForm common select', () => {
   let shallow;
@@ -10,7 +10,7 @@ describe('AppointmentForm common select', () => {
     value: '1',
   };
   beforeAll(() => {
-    shallow = createShallow({ dive: true });
+    shallow = createShallow();
   });
 
   describe('FilledSelect', () => {
@@ -23,7 +23,6 @@ describe('AppointmentForm common select', () => {
         .toMatchObject({ a: 1 });
     });
     it('should pass className to the root element', () => {
-      const classes = getClasses(<FilledSelect {...defaultProps} />);
       const tree = shallow((
         <FilledSelect className="custom-class" {...defaultProps} />
       ));

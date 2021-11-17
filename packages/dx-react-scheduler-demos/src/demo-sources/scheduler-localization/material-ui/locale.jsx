@@ -1,9 +1,9 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { ViewState } from '@devexpress/dx-react-scheduler';
-import withStyles from '@mui/styles/withStyles';
 import {
   Scheduler,
   WeekView,
@@ -14,6 +14,25 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 
 import { appointments } from '../../../demo-data/appointments';
+
+const PREFIX = 'Demo';
+
+const classes = {
+  container: `${PREFIX}-container`,
+  text: `${PREFIX}-text`,
+};
+
+const StyledDiv = styled('div')(({ theme }) => ({
+  [`&.${classes.container}`]: {
+    display: 'flex',
+    marginBottom: theme.spacing(2),
+    justifyContent: 'flex-end',
+  },
+  [`& .${classes.text}`]: {
+    ...theme.typography.h6,
+    marginRight: theme.spacing(2),
+  },
+}));
 
 const allDayLocalizationMessages = {
   'fr-FR': {
@@ -29,21 +48,9 @@ const allDayLocalizationMessages = {
 
 const getAllDayMessages = locale => allDayLocalizationMessages[locale];
 
-const styles = theme => ({
-  container: {
-    display: 'flex',
-    marginBottom: theme.spacing(2),
-    justifyContent: 'flex-end',
-  },
-  text: {
-    ...theme.typography.h6,
-    marginRight: theme.spacing(2),
-  },
-});
-
-const LocaleSwitcher = withStyles(styles, { name: 'LocaleSwitcher' })(
-  ({ onLocaleChange, currentLocale, classes }) => (
-    <div className={classes.container}>
+const LocaleSwitcher = (
+  ({ onLocaleChange, currentLocale }) => (
+    <StyledDiv className={classes.container}>
       <div className={classes.text}>
         Locale:
       </div>
@@ -57,8 +64,8 @@ const LocaleSwitcher = withStyles(styles, { name: 'LocaleSwitcher' })(
         <MenuItem value="de-GR">Deutsch (German)</MenuItem>
         <MenuItem value="en-US">English (United States)</MenuItem>
       </TextField>
-    </div>
-  ),
+    </StyledDiv>
+  )
 );
 
 export default class Demo extends React.PureComponent {

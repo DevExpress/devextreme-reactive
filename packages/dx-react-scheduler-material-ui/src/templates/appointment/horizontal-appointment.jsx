@@ -1,15 +1,26 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 
-const styles = ({ palette, spacing }) => ({
-  title: {
+const PREFIX = 'HorizontalAppointment';
+
+export const classes = {
+  title: `${PREFIX}-title`,
+  content: `${PREFIX}-content`,
+  container: `${PREFIX}-container`,
+  recurringContainer: `${PREFIX}-recurringContainer`,
+  imageContainer: `${PREFIX}-imageContainer`,
+  image: `${PREFIX}-image`,
+};
+
+const StyledDiv = styled('div')(({ theme: { palette, spacing } }) => ({
+  [`& .${classes.title}`]: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
-  content: {
+  [`&.${classes.content}`]: {
     color: palette.common.white,
     padding: spacing(0.5),
     paddingTop: spacing(0.125),
@@ -19,24 +30,23 @@ const styles = ({ palette, spacing }) => ({
     whiteSpace: 'nowrap',
     display: 'flex',
   },
-  container: {
+  [`& .${classes.container}`]: {
     width: '100%',
   },
-  recurringContainer: {
+  [`& .${classes.recurringContainer}`]: {
     width: `calc(100% - ${spacing(2)})`,
   },
-  imageContainer: {
+  [`& .${classes.imageContainer}`]: {
     width: spacing(2),
     height: spacing(2),
   },
-  image: {
+  [`& .${classes.image}`]: {
     width: '100%',
     height: '100%',
   },
-});
+}));
 
-const HorizontalAppointmentBase = ({
-  classes,
+export const HorizontalAppointment = ({
   data,
   children,
   className,
@@ -47,7 +57,7 @@ const HorizontalAppointmentBase = ({
 }) => {
   const repeat = !!data.rRule;
   return (
-    <div className={classNames(classes.content, className)} {...restProps}>
+    <StyledDiv className={classNames(classes.content, className)} {...restProps}>
       {children || (
         <React.Fragment>
           <div className={repeat ? classes.recurringContainer : classes.container}>
@@ -63,14 +73,13 @@ const HorizontalAppointmentBase = ({
           ) : undefined}
         </React.Fragment>
       )}
-    </div>
+    </StyledDiv>
   );
 };
 
-HorizontalAppointmentBase.propTypes = {
+HorizontalAppointment.propTypes = {
   // oneOfType is a workaround because withStyles returns react object
   recurringIconComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
-  classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   durationType: PropTypes.string,
   children: PropTypes.node,
@@ -78,11 +87,9 @@ HorizontalAppointmentBase.propTypes = {
   formatDate: PropTypes.func,
 };
 
-HorizontalAppointmentBase.defaultProps = {
+HorizontalAppointment.defaultProps = {
   formatDate: () => '',
   children: undefined,
   className: undefined,
   durationType: undefined,
 };
-
-export const HorizontalAppointment = withStyles(styles, { name: 'HorizontalAppointment' })(HorizontalAppointmentBase);

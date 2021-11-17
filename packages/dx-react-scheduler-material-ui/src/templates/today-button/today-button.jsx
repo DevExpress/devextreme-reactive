@@ -1,50 +1,53 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import Button from '@mui/material/Button';
 import classNames from 'clsx';
 import { LAYOUT_MEDIA_QUERY } from '../constants';
 
-const styles = ({ spacing }) => ({
-  button: {
+const PREFIX = 'TodayButton';
+
+export const classes = {
+  button: `${PREFIX}-button`,
+};
+
+const StyledButton = styled(Button)(({ theme: { spacing } }) => ({
+  [`&.${classes.button}`]: {
     padding: spacing(0.8, 2),
     marginLeft: spacing(0.5),
-    '&:first-child': {
+    '&:first-of-type': {
       marginLeft: 0,
     },
     [`${LAYOUT_MEDIA_QUERY}`]: {
       fontSize: '0.75rem',
     },
   },
-});
+}));
 
-const TodayButtonBase = ({
-  setCurrentDate, classes, getMessage, className, ...restProps
+export const TodayButton = ({
+  setCurrentDate, getMessage, className, ...restProps
 }) => {
   const handleClick = () => {
     setCurrentDate(new Date());
   };
   return (
-    <Button
+    <StyledButton
       className={classNames(classes.button, className)}
       variant="outlined"
       onClick={handleClick}
       {...restProps}
     >
       {getMessage('today')}
-    </Button>
+    </StyledButton>
   );
 };
 
-TodayButtonBase.propTypes = {
+TodayButton.propTypes = {
   setCurrentDate: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   getMessage: PropTypes.func.isRequired,
 };
 
-TodayButtonBase.defaultProps = {
+TodayButton.defaultProps = {
   className: undefined,
 };
-
-export const TodayButton = withStyles(styles)(TodayButtonBase, { name: 'TodayButton' });

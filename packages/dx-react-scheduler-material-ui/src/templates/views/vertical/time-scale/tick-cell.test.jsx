@@ -1,12 +1,10 @@
 import * as React from 'react';
-import { createShallow, getClasses } from '@devexpress/dx-testing';
-import { TickCell } from './tick-cell';
+import { createShallow } from '@devexpress/dx-testing';
+import { TickCell, classes } from './tick-cell';
 
 describe('Vertical view TimeScale', () => {
-  let classes;
   let shallow;
   beforeAll(() => {
-    classes = getClasses(<TickCell />);
     shallow = createShallow({ dive: true });
   });
   describe('TickCell', () => {

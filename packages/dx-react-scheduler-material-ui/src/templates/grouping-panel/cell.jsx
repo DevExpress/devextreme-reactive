@@ -2,13 +2,30 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@mui/material/TableCell';
-import makeStyles from '@mui/styles/makeStyles';
+import { styled } from '@mui/material/styles';
 import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import { getBrightBorder, getBorder } from '../utils';
 import { GROUPING_PANEL_VERTICAL_CELL_WIDTH, DEFAULT_SPACING } from '../constants';
 
-const useStyles = makeStyles(theme => ({
-  cell: {
+const PREFIX = 'Cell';
+
+export const classes = {
+  cell: `${PREFIX}-cell`,
+  text: `${PREFIX}-text`,
+  horizontalCell: `${PREFIX}-horizontalCell`,
+  content: `${PREFIX}-content`,
+  verticalCell: `${PREFIX}-verticalCell`,
+  groupedByDate: `${PREFIX}-groupedByDate`,
+  verticalCellText: `${PREFIX}-title`,
+  textContainer: `${PREFIX}-title`,
+};
+
+const StyledTableCell = styled(TableCell, {
+  shouldForwardProp: prop => prop !== 'endOfGroup' && prop !== 'textStyle' && prop !== 'topOffset',
+})(({
+  theme, left, endOfGroup, height, rowSpan, textStyle, topOffset,
+}) => ({
+  [`&.${classes.cell}`]: {
     userSelect: 'none',
     padding: 0,
     paddingTop: theme.spacing(0.5),
@@ -17,11 +34,9 @@ const useStyles = makeStyles(theme => ({
     '&:last-child': {
       borderRight: 'none',
     },
-    height: ({ height }) => (
-      height ? theme.spacing(height) : undefined
-    ),
+    height: height ? theme.spacing(height) : undefined,
   },
-  text: ({ textStyle, left }) => ({
+  [`& .${classes.text}`]: {
     ...theme.typography.caption,
     padding: theme.spacing(1),
     color: theme.palette.text.secondary,
@@ -36,17 +51,17 @@ const useStyles = makeStyles(theme => ({
     textOverflow: 'ellipsis',
     boxSizing: 'border-box',
     ...textStyle,
-  }),
-  horizontalCell: {
+  },
+  [`&.${classes.horizontalCell}`]: {
     borderBottom: 'none',
     borderTop: getBrightBorder(theme),
-    'tr:first-child &': {
+    'tr:first-of-type &': {
       borderTop: 'none',
     },
   },
-  verticalCell: ({ rowSpan, height }) => ({
+  [`&.${classes.verticalCell}`]: {
     borderBottom: getBrightBorder(theme),
-    [`tr:nth-last-child(${rowSpan}) &`]: {
+    [`tr:nth-last-of-type(${rowSpan}) &`]: {
       borderBottom: 'none',
     },
     verticalAlign: 'top',
@@ -55,17 +70,17 @@ const useStyles = makeStyles(theme => ({
     minWidth: theme.spacing(GROUPING_PANEL_VERTICAL_CELL_WIDTH),
     maxWidth: theme.spacing(GROUPING_PANEL_VERTICAL_CELL_WIDTH),
     maxHeight: height ? theme.spacing(height - 2) : undefined,
-  }),
-  groupedByDate: {
-    borderRight: ({ endOfGroup }) => (endOfGroup
-      ? getBrightBorder(theme) : getBorder(theme)),
+  },
+  [`&.${classes.groupedByDate}`]: {
+    borderRight: endOfGroup
+      ? getBrightBorder(theme) : getBorder(theme),
     borderTop: getBorder(theme),
   },
-  verticalCellText: {
-    top: ({ topOffset }) => `${topOffset}px`,
+  [`& .${classes.verticalCellText}`]: {
+    top: `${topOffset}px`,
     width: '100%',
   },
-  textContainer: {
+  [`& .${classes.textContainer}`]: {
     height: '100%',
   },
 }));
@@ -86,14 +101,16 @@ export const Cell = React.memo(({
   ...restProps
 }) => {
   const cellHeight = height / DEFAULT_SPACING;
-  const classes = useStyles({
-    left, endOfGroup, height: cellHeight, rowSpan, textStyle, topOffset,
-  });
   const isHorizontalGrouping = groupOrientation === HORIZONTAL_GROUP_ORIENTATION;
   const isVerticalGrouping = groupOrientation === VERTICAL_GROUP_ORIENTATION;
 
   return (
-    <TableCell
+    <StyledTableCell
+      left={left}
+      endOfGroup={endOfGroup}
+      height={cellHeight}
+      textStyle={textStyle}
+      topOffset={topOffset}
       className={classNames({
         [classes.cell]: true,
         [classes.horizontalCell]: isHorizontalGrouping,
@@ -120,7 +137,7 @@ export const Cell = React.memo(({
           {children}
         </div>
       </div>
-    </TableCell>
+    </StyledTableCell>
   );
 });
 

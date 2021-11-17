@@ -1,17 +1,38 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
-import withStyles from '@mui/styles/withStyles';
 
-const styles = ({ spacing, palette }) => ({
-  head: {
+const PREFIX = 'Header';
+
+export const classes = {
+  head: `${PREFIX}-head`,
+  line: `${PREFIX}-line`,
+  flexContainer: `${PREFIX}-flexContainer`,
+};
+
+const StyledDivHead = styled('div')(({
+  theme: { spacing },
+}) => ({
+  [`&.${classes.head}`]: {
     position: 'relative',
     paddingLeft: spacing(1),
     paddingRight: spacing(0.5),
     paddingTop: spacing(0.25),
     minHeight: spacing(1.5),
   },
-  line: {
+  [`&.${classes.flexContainer}`]: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-start',
+  },
+}));
+
+const StyledDiv = styled('div')(({
+  theme: { spacing, palette },
+}) => ({
+  [`& .${classes.line}`]: {
     backgroundColor: palette.action.disabledBackground,
     height: spacing(3.5),
     marginLeft: spacing(1),
@@ -19,15 +40,15 @@ const styles = ({ spacing, palette }) => ({
     marginTop: spacing(1.25),
     width: '1px',
   },
-  flexContainer: {
+  [`&.${classes.flexContainer}`]: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'flex-start',
   },
-});
+}));
 
-const HeaderBase = ({
+export const Header = ({
   appointmentData,
   commandButtonComponent: CommandButton,
   showOpenButton,
@@ -37,7 +58,6 @@ const HeaderBase = ({
   onOpenButtonClick,
   onDeleteButtonClick,
   onHide,
-  classes,
   className,
   children,
   ...restProps
@@ -47,7 +67,7 @@ const HeaderBase = ({
     onOpenButtonClick();
   };
   return (
-    <div
+    <StyledDivHead
       className={classNames(classes.head, classes.flexContainer, className)}
       {...restProps}
     >
@@ -58,17 +78,16 @@ const HeaderBase = ({
         && <CommandButton id={commandButtonIds.delete} onExecute={onDeleteButtonClick} />}
       {children}
       {showCloseButton && (
-        <div className={classes.flexContainer}>
+        <StyledDiv className={classes.flexContainer}>
           <div className={classes.line} />
           <CommandButton id={commandButtonIds.close} onExecute={onHide} />
-        </div>
+        </StyledDiv>
       )}
-    </div>
+    </StyledDivHead>
   );
 };
 
-HeaderBase.propTypes = {
-  classes: PropTypes.object.isRequired,
+Header.propTypes = {
   appointmentData: PropTypes.object,
   children: PropTypes.node,
   className: PropTypes.string,
@@ -82,7 +101,7 @@ HeaderBase.propTypes = {
   onHide: PropTypes.func,
 };
 
-HeaderBase.defaultProps = {
+Header.defaultProps = {
   appointmentData: undefined,
   className: undefined,
   children: undefined,
@@ -90,5 +109,3 @@ HeaderBase.defaultProps = {
   onDeleteButtonClick: () => undefined,
   onHide: () => undefined,
 };
-
-export const Header = withStyles(styles, { name: 'Header' })(HeaderBase);

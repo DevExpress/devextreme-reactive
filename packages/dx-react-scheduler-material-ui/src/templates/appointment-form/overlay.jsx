@@ -1,22 +1,33 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import Drawer from '@mui/material/Drawer';
-import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 import { TRANSITIONS_TIME, LAYOUT_MEDIA_QUERY } from '../constants';
 
-const styles = ({ spacing }) => ({
-  root: {
+const PREFIX = 'Overlay';
+
+export const classes = {
+  root: `${PREFIX}-root`,
+  absolutePosition: `${PREFIX}-absolutePosition`,
+  paper: `${PREFIX}-paper`,
+  fullSize: `${PREFIX}-fullSize`,
+  halfSize: `${PREFIX}-halfSize`,
+  transition: `${PREFIX}-transition`,
+};
+
+const StyledDrawer = styled(Drawer)(({ theme: { spacing } }) => ({
+  [`&.${classes.root}`]: {
     overflow: 'hidden',
     paddingTop: spacing(2),
   },
-  absolutePosition: {
+  [`&.${classes.absolutePosition}`]: {
     position: 'absolute!important',
   },
-  paper: {
+  [`&.${classes.paper}`]: {
     outline: 'none',
   },
-  fullSize: {
+  [`&.${classes.fullSize}`]: {
     height: '100%',
     width: '1150px',
     '@media (min-width: 700px) and (max-width: 850px)': {
@@ -33,7 +44,7 @@ const styles = ({ spacing }) => ({
       maxWidth: '700px',
     },
   },
-  halfSize: {
+  [`&.${classes.halfSize}`]: {
     height: '100%',
     width: '650px',
     [`${LAYOUT_MEDIA_QUERY}`]: {
@@ -41,15 +52,14 @@ const styles = ({ spacing }) => ({
       maxWidth: '700px',
     },
   },
-  transition: {
+  [`&.${classes.transition}`]: {
     transition: `all ${TRANSITIONS_TIME}ms cubic-bezier(0, 0, 0.2, 1)!important`,
   },
-});
+}));
 
-const OverlayBase = ({
+export const Overlay = ({
   children,
   visible,
-  classes,
   className,
   fullSize,
   target,
@@ -66,7 +76,7 @@ const OverlayBase = ({
   });
 
   return (
-    <Drawer
+    <StyledDrawer
       className={classNames(classes.root, className)}
       PaperProps={{ className: paperClasses }}
       BackdropProps={{ className: classes.absolutePosition }}
@@ -86,13 +96,12 @@ const OverlayBase = ({
       {...restProps}
     >
       {children}
-    </Drawer>
+    </StyledDrawer>
   );
 };
 
-OverlayBase.propTypes = {
+Overlay.propTypes = {
   children: PropTypes.node.isRequired,
-  classes: PropTypes.object.isRequired,
   fullSize: PropTypes.bool.isRequired,
   onHide: PropTypes.func.isRequired,
   visible: PropTypes.bool,
@@ -100,10 +109,8 @@ OverlayBase.propTypes = {
   target: PropTypes.object,
 };
 
-OverlayBase.defaultProps = {
+Overlay.defaultProps = {
   className: undefined,
   visible: false,
   target: null,
 };
-
-export const Overlay = withStyles(styles)(OverlayBase, { name: 'Overlay' });

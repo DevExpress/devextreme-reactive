@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { createShallow } from '@devexpress/dx-testing';
 import { viewBoundText } from '@devexpress/dx-scheduler-core';
-import { Content } from './content';
+import { Content, classes } from './content';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...jest.requireActual('@devexpress/dx-scheduler-core'),
   viewBoundText: jest.fn(),
 }));
 
-jest.mock('@mui/styles/makeStyles', () => () => () => ({
+jest.mock('@mui/material/styles/styled', () => () => () => ({
   content: 'content',
   text: 'text',
   title: 'title',
@@ -50,7 +50,7 @@ describe('Appointment Tooltip', () => {
 
       expect(tree.is('.custom-class'))
         .toBeTruthy();
-      expect(tree.is('.content'))
+      expect(tree.is(`.${classes.content}`))
         .toBeTruthy();
     });
 
@@ -68,23 +68,23 @@ describe('Appointment Tooltip', () => {
         <Content {...defaultProps} />
       ));
 
-      expect(tree.find('.titleContainer').exists())
+      expect(tree.find(`.${classes.titleContainer}`).exists())
         .toBeTruthy();
-      expect(tree.find('.lens').exists())
+      expect(tree.find(`.${classes.lens}`).exists())
         .toBeTruthy();
-      expect(tree.find('.recurringIcon').exists())
+      expect(tree.find(`.${classes.recurringIcon}`).exists())
         .toBeFalsy();
-      expect(tree.find('.title').exists())
+      expect(tree.find(`.${classes.title}`).exists())
         .toBeTruthy();
-      expect(tree.find('.icon').exists())
+      expect(tree.find(`.${classes.icon}`).exists())
         .toBeTruthy();
-      expect(tree.find('.text'))
+      expect(tree.find(`.${classes.text}`))
         .toHaveLength(2);
-      expect(tree.find('.dateAndTitle'))
+      expect(tree.find(`.${classes.dateAndTitle}`))
         .toHaveLength(2);
-      expect(tree.find('.textCenter'))
+      expect(tree.find(`.${classes.textCenter}`))
         .toBeTruthy();
-      expect(tree.find('.relativeContainer').exists())
+      expect(tree.find(`.${classes.relativeContainer}`).exists())
         .toBeTruthy();
     });
 
@@ -130,7 +130,7 @@ describe('Appointment Tooltip', () => {
         <Content {...defaultProps} appointmentData={{ ...defaultProps.appointmentData, rRule: 'test' }} />
       ));
 
-      expect(tree.find('.recurringIcon').exists())
+      expect(tree.find(`.${classes.recurringIcon}`).exists())
         .toBeTruthy();
     });
 
@@ -143,7 +143,7 @@ describe('Appointment Tooltip', () => {
         <Content {...defaultProps} appointmentResources={appointmentResources} />
       ));
 
-      expect(tree.find('.resourceContainer'))
+      expect(tree.find(`.${classes.resourceContainer}`))
         .toHaveLength(2);
     });
   });

@@ -1,25 +1,30 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableMUI from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableHead from '@mui/material/TableHead';
-import withStyles from '@mui/styles/withStyles';
 import { WEEK_DAY_OPTIONS, DAY_OPTIONS, areDatesSame } from '@devexpress/dx-scheduler-core';
 
-const styles = {
-  table: {
+const PREFIX = 'Table';
+
+export const classes = {
+  table: `${PREFIX}-table`,
+};
+
+const StyledTableMUI = styled(TableMUI)({
+  [`&.${classes.table}`]: {
     width: '320px',
     tableLayout: 'fixed',
   },
-};
+});
 
-const TableBase = ({
+export const Table = ({
   rowComponent: Row,
   cellComponent: Cell,
   headerRowComponent: HeaderRow,
   headerCellComponent: HeaderCell,
-  classes,
   className,
   cells,
   headerCells,
@@ -28,7 +33,7 @@ const TableBase = ({
   formatDate,
   ...restProps
 }) => (
-  <TableMUI
+  <StyledTableMUI
     className={classNames(classes.table, className)}
     {...restProps}
   >
@@ -74,17 +79,16 @@ const TableBase = ({
         </Row>
       ))}
     </TableBody>
-  </TableMUI>
+  </StyledTableMUI>
 );
 
-TableBase.propTypes = {
+Table.propTypes = {
   // oneOfType is a workaround because withStyles returns react object
   rowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   headerRowComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   headerCellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   cells: PropTypes.array.isRequired,
-  classes: PropTypes.object.isRequired,
   selectedDate: PropTypes.oneOfType([
     PropTypes.instanceOf(Date),
     PropTypes.string,
@@ -96,11 +100,9 @@ TableBase.propTypes = {
   onCellClick: PropTypes.func,
 };
 
-TableBase.defaultProps = {
+Table.defaultProps = {
   className: undefined,
   headerCells: [],
   onCellClick: () => {},
   selectedDate: undefined,
 };
-
-export const Table = withStyles(styles, { name: 'Table' })(TableBase);

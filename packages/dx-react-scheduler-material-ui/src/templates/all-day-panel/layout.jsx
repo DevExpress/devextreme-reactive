@@ -1,21 +1,27 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import withStyles from '@mui/styles/withStyles';
 import classNames from 'clsx';
 import { cellsMeta, getViewCellKey } from '../utils';
 
-const styles = {
-  table: {
-    tableLayout: 'fixed',
-  },
+const PREFIX = 'Layout';
+
+export const classes = {
+  table: `${PREFIX}-table`,
 };
 
-const LayoutBase = React.memo(({
+const StyledTable = styled(Table)({
+  [`&.${classes.table}`]: {
+    tableLayout: 'fixed',
+  },
+});
+
+export const Layout = React.memo(({
   setCellElementsMeta,
   cellsData,
-  classes, className,
+  className,
   cellComponent: Cell,
   rowComponent: Row,
   formatDate,
@@ -29,7 +35,7 @@ const LayoutBase = React.memo(({
   });
 
   return (
-    <Table
+    <StyledTable
       ref={tableRef}
       className={classNames(classes.table, className)}
       {...restProps}
@@ -50,12 +56,11 @@ const LayoutBase = React.memo(({
           ))}
         </Row>
       </TableBody>
-    </Table>
+    </StyledTable>
   );
 });
 
-LayoutBase.propTypes = {
-  classes: PropTypes.object.isRequired,
+Layout.propTypes = {
   formatDate: PropTypes.func.isRequired,
   cellsData: PropTypes.arrayOf(Array).isRequired,
   cellComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -63,8 +68,6 @@ LayoutBase.propTypes = {
   setCellElementsMeta: PropTypes.func.isRequired,
   className: PropTypes.string,
 };
-LayoutBase.defaultProps = {
+Layout.defaultProps = {
   className: undefined,
 };
-
-export const Layout = withStyles(styles, { name: 'Layout' })(LayoutBase);

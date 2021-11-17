@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import {
   MONTHLY_RADIO_GROUP,
   getRecurrenceOptions,
@@ -9,17 +9,22 @@ import {
 } from '@devexpress/dx-scheduler-core';
 import { IntervalEditor } from './interval-editor';
 
-const styles = theme => ({
-  container: {
+const PREFIX = 'Monthly';
+
+export const classes = {
+  container: `${PREFIX}-container`,
+};
+
+const StyledDiv = styled('div')(({ theme }) => ({
+  [`&.${classes.container}`]: {
     marginBottom: theme.spacing(1),
   },
-});
+}));
 
-const MonthlyBase = ({
+export const Monthly = ({
   radioGroupComponent: RadioGroup,
   textEditorComponent,
   labelComponent,
-  classes,
   getMessage,
   readOnly,
   onFieldChange,
@@ -39,7 +44,7 @@ const MonthlyBase = ({
     }), [recurrenceOptions, onFieldChange],
   );
   return (
-    <div {...restProps}>
+    <StyledDiv {...restProps}>
       <IntervalEditor
         className={classes.container}
         repeatEveryLabel={getMessage('repeatEveryLabel')}
@@ -64,11 +69,11 @@ const MonthlyBase = ({
         dateEditorComponent={() => null}
         firstDayOfWeek={firstDayOfWeek}
       />
-    </div>
+    </StyledDiv>
   );
 };
 
-MonthlyBase.propTypes = {
+Monthly.propTypes = {
   labelComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   radioGroupComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
   textEditorComponent: PropTypes.oneOfType([PropTypes.func, PropTypes.object]).isRequired,
@@ -86,16 +91,13 @@ MonthlyBase.propTypes = {
     allDay: PropTypes.bool,
   }).isRequired,
   onFieldChange: PropTypes.func,
-  classes: PropTypes.object.isRequired,
   getMessage: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   formatDate: PropTypes.func.isRequired,
   firstDayOfWeek: PropTypes.number.isRequired,
 };
 
-MonthlyBase.defaultProps = {
+Monthly.defaultProps = {
   onFieldChange: () => undefined,
   readOnly: false,
 };
-
-export const Monthly = withStyles(styles)(MonthlyBase, { name: 'Monthly' });

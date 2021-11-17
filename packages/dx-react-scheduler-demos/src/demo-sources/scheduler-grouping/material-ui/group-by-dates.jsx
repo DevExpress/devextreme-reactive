@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { green, lightBlue } from '@mui/material/colors';
-import withStyles from '@mui/styles/withStyles';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import {
@@ -22,6 +22,28 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { data as appointments } from '../../../demo-data/grouping';
 
+const PREFIX = 'Demo';
+// #FOLD_BLOCK
+const classes = {
+  formControlLabel: `${PREFIX}-formControlLabel`,
+  text: `${PREFIX}-text`,
+};
+// #FOLD_BLOCK
+const StyledFormControlLabel = styled(FormControlLabel)(({
+  theme: { spacing, palette, typography },
+}) => ({
+  [`&.${classes.formControlLabel}`]: {
+    padding: spacing(2),
+    paddingLeft: spacing(10),
+  },
+  [`&.${classes.text}`]: {
+    ...typography.caption,
+    color: palette.text.secondary,
+    fontWeight: 'bold',
+    fontSize: '1rem',
+  },
+}));
+
 const isWeekOrMonthView = viewName => viewName === 'Week' || viewName === 'Month';
 
 const priorityData = [
@@ -29,33 +51,16 @@ const priorityData = [
   { text: 'High Priority', id: 2, color: green },
 ];
 
-const styles = ({ spacing, palette, typography }) => ({
-  formControlLabel: {
-    padding: spacing(2),
-    paddingLeft: spacing(10),
-  },
-  text: {
-    ...typography.caption,
-    color: palette.text.secondary,
-    fontWeight: 'bold',
-    fontSize: '1rem',
-  },
-});
-
-const GroupOrderSwitcher = withStyles(styles, { name: 'ResourceSwitcher' })(
-  ({
-    isGroupByDate, onChange, classes,
-  }) => (
-    <FormControlLabel
-      control={
-        <Checkbox checked={isGroupByDate} onChange={onChange} color="primary" />
-      }
-      label="Group by Date First"
-      className={classes.formControlLabel}
-      classes={{ label: classes.text }}
-    />
-  ),
-);
+const GroupOrderSwitcher = (({ isGroupByDate, onChange }) => (
+  <StyledFormControlLabel
+    control={
+      <Checkbox checked={isGroupByDate} onChange={onChange} color="primary" />
+    }
+    label="Group by Date First"
+    className={classes.formControlLabel}
+    classes={{ label: classes.text }}
+  />
+));
 
 export default class Demo extends React.PureComponent {
   constructor(props) {
@@ -108,49 +113,51 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
-      <>
-        <GroupOrderSwitcher isGroupByDate={isGroupByDate} onChange={this.onGroupOrderChange} />
-        <Paper>
-          <Scheduler
-            data={data}
-            height={660}
-          >
-            <ViewState
-              defaultCurrentDate="2018-05-30"
-            />
-            <EditingState
-              onCommitChanges={this.commitChanges}
-            />
-            <GroupingState
-              grouping={grouping}
-              groupByDate={groupByDate}
-            />
+      (
+        <div>
+          <GroupOrderSwitcher isGroupByDate={isGroupByDate} onChange={this.onGroupOrderChange} />
+          <Paper>
+            <Scheduler
+              data={data}
+              height={660}
+            >
+              <ViewState
+                defaultCurrentDate="2018-05-30"
+              />
+              <EditingState
+                onCommitChanges={this.commitChanges}
+              />
+              <GroupingState
+                grouping={grouping}
+                groupByDate={groupByDate}
+              />
 
-            <WeekView
-              startDayHour={8.5}
-              endDayHour={17}
-              excludedDays={[0, 6]}
-            />
-            <MonthView />
+              <WeekView
+                startDayHour={8.5}
+                endDayHour={17}
+                excludedDays={[0, 6]}
+              />
+              <MonthView />
 
-            <Appointments />
-            <Resources
-              data={resources}
-              mainResourceName="priorityId"
-            />
-            <IntegratedGrouping />
-            <IntegratedEditing />
+              <Appointments />
+              <Resources
+                data={resources}
+                mainResourceName="priorityId"
+              />
+              <IntegratedGrouping />
+              <IntegratedEditing />
 
-            <AppointmentTooltip />
-            <AppointmentForm />
+              <AppointmentTooltip />
+              <AppointmentForm />
 
-            <Toolbar />
-            <ViewSwitcher />
-            <GroupingPanel />
-            <DragDropProvider />
-          </Scheduler>
-        </Paper>
-      </>
+              <Toolbar />
+              <ViewSwitcher />
+              <GroupingPanel />
+              <DragDropProvider />
+            </Scheduler>
+          </Paper>
+        </div>
+      )
     );
   }
 }

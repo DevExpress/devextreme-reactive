@@ -1,9 +1,9 @@
 import * as React from 'react';
+import { styled, alpha } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@mui/material/TableCell';
-import { alpha } from '@mui/material/styles';
-import withStyles from '@mui/styles/withStyles';
+
 import {
   DAY_OPTIONS, DAY_SHORT_MONTH_OPTIONS,
   HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION,
@@ -12,8 +12,20 @@ import {
 import { getBorder, getBrightBorder } from '../../../utils';
 import { SMALL_LAYOUT_MEDIA_QUERY, SPACING_CELL_HEIGHT } from '../../../constants';
 
-const styles = theme => ({
-  cell: {
+const PREFIX = 'Cell';
+
+export const classes = {
+  cell: `${PREFIX}-cell`,
+  text: `${PREFIX}-text`,
+  today: `${PREFIX}-today`,
+  otherMonth: `${PREFIX}-otherMonth`,
+  shadedCell: `${PREFIX}-shadedCell`,
+  brightRightBorder: `${PREFIX}-brightRightBorder`,
+  brightBorderBottom: `${PREFIX}-brightBorderBottom`,
+};
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${classes.cell}`]: {
     userSelect: 'none',
     verticalAlign: 'top',
     padding: 0,
@@ -35,7 +47,7 @@ const styles = theme => ({
     },
     boxSizing: 'border-box',
   },
-  text: {
+  [`& .${classes.text}`]: {
     padding: '1em',
     paddingTop: '0.5em',
     textAlign: 'center',
@@ -43,7 +55,7 @@ const styles = theme => ({
       padding: '0.5em',
     },
   },
-  today: {
+  [`& .${classes.today}`]: {
     marginTop: '0.33em',
     width: '1.72em',
     height: '1.72em',
@@ -56,10 +68,10 @@ const styles = theme => ({
     marginRight: 'auto',
     marginLeft: 'auto',
   },
-  otherMonth: {
+  [`& .${classes.otherMonth}`]: {
     color: theme.palette.text.disabled,
   },
-  shadedCell: {
+  [`&.${classes.shadedCell}`]: {
     backgroundColor: alpha(theme.palette.action.disabledBackground, 0.04),
     '&:hover': {
       backgroundColor: theme.palette.action.selected,
@@ -69,19 +81,18 @@ const styles = theme => ({
       outline: 0,
     },
   },
-  brightRightBorder: {
+  [`&.${classes.brightRightBorder}`]: {
     borderRight: getBrightBorder(theme),
     '&:last-child': {
       borderRight: 'none',
     },
   },
-  brightBorderBottom: {
+  [`&.${classes.brightBorderBottom}`]: {
     borderBottom: getBrightBorder(theme),
   },
-});
+}));
 
 const CellBase = React.memo(({
-  classes,
   className,
   startDate,
   endDate,
@@ -99,7 +110,7 @@ const CellBase = React.memo(({
   const isFirstMonthDay = startDate.getDate() === 1;
   const formatOptions = isFirstMonthDay && !today ? DAY_SHORT_MONTH_OPTIONS : DAY_OPTIONS;
   return (
-    <TableCell
+    <StyledTableCell
       tabIndex={0}
       className={classNames({
         [classes.cell]: true,
@@ -120,12 +131,11 @@ const CellBase = React.memo(({
       >
         {formatDate(startDate, formatOptions)}
       </div>
-    </TableCell>
+    </StyledTableCell>
   );
 });
 
 CellBase.propTypes = {
-  classes: PropTypes.object.isRequired,
   formatDate: PropTypes.func.isRequired,
   startDate: PropTypes.instanceOf(Date).isRequired,
   endDate: PropTypes.instanceOf(Date),
@@ -151,4 +161,4 @@ CellBase.defaultProps = {
   groupOrientation: HORIZONTAL_GROUP_ORIENTATION,
 };
 
-export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);
+export const Cell = (CellBase);

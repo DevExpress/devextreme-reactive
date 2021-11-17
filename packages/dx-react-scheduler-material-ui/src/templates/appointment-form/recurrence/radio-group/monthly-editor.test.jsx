@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createShallow, getClasses, createMount } from '@devexpress/dx-testing';
+import { createShallow, createMount } from '@devexpress/dx-testing';
 import {
   handleStartDateChange,
   handleToDayOfWeekChange,
@@ -9,7 +9,7 @@ import {
   getWeekNumberLabels,
 } from '@devexpress/dx-scheduler-core';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { MonthlyEditor } from './monthly-editor';
+import { MonthlyEditor, classes } from './monthly-editor';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({
   ...jest.requireActual('@devexpress/dx-scheduler-core'),
@@ -37,11 +37,9 @@ describe('AppointmentForm recurrence RadioGroup', () => {
     },
     formatDate: jest.fn(),
   };
-  let classes;
   let shallow;
   let mount;
   beforeAll(() => {
-    classes = getClasses(<MonthlyEditor {...defaultProps} />);
     shallow = createShallow({ dive: true });
   });
   beforeEach(() => {

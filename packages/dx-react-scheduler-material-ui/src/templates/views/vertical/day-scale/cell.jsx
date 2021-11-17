@@ -1,14 +1,25 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@mui/material/TableCell';
-import withStyles from '@mui/styles/withStyles';
 import { WEEK_DAY_OPTIONS, DAY_OPTIONS } from '@devexpress/dx-scheduler-core';
 import { getBrightBorder } from '../../../utils';
 import { LAYOUT_MEDIA_QUERY } from '../../../constants';
 
-const styles = theme => ({
-  cell: {
+const PREFIX = 'Cell';
+
+export const classes = {
+  cell: `${PREFIX}-cell`,
+  dayOfWeek: `${PREFIX}-dayOfWeek`,
+  dayOfMonth: `${PREFIX}-dayOfMonth`,
+  highlightedText: `${PREFIX}-highlightedText`,
+  dayView: `${PREFIX}-dayView`,
+  brightRightBorder: `${PREFIX}-brightRightBorder`,
+};
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${classes.cell}`]: {
     userSelect: 'none',
     paddingBottom: theme.spacing(0.5),
     textAlign: 'center',
@@ -26,13 +37,13 @@ const styles = theme => ({
     },
     paddingTop: theme.spacing(0.5),
   },
-  dayOfWeek: {
+  [`& .${classes.dayOfWeek}`]: {
     ...theme.typography.caption,
     margin: 0,
     color: theme.palette.text.secondary,
     lineHeight: 1.17,
   },
-  dayOfMonth: {
+  [`& .${classes.dayOfMonth}`]: {
     ...theme.typography.h4,
     [`${LAYOUT_MEDIA_QUERY}`]: {
       ...theme.typography.h6,
@@ -41,27 +52,26 @@ const styles = theme => ({
     lineHeight: 1.2,
     fontSize: '1.8rem',
   },
-  highlightedText: {
+  [`& .${classes.highlightedText}`]: {
     color: theme.palette.primary.main,
     fontWeight: 'bold',
   },
-  dayView: {
+  [`& .${classes.dayView}`]: {
     'td:only-child &': {
       textAlign: 'center',
       width: 'auto',
       display: 'inline-block',
     },
   },
-  brightRightBorder: {
+  [`&.${classes.brightRightBorder}`]: {
     borderRight: getBrightBorder(theme),
     '&:last-child': {
       borderRight: 'none',
     },
   },
-});
+}));
 
-const CellBase = ({
-  classes,
+export const Cell = ({
   className,
   startDate,
   endDate,
@@ -73,7 +83,7 @@ const CellBase = ({
   hasRightBorder,
   ...restProps
 }) => (
-  <TableCell
+  <StyledTableCell
     className={classNames({
       [classes.cell]: true,
       [classes.brightRightBorder]: endOfGroup || hasRightBorder,
@@ -98,11 +108,10 @@ const CellBase = ({
         {formatDate(startDate, DAY_OPTIONS)}
       </div>
     </div>
-  </TableCell>
+  </StyledTableCell>
 );
 
-CellBase.propTypes = {
-  classes: PropTypes.object.isRequired,
+Cell.propTypes = {
   formatDate: PropTypes.func.isRequired,
   startDate: PropTypes.instanceOf(Date).isRequired,
   endDate: PropTypes.instanceOf(Date),
@@ -113,7 +122,7 @@ CellBase.propTypes = {
   groupingInfo: PropTypes.arrayOf(PropTypes.object),
 };
 
-CellBase.defaultProps = {
+Cell.defaultProps = {
   className: undefined,
   endDate: undefined,
   today: false,
@@ -121,5 +130,3 @@ CellBase.defaultProps = {
   hasRightBorder: false,
   groupingInfo: undefined,
 };
-
-export const Cell = withStyles(styles, { name: 'Cell' })(CellBase);

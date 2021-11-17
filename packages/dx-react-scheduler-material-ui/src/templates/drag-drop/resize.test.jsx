@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { createMount, createShallow, getClasses } from '@devexpress/dx-testing';
-import { Resize } from './resize';
+import { createMount, createShallow } from '@devexpress/dx-testing';
+import { Resize, classes } from './resize';
 
 describe('DragDrop', () => {
   const defaultProps = {
@@ -10,10 +10,8 @@ describe('DragDrop', () => {
   describe('Resize', () => {
     let shallow;
     let mount;
-    let classes;
     beforeAll(() => {
-      classes = getClasses(<Resize {...defaultProps} />);
-      shallow = createShallow({ dive: true });
+      shallow = createShallow();
       mount = createMount();
     });
     it('should pass rest props to the root element', () => {

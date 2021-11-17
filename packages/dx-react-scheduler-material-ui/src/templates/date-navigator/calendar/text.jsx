@@ -1,26 +1,31 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import * as PropTypes from 'prop-types';
-import withStyles from '@mui/styles/withStyles';
 import Typography from '@mui/material/Typography';
 import classNames from 'clsx';
 import { MONTH_YEAR_OPTIONS } from '@devexpress/dx-scheduler-core';
 
-const styles = {
-  text: {
+const PREFIX = 'Text';
+
+export const classes = {
+  text: `${PREFIX}-text`,
+};
+
+const StyledTypography = styled(Typography)({
+  [`&.${classes.text}`]: {
     userSelect: 'none',
     flex: 1,
     textAlign: 'center',
   },
-};
+});
 
-const TextBase = ({
-  classes,
+export const Text = ({
   className,
   currentDate,
   formatDate,
   ...restProps
 }) => (
-  <Typography
+  <StyledTypography
     variant="h6"
     className={classNames({
       [classes.text]: true,
@@ -28,11 +33,10 @@ const TextBase = ({
     {...restProps}
   >
     {formatDate(currentDate, MONTH_YEAR_OPTIONS)}
-  </Typography>
+  </StyledTypography>
 );
 
-TextBase.propTypes = {
-  classes: PropTypes.object.isRequired,
+Text.propTypes = {
   currentDate: PropTypes.oneOfType([
     PropTypes.number,
     PropTypes.string,
@@ -42,8 +46,6 @@ TextBase.propTypes = {
   className: PropTypes.string,
 };
 
-TextBase.defaultProps = {
+Text.defaultProps = {
   className: undefined,
 };
-
-export const Text = withStyles(styles, { name: 'Text' })(TextBase);

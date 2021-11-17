@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createMount, createShallow } from '@devexpress/dx-testing';
-import { DraftAppointment, SourceAppointment } from './appointments';
+import { DraftAppointment, SourceAppointment, classes } from './appointments';
 
 jest.mock('@mui/styles/makeStyles', () => () => () => ({
   appointment: 'appointment',
@@ -36,9 +36,9 @@ describe('DragDrop', () => {
 
       expect(tree.is('.custom-class'))
         .toBeTruthy();
-      expect(tree.is('.appointment'))
+      expect(tree.is(`.${classes.appointment}`))
         .toBeTruthy();
-      expect(tree.is('.shadedAppointment'))
+      expect(tree.is(`.${classes.shadedAppointment}`))
         .toBeFalsy();
     });
     it('should be shaded if "isShaded" is true', () => {
@@ -49,7 +49,7 @@ describe('DragDrop', () => {
         />
       ));
 
-      expect(tree.is('.shadedAppointment'))
+      expect(tree.is(`.${classes.shadedAppointment}`))
         .toBeTruthy();
     });
   });
@@ -76,7 +76,7 @@ describe('DragDrop', () => {
 
       expect(tree.is('.custom-class'))
         .toBeTruthy();
-      expect(tree.is('.appointment'))
+      expect(tree.is(`.${classes.appointment}`))
         .toBeTruthy();
     });
     it('should pass "isShaded" to the root component', () => {

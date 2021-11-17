@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
@@ -10,7 +11,25 @@ import {
 } from '@devexpress/dx-react-scheduler-material-ui';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import withStyles from '@mui/styles/withStyles';
+
+const PREFIX = 'Demo';
+
+const classes = {
+  container: `${PREFIX}-container`,
+  text: `${PREFIX}-text`,
+};
+
+const StyledDiv = styled('div')(({ theme }) => ({
+  [`&.${classes.container}`]: {
+    display: 'flex',
+    marginBottom: theme.spacing(2),
+    justifyContent: 'flex-end',
+  },
+  [`& .${classes.text}`]: {
+    ...theme.typography.h6,
+    marginRight: theme.spacing(2),
+  },
+}));
 
 const appointments = [{
   title: 'Website Re-Design Plan',
@@ -49,23 +68,11 @@ const appointments = [{
   location: 'Room 5',
 }];
 
-const styles = theme => ({
-  container: {
-    display: 'flex',
-    marginBottom: theme.spacing(2),
-    justifyContent: 'flex-end',
-  },
-  text: {
-    ...theme.typography.h6,
-    marginRight: theme.spacing(2),
-  },
-});
-
-const ResourceSwitcher = withStyles(styles, { name: 'ResourceSwitcher' })(
+const ResourceSwitcher = (
   ({
-    mainResourceName, onChange, classes, resources,
+    mainResourceName, onChange, resources,
   }) => (
-    <div className={classes.container}>
+    <StyledDiv className={classes.container}>
       <div className={classes.text}>
         Main resource name:
       </div>
@@ -80,8 +87,8 @@ const ResourceSwitcher = withStyles(styles, { name: 'ResourceSwitcher' })(
           </MenuItem>
         ))}
       </Select>
-    </div>
-  ),
+    </StyledDiv>
+  )
 );
 
 export default class Demo extends React.PureComponent {

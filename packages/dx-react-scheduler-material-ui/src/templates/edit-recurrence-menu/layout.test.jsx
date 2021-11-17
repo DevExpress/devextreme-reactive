@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { createShallow, getClasses, createMount } from '@devexpress/dx-testing';
-import { Layout } from './layout';
+import { createShallow, createMount } from '@devexpress/dx-testing';
+import { Layout, classes } from './layout';
 
 describe('EditRecurrenceMenu', () => {
   let shallow;
-  let classes;
   let mount;
   const defaultProps = {
     availableOperations: [{ value: '1', title: 'operation1' }],
@@ -15,9 +14,8 @@ describe('EditRecurrenceMenu', () => {
     buttonComponent: ({ children }) => <div>{children}</div>,
   };
   beforeAll(() => {
-    shallow = createShallow({ dive: true });
+    shallow = createShallow();
     mount = createMount();
-    classes = getClasses(<Layout {...defaultProps} />);
   });
   beforeEach(() => {
     jest.resetAllMocks();

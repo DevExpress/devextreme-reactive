@@ -14,7 +14,6 @@ const PREFIX = 'Layout';
 export const classes = {
   title: `${PREFIX}-title`,
   content: `${PREFIX}-content`,
-  media: `${PREFIX}-${SMALL_LAYOUT_MEDIA_QUERY}`,
 };
 
 const StyledDiv = styled('div')(({ theme: { typography } }) => ({

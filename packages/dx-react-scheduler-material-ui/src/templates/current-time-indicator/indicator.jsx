@@ -11,36 +11,42 @@ export const classes = {
   nowIndicator: `${PREFIX}-nowIndicator`,
 };
 
-const StyledDivCircle = styled('div')(({ theme, topValue }) => ({
-  [`&.${classes.circle}`]: {
-    width: theme.spacing(1.5),
-    height: theme.spacing(1.5),
-    borderRadius: '50%',
-    transform: 'translate(-50%, -50%)',
-  },
-  [`&.${classes.nowIndicator}`]: {
-    position: 'absolute',
-    left: 0,
-    top: topValue,
-    background: theme.palette.secondary.main,
-    zIndex: 1,
-  },
-}));
+const nowIndicatorStyles = (theme, topValue) => ({
+  position: 'absolute',
+  left: 0,
+  top: topValue,
+  background: theme.palette.secondary.main,
+  zIndex: 1,
+});
 
-const StyledDivLine = styled('div')(({ theme, topValue }) => ({
-  [`&.${classes.line}`]: {
-    height: '2px',
-    width: '100%',
-    transform: 'translate(0, -1px)',
-  },
-  [`&.${classes.nowIndicator}`]: {
-    position: 'absolute',
-    left: 0,
-    top: topValue,
-    background: theme.palette.secondary.main,
-    zIndex: 1,
-  },
-}));
+const StyledDivCircle = styled('div')(({ theme, topValue }) => {
+  const nowIndicator = nowIndicatorStyles(theme, topValue);
+  return {
+    [`&.${classes.circle}`]: {
+      width: theme.spacing(1.5),
+      height: theme.spacing(1.5),
+      borderRadius: '50%',
+      transform: 'translate(-50%, -50%)',
+    },
+    [`&.${classes.nowIndicator}`]: {
+      ...nowIndicator,
+    },
+  };
+});
+
+const StyledDivLine = styled('div')(({ theme, topValue }) => {
+  const nowIndicator = nowIndicatorStyles(theme, topValue);
+  return {
+    [`&.${classes.line}`]: {
+      height: '2px',
+      width: '100%',
+      transform: 'translate(0, -1px)',
+    },
+    [`&.${classes.nowIndicator}`]: {
+      ...nowIndicator,
+    },
+  };
+});
 
 export const Indicator = props => (
   <div {...props}>

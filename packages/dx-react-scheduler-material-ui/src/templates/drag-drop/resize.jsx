@@ -29,6 +29,33 @@ const horizontalStyles = spacing => ({
   cursor: 'ew-resize',
 });
 
+const StyledDiv = styled('div')(({ theme: { spacing } }) => {
+  const vertical = verticalStyles(spacing);
+  const horizontal = horizontalStyles(spacing);
+  return {
+    [`&.${classes.resize}`]: {
+      position: 'absolute',
+      zIndex: 100,
+    },
+    [`&.${classes.verticalStart}`]: {
+      ...vertical,
+      top: 0,
+    },
+    [`&.${classes.verticalEnd}`]: {
+      ...vertical,
+      bottom: 0,
+    },
+    [`&.${classes.horizontalStart}`]: {
+      ...horizontal,
+      left: 0,
+    },
+    [`&.${classes.horizontalEnd}`]: {
+      ...horizontal,
+      right: 0,
+    },
+  };
+});
+
 export const Resize = React.memo(({
   className,
   position, appointmentType,
@@ -37,7 +64,7 @@ export const Resize = React.memo(({
   const vertical = appointmentType === VERTICAL_TYPE;
   const start = position === POSITION_START;
   return (
-    <div
+    <StyledDiv
       ref={forwardedRef}
       className={classNames({
         [classes.resize]: true,
@@ -62,30 +89,3 @@ Resize.defaultProps = {
   className: undefined,
   forwardedRef: undefined,
 };
-
-export const StyledResizeBaze = styled(Resize)(({ theme: { spacing } }) => {
-  const vertical = verticalStyles(spacing);
-  const horizontal = horizontalStyles(spacing);
-  return {
-    [`& .${classes.resize}`]: {
-      position: 'absolute',
-      zIndex: 100,
-    },
-    [`& .${classes.verticalStart}`]: {
-      ...vertical,
-      top: 0,
-    },
-    [`& .${classes.verticalEnd}`]: {
-      ...vertical,
-      bottom: 0,
-    },
-    [`& .${classes.horizontalStart}`]: {
-      ...horizontal,
-      left: 0,
-    },
-    [`& .${classes.horizontalEnd}`]: {
-      ...horizontal,
-      right: 0,
-    },
-  };
-});

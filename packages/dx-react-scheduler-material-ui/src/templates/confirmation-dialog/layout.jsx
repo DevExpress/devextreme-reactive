@@ -9,7 +9,6 @@ const PREFIX = 'Layout';
 
 export const classes = {
   title: `${PREFIX}-title`,
-  media: `${PREFIX} - ${SMALL_LAYOUT_MEDIA_QUERY}`,
 };
 
 const StyledDialogTitle = styled(DialogTitle)(({ theme: { typography } }) => ({

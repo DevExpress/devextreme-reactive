@@ -16,19 +16,19 @@ const classes = {
   table: `${PREFIX}-table`,
 };
 
-const StyledTableMUI = styled(TableMUI)({
+const StyledTableMUI = styled(TableMUI, { shouldForwardProp: prop => prop !== 'cellsNumber' })(({ cellsNumber }) => ({
   [`&.${classes.table}`]: {
     tableLayout: 'fixed',
-    minWidth: cellsNumber => getWidthInPixels(cellsNumber, CELL_WIDTH),
+    minWidth: getWidthInPixels(cellsNumber, CELL_WIDTH),
     width: '100%',
     [`${LAYOUT_MEDIA_QUERY}`]: {
-      minWidth: cellsNumber => getWidthInPixels(cellsNumber, SMALL_CELL_WIDTH),
+      minWidth: getWidthInPixels(cellsNumber, SMALL_CELL_WIDTH),
     },
     [`${SMALL_LAYOUT_MEDIA_QUERY}`]: {
-      minWidth: cellsNumber => getWidthInPixels(cellsNumber, XS_CELL_WIDTH),
+      minWidth: getWidthInPixels(cellsNumber, XS_CELL_WIDTH),
     },
   },
-});
+}));
 
 /* This component is a workaround to the bug when appointments flicker after being drag-dropped.
   It is used to define the minimum width of a parent layout depending on the number of cells.
@@ -43,6 +43,7 @@ export const Table = React.forwardRef(({
   ...restProps
 }, ref) => (
   <StyledTableMUI
+    cellsNumber={cellsNumber}
     ref={ref}
     className={classNames(classes.table, className)}
     {...restProps}

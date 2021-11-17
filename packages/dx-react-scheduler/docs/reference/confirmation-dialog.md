@@ -33,7 +33,7 @@ ignoreCancel | boolean | false | Specifies whether to open the dialog when a use
 layoutComponent | ComponentType&lt;[ConfirmationDialog.LayoutProps](#confirmationdialoglayoutprops)&gt; | | A component that renders the dialog's layout.
 overlayComponent | ComponentType&lt;[ConfirmationDialog.OverlayProps](#confirmationdialogoverlayprops)&gt; | | A component that renders the overlay window.
 buttonComponent | ComponentType&lt;[ConfirmationDialog.ButtonProps](#confirmationdialogbuttonprops)&gt; | | A component that renders the dialog's buttons.
-messages | ComponentType&lt;[ConfirmationDialog.LocalizationMessages](#localization-messages)&gt; | | An object that contains localized messages.
+messages | [ConfirmationDialog.LocalizationMessages](#localization-messages) | | An object that contains localized messages.
 
 ## Interfaces
 

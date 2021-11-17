@@ -302,7 +302,7 @@ export interface ConfirmationDialogProps {
   ignoreCancel?: boolean;
   ignoreDelete?: boolean;
   layoutComponent?: React_2.ComponentType<ConfirmationDialog_2.LayoutProps>;
-  messages?: React_2.ComponentType<ConfirmationDialog_2.LocalizationMessages>;
+  messages?: ConfirmationDialog_2.LocalizationMessages;
   overlayComponent?: React_2.ComponentType<ConfirmationDialog_2.OverlayProps>;
 }
 

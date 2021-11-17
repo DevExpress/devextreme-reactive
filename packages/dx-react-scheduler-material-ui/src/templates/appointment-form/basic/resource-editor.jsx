@@ -27,27 +27,33 @@ const StyledTextField = styled(TextField)(({ theme: { spacing } }) => ({
     minHeight: spacing(6.5),
     width: '100%',
   },
-  [`& .${classes.chips}`]: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  [`& .${classes.chip}`]: {
-    color: 'white',
-    margin: 2,
-  },
+}));
+
+const StyledDivItemContainer = styled('div')(({ theme: { spacing } }) => ({
   [`& .${classes.resourceCircle}`]: {
     height: spacing(2),
     width: spacing(2),
     borderRadius: '50%',
     marginRight: spacing(1),
   },
-  [`& .${classes.itemContainer}`]: {
+  [`&.${classes.itemContainer}`]: {
     display: 'flex',
     padding: spacing(0.75),
   },
   [`& .${classes.circleContainer}`]: {
     display: 'flex',
     alignItems: 'center',
+  },
+}));
+
+const StyledDivChips = styled('div')(() => ({
+  [`&.${classes.chips}`]: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  [`& .${classes.chip}`]: {
+    color: 'white',
+    margin: 2,
   },
 }));
 
@@ -83,7 +89,7 @@ export const ResourceEditor = React.memo(({
         multiple: resource.allowMultiple,
         renderValue: (selected = []) => (
           resource.allowMultiple ? (
-            <div className={classes.chips}>
+            <StyledDivChips className={classes.chips}>
               {selected.map((value) => {
                 const resourceItem = getResourceInstance(resource.instances, value);
                 return (
@@ -95,9 +101,9 @@ export const ResourceEditor = React.memo(({
                   />
                 );
               })}
-            </div>
+            </StyledDivChips>
           ) : (
-            <div className={classes.itemContainer}>
+            <StyledDivItemContainer className={classes.itemContainer}>
               <div className={classes.circleContainer}>
                 <div
                   className={classes.resourceCircle}
@@ -109,7 +115,7 @@ export const ResourceEditor = React.memo(({
                 />
               </div>
               {getResourceInstance(resource.instances, selected[0]).text}
-            </div>
+            </StyledDivItemContainer>
           )
         ),
       }}

@@ -3,11 +3,27 @@ import * as PropTypes from 'prop-types';
 import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
 import Search from '@mui/icons-material/Search';
+import { styled } from '@mui/material/styles';
+
+const PREFIX = 'SearchPanelInput';
+
+export const classes = {
+  root: `${PREFIX}-root`,
+};
+
+const StyledInput = styled(Input)(({ theme }) => ({
+  [`&.${classes.root}`]: {
+    display: 'flex',
+    alignItems: 'center',
+    color: theme.palette.action.active,
+  },
+}));
 
 export const SearchPanelInput = ({
   onValueChange, value, getMessage, inputRef, ...restProps
 }) => (
-  <Input
+  <StyledInput
+    className={classes.root}
     ref={inputRef}
     onChange={e => onValueChange(e.target.value)}
     value={value}

@@ -43,10 +43,10 @@ const StyledInput = styled(Input)(({ theme }) => ({
       borderBottom: '0px',
     },
   },
-  [`&.${classes.inputRight}`]: {
+  [`& .${classes.inputRight}`]: {
     textAlign: 'right',
   },
-  [`&.${classes.inputCenter}`]: {
+  [`& .${classes.inputCenter}`]: {
     textAlign: 'center',
   },
 }));

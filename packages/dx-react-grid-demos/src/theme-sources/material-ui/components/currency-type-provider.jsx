@@ -9,7 +9,7 @@ const classes = {
   numericInput: `${PREFIX}-numericInput`,
 };
 const StyledInput = styled(Input)(() => ({
-  [`&.${classes.numericInput}`]: {
+  [`& .${classes.numericInput}`]: {
     textAlign: 'right',
     width: '100%',
   },

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { shallow, mount } from 'enzyme';
 
@@ -26,19 +25,6 @@ export function createShallow({ dive, untilSelector } = { dive: false }) {
     }
     return wrapper;
   };
-}
-
-export function getClasses(element) {
-  const { useStyles } = element.type;
-  let classes;
-
-  function Listener() {
-    classes = useStyles(element.props);
-    return null;
-  }
-
-  shallow(React.createElement(Listener, null));
-  return classes;
 }
 export function createMount() {
   const attachTo = document.createElement('div');

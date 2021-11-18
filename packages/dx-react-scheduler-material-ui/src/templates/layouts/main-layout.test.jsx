@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createShallow, createMount } from '@devexpress/dx-testing';
-import { MainLayout } from './main-layout';
+import { MainLayout, classes } from './main-layout';
 import { scrollingStrategy } from '../utils';
 
 jest.mock('../utils', () => ({
@@ -53,15 +53,15 @@ describe('Main Layout', () => {
 
     expect(tree.is('.custom-class'))
       .toBeTruthy();
-    expect(tree.is('.container'))
+    expect(tree.is(`.${classes.container}`))
       .toBeTruthy();
-    expect(tree.find('.ordinaryHeaderBorder').exists())
+    expect(tree.find(`.${classes.ordinaryHeaderBorder}`).exists())
       .toBeTruthy();
-    expect(tree.find('.brightHeaderBorder').exists())
+    expect(tree.find(`.${classes.brightHeaderBorder}`).exists())
       .toBeFalsy();
-    expect(tree.find('.ordinaryLeftPanelBorder').exists())
+    expect(tree.find(`.${classes.ordinaryLeftPanelBorder}`).exists())
       .toBeTruthy();
-    expect(tree.find('.brightLeftPanelBorder').exists())
+    expect(tree.find(`.${classes.brightLeftPanelBorder}`).exists())
       .toBeFalsy();
   });
 
@@ -89,21 +89,21 @@ describe('Main Layout', () => {
       <MainLayout {...defaultProps} />
     ));
 
-    expect(tree.find('.header').exists())
+    expect(tree.find(`.${classes.header}`).exists())
       .toBeTruthy();
-    expect(tree.find('.stickyElement'))
+    expect(tree.find(`.${classes.stickyElement}`))
       .toHaveLength(3);
-    expect(tree.find('.flexRow'))
+    expect(tree.find(`.${classes.flexRow}`))
       .toHaveLength(3);
-    expect(tree.find('.inlineFlex'))
+    expect(tree.find(`.${classes.inlineFlex}`))
       .toHaveLength(2);
-    expect(tree.find('.leftPanel'))
+    expect(tree.find(`.${classes.leftPanel}`))
       .toHaveLength(2);
-    expect(tree.find('.dayScaleEmptyCell').exists())
+    expect(tree.find(`.${classes.dayScaleEmptyCell}`).exists())
       .toBeTruthy();
-    expect(tree.find('.background').exists())
+    expect(tree.find(`.${classes.background}`).exists())
       .toBeTruthy();
-    expect(tree.find('.relativeContainer').exists())
+    expect(tree.find(`.${classes.relativeContainer}`).exists())
       .toBeTruthy();
   });
 
@@ -112,18 +112,18 @@ describe('Main Layout', () => {
       <MainLayout {...defaultProps} />
     ));
 
-    expect(tree.find('.brightHeaderBorder').exists())
+    expect(tree.find(`.${classes.brightHeaderBorder}`).exists())
       .toBeFalsy();
     tree.simulate('scroll', { target: { scrollTop: 5 } });
     tree.update();
-    expect(tree.find('.brightHeaderBorder').exists())
+    expect(tree.find(`.${classes.brightHeaderBorder}`).exists())
       .toBeTruthy();
 
-    expect(tree.find('.brightLeftPanelBorder').exists())
+    expect(tree.find(`.${classes.brightLeftPanelBorder}`).exists())
       .toBeFalsy();
     tree.simulate('scroll', { target: { scrollLeft: 5 } });
     tree.update();
-    expect(tree.find('.brightLeftPanelBorder').exists())
+    expect(tree.find(`.${classes.brightLeftPanelBorder}`).exists())
       .toBeTruthy();
   });
 
@@ -132,7 +132,7 @@ describe('Main Layout', () => {
       <MainLayout {...defaultProps} timeScaleComponent={undefined} />
     ));
 
-    expect(tree.find('.dayScaleEmptyCell').exists())
+    expect(tree.find(`.${classes.dayScaleEmptyCell}`).exists())
       .toBeFalsy();
   });
 
@@ -141,7 +141,7 @@ describe('Main Layout', () => {
       <MainLayout {...defaultProps} timeScaleComponent={undefined} />
     ));
 
-    expect(tree.find('.leftPanel').exists())
+    expect(tree.find(`.${classes.leftPanel}`).exists())
       .toBeFalsy();
   });
 });

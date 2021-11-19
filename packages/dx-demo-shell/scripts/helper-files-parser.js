@@ -39,6 +39,7 @@ const dependencies = {
     '"@emotion/react"',
     '"@emotion/styled"',
     '"@mui/styles"',
+    '"@mui/lab"',
   ],
   '"@devexpress/dx-react-grid"': ['"@devexpress/dx-react-core"'],
   '"@devexpress/dx-react-scheduler-material-ui"': [

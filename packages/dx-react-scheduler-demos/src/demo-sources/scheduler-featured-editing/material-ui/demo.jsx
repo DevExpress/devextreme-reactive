@@ -261,12 +261,16 @@ class AppointmentFormContainerBasic extends React.PureComponent {
               <LocalizationProvider dateAdapter={AdapterMoment}>
                 <DateTimePicker
                   label="Start Date"
-                  renderInput={props => <StyledTextFieldPicker className={classes.picker} {...props} />}
+                  renderInput={
+                    props => <StyledTextFieldPicker className={classes.picker} {...props} />
+                  }
                   {...startDatePickerProps}
                 />
                 <DateTimePicker
                   label="End Date"
-                  renderInput={props => <StyledTextFieldPicker className={classes.picker} {...props} />}
+                  renderInput={
+                    props => <StyledTextFieldPicker className={classes.picker} {...props} />
+                  }
                   {...endDatePickerProps}
                 />
               </LocalizationProvider>

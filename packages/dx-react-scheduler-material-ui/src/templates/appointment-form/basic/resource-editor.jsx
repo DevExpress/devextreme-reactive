@@ -57,8 +57,8 @@ const StyledDivChips = styled('div')(() => ({
   },
 }));
 
-const StyledMenuItem = styled(MenuItem)(({ theme: { spacing } }) => ({
-  [`& .${classes.resourceCircle}`]: {
+const StyledDivResourceCircle = styled('div')(({ theme: { spacing } }) => ({
+  [`&.${classes.resourceCircle}`]: {
     height: spacing(2),
     width: spacing(2),
     borderRadius: '50%',
@@ -135,13 +135,13 @@ export const ResourceEditor = React.memo(({
     >
       {
         resource.instances.map(resourceItem => (
-          <StyledMenuItem key={resourceItem.id} value={resourceItem.id}>
-            <div
+          <MenuItem key={resourceItem.id} value={resourceItem.id}>
+            <StyledDivResourceCircle
               className={classes.resourceCircle}
               style={{ backgroundColor: getAppointmentColor(400, resourceItem.color) }}
             />
             {resourceItem.text}
-          </StyledMenuItem>
+          </MenuItem>
         ))
       }
     </StyledTextField>

@@ -46,7 +46,9 @@ export const withKeyboardNavigation =
 
     handleClick(event) {
       const { tableRow, tableColumn, setFocusedElement } = this.props;
-      setFocusedElement({ key1: key1 || tableRow.key, key2: key2 || tableColumn.key, event });
+      if (setFocusedElement) {
+        setFocusedElement({ key1: key1 || tableRow.key, key2: key2 || tableColumn.key, event });
+      }
     }
 
     render() {

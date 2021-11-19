@@ -90,8 +90,8 @@ const StyledIconButton = styled(IconButton)(() => ({
 // #FOLD_BLOCK
 const StyledCalendarToday = styled(CalendarToday)(groupingStyles);
 // #FOLD_BLOCK
-const StyledDateTimePicker = styled(DateTimePicker)(({ theme }) => ({
-  [`& .${classes.picker}`]: {
+const StyledTextFieldPicker = styled(TextField)(({ theme }) => ({
+  [`&.${classes.picker}`]: {
     marginRight: theme.spacing(2),
     '&:last-child': {
       marginRight: 0,
@@ -259,14 +259,14 @@ class AppointmentFormContainerBasic extends React.PureComponent {
             <StyledDivWrapper className={classes.wrapper}>
               <StyledCalendarToday className={classes.icon} color="action" />
               <LocalizationProvider dateAdapter={AdapterMoment}>
-                <StyledDateTimePicker
+                <DateTimePicker
                   label="Start Date"
-                  renderInput={props => <TextField className={classes.picker} {...props} />}
+                  renderInput={props => <StyledTextFieldPicker className={classes.picker} {...props} />}
                   {...startDatePickerProps}
                 />
-                <StyledDateTimePicker
+                <DateTimePicker
                   label="End Date"
-                  renderInput={props => <TextField className={classes.picker} {...props} />}
+                  renderInput={props => <StyledTextFieldPicker className={classes.picker} {...props} />}
                   {...endDatePickerProps}
                 />
               </LocalizationProvider>

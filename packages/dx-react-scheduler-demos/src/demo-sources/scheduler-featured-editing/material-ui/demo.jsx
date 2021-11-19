@@ -102,7 +102,7 @@ const StyledDateTimePicker = styled(DateTimePicker)(({ theme }) => ({
 // #FOLD_BLOCK
 const StyledLocationOn = styled(LocationOn)(groupingStyles);
 // #FOLD_BLOCK
-const StyledDiv = styled('div')(({ theme }) => ({
+const StyledDivWrapper = styled('div')(({ theme }) => ({
   [`&.${classes.wrapper}`]: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -133,6 +133,8 @@ const StyledButton = styled(Button)(({ theme }) => ({
     marginLeft: theme.spacing(2),
   },
 }));
+
+const StyledNotes = styled(Notes)(groupingStyles);
 
 class AppointmentFormContainerBasic extends React.PureComponent {
   constructor(props) {
@@ -248,13 +250,13 @@ class AppointmentFormContainerBasic extends React.PureComponent {
             </StyledIconButton>
           </StyledDivHeader>
           <StyledDivContent className={classes.content}>
-            <StyledDiv className={classes.wrapper}>
+            <StyledDivWrapper className={classes.wrapper}>
               <StyledCreate className={classes.icon} color="action" />
               <StyledTextField
                 {...textEditorProps('title')}
               />
-            </StyledDiv>
-            <StyledDiv className={classes.wrapper}>
+            </StyledDivWrapper>
+            <StyledDivWrapper className={classes.wrapper}>
               <StyledCalendarToday className={classes.icon} color="action" />
               <LocalizationProvider dateAdapter={AdapterMoment}>
                 <StyledDateTimePicker
@@ -268,21 +270,21 @@ class AppointmentFormContainerBasic extends React.PureComponent {
                   {...endDatePickerProps}
                 />
               </LocalizationProvider>
-            </StyledDiv>
-            <StyledDiv className={classes.wrapper}>
+            </StyledDivWrapper>
+            <StyledDivWrapper className={classes.wrapper}>
               <StyledLocationOn className={classes.icon} color="action" />
               <StyledTextField
                 {...textEditorProps('location')}
               />
-            </StyledDiv>
-            <StyledDiv className={classes.wrapper}>
-              <Notes className={classes.icon} color="action" />
+            </StyledDivWrapper>
+            <StyledDivWrapper className={classes.wrapper}>
+              <StyledNotes className={classes.icon} color="action" />
               <StyledTextField
                 {...textEditorProps('notes')}
                 multiline
                 rows="6"
               />
-            </StyledDiv>
+            </StyledDivWrapper>
           </StyledDivContent>
           <StyledDivButtonGroup className={classes.buttonGroup}>
             {!isNewAppointment && (

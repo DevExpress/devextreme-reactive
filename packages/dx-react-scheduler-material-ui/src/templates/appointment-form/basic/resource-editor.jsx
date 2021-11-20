@@ -29,8 +29,8 @@ const StyledTextField = styled(TextField)(({ theme: { spacing } }) => ({
   },
 }));
 
-const StyledDivItemContainer = styled('div')(({ theme: { spacing } }) => ({
-  [`& .${classes.resourceCircle}`]: {
+const StyledDiv = styled('div')(({ theme: { spacing } }) => ({
+  [`&.${classes.resourceCircle}`]: {
     height: spacing(2),
     width: spacing(2),
     borderRadius: '50%',
@@ -44,9 +44,6 @@ const StyledDivItemContainer = styled('div')(({ theme: { spacing } }) => ({
     display: 'flex',
     alignItems: 'center',
   },
-}));
-
-const StyledDivChips = styled('div')(() => ({
   [`&.${classes.chips}`]: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -54,15 +51,6 @@ const StyledDivChips = styled('div')(() => ({
   [`& .${classes.chip}`]: {
     color: 'white',
     margin: 2,
-  },
-}));
-
-const StyledDivResourceCircle = styled('div')(({ theme: { spacing } }) => ({
-  [`&.${classes.resourceCircle}`]: {
-    height: spacing(2),
-    width: spacing(2),
-    borderRadius: '50%',
-    marginRight: spacing(1),
   },
 }));
 
@@ -98,7 +86,7 @@ export const ResourceEditor = React.memo(({
         multiple: resource.allowMultiple,
         renderValue: (selected = []) => (
           resource.allowMultiple ? (
-            <StyledDivChips className={classes.chips}>
+            <StyledDiv className={classes.chips}>
               {selected.map((value) => {
                 const resourceItem = getResourceInstance(resource.instances, value);
                 return (
@@ -110,11 +98,11 @@ export const ResourceEditor = React.memo(({
                   />
                 );
               })}
-            </StyledDivChips>
+            </StyledDiv>
           ) : (
-            <StyledDivItemContainer className={classes.itemContainer}>
+            <StyledDiv className={classes.itemContainer}>
               <div className={classes.circleContainer}>
-                <div
+                <StyledDiv
                   className={classes.resourceCircle}
                   style={{
                     backgroundColor: getAppointmentColor(
@@ -124,7 +112,7 @@ export const ResourceEditor = React.memo(({
                 />
               </div>
               {getResourceInstance(resource.instances, selected[0]).text}
-            </StyledDivItemContainer>
+            </StyledDiv>
           )
         ),
       }}
@@ -136,7 +124,7 @@ export const ResourceEditor = React.memo(({
       {
         resource.instances.map(resourceItem => (
           <MenuItem key={resourceItem.id} value={resourceItem.id}>
-            <StyledDivResourceCircle
+            <StyledDiv
               className={classes.resourceCircle}
               style={{ backgroundColor: getAppointmentColor(400, resourceItem.color) }}
             />

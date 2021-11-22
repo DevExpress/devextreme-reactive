@@ -220,13 +220,7 @@ const LocationSelector = ({ onLocationsChange, locations }) => (
   <StyledButtonGroup className={classes.locationSelector}>
     {LOCATIONS.map((location, index) => (
       <Button
-        className={
-          classNames(
-            classes.button,
-            classes.selectedButton,
-            getButtonClass(locations, classes, location),
-          )
-        }
+        className={classNames(classes.button, getButtonClass(locations, location))}
         onClick={() => onLocationsChange(handleButtonClick(location, locations))}
         key={location}
       >

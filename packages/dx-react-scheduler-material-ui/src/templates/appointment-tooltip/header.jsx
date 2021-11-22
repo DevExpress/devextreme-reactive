@@ -11,8 +11,8 @@ export const classes = {
   flexContainer: `${PREFIX}-flexContainer`,
 };
 
-const StyledDivHead = styled('div')(({
-  theme: { spacing },
+const StyledDiv = styled('div')(({
+  theme: { spacing, palette },
 }) => ({
   [`&.${classes.head}`]: {
     position: 'relative',
@@ -27,11 +27,6 @@ const StyledDivHead = styled('div')(({
     justifyContent: 'flex-end',
     alignItems: 'flex-start',
   },
-}));
-
-const StyledDiv = styled('div')(({
-  theme: { spacing, palette },
-}) => ({
   [`& .${classes.line}`]: {
     backgroundColor: palette.action.disabledBackground,
     height: spacing(3.5),
@@ -39,12 +34,6 @@ const StyledDiv = styled('div')(({
     marginRight: spacing(1),
     marginTop: spacing(1.25),
     width: '1px',
-  },
-  [`&.${classes.flexContainer}`]: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'flex-start',
   },
 }));
 
@@ -67,7 +56,7 @@ export const Header = ({
     onOpenButtonClick();
   };
   return (
-    <StyledDivHead
+    <StyledDiv
       className={classNames(classes.head, classes.flexContainer, className)}
       {...restProps}
     >
@@ -83,7 +72,7 @@ export const Header = ({
           <CommandButton id={commandButtonIds.close} onExecute={onHide} />
         </StyledDiv>
       )}
-    </StyledDivHead>
+    </StyledDiv>
   );
 };
 

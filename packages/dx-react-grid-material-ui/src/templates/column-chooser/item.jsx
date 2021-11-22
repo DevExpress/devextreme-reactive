@@ -11,8 +11,8 @@ export const classes = {
   itemText: `${PREFIX}-itemText`,
 };
 
-const StyledListItemText = styled(ListItemText)(({ theme }) => ({
-  [`&.${classes.itemText}`]: {
+const StyledListItem = styled(ListItem)(({ theme }) => ({
+  [`& .${classes.itemText}`]: {
     paddingLeft: theme.spacing(1),
   },
   [`& .${classes.checkbox}`]: {
@@ -25,7 +25,7 @@ export const Item = ({
   disabled, onToggle,
   ...restProps
 }) => (
-  <ListItem
+  <StyledListItem
     key={column.name}
     button={!disabled}
     component="li"
@@ -40,8 +40,8 @@ export const Item = ({
       disabled={disabled}
       className={classes.checkbox}
     />
-    <StyledListItemText className={classes.itemText} primary={column.title || column.name} />
-  </ListItem>
+    <ListItemText className={classes.itemText} primary={column.title || column.name} />
+  </StyledListItem>
 );
 
 Item.propTypes = {

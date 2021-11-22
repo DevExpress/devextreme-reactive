@@ -25,7 +25,7 @@ const StyledInput = styled(Input)(({ theme }) => ({
   [`&.${classes.root}`]: {
     margin: theme.spacing(1),
   },
-  [`&.${classes.numericInput}`]: {
+  [`& .${classes.numericInput}`]: {
     fontSize: '14px',
     textAlign: 'right',
     width: '100%',

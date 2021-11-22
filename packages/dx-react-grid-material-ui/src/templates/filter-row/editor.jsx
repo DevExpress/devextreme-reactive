@@ -10,7 +10,7 @@ export const classes = {
 };
 
 const StyledInput = styled(Input)(({ theme }) => ({
-  [`&.${classes.input}`]: {
+  [`& .${classes.input}`]: {
     width: '100%',
     fontSize: '14px',
   },

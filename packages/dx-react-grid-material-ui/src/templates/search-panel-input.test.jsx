@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { createShallow } from '@devexpress/dx-testing';
-import { SearchPanelInput } from './search-panel-input';
+import Input from '@mui/material/Input';
+import { SearchPanelInput, classes } from './search-panel-input';
 
 const getMessage = jest.fn().mockReturnValue('placeholder');
 const changeValue = jest.fn();
@@ -17,6 +18,11 @@ describe('Input search box', () => {
   it('should render input component', () => {
     const tree = shallow(<SearchPanelInput {...defaultProps} />);
     expect(tree).toHaveLength(1);
+  });
+
+  it('should have correct class', () => {
+    const tree = shallow(<SearchPanelInput {...defaultProps} />);
+    expect(tree.find(Input).hasClass(classes.root)).toBeTruthy();
   });
 
   it('should render input component with value', () => {

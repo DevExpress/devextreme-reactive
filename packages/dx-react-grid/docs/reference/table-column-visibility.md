@@ -85,4 +85,4 @@ Name | Plugin | Type | Description
 tableColumns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[TableColumn](table.md#tablecolumn)&gt; | Visible table columns.
 hiddenColumnNames | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;string&gt; | Hidden table column names.
 isColumnTogglingEnabled | [Getter](../../../dx-react-core/docs/reference/getter.md) | (columnName: string) => boolean | A function used to define if an end-user can change column visibility.
-toggleColumnVisibility | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string }) => void | Toggles a column's visibility.
+toggleColumnVisibility | [Action](../../../dx-react-core/docs/reference/action.md) | (columnName: string) => void | Toggles a column's visibility.

@@ -111,7 +111,7 @@ Name | Plugin | Type | Description
 columns | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;[Column](grid.md#column)&gt; | Grid columns.
 hiddenColumnNames | [Getter](../../../dx-react-core/docs/reference/getter.md) | Array&lt;string&gt; | Names of columns to be hidden.
 isColumnTogglingEnabled | [Getter](../../../dx-react-core/docs/reference/getter.md) | (columnName: string) => boolean | A function used to define if an end-user can change column visibility.
-toggleColumnVisibility | [Action](../../../dx-react-core/docs/reference/action.md) | ({ columnName: string }) => void | Toggles a column's visibility.
+toggleColumnVisibility | [Action](../../../dx-react-core/docs/reference/action.md) | (columnName: string) => void | Toggles a column's visibility.
 toolbarContent | [Template](../../../dx-react-core/docs/reference/template.md) | object? | A template that renders toolbar content.
 
 ### Exports

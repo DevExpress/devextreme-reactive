@@ -9,6 +9,7 @@ const PREFIX = 'SaveButton';
 
 export const classes = {
   button: `${PREFIX}-button`,
+  textButton: `${PREFIX}-textButton`,
 };
 
 export const StyledButton = styled(Button)(({
@@ -22,10 +23,12 @@ export const StyledButton = styled(Button)(({
       marginLeft: 0,
     },
     backgroundColor: ensureColor(300, palette.primary),
-    color: palette.primary.contrastText,
     '&:hover': {
       backgroundColor: ensureColor(400, palette.primary),
     },
+  },
+  [`&.${classes.textButton}`]: {
+    color: palette.primary.contrastText,
   },
 }));
 
@@ -33,7 +36,10 @@ export const SaveButton = React.memo(({
   getMessage, className, onExecute, ...restProps
 }) => (
   <StyledButton
-    className={classNames(classes.button, className)}
+    className={classNames({
+      [classes.button]: true,
+      [classes.textButton]: !restProps.disabled,
+    }, className)}
     onClick={onExecute}
     {...restProps}
   >

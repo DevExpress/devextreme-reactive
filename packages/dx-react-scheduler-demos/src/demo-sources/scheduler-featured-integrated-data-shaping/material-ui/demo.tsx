@@ -1,4 +1,5 @@
-import * as React from 'react';import { styled, alpha } from '@mui/material/styles';
+import * as React from 'react';
+import { styled, alpha } from '@mui/material/styles';
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler, DayView, Appointments, MonthView, Toolbar,

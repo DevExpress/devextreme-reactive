@@ -53,44 +53,27 @@ const classes = {
   textField: `${PREFIX}-textField`,
   addButton: `${PREFIX}-addButton`,
 };
+
 // #FOLD_BLOCK
-const groupingStyles = (({ theme }) => ({
-  [`&.${classes.icon}`]: {
+const StyledDiv = styled('div')(({ theme }) => ({
+  [`& .${classes.icon}`]: {
     margin: theme.spacing(2, 0),
     marginRight: theme.spacing(2),
   },
-}));
-// #FOLD_BLOCK
-const StyledDivHeader = styled('div')(({ theme }) => ({
-  [`&.${classes.header}`]: {
+  [`& .${classes.header}`]: {
     overflow: 'hidden',
     paddingTop: theme.spacing(0.5),
   },
-
-}));
-// #FOLD_BLOCK
-const StyledTextField = styled(TextField)(() => ({
-  [`&.${classes.textField}`]: {
+  [`& .${classes.textField}`]: {
     width: '100%',
   },
-}));
-// #FOLD_BLOCK
-const StyledDivContent = styled('div')(({ theme }) => ({
-  [`&.${classes.content}`]: {
+  [`& .${classes.content}`]: {
     padding: theme.spacing(2),
     paddingTop: 0,
   },
-}));
-// #FOLD_BLOCK
-const StyledIconButton = styled(IconButton)(() => ({
-  [`&.${classes.closeButton}`]: {
+  [`& .${classes.closeButton}`]: {
     float: 'right',
   },
-}));
-// #FOLD_BLOCK
-const StyledCalendarToday = styled(CalendarToday)(groupingStyles);
-// #FOLD_BLOCK
-const StyledDateTimePicker = styled(DateTimePicker)(({ theme }) => ({
   [`& .${classes.picker}`]: {
     marginRight: theme.spacing(2),
     '&:last-child': {
@@ -98,28 +81,20 @@ const StyledDateTimePicker = styled(DateTimePicker)(({ theme }) => ({
     },
     width: '50%',
   },
-}));
-// #FOLD_BLOCK
-const StyledLocationOn = styled(LocationOn)(groupingStyles);
-// #FOLD_BLOCK
-const StyledDiv = styled('div')(({ theme }) => ({
-  [`&.${classes.wrapper}`]: {
+  [`& .${classes.wrapper}`]: {
     display: 'flex',
     justifyContent: 'space-between',
     padding: theme.spacing(1, 0),
   },
-}));
-// #FOLD_BLOCK
-const StyledDivButtonGroup = styled('div')(({ theme }) => ({
-  [`&.${classes.buttonGroup}`]: {
+  [`& .${classes.buttonGroup}`]: {
     display: 'flex',
     justifyContent: 'flex-end',
     padding: theme.spacing(0, 2),
   },
+  [`& .${classes.button}`]: {
+    marginLeft: theme.spacing(2),
+  },
 }));
-// #FOLD_BLOCK
-const StyledCreate = styled(Create)(groupingStyles);
-// #FOLD_BLOCK
 const StyledFab = styled(Fab)(({ theme }) => ({
   [`&.${classes.addButton}`]: {
     position: 'absolute',
@@ -127,13 +102,6 @@ const StyledFab = styled(Fab)(({ theme }) => ({
     right: theme.spacing(4),
   },
 }));
-// #FOLD_BLOCK
-const StyledButton = styled(Button)(({ theme }) => ({
-  [`&.${classes.button}`]: {
-    marginLeft: theme.spacing(2),
-  },
-}));
-
 class AppointmentFormContainerBasic extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -241,52 +209,56 @@ class AppointmentFormContainerBasic extends React.PureComponent {
         fullSize
         onHide={onHide}
       >
-        <div>
-          <StyledDivHeader className={classes.header}>
-            <StyledIconButton className={classes.closeButton} onClick={cancelChanges} size="large">
+        <StyledDiv>
+          <div className={classes.header}>
+            <IconButton className={classes.closeButton} onClick={cancelChanges} size="large">
               <Close color="action" />
-            </StyledIconButton>
-          </StyledDivHeader>
-          <StyledDivContent className={classes.content}>
-            <StyledDiv className={classes.wrapper}>
-              <StyledCreate className={classes.icon} color="action" />
-              <StyledTextField
+            </IconButton>
+          </div>
+          <div className={classes.content}>
+            <div className={classes.wrapper}>
+              <Create className={classes.icon} color="action" />
+              <TextField
                 {...textEditorProps('title')}
               />
-            </StyledDiv>
-            <StyledDiv className={classes.wrapper}>
-              <StyledCalendarToday className={classes.icon} color="action" />
+            </div>
+            <div className={classes.wrapper}>
+              <CalendarToday className={classes.icon} color="action" />
               <LocalizationProvider dateAdapter={AdapterMoment}>
-                <StyledDateTimePicker
+                <DateTimePicker
                   label="Start Date"
-                  renderInput={props => <TextField className={classes.picker} {...props} />}
+                  renderInput={
+                    props => <TextField className={classes.picker} {...props} />
+                  }
                   {...startDatePickerProps}
                 />
-                <StyledDateTimePicker
+                <DateTimePicker
                   label="End Date"
-                  renderInput={props => <TextField className={classes.picker} {...props} />}
+                  renderInput={
+                    props => <TextField className={classes.picker} {...props} />
+                  }
                   {...endDatePickerProps}
                 />
               </LocalizationProvider>
-            </StyledDiv>
-            <StyledDiv className={classes.wrapper}>
-              <StyledLocationOn className={classes.icon} color="action" />
-              <StyledTextField
+            </div>
+            <div className={classes.wrapper}>
+              <LocationOn className={classes.icon} color="action" />
+              <TextField
                 {...textEditorProps('location')}
               />
-            </StyledDiv>
-            <StyledDiv className={classes.wrapper}>
+            </div>
+            <div className={classes.wrapper}>
               <Notes className={classes.icon} color="action" />
-              <StyledTextField
+              <TextField
                 {...textEditorProps('notes')}
                 multiline
                 rows="6"
               />
-            </StyledDiv>
-          </StyledDivContent>
-          <StyledDivButtonGroup className={classes.buttonGroup}>
+            </div>
+          </div>
+          <div className={classes.buttonGroup}>
             {!isNewAppointment && (
-              <StyledButton
+              <Button
                 variant="outlined"
                 color="secondary"
                 className={classes.button}
@@ -296,9 +268,9 @@ class AppointmentFormContainerBasic extends React.PureComponent {
                 }}
               >
                 Delete
-              </StyledButton>
+              </Button>
             )}
-            <StyledButton
+            <Button
               variant="outlined"
               color="primary"
               className={classes.button}
@@ -308,9 +280,9 @@ class AppointmentFormContainerBasic extends React.PureComponent {
               }}
             >
               {isNewAppointment ? 'Create' : 'Save'}
-            </StyledButton>
-          </StyledDivButtonGroup>
-        </div>
+            </Button>
+          </div>
+        </StyledDiv>
       </AppointmentForm.Overlay>
     );
   }

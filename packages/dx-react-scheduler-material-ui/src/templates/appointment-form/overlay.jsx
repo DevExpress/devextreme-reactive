@@ -21,13 +21,13 @@ const StyledDrawer = styled(Drawer)(({ theme: { spacing } }) => ({
     overflow: 'hidden',
     paddingTop: spacing(2),
   },
-  [`&.${classes.absolutePosition}`]: {
+  [`& .${classes.absolutePosition}`]: {
     position: 'absolute!important',
   },
-  [`&.${classes.paper}`]: {
+  [`& .${classes.paper}`]: {
     outline: 'none',
   },
-  [`&.${classes.fullSize}`]: {
+  [`& .${classes.fullSize}`]: {
     height: '100%',
     width: '1150px',
     '@media (min-width: 700px) and (max-width: 850px)': {
@@ -44,7 +44,7 @@ const StyledDrawer = styled(Drawer)(({ theme: { spacing } }) => ({
       maxWidth: '700px',
     },
   },
-  [`&.${classes.halfSize}`]: {
+  [`& .${classes.halfSize}`]: {
     height: '100%',
     width: '650px',
     [`${LAYOUT_MEDIA_QUERY}`]: {
@@ -52,7 +52,7 @@ const StyledDrawer = styled(Drawer)(({ theme: { spacing } }) => ({
       maxWidth: '700px',
     },
   },
-  [`&.${classes.transition}`]: {
+  [`& .${classes.transition}`]: {
     transition: `all ${TRANSITIONS_TIME}ms cubic-bezier(0, 0, 0.2, 1)!important`,
   },
 }));

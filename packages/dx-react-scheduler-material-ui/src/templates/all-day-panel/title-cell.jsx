@@ -15,7 +15,7 @@ export const classes = {
   fixedHeight: `${PREFIX}-fixedHeight`,
 };
 
-const StyledDivContainer = styled('div')(({ theme }) => ({
+const StyledDiv = styled('div')(({ theme }) => ({
   [`&.${classes.container}`]: {
     userSelect: 'none',
     height: '100%',
@@ -28,9 +28,6 @@ const StyledDivContainer = styled('div')(({ theme }) => ({
     height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL]),
     width: '100%',
   },
-}));
-
-const StyledDivContent = styled('div')(({ theme }) => ({
   [`&.${classes.content}`]: {
     width: theme.spacing(10),
     boxSizing: 'border-box',
@@ -39,10 +36,6 @@ const StyledDivContent = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-  },
-  [`&.${classes.fixedHeight}`]: {
-    height: theme.spacing(SPACING_CELL_HEIGHT[VIEW_TYPES.ALL_DAY_PANEL]),
-    width: '100%',
   },
 }));
 
@@ -57,14 +50,14 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
 export const TitleCell = React.memo(({
   getMessage, className, fixedHeight, ...restProps
 }) => (
-  <StyledDivContainer
+  <StyledDiv
     className={classNames({
       [classes.container]: true,
       [classes.fixedHeight]: fixedHeight,
     }, className)}
     {...restProps}
   >
-    <StyledDivContent
+    <StyledDiv
       className={classNames({
         [classes.content]: true,
         [classes.fixedHeight]: fixedHeight,
@@ -73,8 +66,8 @@ export const TitleCell = React.memo(({
       <StyledTypography className={classes.title} variant="body1">
         {getMessage('allDay')}
       </StyledTypography>
-    </StyledDivContent>
-  </StyledDivContainer>
+    </StyledDiv>
+  </StyledDiv>
 ));
 
 TitleCell.propTypes = {

@@ -150,4 +150,19 @@ describe('#withKeyboardNavigation', () => {
       key1: 'specific_key1', key2: 'specific_key2', event: {},
     });
   });
+
+  it('should not rise errors, setFocusedElement is not defined', () => {
+    const BaseComponent = () => null;
+    const TestComponent = withKeyboardNavigation()(BaseComponent);
+    const props = {
+      tableRow: { key: 'table-row' } as any,
+      tableColumn: { key: 'table-column' } as any,
+    };
+    const tree = mount(<TestComponent
+      {...props as any}
+    />);
+    (tree.instance() as any).handleClick({});
+
+    expect(tree.find(BaseComponent)).toBeTruthy();
+  });
 });

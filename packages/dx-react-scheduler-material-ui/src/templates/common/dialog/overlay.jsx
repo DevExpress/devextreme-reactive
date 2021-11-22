@@ -13,7 +13,7 @@ export const classes = {
 };
 
 const StyledDialog = styled(Dialog)({
-  [`&.${classes.modal}`]: {
+  [`& .${classes.modal}`]: {
     position: 'absolute!important',
   },
   [`& .${classes.paper}`]: {

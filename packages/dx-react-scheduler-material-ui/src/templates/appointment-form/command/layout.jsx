@@ -60,12 +60,10 @@ const StyledGrid = styled(Grid)(({ theme: { spacing, palette } }) => ({
 }));
 
 const StyledDiv = styled('div')(({ theme: { palette, spacing } }) => ({
-  [`${LAYOUT_MEDIA_QUERY}`]: {
-    [`&.${classes.line}`]: {
-      backgroundColor: palette.action.disabledBackground,
-      height: spacing(4.5),
-      width: '1px',
-    },
+  [`&.${classes.line}`]: {
+    backgroundColor: palette.action.disabledBackground,
+    height: spacing(4.5),
+    width: '1px',
   },
 }));
 

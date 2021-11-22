@@ -24,7 +24,9 @@ const classes = {
   shadedAppointment: `${PREFIX}-shadedAppointment`,
 };
 // #FOLD_BLOCK
-const StyledDiv = styled('div')(({ theme }) => ({
+const StyledDiv = styled('div', {
+  shouldForwardProp: prop => prop !== 'top',
+})(({ theme, top }) => ({
   [`& .${classes.line}`]: {
     height: '2px',
     borderTop: `2px ${theme.palette.primary.main} dotted`,
@@ -42,11 +44,13 @@ const StyledDiv = styled('div')(({ theme }) => ({
     position: 'absolute',
     zIndex: 1,
     left: 0,
-    top: ({ top }) => top,
+    top,
   },
 }));
 // #FOLD_BLOCK
-const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(({ theme }) => ({
+const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(({
+  theme, currentTimeIndicatorPosition,
+}) => ({
   [`&.${classes.shadedCell}`]: {
     backgroundColor: alpha(theme.palette.primary.main, 0.08),
     '&:hover': {
@@ -60,7 +64,7 @@ const StyledWeekViewTimeTableCell = styled(WeekView.TimeTableCell)(({ theme }) =
   [`& .${classes.shadedPart}`]: {
     backgroundColor: alpha(theme.palette.primary.main, 0.08),
     position: 'absolute',
-    height: ({ shadedHeight }) => shadedHeight,
+    height: currentTimeIndicatorPosition,
     width: '100%',
     left: 0,
     top: 0,
@@ -90,7 +94,7 @@ const TimeIndicator = ({
   top, ...restProps
   // #FOLD_BLOCK
 }) => (
-  <StyledDiv {...restProps}>
+  <StyledDiv top={top} {...restProps}>
     <div className={classNames(classes.nowIndicator, classes.circle)} />
     <div className={classNames(classes.nowIndicator, classes.line)} />
   </StyledDiv>

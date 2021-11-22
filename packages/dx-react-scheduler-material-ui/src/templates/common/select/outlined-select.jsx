@@ -21,7 +21,7 @@ const StyledSelect = styled(Select)(({ theme: { typography } }) => ({
 }));
 
 const StyledOutlinedInput = styled(OutlinedInput)(() => ({
-  [`&.${classes.input}`]: {
+  [`& .${classes.input}`]: {
     fontWeight: 'bold',
     textTransform: 'uppercase',
   },

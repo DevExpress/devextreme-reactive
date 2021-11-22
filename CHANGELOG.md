@@ -1,3 +1,14 @@
+#  (2021-11-22)
+
+
+### Bug Fixes
+
+* **react-grid:** fix console error ([#3442](https://github.com/DevExpress/devextreme-reactive/issues/3442)) ([6470942](https://github.com/DevExpress/devextreme-reactive/commit/64709429bbace01b1f8e246ce9470f588f919ac0))
+* **react-grid:** fix enter action in inline cell editing ([#3431](https://github.com/DevExpress/devextreme-reactive/issues/3431)) ([cd8aea0](https://github.com/DevExpress/devextreme-reactive/commit/cd8aea07d516b69d4992006894ae92d82e55ec69))
+* **react-scheduler:** use correct type for ConfirmationDialog's messages ([#3433](https://github.com/DevExpress/devextreme-reactive/issues/3433)) ([e6e9e02](https://github.com/DevExpress/devextreme-reactive/commit/e6e9e024a77e9342026a231167a77977c70d900f))
+
+
+
 # [3.0.0-beta.1](https://github.com/DevExpress/devextreme-reactive/compare/v2.7.6...v3.0.0-beta.1) (2021-10-21)
 
 

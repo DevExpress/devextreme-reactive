@@ -41,7 +41,6 @@ export type TableLayoutCoreState = {
 export interface VirtualTableLayoutProps extends TableLayoutProps {
   height: number | 'auto';
   estimatedRowHeight: number;
-  headTableComponent: React.ComponentType<object>;
   footerTableComponent: React.ComponentType<object>;
   totalRowCount: number;
   loadedRowsStart: number;
@@ -71,7 +70,5 @@ export type VirtualTableLayoutBlockProps = Pick<VirtualTableLayoutProps, virtual
   },
   blockRefsHandler: (name: string, ref: React.ReactInstance | null) => void,
   rowRefsHandler: (row: any, ref?: React.ReactInstance | null) => void,
-  marginBottom?: number,
-  tableComponent: React.ComponentType<any>,
   tableRef?: React.RefObject<HTMLTableElement>,
 };

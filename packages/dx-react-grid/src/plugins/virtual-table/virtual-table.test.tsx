@@ -190,8 +190,6 @@ describe('#makeVirtualTable', () => {
         .toMatchObject({
           height: defaultVirtualTableProps.defaultHeight,
           estimatedRowHeight: defaultVirtualTableProps.defaultEstimatedRowHeight,
-          headTableComponent: defaultVirtualTableProps.FixedHeader,
-          footerTableComponent: defaultVirtualTableProps.FixedFooter,
           totalRowCount: defaultDeps.getter.availableRowCount,
           loadedRowsStart: defaultDeps.getter.loadedRowsStart,
         });
@@ -251,25 +249,6 @@ describe('#makeVirtualTable', () => {
 
   describe('inner plugins', () => {
     describe('Table', () => {
-      it('should pass layoutComponent to the Table', () => {
-        const defaultProps = {
-          footerTableComponent: () => null,
-          headTableComponent: () => null,
-        };
-        const VirtualTable = makeVirtualTable(Table, defaultVirtualTableProps);
-        const tree = mount((
-          <PluginHost>
-            {pluginDepsToComponents(defaultDeps)}
-            <VirtualTable
-              {...defaultProps}
-            />
-          </PluginHost>
-        ));
-
-        expect(tree.find(VirtualLayoutMock).props())
-          .toMatchObject(defaultProps);
-      });
-
       it('should pass rest props to a Table', () => {
         const columnExtensions = [{ name: 'a', width: 0 }];
         const VirtualTable = makeVirtualTable(TableMock, defaultVirtualTableProps);

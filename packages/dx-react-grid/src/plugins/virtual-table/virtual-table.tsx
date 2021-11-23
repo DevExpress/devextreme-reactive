@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  connectProps, Plugin, Template, Action,
+  Plugin, Template, Action,
   PluginComponents,
   TemplateConnector,
   TemplatePlaceholder,
@@ -12,7 +12,7 @@ import {
   TOP_POSITION, BOTTOM_POSITION, getTopRowId,
 } from '@devexpress/dx-grid-core';
 import {
-  VirtualTableProps, VirtualTableLayoutProps,
+  VirtualTableProps,
   Table as TableNS,
   TableLayoutProps,
   VirtualTablePluginState,
@@ -49,8 +49,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
     static defaultProps = {
       estimatedRowHeight: defaultEstimatedRowHeight,
       height: defaultHeight,
-      headTableComponent: FixedHeader,
-      footerTableComponent: FixedFooter,
       skeletonCellComponent: SkeletonCell,
       onTopRowChange: () => {},
     };
@@ -60,7 +58,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
     static TOP_POSITION = TOP_POSITION;
     static BOTTOM_POSITION = BOTTOM_POSITION;
 
-    layoutRenderComponent: React.ComponentType<VirtualTableLayoutProps> & { update(): void; };
     scrollToRow: (prop: number | string | symbol) => void;
     scrollToColumn: (prop: symbol) => void;
 
@@ -72,18 +69,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
         nextRowId: undefined,
         nextColumnId: undefined,
       };
-
-      this.layoutRenderComponent = connectProps(VirtualLayout, () => {
-        const {
-          headTableComponent,
-          footerTableComponent,
-        } = this.props;
-
-        return {
-          headTableComponent,
-          footerTableComponent,
-        };
-      });
       this.scrollToRow = nextRowId => this.setState({ nextRowId });
       this.scrollToColumn = nextColumnId => this.setState({ nextColumnId });
     }
@@ -97,7 +82,6 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       const { nextRowId: currentId } = this.state;
       const areIdsEqual = currentId !== undefined && currentId === prevId;
 
-      this.layoutRenderComponent.update();
       if (areIdsEqual) {
         this.setState({ nextRowId: undefined });
       }
@@ -119,7 +103,7 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
 
       return (
         <Plugin name="VirtualTable">
-          <Table layoutComponent={this.layoutRenderComponent} {...restProps} />
+          <Table layoutComponent={VirtualLayout} {...restProps} />
 
           {/* prevents breaking change */}
           <Action name="setViewport" action={this.setViewport} />

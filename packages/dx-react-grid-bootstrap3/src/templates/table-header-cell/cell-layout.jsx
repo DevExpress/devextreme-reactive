@@ -2,14 +2,16 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 
 import { ResizingControl } from './resizing-control';
+import { StyleContext } from '../layout';
 
 export const CellLayout = ({
   style, column, tableColumn,
   draggingEnabled, resizingEnabled, dragging,
   onWidthChange, onWidthDraft, onWidthDraftCancel, getCellWidth,
-  tableRow, className, children, forwardedRef,
+  tableRow, className, children, forwardedRef, isFixed,
   ...restProps
 }) => {
+  const { backgroundColor, stickyPosition } = React.useContext(StyleContext);
   const cellRef = React.useRef();
   const getWidthGetter = React.useCallback(() => {
     const node = cellRef.current;
@@ -26,7 +28,6 @@ export const CellLayout = ({
   return (
     <th
       style={{
-        position: 'relative',
         ...(draggingEnabled ? {
           userSelect: 'none',
           MozUserSelect: 'none',
@@ -35,6 +36,12 @@ export const CellLayout = ({
         whiteSpace: !(tableColumn && tableColumn.wordWrapEnabled) ? 'nowrap' : 'normal',
         ...(draggingEnabled ? { cursor: 'pointer' } : null),
         ...(dragging || (tableColumn && tableColumn.draft) ? { opacity: 0.3 } : null),
+        ...(isFixed && {
+          position: stickyPosition,
+          top: 0,
+          backgroundColor,
+        }),
+        ...(!isFixed && { position: 'relative' }),
         ...style,
       }}
       ref={(node) => {
@@ -83,6 +90,7 @@ CellLayout.propTypes = {
   children: PropTypes.node,
   getCellWidth: PropTypes.func,
   forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  isFixed: PropTypes.bool,
 };
 
 CellLayout.defaultProps = {
@@ -100,4 +108,5 @@ CellLayout.defaultProps = {
   children: undefined,
   getCellWidth: () => {},
   forwardedRef: undefined,
+  isFixed: true,
 };

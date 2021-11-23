@@ -19,6 +19,7 @@ export const classes = {
   container: `${PREFIX}-container`,
   resizeHandle: `${PREFIX}-resizeHandle`,
   resizeHandleLine: `${PREFIX}-resizeHandleLine`,
+  cellFixed: `${PREFIX}-cellFixed`,
 };
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -53,6 +54,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
   [`&.${classes.cellNoWrap}`]: {
     whiteSpace: 'nowrap',
+  },
+  [`&.${classes.cellFixed}`]: {
+    position: 'sticky',
+    top: 0,
+    background: theme.palette.background.paper,
   },
   [`&.${classes.cellNoUserSelect}`]: {
     userSelect: 'none',
@@ -103,7 +109,7 @@ export const CellLayout = ({
   style, column, tableColumn,
   draggingEnabled, resizingEnabled, dragging,
   onWidthChange, onWidthDraft, onWidthDraftCancel, getCellWidth,
-  tableRow, className, children, forwardedRef,
+  tableRow, className, children, forwardedRef, isFixed,
   ...restProps
 }) => {
   const cellRef = React.useRef();
@@ -131,6 +137,7 @@ export const CellLayout = ({
         [classes.cellDraggable]: draggingEnabled,
         [classes.cellDimmed]: dragging || (tableColumn && tableColumn.draft),
         [classes.cellNoWrap]: !(tableColumn && tableColumn.wordWrapEnabled),
+        [classes.cellFixed]: isFixed,
       }, className)}
       ref={(node) => {
         cellRef.current = node;
@@ -174,6 +181,7 @@ CellLayout.propTypes = {
   children: PropTypes.node,
   getCellWidth: PropTypes.func,
   forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
+  isFixed: PropTypes.bool,
 };
 
 CellLayout.defaultProps = {
@@ -191,4 +199,5 @@ CellLayout.defaultProps = {
   children: undefined,
   getCellWidth: () => {},
   forwardedRef: undefined,
+  isFixed: true,
 };

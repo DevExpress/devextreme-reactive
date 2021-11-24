@@ -1,4 +1,4 @@
-#  (2021-11-22)
+# [3.0.0-beta.2](https://github.com/DevExpress/devextreme-reactive/compare/v3.0.0-beta.1...v3.0.0-beta.2) (2021-11-22)
 
 
 ### Bug Fixes

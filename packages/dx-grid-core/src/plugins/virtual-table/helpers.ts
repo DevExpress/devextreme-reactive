@@ -21,7 +21,7 @@ export const getViewport: GetViewportFn = (
   state, getters, estimatedRowHeight, getRowHeight, getColumnWidth,
 ) => {
   const {
-    viewportTop, viewportLeft, containerWidth, containerHeight, headerHeight, footerHeight,
+    viewportTop, viewportLeft, containerWidth, containerHeight,
   } = state;
   const {
     loadedRowsStart,
@@ -34,15 +34,15 @@ export const getViewport: GetViewportFn = (
   } = getters;
 
   const rows = getRowsVisibleBoundary(
-    tableBodyRows, viewportTop, containerHeight - headerHeight - footerHeight,
+    tableBodyRows, viewportTop, containerHeight,
     getRowHeight, loadedRowsStart, estimatedRowHeight, isDataRemote,
   );
   const headerRows = getRowsVisibleBoundary(
-    tableHeaderRows, 0, headerHeight,
+    tableHeaderRows, 0, 0,
     getRowHeight, 0, estimatedRowHeight, false,
   );
   const footerRows = getRowsVisibleBoundary(
-    tableFooterRows, 0, footerHeight,
+    tableFooterRows, 0, 0,
     getRowHeight, 0, estimatedRowHeight, false,
   );
   const columns = getColumnBoundaries(

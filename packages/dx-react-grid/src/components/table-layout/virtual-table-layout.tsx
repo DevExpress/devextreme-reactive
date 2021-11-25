@@ -39,21 +39,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     this.state = {
       rowHeights: new Map<any, number>(),
       height: 0,
-      headerHeight: 0,
-      bodyHeight: 0,
-      footerHeight: 0,
       visibleRowBoundaries: {},
-    };
-
-    const headerHeight = props.headerRows
-      .reduce((acc, row) => acc + this.getRowHeight(row), 0);
-    const footerHeight = props.footerRows
-      .reduce((acc, row) => acc + this.getRowHeight(row), 0);
-
-    this.state = {
-      ...this.state,
-      headerHeight,
-      footerHeight,
     };
 
     this.getColumnWidthGetter = memoize(
@@ -65,12 +51,10 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
 
   componentDidMount() {
     this.storeRowHeights();
-    this.storeBlockHeights();
   }
 
   componentDidUpdate(prevProps) {
     setTimeout(this.storeRowHeights.bind(this));
-    setTimeout(this.storeBlockHeights.bind(this));
 
     const { bodyRows, columns } = this.props;
 
@@ -145,30 +129,6 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
 
       this.setState({
         rowHeights,
-      });
-    }
-  }
-
-  storeBlockHeights() {
-    const getBlockHeight = blockName =>
-      this.blockRefs.get(blockName)?.getBoundingClientRect().height ?? 0;
-    const headerHeight = getBlockHeight('header');
-    const bodyHeight = getBlockHeight('body');
-    const footerHeight = getBlockHeight('footer');
-
-    const {
-      headerHeight: prevHeaderHeight,
-      bodyHeight: prevBodyHeight,
-      footerHeight: prevFooterHeight,
-    } = this.state;
-
-    if (prevHeaderHeight !== headerHeight
-      || prevBodyHeight !== bodyHeight
-      || prevFooterHeight !== footerHeight) {
-      this.setState({
-        headerHeight,
-        bodyHeight,
-        footerHeight,
       });
     }
   }
@@ -295,12 +255,6 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       columns,
       nextColumnId,
     } = this.props;
-    const {
-      headerHeight,
-      bodyHeight,
-      footerHeight,
-    } = this.state;
-    const { containerHeight } = this;
 
     const scrollLeft = getScrollLeft(columns.length, minColumnWidth!, nextColumnId);
 
@@ -314,7 +268,6 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       rowRefsHandler: this.registerRowRef,
     };
     const sizerHeight = height === AUTO_HEIGHT ? null : height;
-    const marginBottom = Math.max(0, containerHeight - headerHeight - bodyHeight - footerHeight);
 
     return (
       <Sizer
@@ -329,7 +282,6 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
           forwardedRef={tableRef}
           style={{
             minWidth: `${minWidth}px`,
-            ...marginBottom ? { marginBottom: `${marginBottom}px` } : null,
           }}
         >
           <ColumnGroup

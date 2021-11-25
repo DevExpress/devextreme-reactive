@@ -55,9 +55,6 @@ export interface VirtualTableLayoutProps extends TableLayoutProps {
 export type VirtualTableLayoutState = {
   rowHeights: Map<any, number>,
   height: number,
-  headerHeight: number,
-  bodyHeight: number,
-  footerHeight: number,
   visibleRowBoundaries: any,
 };
 

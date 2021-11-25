@@ -17,7 +17,6 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
     }
     style={
       Object {
-        "marginBottom": "600px",
         "minWidth": "400px",
       }
     }

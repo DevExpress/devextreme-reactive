@@ -5,7 +5,6 @@ import { setupConsole } from '@devexpress/dx-testing';
 
 import { TableHeaderCell } from './table-header-cell';
 import { ResizingControl } from './table-header-cell/resizing-control';
-import { StyleContext } from './layout';
 
 describe('TableHeaderCell', () => {
   let resetConsole;
@@ -17,37 +16,34 @@ describe('TableHeaderCell', () => {
   });
 
   it('should have correct styles when user interaction disallowed', () => {
-    const tree = mount((
-      <StyleContext.Provider value={{}}>
-        <TableHeaderCell
-          column={{}}
-        />
-      </StyleContext.Provider>
+    const tree = shallow((
+      <TableHeaderCell
+        column={{}}
+      />
     ));
+    const cell = tree.dive().find('th');
 
-    expect(tree.find('th').prop('style'))
+    expect(cell.prop('style'))
       .not.toMatchObject({
         userSelect: 'none',
         MozUserSelect: 'none',
         WebkitUserSelect: 'none',
       });
 
-    expect(tree.find('th').prop('style').cursor)
+    expect(cell.prop('style').cursor)
       .toBeUndefined();
   });
 
   it('should have correct styles when dragging is allowed', () => {
     const getCellWidth = () => {};
     const tree = mount((
-      <StyleContext.Provider value={{}}>
-        <DragDropProvider>
-          <TableHeaderCell
-            column={{ name: 'a' }}
-            draggingEnabled
-            getCellWidth={getCellWidth}
-          />
-        </DragDropProvider>
-      </StyleContext.Provider>
+      <DragDropProvider>
+        <TableHeaderCell
+          column={{ name: 'a' }}
+          draggingEnabled
+          getCellWidth={getCellWidth}
+        />
+      </DragDropProvider>
     ));
 
     expect(tree.find('th').prop('style'))
@@ -62,15 +58,13 @@ describe('TableHeaderCell', () => {
   it('should have correct styles when dragging', () => {
     const getCellWidth = () => {};
     const tree = mount((
-      <StyleContext.Provider value={{}}>
-        <DragDropProvider>
-          <TableHeaderCell
-            column={{ name: 'a' }}
-            draggingEnabled
-            getCellWidth={getCellWidth}
-          />
-        </DragDropProvider>
-      </StyleContext.Provider>
+      <DragDropProvider>
+        <TableHeaderCell
+          column={{ name: 'a' }}
+          draggingEnabled
+          getCellWidth={getCellWidth}
+        />
+      </DragDropProvider>
     ));
 
     expect(tree.find('th').prop('style'))
@@ -100,43 +94,34 @@ describe('TableHeaderCell', () => {
     const onWidthDraft = () => {};
     const onWidthDraftCancel = () => {};
 
-    const tree = mount((
-      <StyleContext.Provider value={{}}>
-        <TableHeaderCell
-          column={{}}
-          resizingEnabled
-          onWidthChange={onWidthChange}
-          onWidthDraft={onWidthDraft}
-          onWidthDraftCancel={onWidthDraftCancel}
-        />
-      </StyleContext.Provider>
+    const tree = shallow((
+      <TableHeaderCell
+        column={{}}
+        resizingEnabled
+        onWidthChange={onWidthChange}
+        onWidthDraft={onWidthDraft}
+        onWidthDraftCancel={onWidthDraftCancel}
+      />
     ));
 
-    expect(tree.find(ResizingControl).exists())
+    const resizingControl = tree.dive().find(ResizingControl);
+    expect(resizingControl.exists())
       .toBeTruthy();
-    expect(tree.find(ResizingControl).prop('onWidthChange'))
+    expect(resizingControl.prop('onWidthChange'))
       .toBe(onWidthChange);
-    expect(tree.find(ResizingControl).prop('onWidthDraft'))
+    expect(resizingControl.prop('onWidthDraft'))
       .toBe(onWidthDraft);
-    expect(tree.find(ResizingControl).prop('onWidthDraftCancel'))
+    expect(resizingControl.prop('onWidthDraftCancel'))
       .toBe(onWidthDraftCancel);
   });
 
   it('should consider the `wordWrapEnabled` property', () => {
-    let tree = mount((
-      <StyleContext.Provider value={{}}>
-        <TableHeaderCell />
-      </StyleContext.Provider>
-    ));
-    expect(tree.find('th').prop('style').whiteSpace)
+    let tree = shallow(<TableHeaderCell />);
+    expect(tree.dive().prop('style').whiteSpace)
       .toBe('nowrap');
 
-    tree = mount((
-      <StyleContext.Provider value={{}}>
-        <TableHeaderCell tableColumn={{ wordWrapEnabled: true }} />
-      </StyleContext.Provider>
-    ));
-    expect(tree.find('th').prop('style').whiteSpace)
+    tree = shallow(<TableHeaderCell tableColumn={{ wordWrapEnabled: true }} />);
+    expect(tree.dive().prop('style').whiteSpace)
       .toBe('normal');
   });
 

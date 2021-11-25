@@ -5,7 +5,6 @@ import { setupConsole } from '@devexpress/dx-testing';
 
 import { TableHeaderCell } from './table-header-cell';
 import { ResizingControl } from './table-header-cell/resizing-control';
-import { BodyColorContext } from './layout';
 
 describe('TableHeaderCell', () => {
   let resetConsole;
@@ -17,48 +16,42 @@ describe('TableHeaderCell', () => {
   });
 
   it('should have correct classes when user interaction disallowed', () => {
-    const tree = mount((
-      <BodyColorContext.Provider value={{}}>
-        <TableHeaderCell
-          column={{}}
-        />
-      </BodyColorContext.Provider>
+    const tree = shallow((
+      <TableHeaderCell
+        column={{}}
+      />
     ));
 
-    expect(tree.find('th').is('.dx-g-bs4-user-select-none.dx-g-bs4-cursor-pointer'))
+    expect(tree.dive().find('th').is('.dx-g-bs4-user-select-none.dx-g-bs4-cursor-pointer'))
       .toBeFalsy();
   });
 
   it('should have correct classes when dragging is allowed', () => {
     const getCellWidth = () => {};
     const tree = mount((
-      <BodyColorContext.Provider value={{}}>
-        <DragDropProvider>
-          <TableHeaderCell
-            column={{ name: 'a' }}
-            draggingEnabled
-            getCellWidth={getCellWidth}
-          />
-        </DragDropProvider>
-      </BodyColorContext.Provider>
+      <DragDropProvider>
+        <TableHeaderCell
+          column={{ name: 'a' }}
+          draggingEnabled
+          getCellWidth={getCellWidth}
+        />
+      </DragDropProvider>
     ));
 
-    expect(tree.find('th').is('.dx-g-bs4-user-select-none.dx-g-bs4-cursor-pointer'))
+    expect(tree.find('th').is('.dx-g-bs4-user-select-none.dx-g-bs4-cursor-pointer.position-relative'))
       .toBeTruthy();
   });
 
   it('should have correct classes when dragging', () => {
     const getCellWidth = () => {};
     const tree = mount((
-      <BodyColorContext.Provider value={{}}>
-        <DragDropProvider>
-          <TableHeaderCell
-            column={{ name: 'a' }}
-            draggingEnabled
-            getCellWidth={getCellWidth}
-          />
-        </DragDropProvider>
-      </BodyColorContext.Provider>
+      <DragDropProvider>
+        <TableHeaderCell
+          column={{ name: 'a' }}
+          draggingEnabled
+          getCellWidth={getCellWidth}
+        />
+      </DragDropProvider>
     ));
 
     expect(tree.find('th').is('.dx-g-bs4-inactive'))
@@ -82,39 +75,36 @@ describe('TableHeaderCell', () => {
     const onWidthDraft = () => {};
     const onWidthDraftCancel = () => {};
 
-    const tree = mount((
-      <BodyColorContext.Provider value={{}}>
-        <TableHeaderCell
-          column={{}}
-          resizingEnabled
-          onWidthChange={onWidthChange}
-          onWidthDraft={onWidthDraft}
-          onWidthDraftCancel={onWidthDraftCancel}
-        />
-      </BodyColorContext.Provider>
+    const tree = shallow((
+      <TableHeaderCell
+        column={{}}
+        resizingEnabled
+        onWidthChange={onWidthChange}
+        onWidthDraft={onWidthDraft}
+        onWidthDraftCancel={onWidthDraftCancel}
+      />
     ));
 
-    expect(tree.find(ResizingControl).exists())
+    const resizingControl = tree.dive().find(ResizingControl);
+    expect(resizingControl.exists())
       .toBeTruthy();
-    expect(tree.find(ResizingControl).prop('onWidthChange'))
+    expect(resizingControl.prop('onWidthChange'))
       .toBe(onWidthChange);
-    expect(tree.find(ResizingControl).prop('onWidthDraft'))
+    expect(resizingControl.prop('onWidthDraft'))
       .toBe(onWidthDraft);
-    expect(tree.find(ResizingControl).prop('onWidthDraftCancel'))
+    expect(resizingControl.prop('onWidthDraftCancel'))
       .toBe(onWidthDraftCancel);
   });
 
   it('should pass custom class to the root element', () => {
-    const tree = mount((
-      <BodyColorContext.Provider value={{}}>
-        <TableHeaderCell
-          column={{ title: 'a' }}
-          className="custom-class"
-        />
-      </BodyColorContext.Provider>
+    const tree = shallow((
+      <TableHeaderCell
+        column={{ title: 'a' }}
+        className="custom-class"
+      />
     ));
 
-    expect(tree.find('th').is('.dx-g-bs4-header-cell.custom-class'))
+    expect(tree.dive().find('th').is('.position-relative.dx-g-bs4-header-cell.custom-class'))
       .toBeTruthy();
   });
 
@@ -127,20 +117,12 @@ describe('TableHeaderCell', () => {
   });
 
   it('should consider the `wordWrapEnabled` property', () => {
-    let tree = mount((
-      <BodyColorContext.Provider value={{}}>
-        <TableHeaderCell />
-      </BodyColorContext.Provider>
-    ));
-    expect(tree.find('th').is('.text-nowrap'))
+    let tree = shallow(<TableHeaderCell />);
+    expect(tree.dive().is('.text-nowrap'))
       .toBeTruthy();
 
-    tree = mount((
-      <BodyColorContext.Provider value={{}}>
-        <TableHeaderCell tableColumn={{ wordWrapEnabled: true }} />
-      </BodyColorContext.Provider>
-    ));
-    expect(tree.find('th').is('.text-nowrap'))
+    tree = shallow(<TableHeaderCell tableColumn={{ wordWrapEnabled: true }} />);
+    expect(tree.dive().is('.text-nowrap'))
       .toBeFalsy();
   });
 });

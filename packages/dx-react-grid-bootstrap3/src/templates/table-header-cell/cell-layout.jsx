@@ -26,6 +26,7 @@ export const CellLayout = ({
   return (
     <th
       style={{
+        position: 'relative',
         ...(draggingEnabled ? {
           userSelect: 'none',
           MozUserSelect: 'none',
@@ -34,7 +35,6 @@ export const CellLayout = ({
         whiteSpace: !(tableColumn && tableColumn.wordWrapEnabled) ? 'nowrap' : 'normal',
         ...(draggingEnabled ? { cursor: 'pointer' } : null),
         ...(dragging || (tableColumn && tableColumn.draft) ? { opacity: 0.3 } : null),
-        ...{ position: 'relative' },
         ...style,
       }}
       ref={(node) => {

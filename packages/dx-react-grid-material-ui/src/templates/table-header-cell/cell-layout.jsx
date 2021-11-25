@@ -19,7 +19,6 @@ export const classes = {
   container: `${PREFIX}-container`,
   resizeHandle: `${PREFIX}-resizeHandle`,
   resizeHandleLine: `${PREFIX}-resizeHandleLine`,
-  cellFixed: `${PREFIX}-cellFixed`,
 };
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({

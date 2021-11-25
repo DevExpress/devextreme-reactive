@@ -111,8 +111,8 @@ const defaultProps = {
     (forwardedRef as any).current = { getBoundingClientRect };
     return <table {...props} />;
   },
-  headComponent: props => <thead {...props} />,
-  bodyComponent: props => <tbody {...props} />,
+  headComponent: ({ isFixed, ...props }) => <thead {...props} />,
+  bodyComponent: ({ isFixed, ...props }) => <tbody {...props} />,
   rowComponent: ({ forwardedRef }) => {
     (forwardedRef as any)({ getBoundingClientRect });
     return null;

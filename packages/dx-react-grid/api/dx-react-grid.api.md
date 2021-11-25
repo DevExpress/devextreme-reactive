@@ -1680,8 +1680,8 @@ export interface VirtualTableProps {
     columnExtensions?: Array<VirtualTable.ColumnExtension>;
     containerComponent: React_2.ComponentType<object>;
     estimatedRowHeight: number;
-    footerComponent: React_2.ComponentType<any>;
-    headComponent: React_2.ComponentType<any>;
+    footerComponent: React_2.ComponentType<object>;
+    headComponent: React_2.ComponentType<object>;
     height: number | string;
     messages?: Table.LocalizationMessages;
     noDataCellComponent: React_2.ComponentType<Table.NoDataCellProps>;

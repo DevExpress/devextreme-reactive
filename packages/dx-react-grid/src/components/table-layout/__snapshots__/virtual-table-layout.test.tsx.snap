@@ -162,6 +162,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
           ],
         }
       }
+      isFixed={true}
       minColumnWidth={120}
       minWidth={400}
       name="header"

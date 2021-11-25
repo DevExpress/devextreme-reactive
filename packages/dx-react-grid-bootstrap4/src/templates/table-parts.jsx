@@ -4,7 +4,9 @@ import classNames from 'clsx';
 
 import { BodyColorContext } from './layout';
 
-export const TableHead = ({ isFixed, className, style, ...restProps }) => {
+export const TableHead = ({
+  isFixed, className, style, ...restProps
+}) => {
   const backgroundColor = React.useContext(BodyColorContext);
   return (
     <thead

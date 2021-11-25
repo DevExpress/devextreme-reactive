@@ -9,7 +9,7 @@ export const TableHead = ({ isFixed, style, ...restProps }) => {
     <thead
       {...restProps}
       style={{
-        style,
+        ...style,
         ...(isFixed && {
           position: stickyPosition,
           top: 0,

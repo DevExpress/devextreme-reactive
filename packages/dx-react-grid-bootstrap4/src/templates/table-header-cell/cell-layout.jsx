@@ -3,17 +3,15 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 
 import { ResizingControl } from './resizing-control';
-import { BodyColorContext } from '../layout';
 
 export const CellLayout = ({
-  style, column, tableColumn,
+  column, tableColumn,
   draggingEnabled, resizingEnabled, dragging,
   onWidthChange, onWidthDraft, onWidthDraftCancel, getCellWidth,
-  tableRow, className, children, forwardedRef, isFixed,
+  tableRow, className, children, forwardedRef,
   ...restProps
 }) => {
   const cellRef = React.useRef();
-  const backgroundColor = React.useContext(BodyColorContext);
   const getWidthGetter = React.useCallback(() => {
     const node = cellRef.current;
     return node && getCellWidth(() => {
@@ -29,9 +27,7 @@ export const CellLayout = ({
   return (
     <th
       className={classNames({
-        'dx-g-bs4-header-cell': true,
-        'dx-g-bs4-fixed-header-cell': isFixed,
-        'position-relative': !isFixed,
+        'position-relative dx-g-bs4-header-cell': true,
         'dx-g-bs4-user-select-none': draggingEnabled,
         'dx-g-bs4-cursor-pointer': draggingEnabled,
         'dx-g-bs4-inactive': dragging || (tableColumn && tableColumn.draft),
@@ -46,10 +42,6 @@ export const CellLayout = ({
           // eslint-disable-next-line no-param-reassign
           forwardedRef.current = node;
         }
-      }}
-      style={{
-        ...(isFixed && { backgroundColor }),
-        ...style,
       }}
       {...restProps}
     >
@@ -73,7 +65,6 @@ CellLayout.propTypes = {
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
   column: PropTypes.object,
-  style: PropTypes.object,
   dragging: PropTypes.bool,
   draggingEnabled: PropTypes.bool,
   resizingEnabled: PropTypes.bool,
@@ -84,14 +75,12 @@ CellLayout.propTypes = {
   children: PropTypes.node,
   getCellWidth: PropTypes.func,
   forwardedRef: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
-  isFixed: PropTypes.bool,
 };
 
 CellLayout.defaultProps = {
   column: undefined,
   tableColumn: undefined,
   tableRow: undefined,
-  style: null,
   dragging: false,
   draggingEnabled: false,
   resizingEnabled: false,
@@ -102,5 +91,4 @@ CellLayout.defaultProps = {
   children: undefined,
   getCellWidth: () => {},
   forwardedRef: undefined,
-  isFixed: true,
 };

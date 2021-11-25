@@ -24,7 +24,6 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
     showSortingControls: false,
     showGroupingControls: false,
     messages: {},
-    isFixed: true,
   };
   static components = {
     cellComponent: 'Cell',
@@ -46,7 +45,6 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
       groupButtonComponent: GroupButton,
       titleComponent: Title,
       messages,
-      isFixed,
     } = this.props;
     const getMessage = getMessagesFormatter(messages!);
 
@@ -106,7 +104,6 @@ class TableHeaderRowBase extends React.PureComponent<TableHeaderRowProps> {
                     getCellWidth={getter => storeWidthGetters({
                       tableColumn: params.tableColumn , getter, tableColumns,
                     })}
-                    isFixed={isFixed}
                   >
                     <TemplatePlaceholder
                       name="tableHeaderCellBefore"

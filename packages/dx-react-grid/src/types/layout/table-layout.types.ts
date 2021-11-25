@@ -21,6 +21,7 @@ export type TableLayoutProps =
     columns: TableColumn[],
     minWidth?: string,
     minColumnWidth?: number,
+    isFixed?: boolean,
     getCellColSpan?: GetCellColSpanFn,
     tableRef?: React.RefObject<HTMLTableElement>,
     forwardedRef?: React.MutableRefObject<any> | React.RefCallback<any> | null,
@@ -64,6 +65,7 @@ type virtualBlockProps = placeholderComponents | 'tableRef' | 'minWidth' | 'body
 /** @internal */
 export type VirtualTableLayoutBlockProps = Pick<VirtualTableLayoutProps, virtualBlockProps> & {
   name: string,
+  isFixed?: boolean,
   collapsedGrid: {
     columns: any,
     rows: any,

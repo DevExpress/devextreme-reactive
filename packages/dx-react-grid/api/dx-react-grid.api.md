@@ -1300,7 +1300,6 @@ export namespace TableHeaderRow {
     column: Column;
     draggingEnabled: boolean;
     getCellWidth: (getter: CellWidthGetter) => void;
-    isFixed?: boolean;
     onWidthChange: (parameters: {
       shift: number;
     }) => void;
@@ -1342,7 +1341,6 @@ export interface TableHeaderRowProps {
   cellComponent: React_2.ComponentType<TableHeaderRow.CellProps>;
   contentComponent: React_2.ComponentType<TableHeaderRow.ContentProps>;
   groupButtonComponent: React_2.ComponentType<TableHeaderRow.GroupButtonProps>;
-  isFixed?: boolean;
   messages?: TableHeaderRow.LocalizationMessages;
   rowComponent: React_2.ComponentType<Table.RowProps>;
   showGroupingControls?: boolean;
@@ -1405,7 +1403,7 @@ export interface TableKeyboardNavigationProps {
 
 // @public (undocumented)
 export interface TableProps {
-  bodyComponent: React_2.ComponentType<object>;
+  bodyComponent: React_2.ComponentType<any>;
   cellComponent: React_2.ComponentType<Table.DataCellProps>;
   columnExtensions?: Array<Table.ColumnExtension>;
   containerComponent: React_2.ComponentType<object>;
@@ -1677,13 +1675,13 @@ export const VirtualTable: React_2.ComponentType<VirtualTableProps> & {
 
 // @public (undocumented)
 export interface VirtualTableProps {
-    bodyComponent: React_2.ComponentType<object>;
+    bodyComponent: React_2.ComponentType<any>;
     cellComponent: React_2.ComponentType<Table.DataCellProps>;
     columnExtensions?: Array<VirtualTable.ColumnExtension>;
     containerComponent: React_2.ComponentType<object>;
     estimatedRowHeight: number;
-    footerComponent: React_2.ComponentType<object>;
-    headComponent: React_2.ComponentType<object>;
+    footerComponent: React_2.ComponentType<any>;
+    headComponent: React_2.ComponentType<any>;
     height: number | string;
     messages?: Table.LocalizationMessages;
     noDataCellComponent: React_2.ComponentType<Table.NoDataCellProps>;

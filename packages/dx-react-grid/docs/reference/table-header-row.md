@@ -43,7 +43,6 @@ groupButtonComponent | ComponentType&lt;[TableHeaderRow.GroupButtonProps](#table
 showSortingControls? | boolean | false | Specifies whether to render controls that toggle the column's sorting state. Requires the [SortingState](sorting-state.md) dependency.
 showGroupingControls? | boolean | false | Specifies whether to display a button that groups data by column. Requires the [GroupingState](grouping-state.md) dependency.
 messages? | [TableHeaderRow.LocalizationMessages](#localization-messages) | | An object that specifies localization messages.
-isFixed? | boolean | true | Specifies whether a header row should be fixed on table top.
 
 ## Interfaces
 
@@ -62,7 +61,6 @@ onWidthDraft | (parameters: { shift: number }) => void | An event that changes t
 onWidthDraftCancel | () => void | An event that cancels the column width change used for preview.
 draggingEnabled | boolean | Specifies whether drag-and-drop is enabled.
 children | ReactNode | The header cell's children.
-isFixed? | boolean | Specifies whether a header cell should be fixed on table top.
 
 ### TableHeaderRow.SortLabelProps
 

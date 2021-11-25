@@ -28,11 +28,11 @@ export interface VirtualTableProps {
   /** A component that renders a table. */
   tableComponent: React.ComponentType<object>;
   /** A component that renders a table head. */
-  headComponent: React.ComponentType<object>;
+  headComponent: React.ComponentType<any>;
   /** A component that renders a table body. */
-  bodyComponent: React.ComponentType<object>;
+  bodyComponent: React.ComponentType<any>;
   /** A component that renders a table footer. */
-  footerComponent: React.ComponentType<object>;
+  footerComponent: React.ComponentType<any>;
   /** A component that renders a table's container. */
   containerComponent: React.ComponentType<object>;
   /** A component that renders a table cell. */

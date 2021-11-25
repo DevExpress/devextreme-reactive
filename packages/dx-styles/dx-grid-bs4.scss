@@ -163,9 +163,10 @@ button.dx-g-bs4-table-edit-command-cell {
     }
   }
  }
- .dx-g-bs4-fixed-header-cell {
+ .dx-g-bs4-fixed-header {
   position: sticky;
   top: 0;
+  z-Index: 500,
 }
 .dx-g-bs4-resizing-control-wrapper-active {
   opacity: 1;

@@ -21,8 +21,6 @@ export namespace TableHeaderRow {
     draggingEnabled: boolean;
     /** The header cell's children. */
     children: React.ReactNode;
-    /** Specifies whether a header cell should be fixed on table top. */
-    isFixed?: boolean;
   }
 
   /** Describes properties used to render a sort label. */
@@ -86,6 +84,4 @@ export interface TableHeaderRowProps {
   showGroupingControls?: boolean;
   /** An object that specifies localization messages. */
   messages?: TableHeaderRow.LocalizationMessages;
-  /** Specifies whether a header row should be fixed on table top. */
-  isFixed?: boolean;
 }

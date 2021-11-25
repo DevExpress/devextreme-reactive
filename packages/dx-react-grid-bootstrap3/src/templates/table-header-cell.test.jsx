@@ -151,32 +151,4 @@ describe('TableHeaderCell', () => {
     expect(tree.is('.custom-class'))
       .toBeTruthy();
   });
-
-  it('should be fixed by default', () => {
-    const contextValue = { stickyPosition: 'sticky', backgroundColor: '#ffffff' };
-    const tree = mount(
-      <StyleContext.Provider value={contextValue}>
-        <TableHeaderCell />
-      </StyleContext.Provider>,
-    );
-    const cell = tree.find('th');
-
-    expect(cell.props().style).toHaveProperty('position', contextValue.stickyPosition);
-    expect(cell.props().style).toHaveProperty('backgroundColor', contextValue.backgroundColor);
-    expect(cell.props().style).toHaveProperty('top', 0);
-  });
-
-  it('should be possible to turn off fixed', () => {
-    const contextValue = { stickyPosition: 'sticky', backgroundColor: '#ffffff' };
-    const tree = mount(
-      <StyleContext.Provider value={contextValue}>
-        <TableHeaderCell isFixed={false} />
-      </StyleContext.Provider>,
-    );
-    const cell = tree.find('th');
-
-    expect(cell.props().style).toHaveProperty('position', 'relative');
-    expect(cell.props().style).not.toHaveProperty('backgroundColor');
-    expect(cell.props().style).not.toHaveProperty('top');
-  });
 });

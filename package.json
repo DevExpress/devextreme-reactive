@@ -84,6 +84,6 @@
   },
   "resolutions": {
     "@types/react": "16.9.35",
-    "@types/react-test-renderer": "^16.9.3"
+    "@types/react-test-renderer": "^17.0.1"
   }
 }

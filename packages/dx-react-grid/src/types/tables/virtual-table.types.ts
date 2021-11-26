@@ -30,7 +30,7 @@ export interface VirtualTableProps {
   /** A component that renders a table head. */
   headComponent: React.ComponentType<object>;
   /** A component that renders a table body. */
-  bodyComponent: React.ComponentType<object>;
+  bodyComponent: React.ComponentType<any>;
   /** A component that renders a table footer. */
   footerComponent: React.ComponentType<object>;
   /** A component that renders a table's container. */
@@ -51,10 +51,6 @@ export interface VirtualTableProps {
   stubHeaderCellComponent: React.ComponentType<Table.CellProps>;
   /** An object that specifies the localization messages. */
   messages?: Table.LocalizationMessages;
-  /** @internal */
-  headTableComponent: React.ComponentType<object>;
-  /** @internal */
-  footerTableComponent: React.ComponentType<object>;
   // TODO
   skeletonCellComponent: React.ComponentType<Table.CellProps>;
   /** Handles top row changes. */

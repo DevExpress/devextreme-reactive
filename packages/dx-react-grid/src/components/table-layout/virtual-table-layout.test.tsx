@@ -107,14 +107,12 @@ const defaultProps = {
   loadedRowsStart: 0,
   totalRowCount: 9,
   containerComponent: ({ forwardedRef, ...props }) => <div {...props} />,
-  headTableComponent: ({ forwardedRef, ...props }) => <table {...props} />,
-  footerTableComponent: ({ forwardedRef, ...props }) => <table {...props} />,
   tableComponent: ({ forwardedRef, ...props }) => {
     (forwardedRef as any).current = { getBoundingClientRect };
     return <table {...props} />;
   },
-  headComponent: props => <thead {...props} />,
-  bodyComponent: props => <tbody {...props} />,
+  headComponent: ({ isFixed, ...props }) => <thead {...props} />,
+  bodyComponent: ({ isFixed, ...props }) => <tbody {...props} />,
   rowComponent: ({ forwardedRef }) => {
     (forwardedRef as any)({ getBoundingClientRect });
     return null;

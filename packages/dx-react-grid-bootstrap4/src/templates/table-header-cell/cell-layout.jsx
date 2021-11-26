@@ -5,7 +5,7 @@ import classNames from 'clsx';
 import { ResizingControl } from './resizing-control';
 
 export const CellLayout = ({
-  style, column, tableColumn,
+  column, tableColumn,
   draggingEnabled, resizingEnabled, dragging,
   onWidthChange, onWidthDraft, onWidthDraftCancel, getCellWidth,
   tableRow, className, children, forwardedRef,
@@ -65,7 +65,6 @@ CellLayout.propTypes = {
   tableColumn: PropTypes.object,
   tableRow: PropTypes.object,
   column: PropTypes.object,
-  style: PropTypes.object,
   dragging: PropTypes.bool,
   draggingEnabled: PropTypes.bool,
   resizingEnabled: PropTypes.bool,
@@ -82,7 +81,6 @@ CellLayout.defaultProps = {
   column: undefined,
   tableColumn: undefined,
   tableRow: undefined,
-  style: null,
   dragging: false,
   draggingEnabled: false,
   resizingEnabled: false,

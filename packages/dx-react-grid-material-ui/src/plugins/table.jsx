@@ -1,8 +1,6 @@
 import { withComponents } from '@devexpress/dx-react-core';
 import { Table as TableBase } from '@devexpress/dx-react-grid';
-import TableBody from '@mui/material/TableBody';
-import TableHead from '@mui/material/TableHead';
-import TableFooter from '@mui/material/TableFooter';
+import { Head, Body, Footer } from '../templates/table-parts';
 import { Table as TableComponent } from '../templates/table';
 import { TableRow as Row } from '../templates/table-row';
 import { TableLayout as Layout } from '../templates/table-layout';
@@ -14,9 +12,9 @@ import { TableStubRow as StubRow } from '../templates/table-stub-row';
 
 export const Table = withComponents({
   Table: TableComponent,
-  TableHead,
-  TableBody,
-  TableFooter,
+  TableHead: Head,
+  TableBody: Body,
+  TableFooter: Footer,
   Container,
   Layout,
   Row,

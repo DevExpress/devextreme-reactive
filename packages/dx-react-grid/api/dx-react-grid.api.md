@@ -1403,7 +1403,7 @@ export interface TableKeyboardNavigationProps {
 
 // @public (undocumented)
 export interface TableProps {
-  bodyComponent: React_2.ComponentType<object>;
+  bodyComponent: React_2.ComponentType<any>;
   cellComponent: React_2.ComponentType<Table.DataCellProps>;
   columnExtensions?: Array<Table.ColumnExtension>;
   containerComponent: React_2.ComponentType<object>;
@@ -1675,7 +1675,7 @@ export const VirtualTable: React_2.ComponentType<VirtualTableProps> & {
 
 // @public (undocumented)
 export interface VirtualTableProps {
-    bodyComponent: React_2.ComponentType<object>;
+    bodyComponent: React_2.ComponentType<any>;
     cellComponent: React_2.ComponentType<Table.DataCellProps>;
     columnExtensions?: Array<VirtualTable.ColumnExtension>;
     containerComponent: React_2.ComponentType<object>;

@@ -83,7 +83,7 @@
     "yarn": ">=1.22.0"
   },
   "resolutions": {
-    "@types/react": "16.9.35",
+    "@types/react": "17.0.37",
     "@types/react-test-renderer": "^16.9.3"
   }
 }

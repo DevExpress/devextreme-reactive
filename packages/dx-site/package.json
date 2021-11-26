@@ -48,8 +48,8 @@
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-helmet": "^5.2.1",
-    "reactstrap": "^8.9.0",
+    "react-helmet": "^6.1.0",
+    "reactstrap": "^9.0.1",
     "remark": "^11.0.2",
     "segoe-fonts": "^1.0.1",
     "unist-util-visit": "^2.0.2"

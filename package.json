@@ -27,7 +27,7 @@
     "inquirer": "^7.0.0",
     "lerna": "^3.18.5",
     "react-test-renderer": "^16.14.0",
-    "@types/react-test-renderer":"^16.0.0",
+    "@types/react-test-renderer":"^16.9.5",
     "replace-in-file": "^4.2.0",
     "rimraf": "^3.0.0",
     "run-sequence": "^2.2.1",
@@ -84,6 +84,6 @@
   },
   "resolutions": {
     "@types/react": "16.9.35",
-    "@types/react-test-renderer": "^16.9.3"
+    "@types/react-test-renderer": "^16.9.5"
   }
 }

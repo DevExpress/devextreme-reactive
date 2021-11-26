@@ -50,6 +50,6 @@
   },
   "dependencies": {
     "codesandbox": "^2.1.6",
-    "reactstrap": "^8.9.0"
+    "reactstrap": "^8.10.1"
   }
 }

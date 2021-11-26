@@ -3624,7 +3624,7 @@
     hoist-non-react-statics "^3.3.0"
     redux "^4.0.0"
 
-"@types/react-test-renderer@^16.0.0", "@types/react-test-renderer@^16.9.3":
+"@types/react-test-renderer@^16.0.0", "@types/react-test-renderer@^16.9.5":
   version "16.9.5"
   resolved "https://registry.yarnpkg.com/@types/react-test-renderer/-/react-test-renderer-16.9.5.tgz#edab67da470f7c3e997f58d55dcfe2643cc30a68"
   integrity sha512-C4cN7C2uSSGOYelp2XfdtJb5TsCP+QiZ+0Bm4U3ZfUswN8oN9O/l86XO/OvBSFCmWY7w75fzsQvZ50eGkFN34A==

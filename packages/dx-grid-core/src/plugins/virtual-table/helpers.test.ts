@@ -60,9 +60,9 @@ describe('#getViewport', () => {
         width: 800,
         height: 800,
         columns: [[9, 16]],
-        rows: [525, 539],
-        headerRows: [0, 1],
-        footerRows: [0, 1],
+        rows: [525, 544],
+        headerRows: [0, 0],
+        footerRows: [0, 0],
       });
   });
 
@@ -92,8 +92,8 @@ describe('#getViewport', () => {
         width: 800,
         height: 800,
         columns: [[9, 16]],
-        rows: [8, 28],
-        headerRows: [0, 2],
+        rows: [8, 31],
+        headerRows: [0, 0],
         footerRows: [0, 0],
       });
   });
@@ -114,8 +114,8 @@ describe('#getViewport', () => {
         height: 800,
         columns: [[9, 16]],
         rows: [525, 525],
-        headerRows: [0, 1],
-        footerRows: [0, 1],
+        headerRows: [0, 0],
+        footerRows: [0, 0],
       });
   });
 
@@ -126,9 +126,9 @@ describe('#getViewport', () => {
       width: 800,
       height: 800,
       columns: [[9, 16]],
-      rows: [525, 539],
-      headerRows: [0, 1],
-      footerRows: [0, 1],
+      rows: [525, 544],
+      headerRows: [0, 0],
+      footerRows: [0, 0],
     };
     const getters = {
       ...defaultGetters,

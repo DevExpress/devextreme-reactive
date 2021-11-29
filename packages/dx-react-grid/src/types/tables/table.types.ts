@@ -83,7 +83,7 @@ export interface TableProps {
   /** A component that renders a table head. */
   headComponent: React.ComponentType<object>;
   /** A component that renders a table body. */
-  bodyComponent: React.ComponentType<object>;
+  bodyComponent: React.ComponentType<any>;
   /** A component that renders a table footer. */
   footerComponent: React.ComponentType<object>;
   /** A component that renders a table's container. */

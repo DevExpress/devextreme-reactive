@@ -93,9 +93,9 @@
     "@devexpress/dx-react-core": "3.0.0-beta.2",
     "@emotion/react": ">=11.4.1",
     "@emotion/styled": ">=11.3.0",
-    "@mui/icons-material": ">=5.0.0",
-    "@mui/material": ">=5.0.0",
-    "@mui/styles": ">=5.0.0",
+    "@mui/icons-material": ">=5.2.0",
+    "@mui/material": ">=5.2.2",
+    "@mui/styles": ">=5.2.2",
     "react": ">=17.0.2"
   }
 }

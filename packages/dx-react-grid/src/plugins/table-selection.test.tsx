@@ -80,7 +80,7 @@ describe('Table Selection', () => {
       expect(getComputedState(tree).tableColumns)
         .toBe('tableColumnsWithSelection');
       expect(tableColumnsWithSelection)
-        .toBeCalledWith(defaultDeps.getter.tableColumns, 120);
+        .toBeCalledWith(defaultDeps.getter.tableColumns, 120, true);
     });
 
     describe('highlightSelectedRow getter', () => {

@@ -42,7 +42,7 @@ class TableSelectionBase extends React.PureComponent<TableSelectionProps> {
 
     const tableColumnsComputed = (
       { tableColumns }: Getters,
-    ) => tableColumnsWithSelection(tableColumns, selectionColumnWidth);
+    ) => tableColumnsWithSelection(tableColumns, selectionColumnWidth, showSelectionColumn);
 
     return (
       <Plugin
@@ -53,9 +53,7 @@ class TableSelectionBase extends React.PureComponent<TableSelectionProps> {
           { name: 'IntegratedSelection', optional: !showSelectAll },
         ]}
       >
-        {showSelectionColumn && (
-          <Getter name="tableColumns" computed={tableColumnsComputed} />
-        )}
+        <Getter name="tableColumns" computed={tableColumnsComputed} />
         {highlightRow && (
           <Getter name="highlightSelectedRow" value />
         )}

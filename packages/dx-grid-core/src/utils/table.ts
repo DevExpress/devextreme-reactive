@@ -39,8 +39,9 @@ export const getTableTargetColumnIndex: GetTableTargetColumnIndexFn = (
     return acc;
   }, [] as number[]);
 
-  if(columnGeometries.some(({left, right}) => left <= 0 && right <= 0)) {
-    if(indexes.some(index => columnGeometries[index].isFixed || columnGeometries[index].left <= 0 && columnGeometries[index].right <= 0)) {
+  if (columnGeometries.some(({ left, right }) => left <= 0 && right <= 0)) {
+    if (indexes.some(index => columnGeometries[index].isFixed ||
+      columnGeometries[index].left <= 0 && columnGeometries[index].right <= 0)) {
       return -1;
     }
   }

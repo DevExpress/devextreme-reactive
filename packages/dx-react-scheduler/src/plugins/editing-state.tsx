@@ -61,6 +61,13 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
       },
     );
 
+    this.addAppointment = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'addedAppointment', addAppointment);
+      this.changeAddedAppointment = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'addedAppointment', changeAppointment);
+    this.cancelAddedAppointment = stateHelper.applyFieldReducer
+      .bind(stateHelper, 'addedAppointment', cancelAddedAppointment);
+
     this.startEditAppointment = stateHelper.applyFieldReducer
       .bind(stateHelper, 'editingAppointment', startEditAppointment);
     this.stopEditAppointment = stateHelper.applyFieldReducer
@@ -73,10 +80,11 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
 
     this.commitChangedAppointment = (type = RECURRENCE_EDIT_SCOPE.CURRENT) => {
       const { appointmentChanges, editingAppointment } = this.state;
-      const { onCommitChanges, preCommitChanges  } = this.props;
-
-      if (!editingAppointment) return;
-      const changes =  !editingAppointment.rRule
+      const { onCommitChanges, preCommitChanges } = this.props;
+      if (!editingAppointment) {
+        return;
+      }
+      const changes = !editingAppointment.rRule
         ? { changed: changedAppointmentById(appointmentChanges, editingAppointment.id!) }
         : preCommitChanges!(appointmentChanges, editingAppointment, type);
 
@@ -85,12 +93,6 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
       this.stopEditAppointment();
     };
 
-    this.addAppointment = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'addedAppointment', addAppointment);
-    this.changeAddedAppointment = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'addedAppointment', changeAppointment);
-    this.cancelAddedAppointment = stateHelper.applyFieldReducer
-      .bind(stateHelper, 'addedAppointment', cancelAddedAppointment);
     this.commitAddedAppointment = () => {
       const { onCommitChanges } = this.props;
       const { addedAppointment: stateAddedAppointment } = this.state;

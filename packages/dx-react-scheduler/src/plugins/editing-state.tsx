@@ -63,7 +63,7 @@ class EditingStateBase extends React.PureComponent<EditingStateProps, EditingSta
 
     this.addAppointment = stateHelper.applyFieldReducer
       .bind(stateHelper, 'addedAppointment', addAppointment);
-      this.changeAddedAppointment = stateHelper.applyFieldReducer
+    this.changeAddedAppointment = stateHelper.applyFieldReducer
       .bind(stateHelper, 'addedAppointment', changeAppointment);
     this.cancelAddedAppointment = stateHelper.applyFieldReducer
       .bind(stateHelper, 'addedAppointment', cancelAddedAppointment);

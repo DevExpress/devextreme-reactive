@@ -22,7 +22,7 @@ export default class Demo extends React.PureComponent {
 
       addedAppointment: {},
       appointmentChanges: {},
-      editingAppointment: {},
+      editingAppointment: undefined,
     };
 
     this.commitChanges = this.commitChanges.bind(this);

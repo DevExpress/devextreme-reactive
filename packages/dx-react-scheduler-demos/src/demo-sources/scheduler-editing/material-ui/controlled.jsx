@@ -40,7 +40,6 @@ export default class Demo extends React.PureComponent {
   }
 
   changeEditingAppointment(editingAppointment) {
-    console.log(1, editingAppointment);
     this.setState({ editingAppointment });
   }
 

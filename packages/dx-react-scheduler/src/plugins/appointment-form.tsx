@@ -105,11 +105,11 @@ const pluginDependencies = [
 ];
 
 const prepareChanges = (
-  appointmentData,
+  appointmentData, editingAppointment,
   addedAppointment, appointmentChanges,
   resources, plainResources,
 ) => {
-  const isNew = appointmentData.id === undefined;
+  const isNew = !editingAppointment;
   const changedAppointment = {
     ...appointmentData,
     ...appointmentChanges,
@@ -321,9 +321,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               cancelChangedAppointment,
             }) => {
               const { changedAppointment, isNew } = prepareChanges(
-                appointmentData, addedAppointment,
-                appointmentChanges, resources,
-                plainResources,
+                appointmentData, editingAppointment,
+                addedAppointment, appointmentChanges,
+                resources, plainResources,
               );
               const fullSize = isFormFullSize(
                 visible, changedAppointment.rRule, previousAppointment.rRule,
@@ -377,9 +377,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               openDeleteConfirmationDialog,
             }) => {
               const { isNew, changedAppointment, isFormEdited } = prepareChanges(
-                appointmentData, addedAppointment,
-                appointmentChanges, resources,
-                plainResources,
+                appointmentData, editingAppointment,
+                addedAppointment, appointmentChanges,
+                resources, plainResources,
               );
               const isRecurrence = isFormFullSize(
                 visible, changedAppointment.rRule, previousAppointment.rRule,
@@ -425,9 +425,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               changeAddedAppointment,
             }) => {
               const { isNew, changedAppointment, appointmentResources } = prepareChanges(
-                appointmentData, addedAppointment,
-                appointmentChanges, resources,
-                plainResources,
+                appointmentData, editingAppointment,
+                addedAppointment, appointmentChanges,
+                resources, plainResources,
               );
               return (
                 <BasicLayout
@@ -467,9 +467,9 @@ class AppointmentFormBase extends React.PureComponent<AppointmentFormProps, Appo
               changeAppointment,
             }) => {
               const { isNew, changedAppointment } = prepareChanges(
-                appointmentData,  addedAppointment,
-                appointmentChanges, undefined,
-                undefined,
+                appointmentData, editingAppointment,
+                addedAppointment, appointmentChanges,
+                undefined, undefined,
               );
               const isRecurrenceLayoutVisible = isFormFullSize(
                 visible, changedAppointment.rRule, previousAppointment.rRule,

@@ -20,7 +20,7 @@ const mergeNewChanges = (
 };
 
 const reduceExDate = (prevExDate: string, boundDate: Date) => {
-  if (prevExDate.length > 0) {
+  if (prevExDate && prevExDate.length > 0) {
     return prevExDate.split(',').reduce((acc: string[], date: string) => {
       const momentDate = moment.utc(date);
       if (momentDate.isBefore(boundDate)) {

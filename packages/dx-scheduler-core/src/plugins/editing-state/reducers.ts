@@ -15,7 +15,7 @@ export const startEditAppointment: PureReducer<
   Partial<AppointmentModel>, EditAppointmentPayload
 > = (prevEditingAppointment, appointmentData) => appointmentData;
 
-export const stopEditAppointment = () => undefined;
+export const stopEditAppointment = () => null;
 
 export const changeAppointment: PureReducer<
 AppointmentModel, Changes

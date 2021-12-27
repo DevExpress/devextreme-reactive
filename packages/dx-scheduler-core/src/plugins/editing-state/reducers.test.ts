@@ -50,7 +50,7 @@ describe('EditingState reducers', () => {
   describe('#stopEditAppointment', () => {
     it('should work', () => {
       expect(stopEditAppointment())
-        .toEqual(undefined);
+        .toEqual(null);
     });
   });
   describe('#cancelChanges', () => {

@@ -233,16 +233,9 @@ export const getCollapsedCells: GetCollapsedCellsFn = (
       acc || (spanBoundary[0] <= boundary[0] && boundary[1] <= spanBoundary[1])), false);
     if (isSpan) {
       const column = columns[boundary[0]];
-      const realColSpan = getColSpan(column);
-      const realColSpanEnd = (realColSpan + boundary[0]) - 1;
-      const colSpanEnd = boundaries.findIndex(
-        colSpanBoundary => colSpanBoundary[0]
-        <= realColSpanEnd && realColSpanEnd
-        <= colSpanBoundary[1],
-      );
       collapsedCells.push({
         column,
-        colSpan: (colSpanEnd - index) + 1,
+        colSpan: getColSpan(column),
       });
       index += 1;
     } else {

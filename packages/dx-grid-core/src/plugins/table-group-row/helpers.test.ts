@@ -146,13 +146,13 @@ describe('TableRowDetail Plugin helpers', () => {
 
     it('should work with the Table (firstVisibleColumnIndex is not defined)', () => {
       expect(sortAndSpliceColumns([groupColumn, otherColumn, dataColumn, flexColumn]))
-        .toEqual([groupColumn, otherColumn, dataColumn, flexColumn]);
+        .toEqual([groupColumn, otherColumn, dataColumn]);
 
       expect(sortAndSpliceColumns([otherColumn, groupColumn, dataColumn, flexColumn]))
-        .toEqual([groupColumn, otherColumn, dataColumn, flexColumn]);
+        .toEqual([groupColumn, otherColumn, dataColumn]);
 
       expect(sortAndSpliceColumns([otherColumn, groupColumn, otherColumn, dataColumn, flexColumn]))
-        .toEqual([groupColumn, otherColumn, otherColumn, dataColumn, flexColumn]);
+        .toEqual([groupColumn, otherColumn, otherColumn, dataColumn]);
     });
 
     describe('should work with the Virtual Table (firstVisibleColumnIndex is defined)', () => {
@@ -160,22 +160,22 @@ describe('TableRowDetail Plugin helpers', () => {
         expect(sortAndSpliceColumns(
           [otherColumn, otherColumn, groupColumn, otherColumn, dataColumn, flexColumn], 0,
         ))
-          .toEqual([groupColumn, otherColumn, otherColumn, otherColumn, dataColumn, flexColumn]);
+          .toEqual([groupColumn, otherColumn, otherColumn, otherColumn, dataColumn]);
 
         expect(sortAndSpliceColumns(
           [otherColumn, otherColumn, groupColumn, otherColumn, dataColumn, flexColumn], 1,
         ))
-          .toEqual([groupColumn, otherColumn, otherColumn, dataColumn, flexColumn]);
+          .toEqual([groupColumn, otherColumn, otherColumn, dataColumn]);
 
         expect(sortAndSpliceColumns(
           [otherColumn, otherColumn, groupColumn, otherColumn, dataColumn, flexColumn], 2,
         ))
-          .toEqual([groupColumn, otherColumn, dataColumn, flexColumn]);
+          .toEqual([groupColumn, otherColumn, dataColumn]);
 
         expect(sortAndSpliceColumns(
           [otherColumn, otherColumn, groupColumn, otherColumn, dataColumn, flexColumn], 3,
         ))
-          .toEqual([groupColumn, otherColumn, dataColumn, flexColumn]);
+          .toEqual([groupColumn, otherColumn, dataColumn]);
       });
 
       it('should work with two groups', () => {

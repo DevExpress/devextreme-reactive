@@ -257,7 +257,7 @@ describe('TableGroupRow Plugin computeds', () => {
         tableRow,
         tableColumns,
       }))
-      .toBe('original');
+      .toBe(3);
 
       expect(getCellColSpanGetter({
         tableColumn: tableGroupColumn,
@@ -265,6 +265,29 @@ describe('TableGroupRow Plugin computeds', () => {
         tableColumns,
       }))
       .toBe(3);
+    });
+
+    it('should return correct colspan, grouped several columns', () => {
+      const getCellColSpanGetter = tableGroupCellColSpanGetter(
+        parentGetCellColSpan, [],
+      );
+      const tableRow = { type: TABLE_GROUP_TYPE, row: { groupedBy: 'c' } };
+      const tableColumns = [
+        { type: TABLE_GROUP_TYPE, column: { name: 'a' } },
+        { type: TABLE_GROUP_TYPE, column: { name: 'c' } },
+        { column: { name: 'a' } },
+        { column: { name: 'b' } },
+        { column: { name: 'c' } },
+        { column: { name: 'd' } },
+      ];
+
+      expect(tableColumns.map(
+        tableColumn => getCellColSpanGetter({
+          tableColumn,
+          tableRow,
+          tableColumns,
+        })))
+        .toEqual([1, 5, 1, 'original', 5, 'original']);
     });
 
     describe('with summary', () => {
@@ -288,7 +311,7 @@ describe('TableGroupRow Plugin computeds', () => {
             tableRow,
             tableColumns,
           })))
-          .toEqual(['original', 1, 2, 'original', 1, 3, 'original', 'original']);
+          .toEqual([1, 1, 2, 'original', 1, 3, 'original', 'original']);
       });
     });
   });

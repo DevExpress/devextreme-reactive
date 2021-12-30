@@ -114,12 +114,10 @@ export const tableGroupCellColSpanGetter: GroupCellColSpanGetter = (
 
   if (tableRow.type === TABLE_GROUP_TYPE) {
     const colName = tableColumn.column?.name;
-    const dataColumnGroupedBy =
-      tableRow.row.groupedBy === colName && tableColumn.type !== TABLE_GROUP_TYPE;
     const chains = groupSummaryChains(
       tableRow, tableColumns, groupSummaryItems, firstVisibleColumnIndex,
     );
-    const chain = chains.find(ch => !dataColumnGroupedBy && ch[0] === colName);
+    const chain = tableRow.row.groupedBy ? chains.find(ch => ch[0] === colName) : undefined;
 
     if (chain) {
       return chain.length;

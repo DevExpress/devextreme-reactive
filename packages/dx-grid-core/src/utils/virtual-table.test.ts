@@ -504,7 +504,7 @@ describe('VirtualTableLayout utils', () => {
 
       const result = [
         { column: { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_0_0` }, colSpan: 1 },
-        { column: columns[1], colSpan: 4 },
+        { column: columns[1], colSpan: 6 },
         { column: columns[3], colSpan: 1 },
         { column: columns[4], colSpan: 1 },
         { column: columns[5], colSpan: 1 },
@@ -683,11 +683,11 @@ describe('VirtualTableLayout utils', () => {
         ]);
 
       expect(result.rows[0].cells.map(cell => cell.colSpan))
-        .toEqual([1, 2, 1, 1, 2, 1, 1]);
+        .toEqual([1, 2, 1, 1, 3, 1, 1]);
       expect(result.rows[1].cells.map(cell => cell.colSpan))
-        .toEqual([1, 5, 1, 1, 1, 1, 1]);
+        .toEqual([1, 6, 1, 1, 1, 1, 1]);
       expect(result.rows[2].cells.map(cell => cell.colSpan))
-        .toEqual([7, 1, 1, 1, 1, 1, 1]);
+        .toEqual([9, 1, 1, 1, 1, 1, 1]);
     });
   });
 

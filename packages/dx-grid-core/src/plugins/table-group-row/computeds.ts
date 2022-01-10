@@ -86,6 +86,7 @@ const groupSummaryChains: GroupSummaryChainsFn = (
   return sortAndSpliceColumns(tableColumns, firstVisibleColumnIndex)
     .reduce((acc, col) => {
       const colName = (col.column && col.column.name) as string;
+      const colKey = col.key;
       const isStartOfGroupCaption = col.type === TABLE_GROUP_TYPE
         && tableRow.row.groupedBy === colName;
       const isIndentColumn = col.type === TABLE_GROUP_TYPE
@@ -96,12 +97,12 @@ const groupSummaryChains: GroupSummaryChainsFn = (
       }
 
       if (isStartOfGroupCaption || isIndentColumn) {
-        acc.push([colName]);
+        acc.push([colKey]);
       } else if (groupSummaryItems && isRowLevelSummary(groupSummaryItems, colName)) {
-        acc.push([colName]);
+        acc.push([colKey]);
         acc.push([]);
       } else {
-        acc[acc.length - 1].push(colName);
+        acc[acc.length - 1].push(colKey);
       }
       return acc;
     }, [[]] as string[][]);
@@ -113,11 +114,11 @@ export const tableGroupCellColSpanGetter: GroupCellColSpanGetter = (
   const { tableRow, tableColumns, tableColumn } = params;
 
   if (tableRow.type === TABLE_GROUP_TYPE) {
-    const colName = tableColumn.column?.name;
+    const colKey = tableColumn.key;
     const chains = groupSummaryChains(
       tableRow, tableColumns, groupSummaryItems, firstVisibleColumnIndex,
     );
-    const chain = tableRow.row.groupedBy ? chains.find(ch => ch[0] === colName) : undefined;
+    const chain = chains.find(ch => ch[0] === colKey);
 
     if (chain) {
       return chain.length;

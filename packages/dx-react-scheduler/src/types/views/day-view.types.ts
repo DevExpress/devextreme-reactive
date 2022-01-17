@@ -10,6 +10,8 @@ export namespace DayView {
   export interface TimeScaleLayoutProps extends BaseView.TimeScaleLayoutProps {}
   /** Describes properties passed to a component that renders a time scale label. */
   export interface TimeScaleLabelProps extends BaseView.TimeScaleLabelProps {}
+  /** Describes properties passed to a component that renders a time scale tick. */
+  export interface TimeScaleTickCellProps extends BaseView.TimeScaleTickCellProps {}
   /** Describes properties passed to a component that renders a day scale layout. */
   export interface DayScaleLayoutProps extends BaseView.DayScaleLayoutProps {}
   /** Describes properties passed to a component that renders a day scale cell. */

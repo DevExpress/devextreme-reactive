@@ -100,9 +100,9 @@ export namespace BaseView {
     height?: number;
     /** If `true`, the 'All Day' title will be displayed. */
     showAllDayTitle?: boolean;
-    /** A component that renders a time scale cell. */
+    /** A component that renders a time scale label. */
     labelComponent: React.ComponentType<BaseView.TimeScaleLabelProps>;
-    /** @internal */
+    /** A component that renders a time scale tick. */
     tickCellComponent: React.ComponentType<BaseView.TimeScaleTickCellProps>;
     /** @internal */
     rowComponent: React.ComponentType<BaseView.RowProps>;
@@ -122,7 +122,7 @@ export namespace BaseView {
     /** A function that formats dates according to the locale. */
     formatDate: FormatterFn;
   }
-  /** @internal */
+  /** Describes properties passed to a component that renders a time scale tick. */
   export interface TimeScaleTickCellProps {
     /** Specifies the cell's start time. */
     startDate?: Date;

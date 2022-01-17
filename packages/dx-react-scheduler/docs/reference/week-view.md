@@ -36,6 +36,7 @@ endDayHour? | number | 24 | Specifies the end hour of the view time scale. Accep
 layoutComponent | ComponentType&lt;[WeekView.LayoutProps](#weekviewlayoutprops)&gt; | | A component that renders a week view layout.
 timeScaleLayoutComponent | ComponentType&lt;[WeekView.TimeScaleLayoutProps](#weekviewtimescalelayoutprops)&gt; | | A component that renders a time scale layout.
 timeScaleLabelComponent | ComponentType&lt;[WeekView.TimeScaleLabelProps](#weekviewtimescalelabelprops)&gt; | | A component that renders a time scale label.
+timeScaleTickCellComponent | ComponentType&lt;[WeekView.TimeScaleTickCellProps](#weekviewtimescaletickcellprops)&gt; | | A component that renders a time scale tick.
 dayScaleLayoutComponent | ComponentType&lt;[WeekView.DayScaleLayoutProps](#weekviewdayscalelayoutprops)&gt; | | A component that renders a day scale layout.
 dayScaleCellComponent | ComponentType&lt;[WeekView.DayScaleCellProps](#weekviewdayscalecellprops)&gt; | | A component that renders a day scale cell.
 dayScaleRowComponent | ComponentType&lt;[WeekView.RowProps](#weekviewrowprops)&gt; | | A component that renders a day scale row.
@@ -94,6 +95,17 @@ Field | Type | Description
 ------|------|------------
 time? | Date | Specifies the cell's time.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the set locale.
+groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's grouping.
+endOfGroup? | boolean | `true` if this cell is last in its group.
+
+### WeekView.TimeScaleTickCellProps
+
+Describes properties passed to a component that renders a time scale tick.
+
+Field | Type | Description
+------|------|------------
+startDate? | Date | Specifies the cell's start time.
+endDate? | Date | Specifies the cell's end time.
 groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's grouping.
 endOfGroup? | boolean | `true` if this cell is last in its group.
 
@@ -185,6 +197,7 @@ Name | Properties | Description
 WeekView.Layout | [WeekView.LayoutProps](#weekviewlayoutprops) | A component that renders a week view layout.
 WeekView.TimeScaleLayout | [WeekView.TimeScaleLayoutProps](#weekviewtimescalelayoutprops) | A component that renders a time scale layout.
 WeekView.TimeScaleLabel | [WeekView.TimeScaleLabelProps](#weekviewtimescalelabelprops) | A component that renders a time scale label.
+WeekView.TimeScaleTickCell | [WeekView.TimeScaleTickCellProps](#weekviewtimescaletickcellprops) | A component that renders a time scale tick.
 WeekView.DayScaleLayout | [WeekView.DayScaleLayoutProps](#weekviewdayscalelayoutprops) | A component that renders a day scale layout.
 WeekView.DayScaleCell | [WeekView.DayScaleCellProps](#weekviewdayscalecellprops) | A component that renders a day scale cell.
 WeekView.DayScaleRow | [WeekView.RowProps](#weekviewrowprops) | A component that renders a day scale row.

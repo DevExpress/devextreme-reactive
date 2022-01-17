@@ -504,7 +504,7 @@ describe('VirtualTableLayout utils', () => {
 
       const result = [
         { column: { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_0_0` }, colSpan: 1 },
-        { column: columns[1], colSpan: 6 },
+        { column: columns[1], colSpan: 4 },
         { column: columns[3], colSpan: 1 },
         { column: columns[4], colSpan: 1 },
         { column: columns[5], colSpan: 1 },
@@ -555,6 +555,36 @@ describe('VirtualTableLayout utils', () => {
       expect(getCollapsedCells(columns, spanBoundary, boundaries, getColSpan))
         .toEqual(result);
     });
+
+    it('should not recalculate colSpan when it is not needed', () => {
+      const columns = [
+        { key: 'Symbol(detail)', colSpan: 1 },
+        { key: 'Symbol(group_1)', colSpan: 5 },
+        { key: 'Symbol(data_1)', colSpan: 1 },
+        { key: 'Symbol(data_2)', colSpan: 1 },
+        { key: 'Symbol(data_3)', colSpan: 1 },
+      ];
+      const spanBoundary = [[0, 5]];
+      const boundaries = [
+        [0, 0],
+        [1, 1],
+        [2, 2],
+        [3, 3],
+        [4, 4],
+      ];
+      const getColSpan = column => column.colSpan;
+
+      const result = [
+        { column: columns[0], colSpan: 1 },
+        { column: columns[1], colSpan: 5 },
+        { column: columns[2], colSpan: 1 },
+        { column: columns[3], colSpan: 1 },
+        { column: columns[4], colSpan: 1 },
+      ];
+
+      expect(getCollapsedCells(columns, spanBoundary, boundaries, getColSpan))
+        .toEqual(result);
+    });
   });
 
   describe('#getCollapsedGrid', () => {
@@ -582,6 +612,9 @@ describe('VirtualTableLayout utils', () => {
         columnsVisibleBoundary: [[1, 3]],
         totalRowCount: 9,
         offset: 0,
+        getColSpan: () => 1,
+        getColumnWidth: column => column.width,
+        getRowHeight: row => row.height,
       };
 
       const result = getCollapsedGrid(args);
@@ -612,6 +645,8 @@ describe('VirtualTableLayout utils', () => {
         columnsVisibleBoundary: [[0, 1]],
         totalRowCount: 0,
         offset: 0,
+        getColumnWidth: column => column.width,
+        getRowHeight: row => row.height,
       };
       const result = {
         columns: args.columns,
@@ -671,6 +706,8 @@ describe('VirtualTableLayout utils', () => {
         },
         totalRowCount: 5,
         offset: 0,
+        getColumnWidth: column => column.width,
+        getRowHeight: row => row.height,
       };
 
       const result = getCollapsedGrid(args);
@@ -683,11 +720,55 @@ describe('VirtualTableLayout utils', () => {
         ]);
 
       expect(result.rows[0].cells.map(cell => cell.colSpan))
-        .toEqual([1, 2, 1, 1, 3, 1, 1]);
+        .toEqual([1, 2, 1, 1, 2, 1, 1]);
       expect(result.rows[1].cells.map(cell => cell.colSpan))
-        .toEqual([1, 6, 1, 1, 1, 1, 1]);
+        .toEqual([1, 5, 1, 1, 1, 1, 1]);
       expect(result.rows[2].cells.map(cell => cell.colSpan))
-        .toEqual([9, 1, 1, 1, 1, 1, 1]);
+        .toEqual([7, 1, 1, 1, 1, 1, 1]);
+    });
+
+    it('should return correct cells for second row', () => {
+      const args = {
+        rows: [
+          { key: 'Symbol(group_1)', height: 40 },
+          { key: 'Symbol(group_2)', height: 40 },
+        ],
+        columns: [
+          { key: 'Symbol(group_3)', width: 40 },
+          { key: 'Symbol(group_4)', width: 40 },
+          { key: 'Symbol(select)', width: 40 },
+          { key: 'Symbol(data_3)', width: 40 },
+          { key: 'Symbol(data_4)', width: 40 },
+          { key: 'Symbol(data_5)', width: 40 },
+          { key: 'Symbol(data_6)', width: 40 },
+          { key: 'Symbol(data_7)', width: 40 },
+          { key: 'Symbol(data_8)', width: 40 },
+          { key: 'Symbol(data_9)', width: 40 },
+          { key: 'Symbol(data_10)', width: 40 },
+        ],
+        rowsVisibleBoundary: [0, 1],
+        columnsVisibleBoundary: [[5, 10]],
+        getColSpan: (row, column) => {
+          if (row.key === 'Symbol(group_1)') return 1;
+          if (row.key === 'Symbol(group_2)' && column.key === 'Symbol(group_4)') return 11;
+          return 1;
+        },
+        totalRowCount: 2,
+        offset: 0,
+        getColumnWidth: column => column.width,
+        getRowHeight: row => row.height,
+      };
+
+      const result = getCollapsedGrid(args);
+
+      result.rows[1].cells.forEach((cell, index) => {
+        if (index === 1) {
+          expect(cell.colSpan).toEqual(11);
+          expect(cell.column.key).toEqual('Symbol(group_4)');
+        } else {
+          expect(cell.colSpan).toEqual(1);
+        }
+      });
     });
   });
 

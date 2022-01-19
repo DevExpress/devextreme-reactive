@@ -30,7 +30,7 @@ class PageLayout extends React.PureComponent {
             </>
           )}
           addon={
-            <HeaderAddon link="https://github.com/DevExpress/devextreme-reactive/issues" spanText="Reactive development is not in progress now." linkText="See deteils." />
+            <HeaderAddon link="https://github.com/DevExpress/devextreme-reactive/blob/master/README.md#this-project-is-not-in-development-we-continue-to-support-and-fix-bugs-in-it" spanText="Devextreme Reactive development is not in progress now." linkText="See details." />
           }
         />
         <ContentContainer>

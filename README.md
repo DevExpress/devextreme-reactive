@@ -2,8 +2,8 @@
 
 DevExtreme Reactive is a set of business React components that deeply integrate with Bootstrap and Material-UI libraries.
 
-## This project is not in development but supported
-We are currently investigating the possibility of making our [DevExtreme](https://github.com/DevExpress/DevExtreme) components [native](https://github.com/DevExpress/DevExtreme/issues/16468) to replace DevExtreme Reactive components. Thus, if you want to create a new application, we recommend doing it with [devextreme react](https://github.com/DevExpress/devextreme-react). For those who already have an application on Reactive, we will write migration guides and do our best to make the migration easier.
+## This project is not in development. We continue to support and fix bugs in it
+We are currently investigating the possibility of making our [DevExtreme](https://github.com/DevExpress/DevExtreme) components [native](https://github.com/DevExpress/DevExtreme/issues/16468). They will replace DevExtreme Reactive components. To create a new application, use [devextreme react](https://github.com/DevExpress/devextreme-react). We are now working on migration guides for those who already have applications based on Reactive to make the migration easier.
 
 ## Common Features
 

@@ -33,7 +33,7 @@ export namespace DataTypeProvider {
     onFocus: () => void;
     // tslint:disable-next-line: max-line-length
     /** Handles key press: Enter saves changes, Esc discards them and switches the editor from edit state (used for Inline Cell Editing). */
-    onKeyDown: () => void;
+    onKeyDown: () => string;
   }
 }
 

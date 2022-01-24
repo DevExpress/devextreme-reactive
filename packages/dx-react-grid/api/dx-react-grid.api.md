@@ -150,7 +150,7 @@ export namespace DataTypeProvider {
     disabled: boolean;
     onBlur: () => void;
     onFocus: () => void;
-    onKeyDown: () => string;
+    onKeyDown: (key: string) => void;
     onValueChange: (newValue: any) => void;
     row?: any;
     value: any;

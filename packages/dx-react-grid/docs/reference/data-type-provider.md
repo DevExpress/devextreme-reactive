@@ -51,7 +51,7 @@ disabled | boolean | **true** if users should not be able to edit the value; oth
 autoFocus | boolean | **true** if the editor should be focused on render; otherwise, **false**.
 onBlur | () => void | Calls the `EditingState` plugin's `commitChanges` handler and switches the editor from edit state when it loses focus (used for Inline Cell Editing).
 onFocus | () => void | Applies an action when the editor gets focus (used for Inline Cell Editing).
-onKeyDown | (key: string) => void | Handles key press: Enter saves changes, Esc discards them and switches the editor from edit state (used for Inline Cell Editing).
+onKeyDown | (e: {key: 'Escape' &#124 'Enter'}) => void | Handles key press: Enter saves changes, Esc discards them and switches the editor from edit state (used for Inline Cell Editing).
 
 ## Plugin Developer Reference
 

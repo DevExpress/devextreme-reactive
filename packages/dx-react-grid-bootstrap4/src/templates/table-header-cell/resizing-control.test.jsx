@@ -54,4 +54,19 @@ describe('ResizingControl', () => {
     expect(onWidthDraft)
       .toBeCalledWith({ shift: 10 });
   });
+
+  it('should not trigger onWidthDraft, x coordinate is negative value', () => {
+    const onWidthDraft = jest.fn();
+    const tree = shallow((
+      <ResizingControl
+        {...defaultProps}
+        onWidthDraft={onWidthDraft}
+      />
+    ));
+
+    tree.find(Draggable).prop('onStart')({ x: 0 });
+
+    tree.find(Draggable).prop('onUpdate')({ x: -10 });
+    expect(onWidthDraft).not.toBeCalled();
+  });
 });

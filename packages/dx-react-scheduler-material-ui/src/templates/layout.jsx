@@ -1,7 +1,20 @@
 import * as React from 'react';
 import * as PropTypes from 'prop-types';
+import { styled } from '@mui/material/styles';
 import { AUTO_HEIGHT } from '@devexpress/dx-scheduler-core';
-import { ContainerBase } from './common/container';
+import { ContainerBase, classes } from './common/container';
+
+const StyledContainerBase = styled(ContainerBase)({
+  [`&.${classes.container}`]: {
+    WebkitOverflowScrolling: 'touch',
+    // NOTE: fix sticky positioning in Safari
+    width: '100%',
+    height: '100%',
+    position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+});
 
 export const Root = ({
   height, style, ...restProps
@@ -9,7 +22,7 @@ export const Root = ({
   const containerStyle = height === AUTO_HEIGHT ? { height: '100%' } : { height: `${height}px` };
 
   return (
-    <ContainerBase
+    <StyledContainerBase
       style={{ ...containerStyle, ...style }}
       {...restProps}
     />

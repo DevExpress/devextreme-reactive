@@ -301,7 +301,7 @@ export interface ExportPanelProps {
 export interface Filter {
     columnName: string;
     operation?: FilterOperation;
-    value?: string;
+    value?: any;
 }
 
 // @public

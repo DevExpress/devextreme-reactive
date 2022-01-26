@@ -10,7 +10,7 @@ export interface Filter {
   /** Specifies the operation name. The value is 'contains' if the operation name is not set. */
   operation?: FilterOperation;
   /** Specifies the filter value. */
-  value?: string;
+  value?: any;
 }
 
 /** Describes data filtering expressions */

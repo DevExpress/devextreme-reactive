@@ -36,7 +36,7 @@ Field | Type | Description
 ------|------|------------
 columnName | string | Specifies the name of a column whose value is used for filtering.
 operation? | [FilterOperation](#filteroperation) | Specifies the operation name. The value is 'contains' if the operation name is not set.
-value? | string | Specifies the filter value.
+value? | any | Specifies the filter value.
 
 ### FilterOperation
 

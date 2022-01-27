@@ -40,14 +40,30 @@ jobs:
       - run: yarn lint
       - run: yarn test:ci
 
-  TestCafe Tests:
+  TestCafe Tests Grid:
     docker:
       - image: circleci/node:14-browsers
     working_directory: ~/circleci
     steps:
       - attach_workspace:
           at: ~/circleci
-      - run: yarn testcafe:ci
+      - run: yarn testcafe:ci:grid
+  TestCafe Tests Chart:
+    docker:
+      - image: circleci/node:14-browsers
+    working_directory: ~/circleci
+    steps:
+      - attach_workspace:
+          at: ~/circleci
+      - run: yarn testcafe:ci:chart
+  TestCafe Tests Scheduler:
+    docker:
+      - image: circleci/node:14-browsers
+    working_directory: ~/circleci
+    steps:
+      - attach_workspace:
+          at: ~/circleci
+      - run: yarn testcafe:ci:scheduler
 
 workflows:
   version: 2
@@ -57,11 +73,24 @@ workflows:
       - Jest Tests & Linter:
           requires:
             - Build Source
-      - TestCafe Tests:
+      - TestCafe Tests Grid:
           requires:
             - Build Source
             - Jest Tests & Linter
+      - TestCafe Tests Chart:
+          requires:
+            - Build Source
+            - Jest Tests & Linter
+            - TestCafe Tests Grid
+      - TestCafe Tests Scheduler:
+          requires:
+            - Build Source
+            - Jest Tests & Linter
+            - TestCafe Tests Grid
+            - TestCafe Tests Chart
       - Site:
           requires:
             - Build Source
-            - TestCafe Tests
+            - TestCafe Tests Grid
+            - TestCafe Tests Chart
+            - TestCafe Tests Scheduler

@@ -16,4 +16,29 @@ jobs:
       with:
         node-version: '15'
 
-    - run: echo "Workflow is added!"
+    - name: Install and prepare Yarn
+      run: | 
+        sudo npm i -g yarn@1.22.4 --force
+        sudo chmod a+rwx /usr/local/bin/yarn
+
+    - name: Build
+      run: |
+        yarn --no-progress
+        yarn build
+
+    - name: Jest Tests & Linter
+      run: |
+        yarn lint
+        yarn test:ci
+
+    - name: TestCafe Tests Grid
+      run: yarn testcafe:ci:grid
+
+    - name: TestCafe Tests Chart
+      run: yarn testcafe:ci:chart
+
+    - name: TestCafe Tests Scheduler
+      run: yarn testcafe:ci:scheduler
+
+    - name: Site
+      run: yarn build:site:docs

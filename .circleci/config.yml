@@ -1,0 +1,96 @@
+version: 2
+
+jobs:
+  Build Source:
+    docker:
+      - image: circleci/node:14
+    working_directory: ~/circleci
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/circleci
+
+      - run: sudo npm i -g yarn@1.22.4 --force
+      - run: sudo chmod a+rwx /usr/local/bin/yarn
+
+      - run: yarn --no-progress
+      - run: yarn build
+
+      - run: chmod -R 777 ~/circleci
+      - persist_to_workspace:
+          root: .
+          paths: .
+
+  Site:
+    docker:
+      - image: circleci/node:14
+    working_directory: ~/circleci
+    steps:
+      - attach_workspace:
+          at: ~/circleci
+      - run: yarn build:site:docs
+
+  Jest Tests & Linter:
+    docker:
+      - image: circleci/node:14
+    working_directory: ~/circleci
+    steps:
+      - attach_workspace:
+          at: ~/circleci
+      - run: yarn lint
+      - run: yarn test:ci
+
+  TestCafe Tests Grid:
+    docker:
+      - image: circleci/node:14-browsers
+    working_directory: ~/circleci
+    steps:
+      - attach_workspace:
+          at: ~/circleci
+      - run: yarn testcafe:ci:grid
+  TestCafe Tests Chart:
+    docker:
+      - image: circleci/node:14-browsers
+    working_directory: ~/circleci
+    steps:
+      - attach_workspace:
+          at: ~/circleci
+      - run: yarn testcafe:ci:chart
+  TestCafe Tests Scheduler:
+    docker:
+      - image: circleci/node:14-browsers
+    working_directory: ~/circleci
+    steps:
+      - attach_workspace:
+          at: ~/circleci
+      - run: yarn testcafe:ci:scheduler
+
+workflows:
+  version: 2
+  tests:
+    jobs:
+      - Build Source
+      - Jest Tests & Linter:
+          requires:
+            - Build Source
+      - TestCafe Tests Grid:
+          requires:
+            - Build Source
+            - Jest Tests & Linter
+      - TestCafe Tests Chart:
+          requires:
+            - Build Source
+            - Jest Tests & Linter
+            - TestCafe Tests Grid
+      - TestCafe Tests Scheduler:
+          requires:
+            - Build Source
+            - Jest Tests & Linter
+            - TestCafe Tests Grid
+            - TestCafe Tests Chart
+      - Site:
+          requires:
+            - Build Source
+            - TestCafe Tests Grid
+            - TestCafe Tests Chart
+            - TestCafe Tests Scheduler

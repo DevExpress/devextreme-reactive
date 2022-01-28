@@ -51,7 +51,9 @@ export class ResizingControl extends React.PureComponent {
     };
     this.onResizeUpdate = ({ x }) => {
       const { onWidthDraft } = this.props;
-      onWidthDraft({ shift: x - this.resizeStartingX });
+      if (x >= 0) {
+        onWidthDraft({ shift: x - this.resizeStartingX });
+      }
     };
     this.onResizeEnd = ({ x }) => {
       const { onWidthChange, onWidthDraftCancel } = this.props;

@@ -35,6 +35,7 @@ endDayHour? | number | 24 | Specifies the end hour of the view time scale. Accep
 layoutComponent | ComponentType&lt;[DayView.LayoutProps](#dayviewlayoutprops)&gt; | | A component that renders a day view layout.
 timeScaleLayoutComponent | ComponentType&lt;[DayView.TimeScaleLayoutProps](#dayviewtimescalelayoutprops)&gt; | | A component that renders a time scale layout.
 timeScaleLabelComponent | ComponentType&lt;[DayView.TimeScaleLabelProps](#dayviewtimescalelabelprops)&gt; | | A component that renders a time scale label.
+timeScaleTickCellComponent | ComponentType&lt;[DayView.TimeScaleTickCellProps](#dayviewtimescaletickcellprops)&gt; | | A component that renders a time scale tick.
 dayScaleLayoutComponent | ComponentType&lt;[DayView.DayScaleLayoutProps](#dayviewdayscalelayoutprops)&gt; | | A component that renders a day scale layout.
 dayScaleCellComponent | ComponentType&lt;[DayView.DayScaleCellProps](#dayviewdayscalecellprops)&gt; | | A component that renders a day scale cell.
 dayScaleRowComponent | ComponentType&lt;[DayView.RowProps](#dayviewrowprops)&gt; | | A component that renders a day scale row.
@@ -93,6 +94,17 @@ Field | Type | Description
 ------|------|------------
 time? | Date | Specifies the cell's time.
 formatDate | [FormatterFn](scheduler.md#formatterfn) | A function that formats dates according to the locale.
+groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's grouping.
+endOfGroup? | boolean | `true` if this cell is last in its group.
+
+### DayView.TimeScaleTickCellProps
+
+Describes properties passed to a component that renders a time scale tick.
+
+Field | Type | Description
+------|------|------------
+startDate? | Date | Specifies the cell's start time.
+endDate? | Date | Specifies the cell's end time.
 groupingInfo? | Array&lt;[Group](./grouping-panel.md/#group)&gt; | Information about the cell's grouping.
 endOfGroup? | boolean | `true` if this cell is last in its group.
 
@@ -184,6 +196,7 @@ Name | Properties | Description
 DayView.Layout | [DayView.LayoutProps](#dayviewlayoutprops) | A component that renders a day view layout.
 DayView.TimeScaleLayout | [DayView.TimeScaleLayoutProps](#dayviewtimescalelayoutprops) | A component that renders a time scale layout.
 DayView.TimeScaleLabel | [DayView.TimeScaleLabelProps](#dayviewtimescalelabelprops) | A component that renders a time scale label.
+DayView.TimeScaleTickCell | [DayView.TimeScaleTickCellProps](#dayviewtimescaletickcellprops) | A component that renders a time scale tick.
 DayView.DayScaleLayout | [DayView.DayScaleLayoutProps](#dayviewdayscalelayoutprops) | A component that renders a day scale layout.
 DayView.DayScaleCell | [DayView.DayScaleCellProps](#dayviewdayscalecellprops) | A component that renders a day scale cell.
 DayView.DayScaleRow | [DayView.RowProps](#dayviewrowprops) | A component that renders a day scale row.

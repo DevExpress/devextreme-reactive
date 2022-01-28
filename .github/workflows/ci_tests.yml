@@ -20,7 +20,7 @@ jobs:
       run: |
         yarn --no-progress
         yarn build
-        chmod -R 777 ~/circleci
+        chmod -R 777 .
 
     - name: Jest Tests & Linter
       run: |

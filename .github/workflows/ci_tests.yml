@@ -32,8 +32,7 @@ jobs:
         yarn test:ci
 
     - name: Zip artifacts 
-      run: |
-        7z a -tzip -mx3 -mmt2 artifacts.zip packages
+      run: 7z a -tzip -mx3 -mmt2 artifacts.zip packages
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v2

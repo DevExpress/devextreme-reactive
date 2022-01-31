@@ -70,7 +70,7 @@ jobs:
       run: 7z x artifacts.zip
 
     - name: TestCafe Tests Grid
-      run: yarn testcafe:ci:${{ component }}
+      run: yarn testcafe:ci:${{ matrix.component }}
 
   Site:
     runs-on: ubuntu-latest

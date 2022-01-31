@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  CI_Workflow:
+  Build:
     runs-on: ubuntu-latest
     steps:
     - name: Get sources
@@ -26,19 +26,77 @@ jobs:
         yarn build
         chmod -R 777 .
 
-    - name: Jest Tests & Linter
+    - name: Linter & Jest Tests
       run: |
         yarn lint
         yarn test:ci
 
+    - name: Zip artifacts 
+      run: |
+        7z a -tzip -mx3 -mmt2 artifacts.zip packages
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: devextreme-reactive-artifacts
+        path: artifacts.zip
+        retention-days: 1
+
+  TestCafe:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        component: ['grid', 'chart', 'scheduler']
+    name: TestCafe tests ${{ component }}
+    steps:
+    - name: Get sources
+      uses: actions/checkout@v2
+
+    - name: Use Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Prepare yarn
+      run: |
+        sudo npm i -g yarn@1.22.4 --force
+        yarn --no-progress
+
+    - name: Download artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: devextreme-reactive-artifacts
+
+    - name: Unpack artifacts
+      run: 7z x artifacts.zip
+
     - name: TestCafe Tests Grid
-      run: yarn testcafe:ci:grid
+      run: yarn testcafe:ci:${{ component }}
 
-    - name: TestCafe Tests Chart
-      run: yarn testcafe:ci:chart
+Site:
+    runs-on: ubuntu-latest
+    name: Site
+    steps:
+    - name: Get sources
+      uses: actions/checkout@v2
 
-    - name: TestCafe Tests Scheduler
-      run: yarn testcafe:ci:scheduler
+    - name: Use Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Prepare yarn
+      run: |
+        sudo npm i -g yarn@1.22.4 --force
+        yarn --no-progress
+
+    - name: Download artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: devextreme-reactive-artifacts
+
+    - name: Unpack artifacts
+      run: 7z x artifacts.zip
 
     - name: Site
       run: yarn build:site:docs

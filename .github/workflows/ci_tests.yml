@@ -47,7 +47,6 @@ jobs:
     strategy:
       matrix:
         component: ['grid', 'chart', 'scheduler']
-    name: TestCafe tests ${{ component }}
     steps:
     - name: Get sources
       uses: actions/checkout@v2

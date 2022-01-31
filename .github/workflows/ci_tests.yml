@@ -68,7 +68,7 @@ jobs:
         name: devextreme-reactive-artifacts
 
     - name: Unpack artifacts
-      run: 7z x artifacts.zip
+      run: 7z x -y artifacts.zip
 
     - name: TestCafe Tests Grid
       run: yarn testcafe:ci:${{ matrix.component }}
@@ -97,7 +97,7 @@ jobs:
         name: devextreme-reactive-artifacts
 
     - name: Unpack artifacts
-      run: 7z x artifacts.zip
+      run: 7z x -y artifacts.zip
 
     - name: Site
       run: yarn build:site:docs

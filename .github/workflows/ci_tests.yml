@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  Build:
+  build:
     runs-on: ubuntu-latest
     steps:
     - name: Get sources
@@ -42,8 +42,9 @@ jobs:
         path: artifacts.zip
         retention-days: 1
 
-  TestCafe:
+  test_cafe:
     runs-on: ubuntu-latest
+    needs: build
     strategy:
       matrix:
         component: ['grid', 'chart', 'scheduler']
@@ -72,8 +73,9 @@ jobs:
     - name: TestCafe Tests Grid
       run: yarn testcafe:ci:${{ matrix.component }}
 
-  Site:
+  site:
     runs-on: ubuntu-latest
+    needs: test_cafe
     name: Site
     steps:
     - name: Get sources

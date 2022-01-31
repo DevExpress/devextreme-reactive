@@ -73,7 +73,7 @@ jobs:
     - name: TestCafe Tests Grid
       run: yarn testcafe:ci:${{ component }}
 
-Site:
+  Site:
     runs-on: ubuntu-latest
     name: Site
     steps:

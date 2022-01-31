@@ -16,9 +16,13 @@ jobs:
       with:
         node-version: '14'
 
+    - name: Prepare yarn
+      run: |
+        sudo npm i -g yarn@1.22.4 --force
+        yarn --no-progress
+
     - name: Build
       run: |
-        yarn --no-progress
         yarn build
         chmod -R 777 .
 

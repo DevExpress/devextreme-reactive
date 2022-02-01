@@ -7,6 +7,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    name: Build, Lint & Jest Test
     steps:
     - name: Get sources
       uses: actions/checkout@v2
@@ -47,6 +48,7 @@ jobs:
     strategy:
       matrix:
         component: ['grid', 'chart', 'scheduler']
+    name: Test Cafe tests ${{ matrix.component }}
     steps:
     - name: Get sources
       uses: actions/checkout@v2
@@ -69,7 +71,7 @@ jobs:
     - name: Unpack artifacts
       run: 7z x -y artifacts.zip
 
-    - name: TestCafe Tests Grid
+    - name: TestCafe test
       run: yarn testcafe:ci:${{ matrix.component }}
 
   site:

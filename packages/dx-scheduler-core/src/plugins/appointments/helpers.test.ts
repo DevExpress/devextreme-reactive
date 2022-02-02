@@ -1991,10 +1991,10 @@ describe('Appointments helpers', () => {
           blockIndex: 0,
         }, {
           ...appointmentForests[0].items[1],
-          blockIndex: 1,
+          blockIndex: 0,
         }, {
           ...appointmentForests[0].items[2],
-          blockIndex: 2,
+          blockIndex: 1,
         }],
       };
       const expectedBlocks = [{
@@ -2004,15 +2004,7 @@ describe('Appointments helpers', () => {
         minOffset: 0,
         maxOffset: 1,
         size: 2,
-        items: [0],
-      }, {
-        start: moment('2020-05-07 08:30'),
-        end: moment('2020-05-07 09:30'),
-        endForChildren: moment('2020-05-07 09:30'),
-        minOffset: 1,
-        maxOffset: 1,
-        size: 1,
-        items: [1],
+        items: [0, 1],
       }, {
         start: moment('2020-05-07 09:00'),
         end: moment('2020-05-07 09:30'),
@@ -2082,13 +2074,13 @@ describe('Appointments helpers', () => {
           blockIndex: 0,
         }, {
           ...appointmentForests[0].items[1],
-          blockIndex: 1,
+          blockIndex: 0,
         }, {
           ...appointmentForests[0].items[2],
-          blockIndex: 1,
+          blockIndex: 0,
         }, {
           ...appointmentForests[0].items[3],
-          blockIndex: 2,
+          blockIndex: 1,
         }],
       };
       const expectedBlocks = [{
@@ -2098,15 +2090,7 @@ describe('Appointments helpers', () => {
         minOffset: 0,
         maxOffset: 2,
         size: 3,
-        items: [0],
-      }, {
-        start: moment('2020-05-07 08:30'),
-        end: moment('2020-05-07 09:30'),
-        endForChildren: moment('2020-05-07 09:30'),
-        minOffset: 1,
-        maxOffset: 2,
-        size: 2,
-        items: [1, 2],
+        items: [0, 1, 2],
       }, {
         start: moment('2020-05-07 09:00'),
         end: moment('2020-05-07 09:30'),
@@ -2231,10 +2215,10 @@ describe('Appointments helpers', () => {
           blockIndex: 2,
         }, {
           ...appointmentForests[0].items[6],
-          blockIndex: 3,
+          blockIndex: 2,
         }, {
           ...appointmentForests[0].items[7],
-          blockIndex: 4,
+          blockIndex: 3,
         }],
       };
       const expectedBlocks = [{
@@ -2260,15 +2244,7 @@ describe('Appointments helpers', () => {
         minOffset: 0,
         maxOffset: 2,
         size: 3,
-        items: [4, 5],
-      }, {
-        start: moment('2020-05-07 10:15'),
-        end: moment('2020-05-07 10:45'),
-        endForChildren: moment('2020-05-07 10:45'),
-        minOffset: 2,
-        maxOffset: 2,
-        size: 1,
-        items: [6],
+        items: [4, 5, 6],
       }, {
         start: moment('2020-05-07 10:30'),
         end: moment('2020-05-07 10:45'),
@@ -2294,16 +2270,25 @@ describe('Appointments helpers', () => {
         end: moment('2020-05-07 09:00'),
         minOffset: 0,
         maxOffset: 5,
+        items: [],
       }, {
         start: moment('2020-05-07 09:00'),
         end: moment('2020-05-07 12:00'),
         minOffset: 4,
         maxOffset: 5,
+        items: [],
       }, {
         start: moment('2020-05-07 10:00'),
         end: moment('2020-05-07 12:00'),
         minOffset: 1,
         maxOffset: 4,
+        items: [],
+      }, {
+        start: moment('2020-05-07 17:00'),
+        end: moment('2020-05-07 18:00'),
+        minOffset: 1,
+        maxOffset: 4,
+        items: [1],
       }];
       const appointments = [{
         data: { offset: 0, start: moment('2020-05-07 08:00') },
@@ -2315,6 +2300,12 @@ describe('Appointments helpers', () => {
         data: { offset: 2, start: moment('2020-05-07 11:00') },
       }, {
         data: { offset: 3, start: moment('2020-05-07 13:00') },
+      }, {
+        data: { offset: 3, start: moment('2020-05-07 11:00') },
+        overlappingSubTreeRoot: true,
+      }, {
+        data: { offset: 2, start: moment('2020-05-07 17:00') },
+        overlappingSubTreeRoot: true,
       }];
 
       expect(findBlockIndexByAppointment(blocks, appointments[0]))
@@ -2326,7 +2317,11 @@ describe('Appointments helpers', () => {
       expect(findBlockIndexByAppointment(blocks, appointments[3]))
         .toBe(2);
       expect(findBlockIndexByAppointment(blocks, appointments[4]))
-        .toBe(0);
+        .toBe(-1);
+      expect(findBlockIndexByAppointment(blocks, appointments[5]))
+        .toBe(2);
+      expect(findBlockIndexByAppointment(blocks, appointments[6]))
+        .toBe(-1);
     });
   });
 

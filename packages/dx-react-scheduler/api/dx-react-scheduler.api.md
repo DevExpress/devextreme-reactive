@@ -804,7 +804,7 @@ export namespace EditRecurrenceMenu {
   export interface LayoutProps {
     availableOperations: Array<any>;
     buttonComponent: React_2.ComponentType<EditRecurrenceMenu.ButtonProps>;
-    commit: () => void;
+    commit: (value?: any) => void;
     getMessage: (messageKey: string) => string;
     handleClose: () => void;
     isDeleting: boolean;

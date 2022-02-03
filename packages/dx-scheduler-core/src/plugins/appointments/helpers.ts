@@ -647,31 +647,31 @@ export const groupAppointmentsIntoBlocks: GroupAppointmentsIntoBlocksFn =
     const { blocks: nextBlocks, appointments } = items.reduce((acc, appointment, index) => {
       const blocks = acc.blocks.slice();
       const {
-        treeDepth, data, overlappingSubTreeRoots, overlappingSubTreeRoot,
+        treeDepth, data, overlappingSubTreeRoots,
       } = appointment;
       const { offset, start, end } = data;
+      let blockIndex = findBlockIndexByAppointment(blocks, appointment);
 
-      if (overlappingSubTreeRoots.length !== 0) {
-        if (!overlappingSubTreeRoot) {
-          blocks.push({
-            start, end, minOffset: offset, maxOffset: offset + treeDepth,
-            size: treeDepth + 1, items: [], endForChildren: end,
-          });
-        }
-        overlappingSubTreeRoots.forEach((subTreeRootIndex) => {
-          const subTreeRoot = items[subTreeRootIndex];
-          const { data: subTreeRootData } = subTreeRoot;
-          blocks.push({
-            start: subTreeRootData.start, end,
-            minOffset: subTreeRootData.offset, maxOffset: offset - 1,
-            size: calculateBlockSizeByEndDate(items, subTreeRoot, end), items: [],
-            endForChildren: subTreeRootData.end,
-          });
+      if (blockIndex < 0) {
+        blocks.push({
+          start, end, minOffset: offset, maxOffset: offset + treeDepth,
+          size: treeDepth + 1, items: [], endForChildren: end,
         });
+        blockIndex = blocks.length - 1;
       }
 
-      const blockIndex = findBlockIndexByAppointment(blocks, appointment);
       blocks[blockIndex].items.push(index);
+
+      overlappingSubTreeRoots.forEach((subTreeRootIndex) => {
+        const subTreeRoot = items[subTreeRootIndex];
+        const { data: subTreeRootData } = subTreeRoot;
+        blocks.push({
+          start: subTreeRootData.start, end,
+          minOffset: subTreeRootData.offset, maxOffset: offset - 1,
+          size: calculateBlockSizeByEndDate(items, subTreeRoot, end), items: [],
+          endForChildren: subTreeRootData.end,
+        });
+      });
       const appointmentInBlock = { ...appointment, blockIndex };
 
       return {
@@ -729,10 +729,12 @@ export const findBlockIndexByAppointment: FindBlockIndexByAppointmentFn = (
   const { start, offset } = appointment.data;
 
   let blockIndex = blocks.length - 1;
-  while (blockIndex > 0) {
+  while (blockIndex >= 0) {
     const currentBlock = blocks[blockIndex];
     if (intervalIncludes(currentBlock.start, currentBlock.end, start)
-      && offset >= currentBlock.minOffset && offset <= currentBlock.maxOffset
+      && offset >= currentBlock.minOffset && offset <= currentBlock.maxOffset &&
+      (!appointment.overlappingSubTreeRoot ||
+        appointment.overlappingSubTreeRoot && !currentBlock.items.length)
     ) {
       break;
     }

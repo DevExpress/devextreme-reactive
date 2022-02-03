@@ -5,6 +5,7 @@ import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
 import TableFooter from '@mui/material/TableFooter';
 import { styled } from '@mui/material/styles';
+import { getStickyStyles } from './utils';
 
 const PREFIX = 'TableParts';
 export const classes = {
@@ -14,19 +15,15 @@ export const classes = {
 
 const StyledHead = styled(TableHead)(({ theme }) => ({
   [`&.${classes.fixedHead}`]: {
-    position: 'sticky',
+    ...getStickyStyles(theme),
     top: 0,
-    background: theme.palette.background.paper,
-    zIndex: 500,
   },
 }));
 
 const StyledFooter = styled(TableFooter)(({ theme }) => ({
   [`&.${classes.fixedFooter}`]: {
-    position: 'sticky',
+    ...getStickyStyles(theme),
     bottom: 0,
-    background: theme.palette.background.paper,
-    zIndex: 500,
   },
 }));
 

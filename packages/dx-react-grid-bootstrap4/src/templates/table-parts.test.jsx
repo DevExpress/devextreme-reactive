@@ -23,7 +23,7 @@ describe('TableHead', () => {
     ));
 
     expect(tree.find('thead').props()).toEqual({
-      className: 'dx-g-bs4-fixed-header',
+      className: 'dx-g-bs4-fixed-header dx-g-bs4-table-sticky',
       style: { backgroundColor: 'backgroundColor' },
     });
   });
@@ -38,7 +38,7 @@ describe('TableFooter', () => {
     ));
 
     expect(tree.find('tfoot').props()).toEqual({
-      className: 'dx-g-bs4-fixed-footer',
+      className: 'dx-g-bs4-fixed-footer dx-g-bs4-table-sticky',
       style: { backgroundColor: 'backgroundColor' },
     });
   });

@@ -10,7 +10,10 @@ export const TableHead = ({
   const backgroundColor = React.useContext(BodyColorContext);
   return (
     <thead
-      className={classNames({ 'dx-g-bs4-fixed-header': isFixed }, className)}
+      className={classNames({
+        'dx-g-bs4-fixed-header': isFixed,
+        'dx-g-bs4-table-sticky': isFixed,
+      }, className)}
       style={{
         ...(isFixed && { backgroundColor }),
         ...style,
@@ -46,7 +49,10 @@ export const TableFooter = ({
   const backgroundColor = React.useContext(BodyColorContext);
   return (
     <tfoot
-      className={classNames({ 'dx-g-bs4-fixed-footer': isFixed })}
+      className={classNames({
+        'dx-g-bs4-fixed-footer': isFixed,
+        'dx-g-bs4-table-sticky': isFixed,
+      })}
       style={{
         ...(isFixed && { backgroundColor }),
       }}

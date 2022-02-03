@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableMUI from '@mui/material/Table';
 import { styled } from '@mui/material/styles';
-import { getBorder } from './utils';
+import { getBorder, getStickyStyles } from './utils';
 
 const PREFIX = 'Table';
 export const classes = {
@@ -19,10 +19,8 @@ const StyledTableMUI = styled(TableMUI)(({ theme }) => ({
     borderCollapse: 'separate',
   },
   [`&.${classes.stickyTable}`]: {
-    position: 'sticky',
-    zIndex: 500,
+    ...getStickyStyles(theme),
     overflow: 'visible',
-    background: theme.palette.background.paper,
     fallbacks: {
       position: '-webkit-sticky',
     },

@@ -39,7 +39,23 @@ TableBody.defaultProps = {
   isFixed: undefined,
 };
 
-export const TableFooter = ({ isFixed, ...restProps }) => <tfoot {...restProps} />;
+export const TableFooter = ({ isFixed, ...restProps }) => {
+  const { backgroundColor, stickyPosition } = React.useContext(StyleContext);
+  return (
+    <tfoot
+      {...restProps}
+      style={{
+        ...(isFixed && {
+          position: stickyPosition,
+          bottom: 0,
+          backgroundColor,
+          zIndex: 500,
+        }),
+      }}
+    />
+  );
+};
+
 TableFooter.propTypes = {
   isFixed: PropTypes.bool,
 };

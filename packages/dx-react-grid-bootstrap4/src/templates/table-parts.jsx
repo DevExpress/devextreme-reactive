@@ -40,7 +40,21 @@ TableBody.defaultProps = {
   isFixed: undefined,
 };
 
-export const TableFooter = ({ isFixed, ...restProps }) => <tfoot {...restProps} />;
+export const TableFooter = ({
+  isFixed, ...restProps
+}) => {
+  const backgroundColor = React.useContext(BodyColorContext);
+  return (
+    <tfoot
+      className={classNames({ 'dx-g-bs4-fixed-footer': isFixed })}
+      style={{
+        ...(isFixed && { backgroundColor }),
+      }}
+      {...restProps}
+    />
+  );
+};
+
 TableFooter.propTypes = {
   isFixed: PropTypes.bool,
 };

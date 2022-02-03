@@ -16,7 +16,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     padding: 0,
   },
   [`&.${classes.footer}`]: {
-    borderBottom: getBorder(theme),
+    borderTop: getBorder(theme),
   },
 }));
 

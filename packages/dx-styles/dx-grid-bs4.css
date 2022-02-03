@@ -158,6 +158,11 @@ button.dx-g-bs4-table-edit-command-cell {
   top: 0;
   z-Index: 500,
 }
+.dx-g-bs4-fixed-footer {
+  position: sticky;
+  bottom: 0;
+  z-Index: 500,
+}
 .dx-g-bs4-resize-control-line {
   opacity: 1;
   position: absolute;

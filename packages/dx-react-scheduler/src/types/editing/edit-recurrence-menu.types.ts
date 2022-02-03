@@ -11,7 +11,7 @@ export namespace EditRecurrenceMenu {
     /** A function that closes the menu. */
     handleClose: () => void;
     /** A function that commits changes. */
-    commit: () => void;
+    commit: (value?: any) => void;
     /** A list of available editing operations. */
     availableOperations: Array<any>;
     /** A function that returns a message with the specified key. */

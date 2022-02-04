@@ -42,7 +42,7 @@ Field | Type | Description
 isDeleting | boolean | **true** if the appointment is being deleted or **false** if it is being edited.
 buttonComponent | ComponentType&lt;[EditRecurrenceMenu.ButtonProps](#editrecurrencemenubuttonprops)&gt; | A component that renders the OK and Cancel buttons.
 handleClose | () => void | A function that closes the menu.
-commit | (value?: any) => void | A function that commits changes.
+commit | (value?: string) => void | A function that commits changes.
 availableOperations | Array&lt;string&gt; | A list of available editing operations.
 getMessage | (messageKey: string) => string | A function that returns a message with the specified key.
 

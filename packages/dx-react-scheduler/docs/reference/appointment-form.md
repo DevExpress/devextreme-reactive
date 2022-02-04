@@ -253,7 +253,7 @@ rRule | string | Specifies the recurrence rule.
 firstDayOfWeek | number | A number between 0 (Sunday) and 6 (Saturday) that specifies the first day of the week.
 readOnly | boolean | Specifies whether the weekly recurrence selector is read-only.
 formatDate | [FormatterFn](./scheduler.md#formatterfn) | A function that formats dates based on the locale.
-onValueChange | (nextFieldValue: { [fieldName: string]: any }) => void | Handles value changes.
+onFieldChange | (nextFieldValue: { [fieldName: string]: any }) => void | Handles value changes.
 
 ## Localization Messages
 

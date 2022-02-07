@@ -57,6 +57,5 @@
         "devDependencies"
       ]
     }
-  ],
-  "ignorePaths": [".circleci"]
+  ]
 }

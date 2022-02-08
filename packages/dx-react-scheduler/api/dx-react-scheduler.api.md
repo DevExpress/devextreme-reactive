@@ -248,7 +248,7 @@ export namespace AppointmentForm {
   export interface WeeklyRecurrenceSelectorProps {
     firstDayOfWeek: number;
     formatDate: FormatterFn;
-    onFieldChange: (nextFieldValue: {
+    onValueChange: (nextFieldValue: {
       [fieldName: string]: any;
     }) => void;
     readOnly: boolean;

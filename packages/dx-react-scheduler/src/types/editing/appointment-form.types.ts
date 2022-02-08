@@ -239,7 +239,7 @@ export namespace AppointmentForm {
     /** Specifies whether the weekly recurrence selector is read-only. */
     readOnly: boolean;
     /** Handles appointment field value changes. */
-    onFieldChange: (nextFieldValue: { [fieldName: string]: any }) => void;
+    onValueChange: (nextFieldValue: { [fieldName: string]: any }) => void;
   }
   /** Localization Messages */
   export interface LocalizationMessages {

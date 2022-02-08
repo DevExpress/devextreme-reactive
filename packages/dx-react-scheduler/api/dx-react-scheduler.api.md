@@ -248,7 +248,7 @@ export namespace AppointmentForm {
   export interface WeeklyRecurrenceSelectorProps {
     firstDayOfWeek: number;
     formatDate: FormatterFn;
-    onFieldChange: (nextFieldValue: {
+    onValueChange: (nextFieldValue: {
       [fieldName: string]: any;
     }) => void;
     readOnly: boolean;
@@ -804,7 +804,7 @@ export namespace EditRecurrenceMenu {
   export interface LayoutProps {
     availableOperations: Array<any>;
     buttonComponent: React_2.ComponentType<EditRecurrenceMenu.ButtonProps>;
-    commit: () => void;
+    commit: (value?: string) => void;
     getMessage: (messageKey: string) => string;
     handleClose: () => void;
     isDeleting: boolean;

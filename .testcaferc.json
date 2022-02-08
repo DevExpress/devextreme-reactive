@@ -1,12 +1,18 @@
 {
-  "browsers": ["chrome:headless --disable-features=VizDisplayCompositor"],
-  "src": "./**/*.testcafe.js",
-  "reporter": [
-    "spec",
-    {
-      "name": "xunit",
-      "output": "/tmp/testcafe-test-results/res.xml"
-    }
-  ],
-  "skipJsErrors" : true
+    "browsers": [
+        "chrome:headless --disable-features=VizDisplayCompositor"
+    ],
+    "src": "./**/*.testcafe.js",
+    "reporter": [
+        "spec",
+        {
+            "name": "xunit",
+            "output": "/tmp/testcafe-test-results/res.xml"
+        }
+    ],
+    "quarantineMode": {
+        "successThreshold": 1,
+        "attemptLimit": 3
+    },
+    "skipJsErrors": true
 }

@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as PropTypes from 'prop-types';
 import classNames from 'clsx';
 import { StyleContext } from './layout';
-import { getStickyPosition } from '../utils/css-fallback-properties';
+import { getStickyPosition, getStickyStyles } from '../utils/css-fallback-properties';
 
 export const Table = ({
   children, use, style, className, forwardedRef,
@@ -28,9 +28,7 @@ export const Table = ({
         borderCollapse: 'separate',
         marginBottom: 0,
         ...use ? {
-          position: stickyPosition,
-          zIndex: 500,
-          background: backgroundColor,
+          ...getStickyStyles({ stickyPosition, backgroundColor }),
         } : null,
         ...use === 'head' ? {
           top: 0,

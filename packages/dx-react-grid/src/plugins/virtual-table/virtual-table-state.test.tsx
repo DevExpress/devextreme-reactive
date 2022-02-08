@@ -210,7 +210,7 @@ describe('VirtualTableState', () => {
                 virtualRowsCache: emptyVirtualRows,
                 availableRowCount: 100,
                 requestedStartIndex: 0,
-                requestedEndIndex: 100, 
+                requestedEndIndex: 100,
               });
 
             scrollTable(100);

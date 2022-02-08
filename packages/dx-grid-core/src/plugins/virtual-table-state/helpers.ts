@@ -170,7 +170,7 @@ export const getReferenceIndex: PureComputed<[GridViewport], number> = (
 );
 
 export const shouldSendRequest: PureComputed<[Interval, number, number], boolean> = (
-  { start, end }, requestedPageIndex, requestedEndIndex
+  { start, end }, requestedPageIndex, requestedEndIndex,
 ) => {
   const loadCount = (end - start);
   return (start !== requestedPageIndex || end !== requestedEndIndex) && loadCount > 0;

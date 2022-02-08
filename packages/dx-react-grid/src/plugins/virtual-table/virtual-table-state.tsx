@@ -109,7 +109,7 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
       this.setState({
         virtualRowsCache: emptyVirtualRows,
         requestedStartIndex: startIndex,
-        requestedEndIndex: endIndex
+        requestedEndIndex: endIndex,
       });
     }, 50);
   }

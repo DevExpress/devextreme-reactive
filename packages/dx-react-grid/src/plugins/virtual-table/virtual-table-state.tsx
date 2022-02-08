@@ -29,8 +29,9 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
 
     this.state = {
       virtualRowsCache: emptyVirtualRows,
-      requestedStartIndex: -1,
+      requestedStartIndex: 0,
       availableRowCount: props.totalRowCount || 0,
+      requestedEndIndex: 2 * props.pageSize,
     };
   }
 
@@ -52,13 +53,13 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
     { virtualRows }: Getters,
   ) => {
     const { pageSize, totalRowCount, infiniteScrolling } = this.props;
-    const { requestedStartIndex } = this.state;
+    const { requestedStartIndex, requestedEndIndex } = this.state;
     const actualVirtualRows = forceReload ? emptyVirtualRows : virtualRows;
     const { requestedRange, actualBounds } = getRequestMeta(
       referenceIndex, virtualRows, pageSize!, totalRowCount, forceReload, infiniteScrolling,
     );
 
-    if (forceReload || shouldSendRequest(requestedRange, requestedStartIndex)) {
+    if (forceReload || shouldSendRequest(requestedRange, requestedStartIndex, requestedEndIndex)) {
       this.requestNextPage(requestedRange, actualVirtualRows, actualBounds);
     }
   }
@@ -89,22 +90,26 @@ class VirtualTableStateBase extends React.PureComponent<VirtualTableStateProps, 
         virtualRowsCache,
         availableRowCount,
         requestedStartIndex,
+        requestedEndIndex: end,
       });
     }, 50);
   }
 
   requestFirstPage() {
     const { getRows, pageSize } = this.props;
+    const startIndex = 0;
+    const endIndex = 2 * pageSize!;
 
     if (this.requestTimer !== 0) {
       clearTimeout(this.requestTimer);
     }
     this.requestTimer = window.setTimeout(() => {
-      getRows(0, 2 * pageSize!);
+      getRows(startIndex, endIndex);
 
       this.setState({
         virtualRowsCache: emptyVirtualRows,
-        requestedStartIndex: 0,
+        requestedStartIndex: startIndex,
+        requestedEndIndex: endIndex
       });
     }, 50);
   }

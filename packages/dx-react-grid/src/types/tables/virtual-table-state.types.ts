@@ -12,4 +12,5 @@ export type VirtualTableStateState = {
   virtualRowsCache: any,
   requestedStartIndex: number,
   availableRowCount: number,
+  requestedEndIndex: number,
 };

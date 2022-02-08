@@ -210,6 +210,7 @@ describe('VirtualTableState', () => {
                 virtualRowsCache: emptyVirtualRows,
                 availableRowCount: 100,
                 requestedStartIndex: 0,
+                requestedEndIndex: 100, 
               });
 
             scrollTable(100);
@@ -218,6 +219,7 @@ describe('VirtualTableState', () => {
                 virtualRowsCache: 'trimRowsToInterval',
                 availableRowCount: 200,
                 requestedStartIndex: 100,
+                requestedEndIndex: 150,
               });
 
             tree.setProps({ totalRowCount: 0 });
@@ -226,6 +228,7 @@ describe('VirtualTableState', () => {
                 virtualRowsCache: emptyVirtualRows,
                 availableRowCount: 0,
                 requestedStartIndex: 0,
+                requestedEndIndex: 150,
               });
           });
 
@@ -237,6 +240,7 @@ describe('VirtualTableState', () => {
                 virtualRowsCache: emptyVirtualRows,
                 availableRowCount: 100,
                 requestedStartIndex: 0,
+                requestedEndIndex: 100,
               });
 
             scrollTable(100);
@@ -245,6 +249,7 @@ describe('VirtualTableState', () => {
                 virtualRowsCache: 'trimRowsToInterval',
                 availableRowCount: 200,
                 requestedStartIndex: 100,
+                requestedEndIndex: 150,
               });
 
             tree.setProps({ totalRowCount: 100 });
@@ -253,6 +258,7 @@ describe('VirtualTableState', () => {
                 virtualRowsCache: emptyVirtualRows,
                 availableRowCount: 100,
                 requestedStartIndex: 50,
+                requestedEndIndex: 150,
               });
           });
         });

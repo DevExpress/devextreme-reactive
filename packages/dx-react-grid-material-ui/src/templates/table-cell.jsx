@@ -25,7 +25,7 @@ const StyledTableCellMUI = styled(TableCellMUI)(({ theme }) => ({
     textOverflow: 'ellipsis',
   },
   [`&.${classes.footer}`]: {
-    borderBottom: getBorder(theme),
+    borderTop: getBorder(theme),
   },
   [`&.${classes.cellRightAlign}`]: {
     textAlign: 'right',

@@ -309,6 +309,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
               <VirtualTableLayoutBlock
                 {...commonProps}
                 name="footer"
+                isFixed={true}
                 collapsedGrid={collapsedGrids.footerGrid}
                 bodyComponent={Footer}
               />

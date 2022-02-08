@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createShallow } from '@devexpress/dx-testing';
-import { Head, classes } from './table-parts';
+import { Head, Footer, classes } from './table-parts';
 
 describe('Head', () => {
   let shallow;
@@ -18,5 +18,18 @@ describe('Head', () => {
     const tree = shallow((<Head isFixed />));
 
     expect(tree.is(`.${classes.fixedHeader}`)).toBeTruthy();
+  });
+});
+
+describe('Footer', () => {
+  let shallow;
+  beforeAll(() => {
+    shallow = createShallow({ dive: true });
+  });
+
+  it('should render footer with correct styles, isFixed', () => {
+    const tree = shallow((<Footer isFixed />));
+
+    expect(tree.is(`.${classes.fixedFooter}`)).toBeTruthy();
   });
 });

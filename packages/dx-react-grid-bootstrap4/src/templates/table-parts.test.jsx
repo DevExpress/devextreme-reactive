@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
-import { TableHead } from './table-parts';
+import { TableHead, TableFooter } from './table-parts';
 
 import { BodyColorContext } from './layout';
 
@@ -23,7 +23,22 @@ describe('TableHead', () => {
     ));
 
     expect(tree.find('thead').props()).toEqual({
-      className: 'dx-g-bs4-fixed-header',
+      className: 'dx-g-bs4-fixed-header dx-g-bs4-table-sticky',
+      style: { backgroundColor: 'backgroundColor' },
+    });
+  });
+});
+
+describe('TableFooter', () => {
+  it('should render footer with correct styles, isFixed', () => {
+    const tree = mount((
+      <BodyColorContext.Provider value={'backgroundColor'}>
+        <TableFooter isFixed />
+      </BodyColorContext.Provider>
+    ));
+
+    expect(tree.find('tfoot').props()).toEqual({
+      className: 'dx-g-bs4-fixed-footer dx-g-bs4-table-sticky',
       style: { backgroundColor: 'backgroundColor' },
     });
   });

@@ -82,11 +82,11 @@ Additional properties are added to the component's root element.
 
 Field | Type | Description
 ------|------|------------
-COLUMN_TYPE | symbol | The data column type's indentifier.
-ROW_TYPE | symbol | The data row type's indentifier.
-NODATA_ROW_TYPE | symbol | The nodata row type's indentifier.
-TOP_POSITION | symbol | The top position of the table. Used in scrolling.
-BOTTOM_POSITION | symbol | The bottom position of the table. Used in scrolling.
+COLUMN&lowbar;TYPE | symbol | The data column type's indentifier.
+ROW&lowbar;TYPE | symbol | The data row type's indentifier.
+NODATA&lowbar;ROW&lowbar;TYPE | symbol | The nodata row type's indentifier.
+TOP&lowbar;POSITION | symbol | The top position of the table. Used in scrolling.
+BOTTOM&lowbar;POSITION | symbol | The bottom position of the table. Used in scrolling.
 
 ## Plugin Developer Reference
 

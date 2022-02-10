@@ -369,7 +369,7 @@ describe('TemplatePlaceholder', () => {
           </Template>
         </Plugin>
       );
-    }
+    };
     const Root = ({ enabled }) => (
       <div>
         <PluginHost>

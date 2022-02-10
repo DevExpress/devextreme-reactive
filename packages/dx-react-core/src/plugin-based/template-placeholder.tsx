@@ -64,10 +64,11 @@ class TemplatePlaceholderBase extends React.Component<Props> {
 
   shouldComponentUpdate(nextProps: Props) {
     const { params, templates } = getRenderingData(nextProps);
+    const [template] = templates;
     const { children } = this.props;
 
-    return children !== nextProps.children || templates.length > 1 
-      || templates.length === 1 && this.template !== templates[0]
+    return children !== nextProps.children || templates.length > 1
+      || this.template !== template
       || !shallowEqual(this.params, params);
   }
 

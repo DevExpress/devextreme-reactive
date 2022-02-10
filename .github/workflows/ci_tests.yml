@@ -1,0 +1,108 @@
+name: Tests
+
+on:
+  push:
+    branches-ignore:    
+      - 'gh-pages'
+  pull_request:
+    branches-ignore:    
+      - 'gh-pages'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build, Lint & Jest Test
+    steps:
+    - name: Get sources
+      uses: actions/checkout@v2
+
+    - name: Use Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Prepare yarn
+      run: |
+        sudo npm i -g yarn@1.22.4 --force
+        yarn --no-progress
+
+    - name: Build
+      run: |
+        yarn build
+        chmod -R 777 .
+
+    - name: Linter & Jest Tests
+      run: |
+        yarn lint
+        yarn test:ci
+
+    - name: Zip artifacts 
+      run: 7z a -tzip -mx3 -mmt2 artifacts.zip packages
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: devextreme-reactive-artifacts
+        path: artifacts.zip
+        retention-days: 1
+
+  test_cafe:
+    runs-on: ubuntu-latest
+    needs: build
+    strategy:
+      matrix:
+        component: ['grid', 'chart', 'scheduler']
+    name: Test Cafe tests ${{ matrix.component }}
+    steps:
+    - name: Get sources
+      uses: actions/checkout@v2
+
+    - name: Use Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Prepare yarn
+      run: |
+        sudo npm i -g yarn@1.22.4 --force
+        yarn --no-progress
+
+    - name: Download artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: devextreme-reactive-artifacts
+
+    - name: Unpack artifacts
+      run: 7z x -y artifacts.zip
+
+    - name: TestCafe test
+      run: yarn testcafe:ci:${{ matrix.component }}
+
+  site:
+    runs-on: ubuntu-latest
+    needs: build
+    name: Site
+    steps:
+    - name: Get sources
+      uses: actions/checkout@v2
+
+    - name: Use Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Prepare yarn
+      run: |
+        sudo npm i -g yarn@1.22.4 --force
+        yarn --no-progress
+
+    - name: Download artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: devextreme-reactive-artifacts
+
+    - name: Unpack artifacts
+      run: 7z x -y artifacts.zip
+
+    - name: Site
+      run: yarn build:site:docs

@@ -157,7 +157,11 @@ describe('TableGroupRow Plugin computeds', () => {
       const getCellColSpanGetter = tableGroupCellColSpanGetter(
         parentGetCellColSpan, [],
       );
-      const tableColumn = { type: TABLE_GROUP_TYPE, column: { name: 'a' } };
+      const tableColumn = {
+        type: TABLE_GROUP_TYPE,
+        column: { name: 'a' },
+        key: `${TABLE_GROUP_TYPE.toString()}_a`,
+      };
 
       expect(getCellColSpanGetter({
         tableColumn,
@@ -197,7 +201,11 @@ describe('TableGroupRow Plugin computeds', () => {
 
     describe('Virtual Table', () => {
       [0, 1, 2].map((firstVisibleColumnIndex) => {
-        const tableColumn = { type: TABLE_GROUP_TYPE, column: { name: 'a' } };
+        const tableColumn = {
+          type: TABLE_GROUP_TYPE,
+          column: { name: 'a' },
+          key: `${TABLE_GROUP_TYPE.toString()}_a`,
+        };
         const getCellColSpanGetter = tableGroupCellColSpanGetter(
           parentGetCellColSpan, [], firstVisibleColumnIndex,
         );
@@ -247,8 +255,12 @@ describe('TableGroupRow Plugin computeds', () => {
       const getCellColSpanGetter = tableGroupCellColSpanGetter(
         parentGetCellColSpan, [],
       );
-      const tableDataColumn = { column: { name: 'a' } };
-      const tableGroupColumn = { type: TABLE_GROUP_TYPE, column: { name: 'a' } };
+      const tableDataColumn = { column: { name: 'a' }, key: `${TABLE_DATA_TYPE.toString()}_a` };
+      const tableGroupColumn = {
+        type: TABLE_GROUP_TYPE,
+        column: { name: 'a' },
+        key: `${TABLE_GROUP_TYPE.toString()}_a`,
+      };
       const tableRow = { type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } };
       const tableColumns = [tableGroupColumn, tableDataColumn, {}];
 
@@ -267,9 +279,55 @@ describe('TableGroupRow Plugin computeds', () => {
       .toBe(3);
     });
 
+    it('should return correct colspan, grouped several columns', () => {
+      const getCellColSpanGetter = tableGroupCellColSpanGetter(
+        parentGetCellColSpan, [],
+      );
+      const tableRow = { type: TABLE_GROUP_TYPE, row: { groupedBy: 'c' } };
+      const tableColumns = [
+        { type: TABLE_GROUP_TYPE, column: { name: 'a' }, key: `${TABLE_GROUP_TYPE.toString()}_a` },
+        { type: TABLE_GROUP_TYPE, column: { name: 'c' }, key: `${TABLE_GROUP_TYPE.toString()}_c` },
+        { column: { name: 'a' }, key: `${TABLE_DATA_TYPE.toString()}_a` },
+        { column: { name: 'b' }, key: `${TABLE_DATA_TYPE.toString()}_b` },
+        { column: { name: 'c' }, key: `${TABLE_DATA_TYPE.toString()}_c` },
+        { column: { name: 'd' }, key: `${TABLE_DATA_TYPE.toString()}_d` },
+      ];
+
+      expect(tableColumns.map(
+        tableColumn => getCellColSpanGetter({
+          tableColumn,
+          tableRow,
+          tableColumns,
+        })))
+        .toEqual([1, 5, 'original', 'original', 'original', 'original']);
+    });
+
+    it('should return correct colspan, grouped and columns with the same name', () => {
+      const getCellColSpanGetter = tableGroupCellColSpanGetter(
+        parentGetCellColSpan, [],
+      );
+      const tableRow = { type: TABLE_GROUP_TYPE, row: { groupedBy: 'a' } };
+      const tableColumns = [
+        { type: TABLE_GROUP_TYPE, column: { name: 'a' }, key: `${TABLE_GROUP_TYPE.toString()}_a` },
+        { column: { name: 'a' }, key: `${TABLE_DATA_TYPE.toString()}_a` },
+        { column: { name: 'b' }, key: `${TABLE_DATA_TYPE.toString()}_b` },
+        { column: { name: 'c' }, key: `${TABLE_DATA_TYPE.toString()}_c` },
+        { column: { name: 'a' }, key: `${TABLE_DATA_TYPE.toString()}_a` },
+        { column: { name: 'd' }, key: `${TABLE_DATA_TYPE.toString()}_d` },
+      ];
+
+      expect(tableColumns.map(
+        tableColumn => getCellColSpanGetter({
+          tableColumn,
+          tableRow,
+          tableColumns,
+        })))
+        .toEqual([6, 'original', 'original', 'original', 'original', 'original']);
+    });
+
     describe('with summary', () => {
       const tableColumns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
-        .map(name => ({ column: { name } }));
+        .map(name => ({ column: { name }, key: `type_${name}` }));
       const groupSummaryItems = [
         { columnName: 'b', type: 'sum', showInGroupFooter: false, alignByColumn: true },
         { columnName: 'd', type: 'sum', showInGroupFooter: false },
@@ -288,7 +346,7 @@ describe('TableGroupRow Plugin computeds', () => {
             tableRow,
             tableColumns,
           })))
-          .toEqual(['original', 1, 2, 'original', 1, 3, 'original', 'original']);
+          .toEqual([1, 1, 2, 'original', 1, 3, 'original', 'original']);
       });
     });
   });

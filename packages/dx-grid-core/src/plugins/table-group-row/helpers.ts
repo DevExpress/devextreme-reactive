@@ -93,7 +93,6 @@ export const sortAndSpliceColumns: PureComputed<[TableColumn[], number]> = (
 ) => {
   const groupColumns = tableColumns.filter(col => col.type === TABLE_GROUP_TYPE);
   const dataColumns = tableColumns.filter(col => col.type === TABLE_DATA_TYPE);
-  const flexColumns = tableColumns.filter(col => col.type === TABLE_FLEX_TYPE);
   const otherColumns = tableColumns.filter(
     col =>
       col.type !== TABLE_DATA_TYPE &&
@@ -106,5 +105,5 @@ export const sortAndSpliceColumns: PureComputed<[TableColumn[], number]> = (
     otherColumns.splice(0, Math.min(firstVisibleColumnIndex, firstGroupIndex));
   }
 
-  return [...groupColumns, ...otherColumns, ...dataColumns, ...flexColumns];
+  return [...groupColumns, ...otherColumns, ...dataColumns];
 };

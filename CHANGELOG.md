@@ -1,3 +1,52 @@
+# [3.0.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.7.6...v3.0.0) (2022-01-31)
+
+
+### Bug Fixes
+
+* **react-grid:** add dependence in the TableBandHeader plugin ([#3483](https://github.com/DevExpress/devextreme-reactive/issues/3483)) ([5eaf231](https://github.com/DevExpress/devextreme-reactive/commit/5eaf2314424bd87a97c8d04355f11b49b8a6ba2d))
+* **react-grid:** extend type of Filter value ([#3488](https://github.com/DevExpress/devextreme-reactive/issues/3488)) ([65005d0](https://github.com/DevExpress/devextreme-reactive/commit/65005d0ee267b4756f652047ccb8cc8961385e27))
+* **react-grid:** fix calculating colSpan for virtualTable ([#3469](https://github.com/DevExpress/devextreme-reactive/issues/3469)) ([a8686e4](https://github.com/DevExpress/devextreme-reactive/commit/a8686e49b76db88a086ab9378e08276bac30b8ba))
+* **react-grid:** fix colspan calculation ([#3471](https://github.com/DevExpress/devextreme-reactive/issues/3471)) ([5c44427](https://github.com/DevExpress/devextreme-reactive/commit/5c444276e4c556caabba80d5940500393ee7b335))
+* **react-grid:** fix changing a visibility of a column with selectors(T1032186) ([#3458](https://github.com/DevExpress/devextreme-reactive/issues/3458)) ([4c77781](https://github.com/DevExpress/devextreme-reactive/commit/4c77781be53e0c3abf87bcb1ce71eced60c8f478))
+* **react-grid:** fix page freezes on drag and drop ([#3462](https://github.com/DevExpress/devextreme-reactive/issues/3462)) ([6f000e0](https://github.com/DevExpress/devextreme-reactive/commit/6f000e0f1c312dc9f5810501718db915376bfc1c))
+* **react-grid:** fix render of group cell of second level ([#3479](https://github.com/DevExpress/devextreme-reactive/issues/3479)) ([b7c3919](https://github.com/DevExpress/devextreme-reactive/commit/b7c3919ec5f028decfd6da75313085ad6061d739))
+* **react-grid:** fix type DataTypeProvider.ValueEditorProps ([#3484](https://github.com/DevExpress/devextreme-reactive/issues/3484)) ([c9c93d0](https://github.com/DevExpress/devextreme-reactive/commit/c9c93d0520f6a38c0453c75b7c963837caf977b2))
+* **react-grid:** fix type description in docs for toggleColumnVisibility (T1029991) ([#3446](https://github.com/DevExpress/devextreme-reactive/issues/3446)) ([4e5500f](https://github.com/DevExpress/devextreme-reactive/commit/4e5500fb8e7849539628a5ec2618c7e1291b025a))
+* **react-grid:** prevent resize of the column out the left side of window ([#3486](https://github.com/DevExpress/devextreme-reactive/issues/3486)) ([bb11855](https://github.com/DevExpress/devextreme-reactive/commit/bb118558ad36aa86337d5958e96b4af8734b2cd4))
+* **react-scheduler:** fix adding appointment after editing in control mode(T1024087) ([#3463](https://github.com/DevExpress/devextreme-reactive/issues/3463)) ([462dbeb](https://github.com/DevExpress/devextreme-reactive/commit/462dbebd61013c1e697f11285f00844ba01fd9fd))
+* **react-scheduler:** fix container classes ([#3456](https://github.com/DevExpress/devextreme-reactive/issues/3456)) ([1b40305](https://github.com/DevExpress/devextreme-reactive/commit/1b40305adf1bea84982fee860a30dd49a5e91c7d))
+* **react-scheduler:** fix scrolling after migrate from jss ([#3487](https://github.com/DevExpress/devextreme-reactive/issues/3487)) ([372dbc2](https://github.com/DevExpress/devextreme-reactive/commit/372dbc279ca123bd6dcffc451112109907a83e8b))
+* **react-scheduler:** make `timeScaleTickCellComponent` property public ([#3474](https://github.com/DevExpress/devextreme-reactive/issues/3474)) ([cee2043](https://github.com/DevExpress/devextreme-reactive/commit/cee2043c95ffd57b7c657096f93a41a2688e9ee6))
+* **react-scheduler:** actualize types for EditingState ([#3485](https://github.com/DevExpress/devextreme-reactive/issues/3485)) ([8fece29](https://github.com/DevExpress/devextreme-reactive/commit/8fece298d90dfde52894095fd683ba939c468f83))
+
+
+### Features
+
+* **react-grid:** use one table instead few in VirtualTable ([#3451](https://github.com/DevExpress/devextreme-reactive/issues/3451)) ([9487c6c](https://github.com/DevExpress/devextreme-reactive/commit/9487c6c811a423d5d8626a23102742afdcd2926a))
+
+
+### BREAKING CHANGES
+
+* **react-grid:** Now, declare the `TableColumnVisibility` plug-in before the `TableBandHeader` plug-in to correctly calculate column spans and borders.
+
+```diff
+...
++<TableColumnVisibility
++  defaultHiddenColumnNames={...}
++/>
+...
+<TableBandHeader
+  columnBands={columnBands}
+/>
+...
+-<TableColumnVisibility
+-  defaultHiddenColumnNames={...}
+-/>
+...
+```
+
+
+
 # [3.0.0-beta.2](https://github.com/DevExpress/devextreme-reactive/compare/v3.0.0-beta.1...v3.0.0-beta.2) (2021-11-22)
 
 

@@ -248,7 +248,7 @@ export namespace AppointmentForm {
   export interface WeeklyRecurrenceSelectorProps {
     firstDayOfWeek: number;
     formatDate: FormatterFn;
-    onFieldChange: (nextFieldValue: {
+    onValueChange: (nextFieldValue: {
       [fieldName: string]: any;
     }) => void;
     readOnly: boolean;
@@ -475,6 +475,13 @@ export namespace BaseView {
         height?: number;
         labelComponent: React_2.ComponentType<BaseView.TimeScaleLabelProps>;
         showAllDayTitle?: boolean;
+        tickCellComponent: React_2.ComponentType<BaseView.TimeScaleTickCellProps>;
+    }
+    export interface TimeScaleTickCellProps {
+        endDate?: Date;
+        endOfGroup?: boolean;
+        groupingInfo?: Array<Group>;
+        startDate?: Date;
     }
     export interface TimeTableCellProps {
         children?: React_2.ReactNode;
@@ -702,6 +709,8 @@ export namespace DayView {
   }
   export interface TimeScaleLayoutProps extends BaseView.TimeScaleLayoutProps {
   }
+  export interface TimeScaleTickCellProps extends BaseView.TimeScaleTickCellProps {
+  }
   export interface TimeTableCellProps extends BaseView.TimeTableCellProps {
   }
   export interface TimeTableLayoutProps extends BaseView.TimeTableLayoutProps {
@@ -795,7 +804,7 @@ export namespace EditRecurrenceMenu {
   export interface LayoutProps {
     availableOperations: Array<any>;
     buttonComponent: React_2.ComponentType<EditRecurrenceMenu.ButtonProps>;
-    commit: () => void;
+    commit: (value?: string) => void;
     getMessage: (messageKey: string) => string;
     handleClose: () => void;
     isDeleting: boolean;
@@ -1151,6 +1160,7 @@ export interface VerticalViewProps extends CommonViewProps {
   startDayHour?: number;
   timeScaleLabelComponent: React_2.ComponentType<BaseView.TimeScaleLabelProps>;
   timeScaleLayoutComponent: React_2.ComponentType<BaseView.TimeScaleLayoutProps>;
+  timeScaleTickCellComponent: React_2.ComponentType<BaseView.TimeScaleTickCellProps>;
   timeTableLayoutComponent: React_2.ComponentType<BaseView.TimeTableLayoutProps>;
 }
 
@@ -1213,6 +1223,8 @@ export namespace WeekView {
   export interface TimeScaleLabelProps extends BaseView.TimeScaleLabelProps {
   }
   export interface TimeScaleLayoutProps extends BaseView.TimeScaleLayoutProps {
+  }
+  export interface TimeScaleTickCellProps extends BaseView.TimeScaleTickCellProps {
   }
   export interface TimeTableCellProps extends BaseView.TimeTableCellProps {
   }

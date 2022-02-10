@@ -5,18 +5,25 @@ import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
 import TableFooter from '@mui/material/TableFooter';
 import { styled } from '@mui/material/styles';
+import { getStickyStyles } from './utils';
 
-const PREFIX = 'TableHead';
+const PREFIX = 'TableParts';
 export const classes = {
   fixedHeader: `${PREFIX}-fixedHeader`,
+  fixedFooter: `${PREFIX}-fixedFooter`,
 };
 
 const StyledHead = styled(TableHead)(({ theme }) => ({
-  [`&.${classes.fixedHeader}`]: {
-    position: 'sticky',
+  [`&.${classes.fixedHead}`]: {
+    ...getStickyStyles(theme),
     top: 0,
-    background: theme.palette.background.paper,
-    zIndex: 500,
+  },
+}));
+
+const StyledFooter = styled(TableFooter)(({ theme }) => ({
+  [`&.${classes.fixedFooter}`]: {
+    ...getStickyStyles(theme),
+    bottom: 0,
   },
 }));
 
@@ -48,7 +55,10 @@ Body.defaultProps = {
   isFixed: undefined,
 };
 
-export const Footer = ({ isFixed, ...props }) => <TableFooter {...props} />;
+export const Footer = ({ isFixed, ...props }) => (
+  <StyledFooter className={classNames({ [classes.fixedFooter]: isFixed })} {...props} />
+);
+
 Footer.propTypes = {
   isFixed: PropTypes.bool,
 };

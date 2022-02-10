@@ -33,3 +33,9 @@ const getValidPropertyValue = (property, value) => {
 };
 
 export const getStickyPosition = () => getValidPropertyValue('position', 'sticky');
+
+export const getStickyStyles = ({ stickyPosition, backgroundColor }) => ({
+  position: stickyPosition,
+  backgroundColor,
+  zIndex: 500,
+});

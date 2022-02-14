@@ -33,11 +33,18 @@ export const getTableTargetColumnIndex: GetTableTargetColumnIndexFn = (
   columnGeometries, offset,
 ) => {
   const indexes = columnGeometries.reduce((acc, { left, right }, index) => {
-    if (offset > left && offset < right) {
+    if (offset >= left && offset < right) {
       acc.push(index);
     }
     return acc;
   }, [] as number[]);
+
+  if (columnGeometries.some(({ left, right }) => left <= 0 && right <= 0)) {
+    if (indexes.some(index => columnGeometries[index].isFixed ||
+      columnGeometries[index].left <= 0 && columnGeometries[index].right <= 0)) {
+      return -1;
+    }
+  }
 
   if (indexes.length === 2) {
     return indexes.find(index => columnGeometries[index].isFixed)!;

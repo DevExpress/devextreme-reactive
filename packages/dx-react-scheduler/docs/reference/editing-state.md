@@ -40,6 +40,6 @@ Describes uncommitted changes made to the scheduler data.
 
 Field | Type | Description
 ------|------|------------
-added? | [AppointmentModel](./scheduler.md#appointmentmodel) | An appointment to be created.
-changed? | { [key: number &#124; string]: object } | Changes made to an appointment. The item's key specifies the associated appointment's ID.
+added? | { [key: string]: any } | An appointment to be created.
+changed? | { [key: string]: any } | Changes made to an appointment. The item's key specifies the associated appointment's ID.
 deleted? | number &#124; string | The identifier of an appointment to be deleted.

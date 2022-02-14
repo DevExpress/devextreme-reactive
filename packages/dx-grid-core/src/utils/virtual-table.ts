@@ -11,6 +11,7 @@ import {
   GetSpecificRenderBoundaryFn,
   GetRenderBoundaryFn,
   GetRowsVisibleBoundaryFn,
+  TableRow,
 } from '../types';
 import { TABLE_FLEX_TYPE, intervalUtil } from '..';
 
@@ -234,16 +235,23 @@ export const getCollapsedCells: GetCollapsedCellsFn = (
     if (isSpan) {
       const column = columns[boundary[0]];
       const realColSpan = getColSpan(column);
-      const realColSpanEnd = (realColSpan + boundary[0]) - 1;
-      const colSpanEnd = boundaries.findIndex(
-        colSpanBoundary => colSpanBoundary[0]
-        <= realColSpanEnd && realColSpanEnd
-        <= colSpanBoundary[1],
-      );
-      collapsedCells.push({
-        column,
-        colSpan: (colSpanEnd - index) + 1,
-      });
+      if (realColSpan + index - 1 !== columns.length) {
+        const realColSpanEnd = (realColSpan + boundary[0]) - 1;
+        const colSpanEnd = boundaries.findIndex(
+          colSpanBoundary => colSpanBoundary[0]
+          <= realColSpanEnd && realColSpanEnd
+          <= colSpanBoundary[1],
+        );
+        collapsedCells.push({
+          column,
+          colSpan: (colSpanEnd - index) + 1,
+        });
+      } else {
+        collapsedCells.push({
+          column,
+          colSpan: realColSpan,
+        });
+      }
       index += 1;
     } else {
       collapsedCells.push({
@@ -264,9 +272,9 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
   columns,
   rowsVisibleBoundary,
   columnsVisibleBoundary,
-  getColumnWidth = (column: any) => column.width,
-  getRowHeight = (row: any) => row.height,
-  getColSpan = () => 1,
+  getColumnWidth,
+  getRowHeight,
+  getColSpan,
   totalRowCount,
   offset,
 }) => {
@@ -279,13 +287,15 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
 
   const boundaries = rowsVisibleBoundary || [0, rows.length - 1 || 1];
 
+  const getSpanBoundaryByRow = (row: TableRow) => getSpanBoundary(
+    columns,
+    columnsVisibleBoundary,
+    column => getColSpan(row, column),
+  );
+
   const rowSpanBoundaries = rows
-    .slice(boundaries[0], boundaries[1])
-    .map(row => getSpanBoundary(
-      columns,
-      columnsVisibleBoundary,
-      column => getColSpan(row, column),
-    ));
+    .slice(boundaries[0], boundaries[1] + 1)
+    .map(row => getSpanBoundaryByRow(row));
   const columnBoundaries = collapseBoundaries(
     columns.length,
     columnsVisibleBoundary,
@@ -308,11 +318,7 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
       getRowHeight,
       row => getCollapsedCells(
         columns,
-        getSpanBoundary(
-          columns,
-          columnsVisibleBoundary,
-          column => getColSpan(row, column),
-        ),
+        getSpanBoundaryByRow(row),
         columnBoundaries,
         column => getColSpan(row, column),
       ),
@@ -368,7 +374,7 @@ export const getCollapsedGrids: GetCollapsedGridsFn = ({
   });
 
   const headerGrid = getCollapsedGridBlock(
-    headerRows, getRenderRowBounds(viewport.headerRows, headerRows.length),
+    headerRows, getRowsRenderBoundary(headerRows.length, viewport.headerRows),
   );
   const bodyGrid = getCollapsedGridBlock(
     bodyRows,
@@ -378,8 +384,9 @@ export const getCollapsedGrids: GetCollapsedGridsFn = ({
     totalRowCount || 1,
     loadedRowsStart,
   );
+
   const footerGrid = getCollapsedGridBlock(
-    footerRows, getRenderRowBounds(viewport.footerRows, footerRows.length),
+    footerRows, getRowsRenderBoundary(footerRows.length, viewport.footerRows),
   );
 
   return {
@@ -389,18 +396,11 @@ export const getCollapsedGrids: GetCollapsedGridsFn = ({
   };
 };
 
-const getRenderRowBounds: PureComputed<[VisibleBoundary, number], number[]> = (
-  visibleBounds, rowCount,
-) => getRowsRenderBoundary(
-  rowCount,
-  visibleBounds,
-);
-
 const adjustedRenderRowBounds: PureComputed<[VisibleBoundary, number, number], number[]> = (
   visibleBounds, rowCount, loadedRowsStart,
 ) => {
-  const renderRowBoundaries = getRenderRowBounds(
-    visibleBounds, loadedRowsStart + rowCount,
+  const renderRowBoundaries = getRowsRenderBoundary(
+    loadedRowsStart + rowCount, visibleBounds,
   );
   const adjustedInterval = intervalUtil.intersect(
     { start: renderRowBoundaries[0], end: renderRowBoundaries[1] },

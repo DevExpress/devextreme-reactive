@@ -493,18 +493,23 @@ describe('VirtualTableState helpers', () => {
 
   describe('#shouldSendRequest', () => {
     it('should return false if page is already requested', () => {
-      expect(shouldSendRequest({ start: 100, end: 200 }, 100))
+      expect(shouldSendRequest({ start: 100, end: 200 }, 100, 200))
         .toBeFalsy();
     });
 
     it('should return true if page is not yet requested', () => {
-      expect(shouldSendRequest({ start: 100, end: 200 }, 400))
+      expect(shouldSendRequest({ start: 100, end: 200 }, 400, 500))
         .toBeTruthy();
     });
 
     it('should return false if requested range is empty', () => {
-      expect(shouldSendRequest({ start: 100, end: 100 }, 400))
+      expect(shouldSendRequest({ start: 100, end: 100 }, 400, 500))
         .toBeFalsy();
+    });
+
+    it('should return true if page range changed', () => {
+      expect(shouldSendRequest({ start: 100, end: 200 }, 100, 202))
+        .toBeTruthy();
     });
   });
 

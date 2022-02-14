@@ -54,6 +54,24 @@ describe('table utils', () => {
       expect(getTableTargetColumnIndex(columnGeometries, 250)).toEqual(3);
       expect(getTableTargetColumnIndex(columnGeometries, 320)).toEqual(4);
     });
+
+    it('should correctly return index, virtual table', () => {
+      const columnGeometries = [
+        { left: 0, right: 150, isFixed: true },
+        { left: 150, right: 300, isFixed: true },
+        { left: -300, right: -150 },
+        { left: -150, right: -0 },
+        { left: 0, right: 0 },
+        { left: 0, right: 200 },
+        { left: 200, right: 300 },
+        { left: 300, right: 450 },
+        { left: 450, right: 600 },
+      ];
+
+      expect(getTableTargetColumnIndex(columnGeometries, 50)).toEqual(-1);
+      expect(getTableTargetColumnIndex(columnGeometries, 0)).toEqual(-1);
+      expect(getTableTargetColumnIndex(columnGeometries, 150)).toEqual(-1);
+    });
   });
 
   describe('#getAnimations', () => {

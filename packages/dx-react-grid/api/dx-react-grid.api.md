@@ -150,7 +150,9 @@ export namespace DataTypeProvider {
     disabled: boolean;
     onBlur: () => void;
     onFocus: () => void;
-    onKeyDown: () => void;
+    onKeyDown: (e: {
+      key: 'Escape' | 'Enter';
+    }) => void;
     onValueChange: (newValue: any) => void;
     row?: any;
     value: any;
@@ -301,7 +303,7 @@ export interface ExportPanelProps {
 export interface Filter {
     columnName: string;
     operation?: FilterOperation;
-    value?: string;
+    value?: any;
 }
 
 // @public

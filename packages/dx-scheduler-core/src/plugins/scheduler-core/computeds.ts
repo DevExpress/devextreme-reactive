@@ -8,7 +8,7 @@ export const appointments: PureComputed<
 > = data => data.map((appointment, index) => ({
   dataItem: appointment,
   start: appointment.startDate,
-  ...appointment.endDate ? {
+  ...appointment.endDate !== undefined ? {
     end: appointment.endDate,
   } : {
     end: appointment.startDate,

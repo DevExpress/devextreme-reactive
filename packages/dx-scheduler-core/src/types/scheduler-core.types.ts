@@ -13,7 +13,7 @@ export interface AppointmentModel {
   /** The start date. */
   startDate: SchedulerDateTime;
   /** The end date. */
-  endDate: SchedulerDateTime | null;
+  endDate?: SchedulerDateTime;
   /** The title. */
   title?: string;
   /** The all day flag. */
@@ -54,7 +54,7 @@ export type AllDayCell = {
   /** The cell’s start time. */
   startDate: SchedulerDateTime;
   /** The cell’s end time. */
-  endDate: SchedulerDateTime | null;
+  endDate?: SchedulerDateTime;
   /** Information about the cell's grouping. */
   groupingInfo?: Group[];
   /** \@deprecated Specifies whether the cell has the right border. */
@@ -66,7 +66,7 @@ export type AllDayCell = {
 /** @internal */
 export interface ViewCell {
   startDate: Date;
-  endDate?: Date | null;
+  endDate?: Date;
   otherMonth?: boolean;
   today?: boolean;
   groupingInfo?: Group[];

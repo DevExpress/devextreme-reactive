@@ -10,7 +10,7 @@ import * as React_2 from 'react';
 // @public
 export type AllDayCell = {
   startDate: SchedulerDateTime;
-  endDate: SchedulerDateTime;
+  endDate: SchedulerDateTime | null;
   groupingInfo?: Group[];
   hasRightBorder?: boolean;
   endOfGroup?: boolean;
@@ -293,7 +293,7 @@ export interface AppointmentMeta {
 export interface AppointmentModel {
   [propertyName: string]: any;
   allDay?: boolean;
-  endDate: SchedulerDateTime;
+  endDate: SchedulerDateTime | null;
   exDate?: string | undefined;
   id?: number | string;
   rRule?: string | undefined;

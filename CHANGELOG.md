@@ -1,3 +1,16 @@
+# [3.0.1](https://github.com/DevExpress/devextreme-reactive/compare/v3.0.0...v3.0.1) (2022-02-15)
+
+
+### Bug Fixes
+
+* **react-grid:** fix scrolling in virual table ([#3506](https://github.com/DevExpress/devextreme-reactive/issues/3506)) ([d640672](https://github.com/DevExpress/devextreme-reactive/commit/d640672034c392e8a2d525b66f64187c4213fa89))
+* **react-grid:** make summary row fixed ([#3499](https://github.com/DevExpress/devextreme-reactive/issues/3499)) ([6084aae](https://github.com/DevExpress/devextreme-reactive/commit/6084aaedb7815f60c66749b76f157eb73f84c7e7))
+* **react-scheduler:** add params for commit ([#3500](https://github.com/DevExpress/devextreme-reactive/issues/3500)) ([c2d65e8](https://github.com/DevExpress/devextreme-reactive/commit/c2d65e8c2368aeab5f43c4617b48eb924ddd78ef))
+* **react-scheduler:** fix error for overlapping appointments ([#3498](https://github.com/DevExpress/devextreme-reactive/issues/3498)) ([d2fdbb8](https://github.com/DevExpress/devextreme-reactive/commit/d2fdbb897e529334a3be6e9467198d6a718ea7ee))
+* **react-scheduler:** rename field in WeeklyRecurrenceSelectorProps ([#3501](https://github.com/DevExpress/devextreme-reactive/issues/3501)) ([46a8e3a](https://github.com/DevExpress/devextreme-reactive/commit/46a8e3a48da3e0fa457700759df8039b63c7b6a9))
+
+
+
 # [3.0.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.7.6...v3.0.0) (2022-01-31)
 
 

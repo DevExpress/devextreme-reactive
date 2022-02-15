@@ -118,9 +118,9 @@ Additional properties are added to the component's root element.
 
 Field | Type | Description
 ------|------|------------
-TREE_ROW_TYPE | symbol | The tree summary row type's indentifier.
-GROUP_ROW_TYPE | symbol | The group summary row type's indentifier.
-TOTAL_ROW_TYPE | symbol | The total row type's indentifier.
+TREE&lowbar;ROW&lowbar;TYPE | symbol | The tree summary row type's indentifier.
+GROUP&lowbar;ROW&lowbar;TYPE | symbol | The group summary row type's indentifier.
+TOTAL&lowbar;ROW&lowbar;TYPE | symbol | The total row type's indentifier.
 
 ## Plugin Developer Reference
 

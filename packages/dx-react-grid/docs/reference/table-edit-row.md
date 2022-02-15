@@ -73,8 +73,8 @@ Additional properties are added to the component's root element.
 
 Field | Type | Description
 ------|------|------------
-ADDED_ROW_TYPE | symbol | The added row type's identifier.
-EDIT_ROW_TYPE | symbol | The edit row type's identifier.
+ADDED&lowbar;ROW&lowbar;TYPE | symbol | The added row type's identifier.
+EDIT&lowbar;ROW&lowbar;TYPE | symbol | The edit row type's identifier.
 
 ## Plugin Developer Reference
 

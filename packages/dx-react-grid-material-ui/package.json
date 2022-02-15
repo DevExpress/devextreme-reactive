@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid-material-ui",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Material-UI templates for DevExtreme React Grid component",
   "author": {
     "name": "Developer Express Inc.",
@@ -51,10 +51,10 @@
     "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.8.3",
-    "@devexpress/dx-grid-core": "3.0.0",
-    "@devexpress/dx-react-core": "3.0.0",
-    "@devexpress/dx-react-grid": "3.0.0",
-    "@devexpress/dx-testing": "3.0.0",
+    "@devexpress/dx-grid-core": "3.0.1",
+    "@devexpress/dx-react-core": "3.0.1",
+    "@devexpress/dx-react-grid": "3.0.1",
+    "@devexpress/dx-testing": "3.0.1",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@mui/icons-material": "^5.0.0",
@@ -91,9 +91,9 @@
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {
-    "@devexpress/dx-grid-core": "3.0.0",
-    "@devexpress/dx-react-core": "3.0.0",
-    "@devexpress/dx-react-grid": "3.0.0",
+    "@devexpress/dx-grid-core": "3.0.1",
+    "@devexpress/dx-react-core": "3.0.1",
+    "@devexpress/dx-react-grid": "3.0.1",
     "@mui/icons-material": ">=5.0.0",
     "@mui/lab": "^5.0.0-alpha.50",
     "@mui/material": ">=5.0.0",

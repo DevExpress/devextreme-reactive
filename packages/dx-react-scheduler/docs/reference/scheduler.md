@@ -37,7 +37,7 @@ Describes an appointment data object. If you use another data structure, map it 
 Field | Type | Description
 ------|------|------------
 startDate | [SchedulerDateTime](#schedulerdatetime) | The start date.
-endDate? | [SchedulerDateTime](#schedulerdatetime) | The end date.
+endDate? | [SchedulerDateTime &#124; null](#schedulerdatetime) | The end date.
 title? | string | The title.
 allDay? | boolean | The all day flag.
 id? | number &#124; string | The identifier.

@@ -22,7 +22,7 @@ export type NormalizeAppointmentDurationFn = PureComputed<
 /** @internal */
 export type TimeScaleLabelData = {
   startDate?: SchedulerDateTime;
-  endDate?: SchedulerDateTime;
+  endDate?: SchedulerDateTime | null;
   key: any;
   groupingInfo?: Group[];
 };

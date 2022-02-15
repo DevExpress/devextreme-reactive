@@ -27,4 +27,11 @@ describe('TableCell', () => {
     expect(tree.props().data)
       .toMatchObject({ a: 1 });
   });
+
+  it('should not pass `forwardedRef` prop to the DOM', () => {
+    const tree = shallow((
+      <Row forwardedRef={() => {}} />
+    ));
+    expect(tree.props().forwardedRef).toBeFalsy();
+  });
 });

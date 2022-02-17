@@ -323,6 +323,37 @@ describe('VirtualTableLayout', () => {
       expect(defaultProps.setViewport).not.toHaveBeenCalled();
     });
 
+    it('should update viewport if column width changed', () => {
+      const columns = [
+        { key: 'a', column: { name: 'a' }, width: 10 },
+        { key: 'b', column: { name: 'b' }, width: 10 },
+        { key: 'c', column: { name: 'c' }, width: 10 },
+        { key: 'd', column: { name: 'd' }, width: 10 },
+        { key: 'e', column: { name: 'e' }, width: 10 },
+      ];
+      const tree = mount((
+        <VirtualTableLayout
+          {...defaultProps}
+          bodyRows={defaultProps.bodyRows.slice(0, 4)}
+          columns={columns}
+          viewport={defaultProps.viewport}
+        />
+      ));
+      const setViewportMock = defaultProps.setViewport.mock;
+      const initialCallCount = setViewportMock.calls.length;
+
+      tree.setProps({ columns: [
+        { key: 'a', column: { name: 'a' }, width: 20 },
+        { key: 'b', column: { name: 'b' }, width: 20 },
+        { key: 'c', column: { name: 'c' }, width: 20 },
+        { key: 'd', column: { name: 'd' }, width: 20 },
+        { key: 'e', column: { name: 'e' }, width: 20 },
+      ] });
+
+      expect(setViewportMock.calls.length)
+        .toBeGreaterThan(initialCallCount);
+    });
+
     describe('scroll bounce', () => {
       const assertRerenderOnBounce = (shouldRerender, scrollArgs) => {
         const tree = mount((

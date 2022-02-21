@@ -2,7 +2,7 @@
 
 ## Bug and Feature Requests
 
-If you found a bug or want to request a feature, please submit an issue to our repository. You should check the list of active issues first to avoid duplicates.
+Submit an issue to request a feature or report a bug. Check the list of active issues first to avoid duplicates.
 
 ## Help and Support
 

@@ -1,6 +1,6 @@
 # Contribution Guidelines
 
-## Bugs and Feature Requests
+## Bug and Feature Requests
 
 If you found a bug or want to request a feature, please submit an issue to our repository. You should check the list of active issues first to avoid duplicates.
 

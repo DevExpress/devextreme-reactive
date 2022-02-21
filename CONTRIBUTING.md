@@ -6,7 +6,7 @@ Submit an issue to request a feature or report a bug. Check the list of active i
 
 ## Help and Support
 
-If you are using DevExtreme Reactive under the DevExtreme Non-Commercial license, please refer to Stack Overflow for support. If you are the owner of an active commercial license, create a ticket in our [Support Center](https://www.devexpress.com/ask).
+Create a ticket in our [Support Center](https://www.devexpress.com/ask) if you own an active commercial license for DevExtreme Reactive. If you have a non-commercial license, refer to Stack Overflow for support.
 
 ## Contribute Code and Content
 

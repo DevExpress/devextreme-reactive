@@ -22,6 +22,7 @@ const cleanElement = element => element.trim()
   .replace(/&lt;/g, '<')
   .replace(/&gt;/g, '>')
   .replace(/&#124;/g, '|')
+  .replace(/&lowbar;/g, '_')
   .replace(/\[([.\w\s]+)\]/g, '$1')
   .replace(/\([/#.\w\s-]+\)/g, '');
 

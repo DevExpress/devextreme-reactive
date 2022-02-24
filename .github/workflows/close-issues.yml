@@ -17,7 +17,7 @@ jobs:
           stale-issue-message: ""
           close-issue-message: "Thank you for using Devextreme Reactive.
           We use **GitHub issues** to track bug and feature requests.
-          We answer support questions as far as possible and if they are not active for 30 days, they are closed.
+          We process incoming issues as soon as possible. Issues that have been inactive for 30 days are closed.
           If you own an active DevExtreme license, feel free to contact us in the Support Center (https://www.devexpress.com/ask) to receive an answer shortly.
           Otherwise post your question on StackOverflow."
           days-before-pr-stale: -1

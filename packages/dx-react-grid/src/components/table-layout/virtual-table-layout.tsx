@@ -8,6 +8,7 @@ import { VirtualTableLayoutState, VirtualTableLayoutProps } from '../../types';
 import { VirtualTableLayoutBlock } from './virtual-table-layout-block';
 import { Sizer } from '@devexpress/dx-react-core';
 import { ColumnGroup } from './column-group';
+import { browser } from '../../utils/browser';
 
 const AUTO_HEIGHT = 'auto';
 
@@ -91,15 +92,32 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     return { rowHeights };
   }
 
+  getContentHeightLimit = () => {
+    if (browser.msie) {
+      return 4000000;
+    }
+    if (browser.mozilla) {
+      return 8000000;
+    }
+
+    return 15000000 / window.devicePixelRatio;
+  }
+
   getRowHeight = (row) => {
+    const { estimatedRowHeight, totalRowCount } = this.props;
+    const contentHeightLimit = this.getContentHeightLimit();
     const { rowHeights } = this.state;
-    const { estimatedRowHeight } = this.props;
     if (row) {
       const storedHeight = rowHeights.get(row.key);
       if (storedHeight !== undefined) return storedHeight;
       if (row.height) return row.height;
     }
-    return estimatedRowHeight;
+    const virtualItemsHeight = totalRowCount * estimatedRowHeight;
+    if (virtualItemsHeight < contentHeightLimit) {
+      return estimatedRowHeight;
+    }
+    return 1;
+
   }
 
   registerRowRef = (row, ref) => {

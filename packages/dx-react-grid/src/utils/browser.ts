@@ -8,7 +8,7 @@ const mozillaRegExp = /(mozilla)(?:.*? rv:([\w.]+))/;
 
 interface Result {
   webkit?: boolean | undefined;
-  version?: string | undefined;
+  version?: string | null;
 }
 
 const browserFromUA = (uaText) => {

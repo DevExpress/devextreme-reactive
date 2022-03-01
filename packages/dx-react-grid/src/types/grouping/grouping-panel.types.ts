@@ -85,7 +85,9 @@ export interface GroupingPanelProps {
   /** Specifies whether column headers display a button that cancels grouping by that column. */
   showGroupingControls?: boolean;
   /** A component that renders a group panel container. */
-  containerComponent: React.ComponentType<GroupingPanel.ContainerProps>;
+  containerComponent: React.ComponentType<
+    GroupingPanel.ContainerProps & { forwardedRef?: React.RefObject<Element> }
+  >;
   /** A component that renders a group panel item. */
   itemComponent: React.ComponentType<
     GroupingPanel.ItemProps & { forwardedRef?: React.Ref<Element> }

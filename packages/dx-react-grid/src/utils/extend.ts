@@ -1,39 +1,38 @@
 import { isPlainObject } from './type';
 
-export function extend(targetValue, clone1?, sourceValue1?) {
-  let target = targetValue || {};
+export const extend = (deepValue, cloneValue?, sources?, ...args) => {
+  let target = deepValue || {};
 
-  let i = 1;
   let deep = false;
 
   if (typeof target === 'boolean') {
     deep = target;
-    target = arguments[1] || {};
-    i++;
+    target = args[1] || {};
   }
 
-  for (; i < arguments.length; i++) {
-    const source = arguments[i];
+  for (let i = 0; i < args.length;) {
+    i += 1;
+    const source = args[i];
     if (source == null) {
       continue;
     }
 
-    for (const key in source) {
+    for (const key of Object.keys(source)) {
       const targetValue = target[key];
       const sourceValue = source[key];
-      let sourceValueIsArray = false;
+      const sourceValueIsArray = false;
       let clone;
 
       if (key === '__proto__' || target === sourceValue) {
         continue;
       }
 
-      if (deep && sourceValue && (isPlainObject(sourceValue) || (sourceValueIsArray = Array.isArray(sourceValue)))) {
-        if (sourceValueIsArray) {
-          clone = targetValue && Array.isArray(targetValue) ? targetValue : [];
-        } else {
-          clone = targetValue && isPlainObject(targetValue) ? targetValue : {};
-        }
+      if (deep && sourceValue && (isPlainObject(sourceValue) ||
+        (sourceValueIsArray === Array.isArray(sourceValue)))) {
+
+        clone = sourceValueIsArray
+          ? targetValue && Array.isArray(targetValue) ? targetValue : []
+          : clone = targetValue && isPlainObject(targetValue) ? targetValue : {};
 
         target[key] = extend(deep, clone, sourceValue);
 
@@ -44,4 +43,4 @@ export function extend(targetValue, clone1?, sourceValue1?) {
   }
 
   return target;
-}
+};

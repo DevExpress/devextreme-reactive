@@ -105,14 +105,16 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
 
   getRowHeight = (row) => {
     const { estimatedRowHeight, totalRowCount } = this.props;
-    const contentHeightLimit = this.getContentHeightLimit();
     const { rowHeights } = this.state;
     if (row) {
       const storedHeight = rowHeights.get(row.key);
       if (storedHeight !== undefined) return storedHeight;
       if (row.height) return row.height;
     }
+
     const virtualItemsHeight = totalRowCount * estimatedRowHeight;
+    const contentHeightLimit = this.getContentHeightLimit();
+
     if (virtualItemsHeight < contentHeightLimit) {
       return estimatedRowHeight;
     }

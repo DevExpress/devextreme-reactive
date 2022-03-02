@@ -1,4 +1,6 @@
 import { extend } from './extend';
+import { getNavigator } from './window';
+const navigator = getNavigator();
 
 const webkitRegExp = /(webkit)[ /]([\w.]+)/;
 const ieRegExp = /(msie) (\d{1,2}\.\d)/;
@@ -58,4 +60,4 @@ const browserFromUA = (uaText) => {
 
   return result;
 };
-export const browser = extend({ _fromUA: browserFromUA }, browserFromUA(navigator.userAgent));
+export const browser = extend({ _fromUA: browserFromUA }, browserFromUA(navigator?.userAgent));

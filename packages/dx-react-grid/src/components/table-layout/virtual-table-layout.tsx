@@ -100,7 +100,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       return 8000000;
     }
     const pixelRatio = window?.devicePixelRatio;
-    return 15000000 / pixelRatio || 1;
+    return 15000000 / pixelRatio ? pixelRatio : 1;
   }
 
   getRowHeight = (row) => {

@@ -31,4 +31,5 @@ DevExtreme Reactive is a set of business React components that deeply integrate 
 
 ## Support & Feedback
 
-Use [GitHub Issues](https://github.com/DevExpress/devextreme-reactive/issues) for reporting bugs, questions, and feature requests. If you own an active DevExtreme license, you can contact us at the [Support Center](https://www.devexpress.com/ask).
+- [Bugs and Feature Requests](https://github.com/DevExpress/devextreme-reactive/blob/master/CONTRIBUTING.md#bugs-and-feature-requests) 
+- [Help and Support](https://github.com/DevExpress/devextreme-reactive/blob/master/CONTRIBUTING.md#help-and-support)

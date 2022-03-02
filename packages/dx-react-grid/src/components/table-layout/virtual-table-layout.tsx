@@ -66,7 +66,11 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     // Also it's the only place where we can respond to the column count change
     const columnCountChanged = prevProps.columns.length !== columns.length;
 
-    if (bodyRowsChanged || columnCountChanged) {
+    if (bodyRowsChanged || columnCountChanged || columns[0].width !== undefined &&
+        prevProps.columns.some((column, index) => {
+          return column.width !== columns[index].width;
+        })
+      ) {
       this.updateViewport();
     }
   }

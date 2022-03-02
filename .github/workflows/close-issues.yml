@@ -1,0 +1,26 @@
+name: Close inactive issues
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  close-issues:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: actions/stale@v4
+        with:
+          days-before-issue-stale: 30
+          days-before-issue-close: 0
+          stale-issue-label: "stale"
+          stale-issue-message: ""
+          close-issue-message: "Thank you for using Devextreme Reactive.
+          We use **GitHub issues** to track bug and feature requests.
+          We process incoming issues as soon as possible. Issues that have been inactive for 30 days are closed.
+          If you have an active DevExtreme license, you can contact us in our [Support Center](https://www.devexpress.com/ask) for updates.
+          Otherwise, post your question on StackOverflow."
+          days-before-pr-stale: -1
+          days-before-pr-close: -1
+          exempt-issue-labels: 'bug, enhancement'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}

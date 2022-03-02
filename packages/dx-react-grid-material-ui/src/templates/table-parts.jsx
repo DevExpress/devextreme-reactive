@@ -14,7 +14,7 @@ export const classes = {
 };
 
 const StyledHead = styled(TableHead)(({ theme }) => ({
-  [`&.${classes.fixedHead}`]: {
+  [`&.${classes.fixedHeader}`]: {
     ...getStickyStyles(theme),
     top: 0,
   },

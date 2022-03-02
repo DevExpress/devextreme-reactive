@@ -68,10 +68,10 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     const columnCountChanged = prevProps.columns.length !== columns.length;
 
     if (bodyRowsChanged || columnCountChanged || columns[0].width !== undefined &&
-        prevProps.columns.some((column, index) => {
-          return column.width !== columns[index].width;
-        })
-      ) {
+      prevProps.columns.some((column, index) => {
+        return column.width !== columns[index].width;
+      })
+    ) {
       this.updateViewport();
     }
   }
@@ -99,7 +99,8 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     if (browser.mozilla) {
       return 8000000;
     }
-      return 15000000 / (window ? window.devicePixelRatio : 1);
+    const pixelRatio = window?.devicePixelRatio;
+    return 15000000 / pixelRatio || 1;
   }
 
   getRowHeight = (row) => {

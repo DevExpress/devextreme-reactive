@@ -1,11 +1,11 @@
 name: Bug Report
-description: Report a bug to help us improve
+description: Report a bug to help us improve the quality of our product.
 labels: ["bug", "needs triage"]
 body:
   - type: markdown
     attributes:
       value: |
-        Note: we cannot guarantee a quick answer on GitHub. If you have an active DevExtreme license, contact us in the Support Center (https://www.devexpress.com/ask) for a quicker response.
+        Note: Response times on GitHub are not guaranteed. For a quick response, contact us in our [Support Center](https://www.devexpress.com/ask) if you have an active commercial license for DevExtreme Reactive.
   - type: checkboxes
     attributes:
       label: Is there an existing issue for this?
@@ -41,7 +41,7 @@ body:
     id: steps-to-reproduce
     attributes:
       label: Steps to Reproduce
-      description: "Provide steps to reproduce the bug. Also use screenshots to illustrate the problem.
+      description: "Include steps with screenshots to better understand how to reproduce the issue.
                     To provide us with the example you can fork one of our pre-configured [examples on CodeSandbox](https://github.com/DevExpress/devextreme-reactive/issues/2358)."
       placeholder: "Link to the example that reproduces the issue"
     validations:

@@ -99,8 +99,9 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     if (browser.mozilla) {
       return 8000000;
     }
-
-    return 15000000 / window.devicePixelRatio;
+    if (window) {
+      return 15000000 / window?.devicePixelRatio;
+    } else  return 15000000 / 1;
   }
 
   getRowHeight = (row) => {

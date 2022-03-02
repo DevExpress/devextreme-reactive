@@ -1,0 +1,63 @@
+name: Bug Report
+description: Report a bug to help us improve the quality of our product.
+labels: ["bug", "needs triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Note: Response times on GitHub are not guaranteed. For a quick response, contact us in our [Support Center](https://www.devexpress.com/ask) if you have an active commercial license for DevExtreme Reactive.
+  - type: checkboxes
+    attributes:
+      label: Is there an existing issue for this?
+      options:
+        - label: I have searched this repository's [issues](https://github.com/devexpress/devextreme-reactive/issues) and believe that this is not a duplicate.
+          required: true
+  - type: dropdown
+    id: widgets
+    attributes:
+      label: I'm using ...
+      multiple: false
+      options:
+        - React Grid
+        - React Chart
+        - React Scheduler
+    validations:
+      required: true
+  - type: textarea
+    id: current-behaviour
+    attributes:
+      label: Current Behaviour
+      description: "A detailed description of the problem. For example, I'm always frustrated when [...]."
+    validations:
+      required: false
+  - type: textarea
+    id: expected-behaviour
+    attributes:
+      label: Expected Behaviour
+      description: A detailed description of the expected result.
+    validations:
+      required: false
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: "Include steps with screenshots to better understand how to reproduce the issue.
+                    To provide us with the example you can fork one of our pre-configured [examples on CodeSandbox](https://github.com/DevExpress/devextreme-reactive/issues/2358)."
+      placeholder: "Link to the example that reproduces the issue"
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Environment
+      description: Include as many relevant details about the environment with which you experienced the bug. Leave "none" if you don't have the package in your package.json file.
+      value: |
+          - devextreme-reactive: xxx
+          - react: xxx
+          - browser: xxx
+          - bootstrap: none
+          - react-bootstrap: none
+          - material-ui: none
+    validations:
+      required: false
+  
+  

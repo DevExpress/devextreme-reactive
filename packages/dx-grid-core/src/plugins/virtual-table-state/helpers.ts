@@ -153,8 +153,8 @@ export const needFetchMorePages: PureComputed<[VirtualRows, number, number], boo
 ) => {
   const { start, end } = intervalUtil.getRowsInterval(virtualRows);
   const loadCount = end - start;
-  const topTriggerIndex = start > 0 ? start + pageSize! : 0;
-  const bottomTriggerIndex = Math.max(topTriggerIndex + pageSize, end - pageSize! * 1.5);
+  const topTriggerIndex = start > 0 ? start + pageSize : 0;
+  const bottomTriggerIndex = Math.max(topTriggerIndex + pageSize, end - pageSize * 1.5);
 
   if (loadCount <= 0) {
     return false;
@@ -169,10 +169,9 @@ export const getReferenceIndex: PureComputed<[GridViewport], number> = (
   (top + bottom) / 2
 );
 
-export const shouldSendRequest: PureComputed<[Interval, number], boolean> = (
-  { start, end }, requestedPageIndex,
+export const shouldSendRequest: PureComputed<[Interval, number, number], boolean> = (
+  { start, end }, requestedPageIndex, requestedEndIndex,
 ) => {
-  const newPageIndex = start;
   const loadCount = (end - start);
-  return newPageIndex !== requestedPageIndex && loadCount > 0;
+  return (start !== requestedPageIndex || end !== requestedEndIndex) && loadCount > 0;
 };

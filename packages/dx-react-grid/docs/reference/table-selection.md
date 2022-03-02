@@ -92,7 +92,7 @@ Additional properties are added to the component's root element.
 
 Field | Type | Description
 ------|------|------------
-COLUMN_TYPE | symbol | The selection column type's indentifier.
+COLUMN&lowbar;TYPE | symbol | The selection column type's indentifier.
 
 ## Plugin Developer Reference
 

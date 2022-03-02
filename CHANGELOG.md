@@ -1,3 +1,30 @@
+# [3.0.2](https://github.com/DevExpress/devextreme-reactive/compare/v3.0.1...v3.0.2) (2022-02-24)
+
+
+### Bug Fixes
+
+* **chore:** fix third element update ([#3511](https://github.com/DevExpress/devextreme-reactive/issues/3511)) ([9b99074](https://github.com/DevExpress/devextreme-reactive/commit/9b99074dc69aa5e5113840d981f7ad4ddffab4e8))
+* **react-grid:** fix virtualTable with resizing (T1067026) ([#3523](https://github.com/DevExpress/devextreme-reactive/issues/3523)) ([52a151f](https://github.com/DevExpress/devextreme-reactive/commit/52a151fdd174b592a0c55158e8c1207a68f2b988))
+* **react-grid-material-ui:** fix header row (T1068611) ([#3521](https://github.com/DevExpress/devextreme-reactive/issues/3521)) ([41cad0e](https://github.com/DevExpress/devextreme-reactive/commit/41cad0e457c99a1f137df1415a6e6b86943f05bc))
+* **react-grid-material-ui:** remove the `forwardedRef` prop from a DOM (T1068005) ([#3520](https://github.com/DevExpress/devextreme-reactive/issues/3520)) ([3ad77df](https://github.com/DevExpress/devextreme-reactive/commit/3ad77df91143c5b055a5bb28153e84ea5109c94c))
+* **react-scheduler:** fix type for endDate in AppointmentModel ([#3518](https://github.com/DevExpress/devextreme-reactive/issues/3518)) ([6a29837](https://github.com/DevExpress/devextreme-reactive/commit/6a29837931ca8a9acd1ffa593627910f7711dfe7))
+* **site:** fix static fields on site ([#3512](https://github.com/DevExpress/devextreme-reactive/issues/3512)) ([522c0c1](https://github.com/DevExpress/devextreme-reactive/commit/522c0c10d40750b4943496e26414222977fcca84))
+
+
+
+# [3.0.1](https://github.com/DevExpress/devextreme-reactive/compare/v3.0.0...v3.0.1) (2022-02-15)
+
+
+### Bug Fixes
+
+* **react-grid:** fix scrolling in virual table ([#3506](https://github.com/DevExpress/devextreme-reactive/issues/3506)) ([d640672](https://github.com/DevExpress/devextreme-reactive/commit/d640672034c392e8a2d525b66f64187c4213fa89))
+* **react-grid:** make summary row fixed ([#3499](https://github.com/DevExpress/devextreme-reactive/issues/3499)) ([6084aae](https://github.com/DevExpress/devextreme-reactive/commit/6084aaedb7815f60c66749b76f157eb73f84c7e7))
+* **react-scheduler:** add params for commit ([#3500](https://github.com/DevExpress/devextreme-reactive/issues/3500)) ([c2d65e8](https://github.com/DevExpress/devextreme-reactive/commit/c2d65e8c2368aeab5f43c4617b48eb924ddd78ef))
+* **react-scheduler:** fix error for overlapping appointments ([#3498](https://github.com/DevExpress/devextreme-reactive/issues/3498)) ([d2fdbb8](https://github.com/DevExpress/devextreme-reactive/commit/d2fdbb897e529334a3be6e9467198d6a718ea7ee))
+* **react-scheduler:** rename field in WeeklyRecurrenceSelectorProps ([#3501](https://github.com/DevExpress/devextreme-reactive/issues/3501)) ([46a8e3a](https://github.com/DevExpress/devextreme-reactive/commit/46a8e3a48da3e0fa457700759df8039b63c7b6a9))
+
+
+
 # [3.0.0](https://github.com/DevExpress/devextreme-reactive/compare/v2.7.6...v3.0.0) (2022-01-31)
 
 

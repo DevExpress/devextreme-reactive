@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@devexpress/dx-react-scheduler-demos",
-  "version": "3.0.0",
+  "version": "3.0.2",
   "description": "DevExtreme React Components Demos",
   "author": {
     "name": "Developer Express Inc.",
@@ -24,10 +24,10 @@
     "lint:fix": "yarn lint -- --fix"
   },
   "dependencies": {
-    "@devexpress/dx-demo-shell": "3.0.0",
-    "@devexpress/dx-react-core": "3.0.0",
-    "@devexpress/dx-react-scheduler": "3.0.0",
-    "@devexpress/dx-react-scheduler-material-ui": "3.0.0",
+    "@devexpress/dx-demo-shell": "3.0.2",
+    "@devexpress/dx-react-core": "3.0.2",
+    "@devexpress/dx-react-scheduler": "3.0.2",
+    "@devexpress/dx-react-scheduler-material-ui": "3.0.2",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@mui/icons-material": "^5.0.4",
@@ -58,7 +58,7 @@
     "@babel/polyfill": "^7.8.7",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.8.3",
-    "@devexpress/dx-testing": "3.0.0",
+    "@devexpress/dx-testing": "3.0.2",
     "@types/jest": "^26.0.23",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "awesome-typescript-loader": "^5.2.1",

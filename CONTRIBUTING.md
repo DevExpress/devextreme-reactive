@@ -1,10 +1,12 @@
 # Contribution Guidelines
 
-## Issues and Feature Requests
+## Bug and Feature Requests
 
-If you got a question, bug report, or feature request, submit an issue to [our repository](https://github.com/DevExpress/devextreme-reactive). You should check the [list of active issues](https://github.com/DevExpress/devextreme-reactive/issues) first to avoid duplicates. 
+Submit an issue to request a feature or report a bug. Check the list of active issues first to avoid duplicates.
 
-You can use the [Support Center](https://www.devexpress.com/ask) to contact us if you have an active DevExtreme license.
+## Help and Support
+
+Create a ticket in our [Support Center](https://www.devexpress.com/ask) if you own an active commercial license for DevExtreme Reactive. If you have a non-commercial license, refer to Stack Overflow for support.
 
 ## Contribute Code and Content
 

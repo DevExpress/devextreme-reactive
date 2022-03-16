@@ -5,11 +5,7 @@ about: Suggest a feature for devextreme-reactive
 ---
 
 <!--
-    We cannot guarantee a quick answer on GitHub.
-    If you own an active DevExtreme license, feel free to contact us in the Support Center (https://www.devexpress.com/ask)
-    to receive an answer shortly.
-
-    Note: if you have already implemented the feature, create a PR (https://github.com/DevExpress/devextreme-reactive/blob/master/CONTRIBUTING.md).
+    Please look through our Roadmap for future releases (https://js.devexpress.com/Roadmap/) before you submit an issue. 
 -->
 
 ### I'm using ...

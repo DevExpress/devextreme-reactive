@@ -1,3 +1,17 @@
+# [3.0.2](https://github.com/DevExpress/devextreme-reactive/compare/v3.0.1...v3.0.2) (2022-02-24)
+
+
+### Bug Fixes
+
+* **chore:** fix third element update ([#3511](https://github.com/DevExpress/devextreme-reactive/issues/3511)) ([9b99074](https://github.com/DevExpress/devextreme-reactive/commit/9b99074dc69aa5e5113840d981f7ad4ddffab4e8))
+* **react-grid:** fix virtualTable with resizing (T1067026) ([#3523](https://github.com/DevExpress/devextreme-reactive/issues/3523)) ([52a151f](https://github.com/DevExpress/devextreme-reactive/commit/52a151fdd174b592a0c55158e8c1207a68f2b988))
+* **react-grid-material-ui:** fix header row (T1068611) ([#3521](https://github.com/DevExpress/devextreme-reactive/issues/3521)) ([41cad0e](https://github.com/DevExpress/devextreme-reactive/commit/41cad0e457c99a1f137df1415a6e6b86943f05bc))
+* **react-grid-material-ui:** remove the `forwardedRef` prop from a DOM (T1068005) ([#3520](https://github.com/DevExpress/devextreme-reactive/issues/3520)) ([3ad77df](https://github.com/DevExpress/devextreme-reactive/commit/3ad77df91143c5b055a5bb28153e84ea5109c94c))
+* **react-scheduler:** fix type for endDate in AppointmentModel ([#3518](https://github.com/DevExpress/devextreme-reactive/issues/3518)) ([6a29837](https://github.com/DevExpress/devextreme-reactive/commit/6a29837931ca8a9acd1ffa593627910f7711dfe7))
+* **site:** fix static fields on site ([#3512](https://github.com/DevExpress/devextreme-reactive/issues/3512)) ([522c0c1](https://github.com/DevExpress/devextreme-reactive/commit/522c0c10d40750b4943496e26414222977fcca84))
+
+
+
 # [3.0.1](https://github.com/DevExpress/devextreme-reactive/compare/v3.0.0...v3.0.1) (2022-02-15)
 
 

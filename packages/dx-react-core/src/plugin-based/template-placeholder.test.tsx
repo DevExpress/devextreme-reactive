@@ -359,34 +359,34 @@ describe('TemplatePlaceholder', () => {
     ));
   });
 
-  it('unmount template',()=> {
-      const Element = () => {
-        return (
-          <Plugin name="Element">
-            <Template name="testContent">
-              <div className="element">Element</div>
-              <TemplatePlaceholder />
-            </Template>
-          </Plugin>
-        );
-      };
-      const Root = () => (
-        <div>
-          <PluginHost>
-            <Template name="root">
-              <TemplatePlaceholder name="test" />
-            </Template>
-            <Template name="test">
-              <TemplatePlaceholder name="testContent" />
-            </Template>
-  
-            <Element />
-            <Element />
-            <Element />
-          </PluginHost>
-        </div>
+  it('unmount template', () => {
+    const Element = () => {
+      return (
+        <Plugin name="Element">
+          <Template name="testContent">
+            <div className="element">Element</div>
+            <TemplatePlaceholder />
+          </Template>
+        </Plugin>
       );
-    const tree = mount(<Root />)
+    };
+    const Root = () => (
+      <div>
+        <PluginHost>
+          <Template name="root">
+            <TemplatePlaceholder name="test" />
+          </Template>
+          <Template name="test">
+            <TemplatePlaceholder name="testContent" />
+          </Template>
+
+          <Element />
+          <Element />
+          <Element />
+        </PluginHost>
+      </div>
+    );
+    const tree = mount(<Root />);
     expect(tree.find('.element').length).toEqual(3);
 
     tree.unmount();

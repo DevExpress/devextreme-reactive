@@ -67,7 +67,8 @@ class TemplatePlaceholderBase extends React.Component<Props> {
     const [template] = templates;
     const { children } = this.props;
 
-    return children !== nextProps.children || templates.length != getRenderingData(this.props).templates.length
+    return children !== nextProps.children
+      || templates.length !== getRenderingData(this.props).templates.length
       || this.template !== template
       || !shallowEqual(this.params, params);
   }

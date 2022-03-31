@@ -359,18 +359,20 @@ describe('TemplatePlaceholder', () => {
     ));
   });
 
-  it('unmount template', () => {
-    const Element = () => {
-      return (
-        <Plugin name="Element">
-          <Template name="testContent">
-            <div className="element">Element</div>
-            <TemplatePlaceholder />
-          </Template>
-        </Plugin>
-      );
+  it('should unmount child component', () => {
+    class Element extends React.PureComponent {
+      render() {
+        return (
+          <Plugin name="Element">
+            <Template name="testContent">
+              <div className="element">Element</div>
+              <TemplatePlaceholder />
+            </Template>
+          </Plugin>
+        );
+      }
     };
-    const Root = () => (
+    const Root = ({ enabled }) => (
       <div>
         <PluginHost>
           <Template name="root">
@@ -379,20 +381,19 @@ describe('TemplatePlaceholder', () => {
           <Template name="test">
             <TemplatePlaceholder name="testContent" />
           </Template>
-
-          <Element />
+          {enabled && <Element />}
           <Element />
           <Element />
         </PluginHost>
       </div>
     );
-    const tree = mount(<Root />);
+
+    const tree = mount(<Root enabled={true} />);
     expect(tree.find('.element').length).toEqual(3);
 
-    tree.unmount();
-    expect(tree.find('.element').exists()).toBe(false);
-    expect(tree.find('.element').length).toEqual(0);
-
+    tree.setProps({ enabled: false });
+    tree.update();
+    expect(tree.find('.element').length).toEqual(2);
   });
 
   it('should update third element', () => {

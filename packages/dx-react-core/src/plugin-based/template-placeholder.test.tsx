@@ -360,6 +360,7 @@ describe('TemplatePlaceholder', () => {
   });
 
   it('should unmount child component', () => {
+    /* tslint:disable:max-classes-per-file */
     class Element extends React.PureComponent {
       render() {
         return (
@@ -371,7 +372,7 @@ describe('TemplatePlaceholder', () => {
           </Plugin>
         );
       }
-    };
+    }
     const Root = ({ enabled }) => (
       <div>
         <PluginHost>

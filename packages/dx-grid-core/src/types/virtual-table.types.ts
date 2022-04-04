@@ -8,13 +8,13 @@ export type GetColumnWidthFn = PureComputed<[TableColumn, number?], number | nul
 /** @internal */
 export type GetRowHeightFn = PureComputed<[TableRow, number?], number>;
 /** @internal */
-export type GetColSpanFn = PureComputed<[TableRow, TableColumn?], number>;
+export type GetColSpanFn = PureComputed<[TableRow, TableColumn], number>;
 /** @internal */
 export type CollapsedColumn = TableColumn & { width: number };
 /** @internal */
 export type CollapsedCell = { column: Pick<TableColumn, 'key' | 'type'>, colSpan: number };
 /** @internal */
-type CollapsedRow = TableRow & { cells: any[], height: number };
+export type CollapsedRow = TableRow & { cells: any[], height: number };
 
 /** @internal */
 export type VisibleBoundary = ReadonlyArray<number>;
@@ -75,7 +75,7 @@ export type GetCollapsedAndStubRowsFn = PureComputed<
 
 /** @internal */
 export type GetCollapsedCellsFn = PureComputed<
-  [TableColumn[], VisibleBoundary[], VisibleBoundary[], GetColSpanFn],
+  [TableRow, TableColumn[], VisibleBoundary[], VisibleBoundary[], GetColSpanFn],
   CollapsedCell[]
 >;
 

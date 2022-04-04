@@ -13,6 +13,7 @@ import {
   getRenderBoundary,
   getColumnBoundaries,
   getRowsVisibleBoundary,
+  getCollapsedGrids,
 } from './virtual-table';
 
 describe('VirtualTableLayout utils', () => {
@@ -487,6 +488,7 @@ describe('VirtualTableLayout utils', () => {
   });
 
   describe('#getCollapsedCells', () => {
+    const getColSpan = (row, column) => column.colSpan;
     it('should work', () => {
       const columns = [
         { key: 0, colSpan: 1 },
@@ -500,7 +502,6 @@ describe('VirtualTableLayout utils', () => {
       ];
       const spanBoundary = [[1, 6]];
       const boundaries = [[0, 0], [1, 2], [3, 3], [4, 4], [5, 6], [7, 7]];
-      const getColSpan = column => column.colSpan;
 
       const result = [
         { column: { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_0_0` }, colSpan: 1 },
@@ -511,7 +512,7 @@ describe('VirtualTableLayout utils', () => {
         { column: { type: TABLE_STUB_TYPE, key: `${TABLE_STUB_TYPE.toString()}_7_7` }, colSpan: 1 },
       ];
 
-      expect(getCollapsedCells(columns, spanBoundary, boundaries, getColSpan))
+      expect(getCollapsedCells({ key: 'row' }, columns, spanBoundary, boundaries, getColSpan))
         .toEqual(result);
     });
 
@@ -539,7 +540,6 @@ describe('VirtualTableLayout utils', () => {
         [7, 8], // stub (for colspan [4, 8])
         [9, 9], // visible
       ];
-      const getColSpan = column => column.colSpan;
 
       const result = [
         { column: columns[0], colSpan: 1 },
@@ -552,7 +552,7 @@ describe('VirtualTableLayout utils', () => {
         { column: columns[9], colSpan: 1 },
       ];
 
-      expect(getCollapsedCells(columns, spanBoundary, boundaries, getColSpan))
+      expect(getCollapsedCells({ key: 'row' }, columns, spanBoundary, boundaries, getColSpan))
         .toEqual(result);
     });
 
@@ -572,7 +572,6 @@ describe('VirtualTableLayout utils', () => {
         [3, 3],
         [4, 4],
       ];
-      const getColSpan = column => column.colSpan;
 
       const result = [
         { column: columns[0], colSpan: 1 },
@@ -582,7 +581,7 @@ describe('VirtualTableLayout utils', () => {
         { column: columns[4], colSpan: 1 },
       ];
 
-      expect(getCollapsedCells(columns, spanBoundary, boundaries, getColSpan))
+      expect(getCollapsedCells({ key: 'row' }, columns, spanBoundary, boundaries, getColSpan))
         .toEqual(result);
     });
   });
@@ -823,6 +822,60 @@ describe('VirtualTableLayout utils', () => {
         minWidth,
         null,
       ]);
+    });
+  });
+
+  describe('getCollapsedGrids', () => {
+    it('should return same columns for body, header and footer', () => {
+      const args = {
+        headerRows: [{ key: 'header' }],
+        bodyRows: [{ key: 'row_1' }, { key: 'row_2' }, { key: 'row_3' }, { key: 'row_4' }],
+        footerRows: [{ key: 'footer' }],
+        loadedRowsStart: 0,
+        getCellColSpan: ({ tableRow, tableColumn }) => {
+          if (tableRow.key && tableRow.key.includes('row') && (tableColumn.key !== 'column_0' ||
+          tableColumn.key !== 'column_4')) {
+            return 3;
+          }
+          return 1;
+        },
+        viewport: {
+          headerRows: [0, 0],
+          footerRows: [0, 0],
+          columns: [[0, 5]],
+          rows: [0, 3],
+        },
+        columns: [
+          { key: 'column_0', width: 40 },
+          { key: 'column_1', width: 40 },
+          { key: 'column_2', width: 40 },
+          { key: 'column_3', width: 40 },
+          { key: 'column_4', width: 40 },
+          { key: 'column_5', width: 40 },
+          { key: 'column_6', width: 40 },
+          { key: 'column_7', width: 40 },
+          { key: 'column_8', width: 40 },
+        ],
+        totalRowCount: 4,
+        getColumnWidth: column => column.width,
+        getRowHeight: row => row.height,
+      };
+
+      const result = getCollapsedGrids(args);
+
+      const expectedColumns = [
+        { key: 'column_0', width: 40 },
+        { key: 'column_1', width: 40 },
+        { key: 'column_2', width: 40 },
+        { key: 'column_3', width: 40 },
+        { key: 'column_4', width: 40 },
+        { key: 'column_5', width: 40 },
+        { key: 'Symbol(stub)_6_7', type: TABLE_STUB_TYPE, width: 80 },
+        { key: 'Symbol(stub)_8_8', type: TABLE_STUB_TYPE, width: 40 },
+      ];
+      expect(result.bodyGrid.columns).toEqual(expectedColumns);
+      expect(result.headerGrid.columns).toEqual(expectedColumns);
+      expect(result.footerGrid.columns).toEqual(expectedColumns);
     });
   });
 });

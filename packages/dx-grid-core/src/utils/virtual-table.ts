@@ -7,7 +7,8 @@ import {
   CollapsedCell,
   GetColumnWidthGetterFn,
   GetCollapsedGridsFn,
-  CollapsedGrid,
+  CollapsedRow,
+  GetColSpanFn,
   GetSpecificRenderBoundaryFn,
   GetRenderBoundaryFn,
   GetRowsVisibleBoundaryFn,
@@ -224,7 +225,7 @@ export const getCollapsedRows: GetCollapsedAndStubRowsFn = (
 };
 
 export const getCollapsedCells: GetCollapsedCellsFn = (
-  columns, spanBoundaries, boundaries, getColSpan,
+  row, columns, spanBoundaries, boundaries, getColSpan,
 ) => {
   const collapsedCells: CollapsedCell[] = [];
   let index = 0;
@@ -234,7 +235,7 @@ export const getCollapsedCells: GetCollapsedCellsFn = (
       acc || (spanBoundary[0] <= boundary[0] && boundary[1] <= spanBoundary[1])), false);
     if (isSpan) {
       const column = columns[boundary[0]];
-      const realColSpan = getColSpan(column);
+      const realColSpan = getColSpan(row, column);
       if (realColSpan + index - 1 !== columns.length) {
         const realColSpanEnd = (realColSpan + boundary[0]) - 1;
         const colSpanEnd = boundaries.findIndex(
@@ -267,6 +268,19 @@ export const getCollapsedCells: GetCollapsedCellsFn = (
   return collapsedCells;
 };
 
+const getVisibleColumnBoundaries: PureComputed<
+  [TableRow[], VisibleBoundary, TableColumn[], VisibleBoundary[], GetColSpanFn], VisibleBoundary[]
+> = (rows, boundaries, columns, columnsVisibleBoundary, getColSpan) => {
+  const rowSpanBoundaries = rows
+    .slice(boundaries[0], boundaries[1] + 1)
+    .map(row => getSpanBoundaryByRow(row, columns, columnsVisibleBoundary, getColSpan));
+  return collapseBoundaries(
+    columns.length,
+    columnsVisibleBoundary,
+    rowSpanBoundaries,
+  );
+};
+
 export const getCollapsedGrid: GetCollapsedGridFn = ({
   rows,
   columns,
@@ -286,22 +300,8 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
   }
 
   const boundaries = rowsVisibleBoundary || [0, rows.length - 1 || 1];
-
-  const getSpanBoundaryByRow = (row: TableRow) => getSpanBoundary(
-    columns,
-    columnsVisibleBoundary,
-    column => getColSpan(row, column),
-  );
-
-  const rowSpanBoundaries = rows
-    .slice(boundaries[0], boundaries[1] + 1)
-    .map(row => getSpanBoundaryByRow(row));
-  const columnBoundaries = collapseBoundaries(
-    columns.length,
-    columnsVisibleBoundary,
-    rowSpanBoundaries,
-  );
-
+  const columnBoundaries = getVisibleColumnBoundaries(rows, boundaries, columns,
+    columnsVisibleBoundary, getColSpan);
   const rowBoundaries = collapseBoundaries(totalRowCount!, [boundaries], []);
 
   return {
@@ -317,10 +317,11 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
       rowBoundaries,
       getRowHeight,
       row => getCollapsedCells(
+        row,
         columns,
-        getSpanBoundaryByRow(row),
+        getSpanBoundaryByRow(row, columns, columnsVisibleBoundary, getColSpan),
         columnBoundaries,
-        column => getColSpan(row, column),
+        getColSpan,
       ),
       offset,
     ),
@@ -340,59 +341,84 @@ export const getColumnWidthGetter: GetColumnWidthGetterFn = (
     : typeof column.width === 'number' ? column.width : autoColWidth);
 };
 
+const getSpanBoundaryByRow: PureComputed<
+  [TableRow, TableColumn[], VisibleBoundary[], GetColSpanFn], VisibleBoundary[]
+> = (row, columns, visibleColumns, getColSpan) =>
+  getSpanBoundary(columns, visibleColumns, column => getColSpan(row, column));
+
 export const getCollapsedGrids: GetCollapsedGridsFn = ({
-    headerRows = [],
-    bodyRows = [],
-    footerRows = [],
+  headerRows,
+  bodyRows,
+  footerRows,
+  columns,
+  loadedRowsStart,
+  totalRowCount,
+  getCellColSpan,
+  viewport,
+  getRowHeight,
+  getColumnWidth,
+}) => {
+  if (!columns.length) {
+    return {
+      headerGrid: { columns: [], rows: [] },
+      bodyGrid: { columns: [], rows: [] },
+      footerGrid: { columns: [], rows: [] },
+    };
+  }
+  const getColSpan: GetColSpanFn =
+    (tableRow, tableColumn) => getCellColSpan!({ tableRow, tableColumn, tableColumns: columns });
+
+  const getCollapsedGridRows: PureComputed<
+    [TableRow[], number[], VisibleBoundary[], number?, number?], CollapsedRow[]
+  > = (rows, rowsBoundary, columnsBoundary, rowCount = rows.length, offset = 0) => {
+    return getCollapsedRows(rows, rowsBoundary,
+      collapseBoundaries(rowCount, [rowsBoundary], []),
+      getRowHeight,
+      row => getCollapsedCells(
+        row,
+        columns,
+        getSpanBoundaryByRow(row, columns, viewport.columns, getColSpan),
+        columnsBoundary,
+        getColSpan,
+      ),
+      offset,
+    );
+  };
+
+  const rowsVisibleBoundary = adjustedRenderRowBounds(viewport.rows, bodyRows.length,
+    loadedRowsStart);
+  const columnBoundaries = getVisibleColumnBoundaries(bodyRows, rowsVisibleBoundary,
+    columns, viewport.columns, getColSpan);
+  const commonColumns = getCollapsedColumns(
     columns,
-    loadedRowsStart,
-    totalRowCount,
-    getCellColSpan,
-    viewport,
-    getRowHeight,
+    viewport.columns,
+    columnBoundaries,
     getColumnWidth,
-  },
-) => {
-  const getColSpan = (
-    tableRow: any, tableColumn: any,
-  ) => getCellColSpan!({ tableRow, tableColumn, tableColumns: columns });
-
-  const getCollapsedGridBlock: PureComputed<
-    [any[], any[]?, number?, number?], CollapsedGrid
-  > = (
-    rows, rowsVisibleBoundary, rowCount = rows.length, offset = 0,
-  ) => getCollapsedGrid({
-    rows,
-    columns,
-    rowsVisibleBoundary,
-    columnsVisibleBoundary: viewport.columns,
-    getColumnWidth,
-    getRowHeight,
-    getColSpan,
-    totalRowCount: rowCount,
-    offset,
-  });
-
-  const headerGrid = getCollapsedGridBlock(
-    headerRows, getRowsRenderBoundary(headerRows.length, viewport.headerRows),
-  );
-  const bodyGrid = getCollapsedGridBlock(
-    bodyRows,
-    adjustedRenderRowBounds(
-      viewport.rows, bodyRows.length, loadedRowsStart,
-    ),
-    totalRowCount || 1,
-    loadedRowsStart,
-  );
-
-  const footerGrid = getCollapsedGridBlock(
-    footerRows, getRowsRenderBoundary(footerRows.length, viewport.footerRows),
   );
 
   return {
-    headerGrid,
-    bodyGrid,
-    footerGrid,
+    headerGrid: {
+      columns: commonColumns,
+      rows: getCollapsedGridRows(
+        headerRows, getRowsRenderBoundary(headerRows.length, viewport.headerRows), columnBoundaries,
+      ),
+    },
+    bodyGrid: {
+      columns: commonColumns,
+      rows: getCollapsedGridRows(
+        bodyRows,
+        rowsVisibleBoundary,
+        columnBoundaries,
+        totalRowCount || 1,
+        loadedRowsStart,
+      ),
+    },
+    footerGrid: {
+      columns: commonColumns,
+      rows: getCollapsedGridRows(
+        footerRows, getRowsRenderBoundary(footerRows.length, viewport.footerRows), columnBoundaries,
+      ),
+    },
   };
 };
 

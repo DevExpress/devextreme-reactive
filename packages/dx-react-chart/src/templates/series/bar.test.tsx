@@ -40,7 +40,7 @@ describe('Bar', () => {
     maxBarWidth: 20,
     val: 2,
     startVal: 18,
-    color: 'color',
+    color: 'blue',
     rotated: true,
     style: { tag: 'test-style' },
     scales: { tag: 'test-scales' } as any,
@@ -91,7 +91,7 @@ describe('Bar', () => {
     expect((withPattern as jest.Mock).mock.calls[0][0]({ seriesIndex: 1, index: 2 }))
       .toEqual('series-1-point-2-hover');
     expect((withPattern as jest.Mock).mock.calls[1][0]({ seriesIndex: 2, index: 3 }))
-      .toEqual('series-2-point-3-color-#42A5F5-selection');
+      .toEqual('series-2-point-3-color-blue-selection');
   });
 
   it('should animate', () => {

@@ -47,6 +47,6 @@ export const Bar: React.ComponentType<BarSeries.PointProps> = withAnimation<any>
     ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-hover`, { opacity: 0.75 },
     )(RawBar),
       [SELECTED]: withPattern<any>(
-    ({ seriesIndex, index, color}) => `series-${seriesIndex}-point-${index}-color-${color}-selection`, { opacity: 0.5 },
+    ({ seriesIndex, index, color }) => `series-${seriesIndex}-point-${index}-color-${color}-selection`, { opacity: 0.5 },
     )(RawBar),
     })(RawBar));

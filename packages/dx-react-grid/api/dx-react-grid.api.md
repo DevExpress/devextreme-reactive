@@ -531,7 +531,9 @@ export interface GroupingPanelItem {
 
 // @public (undocumented)
 export interface GroupingPanelProps {
-    containerComponent: React_2.ComponentType<GroupingPanel.ContainerProps>;
+    containerComponent: React_2.ComponentType<GroupingPanel.ContainerProps & {
+        forwardedRef?: React_2.RefObject<Element>;
+    }>;
     emptyMessageComponent: React_2.ComponentType<GroupingPanel.EmptyMessageProps & {
         forwardedRef?: React_2.Ref<Element>;
     }>;

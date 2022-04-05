@@ -359,6 +359,44 @@ describe('TemplatePlaceholder', () => {
     ));
   });
 
+  it('should unmount child component', () => {
+    /* tslint:disable:max-classes-per-file */
+    class Element extends React.PureComponent {
+      render() {
+        return (
+          <Plugin name="Element">
+            <Template name="testContent">
+              <div className="element">Element</div>
+              <TemplatePlaceholder />
+            </Template>
+          </Plugin>
+        );
+      }
+    }
+    const Root = ({ enabled }) => (
+      <div>
+        <PluginHost>
+          <Template name="root">
+            <TemplatePlaceholder name="test" />
+          </Template>
+          <Template name="test">
+            <TemplatePlaceholder name="testContent" />
+          </Template>
+          {enabled && <Element />}
+          <Element />
+          <Element />
+        </PluginHost>
+      </div>
+    );
+
+    const tree = mount(<Root enabled={true} />);
+    expect(tree.find('.element').length).toEqual(3);
+
+    tree.setProps({ enabled: false });
+    tree.update();
+    expect(tree.find('.element').length).toEqual(2);
+  });
+
   it('should update third element', () => {
     const Element = () => {
       return (

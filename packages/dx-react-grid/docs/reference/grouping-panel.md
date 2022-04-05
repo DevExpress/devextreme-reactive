@@ -58,6 +58,7 @@ Describes properties passed to a component that renders a group panel container.
 Field | Type | Description
 ------|------|------------
 children? | ReactNode | A React node to be placed in the root layout.
+forwardedRef? | React.RefObject&lt;typeof Element&gt; &#124; (ref: React.RefObject&lt;typeof Element&gt;) => void  | A reference to the group panel container or a function that accepts it.
 
 ### GroupingPanel.ItemProps
 
@@ -73,6 +74,7 @@ sortingEnabled | boolean | Specifies whether sorting by a column is enabled.
 sortingDirection? | 'asc' &#124; 'desc' | Specifies the sorting direction.
 onSort | (parameters: { direction?: 'asc' &#124; 'desc' &#124; null, keepOther?: boolean }) => void | An event that initiates changing the column sorting direction. Cancels sorting by the current column if `direction` is set to null.
 onGroup | () => void | An event that initiates grouping by column.
+forwardedRef? | React.RefObject&lt;typeof Element&gt; &#124; (ref: React.RefObject&lt;typeof Element&gt;) => void  | A reference to the group panel item or a function that accepts it.
 
 ### GroupingPanel.EmptyMessageProps
 
@@ -81,6 +83,7 @@ Describes properties passed to a component that renders an empty group panel mes
 Field | Type | Description
 ------|------|------------
 getMessage | ([messageKey](#localization-messages): string) => string | Returns the text displayed in the group panel if grid data is not grouped.
+forwardedRef? | React.RefObject&lt;typeof Element&gt; &#124; (ref: React.RefObject&lt;typeof Element&gt;) => void  | A reference to the group panel message or a function that accepts it.
 
 ## Localization Messages
 

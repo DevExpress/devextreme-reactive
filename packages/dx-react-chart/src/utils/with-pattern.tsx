@@ -7,7 +7,7 @@ export const withPattern = <T extends any>(
   getPatternId: (props: T) => string, props: T,
 ) => (Target: React.ComponentType<any>) => (targetProps: any) => {
   const { color, ...restProps } = targetProps;
-  const patternId = getPatternId(restProps);
+  const patternId = getPatternId(targetProps);
   return (
     <React.Fragment>
       <Target

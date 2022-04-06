@@ -20,9 +20,10 @@ const StyledDrawer = styled(Drawer)(({ theme: { spacing } }) => ({
   [`&.${classes.root}`]: {
     overflow: 'hidden',
     paddingTop: spacing(2),
+    position: 'absolute',
   },
   [`& .${classes.absolutePosition}`]: {
-    position: 'absolute!important',
+    position: 'absolute',
   },
   [`& .${classes.paper}`]: {
     outline: 'none',
@@ -81,7 +82,6 @@ export const Overlay = ({
       PaperProps={{ className: paperClasses }}
       BackdropProps={{ className: classes.absolutePosition }}
       ModalProps={{
-        className: classes.absolutePosition,
         container: target.current,
       }}
       SlideProps={{

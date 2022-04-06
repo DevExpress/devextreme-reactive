@@ -2,7 +2,7 @@ import { PureComputed, GetMessageFn } from '@devexpress/dx-core';
 import { GroupSummaryItem, GroupSummaryValue } from '@devexpress/dx-grid-core';
 import {
   Table, Column, TableRow,
-  TableSummaryRow, ColumnSummary
+  TableSummaryRow, ColumnSummary,
 } from '../index';
 
 // tslint:disable-next-line: no-namespace

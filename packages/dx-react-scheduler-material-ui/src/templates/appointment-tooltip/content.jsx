@@ -110,7 +110,7 @@ export const Content = ({
   );
   return (
     <StyledDiv
-      {... appointmentResources}
+      resources={appointmentResources}
       className={classNames(classes.content, className)}
       {...restProps}
     >

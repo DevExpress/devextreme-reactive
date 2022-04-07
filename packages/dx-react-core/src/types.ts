@@ -1,7 +1,5 @@
 import { PureReducer, PureComputed } from '@devexpress/dx-core';
 
-export { IDependency } from '../../dx-core/src';
-
 /** @internal */
 export type StateHelper = {
   applyReducer: PureComputed<[PureReducer, any?, PureReducer?], void>;

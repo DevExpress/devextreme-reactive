@@ -4,6 +4,7 @@
 
 ```ts
 
+import { IDependency } from '@devexpress/dx-core';
 import * as React_2 from 'react';
 
 // @public (undocumented)
@@ -42,14 +43,6 @@ export interface GetterProps {
 export type Getters = {
   readonly [getterName: string]: any;
 };
-
-// @public (undocumented)
-export interface IDependency {
-  // (undocumented)
-  name: string;
-  // (undocumented)
-  optional?: boolean;
-}
 
 // @public (undocumented)
 export const PlaceholderWithRef: React_2.ComponentType<TemplatePlaceholderProps & {

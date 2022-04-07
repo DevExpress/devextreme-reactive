@@ -4,6 +4,7 @@
 
 ```ts
 
+import { GetMessageFn } from '@devexpress/dx-core';
 import { PureComputed } from '@devexpress/dx-core';
 import * as React_2 from 'react';
 
@@ -410,9 +411,6 @@ export type GetInnerElementsFn = PureComputed<[
   string,
   string?
 ], any[]>;
-
-// @public (undocumented)
-export type GetMessageFn = (messageKey: string, params?: object) => string;
 
 // @public (undocumented)
 export type GetNextCellFromHeadingFn = PureComputed<[

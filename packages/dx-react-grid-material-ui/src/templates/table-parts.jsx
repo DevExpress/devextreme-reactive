@@ -13,7 +13,7 @@ export const classes = {
   fixedFooter: `${PREFIX}-fixedFooter`,
 };
 
-export const StyledHead = styled(TableHead)(({ theme }) => ({
+const StyledHead = styled(TableHead)(({ theme }) => ({
   [`&.${classes.fixedHeader}`]: {
     ...getStickyStyles(theme, 500),
     top: 0,

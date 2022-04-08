@@ -29,12 +29,15 @@
   "files": [
     "dist"
   ],
+  "types": "dist/dx-core.d.ts",
+  "typings": "dist/dx-core.d.ts",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
+    "dts": "tsc -p tsconfig.dts.json && node ./merge-dts.js",
     "lint": "tslint -p tsconfig.lint.json",
     "lint:fix": "yarn lint -- --fix"
   },

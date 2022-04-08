@@ -2,7 +2,9 @@ import { TableColumn, TableRow } from './table.types';
 import { PureComputed } from '@devexpress/dx-core';
 
 /** @internal */
-export type HeaderColumnChain = { start: number, key?: string, columns: ReadonlyArray<TableColumn> };
+export type HeaderColumnChain = {
+  start: number, key?: string, columns: ReadonlyArray<TableColumn>,
+};
 /** @internal */
 export type HeaderColumnChainRow<T = {}> = Array<HeaderColumnChain & T>;
 /** @internal */

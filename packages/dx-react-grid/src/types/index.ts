@@ -1,5 +1,3 @@
-export { GetMessageFn } from '../../../dx-core/src/types';
-
 export {
   Column, TableColumn, TableRow, SummaryType, ColumnSummary, EditingCell,
   ColumnDimensions, ColumnAnimationStyleMap, SummaryItem, IntegratedFiltering,

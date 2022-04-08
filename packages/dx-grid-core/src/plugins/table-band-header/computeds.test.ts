@@ -68,11 +68,10 @@ describe('TableBandHeader Plugin computeds', () => {
     const groupedColumns = [
       'a', 'b', 'c', 'd', 'e',
     ].map((name, index) => {
-      if(index < 2) {
-        return { column: { name }, key: name, type: TABLE_GROUP_TYPE }
-      } else {
-        return { column: { name }, key: name, type: TABLE_DATA_TYPE }
+      if (index < 2) {
+        return { column: { name }, key: name, type: TABLE_GROUP_TYPE };
       }
+      return { column: { name }, key: name, type: TABLE_DATA_TYPE };
     });
 
     const expandChains = rowChains => rowChains && expandChainsCore(
@@ -94,7 +93,7 @@ describe('TableBandHeader Plugin computeds', () => {
       rows,
       columnBands,
       expectedCompressedChains,
-      columns
+      columns,
     ) => {
       const expectedChains = expandChains(expectedCompressedChains);
 
@@ -158,7 +157,7 @@ describe('TableBandHeader Plugin computeds', () => {
           [['a', 'b'], ['c', 'd'], ['e'], ['f'], ['g'], ['h'], ['i']],
           [['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']],
         ],
-        simpleColumns
+        simpleColumns,
       );
     });
 
@@ -203,7 +202,7 @@ describe('TableBandHeader Plugin computeds', () => {
           [['a', 'b'], ['c', 'd'], ['e', 'f', 'g', 'h', 'i']],
           [['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']],
         ],
-        simpleColumns
+        simpleColumns,
       );
     });
 
@@ -212,7 +211,7 @@ describe('TableBandHeader Plugin computeds', () => {
         {
           title: 'band C-0',
           children: [
-            { columnName: 'c' }, { columnName: 'b' }
+            { columnName: 'c' }, { columnName: 'b' },
           ],
         },
         {
@@ -230,9 +229,9 @@ describe('TableBandHeader Plugin computeds', () => {
         bands,
         [
           [['a'], ['b'], ['c'], ['d', 'e']],
-          [['a', 'b', 'c', 'd', 'e']]
+          [['a', 'b', 'c', 'd', 'e']],
         ],
-        groupedColumns
+        groupedColumns,
       );
     });
   });

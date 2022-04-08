@@ -6,12 +6,12 @@ import { TABLE_HEADING_TYPE } from '../table-header-row/constants';
 import { TABLE_DATA_TYPE } from '../table/constants';
 import { findChainByColumnIndex } from '../table-header-row/helpers';
 import {
-  IsSpecificRowFn, GetColumnBandMetaFn, GetBandComponentFn, CalculateBandFn,
+  GetColumnBandMetaFn, GetBandComponentFn, CalculateBandFn, Row,
 } from '../../types';
 import { TABLE_STUB_TYPE } from '../../utils/virtual-table';
 
-export const isBandedTableRow: IsSpecificRowFn = tableRow => (tableRow.type === TABLE_BAND_TYPE);
-export const isBandedOrHeaderRow: IsSpecificRowFn = tableRow => isBandedTableRow(tableRow)
+export const isBandedTableRow = (tableRow: Row) => (tableRow.type === TABLE_BAND_TYPE);
+export const isBandedOrHeaderRow = (tableRow: Row) => isBandedTableRow(tableRow)
   || tableRow.type === TABLE_HEADING_TYPE;
 export const isNoDataColumn = (columnType: symbol) => columnType !== TABLE_DATA_TYPE;
 

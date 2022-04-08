@@ -68,6 +68,7 @@ class TableBandHeaderBase extends React.PureComponent<TableBandHeaderProps> {
           { name: 'TableSelection', optional: true },
           { name: 'TableEditColumn', optional: true },
           { name: 'TableColumnVisibility', optional: true },
+          { name: 'TableGroupRow', optional: true }
         ]}
       >
         <Getter name="tableHeaderRows" computed={tableHeaderRowsComputed} />
@@ -79,7 +80,7 @@ class TableBandHeaderBase extends React.PureComponent<TableBandHeaderProps> {
 
         <Template
           name="tableCell"
-          predicate={({ tableRow }: any) => !!isBandedOrHeaderRow(tableRow)}
+          predicate={({ tableRow }: any) => isBandedOrHeaderRow(tableRow)}
         >
           {(params: BandHeaderNS.CellProps) => (
             <TemplateConnector>
@@ -146,7 +147,7 @@ class TableBandHeaderBase extends React.PureComponent<TableBandHeaderProps> {
         </Template>
         <Template
           name="tableRow"
-          predicate={({ tableRow }: any) => !!isBandedTableRow(tableRow)}
+          predicate={({ tableRow }: any) => isBandedTableRow(tableRow)}
         >
           {(params: TableRowProps) => <Row {...params} />}
         </Template>

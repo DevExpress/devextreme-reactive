@@ -1,6 +1,7 @@
 import { PureComputed } from '@devexpress/dx-core';
 import { TABLE_BAND_TYPE } from './constants';
 import { TABLE_DATA_TYPE } from '../table/constants';
+import { TABLE_GROUP_TYPE } from '../table-group-row/constants';
 import { getColumnMeta } from './helpers';
 import { splitHeaderColumnChains, generateSimpleChains } from '../table-header-row/helpers';
 import {
@@ -60,7 +61,8 @@ export const tableHeaderColumnChainsWithBands: GetHeaderColumnChainsFn<
     const columnName = column.column && column.column.name || '';
     currentBand = getColumnMeta(columnName, bands, rowIndex);
     return !chain
-      || (chain as any).key !== currentBand.key;
+      || chain.key !== currentBand.key
+      || chain.columns[0].type === TABLE_GROUP_TYPE;
   };
   const extendChainProps = () => ({
     bandTitle: currentBand?.title,

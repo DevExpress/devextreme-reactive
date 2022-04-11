@@ -3,16 +3,6 @@ import { createShallow } from '@devexpress/dx-testing';
 import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import { Cell, classes } from './cell';
 
-jest.mock('@mui/styles/makeStyles', () => () => () => ({
-  cell: 'cell',
-  text: 'text',
-  horizontalCell: 'horizontalCell',
-  verticalCell: 'verticalCell',
-  groupedByDate: 'groupedByDate',
-  verticalCellText: 'verticalCellText',
-  textContainer: 'textContainer',
-}));
-
 describe('GroupingPanel', () => {
   const defaultProps = {
     group: {},

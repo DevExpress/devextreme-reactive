@@ -8,23 +8,6 @@ jest.mock('../utils', () => ({
   scrollingStrategy: jest.fn(),
 }));
 
-jest.mock('@mui/styles/makeStyles', () => () => () => ({
-  container: 'container',
-  stickyElement: 'stickyElement',
-  header: 'header',
-  leftPanel: 'leftPanel',
-  flexRow: 'flexRow',
-  inlineFlex: 'inlineFlex',
-  background: 'background',
-  ordinaryLeftPanelBorder: 'ordinaryLeftPanelBorder',
-  brightLeftPanelBorder: 'brightLeftPanelBorder',
-  ordinaryHeaderBorder: 'ordinaryHeaderBorder',
-  brightHeaderBorder: 'brightHeaderBorder',
-  timeScale: 'timeScale',
-  dayScaleEmptyCell: 'dayScaleEmptyCell',
-  relativeContainer: 'relativeContainer',
-}));
-
 describe('Main Layout', () => {
   const defaultProps = {
     timeScaleComponent: () => null,

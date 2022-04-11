@@ -15,6 +15,7 @@ jest.mock('@devexpress/dx-grid-core', () => {
   jest.spyOn(actual, 'getCollapsedGrids');
   jest.spyOn(actual, 'getColumnWidthGetter');
   jest.spyOn(actual, 'getScrollLeft');
+  jest.spyOn(actual, 'isColumnsWidthEqual');
   return actual;
 });
 jest.mock('./column-group', () => ({
@@ -238,7 +239,6 @@ describe('VirtualTableLayout', () => {
           footerRows={defaultProps.bodyRows.slice(0, 2)}
         />
       ));
-
       expect(tree.find(defaultProps.containerComponent).props().style)
         .toMatchObject({ height: defaultProps.height });
 

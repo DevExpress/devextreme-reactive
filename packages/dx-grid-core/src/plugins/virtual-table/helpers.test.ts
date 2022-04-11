@@ -5,6 +5,7 @@ import {
   getScrollTop,
   getTopRowId,
   getScrollLeft,
+  isColumnsWidthEqual,
 } from './helpers';
 import { TOP_POSITION, BOTTOM_POSITION, LEFT_POSITION, RIGHT_POSITION } from './constants';
 
@@ -272,5 +273,19 @@ describe('#getScrollLeft', () => {
 
   it('should return scroll left, columnId is RIGHT_POSITION', () => {
     expect(getScrollLeft(3, 10, RIGHT_POSITION)).toBe(30);
+  });
+});
+
+describe('#isColumnsWidthEqual', () => {
+  it('should return true, columns reordering only', () => {
+    const prevColumns = [{ width: 20 }, { width: 10 }, { width: 5 }] as any;
+    const columns = [{ width: 10 }, { width: 20 }, { width: 5 }] as any;
+    expect(isColumnsWidthEqual(prevColumns, columns)).toBeTruthy();
+  });
+
+  it('should return false, columns width changed', () => {
+    const prevColumns = [{ width: 20 }, { width: 10 }, { width: 5 }] as any;
+    const columns = [{ width: 20 }, { width: 20 }, { width: 5 }] as any;
+    expect(isColumnsWidthEqual(prevColumns, columns)).toBeFalsy();
   });
 });

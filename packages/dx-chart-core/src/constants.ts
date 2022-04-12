@@ -29,4 +29,4 @@ export const HOVERED = 'hovered';
 /** @internal */
 export const SELECTED = 'selected';
 /** @internal */
-export const DIFFERENCE = 1.1;
+export const DIFFERENCE = 3;

@@ -177,4 +177,4 @@ export type GetScrollLeft = PureComputed<
   [number, number, typeof LEFT_POSITION | typeof RIGHT_POSITION | undefined], number | undefined
 >;
 /** @internal */
-export type IsColumnsWidthEqual = PureComputed<[TableColumn[], TableColumn[]], boolean>;
+export type IsColumnsWidthDifferent = PureComputed<[TableColumn[], TableColumn[]], boolean>;

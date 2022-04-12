@@ -15,7 +15,7 @@ jest.mock('@devexpress/dx-grid-core', () => {
   jest.spyOn(actual, 'getCollapsedGrids');
   jest.spyOn(actual, 'getColumnWidthGetter');
   jest.spyOn(actual, 'getScrollLeft');
-  jest.spyOn(actual, 'isColumnsWidthEqual');
+  jest.spyOn(actual, 'isColumnsWidthDifferent');
   return actual;
 });
 jest.mock('./column-group', () => ({

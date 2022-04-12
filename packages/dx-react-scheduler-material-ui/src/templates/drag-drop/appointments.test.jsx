@@ -2,11 +2,6 @@ import * as React from 'react';
 import { createMount, createShallow } from '@devexpress/dx-testing';
 import { DraftAppointment, SourceAppointment, classes } from './appointments';
 
-jest.mock('@mui/styles/makeStyles', () => () => () => ({
-  appointment: 'appointment',
-  shadedAppointment: 'shadedAppointment',
-}));
-
 describe('DragDrop', () => {
   const defaultProps = {
     data: {},

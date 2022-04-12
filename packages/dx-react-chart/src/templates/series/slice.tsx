@@ -44,9 +44,11 @@ export const Slice: React.ComponentType<PieSeries.PointProps> = withAnimation<an
   getDelay,
 )(withStates({
   [HOVERED]: withPattern<any>(
-    ({ seriesIndex, index }) => `series-${seriesIndex}-point-${index}-hover`, { opacity: 0.75 },
+    ({ seriesIndex, index, color }) =>
+    `series-${seriesIndex}-point-${index}-color-${color}-hover`, { opacity: 0.75 },
   )(RawSlice),
   [SELECTED]: withPattern<any>(
-    ({ seriesIndex, index, color }) => `series-${seriesIndex}-point-${index}-color-${color}-selection`, { opacity: 0.5 },
+    ({ seriesIndex, index, color }) =>
+    `series-${seriesIndex}-point-${index}-color-${color}-selection`, { opacity: 0.5 },
   )(RawSlice),
 })(RawSlice));

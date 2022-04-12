@@ -57,7 +57,6 @@
     "@emotion/styled": "^11.3.0",
     "@mui/icons-material": "^5.0.4",
     "@mui/material": "^5.0.4",
-    "@mui/styles": "^5.0.1",
     "@rollup/plugin-node-resolve": "^7.1.1",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "babel-core": "^7.0.0-bridge.0",
@@ -95,7 +94,6 @@
     "@emotion/styled": ">=11.3.0",
     "@mui/icons-material": ">=5.0.0",
     "@mui/material": ">=5.0.0",
-    "@mui/styles": ">=5.0.0",
     "react": ">=17.0.2"
   }
 }

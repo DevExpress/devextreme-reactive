@@ -42,7 +42,7 @@ export const Area: React.ComponentType<AreaSeries.SeriesProps> = withAnimation<a
   isCoordinatesChanged,
 )(withStates({
   [HOVERED]: withPattern<any>(
-    ({ index }) => `series-${index}-hover`, { opacity: 0.75 },
+    ({ index, color }) => `series-${index}-color-${color}-hover`, { opacity: 0.75 },
   )(RawArea),
   [SELECTED]: withPattern<any>(
     ({ index, color }) => `series-${index}-color-${color}-selection`, { opacity: 0.5 },

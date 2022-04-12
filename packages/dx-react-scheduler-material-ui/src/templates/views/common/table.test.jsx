@@ -2,10 +2,6 @@ import * as React from 'react';
 import { createShallow } from '@devexpress/dx-testing';
 import { Table } from './table';
 
-jest.mock('@mui/styles/makeStyles', () => () => () => ({
-  table: 'table',
-}));
-
 describe('Common view DayScale', () => {
   let shallow;
   const defaultProps = {

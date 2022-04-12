@@ -89,7 +89,7 @@ describe('Bar', () => {
       [expect.any(Function), { opacity: 0.5 }],
     ]);
     expect((withPattern as jest.Mock).mock.calls[0][0]({ seriesIndex: 1, index: 2 }))
-      .toEqual('series-1-point-2-hover');
+      .toEqual('series-1-point-2-color-undefined-hover');
     expect((withPattern as jest.Mock).mock.calls[1][0]({ seriesIndex: 2, index: 3 }))
       .toEqual('series-2-point-3-color-undefined-selection');
   });

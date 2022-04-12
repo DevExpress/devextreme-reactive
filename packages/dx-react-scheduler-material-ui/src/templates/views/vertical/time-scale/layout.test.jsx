@@ -4,14 +4,6 @@ import { VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 import { Layout, classes } from './layout';
 import { TicksLayout } from './ticks-layout';
 
-jest.mock('@mui/styles/makeStyles', () => () => () => ({
-  timeScaleContainer: 'timeScaleContainer',
-  ticks: 'ticks',
-  cell: 'cell',
-  verticalCell: 'verticalCell',
-  flexRow: 'flexRow',
-}));
-
 describe('Vertical view TimeScale', () => {
   let shallow;
   const defaultProps = {

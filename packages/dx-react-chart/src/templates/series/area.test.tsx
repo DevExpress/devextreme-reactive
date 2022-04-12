@@ -92,7 +92,7 @@ describe('Area', () => {
       [expect.any(Function), { opacity: 0.75 }],
       [expect.any(Function), { opacity: 0.5 }],
     ]);
-    expect((withPattern as jest.Mock).mock.calls[0][0]({ index: 2 })).toEqual('series-2-hover');
+    expect((withPattern as jest.Mock).mock.calls[0][0]({ index: 2 })).toEqual('series-2-color-undefined-hover');
     expect((withPattern as jest.Mock).mock.calls[1][0]({ index: 3 })).toEqual('series-3-color-undefined-selection');
   });
 

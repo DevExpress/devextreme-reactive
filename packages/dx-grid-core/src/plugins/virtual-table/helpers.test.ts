@@ -294,13 +294,27 @@ describe('#isColumnsWidthDifferent', () => {
   it('should return true, columns width changed', () => {
     const prevColumns = [
       { width: 20, key: 'column1' },
-       { width: 10, key: 'column2' },
-       { width: 5, key: 'column3' },
+      { width: 10, key: 'column2' },
+      { width: 5, key: 'column3' },
     ] as any;
     const columns = [
       { width: 20, key: 'column1' },
       { width: 20, key: 'column2' },
       { width: 5, key: 'column3' },
+    ] as any;
+    expect(isColumnsWidthDifferent(prevColumns, columns)).toBeTruthy();
+  });
+
+  it('should return true, columns changed', () => {
+    const prevColumns = [
+      { width: 20, key: 'column1' },
+      { width: 10, key: 'column2' },
+      { width: 5, key: 'column3' },
+    ] as any;
+    const columns = [
+      { width: 20, key: 'column1' },
+      { width: 10, key: 'column2' },
+      { width: 5, key: 'column4' },
     ] as any;
     expect(isColumnsWidthDifferent(prevColumns, columns)).toBeTruthy();
   });

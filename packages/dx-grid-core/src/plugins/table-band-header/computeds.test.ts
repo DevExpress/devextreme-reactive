@@ -1,5 +1,6 @@
 import { TABLE_BAND_TYPE } from './constants';
 import { TABLE_DATA_TYPE } from '../table/constants';
+import { TABLE_GROUP_TYPE } from '../table-group-row/constants';
 import {
   tableRowsWithBands, tableHeaderColumnChainsWithBands, columnBandLevels, bandLevelsVisibility,
 } from './computeds';
@@ -60,9 +61,19 @@ describe('TableBandHeader Plugin computeds', () => {
   });
 
   describe('#tableHeaderColumnChainsWithBands', () => {
-    const columns = [
+    const simpleColumns = [
       'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
     ].map(name => ({ column: { name }, key: name, type: TABLE_DATA_TYPE }));
+
+    const groupedColumns = [
+      'a', 'b', 'c', 'd', 'e',
+    ].map((name, index) => {
+      if (index < 2) {
+        return { column: { name }, key: name, type: TABLE_GROUP_TYPE };
+      }
+      return { column: { name }, key: name, type: TABLE_DATA_TYPE };
+    });
+
     const expandChains = rowChains => rowChains && expandChainsCore(
       rowChains,
       col => ({
@@ -82,6 +93,7 @@ describe('TableBandHeader Plugin computeds', () => {
       rows,
       columnBands,
       expectedCompressedChains,
+      columns,
     ) => {
       const expectedChains = expandChains(expectedCompressedChains);
 
@@ -145,6 +157,7 @@ describe('TableBandHeader Plugin computeds', () => {
           [['a', 'b'], ['c', 'd'], ['e'], ['f'], ['g'], ['h'], ['i']],
           [['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']],
         ],
+        simpleColumns,
       );
     });
 
@@ -189,6 +202,36 @@ describe('TableBandHeader Plugin computeds', () => {
           [['a', 'b'], ['c', 'd'], ['e', 'f', 'g', 'h', 'i']],
           [['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']],
         ],
+        simpleColumns,
+      );
+    });
+
+    it('should split columns to band chains for grouped columns', () => {
+      const bands = [
+        {
+          title: 'band C-0',
+          children: [
+            { columnName: 'c' }, { columnName: 'b' },
+          ],
+        },
+        {
+          title: 'band D-0',
+          children: [{ columnName: 'd' }, { columnName: 'e' }],
+        },
+      ];
+      const rows = [
+        { key: 'band_0', type: TABLE_BAND_TYPE, level: 0 },
+        { key: 'heading', type: 'heading' },
+      ];
+
+      assertChainsSplit(
+        rows,
+        bands,
+        [
+          [['a'], ['b'], ['c'], ['d', 'e']],
+          [['a', 'b', 'c', 'd', 'e']],
+        ],
+        groupedColumns,
       );
     });
   });

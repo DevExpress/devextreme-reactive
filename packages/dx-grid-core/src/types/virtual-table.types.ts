@@ -176,3 +176,5 @@ export type GetTopRowId = PureComputed<
 export type GetScrollLeft = PureComputed<
   [number, number, typeof LEFT_POSITION | typeof RIGHT_POSITION | undefined], number | undefined
 >;
+/** @internal */
+export type IsColumnsWidthDifferent = PureComputed<[TableColumn[], TableColumn[]], boolean>;

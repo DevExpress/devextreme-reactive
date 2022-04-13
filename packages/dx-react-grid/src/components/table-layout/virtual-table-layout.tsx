@@ -3,6 +3,7 @@ import { MemoizedFunction, memoize } from '@devexpress/dx-core';
 import {
   TableColumn, GetColumnWidthFn, getCollapsedGrids,
   getColumnWidthGetter, TABLE_STUB_TYPE, getViewport, GridViewport, getScrollLeft,
+  isColumnsWidthDifferent,
 } from '@devexpress/dx-grid-core';
 import { VirtualTableLayoutState, VirtualTableLayoutProps } from '../../types';
 import { VirtualTableLayoutBlock } from './virtual-table-layout-block';
@@ -67,9 +68,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     const columnCountChanged = prevProps.columns.length !== columns.length;
 
     if (bodyRowsChanged || columnCountChanged || columns[0].width !== undefined &&
-        prevProps.columns.some((column, index) => {
-          return column.width !== columns[index].width;
-        })
+      isColumnsWidthDifferent(prevProps.columns, columns)
       ) {
       this.updateViewport();
     }

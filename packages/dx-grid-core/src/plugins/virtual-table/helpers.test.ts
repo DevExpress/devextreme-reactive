@@ -5,6 +5,7 @@ import {
   getScrollTop,
   getTopRowId,
   getScrollLeft,
+  isColumnsWidthDifferent,
 } from './helpers';
 import { TOP_POSITION, BOTTOM_POSITION, LEFT_POSITION, RIGHT_POSITION } from './constants';
 
@@ -272,5 +273,49 @@ describe('#getScrollLeft', () => {
 
   it('should return scroll left, columnId is RIGHT_POSITION', () => {
     expect(getScrollLeft(3, 10, RIGHT_POSITION)).toBe(30);
+  });
+});
+
+describe('#isColumnsWidthDifferent', () => {
+  it('should return false, columns reordering only', () => {
+    const prevColumns = [
+      { width: '20px', key: 'column1' },
+      { width: '10px', key: 'column2' },
+      { width: '5px', key: 'column3' },
+    ] as any;
+    const columns = [
+      { width: '10px', key: 'column2' },
+      { width: '20px', key: 'column1' },
+      { width: '5px', key: 'column3' },
+    ] as any;
+    expect(isColumnsWidthDifferent(prevColumns, columns)).toBeFalsy();
+  });
+
+  it('should return true, columns width changed', () => {
+    const prevColumns = [
+      { width: 20, key: 'column1' },
+      { width: 10, key: 'column2' },
+      { width: 5, key: 'column3' },
+    ] as any;
+    const columns = [
+      { width: 20, key: 'column1' },
+      { width: 20, key: 'column2' },
+      { width: 5, key: 'column3' },
+    ] as any;
+    expect(isColumnsWidthDifferent(prevColumns, columns)).toBeTruthy();
+  });
+
+  it('should return true, columns changed', () => {
+    const prevColumns = [
+      { width: 20, key: 'column1' },
+      { width: 10, key: 'column2' },
+      { width: 5, key: 'column3' },
+    ] as any;
+    const columns = [
+      { width: 20, key: 'column1' },
+      { width: 10, key: 'column2' },
+      { width: 5, key: 'column4' },
+    ] as any;
+    expect(isColumnsWidthDifferent(prevColumns, columns)).toBeTruthy();
   });
 });

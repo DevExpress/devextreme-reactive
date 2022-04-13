@@ -9,6 +9,7 @@ import {
   GetScrollPosition,
   GetTopRowId,
   GetScrollLeft,
+  IsColumnsWidthDifferent,
 } from '../../types';
 import { arraysEqual } from './utils';
 import { TOP_POSITION, BOTTOM_POSITION, LEFT_POSITION } from './constants';
@@ -140,4 +141,11 @@ export const getTopRowId: GetTopRowId = (viewport, tableBodyRows, isDataRemote) 
   }
 
   return undefined;
+};
+
+export const isColumnsWidthDifferent: IsColumnsWidthDifferent = (prevColumns, columns) => {
+  return prevColumns.some((column) => {
+    const currentColumn = columns.find(c => c.key === column.key);
+    return currentColumn ? currentColumn.width !== column.width : true;
+  });
 };

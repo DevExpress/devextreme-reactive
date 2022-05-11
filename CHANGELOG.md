@@ -1,3 +1,22 @@
+# [3.0.3](https://github.com/DevExpress/devextreme-reactive/compare/v3.0.2...v3.0.3) (2022-05-10)
+
+
+### Bug Fixes
+
+* **core:** fix changing vizability for series(T1073127) ([#3535](https://github.com/DevExpress/devextreme-reactive/issues/3535)) ([15e95d6](https://github.com/DevExpress/devextreme-reactive/commit/15e95d63f3ad8df30ed4ef8e630690e32373b3a6))
+* **core:** make dx-core type public for fix lib check react-grid compilation error ([#3538](https://github.com/DevExpress/devextreme-reactive/issues/3538)) ([629e905](https://github.com/DevExpress/devextreme-reactive/commit/629e9057c0562c7d11fc5400f725555ab327fc74))
+* **react-chart:** apply right series hatching color for 2 charts with same selection state ([#3536](https://github.com/DevExpress/devextreme-reactive/issues/3536)) ([3a2789e](https://github.com/DevExpress/devextreme-reactive/commit/3a2789e9602349f2df2e85f5392fde96cab7d02f))
+* **react-chart:** fix chart in bootstrap and fix hover elements ([#3545](https://github.com/DevExpress/devextreme-reactive/issues/3545)) ([8d76c42](https://github.com/DevExpress/devextreme-reactive/commit/8d76c420460648a40be3f0d500b32e5021e5b306))
+* **react-grid:** add forwardedRef property in doc ([#3534](https://github.com/DevExpress/devextreme-reactive/issues/3534)) ([82c8006](https://github.com/DevExpress/devextreme-reactive/commit/82c8006d9ec73f7b345dfa53c365bf17fe44fb18))
+* **react-grid:** fix column reordering (T1079946) ([#3543](https://github.com/DevExpress/devextreme-reactive/issues/3543)) ([06166f2](https://github.com/DevExpress/devextreme-reactive/commit/06166f2b9678fc22f96b8014208bce40b2b79c6c))
+* **react-grid:** fix grouping with Banded columns ([#3541](https://github.com/DevExpress/devextreme-reactive/issues/3541)) ([dd88f70](https://github.com/DevExpress/devextreme-reactive/commit/dd88f705e9f88e3acf5a242d9e0c6d65ff4fbaa4))
+* **react-grid:** fix displaying data in virtual table ([#3529](https://github.com/DevExpress/devextreme-reactive/issues/3529)) ([304489b](https://github.com/DevExpress/devextreme-reactive/commit/304489bd7794160984ea51ec6822dc55ea2858e0))
+* **react-grid-material-ui:** column headers are not fixed on vertical scrolling if the TableFixedColumns plugin is used (T1079942) ([#3539](https://github.com/DevExpress/devextreme-reactive/issues/3539)) ([c168da5](https://github.com/DevExpress/devextreme-reactive/commit/c168da5f3e9f5745440a53f3aa631993ce7d9f64))
+* **react-scheduler:** fix displaying edit form ([#3537](https://github.com/DevExpress/devextreme-reactive/issues/3537)) ([6ae6d8e](https://github.com/DevExpress/devextreme-reactive/commit/6ae6d8e51bfe7a324a1dce025abf6661c40d299c))
+* **react-scheduler-material-ui:** A circle icon doesn't apply a color set in a resource in an appointment tooltip ([#3540](https://github.com/DevExpress/devextreme-reactive/issues/3537)) ([7f7e9bc](https://github.com/DevExpress/devextreme-reactive/commit/7f7e9bc44331c9068b0aa9ab9c0cf69d32569b54))
+
+
+
 # [3.0.2](https://github.com/DevExpress/devextreme-reactive/compare/v3.0.1...v3.0.2) (2022-02-24)
 
 

@@ -63,7 +63,6 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
       }
     />
     <VirtualTableLayoutBlock
-      blockRefsHandler={[Function]}
       bodyComponent={[Function]}
       cellComponent={[Function]}
       collapsedGrid={
@@ -166,10 +165,8 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
       minWidth={400}
       name="header"
       rowComponent={[Function]}
-      rowRefsHandler={[Function]}
     />
     <VirtualTableLayoutBlock
-      blockRefsHandler={[Function]}
       bodyComponent={[Function]}
       cellComponent={[Function]}
       collapsedGrid={
@@ -687,10 +684,8 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
       minWidth={400}
       name="body"
       rowComponent={[Function]}
-      rowRefsHandler={[Function]}
     />
     <VirtualTableLayoutBlock
-      blockRefsHandler={[Function]}
       bodyComponent={[Function]}
       cellComponent={[Function]}
       collapsedGrid={
@@ -793,7 +788,6 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
       minWidth={400}
       name="footer"
       rowComponent={[Function]}
-      rowRefsHandler={[Function]}
     />
   </tableComponent>
 </containerComponent>

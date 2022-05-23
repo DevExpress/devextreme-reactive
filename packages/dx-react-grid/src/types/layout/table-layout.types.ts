@@ -66,7 +66,5 @@ export type VirtualTableLayoutBlockProps = Pick<VirtualTableLayoutProps, virtual
     columns: any,
     rows: any,
   },
-  blockRefsHandler: (name: string, ref: React.ReactInstance | null) => void,
-  rowRefsHandler: (row: any, ref?: React.ReactInstance | null) => void,
   tableRef?: React.RefObject<HTMLTableElement>,
 };

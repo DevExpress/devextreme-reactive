@@ -27,8 +27,6 @@ type PropsType = VirtualTableLayoutProps & typeof defaultProps;
 export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTableLayoutState> {
   static defaultProps = defaultProps;
   getColumnWidthGetter: MemoizedFunction<[TableColumn[], number, number], GetColumnWidthFn>;
-  rowRefs = new Map<any, HTMLElement>();
-  blockRefs = new Map<string, HTMLElement>();
   viewportTop = 0;
   restRows = 0;
   skipItems = [0, 0];
@@ -82,22 +80,6 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
   getRowHeight = (row) => {
     const height = row ? row.height : 0;
     return height || this.props.estimatedRowHeight;
-  }
-
-  registerRowRef = (row, ref) => {
-    if (ref === null) {
-      this.rowRefs.delete(row);
-    } else {
-      this.rowRefs.set(row, ref);
-    }
-  }
-
-  registerBlockRef = (name, ref) => {
-    if (ref === null) {
-      this.blockRefs.delete(name);
-    } else {
-      this.blockRefs.set(name, ref);
-    }
   }
 
   onScroll = (e) => {
@@ -236,8 +218,6 @@ debugger
       rowComponent,
       minColumnWidth,
       minWidth,
-      blockRefsHandler: this.registerBlockRef,
-      rowRefsHandler: this.registerRowRef,
     };
     const sizerHeight = height === AUTO_HEIGHT ? null : height;
 

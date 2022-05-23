@@ -82,7 +82,7 @@ const defaultProps = {
   minWidth: 400,
   minColumnWidth: 120,
   height: 100,
-  estimatedRowHeight: 40,
+  estimatedRowHeight: 50,
   bodyRows: [
     { key: 1 },
     { key: 2 },
@@ -212,7 +212,7 @@ describe('VirtualTableLayout', () => {
         const result = jest.requireActual('@devexpress/dx-grid-core').getCollapsedGrids(args);
 
         expect(result.bodyGrid.columns.find(col => col.key === 'col_flex').width)
-          .toBe(null);
+          .toBe(0);
 
         return result;
       });
@@ -242,11 +242,11 @@ describe('VirtualTableLayout', () => {
       expect(tree.find(defaultProps.containerComponent).props().style)
         .toMatchObject({ height: defaultProps.height });
 
-      expect(getCollapsedGrids).toBeCalledTimes(2);
+      expect(getCollapsedGrids).toBeCalledTimes(1);
       expect(getCollapsedGrids.mock.calls[getCollapsedGrids.mock.calls.length - 1][0])
         .toMatchObject({
           viewportLeft: 0,
-          containerWidth: 400,
+          containerWidth: 800,
           viewport: {
             columns: [[0, 4]],
             footerRows: [0, 0],
@@ -456,7 +456,7 @@ describe('VirtualTableLayout', () => {
       expect(getRowHeight(rows[0]))
         .toEqual(50);
       expect(getRowHeight(rows[1]))
-        .toEqual(50);
+        .toEqual(10);
     });
 
     it('should clear row height when rows updated', () => {

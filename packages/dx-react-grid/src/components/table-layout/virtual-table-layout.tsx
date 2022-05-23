@@ -189,7 +189,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       getCellColSpan, minColumnWidth,
     } = this.props;
     const getColumnWidth = this.getColumnWidthGetter(columns, containerWidth, minColumnWidth!);
-
+debugger
     return getCollapsedGrids({
       headerRows,
       bodyRows,

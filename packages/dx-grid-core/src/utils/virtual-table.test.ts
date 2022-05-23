@@ -18,6 +18,9 @@ import {
 
 describe('VirtualTableLayout utils', () => {
   describe('#getVisibleBoundary', () => {
+    const getItemSize = (item) => {
+      return item ? item.size : 40;
+    }
     it('should work in the simplest case', () => {
       const items = [
         { size: 40 },
@@ -29,12 +32,15 @@ describe('VirtualTableLayout utils', () => {
         { size: 40 },
       ];
 
-      expect(getVisibleBoundary(items, 80, 120, item => item.size))
+      expect(getVisibleBoundary(items, 80, 120, getItemSize, [0, 0]))
         .toEqual([2, 4]);
     });
   });
 
   describe('#getColumnBoundaries', () => {
+    const getItemSize = (item) => {
+      return item ? item.size : 40;
+    }
     it('should return correct boundaries in simple case', () => {
       const columns =  [
         { size: 40 },
@@ -46,7 +52,7 @@ describe('VirtualTableLayout utils', () => {
         { size: 40 },
       ];
 
-      expect(getColumnBoundaries(columns, 90, 100, col => col.size))
+      expect(getColumnBoundaries(columns, 90, 100, getItemSize))
         .toEqual([[1, 5]]);
     });
 
@@ -62,7 +68,7 @@ describe('VirtualTableLayout utils', () => {
         { size: 40, fixed: 'right' },
       ];
 
-      expect(getColumnBoundaries(columns, 120, 80, col => col.size))
+      expect(getColumnBoundaries(columns, 120, 80, getItemSize))
         .toEqual([
           [2, 5],
           [0, 0],
@@ -73,6 +79,9 @@ describe('VirtualTableLayout utils', () => {
 
   describe('#getRowsVisibleBoundary', () => {
     it('should work with local data', () => {
+      const getItemSize = (item) => {
+        return item ? item.size : 40;
+      };
       const items = [
         { size: 40 },
         { size: 40 },
@@ -82,7 +91,7 @@ describe('VirtualTableLayout utils', () => {
         { size: 40 },
         { size: 40 },
       ];
-      expect(getRowsVisibleBoundary(items, 80, 120, item => item.size, 0, 40, false))
+      expect(getRowsVisibleBoundary(items, 80, 120, getItemSize, [0, 0], 0))
       .toEqual([2, 4]);
     });
 
@@ -96,12 +105,18 @@ describe('VirtualTableLayout utils', () => {
       ];
 
       it('should consider rows start offset and default height', () => {
-        expect(getVisibleBoundary(items, 600, 120, item => item.size, 20, 30, true))
+        const getItemSize = (item) => {
+          return item ? item.size : 30;
+        };
+        expect(getVisibleBoundary(items, 600, 120, getItemSize, [0, 0], 20))
           .toEqual([20, 22]);
       });
 
       it('should work when rows are not loaded', () => {
-        expect(getRowsVisibleBoundary(items, 240, 120, item => item.size, 0, 40, true))
+        const getItemSize = (item) => {
+          return item ? item.size : 40;
+        };
+        expect(getRowsVisibleBoundary(items, 240, 120, getItemSize, [0, 0], 0, true))
           .toEqual([6, 6]);
       });
     });
@@ -810,7 +825,7 @@ describe('VirtualTableLayout utils', () => {
       ]);
     });
 
-    it('should return null for flex columns', () => {
+    it('should return 0 for flex columns', () => {
       expect(getWidths([
         ...columns,
         { key: 'f' },
@@ -820,7 +835,7 @@ describe('VirtualTableLayout utils', () => {
         minWidth, minWidth,
         200,
         minWidth,
-        null,
+        0,
       ]);
     });
   });

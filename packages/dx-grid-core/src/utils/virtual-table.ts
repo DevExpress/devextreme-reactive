@@ -58,8 +58,8 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
   if (start !== undefined && end === undefined) {
     end = index - 1;
   }
-  end = end === undefined ? index - 1 : end;
-  start = start === undefined ? end - Math.round(viewportSize / itemSize) : start;
+  end = end === undefined ? 0 : end;
+  start = start === undefined ? 0 : start;
   
   return [start + offset, end + offset];
 };
@@ -187,7 +187,7 @@ export const getCollapsedColumns: GetCollapsedColumnsFn = (
       const column = columns[boundary[0]];
       collapsedColumns.push({
         ...column,
-        width: getColumnWidth(column) as number,
+        width: getColumnWidth(column),
       });
     } else {
       collapsedColumns.push({
@@ -349,8 +349,8 @@ export const getColumnWidthGetter: GetColumnWidthGetterFn = (
 
   return (column) => {
     if(column) {
-      column.type === TABLE_FLEX_TYPE ? 0 : 
-      typeof column.width === 'number' ? column.width : autoColWidth;
+      return column.type === TABLE_FLEX_TYPE ? 0 : 
+        (typeof column.width === 'number' ? column.width : autoColWidth);
     }
     return autoColWidth;
   };

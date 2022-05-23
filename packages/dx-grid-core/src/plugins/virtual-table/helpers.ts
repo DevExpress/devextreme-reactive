@@ -19,10 +19,10 @@ const VALID_UNITS = ['px', ''];
 const VIRTUAL_TABLE_ERROR = 'The columnExtension property of the VirtualTable plugin is given an invalid value.';
 
 export const getViewport: GetViewportFn = (
-  state, getters, estimatedRowHeight, getRowHeight, getColumnWidth,
+  state, getters, getRowHeight, getColumnWidth,
 ) => {
   const {
-    viewportTop, viewportLeft, containerWidth, containerHeight,
+    viewportTop, topBottomCount, viewportLeft, containerWidth, containerHeight,
   } = state;
   const {
     loadedRowsStart,
@@ -35,16 +35,16 @@ export const getViewport: GetViewportFn = (
   } = getters;
 
   const rows = getRowsVisibleBoundary(
-    tableBodyRows, viewportTop, containerHeight,
-    getRowHeight, loadedRowsStart, estimatedRowHeight, isDataRemote,
+    tableBodyRows, viewportTop, topBottomCount, containerHeight,
+    getRowHeight, loadedRowsStart, isDataRemote,
   );
   const headerRows = getRowsVisibleBoundary(
-    tableHeaderRows, 0, 0,
-    getRowHeight, 0, estimatedRowHeight, false,
+    tableHeaderRows, 0, { top: 0, bottom: 0 }, 0,
+    getRowHeight, 0, false,
   );
   const footerRows = getRowsVisibleBoundary(
-    tableFooterRows, 0, 0,
-    getRowHeight, 0, estimatedRowHeight, false,
+    tableFooterRows, 0, { top: 0, bottom: 0 }, 0,
+    getRowHeight, 0, false,
   );
   const columns = getColumnBoundaries(
     tableColumns, viewportLeft, containerWidth, getColumnWidth,

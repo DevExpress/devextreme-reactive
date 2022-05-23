@@ -28,37 +28,38 @@ export const getVisibleBoundaryWithFixed: GetVisibleBoundaryWithFixedFn = (
 }, [visibleBoundary] as [VisibleBoundary]);
 
 export const getVisibleBoundary: GetVisibleBoundaryFn = (
-  items, viewportStart, viewportSize, getItemSize, offset = 0, itemSize = 0,
+  items, viewportStart, topBottomCount, viewportSize, getItemSize, offset = 0,
 ) => {
-  let start: number | null = null;
-  let end: number | null = null;
-  let index = 0;
+  let start: number | undefined;
+  let end: number | undefined;
+  let index = topBottomCount.top;
+  const itemSize = getItemSize({})!
   let beforePosition = offset * itemSize;
 
-  const viewportEnd = viewportStart + viewportSize;
-  while (end === null && index < items.length) {
+  let viewportEnd = viewportStart + viewportSize;
+  
+  while (end === undefined && index < items.length) {
     const item = items[index];
     const afterPosition = beforePosition + getItemSize(item)!;
     const isVisible = (beforePosition >= viewportStart && beforePosition < viewportEnd)
       || (afterPosition > viewportStart && afterPosition <= viewportEnd)
       || (beforePosition < viewportStart && afterPosition > viewportEnd);
-    if (isVisible && start === null) {
+    if (isVisible && start === undefined) {
       start = index;
     }
-    if (!isVisible && start !== null) {
+    if (!isVisible && start !== undefined) {
       end = index - 1;
       break;
     }
     index += 1;
     beforePosition = afterPosition;
   }
-  if (start !== null && end === null) {
+  if (start !== undefined && end === undefined) {
     end = index - 1;
   }
-
-  start = start === null ? 0 : start;
-  end = end === null ? 0 : end;
-
+  end = end === undefined ? index - 1 : end;
+  start = start === undefined ? end - Math.round(viewportSize / itemSize) : start;
+  
   return [start + offset, end + offset];
 };
 
@@ -76,14 +77,15 @@ export const getColumnBoundaries: PureComputed<
   getVisibleBoundaryWithFixed(
     getColumnsRenderBoundary(
       columns.length,
-      getVisibleBoundary(columns, left, width, getColumnWidth, 0),
+      getVisibleBoundary(columns, left, { top: 0, bottom: 0}, width, getColumnWidth, 0),
     ),
     columns,
   )
 );
 export const getRowsVisibleBoundary: GetRowsVisibleBoundaryFn = (
-  rows, top, height, getRowHeight, offset, rowHeight, isDataRemote,
+  rows, top, topBottomCount, height, getRowHeight, offset, isDataRemote,
 ) => {
+  const rowHeight = getRowHeight();
   const beforePosition = offset * rowHeight;
   const noVisibleRowsLoaded = rowHeight > 0 &&
     beforePosition + rows.length * rowHeight < top ||
@@ -94,7 +96,7 @@ export const getRowsVisibleBoundary: GetRowsVisibleBoundaryFn = (
     const topIndex = Math.round(top / rowHeight);
     boundaries = [topIndex, topIndex];
   } else {
-    boundaries = getVisibleBoundary(rows, top, height, getRowHeight, offset, rowHeight);
+    boundaries = getVisibleBoundary(rows, top, topBottomCount, height, getRowHeight, offset);
   }
 
   return boundaries;
@@ -198,7 +200,7 @@ export const getCollapsedColumns: GetCollapsedColumnsFn = (
 };
 
 export const getCollapsedRows: GetCollapsedAndStubRowsFn = (
-  rows, visibleBoundary, boundaries, getRowHeight, getCells, offset,
+  rows, visibleBoundary, boundaries, topBottomCount, getRowHeight, getCells, offset,
 ) => {
   const collapsedRows: any[] = [];
   boundaries.forEach((boundary) => {
@@ -215,7 +217,7 @@ export const getCollapsedRows: GetCollapsedAndStubRowsFn = (
         row: {
           key: `${TABLE_STUB_TYPE.toString()}_${boundary[0]}_${boundary[1]}`,
           type: TABLE_STUB_TYPE,
-          height: getColumnsSize(rows, boundary[0], boundary[1], getRowHeight),
+          height: calculateRowHeight(rows, topBottomCount, getRowHeight, boundary[0], boundary[1]),
         },
         cells: getCells(row),
       });
@@ -223,6 +225,13 @@ export const getCollapsedRows: GetCollapsedAndStubRowsFn = (
   });
   return collapsedRows;
 };
+
+const calculateRowHeight = (rows: any, topBottomCount: any, getRowHeight: any, bound1: any, bound2: any): any => {
+  if( bound1 === 0) {
+    return getColumnsSize(rows, topBottomCount.top, bound2, getRowHeight)
+  }
+  return getColumnsSize(rows, bound1, bound2 - topBottomCount.bottom, getRowHeight)
+}
 
 export const getCollapsedCells: GetCollapsedCellsFn = (
   row, columns, spanBoundaries, boundaries, getColSpan,
@@ -315,6 +324,7 @@ export const getCollapsedGrid: GetCollapsedGridFn = ({
       rows,
       boundaries,
       rowBoundaries,
+      { top: 0, bottom: 0},
       getRowHeight,
       row => getCollapsedCells(
         row,
@@ -355,6 +365,7 @@ export const getCollapsedGrids: GetCollapsedGridsFn = ({
   totalRowCount,
   getCellColSpan,
   viewport,
+  topBottomCount,
   getRowHeight,
   getColumnWidth,
 }) => {
@@ -373,6 +384,7 @@ export const getCollapsedGrids: GetCollapsedGridsFn = ({
   > = (rows, rowsBoundary, columnsBoundary, rowCount = rows.length, offset = 0) => {
     return getCollapsedRows(rows, rowsBoundary,
       collapseBoundaries(rowCount, [rowsBoundary], []),
+      topBottomCount,
       getRowHeight,
       row => getCollapsedCells(
         row,

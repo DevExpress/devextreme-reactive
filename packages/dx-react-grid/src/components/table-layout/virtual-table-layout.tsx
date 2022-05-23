@@ -31,7 +31,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
   blockRefs = new Map<string, HTMLElement>();
   viewportTop = 0;
   restRows = 0;
-  topBottomCount = { top: 0, bottom: 0 };
+  skipItems = [0, 0];
   containerHeight = 600;
   containerWidth = 800;
   viewportLeft = 0;
@@ -113,10 +113,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     const pxInPercent = viewportTop * 1 / 10000000;
     const isDif = Math.abs(dif) < this.containerHeight;
     const top = Math.min(Math.round(pxInPercent * this.restRows), this.restRows);
-    this.topBottomCount = isDif ? this.topBottomCount : { 
-      top,
-      bottom: this.restRows - top
-    }
+    this.skipItems = isDif ? this.skipItems : [top, this.restRows - top];
     this.viewportTop = viewportTop;
     this.viewportLeft = viewportLeft;
 
@@ -164,7 +161,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
   }
 
   calculateViewport() {
-    const { state, viewportTop, topBottomCount, viewportLeft, containerHeight, containerWidth } = this;
+    const { state, viewportTop, skipItems, viewportLeft, containerHeight, containerWidth } = this;
     const {
       loadedRowsStart,
       bodyRows,
@@ -178,14 +175,14 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     const getColumnWidth = this.getColumnWidthGetter(columns, containerWidth, minColumnWidth!);
 
     return getViewport(
-      { ...state, viewportTop, topBottomCount, viewportLeft, containerHeight, containerWidth },
+      { ...state, viewportTop, skipItems, viewportLeft, containerHeight, containerWidth },
       { loadedRowsStart, columns, bodyRows, headerRows, footerRows, isDataRemote, viewport },
       this.getRowHeight, getColumnWidth,
     );
   }
 
   getCollapsedGrids(viewport: GridViewport) {
-    const { containerWidth, viewportLeft, topBottomCount } = this;
+    const { containerWidth, viewportLeft, skipItems } = this;
     const {
       headerRows, bodyRows, footerRows,
       columns, loadedRowsStart, totalRowCount,
@@ -204,7 +201,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       viewportLeft,
       containerWidth,
       viewport,
-      topBottomCount,
+      skipItems,
       getRowHeight: this.getRowHeight,
       getColumnWidth,
     });

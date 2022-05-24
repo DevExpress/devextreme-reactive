@@ -20,7 +20,7 @@ describe('VirtualTableLayout utils', () => {
   describe('#getVisibleBoundary', () => {
     const getItemSize = (item) => {
       return item ? item.size : 40;
-    }
+    };
     const items = [
       { size: 40 },
       { size: 40 },
@@ -44,7 +44,7 @@ describe('VirtualTableLayout utils', () => {
   describe('#getColumnBoundaries', () => {
     const getItemSize = (item) => {
       return item ? item.size : 40;
-    }
+    };
     it('should return correct boundaries in simple case', () => {
       const columns =  [
         { size: 40 },
@@ -899,19 +899,20 @@ describe('VirtualTableLayout utils', () => {
 
     it('should return correct height of the first and the last row', () => {
       const bodyRows = [];
-      for(let i = 0; i < 20; i++) {
-        bodyRows.push({ key: `row_${i + 1}`, height: 20 })
+      for (let i = 0; i < 20; i += 1) {
+        bodyRows.push({ key: `row_${i + 1}`, height: 20 });
       }
-      const result = getCollapsedGrids({...args,
+      const result = getCollapsedGrids({
+        ...args,
         skipItems: [2, 4],
-        bodyRows: bodyRows,
+        bodyRows,
         viewport: {
           headerRows: [0, 0],
           footerRows: [0, 0],
           columns: [[0, 5]],
           rows: [8, 10],
         },
-        totalRowCount: 20
+        totalRowCount: 20,
       });
 
       expect(result.bodyGrid.rows.length).toBe(11);

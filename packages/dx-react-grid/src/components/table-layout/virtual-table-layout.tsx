@@ -28,19 +28,17 @@ type PropsType = VirtualTableLayoutProps & typeof defaultProps;
 export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTableLayoutState> {
   static defaultProps = defaultProps;
   getColumnWidthGetter: MemoizedFunction<[TableColumn[], number, number], GetColumnWidthFn>;
-  
+
   constructor(props) {
     super(props);
 
     this.state = {
-      height: 0,
       viewportTop: 0,
       countSkipRows: this.getCountSkipRows(),
       skipItems: [0, 0],
       containerHeight: 600,
       containerWidth: 800,
       viewportLeft: 0,
-      visibleRowBoundaries: {},
     };
 
     this.getColumnWidthGetter = memoize(
@@ -52,7 +50,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
 
   getCountSkipRows() {
     const containerHeight = this.props.totalRowCount * this.props.estimatedRowHeight;
-    if(containerHeight > MAX_WINDOW_HEIGHT) {
+    if (containerHeight > MAX_WINDOW_HEIGHT) {
       return Math.round(this.props.totalRowCount - MAX_WINDOW_HEIGHT /
         this.props.estimatedRowHeight);
     }
@@ -76,11 +74,11 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     const containerWidthChanged = prevState.containerWidth !== containerWidth;
     const containerHeightChanged = prevState.containerHeight !== containerHeight;
 
-    if(prevProps.totalRowCount !== this.props.totalRowCount) {
+    if (prevProps.totalRowCount !== this.props.totalRowCount) {
       this.setState({
-        countSkipRows: this.getCountSkipRows()
-      })
-    }    
+        countSkipRows: this.getCountSkipRows(),
+      });
+    }
 
     if (bodyRowsChanged || columnCountChanged || columns[0].width !== undefined &&
       isColumnsWidthDifferent(prevProps.columns, columns) || viewportTopChanged ||
@@ -103,11 +101,11 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     }
 
     const { scrollTop: viewportTop, scrollLeft: viewportLeft } = node;
-    const { 
+    const {
       containerHeight,
       countSkipRows,
       skipItems,
-      viewportTop: prevViewPort
+      viewportTop: prevViewPort,
     } = this.state;
 
     const dif = viewportTop - prevViewPort;
@@ -118,7 +116,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     this.setState({
       viewportTop,
       viewportLeft,
-      skipItems: isDif ? skipItems : [top, countSkipRows - top]
+      skipItems: isDif ? skipItems : [top, countSkipRows - top],
     });
   }
 

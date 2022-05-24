@@ -64,7 +64,9 @@ export type GetItemSizeFn = PureComputed<
 >;
 
 /** @internal */
-export type CalculateRowHeightFn = PureComputed<[TableRow[], SkipItems, GetRowHeightFn, number, number], number>;
+export type CalculateRowHeightFn = PureComputed<
+[TableRow[], SkipItems, GetRowHeightFn, number, number],
+number>;
 
 /** @internal */
 export type GetCollapsedColumnsFn = PureComputed<

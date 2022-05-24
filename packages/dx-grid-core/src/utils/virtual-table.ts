@@ -37,8 +37,8 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
   const itemSize = getItemSize();
   let beforePosition = offset * itemSize;
 
-  let viewportEnd = viewportStart + viewportSize;
-  
+  const viewportEnd = viewportStart + viewportSize;
+
   while (end === undefined && index < items.length) {
     const item = items[index];
     const afterPosition = beforePosition + getItemSize(item);
@@ -60,7 +60,7 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
   }
   end = end === undefined ? 0 : end;
   start = start === undefined ? 0 : start;
-  
+
   return [start + offset, end + offset];
 };
 
@@ -203,7 +203,6 @@ export const getCollapsedColumns: GetCollapsedColumnsFn = (
 export const getCollapsedRows: GetCollapsedAndStubRowsFn = (
   rows, visibleBoundary, boundaries, skipItems, getRowHeight, getCells, offset,
 ) => {
-  debugger
   const collapsedRows: any[] = [];
   boundaries.forEach((boundary) => {
     const isVisible = visibleBoundary[0] <= boundary[0] && boundary[1] <= visibleBoundary[1];
@@ -228,12 +227,14 @@ export const getCollapsedRows: GetCollapsedAndStubRowsFn = (
   return collapsedRows;
 };
 
-const calculateRowHeight: CalculateRowHeightFn = (rows, skipItems, getRowHeight, bound1, bound2) => {
-  if( bound1 === 0) {
-    return getItemsSize(rows, skipItems[0], bound2, getRowHeight)
+const calculateRowHeight: CalculateRowHeightFn = (
+  rows, skipItems, getRowHeight, bound1, bound2,
+) => {
+  if (bound1 === 0) {
+    return getItemsSize(rows, skipItems[0], bound2, getRowHeight);
   }
-  return getItemsSize(rows, bound1, bound2 - skipItems[1], getRowHeight)
-}
+  return getItemsSize(rows, bound1, bound2 - skipItems[1], getRowHeight);
+};
 
 export const getCollapsedCells: GetCollapsedCellsFn = (
   row, columns, spanBoundaries, boundaries, getColSpan,
@@ -349,8 +350,8 @@ export const getColumnWidthGetter: GetColumnWidthGetterFn = (
   const autoColWidth = Math.max(autoWidth, minColumnWidth!);
 
   return (column) => {
-    if(column) {
-      return column.type === TABLE_FLEX_TYPE ? 0 : 
+    if (column) {
+      return column.type === TABLE_FLEX_TYPE ? 0 :
         (typeof column.width === 'number' ? column.width : autoColWidth);
     }
     return autoColWidth;

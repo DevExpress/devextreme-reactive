@@ -410,7 +410,7 @@ describe('VirtualTableLayout', () => {
   describe('sum or rows height more than max height of window', () => {
     const bodyRows = [];
     const totalRowCount = 1000000;
-    for(let i = 0; i < totalRowCount; i++) {
+    for (let i = 0; i < totalRowCount; i += 1) {
       bodyRows.push({ key: i + 1 });
     }
     it('should recalculate viewport on scroll, scrollTop is fast changed', () => {
@@ -433,7 +433,7 @@ describe('VirtualTableLayout', () => {
         viewportTop: 300,
         viewportLeft: 250,
         containerHeight: 120,
-        containerWidth: 400
+        containerWidth: 400,
       });
     });
 
@@ -457,11 +457,11 @@ describe('VirtualTableLayout', () => {
         viewportTop: 106,
         viewportLeft: 250,
         containerHeight: 120,
-        containerWidth: 400
+        containerWidth: 400,
       });
     });
 
-    it('should recalculate viewport onscroll, totalRowCount is changed', () => { 
+    it('should recalculate viewport onscroll, totalRowCount is changed', () => {
       const tree = mount((
         <VirtualTableLayout
           {...defaultProps}
@@ -472,7 +472,7 @@ describe('VirtualTableLayout', () => {
       ));
       simulateScroll(tree, { scrollTop: 100, scrollLeft: 0 });
       simulateScroll(tree, { scrollTop: 300, scrollLeft: 0 });
-      tree.setProps({totalRowCount: totalRowCount + 1000});
+      tree.setProps({ totalRowCount: totalRowCount + 1000 });
       simulateScroll(tree, { scrollTop: 500, scrollLeft: 0 });
 
       const getViewportCallsLength = getViewport.mock.calls.length;
@@ -482,7 +482,7 @@ describe('VirtualTableLayout', () => {
         viewportTop: 500,
         viewportLeft: 0,
         containerHeight: 120,
-        containerWidth: 400
+        containerWidth: 400,
       });
     });
   });

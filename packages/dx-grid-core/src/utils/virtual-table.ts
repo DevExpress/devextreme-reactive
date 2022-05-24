@@ -203,6 +203,7 @@ export const getCollapsedColumns: GetCollapsedColumnsFn = (
 export const getCollapsedRows: GetCollapsedAndStubRowsFn = (
   rows, visibleBoundary, boundaries, skipItems, getRowHeight, getCells, offset,
 ) => {
+  debugger
   const collapsedRows: any[] = [];
   boundaries.forEach((boundary) => {
     const isVisible = visibleBoundary[0] <= boundary[0] && boundary[1] <= visibleBoundary[1];

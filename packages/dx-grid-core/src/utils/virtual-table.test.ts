@@ -21,19 +21,23 @@ describe('VirtualTableLayout utils', () => {
     const getItemSize = (item) => {
       return item ? item.size : 40;
     }
+    const items = [
+      { size: 40 },
+      { size: 40 },
+      { size: 40 },
+      { size: 40 },
+      { size: 40 },
+      { size: 40 },
+      { size: 40 },
+    ];
     it('should work in the simplest case', () => {
-      const items = [
-        { size: 40 },
-        { size: 40 },
-        { size: 40 },
-        { size: 40 },
-        { size: 40 },
-        { size: 40 },
-        { size: 40 },
-      ];
-
       expect(getVisibleBoundary(items, 80, 120, getItemSize, [0, 0]))
         .toEqual([2, 4]);
+    });
+
+    it('should return visible boundary, rows are not fit in the max window height', () => {
+      expect(getVisibleBoundary(items, 80, 120, getItemSize, [2, 1]))
+        .toEqual([4, 6]);
     });
   });
 
@@ -841,41 +845,41 @@ describe('VirtualTableLayout utils', () => {
   });
 
   describe('getCollapsedGrids', () => {
+    const args = {
+      headerRows: [{ key: 'header' }],
+      bodyRows: [{ key: 'row_1' }, { key: 'row_2' }, { key: 'row_3' }, { key: 'row_4' }],
+      footerRows: [{ key: 'footer' }],
+      loadedRowsStart: 0,
+      getCellColSpan: ({ tableRow, tableColumn }) => {
+        if (tableRow.key && tableRow.key.includes('row') && (tableColumn.key !== 'column_0' ||
+        tableColumn.key !== 'column_4')) {
+          return 3;
+        }
+        return 1;
+      },
+      viewport: {
+        headerRows: [0, 0],
+        footerRows: [0, 0],
+        columns: [[0, 5]],
+        rows: [0, 3],
+      },
+      columns: [
+        { key: 'column_0', width: 40 },
+        { key: 'column_1', width: 40 },
+        { key: 'column_2', width: 40 },
+        { key: 'column_3', width: 40 },
+        { key: 'column_4', width: 40 },
+        { key: 'column_5', width: 40 },
+        { key: 'column_6', width: 40 },
+        { key: 'column_7', width: 40 },
+        { key: 'column_8', width: 40 },
+      ],
+      skipItems: [0, 0],
+      totalRowCount: 4,
+      getColumnWidth: column => column.width,
+      getRowHeight: row => row.height,
+    };
     it('should return same columns for body, header and footer', () => {
-      const args = {
-        headerRows: [{ key: 'header' }],
-        bodyRows: [{ key: 'row_1' }, { key: 'row_2' }, { key: 'row_3' }, { key: 'row_4' }],
-        footerRows: [{ key: 'footer' }],
-        loadedRowsStart: 0,
-        getCellColSpan: ({ tableRow, tableColumn }) => {
-          if (tableRow.key && tableRow.key.includes('row') && (tableColumn.key !== 'column_0' ||
-          tableColumn.key !== 'column_4')) {
-            return 3;
-          }
-          return 1;
-        },
-        viewport: {
-          headerRows: [0, 0],
-          footerRows: [0, 0],
-          columns: [[0, 5]],
-          rows: [0, 3],
-        },
-        columns: [
-          { key: 'column_0', width: 40 },
-          { key: 'column_1', width: 40 },
-          { key: 'column_2', width: 40 },
-          { key: 'column_3', width: 40 },
-          { key: 'column_4', width: 40 },
-          { key: 'column_5', width: 40 },
-          { key: 'column_6', width: 40 },
-          { key: 'column_7', width: 40 },
-          { key: 'column_8', width: 40 },
-        ],
-        totalRowCount: 4,
-        getColumnWidth: column => column.width,
-        getRowHeight: row => row.height,
-      };
-
       const result = getCollapsedGrids(args);
 
       const expectedColumns = [
@@ -891,6 +895,28 @@ describe('VirtualTableLayout utils', () => {
       expect(result.bodyGrid.columns).toEqual(expectedColumns);
       expect(result.headerGrid.columns).toEqual(expectedColumns);
       expect(result.footerGrid.columns).toEqual(expectedColumns);
+    });
+
+    it('should return correct height of the first and the last row', () => {
+      const bodyRows = [];
+      for(let i = 0; i < 20; i++) {
+        bodyRows.push({ key: `row_${i + 1}`, height: 20 })
+      }
+      const result = getCollapsedGrids({...args,
+        skipItems: [2, 4],
+        bodyRows: bodyRows,
+        viewport: {
+          headerRows: [0, 0],
+          footerRows: [0, 0],
+          columns: [[0, 5]],
+          rows: [8, 10],
+        },
+        totalRowCount: 20
+      });
+
+      expect(result.bodyGrid.rows.length).toBe(11);
+      expect(result.bodyGrid.rows[0].row.height).toBe(60);
+      expect(result.bodyGrid.rows[result.bodyGrid.rows.length - 1].row.height).toBe(40);
     });
   });
 });

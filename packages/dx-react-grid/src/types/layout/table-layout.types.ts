@@ -54,7 +54,6 @@ export interface VirtualTableLayoutProps extends TableLayoutProps {
 /** @internal */
 export type VirtualTableLayoutState = {
   viewportTop: number,
-  countSkipRows: number,
   skipItems: [number, number],
   containerHeight: number,
   containerWidth: number,

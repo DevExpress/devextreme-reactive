@@ -34,7 +34,6 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
 
     this.state = {
       viewportTop: 0,
-      countSkipRows: this.getCountSkipRows(),
       skipItems: [0, 0],
       containerHeight: 600,
       containerWidth: 800,
@@ -75,9 +74,13 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     const containerHeightChanged = prevState.containerHeight !== containerHeight;
 
     if (prevProps.totalRowCount !== this.props.totalRowCount) {
-      this.setState({
-        countSkipRows: this.getCountSkipRows(),
-      });
+      const countSkipRows = this.getCountSkipRows();
+      const { skipItems } = this.state;
+      if(countSkipRows !== 0 && skipItems[0] === 0 && skipItems[1] === 0) {
+        this.setState({
+          skipItems: [0, countSkipRows],
+        });
+      }
     }
 
     if (bodyRowsChanged || columnCountChanged || columns[0].width !== undefined &&
@@ -103,11 +106,11 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     const { scrollTop: viewportTop, scrollLeft: viewportLeft } = node;
     const {
       containerHeight,
-      countSkipRows,
       skipItems,
       viewportTop: prevViewPort,
     } = this.state;
 
+    const countSkipRows = this.getCountSkipRows();
     const dif = viewportTop - prevViewPort;
     const pxInPercent = viewportTop / MAX_WINDOW_HEIGHT;
     const isDif = Math.abs(dif) < containerHeight;

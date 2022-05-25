@@ -33,9 +33,9 @@ export const getVisibleBoundary: GetVisibleBoundaryFn = (
 ) => {
   let start: number | undefined;
   let end: number | undefined;
-  let index = skipItems[0];
+  let index = items[0] && items[0].rowId >= skipItems[0] ? 0 : skipItems[0];
   const itemSize = getItemSize();
-  let beforePosition = offset * itemSize;
+  let beforePosition = offset !== 0 ? (offset - skipItems[0]) * itemSize : 0;
 
   const viewportEnd = viewportStart + viewportSize;
 
@@ -87,14 +87,14 @@ export const getRowsVisibleBoundary: GetRowsVisibleBoundaryFn = (
   rows, top, height, getRowHeight, skipItems, offset, isDataRemote,
 ) => {
   const rowHeight = getRowHeight();
-  const beforePosition = offset * rowHeight;
+  const beforePosition = offset !== 0 ? (offset - skipItems[0]) * rowHeight : 0;
   const noVisibleRowsLoaded = rowHeight > 0 &&
     beforePosition + rows.length * rowHeight < top ||
     top < beforePosition;
 
   let boundaries;
   if (isDataRemote && noVisibleRowsLoaded) {
-    const topIndex = Math.round(top / rowHeight);
+    const topIndex = Math.round(top / rowHeight) + skipItems[0];
     boundaries = [topIndex, topIndex];
   } else {
     boundaries = getVisibleBoundary(rows, top, height, getRowHeight, skipItems, offset);
@@ -231,7 +231,11 @@ const calculateRowHeight: CalculateRowHeightFn = (
   rows, skipItems, getRowHeight, bound1, bound2,
 ) => {
   if (bound1 === 0) {
-    return getItemsSize(rows, skipItems[0], bound2, getRowHeight);
+    let end = bound2;
+    if(rows.length && bound2 > rows[rows.length - 1].rowId!) {
+      end = bound2 - skipItems[1];
+    }
+    return getItemsSize(rows, skipItems[0], end, getRowHeight);
   }
   return getItemsSize(rows, bound1, bound2 - skipItems[1], getRowHeight);
 };

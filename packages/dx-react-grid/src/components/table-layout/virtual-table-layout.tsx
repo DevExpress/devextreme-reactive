@@ -76,7 +76,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     if (prevProps.totalRowCount !== this.props.totalRowCount) {
       const countSkipRows = this.getCountSkipRows();
       const { skipItems } = this.state;
-      if(countSkipRows !== 0 && skipItems[0] === 0 && skipItems[1] === 0) {
+      if (countSkipRows !== 0 && skipItems[0] === 0 && skipItems[1] === 0) {
         this.setState({
           skipItems: [0, countSkipRows],
         });

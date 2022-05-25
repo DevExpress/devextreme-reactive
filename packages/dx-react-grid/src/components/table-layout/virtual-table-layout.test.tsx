@@ -485,5 +485,23 @@ describe('VirtualTableLayout', () => {
         containerWidth: 400,
       });
     });
+
+    it('should recalculate skipItems prop on update, totalRowCount is changed', () => {
+      const tree = mount((
+        <VirtualTableLayout
+          {...defaultProps}
+          totalRowCount={totalRowCount}
+          bodyRows={bodyRows}
+          headerRows={defaultProps.bodyRows.slice(0, 1)}
+        />
+      ));
+
+      tree.setProps({ totalRowCount: totalRowCount + 1000 });
+      const getViewportCallsLength = getCollapsedGrids.mock.calls.length;
+
+      expect(getCollapsedGrids.mock.calls[getViewportCallsLength - 1][0]).toMatchObject({
+        skipItems: [0,  801000],
+      });
+    });
   });
 });

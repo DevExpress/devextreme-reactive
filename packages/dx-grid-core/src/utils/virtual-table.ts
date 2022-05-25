@@ -232,7 +232,7 @@ const calculateRowHeight: CalculateRowHeightFn = (
 ) => {
   if (bound1 === 0) {
     let end = bound2;
-    if(rows.length && bound2 > rows[rows.length - 1].rowId!) {
+    if (rows.length && bound2 > rows[rows.length - 1].rowId!) {
       end = bound2 - skipItems[1];
     }
     return getItemsSize(rows, skipItems[0], end, getRowHeight);

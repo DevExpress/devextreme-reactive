@@ -101,11 +101,11 @@ describe('VirtualTableLayout utils', () => {
 
     describe('remote data', () => {
       const items = [
-        { size: 40 },
-        { size: 40 },
-        { size: 40 },
-        { size: 40 },
-        { size: 40 },
+        { size: 40, rowId: 20 },
+        { size: 40, rowId: 21 },
+        { size: 40, rowId: 22 },
+        { size: 40, rowId: 23 },
+        { size: 40, rowId: 24 },
       ];
 
       it('should consider rows start offset and default height', () => {
@@ -122,6 +122,22 @@ describe('VirtualTableLayout utils', () => {
         };
         expect(getRowsVisibleBoundary(items, 240, 120, getItemSize, [0, 0], 0, true))
           .toEqual([6, 6]);
+      });
+
+      it('should work when rows are not loaded, skipItems is not zero', () => {
+        const getItemSize = (item) => {
+          return item ? item.size : 40;
+        };
+        expect(getRowsVisibleBoundary(items, 240, 120, getItemSize, [10, 0], 0, true))
+          .toEqual([16, 16]);
+      });
+
+      it('should work when rows are loaded, skipItems is not zero', () => {
+        const getItemSize = (item) => {
+          return item ? item.size : 40;
+        };
+        expect(getRowsVisibleBoundary(items, 240, 120, getItemSize, [10, 0], 15, true))
+          .toEqual([16, 18]);
       });
     });
   });
@@ -877,7 +893,7 @@ describe('VirtualTableLayout utils', () => {
       skipItems: [0, 0],
       totalRowCount: 4,
       getColumnWidth: column => column.width,
-      getRowHeight: row => row.height,
+      getRowHeight: row => row ? row.height : 40,
     };
     it('should return same columns for body, header and footer', () => {
       const result = getCollapsedGrids(args);
@@ -918,6 +934,28 @@ describe('VirtualTableLayout utils', () => {
       expect(result.bodyGrid.rows.length).toBe(11);
       expect(result.bodyGrid.rows[0].row.height).toBe(60);
       expect(result.bodyGrid.rows[result.bodyGrid.rows.length - 1].row.height).toBe(40);
+    });
+
+    it('should return correct height, remote data, before next rows will be loaded', () => {
+      const bodyRows = [];
+      for (let i = 0; i < 20; i += 1) {
+        bodyRows.push({ key: `row_${i + 1}`, height: 20, rowId: i });
+      }
+      const result = getCollapsedGrids({
+        ...args,
+        skipItems: [2, 4],
+        bodyRows,
+        viewport: {
+          headerRows: [0, 0],
+          footerRows: [0, 0],
+          columns: [[0, 5]],
+          rows: [50, 50],
+        },
+        totalRowCount: 200,
+      });
+
+      expect(result.bodyGrid.rows.length).toBe(1);
+      expect(result.bodyGrid.rows[0].row.height).toBe(7400);
     });
   });
 });

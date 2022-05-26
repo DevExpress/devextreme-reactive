@@ -21,9 +21,10 @@ const createColumns = (length, width = 150) => (
 );
 
 describe('#getViewport', () => {
-  const getRowHeight = row => row.height;
-  const getColumnWidth = col => col.width;
+  const getRowHeight = row => row ? row.height : estimatedRowheight;
+  const getColumnWidth = col => col ? col.width : 150;
   const defaultState = {
+    skipItems: [0, 0],
     containerWidth: 800,
     containerHeight: 800,
     headerHeight: 100,
@@ -53,7 +54,7 @@ describe('#getViewport', () => {
 
   it('should calculate viewport for default-sized rows', () => {
     expect(getViewport(
-      defaultState, defaultGetters, estimatedRowheight, getRowHeight, getColumnWidth,
+      defaultState, defaultGetters, getRowHeight, getColumnWidth,
     ))
       .toEqual({
         top: 21000,
@@ -85,7 +86,7 @@ describe('#getViewport', () => {
     };
 
     expect(getViewport(
-      state, getters, estimatedRowheight, getRowHeight, getColumnWidth,
+      state, getters, getRowHeight, getColumnWidth,
     ))
       .toEqual({
         top: 400,
@@ -106,7 +107,7 @@ describe('#getViewport', () => {
     };
 
     expect(getViewport(
-      defaultState, getters, estimatedRowheight, getRowHeight, getColumnWidth,
+      defaultState, getters, getRowHeight, getColumnWidth,
     ))
       .toEqual({
         top: 21000,
@@ -137,7 +138,7 @@ describe('#getViewport', () => {
     };
 
     expect(getViewport(
-      defaultState, getters, estimatedRowheight, getRowHeight, getColumnWidth,
+      defaultState, getters, getRowHeight, getColumnWidth,
     ))
       .toBe(initialViewport);
   });

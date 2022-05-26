@@ -2,7 +2,7 @@ import * as React from 'react';
 import { MemoizedFunction, memoize } from '@devexpress/dx-core';
 import {
   TableColumn, GetColumnWidthFn, getCollapsedGrids,
-  getColumnWidthGetter, TABLE_STUB_TYPE, getViewport, GridViewport, getScrollLeft,
+  getColumnWidthGetter, getViewport, GridViewport, getScrollLeft,
   isColumnsWidthDifferent,
 } from '@devexpress/dx-grid-core';
 import { VirtualTableLayoutState, VirtualTableLayoutProps } from '../../types';
@@ -11,6 +11,7 @@ import { Sizer } from '@devexpress/dx-react-core';
 import { ColumnGroup } from './column-group';
 
 const AUTO_HEIGHT = 'auto';
+const MAX_WINDOW_HEIGHT = 10000000;
 
 const defaultProps = {
   headerRows: [],
@@ -27,20 +28,16 @@ type PropsType = VirtualTableLayoutProps & typeof defaultProps;
 export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTableLayoutState> {
   static defaultProps = defaultProps;
   getColumnWidthGetter: MemoizedFunction<[TableColumn[], number, number], GetColumnWidthFn>;
-  rowRefs = new Map<any, HTMLElement>();
-  blockRefs = new Map<string, HTMLElement>();
-  viewportTop = 0;
-  containerHeight = 600;
-  containerWidth = 800;
-  viewportLeft = 0;
 
   constructor(props) {
     super(props);
 
     this.state = {
-      rowHeights: new Map<any, number>(),
-      height: 0,
-      visibleRowBoundaries: {},
+      viewportTop: 0,
+      skipItems: [0, 0],
+      containerHeight: 600,
+      containerWidth: 800,
+      viewportLeft: 0,
     };
 
     this.getColumnWidthGetter = memoize(
@@ -50,13 +47,16 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     );
   }
 
-  componentDidMount() {
-    this.storeRowHeights();
+  getCountSkipRows() {
+    const containerHeight = this.props.totalRowCount * this.props.estimatedRowHeight;
+    if (containerHeight > MAX_WINDOW_HEIGHT) {
+      return Math.round(this.props.totalRowCount - MAX_WINDOW_HEIGHT /
+        this.props.estimatedRowHeight);
+    }
+    return 0;
   }
 
-  componentDidUpdate(prevProps) {
-    setTimeout(this.storeRowHeights.bind(this));
-
+  componentDidUpdate(prevProps, prevState) {
     const { bodyRows, columns } = this.props;
 
     // NOTE: the boundaries depend not only on scroll position and container dimensions
@@ -67,73 +67,33 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     // Also it's the only place where we can respond to the column count change
     const columnCountChanged = prevProps.columns.length !== columns.length;
 
+    const { viewportTop, viewportLeft, containerWidth, containerHeight } = this.state;
+    const viewportTopChanged = prevState.viewportTop !== viewportTop;
+    const viewportLeftChanged = prevState.viewportLeft !== viewportLeft;
+    const containerWidthChanged = prevState.containerWidth !== containerWidth;
+    const containerHeightChanged = prevState.containerHeight !== containerHeight;
+
+    if (prevProps.totalRowCount !== this.props.totalRowCount) {
+      const countSkipRows = this.getCountSkipRows();
+      const { skipItems } = this.state;
+      if (countSkipRows !== 0 && skipItems[0] === 0 && skipItems[1] === 0) {
+        this.setState({
+          skipItems: [0, countSkipRows],
+        });
+      }
+    }
+
     if (bodyRowsChanged || columnCountChanged || columns[0].width !== undefined &&
-      isColumnsWidthDifferent(prevProps.columns, columns)
+      isColumnsWidthDifferent(prevProps.columns, columns) || viewportTopChanged ||
+      viewportLeftChanged || containerWidthChanged || containerHeightChanged
       ) {
       this.updateViewport();
     }
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const { rowHeights: prevRowHeight } = prevState;
-    const rowHeights = [...nextProps.headerRows, ...nextProps.bodyRows, ...nextProps.footerRows]
-      .reduce(
-        (acc, row) => {
-          const rowHeight = prevRowHeight.get(row.key);
-          if (rowHeight !== undefined) {
-            acc.set(row.key, rowHeight);
-          }
-          return acc;
-        },
-        new Map(),
-      );
-    return { rowHeights };
-  }
-
   getRowHeight = (row) => {
-    const { rowHeights } = this.state;
-    const { estimatedRowHeight } = this.props;
-    if (row) {
-      const storedHeight = rowHeights.get(row.key);
-      if (storedHeight !== undefined) return storedHeight;
-      if (row.height) return row.height;
-    }
-    return estimatedRowHeight;
-  }
-
-  registerRowRef = (row, ref) => {
-    if (ref === null) {
-      this.rowRefs.delete(row);
-    } else {
-      this.rowRefs.set(row, ref);
-    }
-  }
-
-  registerBlockRef = (name, ref) => {
-    if (ref === null) {
-      this.blockRefs.delete(name);
-    } else {
-      this.blockRefs.set(name, ref);
-    }
-  }
-
-  storeRowHeights() {
-    const rowsWithChangedHeights = Array.from(this.rowRefs.entries())
-      .map(([row, ref]) => [row, ref])
-      .filter(([, node]) => !!node)
-      .map(([row, node]) => [row, node.getBoundingClientRect().height])
-      .filter(([row]) => row.type !== TABLE_STUB_TYPE)
-      .filter(([row, height]) => height !== this.getRowHeight(row));
-
-    if (rowsWithChangedHeights.length) {
-      const { rowHeights } = this.state;
-      rowsWithChangedHeights
-        .forEach(([row, height]) => rowHeights.set(row.key, height));
-
-      this.setState({
-        rowHeights,
-      });
-    }
+    const height = row ? row.height : 0;
+    return height || this.props.estimatedRowHeight;
   }
 
   onScroll = (e) => {
@@ -144,18 +104,30 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     }
 
     const { scrollTop: viewportTop, scrollLeft: viewportLeft } = node;
+    const {
+      containerHeight,
+      skipItems,
+      viewportTop: prevViewPort,
+    } = this.state;
 
-    this.viewportTop = viewportTop;
-    this.viewportLeft = viewportLeft;
+    const countSkipRows = this.getCountSkipRows();
+    const dif = viewportTop - prevViewPort;
+    const pxInPercent = viewportTop / MAX_WINDOW_HEIGHT;
+    const isDif = Math.abs(dif) < containerHeight;
+    const top = Math.min(Math.round(pxInPercent * countSkipRows), countSkipRows);
 
-    this.updateViewport();
+    this.setState({
+      viewportTop,
+      viewportLeft,
+      skipItems: isDif ? skipItems : [top, countSkipRows - top],
+    });
   }
 
   handleContainerSizeChange = ({ width, height }) => {
-    this.containerHeight = height;
-    this.containerWidth = width;
-
-    this.updateViewport();
+    this.setState({
+      containerHeight: height,
+      containerWidth: width,
+    });
   }
 
   shouldSkipScrollEvent(e) {
@@ -192,13 +164,12 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
   }
 
   calculateViewport() {
-    const { state, viewportTop, viewportLeft, containerHeight, containerWidth } = this;
+    const { viewportTop, skipItems, viewportLeft, containerHeight, containerWidth } = this.state;
     const {
       loadedRowsStart,
       bodyRows,
       headerRows,
       footerRows,
-      estimatedRowHeight,
       columns,
       minColumnWidth,
       isDataRemote,
@@ -207,14 +178,14 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     const getColumnWidth = this.getColumnWidthGetter(columns, containerWidth, minColumnWidth!);
 
     return getViewport(
-      { ...state, viewportTop, viewportLeft, containerHeight, containerWidth },
+      { viewportTop, skipItems, viewportLeft, containerHeight, containerWidth },
       { loadedRowsStart, columns, bodyRows, headerRows, footerRows, isDataRemote, viewport },
-      estimatedRowHeight, this.getRowHeight, getColumnWidth,
+      this.getRowHeight, getColumnWidth,
     );
   }
 
   getCollapsedGrids(viewport: GridViewport) {
-    const { containerWidth, viewportLeft } = this;
+    const { containerWidth, viewportLeft, skipItems } = this.state;
     const {
       headerRows, bodyRows, footerRows,
       columns, loadedRowsStart, totalRowCount,
@@ -233,6 +204,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       viewportLeft,
       containerWidth,
       viewport,
+      skipItems,
       getRowHeight: this.getRowHeight,
       getColumnWidth,
     });
@@ -267,8 +239,6 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       rowComponent,
       minColumnWidth,
       minWidth,
-      blockRefsHandler: this.registerBlockRef,
-      rowRefsHandler: this.registerRowRef,
     };
     const sizerHeight = height === AUTO_HEIGHT ? null : height;
 

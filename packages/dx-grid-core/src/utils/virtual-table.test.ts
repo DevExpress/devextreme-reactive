@@ -18,23 +18,33 @@ import {
 
 describe('VirtualTableLayout utils', () => {
   describe('#getVisibleBoundary', () => {
+    const getItemSize = (item) => {
+      return item ? item.size : 40;
+    };
+    const items = [
+      { size: 40 },
+      { size: 40 },
+      { size: 40 },
+      { size: 40 },
+      { size: 40 },
+      { size: 40 },
+      { size: 40 },
+    ];
     it('should work in the simplest case', () => {
-      const items = [
-        { size: 40 },
-        { size: 40 },
-        { size: 40 },
-        { size: 40 },
-        { size: 40 },
-        { size: 40 },
-        { size: 40 },
-      ];
-
-      expect(getVisibleBoundary(items, 80, 120, item => item.size))
+      expect(getVisibleBoundary(items, 80, 120, getItemSize, [0, 0]))
         .toEqual([2, 4]);
+    });
+
+    it('should return visible boundary, rows are not fit in the max window height', () => {
+      expect(getVisibleBoundary(items, 80, 120, getItemSize, [2, 1]))
+        .toEqual([4, 6]);
     });
   });
 
   describe('#getColumnBoundaries', () => {
+    const getItemSize = (item) => {
+      return item ? item.size : 40;
+    };
     it('should return correct boundaries in simple case', () => {
       const columns =  [
         { size: 40 },
@@ -46,7 +56,7 @@ describe('VirtualTableLayout utils', () => {
         { size: 40 },
       ];
 
-      expect(getColumnBoundaries(columns, 90, 100, col => col.size))
+      expect(getColumnBoundaries(columns, 90, 100, getItemSize))
         .toEqual([[1, 5]]);
     });
 
@@ -62,7 +72,7 @@ describe('VirtualTableLayout utils', () => {
         { size: 40, fixed: 'right' },
       ];
 
-      expect(getColumnBoundaries(columns, 120, 80, col => col.size))
+      expect(getColumnBoundaries(columns, 120, 80, getItemSize))
         .toEqual([
           [2, 5],
           [0, 0],
@@ -73,6 +83,9 @@ describe('VirtualTableLayout utils', () => {
 
   describe('#getRowsVisibleBoundary', () => {
     it('should work with local data', () => {
+      const getItemSize = (item) => {
+        return item ? item.size : 40;
+      };
       const items = [
         { size: 40 },
         { size: 40 },
@@ -82,27 +95,49 @@ describe('VirtualTableLayout utils', () => {
         { size: 40 },
         { size: 40 },
       ];
-      expect(getRowsVisibleBoundary(items, 80, 120, item => item.size, 0, 40, false))
+      expect(getRowsVisibleBoundary(items, 80, 120, getItemSize, [0, 0], 0))
       .toEqual([2, 4]);
     });
 
     describe('remote data', () => {
       const items = [
-        { size: 40 },
-        { size: 40 },
-        { size: 40 },
-        { size: 40 },
-        { size: 40 },
+        { size: 40, rowId: 20 },
+        { size: 40, rowId: 21 },
+        { size: 40, rowId: 22 },
+        { size: 40, rowId: 23 },
+        { size: 40, rowId: 24 },
       ];
 
       it('should consider rows start offset and default height', () => {
-        expect(getVisibleBoundary(items, 600, 120, item => item.size, 20, 30, true))
+        const getItemSize = (item) => {
+          return item ? item.size : 30;
+        };
+        expect(getVisibleBoundary(items, 600, 120, getItemSize, [0, 0], 20))
           .toEqual([20, 22]);
       });
 
       it('should work when rows are not loaded', () => {
-        expect(getRowsVisibleBoundary(items, 240, 120, item => item.size, 0, 40, true))
+        const getItemSize = (item) => {
+          return item ? item.size : 40;
+        };
+        expect(getRowsVisibleBoundary(items, 240, 120, getItemSize, [0, 0], 0, true))
           .toEqual([6, 6]);
+      });
+
+      it('should work when rows are not loaded, skipItems is not zero', () => {
+        const getItemSize = (item) => {
+          return item ? item.size : 40;
+        };
+        expect(getRowsVisibleBoundary(items, 240, 120, getItemSize, [10, 0], 0, true))
+          .toEqual([16, 16]);
+      });
+
+      it('should work when rows are loaded, skipItems is not zero', () => {
+        const getItemSize = (item) => {
+          return item ? item.size : 40;
+        };
+        expect(getRowsVisibleBoundary(items, 240, 120, getItemSize, [10, 0], 15, true))
+          .toEqual([16, 18]);
       });
     });
   });
@@ -810,7 +845,7 @@ describe('VirtualTableLayout utils', () => {
       ]);
     });
 
-    it('should return null for flex columns', () => {
+    it('should return 0 for flex columns', () => {
       expect(getWidths([
         ...columns,
         { key: 'f' },
@@ -820,47 +855,47 @@ describe('VirtualTableLayout utils', () => {
         minWidth, minWidth,
         200,
         minWidth,
-        null,
+        0,
       ]);
     });
   });
 
   describe('getCollapsedGrids', () => {
+    const args = {
+      headerRows: [{ key: 'header' }],
+      bodyRows: [{ key: 'row_1' }, { key: 'row_2' }, { key: 'row_3' }, { key: 'row_4' }],
+      footerRows: [{ key: 'footer' }],
+      loadedRowsStart: 0,
+      getCellColSpan: ({ tableRow, tableColumn }) => {
+        if (tableRow.key && tableRow.key.includes('row') && (tableColumn.key !== 'column_0' ||
+        tableColumn.key !== 'column_4')) {
+          return 3;
+        }
+        return 1;
+      },
+      viewport: {
+        headerRows: [0, 0],
+        footerRows: [0, 0],
+        columns: [[0, 5]],
+        rows: [0, 3],
+      },
+      columns: [
+        { key: 'column_0', width: 40 },
+        { key: 'column_1', width: 40 },
+        { key: 'column_2', width: 40 },
+        { key: 'column_3', width: 40 },
+        { key: 'column_4', width: 40 },
+        { key: 'column_5', width: 40 },
+        { key: 'column_6', width: 40 },
+        { key: 'column_7', width: 40 },
+        { key: 'column_8', width: 40 },
+      ],
+      skipItems: [0, 0],
+      totalRowCount: 4,
+      getColumnWidth: column => column.width,
+      getRowHeight: row => row ? row.height : 40,
+    };
     it('should return same columns for body, header and footer', () => {
-      const args = {
-        headerRows: [{ key: 'header' }],
-        bodyRows: [{ key: 'row_1' }, { key: 'row_2' }, { key: 'row_3' }, { key: 'row_4' }],
-        footerRows: [{ key: 'footer' }],
-        loadedRowsStart: 0,
-        getCellColSpan: ({ tableRow, tableColumn }) => {
-          if (tableRow.key && tableRow.key.includes('row') && (tableColumn.key !== 'column_0' ||
-          tableColumn.key !== 'column_4')) {
-            return 3;
-          }
-          return 1;
-        },
-        viewport: {
-          headerRows: [0, 0],
-          footerRows: [0, 0],
-          columns: [[0, 5]],
-          rows: [0, 3],
-        },
-        columns: [
-          { key: 'column_0', width: 40 },
-          { key: 'column_1', width: 40 },
-          { key: 'column_2', width: 40 },
-          { key: 'column_3', width: 40 },
-          { key: 'column_4', width: 40 },
-          { key: 'column_5', width: 40 },
-          { key: 'column_6', width: 40 },
-          { key: 'column_7', width: 40 },
-          { key: 'column_8', width: 40 },
-        ],
-        totalRowCount: 4,
-        getColumnWidth: column => column.width,
-        getRowHeight: row => row.height,
-      };
-
       const result = getCollapsedGrids(args);
 
       const expectedColumns = [
@@ -876,6 +911,51 @@ describe('VirtualTableLayout utils', () => {
       expect(result.bodyGrid.columns).toEqual(expectedColumns);
       expect(result.headerGrid.columns).toEqual(expectedColumns);
       expect(result.footerGrid.columns).toEqual(expectedColumns);
+    });
+
+    it('should return correct height of the first and the last row', () => {
+      const bodyRows = [];
+      for (let i = 0; i < 20; i += 1) {
+        bodyRows.push({ key: `row_${i + 1}`, height: 20 });
+      }
+      const result = getCollapsedGrids({
+        ...args,
+        skipItems: [2, 4],
+        bodyRows,
+        viewport: {
+          headerRows: [0, 0],
+          footerRows: [0, 0],
+          columns: [[0, 5]],
+          rows: [8, 10],
+        },
+        totalRowCount: 20,
+      });
+
+      expect(result.bodyGrid.rows.length).toBe(11);
+      expect(result.bodyGrid.rows[0].row.height).toBe(60);
+      expect(result.bodyGrid.rows[result.bodyGrid.rows.length - 1].row.height).toBe(40);
+    });
+
+    it('should return correct height, remote data, before next rows will be loaded', () => {
+      const bodyRows = [];
+      for (let i = 0; i < 20; i += 1) {
+        bodyRows.push({ key: `row_${i + 1}`, height: 20, rowId: i });
+      }
+      const result = getCollapsedGrids({
+        ...args,
+        skipItems: [2, 4],
+        bodyRows,
+        viewport: {
+          headerRows: [0, 0],
+          footerRows: [0, 0],
+          columns: [[0, 5]],
+          rows: [50, 50],
+        },
+        totalRowCount: 200,
+      });
+
+      expect(result.bodyGrid.rows.length).toBe(1);
+      expect(result.bodyGrid.rows[0].row.height).toBe(7400);
     });
   });
 });

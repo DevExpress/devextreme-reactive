@@ -53,9 +53,11 @@ export interface VirtualTableLayoutProps extends TableLayoutProps {
 }
 /** @internal */
 export type VirtualTableLayoutState = {
-  rowHeights: Map<any, number>,
-  height: number,
-  visibleRowBoundaries: any,
+  viewportTop: number,
+  skipItems: [number, number],
+  containerHeight: number,
+  containerWidth: number,
+  viewportLeft: number,
 };
 
 type virtualBlockProps = placeholderComponents | 'tableRef' | 'minWidth' | 'bodyComponent';
@@ -67,7 +69,5 @@ export type VirtualTableLayoutBlockProps = Pick<VirtualTableLayoutProps, virtual
     columns: any,
     rows: any,
   },
-  blockRefsHandler: (name: string, ref: React.ReactInstance | null) => void,
-  rowRefsHandler: (row: any, ref?: React.ReactInstance | null) => void,
   tableRef?: React.RefObject<HTMLTableElement>,
 };

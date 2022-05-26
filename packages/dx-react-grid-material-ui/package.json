@@ -58,7 +58,6 @@
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@mui/icons-material": "^5.0.0",
-    "@mui/lab": "^5.0.0-alpha.51",
     "@mui/material": "^5.0.4",
     "@rollup/plugin-node-resolve": "^7.1.1",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
@@ -94,7 +93,6 @@
     "@devexpress/dx-react-core": "3.0.3",
     "@devexpress/dx-react-grid": "3.0.3",
     "@mui/icons-material": ">=5.0.0",
-    "@mui/lab": "^5.0.0-alpha.50",
     "@mui/material": ">=5.0.0",
     "react": ">=17.0.2"
   }

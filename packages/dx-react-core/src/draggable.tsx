@@ -20,6 +20,7 @@ export class Draggable extends React.PureComponent<DraggableProps> {
   mouseStrategy: MouseStrategy;
   touchStrategy: TouchStrategy;
   elementRef: React.MutableRefObject<Element | null>;
+  eventParams: { e?: any, name?: string } = {};
 
   constructor(props) {
     super(props);
@@ -66,14 +67,30 @@ export class Draggable extends React.PureComponent<DraggableProps> {
   }
 
   componentWillUnmount() {
+    const { name, e } = this.eventParams;
+    if (name) {
+      if (name.includes('mouse')) {
+        this.mouseStrategy.end(e);
+      } else if (name.includes('touch')) {
+        this.touchStrategy.end(e);
+      }
+      this.saveEvent();
+    }
+    this.detachNodeEvents();
     getSharedEventEmitter().unsubscribe(this.globalListener);
+  }
+
+  detachNodeEvents() {
+    const node = this.elementRef.current;
+    if (!node) return;
+    node.removeEventListener('mousedown', this.mouseDownListener);
+    node.removeEventListener('touchstart', this.touchStartListener);
   }
 
   setupNodeSubscription() {
     const node = this.elementRef.current;
     if (!node) return;
-    node.removeEventListener('mousedown', this.mouseDownListener);
-    node.removeEventListener('touchstart', this.touchStartListener);
+    this.detachNodeEvents();
     node.addEventListener('mousedown', this.mouseDownListener);
     node.addEventListener('touchstart', this.touchStartListener, { passive: true });
   }
@@ -91,20 +108,31 @@ export class Draggable extends React.PureComponent<DraggableProps> {
     e[draggingHandled] = true;
   }
 
+  saveEvent(e?, name?) {
+    this.eventParams = {
+      e,
+      name,
+    };
+  }
+
   globalListener([name, e]) {
     switch (name) {
       case 'mousemove':
+        this.saveEvent(e, name);
         this.mouseStrategy.move(e);
         break;
       case 'mouseup':
+        this.saveEvent();
         this.mouseStrategy.end(e);
         break;
       case 'touchmove': {
+        this.saveEvent(e, name);
         this.touchStrategy.move(e);
         break;
       }
       case 'touchend':
       case 'touchcancel': {
+        this.saveEvent();
         this.touchStrategy.end(e);
         break;
       }

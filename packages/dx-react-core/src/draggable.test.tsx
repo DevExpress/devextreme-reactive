@@ -269,7 +269,9 @@ describe('Draggable', () => {
       dispatchEvent('touchstart', { touches: [{ clientX: 10, clientY: 10 }] }, draggableNode);
       jest.runAllTimers();
 
-      const event = dispatchEvent('touchmove', { touches: [{ clientX: 20, clientY: 20 }] });
+      const event = dispatchEvent('touchmove', {
+        touches: [{ clientX: 20, clientY: 20 }], changedTouches: [{ clientX: 20, clientY: 20 }],
+      });
       expect(event.defaultPrevented)
         .toBeTruthy();
     });
@@ -289,7 +291,9 @@ describe('Draggable', () => {
       const draggableNode = tree.find('div').getDOMNode() as HTMLElement;
       dispatchEvent('touchstart', { touches: [{ clientX: 10, clientY: 10 }] }, draggableNode);
       jest.runAllTimers();
-      dispatchEvent('touchmove', { touches: [{ clientX: 20, clientY: 20 }] });
+      dispatchEvent('touchmove', {
+        touches: [{ clientX: 20, clientY: 20 }], changedTouches: [{ clientX: 20, clientY: 20 }],
+      });
 
       expect(clear)
         .toHaveBeenCalled();
@@ -310,7 +314,9 @@ describe('Draggable', () => {
       const draggableNode = tree.find('div').getDOMNode() as HTMLElement;
       dispatchEvent('touchstart', { touches: [{ clientX: 10, clientY: 10 }] }, draggableNode);
       jest.runAllTimers();
-      dispatchEvent('touchmove', { touches: [{ clientX: 20, clientY: 20 }] });
+      dispatchEvent('touchmove', {
+        touches: [{ clientX: 20, clientY: 20 }], changedTouches: [{ clientX: 20, clientY: 20 }],
+      });
 
       expect(onUpdate)
         .toHaveBeenCalledTimes(1);
@@ -410,6 +416,66 @@ describe('Draggable', () => {
           expect(elementRef.current).toEqual(node);
         });
       });
+    });
+  });
+
+  describe('unmount', () => {
+    const { elementFromPoint } = document;
+    const { getComputedStyle } = window;
+    beforeEach(() => {
+      document.elementFromPoint = jest.fn();
+      window.getComputedStyle = jest.fn().mockImplementation(() => ({ style: { cursor: '' } }));
+    });
+    afterEach(() => {
+      document.elementFromPoint = elementFromPoint;
+      window.getComputedStyle = getComputedStyle;
+    });
+    it('should call mouse end callback', () => {
+      const onEnd = jest.fn();
+      tree = mount(
+        <Draggable onEnd={onEnd}>
+          <div />
+        </Draggable>,
+        { attachTo: rootNode },
+      );
+
+      const draggableNode = tree.find('div').getDOMNode() as HTMLElement;
+      dispatchEvent('mousedown', { clientX: 10, clientY: 10 }, draggableNode);
+      dispatchEvent('mousemove', { clientX: 30, clientY: 30 });
+
+      tree.unmount();
+
+      expect(onEnd)
+        .toHaveBeenCalledTimes(1);
+      expect(onEnd)
+        .toHaveBeenCalledWith({ x: 30, y: 30 });
+    });
+
+    it('should call touch end callback', () => {
+      const onEnd = jest.fn();
+
+      tree = mount(
+        <Draggable
+          onEnd={onEnd}
+        >
+          <div />
+        </Draggable>,
+        { attachTo: rootNode },
+      );
+
+      const draggableNode = tree.find('div').getDOMNode() as HTMLElement;
+      dispatchEvent('touchstart', { touches: [{ clientX: 10, clientY: 10 }] }, draggableNode);
+      jest.runAllTimers();
+      dispatchEvent('touchmove', {
+        touches: [{ clientX: 20, clientY: 20 }], changedTouches: [{ clientX: 20, clientY: 20 }],
+      });
+
+      tree.unmount();
+
+      expect(onEnd)
+        .toHaveBeenCalledTimes(1);
+      expect(onEnd)
+        .toHaveBeenCalledWith({ x: 20, y: 20 });
     });
   });
 });

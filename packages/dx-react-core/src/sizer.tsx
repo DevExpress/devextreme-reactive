@@ -1,11 +1,11 @@
 /* globals document:true */
 
-import React, { CSSProperties } from 'react';
+import * as React from 'react';
 import { SizerProps, Size } from './types';
 import { shallowEqual } from '@devexpress/dx-core';
 
 const SCROLL_OFFSET = 2;
-const styles: Record<string, CSSProperties> = {
+const styles: Record<string, React.CSSProperties> = {
   root: {
     position: 'relative',
   },
@@ -77,7 +77,7 @@ export class Sizer extends React.Component<SizerProps> {
   }
 
   componentDidMount() {
-    if(!this.rootRef.current) {
+    if (!this.rootRef.current) {
       return;
     }
     this.rootNode = this.rootRef.current;
@@ -91,13 +91,13 @@ export class Sizer extends React.Component<SizerProps> {
   }
 
   shouldComponentUpdate(prevProps) {
-    if(prevProps.scrollTop !== this.props.scrollTop ||
+    if (prevProps.scrollTop !== this.props.scrollTop ||
       prevProps.scrollLeft !== this.props.scrollLeft ||
       (prevProps.style && this.props.style &&
         !shallowEqual(prevProps.style, this.props.style)) ||
         (prevProps.style && !this.props.style)) {
-        return true;
-      }
+      return true;
+    }
     return false;
   }
 
@@ -106,7 +106,7 @@ export class Sizer extends React.Component<SizerProps> {
     // containter's (rootNode) scrollTop property.
     // Viewport changes its own properties automatically.
     const { scrollTop, scrollLeft } = this.props;
-    if(!this.rootNode) {
+    if (!this.rootNode) {
       return;
     }
     if (scrollTop !== undefined && scrollTop > -1) {
@@ -126,13 +126,16 @@ export class Sizer extends React.Component<SizerProps> {
     this.contractTrigger?.removeEventListener('scroll', this.setupListeners);
   }
 
-  getSize = (): Size => ({ height: this.rootNode!.clientHeight, width: this.rootNode!.clientWidth });
+  getSize = (): Size => ({
+    height: this.rootNode!.clientHeight,
+    width: this.rootNode!.clientWidth,
+  })
 
   setupListeners() {
     const size = this.getSize();
     const { width, height } = size;
 
-    if(this.expandNotifier) {
+    if (this.expandNotifier) {
       this.expandNotifier.style.width = `${width + SCROLL_OFFSET}px`;
       this.expandNotifier.style.height = `${height + SCROLL_OFFSET}px`;
     }
@@ -145,11 +148,11 @@ export class Sizer extends React.Component<SizerProps> {
 
   updateScrolling(size) {
     const { width, height } = size;
-    if(this.contractTrigger) {
+    if (this.contractTrigger) {
       this.contractTrigger.scrollTop = height;
       this.contractTrigger.scrollLeft = width;
     }
-    if(this.expandTrigger) {
+    if (this.expandTrigger) {
       this.expandTrigger.scrollTop = SCROLL_OFFSET;
       this.expandTrigger.scrollLeft = SCROLL_OFFSET;
     }
@@ -173,10 +176,10 @@ export class Sizer extends React.Component<SizerProps> {
       >
         <div style={styles.triggersRoot}>
           <div style={styles.expandTrigger} ref={this.expandTriggerRef}>
-            <div ref={this.expandNotifierRef}></div>
+            <div ref={this.expandNotifierRef}/>
           </div>
           <div style={styles.contractTrigger} ref={this.contractTriggerRef}>
-            <div style={styles.contractNotifier}></div>
+            <div style={styles.contractNotifier}/>
           </div>
         </div>
       </Container>

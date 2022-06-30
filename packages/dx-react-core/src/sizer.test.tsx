@@ -201,4 +201,24 @@ describe('Sizer', () => {
     expect(instance.expandTriggerRef.current.scrollTop).toBe(2);
     expect(instance.expandTriggerRef.current.scrollLeft).toBe(2);
   });
+
+  it('should removeEventListener on unmount', () => {
+    const tree = shallow(
+      <Sizer
+        onSizeChange={onSizeChange}
+        containerComponent={Container}
+        style={{ key: 'test style' }}
+      />, { disableLifecycleMethods: true },
+    );
+    const instance = tree.instance() as any;
+    instance.rootRef = { current: new MockRef().getMocks() };
+    instance.expandTriggerRef = { current: new MockRef().getMocks() };
+    instance.contractTriggerRef = { current: new MockRef().getMocks() };
+    instance.expandNotifierRef = { current: new MockRef().getMocks() };
+
+    instance.componentWillUnmount();
+
+    expect(instance.expandTriggerRef.current.removeEventListener).toBeCalled();
+    expect(instance.contractTriggerRef.current.removeEventListener).toBeCalled();
+  });
 });

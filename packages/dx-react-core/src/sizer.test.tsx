@@ -1,23 +1,32 @@
 import * as React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { Sizer } from './sizer';
 
 describe('Sizer', () => {
+  const divProto = (document.createElement('div') as HTMLDivElement).constructor.prototype;
+  let addEventListener: any;
+  let removeEventListener: any;
   const Container = ({ forwardedRef, ...restProps }) => (
     <div ref={forwardedRef} className="container" {...restProps} />
   );
   const onSizeChange = jest.fn();
-  class MockRef {
-    getMocks() {
-      return {
-        clientHeight: 10,
-        clientWidth: 20,
-        style: {},
-        addEventListener: jest.fn(),
-        removeEventListener: jest.fn(),
-      };
-    }
-  }
+  beforeAll(() => {
+    addEventListener = divProto.addEventListener;
+    removeEventListener = divProto.removeEventListener;
+    divProto.addEventListener = jest.fn();
+    divProto.removeEventListener = jest.fn();
+  });
+
+  afterAll(() => {
+    divProto.addEventListener = addEventListener;
+    divProto.removeEventListener = removeEventListener;
+  });
+
+  afterEach(() => {
+    divProto.addEventListener.mockClear();
+    divProto.removeEventListener.mockClear();
+    onSizeChange.mockClear();
+  });
 
   it('should create component with childrens', () => {
     const tree = mount(
@@ -29,144 +38,105 @@ describe('Sizer', () => {
     );
 
     const root = tree.find('.container');
-    expect(root.props()).toMatchObject({
+    expect(root.props()).toEqual({
       className: 'container',
       style: {
         key: 'test style',
         position: 'relative',
       },
     });
-    expect(root.find('div').get(1).props).toMatchObject({
-      style: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        height: '100%',
-        width: '100%',
-        overflow: 'hidden',
-        zIndex: -1,
-        visibility: 'hidden',
-        opacity: 0,
-      },
-    });
-    expect(root.find('div').get(2).props).toMatchObject({
-      style: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        height: '100%',
-        width: '100%',
-        overflow: 'auto',
-      },
-    });
-    expect(root.find('div').get(3)).not.toBeUndefined();
-    expect(root.find('div').get(4).props).toMatchObject({
-      style: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        height: '100%',
-        width: '100%',
-        overflow: 'auto',
-        minHeight: '1px',
-        minWidth: '1px',
-      },
-    });
-    expect(root.find('div').get(5).props).toMatchObject({
-      style: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '200%',
-        height: '200%',
-        minHeight: '2px',
-        minWidth: '2px',
-      },
-    });
+    expect(root.getDOMNode().childNodes.length).toBe(1);
+    expect(root.getDOMNode().childNodes[0].childNodes.length).toBe(2);
+    expect(root.getDOMNode().childNodes[0].childNodes[0].childNodes.length).toBe(1);
+    expect(root.getDOMNode().childNodes[0].childNodes[1].childNodes.length).toBe(1);
   });
 
-  it('should set scroll offsets to notifiers on mount', () => {
-    const tree = shallow(
+  it('should add listeners on mount', () => {
+    const tree = mount(
       <Sizer
         onSizeChange={onSizeChange}
         containerComponent={Container}
-        style={{ key: 'test style' }}
-      />, { disableLifecycleMethods: true },
+      />,
     );
-    const instance = tree.instance() as any;
-    instance.rootRef = { current: new MockRef().getMocks() };
-    instance.expandTriggerRef = { current: new MockRef().getMocks() };
-    instance.contractTriggerRef = { current: new MockRef().getMocks() };
-    instance.expandNotifierRef = { current: new MockRef().getMocks() };
 
-    instance.componentDidMount();
+    const root = tree.find('.container').getDOMNode();
 
-    expect(instance.expandNotifierRef.current.style.width).toBe('22px');
-    expect(instance.expandNotifierRef.current.style.height).toBe('12px');
+    const callsLength = divProto.addEventListener.mock.calls.length;
+    expect(divProto.addEventListener.mock.calls[callsLength - 2])
+    .toEqual(['scroll', expect.any(Function)]);
+    expect(divProto.addEventListener.mock.calls[callsLength - 1])
+    .toEqual(['scroll', expect.any(Function)]);
 
-    expect(instance.contractTriggerRef.current.scrollTop).toBe(10);
-    expect(instance.contractTriggerRef.current.scrollLeft).toBe(20);
-
-    expect(instance.expandTriggerRef.current.scrollTop).toBe(2);
-    expect(instance.expandTriggerRef.current.scrollLeft).toBe(2);
-
-    expect(onSizeChange).toBeCalledWith({ width: 20, height: 10 });
+    expect(divProto.addEventListener.mock.instances[callsLength - 2])
+    .toEqual(root.firstChild!.childNodes[0]);
+    expect(divProto.addEventListener.mock.instances[callsLength - 1])
+    .toEqual(root.firstChild!.childNodes[1]);
   });
 
-  it('should subscribe to the addEventListener on mount', () => {
-    const tree = shallow(
+  it('should remove listeners on unmount', () => {
+    const tree = mount(
       <Sizer
         onSizeChange={onSizeChange}
         containerComponent={Container}
-      />, { disableLifecycleMethods: true },
+      />,
     );
-    const instance = tree.instance() as any;
-    instance.rootRef = { current: new MockRef().getMocks() };
-    instance.expandTriggerRef = { current: new MockRef().getMocks() };
-    instance.contractTriggerRef = { current: new MockRef().getMocks() };
-    instance.expandNotifierRef = { current: new MockRef().getMocks() };
 
-    instance.componentDidMount();
+    const root = tree.find('.container').getDOMNode();
+    tree.unmount();
 
-    expect(instance.expandTriggerRef.current.addEventListener).toBeCalled();
-    expect(instance.contractTriggerRef.current.addEventListener).toBeCalled();
+    expect(divProto.removeEventListener.mock.calls).toEqual([
+      ['scroll', expect.any(Function)],
+      ['scroll', expect.any(Function)],
+    ]);
+    expect(divProto.removeEventListener.mock.instances).toEqual([
+      root.firstChild!.childNodes[0],
+      root.firstChild!.childNodes[1],
+    ]);
+  });
+
+  it('should set a 2px scroll offset to notifiers', () => {
+    const tree = mount(
+      <Sizer
+        onSizeChange={onSizeChange}
+        containerComponent={Container}
+      />,
+    );
+
+    const root = tree.find('.container').getDOMNode();
+
+    const expandTrigger = root.firstChild!.childNodes[0] as Element;
+    expect(expandTrigger.scrollTop).toBe(2);
+    expect(expandTrigger.scrollLeft).toBe(2);
+
+    const expandNotifier = expandTrigger.firstChild as HTMLElement;
+    expect(expandNotifier.style.width).toBe('2px');
+    expect(expandNotifier.style.height).toBe('2px');
   });
 
   it('should call onSizeChange on mount', () => {
-    const tree = shallow(
+    const tree = mount(
       <Sizer
         onSizeChange={onSizeChange}
         containerComponent={Container}
-        style={{ key: 'test style' }}
-      />, { disableLifecycleMethods: true },
+      />,
     );
     const instance = tree.instance() as any;
-    instance.rootRef = { current: new MockRef().getMocks() };
-    instance.expandTriggerRef = { current: new MockRef().getMocks() };
-    instance.contractTriggerRef = { current: new MockRef().getMocks() };
-    instance.expandNotifierRef = { current: new MockRef().getMocks() };
-
+    instance.getSize = jest.fn().mockReturnValue({ width: 20, height: 10 });
     instance.componentDidMount();
 
     expect(onSizeChange).toBeCalledWith({ width: 20, height: 10 });
   });
 
   it('should update scroll offsets to rootNode', () => {
-    const tree = shallow(
+    const tree = mount(
       <Sizer
         onSizeChange={onSizeChange}
         containerComponent={Container}
         scrollTop={35}
         scrollLeft={45}
-      />, { disableLifecycleMethods: true },
+      />,
     );
     const instance = tree.instance() as any;
-    instance.rootRef = { current: new MockRef().getMocks() };
-    instance.expandTriggerRef = { current: new MockRef().getMocks() };
-    instance.contractTriggerRef = { current: new MockRef().getMocks() };
-    instance.expandNotifierRef = { current: new MockRef().getMocks() };
-
-    instance.componentDidMount();
     instance.componentDidUpdate();
 
     expect(instance.rootRef.current.scrollTop).toBe(35);
@@ -175,50 +145,40 @@ describe('Sizer', () => {
 
   // T1096930
   it('should update scroll offsets to notifiers', () => {
-    const tree = shallow(
+    const resetOffsets = () => {
+      // after column reordering scroll offsets are resets
+      (root.firstChild!.childNodes[0] as any).scrollTop = 0;
+      (root.firstChild!.childNodes[0] as any).scrollLeft = 0;
+      (root.firstChild!.childNodes[1] as any).scrollTop = 0;
+      (root.firstChild!.childNodes[1] as any).scrollLeft = 0;
+    };
+    const tree = mount(
       <Sizer
         onSizeChange={onSizeChange}
         containerComponent={Container}
-      />, { disableLifecycleMethods: true },
+      />,
     );
     const instance = tree.instance() as any;
-    instance.rootRef = { current: new MockRef().getMocks() };
-    instance.expandTriggerRef = { current: new MockRef().getMocks() };
-    instance.contractTriggerRef = { current: new MockRef().getMocks() };
-    instance.expandNotifierRef = { current: new MockRef().getMocks() };
 
-    instance.componentDidMount();
-    // after column reordering scroll offsets are resets
-    instance.contractTriggerRef.current.scrollTop = 0;
-    instance.contractTriggerRef.current.scrollLeft = 0;
-    instance.expandTriggerRef.current.scrollTop = 0;
-    instance.expandTriggerRef.current.scrollLeft = 0;
+    const root = tree.find('.container').getDOMNode();
+    resetOffsets();
+    instance.getSize = jest.fn().mockReturnValue({ width: 20, height: 10 });
     instance.componentDidUpdate();
 
-    expect(instance.contractTriggerRef.current.scrollTop).toBe(10);
-    expect(instance.contractTriggerRef.current.scrollLeft).toBe(20);
+    expect((root.firstChild!.childNodes[0] as any).scrollTop).toBe(2);
+    expect((root.firstChild!.childNodes[0] as any).scrollLeft).toBe(2);
 
-    expect(instance.expandTriggerRef.current.scrollTop).toBe(2);
-    expect(instance.expandTriggerRef.current.scrollLeft).toBe(2);
-  });
+    expect((root.firstChild!.childNodes[1] as any).scrollTop).toBe(10);
+    expect((root.firstChild!.childNodes[1] as any).scrollLeft).toBe(20);
 
-  it('should removeEventListener on unmount', () => {
-    const tree = shallow(
-      <Sizer
-        onSizeChange={onSizeChange}
-        containerComponent={Container}
-        style={{ key: 'test style' }}
-      />, { disableLifecycleMethods: true },
-    );
-    const instance = tree.instance() as any;
-    instance.rootRef = { current: new MockRef().getMocks() };
-    instance.expandTriggerRef = { current: new MockRef().getMocks() };
-    instance.contractTriggerRef = { current: new MockRef().getMocks() };
-    instance.expandNotifierRef = { current: new MockRef().getMocks() };
+    resetOffsets();
+    instance.getSize = jest.fn().mockReturnValue({ width: 30, height: 20 });
+    instance.componentDidUpdate();
 
-    instance.componentWillUnmount();
+    expect((root.firstChild!.childNodes[0] as any).scrollTop).toBe(2);
+    expect((root.firstChild!.childNodes[0] as any).scrollLeft).toBe(2);
 
-    expect(instance.expandTriggerRef.current.removeEventListener).toBeCalled();
-    expect(instance.contractTriggerRef.current.removeEventListener).toBeCalled();
+    expect((root.firstChild!.childNodes[1] as any).scrollTop).toBe(20);
+    expect((root.firstChild!.childNodes[1] as any).scrollLeft).toBe(30);
   });
 });

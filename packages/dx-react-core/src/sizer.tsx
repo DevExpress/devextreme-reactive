@@ -56,14 +56,13 @@ export class Sizer extends React.Component<SizerProps> {
   };
 
   rootRef: React.RefObject<HTMLElement>;
-  expandTriggerRef: React.RefObject<HTMLDivElement>;
-  contractTriggerRef: React.RefObject<HTMLDivElement>;
-  expandNotifierRef: React.RefObject<HTMLDivElement>;
 
-  rootNode: HTMLElement | null = null;
-  expandTrigger: HTMLDivElement | null = null;
-  expandNotifier: HTMLDivElement | null = null;
-  contractTrigger: HTMLDivElement | null = null;
+  rootNode!: HTMLElement;
+  triggersRoot!: HTMLDivElement;
+  expandTrigger!: HTMLDivElement;
+  expandNotifier!: HTMLDivElement;
+  contractTrigger!: HTMLDivElement;
+  contractNotifier!: HTMLDivElement;
 
   constructor(props) {
     super(props);
@@ -71,22 +70,14 @@ export class Sizer extends React.Component<SizerProps> {
     this.setupListeners = this.setupListeners.bind(this);
     this.updateScrolling = this.updateScrolling.bind(this);
     this.rootRef = React.createRef();
-    this.expandTriggerRef = React.createRef();
-    this.contractTriggerRef = React.createRef();
-    this.expandNotifierRef = React.createRef();
   }
 
   componentDidMount() {
-    if (!this.rootRef.current) {
-      return;
-    }
-    this.rootNode = this.rootRef.current;
-    this.expandTrigger = this.expandTriggerRef.current;
-    this.contractTrigger = this.contractTriggerRef.current;
-    this.expandNotifier = this.expandNotifierRef.current;
+    this.rootNode = this.rootRef.current!;
+    this.createListeners();
 
-    this.expandTrigger?.addEventListener('scroll', this.setupListeners);
-    this.contractTrigger?.addEventListener('scroll', this.setupListeners);
+    this.expandTrigger.addEventListener('scroll', this.setupListeners);
+    this.contractTrigger.addEventListener('scroll', this.setupListeners);
     this.setupListeners();
   }
 
@@ -95,7 +86,8 @@ export class Sizer extends React.Component<SizerProps> {
       prevProps.scrollLeft !== this.props.scrollLeft ||
       (prevProps.style && this.props.style &&
         !shallowEqual(prevProps.style, this.props.style)) ||
-        (prevProps.style && !this.props.style)) {
+        (prevProps.style && !this.props.style) ||
+        prevProps.children !== this.props.children) {
       return true;
     }
     return false;
@@ -106,9 +98,6 @@ export class Sizer extends React.Component<SizerProps> {
     // containter's (rootNode) scrollTop property.
     // Viewport changes its own properties automatically.
     const { scrollTop, scrollLeft } = this.props;
-    if (!this.rootNode) {
-      return;
-    }
     if (scrollTop !== undefined && scrollTop > -1) {
       this.rootNode.scrollTop = scrollTop;
     }
@@ -122,23 +111,21 @@ export class Sizer extends React.Component<SizerProps> {
   // But there is a little chance that component unmounting and 'scroll' event happen roughly
   // at the same time so that `setupListeners` is called after component is unmount.
   componentWillUnmount() {
-    this.expandTrigger?.removeEventListener('scroll', this.setupListeners);
-    this.contractTrigger?.removeEventListener('scroll', this.setupListeners);
+    this.expandTrigger.removeEventListener('scroll', this.setupListeners);
+    this.contractTrigger.removeEventListener('scroll', this.setupListeners);
   }
 
   getSize = (): Size => ({
-    height: this.rootNode!.clientHeight,
-    width: this.rootNode!.clientWidth,
+    height: this.rootNode.clientHeight,
+    width: this.rootNode.clientWidth,
   })
 
   setupListeners() {
     const size = this.getSize();
     const { width, height } = size;
 
-    if (this.expandNotifier) {
-      this.expandNotifier.style.width = `${width + SCROLL_OFFSET}px`;
-      this.expandNotifier.style.height = `${height + SCROLL_OFFSET}px`;
-    }
+    this.expandNotifier.style.width = `${width + SCROLL_OFFSET}px`;
+    this.expandNotifier.style.height = `${height + SCROLL_OFFSET}px`;
 
     this.updateScrolling(size);
 
@@ -146,16 +133,35 @@ export class Sizer extends React.Component<SizerProps> {
     onSizeChange(size);
   }
 
+  createListeners() {
+    this.triggersRoot = document.createElement('div');
+    Object.assign(this.triggersRoot.style, styles.triggersRoot);
+    this.rootNode!.appendChild(this.triggersRoot);
+
+    this.expandTrigger = document.createElement('div');
+    Object.assign(this.expandTrigger.style, styles.expandTrigger);
+    this.expandTrigger.addEventListener('scroll', this.setupListeners);
+    this.triggersRoot.appendChild(this.expandTrigger);
+
+    this.expandNotifier = document.createElement('div');
+    this.expandTrigger.appendChild(this.expandNotifier);
+
+    this.contractTrigger = document.createElement('div');
+    Object.assign(this.contractTrigger.style, styles.contractTrigger);
+    this.contractTrigger.addEventListener('scroll', this.setupListeners);
+    this.triggersRoot.appendChild(this.contractTrigger);
+
+    this.contractNotifier = document.createElement('div');
+    Object.assign(this.contractNotifier.style, styles.contractNotifier);
+    this.contractTrigger.appendChild(this.contractNotifier);
+  }
+
   updateScrolling(size) {
     const { width, height } = size;
-    if (this.contractTrigger) {
-      this.contractTrigger.scrollTop = height;
-      this.contractTrigger.scrollLeft = width;
-    }
-    if (this.expandTrigger) {
-      this.expandTrigger.scrollTop = SCROLL_OFFSET;
-      this.expandTrigger.scrollLeft = SCROLL_OFFSET;
-    }
+    this.contractTrigger.scrollTop = height;
+    this.contractTrigger.scrollLeft = width;
+    this.expandTrigger.scrollTop = SCROLL_OFFSET;
+    this.expandTrigger.scrollLeft = SCROLL_OFFSET;
   }
 
   render() {
@@ -173,16 +179,7 @@ export class Sizer extends React.Component<SizerProps> {
         forwardedRef={this.rootRef}
         style={style ? { ...styles.root, ...style } : styles.root}
         {...restProps}
-      >
-        <div style={styles.triggersRoot}>
-          <div style={styles.expandTrigger} ref={this.expandTriggerRef}>
-            <div ref={this.expandNotifierRef}/>
-          </div>
-          <div style={styles.contractTrigger} ref={this.contractTriggerRef}>
-            <div style={styles.contractNotifier}/>
-          </div>
-        </div>
-      </Container>
+      />
     );
   }
 }

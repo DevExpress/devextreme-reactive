@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { flushSync } from 'react-dom';
 import { DropTarget } from '@devexpress/dx-react-core';
 import { getGroupCellTargetIndex } from '@devexpress/dx-grid-core';
 import { ItemLayout } from './group-panel-layout/item-layout';
@@ -42,9 +43,9 @@ class GroupPanelLayoutBase extends React.PureComponent<GPLayoutProps, GP.Groupin
       }
     };
     this.onEnter = ({ payload }) => {
-      this.setState({
+      flushSync(() => this.setState({
         sourceColumnName: payload[0].columnName,
-      });
+      }));
     };
     this.onOver = ({ clientOffset }) => {
       const { onGroupDraft, items } = this.props;

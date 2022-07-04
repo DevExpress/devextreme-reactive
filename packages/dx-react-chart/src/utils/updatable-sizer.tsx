@@ -7,7 +7,7 @@ export class UpdatableSizer extends React.PureComponent<SizerProps> {
   ref = React.createRef<Sizer>();
 
   componentDidUpdate() {
-    this.ref.current!.setupListeners();
+    this.props.onSizeChange(this.ref.current!.getSize());
   }
 
   render() {

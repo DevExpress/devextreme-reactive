@@ -45,6 +45,7 @@ const dependencies = {
     '"@mui/icons-material"',
     '"@emotion/react"',
     '"@emotion/styled"',
+    '"@mui/x-date-pickers"',
     '"@mui/lab"',
   ],
   '"@devexpress/dx-react-scheduler"': ['"@devexpress/dx-react-core"'],

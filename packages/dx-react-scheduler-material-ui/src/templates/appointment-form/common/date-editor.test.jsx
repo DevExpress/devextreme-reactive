@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { shallow as enzymeShallow } from 'enzyme';
 import { createShallow } from '@devexpress/dx-testing';
-import DateTimePicker from '@mui/lab/DateTimePicker';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { convertToMoment } from '@devexpress/dx-scheduler-core';
 import { DateEditor } from './date-editor';
 

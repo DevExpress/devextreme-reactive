@@ -1,3 +1,16 @@
+# [3.0.4](https://github.com/DevExpress/devextreme-reactive/compare/v3.0.3...v3.0.4) (2022-07-12)
+
+
+### Bug Fixes
+
+* **react-core:** fix dragging on unmount component (T1093143)  ([53502ae](https://github.com/DevExpress/devextreme-reactive/commit/53502aef1f0f3884779bc8695bdc5d9e27afcb7d))
+* **react-grid:** fix column resizing after its reordering (T1096930) ([#3557](https://github.com/DevExpress/devextreme-reactive/issues/3557)) ([ae205dd](https://github.com/DevExpress/devextreme-reactive/commit/ae205ddb51015626a7902080891964c753bb6a85))
+* **react-grid:** fix grouping for react 18 ([#3556](https://github.com/DevExpress/devextreme-reactive/issues/3556)) ([edc0d60](https://github.com/DevExpress/devextreme-reactive/commit/edc0d60368ee0a708fcdb0ed76e611dda3cd2192))
+* **react-grid:** fix render big amount of the rows in virtual table ([#3550](https://github.com/DevExpress/devextreme-reactive/issues/3550)) ([c240410](https://github.com/DevExpress/devextreme-reactive/commit/c2404106b5942e9cf99666406beee9e5e23e6194))
+* **react-scheduler:** fix DateTimePicker on Esc pressed (T1099508) ([#3558](https://github.com/DevExpress/devextreme-reactive/issues/3558)) ([84792af](https://github.com/DevExpress/devextreme-reactive/commit/84792afb808d8f299871b0a0afe24cfea2e5b1e5))
+
+
+
 # [3.0.3](https://github.com/DevExpress/devextreme-reactive/compare/v3.0.2...v3.0.3) (2022-05-10)
 
 

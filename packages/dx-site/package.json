@@ -43,7 +43,6 @@
     "gatsby-remark-prismjs": "^3.3.31",
     "gatsby-source-filesystem": "^2.1.48",
     "gatsby-transformer-remark": "^2.6.53",
-    "node-sass": "^7.0.1",
     "prismjs": "^1.19.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
@@ -51,6 +50,7 @@
     "react-helmet": "^5.2.1",
     "reactstrap": "^8.9.0",
     "remark": "^11.0.2",
+    "sass": "1.53.0",
     "segoe-fonts": "^1.0.1",
     "unist-util-visit": "^2.0.2"
   }

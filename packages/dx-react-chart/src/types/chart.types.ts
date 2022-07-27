@@ -1,5 +1,5 @@
 import { DataItems } from './index';
-export interface ChartProps {
+export type ChartProps = React.PropsWithChildren<{
   /** An array containing custom data */
   data: DataItems;
   /** A component that renders the chart root layout */
@@ -12,7 +12,7 @@ export interface ChartProps {
   children?: any;
   /** Chart rotation */
   rotated?: boolean;
-}
+}>;
 
 // tslint:disable-next-line: no-namespace
 export namespace Chart {

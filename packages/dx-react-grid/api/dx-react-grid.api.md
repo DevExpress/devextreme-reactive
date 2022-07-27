@@ -478,13 +478,13 @@ export type GridColumnExtension = {
 } & IntegratedFiltering.ColumnExtension;
 
 // @public (undocumented)
-export interface GridProps {
-    columns: ReadonlyArray<Column>;
-    getCellValue?: (row: any, columnName: string) => any;
-    getRowId?: (row: any) => number | string;
-    rootComponent: React_2.ComponentType<Grid.RootProps>;
+export type GridProps = React_2.PropsWithChildren<{
     rows: ReadonlyArray<any>;
-}
+    columns: ReadonlyArray<Column>;
+    getRowId?: (row: any) => number | string;
+    getCellValue?: (row: any, columnName: string) => any;
+    rootComponent: React_2.ComponentType<Grid.RootProps>;
+}>;
 
 // @public
 export interface Grouping {

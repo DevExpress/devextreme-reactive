@@ -1045,13 +1045,13 @@ export namespace Scheduler {
 export type SchedulerDateTime = Date | number | string;
 
 // @public (undocumented)
-export interface SchedulerProps {
+export type SchedulerProps = React_2.PropsWithChildren<{
     data: AppointmentModel[];
-    firstDayOfWeek: number;
-    height: number | 'auto';
-    locale: string | string[];
     rootComponent: React_2.ComponentType<Scheduler.RootProps>;
-}
+    locale: string | string[];
+    height: number | 'auto';
+    firstDayOfWeek: number;
+}>;
 
 // @public
 export interface SchedulerView {

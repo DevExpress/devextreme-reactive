@@ -124,13 +124,13 @@ export namespace Chart {
 }
 
 // @public (undocumented)
-export interface ChartProps {
+export type ChartProps = React_2.PropsWithChildren<{
   data: DataItems;
-  height?: number;
   rootComponent: React_2.ComponentType<Chart.RootProps>;
-  rotated?: boolean;
+  height?: number;
   width?: number;
-}
+  rotated?: boolean;
+}>;
 
 // @public (undocumented)
 export type Colors = ReadonlyArray<string>;

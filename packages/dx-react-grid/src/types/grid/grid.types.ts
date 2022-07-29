@@ -11,7 +11,7 @@ export namespace Grid {
   }
 }
 
-export interface GridProps {
+export type GridProps = React.PropsWithChildren<{
   /*** An array containing custom data. A user defines the access to this data.
    * Refer to Data Accessors for details. */
   rows: ReadonlyArray<any>;
@@ -24,7 +24,7 @@ export interface GridProps {
   getCellValue?: (row: any, columnName: string) => any;
   /** A component that renders the grid root layout. */
   rootComponent: React.ComponentType<Grid.RootProps>;
-}
+}>;
 
 /** @internal */
 export type GridCoreGettersProps = Pick<

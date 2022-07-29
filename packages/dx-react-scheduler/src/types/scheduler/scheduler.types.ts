@@ -11,7 +11,7 @@ export namespace Scheduler {
   }
 }
 
-export interface SchedulerProps {
+export type SchedulerProps = React.PropsWithChildren<{
   /*** An array of appointment data objects. */
   data: AppointmentModel[];
   /** A component that renders the root layout. */
@@ -25,4 +25,4 @@ export interface SchedulerProps {
   height: number | 'auto';
   /** A number between 0 (Sunday) and 6 (Saturday) that specifies the first day of the week. */
   firstDayOfWeek: number;
-}
+}>;

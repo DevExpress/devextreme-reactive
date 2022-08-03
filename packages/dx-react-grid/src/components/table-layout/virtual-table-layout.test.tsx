@@ -208,7 +208,7 @@ describe('VirtualTableLayout', () => {
         const result = jest.requireActual('@devexpress/dx-grid-core').getCollapsedGrids(args);
 
         expect(result.bodyGrid.columns.find(col => col.key === 'col_flex').width)
-          .toBe(0);
+          .toBe(undefined);
 
         return result;
       });

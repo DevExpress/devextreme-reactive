@@ -12,7 +12,7 @@ export type GetRowColumnSizeFn = PureComputed<[(TableRow|TableColumn)?], number>
 /** @internal */
 export type GetColSpanFn = PureComputed<[TableRow, TableColumn], number>;
 /** @internal */
-export type CollapsedColumn = TableColumn & { width: number };
+export type CollapsedColumn = TableColumn & { width: number|undefined };
 /** @internal */
 export type CollapsedCell = { column: Pick<TableColumn, 'key' | 'type'>, colSpan: number };
 /** @internal */

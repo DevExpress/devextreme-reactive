@@ -187,7 +187,7 @@ export const getCollapsedColumns: GetCollapsedColumnsFn = (
       const column = columns[boundary[0]];
       collapsedColumns.push({
         ...column,
-        width: getColumnWidth(column),
+        width: column.type === TABLE_FLEX_TYPE ? undefined : getColumnWidth(column),
       });
     } else {
       collapsedColumns.push({

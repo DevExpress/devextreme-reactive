@@ -38,14 +38,8 @@ export const getViewport: GetViewportFn = (
     tableBodyRows, viewportTop, containerHeight,
     getRowHeight, skipItems, loadedRowsStart, isDataRemote,
   );
-  const headerRows = getRowsVisibleBoundary(
-    tableHeaderRows, 0, 0,
-    getRowHeight, [0, 0], 0, false,
-  );
-  const footerRows = getRowsVisibleBoundary(
-    tableFooterRows, 0, 0,
-    getRowHeight, [0, 0], 0, false,
-  );
+  const headerRows = [0, tableHeaderRows.length ? tableHeaderRows.length - 1 : 0];
+  const footerRows = [0, tableFooterRows.length ? tableFooterRows.length - 1 : 0];
   const columns = getColumnBoundaries(
     tableColumns, viewportLeft, containerWidth, getColumnWidth,
   );

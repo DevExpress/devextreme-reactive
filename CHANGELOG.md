@@ -1,3 +1,14 @@
+# [3.0.5](https://github.com/DevExpress/devextreme-reactive/compare/v3.0.4...v3.0.5) (2022-08-22)
+
+
+### Bug Fixes
+
+* **react-common:** add children property (T1104887) ([#3563](https://github.com/DevExpress/devextreme-reactive/issues/3563)) ([ec1aa9f](https://github.com/DevExpress/devextreme-reactive/commit/ec1aa9fd05aa03e6c2843b220eaeb0ec304f2d50))
+* **react-grid:** fix banded columns in virtual table (T1107446) ([#3565](https://github.com/DevExpress/devextreme-reactive/issues/3565)) ([617f37c](https://github.com/DevExpress/devextreme-reactive/commit/617f37c2f78ea9ed49c87572634822ecf0466c37))
+* **react-grid:** fix column resizing for VirtualTable (T1106563) ([#3564](https://github.com/DevExpress/devextreme-reactive/issues/3564)) ([02eb6bd](https://github.com/DevExpress/devextreme-reactive/commit/02eb6bd00400887930c03a78742c67c0f5a45bec))
+
+
+
 # [3.0.4](https://github.com/DevExpress/devextreme-reactive/compare/v3.0.3...v3.0.4) (2022-07-12)
 
 

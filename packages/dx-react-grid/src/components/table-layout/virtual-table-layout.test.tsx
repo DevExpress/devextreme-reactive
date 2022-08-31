@@ -252,6 +252,39 @@ describe('VirtualTableLayout', () => {
         });
     });
 
+    it('should pass correct viewport, big height of rows', () => {
+      const tree = mount((
+        <VirtualTableLayoutWrapper
+          {...defaultProps}
+          rowComponent={({ forwardedRef }) => {
+            const setForwardedRef = (ref) => {
+              const component = { ...ref };
+              component.getBoundingClientRect = () => ({ height: 70 } as any);
+              forwardedRef(component);
+            };
+            return (
+              <tr ref={setForwardedRef} />
+            );
+          }}
+          headerRows={defaultProps.bodyRows.slice(0, 1)}
+          footerRows={defaultProps.bodyRows.slice(0, 1)}
+        />
+      ));
+
+      expect(getCollapsedGrids).toBeCalledTimes(3);
+      expect(getCollapsedGrids.mock.calls[getCollapsedGrids.mock.calls.length - 1][0])
+        .toMatchObject({
+          viewportLeft: 0,
+          containerWidth: 400,
+          viewport: {
+            columns: [[0, 4]],
+            footerRows: [0, 0],
+            headerRows: [0, 0],
+            rows: [0, 1],
+          },
+        });
+    });
+
     it('should pass correct viewport at startup when height is auto', () => {
       const tree = mount((
         <VirtualTableLayout

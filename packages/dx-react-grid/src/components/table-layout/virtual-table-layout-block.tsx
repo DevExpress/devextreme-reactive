@@ -7,6 +7,7 @@ export class VirtualTableLayoutBlock extends React.PureComponent<VirtualTableLay
   render() {
     const {
       collapsedGrid,
+      rowRefsHandler,
       bodyComponent: Body,
       cellComponent,
       rowComponent,
@@ -23,6 +24,7 @@ export class VirtualTableLayoutBlock extends React.PureComponent<VirtualTableLay
               key={row.key}
               row={row}
               cells={cells}
+              forwardedRef={ref => rowRefsHandler(row, ref)}
               rowComponent={rowComponent}
               cellComponent={cellComponent}
             />

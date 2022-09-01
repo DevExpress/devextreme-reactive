@@ -8,8 +8,6 @@ export type ChartProps = React.PropsWithChildren<{
   height?: number;
   /** Chart width */
   width?: number;
-  /** @internal */
-  children?: any;
   /** Chart rotation */
   rotated?: boolean;
 }>;

@@ -126,6 +126,7 @@ export const Chart: React_2.ComponentType<ChartProps> & {
 
 // @public (undocumented)
 export interface ChartProps {
+  children?: React_2.ReactNode;
   data?: Array<any>;
   height?: number;
   rootComponent?: React_2.ComponentType<Chart_2.RootProps>;

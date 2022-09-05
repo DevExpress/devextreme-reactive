@@ -33,6 +33,7 @@ columns | ReadonlyArray&lt;[Column](#column)&gt; | | Specifies for which row fie
 getRowId? | (row: any) => number &#124; string | | Specifies the function used to get a unique row identifier. Define this function if the identifier is different than the row index.
 getCellValue? | (row: any, columnName: string) => any | | Specifies the function used to get a cell's value.
 rootComponent | ComponentType&lt;[Grid.RootProps](#gridrootprops)&gt; | | A component that renders the grid root layout.
+children? | ReactNode | | A React node used to render the grid content.
 
 ## Interfaces
 

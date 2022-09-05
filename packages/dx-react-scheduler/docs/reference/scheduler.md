@@ -27,6 +27,7 @@ height | number &#124; `auto` | `auto` | The scheduler's height. If the value is
 locale | string &#124; Array&lt;string&gt; | 'en-US' | The locale according to which dates should be formatted.
 firstDayOfWeek | number | 0 | A number between 0 (Sunday) and 6 (Saturday) that specifies the first day of the week.
 rootComponent | ComponentType&lt;[Scheduler.RootProps](#schedulerrootprops)&gt; | | A component that renders the root layout.
+children? | ReactNode | | A React node used to render the scheduler content.
 
 ## Interfaces
 

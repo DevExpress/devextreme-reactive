@@ -659,6 +659,7 @@ export const Scheduler: React_2.ComponentType<SchedulerProps> & {
 
 // @public (undocumented)
 export interface SchedulerProps {
+  children?: React_2.ReactNode;
   data?: Array<AppointmentModel>;
   firstDayOfWeek?: number;
   height?: number | `auto`;

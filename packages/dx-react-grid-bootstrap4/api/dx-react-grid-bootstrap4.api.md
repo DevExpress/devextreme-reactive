@@ -135,6 +135,7 @@ export const Grid: React_2.ComponentType<GridProps> & {
 
 // @public (undocumented)
 export interface GridProps {
+  children?: React_2.ReactNode;
   columns: ReadonlyArray<Column>;
   getCellValue?: (row: any, columnName: string) => any;
   getRowId?: (row: any) => number | string;

@@ -28,6 +28,7 @@ width? | number | undefined | Chart width.
 height? | number | 500 | Chart height.
 rotated | boolean | false | Rotates the chart.
 rootComponent | ComponentType&lt;[Chart.RootProps](#chartrootprops)&gt; | | A component that renders the chart's root layout.
+children? | ReactNode | | A React node used to render the chart content.
 
 ## Interfaces
 

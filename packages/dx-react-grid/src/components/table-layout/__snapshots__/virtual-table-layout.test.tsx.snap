@@ -165,6 +165,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
       minWidth={400}
       name="header"
       rowComponent={[Function]}
+      rowRefsHandler={[Function]}
     />
     <VirtualTableLayoutBlock
       bodyComponent={[Function]}
@@ -684,6 +685,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
       minWidth={400}
       name="body"
       rowComponent={[Function]}
+      rowRefsHandler={[Function]}
     />
     <VirtualTableLayoutBlock
       bodyComponent={[Function]}
@@ -788,6 +790,7 @@ exports[`VirtualTableLayout should render correct layout 1`] = `
       minWidth={400}
       name="footer"
       rowComponent={[Function]}
+      rowRefsHandler={[Function]}
     />
   </tableComponent>
 </containerComponent>

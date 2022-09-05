@@ -2,7 +2,7 @@ import * as React from 'react';
 import { MemoizedFunction, memoize } from '@devexpress/dx-core';
 import {
   TableColumn, GetColumnWidthFn, getCollapsedGrids,
-  getColumnWidthGetter, getViewport, GridViewport, getScrollLeft,
+  getColumnWidthGetter, TABLE_STUB_TYPE, getViewport, GridViewport, getScrollLeft,
   isColumnsWidthDifferent,
 } from '@devexpress/dx-grid-core';
 import { VirtualTableLayoutState, VirtualTableLayoutProps } from '../../types';
@@ -28,6 +28,7 @@ type PropsType = VirtualTableLayoutProps & typeof defaultProps;
 export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTableLayoutState> {
   static defaultProps = defaultProps;
   getColumnWidthGetter: MemoizedFunction<[TableColumn[], number, number], GetColumnWidthFn>;
+  rowRefs = new Map<any, HTMLElement>();
 
   constructor(props) {
     super(props);
@@ -56,9 +57,19 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     return 0;
   }
 
+  registerRowRef = (row, ref) => {
+    if (row.type === TABLE_STUB_TYPE) {
+      return;
+    }
+    if (ref === null) {
+      this.rowRefs.delete(row.key);
+    } else {
+      this.rowRefs.set(row.key, ref);
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const { bodyRows, columns } = this.props;
-
     // NOTE: the boundaries depend not only on scroll position and container dimensions
     // but on body rows too. This boundaries update is especially important when
     // lazy loading is used because by the time that all involved events are handled
@@ -92,8 +103,11 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
   }
 
   getRowHeight = (row) => {
-    const height = row ? row.height : 0;
-    return height || this.props.estimatedRowHeight;
+    if (row) {
+      const realHeight = this.rowRefs.get(row.key)?.getBoundingClientRect().height;
+      return row.height || realHeight || this.props.estimatedRowHeight;
+    }
+    return this.props.estimatedRowHeight;
   }
 
   onScroll = (e) => {
@@ -232,13 +246,13 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     } = this.props;
 
     const scrollLeft = getScrollLeft(columns.length, minColumnWidth!, nextColumnId);
-
     const collapsedGrids = this.getCollapsedGrids(viewport);
     const commonProps = {
       cellComponent,
       rowComponent,
       minColumnWidth,
       minWidth,
+      rowRefsHandler: this.registerRowRef,
     };
     const sizerHeight = height === AUTO_HEIGHT ? null : height;
 

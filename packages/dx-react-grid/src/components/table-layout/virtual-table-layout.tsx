@@ -12,6 +12,7 @@ import { ColumnGroup } from './column-group';
 
 const AUTO_HEIGHT = 'auto';
 const MAX_WINDOW_HEIGHT = 10000000;
+const FACTOR = 3;
 
 const defaultProps = {
   headerRows: [],
@@ -127,7 +128,9 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     const countSkipRows = this.getCountSkipRows();
     const dif = viewportTop - prevViewPort;
     const pxInPercent = viewportTop / MAX_WINDOW_HEIGHT;
-    const isDif = Math.abs(dif) < containerHeight;
+    // on scrolling with touchpad or mouse viewport difference less then FACTOR * container height
+    // and skipItems must not recalculated
+    const isDif = Math.abs(dif) < FACTOR * containerHeight;
     const top = Math.min(Math.round(pxInPercent * countSkipRows), countSkipRows);
 
     this.setState({

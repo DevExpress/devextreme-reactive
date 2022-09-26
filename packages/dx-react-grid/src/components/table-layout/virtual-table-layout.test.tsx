@@ -457,13 +457,13 @@ describe('VirtualTableLayout', () => {
       ));
 
       simulateScroll(tree, { scrollTop: 100, scrollLeft: 250 });
-      simulateScroll(tree, { scrollTop: 300, scrollLeft: 250 });
+      simulateScroll(tree, { scrollTop: 500, scrollLeft: 250 });
 
       const getViewportCallsLength = getViewport.mock.calls.length;
 
       expect(getViewport.mock.calls[getViewportCallsLength - 1][0]).toMatchObject({
-        skipItems: [24, 799976],
-        viewportTop: 300,
+        skipItems: [40, 799960],
+        viewportTop: 500,
         viewportLeft: 250,
         containerHeight: 120,
         containerWidth: 400,
@@ -504,15 +504,15 @@ describe('VirtualTableLayout', () => {
         />
       ));
       simulateScroll(tree, { scrollTop: 100, scrollLeft: 0 });
-      simulateScroll(tree, { scrollTop: 300, scrollLeft: 0 });
-      tree.setProps({ totalRowCount: totalRowCount + 1000 });
       simulateScroll(tree, { scrollTop: 500, scrollLeft: 0 });
+      tree.setProps({ totalRowCount: totalRowCount + 1000 });
+      simulateScroll(tree, { scrollTop: 900, scrollLeft: 0 });
 
       const getViewportCallsLength = getViewport.mock.calls.length;
 
       expect(getViewport.mock.calls[getViewportCallsLength - 1][0]).toMatchObject({
-        skipItems: [40,  800960],
-        viewportTop: 500,
+        skipItems: [72,  800928],
+        viewportTop: 900,
         viewportLeft: 0,
         containerHeight: 120,
         containerWidth: 400,

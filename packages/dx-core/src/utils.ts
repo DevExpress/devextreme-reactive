@@ -20,15 +20,17 @@ export const insertPlugin = (array, newItem) => {
   let deletedItems = 0;
   if (alreadyExists) {
     deletedItems = 1;
-    for (let i = targetIndex + 1; i < result.length; i += 1) {
-      const targetItemPosition = result[targetIndex].position();
-      const itemPosition = result[i].position();
-      if (targetItemPosition.length > 1 && targetItemPosition.length === itemPosition.length &&
-        targetItemPosition[targetItemPosition.length - 2] ===
-        itemPosition[itemPosition.length - 2]) {
-        deletedItems += 1;
-      } else {
-        break;
+    const targetItemPosition = result[targetIndex].position();
+    if (targetItemPosition.length > 1) {
+      for (let i = targetIndex + 1; i < result.length; i += 1) {
+        const itemPosition = result[i].position();
+        if (targetItemPosition.length === itemPosition.length &&
+          targetItemPosition[targetItemPosition.length - 2] ===
+          itemPosition[itemPosition.length - 2]) {
+          deletedItems += 1;
+        } else {
+          break;
+        }
       }
     }
   }

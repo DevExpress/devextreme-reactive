@@ -17,7 +17,21 @@ export const insertPlugin = (array, newItem) => {
   const targetIndex = nextItemIndex < 0 ? array.length : nextItemIndex;
   const alreadyExists = (targetIndex >= 0 && targetIndex < array.length)
     && compare(newItem, array[targetIndex]) === 0;
-  result.splice(targetIndex, alreadyExists ? 1 : 0, newItem);
+  let deletedItems = 0;
+  if(alreadyExists) {
+    deletedItems = 1;
+    for(let i = targetIndex + 1; i < result.length; i++) {
+      const targetItemPosition = result[targetIndex].position();
+      const itemPosition = result[i].position();
+      if(targetItemPosition.length > 1 && targetItemPosition.length === itemPosition.length && 
+        targetItemPosition[targetItemPosition.length - 2] === itemPosition[itemPosition.length - 2]) {
+        deletedItems++;
+      } else {
+        break;
+      }
+    }
+  }
+  result.splice(targetIndex, deletedItems, newItem);
   return result;
 };
 

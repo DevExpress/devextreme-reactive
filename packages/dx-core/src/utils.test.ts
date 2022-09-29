@@ -14,7 +14,7 @@ describe('utils', () => {
         { position: () => [5, 3] },
         { position: () => [6, 0] },
         { position: () => [6, 1] },
-        { position: () => [7, 0] }
+        { position: () => [7, 0] },
       ];
 
       expect(mapPlugins(insertPlugin(plugins, { position: () => [0] })))

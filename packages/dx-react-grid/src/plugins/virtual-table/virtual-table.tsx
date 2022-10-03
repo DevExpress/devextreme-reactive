@@ -77,13 +77,15 @@ export const makeVirtualTable: (...args: any) => any = (Table, {
       this.setState({ viewport });
     }
 
-    componentDidUpdate(prevProps, prevState) {
-      const { nextRowId: prevId } = prevState;
-      const { nextRowId: currentId } = this.state;
-      const areIdsEqual = currentId !== undefined && currentId === prevId;
+    componentDidUpdate(_, prevState) {
+      const { nextRowId: prevId, nextColumnId: prevColumnId } = prevState;
+      const { nextRowId: currentId, nextColumnId: currentColumnId } = this.state;
 
-      if (areIdsEqual) {
+      if (currentId !== undefined && currentId === prevId) {
         this.setState({ nextRowId: undefined });
+      }
+      if (currentColumnId !== undefined && prevColumnId === currentColumnId) {
+        this.setState({ nextColumnId: undefined });
       }
     }
 

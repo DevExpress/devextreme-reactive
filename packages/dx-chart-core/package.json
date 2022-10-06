@@ -32,7 +32,7 @@
   "types": "dist/dx-chart-core.d.ts",
   "typings": "dist/dx-chart-core.d.ts",
   "scripts": {
-    "test": "echo Nope",
+    "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "build": "rollup -c rollup.config.js",

@@ -5,7 +5,7 @@ module.exports = {
     path.join(__dirname, './setup-enzyme.js'),
   ],
   snapshotSerializers: ['enzyme-to-json/serializer'],
-  preset: 'ts-jest/presets/js-with-babel',
+  preset: 'ts-jest',
   globals: {
     'ts-jest': {
       tsConfig: './tsconfig.json',
@@ -16,6 +16,9 @@ module.exports = {
   testMatch: [
     '**/*.test.(ts|tsx)',
   ],
+  transform: {
+    '^.+\\.jsx?$': '../../tools/setup-babel-jest.js',
+  },
   transformIgnorePatterns: [
     '/node_modules/(?!(d3|d3-scale|d3-array|d3-interpolate|d3-color|d3-format|d3-time|d3-time-format|internmap)/)',
   ],

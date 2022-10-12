@@ -52,14 +52,20 @@ const configureDateSequence: MakeDateSequenceFn = (rRule, exDate, prevStartDate,
     dtstart: prevStartDateUTC,
   }));
   if (currentOptions.count || currentOptions.until) {
-    return rruleSet.all()
+    return {
+      options: currentOptions,
+      dates: rruleSet.all()
       // we shouldn't use `new Date(string)` because this function has different results in Safari
-      .map(nextDate => moment(formatDateToString(nextDate)).toDate());
+      .map(nextDate => moment(formatDateToString(nextDate)).toDate()),
+    };
   }
   const leftBound = prevStartDateUTC;
   const rightBound = moment(getUTCDate(nextStartDate!)).toDate();
-  return rruleSet.between(leftBound, rightBound, true)
-    .map(nextDate => moment(formatDateToString(nextDate)).toDate());
+  return {
+    options: currentOptions,
+    dates: rruleSet.between(leftBound, rightBound, true)
+    .map(nextDate => moment(formatDateToString(nextDate)).toDate()),
+  };
 };
 
 const configureICalendarRules = (rRule: string | undefined, options: object) => {
@@ -100,22 +106,22 @@ const changeCurrentAndFollowing: ChangeFn = (appointmentData, changes, changeAll
 const getAppointmentSequenceData = (
   prevStartDate: Date, startDate: Date, exDate: string, rRule: string | undefined,
 ) => {
-  const initialSequence: Date[] = configureDateSequence(rRule, exDate,
+  const initialSequence = configureDateSequence(rRule, exDate,
     moment.utc(prevStartDate).toDate(), moment.utc(startDate).toDate(),
-  );
+  ).dates;
   const currentChildIndex = initialSequence
     .findIndex(date => moment(date).isSame(startDate as Date));
   return { initialSequence, currentChildIndex };
 };
 
 export const deleteCurrent: DeleteFn = (appointmentData) => {
-  const currentSequence: Date[] = configureDateSequence(
+  const { options, dates } = configureDateSequence(
     appointmentData.rRule, appointmentData.exDate,
     moment.utc(appointmentData.parentData.startDate).toDate(),
     moment.utc(appointmentData.startDate).toDate(),
   );
 
-  if (currentSequence.length === 1) {
+  if ((options.count || options.until) && dates.length === 1) {
     return deleteAll(appointmentData);
   }
 

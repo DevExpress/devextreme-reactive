@@ -1,5 +1,4 @@
 const path = require('path');
-const resolve = require('resolve');
 
 module.exports = {
   setupFiles: [

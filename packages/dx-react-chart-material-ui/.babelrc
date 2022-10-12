@@ -7,8 +7,7 @@
   "plugins": [
     ["transform-react-remove-prop-types", {
       "mode": "unsafe-wrap"
-    }],
-    "@babel/plugin-transform-runtime"
+    }]
   ],
   "env": {
     "test": {

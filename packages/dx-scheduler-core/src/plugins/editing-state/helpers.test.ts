@@ -71,6 +71,23 @@ describe('EditingState', () => {
         const changes = deleteCurrent(appointmentData);
         expect(changes).toEqual({ deleted: 0 });
       });
+
+      it('should remove first appointment for never ending sequence', () => {
+        const appointmentData = {
+          id: 0,
+          startDate: new Date(Date.UTC(2019, 6, 15, 14, 20)),
+          endDate: new Date(Date.UTC(2019, 6, 15, 16)),
+          rRule: 'FREQ=DAILY',
+          parentData: {
+            rRule: 'FREQ=DAILY',
+            startDate: new Date(Date.UTC(2019, 6, 15, 14, 20)),
+            endDate: new Date(Date.UTC(2019, 6, 15, 16)),
+          },
+        };
+
+        const changes = deleteCurrent(appointmentData);
+        expect(changes).toEqual({ changed: { 0: { exDate: '20190715T142000Z' } } });
+      });
     });
 
     describe('#deleteCurrentAndFollowing', () => {

@@ -1,3 +1,4 @@
+import { Options } from 'rrule';
 import { AppointmentModel, AppointmentId } from './scheduler-core.types';
 
 export type AppointmentChanges = { [key: string]: object };
@@ -13,7 +14,7 @@ export type PreCommitChangesFn = (
 /** @internal */
 export type MakeDateSequenceFn = (
   rRule: string | undefined, exDate: string | undefined, prevStartDate: Date, date: Date,
-) => Array<Date>;
+) => { options: Partial<Options>, dates: Array<Date> };
 
 /** @internal */
 export type EditFn = (appointmentData: Partial<AppointmentModel>, changes: Changes) => ChangeSet;

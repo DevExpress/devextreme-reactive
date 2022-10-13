@@ -498,11 +498,14 @@ export const GroupingPanel: React_2.ComponentType<GroupingPanelProps>;
 export namespace GroupingPanel {
     export interface ContainerProps {
         children?: React_2.ReactNode;
+        forwardedRef?: React_2.RefObject<Element>;
     }
     export interface EmptyMessageProps {
+        forwardedRef?: React_2.Ref<Element>;
         getMessage: (messageKey: string) => string;
     }
     export interface ItemProps {
+        forwardedRef?: React_2.Ref<Element>;
         groupingEnabled: boolean;
         item: GroupingPanelItem;
         onGroup: () => void;
@@ -529,15 +532,9 @@ export interface GroupingPanelItem {
 
 // @public (undocumented)
 export interface GroupingPanelProps {
-    containerComponent: React_2.ComponentType<GroupingPanel.ContainerProps & {
-        forwardedRef?: React_2.RefObject<Element>;
-    }>;
-    emptyMessageComponent: React_2.ComponentType<GroupingPanel.EmptyMessageProps & {
-        forwardedRef?: React_2.Ref<Element>;
-    }>;
-    itemComponent: React_2.ComponentType<GroupingPanel.ItemProps & {
-        forwardedRef?: React_2.Ref<Element>;
-    }>;
+    containerComponent: React_2.ComponentType<GroupingPanel.ContainerProps>;
+    emptyMessageComponent: React_2.ComponentType<GroupingPanel.EmptyMessageProps>;
+    itemComponent: React_2.ComponentType<GroupingPanel.ItemProps>;
     messages?: GroupingPanel.LocalizationMessages;
     showGroupingControls?: boolean;
     showSortingControls?: boolean;

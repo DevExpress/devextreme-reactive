@@ -5,6 +5,8 @@ export namespace GroupingPanel {
   export interface ContainerProps {
     /** A React node to be placed in the root layout. */
     children?: React.ReactNode;
+    /** A reference to the group panel container or a function that accepts it. */
+    forwardedRef?: React.RefObject<Element>;
   }
 
   /** Describes properties passed to a group panel item template when it is being rendered. */
@@ -26,12 +28,16 @@ export namespace GroupingPanel {
     onSort: (parameters: { direction?: 'asc' | 'desc' | null, keepOther?: boolean }) => void;
     /** An event that initiates grouping by column. */
     onGroup: () => void;
+    /** A reference to the group panel item or a function that accepts it. */
+    forwardedRef?: React.Ref<Element>;
   }
 
   /** Describes properties passed to a component that renders an empty group panel message. */
   export interface EmptyMessageProps {
     /** Returns the text displayed in the group panel if grid data is not grouped. */
     getMessage: (messageKey: string) => string;
+    /** A reference to the group panel message or a function that accepts it. */
+    forwardedRef?: React.Ref<Element>;
   }
 
   export interface LocalizationMessages {
@@ -86,15 +92,15 @@ export interface GroupingPanelProps {
   showGroupingControls?: boolean;
   /** A component that renders a group panel container. */
   containerComponent: React.ComponentType<
-    GroupingPanel.ContainerProps & { forwardedRef?: React.RefObject<Element> }
+    GroupingPanel.ContainerProps
   >;
   /** A component that renders a group panel item. */
   itemComponent: React.ComponentType<
-    GroupingPanel.ItemProps & { forwardedRef?: React.Ref<Element> }
+    GroupingPanel.ItemProps
   >;
   /** A component that renders an empty group panel message. */
   emptyMessageComponent: React.ComponentType<
-    GroupingPanel.EmptyMessageProps & { forwardedRef?: React.Ref<Element> }
+    GroupingPanel.EmptyMessageProps
   >;
   /** An object that specifies the localization messages. */
   messages?: GroupingPanel.LocalizationMessages;

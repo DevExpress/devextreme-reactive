@@ -1,7 +1,6 @@
 const path = require('path');
 
 module.exports = {
-  preset: 'ts-jest',
   moduleNameMapper: {
     '.css$': path.join(__dirname, './css-stub.js'),
   },

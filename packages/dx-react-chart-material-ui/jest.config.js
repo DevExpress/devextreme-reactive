@@ -1,7 +1,6 @@
 const path = require('path');
 
 module.exports = {
-  preset: 'ts-jest/presets/js-with-babel',
   setupFiles: [
     path.join(__dirname, './setup-enzyme.js'),
   ],

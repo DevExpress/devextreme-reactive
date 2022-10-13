@@ -1,5 +1,4 @@
 const path = require('path');
-const resolve = require('resolve');
 
 module.exports = {
   setupFiles: [
@@ -14,10 +13,13 @@ module.exports = {
     },
   },
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
-  transform: {
-    '.(js|ts|tsx)': resolve.sync('ts-jest')
-  },
   testMatch: [
     '**/*.test.(ts|tsx)',
+  ],
+  transform: {
+    '^.+\\.jsx?$': '../../tools/setup-babel-jest.js',
+  },
+  transformIgnorePatterns: [
+    '/node_modules/(?!(d3|d3-scale|d3-array|d3-interpolate|d3-color|d3-format|d3-time|d3-time-format|internmap)/)',
   ],
 };

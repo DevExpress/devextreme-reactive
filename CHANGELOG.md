@@ -1,3 +1,19 @@
+# [3.0.6](https://github.com/DevExpress/devextreme-reactive/compare/v3.0.5...v3.0.6) (2022-10-14)
+
+
+### Bug Fixes
+
+* **chart-core:** fix security issue ([#3578](https://github.com/DevExpress/devextreme-reactive/issues/3578)) ([e70cad9](https://github.com/DevExpress/devextreme-reactive/commit/e70cad9979a25f2bc28a454086a3a60c34f576f0))
+* **core:** fix updating plugins ([#3573](https://github.com/DevExpress/devextreme-reactive/issues/3573)) ([da2bed3](https://github.com/DevExpress/devextreme-reactive/commit/da2bed37330aabf8120bff7436524cc738dd7fef))
+* **react-common:** add children property in the themes ([#3568](https://github.com/DevExpress/devextreme-reactive/issues/3568)) ([6a761e2](https://github.com/DevExpress/devextreme-reactive/commit/6a761e259f83d616b2e5f5b329b5064f85c64acd))
+* **react-grid:** fix flickering of virtual table (T1108194) ([#3567](https://github.com/DevExpress/devextreme-reactive/issues/3567)) ([31ef862](https://github.com/DevExpress/devextreme-reactive/commit/31ef862d2d4b0b04da9e1e5fb466765c40a245bf))
+* **react-grid:** fix grid flickers after scrolling (T1118401) ([#3574](https://github.com/DevExpress/devextreme-reactive/issues/3574)) ([d37014a](https://github.com/DevExpress/devextreme-reactive/commit/d37014ac10b1e24d6c29ae091133a6c86f78dae6))
+* **react-grid:** fix grid scrolling with lazy loading (T1106910) ([#3572](https://github.com/DevExpress/devextreme-reactive/issues/3572)) ([af65a74](https://github.com/DevExpress/devextreme-reactive/commit/af65a74cb6814798a888ac85f042599e9e4d7121))
+* **react-grid:** fix typescript for grouping panel ([#3580](https://github.com/DevExpress/devextreme-reactive/issues/3580)) ([458174a](https://github.com/DevExpress/devextreme-reactive/commit/458174a8f1a08ae6b811cba092f8eb656f607794))
+* **react-scheduler:** fix deleting first oppointment ([#3582](https://github.com/DevExpress/devextreme-reactive/issues/3582)) ([9bf1f70](https://github.com/DevExpress/devextreme-reactive/commit/9bf1f7070e676be3d33dba86b078ccf9119b7074))
+
+
+
 # [3.0.5](https://github.com/DevExpress/devextreme-reactive/compare/v3.0.4...v3.0.5) (2022-08-22)
 
 

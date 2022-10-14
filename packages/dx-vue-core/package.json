@@ -1,7 +1,7 @@
 {
   "name": "@devexpress/dx-vue-core",
   "private": true,
-  "version": "3.0.5",
+  "version": "3.0.6",
   "description": "Core library for DevExtreme Vue Components",
   "author": {
     "name": "Developer Express Inc.",
@@ -40,7 +40,7 @@
     "lint:fix": "yarn lint -- --fix"
   },
   "devDependencies": {
-    "@devexpress/dx-testing": "3.0.5",
+    "@devexpress/dx-testing": "3.0.6",
     "@rollup/plugin-node-resolve": "^7.1.1",
     "@vue/test-utils": "1.0.0-beta.29",
     "babel-core": "^6.26.3",
@@ -68,7 +68,7 @@
     "vue-template-compiler": "^2.6.10"
   },
   "dependencies": {
-    "@devexpress/dx-core": "3.0.5"
+    "@devexpress/dx-core": "3.0.6"
   },
   "peerDependencies": {
     "vue": ">=2.6.10"

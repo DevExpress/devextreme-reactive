@@ -1,10 +1,8 @@
-const path = require('path');
-
 module.exports = {
   preset: 'ts-jest',
   globals: {
     'ts-jest': {
-      tsConfig: './tsconfig.json',
+      tsconfig: './tsconfig.json',
       diagnostics: false, // set to true to enable type checking
     },
   },

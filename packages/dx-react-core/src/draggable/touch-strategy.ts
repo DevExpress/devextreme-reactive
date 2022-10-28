@@ -11,6 +11,7 @@ export class TouchStrategy {
     this.delegate = delegate;
     this.touchStartTimeout = null;
     this.dragging = false;
+    this.mouseInitialOffset = null;
   }
 
   isDragging() {

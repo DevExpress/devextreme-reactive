@@ -1,3 +1,4 @@
+import 'jsdom-global/register';
 // import * as React from 'react';
 import { MouseStrategy } from './mouse-strategy';
 

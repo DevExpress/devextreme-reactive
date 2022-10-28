@@ -64,7 +64,7 @@
     "awesome-typescript-loader": "^5.2.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.3",
-    "babel-jest": "^24.9.0",
+    "babel-jest": "^29.2.2",
     "babel-loader": "^8.0.6",
     "concurrently": "^5.0.0",
     "css-loader": "^3.2.0",

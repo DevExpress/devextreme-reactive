@@ -10,4 +10,5 @@ module.exports = {
   transform: {
     '^.+\\.jsx?$': '../../tools/setup-babel-jest.js',
   },
+  testEnvironment: 'jsdom',
 };

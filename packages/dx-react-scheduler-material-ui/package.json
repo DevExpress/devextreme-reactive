@@ -63,7 +63,7 @@
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.3",
-    "babel-jest": "^24.9.0",
+    "babel-jest": "^29.2.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "core-js": "^3.4.1",
     "enzyme": "3.10.0",

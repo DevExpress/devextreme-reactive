@@ -164,6 +164,8 @@ describe('CurrentTimeIndicator', () => {
 
     it('should use default updateInterval prop', () => {
       jest.useFakeTimers();
+      jest.spyOn(global, 'setInterval');
+
       mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -178,7 +180,10 @@ describe('CurrentTimeIndicator', () => {
     });
 
     it('should not call the inner setInterval with null updateInterval prop value', () => {
+      jest.spyOn(global, 'setInterval');
+
       const userUpdateInterval = null;
+
       mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}
@@ -195,6 +200,8 @@ describe('CurrentTimeIndicator', () => {
     });
 
     it('should not call the inner setInterval with 0 updateInterval prop value', () => {
+      jest.spyOn(global, 'setInterval');
+
       const userUpdateInterval = 0;
       mount((
         <PluginHost>
@@ -212,6 +219,8 @@ describe('CurrentTimeIndicator', () => {
     });
 
     it('should use user provided updateInterval prop', () => {
+      jest.spyOn(global, 'setInterval');
+
       const userUpdateInterval = 10000;
       mount((
         <PluginHost>
@@ -230,6 +239,8 @@ describe('CurrentTimeIndicator', () => {
 
   describe('Unmount', () => {
     it('should call the inner useEffect unmount handler', () => {
+      jest.spyOn(global, 'clearInterval');
+
       const wrapper = mount((
         <PluginHost>
           {pluginDepsToComponents(defaultDeps)}

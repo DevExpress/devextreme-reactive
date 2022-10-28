@@ -1,4 +1,3 @@
-import 'jsdom-global/register';
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { UPDATE_CONNECTION_EVENT } from './constants';

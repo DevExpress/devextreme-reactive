@@ -1,6 +1,5 @@
 /* globals Element:true */
 
-import 'jsdom-global/register';
 import * as React from 'react';
 import { mount } from 'enzyme';
 

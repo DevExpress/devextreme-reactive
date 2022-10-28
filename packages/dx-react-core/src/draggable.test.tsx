@@ -1,6 +1,5 @@
 /* globals window:true document:true Event:true */
 
-import 'jsdom-global/register';
 import * as React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 import { Draggable } from './draggable';

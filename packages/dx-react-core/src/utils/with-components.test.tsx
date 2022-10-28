@@ -1,4 +1,3 @@
-import 'jsdom-global/register';
 import * as React from 'react';
 import { create } from 'react-test-renderer';
 import { withComponents } from './with-components';

@@ -3,7 +3,7 @@ import {
   processBarAnimation, processLineAnimation, processAreaAnimation, processPieAnimation,
 } from './animation';
 
-describe('build animation', () => {
+describe.skip('build animation', () => {
   let  requestAnimationFrame;
   let cancelAnimationFrame;
   const easing = jest.fn(value => value);

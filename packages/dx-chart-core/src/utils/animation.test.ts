@@ -3,17 +3,18 @@ import {
   processBarAnimation, processLineAnimation, processAreaAnimation, processPieAnimation,
 } from './animation';
 
-describe.skip('build animation', () => {
+describe('build animation', () => {
   let  requestAnimationFrame;
   let cancelAnimationFrame;
   const easing = jest.fn(value => value);
   const duration = 3;
   const processAnimation = jest.fn().mockReturnValue(() => 'processedAnimation');
   const setAttributes = jest.fn();
+
   beforeEach(() => {
-    requestAnimationFrame = jest.spyOn(window, 'requestAnimationFrame')
-    .mockImplementation(time => time(0) as any);
-    cancelAnimationFrame = jest.spyOn(window, 'cancelAnimationFrame').mockImplementation();
+    jest.useFakeTimers();
+    requestAnimationFrame = jest.spyOn(window, 'requestAnimationFrame');
+    cancelAnimationFrame = jest.spyOn(window, 'cancelAnimationFrame');
   });
 
   afterEach(() => {
@@ -21,8 +22,6 @@ describe.skip('build animation', () => {
     cancelAnimationFrame.mockRestore();
     jest.clearAllMocks();
   });
-
-  jest.useFakeTimers();
 
   it('should run animation', () => {
     const animation = buildAnimation(easing, duration)(

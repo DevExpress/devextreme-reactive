@@ -4,6 +4,7 @@ module.exports = {
   setupFiles: [
     path.join(__dirname, './setup-enzyme.js'),
   ],
+  testEnvironment: 'jsdom',
   snapshotSerializers: ['enzyme-to-json/serializer'],
   preset: 'ts-jest',
   globals: {

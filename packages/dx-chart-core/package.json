@@ -49,6 +49,7 @@
     "@types/d3-shape": "^2.1.0",
     "core-js": "^3.4.1",
     "jest": "^29.2.2",
+    "jest-environment-jsdom": "^29.2.2",
     "rollup": "^1.27.2",
     "rollup-plugin-license": "^0.12.1",
     "rollup-plugin-typescript2": "^0.30.0",

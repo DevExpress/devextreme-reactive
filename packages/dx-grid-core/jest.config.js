@@ -1,10 +1,11 @@
 module.exports = {
   preset: 'ts-jest',
-  globals: {
-    'ts-jest': {
+  transform: {
+    '^.+\\.jsx?$': '../../tools/setup-babel-jest.js',
+    '^.+\\.tsx?$': ['ts-jest', {
       tsconfig: './tsconfig.json',
-      diagnostics: false, // set to true to enable type checking
-    },
+      diagnostics: false,
+    }],
   },
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
   testMatch: [

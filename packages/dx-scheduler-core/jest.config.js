@@ -1,11 +1,12 @@
 module.exports = {
   setupFiles: [],
   preset: 'ts-jest',
-  globals: {
-    'ts-jest': {
+  transform: {
+    '^.+\\.jsx?$': '../../tools/setup-babel-jest.js',
+    '^.+\\.tsx?$': ['ts-jest', {
       tsconfig: './tsconfig.json',
       diagnostics: false,
-    },
+    }],
   },
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
   testMatch: [

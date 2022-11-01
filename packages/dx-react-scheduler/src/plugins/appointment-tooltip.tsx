@@ -130,7 +130,7 @@ class AppointmentTooltipBase extends React.PureComponent<
               finishDeleteAppointment, openDeleteConfirmationDialog,
             }) => {
               const onDeleteButtonClick = () => {
-                if(!finishDeleteAppointment) {
+                if (!finishDeleteAppointment) {
                   return;
                 }
                 if (openDeleteConfirmationDialog) {

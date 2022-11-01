@@ -26,7 +26,9 @@ export const MONTH_YEAR_OPTIONS = { month: 'long', year: 'numeric' } as const;
 export const DAY_SHORT_MONTH_OPTIONS = { day: 'numeric', month: 'short' } as const;
 export const SHORT_MONTH_LONG_YEAR_OPTIONS = { month: 'short', year: 'numeric' } as const;
 export const SHORT_MONTH_SHORT_YEAR_OPTIONS = { month: 'short', year: '2-digit' } as const;
-export const DAY_LONG_MONTH_LONG_YEAR_OPTIONS = { day: 'numeric', month: 'long', year: 'numeric' } as const;
+export const DAY_LONG_MONTH_LONG_YEAR_OPTIONS = {
+  day: 'numeric', month: 'long', year: 'numeric',
+} as const;
 export const DAY_SHORT_MONTH_LONG_YEAR_OPTIONS = {
   day: 'numeric', month: 'short', year: 'numeric',
 } as const;

@@ -86,7 +86,7 @@ Layout.propTypes = {
   commandButtonIds: PropTypes.object.isRequired,
   formatDate: PropTypes.func.isRequired,
   onOpenButtonClick: PropTypes.func,
-  onDeleteButtonClick: PropTypes.func,
+  onDeleteButtonClick: PropTypes.func.isRequired,
   appointmentMeta: PropTypes.shape({
     target: PropTypes.oneOfType([
       PropTypes.object,
@@ -100,7 +100,6 @@ Layout.propTypes = {
 };
 Layout.defaultProps = {
   onOpenButtonClick: () => undefined,
-  onDeleteButtonClick: () => undefined,
   onHide: () => undefined,
   appointmentMeta: {},
   appointmentResources: [],

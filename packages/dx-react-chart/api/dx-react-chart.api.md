@@ -584,7 +584,7 @@ export interface TooltipReference {
   // (undocumented)
   readonly clientWidth: number;
   // (undocumented)
-  getBoundingClientRect(): ClientRect;
+  getBoundingClientRect(): Partial<DOMRect>;
 }
 
 // @public (undocumented)

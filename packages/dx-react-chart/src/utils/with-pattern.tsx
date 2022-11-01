@@ -17,7 +17,7 @@ export const withPattern = <T extends any>(
       <Pattern
         id={patternId}
         color={color}
-        {...props}
+        {...props as object}
       />
     </React.Fragment>
   );

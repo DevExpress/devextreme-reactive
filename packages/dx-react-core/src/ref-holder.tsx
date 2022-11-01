@@ -7,8 +7,8 @@ export const RefHolder = React.forwardRef((
 ) => {
   return React.isValidElement(children) ?
     typeof children.type === 'string'
-      ? React.cloneElement(children, { ref })
-      : React.cloneElement(children, { forwardedRef: children.props?.forwardedRef ? (node) => {
+      ? React.cloneElement(children as React.ReactElement<any>, { ref })
+      : React.cloneElement(children as React.ReactElement<any>, { forwardedRef: children.props?.forwardedRef ? (node) => {
         children.props.forwardedRef(node);
         if (typeof ref === 'function') {
           ref(node);

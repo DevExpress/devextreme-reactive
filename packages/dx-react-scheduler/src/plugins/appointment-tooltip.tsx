@@ -130,6 +130,9 @@ class AppointmentTooltipBase extends React.PureComponent<
               finishDeleteAppointment, openDeleteConfirmationDialog,
             }) => {
               const onDeleteButtonClick = () => {
+                if(!finishDeleteAppointment) {
+                  return;
+                }
                 if (openDeleteConfirmationDialog) {
                   openDeleteConfirmationDialog({
                     hideActionName: TOGGLE_APPOINTMENT_TOOLTIP_VISIBILITY,
@@ -158,9 +161,7 @@ class AppointmentTooltipBase extends React.PureComponent<
                     visible,
                     onHide: this.toggleVisibility,
                     commandButtonIds,
-                    ...finishDeleteAppointment && {
-                      onDeleteButtonClick,
-                    },
+                    onDeleteButtonClick,
                     formatDate,
                   }}
                 />

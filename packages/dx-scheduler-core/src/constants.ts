@@ -19,9 +19,9 @@ export const POSITION_END = 'end';
 export const AUTO_HEIGHT = 'auto';
 
 export const DAY_OPTIONS = { day: 'numeric' } as const;
-export const WEEK_DAY_OPTIONS = { weekday: 'short' };
+export const WEEK_DAY_OPTIONS = { weekday: 'short' } as const;
 export const SHORT_MONTH_OPTIONS = { month: 'short' } as const;
-export const HOUR_MINUTE_OPTIONS = { hour: 'numeric', minute: 'numeric' };
+export const HOUR_MINUTE_OPTIONS = { hour: 'numeric', minute: 'numeric' } as const;
 export const MONTH_YEAR_OPTIONS = { month: 'long', year: 'numeric' } as const;
 export const DAY_SHORT_MONTH_OPTIONS = { day: 'numeric', month: 'short' } as const;
 export const SHORT_MONTH_LONG_YEAR_OPTIONS = { month: 'short', year: 'numeric' } as const;
@@ -35,16 +35,16 @@ export const DAY_SHORT_MONTH_LONG_YEAR_OPTIONS = {
 export const DAY_SHORT_MONTH_SHORT_YEAR_OPTIONS = {
   day: 'numeric', month: 'short', year: '2-digit',
 } as const;
-export const LONG_WEEK_DAY_OPTIONS = { weekday: 'long' };
-export const LONG_MONTH_OPTIONS = { month: 'long' };
-export const DAY_LONG_MONTH_OPTIONS = { day: 'numeric', month: 'long' };
-export const EMPTY_OPTIONS = {};
+export const LONG_WEEK_DAY_OPTIONS = { weekday: 'long' } as const;
+export const LONG_MONTH_OPTIONS = { month: 'long' } as const;
+export const DAY_LONG_MONTH_OPTIONS = { day: 'numeric', month: 'long' } as const;
+export const EMPTY_OPTIONS = {} as const;
 
 export const RECURRENCE_EDIT_SCOPE = {
   ALL: 'all',
   CURRENT_AND_FOLLOWING: 'currentAndFollowing',
   CURRENT: 'current',
-};
+} as const;
 
 export const TOGGLE_APPOINTMENT_FORM_VISIBILITY = 'toggleAppointmentFormVisibility';
 export const TOGGLE_APPOINTMENT_TOOLTIP_VISIBILITY = 'toggleAppointmentTooltipVisibility';
@@ -62,4 +62,4 @@ export const VIEW_TYPES = {
   WEEK: 'week',
   DAY: 'day',
   ALL_DAY_PANEL: 'allDayPanel',
-};
+} as const;

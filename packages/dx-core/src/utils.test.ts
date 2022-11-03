@@ -77,16 +77,17 @@ describe('utils', () => {
         .not.toHaveProperty('onDoubleClick');
     });
 
-    it('should call onClick event with delay', () => {
+    it('should call onClick event with delay', async () => {
       const payload = { data: 1 };
       const events = createClickHandlers(clickEvent);
 
       events.onClick(payload);
 
-      setTimeout(() => {
-        expect(clickEvent)
-          .toHaveBeenCalledWith(payload);
-      }, DELAY);
+      await new Promise((resolve) => {
+        setTimeout(resolve, DELAY);
+      });
+
+      expect(clickEvent).toHaveBeenCalledWith(payload);
     });
 
     it('should return onDblClick function if onDblClick event is define', () => {
@@ -110,18 +111,19 @@ describe('utils', () => {
         .toHaveBeenCalledWith(payload);
     });
 
-    it('should not call onClick event if onDblClick event called', () => {
+    it('should not call onClick event if onDblClick event called', async () => {
       const events = createClickHandlers(clickEvent, dblClickEvent);
 
       events.onClick();
       events.onDoubleClick();
 
-      expect(dblClickEvent)
-        .toHaveBeenCalled();
-      setTimeout(() => {
-        expect(clickEvent)
-          .not.toHaveBeenCalled();
-      }, DELAY);
+      expect(dblClickEvent).toHaveBeenCalled();
+
+      await new Promise((resolve) => {
+        setTimeout(resolve, DELAY);
+      });
+
+      expect(clickEvent).not.toHaveBeenCalled();
     });
   });
 });

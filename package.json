@@ -11,7 +11,7 @@
   },
   "license": "SEE LICENSE IN README.md",
   "devDependencies": {
-    "@microsoft/api-extractor": "^7.33.5",
+    "@microsoft/api-extractor": "^7.6.1",
     "@types/react-test-renderer": "^16.0.0",
     "check-node-version": "^4.0.1",
     "concurrently": "^5.0.0",

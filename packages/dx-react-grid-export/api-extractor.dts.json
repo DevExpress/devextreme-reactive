@@ -16,5 +16,8 @@
         "logLevel": "none"
       }
     }
+  },
+  "compiler": {
+    "skipLibCheck": true
   }
 }

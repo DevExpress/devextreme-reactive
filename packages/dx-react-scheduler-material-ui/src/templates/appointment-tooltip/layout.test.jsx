@@ -7,6 +7,7 @@ describe('Appointment Tooltip', () => {
   let shallow;
   let mount;
   const defaultProps = {
+    onDeleteButtonClick: jest.fn(),
     headerComponent: () => null,
     commandButtonComponent: () => null,
     contentComponent: () => null,
@@ -121,13 +122,12 @@ describe('Appointment Tooltip', () => {
     });
 
     it('should handle onDeleteButtonClick', () => {
-      const onDeleteButtonClick = jest.fn();
       const tree = shallow((
-        <Layout onDeleteButtonClick={onDeleteButtonClick} {...defaultProps} />
+        <Layout {...defaultProps} />
       ));
 
       tree.find(defaultProps.headerComponent).prop('onDeleteButtonClick')();
-      expect(onDeleteButtonClick)
+      expect(defaultProps.onDeleteButtonClick)
         .toHaveBeenCalled();
     });
   });

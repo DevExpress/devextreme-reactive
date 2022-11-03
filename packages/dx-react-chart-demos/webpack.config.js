@@ -7,6 +7,7 @@ var WriteFilePlugin = require('write-file-webpack-plugin');
 module.exports = ({ production }) => ({
   mode: production ? 'production' : 'development',
   context: path.join(__dirname, 'src'),
+  devtool: "inline-source-map",
   entry: {
     index: ['whatwg-fetch', path.join(__dirname, 'src', 'index')]
   },
@@ -18,14 +19,8 @@ module.exports = ({ production }) => ({
   module: {
     rules: [
       {
-        test: /\.js$/,
-        include: /(node_modules\/)/,
-        use: ["source-map-loader"],
-        enforce: "pre"
-      },
-      {
         test: /\.tsx?$/,
-        loader: "awesome-typescript-loader"
+        loader: "ts-loader"
       },
       {
         test: /\.jsx?$/,

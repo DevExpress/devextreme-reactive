@@ -86,7 +86,7 @@ Header.propTypes = {
   showDeleteButton: PropTypes.bool.isRequired,
   commandButtonIds: PropTypes.object.isRequired,
   onOpenButtonClick: PropTypes.func,
-  onDeleteButtonClick: PropTypes.func,
+  onDeleteButtonClick: PropTypes.func.isRequired,
   onHide: PropTypes.func,
 };
 
@@ -95,6 +95,5 @@ Header.defaultProps = {
   className: undefined,
   children: undefined,
   onOpenButtonClick: () => undefined,
-  onDeleteButtonClick: () => undefined,
   onHide: () => undefined,
 };

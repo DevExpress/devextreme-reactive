@@ -5,7 +5,6 @@ export class TouchStrategy {
   delegate: any;
   touchStartTimeout: any;
   dragging: boolean;
-  mouseInitialOffset: null;
 
   constructor(delegate) {
     this.delegate = delegate;
@@ -50,7 +49,6 @@ export class TouchStrategy {
       const { clientX, clientY } = e.changedTouches[0];
       this.delegate.onEnd({ x: clientX, y: clientY });
     }
-    this.mouseInitialOffset = null;
     this.dragging = false;
   }
 }

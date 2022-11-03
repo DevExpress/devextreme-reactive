@@ -3,7 +3,7 @@ import { Pattern } from '../templates/pattern';
 
 // Function is returned (not PureComponent descendant) because
 // result is invoked as function (not as React component).
-export const withPattern = <T extends any>(
+export const withPattern = <T extends {}>(
   getPatternId: (props: T) => string, props: T,
 ) => (Target: React.ComponentType<any>) => (targetProps: any) => {
   const { color, ...restProps } = targetProps;

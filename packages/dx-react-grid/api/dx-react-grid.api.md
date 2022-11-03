@@ -1716,7 +1716,7 @@ export interface VirtualTableStateProps {
 }
 
 // @public (undocumented)
-export const withKeyboardNavigation: <T extends KeyboardNavigationComponent>(key1?: string | undefined, key2?: string | undefined) => (Component: React_2.ComponentType<Table.CellProps>) => React_2.ComponentType<T>;
+export const withKeyboardNavigation: <T extends KeyboardNavigationComponent>(key1?: string, key2?: string) => (Component: React_2.ComponentType<Table.CellProps>) => React_2.ComponentType<T>;
 
 
 // (No @packageDocumentation comment for this package)

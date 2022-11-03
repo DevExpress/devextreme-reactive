@@ -21,7 +21,6 @@ describe('ResizingControl', () => {
   });
   afterAll(() => {
     resetConsole();
-    shallow.cleanUp();
   });
 
   it('should have correct styles while resizing', () => {

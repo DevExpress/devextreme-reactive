@@ -11,7 +11,6 @@ describe('TableContainer', () => {
   });
   afterAll(() => {
     resetConsole();
-    shallow.cleanUp();
   });
 
   it('should pass the className prop to the root element', () => {

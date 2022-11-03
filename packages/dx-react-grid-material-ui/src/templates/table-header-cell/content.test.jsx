@@ -12,9 +12,6 @@ describe('Content', () => {
   beforeAll(() => {
     shallow = createShallow();
   });
-  afterAll(() => {
-    shallow.cleanUp();
-  });
 
   it('should apply custom class', () => {
     const tree = shallow((

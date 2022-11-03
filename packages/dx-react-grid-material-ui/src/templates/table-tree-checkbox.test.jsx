@@ -6,7 +6,6 @@ import { TableTreeCheckbox } from './table-tree-checkbox';
 
 describe('TableTreeCheckbox', () => {
   let resetConsole;
-  let mount;
   let shallow;
   beforeAll(() => {
     resetConsole = setupConsole({ ignore: ['validateDOMNesting'] });
@@ -14,7 +13,6 @@ describe('TableTreeCheckbox', () => {
   });
   afterAll(() => {
     resetConsole();
-    mount.cleanUp();
   });
 
   it('should render indeterminate state checkbox if the `indeterminate` property is true', () => {

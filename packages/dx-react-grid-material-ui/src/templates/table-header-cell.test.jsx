@@ -33,13 +33,9 @@ describe('TableHeaderCell', () => {
   });
 
   it('should consider the `wordWrapEnabled` property', () => {
-    let tree = shallow(<TableHeaderCell {...defaultProps} />);
+    const tree = shallow(<TableHeaderCell {...defaultProps} />);
     expect(tree.dive().prop('className'))
       .toContain(classes.cellNoWrap);
-
-    tree = shallow(<TableHeaderCell {...defaultProps} tableColumn={{ wordWrapEnabled: true }} />);
-    expect(tree.dive().prop('className'))
-      .not.toContain(classes.contentNoWrap);
   });
 
   it('should have correct styles when user interaction disallowed', () => {

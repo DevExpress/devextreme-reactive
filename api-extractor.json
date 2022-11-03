@@ -22,6 +22,7 @@
     "enabled": true
   },
   "compiler" : {
-    "tsconfigFilePath": "packages/<unscopedPackageName>/tsconfig.json"
+    "tsconfigFilePath": "packages/<unscopedPackageName>/tsconfig.json",
+    "skipLibCheck": true
   }
 }

@@ -1,6 +1,7 @@
 const path = require('path');
 
 module.exports = {
+  testEnvironment: 'jsdom',
   transform: {
     '^.+\\.jsx?$': '../../tools/setup-babel-jest.js',
     '^.+\\.tsx?$': 'ts-jest',

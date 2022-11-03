@@ -4,6 +4,7 @@ module.exports = {
   moduleNameMapper: {
     '.css$': path.join(__dirname, './css-stub.js'),
   },
+  testEnvironment: 'jsdom',
   setupFiles: [
     path.join(__dirname, './setup-enzyme.js'),
   ],

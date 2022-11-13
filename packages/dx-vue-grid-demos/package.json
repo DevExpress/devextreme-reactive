@@ -3,24 +3,25 @@
   "name": "@devexpress/dx-vue-grid-demos",
   "version": "3.0.6",
   "description": "DevExtreme Vue Components Demos",
+  "license": "SEE LICENSE IN README.md",
   "author": {
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
   },
-  "license": "SEE LICENSE IN README.md",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "build:generator": "node ../dx-demo-shell/generate-demos.js",
     "build": "yarn build:generator && webpack --env",
+    "build:generator": "node ../dx-demo-shell/generate-demos.js",
     "build:prod": "yarn build:generator && webpack --env.production",
-    "build:watch:generator": "nodemon --exec \"yarn build:generator\" --watch \"src/demo-sources/**/*\" --ignore \"**/*.g.jsx\"  --ignore \"**/*.g.test.jsx\" --watch \"src/theme-sources/*/demo-source-data.json\" --watch \"generate-demos.js\" --ext js,jsx,jsxt,json,ts,tsx,tsxt",
     "build:watch": "concurrently \"yarn build:watch:generator\" \"yarn start-demo-server\"",
-    "start-demo-server": "webpack-dev-server --env",
+    "build:watch:generator": "nodemon --exec \"yarn build:generator\" --watch \"src/demo-sources/**/*\" --ignore \"**/*.g.jsx\"  --ignore \"**/*.g.test.jsx\" --watch \"src/theme-sources/*/demo-source-data.json\" --watch \"generate-demos.js\" --ext js,jsx,jsxt,json,ts,tsx,tsxt",
     "lint": "eslint \"src/**/*.{js,jsx}\" --ignore-pattern \"**/*.testcafe.js\"",
-    "lint:fix": "yarn lint -- --fix"
+    "lint:fix": "yarn lint -- --fix",
+    "start-demo-server": "webpack-dev-server --env",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@devexpress/dx-demo-shell": "3.0.6",

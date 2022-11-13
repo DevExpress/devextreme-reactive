@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   setupFiles: [],
   preset: 'ts-jest',
   transform: {

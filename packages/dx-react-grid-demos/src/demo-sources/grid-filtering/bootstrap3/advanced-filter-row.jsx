@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { FilteringState, IntegratedFiltering, DataTypeProvider } from '@devexpress/dx-react-grid';
 import {
   Grid, Table, TableHeaderRow, TableFilterRow,

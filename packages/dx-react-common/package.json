@@ -3,6 +3,7 @@
   "name": "@devexpress/dx-react-common",
   "version": "3.0.6",
   "description": "DevExtreme React Components",
+  "type": "module",
   "author": {
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
@@ -10,9 +11,9 @@
   "license": "SEE LICENSE IN README.md",
   "main": "index.js",
   "scripts": {
-    "build": "yarn webpack --env",
-    "build:prod": "yarn webpack --env.production",
-    "build:watch": "webpack-dev-server --env"
+    "build": "yarn webpack --config webpack.config.cjs --env",
+    "build:prod": "yarn webpack --config webpack.config.cjs --env.production",
+    "build:watch": "webpack-dev-server --config webpack.config.cjs --env"
   },
   "dependencies": {
     "@devexpress/dx-demo-shell": "3.0.6",

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableCell from '@mui/material/TableCell';
 

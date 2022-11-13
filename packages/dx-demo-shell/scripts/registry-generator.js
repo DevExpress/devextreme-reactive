@@ -1,9 +1,6 @@
-const path = require('path');
-const {
-  overrideFileIfChanged, getFileContents, writeObjectToFile,
-} = require('./fs-utils');
-const { getCurrentProductName } = require('./utils');
-const { parseHelperFiles } = require('./helper-files-parser');
+import { getFileContents, writeObjectToFile } from './fs-utils.js';
+import { getCurrentProductName } from './utils.js';
+import { parseHelperFiles } from './helper-files-parser.js';
 
 const DEMOS_FOLDER = './src/demo-sources';
 const GENERATED_SUFFIX = '.g';
@@ -19,7 +16,7 @@ const groupBy = (arr, iteratee) => arr
     return acc;
   }, {});
 
-const generateDemoRegistry = (demos, folderPath, getDemoLink) => {
+export const generateDemoRegistry = (demos, folderPath, getDemoLink) => {
   const productName = getCurrentProductName();
   const structuredDemos = groupBy(demos, element => element.sectionName);
   Object.keys(structuredDemos).forEach((sectionName) => {
@@ -54,8 +51,4 @@ const generateDemoRegistry = (demos, folderPath, getDemoLink) => {
   }, {});
 
   writeObjectToFile(folderPath, sections, 'demos');
-};
-
-module.exports = {
-  generateDemoRegistry,
 };

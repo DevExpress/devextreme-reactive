@@ -2,47 +2,53 @@
   "name": "@devexpress/dx-react-grid-bootstrap4",
   "version": "3.0.6",
   "description": "Bootstrap 4 templates for DevExtreme React Grid component",
+  "license": "SEE LICENSE IN README.md",
   "author": {
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
-  },
-  "bugs": {
-    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
   },
   "homepage": "https://devexpress.github.io/devextreme-reactive/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
   },
-  "keywords": [
-    "react",
-    "data",
-    "grid",
-    "table",
-    "bootstrap",
-    "react-component"
-  ],
-  "license": "SEE LICENSE IN README.md",
-  "publishConfig": {
-    "access": "public"
+  "bugs": {
+    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
   },
-  "main": "dist/dx-react-grid-bootstrap4.umd.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/dx-react-grid-bootstrap4.umd.cjs",
+      "import": "./dist/dx-react-grid-bootstrap4.es.js",
+      "default": "./dist/dx-react-grid-bootstrap4.es.js"
+    }
+  },
+  "main": "dist/dx-react-grid-bootstrap4.umd.cjs",
   "module": "dist/dx-react-grid-bootstrap4.es.js",
-  "styles": "dist/dx-react-grid-bootstrap4.css",
-  "globalName": "DevExpress.DXReactGridBootstrap4",
   "files": [
     "dist"
   ],
-  "types": "dist/dx-react-grid-bootstrap4.d.ts",
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
-    "update-api": "api-extractor run",
     "lint": "eslint \"src/**\"",
-    "lint:fix": "yarn lint -- --fix"
+    "lint:fix": "yarn lint -- --fix",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "update-api": "api-extractor run"
+  },
+  "types": "dist/dx-react-grid-bootstrap4.d.ts",
+  "dependencies": {
+    "clsx": "^1.0.4",
+    "prop-types": "^15.7.2",
+    "react-popper": "^1.3.11"
+  },
+  "peerDependencies": {
+    "@devexpress/dx-grid-core": "3.0.6",
+    "@devexpress/dx-react-core": "3.0.6",
+    "@devexpress/dx-react-grid": "3.0.6",
+    "react": ">=17.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.8.7",
@@ -81,15 +87,17 @@
     "rollup-plugin-license": "^0.12.1",
     "rollup-plugin-sass": "^1.2.2"
   },
-  "dependencies": {
-    "clsx": "^1.0.4",
-    "prop-types": "^15.7.2",
-    "react-popper": "^1.3.11"
+  "keywords": [
+    "bootstrap",
+    "data",
+    "grid",
+    "react",
+    "react-component",
+    "table"
+  ],
+  "publishConfig": {
+    "access": "public"
   },
-  "peerDependencies": {
-    "@devexpress/dx-grid-core": "3.0.6",
-    "@devexpress/dx-react-core": "3.0.6",
-    "@devexpress/dx-react-grid": "3.0.6",
-    "react": ">=17.0.2"
-  }
+  "globalName": "DevExpress.DXReactGridBootstrap4",
+  "styles": "dist/dx-react-grid-bootstrap4.css"
 }

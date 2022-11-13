@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import Input from '@mui/material/Input';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';

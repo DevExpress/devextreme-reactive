@@ -1,25 +1,21 @@
-const fs = require('fs');
-const path = require('path');
-const {
+import fs from 'fs';
+import path from 'path';
+
+import {
   generateThemeFilesRegistry,
   generateDataHelpersRegistry,
-} = require('./scripts/helper-files-parser');
-// const mustache = require('mustache');
-// const {
-//   overrideFileIfChanged, getFileContents, writeObjectToFile,
-// } = require('./scripts/fs-utils');
-const { getCurrentProductName } = require('./scripts/utils');
-const {
+} from './scripts/helper-files-parser.js';
+import { getCurrentProductName } from './scripts/utils.js';
+import {
   loadDemosToGenerate, generateDemos, removePendingFiles,
-} = require('./scripts/demos-generator');
-const { generateDemoRegistry } = require('./scripts/registry-generator');
+} from './scripts/demos-generator.js';
+import { generateDemoRegistry } from './scripts/registry-generator.js';
 
 const THEMES_FOLDER = './src/theme-sources';
 
-
 const DEMOS_REGISTRY_FILE = './src/demo-registry.js';
 
-const reactCommonPath = `../dx-react-common/src`;
+const reactCommonPath = '../dx-react-common/src';
 const productDemosFile = productName => `${reactCommonPath}/${productName}-demo-registry.js`;
 const productDemoDataFile = productName => `${reactCommonPath}/${productName}-demo-data-registry.js`;
 const productThemeComponentsFile = productName => (

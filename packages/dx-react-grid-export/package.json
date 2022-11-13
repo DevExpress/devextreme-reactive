@@ -2,51 +2,55 @@
   "name": "@devexpress/dx-react-grid-export",
   "version": "3.0.6",
   "description": "Export component for DevExtreme Reactive Grid",
+  "license": "SEE LICENSE IN README.md",
   "author": {
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
-  },
-  "bugs": {
-    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
   },
   "homepage": "https://devexpress.github.io/devextreme-reactive/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
   },
-  "keywords": [
-    "react",
-    "data",
-    "grid",
-    "export",
-    "excel",
-    "react-component"
-  ],
-  "license": "SEE LICENSE IN README.md",
-  "publishConfig": {
-    "access": "public"
+  "bugs": {
+    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
   },
-  "main": "dist/dx-react-grid-export.umd.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/dx-react-grid-export.umd.cjs",
+      "import": "./dist/dx-react-grid-export.es.js",
+      "default": "./dist/dx-react-grid-export.es.js"
+    }
+  },
+  "main": "dist/dx-react-grid-export.umd.cjs",
   "module": "dist/dx-react-grid-export.es.js",
-  "globalName": "DevExpress.DXReactGridExport",
   "files": [
     "dist"
   ],
-  "tsdoc": {
-    "tsdocFlavor": "AEDoc"
+  "scripts": {
+    "build": "rollup -c rollup.config.js",
+    "build:watch": "rollup -c rollup.config.js -w",
+    "dts": "tsc -p tsconfig.dts.json && api-extractor run -c api-extractor.dts.json && node ./merge-dts.js",
+    "lint": "tslint -p tsconfig.lint.json",
+    "lint:fix": "yarn lint -- --fix",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch --runInBand",
+    "update-api": "api-extractor run"
   },
   "types": "dist/dx-react-grid-export.d.ts",
   "typings": "dist/dx-react-grid-export.d.ts",
-  "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch --runInBand",
-    "test:coverage": "jest --coverage",
-    "build": "rollup -c rollup.config.js",
-    "build:watch": "rollup -c rollup.config.js -w",
-    "update-api": "api-extractor run",
-    "dts": "tsc -p tsconfig.dts.json && api-extractor run -c api-extractor.dts.json && node ./merge-dts.js",
-    "lint": "tslint -p tsconfig.lint.json",
-    "lint:fix": "yarn lint -- --fix"
+  "dependencies": {
+    "exceljs": "^3.8.1"
+  },
+  "peerDependencies": {
+    "@devexpress/dx-core": "3.0.6",
+    "@devexpress/dx-grid-core": "3.0.6",
+    "@devexpress/dx-react-core": "3.0.6",
+    "@devexpress/dx-react-grid": "3.0.6",
+    "react": ">=17.0.2",
+    "react-dom": ">=17.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.8.7",
@@ -76,15 +80,19 @@
     "tslint-config-airbnb": "^5.11.2",
     "typescript": "^4.8.4"
   },
-  "dependencies": {
-    "exceljs": "^3.8.1"
+  "keywords": [
+    "data",
+    "excel",
+    "export",
+    "grid",
+    "react",
+    "react-component"
+  ],
+  "publishConfig": {
+    "access": "public"
   },
-  "peerDependencies": {
-    "@devexpress/dx-core": "3.0.6",
-    "@devexpress/dx-grid-core": "3.0.6",
-    "@devexpress/dx-react-core": "3.0.6",
-    "@devexpress/dx-react-grid": "3.0.6",
-    "react": ">=17.0.2",
-    "react-dom": ">=17.0.2"
+  "globalName": "DevExpress.DXReactGridExport",
+  "tsdoc": {
+    "tsdocFlavor": "AEDoc"
   }
 }

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { getStickyPosition } from '../utils/css-fallback-properties';
 
 export class TableNoDataCell extends React.PureComponent {

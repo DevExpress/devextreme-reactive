@@ -1,9 +1,8 @@
-const fs = require('fs');
-const path = require('path');
-const {
-  getFileContents, writeObjectToFile,
-} = require('./fs-utils');
-const { getCurrentProductName } = require('./utils');
+import fs from 'fs';
+import path from 'path';
+
+import { getFileContents, writeObjectToFile } from './fs-utils.js';
+import { getCurrentProductName } from './utils.js';
 
 const THEME_SOURCES_FOLDER = './src/theme-sources';
 const DEMO_DATA_FOLDER = './src/demo-data';
@@ -63,7 +62,7 @@ const getDepsRecursive = (name, deps = []) => {
   return deps;
 };
 
-const parseHelperFiles = (source) => {
+export const parseHelperFiles = (source) => {
   const imports = source.split('import');
   const themeComponents = quotify(retrieveImportFiles(
     imports, /'.+(theme-sources[^']+?[\w]+\/?[\w-]+)'/,
@@ -127,7 +126,7 @@ const generateDirRegistry = (dir) => {
   }, { deps: {}, files: {} });
 };
 
-const generateThemeFilesRegistry = (commonPath) => {
+export const generateThemeFilesRegistry = (commonPath) => {
   const helperRegistry = fs.readdirSync(THEME_SOURCES_FOLDER).reduce((themeAcc, themeName) => {
     const componentsPath = path.join(THEME_SOURCES_FOLDER, themeName, 'components');
 
@@ -153,11 +152,14 @@ const generateThemeFilesRegistry = (commonPath) => {
 };
 
 const parseDepsVersions = () => {
-  const deps = require(process.cwd() + '/package.json').dependencies;
+  const packageJsonPath = path.join(process.cwd(), 'package.json');
+  const pkg = fs.readFileSync(packageJsonPath).toString();
+  const { dependencies: deps } = JSON.parse(pkg);
+
   return JSON.stringify(deps);
 };
 
-const generateDataHelpersRegistry = (commonPath) => {
+export const generateDataHelpersRegistry = (commonPath) => {
   const registry = generateDirRegistry(path.normalize(DEMO_DATA_FOLDER));
   const depsVersions = parseDepsVersions();
   writeObjectToFile(
@@ -170,12 +172,4 @@ const generateDataHelpersRegistry = (commonPath) => {
     { [getCurrentProductName()]: { ...registry, depsVersions } },
     'demoData',
   );
-};
-
-module.exports = {
-  generateThemeFilesRegistry,
-  generateDataHelpersRegistry,
-  // generateHelperFilesRegistry: () => {
-  // },
-  parseHelperFiles,
 };

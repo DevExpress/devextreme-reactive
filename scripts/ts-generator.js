@@ -1,11 +1,12 @@
-const {
+import {
   readFileSync,
   writeFileSync,
   readdirSync,
   existsSync,
   mkdirSync,
-} = require('fs');
-const { join } = require('path');
+} from 'fs';
+
+import { join } from 'path';
 
 const ROOT_PATH = join(process.cwd(), 'packages');
 const SOURCE_FOLDER = 'docs/reference';
@@ -15,8 +16,7 @@ const PLUGINS_FOLDER = 'plugins';
 const getComponentName = fileName => fileName
   .replace('.md', '')
   .split('-')
-  .reduce((acc, element) =>
-    acc + element.charAt(0).toUpperCase() + element.slice(1), '');
+  .reduce((acc, element) => acc + element.charAt(0).toUpperCase() + element.slice(1), '');
 
 const cleanElement = element => element.trim()
   .replace(/&lt;/g, '<')

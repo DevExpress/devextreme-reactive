@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import classNames from 'clsx';
 import { scrollingStrategy, getBorder, getBrightBorder } from '../utils';

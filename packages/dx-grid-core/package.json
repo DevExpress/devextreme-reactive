@@ -2,42 +2,44 @@
   "name": "@devexpress/dx-grid-core",
   "version": "3.0.6",
   "description": "Core library for the DevExtreme Reactive Grid component",
+  "license": "SEE LICENSE IN README.md",
   "author": {
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
-  },
-  "bugs": {
-    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
   },
   "homepage": "https://devexpress.github.io/devextreme-reactive/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
   },
-  "keywords": [
-    "data",
-    "grid",
-    "table"
-  ],
-  "license": "SEE LICENSE IN README.md",
-  "publishConfig": {
-    "access": "public"
+  "bugs": {
+    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
   },
-  "main": "dist/dx-grid-core.umd.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/dx-grid-core.umd.cjs",
+      "import": "./dist/dx-grid-core.es.js",
+      "default": "./dist/dx-grid-core.es.js"
+    }
+  },
+  "main": "dist/dx-grid-core.umd.cjs",
   "module": "dist/dx-grid-core.es.js",
-  "types": "dist/dx-grid-core.d.ts",
-  "globalName": "DevExpress.DXGridCore",
   "files": [
     "dist"
   ],
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
     "lint": "tslint -p tsconfig.lint.json",
-    "lint:fix": "yarn lint -- --fix"
+    "lint:fix": "yarn lint -- --fix",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch"
+  },
+  "types": "dist/dx-grid-core.d.ts",
+  "peerDependencies": {
+    "@devexpress/dx-core": "3.0.6"
   },
   "devDependencies": {
     "@devexpress/dx-core": "3.0.6",
@@ -56,7 +58,13 @@
     "typescript": "^4.8.4",
     "typescript-tslint-plugin": "^1.0.1"
   },
-  "peerDependencies": {
-    "@devexpress/dx-core": "3.0.6"
-  }
+  "keywords": [
+    "data",
+    "grid",
+    "table"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "globalName": "DevExpress.DXGridCore"
 }

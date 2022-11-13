@@ -18,7 +18,6 @@ import {
   createWorksheet,
 } from './helpers';
 
-/* tslint:disable no-submodule-imports */
 import {
   GroupingState,
   IntegratedGrouping,
@@ -29,21 +28,26 @@ import {
   IntegratedFiltering,
   IntegratedSorting,
   SortingState,
+  defaultSummaryMessages,
+  GridCoreGetters,
+  TableColumnsWithGrouping,
+  TableColumnsWithDataRowsGetter,
+  VisibleTableColumns,
+  OrderedTableColumns,
 } from '@devexpress/dx-react-grid';
-import { defaultSummaryMessages } from '@devexpress/dx-react-grid/src/components/summary/constants';
-import {
-  GridCoreGetters, TableColumnsWithDataRowsGetter, TableColumnsWithGrouping,
-  VisibleTableColumns, OrderedTableColumns,
-} from '@devexpress/dx-react-grid/src/plugins/internal';
-/* tslint:enable no-submodule-imports */
 
-jest.mock('@devexpress/dx-react-grid/src/plugins/internal', () => ({
-  GridCoreGetters: () => null,
-  TableColumnsWithGrouping: () => null,
-  TableColumnsWithDataRowsGetter: () => null,
-  VisibleTableColumns: () => null,
-  OrderedTableColumns: () => null,
-}));
+jest.mock('@devexpress/dx-react-grid', () => {
+  const originalModule = jest.requireActual('@devexpress/dx-react-grid');
+
+  return {
+    ...originalModule,
+    GridCoreGetters: () => null,
+    TableColumnsWithGrouping: () => null,
+    TableColumnsWithDataRowsGetter: () => null,
+    VisibleTableColumns: () => null,
+    OrderedTableColumns: () => null,
+  }
+});
 
 jest.mock('@devexpress/dx-grid-core', () => ({
   getColumnExtensionValueGetter: jest.fn(),

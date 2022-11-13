@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import CodeMirror from 'codemirror';
 import { EmbeddedDemoContext } from '../context';
 import { isOccurrenceInSource } from '../utils';

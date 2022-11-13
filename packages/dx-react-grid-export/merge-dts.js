@@ -1,3 +1,6 @@
-const buildDefinitions = require('../../scripts/merge-dts');
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
-buildDefinitions(__dirname, true);
+import buildDefinitions from '../../scripts/merge-dts.js';
+
+buildDefinitions(dirname(fileURLToPath(import.meta.url)));

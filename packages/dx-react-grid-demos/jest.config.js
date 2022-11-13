@@ -1,6 +1,7 @@
-const path = require('path');
+import { fileURLToPath } from 'url';
+import path from 'path';
 
-module.exports = {
+export default {
   testEnvironment: 'jsdom',
   transform: {
     '^.+\\.jsx?$': '../../tools/setup-babel-jest.js',
@@ -11,7 +12,10 @@ module.exports = {
     '/dist/',
   ],
   moduleNameMapper: {
-    '\\.css$': path.join(__dirname, './css-stub.js'),
+    '\\.css$': path.join(
+      path.dirname(fileURLToPath(import.meta.url)),
+      './css-stub.js',
+    ),
   },
   moduleFileExtensions: [
     'js',
@@ -25,6 +29,9 @@ module.exports = {
     '**/*.test.(ts|tsx|js|jsx)',
   ],
   setupFiles: [
-    path.join(__dirname, './setup-enzyme.js'),
+    path.join(
+      path.dirname(fileURLToPath(import.meta.url)),
+      './setup-enzyme.js',
+    ),
   ],
 };

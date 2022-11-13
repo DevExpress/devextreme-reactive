@@ -1,7 +1,6 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
 
-const overrideFileIfChanged = (filename, data) => {
+export const overrideFileIfChanged = (filename, data) => {
   let existingData;
   if (fs.existsSync(filename)) {
     existingData = fs.readFileSync(filename, 'utf-8');
@@ -11,7 +10,7 @@ const overrideFileIfChanged = (filename, data) => {
   }
 };
 const indent = level => ' '.repeat(level * 2);
-const getFileContents = filePath => JSON.stringify(String(fs.readFileSync(filePath, 'utf-8')));
+export const getFileContents = filePath => JSON.stringify(String(fs.readFileSync(filePath, 'utf-8')));
 
 const stringifyEntity = (entity, level) => {
   const type = typeof entity;
@@ -45,16 +44,9 @@ const stringifyObject = (obj, level) => Object.keys(obj)
 
 const stringify = obj => stringifyEntity(obj, 0);
 
-const writeObjectToFile = (filePath, obj, varName) => {
+export const writeObjectToFile = (filePath, obj, varName) => {
   overrideFileIfChanged(
     filePath,
-    '/* eslint-disable */\n\n'
-    + `module.exports.${varName} = ${stringify(obj)};\n`,
+    `export const ${varName} = ${stringify(obj)};\n`,
   );
-};
-
-module.exports = {
-  overrideFileIfChanged,
-  getFileContents,
-  writeObjectToFile,
 };

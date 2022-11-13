@@ -1,11 +1,7 @@
-const path = require('path');
+import path from 'path';
 
-const getCurrentProductName = () => {
+export const getCurrentProductName = () => {
   const packageName = path.basename(path.resolve('./'));
   const productName = packageName.split('-')[2];
   return productName;
-};
-
-module.exports = {
-  getCurrentProductName,
 };

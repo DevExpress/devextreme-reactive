@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import Grid from '@mui/material/Grid';
 import classNames from 'clsx';
 import { NUMBER_EDITOR } from '@devexpress/dx-scheduler-core';

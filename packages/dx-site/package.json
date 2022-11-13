@@ -1,13 +1,13 @@
 {
   "private": true,
   "name": "@devexpress/dx-site",
-  "description": "DevExtreme Reactive Site",
   "version": "3.0.6",
+  "description": "DevExtreme Reactive Site",
+  "license": "SEE LICENSE IN README.md",
   "author": {
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
   },
-  "license": "SEE LICENSE IN README.md",
   "homepage": "https://devexpress.github.io/devextreme-reactive/",
   "repository": {
     "type": "git",

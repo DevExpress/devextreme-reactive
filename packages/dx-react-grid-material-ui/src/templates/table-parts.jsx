@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';

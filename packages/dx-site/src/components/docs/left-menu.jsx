@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Location } from '@reach/router';
 import Link from 'gatsby-link';
 import RootSection from './root-menu-section';

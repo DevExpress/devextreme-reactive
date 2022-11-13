@@ -1,8 +1,12 @@
-const path = require('path');
+import { fileURLToPath } from 'url';
+import path from 'path';
 
-module.exports = {
+export default {
   setupFiles: [
-    path.join(__dirname, './setup-enzyme.js'),
+    path.join(
+      path.dirname(fileURLToPath(import.meta.url)),
+      './setup-enzyme.js',
+    ),
   ],
   testEnvironment: 'jsdom',
   snapshotSerializers: ['enzyme-to-json/serializer'],

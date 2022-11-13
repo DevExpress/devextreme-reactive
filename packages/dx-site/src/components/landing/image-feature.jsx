@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import LandingFeaturePreview from './feature-list/feature-preview';
 
 import styles from './image-feature.module.scss';

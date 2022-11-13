@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import classNames from 'clsx';
 import List from '@mui/icons-material/List';
 import { styled } from '@mui/material/styles';

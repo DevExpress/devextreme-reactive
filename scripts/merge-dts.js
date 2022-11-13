@@ -1,11 +1,21 @@
-const { join, sep } = require('path');
-const { readFileSync, existsSync } = require('fs');
-const rimraf = require('rimraf');
-const replace = require('replace-in-file');
-const dts = require('dts-bundle');
+import { join, sep } from 'path';
+import { readFileSync, existsSync } from 'fs';
+import rimraf from 'rimraf';
+import replace from 'replace-in-file';
+import dts from 'dts-bundle';
 
+const getIndexDts = (packageDirectory, dtsPath) => {
+  let indexDts = join(dtsPath, 'index.d.ts');
 
-module.exports = (packageDirectory, skipBundle = false) => {
+  if (!existsSync(indexDts)) {
+    const parentDir = packageDirectory.split(sep).pop();
+    indexDts = join(dtsPath, parentDir, 'src', 'index.d.ts');
+  }
+
+  return indexDts;
+};
+
+export default (packageDirectory, skipBundle = false) => {
   const dtsPath = join(packageDirectory, 'dist', 'dts');
 
   if (!skipBundle) {
@@ -31,14 +41,3 @@ module.exports = (packageDirectory, skipBundle = false) => {
 
   rimraf(dtsPath, () => {});
 };
-
-const getIndexDts = (packageDirectory, dtsPath) => {
-  let indexDts = join(dtsPath, 'index.d.ts');
-
-  if (!existsSync(indexDts)) {
-    const parentDir = packageDirectory.split(sep).pop();
-    indexDts = join(dtsPath, parentDir, 'src', 'index.d.ts');
-  }
-
-  return indexDts;
-}

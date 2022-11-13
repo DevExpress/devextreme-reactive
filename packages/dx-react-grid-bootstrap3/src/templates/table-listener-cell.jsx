@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Sizer } from '@devexpress/dx-react-core';
 import { TableStubCell } from './table-stub-cell';
 

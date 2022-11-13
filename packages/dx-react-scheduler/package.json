@@ -2,48 +2,54 @@
   "name": "@devexpress/dx-react-scheduler",
   "version": "3.0.6",
   "description": "Composable plugin-based scheduler component for React",
+  "license": "SEE LICENSE IN README.md",
   "author": {
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
-  },
-  "bugs": {
-    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
   },
   "homepage": "https://devexpress.github.io/devextreme-reactive/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
   },
-  "keywords": [
-    "react",
-    "scheduler",
-    "react-component"
-  ],
-  "license": "SEE LICENSE IN README.md",
-  "publishConfig": {
-    "access": "public"
+  "bugs": {
+    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
   },
-  "main": "dist/dx-react-scheduler.umd.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/dx-react-scheduler.umd.cjs",
+      "import": "./dist/dx-react-scheduler.es.js",
+      "default": "./dist/dx-react-scheduler.es.js"
+    }
+  },
+  "main": "dist/dx-react-scheduler.umd.cjs",
   "module": "dist/dx-react-scheduler.es.js",
-  "globalName": "DevExpress.DXReactScheduler",
   "files": [
     "dist"
   ],
-  "tsdoc": {
-    "tsdocFlavor": "AEDoc"
+  "scripts": {
+    "build": "rollup -c rollup.config.js",
+    "build:watch": "rollup -c rollup.config.js -w",
+    "dts": "tsc -p tsconfig.dts.json && node ./merge-dts.js",
+    "lint": "tslint -p tsconfig.lint.json",
+    "lint:fix": "yarn lint -- --fix",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "update-api": "api-extractor run"
   },
   "types": "dist/dx-react-scheduler.d.ts",
   "typings": "dist/dx-react-scheduler.d.ts",
-  "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "build": "rollup -c rollup.config.js",
-    "build:watch": "rollup -c rollup.config.js -w",
-    "update-api": "api-extractor run",
-    "dts": "tsc -p tsconfig.dts.json && node ./merge-dts.js",
-    "lint": "tslint -p tsconfig.lint.json",
-    "lint:fix": "yarn lint -- --fix"
+  "dependencies": {
+    "@devexpress/dx-scheduler-core": "3.0.6"
+  },
+  "peerDependencies": {
+    "@devexpress/dx-core": "3.0.6",
+    "@devexpress/dx-react-core": "3.0.6",
+    "moment": "^2.24.0",
+    "react": ">=17.0.2",
+    "react-dom": ">=17.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.8.7",
@@ -71,14 +77,16 @@
     "tslint-config-airbnb": "^5.11.2",
     "typescript": "^4.8.4"
   },
-  "dependencies": {
-    "@devexpress/dx-scheduler-core": "3.0.6"
+  "keywords": [
+    "react",
+    "react-component",
+    "scheduler"
+  ],
+  "publishConfig": {
+    "access": "public"
   },
-  "peerDependencies": {
-    "@devexpress/dx-core": "3.0.6",
-    "@devexpress/dx-react-core": "3.0.6",
-    "moment": "^2.24.0",
-    "react": ">=17.0.2",
-    "react-dom": ">=17.0.2"
+  "globalName": "DevExpress.DXReactScheduler",
+  "tsdoc": {
+    "tsdocFlavor": "AEDoc"
   }
 }

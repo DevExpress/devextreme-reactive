@@ -1,11 +1,18 @@
-const path = require('path');
+import { fileURLToPath } from 'url';
+import path from 'path';
 
-module.exports = {
+export default {
   moduleNameMapper: {
-    '\\.css$': path.join(__dirname, './css-stub.js'),
+    '\\.css$': path.join(
+      path.dirname(fileURLToPath(import.meta.url)),
+      './css-stub.js',
+    ),
     '^vue$': 'vue/dist/vue.common.js',
   },
   setupFiles: [
-    path.join(__dirname, './setup-vue.js'),
+    path.join(
+      path.dirname(fileURLToPath(import.meta.url)),
+      './setup-vue.js',
+    ),
   ],
 };

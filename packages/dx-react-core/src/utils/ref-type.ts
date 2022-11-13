@@ -1,5 +1,5 @@
 /* globals Element */
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 /** @internal */
 export const RefType = PropTypes.shape({

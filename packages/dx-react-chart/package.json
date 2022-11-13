@@ -2,46 +2,54 @@
   "name": "@devexpress/dx-react-chart",
   "version": "3.0.6",
   "description": "Composable plugin-based chart component for React",
+  "license": "SEE LICENSE IN README.md",
   "author": {
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
-  },
-  "bugs": {
-    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
   },
   "homepage": "https://devexpress.github.io/devextreme-reactive/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
   },
-  "keywords": [
-    "react",
-    "chart",
-    "d3",
-    "visualization"
-  ],
-  "license": "SEE LICENSE IN README.md",
-  "publishConfig": {
-    "access": "public"
+  "bugs": {
+    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
   },
-  "main": "dist/dx-react-chart.umd.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/dx-react-chart.umd.cjs",
+      "import": "./dist/dx-react-chart.es.js",
+      "default": "./dist/dx-react-chart.es.js"
+    }
+  },
+  "main": "dist/dx-react-chart.umd.cjs",
   "module": "dist/dx-react-chart.es.js",
-  "globalName": "DevExpress.DXReactChart",
   "files": [
     "dist"
   ],
-  "types": "dist/dx-react-chart.d.ts",
-  "typings": "dist/dx-react-chart.d.ts",
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
-    "update-api": "api-extractor run",
     "dts": "tsc -p tsconfig.dts.json && node ./merge-dts.js",
     "lint": "tslint -p tsconfig.lint.json",
-    "lint:fix": "yarn lint -- --fix"
+    "lint:fix": "yarn lint -- --fix",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "update-api": "api-extractor run"
+  },
+  "types": "dist/dx-react-chart.d.ts",
+  "typings": "dist/dx-react-chart.d.ts",
+  "dependencies": {
+    "@devexpress/dx-chart-core": "3.0.6",
+    "d3-scale": "^4.0.2",
+    "d3-shape": "^1.3.7"
+  },
+  "peerDependencies": {
+    "@devexpress/dx-react-core": "3.0.6",
+    "react": ">=17.0.2",
+    "react-dom": ">=17.0.2"
   },
   "devDependencies": {
     "@devexpress/dx-testing": "3.0.6",
@@ -64,14 +72,14 @@
     "tslint-config-airbnb": "^5.11.2",
     "typescript": "^4.8.4"
   },
-  "dependencies": {
-    "@devexpress/dx-chart-core": "3.0.6",
-    "d3-scale": "^4.0.2",
-    "d3-shape": "^1.3.7"
+  "keywords": [
+    "chart",
+    "d3",
+    "react",
+    "visualization"
+  ],
+  "publishConfig": {
+    "access": "public"
   },
-  "peerDependencies": {
-    "@devexpress/dx-react-core": "3.0.6",
-    "react": ">=17.0.2",
-    "react-dom": ">=17.0.2"
-  }
+  "globalName": "DevExpress.DXReactChart"
 }

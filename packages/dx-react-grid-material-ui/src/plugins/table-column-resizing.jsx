@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { TableColumnResizing as TableColumnResizingBase } from '@devexpress/dx-react-grid';
 
 export class TableColumnResizing extends React.PureComponent {

@@ -1,7 +1,11 @@
-const path = require('path');
+import { fileURLToPath } from 'url';
+import path from 'path';
 
-module.exports = {
+export default {
   setupFiles: [
-    path.join(__dirname, './setup-vue.js'),
+    path.join(
+      path.dirname(fileURLToPath(import.meta.url)),
+      './setup-vue.js',
+    ),
   ],
 };

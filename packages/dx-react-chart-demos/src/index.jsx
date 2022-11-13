@@ -2,10 +2,10 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { initialize } from '@devexpress/dx-demo-shell';
 import '@devexpress/dx-demo-shell/dist/index.css';
-import { demos } from './demo-registry';
-import { themes } from './theme-registry';
-import { themeComponents } from './theme-components-registry';
-import { demoData } from './demo-data-registry';
+import { demos } from './demo-registry.js';
+import { themes } from './theme-registry.js';
+import { themeComponents } from './theme-components-registry.js';
+import { demoData } from './demo-data-registry.js';
 import './index.css';
 
 initialize({

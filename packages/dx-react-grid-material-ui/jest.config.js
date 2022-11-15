@@ -10,4 +10,7 @@ export default {
     ),
   ],
   testEnvironment: 'jsdom',
+  transform: {
+    '^.+\\.jsx?$': '../../tools/setup-babel-jest.js',
+  },
 };

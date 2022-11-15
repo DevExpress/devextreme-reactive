@@ -3,7 +3,7 @@ import * as PropTypes from 'prop-types';
 import Toolbar from '@mui/material/Toolbar';
 import { styled } from '@mui/material/styles';
 
-const PREFIX = 'EmotyMessage';
+const PREFIX = 'EmptyMessage';
 export const classes = {
   emptyMessage: `${PREFIX}-emptyMessage`,
 };

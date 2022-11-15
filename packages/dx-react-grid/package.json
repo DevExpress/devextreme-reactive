@@ -2,18 +2,28 @@
   "name": "@devexpress/dx-react-grid",
   "version": "3.0.6",
   "description": "Composable plugin-based data grid component for React",
-  "license": "SEE LICENSE IN README.md",
   "author": {
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
+  },
+  "bugs": {
+    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
   },
   "homepage": "https://devexpress.github.io/devextreme-reactive/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
   },
-  "bugs": {
-    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
+  "keywords": [
+    "react",
+    "data",
+    "grid",
+    "table",
+    "react-component"
+  ],
+  "license": "SEE LICENSE IN README.md",
+  "publishConfig": {
+    "access": "public"
   },
   "type": "module",
   "exports": {
@@ -25,30 +35,25 @@
   },
   "main": "dist/dx-react-grid.umd.cjs",
   "module": "dist/dx-react-grid.es.js",
+  "globalName": "DevExpress.DXReactGrid",
   "files": [
     "dist"
   ],
-  "scripts": {
-    "build": "rollup -c rollup.config.js",
-    "build:watch": "rollup -c rollup.config.js -w",
-    "dts": "tsc -p tsconfig.dts.json && node ./merge-dts.js",
-    "lint": "tslint -p tsconfig.lint.json",
-    "lint:fix": "yarn lint -- --fix",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
-    "test:watch": "jest --watch --runInBand",
-    "update-api": "api-extractor run"
+  "tsdoc": {
+    "tsdocFlavor": "AEDoc"
   },
   "types": "dist/dx-react-grid.d.ts",
   "typings": "dist/dx-react-grid.d.ts",
-  "dependencies": {
-    "@devexpress/dx-grid-core": "3.0.6"
-  },
-  "peerDependencies": {
-    "@devexpress/dx-core": "3.0.6",
-    "@devexpress/dx-react-core": "3.0.6",
-    "react": ">=17.0.2",
-    "react-dom": ">=17.0.2"
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch --runInBand",
+    "test:coverage": "jest --coverage",
+    "build": "rollup -c rollup.config.js",
+    "build:watch": "rollup -c rollup.config.js -w",
+    "update-api": "api-extractor run",
+    "dts": "tsc -p tsconfig.dts.json && node ./merge-dts.js",
+    "lint": "tslint -p tsconfig.lint.json",
+    "lint:fix": "yarn lint -- --fix"
   },
   "devDependencies": {
     "@babel/core": "^7.8.7",
@@ -78,18 +83,13 @@
     "tslint-config-airbnb": "^5.11.2",
     "typescript": "^4.8.4"
   },
-  "keywords": [
-    "data",
-    "grid",
-    "react",
-    "react-component",
-    "table"
-  ],
-  "publishConfig": {
-    "access": "public"
+  "dependencies": {
+    "@devexpress/dx-grid-core": "3.0.6"
   },
-  "globalName": "DevExpress.DXReactGrid",
-  "tsdoc": {
-    "tsdocFlavor": "AEDoc"
+  "peerDependencies": {
+    "@devexpress/dx-core": "3.0.6",
+    "@devexpress/dx-react-core": "3.0.6",
+    "react": ">=17.0.2",
+    "react-dom": ">=17.0.2"
   }
 }

@@ -2,18 +2,30 @@
   "name": "@devexpress/dx-react-grid-material-ui",
   "version": "3.0.6",
   "description": "Material-UI templates for DevExtreme React Grid component",
-  "license": "SEE LICENSE IN README.md",
   "author": {
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
+  },
+  "bugs": {
+    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
   },
   "homepage": "https://devexpress.github.io/devextreme-reactive/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
   },
-  "bugs": {
-    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
+  "keywords": [
+    "react",
+    "data",
+    "grid",
+    "table",
+    "material",
+    "material-ui",
+    "react-component"
+  ],
+  "license": "SEE LICENSE IN README.md",
+  "publishConfig": {
+    "access": "public"
   },
   "type": "module",
   "exports": {
@@ -25,31 +37,20 @@
   },
   "main": "dist/dx-react-grid-material-ui.cjs.cjs",
   "module": "dist/dx-react-grid-material-ui.es.js",
+  "globalName": "DevExpress.DXReactGridMaterialUI",
   "files": [
     "dist"
   ],
+  "types": "dist/dx-react-grid-material-ui.d.ts",
   "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
+    "update-api": "api-extractor run",
     "lint": "eslint \"src/**\"",
-    "lint:fix": "yarn lint -- --fix",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
-    "test:watch": "jest --watch",
-    "update-api": "api-extractor run"
-  },
-  "types": "dist/dx-react-grid-material-ui.d.ts",
-  "dependencies": {
-    "clsx": "^1.0.4",
-    "prop-types": "^15.7.2"
-  },
-  "peerDependencies": {
-    "@devexpress/dx-grid-core": "3.0.6",
-    "@devexpress/dx-react-core": "3.0.6",
-    "@devexpress/dx-react-grid": "3.0.6",
-    "@mui/icons-material": ">=5.0.0",
-    "@mui/material": ">=5.0.0",
-    "react": ">=17.0.2"
+    "lint:fix": "yarn lint -- --fix"
   },
   "devDependencies": {
     "@babel/core": "^7.8.7",
@@ -93,17 +94,16 @@
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-license": "^0.12.1"
   },
-  "keywords": [
-    "data",
-    "grid",
-    "material",
-    "material-ui",
-    "react",
-    "react-component",
-    "table"
-  ],
-  "publishConfig": {
-    "access": "public"
+  "dependencies": {
+    "clsx": "^1.0.4",
+    "prop-types": "^15.7.2"
   },
-  "globalName": "DevExpress.DXReactGridMaterialUI"
+  "peerDependencies": {
+    "@devexpress/dx-grid-core": "3.0.6",
+    "@devexpress/dx-react-core": "3.0.6",
+    "@devexpress/dx-react-grid": "3.0.6",
+    "@mui/icons-material": ">=5.0.0",
+    "@mui/material": ">=5.0.0",
+    "react": ">=17.0.2"
+  }
 }

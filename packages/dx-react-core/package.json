@@ -2,19 +2,28 @@
   "name": "@devexpress/dx-react-core",
   "version": "3.0.6",
   "description": "Core library for DevExtreme React Components",
-  "license": "SEE LICENSE IN README.md",
   "author": {
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
+  },
+  "bugs": {
+    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
   },
   "homepage": "https://devexpress.github.io/devextreme-reactive/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
   },
-  "bugs": {
-    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
+  "keywords": [
+    "react",
+    "component",
+    "react-component"
+  ],
+  "license": "SEE LICENSE IN README.md",
+  "publishConfig": {
+    "access": "public"
   },
+  "globalName": "DevExpress.DXReactCore",
   "type": "module",
   "exports": {
     ".": {
@@ -28,26 +37,18 @@
   "files": [
     "dist"
   ],
+  "types": "dist/dx-react-core.d.ts",
   "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
     "dts": "tsc -p tsconfig.dts.json && node ./merge-dts.js",
+    "update-api": "api-extractor run",
     "lint": "tslint -p tsconfig.lint.json",
     "lint:fix": "yarn lint -- --fix",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
-    "test:watch": "jest --watch",
-    "tsc": "tsc",
-    "update-api": "api-extractor run"
-  },
-  "types": "dist/dx-react-core.d.ts",
-  "dependencies": {
-    "@devexpress/dx-core": "3.0.6",
-    "prop-types": "^15.7.2"
-  },
-  "peerDependencies": {
-    "react": ">=17.0.2",
-    "react-dom": ">=17.0.2"
+    "tsc": "tsc"
   },
   "devDependencies": {
     "@rollup/plugin-replace": "^2.3.1",
@@ -69,13 +70,12 @@
     "tslint-config-airbnb": "^5.11.2",
     "typescript": "^4.8.4"
   },
-  "keywords": [
-    "component",
-    "react",
-    "react-component"
-  ],
-  "publishConfig": {
-    "access": "public"
+  "dependencies": {
+    "@devexpress/dx-core": "3.0.6",
+    "prop-types": "^15.7.2"
   },
-  "globalName": "DevExpress.DXReactCore"
+  "peerDependencies": {
+    "react": ">=17.0.2",
+    "react-dom": ">=17.0.2"
+  }
 }

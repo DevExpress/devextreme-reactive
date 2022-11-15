@@ -1,41 +1,44 @@
 {
-  "private": true,
   "name": "@devexpress/dx-vue-core",
+  "private": true,
   "version": "3.0.6",
   "description": "Core library for DevExtreme Vue Components",
-  "license": "SEE LICENSE IN README.md",
   "author": {
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
+  },
+  "bugs": {
+    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
   },
   "homepage": "https://devexpress.github.io/devextreme-reactive/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
   },
-  "bugs": {
-    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
+  "keywords": [
+    "vue",
+    "component",
+    "vue-component"
+  ],
+  "license": "SEE LICENSE IN README.md",
+  "publishConfig": {
+    "access": "public"
   },
   "type": "module",
   "main": "dist/dx-vue-core.umd.cjs",
   "module": "dist/dx-vue-core.es.js",
+  "globalName": "DevExpress.DXVueCore",
   "files": [
     "dist"
   ],
   "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
     "lint": "eslint \"src/**\"",
-    "lint:fix": "yarn lint -- --fix",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
-    "test:watch": "jest --watch"
-  },
-  "dependencies": {
-    "@devexpress/dx-core": "3.0.6"
-  },
-  "peerDependencies": {
-    "vue": ">=2.6.10"
+    "lint:fix": "yarn lint -- --fix"
   },
   "devDependencies": {
     "@devexpress/dx-testing": "3.0.6",
@@ -65,13 +68,10 @@
     "vue-server-renderer": "^2.6.10",
     "vue-template-compiler": "^2.6.10"
   },
-  "keywords": [
-    "component",
-    "vue",
-    "vue-component"
-  ],
-  "publishConfig": {
-    "access": "public"
+  "dependencies": {
+    "@devexpress/dx-core": "3.0.6"
   },
-  "globalName": "DevExpress.DXVueCore"
+  "peerDependencies": {
+    "vue": ">=2.6.10"
+  }
 }

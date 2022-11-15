@@ -3,11 +3,11 @@
   "name": "@devexpress/dx-testing",
   "version": "3.0.6",
   "description": "DevExtreme Reactive Components Testing Utilities",
-  "license": "SEE LICENSE IN README.md",
   "author": {
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
   },
+  "license": "SEE LICENSE IN README.md",
   "type": "module",
   "exports": {
     ".": {
@@ -18,21 +18,12 @@
   },
   "main": "dist/dx-testing.umd.js",
   "module": "dist/dx-testing.es.js",
+  "globalName": "DevExpress.DXTesting",
   "scripts": {
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
     "lint": "eslint \"src/**\"",
     "lint:fix": "yarn lint --fix"
-  },
-  "dependencies": {
-    "@devexpress/dx-react-core": "3.0.6",
-    "enzyme": "3.10.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "util": "^0.12.1"
-  },
-  "peerDependencies": {
-    "jest": "^29.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.8.7",
@@ -51,5 +42,14 @@
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-license": "^0.12.1"
   },
-  "globalName": "DevExpress.DXTesting"
+  "dependencies": {
+    "@devexpress/dx-react-core": "3.0.6",
+    "enzyme": "3.10.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "util": "^0.12.1"
+  },
+  "peerDependencies": {
+    "jest": "^29.2.2"
+  }
 }

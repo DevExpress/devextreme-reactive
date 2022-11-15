@@ -2,18 +2,17 @@
   "name": "@devexpress/dx-core",
   "version": "3.0.6",
   "description": "Core library for DevExtreme Reactive Components",
-  "license": "SEE LICENSE IN README.md",
   "author": {
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
+  },
+  "bugs": {
+    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
   },
   "homepage": "https://devexpress.github.io/devextreme-reactive/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
-  },
-  "bugs": {
-    "url": "https://github.com/DevExpress/devextreme-reactive/issues"
   },
   "type": "module",
   "exports": {
@@ -23,23 +22,33 @@
       "default": "./dist/dx-core.es.js"
     }
   },
+  "keywords": [
+    "pluggable",
+    "reactive",
+    "components"
+  ],
+  "license": "SEE LICENSE IN README.md",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist/dx-core.umd.cjs",
   "module": "dist/dx-core.es.js",
+  "globalName": "DevExpress.DXCore",
   "files": [
     "dist"
   ],
+  "types": "dist/dx-core.d.ts",
+  "typings": "dist/dx-core.d.ts",
   "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
     "dts": "tsc -p tsconfig.dts.json && node ./merge-dts.js",
     "lint": "tslint -p tsconfig.lint.json",
-    "lint:fix": "yarn lint -- --fix",
-    "test": "jest",
-    "test:coverage": "jest --coverage",
-    "test:watch": "jest --watch"
+    "lint:fix": "yarn lint -- --fix"
   },
-  "types": "dist/dx-core.d.ts",
-  "typings": "dist/dx-core.d.ts",
   "devDependencies": {
     "@rollup/plugin-replace": "^2.3.1",
     "core-js": "^3.4.1",
@@ -56,14 +65,5 @@
     "tslint-react": "^4.1.0",
     "typescript": "^4.8.4",
     "typescript-tslint-plugin": "^1.0.1"
-  },
-  "keywords": [
-    "components",
-    "pluggable",
-    "reactive"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
-  "globalName": "DevExpress.DXCore"
+  }
 }

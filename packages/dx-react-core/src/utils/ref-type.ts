@@ -1,4 +1,5 @@
 /* globals Element */
+// tslint:disable-next-line
 import PropTypes from 'prop-types';
 
 /** @internal */

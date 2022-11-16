@@ -46,7 +46,7 @@ jest.mock('@devexpress/dx-react-grid', () => {
     TableColumnsWithDataRowsGetter: () => null,
     VisibleTableColumns: () => null,
     OrderedTableColumns: () => null,
-  }
+  };
 });
 
 jest.mock('@devexpress/dx-grid-core', () => ({

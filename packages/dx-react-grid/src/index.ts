@@ -62,5 +62,5 @@ export * from './utils/with-keyboard-navigation';
 
 export * from './components/summary/inline-summary-item';
 
-export * from './plugins/internal'
-export * from './components/summary/constants'
+export * from './plugins/internal';
+export * from './components/summary/constants';

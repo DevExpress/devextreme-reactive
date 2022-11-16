@@ -1,14 +1,15 @@
 {
-    "extends": "../../.eslintrc.react.json",
-    "plugins": [
-        "jest"
-    ],
-    "env": {
-      "browser": true,
-      "jest/globals": true
-    },
-    "rules": {
-        "filenames/match-regex": [2, "^[a-z-\\.\\d]+$"],
-        "no-restricted-imports": ["error", "@mui/material", "@mui/icons-material"]
-    }
+  "extends": "../../.eslintrc.react.json",
+  "ignorePatterns": ["src/*-registry.js"],
+  "plugins": [
+    "jest"
+  ],
+  "env": {
+    "browser": true,
+    "jest/globals": true
+  },
+  "rules": {
+    "filenames/match-regex": [2, "^[a-z-\\.\\d]+$"],
+    "no-restricted-imports": ["error", "@mui/material", "@mui/icons-material"]
+  }
 }

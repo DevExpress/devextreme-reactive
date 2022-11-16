@@ -10,10 +10,17 @@ import {
 import {
   IntegratedGrouping, GroupingState, SummaryState, IntegratedSummary, Table, SelectionState,
   FilteringState, IntegratedFiltering, SortingState, IntegratedSorting,
+} from '@devexpress/dx-react-grid';
+
+/* tslint:disable no-submodule-imports */
+import {
   TableColumnsWithGrouping, TableColumnsWithDataRowsGetter,
   VisibleTableColumns, OrderedTableColumns, GridCoreGetters,
+} from '../../../dx-react-grid/src/plugins/internal';
+import {
   defaultSummaryMessages,
-} from '@devexpress/dx-react-grid';
+} from '../../../dx-react-grid/src/components/summary/constants';
+/* tslint:enable no-submodule-imports */
 
 import { createWorkbook, createWorksheet } from './helpers';
 import { ExporterProps } from '../types';

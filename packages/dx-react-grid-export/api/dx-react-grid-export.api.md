@@ -9,13 +9,12 @@ import { Column as Column_2 } from '@devexpress/dx-react-grid/dist/dx-react-grid
 import { FilteringStateProps } from '@devexpress/dx-react-grid/dist/dx-react-grid';
 import { GridProps } from '@devexpress/dx-react-grid/dist/dx-react-grid';
 import { GroupingStateProps } from '@devexpress/dx-react-grid/dist/dx-react-grid';
-import { GroupSummaryItem as GroupSummaryItem_2 } from '@devexpress/dx-react-grid/dist/dx-react-grid';
-import { PureComputed } from '@devexpress/dx-core';
+import { GroupSummaryItem } from '@devexpress/dx-react-grid/dist/dx-react-grid';
 import * as React_2 from 'react';
-import { Row as Row_2 } from 'exceljs';
+import { Row } from 'exceljs';
 import { SelectionStateProps } from '@devexpress/dx-react-grid/dist/dx-react-grid';
 import { SortingStateProps } from '@devexpress/dx-react-grid/dist/dx-react-grid';
-import { SummaryItem as SummaryItem_2 } from '@devexpress/dx-react-grid/dist/dx-react-grid';
+import { SummaryItem } from '@devexpress/dx-react-grid/dist/dx-react-grid';
 import { TableColumnVisibilityProps } from '@devexpress/dx-react-grid/dist/dx-react-grid';
 import { TableGroupRow } from '@devexpress/dx-react-grid/dist/dx-react-grid';
 import { TableGroupRowProps } from '@devexpress/dx-react-grid/dist/dx-react-grid';
@@ -30,65 +29,17 @@ export interface Column {
     title?: string;
 }
 
-// @public
-export interface ColumnBands {
-    children?: ColumnBands[];
-    columnName?: string;
-    title?: string;
-}
-
 // @public (undocumented)
-export interface ColumnChooserItem {
-    column: Column_2;
-    hidden: boolean;
-}
-
-// @public (undocumented)
-export interface ColumnSizes {
-    size: number;
-    width: number;
-}
-
-// @public (undocumented)
-export type ColumnSummary = {
-    type: SummaryType;
-    value: SummaryValue;
-};
-
-// @public (undocumented)
-export type CustomizeCellFn = (cell: Cell, row: Row, column: Column_2) => void;
-
-// @public (undocumented)
-export type CustomizeSummaryCellFn = (cell: Cell, column: Column_2, summary: ExportSummary) => void;
-
-// @public (undocumented)
-export interface EditingCell {
-    // (undocumented)
-    columnName: string;
-    // (undocumented)
-    rowId: number | string;
-}
-
-// @public (undocumented)
-export interface EditingColumnExtension {
-    columnName: string;
-    createRowChange?: (row: any, value: any, columnName: string) => any;
-    editingEnabled?: boolean;
-}
-
-// @public (undocumented)
-export type Elements = {
-    [key: string]: any[];
-};
+export type CustomizeSummaryCellFn = (cell: Cell, column: Column, summary: ExportSummary) => void;
 
 // @public (undocumented)
 export type ExporterProps = Omit<GridProps, 'rootComponent'> & Pick<FilteringStateProps, 'filters'> & Pick<SortingStateProps, 'sorting'> & Pick<GroupingStateProps, 'grouping'> & Pick<TableGroupRowProps, 'showColumnsWhenGrouped'> & Pick<SelectionStateProps, 'selection'> & Pick<TableProps, 'columnExtensions'> & Pick<TableColumnVisibilityProps, 'hiddenColumnNames'> & {
     columnOrder?: string[];
     groupColumnExtensions?: TableGroupRow.ColumnExtension[];
-    totalSummaryItems?: SummaryItem_2[];
-    groupSummaryItems?: GroupSummaryItem_2[];
+    totalSummaryItems?: SummaryItem[];
+    groupSummaryItems?: GroupSummaryItem[];
     onSave: (workbook: Workbook) => void;
-    customizeCell?: (cell: Cell, row: Row_2, column: Column_2) => void;
+    customizeCell?: (cell: Cell, row: Row, column: Column_2) => void;
     customizeSummaryCell?: CustomizeSummaryCellFn;
     customizeHeader?: (worksheet: Worksheet) => void;
     customizeFooter?: (worksheet: Worksheet) => void;
@@ -104,266 +55,17 @@ export type ExportSummary = {
     ranges: ExportRanges;
 };
 
-// @public
-export interface Filter {
-    columnName: string;
-    operation?: FilterOperation;
-    value?: any;
-}
-
-// @public
-export interface FilterExpression {
-    filters: Array<FilterExpression | Filter>;
-    operator: 'and' | 'or';
-}
-
-// @public
-export type FilterOperation = string;
-
-// @public (undocumented)
-export interface FocusedCell {
-    // (undocumented)
-    columnKey: string;
-    // (undocumented)
-    rowKey: string;
-}
-
-// @public (undocumented)
-export interface FocusedElement {
-    // (undocumented)
-    columnKey: string;
-    // (undocumented)
-    index?: number;
-    // (undocumented)
-    part: string;
-    // (undocumented)
-    rowKey: string;
-}
-
-// @public (undocumented)
-export type FocusedElementWScrolling = {
-    element?: FocusedElement;
-    scrolling?: 'left' | 'right';
-};
-
-// @public (undocumented)
-export type GetCellNextPrevPartFn = PureComputed<[
-FocusedElement,
-Elements,
-TableRow[],
-TableColumn[],
-number,
-ScrollToColumnFn?
-], FocusedElementWScrolling>;
-
 // @public (undocumented)
 export type GetCellValueFn = (row: any, columnName: string) => any;
 
 // @public (undocumented)
-export type GetElementFn = PureComputed<[
-FocusedElement,
-TableRow[],
-TableColumn[],
-TableRow[],
-Elements,
-ScrollToColumnFn?
-], FocusedElementWScrolling>;
-
-// @public (undocumented)
-export type GetElementPrevNextPartFn = PureComputed<[
-FocusedElement,
-Elements,
-TableRow[],
-TableColumn[],
-ScrollToColumnFn?
-], FocusedElementWScrolling>;
-
-// @public (undocumented)
-export type GetFocusedElementFn = PureComputed<[
-string,
-boolean,
-FocusedElement,
-TableColumn[],
-TableRow[],
-Elements
-], FocusedElement | void>;
-
-// @public (undocumented)
-export type GetInnerElementsFn = PureComputed<[
-Elements,
-string,
-string,
-string?
-], any[]>;
-
-// @public (undocumented)
-export type GetNextCellFromHeadingFn = PureComputed<[
-TableRow[],
-TableRow[],
-TableColumn[],
-number,
-FocusedElement,
-Elements,
-ScrollToColumnFn?
-], FocusedElementWScrolling>;
-
-// @public (undocumented)
-export type GetNextFocusedElementFn = PureComputed<[
-TableColumn[],
-TableRow[],
-TableRow[],
-RowId[],
-Elements,
-any,
-InlineEditing,
-FocusedElement?,
-ScrollToColumnFn?
-], FocusedElementWScrolling>;
-
-// @public (undocumented)
-export type GetNextPrevCellFromBodyFn = PureComputed<[
-number,
-number,
-TableColumn[],
-TableRow[],
-FocusedElement,
-Elements,
-ScrollToColumnFn?
-], FocusedElementWScrolling>;
-
-// @public (undocumented)
-export type GetNextPrevPartFn = PureComputed<[FocusedElement, Elements, TableRow[]], string | void>;
-
-// @public (undocumented)
-export type GetPrevCellFromHeadingFn = PureComputed<[
-TableRow[],
-TableColumn[],
-number,
-FocusedElement,
-Elements
-], FocusedElementWScrolling>;
-
-// @public (undocumented)
-export type GridColumnExtension = {
-    columnName: string;
-    width?: number | string;
-    align?: 'left' | 'right' | 'center';
-    wordWrapEnabled?: boolean;
-} & IntegratedFiltering.ColumnExtension;
-
-// @public (undocumented)
-export const GridExporter: React_2.ComponentType<ExporterProps>;
-
-// @public
-export interface Grouping {
-    columnName: string;
-}
-
-// @public
-export interface GroupingPanelItem {
-    column: Column_2;
-    draft?: boolean;
-}
-
-// @public
-export type GroupKey = string;
-
-// @public (undocumented)
-export interface GroupSummaryItem extends SummaryItem_2 {
-    // (undocumented)
-    alignByColumn?: boolean;
-    // (undocumented)
-    showInGroupFooter?: boolean;
-}
-
-// @public (undocumented)
-export type InlineEditing = {
-    stopEditCells?: (arg: any) => void;
-    commitChangedRows?: (arg: any) => void;
-    cancelChangedRows?: (arg: any) => void;
-    startEditCells?: (arg: any) => void;
+export const GridExporter: React_2.ComponentType<ExporterProps> & {
+    exportGrid: (options?: object) => void;
 };
-
-// @public (undocumented)
-export namespace IntegratedFiltering {
-    export interface ColumnExtension {
-        columnName: string;
-        predicate?: (value: any, filter: Filter, row: any) => boolean;
-    }
-}
-
-// @public (undocumented)
-export type OnFocusedCellChangeFn = (cell: FocusedCell) => void;
-
-// @public (undocumented)
-export interface ResizingSizes {
-    nextSize?: number;
-    size: number;
-}
-
-// @public (undocumented)
-export type Row = any;
-
-// @public (undocumented)
-export type RowId = number | string;
-
-// @public (undocumented)
-export type ScrollToColumnFn = (value: symbol) => void;
-
-// @public
-export interface Sorting {
-    columnName: string;
-    direction: SortingDirection;
-}
-
-// @public (undocumented)
-export type SortingDirection = 'asc' | 'desc';
-
-// @public
-export interface SummaryItem {
-    columnName: string;
-    type: SummaryType;
-}
 
 // @public (undocumented)
 export type SummaryType = string;
 
-// @public (undocumented)
-export type SummaryValue = number | null;
-
-// @public
-export interface TableColumn {
-    align?: 'left' | 'right' | 'center';
-    column?: Column_2;
-    fixed?: 'left' | 'right';
-    key: string;
-    type: symbol;
-    width?: number | string;
-}
-
-// @public (undocumented)
-export namespace TableColumnResizing {
-    export interface ColumnExtension {
-        columnName: string;
-        maxWidth?: number;
-        minWidth?: number;
-    }
-}
-
-// @public
-export interface TableColumnWidthInfo {
-    columnName: string;
-    width: number | string;
-}
-
-// @public
-export interface TableRow {
-    height?: number;
-    key: string;
-    row?: any;
-    rowId?: number | string;
-    type: symbol;
-}
 
 // (No @packageDocumentation comment for this package)
 

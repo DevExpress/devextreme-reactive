@@ -1,8 +1,7 @@
-var gulp = require('gulp'),
-    runSequence = require("run-sequence"),
-    clean = require('gulp-clean'),
-    rename = require('gulp-rename'),
-    intercept = require('gulp-intercept');
+import gulp from 'gulp';
+import clean from 'gulp-clean';
+import rename from 'gulp-rename';
+import intercept from 'gulp-intercept';
 
 var distPath = 'site/';
 var versionTag = process.env.VERSION_TAG;

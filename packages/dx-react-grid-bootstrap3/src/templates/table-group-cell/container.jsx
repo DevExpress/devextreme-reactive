@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { StyleContext } from '../layout';
 
 export const Container = ({

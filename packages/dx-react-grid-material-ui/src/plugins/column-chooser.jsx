@@ -1,4 +1,4 @@
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { withComponents } from '@devexpress/dx-react-core';
 import { ColumnChooser as ColumnChooserBase } from '@devexpress/dx-react-grid';
 import { Overlay } from '../templates/column-chooser/overlay';

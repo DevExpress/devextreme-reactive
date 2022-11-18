@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { navigateByOneMonth } from '@devexpress/dx-scheduler-core';
 import { Table } from './table';
 

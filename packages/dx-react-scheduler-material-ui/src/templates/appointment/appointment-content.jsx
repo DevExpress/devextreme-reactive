@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { HORIZONTAL_TYPE, VERTICAL_TYPE } from '@devexpress/dx-scheduler-core';
 import { HorizontalAppointment } from './horizontal-appointment';
 import { VerticalAppointment } from './vertical-appointment';

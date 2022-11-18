@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import FeatureDescriptionBase from './feature-description-base';
 import FeatureTitleBase from './feature-title-base';
 

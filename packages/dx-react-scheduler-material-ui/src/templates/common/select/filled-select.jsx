@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import MenuItem from '@mui/material/MenuItem';
 import classNames from 'clsx';
 import TextField from '@mui/material/TextField';

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import DocPreviewContainer from './shadow-container';
 
 import styles from './product-doc-preview.module.scss';

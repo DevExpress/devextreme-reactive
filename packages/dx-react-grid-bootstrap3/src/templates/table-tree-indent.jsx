@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 export const TableTreeIndent = React.memo(({ level }) => Array.from({ length: level })
   .map((value, currentLevel) => (

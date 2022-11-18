@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Resources as ResourcesBase } from '@devexpress/dx-react-scheduler';
 import { DEFAULT_PALETTE } from '../templates/constants';
 

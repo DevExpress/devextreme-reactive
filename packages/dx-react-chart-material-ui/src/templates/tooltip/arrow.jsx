@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import classNames from 'clsx';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const PREFIX = 'Arrow';
 

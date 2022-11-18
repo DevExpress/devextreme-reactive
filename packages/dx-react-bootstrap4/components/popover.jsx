@@ -2,7 +2,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Popper } from 'react-popper';
 
 const DefaultArrowComponent = React.forwardRef(({ placement, ...restProps }, ref) => (

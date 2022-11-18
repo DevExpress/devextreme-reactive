@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 import {
   TabContent, TabPane, Nav, NavItem, NavLink,

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { prepareVerticalViewCellsData } from '@devexpress/dx-scheduler-core';
 import { Layout as LayoutBase } from '../../common/layout';
 import { getViewCellKey } from '../../../utils';

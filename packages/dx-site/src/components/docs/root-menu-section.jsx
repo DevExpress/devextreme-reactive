@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import SectionBase from './menu-section';
 import SubSection from './menu-sub-section';
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import LeftMenu from '../docs/left-menu';
 
 import styles from './container-with-menu.module.scss';

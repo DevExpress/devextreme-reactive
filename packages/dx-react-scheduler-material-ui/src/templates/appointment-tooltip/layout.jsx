@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import Popover from '@mui/material/Popover';
 import { SMALL_LAYOUT_MEDIA_QUERY } from '../constants';
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const RowSpacer = ({ topSize, bottomSize }) => (
   <div className={`row mt-${topSize} mb-${bottomSize}`} />

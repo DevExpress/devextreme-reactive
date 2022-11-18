@@ -1,7 +1,7 @@
 /* global document:true window:true */
 
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { graphql, withPrefix } from 'gatsby';
 import Helmet from 'react-helmet';
 import PageLayout from '../components/layouts/docs-page-layout';

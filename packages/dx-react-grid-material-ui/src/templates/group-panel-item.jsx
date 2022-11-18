@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import classNames from 'clsx';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Chip from '@mui/material/Chip';

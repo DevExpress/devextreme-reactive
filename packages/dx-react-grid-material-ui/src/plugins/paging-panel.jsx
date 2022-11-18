@@ -1,4 +1,4 @@
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { withComponents } from '@devexpress/dx-react-core';
 import { PagingPanel as PagingPanelBase } from '@devexpress/dx-react-grid';
 import { Pager as Container } from '../templates/paging-panel/pager';

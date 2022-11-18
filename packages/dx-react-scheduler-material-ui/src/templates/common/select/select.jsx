@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { STANDARD_SELECT } from '@devexpress/dx-scheduler-core';
 import { FilledSelect } from './filled-select';
 import { OutlinedSelect } from './outlined-select';

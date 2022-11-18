@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { getCellGeometries } from '@devexpress/dx-grid-core';
 
 export const TableReorderingCell = ({ style, getCellDimensions }) => {

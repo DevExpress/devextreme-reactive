@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import GatsbyLink from 'gatsby-link';
 import styles from './feature-title-base.module.scss';
 

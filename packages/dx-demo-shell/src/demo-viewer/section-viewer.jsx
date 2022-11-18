@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 
 import { ThemeViewer } from './theme-viewer';

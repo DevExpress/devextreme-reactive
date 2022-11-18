@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import PageLayout from './page-layout';
 import ContainerWithMenu from './container-with-menu';
 import Search from '../docs/search';

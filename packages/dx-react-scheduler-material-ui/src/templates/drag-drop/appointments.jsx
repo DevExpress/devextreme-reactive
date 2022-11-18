@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import classNames from 'clsx';
 import Repeat from '@mui/icons-material/Repeat';
 import { POSITION_START, POSITION_END } from '@devexpress/dx-scheduler-core';

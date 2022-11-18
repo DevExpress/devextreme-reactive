@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import LandingFeatureDescription from './feature-description';
 import LandingFeaturePreview from './feature-preview';
 import LayoutItemContainer from './layout-item-container';

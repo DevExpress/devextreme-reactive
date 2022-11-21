@@ -1,11 +1,7 @@
-import { fileURLToPath } from 'url';
-import path from 'path';
+import { URL } from 'url';
 
 export default {
   setupFiles: [
-    path.join(
-      path.dirname(fileURLToPath(import.meta.url)),
-      './setup-vue.js',
-    ),
+    new URL('./setup-vue.js', import.meta.url).pathname,
   ],
 };

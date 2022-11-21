@@ -1,18 +1,11 @@
-import { fileURLToPath } from 'url';
-import path from 'path';
+import { URL } from 'url';
 
 export default {
   moduleNameMapper: {
-    '\\.css$': path.join(
-      path.dirname(fileURLToPath(import.meta.url)),
-      './css-stub.js',
-    ),
+    '\\.css$': new URL('./css-stub.js', import.meta.url).pathname,
     '^vue$': 'vue/dist/vue.common.js',
   },
   setupFiles: [
-    path.join(
-      path.dirname(fileURLToPath(import.meta.url)),
-      './setup-vue.js',
-    ),
+    new URL('./setup-vue.js', import.meta.url).pathname,
   ],
 };

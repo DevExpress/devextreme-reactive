@@ -1,13 +1,9 @@
-import { fileURLToPath } from 'url';
-import path from 'path';
+import { URL } from 'url';
 
 export default {
   // automock: true,
   setupFiles: [
-    path.join(
-      path.dirname(fileURLToPath(import.meta.url)),
-      './setup-enzyme.js',
-    ),
+    new URL('./setup-enzyme.js', import.meta.url).pathname,
   ],
   testEnvironment: 'jsdom',
   transform: {

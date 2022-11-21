@@ -1,4 +1,4 @@
-import { fileURLToPath } from 'url';
+import { fileURLToPath, URL } from 'url';
 import path from 'path';
 
 export default {
@@ -12,10 +12,7 @@ export default {
     '/dist/',
   ],
   moduleNameMapper: {
-    '\\.(css|svg)$': path.join(
-      path.dirname(fileURLToPath(import.meta.url)),
-      './stub-module.js',
-    ),
+    '\\.(css|svg)$': new URL('./stub-module.js', import.meta.url).pathname,
   },
   moduleFileExtensions: [
     'js',
@@ -29,9 +26,6 @@ export default {
     '**/*.test.(ts|tsx|js|jsx)',
   ],
   setupFiles: [
-    path.join(
-      path.dirname(fileURLToPath(import.meta.url)),
-      './setup-enzyme.js',
-    ),
+    new URL('./setup-enzyme.js', import.meta.url).pathname,
   ],
 };

@@ -1,18 +1,11 @@
-import { fileURLToPath } from 'url';
-import path from 'path';
+import { URL } from 'url';
 
 export default {
   moduleNameMapper: {
-    '.css$': path.join(
-      path.dirname(fileURLToPath(import.meta.url)),
-      './css-stub.js',
-    ),
+    '.css$': new URL('./css-stub.js', import.meta.url).pathname,
   },
   setupFiles: [
-    path.join(
-      path.dirname(fileURLToPath(import.meta.url)),
-      './setup-enzyme.js',
-    ),
+    new URL('./setup-enzyme.js', import.meta.url).pathname,
   ],
   transform: {
     '^.+\\.jsx?$': '../../tools/setup-babel-jest.js',

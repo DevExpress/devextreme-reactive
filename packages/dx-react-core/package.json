@@ -23,9 +23,17 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/dx-react-core.umd.js",
-  "module": "dist/dx-react-core.es.js",
   "globalName": "DevExpress.DXReactCore",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/dx-react-core.umd.cjs",
+      "import": "./dist/dx-react-core.es.js",
+      "default": "./dist/dx-react-core.es.js"
+    }
+  },
+  "main": "dist/dx-react-core.umd.cjs",
+  "module": "dist/dx-react-core.es.js",
   "files": [
     "dist"
   ],

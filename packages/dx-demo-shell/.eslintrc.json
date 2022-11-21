@@ -1,10 +1,10 @@
 {
-    "extends": "../../.eslintrc.react.json",
-    "env": {
-      "browser": true
-    },
-    "rules": {
-        "filenames/match-regex": [2, "^[a-z-\\.]+$"],
-        "no-restricted-imports": ["error", "@mui/material", "@mui/icons-material"]
-    }
+  "extends": "../../.eslintrc.react.json",
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "filenames/match-regex": [2, "^[a-z-\\.]+$"],
+    "no-restricted-imports": ["error", "@mui/material", "@mui/icons-material"]
+  }
 }

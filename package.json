@@ -9,6 +9,7 @@
     "type": "git",
     "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
   },
+  "type": "module",
   "license": "SEE LICENSE IN README.md",
   "devDependencies": {
     "@microsoft/api-extractor": "7.20.0",

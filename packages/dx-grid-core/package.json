@@ -23,7 +23,15 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/dx-grid-core.umd.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/dx-grid-core.umd.cjs",
+      "import": "./dist/dx-grid-core.es.js",
+      "default": "./dist/dx-grid-core.es.js"
+    }
+  },
+  "main": "dist/dx-grid-core.umd.cjs",
   "module": "dist/dx-grid-core.es.js",
   "types": "dist/dx-grid-core.d.ts",
   "globalName": "DevExpress.DXGridCore",

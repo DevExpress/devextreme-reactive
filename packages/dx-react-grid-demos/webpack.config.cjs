@@ -1,7 +1,6 @@
 /* eslint-disable */
 
 var path = require('path');
-var webpack = require('webpack');
 var WriteFilePlugin = require('write-file-webpack-plugin');
 
 module.exports = ({ production }) => ({

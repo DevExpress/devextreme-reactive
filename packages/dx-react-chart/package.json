@@ -24,7 +24,15 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/dx-react-chart.umd.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/dx-react-chart.umd.cjs",
+      "import": "./dist/dx-react-chart.es.js",
+      "default": "./dist/dx-react-chart.es.js"
+    }
+  },
+  "main": "dist/dx-react-chart.umd.cjs",
   "module": "dist/dx-react-chart.es.js",
   "globalName": "DevExpress.DXReactChart",
   "files": [

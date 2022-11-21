@@ -1,8 +1,8 @@
-const path = require('path');
+import { URL } from 'url';
 
-module.exports = {
+export default {
   setupFiles: [
-    path.join(__dirname, './setup-enzyme.js'),
+    new URL('./setup-enzyme.js', import.meta.url).pathname,
   ],
   testEnvironment: 'jsdom',
 };

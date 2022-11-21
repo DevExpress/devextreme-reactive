@@ -18,7 +18,6 @@ import {
   createWorksheet,
 } from './helpers';
 
-/* tslint:disable no-submodule-imports */
 import {
   GroupingState,
   IntegratedGrouping,
@@ -30,14 +29,18 @@ import {
   IntegratedSorting,
   SortingState,
 } from '@devexpress/dx-react-grid';
-import { defaultSummaryMessages } from '@devexpress/dx-react-grid/src/components/summary/constants';
+
+/* tslint:disable no-submodule-imports */
 import {
-  GridCoreGetters, TableColumnsWithDataRowsGetter, TableColumnsWithGrouping,
-  VisibleTableColumns, OrderedTableColumns,
-} from '@devexpress/dx-react-grid/src/plugins/internal';
+  defaultSummaryMessages,
+} from '../../../dx-react-grid/src/components/summary/constants';
+import {
+  TableColumnsWithGrouping, TableColumnsWithDataRowsGetter,
+  VisibleTableColumns, OrderedTableColumns, GridCoreGetters,
+} from '../../../dx-react-grid/src/plugins/internal';
 /* tslint:enable no-submodule-imports */
 
-jest.mock('@devexpress/dx-react-grid/src/plugins/internal', () => ({
+jest.mock('../../../dx-react-grid/src/plugins/internal', () => ({
   GridCoreGetters: () => null,
   TableColumnsWithGrouping: () => null,
   TableColumnsWithDataRowsGetter: () => null,

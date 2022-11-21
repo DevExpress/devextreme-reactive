@@ -1,11 +1,11 @@
-const path = require('path');
+import { URL } from 'url';
 
-module.exports = {
+export default {
   moduleNameMapper: {
-    '.css$': path.join(__dirname, './css-stub.js'),
+    '.css$': new URL('./css-stub.js', import.meta.url).pathname,
   },
   setupFiles: [
-    path.join(__dirname, './setup-enzyme.js'),
+    new URL('./setup-enzyme.js', import.meta.url).pathname,
   ],
   transform: {
     '^.+\\.jsx?$': '../../tools/setup-babel-jest.js',

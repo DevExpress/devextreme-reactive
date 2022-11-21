@@ -24,10 +24,18 @@
     "visualization"
   ],
   "license": "SEE LICENSE IN README.md",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/dx-react-chart-bootstrap4.umd.cjs",
+      "import": "./dist/dx-react-chart-bootstrap4.es.js",
+      "default": "./dist/dx-react-chart-bootstrap4.es.js"
+    }
+  },
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/dx-react-chart-bootstrap4.umd.js",
+  "main": "dist/dx-react-chart-bootstrap4.umd.cjs",
   "module": "dist/dx-react-chart-bootstrap4.es.js",
   "styles": "dist/dx-react-chart-bootstrap4.css",
   "globalName": "DevExpress.DXReactChartBootstrap4",

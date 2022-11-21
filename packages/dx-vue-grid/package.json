@@ -24,7 +24,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/dx-vue-grid.umd.js",
+  "type": "module",
+  "main": "dist/dx-vue-grid.umd.cjs",
   "module": "dist/dx-vue-grid.es.js",
   "globalName": "DevExpress.DXVueGrid",
   "files": [

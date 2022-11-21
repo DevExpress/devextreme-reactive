@@ -26,7 +26,15 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/dx-react-grid-bootstrap3.umd.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/dx-react-grid-bootstrap3.umd.cjs",
+      "import": "./dist/dx-react-grid-bootstrap3.es.js",
+      "default": "./dist/dx-react-grid-bootstrap3.es.js"
+    }
+  },
+  "main": "dist/dx-react-grid-bootstrap3.umd.cjs",
   "module": "dist/dx-react-grid-bootstrap3.es.js",
   "globalName": "DevExpress.DXReactGridBootstrap3",
   "files": [

@@ -8,6 +8,7 @@
     "url": "https://www.devexpress.com/"
   },
   "license": "SEE LICENSE IN README.md",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "jest",

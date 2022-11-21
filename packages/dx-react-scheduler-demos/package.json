@@ -8,18 +8,19 @@
     "url": "https://www.devexpress.com/"
   },
   "license": "SEE LICENSE IN README.md",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "build:generator": "node ../dx-demo-shell/generate-demos.js",
-    "build": "yarn build:generator && webpack --env",
-    "build:prod": "yarn build:generator && webpack --env.production",
+    "build": "yarn build:generator && webpack --config webpack.config.cjs --env",
+    "build:prod": "yarn build:generator && webpack --config webpack.config.cjs --env.production",
     "build:watch:generator": "nodemon --exec \"yarn build:generator\" --watch \"src/demo-sources/**/*\" --ignore \"**/*.g.jsx\"  --ignore \"**/*.g.test.jsx\" --watch \"src/theme-sources/*/demo-source-data.json\" --watch \"generate-demos.js\" --ext js,jsx,jsxt,json,ts,tsx,tsxt",
     "build:watch": "concurrently \"yarn build:watch:generator\" \"yarn start-demo-server\"",
-    "start-demo-server": "webpack-dev-server --env",
-    "start-demo-server:prod": "webpack-dev-server --env.production",
+    "start-demo-server": "webpack-dev-server --config webpack.config.cjs --env",
+    "start-demo-server:prod": "webpack-dev-server --config webpack.config.cjs --env.production",
     "lint": "eslint \"src/**/*.{js,jsx}\" --ignore-pattern \"**/*.testcafe.js\" --ignore-pattern \"*.partial.jsx\"",
     "lint:fix": "yarn lint -- --fix"
   },

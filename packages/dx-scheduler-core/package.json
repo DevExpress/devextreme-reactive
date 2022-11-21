@@ -22,7 +22,15 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/dx-scheduler-core.umd.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/dx-scheduler-core.umd.cjs",
+      "import": "./dist/dx-scheduler-core.es.js",
+      "default": "./dist/dx-scheduler-core.es.js"
+    }
+  },
+  "main": "dist/dx-scheduler-core.umd.cjs",
   "module": "dist/dx-scheduler-core.es.js",
   "globalName": "DevExpress.DXSchedulerCore",
   "files": [

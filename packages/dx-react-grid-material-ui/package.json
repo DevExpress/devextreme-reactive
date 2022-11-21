@@ -27,7 +27,15 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/dx-react-grid-material-ui.cjs.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/dx-react-grid-material-ui.cjs.cjs",
+      "import": "./dist/dx-react-grid-material-ui.es.js",
+      "default": "./dist/dx-react-grid-material-ui.es.js"
+    }
+  },
+  "main": "dist/dx-react-grid-material-ui.cjs.cjs",
   "module": "dist/dx-react-grid-material-ui.es.js",
   "globalName": "DevExpress.DXReactGridMaterialUI",
   "files": [
@@ -65,6 +73,7 @@
     "babel-eslint": "^10.0.3",
     "babel-jest": "^29.2.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "babel-plugin-transform-rename-import": "^2.3.0",
     "core-js": "^3.4.1",
     "enzyme": "3.10.0",
     "eslint": "^6.6.0",

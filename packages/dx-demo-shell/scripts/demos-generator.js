@@ -1,9 +1,8 @@
-const fs = require('fs');
-const path = require('path');
-const mustache = require('mustache');
-const {
-  overrideFileIfChanged, getFileContents, writeObjectToFile,
-} = require('./fs-utils');
+import fs from 'fs';
+import path from 'path';
+import mustache from 'mustache';
+
+import { overrideFileIfChanged } from './fs-utils.js';
 
 const DEMOS_FOLDER = './src/demo-sources';
 const THEMES_FOLDER = './src/theme-sources';
@@ -38,7 +37,8 @@ const cancelFileRemoving = (filename) => {
     filesToRemove.splice(removeIndex, 1);
   }
 };
-const removePendingFiles = () => {
+
+export const removePendingFiles = () => {
   filesToRemove.forEach(file => fs.unlinkSync(file));
 };
 
@@ -51,7 +51,7 @@ const createFromTemplate = (sourceFilename, outputFilename, data) => {
   cancelFileRemoving(outputFilename);
 };
 
-const loadDemosToGenerate = (themeNames) => {
+export const loadDemosToGenerate = (themeNames) => {
   const demos = [];
   fs.readdirSync(DEMOS_FOLDER).forEach((sectionName) => {
     if (sectionName.startsWith('.')) return;
@@ -162,7 +162,7 @@ const processPartialContent = (content) => {
   return bag;
 };
 
-const generateDemos = (demos) => {
+export const generateDemos = (demos) => {
   demos.forEach(({
     sectionName,
     demoName,
@@ -216,10 +216,4 @@ const generateDemos = (demos) => {
       );
     }
   });
-};
-
-module.exports = {
-  loadDemosToGenerate,
-  generateDemos,
-  removePendingFiles,
 };

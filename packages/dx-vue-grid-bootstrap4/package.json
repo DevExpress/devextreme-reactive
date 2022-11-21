@@ -24,7 +24,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/dx-vue-grid-bootstrap4.umd.js",
+  "type": "module",
+  "main": "dist/dx-vue-grid-bootstrap4.umd.cjs",
   "module": "dist/dx-vue-grid-bootstrap4.es.js",
   "styles": "dist/dx-vue-grid-bootstrap4.css",
   "globalName": "DevExpress.DXVueGridBootstrap4",

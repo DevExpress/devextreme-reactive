@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   projects: [
     'packages/dx-chart-core/',
     'packages/dx-core/jest.config.js',
@@ -21,5 +21,5 @@ module.exports = {
     'packages/dx-vue-grid/jest.config.js',
     'packages/dx-vue-grid-bootstrap4/jest.config.js',
     'packages/dx-vue-grid-demos/jest.config.js',
-  ]
-}
+  ],
+};

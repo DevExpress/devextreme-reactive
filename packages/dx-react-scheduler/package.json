@@ -23,7 +23,15 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/dx-react-scheduler.umd.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/dx-react-scheduler.umd.cjs",
+      "import": "./dist/dx-react-scheduler.es.js",
+      "default": "./dist/dx-react-scheduler.es.js"
+    }
+  },
+  "main": "dist/dx-react-scheduler.umd.cjs",
   "module": "dist/dx-react-scheduler.es.js",
   "globalName": "DevExpress.DXReactScheduler",
   "files": [

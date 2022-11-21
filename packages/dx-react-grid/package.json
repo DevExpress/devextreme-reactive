@@ -25,7 +25,15 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/dx-react-grid.umd.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/dx-react-grid.umd.cjs",
+      "import": "./dist/dx-react-grid.es.js",
+      "default": "./dist/dx-react-grid.es.js"
+    }
+  },
+  "main": "dist/dx-react-grid.umd.cjs",
   "module": "dist/dx-react-grid.es.js",
   "globalName": "DevExpress.DXReactGrid",
   "files": [

@@ -8,6 +8,14 @@
     "url": "https://www.devexpress.com/"
   },
   "license": "SEE LICENSE IN README.md",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/dx-testing.umd.js",
+      "import": "./dist/dx-testing.es.js",
+      "default": "./dist/dx-testing.es.js"
+    }
+  },
   "main": "dist/dx-testing.umd.js",
   "module": "dist/dx-testing.es.js",
   "globalName": "DevExpress.DXTesting",

@@ -1,1 +1,4 @@
-require('fs-extra').removeSync(require('path').join(process.cwd(),'dist'));
+import { removeSync } from 'fs-extra';
+import { join } from 'path';
+
+removeSync(join(process.cwd(), 'dist'));

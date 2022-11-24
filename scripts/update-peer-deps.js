@@ -1,20 +1,21 @@
-const { join } = require('path');
-const {
+import { join, dirname } from 'path';
+import {
   existsSync,
   readdirSync,
   readFileSync,
-  writeFileSync
-} = require('fs');
+  writeFileSync,
+} from 'fs';
+import { fileURLToPath } from 'url';
 
-module.exports = () => {
+export default () => {
   console.log('Update internal peer dependency versions...');
-  const packagesDir = join(__dirname, '../packages');
+  const packagesDir = join(dirname(fileURLToPath(import.meta.url)), '../packages');
   const packages = readdirSync(packagesDir);
-  const verReplacers = packages.map(package =>
-    new RegExp(`(\\"@devexpress/${package}\\"\\s*:\\s*\\")([^\\"]+)(\\")`, 'gi'));
+  const verReplacers = packages.map(currentPackage =>
+    new RegExp(`(\\"@devexpress/${currentPackage}\\"\\s*:\\s*\\")([^\\"]+)(\\")`, 'gi'));
 
-  for (let package of packages) {
-    const configPath = join(packagesDir, `${package}/package.json`);
+  for (let currentPackage of packages) {
+    const configPath = join(packagesDir, `${currentPackage}/package.json`);
 
     if (existsSync(configPath)){
       const configStr = readFileSync(configPath).toString();

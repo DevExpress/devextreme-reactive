@@ -1,8 +1,11 @@
-const { execSync } = require('child_process');
-const { prompt } = require('inquirer');
-const { prerelease } = require('semver');
-const getCurrentBranchName = require('./get-current-branch-name');
-const ensureRepoUpToDate = require('./ensure-repo-up-to-date');
+import { execSync } from 'child_process';
+import pkg from 'inquirer';
+import { prerelease } from 'semver';
+import getCurrentBranchName from './get-current-branch-name.js';
+import ensureRepoUpToDate from './ensure-repo-up-to-date.js';
+import { readFileSync } from 'fs';
+
+const loadJSON = (path) => JSON.parse(readFileSync(new URL(path, import.meta.url)));
 
 const script = async () => {
   const currentBranchName = getCurrentBranchName();
@@ -20,8 +23,8 @@ const script = async () => {
   console.log('Building...');
   execSync('yarn run build', { stdio: 'ignore' });
 
-  const version = require('../lerna.json').version;
-  const { publishNpm } = await prompt({
+  const version = loadJSON('../lerna.json').version;
+  const { publishNpm } = await pkg.prompt({
     message: `Ready to publish version ${version}. Is it ok?`,
     name: 'publishNpm',
     type: 'confirm',
@@ -33,7 +36,7 @@ const script = async () => {
   }
 
   const suggestedNpmTag = prerelease(version) !== null ? 'next' : 'latest';
-  const { npmTag } = await prompt({
+  const { npmTag } = await pkg.prompt({
     name: 'npmTag',
     message: `Enter npm relase tag:`,
     default: suggestedNpmTag,

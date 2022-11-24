@@ -1,14 +1,16 @@
-const { join } = require('path');
-const { readFileSync, writeFileSync } = require('fs');
-const { execSync } = require('child_process');
-const { prompt } = require('inquirer');
-const { valid, lt, inc, prerelease } = require('semver');
-const conventionalRecommendedBump = require('conventional-recommended-bump');
-const getCurrentBranchName = require('./get-current-branch-name');
-const ensureRepoUpToDate = require('./ensure-repo-up-to-date');
-const updatePeerDeps = require('./update-peer-deps');
+import { join } from 'path';
+import { readFileSync, writeFileSync } from 'fs';
+import { execSync } from 'child_process';
+import pkg from 'inquirer';
+import { valid, lt, inc, prerelease } from 'semver';
+import conventionalRecommendedBump from 'conventional-recommended-bump';
+import getCurrentBranchName from './get-current-branch-name.js';
+import ensureRepoUpToDate from './ensure-repo-up-to-date.js';
+import updatePeerDeps from './update-peer-deps.js';
 
 const CONVENTIONAL_CHANGELOG_PRESET = 'angular';
+
+const loadJSON = (path) => JSON.parse(readFileSync(new URL(path, import.meta.url)));
 
 const script = async () => {
   const currentBranchName = getCurrentBranchName();
@@ -20,7 +22,7 @@ const script = async () => {
   console.log('====================');
   console.log();
 
-  const currentVersion = require('../lerna.json').version;
+  const currentVersion = loadJSON('../lerna.json').version;
   const recommendedReleaseType = await new Promise((resolve) => {
     conventionalRecommendedBump({
       preset: CONVENTIONAL_CHANGELOG_PRESET
@@ -29,7 +31,7 @@ const script = async () => {
     })
   });
   const suggestedVersion = inc(currentVersion, (prerelease(currentVersion) !== null ? 'prerelease' : recommendedReleaseType));
-  const { version } = await prompt({
+  const { version } = await pkg.prompt({
     name: 'version',
     message: `Enter new version [current: ${currentVersion}]:`,
     default: suggestedVersion,
@@ -57,7 +59,7 @@ const script = async () => {
   execSync(`"./node_modules/.bin/lerna" version ${version} --exact --force-publish --no-git-tag-version --yes`, { stdio: 'ignore' });
   updatePeerDeps();
 
-  const { commit } = await prompt({
+  const { commit } = await pkg.prompt({
     message: 'Ready to commit. Please check build result and CHANGELOG.md. Is it ok?',
     name: 'commit',
     type: 'confirm',

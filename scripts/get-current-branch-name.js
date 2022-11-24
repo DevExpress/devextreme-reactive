@@ -1,6 +1,6 @@
-const { execSync } = require('child_process');
+import { execSync } from 'child_process';
 
-module.exports = () =>
+export default () =>
   execSync('git branch', { stdio: 'pipe' })
     .toString()
     .trim()

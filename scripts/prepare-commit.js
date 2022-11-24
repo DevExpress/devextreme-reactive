@@ -1,7 +1,7 @@
 import { join } from 'path';
 import { readFileSync, writeFileSync } from 'fs';
 import { execSync } from 'child_process';
-import pkg from 'inquirer';
+import inquirer from 'inquirer';
 import { valid, lt, inc, prerelease } from 'semver';
 import conventionalRecommendedBump from 'conventional-recommended-bump';
 import getCurrentBranchName from './get-current-branch-name.js';
@@ -31,7 +31,7 @@ const script = async () => {
     })
   });
   const suggestedVersion = inc(currentVersion, (prerelease(currentVersion) !== null ? 'prerelease' : recommendedReleaseType));
-  const { version } = await pkg.prompt({
+  const { version } = await inquirer.prompt({
     name: 'version',
     message: `Enter new version [current: ${currentVersion}]:`,
     default: suggestedVersion,
@@ -59,7 +59,7 @@ const script = async () => {
   execSync(`"./node_modules/.bin/lerna" version ${version} --exact --force-publish --no-git-tag-version --yes`, { stdio: 'ignore' });
   updatePeerDeps();
 
-  const { commit } = await pkg.prompt({
+  const { commit } = await inquirer.prompt({
     message: 'Ready to commit. Please check build result and CHANGELOG.md. Is it ok?',
     name: 'commit',
     type: 'confirm',

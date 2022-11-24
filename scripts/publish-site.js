@@ -1,7 +1,7 @@
 import { join, dirname } from 'path';
 import { execSync } from 'child_process';
 import { copySync, removeSync, readFileSync, writeFileSync } from 'fs-extra';
-import pkg from 'inquirer';
+import inquirer from 'inquirer';
 import { prerelease } from 'semver';
 import ensureRepoUpToDate from './ensure-repo-up-to-date.js';
 import getCurrentBranchName from './get-current-branch-name.js';
@@ -25,7 +25,7 @@ const script = async () => {
 
   const version = loadJSON('../lerna.json').version;
   const suggestedTag = prerelease(version) !== null ? 'next' : 'latest';
-  const { tag } = await pkg.prompt({
+  const { tag } = await inquirer.prompt({
     name: 'tag',
     message: `Enter tag [version: ${version}, write 'latest' to publish site without prefix]:`,
     default: suggestedTag,

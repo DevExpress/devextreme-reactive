@@ -1,5 +1,5 @@
 import { execSync } from 'child_process';
-import pkg from 'inquirer';
+import inquirer from 'inquirer';
 import { prerelease } from 'semver';
 import getCurrentBranchName from './get-current-branch-name.js';
 import ensureRepoUpToDate from './ensure-repo-up-to-date.js';
@@ -24,7 +24,7 @@ const script = async () => {
   execSync('yarn run build', { stdio: 'ignore' });
 
   const version = loadJSON('../lerna.json').version;
-  const { publishNpm } = await pkg.prompt({
+  const { publishNpm } = await inquirer.prompt({
     message: `Ready to publish version ${version}. Is it ok?`,
     name: 'publishNpm',
     type: 'confirm',
@@ -36,7 +36,7 @@ const script = async () => {
   }
 
   const suggestedNpmTag = prerelease(version) !== null ? 'next' : 'latest';
-  const { npmTag } = await pkg.prompt({
+  const { npmTag } = await inquirer.prompt({
     name: 'npmTag',
     message: `Enter npm relase tag:`,
     default: suggestedNpmTag,

@@ -1,6 +1,6 @@
-const { execSync } = require('child_process');
+import { execSync } from 'child_process';
 
-module.exports = (targetBranchName = 'master') => {
+export default (targetBranchName = 'master') => {
   console.log(`Fetching the latest changes from upstream/${targetBranchName}...`);
   const startingGitRevision = execSync('git rev-parse HEAD', { stdio: 'pipe' }).toString();
   execSync(`git fetch --tags upstream ${targetBranchName}`, { stdio: 'ignore' });
@@ -10,4 +10,4 @@ module.exports = (targetBranchName = 'master') => {
     console.log('Repo updated. Please, rerun script.');
     process.exit(-1);
   }
-}
+};

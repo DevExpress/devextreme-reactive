@@ -1,10 +1,13 @@
-const { join } = require('path');
-const { execSync } = require('child_process');
-const { copySync, removeSync, readFileSync, writeFileSync } = require('fs-extra');
-const { prompt } = require('inquirer');
-const { prerelease } = require('semver');
-const ensureRepoUpToDate = require('./ensure-repo-up-to-date');
-const getCurrentBranchName = require('./get-current-branch-name');
+import { join, dirname } from 'path';
+import { execSync } from 'child_process';
+import { copySync, removeSync, readFileSync, writeFileSync } from 'fs-extra';
+import inquirer from 'inquirer';
+import { prerelease } from 'semver';
+import ensureRepoUpToDate from './ensure-repo-up-to-date.js';
+import getCurrentBranchName from './get-current-branch-name.js';
+import { fileURLToPath } from 'url';
+
+const loadJSON = (path) => JSON.parse(readFileSync(new URL(path, import.meta.url)));
 
 const SITE_PUBLISHING_DIRECTORY = join(process.cwd(), 'tmp');
 const BRANCH = 'gh-pages';
@@ -20,9 +23,9 @@ const script = async () => {
   console.log('====================');
   console.log();
 
-  const version = require('../lerna.json').version;
+  const version = loadJSON('../lerna.json').version;
   const suggestedTag = prerelease(version) !== null ? 'next' : 'latest';
-  const { tag } = await prompt({
+  const { tag } = await inquirer.prompt({
     name: 'tag',
     message: `Enter tag [version: ${version}, write 'latest' to publish site without prefix]:`,
     default: suggestedTag,
@@ -30,8 +33,9 @@ const script = async () => {
   const tagPath = tag !== 'latest' ? `/@${tag}` : '';
 
   console.log('Building site content...');
-  const config = String(readFileSync(join(__dirname, '../packages/dx-site/gatsby-config.js')));
-  writeFileSync(join(__dirname, '../packages/dx-site/gatsby-config.js'), config.replace('pathPrefix: \'/devextreme-reactive\'', `pathPrefix: \'/devextreme-reactive${tagPath}\'`));
+  const packagesDir = dirname(fileURLToPath(import.meta.url));
+  const config = String(readFileSync(join(packagesDir, '../packages/dx-site/gatsby-config.js')));
+  writeFileSync(join(packagesDir, '../packages/dx-site/gatsby-config.js'), config.replace('pathPrefix: \'/devextreme-reactive\'', `pathPrefix: \'/devextreme-reactive${tagPath}\'`));
   execSync('yarn run build:site', { stdio: 'ignore' });
 
   console.log('Preparing output directory...');
@@ -40,10 +44,10 @@ const script = async () => {
   execSync(`git worktree add -B ${BRANCH} ${SITE_PUBLISHING_DIRECTORY} upstream/${BRANCH}`, { stdio: 'ignore' });
 
   console.log('Copying generated site...');
-  copySync(join(__dirname, '../packages/dx-site/public/'), join(SITE_PUBLISHING_DIRECTORY, tagPath));
+  copySync(join(packagesDir, '../packages/dx-site/public/'), join(SITE_PUBLISHING_DIRECTORY, tagPath));
 
   console.log('Copying github stuff...');
-  copySync(join(__dirname, 'gh-pages-files'), SITE_PUBLISHING_DIRECTORY);
+  copySync(join(packagesDir, 'gh-pages-files'), SITE_PUBLISHING_DIRECTORY);
 
   console.log('Publishing...');
   execSync('git add --all', { cwd: SITE_PUBLISHING_DIRECTORY });
@@ -53,7 +57,7 @@ const script = async () => {
   console.log('Cleaning up...');
   removeSync(SITE_PUBLISHING_DIRECTORY);
   execSync('git worktree prune');
-  execSync(`git checkout -- ${join(__dirname, '../packages/dx-site/gatsby-config.js')}`)
+  execSync(`git checkout -- ${join(packagesDir, '../packages/dx-site/gatsby-config.js')}`)
 
   console.log();
   console.log('--------------------');

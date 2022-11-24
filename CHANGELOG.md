@@ -1,3 +1,12 @@
+# [4.0.0](https://github.com/DevExpress/devextreme-reactive/compare/v3.0.6...v4.0.0) (2022-11-24)
+
+
+### Features
+
+* support ES module ([#3595](https://github.com/DevExpress/devextreme-reactive/issues/3595)) ([9b79e78](https://github.com/DevExpress/devextreme-reactive/commit/9b79e783d6c0c7de15e69dd55461fa5457f35ce1))
+
+
+
 # [3.0.6](https://github.com/DevExpress/devextreme-reactive/compare/v3.0.5...v3.0.6) (2022-10-14)
 
 

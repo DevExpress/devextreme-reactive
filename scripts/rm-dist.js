@@ -1,4 +1,4 @@
-import { removeSync } from 'fs-extra';
+import fsExtra from 'fs-extra';
 import { join } from 'path';
 
-removeSync(join(process.cwd(), 'dist'));
+fsExtra.removeSync(join(process.cwd(), 'dist'));

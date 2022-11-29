@@ -5,7 +5,7 @@ import { BasicDataProps } from '../types';
 
 const series = [];
 
-export const BasicData: React.SFC<BasicDataProps> = ({ data, rotated }) => (
+export const BasicData: React.FunctionComponent<BasicDataProps> = ({ data, rotated }) => (
   <Plugin name="Basis">
     <Getter name="data" value={data} />
     <Getter name="domains" value={defaultDomains} />

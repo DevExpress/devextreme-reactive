@@ -5,7 +5,7 @@ import {
   Scheduler, ConfirmationDialog,
 } from '@devexpress/dx-react-scheduler-material-ui';
 
-const Demo: React.SFC = () => (
+const Demo: React.FunctionComponent = () => (
   <Paper>
     <Scheduler
       data={[]}

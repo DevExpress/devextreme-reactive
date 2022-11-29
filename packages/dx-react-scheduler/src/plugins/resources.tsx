@@ -18,7 +18,7 @@ const addResourcesToAllDayAppointments = ({
   }: Getters) => allDayAppointments
     && addResourcesToAppointments(allDayAppointments[0], resources, plainResources);
 
-const ResourcesBase: React.SFC<ResourcesProps> = React.memo(({
+const ResourcesBase: React.FunctionComponent<ResourcesProps> = React.memo(({
   data, mainResourceName, palette,
 }) => {
   const convertResources = ({ resources }: Getters) =>

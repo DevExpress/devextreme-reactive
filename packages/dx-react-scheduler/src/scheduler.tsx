@@ -3,7 +3,7 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import { SchedulerCore } from './plugins/scheduler-core';
 import { SchedulerProps } from './types';
 
-const SchedulerBase: React.SFC<SchedulerProps> = ({
+const SchedulerBase: React.FunctionComponent<SchedulerProps> = ({
   data,
   rootComponent,
   children,

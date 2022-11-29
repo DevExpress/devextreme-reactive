@@ -5,7 +5,7 @@ import { getRowStyle } from '../../utils/helpers';
 const getColumnStyle = ({ column }) => column.animationState;
 
 /** @internal */
-export const RowLayout: React.SFC<RowLayoutProps> = React.memo((props) => {
+export const RowLayout: React.FunctionComponent<RowLayoutProps> = React.memo((props) => {
   const {
     row,
     columns,

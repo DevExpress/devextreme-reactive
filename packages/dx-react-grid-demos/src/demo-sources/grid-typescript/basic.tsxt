@@ -21,7 +21,7 @@ const tableColumnExtensions: Table.ColumnExtension[] = [
   { columnName: 'gender', width: 100 },
 ];
 
-const Demo: React.SFC = () => {
+const Demo: React.FunctionComponent = () => {
   return (
     <<%&wrapperTag%><%&wrapperAttributes%>>
       <Grid

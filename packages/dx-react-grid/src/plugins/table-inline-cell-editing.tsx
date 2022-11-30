@@ -32,7 +32,7 @@ const columnsWithEditingCellsComputed = (
 const INLINE_CELL_EDITING_ERROR = 'The startEditAction property of the InlineCellEditing plugin is given an invalid value.';
 
 // tslint:disable-next-line: max-line-length
-const TableInlineCellEditingBase: React.SFC<TableInlineCellEditingProps> & {components: {cellComponent: string}} = (props) => {
+const TableInlineCellEditingBase: React.FunctionComponent<TableInlineCellEditingProps> & {components: {cellComponent: string}} = (props) => {
   const { cellComponent: EditCell, startEditAction, selectTextOnEditStart } = props;
 
   return (

@@ -29,7 +29,7 @@ const ACTION_TYPES = {
   DELETE: 'delete',
 };
 
-const ConfirmationDialogBase: React.SFC<ConfirmationDialogProps> & {components: {
+const ConfirmationDialogBase: React.FunctionComponent<ConfirmationDialogProps> & {components: {
   overlayComponent: string, containerComponent: string,
   layoutComponent: string, buttonComponent: string,
 }} = ({

@@ -7,13 +7,13 @@ import { TemplatePlaceholder } from '@devexpress/dx-react-core';
 import { TableSummaryContentProps, SummaryItemProps } from '../../types';
 import { defaultSummaryMessages } from './constants';
 
-export const TableSummaryContent: React.SFC<TableSummaryContentProps> = ({
+export const TableSummaryContent: React.FunctionComponent<TableSummaryContentProps> = ({
   column, columnSummaries, formatlessSummaryTypes,
   itemComponent: Item,
   messages,
 }) => {
   const getMessage = getMessagesFormatter({ ...defaultSummaryMessages, ...messages });
-  const SummaryItem: React.SFC<SummaryItemProps> = ({ summary, children }) => (
+  const SummaryItem: React.FunctionComponent<SummaryItemProps> = ({ summary, children }) => (
     <Item
       getMessage={getMessage}
       type={summary.type}

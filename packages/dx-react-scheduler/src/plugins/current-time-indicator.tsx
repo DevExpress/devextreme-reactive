@@ -18,7 +18,7 @@ const pluginDependencies = [
   { name: 'Appointments', optional: true },
 ];
 
-const CurrentTimeIndicatorBase: React.SFC<CurrentTimeIndicatorProps>  & {components: {
+const CurrentTimeIndicatorBase: React.FunctionComponent<CurrentTimeIndicatorProps>  & {components: {
   indicatorComponent: string,
 }} = ({
   indicatorComponent, shadePreviousAppointments, shadePreviousCells, updateInterval,

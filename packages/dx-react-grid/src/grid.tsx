@@ -3,7 +3,7 @@ import { PluginHost } from '@devexpress/dx-react-core';
 import { GridCore } from './plugins/grid-core';
 import { GridProps } from './types';
 
-const GridBase: React.SFC<GridProps> = ({
+const GridBase: React.FunctionComponent<GridProps> = ({
   rows,
   columns,
   getRowId,

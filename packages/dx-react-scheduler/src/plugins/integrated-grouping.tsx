@@ -90,7 +90,7 @@ const getTimeCellsDataComputed = ({
     groupOrientation(currentView.name),
   );
 
-const IntegratedGroupingBase: React.SFC<IntegratedGroupingProps> = React.memo(() => (
+const IntegratedGroupingBase: React.FunctionComponent<IntegratedGroupingProps> = React.memo(() => (
   <Plugin
     name="IntegratedGrouping"
     dependencies={pluginDependencies}

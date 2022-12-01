@@ -56,8 +56,8 @@ Layout.propTypes = {
   isDeleting: PropTypes.bool,
   appointmentData: PropTypes.shape({
     title: PropTypes.string,
-    startDate: PropTypes.instanceOf(Date),
-    endDate: PropTypes.instanceOf(Date),
+    startDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+    endDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
     rRule: PropTypes.string,
     notes: PropTypes.string,
     additionalInformation: PropTypes.string,

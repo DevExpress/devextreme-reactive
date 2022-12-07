@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { styled, Table as TableMUI, TableBody } from '@mui/material';
 import PropTypes from 'prop-types';
 import classNames from 'clsx';
-import TableMUI from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
 import { getWidthInPixels } from '../../utils';
 import {
   CELL_WIDTH, SMALL_CELL_WIDTH,

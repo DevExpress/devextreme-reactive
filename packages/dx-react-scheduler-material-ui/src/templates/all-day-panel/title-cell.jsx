@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { styled, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import classNames from 'clsx';
-import Typography from '@mui/material/Typography';
 import { VIEW_TYPES } from '@devexpress/dx-scheduler-core';
 import { SPACING_CELL_HEIGHT } from '../constants';
 

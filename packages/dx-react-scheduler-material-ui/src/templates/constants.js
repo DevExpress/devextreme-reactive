@@ -1,8 +1,10 @@
-import {
+import { colors } from '@mui/material';
+import { VIEW_TYPES } from '@devexpress/dx-scheduler-core';
+
+const {
   red, pink, purple, deepPurple, indigo, blue, lightBlue, cyan, teal,
   green, lightGreen, lime, yellow, amber, orange, deepOrange,
-} from '@mui/material/colors';
-import { VIEW_TYPES } from '@devexpress/dx-scheduler-core';
+} = colors;
 
 export const PRIMARY_COLOR = blue;
 export const TRANSITIONS_TIME = 400;

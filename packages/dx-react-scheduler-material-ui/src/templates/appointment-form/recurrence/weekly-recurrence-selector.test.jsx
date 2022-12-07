@@ -5,7 +5,7 @@ import {
   TUESDAY_DATE, THURSDAY_DATE, FRIDAY_DATE, SATURDAY_DATE, WEDNESDAY_DATE,
   changeRecurrenceOptions, RRULE_DAYS_OF_WEEK,
 } from '@devexpress/dx-scheduler-core';
-import Button from '@mui/material/Button';
+import { Button } from '@mui/material';
 import { WeeklyRecurrenceSelector, classes } from './weekly-recurrence-selector';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({

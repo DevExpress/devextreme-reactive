@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import ButtonMUI from '@mui/material/Button';
+import { Button as ButtonMUI } from '@mui/material';
 
 export const Button = ({
   onClick, title, ...restProps

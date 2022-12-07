@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { styled, Popover } from '@mui/material';
 import PropTypes from 'prop-types';
-import Popover from '@mui/material/Popover';
 import { SMALL_LAYOUT_MEDIA_QUERY } from '../constants';
 
 const PREFIX = 'Layout';

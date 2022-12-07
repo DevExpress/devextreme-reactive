@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { styled } from '@mui/material/styles';
+import {
+  styled, RadioGroup, FormControlLabel, Radio, Grid,
+} from '@mui/material';
 import PropTypes from 'prop-types';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Radio from '@mui/material/Radio';
-import Grid from '@mui/material/Grid';
 import {
   NUMBER_EDITOR,
   handleToDayOfWeekChange,

@@ -1,4 +1,4 @@
-import { darken, alpha, lighten } from '@mui/material/styles';
+import { darken, alpha, lighten } from '@mui/material';
 import { PRIMARY_COLOR } from './constants';
 
 export const getBorder = theme => (`1px solid ${

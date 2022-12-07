@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { styled, Button, IconButton } from '@mui/material';
 import PropTypes from 'prop-types';
-import Button from '@mui/material/Button';
 import CalendarToday from '@mui/icons-material/CalendarToday';
-import IconButton from '@mui/material/IconButton';
 import classNames from 'clsx';
 import { SMALL_LAYOUT_MEDIA_QUERY, LAYOUT_MEDIA_QUERY } from '../constants';
 

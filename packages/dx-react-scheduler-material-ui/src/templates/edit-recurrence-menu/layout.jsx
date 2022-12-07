@@ -1,12 +1,8 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import {
+  styled, DialogActions, DialogContent, DialogTitle, Radio, RadioGroup, FormControlLabel,
+} from '@mui/material';
 import PropTypes from 'prop-types';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import { SMALL_LAYOUT_MEDIA_QUERY } from '../constants';
 
 const PREFIX = 'Layout';

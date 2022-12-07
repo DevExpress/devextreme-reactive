@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { styled, Toolbar as ToolbarMUI } from '@mui/material';
 import PropTypes from 'prop-types';
 import classNames from 'clsx';
-import ToolbarMUI from '@mui/material/Toolbar';
 import { getBorder } from '../utils';
 
 const PREFIX = 'Toolbar';

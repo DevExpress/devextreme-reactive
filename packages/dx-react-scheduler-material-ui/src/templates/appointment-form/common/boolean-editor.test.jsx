@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createMount, createShallow } from '@devexpress/dx-testing';
-import Checkbox from '@mui/material/Checkbox';
+import { Checkbox } from '@mui/material';
 import { BooleanEditor } from './boolean-editor';
 
 describe('AppointmentForm common', () => {

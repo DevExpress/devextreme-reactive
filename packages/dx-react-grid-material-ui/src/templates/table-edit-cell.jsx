@@ -1,9 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'clsx';
-import Input from '@mui/material/Input';
-import TableCell from '@mui/material/TableCell';
-import { styled } from '@mui/material/styles';
+import { Input, TableCell, styled } from '@mui/material';
 
 const PREFIX = 'TableEditCell';
 export const classes = {

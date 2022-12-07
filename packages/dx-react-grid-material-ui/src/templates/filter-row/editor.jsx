@@ -1,7 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import Input from '@mui/material/Input';
-import { styled } from '@mui/material/styles';
+import { Input, styled } from '@mui/material';
 
 const PREFIX = 'Editor';
 export const classes = {

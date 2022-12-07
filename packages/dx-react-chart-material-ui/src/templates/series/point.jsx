@@ -1,5 +1,5 @@
 import { ScatterSeries, withPatchedProps } from '@devexpress/dx-react-chart';
-import { styled } from '@mui/material/styles';
+import { styled } from '@mui/material';
 import classNames from 'clsx';
 
 const PREFIX = 'Point';

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { shallow } from 'enzyme';
-import MenuItemMUI from '@mui/material/MenuItem';
+import { MenuItem as MenuItemMUI } from '@mui/material';
 import { MenuItem } from './menu-item';
 
 describe('ExportMenuItem', () => {

@@ -1,4 +1,4 @@
-import { darken, alpha, lighten } from '@mui/material/styles';
+import { darken, alpha, lighten } from '@mui/material';
 
 export const getBorder = theme => (`1px solid ${theme.palette.mode === 'light'
   ? lighten(alpha(theme.palette.divider, 1), 0.88)

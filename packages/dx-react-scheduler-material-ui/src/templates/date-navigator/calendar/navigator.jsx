@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { styled, Toolbar } from '@mui/material';
 import PropTypes from 'prop-types';
-import Toolbar from '@mui/material/Toolbar';
 import classNames from 'clsx';
 
 const PREFIX = 'Navigator';

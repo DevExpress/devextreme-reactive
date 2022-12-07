@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Checkbox from '@mui/material/Checkbox';
+import { Checkbox } from '@mui/material';
 import {
   createMount, createShallow, setupConsole,
 } from '@devexpress/dx-testing';

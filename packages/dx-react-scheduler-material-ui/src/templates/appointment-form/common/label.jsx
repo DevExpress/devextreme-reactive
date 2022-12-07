@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { styled, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import Typography from '@mui/material/Typography';
 import classNames from 'clsx';
 import { TITLE, ORDINARY_LABEL } from '@devexpress/dx-scheduler-core';
 

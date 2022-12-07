@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import Popover from '@mui/material/Popover';
+import { Popover } from '@mui/material';
 
 export const Overlay = ({
   visible, onHide, children, target, ...restProps

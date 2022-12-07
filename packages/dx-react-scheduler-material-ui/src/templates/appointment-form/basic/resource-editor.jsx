@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import {
+  styled, TextField, MenuItem, Chip,
+} from '@mui/material';
 import PropTypes from 'prop-types';
-import Chip from '@mui/material/Chip';
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
 import classNames from 'clsx';
 import { getAppointmentColor } from '../../utils';
 

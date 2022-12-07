@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createMount } from '@devexpress/dx-testing';
-import Paper from '@mui/material/Paper';
+import { Paper } from '@mui/material';
 import { classes } from '../utils';
 import { Sheet } from './sheet';
 

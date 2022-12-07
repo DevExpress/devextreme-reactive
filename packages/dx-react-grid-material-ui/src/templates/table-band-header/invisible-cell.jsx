@@ -1,6 +1,5 @@
 import * as React from 'react';
-import TableCell from '@mui/material/TableCell';
-import { styled } from '@mui/material/styles';
+import { TableCell, styled } from '@mui/material';
 
 const PREFIX = 'InvisibleCell';
 export const classes = {

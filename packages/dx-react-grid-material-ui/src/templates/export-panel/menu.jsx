@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import MenuMUI from '@mui/material/Menu';
+import { Menu as MenuMUI } from '@mui/material';
 
 export const Menu = ({
   visible, target, onHide, children, ...restProps

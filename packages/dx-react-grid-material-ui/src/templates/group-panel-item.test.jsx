@@ -1,6 +1,5 @@
 import * as React from 'react';
-import Chip from '@mui/material/Chip';
-import TableSortLabel from '@mui/material/TableSortLabel';
+import { Chip, TableSortLabel } from '@mui/material';
 import { createMount, createShallow } from '@devexpress/dx-testing';
 import { GroupPanelItem, classes } from './group-panel-item';
 

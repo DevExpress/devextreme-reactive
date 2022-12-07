@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import { styled, alpha, TableCell } from '@mui/material';
 import PropTypes from 'prop-types';
 import classNames from 'clsx';
-import TableCell from '@mui/material/TableCell';
 
 import {
   DAY_OPTIONS, DAY_SHORT_MONTH_OPTIONS,

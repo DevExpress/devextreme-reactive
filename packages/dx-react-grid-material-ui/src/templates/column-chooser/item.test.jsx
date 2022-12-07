@@ -1,7 +1,5 @@
 import * as React from 'react';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import Checkbox from '@mui/material/Checkbox';
+import { ListItem, ListItemText, Checkbox } from '@mui/material';
 import { mount } from 'enzyme';
 import { Item } from './item';
 

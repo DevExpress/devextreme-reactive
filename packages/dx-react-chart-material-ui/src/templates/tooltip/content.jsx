@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Typography from '@mui/material/Typography';
+import { Typography } from '@mui/material';
 import { withClassName, classes } from '../utils';
 
 const styles = ({ theme }) => ({

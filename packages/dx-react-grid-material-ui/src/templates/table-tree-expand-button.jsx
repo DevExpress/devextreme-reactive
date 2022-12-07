@@ -1,11 +1,10 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'clsx';
-import { styled } from '@mui/material/styles';
+import { styled, IconButton } from '@mui/material';
 
 import ChevronRight from '@mui/icons-material/ChevronRight';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import IconButton from '@mui/material/IconButton';
 
 const PREFIX = 'TableTreeExpandButton';
 export const classes = {

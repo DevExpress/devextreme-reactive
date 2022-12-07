@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import SvgIcon from '@mui/material/SvgIcon';
+import { SvgIcon } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
 const AVAILABLE_PATHS = {

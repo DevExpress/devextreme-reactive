@@ -8,7 +8,7 @@ import {
   getDaysOfWeek,
   getWeekNumberLabels,
 } from '@devexpress/dx-scheduler-core';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import { FormControlLabel } from '@mui/material';
 import { MonthlyEditor, classes } from './monthly-editor';
 
 jest.mock('@devexpress/dx-scheduler-core', () => ({

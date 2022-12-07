@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createShallow, createMount } from '@devexpress/dx-testing';
-import Popover from '@mui/material/Popover';
+import { Popover } from '@mui/material';
 import { Layout, classes } from './layout';
 
 describe('Appointment Tooltip', () => {

@@ -1,10 +1,9 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'clsx';
-import TableHead from '@mui/material/TableHead';
-import TableBody from '@mui/material/TableBody';
-import TableFooter from '@mui/material/TableFooter';
-import { styled } from '@mui/material/styles';
+import {
+  TableHead, TableBody, TableFooter, styled,
+} from '@mui/material';
 import { getStickyStyles } from './utils';
 
 const PREFIX = 'TableParts';

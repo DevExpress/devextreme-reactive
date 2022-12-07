@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { styled, Checkbox, FormControlLabel } from '@mui/material';
 import PropTypes from 'prop-types';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
 
 const PREFIX = 'BooleanEditor';
 

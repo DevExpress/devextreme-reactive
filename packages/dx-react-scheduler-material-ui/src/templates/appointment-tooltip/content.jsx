@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { styled, Grid } from '@mui/material';
 import PropTypes from 'prop-types';
 import classNames from 'clsx';
-import Grid from '@mui/material/Grid';
 import AccessTime from '@mui/icons-material/AccessTime';
 import Lens from '@mui/icons-material/Lens';
 import { HOUR_MINUTE_OPTIONS, WEEKDAY_INTERVAL, viewBoundText } from '@devexpress/dx-scheduler-core';

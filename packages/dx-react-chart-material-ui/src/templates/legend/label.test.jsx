@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createMount } from '@devexpress/dx-testing';
-import ListItemText from '@mui/material/ListItemText';
+import { ListItemText } from '@mui/material';
 import { classes } from '../utils';
 import { Label } from './label';
 

@@ -1,10 +1,8 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import { styled } from '@mui/material/styles';
+import {
+  Menu, MenuItem, ListItemIcon, ListItemText, styled,
+} from '@mui/material';
 
 const PREFIX = 'FilterSelector';
 export const classes = {

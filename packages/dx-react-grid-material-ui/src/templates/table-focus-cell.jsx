@@ -1,7 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'clsx';
-import { styled } from '@mui/material/styles';
+import { styled } from '@mui/material';
 import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 
 const PREFIX = 'TableFocusCell';

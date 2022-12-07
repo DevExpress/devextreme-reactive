@@ -1,4 +1,4 @@
-import ListItem from '@mui/material/ListItem';
+import { ListItem } from '@mui/material';
 import { withClassName, classes } from '../utils';
 
 const styles = ({ theme }) => ({

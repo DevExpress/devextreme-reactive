@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Popper from '@mui/material/Popper';
+import { Popper } from '@mui/material';
 import { createMount } from '@devexpress/dx-testing';
 import { Overlay, classes } from './overlay';
 

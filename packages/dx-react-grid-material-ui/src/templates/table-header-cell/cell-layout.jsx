@@ -2,8 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'clsx';
 
-import TableCell from '@mui/material/TableCell';
-import { styled } from '@mui/material/styles';
+import { TableCell, styled } from '@mui/material';
 
 import { ResizingControl } from './resizing-control';
 

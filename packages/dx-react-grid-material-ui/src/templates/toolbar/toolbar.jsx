@@ -1,8 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'clsx';
-import ToolbarMUI from '@mui/material/Toolbar';
-import { styled } from '@mui/material/styles';
+import { Toolbar as ToolbarMUI, styled } from '@mui/material';
 import { withKeyboardNavigation } from '@devexpress/dx-react-grid';
 import { getBorder } from '../utils';
 

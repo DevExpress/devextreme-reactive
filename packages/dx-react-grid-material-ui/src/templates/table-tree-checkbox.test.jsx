@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Checkbox from '@mui/material/Checkbox';
+import { Checkbox } from '@mui/material';
 import { createShallow, setupConsole } from '@devexpress/dx-testing';
 
 import { TableTreeCheckbox } from './table-tree-checkbox';

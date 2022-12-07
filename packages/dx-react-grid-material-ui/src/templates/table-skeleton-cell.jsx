@@ -1,8 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'clsx';
-import { styled } from '@mui/material/styles';
-import TableCell from '@mui/material/TableCell';
+import { styled, TableCell } from '@mui/material';
 
 const PREFIX = 'TableSceletonCell';
 export const classes = {

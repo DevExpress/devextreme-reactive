@@ -1,9 +1,8 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import Input from '@mui/material/Input';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import { styled } from '@mui/material/styles';
+import {
+  Input, MenuItem, Select, styled,
+} from '@mui/material';
 import { IS_LEGACY_EDGE_MEDIA_QUERY } from '../constants';
 
 const PREFIX = 'PageSizeSelector';

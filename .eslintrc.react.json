@@ -12,6 +12,10 @@
     "jsx-a11y/href-no-hash": "off",
     "jsx-a11y/no-noninteractive-element-interactions": "off",
     "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.*", "**/testing.*"]}],
-    "react/jsx-fragments": "off"
+    "react/jsx-fragments": "off",
+    "no-restricted-imports": ["error", {
+      "paths": ["@mui/icons-material"],
+      "patterns": ["@mui/material/*"]
+    }]
   }
 }

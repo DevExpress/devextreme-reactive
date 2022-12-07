@@ -1,4 +1,4 @@
-import { darken, alpha, lighten } from '@mui/material/styles';
+import { darken, alpha, lighten } from '@mui/material';
 
 export default theme => (
   theme.palette.mode === 'light'

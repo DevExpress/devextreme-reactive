@@ -2,7 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'clsx';
 import List from '@mui/icons-material/List';
-import { styled } from '@mui/material/styles';
+import { styled } from '@mui/material';
 
 const PREFIX = 'GroupButton';
 export const classes = {

@@ -1,7 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import Toolbar from '@mui/material/Toolbar';
-import { styled } from '@mui/material/styles';
+import { Toolbar, styled } from '@mui/material';
 
 const PREFIX = 'EmotyMessage';
 export const classes = {

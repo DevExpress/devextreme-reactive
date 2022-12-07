@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { createShallow, createMount } from '@devexpress/dx-testing';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Tooltip from '@mui/material/Tooltip';
+import { TableSortLabel, Tooltip } from '@mui/material';
 import { SortLabel, classes } from './sort-label';
 
 const defaultProps = {

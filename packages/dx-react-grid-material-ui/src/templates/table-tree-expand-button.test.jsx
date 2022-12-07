@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createShallow } from '@devexpress/dx-testing';
-import IconButton from '@mui/material/IconButton';
+import { IconButton } from '@mui/material';
 import { TableTreeExpandButton } from './table-tree-expand-button';
 
 describe('TableTreeExpandButton', () => {

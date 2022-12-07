@@ -1,8 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'clsx';
-import TableCellMUI from '@mui/material/TableCell';
-import { styled } from '@mui/material/styles';
+import { TableCell as TableCellMUI, styled } from '@mui/material';
 import { getBorder } from './utils';
 
 const PREFIX = 'TableCell';

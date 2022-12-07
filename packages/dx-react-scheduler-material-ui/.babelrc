@@ -8,8 +8,8 @@
       "mode": "unsafe-wrap"
     }],
     ["transform-rename-import", {
-      "original": "^@mui\\/material\\/(.*)$",
-      "replacement": "@mui/material/node/$1/index.js"
+      "original": "^@mui\\/icons-material\\/(.*)$",
+      "replacement": "@mui/icons-material/$1.js"
     }]
   ],
   "env": {

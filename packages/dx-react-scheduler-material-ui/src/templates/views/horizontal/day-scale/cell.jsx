@@ -68,8 +68,8 @@ export const Cell = ({
 );
 Cell.propTypes = {
   formatDate: PropTypes.func.isRequired,
-  startDate: PropTypes.instanceOf(Date).isRequired,
-  endDate: PropTypes.instanceOf(Date),
+  startDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]).isRequired,
+  endDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
   className: PropTypes.string,
   today: PropTypes.bool,
   endOfGroup: PropTypes.bool,

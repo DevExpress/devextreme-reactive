@@ -52,8 +52,8 @@ export const TickCell = ({
 );
 
 TickCell.propTypes = {
-  startDate: PropTypes.instanceOf(Date),
-  endDate: PropTypes.instanceOf(Date),
+  startDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+  endDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
   endOfGroup: PropTypes.bool,
   groupingInfo: PropTypes.arrayOf(PropTypes.object),
   isAllDay: PropTypes.bool,

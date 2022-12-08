@@ -25,7 +25,7 @@ const resources = [{
   ],
 }];
 
-const Demo: React.SFC = () => {
+const Demo: React.FunctionComponent = () => {
   const [currentDate, setCurrentDate] = React.useState<SchedulerDateTime>('2018-10-31');
 
   return (

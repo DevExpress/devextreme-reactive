@@ -65,8 +65,8 @@ export const Cell = ({
   </StyledTableCell>
 );
 Cell.propTypes = {
-  startDate: PropTypes.instanceOf(Date),
-  endDate: PropTypes.instanceOf(Date),
+  startDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
+  endDate: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)]),
   children: PropTypes.node,
   className: PropTypes.string,
   hasRightBorder: PropTypes.bool,

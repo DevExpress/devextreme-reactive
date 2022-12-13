@@ -37,3 +37,6 @@
 /packages/*/.rpt2_cache
 /packages/*/api/json/*
 /packages/*/api/temp/*
+
+#Reexport
+/packages/dx-chart-core/src/d3-scale/index.js

@@ -1,5 +1,5 @@
 import { stack } from 'd3-shape';
-import { scaleBand } from 'd3-scale';
+import { scaleBand } from '../../d3-scale';
 import {
   SeriesList, Series, Point, GetPointTransformerFn, DataItems, DomainInfoCache,
   StackList, GetPointTransformerFnRaw, BarSeries, StackedPoint, StackMap, GetStackedSeriesFn,

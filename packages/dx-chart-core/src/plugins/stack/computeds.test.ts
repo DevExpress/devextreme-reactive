@@ -1,5 +1,5 @@
 import { stack } from 'd3-shape';
-import { scaleBand } from 'd3-scale';
+import { scaleBand } from '../../d3-scale';
 import { extendDomains, updateDomainItems } from '../scale/computeds';
 import { getStackedSeries, getStackedDomains } from './computeds';
 
@@ -7,7 +7,7 @@ jest.mock('d3-shape', () => ({
   stack: jest.fn(),
 }));
 
-jest.mock('d3-scale', () => ({
+jest.mock('../../d3-scale', () => ({
   scaleBand: jest.fn(),
 }));
 

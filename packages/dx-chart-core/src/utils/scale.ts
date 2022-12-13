@@ -1,6 +1,6 @@
 import {
   scaleLinear as d3ScaleLinear, scaleBand as d3ScaleBand,
-} from 'd3-scale';
+} from '../d3-scale';
 import {
   ARGUMENT_DOMAIN, VALUE_DOMAIN,
 } from '../constants';

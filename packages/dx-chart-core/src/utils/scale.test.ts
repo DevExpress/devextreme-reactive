@@ -4,7 +4,7 @@ import {
   moveBounds, growBounds, invertBoundsRange,
 } from './scale';
 
-jest.mock('d3-scale', () => ({
+jest.mock('../d3-scale', () => ({
   scaleLinear: () => {
     const ret = jest.fn().mockReturnValue(10) as any;
     ret.tag = 'scale-linear';

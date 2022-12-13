@@ -32,7 +32,8 @@
       "require": "./dist/dx-react-grid-bootstrap4.umd.cjs",
       "import": "./dist/dx-react-grid-bootstrap4.es.js",
       "default": "./dist/dx-react-grid-bootstrap4.es.js"
-    }
+    },
+    "./dist/dx-react-grid-bootstrap4.css": "./dist/dx-react-grid-bootstrap4.css"
   },
   "main": "dist/dx-react-grid-bootstrap4.umd.cjs",
   "module": "dist/dx-react-grid-bootstrap4.es.js",

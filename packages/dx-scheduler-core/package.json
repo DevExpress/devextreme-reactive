@@ -73,6 +73,6 @@
   },
   "dependencies": {
     "moment": "^2.24.0",
-    "rrule": "2.6.4"
+    "rrule": "2.7.1"
   }
 }

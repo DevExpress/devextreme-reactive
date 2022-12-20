@@ -10,10 +10,6 @@
     ["transform-rename-import", {
       "replacements": [
         {
-          "original": "^@mui\\/icons-material\\/(.*)$",
-          "replacement": "@mui/icons-material/$1.js"
-        },
-        {
           "original": "^@mui\\/x-date-pickers\\/(.*)$",
           "replacement": "@mui/x-date-pickers/node/$1/index.js"
         }

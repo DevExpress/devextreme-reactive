@@ -1,6 +1,5 @@
 import * as React from 'react';
-import Select from '@mui/material/Select';
-import Menu from '@mui/material/Menu';
+import { Select, Menu } from '@mui/material';
 import { createMount } from '@devexpress/dx-testing';
 import { PageSizeSelector, classes } from './page-size-selector';
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { styled } from '@mui/material';
 import PropTypes from 'prop-types';
 import { OutlinedSelect } from '../common/select/outlined-select';
 import { LAYOUT_MEDIA_QUERY } from '../constants';

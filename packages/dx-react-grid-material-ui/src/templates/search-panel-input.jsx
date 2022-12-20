@@ -1,9 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import Input from '@mui/material/Input';
-import InputAdornment from '@mui/material/InputAdornment';
+import { Input, InputAdornment, styled } from '@mui/material';
 import Search from '@mui/icons-material/Search';
-import { styled } from '@mui/material/styles';
 
 const PREFIX = 'SearchPanelInput';
 

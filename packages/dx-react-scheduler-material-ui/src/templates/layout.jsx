@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { styled } from '@mui/material/styles';
+import { styled } from '@mui/material';
 import { AUTO_HEIGHT } from '@devexpress/dx-scheduler-core';
 import { ContainerBase, classes } from './common/container';
 

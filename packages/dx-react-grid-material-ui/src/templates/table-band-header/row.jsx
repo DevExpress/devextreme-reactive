@@ -1,8 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'clsx';
-import { styled } from '@mui/material/styles';
-import TableRow from '@mui/material/TableRow';
+import { styled, TableRow } from '@mui/material';
 
 const PREFIX = 'Row';
 export const classes = {

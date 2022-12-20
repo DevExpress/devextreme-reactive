@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Paper from '@mui/material/Paper';
+import { Paper } from '@mui/material';
 import { withClassName, classes } from '../utils';
 
 const styles = ({ theme }) => ({

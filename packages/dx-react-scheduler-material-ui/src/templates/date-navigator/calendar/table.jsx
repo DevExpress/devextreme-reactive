@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import {
+  styled, Table as TableMUI, TableBody, TableHead,
+} from '@mui/material';
 import PropTypes from 'prop-types';
 import classNames from 'clsx';
-import TableMUI from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableHead from '@mui/material/TableHead';
 import { WEEK_DAY_OPTIONS, DAY_OPTIONS, areDatesSame } from '@devexpress/dx-scheduler-core';
 
 const PREFIX = 'Table';

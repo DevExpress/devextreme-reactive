@@ -1,8 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Tooltip from '@mui/material/Tooltip';
-import { styled } from '@mui/material/styles';
+import { TableSortLabel, Tooltip, styled } from '@mui/material';
 import classNames from 'clsx';
 
 const ENTER_KEY_CODE = 13;

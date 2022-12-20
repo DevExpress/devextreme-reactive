@@ -1,7 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
+import { IconButton, Tooltip } from '@mui/material';
 import Save from '@mui/icons-material/Save';
 
 export const ToggleButton = ({

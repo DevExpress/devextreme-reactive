@@ -1,8 +1,6 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { styled, Table, TableBody } from '@mui/material';
 import PropTypes from 'prop-types';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
 import classNames from 'clsx';
 import { HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION } from '@devexpress/dx-scheduler-core';
 

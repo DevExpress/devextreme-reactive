@@ -1,9 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'clsx';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Chip from '@mui/material/Chip';
-import { styled } from '@mui/material/styles';
+import { TableSortLabel, Chip, styled } from '@mui/material';
 
 const PREFIX = 'GroupPanelItem';
 export const classes = {

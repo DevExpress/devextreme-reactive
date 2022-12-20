@@ -1,8 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'clsx';
-import CheckboxMUI from '@mui/material/Checkbox';
-import { styled } from '@mui/material/styles';
+import { Checkbox as CheckboxMUI, styled } from '@mui/material';
 
 const PREFIX = 'TableTreeCheckbox';
 export const classes = {

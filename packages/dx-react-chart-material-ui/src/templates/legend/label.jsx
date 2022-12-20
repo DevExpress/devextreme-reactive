@@ -1,5 +1,5 @@
 import * as React from 'react';
-import ListItemText from '@mui/material/ListItemText';
+import { ListItemText } from '@mui/material';
 import { withClassName, classes } from '../utils';
 
 const styles = () => ({

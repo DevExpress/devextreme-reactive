@@ -2,7 +2,7 @@ import * as React from 'react';
 import {
   createMount, createShallow, setupConsole,
 } from '@devexpress/dx-testing';
-import TableCell from '@mui/material/TableCell';
+import { TableCell } from '@mui/material';
 
 import { Cell as TableGroupCell, classes } from './cell';
 

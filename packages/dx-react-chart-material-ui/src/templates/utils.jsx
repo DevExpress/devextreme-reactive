@@ -1,7 +1,7 @@
 import { withPatchedProps } from '@devexpress/dx-react-chart';
 import {
   darken, alpha, lighten, styled,
-} from '@mui/material/styles';
+} from '@mui/material';
 import classNames from 'clsx';
 
 export const getBorderColor = theme => (

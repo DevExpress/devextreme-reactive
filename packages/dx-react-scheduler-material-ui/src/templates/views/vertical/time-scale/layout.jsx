@@ -1,11 +1,9 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import {
+  styled, Table, TableBody, TableRow, TableCell,
+} from '@mui/material';
 import PropTypes from 'prop-types';
 import classNames from 'clsx';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
 import {
   getLabelsForAllGroups, getGroupsLastRow, VIEW_TYPES,
   HORIZONTAL_GROUP_ORIENTATION, VERTICAL_GROUP_ORIENTATION,

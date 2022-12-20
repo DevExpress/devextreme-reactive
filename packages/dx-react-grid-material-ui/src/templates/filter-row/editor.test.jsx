@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { createShallow } from '@devexpress/dx-testing';
-import Input from '@mui/material/Input';
+import { Input } from '@mui/material';
 import { Editor } from './editor';
 
 const defaultProps = {

@@ -63,6 +63,7 @@
     "@devexpress/dx-testing": "4.0.0",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.0.4",
     "@mui/material": "^5.0.4",
     "@rollup/plugin-node-resolve": "^7.1.1",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
@@ -101,6 +102,7 @@
     "@devexpress/dx-react-core": "4.0.0",
     "@emotion/react": ">=11.4.1",
     "@emotion/styled": ">=11.3.0",
+    "@mui/icons-material": ">=5.0.0",
     "@mui/material": ">=5.0.0",
     "react": ">=17.0.2"
   }

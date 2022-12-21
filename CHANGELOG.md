@@ -1,3 +1,14 @@
+# [4.0.1](https://github.com/DevExpress/devextreme-reactive/compare/v4.0.0...v4.0.1) (2022-12-21)
+
+
+### Bug Fixes
+
+* **react-core:** fix importing of mui packages that do not support ESM yet ([#3608](https://github.com/DevExpress/devextreme-reactive/issues/3608)) ([8ec2bd6](https://github.com/DevExpress/devextreme-reactive/commit/8ec2bd69fc0324b477c5828143a02404c2d0d551))
+* **react-core:** fix types for react 18 (T1130302) ([#3604](https://github.com/DevExpress/devextreme-reactive/issues/3604)) ([2930d7c](https://github.com/DevExpress/devextreme-reactive/commit/2930d7cbf5bdf646b2541e2018a84ea54e6ea70e))
+* **react-scheduler:** fix types ([#3605](https://github.com/DevExpress/devextreme-reactive/issues/3605)) ([eeebfe9](https://github.com/DevExpress/devextreme-reactive/commit/eeebfe9b07713977f94a24b1b7813d51fc0930db))
+
+
+
 # [4.0.0](https://github.com/DevExpress/devextreme-reactive/compare/v3.0.6...v4.0.0) (2022-11-25)
 
 

@@ -6,10 +6,6 @@
   "plugins": [
     ["transform-react-remove-prop-types", {
       "mode": "unsafe-wrap"
-    }],
-    ["transform-rename-import", {
-      "original": "^@mui\\/material\\/(.*)$",
-      "replacement": "@mui/material/node/$1/index.js"
     }]
   ],
   "env": {

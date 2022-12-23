@@ -2,6 +2,7 @@ import license from 'rollup-plugin-license';
 import { default as typescriptRollup } from 'rollup-plugin-typescript2';
 import replace from '@rollup/plugin-replace';
 import typescript from 'typescript';
+import modify from 'rollup-plugin-modify';
 import {
   banner, external, globals, stubProcess,
 } from '../../tools/rollup-utils';
@@ -24,6 +25,10 @@ export default {
     replace({
       '/** @class */': '/*#__PURE__*/',
       delimiters: ['', ''],
+    }),
+    modify({
+      find: /import {(.+)} from 'rrule';/,
+      replace: (match, name) => `import rrulePkg from 'rrule/dist/es5/rrule.js'; const {${name}} = rrulePkg;`,
     }),
     license({
       banner,

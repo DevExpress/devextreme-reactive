@@ -1,3 +1,10 @@
+# [4.0.2](https://github.com/DevExpress/devextreme-reactive/compare/v4.0.1...v4.0.2) (2022-12-26)
+
+
+### Bug Fixes
+
+* **scheduler-core:** fix rrule import in bundle ([#3617](https://github.com/DevExpress/devextreme-reactive/pull/3617))
+
 # [4.0.1](https://github.com/DevExpress/devextreme-reactive/compare/v4.0.0...v4.0.1) (2022-12-21)
 
 

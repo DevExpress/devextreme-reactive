@@ -25,6 +25,7 @@ export class GridCore extends React.PureComponent<GridProps, any> {
   render() {
     const {
       rootComponent: Root,
+      rootProps,
       ...restProps
     } = this.props;
     const { ref } = this.state;
@@ -37,7 +38,7 @@ export class GridCore extends React.PureComponent<GridProps, any> {
         <GridCoreGetters {...restProps} />
 
         <Template name="root">
-          <Root rootRef={this.rootRef}>
+          <Root {...rootProps} rootRef={this.rootRef}>
             <TemplatePlaceholder name="header" />
             <TemplatePlaceholder name="body" />
             <TemplatePlaceholder name="footer" />

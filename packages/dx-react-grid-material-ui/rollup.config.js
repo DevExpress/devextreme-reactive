@@ -40,7 +40,10 @@ export default [
       ...commonPlugins,
       modify({
         find: /import (\w+) from '@mui\/icons-material\/(.+)';/,
-        replace: (match, name, path) => `import ${name}Pkg from '@mui/icons-material/${path}.js'; const ${name} = ${name}Pkg.default;`,
+        replace: (match, name, path) => [
+          `import ${name}Pkg from '@mui/icons-material/${path}.js';`,
+          `const ${name} = ${name}Pkg.default ? ${name}Pkg.default : ${name}Pkg;`,
+        ].join('\n'),
       }),
     ],
   },

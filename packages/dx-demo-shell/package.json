@@ -21,9 +21,9 @@
   "peerDependencies": {
     "codemirror": "^5.49.2",
     "prop-types": "^15.7.2",
-    "react": "^17.0.2",
+    "react": "^18.2.0",
     "react-bootstrap": "=0.33.0",
-    "react-dom": "^17.0.2",
+    "react-dom": "^18.2.0",
     "react-frame-component": "^5.1.0",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0"

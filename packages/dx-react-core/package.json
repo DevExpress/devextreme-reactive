@@ -63,7 +63,7 @@
     "react-test-renderer": "^17.0.2",
     "rollup": "^1.27.2",
     "rollup-plugin-license": "^0.12.1",
-    "rollup-plugin-typescript2": "^0.30.0",
+    "rollup-plugin-typescript2": "^0.31.0",
     "ts-jest": "^29.0.3",
     "tslib": "^2.4.1",
     "tslint": "^5.20.1",

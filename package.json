@@ -40,10 +40,10 @@
   },
   "scripts": {
     "postinstall": "check-node-version --node \">=6.11.1\" --npm \">=5.3.0\" --yarn \">=1.0.0\"",
-    "build": "yarn build:ts && lerna run build --ignore @devexpress/dx-vue-* --ignore @examples/*",
+    "build": "yarn build:ts && lerna run build --ignore @devexpress/dx-vue-*",
     "build:ts": "node ./scripts/ts-generator.js && lerna run dts",
     "build:ts:watch": "nodemon --exec \"yarn build:ts\" --watch \"packages/*/docs/reference/*.md\" --watch \"scripts/ts-generator.js\" --ext md,js",
-    "build:watch": "concurrently \"yarn build:ts:watch\" \"lerna run --parallel build:watch --ignore @devexpress/dx-vue-*\" --ignore @examples/*",
+    "build:watch": "concurrently \"yarn build:ts:watch\" \"lerna run --parallel build:watch --ignore @devexpress/dx-vue-*\"",
     "build:generator": "lerna run build:generator --scope @devexpress/dx-react-grid-demos --scope @devexpress/dx-react-chart-demos --scope @devexpress/dx-react-scheduler-demos --scope @devexpress/dx-react-common",
     "build:react:grid:watch": "concurrently \"yarn build:ts:watch\" \"lerna run --scope @devexpress/dx-core --scope @devexpress/dx-react-core --scope @devexpress/dx-testing --parallel build\" \"lerna run --scope @devexpress/dx-grid-core --scope \"@devexpress/*react-grid*\" --parallel build:watch\"",
     "build:react:chart:watch": "concurrently \"yarn build:ts:watch\" \"lerna run --scope @devexpress/dx-core --scope @devexpress/dx-react-core --scope @devexpress/dx-testing --parallel build\" \"lerna run --scope @devexpress/dx-chart-core --scope \"@devexpress/*react-chart*\" --parallel build:watch\"",
@@ -52,11 +52,11 @@
     "build:site:demos": "yarn run build:ts && yarn run build:generator && lerna run build --ignore @devexpress/dx-react-grid-demos --ignore @devexpress/dx-react-chart-demos --ignore @devexpress/dx-react-scheduler-demos --ignore @devexpress/dx-react-common --ignore @devexpress/dx-vue-* && lerna run build:prod --scope @devexpress/dx-react-grid-demos --scope @devexpress/dx-react-chart-demos --scope @devexpress/dx-react-scheduler-demos --scope @devexpress/dx-react-common",
     "build:site:docs": "gulp site",
     "build:site:watch": "npx nodemon --exec \"yarn build:site:docs\" --watch \"packages/dx-react-grid-demos/dist/\" --watch \"packages/dx-react-chart-demos/dist/\" --watch \"packages/dx-react-scheduler-demos/dist/\" --watch \"packages/*/docs/\" --watch \"packages/*/demos/\" --watch \"gulpfile.js\" --ext md,js",
-    "lint": "lerna run lint --ignore @devexpress/dx-vue-* --ignore @examples/*",
-    "lint:fix": "lerna run lint:fix --ignore @devexpress/dx-vue-* --ignore @examples/*",
+    "lint": "lerna run lint --ignore @devexpress/dx-vue-*",
+    "lint:fix": "lerna run lint:fix --ignore @devexpress/dx-vue-*",
     "lint:ci": "lerna run lint:ci",
-    "test": "lerna run test --ignore @devexpress/dx-vue-* --ignore @examples/* && yarn test:bs4 && yarn test:scheduler:pacific",
-    "test:ci": "yarn update-api:ci && lerna run test --ignore @devexpress/dx-vue-* --ignore @examples/* -- -- --runInBand --max-old-space-size=4096 && yarn test:bs4 && yarn test:scheduler:pacific",
+    "test": "lerna run test --ignore @devexpress/dx-vue-* && yarn test:bs4 && yarn test:scheduler:pacific",
+    "test:ci": "yarn update-api:ci && lerna run test --ignore @devexpress/dx-vue-* -- -- --runInBand --max-old-space-size=4096 && yarn test:bs4 && yarn test:scheduler:pacific",
     "testcafe:ci": "start-server-and-test start-demo-servers \"3002|3004|3005\" testcafe:ci:start",
     "testcafe:ci:start": "testcafe -q",
     "testcafe:ci:grid": "start-server-and-test start-demo-servers \"3002\" testcafe:ci:grid:start",
@@ -84,8 +84,7 @@
     }
   },
   "workspaces": [
-    "packages/*",
-    "examples/*"
+    "packages/*"
   ],
   "engines": {
     "yarn": ">=1.22.0"

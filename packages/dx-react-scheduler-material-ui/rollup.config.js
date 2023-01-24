@@ -40,7 +40,11 @@ export default [
       ...commonPlugins,
       modify({
         find: /import (\w+) from '@mui\/icons-material\/(.+)';/,
-        replace: (match, name, path) => `import ${name}Pkg from '@mui/icons-material/${path}.js'; const ${name} = ${name}Pkg.default;`,
+        replace: (match, name, path) => `import ${name} from '@mui/icons-material/esm/${path}.js';`,
+      }),
+      modify({
+        find: /import (.+) from '@mui\/x-date-pickers\/(.+)';/,
+        replace: (match, name, path) => `import ${name} from '@mui/x-date-pickers/${path}/index.js';`,
       }),
     ],
   },

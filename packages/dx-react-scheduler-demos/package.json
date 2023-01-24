@@ -34,7 +34,7 @@
     "@mui/icons-material": "^5.0.4",
     "@mui/lab": "^5.0.0-alpha.51",
     "@mui/material": "^5.0.4",
-    "@mui/x-date-pickers": "^5.0.0-alpha.7",
+    "@mui/x-date-pickers": "^5.0.15",
     "@types/react": "^17.0.30",
     "@types/react-dom": "^17.0.9",
     "clsx": "^1.0.4",

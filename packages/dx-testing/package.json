@@ -45,8 +45,8 @@
   "dependencies": {
     "@devexpress/dx-react-core": "4.0.2",
     "enzyme": "3.10.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "util": "^0.12.1"
   },
   "peerDependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-chart-material-ui",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "Material-UI templates for DevExtreme React Chart component",
   "author": {
     "name": "Developer Express Inc.",
@@ -59,8 +59,8 @@
     "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.8.3",
-    "@devexpress/dx-react-core": "4.0.2",
-    "@devexpress/dx-testing": "4.0.2",
+    "@devexpress/dx-react-core": "4.0.3",
+    "@devexpress/dx-testing": "4.0.3",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@mui/icons-material": "^5.11.0",
@@ -97,9 +97,9 @@
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {
-    "@devexpress/dx-chart-core": "4.0.2",
-    "@devexpress/dx-react-chart": "4.0.2",
-    "@devexpress/dx-react-core": "4.0.2",
+    "@devexpress/dx-chart-core": "4.0.3",
+    "@devexpress/dx-react-chart": "4.0.3",
+    "@devexpress/dx-react-core": "4.0.3",
     "@emotion/react": ">=11.4.1",
     "@emotion/styled": ">=11.3.0",
     "@mui/icons-material": ">=5.0.0",

@@ -1,3 +1,12 @@
+# [4.0.3](https://github.com/DevExpress/devextreme-reactive/compare/v4.0.2...v4.0.3) (2023-01-26)
+
+
+### Bug Fixes
+
+* Fix esm bundle ([#3629](https://github.com/DevExpress/devextreme-reactive/issues/3629)) ([a97d9d9](https://github.com/DevExpress/devextreme-reactive/commit/a97d9d990fe6522daf28e72299553bbaeb98139c))
+
+
+
 # [4.0.2](https://github.com/DevExpress/devextreme-reactive/compare/v4.0.1...v4.0.2) (2022-12-26)
 
 

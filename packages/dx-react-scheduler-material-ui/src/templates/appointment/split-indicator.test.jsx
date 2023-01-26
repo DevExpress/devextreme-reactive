@@ -14,10 +14,10 @@ describe('Appointment', () => {
     });
     it('should pass rest props to the root element', () => {
       const tree = shallow((
-        <SplitIndicator {...defaultProps} a={{ a: 1 }} />
+        <SplitIndicator {...defaultProps} data={{ a: 1 }} />
       ));
 
-      expect(tree.props().a)
+      expect(tree.props().data)
         .toMatchObject({ a: 1 });
     });
     it('should pass className', () => {

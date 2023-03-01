@@ -2,7 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Toolbar, styled } from '@mui/material';
 
-const PREFIX = 'EmotyMessage';
+const PREFIX = 'EmptyMessage';
 export const classes = {
   emptyMessage: `${PREFIX}-emptyMessage`,
 };

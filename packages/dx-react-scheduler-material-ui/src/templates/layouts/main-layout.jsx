@@ -2,7 +2,12 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material';
 import classNames from 'clsx';
-import { scrollingStrategy, getBorder, getBrightBorder } from '../utils';
+import {
+  scrollingStrategy,
+  getBorder,
+  getBrightBorder,
+  getEmptyCellWidth,
+} from '../utils';
 import { GROUPING_PANEL_VERTICAL_CELL_WIDTH, LEFT_PANEL_WIDTH_SPACING } from '../constants';
 
 const PREFIX = 'MainLayout';
@@ -61,8 +66,8 @@ const StyledDiv = styled('div', {
   [`& .${classes.dayScaleEmptyCell}`]: {
     display: 'flex',
     alignItems: 'flex-end',
-    width: leftPanelWidth || theme.spacing(calculatedLeftPanelWidth) + 1,
-    minWidth: leftPanelWidth || theme.spacing(calculatedLeftPanelWidth) + 1,
+    width: getEmptyCellWidth(theme, leftPanelWidth, calculatedLeftPanelWidth),
+    minWidth: getEmptyCellWidth(theme, leftPanelWidth, calculatedLeftPanelWidth),
   },
   [`& .${classes.flexRow}`]: {
     display: 'flex',

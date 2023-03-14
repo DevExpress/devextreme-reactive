@@ -71,3 +71,5 @@ export const getViewCellKey = (startDate, groups) => {
 };
 
 export const addCommaAndSpaceToString = string => string && `${string},\xa0`;
+
+export const getEmptyCellWidth = (theme, width, calculatedWidth) => (width ? `${width}px` : `calc(${theme.spacing(calculatedWidth)} + 1px)`);

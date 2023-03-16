@@ -2,6 +2,7 @@ import {
   getWidthInPixels,
   getViewCellKey,
   getResourceColor,
+  getEmptyCellWidth,
 } from './utils';
 
 describe('Utils', () => {
@@ -40,6 +41,14 @@ describe('Utils', () => {
       ];
       expect(getResourceColor(resources))
         .toBe('Main color');
+    });
+  });
+  describe('#getEmptyCellWidth', () => {
+    it('should return the exact width as a string (if provided)', () => {
+      expect(getEmptyCellWidth(undefined, 81, 91)).toBe('81px');
+    });
+    it('should ask the theme to calculate the width if none was provided', () => {
+      expect(getEmptyCellWidth({ spacing: width => `${width * 10}px` }, undefined, 8)).toBe('calc(80px + 1px)');
     });
   });
 });

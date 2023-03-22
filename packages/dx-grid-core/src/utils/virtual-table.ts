@@ -19,14 +19,39 @@ import { TABLE_FLEX_TYPE, intervalUtil } from '..';
 
 export const TABLE_STUB_TYPE = Symbol('stub');
 
+const isLeftFixedInViewport = (item: TableColumn, index: number, visibleBoundary: VisibleBoundary) =>
+  index < visibleBoundary[0] && item.fixed === 'left';
+
+const isRightFixedInViewport = (item: TableColumn, index: number, visibleBoundary: VisibleBoundary) =>
+  index > visibleBoundary[1] && item.fixed === 'right';
+
+const isFixedInViewport = (item: TableColumn, index: number, visibleBoundary: VisibleBoundary) =>
+  isLeftFixedInViewport(item, index, visibleBoundary) || isRightFixedInViewport(item, index, visibleBoundary);
+
+const isInViewport = (item: TableColumn, index: number, visibleBoundary: VisibleBoundary) =>
+  index >= visibleBoundary[0] && index <= visibleBoundary[1] || isFixedInViewport(item, index, visibleBoundary);
+
 export const getVisibleBoundaryWithFixed: GetVisibleBoundaryWithFixedFn = (
   visibleBoundary, items,
-) => items.reduce((acc, item, index) => {
-  if (item.fixed && (index < visibleBoundary[0] || index > visibleBoundary[1])) {
+) => {
+  const boundaries = items.reduce((acc, item, index) => {
+    if (!isInViewport(item, index, visibleBoundary)) {
+      return acc;
+    }
+
+    if (acc.length && acc[acc.length - 1][1] === index - 1) {
+      let boundary = acc.pop()!;
+
+      acc.push([boundary[0], index]);
+      return acc;
+    }
+
     acc.push([index, index]);
-  }
-  return acc;
-}, [visibleBoundary] as [VisibleBoundary]);
+    return acc;
+  }, [] as VisibleBoundary[]);
+
+  return boundaries;
+};
 
 export const getVisibleBoundary: GetVisibleBoundaryFn = (
   items, viewportStart, viewportSize, getItemSize, skipItems, offset = 0,

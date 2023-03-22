@@ -46,6 +46,12 @@ export type GetVisibleBoundaryWithFixedFn = PureComputed<
 >;
 
 /** @internal */
+export type GetVisibleBoundaryWithFixedPredicate = PureComputed<
+  [TableColumn, number, VisibleBoundary],
+  boolean
+>;
+
+/** @internal */
 export type GetSpanBoundaryFn = PureComputed<
   [TableColumn[], VisibleBoundary[], (item: any) => number],
   VisibleBoundary[]

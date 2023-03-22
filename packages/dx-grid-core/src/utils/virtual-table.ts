@@ -14,22 +14,29 @@ import {
   GetRenderBoundaryFn,
   GetRowsVisibleBoundaryFn,
   TableRow,
+  GetVisibleBoundaryWithFixedPredicate,
 } from '../types';
 import { TABLE_FLEX_TYPE, intervalUtil } from '..';
 
 export const TABLE_STUB_TYPE = Symbol('stub');
 
-const isLeftFixedInViewport = (item: TableColumn, index: number, visibleBoundary: VisibleBoundary) =>
-  index < visibleBoundary[0] && item.fixed === 'left';
+const isLeftFixedInViewport: GetVisibleBoundaryWithFixedPredicate = (
+  item, index, visibleBoundary,
+) => index < visibleBoundary[0] && item.fixed === 'left';
 
-const isRightFixedInViewport = (item: TableColumn, index: number, visibleBoundary: VisibleBoundary) =>
-  index > visibleBoundary[1] && item.fixed === 'right';
+const isRightFixedInViewport: GetVisibleBoundaryWithFixedPredicate = (
+  item, index, visibleBoundary,
+) => index > visibleBoundary[1] && item.fixed === 'right';
 
-const isFixedInViewport = (item: TableColumn, index: number, visibleBoundary: VisibleBoundary) =>
-  isLeftFixedInViewport(item, index, visibleBoundary) || isRightFixedInViewport(item, index, visibleBoundary);
+const isFixedInViewport: GetVisibleBoundaryWithFixedPredicate = (
+  item, index, visibleBoundary,
+) => isLeftFixedInViewport(item, index, visibleBoundary)
+  || isRightFixedInViewport(item, index, visibleBoundary);
 
-const isInViewport = (item: TableColumn, index: number, visibleBoundary: VisibleBoundary) =>
-  index >= visibleBoundary[0] && index <= visibleBoundary[1] || isFixedInViewport(item, index, visibleBoundary);
+const isInViewport: GetVisibleBoundaryWithFixedPredicate = (
+  item, index, visibleBoundary,
+) => index >= visibleBoundary[0] && index <= visibleBoundary[1]
+  || isFixedInViewport(item, index, visibleBoundary);
 
 export const getVisibleBoundaryWithFixed: GetVisibleBoundaryWithFixedFn = (
   visibleBoundary, items,
@@ -40,7 +47,7 @@ export const getVisibleBoundaryWithFixed: GetVisibleBoundaryWithFixedFn = (
     }
 
     if (acc.length && acc[acc.length - 1][1] === index - 1) {
-      let boundary = acc.pop()!;
+      const boundary = acc.pop()!;
 
       acc.push([boundary[0], index]);
       return acc;

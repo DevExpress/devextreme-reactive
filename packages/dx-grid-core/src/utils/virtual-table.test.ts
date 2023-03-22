@@ -177,6 +177,7 @@ describe('VirtualTableLayout utils', () => {
       expect(getVisibleBoundaryWithFixed([8, 10], items))
         .toEqual([[1, 3], [5, 6], [8, 10], [12, 12]]);
     });
+
     it('should accept fixed columns inside viewport', () => {
       const items = [
         { key: '0', fixed: 'left' },
@@ -192,6 +193,7 @@ describe('VirtualTableLayout utils', () => {
       expect(getVisibleBoundaryWithFixed([3, 5], items))
         .toEqual([[0, 1], [3, 5], [7, 7]]);
     });
+
     it('should extend viewport range', () => {
       const items = [
         { key: '0' },
@@ -206,8 +208,9 @@ describe('VirtualTableLayout utils', () => {
       expect(getVisibleBoundaryWithFixed([2, 4], items))
         .toEqual([[1, 5]]);
     });
-    it('should not include fixed columns on the other side of the viewport', () => {
-      let items = [
+
+    it('should not include "fixed: rignt" columns to the left of the viewport', () => {
+      const items = [
         { key: '0' },
         { key: '1', fixed: 'right' },
         { key: '2' },
@@ -222,8 +225,10 @@ describe('VirtualTableLayout utils', () => {
 
       expect(getVisibleBoundaryWithFixed([3, 5], items))
         .toEqual([[3, 5], [7, 8]]);
+    });
 
-      items = [
+    it('should not include "fixed: left" columns to the right of the viewport', () => {
+      const items = [
         { key: '0' },
         { key: '1', fixed: 'left' },
         { key: '2', fixed: 'left' },

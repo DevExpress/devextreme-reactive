@@ -40,25 +40,21 @@ const isInViewport: GetVisibleBoundaryWithFixedPredicate = (
 
 export const getVisibleBoundaryWithFixed: GetVisibleBoundaryWithFixedFn = (
   visibleBoundary, items,
-) => {
-  const boundaries = items.reduce((acc, item, index) => {
-    if (!isInViewport(item, index, visibleBoundary)) {
-      return acc;
-    }
-
-    if (acc.length && acc[acc.length - 1][1] === index - 1) {
-      const boundary = acc.pop()!;
-
-      acc.push([boundary[0], index]);
-      return acc;
-    }
-
-    acc.push([index, index]);
+) => items.reduce((acc, item, index) => {
+  if (!isInViewport(item, index, visibleBoundary)) {
     return acc;
-  }, [] as VisibleBoundary[]);
+  }
 
-  return boundaries;
-};
+  if (acc.length && acc[acc.length - 1][1] === index - 1) {
+    const boundary = acc.pop()!;
+
+    acc.push([boundary[0], index]);
+    return acc;
+  }
+
+  acc.push([index, index]);
+  return acc;
+}, [] as VisibleBoundary[]);
 
 export const getVisibleBoundary: GetVisibleBoundaryFn = (
   items, viewportStart, viewportSize, getItemSize, skipItems, offset = 0,

@@ -46,8 +46,7 @@ export const getVisibleBoundaryWithFixed: GetVisibleBoundaryWithFixedFn = (
     const isAdjacentToPreviousRange = previousRange && previousRange[1] === index - 1;
 
     if (isAdjacentToPreviousRange) {
-      acc.pop();
-      acc.push([previousRange[0], index]);
+      acc.splice(-1, 1, [previousRange[0], index]);
     } else {
       acc.push([index, index]);
     }

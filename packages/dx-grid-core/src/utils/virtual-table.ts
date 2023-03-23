@@ -33,7 +33,7 @@ const isFixedInViewport: GetVisibleBoundaryWithFixedPredicate = (
 ) => isLeftFixedInViewport(item, index, visibleBoundary)
   || isRightFixedInViewport(item, index, visibleBoundary);
 
-const isInViewport: GetVisibleBoundaryWithFixedPredicate = (
+const isColumnInViewport: GetVisibleBoundaryWithFixedPredicate = (
   item, index, visibleBoundary,
 ) => index >= visibleBoundary[0] && index <= visibleBoundary[1]
   || isFixedInViewport(item, index, visibleBoundary);
@@ -41,18 +41,19 @@ const isInViewport: GetVisibleBoundaryWithFixedPredicate = (
 export const getVisibleBoundaryWithFixed: GetVisibleBoundaryWithFixedFn = (
   visibleBoundary, items,
 ) => items.reduce((acc, item, index) => {
-  if (!isInViewport(item, index, visibleBoundary)) {
-    return acc;
+  if (isColumnInViewport(item, index, visibleBoundary)) {
+    const previousRange = !!acc.length && acc[acc.length - 1];
+    const isAdjacentToPreviousRange = previousRange && previousRange[1] === index - 1;
+  
+    if (isAdjacentToPreviousRange) {
+      acc.pop();
+      acc.push([previousRange[0], index]);
+    }
+    else {
+      acc.push([index, index]);
+    }
   }
 
-  if (acc.length && acc[acc.length - 1][1] === index - 1) {
-    const boundary = acc.pop()!;
-
-    acc.push([boundary[0], index]);
-    return acc;
-  }
-
-  acc.push([index, index]);
   return acc;
 }, [] as VisibleBoundary[]);
 

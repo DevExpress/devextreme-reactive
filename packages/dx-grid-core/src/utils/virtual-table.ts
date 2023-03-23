@@ -44,12 +44,11 @@ export const getVisibleBoundaryWithFixed: GetVisibleBoundaryWithFixedFn = (
   if (isColumnInViewport(item, index, visibleBoundary)) {
     const previousRange = !!acc.length && acc[acc.length - 1];
     const isAdjacentToPreviousRange = previousRange && previousRange[1] === index - 1;
-  
+
     if (isAdjacentToPreviousRange) {
       acc.pop();
       acc.push([previousRange[0], index]);
-    }
-    else {
+    } else {
       acc.push([index, index]);
     }
   }

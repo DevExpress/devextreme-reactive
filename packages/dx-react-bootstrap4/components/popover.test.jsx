@@ -50,7 +50,7 @@ describe('BS4 Popover', () => {
       );
 
       expect(tree.root.children).toHaveLength(1);
-      expect(tree.root.find(Popper)).not.toBeNull();
+      expect(tree.root.findByType(Popper)).not.toBeNull();
     });
 
     it('should render correct elements', () => {
@@ -59,10 +59,10 @@ describe('BS4 Popover', () => {
           <Content />
         </Popover>
       ), container);
-      expect(tree.root.findByProps({className:'popover show bs-popover-undefined'})).not.toBeNull();
-      expect(tree.root.findByProps({className:'popover show bs-popover-undefined'}).children).toHaveLength(2);
+      expect(tree.root.findByProps({className:'popover show bs-popover-bottom'})).not.toBeNull();
+      expect(tree.root.findByProps({className:'popover show bs-popover-bottom'}).children).toHaveLength(2);
       expect(tree.root.findAllByProps({className:'.arrow'})).not.toBeNull();
-      expect(tree.root.findByProps({className:'popover-inner'}).parent.props.className).toBe('popover show bs-popover-undefined');
+      expect(tree.root.findByProps({className:'popover-inner'}).parent.props.className).toBe('popover show bs-popover-bottom');
       expect(tree.root.findByProps({className:'popover-inner'}).find(Content)).not.toBeNull();
     });
 

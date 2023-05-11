@@ -26,9 +26,12 @@ describe('Overlay', () => {
       placement: 'top',
       isOpen: true,
       target: 'test-target',
-      modifiers: {
-        flip: { enabled: false },
-      },
+      modifiers: [
+        {
+          name: 'flip',
+          enabled: false,
+        },
+      ],
     });
     expect(tree.root.findByProps({ className: 'content' })).toBeTruthy();
   });
@@ -46,9 +49,12 @@ describe('Overlay', () => {
       placement: 'right',
       isOpen: true,
       target: 'test-target',
-      modifiers: {
-        flip: { enabled: false },
-      },
+      modifiers: [
+        {
+          name: 'flip',
+          enabled: false,
+        },
+      ],
     });
   });
 });

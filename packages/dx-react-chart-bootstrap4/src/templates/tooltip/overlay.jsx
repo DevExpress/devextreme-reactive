@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { RIGHT, TOP } from '@devexpress/dx-chart-core';
 import { Popover } from '../../../../dx-react-bootstrap4/components';
 
-const popperModifiers = {
-  flip: { enabled: false },
-};
+const popperModifiers = [{
+  name: 'flip',
+  enabled: false,
+}];
 
 export class Overlay extends React.PureComponent {
   render() {

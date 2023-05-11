@@ -94,7 +94,7 @@
   "dependencies": {
     "clsx": "^1.0.4",
     "prop-types": "^15.7.2",
-    "react-popper": "^2.3.0"
+    "react-popper": "~2.2.5"
   },
   "peerDependencies": {
     "@devexpress/dx-chart-core": "4.0.3",

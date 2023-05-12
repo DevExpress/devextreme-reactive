@@ -81,13 +81,15 @@ export class Popover extends React.PureComponent {
       ...restProps
     } = this.props;
 
-    const popperModifiers = [{
-      name: 'offset',
-      options: {
-        offset: [0, 8],
+    const popperModifiers = [
+      {
+        name: 'offset',
+        options: {
+          offset: [0, 8],
+        },
       },
-      ...modifiers
-    }];
+      ...modifiers,
+    ];
 
     return (
       <Popper

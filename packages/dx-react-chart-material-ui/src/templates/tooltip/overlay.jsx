@@ -17,9 +17,29 @@ const StyledPopper = styled(Popper)(() => ({
 }));
 
 const popperModifiers = arrowRef => ([
-  { name: 'flip', enabled: false },
-  { name: 'arrow', enabled: true, options: { element: arrowRef } },
-  { name: 'offset', options: { offset: [0, 9] } },
+  {
+    name: 'flip',
+    enabled: false,
+  },
+  {
+    name: 'arrow',
+    enabled: true,
+    options: {
+      element: arrowRef,
+    },
+  },
+  {
+    name: 'offset',
+    options: {
+      offset: [0, 9],
+    },
+  },
+  {
+    name: 'preventOverflow',
+    options: {
+      altAxis: true,
+    },
+  },
 ]);
 
 export const Overlay = ({

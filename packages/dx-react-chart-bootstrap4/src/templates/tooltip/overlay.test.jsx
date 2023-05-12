@@ -31,6 +31,12 @@ describe('Overlay', () => {
           name: 'flip',
           enabled: false,
         },
+        {
+          name: 'preventOverflow',
+          options: {
+            altAxis: true,
+          },
+        },
       ],
     });
     expect(tree.root.findByProps({ className: 'content' })).toBeTruthy();
@@ -53,6 +59,12 @@ describe('Overlay', () => {
         {
           name: 'flip',
           enabled: false,
+        },
+        {
+          name: 'preventOverflow',
+          options: {
+            altAxis: true,
+          },
         },
       ],
     });

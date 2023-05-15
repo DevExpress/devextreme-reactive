@@ -77,7 +77,7 @@ export class Popover extends React.PureComponent {
   renderPopper() {
     const {
       children, target, renderInBody,
-      arrowComponent: ArrowComponent, modifiers,
+      arrowComponent: ArrowComponent, modifiers = [],
       ...restProps
     } = this.props;
 

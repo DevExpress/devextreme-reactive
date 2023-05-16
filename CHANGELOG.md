@@ -3,7 +3,7 @@
 
 ### Bug Fixes
 
-* **grid-core:** Make virtual table's viewport calculation band-friendly (T1154239) ([#3643](https://github.com/DevExpress/devextreme-reactive/issues/3643)) ([cf41706](https://github.com/DevExpress/devextreme-reactive/commit/cf41706b97a024fed32e3f9351a725a260067eb0))
+* **grid-core:** Make a virtual table's viewport calculation band-friendly (T1154239) ([#3643](https://github.com/DevExpress/devextreme-reactive/issues/3643)) ([cf41706](https://github.com/DevExpress/devextreme-reactive/commit/cf41706b97a024fed32e3f9351a725a260067eb0))
 * **react-scheduler:** fix horizontal scale flickering (T1151128) ([#3641](https://github.com/DevExpress/devextreme-reactive/issues/3641)) ([fc2b29e](https://github.com/DevExpress/devextreme-reactive/commit/fc2b29eac986a68afbe06c99f37ea445b8bbbb8b))
 * Update the `react-popper` dependency to v2, by [@glsignal](https://github.com/glsignal) ([345fa12](https://github.com/DevExpress/devextreme-reactive/commit/345fa12dc4c5a953e9c4b80ba4d4fd4d518c7c6f))
 

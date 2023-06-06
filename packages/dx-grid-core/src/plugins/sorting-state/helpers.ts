@@ -15,7 +15,6 @@ export const getColumnSortingDirection: GetColumnSortingDirectionFn = (
 export const getPersistentSortedColumns: GetPersistentSortedColumnsFn = (
   sorting, columnExtensions = [],
 ) => columnExtensions.reduce((acc, { columnName, sortingEnabled }) => {
-  // tslint:disable-next-line:no-boolean-literal-compare
   if (sortingEnabled === false) {
     if (sorting.findIndex(sortItem => sortItem.columnName === columnName) > -1) {
       acc.push(columnName);

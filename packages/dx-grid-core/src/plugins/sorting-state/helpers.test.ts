@@ -38,6 +38,20 @@ describe('SortingState helpers', () => {
       const result = getPersistentSortedColumns(sorting, columnExtensions);
       expect(result).toEqual(['b']);
     });
+    it('should honor the default sortingEnabled state', () => {
+      const sorting = [
+        { columnName: 'a', ...defaultDirection },
+        { columnName: 'b', ...defaultDirection },
+        { columnName: 'c', ...defaultDirection },
+      ];
+      const columnExtensions = [
+        { columnName: 'a', sortingEnabled: true },
+        { columnName: 'b', sortingEnabled: false },
+        { columnName: 'c' },
+      ];
+      const result = getPersistentSortedColumns(sorting, columnExtensions);
+      expect(result).toEqual(['b']);
+    });
   });
 
   describe('#calculateKeepOther', () => {

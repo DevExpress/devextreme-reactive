@@ -64,13 +64,13 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       return;
     }
     if (ref === null) {
-      this.rowRefs.delete(row.key);
+      this.rowRefs.delete(row);
     } else {
-      this.rowRefs.set(row.key, ref);
+      this.rowRefs.set(row, ref);
     }
   }
 
-  componentDidMount(): void {
+  componentDidMount() {
     this.storeRowHeights();
   }
 

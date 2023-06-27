@@ -69,6 +69,10 @@ class VirtualTableLayoutWrapper extends React.Component<any, any> {
   }
 }
 
+const getBoundingClientRect = () => ({
+  height: 50,
+});
+
 const defaultProps = {
   columns: [
     { key: 'a', column: { name: 'a' } },
@@ -107,11 +111,13 @@ const defaultProps = {
   totalRowCount: 9,
   containerComponent: ({ forwardedRef, ...props }) => <div {...props} />,
   tableComponent: ({ forwardedRef, ...props }) => {
+    (forwardedRef as any).current = { getBoundingClientRect };
     return <table {...props} />;
   },
   headComponent: ({ isFixed, ...props }) => <thead {...props} />,
   bodyComponent: ({ isFixed, ...props }) => <tbody {...props} />,
-  rowComponent: () => {
+  rowComponent: ({ forwardedRef }) => {
+    (forwardedRef as any)({ getBoundingClientRect });
     return null;
   },
   cellComponent: () => null,

@@ -537,4 +537,72 @@ describe('VirtualTableLayout', () => {
       });
     });
   });
+
+  describe('row heights', () => {
+    it('should specify correct row height at startup', () => {
+      expect.hasAssertions();
+
+      const rows = [
+        { key: 1 },
+        { key: 2, height: 10 },
+      ];
+
+      getCollapsedGrids
+        .mockImplementationOnce((args) => {
+          const { getRowHeight } = args;
+          expect(getRowHeight(rows[0]))
+            .toEqual(defaultProps.estimatedRowHeight);
+          expect(getRowHeight(rows[1]))
+            .toEqual(10);
+
+          return jest.requireActual('@devexpress/dx-grid-core').getCollapsedGrids(args);
+        });
+
+      mount((
+        <VirtualTableLayout
+          {...defaultProps}
+          bodyRows={rows}
+        />
+      ));
+    });
+
+    it('should store row height when rendered', () => {
+      const rows = [
+        { key: 1 },
+        { key: 2, height: 10 },
+      ];
+
+      mount((
+        <VirtualTableLayout
+          {...defaultProps}
+          bodyRows={rows}
+        />
+      ));
+
+      const { getRowHeight } = getCollapsedGrids.mock.calls[0][0];
+      expect(getRowHeight(rows[0]))
+        .toEqual(50);
+      expect(getRowHeight(rows[1]))
+        .toEqual(50);
+    });
+
+    it('should clear row height when rows updated', () => {
+      const rows = [
+        { key: 11 },
+        { key: 12 },
+      ];
+
+      const tree = mount((
+        <VirtualTableLayout
+          {...defaultProps}
+          bodyRows={rows.slice(0, 2)}
+        />
+      ));
+      tree.setProps({ bodyRows: [rows[0]] });
+
+      const { getRowHeight } = getCollapsedGrids.mock.calls[0][0];
+      expect(getRowHeight(rows[1]))
+        .toEqual(defaultProps.estimatedRowHeight);
+    });
+  });
 });

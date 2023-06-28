@@ -543,7 +543,7 @@ describe('VirtualTableLayout', () => {
       height: 70,
     });
 
-    const props = {
+    const newProps = {
       ...defaultProps,
       tableComponent: ({ forwardedRef, ...props }) => {
         (forwardedRef as any).current = { getBoundingClientRect };
@@ -567,7 +567,7 @@ describe('VirtualTableLayout', () => {
         .mockImplementationOnce((args) => {
           const { getRowHeight } = args;
           expect(getRowHeight(rows[0]))
-            .toEqual(props.estimatedRowHeight);
+            .toEqual(newProps.estimatedRowHeight);
           expect(getRowHeight(rows[1]))
             .toEqual(10);
 
@@ -576,7 +576,7 @@ describe('VirtualTableLayout', () => {
 
       mount((
         <VirtualTableLayout
-          {...props}
+          {...newProps}
           bodyRows={rows}
         />
       ));
@@ -590,7 +590,7 @@ describe('VirtualTableLayout', () => {
 
       mount((
         <VirtualTableLayout
-          {...props}
+          {...newProps}
           bodyRows={rows}
         />
       ));
@@ -610,7 +610,7 @@ describe('VirtualTableLayout', () => {
 
       const tree = mount((
         <VirtualTableLayout
-          {...props}
+          {...newProps}
           bodyRows={rows.slice(0, 2)}
         />
       ));
@@ -618,7 +618,7 @@ describe('VirtualTableLayout', () => {
 
       const { getRowHeight } = getCollapsedGrids.mock.calls[0][0];
       expect(getRowHeight(rows[1]))
-        .toEqual(props.estimatedRowHeight);
+        .toEqual(newProps.estimatedRowHeight);
     });
   });
 });

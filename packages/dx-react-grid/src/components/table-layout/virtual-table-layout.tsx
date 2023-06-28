@@ -142,8 +142,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       .map(([row, ref]) => [row, ref])
       .filter(([, node]) => !!node)
       .map(([row, node]) => [row, node.getBoundingClientRect().height])
-      .filter(([row]) => row.type !== TABLE_STUB_TYPE)
-      .filter(([row, height]) => height !== this.getRowHeight(row));
+      .filter(([row, height]) => row.type !== TABLE_STUB_TYPE && height !== this.getRowHeight(row));
 
     if (rowsWithChangedHeights.length) {
       const { rowHeights } = this.state;

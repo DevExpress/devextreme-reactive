@@ -70,7 +70,7 @@ class VirtualTableLayoutWrapper extends React.Component<any, any> {
 }
 
 const getBoundingClientRect = () => ({
-  height: 50,
+  height: 49,
 });
 
 const defaultProps = {
@@ -587,9 +587,9 @@ describe('VirtualTableLayout', () => {
 
       const { getRowHeight } = getCollapsedGrids.mock.calls[0][0];
       expect(getRowHeight(rows[0]))
-        .toEqual(50);
+        .toEqual(49);
       expect(getRowHeight(rows[1]))
-        .toEqual(50);
+        .toEqual(49);
     });
 
     it('should clear row height when rows updated', () => {

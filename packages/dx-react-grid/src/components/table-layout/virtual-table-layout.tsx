@@ -35,6 +35,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     super(props);
 
     this.state = {
+      rowHeights: new Map<any, number>(),
       viewportTop: 0,
       skipItems: [0, 0],
       containerHeight: 600,
@@ -63,13 +64,19 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       return;
     }
     if (ref === null) {
-      this.rowRefs.delete(row.key);
+      this.rowRefs.delete(row);
     } else {
-      this.rowRefs.set(row.key, ref);
+      this.rowRefs.set(row, ref);
     }
   }
 
+  componentDidMount() {
+    this.storeRowHeights();
+  }
+
   componentDidUpdate(prevProps, prevState) {
+    setTimeout(this.storeRowHeights.bind(this));
+
     const { bodyRows, columns } = this.props;
     // NOTE: the boundaries depend not only on scroll position and container dimensions
     // but on body rows too. This boundaries update is especially important when
@@ -103,12 +110,49 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     }
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { rowHeights: prevRowHeight } = prevState;
+    const rowHeights = [...nextProps.headerRows, ...nextProps.bodyRows, ...nextProps.footerRows]
+      .reduce(
+        (acc, row) => {
+          const rowHeight = prevRowHeight.get(row.key);
+          if (rowHeight !== undefined) {
+            acc.set(row.key, rowHeight);
+          }
+          return acc;
+        },
+        new Map(),
+      );
+    return { rowHeights };
+  }
+
   getRowHeight = (row) => {
+    const { rowHeights } = this.state;
+    const { estimatedRowHeight } = this.props;
     if (row) {
-      const realHeight = this.rowRefs.get(row.key)?.getBoundingClientRect().height;
-      return row.height || realHeight || this.props.estimatedRowHeight;
+      const storedHeight = rowHeights.get(row.key);
+      if (storedHeight !== undefined) return storedHeight;
+      if (row.height) return row.height;
     }
-    return this.props.estimatedRowHeight;
+    return estimatedRowHeight;
+  }
+
+  storeRowHeights() {
+    const rowsWithChangedHeights = Array.from(this.rowRefs.entries())
+      .map(([row, ref]) => [row, ref])
+      .filter(([, node]) => !!node)
+      .map(([row, node]) => [row, node.getBoundingClientRect().height])
+      .filter(([row, height]) => row.type !== TABLE_STUB_TYPE && height !== this.getRowHeight(row));
+
+    if (rowsWithChangedHeights.length) {
+      const { rowHeights } = this.state;
+      rowsWithChangedHeights
+        .forEach(([row, height]) => rowHeights.set(row.key, height));
+
+      this.setState({
+        rowHeights,
+      });
+    }
   }
 
   onScroll = (e) => {

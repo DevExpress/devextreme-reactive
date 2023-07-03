@@ -3,8 +3,8 @@
 
 ### Bug Fixes
 
-* **react-grid:** scrollbar jumps when scrolling a virtual table with different row heights from bottom to top (T1171681) ([#3657](https://github.com/DevExpress/devextreme-reactive/issues/3657)) ([cd0da0c](https://github.com/DevExpress/devextreme-reactive/commit/cd0da0c3225dd65036ad31811bbb7c6aea3104b4))
-* regression with SortingState.columnExtensions.sortingEnabled ([#3647](https://github.com/DevExpress/devextreme-reactive/issues/3647)) ([#3653](https://github.com/DevExpress/devextreme-reactive/issues/3653)) ([5655906](https://github.com/DevExpress/devextreme-reactive/commit/565590645acf0530b1405a8cc6b3fb3e88556f66))
+* **react-grid:** fixed scrollbar jumps when scrolling a virtual table with different row heights from bottom to top (T1171681) ([#3657](https://github.com/DevExpress/devextreme-reactive/issues/3657)) ([cd0da0c](https://github.com/DevExpress/devextreme-reactive/commit/cd0da0c3225dd65036ad31811bbb7c6aea3104b4))
+* **react-grid:** fixed a bug when the previous column's sorting was not cleared after the user sorted by a different column and the Sorting State plugin's column extensions were used ([#3647](https://github.com/DevExpress/devextreme-reactive/issues/3647)) ([#3653](https://github.com/DevExpress/devextreme-reactive/issues/3653)) ([5655906](https://github.com/DevExpress/devextreme-reactive/commit/565590645acf0530b1405a8cc6b3fb3e88556f66))
 
 
 

@@ -16,7 +16,7 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
   [`&.${classes.button}`]: {
     marginTop: '-1px',
     marginBottom: '-1px',
-    marginLeft: -theme.spacing(1),
+    marginLeft: `-${theme.spacing(1)}`,
     marginRight: theme.spacing(2),
     padding: theme.spacing(1),
   },
@@ -27,15 +27,20 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
 }));
 
 export const TableTreeExpandButton = ({
-  visible, expanded, onToggle,
+  visible,
+  expanded,
+  onToggle,
   className,
   ...restProps
 }) => (
   <StyledIconButton
-    className={classNames({
-      [classes.button]: true,
-      [classes.hidden]: !visible,
-    }, className)}
+    className={classNames(
+      {
+        [classes.button]: true,
+        [classes.hidden]: !visible,
+      },
+      className,
+    )}
     onClick={(e) => {
       if (!visible) return;
       e.stopPropagation();
@@ -44,9 +49,7 @@ export const TableTreeExpandButton = ({
     tabIndex={visible ? 0 : -1}
     {...restProps}
   >
-    {expanded
-      ? <ExpandMore />
-      : <ChevronRight />}
+    {expanded ? <ExpandMore /> : <ChevronRight />}
   </StyledIconButton>
 );
 

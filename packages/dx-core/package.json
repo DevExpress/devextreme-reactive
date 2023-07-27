@@ -17,8 +17,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/dx-core.umd.cjs",
-      "module": "./dist/dx-core.es.js",
+      "require": {
+        "types": "./dist/dx-core.d.cts",
+        "default": "./dist/dx-core.umd.cjs"
+      },
+      "import": {
+        "types": "./dist/dx-core.d.ts",
+        "default": "./dist/dx-core.es.js"
+      },
       "default": "./dist/dx-core.es.js"
     }
   },

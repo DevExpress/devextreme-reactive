@@ -4,6 +4,8 @@ import rimraf from 'rimraf';
 import replace from 'replace-in-file';
 import dts from 'dts-bundle';
 
+import { copyCommonJsTypes } from './utils.js';
+
 const getIndexDts = (packageDirectory, dtsPath) => {
   let indexDts = join(dtsPath, 'index.d.ts');
 
@@ -37,6 +39,8 @@ export default (packageDirectory, skipBundle = false) => {
       outputAsModuleFolder: true,
       headerPath: 'none',
     });
+
+    copyCommonJsTypes(dtsOutFile);
   }
 
   rimraf(dtsPath, () => {});

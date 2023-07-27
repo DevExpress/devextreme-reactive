@@ -27,8 +27,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/dx-react-chart.umd.cjs",
-      "import": "./dist/dx-react-chart.es.js",
+      "require": {
+        "types": "./dist/dx-react-chart.d.cts",
+        "default": "./dist/dx-react-chart.umd.cjs"
+      },
+      "import": {
+        "types": "./dist/dx-react-chart.d.ts",
+        "default": "./dist/dx-react-chart.es.js"
+      },
       "default": "./dist/dx-react-chart.es.js"
     }
   },

@@ -25,8 +25,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/dx-scheduler-core.umd.cjs",
-      "import": "./dist/dx-scheduler-core.es.js",
+      "require": {
+        "types": "./dist/dx-scheduler-core.d.cts",
+        "default": "./dist/dx-scheduler-core.umd.cjs"
+      },
+      "import": {
+        "types": "./dist/dx-scheduler-core.d.ts",
+        "default": "./dist/dx-scheduler-core.es.js"
+      },
       "default": "./dist/dx-scheduler-core.es.js"
     }
   },

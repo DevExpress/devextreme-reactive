@@ -11,8 +11,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/dx-testing.umd.js",
-      "import": "./dist/dx-testing.es.js",
+      "require": {
+        "types": "./dist/dx-testing.d.cts",
+        "default": "./dist/dx-testing.umd.js"
+      },
+      "import": {
+        "types": "./dist/dx-testing.d.ts",
+        "default": "./dist/dx-testing.es.js"
+      },
       "default": "./dist/dx-testing.es.js"
     }
   },

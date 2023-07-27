@@ -29,8 +29,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/dx-react-grid-export.umd.cjs",
-      "import": "./dist/dx-react-grid-export.es.js",
+      "require": {
+        "types": "./dist/dx-react-grid-export.d.cts",
+        "default": "./dist/dx-react-grid-export.umd.cjs"
+      },
+      "import": {
+        "types": "./dist/dx-react-grid-export.d.ts",
+        "default": "./dist/dx-react-grid-export.es.js"
+      },
       "default": "./dist/dx-react-grid-export.es.js"
     }
   },

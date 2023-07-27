@@ -26,8 +26,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/dx-grid-core.umd.cjs",
-      "import": "./dist/dx-grid-core.es.js",
+      "require": {
+        "types": "./dist/dx-grid-core.d.cts",
+        "default": "./dist/dx-grid-core.umd.cjs"
+      },
+      "import": {
+        "types": "./dist/dx-grid-core.d.ts",
+        "default": "./dist/dx-grid-core.es.js"
+      },
       "default": "./dist/dx-grid-core.es.js"
     }
   },

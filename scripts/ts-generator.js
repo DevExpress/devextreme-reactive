@@ -7,6 +7,7 @@ import {
 } from 'fs';
 
 import { join } from 'path';
+import { copyCommonJsTypes } from './utils.js';
 
 const ROOT_PATH = join(process.cwd(), 'packages');
 const SOURCE_FOLDER = 'docs/reference';
@@ -345,10 +346,11 @@ const generateTypeScriptForPackage = (packageName) => {
     console.log(`Building TypeScript definitions for '${packageName}-${theme}'.`);
     const themeDistFolder = join(ROOT_PATH, `${packageName}-${theme}`, TARGET_FOLDER);
     ensureDirectory(themeDistFolder);
-    writeFileSync(
-      join(themeDistFolder, `${packageName}-${theme}.d.ts`),
-      themesIndexContent,
-    );
+
+    const dtsOutFile = join(themeDistFolder, `${packageName}-${theme}.d.ts`);
+
+    writeFileSync(dtsOutFile, themesIndexContent);
+    copyCommonJsTypes(dtsOutFile);
   });
 };
 

@@ -27,8 +27,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/dx-react-core.umd.cjs",
-      "import": "./dist/dx-react-core.es.js",
+      "require": {
+        "types": "./dist/dx-react-core.d.cts",
+        "default": "./dist/dx-react-core.umd.cjs"
+      },
+      "import": {
+        "types": "./dist/dx-react-core.d.ts",
+        "default": "./dist/dx-react-core.es.js"
+      },
       "default": "./dist/dx-react-core.es.js"
     }
   },

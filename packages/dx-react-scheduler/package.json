@@ -26,8 +26,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/dx-react-scheduler.umd.cjs",
-      "import": "./dist/dx-react-scheduler.es.js",
+      "require": {
+        "types": "./dist/dx-react-scheduler.d.cts",
+        "default": "./dist/dx-react-scheduler.umd.cjs"
+      },
+      "import": {
+        "types": "./dist/dx-react-scheduler.d.ts",
+        "default": "./dist/dx-react-scheduler.es.js"
+      },
       "default": "./dist/dx-react-scheduler.es.js"
     }
   },

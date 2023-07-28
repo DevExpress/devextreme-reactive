@@ -28,8 +28,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/dx-react-scheduler-material-ui.cjs.cjs",
-      "import": "./dist/dx-react-scheduler-material-ui.es.js",
+      "require": {
+        "types": "./dist/dx-react-scheduler-material-ui.d.cts",
+        "default": "./dist/dx-react-scheduler-material-ui.cjs.cjs"
+      },
+      "import": {
+        "types": "./dist/dx-react-scheduler-material-ui.d.ts",
+        "default": "./dist/dx-react-scheduler-material-ui.es.js"
+      },
       "default": "./dist/dx-react-scheduler-material-ui.es.js"
     }
   },

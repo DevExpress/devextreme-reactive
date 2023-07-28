@@ -17,8 +17,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/dx-chart-core.umd.cjs",
-      "import": "./dist/dx-chart-core.es.js",
+      "require": {
+        "types": "./dist/dx-chart-core.d.cts",
+        "default": "./dist/dx-chart-core.umd.cjs"
+      },
+      "import": {
+        "types": "./dist/dx-chart-core.d.ts",
+        "default": "./dist/dx-chart-core.es.js"
+      },
       "default": "./dist/dx-chart-core.es.js"
     }
   },

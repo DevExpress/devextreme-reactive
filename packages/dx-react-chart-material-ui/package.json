@@ -30,8 +30,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/dx-react-chart-material-ui.cjs.cjs",
-      "import": "./dist/dx-react-chart-material-ui.es.js",
+      "require": {
+        "types": "./dist/dx-react-chart-material-ui.d.cts",
+        "default": "./dist/dx-react-chart-material-ui.cjs.cjs"
+      },
+      "import": {
+        "types": "./dist/dx-react-chart-material-ui.d.ts",
+        "default": "./dist/dx-react-chart-material-ui.es.js"
+      },
       "default": "./dist/dx-react-chart-material-ui.es.js"
     }
   },

@@ -9,4 +9,9 @@ export const copyCommonJsTypes = (dtsPath) => {
   }
 };
 
-export const getPackageInfo = packageDir => JSON.parse(readFileSync(join(packageDir, 'package.json')));
+export const getPackageInfo = (packageDir) => {
+  const packagePath = join(packageDir, 'package.json');
+  const packageData = readFileSync(packagePath);
+
+  return JSON.parse(packageData);
+};

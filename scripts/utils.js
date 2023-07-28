@@ -1,4 +1,5 @@
-import { existsSync, copyFileSync } from 'fs';
+import { existsSync, copyFileSync, readFileSync } from 'fs';
+import { join } from 'path';
 
 const getCommonJsTypesPath = dtsPath => dtsPath.replace(/\.ts$/, '.cts');
 
@@ -7,3 +8,7 @@ export const copyCommonJsTypes = (dtsPath) => {
     copyFileSync(dtsPath, getCommonJsTypesPath(dtsPath));
   }
 };
+
+export const getPackageInfo = packageDir => JSON.parse(readFileSync(join(packageDir, 'package.json')));
+
+export const getDtsOutFile = (packageDir, typesDir) => join(packageDir, typesDir);

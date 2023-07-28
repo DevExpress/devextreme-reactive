@@ -1,10 +1,10 @@
 import { join, sep } from 'path';
-import { readFileSync, existsSync } from 'fs';
+import { existsSync } from 'fs';
 import rimraf from 'rimraf';
 import replace from 'replace-in-file';
 import dts from 'dts-bundle';
 
-import { copyCommonJsTypes } from './utils.js';
+import { copyCommonJsTypes, getPackageInfo, getDtsOutFile } from './utils.js';
 
 const getIndexDts = (packageDirectory, dtsPath) => {
   let indexDts = join(dtsPath, 'index.d.ts');
@@ -21,8 +21,8 @@ export default (packageDirectory, skipBundle = false) => {
   const dtsPath = join(packageDirectory, 'dist', 'dts');
 
   if (!skipBundle) {
-    const pkg = JSON.parse(readFileSync(join(packageDirectory, 'package.json')));
-    const dtsOutFile = join(packageDirectory, pkg.types);
+    const pkg = getPackageInfo(packageDirectory);
+    const dtsOutFile = getDtsOutFile(packageDirectory, pkg.types);
     const indexDts = getIndexDts(packageDirectory, dtsPath);
 
     replace.sync({

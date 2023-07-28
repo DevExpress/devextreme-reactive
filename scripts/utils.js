@@ -1,6 +1,6 @@
 import { existsSync, copyFileSync } from 'fs';
 
-const getCommonJsTypesPath = dtsPath => dtsPath.replace(/.ts$/, '.cts');
+const getCommonJsTypesPath = dtsPath => dtsPath.replace(/\.ts$/, '.cts');
 
 export const copyCommonJsTypes = (dtsPath) => {
   if (existsSync(dtsPath)) {

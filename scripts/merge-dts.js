@@ -4,7 +4,7 @@ import rimraf from 'rimraf';
 import replace from 'replace-in-file';
 import dts from 'dts-bundle';
 
-import { copyCommonJsTypes, getPackageInfo, getDtsOutFile } from './utils.js';
+import { copyCommonJsTypes, getPackageInfo } from './utils.js';
 
 const getIndexDts = (packageDirectory, dtsPath) => {
   let indexDts = join(dtsPath, 'index.d.ts');
@@ -22,7 +22,7 @@ export default (packageDirectory, skipBundle = false) => {
 
   if (!skipBundle) {
     const pkg = getPackageInfo(packageDirectory);
-    const dtsOutFile = getDtsOutFile(packageDirectory, pkg.types);
+    const dtsOutFile = join(packageDirectory, pkg.types);
     const indexDts = getIndexDts(packageDirectory, dtsPath);
 
     replace.sync({

@@ -10,5 +10,3 @@ export const copyCommonJsTypes = (dtsPath) => {
 };
 
 export const getPackageInfo = packageDir => JSON.parse(readFileSync(join(packageDir, 'package.json')));
-
-export const getDtsOutFile = (packageDir, typesDir) => join(packageDir, typesDir);

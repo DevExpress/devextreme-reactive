@@ -9,6 +9,7 @@ import { VirtualTableLayoutState, VirtualTableLayoutProps } from '../../types';
 import { VirtualTableLayoutBlock } from './virtual-table-layout-block';
 import { Sizer } from '@devexpress/dx-react-core';
 import { ColumnGroup } from './column-group';
+import { recursiveBlur } from '../../utils/helpers';
 
 const AUTO_HEIGHT = 'auto';
 const MAX_WINDOW_HEIGHT = 10000000;
@@ -101,6 +102,8 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       ) {
       this.updateViewport();
     }
+    // T1176840
+    this.unfocuseVirtualRowsChildren();
   }
 
   getRowHeight = (row) => {
@@ -225,6 +228,22 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
       getRowHeight: this.getRowHeight,
       getColumnWidth,
     });
+  }
+
+  unfocuseVirtualRowsChildren() {
+    const [lowerBoundary, uppderBoundary] = this.props.viewport.rows;
+
+    const rowRefArray = Array.from(this.rowRefs, (entry) => {
+        return { key: entry[0], value: entry[1] };
+    });
+    
+    rowRefArray.forEach((el) => {
+        var rowId = el.key.rowId;
+        if (rowId < lowerBoundary || rowId > uppderBoundary){
+            console.log(rowId);
+            recursiveBlur(el.value);
+        }
+    })
   }
 
   render() {

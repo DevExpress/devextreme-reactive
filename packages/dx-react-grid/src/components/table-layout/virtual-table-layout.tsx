@@ -275,7 +275,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
   }
 
   unfocuseVirtualRowsChildren() {
-    const [lowerBoundary, uppderBoundary] = this.props.viewport.rows;
+    const [lowerBoundary, upperBoundary] = this.props.viewport.rows;
 
     const rowRefArray = Array.from(this.rowRefs, (entry) => {
       return { key: entry[0], value: entry[1] };
@@ -283,7 +283,7 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
 
     rowRefArray.forEach((el) => {
       const rowId = el.key.rowId;
-      if (rowId < lowerBoundary || rowId > uppderBoundary) {
+      if (rowId < lowerBoundary || rowId > upperBoundary) {
         recursiveBlur(el.value);
       }
     });

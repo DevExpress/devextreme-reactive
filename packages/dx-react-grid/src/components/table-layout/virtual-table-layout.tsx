@@ -278,16 +278,15 @@ export class VirtualTableLayout extends React.PureComponent<PropsType, VirtualTa
     const [lowerBoundary, uppderBoundary] = this.props.viewport.rows;
 
     const rowRefArray = Array.from(this.rowRefs, (entry) => {
-        return { key: entry[0], value: entry[1] };
+      return { key: entry[0], value: entry[1] };
     });
-    
+
     rowRefArray.forEach((el) => {
-        var rowId = el.key.rowId;
-        if (rowId < lowerBoundary || rowId > uppderBoundary){
-            console.log(rowId);
-            recursiveBlur(el.value);
-        }
-    })
+      const rowId = el.key.rowId;
+      if (rowId < lowerBoundary || rowId > uppderBoundary) {
+        recursiveBlur(el.value);
+      }
+    });
   }
 
   render() {

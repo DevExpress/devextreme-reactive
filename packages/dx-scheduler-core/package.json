@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-scheduler-core",
-  "version": "4.0.2",
+  "version": "4.0.5",
   "description": "Core library for the DevExtreme Reactive Scheduler component",
   "author": {
     "name": "Developer Express Inc.",
@@ -25,8 +25,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/dx-scheduler-core.umd.cjs",
-      "import": "./dist/dx-scheduler-core.es.js",
+      "require": {
+        "types": "./dist/dx-scheduler-core.d.cts",
+        "default": "./dist/dx-scheduler-core.umd.cjs"
+      },
+      "import": {
+        "types": "./dist/dx-scheduler-core.d.ts",
+        "default": "./dist/dx-scheduler-core.es.js"
+      },
       "default": "./dist/dx-scheduler-core.es.js"
     }
   },
@@ -50,7 +56,7 @@
     "@babel/core": "^7.8.7",
     "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.8.7",
-    "@devexpress/dx-core": "4.0.2",
+    "@devexpress/dx-core": "4.0.5",
     "@rollup/plugin-replace": "^2.3.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^29.2.2",
@@ -65,12 +71,12 @@
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-license": "^0.12.1",
     "rollup-plugin-modify": "^3.0.0",
-    "rollup-plugin-typescript2": "^0.30.0",
+    "rollup-plugin-typescript2": "^0.31.0",
     "tslib": "^2.4.1",
     "typescript": "^4.8.4"
   },
   "peerDependencies": {
-    "@devexpress/dx-core": "4.0.2"
+    "@devexpress/dx-core": "4.0.5"
   },
   "dependencies": {
     "moment": "^2.24.0",

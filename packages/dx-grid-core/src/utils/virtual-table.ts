@@ -14,19 +14,46 @@ import {
   GetRenderBoundaryFn,
   GetRowsVisibleBoundaryFn,
   TableRow,
+  GetVisibleBoundaryWithFixedPredicate,
 } from '../types';
 import { TABLE_FLEX_TYPE, intervalUtil } from '..';
 
 export const TABLE_STUB_TYPE = Symbol('stub');
 
+const isLeftFixedInViewport: GetVisibleBoundaryWithFixedPredicate = (
+  item, index, visibleBoundary,
+) => index < visibleBoundary[0] && item.fixed === 'left';
+
+const isRightFixedInViewport: GetVisibleBoundaryWithFixedPredicate = (
+  item, index, visibleBoundary,
+) => index > visibleBoundary[1] && item.fixed === 'right';
+
+const isFixedInViewport: GetVisibleBoundaryWithFixedPredicate = (
+  item, index, visibleBoundary,
+) => isLeftFixedInViewport(item, index, visibleBoundary)
+  || isRightFixedInViewport(item, index, visibleBoundary);
+
+const isColumnInViewport: GetVisibleBoundaryWithFixedPredicate = (
+  item, index, visibleBoundary,
+) => index >= visibleBoundary[0] && index <= visibleBoundary[1]
+  || isFixedInViewport(item, index, visibleBoundary);
+
 export const getVisibleBoundaryWithFixed: GetVisibleBoundaryWithFixedFn = (
   visibleBoundary, items,
 ) => items.reduce((acc, item, index) => {
-  if (item.fixed && (index < visibleBoundary[0] || index > visibleBoundary[1])) {
-    acc.push([index, index]);
+  if (isColumnInViewport(item, index, visibleBoundary)) {
+    const previousRange = !!acc.length && acc[acc.length - 1];
+    const isAdjacentToPreviousRange = previousRange && previousRange[1] === index - 1;
+
+    if (isAdjacentToPreviousRange) {
+      acc.splice(-1, 1, [previousRange[0], index]);
+    } else {
+      acc.push([index, index]);
+    }
   }
+
   return acc;
-}, [visibleBoundary] as [VisibleBoundary]);
+}, [] as VisibleBoundary[]);
 
 export const getVisibleBoundary: GetVisibleBoundaryFn = (
   items, viewportStart, viewportSize, getItemSize, skipItems, offset = 0,

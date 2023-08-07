@@ -1,3 +1,32 @@
+# [4.0.5](https://github.com/DevExpress/devextreme-reactive/compare/v4.0.4...v4.0.5) (2023-07-03)
+
+
+### Bug Fixes
+
+* **react-grid:** fixed scrollbar jumps when scrolling a virtual table with different row heights from bottom to top (T1171681) ([#3657](https://github.com/DevExpress/devextreme-reactive/issues/3657)) ([cd0da0c](https://github.com/DevExpress/devextreme-reactive/commit/cd0da0c3225dd65036ad31811bbb7c6aea3104b4))
+* **react-grid:** fixed a bug when the previous column's sorting was not cleared after the user sorted by a different column and the Sorting State plugin's column extensions were used ([#3647](https://github.com/DevExpress/devextreme-reactive/issues/3647)) ([#3653](https://github.com/DevExpress/devextreme-reactive/issues/3653)) ([5655906](https://github.com/DevExpress/devextreme-reactive/commit/565590645acf0530b1405a8cc6b3fb3e88556f66))
+
+
+
+# [4.0.4](https://github.com/DevExpress/devextreme-reactive/compare/v4.0.3...v4.0.4) (2023-05-16)
+
+
+### Bug Fixes
+
+* **grid-core:** Make a virtual table's viewport calculation band-friendly (T1154239) ([#3643](https://github.com/DevExpress/devextreme-reactive/issues/3643)) ([cf41706](https://github.com/DevExpress/devextreme-reactive/commit/cf41706b97a024fed32e3f9351a725a260067eb0))
+* **react-scheduler:** fix horizontal scale flickering (T1151128) ([#3641](https://github.com/DevExpress/devextreme-reactive/issues/3641)) ([fc2b29e](https://github.com/DevExpress/devextreme-reactive/commit/fc2b29eac986a68afbe06c99f37ea445b8bbbb8b))
+* Update the `react-popper` dependency to v2, by [@glsignal](https://github.com/glsignal) ([345fa12](https://github.com/DevExpress/devextreme-reactive/commit/345fa12dc4c5a953e9c4b80ba4d4fd4d518c7c6f))
+
+
+# [4.0.3](https://github.com/DevExpress/devextreme-reactive/compare/v4.0.2...v4.0.3) (2023-01-26)
+
+
+### Bug Fixes
+
+* Fix esm bundle ([#3629](https://github.com/DevExpress/devextreme-reactive/issues/3629)) ([a97d9d9](https://github.com/DevExpress/devextreme-reactive/commit/a97d9d990fe6522daf28e72299553bbaeb98139c))
+
+
+
 # [4.0.2](https://github.com/DevExpress/devextreme-reactive/compare/v4.0.1...v4.0.2) (2022-12-26)
 
 

@@ -31,3 +31,13 @@
 .dx-c-bs4-rect-opacity {
   opacity: 0.2;
 }
+
+.popover {
+  &[class*="bs-popover-"] {
+    margin: 0;
+  }
+
+  .arrow {
+    margin: 0;
+  }
+}

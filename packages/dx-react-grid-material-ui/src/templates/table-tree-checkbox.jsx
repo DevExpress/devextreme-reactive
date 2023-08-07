@@ -13,13 +13,18 @@ const StyledCheckboxMUI = styled(CheckboxMUI)(({ theme }) => ({
     marginTop: '-1px',
     marginBottom: '-1px',
     marginRight: theme.spacing(2),
-    marginLeft: -theme.spacing(2),
+    marginLeft: `-${theme.spacing(2)}`,
     padding: theme.spacing(1),
   },
 }));
 
 export const TableTreeCheckbox = ({
-  disabled, checked, indeterminate, onChange, className, ...restProps
+  disabled,
+  checked,
+  indeterminate,
+  onChange,
+  className,
+  ...restProps
 }) => (
   <StyledCheckboxMUI
     className={classNames(classes.checkbox, className)}

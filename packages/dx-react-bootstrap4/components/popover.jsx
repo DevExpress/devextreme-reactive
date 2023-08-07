@@ -77,11 +77,24 @@ export class Popover extends React.PureComponent {
   renderPopper() {
     const {
       children, target, renderInBody,
-      arrowComponent: ArrowComponent, ...restProps
+      arrowComponent: ArrowComponent, modifiers = [],
+      ...restProps
     } = this.props;
+
+    const popperModifiers = [
+      {
+        name: 'offset',
+        options: {
+          offset: [0, 8],
+        },
+      },
+      ...modifiers,
+    ];
+
     return (
       <Popper
         referenceElement={target}
+        modifiers={popperModifiers}
         {...restProps}
       >
         {({

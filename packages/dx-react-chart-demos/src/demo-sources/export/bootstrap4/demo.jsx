@@ -141,6 +141,16 @@ const Export = () => {
     handleClose();
     action(chart);
   };
+
+  const modifiers = [
+    {
+      name: 'offset',
+      options: {
+        offset: [0, 8],
+      },
+    },
+  ];
+
   return (
     <Plugin name="Export">
       <Template name="top">
@@ -157,6 +167,7 @@ const Export = () => {
         { anchorEl
           ? (
             <Popper
+              modifiers={modifiers}
               referenceElement={anchorEl}
             >
               {({

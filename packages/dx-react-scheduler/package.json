@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-scheduler",
-  "version": "4.0.2",
+  "version": "4.0.5",
   "description": "Composable plugin-based scheduler component for React",
   "author": {
     "name": "Developer Express Inc.",
@@ -26,8 +26,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/dx-react-scheduler.umd.cjs",
-      "import": "./dist/dx-react-scheduler.es.js",
+      "require": {
+        "types": "./dist/dx-react-scheduler.d.cts",
+        "default": "./dist/dx-react-scheduler.umd.cjs"
+      },
+      "import": {
+        "types": "./dist/dx-react-scheduler.d.ts",
+        "default": "./dist/dx-react-scheduler.es.js"
+      },
       "default": "./dist/dx-react-scheduler.es.js"
     }
   },
@@ -58,9 +64,9 @@
     "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.8.3",
-    "@devexpress/dx-core": "4.0.2",
-    "@devexpress/dx-react-core": "4.0.2",
-    "@devexpress/dx-testing": "4.0.2",
+    "@devexpress/dx-core": "4.0.5",
+    "@devexpress/dx-react-core": "4.0.5",
+    "@devexpress/dx-testing": "4.0.5",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^29.2.2",
@@ -80,11 +86,11 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
-    "@devexpress/dx-scheduler-core": "4.0.2"
+    "@devexpress/dx-scheduler-core": "4.0.5"
   },
   "peerDependencies": {
-    "@devexpress/dx-core": "4.0.2",
-    "@devexpress/dx-react-core": "4.0.2",
+    "@devexpress/dx-core": "4.0.5",
+    "@devexpress/dx-react-core": "4.0.5",
     "moment": "^2.24.0",
     "react": ">=17.0.2",
     "react-dom": ">=17.0.2"

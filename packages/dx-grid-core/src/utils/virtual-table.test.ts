@@ -74,8 +74,8 @@ describe('VirtualTableLayout utils', () => {
 
       expect(getColumnBoundaries(columns, 120, 80, getItemSize))
         .toEqual([
-          [2, 5],
           [0, 0],
+          [2, 5],
           [7, 7],
         ]);
     });
@@ -157,21 +157,92 @@ describe('VirtualTableLayout utils', () => {
   });
 
   describe('#getVisibleBoundaryWithFixed', () => {
-    it('should support fixed columns', () => {
+    it('should merge fixed columns in ranges', () => {
       const items = [
-        { key: 'a', fixed: 'before' },
-        { key: 'b' },
-        { key: 'c' },
-        { key: 'd', fixed: 'before' },
-        { key: 'e' },
-        { key: 'f' },
-        { key: 'g', fixed: 'after' },
+        { key: '0' },
+        { key: '1', fixed: 'left' },
+        { key: '2', fixed: 'left' },
+        { key: '3', fixed: 'left' },
+        { key: '4' },
+        { key: '5', fixed: 'left' },
+        { key: '6', fixed: 'left' },
+        { key: '7' },
+        { key: '8' },
+        { key: '9' },
+        { key: '10' },
+        { key: '11' },
+        { key: '12', fixed: 'right' },
+      ];
+
+      expect(getVisibleBoundaryWithFixed([8, 10], items))
+        .toEqual([[1, 3], [5, 6], [8, 10], [12, 12]]);
+    });
+
+    it('should accept fixed columns inside viewport', () => {
+      const items = [
+        { key: '0', fixed: 'left' },
+        { key: '1', fixed: 'left' },
+        { key: '2' },
+        { key: '3' },
+        { key: '4', fixed: 'left' },
+        { key: '5' },
+        { key: '6' },
+        { key: '7', fixed: 'right' },
       ];
 
       expect(getVisibleBoundaryWithFixed([3, 5], items))
-        .toEqual([[3, 5], [0, 0], [6, 6]]);
-      expect(getVisibleBoundaryWithFixed([1, 5], items))
-        .toEqual([[1, 5], [0, 0], [6, 6]]);
+        .toEqual([[0, 1], [3, 5], [7, 7]]);
+    });
+
+    it('should extend viewport range', () => {
+      const items = [
+        { key: '0' },
+        { key: '1', fixed: 'left' },
+        { key: '2' },
+        { key: '3' },
+        { key: '4' },
+        { key: '5', fixed: 'right' },
+        { key: '6' },
+      ];
+
+      expect(getVisibleBoundaryWithFixed([2, 4], items))
+        .toEqual([[1, 5]]);
+    });
+
+    it('should not include "fixed: rignt" columns to the left of the viewport', () => {
+      const items = [
+        { key: '0' },
+        { key: '1', fixed: 'right' },
+        { key: '2' },
+        { key: '3' },
+        { key: '4' },
+        { key: '5' },
+        { key: '6' },
+        { key: '7', fixed: 'right' },
+        { key: '8', fixed: 'right' },
+        { key: '9' },
+      ];
+
+      expect(getVisibleBoundaryWithFixed([3, 5], items))
+        .toEqual([[3, 5], [7, 8]]);
+    });
+
+    it('should not include "fixed: left" columns to the right of the viewport', () => {
+      const items = [
+        { key: '0' },
+        { key: '1', fixed: 'left' },
+        { key: '2', fixed: 'left' },
+        { key: '3' },
+        { key: '4' },
+        { key: '5' },
+        { key: '6' },
+        { key: '7' },
+        { key: '8', fixed: 'left' },
+        { key: '9' },
+      ];
+
+      expect(getVisibleBoundaryWithFixed([4, 6], items))
+        .toEqual([[1, 2], [4, 6]]);
     });
   });
 

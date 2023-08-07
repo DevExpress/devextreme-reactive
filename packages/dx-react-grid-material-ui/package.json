@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid-material-ui",
-  "version": "4.0.2",
+  "version": "4.0.5",
   "description": "Material-UI templates for DevExtreme React Grid component",
   "author": {
     "name": "Developer Express Inc.",
@@ -30,8 +30,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/dx-react-grid-material-ui.cjs.cjs",
-      "import": "./dist/dx-react-grid-material-ui.es.js",
+      "require": {
+        "types": "./dist/dx-react-grid-material-ui.d.cts",
+        "default": "./dist/dx-react-grid-material-ui.cjs.cjs"
+      },
+      "import": {
+        "types": "./dist/dx-react-grid-material-ui.d.ts",
+        "default": "./dist/dx-react-grid-material-ui.es.js"
+      },
       "default": "./dist/dx-react-grid-material-ui.es.js"
     }
   },
@@ -59,14 +65,14 @@
     "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.8.3",
-    "@devexpress/dx-grid-core": "4.0.2",
-    "@devexpress/dx-react-core": "4.0.2",
-    "@devexpress/dx-react-grid": "4.0.2",
-    "@devexpress/dx-testing": "4.0.2",
+    "@devexpress/dx-grid-core": "4.0.5",
+    "@devexpress/dx-react-core": "4.0.5",
+    "@devexpress/dx-react-grid": "4.0.5",
+    "@devexpress/dx-testing": "4.0.5",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
-    "@mui/icons-material": "^5.0.0",
-    "@mui/material": "^5.0.4",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.11.6",
     "@rollup/plugin-node-resolve": "^7.1.1",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "babel-core": "^7.0.0-bridge.0",
@@ -99,9 +105,9 @@
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {
-    "@devexpress/dx-grid-core": "4.0.2",
-    "@devexpress/dx-react-core": "4.0.2",
-    "@devexpress/dx-react-grid": "4.0.2",
+    "@devexpress/dx-grid-core": "4.0.5",
+    "@devexpress/dx-react-core": "4.0.5",
+    "@devexpress/dx-react-grid": "4.0.5",
     "@mui/icons-material": ">=5.0.0",
     "@mui/material": ">=5.0.0",
     "react": ">=17.0.2"

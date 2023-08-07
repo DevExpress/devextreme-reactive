@@ -1,0 +1,13 @@
+{
+  "extends": "../../tslint.json",
+  "linterOptions": {
+    "exclude": [
+      "config/**/*.js",
+      "node_modules/**/*.ts",
+      "**/*.g.test.tsx"
+    ]
+  },
+  "rules": {
+		"no-boolean-literal-compare": false
+	}
+}

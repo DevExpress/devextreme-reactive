@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-grid",
-  "version": "4.0.2",
+  "version": "4.0.5",
   "description": "Composable plugin-based data grid component for React",
   "author": {
     "name": "Developer Express Inc.",
@@ -28,8 +28,14 @@
   "type": "module",
   "exports": {
     ".": {
-      "require": "./dist/dx-react-grid.umd.cjs",
-      "import": "./dist/dx-react-grid.es.js",
+      "require": {
+        "types": "./dist/dx-react-grid.d.cts",
+        "default": "./dist/dx-react-grid.umd.cjs"
+      },
+      "import": {
+        "types": "./dist/dx-react-grid.d.ts",
+        "default": "./dist/dx-react-grid.es.js"
+      },
       "default": "./dist/dx-react-grid.es.js"
     }
   },
@@ -60,9 +66,9 @@
     "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.8.3",
-    "@devexpress/dx-core": "4.0.2",
-    "@devexpress/dx-react-core": "4.0.2",
-    "@devexpress/dx-testing": "4.0.2",
+    "@devexpress/dx-core": "4.0.5",
+    "@devexpress/dx-react-core": "4.0.5",
+    "@devexpress/dx-testing": "4.0.5",
     "@rollup/plugin-replace": "^2.3.1",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "babel-core": "^7.0.0-bridge.0",
@@ -76,7 +82,7 @@
     "react-test-renderer": "^17.0.2",
     "rollup": "^1.27.2",
     "rollup-plugin-license": "^0.12.1",
-    "rollup-plugin-typescript2": "^0.30.0",
+    "rollup-plugin-typescript2": "^0.31.0",
     "ts-jest": "^29.0.3",
     "tslib": "^2.4.1",
     "tslint": "^5.20.1",
@@ -84,11 +90,11 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
-    "@devexpress/dx-grid-core": "4.0.2"
+    "@devexpress/dx-grid-core": "4.0.5"
   },
   "peerDependencies": {
-    "@devexpress/dx-core": "4.0.2",
-    "@devexpress/dx-react-core": "4.0.2",
+    "@devexpress/dx-core": "4.0.5",
+    "@devexpress/dx-react-core": "4.0.5",
     "react": ">=17.0.2",
     "react-dom": ">=17.0.2"
   }

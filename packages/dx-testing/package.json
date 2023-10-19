@@ -26,8 +26,8 @@
   "module": "dist/dx-testing.es.js",
   "globalName": "DevExpress.DXTesting",
   "scripts": {
-    "build": "rollup -c rollup.config.js",
-    "build:watch": "rollup -c rollup.config.js -w",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider rollup -c rollup.config.js",
+    "build:watch": "cross-env NODE_OPTIONS=--openssl-legacy-provider rollup -c rollup.config.js -w",
     "lint": "eslint \"src/**\"",
     "lint:fix": "yarn lint --fix"
   },

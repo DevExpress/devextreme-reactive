@@ -54,8 +54,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "build": "rollup -c rollup.config.js",
-    "build:watch": "rollup -c rollup.config.js -w",
+    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider rollup -c rollup.config.js",
+    "build:watch": "cross-env NODE_OPTIONS=--openssl-legacy-provider rollup -c rollup.config.js -w",
     "update-api": "api-extractor run",
     "lint": "eslint \"src/**\"",
     "lint:fix": "yarn lint -- --fix"

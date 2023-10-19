@@ -14,8 +14,8 @@
     "url": "git+https://github.com/DevExpress/devextreme-reactive.git"
   },
   "scripts": {
-    "build:prod": "gatsby build --prefix-paths",
-    "build:watch": "gatsby develop",
+    "build:prod": "cross-env NODE_OPTIONS=--openssl-legacy-provider gatsby build --prefix-paths",
+    "build:watch": "cross-env NODE_OPTIONS=--openssl-legacy-provider gatsby develop",
     "lint": "eslint \"src/**/*.{js,jsx}\" \"plugins/**/*.{js,jsx}\"",
     "lint:fix": "yarn run lint -- --fix"
   },

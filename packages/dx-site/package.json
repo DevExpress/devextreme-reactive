@@ -33,6 +33,7 @@
     "gatsby-cli": "^2.9.0",
     "gatsby-link": "^2.2.29",
     "gatsby-plugin-catch-links": "^2.1.26",
+    "gatsby-plugin-matomo": "^0.16.2",
     "gatsby-plugin-react-helmet": "^3.1.22",
     "gatsby-plugin-react-svg": "^3.0.0",
     "gatsby-plugin-sass": "^2.1.29",

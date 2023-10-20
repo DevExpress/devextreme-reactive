@@ -114,14 +114,5 @@ module.exports = {
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-catch-links',
     'gatsby-plugin-sass',
-    {
-      resolve: 'gatsby-plugin-matomo',
-      options: {
-        siteId: '7',
-        matomoUrl: 'https://matomo.devexpress.com',
-        siteUrl: 'https://devexpress.github.io/devextreme-reactive/',
-        cookieDomain: '*.devexpress.github.io',
-      },
-    },
   ],
 };

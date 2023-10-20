@@ -11183,11 +11183,6 @@ gatsby-plugin-catch-links@^2.1.26:
     "@babel/runtime" "^7.12.5"
     escape-string-regexp "^1.0.5"
 
-gatsby-plugin-matomo@^0.16.2:
-  version "0.16.2"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-matomo/-/gatsby-plugin-matomo-0.16.2.tgz#d2abaabeb41022077953c8af0f92b229dc747e61"
-  integrity sha512-/MMTlhMdzGaNkTQ5j4iCJ2DkTtbHmMRRTYxhZg7XVhOvJmKVUoKjue/sb5M7414V35ZewNz2/mqx+Cj/sKaMZw==
-
 gatsby-plugin-page-creator@^2.10.2:
   version "2.10.2"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-page-creator/-/gatsby-plugin-page-creator-2.10.2.tgz#808046b292e844447c6539df759b23739ad30c6e"

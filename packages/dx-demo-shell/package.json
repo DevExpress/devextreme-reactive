@@ -13,8 +13,8 @@
   "module": "dist/index.js",
   "styles": "dist/index.css",
   "scripts": {
-    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider rollup -c rollup.config.js",
-    "build:watch": "cross-env NODE_OPTIONS=--openssl-legacy-provider rollup -c rollup.config.js -w",
+    "build": "rollup -c rollup.config.js",
+    "build:watch": "rollup -c rollup.config.js -w",
     "lint": "eslint \"src/**/*.{js,jsx}\"",
     "lint:fix": "yarn lint -- --fix"
   },

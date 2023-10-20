@@ -11,9 +11,9 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "build": "cross-env NODE_OPTIONS=--openssl-legacy-provider yarn webpack --config webpack.config.cjs --env NODE_OPTIONS=--openssl-legacy-provider",
-    "build:prod": "cross-env NODE_OPTIONS=--openssl-legacy-provider yarn webpack --config webpack.config.cjs --env.production --env NODE_OPTIONS=--openssl-legacy-provider",
-    "build:watch": "cross-env NODE_OPTIONS=--openssl-legacy-provider webpack-dev-server --config webpack.config.cjs --env NODE_OPTIONS=--openssl-legacy-provider"
+    "build": "yarn webpack --config webpack.config.cjs --env",
+    "build:prod": "yarn webpack --config webpack.config.cjs --env.production",
+    "build:watch": "webpack-dev-server --config webpack.config.cjs --env"
   },
   "dependencies": {
     "@devexpress/dx-demo-shell": "4.0.5",

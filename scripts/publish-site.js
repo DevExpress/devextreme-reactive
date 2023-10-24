@@ -1,6 +1,6 @@
 import { join, dirname } from 'path';
 import { execSync } from 'child_process';
-import { copySync, removeSync, readFileSync, writeFileSync } from 'fs-extra';
+import fse from 'fs-extra';
 import inquirer from 'inquirer';
 import { prerelease } from 'semver';
 import ensureRepoUpToDate from './ensure-repo-up-to-date.js';
@@ -8,6 +8,8 @@ import getCurrentBranchName from './get-current-branch-name.js';
 import { fileURLToPath } from 'url';
 
 const loadJSON = (path) => JSON.parse(readFileSync(new URL(path, import.meta.url)));
+
+const { copySync, removeSync, readFileSync, writeFileSync } = fse;
 
 const SITE_PUBLISHING_DIRECTORY = join(process.cwd(), 'tmp');
 const BRANCH = 'gh-pages';

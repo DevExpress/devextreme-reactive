@@ -1,6 +1,6 @@
 {
   "name": "@devexpress/dx-react-scheduler-material-ui",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "description": "Material-UI templates for DevExtreme React Scheduler component",
   "author": {
     "name": "Developer Express Inc.",
@@ -63,10 +63,10 @@
     "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.8.3",
-    "@devexpress/dx-react-core": "4.0.5",
-    "@devexpress/dx-react-scheduler": "4.0.5",
-    "@devexpress/dx-scheduler-core": "4.0.5",
-    "@devexpress/dx-testing": "4.0.5",
+    "@devexpress/dx-react-core": "4.0.6",
+    "@devexpress/dx-react-scheduler": "4.0.6",
+    "@devexpress/dx-scheduler-core": "4.0.6",
+    "@devexpress/dx-testing": "4.0.6",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@mui/icons-material": "^5.11.0",
@@ -106,9 +106,9 @@
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {
-    "@devexpress/dx-react-core": "4.0.5",
-    "@devexpress/dx-react-scheduler": "4.0.5",
-    "@devexpress/dx-scheduler-core": "4.0.5",
+    "@devexpress/dx-react-core": "4.0.6",
+    "@devexpress/dx-react-scheduler": "4.0.6",
+    "@devexpress/dx-scheduler-core": "4.0.6",
     "@emotion/react": ">=11.4.1",
     "@emotion/styled": ">=11.3.0",
     "@mui/icons-material": ">=5.0.0",

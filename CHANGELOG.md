@@ -1,3 +1,18 @@
+# [4.0.6](https://github.com/DevExpress/devextreme-reactive/compare/v4.0.5...v4.0.6) (2023-11-06)
+
+
+### Bug Fixes
+
+* conditional type exports (T1177805) ([#3661](https://github.com/DevExpress/devextreme-reactive/issues/3661)) ([db3373d](https://github.com/DevExpress/devextreme-reactive/commit/db3373d63f05ea3f14adbee523aa86d6ea7798e4))
+* **react-grid-material-ui:** fix styled components' styles that use theme.spacing with a negative sign ([#3660](https://github.com/DevExpress/devextreme-reactive/issues/3660)) ([6f6588a](https://github.com/DevExpress/devextreme-reactive/commit/6f6588a56d64822166fbe6a96b370b4c84098171))
+
+
+### Features
+
+* Matomo setup (dx-site) ([#3663](https://github.com/DevExpress/devextreme-reactive/issues/3663)) ([d25e329](https://github.com/DevExpress/devextreme-reactive/commit/d25e32915ccce87d26b46efe1f649235edfa306e))
+
+
+
 # [4.0.5](https://github.com/DevExpress/devextreme-reactive/compare/v4.0.4...v4.0.5) (2023-07-03)
 
 

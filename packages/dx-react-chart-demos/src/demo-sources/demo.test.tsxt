@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { mount } from 'enzyme';
 import { setupConsole } from '@devexpress/dx-testing';
+import { act } from 'react-dom/test-utils';
 import Demo from './<%&demoName%>';
 
 setupConsole();
@@ -16,7 +17,9 @@ jest.spyOn((Element.prototype as any), 'getBBox').mockImplementation(() => ({
 window.fetch = jest.fn().mockImplementation(() => new Promise(() => { /**/ }));
 (window as any).__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 
- it('should not fail', () => {
+ it('should not fail', async () => {
   expect(() => { mount(<Demo />); })
     .not.toThrow();
+
+  await act(async () => {});
 });

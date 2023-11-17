@@ -2,10 +2,10 @@ name: Tests
 
 on:
   push:
-    branches-ignore:    
+    branches-ignore:
       - 'gh-pages'
   pull_request:
-    branches-ignore:    
+    branches-ignore:
       - 'gh-pages'
 
 jobs:
@@ -19,7 +19,7 @@ jobs:
     - name: Use Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '14'
+        node-version: '20'
 
     - name: Prepare yarn
       run: |
@@ -36,7 +36,7 @@ jobs:
         yarn lint
         yarn test:ci
 
-    - name: Zip artifacts 
+    - name: Zip artifacts
       run: 7z a -tzip -mx3 -mmt2 artifacts.zip packages
 
     - name: Upload build artifacts
@@ -60,7 +60,7 @@ jobs:
     - name: Use Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '14'
+        node-version: '20'
 
     - name: Prepare yarn
       run: |
@@ -89,7 +89,7 @@ jobs:
     - name: Use Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '14'
+        node-version: '20'
 
     - name: Prepare yarn
       run: |

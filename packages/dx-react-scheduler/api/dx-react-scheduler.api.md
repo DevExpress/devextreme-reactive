@@ -4,7 +4,7 @@
 
 ```ts
 
-import { default as moment_2 } from 'moment';
+import { default as default_2 } from 'moment';
 import * as React_2 from 'react';
 
 // @public
@@ -308,11 +308,11 @@ export interface AppointmentMoment {
     // (undocumented)
     allDay?: boolean;
     // (undocumented)
-    end: moment_2.Moment;
+    end: default_2.Moment;
     // (undocumented)
     id?: number | string;
     // (undocumented)
-    start: moment_2.Moment;
+    start: default_2.Moment;
     // (undocumented)
     title?: string;
 }

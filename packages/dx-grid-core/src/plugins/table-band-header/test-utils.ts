@@ -37,7 +37,7 @@ export const generateChains = (
   const chain: {
     bandTitle: string[],
     columns: typeof columns,
-    start: number
+    start: number,
   }[] = [];
   for (let i = 0; i < indexes.length - 1; i += 2) {
     const start = indexes[i];

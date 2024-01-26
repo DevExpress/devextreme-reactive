@@ -2,7 +2,7 @@
   "private": true,
   "name": "@devexpress/dx-site",
   "description": "DevExtreme Reactive Site",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "author": {
     "name": "Developer Express Inc.",
     "url": "https://www.devexpress.com/"
@@ -33,7 +33,6 @@
     "gatsby-cli": "^2.9.0",
     "gatsby-link": "^2.2.29",
     "gatsby-plugin-catch-links": "^2.1.26",
-    "gatsby-plugin-google-analytics": "^2.1.36",
     "gatsby-plugin-react-helmet": "^3.1.22",
     "gatsby-plugin-react-svg": "^3.0.0",
     "gatsby-plugin-sass": "^2.1.29",

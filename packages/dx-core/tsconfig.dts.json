@@ -5,6 +5,5 @@
     "declarationDir": "./dist/dts",
     "emitDeclarationOnly": true,
     "downlevelIteration": true,
-    "skipLibCheck": true
   }
  }

@@ -42,6 +42,8 @@
   "files": [
     "dist"
   ],
+  "types": "dist/dx-scheduler-core.d.ts",
+  "typings": "dist/dx-scheduler-core.d.ts",
   "scripts": {
     "test": "jest",
     "test:pacific": "TZ=US/Pacific jest",
@@ -49,6 +51,7 @@
     "test:coverage": "jest --coverage",
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup -c rollup.config.js -w",
+    "dts": "tsc -p tsconfig.dts.json && node ./merge-dts.js",
     "lint": "tslint -p tsconfig.lint.json",
     "lint:fix": "yarn lint -- --fix"
   },

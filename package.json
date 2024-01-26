@@ -90,7 +90,7 @@
     "yarn": ">=1.22.0"
   },
   "resolutions": {
-    "@types/react": "16.9.35",
-    "@types/react-test-renderer": "^16.9.3"
+    "@types/react": "^17.0.30",
+    "@types/react-test-renderer": "^17.0.9"
   }
 }

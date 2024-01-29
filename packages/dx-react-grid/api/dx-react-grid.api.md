@@ -1558,9 +1558,9 @@ export class TableSummaryRowBase extends React_2.PureComponent<TableSummaryRowPr
     // (undocumented)
     static GROUP_ROW_TYPE: symbol;
     // (undocumented)
-    render(): JSX.Element;
+    render(): React_2.JSX.Element;
     // (undocumented)
-    renderContent(column: any, columnSummaries: any): JSX.Element;
+    renderContent(column: any, columnSummaries: any): React_2.JSX.Element;
     // (undocumented)
     static TOTAL_ROW_TYPE: symbol;
     // (undocumented)

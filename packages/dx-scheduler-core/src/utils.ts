@@ -89,14 +89,17 @@ export const getAppointmentStyle: PureComputed<
 > = ({
   top, left,
   width, height,
-}) => ({
-  height,
-  width: `${width}%`,
-  transform: `translateY(${top}px)`,
-  msTransform: `translateY(${top}px)`,
-  left: `${left}%`,
-  position: 'absolute',
-});
+}) => {
+  const transform = `translateY(${top}px)` as any;
+  return ({
+    height,
+    width: `${width}%`,
+    transform,
+    msTransform: transform,
+    left: `${left}%`,
+    position: 'absolute',
+  });
+};
 
 const expandRecurrenceAppointment = (
   appointment: AppointmentMoment, leftBound: Date, rightBound: Date,

@@ -1,3 +1,12 @@
+# [4.0.7](https://github.com/DevExpress/devextreme-reactive/compare/v4.0.6...v4.0.7) (2024-01-30)
+
+
+### Bug Fixes
+
+* **grid-core:** - Generate .d.ts files for grid and scheduler core packages ([#3667](https://github.com/DevExpress/devextreme-reactive/issues/3667)) ([1fe82ac](https://github.com/DevExpress/devextreme-reactive/commit/1fe82ac7dd68a0623c88aa30473bfa253b844e4d))
+
+
+
 # [4.0.6](https://github.com/DevExpress/devextreme-reactive/compare/v4.0.5...v4.0.6) (2023-11-06)
 
 

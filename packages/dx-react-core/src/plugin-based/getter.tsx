@@ -24,6 +24,7 @@ export interface GetterProps {
 
 class GetterBase extends React.PureComponent<GetterProps & PluginContextProps> {
   plugin: InnerPlugin;
+  pluginRegistered: boolean;
 
   constructor(props) {
     super(props);
@@ -59,12 +60,20 @@ class GetterBase extends React.PureComponent<GetterProps & PluginContextProps> {
         return lastResult;
       },
     };
+
+    pluginHost.registerPlugin(this.plugin);
+
+    this.pluginRegistered = true;
   }
 
   componentDidMount() {
+    if (this.pluginRegistered)
+      return;
+
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
 
     pluginHost.registerPlugin(this.plugin);
+    this.pluginRegistered = true;
   }
 
   componentDidUpdate() {
@@ -77,6 +86,7 @@ class GetterBase extends React.PureComponent<GetterProps & PluginContextProps> {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
 
     pluginHost.unregisterPlugin(this.plugin);
+    this.pluginRegistered = false;
   }
 
   render() {

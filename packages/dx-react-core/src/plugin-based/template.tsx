@@ -33,7 +33,7 @@ export class TemplateBase extends React.PureComponent<TemplateProps & PluginCont
     globalTemplateId += 1;
     this.id = globalTemplateId;
 
-    const { [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: positionContext } = props;
+    const { [POSITION_CONTEXT]: positionContext } = props;
     const { name, predicate } = props;
 
     this.plugin = {
@@ -47,6 +47,10 @@ export class TemplateBase extends React.PureComponent<TemplateProps & PluginCont
         },
       },
     };
+  }
+
+  componentDidMount() {
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
     pluginHost.registerPlugin(this.plugin);
     pluginHost.broadcast(RERENDER_TEMPLATE_SCOPE_EVENT, name);
   }

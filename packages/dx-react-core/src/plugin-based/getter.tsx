@@ -59,6 +59,10 @@ class GetterBase extends React.PureComponent<GetterProps & PluginContextProps> {
         return lastResult;
       },
     };
+  }
+
+  componentDidMount() {
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
 
     pluginHost.registerPlugin(this.plugin);
   }

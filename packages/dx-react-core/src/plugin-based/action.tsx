@@ -46,7 +46,11 @@ class ActionBase extends React.PureComponent<ActionProps & PluginContextProps> {
           nextAction(nextParams);
         }
       },
-    };
+    };    
+  }
+
+  componentDidMount() {
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
 
     pluginHost.registerPlugin(this.plugin);
   }

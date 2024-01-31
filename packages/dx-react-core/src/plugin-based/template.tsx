@@ -56,9 +56,10 @@ export class TemplateBase extends React.PureComponent<TemplateProps & PluginCont
   }
 
   componentDidMount() {
-    if (this.pluginRegistered)
+    if (this.pluginRegistered) {
       return;
-  
+    }
+
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
     const { name } = this.props;
 

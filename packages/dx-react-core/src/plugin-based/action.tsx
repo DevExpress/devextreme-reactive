@@ -46,7 +46,7 @@ class ActionBase extends React.PureComponent<ActionProps & PluginContextProps> {
           nextAction(nextParams);
         }
       },
-    };    
+    };
   }
 
   componentDidMount() {

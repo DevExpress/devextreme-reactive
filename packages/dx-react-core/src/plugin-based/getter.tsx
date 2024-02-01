@@ -22,7 +22,8 @@ export interface GetterProps {
   computed?: ComputedFn;
 }
 
-class GetterBase extends React.PureComponent<GetterProps & PluginContextProps> {
+/** @internal */
+export class GetterBase extends React.PureComponent<GetterProps & PluginContextProps> {
   plugin: InnerPlugin;
   pluginRegistered: boolean;
 

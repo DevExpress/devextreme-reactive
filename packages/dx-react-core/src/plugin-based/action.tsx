@@ -16,7 +16,8 @@ export interface ActionProps {
   action: (payload: any, getters: Getters, actions: Actions) => void;
 }
 
-class ActionBase extends React.PureComponent<ActionProps & PluginContextProps> {
+/** @internal */
+export class ActionBase extends React.PureComponent<ActionProps & PluginContextProps> {
   plugin: InnerPlugin;
   pluginRegistered: boolean;
 

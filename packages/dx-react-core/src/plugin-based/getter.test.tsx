@@ -4,8 +4,10 @@ import { mount } from 'enzyme';
 import { PluginHost } from './plugin-host';
 import { Plugin } from './plugin';
 import { Template } from './template';
-import { Getter } from './getter';
+import { Getter, GetterBase } from './getter';
 import { TemplateConnector } from './template-connector';
+
+import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
 describe('Getter', () => {
   it('should return value', () => {
@@ -210,6 +212,40 @@ describe('Getter', () => {
 
     expect(() => { wrapper.unmount(); })
       .not.toThrow();
+  });
+
+  it('should remount correctly in Strict Mode', () => {
+    const pluginHost = {
+      registerPlugin: jest.fn(),
+      unregisterPlugin: jest.fn(),
+    } as any;
+
+    const value = 0;
+
+    const tree = mount((
+      <GetterBase
+        name="getter"
+        value={value}
+        {...{ [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: () => [] }}
+      />
+    ));
+
+    expect(pluginHost.registerPlugin)
+      .toHaveBeenCalledTimes(1);
+
+    tree.unmount();
+
+    expect(pluginHost.registerPlugin)
+      .toHaveBeenCalledTimes(1);
+    expect(pluginHost.unregisterPlugin)
+      .toHaveBeenCalledTimes(1);
+
+    tree.mount();
+
+    expect(pluginHost.registerPlugin)
+      .toHaveBeenCalledTimes(2);
+    expect(pluginHost.unregisterPlugin)
+      .toHaveBeenCalledTimes(1);
   });
 
   it('should not lose Getter when Plugin is inserted', () => {

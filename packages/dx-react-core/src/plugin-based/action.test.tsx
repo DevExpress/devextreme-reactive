@@ -2,10 +2,12 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 
 import { PluginHost } from './plugin-host';
-import { Action } from './action';
+import { Action, ActionBase } from './action';
 import { Getter } from './getter';
 import { Template } from './template';
 import { TemplateConnector } from './template-connector';
+
+import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
 describe('Action', () => {
   it('should execute action', () => {
@@ -180,5 +182,39 @@ describe('Action', () => {
 
     expect(() => { wrapper.unmount(); })
       .not.toThrow();
+  });
+
+  it('should remount correctly in Strict Mode', () => {
+    const pluginHost = {
+      registerPlugin: jest.fn(),
+      unregisterPlugin: jest.fn(),
+    } as any;
+
+    const action = jest.fn();
+
+    const tree = mount((
+      <ActionBase
+        name="action"
+        action={action}
+        {...{ [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: () => [] }}
+      />
+    ));
+
+    expect(pluginHost.registerPlugin)
+      .toHaveBeenCalledTimes(1);
+
+    tree.unmount();
+
+    expect(pluginHost.registerPlugin)
+      .toHaveBeenCalledTimes(1);
+    expect(pluginHost.unregisterPlugin)
+      .toHaveBeenCalledTimes(1);
+
+    tree.mount();
+
+    expect(pluginHost.registerPlugin)
+      .toHaveBeenCalledTimes(2);
+    expect(pluginHost.unregisterPlugin)
+      .toHaveBeenCalledTimes(1);
   });
 });

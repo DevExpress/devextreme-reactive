@@ -24,6 +24,7 @@ export class TemplateBase extends React.PureComponent<TemplateProps & PluginCont
   id: number;
   plugin: InnerPlugin;
   children: () => any;
+  pluginRegistered: boolean;
 
   constructor(props) {
     super(props);
@@ -47,8 +48,24 @@ export class TemplateBase extends React.PureComponent<TemplateProps & PluginCont
         },
       },
     };
+
     pluginHost.registerPlugin(this.plugin);
     pluginHost.broadcast(RERENDER_TEMPLATE_SCOPE_EVENT, name);
+
+    this.pluginRegistered = true;
+  }
+
+  componentDidMount() {
+    if (this.pluginRegistered) {
+      return;
+    }
+
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
+    const { name } = this.props;
+
+    pluginHost.registerPlugin(this.plugin);
+    pluginHost.broadcast(RERENDER_TEMPLATE_SCOPE_EVENT, name);
+    this.pluginRegistered = true;
   }
 
   componentDidUpdate() {
@@ -61,6 +78,7 @@ export class TemplateBase extends React.PureComponent<TemplateProps & PluginCont
     const { name } = this.props;
     pluginHost.unregisterPlugin(this.plugin);
     pluginHost.broadcast(RERENDER_TEMPLATE_SCOPE_EVENT, name);
+    this.pluginRegistered = false;
   }
 
   render() {

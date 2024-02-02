@@ -2,7 +2,9 @@ import * as React from 'react';
 import { mount } from 'enzyme';
 
 import { PluginHost } from './plugin-host';
-import { Template } from './template';
+import { Template, TemplateBase } from './template';
+
+import { PLUGIN_HOST_CONTEXT, POSITION_CONTEXT } from './constants';
 
 describe('Template', () => {
   it('should be rendered', () => {
@@ -109,5 +111,39 @@ describe('Template', () => {
 
     expect(() => { wrapper.unmount(); })
       .not.toThrow();
+  });
+
+  it('should remount correctly in Strict Mode', () => {
+    const pluginHost = {
+      registerPlugin: jest.fn(),
+      unregisterPlugin: jest.fn(),
+      broadcast: jest.fn(),
+    } as any;
+
+    const tree = mount((
+      <TemplateBase
+        name="root"
+        {...{ [PLUGIN_HOST_CONTEXT]: pluginHost, [POSITION_CONTEXT]: () => [] }}
+      >
+        <span/>
+      </TemplateBase>
+    ));
+
+    expect(pluginHost.registerPlugin)
+      .toHaveBeenCalledTimes(1);
+
+    tree.unmount();
+
+    expect(pluginHost.registerPlugin)
+      .toHaveBeenCalledTimes(1);
+    expect(pluginHost.unregisterPlugin)
+      .toHaveBeenCalledTimes(1);
+
+    tree.mount();
+
+    expect(pluginHost.registerPlugin)
+      .toHaveBeenCalledTimes(2);
+    expect(pluginHost.unregisterPlugin)
+      .toHaveBeenCalledTimes(1);
   });
 });

@@ -16,8 +16,10 @@ export interface ActionProps {
   action: (payload: any, getters: Getters, actions: Actions) => void;
 }
 
-class ActionBase extends React.PureComponent<ActionProps & PluginContextProps> {
+/** @internal */
+export class ActionBase extends React.PureComponent<ActionProps & PluginContextProps> {
   plugin: InnerPlugin;
+  pluginRegistered: boolean;
 
   constructor(props) {
     super(props);
@@ -49,12 +51,26 @@ class ActionBase extends React.PureComponent<ActionProps & PluginContextProps> {
     };
 
     pluginHost.registerPlugin(this.plugin);
+
+    this.pluginRegistered = true;
+  }
+
+  componentDidMount() {
+    if (this.pluginRegistered) {
+      return;
+    }
+
+    const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
+
+    pluginHost.registerPlugin(this.plugin);
+    this.pluginRegistered = true;
   }
 
   componentWillUnmount() {
     const { [PLUGIN_HOST_CONTEXT]: pluginHost } = this.props;
 
     pluginHost.unregisterPlugin(this.plugin);
+    this.pluginRegistered = false;
   }
 
   render() {

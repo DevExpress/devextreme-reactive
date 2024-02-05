@@ -1,3 +1,10 @@
+# [4.0.8](https://github.com/DevExpress/devextreme-reactive/compare/v4.0.7...v4.0.8) (2024-02-05)
+
+### Bug Fixes
+
+* fix compatibility with React 18.3 Canary ([#3669](https://github.com/DevExpress/devextreme-reactive/issues/3669)) ([4d74165](https://github.com/DevExpress/devextreme-reactive/commit/4d741659546a6412923f2153943f198fcc718464))
+
+
 # [4.0.7](https://github.com/DevExpress/devextreme-reactive/compare/v4.0.6...v4.0.7) (2024-01-30)
 
 

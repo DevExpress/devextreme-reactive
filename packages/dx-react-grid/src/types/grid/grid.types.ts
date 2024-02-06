@@ -24,6 +24,7 @@ export type GridProps = React.PropsWithChildren<{
   getCellValue?: (row: any, columnName: string) => any;
   /** A component that renders the grid root layout. */
   rootComponent: React.ComponentType<Grid.RootProps>;
+  rootProps?: Record<any, any>;
 }>;
 
 /** @internal */

@@ -1,10 +1,11 @@
 /* globals document */
 import * as React from 'react';
-import styles from './survey-header-addon.module.scss';
+import * as PropTypes from 'prop-types';
+import styles from './header-addon.module.scss';
 
-const COOKIE_ID = 'dx-cookie-survey';
+const COOKIE_ID = 'dx-cookie-header-addon';
 
-const SurveyHeaderAddon = React.memo(() => {
+const HeaderAddon = React.memo(({ spanText, link, linkText }) => {
   const [shown, setShown] = React.useState(typeof document !== 'undefined' && document.cookie.indexOf(COOKIE_ID) === -1);
 
   const onClick = React.useCallback(() => {
@@ -23,17 +24,17 @@ const SurveyHeaderAddon = React.memo(() => {
           >
             <div className="col-auto">
               <span>
-                Help us make our products better.
+                {spanText}
               </span>
               <span className={`col-auto ${styles.underline}`}>
-                <a target="_blank" rel="noopener noreferrer" href="https://www.devexpress.com/web/devextreme-noncustomer-survey.xml" className={styles.link}>
-                  Take our 5 minute survey.
+                <a target="_blank" rel="noopener noreferrer" href={link} className={styles.link}>
+                  {linkText}
                 </a>
               </span>
             </div>
             {/* eslint-disable-next-line */}
             <span onClick={onClick} className={`col-auto align-self-end ${styles.underline}`}>
-              Dismiss
+            Dismiss
             </span>
           </div>
         </div>
@@ -42,4 +43,10 @@ const SurveyHeaderAddon = React.memo(() => {
   } return null;
 });
 
-export default SurveyHeaderAddon;
+HeaderAddon.propTypes = {
+  spanText: PropTypes.string.isRequired,
+  linkText: PropTypes.string.isRequired,
+  link: PropTypes.string.isRequired,
+};
+
+export default HeaderAddon;

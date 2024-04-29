@@ -1,3 +1,3 @@
 ## Licensing
 
-Please refer to [DevExtreme Licensing](https://js.devexpress.com/Licensing/)
+Consult the [DevExtreme Licensing FAQ](https://js.devexpress.com/Licensing/) for more information.

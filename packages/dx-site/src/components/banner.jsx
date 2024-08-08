@@ -26,9 +26,9 @@ const Banner = () => {
             <div className="container">
               <div className="row">
                 <div className="d-none d-lg-block col pr-0">
-                  <p className="m-0 banner-text">DevExtreme Reactive component libraries are in maintenance support mode.</p>
+                  <p className="pl-3 m-0 banner-text">DevExtreme Reactive component libraries are in maintenance support mode.</p>
                 </div>
-                <div className="d-none d-md-block col col-lg-auto">
+                <div className="d-none d-md-block col col-lg-auto px-0">
                   <img src={bannerSVG} alt="react" />
                 </div>
                 <div className="col-12 col-md-8 col-lg-6">

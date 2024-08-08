@@ -14,7 +14,6 @@ import LandingLink from '../components/landing/link';
 import LandingProductLinks from '../components/landing/product-links';
 import LandingProductFloatImage from '../components/landing/product-float-image';
 import NotificationBox from '../components/docs/notification-box';
-import Banner from '../components/banner';
 
 import headerLink from './images/header.png';
 import ReactGridIcon from './images/react-grid.inline.svg';
@@ -83,7 +82,6 @@ const IndexPage = () => (
   <Layout>
     <Helmet title="React Components" />
     <LandingAlternatedBackground>
-      <Banner />
       <Header
         links={<LandingProductLinks />}
         addon={(

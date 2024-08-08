@@ -21,7 +21,7 @@ const Banner = () => {
   return show ? (
     <div className={styles.banner}>
       <div className="container">
-        <div className="row align-items-center px-2">
+        <div className="row align-items-center px-2 flex-nowrap">
           <div className="col-10 col-sm-11">
             <div className="container">
               <div className="row">
@@ -32,7 +32,7 @@ const Banner = () => {
                   <img src={bannerSVG} alt="react" />
                 </div>
                 <div className="col-12 col-md-8 col-lg-6">
-                  <p className="m-0 banner-text">
+                  <p className="m-0 banner-text pl-3">
                     <span className="d-block d-lg-none">DevExtreme Reactive component libraries are in maintenance support mode.</span>
                     For additional information in this regard, please review the following
                     readme on GitHub:&nbsp;

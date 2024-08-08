@@ -1,0 +1,22 @@
+.notification-box {
+  background-color: #FFF0BD;
+  border: 1.5px solid #FFDA5C;
+  padding: 30px;
+
+  @media (max-width: 800px) {
+    margin: 0 10px;
+  }
+
+  &-title {
+    font-size: 24px;
+    font-weight: 600;
+
+    @media (min-width: 640px) {
+      font-size: 32px;
+    }
+  }
+
+  &-text {
+    font-size: 18px;
+  }
+}

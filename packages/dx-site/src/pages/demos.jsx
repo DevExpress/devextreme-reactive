@@ -14,7 +14,7 @@ import SchedulerReduxIntegrationImage from './demo-images/scheduler/Redux-Integr
 import ChartMultipleAxesImage from './demo-images/chart/Multiple-Axes.png';
 import ChartRotatedImage from './demo-images/chart/Rotated-Chart.png';
 import ChartSteamgraphImage from './demo-images/chart/Steamgraph.png';
-
+import NotificationBox from '../components/docs/notification-box';
 // eslint-disable-next-line no-unused-vars
 import styles from './demos.module.scss';
 
@@ -122,6 +122,7 @@ const chartDemos = {
 
 export default () => (
   <PageLayout sectionName="demos">
+    <NotificationBox style={{ paddingTop: '1.5rem', paddingBottom: '3rem' }} />
     <DemosList data={gridDemos} />
     <hr />
     <DemosList data={schedulerDemos} />

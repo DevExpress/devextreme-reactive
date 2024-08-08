@@ -1,10 +1,10 @@
-import * as React from 'react';
-import bannerSVG from './images/banner-react.svg';
-import styles from './banner.module.scss';
+import * as React from 'react'
+import bannerSVG from './images/banner-react.svg'
+import styles from './banner.module.scss'
 
 const Banner = () => {
-  const [show, setShow] = React.useState(true);
-  const onDismissClick = () => setShow(false);
+  const [show, setShow] = React.useState(true)
+  const onDismissClick = () => setShow(false)
 
   return show ? (
     <div className={styles.banner}>
@@ -25,7 +25,7 @@ const Banner = () => {
                     For additional information in this regard, please review the following
                     readme on GitHub:&nbsp;
                     <a
-                      href="https://www.devexpress.com/AboutUs/privacy-policy.xml"
+                      href="https://github.com/DevExpress/devextreme-reactive/blob/master/README.md"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -45,6 +45,6 @@ const Banner = () => {
         </div>
       </div>
     </div>
-  ) : null;
-};
-export default Banner;
+  ) : null
+}
+export default Banner

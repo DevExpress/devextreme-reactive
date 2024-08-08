@@ -51,7 +51,7 @@ const Banner = () => {
           <div className="col col-lg-1 d-flex justify-content-end">
             <button type="button" className={styles.button} aria-label="Close" onClick={onDismissClick}>
               <span className="d-none d-lg-block">Dismiss</span>
-              <i className={styles.buttonIcon}>&times;</i>
+              <i className={styles.buttonIcon} />
             </button>
           </div>
         </div>

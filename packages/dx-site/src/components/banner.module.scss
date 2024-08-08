@@ -28,16 +28,23 @@
   font-size: 14px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: end;
   gap: 8px;
 
   &:hover {
     color: #007d9e;
+
+    .button-icon {
+      background-color: #007d9e;
+    }
   }
 
   &-icon {
-    font-size: 24px;
-    font-style: normal;
-    padding-bottom: 3px;
+    background-color: #FFFFFF;
+    -webkit-mask: url(../pages/images/banner-close.svg) center/14px no-repeat;
+    mask: url(../pages/images/banner-close.svg) center/14px no-repeat;
+    padding: 2px;
+    width: 18px;
+    height: 18px;
   }
 }

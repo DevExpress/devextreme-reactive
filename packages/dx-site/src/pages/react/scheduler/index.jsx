@@ -120,8 +120,8 @@ const IndexPage = () => (
     />
     <LandingProductFloatImage imageLink={headerImage} />
 
-    <AlternatedBackground style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
-      <NotificationBox style={{ paddingTop: '4.5rem' }} />
+    <AlternatedBackground>
+      <NotificationBox style={{ paddingTop: '40px' }} />
       <LandingChessBoardLayoutList data={pageData} columns={2} />
     </AlternatedBackground>
 

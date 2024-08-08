@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './notification-box.module.scss';
 
 const NotificationBox = ({ style }) => (
-  <div className="container" style={style}>
+  <div className="notification-box-container container" style={style}>
     <div className="row">
       <div className="col-12">
         <div className={styles.notificationBox}>

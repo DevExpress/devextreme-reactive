@@ -36,7 +36,9 @@ class Header extends React.Component {
     this.toggleMenuVisibility();
   }
 
-  toggleMenuVisibility() {
+  toggleMenuVisibility(e) {
+    e.stopPropagation();
+
     const { menuVisibility } = this.state;
     if (!menuVisibility) {
       document.addEventListener('click', this.handleOutsideClick, false);

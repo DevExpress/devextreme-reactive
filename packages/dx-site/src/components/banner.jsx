@@ -21,7 +21,7 @@ const Banner = () => {
   return show ? (
     <div className={styles.banner}>
       <div className="container">
-        <div className="row align-items-center px-2">
+        <div className="row align-items-center px-2 flex-nowrap">
           <div className="col-10 col-sm-11">
             <div className="container">
               <div className="row">
@@ -32,10 +32,10 @@ const Banner = () => {
                   <img src={bannerSVG} alt="react" />
                 </div>
                 <div className="col-12 col-md-8 col-lg-6">
-                  <p className="m-0 banner-text">
-                    <span className="d-block d-lg-none">DevExtreme Reactive component libraries are in maintenance support mode.</span>
-                    For additional information in this regard, please review the following
-                    readme on GitHub:&nbsp;
+                  <p className="m-0 banner-text pl-3">
+                    <div className="d-block d-lg-none">DevExtreme Reactive component libraries are <span>in maintenance support mode.</span></div>
+                    <span> For additional information in this regard,</span>
+                    <span>please review the following readme on</span> GitHub:&nbsp;
                     <a
                       href="https://github.com/DevExpress/devextreme-reactive/blob/master/README.md"
                       target="_blank"
@@ -50,7 +50,6 @@ const Banner = () => {
           </div>
           <div className="col col-lg-1 d-flex justify-content-end">
             <button type="button" className={styles.button} aria-label="Close" onClick={onDismissClick}>
-              <span className="d-none d-lg-block">Dismiss</span>
               <i className={styles.buttonIcon} />
             </button>
           </div>

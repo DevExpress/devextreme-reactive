@@ -2,6 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { StaticQuery, graphql } from 'gatsby';
+import Banner from '../banner';
 import Footer from '../footer';
 import Cookie from '../cookie';
 import favicon from '../images/favicon.ico';
@@ -40,6 +41,7 @@ const Layout = ({ children }) => (
             `}
           </script>
         </Helmet>
+        <Banner />
         {children}
         <Footer />
         <Cookie />

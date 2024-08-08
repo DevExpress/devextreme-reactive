@@ -1,7 +1,13 @@
+
+
 .notification-box {
   background-color: #FFF0BD;
   border: 1.5px solid #FFDA5C;
   padding: 30px;
+
+  a {
+    text-decoration: underline;
+  }
 
   @media (max-width: 800px) {
     margin: 0 10px;
@@ -18,5 +24,30 @@
 
   &-text {
     font-size: 18px;
+  }
+}
+
+
+
+@media only screen and (max-width: 640px) {
+  :global {
+    .row.my-3 {
+      display: none;
+    }
+
+    .notification-box-container {
+      padding-top: 30px;
+    }
+
+    .notification-box-top-gap {
+      display: none;
+    }
+
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  :global .notification-box-top-gap {
+  //  display: none;
   }
 }

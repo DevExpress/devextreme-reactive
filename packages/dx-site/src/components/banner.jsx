@@ -2,8 +2,18 @@ import * as React from 'react';
 import bannerSVG from './images/banner-react.svg';
 import styles from './banner.module.scss';
 
+const SHOW_BANNER_KEY = 'dx-show-banner';
+
 const Banner = () => {
-  const [show, setShow] = React.useState(true);
+  const [show, setShow] = React.useState(() => {
+    const showBanner = localStorage.getItem(SHOW_BANNER_KEY);
+    return showBanner !== '0';
+  });
+
+  React.useEffect(() => {
+    localStorage.setItem(SHOW_BANNER_KEY, show ? '1' : '0');
+  }, [show]);
+
   const onDismissClick = () => setShow(false);
 
   return show ? (
@@ -19,7 +29,7 @@ const Banner = () => {
                 <div className="d-none d-md-block col col-lg-auto">
                   <img src={bannerSVG} alt="react" />
                 </div>
-                <div className="col-12 col-sm-10 col-lg-6">
+                <div className="col-12 col-md-8 col-lg-6">
                   <p className="m-0 banner-text">
                     <span className="d-block d-lg-none">DevExtreme Reactive component libraries are in maintenance support mode.</span>
                     For additional information in this regard, please review the following
@@ -39,7 +49,7 @@ const Banner = () => {
           <div className="col col-lg-1 d-flex justify-content-end">
             <button type="button" className={styles.button} aria-label="Close" onClick={onDismissClick}>
               <span className="d-none d-lg-block">Dismiss</span>
-              <i>&times;</i>
+              <span className={styles.buttonIcon}>&#10006;</span>
             </button>
           </div>
         </div>

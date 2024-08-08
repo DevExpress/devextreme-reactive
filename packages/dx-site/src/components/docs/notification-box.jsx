@@ -27,7 +27,7 @@ const NotificationBox = ({ style }) => (
             >
               js.devexpress.com/react
             </a>
-            and download a free trial version of DevExtreme React UI - over 70+ components
+            &nbsp;and download a free trial version of DevExtreme React UI - over 70+ components
             designed to help you build your best, without limits or compromise.
           </p>
         </div>

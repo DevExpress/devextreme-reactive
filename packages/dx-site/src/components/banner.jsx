@@ -1,10 +1,10 @@
-import * as React from 'react'
-import bannerSVG from './images/banner-react.svg'
-import styles from './banner.module.scss'
+import * as React from 'react';
+import bannerSVG from './images/banner-react.svg';
+import styles from './banner.module.scss';
 
 const Banner = () => {
-  const [show, setShow] = React.useState(true)
-  const onDismissClick = () => setShow(false)
+  const [show, setShow] = React.useState(true);
+  const onDismissClick = () => setShow(false);
 
   return show ? (
     <div className={styles.banner}>
@@ -45,6 +45,6 @@ const Banner = () => {
         </div>
       </div>
     </div>
-  ) : null
-}
-export default Banner
+  ) : null;
+};
+export default Banner;

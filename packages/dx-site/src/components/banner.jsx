@@ -6,11 +6,13 @@ const SHOW_BANNER_KEY = 'dx-show-banner';
 
 const Banner = () => {
   const [show, setShow] = React.useState(() => {
+    // eslint-disable-next-line no-undef
     const showBanner = localStorage.getItem(SHOW_BANNER_KEY);
     return showBanner !== '0';
   });
 
   React.useEffect(() => {
+    // eslint-disable-next-line no-undef
     localStorage.setItem(SHOW_BANNER_KEY, show ? '1' : '0');
   }, [show]);
 

@@ -81,7 +81,7 @@ const pageData = [
 const IndexPage = () => (
   <Layout>
     <Helmet title="React Components" />
-    <LandingAlternatedBackground style={{paddingTop: 0, paddingBottom: 0}}>
+    <LandingAlternatedBackground style={{ paddingTop: 0, paddingBottom: 0 }}>
       <Header
         links={<LandingProductLinks />}
         addon={(

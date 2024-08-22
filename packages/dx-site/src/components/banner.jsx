@@ -43,7 +43,8 @@ const Banner = () => {
                     <a
                       href="https://github.com/DevExpress/devextreme-reactive/blob/master/README.md"
                       target="_blank"
-                      rel="noopener noreferrer">
+                      rel="noopener noreferrer"
+                    >
                       DevExtreme Reactive Components - Maintenance Mode
                     </a>
                   </p>

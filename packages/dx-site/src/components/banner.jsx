@@ -34,16 +34,16 @@ const Banner = () => {
                 <div className="col-12 col-md-8 col-lg-6">
                   <p className="m-0 banner-text pl-3">
                     <div className="d-block d-lg-none">
-                      DevExtreme Reactive component libraries are
+                      DevExtreme&nbsp;Reactive component libraries are
                       <span>in maintenance support mode.</span>
                     </div>
                     <span> For additional information in this regard,</span>
                     <span>please review the following readme on</span>
-                    GitHub:&nbsp;<a
+                    GitHub:&nbsp;
+                    <a
                       href="https://github.com/DevExpress/devextreme-reactive/blob/master/README.md"
                       target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                      rel="noopener noreferrer">
                       DevExtreme Reactive Components - Maintenance Mode
                     </a>
                   </p>

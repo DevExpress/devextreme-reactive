@@ -53,15 +53,15 @@ export default () => (
           <h1>Documentation</h1>
 
           <div className="alert-note">
-            <div >
+            <div>
               <div className="note-start">NOTE</div>
-              <p >
+              <p>
                 <div className="part-title">DevExtreme Reactive Components - Maintenance Support Mode</div>
                 DevExtreme Reactive component libraries are in maintenance support mode.
                 No new features/capabilities will be added to DevExtreme Reactive component
                 libraries in the future (end-of-life - July 2025).
               </p>
-              <p >
+              <p>
                 <div className="part-title">Developing a React App? Check out our updated React UI Suite instead.</div>
                 If you are considering React for an upcoming software project or
                 have used DevExtreme Reactive components in the past, please visit&nbsp;

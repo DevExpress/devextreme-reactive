@@ -57,13 +57,12 @@ export default () => (
               <div className="note-start">NOTE</div>
               <p>
                 <div className="part-title">DevExtreme Reactive Components - Maintenance Support Mode</div>
-                DevExtreme Reactive component libraries are in
-                <a
+                DevExtreme Reactive component libraries are in <a
                 href="https://github.com/DevExpress/devextreme-reactive/blob/master/README.md"
                 target="_blank"
                 rel="noopener noreferrer"
                 >
-                 maintenance support mode
+                  &nbsp;maintenance support mode
                 </a>
                  .No new features/capabilities will be added to DevExtreme Reactive component
                 libraries in the future (end-of-life: December 2025).

@@ -37,6 +37,7 @@ import LandingProductFloatImage from '../../../components/landing/product-float-
 import bootstrapThemeLink from './images/bootstrap-theme.png';
 import materialThemeLink from './images/material-theme.png';
 import AlternatedBackground from '../../../components/landing/alternated-background';
+import NotificationBox from '../../../components/docs/notification-box';
 
 const pageData = [
   {
@@ -197,10 +198,9 @@ const IndexPage = () => (
         />
       )}
     />
-
+    <LandingProductFloatImage imageLink={headerLink} />
     <AlternatedBackground style={{ paddingBottom: '2rem' }}>
-      <LandingProductFloatImage imageLink={headerLink} />
-      <div className="row my-3" />
+      <NotificationBox style={{ paddingTop: '40px' }} />
       <LandingChessBoardLayoutList data={pageData} colSize={6} />
     </AlternatedBackground>
 

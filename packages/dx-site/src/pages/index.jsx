@@ -13,6 +13,7 @@ import LandingProductBlock from '../components/landing/product-block';
 import LandingLink from '../components/landing/link';
 import LandingProductLinks from '../components/landing/product-links';
 import LandingProductFloatImage from '../components/landing/product-float-image';
+import NotificationBox from '../components/docs/notification-box';
 
 import headerLink from './images/header.png';
 import ReactGridIcon from './images/react-grid.inline.svg';
@@ -80,7 +81,7 @@ const pageData = [
 const IndexPage = () => (
   <Layout>
     <Helmet title="React Components" />
-    <LandingAlternatedBackground>
+    <LandingAlternatedBackground style={{ paddingTop: 0, paddingBottom: 0 }}>
       <Header
         links={<LandingProductLinks />}
         addon={(
@@ -172,6 +173,9 @@ const IndexPage = () => (
           ]}
         />
       </LandingProductLayout>
+
+      <div className="py-4 notification-box-top-gap" />
+      <NotificationBox />
 
       <div className="py-4" />
       <WhyDevExtremeForReact />

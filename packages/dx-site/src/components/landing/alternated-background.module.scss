@@ -1,3 +1,10 @@
 .background {
   background-color: #f8f8f8;
 }
+
+@media only screen and (min-width: 640px) {
+   .background {
+     padding-top: 4rem;
+     padding-bottom: 2rem;
+  }
+}

@@ -62,7 +62,7 @@ export default () => (
                   href="https://github.com/DevExpress/devextreme-reactive/blob/master/README.md"
                   target="_blank"
                   rel="noopener noreferrer"
-                  >
+                >
                   maintenance support mode
                 </a>
                 . No new features/capabilities will be added to DevExtreme Reactive component

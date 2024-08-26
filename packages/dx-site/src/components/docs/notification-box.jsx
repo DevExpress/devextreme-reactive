@@ -13,7 +13,7 @@ const NotificationBox = ({ style }) => (
           <p className={styles.notificationBoxText}>
             DevExtreme Reactive component libraries are in maintenance support mode.
             No new features/capabilities will be added to DevExtreme Reactive component
-            libraries in the future (end-of-life - July 2025).
+            libraries in the future (end-of-life - December 2025).
           </p>
           <p className={`m-0 ${styles.notificationBoxText}`}>
             <b>Developing a React App? Check out our updated React UI Suite instead.</b>

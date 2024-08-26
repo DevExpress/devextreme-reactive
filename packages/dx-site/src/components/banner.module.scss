@@ -9,14 +9,16 @@
   }
 
   :global .nowrap {
-     text-wrap: nowrap;
+    text-wrap: nowrap;
   }
 
   a {
     text-decoration: underline;
-    text-wrap: nowrap;
+    // text-wrap: nowrap;
     color: #FFFFFF;
   }
+
+
 
   img {
     width: 100%;

@@ -39,13 +39,13 @@ const Banner = () => {
                     </div>
                     <span> For additional information in this regard, </span>
                     <span> please review the following readme on </span>
-                    <span>GitHub:&nbsp;</span>
+                    <span>GitHub: </span>
                     <a
                       href="https://github.com/DevExpress/devextreme-reactive/blob/master/README.md"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      DevExtreme Reactive Components - Maintenance Mode
+                      <span className="nowrap">DevExtreme Reactive Components - Maintenance Mode</span>
                     </a>
                   </p>
                 </div>

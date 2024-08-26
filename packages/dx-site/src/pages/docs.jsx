@@ -62,9 +62,9 @@ export default () => (
                 target="_blank"
                 rel="noopener noreferrer"
                 >
-                  &nbsp;maintenance support mode
+                maintenance support mode
                 </a>
-                 .No new features/capabilities will be added to DevExtreme Reactive component
+                 . No new features/capabilities will be added to DevExtreme Reactive component
                 libraries in the future (end-of-life: December 2025).
               </p>
               <p>

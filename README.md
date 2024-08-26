@@ -42,15 +42,15 @@ We appreciate your understanding and support during this transition period.  If 
 - Controlled (stateless) and uncontrolled (stateful) modes
 - [Redux](https://github.com/reactjs/redux/) integration with state persistence and time-traveling
 
-## Reactive Data Grid
+## React Data Grid
 
 [Website](https://devexpress.github.io/devextreme-reactive/react/grid/) | [Demos](https://devexpress.github.io/devextreme-reactive/react/grid/demos/) | [Docs](https://devexpress.github.io/devextreme-reactive/react/grid/docs/)
 
-## Reactive Chart
+## React Chart
 
 [Website](https://devexpress.github.io/devextreme-reactive/react/chart/) | [Demos](https://devexpress.github.io/devextreme-reactive/react/chart/demos/) | [Docs](https://devexpress.github.io/devextreme-reactive/react/chart/docs/)
 
-## Reactive Scheduler
+## React Scheduler
 
 [Website](https://devexpress.github.io/devextreme-reactive/react/scheduler/) | [Demos](https://devexpress.github.io/devextreme-reactive/react/scheduler/demos/) | [Docs](https://devexpress.github.io/devextreme-reactive/react/scheduler/docs/)
 

@@ -13,10 +13,10 @@ const NotificationBox = ({ style }) => (
           <p className={styles.notificationBoxText}>
             DevExtreme Reactive component libraries are in&nbsp;
             <a
-            href="https://github.com/DevExpress/devextreme-reactive/blob/master/README.md"
-            target="_blank"
-            rel="noopener noreferrer"
-            >
+              href="https://github.com/DevExpress/devextreme-reactive/blob/master/README.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              >
             maintenance support mode
             </a>
             . No new features/capabilities will be added to DevExtreme Reactive component

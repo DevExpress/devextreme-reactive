@@ -7,7 +7,7 @@
             <div class="part-title">DevExtreme Reactive Components - Maintenance Support Mode</div>
             DevExtreme Reactive component libraries are in maintenance support mode.
             No new features/capabilities will be added to DevExtreme Reactive component
-            libraries in the future (end-of-life - December 2025).
+            libraries in the future (end-of-life: December 2025).
           </p>
           <p>
             <div class="part-title">Developing a React App? Check out our updated React UI Suite instead.</div>

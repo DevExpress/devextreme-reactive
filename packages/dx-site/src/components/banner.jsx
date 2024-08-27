@@ -4,10 +4,15 @@ import styles from './banner.module.scss';
 
 const SHOW_BANNER_KEY = 'dx-show-banner';
 
+let storage = { getItem: () => undefined, setItem: () => undefined };
+try {
+  // eslint-disable-next-line no-undef
+  storage = window.localStorage;
+} catch (e) {} // eslint-disable-line no-empty
+
 const Banner = () => {
   const [show, setShow] = React.useState(() => {
-    // eslint-disable-next-line no-undef
-    const showBanner = localStorage.getItem(SHOW_BANNER_KEY);
+    const showBanner = storage.getItem(SHOW_BANNER_KEY);
     return showBanner !== '0';
   });
 

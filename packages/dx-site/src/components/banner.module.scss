@@ -1,5 +1,7 @@
 .banner {
-  background-color: #2eb9de;
+  &:has(:global .banner-container) {
+    background-color: #2eb9de;
+  }
 
   :global .banner-container {
     p {

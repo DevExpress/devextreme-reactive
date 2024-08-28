@@ -18,7 +18,7 @@ const Banner = () => {
 
   React.useEffect(() => {
     // eslint-disable-next-line no-undef
-    localStorage.setItem(SHOW_BANNER_KEY, show ? '1' : '0');
+    storage.setItem(SHOW_BANNER_KEY, show ? '1' : '0');
   }, [show]);
 
   const onDismissClick = () => setShow(false);

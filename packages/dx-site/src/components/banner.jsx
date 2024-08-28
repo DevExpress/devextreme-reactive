@@ -25,7 +25,7 @@ const Banner = () => {
 
   return show ? (
     <div className={styles.banner}>
-      <div className="container">
+      <div className="container banner-container">
         <div className="row align-items-center px-2 flex-nowrap">
           <div className="col-10 col-sm-11">
             <div className="container">

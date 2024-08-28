@@ -4,28 +4,25 @@ import styles from './banner.module.scss';
 
 const SHOW_BANNER_KEY = 'dx-show-banner';
 
-let storage = { getItem: () => undefined, setItem: () => undefined };
-try {
-  // eslint-disable-next-line no-undef
-  storage = window.localStorage;
-} catch (e) {} // eslint-disable-line no-empty
-
 const Banner = () => {
-  const [show, setShow] = React.useState(() => {
-    const showBanner = storage.getItem(SHOW_BANNER_KEY);
-    return showBanner !== '0';
-  });
+  const [show, setShow] = React.useState(false);
 
   React.useEffect(() => {
     // eslint-disable-next-line no-undef
-    storage.setItem(SHOW_BANNER_KEY, show ? '1' : '0');
+    const showBanner = localStorage.getItem(SHOW_BANNER_KEY);
+    setShow(showBanner !== '0');
+  }, []);
+
+  React.useEffect(() => {
+    // eslint-disable-next-line no-undef
+    localStorage.setItem(SHOW_BANNER_KEY, show ? '1' : '0');
   }, [show]);
 
   const onDismissClick = () => setShow(false);
 
   return show ? (
     <div className={styles.banner}>
-      <div className="container banner-container">
+      <div className="container">
         <div className="row align-items-center px-2 flex-nowrap">
           <div className="col-10 col-sm-11">
             <div className="container">

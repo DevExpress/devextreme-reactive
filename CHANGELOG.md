@@ -1,3 +1,10 @@
+# [4.0.9](https://github.com/DevExpress/devextreme-reactive/compare/v4.0.8...v4.0.9) (2024-09-09)
+
+
+### Bug Fixes
+
+* fix an unmet peer dependency in `dx-react-chart` ([#3679](https://github.com/DevExpress/devextreme-reactive/pull/3679)) ([f4513e1](https://github.com/DevExpress/devextreme-reactive/commit/f4513e1792b8b2e0d639a05fb65f997c97af52c7))
+
 # [4.0.8](https://github.com/DevExpress/devextreme-reactive/compare/v4.0.7...v4.0.8) (2024-02-05)
 
 ### Bug Fixes

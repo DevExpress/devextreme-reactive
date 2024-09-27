@@ -170,12 +170,13 @@ describe('Draggable', () => {
 
       const draggableNode = tree.find('div').getDOMNode() as HTMLElement;
       dispatchEvent('mousedown', { clientX: 10, clientY: 10 }, draggableNode);
-      dispatchEvent('contextmenu', { clientX: 10, clientY: 10 });
+      dispatchEvent('mousemove', { clientX: 30, clientY: 30 });
+      dispatchEvent('contextmenu', { clientX: 30, clientY: 30 });
 
       expect(onEnd)
         .toHaveBeenCalledTimes(1);
       expect(onEnd)
-        .toHaveBeenCalledWith({ x: 10, y: 10 });
+        .toHaveBeenCalledWith({ x: 30, y: 30 });
     });
 
     it('should enable gesture cover while dragging', () => {

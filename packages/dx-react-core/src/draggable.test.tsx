@@ -156,6 +156,28 @@ describe('Draggable', () => {
         .toHaveBeenCalledWith({ x: 30, y: 30 });
     });
 
+    it('should fire the "onEnd" callback on contextmenu', () => {
+      const onEnd = jest.fn();
+
+      tree = mount(
+        <Draggable
+          onEnd={onEnd}
+        >
+          <div />
+        </Draggable>,
+        { attachTo: rootNode },
+      );
+
+      const draggableNode = tree.find('div').getDOMNode() as HTMLElement;
+      dispatchEvent('mousedown', { clientX: 10, clientY: 10 }, draggableNode);
+      dispatchEvent('contextmenu', { clientX: 10, clientY: 10 });
+
+      expect(onEnd)
+        .toHaveBeenCalledTimes(1);
+      expect(onEnd)
+        .toHaveBeenCalledWith({ x: 10, y: 10 });
+    });
+
     it('should enable gesture cover while dragging', () => {
       tree = mount(
         <Draggable>

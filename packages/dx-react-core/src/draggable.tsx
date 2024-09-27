@@ -119,6 +119,7 @@ export class Draggable extends React.PureComponent<DraggableProps> {
         this.saveEvent(e, true);
         this.mouseStrategy.move(e);
         break;
+      case 'contextmenu':
       case 'mouseup':
         this.eventParams = null;
         this.mouseStrategy.end(e);

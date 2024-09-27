@@ -14,10 +14,10 @@ jobs:
     name: Build, Lint & Jest Test
     steps:
     - name: Get sources
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Use Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v4
       with:
         node-version: '20'
 
@@ -40,7 +40,7 @@ jobs:
       run: 7z a -tzip -mx3 -mmt2 artifacts.zip packages
 
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: devextreme-reactive-artifacts
         path: artifacts.zip
@@ -55,10 +55,10 @@ jobs:
     name: Test Cafe tests ${{ matrix.component }}
     steps:
     - name: Get sources
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Use Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v4
       with:
         node-version: '20'
 
@@ -68,7 +68,7 @@ jobs:
         yarn --no-progress
 
     - name: Download artifacts
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: devextreme-reactive-artifacts
 
@@ -84,10 +84,10 @@ jobs:
     name: Site
     steps:
     - name: Get sources
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Use Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v4
       with:
         node-version: '20'
 
@@ -97,7 +97,7 @@ jobs:
         yarn --no-progress
 
     - name: Download artifacts
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: devextreme-reactive-artifacts
 

@@ -156,6 +156,74 @@ describe('Draggable', () => {
         .toHaveBeenCalledWith({ x: 30, y: 30 });
     });
 
+    it('should fire the "onEnd" callback on contextmenu (case for macOS)', () => {
+      const onEnd = jest.fn();
+
+      tree = mount(
+        <Draggable
+          onEnd={onEnd}
+        >
+          <div />
+        </Draggable>,
+        { attachTo: rootNode },
+      );
+
+      const draggableNode = tree.find('div').getDOMNode() as HTMLElement;
+
+      dispatchEvent('mousedown', { clientX: 10, clientY: 10 }, draggableNode);
+      dispatchEvent('contextmenu', { clientX: 10, clientY: 10 });
+      dispatchEvent('mousemove', { clientX: 30, clientY: 30 });
+      dispatchEvent('mouseup', { clientX: 30, clientY: 30 });
+
+      expect(onEnd)
+        .not.toHaveBeenCalled();
+
+      dispatchEvent('mousedown', { clientX: 10, clientY: 10 }, draggableNode);
+      dispatchEvent('mousemove', { clientX: 30, clientY: 30 });
+      dispatchEvent('contextmenu', { clientX: 30, clientY: 30 });
+
+      expect(onEnd)
+        .toHaveBeenCalledTimes(1);
+      expect(onEnd)
+        .toHaveBeenCalledWith({ x: 30, y: 30 });
+    });
+
+    it('should fire the "onEnd" callback on contextmenu (case for Windows)', () => {
+      const onEnd = jest.fn();
+
+      tree = mount(
+        <Draggable
+          onEnd={onEnd}
+        >
+          <div />
+        </Draggable>,
+        { attachTo: rootNode },
+      );
+
+      const draggableNode = tree.find('div').getDOMNode() as HTMLElement;
+
+      const emulateCancelWithContextMenu = () => {
+        dispatchEvent('mousedown', { clientX: 10, clientY: 10 }, draggableNode);
+        dispatchEvent('mouseup', { clientX: 10, clientY: 10 });
+        dispatchEvent('contextmenu', { clientX: 10, clientY: 10 });
+      };
+
+      expect(emulateCancelWithContextMenu)
+        .not.toThrow();
+      expect(onEnd)
+        .not.toHaveBeenCalled();
+
+      dispatchEvent('mousedown', { clientX: 10, clientY: 10 }, draggableNode);
+      dispatchEvent('mousemove', { clientX: 30, clientY: 30 });
+      dispatchEvent('mouseup', { clientX: 30, clientY: 30 });
+      dispatchEvent('contextmenu', { clientX: 30, clientY: 30 });
+
+      expect(onEnd)
+        .toHaveBeenCalledTimes(1);
+      expect(onEnd)
+        .toHaveBeenCalledWith({ x: 30, y: 30 });
+    });
+
     it('should enable gesture cover while dragging', () => {
       tree = mount(
         <Draggable>

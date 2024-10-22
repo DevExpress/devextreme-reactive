@@ -86,7 +86,10 @@ class TableColumnReorderingRaw extends React.PureComponent<TableColumnReordering
   }
 
   cacheCellDimensions() {
-    this.cellDimensions = (this.cellDimensions && this.cellDimensions.length)
+    this.cellDimensions = (this.cellDimensions
+        && this.cellDimensions.length
+        && this.cellDimensions.length === Object.keys(this.cellDimensionGetters).length
+      )
       ? this.cellDimensions
       : this.getAvailableColumns()
         .map(columnName => this.cellDimensionGetters[columnName]());

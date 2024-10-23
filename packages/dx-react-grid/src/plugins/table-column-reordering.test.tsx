@@ -347,7 +347,7 @@ describe('TableColumnReordering', () => {
           defaultOrder={['a', 'b']}
           onOrderChange={() => undefined}
           deps={deps}
-        />
+        />,
       );
 
       const onOver = wrapper.find(TableMock).prop('onOver');

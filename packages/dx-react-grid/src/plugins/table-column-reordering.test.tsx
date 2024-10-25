@@ -173,9 +173,12 @@ describe('TableColumnReordering', () => {
         {children}
       </div>
     );
-    const mountWithCellTemplates = ({
-      defaultOrder, onOrderChange,
-    }, deps = {}) => mount((
+
+    const TestComponent = ({
+      defaultOrder,
+      onOrderChange,
+      deps,
+    }) => (
       <DragDropProvider>
         <PluginHost>
           <Template name="table">
@@ -207,6 +210,16 @@ describe('TableColumnReordering', () => {
           />
         </PluginHost>
       </DragDropProvider>
+    );
+
+    const mountWithCellTemplates = ({
+      defaultOrder, onOrderChange,
+    }, deps = {}) => mount((
+      <TestComponent
+        defaultOrder={defaultOrder}
+        onOrderChange={onOrderChange}
+        deps={deps}
+      />
     ));
 
     beforeEach(() => {
@@ -311,6 +324,53 @@ describe('TableColumnReordering', () => {
       onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
       expect(draftOrder)
         .toHaveBeenLastCalledWith(['c', 'a', 'b'], 1, 2);
+    });
+
+    it('should clear cell dimension cache when the number of columns changes', () => {
+      const deps = {
+        getter: {
+          tableColumns: [
+            ...defaultDeps.getter.tableColumns,
+          ],
+        },
+      };
+      let cellDimensions;
+
+      orderedColumns.mockImplementation(() => deps.getter.tableColumns);
+      getTableTargetColumnIndex.mockImplementation((cellDimensionsArg) => {
+        cellDimensions = cellDimensionsArg;
+        return 1;
+      });
+
+      const wrapper = mount(
+        <TestComponent
+          defaultOrder={['a', 'b']}
+          onOrderChange={() => undefined}
+          deps={deps}
+        />,
+      );
+
+      const onOver = wrapper.find(TableMock).prop('onOver');
+
+      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+
+      expect(cellDimensions.length).toEqual(2);
+
+      const newDeps = {
+        getter: {
+          tableColumns: [
+            ...[defaultDeps.getter.tableColumns[0]],
+          ],
+        },
+      };
+      cellDimensions = [];
+
+      orderedColumns.mockImplementation(() => newDeps.getter.tableColumns);
+      wrapper.setProps({ deps: newDeps });
+
+      onOver({ payload: [{ type: 'column', columnName: 'a' }], ...defaultClientOffset });
+
+      expect(cellDimensions.length).toEqual(1);
     });
 
     it('should reset cell dimensions after leave and drop events', () => {

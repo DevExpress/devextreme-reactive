@@ -70,6 +70,12 @@ export class DemoCodeProvider extends React.PureComponent {
     return demoSources[sectionName][demoName][themeName] || {};
   }
 
+  getMigrationSampleCode() {
+    const { sectionName, demoName } = this.props;
+    const { migrationSamples } = this.context;
+    return migrationSamples[sectionName][demoName]?.source || '';
+  }
+
   getHelperFiles() {
     const { themeName } = this.props;
     const { themeComponents, demoData } = this.context;
@@ -160,11 +166,13 @@ export class DemoCodeProvider extends React.PureComponent {
     const { requireTs } = this.getDemoConfig();
     const onEditableLinkChange = this.onEditableLinkChange.bind(this);
     const { editableLink } = this.state;
+    const migrationSample = this.getMigrationSampleCode();
 
     return children({
       html,
       sandboxHtml,
       code,
+      migrationSample,
       helperFiles,
       externalDeps,
       requireTs,

@@ -17,7 +17,7 @@ const sandboxConfig = `{
 }`;
 
 export const CodeSandBoxButton = ({
-  code, sandboxHtml, helperFiles, externalDeps, requireTs,
+  code, sandboxHtml, helperFiles, externalDeps, requireTs, disabled,
 }) => {
   const helpers = Object.entries(helperFiles).reduce((acc, [name, content]) => ({
     ...acc,
@@ -59,7 +59,7 @@ export const CodeSandBoxButton = ({
   return (
     <form action="https://codesandbox.io/api/v1/sandboxes/define" method="POST" target="_blank">
       <input type="hidden" name="parameters" value={parameters} />
-      <input type="submit" value="Open in CodeSandbox" className="btn-outline-primary codesandbox-button" />
+      <input type="submit" value="Open in CodeSandbox" className="btn-outline-primary codesandbox-button" disabled={disabled} />
     </form>
   );
 };
@@ -70,4 +70,5 @@ CodeSandBoxButton.propTypes = {
   helperFiles: PropTypes.array.isRequired,
   externalDeps: PropTypes.array.isRequired,
   requireTs: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
 };

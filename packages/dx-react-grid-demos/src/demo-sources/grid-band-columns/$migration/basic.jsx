@@ -1,0 +1,72 @@
+export default () => {
+  return (
+    <div>
+      <DataGrid
+        dataSource={rows}
+      >
+        <Column
+          dataField={'country'}
+          caption={'Country'}
+        />
+        <Column
+          dataField={'area'}
+          caption={'Area, sq. km.'}
+          width={125}
+          alignment='right'
+        />
+        <Column
+          caption={'Population'}
+        >
+          <Column
+            dataField={'Population_Total'}
+            caption={'Total'}
+            width={110}
+            alignment='right'
+          />
+          <Column
+            dataField={'Population_Urban'}
+            caption={'Urban'}
+            width={75}
+            alignment='right'
+            format={'#0.##\'%\''}
+          />
+        </Column>
+        <Column
+          caption={'Nominal GDP'}
+        >
+          <Column
+            dataField={'GDP_Total'}
+            caption={'Total, mln $'}
+            width={115}
+            alignment='right'
+          />
+          <Column
+            caption={'By Sector'}
+          >
+            <Column
+              dataField={'GDP_Agriculture'}
+              caption={'Agriculture'}
+              width={110}
+              alignment='right'
+              format={'#0.##\'%\''}
+            />
+            <Column
+              dataField={'GDP_Industry'}
+              caption={'Industry'}
+              width={90}
+              alignment='right'
+              format={'#0.##\'%\''}
+            />
+            <Column
+              dataField={'GDP_Services'}
+              caption={'Services'}
+              width={90}
+              alignment='right'
+              format={'#0.##\'%\''}
+            />
+          </Column>
+        </Column>
+      </DataGrid>
+    </div>
+  );
+};

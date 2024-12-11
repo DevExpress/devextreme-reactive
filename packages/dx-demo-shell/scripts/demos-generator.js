@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import mustache from 'mustache';
 
-import { overrideFileIfChanged } from './fs-utils.js';
+import { writeStringToFile } from './fs-utils.js';
 
 const DEMOS_FOLDER = './src/demo-sources';
 const THEMES_FOLDER = './src/theme-sources';
@@ -47,7 +47,7 @@ const removeSuffix = (str, suffix) => str.substring(0, str.length - suffix.lengt
 const createFromTemplate = (sourceFilename, outputFilename, data) => {
   const source = fs.readFileSync(sourceFilename, 'utf-8');
   const output = mustache.render(source, data);
-  overrideFileIfChanged(outputFilename, output);
+  writeStringToFile(outputFilename, output);
   cancelFileRemoving(outputFilename);
 };
 
@@ -77,6 +77,16 @@ export const loadDemosToGenerate = (themeNames) => {
             }
             const demoExtension = getDemoExtension(nestedFile);
             const demoName = removeSuffix(nestedFile, `.${demoExtension}`);
+            const isMigrationSample = file.startsWith('$');
+            if (isMigrationSample) {
+              demos.push({
+                sectionName,
+                demoName,
+                demoExtension,
+                isMigrationSample: true,
+              });
+              return;
+            }
             const testFile = fs.existsSync(path.join(DEMOS_FOLDER, sectionName, `${demoName}${TEST_SUFFIX}.jsxt`))
               ? path.join(DEMOS_FOLDER, sectionName, `${demoName}${TEST_SUFFIX}.jsxt`)
               : getTestFileName(demoExtension);
@@ -174,15 +184,21 @@ export const generateDemos = (demos) => {
     generateTest,
     generateSsrTest,
   }) => {
+    const themeData = themeName
+      ? JSON.parse(fs.readFileSync(path.join(THEMES_FOLDER, themeName, THEME_DEMO_DATA_FILE), 'utf-8'))
+      : {};
+
     const demoSourceData = {
       themeName,
       sectionName,
       demoName: `${demoName}${generateDemo ? GENERATED_SUFFIX : ''}`,
-      ...JSON.parse(fs.readFileSync(path.join(THEMES_FOLDER, themeName, THEME_DEMO_DATA_FILE), 'utf-8')),
+      ...themeData,
     };
 
     try {
-      fs.mkdirSync(path.join(DEMOS_FOLDER, sectionName, themeName));
+      if (themeName) {
+        fs.mkdirSync(path.join(DEMOS_FOLDER, sectionName, themeName));
+      }
     } catch (e) {} // eslint-disable-line no-empty
 
     if (generateDemo) {

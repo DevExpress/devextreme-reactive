@@ -15,9 +15,12 @@ const SITE_PUBLISHING_DIRECTORY = join(process.cwd(), 'tmp');
 const BRANCH = 'gh-pages';
 const COMMIT_MESSAGE = 'chore: update site';
 
-const script = async () => {
+export const publishSite = async (prod = false) => {
   const currentBranchName = getCurrentBranchName();
-  ensureRepoUpToDate(currentBranchName);
+
+  if (prod) {
+    ensureRepoUpToDate(currentBranchName);
+  }
 
   console.log();
   console.log('====================');
@@ -25,14 +28,18 @@ const script = async () => {
   console.log('====================');
   console.log();
 
-  const version = loadJSON('../lerna.json').version;
-  const suggestedTag = prerelease(version) !== null ? 'next' : 'latest';
-  const { tag } = await inquirer.prompt({
-    name: 'tag',
-    message: `Enter tag [version: ${version}, write 'latest' to publish site without prefix]:`,
-    default: suggestedTag,
-  });
-  const tagPath = tag !== 'latest' ? `/@${tag}` : '';
+  let tagPath = '';
+
+  if (prod) {
+    const version = loadJSON('../lerna.json').version;
+    const suggestedTag = prerelease(version) !== null ? 'next' : 'latest';
+    const { tag } = await inquirer.prompt({
+      name: 'tag',
+      message: `Enter tag [version: ${version}, write 'latest' to publish site without prefix]:`,
+      default: suggestedTag,
+    });
+    tagPath = tag !== 'latest' ? `/@${tag}` : '';
+  }
 
   console.log('Building site content...');
   const packagesDir = dirname(fileURLToPath(import.meta.url));
@@ -54,7 +61,7 @@ const script = async () => {
   console.log('Publishing...');
   execSync('git add --all', { cwd: SITE_PUBLISHING_DIRECTORY });
   execSync(`git commit -m "${COMMIT_MESSAGE}"`, { cwd: SITE_PUBLISHING_DIRECTORY });
-  execSync(`git push upstream ${BRANCH}`, { cwd: SITE_PUBLISHING_DIRECTORY });
+  execSync(`git push ${prod ? 'upstream' : 'origin'} ${BRANCH}`, { cwd: SITE_PUBLISHING_DIRECTORY });
 
   console.log('Cleaning up...');
   removeSync(SITE_PUBLISHING_DIRECTORY);
@@ -65,9 +72,7 @@ const script = async () => {
   console.log('--------------------');
   console.log('Done!');
   console.log();
-  console.log(`You have to check that everything is good at https://devexpress.github.io/devextreme-reactive${tagPath}/`);
+  console.log(`You have to check that everything is good${prod ? `at https://devexpress.github.io/devextreme-reactive${tagPath}/` : ''}`);
   console.log('--------------------');
   console.log();
 };
-
-script();

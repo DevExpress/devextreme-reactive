@@ -21,7 +21,7 @@
     "build:watch": "concurrently \"yarn build:watch:generator\" \"yarn start-demo-server\"",
     "start-demo-server": "webpack-dev-server --config webpack.config.cjs --env",
     "start-demo-server:prod": "webpack-dev-server --config webpack.config.cjs --env.production",
-    "escheck": "eslint \"src/**/*.{js,jsx}\" --ignore-pattern \"**/*.testcafe.js\" --ignore-pattern \"*.partial.jsx\"",
+    "escheck": "eslint \"src/**/*.{js,jsx}\" --ignore-pattern \"**/*.testcafe.js\" --ignore-pattern \"*.partial.jsx\" --ignore-pattern \"**/\\$migration/\"",
     "tscheck": "tslint \"src/**/*.{ts,tsx}\" --exclude \"src/**/*.g.test.tsx\"",
     "lint": "yarn escheck && yarn tscheck",
     "lint:fix": "yarn escheck -- --fix && yarn tscheck -- --fix"

@@ -21,7 +21,7 @@
     "build:watch": "concurrently \"yarn build:watch:generator\" \"yarn start-demo-server\"",
     "start-demo-server": "webpack-dev-server --config webpack.config.cjs --env",
     "start-demo-server:prod": "webpack-dev-server --config webpack.config.cjs --env.production",
-    "lint": "eslint \"src/**/*.{js,jsx}\" --ignore-pattern \"**/*.testcafe.js\" --ignore-pattern \"*.partial.jsx\"",
+    "lint": "eslint \"src/**/*.{js,jsx}\" --ignore-pattern \"**/*.testcafe.js\" --ignore-pattern \"*.partial.jsx\" --ignore-pattern \"**/\\$migration/\"",
     "lint:fix": "yarn lint -- --fix"
   },
   "dependencies": {

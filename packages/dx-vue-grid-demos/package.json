@@ -20,7 +20,7 @@
     "build:watch:generator": "nodemon --exec \"yarn build:generator\" --watch \"src/demo-sources/**/*\" --ignore \"**/*.g.jsx\"  --ignore \"**/*.g.test.jsx\" --watch \"src/theme-sources/*/demo-source-data.json\" --watch \"generate-demos.js\" --ext js,jsx,jsxt,json,ts,tsx,tsxt",
     "build:watch": "concurrently \"yarn build:watch:generator\" \"yarn start-demo-server\"",
     "start-demo-server": "webpack-dev-server --env",
-    "lint": "eslint \"src/**/*.{js,jsx}\" --ignore-pattern \"**/*.testcafe.js\"",
+    "lint": "eslint \"src/**/*.{js,jsx}\" --ignore-pattern \"**/*.testcafe.js\" --ignore-pattern \"**/\\$migration/\"",
     "lint:fix": "yarn lint -- --fix"
   },
   "dependencies": {

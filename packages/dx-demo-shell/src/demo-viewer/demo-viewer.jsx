@@ -129,26 +129,28 @@ export class DemoViewer extends React.Component {
                                   <NavItem>
                                     <NavLink
                                       tag="span"
-                                      className={activeTab === 'migration' ? 'active' : ''}
+                                      className={`migration-tab ${activeTab === 'migration' ? 'active' : ''}`}
                                       onClick={() => { this.toggle('migration'); }}
                                     >
                                       Migration
                                     </NavLink>
                                   </NavItem>
                                 )}
-                              <NavItem>
-                                <CodeSandBoxButton
-                                  code={code}
-                                  sandboxHtml={sandboxHtml}
-                                  helperFiles={helperFiles}
-                                  externalDeps={externalDeps}
-                                  sectionName={sectionName}
-                                  demoName={demoName}
-                                  themeName={themeName}
-                                  requireTs={requireTs}
-                                  disabled={activeTab === 'migration'}
-                                />
-                              </NavItem>
+                              { activeTab !== 'migration'
+                                && (
+                                  <NavItem>
+                                    <CodeSandBoxButton
+                                      code={code}
+                                      sandboxHtml={sandboxHtml}
+                                      helperFiles={helperFiles}
+                                      externalDeps={externalDeps}
+                                      sectionName={sectionName}
+                                      demoName={demoName}
+                                      themeName={themeName}
+                                      requireTs={requireTs}
+                                    />
+                                  </NavItem>
+                                )}
                             </Nav>
                             <TabContent
                               activeTab={activeTab}

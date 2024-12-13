@@ -10,8 +10,3 @@
   background-color: #0096bd;
   border-color: #0096bd;
 }
-.codesandbox-button:disabled, .codesandbox-button:disabled:hover {
-  border-color: rgb(140, 205, 221);
-  color:rgb(140, 205, 221);
-  background-color: white;
-}

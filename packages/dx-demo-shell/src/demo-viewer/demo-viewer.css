@@ -58,7 +58,7 @@ span.nav-link {
 
 @media (min-width: 1000px) {
   .demo-viewer .nav .nav-link {
-    padding: 0.5rem 0.7rem;
+    padding: 0.5rem 0.75rem;
   }
 
   .demo-viewer .codesandbox-button {
@@ -66,6 +66,10 @@ span.nav-link {
   }
 
   .demo-viewer .theme-selector {
+    margin-left: 380px;
+  }
+
+  .demo-viewer .theme-selector:has(.migration-tab) {
     margin-left: 450px;
   }
 }

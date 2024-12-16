@@ -1,12 +1,14 @@
 import fs from 'fs';
 
-export const overrideFileIfChanged = (filename, data) => {
+export const writeStringToFile = (filename, data, overwriteData = true) => {
   let existingData;
   if (fs.existsSync(filename)) {
     existingData = fs.readFileSync(filename, 'utf-8');
   }
-  if (existingData !== data) {
+  if (overwriteData && existingData !== data) {
     fs.writeFileSync(filename, data, 'utf-8');
+  } else if (!overwriteData) {
+    fs.writeFileSync(filename, `${existingData}\n${data}`, 'utf-8');
   }
 };
 const indent = level => ' '.repeat(level * 2);
@@ -35,6 +37,7 @@ const stringifyEntity = (entity, level) => {
   if (type === "string" || type === "number") {
     return entity + ',\n';
   }
+
   throw new Error('unsupported entity');
 }
 const stringifyObject = (obj, level) => Object.keys(obj)
@@ -44,9 +47,10 @@ const stringifyObject = (obj, level) => Object.keys(obj)
 
 const stringify = obj => stringifyEntity(obj, 0);
 
-export const writeObjectToFile = (filePath, obj, varName) => {
-  overrideFileIfChanged(
+export const writeObjectToFile = (filePath, obj, varName, overwriteData = true) => {
+  writeStringToFile(
     filePath,
     `export const ${varName} = ${stringify(obj)};\n`,
+    overwriteData,
   );
 };

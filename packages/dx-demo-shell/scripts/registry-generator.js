@@ -26,29 +26,63 @@ export const generateDemoRegistry = (demos, folderPath, getDemoLink) => {
     );
   });
 
-  const sections = Object.keys(structuredDemos).reduce((sectionsAcc, sectionName) => {
-    sectionsAcc[sectionName] = Object.keys(structuredDemos[sectionName]).reduce((demosAcc, demoName) => {
-      demosAcc[demoName] = structuredDemos[sectionName][demoName]
-        .reduce((themesAcc, { themeName, generateDemo, demoExtension }) => {
-          const fileName = `${DEMOS_FOLDER}/${sectionName}/${themeName}/${demoName}${generateDemo ? GENERATED_SUFFIX : ''}.${demoExtension}`;
-          const demoSource = getFileContents(fileName);
-          const helperFiles = parseHelperFiles(demoSource);
+  const selectFromDemos = getSelector => Object.keys(structuredDemos).reduce((
+    sectionsAcc,
+    sectionName,
+  ) => ({
+    ...sectionsAcc,
+    [sectionName]: Object.keys(structuredDemos[sectionName]).reduce((demosAcc, demoName) => ({
+      ...demosAcc,
+      [demoName]: structuredDemos[sectionName][demoName].reduce(
+        getSelector(sectionName, demoName),
+        {},
+      ),
+    }), {}),
+  }), {});
 
-          themesAcc[themeName] = {
-            ...getDemoLink(fileName) ? { demo: getDemoLink(fileName) } : {},
-            source: demoSource,
-            productName: `"${productName}"`,
-            helperFiles,
-            ...(demoExtension === 'tsx') ? { requireTs: "true" } : {},
-          };
-          return themesAcc;
-        }, {});
+  const demoDataSelector = (sectionName, demoName) => (acc, {
+    themeName,
+    generateDemo,
+    demoExtension,
+    isMigrationSample,
+  }) => {
+    if (isMigrationSample) {
+      return acc;
+    }
 
-      return demosAcc;
-    }, {});
+    const fileName = `${DEMOS_FOLDER}/${sectionName}/${themeName}/${demoName}${generateDemo ? GENERATED_SUFFIX : ''}.${demoExtension}`;
+    const demoSource = getFileContents(fileName);
+    const helperFiles = parseHelperFiles(demoSource);
 
-    return sectionsAcc;
-  }, {});
+    acc[themeName] = {
+      ...getDemoLink(fileName) ? { demo: getDemoLink(fileName) } : {},
+      source: demoSource,
+      productName: `"${productName}"`,
+      helperFiles,
+      ...(demoExtension === 'tsx') ? { requireTs: 'true' } : {},
+    };
+    return acc;
+  };
+
+  const migrationSampleSelector = (sectionName, demoName) => (acc, {
+    demoExtension,
+    isMigrationSample,
+  }) => {
+    if (!isMigrationSample) {
+      return acc;
+    }
+
+    const fileName = `${DEMOS_FOLDER}/${sectionName}/$migration/${demoName}.${demoExtension}`;
+    const demoSource = getFileContents(fileName);
+
+    return {
+      source: demoSource,
+    };
+  };
+
+  const sections = selectFromDemos(demoDataSelector);
+  const migrationSamples = selectFromDemos(migrationSampleSelector);
 
   writeObjectToFile(folderPath, sections, 'demos');
+  writeObjectToFile(folderPath, migrationSamples, 'migrationSamples', false);
 };

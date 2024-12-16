@@ -50,6 +50,7 @@ App.defaultProps = {
 
 export const initialize = ({
   themeSources,
+  migrationSamples,
   demoSources,
   renderDemo,
   unmountDemo,
@@ -71,6 +72,7 @@ export const initialize = ({
           demoData={demoData}
           themeSources={themeSources}
           demoSources={demoSources}
+          migrationSamples={migrationSamples}
           renderDemo={renderDemo}
           unmountDemo={unmountDemo}
         />,

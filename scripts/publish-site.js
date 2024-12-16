@@ -50,7 +50,7 @@ export const publishSite = async (prod = false) => {
   console.log('Preparing output directory...');
   removeSync(SITE_PUBLISHING_DIRECTORY);
   execSync('git worktree prune');
-  execSync(`git worktree add -B ${BRANCH} ${SITE_PUBLISHING_DIRECTORY} upstream/${BRANCH}`, { stdio: 'ignore' });
+  execSync(`git worktree add -B ${BRANCH} ${SITE_PUBLISHING_DIRECTORY} ${prod ? 'upstream' : 'origin'}/${BRANCH}`, { stdio: 'ignore' });
 
   console.log('Copying generated site...');
   copySync(join(packagesDir, '../packages/dx-site/public/'), join(SITE_PUBLISHING_DIRECTORY, tagPath));

@@ -174,11 +174,11 @@ export class DemoViewer extends React.Component {
                                     If you are considering React for an upcoming software project or
                                     have used DevExtreme Reactive components in the past, please visit&nbsp;
                                     <a
-                                      href="https://js.devexpress.com/react/"
+                                      href="https://js.devexpress.com/React/"
                                       target="_blank"
                                       rel="noopener noreferrer"
                                     >
-                                      js.devexpress.com/react
+                                      js.devexpress.com/React
                                     </a>
                                   </div>
                                 </div>

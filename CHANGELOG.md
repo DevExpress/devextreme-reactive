@@ -1,5 +1,11 @@
-# [4.0.9](https://github.com/DevExpress/devextreme-reactive/compare/v4.0.8...v4.0.9) (2024-09-09)
+# [4.0.10](https://github.com/DevExpress/devextreme-reactive/compare/v4.0.9...v4.0.10) (2025-01-07)
 
+### Bug Fixes
+
+* unexpected drag on context menu (T1244185) ([#3681](https://github.com/DevExpress/devextreme-reactive/issues/3681)) ([b856daa](https://github.com/DevExpress/devextreme-reactive/commit/b856daafd89b4e99c20b611d923089d8248642c0))
+* wrong drop position when reordering columns in grid (T1246567) ([#3682](https://github.com/DevExpress/devextreme-reactive/issues/3682)) ([0d98407](https://github.com/DevExpress/devextreme-reactive/commit/0d98407fca01eed1dc3f05463897029a89b6e527))
+
+# [4.0.9](https://github.com/DevExpress/devextreme-reactive/compare/v4.0.8...v4.0.9) (2024-09-09)
 
 ### Bug Fixes
 

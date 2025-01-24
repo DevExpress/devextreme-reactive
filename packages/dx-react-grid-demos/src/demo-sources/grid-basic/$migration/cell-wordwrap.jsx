@@ -1,3 +1,9 @@
+// In CSS, add the following style:
+// 
+// .word-wrap {  
+//   white-space: normal;  
+// }
+
 export default () => {
     const [columns] = useState([
       {

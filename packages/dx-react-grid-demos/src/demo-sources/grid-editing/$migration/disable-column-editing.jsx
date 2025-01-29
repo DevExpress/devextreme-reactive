@@ -1,0 +1,34 @@
+export default () => {
+    return (
+      <div>
+        <DataGrid
+          dataSource={rows}
+        >
+          <Editing
+            allowUpdating={true}
+            allowAdding={true}
+            allowDeleting={true}
+            defaultEditRowKey={0}
+            mode="row"
+          />
+          <Column
+            dataField={'name'}
+            caption={'Name'}
+            allowEditing={false}
+          />
+          <Column
+            dataField={'gender'}
+            caption={'Gender'}
+          />
+          <Column
+            dataField={'city'}
+            caption={'City'}
+          />
+          <Column
+            dataField={'car'}
+            caption={'Car'}
+          />
+        </DataGrid>
+      </div>
+    );
+};

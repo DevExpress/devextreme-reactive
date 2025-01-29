@@ -1,37 +1,47 @@
 export default () => {
-    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-    const handleSelectionChange = useCallback(e => {
-      setSelectedRowKeys(e.selectedRowKeys);
-    }, []);
-  
-    return (
+  const [selectedRows, setSelectedRows] = useState([1]);
+  const onSelectionChanged = useCallback((e) => {
+    setSelectedRows(e.selectedRowKeys);
+  }, []);
+
+  return (
+    <div>
       <div>
-        <span>
-          Total rows selected:
-          {' '}
-          {selectedRowKeys.length}
-        </span>
-        <DataGrid
-          dataSource={rows}
-          selectedRowKeys={selectedRowKeys}
-          onSelectionChanged={handleSelectionChange}
-        >
-          <Selection allowSelectAll={true} />
-          <Paging
-            defaultPageIndex={0}
-            pageSize={6}
-          />
-          {
-            columns.map(column => (
-              <Column
-                key={column.name}
-                dataField={column.name}
-                caption={column.title}
-              >
-              </Column>
-            ));  
-          }
-        </DataGrid>
+        Total rows selected:
+        {' '}
+        {selectedRows.length}
       </div>
-    );
+      <DataGrid
+        dataSource={rows}
+        selectedRowKeys={selectedRows}
+        onSelectionChanged={onSelectionChanged}
+      >
+        <Selection
+          mode={'multiple'}
+          selectAllMode={'allPages'}
+        />
+        <Paging
+          defaultPageIndex={0}
+          pageSize={6}
+        />
+        <Pager visible={true} />
+        <Column
+          dataField={'name'}
+          caption={'Name'}
+        />
+        <Column
+          dataField={'gender'}
+          caption={'Gender'}
+        />
+        <Column
+          dataField={'city'}
+          caption={'City'}
+        />
+        <Column
+          dataField={'car'}
+          caption={'Car'}
+        />
+      </DataGrid>
+    </div>
+  );
 };

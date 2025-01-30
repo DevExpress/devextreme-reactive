@@ -1,0 +1,48 @@
+export default () => {
+    return (
+      <div>
+        <DataGrid
+          dataSource={rows}
+        >
+          <Column
+            dataField={'region'}
+            caption={'Region'}
+          />
+          <Column
+            dataField={'sector'}
+            caption={'Sector'}
+          />
+          <Column
+            dataField={'customer'}
+            caption={'Customer'}
+          />
+          <Column
+            dataField={'product'}
+            caption={'Product'}
+          />
+          <Column
+            dataField={'amount'}
+            caption={'Sale Amount'}
+            alignment={'right'}
+            format="currency"
+          />
+          <Summary>
+            <TotalItem
+              column="region"
+              summaryType="count"
+            />
+            <TotalItem
+              column="amount"
+              summaryType="sum"
+              valueFormat="currency"
+            />
+            <TotalItem
+              column="amount"
+              summaryType="max"
+              valueFormat="currency"
+            />
+          </Summary>
+        </DataGrid>
+      </div>
+    );
+};

@@ -1,0 +1,20 @@
+export default () => (
+    <Scheduler
+      dataSource={appointments}
+      textExpr="title"
+      defaultCurrentDate="2018-07-25"
+      defaultCurrentView="week"
+      height={660}
+    >
+      <View
+        type="day"
+        startDayHour={9}
+        endDayHour={18}
+      />
+      <View
+        type="week"
+        startDayHour={10}
+        endDayHour={19}
+      />
+    </Scheduler>
+);

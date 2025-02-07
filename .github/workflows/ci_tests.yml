@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     name: Build, Lint & Jest Test
     steps:
     - name: Get sources
@@ -47,7 +47,7 @@ jobs:
         retention-days: 1
 
   test_cafe:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: build
     strategy:
       matrix:
@@ -79,7 +79,7 @@ jobs:
       run: yarn testcafe:ci:${{ matrix.component }}
 
   site:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: build
     name: Site
     steps:

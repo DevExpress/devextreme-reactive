@@ -1,0 +1,33 @@
+export default () => {
+    return (
+      <div>
+        <DataGrid
+          dataSource={rows}
+        >
+          <FilterRow
+            visible={true}
+            showOperationChooser={false}
+          />
+          <Column
+            dataField={'name'}
+            caption={'Name'}
+            allowFiltering={false}
+          />
+          <Column
+            dataField={'gender'}
+            caption={'Gender'}
+          />
+          <Column
+            dataField={'city'}
+            caption={'City'}
+          />
+          <Column
+            dataField={'car'}
+            caption={'Car'}
+            allowFiltering={false}
+            defaultFilterValue={'cruze'}
+          />
+        </DataGrid>
+      </div>
+    );
+};

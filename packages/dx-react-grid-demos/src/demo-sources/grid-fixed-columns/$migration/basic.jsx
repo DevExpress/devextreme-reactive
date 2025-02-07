@@ -1,0 +1,55 @@
+export default () => {
+    return (
+      <div>
+        <DataGrid
+          dataSource={rows}
+        >
+          <Column
+            dataField={'region'}
+            caption={'Region'}
+            fixed={true}
+            width={150}
+          />
+          <Column
+            dataField={'sector'}
+            caption={'Sector'}
+            width={180}
+          />
+          <Column
+            dataField={'channel'}
+            caption={'Channel'}
+            fixed={true}
+            width={120}
+          />
+          <Column
+            dataField={'customer'}
+            caption={'Customer'}
+            width={230}
+          />
+          <Column
+            dataField={'product'}
+            caption={'Product'}
+            width={230}
+          />
+          <Column
+            dataField={'saleDate'}
+            caption={'Sale Date'}
+            width={130}
+          />
+          <Column
+            dataField={'units'}
+            caption={'Units'}
+            width={80}
+          />
+          <Column
+            dataField={'amount'}
+            caption={'Sale Amount'}
+            alignment={'right'}
+            fixed={true}
+            fixedPosition={'right'}
+            width={140}
+          />
+        </DataGrid>
+      </div>
+    );
+};

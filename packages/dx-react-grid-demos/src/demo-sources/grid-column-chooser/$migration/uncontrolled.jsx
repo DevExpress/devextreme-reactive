@@ -1,0 +1,32 @@
+export default () => {
+    return (
+      <div>
+        <DataGrid
+          dataSource={rows}
+        >
+          <ColumnChooser
+            enabled={true}
+            mode="select"
+          />
+          <Column
+            dataField={'name'}
+            caption={'Name'}
+          />
+          <Column
+            dataField={'gender'}
+            caption={'Gender'}
+            defaultVisible={false}
+          />
+          <Column
+            dataField={'city'}
+            caption={'City'}
+          />
+          <Column
+            dataField={'car'}
+            caption={'Car'}
+            defaultVisible={false}
+          />
+        </DataGrid>
+      </div>
+    );
+};

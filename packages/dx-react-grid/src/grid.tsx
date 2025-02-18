@@ -9,6 +9,7 @@ const GridBase: React.FunctionComponent<GridProps> = ({
   getRowId,
   getCellValue,
   rootComponent,
+  rootProps,
   children,
 }) => (
   <PluginHost>
@@ -18,6 +19,7 @@ const GridBase: React.FunctionComponent<GridProps> = ({
       getRowId={getRowId}
       getCellValue={getCellValue}
       rootComponent={rootComponent}
+      rootProps={rootProps}
     />
     {children}
   </PluginHost>

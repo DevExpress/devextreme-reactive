@@ -156,7 +156,7 @@ export const editAll: EditFn = (appointmentData, incomingChanges) => {
         appointmentData.startDate as Date,
         appointmentData.parentData.startDate,
       ),
-    }
+    };
   }
 
   if (changes.endDate) {
@@ -167,7 +167,7 @@ export const editAll: EditFn = (appointmentData, incomingChanges) => {
         appointmentData.endDate as Date,
         appointmentData.parentData.endDate,
       ),
-    }
+    };
   }
 
   const initialRule = new RRule(RRule.parseString(rRule as string));

@@ -114,6 +114,12 @@ const getAppointmentSequenceData = (
   return { initialSequence, currentChildIndex };
 };
 
+const getSeriesChange = (date: Date, prevDate: Date, seriesDate: Date) => {
+  const diff = moment.utc(date).diff(prevDate);
+
+  return moment(seriesDate).add(diff).toDate();
+};
+
 export const deleteCurrent: DeleteFn = (appointmentData) => {
   const { options, dates } = configureDateSequence(
     appointmentData.rRule, appointmentData.exDate,
@@ -137,8 +143,32 @@ export const deleteCurrentAndFollowing: DeleteFn = appointmentData => changeCurr
   appointmentData, {}, deleteAll,
 );
 
-export const editAll: EditFn = (appointmentData, changes) => {
+export const editAll: EditFn = (appointmentData, incomingChanges) => {
   const { rRule, id } = appointmentData;
+
+  let changes = { ...incomingChanges };
+
+  if (changes.startDate) {
+    changes = {
+      ...changes,
+      startDate: getSeriesChange(
+        changes.startDate as Date,
+        appointmentData.startDate as Date,
+        appointmentData.parentData.startDate,
+      ),
+    }
+  }
+
+  if (changes.endDate) {
+    changes = {
+      ...changes,
+      endDate: getSeriesChange(
+        changes.endDate as Date,
+        appointmentData.endDate as Date,
+        appointmentData.parentData.endDate,
+      ),
+    }
+  }
 
   const initialRule = new RRule(RRule.parseString(rRule as string));
   if (changes.startDate

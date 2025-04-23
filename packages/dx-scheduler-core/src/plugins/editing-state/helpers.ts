@@ -114,12 +114,6 @@ const getAppointmentSequenceData = (
   return { initialSequence, currentChildIndex };
 };
 
-const getSeriesChange = (date: Date, prevDate: Date, seriesDate: Date) => {
-  const diff = moment.utc(date).diff(prevDate);
-
-  return moment(seriesDate).add(diff).toDate();
-};
-
 export const deleteCurrent: DeleteFn = (appointmentData) => {
   const { options, dates } = configureDateSequence(
     appointmentData.rRule, appointmentData.exDate,
@@ -143,10 +137,46 @@ export const deleteCurrentAndFollowing: DeleteFn = appointmentData => changeCurr
   appointmentData, {}, deleteAll,
 );
 
-export const editAll: EditFn = (appointmentData, appointmentChanges) => {
-  const { rRule, id } = appointmentData;
+const getParentChanges = (
+  appointmentData: Partial<AppointmentModel>, changes: Changes
+): Partial<AppointmentModel> => {
+  let parentChanges: Changes = {};
 
-  let changes = { ...appointmentChanges };
+  const convert = (
+    date: Date, prevDate: Date, parentDate: Date
+  ): Date => {
+    const diff = moment.utc(date).diff(prevDate);
+
+    return moment(parentDate).add(diff).toDate();
+  }
+
+  if (changes.startDate) {
+    parentChanges = {
+      ...parentChanges,
+      startDate: convert(
+        changes.startDate as Date,
+        appointmentData.startDate as Date,
+        appointmentData.parentData.startDate as Date,
+      ),
+    }
+  }
+
+  if (changes.endDate) {
+    parentChanges = {
+      ...parentChanges,
+      endDate: convert(
+        changes.endDate as Date,
+        appointmentData.endDate as Date,
+        appointmentData.parentData.endDate as Date,
+      ),
+    }
+  }
+
+  return parentChanges;
+};
+
+export const editAll: EditFn = (appointmentData, changes) => {
+  const { rRule, id } = appointmentData;
 
   const initialRule = new RRule(RRule.parseString(rRule as string));
   if (changes.startDate
@@ -162,29 +192,14 @@ export const editAll: EditFn = (appointmentData, appointmentChanges) => {
     };
   }
 
-  if (changes.startDate) {
-    changes = {
-      ...changes,
-      startDate: getSeriesChange(
-        changes.startDate as Date,
-        appointmentData.startDate as Date,
-        appointmentData.parentData.startDate,
-      ),
-    };
-  }
-
-  if (changes.endDate) {
-    changes = {
-      ...changes,
-      endDate: getSeriesChange(
-        changes.endDate as Date,
-        appointmentData.endDate as Date,
-        appointmentData.parentData.endDate,
-      ),
-    };
-  }
-
-  return  { changed: {  [appointmentData.id!]: changes } };
+  return {
+    changed: {
+      [appointmentData.id!]: {
+        ...changes,
+        ...getParentChanges(appointmentData, changes),
+      }
+    }
+  };
 };
 
 export const editCurrent: EditFn = (appointmentData, changes) => ({

@@ -143,10 +143,24 @@ export const deleteCurrentAndFollowing: DeleteFn = appointmentData => changeCurr
   appointmentData, {}, deleteAll,
 );
 
-export const editAll: EditFn = (appointmentData, incomingChanges) => {
+export const editAll: EditFn = (appointmentData, appointmentChanges) => {
   const { rRule, id } = appointmentData;
 
-  let changes = { ...incomingChanges };
+  let changes = { ...appointmentChanges };
+
+  const initialRule = new RRule(RRule.parseString(rRule as string));
+  if (changes.startDate
+    && moment.utc(changes.startDate as Date).isAfter(initialRule.options.until!)) {
+    return {
+      changed: {
+        [id!]: {
+          ...changes,
+          rRule: 'FREQ=DAILY;COUNT=1',
+          exDate: '',
+        },
+      },
+    };
+  }
 
   if (changes.startDate) {
     changes = {
@@ -167,20 +181,6 @@ export const editAll: EditFn = (appointmentData, incomingChanges) => {
         appointmentData.endDate as Date,
         appointmentData.parentData.endDate,
       ),
-    };
-  }
-
-  const initialRule = new RRule(RRule.parseString(rRule as string));
-  if (changes.startDate
-    && moment.utc(changes.startDate as Date).isAfter(initialRule.options.until!)) {
-    return {
-      changed: {
-        [id!]: {
-          ...changes,
-          rRule: 'FREQ=DAILY;COUNT=1',
-          exDate: '',
-        },
-      },
     };
   }
 

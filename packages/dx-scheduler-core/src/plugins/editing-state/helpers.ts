@@ -137,6 +137,44 @@ export const deleteCurrentAndFollowing: DeleteFn = appointmentData => changeCurr
   appointmentData, {}, deleteAll,
 );
 
+const getParentChanges = (
+  appointmentData: Partial<AppointmentModel>, changes: Changes,
+): Partial<AppointmentModel> => {
+  let parentChanges: Changes = {};
+
+  const convert = (
+    date: Date, prevDate: Date, parentDate: Date,
+  ): Date => {
+    const diff = moment.utc(date).diff(prevDate);
+
+    return moment(parentDate).add(diff).toDate();
+  };
+
+  if (changes.startDate) {
+    parentChanges = {
+      ...parentChanges,
+      startDate: convert(
+        changes.startDate as Date,
+        appointmentData.startDate as Date,
+        appointmentData.parentData.startDate as Date,
+      ),
+    };
+  }
+
+  if (changes.endDate) {
+    parentChanges = {
+      ...parentChanges,
+      endDate: convert(
+        changes.endDate as Date,
+        appointmentData.endDate as Date,
+        appointmentData.parentData.endDate as Date,
+      ),
+    };
+  }
+
+  return parentChanges;
+};
+
 export const editAll: EditFn = (appointmentData, changes) => {
   const { rRule, id } = appointmentData;
 
@@ -154,7 +192,14 @@ export const editAll: EditFn = (appointmentData, changes) => {
     };
   }
 
-  return  { changed: {  [appointmentData.id!]: changes } };
+  return {
+    changed: {
+      [appointmentData.id!]: {
+        ...changes,
+        ...getParentChanges(appointmentData, changes),
+      },
+    },
+  };
 };
 
 export const editCurrent: EditFn = (appointmentData, changes) => ({

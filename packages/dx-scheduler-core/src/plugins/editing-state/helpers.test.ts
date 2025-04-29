@@ -168,6 +168,18 @@ describe('EditingState', () => {
   });
 
   describe('editing helpers', () => {
+    const firstAppointmentInSeries = {
+      id: 4,
+      startDate: new Date(Date.UTC(2019, 6, 15, 14, 20)),
+      endDate: new Date(Date.UTC(2019, 6, 15, 16)),
+      rRule: 'FREQ=DAILY;COUNT=5',
+      exDate: '20190716T142000Z',
+      parentData: {
+        id: 4,
+        startDate: new Date(Date.UTC(2019, 6, 15, 14, 20)),
+        endDate: new Date(Date.UTC(2019, 6, 15, 16)),
+      },
+    };
     const appointmentDataBase = {
       id: 4,
       startDate: new Date(Date.UTC(2019, 6, 17, 14, 20)),
@@ -183,39 +195,81 @@ describe('EditingState', () => {
     describe('#editAll', () => {
       it('should edit simple recurrence', () => {
         const changes = {
-          startDate: new Date(Date.UTC(2019, 6, 17, 14, 20)),
-          endDate: new Date(Date.UTC(2019, 6, 17, 16)),
+          startDate: new Date(Date.UTC(2019, 6, 15, 15, 20)),
+          endDate: new Date(Date.UTC(2019, 6, 15, 17)),
+          rRule: 'FREQ=DAILY;COUNT=5',
+        };
+
+        expect(editAll(firstAppointmentInSeries, changes)).toEqual({
+          changed: {
+            4: {
+              startDate: new Date(Date.UTC(2019, 6, 15, 15, 20)),
+              endDate: new Date(Date.UTC(2019, 6, 15, 17)),
+              rRule: 'FREQ=DAILY;COUNT=5',
+            },
+          },
+        });
+      });
+      it('should update all appointments using deltas', () => {
+        const changes = {
+          startDate: new Date(Date.UTC(2019, 6, 17, 8)),
+          endDate: new Date(Date.UTC(2019, 6, 17, 19)),
           rRule: 'FREQ=DAILY;COUNT=5',
         };
 
         expect(editAll(appointmentDataBase, changes)).toEqual({
           changed: {
             4: {
-              startDate: new Date(Date.UTC(2019, 6, 17, 14, 20)),
-              endDate: new Date(Date.UTC(2019, 6, 17, 16)),
+              startDate: new Date(Date.UTC(2019, 6, 15, 8)),
+              endDate: new Date(Date.UTC(2019, 6, 15, 19)),
               rRule: 'FREQ=DAILY;COUNT=5',
+            },
+          },
+        });
+      });
+      it('should edit only one date in recurrent appointment', () => {
+        const changes = {
+          startDate: new Date(Date.UTC(2019, 6, 17, 14, 10)),
+        };
+
+        expect(editAll(appointmentDataBase, changes)).toEqual({
+          changed: {
+            4: {
+              startDate: new Date(Date.UTC(2019, 6, 15, 14, 10)),
+            },
+          },
+        });
+
+        const otherChanges = {
+          endDate: new Date(Date.UTC(2019, 6, 17, 17)),
+        };
+
+        expect(editAll(appointmentDataBase, otherChanges)).toEqual({
+          changed: {
+            4: {
+              endDate: new Date(Date.UTC(2019, 6, 15, 17)),
             },
           },
         });
       });
       it('should edit if the item is moved after until', () => {
         const appointmentData = {
-          ...appointmentDataBase,
+          ...firstAppointmentInSeries,
           startDate: new Date(Date.UTC(2019, 6, 17, 14, 20)),
           endDate: new Date(Date.UTC(2019, 6, 17, 16)),
           rRule: 'FREQ=DAILY;UNTIL=20190717T142000Z',
           exDate: '20190716T142000Z',
         };
         const changes = {
-          startDate: new Date(Date.UTC(2019, 6, 18, 14, 20)),
-          endDate: new Date(Date.UTC(2019, 6, 18, 16)),
+          startDate: new Date(Date.UTC(2019, 8, 18, 14, 20)),
+          endDate: new Date(Date.UTC(2019, 8, 18, 16)),
         };
 
         expect(editAll(appointmentData, changes)).toEqual({
           changed: {
             4: {
-              startDate: new Date(Date.UTC(2019, 6, 18, 14, 20)),
-              endDate: new Date(Date.UTC(2019, 6, 18, 16)),
+              startDate: new Date(Date.UTC(2019, 8, 18, 14, 20)),
+              endDate: new Date(Date.UTC(2019, 8, 18, 16)),
               rRule: 'FREQ=DAILY;COUNT=1',
               exDate: '',
             },
@@ -224,7 +278,7 @@ describe('EditingState', () => {
       });
       it('should edit if changes\' startDate is undefined', () => {
         const appointmentData = {
-          ...appointmentDataBase,
+          ...firstAppointmentInSeries,
           rRule: 'FREQ=DAILY;UNTIL=20190717T142000Z',
         };
         const changes = {
@@ -360,8 +414,8 @@ describe('EditingState', () => {
           },
         };
         const changes = {
-          startDate: new Date(Date.UTC(2019, 6, 15, 11, 20)),
-          endDate: new Date(Date.UTC(2019, 6, 15, 14)),
+          startDate: new Date(Date.UTC(2019, 6, 16, 11, 20)),
+          endDate: new Date(Date.UTC(2019, 6, 16, 14)),
         };
 
         expect(editCurrentAndFollowing(appointmentData, changes)).toEqual({

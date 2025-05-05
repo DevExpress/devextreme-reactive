@@ -1,3 +1,9 @@
+# [4.0.11](https://github.com/DevExpress/devextreme-reactive/compare/v4.0.10...v4.0.11) (2025-05-05)
+
+### Bug Fixes
+
+* **react-scheduler:** fixed a bug where recurring appointment series were lost after editing the start time in secondary appointments ([#3691](https://github.com/DevExpress/devextreme-reactive/issues/3691)) ([bb203d3](https://github.com/DevExpress/devextreme-reactive/commit/bb203d33badd48f6d77dc2c3c25a9567187c42e9))
+
 # [4.0.10](https://github.com/DevExpress/devextreme-reactive/compare/v4.0.9...v4.0.10) (2025-01-07)
 
 ### Bug Fixes

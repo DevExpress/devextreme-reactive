@@ -196,7 +196,8 @@ export class DemoViewer extends React.Component {
                                     <div className="alert-note">
                                       <div>
                                         <div className="part-title">Migrate to DevExtreme React</div>
-                                        DevExtreme Reactive product line is now in maintenance support mode. If you&apos;re building a React app, consider our up-to-date DevExtreme React UI suite. For more information, visit the&nbsp;
+                                        
+                                        DevExtreme Reactive UI component libraries have reached end-of-life. If you&apos;re building a React app, consider our up-to-date DevExtreme React UI suite. For additional information, visit the&nbsp;
                                         <a
                                           href="https://js.devexpress.com/React/Documentation/24_2/Guide/React_Components/Migrate_from_DevExtreme_Reactive/"
                                           target="_blank"

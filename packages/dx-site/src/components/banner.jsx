@@ -28,7 +28,7 @@ const Banner = () => {
             <div className="container">
               <div className="row">
                 <div className="d-none d-lg-block col pr-0">
-                  <p className="pl-3 m-0 banner-text">DevExtreme Reactive component libraries are in maintenance support mode.</p>
+                  <p className="pl-3 m-0 banner-text">DevExtreme Reactive component libraries have reached end-of-life (EOL).</p>
                 </div>
                 <div className="d-none d-md-block col col-lg-auto px-0">
                   <img src={bannerSVG} alt="react" />
@@ -36,10 +36,10 @@ const Banner = () => {
                 <div className="col-12 col-md-8 col-lg-6">
                   <p className="m-0 banner-text pl-3">
                     <div className="d-block d-lg-none">
-                      DevExtreme&nbsp;Reactive component libraries are
-                      <span className="nowrap"> in maintenance support mode.</span>
+                      DevExtreme&nbsp;Reactive component libraries have
+                      <span className="nowrap"> have reached end-of-life (EOL).</span>
                     </div>
-                    <span> For additional information in this regard, </span>
+                    <span> For additional information regarding this announcement, </span>
                     <span> please review the following readme on </span>
                     <span>GitHub: </span>
                     <a
@@ -47,7 +47,7 @@ const Banner = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <span className="nowrap">DevExtreme Reactive Components - Maintenance Mode</span>
+                      <span className="nowrap">DevExtreme Reactive Components - End-of-Life</span>
                     </a>
                   </p>
                 </div>

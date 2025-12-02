@@ -65,7 +65,7 @@ export default () => (
                 >
                   end-of-life (EOL)
                 </a>
-                . We will no longer provide updates, bug fixes, or technical support 
+                . We will no longer provide updates, bug fixes, or technical support
                 for these libraries.
               </p>
               <p>
@@ -81,7 +81,7 @@ export default () => (
                 >
                   js.devexpress.com/react
                 </a>
-                &nbsp;and download a free trial version of DevExtreme React UI - over 80+ 
+                &nbsp;and download a free trial version of DevExtreme React UI - over 80+
                 components designed to help you build your best, without limits or compromise.
               </p>
             </div>

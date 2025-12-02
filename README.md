@@ -23,6 +23,6 @@ Since the original release of DevExtreme Reactive, we reached the following conc
 ### What Does End-of-Life Mean for You?
 * **No Further Updates:** We will not deliver new functionality, bug fixes, or security updates for DevExtreme Reactive.
 * **Migration Resources:** Developers are encouraged to migrate to [DevExtreme React](https://js.devexpress.com/React/), [Migration guides](https://js.devexpress.com/React/Documentation/Guide/React_Components/Migrate_from_DevExtreme_Reactive/) for common use cases are available on our website to help with this transition. Examples in the DevExtreme Reactive documentation now include a “Migration” tab – where you can view equivalent code implemented with the main DevExtreme React library.
-**Support Closure:** Technical support for DevExtreme Reactive officially ended in December 2025. 
+* **Support Closure:** Technical support for DevExtreme Reactive officially ended in December 2025. 
 
 We appreciate your understanding and support.  If you have any questions or need migration assistance, please submit a support ticket via the [DevExpress Support Center](https://www.devexpress.com/Support/Center/Question/Create). We will be happy to follow up.

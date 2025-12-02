@@ -19,7 +19,8 @@ const NotificationBox = ({ style }) => (
             >
               end-of-life (EOL)
             </a>
-            . We will no longer provide updates, bug fixes, or technical support for these libraries.
+            . We will no longer provide updates, bug fixes, or technical support 
+            for these libraries.
           </p>
           <p className={`m-0 ${styles.notificationBoxText}`}>
             <b>Developing a React App? Check out our updated React UI Suite instead.</b>

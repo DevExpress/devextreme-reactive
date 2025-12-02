@@ -65,10 +65,13 @@ export default () => (
                 >
                   end-of-life (EOL)
                 </a>
-                . We will no longer provide updates, bug fixes, or technical support for these libraries.
+                . We will no longer provide updates, bug fixes, or technical support 
+                for these libraries.
               </p>
               <p>
-                <div className="part-title">Developing a React App? Check out our updated React UI Suite instead.</div>
+                <div className="part-title">
+                  Developing a React App? Check out our updated React UI Suite instead.
+                </div>
                 If you are considering React for an upcoming software project or
                 have used DevExtreme Reactive components in the past, please visit&nbsp;
                 <a
@@ -78,8 +81,8 @@ export default () => (
                 >
                   js.devexpress.com/react
                 </a>
-                &nbsp;and download a free trial version of DevExtreme React UI - over 80+ components
-                designed to help you build your best, without limits or compromise.
+                &nbsp;and download a free trial version of DevExtreme React UI - over 80+ 
+                components designed to help you build your best, without limits or compromise.
               </p>
             </div>
           </div>
